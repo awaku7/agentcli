@@ -242,6 +242,8 @@ Realtime Stem en AEC3
 
 ## Realtime stemmodus ondersteunt full-duplex microfoon- en luidsprekerinvoer/uitvoer. Als de backend AEC3 ontbreekt, installeert uag automatisch pywebrtc-audio.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

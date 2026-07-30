@@ -3460,3 +3460,36 @@ msgstr "%(n)d enabled: %(names)s"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Configure Realtime voice settings?"
+
+msgid "Select Realtime voice provider"
+msgstr "Select Realtime voice provider"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure Realtime base URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Realtime API key"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Realtime API version"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Realtime deployment name"
+
+msgid "AWS region"
+msgstr "AWS region"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Bedrock Nova Sonic model ID"
+
+msgid "Bedrock voice ID"
+msgstr "Bedrock voice ID"
+
+msgid "Realtime model/deployment name"
+msgstr "Realtime model/deployment name"
+
+msgid "Optional Realtime voice settings"
+msgstr "Optional Realtime voice settings"

@@ -864,6 +864,7 @@ msgstr ""
 "dezelfde argumenten. Als er meer werk nodig is, bel dan een ander hulpmiddel"
 " of antwoord met wat u al heeft.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -882,6 +883,7 @@ msgstr ""
 "Het vorige antwoord van de assistent was leeg. Beantwoord op basis van het "
 "meest recente toolresultaat."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1069,6 +1071,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 Slechte aanvraag"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Foutcode: %(code)s - %(err)s"
 
@@ -1320,50 +1323,65 @@ msgstr ""
 "Reageer in de weergavetaal (%(lang)s), tenzij de gebruiker anders vraagt. "
 "Gebruik dezelfde taal voor gesproken audio en het transcript."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Je bent een behulpzame stemassistent."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Realtime TLS-certificaatverificatie uitschakelen."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "%(package)s automatisch installeren..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Kan %(package)s niet automatisch installeren."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Kan realtime afhankelijkheden niet laden: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3-backend automatisch installeren..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Kan AEC3-backend niet installeren, gaat door met passthrough."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Uitgeschakeld (passthrough)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Realtime (Gemini/Google) spraak-I/O-modus gestart. Druk op Ctrl+C om af te "
 "sluiten."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s is vereist."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "Realtime-adapter voor %(provider)s is niet geïmplementeerd."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "Realtime spraak-I/O-modus gestart. Druk op Ctrl+C om af te sluiten."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Realtime-modus verlaten."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Kan Realtime-modus niet starten: %(exc)s"
 
@@ -1375,9 +1393,11 @@ msgstr "Sleep bestanden/afbeeldingen hierheen"
 msgid "Download"
 msgstr "Downloaden"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Laden van plug-in mislukt: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Kan LLM-client: %(err)s niet initialiseren"
 
@@ -1991,31 +2011,39 @@ msgstr "SAKURA AI Motormodelnaam (optioneel, standaard: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Motortemperatuur (optioneel)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI Gateway API-sleutel"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Basis-URL van Vercel AI Gateway (optioneel, standaard: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel-modelnaam (optioneel, standaard: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI Gateway-temperatuur (optioneel)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Samen AI API sleutel"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "Together AI-basis-URL (optioneel, standaard: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Samen AI-modelnaam (optioneel, standaard: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Samen AI temperatuur (optioneel)"
 
@@ -2582,7 +2610,7 @@ msgstr "[ls] Directory bestaat niet: %(src)s -> %(dst)s"
 #: src/uagent/util_tools.py:781
 #, python-format
 msgid "  [D] %(name)s"
-msgstr "[D] %(name)s"
+msgstr "  [D] %(name)s"
 
 #: src/uagent/util_tools.py:784
 #, python-format
@@ -2805,6 +2833,7 @@ msgstr "[vaardigheden] Actieve vaardigheden: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[vaardigheden] Geen vaardigheden die overeenkomen met '%(kw)s'."
 
@@ -3174,6 +3203,7 @@ msgid ""
 msgstr ""
 "[shrink_llm error] Ontleden als INT mislukt: %(arg)r -> keep last %(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm-fout] %(etype)s: %(err)s"
 
@@ -3586,6 +3616,7 @@ msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ""
 ":skills [lijst|actief|wissen|installeren|verwijderen|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4118,6 +4149,7 @@ msgstr "[Bijgevoegd bestand] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Bestandspad] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4802,3 +4834,36 @@ msgstr "%(n)d ingeschakeld: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Realtime steminstellingen configureren?"
+
+msgid "Select Realtime voice provider"
+msgstr "Selecteer Realtime spraakprovider"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure Realtime basis-URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Realtime API sleutel"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Realtime API-versie"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Realtime-implementatienaam"
+
+msgid "AWS region"
+msgstr "AWS-regio"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Bedrock Nova Sonic-model-ID"
+
+msgid "Bedrock voice ID"
+msgstr "Bedrock stem-ID"
+
+msgid "Realtime model/deployment name"
+msgstr "Naam van realtime model/implementatie"
+
+msgid "Optional Realtime voice settings"
+msgstr "Optionele realtime steminstellingen"

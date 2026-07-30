@@ -862,6 +862,7 @@ msgstr ""
 "Daha fazla çalışma gerekiyorsa farklı bir araç çağırın veya elinizdeki "
 "araçla yanıt verin.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -878,6 +879,7 @@ msgid ""
 msgstr ""
 "Önceki asistan yanıtı boştu. Lütfen en son araç sonucuna göre yanıt verin."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1061,6 +1063,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 Kötü İstek"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Hata kodu: %(code)s - %(err)s"
 
@@ -1313,51 +1316,66 @@ msgstr ""
 "Kullanıcı aksini sormadığı sürece görüntüleme dilinde (%(lang)s) yanıt "
 "verin. Konuşma sesi ve transkript için aynı dili kullanın."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Sen yardımsever bir sesli asistanın."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Gerçek Zamanlı TLS sertifika doğrulamasını devre dışı bırakma."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "%(package)s otomatik olarak yükleniyor..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "%(package)s otomatik olarak yüklenemedi."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Gerçek zamanlı bağımlılıklar yüklenemiyor: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3 arka ucu otomatik olarak yükleniyor..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Geçişe devam edildiğinden AEC3 arka ucu yüklenemiyor."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Etkin"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Devre dışı (geçiş)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Gerçek Zamanlı (Gemini/Google) ses G/Ç modu başlatıldı. Çıkmak için Ctrl+C "
 "tuşlarına basın."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s gerekli."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "%(provider)s için gerçek zamanlı bağdaştırıcı uygulanmadı."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Gerçek Zamanlı ses G/Ç modu başlatıldı. Çıkmak için Ctrl+C tuşlarına basın."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Gerçek zamanlı moddan çıkıldı."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Gerçek Zamanlı mod başlatılamadı: %(exc)s"
 
@@ -1369,9 +1387,11 @@ msgstr "Dosyaları/görüntüleri buraya bırakın"
 msgid "Download"
 msgstr "İndirmek"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Eklenti yükleme başarısız oldu: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "LLM istemcisi başlatılamadı: %(err)s"
 
@@ -1988,33 +2008,41 @@ msgstr "SAKURA AI Motor modeli adı (isteğe bağlı, varsayılan: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Motor sıcaklığı (isteğe bağlı)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI Ağ Geçidi API anahtarı"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Vercel AI Ağ Geçidi temel URL'si (isteğe bağlı, varsayılan: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel model adı (isteğe bağlı, varsayılan: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI Ağ Geçidi sıcaklığı (isteğe bağlı)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Birlikte AI API anahtarı"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "Birlikte AI temel URL'si (isteğe bağlı, varsayılan: "
 "https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr ""
 "Birlikte AI model adı (isteğe bağlı, varsayılan: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Birlikte AI sıcaklığı (isteğe bağlı)"
 
@@ -2806,6 +2834,7 @@ msgstr "[beceriler] Aktif beceriler: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[beceriler] '%(kw)s' ile eşleşen beceri yok."
 
@@ -3172,6 +3201,7 @@ msgstr ""
 "[shrink_llm hatası] int olarak ayrıştırılamadı: %(arg)r -> keep last "
 "%(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm hatası] %(etype)s: %(err)s"
 
@@ -3582,6 +3612,7 @@ msgstr "Temsilci Becerilerini yönetin ve uygulayın"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [liste|etkin|temizle|yükle|kaldır|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4113,6 +4144,7 @@ msgstr "[Ekli dosya] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Dosya yolu] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4794,3 +4826,36 @@ msgstr "%(n)d etkin: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Gerçek Zamanlı ses ayarları yapılandırılsın mı?"
+
+msgid "Select Realtime voice provider"
+msgstr "Gerçek zamanlı ses sağlayıcıyı seçin"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure Gerçek zamanlı temel URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Gerçek Zamanlı API tuşu"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Gerçek Zamanlı API sürümü"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Gerçek zamanlı dağıtım adı"
+
+msgid "AWS region"
+msgstr "AWS bölgesi"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Bedrock Nova Sonic model kimliği"
+
+msgid "Bedrock voice ID"
+msgstr "Ana kaya ses kimliği"
+
+msgid "Realtime model/deployment name"
+msgstr "Gerçek zamanlı model/dağıtım adı"
+
+msgid "Optional Realtime voice settings"
+msgstr "İsteğe bağlı Gerçek Zamanlı ses ayarları"

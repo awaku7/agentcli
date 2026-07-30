@@ -447,6 +447,15 @@ AUDIO_PROVIDERS: list[tuple[str, str]] = [
     ("vertexai", "Vertex AI"),
 ]
 
+REALTIME_PROVIDERS: list[tuple[str, str]] = [
+    ("openai", "OpenAI Realtime"),
+    ("azure", "Azure OpenAI GPT Realtime"),
+    ("grok", "xAI Grok Voice"),
+    ("gemini", "Google Gemini Live"),
+    ("vertexai", "Google Vertex AI Live"),
+    ("bedrock", "Amazon Bedrock Nova Sonic"),
+]
+
 
 @dataclass
 class _WizardState:
@@ -470,6 +479,7 @@ class _WizardState:
     image_generate_enabled: bool = False
     embedding_enabled: bool = False
     audio_enabled: bool = False
+    realtime_enabled: bool = False
     image_open_enabled: bool = True
     audio_open_enabled: bool = True
 
@@ -479,6 +489,7 @@ class _WizardState:
     image_generate_values: dict[str, str] | None = None
     embedding_values: dict[str, str] | None = None
     audio_values: dict[str, str] | None = None
+    realtime_values: dict[str, str] | None = None
 
 
 def _q_sh(value: str) -> str:
@@ -943,11 +954,67 @@ def _ask_provider_audio_values(
     return "ok", vals
 
 
+def _ask_realtime_values(st: _WizardState, *, allow_back: bool = True) -> str:
+    yn = _menu_choice(
+        _("Configure Realtime voice settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=allow_back,
+    )
+    if yn in {"__quit__", "__back__"}:
+        return yn
+    st.realtime_enabled = yn == "2"
+    st.realtime_values = None
+    if not st.realtime_enabled:
+        return "ok"
+
+    options = [f"{provider} ({label})" for provider, label in REALTIME_PROVIDERS]
+    default_index = 1
+    if st.provider in {p for p, _ in REALTIME_PROVIDERS}:
+        default_index = next(i + 1 for i, (p, _) in enumerate(REALTIME_PROVIDERS) if p == st.provider)
+    choice = _menu_choice(_("Select Realtime voice provider"), options, default_index=default_index, allow_back=allow_back)
+    if choice in {"__quit__", "__back__"}:
+        return choice
+    provider = REALTIME_PROVIDERS[int(choice) - 1][0]
+    values = {"UAGENT_AUDIO_REALTIME_PROVIDER": provider}
+
+    specs: list[tuple[str, str, bool, str]] = []
+    if provider == "azure":
+        specs = [
+            ("UAGENT_AZURE_BASE_URL", "Azure Realtime base URL", True, ""),
+            ("UAGENT_AZURE_API_KEY", "Azure Realtime API key", True, ""),
+            ("UAGENT_AZURE_API_VERSION", "Azure Realtime API version", False, ""),
+            ("UAGENT_AZURE_DEPNAME", "Azure Realtime deployment name", True, ""),
+        ]
+    elif provider == "bedrock":
+        specs = [
+            ("AWS_REGION", "AWS region", False, "us-east-1"),
+            ("UAGENT_BEDROCK_REALTIME_DEPNAME", "Bedrock Nova Sonic model ID", False, "amazon.nova-sonic-v1:0"),
+            ("UAGENT_BEDROCK_REALTIME_VOICE", "Bedrock voice ID", False, "matthew"),
+        ]
+    else:
+        key = f"UAGENT_{provider.upper()}_REALTIME_DEPNAME"
+        specs = [(key, "Realtime model/deployment name", False, "")]
+
+    for key, label, required, default in specs:
+        status, value = _ask_text(label, default=default, required=required, allow_back=allow_back)
+        if status in {"__quit__", "__back__"}:
+            return status
+        if value:
+            values[key] = value
+    st.realtime_values = values
+    return "ok"
+
+
 def _ask_optional_extras(
     st: _WizardState,
     *,
     allow_back: bool = True,
 ) -> str:
+    realtime_status = _ask_realtime_values(st, allow_back=allow_back)
+    if realtime_status in {"__quit__", "__back__"}:
+        return realtime_status
+
     yn = _menu_choice(
         _("Configure optional image / embedding / audio settings?"),
         [_("No"), _("Yes")],
@@ -1249,6 +1316,23 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append(f"UAGENT_LANG={st.lang.strip()}")
     else:
         out.append("# UAGENT_LANG=ja")
+    out.append("")
+
+    section(_("Optional Realtime voice settings"))
+    if st.realtime_enabled:
+        realtime_vals = st.realtime_values or {}
+        for key, value in realtime_vals.items():
+            if str(value).strip():
+                out.append(f"{key}={str(value).strip()}")
+    else:
+        out.append("# UAGENT_AUDIO_REALTIME_PROVIDER=")
+        out.append("# UAGENT_AZURE_BASE_URL=")
+        out.append("# UAGENT_AZURE_API_KEY=")
+        out.append("# UAGENT_AZURE_API_VERSION=")
+        out.append("# UAGENT_AZURE_DEPNAME=")
+        out.append("# AWS_REGION=")
+        out.append("# UAGENT_BEDROCK_REALTIME_DEPNAME=")
+        out.append("# UAGENT_BEDROCK_REALTIME_VOICE=")
     out.append("")
 
     section(_("Optional image / embedding / audio settings"))

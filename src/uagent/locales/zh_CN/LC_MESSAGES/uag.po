@@ -816,6 +816,7 @@ msgstr ""
 "[信息] "
 "之前已经使用相同的参数调用了该工具。重用之前的结果。不要使用相同的参数再次调用此工具。如果需要更多工作，请调用其他工具或使用您已有的工具进行回答。\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -828,6 +829,7 @@ msgid ""
 "recent tool result."
 msgstr "上一条助手回复为空。请根据最近的工具结果作答。"
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -999,6 +1001,7 @@ msgstr "模型不支持思考。停止思考并重试..."
 msgid "400 BadRequest"
 msgstr "400 错误请求"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "错误代码：%(code)s - %(err)s"
 
@@ -1242,48 +1245,63 @@ msgid ""
 "Use the same language for spoken audio and the transcript."
 msgstr "除非用户另有要求，否则以显示语言 (%(lang)s) 进行响应。口语音频和文字记录使用相同的语言。"
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "你是一个有用的语音助手。"
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "禁用实时 TLS 证书验证。"
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "正在自动安装 %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "无法自动安装 %(package)s。"
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "无法加载实时依赖项：%(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "自动安装 AEC3 后端..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "无法安装 AEC3 后端，继续直通。"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "启用"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "禁用（直通）"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr "已启动实时 (Gemini/Google) 语音 I/O 模式。按 Ctrl+C 退出。"
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s 是必需的。"
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "未实现 %(provider)s 的实时适配器。"
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "启动实时语音 I/O 模式。按 Ctrl+C 退出。"
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "实时模式已退出。"
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "无法启动实时模式：%(exc)s"
 
@@ -1295,9 +1313,11 @@ msgstr "将文件/图片拖放到此处"
 msgid "Download"
 msgstr "下载"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "插件加载失败：%(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "无法初始化 LLM 客户端：%(err)s"
 
@@ -1890,28 +1910,36 @@ msgstr "SAKURA AI Engine型号名称（可选，默认：llm）"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI 发动机温度（可选）"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI 网关 API 密钥"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr "Vercel AI 网关基本 URL（可选，默认：https://gateway.vercel.ai/v1）"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel 型号名称（可选，默认：openai/gpt-5.4-nano）"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI 网关温度（可选）"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "一起AI API键"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "Together AI 基本 URL（可选，默认：https://api.together.ai/v1）"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Together AI模型名称（可选，默认：MiniMaxAI/MiniMax-M3）"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "一起AI温度（可选）"
 
@@ -2689,6 +2717,7 @@ msgstr "[技能] 主动技能：%(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[技能] 没有与“%(kw)s”匹配的技能。"
 
@@ -3036,6 +3065,7 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink_llm 错误] 无法将其解析为整数：%(arg)r -> keep last %(keep)d 个"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm 错误] %(etype)s: %(err)s"
 
@@ -3429,6 +3459,7 @@ msgstr "管理和应用代理技能"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [列表|活动|清除|安装|卸载|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3948,6 +3979,7 @@ msgstr "[附加文件] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[文件路径] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4589,3 +4621,36 @@ msgstr "%(n)d 已启用：%(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的工作目录路径是文件：%(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "配置实时语音设置？"
+
+msgid "Select Realtime voice provider"
+msgstr "选择实时语音提供商"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure 实时基本 URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure 实时 API 键"
+
+msgid "Azure Realtime API version"
+msgstr "Azure 实时 API 版本"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure 实时部署名称"
+
+msgid "AWS region"
+msgstr "AWS 区域"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "基岩新星索尼克型号 ID"
+
+msgid "Bedrock voice ID"
+msgstr "基岩语音 ID"
+
+msgid "Realtime model/deployment name"
+msgstr "实时模型/部署名称"
+
+msgid "Optional Realtime voice settings"
+msgstr "可选的实时语音设置"

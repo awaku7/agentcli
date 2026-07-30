@@ -243,6 +243,8 @@ Realtime आवाज आणि AEC3
 
 ## Realtime व्हॉइस मोड फुल-डुप्लेक्स मायक्रोफोन आणि स्पीकर इनपुट/आउटपुटला समर्थन देतो. AEC3 बॅकएंड गहाळ असल्यास, uag स्वयंचलितपणे pywebrtc-audio स्थापित करते.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

@@ -50,6 +50,8 @@ uag
 
 Realtime音声モードは、OpenAI Realtime、xAI Grok Voice API、およびGoogle Gemini Multimodal Live APIに対応しており、`pywebrtc-audio`のWebRTC AEC3バックエンドを自動インストールしてマイクとスピーカーを同時に扱う全二重音声入出力に対応しています。
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

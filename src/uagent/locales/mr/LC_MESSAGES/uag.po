@@ -857,6 +857,7 @@ msgstr ""
 "कामाची आवश्यकता असल्यास, वेगळ्या साधनावर कॉल करा किंवा तुमच्याकडे आधीपासून "
 "जे आहे ते उत्तर द्या.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -874,6 +875,7 @@ msgstr ""
 "मागील सहाय्यक उत्तर रिकामे होते. कृपया सर्वात अलीकडील साधन निकालावर आधारित "
 "उत्तर द्या."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1056,6 +1058,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "त्रुटी कोड: %(code)s - %(err)s"
 
@@ -1305,50 +1308,65 @@ msgstr ""
 "(%(lang)s) प्रतिसाद द्या. स्पोकन ऑडिओ आणि ट्रान्सक्रिप्टसाठी समान भाषा "
 "वापरा."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "आपण एक उपयुक्त आवाज सहाय्यक आहात."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "रिअलटाइम TLS प्रमाणपत्र पडताळणी अक्षम करत आहे."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "स्वयं-स्थापित करत आहे %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "%(package)s स्वयं-स्थापित करण्यात अयशस्वी."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "रिअलटाइम अवलंबित्व लोड करू शकत नाही: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3 बॅकएंड स्वयं-स्थापित करत आहे..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "पासथ्रूसह सुरू ठेवून, AEC3 बॅकएंड स्थापित करू शकत नाही."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "सक्षम केले"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "अक्षम (पासथ्रू)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "रिअलटाइम (Gemini/Google) व्हॉइस I/O मोड सुरू केला. बाहेर पडण्यासाठी Ctrl+C "
 "दाबा."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s आवश्यक आहे."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "%(provider)s साठी रिअलटाइम अडॅप्टर लागू केलेले नाही."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "रिअलटाइम व्हॉइस I/O मोड सुरू केला. बाहेर पडण्यासाठी Ctrl+C दाबा."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "रिअलटाइम मोडमधून बाहेर पडले."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "रिअलटाइम मोड सुरू करू शकलो नाही: %(exc)s"
 
@@ -1360,9 +1378,11 @@ msgstr "फाइल/इमेज येथे टाका"
 msgid "Download"
 msgstr "डाउनलोड करा"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "प्लगइन लोड अयशस्वी: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "LLM क्लायंट सुरू करण्यात अयशस्वी: %(err)s"
 
@@ -1969,29 +1989,37 @@ msgstr "SAKURA AI इंजिन मॉडेल नाव (पर्याय�
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "साकुरा एआय इंजिन तापमान (पर्यायी)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI गेटवे API की"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Vercel AI गेटवे बेस URL (पर्यायी, डीफॉल्ट: https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel मॉडेल नाव (पर्यायी, डीफॉल्ट: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI गेटवे तापमान (पर्यायी)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "एकत्र AI API की"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "एकत्र AI बेस URL (पर्यायी, डीफॉल्ट: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "एकत्र AI मॉडेल नाव (पर्यायी, डीफॉल्ट: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "एकत्रित AI तापमान (पर्यायी)"
 
@@ -2778,6 +2806,7 @@ msgstr "[कौशल्य] सक्रिय कौशल्ये: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[कौशल्य] '%(kw)s' शी जुळणारे कोणतेही कौशल्य नाही."
 
@@ -3143,6 +3172,7 @@ msgstr ""
 "[shrink_llm error] int म्हणून विश्लेषण करण्यात अयशस्वी: %(arg)r -> keep last"
 " %(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm त्रुटी] %(etype)s: %(err)s"
 
@@ -3551,6 +3581,7 @@ msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ""
 ":skills [सूची|सक्रिय|स्पष्ट करा|इंस्टॉल करा|विस्थापित करा|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4072,6 +4103,7 @@ msgstr "[संलग्न फाईल] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[फाईल पथ] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4746,3 +4778,36 @@ msgstr "%(n)d सक्षम: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट workdir मार्ग फाइल आहे: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "रिअलटाइम व्हॉइस सेटिंग्ज कॉन्फिगर करायची?"
+
+msgid "Select Realtime voice provider"
+msgstr "रिअलटाइम व्हॉइस प्रदाता निवडा"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure रिअलटाइम बेस URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure रिअलटाइम API की"
+
+msgid "Azure Realtime API version"
+msgstr "Azure रिअलटाइम API आवृत्ती"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure रिअलटाइम उपयोजन नाव"
+
+msgid "AWS region"
+msgstr "AWS प्रदेश"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "बेडरोक नोव्हा सोनिक मॉडेल आयडी"
+
+msgid "Bedrock voice ID"
+msgstr "बेडरॉक व्हॉइस आयडी"
+
+msgid "Realtime model/deployment name"
+msgstr "रिअलटाइम मॉडेल/उपयोजन नाव"
+
+msgid "Optional Realtime voice settings"
+msgstr "पर्यायी रिअलटाइम व्हॉइस सेटिंग्ज"

@@ -240,6 +240,8 @@ Realtime Ääni ja AEC3
 
 ## Realtime-äänitila tukee kaksisuuntaista mikrofonia ja kaiuttimen tuloa/lähtöä. Jos AEC3-taustaosa puuttuu, uag asentaa pywebrtc-audio:n automaattisesti.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

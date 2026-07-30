@@ -879,6 +879,7 @@ msgstr ""
 "les mêmes arguments. Si plus de travail est nécessaire, appelez un autre "
 "outil ou répondez avec ce que vous avez déjà.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -897,6 +898,7 @@ msgstr ""
 "La réponse précédente de l'assistant était vide. Répondez en vous basant sur"
 " le résultat d'outil le plus récent."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1083,6 +1085,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 Mauvaise demande"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Code d'erreur : %(code)s - %(err)s"
 
@@ -1337,52 +1340,67 @@ msgstr ""
 "l’utilisateur. Utilisez la même langue pour l’audio parlé et la "
 "transcription."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Vous êtes un assistant vocal utile."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Désactivation de la vérification du certificat TLS en temps réel."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "Installation automatique de %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Échec de l'installation automatique de %(package)s."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Impossible de charger les dépendances en temps réel : %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Installation automatique du backend AEC3..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Impossible d'installer le backend AEC3, poursuivant le relais."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Activé"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Désactivé (passthrough)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Démarrage du mode d'E/S vocales en temps réel (Gemini/Google). Appuyez sur "
 "Ctrl+C pour quitter."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s est requis."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "L'adaptateur temps réel pour %(provider)s n'est pas implémenté."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Démarrage du mode E/S vocales en temps réel. Appuyez sur Ctrl+C pour "
 "quitter."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Mode temps réel quitté."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Impossible de démarrer le mode temps réel : %(exc)s"
 
@@ -1394,9 +1412,11 @@ msgstr "Glissez-déposez des fichiers/images ici"
 msgid "Download"
 msgstr "Télécharger"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Échec du chargement du plug-in : %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Échec de l'initialisation du client LLM : %(err)s"
 
@@ -2016,33 +2036,41 @@ msgstr "Nom du modèle SAKURA AI Engine (facultatif, par défaut : llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Température du moteur (en option)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Clé Vercel AI Gateway API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL de base de Vercel AI Gateway (facultatif, par défaut : "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Nom du modèle Vercel (facultatif, par défaut : openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Température de Vercel AI Gateway (facultatif)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Ensemble IA clé API"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "URL de base de Together AI (facultatif, par défaut : "
 "https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr ""
 "Nom du modèle Together AI (facultatif, par défaut : MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Température AI ensemble (facultatif)"
 
@@ -2837,6 +2865,7 @@ msgstr "[compétences] Compétences actives : %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[compétences] Aucune compétence correspondant à « %(kw)s »."
 
@@ -3209,6 +3238,7 @@ msgstr ""
 "[erreur shrink_llm] Impossible d’analyser la valeur en entier : %(arg)r -> "
 "keep last %(keep)d derniers"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[erreur shrink_llm] %(etype)s : %(err)s"
 
@@ -3624,6 +3654,7 @@ msgstr "Gérer et appliquer les compétences des agents"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [liste|active|clear|install|uninstall|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4154,6 +4185,7 @@ msgstr "[Fichier joint] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Chemin du fichier] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4847,3 +4879,36 @@ msgstr "%(n)d activé : %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Le chemin du répertoire de travail spécifié est un fichier : %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Configurer les paramètres vocaux en temps réel ?"
+
+msgid "Select Realtime voice provider"
+msgstr "Sélectionnez le fournisseur de voix en temps réel"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL de base en temps réel"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Clé API en temps réel"
+
+msgid "Azure Realtime API version"
+msgstr "Version Azure temps réel API"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Nom du déploiement en temps réel"
+
+msgid "AWS region"
+msgstr "Région AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "ID du modèle Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "ID vocal de base"
+
+msgid "Realtime model/deployment name"
+msgstr "Nom du modèle/déploiement en temps réel"
+
+msgid "Optional Realtime voice settings"
+msgstr "Paramètres vocaux en temps réel en option"

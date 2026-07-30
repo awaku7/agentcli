@@ -252,6 +252,8 @@ Realtime Voce și AEC3
 
 ## Modul vocal Realtime acceptă intrare/ieșire pentru microfon full-duplex și difuzor. Dacă backend-ul AEC3 lipsește, uag instalează automat pywebrtc-audio.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

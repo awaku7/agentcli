@@ -821,6 +821,7 @@ msgstr ""
 "[정보] 이전에 동일한 인수를 사용하여 이 도구를 이미 호출했습니다. 이전 결과를 재사용합니다. 동일한 인수를 사용하여 이 도구를 다시 "
 "호출하지 마십시오. 추가 작업이 필요한 경우 다른 도구를 호출하거나 이미 보유하고 있는 도구로 답변하세요.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -835,6 +836,7 @@ msgid ""
 "recent tool result."
 msgstr "이전 어시스턴트 응답이 비어 있었습니다. 가장 최근 도구 결과를 바탕으로 답변하세요."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1006,6 +1008,7 @@ msgstr "모델은 사고를 지원하지 않습니다.생각을 비활성화하�
 msgid "400 BadRequest"
 msgstr "400 잘못된 요청"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "오류 코드: %(code)s - %(err)s"
 
@@ -1250,48 +1253,63 @@ msgid ""
 msgstr ""
 "사용자가 달리 요청하지 않는 한 표시 언어(%(lang)s)로 응답합니다. 음성 오디오와 스크립트에 동일한 언어를 사용하세요."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "당신은 유용한 음성 도우미입니다."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "실시간 TLS 인증서 확인을 비활성화합니다."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "%(package)s 자동 설치 중..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "%(package)s을(를) 자동 설치하지 못했습니다."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "실시간 종속성을 로드할 수 없습니다: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3 백엔드 자동 설치 중..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "AEC3 백엔드를 설치할 수 없으며 패스스루를 계속합니다."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "활성화됨"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "비활성화됨(통과)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr "실시간(Gemini/Google) 음성 I/O 모드를 시작했습니다. 종료하려면 Ctrl+C를 누르세요."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s이 필요합니다."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "%(provider)s용 실시간 어댑터가 구현되지 않았습니다."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "실시간 음성 I/O 모드를 시작했습니다. 종료하려면 Ctrl+C를 누르세요."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "실시간 모드가 종료되었습니다."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "실시간 모드를 시작할 수 없습니다: %(exc)s"
 
@@ -1303,9 +1321,11 @@ msgstr "여기에 파일/이미지를 드래그 앤 드롭하세요"
 msgid "Download"
 msgstr "다운로드"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "플러그인 로드 실패: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "LLM 클라이언트 초기화 실패: %(err)s"
 
@@ -1902,28 +1922,36 @@ msgstr "SAKURA AI Engine 모델명(선택사항, 기본값: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI 엔진 온도(옵션)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI 게이트웨이 API 키"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr "Vercel AI Gateway 기본 URL(선택 사항, 기본값: https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel 모델명(선택사항, 기본값: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI Gateway 온도(선택사항)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "투게더 AI API 키"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "Together AI 기본 URL(선택, 기본값: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Together AI 모델명(선택, 기본값: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "투게더 AI 온도(옵션)"
 
@@ -2701,6 +2729,7 @@ msgstr "[스킬] 액티브 스킬: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[스킬] '%(kw)s'과(와) 일치하는 스킬이 없습니다."
 
@@ -3049,6 +3078,7 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink 오류] 정수로 변환할 수 없습니다: %(arg)r -> keep last %(keep)d개 유지"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm 오류] %(etype)s: %(err)s"
 
@@ -3442,6 +3472,7 @@ msgstr "상담원 기술 관리 및 적용"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [목록|활성|지우기|설치|제거|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3964,6 +3995,7 @@ msgstr "[첨부된 파일] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[파일 경로] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4610,3 +4642,36 @@ msgstr "%(n)d 활성화됨: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "실시간 음성 설정을 구성하시겠습니까?"
+
+msgid "Select Realtime voice provider"
+msgstr "실시간 음성 제공업체 선택"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure 실시간 기본 URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure 실시간 API 키"
+
+msgid "Azure Realtime API version"
+msgstr "Azure 실시간 API 버전"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure 실시간 배포 이름"
+
+msgid "AWS region"
+msgstr "AWS 지역"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "베드락 노바 소닉 모델 ID"
+
+msgid "Bedrock voice ID"
+msgstr "베드락 보이스 ID"
+
+msgid "Realtime model/deployment name"
+msgstr "실시간 모델/배포 이름"
+
+msgid "Optional Realtime voice settings"
+msgstr "선택적 실시간 음성 설정"

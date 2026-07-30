@@ -48,7 +48,7 @@ See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 ## Realtime Voice and AEC3
 
-The realtime voice mode supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API with full-duplex microphone and speaker I/O (and automatic installation of the `pywebrtc-audio` WebRTC AEC3 backend):
+The realtime voice mode supports OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice API, Google Gemini Multimodal Live API, and Amazon Bedrock Nova Sonic with full-duplex microphone and speaker I/O. The required `pywebrtc-audio` AEC3 backend is installed automatically, and Bedrock's optional bidirectional-streaming SDK is installed automatically only when the Bedrock provider is selected:
 
 ```bash
 python scheck.py realtime

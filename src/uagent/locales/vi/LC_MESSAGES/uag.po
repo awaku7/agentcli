@@ -852,6 +852,7 @@ msgstr ""
 "quả trước đó. KHÔNG gọi lại công cụ này với cùng một đối số. Nếu cần làm "
 "thêm, hãy gọi một công cụ khác hoặc trả lời bằng những gì bạn đã có.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -870,6 +871,7 @@ msgstr ""
 "Phản hồi trước đó của trợ lý trống. Hãy trả lời dựa trên kết quả công cụ gần"
 " đây nhất."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1047,6 +1049,7 @@ msgstr "Mô hình không hỗ trợ tư duy.Vô hiệu hóa suy nghĩ và thử 
 msgid "400 BadRequest"
 msgstr "400 yêu cầu xấu"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Mã lỗi: %(code)s - %(err)s"
 
@@ -1277,51 +1280,66 @@ msgstr ""
 "Trả lời bằng ngôn ngữ hiển thị (%(lang)s) trừ khi người dùng yêu cầu khác. "
 "Sử dụng cùng một ngôn ngữ cho âm thanh nói và bản ghi."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Bạn là một trợ lý giọng nói hữu ích."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Vô hiệu hóa xác minh chứng chỉ TLS thời gian thực."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "Đang tự động cài đặt %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Không thể tự động cài đặt %(package)s."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Không thể tải phần phụ thuộc thời gian thực: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Tự động cài đặt chương trình phụ trợ AEC3..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Không thể cài đặt phần phụ trợ AEC3, tiếp tục chuyển qua."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Đã bật"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Đã tắt (thông qua)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Đã bắt đầu chế độ I/O bằng giọng nói theo thời gian thực (Gemini/Google). "
 "Nhấn Ctrl+C để thoát."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s là bắt buộc."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "Bộ điều hợp thời gian thực cho %(provider)s không được triển khai."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Đã bắt đầu chế độ I/O giọng nói theo thời gian thực. Nhấn Ctrl+C để thoát."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Đã thoát chế độ thời gian thực."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Không thể khởi động Chế độ thời gian thực: %(exc)s"
 
@@ -1333,9 +1351,11 @@ msgstr "Kéo và thả tệp/ảnh vào đây"
 msgid "Download"
 msgstr "Tải xuống"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Tải plugin không thành công: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Không khởi tạo được ứng dụng khách LLM: %(err)s"
 
@@ -1942,31 +1962,39 @@ msgstr "Tên model SAKURA AI Engine (tùy chọn, mặc định: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Nhiệt độ động cơ (tùy chọn)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Khóa AI Vercel API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL cơ sở của Vercel AI Gateway (tùy chọn, mặc định: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Tên mẫu Vercel (tùy chọn, mặc định: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Nhiệt độ Vercel AI Gateway (tùy chọn)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Phím AI API cùng nhau"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "URL cơ sở AI tổng hợp (tùy chọn, mặc định: https://api. together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Tên mô hình AI cùng nhau (tùy chọn, mặc định: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Nhiệt độ AI cùng nhau (tùy chọn)"
 
@@ -2724,6 +2752,7 @@ msgstr "[kỹ năng] Kỹ năng chủ động: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[kỹ năng] Không có kỹ năng nào phù hợp với '%(kw)s'."
 
@@ -3051,6 +3080,7 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[lỗi thu nhỏ_llm] %(etype)s: %(err)s"
 
@@ -3445,6 +3475,7 @@ msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ""
 ":skills [danh sách|hoạt động|xóa|cài đặt|gỡ cài đặt|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3956,6 +3987,7 @@ msgstr "[Tệp đính kèm] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Đường dẫn tệp] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4611,3 +4643,36 @@ msgstr "%(n)d đã bật: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Định cấu hình cài đặt giọng nói theo thời gian thực?"
+
+msgid "Select Realtime voice provider"
+msgstr "Chọn nhà cung cấp giọng nói thời gian thực"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL cơ sở thời gian thực"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Khóa API thời gian thực"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Phiên bản thời gian thực API"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Tên triển khai theo thời gian thực"
+
+msgid "AWS region"
+msgstr "Khu vực AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "ID mẫu Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "ID giọng nói Bedrock"
+
+msgid "Realtime model/deployment name"
+msgstr "Tên mô hình/triển khai thời gian thực"
+
+msgid "Optional Realtime voice settings"
+msgstr "Cài đặt giọng nói thời gian thực tùy chọn"

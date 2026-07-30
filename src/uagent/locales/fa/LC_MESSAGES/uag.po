@@ -850,6 +850,7 @@ msgstr ""
 "کار بیشتری نیاز است، با ابزار دیگری تماس بگیرید یا با آنچه قبلاً دارید پاسخ "
 "دهید.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -865,6 +866,7 @@ msgid ""
 "recent tool result."
 msgstr "پاسخ دستیار قبلی خالی بود. لطفاً بر اساس آخرین نتیجه ابزار پاسخ دهید."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1041,6 +1043,7 @@ msgstr "مدل از تفکر پشتیبانی نمی کند.غیرفعال کر�
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "کد خطا: %(code)s - %(err)s"
 
@@ -1291,50 +1294,65 @@ msgstr ""
 "به زبان نمایش (%(lang)s) پاسخ دهید، مگر اینکه کاربر چیز دیگری بخواهد. از "
 "همان زبان برای صوت گفتاری و متن استفاده کنید."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "شما یک دستیار صوتی مفید هستید."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "غیرفعال کردن تأیید گواهی TLS بیدرنگ."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "در حال نصب خودکار %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "نصب خودکار %(package)s ناموفق بود."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "وابستگی های بیدرنگ بارگیری نمی شود: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "نصب خودکار AEC3 Backend..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "نمی توان باطن AEC3 را نصب کرد، با عبور ادامه می دهد."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "فعال شد"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "غیرفعال (عبور)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "حالت ورودی/خروجی صوتی بیدرنگ (Gemini/Google) شروع شد. Ctrl+C را برای خروج "
 "فشار دهید."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s مورد نیاز است."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "آداپتور بیدرنگ برای %(provider)s اجرا نشده است."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "حالت بیدرنگ صدای ورودی/خروجی شروع شد. Ctrl+C را برای خروج فشار دهید."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "از حالت بیدرنگ خارج شد."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "حالت بیدرنگ شروع نشد: %(exc)s"
 
@@ -1346,9 +1364,11 @@ msgstr "فایل ها/تصاویر را اینجا رها کنید"
 msgid "Download"
 msgstr "دانلود کنید"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "بارگیری افزونه انجام نشد: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "اولیه سازی LLM مشتری ناموفق بود: %(err)s"
 
@@ -1955,31 +1975,39 @@ msgstr "نام مدل موتور SAKURA AI (اختیاری، پیش‌فرض: ll
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "دمای موتور SAKURA AI (اختیاری)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "کلید Vercel AI Gateway API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL پایه دروازه هوش مصنوعی Vercel (اختیاری، پیش فرض: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "نام مدل Vercel (اختیاری، پیش‌فرض: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "دمای دروازه Vercel AI (اختیاری)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "با هم کلید AI API"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "URL پایه هوش مصنوعی Together (اختیاری، پیش فرض: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "نام مدل با هوش مصنوعی (اختیاری، پیش‌فرض: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "دمای هوش مصنوعی با هم (اختیاری)"
 
@@ -2530,7 +2558,7 @@ msgstr "[ls] %(path)s"
 #: src/uagent/util_tools.py:746
 #, python-format
 msgid "  [D] %(name)s -> %(path)s"
-msgstr "[D] %(name)s -> %(path)s"
+msgstr "  [D] %(name)s -> %(path)s"
 
 #: src/uagent/util_tools.py:750
 #, python-format
@@ -2768,6 +2796,7 @@ msgstr "[مهارت‌ها] مهارت‌های فعال: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[مهارت] هیچ مهارتی مطابق با «%(kw)s» نیست."
 
@@ -3129,6 +3158,7 @@ msgstr ""
 "[خطای shrink_llm] تجزیه به عنوان int انجام نشد: %(arg)r -> keep last "
 "%(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[خطای shrink_llm] %(etype)s: %(err)s"
 
@@ -3530,6 +3560,7 @@ msgstr "مدیریت و اعمال مهارت های عامل"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [لیست|فعال|پاک کردن|نصب|حذف نصب|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4056,6 +4087,7 @@ msgstr "[فایل پیوست‌شده] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[مسیر فایل] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4725,3 +4757,36 @@ msgstr "%(n)d فعال شد: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسیر مشخص‌شدهٔ workdir یک فایل است: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "تنظیمات صدای بیدرنگ پیکربندی شود؟"
+
+msgid "Select Realtime voice provider"
+msgstr "ارائه دهنده صدای بیدرنگ را انتخاب کنید"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL پایه بیدرنگ"
+
+msgid "Azure Realtime API key"
+msgstr "Azure کلید API بیدرنگ"
+
+msgid "Azure Realtime API version"
+msgstr "Azure نسخه بیدرنگ API"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure نام استقرار بیدرنگ"
+
+msgid "AWS region"
+msgstr "منطقه AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "شناسه مدل Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "شناسه صدای بستر"
+
+msgid "Realtime model/deployment name"
+msgstr "نام بیدرنگ مدل/استقرار"
+
+msgid "Optional Realtime voice settings"
+msgstr "تنظیمات صدای بیدرنگ اختیاری"

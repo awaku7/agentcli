@@ -841,6 +841,7 @@ msgstr ""
 " אל תקרא לכלי זה שוב עם אותם טיעונים. אם יש צורך בעבודה נוספת, התקשר לכלי "
 "אחר או ענה עם מה שכבר יש לך.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -857,6 +858,7 @@ msgid ""
 msgstr ""
 "תשובת העוזר הקודמת הייתה ריקה. אנא ענה על סמך תוצאת הכלי העדכנית ביותר."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1030,6 +1032,7 @@ msgstr "המודל אינו תומך בחשיבה.משבית חשיבה וניס
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "קוד שגיאה: %(code)s - %(err)s"
 
@@ -1279,48 +1282,63 @@ msgstr ""
 "השב בשפת התצוגה (%(lang)s) אלא אם המשתמש מבקש אחרת. השתמש באותה שפה עבור "
 "אודיו מדובר ולתמליל."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "אתה עוזר קולי מועיל."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "השבתת אימות אישור TLS בזמן אמת."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "מתקין אוטומטית את %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "ההתקנה האוטומטית של %(package)s נכשלה."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "לא ניתן לטעון תלות בזמן אמת: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "התקנה אוטומטית של AEC3 backend..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "לא ניתן להתקין את הקצה האחורי של AEC3, ממשיך עם מעבר."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "מופעל"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "מושבת (מעבר)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr "הופעל מצב קלט/פלט קולי בזמן אמת (Gemini/Google). הקש Ctrl+C כדי לצאת."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s נדרש."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "מתאם זמן אמת עבור %(provider)s אינו מיושם."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "הופעל מצב קלט/פלט קולי בזמן אמת. הקש Ctrl+C כדי לצאת."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "מצב זמן אמת יצא."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "לא ניתן היה להפעיל מצב זמן אמת: %(exc)s"
 
@@ -1332,9 +1350,11 @@ msgstr "שחרר כאן קבצים/תמונות"
 msgid "Download"
 msgstr "הורד"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "טעינת הפלאגין נכשלה: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "אתחול לקוח LLM נכשל: %(err)s"
 
@@ -1950,31 +1970,39 @@ msgstr "שם דגם מנוע SAKURA AI (אופציונלי, ברירת מחדל:
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "טמפרטורת מנוע SAKURA AI (אופציונלי)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "מפתח Vercel AI Gateway API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL בסיס של Vercel AI Gateway (אופציונלי, ברירת מחדל: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "שם דגם Vercel (אופציונלי, ברירת מחדל: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "טמפרטורת Vercel AI Gateway (אופציונלי)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "מפתח AI API ביחד"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "Together AI base URL (אופציונלי, ברירת מחדל: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "שם דגם AI ביחד (אופציונלי, ברירת מחדל: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "טמפרטורת AI ביחד (אופציונלי)"
 
@@ -2761,6 +2789,7 @@ msgstr "[מיומנויות] מיומנויות פעילות: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[מיומנויות] אין כישורים התואמים את '%(kw)s'."
 
@@ -3115,6 +3144,7 @@ msgid ""
 msgstr ""
 "[shrink_llm error] נכשל הניתוח כ-int: %(arg)r -> keep last %(keep)d האחרון"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm error] %(etype)s: %(err)s"
 
@@ -3513,6 +3543,7 @@ msgstr "ניהול ויישום כישורי סוכן"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [רשימה|פעילה|נקה|התקנה|הסרה|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4034,6 +4065,7 @@ msgstr "[קובץ מצורף] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[נתיב קובץ] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4691,3 +4723,36 @@ msgstr "%(n)d מופעל: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "להגדיר הגדרות קול בזמן אמת?"
+
+msgid "Select Realtime voice provider"
+msgstr "בחר ספק קול בזמן אמת"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure כתובת אתר בסיס בזמן אמת"
+
+msgid "Azure Realtime API key"
+msgstr "Azure מפתח API בזמן אמת"
+
+msgid "Azure Realtime API version"
+msgstr "Azure בזמן אמת API גרסה"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure שם פריסה בזמן אמת"
+
+msgid "AWS region"
+msgstr "אזור AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "מזהה דגם Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "זיהוי קולי של סלע"
+
+msgid "Realtime model/deployment name"
+msgstr "שם דגם/פריסה בזמן אמת"
+
+msgid "Optional Realtime voice settings"
+msgstr "הגדרות קול אופציונליות בזמן אמת"

@@ -861,6 +861,7 @@ msgstr ""
 "หากจำเป็นต้องปรับปรุงเพิ่มเติม "
 "ให้โทรหาเครื่องมืออื่นหรือตอบสิ่งที่คุณมีอยู่แล้ว\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -878,6 +879,7 @@ msgstr ""
 "คำตอบก่อนหน้าของผู้ช่วยว่างเปล่า "
 "โปรดตอบโดยอ้างอิงจากผลลัพธ์ล่าสุดของเครื่องมือ"
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1057,6 +1059,7 @@ msgstr "โมเดลไม่สนับสนุนการคิดปิ
 msgid "400 BadRequest"
 msgstr "400 คำขอไม่ถูกต้อง"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "รหัสข้อผิดพลาด: %(code)s - %(err)s"
 
@@ -1102,7 +1105,7 @@ msgstr "โมเดล '%(model_id)s' เลิกใช้งานแล้�
 #: src/uagent/llmcapa_util.py:678
 #, python-format
 msgid "    model_id: %(value)s"
-msgstr "    model_id: %(value)s"
+msgstr "model_id: %(value)s"
 
 #: src/uagent/llmcapa_util.py:681
 #, python-format
@@ -1305,48 +1308,63 @@ msgstr ""
 "ตอบกลับในภาษาที่แสดง (%(lang)s) เว้นแต่ผู้ใช้จะขอเป็นอย่างอื่น "
 "ใช้ภาษาเดียวกันสำหรับเสียงพูดและการถอดเสียง"
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "คุณเป็นผู้ช่วยเสียงที่เป็นประโยชน์"
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "กำลังปิดใช้งานการตรวจสอบใบรับรอง TLS แบบเรียลไทม์"
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "กำลังติดตั้งอัตโนมัติ %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "ไม่สามารถติดตั้งอัตโนมัติ %(package)s"
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "ไม่สามารถโหลดการอ้างอิงแบบเรียลไทม์: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "กำลังติดตั้งแบ็กเอนด์ AEC3 อัตโนมัติ..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "ไม่สามารถติดตั้งแบ็กเอนด์ AEC3 ได้ ดำเนินการส่งผ่านต่อไป"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "เปิดใช้งานแล้ว"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "ปิดการใช้งาน (ผ่าน)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr "เริ่มโหมดเสียง I/O แบบเรียลไทม์ (Gemini/Google) กด Ctrl+C เพื่อออก"
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s จำเป็น"
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "อะแดปเตอร์เรียลไทม์สำหรับ %(provider)s ไม่ได้ถูกนำมาใช้"
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "เริ่มโหมด I/O เสียงแบบเรียลไทม์ กด Ctrl+C เพื่อออก"
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "ออกจากโหมดเรียลไทม์แล้ว"
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "ไม่สามารถเริ่มโหมดเรียลไทม์: %(exc)s"
 
@@ -1358,9 +1376,11 @@ msgstr "ลากและวางไฟล์/รูปภาพที่น�
 msgid "Download"
 msgstr "ดาวน์โหลด"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "การโหลดปลั๊กอินล้มเหลว: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "ไม่สามารถเริ่มต้นไคลเอนต์ LLM: %(err)s"
 
@@ -1970,31 +1990,39 @@ msgstr "ชื่อรุ่นเครื่องยนต์ SAKURA AI (ต
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "อุณหภูมิเครื่องยนต์ SAKURA AI (อุปกรณ์เสริม)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "คีย์เกตเวย์ Vercel AI API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL พื้นฐานของเกตเวย์ Vercel AI (ไม่บังคับ ค่าเริ่มต้น: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "ชื่อรุ่น Vercel (เป็นทางเลือก ค่าเริ่มต้น: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "อุณหภูมิเกตเวย์ Vercel AI (อุปกรณ์เสริม)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "คีย์ AI API ร่วมกัน"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "URL ฐาน AI ร่วมกัน (ไม่บังคับ ค่าเริ่มต้น: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "ชื่อโมเดล AI ร่วมกัน (ตัวเลือก ค่าเริ่มต้น: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "อุณหภูมิ AI ร่วมกัน (ไม่จำเป็น)"
 
@@ -2781,6 +2809,7 @@ msgstr "[ทักษะ] ทักษะการใช้งาน: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[ทักษะ] ไม่มีทักษะที่ตรงกับ '%(kw)s'"
 
@@ -3147,6 +3176,7 @@ msgstr ""
 "[ข้อผิดพลาด shrink_llm] แปลงเป็น int ไม่ได้: %(arg)r -> keep last %(keep)d "
 "ล่าสุด"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[ข้อผิดพลาด shrink_llm] %(etype)s: %(err)s"
 
@@ -3552,6 +3582,7 @@ msgstr ""
 ":skills [รายการ | ใช้งานอยู่ | ล้าง | ติดตั้ง | ถอนการติดตั้ง | apm | "
 "mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4076,6 +4107,7 @@ msgstr "[ไฟล์ที่แนบ] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[พาธไฟล์] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4740,3 +4772,36 @@ msgstr "%(n)d เปิดใช้งาน: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "กำหนดการตั้งค่าเสียงเรียลไทม์หรือไม่"
+
+msgid "Select Realtime voice provider"
+msgstr "เลือกผู้ให้บริการเสียงเรียลไทม์"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL ฐานเรียลไทม์"
+
+msgid "Azure Realtime API key"
+msgstr "Azure คีย์ API แบบเรียลไทม์"
+
+msgid "Azure Realtime API version"
+msgstr "Azure เวอร์ชันเรียลไทม์ API"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure ชื่อการปรับใช้แบบเรียลไทม์"
+
+msgid "AWS region"
+msgstr "ภูมิภาค AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "รหัสรุ่น Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "ID เสียงพื้นฐาน"
+
+msgid "Realtime model/deployment name"
+msgstr "ชื่อโมเดล/การปรับใช้แบบเรียลไทม์"
+
+msgid "Optional Realtime voice settings"
+msgstr "การตั้งค่าเสียงเรียลไทม์เสริม"

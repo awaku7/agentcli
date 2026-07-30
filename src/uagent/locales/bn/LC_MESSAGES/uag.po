@@ -871,6 +871,7 @@ msgstr ""
 "করবেন না। যদি আরও কাজের প্রয়োজন হয়, একটি ভিন্ন টুল কল করুন বা আপনার কাছে "
 "ইতিমধ্যে যা আছে তা দিয়ে উত্তর দিন।\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -888,6 +889,7 @@ msgstr ""
 "আগের সহকারীর উত্তর ছিল খালি। অনুগ্রহ করে সাম্প্রতিক টুলের ফলাফলের উপর ভিত্তি"
 " করে উত্তর দিন।"
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1069,6 +1071,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 খারাপ অনুরোধ"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "ত্রুটি কোড: %(code)s - %(err)s"
 
@@ -1318,50 +1321,65 @@ msgstr ""
 "প্রদর্শনের ভাষায় (%(lang)s) উত্তর দিন যদি না ব্যবহারকারী অন্যথায় জিজ্ঞাসা "
 "করে। কথ্য অডিও এবং ট্রান্সক্রিপ্টের জন্য একই ভাষা ব্যবহার করুন।"
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "আপনি একজন সহায়ক ভয়েস সহকারী।"
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "রিয়েলটাইম TLS শংসাপত্র যাচাই অক্ষম করা হচ্ছে।"
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "স্বতঃ-ইনস্টল হচ্ছে %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "%(package)s স্বয়ংক্রিয়ভাবে ইনস্টল করতে ব্যর্থ হয়েছে৷"
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "রিয়েলটাইম নির্ভরতা লোড করা যাবে না: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3 ব্যাকএন্ড স্বয়ংক্রিয়ভাবে ইনস্টল করা হচ্ছে..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "পাসথ্রু দিয়ে অবিরত, AEC3 ব্যাকএন্ড ইনস্টল করা যাবে না।"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "সক্রিয়"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "অক্ষম (পাসথ্রু)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "রিয়েলটাইম (Gemini/Google) ভয়েস I/O মোড শুরু হয়েছে৷ প্রস্থান করতে Ctrl+C "
 "টিপুন।"
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s প্রয়োজন।"
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "%(provider)s-এর জন্য রিয়েলটাইম অ্যাডাপ্টার বাস্তবায়িত হয়নি৷"
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "রিয়েলটাইম ভয়েস I/O মোড শুরু হয়েছে৷ প্রস্থান করতে Ctrl+C টিপুন।"
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "রিয়েলটাইম মোড থেকে প্রস্থান করা হয়েছে৷"
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "রিয়েলটাইম মোড শুরু করা যায়নি: %(exc)s"
 
@@ -1373,9 +1391,11 @@ msgstr "এখানে ফাইল/ছবি ড্রপ করুন"
 msgid "Download"
 msgstr "ডাউনলোড করুন"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "প্লাগইন লোড ব্যর্থ হয়েছে: %(err)s৷"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "LLM ক্লায়েন্ট শুরু করতে ব্যর্থ হয়েছে: %(err)s"
 
@@ -1982,29 +2002,37 @@ msgstr "সাকুরা এআই ইঞ্জিন মডেলের ন�
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "সাকুরা এআই ইঞ্জিন তাপমাত্রা (ঐচ্ছিক)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI গেটওয়ে API কী"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Vercel AI গেটওয়ে বেস URL (ঐচ্ছিক, ডিফল্ট: https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel মডেলের নাম (ঐচ্ছিক, ডিফল্ট: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI গেটওয়ে তাপমাত্রা (ঐচ্ছিক)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "একসাথে AI API কী"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "একসাথে AI বেস URL (ঐচ্ছিক, ডিফল্ট: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "একসাথে AI মডেলের নাম (ঐচ্ছিক, ডিফল্ট: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "একসাথে AI তাপমাত্রা (ঐচ্ছিক)"
 
@@ -2795,6 +2823,7 @@ msgstr "[দক্ষতা] সক্রিয় দক্ষতা: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[দক্ষতা] '%(kw)s'-এর সাথে মেলে কোনো দক্ষতা নেই।"
 
@@ -3166,6 +3195,7 @@ msgstr ""
 "[shrink_llm ত্রুটি] int হিসাবে পার্স করতে ব্যর্থ হয়েছে: %(arg)r -> keep "
 "last %(keep)d রাখুন"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[সঙ্কুচিত_এলএলএম ত্রুটি] %(etype)s: %(err)s"
 
@@ -3574,6 +3604,7 @@ msgstr "এজেন্ট দক্ষতা পরিচালনা এবং
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [তালিকা|সক্রিয়"
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4092,6 +4123,7 @@ msgstr "[সংযুক্ত ফাইল] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[ফাইলের পাথ] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4770,3 +4802,36 @@ msgstr "%(n)d সক্ষম: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "রিয়েলটাইম ভয়েস সেটিংস কনফিগার করবেন?"
+
+msgid "Select Realtime voice provider"
+msgstr "রিয়েলটাইম ভয়েস প্রদানকারী নির্বাচন করুন"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure রিয়েলটাইম বেস URL৷"
+
+msgid "Azure Realtime API key"
+msgstr "Azure রিয়েলটাইম API কী"
+
+msgid "Azure Realtime API version"
+msgstr "Azure রিয়েলটাইম API সংস্করণ"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure রিয়েলটাইম স্থাপনার নাম"
+
+msgid "AWS region"
+msgstr "AWS অঞ্চল"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "বেডরক নোভা সোনিক মডেল আইডি"
+
+msgid "Bedrock voice ID"
+msgstr "বেডরক ভয়েস আইডি"
+
+msgid "Realtime model/deployment name"
+msgstr "রিয়েলটাইম মডেল/ডিপ্লয়মেন্ট নাম"
+
+msgid "Optional Realtime voice settings"
+msgstr "ঐচ্ছিক রিয়েলটাইম ভয়েস সেটিংস"

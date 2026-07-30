@@ -882,6 +882,7 @@ msgstr ""
 "περισσότερη δουλειά, καλέστε ένα διαφορετικό εργαλείο ή απαντήστε με αυτό "
 "που έχετε ήδη.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -900,6 +901,7 @@ msgstr ""
 "Η προηγούμενη απάντηση του βοηθού ήταν κενή. Απαντήστε με βάση το πιο "
 "πρόσφατο αποτέλεσμα του εργαλείου."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1088,6 +1090,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Κωδικός σφάλματος: %(code)s - %(err)s"
 
@@ -1340,56 +1343,71 @@ msgstr ""
 "Απαντήστε στη γλώσσα εμφάνισης (%(lang)s), εκτός εάν ο χρήστης ζητήσει "
 "διαφορετικά. Χρησιμοποιήστε την ίδια γλώσσα για προφορικό ήχο και μεταγραφή."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Είστε ένας χρήσιμος φωνητικός βοηθός."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr ""
 "Απενεργοποίηση της επαλήθευσης πιστοποιητικού TLS σε πραγματικό χρόνο."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "Αυτόματη εγκατάσταση %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Η αυτόματη εγκατάσταση του %(package)s απέτυχε."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Δεν είναι δυνατή η φόρτωση εξαρτήσεων σε πραγματικό χρόνο: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Αυτόματη εγκατάσταση του συστήματος υποστήριξης AEC3..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr ""
 "Δεν είναι δυνατή η εγκατάσταση του συστήματος υποστήριξης AEC3, συνεχίζοντας"
 " με τη διέλευση."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Απενεργοποιημένο (διέλευση)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Ξεκίνησε η λειτουργία εισόδου/εξόδου φωνής σε πραγματικό χρόνο "
 "(Gemini/Google). Πατήστε Ctrl+C για έξοδο."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "Απαιτείται %(env_names)s."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr ""
 "Ο προσαρμογέας σε πραγματικό χρόνο για %(provider)s δεν έχει εφαρμοστεί."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Ξεκίνησε η λειτουργία εισόδου/εξόδου φωνής σε πραγματικό χρόνο. Πατήστε "
 "Ctrl+C για έξοδο."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Έγινε έξοδος από τη λειτουργία σε πραγματικό χρόνο."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr ""
 "Δεν ήταν δυνατή η εκκίνηση της λειτουργίας σε πραγματικό χρόνο: %(exc)s"
@@ -1402,9 +1420,11 @@ msgstr "Αποθέστε αρχεία/εικόνες εδώ"
 msgid "Download"
 msgstr "Λήψη"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Η φόρτωση της προσθήκης απέτυχε: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Απέτυχε η προετοιμασία LLM πελάτη: %(err)s"
 
@@ -2029,32 +2049,40 @@ msgstr "Όνομα μοντέλου κινητήρα SAKURA AI (προαιρετ
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Θερμοκρασία κινητήρα (προαιρετικό)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Κλειδί Vercel AI Gateway API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL βάσης της πύλης AI Vercel (προαιρετικό, προεπιλογή: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Όνομα μοντέλου Vercel (προαιρετικό, προεπιλογή: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Θερμοκρασία πύλης Vercel AI (προαιρετικό)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Μαζί κλειδί AI API"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "Together URL βάσης AI (προαιρετικό, προεπιλογή: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr ""
 "Όνομα μοντέλου AI μαζί (προαιρετικό, προεπιλογή: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Θερμοκρασία AI μαζί (προαιρετικό)"
 
@@ -2848,6 +2876,7 @@ msgstr "[δεξιότητες] Ενεργές δεξιότητες: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[skills] Δεν υπάρχουν δεξιότητες που να ταιριάζουν με το '%(kw)s'."
 
@@ -3223,6 +3252,7 @@ msgid ""
 msgstr ""
 "[shrink_llm error] Απέτυχε η ανάλυση ως int: %(arg)r -> keep last %(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[σφάλμα shrink_llm] %(etype)s: %(err)s"
 
@@ -3642,6 +3672,7 @@ msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ""
 ":skills [λίστα|ενεργή|διαγραφή|εγκατάσταση|απεγκατάσταση|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -4180,6 +4211,7 @@ msgstr "[Συνημμένο αρχείο] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Διαδρομή αρχείου] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4871,3 +4903,36 @@ msgstr "%(n)d ενεργοποιημένο: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Η καθορισμένη διαδρομή workdir είναι ένα αρχείο: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Διαμόρφωση ρυθμίσεων φωνής σε πραγματικό χρόνο;"
+
+msgid "Select Realtime voice provider"
+msgstr "Επιλέξτε πάροχο φωνής σε πραγματικό χρόνο"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure Βασική διεύθυνση URL σε πραγματικό χρόνο"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Κλειδί σε πραγματικό χρόνο API"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Έκδοση σε πραγματικό χρόνο API"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Όνομα ανάπτυξης σε πραγματικό χρόνο"
+
+msgid "AWS region"
+msgstr "Περιοχή AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Αναγνωριστικό μοντέλου Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "Αναγνωριστικό φωνής βάσης"
+
+msgid "Realtime model/deployment name"
+msgstr "Όνομα μοντέλου/ανάπτυξης σε πραγματικό χρόνο"
+
+msgid "Optional Realtime voice settings"
+msgstr "Προαιρετικές ρυθμίσεις φωνής σε πραγματικό χρόνο"

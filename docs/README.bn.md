@@ -244,6 +244,8 @@ Realtime ভয়েস এবং AEC3
 
 ## Realtime ভয়েস মোড ফুল-ডুপ্লেক্স মাইক্রোফোন এবং স্পিকার ইনপুট/আউটপুট সমর্থন করে। যদি AEC3 ব্যাকএন্ড অনুপস্থিত থাকে, uag স্বয়ংক্রিয়ভাবে pywebrtc-audio ইনস্টল করে।
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

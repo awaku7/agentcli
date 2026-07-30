@@ -242,6 +242,8 @@ Realtime Голос и AEC3
 
 ## Realtime голосовой режим поддерживает полнодуплексный вход/выход микрофона и динамика. Если серверная часть AEC3 отсутствует, uag автоматически устанавливает pywebrtc-audio.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```

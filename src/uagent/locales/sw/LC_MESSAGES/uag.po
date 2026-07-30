@@ -866,6 +866,7 @@ msgstr ""
 "itahitajika, piga simu kwa chombo tofauti au ujibu ukitumia ulicho nacho "
 "tayari.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -884,6 +885,7 @@ msgstr ""
 "Jibu la awali la msaidizi lilikuwa tupu. Jibu kulingana na matokeo ya hivi "
 "karibuni ya zana."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1060,6 +1062,7 @@ msgstr "Mfano hauungi mkono kufikiria.Inalemaza kufikiri na kujaribu tena..."
 msgid "400 BadRequest"
 msgstr "400 Ombi baya"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Msimbo wa hitilafu: %(code)s - %(err)s"
 
@@ -1290,52 +1293,67 @@ msgstr ""
 "Jibu katika lugha ya kuonyesha (%(lang)s) isipokuwa mtumiaji atauliza "
 "vinginevyo. Tumia lugha sawa kwa sauti inayozungumzwa na manukuu."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Wewe ni msaidizi wa sauti muhimu."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Inalemaza uthibitishaji wa cheti cha Realtime TLS."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "Inasakinisha %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Imeshindwa kusakinisha %(package)s kiotomatiki."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Haiwezi kupakia vitegemezi vya wakati halisi: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Inasakinisha mazingira ya nyuma ya AEC3 kiotomatiki..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Haiwezi kusakinisha AEC3 backend, kuendelea na passthrough."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Imewashwa"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Imezimwa (njia)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Imeanzisha hali ya I/O ya sauti (Gemini/Google) ya sauti. Bonyeza Ctrl+C ili"
 " kuondoka."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s inahitajika."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "Adapta ya wakati halisi ya %(provider)s haijatekelezwa."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Imeanzisha hali ya I/O ya sauti ya Wakati Halisi. Bonyeza Ctrl+C ili "
 "kuondoka."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Hali ya wakati halisi imeondoka."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Haikuweza kuanzisha Hali ya Wakati Halisi: %(exc)s"
 
@@ -1347,9 +1365,11 @@ msgstr "Buruta na dondosha faili/picha hapa"
 msgid "Download"
 msgstr "Pakua"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Imeshindwa kupakia programu-jalizi: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Imeshindwa kuanzisha LLM mteja: %(err)s"
 
@@ -1968,32 +1988,40 @@ msgstr "Jina la modeli ya injini ya SAKURA AI (hiari, chaguomsingi: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "Halijoto ya injini ya SAKURA AI (si lazima)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Kitufe cha Vercel AI Gateway API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL ya msingi ya lango la Vercel AI (hiari, chaguomsingi: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr ""
 "Jina la muundo wa Vercel (si lazima, chaguomsingi: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Halijoto ya lango la Vercel AI (si lazima)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Ufunguo wa AI API pamoja"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "URL ya msingi ya AI (hiari, chaguomsingi: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr ""
 "Pamoja jina la muundo wa AI (si lazima, chaguomsingi: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Pamoja joto la AI (hiari)"
 
@@ -2753,6 +2781,7 @@ msgstr "[Ujuzi] Ujuzi unaotumika: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[ujuzi] Hakuna ujuzi unaolingana '%(kw)s'."
 
@@ -3091,6 +3120,7 @@ msgstr ""
 "[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> keep "
 "last %(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm error] %(etype)s: %(err)s"
 
@@ -3487,6 +3517,7 @@ msgstr "Simamia na utumie Ujuzi wa Wakala"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3995,6 +4026,7 @@ msgstr "[Faili lililoambatishwa] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Njia ya faili] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4672,3 +4704,36 @@ msgstr "%(n)d imewashwa: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Je, ungependa kusanidi mipangilio ya sauti ya Wakati Halisi?"
+
+msgid "Select Realtime voice provider"
+msgstr "Chagua mtoa huduma wa sauti wa Wakati Halisi"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL msingi ya wakati halisi"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Kitufe cha API cha Wakati Halisi"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Toleo la API la Wakati Halisi"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Jina la matumizi la wakati halisi"
+
+msgid "AWS region"
+msgstr "Eneo la AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Kitambulisho cha mfano cha Bedrock Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "Kitambulisho cha sauti ya Bedrock"
+
+msgid "Realtime model/deployment name"
+msgstr "Muundo wa wakati halisi/jina la matumizi"
+
+msgid "Optional Realtime voice settings"
+msgstr "Mipangilio ya sauti ya Hiari ya Wakati Halisi"

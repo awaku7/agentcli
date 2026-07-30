@@ -822,6 +822,7 @@ msgstr ""
 "[情報] "
 "すでにこのツールを同じ引数で呼び出しています。前回の結果を再利用します。同じ引数を使用してこのツールを再度呼び出さないでください。さらに作業が必要な場合は、別のツールを呼び出すか、既存のツールで回答してください。\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -835,6 +836,7 @@ msgid ""
 "recent tool result."
 msgstr "前回のアシスタント返信は空でした。最新のツール結果に基づいて回答してください。"
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1006,6 +1008,7 @@ msgstr "モデルは思考をサポートしていません。思考を無効に
 msgid "400 BadRequest"
 msgstr "400 不正なリクエスト"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "エラーコード: %(code)s - %(err)s"
 
@@ -1239,48 +1242,63 @@ msgid ""
 "Use the same language for spoken audio and the transcript."
 msgstr "表示言語（%(lang)s）で応答してください。ユーザーが別の言語を求めない限り、音声と文字起こしに同じ言語を使用してください。"
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "あなたは役に立つ音声アシスタントです。"
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "リアルタイム TLS 証明書検証を無効にします。"
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "%(package)s を自動インストールしています..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "%(package)s の自動インストールに失敗しました。"
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "リアルタイム依存関係をロードできません: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "AEC3 バックエンドを自動インストールしています..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "AEC3 バックエンドをインストールできません。パススルーを続行します。"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "有効"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "無効 (パススルー)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr "リアルタイム (Gemini/Google) 音声 I/O モードを開始しました。 Ctrl+C を押して終了します。"
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s は必須です。"
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "%(provider)s 用のリアルタイム アダプターは実装されていません。"
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "リアルタイム音声入出力モードを開始しました。 Ctrl+C を押して終了します。"
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "リアルタイムモードが終了しました。"
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "リアルタイム モードを開始できませんでした: %(exc)s"
 
@@ -1292,9 +1310,11 @@ msgstr "ここにファイルや画像をドラッグ＆ドロップ"
 msgid "Download"
 msgstr "ダウンロード"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "プラグインのロードに失敗しました: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "LLM クライアントの初期化に失敗しました: %(err)s"
 
@@ -1890,29 +1910,37 @@ msgstr "SAKURA AI Engine モデル名 (オプション、デフォルト: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI エンジン温度（オプション）"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI ゲートウェイ API キー"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Vercel AI Gateway のベース URL (オプション、デフォルト: https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel モデル名 (オプション、デフォルト: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI ゲートウェイの温度 (オプション)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "一緒に AI API キー"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "Together AI ベース URL (オプション、デフォルト: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Together AI モデル名 (オプション、デフォルト: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "合わせてAI温度（オプション）"
 
@@ -2690,6 +2718,7 @@ msgstr "[スキル] アクティブなスキル: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[スキル] '%(kw)s' に一致するスキルはありません。"
 
@@ -3039,6 +3068,7 @@ msgid ""
 msgstr ""
 "[shrink_llm error] int に変換できませんでした: %(arg)r -> keep last %(keep)d 件を保持"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm エラー] %(etype)s: %(err)s"
 
@@ -3432,6 +3462,7 @@ msgstr "エージェントスキルの管理と適用"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [リスト|アクティブ|クリア|インストール|アンインストール|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3950,6 +3981,7 @@ msgstr "[添付ファイル] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[ファイルパス] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4600,3 +4632,36 @@ msgstr "%(n)d 有効: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "リアルタイム音声設定を行いますか?"
+
+msgid "Select Realtime voice provider"
+msgstr "リアルタイム音声プロバイダーを選択します"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure リアルタイムベース URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure リアルタイム API キー"
+
+msgid "Azure Realtime API version"
+msgstr "Azure リアルタイム API バージョン"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure リアルタイム展開名"
+
+msgid "AWS region"
+msgstr "AWS リージョン"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Bedrock Nova Sonic モデル ID"
+
+msgid "Bedrock voice ID"
+msgstr "岩盤音声ID"
+
+msgid "Realtime model/deployment name"
+msgstr "リアルタイム モデル/デプロイメント名"
+
+msgid "Optional Realtime voice settings"
+msgstr "オプションのリアルタイム音声設定"

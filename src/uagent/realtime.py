@@ -244,10 +244,20 @@ def _ssl_context() -> ssl.SSLContext | None:
 
 def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
     """Load realtime dependencies, installing missing packages on demand."""
-    packages = ("sounddevice", "websockets")
-    for package in packages:
+    packages: list[tuple[str, str]] = [
+        ("sounddevice", "sounddevice"),
+        ("websockets", "websockets"),
+    ]
+    if _provider() == "bedrock":
+        packages.extend(
+            [
+                ("aws_sdk_bedrock_runtime", "aws_sdk_bedrock_runtime>=0.1.0,<0.2.0"),
+                ("smithy_aws_core", "smithy-aws-core>=0.0.1"),
+            ]
+        )
+    for import_name, package in packages:
         try:
-            __import__(package)
+            __import__(import_name)
         except ImportError:
             msg = _("Auto-installing %(package)s...") % {"package": package}
             print(f"[INFO] {msg}", file=sys.stderr)
@@ -417,7 +427,9 @@ def run() -> int:
     """Run the realtime microphone/speaker loop."""
     provider = _provider()
     key = _api_key()
-    if not key:
+    if provider == "bedrock":
+        key = ""  # Bedrock uses the AWS credential chain, not an API key.
+    if not key and provider != "bedrock":
         if provider == "azure":
             env_names = "UAGENT_AZURE_API_KEY or AZURE_OPENAI_API_KEY"
         elif provider in {"grok", "xai"}:
@@ -436,6 +448,11 @@ def run() -> int:
     sd, websockets = dependencies
 
     async def session() -> None:
+        if provider == "bedrock":
+            from .realtime_bedrock import run_session
+
+            await run_session(sd)
+            return
         if provider in {"google", "gemini", "vertexai", "vertex"}:
             await _run_gemini_session(websockets, sd, key)
             return

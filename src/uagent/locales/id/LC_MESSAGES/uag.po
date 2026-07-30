@@ -858,6 +858,7 @@ msgstr ""
 "argumen yang sama. Jika diperlukan lebih banyak pekerjaan, panggil alat lain"
 " atau jawab dengan apa yang sudah Anda miliki.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -876,6 +877,7 @@ msgstr ""
 "Balasan asisten sebelumnya kosong. Harap jawab berdasarkan hasil alat paling"
 " baru."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1052,6 +1054,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 Permintaan Buruk"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Kode kesalahan: %(code)s - %(err)s"
 
@@ -1095,7 +1098,7 @@ msgstr "Model '%(model_id)s' tidak digunakan lagi."
 
 #: src/uagent/llmcapa_util.py:678
 msgid "    model_id: %(value)s"
-msgstr "    model_id: %(value)s"
+msgstr "model_id: %(value)s"
 
 #: src/uagent/llmcapa_util.py:681
 msgid "    provider: %(value)s"
@@ -1281,50 +1284,65 @@ msgstr ""
 "Tanggapi dalam bahasa tampilan (%(lang)s) kecuali pengguna meminta "
 "sebaliknya. Gunakan bahasa yang sama untuk audio lisan dan transkripnya."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Anda adalah asisten suara yang membantu."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Menonaktifkan verifikasi sertifikat TLS Realtime."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "Menginstal otomatis %(package)s..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "Gagal memasang otomatis %(package)s."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "Tidak dapat memuat dependensi waktu nyata: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Menginstal otomatis backend AEC3..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Tidak dapat menginstal backend AEC3, melanjutkan dengan passthrough."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Diaktifkan"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Dinonaktifkan (melewati)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Memulai mode I/O suara Waktu Nyata (Gemini/Google). Tekan Ctrl+C untuk "
 "keluar."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s diperlukan."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "Adaptor waktu nyata untuk %(provider)s tidak diterapkan."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr "Memulai mode I/O suara waktu nyata. Tekan Ctrl+C untuk keluar."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Mode waktu nyata keluar."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Tidak dapat memulai mode Waktu Nyata: %(exc)s"
 
@@ -1336,9 +1354,11 @@ msgstr "Seret dan jatuhkan file/gambar di sini"
 msgid "Download"
 msgstr "Unduh"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "Gagal memuat plugin: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Gagal menginisialisasi LLM klien: %(err)s"
 
@@ -1946,30 +1966,38 @@ msgstr "Nama model SAKURA AI Engine (opsional, default: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Suhu mesin (opsional)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Kunci Vercel AI Gerbang API"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "URL dasar Vercel AI Gateway (opsional, default: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Nama model Vercel (opsional, default: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Suhu Vercel AI Gateway (opsional)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Bersama kunci AI API"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr "URL dasar AI bersama (opsional, default: https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr "Nama model AI Together (opsional, default: MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "Suhu AI bersama (opsional)"
 
@@ -2731,6 +2759,7 @@ msgstr "[keterampilan] Keterampilan aktif: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[keterampilan] Tidak ada keterampilan yang cocok dengan '%(kw)s'."
 
@@ -3064,6 +3093,7 @@ msgstr ""
 "[Kesalahan shrink_llm] Gagal mengurai sebagai int: %(arg)r -> keep last "
 "%(keep)d"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[kesalahan menyusut_llm] %(etype)s: %(err)s"
 
@@ -3460,6 +3490,7 @@ msgstr "Kelola dan terapkan Keterampilan Agen"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [daftar|aktif|hapus|instal|uninstall|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3969,6 +4000,7 @@ msgstr "[File Terlampir] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Jalur File] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4639,3 +4671,36 @@ msgstr "%(n)d diaktifkan: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Path workdir yang ditentukan adalah file: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Konfigurasikan pengaturan suara Realtime?"
+
+msgid "Select Realtime voice provider"
+msgstr "Pilih Penyedia suara real-time"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure URL dasar waktu nyata"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Kunci API waktu nyata"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Versi API waktu nyata"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Nama penerapan waktu nyata"
+
+msgid "AWS region"
+msgstr "Wilayah AWS"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "ID model batuan dasar Nova Sonic"
+
+msgid "Bedrock voice ID"
+msgstr "ID suara batuan dasar"
+
+msgid "Realtime model/deployment name"
+msgstr "Nama model/penerapan waktu nyata"
+
+msgid "Optional Realtime voice settings"
+msgstr "Pengaturan suara Realtime opsional"

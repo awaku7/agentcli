@@ -870,6 +870,7 @@ msgstr ""
 "ugyanazokkal az argumentumokkal. Ha további munkára van szükség, hívjon egy "
 "másik eszközt, vagy válaszoljon a már meglévővel.\n"
 
+#: src/uagent/llm_flow_helpers.py:271
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
 "the unfinished task using the most recent tool results. Prefer a concrete "
@@ -888,6 +889,7 @@ msgstr ""
 "Az előző asszisztens válasz üres volt. Kérjük, a legfrissebb eszközeredmény "
 "alapján válaszoljon."
 
+#: src/uagent/llm_flow_helpers.py:422
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -1075,6 +1077,7 @@ msgstr ""
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:973
 msgid "Error code: %(code)s - %(err)s"
 msgstr "Hibakód: %(code)s - %(err)s"
 
@@ -1326,52 +1329,67 @@ msgstr ""
 "Válaszoljon a megjelenítési nyelven (%(lang)s), hacsak a felhasználó másként"
 " nem kéri. Használja ugyanazt a nyelvet a beszédhanghoz és az átirathoz."
 
+#: src/uagent/realtime.py:138 src/uagent/realtime.py:455
 msgid "You are a helpful voice assistant."
 msgstr "Segítőkész hangasszisztens vagy."
 
+#: src/uagent/realtime.py:203
 msgid "Disabling Realtime TLS certificate verification."
 msgstr "Valós idejű TLS-tanúsítvány-ellenőrzés letiltása."
 
+#: src/uagent/realtime.py:216
 msgid "Auto-installing %(package)s..."
 msgstr "%(package)s automatikus telepítése..."
 
+#: src/uagent/realtime.py:223
 msgid "Failed to auto-install %(package)s."
 msgstr "A %(package)s automatikus telepítése nem sikerült."
 
+#: src/uagent/realtime.py:230
 msgid "Cannot load realtime dependencies: %(exc)s"
 msgstr "A valós idejű függőségek nem tölthetők be: %(exc)s"
 
+#: src/uagent/realtime.py:237
 msgid "Auto-installing AEC3 backend..."
 msgstr "Az AEC3 háttérrendszer automatikus telepítése..."
 
+#: src/uagent/realtime.py:246
 msgid "Cannot install AEC3 backend, continuing with passthrough."
 msgstr "Az AEC3 háttérrendszer nem telepíthető, továbbhaladva."
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Enabled"
 msgstr "Engedélyezve"
 
+#: src/uagent/realtime.py:271 src/uagent/realtime.py:419
 msgid "Disabled (passthrough)"
 msgstr "Letiltva (passthrough)"
 
+#: src/uagent/realtime.py:311
 msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Valós idejű (Gemini/Google) hang I/O mód elindítva. A kilépéshez nyomja meg "
 "a Ctrl+C billentyűkombinációt."
 
+#: src/uagent/realtime.py:390
 msgid "%(env_names)s is required."
 msgstr "%(env_names)s szükséges."
 
+#: src/uagent/realtime.py:404
 msgid "Realtime adapter for %(provider)s is not implemented."
 msgstr "A %(provider)s valós idejű adaptere nincs implementálva."
 
+#: src/uagent/realtime.py:498
 msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
 msgstr ""
 "Valós idejű hang I/O mód elindítása. A kilépéshez nyomja meg a Ctrl+C "
 "billentyűkombinációt."
 
+#: src/uagent/realtime.py:618
 msgid "Realtime mode exited."
 msgstr "Valós idejű mód kilépve."
 
+#: src/uagent/realtime.py:621
 msgid "Could not start Realtime mode: %(exc)s"
 msgstr "Nem sikerült elindítani a Valós idejű módot: %(exc)s"
 
@@ -1383,9 +1401,11 @@ msgstr "Dobja ide a fájlokat/képeket"
 msgid "Download"
 msgstr "Letöltés"
 
+#: src/uagent/scheckgui.py:588
 msgid "Plugin load failed: %(err)s"
 msgstr "A beépülő modul betöltése nem sikerült: %(err)s"
 
+#: src/uagent/scheckgui.py:600
 msgid "Failed to initialize LLM client: %(err)s"
 msgstr "Nem sikerült inicializálni a LLM klienst: %(err)s"
 
@@ -2005,34 +2025,42 @@ msgstr "SAKURA AI Motormodell neve (opcionális, alapértelmezett: llm)"
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Motor hőmérséklet (opcionális)"
 
+#: src/uagent/setup_cli.py:364
 msgid "Vercel AI Gateway API key"
 msgstr "Vercel AI Gateway API kulcs"
 
+#: src/uagent/setup_cli.py:369
 msgid ""
 "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
 msgstr ""
 "Vercel AI Gateway alap URL-címe (opcionális, alapértelmezett: "
 "https://gateway.vercel.ai/v1)"
 
+#: src/uagent/setup_cli.py:375
 msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
 msgstr "Vercel modell neve (opcionális, alapértelmezett: openai/gpt-5.4-nano)"
 
+#: src/uagent/setup_cli.py:380
 msgid "Vercel AI Gateway temperature (optional)"
 msgstr "Vercel AI Gateway hőmérséklet (opcionális)"
 
+#: src/uagent/setup_cli.py:384
 msgid "Together AI API key"
 msgstr "Együtt AI API kulcs"
 
+#: src/uagent/setup_cli.py:388
 msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
 msgstr ""
 "Together AI alap URL (opcionális, alapértelmezett: "
 "https://api.together.ai/v1)"
 
+#: src/uagent/setup_cli.py:393
 msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
 msgstr ""
 "Az AI modell neve együttesen (opcionális, alapértelmezett: "
 "MiniMaxAI/MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:398
 msgid "Together AI temperature (optional)"
 msgstr "AI hőmérséklet együttesen (opcionális)"
 
@@ -2101,7 +2129,7 @@ msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:664
 msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + all (sh/ps1/bat)"
 
 #: src/uagent/setup_cli.py:666
 msgid "  b. back"
@@ -2825,6 +2853,7 @@ msgstr "[készségek] Aktív készségek: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+#: src/uagent/util_tools.py:1461
 msgid "[skills] No skills matching '%(kw)s'."
 msgstr "[készségek] Nincsenek '%(kw)s'-nak megfelelő készségek."
 
@@ -3196,6 +3225,7 @@ msgstr ""
 "[shrink_llm error] Nem sikerült intként elemezni: %(arg)r -> keep last "
 "%(keep)d megtartása"
 
+#: src/uagent/util_tools.py:2226
 msgid "[shrink_llm error] %(etype)s: %(err)s"
 msgstr "[shrink_llm error] %(etype)s: %(err)s"
 
@@ -3606,6 +3636,7 @@ msgstr "Kezelje és alkalmazza az ügynöki készségeket"
 msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 msgstr ":skills [lista|aktív|törlés|telepítés|eltávolítás|apm|mp_search] ..."
 
+#: src/uagent/util_tools.py:2607
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -3984,7 +4015,7 @@ msgstr "  %(label)s: (nincs konfigurálva)"
 #: src/uagent/util_tools.py:3358
 #, python-format
 msgid "  %(label)s:"
-msgstr "  %(label)s:"
+msgstr "%(label)s:"
 
 #: src/uagent/util_tools.py:3360 src/uagent/util_tools.py:3450
 #: src/uagent/util_tools.py:3575
@@ -4134,6 +4165,7 @@ msgstr "[Mellékelt fájl] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[Fájl elérési útja] %(path)s"
 
+#: src/uagent/web.py:1460
 msgid ""
 "\n"
 "\n"
@@ -4820,3 +4852,36 @@ msgstr "%(n)d engedélyezve: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"
+
+msgid "Configure Realtime voice settings?"
+msgstr "Konfigurálja a valós idejű hangbeállításokat?"
+
+msgid "Select Realtime voice provider"
+msgstr "Válassza a Valós idejű hangszolgáltató lehetőséget"
+
+msgid "Azure Realtime base URL"
+msgstr "Azure Valós idejű alap URL"
+
+msgid "Azure Realtime API key"
+msgstr "Azure Valós idejű API kulcs"
+
+msgid "Azure Realtime API version"
+msgstr "Azure Valós idejű API verzió"
+
+msgid "Azure Realtime deployment name"
+msgstr "Azure Valós idejű telepítési név"
+
+msgid "AWS region"
+msgstr "AWS régió"
+
+msgid "Bedrock Nova Sonic model ID"
+msgstr "Bedrock Nova Sonic modellazonosító"
+
+msgid "Bedrock voice ID"
+msgstr "Bedrock hangazonosító"
+
+msgid "Realtime model/deployment name"
+msgstr "Valós idejű modell/telepítés neve"
+
+msgid "Optional Realtime voice settings"
+msgstr "Opcionális valós idejű hangbeállítások"

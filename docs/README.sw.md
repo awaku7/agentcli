@@ -242,6 +242,8 @@ Realtime Sauti na AEC3
 
 ## Realtime hali ya sauti inaweza kutumia maikrofoni ya duplex kamili na ingizo/pato la spika. Ikiwa mandhari ya nyuma ya AEC3 haipo, uag husakinisha pywebrtc-audio kiotomatiki.
 
+**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+
 ```bat
 python scheck.py realtime
 ```
