@@ -281,12 +281,14 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                             ek,
                                             start_position=-len(key_prefix),
                                         )
-                    elif stripped.startswith(":tools "):
-                        # :tools subcommand completion
-                        after_tools = stripped[len(":tools ") :]
+                    elif stripped.startswith((":tools ", ":tool ")):
+                        # :tools or :tool subcommand completion
+                        cmd_prefix_len = len(":tool ") if stripped.startswith(":tool ") else len(":tools ")
+                        cmd_name = "tool" if stripped.startswith(":tool ") else "tools"
+                        after_tools = stripped[cmd_prefix_len:]
                         if " " not in after_tools:
                             tools_subcmds = tools.get_dynamic_commands_map().get(
-                                "tools", []
+                                cmd_name, []
                             )
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
