@@ -4,14 +4,22 @@ from __future__ import annotations
 
 import asyncio
 import atexit as _atexit
+import hashlib
 import os
 import queue
+import random
 import threading
 import time as _time
+import uuid
 from typing import Any
 
 from cryptography.hazmat.primitives.asymmetric import ed25519, x25519
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 from cryptography.hazmat.primitives import serialization
+
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 # Nostr transport globals
 _NOSTR = None  # module reference, set on first use
@@ -71,7 +79,7 @@ def ensure_dependencies() -> bool:
 
 
 _PEER_NICKNAMES: dict[str, str] = {}
-_PEER_NOISE_KEYS: dict[str, bytes] = {}  # peer_id_hex → noise_public_key (32 bytes)
+_PEER_NOISE_KEYS: dict[str, bytes] = {}  # peer_id_hex -> noise_public_key (32 bytes)
 _CLIENTS: dict[str, Any] = {}
 _CONNECTING: set[str] = set()
 _IGNORED: set[str] = set()
@@ -622,14 +630,22 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                         asyncio.get_event_loop(),
                     )
                     _notify_display(
-                        f"[bitchat] Noise handshake complete with {_PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}"
+                        _(
+                            "bitchat.handshake_complete",
+                            default="[bitchat] Noise handshake complete with %(nick)s",
+                        )
+                        % {"nick": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
                     )
             elif existing:
                 # Responder: this is msg3
                 if existing.process_message_3(payload):
                     _noise.complete_session(peer_hex, existing)
                     _notify_display(
-                        f"[bitchat] Noise handshake complete with {_PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}"
+                        _(
+                            "bitchat.handshake_complete",
+                            default="[bitchat] Noise handshake complete with %(nick)s",
+                        )
+                        % {"nick": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
                     )
 
     def _handle_noise_encrypted(peer_hex: str, payload: bytes) -> None:
@@ -639,13 +655,21 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         session = _noise.get_session(peer_hex)
         if session is None:
             _notify_display(
-                f"[bitchat] [Noise DM] from {_PEER_NICKNAMES.get(peer_hex, peer_hex[:8])} — no session (dropped)"
+                _(
+                    "bitchat.noise_dm_no_session",
+                    default="[bitchat] [Noise DM] from %(sender)s -- no session (dropped)",
+                )
+                % {"sender": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
             )
             return
         pt = _noise.decrypt_dm(session, payload)
         if pt is None:
             _notify_display(
-                f"[bitchat] [Noise DM] from {_PEER_NICKNAMES.get(peer_hex, peer_hex[:8])} — decrypt failed"
+                _(
+                    "bitchat.noise_dm_decrypt_failed",
+                    default="[bitchat] [Noise DM] from %(sender)s -- decrypt failed",
+                )
+                % {"sender": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
             )
             return
         try:
@@ -653,9 +677,21 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         except Exception:
             text = pt.hex()
         sender = _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])
-        _notify_display(f"[bitchat] [Noise DM] {sender}: {text}")
+        _notify_display(
+            _(
+                "bitchat.noise_dm_msg",
+                default="[bitchat] [Noise DM] %(sender)s: %(text)s",
+            )
+            % {"sender": sender, "text": text}
+        )
         if _CHAT_MODE == "llm":
-            _inject_to_llm(f"[bitchat] [Noise DM] {sender}: {text}")
+            _inject_to_llm(
+                _(
+                    "bitchat.noise_dm_msg",
+                    default="[bitchat] [Noise DM] %(sender)s: %(text)s",
+                )
+                % {"sender": sender, "text": text}
+            )
 
     # ---- End Noise DM handlers ---------------------------------------------
 
@@ -681,7 +717,13 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 _PEER_NICKNAMES[peer_hex] = ann.nickname
                 _PEER_NOISE_KEYS[peer_hex] = ann.noise_public_key
                 if old is None:
-                    _notify_display(f"[bitchat] ++ {ann.nickname} is now online")
+                    _notify_display(
+                        _(
+                            "bitchat.peer_online",
+                            default="[bitchat] ++ %(nick)s is now online",
+                        )
+                        % {"nick": ann.nickname}
+                    )
         elif pkt.type == int(MessageType.MESSAGE):
             try:
                 text = pkt.payload.decode("utf-8")
@@ -690,13 +732,28 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             sender = _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])
             # Broadcast (all 0xFF) = #mesh channel; specific recipient = DM
             if pkt.recipient_id is not None and pkt.recipient_id != b"\xff" * 8:
-                _notify_display(f"[bitchat] [DM] {sender}: {text}")
+                _notify_display(
+                    _("bitchat.dm_msg", default="[bitchat] [DM] %(sender)s: %(text)s")
+                    % {"sender": sender, "text": text}
+                )
                 if _CHAT_MODE == "llm":
-                    _inject_to_llm(f"[bitchat] [DM] {sender}: {text}")
+                    _inject_to_llm(
+                        _(
+                            "bitchat.dm_msg",
+                            default="[bitchat] [DM] %(sender)s: %(text)s",
+                        )
+                        % {"sender": sender, "text": text}
+                    )
             else:
-                _notify_display(f"[bitchat] {sender}: {text}")
+                _notify_display(
+                    _("bitchat.mesh_msg", default="[bitchat] %(sender)s: %(text)s")
+                    % {"sender": sender, "text": text}
+                )
                 if _CHAT_MODE == "llm":
-                    _inject_to_llm(f"[bitchat] {sender}: {text}")
+                    _inject_to_llm(
+                        _("bitchat.mesh_msg", default="[bitchat] %(sender)s: %(text)s")
+                        % {"sender": sender, "text": text}
+                    )
         elif pkt.type == int(MessageType.NOISE_HANDSHAKE):
             _handle_noise_handshake(peer_hex, pkt.payload)
         elif pkt.type == int(MessageType.NOISE_ENCRYPTED):
@@ -704,7 +761,10 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         elif pkt.type == int(MessageType.LEAVE):
             nick = _PEER_NICKNAMES.pop(peer_hex, peer_hex[:8])
             _PEER_NOISE_KEYS.pop(peer_hex, None)
-            _notify_display(f"[bitchat] -- {nick} went offline")
+            _notify_display(
+                _("bitchat.peer_offline", default="[bitchat] -- %(nick)s went offline")
+                % {"nick": nick}
+            )
         elif pkt.type == int(MessageType.FILE_TRANSFER):
             file_info = decode_file_payload(pkt.payload)
             if file_info is not None:
@@ -721,7 +781,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     with open(save_path, "wb") as f:
                         f.write(fdata)
                     _notify_display(
-                        f"[bitchat] {sender} sent file: {fname} ({len(fdata)} bytes) -> {safe_name}"
+                        _(
+                            "bitchat.file_received",
+                            default="[bitchat] %(sender)s sent file: %(fname)s (%(size)d bytes) -> %(safe)s",
+                        )
+                        % {
+                            "sender": sender,
+                            "fname": fname,
+                            "size": len(fdata),
+                            "safe": safe_name,
+                        }
                     )
                     import subprocess as _sp
                     import sys as _sys
@@ -749,7 +818,11 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                         pass
                 except OSError as exc:
                     _notify_display(
-                        f"[bitchat] Failed to save file from {sender}: {exc}"
+                        _(
+                            "bitchat.file_save_failed",
+                            default="[bitchat] Failed to save file from %(sender)s: %(exc)s",
+                        )
+                        % {"sender": sender, "exc": exc}
                     )
 
     def _on_notify(_characteristic, data: bytearray) -> None:
@@ -771,7 +844,13 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             await asyncio.wait_for(client.connect(), timeout=_CONNECTION_TIMEOUT)
             _CLIENTS[addr] = client
             await client.start_notify(char_uuid, _on_notify)
-            _notify_display(f"[bitchat] Connected to peer at {addr}")
+            _notify_display(
+                _(
+                    "bitchat.peer_connected",
+                    default="[bitchat] Connected to peer at %(addr)s",
+                )
+                % {"addr": addr}
+            )
             await _send_announce()
         except asyncio.TimeoutError:
             # Suppress TimeoutError display (frequent during BLE scan)
@@ -811,10 +890,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             return
         name = device.name
         if not name:
-            pass  # no name advertised — skip display
+            pass  # no name advertised - skip display
         else:
             rssi = getattr(device, "rssi", 0)
-            _notify_display(f"[bitchat] Discovered peer: {name} ({addr}) RSSI={rssi}")
+            _notify_display(
+                _(
+                    "bitchat.peer_discovered",
+                    default="[bitchat] Discovered peer: %(name)s (%(addr)s) RSSI=%(rssi)s",
+                )
+                % {"name": name, "addr": addr, "rssi": rssi}
+            )
         _CONNECTING.add(addr)
         asyncio.create_task(_connect(device))
 
@@ -822,11 +907,18 @@ async def _run_ble_service(nickname: str, network: str) -> None:
     try:
         await scanner.start()
     except BleakError as exc:
-        _notify_display(f"[bitchat] BLE scan start failed: {exc}")
+        _notify_display(
+            _("bitchat.scan_failed", default="[bitchat] BLE scan start failed: %(exc)s")
+            % {"exc": exc}
+        )
         return
 
     _notify_display(
-        f"[bitchat] BLE service started (network={network}, nickname={nickname})"
+        _(
+            "bitchat.service_started",
+            default="[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
+        )
+        % {"network": network, "nickname": nickname}
     )
     _last_announce = 0.0
 
@@ -911,8 +1003,14 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                     continue
                             # Fall through to plain-text DM
                             _notify_display(
-                                f"[bitchat] No Noise session for DM to {recipient_hex[:8]} — "
-                                "sending as plain text (unencrypted)"
+                                _(
+                                    "bitchat.noise_dm_plaintext",
+                                    default=(
+                                        "[bitchat] No Noise session for DM to %(recipient)s -- "
+                                        "sending as plain text (unencrypted)"
+                                    ),
+                                )
+                                % {"recipient": recipient_hex[:8]}
                             )
 
                     # Plain text or non-DM send
@@ -980,9 +1078,37 @@ def _listener_loop(nickname: str, network: str) -> None:
 def _on_nostr_message(nick: str, text: str, kind: int) -> None:
     """Callback when a Nostr message arrives."""
     kind_label = "kind-1059" if kind == 1059 else "kind-1"
-    _notify_display(f"[nostr/{kind_label}] {nick}: {text}")
+    _notify_display(
+        _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
+        % {"kind": kind_label, "nick": nick, "text": text}
+    )
     if _CHAT_MODE == "llm":
-        _inject_to_llm(f"[nostr/{kind_label}] {nick}: {text}")
+        _inject_to_llm(
+            _("bitchat.nostr_msg", default="[nostr/%(kind)s] %(nick)s: %(text)s")
+            % {"kind": kind_label, "nick": nick, "text": text}
+        )
+
+
+def _pin_bitchat_tools() -> None:
+    """Pin bitchat tools against auto-unload while the node is running."""
+    try:
+        from ._genre_control_util import pin_tool
+
+        pin_tool("pybitchat_subscribe", reason="bitchat node running")
+        pin_tool("pybitchat_send", reason="bitchat node running")
+    except Exception:
+        pass
+
+
+def _unpin_bitchat_tools() -> None:
+    """Unpin bitchat tools once the node has stopped."""
+    try:
+        from ._genre_control_util import unpin_tool
+
+        unpin_tool("pybitchat_subscribe")
+        unpin_tool("pybitchat_send")
+    except Exception:
+        pass
 
 
 def start(
@@ -991,16 +1117,25 @@ def start(
     nostr: bool = False,
     nostr_relays: list[str] | None = None,
 ) -> dict[str, Any]:
-    global _LISTENER_THREAD, _RUNNING, _NOSTR, _NOSTR_RUNNING, _NOSTR_RELAYS, _NOSTR_BRIDGE
-    if _RUNNING and not nostr:
-        return {"ok": True, "state": "running", "message": "Already running"}
-    if _RUNNING and nostr and _NOSTR_RUNNING:
-        return {
-            "ok": True,
-            "state": "running",
-            "nostr": "running",
-            "message": "Already running",
-        }
+    global \
+        _LISTENER_THREAD, \
+        _RUNNING, \
+        _NOSTR, \
+        _NOSTR_RUNNING, \
+        _NOSTR_RELAYS, \
+        _NOSTR_BRIDGE
+    if _RUNNING:
+        # Re-assert pins even when the node is already running.
+        _pin_bitchat_tools()
+        if not nostr:
+            return {"ok": True, "state": "running", "message": "Already running"}
+        if _NOSTR_RUNNING:
+            return {
+                "ok": True,
+                "state": "running",
+                "nostr": "running",
+                "message": "Already running",
+            }
     global _IGNORED, _CONNECTING, _ATTEMPTS, _COOLDOWN_UNTIL, _CLIENTS, _PEER_NICKNAMES
     _IGNORED = set()
     _CONNECTING = set()
@@ -1018,6 +1153,7 @@ def start(
     )
     _LISTENER_THREAD.start()
     _RUNNING = True
+    _pin_bitchat_tools()
     result: dict[str, Any] = {
         "ok": True,
         "state": "running",
@@ -1040,7 +1176,7 @@ def start(
             if nresult.get("ok"):
                 _NOSTR_RUNNING = True
                 _NOSTR_RELAYS = nostr_relays
-                _NOSTR_BRIDGE = True  # enable BLE→Nostr forwarding
+                _NOSTR_BRIDGE = True  # enable BLE->Nostr forwarding
                 result["nostr"] = "running"
                 result["nostr_pubkey"] = _nt.nostr_pubkey()
             else:
@@ -1058,6 +1194,7 @@ def stop() -> dict[str, Any]:
         _LISTENER_THREAD.join(timeout=5)
         _LISTENER_THREAD = None
     _RUNNING = False
+    _unpin_bitchat_tools()
     # Clear Noise sessions
     try:
         import importlib as _il
@@ -1154,3 +1291,446 @@ def set_llm_event_queue(q: "queue.Queue[dict[str, Any]] | None") -> None:
     """Set the event queue for LLM injection (called from cli.py)."""
     global _LLM_EVENT_QUEUE
     _LLM_EVENT_QUEUE = q
+
+
+# ---- Courier / Store-and-Forward -------------------------------------------
+
+
+class CourierEnvelope:
+    """A store-and-forward envelope for offline bitchat peers.
+
+    Encapsulates a payload addressed to a recipient. Envelopes expire after
+    ``ttl_seconds`` from ``created_at`` and are skipped by ``CourierStore``.
+    """
+
+    def __init__(
+        self,
+        recipient_id: str,
+        sender_id: str,
+        payload: bytes,
+        *,
+        envelope_id: str | None = None,
+        created_at: float | None = None,
+        ttl_seconds: float = 3600.0,
+    ) -> None:
+        self.recipient_id = recipient_id
+        self.sender_id = sender_id
+        self.payload = payload if isinstance(payload, bytes) else bytes(payload or b"")
+        self.envelope_id = envelope_id or uuid.uuid4().hex
+        self.created_at = created_at if created_at is not None else _time.time()
+        self.ttl_seconds = float(ttl_seconds)
+
+    def is_expired(self, *, now: float | None = None) -> bool:
+        """Return True when the envelope is past its TTL."""
+        now = now if now is not None else _time.time()
+        return now > (self.created_at + self.ttl_seconds)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize to a plain dict (payload as hex)."""
+        return {
+            "envelope_id": self.envelope_id,
+            "recipient_id": self.recipient_id,
+            "sender_id": self.sender_id,
+            "payload_hex": self.payload.hex(),
+            "created_at": self.created_at,
+            "ttl_seconds": self.ttl_seconds,
+        }
+
+
+class CourierStore:
+    """In-memory store-and-forward mailbox for offline bitchat peers."""
+
+    def __init__(self) -> None:
+        self._envelopes: list[CourierEnvelope] = []
+
+    def store(self, env: CourierEnvelope) -> None:
+        """Queue an envelope for delivery."""
+        if isinstance(env, dict):
+            env = CourierEnvelope(**env)
+        elif not isinstance(env, CourierEnvelope):
+            # Accept envelopes created before this module was reloaded
+            # (tools.reload_plugins() re-imports helper modules).
+            env = CourierEnvelope(
+                recipient_id=env.recipient_id,
+                sender_id=env.sender_id,
+                payload=env.payload,
+                envelope_id=getattr(env, "envelope_id", None),
+                created_at=getattr(env, "created_at", None),
+                ttl_seconds=getattr(env, "ttl_seconds", 3600.0),
+            )
+        self._envelopes.append(env)
+
+    def _active(self, *, now: float | None = None) -> list[CourierEnvelope]:
+        now = now if now is not None else _time.time()
+        return [e for e in self._envelopes if not e.is_expired(now=now)]
+
+    def retrieve(self, recipient_id: str) -> list[CourierEnvelope]:
+        """Return undelivered (non-expired) envelopes for a recipient.
+
+        Retrieval does not remove envelopes; callers remove them after the
+        recipient acknowledges delivery (see remove()).
+        """
+        return [e for e in self._active() if e.recipient_id == recipient_id]
+
+    def remove(self, envelope_id: str) -> bool:
+        """Remove a delivered envelope by id. Returns True when removed."""
+        for i, e in enumerate(self._envelopes):
+            if e.envelope_id == envelope_id:
+                self._envelopes.pop(i)
+                return True
+        return False
+
+    def count(self) -> int:
+        """Number of active (non-expired) envelopes."""
+        return len(self._active())
+
+
+# ---- Noise XX handshake (Phase 2) ------------------------------------------
+
+_NOISE_PROTOCOL_NAME = b"Noise_XX_25519_ChaChaPoly_SHA256"
+_NOISE_PROTOCOL_HASH = hashlib.sha256(_NOISE_PROTOCOL_NAME).digest()
+
+
+def _noise_hmac(key: bytes, data: bytes) -> bytes:
+    import hmac as _hmac_mod
+
+    return _hmac_mod.new(key, data, hashlib.sha256).digest()
+
+
+def _noise_hkdf(
+    chaining_key: bytes, input_key_material: bytes, num_outputs: int
+) -> list[bytes]:
+    """Noise HKDF: HMAC-SHA256 based, returns num_outputs keys."""
+    temp_key = _noise_hmac(chaining_key, input_key_material)
+    output1 = _noise_hmac(temp_key, b"\x01")
+    if num_outputs == 1:
+        return [output1]
+    output2 = _noise_hmac(temp_key, output1 + b"\x02")
+    if num_outputs == 2:
+        return [output1, output2]
+    output3 = _noise_hmac(temp_key, output2 + b"\x03")
+    return [output1, output2, output3]
+
+
+def _generate_keypair() -> tuple[bytes, bytes]:
+    """Generate an X25519 key pair; returns (private_bytes, public_bytes)."""
+    private_key = x25519.X25519PrivateKey.generate()
+    private_bytes = private_key.private_bytes(
+        serialization.Encoding.Raw,
+        serialization.PrivateFormat.Raw,
+        serialization.NoEncryption(),
+    )
+    public_bytes = private_key.public_key().public_bytes(
+        serialization.Encoding.Raw,
+        serialization.PublicFormat.Raw,
+    )
+    return private_bytes, public_bytes
+
+
+class TransportCipher:
+    """ChaCha20-Poly1305 transport cipher with an incrementing nonce."""
+
+    def __init__(self, key: bytes):
+        self.k = bytes(key)
+        self.n = 0
+        self._cipher = ChaCha20Poly1305(self.k)
+
+    def encrypt_with_ad(self, ad: bytes, plaintext: bytes) -> bytes:
+        nonce = self.n.to_bytes(12, "little")
+        self.n += 1
+        return self._cipher.encrypt(nonce, plaintext, ad)
+
+    def decrypt_with_ad(self, ad: bytes, ciphertext: bytes) -> bytes:
+        nonce = self.n.to_bytes(12, "little")
+        self.n += 1
+        return self._cipher.decrypt(nonce, ciphertext, ad)
+
+
+class NoiseXXStateMachine:
+    """Noise XX (Noise_XX_25519_ChaChaPoly_SHA256) handshake state machine.
+
+    Wire-compatible with the official bitchat app. The handshake derives two
+    TransportCipher objects (tx/rx) for authenticated DM transport.
+    """
+
+    def __init__(
+        self,
+        static_private: bytes,
+        static_public: bytes,
+        prologue: bytes = b"bitchat-noise-xx",
+        initiator: bool = False,
+    ) -> None:
+        self.static_private = bytes(static_private)
+        self.static_public = bytes(static_public)
+        self.prologue = prologue or b""
+        self.initiator = bool(initiator)
+
+        self.e: bytes | None = None  # local ephemeral public key
+        self.re: bytes | None = None  # remote ephemeral public key
+        self.rs: bytes | None = None  # remote static public key
+        self._e_priv: Any = None
+        self.h = _NOISE_PROTOCOL_HASH
+        self.ck = _NOISE_PROTOCOL_HASH
+        self._cipher: Any = None
+        self.tx: TransportCipher | None = None
+        self.rx: TransportCipher | None = None
+
+        if self.prologue:
+            self._mix_hash(self.prologue)
+
+    def _mix_hash(self, data: bytes) -> None:
+        self.h = hashlib.sha256(self.h + data).digest()
+
+    def _mix_key(self, dh_result: bytes) -> None:
+        outputs = _noise_hkdf(self.ck, dh_result, 2)
+        self.ck = outputs[0]
+        self._cipher = ChaCha20Poly1305(outputs[1])
+
+    def _encrypt_and_hash(self, plaintext: bytes) -> bytes:
+        nonce = (0).to_bytes(12, "little")
+        ct = self._cipher.encrypt(nonce, plaintext, self.h)
+        self._mix_hash(ct)
+        return ct
+
+    def _decrypt_and_hash(self, ciphertext: bytes) -> bytes:
+        nonce = (0).to_bytes(12, "little")
+        pt = self._cipher.decrypt(nonce, ciphertext, self.h)
+        self._mix_hash(ciphertext)
+        return pt
+
+    def _split(self) -> None:
+        outputs = _noise_hkdf(self.ck, b"", 2)
+        if self.initiator:
+            self.tx = TransportCipher(outputs[0])
+            self.rx = TransportCipher(outputs[1])
+        else:
+            self.tx = TransportCipher(outputs[1])
+            self.rx = TransportCipher(outputs[0])
+
+    def process_message_1(self, data: bytes | None = None) -> bytes:
+        """Build message 1 (initiator) or process message 1 and build message 2.
+
+        With no argument: returns ``e`` (the initiator's ephemeral public key).
+        With ``data`` (responder): processes ``-> e`` and returns message 2.
+        """
+        if data is None:
+            # Initiator: -> e
+            self._e_priv = x25519.X25519PrivateKey.generate()
+            self.e = self._e_priv.public_key().public_bytes_raw()
+            self._mix_hash(self.e)
+            return self.e
+        # Responder: <- e
+        if len(data) < 32:
+            raise ValueError(_("noise.err_msg1_short", default="message 1 too short"))
+        self.re = data[:32]
+        self._mix_hash(self.re)
+        return self._build_message_2()
+
+    def _build_message_2(self) -> bytes:
+        # <- e, ee, s, es
+        self._e_priv = x25519.X25519PrivateKey.generate()
+        e_pub = self._e_priv.public_key().public_bytes_raw()
+        re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
+        ee = self._e_priv.exchange(re_key)
+        self._mix_key(ee)
+        # e token: mix_hash(e_pub) before encrypting
+        self._mix_hash(e_pub)
+        # s token: encrypt own static with the current key (after ee)
+        encrypted_s = self._encrypt_and_hash(self.static_public)
+        # es token (sender side): DH(own static, remote ephemeral)
+        s_priv = x25519.X25519PrivateKey.from_private_bytes(self.static_private)
+        es = s_priv.exchange(re_key)
+        self._mix_key(es)
+        return e_pub + encrypted_s
+
+    def process_message_2(self, data: bytes) -> bytes | None:
+        """Process message 2 and build message 3 (initiator), or finalize (responder).
+
+        As initiator: processes ``<- e, ee, s, es``, derives the remote static
+        key from the encrypted payload, and returns message 3.
+        As responder: processes ``-> s, se`` and finalizes the handshake.
+        """
+        if self.initiator:
+            if len(data) < 80:
+                raise ValueError(
+                    _("noise.err_msg2_short", default="message 2 too short")
+                )
+            e_pub = data[:32]
+            encrypted_s = data[32:80]
+            self.re = e_pub
+            self._mix_hash(e_pub)
+            re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
+            ee = self._e_priv.exchange(re_key)
+            self._mix_key(ee)
+            # Decrypt remote static key and finish es = DH(e, rs)
+            self.rs = self._decrypt_and_hash(encrypted_s)
+            es = self._e_priv.exchange(
+                x25519.X25519PublicKey.from_public_bytes(self.rs)
+            )
+            self._mix_key(es)
+            return self._build_message_3()
+        # Responder: <- s, se (finalize)
+        if len(data) < 48:
+            raise ValueError(_("noise.err_msg3_short", default="message 3 too short"))
+        encrypted_s = data[:48]
+        self.rs = self._decrypt_and_hash(encrypted_s)
+        se = self._e_priv.exchange(x25519.X25519PublicKey.from_public_bytes(self.rs))
+        self._mix_key(se)
+        self._split()
+        return None
+
+    def _build_message_3(self) -> bytes:
+        # -> s, se
+        re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
+        s_priv = x25519.X25519PrivateKey.from_private_bytes(self.static_private)
+        encrypted_s = self._encrypt_and_hash(self.static_public)
+        se = s_priv.exchange(re_key)
+        self._mix_key(se)
+        self._split()
+        return encrypted_s
+
+
+# ---- Announce / Discovery (Phase 3) ----------------------------------------
+
+
+def _announce_canonical(data: dict[str, Any]) -> bytes:
+    """Canonical byte representation of an announce payload for signing."""
+    parts: list[bytes] = []
+    for key in ("nickname", "noise_public_key", "signing_public_key", "timestamp"):
+        val = data.get(key)
+        if isinstance(val, str):
+            parts.append(val.encode("utf-8"))
+        elif isinstance(val, bytes):
+            parts.append(val)
+        else:
+            parts.append(str(val).encode("utf-8"))
+    return b"|".join(parts)
+
+
+def sign_announce(announce_data: dict[str, Any], sign_priv: bytes) -> bytes:
+    """Sign an announce payload with an Ed25519 private key."""
+    key = ed25519.Ed25519PrivateKey.from_private_bytes(bytes(sign_priv))
+    return key.sign(_announce_canonical(announce_data))
+
+
+def verify_announce(
+    announce_data: dict[str, Any], signature: bytes, sign_pub: bytes
+) -> bool:
+    """Verify an Ed25519 signature over the canonical announce payload."""
+    try:
+        key = ed25519.Ed25519PublicKey.from_public_bytes(bytes(sign_pub))
+        key.verify(bytes(signature), _announce_canonical(announce_data))
+        return True
+    except Exception:
+        return False
+
+
+class PeerRegistry:
+    """Registry of discovered bitchat peers with TTL expiry and connection state."""
+
+    def __init__(self, ttl_seconds: float = 3600.0):
+        self._peers: dict[str, dict[str, Any]] = {}
+        self._states: dict[str, str] = {}
+        self._ttl_seconds = float(ttl_seconds)
+
+    def add_peer(
+        self,
+        peer_id: str,
+        nickname: str,
+        noise_public_key: bytes,
+        signing_public_key: bytes,
+    ) -> None:
+        self._peers[peer_id] = {
+            "peer_id": peer_id,
+            "nickname": nickname,
+            "noise_public_key": bytes(noise_public_key),
+            "signing_public_key": bytes(signing_public_key),
+            "last_seen": _time.time(),
+        }
+        self._states.setdefault(peer_id, "discovered")
+
+    def get_peer(self, peer_id: str) -> dict[str, Any] | None:
+        peer = self._peers.get(peer_id)
+        if peer is None:
+            return None
+        if _time.time() - peer["last_seen"] > self._ttl_seconds:
+            self.remove_peer(peer_id)
+            return None
+        return peer
+
+    def list_peers(self) -> list[dict[str, Any]]:
+        return [
+            p
+            for p in (self.get_peer(pid) for pid in list(self._peers.keys()))
+            if p is not None
+        ]
+
+    def get_peer_state(self, peer_id: str) -> str:
+        return self._states.get(peer_id, "discovered")
+
+    def set_peer_state(self, peer_id: str, state: str) -> None:
+        self._states[peer_id] = state
+
+    def remove_peer(self, peer_id: str) -> None:
+        self._peers.pop(peer_id, None)
+        self._states.pop(peer_id, None)
+
+
+# ---- Message routing: dedup + relay (Phase 4) ------------------------------
+
+
+class MessageDeduplicator:
+    """Time-windowed duplicate suppression for flooded mesh messages."""
+
+    def __init__(self, window_seconds: float = 10.0):
+        self._seen: dict[str, float] = {}
+        self._window = float(window_seconds)
+
+    def is_duplicate(self, msg_id: str) -> bool:
+        now = _time.time()
+        ts = self._seen.get(msg_id)
+        if ts is not None and now - ts <= self._window:
+            return True
+        self._seen[msg_id] = now
+        return False
+
+    def count(self) -> int:
+        self.cleanup()
+        return len(self._seen)
+
+    def cleanup(self) -> None:
+        now = _time.time()
+        expired = [mid for mid, ts in self._seen.items() if now - ts > self._window]
+        for mid in expired:
+            self._seen.pop(mid, None)
+
+
+class RelayController:
+    """Flooding relay controller with delay jitter and degree-based suppression."""
+
+    def __init__(
+        self,
+        base_probability: float = 0.5,
+        min_delay_ms: float = 100.0,
+        max_delay_ms: float = 500.0,
+        degree_threshold: int = 5,
+    ):
+        self.base_probability = float(base_probability)
+        self.min_delay_ms = float(min_delay_ms)
+        self.max_delay_ms = float(max_delay_ms)
+        self.degree_threshold = int(degree_threshold)
+
+    def should_relay(self, degree: int = 0) -> bool:
+        if self.base_probability <= 0.0:
+            return False
+        if degree >= self.degree_threshold:
+            # High-degree nodes suppress more aggressively.
+            if self.base_probability >= 1.0:
+                return random.random() > 0.5
+            return random.random() < (self.base_probability * 0.5)
+        if self.base_probability >= 1.0:
+            return True
+        return random.random() < self.base_probability
+
+    def get_delay(self) -> float:
+        return random.uniform(self.min_delay_ms, self.max_delay_ms)
