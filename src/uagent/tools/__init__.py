@@ -117,6 +117,9 @@ _BUSY_LABEL_TOOLS: dict[str, str] = {}
 # Structure: { "command_name": { "subcommand_name": { "handler": handler_func, "help_text": help_text_str } } }
 _DYNAMIC_COMMANDS: dict[str, dict[str, dict[str, Any]]] = {}
 
+# Cache of get_dynamic_commands_map(); invalidated whenever _DYNAMIC_COMMANDS changes.
+_DYNAMIC_MAP_CACHE: dict[str, list[str]] | None = None
+
 # Lock for tool registry (TOOL_SPECS, _RUNNERS, _BUSY_LABEL_TOOLS, _DYNAMIC_COMMANDS)
 # Required for free-threaded Python (--disable-gil) safety.
 _TOOLS_LOCK = RLock()
@@ -408,6 +411,10 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
                     "usage": usage or prev.get("usage", ""),
                 }
 
+    if cmd_specs:
+        # Dynamic command map may have changed.
+        _invalidate_dynamic_map_cache()
+
     return True
 
 
@@ -560,7 +567,19 @@ def _load_plugins() -> None:
         mod_name = f"{__name__}.{m.name}"
         try:
             if mod_name in sys.modules:
-                mod = reload(sys.modules[mod_name])
+                _existing_mod = sys.modules[mod_name]
+                # Never reload already-imported helper modules (those without
+                # TOOL_SPEC + run_tool). importlib.reload() re-executes the
+                # module body and wipes runtime state — e.g. pybitchat_shared's
+                # _LLM_EVENT_QUEUE / _CHAT_MODE / _RUNNING — which silently
+                # breaks bitchat chat_mode="llm" injection (peer messages are
+                # displayed but never reach the LLM).
+                if not (
+                    isinstance(getattr(_existing_mod, "TOOL_SPEC", None), dict)
+                    and callable(getattr(_existing_mod, "run_tool", None))
+                ):
+                    continue
+                mod = reload(_existing_mod)
             else:
                 mod = import_module(mod_name)
             loaded = _register_tool_module(mod, mod_name)
@@ -719,15 +738,65 @@ def get_dynamic_commands_help() -> list[str]:
     return help_lines
 
 
-def get_dynamic_commands_map() -> dict[str, list[str]]:
-    """Return a mapping of command -> sorted list of subcommand names."""
-    _ensure_loaded()
+def _invalidate_dynamic_map_cache() -> None:
+    """Drop the cached dynamic command map (call whenever _DYNAMIC_COMMANDS changes)."""
+    global _DYNAMIC_MAP_CACHE
+    _DYNAMIC_MAP_CACHE = None
+
+
+def _build_dynamic_map_snapshot() -> dict[str, list[str]]:
+    """Build command -> sorted subcommand map from the current registry.
+
+    Lock-free snapshot: callers that need consistency across plugin loads
+    should use get_dynamic_commands_map(block=True) instead.
+    """
     result: dict[str, list[str]] = {}
     for cmd in sorted(_DYNAMIC_COMMANDS.keys()):
         subcmds = [k for k in _DYNAMIC_COMMANDS[cmd].keys() if k]
         if subcmds:
             result[cmd] = sorted(subcmds)
     return result
+
+
+def get_dynamic_commands_map(*, block: bool = True) -> dict[str, list[str]]:
+    """Return a mapping of command -> sorted list of subcommand names.
+
+    The result is cached and invalidated whenever dynamic commands change.
+
+    With block=True (default) the tool plugins are loaded on first access,
+    so the returned map is complete. With block=False the map is built from
+    whatever is currently registered and never blocks on the (potentially
+    slow) first-time plugin import — used by interactive tab-completion so
+    the prompt stays responsive while the background warmup is still loading
+    heavy tool modules.
+    """
+    global _DYNAMIC_MAP_CACHE
+    if block:
+        _ensure_loaded()
+    cache = _DYNAMIC_MAP_CACHE
+    if cache is not None:
+        return cache
+    try:
+        snapshot = _build_dynamic_map_snapshot()
+    except Exception:
+        snapshot = {}
+    if block:
+        with _TOOLS_LOCK:
+            if _DYNAMIC_MAP_CACHE is None:
+                _DYNAMIC_MAP_CACHE = snapshot
+            return _DYNAMIC_MAP_CACHE
+    _DYNAMIC_MAP_CACHE = snapshot
+    return snapshot
+
+
+def get_dynamic_subcommands(cmd: str, *, block: bool = True) -> list[str]:
+    """Return sorted subcommand names for one dynamic command.
+
+    Completion-friendly: accepts ":cmd", "cmd" or mixed case. See
+    get_dynamic_commands_map() for the meaning of block.
+    """
+    name = (cmd or "").strip().lstrip(":").lower()
+    return get_dynamic_commands_map(block=block).get(name, [])
 
 
 def list_dynamic_command_names() -> list[str]:
@@ -773,6 +842,7 @@ def register_dynamic_command(
             "usage": usage or "",
             "source": source or "",
         }
+        _invalidate_dynamic_map_cache()
     return {"ok": True, "command": cmd, "subcommand": sub}
 
 
@@ -795,6 +865,8 @@ def unregister_dynamic_commands_by_source(source: str) -> dict[str, Any]:
                 empty_cmds.append(cmd)
         for cmd in empty_cmds:
             _DYNAMIC_COMMANDS.pop(cmd, None)
+        if removed:
+            _invalidate_dynamic_map_cache()
     return {"ok": True, "removed": removed, "source": src}
 
 

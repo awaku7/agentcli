@@ -42,7 +42,11 @@ from .scheduler import start_background_scheduler, stop_background_scheduler
 
 from uagent.utils.paths import get_history_file_path
 
-from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
+from .tools.pybitchat_shared import (
+    forward_to_mesh,
+    is_chat_mode,
+    set_llm_event_queue,
+)
 
 from .util_tools import (
     extract_image_paths,
@@ -138,13 +142,19 @@ def _persist_prompt_history_entry(text: str) -> None:
         history_path = get_history_file_path()
         os.makedirs(history_path.parent, exist_ok=True)
         with open(history_path, "ab") as f:
-            f.write(f"\
+            f.write(
+                f"\
 # {datetime.now()}\
-".encode("utf-8"))
-            for line in normalized.split("\
-"):
-                f.write(f"+{line}\
-".encode("utf-8"))
+".encode("utf-8")
+            )
+            for line in normalized.split(
+                "\
+"
+            ):
+                f.write(
+                    f"+{line}\
+".encode("utf-8")
+                )
     except Exception:
         pass
 
@@ -197,6 +207,10 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                 def get_completions(self, document, complete_event):
                     text = document.text_before_cursor
                     stripped = text.lstrip()
+                    # Snapshot the dynamic command map once per completion request.
+                    # block=False: never block on first-time plugin import; the
+                    # background warmup keeps loading and partial results are fine.
+                    dyn_map = tools.get_dynamic_commands_map(block=False)
 
                     # Free-form path completion: ./ or ../ prefix
                     if stripped.startswith(("./", "../")):
@@ -291,9 +305,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         cmd_name = "tool" if stripped.startswith(":tool ") else "tools"
                         after_tools = stripped[cmd_prefix_len:]
                         if " " not in after_tools:
-                            tools_subcmds = tools.get_dynamic_commands_map().get(
-                                cmd_name, []
-                            )
+                            tools_subcmds = dyn_map.get(cmd_name, [])
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
                                     yield Completion(
@@ -358,9 +370,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :skills subcommand completion
                         after_skills = stripped[len(":skills ") :]
                         if " " not in after_skills:
-                            skills_subcmds = tools.get_dynamic_commands_map().get(
-                                "skills", []
-                            )
+                            skills_subcmds = dyn_map.get("skills", [])
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
                                     yield Completion(
@@ -383,11 +393,8 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # Generic dynamic command completion
                         cmd_word = stripped.lstrip(":").split(" ", 1)[0].lower()
                         after_cmd = stripped[len(f":{cmd_word} ") :]
-                        if (
-                            " " not in after_cmd
-                            and cmd_word in tools.get_dynamic_commands_map()
-                        ):
-                            dyn_subcmds = tools.get_dynamic_commands_map()[cmd_word]
+                        if " " not in after_cmd and cmd_word in dyn_map:
+                            dyn_subcmds = dyn_map[cmd_word]
                             for sc in dyn_subcmds:
                                 if sc.startswith(after_cmd):
                                     yield Completion(sc, start_position=-len(after_cmd))
@@ -468,7 +475,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "model",
                         ]
                         # Add dynamic command names (e.g., "tool" from CMD_SPEC)
-                        for dyn_cmd in tools.get_dynamic_commands_map():
+                        for dyn_cmd in dyn_map:
                             if dyn_cmd not in cmds:
                                 cmds.append(dyn_cmd)
                         for c in cmds:
@@ -1100,6 +1107,8 @@ def main() -> None:
         core._maybe_ask_resume()
 
     start_background_scheduler(core.event_queue)
+    # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
+    set_llm_event_queue(core.event_queue)
     core.start_interrupt_monitor()
 
     # Preload tool plugins in background so the first ':' command/completion
