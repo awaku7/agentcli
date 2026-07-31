@@ -19,6 +19,19 @@ import threading
 import time as _time
 from typing import Any, Callable
 
+TOOL_SPEC: dict[str, Any] = {
+    "tool_level": -1,  # Dynamic commands only
+    "type": "function",
+    "function": {
+        "name": "nostr_transport_dummy",
+        "description": "Dummy tool for Nostr transport CLI commands registration.",
+    },
+}
+
+
+def run_tool(args: dict[str, Any]) -> str:
+    return "Nostr transport CLI commands registered."
+
 
 def ensure_dependencies() -> bool:
     """Check required packages are importable.
