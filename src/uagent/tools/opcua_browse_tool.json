@@ -16,7 +16,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Connection timeout."
   },
   "ar": {
     "tool.description": "تصفح مساحة عنوان خادم OPC UA. إرجاع العقد الفرعية لعقدة البداية المحددة.",
@@ -301,7 +302,8 @@
       "アドレス",
       "スペース",
       "戻り値"
-    ]
+    ],
+    "param.timeout.description": "接続タイムアウト。"
   },
   "ko": {
     "tool.description": "OPC UA 서버 주소 공간을 찾아보세요. 지정된 시작 노드의 하위 노드를 반환합니다.",

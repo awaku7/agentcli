@@ -16,7 +16,10 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "tools_control_dummy",
-        "description": "Dummy tool for tools control registration.",
+        "description": _(
+            "tool.description",
+            default="Dummy tool for tools control registration.",
+        ),
         "x_search_terms": _(
             "x_search_terms",
             default=["tools control", "tools_control", "tools", "TOOLS"],
@@ -181,7 +184,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             _(
                 "msg.tools.list_header",
                 default=(
-                    "[tools] Loaded tools ({count}), " "total_round={r}, llm_round={p}:"
+                    "[tools] Loaded tools ({count}), total_round={r}, llm_round={p}:"
                 ),
             ).format(count=len(names), r=_TOTAL_ROUNDS, p=_PRODUCTIVE_ROUNDS)
         )

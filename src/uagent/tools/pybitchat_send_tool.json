@@ -4,6 +4,7 @@
     "param.type.description": "Message type: text (chat message) or announce (node announcement).",
     "param.payload.description": "Message content (text) or nickname (announce).",
     "param.recipient.description": "Optional recipient peer ID. None = broadcast.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'both'.",
     "err.payload_required": "payload is required"
   },
   "ja": {
@@ -11,6 +12,7 @@
     "param.type.description": "送信タイプ: text (テキストメッセージ) または announce (ノードアナウンス)。",
     "param.payload.description": "送信するペイロード。text の場合はメッセージ本文、announce の場合はニックネーム。",
     "param.recipient.description": "オプションの受信者ピアID。指定しない場合はブロードキャスト。",
-    "err.payload_required": "payload is required (日本語)"
+    "param.via.description": "トランスポート: 'ble' (BLEメッシュ), 'nostr' (Nostrリレー), 'both' (両方)。",
+    "err.payload_required": "payload が必要です"
   }
 }

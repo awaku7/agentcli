@@ -15,7 +15,8 @@
       "opcua",
       "OPCUA",
       "changes"
-    ]
+    ],
+    "param.timeout.description": "Connection timeout."
   },
   "ar": {
     "tool.description": "اشترك في تغييرات البيانات على عقدة خادم OPC UA. عندما تتغير القيمة، يتم إخطار LLM تلقائيًا.",
@@ -285,7 +286,8 @@
       "オプクア",
       "オプクア",
       "変化"
-    ]
+    ],
+    "param.timeout.description": "接続タイムアウト。"
   },
   "ko": {
     "tool.description": "OPC UA 서버 노드의 데이터 변경 사항을 구독합니다. 값이 변경되면 LLM에 자동으로 통보됩니다.",

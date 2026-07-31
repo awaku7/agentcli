@@ -23,7 +23,8 @@
       "detect",
       "changes",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Timeout per read (seconds)."
   },
   "ar": {
     "tool.description": "يسجل استطلاع Modbus بشكل متكرر ويكشف عن التغييرات. إرجاع ملخص لجميع التغييرات المكتشفة.",
@@ -413,7 +414,8 @@
       "検出",
       "変更",
       "戻り"
-    ]
+    ],
+    "param.timeout.description": "読み取りごとのタイムアウト (秒)。"
   },
   "ko": {
     "tool.description": "Poll Modbus는 반복적으로 등록하고 변경 사항을 감지합니다. 감지된 모든 변경 사항의 요약을 반환합니다.",

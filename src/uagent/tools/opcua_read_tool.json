@@ -12,7 +12,8 @@
       "OPCUA",
       "value(s",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Connection timeout."
   },
   "ar": {
     "tool.description": "قراءة قيمة (قيم) العقدة من خادم OPC UA. إرجاع القيمة الحالية وبيانات التعريف.",
@@ -237,7 +238,8 @@
       "オプクア",
       "値",
       "サーバー"
-    ]
+    ],
+    "param.timeout.description": "接続タイムアウト。"
   },
   "ko": {
     "tool.description": "OPC UA 서버에서 노드 값을 읽습니다. 현재 값과 메타데이터를 반환합니다.",

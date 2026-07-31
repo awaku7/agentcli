@@ -18,7 +18,8 @@
       "formatting"
     ],
     "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters.",
-    "confirm.msg": "lint_format(mode=fix) might overwrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReply with y to proceed, or c to cancel."
+    "confirm.msg": "lint_format(mode=fix) might overwrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReply with y to proceed, or c to cancel.",
+    "param.auto_install.description": "Automatically install missing formatter/linter tools with pip before running."
   },
   "ja": {
     "param.cwd.description": "作業ディレクトリ（workdir下）。",
@@ -39,7 +40,8 @@
       "フォーマット"
     ],
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。",
-    "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
+    "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
+    "param.auto_install.description": "実行前に、不足しているフォーマッタ/リンター ツールを pip で自動的にインストールします。"
   },
   "es": {
     "param.cwd.description": "Directorio de trabajo (bajo directorio de trabajo).",

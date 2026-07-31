@@ -19,7 +19,8 @@
     "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
     "err.section_invalid": "Error: 'section' must be an integer.",
     "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'."
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+    "param.block_size.description": "Number of rows per block (default 100)."
   },
   "ja": {
     "tool.description": "CSV ファイルをセクション分割し、番号付きインデックスまたは特定のセクションを返します。",
@@ -41,7 +42,8 @@
     "err.section_required": "エラー: mode='section' の場合は 'section' (整数) が必須です。",
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効な範囲: 1..{last}。",
-    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。"
+    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。",
+    "param.block_size.description": "ブロックあたりの行数 (デフォルトは 100)。"
   },
   "zh_CN": {
     "tool.description": "将文件解析为多个部分并返回 csv2idx 的编号索引或特定部分。",

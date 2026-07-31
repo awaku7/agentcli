@@ -17,7 +17,8 @@
       "bacnet",
       "BACNET",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Timeout in seconds."
   },
   "ar": {
     "tool.description": "قراءة خاصية BACnet من الجهاز. تقوم بإرجاع القيمة الحالية والبيانات التعريفية بتنسيق JSON أو نص.",
@@ -317,7 +318,8 @@
       "バックネット",
       "バクネット",
       "返品"
-    ]
+    ],
+    "param.timeout.description": "秒単位のタイムアウト。"
   },
   "ko": {
     "tool.description": "장치에서 BACnet 속성을 읽습니다. 현재 값과 메타데이터를 JSON 또는 텍스트로 반환합니다.",

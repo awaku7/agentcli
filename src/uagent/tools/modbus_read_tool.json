@@ -18,7 +18,8 @@
       "MODBUS",
       "registers",
       "supports"
-    ]
+    ],
+    "param.timeout.description": "Timeout in seconds."
   },
   "ar": {
     "tool.description": "قراءة سجلات Modbus TCP من الجهاز. يدعم الاحتفاظ بالسجلات، وسجلات الإدخال، والملفات، والمدخلات المنفصلة.",
@@ -333,7 +334,8 @@
       "モドバス",
       "レジスタ",
       "サポートします"
-    ]
+    ],
+    "param.timeout.description": "秒単位のタイムアウト。"
   },
   "ko": {
     "tool.description": "장치에서 Modbus TCP 레지스터를 읽습니다. 고정 레지스터, 입력 레지스터, 코일 및 개별 입력을 지원합니다.",

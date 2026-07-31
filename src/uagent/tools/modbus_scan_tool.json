@@ -19,7 +19,8 @@
       "devices",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Timeout per connection attempt (seconds)."
   },
   "ar": {
     "tool.description": "فحص أجهزة Modbus TCP على الشبكة المحلية. يستكشف عناوين IP ومعرفات الوحدات لاكتشاف أجهزة Modbus.",
@@ -349,7 +350,8 @@
       "デバイス",
       "ローカル",
       "ネットワーク"
-    ]
+    ],
+    "param.timeout.description": "接続試行ごとのタイムアウト (秒)。"
   },
   "ko": {
     "tool.description": "로컬 네트워크에서 Modbus TCP 장치를 검색합니다. IP 주소와 장치 ID를 조사하여 Modbus 장치를 검색합니다.",

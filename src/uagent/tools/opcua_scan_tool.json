@@ -17,7 +17,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Timeout per connection (seconds)."
   },
   "ar": {
     "tool.description": "اكتشف خوادم OPC UA على الشبكة المحلية. يستكشف عناوين IP على منفذ OPC UA الافتراضي (4840) ويحاول الاتصال وقراءة معلومات نقطة النهاية الخاصة بالخادم.",
@@ -317,7 +318,8 @@
       "サーバー",
       "ローカル",
       "ネットワーク"
-    ]
+    ],
+    "param.timeout.description": "接続ごとのタイムアウト (秒)。"
   },
   "ko": {
     "tool.description": "로컬 네트워크에서 OPC UA 서버를 검색합니다. 기본 OPC UA 포트(4840)에서 IP 주소를 프로브하고 서버의 엔드포인트 정보를 연결하고 읽으려고 시도합니다.",

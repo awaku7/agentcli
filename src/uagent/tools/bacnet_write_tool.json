@@ -20,7 +20,8 @@
       "bacnet",
       "BACNET",
       "value"
-    ]
+    ],
+    "param.timeout.description": "Timeout in seconds."
   },
   "ar": {
     "tool.description": "اكتب قيمة لخاصية BACnet على الجهاز. إرجاع النتيجة بتنسيق JSON أو نص.",
@@ -365,7 +366,8 @@
       "バックネット",
       "バクネット",
       "値"
-    ]
+    ],
+    "param.timeout.description": "秒単位のタイムアウト。"
   },
   "ko": {
     "tool.description": "장치의 BACnet 속성에 값을 씁니다. 결과를 JSON 또는 텍스트로 반환합니다.",

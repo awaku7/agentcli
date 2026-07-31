@@ -382,7 +382,8 @@
       "local",
       "network"
     ],
-    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet.",
+    "param.refresh.description": "If true, bypass cache and force a fresh scan."
   },
   "es": {
     "param.timeout.description": "Reciba el tiempo de espera en segundos para el descubrimiento de ECHONET Lite.",
@@ -998,7 +999,8 @@
       "ローカル",
       "ネットワーク"
     ],
-    "param.scope.description": "検出されたノードをネットワーク スコープでフィルタリングします。すべて = フィルターなし。 local=同じ LAN サブネット (+ 自分自身);外部=パブリック/WAN アドレス; self=ホストのみをバインドします。 local_other=プライベートですが、異なるサブネット。"
+    "param.scope.description": "検出されたノードをネットワーク スコープでフィルタリングします。すべて = フィルターなし。 local=同じ LAN サブネット (+ 自分自身);外部=パブリック/WAN アドレス; self=ホストのみをバインドします。 local_other=プライベートですが、異なるサブネット。",
+    "param.refresh.description": "true の場合、キャッシュをバイパスし、新規スキャンを強制します。"
   },
   "ko": {
     "param.timeout.description": "ECHONET Lite 검색을 위한 대기 시간(초)을 수신합니다.",

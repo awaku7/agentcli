@@ -19,7 +19,8 @@
       "MODBUS",
       "values",
       "supports"
-    ]
+    ],
+    "param.timeout.description": "Timeout in seconds."
   },
   "ar": {
     "tool.description": "اكتب القيم على جهاز Modbus TCP. يدعم الاحتفاظ بالسجلات (مفردة/متعددة) والملفات.",
@@ -349,7 +350,8 @@
       "モドバス",
       "値",
       "サポートします"
-    ]
+    ],
+    "param.timeout.description": "秒単位のタイムアウト。"
   },
   "ko": {
     "tool.description": "Modbus TCP 장치에 값을 씁니다. 홀딩 레지스터(단일/다중) 및 코일을 지원합니다.",

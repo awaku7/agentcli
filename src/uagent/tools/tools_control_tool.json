@@ -16,7 +16,8 @@
       "tools_control",
       "tools",
       "TOOLS"
-    ]
+    ],
+    "tool.description": "Dummy tool for tools control registration."
   },
   "ja": {
     "cmd.help.tools_list": "  :tools list [query]               読み込んだツール一覧を表示（名前/説明でフィルタ可）",
@@ -35,7 +36,8 @@
       "ツール_コントロール",
       "ツール",
       "ツール"
-    ]
+    ],
+    "tool.description": "ツール制御登録用のダミーツールです。"
   },
   "es": {
     "cmd.help.tools_list": "  :tools list [query]               Listar herramientas cargadas, opcionalmente filtradas por nombre/descripción",

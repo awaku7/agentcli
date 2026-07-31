@@ -42,7 +42,19 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "If true, newly opened pages become active automatically.",
+    "param.browser_channel.description": "Browser channel to use (e.g. \"msedge\" for Microsoft Edge, \"chrome\" for Google Chrome). Default: built-in Chromium.",
+    "param.dialog_policy.description": "Default dialog handling for session pages.",
+    "param.download_dir.description": "Directory for downloads when action path is omitted. Default: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Custom HTTP headers.",
+    "param.http_credentials.description": "HTTP Basic authentication credentials.",
+    "param.keep_alive.description": "Kept for clarity; start/act keep the browser open until close/TTL.",
+    "param.session_action.description": "Session control. Omit with no session_id for one-shot mode.",
+    "param.session_id.description": "Existing browser session id for continued interaction.",
+    "param.session_ttl_sec.description": "Idle timeout seconds for a session.",
+    "param.trace.description": "Enable Playwright tracing. Trace will be saved at the end of one-shot, or when session closes if started.",
+    "param.trace_path.description": "Path to save the trace zip file."
   },
   "ja": {
     "tool.description": "Playwright を使って一連のブラウザ操作を実行します。ナビゲーション、操作、抽出、マウス/キーボード制御、セッション、ネットワーク、マルチページ、アクセシビリティ、コンソール、アップロード、モバイルエミュレーションなどに対応しています。",
@@ -87,7 +99,19 @@
       "自動化",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "true の場合、新しく開かれたページは自動的にアクティブになります。",
+    "param.browser_channel.description": "使用するブラウザー チャネル (例: Microsoft Edge の場合は「msedge」、Google Chrome の場合は「chrome」)。デフォルト: 組み込みの Chromium。",
+    "param.dialog_policy.description": "セッションページのデフォルトのダイアログ処理。",
+    "param.download_dir.description": "アクションパスを省略した場合のダウンロード用ディレクトリ。デフォルト:browser_downloads/<session_id または oneshot>。",
+    "param.extra_http_headers.description": "カスタム HTTP ヘッダー。",
+    "param.http_credentials.description": "HTTP 基本認証の資格情報。",
+    "param.keep_alive.description": "わかりやすくするために残しておきます。 start/act 閉じる/TTL までブラウザを開いたままにします。",
+    "param.session_action.description": "セッション制御。ワンショット モードの場合は session_id を指定せずに省略します。",
+    "param.session_id.description": "継続的な対話のための既存のブラウザー セッション ID。",
+    "param.session_ttl_sec.description": "セッションのアイドル タイムアウト秒数。",
+    "param.trace.description": "Playwright トレースを有効にします。トレースは、ワンショットの終了時、またはセッションが開始されている場合は終了時に保存されます。",
+    "param.trace_path.description": "トレース zip ファイルを保存するパス。"
   },
   "es": {
     "tool.description": "Ejecute una secuencia de acciones del navegador usando Playwright. Admite navegación, interacción, extracción, control de mouse/teclado, sesión, red, páginas múltiples, accesibilidad, consola, cargas, emulación móvil y más.",

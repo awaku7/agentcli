@@ -203,7 +203,10 @@ TOOL_SPEC: dict[str, Any] = {
                 "headless": {"type": "boolean", "default": True},
                 "browser_channel": {
                     "type": "string",
-                    "description": 'Browser channel to use (e.g. "msedge" for Microsoft Edge, "chrome" for Google Chrome). Default: built-in Chromium.',
+                    "description": _(
+                        "param.browser_channel.description",
+                        default='Browser channel to use (e.g. "msedge" for Microsoft Edge, "chrome" for Google Chrome). Default: built-in Chromium.',
+                    ),
                 },
                 "storage_state": {"type": "string"},
                 "mobile_device": {"type": "string"},
@@ -228,7 +231,10 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "extra_http_headers": {
                     "type": "object",
-                    "description": "Custom HTTP headers.",
+                    "description": _(
+                        "param.extra_http_headers.description",
+                        default="Custom HTTP headers.",
+                    ),
                 },
                 "color_scheme": {
                     "type": "string",
@@ -240,7 +246,10 @@ TOOL_SPEC: dict[str, Any] = {
                         "username": {"type": "string"},
                         "password": {"type": "string"},
                     },
-                    "description": "HTTP Basic authentication credentials.",
+                    "description": _(
+                        "param.http_credentials.description",
+                        default="HTTP Basic authentication credentials.",
+                    ),
                 },
                 "trace": {
                     "type": "object",
@@ -248,46 +257,73 @@ TOOL_SPEC: dict[str, Any] = {
                         "screenshots": {"type": "boolean", "default": True},
                         "snapshots": {"type": "boolean", "default": True},
                     },
-                    "description": "Enable Playwright tracing. Trace will be saved at the end of one-shot, or when session closes if started.",
+                    "description": _(
+                        "param.trace.description",
+                        default="Enable Playwright tracing. Trace will be saved at the end of one-shot, or when session closes if started.",
+                    ),
                 },
                 "trace_path": {
                     "type": "string",
                     "default": "trace.zip",
-                    "description": "Path to save the trace zip file.",
+                    "description": _(
+                        "param.trace_path.description",
+                        default="Path to save the trace zip file.",
+                    ),
                 },
                 "session_id": {
                     "type": "string",
-                    "description": "Existing browser session id for continued interaction.",
+                    "description": _(
+                        "param.session_id.description",
+                        default="Existing browser session id for continued interaction.",
+                    ),
                 },
                 "session_action": {
                     "type": "string",
                     "enum": ["start", "act", "snapshot", "list", "close"],
-                    "description": "Session control. Omit with no session_id for one-shot mode.",
+                    "description": _(
+                        "param.session_action.description",
+                        default="Session control. Omit with no session_id for one-shot mode.",
+                    ),
                 },
                 "session_ttl_sec": {
                     "type": "integer",
                     "default": DEFAULT_SESSION_TTL_SEC,
-                    "description": "Idle timeout seconds for a session.",
+                    "description": _(
+                        "param.session_ttl_sec.description",
+                        default="Idle timeout seconds for a session.",
+                    ),
                 },
                 "keep_alive": {
                     "type": "boolean",
                     "default": True,
-                    "description": "Kept for clarity; start/act keep the browser open until close/TTL.",
+                    "description": _(
+                        "param.keep_alive.description",
+                        default="Kept for clarity; start/act keep the browser open until close/TTL.",
+                    ),
                 },
                 "auto_focus_new_page": {
                     "type": "boolean",
                     "default": False,
-                    "description": "If true, newly opened pages become active automatically.",
+                    "description": _(
+                        "param.auto_focus_new_page.description",
+                        default="If true, newly opened pages become active automatically.",
+                    ),
                 },
                 "dialog_policy": {
                     "type": "string",
                     "enum": ["accept", "dismiss", "manual"],
                     "default": "manual",
-                    "description": "Default dialog handling for session pages.",
+                    "description": _(
+                        "param.dialog_policy.description",
+                        default="Default dialog handling for session pages.",
+                    ),
                 },
                 "download_dir": {
                     "type": "string",
-                    "description": "Directory for downloads when action path is omitted. Default: browser_downloads/<session_id or oneshot>.",
+                    "description": _(
+                        "param.download_dir.description",
+                        default="Directory for downloads when action path is omitted. Default: browser_downloads/<session_id or oneshot>.",
+                    ),
                 },
             },
             "required": [],
