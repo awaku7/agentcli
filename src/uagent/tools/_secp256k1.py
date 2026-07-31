@@ -10,6 +10,10 @@ import os
 
 from .._pip_auto import install_with_status
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 if install_with_status("ecdsa"):
     from ecdsa import SECP256k1, SigningKey
 else:
@@ -69,7 +73,7 @@ def schnorr_sign(priv_bytes: bytes, msg: bytes) -> bytes:
 
     d = _int_from_bytes(priv_bytes)
     if d >= order or d == 0:
-        raise ValueError("Invalid private key")
+        raise ValueError(_("secp256k1.invalid_privkey", default="Invalid private key"))
 
     # Public key point
     sk = SigningKey.from_string(priv_bytes, curve=SECP256k1)
@@ -185,7 +189,9 @@ def ecdh_shared_key(priv_bytes: bytes, pub_xonly: bytes) -> bytes:
     y_sq = (x3 + 7) % p_val
     y = pow(y_sq, (p_val + 1) // 4, p_val)
     if (y * y) % p_val != y_sq:
-        raise ValueError("Invalid public key point")
+        raise ValueError(
+            _("secp256k1.invalid_pubkey", default="Invalid public key point")
+        )
     # Any y works for shared secret derivation
     peer_point = Point(curve, px, y)
 

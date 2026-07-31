@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 """Shared utility for genre-based tool enable/disable.
 
 Replaces hardcoded module lists in genre control tools with dynamic discovery.
@@ -142,7 +146,10 @@ def enable_genre_tools(genre: str) -> list[str]:
         reason = getattr(mod, "LOAD_DISABLED_REASON", "")
         if reason:
             print(
-                f"[tools] Skipping {mname}: {reason}",
+                _(
+                    "genre_control.skip_module",
+                    default=f"[tools] Skipping {mname}: {reason}",
+                ),
                 file=sys.stderr,
             )
             continue

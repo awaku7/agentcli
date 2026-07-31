@@ -19,6 +19,10 @@ import threading
 import time as _time
 from typing import Any, Callable
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,  # Dynamic commands only
     "type": "function",
@@ -30,15 +34,11 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    return "Nostr transport CLI commands registered."
+    return _("nostr.registered", default="Nostr transport CLI commands registered.")
 
 
 def ensure_dependencies() -> bool:
-    """Check required packages are importable.
-
-    Does NOT auto-install — all deps are lightweight and either pre-installed
-    (websockets) or commonly available (pynacl). If missing, user is prompted.
-    """
+    """Check required packages are importable and auto-install if missing."""
     missing = []
     try:
         import websockets  # noqa: F401
@@ -49,6 +49,10 @@ def ensure_dependencies() -> bool:
     except ImportError:
         missing.append("pynacl")
     if missing:
+        from ._pip_auto import ensure_packages
+
+        if ensure_packages(missing, "nostr"):
+            return True
         _notify_display(
             f"[nostr] Missing dependencies: {', '.join(missing)}. "
             f"Run: pip install {' '.join(missing)}"
@@ -154,6 +158,20 @@ def _load_or_create_key() -> tuple[str, str]:
         pass
 
     return priv_hex, pub_hex
+
+
+def _get_ssl_context() -> Any:
+    """Return SSLContext respecting UAGENT_SSL_VERIFY / util_providers setting."""
+    import ssl
+    from ..providers.util_providers import is_ssl_verify_disabled
+
+    verify = (os.getenv("UAGENT_SSL_VERIFY") or "1").strip().lower()
+    if is_ssl_verify_disabled() or verify in ("0", "false", "no", "off"):
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return ctx
+    return None
 
 
 def _sign_event(payload: dict, priv_hex: str) -> str:
@@ -632,14 +650,17 @@ class NostrTransport:
         import websockets
         import websockets.exceptions as _wse
 
+        ssl_ctx = _get_ssl_context()
         while not self._stop_event.is_set():
             try:
-                async with websockets.connect(
-                    url,
-                    ping_interval=30,
-                    ping_timeout=10,
-                    max_size=2**20,
-                ) as ws:
+                kwargs: dict[str, Any] = {
+                    "ping_interval": 30,
+                    "ping_timeout": 10,
+                    "max_size": 2**20,
+                }
+                if ssl_ctx is not None:
+                    kwargs["ssl"] = ssl_ctx
+                async with websockets.connect(url, **kwargs) as ws:
                     self._relay_connections[url] = ws
                     _notify_display(f"[nostr] Connected to {url}")
 
@@ -923,7 +944,7 @@ def start_nostr(
                 "pubkey": _NOSTR_INSTANCE.pubkey_hex,
             }
 
-        # Silently check deps — if missing they'll fail at connect time
+        # Silently check deps -- if missing they'll fail at connect time
         try:
             ensure_dependencies()
         except Exception:
@@ -983,7 +1004,7 @@ def nostr_send_kind1059(
 def encode_npub(pubkey_hex: str) -> str:
     """Encode a 32-byte hex public key to bech32 npub format."""
     if not pubkey_hex or len(pubkey_hex) != 64:
-        return ""
+        return _("nostr.empty_pubkey", default="")
     try:
         data = bytes.fromhex(pubkey_hex)
         converted = _convertbits(data, 8, 5, True)
@@ -992,7 +1013,7 @@ def encode_npub(pubkey_hex: str) -> str:
             "qpzry9x8gf2tvdw0s3jn54khce6mua7l"[p] for p in converted + checksum
         )
     except Exception:
-        return ""
+        return _("nostr.empty_fallback", default="")
 
 
 def nostr_pubkey() -> str:
@@ -1019,16 +1040,16 @@ def _cmd_nostr_connect(arg: str, **kwargs: Any) -> Any:
     if res.get("ok"):
         pubkey = res.get("pubkey", "")
         npub = encode_npub(pubkey)
-        print("Nostr connected.")
+        print(_("nostr.msg1", default="Nostr connected."))
         if pubkey:
-            print(f"  pubkey (hex):  {pubkey}")
+            print(_("nostr.msg2", default=f"  pubkey (hex):  {pubkey}"))
             if npub:
-                print(f"  pubkey (npub): {npub}")
+                print(_("nostr.msg3", default=f"  pubkey (npub): {npub}"))
         r_list = res.get("relays", [])
         for r in r_list:
-            print(f"  relay: {r}")
+            print(_("nostr.msg4", default=f"  relay: {r}"))
     else:
-        print(f"Error connecting to Nostr: {res.get('error')}")
+        print(_("nostr.msg5", default=f"Error connecting to Nostr: {res.get('error')}"))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1037,7 +1058,7 @@ def _cmd_nostr_connect(arg: str, **kwargs: Any) -> Any:
 def _cmd_nostr_disconnect(arg: str, **kwargs: Any) -> Any:
     """Handle :nostr disconnect"""
     stop_nostr()
-    print("Nostr disconnected.")
+    print(_("nostr.msg6", default="Nostr disconnected."))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1049,18 +1070,18 @@ def _cmd_nostr_status(arg: str, **kwargs: Any) -> Any:
     state = st.get("state", "stopped")
     pub = st.get("pubkey", "") or nostr_pubkey()
     npub = encode_npub(pub)
-    print(f"Nostr status: {state}")
+    print(_("nostr.msg7", default=f"Nostr status: {state}"))
     if pub:
-        print(f"  pubkey (hex):  {pub}")
+        print(_("nostr.msg8", default=f"  pubkey (hex):  {pub}"))
         if npub:
-            print(f"  pubkey (npub): {npub}")
-    print(f"  key file:      {_NOSTR_KEY_FILE}")
+            print(_("nostr.msg9", default=f"  pubkey (npub): {npub}"))
+    print(_("nostr.msg10", default=f"  key file:      {_NOSTR_KEY_FILE}"))
     if state == "running":
         conns = st.get("connections", 0)
         relays = st.get("relays", [])
-        print(f"  connections:   {conns}")
+        print(_("nostr.msg11", default=f"  connections:   {conns}"))
         for r in relays:
-            print(f"  relay:         {r}")
+            print(_("nostr.msg12", default=f"  relay:         {r}"))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1070,7 +1091,7 @@ def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
     """Handle :nostr post <message>"""
     msg = arg.strip()
     if not msg:
-        print("Usage: :nostr post <message>")
+        print(_("nostr.msg13", default="Usage: :nostr post <message>"))
         from ..util_tools import CommandResult
 
         return CommandResult()
@@ -1079,7 +1100,7 @@ def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
     if not inst or not inst.is_running:
         res = start_nostr()
         if not res.get("ok"):
-            print(f"Error starting Nostr: {res.get('error')}")
+            print(_("nostr.msg14", default=f"Error starting Nostr: {res.get('error')}"))
             from ..util_tools import CommandResult
 
             return CommandResult()
@@ -1087,9 +1108,9 @@ def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
 
     res = nostr_send_text(msg)
     if res.get("ok"):
-        print(f"Posted note to Nostr: {msg}")
+        print(_("nostr.msg15", default=f"Posted note to Nostr: {msg}"))
     else:
-        print(f"Error posting note: {res.get('error')}")
+        print(_("nostr.msg16", default=f"Error posting note: {res.get('error')}"))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -1103,17 +1124,21 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
 
     inst = get_nostr_instance()
     if not inst or not inst.is_running:
-        print("Starting Nostr connection to fetch timeline...")
+        print(
+            _("nostr.msg17", default="Starting Nostr connection to fetch timeline...")
+        )
         res = start_nostr()
         if not res.get("ok"):
-            print(f"Error starting Nostr: {res.get('error')}")
+            print(_("nostr.msg18", default=f"Error starting Nostr: {res.get('error')}"))
             from ..util_tools import CommandResult
 
             return CommandResult()
         inst = get_nostr_instance()
 
     # Request global kind-1 notes from relays
-    print(f"Fetching recent {limit} notes from Nostr relays...")
+    print(
+        _("nostr.msg19", default=f"Fetching recent {limit} notes from Nostr relays...")
+    )
     notes: list[dict] = []
     import websockets
     import asyncio
@@ -1151,7 +1176,7 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
     try:
         asyncio.run(_fetch())
     except Exception as e:
-        print(f"Fetch timeline error: {e}")
+        print(_("nostr.msg20", default=f"Fetch timeline error: {e}"))
 
     # Deduplicate and sort by created_at
     seen = set()
@@ -1165,9 +1190,14 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
     unique_notes.sort(key=lambda x: x.get("created_at", 0))
 
     if not unique_notes:
-        print("No recent notes found.")
+        print(_("nostr.msg21", default="No recent notes found."))
     else:
-        print(f"--- Nostr Timeline ({len(unique_notes)} notes) ---")
+        print(
+            _(
+                "nostr.msg22",
+                default=f"--- Nostr Timeline ({len(unique_notes)} notes) ---",
+            )
+        )
         for n in unique_notes[-limit:]:
             pk = n.get("pubkey", "")
             npub = encode_npub(pk)
@@ -1176,7 +1206,7 @@ def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
                 "%Y-%m-%d %H:%M:%S", _time.localtime(n.get("created_at", 0))
             )
             text = n.get("content", "").strip().replace("\n", " ")
-            print(f"[{ts}] {short_author}: {text}")
+            print(_("nostr.msg23", default=f"[{ts}] {short_author}: {text}"))
 
     from ..util_tools import CommandResult
 

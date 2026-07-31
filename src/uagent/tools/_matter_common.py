@@ -13,7 +13,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 # ---------------------------------------------------------------------------
-# Recovery hints — mapping from error code to user-facing suggestion
+# Recovery hints -- mapping from error code to user-facing suggestion
 # ---------------------------------------------------------------------------
 _RECOVERY_HINTS: dict[str, str] = {
     "config_missing": _(

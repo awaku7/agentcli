@@ -10,6 +10,10 @@ from typing import Any
 
 # ---- GeoHash encoder (pure Python, no deps) --------------------------------
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz"
 # (note: geohash uses a modified base32, skipping a,i,l,o)
 
@@ -113,7 +117,7 @@ def geo_peer_id(geohash: str) -> str:
 
     Format: "nostr:" + geohash (matches upstream nostr_geo_chat_peer_id).
     """
-    return f"nostr:{geohash}"
+    return _("geo.nostr_uri", default=f"nostr:{geohash}")
 
 
 def join_geo_channel_by_hash(

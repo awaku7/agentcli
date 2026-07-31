@@ -161,8 +161,13 @@ def analyze_image_openai(
             model = env_get("UAGENT_IMG_ANALYSIS_DEPNAME") or "qwen-vl-max"
             if not api_key:
                 raise RuntimeError(
-                    "Missing required env vars for alibaba image analysis. "
-                    "Need api_key/model (UAGENT_ALIBABA_*)."
+                    _(
+                        "vision.alibaba_missing_env",
+                        default=(
+                            "Missing required env vars for alibaba image analysis. "
+                            "Need api_key/model (UAGENT_ALIBABA_*)."
+                        ),
+                    )
                 )
         elif provider_l == "moonshot":
             api_key = _img_env("moonshot", "analysis", "api_key") or _env_first(
@@ -178,8 +183,13 @@ def analyze_image_openai(
             )
             if not (api_key and model):
                 raise RuntimeError(
-                    "Missing required env vars for moonshot image analysis. "
-                    "Need api_key/model (UAGENT_MOONSHOT_*)."
+                    _(
+                        "vision.moonshot_missing_env",
+                        default=(
+                            "Missing required env vars for moonshot image analysis. "
+                            "Need api_key/model (UAGENT_MOONSHOT_*)."
+                        ),
+                    )
                 )
         else:  # openai
             api_key = _img_env("openai", "analysis", "api_key") or _env_first(
@@ -204,7 +214,7 @@ def analyze_image_openai(
 
         vision_err = check_vision_support(model, provider)
         if vision_err:
-            return f"[ERROR] {vision_err}"
+            return _("vision.error_prefix", default=f"[ERROR] {vision_err}")
         max_tokens = vision_completion_max_tokens(model, provider, default=1024)
     except Exception:
         max_tokens = 1024

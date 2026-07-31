@@ -11,6 +11,10 @@ import asyncio
 import threading
 from typing import Any, Callable, TypeVar
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _BAC0_MODULE = None  # cached BAC0 module
 _BAC0_INSTANCE: Any = None
 _BAC0_LOCK = threading.Lock()
@@ -35,7 +39,12 @@ def _bac0_import():
         from .._pip_auto import install_with_status as _install_bac0
 
         if not _install_bac0("BAC0"):
-            raise ImportError("BAC0 library could not be installed.")
+            raise ImportError(
+                _(
+                    "bacnet.install_failed",
+                    default="BAC0 library could not be installed.",
+                )
+            )
         import BAC0  # type: ignore[import-untyped]
     _BAC0_MODULE = BAC0
     return BAC0
@@ -88,7 +97,9 @@ def _ensure_loop_locked() -> asyncio.AbstractEventLoop:
     if not loop.is_running():
         _BAC0_LOOP = None
         _BAC0_THREAD = None
-        raise RuntimeError("BAC0 event loop failed to start")
+        raise RuntimeError(
+            _("bacnet.loop_failed", default="BAC0 event loop failed to start")
+        )
     return loop
 
 
@@ -151,7 +162,9 @@ def ensure_bac0(ip: str | None = None) -> tuple[Any, asyncio.AbstractEventLoop]:
             # Leave loop running for subsequent retries; clear instance only
             _BAC0_INSTANCE = None
             _BAC0_IP = None
-            raise RuntimeError(f"BAC0.lite startup failed: {e}") from e
+            raise RuntimeError(
+                _("bacnet.startup_failed", default=f"BAC0.lite startup failed: {e}")
+            ) from e
 
         return _BAC0_INSTANCE, loop
 

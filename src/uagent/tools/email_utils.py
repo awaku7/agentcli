@@ -4,10 +4,15 @@ from email.header import decode_header
 from typing import Any
 
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
+
 def decode_email_header_value(val: bytes | str | None) -> str:
     """Decode an email header (RFC 2047) to plain text."""
     if val is None:
-        return ""
+        return _("email_utils.empty1", default="")
     if isinstance(val, bytes):
         val = val.decode("utf-8", errors="replace")
     parts = decode_header(val)
@@ -27,7 +32,7 @@ def decode_email_payload(part: Any) -> str:
     """Decode a MIME part payload to text."""
     payload = part.get_payload(decode=True)
     if payload is None:
-        return ""
+        return _("email_utils.empty2", default="")
     charset = part.get_content_charset() or "utf-8"
     try:
         return payload.decode(charset, errors="replace")
@@ -45,7 +50,7 @@ def get_email_body(msg: Any) -> str:
         for part in msg.walk():
             if part.get_content_maintype() == "text":
                 return decode_email_payload(part)
-        return ""
+        return _("email_utils.empty3", default="")
     return decode_email_payload(msg)
 
 

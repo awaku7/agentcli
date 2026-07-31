@@ -162,7 +162,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
 
         vision_err = check_vision_support(model, provider)
         if vision_err:
-            return f"[ERROR] {vision_err}"
+            return _("vision.error_prefix", default=f"[ERROR] {vision_err}")
         max_out = vision_completion_max_tokens(model, provider, default=1024)
     except Exception:
         max_out = 1024

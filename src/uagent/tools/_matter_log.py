@@ -17,6 +17,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _LOG_LEVELS = {"debug": 0, "info": 1, "warn": 2, "error": 3}
 
 # Cache for log dir to avoid repeated stat calls
@@ -42,7 +46,7 @@ def _mask_sensitive(value: Any) -> Any:
     if isinstance(value, str):
         s = value.lower()
         if any(kw in s for kw in ("key", "token", "password", "secret", "credential")):
-            return "***"
+            return _("matter_log.mask", default="***")
     return value
 
 

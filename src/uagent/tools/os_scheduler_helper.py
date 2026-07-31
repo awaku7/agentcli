@@ -9,6 +9,10 @@ import uuid
 from datetime import datetime
 from typing import Any
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _JOB_PREFIX = "uag_timer_"
 
 
@@ -16,7 +20,7 @@ def detect_os() -> str:
     system = platform.system().lower()
     if system in ("windows", "darwin", "linux"):
         return system
-    return "unknown"
+    return _("os_sched.unknown", default="unknown")
 
 
 def _sanitize_message(text: str) -> str:

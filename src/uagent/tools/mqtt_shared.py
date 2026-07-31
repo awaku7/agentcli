@@ -8,6 +8,10 @@ import time
 from typing import Any, Callable
 from uuid import uuid4
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _CLIENTS: dict[str, dict[str, Any]] = {}
 _CLIENTS_LOCK = threading.Lock()
 _DEFAULT_QOS = 0
@@ -20,7 +24,12 @@ def _paho_import():
         from .._pip_auto import install_with_status as _install_mqtt
 
         if not _install_mqtt("paho-mqtt"):
-            raise ImportError("paho-mqtt library could not be installed.")
+            raise ImportError(
+                _(
+                    "mqtt.install_failed",
+                    default="paho-mqtt library could not be installed.",
+                )
+            )
         import paho.mqtt.client as mqtt
     return mqtt
 

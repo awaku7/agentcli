@@ -84,7 +84,7 @@ def read_index_source(path: str, max_bytes: int = DEFAULT_INDEX_MAX_BYTES) -> st
         except UnicodeDecodeError:
             continue
 
-    # EBCDIC practical fallback — only when primary encodings all failed
+    # EBCDIC practical fallback -- only when primary encodings all failed
     best = None
     for encoding in _EBCDIC_CANDIDATES:
         try:

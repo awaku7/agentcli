@@ -15,6 +15,10 @@ from typing import Any
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _CACHE: dict[str, tuple[Any, float]] = {}
 _CACHE_TTL = int(os.getenv("UCP_CACHE_TTL", "300"))
 
@@ -387,7 +391,7 @@ def _raise_for_error(status: int, body: Any, headers: dict[str, str]) -> None:
     if status == 429:
         retry_after = headers.get("Retry-After", "5")
         raise UCPRecoverableError(
-            f"Rate limited. Retry after {retry_after}s",
+            _("ucp.rate_limited", default=f"Rate limited. Retry after {retry_after}s"),
             status_code=status,
             body=body,
         )
@@ -411,7 +415,7 @@ def _raise_for_error(status: int, body: Any, headers: dict[str, str]) -> None:
             )
 
     raise UCPError(
-        f"HTTP {status}: {body}",
+        _("ucp.http_error", default=f"HTTP {status}: {body}"),
         status_code=status,
         body=body,
     )
@@ -500,12 +504,18 @@ def discover_business(business_url: str) -> dict[str, Any]:
         raise
     except Exception as exc:
         raise UCPUnrecoverableError(
-            f"Failed to fetch UCP profile from {profile_url}: {exc}"
+            _(
+                "ucp.fetch_failed",
+                default=f"Failed to fetch UCP profile from {profile_url}: {exc}",
+            )
         )
 
     if status != 200 or body is None:
         raise UCPUnrecoverableError(
-            f"Business at {business_url} does not support UCP (HTTP {status})"
+            _(
+                "ucp.not_supported",
+                default=f"Business at {business_url} does not support UCP (HTTP {status})",
+            )
         )
 
     _cache_set(cache_key, body)
@@ -680,7 +690,10 @@ def ucp_request(
     endpoint = resolve_endpoint(profile)
     if not endpoint:
         raise UCPUnrecoverableError(
-            f"Business at {business_url} has no REST endpoint for shopping service"
+            _(
+                "ucp.no_endpoint",
+                default=f"Business at {business_url} has no REST endpoint for shopping service",
+            )
         )
 
     url = endpoint.rstrip("/") + "/" + path.lstrip("/")

@@ -6,6 +6,11 @@ import sys
 from typing import Any
 
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
+
 def load_rust_pyd(
     module_name: str,
     *,
@@ -60,7 +65,12 @@ def load_rust_pyd(
     if resolved_path and os.path.isfile(resolved_path):
         spec = importlib.util.spec_from_file_location(module_name, resolved_path)
         if spec is None or spec.loader is None:
-            raise ImportError(f"Cannot create spec for .pyd at {resolved_path}")
+            raise ImportError(
+                _(
+                    "rust.spec_failed",
+                    default=f"Cannot create spec for .pyd at {resolved_path}",
+                )
+            )
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         sys.modules[module_name] = mod

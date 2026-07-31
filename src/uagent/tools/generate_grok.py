@@ -104,7 +104,9 @@ def _get_grok_client_and_model() -> tuple[Any, str]:
     try:
         client = XAIClient(api_key=api_key, use_insecure_channel=use_insecure)
     except Exception as e:
-        raise RuntimeError(f"Failed to initialize xAI Client: {e}")
+        raise RuntimeError(
+            _("grok.init_failed", default=f"Failed to initialize xAI Client: {e}")
+        )
 
     return client, model
 
@@ -112,7 +114,7 @@ def _get_grok_client_and_model() -> tuple[Any, str]:
 def _closest_aspect_ratio(width: int, height: int) -> str:
     """Map WxH to the nearest supported xAI aspect_ratio label."""
     if width <= 0 or height <= 0:
-        return "1:1"
+        return _("grok.aspect_11", default="1:1")
     target = width / height
     best_label = "1:1"
     best_diff = float("inf")
@@ -175,7 +177,7 @@ def _extract_url(resp: Any) -> str:
             return str(public_url)
     except Exception:
         pass
-    return ""
+    return _("grok.empty2", default="")
 
 
 def _extract_b64(resp: Any) -> str:
@@ -193,7 +195,7 @@ def _extract_b64(resp: Any) -> str:
         except Exception:
             raw = ""
     if not raw:
-        return ""
+        return _("grok.empty1", default="")
     s = str(raw).strip()
     if "base64," in s:
         s = s.split("base64,", 1)[1]

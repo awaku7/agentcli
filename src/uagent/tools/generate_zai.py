@@ -103,7 +103,9 @@ def _get_zai_client_and_model() -> tuple[Any, str]:
         else:
             client = ZaiClient(api_key=api_key, base_url=base_url)
     except Exception as e:
-        raise RuntimeError(f"Failed to initialize ZaiClient: {e}")
+        raise RuntimeError(
+            _("zai.init_failed", default=f"Failed to initialize ZaiClient: {e}")
+        )
 
     return client, model
 
@@ -144,7 +146,7 @@ def _sanitize_size_for_zai(size: str) -> str:
     w = (w // 32) * 32
     h = (h // 32) * 32
 
-    return f"{w}x{h}"
+    return _("zai.dimensions", default=f"{w}x{h}")
 
 
 def generate_image_zai(

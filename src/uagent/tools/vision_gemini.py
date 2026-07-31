@@ -107,7 +107,7 @@ def analyze_image_gemini(
 
             vision_err = check_vision_support(model_name, provider)
             if vision_err:
-                return f"[ERROR] {vision_err}"
+                return _("vision.error_prefix", default=f"[ERROR] {vision_err}")
             max_out = vision_completion_max_tokens(model_name, provider, default=1024)
             try:
                 gen_config = types.GenerateContentConfig(

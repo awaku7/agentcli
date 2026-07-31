@@ -5,6 +5,10 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Callable
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 
 def _asyncua_import():
     try:
@@ -13,7 +17,12 @@ def _asyncua_import():
         from .._pip_auto import install_with_status as _install_ua
 
         if not _install_ua("asyncua"):
-            raise ImportError("asyncua library could not be installed.")
+            raise ImportError(
+                _(
+                    "opcua.install_failed",
+                    default="asyncua library could not be installed.",
+                )
+            )
         from asyncua import Client, ua
     return Client, ua
 

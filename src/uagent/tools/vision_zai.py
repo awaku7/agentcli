@@ -31,14 +31,21 @@ _DEFAULT_VISION_MODEL = "glm-4.6v"
 def _image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
     p = Path(path)
     if not p.exists():
-        raise FileNotFoundError(f"Image not found: {path}")
+        raise FileNotFoundError(
+            _("vision.img_not_found", default=f"Image not found: {path}")
+        )
     size = p.stat().st_size
     if size > max_bytes:
-        raise ValueError(f"Image too large: {size} bytes (max={max_bytes})")
-    mime, _ = mimetypes.guess_type(str(p))
+        raise ValueError(
+            _(
+                "vision.img_too_large",
+                default=f"Image too large: {size} bytes (max={max_bytes})",
+            )
+        )
+    mime, _enc = mimetypes.guess_type(str(p))
     data = p.read_bytes()
     b64 = base64.b64encode(data).decode("ascii")
-    return f"data:{mime or 'image/jpeg'};base64,{b64}"
+    return _("vision.data_uri", default=f"data:{mime or 'image/jpeg'};base64,{b64}")
 
 
 def _ssl_verify_enabled() -> bool:

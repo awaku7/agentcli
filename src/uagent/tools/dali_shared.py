@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 
 def _dali_import():
     try:
@@ -14,7 +18,12 @@ def _dali_import():
         from .._pip_auto import install_with_status as _install_dali
 
         if not _install_dali("python-dali"):
-            raise ImportError("python-dali library could not be installed.")
+            raise ImportError(
+                _(
+                    "dali.install_failed",
+                    default="python-dali library could not be installed.",
+                )
+            )
         import dali.gear.general as gg
         import dali.address as addr
         import dali.driver as drv
@@ -76,4 +85,4 @@ def send_command(driver: Any, command: Any) -> Any:
     """Send a DALI command and return the response."""
     if hasattr(driver, "send"):
         return driver.send(command)
-    raise RuntimeError("Driver does not support send()")
+    raise RuntimeError(_("dali.no_send", default="Driver does not support send()"))
