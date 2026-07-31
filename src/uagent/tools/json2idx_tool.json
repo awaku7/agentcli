@@ -26,7 +26,8 @@
     "x_search_terms": [
       "JSOファイルを読む",
       "JSOインデックス",
-      "セクション分割"
+      "セクション分割",
+      "セクションスプリッター"
     ],
     "param.path.description": "ファイルへのパス。",
     "param.mode.description": "\"index\" は番号付き目次を返します。\"section\" は指定セクションを返します。",
@@ -90,7 +91,7 @@
     "tool.description": "파일을 섹션으로 구문 분석하고 json2idx에 대한 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다.",
     "x_search_terms": [
       "Jso 파일",
-      "jso index",
+      "JSO 인덱스",
       "jso 파서",
       "섹션 분할기 읽기"
     ],
@@ -200,9 +201,9 @@
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
     "x_search_terms": [
       "leia arquivo jso",
-      "jso index",
-      "jso parser",
-      "section splitter"
+      "índice jso",
+      "analisador jso",
+      "divisor de seção"
     ],
     "param.path.description": "Caminho para o arquivo.",
     "param.mode.description": "\"índice\" retorna um índice numerado. \"seção\" retorna uma seção específica.",
@@ -222,9 +223,9 @@
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
     "x_search_terms": [
       "leia arquivo jso",
-      "jso index",
-      "jso parser",
-      "section splitter"
+      "índice jso",
+      "analisador jso",
+      "divisor de seção"
     ],
     "param.path.description": "Caminho para o arquivo.",
     "param.mode.description": "\"índice\" retorna um índice numerado. \"seção\" retorna uma seção específica.",
@@ -267,7 +268,7 @@
     "x_search_terms": [
       "membaca file jso",
       "jso indeks",
-      "jso parser",
+      "juga pengurai",
       "pembagi bagian"
     ],
     "param.path.description": "Jalur ke file.",
@@ -311,7 +312,7 @@
     "x_search_terms": [
       "przeczytaj plik jso",
       "jso indeks",
-      "jso parser",
+      "parser jso",
       "rozdzielacz sekcji"
     ],
     "param.path.description": "Ścieżka do pliku.",
@@ -420,8 +421,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for json2idx.",
     "x_search_terms": [
       "les jso file",
-      "jso index",
-      "jso parser",
+      "jso-indeksen",
+      "jso-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",
@@ -442,9 +443,9 @@
     "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor json2idx.",
     "x_search_terms": [
       "lees jso file",
-      "jso index",
-      "jso parser",
-      "section splitter"
+      "jso-index",
+      "jso-parser",
+      "sectiesplitter"
     ],
     "param.path.description": "Pad naar het bestand.",
     "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave. \"sectie\" retourneert een specifieke sectie.",
@@ -486,8 +487,8 @@
     "tool.description": "Analyzujte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro json2idx.",
     "x_search_terms": [
       "číst jso soubor",
-      "jso index",
-      "jso parser",
+      "index jso",
+      "analyzátor jso",
       "rozdělovač sekcí"
     ],
     "param.path.description": "Cesta k souboru.",
@@ -553,7 +554,7 @@
     "x_search_terms": [
       "อ่านไฟล์ jso",
       "jso ดัชนี",
-      "jso parser",
+      "ตัวแยกวิเคราะห์ jso",
       "ตัวแยกส่วน"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์.",
@@ -574,8 +575,8 @@
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং json2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
     "x_search_terms": [
       "jso ফাইল পড়ুন",
-      "jso index",
-      "jso parser",
+      "jso সূচক",
+      "jso পার্সার",
       " section splitter"
     ],
     "param.path.description": "ফাইলের পাথ।",
@@ -596,9 +597,9 @@
     "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی برای json2idx برگردانید.",
     "x_search_terms": [
       "فایل jso را بخوانید",
-      "",
-      "",
-      ""
+      "شاخص jso",
+      "تجزیه کننده jso",
+      "تقسیم کننده بخش"
     ],
     "param.path.description": "مسیر فایل.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده را برمی گرداند. \"section\" یک بخش خاص را برمی گرداند.",
@@ -608,7 +609,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل: {e}",
     "msg.no_entries": "(بخشی پیدا نشد)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، با mode='section' و section=N تماس بگیرید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
@@ -640,7 +641,7 @@
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि json2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
     "x_search_terms": [
       "jso फाइल वाचा",
-      "jso index",
+      "jso निर्देशांक",
       "jso पार्सर",
       " विभाग स्प्लिटर"
     ],
@@ -662,8 +663,8 @@
     "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το json2idx.",
     "x_search_terms": [
       "διαβάστε το αρχείο jso",
-      "jso index",
-      "jso parser",
+      "ευρετήριο jso",
+      "jso αναλυτής",
       " διαχωριστή ενοτήτων"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο.",
@@ -684,8 +685,8 @@
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור json2idx.",
     "x_search_terms": [
       "קרא את מפצל ה-jso file",
-      "jso index",
-      "jso parser",
+      "אינדקס jso",
+      "מנתח jso",
       "מפצל"
     ],
     "param.path.description": "נתיב לקובץ.",
@@ -707,7 +708,7 @@
     "x_search_terms": [
       "jso fájl",
       "jso index",
-      "jso parser",
+      "jso elemző",
       "szakaszosztó olvasása"
     ],
     "param.path.description": "A fájl elérési útja.",
@@ -728,9 +729,9 @@
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru json2idx.",
     "x_search_terms": [
       "citește fișierul jso",
-      "jso index",
+      "index jso",
       "jso parser",
-      "section splitter"
+      "separator de secțiuni"
     ],
     "param.path.description": "Calea către fișier.",
     "param.mode.description": "„index” returnează un cuprins numerotat. „secțiune” returnează o anumită secțiune.",

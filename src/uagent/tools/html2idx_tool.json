@@ -26,7 +26,8 @@
     "x_search_terms": [
       "HTMファイルを読む",
       "HTMインデックス",
-      "セクション分割"
+      "セクション分割",
+      "セクションスプリッター"
     ],
     "param.path.description": "ファイルへのパス。",
     "param.mode.description": "\"index\" は番号付き目次を返します。\"section\" は指定セクションを返します。",
@@ -311,7 +312,7 @@
     "x_search_terms": [
       "przeczytaj plik htm",
       "htm indeks",
-      "htm parser",
+      "parser htm",
       "rozdzielacz sekcji"
     ],
     "param.path.description": "Ścieżka do pliku.",
@@ -420,8 +421,8 @@
     "tool.description": "Parse filen i seksjoner og returner en nummerert indeks eller spesifikk seksjon for html2idx.",
     "x_search_terms": [
       "les htm file",
-      "htm index",
-      "htm parser",
+      "htm indeks",
+      "htm-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",
@@ -487,7 +488,7 @@
     "x_search_terms": [
       "číst soubor htm",
       "htm index",
-      "htm parser",
+      "htm analyzátor",
       "rozdělovač sekcí"
     ],
     "param.path.description": "Cesta k souboru.",
@@ -552,8 +553,8 @@
     "tool.description": "แยกไฟล์ออกเป็นส่วนๆ และส่งกลับดัชนีตัวเลขหรือส่วนเฉพาะสำหรับ html2idx",
     "x_search_terms": [
       "อ่านไฟล์ htm",
-      "htm index",
-      "htm parser",
+      "ดัชนี htm",
+      "ตัวแยกวิเคราะห์ htm",
       "ตัวแยกส่วน"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์.",
@@ -574,7 +575,7 @@
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং html2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
     "x_search_terms": [
       "htm ফাইল পড়ুন",
-      "htm index",
+      "htm সূচক",
       "htm পার্সার",
       " সেকশন স্প্লিটার"
     ],
@@ -598,7 +599,7 @@
       "خواندن فایل htm",
       "فهرست htm",
       "تجزیه کننده بخش تجزیه کننده htm",
-      ""
+      "تقسیم کننده بخش"
     ],
     "param.path.description": "مسیر فایل.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده را برمی گرداند. \"section\" یک بخش خاص را برمی گرداند.",
@@ -608,7 +609,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل: {e}",
     "msg.no_entries": "(بخشی پیدا نشد)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، با mode='section' و section=N تماس بگیرید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
@@ -640,7 +641,7 @@
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि html2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
     "x_search_terms": [
       "htm file",
-      "htm index",
+      "htm निर्देशांक",
       "htm पार्सर",
       " विभाग स्प्लिटर वाचा"
     ],
@@ -663,7 +664,7 @@
     "x_search_terms": [
       "ανάγνωση αρχείου htm",
       "Htm index",
-      "htm parser",
+      "htm αναλυτής",
       "Splitter section"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο.",
@@ -684,8 +685,8 @@
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או קטע ספציפי עבור html2idx.",
     "x_search_terms": [
       "קרא את מפצל ה-htm file",
-      "htm index",
-      "htm parser",
+      "אינדקס htm",
+      "מנתח htm",
       "מפצל"
     ],
     "param.path.description": "נתיב לקובץ.",
@@ -728,9 +729,9 @@
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru html2idx.",
     "x_search_terms": [
       "citiți fișierul htm",
-      "htm index",
-      "htm parser",
-      "section splitter"
+      "indexul htm",
+      "parser htm",
+      "separator de secțiuni"
     ],
     "param.path.description": "Calea către fișier.",
     "param.mode.description": "„index” returnează un cuprins numerotat. „secțiune” returnează o anumită secțiune.",

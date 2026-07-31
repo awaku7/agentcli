@@ -3,6 +3,7 @@
 Imported only when UAGENT_AUDIO_REALTIME_PROVIDER=bedrock so existing realtime
 providers do not require the experimental Bedrock SDK.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -44,8 +45,12 @@ async def run_session(sd: Any) -> None:
         )
         raise RuntimeError("Optional Bedrock realtime SDK is not installed") from exc
 
-    region = (os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "us-east-1").strip()
-    model = (os.getenv("UAGENT_BEDROCK_REALTIME_DEPNAME") or "amazon.nova-sonic-v1:0").strip()
+    region = (
+        os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "us-east-1"
+    ).strip()
+    model = (
+        os.getenv("UAGENT_BEDROCK_REALTIME_DEPNAME") or "amazon.nova-sonic-v1:0"
+    ).strip()
     voice = (os.getenv("UAGENT_BEDROCK_REALTIME_VOICE") or "matthew").strip()
     prompt_name = str(uuid.uuid4())
     system_name = str(uuid.uuid4())
@@ -104,7 +109,9 @@ async def run_session(sd: Any) -> None:
                     continue
                 event = json.loads(raw.decode("utf-8")).get("event", {})
                 if "audioOutput" in event:
-                    audio_out.put_nowait(base64.b64decode(event["audioOutput"].get("content", "")))
+                    audio_out.put_nowait(
+                        base64.b64decode(event["audioOutput"].get("content", ""))
+                    )
                 elif "textOutput" in event:
                     text = str(event["textOutput"].get("content", "")).strip()
                     if text:
@@ -115,19 +122,109 @@ async def run_session(sd: Any) -> None:
     async def send_audio() -> None:
         while not stopping.is_set():
             data = await asyncio.to_thread(audio_in.get)
-            await send_event({"audioInput": {"promptName": prompt_name, "contentName": audio_name, "content": base64.b64encode(data).decode()}})
+            await send_event(
+                {
+                    "audioInput": {
+                        "promptName": prompt_name,
+                        "contentName": audio_name,
+                        "content": base64.b64encode(data).decode(),
+                    }
+                }
+            )
 
-    print(f"[INFO] Bedrock Nova Sonic realtime started ({model}, {region}). Press Ctrl+C to exit.")
+    print(
+        f"[INFO] Bedrock Nova Sonic realtime started ({model}, {region}). Press Ctrl+C to exit."
+    )
     receiver = asyncio.create_task(receive())
     sender = asyncio.create_task(send_audio())
     try:
-        await send_event({"sessionStart": {"inferenceConfiguration": {"maxTokens": 1024, "topP": 0.9, "temperature": 0.7}}})
-        await send_event({"promptStart": {"promptName": prompt_name, "textOutputConfiguration": {"mediaType": "text/plain"}, "audioOutputConfiguration": {"mediaType": "audio/lpcm", "sampleRateHertz": OUTPUT_RATE, "sampleSizeBits": 16, "channelCount": 1, "voiceId": voice, "encoding": "base64", "audioType": "SPEECH"}}})
-        await send_event({"contentStart": {"promptName": prompt_name, "contentName": system_name, "type": "TEXT", "interactive": False, "role": "SYSTEM", "textInputConfiguration": {"mediaType": "text/plain"}}})
-        await send_event({"textInput": {"promptName": prompt_name, "contentName": system_name, "content": "You are a helpful voice assistant."}})
-        await send_event({"contentEnd": {"promptName": prompt_name, "contentName": system_name}})
-        await send_event({"contentStart": {"promptName": prompt_name, "contentName": audio_name, "type": "AUDIO", "interactive": True, "role": "USER", "audioInputConfiguration": {"mediaType": "audio/lpcm", "sampleRateHertz": INPUT_RATE, "sampleSizeBits": 16, "channelCount": 1, "audioType": "SPEECH", "encoding": "base64"}}})
-        with sd.RawInputStream(samplerate=INPUT_RATE, channels=CHANNELS, dtype="int16", blocksize=BLOCKSIZE, callback=on_input), sd.RawOutputStream(samplerate=OUTPUT_RATE, channels=CHANNELS, dtype="int16", blocksize=BLOCKSIZE, callback=on_output):
+        await send_event(
+            {
+                "sessionStart": {
+                    "inferenceConfiguration": {
+                        "maxTokens": 1024,
+                        "topP": 0.9,
+                        "temperature": 0.7,
+                    }
+                }
+            }
+        )
+        await send_event(
+            {
+                "promptStart": {
+                    "promptName": prompt_name,
+                    "textOutputConfiguration": {"mediaType": "text/plain"},
+                    "audioOutputConfiguration": {
+                        "mediaType": "audio/lpcm",
+                        "sampleRateHertz": OUTPUT_RATE,
+                        "sampleSizeBits": 16,
+                        "channelCount": 1,
+                        "voiceId": voice,
+                        "encoding": "base64",
+                        "audioType": "SPEECH",
+                    },
+                }
+            }
+        )
+        await send_event(
+            {
+                "contentStart": {
+                    "promptName": prompt_name,
+                    "contentName": system_name,
+                    "type": "TEXT",
+                    "interactive": False,
+                    "role": "SYSTEM",
+                    "textInputConfiguration": {"mediaType": "text/plain"},
+                }
+            }
+        )
+        await send_event(
+            {
+                "textInput": {
+                    "promptName": prompt_name,
+                    "contentName": system_name,
+                    "content": "You are a helpful voice assistant.",
+                }
+            }
+        )
+        await send_event(
+            {"contentEnd": {"promptName": prompt_name, "contentName": system_name}}
+        )
+        await send_event(
+            {
+                "contentStart": {
+                    "promptName": prompt_name,
+                    "contentName": audio_name,
+                    "type": "AUDIO",
+                    "interactive": True,
+                    "role": "USER",
+                    "audioInputConfiguration": {
+                        "mediaType": "audio/lpcm",
+                        "sampleRateHertz": INPUT_RATE,
+                        "sampleSizeBits": 16,
+                        "channelCount": 1,
+                        "audioType": "SPEECH",
+                        "encoding": "base64",
+                    },
+                }
+            }
+        )
+        with (
+            sd.RawInputStream(
+                samplerate=INPUT_RATE,
+                channels=CHANNELS,
+                dtype="int16",
+                blocksize=BLOCKSIZE,
+                callback=on_input,
+            ),
+            sd.RawOutputStream(
+                samplerate=OUTPUT_RATE,
+                channels=CHANNELS,
+                dtype="int16",
+                blocksize=BLOCKSIZE,
+                callback=on_output,
+            ),
+        ):
             await asyncio.gather(receiver, sender)
     finally:
         stopping.set()
@@ -135,7 +232,9 @@ async def run_session(sd: Any) -> None:
         receiver.cancel()
         await asyncio.gather(sender, receiver, return_exceptions=True)
         try:
-            await send_event({"contentEnd": {"promptName": prompt_name, "contentName": audio_name}})
+            await send_event(
+                {"contentEnd": {"promptName": prompt_name, "contentName": audio_name}}
+            )
             await send_event({"promptEnd": {"promptName": prompt_name}})
             await send_event({"sessionEnd": {}})
             await stream.input_stream.close()

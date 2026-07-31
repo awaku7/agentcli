@@ -21,7 +21,7 @@ def test_tool_spec_structure() -> None:
     assert "action" in props
     action_prop = props["action"]
     assert "enum" in action_prop
-    assert set(action_prop["enum"]) == {"start", "stop", "status"}
+    assert set(action_prop["enum"]) == {"start", "stop", "status", "chat_mode"}
 
 
 def test_tool_has_run_tool() -> None:

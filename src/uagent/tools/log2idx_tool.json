@@ -26,7 +26,8 @@
     "x_search_terms": [
       "LOGファイルを読む",
       "LOGインデックス",
-      "セクション分割"
+      "セクション分割",
+      "セクションスプリッター"
     ],
     "param.path.description": "ファイルへのパス。",
     "param.mode.description": "\"index\" は番号付き目次を返します。\"section\" は指定セクションを返します。",
@@ -354,9 +355,9 @@
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ log2idx.",
     "x_search_terms": [
       "قراءة ملف السجل - فهرس السجل - محلل السجل - مقسم الأقسام",
-      "",
-      "",
-      ""
+      "مؤشر السجل",
+      "محلل السجل",
+      "الفاصل القسم"
     ],
     "param.path.description": "المسار إلى الملف.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم. \"القسم\" يُرجع قسمًا محددًا.",
@@ -487,7 +488,7 @@
     "x_search_terms": [
       "čtení log souboru",
       "log index",
-      "log parser",
+      "analyzátor protokolů",
       "rozdělovač sekcí"
     ],
     "param.path.description": "Cesta k souboru.",
@@ -553,7 +554,7 @@
     "x_search_terms": [
       "อ่านไฟล์บันทึก",
       "ดัชนีบันทึก",
-      "log parser",
+      "ตัวแยกวิเคราะห์บันทึก",
       "ตัวแยกส่วน"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์.",
@@ -574,8 +575,8 @@
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং log2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
     "x_search_terms": [
       "লগ ফাইল পড়ুন",
-      "log index",
-      "log parser",
+      "লগ ইনডেক্স",
+      "লগ পার্সার",
       " section splitter"
     ],
     "param.path.description": "ফাইলের পাথ।",
@@ -598,7 +599,7 @@
       "خواندن فایل گزارش",
       "فهرست ورود به سیستم",
       "تجزیه کننده بخش",
-      ""
+      "تقسیم کننده بخش"
     ],
     "param.path.description": "مسیر فایل.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده را برمی گرداند. \"section\" یک بخش خاص را برمی گرداند.",
@@ -608,7 +609,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل: {e}",
     "msg.no_entries": "(بخشی پیدا نشد)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، با mode='section' و section=N تماس بگیرید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
@@ -664,7 +665,7 @@
       "ανάγνωση αρχείου καταγραφής",
       " ευρετήριο καταγραφής",
       " διαχωριστής ενοτήτων αναλυτής καταγραφής",
-      ""
+      "διαχωριστής τμημάτων"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο.",
     "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων. Το \"section\" επιστρέφει μια συγκεκριμένη ενότητα.",
@@ -684,8 +685,8 @@
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור log2idx.",
     "x_search_terms": [
       "קרא את קובץ היומן",
-      "log index",
-      "log parser",
+      "אינדקס יומן",
+      "מנתח יומן",
       "מפצל"
     ],
     "param.path.description": "נתיב לקובץ.",

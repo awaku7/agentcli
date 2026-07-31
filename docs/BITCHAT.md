@@ -124,18 +124,21 @@ When Nostr transport is enabled, you can join geo-based channels using the `:bit
 
 ### Join a geo channel
 
-Auto-detect GPS position (no arguments needed):
+List available Geohash candidates in your area:
 ```
 :bitchat geo join
 ```
-This uses Windows GPS sensor first, then falls back to IP geolocation.
+This detects position via GPS sensor or IP geolocation and lists available geohash channels across precision levels (e.g. `#xn`, `#xn0m`, `#xn0m7`, `#mesh`).
+
+Join a specific geohash channel:
+```
+:bitchat geo join xn0m7
+```
 
 Or specify coordinates manually:
 ```
 :bitchat geo join 35.6762 139.6503 6
 ```
-
-Parameters: latitude, longitude, precision (default 6 = ~1.2km accuracy).
 
 The command calculates a geohash and subscribes to Nostr messages from users in that area.
 
@@ -169,9 +172,14 @@ The command calculates a geohash and subscribes to Nostr messages from users in 
 | `:bitchat off` | Disable chat mode |
 | `:bitchat status` | Show node state, chat mode, peers, Nostr status |
 | `:bitchat peers` | List discovered Nostr bitchat peers |
-| `:bitchat geo join [lat] [lng] [prec]` | Join a geohash channel (auto GPS if no args) |
+| `:bitchat geo join [<geohash>|lat lng [prec]]` | List geo candidates or join a geohash channel |
 | `:bitchat geo leave <geohash>` | Leave a geohash channel |
 | `:bitchat geo list` | List active geo channels |
+| `:nostr connect [relays]` | Connect to Nostr relays |
+| `:nostr status` | Show Nostr status |
+| `:nostr post <message>` | Post public text note (Kind 1) to Nostr |
+| `:nostr timeline [limit]` | Fetch recent public notes from Nostr relays |
+| `:nostr disconnect` | Disconnect from Nostr relays |
 
 ## Architecture
 

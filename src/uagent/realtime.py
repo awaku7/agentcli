@@ -74,9 +74,7 @@ def _api_key() -> str:
     provider = _provider()
     if provider == "azure":
         return (
-            os.getenv("UAGENT_AZURE_API_KEY")
-            or os.getenv("AZURE_OPENAI_API_KEY")
-            or ""
+            os.getenv("UAGENT_AZURE_API_KEY") or os.getenv("AZURE_OPENAI_API_KEY") or ""
         ).strip()
     if provider in {"grok", "xai"}:
         return (
@@ -184,10 +182,14 @@ def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
         )
     if normalized == "azure":
         base_url = (
-            os.getenv("UAGENT_AZURE_BASE_URL")
-            or os.getenv("AZURE_OPENAI_ENDPOINT")
-            or ""
-        ).strip().rstrip("/")
+            (
+                os.getenv("UAGENT_AZURE_BASE_URL")
+                or os.getenv("AZURE_OPENAI_ENDPOINT")
+                or ""
+            )
+            .strip()
+            .rstrip("/")
+        )
         if not base_url:
             return "", {"api-key": key}
         parsed = urlparse(base_url)

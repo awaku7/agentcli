@@ -136,7 +136,7 @@
     "err.invalid_response": "SwitchBot Cloud devolvió un payload inesperado.",
     "err.commands_required": "El campo commands debe ser un array no vacío.",
     "msg.batch_summary": "Lote completado: {total} comando(s), {ok} exitosos, {fail} fallidos",
-    "msg.step_error": "         Error: {err}",
+    "msg.step_error": "Error: {err}",
     "err.config_missing": "Faltan las credenciales de SwitchBot Cloud.",
     "x_search_terms": "[\"switchbot\", \"batch\", \"iot\", \"smart home\", \"bulk\"]",
     "param.parallel.description": "Ejecutar comandos en paralelo si es verdadero.",

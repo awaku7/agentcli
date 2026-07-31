@@ -26,7 +26,8 @@
     "x_search_terms": [
       "DOCファイルを読む",
       "DOCインデックス",
-      "セクション分割"
+      "セクション分割",
+      "セクションスプリッター"
     ],
     "param.path.description": "ファイルへのパス。",
     "param.mode.description": "\"index\" は番号付き目次を返します。\"section\" は指定セクションを返します。",
@@ -267,7 +268,7 @@
     "x_search_terms": [
       "membaca file doc",
       "indeks doc",
-      "doc parser",
+      "pengurai dokumen",
       "pembagi bagian"
     ],
     "param.path.description": "Jalur ke file.",
@@ -354,9 +355,9 @@
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ docx2idx.",
     "x_search_terms": [
       "قراءة ملف المستند - فهرس المستند - محلل المستندات - مقسم الأقسام",
-      "",
-      "",
-      ""
+      "مؤشر الوثيقة",
+      "محلل الوثيقة",
+      "الفاصل القسم"
     ],
     "param.path.description": "المسار إلى الملف.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم. \"القسم\" يُرجع قسمًا محددًا.",
@@ -420,8 +421,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for docx2idx.",
     "x_search_terms": [
       "les doc file",
-      "doc index",
-      "doc parser",
+      "doc-indeks",
+      "doc-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",
@@ -486,8 +487,8 @@
     "tool.description": "Rozložte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro docx2idx.",
     "x_search_terms": [
       "čtení doc file",
-      "doc index",
-      "doc parser",
+      "index dokumentů",
+      "analyzátor dokumentů",
       "rozdělovač sekcí"
     ],
     "param.path.description": "Cesta k souboru.",
@@ -553,7 +554,7 @@
     "x_search_terms": [
       "อ่านไฟล์ doc",
       "ดัชนี doc",
-      "doc parser",
+      "เครื่องมือแยกวิเคราะห์เอกสาร",
       "ตัวแยกส่วน"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์.",
@@ -574,9 +575,9 @@
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং docx2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
     "x_search_terms": [
       "ডক ফাইল পড়ুন",
-      "",
-      "",
-      ""
+      "ডক সূচক",
+      "ডক পার্সার",
+      "বিভাগ স্প্লিটার"
     ],
     "param.path.description": "ফাইলের পাথ।",
     "param.mode.description": "\"সূচী\" বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" একটি নির্দিষ্ট বিভাগ প্রদান করে।",
@@ -608,7 +609,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل: {e}",
     "msg.no_entries": "(بخشی پیدا نشد)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، با mode='section' و section=N تماس بگیرید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
@@ -618,8 +619,8 @@
     "tool.description": "Файлыг хэсэг болгон задалж, docx2idx-д дугаарласан индекс эсвэл тодорхой хэсгийг буцаана уу.",
     "x_search_terms": [
       "doc file",
-      "doc index",
-      "doc parser",
+      "doc индекс",
+      "док задлан шинжлэгч",
       "section задлагчийг уншина уу"
     ],
     "param.path.description": "Файл руу хүрэх зам.",
@@ -640,7 +641,7 @@
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि docx2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
     "x_search_terms": [
       "doc फाइल वाचा",
-      "doc index",
+      "डॉक निर्देशांक",
       "doc पार्सर",
       " विभाग स्प्लिटर"
     ],
@@ -684,8 +685,8 @@
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או קטע ספציפי עבור docx2idx.",
     "x_search_terms": [
       "קרא קובץ doc",
-      "doc index",
-      "doc parser",
+      "אינדקס doc",
+      "מנתח doc",
       "מפצל"
     ],
     "param.path.description": "נתיב לקובץ.",

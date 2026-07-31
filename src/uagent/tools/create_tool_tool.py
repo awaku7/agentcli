@@ -389,7 +389,9 @@ def _cmd_handler(arg: str, **kwargs: Any) -> Any:
             i += 1
 
     if not name:
-        print("Usage: :tool create <name> --lang python|rust [--description '...'] [--output-dir <dir>]")
+        print(
+            "Usage: :tool create <name> --lang python|rust [--description '...'] [--output-dir <dir>]"
+        )
         return CommandResult()
 
     args = {

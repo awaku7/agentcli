@@ -99,7 +99,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "",
                     "description": _(
                         "param.nostr_relays.description",
-                        default="Comma-separated Nostr relay URLs (default: damus.io, nos.lol, snort.social).",
+                        default="Comma-separated Nostr relay URLs (default: x.kojira.io, nos.lol, snort.social).",
                     ),
                 },
                 "nostr_nsec": {
@@ -123,8 +123,8 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.mode.description",
                         default=(
-                            "Chat mode (action=chat_mode): 'on' = forward to mesh only, "
-                            "'llm' = forward to mesh + inject peer msgs to LLM, "
+                            "Chat mode (action=chat_mode): 'on' = mesh forwarding only (LLM injection disabled), "
+                            "'llm' = mesh forwarding + inject peer msgs to LLM, "
                             "'off' = disabled. Overrides 'on' if both specified."
                         ),
                     ),
@@ -359,9 +359,16 @@ def _cmd_bitchat_status(arg: str, **kwargs) -> "CommandResult":
 
 
 def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
-    """Handle :bitchat geo join [lat] [lng] [precision] — auto GPS if no args"""
+    """Handle :bitchat geo join [geohash] or [lat] [lng] [precision]"""
     parts = arg.strip().split()
-    if len(parts) >= 2:
+    from . import bitchat_geo as _geo
+
+    target_geohash = None
+    lat, lng, precision = None, None, 6
+
+    if len(parts) == 1 and not parts[0].isdigit():
+        target_geohash = parts[0]
+    elif len(parts) >= 2:
         try:
             lat = float(parts[0])
             lng = float(parts[1])
@@ -374,28 +381,43 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
 
             return CommandResult()
     else:
-        # Auto-detect GPS position
         precision = int(parts[0]) if parts and parts[0].isdigit() else 6
         lat, lng = _auto_detect_position()
         if lat is None:
             print(
                 _(
                     "geo.usage_join_auto",
-                    default="No GPS position available. Usage: :bitchat geo join <lat> <lng> [precision=6]",
+                    default="No GPS position available. Usage: :bitchat geo join <geohash> or :bitchat geo join <lat> <lng> [prec]",
                 )
             )
             from ..util_tools import CommandResult
 
             return CommandResult()
+
         print(
             _(
                 "geo.auto_detected",
-                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)",
+                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s",
             )
             % {"lat": lat, "lng": lng, "precision": precision}
         )
+        print("Available Geohash channels in your area:")
+        candidates = []
+        for p in [2, 4, 5, 6, 8]:
+            gh = _geo._geohash_encode(lat, lng, p)
+            acc = _geo._GEO_PRECISION.get(p, "")
+            candidates.append((gh, acc, p))
+            print(f"  #{gh:8s} (precision {p}, {acc})")
+        print("  #mesh     (global local mesh channel)")
+        print(
+            "\nTo join a channel, run: :bitchat geo join <geohash> (e.g. :bitchat geo join #"
+            + candidates[3][0]
+            + ")"
+        )
+        from ..util_tools import CommandResult
 
-    from . import bitchat_geo as _geo
+        return CommandResult()
+
     from .pybitchat_shared import _NOSTR as _nt_mod
 
     # Auto-start Nostr transport if not running
@@ -429,7 +451,11 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
             % {"nickname": default_nick}
         )
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
-    result = _geo.join_geo_channel(inst, lat, lng, precision)
+    if target_geohash:
+        result = _geo.join_geo_channel_by_hash(inst, target_geohash)
+    else:
+        result = _geo.join_geo_channel(inst, lat, lng, precision)
+
     if result.get("ok"):
         gh = result["geohash"]
         acc = result["accuracy"]
@@ -441,13 +467,14 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
         print(
             _("geo.joined_peer_id", default="  peer_id=%(peer_id)s") % {"peer_id": pid}
         )
-        print(
-            _(
-                "geo.joined_coords",
-                default="  lat=%(lat)s, lng=%(lng)s, precision=%(precision)d",
+        if lat is not None and lng is not None:
+            print(
+                _(
+                    "geo.joined_coords",
+                    default="  lat=%(lat)s, lng=%(lng)s, precision=%(precision)d",
+                )
+                % {"lat": lat, "lng": lng, "precision": precision}
             )
-            % {"lat": lat, "lng": lng, "precision": precision}
-        )
         print(
             _(
                 "geo.joined_desc",
@@ -648,7 +675,7 @@ CMD_SPECS = [
         "command": "bitchat",
         "subcommand": "geo join",
         "handler": _cmd_bitchat_geo_join,
-        "help_text": "  :bitchat geo join [lat] [lng] [prec]  Join a geohash channel (auto GPS if no args, default prec=6 ~1.2km)",
+        "help_text": "  :bitchat geo join [<geohash>|lat lng [prec]]  Join geohash channel (shows candidates if no args)",
     },
     {
         "command": "bitchat",

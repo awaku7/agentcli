@@ -116,34 +116,26 @@ def geo_peer_id(geohash: str) -> str:
     return f"nostr:{geohash}"
 
 
-def join_geo_channel(
+def join_geo_channel_by_hash(
     nostr_transport: Any,
-    lat: float,
-    lng: float,
-    precision: int = 6,
+    geohash: str,
 ) -> dict[str, Any]:
-    """Join a geohash channel.
-
-    Adds a subscription filter for the geohash peer ID so we receive
-    messages from others in the same area.
+    """Join a geohash channel directly by geohash string.
 
     Args:
         nostr_transport: NostrTransport instance.
-        lat: Latitude.
-        lng: Longitude.
-        precision: Geohash precision (6 ≈ 1.2km).
+        geohash: Geohash string (e.g. "xn0m7d" or "mesh").
 
     Returns:
         Result dict with ok/geohash/precision/accuracy.
     """
-    if lat < -90 or lat > 90:
-        return {"ok": False, "error": "Invalid latitude"}
-    if lng < -180 or lng > 180:
-        return {"ok": False, "error": "Invalid longitude"}
+    geohash = geohash.strip().lstrip("#")
+    if not geohash:
+        return {"ok": False, "error": "Empty geohash"}
 
-    geohash = _geohash_encode(lat, lng, precision)
-    peer_id = geo_peer_id(geohash)
+    precision = len(geohash)
     accuracy = _GEO_PRECISION.get(precision, f"~{precision} chars")
+    peer_id = geo_peer_id(geohash)
 
     # Track channel membership
     if geohash not in _GEO_CHANNELS:
@@ -160,9 +152,26 @@ def join_geo_channel(
         "peer_id": peer_id,
         "precision": precision,
         "accuracy": accuracy,
-        "lat": lat,
-        "lng": lng,
     }
+
+
+def join_geo_channel(
+    nostr_transport: Any,
+    lat: float,
+    lng: float,
+    precision: int = 6,
+) -> dict[str, Any]:
+    """Join a geohash channel by coordinates."""
+    if lat < -90 or lat > 90:
+        return {"ok": False, "error": "Invalid latitude"}
+    if lng < -180 or lng > 180:
+        return {"ok": False, "error": "Invalid longitude"}
+
+    geohash = _geohash_encode(lat, lng, precision)
+    res = join_geo_channel_by_hash(nostr_transport, geohash)
+    res["lat"] = lat
+    res["lng"] = lng
+    return res
 
 
 def leave_geo_channel(

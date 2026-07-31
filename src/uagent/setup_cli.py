@@ -971,8 +971,15 @@ def _ask_realtime_values(st: _WizardState, *, allow_back: bool = True) -> str:
     options = [f"{provider} ({label})" for provider, label in REALTIME_PROVIDERS]
     default_index = 1
     if st.provider in {p for p, _ in REALTIME_PROVIDERS}:
-        default_index = next(i + 1 for i, (p, _) in enumerate(REALTIME_PROVIDERS) if p == st.provider)
-    choice = _menu_choice(_("Select Realtime voice provider"), options, default_index=default_index, allow_back=allow_back)
+        default_index = next(
+            i + 1 for i, (p, _) in enumerate(REALTIME_PROVIDERS) if p == st.provider
+        )
+    choice = _menu_choice(
+        _("Select Realtime voice provider"),
+        options,
+        default_index=default_index,
+        allow_back=allow_back,
+    )
     if choice in {"__quit__", "__back__"}:
         return choice
     provider = REALTIME_PROVIDERS[int(choice) - 1][0]
@@ -989,7 +996,12 @@ def _ask_realtime_values(st: _WizardState, *, allow_back: bool = True) -> str:
     elif provider == "bedrock":
         specs = [
             ("AWS_REGION", "AWS region", False, "us-east-1"),
-            ("UAGENT_BEDROCK_REALTIME_DEPNAME", "Bedrock Nova Sonic model ID", False, "amazon.nova-sonic-v1:0"),
+            (
+                "UAGENT_BEDROCK_REALTIME_DEPNAME",
+                "Bedrock Nova Sonic model ID",
+                False,
+                "amazon.nova-sonic-v1:0",
+            ),
             ("UAGENT_BEDROCK_REALTIME_VOICE", "Bedrock voice ID", False, "matthew"),
         ]
     else:
@@ -997,7 +1009,9 @@ def _ask_realtime_values(st: _WizardState, *, allow_back: bool = True) -> str:
         specs = [(key, "Realtime model/deployment name", False, "")]
 
     for key, label, required, default in specs:
-        status, value = _ask_text(label, default=default, required=required, allow_back=allow_back)
+        status, value = _ask_text(
+            label, default=default, required=required, allow_back=allow_back
+        )
         if status in {"__quit__", "__back__"}:
             return status
         if value:

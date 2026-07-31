@@ -14,6 +14,7 @@ from .runtime_workdir import WorkdirDecision, apply_workdir, decide_workdir
 
 import secrets
 
+
 def ensure_session_secret() -> str:
     """Ensure UAGENT_SESSION_SECRET is initialized for DRM / VFS handshake across CLI/GUI/WEB/A2A."""
     secret = os.environ.get("UAGENT_SESSION_SECRET")

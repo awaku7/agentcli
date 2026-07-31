@@ -26,7 +26,8 @@
     "x_search_terms": [
       "CSVファイルを読む",
       "CSVインデックス",
-      "セクション分割"
+      "セクション分割",
+      "セクションスプリッター"
     ],
     "param.path.description": "ファイルへのパス。",
     "param.mode.description": "\"index\" は番号付き目次を返します。\"section\" は指定セクションを返します。",
@@ -267,7 +268,7 @@
     "x_search_terms": [
       "membaca file csv",
       "indeks csv",
-      "csv parser",
+      "pengurai csv",
       "pembagi bagian"
     ],
     "param.path.description": "Jalur ke file.",
@@ -354,9 +355,9 @@
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ csv2idx.",
     "x_search_terms": [
       "قراءة ملف CSV - فهرس CSV - محلل CSV - مقسم الأقسام",
-      "",
-      "",
-      ""
+      "مؤشر CSV",
+      "محلل CSV",
+      "الفاصل القسم"
     ],
     "param.path.description": "المسار إلى الملف.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم. \"القسم\" يُرجع قسمًا محددًا.",
@@ -376,7 +377,7 @@
     "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller en specifik sektion för csv2idx.",
     "x_search_terms": [
       "läs csv file",
-      "csv index",
+      "csv-index",
       "csv parser",
       "sektionsdelare"
     ],
@@ -420,8 +421,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for csv2idx.",
     "x_search_terms": [
       "les csv file",
-      "csv index",
-      "csv parser",
+      "csv-indeks",
+      "csv-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",
@@ -553,7 +554,7 @@
     "x_search_terms": [
       "อ่านไฟล์ csv",
       "ดัชนี csv",
-      "csv parser",
+      "ตัวแยกวิเคราะห์ CSV",
       "ตัวแยกส่วน"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์.",
@@ -574,7 +575,7 @@
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং csv2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
     "x_search_terms": [
       "csv ফাইল পড়ুন",
-      "csv index",
+      "csv সূচক",
       "csv পার্সার",
       " সেকশন স্প্লিটার"
     ],
@@ -597,7 +598,7 @@
     "x_search_terms": [
       "خواندن فایل csv",
       " csv index",
-      "csv parser",
+      "تجزیه کننده csv",
       "بخش تقسیم‌کننده"
     ],
     "param.path.description": "مسیر فایل.",
@@ -608,7 +609,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل: {e}",
     "msg.no_entries": "(بخشی پیدا نشد)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل بخش‌ها: {total}\nبرای بازیابی یک بخش، با mode='section' و section=N تماس بگیرید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
@@ -640,7 +641,7 @@
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि csv2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
     "x_search_terms": [
       "csv फाइल वाचा",
-      "csv index",
+      "csv अनुक्रमणिका",
       "csv पार्सर",
       " विभाग स्प्लिटर"
     ],
@@ -662,8 +663,8 @@
     "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το csv2idx.",
     "x_search_terms": [
       "ανάγνωση αρχείου csv",
-      "csv index",
-      "csv parser",
+      "ευρετήριο csv",
+      "csv αναλυτής",
       " διαχωριστής ενοτήτων"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο.",
@@ -684,8 +685,8 @@
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור csv2idx.",
     "x_search_terms": [
       "קרא את מפצל ה-csv file",
-      "csv index",
-      "csv parser",
+      "אינדקס csv",
+      "מנתח csv",
       "מפצל"
     ],
     "param.path.description": "נתיב לקובץ.",
@@ -728,9 +729,9 @@
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru csv2idx.",
     "x_search_terms": [
       "citiți fișierul csv",
-      "csv index",
-      "csv parser",
-      "section splitter"
+      "index csv",
+      "parser csv",
+      "separator de secțiuni"
     ],
     "param.path.description": "Calea către fișier.",
     "param.mode.description": "„index” returnează un cuprins numerotat. „secțiune” returnează o anumită secțiune.",

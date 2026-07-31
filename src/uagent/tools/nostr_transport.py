@@ -54,6 +54,54 @@ def _import_secp() -> Any:
     return _s
 
 
+# ---- Bech32 / npub helpers --------------------------------------------------
+
+
+def _bech32_polymod(values: list[int]) -> int:
+    GEN = [0x3B6A57B2, 0x26508E6D, 0x1EA119FA, 0x3D4233DD, 0x2A1462B3]
+    chk = 1
+    for v in values:
+        b = chk >> 25
+        chk = ((chk & 0x1FFFFFF) << 5) ^ v
+        for i in range(5):
+            chk ^= GEN[i] if ((b >> i) & 1) else 0
+    return chk
+
+
+def _bech32_hrp_expand(hrp: str) -> list[int]:
+    return [ord(x) >> 5 for x in hrp] + [0] + [ord(x) & 31 for x in hrp]
+
+
+def _bech32_create_checksum(hrp: str, data: list[int]) -> list[int]:
+    values = _bech32_hrp_expand(hrp) + data
+    polymod = _bech32_polymod(values + [0, 0, 0, 0, 0, 0]) ^ 1
+    return [(polymod >> 5 * (5 - i)) & 31 for i in range(6)]
+
+
+def _convertbits(
+    data: bytes | list[int], frombits: int, tobits: int, pad: bool = True
+) -> list[int] | None:
+    acc = 0
+    bits = 0
+    ret = []
+    maxv = (1 << tobits) - 1
+    max_acc = (1 << (frombits + tobits - 1)) - 1
+    for value in data:
+        if value < 0 or (value >> frombits):
+            return None
+        acc = ((acc << frombits) | value) & max_acc
+        bits += frombits
+        while bits >= tobits:
+            bits -= tobits
+            ret.append((acc >> bits) & maxv)
+    if pad:
+        if bits:
+            ret.append((acc << (tobits - bits)) & maxv)
+    elif bits >= frombits or ((acc << (tobits - bits)) & maxv):
+        return None
+    return ret
+
+
 # ---- Key management ---------------------------------------------------------
 
 _NOSTR_KEY_FILE = os.path.join(
@@ -311,7 +359,7 @@ class NostrTransport:
         on_kind1059: Callable[[str, str, str], None] | None = None,
     ):
         self.relays = relays or [
-            "wss://relay.damus.io",
+            "wss://x.kojira.io",
             "wss://nos.lol",
             "wss://relay.snort.social",
         ]
@@ -919,9 +967,238 @@ def nostr_send_kind1059(
     return {"ok": True, "via": "nostr", "kind": 1059}
 
 
+def encode_npub(pubkey_hex: str) -> str:
+    """Encode a 32-byte hex public key to bech32 npub format."""
+    if not pubkey_hex or len(pubkey_hex) != 64:
+        return ""
+    try:
+        data = bytes.fromhex(pubkey_hex)
+        converted = _convertbits(data, 8, 5, True)
+        checksum = _bech32_create_checksum("npub", converted)
+        return "npub1" + "".join(
+            "qpzry9x8gf2tvdw0s3jn54khce6mua7l"[p] for p in converted + checksum
+        )
+    except Exception:
+        return ""
+
+
 def nostr_pubkey() -> str:
     """Get our Nostr public key hex."""
     inst = get_nostr_instance()
-    if inst:
+    if inst and inst.pubkey_hex:
         return inst.pubkey_hex
-    return ""
+    priv, pub = _load_or_create_key()
+    return pub
+
+
+# ---- CLI Command Specs (:nostr) --------------------------------------------
+
+
+def _cmd_nostr_connect(arg: str, **kwargs: Any) -> Any:
+    """Handle :nostr connect [relay_urls...]"""
+    relays = (
+        [r.strip() for r in arg.split(",") if r.strip()]
+        if "," in arg
+        else [r.strip() for r in arg.split() if r.strip()]
+    )
+    relays = relays or None
+    res = start_nostr(relays=relays)
+    if res.get("ok"):
+        pubkey = res.get("pubkey", "")
+        npub = encode_npub(pubkey)
+        print("Nostr connected.")
+        if pubkey:
+            print(f"  pubkey (hex):  {pubkey}")
+            if npub:
+                print(f"  pubkey (npub): {npub}")
+        r_list = res.get("relays", [])
+        for r in r_list:
+            print(f"  relay: {r}")
+    else:
+        print(f"Error connecting to Nostr: {res.get('error')}")
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_nostr_disconnect(arg: str, **kwargs: Any) -> Any:
+    """Handle :nostr disconnect"""
+    stop_nostr()
+    print("Nostr disconnected.")
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_nostr_status(arg: str, **kwargs: Any) -> Any:
+    """Handle :nostr status"""
+    st = nostr_status()
+    state = st.get("state", "stopped")
+    pub = st.get("pubkey", "") or nostr_pubkey()
+    npub = encode_npub(pub)
+    print(f"Nostr status: {state}")
+    if pub:
+        print(f"  pubkey (hex):  {pub}")
+        if npub:
+            print(f"  pubkey (npub): {npub}")
+    print(f"  key file:      {_NOSTR_KEY_FILE}")
+    if state == "running":
+        conns = st.get("connections", 0)
+        relays = st.get("relays", [])
+        print(f"  connections:   {conns}")
+        for r in relays:
+            print(f"  relay:         {r}")
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_nostr_post(arg: str, **kwargs: Any) -> Any:
+    """Handle :nostr post <message>"""
+    msg = arg.strip()
+    if not msg:
+        print("Usage: :nostr post <message>")
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+
+    inst = get_nostr_instance()
+    if not inst or not inst.is_running:
+        res = start_nostr()
+        if not res.get("ok"):
+            print(f"Error starting Nostr: {res.get('error')}")
+            from ..util_tools import CommandResult
+
+            return CommandResult()
+        inst = get_nostr_instance()
+
+    res = nostr_send_text(msg)
+    if res.get("ok"):
+        print(f"Posted note to Nostr: {msg}")
+    else:
+        print(f"Error posting note: {res.get('error')}")
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_nostr_timeline(arg: str, **kwargs: Any) -> Any:
+    """Handle :nostr timeline [limit]"""
+    limit = 20
+    if arg.strip().isdigit():
+        limit = int(arg.strip())
+
+    inst = get_nostr_instance()
+    if not inst or not inst.is_running:
+        print("Starting Nostr connection to fetch timeline...")
+        res = start_nostr()
+        if not res.get("ok"):
+            print(f"Error starting Nostr: {res.get('error')}")
+            from ..util_tools import CommandResult
+
+            return CommandResult()
+        inst = get_nostr_instance()
+
+    # Request global kind-1 notes from relays
+    print(f"Fetching recent {limit} notes from Nostr relays...")
+    notes: list[dict] = []
+    import websockets
+    import asyncio
+
+    async def _fetch():
+        sub_filter = _make_subscription_filter(kinds=[1], limit=limit)
+        req = json.dumps(["REQ", "timeline-fetch", sub_filter])
+        for url in inst.relays:
+            try:
+                async with websockets.connect(url, timeout=5) as ws:
+                    await ws.send(req)
+                    while True:
+                        try:
+                            msg = await asyncio.wait_for(ws.recv(), timeout=2.5)
+                            data = json.loads(msg)
+                            if (
+                                isinstance(data, list)
+                                and len(data) >= 3
+                                and data[0] == "EVENT"
+                            ):
+                                ev = data[2]
+                                if ev.get("kind") == 1:
+                                    notes.append(ev)
+                            elif (
+                                isinstance(data, list)
+                                and len(data) >= 2
+                                and data[0] in ("EOSE", "CLOSED")
+                            ):
+                                break
+                        except asyncio.TimeoutError:
+                            break
+            except Exception:
+                pass
+
+    try:
+        asyncio.run(_fetch())
+    except Exception as e:
+        print(f"Fetch timeline error: {e}")
+
+    # Deduplicate and sort by created_at
+    seen = set()
+    unique_notes = []
+    for n in notes:
+        nid = n.get("id")
+        if nid and nid not in seen:
+            seen.add(nid)
+            unique_notes.append(n)
+
+    unique_notes.sort(key=lambda x: x.get("created_at", 0))
+
+    if not unique_notes:
+        print("No recent notes found.")
+    else:
+        print(f"--- Nostr Timeline ({len(unique_notes)} notes) ---")
+        for n in unique_notes[-limit:]:
+            pk = n.get("pubkey", "")
+            npub = encode_npub(pk)
+            short_author = npub[:16] + "..." if npub else pk[:8]
+            ts = _time.strftime(
+                "%Y-%m-%d %H:%M:%S", _time.localtime(n.get("created_at", 0))
+            )
+            text = n.get("content", "").strip().replace("\n", " ")
+            print(f"[{ts}] {short_author}: {text}")
+
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+CMD_SPECS = [
+    {
+        "command": "nostr",
+        "subcommand": "connect",
+        "handler": _cmd_nostr_connect,
+        "help_text": "  :nostr connect [relay_urls]  Connect to Nostr relays",
+    },
+    {
+        "command": "nostr",
+        "subcommand": "disconnect",
+        "handler": _cmd_nostr_disconnect,
+        "help_text": "  :nostr disconnect            Disconnect from Nostr relays",
+    },
+    {
+        "command": "nostr",
+        "subcommand": "status",
+        "handler": _cmd_nostr_status,
+        "help_text": "  :nostr status                Show Nostr connection status",
+    },
+    {
+        "command": "nostr",
+        "subcommand": "post",
+        "handler": _cmd_nostr_post,
+        "help_text": "  :nostr post <message>        Post a public text note (Kind 1) to Nostr",
+    },
+    {
+        "command": "nostr",
+        "subcommand": "timeline",
+        "handler": _cmd_nostr_timeline,
+        "help_text": "  :nostr timeline [limit]      Fetch recent public notes (Kind 1) from relays",
+    },
+]

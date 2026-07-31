@@ -440,21 +440,21 @@
   "nb": {
     "tool.description": "Parse a PDF document (.pdf) into page summaries and text previews, returning a numbered index or a specific page section. Bruk dette når du leser store PDF-filer: ring med mode='index' for å få listen over sider med forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet på den siden.",
     "x_search_terms": [
-      "read pdf file",
-      "pdf index",
-      "pdf parser",
-      "pdf page reader",
-      "pdf section"
+      "lese pdf-fil",
+      "pdf-indeks",
+      "pdf-parser",
+      "pdf-side leser",
+      "pdf-delen"
     ],
     "param.path.description": "Bane til PDF-filen (.pdf).",
-    "param.mode.description": "\"index\" returns a numbered table of contents listing pages with previews. \"section\" returns the full text content of a specific page.",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse som viser sider med forhåndsvisninger. \"seksjon\" returnerer fulltekstinnholdet på en bestemt side.",
     "param.section.description": "Page number to retrieve (1-indexed, used only when mode='section'). Få tallet fra indeksutgangen.",
     "err.path_required": "Feil: 'bane' er påkrevd.",
     "err.read_error": "Feil ved lesing av fil: {e}",
     "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
     "err.parse_error": "Feil ved parsing av PDF-fil: {e}",
     "msg.no_pages": "(ingen sider funnet i PDF)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal pages: {total}\nTo retrieve a page, call pdf2idx with mode='section' and section=N.",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall sider: {total}\nFor å hente en side, ring pdf2idx med mode='section' og section=N.",
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Side {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
@@ -602,8 +602,8 @@
     "tool.description": "একটি পিডিএফ ডকুমেন্ট (.pdf) পার্স করুন পৃষ্ঠার সারাংশ এবং টেক্সট প্রিভিউতে, একটি সংখ্যাযুক্ত সূচী বা একটি নির্দিষ্ট পৃষ্ঠা বিভাগে ফিরিয়ে দিন। বড় পিডিএফ ফাইল পড়ার সময় এটি ব্যবহার করুন: পূর্বরূপ পাঠ্য সহ পৃষ্ঠাগুলির তালিকা পেতে mode='index' দিয়ে কল করুন, তারপর সেই পৃষ্ঠার সম্পূর্ণ পাঠ্য সামগ্রী পুনরুদ্ধার করতে mode='section' এবং section=N দিয়ে কল করুন।",
     "x_search_terms": [
       "pdf ফাইল পড়ুন",
-      "pdf index",
-      "pdf parser",
+      "পিডিএফ সূচক",
+      "পিডিএফ পার্সার",
       "pdf পেজ রিডার",
       "pdf বিভাগ"
     ],
@@ -671,7 +671,7 @@
     "tool.description": "पीडीएफ दस्तऐवज (.pdf) पृष्ठ सारांश आणि मजकूर पूर्वावलोकनांमध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट पृष्ठ विभाग परत करा. मोठ्या PDF फाइल्स वाचताना याचा वापर करा: पूर्वावलोकन मजकूर असलेल्या पृष्ठांची सूची मिळविण्यासाठी mode='index' सह कॉल करा, नंतर त्या पृष्ठावरील संपूर्ण मजकूर सामग्री पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",
     "x_search_terms": [
       "pdf फाइल वाचा",
-      "pdf index",
+      "पीडीएफ निर्देशांक",
       "pdf पार्सर",
       "pdf पेज रीडर",
       "pdf विभाग"
@@ -717,8 +717,8 @@
     "tool.description": "נתח מסמך PDF (.pdf) לתוך סיכומי עמודים ותצוגות מקדימות של טקסט, החזרת אינדקס ממוספר או קטע עמוד מסוים. השתמש בזה בעת קריאת קובצי PDF גדולים: התקשר עם mode='index' כדי לקבל את רשימת הדפים עם טקסט תצוגה מקדימה, ואז התקשר עם mode='section' ו-section=N כדי לאחזר את תוכן הטקסט המלא של אותו עמוד.",
     "x_search_terms": [
       "קרא קובץ pdf",
-      "pdf index",
-      "pdf parser",
+      "אינדקס pdf",
+      "מנתח pdf",
       "pdf reader page",
       "pdf"
     ],
