@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.5.62] - 2026-07-31
+
+### Added
+
+- feat(bitchat): add `:bitchat start` / `:bitchat stop` dynamic commands to start/stop the BLE Mesh node
+- feat(bitchat): register the existing `:bitchat peers` command in CMD_SPECS (was implemented but not registered)
+- test: add TDD tests for `:bitchat start` / `:bitchat stop` handlers and CMD_SPECS registration
+- i18n: add en/ja messages for the node start/stop commands
+
+### Performance
+
+- perf(cli): speed up dynamic-command tab completion — snapshot the command map once per completion request and never block on first-time plugin import (background warmup keeps loading; partial results are fine)
+- perf(tools): cache `get_dynamic_commands_map()` results (invalidated on register/unregister); add `get_dynamic_subcommands()` helper and `block=False` non-blocking mode (~80x faster map lookups)
+
+### Fixed
+
+- fix(bitchat): implement missing Phase 2-6 pybitchat components — `NoiseXXStateMachine` / `TransportCipher` (Noise XX handshake), `sign_announce` / `verify_announce` / `PeerRegistry`, `MessageDeduplicator` / `RelayController`, `CourierEnvelope` / `CourierStore`; keep existing Fragment implementation
+- fix(bitchat): accept pre-reload `CourierEnvelope` instances in `CourierStore.store()` (tolerates `tools.reload_plugins()` re-imports)
+- fix(bitchat): keep `pybitchat_shared` runtime state alive across tool reloads — `_load_plugins()` no longer `importlib.reload()`s already-imported helper modules (no `TOOL_SPEC`/`run_tool`), so `_LLM_EVENT_QUEUE` / `_CHAT_MODE` / `_RUNNING` survive `start_tools_warmup()` and `reload_plugins()`; fixes chat_mode="llm" peer messages being displayed but never injected into the LLM
+- test: add `tests/test_pybitchat_llm_inject_reload.py` (LLM event queue + chat mode survive `reload_plugins()`; injection reaches the queue)
+- fix(gpt54): re-export `_select_tool_specs_for_gpt54` from `uagent_llm` (alias of `llm_tool_narrowing._select_tool_specs_legacy`)
+- fix(gpt54): narrow legacy tool selection to helpers + catalog hits + dynamically loaded tools instead of sending every loaded tool (matches TOOL_FLOW.md)
+- fix(gpt54): update `test_gpt54_tool_search.py` to the current `UAGENT_GPT54_TOOL_SEARCH=native/legacy/off` design (default native, openai/azure only)
+- fix(i18n): add missing en/ja keys for pybitchat nostr/on/via params; fix `err.payload_required` ja translation
+- fix(i18n): replace non-ASCII arrows/dashes in pybitchat_shared.py comments and messages (utilities i18n check)
+- fix(i18n): fill missing same-as-en keys for 18 tool JSONs (bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control etc.) via `translate_text` engine; wrap literal descriptions in `_()` for browser_playwright_tool/tools_control_tool; i18n sub_agent_tool status returns; replace non-ASCII in _matter_common/index_tool_helpers/nostr_transport
+- fix(i18n): wrap user-facing string literals in utilities with `_()` (21 modules: _genre_control_util/_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_*) and add `make_tool_translator` where missing — `test_tools_utilities_no_user_facing_string_literals` now passes
+- fix(i18n): localize pybitchat display/inject messages (handshake/peer/file/scan/service/Nostr notifications, "sending as plain text (unencrypted)" etc.) via `_()` with %(name)s placeholders; add `pybitchat_shared.json` with en/ja translations
+
 ## [0.5.61] - 2026-07-30
 
 ### Added

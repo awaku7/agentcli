@@ -1,5 +1,34 @@
 # 変更履歴
 
+## [0.5.62] - 2026-07-31
+
+### 追加
+
+- feat(bitchat): BLEメッシュノードの開始・停止コマンド `:bitchat start` / `:bitchat stop` を追加
+- feat(bitchat): 実装済みだった `:bitchat peers` コマンドをCMD_SPECSに登録（未登録のバグを修正）
+- test: `:bitchat start` / `:bitchat stop` ハンドラとCMD_SPECS登録のTDDテストを追加
+- i18n: ノード開始・停止コマンドのen/jaメッセージを追加
+
+### パフォーマンス
+
+- perf(cli): dynamic_commandのタブ補完を高速化 — 補完リクエストごとにコマンドマップを1回だけ取得し、初回プラグインimportでブロックしない（バックグラウンドwarmupが継続し、部分結果で補完）
+- perf(tools): `get_dynamic_commands_map()` の結果をキャッシュ（register/unregister時に無効化）。`get_dynamic_subcommands()` と非ブロック `block=False` モードを追加（マップ参照が約80倍高速化）
+
+### 修正
+
+- fix(bitchat): Phase 2-6 の pybitchat コンポーネントを実装 — `NoiseXXStateMachine` / `TransportCipher`（Noise XXハンドシェイク）、`sign_announce` / `verify_announce` / `PeerRegistry`、`MessageDeduplicator` / `RelayController`、`CourierEnvelope` / `CourierStore`（既存のFragment実装は維持）
+- fix(bitchat): `CourierStore.store()` がリロード前の `CourierEnvelope` インスタンスを受け付け（`tools.reload_plugins()` による再importに耐性）
+- fix(bitchat): ツールリロード後も `pybitchat_shared` のランタイム状態を保持 — `_load_plugins()` が既にimport済みのヘルパーモジュール（`TOOL_SPEC`/`run_tool` なし）を `importlib.reload()` しないよう変更。`_LLM_EVENT_QUEUE` / `_CHAT_MODE` / `_RUNNING` が `start_tools_warmup()` と `reload_plugins()` を跨いで生存する。chat_mode="llm" で受信メッセージが表示されるだけで LLM に注入されない不具合を修正
+- test: `tests/test_pybitchat_llm_inject_reload.py` を追加（`reload_plugins()` 後も LLM イベントキューと chat mode が保持され、注入がキューに到達する）
+- fix(gpt54): `uagent_llm` から `_select_tool_specs_for_gpt54` を再エクスポート（`llm_tool_narrowing._select_tool_specs_legacy` のエイリアス）
+- fix(gpt54): legacy モードのツール絞り込みを「ヘルパー + カタログヒット + 動的ロード済みツール」に変更（全ロード済みツール送信をやめ、TOOL_FLOW.md に一致）
+- fix(gpt54): `test_gpt54_tool_search.py` を現行設計（`UAGENT_GPT54_TOOL_SEARCH=native/legacy/off`、デフォルトnative、openai/azureのみ）に更新
+- fix(i18n): pybitchat の nostr/on/via パラメータの en/ja キー欠落を追加。`err.payload_required` の日本語訳を修正
+- fix(i18n): pybitchat_shared.py のコメント・メッセージ内の非ASCII矢印/ダッシュを ASCII に置換（utilities i18n チェック対応）
+- fix(i18n): 18ツールの JSON の same-as-en キー欠落を `translate_text` エンジンで補充（bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control など）。browser_playwright_tool/tools_control_tool のリテラル description を `_()` 化。sub_agent_tool のステータス返値を i18n 化。_matter_common/index_tool_helpers/nostr_transport の非ASCIIを置換
+- fix(i18n): ユーティリティ21モジュールのユーザー向け文字列リテラルを `_()` 化（_genre_control_util/_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_*）。`make_tool_translator` を追加 — `test_tools_utilities_no_user_facing_string_literals` が通過
+- fix(i18n): pybitchat の表示/注入メッセージ（ハンドシェイク・ピア・ファイル・スキャン・サービス・Nostr通知、「sending as plain text (unencrypted)」等）を `_()` + %(name)s プレースホルダで i18n 化。`pybitchat_shared.json`（en/ja 翻訳）を追加
+
 ## [0.5.61] - 2026-07-30
 
 ### 追加
