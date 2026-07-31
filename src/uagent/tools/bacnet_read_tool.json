@@ -38,7 +38,8 @@
       "باكنت",
       "باكنت",
       "يعود"
-    ]
+    ],
+    "param.timeout.description": "المهلة بالثواني."
   },
   "bn": {
     "tool.description": "একটি ডিভাইস থেকে একটি BACnet সম্পত্তি পড়ুন। JSON বা পাঠ্য হিসাবে বর্তমান মান এবং মেটাডেটা প্রদান করে।",
@@ -58,7 +59,8 @@
       "ব্যাকনেট",
       "ব্যাকনেট",
       "ফেরত দেয়"
-    ]
+    ],
+    "param.timeout.description": "সেকেন্ডে টাইমআউট।"
   },
   "cs": {
     "tool.description": "Čtení vlastnosti BACnet ze zařízení. Vrátí aktuální hodnotu a metadata jako JSON nebo text.",
@@ -78,7 +80,8 @@
       "bacnet",
       "BACNET",
       "vrací"
-    ]
+    ],
+    "param.timeout.description": "Časový limit v sekundách."
   },
   "de": {
     "tool.description": "Lesen Sie eine BACnet-Eigenschaft von einem Gerät. Gibt den aktuellen Wert und die Metadaten als JSON oder Text zurück.",
@@ -98,7 +101,8 @@
       "bacnet",
       "BACNET",
       "kehrt zurück"
-    ]
+    ],
+    "param.timeout.description": "Timeout in Sekunden."
   },
   "el": {
     "tool.description": "Διαβάστε μια ιδιότητα BACnet από μια συσκευή. Επιστρέφει την τρέχουσα τιμή και τα μεταδεδομένα ως JSON ή κείμενο.",
@@ -118,7 +122,8 @@
       "bacnet",
       "BACNET",
       "επιστρέφει"
-    ]
+    ],
+    "param.timeout.description": "Timeout σε δευτερόλεπτα."
   },
   "es": {
     "tool.description": "Leer una propiedad BACnet desde un dispositivo. Devuelve el valor actual y los metadatos como JSON o texto.",
@@ -138,7 +143,8 @@
       "bacnet",
       "BACNET",
       "regresa"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera en segundos."
   },
   "fa": {
     "tool.description": "یک ویژگی BACnet را از یک دستگاه بخوانید. مقدار و ابرداده فعلی را به صورت JSON یا متن برمی‌گرداند.",
@@ -158,7 +164,8 @@
       "بکنت",
       "بکنت",
       "برمی‌گرداند"
-    ]
+    ],
+    "param.timeout.description": "تایم اوت در ثانیه"
   },
   "fi": {
     "tool.description": "Lue BACnet-ominaisuus laitteesta. Palauttaa nykyisen arvon ja metatiedot JSON-muodossa tai tekstinä.",
@@ -178,7 +185,8 @@
       "bacnet",
       "BACNET",
       "palauttaa"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu sekunneissa."
   },
   "fr": {
     "tool.description": "Lire une propriété BACnet à partir d'un appareil. Renvoie la valeur actuelle et les métadonnées au format JSON ou texte.",
@@ -198,7 +206,8 @@
       "bacnet",
       "BACNET",
       "retours"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration en secondes."
   },
   "he": {
     "tool.description": "קרא מאפיין BACnet ממכשיר. מחזירה את הערך והמטא נתונים הנוכחיים כ-JSON או כטקסט.",
@@ -218,7 +227,8 @@
       "בק-נט",
       "בק-נט",
       "מחזיר"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן בשניות."
   },
   "hi": {
     "tool.description": "किसी डिवाइस से BACnet प्रॉपर्टी पढ़ें। वर्तमान मान और मेटाडेटा को JSON या टेक्स्ट के रूप में लौटाता है।",
@@ -238,7 +248,8 @@
       "बैकनेट",
       "बैकनेट",
       "लौटाता है"
-    ]
+    ],
+    "param.timeout.description": "सेकंड में टाइमआउट."
   },
   "hu": {
     "tool.description": "BACnet tulajdonság olvasása egy eszközről. Az aktuális értéket és metaadatokat adja vissza JSON-ként vagy szövegként.",
@@ -258,7 +269,8 @@
       "bacnet",
       "BACNET",
       "visszaadja"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés másodpercben."
   },
   "id": {
     "tool.description": "Membaca properti BACnet dari perangkat. Mengembalikan nilai dan metadata saat ini sebagai JSON atau teks.",
@@ -278,7 +290,8 @@
       "bacnet",
       "BACNET",
       "kembali"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu dalam hitungan detik."
   },
   "it": {
     "tool.description": "Leggere una proprietà BACnet da un dispositivo. Restituisce il valore corrente e i metadati come JSON o testo.",
@@ -298,7 +311,8 @@
       "bacnet",
       "BACNET",
       "ritorna"
-    ]
+    ],
+    "param.timeout.description": "Timeout in secondi."
   },
   "ja": {
     "tool.description": "デバイスから BACnet プロパティを読み取ります。現在の値とメタデータを JSON またはテキストとして返します。",
@@ -339,7 +353,8 @@
       "백넷",
       "백넷",
       "반품"
-    ]
+    ],
+    "param.timeout.description": "시간 초과(초)입니다."
   },
   "mn": {
     "tool.description": "Төхөөрөмжөөс BACnet шинж чанарыг унших. Одоогийн утга болон мета өгөгдлийг JSON эсвэл текст хэлбэрээр буцаана.",
@@ -359,7 +374,8 @@
       "бакнет",
       "бакнет",
       "буцаана"
-    ]
+    ],
+    "param.timeout.description": "Хугацаа секундын дотор."
   },
   "mr": {
     "tool.description": "डिव्हाइसवरून BACnet गुणधर्म वाचा. वर्तमान मूल्य आणि मेटाडेटा JSON किंवा मजकूर म्हणून मिळवते.",
@@ -379,7 +395,8 @@
       "बॅकनेट",
       "बॅकनेट",
       "परत करते"
-    ]
+    ],
+    "param.timeout.description": "सेकंदात कालबाह्य."
   },
   "nb": {
     "tool.description": "Les en BACnet-egenskap fra en enhet. Returnerer gjeldende verdi og metadata som JSON eller tekst.",
@@ -399,7 +416,8 @@
       "bacnet",
       "BACNET",
       "returnerer"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   },
   "nl": {
     "tool.description": "Een BACnet-eigenschap van een apparaat lezen. Retourneert de huidige waarde en metagegevens als JSON of tekst.",
@@ -419,7 +437,8 @@
       "bacnet",
       "BACNET",
       "keert terug"
-    ]
+    ],
+    "param.timeout.description": "Time-out in seconden."
   },
   "pl": {
     "tool.description": "Odczytaj właściwość BACnet z urządzenia. Zwraca bieżącą wartość i metadane w formacie JSON lub tekst.",
@@ -439,7 +458,8 @@
       "bacnet",
       "BACNET",
       "powraca"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu w sekundach."
   },
   "pt": {
     "tool.description": "Leia uma propriedade BACnet de um dispositivo. Retorna o valor atual e os metadados como JSON ou texto.",
@@ -459,7 +479,8 @@
       "bacnet",
       "BACNET",
       "retorna"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "pt_BR": {
     "tool.description": "Leia uma propriedade BACnet de um dispositivo. Retorna o valor atual e os metadados como JSON ou texto.",
@@ -479,7 +500,8 @@
       "bacnet",
       "BACNET",
       "retorna"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "ro": {
     "tool.description": "Citiți o proprietate BACnet de pe un dispozitiv. Returnează valoarea curentă și metadatele ca JSON sau text.",
@@ -499,7 +521,8 @@
       "bacnet",
       "BACNET",
       "returnează"
-    ]
+    ],
+    "param.timeout.description": "Timeout în secunde."
   },
   "ru": {
     "tool.description": "Считайте свойство BACnet с устройства. Возвращает текущее значение и метаданные в формате JSON или текст.",
@@ -519,7 +542,8 @@
       "bacnet",
       "BACNET",
       "возвращает"
-    ]
+    ],
+    "param.timeout.description": "Таймаут в секундах."
   },
   "sv": {
     "tool.description": "Läs en BACnet-egenskap från en enhet. Returnerar det aktuella värdet och metadata som JSON eller text.",
@@ -539,7 +563,8 @@
       "bacnet",
       "BACNET",
       "returnerar"
-    ]
+    ],
+    "param.timeout.description": "Timeout i sekunder."
   },
   "sw": {
     "tool.description": "Soma kipengele cha BACnet kutoka kwa kifaa. Hurejesha thamani ya sasa na metadata kama JSON au maandishi.",
@@ -559,7 +584,8 @@
       "bacnet",
       "BACNET",
       "anarudi"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa sekunde."
   },
   "th": {
     "tool.description": "อ่านคุณสมบัติ BACnet จากอุปกรณ์ ส่งคืนค่าปัจจุบันและข้อมูลเมตาเป็น JSON หรือข้อความ",
@@ -579,7 +605,8 @@
       "แบคเน็ท",
       "แบคเน็ท",
       "ส่งคืน"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาเป็นวินาที"
   },
   "tr": {
     "tool.description": "Bir cihazdan BACnet özelliğini okuyun. Geçerli değeri ve meta verileri JSON veya metin olarak döndürür.",
@@ -599,7 +626,8 @@
       "bacnet",
       "BACNET",
       "geri döner"
-    ]
+    ],
+    "param.timeout.description": "Saniye cinsinden zaman aşımı."
   },
   "uk": {
     "tool.description": "Читання властивості BACnet із пристрою. Повертає поточне значення та метадані як JSON або текст.",
@@ -619,7 +647,8 @@
       "bacnet",
       "BACNET",
       "повертає"
-    ]
+    ],
+    "param.timeout.description": "Час очікування в секундах."
   },
   "vi": {
     "tool.description": "Đọc thuộc tính BACnet từ một thiết bị. Trả về giá trị hiện tại và siêu dữ liệu dưới dạng JSON hoặc văn bản.",
@@ -639,7 +668,8 @@
       "bacnet",
       "BACNET",
       "trả lại"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ tính bằng giây."
   },
   "zh_CN": {
     "tool.description": "从设备读取 BACnet 属性。以 JSON 或文本形式返回当前值和元数据。",
@@ -659,7 +689,8 @@
       "bacnet",
       "BACNET",
       "返回"
-    ]
+    ],
+    "param.timeout.description": "超时（以秒为单位）。"
   },
   "zh_TW": {
     "tool.description": "從裝置讀取 BACnet 屬性。以 JSON 或文字形式傳回目前值和元資料。",
@@ -679,6 +710,7 @@
       "bacnet",
       "BACNET",
       "回傳"
-    ]
+    ],
+    "param.timeout.description": "超時（以秒為單位）。"
   }
 }

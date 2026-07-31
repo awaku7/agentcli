@@ -42,7 +42,8 @@
       "مودبوس",
       "قيم",
       "يدعم"
-    ]
+    ],
+    "param.timeout.description": "المهلة بالثواني."
   },
   "bn": {
     "tool.description": "একটি Modbus TCP ডিভাইসে মান লিখুন। রেজিস্টার (একক/মাল্টিপল) এবং কয়েল রাখা সমর্থন করে।",
@@ -64,7 +65,8 @@
       "মডবাস",
       "মান",
       "সমর্থন করে"
-    ]
+    ],
+    "param.timeout.description": "সেকেন্ডে টাইমআউট।"
   },
   "cs": {
     "tool.description": "Zapište hodnoty do zařízení Modbus TCP. Podporuje přídržné registry (jednoduché/vícenásobné) a cívky.",
@@ -86,7 +88,8 @@
       "MODBUS",
       "hodnoty",
       "podporuje"
-    ]
+    ],
+    "param.timeout.description": "Časový limit v sekundách."
   },
   "de": {
     "tool.description": "Werte auf ein Modbus TCP-Gerät schreiben. Unterstützt Halteregister (einzeln/mehrfach) und Spulen.",
@@ -108,7 +111,8 @@
       "MODBUS",
       "Werte",
       "unterstützt"
-    ]
+    ],
+    "param.timeout.description": "Timeout in Sekunden."
   },
   "el": {
     "tool.description": "Γράψτε τιμές σε μια συσκευή Modbus TCP. Υποστηρίζει συγκράτηση καταχωρητών (μονών/πολλαπλών) και πηνίων.",
@@ -130,7 +134,8 @@
       "MODBUS",
       "τιμές",
       "υποστηρίζει"
-    ]
+    ],
+    "param.timeout.description": "Timeout σε δευτερόλεπτα."
   },
   "es": {
     "tool.description": "Escribir valores en un dispositivo Modbus TCP. Admite registros de retención (simples/múltiples) y bobinas.",
@@ -152,7 +157,8 @@
       "MODBUS",
       "valores",
       "apoya"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera en segundos."
   },
   "fa": {
     "tool.description": "مقادیر را در یک دستگاه Modbus TCP بنویسید. پشتیبانی از رجیسترهای نگهدارنده (تک / چندگانه) و سیم پیچ.",
@@ -174,7 +180,8 @@
       "مادباس",
       "مقادیر",
       "پشتیبانی می‌کند"
-    ]
+    ],
+    "param.timeout.description": "تایم اوت در ثانیه"
   },
   "fi": {
     "tool.description": "Kirjoita arvot Modbus TCP -laitteeseen. Tukee pitorekistereitä (yksi/useita) ja keloja.",
@@ -196,7 +203,8 @@
       "MODBUS",
       "arvot",
       "tukee"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu sekunneissa."
   },
   "fr": {
     "tool.description": "Écrivez des valeurs sur un appareil Modbus TCP. Prend en charge les registres de maintien (simples/multiples) et les bobines.",
@@ -218,7 +226,8 @@
       "MODBUS",
       "valeurs",
       "prend en charge"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration en secondes."
   },
   "he": {
     "tool.description": "כתוב ערכים להתקן Modbus TCP. תומך בהחזקת אוגרים (יחיד/מרוב) וסלילים.",
@@ -240,7 +249,8 @@
       "מודבוס",
       "ערכים",
       "תומך"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן בשניות."
   },
   "hi": {
     "tool.description": "मॉडबस टीसीपी डिवाइस में मान लिखें। रजिस्टरों (एकल/एकाधिक) और कॉइल्स को रखने का समर्थन करता है।",
@@ -262,7 +272,8 @@
       "मॉडबस",
       "मान",
       "समर्थन करता है"
-    ]
+    ],
+    "param.timeout.description": "सेकंड में टाइमआउट."
   },
   "hu": {
     "tool.description": "Írjon értékeket egy Modbus TCP eszközre. Támogatja a tartóregisztereket (egyszeres/többszörös) és a tekercseket.",
@@ -284,7 +295,8 @@
       "MODBUS",
       "értékek",
       "támogatja"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés másodpercben."
   },
   "id": {
     "tool.description": "Tulis nilai ke perangkat Modbus TCP. Mendukung register penahan (tunggal/ganda) dan kumparan.",
@@ -306,7 +318,8 @@
       "MODBUS",
       "nilai",
       "mendukung"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu dalam hitungan detik."
   },
   "it": {
     "tool.description": "Scrivere valori su un dispositivo Modbus TCP. Supporta registri di mantenimento (singoli/multipli) e bobine.",
@@ -328,7 +341,8 @@
       "MODBUS",
       "valori",
       "supporta"
-    ]
+    ],
+    "param.timeout.description": "Timeout in secondi."
   },
   "ja": {
     "tool.description": "Modbus TCP デバイスに値を書き込みます。保持レジスタ（単一/複数）とコイルをサポートします。",
@@ -373,7 +387,8 @@
       "모드버스",
       "가치",
       "지원하다"
-    ]
+    ],
+    "param.timeout.description": "시간 초과(초)입니다."
   },
   "mn": {
     "tool.description": "Modbus TCP төхөөрөмжид утгыг бичих. Бүртгэлийн бүртгэл (ганц / олон) болон ороомогуудыг дэмждэг.",
@@ -395,7 +410,8 @@
       "модбус",
       "утга",
       "дэмждэг"
-    ]
+    ],
+    "param.timeout.description": "Хугацаа секундын дотор."
   },
   "mr": {
     "tool.description": "Modbus TCP डिव्हाइसवर मूल्ये लिहा. रजिस्टर्स (एकल/एकाधिक) आणि कॉइल्स धारण करण्यास समर्थन देते.",
@@ -417,7 +433,8 @@
       "मॉडबस",
       "मूल्ये",
       "समर्थन करते"
-    ]
+    ],
+    "param.timeout.description": "सेकंदात कालबाह्य."
   },
   "nb": {
     "tool.description": "Skriv verdier til en Modbus TCP-enhet. Støtter holderegistre (single/multiple) og spoler.",
@@ -439,7 +456,8 @@
       "MODBUS",
       "verdier",
       "støtter"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   },
   "nl": {
     "tool.description": "Schrijf waarden naar een Modbus TCP-apparaat. Ondersteunt holdingregisters (enkel/meerdere) en spoelen.",
@@ -461,7 +479,8 @@
       "MODBUS",
       "waarden",
       "ondersteunt"
-    ]
+    ],
+    "param.timeout.description": "Time-out in seconden."
   },
   "pl": {
     "tool.description": "Zapisz wartości w urządzeniu Modbus TCP. Obsługuje rejestry trzymające (pojedyncze/wiele) i cewki.",
@@ -483,7 +502,8 @@
       "MODBUS",
       "wartości",
       "obsługuje"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu w sekundach."
   },
   "pt": {
     "tool.description": "Escreva valores em um dispositivo Modbus TCP. Suporta registros de retenção (simples/múltiplos) e bobinas.",
@@ -505,7 +525,8 @@
       "MODBUS",
       "valores",
       "suporta"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "pt_BR": {
     "tool.description": "Escreva valores em um dispositivo Modbus TCP. Suporta registros de retenção (simples/múltiplos) e bobinas.",
@@ -527,7 +548,8 @@
       "MODBUS",
       "valores",
       "suporta"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "ro": {
     "tool.description": "Scrieți valori pe un dispozitiv Modbus TCP. Suportă registre de păstrare (single/multiple) și bobine.",
@@ -549,7 +571,8 @@
       "MODBUS",
       "valori",
       "suportă"
-    ]
+    ],
+    "param.timeout.description": "Timeout în secunde."
   },
   "ru": {
     "tool.description": "Запишите значения в устройство Modbus TCP. Поддерживает регистры временного хранения (одиночный/множественный) и катушки.",
@@ -571,7 +594,8 @@
       "MODBUS",
       "значения",
       "поддерживает"
-    ]
+    ],
+    "param.timeout.description": "Таймаут в секундах."
   },
   "sv": {
     "tool.description": "Skriv värden till en Modbus TCP-enhet. Stöder hållande register (enkel/multipel) och spolar.",
@@ -593,7 +617,8 @@
       "MODBUS",
       "värden",
       "stöder"
-    ]
+    ],
+    "param.timeout.description": "Timeout i sekunder."
   },
   "sw": {
     "tool.description": "Andika maadili kwa kifaa cha Modbus TCP. Inasaidia kushikilia rejista (moja / nyingi) na coils.",
@@ -615,7 +640,8 @@
       "MODBUS",
       "thamani",
       "inasaidia"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa sekunde."
   },
   "th": {
     "tool.description": "เขียนค่าไปยังอุปกรณ์ Modbus TCP รองรับการถือครองรีจิสเตอร์ (เดี่ยว/หลาย) และคอยล์",
@@ -637,7 +663,8 @@
       "มอดบัส",
       "ค่า",
       "รองรับ"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาเป็นวินาที"
   },
   "tr": {
     "tool.description": "Değerleri bir Modbus TCP cihazına yazın. Tutma kayıtlarını (tekli/çoklu) ve bobinleri destekler.",
@@ -659,7 +686,8 @@
       "MODBUS",
       "değerler",
       "destekler"
-    ]
+    ],
+    "param.timeout.description": "Saniye cinsinden zaman aşımı."
   },
   "uk": {
     "tool.description": "Запис значень на пристрій Modbus TCP. Підтримує регістри зберігання (один/кілька) і котушки.",
@@ -681,7 +709,8 @@
       "MODBUS",
       "значення",
       "підтримує"
-    ]
+    ],
+    "param.timeout.description": "Час очікування в секундах."
   },
   "vi": {
     "tool.description": "Ghi giá trị vào thiết bị Modbus TCP. Hỗ trợ giữ các thanh ghi (đơn/nhiều) và cuộn dây.",
@@ -703,7 +732,8 @@
       "MODBUS",
       "giá trị",
       "hỗ trợ"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ tính bằng giây."
   },
   "zh_CN": {
     "tool.description": "将值写入 Modbus TCP 设备。支持保持寄存器（单个/多个）和线圈。",
@@ -725,7 +755,8 @@
       "MODBUS",
       "值",
       "支持"
-    ]
+    ],
+    "param.timeout.description": "超时（以秒为单位）。"
   },
   "zh_TW": {
     "tool.description": "將值寫入 Modbus TCP 設備。支援保持暫存器（單一/多個）和線圈。",
@@ -747,6 +778,7 @@
       "MODBUS",
       "值",
       "支援"
-    ]
+    ],
+    "param.timeout.description": "超時（以秒為單位）。"
   }
 }

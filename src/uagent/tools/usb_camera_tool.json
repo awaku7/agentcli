@@ -19,12 +19,7 @@
       "صورة",
       "التقاط فيديو",
       "جهاز الكاميرا"
-    ],
-    "param.camera_id.description": "فهرس جهاز الكاميرا (0 = افتراضي).",
-    "err.camera_not_found": "لم يتم العثور على كاميرا في الفهرس {index}.",
-    "err.capture_failed": "فشل التقاط الصورة من الكاميرا.",
-    "err.opencv_missing": "OpenCV غير متوفر. قم بالتثبيت باستخدام: pip install opencv-python",
-    "msg.captured": "تم التقاط الصورة من الكاميرا {index}."
+    ]
   },
   "bn": {
     "tool.description": "USB ক্যামেরা থেকে ছবি ক্যাপচার করুন।",
@@ -46,12 +41,7 @@
       "ফটো",
       "ভিডিও ক্যাপচার",
       "ক্যামেরা ডিভাইস"
-    ],
-    "param.camera_id.description": "ক্যামেরা ডিভাইস সূচক (0 = ডিফল্ট)।",
-    "err.camera_not_found": "সূচক {index} এ কোনো ক্যামেরা পাওয়া যায়নি।",
-    "err.capture_failed": "ক্যামেরা থেকে ছবি ক্যাপচার করতে ব্যর্থ।",
-    "err.opencv_missing": "OpenCV উপলব্ধ নয়। ইনস্টল করুন: pip install opencv-python",
-    "msg.captured": "ক্যামেরা {index} থেকে ছবি ক্যাপচার করা হয়েছে।"
+    ]
   },
   "cs": {
     "tool.description": "Zachytit snímek z USB kamery.",
@@ -73,12 +63,7 @@
       "foto",
       "zachycení videa",
       "kamera zařízení"
-    ],
-    "param.camera_id.description": "Index zařízení kamery (0 = výchozí).",
-    "err.camera_not_found": "Kamera nenalezena na indexu {index}.",
-    "err.capture_failed": "Nepodařilo se zachytit snímek z kamery.",
-    "err.opencv_missing": "OpenCV není k dispozici. Nainstalujte pomocí: pip install opencv-python",
-    "msg.captured": "Snímek zachycen z kamery {index}."
+    ]
   },
   "de": {
     "tool.description": "Bild von einer USB-Kamera aufnehmen.",
@@ -100,12 +85,7 @@
       "Foto",
       "Videoaufnahme",
       "Kameragerät"
-    ],
-    "param.camera_id.description": "Kamera-Geräteindex (0 = Standard).",
-    "err.camera_not_found": "Keine Kamera an Index {index} gefunden.",
-    "err.capture_failed": "Fehler beim Aufnehmen des Bildes von der Kamera.",
-    "err.opencv_missing": "OpenCV ist nicht verfügbar. Installieren mit: pip install opencv-python",
-    "msg.captured": "Bild von Kamera {index} aufgenommen."
+    ]
   },
   "en": {
     "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
@@ -149,12 +129,7 @@
       "foto",
       "captura de video",
       "dispositivo de cámara"
-    ],
-    "param.camera_id.description": "Índice del dispositivo de cámara (0 = predeterminado).",
-    "err.camera_not_found": "No se encontró cámara en el índice {index}.",
-    "err.capture_failed": "Error al capturar imagen de la cámara.",
-    "err.opencv_missing": "OpenCV no está disponible. Instalar con: pip install opencv-python",
-    "msg.captured": "Imagen capturada de la cámara {index}."
+    ]
   },
   "fa": {
     "tool.description": "گرفتن تصویر از دوربین USB.",
@@ -176,12 +151,7 @@
       "عکس",
       "ضبط ویدیویی",
       "دستگاه دوربین"
-    ],
-    "param.camera_id.description": "شاخص دستگاه دوربین (0 = پیش‌فرض).",
-    "err.camera_not_found": "دوربینی در شاخص {index} یافت نشد.",
-    "err.capture_failed": "گرفتن تصویر از دوربین ناموفق بود.",
-    "err.opencv_missing": "OpenCV در دسترس نیست. نصب با: pip install opencv-python",
-    "msg.captured": "تصویر از دوربین {index} گرفته شد."
+    ]
   },
   "fi": {
     "tool.description": "Ota kuva USB-kamerasta.",
@@ -203,12 +173,7 @@
       "valokuva",
       "videon sieppaus",
       "kameralaite"
-    ],
-    "param.camera_id.description": "Kameran laiteindeksi (0 = oletus).",
-    "err.camera_not_found": "Kameraa ei löydy indeksistä {index}.",
-    "err.capture_failed": "Kuvan ottaminen kamerasta epäonnistui.",
-    "err.opencv_missing": "OpenCV ei ole käytettävissä. Asenna: pip install opencv-python",
-    "msg.captured": "Kuva otettu kamerasta {index}."
+    ]
   },
   "fr": {
     "tool.description": "Capturer une image depuis une caméra USB.",
@@ -230,12 +195,7 @@
       "photo",
       "capture vidéo",
       "appareil photo"
-    ],
-    "param.camera_id.description": "Index du périphérique de la caméra (0 = défaut).",
-    "err.camera_not_found": "Aucune caméra trouvée à l'index {index}.",
-    "err.capture_failed": "Échec de la capture d'image depuis la caméra.",
-    "err.opencv_missing": "OpenCV n'est pas disponible. Installez avec : pip install opencv-python",
-    "msg.captured": "Image capturée depuis la caméra {index}."
+    ]
   },
   "hi": {
     "tool.description": "USB कैमरे से चित्र कैप्चर करें।",
@@ -257,12 +217,7 @@
       "फोटो",
       "वीडियो कैप्चर",
       "कैमरा डिवाइस"
-    ],
-    "param.camera_id.description": "कैमरा डिवाइस इंडेक्स (0 = डिफ़ॉल्ट)।",
-    "err.camera_not_found": "इंडेक्स {index} पर कोई कैमरा नहीं मिला।",
-    "err.capture_failed": "कैमरे से चित्र कैप्चर करने में विफल।",
-    "err.opencv_missing": "OpenCV उपलब्ध नहीं है। स्थापित करें: pip install opencv-python",
-    "msg.captured": "कैमरे {index} से चित्र कैप्चर किया गया।"
+    ]
   },
   "id": {
     "tool.description": "Ambil gambar dari kamera USB.",
@@ -284,12 +239,7 @@
       "pengambilan foto",
       "pengambilan video",
       "perangkat kamera"
-    ],
-    "param.camera_id.description": "Indeks perangkat kamera (0 = default).",
-    "err.camera_not_found": "Tidak ada kamera ditemukan di indeks {index}.",
-    "err.capture_failed": "Gagal mengambil gambar dari kamera.",
-    "err.opencv_missing": "OpenCV tidak tersedia. Instal dengan: pip install opencv-python",
-    "msg.captured": "Gambar diambil dari kamera {index}."
+    ]
   },
   "it": {
     "tool.description": "Catturare immagine da una fotocamera USB.",
@@ -311,12 +261,7 @@
       "foto",
       "acquisizione video",
       "dispositivo fotocamera"
-    ],
-    "param.camera_id.description": "Indice del dispositivo fotocamera (0 = predefinito).",
-    "err.camera_not_found": "Nessuna fotocamera trovata all'indice {index}.",
-    "err.capture_failed": "Impossibile catturare l'immagine dalla fotocamera.",
-    "err.opencv_missing": "OpenCV non è disponibile. Installare con: pip install opencv-python",
-    "msg.captured": "Immagine catturata dalla fotocamera {index}."
+    ]
   },
   "ja": {
     "tool.description": "ffmpeg 経由で USB カメラから写真をキャプチャするか、利用可能なビデオ デバイスをリストします。Windows (dshow)、Linux (v4l2)、macOS (avfoundation) をサポートします。",
@@ -338,12 +283,7 @@
       "写真",
       "ビデオ キャプチャ",
       "カメラ デバイス"
-    ],
-    "param.camera_id.description": "カメラデバイスインデックス（0 = デフォルト）。",
-    "err.camera_not_found": "インデックス {index} にカメラが見つかりません。",
-    "err.capture_failed": "カメラからの画像キャプチャに失敗しました。",
-    "err.opencv_missing": "OpenCVが利用できません。インストール: pip install opencv-python",
-    "msg.captured": "カメラ {index} から画像をキャプチャしました。"
+    ]
   },
   "ko": {
     "tool.description": "USB 카메라에서 이미지를 캡쳐합니다.",
@@ -365,12 +305,7 @@
       "사진",
       "비디오 캡처",
       "카메라 장치"
-    ],
-    "param.camera_id.description": "카메라 장치 인덱스 (0 = 기본값).",
-    "err.camera_not_found": "인덱스 {index}에서 카메라를 찾을 수 없습니다.",
-    "err.capture_failed": "카메라에서 이미지를 캡처하지 못했습니다.",
-    "err.opencv_missing": "OpenCV를 사용할 수 없습니다. 설치: pip install opencv-python",
-    "msg.captured": "카메라 {index}에서 이미지를 캡처했습니다."
+    ]
   },
   "mn": {
     "tool.description": "USB камераас зураг авах.",
@@ -392,12 +327,7 @@
       "зураг",
       "видео барих",
       "камерын төхөөрөмж"
-    ],
-    "param.camera_id.description": "Камерын төхөөрөмжийн индекс (0 = анхдагч).",
-    "err.camera_not_found": "{index} индексэд камер олдсонгүй.",
-    "err.capture_failed": "Камераас зураг авахад алдаа гарлаа.",
-    "err.opencv_missing": "OpenCV боломжгүй. Суулгах: pip install opencv-python",
-    "msg.captured": "Камер {index} -аас зураг авсан."
+    ]
   },
   "mr": {
     "tool.description": "USB कॅमेर्यातून प्रतिमा कॅप्चर करा.",
@@ -419,12 +349,7 @@
       "photo",
       "व्हिडिओ कॅप्चर",
       "कॅमेरा उपकरण"
-    ],
-    "param.camera_id.description": "कॅमेरा उपकरण अनुक्रमणिका (0 = डीफॉल्ट).",
-    "err.camera_not_found": "अनुक्रमणिका {index} वर कॅमेरा आढळला नाही.",
-    "err.capture_failed": "कॅमेर्यातून प्रतिमा कॅप्चर करण्यात अयशस्वी.",
-    "err.opencv_missing": "OpenCV उपलब्ध नाही. स्थापित करा: pip install opencv-python",
-    "msg.captured": "कॅमेरा {index} वरून प्रतिमा कॅप्चर केली."
+    ]
   },
   "el": {
     "tool.description": "Ενέργεια: λήψη (λήψη φωτογραφίας), λίστα (εμφάνιση συσκευών) ή list_caps (εμφάνιση δυνατοτήτων όπως αναλύσεις και FPS για μια συσκευή).",
@@ -534,12 +459,7 @@
       "bilde",
       "videoopptak",
       "kameraenhet"
-    ],
-    "param.camera_id.description": "Kameraenhetsindeks (0 = standard).",
-    "err.camera_not_found": "Ingen kamera funnet ved indeks {index}.",
-    "err.capture_failed": "Mislyktes å ta bilde fra kamera.",
-    "err.opencv_missing": "OpenCV er ikke tilgjengelig. Installer med: pip install opencv-python",
-    "msg.captured": "Bilde tatt fra kamera {index}."
+    ]
   },
   "nl": {
     "tool.description": "Afbeelding vastleggen van een USB-camera.",
@@ -561,12 +481,7 @@
       "foto",
       "video-opname",
       "camera-apparaat"
-    ],
-    "param.camera_id.description": "Camera-apparaatindex (0 = standaard).",
-    "err.camera_not_found": "Geen camera gevonden op index {index}.",
-    "err.capture_failed": "Mislukt om afbeelding van camera vast te leggen.",
-    "err.opencv_missing": "OpenCV is niet beschikbaar. Installeer met: pip install opencv-python",
-    "msg.captured": "Afbeelding vastgelegd van camera {index}."
+    ]
   },
   "pl": {
     "tool.description": "Przechwyć obraz z kamery USB.",
@@ -588,12 +503,7 @@
       "zdjęcie",
       "przechwytywanie wideo",
       "kamera"
-    ],
-    "param.camera_id.description": "Indeks urządzenia kamery (0 = domyślny).",
-    "err.camera_not_found": "Nie znaleziono kamery o indeksie {index}.",
-    "err.capture_failed": "Nie udało się przechwycić obrazu z kamery.",
-    "err.opencv_missing": "OpenCV nie jest dostępne. Zainstaluj za pomocą: pip install opencv-python",
-    "msg.captured": "Przechwycono obraz z kamery {index}."
+    ]
   },
   "pt": {
     "tool.description": "Capturar imagem de uma câmara USB.",
@@ -615,12 +525,7 @@
       "foto",
       "captura de vídeo",
       "dispositivo de câmera"
-    ],
-    "param.camera_id.description": "Índice do dispositivo da câmara (0 = padrão).",
-    "err.camera_not_found": "Nenhuma câmara encontrada no índice {index}.",
-    "err.capture_failed": "Falha ao capturar imagem da câmara.",
-    "err.opencv_missing": "OpenCV não está disponível. Instale com: pip install opencv-python",
-    "msg.captured": "Imagem capturada da câmara {index}."
+    ]
   },
   "pt_BR": {
     "tool.description": "Capturar imagem de uma câmera USB.",
@@ -642,12 +547,7 @@
       "foto",
       "captura de vídeo",
       "dispositivo de câmera"
-    ],
-    "param.camera_id.description": "Índice do dispositivo de câmera (0 = padrão).",
-    "err.camera_not_found": "Nenhuma câmera encontrada no índice {index}.",
-    "err.capture_failed": "Falha ao capturar imagem da câmera.",
-    "err.opencv_missing": "OpenCV não está disponível. Instale com: pip install opencv-python",
-    "msg.captured": "Imagem capturada da câmera {index}."
+    ]
   },
   "ru": {
     "tool.description": "Захватить изображение с USB-камеры.",
@@ -669,12 +569,7 @@
       "фото",
       "захват видео",
       "устройство камеры"
-    ],
-    "param.camera_id.description": "Индекс устройства камеры (0 = по умолчанию).",
-    "err.camera_not_found": "Камера не найдена по индексу {index}.",
-    "err.capture_failed": "Не удалось захватить изображение с камеры.",
-    "err.opencv_missing": "OpenCV недоступен. Установите с помощью: pip install opencv-python",
-    "msg.captured": "Изображение захвачено с камеры {index}."
+    ]
   },
   "sv": {
     "tool.description": "Fånga bild från en USB-kamera.",
@@ -696,12 +591,7 @@
       "foto",
       "videoinspelning",
       "kameraenhet"
-    ],
-    "param.camera_id.description": "Kamerans enhetsindex (0 = standard).",
-    "err.camera_not_found": "Ingen kamera hittades vid index {index}.",
-    "err.capture_failed": "Misslyckades med att fånga bild från kameran.",
-    "err.opencv_missing": "OpenCV är inte tillgängligt. Installera med: pip install opencv-python",
-    "msg.captured": "Bild fångad från kamera {index}."
+    ]
   },
   "sw": {
     "tool.description": "Nasa picha kutoka kwenye kamera ya USB.",
@@ -723,12 +613,7 @@
       "picha",
       "nasa video",
       "kifaa cha kamera"
-    ],
-    "param.camera_id.description": "Faharasa ya kifaa cha kamera (0 = chaguo-msingi).",
-    "err.camera_not_found": "Hakuna kamera iliyopatikana katika faharasa {index}.",
-    "err.capture_failed": "Imeshindwa kunasa picha kutoka kwenye kamera.",
-    "err.opencv_missing": "OpenCV haipatikani. Sakinisha kwa: pip install opencv-python",
-    "msg.captured": "Picha imenaswa kutoka kamera {index}."
+    ]
   },
   "th": {
     "tool.description": "จับภาพจากกล้อง USB",
@@ -750,12 +635,7 @@
       "ภาพถ่าย",
       "จับภาพวิดีโอ",
       "อุปกรณ์กล้อง"
-    ],
-    "param.camera_id.description": "ดัชนีอุปกรณ์กล้อง (0 = ค่าเริ่มต้น)",
-    "err.camera_not_found": "ไม่พบกล้องที่ดัชนี {index}",
-    "err.capture_failed": "ไม่สามารถจับภาพจากกล้อง",
-    "err.opencv_missing": "OpenCV ไม่พร้อมใช้งาน ติดตั้งด้วย: pip install opencv-python",
-    "msg.captured": "จับภาพจากกล้อง {index} แล้ว"
+    ]
   },
   "tr": {
     "tool.description": "USB kameradan görüntü yakalayın.",
@@ -777,12 +657,7 @@
       "fotoğraf",
       "video yakalama",
       "kamera cihazı"
-    ],
-    "param.camera_id.description": "Kamera cihaz indeksi (0 = varsayılan).",
-    "err.camera_not_found": "{index} indeksinde kamera bulunamadı.",
-    "err.capture_failed": "Kameradan görüntü yakalanamadı.",
-    "err.opencv_missing": "OpenCV mevcut değil. Şununla kurun: pip install opencv-python",
-    "msg.captured": "Kamera {index}'den görüntü yakalandı."
+    ]
   },
   "uk": {
     "tool.description": "Захопити зображення з USB-камери.",
@@ -804,12 +679,7 @@
       "фото",
       "запис відео",
       "пристрій камери"
-    ],
-    "param.camera_id.description": "Індекс пристрою камери (0 = за замовчуванням).",
-    "err.camera_not_found": "Камеру не знайдено за індексом {index}.",
-    "err.capture_failed": "Не вдалося захопити зображення з камери.",
-    "err.opencv_missing": "OpenCV недоступний. Встановіть за допомогою: pip install opencv-python",
-    "msg.captured": "Зображення захоплено з камери {index}."
+    ]
   },
   "vi": {
     "tool.description": "Chụp ảnh từ camera USB.",
@@ -831,12 +701,7 @@
       "ảnh",
       "quay video",
       "thiết bị máy ảnh"
-    ],
-    "param.camera_id.description": "Chỉ số thiết bị camera (0 = mặc định).",
-    "err.camera_not_found": "Không tìm thấy camera tại chỉ mục {index}.",
-    "err.capture_failed": "Không thể chụp ảnh từ camera.",
-    "err.opencv_missing": "OpenCV không khả dụng. Cài đặt bằng: pip install opencv-python",
-    "msg.captured": "Đã chụp ảnh từ camera {index}."
+    ]
   },
   "zh_CN": {
     "tool.description": "从USB摄像头捕获图像。",
@@ -858,12 +723,7 @@
       "照片",
       "视频捕获",
       "相机设备"
-    ],
-    "param.camera_id.description": "摄像头设备索引（0 = 默认）。",
-    "err.camera_not_found": "在索引 {index} 处未找到摄像头。",
-    "err.capture_failed": "从摄像头捕获图像失败。",
-    "err.opencv_missing": "OpenCV不可用。使用以下命令安装：pip install opencv-python",
-    "msg.captured": "已从摄像头 {index} 捕获图像。"
+    ]
   },
   "zh_TW": {
     "tool.description": "從 USB 攝影機擷取影像。",
@@ -885,11 +745,6 @@
       "照片",
       "視訊擷取",
       "相機設備"
-    ],
-    "param.camera_id.description": "攝影機裝置索引（0 = 預設）。",
-    "err.camera_not_found": "在索引 {index} 處未找到攝影機。",
-    "err.capture_failed": "從攝影機擷取影像失敗。",
-    "err.opencv_missing": "OpenCV 無法使用。請使用以下指令安裝：pip install opencv-python",
-    "msg.captured": "已從攝影機 {index} 擷取影像。"
+    ]
   }
 }

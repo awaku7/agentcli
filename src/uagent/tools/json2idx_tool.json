@@ -65,7 +65,8 @@
     "err.section_required": "错误：当 mode='section' 时，需要'section'（整数）。",
     "err.section_invalid": "错误：“节”必须是整数。",
     "err.section_not_found": "错误：未找到 {section_num} 部分。有效范围：1..{last}。",
-    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。"
+    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
+    "param.max_depth.description": "要包含在索引中的关键路径的最大嵌套深度（默认为 3）。"
   },
   "zh_TW": {
     "tool.description": "將檔案解析為多個部分並傳回 json2idx 的編號索引或特定部分。",
@@ -87,7 +88,8 @@
     "err.section_required": "錯誤：當 mode='section' 時，需要'section'（整數）。",
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到 {section_num} 部分。有效範圍：1..{last}。",
-    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。"
+    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
+    "param.max_depth.description": "要包含在索引中的關鍵路徑的最大嵌套深度（預設為 3）。"
   },
   "ko": {
     "tool.description": "파일을 섹션으로 구문 분석하고 json2idx에 대한 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다.",
@@ -109,7 +111,8 @@
     "err.section_required": "오류: 모드='섹션'인 경우 '섹션'(정수)이 필요합니다.",
     "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
     "err.section_not_found": "오류: {section_num} 섹션을 찾을 수 없습니다. 유효한 범위: 1..{last}.",
-    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요."
+    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
+    "param.max_depth.description": "인덱스에 포함할 키 경로의 최대 중첩 깊이(기본값 3)"
   },
   "fr": {
     "tool.description": "Analysez le fichier en sections et renvoyez un index numéroté ou une section spécifique pour json2idx.",
@@ -131,7 +134,8 @@
     "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
     "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
     "err.section_not_found": "Erreur : Section {section_num} introuvable. Plage valide : 1..{last}.",
-    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section »."
+    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section ».",
+    "param.max_depth.description": "Profondeur d'imbrication maximale des chemins de clés à inclure dans l'index (3 par défaut)."
   },
   "de": {
     "tool.description": "Analysieren Sie die Datei in Abschnitte und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt für json2idx zurück.",
@@ -153,7 +157,8 @@
     "err.section_required": "Fehler: 'Abschnitt' (Ganzzahl) ist erforderlich, wenn mode='Abschnitt'.",
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
-    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“."
+    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
+    "param.max_depth.description": "Maximale Verschachtelungstiefe der Schlüsselpfade, die in den Index aufgenommen werden sollen (Standard 3)."
   },
   "es": {
     "tool.description": "Analiza el archivo en secciones y devuelve un índice numerado o una sección específica para json2idx.",
@@ -175,7 +180,8 @@
     "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
     "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
     "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{last}.",
-    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'."
+    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
+    "param.max_depth.description": "Profundidad máxima de anidamiento de rutas clave para incluir en el índice (predeterminado 3)."
   },
   "it": {
     "tool.description": "Analizza il file in sezioni e restituisce un indice numerato o una sezione specifica per json2idx.",
@@ -197,7 +203,8 @@
     "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
     "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
     "err.section_not_found": "Errore: sezione {section_num} non trovata. Intervallo valido: 1..{last}.",
-    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\"."
+    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
+    "param.max_depth.description": "Profondità di nidificazione massima dei percorsi chiave da includere nell'indice (impostazione predefinita 3)."
   },
   "pt_BR": {
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
@@ -219,7 +226,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "param.max_depth.description": "Profundidade máxima de aninhamento de caminhos-chave a serem incluídos no índice (padrão 3)."
   },
   "pt": {
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para json2idx.",
@@ -241,7 +249,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "param.max_depth.description": "Profundidade máxima de aninhamento de caminhos-chave a serem incluídos no índice (padrão 3)."
   },
   "ru": {
     "tool.description": "Разберите файл на разделы и верните пронумерованный индекс или конкретный раздел для json2idx.",
@@ -263,7 +272,8 @@
     "err.section_required": "Ошибка: «раздел» (целое число) требуется, если mode = «раздел».",
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
-    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел»."
+    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
+    "param.max_depth.description": "Максимальная глубина вложенности ключевых путей для включения в индекс (по умолчанию 3)."
   },
   "id": {
     "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk json2idx.",
@@ -285,7 +295,8 @@
     "err.section_required": "Kesalahan: 'bagian' (bilangan bulat) diperlukan ketika mode='bagian'.",
     "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
     "err.section_not_found": "Kesalahan: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
-    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'."
+    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
+    "param.max_depth.description": "Kedalaman sarang maksimum jalur kunci untuk disertakan dalam indeks (default 3)."
   },
   "vi": {
     "tool.description": "Phân tích tệp thành các phần và trả về chỉ mục được đánh số hoặc phần cụ thể cho json2idx.",
@@ -307,7 +318,8 @@
     "err.section_required": "Lỗi: 'phần' (số nguyên) là bắt buộc khi mode='section'.",
     "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Không tìm thấy phần {section_num}. Phạm vi hợp lệ: 1..{last}.",
-    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'."
+    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
+    "param.max_depth.description": "Độ sâu lồng tối đa của các đường dẫn chính cần đưa vào chỉ mục (mặc định 3)."
   },
   "pl": {
     "tool.description": "Podziel plik na sekcje i zwróć numerowany indeks lub określoną sekcję dla json2idx.",
@@ -329,7 +341,8 @@
     "err.section_required": "Błąd: „sekcja” (liczba całkowita) jest wymagana, gdy tryb = „sekcja”.",
     "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: nie znaleziono sekcji {section_num}. Prawidłowy zakres: 1..{last}.",
-    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”."
+    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
+    "param.max_depth.description": "Maksymalna głębokość zagnieżdżenia ścieżek kluczy do uwzględnienia w indeksie (domyślnie 3)."
   },
   "hi": {
     "tool.description": "फ़ाइल को अनुभागों में पार्स करें और json2idx के लिए एक क्रमांकित अनुक्रमणिका या विशिष्ट अनुभाग लौटाएँ।",
@@ -351,7 +364,8 @@
     "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
-    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें."
+    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
+    "param.max_depth.description": "सूचकांक में शामिल करने के लिए मुख्य पथों की अधिकतम नेस्टिंग गहराई (डिफ़ॉल्ट 3)।"
   },
   "ar": {
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ json2idx.",
@@ -373,7 +387,8 @@
     "err.section_required": "خطأ: \"القسم\" (عدد صحيح) مطلوب عندما يكون الوضع = \"القسم\".",
     "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
     "err.section_not_found": "خطأ: لم يتم العثور على القسم {section_num}. النطاق الصالح: 1..{last}.",
-    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\"."
+    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
+    "param.max_depth.description": "الحد الأقصى لتداخل مسارات المفاتيح المراد تضمينها في الفهرس (الافتراضي 3)."
   },
   "sv": {
     "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller ett specifikt avsnitt för json2idx.",
@@ -395,7 +410,8 @@
     "err.section_required": "Fel: 'sektion' (heltal) krävs när mode='sektion'.",
     "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
     "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}.",
-    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'."
+    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
+    "param.max_depth.description": "Maximalt kapdjup för nyckelvägar som ska inkluderas i indexet (standard 3)."
   },
   "sw": {
     "tool.description": "Changanua faili katika sehemu na urudishe faharasa yenye nambari au sehemu mahususi ya json2idx.",
@@ -417,7 +433,8 @@
     "err.section_required": "Hitilafu: 'sehemu' (idadi kamili) inahitajika wakati mode='sehemu'.",
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}.",
-    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'."
+    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
+    "param.max_depth.description": "Upeo wa kina cha njia kuu za kujumuisha kwenye faharasa (chaguo-msingi 3)."
   },
   "nb": {
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for json2idx.",
@@ -439,7 +456,8 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "param.max_depth.description": "Maksimal hekkedybde for nøkkelbaner som skal inkluderes i indeksen (standard 3)."
   },
   "nl": {
     "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor json2idx.",
@@ -461,7 +479,8 @@
     "err.section_required": "Fout: 'section' (geheel getal) is vereist wanneer mode='section'.",
     "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}.",
-    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'."
+    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
+    "param.max_depth.description": "Maximale nestdiepte van sleutelpaden die in de index moeten worden opgenomen (standaard 3)."
   },
   "fi": {
     "tool.description": "Jäsennä tiedosto osiin ja palauta numeroitu hakemisto tai tietty osio json2idx:lle.",
@@ -483,7 +502,8 @@
     "err.section_required": "Virhe: 'osa' (kokonaisluku) vaaditaan, kun mode='section'.",
     "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: Osaa {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
-    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'."
+    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'.",
+    "param.max_depth.description": "Indeksiin sisällytettävien avainpolkujen suurin sisäkkäisyyden syvyys (oletusarvo 3)."
   },
   "cs": {
     "tool.description": "Analyzujte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro json2idx.",
@@ -505,7 +525,8 @@
     "err.section_required": "Chyba: 'section' (celé číslo) je vyžadováno, když mode='section'.",
     "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
     "err.section_not_found": "Chyba: Sekce {section_num} nebyla nalezena. Platný rozsah: 1..{last}.",
-    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“."
+    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
+    "param.max_depth.description": "Maximální hloubka vnoření cest klíčů k zahrnutí do indexu (výchozí 3)."
   },
   "uk": {
     "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для json2idx.",
@@ -527,7 +548,8 @@
     "err.section_required": "Помилка: «розділ» (ціле число) потрібен, якщо режим = «розділ».",
     "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
     "err.section_not_found": "Помилка: розділ {section_num} не знайдено. Дійсний діапазон: 1..{last}.",
-    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ»."
+    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
+    "param.max_depth.description": "Максимальна глибина вкладеності ключових шляхів для включення в індекс (за замовчуванням 3)."
   },
   "tr": {
     "tool.description": "Dosyayı bölümlere ayırın ve json2idx için numaralandırılmış bir dizin veya belirli bir bölüm döndürün.",
@@ -549,7 +571,8 @@
     "err.section_required": "Hata: mode='bölüm' olduğunda 'bölüm' (tamsayı) gereklidir.",
     "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: Bölüm {section_num} bulunamadı. Geçerli aralık: 1..{last}.",
-    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın."
+    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
+    "param.max_depth.description": "Dizine dahil edilecek anahtar yolların maksimum iç içe geçme derinliği (varsayılan 3)."
   },
   "th": {
     "tool.description": "แยกไฟล์ออกเป็นส่วนต่างๆ และส่งกลับดัชนีตัวเลขหรือส่วนเฉพาะสำหรับ json2idx",
@@ -571,7 +594,8 @@
     "err.section_required": "ข้อผิดพลาด: ต้องใช้ 'section' (จำนวนเต็ม) เมื่อ mode='section'",
     "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}",
-    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'"
+    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
+    "param.max_depth.description": "ความลึกของการซ้อนสูงสุดของเส้นทางคีย์ที่จะรวมไว้ในดัชนี (ค่าเริ่มต้น 3)"
   },
   "bn": {
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং json2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
@@ -593,7 +617,8 @@
     "err.section_required": "ত্রুটি: মোড='বিভাগ' হলে 'বিভাগ' (পূর্ণসংখ্যা) প্রয়োজন।",
     "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ ব্যাপ্তি: 1..{last}।",
-    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।"
+    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
+    "param.max_depth.description": "সূচকে অন্তর্ভুক্ত করার জন্য কী পাথগুলির সর্বাধিক নেস্টিং গভীরতা (ডিফল্ট 3)।"
   },
   "fa": {
     "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی برای json2idx برگردانید.",
@@ -615,7 +640,8 @@
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
-    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید."
+    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
+    "param.max_depth.description": "حداکثر عمق تودرتو مسیرهای کلیدی برای گنجاندن در فهرست (پیش‌فرض 3)."
   },
   "mn": {
     "tool.description": "Файлыг хэсэг болгон задалж, дугаарласан индекс эсвэл json2idx-ийн тодорхой хэсгийг буцаана уу.",
@@ -637,7 +663,8 @@
     "err.section_required": "Алдаа: mode='section' үед 'section' (бүхэл тоо) шаардлагатай.",
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
-    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу."
+    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
+    "param.max_depth.description": "Индексэд оруулах гол замуудын хамгийн их үүрлэх гүн (өгөгдмөл 3)."
   },
   "mr": {
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि json2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
@@ -659,7 +686,8 @@
     "err.section_required": "त्रुटी: मोड='सेक्शन' असताना 'विभाग' (पूर्णांक) आवश्यक आहे.",
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
-    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा."
+    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
+    "param.max_depth.description": "निर्देशांकामध्ये समाविष्ट करण्यासाठी मुख्य मार्गांची कमाल नेस्टिंग खोली (डिफॉल्ट 3)."
   },
   "el": {
     "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το json2idx.",
@@ -681,7 +709,8 @@
     "err.section_required": "Σφάλμα: απαιτείται 'τμήμα' (ακέραιος αριθμός) όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{last}.",
-    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα»."
+    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
+    "param.max_depth.description": "Μέγιστο βάθος ένθεσης των μονοπατιών κλειδιών που θα συμπεριληφθούν στο ευρετήριο (προεπιλογή 3)."
   },
   "he": {
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או מקטע ספציפי עבור json2idx.",
@@ -703,7 +732,8 @@
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: סעיף {section_num} לא נמצא. טווח חוקי: 1..{last}.",
-    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'."
+    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
+    "param.max_depth.description": "עומק קינון מקסימלי של נתיבי מפתח לכלול באינדקס (ברירת מחדל 3)."
   },
   "hu": {
     "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy adott szakaszt a json2idx számára.",
@@ -725,7 +755,8 @@
     "err.section_required": "Hiba: 'section' (egész szám) szükséges, ha mode='section'.",
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
-    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést."
+    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
+    "param.max_depth.description": "Az indexbe foglalandó kulcsútvonalak maximális beágyazási mélysége (alapértelmezett 3)."
   },
   "ro": {
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru json2idx.",
@@ -747,6 +778,7 @@
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
-    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”.",
+    "param.max_depth.description": "Adâncimea maximă de imbricare a căilor cheie de inclus în index (implicit 3)."
   }
 }

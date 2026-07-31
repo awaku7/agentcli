@@ -28,6 +28,11 @@
 - fix(i18n): 18ツールの JSON の same-as-en キー欠落を `translate_text` エンジンで補充（bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control など）。browser_playwright_tool/tools_control_tool のリテラル description を `_()` 化。sub_agent_tool のステータス返値を i18n 化。_matter_common/index_tool_helpers/nostr_transport の非ASCIIを置換
 - fix(i18n): ユーティリティ21モジュールのユーザー向け文字列リテラルを `_()` 化（_genre_control_util/_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_*）。`make_tool_translator` を追加 — `test_tools_utilities_no_user_facing_string_literals` が通過
 - fix(i18n): pybitchat の表示/注入メッセージ（ハンドシェイク・ピア・ファイル・スキャン・サービス・Nostr通知、「sending as plain text (unencrypted)」等）を `_()` + %(name)s プレースホルダで i18n 化。`pybitchat_shared.json`（en/ja 翻訳）を追加
+- fix(logs): `:logs` のメッセージ件数を `:load` の報告（「会話メッセージ数」）と一致させた — 再挿入されるシステムプロンプト、保持される `[SKILL]`/`[HOOK]` システムメッセージ、user/assistant/tool メッセージ、およびディレクトリが存在する場合の自動復元 `[CWD]` マーカーを含めてカウント（従来は user+assistant のみで、ツールメッセージ+1件ぶん異なっていた）
+- fix(load): `:load` の workdir 自動復元を実際に機能させた — `[CWD]` を正規化後メッセージではなくログの生行から抽出（正規化では `[SKILL]`/`[HOOK]` 以外のシステムメッセージが除去されるため）。復元された `[CWD]` マーカーは報告件数に含まれる
+- feat(web): `/api/logs/{index}/preview` の total_messages を CLI `:logs`/`:load` と同じ意味に統一し、`total_tool` / `preserved_system` フィールドを追加
+- test: `tests/test_logs_load_count_consistency.py` を追加（CLI `:logs` 件数 == `:load` 件数、`[CWD]` ボーナス、生行からの cwd 抽出を検証）
+- fix(i18n): ツールJSONの欠落キー727件を32言語に補充（ユニーク文字列の重複排除 + translate_text。bacnet/modbus/opcua の timeout 説明、browser_playwright の新パラメータ、csv2idx/echonet_scan/json2idx/lint_format/log2idx/tools_control のキー）。cl2idx/dds2idx/excel2idx/ppt2idx/rpg2idx の fa `msg.index_output` に `{total}` プレースホルダを復元。en から削除済みの孤児 extra キー1183件を削除（bluesky/switchbot_batch/upnp_igd_control/usb_camera/vision_deepseek/vision_ollama/echonet_cache/forecast）— `scripts/i18n_tools_check.py` がエラー0で通過
 
 ## [0.5.61] - 2026-07-30
 

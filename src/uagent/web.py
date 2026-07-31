@@ -2047,6 +2047,9 @@ async def get_log_preview(index: int):
     last_user = ""
     total_user = 0
     total_assistant = 0
+    total_tool = 0
+    preserved_system = 0
+    last_cwd_path = None
     try:
         with open(path, encoding="utf-8") as f:
             for ln in f:
@@ -2067,8 +2070,38 @@ async def get_log_preview(index: int):
                         last_user = content[:200]
                 elif role == "assistant":
                     total_assistant += 1
+                elif role == "tool":
+                    total_tool += 1
+                elif role == "system":
+                    content = obj.get("content")
+                    if isinstance(content, str):
+                        if content.startswith("[SKILL] ") or content.startswith(
+                            "[HOOK] "
+                        ):
+                            preserved_system += 1
+                        if content.startswith("[CWD] "):
+                            try:
+                                cobj = json.loads(content[len("[CWD] ") :].strip())
+                            except Exception:
+                                cobj = None
+                            if isinstance(cobj, dict):
+                                p = cobj.get("path")
+                                if isinstance(p, str) and p.strip():
+                                    last_cwd_path = p
     except Exception:
         pass
+    # Match CLI :logs / :load "Conversation message count":
+    # 1 (re-inserted SYSTEM_PROMPT) + preserved [SKILL]/[HOOK] system messages
+    # + user/assistant/tool messages + [CWD] marker when auto-restored.
+    cwd_bonus = 1 if (last_cwd_path and os.path.isdir(last_cwd_path)) else 0
+    total_messages = (
+        1
+        + preserved_system
+        + total_user
+        + total_assistant
+        + total_tool
+        + cwd_bonus
+    )
     return {
         "ok": True,
         "index": index,
@@ -2077,7 +2110,9 @@ async def get_log_preview(index: int):
         "mtime": mtime,
         "total_user": total_user,
         "total_assistant": total_assistant,
-        "total_messages": total_user + total_assistant,
+        "total_tool": total_tool,
+        "preserved_system": preserved_system,
+        "total_messages": total_messages,
         "first_user": first_user,
         "last_user": last_user,
     }

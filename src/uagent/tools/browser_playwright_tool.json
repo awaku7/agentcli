@@ -156,7 +156,19 @@
       "automatización",
       "url",
       "búsqueda"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Si es verdadero, las páginas recién abiertas se activan automáticamente.",
+    "param.browser_channel.description": "Canal del navegador que se utilizará (por ejemplo, \"msedge\" para Microsoft Edge, \"chrome\" para Google Chrome). Valor predeterminado: Chromium integrado.",
+    "param.dialog_policy.description": "Manejo de diálogo predeterminado para páginas de sesión.",
+    "param.download_dir.description": "Directorio de descargas cuando se omite la ruta de acción. Valor predeterminado: browser_downloads/<session_id o oneshot>.",
+    "param.extra_http_headers.description": "Encabezados HTTP personalizados.",
+    "param.http_credentials.description": "HTTP Credenciales de autenticación básica.",
+    "param.keep_alive.description": "Conservado para mayor claridad; start/act mantiene el navegador abierto hasta cerrar/TTL.",
+    "param.session_action.description": "Control de sesión. Omitir sin session_id para el modo de una sola vez.",
+    "param.session_id.description": "ID de sesión del navegador existente para interacción continua.",
+    "param.session_ttl_sec.description": "Segundos de tiempo de inactividad para una sesión.",
+    "param.trace.description": "Habilite el rastreo Playwright. El seguimiento se guardará al final del one-shot o cuando se cierre la sesión, si se inició.",
+    "param.trace_path.description": "Ruta para guardar el archivo zip de seguimiento."
   },
   "fr": {
     "tool.description": "Exécutez une séquence d'actions du navigateur à l'aide de Playwright. Prend en charge la navigation, l'interaction, l'extraction, le contrôle souris/clavier, la session, le réseau, le multipage, l'accessibilité, la console, les téléchargements, l'émulation mobile, etc.",
@@ -201,7 +213,19 @@
       "automatisation",
       "url",
       "récupérer"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Si c'est vrai, les pages nouvellement ouvertes deviennent automatiquement actives.",
+    "param.browser_channel.description": "Canal de navigateur à utiliser (par exemple \"msedge\" pour Microsoft Edge, \"chrome\" pour Google Chrome). Par défaut : Chrome intégré.",
+    "param.dialog_policy.description": "Gestion des boîtes de dialogue par défaut pour les pages de session.",
+    "param.download_dir.description": "Répertoire pour les téléchargements lorsque le chemin d'action est omis. Par défaut : browser_downloads/<session_id ou oneshot>.",
+    "param.extra_http_headers.description": "En-têtes HTTP personnalisés.",
+    "param.http_credentials.description": "HTTP Informations d'authentification de base.",
+    "param.keep_alive.description": "Conservé pour plus de clarté ; start/act garde le navigateur ouvert jusqu'à la fermeture/TTL.",
+    "param.session_action.description": "Contrôle de session. Omettre sans session_id pour le mode one-shot.",
+    "param.session_id.description": "Identifiant de session de navigateur existant pour une interaction continue.",
+    "param.session_ttl_sec.description": "Secondes de délai d'inactivité pour une session.",
+    "param.trace.description": "Activez le traçage Playwright. La trace sera enregistrée à la fin du one-shot ou à la fermeture de la session si elle est démarrée.",
+    "param.trace_path.description": "Chemin d'accès pour enregistrer le fichier zip de trace."
   },
   "ko": {
     "tool.description": "Playwright를 사용하여 일련의 브라우저 작업을 실행합니다. 탐색, 상호 작용, 추출, 마우스/키보드 제어, 세션, 네트워크, 다중 페이지, 접근성, 콘솔, 업로드, 모바일 에뮬레이션 등을 지원합니다.",
@@ -246,7 +270,19 @@
       "자동화",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "true인 경우 새로 열린 페이지가 자동으로 활성화됩니다.",
+    "param.browser_channel.description": "사용할 브라우저 채널(예: Microsoft Edge의 경우 \"msedge\", Google Chrome의 경우 \"chrome\") 기본값: 내장 Chromium.",
+    "param.dialog_policy.description": "세션 페이지에 대한 기본 대화 상자 처리입니다.",
+    "param.download_dir.description": "작업 경로가 생략된 경우 다운로드할 디렉터리입니다. 기본값: browser_downloads/<session_id 또는 oneshot>.",
+    "param.extra_http_headers.description": "사용자 정의 HTTP 헤더.",
+    "param.http_credentials.description": "HTTP 기본 인증 자격 증명입니다.",
+    "param.keep_alive.description": "명확성을 위해 유지됩니다. 시작/작동은 닫기/TTL까지 브라우저를 열어 둡니다.",
+    "param.session_action.description": "세션 제어. 원샷 모드의 경우 session_id 없이 생략합니다.",
+    "param.session_id.description": "지속적인 상호작용을 위한 기존 브라우저 세션 ID입니다.",
+    "param.session_ttl_sec.description": "세션의 유휴 시간 초과 시간(초)입니다.",
+    "param.trace.description": "Playwright 추적을 활성화합니다. 추적은 원샷 종료 시 또는 세션이 시작된 경우 종료될 때 저장됩니다.",
+    "param.trace_path.description": "추적 zip 파일을 저장할 경로입니다."
   },
   "de": {
     "tool.description": "Führen Sie mit Playwright eine Folge von Browseraktionen aus. Unterstützt Navigation, Interaktion, Extraktion, Maus-/Tastatursteuerung, Sitzung, Netzwerk, Mehrseite, Barrierefreiheit, Konsole, Uploads, mobile Emulation und mehr.",
@@ -291,7 +327,19 @@
       "Automatisierung",
       "URL",
       "Fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Bei „true“ werden neu geöffnete Seiten automatisch aktiv.",
+    "param.browser_channel.description": "Zu verwendender Browserkanal (z. B. „msedge“ für Microsoft Edge, „chrome“ für Google Chrome). Standard: integriertes Chromium.",
+    "param.dialog_policy.description": "Standarddialogbehandlung für Sitzungsseiten.",
+    "param.download_dir.description": "Verzeichnis für Downloads, wenn der Aktionspfad weggelassen wird. Standard: browser_downloads/<session_id oder oneshot>.",
+    "param.extra_http_headers.description": "Benutzerdefinierte HTTP-Header.",
+    "param.http_credentials.description": "HTTP Anmeldeinformationen für die Basisauthentifizierung.",
+    "param.keep_alive.description": "Aus Gründen der Übersichtlichkeit aufbewahrt; start/act hält den Browser geöffnet, bis er geschlossen wird/TTL.",
+    "param.session_action.description": "Sitzungskontrolle. Ohne session_id für den One-Shot-Modus weglassen.",
+    "param.session_id.description": "Vorhandene Browser-Sitzungs-ID für die weitere Interaktion.",
+    "param.session_ttl_sec.description": "Leerlauf-Timeout-Sekunden für eine Sitzung.",
+    "param.trace.description": "Aktivieren Sie die Playwright-Ablaufverfolgung. Der Trace wird am Ende des One-Shots oder beim Schließen der Sitzung (falls gestartet) gespeichert.",
+    "param.trace_path.description": "Pfad zum Speichern der Trace-ZIP-Datei."
   },
   "it": {
     "tool.description": "Esegui una sequenza di azioni del browser utilizzando Playwright. Supporta navigazione, interazione, estrazione, controllo mouse/tastiera, sessione, rete, multipagina, accessibilità, console, caricamenti, emulazione mobile e altro ancora.",
@@ -336,7 +384,19 @@
       "automazione",
       "url",
       "recupero"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Se vero, le pagine appena aperte diventano attive automaticamente.",
+    "param.browser_channel.description": "Canale del browser da utilizzare (ad esempio \"msedge\" per Microsoft Edge, \"chrome\" per Google Chrome). Predefinito: Chromium integrato.",
+    "param.dialog_policy.description": "Gestione predefinita delle finestre di dialogo per le pagine della sessione.",
+    "param.download_dir.description": "Directory per i download quando il percorso dell'azione viene omesso. Predefinito: browser_downloads/<session_id o oneshot>.",
+    "param.extra_http_headers.description": "Intestazioni HTTP personalizzate.",
+    "param.http_credentials.description": "HTTP Credenziali di autenticazione di base.",
+    "param.keep_alive.description": "Conservato per chiarezza; start/act mantieni il browser aperto fino alla chiusura/TTL.",
+    "param.session_action.description": "Controllo della sessione. Omettere senza session_id per la modalità one-shot.",
+    "param.session_id.description": "ID sessione del browser esistente per l'interazione continua.",
+    "param.session_ttl_sec.description": "Secondi di timeout di inattività per una sessione.",
+    "param.trace.description": "Abilita traccia Playwright. La traccia verrà salvata alla fine dello one-shot o alla chiusura della sessione, se avviata.",
+    "param.trace_path.description": "Percorso per salvare il file zip di traccia."
   },
   "ru": {
     "tool.description": "Выполните последовательность действий браузера с помощью Playwright. Поддерживает навигацию, взаимодействие, извлечение, управление мышью/клавиатурой, сеанс, сеть, многостраничность, специальные возможности, консоль, загрузку, эмуляцию мобильных устройств и многое другое.",
@@ -381,7 +441,19 @@
       "автоматизация",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Если это правда, вновь открытые страницы становятся активными автоматически.",
+    "param.browser_channel.description": "Используемый канал браузера (например, «msedge» для Microsoft Edge, «chrome» для Google Chrome). По умолчанию: встроенный Chromium.",
+    "param.dialog_policy.description": "Обработка диалогов по умолчанию для страниц сеанса.",
+    "param.download_dir.description": "Каталог для загрузок, если путь действия опущен. По умолчанию: Browser_downloads/<session_id или oneshot>.",
+    "param.extra_http_headers.description": "Пользовательские заголовки HTTP.",
+    "param.http_credentials.description": "HTTP Базовые учетные данные аутентификации.",
+    "param.keep_alive.description": "Сохранено для ясности; начать/действовать, держать браузер открытым до закрытия/TTL.",
+    "param.session_action.description": "Контроль сеанса. Опустите без session_id для одноразового режима.",
+    "param.session_id.description": "Существующий идентификатор сеанса браузера для продолжения взаимодействия.",
+    "param.session_ttl_sec.description": "Тайм-аут простоя в секундах для сеанса.",
+    "param.trace.description": "Включите трассировку Playwright. Трассировка будет сохранена в конце однократного сеанса или при закрытии сеанса, если он был запущен.",
+    "param.trace_path.description": "Путь для сохранения zip-файла трассировки."
   },
   "pt": {
     "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
@@ -426,7 +498,19 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Se for verdade, as páginas recém-abertas tornam-se ativas automaticamente.",
+    "param.browser_channel.description": "Canal do navegador a ser usado (por exemplo, \"msedge\" para Microsoft Edge, \"chrome\" para Google Chrome). Padrão: Chromium integrado.",
+    "param.dialog_policy.description": "Manipulação de diálogo padrão para páginas de sessão.",
+    "param.download_dir.description": "Diretório para downloads quando o caminho da ação é omitido. Padrão: browser_downloads/<session_id ou oneshot>.",
+    "param.extra_http_headers.description": "Cabeçalhos HTTP personalizados.",
+    "param.http_credentials.description": "HTTP Credenciais básicas de autenticação.",
+    "param.keep_alive.description": "Mantido para maior clareza; start/act mantém o navegador aberto até fechar/TTL.",
+    "param.session_action.description": "Controle de sessão. Omita sem session_id para o modo one-shot.",
+    "param.session_id.description": "ID de sessão do navegador existente para interação contínua.",
+    "param.session_ttl_sec.description": "Segundos de tempo limite de inatividade para uma sessão.",
+    "param.trace.description": "Ative o rastreamento Playwright. O rastreamento será salvo no final do one-shot ou quando a sessão for encerrada, se iniciada.",
+    "param.trace_path.description": "Caminho para salvar o arquivo zip de rastreamento."
   },
   "id": {
     "tool.description": "Jalankan serangkaian tindakan browser menggunakan Playwright. Mendukung navigasi, interaksi, ekstraksi, kontrol mouse/keyboard, sesi, jaringan, multi-halaman, aksesibilitas, konsol, unggahan, emulasi seluler, dan banyak lagi.",
@@ -471,7 +555,19 @@
       "otomatisasi",
       "url",
       "pengambilan"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Jika benar, halaman yang baru dibuka menjadi aktif secara otomatis.",
+    "param.browser_channel.description": "Saluran browser yang akan digunakan (misalnya \"msedge\" untuk Microsoft Edge, \"chrome\" untuk Google Chrome). Bawaan: Chromium bawaan.",
+    "param.dialog_policy.description": "Penanganan dialog default untuk halaman sesi.",
+    "param.download_dir.description": "Direktori untuk unduhan ketika jalur tindakan dihilangkan. Default: browser_downloads/<session_id atau oneshot>.",
+    "param.extra_http_headers.description": "Header HTTP khusus.",
+    "param.http_credentials.description": "HTTP Kredensial autentikasi dasar.",
+    "param.keep_alive.description": "Disimpan untuk kejelasan; start/act biarkan browser tetap terbuka sampai close/TTL.",
+    "param.session_action.description": "Kontrol sesi. Hilangkan tanpa session_id untuk mode satu pengambilan.",
+    "param.session_id.description": "Id sesi browser yang ada untuk interaksi lanjutan.",
+    "param.session_ttl_sec.description": "Detik batas waktu menganggur untuk suatu sesi.",
+    "param.trace.description": "Aktifkan pelacakan Playwright. Jejak akan disimpan di akhir satu pengambilan gambar, atau saat sesi ditutup jika dimulai.",
+    "param.trace_path.description": "Jalur untuk menyimpan file zip jejak."
   },
   "vi": {
     "tool.description": "Thực hiện một chuỗi các hành động của trình duyệt bằng Playwright. Hỗ trợ điều hướng, tương tác, trích xuất, điều khiển chuột/bàn phím, phiên, mạng, nhiều trang, khả năng truy cập, bảng điều khiển, tải lên, mô phỏng trên thiết bị di động, v.v.",
@@ -516,7 +612,19 @@
       "tự động hóa",
       "url",
       "tìm nạp"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Nếu đúng, các trang mới mở sẽ tự động hoạt động.",
+    "param.browser_channel.description": "Kênh trình duyệt sẽ sử dụng (ví dụ: \"msedge\" cho Microsoft Edge, \"chrome\" cho Google Chrome). Mặc định: Chrome tích hợp.",
+    "param.dialog_policy.description": "Xử lý hộp thoại mặc định cho các trang phiên.",
+    "param.download_dir.description": "Thư mục tải xuống khi đường dẫn hành động bị bỏ qua. Mặc định: browser_downloads/<session_id hoặc oneshot>.",
+    "param.extra_http_headers.description": "Tiêu đề HTTP tùy chỉnh.",
+    "param.http_credentials.description": "HTTP Thông tin xác thực cơ bản.",
+    "param.keep_alive.description": "Giữ cho rõ ràng; bắt đầu/hành động giữ trình duyệt mở cho đến khi đóng/TTL.",
+    "param.session_action.description": "Kiểm soát phiên. Bỏ qua không có session_id cho chế độ một lần.",
+    "param.session_id.description": "Id phiên trình duyệt hiện có để tiếp tục tương tác.",
+    "param.session_ttl_sec.description": "Số giây chờ không hoạt động cho một phiên.",
+    "param.trace.description": "Bật tính năng theo dõi Playwright. Dấu vết sẽ được lưu vào cuối một lần chụp hoặc khi phiên kết thúc nếu đã bắt đầu.",
+    "param.trace_path.description": "Đường dẫn lưu file zip dấu vết."
   },
   "pl": {
     "tool.description": "Wykonaj sekwencję działań przeglądarki za pomocą Playwright. Obsługuje nawigację, interakcję, ekstrakcję, sterowanie myszą/klawiaturą, sesję, sieć, wielostronicowość, dostępność, konsolę, przesyłanie, emulację mobilną i wiele innych.",
@@ -561,7 +669,19 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Jeśli ma wartość true, nowo otwarte strony stają się automatycznie aktywne.",
+    "param.browser_channel.description": "Kanał przeglądarki, którego należy użyć (np. „msedge” w przypadku Microsoft Edge, „chrome” w przypadku Google Chrome). Domyślnie: wbudowany Chromium.",
+    "param.dialog_policy.description": "Domyślna obsługa okien dialogowych dla stron sesji.",
+    "param.download_dir.description": "Katalog do pobrania, gdy pominięto ścieżkę akcji. Domyślnie: downloads_przeglądarki/<id_sesji lub oneshot>.",
+    "param.extra_http_headers.description": "Niestandardowe nagłówki HTTP.",
+    "param.http_credentials.description": "HTTP Podstawowe dane uwierzytelniające.",
+    "param.keep_alive.description": "Zachowane dla przejrzystości; start/act pozostaw przeglądarkę otwartą aż do zamknięcia/TTL.",
+    "param.session_action.description": "Kontrola sesji. Pomiń bez identyfikatora sesji dla trybu jednorazowego.",
+    "param.session_id.description": "Identyfikator sesji istniejącej przeglądarki umożliwiający dalszą interakcję.",
+    "param.session_ttl_sec.description": "Sekundy limitu czasu bezczynności dla sesji.",
+    "param.trace.description": "Włącz śledzenie Playwright. Ślad zostanie zapisany na końcu pojedynczego zdjęcia lub po zamknięciu sesji, jeśli została rozpoczęta.",
+    "param.trace_path.description": "Ścieżka do zapisania pliku zip śledzenia."
   },
   "hi": {
     "tool.description": "Playwright का उपयोग करके ब्राउज़र क्रियाओं का अनुक्रम निष्पादित करें। नेविगेशन, इंटरैक्शन, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, एक्सेसिबिलिटी, कंसोल, अपलोड, मोबाइल इम्यूलेशन और बहुत कुछ का समर्थन करता है।",
@@ -606,7 +726,19 @@
       "ऑटोमेशन",
       "यूआरएल",
       "फ़ेच"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "यदि सत्य है, तो नए खोले गए पृष्ठ स्वचालित रूप से सक्रिय हो जाते हैं।",
+    "param.browser_channel.description": "उपयोग करने के लिए ब्राउज़र चैनल (उदाहरण के लिए Microsoft Edge के लिए \"msedge\", Google Chrome के लिए \"chrome\")। डिफ़ॉल्ट: अंतर्निर्मित क्रोमियम.",
+    "param.dialog_policy.description": "सत्र पृष्ठों के लिए डिफ़ॉल्ट संवाद प्रबंधन.",
+    "param.download_dir.description": "कार्रवाई पथ छोड़े जाने पर डाउनलोड के लिए निर्देशिका। डिफ़ॉल्ट: ब्राउज़र_डाउनलोड/<सत्र_आईडी या वनशॉट>।",
+    "param.extra_http_headers.description": "कस्टम HTTP हेडर.",
+    "param.http_credentials.description": "HTTP बुनियादी प्रमाणीकरण क्रेडेंशियल।",
+    "param.keep_alive.description": "स्पष्टता के लिए रखा गया; प्रारंभ/क्रिया ब्राउज़र को बंद/टीटीएल तक खुला रखें।",
+    "param.session_action.description": "सत्र नियंत्रण. वन-शॉट मोड के लिए बिना session_id के छोड़ें।",
+    "param.session_id.description": "निरंतर इंटरैक्शन के लिए मौजूदा ब्राउज़र सत्र आईडी।",
+    "param.session_ttl_sec.description": "एक सत्र के लिए निष्क्रिय समयबाह्य सेकंड.",
+    "param.trace.description": "Playwright ट्रेसिंग सक्षम करें. ट्रेस को एक-शॉट के अंत में, या सत्र शुरू होने पर बंद होने पर सहेजा जाएगा।",
+    "param.trace_path.description": "ट्रेस ज़िप फ़ाइल को सहेजने का पथ."
   },
   "ar": {
     "tool.description": "قم بتنفيذ سلسلة من إجراءات المتصفح باستخدام Playwright. يدعم التنقل والتفاعل والاستخراج والتحكم في الماوس/لوحة المفاتيح والجلسة والشبكة والصفحات المتعددة وإمكانية الوصول ووحدة التحكم والتحميلات ومحاكاة الهاتف المحمول والمزيد.",
@@ -651,7 +783,19 @@
       " الأتمتة ",
       " url ",
       " الجلب"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "إذا كان هذا صحيحًا، تصبح الصفحات المفتوحة حديثًا نشطة تلقائيًا.",
+    "param.browser_channel.description": "قناة المتصفح المراد استخدامها (على سبيل المثال، \"msedge\" لـ Microsoft Edge، و\"chrome\" لـ Google Chrome). الافتراضي: الكروم المدمج.",
+    "param.dialog_policy.description": "التعامل مع الحوار الافتراضي لصفحات الجلسة.",
+    "param.download_dir.description": "دليل التنزيلات عند حذف مسار الإجراء. الافتراضي: browser_downloads/<session_id أو oneshot>.",
+    "param.extra_http_headers.description": "رؤوس HTTP المخصصة.",
+    "param.http_credentials.description": "HTTP بيانات اعتماد المصادقة الأساسية.",
+    "param.keep_alive.description": "أبقى من أجل الوضوح. ابدأ/أبقي المتصفح مفتوحًا حتى إغلاق/TTL.",
+    "param.session_action.description": "التحكم في الجلسة. قم بالحذف مع عدم وجود session_id لوضع اللقطة الواحدة.",
+    "param.session_id.description": "معرف جلسة المتصفح الحالي للتفاعل المستمر.",
+    "param.session_ttl_sec.description": "ثواني مهلة الخمول للجلسة.",
+    "param.trace.description": "تمكين تتبع Playwright. سيتم حفظ الأثر في نهاية اللقطة الواحدة، أو عند إغلاق الجلسة إذا بدأت.",
+    "param.trace_path.description": "المسار لحفظ ملف التتبع المضغوط."
   },
   "sv": {
     "tool.description": "Utför en sekvens av webbläsaråtgärder med Playwright. Stöder navigering, interaktion, extraktion, mus/tangentbordskontroll, session, nätverk, flersidor, tillgänglighet, konsol, uppladdningar, mobilemulering och mer.",
@@ -696,7 +840,19 @@
       "automatisering",
       "url",
       "hämta"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Om det är sant, blir nyöppnade sidor automatiskt aktiva.",
+    "param.browser_channel.description": "Webbläsarkanal att använda (t.ex. \"msedge\" för Microsoft Edge, \"chrome\" för Google Chrome). Standard: inbyggt Chromium.",
+    "param.dialog_policy.description": "Standarddialoghantering för sessionssidor.",
+    "param.download_dir.description": "Katalog för nedladdningar när åtgärdsväg utelämnas. Standard: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Anpassade HTTP rubriker.",
+    "param.http_credentials.description": "HTTP Grundläggande autentiseringsuppgifter.",
+    "param.keep_alive.description": "Förvaras för tydlighetens skull; start/act håll webbläsaren öppen tills stängning/TTL.",
+    "param.session_action.description": "Sessionskontroll. Uteslut utan session_id för engångsläge.",
+    "param.session_id.description": "Befintligt webbläsarsessions-id för fortsatt interaktion.",
+    "param.session_ttl_sec.description": "Inaktiv timeout sekunder för en session.",
+    "param.trace.description": "Aktivera Playwright-spårning. Spårningen kommer att sparas i slutet av ett skott, eller när sessionen avslutas om den startas.",
+    "param.trace_path.description": "Sökväg för att spara spårningszip-filen."
   },
   "sw": {
     "tool.description": "Tekeleza mlolongo wa vitendo vya kivinjari kwa kutumia Playwright. Inaauni urambazaji, mwingiliano, uchimbaji, udhibiti wa kipanya/kibodi, kipindi, mtandao, kurasa nyingi, ufikivu, dashibodi, upakiaji, uigaji wa simu, na zaidi.",
@@ -741,7 +897,19 @@
       "chota",
       "url",
       "kuchota"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Ikiwa ni kweli, kurasa mpya zilizofunguliwa hutumika kiotomatiki.",
+    "param.browser_channel.description": "Kituo cha kivinjari cha kutumia (k.m. \"msedge\" kwa Microsoft Edge, \"chrome\" kwa Google Chrome). Chaguomsingi: Chromium iliyojengewa ndani.",
+    "param.dialog_policy.description": "Ushughulikiaji wa kidadisi chaguomsingi kwa kurasa za kipindi.",
+    "param.download_dir.description": "Saraka ya vipakuliwa wakati njia ya kitendo imeachwa. Chaguomsingi: browser_downloads/<session_id au oneshot>.",
+    "param.extra_http_headers.description": "Vijajuu HTTP maalum.",
+    "param.http_credentials.description": "HTTP Hati za msingi za uthibitishaji.",
+    "param.keep_alive.description": "Imehifadhiwa kwa uwazi; anza/tenda weka kivinjari wazi hadi kufungwa/TTL.",
+    "param.session_action.description": "Udhibiti wa kikao. Acha bila session_id kwa modi ya risasi moja.",
+    "param.session_id.description": "Kitambulisho cha kipindi cha kivinjari kilichopo kwa mwingiliano unaoendelea.",
+    "param.session_ttl_sec.description": "Muda wa kuisha kwa sekunde bila kufanya kitu kwa kipindi.",
+    "param.trace.description": "Washa ufuatiliaji wa Playwright. Ufuatiliaji utahifadhiwa mwishoni mwa picha moja, au kipindi kitakapofungwa ikiwa kimeanza.",
+    "param.trace_path.description": "Njia ya kuhifadhi faili ya zip ya kufuatilia."
   },
   "nb": {
     "tool.description": "Utfør en sekvens av nettleserhandlinger ved å bruke Playwright. Støtter navigasjon, interaksjon, utvinning, mus/tastaturkontroll, økt, nettverk, flersidet, tilgjengelighet, konsoll, opplastinger, mobilemulering og mer.",
@@ -786,7 +954,19 @@
       "automatisering",
       "url",
       "hente"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Hvis dette er sant, blir nyåpnede sider aktive automatisk.",
+    "param.browser_channel.description": "Nettleserkanal som skal brukes (f.eks. «msedge» for Microsoft Edge, «chrome» for Google Chrome). Standard: innebygd Chromium.",
+    "param.dialog_policy.description": "Standard dialoghåndtering for øktsider.",
+    "param.download_dir.description": "Katalog for nedlastinger når handlingsbane er utelatt. Standard: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Egendefinerte HTTP overskrifter.",
+    "param.http_credentials.description": "HTTP Grunnleggende autentiseringslegitimasjon.",
+    "param.keep_alive.description": "Beholdt for klarhet; start/act hold nettleseren åpen til lukke/TTL.",
+    "param.session_action.description": "Sesjonskontroll. Utelat uten session_id for one-shot-modus.",
+    "param.session_id.description": "Eksisterende nettleserøkt-ID for fortsatt interaksjon.",
+    "param.session_ttl_sec.description": "Inaktiv timeout sekunder for en økt.",
+    "param.trace.description": "Aktiver Playwright-sporing. Trace vil bli lagret på slutten av one-shot, eller når økten avsluttes hvis den startes.",
+    "param.trace_path.description": "Bane for å lagre sporings-zip-filen."
   },
   "nl": {
     "tool.description": "Voer een reeks browseracties uit met Playwright. Ondersteunt navigatie, interactie, extractie, muis-/toetsenbordbediening, sessie, netwerk, meerdere pagina's, toegankelijkheid, console, uploads, mobiele emulatie en meer.",
@@ -831,7 +1011,19 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Indien waar, worden nieuw geopende pagina's automatisch actief.",
+    "param.browser_channel.description": "Te gebruiken browserkanaal (bijvoorbeeld 'msedge' voor Microsoft Edge, 'chrome' voor Google Chrome). Standaard: ingebouwd Chromium.",
+    "param.dialog_policy.description": "Standaard dialoogafhandeling voor sessiepagina's.",
+    "param.download_dir.description": "Directory voor downloads wanneer actiepad is weggelaten. Standaard: browser_downloads/<session_id of oneshot>.",
+    "param.extra_http_headers.description": "Aangepaste HTTP-headers.",
+    "param.http_credentials.description": "HTTP Basisverificatiereferenties.",
+    "param.keep_alive.description": "Gehouden voor de duidelijkheid; start/act houd de browser open tot sluiten/TTL.",
+    "param.session_action.description": "Sessiecontrole. Weglaten zonder session_id voor one-shot-modus.",
+    "param.session_id.description": "Bestaande browsersessie-ID voor voortdurende interactie.",
+    "param.session_ttl_sec.description": "Time-out voor inactieve seconden voor een sessie.",
+    "param.trace.description": "Schakel Playwright-tracering in. Trace wordt opgeslagen aan het einde van de one-shot, of wanneer de sessie wordt afgesloten, indien gestart.",
+    "param.trace_path.description": "Pad om het traceringszipbestand op te slaan."
   },
   "fi": {
     "tool.description": "Suorita sarja selaintoimintoja Playwrightilla. Tukee navigointia, vuorovaikutusta, purkamista, hiiren/näppäimistön ohjausta, istuntoa, verkkoa, monisivua, saavutettavuutta, konsolia, latauksia, mobiiliemulointia ja paljon muuta.",
@@ -876,7 +1068,19 @@
       "url",
       "fetch",
       "hakea"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Jos tosi, äskettäin avatut sivut aktivoituvat automaattisesti.",
+    "param.browser_channel.description": "Käytettävä selainkanava (esim. \"msedge\" Microsoft Edgelle, \"chrome\" Google Chromelle). Oletus: sisäänrakennettu Chromium.",
+    "param.dialog_policy.description": "Istunnon sivujen oletusvalintaikkunakäsittely.",
+    "param.download_dir.description": "Latausten hakemisto, kun toimintopolku jätetään pois. Oletus: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Muokatut HTTP-otsikot.",
+    "param.http_credentials.description": "HTTP Perustodennustiedot.",
+    "param.keep_alive.description": "Säilytetty selvyyden vuoksi; aloita/toimi pidä selain auki sulkemiseen asti/TTL.",
+    "param.session_action.description": "Istunnon ohjaus. Jätä pois ilman session_id:tä kertaluontoisessa tilassa.",
+    "param.session_id.description": "Olemassa oleva selaimen istuntotunnus jatkuvaa vuorovaikutusta varten.",
+    "param.session_ttl_sec.description": "Istunnon joutokäynnin aikakatkaisu sekuntia.",
+    "param.trace.description": "Ota Playwright-seuranta käyttöön. Jäljitys tallennetaan yhden laukauksen lopussa tai kun istunto sulkeutuu, jos se aloitetaan.",
+    "param.trace_path.description": "Polku jäljityszip-tiedoston tallentamiseen."
   },
   "cs": {
     "tool.description": "Proveďte sekvenci akcí prohlížeče pomocí Playwright. Podporuje navigaci, interakci, extrakci, ovládání myší/klávesnicí, relaci, síť, více stránek, přístupnost, konzoli, nahrávání, mobilní emulaci a další.",
@@ -921,7 +1125,19 @@
       "automatizace",
       "url",
       "aport"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Pokud je true, nově otevřené stránky se aktivují automaticky.",
+    "param.browser_channel.description": "Kanál prohlížeče, který chcete použít (např. „msedge“ pro Microsoft Edge, „chrome“ pro Google Chrome). Výchozí: vestavěný Chromium.",
+    "param.dialog_policy.description": "Výchozí zpracování dialogů pro stránky relace.",
+    "param.download_dir.description": "Adresář pro stahování, když je vynechána cesta akce. Výchozí: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Vlastní záhlaví HTTP.",
+    "param.http_credentials.description": "HTTP Základní ověřovací údaje.",
+    "param.keep_alive.description": "Uchováno pro přehlednost; start/act ponechat prohlížeč otevřený až do zavření/TTL.",
+    "param.session_action.description": "Řízení relace. Vynechat bez session_id pro jednorázový režim.",
+    "param.session_id.description": "Stávající ID relace prohlížeče pro pokračující interakci.",
+    "param.session_ttl_sec.description": "Sekundy časového limitu nečinnosti pro relaci.",
+    "param.trace.description": "Povolit trasování Playwright. Trasa bude uložena na konci jednorázového záběru nebo po ukončení relace, pokud byla zahájena.",
+    "param.trace_path.description": "Cesta k uložení souboru zip trasování."
   },
   "uk": {
     "tool.description": "Виконайте послідовність дій браузера за допомогою Playwright. Підтримує навігацію, взаємодію, видобування, керування мишею/клавіатурою, сеанс, мережу, багатосторінковий доступ, консоль, завантаження, мобільну емуляцію тощо.",
@@ -966,7 +1182,19 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Якщо значення true, щойно відкриті сторінки стають активними автоматично.",
+    "param.browser_channel.description": "Канал браузера для використання (наприклад, \"msedge\" для Microsoft Edge, \"chrome\" для Google Chrome). За замовчуванням: вбудований Chromium.",
+    "param.dialog_policy.description": "Типова обробка діалогового вікна для сторінок сеансу.",
+    "param.download_dir.description": "Каталог для завантажень, коли шлях дії не вказано. За замовчуванням: browser_downloads/<session_id або oneshot>.",
+    "param.extra_http_headers.description": "Спеціальні заголовки HTTP.",
+    "param.http_credentials.description": "HTTP Базові облікові дані автентифікації.",
+    "param.keep_alive.description": "Збережено для наочності; start/act тримати браузер відкритим до закриття/TTL.",
+    "param.session_action.description": "Контроль сесії. Пропустіть без session_id для одноразового режиму.",
+    "param.session_id.description": "Ідентифікатор існуючого сеансу браузера для продовження взаємодії.",
+    "param.session_ttl_sec.description": "Час простою в секундах для сеансу.",
+    "param.trace.description": "Увімкнути трасування Playwright. Трасування буде збережено наприкінці одноразової дії або після закриття сеансу, якщо його розпочато.",
+    "param.trace_path.description": "Шлях для збереження zip-файлу трасування."
   },
   "tr": {
     "tool.description": "Playwright'ı kullanarak bir dizi tarayıcı eylemi gerçekleştirin. Gezinme, etkileşim, çıkarma, fare/klavye kontrolü, oturum, ağ, çoklu sayfa, erişilebilirlik, konsol, yüklemeler, mobil emülasyon ve daha fazlasını destekler.",
@@ -1011,7 +1239,19 @@
       "otomasyon",
       "url",
       "getir"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "True ise yeni açılan sayfalar otomatik olarak aktif hale gelir.",
+    "param.browser_channel.description": "Kullanılacak tarayıcı kanalı (ör. Microsoft Edge için \"msedge\", Google Chrome için \"chrome\"). Varsayılan: yerleşik Chromium.",
+    "param.dialog_policy.description": "Oturum sayfaları için varsayılan iletişim kutusu yönetimi.",
+    "param.download_dir.description": "Eylem yolu atlandığında indirilecek dizin. Varsayılan: tarayıcı_indirilenleri/<session_id veya oneshot>.",
+    "param.extra_http_headers.description": "Özel HTTP başlıklar.",
+    "param.http_credentials.description": "HTTP Temel kimlik doğrulama bilgileri.",
+    "param.keep_alive.description": "Açıklık sağlamak için tutuldu; başlat/harekete geç tarayıcıyı kapatana/TTL'ye kadar açık tut.",
+    "param.session_action.description": "Oturum kontrolü. Tek atış modu için session_id olmadan atlayın.",
+    "param.session_id.description": "Sürekli etkileşim için mevcut tarayıcı oturumu kimliği.",
+    "param.session_ttl_sec.description": "Bir oturum için boşta kalma zaman aşımı saniyeleri.",
+    "param.trace.description": "Playwright izlemeyi etkinleştirin. İzleme, tek çekimin sonunda veya başlatılmışsa oturum kapatıldığında kaydedilecektir.",
+    "param.trace_path.description": "İzleme zip dosyasının kaydedileceği yol."
   },
   "th": {
     "tool.description": "ดำเนินการตามลำดับการกระทำของเบราว์เซอร์โดยใช้ Playwright รองรับการนำทาง การโต้ตอบ การแตกไฟล์ การควบคุมเมาส์/คีย์บอร์ด เซสชัน เครือข่าย หลายหน้า การเข้าถึง คอนโซล การอัปโหลด การจำลองมือถือ และอื่นๆ",
@@ -1056,7 +1296,19 @@
       "อัตโนมัติ",
       "url",
       "ดึงข้อมูล"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "หากเป็นจริง เพจที่เพิ่งเปิดใหม่จะเปิดใช้งานโดยอัตโนมัติ",
+    "param.browser_channel.description": "ช่องเบราว์เซอร์ที่จะใช้ (เช่น \"msedge\" สำหรับ Microsoft Edge, \"chrome\" สำหรับ Google Chrome) ค่าเริ่มต้น: Chromium ในตัว",
+    "param.dialog_policy.description": "การจัดการกล่องโต้ตอบเริ่มต้นสำหรับหน้าเซสชัน",
+    "param.download_dir.description": "ไดเร็กทอรีสำหรับการดาวน์โหลดเมื่อละเว้นเส้นทางการดำเนินการ ค่าเริ่มต้น: browser_downloads/<session_id or oneshot>",
+    "param.extra_http_headers.description": "ส่วนหัว HTTP ที่กำหนดเอง",
+    "param.http_credentials.description": "HTTP ข้อมูลรับรองการตรวจสอบสิทธิ์พื้นฐาน",
+    "param.keep_alive.description": "เก็บไว้เพื่อความชัดเจน เริ่ม/ดำเนินการ เปิดเบราว์เซอร์ไว้จนกว่าจะปิด/TTL",
+    "param.session_action.description": "การควบคุมเซสชัน ละเว้นโดยไม่มี session_id สำหรับโหมด one-shot",
+    "param.session_id.description": "รหัสเซสชันของเบราว์เซอร์ที่มีอยู่สำหรับการโต้ตอบอย่างต่อเนื่อง",
+    "param.session_ttl_sec.description": "วินาทีของการหมดเวลาที่ไม่ได้ใช้งานสำหรับเซสชัน",
+    "param.trace.description": "เปิดใช้งานการติดตาม Playwright การติดตามจะถูกบันทึกไว้เมื่อสิ้นสุดการถ่ายภาพครั้งเดียว หรือเมื่อเซสชันปิดลงหากเริ่มต้น",
+    "param.trace_path.description": "พาธสำหรับบันทึกไฟล์ zip การติดตาม"
   },
   "zh_CN": {
     "tool.description": "使用 Playwright 执行一系列浏览器操作。支持导航、交互、提取、鼠标/键盘控制、会话、网络、多页面、无障碍、控制台、上传、移动模拟等。",
@@ -1101,7 +1353,19 @@
       "自动化",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "如果为 true，新打开的页面会自动变为活动状态。",
+    "param.browser_channel.description": "要使用的浏览器通道（例如，“msedge”表示 Microsoft Edge，“chrome”表示 Google Chrome）。默认：内置 Chromium。",
+    "param.dialog_policy.description": "会话页面的默认对话框处理。",
+    "param.download_dir.description": "省略操作路径时的下载目录。默认值：browser_downloads/<session_id 或 oneshot>。",
+    "param.extra_http_headers.description": "自定义 HTTP 标头。",
+    "param.http_credentials.description": "HTTP 基本身份验证凭据。",
+    "param.keep_alive.description": "为清晰起见而保留； start/act 保持浏览器打开直到关闭/TTL。",
+    "param.session_action.description": "会话控制。对于一次性模式，在没有 session_id 的情况下省略。",
+    "param.session_id.description": "用于持续交互的现有浏览器会话 ID。",
+    "param.session_ttl_sec.description": "会话的空闲超时秒数。",
+    "param.trace.description": "启用 Playwright 跟踪。跟踪将在一次性结束时保存，或者在会话关闭（如果启动）时保存。",
+    "param.trace_path.description": "保存跟踪 zip 文件的路径。"
   },
   "zh_TW": {
     "tool.description": "使用 Playwright 執行一系列瀏覽器操作。支援導覽、互動、提取、滑鼠/鍵盤控制、工作階段、網路、多頁面、無障礙、主控臺、上傳、行動模擬等。",
@@ -1146,7 +1410,19 @@
       "自動化",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "如果為 true，新開啟的頁面會自動變成活動狀態。",
+    "param.browser_channel.description": "要使用的瀏覽器頻道（例如，「msedge」表示 Microsoft Edge，「chrome」表示 Google Chrome）。預設：內建 Chromium。",
+    "param.dialog_policy.description": "會話頁面的預設對話框處理。",
+    "param.download_dir.description": "省略操作路徑時的下載目錄。預設值：browser_downloads/<session_id 或 oneshot>。",
+    "param.extra_http_headers.description": "自訂 HTTP 標頭。",
+    "param.http_credentials.description": "HTTP 基本驗證憑證。",
+    "param.keep_alive.description": "為清晰起見而保留； start/act 保持瀏覽器開啟直到關閉/TTL。",
+    "param.session_action.description": "會話控制。對於一次性模式，在沒有 session_id 的情況下省略。",
+    "param.session_id.description": "用於持續互動的現有瀏覽器會話 ID。",
+    "param.session_ttl_sec.description": "會話的空閒超時秒數。",
+    "param.trace.description": "啟用 Playwright 追蹤。追蹤將在一次性結束時保存，或在會話關閉（如果啟動）時保存。",
+    "param.trace_path.description": "保存追蹤 zip 檔案的路徑。"
   },
   "bn": {
     "tool.description": "নাট্যকার ব্যবহার করে ব্রাউজার অ্যাকশনের একটি সিকোয়েন্স এক্সিকিউট করুন। নেভিগেশন, মিথস্ক্রিয়া, নিষ্কাশন, মাউস/কীবোর্ড নিয়ন্ত্রণ, সেশন, নেটওয়ার্ক, মাল্টি-পেজ, অ্যাক্সেসিবিলিটি, কনসোল, আপলোড, মোবাইল এমুলেশন এবং আরও অনেক কিছু সমর্থন করে।",
@@ -1191,7 +1467,19 @@
       "অটোমেশন",
       "url",
       "আনা"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "সত্য হলে, নতুন খোলা পৃষ্ঠাগুলি স্বয়ংক্রিয়ভাবে সক্রিয় হবে।",
+    "param.browser_channel.description": "ব্যবহার করার জন্য ব্রাউজার চ্যানেল (যেমন Microsoft Edge এর জন্য \"msedge\", Google Chrome এর জন্য \"chrome\")। ডিফল্ট: বিল্ট-ইন ক্রোমিয়াম।",
+    "param.dialog_policy.description": "সেশন পৃষ্ঠাগুলির জন্য ডিফল্ট ডায়ালগ পরিচালনা।",
+    "param.download_dir.description": "অ্যাকশন পাথ বাদ দিলে ডাউনলোডের জন্য ডিরেক্টরি। ডিফল্ট: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "কাস্টম HTTP হেডার।",
+    "param.http_credentials.description": "HTTP মৌলিক প্রমাণীকরণ শংসাপত্র।",
+    "param.keep_alive.description": "স্বচ্ছতার জন্য রাখা; স্টার্ট/অ্যাক্ট বন্ধ/টিটিএল পর্যন্ত ব্রাউজার খোলা রাখুন।",
+    "param.session_action.description": "সেশন নিয়ন্ত্রণ। ওয়ান-শট মোডের জন্য কোনো session_id ছাড়া বাদ দিন।",
+    "param.session_id.description": "অবিরত ইন্টারঅ্যাকশনের জন্য বিদ্যমান ব্রাউজার সেশন আইডি।",
+    "param.session_ttl_sec.description": "একটি অধিবেশনের জন্য নিষ্ক্রিয় সময় শেষ সেকেন্ড।",
+    "param.trace.description": "Playwright ট্রেসিং সক্ষম করুন৷ ট্রেস ওয়ান-শটের শেষে বা সেশন শুরু হলে বন্ধ হয়ে গেলে সংরক্ষণ করা হবে।",
+    "param.trace_path.description": "ট্রেস জিপ ফাইল সংরক্ষণ করার পথ।"
   },
   "fa": {
     "tool.description": "دنباله ای از اقدامات مرورگر را با استفاده از Playwright اجرا کنید. از ناوبری، تعامل، استخراج، کنترل ماوس/صفحه کلید، جلسه، شبکه، چند صفحه، قابلیت دسترسی، کنسول، آپلود، شبیه سازی موبایل و موارد دیگر پشتیبانی می کند.",
@@ -1236,7 +1524,19 @@
       "اتوماسیون",
       "آدرس اینترنتی",
       "واکشی"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "اگر درست باشد، صفحات تازه باز شده به طور خودکار فعال می شوند.",
+    "param.browser_channel.description": "کانال مرورگر برای استفاده (به عنوان مثال \"msedge\" برای Microsoft Edge، \"chrome\" برای Google Chrome). پیش‌فرض: Chromium داخلی.",
+    "param.dialog_policy.description": "مدیریت گفتگوی پیش فرض برای صفحات جلسه.",
+    "param.download_dir.description": "دایرکتوری برای دانلودها در صورت حذف مسیر اقدام. پیش فرض: browser_downloads/<session_id یا oneshot>.",
+    "param.extra_http_headers.description": "سرصفحه HTTP سفارشی.",
+    "param.http_credentials.description": "HTTP اعتبار احراز هویت اولیه.",
+    "param.keep_alive.description": "برای وضوح نگهداری می شود؛ شروع/عمل مرورگر را تا بسته شدن/TTL باز نگه دارید.",
+    "param.session_action.description": "کنترل جلسه بدون session_id برای حالت تک شات حذف کنید.",
+    "param.session_id.description": "شناسه جلسه مرورگر موجود برای ادامه تعامل.",
+    "param.session_ttl_sec.description": "مهلت زمانی بیکار برای یک جلسه.",
+    "param.trace.description": "ردیابی Playwright را فعال کنید. ردیابی در پایان یک عکس ذخیره می شود، یا در صورت شروع، پس از بسته شدن جلسه ذخیره می شود.",
+    "param.trace_path.description": "مسیر ذخیره فایل فشرده ردیابی."
   },
   "mn": {
     "tool.description": "Playwright ашиглан хөтчийн дараалсан үйлдлийг гүйцэтгэнэ. Навигац, харилцан үйлдэл, олборлолт, хулгана/гарын удирдлага, сесс, сүлжээ, олон хуудас, хүртээмж, консол, байршуулалт, гар утасны эмуляц болон бусад зүйлийг дэмждэг.",
@@ -1281,7 +1581,19 @@
       "fetch",
       "url",
       "авах"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Хэрэв үнэн бол шинээр нээгдсэн хуудсууд автоматаар идэвхжинэ.",
+    "param.browser_channel.description": "Ашиглах хөтчийн суваг (жишээ нь: Microsoft Edge-д зориулсан \"msedge\", Google Chrome-д зориулсан \"chrome\"). Өгөгдмөл: суулгасан Chromium.",
+    "param.dialog_policy.description": "Сеанс хуудасны өгөгдмөл харилцах цонхны зохицуулалт.",
+    "param.download_dir.description": "Үйлдлийн замыг орхигдуулсан үед татаж авах лавлах. Өгөгдмөл: browser_downloads/<session_id эсвэл oneshot>.",
+    "param.extra_http_headers.description": "Тусгай HTTP толгой.",
+    "param.http_credentials.description": "HTTP Баталгаажуулалтын үндсэн мэдээлэл.",
+    "param.keep_alive.description": "Тодорхой болгох үүднээс хадгалсан; эхлүүлэх/үйлдэл хаах/TTL хүртэл хөтөчийг нээлттэй байлга.",
+    "param.session_action.description": "Сеанс хяналт. Нэг удаагийн горимд session_id байхгүй орхи.",
+    "param.session_id.description": "Үргэлжлүүлэн ажиллах хөтчийн сессийн ID.",
+    "param.session_ttl_sec.description": "Сеансыг сул зогсох секунд.",
+    "param.trace.description": "Playwright мөрийг идэвхжүүлэх. Нэг удаагийн цохилтын төгсгөлд, эсвэл эхлүүлсэн бол сесс хаагдах үед ул мөр хадгалагдана.",
+    "param.trace_path.description": "Trace zip файлыг хадгалах зам."
   },
   "mr": {
     "tool.description": "प्लेराइट वापरून ब्राउझर क्रियांचा क्रम चालवा. नेव्हिगेशन, परस्परसंवाद, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, प्रवेशयोग्यता, कन्सोल, अपलोड, मोबाइल इम्युलेशन आणि बरेच काही समर्थित करते.",
@@ -1326,7 +1638,19 @@
       "fetch",
       "url",
       "आणणे"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "खरे असल्यास, नवीन उघडलेली पृष्ठे आपोआप सक्रिय होतात.",
+    "param.browser_channel.description": "वापरण्यासाठी ब्राउझर चॅनल (उदा. Microsoft Edge साठी \"msedge\", Google Chrome साठी \"chrome\"). डीफॉल्ट: अंगभूत Chromium.",
+    "param.dialog_policy.description": "सत्र पृष्ठांसाठी डीफॉल्ट संवाद हाताळणी.",
+    "param.download_dir.description": "जेव्हा क्रिया पथ वगळला जातो तेव्हा डाउनलोडसाठी निर्देशिका. डीफॉल्ट: browser_downloads/<session_id किंवा oneshot>.",
+    "param.extra_http_headers.description": "सानुकूल HTTP शीर्षलेख.",
+    "param.http_credentials.description": "HTTP मूलभूत प्रमाणीकरण क्रेडेन्शियल्स.",
+    "param.keep_alive.description": "स्पष्टतेसाठी ठेवले; ब्राउझर बंद/TTL होईपर्यंत सुरू करा/कार्य करा.",
+    "param.session_action.description": "सत्र नियंत्रण. वन-शॉट मोडसाठी सत्र_आयडीशिवाय वगळा.",
+    "param.session_id.description": "सतत परस्परसंवादासाठी विद्यमान ब्राउझर सत्र आयडी.",
+    "param.session_ttl_sec.description": "सत्रासाठी निष्क्रिय कालबाह्य सेकंद.",
+    "param.trace.description": "Playwright ट्रेसिंग सक्षम करा. ट्रेस एका-शॉटच्या शेवटी, किंवा सत्र सुरू झाल्यास बंद झाल्यावर जतन केले जाईल.",
+    "param.trace_path.description": "ट्रेस झिप फाइल जतन करण्यासाठी पथ."
   },
   "el": {
     "tool.description": "Εκτελέστε μια ακολουθία ενεργειών του προγράμματος περιήγησης χρησιμοποιώντας το Playwright. Υποστηρίζει πλοήγηση, αλληλεπίδραση, εξαγωγή, έλεγχο ποντικιού/πληκτρολογίου, περίοδο λειτουργίας, δίκτυο, πολυσέλιδο, προσβασιμότητα, κονσόλα, μεταφορτώσεις, εξομοίωση κινητού και πολλά άλλα.",
@@ -1371,7 +1695,19 @@
       "fetch",
       "url",
       "φέρω"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Εάν ισχύει, οι σελίδες που ανοίγουν πρόσφατα ενεργοποιούνται αυτόματα.",
+    "param.browser_channel.description": "Κανάλι προγράμματος περιήγησης προς χρήση (π.χ. \"msedge\" για Microsoft Edge, \"chrome\" για Google Chrome). Προεπιλογή: ενσωματωμένο Chromium.",
+    "param.dialog_policy.description": "Προεπιλεγμένος χειρισμός διαλόγου για σελίδες συνεδρίας.",
+    "param.download_dir.description": "Κατάλογος για λήψεις όταν η διαδρομή δράσης παραλείπεται. Προεπιλογή: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Προσαρμοσμένες HTTP κεφαλίδες.",
+    "param.http_credentials.description": "HTTP Βασικά διαπιστευτήρια ελέγχου ταυτότητας.",
+    "param.keep_alive.description": "Διατηρούνται για λόγους σαφήνειας. start/act κρατήστε το πρόγραμμα περιήγησης ανοιχτό μέχρι το κλείσιμο/TTL.",
+    "param.session_action.description": "Έλεγχος συνεδρίας. Παράλειψη χωρίς session_id για λειτουργία one-shot.",
+    "param.session_id.description": "Υπάρχον αναγνωριστικό περιόδου λειτουργίας προγράμματος περιήγησης για συνεχή αλληλεπίδραση.",
+    "param.session_ttl_sec.description": "Δευτερόλεπτα χρονικού ορίου αδράνειας για μια περίοδο λειτουργίας.",
+    "param.trace.description": "Ενεργοποίηση Playwright ιχνηλάτησης. Το ίχνος θα αποθηκευτεί στο τέλος της μίας λήψης ή όταν η συνεδρία κλείσει, εάν ξεκινήσει.",
+    "param.trace_path.description": "Διαδρομή για αποθήκευση του αρχείου zip παρακολούθησης."
   },
   "he": {
     "tool.description": "בצע רצף של פעולות דפדפן באמצעות Playwright. תומך בניווט, אינטראקציה, חילוץ, שליטה בעכבר/מקלדת, הפעלה, רשת, ריבוי עמודים, נגישות, קונסולה, העלאות, אמולציה לנייד ועוד.",
@@ -1416,7 +1752,19 @@
       "אוטומציה",
       "כתובת אתר",
       "להביא"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "אם זה נכון, דפים שזה עתה נפתחו הופכים לפעילים באופן אוטומטי.",
+    "param.browser_channel.description": "ערוץ דפדפן לשימוש (למשל \"msedge\" עבור Microsoft Edge, \"chrome\" עבור Google Chrome). ברירת מחדל: Chromium מובנה.",
+    "param.dialog_policy.description": "טיפול ברירת מחדל בדיאלוג עבור דפי הפעלה.",
+    "param.download_dir.description": "ספרייה להורדות כאשר נתיב פעולה מושמט. ברירת מחדל: browser_downloads/<session_id או oneshot>.",
+    "param.extra_http_headers.description": "HTTP כותרות מותאמות אישית.",
+    "param.http_credentials.description": "HTTP אישורי אימות בסיסיים.",
+    "param.keep_alive.description": "נשמר למען הבהירות; התחל/פעל השאר את הדפדפן פתוח עד לסגירה/TTL.",
+    "param.session_action.description": "בקרת הפעלה. השמט ללא session_id עבור מצב חד פעמי.",
+    "param.session_id.description": "מזהה הפעלה קיים של הדפדפן להמשך אינטראקציה.",
+    "param.session_ttl_sec.description": "שניות פסק זמן סרק עבור הפעלה.",
+    "param.trace.description": "הפעל מעקב אחר Playwright. המעקב יישמר בסוף צילום אחד, או כאשר ההפעלה תיסגר אם תתחיל.",
+    "param.trace_path.description": "נתיב לשמירת קובץ ה-zip המעקב."
   },
   "hu": {
     "tool.description": "Hajtsa végre a böngészőműveletek sorozatát a Playwright segítségével. Támogatja a navigációt, interakciót, kibontást, egér/billentyűzet vezérlést, munkamenetet, hálózatot, többoldalas, kisegítő lehetőségeket, konzolt, feltöltéseket, mobil emulációt stb.",
@@ -1461,7 +1809,19 @@
       "automatizálás",
       "url",
       "elhozni"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Ha igaz, az újonnan megnyitott oldalak automatikusan aktívvá válnak.",
+    "param.browser_channel.description": "A használandó böngészőcsatorna (pl. \"msedge\" a Microsoft Edge-hez, \"chrome\" a Google Chrome-hoz). Alapértelmezés: beépített Chromium.",
+    "param.dialog_policy.description": "Alapértelmezett párbeszédpanel-kezelés a munkamenet-oldalakhoz.",
+    "param.download_dir.description": "Letöltések könyvtára, ha a műveleti útvonal ki van hagyva. Alapértelmezett: browser_downloads/<session_id or oneshot>.",
+    "param.extra_http_headers.description": "Egyéni HTTP fejlécek.",
+    "param.http_credentials.description": "HTTP Alapvető hitelesítési adatok.",
+    "param.keep_alive.description": "Az áttekinthetőség érdekében megtartva; start/act tartsa nyitva a böngészőt bezárásig/TTL.",
+    "param.session_action.description": "Munkamenet vezérlés. Kihagyás session_id nélkül az egyszeri módban.",
+    "param.session_id.description": "Meglévő böngésző munkamenet-azonosító a folyamatos interakcióhoz.",
+    "param.session_ttl_sec.description": "Üresjárati időtúllépés másodpercek egy munkamenethez.",
+    "param.trace.description": "Playwright nyomkövetés engedélyezése. A nyomkövetés elmentésre kerül az egyszeri felvétel végén, vagy a munkamenet bezárásakor, ha elindul.",
+    "param.trace_path.description": "A nyomkövetési zip fájl mentésének elérési útja."
   },
   "ro": {
     "tool.description": "Executați o secvență de acțiuni din browser folosind Playwright. Suportă navigare, interacțiune, extracție, control mouse/tastatură, sesiune, rețea, mai multe pagini, accesibilitate, consolă, încărcări, emulare mobilă și multe altele.",
@@ -1506,7 +1866,19 @@
       "automatizare",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Dacă este adevărat, paginile nou deschise devin active automat.",
+    "param.browser_channel.description": "Canalul de browser de utilizat (de exemplu, „msedge” pentru Microsoft Edge, „chrome” pentru Google Chrome). Implicit: Chromium încorporat.",
+    "param.dialog_policy.description": "Gestionarea implicită a dialogului pentru paginile de sesiune.",
+    "param.download_dir.description": "Director pentru descărcări atunci când calea acțiunii este omisă. Implicit: browser_downloads/<session_id sau oneshot>.",
+    "param.extra_http_headers.description": "HTTP anteturi personalizate.",
+    "param.http_credentials.description": "HTTP Acreditări de bază de autentificare.",
+    "param.keep_alive.description": "Păstrate pentru claritate; porniți/acționați țineți browserul deschis până la închidere/TTL.",
+    "param.session_action.description": "Controlul sesiunii. Omiteți fără session_id pentru modul one-shot.",
+    "param.session_id.description": "ID-ul sesiunii de browser existent pentru interacțiunea continuă.",
+    "param.session_ttl_sec.description": "Timp de inactivitate secunde pentru o sesiune.",
+    "param.trace.description": "Activați urmărirea Playwright. Urmărirea va fi salvată la sfârșitul one-shot-ului sau la închiderea sesiunii dacă a început.",
+    "param.trace_path.description": "Cale pentru salvarea fișierului zip de urmărire."
   },
   "pt_BR": {
     "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
@@ -1551,6 +1923,18 @@
       "automation",
       "url",
       "fetch"
-    ]
+    ],
+    "param.auto_focus_new_page.description": "Se for verdade, as páginas recém-abertas tornam-se ativas automaticamente.",
+    "param.browser_channel.description": "Canal do navegador a ser usado (por exemplo, \"msedge\" para Microsoft Edge, \"chrome\" para Google Chrome). Padrão: Chromium integrado.",
+    "param.dialog_policy.description": "Manipulação de diálogo padrão para páginas de sessão.",
+    "param.download_dir.description": "Diretório para downloads quando o caminho da ação é omitido. Padrão: browser_downloads/<session_id ou oneshot>.",
+    "param.extra_http_headers.description": "Cabeçalhos HTTP personalizados.",
+    "param.http_credentials.description": "HTTP Credenciais básicas de autenticação.",
+    "param.keep_alive.description": "Mantido para maior clareza; start/act mantém o navegador aberto até fechar/TTL.",
+    "param.session_action.description": "Controle de sessão. Omita sem session_id para o modo one-shot.",
+    "param.session_id.description": "ID de sessão do navegador existente para interação contínua.",
+    "param.session_ttl_sec.description": "Segundos de tempo limite de inatividade para uma sessão.",
+    "param.trace.description": "Ative o rastreamento Playwright. O rastreamento será salvo no final do one-shot ou quando a sessão for encerrada, se iniciada.",
+    "param.trace_path.description": "Caminho para salvar o arquivo zip de rastreamento."
   }
 }

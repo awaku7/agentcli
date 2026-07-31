@@ -40,7 +40,8 @@
       "مودبوس",
       "سجلات",
       "يدعم"
-    ]
+    ],
+    "param.timeout.description": "المهلة بالثواني."
   },
   "bn": {
     "tool.description": "একটি ডিভাইস থেকে Modbus TCP রেজিস্টার পড়ুন। রেজিস্টার, ইনপুট রেজিস্টার, কয়েল এবং বিযুক্ত ইনপুট ধারণকে সমর্থন করে।",
@@ -61,7 +62,8 @@
       "মডবাস",
       "রেজিস্টার",
       "সমর্থন করে"
-    ]
+    ],
+    "param.timeout.description": "সেকেন্ডে টাইমআউট।"
   },
   "cs": {
     "tool.description": "Čtení registrů Modbus TCP ze zařízení. Podporuje přídržné registry, vstupní registry, cívky a diskrétní vstupy.",
@@ -82,7 +84,8 @@
       "MODBUS",
       "registry",
       "podporuje"
-    ]
+    ],
+    "param.timeout.description": "Časový limit v sekundách."
   },
   "de": {
     "tool.description": "Modbus TCP-Register von einem Gerät lesen. Unterstützt Halteregister, Eingangsregister, Spulen und diskrete Eingänge.",
@@ -103,7 +106,8 @@
       "MODBUS",
       "registriert",
       "unterstützt"
-    ]
+    ],
+    "param.timeout.description": "Timeout in Sekunden."
   },
   "el": {
     "tool.description": "Διαβάστε τις καταχωρίσεις Modbus TCP από μια συσκευή. Υποστηρίζει τη διατήρηση καταχωρητών, καταχωρητών εισόδου, πηνίων και διακριτών εισόδων.",
@@ -124,7 +128,8 @@
       "MODBUS",
       "καταχωρητές",
       "υποστηρίζει"
-    ]
+    ],
+    "param.timeout.description": "Timeout σε δευτερόλεπτα."
   },
   "es": {
     "tool.description": "Leer registros Modbus TCP desde un dispositivo. Admite registros de retención, registros de entrada, bobinas y entradas discretas.",
@@ -145,7 +150,8 @@
       "MODBUS",
       "registros",
       "apoya"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera en segundos."
   },
   "fa": {
     "tool.description": "رجیسترهای Modbus TCP را از یک دستگاه بخوانید. پشتیبانی از رجیسترهای نگهداری، رجیسترهای ورودی، سیم پیچ‌ها و ورودی‌های گسسته.",
@@ -166,7 +172,8 @@
       "مادباس",
       "رجیسترها",
       "پشتیبانی می‌کند"
-    ]
+    ],
+    "param.timeout.description": "تایم اوت در ثانیه"
   },
   "fi": {
     "tool.description": "Lue Modbus TCP -rekisterit laitteesta. Tukee pitorekistereitä, tulorekistereitä, keloja ja erillisiä tuloja.",
@@ -187,7 +194,8 @@
       "MODBUS",
       "rekisterit",
       "tukee"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu sekunneissa."
   },
   "fr": {
     "tool.description": "Lire les registres Modbus TCP à partir d'un appareil. Prend en charge les registres de maintien, les registres d'entrée, les bobines et les entrées discrètes.",
@@ -208,7 +216,8 @@
       "MODBUS",
       "registres",
       "prend en charge"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration en secondes."
   },
   "he": {
     "tool.description": "קרא רישומי Modbus TCP מהתקן. תומך באוגרי החזקות, אוגרי קלט, סלילים וכניסות בדידות.",
@@ -229,7 +238,8 @@
       "מודבוס",
       "רגיסטרים",
       "תומך"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן בשניות."
   },
   "hi": {
     "tool.description": "किसी डिवाइस से मोडबस टीसीपी रजिस्टर पढ़ें। रजिस्टर, इनपुट रजिस्टर, कॉइल और अलग इनपुट रखने का समर्थन करता है।",
@@ -250,7 +260,8 @@
       "मॉडबस",
       "रजिस्टर",
       "समर्थन करता है"
-    ]
+    ],
+    "param.timeout.description": "सेकंड में टाइमआउट."
   },
   "hu": {
     "tool.description": "Modbus TCP regiszterek olvasása egy eszközről. Támogatja a tárolóregisztereket, a bemeneti regisztereket, a tekercseket és a diszkrét bemeneteket.",
@@ -271,7 +282,8 @@
       "MODBUS",
       "regiszterek",
       "támogatja"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés másodpercben."
   },
   "id": {
     "tool.description": "Baca register Modbus TCP dari perangkat. Mendukung register penahan, register input, kumparan, dan input diskrit.",
@@ -292,7 +304,8 @@
       "MODBUS",
       "register",
       "mendukung"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu dalam hitungan detik."
   },
   "it": {
     "tool.description": "Leggere i registri Modbus TCP da un dispositivo. Supporta registri di mantenimento, registri di ingresso, bobine e ingressi discreti.",
@@ -313,7 +326,8 @@
       "MODBUS",
       "registri",
       "supporta"
-    ]
+    ],
+    "param.timeout.description": "Timeout in secondi."
   },
   "ja": {
     "tool.description": "デバイスから Modbus TCP レジスタを読み取ります。保持レジスタ、入力レジスタ、コイル、ディスクリート入力をサポートします。",
@@ -356,7 +370,8 @@
       "모드버스",
       "레지스터",
       "지원하다"
-    ]
+    ],
+    "param.timeout.description": "시간 초과(초)입니다."
   },
   "mn": {
     "tool.description": "Төхөөрөмжөөс Modbus TCP бүртгэлийг уншина уу. Регистр, оролтын регистр, ороомог, дискрет оролтыг хадгалахыг дэмждэг.",
@@ -377,7 +392,8 @@
       "модбус",
       "регистрүүд",
       "дэмждэг"
-    ]
+    ],
+    "param.timeout.description": "Хугацаа секундын дотор."
   },
   "mr": {
     "tool.description": "डिव्हाइसवरून Modbus TCP नोंदणी वाचा. होल्डिंग रजिस्टर्स, इनपुट रजिस्टर्स, कॉइल्स आणि डिस्क्रिट इनपुटला सपोर्ट करते.",
@@ -398,7 +414,8 @@
       "मॉडबस",
       "रजिस्टर",
       "समर्थन करते"
-    ]
+    ],
+    "param.timeout.description": "सेकंदात कालबाह्य."
   },
   "nb": {
     "tool.description": "Les Modbus TCP-registre fra en enhet. Støtter holderegistre, inngangsregistre, spoler og diskrete innganger.",
@@ -419,7 +436,8 @@
       "MODBUS",
       "registre",
       "støtter"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   },
   "nl": {
     "tool.description": "Lees Modbus TCP-registers van een apparaat. Ondersteunt holdingregisters, ingangsregisters, spoelen en discrete ingangen.",
@@ -440,7 +458,8 @@
       "MODBUS",
       "registers",
       "ondersteunt"
-    ]
+    ],
+    "param.timeout.description": "Time-out in seconden."
   },
   "pl": {
     "tool.description": "Odczyt rejestrów Modbus TCP z urządzenia. Obsługuje rejestry trzymające, rejestry wejściowe, cewki i wejścia dyskretne.",
@@ -461,7 +480,8 @@
       "MODBUS",
       "rejestruje",
       "obsługuje"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu w sekundach."
   },
   "pt": {
     "tool.description": "Leia os registros Modbus TCP de um dispositivo. Suporta registros de retenção, registros de entrada, bobinas e entradas discretas.",
@@ -482,7 +502,8 @@
       "MODBUS",
       "registos",
       "suporta"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "pt_BR": {
     "tool.description": "Leia os registros Modbus TCP de um dispositivo. Suporta registros de retenção, registros de entrada, bobinas e entradas discretas.",
@@ -503,7 +524,8 @@
       "MODBUS",
       "registos",
       "suporta"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite em segundos."
   },
   "ro": {
     "tool.description": "Citiți registrele Modbus TCP de pe un dispozitiv. Suporta registre de reținere, registre de intrare, bobine și intrări discrete.",
@@ -524,7 +546,8 @@
       "MODBUS",
       "registre",
       "suportă"
-    ]
+    ],
+    "param.timeout.description": "Timeout în secunde."
   },
   "ru": {
     "tool.description": "Чтение регистров Modbus TCP с устройства. Поддерживает регистры временного хранения, входные регистры, катушки и дискретные входы.",
@@ -545,7 +568,8 @@
       "MODBUS",
       "регистры",
       "поддерживает"
-    ]
+    ],
+    "param.timeout.description": "Таймаут в секундах."
   },
   "sv": {
     "tool.description": "Läs Modbus TCP-register från en enhet. Stöder hållregister, ingångsregister, spolar och diskreta ingångar.",
@@ -566,7 +590,8 @@
       "MODBUS",
       "register",
       "stöder"
-    ]
+    ],
+    "param.timeout.description": "Timeout i sekunder."
   },
   "sw": {
     "tool.description": "Soma rejista za Modbus TCP kutoka kwa kifaa. Inaauni rejista za kushikilia, rejista za ingizo, koili, na pembejeo tofauti.",
@@ -587,7 +612,8 @@
       "MODBUS",
       "rejesta",
       "inasaidia"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa sekunde."
   },
   "th": {
     "tool.description": "อ่านการลงทะเบียน Modbus TCP จากอุปกรณ์ รองรับการถือครองรีจิสเตอร์ รีจิสเตอร์อินพุต คอยล์ และอินพุตแบบแยก",
@@ -608,7 +634,8 @@
       "มอดบัส",
       "รีจิสเตอร์",
       "รองรับ"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาเป็นวินาที"
   },
   "tr": {
     "tool.description": "Bir cihazdan Modbus TCP kayıtlarını okuyun. Tutma kayıtlarını, giriş kayıtlarını, bobinleri ve ayrık girişleri destekler.",
@@ -629,7 +656,8 @@
       "MODBUS",
       "kayıtlar",
       "destekler"
-    ]
+    ],
+    "param.timeout.description": "Saniye cinsinden zaman aşımı."
   },
   "uk": {
     "tool.description": "Читання регістрів Modbus TCP з пристрою. Підтримує регістри зберігання, вхідні регістри, котушки та дискретні входи.",
@@ -650,7 +678,8 @@
       "MODBUS",
       "регістри",
       "підтримує"
-    ]
+    ],
+    "param.timeout.description": "Час очікування в секундах."
   },
   "vi": {
     "tool.description": "Đọc các thanh ghi Modbus TCP từ một thiết bị. Hỗ trợ các thanh ghi giữ, thanh ghi đầu vào, cuộn dây và đầu vào rời rạc.",
@@ -671,7 +700,8 @@
       "MODBUS",
       "đăng ký",
       "hỗ trợ"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ tính bằng giây."
   },
   "zh_CN": {
     "tool.description": "从设备读取 Modbus TCP 寄存器。支持保持寄存器、输入寄存器、线圈和离散输入。",
@@ -692,7 +722,8 @@
       "MODBUS",
       "寄存器",
       "支持"
-    ]
+    ],
+    "param.timeout.description": "超时（以秒为单位）。"
   },
   "zh_TW": {
     "tool.description": "從裝置讀取 Modbus TCP 暫存器。支援保持暫存器、輸入暫存器、線圈和離散輸入。",
@@ -713,6 +744,7 @@
       "MODBUS",
       "暫存器",
       "支援"
-    ]
+    ],
+    "param.timeout.description": "超時（以秒為單位）。"
   }
 }

@@ -777,7 +777,7 @@
     "err.file_not_found": "خطا: فایل یافت نشد: {path}",
     "err.parse_error": "خطا در تجزیه فایل پاورپوینت: {e}",
     "msg.no_slides": "(هیچ اسلایدی در ارائه یافت نشد)",
-    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل اسلایدها: {total}\nبرای بازیابی یک اسلاید، ppt2idx را با mode='section' و section=N فراخوانی کنید.",
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: اسلاید {section_num} یافت نشد. محدوده معتبر: 1..{last}.",

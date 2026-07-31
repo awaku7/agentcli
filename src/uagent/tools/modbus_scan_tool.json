@@ -42,7 +42,8 @@
       "أجهزة",
       "محلي",
       "شبكة"
-    ]
+    ],
+    "param.timeout.description": "المهلة لكل محاولة اتصال (بالثواني)."
   },
   "bn": {
     "tool.description": "স্থানীয় নেটওয়ার্কে Modbus TCP ডিভাইস স্ক্যান করুন। Modbus ডিভাইস আবিষ্কার করতে IP ঠিকানা এবং ইউনিট আইডি অনুসন্ধান করে।",
@@ -64,7 +65,8 @@
       "ডিভাইস",
       "স্থানীয়",
       "নেটওয়ার্ক"
-    ]
+    ],
+    "param.timeout.description": "সংযোগ প্রচেষ্টা প্রতি সময়সীমা (সেকেন্ড)।"
   },
   "cs": {
     "tool.description": "Skenujte zařízení Modbus TCP v místní síti. Zkoumá IP adresy a ID jednotek a zjišťuje Modbus zařízení.",
@@ -86,7 +88,8 @@
       "zařízení",
       "místní",
       "síť"
-    ]
+    ],
+    "param.timeout.description": "Časový limit na pokus o připojení (v sekundách)."
   },
   "de": {
     "tool.description": "Scannen Sie Modbus TCP-Geräte im lokalen Netzwerk. Prüft IP-Adressen und Geräte-IDs, um Modbus-Geräte zu erkennen.",
@@ -108,7 +111,8 @@
       "Geräte",
       "lokal",
       "Netzwerk"
-    ]
+    ],
+    "param.timeout.description": "Timeout pro Verbindungsversuch (Sekunden)."
   },
   "el": {
     "tool.description": "Σάρωση συσκευών TCP Modbus στο τοπικό δίκτυο. Ανιχνεύει τις διευθύνσεις IP και τα αναγνωριστικά μονάδων για να ανακαλύψει συσκευές Modbus.",
@@ -130,7 +134,8 @@
       "συσκευές",
       "τοπικό",
       "δίκτυο"
-    ]
+    ],
+    "param.timeout.description": "Χρονικό όριο ανά προσπάθεια σύνδεσης (δευτερόλεπτα)."
   },
   "es": {
     "tool.description": "Escanee dispositivos Modbus TCP en la red local. Sondea direcciones IP e ID de unidades para descubrir dispositivos Modbus.",
@@ -152,7 +157,8 @@
       "dispositivos",
       "locales",
       "red"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera por intento de conexión (segundos)."
   },
   "fa": {
     "tool.description": "دستگاه های Modbus TCP را در شبکه محلی اسکن کنید. آدرس‌های IP و شناسه‌های واحد را برای کشف دستگاه‌های Modbus بررسی می‌کند.",
@@ -174,7 +180,8 @@
       "دستگاه‌ها",
       "محلی",
       "شبکه"
-    ]
+    ],
+    "param.timeout.description": "مهلت زمانی در هر تلاش برای اتصال (ثانیه)."
   },
   "fi": {
     "tool.description": "Tarkista Modbus TCP -laitteet paikallisessa verkossa. Tutkii IP-osoitteita ja yksikkötunnuksia Modbus-laitteiden löytämiseksi.",
@@ -196,7 +203,8 @@
       "laitteet",
       "paikallinen",
       "verkko"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu yhteysyritystä kohti (sekuntia)."
   },
   "fr": {
     "tool.description": "Scannez les appareils Modbus TCP sur le réseau local. Sonde les adresses IP et les ID d’unité pour découvrir les appareils Modbus.",
@@ -218,7 +226,8 @@
       "appareils",
       "locale",
       "réseau"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration par tentative de connexion (secondes)."
   },
   "he": {
     "tool.description": "סרוק התקני Modbus TCP ברשת המקומית. בודק כתובות IP ומזהי יחידות כדי לגלות התקני Modbus.",
@@ -240,7 +249,8 @@
       "מכשירים",
       "מקומי",
       "רשת"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לכל ניסיון חיבור (שניות)."
   },
   "hi": {
     "tool.description": "स्थानीय नेटवर्क पर मोडबस टीसीपी उपकरणों को स्कैन करें। मॉडबस उपकरणों की खोज के लिए आईपी पते और यूनिट आईडी की जांच करता है।",
@@ -262,7 +272,8 @@
       "डिवाइस",
       "स्थानीय",
       "नेटवर्क"
-    ]
+    ],
+    "param.timeout.description": "प्रति कनेक्शन प्रयास समयबाह्य (सेकंड)।"
   },
   "hu": {
     "tool.description": "Modbus TCP-eszközök vizsgálata a helyi hálózaton. Megvizsgálja az IP-címeket és az egységazonosítókat a Modbus-eszközök felfedezéséhez.",
@@ -284,7 +295,8 @@
       "eszközök",
       "helyi",
       "hálózat"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés csatlakozási kísérletenként (másodperc)."
   },
   "id": {
     "tool.description": "Pindai perangkat Modbus TCP di jaringan lokal. Menyelidiki alamat IP dan ID unit untuk menemukan perangkat Modbus.",
@@ -306,7 +318,8 @@
       "perangkat",
       "lokal",
       "jaringan"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu per upaya koneksi (detik)."
   },
   "it": {
     "tool.description": "Scansiona i dispositivi Modbus TCP sulla rete locale. Esamina gli indirizzi IP e gli ID unità per rilevare i dispositivi Modbus.",
@@ -328,7 +341,8 @@
       "dispositivi",
       "locale",
       "rete"
-    ]
+    ],
+    "param.timeout.description": "Timeout per tentativo di connessione (secondi)."
   },
   "ja": {
     "tool.description": "ローカル ネットワーク上の Modbus TCP デバイスをスキャンします。 IP アドレスとユニット ID をプローブして Modbus デバイスを検出します。",
@@ -373,7 +387,8 @@
       "장치",
       "지역",
       "네트워크"
-    ]
+    ],
+    "param.timeout.description": "연결 시도당 시간 초과(초)입니다."
   },
   "mn": {
     "tool.description": "Дотоод сүлжээн дэх Modbus TCP төхөөрөмжүүдийг сканнердах. Modbus төхөөрөмжүүдийг илрүүлэхийн тулд IP хаяг болон нэгжийн ID-г шалгана.",
@@ -395,7 +410,8 @@
       "төхөөрөмж",
       "орон нутгийн",
       "сүлжээ"
-    ]
+    ],
+    "param.timeout.description": "Холболтын оролдлогын хугацаа (секунд)."
   },
   "mr": {
     "tool.description": "स्थानिक नेटवर्कवर Modbus TCP डिव्हाइसेस स्कॅन करा. Modbus साधने शोधण्यासाठी IP पत्ते आणि युनिट आयडी तपासते.",
@@ -417,7 +433,8 @@
       "उपकरणे",
       "स्थानिक",
       "नेटवर्क"
-    ]
+    ],
+    "param.timeout.description": "प्रति कनेक्शन प्रयत्न कालबाह्य (सेकंद)."
   },
   "nb": {
     "tool.description": "Skann Modbus TCP-enheter på det lokale nettverket. Undersøker IP-adresser og enhets-IDer for å oppdage Modbus-enheter.",
@@ -439,7 +456,8 @@
       "enheter",
       "lokal",
       "nettverk"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd per tilkoblingsforsøk (sekunder)."
   },
   "nl": {
     "tool.description": "Scan Modbus TCP-apparaten op het lokale netwerk. Onderzoekt IP-adressen en unit-ID's om Modbus-apparaten te ontdekken.",
@@ -461,7 +479,8 @@
       "apparaten",
       "lokaal",
       "netwerk"
-    ]
+    ],
+    "param.timeout.description": "Time-out per verbindingspoging (seconden)."
   },
   "pl": {
     "tool.description": "Skanuj urządzenia Modbus TCP w sieci lokalnej. Sonduje adresy IP i identyfikatory jednostek w celu wykrycia urządzeń Modbus.",
@@ -483,7 +502,8 @@
       "urządzenia",
       "lokalny",
       "sieć"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu na próbę połączenia (sekundy)."
   },
   "pt": {
     "tool.description": "Digitalize dispositivos Modbus TCP na rede local. Sonda endereços IP e IDs de unidades para descobrir dispositivos Modbus.",
@@ -505,7 +525,8 @@
       "dispositivos",
       "local",
       "rede"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por tentativa de conexão (segundos)."
   },
   "pt_BR": {
     "tool.description": "Digitalize dispositivos Modbus TCP na rede local. Sonda endereços IP e IDs de unidades para descobrir dispositivos Modbus.",
@@ -527,7 +548,8 @@
       "dispositivos",
       "locais",
       "rede"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por tentativa de conexão (segundos)."
   },
   "ro": {
     "tool.description": "Scanați dispozitivele Modbus TCP din rețeaua locală. Sondează adresele IP și ID-urile unității pentru a descoperi dispozitivele Modbus.",
@@ -549,7 +571,8 @@
       "dispozitive",
       "local",
       "rețea"
-    ]
+    ],
+    "param.timeout.description": "Timeout per încercare de conectare (secunde)."
   },
   "ru": {
     "tool.description": "Сканировать устройства Modbus TCP в локальной сети. Проверяет IP-адреса и идентификаторы устройств для обнаружения устройств Modbus.",
@@ -571,7 +594,8 @@
       "устройства",
       "локальный",
       "сеть"
-    ]
+    ],
+    "param.timeout.description": "Таймаут на попытку подключения (в секундах)."
   },
   "sv": {
     "tool.description": "Skanna Modbus TCP-enheter på det lokala nätverket. Söker efter IP-adresser och enhets-ID för att upptäcka Modbus-enheter.",
@@ -593,7 +617,8 @@
       "enheter",
       "lokal",
       "nätverk"
-    ]
+    ],
+    "param.timeout.description": "Timeout per anslutningsförsök (sekunder)."
   },
   "sw": {
     "tool.description": "Changanua vifaa vya Modbus TCP kwenye mtandao wa ndani. Huchunguza anwani za IP na vitambulisho vya vitengo ili kugundua vifaa vya Modbus.",
@@ -615,7 +640,8 @@
       "vifaa",
       "ndani",
       "mtandao"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa kila jaribio la muunganisho (sekunde)."
   },
   "th": {
     "tool.description": "สแกนอุปกรณ์ Modbus TCP บนเครือข่ายท้องถิ่น ตรวจสอบที่อยู่ IP และ ID หน่วยเพื่อค้นหาอุปกรณ์ Modbus",
@@ -637,7 +663,8 @@
       "อุปกรณ์",
       "ท้องถิ่น",
       "เครือข่าย"
-    ]
+    ],
+    "param.timeout.description": "การหมดเวลาต่อความพยายามในการเชื่อมต่อ (วินาที)"
   },
   "tr": {
     "tool.description": "Yerel ağdaki Modbus TCP cihazlarını tarayın. Modbus cihazlarını keşfetmek için IP adreslerini ve ünite kimliklerini araştırır.",
@@ -659,7 +686,8 @@
       "cihazlar",
       "yerel",
       "ağ"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı girişimi başına zaman aşımı (saniye)."
   },
   "uk": {
     "tool.description": "Сканувати пристрої Modbus TCP у локальній мережі. Вивчає IP-адреси та ідентифікатори пристроїв для виявлення пристроїв Modbus.",
@@ -681,7 +709,8 @@
       "пристрої",
       "локальний",
       "мережа"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут на спробу підключення (у секундах)."
   },
   "vi": {
     "tool.description": "Quét các thiết bị Modbus TCP trên mạng cục bộ. Thăm dò địa chỉ IP và ID đơn vị để khám phá các thiết bị Modbus.",
@@ -703,7 +732,8 @@
       "thiết bị",
       "địa phương",
       "mạng lưới"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ cho mỗi lần thử kết nối (giây)."
   },
   "zh_CN": {
     "tool.description": "扫描本地网络上的 Modbus TCP 设备。探测 IP 地址和设备 ID 以发现 Modbus 设备。",
@@ -725,7 +755,8 @@
       "设备",
       "本地",
       "网络"
-    ]
+    ],
+    "param.timeout.description": "每次连接尝试的超时（秒）。"
   },
   "zh_TW": {
     "tool.description": "掃描本機網路上的 Modbus TCP 設備。偵測 IP 位址和設備 ID 以發現 Modbus 設備。",
@@ -747,6 +778,7 @@
       "裝置",
       "本機",
       "網路"
-    ]
+    ],
+    "param.timeout.description": "每次連線嘗試的超時（秒）。"
   }
 }

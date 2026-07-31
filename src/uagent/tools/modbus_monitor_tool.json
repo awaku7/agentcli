@@ -50,7 +50,8 @@
       "كشف",
       "التغييرات",
       "المرتجعات"
-    ]
+    ],
+    "param.timeout.description": "المهلة لكل قراءة (ثواني)."
   },
   "bn": {
     "tool.description": "পোল Modbus বারবার নিবন্ধন করে এবং পরিবর্তন সনাক্ত করে। সমস্ত শনাক্ত পরিবর্তনের একটি সারাংশ প্রদান করে।",
@@ -76,7 +77,8 @@
       "ডিটেক্ট",
       "পরিবর্তন",
       "ফেরত"
-    ]
+    ],
+    "param.timeout.description": "প্রতি পঠিত সময়সীমা (সেকেন্ড)।"
   },
   "cs": {
     "tool.description": "Poll Modbus se opakovaně registruje a detekuje změny. Vrátí souhrn všech zjištěných změn.",
@@ -102,7 +104,8 @@
       "detekuje",
       "změny",
       "návraty"
-    ]
+    ],
+    "param.timeout.description": "Časový limit na čtení (sekundy)."
   },
   "de": {
     "tool.description": "Modbus-Register wiederholt abfragen und Änderungen erkennen. Gibt eine Zusammenfassung aller erkannten Änderungen zurück.",
@@ -128,7 +131,8 @@
       "Erkennen",
       "Änderungen",
       "Rückgaben"
-    ]
+    ],
+    "param.timeout.description": "Timeout pro Lesevorgang (Sekunden)."
   },
   "el": {
     "tool.description": "Το Poll Modbus εγγράφεται επανειλημμένα και εντοπίζει αλλαγές. Επιστρέφει μια σύνοψη όλων των αλλαγών που εντοπίστηκαν.",
@@ -154,7 +158,8 @@
       "detect",
       "changes",
       "επιστρέφει"
-    ]
+    ],
+    "param.timeout.description": "Χρονικό όριο ανά ανάγνωση (δευτερόλεπτα)."
   },
   "es": {
     "tool.description": "Sondear los registros Modbus repetidamente y detectar cambios. Devuelve un resumen de todos los cambios detectados.",
@@ -180,7 +185,8 @@
       "detectar",
       "cambios",
       "devoluciones"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera por lectura (segundos)."
   },
   "fa": {
     "tool.description": "Poll Modbus به طور مکرر ثبت می شود و تغییرات را تشخیص می دهد. خلاصه ای از تمام تغییرات شناسایی شده را برمی گرداند.",
@@ -206,7 +212,8 @@
       "تشخیص",
       "تغییرات",
       "بازگشت"
-    ]
+    ],
+    "param.timeout.description": "وقفه در هر خواندن (ثانیه)."
   },
   "fi": {
     "tool.description": "Poll Modbus rekisteröi toistuvasti ja havaitsee muutokset. Palauttaa yhteenvedon kaikista havaituista muutoksista.",
@@ -232,7 +239,8 @@
       "havaitsee",
       "muutokset",
       "palauttaa"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu per luku (sekuntia)."
   },
   "fr": {
     "tool.description": "Interrogez les enregistrements Modbus à plusieurs reprises et détectez les changements. Renvoie un résumé de toutes les modifications détectées.",
@@ -258,7 +266,8 @@
       "détecte",
       "les changements",
       "retourne"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration par lecture (secondes)."
   },
   "he": {
     "tool.description": "Poll Modbus רושם שוב ושוב ומזהה שינויים. מחזירה סיכום של כל השינויים שזוהו.",
@@ -284,7 +293,8 @@
       "שינויים",
       "החזרות",
       "מחזיר"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לקריאה (שניות)."
   },
   "hi": {
     "tool.description": "पोल मोडबस बार-बार रजिस्टर करता है और परिवर्तनों का पता लगाता है। सभी ज्ञात परिवर्तनों का सारांश लौटाता है।",
@@ -310,7 +320,8 @@
       "रिटर्न का पता लगाता है",
       "परिवर्तन",
       "रिटर्न"
-    ]
+    ],
+    "param.timeout.description": "प्रति पाठ समयबाह्य (सेकंड)।"
   },
   "hu": {
     "tool.description": "A Modbus lekérdezése ismételten regisztrál, és észleli a változásokat. Az összes észlelt változás összegzését adja vissza.",
@@ -336,7 +347,8 @@
       "detect",
       "módosításokat",
       "visszaküld"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés olvasásonként (másodperc)."
   },
   "id": {
     "tool.description": "Poll Modbus mendaftar berulang kali dan mendeteksi perubahan. Mengembalikan ringkasan semua perubahan yang terdeteksi.",
@@ -362,7 +374,8 @@
       "mendeteksi",
       "perubahan",
       "pengembalian"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu per pembacaan (detik)."
   },
   "it": {
     "tool.description": "Effettua il polling dei registri Modbus ripetutamente e rileva le modifiche. Restituisce un riepilogo di tutte le modifiche rilevate.",
@@ -388,7 +401,8 @@
       "rileva",
       "modifiche",
       "resi"
-    ]
+    ],
+    "param.timeout.description": "Timeout per lettura (secondi)."
   },
   "ja": {
     "tool.description": "Modbus レジスタを繰り返しポーリングし、変更を検出します。検出されたすべての変更の概要を返します。",
@@ -441,7 +455,8 @@
       "감지",
       "변경",
       "반환"
-    ]
+    ],
+    "param.timeout.description": "읽기당 제한 시간(초)입니다."
   },
   "mn": {
     "tool.description": "Санал асуулгын Modbus дахин дахин бүртгүүлж, өөрчлөлтийг илрүүлдэг. Илэрсэн бүх өөрчлөлтийн хураангуйг буцаана.",
@@ -467,7 +482,8 @@
       "илрүүлдэг",
       "өөрчлөлтүүдийг",
       "буцдаг"
-    ]
+    ],
+    "param.timeout.description": "Унших хугацаа (секунд)."
   },
   "mr": {
     "tool.description": "पोल मॉडबस वारंवार नोंदणी करतो आणि बदल ओळखतो. सर्व आढळलेल्या बदलांचा सारांश देतो.",
@@ -493,7 +509,8 @@
       "शोधा",
       "बदल",
       "परतावा"
-    ]
+    ],
+    "param.timeout.description": "प्रति वाचन कालबाह्य (सेकंद)."
   },
   "nb": {
     "tool.description": "Poll Modbus registrerer gjentatte ganger og oppdager endringer. Returnerer et sammendrag av alle oppdagede endringer.",
@@ -519,7 +536,8 @@
       "oppdager",
       "endringer",
       "retur"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd per lesing (sekunder)."
   },
   "nl": {
     "tool.description": "Poll Modbus registreert herhaaldelijk en detecteert veranderingen. Retourneert een samenvatting van alle gedetecteerde wijzigingen.",
@@ -545,7 +563,8 @@
       "detect",
       "wijzigingen",
       "retourneert"
-    ]
+    ],
+    "param.timeout.description": "Time-out per lezing (seconden)."
   },
   "pl": {
     "tool.description": "Odpytywanie Modbus rejestruje się wielokrotnie i wykrywa zmiany. Zwraca podsumowanie wszystkich wykrytych zmian.",
@@ -571,7 +590,8 @@
       "wykrywa",
       "zmian",
       "powraca"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu na odczyt (sekundy)."
   },
   "pt": {
     "tool.description": "Pesquise registros Modbus repetidamente e detecte alterações. Retorna um resumo de todas as alterações detectadas.",
@@ -597,7 +617,8 @@
       "detecta",
       "mudanças",
       "retorna"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por leitura (segundos)."
   },
   "pt_BR": {
     "tool.description": "Pesquise registros Modbus repetidamente e detecte alterações. Retorna um resumo de todas as alterações detectadas.",
@@ -623,7 +644,8 @@
       "detecta",
       "mudanças",
       "retorna"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por leitura (segundos)."
   },
   "ro": {
     "tool.description": "Sondajul Modbus se înregistrează în mod repetat și detectează modificări. Returnează un rezumat al tuturor modificărilor detectate.",
@@ -649,7 +671,8 @@
       "modbus",
       "întoarce",
       "în mod repetat"
-    ]
+    ],
+    "param.timeout.description": "Timeout per citire (secunde)."
   },
   "ru": {
     "tool.description": "Повторно опрашивайте регистры Modbus и обнаруживайте изменения. Возвращает сводку всех обнаруженных изменений.",
@@ -675,7 +698,8 @@
       "обнаружение",
       "изменения",
       "возвращает"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут на чтение (секунды)."
   },
   "sv": {
     "tool.description": "Poll Modbus registrerar upprepade gånger och upptäcker ändringar. Returnerar en sammanfattning av alla upptäckta ändringar.",
@@ -701,7 +725,8 @@
       "upptäcka",
       "förändringar",
       "returnerar"
-    ]
+    ],
+    "param.timeout.description": "Timeout per läsning (sekunder)."
   },
   "sw": {
     "tool.description": "Kura ya maoni ya Modbus husajili mara kwa mara na kugundua mabadiliko. Hurejesha muhtasari wa mabadiliko yote yaliyotambuliwa.",
@@ -727,7 +752,8 @@
       "gundua",
       "mabadiliko",
       "rejesha"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa kila usomaji (sekunde)."
   },
   "th": {
     "tool.description": "Poll Modbus ลงทะเบียนซ้ำๆ และตรวจพบการเปลี่ยนแปลง ส่งคืนข้อมูลสรุปการเปลี่ยนแปลงที่ตรวจพบทั้งหมด",
@@ -753,7 +779,8 @@
       "detect",
       "changes",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาต่อการอ่าน (วินาที)"
   },
   "tr": {
     "tool.description": "Modbus kayıtlarını tekrar tekrar sorgulayın ve değişiklikleri tespit edin. Algılanan tüm değişikliklerin bir özetini döndürür.",
@@ -779,7 +806,8 @@
       "değişiklikleri algılar",
       "geri döner",
       "geri döner"
-    ]
+    ],
+    "param.timeout.description": "Okuma başına zaman aşımı (saniye)."
   },
   "uk": {
     "tool.description": "Опитування Modbus реєструє багаторазово та виявляє зміни. Повертає зведення всіх виявлених змін.",
@@ -805,7 +833,8 @@
       "виявляє",
       "зміни",
       "повертає"
-    ]
+    ],
+    "param.timeout.description": "Час очікування на читання (секунди)."
   },
   "vi": {
     "tool.description": "Thăm dò Modbus đăng ký nhiều lần và phát hiện các thay đổi. Trả về một bản tóm tắt của tất cả các thay đổi được phát hiện.",
@@ -831,7 +860,8 @@
       "phát hiện",
       "thay đổi",
       "trả về"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ mỗi lần đọc (giây)."
   },
   "zh_CN": {
     "tool.description": "重复轮询 Modbus 寄存器并检测变化。返回所有检测到的更改的摘要。",
@@ -857,7 +887,8 @@
       "检测",
       "更改",
       "返回"
-    ]
+    ],
+    "param.timeout.description": "每次读取超时（秒）。"
   },
   "zh_TW": {
     "tool.description": "重複輪詢 Modbus 寄存器並偵測變化。傳回所有偵測到的變更的摘要。",
@@ -883,6 +914,7 @@
       "檢測",
       "更改",
       "返回"
-    ]
+    ],
+    "param.timeout.description": "每次讀取超時（秒）。"
   }
 }

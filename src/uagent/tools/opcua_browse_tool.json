@@ -36,7 +36,8 @@
       "العنوان",
       "مساحة",
       "إرجاع"
-    ]
+    ],
+    "param.timeout.description": "مهلة الاتصال."
   },
   "bn": {
     "tool.description": "OPC UA সার্ভার ঠিকানা স্থান ব্রাউজ করুন. নির্দিষ্ট প্রারম্ভিক নোডের চাইল্ড নোড প্রদান করে।",
@@ -55,7 +56,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "সংযোগের সময়সীমা শেষ।"
   },
   "cs": {
     "tool.description": "Procházejte adresní prostor serveru OPC UA. Vrátí podřízené uzly zadaného počátečního uzlu.",
@@ -74,7 +76,8 @@
       "adresa",
       "mezera",
       "vrací se"
-    ]
+    ],
+    "param.timeout.description": "Vypršel časový limit připojení."
   },
   "de": {
     "tool.description": "Durchsuchen Sie den Adressraum des OPC UA-Servers. Gibt untergeordnete Knoten des angegebenen Startknotens zurück.",
@@ -93,7 +96,8 @@
       "address",
       "space",
       "gibt zurück"
-    ]
+    ],
+    "param.timeout.description": "Verbindungszeitüberschreitung."
   },
   "el": {
     "tool.description": "Περιηγηθείτε στον χώρο διευθύνσεων διακομιστή OPC UA. Επιστρέφει θυγατρικούς κόμβους του καθορισμένου αρχικού κόμβου.",
@@ -112,7 +116,8 @@
       "διεύθυνση",
       "space",
       "επιστρέφει"
-    ]
+    ],
+    "param.timeout.description": "Λήξη χρονικού ορίου σύνδεσης."
   },
   "es": {
     "tool.description": "Explore el espacio de direcciones del servidor OPC UA. Devuelve nodos secundarios del nodo inicial especificado.",
@@ -131,7 +136,8 @@
       "dirección",
       "espacio",
       "retornos"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera de conexión."
   },
   "fa": {
     "tool.description": "فضای آدرس سرور OPC UA را مرور کنید. گره های فرزند گره شروع مشخص شده را برمی گرداند.",
@@ -150,7 +156,8 @@
       "آدرس",
       "space",
       "بازگشت"
-    ]
+    ],
+    "param.timeout.description": "پایان زمان اتصال."
   },
   "fi": {
     "tool.description": "Selaa OPC UA -palvelimen osoiteavaruutta. Palauttaa määritetyn aloitussolmun lapsisolmut.",
@@ -169,7 +176,8 @@
       "osoite",
       "space",
       "palauttaa"
-    ]
+    ],
+    "param.timeout.description": "Yhteyden aikakatkaisu."
   },
   "fr": {
     "tool.description": "Parcourez l'espace d'adressage du serveur OPC UA. Renvoie les nœuds enfants du nœud de départ spécifié.",
@@ -188,7 +196,8 @@
       "adresse",
       "espace",
       "retours"
-    ]
+    ],
+    "param.timeout.description": "Expiration du délai de connexion."
   },
   "he": {
     "tool.description": "עיין במרחב הכתובות של שרת OPC UA. מחזירה צמתים צאצאים של צומת ההתחלה שצוין.",
@@ -207,7 +216,8 @@
       "כתובת",
       "מרחב",
       "החזרות"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לחיבור."
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर एड्रेस स्पेस ब्राउज़ करें। निर्दिष्ट प्रारंभिक नोड के चाइल्ड नोड्स लौटाता है।",
@@ -226,7 +236,8 @@
       "पता",
       "space",
       "रिटर्न"
-    ]
+    ],
+    "param.timeout.description": "रिश्तों का समय बाहर।"
   },
   "hu": {
     "tool.description": "Böngésszen az OPC UA szerver címterében. A megadott kezdőcsomópont gyermekcsomópontjait adja vissza.",
@@ -245,7 +256,8 @@
       "cím",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "A kapcsolat időtúllépése."
   },
   "id": {
     "tool.description": "Telusuri ruang alamat server OPC UA. Mengembalikan node anak dari node awal yang ditentukan.",
@@ -264,7 +276,8 @@
       "alamat",
       "spasi",
       "pengembalian"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu koneksi habis."
   },
   "it": {
     "tool.description": "Sfoglia lo spazio degli indirizzi del server OPC UA. Restituisce i nodi figlio del nodo iniziale specificato.",
@@ -283,7 +296,8 @@
       "indirizzo",
       "spazio",
       "restituisce"
-    ]
+    ],
+    "param.timeout.description": "Timeout della connessione."
   },
   "ja": {
     "tool.description": "OPC UA サーバーのアドレス空間を参照します。指定された開始ノードの子ノードを返します。",
@@ -322,7 +336,8 @@
       "주소",
       "공간",
       "반환"
-    ]
+    ],
+    "param.timeout.description": "연결 시간이 초과되었습니다."
   },
   "mn": {
     "tool.description": "OPC UA серверийн хаягийн зайг үзэх. Заасан эхлэлийн зангилаануудыг буцаана.",
@@ -341,7 +356,8 @@
       "хаяг",
       "зай",
       "буцах"
-    ]
+    ],
+    "param.timeout.description": "Холболтын завсарлага."
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हर ॲड्रेस स्पेस ब्राउझ करा. नमूद केलेल्या सुरुवातीच्या नोडचे चाइल्ड नोड मिळवते.",
@@ -360,7 +376,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "कनेक्शन कालबाह्य."
   },
   "nb": {
     "tool.description": "Bla gjennom OPC UA-serverens adresserom. Returnerer underordnede noder til den angitte startnoden.",
@@ -379,7 +396,8 @@
       "adresse",
       "plass",
       "retur"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   },
   "nl": {
     "tool.description": "Blader door de adresruimte van de OPC UA-server. Retourneert onderliggende knooppunten van het opgegeven startknooppunt.",
@@ -398,7 +416,8 @@
       "adres",
       "spatie",
       "retourneert"
-    ]
+    ],
+    "param.timeout.description": "Time-out voor verbinding."
   },
   "pl": {
     "tool.description": "Przeglądaj przestrzeń adresową serwera OPC UA. Zwraca węzły podrzędne określonego węzła początkowego.",
@@ -417,7 +436,8 @@
       "adres",
       "spacja",
       "powraca"
-    ]
+    ],
+    "param.timeout.description": "Przekroczono limit czasu połączenia."
   },
   "pt": {
     "tool.description": "Navegue no espaço de endereço do servidor OPC UA. Retorna nós filhos do nó inicial especificado.",
@@ -436,7 +456,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "pt_BR": {
     "tool.description": "Navegue no espaço de endereço do servidor OPC UA. Retorna nós filhos do nó inicial especificado.",
@@ -455,7 +476,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "ro": {
     "tool.description": "Parcurgeți spațiul de adrese ale serverului OPC UA. Returnează nodurile secundare ale nodului de pornire specificat.",
@@ -474,7 +496,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "Timeout conexiune."
   },
   "ru": {
     "tool.description": "Просмотрите адресное пространство сервера OPC UA. Возвращает дочерние узлы указанного начального узла.",
@@ -493,7 +516,8 @@
       "адрес",
       "пространство",
       "возврат"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут соединения."
   },
   "sv": {
     "tool.description": "Bläddra i OPC UA-serverns adressutrymme. Returnerar underordnade noder för den angivna startnoden.",
@@ -512,7 +536,8 @@
       "adress",
       "utrymme",
       "retur"
-    ]
+    ],
+    "param.timeout.description": "Timeout för anslutning."
   },
   "sw": {
     "tool.description": "Vinjari nafasi ya anwani ya seva ya OPC UA. Hurejesha nodi za watoto za nodi maalum ya kuanzia.",
@@ -531,7 +556,8 @@
       "anwani",
       "nafasi",
       " inarejesha"
-    ]
+    ],
+    "param.timeout.description": "Muda wa muunganisho umekwisha."
   },
   "th": {
     "tool.description": "เรียกดูพื้นที่ที่อยู่เซิร์ฟเวอร์ OPC UA ส่งกลับโหนดลูกของโหนดเริ่มต้นที่ระบุ",
@@ -550,7 +576,8 @@
       "ที่อยู่",
       "space",
       "ส่งคืน"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาการเชื่อมต่อ"
   },
   "tr": {
     "tool.description": "OPC UA sunucu adres alanına göz atın. Belirtilen başlangıç ​​düğümünün alt düğümlerini döndürür.",
@@ -569,7 +596,8 @@
       "adres",
       "boşluk",
       "dönüşler"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı zaman aşımı."
   },
   "uk": {
     "tool.description": "Перегляньте адресний простір сервера OPC UA. Повертає дочірні вузли вказаного початкового вузла.",
@@ -588,7 +616,8 @@
       "адреса",
       "пробіл",
       "повертає"
-    ]
+    ],
+    "param.timeout.description": "Час очікування підключення."
   },
   "vi": {
     "tool.description": "Duyệt không gian địa chỉ máy chủ OPC UA. Trả về các nút con của nút bắt đầu được chỉ định.",
@@ -607,7 +636,8 @@
       "địa chỉ",
       "space",
       "trả về"
-    ]
+    ],
+    "param.timeout.description": "Hết thời gian kết nối."
   },
   "zh_CN": {
     "tool.description": "浏览 OPC UA 服务器地址空间。返回指定起始节点的子节点。",
@@ -626,7 +656,8 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "连接超时。"
   },
   "zh_TW": {
     "tool.description": "瀏覽 OPC UA 伺服器位址空間。傳回指定起始節點的子節點。",
@@ -645,6 +676,7 @@
       "address",
       "space",
       "returns"
-    ]
+    ],
+    "param.timeout.description": "連接逾時。"
   }
 }

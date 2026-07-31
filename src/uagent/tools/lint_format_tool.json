@@ -62,7 +62,8 @@
       "formato"
     ],
     "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos.",
-    "confirm.msg": "lint_format(mode=fix) podría sobrescribir archivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda con y para continuar o c para cancelar."
+    "confirm.msg": "lint_format(mode=fix) podría sobrescribir archivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda con y para continuar o c para cancelar.",
+    "param.auto_install.description": "Instale automáticamente las herramientas de formateador/linter faltantes con pip antes de ejecutarlas."
   },
   "fr": {
     "param.cwd.description": "Répertoire de travail (sous workdir).",
@@ -83,7 +84,8 @@
       "formattage"
     ],
     "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux.",
-    "confirm.msg": "lint_format(mode=fix) peut écraser les fichiers.\ntools : {tools}\ntargets : {targets}\ncwd : {cwd}\n\nRépondez par y pour continuer, ou c pour annuler."
+    "confirm.msg": "lint_format(mode=fix) peut écraser les fichiers.\ntools : {tools}\ntargets : {targets}\ncwd : {cwd}\n\nRépondez par y pour continuer, ou c pour annuler.",
+    "param.auto_install.description": "Installez automatiquement les outils de formatage/linter manquants avec pip avant de l'exécuter."
   },
   "ko": {
     "param.cwd.description": "작업 디렉토리(workdir 하위).",
@@ -104,7 +106,8 @@
       "formatting"
     ],
     "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요.",
-    "confirm.msg": "lint_format(mode=fix)는 파일을 덮어쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n계속하려면 y를, 취소하려면 c를 입력하세요."
+    "confirm.msg": "lint_format(mode=fix)는 파일을 덮어쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n계속하려면 y를, 취소하려면 c를 입력하세요.",
+    "param.auto_install.description": "실행하기 전에 pip를 사용하여 누락된 포맷터/린터 도구를 자동으로 설치합니다."
   },
   "de": {
     "param.cwd.description": "Arbeitsverzeichnis (unter Arbeitsverzeichnis).",
@@ -125,7 +128,8 @@
       "Formatierung"
     ],
     "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
-    "confirm.msg": "lint_format(mode=fix) überschreibt möglicherweise Dateien.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nAntworten Sie mit y, um fortzufahren, oder c, um abzubrechen."
+    "confirm.msg": "lint_format(mode=fix) überschreibt möglicherweise Dateien.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nAntworten Sie mit y, um fortzufahren, oder c, um abzubrechen.",
+    "param.auto_install.description": "Fehlende Formatierungs-/Linter-Tools vor der Ausführung automatisch mit pip installieren."
   },
   "it": {
     "param.cwd.description": "Dir di lavoro (sotto workdir).",
@@ -146,7 +150,8 @@
       "formattazione"
     ],
     "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
-    "confirm.msg": "lint_format(mode=fix) potrebbe sovrascrivere i file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nRispondi con y per procedere o c per annullare."
+    "confirm.msg": "lint_format(mode=fix) potrebbe sovrascrivere i file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nRispondi con y per procedere o c per annullare.",
+    "param.auto_install.description": "Installa automaticamente gli strumenti di formattazione/linter mancanti con pip prima dell'esecuzione."
   },
   "ru": {
     "param.cwd.description": "Рабочий каталог (в рабочем каталоге).",
@@ -167,7 +172,8 @@
       "форматирование"
     ],
     "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы.",
-    "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nОтветьте, нажав y, чтобы продолжить, или c, чтобы отменить."
+    "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nОтветьте, нажав y, чтобы продолжить, или c, чтобы отменить.",
+    "param.auto_install.description": "Автоматически устанавливать недостающие инструменты форматирования/линтера с помощью pip перед запуском."
   },
   "pt_BR": {
     "param.cwd.description": "Diretório de trabalho (em workdir).",
@@ -188,7 +194,8 @@
       "formatting"
     ],
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
-    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar."
+    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar.",
+    "param.auto_install.description": "Instale automaticamente ferramentas de formatador/linter ausentes com pip antes de executar."
   },
   "pt": {
     "param.cwd.description": "Diretório de trabalho (em workdir).",
@@ -209,7 +216,8 @@
       "formatação"
     ],
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
-    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar."
+    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar.",
+    "param.auto_install.description": "Instale automaticamente ferramentas de formatador/linter ausentes com pip antes de executar."
   },
   "id": {
     "param.cwd.description": "Dir kerja (di bawah workdir).",
@@ -230,7 +238,8 @@
       "pemformatan"
     ],
     "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya.",
-    "confirm.msg": "lint_format(mode=fix) mungkin menimpa file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan."
+    "confirm.msg": "lint_format(mode=fix) mungkin menimpa file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan.",
+    "param.auto_install.description": "Instal alat formatter/linter yang hilang secara otomatis dengan pip sebelum dijalankan."
   },
   "vi": {
     "param.cwd.description": "Thư mục làm việc (dưới thư mục làm việc).",
@@ -251,7 +260,8 @@
       "định dạng"
     ],
     "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm.",
-    "confirm.msg": "lint_format(mode=fix) có thể ghi đè lên các tệp.\ntools: {tools}\ntarget: {targets}\ncwd: {cwd}\n\nTrả lời y để tiếp tục hoặc c để hủy."
+    "confirm.msg": "lint_format(mode=fix) có thể ghi đè lên các tệp.\ntools: {tools}\ntarget: {targets}\ncwd: {cwd}\n\nTrả lời y để tiếp tục hoặc c để hủy.",
+    "param.auto_install.description": "Tự động cài đặt các công cụ định dạng/linter bị thiếu bằng pip trước khi chạy."
   },
   "pl": {
     "param.cwd.description": "Katalog roboczy (w katalogu roboczym).",
@@ -272,7 +282,8 @@
       "formatowanie"
     ],
     "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki.",
-    "confirm.msg": "lint_format(mode=fix) może zastąpić pliki.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nOdpowiedz, wpisując y, aby kontynuować, lub c, aby anulować."
+    "confirm.msg": "lint_format(mode=fix) może zastąpić pliki.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nOdpowiedz, wpisując y, aby kontynuować, lub c, aby anulować.",
+    "param.auto_install.description": "Automatycznie zainstaluj brakujące narzędzia formatujące/linterujące za pomocą pip przed uruchomieniem."
   },
   "hi": {
     "param.cwd.description": "वर्किंग डीआईआर (वर्कडीआईआर के तहत)।",
@@ -293,7 +304,8 @@
       "फॉर्मेटिंग"
     ],
     "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।",
-    "confirm.msg": "lint_format(mode=fix) फ़ाइलों को अधिलेखित कर सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\nसीडब्ल्यूडी: {cwd}\n\nआगे बढ़ने के लिए y, या रद्द करने के लिए c लिखकर उत्तर दें।"
+    "confirm.msg": "lint_format(mode=fix) फ़ाइलों को अधिलेखित कर सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\nसीडब्ल्यूडी: {cwd}\n\nआगे बढ़ने के लिए y, या रद्द करने के लिए c लिखकर उत्तर दें।",
+    "param.auto_install.description": "चलने से पहले पिप के साथ गायब फ़ॉर्मेटर/लिंटर टूल को स्वचालित रूप से इंस्टॉल करें।"
   },
   "ar": {
     "param.cwd.description": "دير العمل (تحت دليل العمل).",
@@ -314,7 +326,8 @@
       "تنسيق"
     ],
     "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة.",
-    "confirm.msg": "قد يقوم lint_format(mode=fix) بالكتابة فوق الملفات. \nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\n قم بالرد بـ y للمتابعة، أو c للإلغاء."
+    "confirm.msg": "قد يقوم lint_format(mode=fix) بالكتابة فوق الملفات. \nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\n قم بالرد بـ y للمتابعة، أو c للإلغاء.",
+    "param.auto_install.description": "قم تلقائيًا بتثبيت أدوات المنسق/اللتر المفقودة باستخدام النقطة قبل التشغيل."
   },
   "sv": {
     "param.cwd.description": "Arbetskatalog (under workdir).",
@@ -335,7 +348,8 @@
       "formatering"
     ],
     "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken.",
-    "confirm.msg": "lint_format(mode=fix) kan skriva över filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvara med y för att fortsätta, eller c för att avbryta."
+    "confirm.msg": "lint_format(mode=fix) kan skriva över filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvara med y för att fortsätta, eller c för att avbryta.",
+    "param.auto_install.description": "Installera automatiskt saknade formaterings-/linterverktyg med pip innan du kör."
   },
   "sw": {
     "param.cwd.description": "Dir ya kufanya kazi (chini ya workdir).",
@@ -356,7 +370,8 @@
       "umbizo"
     ],
     "param.xargs.description": "Hoja za ziada (safu). Kataa vielelezo hatari.",
-    "confirm.msg": "lint_format(mode=fix) inaweza kubatilisha faili.\nzana: {tools}\nlengo: {targets}\ncwd: {cwd}\n\nJibu na y ili kuendelea, au c kughairi."
+    "confirm.msg": "lint_format(mode=fix) inaweza kubatilisha faili.\nzana: {tools}\nlengo: {targets}\ncwd: {cwd}\n\nJibu na y ili kuendelea, au c kughairi.",
+    "param.auto_install.description": "Sakinisha kiotomatiki zana zinazokosekana za umbizo/linter na bomba kabla ya kuendeshwa."
   },
   "nb": {
     "param.cwd.description": "Arbeidskatalog (under arbeidskatalog).",
@@ -377,7 +392,8 @@
       "formatering"
     ],
     "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn.",
-    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte."
+    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte.",
+    "param.auto_install.description": "Installer automatisk manglende formaterings-/linterverktøy med pip før du kjører."
   },
   "nl": {
     "param.cwd.description": "Werkmap (onder werkmap).",
@@ -398,7 +414,8 @@
       "formattering"
     ],
     "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens.",
-    "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReageer met y om door te gaan, of c om te annuleren."
+    "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReageer met y om door te gaan, of c om te annuleren.",
+    "param.auto_install.description": "Installeer automatisch ontbrekende formatter/linter-tools met pip voordat u deze uitvoert."
   },
   "fi": {
     "param.cwd.description": "Työhakemisto (työhakemiston alla).",
@@ -419,7 +436,8 @@
       "formatointi"
     ],
     "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit.",
-    "confirm.msg": "lint_format(mode=fix) saattaa korvata tiedostoja.\ntyökalut: {tools}\nkohteet: {targets}\ncwd: {cwd}\n\nJatka vastaamalla y:llä tai peruuta painamalla c."
+    "confirm.msg": "lint_format(mode=fix) saattaa korvata tiedostoja.\ntyökalut: {tools}\nkohteet: {targets}\ncwd: {cwd}\n\nJatka vastaamalla y:llä tai peruuta painamalla c.",
+    "param.auto_install.description": "Asenna puuttuvat formatteri-/linterityökalut automaattisesti pipillä ennen käyttöä."
   },
   "cs": {
     "param.cwd.description": "Pracovní adresář (pod pracovním adresářem).",
@@ -440,7 +458,8 @@
       "formátování"
     ],
     "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky.",
-    "confirm.msg": "lint_format(mode=fix) může přepsat soubory.\nnástroje: {tools}\ncíle: {targets}\ncwd: {cwd}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení."
+    "confirm.msg": "lint_format(mode=fix) může přepsat soubory.\nnástroje: {tools}\ncíle: {targets}\ncwd: {cwd}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení.",
+    "param.auto_install.description": "Automaticky nainstalujte chybějící nástroje pro formátování/linter pomocí pip před spuštěním."
   },
   "uk": {
     "param.cwd.description": "Робочий каталог (у робочому каталозі).",
@@ -461,7 +480,8 @@
       "форматування"
     ],
     "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи.",
-    "confirm.msg": "lint_format(mode=fix) може перезаписувати файли.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nУ відповідь натисніть y, щоб продовжити, або c, щоб скасувати."
+    "confirm.msg": "lint_format(mode=fix) може перезаписувати файли.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nУ відповідь натисніть y, щоб продовжити, або c, щоб скасувати.",
+    "param.auto_install.description": "Автоматично встановлюйте відсутні засоби форматування/лінтера за допомогою pip перед запуском."
   },
   "tr": {
     "param.cwd.description": "Çalışma dizini (çalışma dizini altında).",
@@ -482,7 +502,8 @@
       "biçimlendirme"
     ],
     "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin.",
-    "confirm.msg": "lint_format(mode=fix) dosyaların üzerine yazabilir.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nDevam etmek için y veya iptal etmek için c ile yanıtlayın."
+    "confirm.msg": "lint_format(mode=fix) dosyaların üzerine yazabilir.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nDevam etmek için y veya iptal etmek için c ile yanıtlayın.",
+    "param.auto_install.description": "Çalıştırmadan önce eksik formatlayıcı/linter araçlarını pip ile otomatik olarak yükleyin."
   },
   "th": {
     "param.cwd.description": "dir ทำงาน (ภายใต้ workdir)",
@@ -503,7 +524,8 @@
       "การจัดรูปแบบ"
     ],
     "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
-    "confirm.msg": "lint_format(mode=fix) อาจเขียนทับไฟล์\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nตอบกลับด้วย y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
+    "confirm.msg": "lint_format(mode=fix) อาจเขียนทับไฟล์\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nตอบกลับด้วย y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "param.auto_install.description": "ติดตั้งเครื่องมือฟอร์แมตเตอร์/ลินเตอร์ที่ขาดหายไปโดยอัตโนมัติด้วย pip ก่อนรัน"
   },
   "zh_CN": {
     "param.cwd.description": "工作目录（workdir下）。",
@@ -524,7 +546,8 @@
       "格式化"
     ],
     "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。",
-    "confirm.msg": "lint_format(mode=fix) 可能会覆盖文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n回复 y 继续，或回复 c 取消。"
+    "confirm.msg": "lint_format(mode=fix) 可能会覆盖文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n回复 y 继续，或回复 c 取消。",
+    "param.auto_install.description": "在运行之前使用 pip 自动安装缺少的格式化程序/linter 工具。"
   },
   "zh_TW": {
     "param.cwd.description": "工作目录（workdir下）。",
@@ -545,7 +568,8 @@
       "格式化"
     ],
     "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。",
-    "confirm.msg": "lint_format(mode=fix) 可能會覆寫檔案。 \n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n回覆 y 繼續，或回覆 c 取消。"
+    "confirm.msg": "lint_format(mode=fix) 可能會覆寫檔案。 \n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n回覆 y 繼續，或回覆 c 取消。",
+    "param.auto_install.description": "在運行之前使用 pip 自動安裝缺少的格式化程式/linter 工具。"
   },
   "bn": {
     "param.cwd.description": "ওয়ার্কিং ডির (ওয়ার্কডির অধীনে)।",
@@ -566,7 +590,8 @@
       "formatting"
     ],
     "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।",
-    "confirm.msg": "lint_format(mode=fix) ফাইল ওভাররাইট করতে পারে।\nটুলস: {tools}\nলক্ষ্য: {targets}\ncwd: {cwd}\n\nএগিয়ে যেতে y দিয়ে উত্তর দিন অথবা বাতিল করতে c দিয়ে উত্তর দিন।"
+    "confirm.msg": "lint_format(mode=fix) ফাইল ওভাররাইট করতে পারে।\nটুলস: {tools}\nলক্ষ্য: {targets}\ncwd: {cwd}\n\nএগিয়ে যেতে y দিয়ে উত্তর দিন অথবা বাতিল করতে c দিয়ে উত্তর দিন।",
+    "param.auto_install.description": "চালানোর আগে পিপ সহ অনুপস্থিত ফর্ম্যাটার/লিন্টার সরঞ্জামগুলি স্বয়ংক্রিয়ভাবে ইনস্টল করুন।"
   },
   "fa": {
     "param.cwd.description": "کارگردانی کاری (در زیر کار). فهرست",
@@ -587,7 +612,8 @@
       "قالب بندی"
     ],
     "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید.",
-    "confirm.msg": "lint_format (mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزار: {tools}\nاهداف: {targets}\ncwd: {cwd}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید."
+    "confirm.msg": "lint_format (mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزار: {tools}\nاهداف: {targets}\ncwd: {cwd}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید.",
+    "param.auto_install.description": "قبل از اجرا، ابزارهای قالب‌بر/لینتر از دست رفته را با پیپ نصب کنید."
   },
   "mn": {
     "param.cwd.description": "Ажлын чиглүүлэгч (ажлын доор).",
@@ -608,7 +634,8 @@
       "формат"
     ],
     "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана.",
-    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дарж бичиж болзошгүй.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c товчийг дарна уу."
+    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дарж бичиж болзошгүй.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c товчийг дарна уу.",
+    "param.auto_install.description": "Ажиллуулахаасаа өмнө дутуу форматлагч/линтер хэрэгслийг pip-тэй автоматаар суулгана."
   },
   "mr": {
     "param.cwd.description": "कार्यरत दिर (वर्कडीर अंतर्गत).",
@@ -629,7 +656,8 @@
       "formatting"
     ],
     "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत.",
-    "confirm.msg": "lint_format(mode=fix) फाइल्स ओव्हरराइट करू शकतात. \n साधने: {tools}\n लक्ष्य: {targets}\ncwd: {cwd}\n\n पुढे जाण्यासाठी y किंवा रद्द करण्यासाठी c सह उत्तर द्या."
+    "confirm.msg": "lint_format(mode=fix) फाइल्स ओव्हरराइट करू शकतात. \n साधने: {tools}\n लक्ष्य: {targets}\ncwd: {cwd}\n\n पुढे जाण्यासाठी y किंवा रद्द करण्यासाठी c सह उत्तर द्या.",
+    "param.auto_install.description": "चालण्यापूर्वी पिपसह गहाळ फॉरमॅटर/लिंटर टूल्स स्वयंचलितपणे स्थापित करा."
   },
   "el": {
     "param.cwd.description": "Συστοιχία διαδρομής στόχου (επιτρέπεται μόνο στο workdir).",
@@ -650,7 +678,8 @@
       "μορφοποίηση"
     ],
     "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες.",
-    "confirm.msg": "Το lint_format(mode=fix) ενδέχεται να αντικαταστήσει τα αρχεία.\nεργαλεία: {tools}\nστόχοι: {targets}\ncwd: {cwd}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση."
+    "confirm.msg": "Το lint_format(mode=fix) ενδέχεται να αντικαταστήσει τα αρχεία.\nεργαλεία: {tools}\nστόχοι: {targets}\ncwd: {cwd}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
+    "param.auto_install.description": "Εγκαταστήστε αυτόματα τα εργαλεία μορφοποίησης/linter που λείπουν με pip πριν από την εκτέλεση."
   },
   "he": {
     "param.cwd.description": "lint_format_tool\n\nכלי עטיפה להפעלת כלי ניתוח ועיצוב סטטי.\n\n- Python: מעדיף ruff / שחור / mypy\n- JavaScript: מסיבות בטיחות, אל תפעיל npx ישירות.\n\nבטיחות:\n- mode=fix משנה קבצים, אז בקש אישור עם human_ask.\n- קבל ארגומנטים כמערך ודחה אותם אם הם מכילים מטא-תווים מסוכנים של מעטפת.",
@@ -671,7 +700,8 @@
       "פורמט"
     ],
     "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
-    "confirm.msg": "lint_format(mode=fix) עלול לדרוס קבצים.\nכלים: {tools}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל."
+    "confirm.msg": "lint_format(mode=fix) עלול לדרוס קבצים.\nכלים: {tools}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
+    "param.auto_install.description": "התקן אוטומטית כלי פורמט/לינטר חסרים עם pip לפני ההפעלה."
   },
   "hu": {
     "param.cwd.description": "Munkakönyvtár (a munkakönyvtár alatt).",
@@ -692,7 +722,8 @@
       "formázás"
     ],
     "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása.",
-    "confirm.msg": "A lint_format(mode=fix) felülírhatja a fájlokat.\nEszközök: {tools}\ncélok: {targets}\ncwd: {cwd}\n\nA folytatáshoz válaszoljon y-val, vagy a megszakításhoz c."
+    "confirm.msg": "A lint_format(mode=fix) felülírhatja a fájlokat.\nEszközök: {tools}\ncélok: {targets}\ncwd: {cwd}\n\nA folytatáshoz válaszoljon y-val, vagy a megszakításhoz c.",
+    "param.auto_install.description": "A hiányzó formázó/linter eszközök automatikus telepítése a pip segítségével, mielőtt futtatná."
   },
   "ro": {
     "param.cwd.description": "check=verificare doar / fix=remediere automată",
@@ -713,6 +744,7 @@
       "formatting"
     ],
     "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
-    "confirm.msg": "lint_format(mode=fix) poate suprascrie fișierele.\ninstrumente: {tools}\nținte: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula."
+    "confirm.msg": "lint_format(mode=fix) poate suprascrie fișierele.\ninstrumente: {tools}\nținte: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula.",
+    "param.auto_install.description": "Instalați automat instrumentele de formatare/linter care lipsesc cu pip înainte de a rula."
   }
 }

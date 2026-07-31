@@ -1005,12 +1005,7 @@
       "ruta",
       "operesheni",
       "kagua"
-    ],
-    "param.mx.description": "Thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
-    "param.wait_timeout.description": "Muda wa kusubiri wa upande wa mteja kwa majibu ya SSDP, kwa sekunde.",
-    "err.invalid_interface": "Hitilafu: Haikuweza kutafsiri kiolesura '{interface}' kuwa anwani ya IPv4 ya ndani.",
-    "msg.summary": "Ugunduzi wa UPnP umekamilika: vifaa {count} vimepatikana ndani ya {elapsed_ms} ms.",
-    "msg.no_devices": "Hakuna vifaa vya UPnP vilivyopatikana."
+    ]
   },
   "th": {
     "param.timeout.description": "หมดเวลา (วินาที)",
@@ -1082,12 +1077,7 @@
       "yönlendirici",
       "işlemler",
       "inceleme"
-    ],
-    "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
-    "param.wait_timeout.description": "SSDP yanıtları için istemci tarafı bekleme süresi, saniye cinsinden.",
-    "err.invalid_interface": "Hata: '{interface}' arayüzü yerel bir IPv4 adresine çözümlenemedi.",
-    "msg.summary": "UPnP keşfi tamamlandı: {elapsed_ms} ms içinde {count} aygıt bulundu.",
-    "msg.no_devices": "Hiç UPnP aygıtı bulunamadı."
+    ]
   },
   "uk": {
     "param.timeout.description": "Тайм-аут (секунди).",
@@ -1123,12 +1113,7 @@
       "операції",
       "маршрутизатора",
       "інспектувати"
-    ],
-    "param.mx.description": "Значення заголовка SSDP MX (1–5 секунд), яке використовується M-SEARCH.",
-    "param.wait_timeout.description": "Час очікування відповідей SSDP на боці клієнта, у секундах.",
-    "err.invalid_interface": "Помилка: не вдалося визначити інтерфейс '{interface}' як локальну IPv4-адресу.",
-    "msg.summary": "Виявлення UPnP завершено: знайдено {count} пристрій(їв) за {elapsed_ms} мс.",
-    "msg.no_devices": "Пристроїв UPnP не знайдено."
+    ]
   },
   "vi": {
     "param.timeout.description": "Thời gian chờ (giây).",
@@ -1164,12 +1149,7 @@
       "router",
       "hoạt động",
       "kiểm tra"
-    ],
-    "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được dùng bởi M-SEARCH.",
-    "param.wait_timeout.description": "Thời gian chờ phía máy khách cho phản hồi SSDP, tính bằng giây.",
-    "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
-    "msg.summary": "Đã hoàn tất phát hiện UPnP: tìm thấy {count} thiết bị trong {elapsed_ms} ms.",
-    "msg.no_devices": "Không tìm thấy thiết bị UPnP nào."
+    ]
   },
   "zh_CN": {
     "param.timeout.description": "超时（秒）。",

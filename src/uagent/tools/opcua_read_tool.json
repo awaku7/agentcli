@@ -28,7 +28,8 @@
       "أوبكوا",
       "قيمة",
       "خادم"
-    ]
+    ],
+    "param.timeout.description": "مهلة الاتصال."
   },
   "bn": {
     "tool.description": "একটি OPC UA সার্ভার থেকে নোড মান(গুলি) পড়ুন। বর্তমান মান এবং মেটাডেটা প্রদান করে।",
@@ -43,7 +44,8 @@
       "ওপিসিউএ",
       "মান(গুলি)",
       "সার্ভার"
-    ]
+    ],
+    "param.timeout.description": "সংযোগের সময়সীমা শেষ।"
   },
   "cs": {
     "tool.description": "Čtení hodnot uzlu ze serveru OPC UA. Vrátí aktuální hodnotu a metadata.",
@@ -58,7 +60,8 @@
       "OPCUA",
       "hodnota(y",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Vypršel časový limit připojení."
   },
   "de": {
     "tool.description": "Knotenwert(e) von einem OPC UA-Server lesen. Gibt den aktuellen Wert und die Metadaten zurück.",
@@ -73,7 +76,8 @@
       "OPCUA",
       "Wert(s",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Verbindungszeitüberschreitung."
   },
   "el": {
     "tool.description": "Ανάγνωση τιμών κόμβου από διακομιστή OPC UA. Επιστρέφει την τρέχουσα τιμή και τα μεταδεδομένα.",
@@ -88,7 +92,8 @@
       "OPCUA",
       "τιμή(ές)",
       "διακομιστής"
-    ]
+    ],
+    "param.timeout.description": "Λήξη χρονικού ορίου σύνδεσης."
   },
   "es": {
     "tool.description": "Lea los valores de nodo desde un servidor OPC UA. Devuelve el valor actual y los metadatos.",
@@ -103,7 +108,8 @@
       "OPCUA",
       "valor(es",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera de conexión."
   },
   "fa": {
     "tool.description": "مقدار(های) گره را از سرور OPC UA بخوانید. مقدار فعلی و ابرداده را برمی‌گرداند.",
@@ -118,7 +124,8 @@
       "اوپسیوآ",
       "مقدار(ها)",
       "سرور"
-    ]
+    ],
+    "param.timeout.description": "پایان زمان اتصال."
   },
   "fi": {
     "tool.description": "Lue solmuarvot OPC UA -palvelimelta. Palauttaa nykyisen arvon ja metatiedot.",
@@ -133,7 +140,8 @@
       "OPCUA",
       "arvo(t)",
       "palvelin"
-    ]
+    ],
+    "param.timeout.description": "Yhteyden aikakatkaisu."
   },
   "fr": {
     "tool.description": "Lire les valeurs de nœud à partir d'un serveur OPC UA. Renvoie la valeur actuelle et les métadonnées.",
@@ -148,7 +156,8 @@
       "OPCUA",
       "valeur(s",
       "serveur"
-    ]
+    ],
+    "param.timeout.description": "Expiration du délai de connexion."
   },
   "he": {
     "tool.description": "קרא את ערכי הצומת משרת OPC UA. מחזירה את הערך והמטא נתונים הנוכחיים.",
@@ -163,7 +172,8 @@
       "OPCUA",
       "ערך(ים)",
       "שרת"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לחיבור."
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर से नोड मान पढ़ें। वर्तमान मान और मेटाडेटा लौटाता है।",
@@ -178,7 +188,8 @@
       "ओपीसीयूए",
       "मान",
       "सर्वर"
-    ]
+    ],
+    "param.timeout.description": "रिश्तों का समय बाहर।"
   },
   "hu": {
     "tool.description": "Csomópontérték(ek) olvasása OPC UA szerverről. Az aktuális értéket és metaadatokat adja vissza.",
@@ -193,7 +204,8 @@
       "OPCUA",
       "érték(ek)",
       "szerver"
-    ]
+    ],
+    "param.timeout.description": "A kapcsolat időtúllépése."
   },
   "id": {
     "tool.description": "Membaca nilai simpul dari server OPC UA. Mengembalikan nilai dan metadata saat ini.",
@@ -208,7 +220,8 @@
       "OPCUA",
       "nilai",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu koneksi habis."
   },
   "it": {
     "tool.description": "Leggere i valori del nodo da un server OPC UA. Restituisce il valore corrente e i metadati.",
@@ -223,7 +236,8 @@
       "OPCUA",
       "valore(i",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Timeout della connessione."
   },
   "ja": {
     "tool.description": "OPC UA サーバーからノード値を読み取ります。現在の値とメタデータを返します。",
@@ -254,7 +268,8 @@
       "OPCUA",
       "값(들",
       "서버"
-    ]
+    ],
+    "param.timeout.description": "연결 시간이 초과되었습니다."
   },
   "mn": {
     "tool.description": "OPC UA серверээс зангилааны утгыг уншина уу. Одоогийн утга болон мета өгөгдлийг буцаана.",
@@ -269,7 +284,8 @@
       "опкюа",
       "утга(ууд)",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Холболтын завсарлага."
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हरवरून नोड मूल्य(चे) वाचा. वर्तमान मूल्य आणि मेटाडेटा मिळवते.",
@@ -284,7 +300,8 @@
       "ओपीसीयूए",
       "मूल्य(े)",
       "सर्व्हर"
-    ]
+    ],
+    "param.timeout.description": "कनेक्शन कालबाह्य."
   },
   "nb": {
     "tool.description": "Les nodeverdi(er) fra en OPC UA-server. Returnerer gjeldende verdi og metadata.",
@@ -299,7 +316,8 @@
       "OPCUA",
       "verdi(er",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   },
   "nl": {
     "tool.description": "Lees knooppuntwaarde(n) van een OPC UA-server. Retourneert de huidige waarde en metagegevens.",
@@ -314,7 +332,8 @@
       "OPCUA",
       "waarde(s",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Time-out voor verbinding."
   },
   "pl": {
     "tool.description": "Odczytaj wartości węzła z serwera OPC UA. Zwraca bieżącą wartość i metadane.",
@@ -329,7 +348,8 @@
       "OPCUA",
       "wartości",
       "serwer"
-    ]
+    ],
+    "param.timeout.description": "Przekroczono limit czasu połączenia."
   },
   "pt": {
     "tool.description": "Leia o(s) valor(es) do nó de um servidor OPC UA. Retorna o valor atual e os metadados.",
@@ -344,7 +364,8 @@
       "OPCUA",
       "valor(es",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "pt_BR": {
     "tool.description": "Leia o(s) valor(es) do nó de um servidor OPC UA. Retorna o valor atual e os metadados.",
@@ -359,7 +380,8 @@
       "OPCUA",
       "valor(es",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "ro": {
     "tool.description": "Citiți valorile nodurilor de pe un server OPC UA. Returnează valoarea curentă și metadatele.",
@@ -374,7 +396,8 @@
       "OPCUA",
       "valoare(i)",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Timeout conexiune."
   },
   "ru": {
     "tool.description": "Считайте значения узла с сервера OPC UA. Возвращает текущее значение и метаданные.",
@@ -389,7 +412,8 @@
       "OPCUA",
       "значение(я)",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут соединения."
   },
   "sv": {
     "tool.description": "Läs nodvärden från en OPC UA-server. Returnerar aktuellt värde och metadata.",
@@ -404,7 +428,8 @@
       "OPCUA",
       "värde(n",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Timeout för anslutning."
   },
   "sw": {
     "tool.description": "Soma thamani ya nodi kutoka kwa seva ya OPC UA. Hurejesha thamani ya sasa na metadata.",
@@ -419,7 +444,8 @@
       "OPCUA",
       "thamani",
       "seva"
-    ]
+    ],
+    "param.timeout.description": "Muda wa muunganisho umekwisha."
   },
   "th": {
     "tool.description": "อ่านค่าโหนดจากเซิร์ฟเวอร์ OPC UA ส่งกลับค่าปัจจุบันและข้อมูลเมตา",
@@ -434,7 +460,8 @@
       "โอพีซียูเอ",
       "ค่า",
       "เซิร์ฟเวอร์"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาการเชื่อมต่อ"
   },
   "tr": {
     "tool.description": "Bir OPC UA sunucusundan düğüm değerlerini okuyun. Geçerli değeri ve meta verileri döndürür.",
@@ -449,7 +476,8 @@
       "OPCUA",
       "değer(ler",
       "sunucu"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı zaman aşımı."
   },
   "uk": {
     "tool.description": "Читання значень вузла з сервера OPC UA. Повертає поточне значення та метадані.",
@@ -464,7 +492,8 @@
       "OPCUA",
       "значення",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Час очікування підключення."
   },
   "vi": {
     "tool.description": "Đọc (các) giá trị nút từ máy chủ OPC UA. Trả về giá trị hiện tại và siêu dữ liệu.",
@@ -479,7 +508,8 @@
       "OPCUA",
       "(các) giá trị",
       "máy chủ"
-    ]
+    ],
+    "param.timeout.description": "Hết thời gian kết nối."
   },
   "zh_CN": {
     "tool.description": "从 OPC UA 服务器读取节点值。返回当前值和元数据。",
@@ -494,7 +524,8 @@
       "OPCUA",
       "值",
       "服务器"
-    ]
+    ],
+    "param.timeout.description": "连接超时。"
   },
   "zh_TW": {
     "tool.description": "從 OPC UA 伺服器讀取節點值。傳回當前值和元資料。",
@@ -509,6 +540,7 @@
       "OPCUA",
       "值",
       "伺服器"
-    ]
+    ],
+    "param.timeout.description": "連接逾時。"
   }
 }

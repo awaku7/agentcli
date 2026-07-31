@@ -1273,6 +1273,30 @@ def _extract_last_cwd_from_messages(messages: list[dict[str, Any]]) -> str | Non
     return None
 
 
+def _read_raw_log_messages(path: str) -> list[dict[str, Any]]:
+    """Read a JSONL log into raw message dicts (roles/content preserved).
+
+    Unlike ``load_conversation_from_log`` this does not strip system messages,
+    so [CWD] markers can be inspected for :load workdir auto-restore.
+    """
+    raw: list[dict[str, Any]] = []
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if isinstance(obj, dict) and "role" in obj:
+                    raw.append(obj)
+    except Exception:
+        return []
+    return raw
+
+
 def _skills_marker_prefix() -> str:
     # Used to detect/remove skill injections in message history.
     return "[SKILL] "
@@ -2086,8 +2110,12 @@ def _handle_cmd_load(
         pass
 
     # Auto-restore cwd from the loaded log (no confirmation).
+    # Note: extract from the RAW log lines because load_conversation_from_log
+    # strips non-[SKILL]/[HOOK] system messages (including [CWD] markers).
     try:
-        target_cwd = _extract_last_cwd_from_messages(new_messages)
+        target_cwd = _extract_last_cwd_from_messages(
+            _read_raw_log_messages(target_path)
+        )
         if (
             isinstance(target_cwd, str)
             and target_cwd.strip()

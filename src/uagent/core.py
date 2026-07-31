@@ -1100,7 +1100,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
     Display contents:
     - index
     - Last modified time (mtime)
-    - Number of interactions
+    - Number of messages :load would load (matches "Conversation message count")
     - First user utterance (shortened)
     - Topics (estimated) shortened to top few items
     """
@@ -1182,10 +1182,15 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 ln = (ln or "").strip()
                 if ln:
                     tail_lines.append(ln)
-        # Scan all lines to count the exact number of user/assistant messages
+        # Scan all lines to count exactly what :load would load
+        # (load_conversation_from_log): user/assistant/tool messages,
+        # preserved [SKILL]/[HOOK] system messages, and the last [CWD] marker.
         # + Also pick up "first/last user content in the entire log" for fallback
         total_user_count = 0
         total_assistant_count = 0
+        total_tool_count = 0
+        preserved_system_count = 0
+        last_cwd_path: str | None = None
         first_user_any = ""
         last_user_any = ""
         try:
@@ -1208,10 +1213,32 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                             last_user_any = content
                     elif role == "assistant":
                         total_assistant_count += 1
+                    elif role == "tool":
+                        total_tool_count += 1
+                    elif role == "system":
+                        content = obj.get("content")
+                        if isinstance(content, str):
+                            if content.startswith("[SKILL] ") or content.startswith(
+                                "[HOOK] "
+                            ):
+                                preserved_system_count += 1
+                            if content.startswith("[CWD] "):
+                                tail = content[len("[CWD] ") :].strip()
+                                try:
+                                    cobj = json.loads(tail)
+                                except Exception:
+                                    cobj = None
+                                if isinstance(cobj, dict):
+                                    p = cobj.get("path")
+                                    if isinstance(p, str) and p.strip():
+                                        last_cwd_path = p
         except Exception:
             # Treat as 0 if unreadable (better than crashing the display)
             total_user_count = 0
             total_assistant_count = 0
+            total_tool_count = 0
+            preserved_system_count = 0
+            last_cwd_path = None
             first_user_any = ""
             last_user_any = ""
 
@@ -1253,7 +1280,19 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
         if not last_user and last_user_any:
             last_user = last_user_any
 
-        turns = total_user_count + total_assistant_count
+        # "msgs" must match what :load reports ("Conversation message count"):
+        # 1 (re-inserted SYSTEM_PROMPT) + preserved [SKILL]/[HOOK] system messages
+        # + user/assistant/tool messages + a [CWD] marker when the last recorded
+        # workdir still exists on disk (auto-restored by :load).
+        cwd_bonus = 1 if (last_cwd_path and os.path.isdir(last_cwd_path)) else 0
+        turns = (
+            1
+            + preserved_system_count
+            + total_user_count
+            + total_assistant_count
+            + total_tool_count
+            + cwd_bonus
+        )
 
         first_user_text = (
             _shorten(first_user, 60) if first_user else _("(no user message)")

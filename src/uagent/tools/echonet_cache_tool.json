@@ -95,37 +95,6 @@
     "param.namespace.description": "ক্যাশে নামস্থান (সকলের জন্য বাদ দিন)।"
   },
   "cs": {
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "action": {
-          "type": "string",
-          "enum": [
-            "snapshot",
-            "clear"
-          ],
-          "default": "snapshot",
-          "description": "Akce mezipaměti, která se má provést: snapshot nebo clear."
-        },
-        "namespace": {
-          "type": "string",
-          "description": "Volitelný prostor názvů mezipaměti k vymazání. Pokud je vynechán, vymažte všechny prostory názvů."
-        },
-        "output_format": {
-          "type": "string",
-          "enum": [
-            "json",
-            "text"
-          ],
-          "default": "json",
-          "description": "Formát výstupu: JSON nebo text čitelný pro člověka."
-        }
-      },
-      "required": [
-        "action"
-      ],
-      "additionalProperties": false
-    },
     "tool.description": "Zkontrolujte nebo vymažte sdílenou mezipaměť ECHONET Lite.",
     "param.action.description": "Akce mezipaměti, která se má provést: snímek nebo vymazání.",
     "param.fmt.description": "Formát: json nebo text.",

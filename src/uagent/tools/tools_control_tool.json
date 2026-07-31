@@ -56,7 +56,8 @@
       "HERRAMIENTAS"
     ],
     "msg.tools.list_header": "[herramientas] Herramientas cargadas ({count}):",
-    "msg.tools.no_match": "[herramientas] No hay herramientas coincidentes: {q}"
+    "msg.tools.no_match": "[herramientas] No hay herramientas coincidentes: {q}",
+    "tool.description": "Herramienta ficticia para el registro de control de herramientas."
   },
   "fr": {
     "cmd.help.tools_list": "  :tools list [query]               Lister les outils chargés, éventuellement filtrés par nom/description",
@@ -75,7 +76,8 @@
       "OUTILS"
     ],
     "msg.tools.list_header": "[outils] Outils chargés ({count}) :",
-    "msg.tools.no_match": "[outils] Aucun outil correspondant : {q}"
+    "msg.tools.no_match": "[outils] Aucun outil correspondant : {q}",
+    "tool.description": "Outil factice pour l’enregistrement du contrôle des outils."
   },
   "ko": {
     "cmd.help.tools_list": "  :tools list [query]               로드된 도구를 나열하며, 선택적으로 이름/설명으로 필터링",
@@ -94,7 +96,8 @@
       "도구"
     ],
     "msg.tools.list_header": "[도구] 로드된 도구({count}):",
-    "msg.tools.no_match": "[도구] 일치하는 도구 없음: {q}"
+    "msg.tools.no_match": "[도구] 일치하는 도구 없음: {q}",
+    "tool.description": "도구 제어 등록을 위한 더미 도구입니다."
   },
   "de": {
     "cmd.help.tools_list": "  :tools list [query]               Geladene Werkzeuge auflisten, optional nach Name/Beschreibung gefiltert",
@@ -113,7 +116,8 @@
       "WERKZEUGE"
     ],
     "msg.tools.list_header": "[Werkzeuge] Geladene Werkzeuge ({count}):",
-    "msg.tools.no_match": "[Tools] Keine passenden Tools: {q}"
+    "msg.tools.no_match": "[Tools] Keine passenden Tools: {q}",
+    "tool.description": "Dummy-Tool für die Registrierung der Werkzeugsteuerung."
   },
   "it": {
     "cmd.help.tools_list": "  :tools list [query]               Elenca gli strumenti caricati, opzionalmente filtrati per nome/descrizione",
@@ -132,7 +136,8 @@
       "STRUMENTI"
     ],
     "msg.tools.list_header": "[strumenti] Strumenti caricati ({count}):",
-    "msg.tools.no_match": "[strumenti] Nessuno strumento corrispondente: {q}"
+    "msg.tools.no_match": "[strumenti] Nessuno strumento corrispondente: {q}",
+    "tool.description": "Strumento fittizio per la registrazione del controllo degli strumenti."
   },
   "ru": {
     "cmd.help.tools_list": "  :tools list [query]               Список загруженных инструментов, опционально отфильтрованных по имени/описанию",
@@ -151,7 +156,8 @@
       "ИНСТРУМЕНТЫ"
     ],
     "msg.tools.list_header": "[инструменты] Загруженные инструменты ({count}):",
-    "msg.tools.no_match": "[инструменты] Нет подходящих инструментов: {q}"
+    "msg.tools.no_match": "[инструменты] Нет подходящих инструментов: {q}",
+    "tool.description": "Инструмент-пустышка для регистрации управления инструментами."
   },
   "pt_BR": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -170,7 +176,8 @@
       "FERRAMENTAS"
     ],
     "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
-    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}"
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
+    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "pt": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -189,7 +196,8 @@
       "FERRAMENTAS"
     ],
     "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
-    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}"
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
+    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "id": {
     "cmd.help.tools_list": "  :tools list [query]               Daftar alat yang dimuat, opsional difilter berdasarkan nama/deskripsi",
@@ -208,7 +216,8 @@
       "ALAT"
     ],
     "msg.tools.list_header": "[alat] Alat yang dimuat ({count}):",
-    "msg.tools.no_match": "[alat] Tidak ada alat yang cocok: {q}"
+    "msg.tools.no_match": "[alat] Tidak ada alat yang cocok: {q}",
+    "tool.description": "Alat tiruan untuk alat kontrol registrasi."
   },
   "vi": {
     "cmd.help.tools_list": "  :tools list [query]               Liệt kê các công cụ đã tải, tùy chọn lọc theo tên/mô tả",
@@ -227,7 +236,8 @@
       "CÔNG CỤ"
     ],
     "msg.tools.list_header": "[công cụ] Công cụ đã tải ({count}):",
-    "msg.tools.no_match": "[công cụ] Không có công cụ phù hợp: {q}"
+    "msg.tools.no_match": "[công cụ] Không có công cụ phù hợp: {q}",
+    "tool.description": "Công cụ giả để đăng ký kiểm soát công cụ."
   },
   "pl": {
     "cmd.help.tools_list": "  :tools list [query]               Wymień załadowane narzędzia, opcjonalnie filtrowane według nazwy/opisu",
@@ -246,7 +256,8 @@
       "NARZĘDZIA"
     ],
     "msg.tools.list_header": "[narzędzia] Załadowane narzędzia ({count}):",
-    "msg.tools.no_match": "[narzędzia] Brak pasujących narzędzi: {q}"
+    "msg.tools.no_match": "[narzędzia] Brak pasujących narzędzi: {q}",
+    "tool.description": "Atrapa narzędzia do rejestracji kontroli narzędzi."
   },
   "hi": {
     "cmd.help.tools_list": "  :tools list [query]               लोड किए गए उपकरणों की सूची बनाएं, वैकल्पिक रूप से नाम/विवरण के अनुसार फ़िल्टर किया गया",
@@ -265,7 +276,8 @@
       "उपकरण"
     ],
     "msg.tools.list_header": "[उपकरण] लोड किए गए उपकरण ({count}):",
-    "msg.tools.no_match": "[उपकरण] कोई मिलान उपकरण नहीं: {q}"
+    "msg.tools.no_match": "[उपकरण] कोई मिलान उपकरण नहीं: {q}",
+    "tool.description": "उपकरण नियंत्रण पंजीकरण के लिए डमी उपकरण।"
   },
   "ar": {
     "cmd.help.tools_list": "  :tools list [query]               قائمة الأدوات المحملة، اختيارياً تمت تصفيتها حسب الاسم/الوصف",
@@ -284,7 +296,8 @@
       "أدوات"
     ],
     "msg.tools.list_header": "[الأدوات] الأدوات المحملة ({count}):",
-    "msg.tools.no_match": "[الأدوات] لا توجد أدوات مطابقة: {q}"
+    "msg.tools.no_match": "[الأدوات] لا توجد أدوات مطابقة: {q}",
+    "tool.description": "أداة وهمية لتسجيل أدوات التحكم."
   },
   "sv": {
     "cmd.help.tools_list": "  :tools list [query]               Lista laddade verktyg, eventuellt filtrerade efter namn/beskrivning",
@@ -303,7 +316,8 @@
       "VERKTYG"
     ],
     "msg.tools.list_header": "[verktyg] Laddade verktyg ({count}):",
-    "msg.tools.no_match": "[verktyg] Inga matchande verktyg: {q}"
+    "msg.tools.no_match": "[verktyg] Inga matchande verktyg: {q}",
+    "tool.description": "Dummy-verktyg för registrering av verktygskontroll."
   },
   "sw": {
     "cmd.help.tools_list": "  :tools list [query]               Orodhesha zana zilizopakiwa, kwa hiari kuchujwa kwa jina/maelezo",
@@ -322,7 +336,8 @@
       "ZANA"
     ],
     "msg.tools.list_header": "[zana] Zana zilizopakiwa ({count}):",
-    "msg.tools.no_match": "[zana] Hakuna zana zinazolingana: {q}"
+    "msg.tools.no_match": "[zana] Hakuna zana zinazolingana: {q}",
+    "tool.description": "Chombo cha dummy cha usajili wa udhibiti wa zana."
   },
   "nb": {
     "cmd.help.tools_list": "  :tools list [query]               List innlastede verktøy, eventuelt filtrert etter navn/beskrivelse",
@@ -341,7 +356,8 @@
       "VERKTØY"
     ],
     "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
-    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}"
+    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
+    "tool.description": "Dummyverktøy for verktøykontrollregistrering."
   },
   "nl": {
     "cmd.help.tools_list": "  :tools list [query]               Toon geladen tools, optioneel gefilterd op naam/beschrijving",
@@ -360,7 +376,8 @@
       "GEREEDSCHAP"
     ],
     "msg.tools.list_header": "[tools] Geladen tools ({count}):",
-    "msg.tools.no_match": "[tools] Geen overeenkomende tools: {q}"
+    "msg.tools.no_match": "[tools] Geen overeenkomende tools: {q}",
+    "tool.description": "Dummytool voor gereedschapscontroleregistratie."
   },
   "fi": {
     "cmd.help.tools_list": "  :tools list [query]               Listaa ladatut työkalut, valinnaisesti suodatettuna nimen/kuvauksen perusteella",
@@ -379,11 +396,12 @@
       "TYÖKALUT"
     ],
     "msg.tools.list_header": "[työkalut] Ladatut työkalut ({count}):",
-    "msg.tools.no_match": "[työkalut] Ei vastaavia työkaluja: {q}"
+    "msg.tools.no_match": "[työkalut] Ei vastaavia työkaluja: {q}",
+    "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin."
   },
   "cs": {
     "cmd.help.tools_list": "  :tools list [query]               Seznam načtených nástrojů, volitelně filtrovaných podle názvu/popisu",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Použití: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
@@ -398,11 +416,12 @@
       "tools_control",
       "nástroje",
       "NÁSTROJE"
-    ]
+    ],
+    "tool.description": "Dummy nástroj pro registraci ovládání nástrojů."
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Використання: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
@@ -417,7 +436,8 @@
       "tools_control",
       "інструменти",
       "ІНСТРУМЕНТИ"
-    ]
+    ],
+    "tool.description": "Фіктивний інструмент для реєстрації інструментів контролю."
   },
   "tr": {
     "cmd.help.tools_list": "  :tools list [query]               Yüklenmiş araçları listele, isteğe bağlı olarak ad/açıklamaya göre filtrele",
@@ -436,7 +456,8 @@
       "ARAÇLAR"
     ],
     "msg.tools.list_header": "[tools] Yüklenen araçlar ({count}):",
-    "msg.tools.no_match": "[araçlar] Eşleşen araç yok: {q}"
+    "msg.tools.no_match": "[araçlar] Eşleşen araç yok: {q}",
+    "tool.description": "Araç kontrolü kaydı için sahte araç."
   },
   "th": {
     "cmd.help.tools_list": "  :tools list [query]               แสดงรายการเครื่องมือที่โหลดแล้ว สามารถกรองตามชื่อ/คำอธิบายได้",
@@ -455,7 +476,8 @@
       "เครื่องมือ"
     ],
     "msg.tools.list_header": "[เครื่องมือ] เครื่องมือที่โหลด ({count}):",
-    "msg.tools.no_match": "[เครื่องมือ] ไม่มีเครื่องมือที่ตรงกัน: {q}"
+    "msg.tools.no_match": "[เครื่องมือ] ไม่มีเครื่องมือที่ตรงกัน: {q}",
+    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนการควบคุมเครื่องมือ"
   },
   "zh_CN": {
     "cmd.help.tools_list": "  :tools list [query]               列出已加载的工具，可选按名称/描述筛选",
@@ -474,7 +496,8 @@
       "工具"
     ],
     "msg.tools.list_header": "[工具] 加载的工具 ({count})：",
-    "msg.tools.no_match": "[工具] 没有匹配的工具：{q}"
+    "msg.tools.no_match": "[工具] 没有匹配的工具：{q}",
+    "tool.description": "用于工具控制注册的虚拟工具。"
   },
   "zh_TW": {
     "cmd.help.tools_list": "  :tools list [query]               列出已載入的工具，可選按名稱/描述篩選",
@@ -493,7 +516,8 @@
       "工具"
     ],
     "msg.tools.list_header": "[工具] 載入的工具 ({count})：",
-    "msg.tools.no_match": "[工具] 沒有匹配的工具：{q}"
+    "msg.tools.no_match": "[工具] 沒有匹配的工具：{q}",
+    "tool.description": "用於工具控制註冊的虛擬工具。"
   },
   "bn": {
     "cmd.help.tools_list": "  :tools list [query]               লোড করা টুলগুলি তালিকাভুক্ত করুন, ঐচ্ছিকভাবে নাম/বিবরণ অনুসারে ফিল্টার করুন",
@@ -512,11 +536,12 @@
       "সরঞ্জাম"
     ],
     "msg.tools.list_header": "[tools] লোড করা টুল ({count}):",
-    "msg.tools.no_match": "[tools] কোনো মিল নেই এমন টুলস: {q}"
+    "msg.tools.no_match": "[tools] কোনো মিল নেই এমন টুলস: {q}",
+    "tool.description": "সরঞ্জাম নিয়ন্ত্রণ নিবন্ধনের জন্য ডামি টুল।"
   },
   "fa": {
     "cmd.help.tools_list": "  :tools list [query]               فهرست ابزارهای بارگذاری شده، به صورت اختیاری بر اساس نام/توضیح فیلتر شده",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "کاربرد: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ابزار بارگذاری شد: {name}",
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
@@ -531,7 +556,8 @@
       "tools_control",
       "ابزارها",
       "ابزارها"
-    ]
+    ],
+    "tool.description": "ابزار ساختگی برای ثبت نام کنترل ابزار."
   },
   "mn": {
     "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсаах, нэр/тодорхойлолтоор шүүх боломжтой",
@@ -550,7 +576,8 @@
       "хэрэгслүүд"
     ],
     "msg.tools.list_header": "[хэрэгсэл] Ачаалсан хэрэгслүүд ({count}):",
-    "msg.tools.no_match": "[хэрэгсэл] Тохирох хэрэгсэл алга: {q}"
+    "msg.tools.no_match": "[хэрэгсэл] Тохирох хэрэгсэл алга: {q}",
+    "tool.description": "Хэрэгслийн хяналтын бүртгэлд зориулсан дамми хэрэгсэл."
   },
   "mr": {
     "cmd.help.tools_list": "  :tools list [query]               लोड केलेली साधने यादी करा, वैकल्पिकरित्या नाव/वर्णनानुसार फिल्टर केलेले",
@@ -569,7 +596,8 @@
       "साधने"
     ],
     "msg.tools.list_header": "[tools] लोड केलेली साधने ({count}):",
-    "msg.tools.no_match": "[tools] जुळणारी साधने नाहीत: {q}"
+    "msg.tools.no_match": "[tools] जुळणारी साधने नाहीत: {q}",
+    "tool.description": "टूल्स कंट्रोल नोंदणीसाठी डमी टूल."
   },
   "el": {
     "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
@@ -588,7 +616,8 @@
       "ΕΡΓΑΛΕΙΑ"
     ],
     "msg.tools.list_header": "[εργαλεία] Φορτωμένα εργαλεία ({count}):",
-    "msg.tools.no_match": "[εργαλεία] Δεν υπάρχουν εργαλεία που να ταιριάζουν: {q}"
+    "msg.tools.no_match": "[εργαλεία] Δεν υπάρχουν εργαλεία που να ταιριάζουν: {q}",
+    "tool.description": "Εργαλείο εικονικής εγγραφής για τον έλεγχο εργαλείων."
   },
   "he": {
     "cmd.help.tools_list": ":כלים ב-comm הפעל כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
@@ -607,7 +636,8 @@
       "כלים"
     ],
     "msg.tools.list_header": "[כלים] כלים טעונים ({count}):",
-    "msg.tools.no_match": "[כלים] אין כלים תואמים: {q}"
+    "msg.tools.no_match": "[כלים] אין כלים תואמים: {q}",
+    "tool.description": "כלי דמה לרישום בקרת כלים."
   },
   "hu": {
     "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
@@ -626,7 +656,8 @@
       "tools_control",
       "eszközök",
       "ESZKÖZÖK"
-    ]
+    ],
+    "tool.description": "Dummy eszköz a szerszámok ellenőrzéséhez."
   },
   "ro": {
     "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",
@@ -645,6 +676,7 @@
       "UNELTE"
     ],
     "msg.tools.list_header": "[instrumente] Instrumente încărcate ({count}):",
-    "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}"
+    "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}",
+    "tool.description": "Instrument fals pentru înregistrarea controlului sculelor."
   }
 }

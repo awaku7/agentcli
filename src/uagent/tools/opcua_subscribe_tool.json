@@ -34,7 +34,8 @@
       "أوبكوا",
       "أوبكوا",
       "تغييرات"
-    ]
+    ],
+    "param.timeout.description": "مهلة الاتصال."
   },
   "bn": {
     "tool.description": "একটি OPC UA সার্ভার নোডে ডেটা পরিবর্তনের জন্য সদস্যতা নিন। যখন মান পরিবর্তন হয়, এলএলএম স্বয়ংক্রিয়ভাবে অবহিত হয়।",
@@ -52,7 +53,8 @@
       "ওপিসিউএ",
       "ওপিসিউএ",
       "পরিবর্তন"
-    ]
+    ],
+    "param.timeout.description": "সংযোগের সময়সীমা শেষ।"
   },
   "cs": {
     "tool.description": "Přihlaste se k odběru změn dat na uzlu serveru OPC UA. Když se hodnota změní, LLM je automaticky informován.",
@@ -70,7 +72,8 @@
       "opcua",
       "OPCUA",
       "změny"
-    ]
+    ],
+    "param.timeout.description": "Vypršel časový limit připojení."
   },
   "de": {
     "tool.description": "Abonnieren Sie Datenänderungen auf einem OPC UA-Serverknoten. Wenn sich der Wert ändert, wird das LLM automatisch benachrichtigt.",
@@ -88,7 +91,8 @@
       "opcua",
       "OPCUA",
       "Änderungen"
-    ]
+    ],
+    "param.timeout.description": "Verbindungszeitüberschreitung."
   },
   "el": {
     "tool.description": "Εγγραφείτε σε αλλαγές δεδομένων σε έναν κόμβο διακομιστή OPC UA. Όταν αλλάξει η τιμή, το LLM ειδοποιείται αυτόματα.",
@@ -106,7 +110,8 @@
       "opcua",
       "OPCUA",
       "αλλαγές"
-    ]
+    ],
+    "param.timeout.description": "Λήξη χρονικού ορίου σύνδεσης."
   },
   "es": {
     "tool.description": "Suscríbase a los cambios de datos en un nodo del servidor OPC UA. Cuando el valor cambia, se notifica automáticamente al LLM.",
@@ -124,7 +129,8 @@
       "opcua",
       "OPCUA",
       "cambios"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera de conexión."
   },
   "fa": {
     "tool.description": "برای تغییرات داده در یک گره سرور OPC UA مشترک شوید. هنگامی که مقدار تغییر می کند، LLM به طور خودکار مطلع می شود.",
@@ -142,7 +148,8 @@
       "اوپسیوآ",
       "اوپسیوآ",
       "تغییرات"
-    ]
+    ],
+    "param.timeout.description": "پایان زمان اتصال."
   },
   "fi": {
     "tool.description": "Tilaa tietojen muutokset OPC UA -palvelinsolmussa. Kun arvo muuttuu, LLM:lle ilmoitetaan automaattisesti.",
@@ -160,7 +167,8 @@
       "opcua",
       "OPCUA",
       "muutokset"
-    ]
+    ],
+    "param.timeout.description": "Yhteyden aikakatkaisu."
   },
   "fr": {
     "tool.description": "Abonnez-vous aux modifications de données sur un nœud de serveur OPC UA. Lorsque la valeur change, le LLM est automatiquement averti.",
@@ -178,7 +186,8 @@
       "opcua",
       "OPCUA",
       "changements"
-    ]
+    ],
+    "param.timeout.description": "Expiration du délai de connexion."
   },
   "he": {
     "tool.description": "הירשם לשינויי נתונים בצומת שרת OPC UA. כאשר הערך משתנה, ה-LLM מקבל הודעה אוטומטית.",
@@ -196,7 +205,8 @@
       "opcua",
       "OPCUA",
       "שינויים"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לחיבור."
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर नोड पर डेटा परिवर्तन की सदस्यता लें। जब मान बदलता है, तो एलएलएम स्वचालित रूप से सूचित हो जाता है।",
@@ -214,7 +224,8 @@
       "ओपीसीयूए",
       "ओपीसीयूए",
       "परिवर्तन"
-    ]
+    ],
+    "param.timeout.description": "रिश्तों का समय बाहर।"
   },
   "hu": {
     "tool.description": "Iratkozzon fel az OPC UA kiszolgáló csomópontjának adatváltozásaira. Ha az érték megváltozik, az LLM automatikusan értesítést kap.",
@@ -232,7 +243,8 @@
       "opcua",
       "OPCUA",
       "változások"
-    ]
+    ],
+    "param.timeout.description": "A kapcsolat időtúllépése."
   },
   "id": {
     "tool.description": "Berlangganan perubahan data pada node server OPC UA. Ketika nilainya berubah, LLM secara otomatis diberitahu.",
@@ -250,7 +262,8 @@
       "opcua",
       "OPCUA",
       "perubahan"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu koneksi habis."
   },
   "it": {
     "tool.description": "Iscriviti alle modifiche dei dati su un nodo server OPC UA. Quando il valore cambia, l'LLM viene automaticamente avvisato.",
@@ -268,7 +281,8 @@
       "opcua",
       "OPCUA",
       "cambiamenti"
-    ]
+    ],
+    "param.timeout.description": "Timeout della connessione."
   },
   "ja": {
     "tool.description": "OPC UA サーバー ノード上のデータ変更をサブスクライブします。値が変更されると、LLM に自動的に通知されます。",
@@ -305,7 +319,8 @@
       "오쿠아",
       "OPCUA",
       "변화"
-    ]
+    ],
+    "param.timeout.description": "연결 시간이 초과되었습니다."
   },
   "mn": {
     "tool.description": "OPC UA серверийн зангилаа дээрх өгөгдлийн өөрчлөлтийг захиалах. Утга өөрчлөгдөхөд LLM-д автоматаар мэдэгдэнэ.",
@@ -323,7 +338,8 @@
       "опкюа",
       "опкюа",
       "өөрчлөлтүүд"
-    ]
+    ],
+    "param.timeout.description": "Холболтын завсарлага."
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हर नोडवर डेटा बदलांची सदस्यता घ्या. जेव्हा मूल्य बदलते, तेव्हा LLM स्वयंचलितपणे सूचित केले जाते.",
@@ -341,7 +357,8 @@
       "ओपीसीयूए",
       "ओपीसीयूए",
       "बदल"
-    ]
+    ],
+    "param.timeout.description": "कनेक्शन कालबाह्य."
   },
   "nb": {
     "tool.description": "Abonner på dataendringer på en OPC UA-servernode. Når verdien endres, blir LLM automatisk varslet.",
@@ -359,7 +376,8 @@
       "opcua",
       "OPCUA",
       "endringer"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   },
   "nl": {
     "tool.description": "Abonneer u op gegevenswijzigingen op een OPC UA-serverknooppunt. Wanneer de waarde verandert, wordt de LLM automatisch op de hoogte gebracht.",
@@ -377,7 +395,8 @@
       "opcua",
       "OPCUA",
       "wijzigingen"
-    ]
+    ],
+    "param.timeout.description": "Time-out voor verbinding."
   },
   "pl": {
     "tool.description": "Subscribe to data changes on an OPC UA server node. Gdy wartość się zmieni, LLM zostanie automatycznie powiadomiony.",
@@ -395,7 +414,8 @@
       "wzrok",
       "OPCUA",
       "zmiany"
-    ]
+    ],
+    "param.timeout.description": "Przekroczono limit czasu połączenia."
   },
   "pt": {
     "tool.description": "Assine as alterações de dados em um nó do servidor OPC UA. Quando o valor muda, o LLM é notificado automaticamente.",
@@ -413,7 +433,8 @@
       "opcua",
       "OPCUA",
       "alterações"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "pt_BR": {
     "tool.description": "Assine as alterações de dados em um nó do servidor OPC UA. Quando o valor muda, o LLM é notificado automaticamente.",
@@ -431,7 +452,8 @@
       "opcua",
       "OPCUA",
       "mudanças"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "ro": {
     "tool.description": "Abonați-vă la modificările de date pe un nod de server OPC UA. Când valoarea se schimbă, LLM este notificat automat.",
@@ -449,7 +471,8 @@
       "opcua",
       "OPCUA",
       "modificări"
-    ]
+    ],
+    "param.timeout.description": "Timeout conexiune."
   },
   "ru": {
     "tool.description": "Подпишитесь на изменения данных на узле сервера OPC UA. При изменении значения LLM автоматически уведомляется.",
@@ -467,7 +490,8 @@
       "opcua",
       "OPCUA",
       "изменения"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут соединения."
   },
   "sv": {
     "tool.description": "Prenumerera på dataändringar på en OPC UA-servernod. När värdet ändras meddelas LLM automatiskt.",
@@ -485,7 +509,8 @@
       "opcua",
       "OPCUA",
       "ändringar"
-    ]
+    ],
+    "param.timeout.description": "Timeout för anslutning."
   },
   "sw": {
     "tool.description": "Jisajili kwa mabadiliko ya data kwenye nodi ya seva ya OPC UA. Thamani inapobadilika, LLM inaarifiwa kiotomatiki.",
@@ -503,7 +528,8 @@
       "opcua",
       "OPCUA",
       "mabadiliko"
-    ]
+    ],
+    "param.timeout.description": "Muda wa muunganisho umekwisha."
   },
   "th": {
     "tool.description": "สมัครรับการเปลี่ยนแปลงข้อมูลบนโหนดเซิร์ฟเวอร์ OPC UA เมื่อค่าเปลี่ยนแปลง LLM จะได้รับแจ้งโดยอัตโนมัติ",
@@ -521,7 +547,8 @@
       "โอพีซียูเอ",
       "โอพีซียูเอ",
       "การเปลี่ยนแปลง"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาการเชื่อมต่อ"
   },
   "tr": {
     "tool.description": "Bir OPC UA sunucu düğümündeki veri değişikliklerine abone olun. Değer değiştiğinde LLM otomatik olarak bilgilendirilir.",
@@ -539,7 +566,8 @@
       "opcua",
       "OPCUA",
       "değişiklikler"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı zaman aşımı."
   },
   "uk": {
     "tool.description": "Підпишіться на зміни даних на вузлі сервера OPC UA. Коли значення змінюється, LLM автоматично повідомляється.",
@@ -557,7 +585,8 @@
       "opcua",
       "OPCUA",
       "зміни"
-    ]
+    ],
+    "param.timeout.description": "Час очікування підключення."
   },
   "vi": {
     "tool.description": "Đăng ký các thay đổi dữ liệu trên nút máy chủ OPC UA. Khi giá trị thay đổi, LLM sẽ tự động được thông báo.",
@@ -575,7 +604,8 @@
       "opcua",
       "OPCUA",
       "thay đổi"
-    ]
+    ],
+    "param.timeout.description": "Hết thời gian kết nối."
   },
   "zh_CN": {
     "tool.description": "订阅 OPC UA 服务器节点上的数据更改。当值发生变化时，LLM 会自动收到通知。",
@@ -593,7 +623,8 @@
       "opcua",
       "OPCUA",
       "变化"
-    ]
+    ],
+    "param.timeout.description": "连接超时。"
   },
   "zh_TW": {
     "tool.description": "訂閱 OPC UA 伺服器節點上的資料變更。當值發生變化時，LLM 會自動收到通知。",
@@ -611,6 +642,7 @@
       "opcua",
       "OPCUA",
       "變更"
-    ]
+    ],
+    "param.timeout.description": "連接逾時。"
   }
 }

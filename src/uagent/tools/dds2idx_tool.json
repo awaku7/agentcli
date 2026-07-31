@@ -946,7 +946,7 @@
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
     "msg.no_entries": "(هیچ تعریفی یافت نشد)",
-    "msg.index_output": "فهرست برای: {path}{type_hint}\n---\n{toc}\n---",
+    "msg.index_output": "فهرست برای: {path}{type_hint}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، dds2idx را با mode='section' و شماره بخش تماس بگیرید.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
     "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
     "tool.description": "یک منبع IBM i DDS (PF/LF/DSPF/PRTF؛ .pf/.lf/.dspf/.prtf/.dds) را به رکوردها، فیلدها، کلیدها و کلمات کلیدی سطح فایل تجزیه کنید و یک فهرست شماره گذاری شده یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل DDS بزرگ دارید از این استفاده کنید: ابتدا با mode='index' و سپس mode='section' تماس بگیرید."

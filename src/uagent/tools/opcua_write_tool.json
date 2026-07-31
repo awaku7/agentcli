@@ -32,7 +32,8 @@
       "أوبكوا",
       "قيمة",
       "خادم"
-    ]
+    ],
+    "param.timeout.description": "مهلة الاتصال."
   },
   "bn": {
     "tool.description": "একটি OPC UA সার্ভার নোডে একটি মান লিখুন।",
@@ -49,7 +50,8 @@
       "ওপিসিউএ",
       "মান",
       "সার্ভার"
-    ]
+    ],
+    "param.timeout.description": "সংযোগের সময়সীমা শেষ।"
   },
   "cs": {
     "tool.description": "Zapište hodnotu do uzlu serveru OPC UA.",
@@ -66,7 +68,8 @@
       "OPCUA",
       "hodnota",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Vypršel časový limit připojení."
   },
   "de": {
     "tool.description": "Schreiben Sie einen Wert auf einen OPC UA-Serverknoten.",
@@ -83,7 +86,8 @@
       "OPCUA",
       "Wert",
       "Server"
-    ]
+    ],
+    "param.timeout.description": "Verbindungszeitüberschreitung."
   },
   "el": {
     "tool.description": "Γράψτε μια τιμή σε έναν κόμβο διακομιστή OPC UA.",
@@ -100,7 +104,8 @@
       "OPCUA",
       "τιμή",
       "διακομιστής"
-    ]
+    ],
+    "param.timeout.description": "Λήξη χρονικού ορίου σύνδεσης."
   },
   "es": {
     "tool.description": "Escriba un valor en un nodo del servidor OPC UA.",
@@ -117,7 +122,8 @@
       "OPCUA",
       "valor",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera de conexión."
   },
   "fa": {
     "tool.description": "یک مقدار برای یک گره سرور OPC UA بنویسید.",
@@ -134,7 +140,8 @@
       "اوپسیوآ",
       "مقدار",
       "سرور"
-    ]
+    ],
+    "param.timeout.description": "پایان زمان اتصال."
   },
   "fi": {
     "tool.description": "Kirjoita arvo OPC UA -palvelinsolmuun.",
@@ -151,7 +158,8 @@
       "OPCUA",
       "arvo",
       "palvelin"
-    ]
+    ],
+    "param.timeout.description": "Yhteyden aikakatkaisu."
   },
   "fr": {
     "tool.description": "Écrivez une valeur sur un nœud de serveur OPC UA.",
@@ -168,7 +176,8 @@
       "OPCUA",
       "valeur",
       "serveur"
-    ]
+    ],
+    "param.timeout.description": "Expiration du délai de connexion."
   },
   "he": {
     "tool.description": "כתוב ערך לצומת שרת OPC UA.",
@@ -185,7 +194,8 @@
       "OPCUA",
       "ערך",
       "שרת"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לחיבור."
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर नोड के लिए एक मान लिखें।",
@@ -202,7 +212,8 @@
       "ओपीसीयूए",
       "मान",
       "सर्वर"
-    ]
+    ],
+    "param.timeout.description": "रिश्तों का समय बाहर।"
   },
   "hu": {
     "tool.description": "Írjon egy értéket egy OPC UA szerver csomópontba.",
@@ -219,7 +230,8 @@
       "OPCUA",
       "érték",
       "szerver"
-    ]
+    ],
+    "param.timeout.description": "A kapcsolat időtúllépése."
   },
   "id": {
     "tool.description": "Tulis nilai ke node server OPC UA.",
@@ -236,7 +248,8 @@
       "OPCUA",
       "nilai",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu koneksi habis."
   },
   "it": {
     "tool.description": "Scrivere un valore su un nodo del server OPC UA.",
@@ -253,7 +266,8 @@
       "OPCUA",
       "valore",
       "servitore"
-    ]
+    ],
+    "param.timeout.description": "Timeout della connessione."
   },
   "ja": {
     "tool.description": "OPC UA サーバー ノードに値を書き込みます。",
@@ -288,7 +302,8 @@
       "OPCUA",
       "가치",
       "서버"
-    ]
+    ],
+    "param.timeout.description": "연결 시간이 초과되었습니다."
   },
   "mn": {
     "tool.description": "OPC UA серверийн зангилаа руу утгыг бичнэ үү.",
@@ -305,7 +320,8 @@
       "опкюа",
       "утга",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Холболтын завсарлага."
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हर नोडवर मूल्य लिहा.",
@@ -322,7 +338,8 @@
       "ओपीसीयूए",
       "मूल्य",
       "सर्व्हर"
-    ]
+    ],
+    "param.timeout.description": "कनेक्शन कालबाह्य."
   },
   "nb": {
     "tool.description": "Skriv en verdi til en OPC UA-servernode.",
@@ -339,7 +356,8 @@
       "OPCUA",
       "verdi",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   },
   "nl": {
     "tool.description": "Schrijf een waarde naar een OPC UA-serverknooppunt.",
@@ -356,7 +374,8 @@
       "OPCUA",
       "waarde",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Time-out voor verbinding."
   },
   "pl": {
     "tool.description": "Zapisz wartość w węźle serwera OPC UA.",
@@ -373,7 +392,8 @@
       "OPCUA",
       "wartość",
       "serwer"
-    ]
+    ],
+    "param.timeout.description": "Przekroczono limit czasu połączenia."
   },
   "pt": {
     "tool.description": "Escreva um valor em um nó do servidor OPC UA.",
@@ -390,7 +410,8 @@
       "OPCUA",
       "valor",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "pt_BR": {
     "tool.description": "Escreva um valor em um nó do servidor OPC UA.",
@@ -407,7 +428,8 @@
       "OPCUA",
       "valor",
       "servidor"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite de conexão."
   },
   "ro": {
     "tool.description": "Scrieți o valoare într-un nod de server OPC UA.",
@@ -424,7 +446,8 @@
       "OPCUA",
       "valoare",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Timeout conexiune."
   },
   "ru": {
     "tool.description": "Запишите значение на узел сервера OPC UA.",
@@ -441,7 +464,8 @@
       "OPCUA",
       "значение",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут соединения."
   },
   "sv": {
     "tool.description": "Skriv ett värde till en OPC UA-servernod.",
@@ -458,7 +482,8 @@
       "OPCUA",
       "värde",
       "server"
-    ]
+    ],
+    "param.timeout.description": "Timeout för anslutning."
   },
   "sw": {
     "tool.description": "Andika thamani kwa nodi ya seva ya OPC UA.",
@@ -475,7 +500,8 @@
       "OPCUA",
       "thamani",
       "seva"
-    ]
+    ],
+    "param.timeout.description": "Muda wa muunganisho umekwisha."
   },
   "th": {
     "tool.description": "เขียนค่าไปยังโหนดเซิร์ฟเวอร์ OPC UA",
@@ -492,7 +518,8 @@
       "โอพีซียูเอ",
       "ค่า",
       "เซิร์ฟเวอร์"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาการเชื่อมต่อ"
   },
   "tr": {
     "tool.description": "OPC UA sunucu düğümüne bir değer yazın.",
@@ -509,7 +536,8 @@
       "OPCUA",
       "değer",
       "sunucu"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı zaman aşımı."
   },
   "uk": {
     "tool.description": "Запишіть значення на вузол сервера OPC UA.",
@@ -526,7 +554,8 @@
       "OPCUA",
       "значення",
       "сервер"
-    ]
+    ],
+    "param.timeout.description": "Час очікування підключення."
   },
   "vi": {
     "tool.description": "Viết một giá trị vào nút máy chủ OPC UA.",
@@ -543,7 +572,8 @@
       "OPCUA",
       "giá trị",
       "máy chủ"
-    ]
+    ],
+    "param.timeout.description": "Hết thời gian kết nối."
   },
   "zh_CN": {
     "tool.description": "将值写入 OPC UA 服务器节点。",
@@ -560,7 +590,8 @@
       "OPCUA",
       "值",
       "服务器"
-    ]
+    ],
+    "param.timeout.description": "连接超时。"
   },
   "zh_TW": {
     "tool.description": "將值寫入 OPC UA 伺服器節點。",
@@ -577,6 +608,7 @@
       "OPCUA",
       "值",
       "伺服器"
-    ]
+    ],
+    "param.timeout.description": "連接逾時。"
   }
 }

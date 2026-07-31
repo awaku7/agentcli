@@ -61,8 +61,6 @@
     "param.model.enum_catboost": "キャットブースト",
     "param.model.enum_timesfm": "タイムズFM",
     "param.model.enum_chronos": "クロノス",
-    "param.output_dir.description": "プロットイメージを保存するディレクトリ。デフォルトは ~/.uag/outputs/forecast_plots",
-    "AutoARIMA": "AutoARIMA",
-    "MSTL": "MSTL"
+    "param.output_dir.description": "プロットイメージを保存するディレクトリ。デフォルトは ~/.uag/outputs/forecast_plots"
   }
 }

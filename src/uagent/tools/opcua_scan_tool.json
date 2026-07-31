@@ -38,7 +38,8 @@
       "الخوادم",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "المهلة لكل اتصال (بالثواني)."
   },
   "bn": {
     "tool.description": "স্থানীয় নেটওয়ার্কে OPC UA সার্ভার আবিষ্কার করুন। ডিফল্ট OPC UA পোর্টে (4840) IP ঠিকানা অনুসন্ধান করে এবং সার্ভারের এন্ডপয়েন্ট তথ্য সংযোগ ও পড়ার চেষ্টা করে।",
@@ -58,7 +59,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "সংযোগ প্রতি সময়সীমা (সেকেন্ড)।"
   },
   "cs": {
     "tool.description": "Objevte OPC UA servery v lokální síti. Zkoumá IP adresy na výchozím portu OPC UA (4840) a pokouší se připojit a číst informace o koncovém bodu serveru.",
@@ -78,7 +80,8 @@
       "servery",
       "místní",
       "síť"
-    ]
+    ],
+    "param.timeout.description": "Časový limit na připojení (v sekundách)."
   },
   "de": {
     "tool.description": "Entdecken Sie OPC UA-Server im lokalen Netzwerk. Prüft IP-Adressen am Standard-OPC-UA-Port (4840) und versucht, eine Verbindung herzustellen und die Endpunktinformationen des Servers zu lesen.",
@@ -98,7 +101,8 @@
       "server",
       "lokales",
       "netzwerk"
-    ]
+    ],
+    "param.timeout.description": "Timeout pro Verbindung (Sekunden)."
   },
   "el": {
     "tool.description": "Ανακαλύψτε τους διακομιστές OPC UA στο τοπικό δίκτυο. Ανιχνεύει τις διευθύνσεις IP στην προεπιλεγμένη θύρα OPC UA (4840) και επιχειρεί να συνδεθεί και να διαβάσει τις πληροφορίες τελικού σημείου του διακομιστή.",
@@ -118,7 +122,8 @@
       "διακομιστές",
       "τοπικό",
       "δίκτυο"
-    ]
+    ],
+    "param.timeout.description": "Χρονικό όριο ανά σύνδεση (δευτερόλεπτα)."
   },
   "es": {
     "tool.description": "Descubra los servidores OPC UA en la red local. Sondea las direcciones IP en el puerto OPC UA predeterminado (4840) e intenta conectarse y leer la información del punto final del servidor.",
@@ -138,7 +143,8 @@
       "servidores",
       "red",
       "local"
-    ]
+    ],
+    "param.timeout.description": "Tiempo de espera por conexión (segundos)."
   },
   "fa": {
     "tool.description": "سرورهای OPC UA را در شبکه محلی کشف کنید. آدرس‌های IP را در درگاه پیش‌فرض OPC UA (4840) بررسی می‌کند و تلاش می‌کند تا اطلاعات نقطه پایانی سرور را متصل کرده و بخواند.",
@@ -158,7 +164,8 @@
       "سرورها",
       "شبکه",
       "محلی"
-    ]
+    ],
+    "param.timeout.description": "وقفه در هر اتصال (ثانیه)."
   },
   "fi": {
     "tool.description": "Tutustu OPC UA -palvelimiin paikallisessa verkossa. Tutkii IP-osoitteita oletusarvoisessa OPC UA -portissa (4840) ja yrittää muodostaa yhteyden ja lukea palvelimen päätepistetietoja.",
@@ -178,7 +185,8 @@
       "palvelimet",
       "paikallinen",
       "verkko"
-    ]
+    ],
+    "param.timeout.description": "Aikakatkaisu per yhteys (sekunteina)."
   },
   "fr": {
     "tool.description": "Découvrez les serveurs OPC UA sur le réseau local. Sonde les adresses IP sur le port OPC UA par défaut (4840) et tente de se connecter et de lire les informations du point de terminaison du serveur.",
@@ -198,7 +206,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Délai d'expiration par connexion (secondes)."
   },
   "he": {
     "tool.description": "גלה שרתי OPC UA ברשת המקומית. בודק כתובות IP ביציאת ברירת המחדל של OPC UA (4840) ומנסה להתחבר ולקרוא את פרטי נקודת הקצה של השרת.",
@@ -218,7 +227,8 @@
       "שרתים",
       "רשת",
       "מקומית"
-    ]
+    ],
+    "param.timeout.description": "פסק זמן לכל חיבור (שניות)."
   },
   "hi": {
     "tool.description": "स्थानीय नेटवर्क पर ओपीसी यूए सर्वर खोजें। डिफ़ॉल्ट ओपीसी यूए पोर्ट (4840) पर आईपी पते की जांच करता है और सर्वर के एंडपॉइंट जानकारी को कनेक्ट करने और पढ़ने का प्रयास करता है।",
@@ -238,7 +248,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "प्रति कनेक्शन टाइमआउट (सेकंड)।"
   },
   "hu": {
     "tool.description": "Fedezze fel az OPC UA szervereket a helyi hálózaton. Megvizsgálja az IP-címeket az alapértelmezett OPC UA porton (4840), és megpróbál csatlakozni, és beolvassa a kiszolgáló végpontinformációit.",
@@ -258,7 +269,8 @@
       "szervereket",
       "helyi hálózatot",
       "hálózat"
-    ]
+    ],
+    "param.timeout.description": "Időtúllépés kapcsolatonként (másodperc)."
   },
   "id": {
     "tool.description": "Temukan server OPC UA di jaringan lokal. Menyelidiki alamat IP pada port OPC UA default (4840) dan mencoba menyambungkan serta membaca info titik akhir server.",
@@ -278,7 +290,8 @@
       "server",
       "lokal",
       "jaringan"
-    ]
+    ],
+    "param.timeout.description": "Batas waktu per koneksi (detik)."
   },
   "it": {
     "tool.description": "Scopri i server OPC UA sulla rete locale. Esamina gli indirizzi IP sulla porta OPC UA predefinita (4840) e tenta di connettersi e leggere le informazioni sull'endpoint del server.",
@@ -298,7 +311,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Timeout per connessione (secondi)."
   },
   "ja": {
     "tool.description": "ローカル ネットワーク上の OPC UA サーバーを検出します。デフォルトの OPC UA ポート (4840) で IP アドレスを調査し、接続してサーバーのエンドポイント情報を読み取ろうとします。",
@@ -339,7 +353,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "연결당 시간 초과(초)입니다."
   },
   "mn": {
     "tool.description": "Дотоод сүлжээн дэх OPC UA серверүүдийг олж мэдээрэй. Өгөгдмөл OPC UA порт (4840) дээрх IP хаягуудыг шалгаж, серверийн эцсийн цэгийн мэдээллийг холбож, уншихыг оролддог.",
@@ -359,7 +374,8 @@
       "серверүүд",
       "local",
       "сүлжээ"
-    ]
+    ],
+    "param.timeout.description": "Холболтын хугацаа дуусах хугацаа (секунд)."
   },
   "mr": {
     "tool.description": "स्थानिक नेटवर्कवर OPC UA सर्व्हर शोधा. डीफॉल्ट OPC UA पोर्ट (4840) वर IP पत्ते तपासते आणि सर्व्हरची एंडपॉइंट माहिती कनेक्ट करण्याचा आणि वाचण्याचा प्रयत्न करते.",
@@ -379,7 +395,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "प्रति कनेक्शन कालबाह्य (सेकंद)."
   },
   "nb": {
     "tool.description": "Oppdag OPC UA-servere på det lokale nettverket. Undersøker IP-adresser på standard OPC UA-port (4840) og prøver å koble til og lese serverens endepunktinformasjon.",
@@ -399,7 +416,8 @@
       "servere",
       "lokalt",
       "nettverk"
-    ]
+    ],
+    "param.timeout.description": "Tidsavbrudd per tilkobling (sekunder)."
   },
   "nl": {
     "tool.description": "Ontdek OPC UA-servers op het lokale netwerk. Onderzoekt IP-adressen op de standaard OPC UA-poort (4840) en probeert verbinding te maken en de eindpuntinformatie van de server te lezen.",
@@ -419,7 +437,8 @@
       "servers",
       "lokaal",
       "netwerk"
-    ]
+    ],
+    "param.timeout.description": "Time-out per verbinding (seconden)."
   },
   "pl": {
     "tool.description": "Odkryj serwery OPC UA w sieci lokalnej. Sprawdza adresy IP na domyślnym porcie OPC UA (4840) i próbuje połączyć się oraz odczytać informacje o punkcie końcowym serwera.",
@@ -439,7 +458,8 @@
       "serwery",
       "lokalna",
       "sieć"
-    ]
+    ],
+    "param.timeout.description": "Limit czasu na połączenie (sekundy)."
   },
   "pt": {
     "tool.description": "Descubra servidores OPC UA na rede local. Investiga endereços IP na porta OPC UA padrão (4840) e tenta conectar e ler as informações do endpoint do servidor.",
@@ -459,7 +479,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por conexão (segundos)."
   },
   "pt_BR": {
     "tool.description": "Descubra servidores OPC UA na rede local. Investiga endereços IP na porta OPC UA padrão (4840) e tenta conectar e ler as informações do endpoint do servidor.",
@@ -479,7 +500,8 @@
       "servers",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Tempo limite por conexão (segundos)."
   },
   "ro": {
     "tool.description": "Descoperiți serverele OPC UA în rețeaua locală. Sondează adresele IP pe portul implicit OPC UA (4840) și încearcă să se conecteze și să citească informațiile despre punctul final al serverului.",
@@ -499,7 +521,8 @@
       "servere",
       "rețeaua",
       "locală"
-    ]
+    ],
+    "param.timeout.description": "Timeout per conexiune (secunde)."
   },
   "ru": {
     "tool.description": "Обнаружьте серверы OPC UA в локальной сети. Проверяет IP-адреса порта OPC UA по умолчанию (4840) и пытается подключиться и прочитать информацию о конечной точке сервера.",
@@ -519,7 +542,8 @@
       "серверы",
       "локальная",
       "сеть"
-    ]
+    ],
+    "param.timeout.description": "Таймаут на соединение (секунды)."
   },
   "sv": {
     "tool.description": "Upptäck OPC UA-servrar på det lokala nätverket. Söker efter IP-adresser på standard OPC UA-port (4840) och försöker ansluta och läsa serverns slutpunktsinformation.",
@@ -539,7 +563,8 @@
       "servrar",
       "lokalt",
       "nätverk"
-    ]
+    ],
+    "param.timeout.description": "Timeout per anslutning (sekunder)."
   },
   "sw": {
     "tool.description": "Gundua seva za OPC UA kwenye mtandao wa ndani. Huchunguza anwani za IP kwenye mlango chaguomsingi wa OPC UA (4840) na hujaribu kuunganisha na kusoma maelezo ya mwisho ya seva.",
@@ -559,7 +584,8 @@
       "server",
       "local",
       "network"
-    ]
+    ],
+    "param.timeout.description": "Muda umeisha kwa kila muunganisho (sekunde)."
   },
   "th": {
     "tool.description": "ค้นหาเซิร์ฟเวอร์ OPC UA บนเครือข่ายท้องถิ่น ตรวจสอบที่อยู่ IP บนพอร์ต OPC UA เริ่มต้น (4840) และพยายามเชื่อมต่อและอ่านข้อมูลจุดสิ้นสุดของเซิร์ฟเวอร์",
@@ -579,7 +605,8 @@
       "เซิร์ฟเวอร์",
       "local",
       "เครือข่าย"
-    ]
+    ],
+    "param.timeout.description": "หมดเวลาต่อการเชื่อมต่อ (วินาที)"
   },
   "tr": {
     "tool.description": "Yerel ağdaki OPC UA sunucularını keşfedin. Varsayılan OPC UA bağlantı noktasındaki (4840) IP adreslerini araştırır ve bağlanmaya ve sunucunun uç nokta bilgilerini okumaya çalışır.",
@@ -599,7 +626,8 @@
       "sunucular",
       "yerel",
       "ağ"
-    ]
+    ],
+    "param.timeout.description": "Bağlantı başına zaman aşımı (saniye)."
   },
   "uk": {
     "tool.description": "Відкрийте для себе сервери OPC UA в локальній мережі. Вивчає IP-адреси на стандартному порту OPC UA (4840) і намагається підключитися та прочитати інформацію про кінцеву точку сервера.",
@@ -619,7 +647,8 @@
       "сервери",
       "локальна",
       "мережа"
-    ]
+    ],
+    "param.timeout.description": "Тайм-аут на підключення (у секундах)."
   },
   "vi": {
     "tool.description": "Khám phá các máy chủ OPC UA trên mạng cục bộ. Thăm dò địa chỉ IP trên cổng OPC UA mặc định (4840) và cố gắng kết nối cũng như đọc thông tin điểm cuối của máy chủ.",
@@ -639,7 +668,8 @@
       "máy chủ",
       "local",
       "mạng"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ trên mỗi kết nối (giây)."
   },
   "zh_CN": {
     "tool.description": "发现本地网络上的 OPC UA 服务器。探测默认 OPC UA 端口 (4840) 上的 IP 地址并尝试连接和读取服务器的端点信息。",
@@ -659,7 +689,8 @@
       "服务器",
       "本地",
       "网络"
-    ]
+    ],
+    "param.timeout.description": "每个连接的超时（秒）。"
   },
   "zh_TW": {
     "tool.description": "發現本地網路上的 OPC UA 伺服器。探測預設 OPC UA 連接埠 (4840) 上的 IP 位址並嘗試連接和讀取伺服器的端點資訊。",
@@ -679,6 +710,7 @@
       "伺服器",
       "本地",
       "網絡"
-    ]
+    ],
+    "param.timeout.description": "每個連接的超時（秒）。"
   }
 }
