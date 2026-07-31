@@ -53,6 +53,7 @@ class _DummyCore:
 
     def __init__(self) -> None:
         self.logged = []
+        self.responses_state: dict = {}
 
     def set_status(self, busy, label):
         return None
@@ -174,19 +175,19 @@ def _restore_streaming_env(old_env: str | None) -> None:
 
 
 def _set_gpt54_tool_search_env(value: str | None):
-    old_env = os.environ.get("UAGENT_ENABLE_GPT54_TOOL_SEARCH")
+    old_env = os.environ.get("UAGENT_GPT54_TOOL_SEARCH")
     if value is None:
-        os.environ.pop("UAGENT_ENABLE_GPT54_TOOL_SEARCH", None)
+        os.environ.pop("UAGENT_GPT54_TOOL_SEARCH", None)
     else:
-        os.environ["UAGENT_ENABLE_GPT54_TOOL_SEARCH"] = value
+        os.environ["UAGENT_GPT54_TOOL_SEARCH"] = value
     return old_env
 
 
 def _restore_gpt54_tool_search_env(old_env: str | None) -> None:
     if old_env is None:
-        os.environ.pop("UAGENT_ENABLE_GPT54_TOOL_SEARCH", None)
+        os.environ.pop("UAGENT_GPT54_TOOL_SEARCH", None)
     else:
-        os.environ["UAGENT_ENABLE_GPT54_TOOL_SEARCH"] = old_env
+        os.environ["UAGENT_GPT54_TOOL_SEARCH"] = old_env
 
 
 def _response_with_function_call(
@@ -229,15 +230,7 @@ def _tool_spec(name: str) -> dict:
 def test_is_gpt54_tool_search_target() -> None:
     old_gate_env = _set_gpt54_tool_search_env(None)
     try:
-        # default: disabled
-        assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.4", use_responses_api=True
-        )
-    finally:
-        _restore_gpt54_tool_search_env(old_gate_env)
-
-    old_gate_env = _set_gpt54_tool_search_env("1")
-    try:
+        # default: native mode -> OpenAI/Azure GPT-5.4+ with Responses API is a target
         assert _is_gpt54_tool_search_target(
             provider="openai", depname="gpt-5.4", use_responses_api=True
         )
@@ -245,20 +238,19 @@ def test_is_gpt54_tool_search_target() -> None:
             provider="azure", depname="gpt-5.4-mini", use_responses_api=True
         )
         assert _is_gpt54_tool_search_target(
-            provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True
-        )
-        assert _is_gpt54_tool_search_target(
-            provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True
-        )
-        assert _is_gpt54_tool_search_target(
             provider="openai", depname="gpt-5.4-codex", use_responses_api=True
         )
         assert _is_gpt54_tool_search_target(
             provider="openai", depname="gpt-5.5", use_responses_api=True
         )
-        assert _is_gpt54_tool_search_target(
-            provider="openrouter", depname="openai/gpt-5.10-pro", use_responses_api=True
+        # Non-target providers (only openai/azure are supported)
+        assert not _is_gpt54_tool_search_target(
+            provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True
         )
+        assert not _is_gpt54_tool_search_target(
+            provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True
+        )
+        # Older / non-matching models
         assert not _is_gpt54_tool_search_target(
             provider="openai", depname="gpt-5.3", use_responses_api=True
         )
@@ -270,6 +262,18 @@ def test_is_gpt54_tool_search_target() -> None:
         )
         assert not _is_gpt54_tool_search_target(
             provider="openai", depname="gpt-5.4", use_responses_api=False
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4-nano", use_responses_api=True
+        )
+    finally:
+        _restore_gpt54_tool_search_env(old_gate_env)
+
+    old_gate_env = _set_gpt54_tool_search_env("off")
+    try:
+        # off: never a target
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4", use_responses_api=True
         )
     finally:
         _restore_gpt54_tool_search_env(old_gate_env)
@@ -314,7 +318,7 @@ def test_build_responses_request_keeps_user_attachments_as_images() -> None:
 
 
 def test_tool_catalog_tool_is_registered() -> None:
-    old_gate_env = _set_gpt54_tool_search_env("1")
+    old_gate_env = _set_gpt54_tool_search_env("legacy")
     try:
         tools.reload_plugins()
         names = {
@@ -421,24 +425,33 @@ def test_tool_catalog_search_covers_all_tools() -> None:
         out = tools.run_tool("tool_catalog", {"query": query, "max_results": 20})
         data = json.loads(out)
         assert data["ok"] is True
-        assert any(
-            item.get("name") == name for item in data["tools"]
-        ), f"tool_catalog did not return {name!r} for query {query!r}"
+        assert any(item.get("name") == name for item in data["tools"]), (
+            f"tool_catalog did not return {name!r} for query {query!r}"
+        )
         checked += 1
 
     assert checked >= 1
 
 
 def test_select_tool_specs_for_gpt54_keeps_catalog_and_human_ask() -> None:
-    with _CatalogPatch(
-        [
-            {
-                "name": "read_file",
-                "description": "read a file",
-                "required": [],
-                "parameters": [],
-            }
-        ]
+    with (
+        _CatalogPatch(
+            [
+                {
+                    "name": "read_file",
+                    "description": "read a file",
+                    "required": [],
+                    "parameters": [],
+                }
+            ]
+        ),
+        _ToolSpecsPatch(
+            [
+                _tool_spec("read_file"),
+                _tool_spec("search_files"),
+                _tool_spec("get_workdir"),
+            ]
+        ),
     ):
         selected = _select_tool_specs_for_gpt54(
             [{"role": "user", "content": "please read a file"}]
@@ -457,7 +470,16 @@ def test_select_tool_specs_for_gpt54_keeps_catalog_and_human_ask() -> None:
 def test_select_tool_specs_for_gpt54_zero_hit_fallback_still_keeps_catalog_and_human_ask() -> (
     None
 ):
-    with _CatalogPatch([]):
+    with (
+        _CatalogPatch([]),
+        _ToolSpecsPatch(
+            [
+                _tool_spec("read_file"),
+                _tool_spec("search_files"),
+                _tool_spec("get_workdir"),
+            ]
+        ),
+    ):
         selected = _select_tool_specs_for_gpt54(
             [{"role": "user", "content": "totally ambiguous request"}]
         )
@@ -475,22 +497,31 @@ def test_select_tool_specs_for_gpt54_zero_hit_fallback_still_keeps_catalog_and_h
 
 
 def test_run_llm_rounds_gpt54_responses_uses_narrowed_tools() -> None:
-    old_gate_env = _set_gpt54_tool_search_env("1")
+    old_gate_env = _set_gpt54_tool_search_env("legacy")
     old_env = _set_responses_env("1")
     client = _DummyFullClient()
     core = _DummyCore()
     messages = [{"role": "user", "content": "read a file"}]
 
     try:
-        with _CatalogPatch(
-            [
-                {
-                    "name": "read_file",
-                    "description": "read a file",
-                    "required": [],
-                    "parameters": [],
-                }
-            ]
+        with (
+            _CatalogPatch(
+                [
+                    {
+                        "name": "read_file",
+                        "description": "read a file",
+                        "required": [],
+                        "parameters": [],
+                    }
+                ]
+            ),
+            _ToolSpecsPatch(
+                [
+                    _tool_spec("read_file"),
+                    _tool_spec("search_files"),
+                    _tool_spec("get_workdir"),
+                ]
+            ),
         ):
             run_llm_rounds(
                 "openai",
@@ -544,7 +575,7 @@ def test_run_llm_rounds_non_gpt54_responses_keeps_full_tool_surface() -> None:
 
 
 def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
-    old_gate_env = _set_gpt54_tool_search_env("1")
+    old_gate_env = _set_gpt54_tool_search_env("legacy")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     client = _DummyFullClient(
@@ -567,6 +598,13 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
 
     try:
         with (
+            _ToolSpecsPatch(
+                [
+                    _tool_spec("read_file"),
+                    _tool_spec("search_files"),
+                    _tool_spec("get_workdir"),
+                ]
+            ),
             _CatalogPatch(
                 [
                     {
@@ -643,7 +681,7 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
 
 
 def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
-    old_gate_env = _set_gpt54_tool_search_env("1")
+    old_gate_env = _set_gpt54_tool_search_env("legacy")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     constrained_specs = [
@@ -737,11 +775,15 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
 
     assert set(first_tool_names) == {
         "tool_catalog",
+        "tool_load",
+        "unload_tool",
         "human_ask",
         "read_file",
     }
     assert set(second_tool_names) == {
         "tool_catalog",
+        "tool_load",
+        "unload_tool",
         "human_ask",
         "read_file",
     }
@@ -754,7 +796,7 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
 def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_safe_subset() -> (
     None
 ):
-    old_gate_env = _set_gpt54_tool_search_env("1")
+    old_gate_env = _set_gpt54_tool_search_env("legacy")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     constrained_specs = [
@@ -823,6 +865,8 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
 
     assert set(first_tool_names) == {
         "tool_catalog",
+        "tool_load",
+        "unload_tool",
         "human_ask",
         "read_file",
         "search_files",
@@ -832,6 +876,8 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
     }
     assert set(second_tool_names) == {
         "tool_catalog",
+        "tool_load",
+        "unload_tool",
         "human_ask",
         "read_file",
         "search_files",

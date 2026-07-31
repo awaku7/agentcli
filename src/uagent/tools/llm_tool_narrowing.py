@@ -328,16 +328,17 @@ def _select_tool_specs_legacy(
         "file_exists",
         "finish_skill",
     }
-    # Include all currently loaded tools so tool_load results persist across rounds
-    for spec in specs:
-        if not isinstance(spec, dict):
-            continue
-        fn = spec.get("function") or {}
-        if not isinstance(fn, dict):
-            continue
-        name = str(fn.get("name") or "").strip()
-        if name:
-            selected_names.add(name)
+    # Keep dynamically loaded tools (via tool_load) so they persist across
+    # rounds. Genre-filtered tools that were never loaded stay out of the
+    # narrowed set unless tool_catalog finds them for this request.
+    try:
+        from ._genre_control_util import _LOADED_SINGLE_TOOLS
+
+        for name in _LOADED_SINGLE_TOOLS:
+            if name:
+                selected_names.add(name)
+    except Exception:
+        pass
     selected_names.update(hit_names)
 
     if "search_files" in hit_names or "file_grep" in hit_names:
