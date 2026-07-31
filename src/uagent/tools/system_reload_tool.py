@@ -48,7 +48,60 @@ TOOL_SPEC = {
 }
 
 
+# Background modules with thread/loop state that must be stopped BEFORE
+# importlib.reload() so the old threads see their own stop event and exit
+# cleanly. Reloading first would reset the module globals (e.g. _RUNNING,
+# _STOP_EVENT) while the old listener threads keep running on stale closures.
+# Each entry: (module_name, running_check(module)->bool, stop_callable(module))
+_PRE_RELOAD_STOPPERS: list[tuple[str, Any, Any]] = [
+    (
+        "uagent.tools.pybitchat_shared",
+        lambda m: bool(getattr(m, "_RUNNING", False)),
+        lambda m: m.stop(),
+    ),
+    (
+        "uagent.tools.echonet_shared",
+        lambda m: getattr(m, "_LISTENER_THREAD", None) is not None,
+        lambda m: m.stop(),
+    ),
+    (
+        "uagent.tools.bacnet_shared",
+        lambda m: getattr(m, "_BAC0_THREAD", None) is not None,
+        lambda m: m.stop_bac0(),
+    ),
+    (
+        "uagent.tools.switchbot_shared",
+        lambda m: bool(getattr(m, "_POLLERS", {})),
+        lambda m: m.stop(),
+    ),
+]
+
+
+def _stop_running_backgrounds() -> list[str]:
+    """Stop background services that are currently running, before reload.
+
+    Returns the list of stopped service names (short module names).
+    Modules not yet imported are skipped; they will be (re)loaded fresh.
+    """
+    stopped: list[str] = []
+    for mod_name, running_check, stop_callable in _PRE_RELOAD_STOPPERS:
+        mod = sys.modules.get(mod_name)
+        if mod is None:
+            continue
+        try:
+            if running_check(mod):
+                stop_callable(mod)
+                stopped.append(mod_name.rsplit(".", 1)[-1])
+        except Exception:
+            pass
+    return stopped
+
+
 def run_tool(args: dict[str, Any]) -> str:
+    # Stop running background services (pybitchat, echonet, bacnet, switchbot)
+    # BEFORE reload so old threads exit on their own stop event and module
+    # globals like _RUNNING are not left inconsistent.
+    stopped = _stop_running_backgrounds()
     try:
         pkg_name = __package__ or "src.uagent.tools"
         mod = sys.modules.get(pkg_name)
@@ -61,6 +114,9 @@ def run_tool(args: dict[str, Any]) -> str:
         new_mod._DYNAMIC_COMMANDS.clear()
         new_mod._load_plugins()
         new_mod._INITIALIZED = True
-        return "System reload successful. All tools were reloaded with the latest code."
+        msg = "System reload successful. All tools were reloaded with the latest code."
+        if stopped:
+            msg += " Stopped before reload: " + ", ".join(sorted(stopped)) + "."
+        return msg
     except Exception as e:
         return f"Error during system reload: {str(e)}"

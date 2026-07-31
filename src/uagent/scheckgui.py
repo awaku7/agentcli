@@ -63,7 +63,11 @@ from .util_tools import (
     _run_auto_pilot_loop,
 )
 
-from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
+from .tools.pybitchat_shared import (
+    forward_to_mesh,
+    is_chat_mode,
+    set_llm_event_queue,
+)
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
 from .providers.util_providers import make_client as util_make_client
@@ -562,6 +566,8 @@ class ScheckWorker(QtCore.QObject):
         try:
             self._init_callbacks()
             start_background_scheduler(core.event_queue)
+            # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
+            set_llm_event_queue(core.event_queue)
             try:
                 self.tools.start_tools_warmup()
             except Exception:
