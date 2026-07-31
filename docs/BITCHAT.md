@@ -168,6 +168,8 @@ The command calculates a geohash and subscribes to Nostr messages from users in 
 
 | Command | Description |
 |---------|-------------|
+| `:bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]` | Start the BLE Mesh node |
+| `:bitchat stop` | Stop the BLE Mesh node |
 | `:bitchat on` | Enable chat mode (user input forwarded to mesh) |
 | `:bitchat off` | Disable chat mode |
 | `:bitchat status` | Show node state, chat mode, peers, Nostr status |

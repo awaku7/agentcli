@@ -80,3 +80,68 @@ class TestRunToolStartStop:
         data = json.loads(result) if isinstance(result, str) else result
         assert data.get("ok") is True
         assert data.get("state") == "stopped"
+
+
+def test_cmd_specs_include_start_stop_peers() -> None:
+    """CMD_SPECS に start/stop/peers サブコマンドが登録されている."""
+    from uagent.tools import pybitchat_subscribe_tool as mod
+
+    subcommands = [
+        s.get("subcommand") for s in mod.CMD_SPECS if s.get("command") == "bitchat"
+    ]
+    assert "start" in subcommands
+    assert "stop" in subcommands
+    assert "peers" in subcommands
+
+
+class TestCmdStartStop:
+    """:bitchat start / stop ハンドラの動作."""
+
+    def test_start_handler_prints_started(self, capsys: Any) -> None:
+        """start ハンドラが開始メッセージを出力する."""
+        from uagent.tools import pybitchat_subscribe_tool as mod
+
+        with patch(
+            "uagent.tools.pybitchat_subscribe_tool._ensure_dependencies"
+        ) as mock_deps:
+            mock_deps.return_value = True
+            with patch("uagent.tools.pybitchat_shared._listener_loop"):
+                mod._cmd_bitchat_start("testnode")
+        out = capsys.readouterr().out
+        assert "testnode" in out
+        assert ("started" in out) or ("開始" in out)
+        # Cleanup
+        mod._cmd_bitchat_stop("")
+
+    def test_start_handler_rejects_unknown_arg(self, capsys: Any) -> None:
+        """start ハンドラが不明な引数をエラー表示する."""
+        from uagent.tools import pybitchat_subscribe_tool as mod
+
+        mod._cmd_bitchat_start("--bogus")
+        out = capsys.readouterr().out
+        assert ("Unknown argument" in out) or ("不明な引数" in out)
+
+    def test_stop_handler_prints_stopped(self, capsys: Any) -> None:
+        """stop ハンドラが停止メッセージを出力する."""
+        from uagent.tools import pybitchat_subscribe_tool as mod
+
+        mod._cmd_bitchat_stop("")
+        out = capsys.readouterr().out
+        assert ("stopped" in out) or ("停止" in out)
+
+
+def test_dynamic_command_dispatch_start(capsys: Any) -> None:
+    """handle_dynamic_command 経由で :bitchat start がディスパッチされる."""
+    from uagent.tools import handle_dynamic_command
+
+    with patch(
+        "uagent.tools.pybitchat_subscribe_tool._ensure_dependencies"
+    ) as mock_deps:
+        mock_deps.return_value = True
+        with patch("uagent.tools.pybitchat_shared._listener_loop"):
+            res = handle_dynamic_command("bitchat", "start testnode")
+    assert res is not None
+    out = capsys.readouterr().out
+    assert "testnode" in out
+    # Cleanup
+    handle_dynamic_command("bitchat", "stop")

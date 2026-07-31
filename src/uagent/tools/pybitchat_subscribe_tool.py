@@ -244,6 +244,125 @@ def run_tool(args: dict[str, Any]) -> str:
 # ---- :bitchat dynamic command -----------------------------------------------
 
 
+def _cmd_bitchat_start(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat start [nickname] [--nostr] [--network <name>]"""
+    parts = arg.strip().split()
+    nickname = ""
+    nostr = False
+    network = "mainnet"
+    i = 0
+    while i < len(parts):
+        p = parts[i]
+        if p in ("--nostr", "-n"):
+            nostr = True
+        elif p in ("--network", "-net"):
+            i += 1
+            if i >= len(parts):
+                print(
+                    _(
+                        "cmd.start.need_network",
+                        default="Error: --network requires a value (mainnet|testnet)",
+                    )
+                )
+                from ..util_tools import CommandResult
+
+                return CommandResult()
+            network = parts[i]
+        elif p.startswith("-"):
+            print(
+                _("cmd.start.unknown_arg", default="Error: Unknown argument: %(arg)s")
+                % {"arg": p}
+            )
+            from ..util_tools import CommandResult
+
+            return CommandResult()
+        elif not nickname:
+            nickname = p
+        else:
+            print(
+                _("cmd.start.unknown_arg", default="Error: Unknown argument: %(arg)s")
+                % {"arg": p}
+            )
+            from ..util_tools import CommandResult
+
+            return CommandResult()
+        i += 1
+
+    if not _ensure_dependencies():
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": "Failed to install dependencies"}
+        )
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+
+    if not nickname:
+        import socket as _socket
+
+        nickname = _socket.gethostname()
+
+    result = _start(nickname=nickname, network=network, nostr=nostr)
+    if result.get("ok"):
+        if result.get("message") == "Already running":
+            print(
+                _(
+                    "cmd.node_already_running",
+                    default="bitchat BLE Mesh node already running as %(nickname)s.",
+                )
+                % {"nickname": nickname}
+            )
+        else:
+            print(
+                _(
+                    "cmd.node_started",
+                    default="bitchat BLE Mesh node started on %(network)s as %(nickname)s.",
+                )
+                % {"network": network, "nickname": nickname}
+            )
+        nostr_state = result.get("nostr", "")
+        if nostr_state == "running":
+            pubkey = result.get("nostr_pubkey", "")
+            print(
+                _(
+                    "cmd.node_started_nostr",
+                    default="  nostr: running pubkey=%(pubkey)s",
+                )
+                % {"pubkey": pubkey}
+            )
+        elif nostr_state:
+            print(
+                _(
+                    "cmd.node_started_nostr_failed",
+                    default="  nostr: %(state)s",
+                )
+                % {"state": nostr_state}
+            )
+    else:
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_bitchat_stop(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat stop"""
+    result = _stop()
+    if result.get("ok"):
+        print(_("cmd.node_stopped", default="bitchat BLE Mesh node stopped."))
+    else:
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
 def _cmd_bitchat_on(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat on"""
     from .pybitchat_shared import set_chat_mode as _set_chat_mode
@@ -648,6 +767,18 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
 CMD_SPECS = [
     {
         "command": "bitchat",
+        "subcommand": "start",
+        "handler": _cmd_bitchat_start,
+        "help_text": "  :bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]  Start the BLE Mesh node",
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "stop",
+        "handler": _cmd_bitchat_stop,
+        "help_text": "  :bitchat stop      Stop the BLE Mesh node",
+    },
+    {
+        "command": "bitchat",
         "subcommand": "on",
         "handler": _cmd_bitchat_on,
         "help_text": "  :bitchat on       Enable chat mode (user input forwarded to mesh)",
@@ -688,5 +819,11 @@ CMD_SPECS = [
         "subcommand": "geo list",
         "handler": _cmd_bitchat_geo_list,
         "help_text": "  :bitchat geo list                  List active geo channels",
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "peers",
+        "handler": _cmd_bitchat_peers,
+        "help_text": "  :bitchat peers     List discovered Nostr bitchat peers",
     },
 ]

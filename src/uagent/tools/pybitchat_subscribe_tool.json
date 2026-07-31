@@ -4,6 +4,10 @@
     "param.action.description": "Action: start (begin BLE scan/advertise), stop (shutdown), status (current state).",
     "param.nickname.description": "Node nickname shown to peers.",
     "param.network.description": "Network: mainnet or testnet.",
+    "param.nostr.description": "Enable Nostr relay transport in addition to BLE.",
+    "param.nostr_relays.description": "Comma-separated Nostr relay URLs (default: x.kojira.io, nos.lol, snort.social).",
+    "param.nostr_nsec.description": "Optional Nostr nsec private key hex (auto-generated if not set).",
+    "param.on.description": "Enable/disable bitchat chat mode (action=chat_mode).",
     "param.mode.description": "Chat mode (action=chat_mode): 'on' = mesh forwarding only (LLM injection disabled), 'llm' = mesh forwarding + inject peer msgs to LLM, 'off' = disabled.",
     "param.on_message_prompt.description": "Optional prompt injected into the LLM when a message arrives.",
     "err.unknown_action": "Unknown action: %(action)s",
@@ -40,13 +44,24 @@
     "peers.list_none": "No bitchat peers discovered yet.",
     "geo.usage_join_auto": "No GPS position available. Usage: :bitchat geo join <lat> <lng> [precision=6]",
     "geo.auto_detected": "Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)",
-    "geo.auto_start_nostr": "Auto-started Nostr transport as %(nickname)s"
+    "geo.auto_start_nostr": "Auto-started Nostr transport as %(nickname)s",
+    "cmd.node_started": "bitchat BLE Mesh node started on %(network)s as %(nickname)s.",
+    "cmd.node_started_nostr": "  nostr: running pubkey=%(pubkey)s",
+    "cmd.node_started_nostr_failed": "  nostr: %(state)s",
+    "cmd.node_already_running": "bitchat BLE Mesh node already running as %(nickname)s.",
+    "cmd.node_stopped": "bitchat BLE Mesh node stopped.",
+    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.unknown_arg": "Error: Unknown argument: %(arg)s"
   },
   "ja": {
     "tool.description": "pybitchat BLE Mesh ノードの起動・停止・状態監視を行います。ピア発見イベントはターミナルに [INFO] 通知として表示されます。",
     "param.action.description": "操作: start (BLEスキャン/アドバタイズ開始), stop (停止), status (状態確認)。",
     "param.nickname.description": "ノードのニックネーム。ピアに表示されます。",
     "param.network.description": "ネットワーク: mainnet または testnet。",
+    "param.nostr.description": "BLE に加えて Nostr リレートランスポートを有効にします。",
+    "param.nostr_relays.description": "カンマ区切りの Nostr リレーURL（デフォルト: x.kojira.io, nos.lol, snort.social）。",
+    "param.nostr_nsec.description": "オプションの Nostr nsec 秘密鍵（16進）。未設定の場合は自動生成されます。",
+    "param.on.description": "bitchat チャットモードの有効/無効を切り替えます（action=chat_mode）。",
     "param.mode.description": "チャットモード (action=chat_mode): 'on' = メッシュ転送のみ (LLM連携は無効), 'llm' = メッシュ転送 + 受信メッセージをLLMに注入, 'off' = 無効。",
     "param.on_message_prompt.description": "メッセージ受信時にLLMに注入するオプションのプロンプト。",
     "err.unknown_action": "不明なアクション: %(action)s",
@@ -83,6 +98,13 @@
     "peers.list_none": "まだ bitchat ピアは発見されていません。",
     "geo.usage_join_auto": "GPS位置情報が取得できません。手動指定: :bitchat geo join <緯度> <経度> [精度=6]",
     "geo.auto_detected": "現在位置を自動検出: 緯度=%(lat)s, 経度=%(lng)s (精度=%(precision)d)",
-    "geo.auto_start_nostr": "Nostr トランスポートを自動起動: %(nickname)s"
+    "geo.auto_start_nostr": "Nostr トランスポートを自動起動: %(nickname)s",
+    "cmd.node_started": "bitchat BLE メッシュ ノードが %(network)s で %(nickname)s として開始されました。",
+    "cmd.node_started_nostr": "  nostr: 実行中 pubkey=%(pubkey)s",
+    "cmd.node_started_nostr_failed": "  nostr: %(state)s",
+    "cmd.node_already_running": "bitchat BLE メッシュ ノードはすでに %(nickname)s として実行中です。",
+    "cmd.node_stopped": "bitchat BLE メッシュ ノードが停止しました。",
+    "cmd.start.need_network": "エラー: --network には値が必要です (mainnet|testnet)",
+    "cmd.start.unknown_arg": "エラー: 不明な引数: %(arg)s"
   }
 }
