@@ -1372,8 +1372,8 @@ msgstr "Ollama keep_alive (default: 5m)"
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "Ollama num_ctx (default: 8192)"
 
-msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama num_predict (default: 1024)"
+msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
+msgstr "Ollama num_predict (default: llmcapa max_output_tokens)"
 
 msgid "DeepSeek API key"
 msgstr "DeepSeek API key"

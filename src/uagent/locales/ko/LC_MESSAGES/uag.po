@@ -1776,8 +1776,8 @@ msgid "Ollama num_ctx (default: 8192)"
 msgstr "Ollama 문맥 길이(num_ctx) (기본값: 8192)"
 
 #: src/uagent/setup_cli.py:205
-msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama 예측 수(num_predict) (기본값: 1024)"
+msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
+msgstr "Ollama 예측 수(num_predict) (기본값: llmcapa max_output_tokens)"
 
 #: src/uagent/setup_cli.py:208
 msgid "DeepSeek API key"

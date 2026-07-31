@@ -1844,8 +1844,8 @@ msgid "Ollama num_ctx (default: 8192)"
 msgstr "ओलामा num_ctx (डिफ़ॉल्ट: 8192)"
 
 #: src/uagent/setup_cli.py:205
-msgid "Ollama num_predict (default: 1024)"
-msgstr "ओलामा num_predict (डिफ़ॉल्ट: 1024)"
+msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
+msgstr "ओलामा num_predict (डिफ़ॉल्ट: llmcapa max_output_tokens)"
 
 #: src/uagent/setup_cli.py:208
 msgid "DeepSeek API key"
