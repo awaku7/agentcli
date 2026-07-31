@@ -29,16 +29,37 @@ def _parse_int_env(*names: str, default: int) -> int:
     return int(default)
 
 
+def _resolve_ollama_max_tokens(model: str | None = None) -> int | None:
+    """Resolve an output-token limit for Ollama.
+
+    Priority: ``UAGENT_OLLAMA_NUM_PREDICT`` / ``UAGENT_MAX_TOKENS`` (clamped
+    to the model's llmcapa ``max_output_tokens``), then llmcapa's
+    ``max_output_tokens`` itself. Returns ``None`` when nothing is known.
+    """
+    try:
+        from uagent.llmcapa_util import (
+            clamp_max_tokens,
+            current_model,
+            get_max_output_tokens,
+        )
+
+        mid = (model or "").strip() or current_model("ollama")
+        num_predict = _parse_int_env(
+            "UAGENT_OLLAMA_NUM_PREDICT", "UAGENT_MAX_TOKENS", default=0
+        )
+        if num_predict > 0:
+            return clamp_max_tokens(num_predict, mid, "ollama")
+        return get_max_output_tokens(mid, "ollama")
+    except Exception:
+        return None
+
+
 def _ollama_extra_params() -> dict[str, Any]:
     """Build Ollama-specific request params from environment variables."""
 
     num_ctx = _parse_int_env("UAGENT_OLLAMA_NUM_CTX", default=8192)
-    num_predict = _parse_int_env(
-        "UAGENT_OLLAMA_NUM_PREDICT", "UAGENT_MAX_TOKENS", default=1024
-    )
     try:
         from uagent.llmcapa_util import (
-            clamp_max_tokens,
             current_model,
             get_context_window,
         )
@@ -48,7 +69,6 @@ def _ollama_extra_params() -> dict[str, Any]:
         if ctx is not None and ctx > 0:
             # Keep user override, but never exceed known context window.
             num_ctx = min(num_ctx, ctx) if num_ctx > 0 else ctx
-        num_predict = clamp_max_tokens(num_predict, mid, "ollama")
     except Exception:
         pass
 
@@ -67,7 +87,6 @@ def _ollama_extra_params() -> dict[str, Any]:
             ),
             "num_ctx": num_ctx,
             "num_keep": _parse_int_env("UAGENT_OLLAMA_NUM_KEEP", default=256),
-            "num_predict": num_predict,
         },
     }
 
@@ -90,6 +109,16 @@ def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> No
             extra_body = {}
         extra_body.update(_ollama_extra_params())
         chat_kwargs["extra_body"] = extra_body
+
+        # Ollama's OpenAI-compatible endpoint (/v1/chat/completions) ignores
+        # ``options`` inside extra_body; only the top-level ``max_tokens``
+        # field is honored (mapped to num_predict internally). When no
+        # explicit limit was already set, fall back to llmcapa's
+        # max_output_tokens instead of a hardcoded default.
+        if "max_tokens" not in chat_kwargs:
+            limit = _resolve_ollama_max_tokens(chat_kwargs.get("model"))
+            if limit:
+                chat_kwargs["max_tokens"] = limit
     except Exception:
         pass
 
