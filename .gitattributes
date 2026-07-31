@@ -1,0 +1,28 @@
+# Normalize all text files to LF
+* text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.bmp binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.exe binary
+*.pyd binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.zip binary
+*.gz binary
+*.7z binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pyc binary
+*.pyo binary
+*.pdf binary
