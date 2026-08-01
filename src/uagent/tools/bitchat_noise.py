@@ -383,8 +383,10 @@ def encode_private_message(message_id: str, content: str) -> bytes | None:
         if len(mid) > 255 or len(body) > 255:
             return None
         tlv = (
-            bytes([_TLV_MESSAGE_ID, len(mid)]) + mid
-            + bytes([_TLV_CONTENT, len(body)]) + body
+            bytes([_TLV_MESSAGE_ID, len(mid)])
+            + mid
+            + bytes([_TLV_CONTENT, len(body)])
+            + body
         )
         return bytes([_NOISE_PAYLOAD_PRIVATE_MESSAGE]) + tlv
     except Exception:

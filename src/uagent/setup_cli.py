@@ -202,7 +202,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ),
         ("UAGENT_OLLAMA_KEEP_ALIVE", False, _("Ollama keep_alive (default: 5m)")),
         ("UAGENT_OLLAMA_NUM_CTX", False, _("Ollama num_ctx (default: 8192)")),
-        ("UAGENT_OLLAMA_NUM_PREDICT", False, _("Ollama num_predict (default: llmcapa max_output_tokens)")),
+        (
+            "UAGENT_OLLAMA_NUM_PREDICT",
+            False,
+            _("Ollama num_predict (default: llmcapa max_output_tokens)"),
+        ),
     ],
     "deepseek": [
         ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),

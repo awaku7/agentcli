@@ -2095,12 +2095,7 @@ async def get_log_preview(index: int):
     # + user/assistant/tool messages + [CWD] marker when auto-restored.
     cwd_bonus = 1 if (last_cwd_path and os.path.isdir(last_cwd_path)) else 0
     total_messages = (
-        1
-        + preserved_system
-        + total_user
-        + total_assistant
-        + total_tool
-        + cwd_bonus
+        1 + preserved_system + total_user + total_assistant + total_tool + cwd_bonus
     )
     return {
         "ok": True,

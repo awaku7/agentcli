@@ -27,6 +27,7 @@ except ImportError:
     def ensure_mcp_config_template():
         pass  # type: ignore
 
+
 # OpenAI / Azure OpenAI / Google Gemini (google-genai)
 # These are imported lazily inside the functions that actually need them to speed up CLI startup.
 OpenAI = None
@@ -92,6 +93,7 @@ _PROMPT_SESSION: Any = None
 _PROMPT_REPLY_SESSION: Any = None
 _PROMPT_HISTORY: list[str] = []
 
+
 def _append_prompt_history_entry(text: str) -> None:
     normalized = tools_util.strip_surrogates((text or "").replace("\r", "").strip())
     if not normalized:
@@ -110,6 +112,7 @@ def _append_prompt_history_entry(text: str) -> None:
             except Exception:
                 pass
 
+
 def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
     for msg in messages:
         if msg.get("role") != "user":
@@ -117,6 +120,7 @@ def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
         content = msg.get("content")
         if isinstance(content, str):
             _append_prompt_history_entry(content)
+
 
 def _persist_prompt_history_entry(text: str) -> None:
     normalized = tools_util.strip_surrogates(
@@ -137,21 +141,16 @@ def _persist_prompt_history_entry(text: str) -> None:
         history_path = get_history_file_path()
         os.makedirs(history_path.parent, exist_ok=True)
         with open(history_path, "ab") as f:
-            f.write(
-                f"\
+            f.write(f"\
 # {datetime.now()}\
-".encode("utf-8")
-            )
-            for line in normalized.split(
-                "\
-"
-            ):
-                f.write(
-                    f"+{line}\
-".encode("utf-8")
-                )
+".encode("utf-8"))
+            for line in normalized.split("\
+"):
+                f.write(f"+{line}\
+".encode("utf-8"))
     except Exception:
         pass
+
 
 def _get_prompt_session(*, reply: bool = False) -> Any:
     global _PROMPT_SESSION, _PROMPT_REPLY_SESSION
@@ -196,6 +195,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
             return None
 
         try:
+
             class _SafeFileHistory(FileHistory):
                 """FileHistory that strips lone surrogates before disk write."""
 
@@ -497,6 +497,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
             return None
     return _PROMPT_SESSION
 
+
 def _prompt_toolkit_input(
     prompt: str, *, is_password: bool = False, reply: bool = False
 ) -> str | None:
@@ -522,7 +523,9 @@ def _prompt_toolkit_input(
     try:
         if patch_stdout is not None:
             with patch_stdout():
-                result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
+                result = session.prompt(
+                    prompt, is_password=is_password, key_bindings=kb
+                )
         else:
             result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
         if result is not None and not is_password:
@@ -535,7 +538,9 @@ def _prompt_toolkit_input(
     except Exception:
         return None
 
+
 setattr(core, "prompt_history_append", _append_prompt_history_entry)
+
 
 def _flush_stdin_input_buffer() -> None:
     """Best-effort flush of *pending* user keystrokes before a prompt.
@@ -590,6 +595,7 @@ def _flush_stdin_input_buffer() -> None:
     except Exception:
         pass
 
+
 def _can_use_textarea() -> bool:
     """Check if prompt_toolkit TextArea can be used for multiline editing."""
     try:
@@ -599,6 +605,7 @@ def _can_use_textarea() -> bool:
         return sys.stdin.isatty()
     except ImportError:
         return False
+
 
 def _multiline_editor(initial_text: str = "") -> str | None:
     """Open a prompt_toolkit TextArea for multiline editing (non-fullscreen).
@@ -653,6 +660,7 @@ def _multiline_editor(initial_text: str = "") -> str | None:
         return None
     except Exception:
         return None
+
 
 def _getpass_fallback(prompt: str) -> str:
     """Fallback for environments where getpass.getpass cannot disable echo back (e.g. isatty=False)."""
@@ -712,6 +720,7 @@ def _getpass_fallback(prompt: str) -> str:
     else:
         print(prompt, end="", flush=True)
         return getpass.getpass("")
+
 
 def stdin_loop() -> None:
     """
@@ -889,14 +898,14 @@ def stdin_loop() -> None:
                                             break
                                     # 注入メッセージのラウンド等でプロンプト行が
                                     # 閉じられた場合、アイドルになったら再描画する。
-                                    if (
-                                        getattr(core, "prompt_needs_redraw", False)
-                                        and not getattr(core, "status_busy", False)
-                                    ):
+                                    if getattr(
+                                        core, "prompt_needs_redraw", False
+                                    ) and not getattr(core, "status_busy", False):
                                         with core.print_lock:
-                                            if (
-                                                getattr(core, "prompt_needs_redraw", False)
-                                                and not getattr(core, "status_busy", False)
+                                            if getattr(
+                                                core, "prompt_needs_redraw", False
+                                            ) and not getattr(
+                                                core, "status_busy", False
                                             ):
                                                 core.prompt_needs_redraw = False
                                                 try:
@@ -904,7 +913,9 @@ def stdin_loop() -> None:
                                                         out.write(prompt)
                                                         out.flush()
                                                     else:
-                                                        print(prompt, end="", flush=True)
+                                                        print(
+                                                            prompt, end="", flush=True
+                                                        )
                                                 except Exception:
                                                     pass
                                                 try:
@@ -935,14 +946,14 @@ def stdin_loop() -> None:
                                     with core.human_ask_lock:
                                         if core.human_ask_active:
                                             break
-                                    if (
-                                        getattr(core, "prompt_needs_redraw", False)
-                                        and not getattr(core, "status_busy", False)
-                                    ):
+                                    if getattr(
+                                        core, "prompt_needs_redraw", False
+                                    ) and not getattr(core, "status_busy", False):
                                         with core.print_lock:
-                                            if (
-                                                getattr(core, "prompt_needs_redraw", False)
-                                                and not getattr(core, "status_busy", False)
+                                            if getattr(
+                                                core, "prompt_needs_redraw", False
+                                            ) and not getattr(
+                                                core, "status_busy", False
                                             ):
                                                 core.prompt_needs_redraw = False
                                                 try:
@@ -950,7 +961,9 @@ def stdin_loop() -> None:
                                                         out.write(prompt)
                                                         out.flush()
                                                     else:
-                                                        print(prompt, end="", flush=True)
+                                                        print(
+                                                            prompt, end="", flush=True
+                                                        )
                                                 except Exception:
                                                     pass
                                                 try:
@@ -1126,6 +1139,7 @@ def stdin_loop() -> None:
             core.event_queue.put({"kind": "user", "text": line})
         else:
             user_lines.append(line)
+
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -1462,6 +1476,7 @@ def main() -> None:
         except Exception:
             pass
         print(_("Exited uag."))
+
 
 if __name__ == "__main__":
     main()

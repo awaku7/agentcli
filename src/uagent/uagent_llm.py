@@ -1484,12 +1484,7 @@ def run_llm_rounds(
     judgment_mode: bool = False,
     judgment_messages: list[dict[str, Any]] | None = None,
 ) -> str | None:
-    global \
-        _TOTAL_ROUNDS, \
-        _PRODUCTIVE_ROUNDS, \
-        _TOOL_LAST_ROUND, \
-        _TOOL_AUTO_UNLOAD_ROUNDS, \
-        _TOOL_SPECS
+    global _TOTAL_ROUNDS, _PRODUCTIVE_ROUNDS, _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
     # Judgment mode: swap messages so all side effects go to judgment_messages
     if judgment_mode:
         if not judgment_messages:

@@ -32,6 +32,8 @@ from .tools.context import ToolCallbacks, get_callbacks
 # Kept as a separate name for backward-compatibility.
 tr = _
 tr_ = _
+
+
 def strip_surrogates(text: str) -> str:
     """Replace lone surrogate code points (U+D800..U+DFFF) with U+FFFD.
 
@@ -65,8 +67,6 @@ def strip_surrogates(text: str) -> str:
             out.append(text[i])
         i += 1
     return "".join(out) if changed else text
-
-
 
 
 @dataclass
