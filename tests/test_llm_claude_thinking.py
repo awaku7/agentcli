@@ -94,7 +94,7 @@ def _clear_memo():
         ("claude-sonnet-5", True),
         ("claude-sonnet-4-5", False),
         ("claude-3-7-sonnet", False),
-        ("claude-opus-4-6", False),
+        ("claude-opus-4-6", True),
     ],
 )
 def test_requires_adaptive_thinking(model, expected):
@@ -102,7 +102,7 @@ def test_requires_adaptive_thinking(model, expected):
 
 
 def test_memoized_model_requires_adaptive():
-    assert _claude_requires_adaptive_thinking("claude-opus-4-6") is False
+    assert _claude_requires_adaptive_thinking("claude-opus-4-6") is True
     _ADAPTIVE_THINKING_MODELS.add("claude-opus-4-6")
     assert _claude_requires_adaptive_thinking("claude-opus-4-6") is True
 
@@ -131,14 +131,14 @@ def test_fable5_sends_adaptive_first_request(capsys):
 
 
 def test_legacy_modern_model_sends_enabled_budget():
-    # "claude-4-opus" matches the is_modern_claude regex (claude-[4-9])
+    # "claude-opus-4-5" matches the is_modern_claude regex (claude-[4-9])
     # and is not detected as adaptive -> legacy enabled+budget path.
     client = FakeClient([Block("text", text="ok")])
-    out_cfg = build_claude_output_config_for_effort("claude-4-opus", "high")
+    out_cfg = build_claude_output_config_for_effort("claude-opus-4-5", "high")
     assert out_cfg == {"effort": "high"}
 
     text, _ = claude_chat_with_tools(
-        client, "claude-4-opus", MSGS, output_config=out_cfg
+        client, "claude-opus-4-5", MSGS, output_config=out_cfg
     )
     assert text == "ok"
     assert len(client.messages.calls) == 1
@@ -148,12 +148,11 @@ def test_legacy_modern_model_sends_enabled_budget():
     assert "output_config" not in req
 
 
-def test_non_modern_model_sends_output_config_only():
-    # "claude-sonnet-4-5" does not match the is_modern_claude regex,
-    # so no thinking param is sent; output_config is passed through.
+def test_non_effort_model_omits_output_config():
+    # Claude Sonnet 4.5 does not advertise effort support in llmcapa.
     client = FakeClient([Block("text", text="ok")])
     out_cfg = build_claude_output_config_for_effort("claude-sonnet-4-5", "high")
-    assert out_cfg == {"effort": "high"}
+    assert out_cfg is None
 
     text, _ = claude_chat_with_tools(
         client, "claude-sonnet-4-5", MSGS, output_config=out_cfg
@@ -162,7 +161,7 @@ def test_non_modern_model_sends_output_config_only():
     assert len(client.messages.calls) == 1
     req = client.messages.calls[0]
     assert "thinking" not in req
-    assert req["output_config"] == {"effort": "high"}
+    assert "output_config" not in req
 
 
 # ---------------------------------------------------------------------------
@@ -173,7 +172,7 @@ def test_non_modern_model_sends_output_config_only():
 def test_enabled_rejected_falls_back_to_adaptive_and_memoizes():
     # Use a model that is modern (sends thinking.type=enabled first) but is
     # NOT detected as adaptive, so the runtime fallback path is exercised.
-    model = "claude-4-opus"
+    model = "claude-opus-4-5"
     content = [
         Block("thinking", thinking="思考過程"),
         Block("text", text="answer"),
@@ -212,7 +211,7 @@ def test_nonempty_thinking_is_printed_and_embedded(capsys):
     client = FakeClient(content)
     text, _ = claude_chat_with_tools(client, "claude-fable-5", MSGS)
     out = capsys.readouterr().out
-    assert "[Claude Thinking]" in out
+    assert "[Claude Reasoning]" in out
     assert "ここが思考です" in out
     assert text.startswith("<thinking>")
     assert "final" in text

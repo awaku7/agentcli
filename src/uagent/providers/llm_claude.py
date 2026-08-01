@@ -80,17 +80,21 @@ _ADAPTIVE_THINKING_MODELS: set[str] = set()
 def _claude_requires_adaptive_thinking(model_name: str) -> bool:
     """Return True if the model requires thinking.type=adaptive.
 
-    Per API errors, newer models (Fable 5+ / Claude 5+) reject
-    thinking.type=enabled and require adaptive + output_config.effort.
+    Per API documentation, Claude 4.6+ and newer models (including Fable 5+)
+    reject thinking.type=enabled and require adaptive + output_config.effort.
     Also returns True if the model was memoized after a runtime rejection.
     """
 
     if model_name in _ADAPTIVE_THINKING_MODELS:
         return True
-    fam, major, _minor = _parse_claude_model(model_name)
+    fam, major, minor = _parse_claude_model(model_name)
     if fam == "fable":
         return True
     if major is not None and major >= 5:
+        return True
+    # Anthropic's Claude 4.6+ models use adaptive thinking; Claude 4.5
+    # remains on the enabled/budget_tokens path.
+    if fam in ("opus", "sonnet") and major == 4 and minor is not None and minor >= 6:
         return True
     return False
 
@@ -400,6 +404,7 @@ def claude_chat_with_tools(
     is_modern_claude = bool(
         re.search(r"3[\.-][7-9]", model_name)
         or re.search(r"claude-[4-9]", model_name)
+        or re.search(r"(?:opus|sonnet)-4[\.-][5-9]", model_name)
         or "fable" in model_name.lower()
         or "claude-5" in model_name.lower()
     )
