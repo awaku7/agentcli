@@ -403,7 +403,8 @@ def _call_openai_azure_round(
                     # xAI (Grok) Responses API does not reliably support
                     # previous_response_id with tools; disable it.
                     # OpenRouter Responses schema expects previous_response_id=null.
-                    if provider in ("grok", "openrouter"):
+                    # DeepSeek Responses API is stateless (previous_response_id not supported).
+                    if provider in ("grok", "openrouter", "deepseek"):
                         responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
                     # Empty / non-resp ids are invalid for continuation.
