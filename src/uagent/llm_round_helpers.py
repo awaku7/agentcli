@@ -40,6 +40,7 @@ from .providers.llm_openrouter_responses import apply_openrouter_responses_compa
 from .providers.llm_ollama import apply_ollama_extra_body
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
+from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
 from .providers.llm_zai import zai_chat_with_tools
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
@@ -513,6 +514,31 @@ def _call_openai_azure_round(
                         # Model rejected thinking; skip reasoning params.
                         _effort_used = None
                     else:
+                        # DeepSeek Responses API only accepts effort
+                        # high/max (minimal/low/medium -> high, xhigh -> max).
+                        if provider == "deepseek":
+                            try:
+                                from .providers.llm_deepseek import (
+                                    _get_valid_deepseek_efforts,
+                                    _resolve_deepseek_effort,
+                                )
+
+                                _mapped = _resolve_deepseek_effort(_effort_used)
+                                if _mapped:
+                                    # Validate against llmcapa model capability
+                                    # (reasoning_effort_values). If the mapped
+                                    # value is not accepted by the model, fall
+                                    # back to the lowest valid effort.
+                                    _valid = _get_valid_deepseek_efforts(depname)
+                                    if _valid and _mapped not in _valid:
+                                        _mapped = (
+                                            "high"
+                                            if "high" in _valid
+                                            else sorted(_valid)[0]
+                                        )
+                                    _effort_used = _mapped
+                            except Exception:
+                                pass
                         # Send the requested effort as-is. If the backend rejects
                         # minimal/xhigh for a specific model, retry once with a
                         # fallback value below.
@@ -558,6 +584,13 @@ def _call_openai_azure_round(
 
                 # Ollama Responses-API compatibility workarounds
                 apply_ollama_responses_compat(
+                    resp_kwargs,
+                    provider=provider,
+                    depname=depname,
+                )
+
+                # DeepSeek Responses-API compatibility workarounds
+                apply_deepseek_responses_compat(
                     resp_kwargs,
                     provider=provider,
                     depname=depname,

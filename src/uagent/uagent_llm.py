@@ -700,21 +700,42 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     elif provider in ("deepseek", "mimo"):
-        ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_deepseek_round(
-                client=client,
-                depname=depname,
-                call_messages=call_messages,
-                core=core,
-                make_client_fn=make_client_fn,
-                call_maybe_thread_fn=_call_maybe_thread_fn,
-                send_tools_this_round=send_tools_this_round,
-                max_retries_429=max_retries_429,
-                retry_base=retry_base,
-                retry_cap=retry_cap,
-                provider=provider,
+        if use_responses_api and provider == "deepseek":
+            ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                _call_openai_azure_round(
+                    provider=provider,
+                    client=client,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                    make_client_fn=make_client_fn,
+                    call_maybe_thread_fn=_call_maybe_thread_fn,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
+                    send_tools_this_round=send_tools_this_round,
+                    max_retries_429=max_retries_429,
+                    retry_base=retry_base,
+                    retry_cap=retry_cap,
+                    messages=messages,
+                    responses_state=core.responses_state,
+                )
             )
-        )
+        else:
+            ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                _call_deepseek_round(
+                    client=client,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                    make_client_fn=make_client_fn,
+                    call_maybe_thread_fn=_call_maybe_thread_fn,
+                    send_tools_this_round=send_tools_this_round,
+                    max_retries_429=max_retries_429,
+                    retry_base=retry_base,
+                    retry_cap=retry_cap,
+                    provider=provider,
+                )
+            )
         if not ok:
             return (
                 _RS_RETURN,
