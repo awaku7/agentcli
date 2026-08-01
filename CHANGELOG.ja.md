@@ -16,6 +16,7 @@
 
 ### 修正
 
+- fix(cli): CLI で連続する素早い human_ask 返信を保持 — 直前の human_ask 返信直後の stdin typeahead flush をスキップ（例: :skills の番号選択後の y 確認）し、素早い返信が破棄されないように修正。パスワードは常に flush
 - fix(bitchat): Phase 2-6 の pybitchat コンポーネントを実装 — `NoiseXXStateMachine` / `TransportCipher`（Noise XXハンドシェイク）、`sign_announce` / `verify_announce` / `PeerRegistry`、`MessageDeduplicator` / `RelayController`、`CourierEnvelope` / `CourierStore`（既存のFragment実装は維持）
 - fix(bitchat): `CourierStore.store()` がリロード前の `CourierEnvelope` インスタンスを受け付け（`tools.reload_plugins()` による再importに耐性）
 - fix(bitchat): ツールリロード後も `pybitchat_shared` のランタイム状態を保持 — `_load_plugins()` が既にimport済みのヘルパーモジュール（`TOOL_SPEC`/`run_tool` なし）を `importlib.reload()` しないよう変更。`_LLM_EVENT_QUEUE` / `_CHAT_MODE` / `_RUNNING` が `start_tools_warmup()` と `reload_plugins()` を跨いで生存する。chat_mode="llm" で受信メッセージが表示されるだけで LLM に注入されない不具合を修正

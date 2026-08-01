@@ -16,6 +16,7 @@
 
 ### Fixed
 
+- fix(cli): preserve fast consecutive human_ask replies in CLI — skip the stdin typeahead flush right after a previous human_ask reply (e.g. :skills number selection then y confirmation) so quick replies are not discarded; passwords always flush
 - fix(bitchat): implement missing Phase 2-6 pybitchat components — `NoiseXXStateMachine` / `TransportCipher` (Noise XX handshake), `sign_announce` / `verify_announce` / `PeerRegistry`, `MessageDeduplicator` / `RelayController`, `CourierEnvelope` / `CourierStore`; keep existing Fragment implementation
 - fix(bitchat): accept pre-reload `CourierEnvelope` instances in `CourierStore.store()` (tolerates `tools.reload_plugins()` re-imports)
 - fix(bitchat): keep `pybitchat_shared` runtime state alive across tool reloads — `_load_plugins()` no longer `importlib.reload()`s already-imported helper modules (no `TOOL_SPEC`/`run_tool`), so `_LLM_EVENT_QUEUE` / `_CHAT_MODE` / `_RUNNING` survive `start_tools_warmup()` and `reload_plugins()`; fixes chat_mode="llm" peer messages being displayed but never injected into the LLM
