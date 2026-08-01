@@ -5,6 +5,7 @@
     "param.payload.description": "Message content (text) or nickname (announce).",
     "param.recipient.description": "Optional recipient peer ID. None = broadcast.",
     "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'both'.",
+    "param.plain.description": "Force plain-text (unencrypted) DM. Skips the Noise handshake. Use when Noise handshake fails with the Android app.",
     "err.payload_required": "payload is required"
   },
   "ja": {
@@ -13,6 +14,7 @@
     "param.payload.description": "送信するペイロード。text の場合はメッセージ本文、announce の場合はニックネーム。",
     "param.recipient.description": "オプションの受信者ピアID。指定しない場合はブロードキャスト。",
     "param.via.description": "トランスポート: 'ble' (BLEメッシュ), 'nostr' (Nostrリレー), 'both' (両方)。",
+    "param.plain.description": "平文(暗号化なし)DMを強制します。Noiseハンドシェイクをスキップ。Androidアプリとのハンドシェイク失敗時に使用。",
     "err.payload_required": "payload が必要です"
   }
 }

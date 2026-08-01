@@ -78,6 +78,17 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Transport: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'both'.",
                     ),
                 },
+                "plain": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.plain.description",
+                        default=(
+                            "Force plain-text (unencrypted) DM. Skips the Noise handshake. "
+                            "Use when Noise handshake fails with the Android app."
+                        ),
+                    ),
+                },
             },
             "required": ["type", "payload"],
             "additionalProperties": False,
@@ -91,6 +102,7 @@ def run_tool(args: dict[str, Any]) -> str:
     payload = str(args.get("payload") or "").strip()
     recipient = args.get("recipient") or None
     via = str(args.get("via") or "ble").strip()
+    plain = bool(args.get("plain") or False)
 
     if not payload:
         return json.dumps(
@@ -106,7 +118,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 {"ok": False, "error": f"File not found: {payload}"},
                 ensure_ascii=False,
             )
-    enqueue_send(msg_type, payload, recipient=recipient, via=via)
+    enqueue_send(msg_type, payload, recipient=recipient, via=via, plain=plain)
 
     result = {
         "ok": True,
@@ -117,5 +129,7 @@ def run_tool(args: dict[str, Any]) -> str:
     }
     if recipient:
         result["recipient"] = recipient
+    if plain:
+        result["plain"] = True
 
     return json.dumps(result, ensure_ascii=False)

@@ -58,5 +58,11 @@ def show_reasoning(
         if provider and provider.islower()
         else (provider or "LLM")
     )
-    label = ("[" + display_provider + " Reasoning]" + "\n") if is_first else ""
-    out_fn(label + "\x1b[90m" + text + "\x1b[0m")
+    label = ("[" + display_provider + " Reasoning] ") if is_first else ""
+    # ANSI エスケープを付けない。ホスト（cmd/conhost/GUI 等）によって ESC が
+    # "?" に化けて "?[90m...?[0m" になるため、プレーンテキストで表示する。
+    # デルタごとに改行で閉じない: print_stream_delta (end="") が連結するため、
+    # DeepSeek の細かい reasoning デルタが1文字ずつの行になるのを防ぐ。
+    # [STATE] は core.print_status_line が _stream_line_open を見て
+    # 行を閉じてから表示するので、行の途中に割り込まない。
+    out_fn(label + text)

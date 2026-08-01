@@ -237,6 +237,13 @@ print_lock = threading.RLock()
 # True while a streaming delta is being written without a trailing newline.
 # Status lines wait for the next newline boundary to avoid mid-line injection.
 _stream_line_open = False
+# 手動プロンプト描画時に開いた行を追跡するフラグ。
+# prompt_toolkit を使わない手動描画パスで、[STATE] や bitchat 表示が
+# プロンプト行の直後に連結されるのを防ぐために使う。
+_prompt_line_open = False
+# 注入メッセージの LLM ラウンド完了後などに、stdin_loop が手動プロンプトを
+# 再描画すべきことを伝えるフラグ（bitchat chat_mode="llm" 用）。
+prompt_needs_redraw = False
 status_busy = False  # True while LLM/tools are processing
 status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 
@@ -494,7 +501,7 @@ def print_status_line() -> None:
       finish it with a newline (prefer waiting briefly for a natural newline).
     - In Web mode, status is delivered via WebSocket type=status; skip stderr.
     """
-    global status_busy, status_label, _stream_line_open
+    global status_busy, status_label, _stream_line_open, _prompt_line_open
 
     # Suppress status display while human_ask is active to avoid disrupting the prompt display
     with human_ask_lock:
@@ -527,6 +534,7 @@ def print_status_line() -> None:
     while True:
         with print_lock:
             line_open = _stream_line_open
+            prompt_open = _prompt_line_open
             timed_out = time.time() >= deadline
             if line_open and not timed_out:
                 pass
@@ -542,6 +550,19 @@ def print_status_line() -> None:
                         except Exception:
                             pass
                     _stream_line_open = False
+                if prompt_open:
+                    # 手動描画プロンプトの行を閉じる。これで [STATE] が
+                    # 「agentcli> [STATE] BUSY」のようにプロンプトの右に
+                    # 連結されるのを防ぐ。
+                    try:
+                        sys.stdout.write(nl)
+                        sys.stdout.flush()
+                    except Exception:
+                        try:
+                            print("", flush=True)
+                        except Exception:
+                            pass
+                    _prompt_line_open = False
                 # Color policy for [STATE] lines:
                 # - Default ON when TTY + (Windows: VT actually enabled).
                 # - Color-capable terminals get green IDLE / yellow BUSY.

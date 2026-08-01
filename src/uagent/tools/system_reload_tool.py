@@ -104,6 +104,14 @@ def run_tool(args: dict[str, Any]) -> str:
     stopped = _stop_running_backgrounds()
     try:
         pkg_name = __package__ or "src.uagent.tools"
+        # importlib.reload() はサブモジュールを再帰的に再ロードしないため、
+        # sys.modules に残った旧コード（例: pybitchat_shared.enqueue_send）が
+        # ツールから参照され続ける。パッケージ再ロード前にサブモジュールを
+        # sys.modules から外し、__init__.py のインポートで最新コードを
+        # 再インポートさせる。
+        for name in list(sys.modules):
+            if name.startswith(pkg_name + "."):
+                sys.modules.pop(name, None)
         mod = sys.modules.get(pkg_name)
         if mod is None:
             mod = importlib.import_module(pkg_name)

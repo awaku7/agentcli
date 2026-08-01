@@ -53,16 +53,29 @@ class NoiseCipherState:
         self._msg_count = 0
         self._max_msgs = 10000
 
+    def _nonce_bytes(self) -> bytes:
+        """96-bit nonce compatible with noise-java/southernstorm (Android).
+
+        Android ChaChaPolyCipherState builds the 96-bit nonce as:
+        [4 zero bytes][64-bit little-endian counter].  The Noise handshake
+        always uses nonce=0 so this only matters for transport encryption.
+        """
+        return b"\x00\x00\x00\x00" + self._n.to_bytes(8, "little")
+
     def encrypt_with_ad(self, ad: bytes, plaintext: bytes) -> bytes:
-        nonce = self._n.to_bytes(12, "little")
+        nonce = self._nonce_bytes()
         self._n += 1
         self._msg_count += 1
         return self._cipher.encrypt(nonce, plaintext, ad)
 
     def decrypt_with_ad(self, ad: bytes, ciphertext: bytes) -> bytes:
-        nonce = self._n.to_bytes(12, "little")
+        nonce = self._nonce_bytes()
         self._n += 1
         return self._cipher.decrypt(nonce, ciphertext, ad)
+
+    def set_nonce(self, n: int) -> None:
+        """Set the cipher counter (used for Android's explicit-nonce transport)."""
+        self._n = int(n)
 
     def rekey(self) -> None:
         """Rekey by encrypting zeros with current key (first 32 bytes)."""
@@ -149,20 +162,20 @@ class NoiseHandshakeState:
         self.e = X25519PrivateKey.generate()
         e_pub = self.e.public_key().public_bytes_raw()
 
-        # ee = DH(re, e)
+        # e token: MixHash(e_pub) FIRST (Noise XX: -> e, ee, s, es)
+        self._mix_hash(e_pub)
+
+        # ee token: DH(re, e) -> MixKey
         re_key = X25519PublicKey.from_public_bytes(self.re)
         ee = self.e.exchange(re_key)
         self._mix_key(ee)
 
-        # es = DH(re, s)
+        # s token: encrypt own static key with the cipher derived from ee
+        encrypted_s = self._encrypt_and_hash(self.s_pub)
+
+        # es token: DH(own static, remote ephemeral) AFTER encrypting s
         es = self.s.exchange(re_key)
         self._mix_key(es)
-
-        # Append e_pub
-        self._mix_hash(e_pub)
-
-        # Encrypt static public key
-        encrypted_s = self._encrypt_and_hash(self.s_pub)
 
         return e_pub + encrypted_s  # 32 + 48 = 80 bytes
 
@@ -171,13 +184,13 @@ class NoiseHandshakeState:
 
         Assumes re (remote ephemeral from msg2) is already set via process_message_2().
         """
-        # se = DH(s, re)
+        # s token: encrypt own static key with the current cipher (from es)
+        encrypted_s = self._encrypt_and_hash(self.s_pub)
+
+        # se token: DH(own static, remote ephemeral) AFTER encrypting s
         re_key = X25519PublicKey.from_public_bytes(self.re)
         se = self.s.exchange(re_key)
         self._mix_key(se)
-
-        # Encrypt static public key
-        encrypted_s = self._encrypt_and_hash(self.s_pub)
 
         # Split into send/recv cipher states
         self._split()
@@ -206,6 +219,7 @@ class NoiseHandshakeState:
     def process_message_2(self, data: bytes) -> bool:
         """Initiator processes handshake message 2: <- e, ee, s, es"""
         if len(data) < 80:  # 32 e_pub + 48 encrypted_s
+            print("[bitchat] [debug] HS: msg2 too short: %d" % len(data))
             return False
 
         e_pub = data[:32]
@@ -221,19 +235,29 @@ class NoiseHandshakeState:
         ee = e_key.exchange(re_key)
         self._mix_key(ee)
 
-        # es = DH(e, rs)  - we need the remote static key from announce
+        # Decrypt the remote static key with the cipher derived from ee
+        try:
+            remote_s = self._decrypt_and_hash(encrypted_s)
+        except Exception as exc:
+            print("[bitchat] [debug] HS: msg2 decrypt FAILED: %r" % (exc,))
+            print("[bitchat] [debug] HS: msg2 e_pub=%s" % e_pub.hex())
+            print("[bitchat] [debug] HS: msg2 s_enc=%s" % encrypted_s.hex())
+            print("[bitchat] [debug] HS: msg2 h=%s" % self.h.hex())
+            return False
+
+        # es = DH(e, rs) AFTER decrypting s
         if self.rs is None:
+            print("[bitchat] [debug] HS: msg2 rs is None")
             return False
         rs_key = X25519PublicKey.from_public_bytes(self.rs)
         es = e_key.exchange(rs_key)
         self._mix_key(es)
 
-        # Decrypt static key (but we already know it from announce)
-        try:
-            self._decrypt_and_hash(encrypted_s)
-        except Exception:
+        if remote_s != self.rs:
+            print("[bitchat] [debug] HS: msg2 rs mismatch")
+            print("[bitchat] [debug] HS:   remote_s=%s" % remote_s.hex())
+            print("[bitchat] [debug] HS:   self.rs =%s" % self.rs.hex())
             return False
-
         return True
 
     def process_message_3(self, data: bytes) -> bool:
@@ -243,19 +267,20 @@ class NoiseHandshakeState:
 
         encrypted_s = data[:48]
 
-        # se = DH(e, rs)  - we need remote static pubkey
+        # Decrypt the remote static key with the current cipher
+        try:
+            remote_s = self._decrypt_and_hash(encrypted_s)
+        except Exception:
+            return False
+
+        # se = DH(e, rs) AFTER decrypting s
         if self.rs is None:
             return False
         rs_key = X25519PublicKey.from_public_bytes(self.rs)
         se = self.e.exchange(rs_key)
         self._mix_key(se)
 
-        # Decrypt and verify static key
-        try:
-            remote_s = self._decrypt_and_hash(encrypted_s)
-            if remote_s != self.rs:
-                return False
-        except Exception:
+        if remote_s != self.rs:
             return False
 
         # Split
@@ -310,8 +335,10 @@ def encrypt_dm(session: NoiseHandshakeState, plaintext: bytes) -> bytes | None:
     if session.send_cipher is None:
         return None
     try:
-        # In Noise transport mode, encrypt with AD = zerolen (no additional data in packet)
-        return session.send_cipher.encrypt_with_ad(_ZEROLEN, plaintext)
+        # Android transport format: <nonce 4B big-endian><ciphertext>
+        n = session.send_cipher.nonce()
+        ct = session.send_cipher.encrypt_with_ad(_ZEROLEN, plaintext)
+        return n.to_bytes(4, "big") + ct
     except Exception:
         return None
 
@@ -321,6 +348,75 @@ def decrypt_dm(session: NoiseHandshakeState, ciphertext: bytes) -> bytes | None:
     if session.recv_cipher is None:
         return None
     try:
-        return session.recv_cipher.decrypt_with_ad(_ZEROLEN, ciphertext)
+        # Android transport format: <nonce 4B big-endian><ciphertext>
+        if len(ciphertext) < 4:
+            return None
+        n = int.from_bytes(ciphertext[:4], "big")
+        ct = ciphertext[4:]
+        session.recv_cipher.set_nonce(n)
+        return session.recv_cipher.decrypt_with_ad(_ZEROLEN, ct)
     except Exception:
         return None
+
+
+# ---- Private message TLV (Android/iOS PrivateMessagePacket compatible) ----
+
+# NoisePayload types (Android NoiseEncrypted.kt)
+_NOISE_PAYLOAD_PRIVATE_MESSAGE = 0x01
+_NOISE_PAYLOAD_READ_RECEIPT = 0x02
+_NOISE_PAYLOAD_DELIVERED = 0x03
+
+# PrivateMessagePacket TLV types
+_TLV_MESSAGE_ID = 0x00
+_TLV_CONTENT = 0x01
+
+
+def encode_private_message(message_id: str, content: str) -> bytes | None:
+    """Encode a DM as Android/iOS NoisePayload + PrivateMessagePacket TLV.
+
+    Format: [0x01][TLV: [0x00][len][msgID][0x01][len][content]]
+    len is a single byte (max 255), matching Android PrivateMessagePacket.
+    """
+    try:
+        mid = message_id.encode("utf-8")
+        body = content.encode("utf-8")
+        if len(mid) > 255 or len(body) > 255:
+            return None
+        tlv = (
+            bytes([_TLV_MESSAGE_ID, len(mid)]) + mid
+            + bytes([_TLV_CONTENT, len(body)]) + body
+        )
+        return bytes([_NOISE_PAYLOAD_PRIVATE_MESSAGE]) + tlv
+    except Exception:
+        return None
+
+
+def decode_private_message(data: bytes) -> tuple[str, str] | None:
+    """Decode NoisePayload + TLV to (message_id, content).
+
+    Returns None for non-PRIVATE_MESSAGE payloads (ACK/read receipt etc.)
+    or malformed data.
+    """
+    if not data:
+        return None
+    if data[0] != _NOISE_PAYLOAD_PRIVATE_MESSAGE:
+        return None
+    tlv = data[1:]
+    offset = 0
+    msg_id: str | None = None
+    content: str | None = None
+    while offset + 2 <= len(tlv):
+        t = tlv[offset]
+        ln = tlv[offset + 1]
+        offset += 2
+        if offset + ln > len(tlv):
+            return None
+        val = tlv[offset : offset + ln]
+        offset += ln
+        if t == _TLV_MESSAGE_ID:
+            msg_id = val.decode("utf-8", errors="replace")
+        elif t == _TLV_CONTENT:
+            content = val.decode("utf-8", errors="replace")
+    if msg_id is not None and content is not None:
+        return msg_id, content
+    return None

@@ -240,6 +240,41 @@ def _annotate_hook_result(result: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def _strip_surrogates(text: str) -> str:
+    """Replace lone surrogate code points (U+D800..U+DFFF) with U+FFFD.
+
+    Windows console clipboard can contain lone surrogates (e.g. when pasting
+    adb logcat output into the CLI). Feeding them to a subprocess stdin with
+    text=True raises UnicodeEncodeError ('utf-8' codec ... surrogates not
+    allowed) in subprocess._writerthread. Valid surrogate pairs (emoji) are
+    preserved.
+    """
+    if not isinstance(text, str):
+        return text
+    out: list[str] = []
+    changed = False
+    i = 0
+    n = len(text)
+    while i < n:
+        code = ord(text[i])
+        if 0xD800 <= code <= 0xDBFF:  # high surrogate
+            if i + 1 < n and 0xDC00 <= ord(text[i + 1]) <= 0xDFFF:
+                # Valid pair: keep both code points as-is.
+                out.append(text[i])
+                out.append(text[i + 1])
+                i += 2
+                continue
+            out.append("\ufffd")
+            changed = True
+        elif 0xDC00 <= code <= 0xDFFF:  # lone low surrogate
+            out.append("\ufffd")
+            changed = True
+        else:
+            out.append(text[i])
+        i += 1
+    return "".join(out) if changed else text
+
+
 def _execute_command_hook(
     hook: dict[str, Any],
     *,
@@ -283,7 +318,7 @@ def _execute_command_hook(
         }
         # Feed stdin when provided (UserPromptSubmit JSON, etc.).
         if stdin_data is not None:
-            run_kwargs["input"] = stdin_data
+            run_kwargs["input"] = _strip_surrogates(stdin_data)
         result = subprocess.run(expanded, **run_kwargs)
         return {
             "ok": result.returncode == 0,

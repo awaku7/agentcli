@@ -60,12 +60,14 @@ from .util_tools import (
     get_verbosity_mode,
     apply_reasoning_arg,
     apply_verbosity_arg,
+    extract_last_assistant_text,
     _run_auto_pilot_loop,
 )
 
 from .tools.pybitchat_shared import (
     forward_to_mesh,
     is_chat_mode,
+    reply_to_mesh,
     set_llm_event_queue,
 )
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
@@ -815,6 +817,11 @@ class ScheckWorker(QtCore.QObject):
                                     append_result_to_outfile_fn=append_result_to_outfile,
                                     try_open_images_from_text_fn=lambda _: None,
                                 )
+                            # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
+                            if ev.get("src") == "bitchat":
+                                _reply = extract_last_assistant_text(self.messages)
+                                if _reply:
+                                    reply_to_mesh(_reply)
                             continue
 
                         # Fallback: analyze_image tool -> text injection
@@ -865,6 +872,11 @@ class ScheckWorker(QtCore.QObject):
                                     append_result_to_outfile_fn=append_result_to_outfile,
                                     try_open_images_from_text_fn=lambda _: None,
                                 )
+                            # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
+                            if ev.get("src") == "bitchat":
+                                _reply = extract_last_assistant_text(self.messages)
+                                if _reply:
+                                    reply_to_mesh(_reply)
                 except QueueEmpty:
                     continue
                 except Exception:
