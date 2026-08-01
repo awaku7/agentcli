@@ -728,6 +728,7 @@ def stdin_loop() -> None:
     """
     user_multiline_active = False
     user_lines: list[str] = []
+    _last_ha_reply_mono = 0.0
 
     while True:
         _skip = False
@@ -763,8 +764,13 @@ def stdin_loop() -> None:
                         line = _getpass_fallback("[PASSWORD] > ")
             else:
                 # When replying to a prompt (human_ask), flush any pending typeahead
-                # to prevent unintended immediate submission.
-                if is_reply:
+                # to prevent unintended immediate submission. Skip the flush right
+                # after a previous reply (e.g. :skills number selection then 'y'
+                # confirmation) so fast consecutive replies are not discarded.
+                if is_reply and (
+                    is_password
+                    or time.monotonic() - _last_ha_reply_mono >= 2.0
+                ):
                     _flush_stdin_input_buffer()
 
                 # NOTE: If LLM/Tools response start conflicts with stdin_loop, only the prompt
@@ -1067,6 +1073,7 @@ def stdin_loop() -> None:
                     with core.human_ask_lock:
                         if core.human_ask_queue:
                             core.human_ask_queue.put(line)
+                    _last_ha_reply_mono = time.monotonic()
 
                     # If we enter the next input() before human_ask_tool sets human_ask_active back to False in finally,
                     # an extra [REPLY] > might be displayed.
