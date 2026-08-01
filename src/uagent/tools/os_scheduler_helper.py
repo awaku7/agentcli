@@ -9,6 +9,7 @@ import uuid
 from datetime import datetime
 from typing import Any
 
+from ..util_tools import strip_surrogates
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -320,7 +321,7 @@ def _run_at(cmd: str, at_dt: datetime) -> dict[str, Any]:
     try:
         proc = subprocess.run(
             ["at", f"{time_str} {date_str}"],
-            input=cmd + "\n",
+            input=strip_surrogates(cmd) + "\n",
             capture_output=True,
             text=True,
             timeout=15,

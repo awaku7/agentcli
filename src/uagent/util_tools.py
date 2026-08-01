@@ -32,6 +32,41 @@ from .tools.context import ToolCallbacks, get_callbacks
 # Kept as a separate name for backward-compatibility.
 tr = _
 tr_ = _
+def strip_surrogates(text: str) -> str:
+    """Replace lone surrogate code points (U+D800..U+DFFF) with U+FFFD.
+
+    Windows console clipboard can contain lone surrogates (e.g. when pasting
+    terminal output into the CLI). Feeding them to a subprocess stdin with
+    text=True, or writing them to a prompt_toolkit FileHistory, raises
+    UnicodeEncodeError ('utf-8' codec ... surrogates not allowed). Valid
+    surrogate pairs (emoji) are preserved.
+    """
+    if not isinstance(text, str):
+        return text
+    out: list[str] = []
+    changed = False
+    i = 0
+    n = len(text)
+    while i < n:
+        code = ord(text[i])
+        if 0xD800 <= code <= 0xDBFF:  # high surrogate
+            if i + 1 < n and 0xDC00 <= ord(text[i + 1]) <= 0xDFFF:
+                # Valid pair: keep both code points as-is.
+                out.append(text[i])
+                out.append(text[i + 1])
+                i += 2
+                continue
+            out.append("\ufffd")
+            changed = True
+        elif 0xDC00 <= code <= 0xDFFF:  # lone low surrogate
+            out.append("\ufffd")
+            changed = True
+        else:
+            out.append(text[i])
+        i += 1
+    return "".join(out) if changed else text
+
+
 
 
 @dataclass
@@ -555,6 +590,41 @@ _DISPLAY_REASONING: bool = True
 def get_display_reasoning() -> bool:
     """Return whether reasoning content should be displayed to the user."""
     return _DISPLAY_REASONING
+
+
+def extract_last_assistant_text(messages: list) -> str:
+    """messages 末尾から最後の assistant テキスト応答を取り出す。
+
+    tool 呼び出しのみの assistant メッセージはスキップし、最後の
+    テキスト応答を返す。content がリスト (マルチモーダル) の場合は
+    text パートを連結する。bitchat への自動返信などに使う。
+    """
+    for msg in reversed(messages):
+        if not isinstance(msg, dict):
+            continue
+        if msg.get("role") != "assistant":
+            continue
+        if msg.get("tool_calls"):
+            continue
+        content = msg.get("content")
+        if isinstance(content, str):
+            text = content.strip()
+        elif isinstance(content, list):
+            parts: list[str] = []
+            for item in content:
+                if isinstance(item, str):
+                    parts.append(item)
+                elif isinstance(item, dict):
+                    if isinstance(item.get("text"), str):
+                        parts.append(item["text"])
+                    elif isinstance(item.get("content"), str):
+                        parts.append(item["content"])
+            text = "".join(parts).strip()
+        else:
+            continue
+        if text:
+            return text
+    return ""
 
 
 def apply_reasoning_arg(arg: str) -> str:

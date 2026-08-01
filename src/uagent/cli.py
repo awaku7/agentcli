@@ -27,7 +27,6 @@ except ImportError:
     def ensure_mcp_config_template():
         pass  # type: ignore
 
-
 # OpenAI / Azure OpenAI / Google Gemini (google-genai)
 # These are imported lazily inside the functions that actually need them to speed up CLI startup.
 OpenAI = None
@@ -45,6 +44,7 @@ from uagent.utils.paths import get_history_file_path
 from .tools.pybitchat_shared import (
     forward_to_mesh,
     is_chat_mode,
+    reply_to_mesh,
     set_llm_event_queue,
 )
 
@@ -60,7 +60,6 @@ from .util_tools import (
 
 # Import scheck_core
 core = importlib.import_module(".core", package="uagent")
-
 
 _startup_args, _startup_unknown = _parse_startup_args()
 _cli_workdir = _startup_args.get("workdir")
@@ -83,7 +82,6 @@ else:
     _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
     core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
-
 # NOTE(Mode A): workdir initialization (mkdir/chdir + startup info) is performed inside main()
 # under startup stdout/stderr capture, so importing this module does not change CWD.
 
@@ -94,9 +92,8 @@ _PROMPT_SESSION: Any = None
 _PROMPT_REPLY_SESSION: Any = None
 _PROMPT_HISTORY: list[str] = []
 
-
 def _append_prompt_history_entry(text: str) -> None:
-    normalized = (text or "").replace("\r", "").strip()
+    normalized = tools_util.strip_surrogates((text or "").replace("\r", "").strip())
     if not normalized:
         return
     if normalized not in _PROMPT_HISTORY:
@@ -113,7 +110,6 @@ def _append_prompt_history_entry(text: str) -> None:
             except Exception:
                 pass
 
-
 def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
     for msg in messages:
         if msg.get("role") != "user":
@@ -122,9 +118,8 @@ def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
         if isinstance(content, str):
             _append_prompt_history_entry(content)
 
-
 def _persist_prompt_history_entry(text: str) -> None:
-    normalized = (
+    normalized = tools_util.strip_surrogates(
         (text or "")
         .replace(
             "\
@@ -157,7 +152,6 @@ def _persist_prompt_history_entry(text: str) -> None:
                 )
     except Exception:
         pass
-
 
 def _get_prompt_session(*, reply: bool = False) -> Any:
     global _PROMPT_SESSION, _PROMPT_REPLY_SESSION
@@ -202,6 +196,12 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
             return None
 
         try:
+            class _SafeFileHistory(FileHistory):
+                """FileHistory that strips lone surrogates before disk write."""
+
+                def append_string(self, string: str) -> None:
+                    super().append_string(tools_util.strip_surrogates(string))
+
             # Custom completer: :ls/:cd → path completion, others → command completion
             class _CommandCompleter(Completer):
                 def get_completions(self, document, complete_event):
@@ -483,7 +483,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 yield Completion(":" + c, start_position=-len(text))
 
             session = PromptSession(
-                history=FileHistory(str(get_history_file_path())),
+                history=_SafeFileHistory(str(get_history_file_path())),
                 completer=_CommandCompleter(),
             )
             for entry in _PROMPT_HISTORY:
@@ -496,7 +496,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
             _PROMPT_SESSION = False
             return None
     return _PROMPT_SESSION
-
 
 def _prompt_toolkit_input(
     prompt: str, *, is_password: bool = False, reply: bool = False
@@ -523,8 +522,12 @@ def _prompt_toolkit_input(
     try:
         if patch_stdout is not None:
             with patch_stdout():
-                return session.prompt(prompt, is_password=is_password, key_bindings=kb)
-        return session.prompt(prompt, is_password=is_password, key_bindings=kb)
+                result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
+        else:
+            result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
+        if result is not None and not is_password:
+            result = tools_util.strip_surrogates(result)
+        return result
     except EOFError:
         raise
     except KeyboardInterrupt:
@@ -532,9 +535,7 @@ def _prompt_toolkit_input(
     except Exception:
         return None
 
-
 setattr(core, "prompt_history_append", _append_prompt_history_entry)
-
 
 def _flush_stdin_input_buffer() -> None:
     """Best-effort flush of *pending* user keystrokes before a prompt.
@@ -589,7 +590,6 @@ def _flush_stdin_input_buffer() -> None:
     except Exception:
         pass
 
-
 def _can_use_textarea() -> bool:
     """Check if prompt_toolkit TextArea can be used for multiline editing."""
     try:
@@ -599,7 +599,6 @@ def _can_use_textarea() -> bool:
         return sys.stdin.isatty()
     except ImportError:
         return False
-
 
 def _multiline_editor(initial_text: str = "") -> str | None:
     """Open a prompt_toolkit TextArea for multiline editing (non-fullscreen).
@@ -654,7 +653,6 @@ def _multiline_editor(initial_text: str = "") -> str | None:
         return None
     except Exception:
         return None
-
 
 def _getpass_fallback(prompt: str) -> str:
     """Fallback for environments where getpass.getpass cannot disable echo back (e.g. isatty=False)."""
@@ -714,7 +712,6 @@ def _getpass_fallback(prompt: str) -> str:
     else:
         print(prompt, end="", flush=True)
         return getpass.getpass("")
-
 
 def stdin_loop() -> None:
     """
@@ -836,16 +833,25 @@ def stdin_loop() -> None:
                         "on",
                     )
                     prompt_session = _get_prompt_session()
+                    # bitchat chat_mode="llm" 中は prompt_toolkit を無効化する。
+                    # プロンプト表示中に注入メッセージの LLM ラウンドが始まると、
+                    # patch_stdout がストリーム毎にプロンプトを再描画して
+                    # Reasoning/アシスタント表示が乱れる。手動パスなら行の
+                    # 追跡・再描画を制御できる。
+                    _chat_mode_active = is_chat_mode() == "llm"
                     if (
                         prompt_session is not None
                         and sys.stdin.isatty()
                         and not use_simple_prompt
+                        and not _chat_mode_active
                     ):
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
 
                             with patch_stdout():
                                 line = prompt_session.prompt(prompt)
+                            if line is not None:
+                                line = tools_util.strip_surrogates(line)
                         except Exception:
                             line = None
                     else:
@@ -865,6 +871,14 @@ def stdin_loop() -> None:
                                     print(prompt, end="", flush=True)
                                 except Exception:
                                     pass
+                            # 手動描画プロンプトの行を「開いている」と記録する。
+                            # print_status_line / bitchat 表示ワーカーが
+                            # プロンプト行の直後に出力を連結しないよう改行で
+                            # 閉じてから出力する。
+                            try:
+                                core._prompt_line_open = True
+                            except Exception:
+                                pass
                         if os.name == "nt":
                             try:
                                 import msvcrt  # type: ignore
@@ -873,10 +887,38 @@ def stdin_loop() -> None:
                                     with core.human_ask_lock:
                                         if core.human_ask_active:
                                             break
+                                    # 注入メッセージのラウンド等でプロンプト行が
+                                    # 閉じられた場合、アイドルになったら再描画する。
+                                    if (
+                                        getattr(core, "prompt_needs_redraw", False)
+                                        and not getattr(core, "status_busy", False)
+                                    ):
+                                        with core.print_lock:
+                                            if (
+                                                getattr(core, "prompt_needs_redraw", False)
+                                                and not getattr(core, "status_busy", False)
+                                            ):
+                                                core.prompt_needs_redraw = False
+                                                try:
+                                                    if out:
+                                                        out.write(prompt)
+                                                        out.flush()
+                                                    else:
+                                                        print(prompt, end="", flush=True)
+                                                except Exception:
+                                                    pass
+                                                try:
+                                                    core._prompt_line_open = True
+                                                except Exception:
+                                                    pass
                                     if msvcrt.kbhit():
                                         line = sys.stdin.readline()
                                         if line == "":
                                             raise EOFError
+                                        try:
+                                            core._prompt_line_open = False
+                                        except Exception:
+                                            pass
                                         break
                                     time.sleep(0.1)
                             except EOFError:
@@ -893,11 +935,37 @@ def stdin_loop() -> None:
                                     with core.human_ask_lock:
                                         if core.human_ask_active:
                                             break
+                                    if (
+                                        getattr(core, "prompt_needs_redraw", False)
+                                        and not getattr(core, "status_busy", False)
+                                    ):
+                                        with core.print_lock:
+                                            if (
+                                                getattr(core, "prompt_needs_redraw", False)
+                                                and not getattr(core, "status_busy", False)
+                                            ):
+                                                core.prompt_needs_redraw = False
+                                                try:
+                                                    if out:
+                                                        out.write(prompt)
+                                                        out.flush()
+                                                    else:
+                                                        print(prompt, end="", flush=True)
+                                                except Exception:
+                                                    pass
+                                                try:
+                                                    core._prompt_line_open = True
+                                                except Exception:
+                                                    pass
                                     r, _w, _x = select.select([sys.stdin], [], [], 0.05)
                                     if r:
                                         line = sys.stdin.readline()
                                         if line == "":
                                             raise EOFError
+                                        try:
+                                            core._prompt_line_open = False
+                                        except Exception:
+                                            pass
                                         break
                             except EOFError:
                                 raise
@@ -1058,7 +1126,6 @@ def stdin_loop() -> None:
             core.event_queue.put({"kind": "user", "text": line})
         else:
             user_lines.append(line)
-
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -1335,6 +1402,18 @@ def main() -> None:
                     )
                 except Exception as exc:
                     print(f"[bitchat] LLM round interrupted: {exc}")
+
+                # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
+                if ev.get("src") == "bitchat":
+                    reply = tools_util.extract_last_assistant_text(messages)
+                    if reply:
+                        reply_to_mesh(reply)
+                    # 注入ラウンド中に手動プロンプトの行が閉じられているため、
+                    # アイドルに戻ったら stdin_loop に再描画を要求する。
+                    try:
+                        core.prompt_needs_redraw = True
+                    except Exception:
+                        pass
                 continue
 
             print(
@@ -1383,7 +1462,6 @@ def main() -> None:
         except Exception:
             pass
         print(_("Exited uag."))
-
 
 if __name__ == "__main__":
     main()
