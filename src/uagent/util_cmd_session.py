@@ -1,0 +1,1017 @@
+"""Session / memory / skill related :commands (skills, clean, load, shrink, mem, ...).
+
+Moved from util_tools.py.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+import unicodedata
+from typing import Any
+
+from . import tools
+from .env_utils import env_get
+from .i18n import _
+from .tools import long_memory as personal_long_memory
+from .tools import shared_memory
+from .tools.context import get_callbacks
+from .util_common import CommandResult
+from .util_message import (
+    _clear_skill_messages,
+    _extract_last_cwd_from_messages,
+    _format_cwd_system_content,
+    _format_skill_system_content,
+    _insert_cwd_system_message,
+    _read_raw_log_messages,
+    _skills_marker_prefix,
+    insert_tools_system_message,
+)
+
+# Default translation function used when core.tr is not provided.
+tr = _
+tr_ = _
+
+
+def _handle_cmd_skills(
+    arg: str,
+    messages_ref: list[dict[str, Any]],
+    client: Any,
+    depname: str,
+    *,
+    core: Any,
+    tr: Any,
+) -> CommandResult:
+    # Try dynamic subcommands (e.g., install, uninstall)
+    res = tools.handle_dynamic_command(
+        "skills",
+        arg,
+        messages_ref=messages_ref,
+        client=client,
+        depname=depname,
+        core=core,
+        tr=tr,
+    )
+    if res is not None:
+        return res
+
+    a = (arg or "").strip()
+    if a.lower() in ("clear", "off", "unset", "reset"):
+        removed = _clear_skill_messages(messages_ref)
+        if removed <= 0:
+            print(_("[skills] No active skill messages to clear."))
+            return CommandResult()
+        _persist_messages_with_warn(messages_ref, core=core, label="skills")
+        print(_("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
+        return CommandResult()
+
+    if a.lower() in ("active", "status", "show", "list"):
+        prefix = _skills_marker_prefix()
+        active = []
+        for m in messages_ref or []:
+            if not isinstance(m, dict):
+                continue
+            if m.get("role") != "system":
+                continue
+            content = m.get("content")
+            if not isinstance(content, str):
+                continue
+            if not content.startswith(prefix):
+                continue
+            # Show header only (first line)
+            line = content.splitlines()[0].strip()
+            if line.startswith(prefix):
+                line = line[len(prefix) :].strip()
+            active.append(line)
+
+        if not active:
+            print(_("[skills] No active skills."))
+            return CommandResult()
+
+        print(_("[skills] Active skills: %(n)d") % {"n": len(active)})
+        for i, line in enumerate(active, start=1):
+            print(_("[%(i)d] %(line)s") % {"i": i, "line": line})
+        return CommandResult()
+
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+        from uagent.tools.skills_list_tool import run_tool as skills_list_tool
+        from uagent.tools.skills_load_tool import run_tool as skills_load_tool
+
+        try:
+            from uagent.tools import tools as loaded_tools
+        except Exception:
+            loaded_tools = None
+
+        res_json = skills_list_tool(
+            {
+                "root_dir": "",
+                "recursive": True,
+                "include_invalid": True,
+                "strict": False,
+            }
+        )
+        items = json.loads(res_json)
+        if not isinstance(items, list):
+            items = []
+
+        # Filter by keyword if provided (e.g. :skills list forecast, :skills find forecast)
+        search_keyword = ""
+        a_lower = a.strip().lower()
+        for prefix in ("list ", "find ", "search ", "grep "):
+            if a_lower.startswith(prefix):
+                search_keyword = a_lower[len(prefix) :].strip()
+                break
+        if search_keyword:
+            filtered = []
+            for it in items:
+                if not isinstance(it, dict):
+                    continue
+                name = (it.get("name") or "").lower()
+                desc = (it.get("description") or "").lower()
+                if search_keyword in name or search_keyword in desc:
+                    filtered.append(it)
+            if filtered:
+                items = filtered
+            else:
+                print(
+                    _("[skills] No skills matching '%(kw)s'.") % {"kw": search_keyword}
+                )
+                return CommandResult()
+
+        if not items:
+            print(_("[skills] No skills found."))
+            return CommandResult()
+
+        selected_idx: int | None = None
+        a_norm = unicodedata.normalize("NFKC", a).strip()
+        # Check if arg is a number for direct selection
+        if a_norm.isdigit():
+            n = int(a_norm)
+            if 1 <= n <= len(items):
+                selected_idx = n - 1
+            else:
+                print(_("[skills] Out of range: %(n)d") % {"n": n})
+                return CommandResult()
+
+        # If not direct selection, show list and ask
+        if selected_idx is None:
+            print(_("[skills] Found %(n)d skills") % {"n": len(items)})
+            for i, it in enumerate(items, start=1):
+                if not isinstance(it, dict):
+                    continue
+                name = it.get("name") or "(unknown)"
+                desc = it.get("description") or ""
+                ok = bool(it.get("ok"))
+                ok_mark = "OK" if ok else "WARN"
+                print(
+                    _("[%(i)d] (%(ok)s) %(name)s: %(desc)s")
+                    % {"i": i, "ok": ok_mark, "name": name, "desc": desc}
+                )
+
+            sel_msg = _(
+                "Select a skill number to run. Enter c to cancel.\n"
+                "Tip: :skills clear  (remove applied skills)\n"
+                "Enter number:"
+            )
+
+            while selected_idx is None:
+                sel_json = human_ask({"message": sel_msg})
+                sel = json.loads(sel_json)
+                user_reply = unicodedata.normalize(
+                    "NFKC", (sel.get("user_reply") or "")
+                ).strip()
+                low = user_reply.lower()
+                if low in ("c", "cancel"):
+                    print(_("[skills] Cancelled."))
+                    return CommandResult()
+                if not user_reply.isdigit():
+                    print(_("[skills] Please enter a number or c."))
+                    continue
+                n = int(user_reply)
+                if n < 1 or n > len(items):
+                    print(_("[skills] Out of range: %(n)d") % {"n": n})
+                    continue
+                selected_idx = n - 1
+
+        skill = items[selected_idx]
+        if not isinstance(skill, dict):
+            print(_("[skills] Invalid selection."))
+            return CommandResult()
+
+        name = skill.get("name") or "(unknown)"
+        skill_dir = skill.get("path")
+        if not isinstance(skill_dir, str) or not skill_dir.strip():
+            print(_("[skills] Selected skill has no path."))
+            return CommandResult()
+
+        confirm_msg = _(
+            "Run this skill as a system-level instruction and keep it active in this session?\n\n"
+            "Name: %(name)s\n"
+            "Path: %(path)s\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        ) % {"name": name, "path": os.path.abspath(skill_dir)}
+
+        conf_json = human_ask({"message": confirm_msg})
+        conf = json.loads(conf_json)
+        conf_reply = (conf.get("user_reply") or "").strip().lower()
+        if conf_reply not in ("y", "yes"):
+            print(_("[skills] Cancelled."))
+            return CommandResult()
+
+        doc_json = skills_load_tool({"skill_dir": skill_dir})
+        doc = json.loads(doc_json)
+        if not isinstance(doc, dict):
+            raise ValueError("skills_load returned non-dict")
+
+        try:
+            tool_specs = (
+                loaded_tools.get_tool_specs() if loaded_tools is not None else []
+            )
+        except Exception:
+            tool_specs = []
+        has_finish_skill = any(
+            isinstance(spec, dict)
+            and isinstance(spec.get("function"), dict)
+            and spec["function"].get("name") == "finish_skill"
+            for spec in (tool_specs or [])
+        )
+        content = _format_skill_system_content(
+            skill=skill,
+            doc=doc,
+            include_finish_skill=has_finish_skill,
+        )
+
+        skill_system_msg = {"role": "system", "content": content}
+        _insert_cwd_system_message(messages_ref, skill_system_msg)
+
+        _persist_messages_with_warn(messages_ref, core=core, label="skills")
+        print(_("[skills] Applied: %(name)s") % {"name": name})
+        return CommandResult(run_llm=True)
+
+    except Exception as e:
+        print(
+            _("[skills error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+
+    return CommandResult()
+
+
+def _default_clean_threshold() -> int:
+    """Default max user-turn count for short-log cleanup.
+
+    Override with UAGENT_CLEAN_THRESHOLD (positive int). Falls back to 5.
+    """
+    raw = (env_get("UAGENT_CLEAN_THRESHOLD", "") or "").strip()
+    if raw:
+        try:
+            n = int(raw)
+            if n >= 0:
+                return n
+        except Exception:
+            pass
+    return 5
+
+
+def _count_user_turns(messages: list[Any] | None) -> int:
+    """Count user turns (role == user). Commands/system/tool rows are ignored."""
+    n = 0
+    for m in messages or []:
+        if isinstance(m, dict) and m.get("role") == "user":
+            n += 1
+    return n
+
+
+def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
+    threshold = _default_clean_threshold()
+    a = (arg or "").strip()
+    if not a:
+        return threshold
+
+    try:
+        return int(a)
+    except Exception:
+        print(
+            tr(
+                "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
+            )
+            % {"arg": a, "default": threshold}
+        )
+        return None
+
+
+def _collect_clean_targets(
+    *,
+    core: Any,
+    threshold: int,
+    tr: Any,
+) -> tuple[bool, list[str], dict[str, int]]:
+    try:
+        log_files = core.find_log_files(exclude_current=False)
+    except Exception as e:
+        print(
+            _("[clean error] Failed to get log list: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return False, [], {}
+
+    targets: list[str] = []
+    counts: dict[str, int] = {}
+
+    for p in log_files:
+        try:
+            msgs = core.load_conversation_from_log(p)
+            user_turns = _count_user_turns(msgs)
+            counts[p] = user_turns
+            if user_turns <= threshold:
+                targets.append(p)
+        except Exception as e:
+            print(
+                _("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
+                % {"path": p, "etype": type(e).__name__, "err": e}
+            )
+
+    return True, targets, counts
+
+
+def _confirm_clean_delete(
+    *, core: Any, threshold: int, targets: list[str], tr: Any
+) -> bool:
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+
+        cmd = ":clean"
+        body_tpl = _(
+            "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+            "Log dir: %(dir)s\n"
+            "Rule: user turns (role=user) <= %(threshold)d\n"
+            "Targets: %(n)d\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        )
+        body = (tr(body_tpl) if callable(tr) else body_tpl) % {
+            "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+            "threshold": threshold,
+            "n": len(targets),
+        }
+        res_json = human_ask({"message": f"{cmd} {body}"})
+        res = json.loads(res_json)
+        user_reply = (res.get("user_reply") or "").strip().lower()
+        if user_reply not in ("y", "yes"):
+            print(_("[clean] Cancelled."))
+            return False
+        return True
+    except Exception as e:
+        print(
+            _("[clean error] Confirmation failed: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return False
+
+
+def _delete_clean_targets(targets: list[str], *, tr: Any) -> tuple[int, int]:
+    deleted = 0
+    failed = 0
+    for p in targets:
+        try:
+            os.remove(p)
+            deleted += 1
+        except Exception as e:
+            failed += 1
+            print(
+                _("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
+                % {"path": p, "etype": type(e).__name__, "err": e}
+            )
+
+    return deleted, failed
+
+
+def _maybe_discard_short_session_log(
+    *,
+    core: Any,
+    messages_ref: list[dict[str, Any]],
+    tr: Any,
+) -> None:
+    """On exit, drop the current session log if it has few user turns.
+
+    Silent no-op when the log is missing or above threshold. No confirmation
+    (exit path); threshold matches :clean default / UAGENT_CLEAN_THRESHOLD.
+    """
+    threshold = _default_clean_threshold()
+    user_turns = _count_user_turns(messages_ref)
+    if user_turns > threshold:
+        return
+
+    log_path = getattr(core, "LOG_FILE", None)
+    if not isinstance(log_path, str) or not log_path:
+        return
+    if not os.path.exists(log_path):
+        return
+
+    try:
+        os.remove(log_path)
+        print(
+            tr(
+                "[clean] Discarded short session log (user turns=%(n)d <= %(threshold)d): %(path)s"
+            )
+            % {"n": user_turns, "threshold": threshold, "path": log_path}
+        )
+    except Exception as e:
+        print(
+            _(
+                "[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)"
+            )
+            % {"path": log_path, "etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+
+def _sweep_short_session_logs(
+    *,
+    core: Any,
+    tr: Any,
+    exclude_current: bool = True,
+    quiet: bool = False,
+) -> tuple[int, int]:
+    """Delete leftover short session logs without confirmation.
+
+    Intended for startup (crashed/killed sessions) and other maintenance paths.
+    Current session is excluded by default so a fresh log is never removed.
+    Returns (deleted, failed).
+    """
+    threshold = _default_clean_threshold()
+    try:
+        log_files = core.find_log_files(exclude_current=exclude_current)
+    except Exception as e:
+        if not quiet:
+            print(
+                _(
+                    "[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s"
+                )
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+        return 0, 0
+
+    targets: list[str] = []
+    for path in log_files:
+        try:
+            msgs = core.load_conversation_from_log(path)
+            if _count_user_turns(msgs) <= threshold:
+                targets.append(path)
+        except Exception as e:
+            if not quiet:
+                print(
+                    _(
+                        "[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                    )
+                    % {"path": path, "etype": type(e).__name__, "err": e}
+                )
+
+    if not targets:
+        return 0, 0
+
+    deleted, failed = _delete_clean_targets(targets, tr=tr)
+    if not quiet and (deleted or failed):
+        print(
+            tr(
+                "[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
+                "(threshold=%(threshold)d user turns)."
+            )
+            % {"deleted": deleted, "failed": failed, "threshold": threshold}
+        )
+    return deleted, failed
+
+
+def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
+    threshold = _parse_clean_threshold(arg, tr=tr)
+    if threshold is None:
+        return True
+
+    ok, targets, counts = _collect_clean_targets(core=core, threshold=threshold, tr=tr)
+    if not ok:
+        return True
+
+    if not targets:
+        print(
+            _(
+                "[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s"
+            )
+            % {
+                "threshold": threshold,
+                "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+            }
+        )
+        return True
+
+    print(
+        _("[clean] Logs to delete (<= %(threshold)d user turns): %(n)d")
+        % {"threshold": threshold, "n": len(targets)}
+    )
+    for p in targets:
+        c = counts.get(p, -1)
+        print(tr(" - (%(count)d user turns) %(path)s") % {"count": c, "path": p})
+
+    if not _confirm_clean_delete(
+        core=core, threshold=threshold, targets=targets, tr=tr
+    ):
+        return True
+
+    deleted, failed = _delete_clean_targets(targets, tr=tr)
+    print(
+        _("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
+        % {"deleted": deleted, "failed": failed}
+    )
+    return True
+
+
+def _prepend_loaded_log_to_current(
+    *,
+    core: Any,
+    source_log_path: str,
+    tr: Any,
+) -> None:
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+
+        cur_log = getattr(core, "LOG_FILE", None)
+        if not isinstance(cur_log, str) or not cur_log:
+            return
+
+        cmd = ":load"
+        body_tpl = _(
+            "will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
+            "Current log: %(cur_log)s\n"
+            "Source log: %(src_log)s\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        )
+        body = (tr(body_tpl) if callable(tr) else body_tpl) % {
+            "cur_log": cur_log,
+            "src_log": source_log_path,
+        }
+        res_json2 = human_ask({"message": f"{cmd} {body}"})
+        res2 = json.loads(res_json2)
+        user_reply2 = (res2.get("user_reply") or "").strip().lower()
+        if user_reply2 not in ("y", "yes"):
+            print(_("[load] Prepend to current log was cancelled."))
+            return
+
+        loaded_lines: list[str] = []
+        try:
+            with open(source_log_path, encoding="utf-8") as f:
+                loaded_lines = f.read().splitlines(True)
+        except Exception as e:
+            print(
+                _("[load warn] Failed to read source log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+            loaded_lines = []
+
+        cur_lines: list[str] = []
+        try:
+            if os.path.exists(cur_log):
+                with open(cur_log, encoding="utf-8") as f:
+                    cur_lines = f.read().splitlines(True)
+        except Exception as e:
+            print(
+                _("[load warn] Failed to read current log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+            cur_lines = []
+
+        marker = {
+            "role": "system",
+            "content": f"[LOG] :load prepend source={os.path.abspath(source_log_path)}",
+        }
+        marker_line = json.dumps(marker, ensure_ascii=False) + "\n"
+
+        try:
+            os.makedirs(os.path.dirname(cur_log) or ".", exist_ok=True)
+            with open(cur_log, "w", encoding="utf-8") as f:
+                f.write(marker_line)
+                for ln in loaded_lines:
+                    f.write(ln)
+                for ln in cur_lines:
+                    f.write(ln)
+            print(_("[load] Prepended to current log: %(path)s") % {"path": cur_log})
+        except Exception as e:
+            print(
+                _("[load warn] Failed to rewrite current log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+            return
+    except Exception as e:
+        print(
+            _("[load error] Failed: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return
+
+
+def _handle_cmd_load(
+    arg: str,
+    messages_ref: list[dict[str, Any]],
+    *,
+    core: Any,
+    tr: Any,
+) -> bool:
+    if not arg:
+        print(_(":load <index|path>"))
+        return True
+
+    files = core.find_log_files(exclude_current=True)
+    if arg.isdigit():
+        idx = int(arg)
+        if idx < 0 or idx >= len(files):
+            print(tr("Specified index %(idx)d is out of range.") % {"idx": idx})
+            return True
+        target_path = files[idx]
+    else:
+        target_path = arg
+
+    try:
+        new_messages = core.load_conversation_from_log(target_path)
+    except FileNotFoundError:
+        print(tr("Log file not found: %(path)s") % {"path": target_path})
+        return True
+    except Exception as e:
+        print(
+            _("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+
+    new_messages = insert_tools_system_message(new_messages, core=core)
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+
+    try:
+        cb = get_callbacks()
+        append_history = getattr(cb, "prompt_history_append", None)
+        if callable(append_history):
+            for msg in new_messages:
+                if msg.get("role") != "user":
+                    continue
+                content = msg.get("content")
+                if isinstance(content, str) and content.strip():
+                    append_history(content)
+    except Exception:
+        pass
+
+    # Auto-restore cwd from the loaded log (no confirmation).
+    # Note: extract from the RAW log lines because load_conversation_from_log
+    # strips non-[SKILL]/[HOOK] system messages (including [CWD] markers).
+    try:
+        target_cwd = _extract_last_cwd_from_messages(
+            _read_raw_log_messages(target_path)
+        )
+        if (
+            isinstance(target_cwd, str)
+            and target_cwd.strip()
+            and os.path.isdir(target_cwd)
+        ):
+            prev = os.getcwd()
+            os.chdir(target_cwd)
+            now = os.getcwd()
+
+            # Record the cwd change triggered by :load.
+            try:
+                msg = {
+                    "role": "system",
+                    "content": _format_cwd_system_content(
+                        event="load",
+                        path=now,
+                        extra={"prev": prev, "log": os.path.abspath(target_path)},
+                    ),
+                }
+                _insert_cwd_system_message(messages_ref, msg)
+                core.log_message(msg)
+            except Exception:
+                pass
+
+            print(_("[load] workdir = %(path)s") % {"path": now})
+    except Exception as e:
+        print(
+            _("[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+    print(_("Loaded log: %(path)s") % {"path": target_path})
+    print(_("Conversation message count: %(n)d") % {"n": len(messages_ref)})
+
+    # Clear responses_state to avoid stale previous_response_id after :load.
+    try:
+        if hasattr(core, "responses_state"):
+            core.responses_state.clear()
+        if hasattr(core, "_save_responses_state"):
+            core._save_responses_state()
+    except Exception:
+        pass
+
+    _prepend_loaded_log_to_current(core=core, source_log_path=target_path, tr=tr)
+    return True
+
+
+def _persist_messages_with_warn(
+    messages: list[dict[str, Any]], *, core: Any, label: str
+) -> None:
+    try:
+        cb = get_callbacks()
+        rewrite_current_log = getattr(cb, "rewrite_current_log_from_messages", None)
+        if rewrite_current_log is not None:
+            rewrite_current_log(messages)
+        else:
+            core.rewrite_current_log_from_messages(messages)
+    except Exception as e:
+        print(
+            _("[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            % {"label": label, "etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+
+def _handle_cmd_shrink(
+    arg: str, messages_ref: list[dict[str, Any]], *, core: Any
+) -> bool:
+    keep_last = 40
+    if arg:
+        try:
+            keep_last = int(arg)
+        except Exception:
+            print(
+                _(
+                    _(
+                        "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    )
+                )
+                % {"arg": arg, "keep": keep_last}
+            )
+
+    new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+    _persist_messages_with_warn(messages_ref, core=core, label="shrink")
+    return True
+
+
+def _handle_cmd_shrink_llm(
+    arg: str,
+    messages_ref: list[dict[str, Any]],
+    client: Any,
+    depname: str,
+    *,
+    core: Any,
+) -> bool:
+    keep_last = 20
+    if arg:
+        try:
+            keep_last = int(arg)
+        except Exception:
+            print(
+                _(
+                    "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                )
+                % {"arg": arg, "keep": keep_last}
+            )
+
+    _use_responses = (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        "1",
+        "true",
+    )
+    # Mirror the main-flow guard: only providers in RESPONSES_PROVIDERS
+    # can actually use the Responses API.  Gemini/Claude/DeepSeek etc.
+    # are routed to their own branches inside compress_history_with_llm
+    # regardless, so we just need to prevent a 404 on unsupported providers.
+    if _use_responses:
+        from .providers.provider_caps import RESPONSES_PROVIDERS
+
+        _provider = (env_get("UAGENT_PROVIDER", "") or "").strip().lower()
+        if _provider not in RESPONSES_PROVIDERS:
+            _use_responses = False
+
+    try:
+        new_messages = core.compress_history_with_llm(
+            client=client,
+            depname=depname,
+            messages=messages_ref,
+            keep_last=keep_last,
+            use_responses_api=_use_responses,
+        )
+    except Exception as e:
+        print(
+            _("[shrink_llm error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+    _persist_messages_with_warn(messages_ref, core=core, label="shrink_llm")
+    return True
+
+
+def _handle_cmd_tokens(
+    messages_ref: list[dict[str, Any]],
+    *,
+    core: Any,
+    depname: str = "",
+) -> bool:
+    try:
+        from .llm_message_helpers import _count_messages_tokens
+
+        total_tokens = _count_messages_tokens(messages_ref, depname or None)
+    except Exception as e:
+        print(
+            _("[tokens error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+
+    print(_("Current token count (approx): %(n)s") % {"n": total_tokens})
+    return True
+
+
+def _handle_cmd_mem_list(*, tr: Any) -> bool:
+    records = personal_long_memory.load_long_memory_records()
+    if not records:
+        print(_("No long-term memory entries."))
+        return True
+
+    print(_("Long-term memory entries:"))
+    for idx, rec in enumerate(records):
+        ts = rec.get("ts")
+        if isinstance(ts, (int, float)):
+            import time as _time
+
+            dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
+        else:
+            dt = "(no-ts)"
+        note = str(rec.get("note", ""))
+        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
+    return True
+
+
+def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
+    if not arg:
+        print(_(":mem-del <index>"))
+        return True
+
+    try:
+        idx = int(arg)
+    except Exception:
+        print(_("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
+        return True
+
+    if personal_long_memory.delete_long_memory_entry(idx):
+        print(_("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
+    else:
+        print(_("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+    return True
+
+
+def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
+    if not shared_memory.is_enabled():
+        print(
+            _(
+                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+            )
+        )
+        return True
+
+    records = shared_memory.load_shared_memory_records()
+    if not records:
+        print(_("No shared long-term memory entries."))
+        return True
+
+    import time as _time
+
+    print(_("Shared long-term memory entries:"))
+    for idx, rec in enumerate(records):
+        ts = rec.get("ts")
+        if isinstance(ts, (int, float)):
+            dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
+        else:
+            dt = "(no-ts)"
+        note = str(rec.get("note", ""))
+        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
+
+    return True
+
+
+def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
+    from .profile_manager import load_profile, profile_from_logs
+    from .runtime.runtime_memory import _format_profile
+
+    arg = (arg or "").strip().lower()
+    if arg.startswith("fromlog"):
+        # Parse optional max_log_files from ":profile fromlog 50"
+        parts = arg.split()
+        max_log_files: int | None = None
+        if len(parts) > 1:
+            try:
+                max_log_files = max(1, int(parts[1]))
+            except (ValueError, TypeError):
+                pass
+        if max_log_files is not None:
+            print(
+                tr("Analyzing the most recent %d log files to generate user profile...")
+                % max_log_files
+            )
+        else:
+            print(tr("Analyzing past logs to generate user profile..."))
+        try:
+            profile = profile_from_logs(core, max_log_files=max_log_files)
+            if not profile:
+                print(tr("No past logs found or failed to generate profile."))
+                return True
+            print(tr("User profile generated successfully from past logs!"))
+        except Exception as e:
+            print(
+                _("[profile fromlog error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
+            return True
+    else:
+        profile = load_profile()
+
+    if (
+        not profile.get("environment")
+        and not profile.get("preferences")
+        and not profile.get("constraints")
+    ):
+        print(tr("No user profile data found."))
+        return True
+
+    print(tr("User Profile:"))
+    print(_format_profile(profile))
+    return True
+
+
+def _handle_cmd_profile_clear(*, tr: Any) -> bool:
+    from .profile_manager import get_profile_file_path
+
+    path = get_profile_file_path()
+    if os.path.exists(path):
+        try:
+            os.remove(path)
+            print(tr("User profile cleared successfully."))
+        except Exception as e:
+            print(
+                _("[profile-clear error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
+    else:
+        print(tr("No user profile file found to clear."))
+    return True
+
+
+def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
+    if not arg:
+        print(_(":shared-mem-del <index>"))
+        return True
+
+    if not shared_memory.is_enabled():
+        print(
+            _(
+                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+            )
+        )
+        return True
+
+    try:
+        idx = int(arg)
+    except Exception:
+        print(
+            _("[shared-mem-del error] Failed to parse index as int: %(arg)r")
+            % {"arg": arg}
+        )
+        return True
+
+    records = shared_memory.load_shared_memory_records()
+    if idx < 0 or idx >= len(records):
+        print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+        return True
+
+    try:
+        records.pop(idx)
+        path = shared_memory.get_shared_memory_file()
+        if not path:
+            print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+            return True
+
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            for rec in records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception as e:
+        print(
+            _("[shared-mem-del error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+
+    print(_("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
+    return True
