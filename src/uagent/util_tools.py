@@ -20,6 +20,8 @@ set_thread_lang(detect_lang())
 
 from . import tools
 
+from .env_utils import env_get
+
 from .util_common import (
     strip_surrogates,
     CommandResult,
