@@ -6,6 +6,7 @@ Wire-compatible with the official bitchat app (Noise_XX_25519_ChaChaPoly_SHA256)
 from __future__ import annotations
 
 import hashlib
+import os as _os
 from typing import Any
 
 from cryptography.hazmat.primitives.asymmetric.x25519 import (
@@ -17,6 +18,14 @@ from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 _PROTOCOL_NAME = b"Noise_XX_25519_ChaChaPoly_SHA256"
 _PROTOCOL_NAME_HASH = hashlib.sha256(_PROTOCOL_NAME).digest()
 _ZEROLEN = b""
+
+_DEBUG = _os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
+
+
+def _dbg(msg: str) -> None:
+    """Print a debug message only when UAGENT_BITCHAT_DEBUG=1."""
+    if _DEBUG:
+        print(msg, flush=True)
 
 
 import hmac as _hmac_mod
@@ -219,7 +228,7 @@ class NoiseHandshakeState:
     def process_message_2(self, data: bytes) -> bool:
         """Initiator processes handshake message 2: <- e, ee, s, es"""
         if len(data) < 80:  # 32 e_pub + 48 encrypted_s
-            print("[bitchat] [debug] HS: msg2 too short: %d" % len(data))
+            _dbg("[bitchat] [debug] HS: msg2 too short: %d" % len(data))
             return False
 
         e_pub = data[:32]
@@ -239,24 +248,24 @@ class NoiseHandshakeState:
         try:
             remote_s = self._decrypt_and_hash(encrypted_s)
         except Exception as exc:
-            print("[bitchat] [debug] HS: msg2 decrypt FAILED: %r" % (exc,))
-            print("[bitchat] [debug] HS: msg2 e_pub=%s" % e_pub.hex())
-            print("[bitchat] [debug] HS: msg2 s_enc=%s" % encrypted_s.hex())
-            print("[bitchat] [debug] HS: msg2 h=%s" % self.h.hex())
+            _dbg("[bitchat] [debug] HS: msg2 decrypt FAILED: %r" % (exc,))
+            _dbg("[bitchat] [debug] HS: msg2 e_pub=%s" % e_pub.hex())
+            _dbg("[bitchat] [debug] HS: msg2 s_enc=%s" % encrypted_s.hex())
+            _dbg("[bitchat] [debug] HS: msg2 h=%s" % self.h.hex())
             return False
 
         # es = DH(e, rs) AFTER decrypting s
         if self.rs is None:
-            print("[bitchat] [debug] HS: msg2 rs is None")
+            _dbg("[bitchat] [debug] HS: msg2 rs is None")
             return False
         rs_key = X25519PublicKey.from_public_bytes(self.rs)
         es = e_key.exchange(rs_key)
         self._mix_key(es)
 
         if remote_s != self.rs:
-            print("[bitchat] [debug] HS: msg2 rs mismatch")
-            print("[bitchat] [debug] HS:   remote_s=%s" % remote_s.hex())
-            print("[bitchat] [debug] HS:   self.rs =%s" % self.rs.hex())
+            _dbg("[bitchat] [debug] HS: msg2 rs mismatch")
+            _dbg("[bitchat] [debug] HS:   remote_s=%s" % remote_s.hex())
+            _dbg("[bitchat] [debug] HS:   self.rs =%s" % self.rs.hex())
             return False
         return True
 

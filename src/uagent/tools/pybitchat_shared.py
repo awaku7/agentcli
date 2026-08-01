@@ -80,6 +80,9 @@ _DISPLAY_WAIT_STREAM_SEC = 2.0
 # コルーチンを投げるために保持する。
 _EVENT_LOOP: "asyncio.AbstractEventLoop | None" = None
 
+# Opt-in debug logging: only emitted when UAGENT_BITCHAT_DEBUG=1.
+_DEBUG = os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
+
 
 def _display_worker() -> None:
     """表示専用ワーカー: キューから取り出して print_lock 直列化で表示."""
@@ -146,6 +149,8 @@ def _notify_display(msg: str) -> None:
     BLE 受信スレッドをブロックしないよう、表示キューに put するだけ。
     実際の表示は専用ワーカースレッドが core の print_lock で直列化する。
     """
+    if not _DEBUG and msg.startswith("[bitchat] [debug]"):
+        return
     try:
         _ensure_display_thread()
         _DISPLAY_QUEUE.put_nowait(msg)
