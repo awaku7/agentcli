@@ -642,7 +642,21 @@ def run_tool(args: dict[str, Any]) -> str:
             engine = "startpage"
 
         q_str = str(q)
-        results = search_web(q_str, n, engine)
+        import inspect
+
+        try:
+            positional = [
+                p
+                for p in inspect.signature(search_web).parameters.values()
+                if p.kind in (p.POSITIONAL_ONLY, p.POSITIONAL_OR_KEYWORD)
+            ]
+            results = (
+                search_web(q_str, n)
+                if len(positional) < 3
+                else search_web(q_str, n, engine)
+            )
+        except (TypeError, ValueError):
+            results = search_web(q_str, n, engine)
         return json.dumps(
             {
                 "query": q_str,
@@ -695,7 +709,19 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        results = search_web(args.query, args.number, args.engine)
+        import inspect
+
+        params = inspect.signature(search_web).parameters
+        positional = [
+            p
+            for p in params.values()
+            if p.kind in (p.POSITIONAL_ONLY, p.POSITIONAL_OR_KEYWORD)
+        ]
+        results = (
+            search_web(args.query, args.number)
+            if len(positional) < 3
+            else search_web(args.query, args.number, args.engine)
+        )
         print(json.dumps(results, ensure_ascii=False, indent=2))
     except RuntimeError as e:
         _emit_error(f"Search failed: {e}")

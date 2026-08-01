@@ -373,11 +373,11 @@ def run_tool(args: dict[str, Any]) -> str:
     """Run file search."""
 
     try:
-        root_path = args.get("path") or args.get("root_path") or "."
-        name_pattern = args.get("glob") or "*"
-        content_pattern = args.get("re_content", "")
-        case_sensitive = args.get("cs", False)
-        max_results = args.get("limit", 50)
+        root_path = args.get("root_path") or args.get("path") or "."
+        name_pattern = args.get("name_pattern") or args.get("glob") or "*"
+        content_pattern = args.get("content_pattern") or args.get("re_content", "")
+        case_sensitive = args.get("case_sensitive", args.get("cs", False))
+        max_results = args.get("max_results", args.get("limit", 50))
         page = args.get("page", 1)
         fast_read_threshold_bytes = int(
             args.get("fast_read_threshold_bytes", 8_000_000)

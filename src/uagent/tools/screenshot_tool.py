@@ -12,11 +12,20 @@ import os
 import time
 from typing import Any
 
-if not install_with_status("pyautogui"):
+try:
+    import pyautogui
+except Exception:
     pyautogui = None
 
-if not install_with_status("pygetwindow"):
+try:
+    import pygetwindow
+except Exception:
     pygetwindow = None
+
+if pyautogui is None:
+    install_with_status("pyautogui")
+if pygetwindow is None:
+    install_with_status("pygetwindow")
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
@@ -95,7 +104,7 @@ def run_tool(args: dict[str, Any]) -> str:
             ),
         )
 
-    window_title = str(args.get("title") or "").strip()
+    window_title = str(args.get("window_title") or args.get("title") or "").strip()
     if window_title and pygetwindow is None:
         return make_response(
             False,
@@ -107,7 +116,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     file_path = str(args.get("file_path") or "").strip()
     delay = args.get("delay", 1)
-    close_window = bool(args.get("close", False))
+    close_window = bool(args.get("close_window", args.get("close", False)))
 
     if not file_path:
         ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")

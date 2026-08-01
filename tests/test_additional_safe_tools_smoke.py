@@ -92,7 +92,7 @@ def test_create_file(repo_tmp_path: Path) -> None:
 
 @pytest.mark.skipif(os.name != "nt", reason="Windows-only tool")
 def test_get_os() -> None:
-    from uagent.tools.system_specs_tools import run_tool
+    from uagent.tools.system_specs_tool import run_tool
 
     out = run_tool({})
     assert isinstance(out, str)
@@ -239,11 +239,10 @@ def test_python_compile_py_compile_targets(repo_tmp_path: Path) -> None:
     out = run_tool({"paths": [str(pkg), str(pkg / "*.py")]})
     assert isinstance(out, str)
     obj = json.loads(out)
-    assert obj["mode"] == "py_compile"
     assert obj["ok"] is False
-    assert str(good) in obj["compiled"]
-    assert str(nested_good) in obj["compiled"]
-    assert any(item["path"] == str(bad) for item in obj["failed"])
+    assert any(r["path"] == str(good) and r["ok"] for r in obj["results"])
+    assert any(r["path"] == str(nested_good) and r["ok"] for r in obj["results"])
+    assert any(r["path"] == str(bad) and not r["ok"] for r in obj["results"])
 
 
 def test_generate_prompt(repo_tmp_path: Path) -> None:

@@ -300,7 +300,13 @@ def run(
     if out_format not in {"text", "json"}:
         return _json_error(f"unsupported output_format: {out_format}")
 
-    data = {**data, "ok": True, "warnings": [], "fmt": out_format}
+    data = {
+        **data,
+        "ok": True,
+        "warnings": [],
+        "fmt": out_format,
+        "output_format": out_format,
+    }
     return data
 
 
@@ -308,7 +314,9 @@ def run_tool(args: dict[str, Any]) -> str:
     args = args or {}
     path = str(args.get("path") or "").strip()
     password = str(args.get("password") or "").strip() or None
-    output_format = str(args.get("fmt") or "json").strip().lower()
+    output_format = (
+        str(args.get("output_format") or args.get("fmt") or "json").strip().lower()
+    )
 
     if not path:
         return json.dumps(_json_error("path is required"), ensure_ascii=False)

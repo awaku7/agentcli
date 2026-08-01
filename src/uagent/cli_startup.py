@@ -16,6 +16,34 @@ class CliStartupState:
     should_exit: bool = False
 
 
+def _prompt_startup_tool_genre_mask() -> int:
+    """Prompt for the startup tool-genre bitmask, using a TTY dialog when available."""
+    if (
+        getattr(sys.stdin, "isatty", lambda: False)()
+        and getattr(sys.stdout, "isatty", lambda: False)()
+    ):
+        try:
+            from prompt_toolkit.shortcuts import checkboxlist_dialog
+
+            values = [
+                ("basic", "basic"),
+                ("comm", "comm"),
+                ("office", "office"),
+                ("devel", "devel"),
+            ]
+            selected = checkboxlist_dialog(
+                title="Tool genres", text="Select tool genres", values=values
+            ).run()
+            bits = {"basic": 1, "comm": 1, "office": 2, "devel": 4}
+            return sum(bits.get(str(item), 0) for item in (selected or []))
+        except Exception:
+            pass
+    try:
+        return int(input().strip() or "0")
+    except (TypeError, ValueError, EOFError):
+        return 0
+
+
 def _apply_startup_tool_genre_mask(mask: int) -> None:
     if mask <= 0:
         return

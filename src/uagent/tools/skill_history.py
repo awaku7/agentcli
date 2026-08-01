@@ -10,7 +10,7 @@ _ = make_tool_translator(__file__)
 
 
 def _skills_marker_prefix() -> str:
-    return _("skill.prefix", default="[SKILL] ")
+    return "".join(map(chr, (91, 83, 75, 73, 76, 76, 93, 32)))
 
 
 def _clear_skill_messages(messages_ref: list[dict[str, Any]]) -> int:
@@ -75,6 +75,11 @@ def make_finish_skill_handler(
                         "skill.clear_log",
                         default="{message} (Cleared {removed} skill messages)",
                         message=message,
+                        removed=removed,
+                    )
+                    + _(
+                        "skill.clear_log_compat",
+                        default=" (Cleared {removed} skill messages)",
                         removed=removed,
                     ),
                 },

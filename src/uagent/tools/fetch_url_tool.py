@@ -452,7 +452,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     extract = str(args.get("extract") or "head")
     selector = str(args.get("selector") or "") or None
-    json_pointer = str(args.get("ptr") or "") or None
+    json_pointer = str(args.get("json_pointer") or args.get("ptr") or "") or None
 
     max_bytes = int(args.get("maxb") or 4000)
     max_chars = int(args.get("maxc") or 8000)
@@ -510,10 +510,17 @@ def run_tool(args: dict[str, Any]) -> str:
             resp_ctx = opener.open(req, timeout=timeout)
 
         with resp_ctx as resp:
-            content_type = resp.headers.get("Content-Type", "")
+            headers = getattr(resp, "headers", None)
+            if headers is None:
+                content_type = ""
+            else:
+                try:
+                    content_type = headers.get("Content-Type", "")
+                except Exception:
+                    content_type = ""
             declared = None
             try:
-                declared = resp.headers.get_content_charset()  # type: ignore[attr-defined]
+                declared = headers.get_content_charset() if headers is not None else None  # type: ignore[attr-defined]
             except Exception:
                 declared = None
             content = resp.read(max_bytes)

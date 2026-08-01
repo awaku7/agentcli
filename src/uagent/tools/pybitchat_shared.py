@@ -39,9 +39,9 @@ SERVICE_UUID_MAINNET = "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C"
 CHARACTERISTIC_UUID = "A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D"
 MESSAGE_TTL_DEFAULT = 7
 
-# Noise ハンドシェイク試行回数上限。Android 側のハンドシェイクタイムアウト
-# (HANDSHAKE_TIMEOUT_MS=10秒) を考慮し、上限を超えたら平文 DM にフォールバック
-# して保留ループを回避する。
+# Noise Android
+# (HANDSHAKE_TIMEOUT_MS=10)  DM
+#
 _NOISE_HANDSHAKE_MAX_ATTEMPTS = 3
 
 _BITCHAT_DIR = os.path.join(os.path.expanduser("~"), ".uag", "bitchat")
@@ -50,8 +50,8 @@ _IDENTITY_FILE = os.path.join(_BITCHAT_DIR, "identity.json")
 _ANNOUNCE_INTERVAL = 30.0
 _MAX_FRAME_SIZE = 480
 _FRAGMENT_PACING = 0.005
-# パケット間 pacing: BLE 書き込みが非同期のため、連続送信時のドロップを防ぐ。
-# フラグメント間 (0.005) より長く、分割チャンク間の余裕を確保する。
+#  pacing: BLE
+#  (0.005)
 _PACKET_PACING = 0.1
 _CONNECTION_TIMEOUT = 15.0
 _MAX_CONNECT_ATTEMPTS = 3
@@ -67,17 +67,17 @@ def _atexit_cleanup() -> None:
 
 _atexit.register(_atexit_cleanup)
 
-# 表示キュー: BLE 受信スレッドを print_lock でブロックしないための
-# 専用ワーカースレッド。BLE コールバックはキューに put するだけ。
+# : BLE  print_lock
+# BLE  put
 _DISPLAY_QUEUE: "queue.Queue[str]" = queue.Queue()
 _DISPLAY_THREAD: threading.Thread | None = None
 _DISPLAY_THREAD_STARTED = False
-# LLM ストリーミング表示中に [bitchat] 行を割り込ませないための最大待機秒数。
-# ストリーミングがこの時間を超えて続く場合は強制的に行を閉じて表示する。
+# LLM  [bitchat]
+#
 _DISPLAY_WAIT_STREAM_SEC = 2.0
 
-# BLE イベントループ: 受信コールバックスレッドから Noise ハンドシェイクの
-# コルーチンを投げるために保持する。
+# BLE :  Noise
+#
 _EVENT_LOOP: "asyncio.AbstractEventLoop | None" = None
 
 # Opt-in debug logging: only emitted when UAGENT_BITCHAT_DEBUG=1.
@@ -92,29 +92,29 @@ def _display_worker() -> None:
         except Exception:
             return
         try:
-            # 動的に core を参照する (from import は値をコピーしてしまい、
-            # core 側の _stream_line_open 変更が反映されない)。
+            #  core  (from import
+            # core  _stream_line_open )
             from .. import core as _core
 
-            # LLM の Reasoning/assistant ストリーミング表示中は [bitchat] 行の
-            # 表示を保留し、行が閉じるまで最大 _DISPLAY_WAIT_STREAM_SEC 秒待つ。
-            # これで応答テキストの途中に [bitchat] 行が挟まって分割表示されるの
-            # を防ぐ。タイムアウトした場合は強制的に行を閉じて表示する。
+            # LLM  Reasoning/assistant  [bitchat]
+            #  _DISPLAY_WAIT_STREAM_SEC
+            #  [bitchat]
+            #
             deadline = _time.time() + _DISPLAY_WAIT_STREAM_SEC
             while _core._stream_line_open and _time.time() < deadline:
                 _time.sleep(0.02)
 
-            # 「行を閉じる → 表示」を print_lock 保持下で原子的に実行する。
-            # チェックと print_stream_delta を分離すると、チェック後に LLM
-            # ストリーミングが再開して、[bitchat] メッセージがストリーミング
-            # 行の途中に改行なしで連結される（Reasoning/assistant 表示の乱れ）。
+            #    print_lock
+            #  print_stream_delta  LLM
+            # [bitchat]
+            # Reasoning/assistant
             with _core.print_lock:
                 if _core._stream_line_open:
                     _core.print_stream_delta(chr(10))
                 if getattr(_core, "_prompt_line_open", False):
-                    # 手動描画プロンプトの行を閉じてから [bitchat] 行を表示する。
-                    # これで「agentcli> [bitchat] ...」のようにプロンプトの右に
-                    # 連結されるのを防ぐ。
+                    #  [bitchat]
+                    # agentcli> [bitchat] ...
+                    #
                     _core.print_stream_delta(chr(10))
                     _core._prompt_line_open = False
                     try:
@@ -521,18 +521,18 @@ def decode_file_payload(payload: bytes) -> dict | None:
     return result
 
 
-# BLE v1 パケットのペイロード上限。bitchat_protocol codec は v1 で
-# 元ペイロードサイズを uint16 で持つため、圧縮しても 65535 バイト超は
-# エンコードできない (struct.error: 'H' format)。テキスト送信はこの
-# 一番小さい制限に合わせて分割する。
+# BLE v1 bitchat_protocol codec  v1
+#  uint16  65535
+#  (struct.error: 'H' format)
+#
 _TEXT_MAX_BYTES = 0xFFFF
 
-# BLE 送信でフラグメント化させないチャンクサイズ。
-# wire = payload + ヘッダ(22) + 署名(64) + パディング。
-# パディングは 32/64/128/256/512/... ブロック。フラグメント化を避けるには
-# パディング後 <= 480 が必要で、最大ブロックは 256。
-# payload <= 170 なら wire <= 256 → 単一フレームで届く (Android アプリは
-# フラグメント化 FRAGMENT パケットの再組み立てに失敗するケースがある)。
+# BLE
+# wire = payload + (22) + (64) +
+#  32/64/128/256/512/...
+#  <= 480  256
+# payload <= 170  wire <= 256   (Android
+#  FRAGMENT )
 _TEXT_CHUNK_BYTES = 170
 
 
@@ -547,7 +547,7 @@ def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[st
         return []
     raw = text.encode("utf-8", errors="replace")
     if len(raw) <= max_bytes:
-        # 孤立サロゲート等は U+FFFD に置換済みのバイト列から再構成して返す
+        #  U+FFFD
         return [raw.decode("utf-8", errors="replace")]
     chunks: list[str] = []
     start = 0
@@ -555,14 +555,14 @@ def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[st
     while start < n:
         end = min(start + max_bytes, n)
         if end < n:
-            # マルチバイト文字の途中で切らない
+            #
             while end > start:
                 try:
                     raw[start:end].decode("utf-8")
                     break
                 except UnicodeDecodeError:
                     end -= 1
-            # 防護: max_bytes が 1 文字未満でも無限ループさせない
+            # : max_bytes  1
             if end == start:
                 end = start + 1
         chunks.append(raw[start:end].decode("utf-8", errors="replace"))
@@ -724,10 +724,10 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         fragmented = len(wire) > _MAX_FRAME_SIZE
         if fragmented:
             fid = os.urandom(8)
-            # フラグメントパケット全体が _MAX_FRAME_SIZE 以下に収まるよう、
-            # オーバーヘッド (v1ヘッダ86 + フラグメントヘッダ13 = 99) を差し引く。
-            # 旧実装 (480-40=440) ではフレームが 539 バイトになり、
-            # BLE MTU / Android MAX_FRAGMENT_SIZE(469) を超えてドロップされていた。
+            #  _MAX_FRAME_SIZE
+            #  (v186 + 13 = 99)
+            #  (480-40=440)  539
+            # BLE MTU / Android MAX_FRAGMENT_SIZE(469)
             chunk_size = _MAX_FRAME_SIZE - 99
             chunks = [wire[i : i + chunk_size] for i in range(0, len(wire), chunk_size)]
             frames = []
@@ -885,7 +885,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         )
 
         if pending is None and existing is None:
-            # Responder: Android からの msg1 (-> e) を受信
+            # Responder: Android  msg1 (-> e)
             _notify_display("[bitchat] [debug] HS: responder msg1 path")
             state = _noise.NoiseHandshakeState(False, _noise_static_key(), rs)
             if not state.process_message_1(payload):
@@ -901,7 +901,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
 
         if pending is not None:
             if pending.initiator:
-                # Initiator: msg2 受信 -> msg3 送信
+                # Initiator: msg2  -> msg3
                 _notify_display("[bitchat] [debug] HS: initiator msg2 path")
                 if not pending.process_message_2(payload):
                     _notify_display("[bitchat] [debug] HS: process_message_2 FAILED")
@@ -920,7 +920,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     % {"nick": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
                 )
             else:
-                # Responder: msg3 受信 -> セッション確立
+                # Responder: msg3  ->
                 _notify_display("[bitchat] [debug] HS: responder msg3 path")
                 if not pending.process_message_3(payload):
                     _notify_display("[bitchat] [debug] HS: process_message_3 FAILED")
@@ -959,8 +959,8 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 % {"sender": _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])}
             )
             return
-        # Android/iOS は NoisePayload + PrivateMessagePacket TLV で送ってくる。
-        # 制御メッセージ (ACK / read receipt) は表示しない。
+        # Android/iOS  NoisePayload + PrivateMessagePacket TLV
+        #  (ACK / read receipt)
         decoded = _noise.decode_private_message(pt)
         if decoded is not None:
             text = decoded[1]
@@ -968,7 +968,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             try:
                 text = pt.decode("utf-8")
             except Exception:
-                return  # 制御ペイロード等は黙って無視
+                return  #
         sender = _PEER_NICKNAMES.get(peer_hex, peer_hex[:8])
         _notify_display(
             _(
@@ -1239,9 +1239,9 @@ async def _run_ble_service(nickname: str, network: str) -> None:
     )
     _last_announce = 0.0
 
-    # 送信待ち FIFO。queue.Queue には先頭挿入がないため、送信失敗時に
-    # 先頭アイテムを保持して再接続後に再送できるよう deque で管理する。
-    # BLE が不安定な環境で「最後の方」のチャンクがドロップされる問題の対策。
+    #  FIFOqueue.Queue
+    #  deque
+    # BLE
     _pending: deque = deque()
 
     try:
@@ -1249,7 +1249,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             if _OUTBOUND_QUEUE is None:
                 await asyncio.sleep(0.2)
                 continue
-            # キュー → 送信待ちへ補充
+            #
             while not _OUTBOUND_QUEUE.empty():
                 try:
                     _pending.append(_OUTBOUND_QUEUE.get_nowait())
@@ -1259,7 +1259,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 await asyncio.sleep(0.2)
                 continue
             if not _CLIENTS:
-                # 接続先なし: アイテムを消費せず再接続を待つ
+                # :
                 await asyncio.sleep(0.2)
                 continue
             while True:
@@ -1288,7 +1288,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                             )
                             failed = await _send_packet(pkt)
                             if failed:
-                                # 失敗: 先頭を保留して再接続後に再送
+                                # :
                                 await asyncio.sleep(0.5)
                                 break
                         _pending.popleft()
@@ -1321,8 +1321,8 @@ async def _run_ble_service(nickname: str, network: str) -> None:
 
                         session = _noise.get_session(recipient_hex)
                         if session is not None:
-                            # Encrypt with Noise. Android/iOS は NoisePayload +
-                            # PrivateMessagePacket TLV 形式で送る。
+                            # Encrypt with Noise. Android/iOS  NoisePayload +
+                            # PrivateMessagePacket TLV
                             text = (
                                 payload_bytes.decode("utf-8", errors="replace")
                                 if isinstance(payload_bytes, bytes)
@@ -1349,7 +1349,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                 )
                                 failed = await _send_packet(pkt)
                                 if failed:
-                                    # 失敗: 先頭を保留して再接続後に再送
+                                    # :
                                     await asyncio.sleep(0.5)
                                     break
                                 _pending.popleft()
@@ -1398,7 +1398,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                             "n": len(msg1),
                                         }
                                     )
-                                    # ハンドシェイク完了を待って再試行（アイテムは保留）
+                                    #
                                     item["noise_attempts"] = attempts + 1
                                     await asyncio.sleep(0.5)
                                     continue
@@ -1441,19 +1441,19 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     )
                     failed = await _send_packet(pkt)
                     if failed:
-                        # 送信失敗: 先頭アイテムを保留し、再接続後に再送する。
-                        # 残りのチャンクを失わない（「最後の方」欠落の防止）。
+                        # :
+                        #
                         await asyncio.sleep(0.5)
                         break
                     _pending.popleft()
-                    # パケット間 pacing: BLE 書き込みは非同期のため、分割チャンクを
-                    # 連続送信するとバッファが溢れて中間チャンクがドロップされる。
+                    #  pacing: BLE
+                    #
                     await asyncio.sleep(_PACKET_PACING)
                 except Exception as _exc:
                     import traceback as _tb
 
                     _tb.print_exc()
-                    # 例外時も先頭を保留して再接続後に再試行
+                    #
                     await asyncio.sleep(0.5)
                     break
             now_t = _time.time()
@@ -1670,7 +1670,7 @@ def _inject_to_llm(text: str) -> None:
     q = _LLM_EVENT_QUEUE
     if q is not None:
         try:
-            # src=bitchat マーカー: cli.py が LLM 応答を mesh に自動返信する判定に使う
+            # src=bitchat : cli.py  LLM  mesh
             q.put_nowait({"kind": "user", "text": text, "src": "bitchat"})
         except Exception:
             pass

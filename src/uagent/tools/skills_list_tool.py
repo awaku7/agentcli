@@ -117,7 +117,7 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> list[str]:
 
 def run_tool(args: dict[str, Any]) -> str:
     root_dir = (args or {}).get("root_dir")
-    recursive = bool((args or {}).get("recur", True))
+    recursive = bool((args or {}).get("recur", (args or {}).get("recursive", True)))
     include_invalid = bool((args or {}).get("include_invalid", True))
     strict = bool((args or {}).get("strict", False))
 

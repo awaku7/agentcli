@@ -83,19 +83,22 @@ def test_binary_edit_non_dry_run_with_monkeypatched_confirm(
     assert p.read_bytes() == bytes.fromhex("FF11")
 
 
-def test_cmd_exec_blocks_destructive_command() -> None:
-    from uagent.tools.cmd_exec_tool import run_tool
+def test_cmd_exec_json_blocks_destructive_command() -> None:
+    from uagent.tools.cmd_exec_json_tool import run_tool
 
-    out = run_tool({"command": "shutdown /s /t 0"})
-    assert "[cmd_exec blocked]" in out
+    out = run_tool({"command": "shutdown /s /t 0", "cwd": None})
+    obj = _loads(out)
+    assert obj["ok"] is False
+    assert obj["blocked"] is True
+    assert "error" in obj
 
 
-def test_cmd_exec_blocks_when_confirmation_fails(monkeypatch) -> None:
-    from uagent.tools.cmd_exec_tool import run_tool
+def test_cmd_exec_json_blocks_when_confirmation_fails(monkeypatch) -> None:
+    from uagent.tools.cmd_exec_json_tool import run_tool
     from uagent.tools.safe_exec_ops import ExecDecision
 
     monkeypatch.setattr(
-        "uagent.tools.cmd_exec_tool.decide_cmd_exec",
+        "uagent.tools.cmd_exec_json_tool.decide_cmd_exec",
         lambda _c, require_confirm_for_shell_metachar=False: ExecDecision(
             allowed=True,
             reason="need confirm",
@@ -104,22 +107,15 @@ def test_cmd_exec_blocks_when_confirmation_fails(monkeypatch) -> None:
         ),
     )
     monkeypatch.setattr(
-        "uagent.tools.cmd_exec_tool.confirm_if_needed",
+        "uagent.tools.cmd_exec_json_tool.confirm_if_needed",
         lambda _d: "user cancelled",
     )
 
-    out = run_tool({"command": "echo hi"})
-    assert "[cmd_exec blocked]" in out
-    assert "cancelled" in out
-
-
-def test_cmd_exec_json_blocks_destructive_command() -> None:
-    from uagent.tools.cmd_exec_json_tool import run_tool
-
-    out = run_tool({"command": "shutdown /s /t 0", "cwd": None})
+    out = run_tool({"command": "echo hi", "cwd": None})
     obj = _loads(out)
     assert obj["ok"] is False
-    assert "error" in obj
+    assert obj["blocked"] is True
+    assert "cancelled" in obj["error"]
 
 
 def test_cmd_exec_json_rejects_invalid_cwd_type() -> None:

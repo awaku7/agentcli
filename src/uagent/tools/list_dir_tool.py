@@ -170,8 +170,11 @@ def run_tool(args: dict[str, Any]) -> str:
     root_abs = os.path.abspath(root_path)
 
     if not os.path.isdir(root_abs):
-        return _("err.not_a_dir", default="Error: not a directory: {path}").format(
-            path=root_abs
+        return (
+            _("err.not_a_dir", default="Error: not a directory: {path}").format(
+                path=root_abs
+            )
+            + " (does not exist or is not a directory)"
         )
 
     all_entries = _scan_dir(root_abs, show_hidden)
@@ -187,7 +190,7 @@ def run_tool(args: dict[str, Any]) -> str:
     lines = [
         (
             f"{'[DIR]' if e['kind'] == 'dir' else '[FILE]'}"
-            f" {e['name']}"
+            f" {e['name'] + '/' if e['kind'] == 'dir' else e['name']}"
             f"{' -> ' + e['target'] if e.get('target') else ''}"
             f" ({_format_size(e.get('size')) if e['kind'] == 'file' else e['kind']})"
         )
@@ -204,4 +207,10 @@ def run_tool(args: dict[str, Any]) -> str:
         total=total_results,
     )
 
-    return header + "\n" + "\n".join(lines)
+    return (
+        _("msg.path", default="Path: {path}").format(path=root_abs)
+        + "\n"
+        + header
+        + "\n"
+        + "\n".join(lines)
+    )
