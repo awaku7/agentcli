@@ -874,6 +874,14 @@ def stdin_loop() -> None:
                         if lock is None:
                             lock = threading.RLock()
                         with lock:
+                            # Mark the prompt line before writing it.  The
+                            # status worker can run concurrently; setting
+                            # this flag after out.write() leaves a race where
+                            # [STATE] is appended as `agentcli> [STATE] ...`.
+                            try:
+                                core._prompt_line_open = True
+                            except Exception:
+                                pass
                             try:
                                 if out:
                                     out.write(prompt)
@@ -885,14 +893,6 @@ def stdin_loop() -> None:
                                     print(prompt, end="", flush=True)
                                 except Exception:
                                     pass
-                            # 手動描画プロンプトの行を「開いている」と記録する。
-                            # print_status_line / bitchat 表示ワーカーが
-                            # プロンプト行の直後に出力を連結しないよう改行で
-                            # 閉じてから出力する。
-                            try:
-                                core._prompt_line_open = True
-                            except Exception:
-                                pass
                         if os.name == "nt":
                             try:
                                 import msvcrt  # type: ignore
@@ -912,6 +912,10 @@ def stdin_loop() -> None:
                                             ) and not getattr(
                                                 core, "status_busy", False
                                             ):
+                                                try:
+                                                    core._prompt_line_open = True
+                                                except Exception:
+                                                    pass
                                                 core.prompt_needs_redraw = False
                                                 try:
                                                     if out:
@@ -921,10 +925,6 @@ def stdin_loop() -> None:
                                                         print(
                                                             prompt, end="", flush=True
                                                         )
-                                                except Exception:
-                                                    pass
-                                                try:
-                                                    core._prompt_line_open = True
                                                 except Exception:
                                                     pass
                                     if msvcrt.kbhit():

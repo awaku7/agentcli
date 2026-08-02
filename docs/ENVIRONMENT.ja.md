@@ -225,6 +225,7 @@ LLM API に直接渡されるオプションパラメータです。
 ### 4. 高度な機能（Responses API, 推論など）
 
 - `UAGENT_RESPONSES`: `1` に設定すると、対応プロバイダ（Azure/OpenAI/Bedrock/OpenRouter/Ollama）で "Responses API" を有効にします。
+- `UAGENT_OPENAI_FAST_MODE`: `1`/`true`/`yes`/`on` に設定すると OpenAI Fast mode（`service_tier=fast`）を要求します。OpenAI 専用で、Azure や他のプロバイダーでは無視されます。
 - `UAGENT_REASONING`: 推論モデルの推論努力レベル（`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`）。
 - `UAGENT_REASONING_EFFORT`: Grok / xAI モデルの推論努力レベル（`none`, `low`, `medium`, `high`）。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。

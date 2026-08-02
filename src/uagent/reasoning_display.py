@@ -52,7 +52,6 @@ def show_reasoning(
         except Exception:
             pass
         return
-    out_fn = print_fn if print_fn is not None else print
     display_provider = (
         provider.capitalize()
         if provider and provider.islower()
@@ -61,7 +60,11 @@ def show_reasoning(
     label = ("[" + display_provider + " Reasoning] ") if is_first else ""
     # ANSI エスケープを付けない。ホスト（cmd/conhost/GUI 等）によって ESC が
     # "?" に化けて "?[90m...?[0m" になるため、プレーンテキストで表示する。
-    # デルタごとに改行で閉じない: print_stream_delta (end="") が連結するため、
+    # Prefer the core-specific writer so the next assistant delta can insert
+    # a clean line boundary after streamed reasoning.
+    out_fn = getattr(core, "print_reasoning_delta", None) if core is not None else None
+    if not callable(out_fn):
+        out_fn = print_fn if print_fn is not None else print
     # DeepSeek の細かい reasoning デルタが1文字ずつの行になるのを防ぐ。
     # [STATE] は core.print_status_line が _stream_line_open を見て
     # 行を閉じてから表示するので、行の途中に割り込まない。

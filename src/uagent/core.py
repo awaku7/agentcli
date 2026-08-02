@@ -237,6 +237,8 @@ print_lock = threading.RLock()
 # True while a streaming delta is being written without a trailing newline.
 # Status lines wait for the next newline boundary to avoid mid-line injection.
 _stream_line_open = False
+# True while the open streaming line contains reasoning output.
+_reasoning_stream_open = False
 # 手動プロンプト描画時に開いた行を追跡するフラグ。
 # prompt_toolkit を使わない手動描画パスで、[STATE] や bitchat 表示が
 # プロンプト行の直後に連結されるのを防ぐために使う。
@@ -389,9 +391,24 @@ def print_stream_delta(s: str) -> None:
     if not s:
         return
     with print_lock:
+        global _reasoning_stream_open
+        if _reasoning_stream_open:
+            print("", flush=True)
+            _reasoning_stream_open = False
         print(s, end="", flush=True)
         # Open iff the final character is not a newline (handles embedded \n).
         _stream_line_open = not s.endswith(chr(10))
+
+
+def print_reasoning_delta(s: str) -> None:
+    """Print reasoning output while marking the current line as reasoning."""
+    global _stream_line_open, _reasoning_stream_open
+    if not s:
+        return
+    with print_lock:
+        print(s, end="", flush=True)
+        _stream_line_open = not s.endswith(chr(10))
+        _reasoning_stream_open = _stream_line_open
 
 
 def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
@@ -550,6 +567,7 @@ def print_status_line() -> None:
                         except Exception:
                             pass
                     _stream_line_open = False
+                    _reasoning_stream_open = False
                 if prompt_open:
                     # 手動描画プロンプトの行を閉じる。これで [STATE] が
                     # 「agentcli> [STATE] BUSY」のようにプロンプトの右に

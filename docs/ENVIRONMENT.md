@@ -225,6 +225,7 @@ Optional parameters passed directly to the LLM API.
 ### 4. Advanced Features (Responses API, Reasoning, etc.)
 
 - `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
+- `UAGENT_OPENAI_FAST_MODE`: Set to `1`/`true`/`yes`/`on` to request OpenAI Fast mode (`service_tier=fast`). OpenAI only; ignored by Azure and other providers.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.

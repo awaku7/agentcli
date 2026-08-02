@@ -61,6 +61,17 @@ from .llm_helpers import _env_default_true
 from .translate import translate_text
 
 
+def _openai_fast_mode_enabled() -> bool:
+    """Return whether OpenAI Fast mode should be requested.
+
+    Fast mode is an OpenAI-only request option. Keep the switch provider
+    specific so OpenAI-compatible gateways and Azure do not receive an
+    unsupported ``service_tier`` parameter.
+    """
+    raw = (env_get("UAGENT_OPENAI_FAST_MODE") or "").strip().lower()
+    return raw in {"1", "true", "yes", "on", "fast"}
+
+
 def _translate_call_messages(
     call_messages: list[dict[str, Any]], tr_cfg: Any
 ) -> list[dict[str, Any]]:
@@ -483,6 +494,11 @@ def _call_openai_azure_round(
                         "input": input_msgs,
                     }
 
+                # OpenAI Fast mode is intentionally not applied to Azure or
+                # other OpenAI-compatible providers.
+                if provider == "openai" and _openai_fast_mode_enabled():
+                    resp_kwargs["service_tier"] = "fast"
+
                 # Use previous_response_id for multi-turn continuity
                 if _prev_rid is not None:
                     resp_kwargs["previous_response_id"] = _prev_rid
@@ -822,6 +838,10 @@ def _call_openai_azure_round(
                     "messages": call_messages,
                     "temperature": resolved_temp,
                 }
+                # OpenAI Fast mode is intentionally not applied to Azure or
+                # other OpenAI-compatible providers.
+                if provider == "openai" and _openai_fast_mode_enabled():
+                    chat_kwargs["service_tier"] = "fast"
                 # Common generation knobs (optional). Provider-specific envs win
                 # when already handled above; these are shared fallbacks.
                 max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
