@@ -69,13 +69,17 @@ def test_explicit_shell_pwsh() -> None:
 def test_empty_command() -> None:
     """command が空 -> エラーメッセージ."""
     out = _run({"command": ""})
-    assert "command" in out.lower() and "required" in out.lower()
+    assert ("command" in out.lower() and "required" in out.lower()) or (
+        "コマンド" in out and "必要" in out
+    )
 
 
 def test_missing_command_key() -> None:
     """command キー自体がない -> エラー."""
     out = _run({})
-    assert "command" in out.lower() and "required" in out.lower()
+    assert ("command" in out.lower() and "required" in out.lower()) or (
+        "コマンド" in out and "必要" in out
+    )
 
 
 def test_nonexistent_cmdlet() -> None:

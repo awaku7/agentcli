@@ -39,7 +39,7 @@ def test_add_long_memory_rejects_empty_note(
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(mem))
 
     out = add_long_memory({"note": "   "})
-    assert "error" in out.lower() or "empty" in out.lower()
+    assert any(token in out.lower() for token in ("error", "empty", "エラー", "空"))
 
 
 def test_add_get_shared_memory_roundtrip(

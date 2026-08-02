@@ -369,6 +369,12 @@ def find_matching_hooks(
     for group in hook_groups:
         if not isinstance(group, dict):
             continue
+        # Accept both Claude's grouped form ({matcher, hooks: [...]}) and
+        # the legacy flat form ({type: "command", command: ...}).
+        if group.get("type") in SUPPORTED_TYPES:
+            matched.append(dict(group))
+            continue
+
         matcher = group.get("matcher")
         group_hooks = group.get("hooks", [])
 
@@ -409,6 +415,8 @@ def fire_event(
 
     Returns list of execution results.
     """
+    if isinstance(hooks, dict) and isinstance(hooks.get("hooks"), dict):
+        hooks = hooks["hooks"]
     matching = find_matching_hooks(event_name, hooks, tool_name=tool_name)
     if not matching:
         return []

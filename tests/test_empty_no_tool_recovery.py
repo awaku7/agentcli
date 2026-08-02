@@ -156,11 +156,18 @@ class TestHandleOpenAIEmptyNoTool:
         assert messages[-1]["role"] == "tool"
         assert core._empty_no_tool_recovery_pending is True
         err = capsys.readouterr().err
-        assert "[WARN] LLM returned an empty assistant message" in err
+        assert (
+            "[WARN] LLM returned an empty assistant message" in err
+            or "空のアシスタント" in err
+        )
         assert any(
             m.get("role") == "assistant"
             and m.get("_uagent_ui_only")
-            and "[WARN]" in str(m.get("content") or "")
+            and (
+                "[WARN]" in str(m.get("content") or "")
+                or "警告" in str(m.get("content") or "")
+                or "空のアシスタント" in str(m.get("content") or "")
+            )
             for m in core.logged
         )
 

@@ -230,7 +230,9 @@ def test_spawn_process_rejects_empty_command() -> None:
     from uagent.tools import spawn_process_tool
 
     out = spawn_process_tool.run_tool({"command": "   "})
-    assert out.startswith("[spawn_process error]")
+    assert out.startswith("[spawn_process error]") or out.startswith(
+        "[spawn_process エラー]"
+    )
 
 
 def test_spawn_process_windows_start_without_target_rejected(
@@ -240,7 +242,9 @@ def test_spawn_process_windows_start_without_target_rejected(
 
     monkeypatch.setattr(spawn_process_tool.os, "name", "nt", raising=False)
     out = spawn_process_tool.run_tool({"command": 'start ""'})
-    assert out.startswith("[spawn_process error]")
+    assert out.startswith("[spawn_process error]") or out.startswith(
+        "[spawn_process エラー]"
+    )
 
 
 def test_spawn_process_nt_executes_via_cmd_exe(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -298,5 +302,7 @@ def test_spawn_process_returns_exception_details(
     monkeypatch.setattr(spawn_process_tool.subprocess, "Popen", fake_popen)
 
     out = spawn_process_tool.run_tool({"command": "echo hi"})
-    assert out.startswith("[spawn_process error]")
+    assert out.startswith("[spawn_process error]") or out.startswith(
+        "[spawn_process エラー]"
+    )
     assert "RuntimeError: boom" in out

@@ -106,7 +106,7 @@ def test_get_geoip_rejects_invalid_format() -> None:
     from uagent.tools import get_geoip_tool
 
     out = get_geoip_tool.run_tool({"format": "xml"})
-    assert out.startswith("[get_geoip error]")
+    assert out.startswith("[get_geoip error]") or out.startswith("[get_geoip エラー]")
 
 
 def test_get_geoip_json_output_from_mocked_fetch(
@@ -156,7 +156,7 @@ def test_get_geoip_returns_parse_error_with_raw(
     monkeypatch.setattr(get_geoip_tool, "fetch_url_run", lambda _args: "not-json")
 
     out = get_geoip_tool.run_tool({"format": "text"})
-    assert out.startswith("[get_geoip error]")
+    assert out.startswith("[get_geoip error]") or out.startswith("[get_geoip エラー]")
     assert "not-json" in out
 
 

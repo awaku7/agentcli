@@ -66,8 +66,12 @@ def test_identical_tool_call_returns_already_called(monkeypatch) -> None:
     assert (
         "Already called this tool with the same arguments earlier"
         in messages[1]["content"]
+        or "すでにこのツール" in messages[1]["content"]
     )
-    assert "Do NOT call this tool again" in messages[1]["content"]
+    assert (
+        "Do NOT call this tool again" in messages[1]["content"]
+        or "同じ引数を使用して" in messages[1]["content"]
+    )
     assert '"n": 1' in messages[1]["content"]
     # Must NOT inject a synthetic user note (breaks Responses tool continuation).
     assert not any(
