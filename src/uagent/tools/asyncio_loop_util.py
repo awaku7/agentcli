@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import sys
+import warnings
 from collections.abc import Iterator
 from contextlib import contextmanager
 
@@ -24,23 +25,37 @@ def windows_selector_event_loop_policy() -> Iterator[None]:
         yield
         return
 
-    try:
-        old_policy = asyncio.get_event_loop_policy()
-    except Exception:
-        old_policy = None
+    # Python 3.14 deprecates the process-wide policy API, but older BLE
+    # backends still require it. Keep the compatibility path quiet and local.
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            message=r".*(?:event_loop_policy|WindowsSelectorEventLoopPolicy).*",
+            category=DeprecationWarning,
+        )
+        try:
+            old_policy = asyncio.get_event_loop_policy()
+        except Exception:
+            old_policy = None
 
-    try:
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    except Exception:
-        # Keep current policy if Selector cannot be installed.
-        yield
-        return
+        try:
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        except Exception:
+            # Keep current policy if Selector cannot be installed.
+            yield
+            return
 
     try:
         yield
     finally:
         if old_policy is not None:
-            try:
-                asyncio.set_event_loop_policy(old_policy)
-            except Exception:
-                pass
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    message=r".*(?:event_loop_policy|WindowsSelectorEventLoopPolicy).*",
+                    category=DeprecationWarning,
+                )
+                try:
+                    asyncio.set_event_loop_policy(old_policy)
+                except Exception:
+                    pass
