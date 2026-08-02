@@ -247,3 +247,13 @@ ______________________________________________________________________
 ## リアルタイム音声アーキテクチャ
 - OpenAI Realtime、xAI Grok Voice API、および Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`) をサポート。
 - テキストCLI側の実行フローに影響を与えないよう、`src/uagent/realtime.py` 内に完全に分離して実装。
+
+
+## 保守メモ（util_tools 分割・テスト）
+
+- `util_tools.py` は facade とコマンドディスパッチを担当し、機能別実装は `util_common.py`、`util_image.py`、`util_mode.py`、`util_help.py`、`util_message.py`、`util_model.py`、`util_cmd_files.py`、`util_cmd_auto.py`、`util_cmd_session.py` に分割されています。
+- Claude 4.6+ は Anthropic API仕様に従い `thinking.type=adaptive` と `output_config.effort` を使用します。effort 対応モデルの判定は可能な限り `llmcapa` の能力情報を利用します。
+- テストは英語・日本語の両方で実行します。
+  - `UAGENT_LANG=en python -m pytest -q`
+  - `UAGENT_LANG=ja python -m pytest -q`
+- Matter テストを含め、テスト収集のため `tests/__init__.py` を配置しています。
