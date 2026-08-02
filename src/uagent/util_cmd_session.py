@@ -112,7 +112,11 @@ def _handle_cmd_skills(
                 "strict": False,
             }
         )
-        items = json.loads(res_json)
+        try:
+            items = res_json if isinstance(res_json, list) else json.loads(res_json)
+        except (TypeError, json.JSONDecodeError) as exc:
+            detail = str(res_json).strip()[:300]
+            raise ValueError(f"skills_list returned invalid JSON: {detail!r}") from exc
         if not isinstance(items, list):
             items = []
 
@@ -178,7 +182,12 @@ def _handle_cmd_skills(
 
             while selected_idx is None:
                 sel_json = human_ask({"message": sel_msg})
-                sel = json.loads(sel_json)
+                try:
+                    sel = sel_json if isinstance(sel_json, dict) else json.loads(sel_json)
+                except (TypeError, json.JSONDecodeError) as exc:
+                    raise ValueError(
+                        f"human_ask returned invalid JSON: {str(sel_json).strip()[:300]!r}"
+                    ) from exc
                 user_reply = unicodedata.normalize(
                     "NFKC", (sel.get("user_reply") or "")
                 ).strip()
@@ -214,14 +223,24 @@ def _handle_cmd_skills(
         ) % {"name": name, "path": os.path.abspath(skill_dir)}
 
         conf_json = human_ask({"message": confirm_msg})
-        conf = json.loads(conf_json)
+        try:
+            conf = conf_json if isinstance(conf_json, dict) else json.loads(conf_json)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                f"human_ask returned invalid JSON: {str(conf_json).strip()[:300]!r}"
+            ) from exc
         conf_reply = (conf.get("user_reply") or "").strip().lower()
         if conf_reply not in ("y", "yes"):
             print(_("[skills] Cancelled."))
             return CommandResult()
 
         doc_json = skills_load_tool({"skill_dir": skill_dir})
-        doc = json.loads(doc_json)
+        try:
+            doc = doc_json if isinstance(doc_json, dict) else json.loads(doc_json)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise ValueError(
+                f"skills_load returned invalid JSON: {str(doc_json).strip()[:300]!r}"
+            ) from exc
         if not isinstance(doc, dict):
             raise ValueError("skills_load returned non-dict")
 
@@ -245,6 +264,31 @@ def _handle_cmd_skills(
 
         skill_system_msg = {"role": "system", "content": content}
         _insert_cwd_system_message(messages_ref, skill_system_msg)
+
+        # A newly applied skill changes the system instructions. If the next
+        # Responses API call continued an older previous_response_id, the
+        # server would not see this newly inserted system message. Clear only
+        # the continuation once; the next successful response stores a fresh
+        # previous_response_id for subsequent turns.
+        try:
+            from .core import clear_responses_continuation
+
+            clear_responses_continuation()
+        except Exception:
+            pass
+
+        # Gemini/Vertex caches contain the previous system instructions. A
+        # newly applied skill must invalidate that cache so the next round
+        # recreates it with the skill body included.
+        try:
+            state = getattr(core, "responses_state", {})
+            provider = str(state.get("provider", "")).lower() if isinstance(state, dict) else ""
+            if provider in ("gemini", "vertexai"):
+                from .providers.gemini_cache_mgr import GeminiCacheManager
+
+                GeminiCacheManager(depname).clear_cache(client)
+        except Exception:
+            pass
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(_("[skills] Applied: %(name)s") % {"name": name})

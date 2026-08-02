@@ -16,7 +16,14 @@ from cryptography.hazmat.primitives.asymmetric.x25519 import (
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 
 _PROTOCOL_NAME = b"Noise_XX_25519_ChaChaPoly_SHA256"
-_PROTOCOL_NAME_HASH = hashlib.sha256(_PROTOCOL_NAME).digest()
+# Noise protocol initialization: names <= HASHLEN are zero-padded, not hashed.
+# This name is exactly 32 bytes, so Android's Noise implementation uses it
+# directly as h and ck.
+_PROTOCOL_NAME_HASH = (
+    _PROTOCOL_NAME.ljust(32, b"\x00")
+    if len(_PROTOCOL_NAME) <= 32
+    else hashlib.sha256(_PROTOCOL_NAME).digest()
+)
 _ZEROLEN = b""
 
 _DEBUG = _os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
@@ -272,6 +279,7 @@ class NoiseHandshakeState:
     def process_message_3(self, data: bytes) -> bool:
         """Responder processes handshake message 3: -> s, se"""
         if len(data) < 48:
+            _dbg("[bitchat] [debug] HS: msg3 too short: %d" % len(data))
             return False
 
         encrypted_s = data[:48]
@@ -279,7 +287,12 @@ class NoiseHandshakeState:
         # Decrypt the remote static key with the current cipher
         try:
             remote_s = self._decrypt_and_hash(encrypted_s)
-        except Exception:
+        except Exception as exc:
+            # Keep the failure actionable without logging key material.
+            _dbg(
+                "[bitchat] [debug] HS: msg3 decrypt FAILED: %s h=%s"
+                % (type(exc).__name__, self.h.hex())
+            )
             return False
 
         # se = DH(e, rs) AFTER decrypting s
@@ -290,6 +303,7 @@ class NoiseHandshakeState:
         self._mix_key(se)
 
         if remote_s != self.rs:
+            _dbg("[bitchat] [debug] HS: msg3 static-key mismatch")
             return False
 
         # Split

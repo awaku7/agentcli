@@ -33,6 +33,8 @@ _NOSTR_BRIDGE = False  # forward BLE messages to Nostr
 _LISTENER_THREAD: threading.Thread | None = None
 _STOP_EVENT = threading.Event()
 _RUNNING = False
+_SEEN_MESSAGE_KEYS: dict[bytes, float] = {}
+_SEEN_MESSAGE_TTL = 120.0
 
 SERVICE_UUID_TESTNET = "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5A"
 SERVICE_UUID_MAINNET = "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C"
@@ -49,9 +51,11 @@ _DOWNLOAD_DIR = os.path.join(_BITCHAT_DIR, "downloads")
 _IDENTITY_FILE = os.path.join(_BITCHAT_DIR, "identity.json")
 _ANNOUNCE_INTERVAL = 30.0
 _MAX_FRAME_SIZE = 480
-_FRAGMENT_PACING = 0.005
-#  pacing: BLE
-#  (0.005)
+# BLE writes without response can be dropped by Android when fragments are
+# sent back-to-back. Keep a conservative gap between fragments so the peer's
+# reassembler receives the complete message.
+_FRAGMENT_PACING = 0.05
+# Packet pacing: BLE
 _PACKET_PACING = 0.1
 _CONNECTION_TIMEOUT = 15.0
 _MAX_CONNECT_ATTEMPTS = 3
@@ -101,6 +105,12 @@ def _display_worker() -> None:
             #  [bitchat]
             #
             deadline = _time.time() + _DISPLAY_WAIT_STREAM_SEC
+            # Never interrupt a reasoning stream. Reasoning uses a separate
+            # flag because its deltas are written without a trailing newline.
+            while getattr(_core, "_reasoning_stream_open", False):
+                _time.sleep(0.02)
+            # After reasoning ends, give ordinary streamed answer text a
+            # short grace period before inserting the bitchat message.
             while _core._stream_line_open and _time.time() < deadline:
                 _time.sleep(0.02)
 
@@ -527,13 +537,10 @@ def decode_file_payload(payload: bytes) -> dict | None:
 #
 _TEXT_MAX_BYTES = 0xFFFF
 
-# BLE
-# wire = payload + (22) + (64) +
-#  32/64/128/256/512/...
-#  <= 480  256
-# payload <= 170  wire <= 256   (Android
-#  FRAGMENT )
-_TEXT_CHUNK_BYTES = 170
+# Keep ordinary text packets small enough for Android BLE MTUs. With the
+# protocol's block padding, 40 UTF-8 payload bytes produce a 128-byte packet
+# (including the v1 header and signature), avoiding characteristic truncation.
+_TEXT_CHUNK_BYTES = 40
 
 
 def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[str]:
@@ -851,7 +858,17 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             recipient_id=recipient_bytes,
             payload=payload,
         )
+        # Android's BLEPacketPaddingPolicy uses MessagePadding block sizes
+        # [256, 512, ...] for NOISE_HANDSHAKE/NOISE_ENCRYPTED. The codec's
+        # generic padding is 128-byte based, so apply the Android-compatible
+        # PKCS#7 padding explicitly here.
         wire = encode(pkt, padding=False)
+        target = 256
+        while len(wire) + 16 > target:
+            target *= 2
+        pad_len = target - len(wire)
+        if 0 < pad_len <= 255:
+            wire += bytes([pad_len]) * pad_len
         failed = await _fragment_and_send(wire, original_type=int(pkt.type))
         if failed:
             _notify_display(
@@ -900,11 +917,26 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             return
 
         if pending is not None:
+            # A repeated 32-byte msg1 means the peer did not accept the prior
+            # msg2 (or restarted its handshake). Do not misclassify it as msg3.
+            if not pending.initiator and len(payload) == 32:
+                _notify_display("[bitchat] [debug] HS: repeated msg1; restarting responder")
+                _noise.remove_session(peer_hex)
+                state = _noise.NoiseHandshakeState(False, _noise_static_key(), rs)
+                if not state.process_message_1(payload):
+                    _notify_display("[bitchat] [debug] HS: repeated msg1 rejected")
+                    return
+                _noise._NOISE_PENDING[peer_hex] = state
+                msg2 = state.build_message_2()
+                _notify_display("[bitchat] [debug] HS: resending msg2 len=%d" % len(msg2))
+                await _send_noise_packet(int(MessageType.NOISE_HANDSHAKE), msg2, peer_hex)
+                return
             if pending.initiator:
                 # Initiator: msg2  -> msg3
                 _notify_display("[bitchat] [debug] HS: initiator msg2 path")
                 if not pending.process_message_2(payload):
                     _notify_display("[bitchat] [debug] HS: process_message_2 FAILED")
+                    _noise.remove_session(peer_hex)
                     return
                 msg3 = pending.build_message_3()
                 _noise.complete_session(peer_hex, pending)
@@ -924,6 +956,9 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 _notify_display("[bitchat] [debug] HS: responder msg3 path")
                 if not pending.process_message_3(payload):
                     _notify_display("[bitchat] [debug] HS: process_message_3 FAILED")
+                    # Drop the failed responder transcript so the next msg1
+                    # starts a fresh XX handshake.
+                    _noise.remove_session(peer_hex)
                     return
                 _noise.complete_session(peer_hex, pending)
                 _notify_display(
@@ -1003,6 +1038,26 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     if inner_pkt is not None:
                         _dispatch(inner_pkt)
             return
+        if pkt.type in (
+            int(MessageType.MESSAGE),
+            int(MessageType.NOISE_ENCRYPTED),
+        ):
+            # BLE mesh retransmission can deliver the same packet more than
+            # once. Deduplicate before display and LLM injection so one user
+            # message produces one event and one response.
+            now = _time.time()
+            key = hashlib.sha256(
+                pkt.sender_id
+                + bytes([pkt.type])
+                + int(pkt.timestamp).to_bytes(8, "big", signed=False)
+                + pkt.payload
+            ).digest()
+            expired = [k for k, t in _SEEN_MESSAGE_KEYS.items() if now - t > _SEEN_MESSAGE_TTL]
+            for old_key in expired:
+                _SEEN_MESSAGE_KEYS.pop(old_key, None)
+            if key in _SEEN_MESSAGE_KEYS:
+                return
+            _SEEN_MESSAGE_KEYS[key] = now
         if pkt.type == int(MessageType.ANNOUNCE):
             ann = decode_announcement(pkt.payload)
             if ann is not None:
@@ -1733,6 +1788,16 @@ def set_chat_mode(mode: bool | str) -> dict[str, Any]:
         _CHAT_MODE = mode
     else:
         return {"ok": False, "error": f"Invalid mode: {mode!r} (use 'off','on','llm')"}
+    if _CHAT_MODE == "llm" and _LLM_EVENT_QUEUE is None:
+        # CLI startup normally supplies the queue. Also bind it here for
+        # tool-driven starts so DM/mesh messages are injected when bitchat is
+        # enabled after the main loop has already been initialized.
+        try:
+            from .. import core as _core
+
+            set_llm_event_queue(_core.event_queue)
+        except Exception:
+            pass
     return {"ok": True, "chat_mode": _CHAT_MODE}
 
 

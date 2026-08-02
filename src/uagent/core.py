@@ -393,7 +393,8 @@ def print_stream_delta(s: str) -> None:
     with print_lock:
         global _reasoning_stream_open
         if _reasoning_stream_open:
-            print("", flush=True)
+            if s != chr(10):
+                print("", flush=True)
             _reasoning_stream_open = False
         print(s, end="", flush=True)
         # Open iff the final character is not a newline (handles embedded \n).
