@@ -768,8 +768,7 @@ def stdin_loop() -> None:
                 # after a previous reply (e.g. :skills number selection then 'y'
                 # confirmation) so fast consecutive replies are not discarded.
                 if is_reply and (
-                    is_password
-                    or time.monotonic() - _last_ha_reply_mono >= 2.0
+                    is_password or time.monotonic() - _last_ha_reply_mono >= 2.0
                 ):
                     _flush_stdin_input_buffer()
 
