@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.63] - 2026-08-02
+
+### Fixed
+
+- fix(stream): prevent an extra blank line when reasoning output ends with a newline
+- fix(bitchat): improve Android Noise XX interoperability, BLE padding, handshake recovery, fragment pacing, and duplicate-message suppression
+- fix(skills): handle native structured tool responses and invalidate response/provider caches when applying a skill
+
+### Documentation
+
+- docs: document Android/Python bitchat Noise interoperability findings and remaining runtime checks
+
 ## [0.5.62] - 2026-07-31
 
 ### Added

@@ -1,5 +1,17 @@
 # 変更履歴
 
+## [0.5.63] - 2026-08-02
+
+### 修正
+
+- fix(stream): reasoning出力が改行で終わる場合に余分な空行を出力しないよう修正
+- fix(bitchat): Android Noise XX相互運用、BLEパディング、ハンドシェイク復旧、フラグメント間隔、重複メッセージ抑止を改善
+- fix(skills): 構造化ツール応答に対応し、skill適用時にResponses API/プロバイダーキャッシュを無効化
+
+### ドキュメント
+
+- docs: Android/Python bitchat Noise相互運用の調査結果と残る実行時確認事項を文書化
+
 ## [0.5.62] - 2026-07-31
 
 ### 追加
