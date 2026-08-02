@@ -132,6 +132,7 @@ ______________________________________________________________________
 **その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは起動時の genre mask でフィルタされ、`tool_catalog` → `tool_load` で動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
 **`previous_response_id` 継続**:
+
 - OpenAI/Azure Responses: 有効な `resp_*` のときツールループ間で `previous_response_id` を保持。
 - **Grok / OpenRouter**: `previous_response_id` は送らない（OpenRouter は schema 上 null 必須、Grok は tools 併用が不安定）。継続はローカル全履歴 + OpenRouter の文字列化 `input`。
 - stale rid / `invalid_prompt` / `APIResponseValidationError`（文字列 `error.code` 等）時: rid クリア、`responses_state["_stale_rid_occurred"]` 設定、全履歴で 1 回リトライ。2 回目失敗で continuation クリア。
@@ -226,7 +227,7 @@ ______________________________________________________________________
 
 全 idx ツールは外部依存ゼロ（Python 標準ライブラリのみ）。
 
-#### IBM i *2idx 残件（スコープ外 — 実装オープン作業なし）
+#### IBM i \*2idx 残件（スコープ外 — 実装オープン作業なし）
 
 `cl2idx` / `dds2idx` / `rpg2idx` の実装トラックは **完了**。以下は意図的な非目標（詳細は `SPEC_CL2IDX_DDS2IDX.md` §5.9 / §10）:
 
@@ -245,9 +246,9 @@ ______________________________________________________________________
 回帰: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`。
 
 ## リアルタイム音声アーキテクチャ
+
 - OpenAI Realtime、xAI Grok Voice API、および Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`) をサポート。
 - テキストCLI側の実行フローに影響を与えないよう、`src/uagent/realtime.py` 内に完全に分離して実装。
-
 
 ## 保守メモ（util_tools 分割・テスト）
 

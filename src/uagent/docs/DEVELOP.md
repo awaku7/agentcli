@@ -187,6 +187,7 @@ When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending lo
 **Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are filtered by genre mask at startup and can be dynamically loaded via `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
 
 **`previous_response_id` continuity**:
+
 - OpenAI/Azure Responses: keep `previous_response_id` across tool loops when valid (`resp_*`).
 - **Grok / OpenRouter**: never send `previous_response_id` (OpenRouter schema expects null; Grok is unreliable with tools). Continuity uses full local history + OpenRouter stringified `input`.
 - On stale rid / `invalid_prompt` / `APIResponseValidationError` (e.g. string `error.code`): clear rid, set `responses_state["_stale_rid_occurred"]`, retry once with full history; second failure clears continuation.
@@ -226,9 +227,9 @@ See `TOOL_FLOW.md` for full details.
 **Flow:**
 
 1. `set_timer(os_persist=True, seconds=..., message=..., on_timeout_prompt=...)` is called.
-2. `tools/os_scheduler_helper.py` registers a job with the OS scheduler.
-3. At the scheduled time, the OS runs: `python -m uagent --inject-message "<prompt>" --workdir "<dir>"`
-4. uag starts in non-interactive mode, injects the message as a user message, runs one LLM round, and exits.
+1. `tools/os_scheduler_helper.py` registers a job with the OS scheduler.
+1. At the scheduled time, the OS runs: `python -m uagent --inject-message "<prompt>" --workdir "<dir>"`
+1. uag starts in non-interactive mode, injects the message as a user message, runs one LLM round, and exits.
 
 **Actions:**
 
@@ -279,6 +280,7 @@ discovers and activates those skills without requiring APM CLI integration.
   and injects it into conversation history.
 - The user runs `apm install` themselves; uagent only reads the resulting files.
 - The tool provides no `TOOL_SPEC` (CLI-only; LLM does not call it directly).
+
 ______________________________________________________________________
 
 ## 4. Workdir / banner / long-term memory
@@ -376,37 +378,37 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 <tool>(path="...", mode="section", section=N) → source code of the N-th definition
 ```
 
-| Tool   | File(s)         | Parser        | Detects |
+| Tool | File(s) | Parser | Detects |
 |--------|-----------------|---------------|---------|
-| `md2idx`  | .md             | heading parser | ATX/setext headings |
-| `py2idx`  | .py             | `ast`          | class, def, method, decorator |
-| `ts2idx`  | .ts / .js       | regex          | class, interface, type, enum, function, arrow, method, namespace |
-| `jv2idx`  | .java           | regex          | package, class, interface, enum, record, field, constructor, method, throws |
-| `cs2idx`  | .cs             | regex          | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
-| `dart2idx` | .dart          | regex          | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
-| `cpp2idx` | .c/.cpp/.h/.hpp | regex         | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
-| `cobol2idx` | .cbl/.cob/.cpy | regex          | division, section, paragraph, data (01-66, 77, 78), program-id, fd, select, copy, declaratives |
-| `cl2idx` | .cl/.clp/.clle | regex          | pgm, endpgm, dcl, dclf, label, call, callprc, control commands, monmsg, include |
+| `md2idx` | .md | heading parser | ATX/setext headings |
+| `py2idx` | .py | `ast` | class, def, method, decorator |
+| `ts2idx` | .ts / .js | regex | class, interface, type, enum, function, arrow, method, namespace |
+| `jv2idx` | .java | regex | package, class, interface, enum, record, field, constructor, method, throws |
+| `cs2idx` | .cs | regex | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
+| `dart2idx` | .dart | regex | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
+| `cpp2idx` | .c/.cpp/.h/.hpp | regex | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `cobol2idx` | .cbl/.cob/.cpy | regex | division, section, paragraph, data (01-66, 77, 78), program-id, fd, select, copy, declaratives |
+| `cl2idx` | .cl/.clp/.clle | regex | pgm, endpgm, dcl, dclf, label, call, callprc, control commands, monmsg, include |
 | `dds2idx` | .pf/.lf/.dspf/.prtf/.dds | regex (fixed-column aware) | record, field, key, select/omit, join, file keywords, REF/REFFLD follow, DSPF indicator/attr/const |
 | `rpg2idx` | .rpg/.rpgle/.sqlrpgle | regex (fixed/free) | ctl-opt, dcl-f/s/c/ds/pi/pr/proc, begsr, /copy, F/D/P/C-spec, EXEC SQL, /IF |
-| `rs2idx`  | .rs             | regex          | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
-| `go2idx`  | .go             | regex          | package, type struct/interface, func (including receiver), const, var |
-| `php2idx` | .php            | regex          | namespace, class, interface, trait, enum, function, method, const, property, define |
-| `swift2idx` | .swift        | regex          | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
-| `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+| `rs2idx` | .rs | regex | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
+| `go2idx` | .go | regex | package, type struct/interface, func (including receiver), const, var |
+| `php2idx` | .php | regex | namespace, class, interface, trait, enum, function, method, const, property, define |
+| `swift2idx` | .swift | regex | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
+| `kt2idx` | .kt | regex | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 
 All idx tools have zero external dependencies (stdlib only).
-| `ppt2idx`  | .pptx            | `python-pptx`  | slide title, body text, speaker notes |
-| `excel2idx` | .xlsx/.xlsm     | `openpyxl`     | sheet names, dimensions, headers, cell data |
-| `pdf2idx`   | .pdf             | `pdfplumber`   | page list, text previews, page text content |
-| `json2idx`  | .json            | `json`           | key paths, array counts, structural summaries |
-| `csv2idx`   | .csv / .tsv      | `csv`            | header previews, row block ranges |
-| `docx2idx`  | .docx            | `python-docx`    | heading table of contents, paragraph sections |
-| `html2idx`  | .html / .xml     | `beautifulsoup4` | headings (h1-h6), section structures, body text |
-| `sql2idx`   | .sql             | regex            | CREATE TABLE/VIEW/PROCEDURE, DDL/DML blocks |
-| `log2idx`   | .log / .txt      | regex            | timestamp blocks, error/warning events |
+| `ppt2idx` | .pptx | `python-pptx` | slide title, body text, speaker notes |
+| `excel2idx` | .xlsx/.xlsm | `openpyxl` | sheet names, dimensions, headers, cell data |
+| `pdf2idx` | .pdf | `pdfplumber` | page list, text previews, page text content |
+| `json2idx` | .json | `json` | key paths, array counts, structural summaries |
+| `csv2idx` | .csv / .tsv | `csv` | header previews, row block ranges |
+| `docx2idx` | .docx | `python-docx` | heading table of contents, paragraph sections |
+| `html2idx` | .html / .xml | `beautifulsoup4` | headings (h1-h6), section structures, body text |
+| `sql2idx` | .sql | regex | CREATE TABLE/VIEW/PROCEDURE, DDL/DML blocks |
+| `log2idx` | .log / .txt | regex | timestamp blocks, error/warning events |
 
-#### IBM i *2idx residual (out of scope — no open implementation work)
+#### IBM i \*2idx residual (out of scope — no open implementation work)
 
 `cl2idx` / `dds2idx` / `rpg2idx` implementation track is **complete**. Remaining items are intentional non-goals (see also `SPEC_CL2IDX_DDS2IDX.md` §5.9 / §10):
 
@@ -423,7 +425,6 @@ All idx tools have zero external dependencies (stdlib only).
 | `rpg2idx` | `/IF` expression evaluation | Detect/index conditional-compile lines only |
 
 Regression: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`.
-
 
 ______________________________________________________________________
 
@@ -559,6 +560,7 @@ spawn_process
 
 **devel**
 code_map, lint_format, run_tests, git_ops, system_reload
+
 - 言語別索引: py2idx, ts2idx, go2idx, rs2idx, cs2idx, cpp2idx, jv2idx, kt2idx,
   php2idx, dart2idx, swift2idx, cobol2idx, cl2idx, dds2idx, rpg2idx, md2idx
 
@@ -601,6 +603,7 @@ code_map の `format="ontology"` で生成したプロジェクト全体のオ�
 - [code_map_20260707_140601.jsonld](code_map_20260707_140601.jsonld) (JSON-LD 形式, 約 700KB)
 
 生成コマンド:
+
 ```
 code_map(path=".", format="ontology", include_symbols=true)
 ```
@@ -642,9 +645,9 @@ graph TD
 - MMD ファイル: [code_map_20260707_dep.mmd](code_map_20260707_dep.mmd)
 
 ## Realtime Voice Architecture
+
 - Supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`).
 - Kept strictly isolated in `src/uagent/realtime.py` to prevent side effects on standard text execution flows.
-
 
 ## Maintenance Notes (util_tools split and tests)
 
