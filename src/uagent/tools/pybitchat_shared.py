@@ -1015,6 +1015,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         pad_len = target - len(wire)
         if 0 < pad_len <= 255:
             wire += bytes([pad_len]) * pad_len
+        _notify_display(
+            "[bitchat] [debug] NOISE TX type=%d recipient=%s payload=%d raw=%d wire=%d"
+            % (
+                pkt_type,
+                recipient_hex or "<none>",
+                len(payload),
+                len(encode(pkt, padding=False)),
+                len(wire),
+            )
+        )
         failed = await _fragment_and_send(wire, original_type=int(pkt.type))
         if failed:
             _notify_display(
@@ -1266,6 +1276,24 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             and pkt.ttl > 1
         ):
             asyncio.create_task(_relay_packet(pkt, source_addr))
+        if pkt.type in (
+            int(MessageType.NOISE_HANDSHAKE),
+            int(MessageType.NOISE_ENCRYPTED),
+        ):
+            # Match the official clients: Noise frames are directed and must
+            # be consumed only by the advertised recipient. Relay has already
+            # been scheduled above, so this guard does not stop mesh forwarding.
+            local_id = identity.peer_id_bytes
+            if pkt.recipient_id != local_id:
+                _notify_display(
+                    "[bitchat] [debug] dropping NOISE frame not addressed to us "
+                    "recipient=%s local=%s"
+                    % (
+                        pkt.recipient_id.hex() if pkt.recipient_id else "<none>",
+                        local_id.hex(),
+                    )
+                )
+                return
         if pkt.type == int(MessageType.ANNOUNCE):
             ann = decode_announcement(pkt.payload)
             if ann is not None:
