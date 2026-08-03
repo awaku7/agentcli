@@ -30,6 +30,7 @@
 - identity秘密鍵のOS credential store保存（非対応環境は.env.sec方式へフォールバック）
 - Noise XX handshakeの空payload認証タグ（message 2=96バイト、message 3=64バイト）
 - cryptographyのRaw serialization APIを使った鍵エンコード
+- Noise実装を`bitchat_noise.py`へ一本化し、旧重複状態機械を削除
 
 Noiseの外側フレーム自体は、現行プロトコルどおり署名対象外としている。Noiseのハンドシェイクと暗号化フレームは、TTLを保持したrelay対象として追加した。実機相互接続では、引き続きNoiseのreplay制御と複数hop通信を確認する必要がある。
 
