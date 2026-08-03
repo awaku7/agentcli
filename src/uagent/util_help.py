@@ -112,7 +112,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
     cat: dict[str, dict[str, Any]] = {
         "help": e(
             tr("Show command help"),
-            usage=tr(":help [command [subcommand]]"),
+            usage=(":help [command [subcommand]]"),
             detail=tr(
                 "Without args: short list of all commands.\n"
                 "With a command: detailed usage (static + dynamic CMD_SPEC).\n"
@@ -122,29 +122,29 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "cd": e(
             tr("Change workdir without confirmation"),
-            usage=tr(":cd <path>"),
+            usage=(":cd <path>"),
             detail=tr("Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"),
         ),
         "ls": e(
             tr("List directory entries"),
-            usage=tr(":ls [path]"),
+            usage=(":ls [path]"),
             detail=tr("Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"),
         ),
-        "logs": e(tr("Show conversation log file list"), usage=tr(":logs")),
+        "logs": e(tr("Show conversation log file list"), usage=(":logs")),
         "load": e(
             tr("Load a past log (overwrites current conversation history)"),
-            usage=tr(":load <idx|path>"),
+            usage=(":load <idx|path>"),
             detail=tr(
                 "idx is from :logs. After load you may be asked to prepend into the current session log."
             ),
         ),
         "cont": e(
             tr("Load the newest log (:load 0)"),
-            usage=tr(":cont"),
+            usage=(":cont"),
         ),
         "clean": e(
             tr("Delete short conversation logs"),
-            usage=tr(":clean [N]"),
+            usage=(":clean [N]"),
             detail=tr(
                 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N "
                 "(default 5, or UAGENT_CLEAN_THRESHOLD). "
@@ -154,30 +154,30 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "shrink": e(
             tr("Shrink conversation history"),
-            usage=tr(":shrink [N]"),
+            usage=(":shrink [N]"),
             detail=tr("Keep last N non-system messages (default 40)."),
         ),
         "shrink_llm": e(
             tr("Shrink history via LLM summarization"),
-            usage=tr(":shrink_llm [N]"),
+            usage=(":shrink_llm [N]"),
             detail=tr(
                 "Summarize older history into one system message; keep last N raw (default 20)."
             ),
         ),
         "tokens": e(
             tr("Show approximate token count of the conversation"),
-            usage=tr(":tokens"),
+            usage=(":tokens"),
         ),
         "env": e(
             tr("Manage UAGENT_* environment variables"),
-            usage=tr(":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save"),
+            usage=(":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save"),
             detail=tr(
                 "Sensitive KEY names are masked on show. save writes encrypted .env.sec when configured."
             ),
         ),
         "skills": e(
             tr("Manage and apply Agent Skills"),
-            usage=tr(":skills [list|active|clear|install|uninstall|apm|mp_search] ..."),
+            usage=(":skills [list|active|clear|install|uninstall|apm|mp_search] ..."),
             detail=tr(
                 "Built-in: list/active/clear (see runtime skills handlers).\n"
                 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
@@ -188,7 +188,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "tools": e(
             tr("Control tool sending, genres, and loaded tools"),
-            usage=tr(":tools [list|load|on|off|reload|output] ..."),
+            usage=(":tools [list|load|on|off|reload|output] ..."),
             detail=tr(
                 ":tools on|off           Enable/disable sending tools to the LLM\n"
                 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
@@ -200,89 +200,89 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "tool": e(
             tr("Tool authoring helpers"),
-            usage=tr(":tool create <name> [--lang python|rust] [--description '...']"),
+            usage=(":tool create <name> [--lang python|rust] [--description '...']"),
             detail=tr("Scaffolds src/uagent/tools/<name>_tool.py (+ json)."),
         ),
         "plugin": e(
             tr("Install and manage plugins"),
-            usage=tr(
+            usage=(
                 ":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ..."
             ),
             detail=tr("See :help plugin <subcommand> for each action."),
         ),
         "auto": e(
             tr("Auto-pilot: repeatedly pursue a goal until done or stopped"),
-            usage=tr(":auto <goal> [--max-rounds N] | :auto off"),
+            usage=(":auto <goal> [--max-rounds N] | :auto off"),
             detail=tr("Press x in CLI to request immediate exit from auto-pilot."),
         ),
         "model": e(
             tr("Show detailed model configuration"),
-            usage=tr(":model"),
+            usage=(":model"),
             detail=tr("Chat, image, audio, translation, embedding as configured."),
         ),
         "r": e(
             tr("Set reasoning effort"),
-            usage=tr(":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]"),
+            usage=(":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]"),
             detail=tr("0=off, 1=low, 2=medium, 3=high. Provider support varies."),
             aliases=["reasoning"],
         ),
         "v": e(
             tr("Set verbosity"),
-            usage=tr(":v [0|1|2|3]"),
+            usage=(":v [0|1|2|3]"),
             detail=tr("0=off .. 3=high. No arg keeps current."),
             aliases=["verbosity"],
         ),
-        "mem-list": e(tr("List long-term memory notes"), usage=tr(":mem-list")),
+        "mem-list": e(tr("List long-term memory notes"), usage=(":mem-list")),
         "mem-del": e(
             tr("Delete a long-term memory note by index"),
-            usage=tr(":mem-del <index>"),
+            usage=(":mem-del <index>"),
             detail=tr("Index from :mem-list."),
         ),
         "profile": e(
             tr("Show or generate the learned user profile"),
-            usage=tr(":profile | :profile fromlog [N]"),
+            usage=(":profile | :profile fromlog [N]"),
             detail=tr("fromlog N uses the most recent N log files."),
             aliases=["profile-show"],
         ),
         "profile-fromlog": e(
             tr("Generate user profile from past logs"),
-            usage=tr(":profile-fromlog [N]"),
+            usage=(":profile-fromlog [N]"),
             detail=tr("Default N=100; 0=all."),
         ),
         "profile-clear": e(
-            tr("Clear learned user profile data"), usage=tr(":profile-clear")
+            tr("Clear learned user profile data"), usage=(":profile-clear")
         ),
         "cp": e(
             tr("Copy file or directory"),
-            usage=tr(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
+            usage=(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
         ),
         "mv": e(
             tr("Move file or directory"),
-            usage=tr(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
+            usage=(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
         ),
         "rm": e(
             tr("Delete file(s)/directory(ies) with preview + confirm"),
-            usage=tr(":rm <path|glob>"),
+            usage=(":rm <path|glob>"),
         ),
         "head": e(
             tr("Show the first n lines of a file"),
-            usage=tr(":head <path> [n]"),
+            usage=(":head <path> [n]"),
             detail=tr("Default n=20."),
         ),
         "tail": e(
             tr("Show the last n lines of a file"),
-            usage=tr(":tail <path> [n]"),
+            usage=(":tail <path> [n]"),
             detail=tr("Default n=20."),
         ),
         "reload": e(
             tr("Reload runtime configuration / modules"),
-            usage=tr(":reload [target]"),
+            usage=(":reload [target]"),
         ),
         "exit": e(
-            tr("Exit the interactive session"), usage=tr(":exit"), aliases=["quit"]
+            tr("Exit the interactive session"), usage=(":exit"), aliases=["quit"]
         ),
         "quit": e(
-            tr("Exit the interactive session"), usage=tr(":quit"), aliases=["exit"]
+            tr("Exit the interactive session"), usage=(":quit"), aliases=["exit"]
         ),
     }
     # alias index

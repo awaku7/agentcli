@@ -3531,15 +3531,15 @@ msgstr "各アクションについては、:help プラグイン <サブコマ�
 
 #: src/uagent/util_tools.py:2640
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
-msgstr "自動操縦: 完了するか停止するまで繰り返し目標を追求します"
+msgstr "自動操縦: 完了するか停止するまで、目標に繰り返し取り組みます"
 
 #: src/uagent/util_tools.py:2641
 msgid ":auto <goal> [--max-rounds N] | :auto off"
-msgstr ":auto <目標> [--最大ラウンド数 N] | :auto オフ"
+msgstr ":auto <goal> [--max-rounds N] | :auto off"
 
 #: src/uagent/util_tools.py:2642
 msgid "Press x in CLI to request immediate exit from auto-pilot."
-msgstr "CLI で x を押して、自動操縦の即時終了を要求します。"
+msgstr "CLI で x を押すと、自動操縦をすぐに終了できます。"
 
 #: src/uagent/util_tools.py:2645
 msgid "Show detailed model configuration"
