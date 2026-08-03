@@ -862,8 +862,21 @@ def stdin_loop() -> None:
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
 
-                            with patch_stdout():
-                                line = prompt_session.prompt(prompt)
+                            # prompt_toolkit redraws the prompt itself. Mark it
+                            # as open while waiting so the status worker does not
+                            # emit a redundant IDLE line between prompt redraws.
+                            try:
+                                core._prompt_line_open = True
+                            except Exception:
+                                pass
+                            try:
+                                with patch_stdout():
+                                    line = prompt_session.prompt(prompt)
+                            finally:
+                                try:
+                                    core._prompt_line_open = False
+                                except Exception:
+                                    pass
                             if line is not None:
                                 line = tools_util.strip_surrogates(line)
                         except Exception:
