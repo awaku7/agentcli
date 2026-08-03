@@ -81,9 +81,9 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ["UAGENT_OPENAI_API_KEY"],
             reason=_("OpenAI API key.", default="OpenAI API key."),
         )
-    elif provider == "plamo":
+    elif provider == "pfn":
         missing += _require(
-            ["UAGENT_PLAMO_API_KEY"],
+            ["UAGENT_PFN_API_KEY"],
             reason=_("PLaMo API key.", default="PLaMo API key."),
         )
     elif provider == "bedrock":

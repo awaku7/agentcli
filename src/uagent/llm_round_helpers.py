@@ -800,8 +800,8 @@ def _call_openai_azure_round(
                 temp_env = ""
                 if provider == "openai":
                     temp_env = env_get("UAGENT_OPENAI_TEMPERATURE") or ""
-                elif provider == "plamo":
-                    temp_env = env_get("UAGENT_PLAMO_TEMPERATURE") or ""
+                elif provider == "pfn":
+                    temp_env = env_get("UAGENT_PFN_TEMPERATURE") or ""
                 elif provider == "azure":
                     temp_env = env_get("UAGENT_AZURE_TEMPERATURE") or ""
                 elif provider == "openrouter":

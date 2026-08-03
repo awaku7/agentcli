@@ -309,8 +309,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openai":
         return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
-    if provider == "plamo":
-        return env_get("UAGENT_PLAMO_DEPNAME", "plamo-3.0-prime") or "plamo-3.0-prime"
+    if provider == "pfn":
+        return env_get("UAGENT_PFN_DEPNAME", "plamo-3.0-prime") or "plamo-3.0-prime"
     if provider == "bedrock":
         return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openrouter":
@@ -499,12 +499,12 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         return provider, client, model_name
 
-    if provider == "plamo":
+    if provider == "pfn":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_PLAMO_API_KEY")
+        api_key = core.get_env("UAGENT_PFN_API_KEY")
         base_url = core.get_env_url(
-            "UAGENT_PLAMO_BASE_URL",
+            "UAGENT_PFN_BASE_URL",
             "https://api.platform.preferredai.jp/v1",
         )
 

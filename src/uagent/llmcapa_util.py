@@ -37,7 +37,7 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "hf": ("huggingface", "hf"),
     "sakana": ("sakana",),
     "sakura": ("sakura",),
-    "plamo": ("plamo",),
+    "pfn": ("pfn",),
     "novita": ("novita",),
 }
 

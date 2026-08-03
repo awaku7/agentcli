@@ -67,7 +67,7 @@ HEADER_BAT = "\n".join(
 
 PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI-compatible"),
-    ("plamo", "PLaMo (Preferred Networks)"),
+    ("pfn", "PFN (Preferred Networks / PLaMo)"),
     ("azure", "Azure OpenAI"),
     ("bedrock", "Bedrock OpenAI-compatible gateway"),
     ("openrouter", "OpenRouter"),
@@ -102,14 +102,14 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_OPENAI_DEPNAME", False, _("OpenAI model/deployment name (optional)")),
         ("UAGENT_OPENAI_FAST_MODE", False, _("OpenAI Fast mode (1/true to enable)")),
     ],
-    "plamo": [
-        ("UAGENT_PLAMO_API_KEY", True, _("PLaMo API key")),
+    "pfn": [
+        ("UAGENT_PFN_API_KEY", True, _("PLaMo API key")),
         (
-            "UAGENT_PLAMO_BASE_URL",
+            "UAGENT_PFN_BASE_URL",
             False,
             _("PLaMo base URL (optional, default: https://api.platform.preferredai.jp/v1)"),
         ),
-        ("UAGENT_PLAMO_DEPNAME", False, _("PLaMo model name (optional, default: plamo-3.0-prime)")),
+        ("UAGENT_PFN_DEPNAME", False, _("PLaMo model name (optional, default: plamo-3.0-prime)")),
     ],
     "azure": [
         (

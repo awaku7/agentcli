@@ -33,7 +33,7 @@ Required if `UAGENT_PROVIDER=azure`:
 - `UAGENT_AZURE_API_KEY` (required)
 - `UAGENT_AZURE_API_VERSION` (required, e.g. `2025-03-01-preview`)
 
-#### OpenAI / PLaMo
+#### OpenAI / PFN
 
 Required if `UAGENT_PROVIDER=openai`:
 
@@ -41,19 +41,19 @@ Required if `UAGENT_PROVIDER=openai`:
 - `UAGENT_OPENAI_BASE_URL` (optional, default: `https://api.openai.com/v1`)
 - `UAGENT_OPENAI_DEPNAME` (optional, default: `gpt-5.4-nano`)
 
-##### PLaMo (Preferred Networks)
+##### PFN (Preferred Networks / PLaMo)
 
-PLaMo provides an OpenAI-compatible Chat Completions API and is available as the dedicated `plamo` provider.
+PLaMo provides an OpenAI-compatible Chat Completions API and is available as the dedicated `pfn` provider.
 
 ```bat
-set UAGENT_PROVIDER=plamo
-set UAGENT_PLAMO_API_KEY=<PLaMo API key>
-set UAGENT_PLAMO_BASE_URL=https://api.platform.preferredai.jp/v1
-set UAGENT_PLAMO_DEPNAME=plamo-3.0-prime
+set UAGENT_PROVIDER=pfn
+set UAGENT_PFN_API_KEY=<PLaMo API key>
+set UAGENT_PFN_BASE_URL=https://api.platform.preferredai.jp/v1
+set UAGENT_PFN_DEPNAME=plamo-3.0-prime
 set UAGENT_RESPONSES=0
 ```
 
-`UAGENT_PLAMO_BASE_URL` is optional. PLaMo exposes `/v1/chat/completions`, not the Responses API, so keep `UAGENT_RESPONSES=0`. Tool calling and streaming use the OpenAI-compatible Chat Completions implementation.
+`UAGENT_PFN_BASE_URL` is optional. PLaMo exposes `/v1/chat/completions`, not the Responses API, so keep `UAGENT_RESPONSES=0`. Tool calling and streaming use the OpenAI-compatible Chat Completions implementation.
 
 #### Bedrock
 
