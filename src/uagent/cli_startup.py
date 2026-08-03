@@ -111,9 +111,8 @@ def run_cli_startup(
     import os
 
     startup_timing_enabled = (
-        (os.environ.get("UAGENT_STARTUP_TIMING") or "").strip().lower()
-        in {"1", "true", "yes", "on"}
-    )
+        os.environ.get("UAGENT_STARTUP_TIMING") or ""
+    ).strip().lower() in {"1", "true", "yes", "on"}
     startup_timing_started = time.perf_counter()
     startup_timing_marks: dict[str, float] = {}
 
@@ -191,7 +190,9 @@ def run_cli_startup(
                 apply_workdir(decision)
                 _timing_started = time.perf_counter()
                 reload_dotenv_custom()
-                _startup_timing_emit_detail("dotenv", time.perf_counter() - _timing_started)
+                _startup_timing_emit_detail(
+                    "dotenv", time.perf_counter() - _timing_started
+                )
             except Exception as e:
                 print(
                     _("[FATAL] Failed to set workdir: %(err)s", err=e),
@@ -204,7 +205,9 @@ def run_cli_startup(
             try:
                 _timing_started = time.perf_counter()
                 validate_or_exit_startup_env(context="cli")
-                _startup_timing_emit_detail("env_validate", time.perf_counter() - _timing_started)
+                _startup_timing_emit_detail(
+                    "env_validate", time.perf_counter() - _timing_started
+                )
             except SystemExit:
                 if non_interactive:
                     raise

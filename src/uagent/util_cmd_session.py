@@ -183,7 +183,9 @@ def _handle_cmd_skills(
             while selected_idx is None:
                 sel_json = human_ask({"message": sel_msg})
                 try:
-                    sel = sel_json if isinstance(sel_json, dict) else json.loads(sel_json)
+                    sel = (
+                        sel_json if isinstance(sel_json, dict) else json.loads(sel_json)
+                    )
                 except (TypeError, json.JSONDecodeError) as exc:
                     raise ValueError(
                         f"human_ask returned invalid JSON: {str(sel_json).strip()[:300]!r}"
@@ -282,7 +284,11 @@ def _handle_cmd_skills(
         # recreates it with the skill body included.
         try:
             state = getattr(core, "responses_state", {})
-            provider = str(state.get("provider", "")).lower() if isinstance(state, dict) else ""
+            provider = (
+                str(state.get("provider", "")).lower()
+                if isinstance(state, dict)
+                else ""
+            )
             if provider in ("gemini", "vertexai"):
                 from .providers.gemini_cache_mgr import GeminiCacheManager
 

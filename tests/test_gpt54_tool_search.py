@@ -425,9 +425,9 @@ def test_tool_catalog_search_covers_all_tools() -> None:
         out = tools.run_tool("tool_catalog", {"query": query, "max_results": 20})
         data = json.loads(out)
         assert data["ok"] is True
-        assert any(item.get("name") == name for item in data["tools"]), (
-            f"tool_catalog did not return {name!r} for query {query!r}"
-        )
+        assert any(
+            item.get("name") == name for item in data["tools"]
+        ), f"tool_catalog did not return {name!r} for query {query!r}"
         checked += 1
 
     assert checked >= 1

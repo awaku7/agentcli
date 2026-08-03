@@ -186,6 +186,7 @@ def ensure_dependencies() -> bool:
 
 _PEER_NICKNAMES: dict[str, str] = {}
 _PEER_NOISE_KEYS: dict[str, bytes] = {}  # peer_id_hex -> noise_public_key (32 bytes)
+_PEER_SIGNING_KEYS: dict[str, bytes] = {}  # peer_id_hex -> Ed25519 public key
 _CLIENTS: dict[str, Any] = {}
 _CONNECTING: set[str] = set()
 _IGNORED: set[str] = set()
@@ -362,6 +363,18 @@ def sign_packet(packet) -> bytes:
     return priv.sign(data)
 
 
+def verify_packet_signature(packet, signing_public_key: bytes | None) -> bool:
+    """Verify a signed public/file packet against its announced key."""
+    if not signing_public_key or packet.signature is None:
+        return False
+    try:
+        key = ed25519.Ed25519PublicKey.from_public_bytes(bytes(signing_public_key))
+        key.verify(bytes(packet.signature), data_for_signing(packet))
+        return True
+    except Exception:
+        return False
+
+
 # ---- Fragment Assembly -----------------------------------------------------
 
 _FRAGMENT_HEADER_SIZE = 13
@@ -433,6 +446,78 @@ def parse_fragment_payload(payload: bytes) -> tuple[bytes, int, int, int, bytes]
     if total == 0 or index >= total:
         return None
     return fragment_id, index, total, original_type, fragment_data
+
+
+class NotificationStreamAssembler:
+    """Reassemble BLE notification chunks into protocol frames."""
+
+    _MAX_BUFFER = 2 * 1024 * 1024
+    _SENDER_ID_SIZE = 8
+    _SIGNATURE_SIZE = 64
+
+    def __init__(self) -> None:
+        self._buffer = bytearray()
+
+    @staticmethod
+    def _frame_length(buffer: bytearray) -> int | None:
+        if not buffer or buffer[0] not in (1, 2):
+            return 0
+        if len(buffer) < 14:
+            return None
+        version = buffer[0]
+        flags = buffer[11]
+        if version == 1:
+            payload_length = int.from_bytes(buffer[12:14], "big")
+            header_end = 14
+        else:
+            if len(buffer) < 16:
+                return None
+            payload_length = int.from_bytes(buffer[12:16], "big")
+            header_end = 16
+        length = header_end + NotificationStreamAssembler._SENDER_ID_SIZE
+        if flags & 0x01:  # HAS_RECIPIENT
+            length += 8
+        if version == 2 and flags & 0x08:  # HAS_ROUTE
+            route_offset = length
+            if len(buffer) <= route_offset:
+                return None
+            length += 1 + buffer[route_offset] * 8
+        length += payload_length
+        if flags & 0x02:  # HAS_SIGNATURE
+            length += NotificationStreamAssembler._SIGNATURE_SIZE
+        if length > NotificationStreamAssembler._MAX_BUFFER:
+            return 0
+        return length
+
+    @staticmethod
+    def _discard_padding(buffer: bytearray) -> None:
+        if not buffer or buffer[0] in (1, 2):
+            return
+        pad = buffer[0]
+        if 0 < pad <= len(buffer) and all(b == pad for b in buffer[:pad]):
+            del buffer[:pad]
+
+    def append(self, chunk: bytes) -> list[bytes]:
+        if not chunk:
+            return []
+        self._buffer.extend(chunk)
+        if len(self._buffer) > self._MAX_BUFFER:
+            self._buffer.clear()
+            return []
+        frames: list[bytes] = []
+        while self._buffer:
+            self._discard_padding(self._buffer)
+            if not self._buffer:
+                break
+            length = self._frame_length(self._buffer)
+            if length == 0:
+                del self._buffer[0]
+                continue
+            if length is None or len(self._buffer) < length:
+                break
+            frames.append(bytes(self._buffer[:length]))
+            del self._buffer[:length]
+        return frames
 
 
 # ---- File Transfer TLV -----------------------------------------------------
@@ -724,9 +809,10 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         )
     )
     _reassembler = FragmentAssemblyBuffer()
+    _notification_assemblers: dict[str, NotificationStreamAssembler] = {}
 
     async def _fragment_and_send(
-        wire: bytes, original_type: int = 2
+        wire: bytes, original_type: int = 2, exclude_addr: str | None = None
     ) -> list[tuple[str, str]]:
         fragmented = len(wire) > _MAX_FRAME_SIZE
         if fragmented:
@@ -761,6 +847,8 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             frames = [wire]
         failed = []
         for addr, client in list(_CLIENTS.items()):
+            if exclude_addr is not None and addr == exclude_addr:
+                continue
             try:
                 _mtu = getattr(client, "mtu_size", "?")
             except Exception:
@@ -799,6 +887,35 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 await client.disconnect()
             except Exception:
                 pass
+
+    async def _relay_packet(packet: BitchatPacket, source_addr: str | None) -> None:
+        """Forward a verified signed packet without replacing its signature."""
+        if packet.ttl <= 1:
+            return
+        relay = BitchatPacket(
+            version=packet.version,
+            type=packet.type,
+            ttl=int(packet.ttl) - 1,
+            timestamp=packet.timestamp,
+            flags=packet.flags,
+            sender_id=packet.sender_id,
+            recipient_id=packet.recipient_id,
+            route=getattr(packet, "route", None),
+            is_rsr=getattr(packet, "is_rsr", False),
+            payload=packet.payload,
+            signature=packet.signature,
+        )
+        if relay.type in (
+            int(MessageType.NOISE_HANDSHAKE),
+            int(MessageType.NOISE_ENCRYPTED),
+        ):
+            raw = encode(relay, padding=False)
+            wire = _pkcs7_pad(raw, _optimal_block_size(len(raw)))
+        else:
+            wire = encode(relay, padding=True)
+        await _fragment_and_send(
+            wire, original_type=int(relay.type), exclude_addr=source_addr
+        )
 
     async def _send_announce() -> None:
         nonlocal _last_announce
@@ -920,7 +1037,9 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             # A repeated 32-byte msg1 means the peer did not accept the prior
             # msg2 (or restarted its handshake). Do not misclassify it as msg3.
             if not pending.initiator and len(payload) == 32:
-                _notify_display("[bitchat] [debug] HS: repeated msg1; restarting responder")
+                _notify_display(
+                    "[bitchat] [debug] HS: repeated msg1; restarting responder"
+                )
                 _noise.remove_session(peer_hex)
                 state = _noise.NoiseHandshakeState(False, _noise_static_key(), rs)
                 if not state.process_message_1(payload):
@@ -928,8 +1047,12 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     return
                 _noise._NOISE_PENDING[peer_hex] = state
                 msg2 = state.build_message_2()
-                _notify_display("[bitchat] [debug] HS: resending msg2 len=%d" % len(msg2))
-                await _send_noise_packet(int(MessageType.NOISE_HANDSHAKE), msg2, peer_hex)
+                _notify_display(
+                    "[bitchat] [debug] HS: resending msg2 len=%d" % len(msg2)
+                )
+                await _send_noise_packet(
+                    int(MessageType.NOISE_HANDSHAKE), msg2, peer_hex
+                )
                 return
             if pending.initiator:
                 # Initiator: msg2  -> msg3
@@ -1023,11 +1146,46 @@ async def _run_ble_service(nickname: str, network: str) -> None:
 
     # ---- End Noise DM handlers ---------------------------------------------
 
-    def _dispatch(pkt: BitchatPacket) -> None:
+    def _dispatch(pkt: BitchatPacket, source_addr: str | None = None) -> None:
         if pkt.sender_id == identity.peer_id_bytes:
             return
         peer_hex = pkt.sender_id.hex()
+        if pkt.type == int(MessageType.ANNOUNCE):
+            announced = decode_announcement(pkt.payload)
+            if announced is None or not verify_packet_signature(
+                pkt, announced.signing_public_key
+            ):
+                _notify_display(
+                    "[bitchat] Dropping ANNOUNCE with missing/invalid signature"
+                )
+                return
+            _PEER_SIGNING_KEYS[peer_hex] = announced.signing_public_key
+        elif pkt.type in (
+            int(MessageType.MESSAGE),
+            int(MessageType.FILE_TRANSFER),
+            int(MessageType.FRAGMENT),
+            int(MessageType.LEAVE),
+        ):
+            if not verify_packet_signature(pkt, _PEER_SIGNING_KEYS.get(peer_hex)):
+                _notify_display(
+                    "[bitchat] Dropping unsigned/invalid packet from %s" % peer_hex[:8]
+                )
+                return
+
         if pkt.type == int(MessageType.FRAGMENT):
+            now = _time.time()
+            key = hashlib.sha256(
+                pkt.sender_id
+                + bytes([pkt.type])
+                + int(pkt.timestamp).to_bytes(8, "big", signed=False)
+                + pkt.payload
+            ).digest()
+            if key in _SEEN_MESSAGE_KEYS:
+                return
+            _SEEN_MESSAGE_KEYS[key] = now
+            if pkt.ttl > 1:
+                asyncio.create_task(_relay_packet(pkt, source_addr))
+
             parsed = parse_fragment_payload(pkt.payload)
             if parsed is not None:
                 frag_id, index, total, orig_type, frag_data = parsed
@@ -1036,10 +1194,15 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 if inner is not None:
                     inner_pkt = decode(inner)
                     if inner_pkt is not None:
-                        _dispatch(inner_pkt)
+                        _dispatch(inner_pkt, source_addr)
             return
         if pkt.type in (
+            int(MessageType.ANNOUNCE),
             int(MessageType.MESSAGE),
+            int(MessageType.FILE_TRANSFER),
+            int(MessageType.FRAGMENT),
+            int(MessageType.LEAVE),
+            int(MessageType.NOISE_HANDSHAKE),
             int(MessageType.NOISE_ENCRYPTED),
         ):
             # BLE mesh retransmission can deliver the same packet more than
@@ -1052,12 +1215,28 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 + int(pkt.timestamp).to_bytes(8, "big", signed=False)
                 + pkt.payload
             ).digest()
-            expired = [k for k, t in _SEEN_MESSAGE_KEYS.items() if now - t > _SEEN_MESSAGE_TTL]
+            expired = [
+                k for k, t in _SEEN_MESSAGE_KEYS.items() if now - t > _SEEN_MESSAGE_TTL
+            ]
             for old_key in expired:
                 _SEEN_MESSAGE_KEYS.pop(old_key, None)
             if key in _SEEN_MESSAGE_KEYS:
                 return
             _SEEN_MESSAGE_KEYS[key] = now
+        if (
+            pkt.type
+            in (
+                int(MessageType.ANNOUNCE),
+                int(MessageType.MESSAGE),
+                int(MessageType.FILE_TRANSFER),
+                int(MessageType.FRAGMENT),
+                int(MessageType.LEAVE),
+                int(MessageType.NOISE_HANDSHAKE),
+                int(MessageType.NOISE_ENCRYPTED),
+            )
+            and pkt.ttl > 1
+        ):
+            asyncio.create_task(_relay_packet(pkt, source_addr))
         if pkt.type == int(MessageType.ANNOUNCE):
             ann = decode_announcement(pkt.payload)
             if ann is not None:
@@ -1093,6 +1272,11 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                         % {"sender": sender, "text": text}
                     )
             else:
+                if _NOSTR_BRIDGE and _NOSTR_RUNNING and _NOSTR is not None:
+                    try:
+                        _NOSTR.nostr_send_text(text)
+                    except Exception:
+                        pass
                 _notify_display(
                     _("bitchat.mesh_msg", default="[bitchat] %(sender)s: %(text)s")
                     % {"sender": sender, "text": text}
@@ -1133,6 +1317,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         elif pkt.type == int(MessageType.LEAVE):
             nick = _PEER_NICKNAMES.pop(peer_hex, peer_hex[:8])
             _PEER_NOISE_KEYS.pop(peer_hex, None)
+            _PEER_SIGNING_KEYS.pop(peer_hex, None)
             _notify_display(
                 _("bitchat.peer_offline", default="[bitchat] -- %(nick)s went offline")
                 % {"nick": nick}
@@ -1146,11 +1331,24 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 try:
                     os.makedirs(_DOWNLOAD_DIR, exist_ok=True)
                     safe_name = os.path.basename(fname) if fname else ""
-                    safe_name = safe_name.replace("\x00", "").strip().lstrip(".")
+                    safe_name = (
+                        safe_name.replace("\\", "_")
+                        .replace("/", "_")
+                        .replace("\x00", "")
+                        .strip()
+                        .lstrip(".")
+                    )
                     if not safe_name:
                         safe_name = f"received_{int(_time.time() * 1000)}"
+                    base, ext = os.path.splitext(safe_name)
+                    candidate = safe_name
+                    suffix = 1
+                    while os.path.exists(os.path.join(_DOWNLOAD_DIR, candidate)):
+                        candidate = f"{base}_{suffix}{ext}"
+                        suffix += 1
+                    safe_name = candidate
                     save_path = os.path.join(_DOWNLOAD_DIR, safe_name)
-                    with open(save_path, "wb") as f:
+                    with open(save_path, "xb") as f:
                         f.write(fdata)
                     _notify_display(
                         _(
@@ -1197,13 +1395,17 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                         % {"sender": sender, "exc": exc}
                     )
 
-    def _on_notify(_characteristic, data: bytearray) -> None:
+    def _on_notify(addr: str, _characteristic, data: bytearray) -> None:
         try:
             if _STOP_EVENT.is_set():
                 return
-            pkt = decode(bytes(data))
-            if pkt is not None:
-                _dispatch(pkt)
+            assembler = _notification_assemblers.setdefault(
+                addr, NotificationStreamAssembler()
+            )
+            for frame in assembler.append(bytes(data)):
+                pkt = decode(frame)
+                if pkt is not None:
+                    _dispatch(pkt, addr)
         except Exception:
             pass
 
@@ -1215,7 +1417,11 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         try:
             await asyncio.wait_for(client.connect(), timeout=_CONNECTION_TIMEOUT)
             _CLIENTS[addr] = client
-            await client.start_notify(char_uuid, _on_notify)
+            _notification_assemblers[addr] = NotificationStreamAssembler()
+            await client.start_notify(
+                char_uuid,
+                lambda characteristic, data: _on_notify(addr, characteristic, data),
+            )
             _notify_display(
                 _(
                     "bitchat.peer_connected",
@@ -1250,6 +1456,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
     def _on_disconnect(client) -> None:
         addr = client.address
         _CLIENTS.pop(addr, None)
+        _notification_assemblers.pop(addr, None)
         _CONNECTING.discard(addr)
 
     def _on_detection(device: BLEDevice, adv: AdvertisementData) -> None:
@@ -1409,7 +1616,18 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                     break
                                 _pending.popleft()
                                 continue
-                            # fall through to plain if encrypt fails
+                            _notify_display(
+                                _(
+                                    "bitchat.noise_dm_failed",
+                                    default=(
+                                        "[bitchat] Failed to encrypt DM to %(recipient)s; "
+                                        "message dropped"
+                                    ),
+                                )
+                                % {"recipient": recipient_hex[:8]}
+                            )
+                            _pending.popleft()
+                            continue
                         else:
                             # Initiate Noise handshake first, then queue message for later
                             rs = _PEER_NOISE_KEYS.get(recipient_hex)
@@ -1467,17 +1685,18 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                     "a": attempts,
                                 }
                             )
-                            # Fall through to plain-text DM
                             _notify_display(
                                 _(
-                                    "bitchat.noise_dm_plaintext",
+                                    "bitchat.noise_dm_dropped",
                                     default=(
-                                        "[bitchat] No Noise session for DM to %(recipient)s -- "
-                                        "sending as plain text (unencrypted)"
+                                        "[bitchat] No Noise session for DM to %(recipient)s; "
+                                        "message dropped"
                                     ),
                                 )
                                 % {"recipient": recipient_hex[:8]}
                             )
+                            _pending.popleft()
+                            continue
 
                     # Plain text or non-DM send
                     flags = int(PacketFlag.HAS_RECIPIENT) if recipient_hex else 0
@@ -1544,12 +1763,19 @@ def _listener_loop(nickname: str, network: str) -> None:
     Do NOT close the loop here — winrt callbacks may still reference it.
     The daemon thread will be cleaned up on process exit.
     """
+    global _RUNNING
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     try:
         loop.run_until_complete(_run_ble_service(nickname, network))
-    except Exception:
-        pass
+    except Exception as exc:
+        if not _STOP_EVENT.is_set():
+            _notify_display(
+                "[bitchat] BLE service stopped unexpectedly: %s" % type(exc).__name__
+            )
+    finally:
+        if not _STOP_EVENT.is_set():
+            _RUNNING = False
 
 
 # ---- Nostr message callback ------------------------------------------------
@@ -1610,7 +1836,12 @@ def start(
                 "nostr": "running",
                 "message": "Already running",
             }
-    global _IGNORED, _CONNECTING, _ATTEMPTS, _COOLDOWN_UNTIL, _CLIENTS, _PEER_NICKNAMES
+        return {
+            "ok": False,
+            "state": "running",
+            "error": "Node is already running; stop it before changing Nostr settings",
+        }
+    global _IGNORED, _CONNECTING, _ATTEMPTS, _COOLDOWN_UNTIL, _CLIENTS, _PEER_NICKNAMES, _PEER_SIGNING_KEYS
     _IGNORED = set()
     _CONNECTING = set()
     _ATTEMPTS = {}
@@ -1618,6 +1849,7 @@ def start(
     _CLIENTS = {}
     _PEER_NICKNAMES = {}
     _PEER_NOISE_KEYS = {}
+    _PEER_SIGNING_KEYS = {}
     _STOP_EVENT.clear()
     _LISTENER_THREAD = threading.Thread(
         target=_listener_loop,

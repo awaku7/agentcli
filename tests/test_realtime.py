@@ -61,7 +61,9 @@ class TestRealtimeConfig:
         assert headers == {}
 
     def test_gemini_setup_message(self) -> None:
-        msg = realtime._gemini_setup_message("gemini-3.1-flash-live-preview", voice="Puck")
+        msg = realtime._gemini_setup_message(
+            "gemini-3.1-flash-live-preview", voice="Puck"
+        )
         assert "setup" in msg
         assert msg["setup"]["model"] == "models/gemini-3.1-flash-live-preview"
         gen_config = msg["setup"]["generationConfig"]

@@ -211,7 +211,9 @@ def build_initial_messages(
                 depname=depname,
                 use_responses_api=use_responses_api,
             )
-            _startup_timing_detail("messages.refresh_system_prompt", time.perf_counter() - _timing_started)
+            _startup_timing_detail(
+                "messages.refresh_system_prompt", time.perf_counter() - _timing_started
+            )
     except Exception:
         pass
 
@@ -225,7 +227,9 @@ def build_initial_messages(
 
         _timing_started = time.perf_counter()
         instructions = load_project_instruction_files()
-        _startup_timing_detail("messages.instructions", time.perf_counter() - _timing_started)
+        _startup_timing_detail(
+            "messages.instructions", time.perf_counter() - _timing_started
+        )
         for instr in instructions:
             msg = {"role": "system", "content": instr}
             messages.append(msg)

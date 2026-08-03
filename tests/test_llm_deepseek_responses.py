@@ -165,9 +165,7 @@ def test_run_llm_rounds_deepseek_effort_falls_back_to_valid(
 
 def test_apply_deepseek_responses_compat_removes_unsupported_keys() -> None:
     kwargs = {
-        "context_management": [
-            {"type": "compaction", "compact_threshold": 1000}
-        ],
+        "context_management": [{"type": "compaction", "compact_threshold": 1000}],
         "text": {"verbosity": "high"},
         "reasoning": {"effort": "high"},
     }
