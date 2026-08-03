@@ -83,6 +83,8 @@ _SSL_CTX.verify_mode = ssl.CERT_NONE
 
 _LAST_REQUEST_TIME: float = 0
 _RATE_LOCK = threading.Lock()
+_MYMEMORY_LAST_REQUEST_TIME: float = 0
+_MYMEMORY_RATE_LOCK = threading.Lock()
 
 # ---------------------------------------------------------------------------
 # Placeholder protection
@@ -672,6 +674,12 @@ def _write_output_file(
 def _translate(
     text: str, target_lang: str, source_lang: str | None = None
 ) -> tuple[str, str | None]:
+    # Google Translate exposes Norwegian Bokmal (`no`/`nb`) but not
+    # Norwegian Nynorsk (`nn`). Route Nynorsk through MyMemory, which has
+    # exact `nn-NO` translation-memory entries and a free public endpoint.
+    if target_lang.lower().replace("-", "_") in {"nn", "nn_no"}:
+        return _translate_mymemory(text, source_lang)
+
     global _LAST_REQUEST_TIME
     with _RATE_LOCK:
         now = time.time()
@@ -716,6 +724,63 @@ def _translate(
             return translated, detected
     except Exception as e:
         raise RuntimeError(f"Translation request failed: {e}")
+
+
+def _translate_mymemory(
+    text: str, source_lang: str | None = None
+) -> tuple[str, str | None]:
+    """Translate Nynorsk through MyMemory's public endpoint.
+
+    MyMemory may return a Bokmal match even for an ``nn-NO`` request when no
+    exact Nynorsk memory entry exists. Prefer an exact ``nn-NO`` match when
+    available; otherwise use the service's best result as a fallback.
+    """
+    global _MYMEMORY_LAST_REQUEST_TIME
+    with _MYMEMORY_RATE_LOCK:
+        now = time.time()
+        since_last = now - _MYMEMORY_LAST_REQUEST_TIME
+        if since_last < 1.0:
+            time.sleep(1.0 - since_last)
+        _MYMEMORY_LAST_REQUEST_TIME = time.time()
+
+    source = (source_lang or "en").strip().lower().replace("_", "-")
+    if source in {"", "auto"}:
+        source = "en"
+    params = {"q": text, "langpair": f"{source}|nn-NO"}
+    url = (
+        "https://api.mymemory.translated.net/get?"
+        + urllib.parse.urlencode(params)
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": "uagentcli/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=20, context=_SSL_CTX) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        if not isinstance(data, dict) or data.get("responseStatus") not in (None, 200):
+            detail = data.get("responseDetails") if isinstance(data, dict) else data
+            raise RuntimeError(f"MyMemory response error: {detail}")
+
+        translated: str | None = None
+        matches = data.get("matches")
+        if isinstance(matches, list):
+            for match in matches:
+                if not isinstance(match, dict):
+                    continue
+                target = str(match.get("target") or "").lower().replace("_", "-")
+                candidate = match.get("translation")
+                if target == "nn-no" and isinstance(candidate, str) and candidate:
+                    translated = candidate
+                    break
+        if translated is None:
+            response_data = data.get("responseData")
+            if isinstance(response_data, dict):
+                candidate = response_data.get("translatedText")
+                if isinstance(candidate, str):
+                    translated = candidate
+        if not translated:
+            raise RuntimeError("MyMemory returned no translation")
+        return translated, "nn"
+    except Exception as e:
+        raise RuntimeError(f"MyMemory translation request failed: {e}")
 
 
 def _adjust_split_away_from_placeholder(text: str, split_at: int) -> int:
