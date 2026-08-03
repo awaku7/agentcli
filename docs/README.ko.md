@@ -5,12 +5,12 @@
 <h1 align="center">uag — 범용 AI 게이트웨이</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — 당신의 환경, 당신의 자유.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  파일 작업 / 웹 검색 / 이미지 생성 및 분석 / PDF 및 Excel 추출 / IoT 제어 / MCP 통합<br>
+  24 providers / 3 UI / 병렬 도구 실행 / Agent Skills 마켓플레이스
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 읽기 전용 도구(파일 검색, 해시 계산, 디렉터리 목록, 번역, DB 쿼리 등)는 적극적으로 병렬화됩니다.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 플러그인 시스템(Claude Code 호환)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러그인은 스킬, 에이전트, MCP 서버, 후크 등을 `.claude-plugin/plugin.json` 매니페스트와 함께 독립 디렉터리에 묶습니다.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**지원되는 구성 요소: 기술, 하위 에이전트, MCP 서버, 후크(12개의 수명 주기 이벤트), 슬래시 명령, 출력 스타일, userConfig, 종속성, 채널, 마켓플레이스**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # 설치된 플러그인 나열
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # 마켓플레이스에서 설치
+:plugin remove <name>                # 제거
+:plugin enable/disable <name>        # 전환
+:plugin marketplace add/remove/list  # 마켓플레이스 관리
+:plugin init <name>                  # 새 플러그인 뼈대 만들기
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+자세한 내용은 전체 설명서를 참조하세요. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 세션 연속성
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **세션 중간에 공급자 전환** `UAGENT_PROVIDER`를 사용하면 대화 기록이 보존됩니다.
+- **지난 세션 다시 로드** `:load <index>`로 중단한 지점부터 계속할 수 있습니다.
 
 ### 🛠 195  도구
 
@@ -178,17 +177,11 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.ko.md](TOOL_CREATOR_GUIDE.ko.md).
+성능 향상을 위해 `uuid_gen`과 `slugify`는 Rust(PyO3를 통해)로 구현되어 있습니다.
 
 ### 🌐 i18n / L10n
 
-日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / and more.
+日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / 그 외 다수.
 전환하려면 'UAGENT_LANG'을 설정하세요. 새 로케일을 추가하려면 [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)를 참조하세요.
 
 이 README의 번역은 [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)에서 확인할 수 있습니다.
@@ -219,30 +212,26 @@ uag는 **귀하의 머신에서, 귀하의 조건에 따라 귀하의 AI가 되�
 
 벤더 종속이 없는 무료 AI 에이전트 환경입니다.
 
-### ✨ Create Your Own Tools
+### ✨ 나만의 도구 만들기
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.ko.md](TOOL_CREATOR_GUIDE.ko.md)
-for the step-by-step guide.
+[ko.md](TOOL_CREATOR_GUIDE.ko.md)
+단계별 안내는 여기에서 확인하세요.
 
-## Contributing
+## 기여하기
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+기여를 환영합니다! 버그 보고서, 기능 제안, 문서 개선, 번역, 끌어오기 요청 등 모두 감사드립니다.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: 버그나 기능 요청이 있는 경우 GitHub 문제를 개설하세요.
+- **끌어오기 요청**: 저장소를 포크하고 변경 사항을 적용한 뒤 PR을 제출하세요. 개발 환경 설정과 지침은 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)를 참조하세요.
+
+
 
 Realtime 음성 및 AEC3
 
 ## Realtime 음성 모드는 전이중 마이크 및 스피커 입력/출력을 지원합니다. AEC3 백엔드가 없으면 uag은 pywebrtc-audio을 자동으로 설치합니다.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**실시간 공급자**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice 및 Amazon Bedrock Nova Sonic. Bedrock 양방향 스트리밍 SDK는 Bedrock이 선택된 경우에만 자동으로 설치됩니다.
 
 ```bat
 python scheck.py realtime

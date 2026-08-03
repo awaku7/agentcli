@@ -5,12 +5,12 @@
 <h1 align="center">uag – Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — A környezeted, a te szabadságod.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Fájlműveletek / Webes keresés / Képgenerálás és -elemzés / PDF és Excel kivonás / IoT vezérlés / MCP integráció<br>
+  24 providers / 3 felhasználói felület / párhuzamos szerszámvégrehajtás / Agent Skills piactér
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Amikor az LLM egyszerre több eszközt kér, az uag **automatikusan párhuzamos�
 A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, fordítás, DB lekérdezések stb.) agresszíven párhuzamosak.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Beépülő modulrendszer (Claude Code kompatibilis)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+A uagent egy Claude Code-kompatibilis bővítményrendszert valósít meg. A beépülő modulok a készségeket, az ügynököket, az MCP-szervereket, a hookokat és egyebeket önálló könyvtárakba csomagolják `.claude-plugin/plugin.json` jegyzékkel.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Támogatott összetevők: készségek, segédügynökök, MCP-szerverek, hookok (12 életciklus-esemény), perjelparancsok, kimeneti stílusok, userConfig, függőségek, csatornák, piacterek**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # A telepített bővítmények listája
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Telepítés a piactérről
+:plugin remove <name>                # Eltávolítás
+:plugin enable/disable <name>        # Be- vagy kikapcsolás
+:plugin marketplace add/remove/list  # Piacterek kezelése
+:plugin init <name>                  # Új bővítmény vázának létrehozása
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Munkamenet folytonossága
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Szolgáltatóváltás a munkamenet közben** a `UAGENT_PROVIDER` használatával — a beszélgetési előzmények megmaradnak.
+- **Korábbi munkamenetek újratöltése** a `:load <index>` paranccsal — folytassa onnan, ahol abbahagyta.
 
 ### 🛠 195 Eszközök
 
@@ -143,7 +142,7 @@ A teljes dokumentációért lásd: [README_AUTO.md](https://github.com/awaku7/ag
 
 Az uag nyomon követheti az előrehaladást a hosszan futó többfájlos feladatok között. Amikor az LLM több tucat fájlt dolgoz fel, a "batch_state" a függőben lévő, befejezett és sikertelen fájlok listáját a lemezen tárolja. Ha a munkamenet véget ér, vagy egy kör időtúllépéssel jár, a következő futás onnan folytatódik, ahol abbamaradt – semmi sem vész el.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Ember a folyamatban
 
 A `human_ask` lehetővé teszi, hogy az LLM megálljon, és megerősítést kérjen, mielőtt romboló műveleteket hajt végre (fájltörlés, felülírás, shell-parancsok). Marad az irányítás.
 
@@ -176,13 +175,7 @@ Nem kell mindent betölteni indításkor – csak azt aktiválja, amire szüksé
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.hu.md](TOOL_CREATOR_GUIDE.hu.md).
+A `uuid_gen` és a `slugify` a teljesítmény érdekében Rustban (PyO3-on keresztül) van megvalósítva.
 
 ### 🌐 i18n / L10n
 
@@ -217,30 +210,26 @@ uag arra törekszik, hogy az Ön MI-je legyen a gépén, az Ön feltételei szer
 
 Ingyenes mesterséges intelligencia ügynöki élmény, mentes a szállítói bekötéstől.
 
-### ✨ Create Your Own Tools
+### ✨ Készítse el saját eszközeit
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.hu.md](TOOL_CREATOR_GUIDE.hu.md)
-for the step-by-step guide.
+[hu.md](TOOL_CREATOR_GUIDE.hu.md)
+A lépésről lépésre bemutatott útmutatóért kattintson ide.
 
-## Contributing
+## Közreműködés
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Hozzájárulásokat szívesen fogadunk! Hibajelentések, funkciójavaslatok, dokumentációjavítások, fordítások és lekérések – mindezt nagyra értékeljük.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Nyisson meg egy GitHub-problémát a hibákért vagy a funkciókra vonatkozó kérésekért.
+- **Pull kérések**: Forkolja a tárolót, végezze el a módosításokat, majd küldjön PR-t. A fejlesztési beállításokról és irányelvekről a [DEVELOP.md](../src/uagent/docs/DEVELOP.md) fájlban olvashat.
+
+
 
 Realtime Hang és AEC3
 
 ## A Realtime hangmód támogatja a full-duplex mikrofont és a hangszóró be-/kimenetet. Ha a AEC3 háttérprogram hiányzik, a uag automatikusan telepíti a pywebrtc-audio-at.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Valós idejű szolgáltatók**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice és Amazon Bedrock Nova Sonic. A Bedrock kétirányú adatfolyam SDK automatikusan csak a Bedrock kiválasztásakor kerül telepítésre.
 
 ```bat
 python scheck.py realtime

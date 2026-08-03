@@ -5,12 +5,12 @@
 <h1 align="center">uag——通用人工智慧網關</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — 你的環境，你的自由。
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  檔案操作 / 網路搜尋 / 影像產生與分析 / PDF 和 Excel 擷取 / IoT 控制 / MCP 集成<br>
+  24 providers / 3 UI / 平行工具執行 / Agent Skills 市場
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 只讀工具（檔案搜尋、哈希計算、目錄列表、翻譯、資料庫查詢等）被積極並行化。
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 插件系統（Claude Code 相容）
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理、MCP 伺服器、掛鉤等內容，與 `.claude-plugin/plugin.json` 清單一起封裝在獨立目錄中。
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**支援的元件：技能、子代理程式、MCP 伺服器、掛鉤（12 個生命週期事件）、斜線命令、輸出樣式、userConfig、相依項、通道、市場**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # 列出已安裝的插件
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # 從市場安裝
+:plugin remove <name>                # 解除安裝
+:plugin enable/disable <name>        # 切換
+:plugin marketplace add/remove/list  # 管理市場
+:plugin init <name>                  # 建立新插件的基本架構
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+有關詳細資訊，請參閱完整文件。 [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 會話連續性
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **在工作階段中途切換提供者**（使用 `UAGENT_PROVIDER`）— 會話記錄會保留。
+- **重新載入過去的工作階段**（使用 `:load <index>`）— 從上次中斷處繼續。
 
 ### 🛠 195  工具
 
@@ -98,7 +97,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **媒體** |產生影像、分析影像、img2img、音訊語音、音訊轉錄 |
 | **檔案** | PDF/PPTX/DOCX/RTF/ODT擷取、Excel結構化擷取|
 | **預測** | 使用9種模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）進行時間序列預測，自動模型選擇，產生圖表，i18n |
-| **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 及 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **物聯網** | SwitchBot（雲端 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**26 個原始碼導航器（idx 系列）** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 |
@@ -189,13 +188,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.zh_TW.md](TOOL_CREATOR_GUIDE.zh_TW.md).
+為提升效能，`uuid_gen` 和 `slugify` 使用 Rust（透過 PyO3）實作。
 
 ### 🌐 國際化 / 本土化
 
@@ -230,30 +223,26 @@ uag 渴望成為 **您的人工智慧，在您的機器上，按照您的條件�
 
 免費的人工智慧代理體驗，不受供應商鎖定。
 
-### ✨ Create Your Own Tools
+### ✨ 建立您自己的工具
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.zh_TW.md](TOOL_CREATOR_GUIDE.zh_TW.md)
-for the step-by-step guide.
+[zh_TW.md](TOOL_CREATOR_GUIDE.zh_TW.md)
+如需逐步指南，請參閱此處。
 
-## Contributing
+## 貢獻
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+歡迎各種貢獻！錯誤報告、功能建議、文件改進、翻譯和提取請求，都非常值得肯定。
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: 針對錯誤或功能請求開啟 GitHub 問題。
+- **提取請求**：Fork 儲存庫、完成修改並提交 PR。如需開發環境設定與指南，請參閱 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)。
+
+
 
 Realtime 語音和 AEC3
 
 ## Realtime語音模式支援全雙工麥克風和揚聲器輸入/輸出。如果缺少 AEC3 後端，uag 會自動安裝 pywebrtc-audio。
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**即時提供者**：OpenAI Realtime、Azure OpenAI GPT Realtime、Google Gemini Live、xAI Grok Voice 和 Amazon Bedrock Nova Sonic。只有在選擇 Bedrock 時，才會自動安裝 Bedrock 雙向流 SDK。
 
 ```bat
 python scheck.py realtime

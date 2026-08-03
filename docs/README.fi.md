@@ -5,12 +5,12 @@
 <h1 align="center">uag - Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Sinun ympäristösi, sinun vapautesi.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Tiedostotoiminnot / Verkkohaku / Kuvien luominen ja analysointi / PDF & Excel poimiminen / IoT ohjaus / MCP integrointi<br>
+  24 providers / 3 käyttöliittymää / rinnakkainen työkalun suoritus / Agent Skills markkinapaikka
 </p>
 
 <p align="center">
@@ -27,10 +27,10 @@
 
 **Vapauta toimittajan lukituksesta.** Useimmat tekoälyavustajat sitovat sinut tiettyyn palveluntarjoajaan tai pilvipalveluun. uag on erilainen.
 
-- **Runs locally** on your machine. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
+- **Toimii paikallisesti** tietokoneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
 - **195 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
-- **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Same engine, any interface.
+- **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
 uag on **AI-avustajasi sinun ehdoillasi**. Ei sidottu palveluntarjoajaan, ei sidottu käyttöliittymään, ei sidottu alustaan.
@@ -63,31 +63,30 @@ Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne auto
 Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös, tietokantakyselyt jne.) rinnastetaan aggressiivisesti.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Plugin-järjestelmä (Claude Code -yhteensopiva)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent toteuttaa Claude Code -yhteensopivan plugin-järjestelmän. Plugin-laajennukset kokoavat taidot, agentit, MCP-palvelimet, koukut ja paljon muuta itsenäisiin hakemistoihin, joissa on `.claude-plugin/plugin.json`-manifesti.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Tuetut komponentit**: taidot, aliagentit, MCP-palvelimet, koukut (12 elinkaaritapahtumaa), vinoviivakomennot, tulostustyylit, userConfig, riippuvuudet, kanavat, markkinapaikat
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Listaa asennetut plugin-laajennukset
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Asenna markkinapaikasta
+:plugin remove <name>                # Poista asennus
+:plugin enable/disable <name>        # Vaihda
+:plugin marketplace add/remove/list  # Hallitse markkinapaikkoja
+:plugin init <name>                  # Luo uuden plugin-laajennuksen runko
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Istunnon jatkuvuus
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Vaihda palveluntarjoajaa istunnon aikana** käyttämällä muuttujaa `UAGENT_PROVIDER` — keskusteluhistoria säilyy.
+- **Lataa aiemmat istunnot uudelleen** komennolla `:load <index>` — jatka siitä, mihin jäit.
 
 ### 🛠 195 Työkalut
 
@@ -143,7 +142,7 @@ Katso täydelliset asiakirjat kohdasta [README_AUTO.md](https://github.com/awaku
 
 uag voi seurata edistymistä pitkäkestoisissa monitiedostotehtävissä. Kun LLM käsittelee kymmeniä tiedostoja, "batch_state" säilyttää odottavien, valmiiden ja epäonnistuneiden tiedostojen luettelon levylle. Jos istunto päättyy tai kierros aikakatkaistaan, seuraavaa ajoa jatketaan siitä, mihin se pysähtyi – mitään ei häviä.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Άνθρωπος στη διαδικασία
 
 "human_ask" antaa LLM:n pysähtyä ja pyytää vahvistusta ennen tuhoavien toimintojen suorittamista (tiedoston poistaminen, päällekirjoitukset, komentotulkkikomennot). Pysyt hallinnassasi.
 
@@ -176,13 +175,7 @@ Kaikkea ei tarvitse ladata käynnistyksen yhteydessä – aktivoi vain tarvitsem
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.fi.md](TOOL_CREATOR_GUIDE.fi.md).
+`uuid_gen` ja `slugify` on toteutettu Rustilla (PyO3:n kautta) suorituskyvyn parantamiseksi.
 
 ### 🌐 i18n / L10n
 
@@ -217,30 +210,26 @@ uag pyrkii olemaan **tekoäly, koneellasi, sinun ehdoillasi.**
 
 Ilmainen tekoälyagenttikokemus ilman toimittajan lukitusta.
 
-### ✨ Create Your Own Tools
+### ✨ Luo omat työkalusi
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.fi.md](TOOL_CREATOR_GUIDE.fi.md)
-for the step-by-step guide.
+[fi.md](TOOL_CREATOR_GUIDE.fi.md)
+Katso vaiheittainen opas tästä.
 
-## Contributing
+## Osallistuminen
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Lahjoitukset ovat tervetulleita! Virheraportit, ominaisuusehdotukset, dokumentaatioparannukset, käännökset ja vetopyynnöt – kaikki arvostetaan.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Avaa GitHub-ongelma virheiden tai ominaisuuspyyntöjen vuoksi.
+- **Vetopyynnöt**: Tee reposta fork, tee muutokset ja lähetä PR. Kehitysympäristön asetukset ja ohjeet löytyvät tiedostosta [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
+
+
 
 Realtime Ääni ja AEC3
 
 ## Realtime-äänitila tukee kaksisuuntaista mikrofonia ja kaiuttimen tuloa/lähtöä. Jos AEC3-taustaosa puuttuu, uag asentaa pywebrtc-audio:n automaattisesti.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Reaaliaikaiset palveluntarjoajat**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice ja Amazon Bedrock Nova Sonic. Kaksisuuntaisen Bedrock-suoratoiston SDK asennetaan automaattisesti vain, kun Bedrock on valittuna.
 
 ```bat
 python scheck.py realtime

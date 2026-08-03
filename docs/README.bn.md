@@ -5,12 +5,12 @@
 <h1 align="center">uag — ইউনিভার্সাল এআই গেটওয়ে</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — আপনার পরিবেশ, আপনার স্বাধীনতা।
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  ফাইল অপারেশন / ওয়েব অনুসন্ধান / চিত্র তৈরি ও বিশ্লেষণ / PDF এবং Excel নিষ্কাশন / IoT নিয়ন্ত্রণ / MCP একীকরণ<br>
+  24 providers / 3 UIs / সমান্তরাল টুল এক্সিকিউশন / Agent Skills মার্কেটপ্লেস
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 শুধুমাত্র-পঠন সরঞ্জাম (ফাইল অনুসন্ধান, হ্যাশ গণনা, ডিরেক্টরি তালিকা, অনুবাদ, DB প্রশ্ন, ইত্যাদি) আক্রমনাত্মকভাবে সমান্তরাল।
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 প্লাগইন সিস্টেম (Claude Code সামঞ্জস্যপূর্ণ)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প্লাগইন সিস্টেম** প্রয়োগ করে। প্লাগইনগুলি `.claude-plugin/plugin.json` ম্যানিফেস্টসহ স্বয়ংসম্পূর্ণ ডিরেক্টরিতে দক্ষতা, এজেন্ট, MCP সার্ভার, হুক এবং আরও অনেক কিছু বান্ডিল করে।
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**সমর্থিত উপাদান**: দক্ষতা, সাব-এজেন্ট, MCP সার্ভার, হুক (১২টি জীবনচক্র ইভেন্ট), স্ল্যাশ কমান্ড, আউটপুট শৈলী, userConfig, নির্ভরতা, চ্যানেল, মার্কেটপ্লেস
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # ইনস্টল করা প্লাগইনগুলির তালিকা করুন
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # মার্কেটপ্লেস থেকে ইনস্টল করুন
+:plugin remove <name>                # আনইনস্টল করুন
+:plugin enable/disable <name>        # টগল করুন
+:plugin marketplace add/remove/list  # মার্কেটপ্লেস পরিচালনা করুন
+:plugin init <name>                  # নতুন প্লাগইনের কাঠামো তৈরি করুন
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+সম্পূর্ণ ডকুমেন্টেশনের জন্য [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) দেখুন।
 
 
 ### 🔄 অধিবেশনের ধারাবাহিকতা
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **সেশনের মাঝামাঝি প্রদানকারী পরিবর্তন করুন**: `UAGENT_PROVIDER` ব্যবহার করুন — কথোপকথনের ইতিহাস সংরক্ষিত থাকে।
+- **অতীতের সেশন পুনরায় লোড করুন**: `:load <index>` ব্যবহার করে যেখানে থেমেছিলেন সেখান থেকে শুরু করুন।
 
 ### 🛠 195  টুল
 
@@ -180,13 +179,7 @@ uag দীর্ঘ-চলমান মাল্টি-ফাইল টাস্
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.bn.md](TOOL_CREATOR_GUIDE.bn.md).
+পারফরম্যান্সের জন্য `uuid_gen` এবং `slugify` Rust-এ (PyO3-এর মাধ্যমে) বাস্তবায়িত হয়েছে।
 
 ### 🌐 i18n / L10n
 
@@ -221,30 +214,26 @@ uag **আপনার AI হতে, আপনার মেশিনে, আপ�
 
 একটি বিনামূল্যের এআই এজেন্ট অভিজ্ঞতা, বিক্রেতা লক-ইন থেকে মুক্ত।
 
-### ✨ Create Your Own Tools
+### ✨ আপনার নিজের টুল তৈরি করুন
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.bn.md](TOOL_CREATOR_GUIDE.bn.md)
-for the step-by-step guide.
+[bn.md](TOOL_CREATOR_GUIDE.bn.md)
+ধাপে ধাপে নির্দেশিকার জন্য এটি দেখুন।
 
-## Contributing
+## অবদান
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+অবদান স্বাগত জানাই! বাগ রিপোর্ট, বৈশিষ্ট্য পরামর্শ, ডকুমেন্টেশন উন্নতি, অনুবাদ, এবং পুল অনুরোধ — সব প্রশংসা করা হয়েছে.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: বাগ বা বৈশিষ্ট্য অনুরোধের জন্য একটি GitHub সমস্যা খুলুন।
+- **পুল অনুরোধ**: রিপোজিটরির একটি ফর্ক তৈরি করুন, পরিবর্তন করুন এবং একটি PR জমা দিন। ডেভেলপমেন্ট সেটআপ ও নির্দেশিকার জন্য [DEVELOP.md](../src/uagent/docs/DEVELOP.md) দেখুন।
+
+
 
 Realtime ভয়েস এবং AEC3
 
 ## Realtime ভয়েস মোড ফুল-ডুপ্লেক্স মাইক্রোফোন এবং স্পিকার ইনপুট/আউটপুট সমর্থন করে। যদি AEC3 ব্যাকএন্ড অনুপস্থিত থাকে, uag স্বয়ংক্রিয়ভাবে pywebrtc-audio ইনস্টল করে।
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**রিয়েলটাইম প্রদানকারী**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice এবং Amazon Bedrock Nova Sonic। Bedrock দ্বিমুখী-স্ট্রিমিং SDK কেবল Bedrock নির্বাচন করা হলে স্বয়ংক্রিয়ভাবে ইনস্টল হয়।
 
 ```bat
 python scheck.py realtime

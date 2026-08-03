@@ -5,12 +5,12 @@
 <h1 align="center">यूएजी - यूनिवर्सल एआई गेटवे</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — आपका पर्यावरण, आपकी स्वतंत्रता।
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  फ़ाइल संचालन / वेब खोज / छवि निर्माण और विश्लेषण / PDF और Excel निष्कर्षण / IoT नियंत्रण / MCP एकीकरण<br>
+  24 providers / 3 यूआई / समानांतर उपकरण निष्पादन / Agent Skills बाज़ार
 </p>
 
 <p align="center">
@@ -64,31 +64,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 केवल पढ़ने योग्य उपकरण (फ़ाइल खोज, हैश गणना, निर्देशिका सूची, अनुवाद, डीबी क्वेरीज़, आदि) आक्रामक रूप से समानांतर हैं।
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 प्लगइन सिस्टम (Claude Code संगत)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent एक Claude Code-संगत प्लगइन सिस्टम लागू करता है। प्लगइन्स कौशल, एजेंट, MCP सर्वर, हुक और बहुत कुछ को `.claude-plugin/plugin.json` मेनिफेस्ट के साथ स्व-निहित निर्देशिकाओं में बंडल करते हैं।
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**समर्थित घटक: कौशल, उप-एजेंट, MCP सर्वर, हुक (12 जीवनचक्र घटनाएँ), स्लैश कमांड, आउटपुट शैलियाँ, userConfig, निर्भरताएँ, चैनल, मार्केटप्लेस**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # स्थापित प्लगइन्स की सूची बनाएं
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # बाज़ार से इंस्टॉल करें
+:plugin remove <name>                # अनइंस्टॉल करें
+:plugin enable/disable <name>        # टॉगल करें
+:plugin marketplace add/remove/list  # बाज़ारों का प्रबंधन करें
+:plugin init <name>                  # नया प्लगइन ढाँचा बनाएँ
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+विवरण के लिए पूरा दस्तावेज़ देखें। [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 सत्र निरंतरता
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **सत्र के बीच प्रदाता बदलें** `UAGENT_PROVIDER` के साथ — बातचीत का इतिहास सुरक्षित रहता है।
+- **पिछले सत्र फिर से लोड करें** `:load <index>` के साथ — वहीं से जारी रखें जहाँ छोड़ा था।
 
 ### 🛠 195 उपकरण
 
@@ -182,13 +181,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.hi.md](TOOL_CREATOR_GUIDE.hi.md).
+बेहतर प्रदर्शन के लिए `uuid_gen` और `slugify` को Rust में (PyO3 के माध्यम से) लागू किया गया है।
 
 ### 🌐 i18n / L10n
 
@@ -223,30 +216,26 @@ users get the tool without any extra dependencies. See
 
 एक निःशुल्क एआई एजेंट अनुभव, वेंडर लॉक-इन से मुक्त।
 
-### ✨ Create Your Own Tools
+### ✨ अपने स्वयं के उपकरण बनाएं
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.hi.md](TOOL_CREATOR_GUIDE.hi.md)
-for the step-by-step guide.
+[hi.md](TOOL_CREATOR_GUIDE.hi.md)
+चरण-दर-चरण मार्गदर्शिका के लिए यहां देखें।
 
-## Contributing
+## योगदान
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+योगदान का स्वागत है! बग रिपोर्ट, फीचर सुझाव, दस्तावेज़ीकरण सुधार, अनुवाद और पुल अनुरोध - सभी की सराहना की गई।
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: बग या सुविधा अनुरोधों के लिए GitHub समस्या खोलें।
+- **पुल अनुरोध**: रिपॉजिटरी का फोर्क बनाएं, अपने बदलाव करें और PR सबमिट करें। डेवलपमेंट सेटअप और दिशानिर्देशों के लिए [DEVELOP.md](../src/uagent/docs/DEVELOP.md) देखें।
+
+
 
 Realtime आवाज़ और AEC3
 
 ## Realtime वॉयस मोड फुल-डुप्लेक्स माइक्रोफोन और स्पीकर इनपुट/आउटपुट को सपोर्ट करता है। यदि AEC3 बैकएंड गायब है, तो uag स्वचालित रूप से pywebrtc-audio इंस्टॉल कर देता है।
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**रीयलटाइम प्रदाता**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice और Amazon Bedrock Nova Sonic। Bedrock द्विदिश-स्ट्रीमिंग SDK स्वचालित रूप से तभी स्थापित होता है जब Bedrock का चयन किया जाता है।
 
 ```bat
 python scheck.py realtime

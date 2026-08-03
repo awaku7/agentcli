@@ -5,12 +5,12 @@
 <h1 align="center">uag - Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Mazingira yako, uhuru wako.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Uendeshaji wa faili / Utafutaji wa wavuti / Uundaji wa picha & uchanganuzi / PDF & Excel uchimbaji / IoT udhibiti / MCP muunganisho<br>
+  24 providers / 3 UIs / Utekelezaji wa zana Sambamba / Agent Skills sokoni
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Zana 111 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupit
 Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafsiri, hoja za DB, n.k.) zimesawazishwa kwa ukali.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Mfumo wa programu-jalizi (unaooana na Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jalizi huunganisha ujuzi, mawakala, seva za MCP, hooks na mengine katika saraka zinazojitegemea zenye manifest `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Vipengele vinavyotumika: ujuzi, mawakala wasaidizi, seva za MCP, hooks (matukio 12 ya mzunguko wa maisha), amri za slash, mitindo ya matokeo, userConfig, vitegemezi, vituo, masoko**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Orodhesha programu-jalizi zilizosakinishwa
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Sakinisha kutoka kwenye soko
+:plugin remove <name>                # Ondoa usakinishaji
+:plugin enable/disable <name>        # Washa au zima
+:plugin marketplace add/remove/list  # Dhibiti masoko
+:plugin init <name>                  # Unda muundo wa programu-jalizi mpya
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Mwendelezo wa Kikao
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Badilisha mtoa huduma katikati ya kipindi** kwa kutumia `UAGENT_PROVIDER` — historia ya mazungumzo huhifadhiwa.
+- **Pakia tena vipindi vya awali** kwa kutumia `:load <index>` — endelea ulipoishia.
 
 ### 🛠 Zana 195
 
@@ -178,13 +177,7 @@ Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha tu kile unachohitaji
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.sw.md](TOOL_CREATOR_GUIDE.sw.md).
+`uuid_gen` na `slugify` zimetekelezwa katika Rust (kupitia PyO3) kwa utendaji bora.
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +212,26 @@ uag anatamani kuwa **AI yako, kwenye mashine yako, kwa masharti yako.**
 
 Uzoefu wa bure wa wakala wa AI, usio na kufuli kwa muuzaji.
 
-### ✨ Create Your Own Tools
+### ✨ Unda Zana Zako Mwenyewe
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.sw.md](TOOL_CREATOR_GUIDE.sw.md)
-for the step-by-step guide.
+[sw.md](TOOL_CREATOR_GUIDE.sw.md)
+Tazama mwongozo wa hatua kwa hatua hapa.
 
-## Contributing
+## Kuchangia
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Michango inakaribishwa! Ripoti za hitilafu, mapendekezo ya vipengele, uboreshaji wa hati, tafsiri na maombi ya kuvuta — yote yanathaminiwa.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Fungua GitHub suala la hitilafu au maombi ya vipengele.
+- **Maombi ya kuvuta**: Tengeneza fork ya hazina, fanya mabadiliko yako na uwasilishe PR. Tazama [DEVELOP.md](../src/uagent/docs/DEVELOP.md) kwa usanidi wa maendeleo na miongozo.
+
+
 
 Realtime Sauti na AEC3
 
 ## Realtime hali ya sauti inaweza kutumia maikrofoni ya duplex kamili na ingizo/pato la spika. Ikiwa mandhari ya nyuma ya AEC3 haipo, uag husakinisha pywebrtc-audio kiotomatiki.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Watoa huduma kwa wakati halisi**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice na Amazon Bedrock Nova Sonic. SDK ya utiririshaji wa pande mbili wa Bedrock husakinishwa kiotomatiki tu Bedrock inapochaguliwa.
 
 ```bat
 python scheck.py realtime

@@ -5,12 +5,12 @@
 <h1 align="center">uag — Evrensel Yapay Zeka Ağ Geçidi</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Çevreniz, özgürlüğünüz.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Dosya işlemleri / Web araması / Görüntü oluşturma ve analiz / PDF ve Excel çıkarma / IoT kontrolü / MCP entegrasyonu<br>
+  24 providers / 3 kullanıcı arayüzü / Paralel araç yürütme / Agent Skills pazar yeri
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ LLM aynı anda birden fazla araç talep ettiğinde bunları **otomatik olarak pa
 Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, veritabanı sorguları vb.) agresif bir şekilde paralelleştirilmiştir.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Eklenti Sistemi (Claude Code uyumlu)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent, Claude Code uyumlu bir eklenti sistemi uygular. Eklentiler; becerileri, aracıları, MCP sunucularını, kancaları ve daha fazlasını `.claude-plugin/plugin.json` bildirimiyle bağımsız dizinlerde bir araya getirir.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Desteklenen bileşenler: beceriler, alt aracılar, MCP sunucuları, kancalar (12 yaşam döngüsü olayı), eğik çizgi komutları, çıktı stilleri, userConfig, bağımlılıklar, kanallar, marketler**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Yüklü eklentileri listele
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Market üzerinden yükle
+:plugin remove <name>                # Kaldır
+:plugin enable/disable <name>        # Aç veya kapat
+:plugin marketplace add/remove/list  # Marketleri yönet
+:plugin init <name>                  # Yeni eklenti iskeleti oluştur
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Oturum Sürekliliği
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Oturum sırasında sağlayıcı değiştir** `UAGENT_PROVIDER` ile — konuşma geçmişi korunur.
+- **Önceki oturumları yeniden yükle** `:load <index>` ile — kaldığınız yerden devam edin.
 
 ### 🛠 195 Araç
 
@@ -178,13 +177,6 @@ Başlangıçta her şeyi yüklemenize gerek yok; yalnızca ihtiyacınız olanı,
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.tr.md](TOOL_CREATOR_GUIDE.tr.md).
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +211,26 @@ uag, **sizin koşullarınıza göre makinenizde yapay zekanız olmayı hedefliyo
 
 Satıcıya bağımlı kalmadan ücretsiz bir yapay zeka aracısı deneyimi.
 
-### ✨ Create Your Own Tools
+### ✨ Kendi araçlarınızı oluşturun
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.tr.md](TOOL_CREATOR_GUIDE.tr.md)
-for the step-by-step guide.
+[tr.md](TOOL_CREATOR_GUIDE.tr.md)
+Adım adım kılavuz için buraya bakın.
 
-## Contributing
+## Katkıda bulunma
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Katkılarınızı bekliyoruz! Hata raporları, özellik önerileri, belge iyileştirmeleri, çeviriler ve pull isteklerinin tümü takdir edilir.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Hatalar veya özellik istekleri için GitHub sayısını açın.
+- **Pull istekleri**: Depoyu fork edin, değişikliklerinizi yapın ve bir PR gönderin. Geliştirme kurulumu ve yönergeler için [DEVELOP.md](../src/uagent/docs/DEVELOP.md) dosyasına bakın.
+
+
 
 Realtime Ses ve AEC3
 
 ## Realtime ses modu, tam çift yönlü mikrofonu ve hoparlör giriş/çıkışını destekler. AEC3 arka ucu eksikse uag, pywebrtc-audio'ı otomatik olarak yükler.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Gerçek zamanlı sağlayıcılar**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice ve Amazon Bedrock Nova Sonic. Bedrock çift yönlü akış SDK'sı yalnızca Bedrock seçildiğinde otomatik olarak yüklenir.
 
 ```bat
 python scheck.py realtime

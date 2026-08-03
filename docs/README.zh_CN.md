@@ -5,12 +5,12 @@
 <h1 align="center">uag——通用人工智能网关</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — 你的环境，你的自由。
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  文件操作 / 网络搜索 / 图像生成和分析 / PDF 和 Excel 提取 / IoT 控制 / MCP 集成<br>
+  24 providers / 3 UI / 并行工具执行 / Agent Skills 市场
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 只读工具（文件搜索、哈希计算、目录列表、翻译、数据库查询等）被积极并行化。
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 插件系统（兼容 Claude Code）
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代理、MCP 服务器、钩子等捆绑到带有 `.claude-plugin/plugin.json` 清单的独立目录中。
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**支持的组件**：技能、子代理、MCP 服务器、钩子（12 个生命周期事件）、斜杠命令、输出样式、userConfig、依赖项、通道、市场
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # 列出已安装的插件
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # 从市场安装
+:plugin remove <name>                # 卸载
+:plugin enable/disable <name>        # 切换
+:plugin marketplace add/remove/list  # 管理市场
+:plugin init <name>                  # 创建新插件的结构
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+详细文档请参阅 [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)。
 
 
 ### 🔄 会话连续性
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **在会话中切换提供商**：`UAGENT_PROVIDER` — 对话历史记录会保留。
+- **重新加载过去的会话**：`:load <index>` — 从上次中断的地方继续。
 
 ### 🛠 195 个工具
 
@@ -98,7 +97,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **媒体** |生成图像、分析图像、img2img、音频语音、音频转录 |
 | **文件** | PDF/PPTX/DOCX/RTF/ODT提取、Excel结构化提取|
 | **预测** | 使用9种模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）进行时间序列预测，自动模型选择，生成图表，i18n |
-| **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 请参阅 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 请参阅 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 和 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**26 个源代码导航器（idx 系列）** |
 | **MCP** |连接到外部 MCP 服务器、列出工具、执行 |
@@ -128,13 +127,13 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 - **BACnet**：读/写 BACnet/IP 设备（HVAC、照明、电表）。用于推送通知的 COV 订阅
 - **Modbus TCP**：读/写保持/输入寄存器和线圈。 Polling-based change monitoring
-- **OPC UA**: Browse address space, read/write variables, subscribe to data changes
+- **OPC UA**: 浏览地址空间、读写变量并订阅数据变化
 - **SwitchBot**: Cloud batch control & BLE scan/control. Polling-based subscription
-- **ECHONET Lite**: Discover, control, and subscribe to INF notifications from home appliances (AC, lights, water heaters, etc.)
-- **Matter**: Read/write control + attribute subscription for state change monitoring
+- **ECHONET Lite**: 发现、控制家用电器（空调、灯具、热水器等），并订阅其 INF 通知
+- **Matter**: 读写控制 + 属性订阅，用于监控状态变化
 - **UPnP**: Device discovery & IGD port forwarding
 
-See [IOT_USECASE.md](IOT_USECASE.md)
+参阅 [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 代理技能市场
 
@@ -189,13 +188,7 @@ uag 可以跟踪长时间运行的多文件任务的进度。当 LLM 处理数�
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.zh_CN.md](TOOL_CREATOR_GUIDE.zh_CN.md).
+为了提高性能，`uuid_gen` 和 `slugify` 使用 Rust（通过 PyO3）实现。
 
 ### 🌐 国际化 / 本土化
 
@@ -230,30 +223,26 @@ uag 渴望成为 **您的人工智能，在您的机器上，按照您的条件�
 
 免费的人工智能代理体验，不受供应商锁定。
 
-### ✨ Create Your Own Tools
+### ✨ 创建您自己的工具
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.zh_CN.md](TOOL_CREATOR_GUIDE.zh_CN.md)
-for the step-by-step guide.
+[zh_CN.md](TOOL_CREATOR_GUIDE.zh_CN.md)
+分步指南请参阅此处。
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+欢迎贡献！我们感谢错误报告、功能建议、文档改进、翻译和拉取请求。
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: 针对错误或功能请求打开 GitHub 问题。
+- **拉取请求**：Fork 仓库，完成修改并提交 PR。有关开发环境设置和指南，请参阅 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)。
+
+
 
 Realtime 语音和 AEC3
 
 ## Realtime语音模式支持全双工麦克风和扬声器输入/输出。如果缺少 AEC3 后端，uag 会自动安装 pywebrtc-audio。
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**实时提供程序**：OpenAI Realtime、Azure OpenAI GPT Realtime、Google Gemini Live、xAI Grok Voice 和 Amazon Bedrock Nova Sonic。仅当选择 Bedrock 时，才会自动安装 Bedrock 双向流 SDK。
 
 ```bat
 python scheck.py realtime

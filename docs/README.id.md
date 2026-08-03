@@ -5,12 +5,12 @@
 <h1 align="center">uag — Gerbang AI Universal</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Lingkungan Anda, kebebasan Anda.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Operasi file / Pencarian web / Pembuatan & analisis gambar / ekstraksi PDF & Excel / kontrol IoT / integrasi MCP<br>
+  24 providers / 3 UI / Eksekusi alat paralel / Agent Skills pasar
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparale
 Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan, kueri DB, dll.) diparalelkan secara agresif.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Sistem Plugin (Kompatibel dengan Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent mengimplementasikan sistem plugin yang kompatibel dengan Claude Code. Plugin menggabungkan keterampilan, agen, server MCP, hook, dan lainnya ke dalam direktori mandiri dengan manifes `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Komponen yang didukung: Keterampilan, Sub-agen, server MCP, Hook (12 peristiwa siklus hidup), perintah Slash, Gaya keluaran, userConfig, Dependensi, Saluran, Pasar**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Daftar plugin yang diinstal
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Instal dari pasar
+:plugin remove <name>                # Copot pemasangan
+:plugin enable/disable <name>        # Beralih
+:plugin marketplace add/remove/list  # Kelola pasar
+:plugin init <name>                  # Buat kerangka plugin baru
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Kontinuitas Sesi
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Ganti penyedia di tengah sesi** dengan `UAGENT_PROVIDER` — riwayat percakapan tetap tersimpan.
+- **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir.
 
 ### 🛠 195 Alat
 
@@ -178,13 +177,7 @@ Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, 
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.id.md](TOOL_CREATOR_GUIDE.id.md).
+`uuid_gen` dan `slugify` diimplementasikan dalam Rust (melalui PyO3) untuk meningkatkan performa.
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +212,26 @@ uag bercita-cita menjadi **AI Anda, di mesin Anda, sesuai keinginan Anda.**
 
 Pengalaman agen AI gratis, bebas dari penguncian vendor.
 
-### ✨ Create Your Own Tools
+### ✨ Buat Alat Anda Sendiri
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.id.md](TOOL_CREATOR_GUIDE.id.md)
-for the step-by-step guide.
+[id.md](TOOL_CREATOR_GUIDE.id.md)
+Lihat panduan langkah demi langkah di sini.
 
-## Contributing
+## Berkontribusi
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Kontribusi dipersilakan! Laporan bug, saran fitur, peningkatan dokumentasi, terjemahan, dan permintaan penarikan — semuanya dihargai.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Buka masalah GitHub untuk bug atau permintaan fitur.
+- **Pull request**: Fork repositori, lakukan perubahan, lalu kirimkan PR. Lihat [DEVELOP.md](../src/uagent/docs/DEVELOP.md) untuk penyiapan pengembangan dan panduan.
+
+
 
 Realtime Suara dan AEC3
 
 ## Realtime mode suara mendukung mikrofon dupleks penuh dan input/output speaker. Jika backend AEC3 hilang, uag secara otomatis menginstal pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Penyedia waktu nyata**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, dan Amazon Bedrock Nova Sonic. SDK streaming dua arah Bedrock diinstal secara otomatis hanya saat Bedrock dipilih.
 
 ```bat
 python scheck.py realtime

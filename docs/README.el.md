@@ -5,12 +5,12 @@
 <h1 align="center">uag — Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Το περιβάλλον σου, η ελευθερία σου.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Λειτουργίες αρχείων / Αναζήτηση στον ιστό / Δημιουργία και ανάλυση εικόνας / PDF & Excel εξαγωγή / IoT έλεγχος / ενσωμάτωση MCP<br>
+  24 providers / 3 UIs / Παράλληλη εκτέλεση εργαλείων / Agent Skills αγορά
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 Τα εργαλεία μόνο για ανάγνωση (αναζήτηση αρχείων, υπολογισμός κατακερματισμού, καταχώριση καταλόγου, μετάφραση, ερωτήματα DB, κ.λπ.) παραλληλίζονται επιθετικά.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Σύστημα προσθηκών (Claude Code Συμβατό)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+Το uagent υλοποιεί ένα σύστημα προσθηκών συμβατό με Claude Code. Οι προσθήκες ομαδοποιούν δεξιότητες, πράκτορες, MCP διακομιστές, άγκιστρα και άλλα σε αυτόνομους καταλόγους με ένα μανιφέστο `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Υποστηριζόμενα στοιχεία: Δεξιότητες, δευτερεύοντες πράκτορες, MCP διακομιστές, Άγκιστρα (12 συμβάντα κύκλου ζωής), εντολές κάθετου, στυλ εξόδου, userConfig, εξαρτήσεις, κανάλια, αγορές**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Λίστα εγκατεστημένων προσθηκών
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Εγκατάσταση από την αγορά
+:plugin remove <name>                # Απεγκατάσταση
+:plugin enable/disable <name>        # Εναλλαγή
+:plugin marketplace add/remove/list  # Διαχείριση αγορών
+:plugin init <name>                  # Δημιουργία νέου πρόσθετου
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Δείτε την πλήρη τεκμηρίωση για λεπτομέρειες. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 Συνέχεια συνεδρίας
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Εναλλαγή παρόχου στη μέση της συνεδρίας** με `UAGENT_PROVIDER` — το ιστορικό της συνομιλίας διατηρείται.
+- **Επαναφόρτωση προηγούμενων συνεδριών** με `:load <index>` — συνεχίστε από εκεί που σταματήσατε.
 
 ### 🛠 195  Εργαλεία
 
@@ -127,7 +126,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` για να περιηγηθείτε στο [SkillsMP](https://skillsmp.com) και στο [ClawHub](https://clawhub.ai) για δεξιότητες κοινότητας.
-Εγκαταστήστε και επεκτείνετε τις δυνατότητες του uag on the fly.
+Εγκαταστήστε και επεκτείνετε τις δυνατότητες του uag άμεσα.
 
 ### 🤖 Αυτόματος πιλότος (`:auto`)
 
@@ -145,7 +144,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 Το uag μπορεί να παρακολουθεί την πρόοδο σε μακροχρόνιες εργασίες πολλών αρχείων. Όταν το LLM επεξεργάζεται δεκάδες αρχεία, το "batch_state" παραμένει στη λίστα των εκκρεμών, ολοκληρωμένων και αποτυχημένων αρχείων στο δίσκο. Εάν η περίοδος σύνδεσης τελειώσει ή λήξει ένα γύρο, η επόμενη εκτέλεση συνεχίζεται από το σημείο που σταμάτησε — τίποτα δεν χάνεται.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Άνθρωπος στον βρόχο
 
 Το `human_ask` επιτρέπει στο LLM να σταματήσει και να ζητήσει την επιβεβαίωσή σας πριν εκτελέσει καταστροφικές λειτουργίες (διαγραφή αρχείου, αντικαταστάσεις, εντολές φλοιού). Παραμένεις στον έλεγχο.
 
@@ -178,13 +177,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.el.md](TOOL_CREATOR_GUIDE.el.md).
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +211,26 @@ users get the tool without any extra dependencies. See
 
 Μια δωρεάν εμπειρία πράκτορα AI, χωρίς κλείδωμα προμηθευτή.
 
-### ✨ Create Your Own Tools
+### ✨ Δημιουργήστε τα δικά σας εργαλεία
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.el.md](TOOL_CREATOR_GUIDE.el.md)
-for the step-by-step guide.
+[el.md](TOOL_CREATOR_GUIDE.el.md)
+Για τον οδηγό βήμα προς βήμα, ανατρέξτε εδώ.
 
-## Contributing
+## Συνεισφορά
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Οι συνεισφορές είναι ευπρόσδεκτες! Αναφορές σφαλμάτων, προτάσεις δυνατοτήτων, βελτιώσεις τεκμηρίωσης, μεταφράσεις και αιτήματα έλξης — όλα εκτιμώνται.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Ανοίξτε ένα ζήτημα GitHub για σφάλματα ή αιτήματα λειτουργιών.
+- **Αιτήματα έλξης**: Κάντε fork το αποθετήριο, πραγματοποιήστε τις αλλαγές σας και υποβάλετε ένα PR. Για τη ρύθμιση ανάπτυξης και τις οδηγίες, δείτε το [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
+
+
 
 Realtime Voice και AEC3
 
 ## Η λειτουργία Realtime φωνής υποστηρίζει είσοδο/έξοδο μικροφώνου και ηχείου full-duplex. Εάν λείπει το σύστημα υποστήριξης AEC3, το uag εγκαθιστά αυτόματα το pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Πάροχοι σε πραγματικό χρόνο**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice και Amazon Bedrock Nova Sonic. Το SDK αμφίδρομης ροής του Bedrock εγκαθίσταται αυτόματα μόνο όταν έχει επιλεγεί το Bedrock.
 
 ```bat
 python scheck.py realtime

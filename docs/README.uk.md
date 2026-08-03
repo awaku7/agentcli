@@ -5,12 +5,12 @@
 <h1 align="center">uag — універсальний шлюз ШІ</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Ваше середовище, ваша свобода.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Операції з файлами / Пошук у мережі / Створення та аналіз зображень / PDF і Excel вилучення / IoT контроль / MCP інтеграція<br>
+  24 providers / 3 UI / Паралельне виконання інструментів / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 Інструменти лише для читання (пошук файлів, обчислення хешу, перелік каталогів, переклад, запити до БД тощо) агресивно розпаралелюються.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Система плагінів (сумісна з Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent реалізує **систему плагінів, сумісну з Claude Code**. Плагіни об’єднують навички, агентів, сервери MCP, хуки тощо в автономні каталоги з маніфестом `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Підтримувані компоненти**: навички, субагенти, сервери MCP, хуки (12 подій життєвого циклу), команди похилої риски, стилі виводу, userConfig, залежності, канали, ринки
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Список встановлених плагінів
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Встановити з маркетплейсу
+:plugin remove <name>                # Видалити
+:plugin enable/disable <name>        # Перемкнути
+:plugin marketplace add/remove/list  # Керувати маркетплейсами
+:plugin init <name>                  # Створити структуру нового плагіна
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Повну документацію дивіться в [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Безперервність сесії
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Змінити провайдера під час сеансу**: `UAGENT_PROVIDER` — історія розмов збережеться.
+- **Перезавантажити минулі сеанси**: `:load <index>` — продовжити з місця зупинки.
 
 ### 🛠 195 інструмент
 
@@ -155,7 +154,7 @@ uag може **автономно досягати мети протягом к�
 
 uag може відстежувати перебіг тривалих багатофайлових завдань. Коли LLM обробляє десятки файлів, `batch_state` зберігає на диску список файлів, що очікують на розгляд, завершених і невдалих. Якщо сеанс закінчується або раунд минув, наступний запуск поновлюється з того місця, де він був зупинений — нічого не втрачається.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Людина в циклі
 
 `human_ask` дозволяє програмі LLM зупинятися та запитувати ваше підтвердження перед виконанням руйнівних операцій (видалення файлів, перезапис, команди оболонки). Ви залишаєтесь під контролем.
 
@@ -188,13 +187,7 @@ uag може відстежувати перебіг тривалих багат
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.uk.md](TOOL_CREATOR_GUIDE.uk.md).
+`uuid_gen` і `slugify` реалізовано на Rust (через PyO3) для підвищення продуктивності.
 
 ### 🌐 i18n / L10n
 
@@ -229,30 +222,26 @@ uag прагне бути **вашим штучним інтелектом на 
 
 Безкоштовний досвід роботи зі штучним інтелектом, вільний від блокування від постачальника.
 
-### ✨ Create Your Own Tools
+### ✨ Створюйте власні інструменти
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.uk.md](TOOL_CREATOR_GUIDE.uk.md)
-for the step-by-step guide.
+[uk.md](TOOL_CREATOR_GUIDE.uk.md)
+Покроковий посібник доступний тут.
 
-## Contributing
+## Внесок у проєкт
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Ми раді внескам! Цінуємо звіти про помилки, пропозиції функцій, покращення документації, переклади та pull-запити.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Відкрийте проблему GitHub щодо помилок або запитів на функції.
+- **Запити на злиття**: Створіть fork репозиторію, внесіть зміни та надішліть PR. Налаштування розробки й рекомендації описано в [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
+
+
 
 Realtime Голос і AEC3
 
 ## Голосовий режим Realtime підтримує повнодуплексний вхід/вихід для мікрофона та динаміка. Якщо серверна частина AEC3 відсутня, uag автоматично встановлює pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Постачальники в реальному часі**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice і Amazon Bedrock Nova Sonic. SDK двонаправленого потокового передавання Bedrock встановлюється автоматично лише тоді, коли вибрано Bedrock.
 
 ```bat
 python scheck.py realtime

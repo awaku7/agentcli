@@ -5,12 +5,12 @@
 <h1 align="center">uag — Cổng AI phổ quát</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Môi trường của bạn, sự tự do của bạn.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Thao tác tệp / Tìm kiếm trên web / Tạo và phân tích hình ảnh / Trích xuất PDF & Excel / Kiểm soát IoT / Tích hợp MCP<br>
+  24 providers / 3 giao diện người dùng / Thực thi công cụ song song / Agent Skills thị trường
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song**
 Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt kê thư mục, dịch thuật, truy vấn DB, v.v.) được song song hóa mạnh mẽ.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Hệ thống plugin (Tương thích với Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent triển khai **hệ thống plugin tương thích với Claude Code**. Các plugin kết hợp kỹ năng, tác nhân, máy chủ MCP, hook và nhiều thành phần khác vào các thư mục độc lập với manifest `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Các thành phần được hỗ trợ**: kỹ năng, tác nhân phụ, máy chủ MCP, hook (12 sự kiện vòng đời), lệnh gạch chéo, kiểu đầu ra, userConfig, phụ thuộc, kênh, thị trường
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Liệt kê các plugin đã cài đặt
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Cài đặt từ thị trường
+:plugin remove <name>                # Gỡ cài đặt
+:plugin enable/disable <name>        # Chuyển đổi
+:plugin marketplace add/remove/list  # Quản lý thị trường
+:plugin init <name>                  # Tạo cấu trúc plugin mới
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Phiên liên tục
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Chuyển đổi nhà cung cấp giữa phiên**: `UAGENT_PROVIDER` — lịch sử hội thoại được giữ nguyên.
+- **Tải lại các phiên trước**: `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
 
 ### 🛠 195  Công cụ
 
@@ -189,13 +188,7 @@ Không cần tải mọi thứ khi khởi động — chỉ kích hoạt những
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.vi.md](TOOL_CREATOR_GUIDE.vi.md).
+`uuid_gen` và `slugify` được triển khai bằng Rust (thông qua PyO3) để cải thiện hiệu suất.
 
 ### 🌐 i18n/L10n
 
@@ -230,30 +223,26 @@ uag mong muốn trở thành **AI của bạn, trên máy của bạn, theo đi�
 
 Trải nghiệm đại lý AI miễn phí, không bị ràng buộc bởi nhà cung cấp.
 
-### ✨ Create Your Own Tools
+### ✨ Tạo công cụ của riêng bạn
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.vi.md](TOOL_CREATOR_GUIDE.vi.md)
-for the step-by-step guide.
+[vi.md](TOOL_CREATOR_GUIDE.vi.md)
+Xem hướng dẫn từng bước tại đây.
 
-## Contributing
+## Đóng góp
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Mọi đóng góp đều được hoan nghênh! Chúng tôi trân trọng báo cáo lỗi, đề xuất tính năng, cải thiện tài liệu, bản dịch và pull request.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Mở sự cố GitHub để tìm lỗi hoặc yêu cầu tính năng.
+- **Pull request**: Fork kho lưu trữ, thực hiện thay đổi và gửi PR. Xem [DEVELOP.md](../src/uagent/docs/DEVELOP.md) để biết cách thiết lập môi trường phát triển và các hướng dẫn.
+
+
 
 Realtime Giọng nói và AEC3
 
 ## Realtime chế độ giọng nói hỗ trợ đầu vào/đầu ra loa và micrô song công hoàn toàn. Nếu thiếu phần phụ trợ AEC3, uag sẽ tự động cài đặt pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Nhà cung cấp thời gian thực**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice và Amazon Bedrock Nova Sonic. SDK phát trực tuyến hai chiều của Bedrock chỉ được cài đặt tự động khi Bedrock được chọn.
 
 ```bat
 python scheck.py realtime

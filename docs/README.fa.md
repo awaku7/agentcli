@@ -5,12 +5,12 @@
 <h1 align="center">uag - دروازه هوش مصنوعی جهانی</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — محیط شما، آزادی شما.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  عملیات فایل / جست‌وجوی وب / تولید و تجزیه و تحلیل تصویر / استخراج PDF و Excel / کنترل IoT / ادغام MCP<br>
+  24 providers / 3 رابط کاربری / اجرای موازی ابزار / Agent Skills بازار
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 ابزارهای فقط خواندنی (جستجوی فایل، محاسبه هش، فهرست فهرست، ترجمه، جستارهای DB و غیره) به شدت موازی می شوند.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 سیستم پلاگین (سازگار با Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent یک سیستم افزونه سازگار با Claude Code را پیاده‌سازی می‌کند. افزونه‌ها مهارت‌ها، عامل‌ها، سرورهای MCP، قلاب‌ها و موارد دیگر را با مانیفست `.claude-plugin/plugin.json` در دایرکتوری‌های مستقل دسته‌بندی می‌کنند.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**اجزای پشتیبانی‌شده: مهارت‌ها، عامل‌های فرعی، سرورهای MCP، قلاب‌ها (۱۲ رویداد چرخهٔ حیات)، فرمان‌های اسلش، سبک‌های خروجی، userConfig، وابستگی‌ها، کانال‌ها، بازارها**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # فهرست پلاگین‌های نصب‌شده
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # نصب از بازار
+:plugin remove <name>                # حذف نصب
+:plugin enable/disable <name>        # تغییر وضعیت
+:plugin marketplace add/remove/list  # مدیریت بازارها
+:plugin init <name>                  # ایجاد اسکلت پلاگین جدید
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+برای جزئیات بیشتر به مستندات کامل مراجعه کنید. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 تداوم جلسه
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **تغییر ارائه‌دهنده در میانهٔ جلسه** با `UAGENT_PROVIDER` — سابقهٔ گفتگو حفظ می‌شود.
+- **بارگیری مجدد جلسه‌های قبلی** با `:load <index>` — از همان جایی که متوقف شدید ادامه دهید.
 
 ### 🛠 195 ابزار
 
@@ -178,13 +177,7 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.fa.md](TOOL_CREATOR_GUIDE.fa.md).
+`uuid_gen` و `slugify` برای عملکرد بهتر در Rust (از طریق PyO3) پیاده‌سازی شده‌اند.
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +212,26 @@ uag آرزو دارد **هوش مصنوعی شما باشد، بر روی دست
 
 تجربه عامل هوش مصنوعی رایگان، بدون قفل شدن فروشنده.
 
-### ✨ Create Your Own Tools
+### ✨ ابزارهای خود را ایجاد کنید
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.fa.md](TOOL_CREATOR_GUIDE.fa.md)
-for the step-by-step guide.
+[fa.md](TOOL_CREATOR_GUIDE.fa.md)
+برای راهنمای گام‌به‌گام، این راهنما را ببینید.
 
-## Contributing
+## مشارکت
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+مشارکت‌ها خوش‌آمدید! گزارش‌های اشکال، پیشنهادهای ویژگی، بهبود اسناد، ترجمه‌ها و درخواست‌های کششی، همگی ارزشمند هستند.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: یک مشکل GitHub را برای اشکالات یا درخواست های ویژگی باز کنید.
+- **درخواست‌های کششی**: از مخزن فورک بگیرید، تغییرات خود را اعمال کنید و یک PR ارسال کنید. برای راه‌اندازی توسعه و دستورالعمل‌ها، [DEVELOP.md](../src/uagent/docs/DEVELOP.md) را ببینید.
+
+
 
 Realtime Voice و AEC3
 
 ## حالت صوتی Realtime از میکروفون کامل دوبلکس و ورودی/خروجی بلندگو پشتیبانی می کند. اگر پشتیبان AEC3 وجود نداشته باشد، uag به طور خودکار pywebrtc-audio را نصب می کند.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**ارائه‌دهندگان بیدرنگ**: OpenAI Realtime، Azure OpenAI GPT Realtime، Google Gemini Live، xAI Grok Voice و Amazon Bedrock Nova Sonic. SDK پخش جریانی دوطرفه Bedrock فقط هنگام انتخاب Bedrock به‌طور خودکار نصب می‌شود.
 
 ```bat
 python scheck.py realtime

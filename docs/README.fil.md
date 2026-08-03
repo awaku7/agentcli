@@ -28,9 +28,9 @@ Sinusuportahan ng uag ang BACnet, Modbus TCP, OPC UA, SwitchBot, ECHONET Lite, M
 - [Environment variables](ENVIRONMENT.md)
 - [Quickstart](QUICKSTART.md)
 - [Communication at bitchat](COMMUNICATION.md)
-- [IoT use cases](IOT_USECASE.md)
+- [Mga gamit ng IoT](IOT_USECASE.md)
 - [Listahan ng lahat ng README translation](README.translations.md)
 
 Para sa PFN/PLaMo, gamitin ang `UAGENT_PROVIDER=pfn` kasama ang `UAGENT_PFN_API_KEY`, `UAGENT_PFN_BASE_URL`, at `UAGENT_PFN_DEPNAME`.
 
-Tingnan ang [README.md](../README.md) para sa kumpletong dokumentasyon sa English.
+Tingnan ang [README.md](../README.md) para sa kumpletong dokumentasyon sa Ingles.

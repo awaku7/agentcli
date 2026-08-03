@@ -50,7 +50,7 @@ uag
 
 Realtime音声モードは、OpenAI Realtime、xAI Grok Voice API、およびGoogle Gemini Multimodal Live APIに対応しており、`pywebrtc-audio`のWebRTC AEC3バックエンドを自動インストールしてマイクとスピーカーを同時に扱う全二重音声入出力に対応しています。
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**リアルタイムプロバイダー**: OpenAI Realtime、Azure OpenAI GPT Realtime、Google Gemini Live、xAI Grok Voice、Amazon Bedrock Nova Sonic。Bedrock双方向ストリーミングSDKは、Bedrock選択時のみ自動インストールされます。
 
 ```bat
 python scheck.py realtime
@@ -107,7 +107,6 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 
 - **セッション中のプロバイダ切り替え**: `UAGENT_PROVIDER` を変更しても会話履歴は保持されます。
 - **過去セッションの再読み込み**: `:load <番号>` で中断したところから再開。
-- **ツール結果のキャッシュ**: 同じツール呼び出しが繰り返された場合、再実行を防ぎます。
 
 ### 🛠 195ツール
 
@@ -244,22 +243,18 @@ uagは **あなたのマシンで、あなたの思い通りに動く、あな�
 
 ### ✨ 独自ツールの作成
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
+uag用の新しいツールを作るのは簡単です。`TOOL_SPEC`と`run_tool()`を含む単一の`.py`ファイルを作成し、``UAGENT_EXTERNAL_TOOLS_DIR``に配置すれば、すぐに利用できます。Rust開発者は、ユーザーに追加の依存関係を要求しないビルド済み`.pyd`を配布できます。
 
-See [TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md)
-for the step-by-step guide.
+手順については[TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md)を参照してください。
 
 ## 貢献する
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+貢献を歓迎します！バグ報告、機能提案、ドキュメントの改善、翻訳、プルリクエストなど、あらゆる協力に感謝します。
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: バグや機能リクエストについては、GitHub 問題をオープンしてください。
+- **プルリクエスト**: リポジトリをForkし、変更を加えてPRを送信してください。開発環境の構築とガイドラインは[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を参照してください。
+- **翻訳**: READMEの翻訳やロケールの追加を歓迎します。[ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)を参照してください。
+- **ツールとスキル**: 新しいツールプラグインやAgent Skillsはマーケットプレイス経由で貢献できます。
 
 ### 開発時チェック（PR 前）
 

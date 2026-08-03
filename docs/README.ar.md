@@ -5,12 +5,12 @@
 <h1 align="center">uag - بوابة الذكاء الاصطناعي العالمية</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — بيئتك، حريتك.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  عمليات الملفات / البحث على الويب / إنشاء الصور وتحليلها / PDF وExcel استخراج / IoT التحكم / MCP التكامل<br>
+  24 providers / 3 واجهات مستخدم / تنفيذ الأداة المتوازية / Agent Skills السوق
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 أدوات القراءة فقط (البحث عن الملفات، وحساب التجزئة، وقائمة الدليل، والترجمة، واستعلامات قاعدة البيانات، وما إلى ذلك) متوازية بقوة.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 نظام المكونات الإضافية (Claude Code متوافق)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+يطبق uagent **نظامًا إضافيًا متوافقًا مع Claude Code**. تجمع المكونات الإضافية المهارات والوكلاء وخوادم MCP والخطافات والمزيد في أدلة قائمة بذاتها مع بيان `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**المكونات المدعومة**: المهارات، الوكلاء الفرعيون، خوادم MCP، الخطافات (12 حدثًا لدورة الحياة)، أوامر الشرطة المائلة، أنماط الإخراج، userConfig، التبعيات، القنوات، الأسواق
 
-**CLI commands**:
+**أوامر CLI**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # قائمة المكونات الإضافية المثبتة
+:plugin install <source> [--scope]   # التثبيت (مجلد/zip/git/http)
+:plugin install <name>@<marketplace>  # التثبيت من السوق
+:plugin remove <name>                # إلغاء التثبيت
+:plugin enable/disable <name>        # تبديل
+:plugin marketplace add/remove/list  # إدارة الأسواق
+:plugin init <name>                  # إنشاء هيكل مكون إضافي جديد
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+راجع [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) للحصول على الوثائق الكاملة.
 
 
 ### 🔄استمرارية الجلسة
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **تبديل مقدمي الخدمة أثناء الجلسة** باستخدام `UAGENT_PROVIDER` — يتم الاحتفاظ بسجل المحادثات.
+- **إعادة تحميل الجلسات السابقة** باستخدام `:load <index>` — تابع من حيث توقفت.
 
 ### 🛠 195  أداة
 
@@ -189,13 +188,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.ar.md](TOOL_CREATOR_GUIDE.ar.md).
+تم تنفيذ `uuid_gen` و`slugify` بلغة Rust (عبر PyO3) لتحسين الأداء.
 
 ### 🌐i18n / L10n
 
@@ -230,30 +223,26 @@ users get the tool without any extra dependencies. See
 
 تجربة وكيل AI مجانية، خالية من تقييد البائع.
 
-### ✨ Create Your Own Tools
+### ✨ إنشاء الأدوات الخاصة بك
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.ar.md](TOOL_CREATOR_GUIDE.ar.md)
-for the step-by-step guide.
+[ar.md](TOOL_CREATOR_GUIDE.ar.md)
+راجع الدليل خطوة بخطوة.
 
-## Contributing
+## المساهمة
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+المساهمات هي موضع ترحيب! تقارير الأخطاء، واقتراحات الميزات، وتحسينات الوثائق، والترجمات، وطلبات السحب - كلها موضع تقدير.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: افتح مشكلة GitHub للأخطاء أو طلبات الميزات.
+- **طلبات السحب**: أنشئ نسخة من المستودع، وأجرِ تغييراتك، ثم أرسل طلب سحب. راجع [DEVELOP.md](../src/uagent/docs/DEVELOP.md) لإعداد التطوير والإرشادات.
+
+
 
 Realtime صوت و AEC3
 
 ## Realtime يدعم وضع الصوت ميكروفون مزدوج الاتجاه وإدخال/إخراج مكبر الصوت. إذا كانت الواجهة الخلفية AEC3 مفقودة، فسيقوم uag بتثبيت pywebrtc-audio تلقائيًا.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**موفرو الوقت الفعلي**: OpenAI Realtime، Azure OpenAI GPT Realtime، Google Gemini Live، xAI Grok Voice، وAmazon Bedrock Nova Sonic. يتم تثبيت SDK للبث ثنائي الاتجاه في Bedrock تلقائيًا فقط عند تحديد Bedrock.
 
 ```bat
 python scheck.py realtime

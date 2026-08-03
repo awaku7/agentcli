@@ -5,12 +5,12 @@
 <h1 align="center">uag — Gateway Universal de IA</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Seu ambiente, sua liberdade.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Operações de arquivo / Pesquisa na Web / Geração e análise de imagens / Extração de PDF e Excel / Controle de IoT / Integração MCP<br>
+  24 providers/3 UIs / Execução de ferramenta paralela / Mercado Agent Skills
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Quando o LLM solicita várias ferramentas simultaneamente, o uag as **paraleliza
 Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de diretórios, tradução, consultas de banco de dados, etc.) são agressivamente paralelizadas.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Sistema de plug-ins (compatível com Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent implementa um **sistema de plug-ins compatível com Claude Code**. Os plug-ins agrupam habilidades, agentes, servidores MCP, ganchos e muito mais em diretórios independentes com o manifesto `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Componentes suportados**: habilidades, subagentes, servidores MCP, ganchos (12 eventos de ciclo de vida), comandos de barra, estilos de saída, userConfig, dependências, canais, mercados
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Listar plug-ins instalados
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Instalar do mercado
+:plugin remove <name>                # Desinstalar
+:plugin enable/disable <name>        # Alternar
+:plugin marketplace add/remove/list  # Gerenciar mercados
+:plugin init <name>                  # Criar a estrutura de um novo plug-in
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Consulte a documentação completa em [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Continuidade da Sessão
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Trocar de provedor durante a sessão**: `UAGENT_PROVIDER` — o histórico de conversas é preservado.
+- **Recarregar sessões anteriores**: `:load <index>` — continue de onde parou.
 
 ### 🛠 195  Ferramentas
 
@@ -177,13 +176,6 @@ Não há necessidade de carregar tudo na inicialização — ative apenas o que 
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.pt_BR.md](TOOL_CREATOR_GUIDE.pt_BR.md).
 
 ### 🌐i18n/L10n
 
@@ -218,30 +210,26 @@ uag aspira ser **sua IA, em sua máquina, em seus termos.**
 
 Uma experiência de agente de IA gratuita, livre de dependência de fornecedor.
 
-### ✨ Create Your Own Tools
+### ✨ Crie suas próprias ferramentas
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.pt_BR.md](TOOL_CREATOR_GUIDE.pt_BR.md)
-for the step-by-step guide.
+[pt_BR.md](TOOL_CREATOR_GUIDE.pt_BR.md)
 
-## Contributing
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+## Contribuir
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+Contribuições são bem-vindas! Relatórios de bugs, sugestões de recursos, melhorias na documentação, traduções e solicitações pull – tudo apreciado.
+
+- **Issues**: Abra um problema GitHub para bugs ou solicitações de recursos.
+- **Pull requests**: Faça um fork do repositório, aplique suas alterações e envie um PR. Consulte [DEVELOP.md](../src/uagent/docs/DEVELOP.md) para a configuração de desenvolvimento e as diretrizes.
+
+
 
 Realtime Voz e AEC3
 
 ## Realtime O modo de voz suporta microfone full-duplex e entrada/saída de alto-falante. Se o backend AEC3 estiver faltando, uag instalará automaticamente pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Provedores em tempo real**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice e Amazon Bedrock Nova Sonic. O SDK de streaming bidirecional do Bedrock é instalado automaticamente somente quando o Bedrock é selecionado.
 
 ```bat
 python scheck.py realtime

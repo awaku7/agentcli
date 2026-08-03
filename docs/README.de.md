@@ -5,12 +5,12 @@
 <h1 align="center">uag – Universelles KI-Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Deine Umgebung, deine Freiheit.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Dateioperationen / Websuche / Bildgenerierung und -analyse / PDF & Excel Extraktion / IoT Steuerung / MCP Integration<br>
+  24 providers / 3 UIs / Parallele Toolausführung / Agent Skills Marktplatz
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Wenn das LLM mehrere Tools gleichzeitig anfordert, werden diese von uag automati
 Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Übersetzung, DB-Abfragen usw.) werden aggressiv parallelisiert.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Plugin-System (Claude Code-kompatibel)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent implementiert ein **Claude Code-kompatibles Plugin-System**. Plugins bündeln Fähigkeiten, Agenten, MCP-Server, Hooks und mehr in eigenständigen Verzeichnissen mit dem Manifest `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Unterstützte Komponenten**: Skills, Subagenten, MCP-Server, Hooks (12 Lebenszyklusereignisse), Slash-Befehle, Ausgabestile, userConfig, Abhängigkeiten, Kanäle, Marktplätze
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Installierte Plugins auflisten
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Vom Marktplatz installieren
+:plugin remove <name>                # Deinstallieren
+:plugin enable/disable <name>        # Umschalten
+:plugin marketplace add/remove/list  # Marktplätze verwalten
+:plugin init <name>                  # Neues Plugin-Gerüst erstellen
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Sitzungskontinuität
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Anbieter während der Sitzung wechseln**: `UAGENT_PROVIDER` — der Gesprächsverlauf bleibt erhalten.
+- **Vergangene Sitzungen erneut laden**: `:load <index>` — dort weitermachen, wo Sie aufgehört haben.
 
 ### 🛠 195 Werkzeuge
 
@@ -143,7 +142,7 @@ Die vollständige Dokumentation finden Sie unter [README_AUTO.md](https://github
 
 uag kann den Fortschritt über lang laufende Aufgaben mit mehreren Dateien verfolgen. Wenn das LLM Dutzende Dateien verarbeitet, speichert „batch_state“ die Liste der ausstehenden, abgeschlossenen und fehlgeschlagenen Dateien auf der Festplatte. Wenn die Sitzung endet oder eine Runde abläuft, wird der nächste Lauf an der Stelle fortgesetzt, an der er gestoppt wurde – es geht nichts verloren.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Mensch im Regelkreis
 
 „human_ask“ lässt das LLM anhalten und um Ihre Bestätigung bitten, bevor es destruktive Operationen ausführt (Löschen von Dateien, Überschreiben, Shell-Befehle). Sie behalten die Kontrolle.
 
@@ -176,13 +175,7 @@ Sie müssen beim Start nicht alles laden – aktivieren Sie nur das, was Sie bra
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.de.md](TOOL_CREATOR_GUIDE.de.md).
+`uuid_gen` und `slugify` sind für bessere Leistung in Rust (über PyO3) implementiert.
 
 ### 🌐 i18n / L10n
 
@@ -217,30 +210,26 @@ uag möchte **Ihre KI sein, auf Ihrer Maschine, zu Ihren Bedingungen.**
 
 Ein kostenloses KI-Agenten-Erlebnis, frei von Anbieterbindung.
 
-### ✨ Create Your Own Tools
+### ✨ Erstellen Sie Ihre eigenen Werkzeuge
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.de.md](TOOL_CREATOR_GUIDE.de.md)
-for the step-by-step guide.
+[de.md](TOOL_CREATOR_GUIDE.de.md)
+Eine Schritt-für-Schritt-Anleitung finden Sie hier.
 
-## Contributing
+## Mitwirken
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Beiträge sind willkommen! Fehlerberichte, Funktionsvorschläge, Dokumentationsverbesserungen, Übersetzungen und Pull-Requests – alles willkommen.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Öffnen Sie ein GitHub-Problem für Fehler oder Funktionsanfragen.
+- **Pull Requests**: Forken Sie das Repository, nehmen Sie Ihre Änderungen vor und senden Sie einen PR. Hinweise zur Entwicklungsumgebung und Richtlinien finden Sie unter [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
+
+
 
 Realtime Stimme und AEC3
 
 ## Der Sprachmodus Realtime unterstützt Vollduplex-Mikrofon- und Lautsprecher-Ein-/Ausgabe. Wenn das AEC3-Backend fehlt, installiert uag automatisch pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Echtzeitanbieter**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice und Amazon Bedrock Nova Sonic. Das bidirektionale Streaming-SDK von Bedrock wird nur dann automatisch installiert, wenn Bedrock ausgewählt ist.
 
 ```bat
 python scheck.py realtime

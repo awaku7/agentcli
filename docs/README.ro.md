@@ -5,12 +5,12 @@
 <h1 align="center">uag — Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Mediul tău, libertatea ta.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Operații cu fișiere / Căutare web / Generarea și analiza imaginilor / Extracția PDF și Excel / Controlul IoT / Integrarea MCP<br>
+  24 providers / 3 UI / Execuție paralelă a instrumentului / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Când LLM solicită mai multe instrumente simultan, uag **le paralelizează auto
 Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listarea directoarelor, traducerea, interogările DB etc.) sunt paralelizate agresiv.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Sistem de pluginuri (compatibil cu Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent implementează un **sistem de pluginuri compatibil cu Claude Code**. Pluginurile reunesc abilități, agenți, servere MCP, hook-uri și multe altele în directoare autonome cu manifestul `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Componente acceptate**: abilități, sub-agenți, servere MCP, cârlige (12 evenimente ale ciclului de viață), comenzi Slash, stiluri de ieșire, userConfig, dependențe, canale, piețe
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Listați pluginurile instalate
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Instalați de pe piață
+:plugin remove <name>                # Dezinstalați
+:plugin enable/disable <name>        # Comutați
+:plugin marketplace add/remove/list  # Gestionați piețele
+:plugin init <name>                  # Creați structura unui plugin nou
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Continuitatea sesiunii
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Schimbați furnizorul în timpul sesiunii**: `UAGENT_PROVIDER` — istoricul conversațiilor este păstrat.
+- **Reîncărcați sesiunile anterioare**: `:load <index>` — reluați de unde ați rămas.
 
 ### 🛠 195 de instrumente
 
@@ -155,7 +154,7 @@ Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/R
 
 uag poate urmări progresul în sarcinile cu mai multe fișiere de lungă durată. Când LLM procesează zeci de fișiere, `batch_state` persistă pe disc lista fișierelor în așteptare, finalizate și eșuate. Dacă sesiunea se termină sau expiră o rundă, următoarea rulare reia de unde s-a oprit - nimic nu se pierde.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Omul în proces
 
 `human_ask` permite LLM să întrerupă și să solicite confirmarea dumneavoastră înainte de a efectua operațiuni distructive (ștergerea fișierelor, suprascrieri, comenzi shell). Tu rămâi în control.
 
@@ -188,13 +187,6 @@ Nu este nevoie să încărcați totul la pornire - activați doar ceea ce aveți
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.ro.md](TOOL_CREATOR_GUIDE.ro.md).
 
 ### 🌐 i18n / L10n
 
@@ -229,30 +221,26 @@ uag aspiră să fie **AI-ul tău, pe mașina ta, în condițiile tale.**
 
 O experiență gratuită de agent AI, fără blocarea furnizorului.
 
-### ✨ Create Your Own Tools
+### ✨ Creați-vă propriile instrumente
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.ro.md](TOOL_CREATOR_GUIDE.ro.md)
-for the step-by-step guide.
+[ro.md](TOOL_CREATOR_GUIDE.ro.md)
+Consultați aici ghidul pas cu pas.
 
-## Contributing
+## Contribuții
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Contribuțiile sunt binevenite! Rapoarte de erori, sugestii de funcții, îmbunătățiri ale documentației, traduceri și solicitări de extragere — toate sunt apreciate.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Deschideți o problemă GitHub pentru erori sau solicitări de funcții.
+- **Solicitări de extragere**: Creați un fork al depozitului, faceți modificările și trimiteți un PR. Consultați [DEVELOP.md](../src/uagent/docs/DEVELOP.md) pentru configurarea dezvoltării și instrucțiuni.
+
+
 
 Realtime Voce și AEC3
 
 ## Modul vocal Realtime acceptă intrare/ieșire pentru microfon full-duplex și difuzor. Dacă backend-ul AEC3 lipsește, uag instalează automat pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Furnizori de timp real**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice și Amazon Bedrock Nova Sonic. SDK-ul de streaming bidirecțional Bedrock este instalat automat numai când este selectat Bedrock.
 
 ```bat
 python scheck.py realtime

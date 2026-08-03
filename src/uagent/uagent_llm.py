@@ -391,8 +391,6 @@ def _run_one_round(
     empty_no_tool_max: int,
     cache_mgr: Any,
     gemini_cache_name: str | None,
-    tool_result_cache: dict[str, str],
-    use_tool_result_cache: bool,
     use_llm_thread: bool,
     judgment_mode: bool = False,
 ) -> tuple[str, Any, str | None, int, str]:
@@ -1388,8 +1386,6 @@ def _run_one_round(
         messages=messages,
         core=core,
         cache_mgr=cache_mgr,
-        tool_result_cache=tool_result_cache,
-        use_tool_result_cache=use_tool_result_cache,
     )
 
     if any(
@@ -1524,15 +1520,6 @@ def run_llm_rounds(
 
     use_llm_thread = _env_default_on("UAGENT_LLM_IN_THREAD")
 
-    tool_result_cache: dict[str, str] = {}
-    use_tool_result_cache = env_get(
-        "UAGENT_TOOL_RESULT_CACHE", "0"
-    ).strip().lower() not in (
-        "0",
-        "false",
-        "no",
-        "off",
-    )
     # Reset management tool call loop detection for this session
     _TOOL_CALL_FINGERPRINTS.clear()
 
@@ -1578,8 +1565,6 @@ def run_llm_rounds(
                 empty_no_tool_max=empty_no_tool_max,
                 cache_mgr=cache_mgr,
                 gemini_cache_name=gemini_cache_name,
-                tool_result_cache=tool_result_cache,
-                use_tool_result_cache=use_tool_result_cache,
                 use_llm_thread=use_llm_thread,
                 judgment_mode=judgment_mode,
             )

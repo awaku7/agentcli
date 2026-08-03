@@ -23,57 +23,6 @@ def _is_external_data_tool(name: str) -> bool:
     return name in tools.get_external_data_tools()
 
 
-def _tool_cache_key(name: str, args: dict[str, Any]) -> str:
-    canonical_args = json.dumps(args, ensure_ascii=False, sort_keys=True)
-    return json.dumps(
-        {"name": name, "args": canonical_args},
-        ensure_ascii=False,
-        sort_keys=True,
-    )
-
-
-def _already_called_tool_result(cached: str) -> str:
-    """Prefix a cached tool result when the same call is repeated."""
-    return (
-        _(
-            "[INFO] Already called this tool with the same arguments earlier. "
-            "Reusing the previous result. Do NOT call this tool again with the "
-            "same arguments. If more work is needed, call a different tool or "
-            "answer with what you already have.\n",
-            default=(
-                "[INFO] Already called this tool with the same arguments earlier. "
-                "Reusing the previous result. Do NOT call this tool again with the "
-                "same arguments. If more work is needed, call a different tool or "
-                "answer with what you already have.\n"
-            ),
-        )
-        + cached
-    )
-
-
-# Tools that may legitimately be re-run with identical args in one session.
-_REPEATABLE_TOOL_NAMES = frozenset(
-    {
-        "bash_exec",
-        "pwsh_exec",
-        "cmd_exec",
-        "cmd_exec_json",
-        "python_exec",
-        "run_tests",
-        "spawn_process",
-        "human_ask",
-        "finish_skill",
-        "tool_catalog",
-        "tool_load",
-        "unload_tool",
-    }
-)
-
-
-def _should_reuse_identical_tool_call(name: str) -> bool:
-    return name not in _REPEATABLE_TOOL_NAMES
-
-
 def _append_assistant_message(
     *,
     messages: list[dict[str, Any]],
@@ -480,8 +429,6 @@ def _execute_tool_calls(
     messages: list[dict[str, Any]],
     core: Any,
     cache_mgr: Any,
-    tool_result_cache: dict[str, str],
-    use_tool_result_cache: bool,
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Execute tool calls.
 
@@ -515,21 +462,9 @@ def _execute_tool_calls(
         _parallel_batch.append((len(_parallel_batch), name, parsed_args))
         _parallel_tc_ids.append(tc["id"])
 
-    # tc ids whose parallel result came from a fresh execution (not cache reuse)
-    _fresh_prefetch_ids: set[str] = set()
-
     if _parallel_batch:
-        # Identical args always short-circuit with the previous result.
-        to_run: list[tuple[str, dict[str, Any]]] = []
-        run_indices: list[int] = []
-        for idx, name, pargs in _parallel_batch:
-            ck = _tool_cache_key(name, pargs)
-            cached = tool_result_cache.get(ck)
-            if cached is not None and _should_reuse_identical_tool_call(name):
-                _prefetched[_parallel_tc_ids[idx]] = _already_called_tool_result(cached)
-            else:
-                to_run.append((name, pargs))
-                run_indices.append(idx)
+        to_run = [(name, pargs) for _, name, pargs in _parallel_batch]
+        run_indices = list(range(len(_parallel_batch)))
 
         if to_run:
             core.set_status(True, "tool:parallel")
@@ -537,7 +472,6 @@ def _execute_tool_calls(
             for (name, pargs, result), orig_idx in zip(parallel_results, run_indices):
                 tc_id = _parallel_tc_ids[orig_idx]
                 _prefetched[tc_id] = result
-                _fresh_prefetch_ids.add(tc_id)
                 if getattr(core, "show_tool_output", False):
                     print("[tool output] " + _("name=%(name)s") % {"name": name})
                     print(
@@ -545,13 +479,6 @@ def _execute_tool_calls(
                         if isinstance(result, str)
                         else json.dumps(result, ensure_ascii=False)
                     )
-                # Store raw result; reuse path adds the "already called" prefix.
-                ck = _tool_cache_key(name, pargs)
-                tool_result_cache[ck] = (
-                    result
-                    if isinstance(result, str)
-                    else json.dumps(result, ensure_ascii=False)
-                )
             # Fire PostToolBatch hook
             try:
                 _fire_tool_hooks("PostToolBatch", "")
@@ -566,7 +493,6 @@ def _execute_tool_calls(
         func = tc["function"]
         name = func["name"]
         arg_str = func.get("arguments") or "{}"
-        tool_cache_key = None
         parsed_args = None
         tool_result = ""
 
@@ -591,27 +517,16 @@ def _execute_tool_calls(
                 "err": e,
                 "tb": tb,
             }
-            tool_cache_key = f"error:{name}:{arg_str}"
             parsed_args = None
 
         if parsed_args is not None:
-            tool_cache_key = _tool_cache_key(name, parsed_args)
-
-            # Identical tool+args: do not re-execute; tell the model it was
-            # already called and return the previous result.
-            cached = tool_result_cache.get(tool_cache_key)
-            if cached is not None and _should_reuse_identical_tool_call(name):
-                tool_result = _already_called_tool_result(cached)
+            # Check if this tool was already executed in the parallel phase.
+            _tc_id = tc.get("id")
+            _prefetched_result = _prefetched.get(_tc_id) if _tc_id else None
+            if _prefetched_result is not None:
+                tool_result = _prefetched_result
+                fresh_tool_calls.append(tc)
             else:
-                # Check if this tool was already executed in the parallel phase
-                _tc_id = tc.get("id")
-                _prefetched_result = _prefetched.get(_tc_id) if _tc_id else None
-                if _prefetched_result is not None:
-                    tool_result = _prefetched_result
-                    # Parallel phase already cached the raw result when it ran.
-                    if _tc_id in _fresh_prefetch_ids:
-                        fresh_tool_calls.append(tc)
-                else:
                     # Fire PreToolUse hook
                     _fire_tool_hooks("PreToolUse", name)
 
@@ -644,14 +559,8 @@ def _execute_tool_calls(
                         tool_result = (
                             f"[tool runtime error] name={name!r} err=SystemExit: {e}"
                         )
-                    # Cache raw first/latest executed result only.
-                    tool_result_cache[tool_cache_key] = (
-                        tool_result
-                        if isinstance(tool_result, str)
-                        else json.dumps(tool_result, ensure_ascii=False)
-                    )
                     fresh_tool_calls.append(tc)
-                if getattr(core, "show_tool_output", False):
+            if getattr(core, "show_tool_output", False):
                     _display = (
                         tool_result
                         if isinstance(tool_result, str)
@@ -659,10 +568,7 @@ def _execute_tool_calls(
                     )
                     print("[tool output] " + _("name=%(name)s") % {"name": name})
                     print(_display)
-                executed_new_tool = True
-
-        elif tool_cache_key:
-            tool_result_cache[tool_cache_key] = tool_result
+            executed_new_tool = True
 
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
         if not isinstance(tool_result, str):
@@ -727,6 +633,5 @@ def _execute_tool_calls(
     # With Responses API previous_response_id, a user message inserted after
     # tool results breaks tool-continuation detection and the server rejects
     # the next turn with "no tool output found". Steering text belongs in the
-    # tool result prefix (_already_called_tool_result) only.
 
     return executed_new_tool, fresh_tool_calls

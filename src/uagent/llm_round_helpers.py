@@ -40,6 +40,7 @@ from .providers.llm_openrouter_responses import apply_openrouter_responses_compa
 from .providers.llm_ollama import apply_ollama_extra_body
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
+from .providers.llm_pfn import pfn_chat_with_tools
 from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
 from .providers.llm_zai import zai_chat_with_tools
 from .providers.llm_novita import novita_chat_with_tools
@@ -374,6 +375,23 @@ def _call_openai_azure_round(
     messages: list[dict[str, Any]] = None,
     responses_state: Optional[dict] = None,
 ) -> Any:
+    # PLaMo is OpenAI-compatible at the transport level, but its documented
+    # tool schema/streaming contract differs. Keep its request/response path
+    # isolated from the generic OpenAI/Azure implementation.
+    if provider == "pfn":
+        return pfn_chat_with_tools(
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=call_maybe_thread_fn,
+            send_tools_this_round=bool(send_tools_this_round),
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+        )
+
     attempt_429 = 0
     assistant_text: str = ""
     reasoning_content: str = ""

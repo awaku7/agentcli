@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.64] - 2026-08-03
+
+### Changed
+
+- remove tool-result caching and obsolete cache reuse tests
+- add PFN provider adapter and tests
+- translate localized README documentation blocks
+
+
 ## [0.5.63] - 2026-08-02
 
 ### Fixed

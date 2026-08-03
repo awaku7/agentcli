@@ -5,12 +5,12 @@
 <h1 align="center">uag — Univerzální brána AI</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Vaše prostředí, vaše svoboda.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  Operace se soubory / Vyhledávání na webu / Generování a analýza obrázků / PDF & Excel extrakce / IoT ovládání / MCP integrace<br>
+  24 providers / 3 UI / Paralelní spouštění nástrojů / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ Když LLM požaduje více nástrojů současně, uag je **automaticky paralelizu
 Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis adresářů, překlad, DB dotazy atd.) jsou agresivně paralelizovány.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 Plugin System (kompatibilní s Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**. Pluginy sdružují dovednosti, agenty, servery MCP, háčky a další do samostatných adresářů s manifestem `.claude-plugin/plugin.json`.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**Podporované součásti**: dovednosti, dílčí agenti, servery MCP, háky (12 událostí životního cyklu), příkazy lomítka, styly výstupu, userConfig, závislosti, kanály, tržiště
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # Seznam nainstalovaných pluginů
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # Instalovat z tržiště
+:plugin remove <name>                # Odinstalovat
+:plugin enable/disable <name>        # Přepnout
+:plugin marketplace add/remove/list  # Spravovat tržiště
+:plugin init <name>                  # Vytvořit kostru nového pluginu
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+Úplnou dokumentaci naleznete v [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
 
 ### 🔄 Kontinuita relace
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **Změnit poskytovatele uprostřed relace**: `UAGENT_PROVIDER` — historie konverzace se zachová.
+- **Znovu načíst minulé relace**: `:load <index>` — pokračujte tam, kde jste skončili.
 
 ### 🛠 195  nástrojů
 
@@ -145,7 +144,7 @@ uag může **autonomně sledovat cíl ve více kolech LLM**. Ideální pro slož
 
 uag může sledovat pokrok v dlouhodobých úlohách s více soubory. Když LLM zpracovává desítky souborů, `batch_state` uchovává seznam nevyřízených, dokončených a neúspěšných souborů na disku. Pokud relace skončí nebo vyprší časový limit kola, další běh pokračuje od místa, kde byl zastaven – nic se neztratí.
 
-### 🛡 Human-in-the-Loop
+### 🛡 Člověk ve smyčce
 
 `human_ask` umožňuje LLM pozastavit se a požádat o vaše potvrzení před provedením destruktivních operací (smazání souboru, přepsání, příkazy shellu). Zůstanete pod kontrolou.
 
@@ -178,13 +177,7 @@ Není třeba načítat vše při spuštění – aktivujte pouze to, co potřebu
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.cs.md](TOOL_CREATOR_GUIDE.cs.md).
+`uuid_gen` a `slugify` jsou kvůli výkonu implementovány v Rustu (prostřednictvím PyO3).
 
 ### 🌐 i18n / L10n
 
@@ -219,30 +212,26 @@ uag chce být **vaší AI, na vašem počítači, za vašich podmínek.**
 
 Bezplatná zkušenost s AI agentem, bez uzamčení dodavatele.
 
-### ✨ Create Your Own Tools
+### ✨ Vytvořte si vlastní nástroje
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.cs.md](TOOL_CREATOR_GUIDE.cs.md)
-for the step-by-step guide.
+[cs.md](TOOL_CREATOR_GUIDE.cs.md)
+Podrobný postup najdete v dokumentaci.
 
-## Contributing
+## Přispívání
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+Příspěvky jsou vítány! Hlášení chyb, návrhy funkcí, vylepšení dokumentace, překlady a žádosti o stažení – to vše se cení.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: Otevřete problém GitHub pro chyby nebo požadavky na funkce.
+- **Pull requesty**: Vytvořte fork repozitáře, proveďte změny a odešlete PR. Nastavení vývoje a pokyny najdete v [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
+
+
 
 Realtime Voice a AEC3
 
 ## Hlasový režim Realtime podporuje plně duplexní mikrofonní a reproduktorový vstup/výstup. Pokud backend AEC3 chybí, uag automaticky nainstaluje pywebrtc-audio.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Poskytovatelé v reálném čase**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice a Amazon Bedrock Nova Sonic. SDK pro obousměrné streamování Bedrock se nainstaluje automaticky pouze tehdy, když je vybrán Bedrock.
 
 ```bat
 python scheck.py realtime

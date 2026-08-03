@@ -5,12 +5,12 @@
 <h1 align="center">uag - เกตเวย์ AI สากล</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — สภาพแวดล้อมของคุณ อิสรภาพของคุณ
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  การจัดการไฟล์ / การค้นหาเว็บ / การสร้างและวิเคราะห์ภาพ / PDF & การแยก Excel / การควบคุม IoT / การรวม MCP<br>
+  24 providers / 3 UI / การใช้งานเครื่องมือแบบขนาน / Agent Skills ตลาด
 </p>
 
 <p align="center">
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 เครื่องมือแบบอ่านอย่างเดียว (การค้นหาไฟล์ การคำนวณแฮช รายการไดเร็กทอรี การแปล การสืบค้น DB ฯลฯ) ได้รับการขนานกันอย่างมาก
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 ระบบปลั๊กอิน (เข้ากันได้กับ Claude Code)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent ใช้ระบบปลั๊กอินที่เข้ากันได้กับ Claude Code ปลั๊กอินจะรวมทักษะ เอเจนต์ เซิร์ฟเวอร์ MCP hooks และอื่น ๆ ไว้ในไดเรกทอรีแบบแยกอิสระ พร้อม manifest `.claude-plugin/plugin.json`
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**องค์ประกอบที่รองรับ: ทักษะ เอเจนต์ย่อย เซิร์ฟเวอร์ MCP hooks (เหตุการณ์วงจรชีวิต 12 รายการ) คำสั่ง slash รูปแบบเอาต์พุต userConfig การพึ่งพา ช่องทาง marketplace**
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # แสดงรายการปลั๊กอินที่ติดตั้ง
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # ติดตั้งจาก marketplace
+:plugin remove <name>                # ถอนการติดตั้ง
+:plugin enable/disable <name>        # สลับ
+:plugin marketplace add/remove/list  # จัดการ marketplace
+:plugin init <name>                  # สร้างโครงปลั๊กอินใหม่
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+ดูรายละเอียดเพิ่มเติมในเอกสารฉบับเต็ม [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
 
 ### 🔄 ความต่อเนื่องของเซสชัน
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **สลับผู้ให้บริการระหว่างเซสชัน** ด้วย `UAGENT_PROVIDER` — ประวัติการสนทนาจะถูกเก็บไว้
+- **โหลดเซสชันก่อนหน้าอีกครั้ง** ด้วย `:load <index>` — ดำเนินการต่อจากจุดที่ค้างไว้
 
 ### 🛠 195 เครื่องมือ
 
@@ -190,13 +189,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.th.md](TOOL_CREATOR_GUIDE.th.md).
+`uuid_gen` และ `slugify` ถูกพัฒนาใน Rust (ผ่าน PyO3) เพื่อประสิทธิภาพที่ดีขึ้น
 
 ### 🌐 i18n / L10n
 
@@ -231,30 +224,26 @@ uag ปรารถนาที่จะเป็น **AI ของคุณ บ
 
 ประสบการณ์ตัวแทน AI ฟรี ไม่มีการล็อคอินจากผู้จำหน่าย
 
-### ✨ Create Your Own Tools
+### ✨ สร้างเครื่องมือของคุณเอง
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.th.md](TOOL_CREATOR_GUIDE.th.md)
-for the step-by-step guide.
+[th.md](TOOL_CREATOR_GUIDE.th.md)
+ดูคู่มือทีละขั้นตอนได้ที่นี่
 
-## Contributing
+## การมีส่วนร่วม
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+ยินดีต้อนรับการมีส่วนร่วม! รายงานข้อบกพร่อง ข้อเสนอแนะฟีเจอร์ การปรับปรุงเอกสาร การแปล และคำขอ pull ล้วนได้รับการชื่นชม
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: เปิดปัญหา GitHub สำหรับข้อบกพร่องหรือคำขอคุณลักษณะ
+- **คำขอ pull**: fork repository ทำการเปลี่ยนแปลง แล้วส่ง PR ดู [DEVELOP.md](../src/uagent/docs/DEVELOP.md) สำหรับการตั้งค่าการพัฒนาและแนวทางปฏิบัติ
+
+
 
 Realtime เสียงและ AEC3
 
 ## โหมดเสียง Realtime รองรับไมโครโฟนฟูลดูเพล็กซ์และอินพุต/เอาต์พุตของลำโพง หากไม่มีแบ็กเอนด์ AEC3 uag จะติดตั้ง pywebrtc-audio โดยอัตโนมัติ
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**ผู้ให้บริการเรียลไทม์**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice และ Amazon Bedrock Nova Sonic SDK การสตรีมแบบสองทิศทางของ Bedrock จะติดตั้งโดยอัตโนมัติเฉพาะเมื่อเลือก Bedrock เท่านั้น
 
 ```bat
 python scheck.py realtime

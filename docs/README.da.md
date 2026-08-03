@@ -33,4 +33,4 @@ uag understøtter blandt andet BACnet, Modbus TCP, OPC UA, SwitchBot, ECHONET Li
 
 Skift udbyder med `UAGENT_PROVIDER`. For PFN/PLaMo bruges `UAGENT_PROVIDER=pfn` sammen med `UAGENT_PFN_API_KEY`, `UAGENT_PFN_BASE_URL` og `UAGENT_PFN_DEPNAME`.
 
-Se [README.md](../README.md) for den komplette engelske dokumentation.
+Se [README.md](../README.md) for den komplette dokumentation på engelsk.

@@ -5,12 +5,12 @@
 <h1 align="center">uag — युनिव्हर्सल एआय गेटवे</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — तुमचे वातावरण, तुमचे स्वातंत्र्य.
 </p>
 
 <p align="center">
-  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  फाइल ऑपरेशन्स / वेब शोध / प्रतिमा निर्मिती आणि विश्लेषण / PDF आणि Excel निष्कर्ष / IoT नियंत्रण / MCP एकत्रीकरण<br>
+  24 providers / 3 UIs / समांतर साधन अंमलबजावणी / Agent Skills मार्केटप्लेस
 </p>
 
 <p align="center">
@@ -27,11 +27,11 @@
 
 **विक्रेता लॉक-इनपासून मुक्त व्हा.** बहुतेक AI सहाय्यक तुम्हाला विशिष्ट प्रदाता किंवा क्लाउड सेवेशी जोडतात. uag वेगळे आहे.
 
-- **Runs locally** on your machine. Your data stays with you (except API calls you make).
-- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **195  tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
-- **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
-- **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
+- **स्थानिक पातळीवर चालते**: तुमच्या मशीनवर. तुमचा डेटा तुमच्याकडेच राहतो (तुम्ही केलेले API कॉल वगळता).
+- **प्रदाता स्वातंत्र्य**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 प्रदाता, सर्व एकाच इंटरफेसवरून प्रवेशयोग्य. पर्यावरण व्हेरिएबल्स पुन्हा कॉन्फिगर करून त्यांच्यामध्ये अदलाबदल करा — पुन्हा स्थापित नाही, स्थलांतर नाही.
+- **195 साधने**: फाइल I/O, वेब शोध, प्रतिमा निर्मिती, Gmail, BLE डिव्हाइस स्कॅनिंग, MCP सर्व्हर एकत्रीकरण — **111 समांतर-सुरक्षित आहेत** (थ्रेड पूलद्वारे एकावेळी 8 पर्यंत चालतात; `UAGENT_PARALLEL_WORKERS` ने कॉन्फिगर करता येतात). जेव्हा LLM एकाच वेळी अनेक टूल कॉल फायर करते, uag स्वयंचलितपणे त्यांना समांतर करते.
+- **3 UI + A2A**: CLI, GUI, Web आणि एजंट-टू-एजंट प्रोटोकॉल. समान इंजिन, कोणताही इंटरफेस.
+- **Agent Skills**: बाजारपेठेतून समुदाय-निर्मित कौशल्ये स्थापित करा. uag अविरतपणे वाढवा.
 
 uag हा **तुमच्या अटींवर तुमचा AI सहाय्यक आहे**. प्रदात्याशी बांधलेले नाही, इंटरफेसशी बांधलेले नाही, प्लॅटफॉर्मशी बांधलेले नाही.
 
@@ -63,31 +63,30 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 केवळ-वाचनीय साधने (फाइल शोध, हॅश गणना, निर्देशिका सूची, भाषांतर, डीबी क्वेरी इ.) आक्रमकपणे समांतर आहेत.
 
 
-### 🧩 Plugin System (Claude Code Compatible)
+### 🧩 प्लगइन सिस्टम (Claude Code सुसंगत)
 
-uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+uagent **Claude Code-सुसंगत प्लगइन प्रणाली** लागू करते. प्लगइन कौशल्ये, एजंट, MCP सर्व्हर, हुक आणि बरेच काही `.claude-plugin/plugin.json` मॅनिफेस्टसह स्व-निहित निर्देशिकांमध्ये बंडल करतात.
 
-**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+**समर्थित घटक**: कौशल्ये, सब-एजंट, MCP सर्व्हर, हुक (12 जीवनचक्र इव्हेंट), स्लॅश कमांड, आउटपुट शैली, userConfig, अवलंबन, चॅनेल, मार्केटप्लेस
 
 **CLI commands**:
 ```
-:plugin list                         # List installed plugins
-:plugin install <source> [--scope]   # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace>  # Install from marketplace
-:plugin remove <name>                # Uninstall
-:plugin enable/disable <name>        # Toggle
-:plugin marketplace add/remove/list  # Manage marketplaces
-:plugin init <name>                  # Scaffold new plugin
+:plugin list                         # स्थापित प्लगइन सूचीबद्ध करा
+:plugin install <source> [--scope]
+:plugin install <name>@<marketplace>  # बाजारपेठेतून स्थापित करा
+:plugin remove <name>                # विस्थापित करा
+:plugin enable/disable <name>        # टॉगल करा
+:plugin marketplace add/remove/list  # बाजारपेठ व्यवस्थापित करा
+:plugin init <name>                  # नवीन प्लगइनचा सांगाडा तयार करा
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+संपूर्ण दस्तऐवजासाठी [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) पहा.
 
 
 ### 🔄 सत्र सातत्य
 
-- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
-- **Reload past sessions** with `:load <index>` — pick up where you left off.
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **सत्रादरम्यान प्रदाते बदला**: `UAGENT_PROVIDER` वापरा — संभाषण इतिहास जतन केला जातो.
+- **मागील सत्रे रीलोड करा**: `:load <index>` वापरून तुम्ही जिथे सोडले होते तेथून सुरू करा.
 
 ### 🛠 १३१ साधने
 
@@ -179,12 +178,11 @@ LLM प्रतिसाद निर्मिती कधीही थां�
 
 ### 🦀 Rust Native Tools
 
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
+`uuid_gen` आणि `slugify` कार्यप्रदर्शनासाठी Rust (PyO3 मार्गे) मध्ये लागू केले आहेत. ते थेट प्री-बिल्ट `.pyd` वरून लोड करतात — **`pip install` ची आवश्यकता नाही**.
 
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
+बाह्य विकासक Rust-आधारित साधने देखील पाठवू शकतात: wrapper `.py` च्या पुढे `.pyd` ठेवा,
+``uagent.tools.rust_helper`` मधील ``load_rust_pyd()`` वापरा आणि
+वापरकर्त्यांना अतिरिक्त अवलंबनाशिवाय साधन मिळेल. पहा
 [TOOL_CREATOR_GUIDE.mr.md](TOOL_CREATOR_GUIDE.mr.md).
 
 ### 🌐 i18n / L10n
@@ -220,30 +218,28 @@ uag **तुमची AI, तुमच्या मशीनवर, तुमच
 
 विक्रेता लॉक-इनपासून मुक्त एआय एजंट अनुभव.
 
-### ✨ Create Your Own Tools
+### ✨ तुमची स्वतःची साधने तयार करा
 
-Writing a new tool for uag is straightforward — create a single `.py` file with
-`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
-it's immediately available. For Rust developers, ship a pre-built `.pyd` with
-zero extra dependencies for users.
+uag साठी नवीन साधन लिहिणे सोपे आहे — `TOOL_SPEC` आणि `run_tool()` सह एकल `.py` फाइल तयार करा,
+ती ``UAGENT_EXTERNAL_TOOLS_DIR`` मध्ये ठेवा आणि ती त्वरित उपलब्ध होईल. Rust विकासकांसाठी,
+वापरकर्त्यांसाठी कोणत्याही अतिरिक्त अवलंबनाशिवाय प्री-बिल्ट `.pyd` पाठवा.
 
-See [TOOL_CREATOR_GUIDE.mr.md](TOOL_CREATOR_GUIDE.mr.md)
-for the step-by-step guide.
+क्रमवार मार्गदर्शकासाठी [TOOL_CREATOR_GUIDE.mr.md](TOOL_CREATOR_GUIDE.mr.md) पहा.
 
-## Contributing
+## योगदान
 
-Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+योगदानांचे स्वागत आहे! बग अहवाल, वैशिष्ट्य सूचना, दस्तऐवजीकरण सुधारणा, भाषांतर आणि पुल विनंत्या या सर्वांचे कौतुक केले जाते.
 
-- **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
-- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+- **Issues**: बग किंवा वैशिष्ट्य विनंत्यांसाठी GitHub समस्या उघडा.
+- **पुल विनंत्या**: रेपो फोर्क करा, तुमचे बदल करा आणि PR सबमिट करा. विकास सेटअप आणि मार्गदर्शक तत्त्वांसाठी [DEVELOP.md](../src/uagent/docs/DEVELOP.md) पहा.
+- **भाषांतरे**: README भाषांतरे आणि लोकॅल जोडण्यांचे स्वागत आहे. [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md) पहा.
+- **साधने आणि कौशल्ये**: नवीन टूल प्लगइन आणि Agent Skills मार्केटप्लेसद्वारे योगदान दिले जाऊ शकतात.
 
 Realtime आवाज आणि AEC3
 
 ## Realtime व्हॉइस मोड फुल-डुप्लेक्स मायक्रोफोन आणि स्पीकर इनपुट/आउटपुटला समर्थन देतो. AEC3 बॅकएंड गहाळ असल्यास, uag स्वयंचलितपणे pywebrtc-audio स्थापित करते.
 
-**Realtime providers:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice, and Amazon Bedrock Nova Sonic. The Bedrock bidirectional-streaming SDK is installed automatically only when Bedrock is selected.
+**Realtime प्रदाते:** OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini लाइव्ह, xAI Grok आवाज आणि Amazon Bedrock Nova Sonic. Bedrock बायडायरेक्शनल-स्ट्रीमिंग SDK फक्त Bedrock निवडल्यावरच आपोआप इंस्टॉल होतो.
 
 ```bat
 python scheck.py realtime
