@@ -11,6 +11,8 @@
 | [简体中文](README.zh_CN.md) | `README.zh_CN.md` |
 | [繁體中文](README.zh_TW.md) | `README.zh_TW.md` |
 | [Tiếng Việt](README.vi.md) | `README.vi.md` |
+| [Filipino](README.fil.md) | `README.fil.md` |
+| [Bahasa Melayu](README.ms.md) | `README.ms.md` |
 | [ไทย](README.th.md) | `README.th.md` |
 
 ### European
@@ -28,6 +30,8 @@
 | [Polski](README.pl.md) | `README.pl.md` |
 | [Svenska](README.sv.md) | `README.sv.md` |
 | [Norsk bokmål](README.nb.md) | `README.nb.md` |
+| [Norsk nynorsk](README.nn.md) | `README.nn.md` |
+| [Dansk](README.da.md) | `README.da.md` |
 | [Suomi](README.fi.md) | `README.fi.md` |
 | [Čeština](README.cs.md) | `README.cs.md` |
 | [Magyar](README.hu.md) | `README.hu.md` |
