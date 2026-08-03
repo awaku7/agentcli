@@ -49,7 +49,7 @@ Katso kaikki ympäristömuuttujat osoitteesta [docs/ENVIRONMENT.md](https://gith
 
 ### 🧠 Usean palveluntarjoajan arkkitehtuuri
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / / LM Studio / MiniMax** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 Kaikilla palveluntarjoajilla on sama työkalusarja ja käyttöliittymä. Vaihda asettamalla UAGENT_PROVIDER — ei koodimuutoksia, ei erillisiä asennuksia.
 

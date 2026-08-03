@@ -28,7 +28,7 @@
 **擺脫供應商鎖定。 **大多數人工智慧助理會將您與特定的供應商或雲端服務連結起來。 uag 是不同的。
 
 - **在您的電腦上本機運作**。您的資料保留在您身邊（您進行的 API 呼叫除外）。
-- **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 21 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
+- **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 24 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
 - **195 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **111 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
@@ -49,7 +49,7 @@ uag
 
 ### 🧠 多提供者架構
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude/ / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 所有提供者共享相同的工具集和介面。透過設定“UAGENT_PROVIDER”進行切換－無需更改程式碼，無需單獨安裝。
 

@@ -49,7 +49,7 @@ Angalia [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/
 
 ### 🧠 Usanifu wa Watoa Huduma nyingi
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI* / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 Watoa huduma wote wanashiriki zana sawa na kiolesura. Badili kwa kuweka `UAGENT_PROVIDER` — hakuna mabadiliko ya msimbo, hakuna usakinishaji tofauti.
 
