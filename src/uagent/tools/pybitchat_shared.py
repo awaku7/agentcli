@@ -287,7 +287,10 @@ def get_identity() -> NodeIdentity:
         if _IDENTITY is not None:
             try:
                 import json as _json
-                from .bitchat_identity_store import delete_legacy, save_identity
+                from ..runtime.bitchat_identity_store import (
+                    delete_legacy,
+                    save_identity,
+                )
 
                 os.makedirs(_BITCHAT_DIR, exist_ok=True)
                 save_identity(
@@ -305,7 +308,7 @@ def _load_identity() -> NodeIdentity | None:
     """Load a persisted identity from native secure storage or envsec fallback."""
     try:
         import json as _json
-        from .bitchat_identity_store import load_identity
+        from ..runtime.bitchat_identity_store import load_identity
 
         plaintext = load_identity(fallback_path=_IDENTITY_SEC_FILE)
         if not plaintext and os.path.exists(_IDENTITY_LEGACY_FILE):

@@ -536,6 +536,14 @@ def print_status_line() -> None:
         busy = status_busy
         label = status_label
 
+    # When the interactive prompt is already visible, the idle state is
+    # represented by the prompt itself. Emitting a separate IDLE line here
+    # races with the prompt stream and can appear as `agentcli> [STATE] IDLE`.
+    if not busy:
+        with print_lock:
+            if _prompt_line_open:
+                return
+
     state = "BUSY" if busy else "IDLE"
     label_part = f" [{label}]" if label else ""
 
