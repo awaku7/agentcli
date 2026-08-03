@@ -309,6 +309,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openai":
         return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+    if provider == "plamo":
+        return env_get("UAGENT_PLAMO_DEPNAME", "plamo-3.0-prime") or "plamo-3.0-prime"
     if provider == "bedrock":
         return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openrouter":
@@ -489,6 +491,24 @@ def make_client(core: Any) -> tuple[str, Any, str]:
                 return
 
         http_client = make_httpx_client(event_hooks={"response": [_hook]})
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "plamo":
+        from openai import OpenAI  # lazy
+
+        api_key = core.get_env("UAGENT_PLAMO_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_PLAMO_BASE_URL",
+            "https://api.platform.preferredai.jp/v1",
+        )
+
+        http_client = make_httpx_client()
 
         try:
             client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)

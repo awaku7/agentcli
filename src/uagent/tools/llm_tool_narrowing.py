@@ -108,6 +108,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "sakana": ("UAGENT_SAKANA_DEPNAME", "fugu"),
     "novita": ("UAGENT_NOVITA_DEPNAME", "tensent/hy3"),
     "sakura": ("UAGENT_SAKURA_DEPNAME", "llm"),
+    "plamo": ("UAGENT_PLAMO_DEPNAME", "plamo-3.0-prime"),
 }
 
 

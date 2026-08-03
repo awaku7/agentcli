@@ -40,8 +40,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
+                "Required to select the LLM provider (azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
+                default="Required to select the LLM provider (azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
             ),
         )
         return provider, missing, warnings
@@ -80,6 +80,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_OPENAI_API_KEY"],
             reason=_("OpenAI API key.", default="OpenAI API key."),
+        )
+    elif provider == "plamo":
+        missing += _require(
+            ["UAGENT_PLAMO_API_KEY"],
+            reason=_("PLaMo API key.", default="PLaMo API key."),
         )
     elif provider == "bedrock":
         missing += _require(

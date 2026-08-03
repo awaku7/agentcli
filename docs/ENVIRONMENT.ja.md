@@ -33,7 +33,7 @@ ______________________________________________________________________
 - `UAGENT_AZURE_API_KEY`（必須）
 - `UAGENT_AZURE_API_VERSION`（必須、例: `2025-03-01-preview`）
 
-#### OpenAI
+#### OpenAI / PLaMo
 
 `UAGENT_PROVIDER=openai` の場合に必要：
 
@@ -43,17 +43,17 @@ ______________________________________________________________________
 
 ##### PLaMo（Preferred Networks）
 
-PLaMoはOpenAI互換のChat Completions APIを提供しているため、専用プロバイダーを追加せず、`openai`設定で利用できます。
+PLaMoはOpenAI互換のChat Completions APIを提供します。専用の`plamo`プロバイダーとして利用できます。
 
 ```bat
-set UAGENT_PROVIDER=openai
-set UAGENT_OPENAI_API_KEY=<PLaMo APIキー>
-set UAGENT_OPENAI_BASE_URL=https://api.platform.preferredai.jp/v1
-set UAGENT_OPENAI_DEPNAME=plamo-3.0-prime
+set UAGENT_PROVIDER=plamo
+set UAGENT_PLAMO_API_KEY=<PLaMo APIキー>
+set UAGENT_PLAMO_BASE_URL=https://api.platform.preferredai.jp/v1
+set UAGENT_PLAMO_DEPNAME=plamo-3.0-prime
 set UAGENT_RESPONSES=0
 ```
 
-PLaMoのエンドポイントは`/v1/chat/completions`のみを使用するため、`UAGENT_RESPONSES=0`でResponses APIを無効にしてください。ツール呼び出しとストリーミングは、OpenAI互換のChat Completions経路で処理されます。
+`UAGENT_PLAMO_BASE_URL`は省略可能です。PLaMoのエンドポイントは`/v1/chat/completions`のみを使用するため、`UAGENT_RESPONSES=0`でResponses APIを無効にしてください。ツール呼び出しとストリーミングは、OpenAI互換のChat Completions経路で処理されます。
 
 #### Bedrock
 

@@ -442,6 +442,19 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 "location": env_get("UAGENT_VERTEXAI_LOCATION", "(not set)"),
             }
         )
+    elif provider == "plamo":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_PLAMO_BASE_URL",
+                        "https://api.platform.preferredai.jp/v1",
+                    ),
+                )
+            }
+        )
     elif provider == "sakura":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

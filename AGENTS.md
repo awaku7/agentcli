@@ -60,6 +60,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | Provider key | Name |
 |---|---|
 | `openai` | OpenAI-compatible |
+| `plamo` | PLaMo (Preferred Networks) OpenAI-compatible Chat Completions |
 | `azure` | Azure OpenAI |
 | `bedrock` | Bedrock OpenAI-compatible gateway |
 | `openrouter` | OpenRouter |
