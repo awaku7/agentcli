@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from uagent.tools.translate_text_tool import run_tool  # noqa: E402
 
 TOOLS_DIR = ROOT / "src" / "uagent" / "tools"
-LANG_RE = re.compile(r"^[a-z]{2}(?:_[A-Z]{2})?$")
+LANG_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Z]{2})?$")
 EXTRA_TERMS = [
     "protect_terms",
     "protect_placeholders",

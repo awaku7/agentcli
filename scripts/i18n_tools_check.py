@@ -24,7 +24,7 @@ import sys
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-LANG_KEY_RE = re.compile(r"^[a-z]{2}(_[A-Z]{2})?$")
+LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(_[A-Z]{2})?$")
 PLACEHOLDER_RE = re.compile(r"\{([a-zA-Z0-9_]+)\}")
 
 

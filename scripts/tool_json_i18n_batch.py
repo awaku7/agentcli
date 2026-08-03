@@ -50,7 +50,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TOOLS_DIR = ROOT / "src" / "uagent" / "tools"
 DEFAULT_TMP_DIR = ROOT / "tmp" / "tool_json_i18n"
 
-LANG_KEY_RE = re.compile(r"^[a-z]{2}(?:_[A-Za-z]{2})?$")
+LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Za-z]{2})?$")
 # Match both {name} and %(name)s style placeholders for QC.
 PLACEHOLDER_RE = re.compile(
     r"%(?:\([^)]+\))?[#0\- +]?\d*(?:\.\d+)?[hlL]?[dsfr]|\{[A-Za-z_][A-Za-z0-9_]*\}"

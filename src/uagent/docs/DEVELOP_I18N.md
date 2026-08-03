@@ -30,7 +30,7 @@ ______________________________________________________________________
 | **Default language** | English (`msgid`) | English (`"en"` key in JSON) |
 | **Fallback** | gettext returns `msgid` if missing | `_("key", default="...")` if JSON key missing |
 | **Config file** | `babel.cfg` (project root) | (none; JSON files are self-contained) |
-| **Locale count** | 29 shipped locales | Varies per tool (typically en + ja + others) |
+| **Locale count** | 38 shipped locales | Varies per tool (typically en + ja + others) |
 
 ______________________________________________________________________
 
@@ -105,6 +105,23 @@ python scripts/compile_locales.py
 # 6. QC check
 python scripts/po_qc_summary.py
 ```
+
+#### Adding a new locale efficiently
+
+For a new locale, copy the English PO structure first, then use the batch workflow so
+placeholders and duplicate msgids are handled consistently:
+
+```bash
+# Example: Filipino, Malay, Danish, and Norwegian Nynorsk
+python scripts/po_i18n_batch.py run --langs fil,ms,da,nn --apply --sleep 0
+python scripts/compile_locales.py
+python scripts/po_qc_summary.py
+```
+
+The locale code must be a valid BCP-47/ISO language tag. Three-letter codes such as
+`fil` are supported by the tool-side i18n validators. If a translation backend does
+not support a regional variant directly, use its generic language variant only as an
+explicitly documented interim fallback and schedule native review before release.
 
 **Scripts reference:**
 

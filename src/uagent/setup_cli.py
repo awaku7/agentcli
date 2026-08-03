@@ -425,7 +425,21 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
 
 # RESPONSES_PROVIDERS is imported from .providers.provider_caps
 
-LANG_PRESETS = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr", "sw"]
+LANG_PRESETS = [
+    "en",
+    "ja",
+    "zh_CN",
+    "zh_TW",
+    "ko",
+    "th",
+    "es",
+    "fr",
+    "sw",
+    "fil",
+    "ms",
+    "da",
+    "nn",
+]
 
 IMAGE_ANALYSIS_PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI-compatible"),
