@@ -11,11 +11,27 @@ import threading
 import time
 from typing import Any
 
+from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.x25519 import (
     X25519PrivateKey,
     X25519PublicKey,
 )
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+
+
+def _raw_public_key(key: X25519PrivateKey) -> bytes:
+    return key.public_key().public_bytes(
+        serialization.Encoding.Raw, serialization.PublicFormat.Raw
+    )
+
+
+def _raw_private_key(key: X25519PrivateKey) -> bytes:
+    return key.private_bytes(
+        serialization.Encoding.Raw,
+        serialization.PrivateFormat.Raw,
+        serialization.NoEncryption(),
+    )
+
 
 _PROTOCOL_NAME = b"Noise_XX_25519_ChaChaPoly_SHA256"
 # Noise protocol initialization: names <= HASHLEN are zero-padded, not hashed.
@@ -160,7 +176,7 @@ class NoiseHandshakeState:
     ):
         self.initiator = initiator
         self.s = s
-        self.s_pub = s.public_key().public_bytes_raw()
+        self.s_pub = _raw_public_key(s)
         self.rs = rs_pub  # remote static pubkey bytes (32)
 
         # Handshake state
@@ -203,7 +219,7 @@ class NoiseHandshakeState:
     def build_message_1(self) -> bytes:
         """Initiator builds handshake message 1: -> e"""
         self.e = X25519PrivateKey.generate()
-        e_pub = self.e.public_key().public_bytes_raw()
+        e_pub = _raw_public_key(self.e)
         self._mix_hash(e_pub)
         # In Noise XX, the message payload after tokens is empty
         # Return just the e_pubkey (32 bytes)
@@ -216,7 +232,7 @@ class NoiseHandshakeState:
         """
         # Generate ephemeral
         self.e = X25519PrivateKey.generate()
-        e_pub = self.e.public_key().public_bytes_raw()
+        e_pub = _raw_public_key(self.e)
 
         # e token: MixHash(e_pub) FIRST (Noise XX: -> e, ee, s, es)
         self._mix_hash(e_pub)
@@ -233,7 +249,9 @@ class NoiseHandshakeState:
         es = self.s.exchange(re_key)
         self._mix_key(es)
 
-        return e_pub + encrypted_s  # 32 + 48 = 80 bytes
+        # Noise encrypts the empty handshake payload after the tokens.
+        encrypted_payload = self._encrypt_and_hash(_ZEROLEN)
+        return e_pub + encrypted_s + encrypted_payload  # 32 + 48 + 16 = 96 bytes
 
     def build_message_3(self) -> bytes:
         """Initiator builds handshake message 3: -> s, se
@@ -248,10 +266,11 @@ class NoiseHandshakeState:
         se = self.s.exchange(re_key)
         self._mix_key(se)
 
-        # Split into send/recv cipher states
+        # Encrypt the empty handshake payload before splitting transport keys.
+        encrypted_payload = self._encrypt_and_hash(_ZEROLEN)
         self._split()
 
-        return encrypted_s  # 48 bytes
+        return encrypted_s + encrypted_payload  # 48 + 16 = 64 bytes
 
     def is_pending_expired(self, now: float | None = None) -> bool:
         now = time.monotonic() if now is None else now
@@ -289,8 +308,8 @@ class NoiseHandshakeState:
 
     def process_message_2(self, data: bytes) -> bool:
         """Initiator processes handshake message 2: <- e, ee, s, es"""
-        if len(data) != 80:  # 32 e_pub + 48 encrypted_s
-            _dbg("[bitchat] [debug] HS: msg2 too short: %d" % len(data))
+        if len(data) != 96:  # 32 e_pub + 48 encrypted_s + 16 empty payload tag
+            _dbg("[bitchat] [debug] HS: msg2 invalid length: %d" % len(data))
             return False
 
         e_pub = data[:32]
@@ -301,7 +320,7 @@ class NoiseHandshakeState:
         self._mix_hash(e_pub)
 
         # ee = DH(e, re)
-        e_key = X25519PrivateKey.from_private_bytes(self.e.private_bytes_raw())
+        e_key = X25519PrivateKey.from_private_bytes(_raw_private_key(self.e))
         re_key = X25519PublicKey.from_public_bytes(self.re)
         ee = e_key.exchange(re_key)
         self._mix_key(ee)
@@ -323,6 +342,11 @@ class NoiseHandshakeState:
         rs_key = X25519PublicKey.from_public_bytes(self.rs)
         es = e_key.exchange(rs_key)
         self._mix_key(es)
+        try:
+            self._decrypt_and_hash(data[80:])
+        except Exception:
+            _dbg("[bitchat] [debug] HS: msg2 empty payload authentication failed")
+            return False
 
         if remote_s != self.rs:
             _dbg("[bitchat] [debug] HS: msg2 rs mismatch")
@@ -333,7 +357,7 @@ class NoiseHandshakeState:
 
     def process_message_3(self, data: bytes) -> bool:
         """Responder processes handshake message 3: -> s, se"""
-        if len(data) != 48:
+        if len(data) != 64:
             _dbg("[bitchat] [debug] HS: msg3 invalid length: %d" % len(data))
             return False
 
@@ -356,6 +380,11 @@ class NoiseHandshakeState:
         rs_key = X25519PublicKey.from_public_bytes(self.rs)
         se = self.e.exchange(rs_key)
         self._mix_key(se)
+        try:
+            self._decrypt_and_hash(data[48:])
+        except Exception:
+            _dbg("[bitchat] [debug] HS: msg3 empty payload authentication failed")
+            return False
 
         if remote_s != self.rs:
             _dbg("[bitchat] [debug] HS: msg3 static-key mismatch")
