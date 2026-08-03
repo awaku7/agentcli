@@ -41,6 +41,20 @@ Required if `UAGENT_PROVIDER=openai`:
 - `UAGENT_OPENAI_BASE_URL` (optional, default: `https://api.openai.com/v1`)
 - `UAGENT_OPENAI_DEPNAME` (optional, default: `gpt-5.4-nano`)
 
+##### PLaMo (Preferred Networks)
+
+PLaMo provides an OpenAI-compatible Chat Completions API, so it can be used with the existing `openai` provider without adding a separate provider key.
+
+```bat
+set UAGENT_PROVIDER=openai
+set UAGENT_OPENAI_API_KEY=<PLaMo API key>
+set UAGENT_OPENAI_BASE_URL=https://api.platform.preferredai.jp/v1
+set UAGENT_OPENAI_DEPNAME=plamo-3.0-prime
+set UAGENT_RESPONSES=0
+```
+
+PLaMo exposes `/v1/chat/completions`, not the Responses API. Keep `UAGENT_RESPONSES=0` so requests use the Chat Completions path. Tool calling and streaming use the existing OpenAI-compatible implementation.
+
 #### Bedrock
 
 Required if `UAGENT_PROVIDER=bedrock`:

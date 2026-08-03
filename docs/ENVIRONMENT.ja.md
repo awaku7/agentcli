@@ -41,6 +41,20 @@ ______________________________________________________________________
 - `UAGENT_OPENAI_BASE_URL`（省略可、既定: `https://api.openai.com/v1`）
 - `UAGENT_OPENAI_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
 
+##### PLaMo（Preferred Networks）
+
+PLaMoはOpenAI互換のChat Completions APIを提供しているため、専用プロバイダーを追加せず、`openai`設定で利用できます。
+
+```bat
+set UAGENT_PROVIDER=openai
+set UAGENT_OPENAI_API_KEY=<PLaMo APIキー>
+set UAGENT_OPENAI_BASE_URL=https://api.platform.preferredai.jp/v1
+set UAGENT_OPENAI_DEPNAME=plamo-3.0-prime
+set UAGENT_RESPONSES=0
+```
+
+PLaMoのエンドポイントは`/v1/chat/completions`のみを使用するため、`UAGENT_RESPONSES=0`でResponses APIを無効にしてください。ツール呼び出しとストリーミングは、OpenAI互換のChat Completions経路で処理されます。
+
 #### Bedrock
 
 `UAGENT_PROVIDER=bedrock` の場合に必要：
