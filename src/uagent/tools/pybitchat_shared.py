@@ -48,7 +48,8 @@ _NOISE_HANDSHAKE_MAX_ATTEMPTS = 3
 
 _BITCHAT_DIR = os.path.join(os.path.expanduser("~"), ".uag", "bitchat")
 _DOWNLOAD_DIR = os.path.join(_BITCHAT_DIR, "downloads")
-_IDENTITY_FILE = os.path.join(_BITCHAT_DIR, "identity.json")
+_IDENTITY_LEGACY_FILE = os.path.join(_BITCHAT_DIR, "identity.json")
+_IDENTITY_SEC_FILE = os.path.join(_BITCHAT_DIR, "identity.sec")
 _ANNOUNCE_INTERVAL = 30.0
 _MAX_FRAME_SIZE = 480
 # BLE writes without response can be dropped by Android when fragments are
@@ -285,27 +286,37 @@ def get_identity() -> NodeIdentity:
         _IDENTITY = _load_identity() or _create_identity()
         if _IDENTITY is not None:
             try:
-                os.makedirs(_BITCHAT_DIR, exist_ok=True)
-                with open(_IDENTITY_FILE, "w", encoding="utf-8") as f:
-                    import json as _json
+                import json as _json
+                from .bitchat_identity_store import delete_legacy, save_identity
 
-                    _json.dump(_IDENTITY.to_dict(), f)
+                os.makedirs(_BITCHAT_DIR, exist_ok=True)
+                save_identity(
+                    _json.dumps(_IDENTITY.to_dict(), ensure_ascii=False),
+                    fallback_path=_IDENTITY_SEC_FILE,
+                )
+                if os.path.exists(_IDENTITY_LEGACY_FILE):
+                    delete_legacy(_IDENTITY_LEGACY_FILE)
             except Exception:
                 pass
     return _IDENTITY
 
 
 def _load_identity() -> NodeIdentity | None:
-    """Load a persisted identity (stable peer ID across restarts)."""
+    """Load a persisted identity from native secure storage or envsec fallback."""
     try:
-        if not os.path.exists(_IDENTITY_FILE):
-            return None
         import json as _json
+        from .bitchat_identity_store import load_identity
 
-        with open(_IDENTITY_FILE, "r", encoding="utf-8") as f:
-            data = _json.load(f)
+        plaintext = load_identity(fallback_path=_IDENTITY_SEC_FILE)
+        if not plaintext and os.path.exists(_IDENTITY_LEGACY_FILE):
+            # One-time migration from the old plaintext file. get_identity()
+            # immediately re-saves it using the secure store and removes it.
+            with open(_IDENTITY_LEGACY_FILE, "r", encoding="utf-8") as f:
+                plaintext = f.read()
+        if not plaintext:
+            return None
+        data = _json.loads(plaintext)
         ident = NodeIdentity.from_dict(data)
-        # Sanity check: stored keys must be consistent
         if (
             len(ident.noise_private) != 32
             or len(ident.noise_public) != 32
