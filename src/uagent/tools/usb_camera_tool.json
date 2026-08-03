@@ -746,5 +746,93 @@
       "視訊擷取",
       "相機設備"
     ]
+  },
+  "fil": {
+    "tool.description": "Kumuha ng larawan mula sa USB camera sa pamamagitan ng ffmpeg, o ilista ang mga available na video device. Sinusuportahan ang Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Pagkilos: pagkuha (kumuha ng larawan), listahan (ipakita ang mga device), o list_caps (ipakita ang mga kakayahan tulad ng mga resolution at FPS para sa isang device).",
+    "param.index.description": "Index ng device ng video (0 = una). Default: 0.",
+    "param.devname.description": "Pangalan/path ng device (ina-override ang index). Sa Linux gamitin ang /dev/videoN. Gumamit ng pagkilos na listahan para maghanap ng mga pangalan.",
+    "param.width.description": "Pagkuha ng lapad sa mga pixel (hal. 1920). Gumagamit ng default kung tinanggal.",
+    "param.height.description": "Ang taas ng pagkuha sa mga pixel (hal. 1080). Gumagamit ng default kung tinanggal.",
+    "param.fps.description": "Mga frame sa bawat segundo (hal. 30). Gumagamit ng default kung tinanggal.",
+    "param.outdir.description": "Direktoryo ng output para sa mga nakunan na larawan. Default: mga output/usb_camera.",
+    "x_search_terms": [
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
+    ]
+  },
+  "ms": {
+    "tool.description": "Tangkap foto daripada kamera USB melalui ffmpeg, atau senaraikan peranti video yang tersedia. Menyokong Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Tindakan: tangkap (ambil foto), senaraikan (tunjukkan peranti) atau list_caps (tunjukkan keupayaan seperti peleraian dan FPS untuk peranti).",
+    "param.index.description": "Indeks peranti video (0 = pertama). Lalai: 0.",
+    "param.devname.description": "Nama/laluan peranti (mengatasi indeks). Pada Linux gunakan /dev/videoN. Gunakan tindakan senarai untuk mencari nama.",
+    "param.width.description": "Tangkap lebar dalam piksel (cth. 1920). Menggunakan lalai jika ditinggalkan.",
+    "param.height.description": "Tangkap ketinggian dalam piksel (cth. 1080). Menggunakan lalai jika ditinggalkan.",
+    "param.fps.description": "Bingkai sesaat (cth. 30). Menggunakan lalai jika ditinggalkan.",
+    "param.outdir.description": "Direktori output untuk imej yang ditangkap. Lalai: outputs/usb_camera.",
+    "x_search_terms": [
+      "kamera usb",
+      "kamera web",
+      "tangkapan kamera",
+      "video",
+      "tangkapan imej",
+      "kamera usb",
+      "strim kamera",
+      "foto",
+      "tangkapan video",
+      "peranti kamera"
+    ]
+  },
+  "da": {
+    "tool.description": "Tag et billede fra et USB-kamera via ffmpeg, eller angiv tilgængelige videoenheder. Understøtter Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Handling: optag (tag et billede), liste (vis enheder) eller list_caps (vis funktioner som opløsninger og FPS for en enhed).",
+    "param.index.description": "Videoenhedsindeks (0 = først). Standard: 0.",
+    "param.devname.description": "Enhedens navn/sti (tilsidesætter indeks). På Linux skal du bruge /dev/videoN. Brug listehandling til at finde navne.",
+    "param.width.description": "Optag bredde i pixels (f.eks. 1920). Bruger standard, hvis den udelades.",
+    "param.height.description": "Optag højde i pixels (f.eks. 1080). Bruger standard, hvis den udelades.",
+    "param.fps.description": "Frames per sekund (f.eks. 30). Bruger standard, hvis den udelades.",
+    "param.outdir.description": "Output bibliotek for optagne billeder. Standard: outputs/usb_camera.",
+    "x_search_terms": [
+      "usb-kamera",
+      "webkamera",
+      "kameraoptagelse",
+      "video",
+      "billedoptagelse",
+      "usb-webkamera",
+      "kamerastream",
+      "foto",
+      "videooptagelse",
+      "kameraenhed"
+    ]
+  },
+  "nn": {
+    "tool.description": "Ta et bilde fra et USB-kamera via ffmpeg, eller vis opp tilgjengelige videoenheter. Støtter Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Handling: ta bilde (ta et bilde), liste (vis enheter) eller list_caps (vis funksjoner som oppløsninger og FPS for en enhet).",
+    "param.index.description": "Videoenhetsindeks (0 = først). Standard: 0.",
+    "param.devname.description": "Enhetsnavn/bane (overstyrer indeks). På Linux bruk /dev/videoN. Bruk listehandling for å finne navn.",
+    "param.width.description": "Fangebredde i piksler (f.eks. 1920). Bruker standard hvis utelatt.",
+    "param.height.description": "Ta høyde i piksler (f.eks. 1080). Bruker standard hvis utelatt.",
+    "param.fps.description": "Bilder per sekund (f.eks. 30). Bruker standard hvis utelatt.",
+    "param.outdir.description": "Utdatakatalog for tatt bilder. Standard: utganger/usb_kamera.",
+    "x_search_terms": [
+      "usb-kamera",
+      "webkamera",
+      "kameraopptak",
+      "video",
+      "bildeopptak",
+      "usb-webkamera",
+      "kamerastrøm",
+      "bilde",
+      "videoopptak",
+      "kameraenhet"
+    ]
   }
 }

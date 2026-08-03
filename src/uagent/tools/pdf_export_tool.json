@@ -508,5 +508,65 @@
       "對話",
       "jsonl"
     ]
+  },
+  "fil": {
+    "tool.description": "I-convert ang isang conversation log file (JSONL) sa PDF gamit ang Playwright.",
+    "param.log_path.description": "Path sa JSONL log file para ma-convert.",
+    "param.output_path.description": "Output path para sa PDF file. Default sa log_path na may extension na .pdf.",
+    "x_search_terms": [
+      "pdf export",
+      "pdf_export",
+      "pdf",
+      "PDF",
+      "export",
+      "convert",
+      "pag-uusap",
+      "jsonl"
+    ]
+  },
+  "ms": {
+    "tool.description": "Tukar fail log perbualan (JSONL) kepada PDF menggunakan Playwright.",
+    "param.log_path.description": "Laluan ke fail log JSONL untuk ditukar.",
+    "param.output_path.description": "Laluan output untuk fail PDF. Lalai kepada log_path dengan sambungan .pdf.",
+    "x_search_terms": [
+      "pdf eksport",
+      "pdf_eksport",
+      "pdf",
+      "PDF",
+      "eksport",
+      "tukar",
+      "perbualan",
+      "jsonl"
+    ]
+  },
+  "da": {
+    "tool.description": "Konverter en samtalelogfil (JSONL) til PDF ved hjælp af Playwright.",
+    "param.log_path.description": "Sti til JSONL-logfilen, der skal konverteres.",
+    "param.output_path.description": "Outputsti til PDF-filen. Log_path er som standard med .pdf-udvidelsen.",
+    "x_search_terms": [
+      "pdf eksport",
+      "pdf_eksport",
+      "pdf",
+      "PDF",
+      "eksport",
+      "konverter",
+      "samtale",
+      "jsonl"
+    ]
+  },
+  "nn": {
+    "tool.description": "Konverter en samtaleloggfil (JSONL) til PDF ved å bruke Playwright.",
+    "param.log_path.description": "Banen til JSONL-loggfilen som skal konverteres.",
+    "param.output_path.description": "Utdatabane for PDF-filen. Standard til log_path med .pdf-utvidelse.",
+    "x_search_terms": [
+      "pdf eksport",
+      "pdf_eksport",
+      "pdf",
+      "PDF",
+      "eksport",
+      "konverter",
+      "samtale",
+      "jsonl"
+    ]
   }
 }

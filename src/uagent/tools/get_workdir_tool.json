@@ -508,5 +508,65 @@
       "calea de lucru",
       "obțineți calea"
     ]
+  },
+  "fil": {
+    "tool.description": "Kunin ang kasalukuyang gumaganang direktoryo.",
+    "x_search_terms": [
+      "kumuha ng workdir",
+      "working directory",
+      "kasalukuyang direktoryo",
+      "work dir",
+      "pwd",
+      "kasalukuyang folder",
+      "kumuha ng folder",
+      "ipakita ang direktoryo",
+      "work path",
+      "kuhain ang path"
+    ]
+  },
+  "ms": {
+    "tool.description": "Dapatkan direktori kerja semasa.",
+    "x_search_terms": [
+      "dapatkan workdir",
+      "direktori berfungsi",
+      "direktori semasa",
+      "dir kerja",
+      "pwd",
+      "folder semasa",
+      "dapatkan folder",
+      "tunjukkan direktori",
+      "laluan kerja",
+      "dapatkan laluan"
+    ]
+  },
+  "da": {
+    "tool.description": "Hent den aktuelle arbejdsmappe.",
+    "x_search_terms": [
+      "hent arbejdskatalog",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "nn": {
+    "tool.description": "Få den gjeldende arbeidskatalogen.",
+    "x_search_terms": [
+      "få arbeidskatalog",
+      "arbeidskatalog",
+      "gjeldende katalog",
+      "arbeidskatalog",
+      "pwd",
+      "gjeldende mappe",
+      "hent mappe",
+      "vis katalog",
+      "arbeidsbane",
+      "hent bane"
+    ]
   }
 }

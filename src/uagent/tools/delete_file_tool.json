@@ -712,5 +712,89 @@
     "param.skip.description": "Dacă este adevărat, nu eroați atunci când calea nu există.",
     "confirm.delete_paths_bulk": "Ștergeți {count} căi?\n\n{paths}\n\nIntroduceți y pentru a continua sau c pentru a anula.",
     "tool.description": "Ștergeți fișierul sau directorul specificat (directoarele sunt șterse recursiv). Deoarece acest lucru este periculos, poate fi necesară confirmarea."
+  },
+  "fil": {
+    "param.allow_dir.description": "Kung totoo, payagan ang pagtanggal ng mga direktoryo na tumugma sa glob.",
+    "param.confirmed.description": "Kung totoo, laktawan ang panloob na prompt ng pagkumpirma ng tool.",
+    "param.dry_run.description": "Kung totoo, ilista lamang ang mga katugmang path at huwag magtanggal ng anuman.",
+    "param.filename.description": "Path na tatanggalin, o isang listahan ng mga path/glob pattern na tatanggalin.",
+    "x_search_terms": [
+      "tanggalin ang file",
+      "alisin ang file",
+      "erase file",
+      "file tanggalin",
+      "delete folder",
+      "alisin folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
+    ],
+    "param.skip.description": "Kung totoo, huwag magkamali kapag ang landas ay hindi umiiral.",
+    "confirm.delete_paths_bulk": "Tanggalin ang {count} na mga landas?\n\n{paths}\n\nIlagay ang y upang magpatuloy, o c upang kanselahin.",
+    "tool.description": "Tanggalin ang tinukoy na file o direktoryo (ang mga direktoryo ay muling tinatanggal). Dahil mapanganib ito, maaaring kailanganin ang kumpirmasyon."
+  },
+  "ms": {
+    "param.allow_dir.description": "Jika benar, benarkan pemadaman direktori yang dipadankan dengan glob.",
+    "param.confirmed.description": "Jika benar, langkau gesaan pengesahan dalaman alat.",
+    "param.dry_run.description": "Jika benar, senaraikan laluan yang dipadankan sahaja dan jangan padamkan apa-apa.",
+    "param.filename.description": "Laluan untuk dipadamkan, atau senarai laluan/corak glob untuk dipadamkan.",
+    "x_search_terms": [
+      "padam fail",
+      "alih keluar fail",
+      "padam fail",
+      "fail padam",
+      "padam folder",
+      "alih keluar folder",
+      "alih keluar fail",
+      "padam direktori",
+      "padam direktori",
+      "padam item"
+    ],
+    "param.skip.description": "Jika benar, jangan ralat apabila laluan tidak wujud.",
+    "confirm.delete_paths_bulk": "Padamkan {count} laluan?\n\n{paths}\n\nMasukkan y untuk meneruskan, atau c untuk membatalkan.",
+    "tool.description": "Padam fail atau direktori yang ditentukan (direktori dipadam secara rekursif). Kerana ini berbahaya, pengesahan mungkin diperlukan."
+  },
+  "da": {
+    "param.allow_dir.description": "Hvis sandt, tillad sletning af mapper matchet af glob.",
+    "param.confirmed.description": "Hvis det er sandt, skal du springe værktøjets interne bekræftelsesprompt over.",
+    "param.dry_run.description": "Hvis det er sandt, skal du kun angive matchede stier og ikke slette noget.",
+    "param.filename.description": "Sti, der skal slettes, eller en liste over stier/globmønstre, der skal slettes.",
+    "x_search_terms": [
+      "slet fil",
+      "fjern fil",
+      "slet fil",
+      "fil slet",
+      "slet mappe",
+      "fjern mappe",
+      "fjernelse af fil",
+      "slet bibliotek",
+      "slet bibliotek",
+      "slet element"
+    ],
+    "param.skip.description": "Hvis det er sandt, må du ikke fejle, når stien ikke eksisterer.",
+    "confirm.delete_paths_bulk": "Vil du slette {count} stier?\n\n{paths}\n\nIndtast y for at fortsætte, eller c for at annullere.",
+    "tool.description": "Slet den angivne fil eller mappe (mapper slettes rekursivt). Da dette er farligt, kan det være nødvendigt at bekræfte."
+  },
+  "nn": {
+    "param.allow_dir.description": "Hvis sant, tillat sletting av kataloger som samsvarer med glob.",
+    "param.confirmed.description": "Hvis dette er sant, hopper du over verktøyets interne bekreftelsesmelding.",
+    "param.dry_run.description": "Hvis det er sant, må du bare angi samsvarende stier og ikke slette noe.",
+    "param.filename.description": "Bane som skal slettes, eller en liste over baner/globmønstre som skal slettes.",
+    "x_search_terms": [
+      "slette fil",
+      "fjern fil",
+      "slett fil",
+      "fil slett",
+      "slett mappe",
+      "fjern mappe",
+      "fjerning av fil",
+      "slett katalog",
+      "slett katalog",
+      "slett element"
+    ],
+    "param.skip.description": "Hvis sant, ikke feil når banen ikke eksisterer.",
+    "confirm.delete_paths_bulk": "Vil du slette {count} baner?\n\n{paths}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
+    "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være nødvendig."
   }
 }

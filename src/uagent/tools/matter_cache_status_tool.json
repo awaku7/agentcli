@@ -440,5 +440,57 @@
       "entry",
       "count"
     ]
+  },
+  "fil": {
+    "tool.description": "Ipakita ang mga istatistika ng cache ng Matter: ratio ng hit, bilang ng entry, TTL.",
+    "x_search_terms": [
+      "status cache ng matter",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
+    ]
+  },
+  "ms": {
+    "tool.description": "Tunjukkan statistik cache Perkara: nisbah pukulan, kiraan kemasukan, TTL.",
+    "x_search_terms": [
+      "status cache perkara",
+      "status_cache_perkara",
+      "perkara",
+      "PERKARA",
+      "statistik",
+      "nisbah",
+      "entri",
+      "kira"
+    ]
+  },
+  "da": {
+    "tool.description": "Vis Matter-cache-statistik: hitforhold, antal indgange, TTL.",
+    "x_search_terms": [
+      "matter cache status",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
+    ]
+  },
+  "nn": {
+    "tool.description": "Vis Matter cache-statistikk: treffforhold, antall oppføringer, TTL.",
+    "x_search_terms": [
+      "matter cache status",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistikk",
+      "forhold",
+      "oppføringsantall",
+      ""
+    ]
   }
 }

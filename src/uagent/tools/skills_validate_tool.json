@@ -644,5 +644,81 @@
       "testare abilități",
       "analiza abilități"
     ]
+  },
+  "fil": {
+    "err.invalid_args": "[tool error] di-wastong args",
+    "err.skill_dir_required": "[tool error] skill_dir ay dapat na isang walang laman na string",
+    "param.skill_dir.description": "Ang direktoryo ng kasanayan (dapat naglalaman ng SKILL.md).",
+    "param.strict.description": "Dapat bang ituring din ang mga babala bilang isang kabiguan? (default: false)",
+    "tool.description": "Pinapatunayan ang isang direktoryo ng kasanayan (SKILL.md) ayon sa spec ng Agent Skills at nagbabalik ng mga error at babala.",
+    "x_search_terms": [
+      "pagpapatunay ng kasanayan",
+      "patunayan ang kasanayan",
+      "suriin ang kasanayan",
+      "pagsusulit sa kasanayan",
+      "pag-verify ng kasanayan",
+      "pagsusuri ng kasanayan",
+      "pagpatunay",
+      "pagsusuri ng kasanayan",
+      "kasanayan sa pagsusulit",
+      "pagsusuri ng kasanayan"
+    ]
+  },
+  "ms": {
+    "err.invalid_args": "[ralat alat] hujah tidak sah",
+    "err.skill_dir_required": "[tool error] skill_dir mestilah rentetan bukan kosong",
+    "param.skill_dir.description": "Direktori kemahiran (mesti mengandungi SKILL.md).",
+    "param.strict.description": "Perlukah amaran juga dianggap sebagai kegagalan? (lalai: palsu)",
+    "tool.description": "Mengesahkan direktori kemahiran (SKILL.md) mengikut spesifikasi Kemahiran Ejen dan mengembalikan ralat dan amaran.",
+    "x_search_terms": [
+      "pengesahan kemahiran",
+      "sahkan kemahiran",
+      "semak kemahiran",
+      "ujian kemahiran",
+      "sahkan kemahiran",
+      "semak kemahiran",
+      "pengesahan",
+      "semakan kemahiran",
+      "kemahiran menguji",
+      "analisis kemahiran"
+    ]
+  },
+  "da": {
+    "err.invalid_args": "[værktøjsfejl] ugyldige argumenter",
+    "err.skill_dir_required": "[værktøjsfejl] skill_dir skal være en ikke-tom streng",
+    "param.skill_dir.description": "Færdighedsmappen (skal indeholde SKILL.md).",
+    "param.strict.description": "Skal advarsler også behandles som en fejl? (standard: falsk)",
+    "tool.description": "Validerer en færdighedsmappe (SKILL.md) i henhold til Agent Skills-specifikationen og returnerer fejl og advarsler.",
+    "x_search_terms": [
+      "færdighedsvalidering",
+      "valider færdighed",
+      "tjek færdighed",
+      "færdighedstest",
+      "færdighedskontrol",
+      "færdighedskontrol",
+      "validering",
+      "færdighedsgennemgang",
+      "test færdighedsanalyse",
+      ""
+    ]
+  },
+  "nn": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.skill_dir.description": "Ferdighetsmappen (må inneholde SKILL.md).",
+    "param.strict.description": "Bør advarsler også behandles som en feil? (standard: usann)",
+    "tool.description": "Validerer en ferdighetskatalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og advarsler.",
+    "x_search_terms": [
+      "ferdighet validere",
+      "validere ferdighet",
+      "sjekk ferdighetstest",
+      "ferdighetskontroll",
+      "ferdighetssjekk",
+      "validering",
+      "ferdighetsvurdering",
+      "test ferdighetsanalyse",
+      "",
+      ""
+    ]
   }
 }

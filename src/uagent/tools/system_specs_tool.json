@@ -610,5 +610,77 @@
     "param.include_volumes.description": "Includeți informații despre utilizarea volumului montat.",
     "param.include_disks.description": "Includeți informații despre discul fizic atunci când sunt disponibile (cel mai bun efort).",
     "tool.system_prompt": "Acest instrument este utilizat în următorul scop: aduna specificații de sistem, cum ar fi sistemul de operare, CPU, dimensiunea RAM, discuri de stocare (cel mai bun efort) și spațiu liber."
+  },
+  "fil": {
+    "tool.description": "Kumuha ng mga specs ng system (CPU/RAM/disks/volume) sa isang pinakamahusay na pagsisikap na cross-platform na paraan.",
+    "x_search_terms": [
+      "system specs",
+      "system info",
+      "hardware",
+      "cpu",
+      "memory",
+      "computer info",
+      "system information",
+      "pc specs",
+      "device info",
+      "os info"
+    ],
+    "param.include_volumes.description": "Isama ang naka-mount na impormasyon sa paggamit ng volume.",
+    "param.include_disks.description": "Isama ang pisikal na impormasyon sa disk kapag magagamit (pinakamahusay na pagsisikap).",
+    "tool.system_prompt": "Ginagamit ang tool na ito para sa sumusunod na layunin: mangalap ng mga spec ng system gaya ng OS, CPU, laki ng RAM, mga storage disk (pinakamahusay na pagsisikap), at dami ng libreng espasyo."
+  },
+  "ms": {
+    "tool.description": "Dapatkan spesifikasi sistem (CPU/RAM/cakera/volum) dengan cara merentas platform yang terbaik.",
+    "x_search_terms": [
+      "spesifikasi sistem",
+      "maklumat sistem",
+      "perkakasan",
+      "cpu",
+      "memori",
+      "maklumat komputer",
+      "maklumat sistem",
+      "spek komputer",
+      "maklumat peranti",
+      "maklumat os"
+    ],
+    "param.include_volumes.description": "Sertakan maklumat penggunaan volum yang dipasang.",
+    "param.include_disks.description": "Sertakan maklumat cakera fizikal apabila tersedia (usaha terbaik).",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: kumpulkan spesifikasi sistem seperti OS, CPU, saiz RAM, cakera storan (usaha terbaik) dan ruang kosong volum."
+  },
+  "da": {
+    "tool.description": "Få systemspecifikationer (CPU/RAM/diske/volumener) på den bedste måde på tværs af platforme.",
+    "x_search_terms": [
+      "systemspecifikationer",
+      "systemoplysninger",
+      "hardware",
+      "cpu",
+      "hukommelse",
+      "computeroplysninger",
+      "systemoplysninger",
+      "pc-specifikationer",
+      "enhedsoplysninger",
+      "osoplysninger"
+    ],
+    "param.include_volumes.description": "Inkluder oplysninger om monteret volumenforbrug.",
+    "param.include_disks.description": "Inkluder oplysninger om fysiske diske, når de er tilgængelige (bedste indsats).",
+    "tool.system_prompt": "Dette værktøj bruges til følgende formål: indsamling af systemspecifikationer såsom OS, CPU, RAM-størrelse, lagerdiske (best-effort) og ledig plads."
+  },
+  "nn": {
+    "tool.description": "Få systemspesifikasjoner (CPU/RAM/disker/volumer) på en best mulig måte på tvers av plattformer.",
+    "x_search_terms": [
+      "systemspesifikasjoner",
+      "systeminformasjon",
+      "maskinvare",
+      "cpu",
+      "minne",
+      "datamaskininformasjon",
+      "systeminformasjon",
+      "pc-spesifikasjoner",
+      "enhetsinformasjon",
+      "osinfo"
+    ],
+    "param.include_volumes.description": "Inkluder informasjon om bruk av montert volum.",
+    "param.include_disks.description": "Inkluder fysisk diskinformasjon når den er tilgjengelig (best mulig innsats).",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: samle systemspesifikasjoner som OS, CPU, RAM-størrelse, lagringsdisker (best innsats) og volum ledig plass."
   }
 }

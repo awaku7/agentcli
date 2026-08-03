@@ -644,5 +644,81 @@
       "valoare hash",
       "fisier digest"
     ]
+  },
+  "fil": {
+    "param.algo.description": "Algorithm.",
+    "param.chunk_size.description": "Laki ng tipak.",
+    "param.paths.description": "Array ng mga landas ng target na file.",
+    "param.return.description": "Output format.",
+    "tool.description": "Kinakalkula ang hash (sha256/sha1/md5) ng mga file.",
+    "x_search_terms": [
+      "file hash",
+      "hash",
+      "checksum",
+      "md5",
+      "sha",
+      "file checksum",
+      "hash file",
+      "file integridad",
+      "hash value",
+      "file digest"
+    ]
+  },
+  "ms": {
+    "param.algo.description": "Algoritma.",
+    "param.chunk_size.description": "Saiz ketulan.",
+    "param.paths.description": "Tatasusunan laluan fail sasaran.",
+    "param.return.description": "Format output.",
+    "tool.description": "Mengira cincang (sha256/sha1/md5) fail.",
+    "x_search_terms": [
+      "cincang fail",
+      "hash",
+      "checksum",
+      "md5",
+      "sha",
+      "semak fail",
+      "fail cincang",
+      "integriti fail",
+      "nilai cincang",
+      "cernaan fail"
+    ]
+  },
+  "da": {
+    "param.algo.description": "Algoritme.",
+    "param.chunk_size.description": "Klump størrelse.",
+    "param.paths.description": "Array af målfilstier.",
+    "param.return.description": "Outputformat.",
+    "tool.description": "Beregner hash (sha256/sha1/md5) af filer.",
+    "x_search_terms": [
+      "fil hash",
+      "hash",
+      "checksum",
+      "md5",
+      "sha",
+      "file checksum",
+      "hash fil",
+      "filintegritet",
+      "hashværdi",
+      "filsammendrag"
+    ]
+  },
+  "nn": {
+    "param.algo.description": "Algoritme.",
+    "param.chunk_size.description": "Klump størrelse.",
+    "param.paths.description": "En rekke målfilbaner.",
+    "param.return.description": "Utdataformat.",
+    "tool.description": "Beregner hashen (sha256/sha1/md5) til filer.",
+    "x_search_terms": [
+      "fil-hash",
+      "hash",
+      "checksum",
+      "md5",
+      "sha",
+      "file-sjekksum",
+      "hash-fil",
+      "filintegritet",
+      "hashverdi",
+      "filsammendrag"
+    ]
   }
 }

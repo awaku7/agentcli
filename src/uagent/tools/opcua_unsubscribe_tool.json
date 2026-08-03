@@ -644,5 +644,81 @@
       "訂閱",
       "subscription_id"
     ]
+  },
+  "fil": {
+    "tool.description": "Kanselahin ang isang subscription sa OPC UA sa pamamagitan ng subscription_id, o maglista ng mga aktibong subscription.",
+    "param.action.description": "Pagkilos: 'unsubscribe' (default) o 'list'.",
+    "param.subscription_id.description": "Subscription ID upang kanselahin (kinakailangan para sa pagkilos=mag-unsubscribe).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.no_subscriptions": "Walang aktibong subscription sa OPC UA.",
+    "msg.header": "Mga aktibong OPC UA na subscription ({count}):",
+    "msg.unsubscribed": "Kinansela ang subscription sa OPC UA {id}.",
+    "err.id_required": "kailangan ang subscription_id para sa action=unsubscribe.",
+    "x_search_terms": [
+      "opcua unsubscribe",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "ms": {
+    "tool.description": "Batalkan langganan OPC UA melalui subscription_id, atau senaraikan langganan aktif.",
+    "param.action.description": "Tindakan: 'nyahlanggan' (lalai) atau 'senarai'.",
+    "param.subscription_id.description": "ID Langganan untuk dibatalkan (diperlukan untuk tindakan=berhenti melanggan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tiada langganan OPC UA aktif.",
+    "msg.header": "Langganan OPC UA aktif ({count}):",
+    "msg.unsubscribed": "Langganan OPC UA {id} dibatalkan.",
+    "err.id_required": "subscription_id diperlukan untuk action=unsubscribe.",
+    "x_search_terms": [
+      "opcua unsubscribe",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "da": {
+    "tool.description": "Annuller et OPC UA-abonnement med subscription_id, eller angiv aktive abonnementer.",
+    "param.action.description": "Handling: 'afmeld' (standard) eller 'liste'.",
+    "param.subscription_id.description": "Abonnement-id for at annullere (påkrævet for handling=afmeld).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive OPC UA-abonnementer.",
+    "msg.header": "Aktive OPC UA-abonnementer ({count}):",
+    "msg.unsubscribed": "OPC UA-abonnement {id} annulleret.",
+    "err.id_required": "subscription_id er påkrævet for action=unsubscribe.",
+    "x_search_terms": [
+      "opcua unsubscribe",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "nn": {
+    "tool.description": "Avbryt et OPC UA-abonnement med subscription_id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) eller 'list'.",
+    "param.subscription_id.description": "Abonnements-ID for å kansellere (påkrevd for handling=avslutt abonnement).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive OPC UA-abonnementer.",
+    "msg.header": "Aktive OPC UA-abonnementer ({count}):",
+    "msg.unsubscribed": "OPC UA-abonnement {id} kansellert.",
+    "err.id_required": "subscription_id kreves for action=unsubscribe.",
+    "x_search_terms": [
+      "opcua unsubscribe",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
   }
 }

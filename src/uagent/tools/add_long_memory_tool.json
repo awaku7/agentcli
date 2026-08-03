@@ -576,5 +576,73 @@
     "err.note_empty": "[add_long_memory error] nota este goală",
     "param.note.description": "Scrieți exact o notă concisă (de preferință în japoneză) care ar trebui să fie reutilizată în conversațiile viitoare.",
     "tool.description": "Salvați o singură notă de memorie pe termen lung despre utilizator/mediu care poate fi utilă în conversațiile viitoare."
+  },
+  "fil": {
+    "x_search_terms": [
+      "magdagdag ng memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "perist memory",
+      "save info",
+      "memory store"
+    ],
+    "err.note_empty": "[add_long_memory error] walang laman ang tala",
+    "param.note.description": "Sumulat ng eksaktong isang maigsi na tala (ginustong Japanese) na dapat na magagamit muli sa mga pag-uusap sa hinaharap.",
+    "tool.description": "Mag-save ng isang tala ng pangmatagalang memorya tungkol sa user/kapaligiran na maaaring maging kapaki-pakinabang sa mga pag-uusap sa hinaharap."
+  },
+  "ms": {
+    "x_search_terms": [
+      "tambah memori",
+      "ingatan jangka panjang",
+      "simpan memori",
+      "simpan memori",
+      "tambahan ingatan",
+      "ingatan ejen",
+      "ingat",
+      "ingatan berterusan",
+      "simpan maklumat",
+      "simpan memori"
+    ],
+    "err.note_empty": "[add_long_memory error] nota kosong",
+    "param.note.description": "Tulis satu nota ringkas dengan tepat (pilihan bahasa Jepun) yang sepatutnya boleh digunakan semula dalam perbualan akan datang.",
+    "tool.description": "Simpan satu nota ingatan jangka panjang tentang pengguna/persekitaran yang mungkin berguna dalam perbualan akan datang."
+  },
+  "da": {
+    "x_search_terms": [
+      "tilføje hukommelse",
+      "langtidshukommelse",
+      "gem hukommelse",
+      "gem hukommelse",
+      "hukommelse tilføj",
+      "agenthukommelse",
+      "husk",
+      "vedvarende hukommelse",
+      "gem info",
+      "hukommelseslager"
+    ],
+    "err.note_empty": "[add_long_memory error] noten er tom",
+    "param.note.description": "Skriv præcis en kortfattet note (japansk foretrukket), som skal kunne genbruges i fremtidige samtaler.",
+    "tool.description": "Gem en enkelt langtidshukommelsesnotat om brugeren/miljøet, som kan være nyttigt i fremtidige samtaler."
+  },
+  "nn": {
+    "x_search_terms": [
+      "legg til minne",
+      "langtidsminne",
+      "lagre minne",
+      "lagre minne",
+      "minne legg til",
+      "agentminne",
+      "husk",
+      "vedvarende minne",
+      "lagre informasjon",
+      "minnelager"
+    ],
+    "err.note_empty": "[add_long_memory error] notatet er tomt",
+    "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
+    "tool.description": "Lagre et enkelt langtidsminne om brukeren/miljøet som kan være nyttig i fremtidige samtaler."
   }
 }

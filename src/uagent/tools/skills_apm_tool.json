@@ -780,5 +780,97 @@
       "技能",
       "每分鐘"
     ]
+  },
+  "fil": {
+    "help_text": "  :skills apm list Ilista ang mga kasanayan mula sa APM apm_modules/\n :skills apm use <name|#> Mag-load at mag-activate ng APM skill\n :skills apm dir [path] Ipakita o itakda ang root ng proyekto ng APM",
+    "msg.use_hint": "[apm] Gamitin ang ':skills apm use <number>' para i-activate ang isang skill.",
+    "err.name_required": "[apm] Tumukoy ng pangalan o numero ng kasanayan.",
+    "msg.found_skills": "[apm] Nakakita ng {n} (mga) kasanayan sa {path}/apm_modules/:",
+    "msg.no_skills": "[apm] Walang nakitang mga kasanayan sa {path}/apm_modules/",
+    "msg.multiple_matches": "[apm] Maramihang tugma. Mangyaring gumamit ng numero:\n",
+    "msg.applied": "[apm] Inilapat na kasanayan sa APM: {name}",
+    "msg.dir_set": "[apm] Ang ugat ng proyekto ng APM ay nakatakda sa: {path}",
+    "msg.dir_current": "[apm] APM project root: {path}",
+    "err.out_of_range": "[apm] Numero sa labas ng hanay (1-{max}).",
+    "err.load_failed": "[apm] Nabigong i-load ang kasanayan: {err}",
+    "err.dir_not_found": "[apm] Hindi nahanap ang direktoryo: {path}",
+    "err.unknown_subcommand": "[apm] Hindi kilalang subcommand: {cmd}",
+    "err.not_found": "[apm] Walang nakitang skill na tumutugma sa '{name}'.",
+    "x_search_terms": [
+      "skills apm",
+      "skills_apm",
+      "skills",
+      "SKILLS",
+      "apm"
+    ]
+  },
+  "ms": {
+    "help_text": "  :senarai apm kemahiran Menyenaraikan kemahiran daripada APM apm_modules/\n :kemahiran apm menggunakan <nama|#> Muatkan dan aktifkan kemahiran APM\n :skills apm dir [path] Tunjukkan atau tetapkan akar projek APM",
+    "msg.use_hint": "[apm] Gunakan ':skills apm use <number>' untuk mengaktifkan kemahiran.",
+    "err.name_required": "[apm] Nyatakan nama atau nombor kemahiran.",
+    "msg.found_skills": "[apm] Menemui {n} kemahiran dalam {path}/apm_modules/:",
+    "msg.no_skills": "[apm] Tiada kemahiran ditemui dalam {path}/apm_modules/",
+    "msg.multiple_matches": "[apm] Berbilang perlawanan. Sila gunakan nombor:\n",
+    "msg.applied": "[apm] Kemahiran APM yang digunakan: {name}",
+    "msg.dir_set": "[apm] akar projek APM ditetapkan kepada: {path}",
+    "msg.dir_current": "[apm] APM projek akar: {path}",
+    "err.out_of_range": "[apm] Nombor di luar julat (1-{max}).",
+    "err.load_failed": "[apm] Gagal memuatkan kemahiran: {err}",
+    "err.dir_not_found": "[apm] Direktori tidak ditemui: {path}",
+    "err.unknown_subcommand": "[apm] Subperintah tidak diketahui: {cmd}",
+    "err.not_found": "[apm] Tiada kemahiran yang sepadan dengan '{name}' ditemui.",
+    "x_search_terms": [
+      "kemahiran apm",
+      "kemahiran_apm",
+      "kemahiran",
+      "KEMAHIRAN",
+      "apm"
+    ]
+  },
+  "da": {
+    "help_text": "  :skills apm list List over færdigheder fra APM apm_modules/\n :skills apm brug <navn|#> Indlæs og aktiver en APM-færdighed\n :skills apm dir [sti] Vis eller indstil APM-projektrod",
+    "msg.use_hint": "[apm] Brug ':skills apm use <number>' for at aktivere en færdighed.",
+    "err.name_required": "[apm] Angiv et færdighedsnavn eller nummer.",
+    "msg.found_skills": "[apm] Fandt {n} færdigheder i {path}/apm_modules/:",
+    "msg.no_skills": "[apm] Ingen færdigheder fundet i {path}/apm_modules/",
+    "msg.multiple_matches": "[apm] Flere kampe. Brug venligst et nummer:\n",
+    "msg.applied": "[apm] Anvendt APM-færdighed: {name}",
+    "msg.dir_set": "[apm] APM-projektrod indstillet til: {path}",
+    "msg.dir_current": "[apm] APM-projektrod: {path}",
+    "err.out_of_range": "[apm] Nummer uden for rækkevidde (1-{max}).",
+    "err.load_failed": "[apm] Kunne ikke indlæse færdighed: {err}",
+    "err.dir_not_found": "[apm] Directory ikke fundet: {path}",
+    "err.unknown_subcommand": "[apm] Ukendt underkommando: {cmd}",
+    "err.not_found": "[apm] Der blev ikke fundet nogen færdigheder, der matcher '{name}'.",
+    "x_search_terms": [
+      "færdigheder apm",
+      "skills_apm",
+      "skills",
+      "SKILLS",
+      "apm"
+    ]
+  },
+  "nn": {
+    "help_text": "  :skills apm list List ferdigheter fra APM apm_modules/\n :skills apm bruk <navn|#> Last inn og aktiver en APM-ferdighet\n :skills apm dir [bane] Vis eller angi APM-prosjektrot",
+    "msg.use_hint": "[apm] Bruk ':skills apm use <number>' for å aktivere en ferdighet.",
+    "err.name_required": "[apm] Spesifiser et ferdighetsnavn eller nummer.",
+    "msg.found_skills": "[apm] Fant {n} ferdigheter i {path}/apm_modules/:",
+    "msg.no_skills": "[apm] Ingen ferdigheter funnet i {path}/apm_modules/",
+    "msg.multiple_matches": "[apm] Flere treff. Vennligst bruk et nummer:\n",
+    "msg.applied": "[apm] Brukt APM-ferdighet: {name}",
+    "msg.dir_set": "[apm] APM-prosjektrot satt til: {path}",
+    "msg.dir_current": "[apm] APM-prosjektrot: {path}",
+    "err.out_of_range": "[apm] Tall utenfor rekkevidde (1-{max}).",
+    "err.load_failed": "[apm] Kunne ikke laste ferdighet: {err}",
+    "err.dir_not_found": "[apm] Katalog ikke funnet: {path}",
+    "err.unknown_subcommand": "[apm] Ukjent underkommando: {cmd}",
+    "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet.",
+    "x_search_terms": [
+      "ferdigheter apm",
+      "skills_apm",
+      "skills",
+      "SKILLS",
+      "apm"
+    ]
   }
 }

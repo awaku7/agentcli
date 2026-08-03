@@ -508,5 +508,65 @@
       "訂閱",
       "訂閱"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-alis ng subscription sa Matter device.",
+    "err.subscription_id_required": "Kinakailangan ang Subscription ID.",
+    "param.subscription_id.description": "Subscription ID na aalisin.",
+    "param.fmt.description": "Format: json o text.",
+    "err.subscription_not_found": "Hindi nahanap ang subscription: {id}",
+    "x_search_terms": [
+      "bagay unsubscribe",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
+    ]
+  },
+  "ms": {
+    "tool.description": "Alih keluar langganan peranti Matter.",
+    "err.subscription_id_required": "ID Langganan diperlukan.",
+    "param.subscription_id.description": "ID Langganan untuk dialih keluar.",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.subscription_not_found": "Langganan tidak ditemui: {id}",
+    "x_search_terms": [
+      "perkara nyahlanggan",
+      "perkara_nyahlanggan",
+      "perkara",
+      "PERKARA",
+      "alih",
+      "langganan"
+    ]
+  },
+  "da": {
+    "tool.description": "Fjern et Matter-enhedsabonnement.",
+    "err.subscription_id_required": "Abonnements-id er påkrævet.",
+    "param.subscription_id.description": "Abonnements-id for at fjerne.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.subscription_not_found": "Abonnement ikke fundet: {id}",
+    "x_search_terms": [
+      "matter unsubscribe",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "abonnement"
+    ]
+  },
+  "nn": {
+    "tool.description": "Fjern et Matter-enhetsabonnement.",
+    "err.subscription_id_required": "Abonnements-ID kreves.",
+    "param.subscription_id.description": "Abonnements-ID for å fjerne.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.subscription_not_found": "Finner ikke abonnement: {id}",
+    "x_search_terms": [
+      "matter unsubscribe",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "abonnement"
+    ]
   }
 }

@@ -814,5 +814,101 @@
       "值"
     ],
     "param.timeout.description": "超時（以秒為單位）。"
+  },
+  "fil": {
+    "tool.description": "Sumulat ng value sa isang BACnet property sa isang device. Ibinabalik ang resulta bilang JSON o text.",
+    "param.ip.description": "Target na IPv4 address ng device.",
+    "param.device_instance.description": "BACnet device instance number (alternatibo sa ip). Ginagamit kung hindi ibinigay ang ip.",
+    "param.object_type.description": "Uri ng object ng BACnet (hal. 'analogOutput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet object instance number.",
+    "param.property_name.description": "Pangalan ng property na isusulat (default: 'presentValue').",
+    "param.value.description": "Halaga sa pagsulat. Para sa mga uri ng analog ay gumamit ng isang string ng numero (hal. '25.0'), para sa mga uri ng binary gumamit ng 'aktibo' o 'hindi aktibo', para sa maraming estado gamitin ang numero ng estado bilang string.",
+    "param.priority.description": "Opsyonal na BACnet write priority (1-16). Mas mababang numero = mas mataas na priyoridad. Ang default ay partikular sa device.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "BACnet write: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "Hindi ma-install ang BAC0 library.",
+    "err.invalid_object_type": "Di-wastong object_type. Wasto: {types}.",
+    "err.value_required": "Kinakailangan ang isang halaga para sa pagpapatakbo ng pagsulat.",
+    "err.ip_or_device_required": "Kinakailangan ang alinman sa ip o device_instance.",
+    "x_search_terms": [
+      "bacnet write",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "value"
+    ],
+    "param.timeout.description": "Timeout sa ilang segundo."
+  },
+  "ms": {
+    "tool.description": "Tulis nilai pada sifat BACnet pada peranti. Mengembalikan hasil sebagai JSON atau teks.",
+    "param.ip.description": "Alamat IPv4 peranti sasaran.",
+    "param.device_instance.description": "Nombor contoh peranti BACnet (alternatif kepada ip). Digunakan jika ip tidak disediakan.",
+    "param.object_type.description": "Jenis objek BACnet (cth. 'analogOutput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "Nombor contoh objek BACnet.",
+    "param.property_name.description": "Nama harta untuk ditulis (lalai: 'presentValue').",
+    "param.value.description": "Nilai untuk menulis. Untuk jenis analog gunakan rentetan nombor (cth. '25.0'), untuk jenis binari gunakan 'aktif' atau 'tidak aktif', untuk berbilang negeri gunakan nombor negeri sebagai rentetan.",
+    "param.priority.description": "Keutamaan tulis BACnet pilihan (1-16). Nombor yang lebih rendah = keutamaan yang lebih tinggi. Lalai adalah khusus peranti.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Tulisan BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "Pustaka BAC0 tidak dapat dipasang.",
+    "err.invalid_object_type": "Jenis_objek tidak sah. Sah: {types}.",
+    "err.value_required": "Nilai diperlukan untuk operasi tulis.",
+    "err.ip_or_device_required": "Sama ada ip atau device_instance diperlukan.",
+    "x_search_terms": [
+      "bacnet write",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "nilai"
+    ],
+    "param.timeout.description": "Tamat masa dalam beberapa saat."
+  },
+  "da": {
+    "tool.description": "Skriv en værdi til en BACnet-ejendom på en enhed. Returnerer resultatet som JSON eller tekst.",
+    "param.ip.description": "Målenhedens IPv4-adresse.",
+    "param.device_instance.description": "BACnet-enhedsinstansnummer (alternativ til ip). Bruges hvis ip ikke er angivet.",
+    "param.object_type.description": "BACnet-objekttype (f.eks. 'analogOutput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet objektinstansnummer.",
+    "param.property_name.description": "Egenskabsnavn, der skal skrives (standard: 'presentValue').",
+    "param.value.description": "Værdi at skrive. For analoge typer brug en talstreng (f.eks. '25.0'), for binære typer brug 'aktiv' eller 'inaktiv', for multi-state brug tilstandsnummeret som streng.",
+    "param.priority.description": "Valgfri BACnet skriveprioritet (1-16). Lavere tal = højere prioritet. Standard er enhedsspecifik.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet-skriv: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
+    "err.value_required": "Der kræves en værdi for skriveoperation.",
+    "err.ip_or_device_required": "Enten ip eller device_instance er påkrævet.",
+    "x_search_terms": [
+      "bacnet skrive",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "værdi"
+    ],
+    "param.timeout.description": "Timeout i sekunder."
+  },
+  "nn": {
+    "tool.description": "Skriv en verdi til en BACnet-egenskap på en enhet. Returnerer resultatet som JSON eller tekst.",
+    "param.ip.description": "Mål enhetens IPv4-adresse.",
+    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Brukes hvis ip ikke er oppgitt.",
+    "param.object_type.description": "BACnet-objekttype (f.eks. 'analogOutput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet-objektforekomstnummer.",
+    "param.property_name.description": "Eiendomsnavn som skal skrives (standard: 'presentValue').",
+    "param.value.description": "Verdi å skrive. For analoge typer bruk en tallstreng (f.eks. '25.0'), for binære typer bruk 'aktiv' eller 'inaktiv', for multi-state bruk tilstandsnummeret som streng.",
+    "param.priority.description": "Valgfri BACnet skriveprioritet (1-16). Lavere tall = høyere prioritet. Standard er enhetsspesifikk.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet-skriv: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
+    "err.value_required": "En verdi kreves for skriveoperasjon.",
+    "err.ip_or_device_required": "Enten ip eller device_instance kreves.",
+    "x_search_terms": [
+      "bacnet skrive",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "verdi"
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   }
 }

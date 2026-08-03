@@ -576,5 +576,73 @@
       "設備",
       "返回"
     ]
+  },
+  "fil": {
+    "param.fmt.description": "Format: json o text.",
+    "err.config_missing": "Hindi nakita ang file ng configuration ng matter bridge. Itakda ang {env_json} o {env_file}.",
+    "err.invalid_config": "Hindi ma-parse ang configuration ng matter bridge: {err}",
+    "err.not_found": "Hindi nahanap ang matter bridge: {bridge_id}",
+    "param.bridge.description": "Bridge ID (alisin para sa lahat).",
+    "tool.description": "Ilista ang Matter bridge-managed device at magbalik ng JSON o buod ng text.",
+    "x_search_terms": [
+      "bagay na listahan ng tulay",
+      "matter_bridge_list",
+      "matter",
+      "MATTER",
+      "bridge-managed",
+      "device",
+      "return"
+    ]
+  },
+  "ms": {
+    "param.fmt.description": "Format: json atau teks.",
+    "err.config_missing": "Fail konfigurasi jambatan jirim tidak ditemui. Tetapkan {env_json} atau {env_file}.",
+    "err.invalid_config": "Konfigurasi jambatan jirim tidak dapat dihuraikan: {err}",
+    "err.not_found": "Jambatan jirim tidak ditemui: {bridge_id}",
+    "param.bridge.description": "ID Jambatan (tinggalkan untuk semua).",
+    "tool.description": "Senaraikan peranti yang diuruskan jambatan Matter dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "senarai jambatan perkara",
+      "senarai_jambatan_perkara",
+      "perkara",
+      "PERKARA",
+      "peranti diurus jambatan",
+      "pemulangan",
+      ""
+    ]
+  },
+  "da": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.config_missing": "Sagsbroens konfigurationsfil blev ikke fundet. Indstil {env_json} eller {env_file}.",
+    "err.invalid_config": "Sagsbrokonfigurationen kunne ikke parses: {err}",
+    "err.not_found": "Sagsbro blev ikke fundet: {bridge_id}",
+    "param.bridge.description": "Bridge ID (udelad for alle).",
+    "tool.description": "Angiv Matter-broadministrerede enheder, og returner en JSON eller tekstoversigt.",
+    "x_search_terms": [
+      "matter bridge list",
+      "matter_bridge_list",
+      "matter",
+      "MATTER",
+      "bro-administrerede",
+      "enheder",
+      "retur"
+    ]
+  },
+  "nn": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.config_missing": "Saksbro-konfigurasjonsfilen ble ikke funnet. Sett {env_json} eller {env_file}.",
+    "err.invalid_config": "Saksbrokonfigurasjon kunne ikke analyseres: {err}",
+    "err.not_found": "Saksbroen ble ikke funnet: {bridge_id}",
+    "param.bridge.description": "Bridge ID (utelat for alle).",
+    "tool.description": "Vis Matter-broadministrerte enheter og returner en JSON eller tekstsammendrag.",
+    "x_search_terms": [
+      "matter bridge list",
+      "matter_bridge_list",
+      "matter",
+      "MATTER",
+      "broadministrerte",
+      "enheter",
+      "retur"
+    ]
   }
 }

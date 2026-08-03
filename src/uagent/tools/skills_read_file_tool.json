@@ -746,5 +746,93 @@
       "citește referința"
     ],
     "param.maxb.description": "Număr maxim de octeți de citit (implicit: 5000000)"
+  },
+  "fil": {
+    "err.invalid_args": "[tool error] di-wastong args",
+    "err.max_bytes_positive": "[tool error] max_bytes ay dapat na positive integer",
+    "err.relative_path_required": "[tool error] relative_path ay dapat na isang hindi walang laman na string",
+    "err.skill_dir_required": "[tool error] skill_dir ay dapat na isang walang laman na string",
+    "param.relative_path.description": "Path na nauugnay sa ugat ng kasanayan (hal. references/REFERENCE.md)",
+    "param.skill_dir.description": "Direktoryo ng kasanayan.",
+    "tool.description": "Ligtas na nagbabasa ng isang file sa ilalim ng isang direktoryo ng kasanayan gamit ang isang kamag-anak na landas. Naka-block ang path traversal.",
+    "x_search_terms": [
+      "pagbabasa ng kasanayan",
+      "basahin ang file ng kasanayan",
+      "file ng kasanayan",
+      "nilalaman ng kasanayan",
+      "pinagmulan ng kasanayan",
+      "tingnan ang kasanayan",
+      "bukas na kasanayan",
+      "script ng kasanayan",
+      "code ng kasanayan",
+      "pagbasa ng sanggunian"
+    ],
+    "param.maxb.description": "Maximum na bilang ng mga byte na babasahin (default: 5000000)"
+  },
+  "ms": {
+    "err.invalid_args": "[ralat alat] hujah tidak sah",
+    "err.max_bytes_positive": "[ralat alat] max_bait mestilah integer positif",
+    "err.relative_path_required": "[tool error] relative_path mestilah rentetan bukan kosong",
+    "err.skill_dir_required": "[tool error] skill_dir mestilah rentetan bukan kosong",
+    "param.relative_path.description": "Laluan relatif kepada akar kemahiran (cth. rujukan/RUJUKAN.md)",
+    "param.skill_dir.description": "Direktori kemahiran.",
+    "tool.description": "Membaca fail dengan selamat di bawah direktori kemahiran menggunakan laluan relatif. Laluan laluan disekat.",
+    "x_search_terms": [
+      "kemahiran membaca",
+      "membaca fail kemahiran",
+      "fail kemahiran",
+      "kandungan kemahiran",
+      "sumber kemahiran",
+      "melihat kemahiran",
+      "kemahiran terbuka",
+      "skrip kemahiran",
+      "kod kemahiran",
+      "membaca rujukan"
+    ],
+    "param.maxb.description": "Bilangan maksimum bait untuk dibaca (lalai: 5000000)"
+  },
+  "da": {
+    "err.invalid_args": "[værktøjsfejl] ugyldige argumenter",
+    "err.max_bytes_positive": "[værktøjsfejl] max_bytes skal være et positivt heltal",
+    "err.relative_path_required": "[værktøjsfejl] relativ_sti skal være en ikke-tom streng",
+    "err.skill_dir_required": "[værktøjsfejl] skill_dir skal være en ikke-tom streng",
+    "param.relative_path.description": "Sti i forhold til færdighedsrod (f.eks. referencer/REFERENCE.md)",
+    "param.skill_dir.description": "Færdighedsmappe.",
+    "tool.description": "Læser sikkert en fil under en færdighedsmappe ved hjælp af en relativ sti. Stigennemgang er blokeret.",
+    "x_search_terms": [
+      "færdighed læs",
+      "læs færdighedsfil",
+      "færdighedsfil",
+      "færdighedsindhold",
+      "færdighedskilde",
+      "se færdighed",
+      "åben færdighed",
+      "færdighedsscript",
+      "færdighedskode",
+      "læs reference"
+    ],
+    "param.maxb.description": "Maksimalt antal bytes at læse (standard: 5000000)"
+  },
+  "nn": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.max_bytes_positive": "[verktøyfeil] max_bytes må være et positivt heltall",
+    "err.relative_path_required": "[verktøyfeil] relativ_bane må være en ikke-tom streng",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.relative_path.description": "Bane i forhold til ferdighetsroten (f.eks. referanser/REFERANSE.md)",
+    "param.skill_dir.description": "Ferdighetskatalog.",
+    "tool.description": "Leser trygt en fil under en ferdighetskatalog ved hjelp av en relativ bane. Traversering av sti er blokkert.",
+    "x_search_terms": [
+      "ferdighet les",
+      "les ferdighetsfil",
+      "ferdighetsfil",
+      "ferdighetsinnhold",
+      "ferdighetskilde",
+      "se ferdighet",
+      "åpne ferdigheter",
+      "ferdighetsskript",
+      "ferdighetskode",
+      "les referanse"
+    ],
+    "param.maxb.description": "Maksimalt antall byte å lese (standard: 5000000)"
   }
 }

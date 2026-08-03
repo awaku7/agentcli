@@ -576,5 +576,73 @@
     ],
     "param.path.description": "Un fișier Python, un director sau un model global de validat cu py_compile. Directoarele sunt scanate recursiv pentru *.",
     "param.paths.description": "Mai multe fișiere Python, directoare sau modele glob de validat cu py_compile. Directoarele sunt scanate recursiv pentru fișiere .py."
+  },
+  "fil": {
+    "tool.description": "Patunayan ang mga file ng Python gamit ang py_compile. Gamitin ang tool na ito para sa pagsusuri ng syntax sa mga file, direktoryo, o glob pattern ng Python.",
+    "x_search_terms": [
+      "python compile",
+      "py compile",
+      "syntax check",
+      "python validation",
+      "compile check",
+      "python syntax",
+      "code check",
+      "validation",
+      "python checker",
+      "compile python"
+    ],
+    "param.path.description": "Isang Python file, direktoryo, o pattern ng glob upang patunayan gamit ang py_compile. Ang mga direktoryo ay ini-scan nang paulit-ulit para sa *.",
+    "param.paths.description": "Maramihang Python file, direktoryo, o glob pattern upang patunayan gamit ang py_compile. Ang mga direktoryo ay ini-scan nang pabalik-balik para sa mga .py na file."
+  },
+  "ms": {
+    "tool.description": "Sahkan fail Python dengan py_compile. Gunakan alat ini untuk menyemak sintaks fail Python, direktori atau corak glob.",
+    "x_search_terms": [
+      "python compile",
+      "py compile",
+      "syntax check",
+      "python validation",
+      "compile check",
+      "python syntax",
+      "code check",
+      "validation",
+      "python checker",
+      "compile python"
+    ],
+    "param.path.description": "Fail Python, direktori atau corak glob untuk disahkan dengan py_compile. Direktori diimbas secara rekursif untuk *.",
+    "param.paths.description": "Berbilang fail Python, direktori atau corak glob untuk disahkan dengan py_compile. Direktori diimbas secara rekursif untuk fail .py."
+  },
+  "da": {
+    "tool.description": "Valider Python-filer med py_compile. Brug dette værktøj til syntakskontrol af Python-filer, mapper eller glob-mønstre.",
+    "x_search_terms": [
+      "python kompilering",
+      "py kompilering",
+      "syntakstjek",
+      "pythonvalidering",
+      "kompileringstjek",
+      "pythonsyntaks",
+      "kodekontrol",
+      "validering",
+      "pythonkontrol",
+      "kompiler python"
+    ],
+    "param.path.description": "En Python-fil, et bibliotek eller et globmønster, der skal valideres med py_compile. Mapper scannes rekursivt for *.",
+    "param.paths.description": "Flere Python-filer, mapper eller glob-mønstre for at validere med py_compile. Mapper scannes rekursivt for .py-filer."
+  },
+  "nn": {
+    "tool.description": "Valider Python-filer med py_compile. Bruk dette verktøyet for syntakssjekking av Python-filer, kataloger eller glob-mønstre.",
+    "x_search_terms": [
+      "python kompilering",
+      "py kompilering",
+      "syntakssjekk",
+      "pythonvalidering",
+      "kompileringssjekk",
+      "pythonsyntaks",
+      "kodesjekk",
+      "validering",
+      "pythonsjekker",
+      "kompiler python"
+    ],
+    "param.path.description": "En Python-fil, katalog eller glob-mønster for å validere med py_compile. Kataloger skannes rekursivt for *.",
+    "param.paths.description": "Flere Python-filer, kataloger eller glob-mønstre for å validere med py_compile. Kataloger skannes rekursivt for .py-filer."
   }
 }

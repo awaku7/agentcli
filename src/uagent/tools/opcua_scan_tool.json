@@ -712,5 +712,89 @@
       "網絡"
     ],
     "param.timeout.description": "每個連接的超時（秒）。"
+  },
+  "fil": {
+    "tool.description": "Tuklasin ang mga OPC UA server sa lokal na network. Sinusuri ang mga IP address sa default na OPC UA port (4840) at sinusubukang ikonekta at basahin ang impormasyon ng endpoint ng server.",
+    "param.ip_range.description": "IP range upang i-scan (hal. '192.168.1.1-254' o '192.168.1.0/24').",
+    "param.port.description": "OPC UA port (default: 4840).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "OPC UA scan: {count} (mga) server ang natagpuan sa {ms} ms.",
+    "msg.no_servers": "Walang nakitang mga OPC UA server.",
+    "err.ip_range_required": "ip_range ay kinakailangan.",
+    "err.invalid_ip_range": "Hindi ma-parse ang ip_range: {text}",
+    "x_search_terms": [
+      "opcua scan",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "discover",
+      "servers",
+      "local",
+      "network"
+    ],
+    "param.timeout.description": "Timeout bawat koneksyon (segundo)."
+  },
+  "ms": {
+    "tool.description": "Temui pelayan OPC UA pada rangkaian tempatan. Siasatan alamat IP pada port UA OPC lalai (4840) dan cuba menyambung dan membaca maklumat titik akhir pelayan.",
+    "param.ip_range.description": "Julat IP untuk diimbas (cth. '192.168.1.1-254' atau '192.168.1.0/24').",
+    "param.port.description": "Port UA OPC (lalai: 4840).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Imbasan UA OPC: {count} pelayan ditemui dalam {ms} ms.",
+    "msg.no_servers": "Tiada pelayan OPC UA ditemui.",
+    "err.ip_range_required": "ip_range diperlukan.",
+    "err.invalid_ip_range": "Tidak dapat menghuraikan ip_range: {text}",
+    "x_search_terms": [
+      "opcua scan",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "discover",
+      "servers",
+      "local",
+      "network"
+    ],
+    "param.timeout.description": "Tamat masa setiap sambungan (saat)."
+  },
+  "da": {
+    "tool.description": "Opdag OPC UA-servere på det lokale netværk. Undersøger IP-adresser på standard OPC UA-porten (4840) og forsøger at oprette forbindelse og læse serverens slutpunktinfo.",
+    "param.ip_range.description": "IP-område, der skal scannes (f.eks. '192.168.1.1-254' eller '192.168.1.0/24').",
+    "param.port.description": "OPC UA-port (standard: 4840).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-scanning: {count} server(e) fundet på {ms} ms.",
+    "msg.no_servers": "Ingen OPC UA-servere blev fundet.",
+    "err.ip_range_required": "ip_range er påkrævet.",
+    "err.invalid_ip_range": "Kunne ikke parse ip_range: {text}",
+    "x_search_terms": [
+      "opcua scan",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "opdag",
+      "servere",
+      "lokalt",
+      "netværk"
+    ],
+    "param.timeout.description": "Timeout pr. forbindelse (sekunder)."
+  },
+  "nn": {
+    "tool.description": "Oppdag OPC UA-servere på det lokale nettverket. Undersøker IP-adresser på standard OPC UA-port (4840) og prøver å koble til og lese serverens endepunktinformasjon.",
+    "param.ip_range.description": "IP-område å skanne (f.eks. '192.168.1.1-254' eller '192.168.1.0/24').",
+    "param.port.description": "OPC UA-port (standard: 4840).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-skanning: {count} server(e) funnet på {ms} ms.",
+    "msg.no_servers": "Ingen OPC UA-servere ble funnet.",
+    "err.ip_range_required": "ip_range kreves.",
+    "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
+    "x_search_terms": [
+      "opcua scan",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "oppdag",
+      "servere",
+      "lokalt",
+      "nettverk"
+    ],
+    "param.timeout.description": "Tidsavbrudd per tilkobling (sekunder)."
   }
 }

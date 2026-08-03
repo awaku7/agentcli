@@ -610,5 +610,77 @@
       "puncte finale mcp"
     ],
     "param.url.description": "Adresa URL a punctului final al serverului MCP. Dacă este omis, poate fi utilizat un server configurat."
+  },
+  "fil": {
+    "param.pretty.description": "Kung pretty-print JSON output.",
+    "param.server_name.description": "Pangalan ng server mula sa config file.",
+    "tool.description": "Kumonekta sa isang MCP server at ilista ang mga magagamit na tool. Sinusuportahan ang HTTP at stdio transports.",
+    "x_search_terms": [
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp function",
+      "mcp endpoints"
+    ],
+    "param.url.description": "MCP URL ng endpoint ng server. Kung aalisin, maaaring gumamit ng naka-configure na server."
+  },
+  "ms": {
+    "param.pretty.description": "Sama ada untuk mencetak cantik JSON output.",
+    "param.server_name.description": "Nama pelayan daripada fail konfigurasi.",
+    "tool.description": "Sambung ke pelayan MCP dan senaraikan alatan yang tersedia. Menyokong pengangkutan HTTP dan stdio.",
+    "x_search_terms": [
+      "mcp",
+      "alat mcp",
+      "senarai alat",
+      "pelayan mcp",
+      "alat yang tersedia",
+      "keupayaan mcp",
+      "alat pelayan",
+      "katalog alat",
+      "fungsi mcp",
+      "titik akhir mcp"
+    ],
+    "param.url.description": "MCP URL titik akhir pelayan. Jika ditinggalkan, pelayan yang dikonfigurasikan boleh digunakan."
+  },
+  "da": {
+    "param.pretty.description": "Om JSON output skal udskrives.",
+    "param.server_name.description": "Servernavn fra konfigurationsfilen.",
+    "tool.description": "Opret forbindelse til en MCP-server og angiv tilgængelige værktøjer. Understøtter HTTP og stdio-transporter.",
+    "x_search_terms": [
+      "mcp",
+      "mcp-værktøjer",
+      "værktøjsliste",
+      "mcp-server",
+      "tilgængelige værktøjer",
+      "mcp-kapaciteter",
+      "serverværktøjer",
+      "værktøjskatalog",
+      "mcp-funktioner",
+      "mcp-endepunkter"
+    ],
+    "param.url.description": "MCP serverslutpunkts-URL. Hvis den udelades, kan en konfigureret server bruges."
+  },
+  "nn": {
+    "param.pretty.description": "Hvorvidt du skal skrive ut JSON utskrifter.",
+    "param.server_name.description": "Servernavn fra konfigurasjonsfilen.",
+    "tool.description": "Koble til en MCP-server og vis opp tilgjengelige verktøy. Støtter HTTP og stdio-transporter.",
+    "x_search_terms": [
+      "mcp",
+      "mcp-verktøy",
+      "verktøyliste",
+      "mcp-server",
+      "tilgjengelige verktøy",
+      "mcp-funksjoner",
+      "serververktøy",
+      "verktøykatalog",
+      "mcp-funksjoner",
+      "mcp-endepunkter"
+    ],
+    "param.url.description": "MCP serverendepunkt-URL. Hvis utelatt, kan en konfigurert server brukes."
   }
 }

@@ -576,5 +576,73 @@
       "detecția imaginii"
     ],
     "param.img.description": "Calea către fișierul imagine de analizat."
+  },
+  "fil": {
+    "param.prompt.description": "Ano ang gusto mong malaman tungkol sa larawan.",
+    "tool.description": "Mag-load ng larawan at ilarawan ito ng AI (Vision). Kapaki-pakinabang para sa mga screenshot, chart, at talahanayan.",
+    "x_search_terms": [
+      "pag-aralan ang larawan",
+      "pagsusuri ng larawan",
+      "pagkilala sa larawan",
+      "pangitain",
+      "pag-unawa sa larawan",
+      "paglalarawan ng larawan",
+      "nilalaman ng larawan",
+      "pagsusuri ng larawan",
+      "pagsusuri ng larawan",
+      "pagtukoy ng larawan"
+    ],
+    "param.img.description": "Path sa image file para pag-aralan."
+  },
+  "ms": {
+    "param.prompt.description": "Apa yang anda ingin tahu tentang imej.",
+    "tool.description": "Muatkan imej dan minta AI (Vision) menerangkannya. Berguna untuk tangkapan skrin, carta dan jadual.",
+    "x_search_terms": [
+      "analisis imej",
+      "analisis imej",
+      "pengecaman imej",
+      "penglihatan",
+      "pemahaman imej",
+      "imej menerangkan",
+      "kandungan imej",
+      "imej ai",
+      "analisis visual",
+      "pengesanan imej"
+    ],
+    "param.img.description": "Laluan ke fail imej untuk dianalisis."
+  },
+  "da": {
+    "param.prompt.description": "Hvad du vil vide om billedet.",
+    "tool.description": "Indlæs et billede og få AI (Vision) til at beskrive det. Nyttig til skærmbilleder, diagrammer og tabeller.",
+    "x_search_terms": [
+      "analyser billede",
+      "billedanalyse",
+      "billedgenkendelse",
+      "syn",
+      "billedforståelse",
+      "billedbeskrivelse",
+      "billedindhold",
+      "billed ai",
+      "visuel analyse",
+      "billeddetektion"
+    ],
+    "param.img.description": "Sti til billedfilen, der skal analyseres."
+  },
+  "nn": {
+    "param.prompt.description": "Hva du vil vite om bildet.",
+    "tool.description": "Last inn et bilde og la AI (Vision) beskrive det. Nyttig for skjermbilder, diagrammer og tabeller.",
+    "x_search_terms": [
+      "analyser bilde",
+      "bildeanalyse",
+      "bildegjenkjenning",
+      "syn",
+      "bildeforståelse",
+      "bildebeskrivelse",
+      "bildeinnhold",
+      "bilde ai",
+      "visuell analyse",
+      "bildegjenkjenning"
+    ],
+    "param.img.description": "Sti til bildefilen som skal analyseres."
   }
 }

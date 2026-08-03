@@ -508,5 +508,65 @@
       "recall informații",
       "încărcați memoria"
     ]
+  },
+  "fil": {
+    "tool.description": "Kunin ang lahat ng naka-save na long-term memory notes (JSONL).",
+    "x_search_terms": [
+      "kumuha ng memory",
+      "mahabang memory",
+      "read memory",
+      "bawiin ang memory",
+      "memory recall",
+      "agent memory",
+      "get remembered",
+      "memory get",
+      "recall info",
+      "load memory"
+    ]
+  },
+  "ms": {
+    "tool.description": "Dapatkan semua nota memori jangka panjang (JSONL) yang disimpan.",
+    "x_search_terms": [
+      "dapatkan memori",
+      "memori panjang",
+      "memori baca",
+      "mendapatkan semula memori",
+      "memori mengingat",
+      "memori ejen",
+      "mendapat ingat",
+      "memori mendapat",
+      "mengingat semula maklumat",
+      "muat memori"
+    ]
+  },
+  "da": {
+    "tool.description": "Få alle gemte noter til langtidshukommelsen (JSONL).",
+    "x_search_terms": [
+      "få hukommelse",
+      "lang hukommelse",
+      "læse hukommelse",
+      "hente hukommelse",
+      "hukommelse genkald",
+      "agenthukommelse",
+      "blive husket",
+      "hukommelse få",
+      "genkalde info",
+      "indlæse hukommelse"
+    ]
+  },
+  "nn": {
+    "tool.description": "Få alle lagrede notater for langtidsminne (JSONL).",
+    "x_search_terms": [
+      "få minne",
+      "langt minne",
+      "lese minne",
+      "hente minne",
+      "minne tilbakekalling",
+      "agentminne",
+      "bli husket",
+      "minne få",
+      "recall info",
+      "laste minne"
+    ]
   }
 }

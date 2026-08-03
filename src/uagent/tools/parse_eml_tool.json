@@ -304,5 +304,41 @@
     "err.path_missing": "路徑為必填項。",
     "err.file_not_found": "未找到檔案：{path}",
     "err.invalid_extension": "預期的 .eml 文件，得到：{ext}"
+  },
+  "fil": {
+    "tool.description": "I-parse ang isang .eml email file at i-extract ang mga header (Mula/Hanggang/Paksa/Petsa) at body text.",
+    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "param.path.description": "Path sa .eml file.",
+    "param.max_body_length.description": "Max na character para sa body extraction (default: 5000, 0 = unlimited).",
+    "err.path_missing": "kailangan ang landas.",
+    "err.file_not_found": "Hindi nahanap ang file: {path}",
+    "err.invalid_extension": "Inaasahang .eml file, nakuha: {ext}"
+  },
+  "ms": {
+    "tool.description": "Menghuraikan fail e-mel .eml dan mengekstrak pengepala (Dari/Ke/Subjek/Tarikh) dan teks kandungan.",
+    "x_search_terms": "[\"eml\", \"emel\", \"mel\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "param.path.description": "Laluan ke fail .eml.",
+    "param.max_body_length.description": "Aksara maks untuk pengekstrakan badan (lalai: 5000, 0 = tidak terhad).",
+    "err.path_missing": "laluan diperlukan.",
+    "err.file_not_found": "Fail tidak ditemui: {path}",
+    "err.invalid_extension": "Fail .eml yang dijangkakan, mendapat: {ext}"
+  },
+  "da": {
+    "tool.description": "Parse en .eml-e-mail-fil og udpak overskrifter (Fra/Til/Emne/Dato) og brødtekst.",
+    "x_search_terms": "[\"eml\", \"e-mail\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "param.path.description": "Sti til .eml-filen.",
+    "param.max_body_length.description": "Maks. tegn til kropsudtrækning (standard: 5000, 0 = ubegrænset).",
+    "err.path_missing": "sti er påkrævet.",
+    "err.file_not_found": "Filen blev ikke fundet: {path}",
+    "err.invalid_extension": "Forventet .eml-fil, fik: {ext}"
+  },
+  "nn": {
+    "tool.description": "Parse en .eml-e-postfil og trekk ut overskrifter (Fra/Til/Emne/Dato) og brødtekst.",
+    "x_search_terms": "[\"eml\", \"e-post\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "param.path.description": "Banen til .eml-filen.",
+    "param.max_body_length.description": "Maks tegn for kroppsutvinning (standard: 5000, 0 = ubegrenset).",
+    "err.path_missing": "bane er nødvendig.",
+    "err.file_not_found": "Filen ble ikke funnet: {path}",
+    "err.invalid_extension": "Forventet .eml-fil, fikk: {ext}"
   }
 }

@@ -780,5 +780,97 @@
       "網路"
     ],
     "param.timeout.description": "每次連線嘗試的超時（秒）。"
+  },
+  "fil": {
+    "tool.description": "I-scan ang mga Modbus TCP device sa lokal na network. Sinusuri ang mga IP address at unit ID para matuklasan ang mga Modbus device.",
+    "param.ip_range.description": "IP range upang i-scan (hal. '192.168.1.1-254' o '192.168.1.0/24'). Kinakailangan.",
+    "param.port.description": "Modbus TCP port (default: 502).",
+    "param.unit_start.description": "Starting unit ID (default: 1).",
+    "param.unit_end.description": "Pangwakas na unit ID (default: 10).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Nakumpleto ang pag-scan ng Modbus: {count} (mga) device ang natagpuan sa {ms} ms.",
+    "msg.no_devices": "Walang nakitang mga Modbus device.",
+    "err.ip_range_required": "ip_range ay kinakailangan.",
+    "err.invalid_ip_range": "Hindi ma-parse ang ip_range: {text}",
+    "err.too_many_ips": "Masyadong maraming IP ({count}). Limitahan sa 255.",
+    "x_search_terms": [
+      "modbus scan",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "device",
+      "lokal",
+      "network"
+    ],
+    "param.timeout.description": "Timeout sa bawat pagtatangka sa koneksyon (segundo)."
+  },
+  "ms": {
+    "tool.description": "Imbas peranti Modbus TCP pada rangkaian tempatan. Siasatan alamat IP dan ID unit untuk menemui peranti Modbus.",
+    "param.ip_range.description": "Julat IP untuk diimbas (cth. '192.168.1.1-254' atau '192.168.1.0/24'). Diperlukan.",
+    "param.port.description": "Port TCP Modbus (lalai: 502).",
+    "param.unit_start.description": "ID unit permulaan (lalai: 1).",
+    "param.unit_end.description": "ID unit penamat (lalai: 10).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Imbasan Modbus selesai: {count} peranti ditemui dalam {ms} ms.",
+    "msg.no_devices": "Tiada peranti Modbus ditemui.",
+    "err.ip_range_required": "ip_range diperlukan.",
+    "err.invalid_ip_range": "Tidak dapat menghuraikan ip_range: {text}",
+    "err.too_many_ips": "Terlalu banyak IP ({count}). Had kepada 255.",
+    "x_search_terms": [
+      "imbasan modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "peranti",
+      "tempatan",
+      "rangkaian"
+    ],
+    "param.timeout.description": "Tamat masa setiap percubaan sambungan (saat)."
+  },
+  "da": {
+    "tool.description": "Scan Modbus TCP-enheder på det lokale netværk. Undersøger IP-adresser og enheds-id'er for at finde Modbus-enheder.",
+    "param.ip_range.description": "IP-område, der skal scannes (f.eks. '192.168.1.1-254' eller '192.168.1.0/24'). Påkrævet.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit_start.description": "Startenheds-ID (standard: 1).",
+    "param.unit_end.description": "Afsluttende enheds-id (standard: 10).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus-scanning fuldført: {count} enhed(er) fundet på {ms} ms.",
+    "msg.no_devices": "Der blev ikke fundet nogen Modbus-enheder.",
+    "err.ip_range_required": "ip_range er påkrævet.",
+    "err.invalid_ip_range": "Kunne ikke parse ip_range: {text}",
+    "err.too_many_ips": "For mange IP'er ({count}). Grænse til 255.",
+    "x_search_terms": [
+      "modbus scan",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "enheder",
+      "lokalt",
+      "netværk"
+    ],
+    "param.timeout.description": "Timeout pr. forbindelsesforsøg (sekunder)."
+  },
+  "nn": {
+    "tool.description": "Skann Modbus TCP-enheter på det lokale nettverket. Undersøker IP-adresser og enhets-IDer for å oppdage Modbus-enheter.",
+    "param.ip_range.description": "IP-område å skanne (f.eks. '192.168.1.1-254' eller '192.168.1.0/24'). Obligatorisk.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit_start.description": "Startenhets-ID (standard: 1).",
+    "param.unit_end.description": "Avsluttende enhets-ID (standard: 10).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus-skanning fullført: {count} enhet(er) funnet på {ms} ms.",
+    "msg.no_devices": "Ingen Modbus-enheter ble funnet.",
+    "err.ip_range_required": "ip_range kreves.",
+    "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
+    "err.too_many_ips": "For mange IP-er ({count}). Begrens til 255.",
+    "x_search_terms": [
+      "modbus scan",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "enheter",
+      "lokalt",
+      "nettverk"
+    ],
+    "param.timeout.description": "Tidsavbrudd per tilkoblingsforsøk (sekunder)."
   }
 }

@@ -372,5 +372,49 @@
       "假人",
       "註冊"
     ]
+  },
+  "fil": {
+    "tool.description": "Dummy tool para sa pagpaparehistro ng kontrol ng genre.",
+    "x_search_terms": [
+      "kontrol ng genre",
+      "genre_control",
+      "genre",
+      "GENRE",
+      "dummy",
+      "pagrehistro"
+    ]
+  },
+  "ms": {
+    "tool.description": "Alat dummy untuk pendaftaran kawalan genre.",
+    "x_search_terms": [
+      "kawalan genre",
+      "genre_control",
+      "genre",
+      "GENRE",
+      "dummy",
+      "pendaftaran"
+    ]
+  },
+  "da": {
+    "tool.description": "Dummy-værktøj til registrering af genrekontrol.",
+    "x_search_terms": [
+      "genre kontrol",
+      "genre_control",
+      "genre",
+      "GENRE",
+      "dummy",
+      "registrering"
+    ]
+  },
+  "nn": {
+    "tool.description": "Dummy-verktøy for registrering av sjangerkontroll.",
+    "x_search_terms": [
+      "sjangerkontroll",
+      "genre_control",
+      "genre",
+      "GENRE",
+      "dummy",
+      "registrering"
+    ]
   }
 }

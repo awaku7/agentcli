@@ -508,5 +508,65 @@
       "reîmprospătare sistem",
       "reîncărcare la cald"
     ]
+  },
+  "fil": {
+    "tool.description": "I-reload ang system at i-load ang pinakabagong code para sa lahat ng tool sa ilalim ng mga tool/ (Python .py file) sa memorya. Patakbuhin ito pagkatapos baguhin ang code.",
+    "x_search_terms": [
+      "system reload",
+      "reload tools",
+      "reload config",
+      "refresh tools",
+      "restart tools",
+      "reload system",
+      "tool reload",
+      "reload agent",
+      "system refresh",
+      "hot reload"
+    ]
+  },
+  "ms": {
+    "tool.description": "Muat semula sistem dan muatkan kod terkini untuk semua alatan di bawah alatan/ (fail Python .py) ke dalam ingatan. Jalankan ini selepas mengubah suai kod.",
+    "x_search_terms": [
+      "muat semula sistem",
+      "muat semula alatan",
+      "muat semula konfigurasi",
+      "muat semula alatan",
+      "mulakan semula alatan",
+      "muat semula sistem",
+      "muat semula alat",
+      "muat semula ejen",
+      "pemuatan semula sistem",
+      "muat semula panas"
+    ]
+  },
+  "da": {
+    "tool.description": "Genindlæs systemet og indlæs den seneste kode for alle værktøjer under tools/ (Python .py-filer) i hukommelsen. Kør dette efter at have ændret koden.",
+    "x_search_terms": [
+      "systemgenindlæs",
+      "genindlæsningsværktøjer",
+      "genindlæs konfiguration",
+      "opdateringsværktøjer",
+      "genstartværktøjer",
+      "genindlæs system",
+      "genindlæsning af værktøj",
+      "genindlæsningsagent",
+      "systemopdatering",
+      "varm genindlæsning"
+    ]
+  },
+  "nn": {
+    "tool.description": "Last inn systemet på nytt og last inn den nyeste koden for alle verktøy under verktøy/ (Python .py-filer) til minnet. Kjør dette etter å ha endret koden.",
+    "x_search_terms": [
+      "systemreload",
+      "reload tools",
+      "reload config",
+      "refresh tools",
+      "restart tools",
+      "reload system",
+      "tool reload",
+      "reload agent",
+      "system refresh",
+      "hot reload"
+    ]
   }
 }

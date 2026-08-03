@@ -542,5 +542,69 @@
       "伺服器"
     ],
     "param.timeout.description": "連接逾時。"
+  },
+  "fil": {
+    "tool.description": "Basahin ang (mga) halaga ng node mula sa isang OPC UA server. Ibinabalik ang kasalukuyang halaga at metadata.",
+    "param.url.description": "URL ng server ng OPC UA.",
+    "param.node_ids.description": "(mga) node ID na babasahin. Single: 'i=85' o 'ns=2;s=Temp'. Maramihan: pinaghihiwalay ng kuwit.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Nabasa ng OPC UA: {count} (mga) value sa {ms} ms.",
+    "x_search_terms": [
+      "opcua read",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "value(s",
+      "server"
+    ],
+    "param.timeout.description": "Timeout ng koneksyon."
+  },
+  "ms": {
+    "tool.description": "Baca nilai nod daripada pelayan OPC UA. Mengembalikan nilai semasa dan metadata.",
+    "param.url.description": "URL pelayan OPC UA.",
+    "param.node_ids.description": "ID nod untuk dibaca. Tunggal: 'i=85' atau 'ns=2;s=Temp'. Berbilang: dipisahkan koma.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "OPC UA dibaca: {count} nilai dalam {ms} ms.",
+    "x_search_terms": [
+      "opcua read",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "nilai(s",
+      "server"
+    ],
+    "param.timeout.description": "Tamat masa sambungan."
+  },
+  "da": {
+    "tool.description": "Læs nodeværdi(er) fra en OPC UA-server. Returnerer den aktuelle værdi og metadata.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_ids.description": "Node-id(er) at læse. Single: 'i=85' eller 'ns=2;s=Temp'. Multiple: kommasepareret.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA læst: {count} værdi(er) i {ms} ms.",
+    "x_search_terms": [
+      "opcua read",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "værdi(s",
+      "server"
+    ],
+    "param.timeout.description": "Forbindelse timeout."
+  },
+  "nn": {
+    "tool.description": "Les nodeverdi(er) fra en OPC UA-server. Returnerer gjeldende verdi og metadata.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_ids.description": "Node-ID(er) å lese. Singel: 'i=85' eller 'ns=2;s=Temp'. Multippel: kommadelt.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA lest: {count} verdi(er) i {ms} ms.",
+    "x_search_terms": [
+      "opcua read",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "value(s",
+      "server"
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   }
 }

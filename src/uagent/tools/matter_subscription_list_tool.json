@@ -440,5 +440,57 @@
       "active",
       "subscriptions"
     ]
+  },
+  "fil": {
+    "tool.description": "Maglista ng mga aktibong subscription sa device ng Matter.",
+    "param.fmt.description": "Format: json o text.",
+    "x_search_terms": [
+      "listahan ng subscription sa bagay",
+      "matter_subscription_list",
+      "matter",
+      "MATTER",
+      "subscription",
+      "active",
+      "subscription"
+    ]
+  },
+  "ms": {
+    "tool.description": "Senaraikan langganan peranti Matter yang aktif.",
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "senarai langganan perkara",
+      "senarai_langganan_perkara",
+      "langganan",
+      "PERKARA",
+      "langganan",
+      "aktif",
+      "langganan"
+    ]
+  },
+  "da": {
+    "tool.description": "Vis aktive Matter-enhedsabonnementer.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "sag abonnementsliste",
+      "matter_subscription_list",
+      "matter",
+      "MATTER",
+      "abonnement",
+      "aktive",
+      "abonnementer"
+    ]
+  },
+  "nn": {
+    "tool.description": "List opp aktive Matter-enhetsabonnementer.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "matter abonnementsliste",
+      "matter_subscription_list",
+      "matter",
+      "MATTER",
+      "abonnement",
+      "aktive",
+      "abonnementer"
+    ]
   }
 }

@@ -678,5 +678,85 @@
     "error.exit_code": "comanda ieșită cu codul %(returncode)s",
     "error.os_error": "Execuția comenzii a eșuat (eroare OS): %(error)s",
     "error.exec_failed": "executarea comenzii a eșuat: %(error)s"
+  },
+  "fil": {
+    "param.command.description": "Naipasa ang command string sa OS shell. Sa Windows, ginagamit ang cmd.exe /c.",
+    "tool.description": "Bilang huling paraan, magsagawa ng shell command at magbalik ng JSON resulta. Gamitin lang kapag walang available na mas ligtas o mas partikular na tool (hal.",
+    "x_search_terms": [
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
+    ],
+    "param.cwd.description": "Direktoryo ng trabaho. Ang mga kamag-anak na landas lamang sa ilalim ng workdir ang pinapayagan. Kung null, ginagamit ang kasalukuyang direktoryo.",
+    "error.exit_code": "lumabas ang command na may code na %(returncode)s",
+    "error.os_error": "Nabigo ang pagpapatupad ng command (error sa OS): %(error)s",
+    "error.exec_failed": "nabigo ang pagpapatupad ng command: %(error)s"
+  },
+  "ms": {
+    "param.command.description": "Rentetan arahan dihantar ke shell OS. Pada Windows, cmd.exe /c digunakan.",
+    "tool.description": "Sebagai pilihan terakhir, laksanakan arahan shell dan kembalikan hasil JSON. Gunakan hanya apabila tiada alat yang lebih selamat atau lebih khusus tersedia (cth.",
+    "x_search_terms": [
+      "cmd json",
+      "perintah json",
+      "output berstruktur",
+      "hasil json",
+      "cmd berstruktur",
+      "output perintah",
+      "hasil arahan",
+      "laksanakan perintah json",
+      "json",
+      "hasil cmd"
+    ],
+    "param.cwd.description": "Direktori kerja. Hanya laluan relatif di bawah workdir dibenarkan. Jika nol, gunakan direktori semasa.",
+    "error.exit_code": "arahan keluar dengan kod %(returncode)s",
+    "error.os_error": "pelaksanaan arahan gagal (ralat OS): %(error)s",
+    "error.exec_failed": "pelaksanaan arahan gagal: %(error)s"
+  },
+  "da": {
+    "param.command.description": "Kommandostreng overført til OS-skallen. På Windows bruges cmd.exe /c.",
+    "tool.description": "Som en sidste udvej skal du udføre en shell-kommando og returnere et JSON-resultat. Brug kun, når der ikke er noget mere sikkert eller mere specifikt værktøj tilgængeligt (f.",
+    "x_search_terms": [
+      "cmd json",
+      "kommando json",
+      "struktureret output",
+      "json resultat",
+      "cmd struktureret",
+      "kommando output",
+      "kommando resultat",
+      "udfør json",
+      "json kommando",
+      "cmd resultat"
+    ],
+    "param.cwd.description": "Arbejdsmappe. Kun relative stier under workdir er tilladt. Hvis null, bruger den aktuelle mappe.",
+    "error.exit_code": "kommando afsluttet med kode %(returncode)s",
+    "error.os_error": "kommandoudførelse mislykkedes (OS-fejl): %(error)s",
+    "error.exec_failed": "kommandoudførelse mislykkedes: %(error)s"
+  },
+  "nn": {
+    "param.command.description": "Kommandostrengen ble sendt til OS-skallet. På Windows brukes cmd.exe /c.",
+    "tool.description": "Som en siste utvei, utfør en shell-kommando og returner et JSON-resultat. Bruk kun når det ikke er noe sikrere eller mer spesifikt verktøy tilgjengelig (f.",
+    "x_search_terms": [
+      "cmd json",
+      "kommando json",
+      "strukturert utgang",
+      "json resultat",
+      "cmd strukturert",
+      "kommandoutgang",
+      "kommandoresultat",
+      "utfør json",
+      "json kommando",
+      "cmd resultat"
+    ],
+    "param.cwd.description": "Arbeidskatalog. Bare relative baner under workdir er tillatt. Hvis null, bruker den gjeldende katalogen.",
+    "error.exit_code": "kommandoen ble avsluttet med koden %(returncode)s",
+    "error.os_error": "kommandoutførelse mislyktes (OS-feil): %(error)s",
+    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s"
   }
 }

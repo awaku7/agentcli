@@ -746,5 +746,93 @@
       "網路",
       "傳送"
     ]
+  },
+  "fil": {
+    "tool.description": "Tuklasin ang mga BACnet/IP device sa lokal na network. Nagpapadala ng broadcast na Sino-Si at nagbabalik ng mga tugon sa I-Am bilang isang JSON o listahan ng text.",
+    "param.timeout.description": "Sino-Ang oras ng paghihintay ng tugon sa mga segundo.",
+    "param.interface.description": "Lokal na IPv4 address upang i-bind (hal. '192.168.1.100'). Kung aalisin, awtomatikong nade-detect ng BAC0 ang lokal na interface.",
+    "param.limit.description": "Maximum na bilang ng mga device na ibabalik. 0 ay nangangahulugang walang limitasyon.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Nakumpleto ang pagtuklas ng BACnet/IP: {count} (mga) device ang natagpuan sa {ms} ms.",
+    "msg.no_devices": "Walang nakitang BACnet/IP device.",
+    "err.bac0_install": "Hindi ma-install ang BAC0 library.",
+    "x_search_terms": [
+      "bacnet scan",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "discover",
+      "bacnet/ip",
+      "device",
+      "local",
+      "network",
+      "nagpapadala"
+    ]
+  },
+  "ms": {
+    "tool.description": "Temui peranti BACnet/IP pada rangkaian tempatan. Menghantar siaran Who-Is dan mengembalikan respons I-Am sebagai JSON atau senarai teks.",
+    "param.timeout.description": "Masa menunggu respons Siapakah dalam beberapa saat.",
+    "param.interface.description": "Alamat IPv4 tempatan untuk diikat (cth. '192.168.1.100'). Jika ditinggalkan, BAC0 mengesan secara automatik antara muka setempat.",
+    "param.limit.description": "Bilangan maksimum peranti untuk dikembalikan. 0 bermakna tidak terhad.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Penemuan BACnet/IP selesai: {count} peranti ditemui dalam {ms} ms.",
+    "msg.no_devices": "Tiada peranti BACnet/IP ditemui.",
+    "err.bac0_install": "Pustaka BAC0 tidak dapat dipasang.",
+    "x_search_terms": [
+      "imbasan bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "temui",
+      "bacnet/ip",
+      "peranti",
+      "tempatan",
+      "rangkaian",
+      "menghantar"
+    ]
+  },
+  "da": {
+    "tool.description": "Opdag BACnet/IP-enheder på det lokale netværk. Sender en Who-Is-udsendelse og returnerer I-Am-svar som en JSON- eller tekstliste.",
+    "param.timeout.description": "Who-Is svar ventetid i sekunder.",
+    "param.interface.description": "Lokal IPv4-adresse, der skal bindes (f.eks. '192.168.1.100'). Hvis den udelades, registrerer BAC0 automatisk den lokale grænseflade.",
+    "param.limit.description": "Maksimalt antal enheder at returnere. 0 betyder ubegrænset.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet/IP-opdagelse fuldført: {count} enhed(er) fundet på {ms} ms.",
+    "msg.no_devices": "Der blev ikke fundet nogen BACnet/IP-enheder.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "x_search_terms": [
+      "bacnet scan",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "opdag",
+      "bacnet/ip",
+      "enheder",
+      "lokalt",
+      "netværk",
+      "sender"
+    ]
+  },
+  "nn": {
+    "tool.description": "Oppdag BACnet/IP-enheter på det lokale nettverket. Sender en Who-Is-sending og returnerer I-Am-svar som en JSON eller tekstliste.",
+    "param.timeout.description": "Who-Is svar ventetid i sekunder.",
+    "param.interface.description": "Lokal IPv4-adresse som skal bindes (f.eks. '192.168.1.100'). Hvis utelatt, oppdager BAC0 automatisk det lokale grensesnittet.",
+    "param.limit.description": "Maksimalt antall enheter å returnere. 0 betyr ubegrenset.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet/IP-oppdagelse fullført: {count} enhet(er) funnet på {ms} ms.",
+    "msg.no_devices": "Ingen BACnet/IP-enheter ble funnet.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "x_search_terms": [
+      "bacnet scan",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "oppdag",
+      "bacnet/ip",
+      "enheter",
+      "lokalt",
+      "nettverk",
+      "sender"
+    ]
   }
 }

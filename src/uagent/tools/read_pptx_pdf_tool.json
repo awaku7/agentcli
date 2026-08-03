@@ -746,5 +746,93 @@
     "err.path_required": "[read_pptx_pdf error] este necesară",
     "err.page_index_int": "[read_pptx_pdf error] page_index trebuie să fie un număr întreg",
     "param.maxc.description": "Numărul maxim de caractere de returnat. Dacă este omis, trunchiază la 8000 de caractere."
+  },
+  "fil": {
+    "param.page_index.description": "1-based na page number (PDF page o PPTX slide index). Kung aalisin, ibabalik ang pinagsama-samang teksto para sa lahat ng pahina.",
+    "param.path.description": "Path sa isang PDF / PPTX / JSON file.",
+    "tool.description": "Basahin ang PDF/PPTX (o ang kanilang karaniwang JSON schema) at ibalik ang na-extract na text ayon sa pahina. Maaari kang magtakda ng landas sa .",
+    "x_search_terms": [
+      "basahin ang pptx",
+      "basahin ang pdf",
+      "pptx",
+      "pdf",
+      "powerpoint",
+      "presentasyon",
+      "document reader",
+      "pdf basahin",
+      "pptx read",
+      "slide"
+    ],
+    "param.password.description": "Password (prompts kung kinakailangan).",
+    "prompt.password": "Ilagay ang password para sa file na ito:\n{path}",
+    "err.path_required": "[read_pptx_pdf error] kailangan ang landas",
+    "err.page_index_int": "[read_pptx_pdf error] page_index ay dapat na isang integer",
+    "param.maxc.description": "Maximum na bilang ng mga character na ibabalik. Kung aalisin, puputulin sa 8000 character."
+  },
+  "ms": {
+    "param.page_index.description": "Nombor halaman berasaskan 1 (halaman PDF atau indeks slaid PPTX). Jika ditinggalkan, mengembalikan teks bercantum untuk semua halaman.",
+    "param.path.description": "Laluan ke fail PDF / PPTX / JSON.",
+    "tool.description": "Baca PDF/PPTX (atau skema JSON biasa mereka) dan kembalikan teks yang diekstrak mengikut halaman. Anda boleh menetapkan laluan ke .",
+    "x_search_terms": [
+      "baca pptx",
+      "baca pdf",
+      "pptx",
+      "pdf",
+      "powerpoint",
+      "persembahan",
+      "pembaca dokumen",
+      "baca pdf",
+      "baca pptx",
+      "slaid"
+    ],
+    "param.password.description": "Kata laluan (gesaan jika perlu).",
+    "prompt.password": "Masukkan kata laluan untuk fail ini:\n{path}",
+    "err.path_required": "[read_pptx_pdf error] laluan diperlukan",
+    "err.page_index_int": "[read_pptx_pdf error] page_index mestilah integer",
+    "param.maxc.description": "Bilangan maksimum aksara untuk dikembalikan. Jika ditinggalkan, dipotong pada 8000 aksara."
+  },
+  "da": {
+    "param.page_index.description": "1-baseret sidetal (PDF-side eller PPTX-diasindeks). Hvis den udelades, returnerer sammenkædet tekst for alle sider.",
+    "param.path.description": "Sti til en PDF/PPTX/JSON fil.",
+    "tool.description": "Læs PDF/PPTX (eller deres almindelige JSON-skema) og returner udtrukket tekst efter side. Du kan indstille stien til.",
+    "x_search_terms": [
+      "læs pptx",
+      "læs pdf",
+      "pptx",
+      "pdf",
+      "powerpoint",
+      "præsentation",
+      "dokumentlæser",
+      "pdf læs",
+      "pptx read",
+      "dias"
+    ],
+    "param.password.description": "Adgangskode (bedes om nødvendigt).",
+    "prompt.password": "Indtast adgangskoden til denne fil:\n{path}",
+    "err.path_required": "[read_pptx_pdf error] sti er påkrævet",
+    "err.page_index_int": "[read_pptx_pdf error] sideindeks skal være et heltal",
+    "param.maxc.description": "Maksimalt antal tegn at returnere. Hvis den udelades, afkortes den med 8000 tegn."
+  },
+  "nn": {
+    "param.page_index.description": "1-basert sidetall (PDF-side eller PPTX lysbildeindeks). Hvis den utelates, returnerer sammenkjedet tekst for alle sider.",
+    "param.path.description": "Bane til en PDF-/PPTX-/JSON-fil.",
+    "tool.description": "Les PDF/PPTX (eller deres vanlige JSON-skjema) og returner uttrukket tekst etter side. Du kan angi bane til .",
+    "x_search_terms": [
+      "les pptx",
+      "les pdf",
+      "pptx",
+      "pdf",
+      "powerpoint",
+      "presentasjon",
+      "dokumentleser",
+      "pdf les",
+      "pptx read",
+      "lysbilde"
+    ],
+    "param.password.description": "Passord (spør om nødvendig).",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "err.path_required": "[read_pptx_pdf error] bane er nødvendig",
+    "err.page_index_int": "[read_pptx_pdf error] sideindeks må være et heltall",
+    "param.maxc.description": "Maksimalt antall tegn å returnere. Hvis den utelates, avkortes den med 8000 tegn."
   }
 }

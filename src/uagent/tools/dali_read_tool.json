@@ -576,5 +576,73 @@
       "層級",
       "照明"
     ]
+  },
+  "fil": {
+    "tool.description": "Basahin ang katayuan at antas mula sa isang DALI lighting device. Nagtatanong sa tinukoy na address para sa kasalukuyang estado.",
+    "param.address.description": "DALI device address (0-63).",
+    "param.driver.description": "Uri ng driver ng DALI.",
+    "param.host.description": "daliserver host.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "DALI read: addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "dali read",
+      "dali_read",
+      "dali",
+      "DALI",
+      "level",
+      "lighting"
+    ]
+  },
+  "ms": {
+    "tool.description": "Baca status dan tahap daripada peranti pencahayaan DALI. Menanyakan alamat yang ditentukan untuk keadaan semasa.",
+    "param.address.description": "Alamat peranti DALI (0-63).",
+    "param.driver.description": "jenis pemandu DALI.",
+    "param.host.description": "hos daliserver.",
+    "param.port.description": "pelabuhan daliserver.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "DALI baca: addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "dali read",
+      "dali_read",
+      "dali",
+      "DALI",
+      "level",
+      "lighting"
+    ]
+  },
+  "da": {
+    "tool.description": "Læs status og niveau fra en DALI belysningsenhed. Spørger den angivne adresse for den aktuelle tilstand.",
+    "param.address.description": "DALI enhedsadresse (0-63).",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver vært.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI læst: addr={addr} niveau={level} status={status}",
+    "x_search_terms": [
+      "dali read",
+      "dali_read",
+      "dali",
+      "DALI",
+      "niveau",
+      "belysning"
+    ]
+  },
+  "nn": {
+    "tool.description": "Les status og nivå fra en DALI-lysenhet. Spørrer den angitte adressen for gjeldende tilstand.",
+    "param.address.description": "DALI-enhetsadresse (0-63).",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver vert.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI lest: addr={addr} nivå={level} status={status}",
+    "x_search_terms": [
+      "dali read",
+      "dali_read",
+      "dali",
+      "DALI",
+      "level",
+      "belysning"
+    ]
   }
 }

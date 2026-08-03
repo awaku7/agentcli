@@ -508,5 +508,65 @@
     ],
     "param.zipcode.description": "要尋找的 7 位日本郵遞區號（例如「1000001」）。連字符被忽略。",
     "param.prefecture.description": "列出城市日本都道府縣的名稱（例如「東京都」、「神奈川」）。接受漢字、假名或羅馬字。"
+  },
+  "fil": {
+    "tool.description": "Maghanap ng mga Japanese address sa pamamagitan ng zipcode, o ilista ang mga lungsod sa isang prefecture. Gumagamit ng jpzip pampublikong dataset (walang API key na kinakailangan).",
+    "x_search_terms": [
+      "zipcode",
+      "postal code",
+      "zip code",
+      "japan zipcode",
+      "japanese zip",
+      "postcode",
+      "address lookup",
+      "japan address"
+    ],
+    "param.zipcode.description": "7-digit na Japanese zipcode na hahanapin (hal. '1000001'). Ang mga gitling ay hindi pinapansin.",
+    "param.prefecture.description": "Pangalan ng Japanese prefecture para ilista ang mga lungsod sa (hal. '東京都', 'Kanagawa'). Tinanggap ang Kanji, kana, o romaji."
+  },
+  "ms": {
+    "tool.description": "Cari alamat Jepun mengikut poskod, atau senaraikan bandar di wilayah. Menggunakan set data awam jpzip (tiada kunci API diperlukan).",
+    "x_search_terms": [
+      "poskod",
+      "kod pos",
+      "kod pos",
+      "kod pos jepun",
+      "poskod jepun",
+      "poskod",
+      "pencarian alamat",
+      "alamat jepun"
+    ],
+    "param.zipcode.description": "Poskod Jepun 7 digit untuk dicari (mis. '1000001'). Tanda sempang diabaikan.",
+    "param.prefecture.description": "Nama wilayah Jepun untuk menyenaraikan bandar di (cth. '東京都', 'Kanagawa'). Kanji, kana atau romaji diterima."
+  },
+  "da": {
+    "tool.description": "Slå japanske adresser op efter postnummer, eller angiv byer i et præfektur. Bruger det offentlige jpzip-datasæt (ingen API-nøgle påkrævet).",
+    "x_search_terms": [
+      "postnummer",
+      "postnummer",
+      "postnummer",
+      "japan postnummer",
+      "japansk postnummer",
+      "adresseopslag",
+      "japan adresse",
+      ""
+    ],
+    "param.zipcode.description": "7-cifret japansk postnummer at slå op (f.eks. '1000001'). Bindestreger ignoreres.",
+    "param.prefecture.description": "Japansk præfekturnavn for at vise byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteret."
+  },
+  "nn": {
+    "tool.description": "Slå opp japanske adresser etter postnummer, eller oppgi byer i en prefektur. Bruker det offentlige jpzip-datasettet (ingen API-nøkkel kreves).",
+    "x_search_terms": [
+      "postnummer",
+      "postnummer",
+      "postnummer",
+      "japan postnummer",
+      "japansk postnummer",
+      "adresseoppslag",
+      "japan adresse",
+      ""
+    ],
+    "param.zipcode.description": "7-sifret japansk postnummer for å slå opp (f.eks. '1000001'). Bindestreker ignoreres.",
+    "param.prefecture.description": "Japansk prefekturnavn for å liste byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji godtas."
   }
 }

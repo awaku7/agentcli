@@ -16,5 +16,41 @@
     "param.via.description": "トランスポート: 'ble' (BLEメッシュ), 'nostr' (Nostrリレー), 'both' (両方)。",
     "param.plain.description": "平文(暗号化なし)DMを強制します。Noiseハンドシェイクをスキップ。Androidアプリとのハンドシェイク失敗時に使用。",
     "err.payload_required": "payload が必要です"
+  },
+  "fil": {
+    "tool.description": "Magpadala ng text message o mag-anunsyo sa pybitchat BLE Mesh. Dapat na tumatakbo ang node (pybitchat_subscribe action=start).",
+    "param.type.description": "Uri ng mensahe: text (chat message) o announce (node ​​announcement).",
+    "param.payload.description": "Nilalaman ng mensahe (teksto) o palayaw (i-anunsyo).",
+    "param.recipient.description": "Opsyonal na recipient peer ID. Wala = broadcast.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'pareho'.",
+    "param.plain.description": "Pilitin ang plain-text (hindi naka-encrypt) na DM. Nilaktawan ang Noise handshake. Gamitin kapag nabigo ang Noise handshake sa Android app.",
+    "err.payload_required": "kailangan ang payload"
+  },
+  "ms": {
+    "tool.description": "Hantar mesej teks atau umumkan melalui pybitchat BLE Mesh. Nod mesti berjalan (pybitchat_subscribe action=start).",
+    "param.type.description": "Jenis mesej: teks (mesej sembang) atau pengumuman (pengumuman nod).",
+    "param.payload.description": "Kandungan mesej (teks) atau nama panggilan (mengumumkan).",
+    "param.recipient.description": "ID rakan sebaya penerima pilihan. Tiada = siaran.",
+    "param.via.description": "Pengangkutan: 'ble' (BLE Mesh), 'nostr' (Nostr relay), 'keduanya'.",
+    "param.plain.description": "Paksa DM teks biasa (tidak disulitkan). Melangkaui jabat tangan Noise. Gunakan apabila jabat tangan Noise gagal dengan apl Android.",
+    "err.payload_required": "muatan diperlukan"
+  },
+  "da": {
+    "tool.description": "Send en tekstbesked eller forkynd over pybitchat BLE Mesh. Noden skal køre (pybitchat_subscribe action=start).",
+    "param.type.description": "Beskedtype: tekst (chatbesked) eller meddelelse (nodemeddelelse).",
+    "param.payload.description": "Beskedindhold (tekst) eller kaldenavn (annoncering).",
+    "param.recipient.description": "Valgfrit modtager-peer-id. Ingen = udsendelse.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-relæer), 'begge'.",
+    "param.plain.description": "Tving almindelig tekst (ukrypteret) DM. Springer Støj-håndtrykket over. Bruges, når Noise-håndtryk mislykkes med Android-appen.",
+    "err.payload_required": "nyttelast er påkrævet"
+  },
+  "nn": {
+    "tool.description": "Send en tekstmelding eller kunngjør over pybitchat BLE Mesh. Noden må kjøre (pybitchat_subscribe action=start).",
+    "param.type.description": "Meldingstype: tekst (chatmelding) eller kunngjøring (nodekunngjøring).",
+    "param.payload.description": "Meldingsinnhold (tekst) eller kallenavn (kunngjøring).",
+    "param.recipient.description": "Valgfri mottaker-ID. Ingen = kringkasting.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-releer), 'begge'.",
+    "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
+    "err.payload_required": "nyttelast er nødvendig"
   }
 }

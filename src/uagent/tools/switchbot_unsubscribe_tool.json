@@ -610,5 +610,77 @@
       "訂閱",
       "subscription_id"
     ]
+  },
+  "fil": {
+    "tool.description": "Kanselahin ang isang subscription sa SwitchBot sa pamamagitan ng subscription_id, o ilista ang mga aktibong subscription.",
+    "param.action.description": "Pagkilos: 'unsubscribe' (default) o 'list'.",
+    "param.subscription_id.description": "Subscription ID upang kanselahin (kinakailangan para sa pagkilos=mag-unsubscribe).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.no_subscriptions": "Walang aktibong mga subscription sa SwitchBot.",
+    "msg.header": "Mga aktibong subscription sa SwitchBot ({count}):",
+    "msg.unsubscribed": "Kinansela ang subscription sa SwitchBot {id}.",
+    "err.id_required": "kailangan ang subscription_id para sa action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "ms": {
+    "tool.description": "Batalkan langganan SwitchBot melalui subscription_id, atau senaraikan langganan aktif.",
+    "param.action.description": "Tindakan: 'nyahlanggan' (lalai) atau 'senarai'.",
+    "param.subscription_id.description": "ID Langganan untuk dibatalkan (diperlukan untuk tindakan=berhenti melanggan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tiada langganan SwitchBot aktif.",
+    "msg.header": "Langganan SwitchBot aktif ({count}):",
+    "msg.unsubscribed": "Langganan SwitchBot {id} dibatalkan.",
+    "err.id_required": "subscription_id diperlukan untuk action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "da": {
+    "tool.description": "Annuller et SwitchBot-abonnement med subscription_id, eller angiv aktive abonnementer.",
+    "param.action.description": "Handling: 'afmeld' (standard) eller 'liste'.",
+    "param.subscription_id.description": "Abonnement-id for at annullere (påkrævet for handling=afmeld).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive SwitchBot-abonnementer.",
+    "msg.header": "Aktive SwitchBot-abonnementer ({count}):",
+    "msg.unsubscribed": "SwitchBot-abonnement {id} annulleret.",
+    "err.id_required": "subscription_id er påkrævet for action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
+  },
+  "nn": {
+    "tool.description": "Avbryt et SwitchBot-abonnement med subscription_id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) eller 'list'.",
+    "param.subscription_id.description": "Abonnements-ID for å kansellere (påkrevd for handling=avslutt abonnement).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive SwitchBot-abonnementer.",
+    "msg.header": "Aktive SwitchBot-abonnementer ({count}):",
+    "msg.unsubscribed": "SwitchBot-abonnement {id} kansellert.",
+    "err.id_required": "subscription_id kreves for action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
   }
 }

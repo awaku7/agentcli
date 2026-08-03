@@ -780,5 +780,97 @@
     "param.password.description": "Parola (se solicită dacă este necesar).",
     "prompt.password": "Introduceți parola pentru acest fișier:\n{path}",
     "param.sheet_name.description": "Numele foii țintă (pentru citire/scriere). Dacă este omis, citiți folosește prima foaie și scrieți folosește „Sheet1”."
+  },
+  "fil": {
+    "param.action.description": "Operasyon.",
+    "param.data.description": "JSON data na isusulat.",
+    "param.file_path.description": "Excel na landas (ganap).",
+    "param.keep_sheets.description": "Mga sheet na dapat itago.",
+    "param.output_path.description": "Daan ng output.",
+    "tool.description": "Magbasa/magsulat ng Excel (. xlsx) file at kumuha ng mga pangalan ng sheet.",
+    "x_search_terms": [
+      "excel",
+      "spreadsheet",
+      "xlsx",
+      "excel operations",
+      "excel file",
+      "excel sheet",
+      "excel cell",
+      "excel read",
+      "excel write",
+      "spreadsheet ops"
+    ],
+    "param.password.description": "Password (prompts kung kinakailangan).",
+    "prompt.password": "Ilagay ang password para sa file na ito:\n{path}",
+    "param.sheet_name.description": "Pangalan ng target na sheet (para sa read/write). Kung aalisin, basahin ay gumagamit ng unang sheet at isulat ay gumagamit ng 'Sheet1'."
+  },
+  "ms": {
+    "param.action.description": "Operasi.",
+    "param.data.description": "JSON data untuk ditulis.",
+    "param.file_path.description": "Laluan Excel (mutlak).",
+    "param.keep_sheets.description": "Helaian untuk disimpan.",
+    "param.output_path.description": "Laluan keluaran.",
+    "tool.description": "Baca/tulis fail Excel (. xlsx) dan dapatkan nama helaian.",
+    "x_search_terms": [
+      "excel",
+      "spreadsheet",
+      "xlsx",
+      "excel operations",
+      "excel file",
+      "excel sheet",
+      "excel cell",
+      "excel read",
+      "excel write",
+      "spreadsheet ops"
+    ],
+    "param.password.description": "Kata laluan (gesaan jika perlu).",
+    "prompt.password": "Masukkan kata laluan untuk fail ini:\n{path}",
+    "param.sheet_name.description": "Nama helaian sasaran (untuk dibaca/tulis). Jika ditinggalkan, baca menggunakan helaian pertama dan tulis menggunakan 'Helaian1'."
+  },
+  "da": {
+    "param.action.description": "Operation.",
+    "param.data.description": "JSON data at skrive.",
+    "param.file_path.description": "Excel-sti (absolut).",
+    "param.keep_sheets.description": "Ark til at beholde.",
+    "param.output_path.description": "Output sti.",
+    "tool.description": "Læs/skriv en Excel-fil (. xlsx) og få arknavne.",
+    "x_search_terms": [
+      "excel",
+      "regneark",
+      "xlsx",
+      "excel-operationer",
+      "excel-fil",
+      "excel-ark",
+      "excel-celle",
+      "excel-læs",
+      "excel-skriv",
+      "regnearkoperationer"
+    ],
+    "param.password.description": "Adgangskode (bedes om nødvendigt).",
+    "prompt.password": "Indtast adgangskoden til denne fil:\n{path}",
+    "param.sheet_name.description": "Navn på målark (til læse/skrive). Hvis udeladt, bruger read det første ark og skriv bruger 'Sheet1'."
+  },
+  "nn": {
+    "param.action.description": "Operasjon.",
+    "param.data.description": "JSON data å skrive.",
+    "param.file_path.description": "Excel-bane (absolutt).",
+    "param.keep_sheets.description": "Ark å beholde.",
+    "param.output_path.description": "Utgangsbane.",
+    "tool.description": "Les/skriv en Excel-fil (. xlsx) og få arknavn.",
+    "x_search_terms": [
+      "excel",
+      "regneark",
+      "xlsx",
+      "excel-operasjoner",
+      "excel-fil",
+      "excel-ark",
+      "excel-celle",
+      "excel les",
+      "excel skrive",
+      "regnearkoperasjoner"
+    ],
+    "param.password.description": "Passord (spør om nødvendig).",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "param.sheet_name.description": "Navn på målark (for lesing/skriving). Hvis utelatt, bruker les det første arket og skriv bruker 'Sheet1'."
   }
 }

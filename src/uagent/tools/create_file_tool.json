@@ -780,5 +780,97 @@
     "err.path_missing": "este necesar numele fișierului/calea",
     "msg.created": "Fișier creat: {path}",
     "msg.overwrote": "Fișierul a fost suprascris: {path}"
+  },
+  "fil": {
+    "param.content.description": "Nilalaman ng teksto.",
+    "param.encoding.description": "Encoding (hal. utf-8, cp932; default: utf-8).",
+    "param.filename.description": "File path na gagawin.",
+    "param.overwrite.description": "I-overwrite kung mayroon (default: false).",
+    "tool.description": "Gumawa ng text file. Opsyonal na overwrite gamit ang backup (.org). Pumili ng pag-encode para sa Excel (utf-8-sig) o programmatic (utf-8).",
+    "x_search_terms": [
+      "gumawa ng file",
+      "gumawa ng file",
+      "bagong file",
+      "magsulat ng file",
+      "file gumawa",
+      "bumuo ng file",
+      "lumikha ng dokumento",
+      "bagong dokumento",
+      "pagsulat ng file",
+      "i-save ang file"
+    ],
+    "err.file_exists": "Umiiral na ang file: {path}",
+    "err.path_missing": "filename/path ay kinakailangan",
+    "msg.created": "Nalikhang file: {path}",
+    "msg.overwrote": "Na-overwrote ang file: {path}"
+  },
+  "ms": {
+    "param.content.description": "Kandungan teks.",
+    "param.encoding.description": "Pengekodan (cth. utf-8, cp932; lalai: utf-8).",
+    "param.filename.description": "Laluan fail untuk dibuat.",
+    "param.overwrite.description": "Tulis ganti jika wujud (lalai: palsu).",
+    "tool.description": "Buat fail teks. Ganti ganti pilihan dengan sandaran (.org). Pilih pengekodan untuk Excel (utf-8-sig) atau programmatik (utf-8).",
+    "x_search_terms": [
+      "buat fail",
+      "buat fail",
+      "fail baharu",
+      "tulis fail",
+      "fail cipta",
+      "jana fail",
+      "buat dokumen",
+      "dokumen baharu",
+      "tulis fail",
+      "simpan fail"
+    ],
+    "err.file_exists": "Fail sudah wujud: {path}",
+    "err.path_missing": "nama fail/laluan diperlukan",
+    "msg.created": "Fail yang dibuat: {path}",
+    "msg.overwrote": "Tulis ganti fail: {path}"
+  },
+  "da": {
+    "param.content.description": "Tekstindhold.",
+    "param.encoding.description": "Kodning (f.eks. utf-8, cp932; standard: utf-8).",
+    "param.filename.description": "Filsti til oprettelse.",
+    "param.overwrite.description": "Overskriv hvis den findes (standard: falsk).",
+    "tool.description": "Opret en tekstfil. Valgfri overskrivning med backup (.org). Vælg kodning til Excel (utf-8-sig) eller programmatisk (utf-8).",
+    "x_search_terms": [
+      "lav fil",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "err.file_exists": "Filen findes allerede: {path}",
+    "err.path_missing": "filnavn/sti er påkrævet",
+    "msg.created": "Oprettet fil: {path}",
+    "msg.overwrote": "Overskrev fil: {path}"
+  },
+  "nn": {
+    "param.content.description": "Tekstinnhold.",
+    "param.encoding.description": "Koding (f.eks. utf-8, cp932; standard: utf-8).",
+    "param.filename.description": "Filbane som skal opprettes.",
+    "param.overwrite.description": "Overskriv hvis det finnes (standard: usann).",
+    "tool.description": "Lag en tekstfil. Valgfri overskriving med backup (.org). Velg koding for Excel (utf-8-sig) eller programmatisk (utf-8).",
+    "x_search_terms": [
+      "lag fil",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "err.file_exists": "Filen eksisterer allerede: {path}",
+    "err.path_missing": "filnavn/bane kreves",
+    "msg.created": "Opprettet fil: {path}",
+    "msg.overwrote": "Overskrev fil: {path}"
   }
 }

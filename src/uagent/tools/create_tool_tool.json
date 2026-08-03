@@ -26,5 +26,61 @@
     "param.description": "ツールの簡単な説明",
     "param.output_dir": "出力ディレクトリ（既定: UAGENT_EXTERNAL_TOOLS_DIR またはカレントディレクトリ）",
     "cmd.help": ":tool create <名前> --lang python|rust --description '...'"
+  },
+  "fil": {
+    "tool.description": "Scaffold ng bagong tool (Python o Rust+Python) na may mga boilerplate file.",
+    "x_search_terms": [
+      "gumawa ng tool",
+      "scaffold",
+      "bagong tool",
+      "tool template"
+    ],
+    "param.name": "Pangalan ng tool (snake_case, hal. 'my_tool')",
+    "param.lang": "Wika ng pagpapatupad: 'python' o 'rust'",
+    "param.description": "Maikling paglalarawan kung ano ang ginagawa ng tool",
+    "param.output_dir": "Direktoryo ng output (default: UAGENT_EXTERNAL_TOOLS_DIR o kasalukuyang dir)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "ms": {
+    "tool.description": "Scaffold alat baharu (Python atau Rust+Python) dengan fail boilerplate.",
+    "x_search_terms": [
+      "buat alat",
+      "perancah",
+      "alat baharu",
+      "templat alat"
+    ],
+    "param.name": "Nama alatan (snake_case, cth. 'my_tool')",
+    "param.lang": "Bahasa pelaksanaan: 'python' atau 'rust'",
+    "param.description": "Penerangan ringkas tentang apa yang alat itu lakukan",
+    "param.output_dir": "Direktori output (lalai: UAGENT_EXTERNAL_TOOLS_DIR atau dir semasa)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "da": {
+    "tool.description": "Stillads et nyt værktøj (Python eller Rust+Python) med boilerplate-filer.",
+    "x_search_terms": [
+      "opret værktøjsstillads",
+      "nyt værktøj",
+      "værktøjsskabelon",
+      ""
+    ],
+    "param.name": "Værktøjsnavn (snake_case, f.eks. 'mit_værktøj')",
+    "param.lang": "Implementeringssprog: 'python' eller 'rust'",
+    "param.description": "Kort beskrivelse af, hvad værktøjet gør",
+    "param.output_dir": "Outputmappe (standard: UAGENT_EXTERNAL_TOOLS_DIR eller aktuel katalog)",
+    "cmd.help": ":værktøj opret <navn> --lang python|rust --beskrivelse '...'"
+  },
+  "nn": {
+    "tool.description": "Stillas et nytt verktøy (Python eller Rust+Python) med boilerplate-filer.",
+    "x_search_terms": [
+      "lag verktøy",
+      "stillas",
+      "ny verktøy",
+      "verktøymal"
+    ],
+    "param.name": "Verktøynavn (slangehus, f.eks. «mitt_verktøy»)",
+    "param.lang": "Implementeringsspråk: 'python' eller 'rust'",
+    "param.description": "Kort beskrivelse av hva verktøyet gjør",
+    "param.output_dir": "Utdatakatalog (standard: UAGENT_EXTERNAL_TOOLS_DIR eller gjeldende katalog)",
+    "cmd.help": ":verktøy opprette <navn> --lang python|rust --beskrivelse '...'"
   }
 }

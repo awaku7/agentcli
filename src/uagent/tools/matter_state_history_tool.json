@@ -610,5 +610,77 @@
       "query",
       "change"
     ]
+  },
+  "fil": {
+    "tool.description": "Kasaysayan ng pagbabago sa estado ng device ng Query Matter.",
+    "param.dev.description": "Device ID (opsyonal, alisin para sa lahat).",
+    "param.attribute.description": "Filter ng pangalan ng katangian (opsyonal).",
+    "param.since.description": "Oras ng pagsisimula ISO8601 (opsyonal).",
+    "param.until.description": "Oras ng pagtatapos ISO8601 (opsyonal).",
+    "param.limit.description": "Max na mga entry (default 100, max 10000).",
+    "param.clear.description": "Kung totoo, i-clear ang lahat ng kasaysayan.",
+    "param.fmt.description": "Format: json o text.",
+    "x_search_terms": [
+      "usapin kasaysayan ng estado",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "baguhin"
+    ]
+  },
+  "ms": {
+    "tool.description": "Sejarah perubahan keadaan peranti Pertanyaan Pertanyaan.",
+    "param.dev.description": "ID Peranti (pilihan, tinggalkan untuk semua).",
+    "param.attribute.description": "Penapis nama atribut (pilihan).",
+    "param.since.description": "Masa mula ISO8601 (pilihan).",
+    "param.until.description": "Masa tamat ISO8601 (pilihan).",
+    "param.limit.description": "Entri maks (lalai 100, maks 10000).",
+    "param.clear.description": "Jika benar, kosongkan semua sejarah.",
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "sejarah keadaan perkara",
+      "sejarah_negeri_perkara",
+      "perkara",
+      "PERKARA",
+      "pertanyaan",
+      "perubahan"
+    ]
+  },
+  "da": {
+    "tool.description": "Query Matter ændringshistorik for enhedstilstand.",
+    "param.dev.description": "Enheds-id (valgfrit, udelad for alle).",
+    "param.attribute.description": "Attributnavnefilter (valgfrit).",
+    "param.since.description": "Starttidspunkt ISO8601 (valgfrit).",
+    "param.until.description": "Sluttidspunkt ISO8601 (valgfrit).",
+    "param.limit.description": "Maks. poster (standard 100, maks. 10.000).",
+    "param.clear.description": "Hvis det er sandt, skal du rydde hele historikken.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "sagstilstandshistorie",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "forespørgsel",
+      "ændring"
+    ]
+  },
+  "nn": {
+    "tool.description": "Query Matter endringslogg for enhetstilstand.",
+    "param.dev.description": "Enhets-ID (valgfritt, utelat for alle).",
+    "param.attribute.description": "Attributtnavnfilter (valgfritt).",
+    "param.since.description": "Starttid ISO8601 (valgfritt).",
+    "param.until.description": "Sluttid ISO8601 (valgfritt).",
+    "param.limit.description": "Maks. oppføringer (standard 100, maks 10 000).",
+    "param.clear.description": "Hvis det er sant, slett all historikk.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "matter state history",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "endring"
+    ]
   }
 }

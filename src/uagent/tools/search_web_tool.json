@@ -780,5 +780,97 @@
     "param.engine.description": "Motor de căutare: „startpage” (implicit), „duckduckgo”, „brave”, „yahoo_jp” sau „yahoo”.",
     "error.yahoo_failed": "Solicitarea de căutare Yahoo Japan a eșuat: {error}",
     "error.startpage_failed": "Solicitarea de căutare în pagina de pornire a eșuat: {error}"
+  },
+  "fil": {
+    "error.args_must_be_dict": "args ay dapat na isang dict",
+    "error.duckduckgo_failed_after_retries": "Nabigo ang kahilingan sa DuckDuckGo pagkatapos muling subukan: {error}",
+    "error.missing_query_parameter": "nawawalang parameter ng 'query'",
+    "error.run_tool_error": "error sa run_tool: {error}",
+    "param.query.description": "Query sa paghahanap.",
+    "tool.description": "Maghanap sa web sa pamamagitan ng StartPage (default, Google-kalidad), DuckDuckGo, Brave Search, o Yahoo Japan HTML interface. Ibinabalik ang pamagat/link/snippet.",
+    "x_search_terms": [
+      "paghahanap sa web",
+      "duckduckgo",
+      "search sa internet",
+      "buscar en la web",
+      "recherche web",
+      "google",
+      "browse"
+    ],
+    "param.limit.description": "Pinakamataas na bilang ng mga resultang ibabalik (default: 5).",
+    "error.brave_failed_after_retries": "Nabigo ang kahilingan sa Brave Search pagkatapos muling subukan: {error}",
+    "error.brave_429_with_api_hint": "Limitado ang rate ng Brave Search (429). Itakda ang environment variable na UAGENT_BRAVE_API_KEY gamit ang Brave Search API key (libreng tier na available sa https://brave.com/search/api/) para gamitin ang API sa halip na HTML scraping.",
+    "param.engine.description": "Search engine: 'startpage' (default), 'duckduckgo', 'brave', 'yahoo_jp', o 'yahoo'.",
+    "error.yahoo_failed": "Nabigo ang kahilingan sa paghahanap sa Yahoo Japan: {error}",
+    "error.startpage_failed": "Nabigo ang kahilingan sa paghahanap sa StartPage: {error}"
+  },
+  "ms": {
+    "error.args_must_be_dict": "args mestilah dict",
+    "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal selepas cuba semula: {error}",
+    "error.missing_query_parameter": "parameter 'pertanyaan' tiada",
+    "error.run_tool_error": "ralat run_tool: {error}",
+    "param.query.description": "Pertanyaan carian.",
+    "tool.description": "Cari di web melalui StartPage (lalai, kualiti Google), DuckDuckGo, Brave Search atau antara muka HTML Yahoo Japan. Mengembalikan tajuk/pautan/coretan.",
+    "x_search_terms": [
+      "carian web",
+      "duckduckgo",
+      "cari internet",
+      "buscar en la web",
+      "recherche web",
+      "google",
+      "layari"
+    ],
+    "param.limit.description": "Bilangan maksimum keputusan untuk dikembalikan (lalai: 5).",
+    "error.brave_failed_after_retries": "Permintaan Brave Search gagal selepas cuba semula: {error}",
+    "error.brave_429_with_api_hint": "Kadar Carian Berani terhad (429). Tetapkan pembolehubah persekitaran UAGENT_BRAVE_API_KEY dengan kunci Brave Search API (peringkat percuma tersedia di https://brave.com/search/api/) untuk menggunakan API dan bukannya mengikis HTML.",
+    "param.engine.description": "Enjin carian: 'halaman permulaan' (lalai), 'duckduckgo', 'berani', 'yahoo_jp' atau 'yahoo'.",
+    "error.yahoo_failed": "Permintaan carian Yahoo Jepun gagal: {error}",
+    "error.startpage_failed": "Permintaan carian Halaman Mula gagal: {error}"
+  },
+  "da": {
+    "error.args_must_be_dict": "args må være et diktat",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-anmodning mislykkedes efter genforsøg: {error}",
+    "error.missing_query_parameter": "manglende 'query'-parameter",
+    "error.run_tool_error": "run_tool fejl: {error}",
+    "param.query.description": "Søgeforespørgsel.",
+    "tool.description": "Søg på nettet via StartPage (standard, Google-kvalitet), DuckDuckGo, Brave Search eller Yahoo Japan HTML-grænseflade. Returnerer titel/link/snippet.",
+    "x_search_terms": [
+      "websøgning",
+      "duckduckgo",
+      "søg på internettet",
+      "buscar en la web",
+      "recherche web",
+      "google",
+      "søg"
+    ],
+    "param.limit.description": "Maksimalt antal resultater, der skal returneres (standard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-anmodning mislykkedes efter genforsøg: {error}",
+    "error.brave_429_with_api_hint": "Brave Search rate begrænset (429). Indstil miljøvariablen UAGENT_BRAVE_API_KEY med en Brave Search API-nøgle (gratis niveau tilgængelig på https://brave.com/search/api/) for at bruge API i stedet for HTML-skrabning.",
+    "param.engine.description": "Søgemaskine: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan søgeanmodning mislykkedes: {error}",
+    "error.startpage_failed": "StartPage-søgningsanmodning mislykkedes: {error}"
+  },
+  "nn": {
+    "error.args_must_be_dict": "args må være en diktat",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørsel mislyktes etter forsøk: {error}",
+    "error.missing_query_parameter": "mangler 'query'-parameter",
+    "error.run_tool_error": "run_tool feil: {error}",
+    "param.query.description": "Søk.",
+    "tool.description": "Søk på nettet via StartPage (standard, Google-kvalitet), DuckDuckGo, Brave Search eller Yahoo Japan HTML-grensesnitt. Returnerer tittel/link/snippet.",
+    "x_search_terms": [
+      "nettsøk",
+      "duckduckgo",
+      "søk på internett",
+      "buscar en la web",
+      "recherche web",
+      "google",
+      "se"
+    ],
+    "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-forespørsel mislyktes etter forsøk: {error}",
+    "error.brave_429_with_api_hint": "Brave Search rate begrenset (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengelig på https://brave.com/search/api/) for å bruke API i stedet for HTML-skraping.",
+    "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislyktes: {error}",
+    "error.startpage_failed": "StartPage-søkeforespørsel mislyktes: {error}"
   }
 }

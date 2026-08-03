@@ -576,5 +576,73 @@
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
+  },
+  "fil": {
+    "param.code.description": "Python code.",
+    "x_search_terms": [
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
+    ],
+    "[python_exec error] Provide 'code'.": "",
+    "tool.description": "Ipatupad ang Python code sa isang kinokontrol na paraan. Gamitin ang tool na ito para sa mga kalkulasyon, pagproseso ng data, o pagpapatakbo ng mga maiikling script. Maghanap ng iba pang naaangkop na tool sa pamamagitan ng `tool_catalog` bago gamitin ang tool na ito."
+  },
+  "ms": {
+    "param.code.description": "Kod Python.",
+    "x_search_terms": [
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
+    ],
+    "[python_exec error] Provide 'code'.": "",
+    "tool.description": "Jalankan kod Python dengan cara terkawal. Gunakan alat ini untuk pengiraan, pemprosesan data atau menjalankan skrip pendek. Cari alatan lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
+  },
+  "da": {
+    "param.code.description": "Python kode.",
+    "x_search_terms": [
+      "python exec",
+      "kør python",
+      "kør python",
+      "python-kode",
+      "python-script",
+      "python run",
+      "python eksekver",
+      "python-kommando",
+      "python-fortolker",
+      "python-program"
+    ],
+    "[python_exec error] Provide 'code'.": "",
+    "tool.description": "Udfør Python-kode på en kontrolleret måde. Brug dette værktøj til beregninger, databehandling eller til at køre korte scripts. Søg efter andre egnede værktøjer via `værktøjskatalog`, før du bruger dette værktøj."
+  },
+  "nn": {
+    "param.code.description": "Python-kode.",
+    "x_search_terms": [
+      "python exec",
+      "kjør python",
+      "kjør python",
+      "python-kode",
+      "python-skript",
+      "python kjør",
+      "python kjør",
+      "python-kommando",
+      "python-tolker",
+      "python-program"
+    ],
+    "[python_exec error] Provide 'code'.": "",
+    "tool.description": "Utfør Python-kode på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
   }
 }

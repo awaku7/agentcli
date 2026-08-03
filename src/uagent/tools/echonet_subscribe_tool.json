@@ -610,5 +610,77 @@
       "通知",
       "訊息"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa mga mensahe ng ECHONET Lite INF (notification) mula sa isang device. Kapag nagpadala ang device ng hindi hinihinging abiso sa pagbabago ng ari-arian, awtomatikong ipaalam sa LLM.",
+    "param.ip.description": "I-target ang IPv4 address ng device na susubaybayan (kinakailangan).",
+    "param.eoj.description": "Opsyonal na filter ng EOJ (hal. '013001' para sa isang partikular na AC, '0130' para sa lahat ng AC). Alisin na makatanggap ng lahat ng notification mula sa IP na ito.",
+    "param.label.description": "Label na nababasa ng tao (hal. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Ang opsyonal na prompt ay ini-inject sa LLM kapag may dumating na notification.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.subscribed": "Aktibo ang subscription sa ECHONET Lite: id={id}, {label}",
+    "err.ip_required": "ip ay kinakailangan.",
+    "x_search_terms": [
+      "echonet subscribe",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "notification",
+      "mga mensahe"
+    ]
+  },
+  "ms": {
+    "tool.description": "Langgan mesej ECHONET Lite INF (pemberitahuan) daripada peranti. Apabila peranti menghantar pemberitahuan perubahan harta yang tidak diminta, LLM dimaklumkan secara automatik.",
+    "param.ip.description": "Sasarkan alamat IPv4 peranti untuk dipantau (diperlukan).",
+    "param.eoj.description": "Penapis EOJ pilihan (cth. '013001' untuk AC tertentu, '0130' untuk semua AC). Abaikan untuk menerima semua pemberitahuan daripada IP ini.",
+    "param.label.description": "Label boleh dibaca manusia (cth. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Gesaan pilihan disuntik ke dalam LLM apabila pemberitahuan tiba.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "Langganan ECHONET Lite aktif: id={id}, {label}",
+    "err.ip_required": "ip diperlukan.",
+    "x_search_terms": [
+      "echonet subscribe",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "pemberitahuan",
+      "mesej"
+    ]
+  },
+  "da": {
+    "tool.description": "Abonner på ECHONET Lite INF-beskeder (meddelelser) fra en enhed. Når enheden sender en uopfordret meddelelse om ejendomsændring, informeres LLM automatisk.",
+    "param.ip.description": "Målret enhedens IPv4-adresse for at overvåge (påkrævet).",
+    "param.eoj.description": "Valgfrit EOJ-filter (f.eks. '013001' for en specifik AC, '0130' for alle AC'er). Undlad at modtage alle meddelelser fra denne IP.",
+    "param.label.description": "Etiket, der kan læses af mennesker (f.eks. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Valgfri prompt indsprøjtet i LLM, når en notifikation ankommer.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
+    "err.ip_required": "ip er påkrævet.",
+    "x_search_terms": [
+      "echonet subscribe",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "notifikationsmeddelelser",
+      ""
+    ]
+  },
+  "nn": {
+    "tool.description": "Abonner på ECHONET Lite INF-meldinger (varsling) fra en enhet. Når enheten sender et uønsket varsel om endring av eiendom, blir LLM automatisk informert.",
+    "param.ip.description": "Mål enhetens IPv4-adresse for å overvåke (påkrevd).",
+    "param.eoj.description": "Valgfritt EOJ-filter (f.eks. '013001' for en spesifikk AC, '0130' for alle AC-er). Utelat for å motta alle varsler fra denne IP-en.",
+    "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Valgfri melding injisert i LLM når et varsel kommer.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
+    "err.ip_required": "ip kreves.",
+    "x_search_terms": [
+      "echonet subscribe",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "varslingsmeldinger",
+      ""
+    ]
   }
 }

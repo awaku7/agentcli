@@ -644,5 +644,81 @@
       "概要",
       "固有"
     ]
+  },
+  "fil": {
+    "param.location.description": "URL ng paglalarawan ng device ng UPnP (hal. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "IP address ng device (ginagamit na may opsyonal na port para bumuo ng URL ng paglalarawan).",
+    "param.port.description": "Numero ng port (ginamit kasama ng ip). Default: 5000 (karaniwang UPnP port).",
+    "param.timeout.description": "HTTP kunin ang timeout sa ilang segundo.",
+    "param.fmt.description": "Format: json o text.",
+    "err.no_target": "Alinman sa 'lokasyon' o 'ip' ay dapat ibigay.",
+    "msg.device_info": "Impormasyon ng device para sa {location}",
+    "tool.description": "Kumuha ng detalyadong impormasyon tungkol sa isang partikular na UPnP device sa pamamagitan ng paglalarawan ng URL (lokasyon) o IP address nito. Ibinabalik ang metadata ng device, listahan ng serbisyo, at device tree (mga sub-device).",
+    "x_search_terms": [
+      "upnp device info",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detalyado",
+      "tungkol",
+      "spesipiko"
+    ]
+  },
+  "ms": {
+    "param.location.description": "URL perihalan peranti UPnP (cth. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Alamat IP peranti (digunakan dengan port pilihan untuk membina URL penerangan).",
+    "param.port.description": "Nombor port (digunakan dengan ip). Lalai: 5000 (port UPnP biasa).",
+    "param.timeout.description": "HTTP ambil tamat masa dalam beberapa saat.",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.no_target": "Sama ada 'lokasi' atau 'ip' mesti disediakan.",
+    "msg.device_info": "Maklumat peranti untuk {location}",
+    "tool.description": "Dapatkan maklumat terperinci tentang peranti UPnP tertentu dengan URL penerangan (lokasi) atau alamat IPnya. Mengembalikan metadata peranti, senarai perkhidmatan dan pepohon peranti (sub-peranti).",
+    "x_search_terms": [
+      "maklumat peranti upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "terperinci",
+      "tentang",
+      "khusus"
+    ]
+  },
+  "da": {
+    "param.location.description": "UPnP enhedsbeskrivelse URL (f.eks. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Enhedens IP-adresse (bruges med valgfri port til at bygge en beskrivelses-URL).",
+    "param.port.description": "Portnummer (bruges med ip). Standard: 5000 (fælles UPnP-port).",
+    "param.timeout.description": "HTTP hente-timeout på sekunder.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.no_target": "Enten 'placering' eller 'ip' skal angives.",
+    "msg.device_info": "Enhedsoplysninger for {location}",
+    "tool.description": "Få detaljerede oplysninger om en specifik UPnP-enhed ved dens beskrivelses-URL (placering) eller IP-adresse. Returnerer enhedsmetadata, serviceliste og enhedstræ (underenheder).",
+    "x_search_terms": [
+      "upnp-enhedsoplysninger",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detaljerede",
+      "om",
+      "specifikke"
+    ]
+  },
+  "nn": {
+    "param.location.description": "URL for UPnP-enhetsbeskrivelse (f.eks. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Enhetens IP-adresse (brukes med valgfri port for å bygge en beskrivelses-URL).",
+    "param.port.description": "Portnummer (brukes med ip). Standard: 5000 (vanlig UPnP-port).",
+    "param.timeout.description": "HTTP tidsavbrudd for henting på sekunder.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.no_target": "Enten 'location' eller 'ip' må oppgis.",
+    "msg.device_info": "Enhetsinformasjon for {location}",
+    "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter).",
+    "x_search_terms": [
+      "upnp-enhetsinformasjon",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detaljert",
+      "om",
+      "spesifikk"
+    ]
   }
 }

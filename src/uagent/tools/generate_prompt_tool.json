@@ -712,5 +712,89 @@
       "prompt text"
     ],
     "param.template.description": "Șablon format Python. Exemplu: „{lines} linii\n\n{content}”."
+  },
+  "fil": {
+    "err.bad_template": "[generate_prompt error] template ay may hindi kilalang key: {key}",
+    "err.not_a_file": "[generate_prompt error] hindi isang file: {path}",
+    "err.path_missing": "[generate_prompt error] path/filename ay hindi tinukoy",
+    "err.template_missing": "[generate_prompt error] template ay hindi tinukoy",
+    "param.path.description": "Path ng input file (dapat nasa ilalim ng workdir).",
+    "tool.description": "Bumuo ng prompt string mula sa isang file gamit ang template ng Python format.",
+    "x_search_terms": [
+      "bumuo ng prompt",
+      "prompt generation",
+      "prompt create",
+      "ai prompt",
+      "prompt engineering",
+      "prompt maker",
+      "prompt builder",
+      "gumawa ng prompt",
+      "prompt generator",
+      "text prompt"
+    ],
+    "param.template.description": "Template ng format ng Python. Halimbawa: '{lines} na linya\n\n{content}'."
+  },
+  "ms": {
+    "err.bad_template": "templat [generate_prompt error] mempunyai kunci yang tidak diketahui: {key}",
+    "err.not_a_file": "[generate_prompt error] bukan fail: {path}",
+    "err.path_missing": "[generate_prompt error] laluan/nama fail tidak ditentukan",
+    "err.template_missing": "templat [generate_prompt error] tidak ditentukan",
+    "param.path.description": "Laluan fail input (mesti berada di bawah workdir).",
+    "tool.description": "Hasilkan rentetan segera daripada fail menggunakan templat format Python.",
+    "x_search_terms": [
+      "jana segera",
+      "penjanaan segera",
+      "cepat buat",
+      "ai segera",
+      "kejuruteraan segera",
+      "pembuat segera",
+      "pembina segera",
+      "buat segera",
+      "penjana segera",
+      "gesaan teks"
+    ],
+    "param.template.description": "Templat format Python. Contoh: '{lines} baris\n\n{content}'."
+  },
+  "da": {
+    "err.bad_template": "[generate_prompt error] skabelonen har ukendt nøgle: {key}",
+    "err.not_a_file": "[generate_prompt error] ikke en fil: {path}",
+    "err.path_missing": "[generate_prompt error] sti/filnavn er ikke angivet",
+    "err.template_missing": "[generate_prompt error] skabelon er ikke angivet",
+    "param.path.description": "Stien til inputfilen (skal være under workdir).",
+    "tool.description": "Generer en promptstreng fra en fil ved hjælp af en Python-formatskabelon.",
+    "x_search_terms": [
+      "generér prompt",
+      "promptgenerering",
+      "prompt opret",
+      "ai-prompt",
+      "promptteknik",
+      "promptproducent",
+      "promptbygger",
+      "opret prompt",
+      "promptgenerator",
+      "tekstprompt"
+    ],
+    "param.template.description": "Python format skabelon. Eksempel: '{lines} linjer\n\n{content}'."
+  },
+  "nn": {
+    "err.bad_template": "[generate_prompt error] malen har ukjent nøkkel: {key}",
+    "err.not_a_file": "[generate_prompt error] ikke en fil: {path}",
+    "err.path_missing": "[generate_prompt error] bane/filnavn er ikke spesifisert",
+    "err.template_missing": "[generate_prompt error] mal er ikke spesifisert",
+    "param.path.description": "Banen til inndatafilen (må være under workdir).",
+    "tool.description": "Generer en ledetekststreng fra en fil ved hjelp av en Python-formatmal.",
+    "x_search_terms": [
+      "generer spørsmål",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "param.template.description": "Python-formatmal. Eksempel: '{lines} linjer\n\n{content}'."
   }
 }

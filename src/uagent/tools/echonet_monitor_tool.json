@@ -746,5 +746,93 @@
       "重複",
       "偵測"
     ]
+  },
+  "fil": {
+    "param.ip.description": "Target na node IPv4 address.",
+    "param.interval.description": "Ang pagitan ng botohan sa mga segundo.",
+    "param.duration.description": "Tagal ng pagsubaybay sa mga segundo.",
+    "param.timeout.description": "Timeout (segundo).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Nakumpleto ang pagsubaybay sa ECHONET Lite: {count} (mga) pagbabago sa {elapsed_ms} ms.",
+    "msg.no_changes": "Walang natukoy na pagbabago sa ari-arian.",
+    "err.invalid_argument": "Error: kailangan ang ip_address.",
+    "msg.no_response": "Walang natanggap na tugon ng ECHONET Lite habang sinusubaybayan.",
+    "param.eoj.description": "Target na EOJ (default: node profile).",
+    "param.obj.description": "Filter ng object code (hal. '0130').",
+    "tool.description": "Paulit-ulit na mag-poll ng isang ECHONET Lite node, mag-detect ng mga pagbabago sa property, at magbalik ng JSON o buod ng text.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "paulit-ulit",
+      "detect"
+    ]
+  },
+  "ms": {
+    "param.ip.description": "Alamat IPv4 nod sasaran.",
+    "param.interval.description": "Selang pengundian dalam beberapa saat.",
+    "param.duration.description": "Tempoh pemantauan dalam beberapa saat.",
+    "param.timeout.description": "Tamat masa (saat).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Pemantauan ECHONET Lite selesai: {count} perubahan dalam {elapsed_ms} ms.",
+    "msg.no_changes": "Tiada perubahan harta dikesan.",
+    "err.invalid_argument": "Ralat: ip_address diperlukan.",
+    "msg.no_response": "Tiada respons ECHONET Lite diterima semasa pemantauan.",
+    "param.eoj.description": "Sasaran EOJ (lalai: profil nod).",
+    "param.obj.description": "Penapis kod objek (cth. '0130').",
+    "tool.description": "Tinjau nod ECHONET Lite berulang kali, mengesan perubahan sifat dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "berulang kali",
+      "mengesan"
+    ]
+  },
+  "da": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.interval.description": "Polling-interval i sekunder.",
+    "param.duration.description": "Overvågningsvarighed i sekunder.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "ECHONET Lite-overvågning fuldført: {count} ændring(er) på {elapsed_ms} ms.",
+    "msg.no_changes": "Der blev ikke registreret nogen egenskabsændringer.",
+    "err.invalid_argument": "Fejl: ip_adresse er påkrævet.",
+    "msg.no_response": "Der blev ikke modtaget noget ECHONET Lite-svar under overvågning.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Poll en ECHONET Lite-node gentagne gange, registrer egenskabsændringer, og returner en JSON eller tekstoversigt.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "gentagne gange",
+      "registrer"
+    ]
+  },
+  "nn": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.interval.description": "Polling-intervall i sekunder.",
+    "param.duration.description": "Overvåkingsvarighet i sekunder.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "ECHONET Lite-overvåking fullført: {count} endring(er) på {elapsed_ms} ms.",
+    "msg.no_changes": "Ingen egenskapsendringer ble oppdaget.",
+    "err.invalid_argument": "Feil: ip_adresse er påkrevd.",
+    "msg.no_response": "Ingen ECHONET Lite-svar ble mottatt under overvåking.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner en JSON eller tekstsammendrag.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "gjentatte ganger",
+      "oppdag"
+    ]
   }
 }

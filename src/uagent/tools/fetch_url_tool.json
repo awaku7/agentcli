@@ -780,5 +780,97 @@
     "param.save_as.description": "Dacă este setat, salvează răspunsul brut (binar) în calea fișierului specificată. Ignoră extract/selector/ptr/maxc. Returnează metadatele JSON în loc de conținut.",
     "param.selector.description": "Selector CSS opțional. Dacă este furnizat, primul element potrivit este extras pentru extract=text/html/markdown.",
     "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON. Când save_as este setat, răspunsul brut este salvat într-un fișier și metadatele sunt returnate. Pentru paginile cu JavaScript care necesită randare în browser, utilizați browser_playwright."
+  },
+  "fil": {
+    "param.url.description": "URL upang ma-access.",
+    "x_search_terms": [
+      "fetch url",
+      "http get",
+      "download page",
+      "obtener url",
+      "save file",
+      "download file",
+      "html",
+      "scrape"
+    ],
+    "param.extract.description": "Mode ng pagkuha. ulo=ibalik ang simula ng tugon; text=extract text mula sa HTML; html=extract HTML fragment; json=parse JSON (opsyonal na ilapat ang json_pointer); markdown=i-extract ang pinasimpleng markdown mula sa HTML.",
+    "param.user_agent.description": "Opsyonal na halaga ng header ng User-Agent.",
+    "param.timeout.description": "Timeout (segundo).",
+    "param.maxb.description": "Pinakamataas na byte na mababasa mula sa tugon. Default na 10MB kapag nakatakda ang save_as.",
+    "param.maxc.description": "Pinakamataas na mga character na ibabalik (inilapat pagkatapos ng pag-decode/pagkuha).",
+    "param.ssl.description": "Kung ibe-verify ang mga SSL certificate.",
+    "param.ptr.description": "Opsyonal RFC 6901 JSON Pointer (hal., /items/0/title) na ginagamit kapag extract=json.",
+    "param.save_as.description": "Kung nakatakda, ise-save ang hilaw na tugon (binary) sa tinukoy na landas ng file. Ino-override ang extract/selector/ptr/maxc. Nagbabalik ng JSON metadata sa halip na nilalaman.",
+    "param.selector.description": "Opsyonal na tagapili ng CSS. Kung ibinigay, ang unang katugmang elemento ay kinukuha para sa extract=text/html/markdown.",
+    "tool.description": "I-access ang tinukoy na URL sa pamamagitan ng HTTP GET at ibalik ang simula ng tugon bilang text. Kapaki-pakinabang para sa pagkuha at pagsisiyasat ng HTML o JSON. Kapag itinakda ang save_as, ise-save ang hilaw na tugon sa isang file at ibabalik ang metadata sa halip. Para sa mga pahinang mabigat sa JavaScript na nangangailangan ng pag-render ng browser, gamitin na lang ang browser_playwright."
+  },
+  "ms": {
+    "param.url.description": "URL untuk diakses.",
+    "x_search_terms": [
+      "ambil url",
+      "http dapatkan",
+      "halaman muat turun",
+      "url pencari",
+      "simpan fail",
+      "muat turun fail",
+      "html",
+      "scrape"
+    ],
+    "param.extract.description": "Mod pengekstrakan. kepala=kembali permulaan respons; text=ekstrak teks daripada HTML; html=ekstrak serpihan HTML; json=parse JSON (pilihan gunakan json_pointer); markdown=ekstrak turun markah yang dipermudahkan daripada HTML.",
+    "param.user_agent.description": "Nilai pengepala Agen Pengguna Pilihan.",
+    "param.timeout.description": "Tamat masa (saat).",
+    "param.maxb.description": "Bait maksimum untuk dibaca daripada respons. Lalai 10MB apabila save_as ditetapkan.",
+    "param.maxc.description": "Aksara maksimum untuk dikembalikan (digunakan selepas penyahkodan/pengeluaran).",
+    "param.ssl.description": "Sama ada untuk mengesahkan sijil SSL.",
+    "param.ptr.description": "Pilihan RFC 6901 JSON Penunjuk (cth., /items/0/title) digunakan apabila extract=json.",
+    "param.save_as.description": "Jika ditetapkan, simpan respons mentah (perduaan) ke laluan fail yang ditentukan. Mengatasi ekstrak/pemilih/ptr/maxc. Mengembalikan JSON metadata dan bukannya kandungan.",
+    "param.selector.description": "Pemilih CSS pilihan. Jika disediakan, elemen dipadankan pertama diekstrak untuk extract=text/html/markdown.",
+    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan permulaan respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Apabila save_as ditetapkan, respons mentah disimpan pada fail dan metadata dikembalikan. Untuk halaman JavaScript-berat yang memerlukan pemaparan penyemak imbas, sebaliknya gunakan browser_playwright."
+  },
+  "da": {
+    "param.url.description": "URL til adgang.",
+    "x_search_terms": [
+      "hent url",
+      "http get",
+      "download side",
+      "obtener url",
+      "gem fil",
+      "download fil",
+      "html",
+      "scrape"
+    ],
+    "param.extract.description": "Ekstraktionstilstand. head=retur begyndelsen af ​​svaret; text=udtræk tekst fra HTML; html=udtræk HTML-fragment; json=parse JSON (anvend eventuelt json_pointer); markdown=udtræk forenklet markdown fra HTML.",
+    "param.user_agent.description": "Valgfri User-Agent-headerværdi.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.maxb.description": "Maksimalt antal bytes at læse fra svaret. Standard 10 MB, når save_as er indstillet.",
+    "param.maxc.description": "Maksimalt antal tegn at returnere (anvendes efter afkodning/udtrækning).",
+    "param.ssl.description": "Om SSL-certifikater skal verificeres.",
+    "param.ptr.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) bruges når extract=json.",
+    "param.save_as.description": "Hvis indstillet, gemmer det rå svar (binært) til den angivne filsti. Tilsidesætter extract/selector/ptr/maxc. Returnerer JSON metadata i stedet for indhold.",
+    "param.selector.description": "Valgfri CSS-vælger. Hvis det er angivet, udtrækkes det første matchede element for extract=text/html/markdown.",
+    "tool.description": "Få adgang til den angivne URL via HTTP GET og returner begyndelsen af ​​svaret som tekst. Nyttigt til at hente og inspicere HTML eller JSON. Når save_as er indstillet, gemmes råsvaret i en fil, og metadata returneres i stedet. For JavaScript-tunge sider, der kræver browsergengivelse, skal du bruge browser_playwright i stedet."
+  },
+  "nn": {
+    "param.url.description": "URL for tilgang.",
+    "x_search_terms": [
+      "hent url",
+      "http hent",
+      "nedlastningsside",
+      "obtener url",
+      "lagre fil",
+      "last ned fil",
+      "html",
+      "skrap"
+    ],
+    "param.extract.description": "Ekstraksjonsmodus. head=retur begynnelsen av svaret; text=trekk ut tekst fra HTML; html=trekk ut HTML-fragment; json=parse JSON (bruk eventuelt json_pointer); markdown=trekk ut forenklet markdown fra HTML.",
+    "param.user_agent.description": "Valgfri User-Agent-overskriftsverdi.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.maxb.description": "Maksimalt antall byte å lese fra svaret. Standard 10 MB når lagre_som er satt.",
+    "param.maxc.description": "Maksimalt antall tegn å returnere (brukes etter dekoding/ekstrahering).",
+    "param.ssl.description": "Om SSL-sertifikater skal verifiseres.",
+    "param.ptr.description": "Valgfri RFC 6901 JSON-peker (f.eks. /items/0/title) brukt når extract=json.",
+    "param.save_as.description": "Hvis angitt, lagres råsvaret (binært) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON metadata i stedet for innhold.",
+    "param.selector.description": "Valgfri CSS-velger. Hvis det er gitt, trekkes det første samsvarende elementet ut for extract=text/html/markdown.",
+    "tool.description": "Få tilgang til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når lagre_som er satt, lagres råsvaret i en fil og metadata returneres i stedet. For JavaScript-tunge sider som krever nettlesergjengivelse, bruk browser_playwright i stedet."
   }
 }

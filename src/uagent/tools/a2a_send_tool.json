@@ -678,5 +678,85 @@
     "param.return_immediately.description": "Dacă este adevărat, reveniți imediat după crearea sarcinii.",
     "err.missing_message": "Lipsește „mesaj”.",
     "err.exception": "Excepţie"
+  },
+  "fil": {
+    "tool.description": "Magpadala ng mensahe sa isang A2A server profile. Gamitin lamang kapag walang lokal na tool ang maaaring palitan.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a send",
+      "send message",
+      "send request",
+      "server profile",
+      "profile message",
+      "remote message",
+      "messaging",
+      "a2a message",
+      "send task"
+    ],
+    "param.profile.description": "Pangalan ng profile o a2a://name. Kung tinanggal, gumagamit ng default na profile.",
+    "param.message.description": "Mensahe ng user na ipapadala.",
+    "param.return_immediately.description": "Kung totoo, bumalik kaagad pagkatapos gumawa ng gawain.",
+    "err.missing_message": "Nawawala ang 'mensahe'.",
+    "err.exception": "Exception"
+  },
+  "ms": {
+    "tool.description": "Hantar mesej ke profil pelayan A2A. Gunakan hanya apabila tiada alat tempatan boleh menggantikan.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a send",
+      "hantar mesej",
+      "hantar permintaan",
+      "profil pelayan",
+      "profil mesej",
+      "remote message",
+      "message",
+      "a2a message",
+      "hantar tugas"
+    ],
+    "param.profile.description": "Nama profil atau a2a://name. Jika ditinggalkan, gunakan profil lalai.",
+    "param.message.description": "Mesej pengguna untuk dihantar.",
+    "param.return_immediately.description": "Jika benar, kembali sejurus selepas membuat tugasan.",
+    "err.missing_message": "Tiada 'mesej'.",
+    "err.exception": "Pengecualian"
+  },
+  "da": {
+    "tool.description": "Send en besked til en A2A-serverprofil. Brug kun, når intet lokalt værktøj kan erstatte.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a send",
+      "send besked",
+      "send anmodning",
+      "serverprofil",
+      "profilbesked",
+      "fjernbesked",
+      "beskeder",
+      "a2a besked",
+      "send opgave"
+    ],
+    "param.profile.description": "Profilnavn eller a2a://navn. Hvis udeladt, bruger standardprofilen.",
+    "param.message.description": "Brugerbesked at sende.",
+    "param.return_immediately.description": "Hvis det er sandt, skal du returnere lige efter opgaveoprettelse.",
+    "err.missing_message": "Mangler 'besked'.",
+    "err.exception": "Undtagelse"
+  },
+  "nn": {
+    "tool.description": "Send en melding til en A2A-serverprofil. Bruk kun når ingen lokalt verktøy kan erstatte.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a send",
+      "send melding",
+      "send forespørsel",
+      "serverprofil",
+      "profilmelding",
+      "fjernmelding",
+      "meldinger",
+      "a2a melding",
+      "send oppgave"
+    ],
+    "param.profile.description": "Profilnavn eller a2a://navn. Hvis utelatt, bruker standardprofilen.",
+    "param.message.description": "Brukermelding å sende.",
+    "param.return_immediately.description": "Hvis sant, returner rett etter at oppgaven er opprettet.",
+    "err.missing_message": "Mangler 'melding'.",
+    "err.exception": "Unntak"
   }
 }

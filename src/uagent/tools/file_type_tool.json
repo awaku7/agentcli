@@ -644,5 +644,81 @@
     "err.no_paths": "Nu au fost furnizate căi.",
     "err.outside_workdir": "cale în afara directorului de lucru",
     "err.not_found": "fișierul nu a fost găsit"
+  },
+  "fil": {
+    "tool.description": "Tukuyin ang uri ng MIME at format ng mga file gamit ang extension, magic byte, at heuristics.",
+    "x_search_terms": [
+      "uri ng file",
+      "tuklasin ang uri",
+      "uri ng mime",
+      "extension ng file",
+      "uri ng file",
+      "type detect",
+      "magic bytes",
+      "format ng file",
+      "kategorya ng file",
+      "kilalain ang file"
+    ],
+    "param.paths.description": "Isa o higit pang mga path ng file upang matukoy.",
+    "err.no_paths": "Walang ibinigay na mga landas.",
+    "err.outside_workdir": "landas sa labas ng workdir",
+    "err.not_found": "hindi nahanap ang file"
+  },
+  "ms": {
+    "tool.description": "Tentukan jenis MIME dan format fail menggunakan sambungan, bait ajaib dan heuristik.",
+    "x_search_terms": [
+      "jenis fail",
+      "kesan jenis",
+      "jenis mime",
+      "sambungan fail",
+      "jenis fail",
+      "jenis mengesan",
+      "bait ajaib",
+      "format fail",
+      "kategori fail",
+      "mengenal pasti fail"
+    ],
+    "param.paths.description": "Satu atau lebih laluan fail untuk dikenal pasti.",
+    "err.no_paths": "Tiada laluan disediakan.",
+    "err.outside_workdir": "laluan di luar workdir",
+    "err.not_found": "fail tidak ditemui"
+  },
+  "da": {
+    "tool.description": "Bestem MIME-typen og -formatet for filer ved hjælp af filtypenavn, magiske bytes og heuristik.",
+    "x_search_terms": [
+      "filtype",
+      "registreringstype",
+      "mimetype",
+      "filtypenavn",
+      "filtype",
+      "typedetect",
+      "magic bytes",
+      "filformat",
+      "filkategori",
+      "identificer fil"
+    ],
+    "param.paths.description": "En eller flere filstier at identificere.",
+    "err.no_paths": "Ingen stier angivet.",
+    "err.outside_workdir": "sti uden for arbejdsdir",
+    "err.not_found": "fil ikke fundet"
+  },
+  "nn": {
+    "tool.description": "Bestem MIME-typen og -formatet til filer ved hjelp av utvidelse, magiske byte og heuristikk.",
+    "x_search_terms": [
+      "filtype",
+      "deteksjonstype",
+      "mimetype",
+      "filtype",
+      "filtype",
+      "typedetect",
+      "magic bytes",
+      "filformat",
+      "filkategori",
+      "identifiser fil"
+    ],
+    "param.paths.description": "En eller flere filbaner å identifisere.",
+    "err.no_paths": "Ingen stier oppgitt.",
+    "err.outside_workdir": "sti utenfor arbeidsdir",
+    "err.not_found": "fil ikke funnet"
   }
 }

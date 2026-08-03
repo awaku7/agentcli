@@ -814,5 +814,101 @@
       "值",
       "通知"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa mga notification ng BACnet COV (Change of Value) para sa isang bagay. Kapag nagbago ang halaga, awtomatikong ino-notify ang LLM.",
+    "param.ip.description": "Target na IPv4 address ng device.",
+    "param.object_type.description": "Uri ng bagay na BACnet na susubaybayan.",
+    "param.object_instance.description": "BACnet object instance number.",
+    "param.lifetime.description": "Habambuhay ng subscription sa mga segundo (default: 900). Awtomatikong nagre-renew ang BAC0.",
+    "param.confirmed.description": "Gumamit ng kumpirmadong COV (kinikilala). Default: Mali (hindi kumpirmado).",
+    "param.label.description": "Nababasa ng tao ang label para sa subscription na ito (hal. '3F会議室_室温').",
+    "param.on_change_prompt.description": "Ang opsyonal na prompt ay ini-inject sa LLM kapag may nakitang pagbabago.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.subscribed": "Aktibo ang subscription sa COV: task_id={task_id}, {label}",
+    "err.ip_required": "ip ay kinakailangan.",
+    "err.object_type_required": "object_type ay kinakailangan.",
+    "x_search_terms": [
+      "bacnet cov subscribe",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "change",
+      "value",
+      "notifications"
+    ]
+  },
+  "ms": {
+    "tool.description": "Langgan pemberitahuan BACnet COV (Perubahan Nilai) untuk objek. Apabila nilai berubah, LLM dimaklumkan secara automatik.",
+    "param.ip.description": "Alamat IPv4 peranti sasaran.",
+    "param.object_type.description": "Jenis objek BACnet untuk dipantau.",
+    "param.object_instance.description": "Nombor contoh objek BACnet.",
+    "param.lifetime.description": "Hayat langganan dalam beberapa saat (lalai: 900). BAC0 diperbaharui secara automatik.",
+    "param.confirmed.description": "Gunakan COV yang disahkan (diakui). Lalai: Palsu (belum disahkan).",
+    "param.label.description": "Label boleh dibaca manusia untuk langganan ini (cth. '3F会議室_室温').",
+    "param.on_change_prompt.description": "Gesaan pilihan disuntik ke dalam LLM apabila perubahan dikesan.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "Langganan COV aktif: task_id={task_id}, {label}",
+    "err.ip_required": "ip diperlukan.",
+    "err.object_type_required": "object_type diperlukan.",
+    "x_search_terms": [
+      "bacnet cov subscribe",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "change",
+      "value",
+      "notifications"
+    ]
+  },
+  "da": {
+    "tool.description": "Abonner på BACnet COV-meddelelser (Change of Value) for et objekt. Når værdien ændres, får LLM automatisk besked.",
+    "param.ip.description": "Målenhedens IPv4-adresse.",
+    "param.object_type.description": "BACnet objekttype til overvågning.",
+    "param.object_instance.description": "BACnet objektinstansnummer.",
+    "param.lifetime.description": "Abonnementets levetid i sekunder (standard: 900). BAC0 fornyes automatisk.",
+    "param.confirmed.description": "Brug bekræftet COV (anerkendt). Standard: Falsk (ubekræftet).",
+    "param.label.description": "Menneskelæselig etiket for dette abonnement (f.eks. \"3F会議室_室温\").",
+    "param.on_change_prompt.description": "Valgfri prompt indsprøjtet i LLM, når en ændring er registreret.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "COV-abonnement aktivt: task_id={task_id}, {label}",
+    "err.ip_required": "ip er påkrævet.",
+    "err.object_type_required": "objekttype er påkrævet.",
+    "x_search_terms": [
+      "bacnet cov subscribe",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "change",
+      "value",
+      "notifikationer"
+    ]
+  },
+  "nn": {
+    "tool.description": "Abonner på BACnet COV-varsler (Change of Value) for et objekt. Når verdien endres, blir LLM automatisk varslet.",
+    "param.ip.description": "Mål enhetens IPv4-adresse.",
+    "param.object_type.description": "BACnet-objekttype å overvåke.",
+    "param.object_instance.description": "BACnet-objektforekomstnummer.",
+    "param.lifetime.description": "Abonnementets levetid i sekunder (standard: 900). BAC0 fornyes automatisk.",
+    "param.confirmed.description": "Bruk bekreftet COV (godkjent). Standard: False (ubekreftet).",
+    "param.label.description": "Etikett som kan leses av mennesker for dette abonnementet (f.eks. '3F会議室_室温').",
+    "param.on_change_prompt.description": "Valgfri melding injisert i LLM når en endring oppdages.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "COV-abonnement aktivt: task_id={task_id}, {label}",
+    "err.ip_required": "ip kreves.",
+    "err.object_type_required": "objekttype kreves.",
+    "x_search_terms": [
+      "bacnet cov subscribe",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "endring",
+      "verdi",
+      "varsler"
+    ]
   }
 }

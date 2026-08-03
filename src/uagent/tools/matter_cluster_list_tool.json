@@ -678,5 +678,85 @@
       "cluster",
       "clusters"
     ]
+  },
+  "fil": {
+    "tool.description": "Maglista ng mga cluster ng Matter para sa isang device.",
+    "param.dev.description": "Device ID (kinakailangan).",
+    "param.fmt.description": "Format: json o text.",
+    "err.device_id_required": "Kinakailangan ang Matter device ID.",
+    "err.not_found": "Hindi nahanap ang matter device: {device_id}",
+    "err.ambiguous_target": "Ang target ng device na bagay ay hindi maliwanag: {device_id}",
+    "err.config_missing": "Nawawala ang data ng device na bagay. Itakda ang {env_json} o {env_file} para sa mga device, controller, o bridge.",
+    "param.bridge.description": "Bridge ID (opsyonal).",
+    "param.ctrl.description": "Controller ID (opsyonal).",
+    "param.endpoint.description": "Endpoint filter (opsyonal).",
+    "x_search_terms": [
+      "listahan ng cluster ng bagay",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
+  },
+  "ms": {
+    "tool.description": "Senaraikan kelompok Matter untuk peranti.",
+    "param.dev.description": "ID Peranti (diperlukan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.device_id_required": "ID peranti perkara diperlukan.",
+    "err.not_found": "Peranti jirim tidak ditemui: {device_id}",
+    "err.ambiguous_target": "Sasaran peranti jirim adalah samar-samar: {device_id}",
+    "err.config_missing": "Data peranti jirim tiada. Tetapkan {env_json} atau {env_file} untuk peranti, pengawal atau jambatan.",
+    "param.bridge.description": "ID Jambatan (pilihan).",
+    "param.ctrl.description": "ID Pengawal (pilihan).",
+    "param.endpoint.description": "Penapis titik akhir (pilihan).",
+    "x_search_terms": [
+      "senarai kluster perkara",
+      "senarai_kluster_perkara",
+      "kluster",
+      "MATTER",
+      "kluster",
+      ""
+    ]
+  },
+  "da": {
+    "tool.description": "Vis materieklynger for en enhed.",
+    "param.dev.description": "Enheds-id (påkrævet).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.device_id_required": "Sagens enheds-id er påkrævet.",
+    "err.not_found": "Sagenheden blev ikke fundet: {device_id}",
+    "err.ambiguous_target": "Målenhedsmålet er tvetydigt: {device_id}",
+    "err.config_missing": "Sagenhedens data mangler. Indstil {env_json} eller {env_file} for enheder, controllere eller broer.",
+    "param.bridge.description": "Bridge ID (valgfrit).",
+    "param.ctrl.description": "Controller-id (valgfrit).",
+    "param.endpoint.description": "Slutpunktsfilter (valgfrit).",
+    "x_search_terms": [
+      "matter cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "klynger"
+    ]
+  },
+  "nn": {
+    "tool.description": "Vis materieklynger for en enhet.",
+    "param.dev.description": "Enhets-ID (påkrevd).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.device_id_required": "Enhets-ID for saken kreves.",
+    "err.not_found": "Saksenhet ikke funnet: {device_id}",
+    "err.ambiguous_target": "Materiell enhetsmål er tvetydig: {device_id}",
+    "err.config_missing": "Saksenhetsdata mangler. Angi {env_json} eller {env_file} for enheter, kontrollere eller broer.",
+    "param.bridge.description": "Bro-ID (valgfritt).",
+    "param.ctrl.description": "Kontroller-ID (valgfritt).",
+    "param.endpoint.description": "Endepunktfilter (valgfritt).",
+    "x_search_terms": [
+      "matter cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "klynger"
+    ]
   }
 }

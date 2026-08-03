@@ -610,5 +610,77 @@
       "伺服器"
     ],
     "param.timeout.description": "連接逾時。"
+  },
+  "fil": {
+    "tool.description": "Sumulat ng value sa isang OPC UA server node.",
+    "param.url.description": "URL ng server ng OPC UA.",
+    "param.node_id.description": "Target na node ID (hal. 'i=85' o 'ns=2;s=Setpoint').",
+    "param.value.description": "Halaga sa pagsulat. Gumamit ng pahiwatig ng uri para sa mga uri na hindi string.",
+    "param.type.description": "Hint ng uri ng data para sa value: string, int, float, bool.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Isulat ng OPC UA: {node} = {val}",
+    "x_search_terms": [
+      "opcua write",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "value",
+      "server"
+    ],
+    "param.timeout.description": "Timeout ng koneksyon."
+  },
+  "ms": {
+    "tool.description": "Tulis nilai pada nod pelayan OPC UA.",
+    "param.url.description": "URL pelayan OPC UA.",
+    "param.node_id.description": "ID nod sasaran (cth. 'i=85' atau 'ns=2;s=Setpoint').",
+    "param.value.description": "Nilai untuk menulis. Gunakan pembayang jenis untuk jenis bukan rentetan.",
+    "param.type.description": "Pembayang jenis data untuk nilai: rentetan, int, apungan, bool.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "OPC UA tulis: {node} = {val}",
+    "x_search_terms": [
+      "opcua write",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "value",
+      "server"
+    ],
+    "param.timeout.description": "Tamat masa sambungan."
+  },
+  "da": {
+    "tool.description": "Skriv en værdi til en OPC UA-servernode.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Målknude-id (f.eks. 'i=85' eller 'ns=2;s=Setpunkt').",
+    "param.value.description": "Værdi at skrive. Brug typetip til ikke-strengtyper.",
+    "param.type.description": "Datatypetip for værdien: streng, int, float, bool.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA skrive: {node} = {val}",
+    "x_search_terms": [
+      "opcua skrive",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "value",
+      "server"
+    ],
+    "param.timeout.description": "Forbindelse timeout."
+  },
+  "nn": {
+    "tool.description": "Skriv en verdi til en OPC UA-servernode.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Målnode-ID (f.eks. 'i=85' eller 'ns=2;s=Setpunkt').",
+    "param.value.description": "Verdi å skrive. Bruk typehint for ikke-strengtyper.",
+    "param.type.description": "Datatypehint for verdien: string, int, float, bool.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-skriv: {node} = {val}",
+    "x_search_terms": [
+      "opcua write",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "value",
+      "server"
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   }
 }

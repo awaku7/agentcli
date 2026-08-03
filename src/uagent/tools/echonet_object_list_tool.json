@@ -678,5 +678,85 @@
       "發現",
       "對象"
     ]
+  },
+  "fil": {
+    "param.ip.description": "Target na node IPv4 address.",
+    "param.fmt.description": "Format: json o text.",
+    "err.invalid_eoj": "Error: Hindi ma-parse ang EOJ '{eoj}'.",
+    "err.invalid_object_code": "Error: Hindi ma-parse ang object_code '{object_code}'.",
+    "err.invalid_ip_address": "Error: ang ip_address ay dapat na isang wastong IPv4 address.",
+    "msg.summary": "Nakuha ang listahan ng object ng ECHONET Lite: {count} (mga) object sa {elapsed_ms} ms.",
+    "param.eoj.description": "Target na EOJ (default: node profile).",
+    "param.obj.description": "Filter ng object code (hal. '0130').",
+    "param.timeout.description": "Timeout sa ilang segundo para sa mga kahilingan sa ECHONET Lite.",
+    "tool.description": "Tumuklas ng mga ECHONET Lite na bagay sa isang node at magbalik ng JSON o listahan ng teksto.",
+    "x_search_terms": [
+      "echonet object list",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "discover",
+      "objects"
+    ]
+  },
+  "ms": {
+    "param.ip.description": "Alamat IPv4 nod sasaran.",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.invalid_eoj": "Ralat: Tidak dapat menghuraikan EOJ '{eoj}'.",
+    "err.invalid_object_code": "Ralat: Tidak dapat menghuraikan object_code '{object_code}'.",
+    "err.invalid_ip_address": "Ralat: ip_address mestilah alamat IPv4 yang sah.",
+    "msg.summary": "Senarai objek ECHONET Lite diambil: {count} objek dalam {elapsed_ms} ms.",
+    "param.eoj.description": "Sasaran EOJ (lalai: profil nod).",
+    "param.obj.description": "Penapis kod objek (cth. '0130').",
+    "param.timeout.description": "Tamat masa dalam beberapa saat untuk permintaan ECHONET Lite.",
+    "tool.description": "Temui objek ECHONET Lite pada nod dan kembalikan JSON atau senarai teks.",
+    "x_search_terms": [
+      "senarai objek echonet",
+      "senarai_objek_echonet",
+      "echonet",
+      "ECHONET",
+      "temui",
+      "objek"
+    ]
+  },
+  "da": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Fejl: Kunne ikke parse EOJ '{eoj}'.",
+    "err.invalid_object_code": "Fejl: Kunne ikke parse objektkode '{object_code}'.",
+    "err.invalid_ip_address": "Fejl: ip_adresse skal være en gyldig IPv4-adresse.",
+    "msg.summary": "ECHONET Lite objektliste hentet: {count} objekt(er) på {elapsed_ms} ms.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "param.timeout.description": "Timeout i sekunder for ECHONET Lite-anmodninger.",
+    "tool.description": "Opdag ECHONET Lite-objekter på en node og returner en JSON eller tekstliste.",
+    "x_search_terms": [
+      "echonet objektliste",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "opdag",
+      "objekter"
+    ]
+  },
+  "nn": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Feil: Kunne ikke analysere EOJ '{eoj}'.",
+    "err.invalid_object_code": "Feil: Kunne ikke analysere objektkode '{object_code}'.",
+    "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
+    "msg.summary": "ECHONET Lite objektliste hentet: {count} objekt(er) på {elapsed_ms} ms.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "param.timeout.description": "Tidsavbrudd i sekunder for ECHONET Lite-forespørsler.",
+    "tool.description": "Oppdag ECHONET Lite-objekter på en node og returner en JSON eller tekstliste.",
+    "x_search_terms": [
+      "echonet objektliste",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "oppdag",
+      "objekter"
+    ]
   }
 }

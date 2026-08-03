@@ -746,5 +746,93 @@
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
     "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+  },
+  "fil": {
+    "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may bilang na index o partikular na seksyon para sa sql2idx.",
+    "x_search_terms": [
+      "basahin ang sql file",
+      "sql index",
+      "sql parser",
+      "section splitter"
+    ],
+    "param.path.description": "Path sa file.",
+    "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang partikular na seksyon.",
+    "param.section.description": "Numero ng seksyon na kukunin (1-index).",
+    "err.path_required": "Error: 'path' ay kinakailangan.",
+    "err.read_error": "Error sa pagbabasa ng file: {e}",
+    "err.file_not_found": "Error: Hindi nakita ang file: {path}",
+    "err.parse_error": "Error sa pag-parse ng file: {e}",
+    "msg.no_entries": "(walang nakitang mga seksyon)",
+    "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga seksyon: {total}\nUpang kunin ang isang seksyon, tumawag gamit ang mode='section' at section=N.",
+    "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
+    "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
+    "err.section_not_found": "Error: Seksyon {section_num} ay hindi nahanap. Wastong saklaw: 1..{last}.",
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'."
+  },
+  "ms": {
+    "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk sql2idx.",
+    "x_search_terms": [
+      "baca sql file",
+      "sql index",
+      "sql parser",
+      "section splitter"
+    ],
+    "param.path.description": "Laluan ke fail.",
+    "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor. \"bahagian\" mengembalikan bahagian tertentu.",
+    "param.section.description": "Nombor bahagian untuk diambil (1 diindeks).",
+    "err.path_required": "Ralat: 'laluan' diperlukan.",
+    "err.read_error": "Ralat membaca fail: {e}",
+    "err.file_not_found": "Ralat: Fail tidak ditemui: {path}",
+    "err.parse_error": "Ralat menghuraikan fail: {e}",
+    "msg.no_entries": "(tiada bahagian ditemui)",
+    "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah bahagian: {total}\nUntuk mendapatkan semula bahagian, panggil dengan mod='section' dan section=N.",
+    "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
+    "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
+    "err.section_not_found": "Ralat: Bahagian {section_num} tidak ditemui. Julat sah: 1..{last}.",
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'."
+  },
+  "da": {
+    "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for sql2idx.",
+    "x_search_terms": [
+      "læs sql-fil",
+      "sql-indeks",
+      "sql-parser",
+      "sektionsdeler"
+    ],
+    "param.path.description": "Sti til filen.",
+    "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse. \"sektion\" returnerer en bestemt sektion.",
+    "param.section.description": "Sektionsnummer at hente (1-indekseret).",
+    "err.path_required": "Fejl: 'sti' er påkrævet.",
+    "err.read_error": "Fejl ved læsning af fil: {e}",
+    "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
+    "err.parse_error": "Fejl ved parsing af fil: {e}",
+    "msg.no_entries": "(ingen sektioner fundet)",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nSektioner i alt: {total}\nFor at hente et afsnit, ring med mode='sektion' og sektion=N.",
+    "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
+    "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
+    "err.section_not_found": "Fejl: Sektion {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
+  },
+  "nn": {
+    "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for sql2idx.",
+    "x_search_terms": [
+      "les sql file",
+      "sql index",
+      "sql parser",
+      "seksjonsdeler"
+    ],
+    "param.path.description": "Banen til filen.",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse. \"seksjon\" returnerer en bestemt seksjon.",
+    "param.section.description": "Seksjonsnummer å hente (1-indeksert).",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.read_error": "Feil ved lesing av fil: {e}",
+    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.parse_error": "Feil ved parsing av fil: {e}",
+    "msg.no_entries": "(ingen seksjoner funnet)",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall seksjoner: {total}\nFor å hente en seksjon, ring med mode='section' og section=N.",
+    "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
+    "err.section_invalid": "Feil: «seksjon» må være et heltall.",
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
   }
 }

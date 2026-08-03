@@ -508,5 +508,65 @@
       "memorie de grup obține",
       "partajează recupera"
     ]
+  },
+  "fil": {
+    "tool.description": "Kinukuha ang raw long-term memory (shared memory) na data na ibinahagi sa mga user. - Karaniwang nagbabalik ng teksto sa format na JSONL (isang talaan bawat linya).",
+    "x_search_terms": [
+      "ibinahagi",
+      "nakabahaging memorya makuha",
+      "basahin ibinahagi",
+      "bawiin ang ibinahagi",
+      "ibinahaging pag-alaala",
+      "kumuha ng memorya ng koponan",
+      "nakabahaging impormasyon makuha",
+      "magtulungang makuha",
+      "makuha ang memorya ng pangkat",
+      "nakabahaging pagkuha"
+    ]
+  },
+  "ms": {
+    "tool.description": "Mendapatkan semula data memori jangka panjang mentah (memori dikongsi) yang dikongsi merentas pengguna. - Biasanya mengembalikan teks dalam format JSONL (satu rekod setiap baris).",
+    "x_search_terms": [
+      "dapatkan dikongsi",
+      "memori yang dikongsi dapatkan",
+      "baca dikongsi",
+      "dapatkan semula dikongsi",
+      "ingat semula dikongsi",
+      "memori pasukan dapat",
+      "maklumat yang dikongsi dapat",
+      "kolaborasi dapatkan",
+      "ingatan kumpulan dapat",
+      "dapatkan dikongsi"
+    ]
+  },
+  "da": {
+    "tool.description": "Henter rå langtidshukommelsesdata (delt hukommelse) delt på tværs af brugere. - Returnerer normalt tekst i JSONL-format (én post pr. linje).",
+    "x_search_terms": [
+      "få delt",
+      "delt hukommelse bliv",
+      "læst delt",
+      "hent delt",
+      "delt genkald",
+      "teamhukommelse bliv",
+      "delt info få",
+      "samarbejde hent",
+      "gruppehukommelse bliv",
+      "delt hent"
+    ]
+  },
+  "nn": {
+    "tool.description": "Henter rå langtidsminne (delt minne) data delt på tvers av brukere. - Returnerer vanligvis tekst i JSONL-format (én post per linje).",
+    "x_search_terms": [
+      "få delt",
+      "delt minne få",
+      "lese delt",
+      "hente delt",
+      "delt huske",
+      "teamminne få",
+      "delt informasjon få",
+      "samarbeid få",
+      "gruppeminne få",
+      "delt hente"
+    ]
   }
 }

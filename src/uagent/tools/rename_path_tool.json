@@ -644,5 +644,81 @@
       "cale redenumiți",
       "mv"
     ]
+  },
+  "fil": {
+    "param.dst.description": "Destination path (file/directory). Inirerekomenda ang kamag-anak na landas.",
+    "param.mkdirs.description": "Kung totoo, lumikha ng parent directory para sa dst bago i-execute.",
+    "param.overwrite.description": "Kung totoo, tanggalin at palitan ang patutunguhan kung mayroon na ito (nangangailangan ng kumpirmasyon).",
+    "param.src.description": "Orihinal na landas (file/direktoryo). Inirerekomenda ang kamag-anak na landas.",
+    "tool.description": "Palitan ang pangalan (ilipat) ang isang file o direktoryo.",
+    "x_search_terms": [
+      "palitan ang pangalan",
+      "ilipat ang file",
+      "palitan ang pangalan ng file",
+      "palitan ang pangalan ng folder",
+      "palitan ang pangalan ng file",
+      "ilipat ang landas",
+      "palitan ang pangalan ng direktoryo",
+      "paglipat ng file",
+      "path rename",
+      "mv"
+    ]
+  },
+  "ms": {
+    "param.dst.description": "Laluan destinasi (fail/direktori). Laluan relatif disyorkan.",
+    "param.mkdirs.description": "Jika benar, buat direktori induk untuk dst sebelum melaksanakan.",
+    "param.overwrite.description": "Jika benar, padam dan gantikan destinasi jika ia sudah wujud (memerlukan pengesahan).",
+    "param.src.description": "Laluan asal (fail/direktori). Laluan relatif disyorkan.",
+    "tool.description": "Namakan semula (pindah) fail atau direktori.",
+    "x_search_terms": [
+      "namakan semula",
+      "alih fail",
+      "namakan semula fail",
+      "namakan semula folder",
+      "namakan semula fail",
+      "pindah laluan",
+      "namakan semula direktori",
+      "pindah fail",
+      "nama semula laluan",
+      "mv"
+    ]
+  },
+  "da": {
+    "param.dst.description": "Destinationssti (fil/mappe). Relativ vej anbefales.",
+    "param.mkdirs.description": "Hvis det er sandt, skal du oprette det overordnede bibliotek for dst, før du udfører.",
+    "param.overwrite.description": "Hvis det er sandt, skal du slette og erstatte destinationen, hvis den allerede eksisterer (kræver bekræftelse).",
+    "param.src.description": "Oprindelig sti (fil/mappe). Relativ vej anbefales.",
+    "tool.description": "Omdøb (flyt) en fil eller et bibliotek.",
+    "x_search_terms": [
+      "omdøb",
+      "flytt fil",
+      "omdøb fil",
+      "omdøb mappe",
+      "fil omdøb",
+      "flytt sti",
+      "omdøb bibliotek",
+      "fil flyt",
+      "sti omdøb",
+      "mv"
+    ]
+  },
+  "nn": {
+    "param.dst.description": "Destinasjonssti (fil/katalog). Relativ vei anbefales.",
+    "param.mkdirs.description": "Hvis sant, opprett overordnet katalog for dst før du kjører.",
+    "param.overwrite.description": "Hvis sant, slett og erstatt destinasjonen hvis den allerede eksisterer (krever bekreftelse).",
+    "param.src.description": "Opprinnelig bane (fil/katalog). Relativ vei anbefales.",
+    "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
+    "x_search_terms": [
+      "endre navn",
+      "flytt fil",
+      "gi nytt navn til fil",
+      "gi nytt navn til mappe",
+      "gi nytt navn",
+      "flytt bane",
+      "gi nytt navn til katalog",
+      "flytt fil",
+      "bane endre navn",
+      "mv"
+    ]
   }
 }

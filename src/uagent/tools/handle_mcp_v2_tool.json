@@ -712,5 +712,89 @@
     "param.args.description": "Argumente ale instrumentului de transmis instrumentului MCP. Furnizați fie un obiect JSON (recomandat), fie un șir JSON.",
     "err.tool_name_required": "Eroare: tool_name este obligatoriu.",
     "err.stdio_url_invalid": "Eroare: URL stdio nevalid"
+  },
+  "fil": {
+    "param.server_name.description": "Tinukoy ang pangalan ng server sa mcp_servers.json. Kung tinukoy, ito ay nangangailangan ng priyoridad kaysa sa url.",
+    "param.tool_name.description": "Ang pangalan ng tool na isasagawa.",
+    "param.url.description": "MCP server endpoint URL (http://... o stdio://command...).",
+    "tool.description": "Tumawag ng tool mula sa isang MCP server. Magbigay ng mga argumento ng tool bilang isang diksyunaryo sa tool_arguments.",
+    "x_search_terms": [
+      "mcp",
+      "mcp tool",
+      "mcp call",
+      "mcp execute",
+      "mcp invoke",
+      "mcp server call",
+      "tool call",
+      "mcp function",
+      "mcp request",
+      "modelo ng context protocol"
+    ],
+    "param.args.description": "Mga argumento ng tool na ipapasa sa tool na MCP. Magbigay ng alinman sa JSON object (inirerekomenda) o isang JSON string.",
+    "err.tool_name_required": "Error: kailangan ang tool_name.",
+    "err.stdio_url_invalid": "Error: Di-wastong stdio url"
+  },
+  "ms": {
+    "param.server_name.description": "Nama pelayan ditakrifkan dalam mcp_servers.json. Jika dinyatakan, ia mengambil keutamaan berbanding url.",
+    "param.tool_name.description": "Nama alat untuk dilaksanakan.",
+    "param.url.description": "MCP URL titik akhir pelayan (http://... atau stdio://command...).",
+    "tool.description": "Panggil alat daripada pelayan MCP. Sediakan argumen alat sebagai kamus dalam tool_arguments.",
+    "x_search_terms": [
+      "mcp",
+      "mcp tool",
+      "mcp call",
+      "mcp execute",
+      "mcp invoke",
+      "mcp server call",
+      "tool call",
+      "mcp function",
+      "mcp request",
+      "model context protocol"
+    ],
+    "param.args.description": "Argumen alat untuk dihantar ke alat MCP. Sediakan sama ada objek JSON (disyorkan) atau rentetan JSON.",
+    "err.tool_name_required": "Ralat: nama_alat diperlukan.",
+    "err.stdio_url_invalid": "Ralat: Url stdio tidak sah"
+  },
+  "da": {
+    "param.server_name.description": "Servernavn defineret i mcp_servers.json. Hvis det er angivet, har det prioritet over url.",
+    "param.tool_name.description": "Navnet på det værktøj, der skal udføres.",
+    "param.url.description": "MCP serverslutpunkts-URL (http://... eller stdio://command...).",
+    "tool.description": "Kald et værktøj fra en MCP-server. Angiv værktøjsargumenter som en ordbog i tool_arguments.",
+    "x_search_terms": [
+      "mcp",
+      "mcp tool",
+      "mcp call",
+      "mcp execute",
+      "mcp invoke",
+      "mcp server call",
+      "tool call",
+      "mcp funktion",
+      "mcp request",
+      "model context protokol"
+    ],
+    "param.args.description": "Værktøjsargumenter, der skal overføres til værktøjet MCP. Angiv enten et JSON-objekt (anbefales) eller en JSON-streng.",
+    "err.tool_name_required": "Fejl: værktøjsnavn er påkrævet.",
+    "err.stdio_url_invalid": "Fejl: Ugyldig stdio-url"
+  },
+  "nn": {
+    "param.server_name.description": "Servernavn definert i mcp_servers.json. Hvis det er spesifisert, prioriteres det over url.",
+    "param.tool_name.description": "Navnet på verktøyet som skal utføres.",
+    "param.url.description": "MCP serverendepunkt-URL (http://... eller stdio://command...).",
+    "tool.description": "Ring et verktøy fra en MCP-server. Oppgi verktøyargumenter som en ordbok i tool_arguments.",
+    "x_search_terms": [
+      "mcp",
+      "mcp tool",
+      "mcp call",
+      "mcp execute",
+      "mcp invoke",
+      "mcp server call",
+      "tool call",
+      "mcp function",
+      "mcp request",
+      "modell kontekstprotokoll"
+    ],
+    "param.args.description": "Verktøyargumenter som skal overføres til MCP-verktøyet. Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng.",
+    "err.tool_name_required": "Feil: verktøynavn kreves.",
+    "err.stdio_url_invalid": "Feil: Ugyldig standard nettadresse"
   }
 }

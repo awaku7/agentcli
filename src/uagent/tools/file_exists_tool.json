@@ -576,5 +576,73 @@
       "verifica calea",
       "calea exista"
     ]
+  },
+  "fil": {
+    "err.path_empty": "[file_exists error] ang path ay walang laman",
+    "param.path.description": "Path ng file o direktoryo upang suriin kung may (sumusuporta sa ~).",
+    "tool.description": "Sinusuri kung mayroong isang file o direktoryo sa tinukoy na landas at, kung mayroon ito, ibabalik ang uri, laki, at oras ng pagbabago nito.",
+    "x_search_terms": [
+      "umiiral ang file",
+      "suriin ang file",
+      "check ng file",
+      "exist na ang file",
+      "naroroon ang file",
+      "umiiral ang check",
+      "available ang file",
+      "nahanap ang file",
+      "suri ang path",
+      "mayroon na ang landas"
+    ]
+  },
+  "ms": {
+    "err.path_empty": "[file_exists error] laluan kosong",
+    "param.path.description": "Laluan fail atau direktori untuk menyemak kewujudan (menyokong ~).",
+    "tool.description": "Semak sama ada fail atau direktori wujud pada laluan yang ditentukan dan, jika ada, mengembalikan jenis, saiz dan masa pengubahsuaiannya.",
+    "x_search_terms": [
+      "fail wujud",
+      "semak fail",
+      "semak fail",
+      "fail wujud",
+      "fail ada",
+      "wujud semak",
+      "fail tersedia",
+      "fail ditemui",
+      "semak laluan",
+      "laluan wujud"
+    ]
+  },
+  "da": {
+    "err.path_empty": "Stien til [fil_eksisterer fejl] er tom",
+    "param.path.description": "Stien til filen eller mappen for at kontrollere eksistensen (understøtter ~).",
+    "tool.description": "Kontrollerer, om en fil eller et bibliotek findes på den angivne sti, og hvis det gør, returnerer dens type, størrelse og ændringstid.",
+    "x_search_terms": [
+      "fil findes",
+      "kontroller fil",
+      "kontrol af fil",
+      "fil findes",
+      "fil til stede",
+      "eksisterer kontrol",
+      "fil tilgængelig",
+      "fil fundet",
+      "kontroller sti",
+      "sti findes"
+    ]
+  },
+  "nn": {
+    "err.path_empty": "[fil_eksisterer feil] banen er tom",
+    "param.path.description": "Banen til filen eller katalogen for å se etter eksistens (støtter ~).",
+    "tool.description": "Sjekker om en fil eller katalog eksisterer på den angitte banen, og hvis den gjør det, returnerer dens type, størrelse og endringstid.",
+    "x_search_terms": [
+      "fil finnes",
+      "sjekk fil",
+      "filsjekk",
+      "fil finnes",
+      "fil til stede",
+      "eksisterer sjekk",
+      "fil tilgjengelig",
+      "fil funnet",
+      "sjekk bane",
+      "sti finnes"
+    ]
   }
 }

@@ -576,5 +576,73 @@
       "設定",
       "帳戶"
     ]
+  },
+  "fil": {
+    "param.fmt.description": "Format: json o text.",
+    "msg.device_count": "Mga SwitchBot Cloud device: {count}",
+    "msg.error_fmt": "Error: {msg}",
+    "msg.fetched_at": "Nakuha sa: {ts}",
+    "msg.unknown_error": "hindi kilalang error",
+    "tool.description": "Ilista ang mga SwitchBot Cloud device para sa na-configure na account.",
+    "x_search_terms": [
+      "switchbot cloud list",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "device",
+      "configured",
+      "account"
+    ]
+  },
+  "ms": {
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.device_count": "Peranti Awan SwitchBot: {count}",
+    "msg.error_fmt": "Ralat: {msg}",
+    "msg.fetched_at": "Diambil di: {ts}",
+    "msg.unknown_error": "ralat yang tidak diketahui",
+    "tool.description": "Senaraikan peranti SwitchBot Cloud untuk akaun yang dikonfigurasikan.",
+    "x_search_terms": [
+      "senarai awan switchbot",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "peranti",
+      "dikonfigurasikan",
+      "akaun"
+    ]
+  },
+  "da": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.device_count": "SwitchBot Cloud-enheder: {count}",
+    "msg.error_fmt": "Fejl: {msg}",
+    "msg.fetched_at": "Hentet på: {ts}",
+    "msg.unknown_error": "ukendt fejl",
+    "tool.description": "Liste SwitchBot Cloud-enheder for den konfigurerede konto.",
+    "x_search_terms": [
+      "switchbot cloud list",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "enheder",
+      "konfigureret",
+      "konto"
+    ]
+  },
+  "nn": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.device_count": "SwitchBot Cloud-enheter: {count}",
+    "msg.error_fmt": "Feil: {msg}",
+    "msg.fetched_at": "Hentet på: {ts}",
+    "msg.unknown_error": "ukjent feil",
+    "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen.",
+    "x_search_terms": [
+      "switchbot cloud list",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "enheter",
+      "konfigurert",
+      "konto"
+    ]
   }
 }

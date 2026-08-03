@@ -508,5 +508,65 @@
       "ora locală",
       "ora sistemului"
     ]
+  },
+  "fil": {
+    "tool.description": "Ibalik ang kasalukuyang oras at detalyadong impormasyon ng petsa/oras (timezone, weekday, oras ng UTC). Gamitin ito upang malutas ang mga kaugnay na expression ng petsa (hal.",
+    "x_search_terms": [
+      "kasalukuyang oras",
+      "kumuha ng oras",
+      "ngayon",
+      "kasalukuyang petsa",
+      "panahon ng petsa",
+      "oras ngayon",
+      "ngayon",
+      "timestamp",
+      "lokal na oras",
+      "oras ng system"
+    ]
+  },
+  "ms": {
+    "tool.description": "Kembalikan masa semasa dan maklumat tarikh/masa terperinci (zon waktu, hari bekerja, waktu UTC). Gunakan ini untuk menyelesaikan ungkapan tarikh relatif (cth.",
+    "x_search_terms": [
+      "masa semasa",
+      "dapatkan masa",
+      "sekarang",
+      "tarikh semasa",
+      "masa tarikh",
+      "masa sekarang",
+      "hari ini",
+      "cap masa",
+      "masa tempatan",
+      "masa sistem"
+    ]
+  },
+  "da": {
+    "tool.description": "Returner det aktuelle klokkeslæt og detaljerede dato/tidsoplysninger (tidszone, ugedag, UTC-tid). Brug dette til at løse relative datoudtryk (f.",
+    "x_search_terms": [
+      "aktuel tid",
+      "hent tid",
+      "nu",
+      "aktuel dato",
+      "dato tid",
+      "tid nu",
+      "i dag",
+      "tidsstempel",
+      "lokal tid",
+      "systemtid"
+    ]
+  },
+  "nn": {
+    "tool.description": "Returner gjeldende tid og detaljert dato/tidsinformasjon (tidssone, ukedag, UTC-tid). Bruk dette til å løse relative datouttrykk (f.",
+    "x_search_terms": [
+      "gjeldende tid",
+      "få tid",
+      "nå",
+      "gjeldende dato",
+      "dato klokkeslett",
+      "tid nå",
+      "i dag",
+      "tidsstempel",
+      "lokal tid",
+      "systemtid"
+    ]
   }
 }

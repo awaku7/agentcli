@@ -644,5 +644,81 @@
       "prezentare generală a abilităților"
     ],
     "param.recur.description": "Directorul de abilități (trebuie să conțină SKILL= the.m = SKILL.m). Skill și returnează conținutul YAML și corpul Markdown"
+  },
+  "fil": {
+    "param.include_invalid.description": "Kung isasama ang mga kasanayang nabigo sa pag-parse o pagpapatunay (default: true).",
+    "param.root_dir.description": "Root na direktoryo para sa paghahanap ng kasanayan. Gumagamit ng UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Kung ituturing ang mga babala sa pagpapatunay bilang mga error (default: false).",
+    "tool.description": "Nagbabalik ng listahan ng mga kasanayan sa ilalim ng tinukoy na ugat (nagbabasa ng frontmatter lang) batay sa spec ng Agent Skills (SKILL. md).",
+    "x_search_terms": [
+      "listahan ng kasanayan",
+      "listahan ng mga kasanayan",
+      "kasanayan",
+      "magagamit na mga kasanayan",
+      "katalog ng kasanayan",
+      "ipakita ang mga kasanayan",
+      "direktoryo ng mga kasanayan",
+      "mga naka-install na kasanayan",
+      "kasanayan sa ahente",
+      "pangkalahatang-ideya ng kasanayan"
+    ],
+    "param.recur.description": "Paulit-ulit na paghahanap (default: true)"
+  },
+  "ms": {
+    "param.include_invalid.description": "Sama ada hendak memasukkan kemahiran yang gagal menghurai atau pengesahan (lalai: benar).",
+    "param.root_dir.description": "Direktori akar untuk carian kemahiran. Menggunakan UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Sama ada untuk menganggap amaran pengesahan sebagai ralat (lalai: palsu).",
+    "tool.description": "Mengembalikan senarai kemahiran di bawah akar yang ditentukan (membaca frontmatter sahaja) berdasarkan spesifikasi Kemahiran Ejen (KEMAHIRAN. md).",
+    "x_search_terms": [
+      "senarai kemahiran",
+      "senarai kemahiran",
+      "kemahiran",
+      "kemahiran yang tersedia",
+      "katalog kemahiran",
+      "tunjukkan kemahiran",
+      "direktori kemahiran",
+      "kemahiran yang dipasang",
+      "kemahiran ejen",
+      "gambaran keseluruhan kemahiran"
+    ],
+    "param.recur.description": "Cari secara rekursif (lalai: benar)"
+  },
+  "da": {
+    "param.include_invalid.description": "Om der skal inkluderes færdigheder, der mislykkedes i parsing eller validering (standard: sand).",
+    "param.root_dir.description": "Rodmappe til færdighedssøgning. Bruger UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Om valideringsadvarsler skal behandles som fejl (standard: falsk).",
+    "tool.description": "Returnerer en liste over færdigheder under den angivne rod (læser kun frontmatter) baseret på Agent Skills spec (SKILL. md).",
+    "x_search_terms": [
+      "færdighedsliste",
+      "liste færdigheder",
+      "færdigheder",
+      "tilgængelige færdigheder",
+      "færdighedskatalog",
+      "vis færdigheder",
+      "færdighedskatalog",
+      "installerede færdigheder",
+      "agentfærdigheder",
+      "færdighedsoversigt"
+    ],
+    "param.recur.description": "Søg rekursivt (standard: sand)"
+  },
+  "nn": {
+    "param.include_invalid.description": "Om du skal inkludere ferdigheter som mislyktes i parsing eller validering (standard: sant).",
+    "param.root_dir.description": "Rotkatalog for ferdighetssøk. Bruker UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Om valideringsadvarsler skal behandles som feil (standard: usann).",
+    "tool.description": "Returnerer en liste over ferdigheter under den spesifiserte roten (leser kun frontmatter) basert på Agent Skills spec (SKILL. md).",
+    "x_search_terms": [
+      "ferdighetsliste",
+      "liste ferdigheter",
+      "ferdigheter",
+      "tilgjengelige ferdigheter",
+      "ferdighetskatalog",
+      "vis ferdigheter",
+      "ferdighetskatalog",
+      "installerte ferdigheter",
+      "agentferdigheter",
+      "ferdighetsoversikt"
+    ],
+    "param.recur.description": "Søk rekursivt (standard: sant)"
   }
 }

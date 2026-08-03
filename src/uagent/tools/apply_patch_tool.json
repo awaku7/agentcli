@@ -746,5 +746,93 @@
     "err.hunk_not_found": "在文件中找不到上下文。",
     "err.file_too_large": "檔案太大：%(size)s 位元組（最大 %(max_bytes)s）",
     "summary.applied": "%(applied)s 個區塊（共 %(total)s 個區塊）已套用於 %(files)s 個檔案。新增了 %(added)s 行，刪除了 %(removed)s 行。"
+  },
+  "fil": {
+    "tool.description": "Mag-apply ng pinag-isang diff (patch) sa mga file gamit ang purong Python. Sinusuportahan ang dry-run preview, whitespace tolerance, at CRLF preservation.",
+    "x_search_terms": [
+      "ilapat ang patch",
+      "patch file",
+      "apply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
+    "param.patch_text.description": "Pinag-isang diff text na ilalapat (git-format compatible, hal. ---/+++ na mga header).",
+    "param.dry_run.description": "Kung totoo, i-preview lang kung ano ang babaguhin nang hindi nag-a-apply.",
+    "param.ignore_whitespace.description": "Huwag pansinin ang mga pagkakaiba sa whitespace kapag tumutugma sa mga linya ng konteksto.",
+    "param.encoding.description": "Pag-encode ng file (default: utf-8).",
+    "param.preserve_line_endings.description": "Panatilihin ang mga orihinal na linya ng pagtatapos (CRLF/CR) sa output.",
+    "param.revert.description": "Ilapat ang patch sa kabaligtaran (idinagdag / inalis ang mga linya).",
+    "param.strip.description": "I-strip ang N nangungunang mga bahagi ng path mula sa mga path ng file sa mga patch header (tulad ng git apply -pN).",
+    "err.patch_empty": "walang laman ang patch_text.",
+    "err.no_hunks": "Walang nakitang valid na mga hunk sa patch text.",
+    "err.hunk_not_found": "Hindi nakita ang konteksto sa file.",
+    "err.file_too_large": "Masyadong malaki ang file: %(size)s bytes (max %(max_bytes)s)",
+    "summary.applied": "%(applied)s ng %(total)s (mga) hunk ang inilapat sa %(files)s (mga) file. %(added)s (mga) linya ang idinagdag, %(removed)s (mga) linya ang inalis."
+  },
+  "ms": {
+    "tool.description": "Gunakan perbezaan bersatu (tampalan) pada fail menggunakan Python tulen. Menyokong pratonton larian kering, toleransi ruang kosong dan pemeliharaan CRLF.",
+    "x_search_terms": [
+      "gunakan patch",
+      "fail tampalan",
+      "guna pakai perbezaan",
+      "pakaian perbezaan bersatu",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
+    "param.patch_text.description": "Teks perbezaan bersatu untuk digunakan (serasi dengan format git, cth. ---/+++ pengepala).",
+    "param.dry_run.description": "Jika benar, hanya pratonton perkara yang akan diubah tanpa memohon.",
+    "param.ignore_whitespace.description": "Abaikan perbezaan ruang putih apabila memadankan baris konteks.",
+    "param.encoding.description": "Pengekodan fail (lalai: utf-8).",
+    "param.preserve_line_endings.description": "Kekalkan penghujung talian asal (CRLF/CR) dalam output.",
+    "param.revert.description": "Sapukan tampalan secara terbalik (tukar garisan ditambah/dialih keluar).",
+    "param.strip.description": "Jalur komponen laluan utama N daripada laluan fail dalam pengepala patch (seperti git apply -pN).",
+    "err.patch_empty": "patch_text kosong.",
+    "err.no_hunks": "Tiada potongan sah ditemui dalam teks tampalan.",
+    "err.hunk_not_found": "Konteks tidak ditemui dalam fail.",
+    "err.file_too_large": "Fail terlalu besar: %(size)s bait (maks %(max_bytes)s)",
+    "summary.applied": "%(applied)s daripada %(total)s orang yang digunakan pada %(files)s fail. %(added)s baris ditambahkan, %(removed)s baris dialih keluar."
+  },
+  "da": {
+    "tool.description": "Anvend en samlet diff (patch) på filer ved hjælp af ren Python. Understøtter dry-run preview, whitespace-tolerance og CRLF-bevaring.",
+    "x_search_terms": [
+      "anvende patch",
+      "patch-fil",
+      "anvend diff",
+      "unified diff anvende",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
+    "param.patch_text.description": "Samlet diff-tekst, der skal anvendes (git-format kompatibel, f.eks. ---/+++ overskrifter).",
+    "param.dry_run.description": "Hvis det er sandt, kan du kun se et eksempel på, hvad der ville blive ændret uden at anvende.",
+    "param.ignore_whitespace.description": "Ignorer mellemrumsforskelle, når du matcher kontekstlinjer.",
+    "param.encoding.description": "Filkodning (standard: utf-8).",
+    "param.preserve_line_endings.description": "Bevar originale linjeafslutninger (CRLF/CR) i output.",
+    "param.revert.description": "Påfør plastret omvendt (byt tilføjede/fjernede linjer).",
+    "param.strip.description": "Strip N ledende stikomponenter fra filstier i patch-headere (som git apply -pN).",
+    "err.patch_empty": "patch_text er tom.",
+    "err.no_hunks": "Ingen gyldige hunks fundet i patch-teksten.",
+    "err.hunk_not_found": "Kontekst ikke fundet i filen.",
+    "err.file_too_large": "Filen er for stor: %(size)s bytes (maks. %(max_bytes)s)",
+    "summary.applied": "%(applied)s af %(total)s hunk(er) anvendt på %(files)s fil(er). %(added)s linje(r) tilføjet, %(removed)s linje(r) fjernet."
+  },
+  "nn": {
+    "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
+    "x_search_terms": [
+      "bruk patch",
+      "patch file",
+      "apply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
+    "param.patch_text.description": "Samlet diff-tekst som skal brukes (git-format-kompatibel, f.eks. ---/+++ overskrifter).",
+    "param.dry_run.description": "Hvis det er sant, kan du bare forhåndsvise det som vil bli endret uten å bruke.",
+    "param.ignore_whitespace.description": "Ignorer mellomromsforskjeller når du matcher kontekstlinjer.",
+    "param.encoding.description": "Filkoding (standard: utf-8).",
+    "param.preserve_line_endings.description": "Behold originale linjeavslutninger (CRLF/CR) i utdata.",
+    "param.revert.description": "Påfør lappen i revers (bytt linjer som er lagt til/fjernet).",
+    "param.strip.description": "Strip N ledende banekomponenter fra filstier i patch-overskrifter (som git apply -pN).",
+    "err.patch_empty": "patch_text er tom.",
+    "err.no_hunks": "Ingen gyldige hunks funnet i oppdateringstekst.",
+    "err.hunk_not_found": "Finner ikke kontekst i filen.",
+    "err.file_too_large": "Filen er for stor: %(size)s byte (maks. %(max_bytes)s)",
+    "summary.applied": "%(applied)s av %(total)s hunk(er) brukt på %(files)s fil(er). %(added)s linje(r) lagt til, %(removed)s linje(r) fjernet."
   }
 }

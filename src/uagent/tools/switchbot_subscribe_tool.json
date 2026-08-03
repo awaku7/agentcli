@@ -576,5 +576,73 @@
       "變更",
       "輪詢"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa mga pagbabago sa status ng SwitchBot device sa pamamagitan ng botohan. Dahil walang webhook ang SwitchBot Cloud, sinusuri ang device sa tinukoy na agwat. Kapag may nakitang pagbabago, awtomatikong aabisuhan ang LLM.",
+    "param.dev.description": "SwitchBot device ID (kinakailangan). Gamitin ang switchbot_cloud_list upang mahanap ito.",
+    "param.interval.description": "Ang pagitan ng botohan sa mga segundo (minimum na 10).",
+    "param.label.description": "Label na nababasa ng tao (hal. 'リビング_照明').",
+    "param.on_change_prompt.description": "Opsyonal na prompt para sa LLM kapag nagbago ang estado.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.subscribed": "Aktibo ang subscription sa SwitchBot: id={id}, {label}",
+    "err.dev_required": "device_id (dev) ay kinakailangan.",
+    "x_search_terms": [
+      "switchbot subscribe",
+      "switchbot_subscribe",
+      "switchbot",
+      "changes",
+      "polling"
+    ]
+  },
+  "ms": {
+    "tool.description": "Langgan perubahan status peranti SwitchBot melalui tinjauan pendapat. Memandangkan SwitchBot Cloud tidak mempunyai webhook, peranti ditinjau pada selang waktu yang ditentukan. Apabila perubahan dikesan, LLM dimaklumkan secara automatik.",
+    "param.dev.description": "ID peranti SwitchBot (diperlukan). Gunakan switchbot_cloud_list untuk mencarinya.",
+    "param.interval.description": "Selang pengundian dalam saat (minimum 10).",
+    "param.label.description": "Label boleh dibaca manusia (cth. 'リビング_照明').",
+    "param.on_change_prompt.description": "Gesaan pilihan untuk LLM apabila keadaan berubah.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "Langganan SwitchBot aktif: id={id}, {label}",
+    "err.dev_required": "device_id (dev) diperlukan.",
+    "x_search_terms": [
+      "switchbot subscribe",
+      "switchbot_subscribe",
+      "switchbot",
+      "changes",
+      "polling"
+    ]
+  },
+  "da": {
+    "tool.description": "Abonner på ændringer i SwitchBot-enhedsstatus via polling. Da SwitchBot Cloud ikke har nogen webhook, bliver enheden pollet med det angivne interval. Når en ændring registreres, får LLM automatisk besked.",
+    "param.dev.description": "SwitchBot enheds-id (påkrævet). Brug switchbot_cloud_list til at finde den.",
+    "param.interval.description": "Polling-interval i sekunder (minimum 10).",
+    "param.label.description": "Etiket, der kan læses af mennesker (f.eks. \"リビング_照明\").",
+    "param.on_change_prompt.description": "Valgfri meddelelse om LLM, når tilstanden ændres.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "SwitchBot-abonnement aktivt: id={id}, {label}",
+    "err.dev_required": "device_id (dev) er påkrævet.",
+    "x_search_terms": [
+      "switchbot subscribe",
+      "switchbot_subscribe",
+      "switchbot",
+      "ændringer",
+      "polling"
+    ]
+  },
+  "nn": {
+    "tool.description": "Abonner på endringer i SwitchBot-enhetsstatus via polling. Siden SwitchBot Cloud ikke har noen webhook, blir enheten pollet med det angitte intervallet. Når en endring oppdages, blir LLM automatisk varslet.",
+    "param.dev.description": "SwitchBot-enhets-ID (påkrevd). Bruk switchbot_cloud_list for å finne den.",
+    "param.interval.description": "Pollingintervall i sekunder (minimum 10).",
+    "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'リビング_照明').",
+    "param.on_change_prompt.description": "Valgfri melding om LLM når tilstanden endres.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "SwitchBot-abonnement aktivt: id={id}, {label}",
+    "err.dev_required": "device_id (dev) er påkrevd.",
+    "x_search_terms": [
+      "switchbot subscribe",
+      "switchbot_subscribe",
+      "switchbot",
+      "endringer",
+      "polling"
+    ]
   }
 }

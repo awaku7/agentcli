@@ -814,5 +814,101 @@
       "date",
       "calculate"
     ]
+  },
+  "fil": {
+    "param.base_date.description": "Base date (ISO 8601 format 'YYYY-MM-DD'; kung aalisin, ngayon).",
+    "param.check_holiday.description": "Kung titingnan kung holiday ang resulta (default: true)",
+    "param.country.description": "Code ng bansa.",
+    "param.days.description": "Mga araw na idaragdag (negatibo para sa pagbabawas).",
+    "param.months.description": "Mga buwan na idaragdag (negatibo para sa pagbabawas).",
+    "param.weeks.description": "Linggo upang idagdag (negatibo para sa pagbabawas).",
+    "param.years.description": "Mga taon upang idagdag (negatibo para sa pagbabawas).",
+    "tool.description": "Magdagdag o magbawas ng mga taon, buwan, linggo, o araw mula sa tinukoy na petsa at ibalik ang resulta. Kasama ang pag-detect sa holiday gamit ang library ng holidays.",
+    "x_search_terms": [
+      "kalkula",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "ms": {
+    "param.base_date.description": "Tarikh asas (format ISO 8601 'YYYY-MM-DD'; jika ditinggalkan, hari ini).",
+    "param.check_holiday.description": "Sama ada untuk menyemak sama ada keputusan itu adalah hari cuti (lalai: benar)",
+    "param.country.description": "Kod negara.",
+    "param.days.description": "Hari untuk ditambah (negatif untuk penolakan).",
+    "param.months.description": "Bulan untuk ditambah (negatif untuk penolakan).",
+    "param.weeks.description": "Minggu untuk ditambah (negatif untuk penolakan).",
+    "param.years.description": "Tahun untuk ditambah (negatif untuk penolakan).",
+    "tool.description": "Tambah atau tolak tahun, bulan, minggu atau hari dari tarikh yang ditentukan dan kembalikan hasilnya. Pengesanan cuti disertakan menggunakan perpustakaan cuti.",
+    "x_search_terms": [
+      "date_calc",
+      "tarikh kira",
+      "tarikh matematik",
+      "tambah hari",
+      "tolak hari",
+      "tarikh relatif",
+      "tarikh kalendar",
+      "minggu bulan",
+      "hari dari tarikh",
+      "cuti semak",
+      "tarikh",
+      "kira"
+    ]
+  },
+  "da": {
+    "param.base_date.description": "Basisdato (ISO 8601-format 'ÅÅÅÅ-MM-DD'; hvis udeladt, i dag).",
+    "param.check_holiday.description": "Om det skal kontrolleres, om resultatet er en helligdag (standard: sand)",
+    "param.country.description": "Landekode.",
+    "param.days.description": "Dage at tilføje (negativ for subtraktion).",
+    "param.months.description": "Måneder at tilføje (negativ for subtraktion).",
+    "param.weeks.description": "Uger at tilføje (negativ for subtraktion).",
+    "param.years.description": "År at tilføje (negativ for subtraktion).",
+    "tool.description": "Tilføj eller træk år, måneder, uger eller dage fra en bestemt dato og returner resultatet. Ferieregistrering er inkluderet ved brug af feriebiblioteket.",
+    "x_search_terms": [
+      "date_calc",
+      "date calc",
+      "date matematik",
+      "tilføj dage",
+      "træk dage fra",
+      "relativ dato",
+      "kalenderdato",
+      "uger måneder",
+      "dage fra dato",
+      "ferietjek",
+      "dato",
+      "beregn"
+    ]
+  },
+  "nn": {
+    "param.base_date.description": "Grunndato (ISO 8601-format 'ÅÅÅÅ-MM-DD'; hvis utelatt, i dag).",
+    "param.check_holiday.description": "Om du skal sjekke om resultatet er en helligdag (standard: sant)",
+    "param.country.description": "Landskode.",
+    "param.days.description": "Dager å legge til (negativ for subtraksjon).",
+    "param.months.description": "Måneder å legge til (negativ for subtraksjon).",
+    "param.weeks.description": "Uker å legge til (negativ for subtraksjon).",
+    "param.years.description": "År å legge til (negativ for subtraksjon).",
+    "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager fra en spesifisert dato og returner resultatet. Feriedeteksjon er inkludert ved bruk av helligdagsbiblioteket.",
+    "x_search_terms": [
+      "date_calc",
+      "date calc",
+      "date matematikk",
+      "legg til dager",
+      "trekk fra dager",
+      "relativ dato",
+      "kalenderdato",
+      "uker måneder",
+      "dager fra dato",
+      "feriesjekk",
+      "dato",
+      "beregn"
+    ]
   }
 }

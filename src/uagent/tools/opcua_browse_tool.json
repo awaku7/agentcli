@@ -678,5 +678,85 @@
       "returns"
     ],
     "param.timeout.description": "連接逾時。"
+  },
+  "fil": {
+    "tool.description": "I-browse ang OPC UA server address space. Ibinabalik ang mga child node ng tinukoy na panimulang node.",
+    "param.url.description": "URL ng server ng OPC UA (hal. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Pagsisimula ng node ID (hal. 'i=84' para sa folder ng Objects, 'ns=2;s=MyVariable'). Default: i=84 (Mga Bagay).",
+    "param.depth.description": "Depth ng pag-browse (1=anak lang, 2=apo, atbp.). Max 5.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "OPC UA browse: {count} (mga) node mula sa {node} sa {ms} ms.",
+    "err.url_required": "kailangan ang url.",
+    "x_search_terms": [
+      "opcua browse",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "address",
+      "space",
+      "returns"
+    ],
+    "param.timeout.description": "Timeout ng koneksyon."
+  },
+  "ms": {
+    "tool.description": "Semak imbas ruang alamat pelayan OPC UA. Mengembalikan nod anak nod permulaan yang ditentukan.",
+    "param.url.description": "URL pelayan UA OPC (cth. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Memulakan ID nod (cth. 'i=84' untuk folder Objek, 'ns=2;s=MyVariable'). Lalai: i=84 (Objek).",
+    "param.depth.description": "Semak imbas kedalaman (1=anak sahaja, 2=cucu, dsb.). Maks 5.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Semak imbas OPC UA: {count} nod daripada {node} dalam {ms} ms.",
+    "err.url_required": "url diperlukan.",
+    "x_search_terms": [
+      "opcua semak imbas",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "pelayan",
+      "alamat",
+      "ruang",
+      "pulangan"
+    ],
+    "param.timeout.description": "Tamat masa sambungan."
+  },
+  "da": {
+    "tool.description": "Gennemse OPC UA-serverens adresseområde. Returnerer underordnede noder for den angivne startnode.",
+    "param.url.description": "OPC UA-server-URL (f.eks. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Startnode-id (f.eks. 'i=84' for mappen Objekter, 'ns=2;s=MyVariable'). Standard: i=84 (Objekter).",
+    "param.depth.description": "Gennemse dybde (1=kun børn, 2=børnebørn osv.). Max 5.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-gennemse: {count} node(r) fra {node} om {ms} ms.",
+    "err.url_required": "url er påkrævet.",
+    "x_search_terms": [
+      "opcua browse",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adresse",
+      "space",
+      "returnerer"
+    ],
+    "param.timeout.description": "Forbindelse timeout."
+  },
+  "nn": {
+    "tool.description": "Bla gjennom OPC UA-serverens adresserom. Returnerer underordnede noder til den angitte startnoden.",
+    "param.url.description": "OPC UA server URL (f.eks. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Startnode-ID (f.eks. 'i=84' for Objects-mappen, 'ns=2;s=MyVariable'). Standard: i=84 (Objekter).",
+    "param.depth.description": "Bla gjennom dybde (1=kun barn, 2=barnebarn osv.). Maks 5.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
+    "err.url_required": "url er påkrevd.",
+    "x_search_terms": [
+      "opcua browse",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adresse",
+      "plass",
+      "retur"
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   }
 }

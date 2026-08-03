@@ -610,5 +610,77 @@
       "setați directorul",
       "schimbați calea"
     ]
+  },
+  "fil": {
+    "confirm.change_workdir": "Palitan ang workdir sa: {path}?\nIlagay ang y upang magpatuloy, o c upang kanselahin.",
+    "param.confirm.description": "Kung hihilingin ang kumpirmasyon ng user.",
+    "param.new_dir.description": "Ang bagong path ng direktoryo na lilipatan.",
+    "tool.description": "Baguhin ang kasalukuyang gumaganang direktoryo pagkatapos ng kumpirmasyon ng user.",
+    "x_search_terms": [
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
+    ]
+  },
+  "ms": {
+    "confirm.change_workdir": "Tukar workdir kepada: {path}?\nMasukkan y untuk meneruskan atau c untuk membatalkan.",
+    "param.confirm.description": "Sama ada untuk meminta pengesahan pengguna.",
+    "param.new_dir.description": "Laluan direktori baharu untuk beralih ke.",
+    "tool.description": "Tukar direktori kerja semasa selepas pengesahan pengguna.",
+    "x_search_terms": [
+      "tukar dir",
+      "tukar direktori",
+      "workdir",
+      "direktori kerja",
+      "cd",
+      "set workdir",
+      "tukar folder",
+      "tukar direktori",
+      "tetapkan direktori",
+      "tukar laluan"
+    ]
+  },
+  "da": {
+    "confirm.change_workdir": "Skift workdir til: {path}?\nIndtast y for at fortsætte, eller c for at annullere.",
+    "param.confirm.description": "Om man skal bede om brugerbekræftelse.",
+    "param.new_dir.description": "Den nye mappesti at skifte til.",
+    "tool.description": "Skift den aktuelle arbejdsmappe efter brugerbekræftelse.",
+    "x_search_terms": [
+      "skift adressekartotek",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "nn": {
+    "confirm.change_workdir": "Endre workdir til: {path}?\nSkriv inn y for å fortsette, eller c for å avbryte.",
+    "param.confirm.description": "Om du skal be om brukerbekreftelse.",
+    "param.new_dir.description": "Den nye katalogbanen å bytte til.",
+    "tool.description": "Endre gjeldende arbeidskatalog etter brukerbekreftelse.",
+    "x_search_terms": [
+      "endre katalog",
+      "endre katalog",
+      "arbeidskatalog",
+      "arbeidskatalog",
+      "cd",
+      "sett arbeidskatalog",
+      "endre mappe",
+      "bytt katalog",
+      "sett katalog",
+      "endre bane"
+    ]
   }
 }

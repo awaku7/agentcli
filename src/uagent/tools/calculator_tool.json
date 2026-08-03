@@ -610,5 +610,77 @@
     ],
     "err.expression_missing": "[calculator]\\\nEroare: nu este furnizată nicio expresie.",
     "err.eval": ""
+  },
+  "fil": {
+    "param.expression.description": "Ang mathematical expression na susuriin (hal.",
+    "tool.description": "Kinakalkula ang isang mathematical expression at ibinabalik ang resulta. Gamitin ito para sa mga kumplikadong kalkulasyon o kapag kinakailangan ang katumpakan.",
+    "x_search_terms": [
+      "calculator",
+      "calculate",
+      "math",
+      "expression",
+      "formula",
+      "compute",
+      "aritmetika",
+      "evaluate",
+      "solve",
+      "numeric"
+    ],
+    "err.expression_missing": "[calculator]\\\nError: Walang ibinigay na expression.",
+    "err.eval": ""
+  },
+  "ms": {
+    "param.expression.description": "Ungkapan matematik untuk dinilai (cth.",
+    "tool.description": "Mengira ungkapan matematik dan mengembalikan hasilnya. Gunakan ini untuk pengiraan yang rumit atau apabila ketepatan diperlukan.",
+    "x_search_terms": [
+      "kalkulator",
+      "kira",
+      "matematik",
+      "ungkapan",
+      "formula",
+      "hitung",
+      "aritmetik",
+      "nilai",
+      "selesai",
+      "numerik"
+    ],
+    "err.expression_missing": "[kalkulator]\\\nRalat: Tiada ungkapan disediakan.",
+    "err.eval": ""
+  },
+  "da": {
+    "param.expression.description": "Det matematiske udtryk, der skal evalueres (f.",
+    "tool.description": "Beregner et matematisk udtryk og returnerer resultatet. Brug dette til komplekse beregninger, eller når der kræves præcision.",
+    "x_search_terms": [
+      "lommeregner",
+      "beregn",
+      "matematik",
+      "udtryk",
+      "formel",
+      "beregn",
+      "aritmetik",
+      "evaluer",
+      "løs",
+      "numerisk"
+    ],
+    "err.expression_missing": "[lommeregner]\\\nFejl: Intet udtryk angivet.",
+    "err.eval": ""
+  },
+  "nn": {
+    "param.expression.description": "Det matematiske uttrykket som skal evalueres (f.eks.",
+    "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon er nødvendig.",
+    "x_search_terms": [
+      "kalkulator",
+      "beregne",
+      "matematikk",
+      "uttrykk",
+      "formel",
+      "beregne",
+      "aritmetikk",
+      "evaluere",
+      "løse",
+      "numerisk"
+    ],
+    "err.expression_missing": "[kalkulator]\\\nFeil: Ingen uttrykk gitt.",
+    "err.eval": ""
   }
 }

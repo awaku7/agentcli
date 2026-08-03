@@ -712,5 +712,89 @@
       "支援",
       "開/關"
     ]
+  },
+  "fil": {
+    "tool.description": "Kontrolin ang isang DALI lighting device. Sinusuportahan ang on/off at dimming (0-254).",
+    "param.address.description": "DALI device address (0-63), o -1 para sa broadcast.",
+    "param.action.description": "Aksyon: on, off, o dim.",
+    "param.level.description": "Malamlam na antas (0-254). Kinakailangan para sa pagkilos=dim.",
+    "param.group.description": "Opsyonal na address ng pangkat (0-15) sa halip na isang address.",
+    "param.driver.description": "Uri ng driver ng DALI.",
+    "param.host.description": "daliserver host.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "DALI {action}: addr={addr} level={level}",
+    "x_search_terms": [
+      "dali write",
+      "dali_write",
+      "dali",
+      "DALI",
+      "lighting",
+      "supports",
+      "on/off"
+    ]
+  },
+  "ms": {
+    "tool.description": "Kawal peranti pencahayaan DALI. Menyokong hidup/mati dan peredupan (0-254).",
+    "param.address.description": "Alamat peranti DALI (0-63), atau -1 untuk siaran.",
+    "param.action.description": "Tindakan: hidup, mati atau malap.",
+    "param.level.description": "Tahap malap (0-254). Diperlukan untuk tindakan=redup.",
+    "param.group.description": "Alamat kumpulan pilihan (0-15) dan bukannya alamat tunggal.",
+    "param.driver.description": "jenis pemandu DALI.",
+    "param.host.description": "hos daliserver.",
+    "param.port.description": "pelabuhan daliserver.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "DALI {action}: addr={addr} level={level}",
+    "x_search_terms": [
+      "dali write",
+      "dali_write",
+      "dali",
+      "DALI",
+      "lighting",
+      "supports",
+      "on/off"
+    ]
+  },
+  "da": {
+    "tool.description": "Styr en DALI belysningsenhed. Understøtter tænd/sluk og dæmpning (0-254).",
+    "param.address.description": "DALI-enhedsadresse (0-63) eller -1 for udsendelse.",
+    "param.action.description": "Handling: tændt, slukket eller dæmp.",
+    "param.level.description": "Dæmpningsniveau (0-254). Påkrævet for handling=dim.",
+    "param.group.description": "Valgfri gruppeadresse (0-15) i stedet for enkeltadresse.",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver vært.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI {action}: addr={addr} niveau={level}",
+    "x_search_terms": [
+      "dali write",
+      "dali_write",
+      "dali",
+      "DALI",
+      "belysning",
+      "understøtter",
+      "tænd/sluk"
+    ]
+  },
+  "nn": {
+    "tool.description": "Styr en DALI-lysenhet. Støtter av/på og dimming (0-254).",
+    "param.address.description": "DALI-enhetsadresse (0-63), eller -1 for kringkasting.",
+    "param.action.description": "Handling: på, av eller dimme.",
+    "param.level.description": "Dimnivå (0-254). Nødvendig for handling=dim.",
+    "param.group.description": "Valgfri gruppeadresse (0-15) i stedet for enkeltadresse.",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver vert.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI {action}: adr={addr} nivå={level}",
+    "x_search_terms": [
+      "dali write",
+      "dali_write",
+      "dali",
+      "DALI",
+      "lighting",
+      "støtter",
+      "på/av"
+    ]
   }
 }

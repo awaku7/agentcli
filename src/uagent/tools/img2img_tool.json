@@ -814,5 +814,101 @@
     "param.mask_path.description": "Cale opțională către o imagine de mască. Zonele transparente sunt tratate ca editabile în multe API-uri.",
     "param.output_dir.description": "Director pentru salvarea imaginilor (relative sau absolute). Setarea implicită la outputs/image_generations dacă este omis.",
     "tool.description": "Editați o imagine de intrare folosind un prompt text, salvați rezultatul ca PNG și returnați calea salvată."
+  },
+  "fil": {
+    "x_search_terms": [
+      "larawan tungo sa larawan",
+      "img2img",
+      "pagbuo ng larawan",
+      "pag-edit ng larawan",
+      "pagbabagong larawan",
+      "matatag na pagsasabog",
+      "pagproseso ng larawan",
+      "pagbabago ng larawan",
+      "pagbabago ng larawan",
+      "pagpapahusay ng larawan"
+    ],
+    "param.prompt.description": "Mga tagubilin para sa kung paano i-edit ang larawan.",
+    "param.size.description": "Laki ng larawan.",
+    "param.n.description": "Bilang ng larawan.",
+    "param.quality.description": "Kalidad ng imahe.",
+    "param.background.description": "Background ng larawan.",
+    "param.prefix.description": "Prefix para sa naka-save na filename (opsyonal).",
+    "param.img.description": "Path sa pinagmulang larawan upang i-edit.",
+    "param.mask_path.description": "Opsyonal na landas sa isang imahe ng maskara. Ang mga transparent na lugar ay itinuturing bilang nae-edit sa maraming API.",
+    "param.output_dir.description": "Direktoryo upang mag-save ng mga larawan (kamag-anak o ganap). Default sa mga output/image_generations kung aalisin.",
+    "tool.description": "Mag-edit ng input image gamit ang text prompt, i-save ang resulta bilang PNG, at ibalik ang naka-save na path."
+  },
+  "ms": {
+    "x_search_terms": [
+      "imej kepada imej",
+      "img2img",
+      "penjanaan imej",
+      "penyuntingan imej",
+      "transformasi imej",
+      "penyebaran stabil",
+      "pemprosesan imej",
+      "pengubahsuaian imej",
+      "variasi imej",
+      "penambahbaikan imej"
+    ],
+    "param.prompt.description": "Arahan untuk cara mengedit imej.",
+    "param.size.description": "Saiz imej.",
+    "param.n.description": "Kiraan imej.",
+    "param.quality.description": "Kualiti imej.",
+    "param.background.description": "Latar belakang imej.",
+    "param.prefix.description": "Awalan untuk nama fail yang disimpan (pilihan).",
+    "param.img.description": "Laluan ke imej sumber untuk diedit.",
+    "param.mask_path.description": "Laluan pilihan ke imej topeng. Kawasan lutsinar dianggap sebagai boleh diedit dalam banyak API.",
+    "param.output_dir.description": "Direktori untuk menyimpan imej (relatif atau mutlak). Lalai kepada output/generasi_imej jika ditinggalkan.",
+    "tool.description": "Edit imej input menggunakan gesaan teks, simpan hasilnya sebagai PNG dan kembalikan laluan yang disimpan."
+  },
+  "da": {
+    "x_search_terms": [
+      "billede til billede",
+      "img2img",
+      "billedgenerering",
+      "billedredigering",
+      "billedtransformation",
+      "stabil spredning",
+      "billedbehandling",
+      "billedændring",
+      "billedvariation",
+      "billedforbedring"
+    ],
+    "param.prompt.description": "Instruktioner til, hvordan du redigerer billedet.",
+    "param.size.description": "Billedstørrelse.",
+    "param.n.description": "Billedantal.",
+    "param.quality.description": "Billedkvalitet.",
+    "param.background.description": "Billede baggrund.",
+    "param.prefix.description": "Præfiks for det gemte filnavn (valgfrit).",
+    "param.img.description": "Sti til kildebilledet for at redigere.",
+    "param.mask_path.description": "Valgfri sti til et maskebillede. Gennemsigtige områder behandles som redigerbare i mange API'er.",
+    "param.output_dir.description": "Directory til at gemme billeder (relative eller absolutte). Standard til output/image_generations, hvis den udelades.",
+    "tool.description": "Rediger et inputbillede ved hjælp af en tekstprompt, gem resultatet som en PNG, og returner den gemte sti."
+  },
+  "nn": {
+    "x_search_terms": [
+      "bilde til bilde",
+      "img2img",
+      "bildegenerering",
+      "bilderedigering",
+      "bildetransformasjon",
+      "stabil diffusjon",
+      "bildebehandling",
+      "bildeendring",
+      "bildevariasjon",
+      "bildeforbedring"
+    ],
+    "param.prompt.description": "Instruksjoner for hvordan du redigerer bildet.",
+    "param.size.description": "Bildestørrelse.",
+    "param.n.description": "Antall bilder.",
+    "param.quality.description": "Bildekvalitet.",
+    "param.background.description": "Bildebakgrunn.",
+    "param.prefix.description": "Prefiks for det lagrede filnavnet (valgfritt).",
+    "param.img.description": "Bane til kildebildet for å redigere.",
+    "param.mask_path.description": "Valgfri bane til et maskebilde. Gjennomsiktige områder behandles som redigerbare i mange APIer.",
+    "param.output_dir.description": "Katalog for å lagre bilder (relative eller absolutte). Standard til utganger/bildegenerasjoner hvis utelatt.",
+    "tool.description": "Rediger et inndatabilde ved å bruke en tekstmelding, lagre resultatet som en PNG, og returner den lagrede banen."
   }
 }

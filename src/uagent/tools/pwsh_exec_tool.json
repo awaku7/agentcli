@@ -780,5 +780,97 @@
     "err.exception": "[eroare pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[eroare pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
     "err.shell_not_found": "[eroare pwsh_exec] executabilul PowerShell nu a fost găsit: %(shell)s"
+  },
+  "fil": {
+    "err.timeout": "[pwsh_exec timeout] ay hindi natapos sa loob ng %(seconds)s segundo",
+    "param.command.description": "Ipinasa ang PowerShell command string sa -Command.",
+    "param.shell.description": "PowerShell executable na gagamitin: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell). Kung tinanggal, awtomatikong piliin.",
+    "tool.description": "Huling paraan: magpatakbo ng PowerShell command. Gamitin lang kapag wala nang mas angkop na tool (MCP, atbp.) na available.",
+    "x_search_terms": [
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' ay kinakailangan",
+    "err.blocked": "[na-block ang pwsh_exec] %(reason)s",
+    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] Hindi nahanap ang executable ng PowerShell: %(shell)s"
+  },
+  "ms": {
+    "err.timeout": "[pwsh_exec timeout] tidak selesai dalam masa %(seconds)s saat",
+    "param.command.description": "Rentetan arahan PowerShell dihantar ke -Command.",
+    "param.shell.description": "PowerShell boleh laku untuk digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell). Jika ditinggalkan, autopilih.",
+    "tool.description": "Langkah terakhir: jalankan arahan PowerShell. Gunakan hanya apabila tiada alat yang lebih sesuai (MCP, dsb.) tersedia.",
+    "x_search_terms": [
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
+    ],
+    "err.command_required": "[pwsh_exec error] 'arahan' diperlukan",
+    "err.blocked": "[pwsh_exec disekat] %(reason)s",
+    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] Boleh laku PowerShell tidak ditemui: %(shell)s"
+  },
+  "da": {
+    "err.timeout": "[pwsh_exec timeout] blev ikke færdig inden for %(seconds)s sekunder",
+    "param.command.description": "PowerShell kommandostreng videregivet til -Command.",
+    "param.shell.description": "PowerShell eksekverbar til brug: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis udeladt, skal du automatisk vælge.",
+    "tool.description": "Sidste udvej: Kør en PowerShell-kommando. Brug kun, når der ikke er mere passende værktøj (MCP osv.) tilgængeligt.",
+    "x_search_terms": [
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell-kommando",
+      "scriptudførelse",
+      "windows powershell",
+      "kommando",
+      "udfør powershell",
+      "kør script",
+      "ps-kommando"
+    ],
+    "err.command_required": "[pwsh_exec fejl] 'kommando' er påkrævet",
+    "err.blocked": "[pwsh_exec blokeret] %(reason)s",
+    "err.exception": "[pwsh_exec fejl] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec fejl] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-fejl] PowerShell-eksekverbar fil blev ikke fundet: %(shell)s"
+  },
+  "nn": {
+    "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen %(seconds)s sekunder",
+    "param.command.description": "PowerShell kommandostreng sendt til -Command.",
+    "param.shell.description": "PowerShell kjørbar å bruke: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis utelatt, velger du automatisk.",
+    "tool.description": "Siste utvei: kjør en PowerShell-kommando. Bruk kun når det ikke er mer passende verktøy (MCP osv.) tilgjengelig.",
+    "x_search_terms": [
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell-kommando",
+      "skriptutførelse",
+      "windows powershell",
+      "kommando",
+      "kjør powershell",
+      "kjør script",
+      "ps-kommando"
+    ],
+    "err.command_required": "[pwsh_exec error] 'kommando' er påkrevd",
+    "err.blocked": "[pwsh_exec blokkert] %(reason)s",
+    "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikke funnet: %(shell)s"
   }
 }

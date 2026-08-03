@@ -576,5 +576,73 @@
       "設備",
       "返回"
     ]
+  },
+  "fil": {
+    "param.fmt.description": "Format: json o text.",
+    "err.config_missing": "Hindi nakita ang file ng configuration ng matter controller. Itakda ang {env_json} o {env_file}.",
+    "err.invalid_config": "Hindi ma-parse ang configuration ng matter controller: {err}",
+    "err.not_found": "Hindi nakita ang controller ng bagay: {controller_id}",
+    "param.ctrl.description": "Controller ID (alisin para sa lahat).",
+    "tool.description": "Ilista ang mga device na pinamamahalaan ng controller ng Matter at magbalik ng JSON o buod ng teksto.",
+    "x_search_terms": [
+      "listahan ng controller ng matter",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "device",
+      "return"
+    ]
+  },
+  "ms": {
+    "param.fmt.description": "Format: json atau teks.",
+    "err.config_missing": "Fail konfigurasi pengawal perkara tidak ditemui. Tetapkan {env_json} atau {env_file}.",
+    "err.invalid_config": "Konfigurasi pengawal jirim tidak dapat dihuraikan: {err}",
+    "err.not_found": "Pengawal perkara tidak ditemui: {controller_id}",
+    "param.ctrl.description": "ID Pengawal (tinggalkan untuk semua).",
+    "tool.description": "Senaraikan peranti yang diuruskan oleh pengawal Matter dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "senarai pengawal perkara",
+      "senarai_pengawal_perkara",
+      "perkara",
+      "PERKARA",
+      "peranti yang diuruskan oleh pengawal",
+      "pemulangan",
+      ""
+    ]
+  },
+  "da": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.config_missing": "Problem-controller-konfigurationsfil blev ikke fundet. Indstil {env_json} eller {env_file}.",
+    "err.invalid_config": "Sagscontrollerkonfigurationen kunne ikke parses: {err}",
+    "err.not_found": "Sagscontroller ikke fundet: {controller_id}",
+    "param.ctrl.description": "Controller-id (udelad for alle).",
+    "tool.description": "Angiv Matter-controller-administrerede enheder, og returner en JSON eller tekstoversigt.",
+    "x_search_terms": [
+      "matter controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-administrerede",
+      "enheder",
+      "retur"
+    ]
+  },
+  "nn": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.config_missing": "Konfigurasjonsfilen for sakskontrolleren ble ikke funnet. Sett {env_json} eller {env_file}.",
+    "err.invalid_config": "Sakskontrollerkonfigurasjonen kunne ikke analyseres: {err}",
+    "err.not_found": "Sakskontrolleren ble ikke funnet: {controller_id}",
+    "param.ctrl.description": "Kontroller-ID (utelat for alle).",
+    "tool.description": "Vis Matter-kontrollerstyrte enheter og returner en JSON eller tekstsammendrag.",
+    "x_search_terms": [
+      "matter controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "kontrollørstyrte",
+      "enheter",
+      "retur"
+    ]
   }
 }

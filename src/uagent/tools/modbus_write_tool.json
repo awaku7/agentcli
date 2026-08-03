@@ -780,5 +780,97 @@
       "支援"
     ],
     "param.timeout.description": "超時（以秒為單位）。"
+  },
+  "fil": {
+    "tool.description": "Sumulat ng mga halaga sa isang Modbus TCP device. Sinusuportahan ang paghawak ng mga register (single/multiple) at coils.",
+    "param.ip.description": "Target na IPv4 address ng device.",
+    "param.port.description": "Modbus TCP port (default: 502).",
+    "param.unit.description": "Modbus unit ID (default: 1).",
+    "param.type.description": "Uri ng rehistro: hawak o likid.",
+    "param.address.description": "Panimulang rehistro ng address (0-based).",
+    "param.values.description": "Mga halaga upang isulat. Para sa paghawak: mga comma-separated integer. Para sa mga coils: 'on'/'off' o '1'/'0'.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Modbus write: {ip} type={t} addr={addr} = {vals}",
+    "err.ip_required": "ip ay kinakailangan.",
+    "err.values_required": "kailangan ang mga halaga.",
+    "err.invalid_type": "Di-wastong uri. Wasto: {types}.",
+    "x_search_terms": [
+      "modbus write",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "values",
+      "supports"
+    ],
+    "param.timeout.description": "Timeout sa ilang segundo."
+  },
+  "ms": {
+    "tool.description": "Tulis nilai pada peranti Modbus TCP. Menyokong pegangan daftar (tunggal/berbilang) dan gegelung.",
+    "param.ip.description": "Alamat IPv4 peranti sasaran.",
+    "param.port.description": "Port TCP Modbus (lalai: 502).",
+    "param.unit.description": "ID unit Modbus (lalai: 1).",
+    "param.type.description": "Jenis daftar: memegang atau gegelung.",
+    "param.address.description": "Alamat pendaftaran permulaan (berasaskan 0).",
+    "param.values.description": "Nilai untuk menulis. Untuk memegang: integer dipisahkan koma. Untuk gegelung: 'hidup'/'mati' atau '1'/'0'.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Tulis modbus: {ip} jenis={t} addr={addr} = {vals}",
+    "err.ip_required": "ip diperlukan.",
+    "err.values_required": "nilai diperlukan.",
+    "err.invalid_type": "Jenis tidak sah. Sah: {types}.",
+    "x_search_terms": [
+      "modbus write",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "nilai",
+      "menyokong"
+    ],
+    "param.timeout.description": "Tamat masa dalam beberapa saat."
+  },
+  "da": {
+    "tool.description": "Skriv værdier til en Modbus TCP-enhed. Understøtter holderegistre (enkelt/flere) og spoler.",
+    "param.ip.description": "Målenhedens IPv4-adresse.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit.description": "Modbus enheds ID (standard: 1).",
+    "param.type.description": "Registertype: holding eller spole.",
+    "param.address.description": "Startregisteradresse (0-baseret).",
+    "param.values.description": "Værdier at skrive. Til at holde: kommaseparerede heltal. For spoler: 'on'/'off' eller '1'/'0'.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus-skriv: {ip} type={t} addr={addr} = {vals}",
+    "err.ip_required": "ip er påkrævet.",
+    "err.values_required": "værdier er påkrævet.",
+    "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
+    "x_search_terms": [
+      "modbus skrive",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "værdier",
+      "understøtter"
+    ],
+    "param.timeout.description": "Timeout i sekunder."
+  },
+  "nn": {
+    "tool.description": "Skriv verdier til en Modbus TCP-enhet. Støtter holderegistre (single/multiple) og spoler.",
+    "param.ip.description": "Mål enhetens IPv4-adresse.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit.description": "Modbus-enhets-ID (standard: 1).",
+    "param.type.description": "Registertype: holding eller spole.",
+    "param.address.description": "Startregisteradresse (0-basert).",
+    "param.values.description": "Verdier å skrive. For holding: kommadelte heltall. For spoler: 'på'/'av' eller '1'/'0'.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus-skriving: {ip} type={t} addr={addr} = {vals}",
+    "err.ip_required": "ip kreves.",
+    "err.values_required": "verdier kreves.",
+    "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
+    "x_search_terms": [
+      "modbus skrive",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "verdier",
+      "støtter"
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   }
 }

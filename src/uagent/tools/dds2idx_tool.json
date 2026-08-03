@@ -1154,5 +1154,141 @@
     "param.mode.description": "„index” returnează un cuprins numerotat cu numere de rând. „secțiune” returnează o definiție specifică prin număr.",
     "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
     "tool.description": "Analizați o sursă IBM i DDS (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) în înregistrări, câmpuri, chei și cuvinte cheie la nivel de fișier și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier DDS mare: mai întâi apelați cu mode='index', apoi mode='section'."
+  },
+  "fil": {
+    "x_search_terms": [
+      "basahin ang dds file",
+      "physical file dds",
+      "display file dspf",
+      "logical file lf",
+      "printer file prtf",
+      "DDS source",
+      "record format",
+      "DDS field",
+      "IBM i DDS",
+      "PF LF DSPF"
+    ],
+    "x_search_terms_en": [
+      "basahin ang dds file",
+      "physical file dds",
+      "display file dspf",
+      "logical file lf"
+    ],
+    "param.path.description": "Path sa DDS (PF/LF/DSPF/PRTF) source file.",
+    "err.path_required": "Error: 'path' ay kinakailangan.",
+    "err.file_not_found": "Error: Hindi nakita ang file: {path}",
+    "err.read_error": "Error sa pagbabasa ng file: {e}",
+    "err.parse_error": "Error sa pag-parse ng file: {e}",
+    "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
+    "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
+    "err.section_not_found": "Error: Seksyon {section_num} ay hindi nahanap. Wastong saklaw: 1..{last}.",
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
+    "msg.no_entries": "(walang nahanap na mga kahulugan)",
+    "msg.index_output": "Index para sa: {path}{type_hint}\n---\n{toc}\n---\nKabuuang mga kahulugan: {total}\nUpang kumuha ng kahulugan, tawagan ang dds2idx na may mode='section' at ang numero ng seksyon.",
+    "param.mode.description": "Ang \"index\" ay nagbabalik ng isang may bilang na talaan ng mga nilalaman na may mga numero ng linya. Ang \"seksyon\" ay nagbabalik ng isang tiyak na kahulugan ayon sa numero.",
+    "param.section.description": "Numero ng seksyon na kukunin (ginagamit lamang kapag ang mode='section'). Kunin ang numero mula sa index output.",
+    "tool.description": "Mag-parse ng IBM i DDS source (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) sa mga record, field, key, at mga keyword sa antas ng file, at magbalik ng may numerong index o isang partikular na seksyon ng kahulugan. Gamitin ito kapag kailangan mong magbasa ng malaking DDS file: tawag muna gamit ang mode='index', pagkatapos ay mode='section'."
+  },
+  "ms": {
+    "x_search_terms": [
+      "baca fail dds",
+      "fail fizikal dds",
+      "fail paparan dspf",
+      "fail logik lf",
+      "fail pencetak prtf",
+      "sumber DDS",
+      "format rekod",
+      "medan DDS",
+      "IBM i DDS",
+      "PF LF DSPF"
+    ],
+    "x_search_terms_en": [
+      "baca fail dds",
+      "fail fizikal dds",
+      "fail paparan dspf",
+      "fail logik lf"
+    ],
+    "param.path.description": "Laluan ke fail sumber DDS (PF/LF/DSPF/PRTF).",
+    "err.path_required": "Ralat: 'laluan' diperlukan.",
+    "err.file_not_found": "Ralat: Fail tidak ditemui: {path}",
+    "err.read_error": "Ralat membaca fail: {e}",
+    "err.parse_error": "Ralat menghuraikan fail: {e}",
+    "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
+    "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
+    "err.section_not_found": "Ralat: Bahagian {section_num} tidak ditemui. Julat sah: 1..{last}.",
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'.",
+    "msg.no_entries": "(tiada definisi ditemui)",
+    "msg.index_output": "Indeks untuk: {path}{type_hint}\n---\n{toc}\n---\nJumlah takrifan: {total}\nUntuk mendapatkan semula definisi, hubungi dds2idx dengan mod='section' dan nombor bahagian.",
+    "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor dengan nombor baris. \"bahagian\" mengembalikan definisi khusus mengikut nombor.",
+    "param.section.description": "Nombor bahagian untuk diambil (hanya digunakan apabila mod='section'). Dapatkan nombor daripada output indeks.",
+    "tool.description": "Menghuraikan sumber IBM i DDS (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) ke dalam rekod, medan, kunci dan kata kunci peringkat fail dan kembalikan indeks bernombor atau bahagian definisi tertentu. Gunakan ini apabila anda perlu membaca fail DDS yang besar: mula-mula panggil dengan mod='index', kemudian mod='section'."
+  },
+  "da": {
+    "x_search_terms": [
+      "læs dds file",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "x_search_terms_en": [
+      "læs dds-fil",
+      "fysisk fil dds",
+      "visningsfil dspf",
+      "logisk fil lf"
+    ],
+    "param.path.description": "Sti til kildefilen DDS (PF/LF/DSPF/PRTF).",
+    "err.path_required": "Fejl: 'sti' er påkrævet.",
+    "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
+    "err.read_error": "Fejl ved læsning af fil: {e}",
+    "err.parse_error": "Fejl ved parsing af fil: {e}",
+    "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
+    "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
+    "err.section_not_found": "Fejl: Sektion {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
+    "msg.no_entries": "(ingen definitioner fundet)",
+    "msg.index_output": "Indeks for: {path}{type_hint}\n---\n{toc}\n---\nDefinitioner i alt: {total}\nFor at hente en definition, ring til dds2idx med mode='sektion' og sektionsnummeret.",
+    "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse med linjenumre. \"sektion\" returnerer en specifik definition ved tal.",
+    "param.section.description": "Sektionsnummer at hente (bruges kun når mode='sektion'). Få tallet fra indeksoutput.",
+    "tool.description": "Parse en IBM i DDS-kilde (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) i poster, felter, nøgler og nøgleord på filniveau, og returner et nummereret indeks eller en specifik definitionssektion. Brug dette, når du skal læse en stor DDS-fil: ring først med mode='index', derefter mode='sektion'."
+  },
+  "nn": {
+    "x_search_terms": [
+      "les dds file",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "x_search_terms_en": [
+      "les dds-fil",
+      "fysisk fil dds",
+      "visningsfil dspf",
+      "logisk fil lf"
+    ],
+    "param.path.description": "Banen til kildefilen DDS (PF/LF/DSPF/PRTF).",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.read_error": "Feil ved lesing av fil: {e}",
+    "err.parse_error": "Feil ved parsing av fil: {e}",
+    "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
+    "err.section_invalid": "Feil: «seksjon» må være et heltall.",
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "msg.no_entries": "(ingen definisjoner funnet)",
+    "msg.index_output": "Indeks for: {path}{type_hint}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring dds2idx med mode='section' og seksjonsnummeret.",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
+    "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
+    "tool.description": "Parse en IBM i DDS-kilde (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) i poster, felt, nøkler og nøkkelord på filnivå, og returner en nummerert indeks eller en spesifikk definisjonsdel. Bruk denne når du trenger å lese en stor DDS-fil: ring først med mode='index', så mode='section'."
   }
 }

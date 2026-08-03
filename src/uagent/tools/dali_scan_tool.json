@@ -644,5 +644,81 @@
       "裝置",
       "匯流排"
     ]
+  },
+  "fil": {
+    "tool.description": "I-scan ang DALI bus para sa mga konektadong kagamitan sa pag-iilaw (mga address 0-63). Mga tanong sa bawat address para sa katayuan at aktwal na antas.",
+    "param.driver.description": "Uri ng driver ng DALI. Sinusubukan ng 'auto' ang Tridonic USB, pagkatapos ay ang daliserver.",
+    "param.host.description": "daliserver host (kinakailangan para sa driver=daliserver).",
+    "param.port.description": "daliserver TCP port (default: 55825).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "DALI scan: {count} (mga) device ang natagpuan sa {ms} ms.",
+    "msg.no_devices": "Walang nakitang DALI device.",
+    "x_search_terms": [
+      "dali scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "connected",
+      "lighting",
+      "device",
+      "address"
+    ]
+  },
+  "ms": {
+    "tool.description": "Imbas bas DALI untuk peranti pencahayaan yang disambungkan (alamat 0-63). Pertanyaan setiap alamat untuk status dan tahap sebenar.",
+    "param.driver.description": "jenis pemandu DALI. 'auto' mencuba Tridonic USB, kemudian daliserver.",
+    "param.host.description": "hos daliserver (diperlukan untuk pemandu=daliserver).",
+    "param.port.description": "port TCP daliserver (lalai: 55825).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Imbasan DALI: {count} peranti ditemui dalam {ms} ms.",
+    "msg.no_devices": "Tiada peranti DALI ditemui.",
+    "x_search_terms": [
+      "dali scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "disambungkan",
+      "pencahayaan",
+      "peranti",
+      "alamat"
+    ]
+  },
+  "da": {
+    "tool.description": "Scan DALI bus for tilsluttede lysenheder (adresser 0-63). Spørger hver adresse for status og faktisk niveau.",
+    "param.driver.description": "DALI driver type. 'auto' prøver Tridonic USB, derefter daliserver.",
+    "param.host.description": "daliserver vært (påkrævet for driver=daliserver).",
+    "param.port.description": "daliserver TCP-port (standard: 55825).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI-scanning: {count} enhed(er) fundet på {ms} ms.",
+    "msg.no_devices": "Der blev ikke fundet nogen DALI-enheder.",
+    "x_search_terms": [
+      "dali scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "tilsluttede",
+      "lysenheder",
+      "adresser",
+      ""
+    ]
+  },
+  "nn": {
+    "tool.description": "Skann DALI-buss for tilkoblede lysenheter (adresser 0-63). Spørrer hver adresse for status og faktisk nivå.",
+    "param.driver.description": "DALI driver type. 'auto' prøver Tridonic USB, deretter daliserver.",
+    "param.host.description": "daliserver vert (påkrevd for driver=daliserver).",
+    "param.port.description": "daliserver TCP-port (standard: 55825).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI-skanning: {count} enhet(er) funnet på {ms} ms.",
+    "msg.no_devices": "Ingen DALI-enheter ble funnet.",
+    "x_search_terms": [
+      "dali scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "tilkoblede",
+      "belysningsenheter",
+      "adresser",
+      ""
+    ]
   }
 }

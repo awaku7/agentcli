@@ -644,5 +644,81 @@
     ],
     "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”",
     "err.local_db_unavailable": "[Eroare get_geoip] DB local nu este configurat. Setați UAGENT_GEOIP_DB_PATH la un fișier .mmdb și instalați maxminddb pentru a căuta adrese IP arbitrare offline."
+  },
+  "fil": {
+    "param.format.description": "Output format.",
+    "param.ip.description": "Opsyonal na IP address upang hanapin. Kung aalisin, ang kasalukuyang pampublikong IP ay ginagamit (API mode lamang).",
+    "tool.description": "Tantyahin ang magaspang na lokasyon sa antas ng lungsod ng user mula sa kanilang pampublikong IP address. Mababang katumpakan (lungsod lamang, hindi aktwal na mga coordinate). Hindi tumpak sa VPN/proxy/mobile. Mas gusto ang get_windows_gps para sa tumpak na mga coordinate ng GPS.",
+    "x_search_terms": [
+      "geoip",
+      "geolocation",
+      "ip location",
+      "ip geo",
+      "ip address location",
+      "geo location",
+      "ip lookup",
+      "lokasyon mula sa ip",
+      "ip geolocation",
+      "ip info"
+    ],
+    "err.format_invalid": "[get_geoip error] format ay dapat na 'text' o 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Hindi na-configure ang lokal na DB. Itakda ang UAGENT_GEOIP_DB_PATH sa isang .mmdb file at i-install ang maxminddb upang maghanap ng mga arbitrary na IP address offline."
+  },
+  "ms": {
+    "param.format.description": "Format output.",
+    "param.ip.description": "Alamat IP pilihan untuk dicari. Jika ditinggalkan, IP awam semasa digunakan (mod API sahaja).",
+    "tool.description": "Anggarkan lokasi kasar peringkat bandar pengguna daripada alamat IP awam mereka. Ketepatan rendah (bandar sahaja, bukan koordinat sebenar). Tidak tepat dengan VPN/proksi/mudah alih. Lebih suka get_windows_gps untuk koordinat GPS yang tepat.",
+    "x_search_terms": [
+      "geoip",
+      "geolocation",
+      "ip lokasi",
+      "ip geo",
+      "ip lokasi alamat",
+      "geolokasi",
+      "ip carian",
+      "lokasi dari ip",
+      "ip geolokasi",
+      "ip maklumat"
+    ],
+    "err.format_invalid": "[get_geoip error] format mestilah 'teks' atau 'json'",
+    "err.local_db_unavailable": "[get_geoip error] DB tempatan tidak dikonfigurasikan. Tetapkan UAGENT_GEOIP_DB_PATH kepada fail .mmdb dan pasang maxminddb untuk mencari alamat IP sewenang-wenangnya di luar talian."
+  },
+  "da": {
+    "param.format.description": "Outputformat.",
+    "param.ip.description": "Valgfri IP-adresse at slå op. Hvis den udelades, bruges den aktuelle offentlige IP (kun tilstand API).",
+    "tool.description": "Estimer brugerens grove placering på byniveau ud fra deres offentlige IP-adresse. Lav præcision (kun by, ikke faktiske koordinater). Upræcis med VPN/proxy/mobil. Foretrækker get_windows_gps for nøjagtige GPS-koordinater.",
+    "x_search_terms": [
+      "geoip",
+      "geolocation",
+      "ip-placering",
+      "ip geo",
+      "ip-adresseplacering",
+      "geoplacering",
+      "ip-opslag",
+      "placering fra ip",
+      "ip geolocation",
+      "ip-oplysninger"
+    ],
+    "err.format_invalid": "[get_geoip error] formatet skal være 'text' eller 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigureret. Indstil UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for at finde vilkårlige IP-adresser offline."
+  },
+  "nn": {
+    "param.format.description": "Utdataformat.",
+    "param.ip.description": "Valgfri IP-adresse å slå opp. Hvis den utelates, brukes gjeldende offentlige IP-adresse (kun API-modus).",
+    "tool.description": "Estimer brukerens grove plassering på bynivå fra deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_windows_gps for nøyaktige GPS-koordinater.",
+    "x_search_terms": [
+      "geoip",
+      "geolocation",
+      "ip plassering",
+      "ip geo",
+      "ip adresse plassering",
+      "geo plassering",
+      "ip oppslag",
+      "plassering fra ip",
+      "ip geolocation",
+      "ip info"
+    ],
+    "err.format_invalid": "[get_geoip error] formatet må være 'text' eller 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigurert. Sett UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for å slå opp vilkårlige IP-adresser offline."
   }
 }

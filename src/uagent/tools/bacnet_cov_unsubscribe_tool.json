@@ -678,5 +678,85 @@
       "訂閱",
       "任務ID"
     ]
+  },
+  "fil": {
+    "tool.description": "Kanselahin ang isang BACnet COV na subscription sa pamamagitan ng task_id, o ilista ang mga aktibong subscription.",
+    "param.action.description": "Pagkilos: 'unsubscribe' (default) upang kanselahin sa pamamagitan ng task_id, o 'list' upang ipakita ang mga aktibong subscription.",
+    "param.task_id.description": "COV task_id para mag-unsubscribe (kinakailangan para sa aksyon=mag-unsubscribe).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.no_subscriptions": "Walang aktibong COV na mga subscription.",
+    "msg.subscriptions_header": "Mga aktibong COV na subscription ({count}):",
+    "msg.unsubscribed": "COV subscription task_id={task_id} nakansela.",
+    "err.task_id_required": "task_id ay kinakailangan para sa action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov unsubscribe",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancel",
+      "subscription",
+      "task_id"
+    ]
+  },
+  "ms": {
+    "tool.description": "Batalkan langganan BACnet COV mengikut task_id, atau senaraikan langganan aktif.",
+    "param.action.description": "Tindakan: 'nyahlanggan' (lalai) untuk membatalkan mengikut task_id, atau 'senarai' untuk menunjukkan langganan aktif.",
+    "param.task_id.description": "COV task_id untuk menyahlanggan (diperlukan untuk tindakan=berhenti melanggan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tiada langganan COV aktif.",
+    "msg.subscriptions_header": "Langganan COV aktif ({count}):",
+    "msg.unsubscribed": "task_id langganan COV={task_id} dibatalkan.",
+    "err.task_id_required": "task_id diperlukan untuk action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov unsubscribe",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancel",
+      "subscription",
+      "task_id"
+    ]
+  },
+  "da": {
+    "tool.description": "Annuller et BACnet COV-abonnement efter opgave-id, eller angiv aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) for at annullere af task_id, eller 'list' for at vise aktive abonnementer.",
+    "param.task_id.description": "COV task_id for at afmelde (påkrævet for action=unsubscribe).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive COV-abonnementer.",
+    "msg.subscriptions_header": "Aktive COV-abonnementer ({count}):",
+    "msg.unsubscribed": "COV-abonnement task_id={task_id} annulleret.",
+    "err.task_id_required": "task_id er påkrævet for action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov unsubscribe",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancel",
+      "subscription",
+      "task_id"
+    ]
+  },
+  "nn": {
+    "tool.description": "Avbryt et BACnet COV-abonnement med oppgave-id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) for å avbryte med task_id, eller 'list' for å vise aktive abonnementer.",
+    "param.task_id.description": "COV task_id for å avslutte abonnementet (påkrevd for action=unsubscribe).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive COV-abonnementer.",
+    "msg.subscriptions_header": "Aktive COV-abonnementer ({count}):",
+    "msg.unsubscribed": "COV-abonnement task_id={task_id} kansellert.",
+    "err.task_id_required": "task_id kreves for action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov unsubscribe",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancel",
+      "subscription",
+      "task_id"
+    ]
   }
 }

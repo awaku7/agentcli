@@ -712,5 +712,89 @@
     "err.not_found": "ไม่ได้ติดตั้งทักษะ '{name}' ใน {root}",
     "success.uninstalled": "ถอนการติดตั้งทักษะ '{name}' จาก {path} สำเร็จแล้ว",
     "err.unexpected": "เกิดข้อผิดพลาดที่ไม่คาดคิด: {error}"
+  },
+  "fil": {
+    "param.name.description": "Ang pangalan ng folder ng kasanayang i-uninstall.",
+    "tool.description": "Mag-uninstall ng Ahente Skill mula sa ~/.uag/skills.",
+    "x_search_terms": [
+      "skill uninstall",
+      "uninstall skill",
+      "remove skill",
+      "delete skill",
+      "skill remove",
+      "agent skill",
+      "uninstall",
+      "skill management",
+      "skill delete",
+      "alisin agent skill"
+    ],
+    "err.name_required": "Kinakailangan ang pangalan ng kasanayan.",
+    "err.invalid_name": "Di-wastong pangalan ng folder ng kasanayan: {name}",
+    "err.not_found": "Ang kasanayang '{name}' ay hindi naka-install sa {root}",
+    "success.uninstalled": "Matagumpay na na-uninstall ang kasanayang '{name}' mula sa {path}",
+    "err.unexpected": "May naganap na hindi inaasahang error: {error}"
+  },
+  "ms": {
+    "param.name.description": "Nama folder kemahiran untuk dinyahpasang.",
+    "tool.description": "Nyahpasang Skill Ejen daripada ~/.uag/skills.",
+    "x_search_terms": [
+      "kemahiran nyahpasang",
+      "nyahpasang kemahiran",
+      "alih keluar kemahiran",
+      "padam kemahiran",
+      "kemahiran alih",
+      "kemahiran ejen",
+      "nyahpasang",
+      "pengurusan kemahiran",
+      "kemahiran padam",
+      "alih keluar kemahiran ejen"
+    ],
+    "err.name_required": "Nama kemahiran diperlukan.",
+    "err.invalid_name": "Nama folder kemahiran tidak sah: {name}",
+    "err.not_found": "Kemahiran '{name}' tidak dipasang dalam {root}",
+    "success.uninstalled": "Berjaya menyahpasang kemahiran '{name}' daripada {path}",
+    "err.unexpected": "Ralat yang tidak dijangka berlaku: {error}"
+  },
+  "da": {
+    "param.name.description": "Mappenavnet på den færdighed, der skal afinstalleres.",
+    "tool.description": "Afinstaller en Agent Skill fra ~/.uag/skills.",
+    "x_search_terms": [
+      "færdighed afinstaller",
+      "afinstaller færdighed",
+      "fjern færdighed",
+      "slet færdighed",
+      "skill fjern",
+      "agent færdighed",
+      "afinstaller",
+      "færdighedsstyring",
+      "færdighed slet",
+      "fjern agent færdighed"
+    ],
+    "err.name_required": "Navn på færdighed er påkrævet.",
+    "err.invalid_name": "Ugyldigt navn på færdighedsmappe: {name}",
+    "err.not_found": "Færdighed '{name}' er ikke installeret i {root}",
+    "success.uninstalled": "Afinstalleret færdighed '{name}' fra {path}",
+    "err.unexpected": "Der opstod en uventet fejl: {error}"
+  },
+  "nn": {
+    "param.name.description": "Mappenavnet til ferdigheten som skal avinstalleres.",
+    "tool.description": "Avinstaller en agentferdighet fra ~/.uag/skills.",
+    "x_search_terms": [
+      "ferdighet avinstaller",
+      "avinstaller ferdighet",
+      "fjern ferdighet",
+      "slett ferdighet",
+      "ferdighet fjern",
+      "agentferdighet",
+      "avinstaller",
+      "ferdighetsadministrasjon",
+      "ferdighet slette",
+      "fjern agentferdighet"
+    ],
+    "err.name_required": "Navn på ferdigheter kreves.",
+    "err.invalid_name": "Ugyldig navn på ferdighetsmappe: {name}",
+    "err.not_found": "Ferdigheten '{name}' er ikke installert i {root}",
+    "success.uninstalled": "Vellykket avinstallert ferdighet '{name}' fra {path}",
+    "err.unexpected": "Det oppstod en uventet feil: {error}"
   }
 }

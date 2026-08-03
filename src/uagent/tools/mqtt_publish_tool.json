@@ -814,5 +814,101 @@
       "主題",
       "連線"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-publish ng mensahe sa isang paksa ng MQTT. Kumokonekta, naglalathala, at nagdidiskonekta.",
+    "param.host.description": "MQTT broker hostname o IP.",
+    "param.port.description": "MQTT broker port (default: 1883).",
+    "param.topic.description": "MQTT paksa kung saan i-publish.",
+    "param.payload.description": "Payload ng mensahe.",
+    "param.qos.description": "Antas ng QoS (0, 1, 2).",
+    "param.retain.description": "Panatilihin ang mensahe sa broker.",
+    "param.username.description": "MQTT username (opsyonal).",
+    "param.password.description": "MQTT password (opsyonal).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.sent": "Na-publish ang MQTT: {topic} = {payload} [{qos}]",
+    "param.use_tls.description": "Paganahin ang TLS/SSL (MQTTS). Ang default na port ay nagiging 8883.",
+    "param.insecure.description": "Laktawan ang pag-verify ng TLS certificate (hindi sigurado).",
+    "x_search_terms": [
+      "mqtt publish",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "message",
+      "topic",
+      "nag-uugnay"
+    ]
+  },
+  "ms": {
+    "tool.description": "Terbitkan mesej kepada topik MQTT. Menyambung, menerbitkan dan memutuskan sambungan.",
+    "param.host.description": "Nama hos atau IP broker MQTT.",
+    "param.port.description": "Pelabuhan broker MQTT (lalai: 1883).",
+    "param.topic.description": "Topik MQTT untuk diterbitkan.",
+    "param.payload.description": "Muatan mesej.",
+    "param.qos.description": "Tahap QoS (0, 1, 2).",
+    "param.retain.description": "Kekalkan mesej pada broker.",
+    "param.username.description": "Nama pengguna MQTT (pilihan).",
+    "param.password.description": "Kata laluan MQTT (pilihan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.sent": "MQTT diterbitkan: {topic} = {payload} [{qos}]",
+    "param.use_tls.description": "Dayakan TLS/SSL (MQTTS). Port lalai menjadi 8883.",
+    "param.insecure.description": "Langkau pengesahan sijil TLS (tidak selamat).",
+    "x_search_terms": [
+      "mqtt publish",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "mesej",
+      "topik",
+      "bersambung"
+    ]
+  },
+  "da": {
+    "tool.description": "Udgiv en besked til et MQTT-emne. Opretter forbindelse, udgiver og afbryder.",
+    "param.host.description": "MQTT-mæglerens værtsnavn eller IP.",
+    "param.port.description": "MQTT-mæglerport (standard: 1883).",
+    "param.topic.description": "MQTT-emne at udgive til.",
+    "param.payload.description": "Beskeds nyttelast.",
+    "param.qos.description": "QoS-niveau (0, 1, 2).",
+    "param.retain.description": "Behold besked på mægler.",
+    "param.username.description": "MQTT-brugernavn (valgfrit).",
+    "param.password.description": "MQTT-adgangskode (valgfrit).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.sent": "MQTT offentliggjort: {topic} = {payload} [{qos}]",
+    "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten bliver 8883.",
+    "param.insecure.description": "Spring over TLS-certifikatbekræftelse (usikker).",
+    "x_search_terms": [
+      "mqtt publish",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "message",
+      "topic",
+      "connects"
+    ]
+  },
+  "nn": {
+    "tool.description": "Publiser en melding til et MQTT-emne. Kobler til, publiserer og kobler fra.",
+    "param.host.description": "MQTT-meglerens vertsnavn eller IP.",
+    "param.port.description": "MQTT meglerport (standard: 1883).",
+    "param.topic.description": "MQTT-emne å publisere til.",
+    "param.payload.description": "Meldingsnyttelast.",
+    "param.qos.description": "QoS-nivå (0, 1, 2).",
+    "param.retain.description": "Behold melding på megler.",
+    "param.username.description": "MQTT-brukernavn (valgfritt).",
+    "param.password.description": "MQTT-passord (valgfritt).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.sent": "MQTT publisert: {topic} = {payload} [{qos}]",
+    "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten blir 8883.",
+    "param.insecure.description": "Hopp over TLS-sertifikatverifisering (usikker).",
+    "x_search_terms": [
+      "mqtt publish",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "message",
+      "topic",
+      "connects"
+    ]
   }
 }

@@ -814,5 +814,101 @@
       "訊息",
       "自動"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa isang paksa ng MQTT. Ang mga mensahe ay awtomatikong ipinapasa sa LLM sa pamamagitan ng SchedulerStore.",
+    "param.host.description": "MQTT broker hostname o IP.",
+    "param.port.description": "MQTT broker port.",
+    "param.topic.description": "MQTT paksa upang mag-subscribe sa (mga wildcard suportado).",
+    "param.qos.description": "Antas ng QoS (0, 1, 2).",
+    "param.label.description": "Nababasa ng tao ang label para sa subscription na ito.",
+    "param.on_message_prompt.description": "Opsyonal na LLM prompt kapag may dumating na mensahe.",
+    "param.username.description": "MQTT username (opsyonal).",
+    "param.password.description": "MQTT password (opsyonal).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.subscribed": "Naka-subscribe ang MQTT: {label} [{topic}] @ {host}",
+    "param.use_tls.description": "Paganahin ang TLS/SSL (MQTTS). Ang default na port ay nagiging 8883.",
+    "param.insecure.description": "Laktawan ang pag-verify ng TLS certificate (hindi sigurado).",
+    "x_search_terms": [
+      "mqtt subscribe",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "topic",
+      "mensahe",
+      "awtomatikong"
+    ]
+  },
+  "ms": {
+    "tool.description": "Langgan topik MQTT. Mesej dimajukan secara automatik ke LLM melalui SchedulerStore.",
+    "param.host.description": "Nama hos atau IP broker MQTT.",
+    "param.port.description": "Pelabuhan broker MQTT.",
+    "param.topic.description": "Topik MQTT untuk dilanggan (kad liar disokong).",
+    "param.qos.description": "Tahap QoS (0, 1, 2).",
+    "param.label.description": "Label boleh dibaca manusia untuk langganan ini.",
+    "param.on_message_prompt.description": "Gesaan LLM pilihan apabila mesej tiba.",
+    "param.username.description": "Nama pengguna MQTT (pilihan).",
+    "param.password.description": "Kata laluan MQTT (pilihan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "MQTT melanggan: {label} [{topic}] @ {host}",
+    "param.use_tls.description": "Dayakan TLS/SSL (MQTTS). Port lalai menjadi 8883.",
+    "param.insecure.description": "Langkau pengesahan sijil TLS (tidak selamat).",
+    "x_search_terms": [
+      "mqtt melanggan",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "topik",
+      "mesej",
+      "secara automatik"
+    ]
+  },
+  "da": {
+    "tool.description": "Abonner på et MQTT-emne. Beskeder videresendes automatisk til LLM via SchedulerStore.",
+    "param.host.description": "MQTT-mæglerens værtsnavn eller IP.",
+    "param.port.description": "MQTT-mæglerport.",
+    "param.topic.description": "MQTT-emne at abonnere på (understøttede jokertegn).",
+    "param.qos.description": "QoS-niveau (0, 1, 2).",
+    "param.label.description": "Menneskelæselig etiket for dette abonnement.",
+    "param.on_message_prompt.description": "Valgfri LLM prompt, når en meddelelse ankommer.",
+    "param.username.description": "MQTT-brugernavn (valgfrit).",
+    "param.password.description": "MQTT-adgangskode (valgfrit).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "MQTT abonnerede: {label} [{topic}] @ {host}",
+    "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten bliver 8883.",
+    "param.insecure.description": "Spring over TLS-certifikatbekræftelse (usikker).",
+    "x_search_terms": [
+      "mqtt subscribe",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "emne",
+      "beskeder",
+      "automatisk"
+    ]
+  },
+  "nn": {
+    "tool.description": "Abonner på et MQTT-emne. Meldinger videresendes automatisk til LLM via SchedulerStore.",
+    "param.host.description": "MQTT-meglerens vertsnavn eller IP.",
+    "param.port.description": "MQTT meglerport.",
+    "param.topic.description": "MQTT-emne å abonnere på (jokertegn støttes).",
+    "param.qos.description": "QoS-nivå (0, 1, 2).",
+    "param.label.description": "Menneskelest etikett for dette abonnementet.",
+    "param.on_message_prompt.description": "Valgfri LLM melding når en melding kommer.",
+    "param.username.description": "MQTT-brukernavn (valgfritt).",
+    "param.password.description": "MQTT-passord (valgfritt).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "MQTT abonnerer: {label} [{topic}] @ {host}",
+    "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten blir 8883.",
+    "param.insecure.description": "Hopp over TLS-sertifikatverifisering (usikker).",
+    "x_search_terms": [
+      "mqtt subscribe",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "topic",
+      "meldinger",
+      "automatisk"
+    ]
   }
 }

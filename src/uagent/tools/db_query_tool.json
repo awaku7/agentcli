@@ -644,5 +644,81 @@
     ],
     "err.readonly": "[db_query error] Sunt permise numai instrucțiunile SELECT și PRAGMA.",
     "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+  },
+  "fil": {
+    "param.db_path.description": "Path sa SQLite database file.",
+    "param.sql.description": "SQL upang maisagawa.",
+    "tool.description": "Magsagawa ng mga query sa SQL laban sa isang database ng SQLite at ibalik ang resulta. Mga read-only na operasyon (SELECT) at schema inspection (PRAGMA) lang ang sinusuportahan.",
+    "x_search_terms": [
+      "database",
+      "db query",
+      "sql",
+      "query database",
+      "database query",
+      "sql query",
+      "db select",
+      "run query",
+      "data query",
+      "database search"
+    ],
+    "err.readonly": "[db_query error] Tanging ang SELECT at PRAGMA statement ang pinapayagan.",
+    "msg.result": "[db_query]\nmga hilera={rows}\nmga hanay={cols}"
+  },
+  "ms": {
+    "param.db_path.description": "Laluan ke fail pangkalan data SQLite.",
+    "param.sql.description": "SQL untuk dilaksanakan.",
+    "tool.description": "Jalankan pertanyaan SQL terhadap pangkalan data SQLite dan kembalikan hasilnya. Hanya operasi baca sahaja (SELECT) dan pemeriksaan skema (PRAGMA) disokong.",
+    "x_search_terms": [
+      "pangkalan data",
+      "db query",
+      "sql",
+      "query database",
+      "database query",
+      "sql query",
+      "db select",
+      "run query",
+      "data query",
+      "database search"
+    ],
+    "err.readonly": "[db_query error] Hanya pernyataan SELECT dan PRAGMA sahaja dibenarkan.",
+    "msg.result": "[db_query]\nbaris={rows}\nlajur={cols}"
+  },
+  "da": {
+    "param.db_path.description": "Sti til SQLite-databasefilen.",
+    "param.sql.description": "SQL til at udføre.",
+    "tool.description": "Udfør SQL-forespørgsler mod en SQLite-database og returner resultatet. Kun skrivebeskyttede operationer (SELECT) og skemainspektion (PRAGMA) understøttes.",
+    "x_search_terms": [
+      "database",
+      "db forespørgsel",
+      "sql",
+      "forespørgsel database",
+      "databaseforespørgsel",
+      "sql forespørgsel",
+      "db select",
+      "kør forespørgsel",
+      "dataforespørgsel",
+      "databasesøgning"
+    ],
+    "err.readonly": "[db_query error] Kun SELECT- og PRAGMA-sætninger er tilladt.",
+    "msg.result": "[db_query]\nrows={rows}\nkolonner={cols}"
+  },
+  "nn": {
+    "param.db_path.description": "Banen til SQLite-databasefilen.",
+    "param.sql.description": "SQL å kjøre.",
+    "tool.description": "Utfør SQL-spørringer mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemainspeksjon (PRAGMA) støttes.",
+    "x_search_terms": [
+      "database",
+      "db query",
+      "sql",
+      "query database",
+      "database query",
+      "sql query",
+      "db select",
+      "kjør query",
+      "dataspørring",
+      "databasesøk"
+    ],
+    "err.readonly": "[db_query error] Bare SELECT- og PRAGMA-setninger er tillatt.",
+    "msg.result": "[db_query]\nrows={rows}\nkolonner={cols}"
   }
 }

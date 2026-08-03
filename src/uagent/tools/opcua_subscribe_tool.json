@@ -644,5 +644,81 @@
       "變更"
     ],
     "param.timeout.description": "連接逾時。"
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa mga pagbabago sa data sa isang OPC UA server node. Kapag nagbago ang halaga, awtomatikong ino-notify ang LLM.",
+    "param.url.description": "URL ng server ng OPC UA.",
+    "param.node_id.description": "Node ID na susubaybayan (hal. 'i=85' o 'ns=2;s=Temperature').",
+    "param.label.description": "Label na nababasa ng tao (hal. 'ボイラー温度').",
+    "param.on_change_prompt.description": "Opsyonal na prompt para sa LLM kapag nagbago ang halaga.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.subscribed": "Aktibo ang subscription sa OPC UA: id={id}, {label}",
+    "err.url_required": "kailangan ang url.",
+    "err.node_id_required": "node_id ay kinakailangan.",
+    "x_search_terms": [
+      "opcua subscribe",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "mga pagbabago"
+    ],
+    "param.timeout.description": "Timeout ng koneksyon."
+  },
+  "ms": {
+    "tool.description": "Langgan perubahan data pada nod pelayan OPC UA. Apabila nilai berubah, LLM dimaklumkan secara automatik.",
+    "param.url.description": "URL pelayan OPC UA.",
+    "param.node_id.description": "ID nod untuk memantau (cth. 'i=85' atau 'ns=2;s=Suhu').",
+    "param.label.description": "Label boleh dibaca manusia (cth. 'ボイラー温度').",
+    "param.on_change_prompt.description": "Gesaan pilihan untuk LLM apabila nilai berubah.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "Langganan OPC UA aktif: id={id}, {label}",
+    "err.url_required": "url diperlukan.",
+    "err.node_id_required": "node_id diperlukan.",
+    "x_search_terms": [
+      "opcua subscribe",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "perubahan"
+    ],
+    "param.timeout.description": "Tamat masa sambungan."
+  },
+  "da": {
+    "tool.description": "Abonner på dataændringer på en OPC UA-servernode. Når værdien ændres, får LLM automatisk besked.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Node-id til overvågning (f.eks. 'i=85' eller 'ns=2;s=Temperature').",
+    "param.label.description": "Etiket, der kan læses af mennesker (f.eks. 'ボイラー温度').",
+    "param.on_change_prompt.description": "Valgfri meddelelse om LLM, når værdien ændres.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "OPC UA-abonnement aktivt: id={id}, {label}",
+    "err.url_required": "url er påkrævet.",
+    "err.node_id_required": "node_id er påkrævet.",
+    "x_search_terms": [
+      "opcua subscribe",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "ændringer"
+    ],
+    "param.timeout.description": "Forbindelse timeout."
+  },
+  "nn": {
+    "tool.description": "Abonner på dataendringer på en OPC UA-servernode. Når verdien endres, blir LLM automatisk varslet.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Node-ID som skal overvåkes (f.eks. 'i=85' eller 'ns=2;s=Temperature').",
+    "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'ボイラー温度').",
+    "param.on_change_prompt.description": "Valgfri melding om LLM når verdien endres.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "OPC UA-abonnement aktivt: id={id}, {label}",
+    "err.url_required": "url er påkrevd.",
+    "err.node_id_required": "node_id kreves.",
+    "x_search_terms": [
+      "opcua subscribe",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "endringer"
+    ],
+    "param.timeout.description": "Tidsavbrudd for tilkobling."
   }
 }

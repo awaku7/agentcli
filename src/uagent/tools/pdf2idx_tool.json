@@ -781,5 +781,97 @@
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: Pagina {section_num} nu a fost găsită. Interval valid: 1..{last}.",
     "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+  },
+  "fil": {
+    "tool.description": "I-parse ang isang PDF na dokumento (.pdf) sa mga buod ng pahina at mga preview ng teksto, na nagbabalik ng isang may numerong index o isang partikular na seksyon ng pahina. Gamitin ito kapag nagbabasa ng malalaking PDF file: tumawag gamit ang mode='index' para makuha ang listahan ng mga page na may preview na text, pagkatapos ay tumawag gamit ang mode='section' at section=N para makuha ang buong text content ng page na iyon.",
+    "x_search_terms": [
+      "basahin ang pdf file",
+      "pdf index",
+      "pdf parser",
+      "pdf page reader",
+      "pdf section"
+    ],
+    "param.path.description": "Path sa PDF (.pdf) file.",
+    "param.mode.description": "Ang \"index\" ay nagbabalik ng isang may bilang na talaan ng mga nilalaman na naglilista ng mga pahina na may mga preview. Ibinabalik ng \"seksyon\" ang buong nilalaman ng teksto ng isang partikular na pahina.",
+    "param.section.description": "Page number na kukunin (1-index, ginagamit lang kapag mode='section'). Kunin ang numero mula sa index output.",
+    "err.path_required": "Error: 'path' ay kinakailangan.",
+    "err.read_error": "Error sa pagbabasa ng file: {e}",
+    "err.file_not_found": "Error: Hindi nakita ang file: {path}",
+    "err.parse_error": "Error sa pag-parse ng PDF file: {e}",
+    "msg.no_pages": "(walang mga pahina na natagpuan sa PDF)",
+    "msg.index_output": "Index para sa: {path}\n---\n{toc}\n---\nKabuuang mga pahina: {total}\nUpang kunin ang isang pahina, tumawag sa pdf2idx na may mode='section' at section=N.",
+    "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
+    "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
+    "err.section_not_found": "Error: Hindi nakita ang page {section_num}. Wastong saklaw: 1..{last}.",
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'."
+  },
+  "ms": {
+    "tool.description": "Menghuraikan dokumen PDF (.pdf) ke dalam ringkasan halaman dan pratonton teks, mengembalikan indeks bernombor atau bahagian halaman tertentu. Gunakan ini apabila membaca fail PDF yang besar: panggil dengan mode='index' untuk mendapatkan senarai halaman dengan teks pratonton, kemudian panggil dengan mode='section' dan section=N untuk mendapatkan kembali kandungan teks penuh halaman tersebut.",
+    "x_search_terms": [
+      "baca fail pdf",
+      "indeks pdf",
+      "penghuraikan pdf",
+      "pembaca halaman pdf",
+      "bahagian pdf"
+    ],
+    "param.path.description": "Laluan ke fail PDF (.pdf).",
+    "param.mode.description": "\"indeks\" mengembalikan halaman senarai kandungan bernombor dengan pratonton. \"bahagian\" mengembalikan kandungan teks penuh halaman tertentu.",
+    "param.section.description": "Nombor halaman untuk diambil (1-diindeks, digunakan hanya apabila mod='bahagian'). Dapatkan nombor daripada output indeks.",
+    "err.path_required": "Ralat: 'laluan' diperlukan.",
+    "err.read_error": "Ralat membaca fail: {e}",
+    "err.file_not_found": "Ralat: Fail tidak ditemui: {path}",
+    "err.parse_error": "Ralat menghuraikan fail PDF: {e}",
+    "msg.no_pages": "(tiada halaman ditemui dalam PDF)",
+    "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nJumlah halaman: {total}\nUntuk mendapatkan semula halaman, hubungi pdf2idx dengan mode='section' dan section=N.",
+    "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
+    "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
+    "err.section_not_found": "Ralat: Halaman {section_num} tidak ditemui. Julat sah: 1..{last}.",
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'."
+  },
+  "da": {
+    "tool.description": "Parse et PDF-dokument (.pdf) i sideresuméer og tekstforhåndsvisninger, hvilket returnerer et nummereret indeks eller et specifikt sideafsnit. Brug dette, når du læser store PDF-filer: ring med mode='index' for at få listen over sider med forhåndsvisningstekst, ring derefter med mode='section' og section=N for at hente hele tekstindholdet på den side.",
+    "x_search_terms": [
+      "læs pdf-fil",
+      "pdf-indeks",
+      "pdf-parser",
+      "pdf-sidelæser",
+      "pdf-sektion"
+    ],
+    "param.path.description": "Sti til PDF-filen (.pdf).",
+    "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse, der viser sider med forhåndsvisninger. \"sektion\" returnerer fuldtekstindholdet på en bestemt side.",
+    "param.section.description": "Sidenummer at hente (1-indekseret, bruges kun når mode='sektion'). Få tallet fra indeksoutput.",
+    "err.path_required": "Fejl: 'sti' er påkrævet.",
+    "err.read_error": "Fejl ved læsning af fil: {e}",
+    "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
+    "err.parse_error": "Fejl ved parsing af PDF-fil: {e}",
+    "msg.no_pages": "(ingen sider fundet i PDF)",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nSider i alt: {total}\nFor at hente en side, ring til pdf2idx med mode='section' og section=N.",
+    "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
+    "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
+    "err.section_not_found": "Fejl: Side {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
+  },
+  "nn": {
+    "tool.description": "Parse et PDF-dokument (.pdf) til sidesammendrag og tekstforhåndsvisninger, og returner en nummerert indeks eller en bestemt sidedel. Bruk dette når du leser store PDF-filer: ring med mode='index' for å få listen over sider med forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet på den siden.",
+    "x_search_terms": [
+      "les pdf-fil",
+      "pdf-indeks",
+      "pdf-parser",
+      "pdf-sideleser",
+      "pdf-seksjon"
+    ],
+    "param.path.description": "Bane til PDF-filen (.pdf).",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse som viser sider med forhåndsvisninger. \"seksjon\" returnerer fulltekstinnholdet på en bestemt side.",
+    "param.section.description": "Sidenummer å hente (1-indeksert, brukes kun når mode='seksjon'). Få tallet fra indeksutgangen.",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.read_error": "Feil ved lesing av fil: {e}",
+    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.parse_error": "Feil ved parsing av PDF-fil: {e}",
+    "msg.no_pages": "(ingen sider funnet i PDF)",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall sider: {total}\nFor å hente en side, ring pdf2idx med mode='section' og section=N.",
+    "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
+    "err.section_invalid": "Feil: «seksjon» må være et heltall.",
+    "err.section_not_found": "Feil: Side {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
   }
 }

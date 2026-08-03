@@ -746,5 +746,93 @@
     "ui.resume_prompt": "După operație, apăsați Reluare (▷) în Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR A STARTED ---",
     "tool.description": "Lansează Playwright Inspector pentru a captura operațiunile browserului. Deschide URL-ul specificat și salvează starea paginii (HTML și imagine) după ce utilizatorul face clic pe elementul țintă."
+  },
+  "fil": {
+    "err.child_failed": "[playwright_inspector error] Nabigo ang proseso ng bata:\n{stderr}",
+    "out.ok": "Kumpleto na ang pagkuha: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html na ginawa.\n{stdout}",
+    "param.prefix.description": "Prefix ng pangalan ng file na ise-save (default: debug_capture)",
+    "param.url.description": "Unang URL na bubuksan (default: about:blank)",
+    "tool.description": "Ilunsad ang Playwright Inspector upang makuha ang mga pagpapatakbo ng browser. Binubuksan ang tinukoy na URL at sine-save ang status ng page (HTML at larawan) pagkatapos i-click ng user ang target na elemento.",
+    "x_search_terms": [
+      "playwright inspector",
+      "browser inspector",
+      "page inspector",
+      "inspect element",
+      "capture click",
+      "playwright debug",
+      "selector pick",
+      "element inspector",
+      "browser debug",
+      "ui inspector"
+    ],
+    "ui.captured": "--- NAKUHA: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Pagkatapos ng operasyon, pindutin ang Resume (▷) sa Inspector.",
+    "ui.started": "--- NAGSIMULA NA ANG PLAYWRIGHT INSPECTOR ---"
+  },
+  "ms": {
+    "err.child_failed": "[playwright_inspector error] Proses kanak-kanak gagal:\n{stderr}",
+    "out.ok": "Tangkap lengkap: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html dicipta.\n{stdout}",
+    "param.prefix.description": "Awalan nama fail untuk disimpan (lalai: debug_capture)",
+    "param.url.description": "URL pertama dibuka (lalai: about:blank)",
+    "tool.description": "Lancarkan Playwright Inspektor untuk menangkap operasi penyemak imbas. Membuka URL yang ditentukan dan menyimpan keadaan halaman (HTML dan imej) selepas pengguna mengklik elemen sasaran.",
+    "x_search_terms": [
+      "pemeriksa drama",
+      "pemeriksa penyemak imbas",
+      "pemeriksa halaman",
+      "periksa elemen",
+      "klik tangkap",
+      "nyahpepijat penulis drama",
+      "pemilihpemilih",
+      "pemeriksa elemen",
+      "nyahpepijat penyemak imbas",
+      "pemeriksa ui"
+    ],
+    "ui.captured": "--- DITANGKAP: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Selepas operasi, tekan Resume (▷) dalam Inspektor.",
+    "ui.started": "--- PEMERIKSA PLAYWRIGHT BERMULA ---"
+  },
+  "da": {
+    "err.child_failed": "[playwright_inspector error] Underordnet proces mislykkedes:\n{stderr}",
+    "out.ok": "Optagelsen er fuldført: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, seneste.html oprettet.\n{stdout}",
+    "param.prefix.description": "Præfiks for filnavn, der skal gemmes (standard: debug_capture)",
+    "param.url.description": "Første URL at åbne (standard: about:blank)",
+    "tool.description": "Start Playwright Inspector for at fange browserhandlinger. Åbner den angivne URL og gemmer sidetilstanden (HTML og billede), efter at brugeren har klikket på målelementet.",
+    "x_search_terms": [
+      "playwright inspector",
+      "browser inspector",
+      "page inspector",
+      "inspect element",
+      "capture click",
+      "playwright debug",
+      "selector pick",
+      "element inspector",
+      "browser debug",
+      "ui inspector"
+    ],
+    "ui.captured": "--- FANGET: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Efter operationen skal du trykke på Genoptag (▷) i Inspektøren.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+  },
+  "nn": {
+    "err.child_failed": "[playwright_inspector error] Underordnet prosess mislyktes:\n{stderr}",
+    "out.ok": "Opptaket er fullført: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, siste.html opprettet.\n{stdout}",
+    "param.prefix.description": "Prefiks for filnavn som skal lagres (standard: debug_capture)",
+    "param.url.description": "Første URL som åpnes (standard: about:blank)",
+    "tool.description": "Start Playwright Inspector for å fange nettleseroperasjoner. Åpner den angitte URL-en og lagrer sidetilstanden (HTML og bilde) etter at brukeren klikker på målelementet.",
+    "x_search_terms": [
+      "playwright inspector",
+      "nettleserinspektør",
+      "sideinspektør",
+      "inspiser element",
+      "capture click",
+      "playwright debug",
+      "selector pick",
+      "element inspector",
+      "nettleserfeilsøking",
+      "ui inspector"
+    ],
+    "ui.captured": "--- FANGET: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Etter operasjonen trykker du på Fortsett (▷) i inspektøren.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
   }
 }

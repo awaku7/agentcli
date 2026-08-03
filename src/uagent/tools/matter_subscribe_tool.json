@@ -576,5 +576,73 @@
       "物質",
       "變更"
     ]
+  },
+  "fil": {
+    "tool.description": "Mag-subscribe sa mga pagbabago sa estado ng isang Matter device.",
+    "err.device_id_required": "Kinakailangan ang Device ID.",
+    "param.dev.description": "Device ID (kinakailangan).",
+    "param.endpoint.description": "Endpoint filter (opsyonal).",
+    "param.cluster.description": "Cluster filter (opsyonal).",
+    "param.attribute.description": "Filter ng katangian (opsyonal).",
+    "param.duration.description": "Tagal ng subscription sa mga segundo (default 3600).",
+    "param.fmt.description": "Format: json o text.",
+    "x_search_terms": [
+      "matter subscribe",
+      "matter_subscribe",
+      "matter",
+      "MATTER",
+      "mga pagbabago"
+    ]
+  },
+  "ms": {
+    "tool.description": "Langgan untuk menyatakan perubahan peranti Matter.",
+    "err.device_id_required": "ID peranti diperlukan.",
+    "param.dev.description": "ID Peranti (diperlukan).",
+    "param.endpoint.description": "Penapis titik akhir (pilihan).",
+    "param.cluster.description": "Penapis kluster (pilihan).",
+    "param.attribute.description": "Penapis atribut (pilihan).",
+    "param.duration.description": "Tempoh langganan dalam beberapa saat (lalai 3600).",
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "perkara melanggan",
+      "perkara_langgan",
+      "perkara",
+      "PERKARA",
+      "perubahan"
+    ]
+  },
+  "da": {
+    "tool.description": "Abonner på tilstandsændringer af en Matter-enhed.",
+    "err.device_id_required": "Enheds-id er påkrævet.",
+    "param.dev.description": "Enheds-id (påkrævet).",
+    "param.endpoint.description": "Slutpunktsfilter (valgfrit).",
+    "param.cluster.description": "Klyngefilter (valgfrit).",
+    "param.attribute.description": "Attributfilter (valgfrit).",
+    "param.duration.description": "Abonnementsvarighed i sekunder (standard 3600).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "matter subscribe",
+      "matter_subscribe",
+      "matter",
+      "MATTER",
+      "ændringer"
+    ]
+  },
+  "nn": {
+    "tool.description": "Abonner på tilstandsendringer for en Matter-enhet.",
+    "err.device_id_required": "Enhets-ID kreves.",
+    "param.dev.description": "Enhets-ID (påkrevd).",
+    "param.endpoint.description": "Endepunktfilter (valgfritt).",
+    "param.cluster.description": "Klyngefilter (valgfritt).",
+    "param.attribute.description": "Attributtfilter (valgfritt).",
+    "param.duration.description": "Abonnementsvarighet i sekunder (standard 3600).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "matter subscribe",
+      "matter_subscribe",
+      "matter",
+      "MATTER",
+      "endringer"
+    ]
   }
 }

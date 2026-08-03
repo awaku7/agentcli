@@ -644,5 +644,81 @@
       "已快取"
     ],
     "param.namespace.description": "快取命名空間（全部省略）。"
+  },
+  "fil": {
+    "tool.description": "Siyasatin o i-clear ang nakabahaging cache ng ECHONET Lite.",
+    "param.action.description": "Cache action na gagawin: snapshot o clear.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} (mga) item.",
+    "msg.no_items": "Walang mga naka-cache na entry ang naroroon.",
+    "msg.cleared": "Na-clear ang {removed} na naka-cache na entry mula sa {scope}.",
+    "err.invalid_action": "Error: ang aksyon ay dapat na 'snapshot' o 'clear'.",
+    "param.namespace.description": "Cache namespace (alisin para sa lahat).",
+    "x_search_terms": [
+      "echonet cache",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "inspect",
+      "clear",
+      "shared"
+    ]
+  },
+  "ms": {
+    "tool.description": "Periksa atau kosongkan cache ECHONET Lite yang dikongsi.",
+    "param.action.description": "Tindakan cache untuk dilakukan: syot kilat atau kosongkan.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.snapshot": "petikan cache ECHONET: {count} item.",
+    "msg.no_items": "Tiada entri cache hadir.",
+    "msg.cleared": "Mengosongkan {removed} entri cache daripada {scope}.",
+    "err.invalid_action": "Ralat: tindakan mestilah 'snapshot' atau 'clear'.",
+    "param.namespace.description": "Ruang nama cache (tinggalkan untuk semua).",
+    "x_search_terms": [
+      "cache echonet",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "periksa",
+      "kosongkan",
+      "dikongsi"
+    ]
+  },
+  "da": {
+    "tool.description": "Undersøg eller ryd den delte ECHONET Lite-cache.",
+    "param.action.description": "Cachehandling, der skal udføres: snapshot eller slet.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} element(er).",
+    "msg.no_items": "Der er ingen cachelagrede poster til stede.",
+    "msg.cleared": "Ryddede {removed} cachelagrede poster fra {scope}.",
+    "err.invalid_action": "Fejl: Handlingen skal være \"snapshot\" eller \"clear\".",
+    "param.namespace.description": "Cache-navneområde (udelad for alle).",
+    "x_search_terms": [
+      "echonet cache",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "inspect",
+      "clear",
+      "delt"
+    ]
+  },
+  "nn": {
+    "tool.description": "Inspiser eller tøm den delte ECHONET Lite-bufferen.",
+    "param.action.description": "Bufferhandling som skal utføres: øyeblikksbilde eller slett.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.snapshot": "ECHONET cache øyeblikksbilde: {count} element(er).",
+    "msg.no_items": "Ingen bufrede oppføringer er til stede.",
+    "msg.cleared": "Fjernet {removed} bufrede oppføringer fra {scope}.",
+    "err.invalid_action": "Feil: handlingen må være \"øyeblikksbilde\" eller \"clear\".",
+    "param.namespace.description": "Cache navneområde (utelat for alle).",
+    "x_search_terms": [
+      "echonet cache",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "inspect",
+      "clear",
+      "delt"
+    ]
   }
 }

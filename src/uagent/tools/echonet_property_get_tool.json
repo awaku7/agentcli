@@ -678,5 +678,85 @@
     "param.epc.description": "ECHONET Lite 屬性代碼 (EPC)，例如“80”或“D5”。",
     "param.obj.description": "目標代碼過濾器（例如“0130”）。",
     "tool.description": "從節點讀取一個 ECHONET Lite 屬性並傳回 JSON 或文字結果。"
+  },
+  "fil": {
+    "param.ip.description": "Target na node IPv4 address.",
+    "param.timeout.description": "Timeout (segundo).",
+    "param.fmt.description": "Format: json o text.",
+    "err.invalid_eoj": "Error: Hindi ma-parse ang EOJ '{eoj}'.",
+    "err.invalid_object_code": "Error: Hindi ma-parse ang object_code '{object_code}'.",
+    "msg.summary": "Nakuha ang property ng ECHONET Lite: {ip_address} / {epc} sa loob ng {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Error: ang ip_address ay dapat na isang wastong IPv4 address.",
+    "err.invalid_epc": "Error: ang epc ay dapat na isang wastong 1-byte na hex code.",
+    "param.eoj.description": "Target na EOJ (default: node profile).",
+    "param.epc.description": "ECHONET Lite property code (EPC), halimbawa '80' o 'D5'.",
+    "param.obj.description": "Filter ng object code (hal. '0130').",
+    "tool.description": "Magbasa ng isang ECHONET Lite property mula sa isang node at magbalik ng JSON o text na resulta.",
+    "x_search_terms": [
+      "echonet property get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "ms": {
+    "param.ip.description": "Alamat IPv4 nod sasaran.",
+    "param.timeout.description": "Tamat masa (saat).",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.invalid_eoj": "Ralat: Tidak dapat menghuraikan EOJ '{eoj}'.",
+    "err.invalid_object_code": "Ralat: Tidak dapat menghuraikan object_code '{object_code}'.",
+    "msg.summary": "Sifat ECHONET Lite diambil: {ip_address} / {epc} dalam {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Ralat: ip_address mestilah alamat IPv4 yang sah.",
+    "err.invalid_epc": "Ralat: epc mestilah kod hex 1-bait yang sah.",
+    "param.eoj.description": "Sasaran EOJ (lalai: profil nod).",
+    "param.epc.description": "Kod sifat ECHONET Lite (EPC), contohnya '80' atau 'D5'.",
+    "param.obj.description": "Penapis kod objek (cth. '0130').",
+    "tool.description": "Baca satu sifat ECHONET Lite daripada nod dan kembalikan JSON atau hasil teks.",
+    "x_search_terms": [
+      "echonet property get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "da": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Fejl: Kunne ikke parse EOJ '{eoj}'.",
+    "err.invalid_object_code": "Fejl: Kunne ikke parse objektkode '{object_code}'.",
+    "msg.summary": "ECHONET Lite-egenskaben blev hentet: {ip_address} / {epc} om {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Fejl: ip_adresse skal være en gyldig IPv4-adresse.",
+    "err.invalid_epc": "Fejl: epc skal være en gyldig 1-byte hex-kode.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.epc.description": "ECHONET Lite egenskabskode (EPC), for eksempel '80' eller 'D5'.",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Læs en ECHONET Lite-egenskab fra en node og returner et JSON- eller tekstresultat.",
+    "x_search_terms": [
+      "echonet-egenskab get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "nn": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Feil: Kunne ikke analysere EOJ '{eoj}'.",
+    "err.invalid_object_code": "Feil: Kunne ikke analysere objektkode '{object_code}'.",
+    "msg.summary": "ECHONET Lite-egenskapen er hentet: {ip_address} / {epc} på {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
+    "err.invalid_epc": "Feil: epc må være en gyldig 1-byte hex-kode.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.epc.description": "ECHONET Lite egenskapskode (EPC), for eksempel '80' eller 'D5'.",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Les én ECHONET Lite-egenskap fra en node og returner et JSON- eller tekstresultat.",
+    "x_search_terms": [
+      "echonet-egenskapen get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   }
 }

@@ -678,5 +678,85 @@
     "err.blocked": "[bash_exec blocat] %(reason)s",
     "err.exception": "[eroare bash_exec] %(type)s: %(message)s",
     "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
+  },
+  "fil": {
+    "err.unavailable": "Available ang tool na ito sa mga system na katulad ng Unix na may naka-install na bash.",
+    "param.command.description": "Ipinasa ang command string sa bash -lc.",
+    "x_search_terms": [
+      "bash",
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
+    ],
+    "tool.description": "Bilang huling paraan, magsagawa ng bash command. Gamitin lamang kapag walang ibang naaangkop na tool na magagamit.",
+    "err.blocked": "[na-block ang bash_exec] %(reason)s",
+    "err.exception": "[bash_exec error] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
+  },
+  "ms": {
+    "err.unavailable": "Alat ini tersedia pada sistem seperti Unix dengan bash dipasang.",
+    "param.command.description": "Rentetan arahan dihantar ke bash -lc.",
+    "x_search_terms": [
+      "bash",
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
+    ],
+    "tool.description": "Sebagai pilihan terakhir, laksanakan arahan bash. Gunakan hanya apabila tiada alat lain yang sesuai tersedia.",
+    "err.blocked": "[bash_exec disekat] %(reason)s",
+    "err.exception": "[ralat bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
+  },
+  "da": {
+    "err.unavailable": "Dette værktøj er tilgængeligt på Unix-lignende systemer med bash installeret.",
+    "param.command.description": "Kommandostreng sendt til bash -lc.",
+    "x_search_terms": [
+      "bash",
+      "shell",
+      "bash kommando",
+      "shell exec",
+      "kommandolinje",
+      "linux shell",
+      "kør kommando",
+      "udfør bash",
+      "bash script",
+      "terminal"
+    ],
+    "tool.description": "Som en sidste udvej skal du udføre en bash-kommando. Brug kun, når der ikke er noget andet passende værktøj tilgængeligt.",
+    "err.blocked": "[bash_exec blokeret] %(reason)s",
+    "err.exception": "[bash_exec-fejl] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returkode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
+  },
+  "nn": {
+    "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
+    "param.command.description": "Kommandostreng sendt til bash -lc.",
+    "x_search_terms": [
+      "bash",
+      "shell",
+      "bash kommando",
+      "shell exec",
+      "kommandolinje",
+      "linux shell",
+      "kjør kommando",
+      "utfør bash",
+      "bash script",
+      "terminal"
+    ],
+    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk kun når det ikke er noe annet passende verktøy tilgjengelig.",
+    "err.blocked": "[bash_exec blokkert] %(reason)s",
+    "err.exception": "[bash_exec-feil] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returkode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   }
 }

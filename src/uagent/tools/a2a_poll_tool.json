@@ -712,5 +712,89 @@
     "param.timeout_s.description": "Timeout de anulare (secunde).",
     "err.missing_task_id": "Lipsește „task_id”.",
     "err.exception": "Excepţie"
+  },
+  "fil": {
+    "tool.description": "Mag-poll ng A2A na gawain hanggang sa terminal state. Gamitin lamang kapag walang lokal na tool ang maaaring palitan.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a poll",
+      "gawain sa botohan",
+      "suriin ang katayuan",
+      "wait for task",
+      "task status",
+      "resulta ng poll",
+      "task polling",
+      "progress check",
+      "monitor na gawain"
+    ],
+    "param.profile.description": "Pangalan ng profile o a2a://name. Kung tinanggal, gumagamit ng default na profile.",
+    "param.task_id.description": "Task ID para poll.",
+    "param.interval_ms.description": "I-override ang pagitan ng botohan (ms).",
+    "param.timeout_s.description": "I-override ang timeout (mga segundo).",
+    "err.missing_task_id": "Nawawala ang 'task_id'.",
+    "err.exception": "Exception"
+  },
+  "ms": {
+    "tool.description": "Tinjau tugas A2A sehingga keadaan terminal. Gunakan hanya apabila tiada alat tempatan boleh menggantikan.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a poll",
+      "poll task",
+      "semak status",
+      "wait for task",
+      "task status",
+      "poll result",
+      "task polling",
+      "progresssemak",
+      "monitor tugas"
+    ],
+    "param.profile.description": "Nama profil atau a2a://name. Jika ditinggalkan, gunakan profil lalai.",
+    "param.task_id.description": "ID tugas untuk tinjauan pendapat.",
+    "param.interval_ms.description": "Gantikan selang pengundian (ms).",
+    "param.timeout_s.description": "Gantikan tamat masa (saat).",
+    "err.missing_task_id": "Tiada 'id_tugas'.",
+    "err.exception": "Pengecualian"
+  },
+  "da": {
+    "tool.description": "Poll en A2A opgave indtil terminaltilstand. Brug kun, når intet lokalt værktøj kan erstatte.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a afstemning",
+      "afstemningsopgave",
+      "tjek status",
+      "vent på opgave",
+      "opgavestatus",
+      "afstemningsresultat",
+      "opgaveafstemning",
+      "fremskridtstjek",
+      "overvåg opgave"
+    ],
+    "param.profile.description": "Profilnavn eller a2a://navn. Hvis udeladt, bruger standardprofilen.",
+    "param.task_id.description": "Opgave-id til afstemning.",
+    "param.interval_ms.description": "Tilsidesæt polling-interval (ms).",
+    "param.timeout_s.description": "Tilsidesæt timeout (sekunder).",
+    "err.missing_task_id": "Mangler 'task_id'.",
+    "err.exception": "Undtagelse"
+  },
+  "nn": {
+    "tool.description": "Poll en A2A-oppgave til terminalstatus. Bruk kun når ingen lokalt verktøy kan erstatte.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a meningsmåling",
+      "avstemningsoppgave",
+      "sjekk status",
+      "vent på oppgave",
+      "oppgavestatus",
+      "avstemningsresultat",
+      "oppgaveavstemning",
+      "fremdriftssjekk",
+      "overvåkingsoppgave"
+    ],
+    "param.profile.description": "Profilnavn eller a2a://navn. Hvis utelatt, bruker standardprofilen.",
+    "param.task_id.description": "Oppgave-ID for avstemning.",
+    "param.interval_ms.description": "Overstyr pollingintervall (ms).",
+    "param.timeout_s.description": "Overstyr tidsavbrudd (sekunder).",
+    "err.missing_task_id": "Mangler «task_id».",
+    "err.exception": "Unntak"
   }
 }

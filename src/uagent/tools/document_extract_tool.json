@@ -644,5 +644,81 @@
     "param.password.description": "Parola (se solicită dacă este necesar).",
     "prompt.password": "Introduceți parola pentru acest fișier:\n{path}",
     "param.fmt.description": "Format de ieșire: text sau json."
+  },
+  "fil": {
+    "tool.description": "I-extract ang teksto at pangunahing istraktura mula sa mga dokumentong tulad ng Word (. docx, .",
+    "x_search_terms": [
+      "extract ng dokumento",
+      "docx",
+      "word",
+      "dokumento ng opisina",
+      "pag-parse ng dokumento",
+      "pag-extract ng text",
+      "binasa ng dokumento",
+      "rtf",
+      "odt",
+      "dokumentong salita"
+    ],
+    "param.path.description": "Path sa input na dokumento (.docx, .rtf, .odt).",
+    "param.password.description": "Password (prompts kung kinakailangan).",
+    "prompt.password": "Ilagay ang password para sa file na ito:\n{path}",
+    "param.fmt.description": "Output format: text o json."
+  },
+  "ms": {
+    "tool.description": "Ekstrak teks dan struktur asas daripada dokumen seperti Word (. docx, .",
+    "x_search_terms": [
+      "ekstrak dokumen",
+      "docx",
+      "word",
+      "dokumen pejabat",
+      "penghuraian dokumen",
+      "ekstrak teks",
+      "baca dokumen",
+      "rtf",
+      "odt",
+      "dokumen perkataan"
+    ],
+    "param.path.description": "Laluan ke dokumen input (.docx, .rtf, .odt).",
+    "param.password.description": "Kata laluan (gesaan jika perlu).",
+    "prompt.password": "Masukkan kata laluan untuk fail ini:\n{path}",
+    "param.fmt.description": "Format output: teks atau json."
+  },
+  "da": {
+    "tool.description": "Uddrag tekst og grundlæggende struktur fra Word-lignende dokumenter (. docx, .",
+    "x_search_terms": [
+      "dokumentudtræk",
+      "docx",
+      "word",
+      "kontordokument",
+      "dokumentparsing",
+      "ekstrahere tekst",
+      "dokument læst",
+      "rtf",
+      "odt",
+      "word-dokument"
+    ],
+    "param.path.description": "Sti til inputdokumentet (.docx, .rtf, .odt).",
+    "param.password.description": "Adgangskode (bedes om nødvendigt).",
+    "prompt.password": "Indtast adgangskoden til denne fil:\n{path}",
+    "param.fmt.description": "Outputformat: tekst eller json."
+  },
+  "nn": {
+    "tool.description": "Trekk ut tekst og grunnleggende struktur fra Word-lignende dokumenter (. docx, .",
+    "x_search_terms": [
+      "dokumentutdrag",
+      "docx",
+      "word",
+      "kontordokument",
+      "dokumentanalyse",
+      "ekstrahere tekst",
+      "dokumentlest",
+      "rtf",
+      "odt",
+      "word-dokument"
+    ],
+    "param.path.description": "Bane til inndatadokumentet (.docx, .rtf, .odt).",
+    "param.password.description": "Passord (spør om nødvendig).",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "param.fmt.description": "Utdataformat: tekst eller json."
   }
 }

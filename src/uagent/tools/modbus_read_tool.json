@@ -746,5 +746,93 @@
       "支援"
     ],
     "param.timeout.description": "超時（以秒為單位）。"
+  },
+  "fil": {
+    "tool.description": "Basahin ang mga rehistro ng Modbus TCP mula sa isang device. Sinusuportahan ang mga may hawak na register, input register, coils, at discrete input.",
+    "param.ip.description": "Target na IPv4 address ng device.",
+    "param.port.description": "Modbus TCP port (default: 502).",
+    "param.unit.description": "Modbus unit ID (default: 1).",
+    "param.type.description": "Uri ng pagpaparehistro: hawak, input, coil, o discrete.",
+    "param.address.description": "Panimulang rehistro ng address (0-based).",
+    "param.count.description": "Bilang ng mga rehistro na babasahin (max 125).",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
+    "err.ip_required": "ip ay kinakailangan.",
+    "err.invalid_type": "Di-wastong uri. Wasto: {types}.",
+    "x_search_terms": [
+      "modbus read",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "register",
+      "supports"
+    ],
+    "param.timeout.description": "Timeout sa ilang segundo."
+  },
+  "ms": {
+    "tool.description": "Baca daftar Modbus TCP daripada peranti. Menyokong pegangan daftar, daftar input, gegelung, dan input diskret.",
+    "param.ip.description": "Alamat IPv4 peranti sasaran.",
+    "param.port.description": "Port TCP Modbus (lalai: 502).",
+    "param.unit.description": "ID unit Modbus (lalai: 1).",
+    "param.type.description": "Jenis daftar: pegangan, input, gegelung atau diskret.",
+    "param.address.description": "Alamat pendaftaran permulaan (berasaskan 0).",
+    "param.count.description": "Bilangan daftar untuk dibaca (maks 125).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Modbus dibaca: {ip} type={t} addr={addr} count={count}",
+    "err.ip_required": "ip diperlukan.",
+    "err.invalid_type": "Jenis tidak sah. Sah: {types}.",
+    "x_search_terms": [
+      "modbus read",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "register",
+      "menyokong"
+    ],
+    "param.timeout.description": "Tamat masa dalam beberapa saat."
+  },
+  "da": {
+    "tool.description": "Læs Modbus TCP-registre fra en enhed. Understøtter holderegistre, inputregistre, spoler og diskrete input.",
+    "param.ip.description": "Målenhedens IPv4-adresse.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit.description": "Modbus enheds ID (standard: 1).",
+    "param.type.description": "Registertype: holde, input, spole eller diskret.",
+    "param.address.description": "Startregisteradresse (0-baseret).",
+    "param.count.description": "Antal registre at læse (maks. 125).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus læst: {ip} type={t} addr={addr} antal={count}",
+    "err.ip_required": "ip er påkrævet.",
+    "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
+    "x_search_terms": [
+      "modbus read",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "registre",
+      "understøtter"
+    ],
+    "param.timeout.description": "Timeout i sekunder."
+  },
+  "nn": {
+    "tool.description": "Les Modbus TCP-registre fra en enhet. Støtter holderegistre, inngangsregistre, spoler og diskrete innganger.",
+    "param.ip.description": "Mål enhetens IPv4-adresse.",
+    "param.port.description": "Modbus TCP-port (standard: 502).",
+    "param.unit.description": "Modbus-enhets-ID (standard: 1).",
+    "param.type.description": "Registertype: holding, input, coil eller diskret.",
+    "param.address.description": "Startregisteradresse (0-basert).",
+    "param.count.description": "Antall registre å lese (maks 125).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "Modbus lest: {ip} type={t} addr={addr} count={count}",
+    "err.ip_required": "ip kreves.",
+    "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
+    "x_search_terms": [
+      "modbus read",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "registers",
+      "støtter"
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   }
 }

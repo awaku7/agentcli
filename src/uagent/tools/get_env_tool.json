@@ -678,5 +678,85 @@
     ],
     "param.skip.description": "Dacă este adevărat, returnați „(nesetat)” în loc de o eroare când lipsește. Implicit este fals.",
     "err.name_required": "[get_env error] „nume” este necesar"
+  },
+  "fil": {
+    "param.mask.description": "Kung totoo, tinatakpan ang halaga (hal., para sa mga lihim). Ang default ay totoo.",
+    "param.name.description": "Pangalan ng variable ng kapaligiran na babasahin.",
+    "param.unmasked_chars.description": "Bilang ng mga character na iiwan sa simula at pagtatapos kapag nag-mask. Ang default ay 2.",
+    "tool.description": "Nakukuha ang halaga ng isang tinukoy na variable ng kapaligiran at ibinabalik ito. Opsyonal na i-mask ang halaga.",
+    "x_search_terms": [
+      "kumuha ng env",
+      "environment variable",
+      "env var",
+      "environment",
+      "get environment",
+      "basahin env",
+      "env value",
+      "system env",
+      "environment value",
+      "env get"
+    ],
+    "param.skip.description": "Kung totoo, ibalik ang '(not set)' sa halip na isang error kapag nawawala. Mali ang default.",
+    "err.name_required": "[get_env error] 'pangalan' ay kinakailangan"
+  },
+  "ms": {
+    "param.mask.description": "Jika benar, menutup nilai (mis., untuk rahsia). Lalai adalah benar.",
+    "param.name.description": "Nama pembolehubah persekitaran untuk dibaca.",
+    "param.unmasked_chars.description": "Bilangan aksara untuk ditinggalkan pada permulaan dan akhir apabila menutup. Lalai ialah 2.",
+    "tool.description": "Mendapat nilai pembolehubah persekitaran yang ditentukan dan mengembalikannya. Secara pilihan menutup nilai.",
+    "x_search_terms": [
+      "dapatkan env",
+      "environment variable",
+      "env var",
+      "environment",
+      "dapatkan persekitaran",
+      "baca env",
+      "env value",
+      "system env",
+      "environment value",
+      "env get"
+    ],
+    "param.skip.description": "Jika benar, kembalikan '(not set)' dan bukannya ralat apabila tiada. Lalai adalah palsu.",
+    "err.name_required": "[get_env error] 'nama' diperlukan"
+  },
+  "da": {
+    "param.mask.description": "Hvis sandt, maskerer værdien (f.eks. for hemmeligheder). Standard er sandt.",
+    "param.name.description": "Navn på miljøvariabel, der skal læses.",
+    "param.unmasked_chars.description": "Antal tegn, der skal efterlades i begyndelsen og slutningen ved maskering. Standard er 2.",
+    "tool.description": "Henter værdien af ​​en specificeret miljøvariabel og returnerer den. Maskerer eventuelt værdien.",
+    "x_search_terms": [
+      "få env",
+      "environment variabel",
+      "env var",
+      "environment",
+      "få miljø",
+      "læs env",
+      "env værdi",
+      "system env",
+      "environment value",
+      "env få"
+    ],
+    "param.skip.description": "Hvis sandt, returner '(ikke angivet)' i stedet for en fejl, når den mangler. Standard er falsk.",
+    "err.name_required": "[get_env error] 'navn' er påkrævet"
+  },
+  "nn": {
+    "param.mask.description": "Hvis sant, maskerer verdien (f.eks. for hemmeligheter). Standard er sant.",
+    "param.name.description": "Navn på miljøvariabel å lese.",
+    "param.unmasked_chars.description": "Antall tegn som skal stå i begynnelsen og slutten ved maskering. Standard er 2.",
+    "tool.description": "Henter verdien av en spesifisert miljøvariabel og returnerer den. Maskerer eventuelt verdien.",
+    "x_search_terms": [
+      "få env",
+      "miljøvariabel",
+      "env var",
+      "environment",
+      "få miljø",
+      "les env",
+      "env value",
+      "system env",
+      "environment value",
+      "env få"
+    ],
+    "param.skip.description": "Hvis sant, returner '(ikke angitt)' i stedet for en feilmelding når den mangler. Standard er falsk.",
+    "err.name_required": "[get_env error] 'navn' er påkrevd"
   }
 }

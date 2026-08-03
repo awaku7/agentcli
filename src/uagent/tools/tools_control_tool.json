@@ -678,5 +678,85 @@
     "msg.tools.list_header": "[instrumente] Instrumente încărcate ({count}):",
     "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}",
     "tool.description": "Instrument fals pentru înregistrarea controlului sculelor."
+  },
+  "fil": {
+    "cmd.help.tools_list": "  :tools list [query] List load na mga tool, opsyonal na na-filter ayon sa pangalan/paglalarawan",
+    "cmd.help.tools_load": "  :mag-load ng mga tool <name>",
+    "msg.tools.usage_load": "Paggamit: :load ng mga tool <pangalan_gamit>",
+    "msg.tools.loaded_single": "[mga tool] Nag-load ng tool: {name}",
+    "msg.tools.not_found": "[mga tool] Hindi nakita ang tool: {name}",
+    "cmd.help.tools_output": "  :tools output I-toggle ang pagpapakita ng mga resulta ng pagpapatupad ng tool",
+    "msg.tools.output_state": "[tools] Ang display ng output ng tool ay {state} na ngayon",
+    "msg.tools.list_header": "[mga tool] Nag-load ng mga tool ({count}):",
+    "msg.tools.no_match": "[tools] Walang katugmang tool: {q}",
+    "cmd.help.tools_reload": "  :tools reload I-reload ang lahat ng tool code mula sa disk.",
+    "msg.tools.reloaded": "[tools] Matagumpay na na-reload ang system. Na-update ang lahat ng tool gamit ang pinakabagong code.",
+    "x_search_terms": [
+      "tool control",
+      "tools_control",
+      "tools",
+      "TOOLS"
+    ],
+    "tool.description": "Dummy tool para sa mga tool control registration."
+  },
+  "ms": {
+    "cmd.help.tools_list": "  :tools list [query] Senaraikan alatan yang dimuatkan, secara pilihan ditapis mengikut nama/huraian",
+    "cmd.help.tools_load": "  :alat memuatkan <nama>",
+    "msg.tools.usage_load": "Penggunaan: :tools load <tool_name>",
+    "msg.tools.loaded_single": "[alat] Alat yang dimuatkan: {name}",
+    "msg.tools.not_found": "[alat] Alat tidak ditemui: {name}",
+    "cmd.help.tools_output": "  :tools output Togol paparan hasil pelaksanaan alat",
+    "msg.tools.output_state": "[tools] Paparan output alat kini {state}",
+    "msg.tools.list_header": "[alat] Alat yang dimuatkan ({count}):",
+    "msg.tools.no_match": "[alat] Tiada alatan yang sepadan: {q}",
+    "cmd.help.tools_reload": "  :tools reload Muat semula semua kod alat dari cakera.",
+    "msg.tools.reloaded": "[alat] Sistem berjaya dimuatkan semula. Semua alatan dikemas kini dengan kod terkini.",
+    "x_search_terms": [
+      "alat kawalan",
+      "alat_kawalan",
+      "alat",
+      "ALAT"
+    ],
+    "tool.description": "Alat dummy untuk pendaftaran kawalan alat."
+  },
+  "da": {
+    "cmd.help.tools_list": "  :værktøjsliste [forespørgsel] Liste over indlæste værktøjer, eventuelt filtreret efter navn/beskrivelse",
+    "cmd.help.tools_load": "  :værktøjer indlæser <navn>",
+    "msg.tools.usage_load": "Brug: :værktøjer indlæser <værktøjsnavn>",
+    "msg.tools.loaded_single": "[værktøjer] Indlæst værktøj: {name}",
+    "msg.tools.not_found": "[værktøjer] Værktøj ikke fundet: {name}",
+    "cmd.help.tools_output": "  :værktøjsudgang Skift visning af værktøjsudførelsesresultater",
+    "msg.tools.output_state": "[værktøjer] Værktøjsoutputdisplayet er nu {state}",
+    "msg.tools.list_header": "[værktøjer] Indlæste værktøjer ({count}):",
+    "msg.tools.no_match": "[værktøjer] Ingen matchende værktøjer: {q}",
+    "cmd.help.tools_reload": "  :tools genindlæs Genindlæs al værktøjskode fra disken.",
+    "msg.tools.reloaded": "[værktøjer] Systemet blev genindlæst. Alle værktøjer opdateret med nyeste kode.",
+    "x_search_terms": [
+      "værktøjer kontrol",
+      "værktøjer_kontrol",
+      "værktøjer",
+      "VÆRKTØJ"
+    ],
+    "tool.description": "Dummy-værktøj til registrering af værktøjskontrol."
+  },
+  "nn": {
+    "cmd.help.tools_list": "  :tools list [query] Liste over lastede verktøy, eventuelt filtrert etter navn/beskrivelse",
+    "cmd.help.tools_load": "  :verktøy laster inn <navn>",
+    "msg.tools.usage_load": "Bruk: :verktøy laster inn <verktøynavn>",
+    "msg.tools.loaded_single": "[verktøy] Lastet verktøy: {name}",
+    "msg.tools.not_found": "[verktøy] Verktøyet ble ikke funnet: {name}",
+    "cmd.help.tools_output": "  :tools output Veksle visning av verktøyutførelsesresultater",
+    "msg.tools.output_state": "[verktøy] Verktøyutdataskjermen er nå {state}",
+    "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
+    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
+    "cmd.help.tools_reload": "  :tools reload Last all verktøykode fra disken på nytt.",
+    "msg.tools.reloaded": "[verktøy] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode.",
+    "x_search_terms": [
+      "tools control",
+      "tools_control",
+      "tools",
+      "TOOLS"
+    ],
+    "tool.description": "Dummyverktøy for verktøykontrollregistrering."
   }
 }

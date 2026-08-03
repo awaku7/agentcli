@@ -746,5 +746,93 @@
     "err.not_a_dir": "Eroare: nu este un director: {path}",
     "msg.empty_dir": "(director gol)",
     "msg.paginate": "Pagina {page} din {total_pages} (afișează {count} din {total} intrări)"
+  },
+  "fil": {
+    "tool.description": "Maglista ng mga entry sa isang direktoryo na may pagination, katulad ng ls.",
+    "x_search_terms": [
+      "list dir",
+      "directory",
+      "list directory",
+      "dir listing",
+      "folder",
+      "list files",
+      "directory listing",
+      "file list",
+      "ipakita dir",
+      "folder contents"
+    ],
+    "param.path.description": "Direktoryo na ililista (default: kasalukuyang direktoryo). Alyas ng root_path.",
+    "param.show_hidden.description": "Isama ang mga nakatagong entry sa listahan.",
+    "param.page.description": "Numero ng pahina na kukunin (default: 1).",
+    "param.limit.description": "Pinakamataas na bilang ng mga entry na ibabalik sa bawat pahina (default: 50).",
+    "err.not_a_dir": "Error: hindi isang direktoryo: {path}",
+    "msg.empty_dir": "(walang laman na direktoryo)",
+    "msg.paginate": "Pahina {page} ng {total_pages} (nagpapakita ng {count} ng {total} entry)"
+  },
+  "ms": {
+    "tool.description": "Senaraikan entri dalam direktori dengan penomboran, serupa dengan ls.",
+    "x_search_terms": [
+      "senarai dir",
+      "direktori",
+      "senarai direktori",
+      "penyenaraian dir",
+      "folder",
+      "senarai fail",
+      "penyenaraian direktori",
+      "senarai fail",
+      "tunjukkan dir",
+      " kandungan folder"
+    ],
+    "param.path.description": "Direktori untuk disenaraikan (lalai: direktori semasa). Alias ​​untuk root_path.",
+    "param.show_hidden.description": "Sertakan entri tersembunyi dalam penyenaraian.",
+    "param.page.description": "Nombor halaman untuk diambil (lalai: 1).",
+    "param.limit.description": "Bilangan maksimum entri untuk dikembalikan setiap halaman (lalai: 50).",
+    "err.not_a_dir": "Ralat: bukan direktori: {path}",
+    "msg.empty_dir": "(direktori kosong)",
+    "msg.paginate": "Halaman {page} daripada {total_pages} (menunjukkan {count} daripada {total} entri)"
+  },
+  "da": {
+    "tool.description": "Liste poster i en mappe med paginering, svarende til ls.",
+    "x_search_terms": [
+      "liste katalog-katalog",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "param.path.description": "Bibliotek til liste (standard: nuværende bibliotek). Alias ​​af root_path.",
+    "param.show_hidden.description": "Inkluder skjulte poster i listen.",
+    "param.page.description": "Sidenummer at hente (standard: 1).",
+    "param.limit.description": "Maksimalt antal poster at returnere pr. side (standard: 50).",
+    "err.not_a_dir": "Fejl: ikke en mappe: {path}",
+    "msg.empty_dir": "(tom mappe)",
+    "msg.paginate": "Side {page} af {total_pages} (viser {count} af {total} poster)"
+  },
+  "nn": {
+    "tool.description": "List oppføringer i en katalog med paginering, lik ls.",
+    "x_search_terms": [
+      "liste katalog",
+      "katalog",
+      "liste katalog",
+      "katalogoppføring",
+      "mappe",
+      "listefiler",
+      "katalogoppføring",
+      "filliste",
+      "vis kataloginnhold",
+      ""
+    ],
+    "param.path.description": "Katalog til liste (standard: gjeldende katalog). Alias ​​for root_path.",
+    "param.show_hidden.description": "Ta med skjulte oppføringer i oppføringen.",
+    "param.page.description": "Sidenummer å hente (standard: 1).",
+    "param.limit.description": "Maksimalt antall oppføringer å returnere per side (standard: 50).",
+    "err.not_a_dir": "Feil: ikke en katalog: {path}",
+    "msg.empty_dir": "(tom katalog)",
+    "msg.paginate": "Side {page} av {total_pages} (viser {count} av {total} oppføringer)"
   }
 }

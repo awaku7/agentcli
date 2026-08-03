@@ -542,5 +542,69 @@
       "informații partajate"
     ],
     "param.note.description": "Textul notei de partajat. Utilizați aceasta pentru ipoteze/politici la nivelul întregului proiect care ar trebui reutilizate în sesiuni."
+  },
+  "fil": {
+    "tool.description": "Magdagdag ng isang tala sa nakabahaging pangmatagalang memory store (ibinahagi sa mga user/session). Kung hindi naka-configure ang nakabahaging memorya, iniuulat ng tool na hindi ito available.",
+    "x_search_terms": [
+      "nakabahaging memorya",
+      "magdagdag ng nakabahagi",
+      "magbahagi ng memorya",
+      "memoryshare",
+      "collaborative na memory",
+      "memorya ng koponan",
+      "nakabahaging storage",
+      "memoryadagdag",
+      "memorya ng grupo",
+      "nakabahaging impormasyon"
+    ],
+    "param.note.description": "Ang teksto ng tala na ibabahagi. Gamitin ito para sa mga pagpapalagay/patakaran sa buong proyekto na dapat gamitin muli sa mga session."
+  },
+  "ms": {
+    "tool.description": "Tambahkan satu nota pada stor memori jangka panjang yang dikongsi (dikongsi merentas pengguna/sesi). Jika memori kongsi tidak dikonfigurasikan, alat melaporkan bahawa ia tidak tersedia.",
+    "x_search_terms": [
+      "memori kongsi",
+      "tambah kongsi",
+      "kongsi memori",
+      "perkongsian memori",
+      "memori kerjasama",
+      "memori pasukan",
+      "storan kongsi",
+      "tambah memori",
+      "memori kumpulan",
+      "maklumat kongsi"
+    ],
+    "param.note.description": "Teks nota untuk dikongsi. Gunakan ini untuk andaian/dasar seluruh projek yang harus digunakan semula merentas sesi."
+  },
+  "da": {
+    "tool.description": "Føj en enkelt note til det delte langtidshukommelseslager (delt på tværs af brugere/sessioner). Hvis delt hukommelse ikke er konfigureret, rapporterer værktøjet, at den ikke er tilgængelig.",
+    "x_search_terms": [
+      "delt hukommelse",
+      "tilføj delt",
+      "del hukommelse",
+      "deling af hukommelse",
+      "samarbejdet hukommelse",
+      "teamhukommelse",
+      "delt lager",
+      "hukommelse tilføj",
+      "gruppehukommelse",
+      "delte oplysninger"
+    ],
+    "param.note.description": "Noteteksten til at dele. Brug dette til projektomfattende antagelser/politikker, der bør genbruges på tværs af sessioner."
+  },
+  "nn": {
+    "tool.description": "Legg til et enkelt notat til det delte langtidsminnelageret (delt på tvers av brukere/økter). Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det ikke er tilgjengelig.",
+    "x_search_terms": [
+      "delt minne",
+      "legg til delt",
+      "dele minne",
+      "minnedeling",
+      "samarbeidsminne",
+      "teamminne",
+      "delt lagring",
+      "minne legg til",
+      "gruppeminne",
+      "delt informasjon"
+    ],
+    "param.note.description": "Notatteksten som skal deles. Bruk dette for prosjektomfattende forutsetninger/policyer som bør gjenbrukes på tvers av økter."
   }
 }

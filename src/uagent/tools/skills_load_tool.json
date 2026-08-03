@@ -610,5 +610,77 @@
       "importul de aptitudini",
       "activare skill agent"
     ]
+  },
+  "fil": {
+    "err.invalid_args": "[tool error] di-wastong args",
+    "err.skill_dir_required": "[tool error] skill_dir ay dapat na isang walang laman na string",
+    "param.skill_dir.description": "Ang direktoryo ng kasanayan (dapat naglalaman ng SKILL.md).",
+    "tool.description": "Nilo-load ang SKILL.md para sa isang Agent Skill at ibinabalik ang YAML frontmatter at Markdown body nito.",
+    "x_search_terms": [
+      "skill load",
+      "load skill",
+      "activate skill",
+      "enable skill",
+      "skill activation",
+      "load agent skill",
+      "skill enable",
+      "use skill",
+      "skill import",
+      "activate agent skill"
+    ]
+  },
+  "ms": {
+    "err.invalid_args": "[ralat alat] hujah tidak sah",
+    "err.skill_dir_required": "[tool error] skill_dir mestilah rentetan bukan kosong",
+    "param.skill_dir.description": "Direktori kemahiran (mesti mengandungi SKILL.md).",
+    "tool.description": "Memuatkan SKILL.md untuk Kemahiran Ejen dan mengembalikan bahagian hadapan YAML dan badan Markdownnya.",
+    "x_search_terms": [
+      "beban kemahiran",
+      "memuat kemahiran",
+      "aktifkan kemahiran",
+      "dayakan kemahiran",
+      "pengaktifan kemahiran",
+      "muat kemahiran ejen",
+      "kemahiran daya",
+      "gunakan kemahiran",
+      "kemahiran import",
+      "aktifkan kemahiran ejen"
+    ]
+  },
+  "da": {
+    "err.invalid_args": "[værktøjsfejl] ugyldige argumenter",
+    "err.skill_dir_required": "[værktøjsfejl] skill_dir skal være en ikke-tom streng",
+    "param.skill_dir.description": "Færdighedsmappen (skal indeholde SKILL.md).",
+    "tool.description": "Indlæser SKILL.md for en agentfærdighed og returnerer dens YAML-frontmatter og Markdown-body.",
+    "x_search_terms": [
+      "færdighed load",
+      "indlæs færdighed",
+      "aktiver færdighed",
+      "aktiver dygtighed",
+      "færdighedsaktivering",
+      "indlæs agent dygtighed",
+      "færdighed aktiver",
+      "brug dygtighed",
+      "kompetenceimport",
+      "aktiver agentfærdighed"
+    ]
+  },
+  "nn": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.skill_dir.description": "Ferdighetsmappen (må inneholde SKILL.md).",
+    "tool.description": "Laster inn SKILL.md for en agentferdighet og returnerer YAML-frontsaken og Markdown-kroppen.",
+    "x_search_terms": [
+      "ferdighet load",
+      "last ferdighet",
+      "aktiver ferdighet",
+      "aktiver ferdighet",
+      "kompetanseaktivering",
+      "last agent ferdighet",
+      "ferdighet aktiver",
+      "bruk ferdighet",
+      "ferdighet import",
+      "aktiver agentferdighet"
+    ]
   }
 }

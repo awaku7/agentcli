@@ -746,5 +746,93 @@
     "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
     "confirm.msg": "lint_format(mode=fix) poate suprascrie fișierele.\ninstrumente: {tools}\nținte: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula.",
     "param.auto_install.description": "Instalați automat instrumentele de formatare/linter care lipsesc cu pip înainte de a rula."
+  },
+  "fil": {
+    "param.cwd.description": "Working dir (sa ilalim ng workdir).",
+    "param.mode.description": "check=check lang / ayusin=awtomatikong ayusin",
+    "param.targets.description": "Target na path array (pinapayagan lang sa ilalim ng workdir).",
+    "param.tools.description": "Isang hanay ng mga pangalan ng tool na tatakbo. Kung walang laman, awtomatikong pinipili ang mga tool.",
+    "tool.description": "Magpatakbo ng static analysis/formatters (ruff/black/mypy). mode=fix ay nagbabago ng mga file, nangangailangan ng kumpirmasyon.",
+    "x_search_terms": [
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
+    ],
+    "param.xargs.description": "Mga karagdagang argumento (array). Tanggihan ang mga mapanganib na metacharacter.",
+    "confirm.msg": "Maaaring i-overwrite ng lint_format(mode=fix) ang mga file.\nmga tool: {tools}\nmga target: {targets}\ncwd: {cwd}\n\nTumugon ng y upang magpatuloy, o c upang kanselahin.",
+    "param.auto_install.description": "Awtomatikong i-install ang mga nawawalang tool sa formatter/linter na may pip bago tumakbo."
+  },
+  "ms": {
+    "param.cwd.description": "Working dir (di bawah workdir).",
+    "param.mode.description": "semak=semak sahaja / betulkan=pembetulan automatik",
+    "param.targets.description": "Tatasusunan laluan sasaran (hanya dibenarkan di bawah workdir).",
+    "param.tools.description": "Satu susunan nama alat untuk dijalankan. Jika kosong, alatan dipilih secara automatik.",
+    "tool.description": "Jalankan analisis statik/pemformat (ruff/black/mypy). mod=fix mengubah suai fail, memerlukan pengesahan.",
+    "x_search_terms": [
+      "lint",
+      "format",
+      "kod lint",
+      "format kod",
+      "linter",
+      "formatter",
+      "gaya kod",
+      "analisis statik",
+      "linting",
+      "pemformatan"
+    ],
+    "param.xargs.description": "Hujah tambahan (array). Tolak metakarakter berbahaya.",
+    "confirm.msg": "lint_format(mode=fix) mungkin menimpa fail.\nalat: {tools}\nsasaran: {targets}\ncwd: {cwd}\n\nBalas dengan y untuk meneruskan atau c untuk membatalkan.",
+    "param.auto_install.description": "Pasang alat pemformat/linter yang hilang secara automatik dengan pip sebelum dijalankan."
+  },
+  "da": {
+    "param.cwd.description": "Working dir (under workdir).",
+    "param.mode.description": "check=check only / fix=automatisk rettelse",
+    "param.targets.description": "Target path array (kun tilladt under workdir).",
+    "param.tools.description": "En række værktøjsnavne til at køre. Hvis tom, vælges værktøjer automatisk.",
+    "tool.description": "Kør statiske analyser/formatere (ruff/sort/mypy). mode=fix ændrer filer, skal bekræftes.",
+    "x_search_terms": [
+      "lint",
+      "format",
+      "kode fnug",
+      "kodeformat",
+      "linter",
+      "formatter",
+      "kodestil",
+      "statisk analyse",
+      "linting",
+      "formatering"
+    ],
+    "param.xargs.description": "Yderligere argumenter (array). Afvis farlige metakarakterer.",
+    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nværktøjer: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for at fortsætte, eller c for at annullere.",
+    "param.auto_install.description": "Installer automatisk manglende formateringsværktøj/linterværktøj med pip, før du kører."
+  },
+  "nn": {
+    "param.cwd.description": "Working dir (under workdir).",
+    "param.mode.description": "check=sjekk bare / fix=automatisk retting",
+    "param.targets.description": "Målbanematrise (kun tillatt under workdir).",
+    "param.tools.description": "En rekke verktøynavn å kjøre. Hvis tom, velges verktøy automatisk.",
+    "tool.description": "Kjør statisk analyse/formatere (ruff/svart/mypy). mode=fix endrer filer, trenger bekreftelse.",
+    "x_search_terms": [
+      "lo",
+      "format",
+      "kode lo",
+      "kodeformat",
+      "linter",
+      "formatter",
+      "kodestil",
+      "statisk analyse",
+      "linting",
+      "formatering"
+    ],
+    "param.xargs.description": "Ytterligere argumenter (array). Avvis farlige metakarakterer.",
+    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte.",
+    "param.auto_install.description": "Installer automatisk manglende formaterings-/linterverktøy med pip før du kjører."
   }
 }

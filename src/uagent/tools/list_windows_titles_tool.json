@@ -610,5 +610,77 @@
       "informații despre fereastră"
     ],
     "tool.description": "Enumerează titlurile ferestrelor de nivel superior pe Windows și returnează JSON structurat. Parametri: 'all' (include non-vizibile), 'pid' (include PID), 'class' (include numele clasei)."
+  },
+  "fil": {
+    "param.all.description": "Isama ang mga hindi nakikitang bintana",
+    "param.class.description": "Isama ang pangalan ng klase.",
+    "param.pid.description": "Isama ang mga process ID.",
+    "tool.description": "Magbilang ng mga pamagat ng window sa nangungunang antas sa Windows at ibalik ang structured na JSON. Mga Parameter: 'lahat' (kasama ang hindi nakikita), 'pid' (kasama ang PID), 'klase' (isama ang pangalan ng klase).",
+    "x_search_terms": [
+      "mga pamagat ng window",
+      "listahan ng mga bintana",
+      "listahan ng bintana",
+      "mga bukas na bintana",
+      "pamagat ng bintana",
+      "mga enum window",
+      "aktibong bintana",
+      "desktop windows",
+      "pag-enumeration ng mga bintana",
+      "mga window ng aplikasyon"
+    ]
+  },
+  "ms": {
+    "param.all.description": "Sertakan tingkap yang tidak kelihatan",
+    "param.class.description": "Sertakan nama kelas.",
+    "param.pid.description": "Sertakan ID proses.",
+    "tool.description": "Hitung tajuk tetingkap peringkat atas pada Windows dan kembalikan JSON berstruktur. Parameter: 'semua' (termasuk tidak kelihatan), 'pid' (termasuk PID), 'kelas' (termasuk nama kelas).",
+    "x_search_terms": [
+      "tajuk tetingkap",
+      "senarai tingkap",
+      "senarai tetingkap",
+      "buka tingkap",
+      "tajuk tetingkap",
+      "tetingkap enum",
+      "tingkap aktif",
+      "tingkap desktop",
+      "pengiraan tetingkap",
+      "tetingkap aplikasi"
+    ]
+  },
+  "da": {
+    "param.all.description": "Inkluder ikke-synlige vinduer",
+    "param.class.description": "Inkluder klassenavn.",
+    "param.pid.description": "Inkluder proces-id'er.",
+    "tool.description": "Opregn vinduestitler på øverste niveau på Windows og returner struktureret JSON. Parametre: 'alle' (inkluder ikke-synlig), 'pid' (inkluder PID), 'klasse' (inkluder klassenavn).",
+    "x_search_terms": [
+      "vinduestitler",
+      "liste vinduer",
+      "vinduesliste",
+      "åbne vinduer",
+      "vinduestitel",
+      "enum vinduer",
+      "aktive vinduer",
+      "skrivebordsvinduer",
+      "vinduesopregning",
+      "applikationsvinduer"
+    ]
+  },
+  "nn": {
+    "param.all.description": "Inkluder ikke-synlige vinduer",
+    "param.class.description": "Ta med klassenavn.",
+    "param.pid.description": "Inkluder prosess-ID-er.",
+    "tool.description": "Oppregne vindustitler på toppnivå på Windows og returner strukturert JSON. Parametere: 'alle' (inkluder ikke-synlig), 'pid' (inkluderer PID), 'klasse' (inkluder klassenavn).",
+    "x_search_terms": [
+      "vindustitler",
+      "liste vinduer",
+      "vindusliste",
+      "åpne vinduer",
+      "vindustittel",
+      "enum vinduer",
+      "aktive vinduer",
+      "skrivebordsvinduer",
+      "vindusoppregning",
+      "applikasjonsvinduer"
+    ]
   }
 }

@@ -610,5 +610,77 @@
     "param.dev.description": "要尋找的設備 ID。必需的標識符。",
     "param.endpoint.description": "端點過濾器（可選）。",
     "tool.description": "取得一台 Matter 設備的狀態並傳回 JSON 或文字摘要。"
+  },
+  "fil": {
+    "param.fmt.description": "Format: json o text.",
+    "err.device_id_required": "Kinakailangan ang Matter device ID.",
+    "err.not_found": "Hindi nahanap ang matter device: {device_id}",
+    "err.ambiguous_target": "Ang target ng device na bagay ay hindi maliwanag: {device_id}",
+    "err.config_missing": "Nawawala ang data ng device na bagay. Itakda ang {env_json} o {env_file} para sa mga device, controller, o bridge.",
+    "param.bridge.description": "Bridge ID (opsyonal).",
+    "param.ctrl.description": "Controller ID (opsyonal).",
+    "param.dev.description": "Mahalagang hanapin ang device ID. Kinakailangang identifier.",
+    "param.endpoint.description": "Endpoint filter (opsyonal).",
+    "tool.description": "Kunin ang status ng isang Matter device at magbalik ng JSON o buod ng text.",
+    "x_search_terms": [
+      "bagay status ng device",
+      "matter_device_status",
+      "matter",
+      "MATTER"
+    ]
+  },
+  "ms": {
+    "param.fmt.description": "Format: json atau teks.",
+    "err.device_id_required": "ID peranti perkara diperlukan.",
+    "err.not_found": "Peranti jirim tidak ditemui: {device_id}",
+    "err.ambiguous_target": "Sasaran peranti jirim adalah samar-samar: {device_id}",
+    "err.config_missing": "Data peranti jirim tiada. Tetapkan {env_json} atau {env_file} untuk peranti, pengawal atau jambatan.",
+    "param.bridge.description": "ID Jambatan (pilihan).",
+    "param.ctrl.description": "ID Pengawal (pilihan).",
+    "param.dev.description": "ID peranti penting untuk dicari. Pengecam yang diperlukan.",
+    "param.endpoint.description": "Penapis titik akhir (pilihan).",
+    "tool.description": "Dapatkan status satu peranti Matter dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "perkara status peranti",
+      "matter_device_status",
+      "matter",
+      "MATTER"
+    ]
+  },
+  "da": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.device_id_required": "Sagens enheds-id er påkrævet.",
+    "err.not_found": "Sagenheden blev ikke fundet: {device_id}",
+    "err.ambiguous_target": "Målenhedsmålet er tvetydigt: {device_id}",
+    "err.config_missing": "Sagenhedens data mangler. Indstil {env_json} eller {env_file} for enheder, controllere eller broer.",
+    "param.bridge.description": "Bridge ID (valgfrit).",
+    "param.ctrl.description": "Controller-id (valgfrit).",
+    "param.dev.description": "Vigtigt enheds-id at slå op. Påkrævet identifikator.",
+    "param.endpoint.description": "Slutpunktsfilter (valgfrit).",
+    "tool.description": "Få status for én Matter-enhed, og returner en JSON eller tekstoversigt.",
+    "x_search_terms": [
+      "matter device status",
+      "matter_device_status",
+      "matter",
+      "MATTER"
+    ]
+  },
+  "nn": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.device_id_required": "Enhets-ID for saken kreves.",
+    "err.not_found": "Saksenhet ikke funnet: {device_id}",
+    "err.ambiguous_target": "Materiell enhetsmål er tvetydig: {device_id}",
+    "err.config_missing": "Saksenhetsdata mangler. Angi {env_json} eller {env_file} for enheter, kontrollere eller broer.",
+    "param.bridge.description": "Bro-ID (valgfritt).",
+    "param.ctrl.description": "Kontroller-ID (valgfritt).",
+    "param.dev.description": "Viktig enhets-ID å slå opp. Nødvendig identifikator.",
+    "param.endpoint.description": "Endepunktfilter (valgfritt).",
+    "tool.description": "Få statusen til én Matter-enhet og returner en JSON eller tekstsammendrag.",
+    "x_search_terms": [
+      "matter device status",
+      "matter_device_status",
+      "matter",
+      "MATTER"
+    ]
   }
 }

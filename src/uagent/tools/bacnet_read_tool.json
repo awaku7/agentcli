@@ -712,5 +712,89 @@
       "回傳"
     ],
     "param.timeout.description": "超時（以秒為單位）。"
+  },
+  "fil": {
+    "tool.description": "Magbasa ng property ng BACnet mula sa isang device. Ibinabalik ang kasalukuyang halaga at metadata bilang JSON o text.",
+    "param.ip.description": "Target na IPv4 address ng device.",
+    "param.device_instance.description": "BACnet device instance number (alternatibo sa ip). Ginagamit kung hindi ibinigay ang ip.",
+    "param.object_type.description": "Uri ng object ng BACnet (hal. 'analogInput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet object instance number.",
+    "param.property_name.description": "Pangalan ng property na babasahin (default: 'presentValue'). Karaniwan: presentValue, paglalarawan, mga unit, statusFlags, objectName.",
+    "param.fmt.description": "Format: json o text.",
+    "msg.summary": "BACnet read: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "Hindi ma-install ang BAC0 library.",
+    "err.invalid_object_type": "Di-wastong object_type. Wasto: {types}.",
+    "err.ip_or_device_required": "Kinakailangan ang alinman sa ip o device_instance.",
+    "x_search_terms": [
+      "bacnet read",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "returns"
+    ],
+    "param.timeout.description": "Timeout sa ilang segundo."
+  },
+  "ms": {
+    "tool.description": "Baca sifat BACnet daripada peranti. Mengembalikan nilai semasa dan metadata sebagai JSON atau teks.",
+    "param.ip.description": "Alamat IPv4 peranti sasaran.",
+    "param.device_instance.description": "Nombor contoh peranti BACnet (alternatif kepada ip). Digunakan jika ip tidak disediakan.",
+    "param.object_type.description": "Jenis objek BACnet (cth. 'analogInput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "Nombor contoh objek BACnet.",
+    "param.property_name.description": "Nama harta untuk dibaca (lalai: 'presentValue'). Biasa: presentValue, perihalan, unit, statusFlags, objectName.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Bacaan BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "Pustaka BAC0 tidak dapat dipasang.",
+    "err.invalid_object_type": "Jenis_objek tidak sah. Sah: {types}.",
+    "err.ip_or_device_required": "Sama ada ip atau device_instance diperlukan.",
+    "x_search_terms": [
+      "bacnet read",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "returns"
+    ],
+    "param.timeout.description": "Tamat masa dalam beberapa saat."
+  },
+  "da": {
+    "tool.description": "Læs en BACnet-egenskab fra en enhed. Returnerer den aktuelle værdi og metadata som JSON eller tekst.",
+    "param.ip.description": "Målenhedens IPv4-adresse.",
+    "param.device_instance.description": "BACnet-enhedsinstansnummer (alternativ til ip). Bruges hvis ip ikke er angivet.",
+    "param.object_type.description": "BACnet-objekttype (f.eks. 'analogInput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet objektinstansnummer.",
+    "param.property_name.description": "Egenskabsnavn, der skal læses (standard: 'presentValue'). Fælles: presentValue, description, units, statusFlags, objectName.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet læst: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
+    "err.ip_or_device_required": "Enten ip eller device_instance er påkrævet.",
+    "x_search_terms": [
+      "bacnet read",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      " returnerer"
+    ],
+    "param.timeout.description": "Timeout i sekunder."
+  },
+  "nn": {
+    "tool.description": "Les en BACnet-egenskap fra en enhet. Returnerer gjeldende verdi og metadata som JSON eller tekst.",
+    "param.ip.description": "Mål enhetens IPv4-adresse.",
+    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Brukes hvis ip ikke er oppgitt.",
+    "param.object_type.description": "BACnet-objekttype (f.eks. 'analogInput', 'binaryOutput', 'analogValue').",
+    "param.object_instance.description": "BACnet-objektforekomstnummer.",
+    "param.property_name.description": "Egenskapsnavn som skal leses (standard: 'presentValue'). Vanlig: presentverdi, beskrivelse, enheter, statusFlagg, objektnavn.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet lest: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
+    "err.ip_or_device_required": "Enten ip eller device_instance kreves.",
+    "x_search_terms": [
+      "bacnet read",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "returner"
+    ],
+    "param.timeout.description": "Tidsavbrudd i sekunder."
   }
 }

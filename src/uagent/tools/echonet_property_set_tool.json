@@ -814,5 +814,101 @@
     "param.epc.description": "ECHONET Lite 屬性代碼 (EPC)，例如“80”或“D5”。",
     "param.obj.description": "用於縮小查詢物件範圍的可選物件程式碼（例如“0130”）。",
     "tool.description": "在節點上設定一個 ECHONET Lite 屬性並傳回 JSON 或文字結果。"
+  },
+  "fil": {
+    "param.ip.description": "Target na node IPv4 address.",
+    "param.value.description": "Halaga na itatakda (naka-encode bilang UTF-8 o int byte).",
+    "param.timeout.description": "Timeout (segundo).",
+    "param.fmt.description": "Format: json o text.",
+    "err.invalid_eoj": "Error: Hindi ma-parse ang EOJ '{eoj}'.",
+    "err.invalid_object_code": "Error: Hindi ma-parse ang object_code '{object_code}'.",
+    "msg.summary": "Nakumpleto ang set ng property ng ECHONET Lite: {ip_address} / {epc} sa {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Error: ang ip_address ay dapat na isang wastong IPv4 address.",
+    "err.invalid_epc": "Error: ang epc ay dapat na isang wastong 1-byte na hex code.",
+    "err.invalid_edt": "Error: ang edt ay dapat na isang wastong hex string.",
+    "err.value_required": "Error: kinakailangan ang alinman sa value o edt.",
+    "param.edt.description": "Opsyonal na hilaw na EDT hex string na ipapadala. Nangunguna sa halaga kapag ibinigay.",
+    "param.eoj.description": "Opsyonal na target na EOJ (hal. '013001'). Kung aalisin, ang node profile object ay ginagamit.",
+    "param.epc.description": "ECHONET Lite property code (EPC), halimbawa '80' o 'D5'.",
+    "param.obj.description": "Opsyonal na object code upang paliitin ang na-query na bagay (hal. '0130').",
+    "tool.description": "Magtakda ng isang ECHONET Lite property sa isang node at magbalik ng JSON o text na resulta.",
+    "x_search_terms": [
+      "set ng property ng echonet",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "ms": {
+    "param.ip.description": "Alamat IPv4 nod sasaran.",
+    "param.value.description": "Nilai untuk ditetapkan (dikodkan sebagai UTF-8 atau bait int).",
+    "param.timeout.description": "Tamat masa (saat).",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.invalid_eoj": "Ralat: Tidak dapat menghuraikan EOJ '{eoj}'.",
+    "err.invalid_object_code": "Ralat: Tidak dapat menghuraikan object_code '{object_code}'.",
+    "msg.summary": "Set sifat ECHONET Lite siap: {ip_address} / {epc} dalam {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Ralat: ip_address mestilah alamat IPv4 yang sah.",
+    "err.invalid_epc": "Ralat: epc mestilah kod hex 1-bait yang sah.",
+    "err.invalid_edt": "Ralat: edt mestilah rentetan hex yang sah.",
+    "err.value_required": "Ralat: sama ada nilai atau edt diperlukan.",
+    "param.edt.description": "Rentetan heks EDT mentah pilihan untuk dihantar. Diutamakan daripada nilai apabila disediakan.",
+    "param.eoj.description": "EOJ sasaran pilihan (mis. '013001'). Jika ditinggalkan, objek profil nod digunakan.",
+    "param.epc.description": "Kod sifat ECHONET Lite (EPC), contohnya '80' atau 'D5'.",
+    "param.obj.description": "Kod objek pilihan untuk mengecilkan objek yang ditanya (mis. '0130').",
+    "tool.description": "Tetapkan satu sifat ECHONET Lite pada nod dan kembalikan JSON atau hasil teks.",
+    "x_search_terms": [
+      "set hartanah echonet",
+      "set_property_echonet",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "da": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.value.description": "Værdi, der skal indstilles (kodet som UTF-8 eller int bytes).",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Fejl: Kunne ikke parse EOJ '{eoj}'.",
+    "err.invalid_object_code": "Fejl: Kunne ikke parse objektkode '{object_code}'.",
+    "msg.summary": "ECHONET Lite egenskabssæt fuldført: {ip_address} / {epc} på {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Fejl: ip_adresse skal være en gyldig IPv4-adresse.",
+    "err.invalid_epc": "Fejl: epc skal være en gyldig 1-byte hex-kode.",
+    "err.invalid_edt": "Fejl: edt skal være en gyldig hex-streng.",
+    "err.value_required": "Fejl: enten værdi eller edt er påkrævet.",
+    "param.edt.description": "Valgfri rå EDT hex streng til at sende. Har forrang over værdi, når den er angivet.",
+    "param.eoj.description": "Valgfrit mål EOJ (f.eks. \"013001\"). Hvis det udelades, bruges nodeprofilobjektet.",
+    "param.epc.description": "ECHONET Lite egenskabskode (EPC), for eksempel '80' eller 'D5'.",
+    "param.obj.description": "Valgfri objektkode for at indsnævre det forespurgte objekt (f.eks. '0130').",
+    "tool.description": "Indstil én ECHONET Lite-egenskab på en node og returner et JSON- eller tekstresultat.",
+    "x_search_terms": [
+      "echonet-egenskabssæt",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
+  },
+  "nn": {
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.value.description": "Verdi å angi (kodet som UTF-8 eller int byte).",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Feil: Kunne ikke analysere EOJ '{eoj}'.",
+    "err.invalid_object_code": "Feil: Kunne ikke analysere objektkode '{object_code}'.",
+    "msg.summary": "ECHONET Lite-egenskapssett fullført: {ip_address} / {epc} på {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
+    "err.invalid_epc": "Feil: epc må være en gyldig 1-byte hex-kode.",
+    "err.invalid_edt": "Feil: edt må være en gyldig sekskantstreng.",
+    "err.value_required": "Feil: enten verdi eller edt kreves.",
+    "param.edt.description": "Valgfri rå EDT sekskantstreng å sende. Går foran verdi når den er gitt.",
+    "param.eoj.description": "Valgfritt mål EOJ (f.eks. '013001'). Hvis det utelates, brukes nodeprofilobjektet.",
+    "param.epc.description": "ECHONET Lite egenskapskode (EPC), for eksempel '80' eller 'D5'.",
+    "param.obj.description": "Valgfri objektkode for å begrense det forespurte objektet (f.eks. '0130').",
+    "tool.description": "Sett én ECHONET Lite-egenskap på en node og returner et JSON- eller tekstresultat.",
+    "x_search_terms": [
+      "echonet egenskapssett",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   }
 }

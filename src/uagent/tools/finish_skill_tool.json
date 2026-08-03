@@ -542,5 +542,69 @@
       "finish skill",
       "stop skill"
     ]
+  },
+  "fil": {
+    "param.message.description": "Opsyonal na huling mensahe sa user.",
+    "tool.description": "Hudyat na kumpleto na ang mga gawain ng kasalukuyang kasanayan. (Gumamit LAMANG sa panahon ng pagpapatupad ng kasanayan batay sa SKILL.",
+    "x_search_terms": [
+      "finish_skill",
+      "finish skill",
+      "complete skill",
+      "end skill",
+      "skill done",
+      "markang tapos na",
+      "signal complete",
+      "finish task",
+      "stop instructions",
+      "end loop"
+    ]
+  },
+  "ms": {
+    "param.message.description": "Mesej akhir pilihan kepada pengguna.",
+    "tool.description": "Memberi isyarat bahawa tugas kemahiran semasa telah selesai. (Gunakan SAHAJA semasa pelaksanaan kemahiran berdasarkan KEMAHIRAN.",
+    "x_search_terms": [
+      "kemahiran_kemahiran",
+      "kemahiran tamat",
+      "kemahiran lengkap",
+      "kemahiran tamat",
+      "kemahiran selesai",
+      "tanda selesai",
+      "isyarat selesai",
+      "tugasan selesai",
+      "arahan berhenti",
+      "gelung tamat"
+    ]
+  },
+  "da": {
+    "param.message.description": "Valgfri sidste besked til brugeren.",
+    "tool.description": "Signalér, at den aktuelle færdigheds opgaver er fuldført. (Brug KUN under udførelse af færdigheder baseret på dygtighed.",
+    "x_search_terms": [
+      "finish_skill",
+      "afslut færdighed",
+      "afslut færdighed",
+      "afslut færdighed",
+      "færdighed færdig",
+      "markér udført",
+      "signal færdig",
+      "afslut opgave",
+      "stopinstruktioner",
+      "afslut sløjfe"
+    ]
+  },
+  "nn": {
+    "param.message.description": "Valgfri sluttmelding til brukeren.",
+    "tool.description": "Signaler at den gjeldende ferdighetens oppgaver er fullført. (Brukes KUN under ferdighetsutførelse basert på FERDIGHETER.",
+    "x_search_terms": [
+      "finish_skill",
+      "fullfør ferdighet",
+      "fullfør ferdighet",
+      "slutt ferdighet",
+      "ferdighet ferdig",
+      "merke ferdig",
+      "signal fullført",
+      "fullfør oppgave",
+      "stoppinstruksjoner",
+      "slutt loop"
+    ]
   }
 }
