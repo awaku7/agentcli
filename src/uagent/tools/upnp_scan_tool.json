@@ -1039,7 +1039,7 @@
     "param.mx.description": "SSDP MX topptekstverdi (1–5 sekunder) brukt av M-SEARCH.",
     "param.wait_timeout.description": "Ventetid på klientsiden i sekunder for SSDP-svar.",
     "param.interface.description": "Valgfri IPv4-adresse for lokalt grensesnitt eller grensesnittnavn å binde til.",
-    "param.retry.description": "Hvor mange SSDP-oppdagelsesrunder skal sendes før retur.",
+    "param.retry.description": "Kvar mange SSDP-oppdagelsesrunder skal sendes før retur.",
     "param.limit.description": "Maksimalt antall enheter å returnere.",
     "param.search_target.description": "SSDP-søkemål (ST), for eksempel 'ssdp:all' eller 'upnp:rootdevice'.",
     "err.invalid_interface": "Feil: Kunne ikke løse grensesnitt '{interface}' til en lokal IPv4-adresse.",
@@ -1050,7 +1050,7 @@
     "param.filter_manufacturer.description": "Valgfritt små og store bokstaver ufølsomt substring filter for produsenten.",
     "param.filter_model.description": "Valgfritt substring-filter som skiller mellom store og små bokstaver for modellnavn.",
     "param.filter_type.description": "Valgfritt substring-filter som ikke skiller mellom store og små bokstaver for device_type.",
-    "tool.description": "Oppdag UPnP/SSDP-enheter på det lokale nettverket og returner en JSON eller tekstliste. Støtter filtrering etter navn, produsent, modell eller enhetstype.",
+    "tool.description": "Oppdag UPnP/SSDP-enheter på det lokale nettverket og returner en JSON eller tekstliste. Støtter filtrering etter namn, produsent, modell eller enhetstype.",
     "x_search_terms": [
       "upnp scan",
       "upnp_scan",

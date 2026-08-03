@@ -1001,7 +1001,7 @@
   "nn": {
     "param.data_hex.description": "Hex-streng med byte å skrive/sette inn (f.eks. 'DEADBEEF' eller 'DE AD BE EF').",
     "param.delete_len.description": "Antall byte som skal slettes (spleisesletting).",
-    "param.dry_run.description": "Hvis sant, ikke endre filen; bare rapporter hva som vil endre seg.",
+    "param.dry_run.description": "Hvis sant, ikke endre filen; berre rapporter kva som vil endre seg.",
     "param.mode.description": "Redigeringsmodus.",
     "param.occurrence.description": "Forekomst (1-basert; 0 = alle).",
     "param.offset.description": "Byte offset (0-basert). Nødvendig for skriv/spleising.",

@@ -749,11 +749,11 @@
       "serverprofil",
       "profilmelding",
       "fjernmelding",
-      "meldinger",
+      "meldingar",
       "a2a melding",
       "send oppgave"
     ],
-    "param.profile.description": "Profilnavn eller a2a://navn. Hvis utelatt, bruker standardprofilen.",
+    "param.profile.description": "Profilnavn eller a2a://namn. Hvis utelatt, brukar standardprofilen.",
     "param.message.description": "Brukermelding å sende.",
     "param.return_immediately.description": "Hvis sant, returner rett etter at oppgaven er opprettet.",
     "err.missing_message": "Mangler 'melding'.",

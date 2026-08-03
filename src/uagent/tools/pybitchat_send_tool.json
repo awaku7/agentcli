@@ -51,6 +51,6 @@
     "param.recipient.description": "Valgfri mottaker-ID. Ingen = kringkasting.",
     "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-releer), 'begge'.",
     "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
-    "err.payload_required": "nyttelast er nødvendig"
+    "err.payload_required": "nyttelast er naudsynt"
   }
 }

@@ -79,8 +79,8 @@
     ],
     "param.name": "Verktøynavn (slangehus, f.eks. «mitt_verktøy»)",
     "param.lang": "Implementeringsspråk: 'python' eller 'rust'",
-    "param.description": "Kort beskrivelse av hva verktøyet gjør",
+    "param.description": "Kort beskrivelse av kva verktøyet gjør",
     "param.output_dir": "Utdatakatalog (standard: UAGENT_EXTERNAL_TOOLS_DIR eller gjeldende katalog)",
-    "cmd.help": ":verktøy opprette <navn> --lang python|rust --beskrivelse '...'"
+    "cmd.help": ":verktøy opprette <namn> --lang python|rust --beskrivelse '...'"
   }
 }

@@ -1122,10 +1122,10 @@
     "tool.description": "Et verktøy for å be den menneskelige brukeren om et innspill/beslutning som modellen ikke kan fullføre av seg selv. Sikkerhetsmerknad: når du ber om hemmeligheter (passord/tokens) er inngangen maskert.",
     "x_search_terms": [
       "menneskelig spør",
-      "spør bruker",
+      "spør brukar",
       "brukerinndata",
       "menneskelig input",
-      "spør bruker",
+      "spør brukar",
       "spør menneskelig",
       "spørsmål",
       "brukerforespørsel",
@@ -1135,7 +1135,7 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Menneskelig forespørsel (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilotmodus). Modellen må bestemme seg selv.",
-    "msg.empty_request": "(Forespørselsmeldingen fra modellen er tom. Beskriv den nødvendige handlingen/beslutningen her.)",
+    "msg.empty_request": "(Forespørselsmeldingen frå modellen er tom. Beskriv den naudsynte handlingen/beslutningen her.)",
     "param.is_password.description": "Hvis sant, skjul inndatategn (maske). Bruk dette når du ber om passord eller tokens.",
     "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n"
   }

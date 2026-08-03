@@ -593,7 +593,7 @@
   },
   "nn": {
     "param.message.description": "Valgfri sluttmelding til brukeren.",
-    "tool.description": "Signaler at den gjeldende ferdighetens oppgaver er fullført. (Brukes KUN under ferdighetsutførelse basert på FERDIGHETER.",
+    "tool.description": "Signaler at den gjeldende ferdighetens oppgaver er fullført. (Vert brukt KUN under ferdighetsutførelse basert på FERDIGHETER.",
     "x_search_terms": [
       "finish_skill",
       "fullfør ferdighet",

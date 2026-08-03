@@ -738,14 +738,14 @@
     ]
   },
   "nn": {
-    "tool.description": "Slå opp en adresse fra breddegrad/lengdegrad (omvendt geokoding). Bruker OpenStreetMap Nominatim API. Verdensomspennende dekning.",
+    "tool.description": "Slå opp en adresse frå breddegrad/lengdegrad (omvendt geokoding). Brukar OpenStreetMap Nominatim API. Verdensomspennende dekning.",
     "param.lat.description": "Breddegrad (f.eks. 35.6895).",
     "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
     "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
     "x_search_terms": [
       "omvendt geokode",
       "omvendt geokoding",
-      "adresse fra koordinater",
+      "adresse frå koordinater",
       "lat lon til adresse",
       "gps til adresse",
       "geokode omvendt",

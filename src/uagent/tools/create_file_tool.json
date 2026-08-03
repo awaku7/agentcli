@@ -855,7 +855,7 @@
     "param.encoding.description": "Koding (f.eks. utf-8, cp932; standard: utf-8).",
     "param.filename.description": "Filbane som skal opprettes.",
     "param.overwrite.description": "Overskriv hvis det finnes (standard: usann).",
-    "tool.description": "Lag en tekstfil. Valgfri overskriving med backup (.org). Velg koding for Excel (utf-8-sig) eller programmatisk (utf-8).",
+    "tool.description": "Lag en tekstfil. Valgfri overskriving med backup (.org). Vel koding for Excel (utf-8-sig) eller programmatisk (utf-8).",
     "x_search_terms": [
       "lag fil",
       "",

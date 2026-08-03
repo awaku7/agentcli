@@ -667,7 +667,7 @@
   },
   "nn": {
     "param.expression.description": "Det matematiske uttrykket som skal evalueres (f.eks.",
-    "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon er nødvendig.",
+    "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon er naudsynt.",
     "x_search_terms": [
       "kalkulator",
       "beregne",

@@ -829,9 +829,9 @@
       "pptx read",
       "lysbilde"
     ],
-    "param.password.description": "Passord (spør om nødvendig).",
+    "param.password.description": "Passord (spør om naudsynt).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
-    "err.path_required": "[read_pptx_pdf error] bane er nødvendig",
+    "err.path_required": "[read_pptx_pdf error] bane er naudsynt",
     "err.page_index_int": "[read_pptx_pdf error] sideindeks må være et heltall",
     "param.maxc.description": "Maksimalt antall tegn å returnere. Hvis den utelates, avkortes den med 8000 tegn."
   }

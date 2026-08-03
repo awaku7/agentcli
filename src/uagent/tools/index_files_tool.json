@@ -1116,7 +1116,7 @@
     "err.vec_unavailable": "Feil: Kan ikke opprette indeks fordi den semantiske søkemodulen (semantic_search_files_tool) er utilgjengelig.",
     "out.completed": "Indekseringsprosessen fullført.",
     "out.fail": "Mislyktes: {count}",
-    "out.footer": "\nDu kan nå søke i disse filene ved å bruke `semantic_search_files`.",
+    "out.footer": "\nDu kan no søke i desse filene ved å bruke `semantic_search_files`.",
     "out.not_found": "Ingen filer ble funnet som samsvarer med mønsteret '{pattern}'.",
     "out.pattern": "Målmønster: {pattern}",
     "out.root": "Rotkatalog: {root_abs}",

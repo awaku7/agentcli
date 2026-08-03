@@ -1205,14 +1205,14 @@
     "param.overwrite.description": "Hvis sant, overskriver init en eksisterende batchfil.",
     "err.invalid_patch": "[batch_state error] patch må være et objekt",
     "param.current_target.description": "Indeks over gjeldende målgruppe.",
-    "param.file.description": "Målfil for complete_file/skip_file/error_file. Hvis den utelates, brukes gjeldende fil.",
+    "param.file.description": "Målfil for complete_file/skip_file/error_file. Hvis den utelates, vert brukt gjeldende fil.",
     "param.reason.description": "Årsak til skip_fil/error_file, eller et kort notat for fullføring.",
     "param.status.description": "Batchstatus.",
     "param.remaining_files.description": "Filer i gjeldende målgruppe. Foretrekker mål.",
     "err.batch_exists": "",
     "err.exception": "",
     "err.unknown_action": "",
-    "param.patch.description": "Delvis oppdatering for å slå sammen til batch-tilstanden. Foretrekk patch.targets og patch.current_target.",
+    "param.patch.description": "Delvis oppdatering for å slå saman til batch-tilstanden. Foretrekk patch.targets og patch.current_target.",
     "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks."
   }
 }

@@ -703,15 +703,15 @@
     "param.recur.description": "Søg rekursivt (standard: sand)"
   },
   "nn": {
-    "param.include_invalid.description": "Om du skal inkludere ferdigheter som mislyktes i parsing eller validering (standard: sant).",
-    "param.root_dir.description": "Rotkatalog for ferdighetssøk. Bruker UAGENT_SKILLS_DIRS (os.",
+    "param.include_invalid.description": "Om du skal inkludere ferdigheter som mislukkast i parsing eller validering (standard: sant).",
+    "param.root_dir.description": "Rotkatalog for ferdighetssøk. Brukar UAGENT_SKILLS_DIRS (os.",
     "param.strict.description": "Om valideringsadvarsler skal behandles som feil (standard: usann).",
     "tool.description": "Returnerer en liste over ferdigheter under den spesifiserte roten (leser kun frontmatter) basert på Agent Skills spec (SKILL. md).",
     "x_search_terms": [
       "ferdighetsliste",
       "liste ferdigheter",
       "ferdigheter",
-      "tilgjengelige ferdigheter",
+      "tilgjengelege ferdigheter",
       "ferdighetskatalog",
       "vis ferdigheter",
       "ferdighetskatalog",

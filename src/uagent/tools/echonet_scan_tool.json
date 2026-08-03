@@ -2893,7 +2893,7 @@
     "msg.summary": "ECHONET Lite-oppdagelse fullført: {count} node(r) funnet på {elapsed_ms} ms.",
     "msg.no_devices": "Ingen ECHONET Lite-noder ble funnet.",
     "err.invalid_interface": "Feil: Kunne ikke løse grensesnitt '{interface}' til en lokal IPv4-adresse.",
-    "param.interface.description": "Lokalt grensesnitt IPv4/navn (valgfritt).",
+    "param.interface.description": "Lokalt grensesnitt IPv4/namn (valgfritt).",
     "tool.description": "Oppdag ECHONET Lite-noder på det lokale nettverket og returner en JSON eller tekstliste.",
     "Crime prevention sensor": "Kriminalitetsforebyggende sensor",
     "Emergency button": "Nødknapp",

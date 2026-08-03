@@ -630,9 +630,9 @@
   },
   "nn": {
     "param.fmt.description": "Format: json eller tekst.",
-    "err.config_missing": "Saksbro-konfigurasjonsfilen ble ikke funnet. Sett {env_json} eller {env_file}.",
-    "err.invalid_config": "Saksbrokonfigurasjon kunne ikke analyseres: {err}",
-    "err.not_found": "Saksbroen ble ikke funnet: {bridge_id}",
+    "err.config_missing": "Saksbro-konfigurasjonsfilen ble ikkje funnen. Sett {env_json} eller {env_file}.",
+    "err.invalid_config": "Saksbrokonfigurasjon kunne ikkje analyseres: {err}",
+    "err.not_found": "Saksbroen ble ikkje funnen: {bridge_id}",
     "param.bridge.description": "Bridge ID (utelat for alle).",
     "tool.description": "Vis Matter-broadministrerte enheter og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [

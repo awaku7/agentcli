@@ -781,7 +781,7 @@
     "param.address.description": "DALI-enhetsadresse (0-63), eller -1 for kringkasting.",
     "param.action.description": "Handling: på, av eller dimme.",
     "param.level.description": "Dimnivå (0-254). Nødvendig for handling=dim.",
-    "param.group.description": "Valgfri gruppeadresse (0-15) i stedet for enkeltadresse.",
+    "param.group.description": "Valgfri gruppeadresse (0-15) i staden for enkeltadresse.",
     "param.driver.description": "DALI driver type.",
     "param.host.description": "daliserver vert.",
     "param.port.description": "daliserver port.",

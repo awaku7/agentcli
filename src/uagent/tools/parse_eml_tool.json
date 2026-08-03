@@ -333,12 +333,12 @@
     "err.invalid_extension": "Forventet .eml-fil, fik: {ext}"
   },
   "nn": {
-    "tool.description": "Parse en .eml-e-postfil og trekk ut overskrifter (Fra/Til/Emne/Dato) og brødtekst.",
+    "tool.description": "Parse en .eml-e-postfil og trekk ut overskrifter (Frå/Til/Emne/Dato) og brødtekst.",
     "x_search_terms": "[\"eml\", \"e-post\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
     "param.path.description": "Banen til .eml-filen.",
     "param.max_body_length.description": "Maks tegn for kroppsutvinning (standard: 5000, 0 = ubegrenset).",
-    "err.path_missing": "bane er nødvendig.",
-    "err.file_not_found": "Filen ble ikke funnet: {path}",
+    "err.path_missing": "bane er naudsynt.",
+    "err.file_not_found": "Filen ble ikkje funnen: {path}",
     "err.invalid_extension": "Forventet .eml-fil, fikk: {ext}"
   }
 }

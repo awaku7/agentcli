@@ -962,7 +962,7 @@
     "tool.description": "Kør Git-kommandoer med sikkerheds-først-begrænsninger. Nogle operationer eller specialtegn i argumenter kan være begrænset af sikkerhedsmæssige årsager."
   },
   "nn": {
-    "error.git_not_found": "[git_ops error] git-kommandoen ble ikke funnet. Sørg for at Git er installert.",
+    "error.git_not_found": "[git_ops error] git-kommandoen ble ikkje funnen. Sørg for at Git er installert.",
     "error.invalid_command": "[git_ops error] ustøttet eller ugyldig kommando: {command}",
     "error.meta_char": "Farlige metategn er ikke tillatt i args: {arg}",
     "error.option_danger_requires_allow_danger": "Farlig alternativ krever allow_danger=true: {opt}",

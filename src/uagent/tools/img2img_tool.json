@@ -900,7 +900,7 @@
       "bildevariasjon",
       "bildeforbedring"
     ],
-    "param.prompt.description": "Instruksjoner for hvordan du redigerer bildet.",
+    "param.prompt.description": "Instruksjoner for korleis du redigerer bildet.",
     "param.size.description": "Bildestørrelse.",
     "param.n.description": "Antall bilder.",
     "param.quality.description": "Bildekvalitet.",

@@ -703,7 +703,7 @@
     "param.fmt.description": "Outputformat: tekst eller json."
   },
   "nn": {
-    "tool.description": "Trekk ut tekst og grunnleggende struktur fra Word-lignende dokumenter (. docx, .",
+    "tool.description": "Trekk ut tekst og grunnleggende struktur frå Word-lignende dokumenter (. docx, .",
     "x_search_terms": [
       "dokumentutdrag",
       "docx",
@@ -717,7 +717,7 @@
       "word-dokument"
     ],
     "param.path.description": "Bane til inndatadokumentet (.docx, .rtf, .odt).",
-    "param.password.description": "Passord (spør om nødvendig).",
+    "param.password.description": "Passord (spør om naudsynt).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
     "param.fmt.description": "Utdataformat: tekst eller json."
   }

@@ -708,7 +708,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.snapshot": "ECHONET cache øyeblikksbilde: {count} element(er).",
     "msg.no_items": "Ingen bufrede oppføringer er til stede.",
-    "msg.cleared": "Fjernet {removed} bufrede oppføringer fra {scope}.",
+    "msg.cleared": "Fjernet {removed} bufrede oppføringer frå {scope}.",
     "err.invalid_action": "Feil: handlingen må være \"øyeblikksbilde\" eller \"clear\".",
     "param.namespace.description": "Cache navneområde (utelat for alle).",
     "x_search_terms": [

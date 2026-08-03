@@ -962,7 +962,7 @@
     "prefix.error": "[fejl]"
   },
   "nn": {
-    "tool.description": "Søk og bla gjennom SkillsMP-markedsplassen (skillsmp.com) for Agent Skills. Returnerer en liste over ferdigheter med navn, forfatter, beskrivelse, stjerner og GitHub URL.",
+    "tool.description": "Søk og bla gjennom SkillsMP-markedsplassen (skillsmp.com) for Agent Skills. Returnerer en liste over ferdigheter med namn, forfatter, beskrivelse, stjerner og GitHub URL.",
     "x_search_terms": [
       "ferdighetssøk",
       "markedsplass",
@@ -975,10 +975,10 @@
       "ferdighetsoppdagelse",
       "se ferdigheter"
     ],
-    "param.query.description": "Søk for å filtrere ferdigheter etter navn eller beskrivelse.",
+    "param.query.description": "Søk for å filtrere ferdigheter etter namn eller beskrivelse.",
     "param.page.description": "Sidetall for paginering (standard: 1).",
     "param.limit.description": "Antall resultater per side (standard: 10, maks: 50).",
-    "param.sort_by.description": "Sorteringsrekkefølge: 'nylig' (nyeste først), 'stjerner' (mest stjernemerket), 'navn' (alfabetisk). Standard: 'nylig'.",
+    "param.sort_by.description": "Sorteringsrekkefølge: 'nylig' (nyeste først), 'stjerner' (mest stjernemerket), 'namn' (alfabetisk). Standard: 'nylig'.",
     "param.source.description": "Markedsplasskilde: 'skillsmp' (skillsmp.com) eller 'clawhub' (clawhub.ai). Standard: 'skillsmp'.",
     "msg.no_results": "Ingen ferdigheter funnet.",
     "msg.next_page_hint": "Bruk page={next} for å se flere resultater.",

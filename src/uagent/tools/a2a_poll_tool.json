@@ -790,7 +790,7 @@
       "fremdriftssjekk",
       "overvåkingsoppgave"
     ],
-    "param.profile.description": "Profilnavn eller a2a://navn. Hvis utelatt, bruker standardprofilen.",
+    "param.profile.description": "Profilnavn eller a2a://namn. Hvis utelatt, brukar standardprofilen.",
     "param.task_id.description": "Oppgave-ID for avstemning.",
     "param.interval_ms.description": "Overstyr pollingintervall (ms).",
     "param.timeout_s.description": "Overstyr tidsavbrudd (sekunder).",

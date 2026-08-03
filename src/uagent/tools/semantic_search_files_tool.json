@@ -1073,8 +1073,8 @@
     "err.no_index": "Fejl: Ingen indekserede vektorer fundet. Kør først index_files."
   },
   "nn": {
-    "err.dir_not_found": "Feil: Katalog ble ikke funnet: {root_path}",
-    "err.query_required": "Feil: spørring er nødvendig.",
+    "err.dir_not_found": "Feil: Katalog ble ikkje funnen: {root_path}",
+    "err.query_required": "Feil: spørring er naudsynt.",
     "err.vec_fail": "Feil: Kunne ikke vektorisere spørringen.",
     "out.hits": "Treff: {count}\n",
     "out.not_found": "Ingen relaterte dokumenter ble funnet.",
@@ -1086,7 +1086,7 @@
     "param.query.description": "Søk nøkkelord.",
     "param.root_path.description": "Katalog for å søke.",
     "param.top_k.description": "tall.",
-    "tool.description": "Utfører et semantisk søk ​​(vektorsøk) mot lokale filer. Bruker Embedding API for å vektorisere filinnhold og trekke ut relevante dokumentpassasjer.",
+    "tool.description": "Utfører et semantisk søk ​​(vektorsøk) mot lokale filer. Brukar Embedding API for å vektorisere filinnhold og trekke ut relevante dokumentpassasjer.",
     "x_search_terms": [
       "semantic_search_files",
       "semantiske søkefiler",

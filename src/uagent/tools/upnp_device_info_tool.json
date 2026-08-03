@@ -704,8 +704,8 @@
   },
   "nn": {
     "param.location.description": "URL for UPnP-enhetsbeskrivelse (f.eks. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Enhetens IP-adresse (brukes med valgfri port for å bygge en beskrivelses-URL).",
-    "param.port.description": "Portnummer (brukes med ip). Standard: 5000 (vanlig UPnP-port).",
+    "param.ip.description": "Enhetens IP-adresse (vert brukt med valgfri port for å bygge en beskrivelses-URL).",
+    "param.port.description": "Portnummer (vert brukt med ip). Standard: 5000 (vanlig UPnP-port).",
     "param.timeout.description": "HTTP tidsavbrudd for henting på sekunder.",
     "param.fmt.description": "Format: json eller tekst.",
     "err.no_target": "Enten 'location' eller 'ip' må oppgis.",

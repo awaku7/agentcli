@@ -851,7 +851,7 @@
     ]
   },
   "nn": {
-    "help_text": "  :skills apm list List ferdigheter fra APM apm_modules/\n :skills apm bruk <navn|#> Last inn og aktiver en APM-ferdighet\n :skills apm dir [bane] Vis eller angi APM-prosjektrot",
+    "help_text": "  :skills apm list List ferdigheter frå APM apm_modules/\n :skills apm bruk <namn|#> Last inn og aktiver en APM-ferdighet\n :skills apm dir [bane] Vis eller angi APM-prosjektrot",
     "msg.use_hint": "[apm] Bruk ':skills apm use <number>' for å aktivere en ferdighet.",
     "err.name_required": "[apm] Spesifiser et ferdighetsnavn eller nummer.",
     "msg.found_skills": "[apm] Fant {n} ferdigheter i {path}/apm_modules/:",
@@ -862,8 +862,8 @@
     "msg.dir_current": "[apm] APM-prosjektrot: {path}",
     "err.out_of_range": "[apm] Tall utenfor rekkevidde (1-{max}).",
     "err.load_failed": "[apm] Kunne ikke laste ferdighet: {err}",
-    "err.dir_not_found": "[apm] Katalog ikke funnet: {path}",
-    "err.unknown_subcommand": "[apm] Ukjent underkommando: {cmd}",
+    "err.dir_not_found": "[apm] Katalog ikkje funnen: {path}",
+    "err.unknown_subcommand": "[apm] Ukjend underkommando: {cmd}",
     "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet.",
     "x_search_terms": [
       "ferdigheter apm",

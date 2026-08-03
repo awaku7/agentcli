@@ -1110,10 +1110,10 @@
     ]
   },
   "nn": {
-    "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengelig for påfølgende trinn via det delte kontekstlageret.",
-    "param.chain.description": "Liste over underagenttrinn som skal utføres i rekkefølge. Hvert trinn kan lagre resultater og laste inn resultater fra tidligere trinn.",
+    "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengeleg for påfølgende trinn via det delte kontekstlageret.",
+    "param.chain.description": "Liste over underagenttrinn som skal utføres i rekkefølge. Hvert trinn kan lagre resultater og laste inn resultater frå tidligere trinn.",
     "param.stop_on_error.description": "Hvis sant, stopp kjedekjøring ved første feil. Standard sant.",
-    "param.step.agent_name.description": "Sub-agent navn som skal utføres for dette trinnet.",
+    "param.step.agent_name.description": "Sub-agent namn som skal utføres for dette trinnet.",
     "param.step.task.description": "Oppgaveinstruksjon for dette trinnet.",
     "param.step.current_file.description": "(Valgfritt) Fil for å omfatte dette trinnets begrunnelse.",
     "param.step.response_mode.description": "Utgangsmodus for dette trinnet.",
@@ -1125,7 +1125,7 @@
     "param.step.permission_level.description": "Tillatelsesnivå for dette trinnet.",
     "param.step.parent_goal.description": "Overstyr overordnet mål for dette trinnet.",
     "param.step.store_key.description": "Nøkkel for å lagre dette trinnets resultat for påfølgende trinn.",
-    "param.step.load_keys.description": "Taster for å laste fra tidligere trinns lagrede resultater.",
+    "param.step.load_keys.description": "Taster for å laste frå tidligere trinns lagrede resultater.",
     "param.step.cache_ttl.description": "Buffer TTL for dette trinnet. Standard 0.",
     "param.step.timeout.description": "LLM tidsavbrudd for dette trinnet. Standard 120.",
     "param.step.max_retries.description": "Max prøver på nytt for dette trinnet. Standard 2.",

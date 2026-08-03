@@ -814,7 +814,7 @@
     "param.timeout.description": "Timeout i sekunder."
   },
   "nn": {
-    "tool.description": "Les Modbus TCP-registre fra en enhet. Støtter holderegistre, inngangsregistre, spoler og diskrete innganger.",
+    "tool.description": "Les Modbus TCP-registre frå en enhet. Støtter holderegistre, inngangsregistre, spoler og diskrete innganger.",
     "param.ip.description": "Mål enhetens IPv4-adresse.",
     "param.port.description": "Modbus TCP-port (standard: 502).",
     "param.unit.description": "Modbus-enhets-ID (standard: 1).",

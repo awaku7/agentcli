@@ -555,7 +555,7 @@
     "param.prefecture.description": "Japansk præfekturnavn for at vise byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteret."
   },
   "nn": {
-    "tool.description": "Slå opp japanske adresser etter postnummer, eller oppgi byer i en prefektur. Bruker det offentlige jpzip-datasettet (ingen API-nøkkel kreves).",
+    "tool.description": "Slå opp japanske adresser etter postnummer, eller oppgi byer i en prefektur. Brukar det offentlige jpzip-datasettet (ingen API-nøkkel kreves).",
     "x_search_terms": [
       "postnummer",
       "postnummer",

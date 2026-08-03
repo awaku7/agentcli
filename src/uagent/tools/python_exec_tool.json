@@ -643,6 +643,6 @@
       "python-program"
     ],
     "[python_exec error] Provide 'code'.": "",
-    "tool.description": "Utfør Python-kode på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
+    "tool.description": "Utfør Python-kode på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du brukar dette verktøyet."
   }
 }

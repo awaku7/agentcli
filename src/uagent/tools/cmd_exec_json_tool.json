@@ -740,8 +740,8 @@
     "error.exec_failed": "kommandoudførelse mislykkedes: %(error)s"
   },
   "nn": {
-    "param.command.description": "Kommandostrengen ble sendt til OS-skallet. På Windows brukes cmd.exe /c.",
-    "tool.description": "Som en siste utvei, utfør en shell-kommando og returner et JSON-resultat. Bruk kun når det ikke er noe sikrere eller mer spesifikt verktøy tilgjengelig (f.",
+    "param.command.description": "Kommandostrengen ble sendt til OS-skallet. På Windows vert brukt cmd.exe /c.",
+    "tool.description": "Som en siste utvei, utfør en shell-kommando og returner et JSON-resultat. Bruk kun når det ikke er noe sikrere eller mer spesifikt verktøy tilgjengeleg (f.",
     "x_search_terms": [
       "cmd json",
       "kommando json",
@@ -754,9 +754,9 @@
       "json kommando",
       "cmd resultat"
     ],
-    "param.cwd.description": "Arbeidskatalog. Bare relative baner under workdir er tillatt. Hvis null, bruker den gjeldende katalogen.",
+    "param.cwd.description": "Arbeidskatalog. Berre relative baner under workdir er tillatt. Hvis null, brukar den gjeldende katalogen.",
     "error.exit_code": "kommandoen ble avsluttet med koden %(returncode)s",
-    "error.os_error": "kommandoutførelse mislyktes (OS-feil): %(error)s",
-    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s"
+    "error.os_error": "kommandoutførelse mislukkast (OS-feil): %(error)s",
+    "error.exec_failed": "kommandoutførelse mislukkast: %(error)s"
   }
 }

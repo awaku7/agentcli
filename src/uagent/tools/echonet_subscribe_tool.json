@@ -666,9 +666,9 @@
     ]
   },
   "nn": {
-    "tool.description": "Abonner på ECHONET Lite INF-meldinger (varsling) fra en enhet. Når enheten sender et uønsket varsel om endring av eiendom, blir LLM automatisk informert.",
+    "tool.description": "Abonner på ECHONET Lite INF-meldinger (varsling) frå en enhet. Når enheten sender et uønsket varsel om endring av eiendom, blir LLM automatisk informert.",
     "param.ip.description": "Mål enhetens IPv4-adresse for å overvåke (påkrevd).",
-    "param.eoj.description": "Valgfritt EOJ-filter (f.eks. '013001' for en spesifikk AC, '0130' for alle AC-er). Utelat for å motta alle varsler fra denne IP-en.",
+    "param.eoj.description": "Valgfritt EOJ-filter (f.eks. '013001' for en spesifikk AC, '0130' for alle AC-er). Utelat for å motta alle varsler frå denne IP-en.",
     "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'リビング_エアコン').",
     "param.on_change_prompt.description": "Valgfri melding injisert i LLM når et varsel kommer.",
     "param.fmt.description": "Format: json eller tekst.",

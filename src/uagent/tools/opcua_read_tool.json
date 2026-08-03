@@ -592,7 +592,7 @@
     "param.timeout.description": "Forbindelse timeout."
   },
   "nn": {
-    "tool.description": "Les nodeverdi(er) fra en OPC UA-server. Returnerer gjeldende verdi og metadata.",
+    "tool.description": "Les nodeverdi(er) frå en OPC UA-server. Returnerer gjeldende verdi og metadata.",
     "param.url.description": "OPC UA server URL.",
     "param.node_ids.description": "Node-ID(er) å lese. Singel: 'i=85' eller 'ns=2;s=Temp'. Multippel: kommadelt.",
     "param.fmt.description": "Format: json eller tekst.",

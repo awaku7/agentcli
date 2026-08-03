@@ -2109,12 +2109,12 @@
     "wmo.99": "Tordenvejr med kraftige hagl"
   },
   "nn": {
-    "tool.description": "Få værinformasjon fra wttr.in. Støtter bynavn eller GPS-koordinater. Faller tilbake til Open-Meteo API når wttr.in er utilgjengelig.",
+    "tool.description": "Få værinformasjon frå wttr.in. Støtter bynavn eller GPS-koordinater. Faller tilbake til Open-Meteo API når wttr.in er utilgjengelig.",
     "param.city.description": "Bynavn (f.eks. \"Tokyo\", \"Osaka\"). KREVES med mindre lat+lon er oppgitt.",
-    "param.lat.description": "Breddegrad (GPS). KREVES sammen med lon med mindre by er oppgitt. Mer nøyaktig enn bynavn.",
-    "param.lon.description": "Lengdegrad (GPS). KREVES sammen med lat med mindre by er oppgitt.",
+    "param.lat.description": "Breddegrad (GPS). KREVES saman med lon med mindre by er oppgitt. Mer nøyaktig enn bynavn.",
+    "param.lon.description": "Lengdegrad (GPS). KREVES saman med lat med mindre by er oppgitt.",
     "err.location_required": "Feil: Oppgi et bynavn eller lat+lon-koordinater.",
-    "weather.unknown": "Ukjent",
+    "weather.unknown": "Ukjend",
     "output.header": "### Vær for {city}",
     "output.temp": "- **Temperatur**: {temp}°C (føles ut som {feels}°C)",
     "output.condition": "- **Tilstand**: {desc}",

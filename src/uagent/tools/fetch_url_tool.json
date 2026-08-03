@@ -862,14 +862,14 @@
       "html",
       "skrap"
     ],
-    "param.extract.description": "Ekstraksjonsmodus. head=retur begynnelsen av svaret; text=trekk ut tekst fra HTML; html=trekk ut HTML-fragment; json=parse JSON (bruk eventuelt json_pointer); markdown=trekk ut forenklet markdown fra HTML.",
+    "param.extract.description": "Ekstraksjonsmodus. head=retur begynnelsen av svaret; text=trekk ut tekst frå HTML; html=trekk ut HTML-fragment; json=parse JSON (bruk eventuelt json_pointer); markdown=trekk ut forenklet markdown frå HTML.",
     "param.user_agent.description": "Valgfri User-Agent-overskriftsverdi.",
     "param.timeout.description": "Tidsavbrudd (sekunder).",
-    "param.maxb.description": "Maksimalt antall byte å lese fra svaret. Standard 10 MB når lagre_som er satt.",
-    "param.maxc.description": "Maksimalt antall tegn å returnere (brukes etter dekoding/ekstrahering).",
+    "param.maxb.description": "Maksimalt antall byte å lese frå svaret. Standard 10 MB når lagre_som er satt.",
+    "param.maxc.description": "Maksimalt antall tegn å returnere (vert brukt etter dekoding/ekstrahering).",
     "param.ssl.description": "Om SSL-sertifikater skal verifiseres.",
     "param.ptr.description": "Valgfri RFC 6901 JSON-peker (f.eks. /items/0/title) brukt når extract=json.",
-    "param.save_as.description": "Hvis angitt, lagres råsvaret (binært) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON metadata i stedet for innhold.",
+    "param.save_as.description": "Hvis angitt, lagres råsvaret (binært) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON metadata i staden for innhold.",
     "param.selector.description": "Valgfri CSS-velger. Hvis det er gitt, trekkes det første samsvarende elementet ut for extract=text/html/markdown.",
     "tool.description": "Få tilgang til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når lagre_som er satt, lagres råsvaret i en fil og metadata returneres i stedet. For JavaScript-tunge sider som krever nettlesergjengivelse, bruk browser_playwright i stedet."
   }

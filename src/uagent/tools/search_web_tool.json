@@ -852,7 +852,7 @@
   },
   "nn": {
     "error.args_must_be_dict": "args må være en diktat",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørsel mislyktes etter forsøk: {error}",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørsel mislukkast etter forsøk: {error}",
     "error.missing_query_parameter": "mangler 'query'-parameter",
     "error.run_tool_error": "run_tool feil: {error}",
     "param.query.description": "Søk.",
@@ -867,10 +867,10 @@
       "se"
     ],
     "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
-    "error.brave_failed_after_retries": "Brave Search-forespørsel mislyktes etter forsøk: {error}",
-    "error.brave_429_with_api_hint": "Brave Search rate begrenset (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengelig på https://brave.com/search/api/) for å bruke API i stedet for HTML-skraping.",
+    "error.brave_failed_after_retries": "Brave Search-forespørsel mislukkast etter forsøk: {error}",
+    "error.brave_429_with_api_hint": "Brave Search rate begrenset (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengeleg på https://brave.com/search/api/) for å bruke API i staden for HTML-skraping.",
     "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislyktes: {error}",
-    "error.startpage_failed": "StartPage-søkeforespørsel mislyktes: {error}"
+    "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislukkast: {error}",
+    "error.startpage_failed": "StartPage-søkeforespørsel mislukkast: {error}"
   }
 }

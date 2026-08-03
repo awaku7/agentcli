@@ -890,7 +890,7 @@
   "nn": {
     "tool.description": "Skriv en verdi til en BACnet-egenskap på en enhet. Returnerer resultatet som JSON eller tekst.",
     "param.ip.description": "Mål enhetens IPv4-adresse.",
-    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Brukes hvis ip ikke er oppgitt.",
+    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Vert brukt hvis ip ikke er oppgitt.",
     "param.object_type.description": "BACnet-objekttype (f.eks. 'analogOutput', 'binaryOutput', 'analogValue').",
     "param.object_instance.description": "BACnet-objektforekomstnummer.",
     "param.property_name.description": "Eiendomsnavn som skal skrives (standard: 'presentValue').",
@@ -898,7 +898,7 @@
     "param.priority.description": "Valgfri BACnet skriveprioritet (1-16). Lavere tall = høyere prioritet. Standard er enhetsspesifikk.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "BACnet-skriv: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
-    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikkje installeres.",
     "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
     "err.value_required": "En verdi kreves for skriveoperasjon.",
     "err.ip_or_device_required": "Enten ip eller device_instance kreves.",

@@ -814,13 +814,13 @@
     ]
   },
   "nn": {
-    "tool.description": "Ta et bilde fra et USB-kamera via ffmpeg, eller vis opp tilgjengelige videoenheter. Støtter Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "tool.description": "Ta et bilde frå et USB-kamera via ffmpeg, eller vis opp tilgjengelege videoenheter. Støtter Windows (dshow), Linux (v4l2), macOS (avfoundation).",
     "param.action.description": "Handling: ta bilde (ta et bilde), liste (vis enheter) eller list_caps (vis funksjoner som oppløsninger og FPS for en enhet).",
     "param.index.description": "Videoenhetsindeks (0 = først). Standard: 0.",
-    "param.devname.description": "Enhetsnavn/bane (overstyrer indeks). På Linux bruk /dev/videoN. Bruk listehandling for å finne navn.",
-    "param.width.description": "Fangebredde i piksler (f.eks. 1920). Bruker standard hvis utelatt.",
-    "param.height.description": "Ta høyde i piksler (f.eks. 1080). Bruker standard hvis utelatt.",
-    "param.fps.description": "Bilder per sekund (f.eks. 30). Bruker standard hvis utelatt.",
+    "param.devname.description": "Enhetsnavn/bane (overstyrer indeks). På Linux bruk /dev/videoN. Bruk listehandling for å finne namn.",
+    "param.width.description": "Fangebredde i piksler (f.eks. 1920). Brukar standard hvis utelatt.",
+    "param.height.description": "Ta høyde i piksler (f.eks. 1080). Brukar standard hvis utelatt.",
+    "param.fps.description": "Bilder per sekund (f.eks. 30). Brukar standard hvis utelatt.",
     "param.outdir.description": "Utdatakatalog for tatt bilder. Standard: utganger/usb_kamera.",
     "x_search_terms": [
       "usb-kamera",

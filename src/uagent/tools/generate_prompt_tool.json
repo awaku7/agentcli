@@ -777,12 +777,12 @@
     "param.template.description": "Python format skabelon. Eksempel: '{lines} linjer\n\n{content}'."
   },
   "nn": {
-    "err.bad_template": "[generate_prompt error] malen har ukjent nøkkel: {key}",
+    "err.bad_template": "[generate_prompt error] malen har ukjend nøkkel: {key}",
     "err.not_a_file": "[generate_prompt error] ikke en fil: {path}",
     "err.path_missing": "[generate_prompt error] bane/filnavn er ikke spesifisert",
     "err.template_missing": "[generate_prompt error] mal er ikke spesifisert",
     "param.path.description": "Banen til inndatafilen (må være under workdir).",
-    "tool.description": "Generer en ledetekststreng fra en fil ved hjelp av en Python-formatmal.",
+    "tool.description": "Generer en ledetekststreng frå en fil ved hjelp av en Python-formatmal.",
     "x_search_terms": [
       "generer spørsmål",
       "",

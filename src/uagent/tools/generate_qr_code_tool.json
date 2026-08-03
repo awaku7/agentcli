@@ -1110,7 +1110,7 @@
     "log.opened_default_app": "[INFO] Åbnet billedfil med standardappen."
   },
   "nn": {
-    "tool.description": "Generer et QR-kodebilde (PNG) fra tekst eller URL. Tilpassbare farger og størrelse.",
+    "tool.description": "Generer et QR-kodebilde (PNG) frå tekst eller URL. Tilpassbare farger og størrelse.",
     "x_search_terms": [
       "qr-kode",
       "qr",

@@ -777,15 +777,15 @@
     "param.timeout.description": "Timeout i sekunder."
   },
   "nn": {
-    "tool.description": "Les en BACnet-egenskap fra en enhet. Returnerer gjeldende verdi og metadata som JSON eller tekst.",
+    "tool.description": "Les en BACnet-egenskap frå en enhet. Returnerer gjeldende verdi og metadata som JSON eller tekst.",
     "param.ip.description": "Mål enhetens IPv4-adresse.",
-    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Brukes hvis ip ikke er oppgitt.",
+    "param.device_instance.description": "BACnet-enhetsforekomstnummer (alternativ til ip). Vert brukt hvis ip ikke er oppgitt.",
     "param.object_type.description": "BACnet-objekttype (f.eks. 'analogInput', 'binaryOutput', 'analogValue').",
     "param.object_instance.description": "BACnet-objektforekomstnummer.",
     "param.property_name.description": "Egenskapsnavn som skal leses (standard: 'presentValue'). Vanlig: presentverdi, beskrivelse, enheter, statusFlagg, objektnavn.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "BACnet lest: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
-    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikkje installeres.",
     "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
     "err.ip_or_device_required": "Enten ip eller device_instance kreves.",
     "x_search_terms": [

@@ -1234,10 +1234,10 @@
     ],
     "param.path1.description": "Første filbane (påkrevd med mindre bane2 er spesifisert).",
     "param.path2.description": "Andre filbane. Utelat for å sammenligne sti1 med 'tekst'.",
-    "param.text.description": "Tekstinnhold som skal sammenlignes med bane1 (brukes når sti2 er utelatt).",
+    "param.text.description": "Tekstinnhold som skal sammenlignes med bane1 (vert brukt når sti2 er utelatt).",
     "param.mode.description": "Utdataformat: enhetlig (standard), sammendrag (kun statistikk), json_diff (strukturerte hunk-data).",
     "param.context_lines.description": "Antall kontekstlinjer (standard: 3).",
-    "param.ignore_whitespace.description": "Ignorer forskjeller med bare mellomrom.",
+    "param.ignore_whitespace.description": "Ignorer forskjeller med berre mellomrom.",
     "param.encoding.description": "Filkoding (standard: utf-8).",
     "param.max_diff_lines.description": "Maks diff-utgangslinjer for unified/json_diff-modus (standard: 400, 0=ubegrenset).",
     "param.path1_label.description": "Egendefinert etikett for bane1 i enhetlig diff-overskrift.",
@@ -1245,12 +1245,12 @@
     "err.file_too_large": "Filen er for stor: %(size)s byte (maks. %(max_bytes)s)",
     "err.invalid_mode": "Ugyldig modus: %(mode)s. Må være en av: %(valid)s",
     "err.path_required": "Minst én av sti1 eller bane2 må spesifiseres.",
-    "err.path2_and_text": "bane2 og tekst kan ikke spesifiseres sammen. Bruk bane1+bane2 for filsammenligning, eller bane1+tekst for å sammenligne fil mot streng.",
+    "err.path2_and_text": "bane2 og tekst kan ikkje spesifiseres saman. Bruk bane1+bane2 for filsammenligning, eller bane1+tekst for å sammenligne fil mot streng.",
     "label.text_input": "<tekst>",
     "label.empty": "<tom>",
     "summary.changed": "%(added)s linje(r) lagt til, %(removed)s linje(r) fjernet i %(hunks)s hunk(er)",
     "summary.identical": "Filene er identiske.",
     "msg.diff_truncated": "\n[diff trunkert: maks %(max)s linjer eller %(max_chars)s tegn nådd]",
-    "param.preserve_line_endings.description": "Behold originale linjeavslutninger (CRLF/CR) i diff-utgang i stedet for å normalisere til LF. Nødvendig for patch-kompatibilitet med CRLF-filer."
+    "param.preserve_line_endings.description": "Behold originale linjeavslutninger (CRLF/CR) i diff-utgang i staden for å normalisere til LF. Nødvendig for patch-kompatibilitet med CRLF-filer."
   }
 }

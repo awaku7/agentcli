@@ -1046,11 +1046,11 @@
       "stil"
     ],
     "param.path.description": "Globmønster eller filbane å sjekke (f.eks. 'docs/**/*.md' eller 'README.md').",
-    "param.fix.description": "Hvis sant, reparer formateringsproblemer automatisk i stedet for bare å sjekke.",
+    "param.fix.description": "Hvis sant, reparer formateringsproblemer automatisk i staden for berre å sjekke.",
     "pkg.mdformat": "mdformat (Markdown formatter)",
     "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
     "result.no_match": "Ingen Markdown-filer samsvarte med mønsteret: {pattern}",
-    "result.summary": "mdformat_check: {total} filer, {ok} ok, {failed} mislyktes",
+    "result.summary": "mdformat_check: {total} filer, {ok} ok, {failed} mislukkast",
     "result.ok": "[{label}] {path}",
     "result.ok_formatted": "[{label}] formatert: {path}",
     "result.fail": "[{label}] {path}: {detail}",

@@ -779,7 +779,7 @@
   "nn": {
     "param.allow_dir.description": "Hvis sant, tillat sletting av kataloger som samsvarer med glob.",
     "param.confirmed.description": "Hvis dette er sant, hopper du over verktøyets interne bekreftelsesmelding.",
-    "param.dry_run.description": "Hvis det er sant, må du bare angi samsvarende stier og ikke slette noe.",
+    "param.dry_run.description": "Hvis det er sant, må du berre angi samsvarende stier og ikke slette noe.",
     "param.filename.description": "Bane som skal slettes, eller en liste over baner/globmønstre som skal slettes.",
     "x_search_terms": [
       "slette fil",
@@ -795,6 +795,6 @@
     ],
     "param.skip.description": "Hvis sant, ikke feil når banen ikke eksisterer.",
     "confirm.delete_paths_bulk": "Vil du slette {count} baner?\n\n{paths}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
-    "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være nødvendig."
+    "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være naudsynt."
   }
 }

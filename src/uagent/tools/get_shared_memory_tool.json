@@ -555,7 +555,7 @@
     ]
   },
   "nn": {
-    "tool.description": "Henter rå langtidsminne (delt minne) data delt på tvers av brukere. - Returnerer vanligvis tekst i JSONL-format (én post per linje).",
+    "tool.description": "Henter rå langtidsminne (delt minne) data delt på tvers av brukarar. - Returnerer vanligvis tekst i JSONL-format (én post per linje).",
     "x_search_terms": [
       "få delt",
       "delt minne få",

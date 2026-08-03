@@ -745,7 +745,7 @@
     "param.node_id.description": "Startnode-ID (f.eks. 'i=84' for Objects-mappen, 'ns=2;s=MyVariable'). Standard: i=84 (Objekter).",
     "param.depth.description": "Bla gjennom dybde (1=kun barn, 2=barnebarn osv.). Maks 5.",
     "param.fmt.description": "Format: json eller tekst.",
-    "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
+    "msg.summary": "OPC UA-søk: {count} node(r) frå {node} om {ms} ms.",
     "err.url_required": "url er påkrevd.",
     "x_search_terms": [
       "opcua browse",

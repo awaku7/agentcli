@@ -1013,16 +1013,16 @@
     ],
     "param.path.description": "Banen til Markdown-filen.",
     "err.path_required": "Feil: 'bane' er påkrevd.",
-    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.file_not_found": "Feil: Filen ble ikkje funnen: {path}",
     "err.read_error": "Feil ved lesing av fil: {e}",
     "err.parse_error": "Feil ved analyse av Markdown: {e}",
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
-    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 0..{last}.",
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikkje funnen. Gyldig område: 0..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
     "msg.index_output": "Innholdsfortegnelse for: {path}\n(0 = innledning før første overskrift, 1..{last} = overskriftsseksjoner)\n---\n{toc}\n---\nTotalt antall seksjoner: {total}\nFor å hente en seksjon, ring md2idx med mode='seksjonsnummer' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse. \"seksjon\" returnerer en bestemt seksjon etter nummer.",
-    "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
+    "param.section.description": "Seksjonsnummer å hente (vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",
     "tool.description": "Del en Markdown-fil i seksjoner på overskriftsnivå og returner en nummerert indeks eller en spesifikk seksjon. Bruk dette når du trenger å lese et stort Markdown-dokument: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun innholdet du trenger. Dette sparer tokens sammenlignet med å lese hele filen."
   }
 }

@@ -869,8 +869,8 @@
       "excel skrive",
       "regnearkoperasjoner"
     ],
-    "param.password.description": "Passord (spør om nødvendig).",
+    "param.password.description": "Passord (spør om naudsynt).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
-    "param.sheet_name.description": "Navn på målark (for lesing/skriving). Hvis utelatt, bruker les det første arket og skriv bruker 'Sheet1'."
+    "param.sheet_name.description": "Namn på målark (for lesing/skriving). Hvis utelatt, brukar les det første arket og skriv brukar 'Sheet1'."
   }
 }

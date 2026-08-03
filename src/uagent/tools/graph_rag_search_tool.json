@@ -1221,8 +1221,8 @@
     "warn.indexing_title": "\n[ADVARSEL] Indekseringsadvarsler (de-duplikeret, top 50):"
   },
   "nn": {
-    "err.dir_not_found": "Feil: Katalog ble ikke funnet: {root_path}",
-    "err.query_required": "Feil: spørring er nødvendig.",
+    "err.dir_not_found": "Feil: Katalog ble ikkje funnen: {root_path}",
+    "err.query_required": "Feil: spørring er naudsynt.",
     "out.db": "DB: {db_path}",
     "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / sammenslått: {m}",
     "out.no_docs": "Ingen relevante dokumenter funnet.",

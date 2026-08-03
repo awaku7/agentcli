@@ -1184,7 +1184,7 @@
     "out.list_header": "[set_timer] OS tidsplaner:"
   },
   "nn": {
-    "err.seconds_invalid": "[set_timer error] sekunder kan ikke tolkes som et heltall: {raw}",
+    "err.seconds_invalid": "[set_timer error] sekunder kan ikkje tolkes som et heltall: {raw}",
     "err.seconds_negative": "[set_timer error] sekunder må være 0 eller mer: {val}",
     "msg.default_timer_done": "Timeren er ferdig",
     "out.ok": "[set_timer] Timer satt til {seconds} sekunder: {message} (on_timeout_prompt={prompt})",

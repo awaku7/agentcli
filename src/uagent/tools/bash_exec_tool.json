@@ -740,7 +740,7 @@
     "err.returncode": "[bash_exec]\n(returkode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "nn": {
-    "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
+    "err.unavailable": "Dette verktøyet er tilgjengeleg på Unix-lignende systemer med bash installert.",
     "param.command.description": "Kommandostreng sendt til bash -lc.",
     "x_search_terms": [
       "bash",
@@ -754,7 +754,7 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk kun når det ikke er noe annet passende verktøy tilgjengelig.",
+    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk kun når det ikke er noe annet passende verktøy tilgjengeleg.",
     "err.blocked": "[bash_exec blokkert] %(reason)s",
     "err.exception": "[bash_exec-feil] %(type)s: %(message)s",
     "err.returncode": "[bash_exec]\n(returkode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"

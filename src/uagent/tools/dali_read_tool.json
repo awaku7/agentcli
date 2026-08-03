@@ -629,7 +629,7 @@
     ]
   },
   "nn": {
-    "tool.description": "Les status og nivå fra en DALI-lysenhet. Spørrer den angitte adressen for gjeldende tilstand.",
+    "tool.description": "Les status og nivå frå en DALI-lysenhet. Spørrer den angitte adressen for gjeldende tilstand.",
     "param.address.description": "DALI-enhetsadresse (0-63).",
     "param.driver.description": "DALI driver type.",
     "param.host.description": "daliserver vert.",

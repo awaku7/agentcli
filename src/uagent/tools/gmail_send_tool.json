@@ -715,9 +715,9 @@
     "err.subject_missing": "'emne'-feltet er obligatorisk.",
     "err.credentials_missing": "UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD må settes i miljøvariabler.",
     "err.no_recipients": "Ingen gyldige mottakere spesifisert.",
-    "err.auth_failed": "SMTP-autentisering mislyktes. Sjekk UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD.",
+    "err.auth_failed": "SMTP-autentisering mislukkast. Sjekk UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD.",
     "err.recipients_refused": "Mottaker(e) nektet: {detail}",
-    "err.server_disconnected": "SMTP-serveren koblet fra uventet.",
+    "err.server_disconnected": "SMTP-serveren koblet frå uventet.",
     "err.smtp_error": "SMTP-feil: {detail}",
     "msg.sent": "E-post sendt til {count} mottaker(e)."
   }

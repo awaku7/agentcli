@@ -719,6 +719,6 @@
     "param.paths.description": "En eller flere filbaner å identifisere.",
     "err.no_paths": "Ingen stier oppgitt.",
     "err.outside_workdir": "sti utenfor arbeidsdir",
-    "err.not_found": "fil ikke funnet"
+    "err.not_found": "fil ikkje funnen"
   }
 }

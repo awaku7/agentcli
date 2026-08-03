@@ -633,7 +633,7 @@
     "msg.device_count": "SwitchBot Cloud-enheter: {count}",
     "msg.error_fmt": "Feil: {msg}",
     "msg.fetched_at": "Hentet på: {ts}",
-    "msg.unknown_error": "ukjent feil",
+    "msg.unknown_error": "ukjend feil",
     "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen.",
     "x_search_terms": [
       "switchbot cloud list",

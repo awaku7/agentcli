@@ -741,7 +741,7 @@
   },
   "nn": {
     "param.mask.description": "Hvis sant, maskerer verdien (f.eks. for hemmeligheter). Standard er sant.",
-    "param.name.description": "Navn på miljøvariabel å lese.",
+    "param.name.description": "Namn på miljøvariabel å lese.",
     "param.unmasked_chars.description": "Antall tegn som skal stå i begynnelsen og slutten ved maskering. Standard er 2.",
     "tool.description": "Henter verdien av en spesifisert miljøvariabel og returnerer den. Maskerer eventuelt verdien.",
     "x_search_terms": [
@@ -756,7 +756,7 @@
       "environment value",
       "env få"
     ],
-    "param.skip.description": "Hvis sant, returner '(ikke angitt)' i stedet for en feilmelding når den mangler. Standard er falsk.",
-    "err.name_required": "[get_env error] 'navn' er påkrevd"
+    "param.skip.description": "Hvis sant, returner '(ikke angitt)' i staden for en feilmelding når den mangler. Standard er falsk.",
+    "err.name_required": "[get_env error] 'namn' er påkrevd"
   }
 }

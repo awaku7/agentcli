@@ -1081,7 +1081,7 @@
     "err.invalid_action": "Ugyldig handling: {action}. Tillatt: {allowed}",
     "err.device_id_required": "Enhets-ID for saken kreves.",
     "err.value_out_of_range": "Verdien må være et heltall mellom 0 og 100.",
-    "err.not_found": "Saksenhet ikke funnet: {device_id}",
+    "err.not_found": "Saksenhet ikkje funnen: {device_id}",
     "err.ambiguous_target": "Materiell enhetsmål er tvetydig: {device_id}",
     "msg.dry_run": "Tørrkjøring: kommando validert, men ikke satt i kø.",
     "err.queue_failed": "Kunne ikke sette kontrollkommandoen i kø: {reason}",
@@ -1092,7 +1092,7 @@
     "err.value_required": "En numerisk verdi (0-100) kreves for handlingen '{action}'.",
     "param.bridge.description": "Bro-ID (valgfritt).",
     "param.ctrl.description": "Kontroller-ID (valgfritt).",
-    "param.dry_run.description": "Hvis sant, valider kommandoen uten å sette den i kø. Standard: usant.",
+    "param.dry_run.description": "Hvis sant, valider kommandoen utan å sette den i kø. Standard: usant.",
     "x_search_terms": [
       "matter control",
       "matter_control",

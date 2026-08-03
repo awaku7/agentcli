@@ -705,7 +705,7 @@
   "nn": {
     "param.db_path.description": "Banen til SQLite-databasefilen.",
     "param.sql.description": "SQL å kjøre.",
-    "tool.description": "Utfør SQL-spørringer mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemainspeksjon (PRAGMA) støttes.",
+    "tool.description": "Utfør SQL-spørringer mot en SQLite-database og returner resultatet. Berre skrivebeskyttede operasjoner (SELECT) og skjemainspeksjon (PRAGMA) støttes.",
     "x_search_terms": [
       "database",
       "db query",
@@ -718,7 +718,7 @@
       "dataspørring",
       "databasesøk"
     ],
-    "err.readonly": "[db_query error] Bare SELECT- og PRAGMA-setninger er tillatt.",
+    "err.readonly": "[db_query error] Berre SELECT- og PRAGMA-setninger er tillatt.",
     "msg.result": "[db_query]\nrows={rows}\nkolonner={cols}"
   }
 }

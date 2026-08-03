@@ -900,7 +900,7 @@
     "err.invalid_edt": "Feil: edt må være en gyldig sekskantstreng.",
     "err.value_required": "Feil: enten verdi eller edt kreves.",
     "param.edt.description": "Valgfri rå EDT sekskantstreng å sende. Går foran verdi når den er gitt.",
-    "param.eoj.description": "Valgfritt mål EOJ (f.eks. '013001'). Hvis det utelates, brukes nodeprofilobjektet.",
+    "param.eoj.description": "Valgfritt mål EOJ (f.eks. '013001'). Hvis det utelates, vert brukt nodeprofilobjektet.",
     "param.epc.description": "ECHONET Lite egenskapskode (EPC), for eksempel '80' eller 'D5'.",
     "param.obj.description": "Valgfri objektkode for å begrense det forespurte objektet (f.eks. '0130').",
     "tool.description": "Sett én ECHONET Lite-egenskap på en node og returner et JSON- eller tekstresultat.",

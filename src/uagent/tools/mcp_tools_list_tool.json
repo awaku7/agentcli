@@ -667,20 +667,20 @@
   },
   "nn": {
     "param.pretty.description": "Hvorvidt du skal skrive ut JSON utskrifter.",
-    "param.server_name.description": "Servernavn fra konfigurasjonsfilen.",
-    "tool.description": "Koble til en MCP-server og vis opp tilgjengelige verktøy. Støtter HTTP og stdio-transporter.",
+    "param.server_name.description": "Servernavn frå konfigurasjonsfilen.",
+    "tool.description": "Koble til en MCP-server og vis opp tilgjengelege verktøy. Støtter HTTP og stdio-transporter.",
     "x_search_terms": [
       "mcp",
       "mcp-verktøy",
       "verktøyliste",
       "mcp-server",
-      "tilgjengelige verktøy",
+      "tilgjengelege verktøy",
       "mcp-funksjoner",
       "serververktøy",
       "verktøykatalog",
       "mcp-funksjoner",
       "mcp-endepunkter"
     ],
-    "param.url.description": "MCP serverendepunkt-URL. Hvis utelatt, kan en konfigurert server brukes."
+    "param.url.description": "MCP serverendepunkt-URL. Hvis utelatt, kan en konfigurert server vert brukt."
   }
 }

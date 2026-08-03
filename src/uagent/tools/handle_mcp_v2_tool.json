@@ -780,7 +780,7 @@
     "param.server_name.description": "Servernavn definert i mcp_servers.json. Hvis det er spesifisert, prioriteres det over url.",
     "param.tool_name.description": "Navnet på verktøyet som skal utføres.",
     "param.url.description": "MCP serverendepunkt-URL (http://... eller stdio://command...).",
-    "tool.description": "Ring et verktøy fra en MCP-server. Oppgi verktøyargumenter som en ordbok i tool_arguments.",
+    "tool.description": "Ring et verktøy frå en MCP-server. Oppgi verktøyargumenter som en ordbok i tool_arguments.",
     "x_search_terms": [
       "mcp",
       "mcp tool",

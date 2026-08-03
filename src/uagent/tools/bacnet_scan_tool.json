@@ -821,7 +821,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "BACnet/IP-oppdagelse fullført: {count} enhet(er) funnet på {ms} ms.",
     "msg.no_devices": "Ingen BACnet/IP-enheter ble funnet.",
-    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikkje installeres.",
     "x_search_terms": [
       "bacnet scan",
       "bacnet_scan",

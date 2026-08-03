@@ -603,7 +603,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.invalid_response": "SwitchBot Cloud returnerte en uventet nyttelast.",
     "err.commands_required": "Kommandofeltet må være en ikke-tom matrise.",
-    "msg.batch_summary": "Batch fullført: {total} kommando(er), {ok} lyktes, {fail} mislyktes",
+    "msg.batch_summary": "Batch fullført: {total} kommando(er), {ok} lyktes, {fail} mislukkast",
     "msg.step_error": "         Feil: {err}",
     "err.config_missing": "SwitchBot Cloud-legitimasjon mangler."
   }

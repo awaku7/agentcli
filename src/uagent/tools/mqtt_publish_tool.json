@@ -888,7 +888,7 @@
     ]
   },
   "nn": {
-    "tool.description": "Publiser en melding til et MQTT-emne. Kobler til, publiserer og kobler fra.",
+    "tool.description": "Publiser en melding til et MQTT-emne. Kobler til, publiserer og kobler frå.",
     "param.host.description": "MQTT-meglerens vertsnavn eller IP.",
     "param.port.description": "MQTT meglerport (standard: 1883).",
     "param.topic.description": "MQTT-emne å publisere til.",

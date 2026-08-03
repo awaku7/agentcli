@@ -1073,7 +1073,7 @@
     "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
   },
   "nn": {
-    "tool.description": "Parse en Excel-arbeidsbok (.xlsx/.xlsm) i regnearksammendrag og tabellstrukturer, og returner en nummerert indeks eller en bestemt regnearkdel. Bruk dette når du leser store Excel-filer: ring med mode='index' for å få listen over regneark med rad-/kolonnetall og forhåndsvisning av overskrifter, ring deretter med mode='section' og section=N for å hente celledataene fra det regnearket.",
+    "tool.description": "Parse en Excel-arbeidsbok (.xlsx/.xlsm) i regnearksammendrag og tabellstrukturer, og returner en nummerert indeks eller en bestemt regnearkdel. Bruk dette når du leser store Excel-filer: ring med mode='index' for å få listen over regneark med rad-/kolonnetall og forhåndsvisning av overskrifter, ring deretter med mode='section' og section=N for å hente celledataene frå det regnearket.",
     "x_search_terms": [
       "les excel-fil",
       "excel-indeks",
@@ -1088,17 +1088,17 @@
     ],
     "param.path.description": "Banen til Excel-filen (.xlsx/.xlsm).",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med regneark med dimensjoner og overskrifter. \"seksjon\" returnerer tabellinnholdet i et spesifikt regneark.",
-    "param.section.description": "Regnearknummer å hente (1-indeksert, brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
+    "param.section.description": "Regnearknummer å hente (1-indeksert, vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",
     "param.max_rows.description": "Maksimalt antall rader å returnere i seksjonsmodus (standard 100).",
     "err.path_required": "Feil: 'bane' er påkrevd.",
     "err.read_error": "Feil ved lesing av fil: {e}",
-    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.file_not_found": "Feil: Filen ble ikkje funnen: {path}",
     "err.parse_error": "Feil ved parsing av Excel-fil: {e}",
     "msg.no_sheets": "(ingen regneark funnet i arbeidsboken)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt ark: {total}\nFor å hente et regneark, ring excel2idx med mode='section' og section=N.",
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
-    "err.section_not_found": "Feil: Ark {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.section_not_found": "Feil: Ark {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
   }
 }

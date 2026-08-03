@@ -1406,7 +1406,7 @@
     "param.max_turns.description": "Maksimalt antal multi-turn interaktioner til brug af værktøj. 3 = anbefales. Underagenten kan bruge værktøjer på tværs af flere runder, før den producerer det endelige svar."
   },
   "nn": {
-    "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planlegger, anmelder, summarizer, patch_designer, error_analyst, oversetter, generelt. Egendefinerte roller kan lastes inn fra UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planlegger, anmelder, summarizer, patch_designer, error_analyst, oversetter, generelt. Egendefinerte roller kan lastes inn frå UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Valgfritt) Begrens underagentens resonnementomfang til denne spesifikke filen.",
     "param.evidence_min_items.description": "Minimum antall beviselementer som kreves.",
     "param.evidence_required.description": "Krev bevis.",
@@ -1437,7 +1437,7 @@
     "param.permission_level.description": "Utførelsestillatelsesnivå for underagenten. 'read_only' tillater fillesing, 'propose_only' tillater lesing + ny filoppretting.",
     "param.cache_ttl.description": "Buffer TTL på sekunder. 0 = ingen cache. Standard 0.",
     "param.store_key.description": "Nøkkel for å lagre denne underagentens resultat i det delte kontekstlageret for bruk av påfølgende underagenter.",
-    "param.load_keys.description": "Liste over nøkler som skal lastes fra det delte kontekstlageret. De tilsvarende verdiene injiseres i underagentens ContextPack.",
+    "param.load_keys.description": "Liste over nøkler som skal lastes frå det delte kontekstlageret. De tilsvarende verdiene injiseres i underagentens ContextPack.",
     "param.parent_goal.description": "Overstyr den overordnede agentens mål for denne subagent-påkallelsen.",
     "param.timeout.description": "LLM tidsavbrudd for samtale i sekunder. 0 = ingen timeout. Standard 120.",
     "param.max_retries.description": "Maksimalt antall gjenforsøk på JSON parse- eller leverandørfeil. Standard 2.",

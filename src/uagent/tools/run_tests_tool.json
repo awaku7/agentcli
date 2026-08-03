@@ -1038,7 +1038,7 @@
   "nn": {
     "error.cwd_not_allowed": "cwd ikke tillatt: {error}",
     "error.dangerous_cwd_rejected": "farlig cwd avvist: {cwd}",
-    "error.framework_auto_detect_failed": "Auto-detektering av rammeverk mislyktes",
+    "error.framework_auto_detect_failed": "Auto-detektering av rammeverk mislukkast",
     "error.invalid_framework": "ugyldig rammeverk: {framework}",
     "error.invalid_report": "ugyldig rapport: {report}",
     "error.shell_metacharacters_not_allowed": "shell-metategn er ikke tillatt i argumenter: {arg}",
@@ -1047,7 +1047,7 @@
     "param.framework.description": "Testrammetype.",
     "param.pythonpath.description": "Ytterligere PYTHONPATH (f.eks. 'src'). Hvis det er gitt, er det prefikset til testkommandoen.",
     "param.report.description": "Utdataformat.",
-    "param.target.description": "Mål (pytest-bane, unittest-startkatalog, npm-skript, etc.). Hvis null, brukes standardverdier.",
+    "param.target.description": "Mål (pytest-bane, unittest-startkatalog, npm-skript, etc.). Hvis null, vert brukt standardverdier.",
     "tool.description": "Kjør tester (auto-detect pytest/unittest/npm). Avvis skall-metategn i extra_args.",
     "x_search_terms": [
       "kjør tester",

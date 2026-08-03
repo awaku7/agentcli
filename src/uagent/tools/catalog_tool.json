@@ -1038,7 +1038,7 @@
   "nn": {
     "x_search_terms": [
       "verktøykatalog",
-      "tilgjengelige verktøy",
+      "tilgjengelege verktøy",
       "verktøyliste",
       "listeverktøy",
       "søkeverktøy",
@@ -1050,17 +1050,17 @@
       "automatisk lasting",
       "verktøy for automatisk lasting"
     ],
-    "param.query.description": "Spørring på naturlig språk som beskriver nødvendig kapasitet. Tips: dekomponer målet ditt i undertrinn (f.eks. 'geoip plassering + værmelding') for å forbedre samsvar.",
-    "tool_load.description": "Last inn et verktøy etter navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den innlastede verktøyinformasjonen eller en feil hvis den ikke blir funnet.",
-    "param.name.description": "Navn på verktøyet som skal lastes (f.eks. 'generere_bilde', 'excel_ops').",
-    "msg.load.missing_name": "Mangler 'navn'-parameter.",
-    "msg.load.ok": "Verktøyet '{name}' er lastet inn og er nå tilgjengelig",
-    "msg.load.not_found": "Verktøyet '{name}' ikke funnet.",
-    "param.all.description": "Hvis sant, returner alle tilgjengelige verktøy (lastet + avlastet) uten søkefiltrering.",
-    "msg.unload.missing_name": "Mangler 'navn'-parameter.",
-    "msg.unload.not_found": "Verktøyet '{name}' ikke funnet eller ikke lastet.",
+    "param.query.description": "Spørring på naturlig språk som beskriver naudsynt kapasitet. Tips: dekomponer målet ditt i undertrinn (f.eks. 'geoip plassering + værmelding') for å forbedre samsvar.",
+    "tool_load.description": "Last inn et verktøy etter namn slik at det blir tilgjengeleg for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den innlastede verktøyinformasjonen eller en feil hvis den ikke blir funnet.",
+    "param.name.description": "Namn på verktøyet som skal lastes (f.eks. 'generere_bilde', 'excel_ops').",
+    "msg.load.missing_name": "Mangler 'namn'-parameter.",
+    "msg.load.ok": "Verktøyet '{name}' er lastet inn og er no tilgjengeleg",
+    "msg.load.not_found": "Verktøyet '{name}' ikkje funnen.",
+    "param.all.description": "Hvis sant, returner alle tilgjengelege verktøy (lastet + avlastet) utan søkefiltrering.",
+    "msg.unload.missing_name": "Mangler 'namn'-parameter.",
+    "msg.unload.not_found": "Verktøyet '{name}' ikkje funnen eller ikke lastet.",
     "msg.unload.ok": "Verktøyet '{name}' har blitt lastet ut.",
-    "unload_tool.description": "Last ned et verktøy ved navn, slik at det ikke lenger er tilgjengelig for bruk. Bruk dette til å fjerne et tidligere lastet verktøy fra økten.",
-    "tool.description": "Returner en JSON-katalog med tilgjengelige verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" oppgis, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret)."
+    "unload_tool.description": "Last ned et verktøy ved namn, slik at det ikke lenger er tilgjengeleg for bruk. Bruk dette til å fjerne et tidligere lastet verktøy frå økten.",
+    "tool.description": "Returner en JSON-katalog med tilgjengelege verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" oppgis, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret)."
   }
 }

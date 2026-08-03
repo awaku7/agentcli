@@ -1051,16 +1051,16 @@
     ],
     "param.path.description": "Bane til PowerPoint-filen (.pptx).",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med lysbilder med titler og sammendrag. \"seksjon\" returnerer hele tekstinnholdet i et spesifikt lysbilde.",
-    "param.section.description": "Lysbildenummer for å hente (brukes bare når mode='seksjon'). Få tallet fra indeksutgangen.",
+    "param.section.description": "Lysbildenummer for å hente (vert brukt berre når mode='seksjon'). Få tallet frå indeksutgangen.",
     "err.path_required": "Feil: 'bane' er påkrevd.",
     "err.read_error": "Feil ved lesing av fil: {e}",
-    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.file_not_found": "Feil: Filen ble ikkje funnen: {path}",
     "err.parse_error": "Feil ved parsing av PowerPoint-fil: {e}",
     "msg.no_slides": "(ingen lysbilder funnet i presentasjonen)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt lysbilder: {total}\nFor å hente et lysbilde, ring ppt2idx med mode='section' og section=N.",
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
-    "err.section_not_found": "Feil: Lysbilde {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.section_not_found": "Feil: Lysbilde {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
   }
 }

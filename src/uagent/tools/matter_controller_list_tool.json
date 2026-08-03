@@ -630,9 +630,9 @@
   },
   "nn": {
     "param.fmt.description": "Format: json eller tekst.",
-    "err.config_missing": "Konfigurasjonsfilen for sakskontrolleren ble ikke funnet. Sett {env_json} eller {env_file}.",
-    "err.invalid_config": "Sakskontrollerkonfigurasjonen kunne ikke analyseres: {err}",
-    "err.not_found": "Sakskontrolleren ble ikke funnet: {controller_id}",
+    "err.config_missing": "Konfigurasjonsfilen for sakskontrolleren ble ikkje funnen. Sett {env_json} eller {env_file}.",
+    "err.invalid_config": "Sakskontrollerkonfigurasjonen kunne ikkje analyseres: {err}",
+    "err.not_found": "Sakskontrolleren ble ikkje funnen: {controller_id}",
     "param.ctrl.description": "Kontroller-ID (utelat for alle).",
     "tool.description": "Vis Matter-kontrollerstyrte enheter og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [

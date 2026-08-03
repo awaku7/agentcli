@@ -751,7 +751,7 @@
     "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
     "param.epc.description": "ECHONET Lite egenskapskode (EPC), for eksempel '80' eller 'D5'.",
     "param.obj.description": "Objektkodefilter (f.eks. '0130').",
-    "tool.description": "Les én ECHONET Lite-egenskap fra en node og returner et JSON- eller tekstresultat.",
+    "tool.description": "Les én ECHONET Lite-egenskap frå en node og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
       "echonet-egenskapen get",
       "echonet_property_get",

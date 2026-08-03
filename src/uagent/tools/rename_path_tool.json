@@ -707,17 +707,17 @@
     "param.mkdirs.description": "Hvis sant, opprett overordnet katalog for dst før du kjører.",
     "param.overwrite.description": "Hvis sant, slett og erstatt destinasjonen hvis den allerede eksisterer (krever bekreftelse).",
     "param.src.description": "Opprinnelig bane (fil/katalog). Relativ vei anbefales.",
-    "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
+    "tool.description": "Gi nytt namn til (flytt) en fil eller katalog.",
     "x_search_terms": [
-      "endre navn",
+      "endre namn",
       "flytt fil",
-      "gi nytt navn til fil",
-      "gi nytt navn til mappe",
-      "gi nytt navn",
+      "gi nytt namn til fil",
+      "gi nytt namn til mappe",
+      "gi nytt namn",
       "flytt bane",
-      "gi nytt navn til katalog",
+      "gi nytt namn til katalog",
       "flytt fil",
-      "bane endre navn",
+      "bane endre namn",
       "mv"
     ]
   }

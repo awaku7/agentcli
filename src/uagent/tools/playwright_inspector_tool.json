@@ -814,7 +814,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   },
   "nn": {
-    "err.child_failed": "[playwright_inspector error] Underordnet prosess mislyktes:\n{stderr}",
+    "err.child_failed": "[playwright_inspector error] Underordnet prosess mislukkast:\n{stderr}",
     "out.ok": "Opptaket er fullført: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, siste.html opprettet.\n{stdout}",
     "param.prefix.description": "Prefiks for filnavn som skal lagres (standard: debug_capture)",
     "param.url.description": "Første URL som åpnes (standard: about:blank)",

@@ -1196,7 +1196,7 @@
     "param.print_areas_dir.description": "Katalog for å lagre filer per utskriftsområde.",
     "param.sheets_dir.description": "Katalog for å lagre per-ark-filer.",
     "param.table_score_threshold.description": "Tabelldeteksjonsterskel.",
-    "tool.description": "Bruk exstruct for å trekke ut strukturerte data fra en Excel (. xlsx) og returnere/lagre som JSON/YAML.",
+    "tool.description": "Bruk exstruct for å trekke ut strukturerte data frå en Excel (. xlsx) og returnere/lagre som JSON/YAML.",
     "x_search_terms": [
       "exstruct",
       "extract structure",
@@ -1209,7 +1209,7 @@
       "strukturanalyse",
       "struct parser"
     ],
-    "param.password.description": "Passord (spør om nødvendig).",
+    "param.password.description": "Passord (spør om naudsynt).",
     "error.missing_exstruct": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
     "load.disabled": "'Exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
     "param.action.description": "Operasjon å utføre. extract=returner uttrukket innhold som en streng / export_file=lagre til en fil.",

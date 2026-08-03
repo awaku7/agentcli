@@ -1095,7 +1095,7 @@
     "param.contrast.description": "Valgfri kontrastfaktor. 1.0 beholder originalen; >1,0 øker kontrasten.",
     "param.output_dir.description": "Katalog for å lagre behandlede bilder. Standard til outputs/image_preprocess hvis utelatt.",
     "err.image_path_empty": "[preprocess_image] image_path kreves",
-    "err.image_not_found": "[preprocess_image] bildefil ikke funnet: {path}",
+    "err.image_not_found": "[preprocess_image] bildefil ikkje funnen: {path}",
     "ok.generated": "[OK] generert: {path}",
     "param.prefix.description": "Prefiks for det lagrede filnavnet (valgfritt).",
     "param.img.description": "Banen til kildebildet for å forhåndsbehandle.",

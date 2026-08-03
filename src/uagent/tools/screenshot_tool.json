@@ -1022,7 +1022,7 @@
       "bildevisning"
     ],
     "next_action.analyze_screenshot": "Vennligst analyser dette skjermbildet.",
-    "param.close.description": "Om du skal lukke vinduet etter fangst. Bare effektiv hvis window_title er spesifisert.",
-    "param.title.description": "Målvindustittel (delvis treff). Hvis det er spesifisert, aktiveres vinduet og bare den regionen fanges opp."
+    "param.close.description": "Om du skal lukke vinduet etter fangst. Berre effektiv hvis window_title er spesifisert.",
+    "param.title.description": "Målvindustittel (delvis treff). Hvis det er spesifisert, aktiveres vinduet og berre den regionen fanges opp."
   }
 }

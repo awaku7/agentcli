@@ -854,7 +854,7 @@
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen %(seconds)s sekunder",
     "param.command.description": "PowerShell kommandostreng sendt til -Command.",
     "param.shell.description": "PowerShell kjørbar å bruke: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis utelatt, velger du automatisk.",
-    "tool.description": "Siste utvei: kjør en PowerShell-kommando. Bruk kun når det ikke er mer passende verktøy (MCP osv.) tilgjengelig.",
+    "tool.description": "Siste utvei: kjør en PowerShell-kommando. Bruk kun når det ikke er mer passende verktøy (MCP osv.) tilgjengeleg.",
     "x_search_terms": [
       "powershell",
       "pwsh",
@@ -871,6 +871,6 @@
     "err.blocked": "[pwsh_exec blokkert] %(reason)s",
     "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikke funnet: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikkje funnen: %(shell)s"
   }
 }

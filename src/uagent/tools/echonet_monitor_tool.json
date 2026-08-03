@@ -822,7 +822,7 @@
     "msg.summary": "ECHONET Lite-overvåking fullført: {count} endring(er) på {elapsed_ms} ms.",
     "msg.no_changes": "Ingen egenskapsendringer ble oppdaget.",
     "err.invalid_argument": "Feil: ip_adresse er påkrevd.",
-    "msg.no_response": "Ingen ECHONET Lite-svar ble mottatt under overvåking.",
+    "msg.no_response": "Ingen ECHONET Lite-svar ble motteke under overvåking.",
     "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
     "param.obj.description": "Objektkodefilter (f.eks. '0130').",
     "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner en JSON eller tekstsammendrag.",

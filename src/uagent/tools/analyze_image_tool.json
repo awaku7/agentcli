@@ -629,7 +629,7 @@
     "param.img.description": "Sti til billedfilen, der skal analyseres."
   },
   "nn": {
-    "param.prompt.description": "Hva du vil vite om bildet.",
+    "param.prompt.description": "Kva du vil vite om bildet.",
     "tool.description": "Last inn et bilde og la AI (Vision) beskrive det. Nyttig for skjermbilder, diagrammer og tabeller.",
     "x_search_terms": [
       "analyser bilde",

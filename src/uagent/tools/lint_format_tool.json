@@ -815,7 +815,7 @@
   },
   "nn": {
     "param.cwd.description": "Working dir (under workdir).",
-    "param.mode.description": "check=sjekk bare / fix=automatisk retting",
+    "param.mode.description": "check=sjekk berre / fix=automatisk retting",
     "param.targets.description": "Målbanematrise (kun tillatt under workdir).",
     "param.tools.description": "En rekke verktøynavn å kjøre. Hvis tom, velges verktøy automatisk.",
     "tool.description": "Kjør statisk analyse/formatere (ruff/svart/mypy). mode=fix endrer filer, trenger bekreftelse.",

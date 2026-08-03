@@ -1012,17 +1012,17 @@
     "param.action.description": "Operasjon å utføre. En av: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Kilde-URL eller bane for installasjonshandling (Git URL, HTTP ZIP, lokal katalog).",
     "param.name.description": "Pluginnavn (mål for info/fjern/aktiver/deaktiver/valider).",
-    "param.scope.description": "Installasjonsomfang: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Standard: 'bruker'.",
+    "param.scope.description": "Installasjonsomfang: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Standard: 'brukar'.",
     "cmd.help.plugin_list": "  :plugin list [--enabled] [--verbose] Liste installerte plugins.",
-    "cmd.help.plugin_install": "  :plugin install <kilde> [navn] [--scope user|project|local] Installer en plugin.",
-    "cmd.help.plugin_remove": "  :plugin remove <navn> Fjern (avinstaller) en plugin.",
-    "cmd.help.plugin_uninstall": "  :plugin avinstaller <navn> Alias ​​for fjerning.",
-    "cmd.help.plugin_enable": "  :plugin aktiver <navn> Aktiver en plugin.",
-    "cmd.help.plugin_disable": "  :plugin deaktiver <navn> Deaktiver en plugin.",
+    "cmd.help.plugin_install": "  :plugin install <kilde> [namn] [--scope user|project|local] Installer en plugin.",
+    "cmd.help.plugin_remove": "  :plugin remove <namn> Fjern (avinstaller) en plugin.",
+    "cmd.help.plugin_uninstall": "  :plugin avinstaller <namn> Alias ​​for fjerning.",
+    "cmd.help.plugin_enable": "  :plugin aktiver <namn> Aktiver en plugin.",
+    "cmd.help.plugin_disable": "  :plugin deaktiver <namn> Deaktiver en plugin.",
     "cmd.help.plugin_reload": "  :plugin reload Skann alle plugin-kataloger på nytt.",
-    "cmd.help.plugin_info": "  :plugin info <navn> Vis plugin-detaljer.",
-    "cmd.help.plugin_init": "  :plugin init <navn> Stillas en ny plugin-katalog.",
-    "cmd.help.plugin_validate": "  :plugin validate <navn> Valider en plugin-manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace legg til <url> Registrer en markedsplass\n :plugin markedsplass fjern <navn> Fjern en markedsplass\n :plugin markedsplassliste Liste registrerte markedsplasser\n :plugin markedsplassoppdatering <navn> Oppdater en markedsplasskatalog"
+    "cmd.help.plugin_info": "  :plugin info <namn> Vis plugin-detaljer.",
+    "cmd.help.plugin_init": "  :plugin init <namn> Stillas en ny plugin-katalog.",
+    "cmd.help.plugin_validate": "  :plugin validate <namn> Valider en plugin-manifest.",
+    "cmd.help.plugin_marketplace": "  :plugin marketplace legg til <url> Registrer en markedsplass\n :plugin markedsplass fjern <namn> Fjern en markedsplass\n :plugin markedsplassliste Liste registrerte markedsplasser\n :plugin markedsplassoppdatering <namn> Oppdater en markedsplasskatalog"
   }
 }

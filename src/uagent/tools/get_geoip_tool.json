@@ -704,8 +704,8 @@
   },
   "nn": {
     "param.format.description": "Utdataformat.",
-    "param.ip.description": "Valgfri IP-adresse å slå opp. Hvis den utelates, brukes gjeldende offentlige IP-adresse (kun API-modus).",
-    "tool.description": "Estimer brukerens grove plassering på bynivå fra deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_windows_gps for nøyaktige GPS-koordinater.",
+    "param.ip.description": "Valgfri IP-adresse å slå opp. Hvis den utelates, vert brukt gjeldende offentlige IP-adresse (kun API-modus).",
+    "tool.description": "Estimer brukerens grove plassering på bynivå frå deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_windows_gps for nøyaktige GPS-koordinater.",
     "x_search_terms": [
       "geoip",
       "geolocation",
@@ -714,11 +714,11 @@
       "ip adresse plassering",
       "geo plassering",
       "ip oppslag",
-      "plassering fra ip",
+      "plassering frå ip",
       "ip geolocation",
       "ip info"
     ],
     "err.format_invalid": "[get_geoip error] formatet må være 'text' eller 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigurert. Sett UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for å slå opp vilkårlige IP-adresser offline."
+    "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikkje konfigurert. Sett UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for å slå opp vilkårlige IP-adresser offline."
   }
 }

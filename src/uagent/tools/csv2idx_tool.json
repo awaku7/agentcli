@@ -863,13 +863,13 @@
     "param.section.description": "Seksjonsnummer å hente (1-indeksert).",
     "err.path_required": "Feil: 'bane' er påkrevd.",
     "err.read_error": "Feil ved lesing av fil: {e}",
-    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.file_not_found": "Feil: Filen ble ikkje funnen: {path}",
     "err.parse_error": "Feil ved parsing av fil: {e}",
     "msg.no_entries": "(ingen seksjoner funnet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotalt antall seksjoner: {total}\nFor å hente en seksjon, ring med mode='section' og section=N.",
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
-    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
     "param.block_size.description": "Antall rader per blokk (standard 100)."
   }

@@ -938,13 +938,13 @@
       "teams kanal",
       "teamvarsling"
     ],
-    "param.message.description": "Meldingstekst for å legge ut til Teams. Brukes som ren tekst med mindre kortfelt er oppgitt.",
+    "param.message.description": "Meldingstekst for å legge ut til Teams. Vert brukt som ren tekst med mindre kortfelt er oppgitt.",
     "param.title.description": "Korttittel for webhook-støttede nyttelaster.",
     "param.summary.description": "Kortsammendrag for webhook-støttede nyttelaster.",
     "param.image_url.description": "Bilde-URL for webhook-støttede nyttelaster.",
-    "param.theme_color.description": "Korttemafarge som en sekskantstreng uten #.",
+    "param.theme_color.description": "Korttemafarge som en sekskantstreng utan #.",
     "param.payload_json.description": "Raw webhook nyttelast som JSON streng eller objekt. Hvis den er oppgitt, sendes den som den er.",
-    "param.webhook_env.description": "Navn på miljøvariabel som lagrer Teams webhook-URL.",
+    "param.webhook_env.description": "Namn på miljøvariabel som lagrer Teams webhook-URL.",
     "param.timeout_s.description": "Tidsavbrudd.",
     "err.missing_message": "Mangler 'melding'.",
     "err.exception": "Unntak"

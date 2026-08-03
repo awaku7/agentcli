@@ -1443,7 +1443,7 @@
     "param.extra_protect_terms.description": "Yderligere faste vilkår, der skal forblive uændrede (f.eks. stemme-id'er alloy/eve, modelnavne). Anvendes i tillæg til indbyggede termer, når protect_terms er sandt; stadig anvendt, når protect_terms er falsk."
   },
   "nn": {
-    "tool.description": "Oversett én eller flere tekster med Google Translate. Støtter 30+ språk. Flere tekster slås sammen og oversettes som en enkelt blokk for å bevare konteksten. Maks 10000 tegn per element for tekster[]; lengre filinnhold blir automatisk chunket. IKKE avkort tekst før sending. Når protect_placeholders er aktivert (standard), er plassholdere (%(name)s, {name}, ${name}, etc.) beskyttet. Merke-/produktvilkår kan beskyttes via protect_terms/extra_protect_terms. Valgfri bane/output_path muliggjør fil-til-fil-oversettelse med koding/nylinjebevaring.",
+    "tool.description": "Oversett én eller flere tekster med Google Translate. Støtter 30+ språk. Flere tekster slås saman og oversettes som en enkelt blokk for å bevare konteksten. Maks 10000 tegn per element for tekster[]; lengre filinnhold blir automatisk chunket. IKKE avkort tekst før sending. Når protect_placeholders er aktivert (standard), er plassholdere (%(name)s, {name}, ${name}, etc.) beskyttet. Merke-/produktvilkår kan beskyttes via protect_terms/extra_protect_terms. Valgfri bane/output_path muliggjør fil-til-fil-oversettelse med koding/nylinjebevaring.",
     "param.target_lang.description": "Målspråkkode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kildespråkkode. Automatisk oppdaget hvis utelatt.",
     "x_search_terms": [
@@ -1462,15 +1462,15 @@
       "i18n",
       "lokalisering"
     ],
-    "param.protect_placeholders.description": "Hvis sant, beskytt plassholdere (automatisk oppdaget fra innhold/bane) mot å bli oversatt. Standard: sant.",
-    "param.texts.description": "En rekke tekststrenger som skal oversettes (maks. 10 000 tegn hver). Send fulltekst uten trunkering. Tekster slås sammen og oversettes som en enkelt blokk (kontekst bevart). Valgfritt når banen er angitt.",
-    "param.path.description": "Skriv inn filbane for å oversette. Når angitt, brukes filinnhold i stedet for tekster. Relative baner løses fra workdir.",
+    "param.protect_placeholders.description": "Hvis sant, beskytt plassholdere (automatisk oppdaget frå innhold/bane) mot å bli oversatt. Standard: sant.",
+    "param.texts.description": "En rekke tekststrenger som skal oversettes (maks. 10 000 tegn hver). Send fulltekst utan trunkering. Tekster slås saman og oversettes som en enkelt blokk (kontekst bevart). Valgfritt når banen er angitt.",
+    "param.path.description": "Skriv inn filbane for å oversette. Når angitt, vert brukt filinnhold i staden for tekster. Relative baner løses frå workdir.",
     "param.output_path.description": "Utdatafilbane for oversatt innhold. Hvis den utelates i filmodus, returneres oversatt tekst kun i JSON (ingen skriving).",
-    "param.encoding.description": "Filkoding for lesing/skriving. Hvis den utelates, blir koding automatisk oppdaget (BOM/utf-8/utf-16/latin-1). Utdata bruker samme koding som input med mindre det er eksplisitt angitt.",
+    "param.encoding.description": "Filkoding for lesing/skriving. Hvis den utelates, blir koding automatisk oppdaget (BOM/utf-8/utf-16/latin-1). Utdata brukar samme koding som input med mindre det er eksplisitt angitt.",
     "param.newline.description": "Skriv ut nylinjestil: auto (standard, bevar inndata), lf, crlf eller cr.",
     "param.overwrite.description": "Overskriv output_path hvis den allerede eksisterer (oppretter .org-sikkerhetskopi). Standard: usant.",
     "err.decode_failed": "Kunne ikke dekode fil med kodingskandidater (siste feil: {error})",
-    "err.file_not_found": "Filen ble ikke funnet: {path}",
+    "err.file_not_found": "Filen ble ikkje funnen: {path}",
     "err.file_too_large": "Filen er for stor: {size} byte (maks. {max_bytes})",
     "err.file_exists": "Filen eksisterer allerede: {path}",
     "err.target_lang_required": "target_lang kreves",
@@ -1478,7 +1478,7 @@
     "err.overwrite_bool": "overskriving må være en boolsk",
     "err.texts_or_path_required": "tekster (ikke-tom array) eller bane kreves",
     "err.texts_and_path_mutex": "Spesifiser enten tekster eller bane, ikke begge deler",
-    "param.protect_terms.description": "Hvis sant, beskytt innebygde merke-/produkt-/teknologiske termer (OpenAI, Grok, mp3, API, ...) fra å bli oversatt. Standard: sant.",
-    "param.extra_protect_terms.description": "Ytterligere faste vilkår som skal beholdes uendret (f.eks. tale-ID-er alloy/eve, modellnavn). Brukes i tillegg til innebygde termer når protect_terms er sann; fortsatt brukt når protect_terms er usann."
+    "param.protect_terms.description": "Hvis sant, beskytt innebygde merke-/produkt-/teknologiske termer (OpenAI, Grok, mp3, API, ...) frå å bli oversatt. Standard: sant.",
+    "param.extra_protect_terms.description": "Ytterligere faste vilkår som skal beholdes uendret (f.eks. tale-ID-er alloy/eve, modellnavn). Vert brukt i tillegg til innebygde termer når protect_terms er sann; fortsatt brukt når protect_terms er usann."
   }
 }

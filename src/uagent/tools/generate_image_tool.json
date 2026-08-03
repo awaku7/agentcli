@@ -1036,7 +1036,7 @@
     "err.depname_missing": "[generate_image] Billedmodel (implementeringsnavn) er ikke indstillet.\nIndstil venligst miljøvariablen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
   },
   "nn": {
-    "tool.description": "Genererer et bilde fra en tekstmelding, lagrer det som en PNG og returnerer filbanen. Åpning håndteres av den som ringer (CLI/GUI/Web).",
+    "tool.description": "Genererer et bilde frå en tekstmelding, lagrer det som en PNG og returnerer filbanen. Åpning håndteres av den som ringer (CLI/GUI/Web).",
     "x_search_terms": [
       "generering av bilde",
       "",
@@ -1053,7 +1053,7 @@
     "param.size.description": "Bildestørrelse.",
     "param.n.description": "Antall bilder.",
     "param.output_dir.description": "Katalog for å lagre bilder (relative eller absolutte). Standard til utganger/bildegenerasjoner hvis utelatt.",
-    "err.httpx_unavailable": "httpx er ikke tilgjengelig",
+    "err.httpx_unavailable": "httpx er ikkje tilgjengeleg",
     "err.empty_data": "Bildedataene var tomme (resp.data er tomme eller b64_json/url mangler)",
     "err.prompt_empty": "[generer_bilde]-ledeteksten er tom",
     "err.no_saved": "[generate_image] Bildedata var tomme",

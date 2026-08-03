@@ -778,7 +778,7 @@
   },
   "nn": {
     "param.name.description": "Mappenavnet til ferdigheten som skal avinstalleres.",
-    "tool.description": "Avinstaller en agentferdighet fra ~/.uag/skills.",
+    "tool.description": "Avinstaller en agentferdighet frå ~/.uag/skills.",
     "x_search_terms": [
       "ferdighet avinstaller",
       "avinstaller ferdighet",
@@ -791,10 +791,10 @@
       "ferdighet slette",
       "fjern agentferdighet"
     ],
-    "err.name_required": "Navn på ferdigheter kreves.",
-    "err.invalid_name": "Ugyldig navn på ferdighetsmappe: {name}",
+    "err.name_required": "Namn på ferdigheter kreves.",
+    "err.invalid_name": "Ugyldig namn på ferdighetsmappe: {name}",
     "err.not_found": "Ferdigheten '{name}' er ikke installert i {root}",
-    "success.uninstalled": "Vellykket avinstallert ferdighet '{name}' fra {path}",
+    "success.uninstalled": "Vellykket avinstallert ferdighet '{name}' frå {path}",
     "err.unexpected": "Det oppstod en uventet feil: {error}"
   }
 }

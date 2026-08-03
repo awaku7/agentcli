@@ -965,7 +965,7 @@
     "tool.description": "Analyser en kodebasekatalog og utdatafiltre med symboldefinisjoner (klasser, funksjoner osv.) på tvers av flere språk. Støtter C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin og mer. Leser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for prosjektbevisst kildeskanning.",
     "param.path.description": "Rotkatalog å analysere (standard: gjeldende arbeidskatalog).",
     "param.depth.description": "Maksimal katalogdybde å vise i treet (0 = ubegrenset).",
-    "param.include_symbols.description": "Om symboldefinisjoner skal trekkes ut fra kildefiler.",
+    "param.include_symbols.description": "Om symboldefinisjoner skal trekkes ut frå kildefiler.",
     "param.project_only.description": "Skann kun filer referert til av prosjektfiler (.sln, .csproj, build.gradle.kts, etc.).",
     "x_search_terms": [
       "kodekart",
@@ -983,8 +983,8 @@
       "JSON-LD"
     ],
     "param.format.description": "Utdataformat: 'json' for strukturerte data, 'havfrue' for visuelt diagram, 'ontologi' for JSON-LD kunnskapsgraf med filrelasjoner.",
-    "param.output_dir.description": "Katalog for å lagre utdatafilen i stedet for å returnere den. For havfrueformat med render_image=true, lagres som PNG. Bruker navnekonvensjon: code_map_<timestamp>.<ext>.",
-    "param.render_image.description": "Når formatet er 'mermaid' og output_dir er satt, må du også gjengi diagrammet som et PNG-bilde via Mermaid.ink API.",
+    "param.output_dir.description": "Katalog for å lagre utdatafilen i staden for å returnere den. For havfrueformat med render_image=true, lagres som PNG. Brukar navnekonvensjon: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Når formatet er 'mermaid' og output_dir er satt, må du òg gjengi diagrammet som et PNG-bilde via Mermaid.ink API.",
     "param.include_relations.description": "Pakk ut import/krev relasjoner mellom filer. Når format='ontology', er standard til True. Støttede språk: Python, TypeScript, JavaScript, Go, Rust."
   }
 }

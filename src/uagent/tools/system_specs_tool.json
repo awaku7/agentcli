@@ -680,7 +680,7 @@
       "osinfo"
     ],
     "param.include_volumes.description": "Inkluder informasjon om bruk av montert volum.",
-    "param.include_disks.description": "Inkluder fysisk diskinformasjon når den er tilgjengelig (best mulig innsats).",
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: samle systemspesifikasjoner som OS, CPU, RAM-størrelse, lagringsdisker (best innsats) og volum ledig plass."
+    "param.include_disks.description": "Inkluder fysisk diskinformasjon når den er tilgjengeleg (best mulig innsats).",
+    "tool.system_prompt": "Dette verktøyet vert brukt til følgende formål: samle systemspesifikasjoner som OS, CPU, RAM-størrelse, lagringsdisker (best innsats) og volum ledig plass."
   }
 }

@@ -592,7 +592,7 @@
     "param.note.description": "Noteteksten til at dele. Brug dette til projektomfattende antagelser/politikker, der bør genbruges på tværs af sessioner."
   },
   "nn": {
-    "tool.description": "Legg til et enkelt notat til det delte langtidsminnelageret (delt på tvers av brukere/økter). Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det ikke er tilgjengelig.",
+    "tool.description": "Legg til et enkelt notat til det delte langtidsminnelageret (delt på tvers av brukarar/økter). Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det ikke er tilgjengeleg.",
     "x_search_terms": [
       "delt minne",
       "legg til delt",
