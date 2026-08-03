@@ -96,6 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -128,22 +129,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- একাধিক ডিরেক্টরি `:` (Linux/macOS) বা `;` (Windows) দ্বারা আলাদা করা যেতে পারে।
- `UAGENT_EXTERNAL_TOOLS_DIR` (একবচন) পশ্চাদগামী সামঞ্জস্যের জন্যও সমর্থিত।
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **একটি পাইথন ফাইল তৈরি করুন**
+2. **Create a Python file**
 
- ফাইলের নাম বিনামূল্যে, কিন্তু `<name>_tool.py` নামকরণ সুপারিশ করা হয় (যেমন `my_tool.py`)।
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-৩. **প্রয়োজনীয় উপাদানগুলি প্রয়োগ করুন**
+3. **Implement the required elements**
 
- - `TOOL_SPEC` অভিধান
- - `run_tool(args)` ফাংশন
- - ঐচ্ছিকভাবে, একটি i18n JSON ফাইল
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-৪. **এজেন্টটি পুনরায় চালু করুন** (বা `system_reload` টুলটি চালান)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### সম্পূর্ণ টেমপ্লেট
+### Full Template
 
 ```python
 from __future__ import annotations
@@ -188,18 +189,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-i18n বিশদ বিবরণের জন্য [বিভাগ 5](#5-আন্তর্জাতিককরণ-i18n) দেখুন।
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. একটি মরিচা + পাইথন টুল তৈরি করা
+## 3. Creating a Rust + Python Tool
 
-মরিচা বাস্তবায়ন কর্মক্ষমতা-গুরুত্বপূর্ণ কাজগুলির জন্য আদর্শ (ভারী ডেটা প্রসেসিং, ক্রিপ্টোগ্রাফি, ফাইল প্রসেসিং, ইত্যাদি)।
-uag পূর্ব-নির্মিত `.pyd` ফাইলগুলি সরাসরি লোড করতে পারে, তাই **শেষ-ব্যবহারকারীদের `পিপ ইনস্টল`** প্রয়োজন হয় না।
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### টুল স্ট্রাকচার
+### Tool Structure
 
-একটি মরিচা টুল নিম্নলিখিত ফাইলগুলি নিয়ে গঠিত:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -210,12 +211,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-ডিস্ট্রিবিউশনের জন্য, `_tool.py` + `_tool.json` + `.pyd` ফাইলগুলিকে এতে রাখুন
-`UAGENT_EXTERNAL_TOOLS_DIRS`।
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+`UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### ধাপ
+### Steps
 
-#### ধাপ 1: রাস্ট প্রকল্প তৈরি করুন
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -244,7 +245,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### ধাপ ২: মরিচা বাস্তবায়ন (src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -270,32 +271,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**মূল পয়েন্ট:**
-- `#[pyfunction(name = "run_<name>")]` এর সাথে ফাংশন প্রকাশ করুন
-- রিটার্নের ধরন হল `PyResult<String>`
-- `#[pymodule]` ফাংশনের নাম অবশ্যই ক্রেট নামের (`my_rust_tools`) সাথে মিলতে হবে
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### ধাপ 3: বিল্ড করুন
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: `target/release/my_rust_tools.dll` এর নাম `my_rust_tools.pyd` এ পরিবর্তন করুন
-Linux: `target/release/libmy_rust_tools.so` এর নাম পরিবর্তন করুন `my_rust_tools.so`
-macOS: `target/release/libmy_rust_tools.dylib` এর নাম পরিবর্তন করে `my_rust_tools.so` এ
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-অথবা ম্যাটুরিন ব্যবহার করুন:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### ধাপ 4: পাইথন র্যাপার তৈরি করুন
+#### Step 4: Create the Python wrapper
 
-আপনার `UAGENT_EXTERNAL_TOOLS_DIRS` ডিরেক্টরিতে `my_rust_tool.py` তৈরি করুন:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -332,14 +333,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` রেজোলিউশন অর্ডার:**
+**``load_rust_pyd()`` resolution order:**
 
-১. র্যাপার `.py` হিসাবে একই ডিরেক্টরিতে `<module_name>.pyd` (বা `.so`) সন্ধান করুন।
-2. একটি পিপ-ইনস্টল করা মডিউলে ফিরে যান
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### ধাপ 5: বিতরণ
+#### Step 5: Distribution
 
-শুধুমাত্র এই 3টি ফাইল প্রয়োজন৷ শেষ-ব্যবহারকারীদের **কোনও `পিপ ইন্সটল` এর প্রয়োজন নেই।
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -347,20 +348,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### নোট
+### Notes
 
-- **বিল্ড-টাইম শুধুমাত্র:** মরিচা টুলচেন এবং `ম্যাটুরিন` প্রয়োজন
- ```bash
+- **Build-time only:** Rust toolchain and `maturin` are required
+  ```bash
   pip install maturin
   ```
-- রাস্ট ক্রেট নাম (`Cargo.toml`-এর মধ্যে `[lib] name`) অবশ্যই `load_rust_pyd()` এর প্রথম আর্গুমেন্টের সাথে মিলতে হবে
-- র‍্যাপার ফাইলের নাম এবং `.pyd` অবস্থান স্বতন্ত্র যতক্ষণ না তারা একই ডিরেক্টরিতে থাকে
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. TOOL_SPEC রেফারেন্স
+## 4. TOOL_SPEC Reference
 
-### বেসিক গঠন
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -392,35 +393,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### বৈশিষ্ট্য
+### Properties
 
-| মাঠ | প্রকার | বর্ণনা |
+| Field | Type | Description |
 |-------|------|-------------|
-| `টাইপ` | str | সর্বদা `"ফাংশন"` |
-| `x_build` | str | মরিচা বাস্তবায়নের জন্য `"মরিচা"` (পাইথনের জন্য বাদ দিন) |
-| `tool_genre` | str | জেনার নাম (ঐচ্ছিক)। জেনার-ভিত্তিক নিয়ন্ত্রণ সক্ষম করে |
-| `tool_level` | int | 0=সক্ষম, 1=শর্তাধীন (ডিফল্ট), -1=অক্ষম |
-| `function.name` | str | **প্রয়োজনীয়**। টুলের নাম (ছোট হাতের + সংখ্যা + আন্ডারস্কোর) |
-| `function.description` | str | **প্রয়োজনীয়**। বর্ণনা |
-| `function.x_search_terms` | তালিকা[str] | i18n-সচেতন অনুসন্ধান কীওয়ার্ড (`_(...)` দিয়ে মোড়ানো) |
-| `function.x_search_terms_en` | তালিকা[str] | স্থির ইংরেজি অনুসন্ধান কীওয়ার্ড |
-| `function.parameters` | dict | প্যারামিটার সংজ্ঞা (ওপেনএআই ফাংশন কলিং ফরম্যাট) |
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. আন্তর্জাতিকীকরণ (i18n)
+## 5. Internationalization (i18n)
 
-### অনুবাদ প্রক্রিয়া
+### Translation Mechanism
 
-`make_tool_translator(__file__)` কল করা `.json` ফাইল থেকে অনুবাদগুলি লোড করে
-একই বেসনাম একই ডিরেক্টরিতে।
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### অনুবাদ কী ব্যবহার করা হচ্ছে
+### Using Translation Keys
 
 ```python
 description = _(
@@ -429,7 +431,7 @@ description = _(
 )
 ```
 
-### JSON ফাইল ফর্ম্যাট
+### JSON File Format
 
 ```json
 {
@@ -444,19 +446,19 @@ description = _(
 }
 ```
 
-সমর্থিত ভাষা কোডের জন্য বিদ্যমান `_tool.json` ফাইলগুলি দেখুন।
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. টেস্টিং এবং ডিবাগিং
+## 6. Testing and Debugging
 
-### সিনট্যাক্স চেক
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### টুল লোডিং যাচাই
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -467,28 +469,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### ত্রুটি লগ
+### Error Logs
 
-টুল লোড করার সময় ত্রুটি stderr এ প্রিন্ট করা হয়। যদি আপনার টুল লোড না হয়,
-uag স্টার্টআপ লগগুলি পরীক্ষা করুন।
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. রেফারেন্স উদাহরণ
+## 7. Reference Examples
 
-### পাইথন টুলের উদাহরণ
+### Python Tool Examples
 
-- `date_calc_tool.py` (`src/uagent/tools/`-এ) — তারিখ গণনা। বাহ্যিকভাবে অনুলিপি করুন এবং কাস্টমাইজ করুন।
-- `calculator_tool.py` (`src/uagent/tools/`-এ) — ক্যালকুলেটর।
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### মরিচা টুলের উদাহরণ
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/`-এ) — UUID জেনারেশন
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/`-এ) — স্লাগ রূপান্তর
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-`_tool.py` এবং `.pyd` ফাইলগুলিকে `UAGENT_EXTERNAL_TOOLS_DIRS` এ কপি করুন বহিরাগত টুল হিসাবে ব্যবহার করতে।
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### এক্সটার্নাল টুল ডিরেক্টরি সেট আপ করা হচ্ছে
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS

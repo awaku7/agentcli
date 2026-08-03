@@ -95,6 +95,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -143,6 +144,7 @@ TOOL_SPEC: dict[str, Any] = {
 4. **Restart the agent** (or run the `system_reload` tool)
 
 ### Full Template
+
 ```python
 from __future__ import annotations
 
@@ -398,6 +400,7 @@ TOOL_SPEC: dict[str, Any] = {
 | `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
 | `tool_genre` | str | Genre name (optional). Enables genre-based control |
 | `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
 | `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
 | `function.description` | str | **Required**. Description |
 | `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |

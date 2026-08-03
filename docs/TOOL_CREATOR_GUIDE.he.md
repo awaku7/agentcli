@@ -95,6 +95,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -129,22 +130,23 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- ניתן להפריד בין ספריות מרובות על ידי `:` (Linux/macOS) או `;` (Windows).
- `UAGENT_EXTERNAL_TOOLS_DIR` (יחיד) נתמך גם עבור תאימות לאחור.
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **צור קובץ Python**
+2. **Create a Python file**
 
- שם הקובץ הוא בחינם, אך מומלץ לתת שם של `<name>_tool.py` (למשל `my_tool.py`).
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **הטמיע את האלמנטים הנדרשים**
+3. **Implement the required elements**
 
- - `TOOL_SPEC` dictionary
- - `run_tool(args)` function
- - לחלופין, קובץ i18n JSON
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4. **הפעל מחדש את הסוכן** (או הפעל את הכלי `system_reload`)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### תבנית מלאה
+### Full Template
+
 ```python
 from __future__ import annotations
 
@@ -188,7 +190,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-ראה [סעיף 5](#5-internationalization-i18n) לפרטי i18n.
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
@@ -400,6 +402,7 @@ TOOL_SPEC: dict[str, Any] = {
 | `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
 | `tool_genre` | str | Genre name (optional). Enables genre-based control |
 | `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
 | `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
 | `function.description` | str | **Required**. Description |
 | `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |

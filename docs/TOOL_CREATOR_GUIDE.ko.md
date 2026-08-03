@@ -96,6 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -128,22 +129,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- 여러 디렉터리는 `:`(Linux/macOS) 또는 `;`(Windows)으로 구분할 수 있습니다.
- `UAGENT_EXTERNAL_TOOLS_DIR` (단수)도 이전 버전과의 호환성을 위해 지원됩니다.
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **Python 파일 만들기**
+2. **Create a Python file**
 
- 파일 이름은 자유지만 `<name>_tool.py` 이름을 사용하는 것이 좋습니다(예: `my_tool.py`).
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **필수 요소 구현**
+3. **Implement the required elements**
 
- - `TOOL_SPEC` 사전
- - `run_tool(args)` 함수
- - 선택적으로 i18n JSON 파일
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4. **에이전트 다시 시작**(또는 `system_reload` 도구 실행)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### 전체 템플릿
+### Full Template
 
 ```python
 from __future__ import annotations
@@ -188,18 +189,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-i18n 세부정보는 [섹션 5](#5-internationalization-i18n)를 참조하세요.
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. Rust + Python 도구 만들기
+## 3. Creating a Rust + Python Tool
 
-Rust 구현은 성능이 중요한 작업(많은 데이터 처리, 암호화, 파일 처리 등)에 이상적입니다.
-uag는 미리 빌드된 `.pyd` 파일을 직접 로드할 수 있으므로 **최종 사용자는 `pip install`이 필요하지 않습니다**.
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### 도구 구조
+### Tool Structure
 
-Rust 도구는 다음으로 구성됩니다. 파일:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -210,12 +211,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-배포를 위해 `_tool.py` + `_tool.json` + `.pyd` 파일을
-`UAGENT_EXTERNAL_TOOLS_DIRS`에 배치합니다.
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+`UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### 단계
+### Steps
 
-#### 1단계: 생성 Rust 프로젝트
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -244,7 +245,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### 2단계: Rust 구현 (src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -270,32 +271,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**핵심 사항:**
-- `#[pyfunction(name = "run_<name>")]`을 사용하여 함수 노출
-- 반환 유형은 `PyResult<String>`입니다.
-- `#[pymodule]` 함수 이름은 크레이트 이름과 일치해야 합니다 (`my_rust_tools`)
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### 3단계: 빌드
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: `target/release/my_rust_tools.dll`의 이름을 `my_rust_tools.pyd`로 변경
-Linux: 이름 변경 `target/release/libmy_rust_tools.so`를 `my_rust_tools.so`로 변경
-macOS: `target/release/libmy_rust_tools.dylib`를 `my_rust_tools.so`로 이름 바꾸기
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-또는 maturin 사용:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### 단계 4: Python 래퍼 만들기
+#### Step 4: Create the Python wrapper
 
-`UAGENT_EXTERNAL_TOOLS_DIRS` 디렉터리에 `my_rust_tool.py` 만들기:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -332,14 +333,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` 해결 순서:**
+**``load_rust_pyd()`` resolution order:**
 
-1. 래퍼 `.py`와 동일한 디렉터리에서 `<module_name>.pyd`(또는 `.so`)를 찾으세요.
-2. pip 설치 모듈로 대체
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### 5단계: 배포
+#### Step 5: Distribution
 
-이 3개 파일만 필요합니다. 최종 사용자에게는 `pip install`이 **필요하지 않습니다**.
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -347,20 +348,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### 참고
+### Notes
 
-- **빌드 시간에만 해당:** Rust 툴체인 및 `maturin`이 필요합니다.
- ```bash
+- **Build-time only:** Rust toolchain and `maturin` are required
+  ```bash
   pip install maturin
   ```
-- Rust 상자 이름 (`Cargo.toml`의 `[lib] 이름`)은 `load_rust_pyd()`의 첫 번째 인수와 일치해야 합니다.
-- 래퍼 파일 이름과 `.pyd` 위치는 동일한 디렉터리에 있는 한 독립적입니다.
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. TOOL_SPEC 참조
+## 4. TOOL_SPEC Reference
 
-### 기본 구조
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -392,35 +393,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### 속성
+### Properties
 
-| 필드 | 유형 | 설명 |
+| Field | Type | Description |
 |-------|------|-------------|
-| '유형' | str | 항상 `"기능"` |
-| `x_build` | str | Rust 구현의 경우 `"rust"`(Python의 경우 생략) |
-| `도구_장르` | str | 장르명(선택). 장르 기반 제어를 활성화합니다 |
-| `도구_수준` | 정수 | 0=활성화, 1=조건부(기본값), -1=비활성화 |
-| `함수.이름` | str | **필수의**. 도구 이름(소문자 + 숫자 + 밑줄) |
-| `함수.설명` | str | **필수의**. 설명 |
-| `function.x_search_terms` | 목록[str] | i18n 인식 검색 키워드(`_(...)`로 래핑) |
-| `function.x_search_terms_en` | 목록[str] | 영어 검색 키워드 수정 |
-| `함수.매개변수` | 사전 | 매개변수 정의(OpenAI 함수 호출 형식) |
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. 국제화(i18n)
+## 5. Internationalization (i18n)
 
-### 번역 메커니즘
+### Translation Mechanism
 
-`make_tool_translator(__file__)`를 호출하면 동일한 기본 이름을 가진 `.json` 파일에서 번역을 로드합니다
- 디렉토리.
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### 번역 키 사용
+### Using Translation Keys
 
 ```python
 description = _(
@@ -429,7 +431,7 @@ description = _(
 )
 ```
 
-### JSON 파일 형식
+### JSON File Format
 
 ```json
 {
@@ -444,19 +446,19 @@ description = _(
 }
 ```
 
-참조 지원되는 언어 코드에 대한 기존 `_tool.json` 파일.
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. 테스트 및 디버깅
+## 6. Testing and Debugging
 
-### 구문 검사
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### 도구 확인 로드 중
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -467,28 +469,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### 오류 로그
+### Error Logs
 
-도구 로드 중 오류가 stderr에 인쇄됩니다. 도구가 로드되지 않은 경우
-uag 시작 로그를 확인하세요.
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. 참조 예제
+## 7. Reference Examples
 
-### Python 도구 예제
+### Python Tool Examples
 
-- `date_calc_tool.py`(`src/uagent/tools/`에서) — 날짜 계산. 외부에서 복사하고 사용자 정의합니다.
-- `calculator_tool.py`(`src/uagent/tools/`에서) — 계산기.
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### Rust 도구 예
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd`(`src/uagent/tools_rust/`에서) — UUID 생성
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd`(`src/uagent/tools_rust/`에 있음) — 슬러그 변환
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-`_tool.py` 및 `.pyd` 파일을 `UAGENT_EXTERNAL_TOOLS_DIRS`에 복사하여 외부 도구로 사용합니다.
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### 외부 도구 디렉터리 설정
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS

@@ -96,6 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -128,22 +129,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- 複数のディレクトリは、`:` (Linux/macOS) または `;` (Windows) で区切ることができます。
- `UAGENT_EXTERNAL_TOOLS_DIR` (単数形) も下位互換性のためにサポートされています。
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2。 **Python ファイルを作成します**
+2. **Create a Python file**
 
- ファイル名は自由ですが、`<name>_tool.py` という名前を付けることをお勧めします (例: `my_tool.py`)。
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **必要な要素を実装します**
+3. **Implement the required elements**
 
- - `TOOL_SPEC` 辞書
- - `run_tool(args)` 関数
- - オプションで、i18n JSON ファイル
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4。 **エージェントを再起動します** (または `system_reload` ツールを実行します)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### 完全なテンプレート
+### Full Template
 
 ```python
 from __future__ import annotations
@@ -188,18 +189,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-i18n については [セクション 5](#5-internationalization-i18n) を参照してください。詳細.
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. Rust + Python ツールの作成
+## 3. Creating a Rust + Python Tool
 
-Rust の実装は、パフォーマンスが重要なタスク (大量のデータ処理、暗号化、ファイル処理など) に最適です。
-uag は事前に構築された `.pyd` ファイルを直接ロードできるため、**エンドユーザーは `pip を必要としませんinstall`**.
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### ツールの構造
+### Tool Structure
 
-Rust ツールは次のファイルで構成されます:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -210,12 +211,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-配布用に、`_tool.py` + `_tool.json` + `.pyd` ファイルを配置します。 in
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### ステップ
+### Steps
 
-#### ステップ 1: Rust を作成するproject
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -244,7 +245,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### ステップ 2: Rust の実装(src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -270,32 +271,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**重要なポイント:**
-- `#[pyfunction(name = "run_<name>")]`を使用して関数を公開します。
-- 戻り値の型は `PyResult<String>`
-- `#[pymodule]` 関数名はクレート名 (`my_rust_tools`)
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### ステップ 3: ビルド
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: `target/release/my_rust_tools.dll` の名前を `my_rust_tools.pyd` に変更します
-Linux: 名前を変更します`target/release/libmy_rust_tools.so` を `my_rust_tools.so` に変更
-macOS: `target/release/libmy_rust_tools.dylib` を `my_rust_tools.so` に名前変更します
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-またはmaturin:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### ステップ 4: Python ラッパーを作成する
+#### Step 4: Create the Python wrapper
 
-`UAGENT_EXTERNAL_TOOLS_DIRS` に `my_rust_tool.py` を作成しますディレクトリ:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -332,14 +333,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` 解決順序:**
+**``load_rust_pyd()`` resolution order:**
 
-1.ラッパー `.py`
-2 と同じディレクトリで `<module_name>.pyd` (または `.so`) を探します。 pip でインストールされたモジュールにフォールバックします
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### ステップ 5: 配布
+#### Step 5: Distribution
 
-これら 3 つのファイルのみが必要です。エンドユーザーは、`pip install` を **必要ありません**。
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -347,20 +348,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### 注意事項
+### Notes
 
-- **ビルド時のみ:** Rust ツールチェーンと `maturin` が必要です
- ```bash
+- **Build-time only:** Rust toolchain and `maturin` are required
+  ```bash
   pip install maturin
   ```
-- Rust クレートname (`Cargo.toml` の `[lib] name`) は `load_rust_pyd()` の最初の引数と一致する必要があります
- - ラッパー ファイル名と `.pyd` の場所は、同じディレクトリ内にある限り独立しています
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. TOOL_SPEC リファレンス
+## 4. TOOL_SPEC Reference
 
-### 基本構造
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -392,35 +393,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### プロパティ
+### Properties
 
-|フィールド |タイプ |説明 |
-|------|------|-------------|
-| `タイプ` | str |常に `"関数"` |
-| `x_build` | str | Rust 実装の場合は `"rust"` (Python の場合は省略) |
-| `ツールのジャンル` | str |ジャンル名（オプション）。ジャンルベースの制御を有効にします |
-| `ツールレベル` |整数 | 0=有効、1=条件付き (デフォルト)、-1=無効 |
-| `関数.名前` | str | **必須**。ツール名 (小文字 + 数字 + アンダースコア) |
-| `関数.説明` | str | **必須**。説明 |
-| `function.x_search_terms` |リスト[文字列] | i18n 対応の検索キーワード (`_(...)` で囲む) |
-| `function.x_search_terms_ja` |リスト[文字列] |英語の検索キーワードを修正 |
-| `関数.パラメータ` |辞書 |パラメータ定義 (OpenAI 関数呼び出し形式) |
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. 国際化 (i18n)
+## 5. Internationalization (i18n)
 
-### 翻訳メカニズム
+### Translation Mechanism
 
-`make_tool_translator(__file__)` を呼び出すと、同じベース名の `.json` ファイルから翻訳が読み込まれます
-。 directory.
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### 翻訳キーの使用
+### Using Translation Keys
 
 ```python
 description = _(
@@ -429,7 +431,7 @@ description = _(
 )
 ```
 
-### JSON ファイル形式
+### JSON File Format
 
 ```json
 {
@@ -444,19 +446,19 @@ description = _(
 }
 ```
 
-既存のファイルを参照サポートされている言語コードの `_tool.json` ファイル。
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. テストとデバッグ
+## 6. Testing and Debugging
 
-### 構文チェック
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### 検証ツール読み込み中
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -467,28 +469,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### エラー ログ
+### Error Logs
 
-ツールの読み込み中のエラーは標準エラー出力に出力されます。ツールが読み込まれていない場合は、
-uag 起動ログを確認してください。
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. 参考例
+## 7. Reference Examples
 
-### Python ツールの例
+### Python Tool Examples
 
-- `date_calc_tool.py` (`src/uagent/tools/` 内) — 日付の計算。外部にコピーしてカスタマイズします。
-- `calculator_tool.py` (`src/uagent/tools/` 内) — Calculator.
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### Rust ツールの例
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` 内) — UUID 生成
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` 内) — スラグ変換
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-`_tool.py` ファイルと `.pyd` ファイルを `UAGENT_EXTERNAL_TOOLS_DIRS` にコピーして、外部ファイルとして使用しますtools.
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### 外部ツール ディレクトリのセットアップ
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS

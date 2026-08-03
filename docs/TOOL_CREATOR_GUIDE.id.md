@@ -96,6 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -128,22 +129,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- Beberapa direktori dapat dipisahkan dengan `:` (Linux/macOS) atau `;` (Windows).
- `UAGENT_EXTERNAL_TOOLS_DIR` (tunggal) juga didukung untuk kompatibilitas mundur.
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **Buat file Python**
+2. **Create a Python file**
 
- Nama file gratis, tetapi disarankan untuk memberi nama `<name>_tool.py` (misalnya `my_tool.py`).
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **Implementasikan elemen yang diperlukan**
+3. **Implement the required elements**
 
- - kamus `TOOL_SPEC`
- - fungsi `run_tool(args)`
- - Opsional, file JSON i18n
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4. **Restart agen** (atau jalankan alat `system_reload`)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### Templat Lengkap
+### Full Template
 
 ```python
 from __future__ import annotations
@@ -188,18 +189,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-Lihat [Bagian 5](#5-internasionalisasi-i18n) untuk detail i18n.
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. Membuat Alat Rust + Python
+## 3. Creating a Rust + Python Tool
 
-Implementasi Rust sangat ideal untuk tugas-tugas yang kritis terhadap kinerja (pemrosesan data berat, kriptografi, pemrosesan file, dll.).
-uag dapat memuat file `.pyd` yang sudah dibuat sebelumnya secara langsung, sehingga **pengguna akhir tidak memerlukan `pip install`**.
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### Struktur Alat
+### Tool Structure
 
-Alat Rust terdiri dari yang berikut file:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -210,12 +211,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-Untuk distribusi, tempatkan file `_tool.py` + `_tool.json` + `.pyd` di
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Langkah
+### Steps
 
-#### Langkah 1: Buat proyek Rust
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -244,7 +245,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Langkah 2: Implementasi Rust (src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -270,32 +271,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Poin penting:**
-- Ekspos fungsi dengan `#[pyfunction(name = "run_<name>")]`
-- Jenis pengembalian adalah `PyResult<String>`
-- Nama fungsi `#[pymodule]` harus cocok dengan nama peti (`my_rust_tools`)
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### Langkah 3: Bangun
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: ganti nama `target/release/my_rust_tools.dll` menjadi `my_rust_tools.pyd`
-Linux: ganti nama `target/release/libmy_rust_tools.so` menjadi `my_rust_tools.so`
-macOS: ganti nama `target/release/libmy_rust_tools.dylib` menjadi `my_rust_tools.so`
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-Atau menggunakan maturin:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Langkah 4: Buat pembungkus Python
+#### Step 4: Create the Python wrapper
 
-Buat `my_rust_tool.py` di `UAGENT_EXTERNAL_TOOLS_DIRS` Anda direktori:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -332,14 +333,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` urutan resolusi:**
+**``load_rust_pyd()`` resolution order:**
 
-1. Cari `<module_name>.pyd` (atau `.so`) di direktori yang sama dengan pembungkus `.py`
-2. Kembali ke modul yang diinstal pip
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### Langkah 5: Distribusi
+#### Step 5: Distribution
 
-Hanya 3 file ini yang diperlukan. Pengguna akhir **tidak** memerlukan `pip install`.
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -347,20 +348,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Catatan
+### Notes
 
-- **Hanya waktu pembuatan:** Rust toolchain dan `maturin` diperlukan
- ```bash
+- **Build-time only:** Rust toolchain and `maturin` are required
+  ```bash
   pip install maturin
   ```
-- The Rust nama peti (`[lib] name` di `Cargo.toml`) harus cocok dengan argumen pertama `load_rust_pyd()`
-- Nama file wrapper dan lokasi `.pyd` bersifat independen selama keduanya berada di direktori yang sama
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. TOOL_SPEC Referensi
+## 4. TOOL_SPEC Reference
 
-### Dasar Struktur
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -392,35 +393,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properti
+### Properties
 
-| Bidang | Ketik | Deskripsi |
+| Field | Type | Description |
 |-------|------|-------------|
-| `ketik` | str | Selalu `"fungsi"` |
-| `x_build` | str | `"rust"` untuk implementasi Rust (hilangkan untuk Python) |
-| `alat_genre` | str | Nama genre (opsional). Mengaktifkan kontrol berbasis genre |
-| `tingkat_alat` | ke dalam | 0=diaktifkan, 1=bersyarat (default), -1=dinonaktifkan |
-| `fungsi.nama` | str | **Diperlukan**. Nama alat (huruf kecil + angka + garis bawah) |
-| `fungsi.deskripsi` | str | **Diperlukan**. Deskripsi |
-| `fungsi.x_search_terms` | daftar[str] | kata kunci penelusuran i18n-aware (dibungkus dengan `_(...)`) |
-| `fungsi.x_search_terms_en` | daftar[str] | Memperbaiki kata kunci pencarian bahasa Inggris |
-| `fungsi.parameter` | dikte | Definisi parameter (format pemanggilan fungsi OpenAI) |
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. Internasionalisasi (i18n)
+## 5. Internationalization (i18n)
 
-### Mekanisme Penerjemahan
+### Translation Mechanism
 
-Memanggil `make_tool_translator(__file__)` memuat terjemahan dari file `.json`
-dengan nama dasar yang sama di file yang sama direktori.
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Menggunakan Tombol Terjemahan
+### Using Translation Keys
 
 ```python
 description = _(
@@ -429,7 +431,7 @@ description = _(
 )
 ```
 
-### Format File JSON
+### JSON File Format
 
 ```json
 {
@@ -444,19 +446,19 @@ description = _(
 }
 ```
 
-Lihat yang ada File `_tool.json` untuk kode bahasa yang didukung.
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. Pengujian dan Debugging
+## 6. Testing and Debugging
 
-### Pemeriksaan Sintaks
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Alat Verifikasi Memuat
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -467,28 +469,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Log Kesalahan
+### Error Logs
 
-Kesalahan selama pemuatan alat dicetak ke stderr. Jika alat Anda tidak dimuat,
-periksa log startup uag.
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. Contoh Referensi
+## 7. Reference Examples
 
-### Contoh Alat Python
+### Python Tool Examples
 
-- `date_calc_tool.py` (dalam `src/uagent/tools/`) — Penghitungan tanggal. Salin secara eksternal dan sesuaikan.
-- `calculator_tool.py` (di `src/uagent/tools/`) — Kalkulator.
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### Contoh Alat Karat
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (di `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (di `src/uagent/tools_rust/`) — Konversi slug
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-Salin file `_tool.py` dan `.pyd` ke `UAGENT_EXTERNAL_TOOLS_DIRS` untuk menggunakannya sebagai eksternal tools.
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### Menyiapkan Direktori Alat Eksternal
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS

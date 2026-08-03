@@ -96,6 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -128,22 +129,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
- หลายไดเรกทอรีสามารถแยกได้ด้วย `:` (Linux/macOS) หรือ `;` (Windows)
- `UAGENT_EXTERNAL_TOOLS_DIR` (เอกพจน์) ยังรองรับความเข้ากันได้แบบย้อนหลังอีกด้วย
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **สร้างไฟล์ Python**
+2. **Create a Python file**
 
- ชื่อไฟล์นั้นฟรี แต่แนะนำให้ตั้งชื่อไฟล์ `<name>_tool.py` (เช่น `my_tool.py`)
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **ติดตั้งองค์ประกอบที่จำเป็น**
+3. **Implement the required elements**
 
- - พจนานุกรม `TOOL_SPEC`
- - ฟังก์ชัน `run_tool(args)`
- - หรืออาจเป็นไฟล์ JSON i18n
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4. **รีสตาร์ทเอเจนต์** (หรือเรียกใช้เครื่องมือ `system_reload`)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### เทมเพลตแบบเต็ม
+### Full Template
 
 ```python
 from __future__ import annotations
@@ -188,18 +189,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-ดู [ส่วนที่ 5](#5-internationalization-i18n) สำหรับรายละเอียด i18n
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. การสร้างเครื่องมือ Rust + Python
+## 3. Creating a Rust + Python Tool
 
-การใช้งาน Rust นั้นเหมาะอย่างยิ่งสำหรับงานที่เน้นประสิทธิภาพ (การประมวลผลข้อมูลจำนวนมาก การเข้ารหัส การประมวลผลไฟล์ ฯลฯ)
-uag สามารถโหลดไฟล์ `.pyd` ที่สร้างไว้ล่วงหน้าได้โดยตรง ดังนั้น **ผู้ใช้ปลายทางไม่จำเป็นต้อง `pip install`**.
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### โครงสร้างเครื่องมือ
+### Tool Structure
 
-เครื่องมือ Rust ประกอบด้วยสิ่งต่อไปนี้ files:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -210,12 +211,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-สำหรับการแจกจ่าย ให้วางไฟล์ `_tool.py` + `_tool.json` + `.pyd` ไว้ใน
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### ขั้นตอน
+### Steps
 
-#### ขั้นตอนที่ 1: สร้าง โครงการ Rust
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -244,7 +245,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### ขั้นตอนที่ 2: การใช้งานสนิม (src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -270,32 +271,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**ประเด็นสำคัญ:**
-- แสดงฟังก์ชันด้วย `#[pyfunction(name = "run_<name>")]`
-- ประเภทการส่งคืนคือ `PyResult<String>`
-- ชื่อฟังก์ชัน `#[pymodule]` จะต้องตรงกับชื่อลัง (`my_rust_tools`)
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### ขั้นตอนที่ 3: สร้าง
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: เปลี่ยนชื่อ `target/release/my_rust_tools.dll` เป็น `my_rust_tools.pyd`
-Linux: เปลี่ยนชื่อ `target/release/libmy_rust_tools.so` เป็น `my_rust_tools.so`
-macOS: เปลี่ยนชื่อ `target/release/libmy_rust_tools.dylib` เป็น `my_rust_tools.so`
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-หรือใช้ maturin:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### ขั้นตอน 4: สร้าง Python wrapper
+#### Step 4: Create the Python wrapper
 
-สร้าง `my_rust_tool.py` ในไดเรกทอรี `UAGENT_EXTERNAL_TOOLS_DIRS` ของคุณ:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -332,14 +333,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` ลำดับการแก้ปัญหา:**
+**``load_rust_pyd()`` resolution order:**
 
-1. ค้นหา `<module_name>.pyd` (หรือ `.so`) ในไดเร็กทอรีเดียวกันกับ wrapper `.py`
-2 ถอยกลับไปที่โมดูลที่ติดตั้ง pip
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### ขั้นตอนที่ 5: การแจกจ่าย
+#### Step 5: Distribution
 
-ต้องใช้ 3 ไฟล์เหล่านี้เท่านั้น ผู้ใช้ปลายทาง **ไม่** ต้องการ `pip install` ใดๆ
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -347,20 +348,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### หมายเหตุ
+### Notes
 
-- **เวลาสร้างเท่านั้น:** ต้องใช้ toolchain ที่เป็นสนิมและ `maturin`
- ```bash
+- **Build-time only:** Rust toolchain and `maturin` are required
+  ```bash
   pip install maturin
   ```
-- ชื่อลังสนิม (`[lib] name` ใน `Cargo.toml`) ต้องตรงกับอาร์กิวเมนต์แรกของ `load_rust_pyd()`
-- ชื่อไฟล์ wrapper และตำแหน่ง `.pyd` มีความเป็นอิสระตราบใดที่อยู่ในไดเร็กทอรีเดียวกัน
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. การอ้างอิง TOOL_SPEC
+## 4. TOOL_SPEC Reference
 
-### พื้นฐาน โครงสร้าง
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -392,35 +393,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### คุณสมบัติ
+### Properties
 
-| สนาม | พิมพ์ | คำอธิบาย |
+| Field | Type | Description |
 |-------|------|-------------|
-| `พิมพ์` | STR | `"function"` |
-| เสมอ `x_build` | STR | `"rust"` สำหรับการใช้งาน Rust (ละเว้นสำหรับ Python) |
-| `ประเภทเครื่องมือ` | STR | ชื่อประเภท (ไม่บังคับ) เปิดใช้งานการควบคุมตามประเภท |
-| `ระดับเครื่องมือ` | อินท์ | 0=เปิดใช้งาน, 1=มีเงื่อนไข (ค่าเริ่มต้น), -1=ปิดใช้งาน |
-| `function.name` | STR | **ที่จำเป็น**. ชื่อเครื่องมือ (ตัวพิมพ์เล็ก + หลัก + ขีดล่าง) |
-| `function.description` | STR | **ที่จำเป็น**. คำอธิบาย |
-| `function.x_search_terms` | รายการ[str] | คำค้นหาที่ทราบโดย i18n (ปิดท้ายด้วย `_(...)`) |
-| `function.x_search_terms_en` | รายการ[str] | แก้ไขคำค้นหาภาษาอังกฤษ |
-| `function.parameters` | คำสั่ง | คำจำกัดความของพารามิเตอร์ (รูปแบบการเรียกฟังก์ชัน OpenAI) |
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. การทำให้เป็นสากล (i18n)
+## 5. Internationalization (i18n)
 
-### กลไกการแปล
+### Translation Mechanism
 
-การเรียก `make_tool_translator(__file__)` จะโหลดการแปลจากไฟล์ `.json`
-ที่มีชื่อฐานเดียวกันในชื่อเดียวกัน directory.
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### การใช้คีย์การแปล
+### Using Translation Keys
 
 ```python
 description = _(
@@ -429,7 +431,7 @@ description = _(
 )
 ```
 
-### รูปแบบไฟล์ JSON
+### JSON File Format
 
 ```json
 {
@@ -444,19 +446,19 @@ description = _(
 }
 ```
 
-ดูที่มีอยู่ ไฟล์ `_tool.json` สำหรับรหัสภาษาที่รองรับ
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. การทดสอบและการดีบัก
+## 6. Testing and Debugging
 
-### ตรวจสอบไวยากรณ์
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### เครื่องมือตรวจสอบ กำลังโหลด
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -467,28 +469,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### บันทึกข้อผิดพลาด
+### Error Logs
 
-ข้อผิดพลาดระหว่างการโหลดเครื่องมือจะถูกพิมพ์ไปที่ stderr หากเครื่องมือของคุณไม่ได้โหลด
-ตรวจสอบบันทึกการเริ่มต้น uag
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. ตัวอย่างอ้างอิง
+## 7. Reference Examples
 
 ### Python Tool Examples
 
-- `date_calc_tool.py` (ใน `src/uagent/tools/`) — การคำนวณวันที่ คัดลอกภายนอกและปรับแต่ง
-- `calculator_tool.py` (ใน `src/uagent/tools/`) — เครื่องคิดเลข
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### ตัวอย่างเครื่องมือสนิม
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (ใน `src/uagent/tools_rust/`) — UUID รุ่น
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (ใน `src/uagent/tools_rust/`) — การแปลง Slug
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-คัดลอกไฟล์ `_tool.py` และ `.pyd` ลงใน `UAGENT_EXTERNAL_TOOLS_DIRS` เพื่อใช้เป็นเครื่องมือภายนอก
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### การตั้งค่าไดเรกทอรีเครื่องมือภายนอก
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS

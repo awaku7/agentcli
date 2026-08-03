@@ -94,6 +94,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,       # Safe to run concurrently when True
     "function": {
         "name": "my_tool",
         "description": "Says hello.",
@@ -126,22 +127,23 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   एकाधिक डिरेक्टरी `:` (Linux/macOS) किंवा `;` (Windows) द्वारे विभक्त केल्या जाऊ शकतात.
-   `UAGENT_EXTERNAL_TOOLS_DIR` (एकवचन) मागास सुसंगततेसाठी देखील समर्थित आहे.
+   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **पायथन फाइल तयार करा**
+2. **Create a Python file**
 
-   फाइलचे नाव विनामूल्य आहे, परंतु `<name>_tool.py` नाव देण्याची शिफारस केली जाते (उदा. `my_tool.py`).
+   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **आवश्यक घटक अंमलात आणा**
+3. **Implement the required elements**
 
-   - `TOOL_SPEC` शब्दकोश
-   - `run_tool(args)` फंक्शन
-   - वैकल्पिकरित्या, i18n JSON फाइल
+   - `TOOL_SPEC` dictionary
+   - `run_tool(args)` function
+   - Optionally, an i18n JSON file
 
-4. **एजंट रीस्टार्ट करा** (किंवा `system_reload` टूल चालवा)
+4. **Restart the agent** (or run the `system_reload` tool)
 
-### पूर्ण टेम्पलेट
+### Full Template
+
 ```python
 from __future__ import annotations
 
@@ -185,18 +187,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-i18n तपशीलांसाठी [विभाग 5](#5-आंतरराष्ट्रीयकरण-i18n) पहा.
+See [Section 5](#5-internationalization-i18n) for i18n details.
 
 ---
 
-## 3. रस्ट + पायथन टूल तयार करणे
+## 3. Creating a Rust + Python Tool
 
-रस्ट अंमलबजावणी कार्यप्रदर्शन-गंभीर कार्यांसाठी आदर्श आहे (हेवी डेटा प्रोसेसिंग, क्रिप्टोग्राफी, फाइल प्रोसेसिंग इ.).
-uag पूर्व-निर्मित `.pyd` फाइल्स थेट लोड करू शकते, त्यामुळे **अंतिम वापरकर्त्यांना `pip install` ची आवश्यकता नाही**.
+Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
+uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
 
-### टूल स्ट्रक्चर
+### Tool Structure
 
-रस्ट टूलमध्ये खालील फाइल्स असतात:
+A Rust tool consists of the following files:
 
 ```
 my_rust_tool/
@@ -207,12 +209,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-वितरणासाठी, `_tool.py` + `_tool.json` + `.pyd` फायली
-`UAGENT_EXTERNAL_TOOLS_DIRS` मध्ये ठेवा.
+For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+`UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### चरण
+### Steps
 
-#### पायरी 1: रस्ट प्रोजेक्ट तयार करा
+#### Step 1: Create the Rust project
 
 **Cargo.toml**
 ```toml
@@ -241,7 +243,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### पायरी 2: रस्ट अंमलबजावणी (src/lib.rs)
+#### Step 2: Rust implementation (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -267,32 +269,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**मुख्य मुद्दे:**
-- `#[pyfunction(name = "run_<name>")]` सह फंक्शन्स उघड करा
-- रिटर्न प्रकार `PyResult<String>` आहे
-- `#[pymodule]` फंक्शनचे नाव क्रेटच्या नावाशी (`my_rust_tools`) जुळले पाहिजे
+**Key points:**
+- Expose functions with `#[pyfunction(name = "run_<name>")]`
+- Return type is `PyResult<String>`
+- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
 
-#### पायरी 3: Build
+#### Step 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: `target/release/my_rust_tools.dll` चे नाव बदलून `my_rust_tools.pyd` करा
-Linux: `target/release/libmy_rust_tools.so` चे नाव बदलून `my_rust_tools.so` करा
-macOS: `target/release/libmy_rust_tools.dylib` चे नाव बदलून `my_rust_tools.so` करा
+Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
+Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
+macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
-किंवा maturin वापरून:
+Or using maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### पायरी 4: पायथन रॅपर तयार करा
+#### Step 4: Create the Python wrapper
 
-तुमच्या `UAGENT_EXTERNAL_TOOLS_DIRS` निर्देशिकेत `my_rust_tool.py` तयार करा:
+Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -329,14 +331,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` रिझोल्यूशन ऑर्डर:**
+**``load_rust_pyd()`` resolution order:**
 
-1. रॅपर `.py` सारख्याच निर्देशिकेत `<module_name>.pyd` (किंवा `.so`) शोधा
-2. पिप-इंस्टॉल केलेल्या मॉड्यूलवर परत जा
+1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
+2. Fall back to a pip-installed module
 
-#### पायरी 5: वितरण
+#### Step 5: Distribution
 
-केवळ या 3 फाइल्सची आवश्यकता आहे. अंतिम वापरकर्त्यांना **कोणत्याही `pip install` ची आवश्यकता नाही**.
+Only these 3 files are needed. End-users do **not** need any `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -344,20 +346,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### नोट्स
+### Notes
 
-- **केवळ बिल्ड-टाइम:** रस्ट टूलचेन आणि `maturin` आवश्यक आहेत
+- **Build-time only:** Rust toolchain and `maturin` are required
   ```bash
   pip install maturin
   ```
-- रस्ट क्रेटचे नाव (`Cargo.toml` मधील `[lib] name`) `load_rust_pyd()` च्या पहिल्या आर्ग्युमेंटशी जुळले पाहिजे
-- रॅपर फाईलचे नाव आणि `.pyd` स्थान स्वतंत्र आहेत जोपर्यंत ते एकाच निर्देशिकेत आहेत
+- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
+- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
 ---
 
-## 4. TOOL_SPEC संदर्भ
+## 4. TOOL_SPEC Reference
 
-### मूलभूत रचना
+### Basic Structure
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -389,34 +391,36 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### गुणधर्म
+### Properties
 
-| फील्ड | प्रकार | वर्णन |
+| Field | Type | Description |
 |-------|------|-------------|
-| `type` | str | नेहमी `"function"` |
-| `x_build` | str | रस्ट अंमलबजावणीसाठी `"rust"` (पायथनसाठी वगळा) |
-| `tool_genre` | str | शैलीचे नाव (पर्यायी). शैली-आधारित नियंत्रण सक्षम करते |
-| `tool_level` | int | 0=सक्षम, 1=सशर्त (डीफॉल्ट), -1=अक्षम |
-| `function.name` | str | **आवश्यक**. टूलचे नाव (लोअरकेस + अंक + अंडरस्कोर) |
-| `function.description` | str | **आवश्यक**. वर्णन |
-| `function.x_search_terms` | list[str] | i18n-जागरूक शोध कीवर्ड (`_(...)` ने लपेटा) |
-| `function.x_search_terms_en` | list[str] | निश्चित इंग्रजी शोध कीवर्ड |
-| `function.parameters` | dict | पॅरामीटर डेफिनिशन (OpenAI फंक्शन कॉलिंग फॉरमॅट) |
+| `type` | str | Always `"function"` |
+| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
+| `tool_genre` | str | Genre name (optional). Enables genre-based control |
+| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
+| `x_parallel_safe` | bool | Whether independent calls may run concurrently |
+| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
+| `function.description` | str | **Required**. Description |
+| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
+| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
 ---
 
-## 5. आंतरराष्ट्रीयकरण (i18n)
+## 5. Internationalization (i18n)
 
-### भाषांतर यंत्रणा
+### Translation Mechanism
 
-`make_tool_translator(__file__)` कॉल केल्याने समान बेसनाव असलेल्या `.json` फाईलमधून त्याच निर्देशिकेत भाषांतर लोड होते.
+Calling `make_tool_translator(__file__)` loads translations from a `.json` file
+with the same basename in the same directory.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### भाषांतर की वापरणे
+### Using Translation Keys
 
 ```python
 description = _(
@@ -425,7 +429,7 @@ description = _(
 )
 ```
 
-### JSON फाइल स्वरूप
+### JSON File Format
 
 ```json
 {
@@ -440,19 +444,19 @@ description = _(
 }
 ```
 
-समर्थित भाषा कोडसाठी विद्यमान `_tool.json` फाइल पहा.
+See existing `_tool.json` files for supported language codes.
 
 ---
 
-## 6. चाचणी आणि डीबगिंग
+## 6. Testing and Debugging
 
-### सिंटॅक्स तपासणी
+### Syntax Check
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### टूल लोडिंग सत्यापित करा
+### Verify Tool Loading
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -463,28 +467,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### त्रुटी लॉग
+### Error Logs
 
-टूल लोडिंग दरम्यानच्या त्रुटी stderr वर मुद्रित केल्या जातात. तुमचे टूल लोड केलेले नसल्यास,
-uag स्टार्टअप लॉग तपासा.
+Errors during tool loading are printed to stderr. If your tool isn't loaded,
+check the uag startup logs.
 
 ---
 
-## 7. संदर्भ उदाहरणे
+## 7. Reference Examples
 
-### पायथन टूल उदाहरणे
+### Python Tool Examples
 
-- `date_calc_tool.py` (`src/uagent/tools/` मध्ये) — तारीख गणना. बाहेरून कॉपी करा आणि सानुकूलित करा.
-- `calculator_tool.py` (`src/uagent/tools/` मध्ये) — कॅल्क्युलेटर.
+- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
+- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
 
-### रस्ट टूल उदाहरणे
+### Rust Tool Examples
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` मध्ये) — UUID जनरेशन
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` मध्ये) — स्लग रूपांतरण
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
 
-`_tool.py` आणि `.pyd` फायली `UAGENT_EXTERNAL_TOOLS_DIRS` मध्ये कॉपी करा बाह्य साधने म्हणून वापरण्यासाठी.
+Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
 
-### बाह्य टूल निर्देशिका सेट करणे
+### Setting Up External Tool Directories
 
 ```bash
 # Linux/macOS
