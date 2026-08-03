@@ -833,10 +833,16 @@ def _chunk_text(text: str, max_len: int = MAX_TEXT_LENGTH) -> list[str]:
     return chunks
 
 
+def _is_mymemory_target(target_lang: str) -> bool:
+    return target_lang.lower().replace("-", "_") in {"nn", "nn_no"}
+
+
 def _translate_long(
     text: str, target_lang: str, source_lang: str | None = None
 ) -> tuple[str, str | None]:
-    chunks = _chunk_text(text, MAX_TEXT_LENGTH)
+    # MyMemory's public endpoint accepts at most 500 query characters.
+    max_len = 450 if _is_mymemory_target(target_lang) else MAX_TEXT_LENGTH
+    chunks = _chunk_text(text, max_len)
     if len(chunks) == 1:
         return _translate(chunks[0], target_lang, source_lang)
     out_parts: list[str] = []
@@ -1031,7 +1037,6 @@ def _translate_texts_batch(
 
     for i, text in enumerate(raw_texts):
         text = str(text)
-        # Preserve whitespace-only elements as-is (do not collapse to empty).
         if text == "":
             protected_parts.append("")
             mappings.append({})
@@ -1051,14 +1056,30 @@ def _translate_texts_batch(
         else:
             protected_text, ph_mapping = text, {}
         placeholders_count += len(ph_mapping)
-
         protected_text = protected_text.replace("\n", _BR_TAG)
         protected_parts.append(protected_text)
         mappings.append(ph_mapping)
 
+    if _is_mymemory_target(google_target):
+        # MyMemory has a 500-character query limit and does not preserve
+        # newline-separated multi-item batches reliably. Translate each item
+        # independently while retaining the existing placeholder mapping.
+        results: list[str] = []
+        for protected_text, ph_mapping in zip(protected_parts, mappings):
+            if protected_text == "":
+                results.append("")
+                continue
+            translated, _detected = _translate_long(
+                protected_text, google_target, google_source
+            )
+            line = translated.replace(_BR_TAG, "\n")
+            if ph_mapping:
+                line = restore_placeholders(line, ph_mapping)
+            results.append(line)
+        return results, "nn", placeholders_count
+
     joined = "\n".join(protected_parts)
     translated, detected = _translate_long(joined, google_target, google_source)
-
     translated_lines = translated.split("\n")
     if len(translated_lines) != len(raw_texts):
         raise RuntimeError(
@@ -1067,11 +1088,7 @@ def _translate_texts_batch(
 
     results: list[str] = []
     for translated_line, ph_mapping in zip(translated_lines, mappings):
-        # Do not strip: preserve intentional indentation/spaces when possible.
-        line = translated_line
-        # Google may introduce surrounding spaces around tokens; only strip pure
-        # empty-looking lines that were empty inputs.
-        line = line.replace(_BR_TAG, "\n")
+        line = translated_line.replace(_BR_TAG, "\n")
         if ph_mapping:
             line = restore_placeholders(line, ph_mapping)
         results.append(line)
