@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from typing import Any
 
 from .i18n import _
@@ -11,6 +12,16 @@ from .i18n import _
 # Default translation function used when core.tr is not provided.
 tr = _
 tr_ = _
+
+
+def _startup_timing_detail(name: str, elapsed: float) -> None:
+    enabled = (os.environ.get("UAGENT_STARTUP_TIMING") or "").strip().lower()
+    if enabled in {"1", "true", "yes", "on"}:
+        print(
+            f"[startup-timing] detail.{name}={elapsed:.3f}s",
+            file=__import__("sys").stderr,
+            flush=True,
+        )
 
 
 def _cwd_marker_prefix() -> str:
@@ -194,11 +205,13 @@ def build_initial_messages(
     try:
         refresh = getattr(core, "refresh_system_prompt", None)
         if callable(refresh):
+            _timing_started = time.perf_counter()
             refresh(
                 provider=provider,
                 depname=depname,
                 use_responses_api=use_responses_api,
             )
+            _startup_timing_detail("messages.refresh_system_prompt", time.perf_counter() - _timing_started)
     except Exception:
         pass
 
@@ -210,7 +223,9 @@ def build_initial_messages(
     try:
         from .runtime.runtime_instructions import load_project_instruction_files
 
+        _timing_started = time.perf_counter()
         instructions = load_project_instruction_files()
+        _startup_timing_detail("messages.instructions", time.perf_counter() - _timing_started)
         for instr in instructions:
             msg = {"role": "system", "content": instr}
             messages.append(msg)

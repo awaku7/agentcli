@@ -893,6 +893,21 @@ def stdin_loop() -> None:
                                     print(prompt, end="", flush=True)
                                 except Exception:
                                     pass
+
+                        # A normal prompt can become stale if an LLM/tool round
+                        # or human_ask starts after it was drawn but before the
+                        # input wait begins. Do not keep waiting on that prompt;
+                        # let the next loop render the active prompt instead.
+                        with core.human_ask_lock:
+                            prompt_interrupted = core.human_ask_active
+                        if prompt_interrupted or getattr(core, "status_busy", False):
+                            try:
+                                core._prompt_line_open = False
+                                core.prompt_needs_redraw = False
+                            except Exception:
+                                pass
+                            continue
+
                         if os.name == "nt":
                             try:
                                 import msvcrt  # type: ignore

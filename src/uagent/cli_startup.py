@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from typing import Any
 
@@ -109,6 +110,36 @@ def run_cli_startup(
     import io
     import os
 
+    startup_timing_enabled = (
+        (os.environ.get("UAGENT_STARTUP_TIMING") or "").strip().lower()
+        in {"1", "true", "yes", "on"}
+    )
+    startup_timing_started = time.perf_counter()
+    startup_timing_marks: dict[str, float] = {}
+
+    def _startup_timing_mark(name: str) -> None:
+        if startup_timing_enabled:
+            startup_timing_marks[name] = time.perf_counter() - startup_timing_started
+
+    def _startup_timing_emit_detail(name: str, elapsed: float) -> None:
+        if startup_timing_enabled:
+            print(
+                f"[startup-timing] detail.{name}={elapsed:.3f}s",
+                file=sys.stderr,
+                flush=True,
+            )
+
+    def _startup_timing_emit() -> None:
+        if not startup_timing_enabled:
+            return
+        elapsed = time.perf_counter() - startup_timing_started
+        lines = [f"[startup-timing] total={elapsed:.3f}s"]
+        lines.extend(
+            f"[startup-timing] {name}={mark:.3f}s"
+            for name, mark in startup_timing_marks.items()
+        )
+        print(*lines, sep=chr(10), file=sys.stderr, flush=True)
+
     from .i18n import _, detect_lang, set_thread_lang
 
     set_thread_lang(detect_lang())
@@ -158,7 +189,9 @@ def run_cli_startup(
                     env_workdir=env_workdir,
                 )
                 apply_workdir(decision)
+                _timing_started = time.perf_counter()
                 reload_dotenv_custom()
+                _startup_timing_emit_detail("dotenv", time.perf_counter() - _timing_started)
             except Exception as e:
                 print(
                     _("[FATAL] Failed to set workdir: %(err)s", err=e),
@@ -166,8 +199,12 @@ def run_cli_startup(
                 )
                 sys.exit(1)
 
+            _startup_timing_mark("workdir")
+
             try:
+                _timing_started = time.perf_counter()
                 validate_or_exit_startup_env(context="cli")
+                _startup_timing_emit_detail("env_validate", time.perf_counter() - _timing_started)
             except SystemExit:
                 if non_interactive:
                     raise
@@ -214,11 +251,15 @@ def run_cli_startup(
                         pass
                     raise
 
+            _startup_timing_mark("env")
+
             banner = build_startup_banner(
                 core=core,
                 workdir=decision.chosen_expanded,
                 workdir_source=decision.chosen_source,
             )
+
+            _startup_timing_mark("banner")
 
             print_welcome()
             ensure_mcp_config_template()
@@ -235,11 +276,15 @@ def run_cli_startup(
             except Exception:
                 pass
 
+            _startup_timing_mark("plugins")
+
             try:
                 provider, client, depname = providers.make_client(core)
             except (ValueError, RuntimeError) as e:
                 print(f"error: {e}", file=sys.stderr)
                 sys.exit(2)
+
+            _startup_timing_mark("provider")
 
             if banner:
                 print(banner, end="")
@@ -285,6 +330,7 @@ def run_cli_startup(
             messages = build_initial_messages(
                 core=core, provider=provider, depname=depname
             )
+            _startup_timing_mark("messages")
             print("[INFO] " + _("Loaded long-term memory."))
 
             try:
@@ -322,6 +368,7 @@ def run_cli_startup(
             pass
         raise
 
+    _startup_timing_mark("memory")
     _flush_startup_pager_and_continue()
 
     file_path = initial_file_arg
@@ -391,6 +438,8 @@ def run_cli_startup(
             "[INFO] "
             + _("--non-interactive was specified; exiting without waiting for stdin.")
         )
+        _startup_timing_mark("complete")
+        _startup_timing_emit()
         return CliStartupState(
             provider=provider,
             client=client,
@@ -400,6 +449,8 @@ def run_cli_startup(
             should_exit=True,
         )
 
+    _startup_timing_mark("complete")
+    _startup_timing_emit()
     return CliStartupState(
         provider=provider,
         client=client,
