@@ -49,7 +49,7 @@ uag
 
 ### 🧠 মাল্টি-প্রোভাইডার আর্কিটেকচার
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
 
 সমস্ত প্রদানকারী একই টুলসেট এবং ইন্টারফেস ভাগ করে। `UAGENT_PROVIDER` সেট করে স্যুইচ করুন — কোনো কোড পরিবর্তন নেই, কোনো পৃথক ইনস্টলেশন নেই৷
 
