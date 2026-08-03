@@ -312,6 +312,11 @@ def _execute_command_hook(
             "shell": True,
             "capture_output": True,
             "text": True,
+            # Hook commands are not guaranteed to use the Windows code page;
+            # Python/Node tools commonly write UTF-8.  Without an explicit
+            # codec, subprocess defaults to cp932 on Japanese Windows.
+            "encoding": "utf-8",
+            "errors": "replace",
             "timeout": timeout_ms / 1000.0,
             "env": env,
             "cwd": plugin_root or None,

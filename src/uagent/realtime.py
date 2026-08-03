@@ -289,6 +289,11 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
             check=False,
             capture_output=True,
             text=True,
+            # pip may emit UTF-8 even when the Windows locale is cp932.
+            # Decode explicitly so subprocess' reader threads cannot fail
+            # before the installation result is handled below.
+            encoding="utf-8",
+            errors="replace",
         )
         if result.returncode != 0:
             msg = _("Cannot install AEC3 backend, continuing with passthrough.")
