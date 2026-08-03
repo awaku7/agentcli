@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 - **컴퓨터에서 로컬로 실행**됩니다. 귀하의 데이터는 귀하와 함께 유지됩니다(귀하의 API 호출 제외).
 - **제공자의 자유**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21개 이상의 제공자, 모두 단일 인터페이스에서 액세스 가능. 환경 변수를 재구성하여 서로 교체하세요. 다시 설치하거나 마이그레이션할 필요가 없습니다.
-- **135개 도구**: 파일 I/O, 웹 검색, 이미지 생성, Gmail, BLE 장치 검색, MCP 서버 통합 — **78개는 병렬 안전**(스레드 풀을 통해 최대 8개가 동시에 실행되고 `UAGENT_PARALLEL_WORKERS`를 통해 구성 가능). LLM이 한 번에 여러 도구 호출을 실행하면 uag가 자동으로 이를 병렬화합니다.
+- **195개 도구**: 파일 I/O, 웹 검색, 이미지 생성, Gmail, BLE 장치 검색, MCP 서버 통합 — **111개는 병렬 안전**(스레드 풀을 통해 최대 8개가 동시에 실행되고 `UAGENT_PARALLEL_WORKERS`를 통해 구성 가능). LLM이 한 번에 여러 도구 호출을 실행하면 uag가 자동으로 이를 병렬화합니다.
 - **3개의 UI + A2A**: CLI, GUI, 웹 및 에이전트 간 프로토콜. 동일한 엔진, 모든 인터페이스.
 - **에이전트 스킬**: 마켓플레이스에서 커뮤니티 구축 스킬을 설치합니다. uag를 끝없이 확장하세요.
 
@@ -49,14 +49,14 @@ uag
 
 ### 🧠 다중 제공자 아키텍처
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI(Zhipu AI) / HuggingFace / Alibaba Cloud(Qwen) / KIMI(Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI(Fugu)** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI(Zhipu AI) / HuggingFace / Alibaba Cloud(Qwen) / KIMI(Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI(Fugu)** / **Together AI** / **Vercel AI Gateway**
 
 모든 공급자는 동일한 도구 세트와 인터페이스를 공유합니다. `UAGENT_PROVIDER` 설정으로 전환하세요. 코드 변경이나 별도 설치가 필요하지 않습니다.
 
 ### ⚡ 병렬 도구 실행
 
 LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동으로 병렬화**합니다.
-78개의 도구는 `x_parallel_safe`로 표시되어 `ThreadPoolExecutor`를 통해 동시에 실행됩니다(기본적으로 8개의 스레드, 변경하려면 `UAGENT_PARALLEL_WORKERS` 설정).
+111개의 도구는 `x_parallel_safe`로 표시되어 `ThreadPoolExecutor`를 통해 동시에 실행됩니다(기본적으로 8개의 스레드, 변경하려면 `UAGENT_PARALLEL_WORKERS` 설정).
 
 **예**: "북유럽 수도의 날씨를 확인하세요"라고 질문 → LLM에서 `search_web` × 5개 국가 실행 → 5개 검색이 모두 병렬로 실행됨 → 결과가 한 번에 수집됩니다.
 

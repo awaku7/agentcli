@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,14 +49,14 @@ Katso kaikki ympäristömuuttujat osoitteesta [docs/ENVIRONMENT.md](https://gith
 
 ### 🧠 Usean palveluntarjoajan arkkitehtuuri
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / / LM Studio / MiniMax** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / / LM Studio / MiniMax** / **Together AI** / **Vercel AI Gateway**
 
 Kaikilla palveluntarjoajilla on sama työkalusarja ja käyttöliittymä. Vaihda asettamalla UAGENT_PROVIDER — ei koodimuutoksia, ei erillisiä asennuksia.
 
 ### ⚡ Työkalun rinnakkaissuoritus
 
 Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne automaattisesti.
-87 työkalut on merkitty "x_parallel_safe" ja suoritetaan samanaikaisesti "ThreadPoolExecutorin" kautta (oletusarvoisesti 8 säiettä; muuta "UAGENT_PARALLEL_WORKERS").
+111 työkalut on merkitty "x_parallel_safe" ja suoritetaan samanaikaisesti "ThreadPoolExecutorin" kautta (oletusarvoisesti 8 säiettä; muuta "UAGENT_PARALLEL_WORKERS").
 
 **Esimerkki**: Kysy "Tarkista sää Pohjoismaiden pääkaupungeissa" → LLM laukaisee `search_web` × 5 maata → kaikki 5 hakua suoritetaan rinnakkain → tulokset kerätään yhdessä erässä.
 

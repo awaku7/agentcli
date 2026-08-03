@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,14 +49,14 @@ uag
 
 ### 🧠 بنية متعددة الموفرين
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
 
 يتشارك جميع مقدمي الخدمة في نفس مجموعة الأدوات والواجهة. قم بالتبديل عن طريق إعداد `UAGENT_PROVIDER` - لا توجد تغييرات في التعليمات البرمجية، ولا توجد عمليات تثبيت منفصلة.
 
 ### ⚡ تنفيذ الأداة الموازية
 
 عندما يطلب LLM أدوات متعددة في وقت واحد، يقوم uag بموازاة هذه الأدوات تلقائيًا.
-تم وضع علامة على 87 أداة `x_parallel_safe` ويتم تنفيذها بشكل متزامن عبر `ThreadPoolExecutor` (8 سلاسل بشكل افتراضي؛ قم بتعيين `UAGENT_PARALLEL_WORKERS` للتغيير).
+تم وضع علامة على 111 أداة `x_parallel_safe` ويتم تنفيذها بشكل متزامن عبر `ThreadPoolExecutor` (8 سلاسل بشكل افتراضي؛ قم بتعيين `UAGENT_PARALLEL_WORKERS` للتغيير).
 
 **مثال**: اسأل "التحقق من الطقس في عواصم بلدان الشمال الأوروبي" ← تطلق LLM `search_web` × 5 دول ← يتم تشغيل جميع عمليات البحث الخمسة بالتوازي ← يتم جمع النتائج في دفعة واحدة.
 

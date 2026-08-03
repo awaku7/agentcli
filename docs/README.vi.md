@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,14 +49,14 @@ Xem [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 ### 🧠 Kiến trúc đa nhà cung cấp
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
 
 Tất cả các nhà cung cấp đều có chung bộ công cụ và giao diện. Chuyển đổi bằng cách cài đặt `UAGENT_PROVIDER` — không thay đổi mã, không cài đặt riêng.
 
 ### ⚡ Thực thi công cụ song song
 
 Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song** chúng.
-87 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` (8 luồng theo mặc định; đặt `UAGENT_PARALLEL_WORKERS` để thay đổi).
+111 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` (8 luồng theo mặc định; đặt `UAGENT_PARALLEL_WORKERS` để thay đổi).
 
 **Ví dụ**: Hỏi "Kiểm tra thời tiết ở các thủ đô Bắc Âu" → LLM kích hoạt `search_web` × 5 quốc gia → tất cả 5 tìm kiếm chạy song song → kết quả được thu thập trong một đợt.
 

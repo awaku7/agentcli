@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,14 +49,14 @@ Zobacz [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/E
 
 ### 🧠 Architektura wielu dostawców
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **Together AI** / **Vercel AI Gateway**
 
 Wszyscy dostawcy korzystają z tego samego zestawu narzędzi i interfejsu. Przełącz, ustawiając `UAGENT_PROVIDER` — bez zmian kodu, bez oddzielnych instalacji.
 
 ### ⚡ Równoległe wykonanie narzędzia
 
 Kiedy LLM żąda jednocześnie wielu narzędzi, uag **automatycznie porównuje je**.
-87 narzędzi jest oznaczonych jako `x_parallel_safe` i są wykonywane współbieżnie poprzez `ThreadPoolExecutor` (domyślnie 8 wątków; ustaw `UAGENT_PARALLEL_WORKERS`, aby zmienić).
+111 narzędzi jest oznaczonych jako `x_parallel_safe` i są wykonywane współbieżnie poprzez `ThreadPoolExecutor` (domyślnie 8 wątków; ustaw `UAGENT_PARALLEL_WORKERS`, aby zmienić).
 
 **Przykład**: Zapytaj „Sprawdź pogodę w stolicach nordyckich” → LLM uruchamia `search_web` × 5 krajów → wszystkie 5 wyszukiwań przebiega równolegle → wyniki zebrane w jednej partii.
 

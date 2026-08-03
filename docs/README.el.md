@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,7 +49,7 @@ uag
 
 ### 🧠 Αρχιτεκτονική πολλών παρόχων
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo/MaguStudio /*L* / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo/MaguStudio /*L* / **Together AI** / **Vercel AI Gateway**
 
 Όλοι οι πάροχοι μοιράζονται το ίδιο σύνολο εργαλείων και διεπαφή. Εναλλαγή ορίζοντας "UAGENT_PROVIDER" — χωρίς αλλαγές κώδικα, χωρίς ξεχωριστές εγκαταστάσεις.
 

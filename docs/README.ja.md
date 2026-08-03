@@ -10,7 +10,7 @@
 
 <p align="center">
   ファイル操作 / Web検索 / 画像生成・分析 / PDF・Excel抽出 / IoT制御 / MCP統合<br>
-  20+ プロバイダ / 3つのUI / ツール並列実行 / エージェントスキルマーケットプレイス
+  24プロバイダ / 3つのUI / ツール並列実行 / エージェントスキルマーケットプレイス
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@
 **ベンダーロックインからの解放。** ほとんどのAIアシスタントは特定のプロバイダやクラウドサービスに縛られます。uagは違います。
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
-- **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、Novita、HuggingFace…23のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
+- **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、Novita、HuggingFace…24のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
 - **195ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **111のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
 - **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIを通じて家電を制御。
@@ -71,7 +71,7 @@ OpenAI Realtimeでは安全制限付きのFunction Callingに対応していま�
 
 ### 🧠 マルチプロバイダ構成
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 すべてのプロバイダは同じツールセットとインターフェースを共有します。`UAGENT_PROVIDER` を切り替えるだけで変更でき、コード修正や個別インストールは不要です。
 

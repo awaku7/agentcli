@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@ ______________________________________________________________________
 **Break free from vendor lock-in.** Most AI assistants tie you to a specific provider or cloud service. uag is different.
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
-- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 23 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **185 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
+- **195 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -69,7 +69,7 @@ OpenAI Realtime supports a safety-limited Function Calling integration. The curr
 
 ### 🧠 Multi-Provider Architecture
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 All providers share the same toolset and interface. Switch by setting `UAGENT_PROVIDER` — no code changes, no separate installations.
 
@@ -107,7 +107,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 Tools
+### 🛠 195 Tools
 
 | Category | Tools |
 |---|---|
@@ -118,11 +118,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Forecast** | Time series forecasting with 9 models (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), auto model selection, plot generation, i18n |
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — see [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
+| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **26 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation, uuid_gen, slugify |
-| **Source Nav** | **13 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — get a function/class index or specific definition without reading the whole file |
+| **Source Nav** | **26 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — get a function/class index or specific definition without reading the whole file |
 
 ### 🖥 4 Interfaces + VS Code Extension
 

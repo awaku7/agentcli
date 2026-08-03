@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  24 providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -49,14 +49,14 @@ uag
 
 ### 🧠 মাল্টি-প্রোভাইডার আর্কিটেকচার
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba ক্লাউড (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LMakguana / MinFa ** স্টুডিও ** / **Together AI** / **Vercel AI Gateway**
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba ক্লাউড (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LMakguana / MinFa ** স্টুডিও ** / **Together AI** / **Vercel AI Gateway**
 
 সমস্ত প্রদানকারী একই টুলসেট এবং ইন্টারফেস ভাগ করে। `UAGENT_PROVIDER` সেট করে স্যুইচ করুন — কোনো কোড পরিবর্তন নেই, কোনো পৃথক ইনস্টলেশন নেই৷
 
 ### ⚡ সমান্তরাল টুল এক্সিকিউশন
 
 যখন LLM একই সাথে একাধিক টুলের অনুরোধ করে, uag **স্বয়ংক্রিয়ভাবে তাদের সমান্তরাল করে তোলে।
-78টি টুলগুলিকে `x_parallel_safe` চিহ্নিত করা হয়েছে এবং একটি `ThreadPoolExecutor` এর মাধ্যমে একযোগে চালান (ডিফল্টভাবে ৮টি থ্রেড; পরিবর্তন করতে `UAGENT_PARALLEL_WORKERS` সেট করুন)।
+111টি টুলগুলিকে `x_parallel_safe` চিহ্নিত করা হয়েছে এবং একটি `ThreadPoolExecutor` এর মাধ্যমে একযোগে চালান (ডিফল্টভাবে ৮টি থ্রেড; পরিবর্তন করতে `UAGENT_PARALLEL_WORKERS` সেট করুন)।
 
 **উদাহরণ**: "নর্ডিক রাজধানীতে আবহাওয়া পরীক্ষা করুন" জিজ্ঞাসা করুন → LLM ফায়ার `সার্চ_ওয়েব` × 5টি দেশ → সমস্ত 5টি অনুসন্ধান সমান্তরালভাবে চলে → একটি ব্যাচে সংগৃহীত ফলাফল।
 
