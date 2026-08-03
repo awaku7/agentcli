@@ -622,10 +622,11 @@ def decode_file_payload(payload: bytes) -> dict | None:
 #
 _TEXT_MAX_BYTES = 0xFFFF
 
-# Keep ordinary text packets small enough for Android BLE MTUs. With the
-# protocol's block padding, 40 UTF-8 payload bytes produce a 128-byte packet
-# (including the v1 header and signature), avoiding characteristic truncation.
-_TEXT_CHUNK_BYTES = 40
+# Public text packets are unpadded and are fragmented by _send_packet when
+# they exceed the negotiated BLE frame size. Keep the v1 payload limit here;
+# larger application messages are split only when the codec's uint16 limit is
+# reached, not at an arbitrary 40-byte boundary.
+_TEXT_CHUNK_BYTES = _TEXT_MAX_BYTES
 
 
 def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[str]:
@@ -686,7 +687,13 @@ def enqueue_send(
                 payload_text = payload.hex()
         else:
             payload_text = str(payload)
-        for chunk in _split_text_chunks(payload_text):
+        chunk_limit = _TEXT_CHUNK_BYTES
+        # PrivateMessagePacket uses one-byte TLV lengths for the message
+        # content. Split BLE Noise DMs before encoding instead of dropping
+        # payloads that exceed the interoperable 255-byte field limit.
+        if recipient and not plain and via in ("ble", "both"):
+            chunk_limit = 255
+        for chunk in _split_text_chunks(payload_text, chunk_limit):
             _enqueue_send_one(type_, chunk, recipient, via, plain=plain)
         return
     _enqueue_send_one(type_, payload, recipient, via, plain=plain)
@@ -870,8 +877,17 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         return failed
 
     async def _send_packet(packet: BitchatPacket) -> None:
-        packet.signature = sign_packet(packet)
-        wire = encode(packet, padding=True)
+        padded = packet.type in (
+            int(MessageType.NOISE_HANDSHAKE),
+            int(MessageType.NOISE_ENCRYPTED),
+        )
+        if padded:
+            # Noise outer frames are intentionally unsigned; authenticity is
+            # provided by the Noise session and the encrypted payload.
+            packet.signature = None
+        else:
+            packet.signature = sign_packet(packet)
+        wire = encode(packet, padding=padded)
         failed = await _fragment_and_send(wire, original_type=int(packet.type))
         if failed:
             _notify_display(
@@ -1012,7 +1028,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             return  # unknown peer, can't handshake
 
         existing = _noise.get_session(peer_hex)
-        pending = _noise._NOISE_PENDING.get(peer_hex)
+        pending = _noise.get_pending_session(peer_hex)
         _notify_display(
             "[bitchat] [debug] HS in from %s len=%d existing=%s pending=%s"
             % (peer_hex[:8], len(payload), existing is not None, pending is not None)
@@ -1027,7 +1043,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 return
             _notify_display("[bitchat] [debug] HS: process_message_1 OK")
             msg2 = state.build_message_2()
-            _noise._NOISE_PENDING[peer_hex] = state
+            _noise.set_pending_session(peer_hex, state)
             _notify_display("[bitchat] [debug] HS: sending msg2 len=%d" % len(msg2))
             await _send_noise_packet(int(MessageType.NOISE_HANDSHAKE), msg2, peer_hex)
             _notify_display("[bitchat] [debug] HS: msg2 sent")
@@ -1045,7 +1061,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 if not state.process_message_1(payload):
                     _notify_display("[bitchat] [debug] HS: repeated msg1 rejected")
                     return
-                _noise._NOISE_PENDING[peer_hex] = state
+                _noise.set_pending_session(peer_hex, state)
                 msg2 = state.build_message_2()
                 _notify_display(
                     "[bitchat] [debug] HS: resending msg2 len=%d" % len(msg2)
@@ -1642,6 +1658,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                     initiator=True,
                                     our_static=_noise_static_key(),
                                     their_static_pub=rs,
+                                    force_new=attempts > 0,
                                 )
                                 if pending is not None:
                                     _notify_display(
@@ -1655,7 +1672,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                         }
                                     )
                                     msg1 = pending.build_message_1()
-                                    _noise._NOISE_PENDING[recipient_hex] = pending
+                                    _noise.set_pending_session(recipient_hex, pending)
                                     await _send_noise_packet(
                                         int(MessageType.NOISE_HANDSHAKE),
                                         msg1,
@@ -1695,6 +1712,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                                 )
                                 % {"recipient": recipient_hex[:8]}
                             )
+                            _noise.remove_session(recipient_hex)
                             _pending.popleft()
                             continue
 
@@ -1906,8 +1924,7 @@ def stop() -> dict[str, Any]:
         import importlib as _il
 
         _nm = _il.import_module("uagent.tools.bitchat_noise")
-        _nm._NOISE_SESSIONS.clear()
-        _nm._NOISE_PENDING.clear()
+        _nm.clear_sessions()
     except Exception:
         pass
     # Stop Nostr transport

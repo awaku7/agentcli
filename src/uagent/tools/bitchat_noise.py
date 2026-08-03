@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import hashlib
 import os as _os
+import threading
+import time
 from typing import Any
 
 from cryptography.hazmat.primitives.asymmetric.x25519 import (
@@ -25,6 +27,9 @@ _PROTOCOL_NAME_HASH = (
     else hashlib.sha256(_PROTOCOL_NAME).digest()
 )
 _ZEROLEN = b""
+_HANDSHAKE_TIMEOUT_SECONDS = 20.0
+_SESSION_TIMEOUT_SECONDS = 24.0 * 60.0 * 60.0
+_REPLAY_WINDOW_SIZE = 1024
 
 _DEBUG = _os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
 
@@ -67,7 +72,9 @@ class NoiseCipherState:
         self._cipher = ChaCha20Poly1305(key)
         self._n = 0
         self._msg_count = 0
-        self._max_msgs = 10000
+        self._max_msgs = 1_000_000_000
+        self._highest_received_nonce = -1
+        self._received_nonces: set[int] = set()
 
     def _nonce_bytes(self) -> bytes:
         """96-bit nonce compatible with noise-java/southernstorm (Android).
@@ -86,8 +93,39 @@ class NoiseCipherState:
 
     def decrypt_with_ad(self, ad: bytes, ciphertext: bytes) -> bytes:
         nonce = self._nonce_bytes()
+        plaintext = self._cipher.decrypt(nonce, ciphertext, ad)
+        # Do not consume a transport nonce when authentication fails.
         self._n += 1
+        return plaintext
+
+    def decrypt_with_ad_at_nonce(
+        self, nonce_value: int, ad: bytes, ciphertext: bytes
+    ) -> bytes:
+        nonce = b"\x00\x00\x00\x00" + int(nonce_value).to_bytes(8, "little")
         return self._cipher.decrypt(nonce, ciphertext, ad)
+
+    def is_valid_received_nonce(self, nonce: int) -> bool:
+        """Return whether an extracted nonce is inside the replay window."""
+        nonce = int(nonce)
+        if nonce < 0:
+            return False
+        if self._highest_received_nonce >= 0:
+            if nonce + _REPLAY_WINDOW_SIZE <= self._highest_received_nonce:
+                return False
+            if nonce <= self._highest_received_nonce and nonce in self._received_nonces:
+                return False
+        return True
+
+    def mark_received_nonce(self, nonce: int) -> None:
+        """Record a successfully authenticated extracted nonce."""
+        nonce = int(nonce)
+        if nonce > self._highest_received_nonce:
+            self._highest_received_nonce = nonce
+        self._received_nonces.add(nonce)
+        floor = self._highest_received_nonce - (_REPLAY_WINDOW_SIZE - 1)
+        self._received_nonces = {
+            value for value in self._received_nonces if value >= floor
+        }
 
     def set_nonce(self, n: int) -> None:
         """Set the cipher counter (used for Android's explicit-nonce transport)."""
@@ -132,6 +170,8 @@ class NoiseHandshakeState:
         self.re: bytes | None = None  # remote ephemeral pubkey
         self._cipher: Any = None  # current cipher state for encrypt/decrypt
         self._finished = False
+        self.created_at = time.monotonic()
+        self.established_at: float | None = None
 
         # Cipher states derived after handshake
         self.send_cipher: NoiseCipherState | None = None
@@ -213,6 +253,20 @@ class NoiseHandshakeState:
 
         return encrypted_s  # 48 bytes
 
+    def is_pending_expired(self, now: float | None = None) -> bool:
+        now = time.monotonic() if now is None else now
+        return (
+            self.established_at is None
+            and now - self.created_at > _HANDSHAKE_TIMEOUT_SECONDS
+        )
+
+    def is_session_expired(self, now: float | None = None) -> bool:
+        now = time.monotonic() if now is None else now
+        return (
+            self.established_at is not None
+            and now - self.established_at > _SESSION_TIMEOUT_SECONDS
+        )
+
     def _split(self) -> None:
         """Derive send/recv cipher states from chaining key."""
         outputs = _hkdf(self.ck, _ZEROLEN, 2)
@@ -222,19 +276,20 @@ class NoiseHandshakeState:
         else:
             self.send_cipher = NoiseCipherState(outputs[1])
             self.recv_cipher = NoiseCipherState(outputs[0])
+        self.established_at = time.monotonic()
         self._finished = True
 
     def process_message_1(self, data: bytes) -> bool:
         """Responder processes handshake message 1: -> e"""
-        if len(data) < 32:
+        if len(data) != 32:
             return False
-        self.re = data[:32]
+        self.re = data
         self._mix_hash(self.re)
         return True
 
     def process_message_2(self, data: bytes) -> bool:
         """Initiator processes handshake message 2: <- e, ee, s, es"""
-        if len(data) < 80:  # 32 e_pub + 48 encrypted_s
+        if len(data) != 80:  # 32 e_pub + 48 encrypted_s
             _dbg("[bitchat] [debug] HS: msg2 too short: %d" % len(data))
             return False
 
@@ -278,8 +333,8 @@ class NoiseHandshakeState:
 
     def process_message_3(self, data: bytes) -> bool:
         """Responder processes handshake message 3: -> s, se"""
-        if len(data) < 48:
-            _dbg("[bitchat] [debug] HS: msg3 too short: %d" % len(data))
+        if len(data) != 48:
+            _dbg("[bitchat] [debug] HS: msg3 invalid length: %d" % len(data))
             return False
 
         encrypted_s = data[:48]
@@ -315,6 +370,17 @@ class NoiseHandshakeState:
 
 _NOISE_SESSIONS: dict[str, NoiseHandshakeState] = {}
 _NOISE_PENDING: dict[str, NoiseHandshakeState] = {}
+_NOISE_LOCK = threading.RLock()
+
+
+def _purge_expired_locked(now: float | None = None) -> None:
+    now = time.monotonic() if now is None else now
+    for peer_id, state in list(_NOISE_PENDING.items()):
+        if state.is_pending_expired(now):
+            _NOISE_PENDING.pop(peer_id, None)
+    for peer_id, state in list(_NOISE_SESSIONS.items()):
+        if state.is_session_expired(now):
+            _NOISE_SESSIONS.pop(peer_id, None)
 
 
 def get_or_create_session(
@@ -322,32 +388,60 @@ def get_or_create_session(
     initiator: bool,
     our_static: X25519PrivateKey,
     their_static_pub: bytes | None,
+    *,
+    force_new: bool = False,
 ) -> NoiseHandshakeState | None:
-    """Get existing session or create a new handshake state."""
-    if peer_id in _NOISE_SESSIONS:
-        return _NOISE_SESSIONS[peer_id]
-    if peer_id in _NOISE_PENDING:
-        return _NOISE_PENDING[peer_id]
-    if initiator and their_static_pub is None:
-        return None
-    state = NoiseHandshakeState(initiator, our_static, their_static_pub)
-    _NOISE_PENDING[peer_id] = state
-    return state
+    """Get an unexpired session or create a fresh handshake state."""
+    with _NOISE_LOCK:
+        _purge_expired_locked()
+        if force_new:
+            _NOISE_PENDING.pop(peer_id, None)
+        if peer_id in _NOISE_SESSIONS:
+            return _NOISE_SESSIONS[peer_id]
+        if peer_id in _NOISE_PENDING:
+            return _NOISE_PENDING[peer_id]
+        if initiator and their_static_pub is None:
+            return None
+        state = NoiseHandshakeState(initiator, our_static, their_static_pub)
+        _NOISE_PENDING[peer_id] = state
+        return state
+
+
+def get_pending_session(peer_id: str) -> NoiseHandshakeState | None:
+    with _NOISE_LOCK:
+        _purge_expired_locked()
+        return _NOISE_PENDING.get(peer_id)
+
+
+def set_pending_session(peer_id: str, state: NoiseHandshakeState) -> None:
+    with _NOISE_LOCK:
+        _NOISE_PENDING[peer_id] = state
 
 
 def complete_session(peer_id: str, state: NoiseHandshakeState) -> None:
     """Move pending session to established."""
-    _NOISE_PENDING.pop(peer_id, None)
-    _NOISE_SESSIONS[peer_id] = state
+    with _NOISE_LOCK:
+        _purge_expired_locked()
+        _NOISE_PENDING.pop(peer_id, None)
+        _NOISE_SESSIONS[peer_id] = state
 
 
 def get_session(peer_id: str) -> NoiseHandshakeState | None:
-    return _NOISE_SESSIONS.get(peer_id)
+    with _NOISE_LOCK:
+        _purge_expired_locked()
+        return _NOISE_SESSIONS.get(peer_id)
 
 
 def remove_session(peer_id: str) -> None:
-    _NOISE_SESSIONS.pop(peer_id, None)
-    _NOISE_PENDING.pop(peer_id, None)
+    with _NOISE_LOCK:
+        _NOISE_SESSIONS.pop(peer_id, None)
+        _NOISE_PENDING.pop(peer_id, None)
+
+
+def clear_sessions() -> None:
+    with _NOISE_LOCK:
+        _NOISE_SESSIONS.clear()
+        _NOISE_PENDING.clear()
 
 
 def encrypt_dm(session: NoiseHandshakeState, plaintext: bytes) -> bytes | None:
@@ -376,8 +470,14 @@ def decrypt_dm(session: NoiseHandshakeState, ciphertext: bytes) -> bytes | None:
             return None
         n = int.from_bytes(ciphertext[:4], "big")
         ct = ciphertext[4:]
-        session.recv_cipher.set_nonce(n)
-        return session.recv_cipher.decrypt_with_ad(_ZEROLEN, ct)
+        if not session.recv_cipher.is_valid_received_nonce(n):
+            return None
+        try:
+            plaintext = session.recv_cipher.decrypt_with_ad_at_nonce(n, _ZEROLEN, ct)
+        except Exception:
+            return None
+        session.recv_cipher.mark_received_nonce(n)
+        return plaintext
     except Exception:
         return None
 

@@ -21,6 +21,12 @@
 - BLEサービスの二重起動防止
 - BLEサービス異常終了時のrunning状態修正
 - BLEの公開メッセージをNostrへブリッジ
+- Noiseの1024件sliding replay window
+- Noise handshakeのtimeout / state reset / 競合アクセス保護
+- Noise handshakeメッセージの厳密な長さ検証
+- Noise sessionの有効期限
+- Noise outer frameの署名なし送信
+- 255バイトを超えるBLE Noise DMのチャンク分割
 
 Noiseの外側フレーム自体は、現行プロトコルどおり署名対象外としている。Noiseのハンドシェイクと暗号化フレームは、TTLを保持したrelay対象として追加した。実機相互接続では、引き続きNoiseのreplay制御と複数hop通信を確認する必要がある。
 
@@ -33,9 +39,9 @@ Noiseの外側フレーム自体は、現行プロトコルどおり署名対象
    - 複数hopのrelay
    - Noiseハンドシェイクの複数hop動作
 
-2. **Noiseのreplay防止**
-   - 受信nonceの単調増加チェック
-   - nonce再利用の拒否
+2. **Noiseの実機replay相互接続確認**
+   - 1024件sliding windowは実装済み
+   - Android / iOS間で順不同配送と重複nonceを実機確認する必要がある
 
 3. **Fragment再構成の入力検証**
    - 同一転送内で `total_fragments` が変わらないことの検証
