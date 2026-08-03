@@ -13,8 +13,8 @@
 
 - プロトコル名: `Noise_XX_25519_ChaChaPoly_SHA256`
 - msg1: 32バイト
-- msg2: 80バイト
-- msg3: 48バイト
+- msg2: 96バイト（空payloadの認証タグ16バイトを含む）
+- msg3: 64バイト（空payloadの認証タグ16バイトを含む）
 - Noiseハンドシェイクはrecipient ID宛てである必要がある
 - Noiseハンドシェイクパケットは署名検証の対象外
 
@@ -51,7 +51,7 @@ Python側では、32バイトの再送msg1をmsg3と誤認し、`msg3 too short:
 
 Noise仕様では、プロトコル名がHASHLEN以下の場合、SHA-256化せずゼロパディングする。
 
-`Noise_XX_25519_ChaChaPoly_SHA256` はちょうど32バイトなので、Androidと同じくプロトコル名をそのまま初期値として使用するよう修正した。
+`Noise_XX_25519_ChaChaPoly_SHA256` はちょうど32バイトなので、Androidと同じくプロトコル名をそのまま初期値として使用するよう修正した。さらにAndroidの `HandshakeState.start()` は空のprologueでも `MixHash` を実行するため、Python側でも開始時に `SHA256(h || empty)` を適用するよう修正した。
 
 ### 2. Noise BLEパディング
 
@@ -73,7 +73,7 @@ BLE再送で同一メッセージが複数回届く場合に、表示・LLM注�
 
 - Python構文チェック: 成功
 - Noise XX Python内部self-test: 成功
-- msg1/msg2/msg3: `32 / 80 / 48`
+- msg1/msg2/msg3: `32 / 96 / 64`
 - Android側の仕様コードとの照合: 完了
 
 ## 現在の未解決点

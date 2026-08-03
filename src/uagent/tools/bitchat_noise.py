@@ -182,6 +182,10 @@ class NoiseHandshakeState:
         # Handshake state
         self.h = _PROTOCOL_NAME_HASH
         self.ck = _PROTOCOL_NAME_HASH
+        # HandshakeState.start() always MixHash(prologue), including an empty
+        # prologue. Southern Storm's implementation therefore hashes h once
+        # before message 1; omitting this makes Android msg2 fail authentication.
+        self._mix_hash(_ZEROLEN)
         self.e: X25519PrivateKey | None = None  # local ephemeral
         self.re: bytes | None = None  # remote ephemeral pubkey
         self._cipher: Any = None  # current cipher state for encrypt/decrypt
