@@ -20,7 +20,12 @@
       "pcap correlation",
       "traffic classification",
       "local connection correlation"
-    ]
+    ],
+    "param.live_capture.description": "Capture only on a loopback interface before analyzing.",
+    "param.interface.description": "Loopback interface alias or name; non-loopback interfaces are rejected.",
+    "param.duration.description": "Live capture duration in seconds.",
+    "param.max_packets.description": "Maximum packets captured.",
+    "param.bpf_filter.description": "Optional BPF capture filter."
   },
   "ar": {
     "tool.description": "قم بتشغيل تحليل pcap دون اتصال بالإنترنت وربط التدفقات بالاتصالات المحلية.",
@@ -43,7 +48,12 @@
       "ارتباط pcap",
       "تصنيف حركة المرور",
       "ارتباط الاتصال المحلي"
-    ]
+    ],
+    "param.live_capture.description": "التقط فقط على واجهة الاسترجاع قبل التحليل.",
+    "param.interface.description": "الاسم المستعار أو الاسم المستعار لواجهة الاسترجاع؛ يتم رفض الواجهات غير القابلة للاسترجاع.",
+    "param.duration.description": "مدة الالتقاط المباشر بالثواني.",
+    "param.max_packets.description": "الحد الأقصى للحزم التي تم التقاطها.",
+    "param.bpf_filter.description": "مرشح التقاط BPF اختياري."
   },
   "bn": {
     "tool.description": "অফলাইন pcap বিশ্লেষণ চালান এবং স্থানীয় সংযোগের সাথে প্রবাহের সম্পর্ক স্থাপন করুন।",
@@ -66,7 +76,12 @@
       "pcap পারস্পরিক সম্পর্ক",
       "ট্রাফিক শ্রেণীবিভাগ",
       "স্থানীয় সংযোগ পারস্পরিক সম্পর্ক"
-    ]
+    ],
+    "param.live_capture.description": "বিশ্লেষণ করার আগে শুধুমাত্র একটি লুপব্যাক ইন্টারফেসে ক্যাপচার করুন।",
+    "param.interface.description": "লুপব্যাক ইন্টারফেস উপনাম বা নাম; নন-লুপব্যাক ইন্টারফেস প্রত্যাখ্যান করা হয়।",
+    "param.duration.description": "সেকেন্ডে লাইভ ক্যাপচারের সময়কাল।",
+    "param.max_packets.description": "সর্বাধিক প্যাকেট বন্দী.",
+    "param.bpf_filter.description": "ঐচ্ছিক BPF ক্যাপচার ফিল্টার."
   },
   "cs": {
     "tool.description": "Spusťte offline analýzu pcap a korelujte toky s místními připojeními.",
@@ -89,7 +104,12 @@
       "korelace pcap",
       "klasifikace provozu",
       "korelace místního připojení"
-    ]
+    ],
+    "param.live_capture.description": "Před analýzou zachyťte pouze na rozhraní zpětné smyčky.",
+    "param.interface.description": "Alias ​​nebo název rozhraní Loopback; rozhraní bez zpětné smyčky jsou odmítnuta.",
+    "param.duration.description": "Trvání živého záznamu v sekundách.",
+    "param.max_packets.description": "Maximální zachycené pakety.",
+    "param.bpf_filter.description": "Volitelný záchytný filtr BPF."
   },
   "da": {
     "tool.description": "Kør offline pcap-analyse og korreler flows med lokale forbindelser.",
@@ -112,7 +132,12 @@
       "pcap-korrelation",
       "trafikklassifikation",
       "lokal forbindelseskorrelation"
-    ]
+    ],
+    "param.live_capture.description": "Optag kun på en loopback-grænseflade før analyse.",
+    "param.interface.description": "Loopback interface alias eller navn; ikke-loopback-grænseflader afvises.",
+    "param.duration.description": "Live-optagelsesvarighed i sekunder.",
+    "param.max_packets.description": "Maksimalt antal pakker fanget.",
+    "param.bpf_filter.description": "Valgfrit BPF-opsamlingsfilter."
   },
   "de": {
     "tool.description": "Führen Sie eine Offline-PCAP-Analyse durch und korrelieren Sie Flüsse mit lokalen Verbindungen.",
@@ -135,7 +160,12 @@
       "Pcap-Korrelation",
       "Verkehrsklassifizierung",
       "Lokale Verbindungskorrelation"
-    ]
+    ],
+    "param.live_capture.description": "Vor der Analyse nur auf einer Loopback-Schnittstelle erfassen.",
+    "param.interface.description": "Alias ​​oder Name der Loopback-Schnittstelle; Nicht-Loopback-Schnittstellen werden abgelehnt.",
+    "param.duration.description": "Dauer der Live-Aufnahme in Sekunden.",
+    "param.max_packets.description": "Maximal erfasste Pakete.",
+    "param.bpf_filter.description": "Optionaler BPF-Erfassungsfilter."
   },
   "el": {
     "tool.description": "Εκτελέστε ανάλυση pcap εκτός σύνδεσης και συσχετίστε τις ροές με τοπικές συνδέσεις.",
@@ -158,7 +188,12 @@
       "συσχέτιση pcap",
       " ταξινόμηση κυκλοφορίας",
       "συσχέτιση τοπικής σύνδεσης"
-    ]
+    ],
+    "param.live_capture.description": "Λήψη μόνο σε διεπαφή loopback πριν από την ανάλυση.",
+    "param.interface.description": "Ψευδώνυμο ή όνομα διεπαφής Loopback. Οι διεπαφές που δεν είναι επαναληπτικές απορρίπτονται.",
+    "param.duration.description": "Διάρκεια ζωντανής λήψης σε δευτερόλεπτα.",
+    "param.max_packets.description": "Μέγιστα πακέτα που έχουν συλληφθεί.",
+    "param.bpf_filter.description": "Προαιρετικό φίλτρο καταγραφής BPF."
   },
   "es": {
     "tool.description": "Ejecute análisis de pcap sin conexión y correlacione flujos con conexiones locales.",
@@ -181,7 +216,12 @@
       "correlación de pcap",
       "clasificación de tráfico",
       "correlación de conexión local"
-    ]
+    ],
+    "param.live_capture.description": "Capture solo en una interfaz loopback antes de analizar.",
+    "param.interface.description": "Alias ​​o nombre de la interfaz de loopback; Se rechazan las interfaces sin bucle invertido.",
+    "param.duration.description": "Duración de la captura en vivo en segundos.",
+    "param.max_packets.description": "Paquetes máximos capturados.",
+    "param.bpf_filter.description": "Filtro de captura BPF opcional."
   },
   "fa": {
     "tool.description": "تجزیه و تحلیل pcap آفلاین را اجرا کنید و جریان ها را با اتصالات محلی مرتبط کنید.",
@@ -204,7 +244,12 @@
       "همبستگی pcap",
       "طبقه بندی ترافیک",
       "همبستگی اتصال محلی"
-    ]
+    ],
+    "param.live_capture.description": "قبل از تجزیه و تحلیل، فقط در یک رابط Loopback عکس بگیرید.",
+    "param.interface.description": "نام مستعار رابط Loopback. رابط های غیر حلقه بک رد می شوند.",
+    "param.duration.description": "مدت زمان ضبط زنده در ثانیه.",
+    "param.max_packets.description": "حداکثر بسته های ضبط شده",
+    "param.bpf_filter.description": "فیلتر جذب BPF اختیاری."
   },
   "fi": {
     "tool.description": "Suorita offline-PCap-analyysi ja korreloi virtaukset paikallisten yhteyksien kanssa.",
@@ -227,7 +272,12 @@
       "pcap-korrelaatio",
       "liikenteen luokittelu",
       "paikallinen yhteyskorrelaatio"
-    ]
+    ],
+    "param.live_capture.description": "Kaappaa vain silmukkarajapinnalla ennen analysointia.",
+    "param.interface.description": "Loopback käyttöliittymän alias tai nimi; ei-paluuliitännät hylätään.",
+    "param.duration.description": "Livekaappauksen kesto sekunneissa.",
+    "param.max_packets.description": "Kaapattujen pakettien enimmäismäärä.",
+    "param.bpf_filter.description": "Valinnainen BPF-sieppaussuodatin."
   },
   "fil": {
     "tool.description": "Magpatakbo ng offline na pagsusuri ng pcap at iugnay ang mga daloy sa mga lokal na koneksyon.",
@@ -250,7 +300,12 @@
       "pcap correlation",
       "traffic classification",
       "local connection correlation"
-    ]
+    ],
+    "param.live_capture.description": "Kunin lamang sa isang loopback interface bago pag-aralan.",
+    "param.interface.description": "Loopback interface alias o pangalan; ang mga non-loopback na interface ay tinanggihan.",
+    "param.duration.description": "Live na tagal ng pagkuha sa mga segundo.",
+    "param.max_packets.description": "Nakuha ang maximum na mga packet.",
+    "param.bpf_filter.description": "Opsyonal na BPF capture filter."
   },
   "fr": {
     "tool.description": "Exécutez une analyse pcap hors ligne et corrélez les flux avec les connexions locales.",
@@ -273,7 +328,12 @@
       "corrélation pcap",
       "classification du trafic",
       "corrélation de connexion locale"
-    ]
+    ],
+    "param.live_capture.description": "Capturez uniquement sur une interface de bouclage avant d'analyser.",
+    "param.interface.description": "Alias ​​ou nom de l'interface de bouclage ; les interfaces sans bouclage sont rejetées.",
+    "param.duration.description": "Durée de capture en direct en secondes.",
+    "param.max_packets.description": "Nombre maximum de paquets capturés.",
+    "param.bpf_filter.description": "Filtre de capture BPF en option."
   },
   "he": {
     "tool.description": "הפעל ניתוח pcap במצב לא מקוון ותאם זרימות עם חיבורים מקומיים.",
@@ -296,7 +356,12 @@
       "מתאם pcap",
       "סיווג תנועה",
       "מתאם חיבור מקומי"
-    ]
+    ],
+    "param.live_capture.description": "צילום רק בממשק loopback לפני ניתוח.",
+    "param.interface.description": "כינוי או שם של ממשק Loopback; ממשקים שאינם לולאה חוזרים נדחים.",
+    "param.duration.description": "משך צילום חי בשניות.",
+    "param.max_packets.description": "מקסימום מנות שנלכדו.",
+    "param.bpf_filter.description": "מסנן לכידת BPF אופציונלי."
   },
   "hi": {
     "tool.description": "ऑफ़लाइन पैक विश्लेषण चलाएँ और स्थानीय कनेक्शन के साथ प्रवाह को सहसंबंधित करें।",
@@ -319,7 +384,12 @@
       "पीकैप सहसंबंध",
       "यातायात वर्गीकरण",
       "स्थानीय कनेक्शन सहसंबंध"
-    ]
+    ],
+    "param.live_capture.description": "विश्लेषण करने से पहले केवल लूपबैक इंटरफ़ेस पर कैप्चर करें।",
+    "param.interface.description": "लूपबैक इंटरफ़ेस उपनाम या नाम; गैर-लूपबैक इंटरफ़ेस अस्वीकार कर दिए गए हैं.",
+    "param.duration.description": "लाइव कैप्चर अवधि सेकंड में।",
+    "param.max_packets.description": "अधिकतम पैकेट कैप्चर किए गए.",
+    "param.bpf_filter.description": "वैकल्पिक बीपीएफ कैप्चर फ़िल्टर।"
   },
   "hu": {
     "tool.description": "Futtasson offline pcap elemzést, és korrelálja a folyamatokat a helyi kapcsolatokkal.",
@@ -342,7 +412,12 @@
       "pcap korreláció",
       "forgalmi osztályozás",
       "helyi kapcsolat korreláció"
-    ]
+    ],
+    "param.live_capture.description": "Elemzés előtt csak visszacsatolási felületen rögzítse.",
+    "param.interface.description": "Loopback interfész álnév vagy név; a visszahurkolatlan interfészek elutasítva.",
+    "param.duration.description": "Élő felvétel időtartama másodpercben.",
+    "param.max_packets.description": "A rögzített csomagok maximális száma.",
+    "param.bpf_filter.description": "Opcionális BPF rögzítő szűrő."
   },
   "id": {
     "tool.description": "Jalankan analisis pcap offline dan korelasikan aliran dengan koneksi lokal.",
@@ -365,7 +440,12 @@
       "korelasi pcap",
       "klasifikasi lalu lintas",
       "korelasi koneksi lokal"
-    ]
+    ],
+    "param.live_capture.description": "Tangkap hanya pada antarmuka loopback sebelum menganalisis.",
+    "param.interface.description": "Alias ​​atau nama antarmuka loopback; antarmuka non-loopback ditolak.",
+    "param.duration.description": "Durasi pengambilan langsung dalam hitungan detik.",
+    "param.max_packets.description": "Paket maksimum ditangkap.",
+    "param.bpf_filter.description": "Filter penangkapan BPF opsional."
   },
   "it": {
     "tool.description": "Esegui analisi pcap offline e correla i flussi con le connessioni locali.",
@@ -388,7 +468,12 @@
       "correlazione pcap",
       "classificazione del traffico",
       "correlazione connessione locale"
-    ]
+    ],
+    "param.live_capture.description": "Cattura solo su un'interfaccia di loopback prima dell'analisi.",
+    "param.interface.description": "Alias ​​o nome dell'interfaccia di loopback; le interfacce non di loopback vengono rifiutate.",
+    "param.duration.description": "Durata dell'acquisizione dal vivo in secondi.",
+    "param.max_packets.description": "Numero massimo di pacchetti catturati.",
+    "param.bpf_filter.description": "Filtro di cattura BPF opzionale."
   },
   "ja": {
     "tool.description": "オフライン pcap 分析を実行し、フローをローカル接続と関連付けます。",
@@ -411,7 +496,12 @@
       "pcap 相関関係",
       "トラフィック分類",
       "ローカル接続相関関係"
-    ]
+    ],
+    "param.live_capture.description": "分析する前に、ループバック インターフェイスでのみキャプチャします。",
+    "param.interface.description": "ループバック インターフェイスのエイリアスまたは名前。非ループバック インターフェイスは拒否されます。",
+    "param.duration.description": "ライブ キャプチャの継続時間 (秒単位)。",
+    "param.max_packets.description": "キャプチャされた最大パケット数。",
+    "param.bpf_filter.description": "オプションの BPF キャプチャ フィルター。"
   },
   "ko": {
     "tool.description": "오프라인 pcap 분석을 실행하고 흐름을 로컬 연결과 연관시키십시오.",
@@ -434,7 +524,12 @@
       "pcap 상관관계",
       "트래픽 분류",
       "로컬 연결 상관관계"
-    ]
+    ],
+    "param.live_capture.description": "분석하기 전에 루프백 인터페이스에서만 캡처하세요.",
+    "param.interface.description": "루프백 인터페이스 별칭 또는 이름. 루프백이 아닌 인터페이스는 거부됩니다.",
+    "param.duration.description": "실시간 캡처 기간(초)입니다.",
+    "param.max_packets.description": "캡처된 최대 ​​패킷입니다.",
+    "param.bpf_filter.description": "선택적 BPF 캡처 필터."
   },
   "mn": {
     "tool.description": "Офлайн pcap шинжилгээг ажиллуулж урсгалыг орон нутгийн холболттой холбоно уу.",
@@ -457,7 +552,12 @@
       "pcap хамаарал",
       "трафикийн ангилал",
       "орон нутгийн холболтын хамаарал"
-    ]
+    ],
+    "param.live_capture.description": "Шинжилгээ хийхийн өмнө зөвхөн давталтын интерфэйс дээр зураг авна.",
+    "param.interface.description": "Loopback интерфэйс нь бусад нэр эсвэл нэр; давталтын бус интерфэйсүүд татгалзсан.",
+    "param.duration.description": "Амьд бичлэгийн үргэлжлэх хугацаа секундээр.",
+    "param.max_packets.description": "Баригдсан пакетуудын дээд хэмжээ.",
+    "param.bpf_filter.description": "Нэмэлт BPF барих шүүлтүүр."
   },
   "mr": {
     "tool.description": "ऑफलाइन pcap विश्लेषण चालवा आणि स्थानिक कनेक्शनसह प्रवाह परस्परसंबंधित करा.",
@@ -480,7 +580,12 @@
       "pcap सहसंबंध",
       "वाहतूक वर्गीकरण",
       "स्थानिक कनेक्शन सहसंबंध"
-    ]
+    ],
+    "param.live_capture.description": "विश्लेषण करण्यापूर्वी फक्त लूपबॅक इंटरफेसवर कॅप्चर करा.",
+    "param.interface.description": "लूपबॅक इंटरफेस उपनाव किंवा नाव; नॉन-लूपबॅक इंटरफेस नाकारले जातात.",
+    "param.duration.description": "सेकंदांमध्ये थेट कॅप्चर कालावधी.",
+    "param.max_packets.description": "जास्तीत जास्त पॅकेट पकडले.",
+    "param.bpf_filter.description": "पर्यायी BPF कॅप्चर फिल्टर."
   },
   "ms": {
     "tool.description": "Jalankan analisis pcap luar talian dan kaitkan aliran dengan sambungan tempatan.",
@@ -503,7 +608,12 @@
       "korelasi pcap",
       "klasifikasi trafik",
       "korelasi sambungan tempatan"
-    ]
+    ],
+    "param.live_capture.description": "Tangkap hanya pada antara muka gelung balik sebelum menganalisis.",
+    "param.interface.description": "Nama alias antara muka gelung balik; antara muka bukan gelung balik ditolak.",
+    "param.duration.description": "Tempoh tangkapan langsung dalam beberapa saat.",
+    "param.max_packets.description": "Paket maksimum ditangkap.",
+    "param.bpf_filter.description": "Penapis tangkapan BPF pilihan."
   },
   "nb": {
     "tool.description": "Kjør offline pcap-analyse og korreler flyter med lokale tilkoblinger.",
@@ -526,7 +636,12 @@
       "pcap-korrelasjon",
       "trafikkklassifisering",
       "korrelasjon for lokal tilkobling"
-    ]
+    ],
+    "param.live_capture.description": "Ta kun opp på et loopback-grensesnitt før du analyserer.",
+    "param.interface.description": "Loopback-grensesnitt alias eller navn; ikke-loopback-grensesnitt avvises.",
+    "param.duration.description": "Live-opptaksvarighet i sekunder.",
+    "param.max_packets.description": "Maksimalt antall pakker fanget.",
+    "param.bpf_filter.description": "Valgfritt BPF-fangstfilter."
   },
   "nl": {
     "tool.description": "Voer offline pcap-analyse uit en correleer stromen met lokale verbindingen.",
@@ -549,7 +664,12 @@
       "pcap-correlatie",
       "verkeersclassificatie",
       "correlatie lokale verbinding"
-    ]
+    ],
+    "param.live_capture.description": "Leg alleen vast op een loopback-interface voordat u gaat analyseren.",
+    "param.interface.description": "Loopback-interfacealias of naam; niet-loopback-interfaces worden afgewezen.",
+    "param.duration.description": "Duur van live-opname in seconden.",
+    "param.max_packets.description": "Maximaal aantal vastgelegde pakketten.",
+    "param.bpf_filter.description": "Optioneel BPF-vangfilter."
   },
   "nn": {
     "tool.description": "Run offline pcap analysis and correlate flows with local connections.",
@@ -572,7 +692,12 @@
       "pcap correlation",
       "traffic classification",
       "local connection correlation"
-    ]
+    ],
+    "param.live_capture.description": "Capture only on a loopback interface before analyzing.",
+    "param.interface.description": "Loopback interface alias or name; non-loopback interfaces are rejected.",
+    "param.duration.description": "Live capture duration in seconds.",
+    "param.max_packets.description": "Maximum packets captured.",
+    "param.bpf_filter.description": "Optional BPF capture filter."
   },
   "pl": {
     "tool.description": "Przeprowadzaj analizę pcap w trybie offline i koreluj przepływy z połączeniami lokalnymi.",
@@ -595,7 +720,12 @@
       "korelacja pcap",
       "klasyfikacja ruchu",
       "korelacja połączenia lokalnego"
-    ]
+    ],
+    "param.live_capture.description": "Przed analizą przechwytuj tylko w interfejsie pętli zwrotnej.",
+    "param.interface.description": "Alias ​​lub nazwa interfejsu sprzężenia zwrotnego; interfejsy inne niż sprzężenie zwrotne są odrzucane.",
+    "param.duration.description": "Czas przechwytywania na żywo w sekundach.",
+    "param.max_packets.description": "Maksymalna liczba przechwyconych pakietów.",
+    "param.bpf_filter.description": "Opcjonalny filtr wychwytujący BPF."
   },
   "pt": {
     "tool.description": "Execute análises pcap offline e correlacione fluxos com conexões locais.",
@@ -618,7 +748,12 @@
       "correlação pcap",
       "classificação de tráfego",
       "correlação de conexão local"
-    ]
+    ],
+    "param.live_capture.description": "Capture apenas em uma interface de loopback antes de analisar.",
+    "param.interface.description": "Alias ​​ou nome da interface de loopback; interfaces sem loopback são rejeitadas.",
+    "param.duration.description": "Duração da captura ao vivo em segundos.",
+    "param.max_packets.description": "Máximo de pacotes capturados.",
+    "param.bpf_filter.description": "Filtro de captura BPF opcional."
   },
   "pt_BR": {
     "tool.description": "Execute análises pcap offline e correlacione fluxos com conexões locais.",
@@ -641,7 +776,12 @@
       "correlação pcap",
       "classificação de tráfego",
       "correlação de conexão local"
-    ]
+    ],
+    "param.live_capture.description": "Capture apenas em uma interface de loopback antes de analisar.",
+    "param.interface.description": "Alias ​​ou nome da interface de loopback; interfaces sem loopback são rejeitadas.",
+    "param.duration.description": "Duração da captura ao vivo em segundos.",
+    "param.max_packets.description": "Máximo de pacotes capturados.",
+    "param.bpf_filter.description": "Filtro de captura BPF opcional."
   },
   "ro": {
     "tool.description": "Rulați analiza pcap offline și corelați fluxurile cu conexiunile locale.",
@@ -664,7 +804,12 @@
       "corelația pcap",
       "clasificarea traficului",
       "corelația conexiunii locale"
-    ]
+    ],
+    "param.live_capture.description": "Capturați numai pe o interfață loopback înainte de a analiza.",
+    "param.interface.description": "Alias ​​sau nume de interfață Loopback; interfețele non-loopback sunt respinse.",
+    "param.duration.description": "Durata capturii live în secunde.",
+    "param.max_packets.description": "Pachete maxime capturate.",
+    "param.bpf_filter.description": "Filtru de captare BPF opțional."
   },
   "ru": {
     "tool.description": "Запустите автономный анализ pcap и сопоставьте потоки с локальными соединениями.",
@@ -687,7 +832,12 @@
       "корреляция pcap",
       "классификация трафика",
       "корреляция локального соединения"
-    ]
+    ],
+    "param.live_capture.description": "Перед анализом захватывайте только через интерфейс обратной связи.",
+    "param.interface.description": "Псевдоним или имя интерфейса Loopback; интерфейсы без обратной связи отклоняются.",
+    "param.duration.description": "Продолжительность прямой съемки в секундах.",
+    "param.max_packets.description": "Максимальное количество перехваченных пакетов.",
+    "param.bpf_filter.description": "Дополнительный фильтр захвата BPF."
   },
   "sv": {
     "tool.description": "Kör offline pcap-analys och korrelera flöden med lokala anslutningar.",
@@ -710,7 +860,12 @@
       "pcap-korrelation",
       "trafikklassificering",
       "lokal anslutningskorrelation"
-    ]
+    ],
+    "param.live_capture.description": "Fånga endast på ett loopback-gränssnitt innan du analyserar.",
+    "param.interface.description": "Loopback-gränssnittsalias eller namn; icke-loopback-gränssnitt avvisas.",
+    "param.duration.description": "Liveinspelningslängd i sekunder.",
+    "param.max_packets.description": "Maximalt antal paket fångat.",
+    "param.bpf_filter.description": "BPF-infångningsfilter som tillval."
   },
   "sw": {
     "tool.description": "Fanya uchambuzi wa pcap nje ya mtandao na ulinganishe mtiririko na miunganisho ya ndani.",
@@ -733,7 +888,12 @@
       "",
       "",
       ""
-    ]
+    ],
+    "param.live_capture.description": "Piga picha kwenye kiolesura cha nyuma kabla ya kuchanganua.",
+    "param.interface.description": "Lakabu la kiolesura cha loopback au jina; violesura visivyo na kitanzi vimekataliwa.",
+    "param.duration.description": "Muda wa kunasa moja kwa moja kwa sekunde.",
+    "param.max_packets.description": "Upeo wa pakiti umenaswa.",
+    "param.bpf_filter.description": "Kichujio cha hiari cha kunasa BPF."
   },
   "th": {
     "tool.description": "เรียกใช้การวิเคราะห์ pcap แบบออฟไลน์และเชื่อมโยงโฟลว์กับการเชื่อมต่อภายในเครื่อง",
@@ -756,7 +916,12 @@
       "ความสัมพันธ์ของ pcap",
       "การจำแนกประเภทการรับส่งข้อมูล",
       "ความสัมพันธ์การเชื่อมต่อในท้องถิ่น"
-    ]
+    ],
+    "param.live_capture.description": "จับภาพเฉพาะบนอินเทอร์เฟซแบบย้อนกลับก่อนวิเคราะห์",
+    "param.interface.description": "นามแฝงหรือชื่ออินเทอร์เฟซลูปแบ็ค อินเทอร์เฟซที่ไม่ใช่แบบย้อนกลับจะถูกปฏิเสธ",
+    "param.duration.description": "ระยะเวลาจับภาพสดเป็นวินาที",
+    "param.max_packets.description": "แพ็กเก็ตสูงสุดที่จับได้",
+    "param.bpf_filter.description": "ตัวกรองการจับ BPF เสริม"
   },
   "tr": {
     "tool.description": "Çevrimdışı pcap analizini çalıştırın ve akışları yerel bağlantılarla ilişkilendirin.",
@@ -779,7 +944,12 @@
       "pcap korelasyonu",
       "trafik sınıflandırması",
       "yerel bağlantı korelasyonu"
-    ]
+    ],
+    "param.live_capture.description": "Analiz etmeden önce yalnızca geridöngü arayüzünde yakalayın.",
+    "param.interface.description": "Geri döngü arayüzü takma adı veya adı; geridöngü olmayan arayüzler reddedilir.",
+    "param.duration.description": "Saniye cinsinden canlı yakalama süresi.",
+    "param.max_packets.description": "Yakalanan maksimum paket.",
+    "param.bpf_filter.description": "İsteğe bağlı BPF yakalama filtresi."
   },
   "uk": {
     "tool.description": "Виконуйте офлайн-аналіз pcap і співвідносьте потоки з локальними підключеннями.",
@@ -802,7 +972,12 @@
       "кореляція pcap",
       "класифікація трафіку",
       "кореляція локального з’єднання"
-    ]
+    ],
+    "param.live_capture.description": "Захоплюйте лише на петлевому інтерфейсі перед аналізом.",
+    "param.interface.description": "Псевдонім або ім'я інтерфейсу зворотного зв'язку; інтерфейси без петлі відхиляються.",
+    "param.duration.description": "Тривалість зйомки в реальному часі в секундах.",
+    "param.max_packets.description": "Максимальна кількість захоплених пакетів.",
+    "param.bpf_filter.description": "Додатковий фільтр захоплення BPF."
   },
   "vi": {
     "tool.description": "Chạy phân tích pcap ngoại tuyến và tương quan các luồng với kết nối cục bộ.",
@@ -825,7 +1000,12 @@
       "tương quan pcap",
       "phân loại lưu lượng truy cập",
       "tương quan kết nối cục bộ"
-    ]
+    ],
+    "param.live_capture.description": "Chỉ chụp trên giao diện loopback trước khi phân tích.",
+    "param.interface.description": "Bí danh hoặc tên giao diện Loopback; giao diện không loopback bị từ chối.",
+    "param.duration.description": "Thời lượng chụp trực tiếp tính bằng giây.",
+    "param.max_packets.description": "Số gói tối đa đã bị bắt.",
+    "param.bpf_filter.description": "Bộ lọc chụp BPF tùy chọn."
   },
   "zh_CN": {
     "tool.description": "运行离线 pcap 分析并将流量与本地连接关联起来。",
@@ -848,7 +1028,12 @@
       "pcap关联",
       "流量分类",
       "本地连接关联"
-    ]
+    ],
+    "param.live_capture.description": "分析前仅在环回接口上捕获。",
+    "param.interface.description": "Loopback接口别名或名称；非环回接口被拒绝。",
+    "param.duration.description": "实时捕获持续时间（以秒为单位）。",
+    "param.max_packets.description": "捕获的最大数据包数。",
+    "param.bpf_filter.description": "可选的 BPF 捕获滤波器。"
   },
   "zh_TW": {
     "tool.description": "執行離線 pcap 分析並將流量與本地連線關聯起來。",
@@ -871,6 +1056,11 @@
       "pcap關聯",
       "流量分類",
       "本地連線關聯"
-    ]
+    ],
+    "param.live_capture.description": "分析前僅在環回介面上捕獲。",
+    "param.interface.description": "Loopback介面別名或名稱；非環回介面被拒絕。",
+    "param.duration.description": "即時捕獲持續時間（以秒為單位）。",
+    "param.max_packets.description": "捕獲的最大資料包數。",
+    "param.bpf_filter.description": "可選的 BPF 捕獲濾波器。"
   }
 }

@@ -8,6 +8,9 @@ permission boundary.
 from __future__ import annotations
 
 import json
+import os
+import tempfile
+from pathlib import Path
 from typing import Any
 
 from . import local_network_tool, pcap_analyze_tool
@@ -17,6 +20,77 @@ _ = make_tool_translator(__file__)
 
 _DEFAULT_OPERATIONS = ("summary", "flows", "detect", "impact")
 _ALLOWED_OPERATIONS = {"summary", "statistics", "flows", "detect", "impact"}
+_LOOPBACK_ALIASES = {"loopback", "lo", "lo0", "loopback0"}
+
+
+def _resolve_loopback_interface(requested: str) -> str | None:
+    value = str(requested or "loopback").strip()
+    if value.lower() in _LOOPBACK_ALIASES:
+        try:
+            from scapy.config import conf
+
+            return str(getattr(conf, "loopback_name", "") or "") or None
+        except Exception:
+            return None
+    if "loopback" in value.lower():
+        return value
+    return None
+
+
+def _capture_loopback(args: dict[str, Any]) -> dict[str, Any]:
+    """Capture only on a loopback interface and save a local pcap artifact."""
+    interface = str(args.get("interface", "loopback") or "loopback").strip()
+    resolved = _resolve_loopback_interface(interface)
+    if not resolved:
+        return {
+            "ok": False,
+            "error": {
+                "code": "INTERFACE_NOT_ALLOWED",
+                "message": "Live capture is restricted to a loopback interface.",
+                "interface": interface,
+            },
+        }
+
+    duration = max(1, min(int(args.get("duration", 10) or 10), 60))
+    max_packets = max(1, min(int(args.get("max_packets", 1000) or 1000), 10000))
+    bpf_filter = str(args.get("bpf_filter", "") or "").strip()
+    try:
+        try:
+            from scapy.all import sniff
+            from scapy.utils import wrpcap
+        except ImportError:
+            from .._pip_auto import install_with_status
+
+            if not install_with_status("scapy", "scapy", version_spec=">=2.6.0"):
+                raise RuntimeError("scapy is unavailable")
+            from scapy.all import sniff
+            from scapy.utils import wrpcap
+
+        sniff_args: dict[str, Any] = {
+            "iface": resolved,
+            "timeout": duration,
+            "count": max_packets,
+            "store": True,
+        }
+        if bpf_filter:
+            sniff_args["filter"] = bpf_filter
+        packets = sniff(**sniff_args)
+
+        fd, path = tempfile.mkstemp(prefix="capture_analyze_", suffix=".pcap")
+        os.close(fd)
+        wrpcap(path, packets)
+        return {
+            "ok": True,
+            "interface": resolved,
+            "duration": duration,
+            "max_packets": max_packets,
+            "packet_count": len(packets),
+            "pcap_path": str(Path(path)),
+        }
+    except PermissionError as exc:
+        return {"ok": False, "error": {"code": "PRIVILEGE_REQUIRED", "message": str(exc)}}
+    except Exception as exc:
+        return {"ok": False, "error": {"code": "LIVE_CAPTURE_FAILED", "message": str(exc)}}
 
 
 def _json_result(value: str) -> dict[str, Any]:
@@ -107,21 +181,29 @@ def _analysis_args(args: dict[str, Any], operation: str) -> dict[str, Any]:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    """Run offline analysis and optionally correlate flows with local sockets."""
-    pcap_path = str(args.get("pcap_path", "")).strip()
+    """Run offline analysis or a bounded loopback capture followed by analysis."""
+    work_args = dict(args)
+    capture_info: dict[str, Any] | None = None
+    if bool(work_args.get("live_capture", False)):
+        capture_info = _capture_loopback(work_args)
+        if not capture_info.get("ok"):
+            return json.dumps(capture_info, ensure_ascii=False)
+        work_args["pcap_path"] = capture_info["pcap_path"]
+
+    pcap_path = str(work_args.get("pcap_path", "")).strip()
     if not pcap_path:
         return json.dumps(
             {
                 "ok": False,
                 "error": {
                     "code": "INPUT_REQUIRED",
-                    "message": "pcap_path is required.",
+                    "message": "pcap_path is required unless live_capture is true.",
                 },
             },
             ensure_ascii=False,
         )
 
-    raw_operations = args.get("operations", list(_DEFAULT_OPERATIONS))
+    raw_operations = work_args.get("operations", list(_DEFAULT_OPERATIONS))
     if isinstance(raw_operations, str):
         operations = [item.strip().lower() for item in raw_operations.split(",") if item.strip()]
     elif isinstance(raw_operations, list):
@@ -148,22 +230,22 @@ def run_tool(args: dict[str, Any]) -> str:
     errors: list[dict[str, Any]] = []
     for operation in dict.fromkeys(operations):
         result = _json_result(
-            pcap_analyze_tool.run_tool(_analysis_args(args, operation))
+            pcap_analyze_tool.run_tool(_analysis_args(work_args, operation))
         )
         results[operation] = result
         if result.get("ok") is False:
             errors.append({"operation": operation, "error": result.get("error")})
 
     correlation: dict[str, Any] | None = None
-    if bool(args.get("correlate", True)) and "flows" in results and results["flows"].get("ok"):
+    if bool(work_args.get("correlate", True)) and "flows" in results and results["flows"].get("ok"):
         local_args = {
             "operation": "correlate",
             "findings": _flow_findings(results["flows"]),
-            "status": args.get("status", ""),
-            "local_ip": args.get("local_ip", ""),
-            "remote_ip": args.get("remote_ip", ""),
-            "port": args.get("port", 0),
-            "include_process": args.get("include_process", True),
+            "status": work_args.get("status", ""),
+            "local_ip": work_args.get("local_ip", ""),
+            "remote_ip": work_args.get("remote_ip", ""),
+            "port": work_args.get("port", 0),
+            "include_process": work_args.get("include_process", True),
         }
         correlation = _json_result(local_network_tool.run_tool(local_args))
         if correlation.get("ok") is False:
@@ -174,12 +256,15 @@ def run_tool(args: dict[str, Any]) -> str:
             "ok": not errors,
             "operation": "capture_analyze",
             "pcap_path": pcap_path,
+            "capture": capture_info,
             "analysis": results,
             "classification": _classify(results, errors),
             "correlation": correlation,
-            "warnings": [
-                "This operation analyzes an existing pcap; it does not start live capture."
-            ],
+            "warnings": (
+                ["Live capture is restricted to a loopback interface."]
+                if capture_info is not None
+                else ["This operation analyzes an existing pcap; it does not start live capture."]
+            ),
             "errors": errors,
         },
         ensure_ascii=False,
@@ -198,7 +283,12 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "pcap_path": {"type": "string", "description": "Input pcap path."},
+                "pcap_path": {"type": "string", "description": "Input pcap path; omit when live_capture is true."},
+                "live_capture": {"type": "boolean", "default": False, "description": "Capture only on a loopback interface before analyzing."},
+                "interface": {"type": "string", "default": "loopback", "description": "Loopback interface alias or name; non-loopback interfaces are rejected."},
+                "duration": {"type": "integer", "minimum": 1, "maximum": 60, "default": 10, "description": "Live capture duration in seconds."},
+                "max_packets": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 1000, "description": "Maximum packets captured."},
+                "bpf_filter": {"type": "string", "description": "Optional BPF capture filter."},
                 "operations": {
                     "type": "array",
                     "items": {"type": "string", "enum": sorted(_ALLOWED_OPERATIONS)},
@@ -217,7 +307,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "port": {"type": "integer", "minimum": 0},
                 "include_process": {"type": "boolean", "default": True},
             },
-            "required": ["pcap_path"],
+            "required": [],
         },
     },
 }

@@ -11,6 +11,43 @@ def test_missing_pcap_path_is_structured_error() -> None:
     assert result["error"]["code"] == "INPUT_REQUIRED"
 
 
+def test_live_capture_rejects_non_loopback_interface() -> None:
+    result = json.loads(
+        tool.run_tool({"live_capture": True, "interface": "Ethernet"})
+    )
+    assert result["ok"] is False
+    assert result["error"]["code"] == "INTERFACE_NOT_ALLOWED"
+
+
+def test_live_capture_composes_analysis(monkeypatch) -> None:
+    monkeypatch.setattr(
+        tool,
+        "_capture_loopback",
+        lambda _args: {
+            "ok": True,
+            "interface": "lo",
+            "duration": 1,
+            "max_packets": 2,
+            "packet_count": 2,
+            "pcap_path": "captured.pcap",
+        },
+    )
+    monkeypatch.setattr(
+        tool.pcap_analyze_tool,
+        "run_tool",
+        lambda args: json.dumps({"ok": True, "operation": args["operation"], "findings": []}),
+    )
+    monkeypatch.setattr(
+        tool.local_network_tool,
+        "run_tool",
+        lambda _args: json.dumps({"ok": True, "operation": "correlate", "results": []}),
+    )
+    result = json.loads(tool.run_tool({"live_capture": True, "operations": ["detect"]}))
+    assert result["ok"] is True
+    assert result["capture"]["packet_count"] == 2
+    assert result["warnings"] == ["Live capture is restricted to a loopback interface."]
+
+
 def test_invalid_operation_is_rejected() -> None:
     result = json.loads(
         tool.run_tool({"pcap_path": "sample.pcap", "operations": ["live_capture"]})
