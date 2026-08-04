@@ -59,6 +59,32 @@ def test_offline_composition_and_correlation(monkeypatch) -> None:
     assert result["warnings"]
 
 
+def test_classification_is_conservative() -> None:
+    normal = tool._classify({"detect": {"findings": []}, "impact": {"devices": []}}, [])
+    assert normal["classification"] == "normal"
+
+    review = tool._classify(
+        {
+            "detect": {"findings": [{"category": "unusual_port", "severity": "medium"}]},
+            "impact": {"devices": []},
+        },
+        [],
+    )
+    assert review["classification"] == "review"
+
+    suspicious = tool._classify(
+        {
+            "detect": {"findings": [{"category": "port_scan", "severity": "high"}]},
+            "impact": {"devices": []},
+        },
+        [],
+    )
+    assert suspicious["classification"] == "suspicious"
+
+    unknown = tool._classify({}, [{"operation": "detect"}])
+    assert unknown["classification"] == "unknown"
+
+
 def test_correlation_can_be_disabled(monkeypatch) -> None:
     calls = []
 

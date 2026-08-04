@@ -56,6 +56,41 @@ def _flow_findings(flow_result: dict[str, Any]) -> list[dict[str, Any]]:
     return findings
 
 
+def _classify(results: dict[str, dict[str, Any]], errors: list[dict[str, Any]]) -> dict[str, Any]:
+    """Classify evidence conservatively; never treat this as an attack verdict."""
+    if errors:
+        return {"classification": "unknown", "score": None, "reasons": ["analysis_error"]}
+
+    detect = results.get("detect", {})
+    findings = detect.get("findings", []) or []
+    categories = {
+        str(item.get("category", ""))
+        for item in findings
+        if isinstance(item, dict)
+    }
+    high = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "high")
+    medium = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "medium")
+    low = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "low")
+    reasons = sorted(category for category in categories if category)
+    strong = {"port_scan", "host_scan", "beaconing", "syn_flood_candidate"}
+    if high > 0 or len(categories & strong) >= 2 or medium >= 2:
+        return {"classification": "suspicious", "score": 80, "reasons": reasons}
+
+    impact_scores = [
+        float(item.get("impact_score", 0) or 0)
+        for item in (results.get("impact", {}).get("devices", []) or [])
+        if isinstance(item, dict)
+    ]
+    max_impact = max(impact_scores, default=0.0)
+    if medium > 0 or low > 0 or max_impact >= 40:
+        if max_impact >= 60:
+            reasons.append("impact_score")
+        return {"classification": "review", "score": round(max(max_impact, 40), 2), "reasons": reasons}
+    if "detect" in results:
+        return {"classification": "normal", "score": round(max_impact, 2), "reasons": []}
+    return {"classification": "unknown", "score": None, "reasons": ["insufficient_evidence"]}
+
+
 def _analysis_args(args: dict[str, Any], operation: str) -> dict[str, Any]:
     forwarded = {
         "pcap_path": args.get("pcap_path", ""),
@@ -140,6 +175,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "operation": "capture_analyze",
             "pcap_path": pcap_path,
             "analysis": results,
+            "classification": _classify(results, errors),
             "correlation": correlation,
             "warnings": [
                 "This operation analyzes an existing pcap; it does not start live capture."
