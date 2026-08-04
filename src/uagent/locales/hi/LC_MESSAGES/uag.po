@@ -878,6 +878,9 @@ msgid ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "This may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 msgstr ""
+"[चेतावनी] LLM ने टूल कॉल के बिना एक खाली सहायक संदेश लौटाया।\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"टूल कॉल के बाद कुछ प्रदाताओं (Grok/xAI और OpenAI-संगत endpoints सहित) के साथ ऐसा हो सकता है। UAGENT_EMPTY_NO_TOOL_MAX को अधिक मान पर सेट करने या प्रदाता बदलने का प्रयास करें।"
 
 #: src/uagent/llm_flow_helpers.py:476 src/uagent/llm_flow_helpers.py:569
 #, python-format
