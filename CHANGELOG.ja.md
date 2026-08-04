@@ -1,5 +1,23 @@
 # 変更履歴
 
+## [0.5.65] - 2026-08-04
+
+### 追加
+
+- feat(network): pcap解析とローカルプロセス相関を一括実行するoffline `capture_analyze`を追加
+- feat(network): 通信を`normal` / `review` / `suspicious` / `unknown`に保守的に分類
+- feat(network): 期間・パケット数を制限したloopback限定のexperimental live captureを追加
+- feat(network): TCP再送候補を`confirmed`、`possible`、`capture_duplicate`に分類
+- test(network): loopbackキャプチャ統合テストとTCP再送分類テストを追加
+
+### ドキュメント
+
+- docs(network): ネットワークツールキットのロードマップ、安全方針、リリース状態、experimental live captureの範囲を文書化
+
+### 国際化
+
+- i18n: Responses APIライフサイクルメッセージとcapture-analysisツールメタデータを対応ロケールへ翻訳
+
 ## [0.5.64] - 2026-08-03
 
 ### 変更

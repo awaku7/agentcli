@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.5.65] - 2026-08-04
+
+### Added
+
+- feat(network): add offline `capture_analyze` orchestration for pcap analysis and local process correlation
+- feat(network): add conservative `normal` / `review` / `suspicious` / `unknown` traffic classification
+- feat(network): add loopback-only experimental live capture with bounded duration and packet count
+- feat(network): classify TCP retransmission evidence as `confirmed`, `possible`, or `capture_duplicate`
+- test(network): add loopback capture integration coverage and retransmission classification tests
+
+### Documentation
+
+- docs(network): document the network toolkit roadmap, safety policy, release status, and experimental live-capture scope
+
+### Internationalization
+
+- i18n: translate Responses API lifecycle messages and capture-analysis tool metadata across supported locales
+
 ## [0.5.64] - 2026-08-03
 
 ### Changed
