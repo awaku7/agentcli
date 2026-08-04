@@ -1486,8 +1486,11 @@ PRIVILEGE_REQUIREDを返す
 ### 実装済み
 
 - `pcap_analyze`: summary/statistics/flows/packets/extract/detect/impact
+- `capture_analyze`: offline pcapのsummary/flows/detect/impact一括実行とlocal_network相関
+- `capture_analyze`の通信分類: normal/review/suspicious/unknown（攻撃断定ではなく要確認分類）
 - pcapフィルター: IP、CIDR、プロトコル、ポート、サイズ条件。`flows`にも適用
 - 問題通信検出: port_scan、host_scan、connection_burst、beaconing、suspicious_dns、large_transfer、cleartext_protocol、repeated_failure、unusual_port、tcp_retransmission、long_lived_connection、broadcast_anomaly、syn_flood_candidate、rtt_anomaly、protocol_anomaly
+- TCP再送候補の分類: confirmed / possible / capture_duplicate とconfidenceを返す
 - TCPのSYN Flood判定: 逆方向SYN-ACKとポート組み合わせを照合
 - TCPの未許可ポート: 初期SYNでサーバー方向を確定し、逆方向エフェメラルポートを除外
 - Well-known/Commonサービスポート: 57ポートとサービス名を内蔵。サイト固有ポートで上書き可能
@@ -1509,8 +1512,7 @@ PRIVILEGE_REQUIREDを返す
 
 ### 次期実装
 
-1. `capture_analyze`一括操作
-1. TCP再送のconfirmed/possible/capture_duplicate分類
-1. impactランキングとプロセス相関の一括出力
-1. normal/review/suspicious/unknownの通信分類
+1. impactランキングとプロセス相関の一括出力強化
+1. 通信分類の閾値・誤検知評価と運用チューニング
+1. loopback限定のライブキャプチャ統合
 1. 他端末用の明示的な端末エージェント設計
