@@ -38,6 +38,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :shrink [N]           " + tr("Shrink history (keep last N)"),
         "  :shrink_llm [N]       " + tr("LLM-summarize older history"),
         "  :tokens               " + tr("Show approx. conversation tokens"),
+        "  :response ...          " + tr("Manage Responses API lifecycle"),
         "  :env ...              " + tr("Show/set/unset/save UAGENT_* env"),
         "  :skills ...           " + tr("List/apply/install skills"),
         "  :tools ...            " + tr("List/load/on/off tools and genres"),
@@ -167,6 +168,16 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         "tokens": e(
             tr("Show approximate token count of the conversation"),
             usage=(":tokens"),
+        ),
+        "response": e(
+            tr("Manage Responses API lifecycle"),
+            usage=(":response [status|cancel|tokens|compact|items|delete] [response_id]"),
+            detail=tr(
+                "Manage the current Responses API response. "
+                "status retrieves the current response; cancel stops it; "
+                "tokens counts input tokens; compact compacts context; "
+                "items lists input items; delete removes a response."
+            ),
         ),
         "env": e(
             tr("Manage UAGENT_* environment variables"),

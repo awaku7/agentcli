@@ -118,6 +118,7 @@ from .util_cmd_auto import (
     _run_auto_pilot_loop,
     _handle_cmd_auto,
 )
+from .util_cmd_responses import _handle_cmd_response
 from .util_cmd_session import (
     _handle_cmd_skills,
     _default_clean_threshold,
@@ -259,6 +260,11 @@ def handle_command(
 
     if cmd == "shrink_llm":
         return _handle_cmd_shrink_llm(arg, messages_ref, client, depname, core=core)
+
+    if cmd == "response":
+        return _handle_cmd_response(
+            arg, messages_ref, client, depname, core=core, tr=tr
+        )
 
     if cmd == "tokens":
         return _handle_cmd_tokens(messages_ref, core=core, depname=depname)

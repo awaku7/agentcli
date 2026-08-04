@@ -463,6 +463,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "shrink",
                             "shrink_llm",
                             "tokens",
+                            "response",
                             "r",
                             "reasoning",
                             "v",

@@ -644,6 +644,7 @@ RESERVED_COLON_COMMANDS: frozenset[str] = frozenset(
         "shrink",
         "shrink_llm",
         "tokens",
+        "response",
         "mem-list",
         "mem-del",
         "profile",
