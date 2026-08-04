@@ -1,0 +1,648 @@
+{
+  "en": {
+    "tool.description": "Send bounded TCP or UDP data; dry-run is enabled by default.",
+    "param.action.description": "Send action.",
+    "param.target.description": "Target host or IP address.",
+    "param.port.description": "Target port.",
+    "param.payload.description": "Text payload to send.",
+    "param.count.description": "Number of sends.",
+    "param.interval.description": "Interval between sends in seconds.",
+    "param.dry_run.description": "Do not send data; return the planned operation.",
+    "param.send_confirmed.description": "Set only after human_ask explicitly confirms the send operation.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "network test"
+    ]
+  },
+  "ar": {
+    "tool.description": "إرسال بيانات TCP أو UDP المحددة؛ يتم تمكين التشغيل الجاف بشكل افتراضي.",
+    "param.action.description": "إرسال الإجراء.",
+    "param.target.description": "المضيف المستهدف أو عنوان IP.",
+    "param.port.description": "المنفذ المستهدف.",
+    "param.payload.description": "حمولة النص لإرسالها.",
+    "param.count.description": "عدد المرسلات.",
+    "param.interval.description": "الفاصل الزمني بين الإرسال بالثواني.",
+    "param.dry_run.description": "لا ترسل البيانات. إرجاع العملية المخطط لها.",
+    "param.send_confirmed.description": "يتم التعيين فقط بعد تأكيد human_ask صراحةً لعملية الإرسال.",
+    "x_search_terms": [
+      "إرسال الحزمة",
+      "إرسال UDP",
+      "إرسال TCP",
+      "اختبار الشبكة"
+    ]
+  },
+  "bn": {
+    "tool.description": "আবদ্ধ TCP বা UDP ডেটা পাঠান; ড্রাই-রান ডিফল্টরূপে সক্রিয় করা হয়।",
+    "param.action.description": "কর্ম পাঠান।",
+    "param.target.description": "লক্ষ্য হোস্ট বা আইপি ঠিকানা.",
+    "param.port.description": "টার্গেট পোর্ট।",
+    "param.payload.description": "পাঠাতে টেক্সট পেলোড.",
+    "param.count.description": "পাঠানোর সংখ্যা।",
+    "param.interval.description": "সেকেন্ডে পাঠানোর মধ্যে ব্যবধান।",
+    "param.dry_run.description": "ডেটা পাঠাবেন না; পরিকল্পিত অপারেশন ফিরে.",
+    "param.send_confirmed.description": "মানব_আস্ক স্পষ্টভাবে প্রেরণ অপারেশন নিশ্চিত করার পরেই সেট করুন।",
+    "x_search_terms": [
+      "প্যাকেট send",
+      "udp send",
+      "tcp send",
+      "নেটওয়ার্ক পরীক্ষা"
+    ]
+  },
+  "cs": {
+    "tool.description": "Odesílat ohraničená data TCP nebo UDP; chod nasucho je ve výchozím nastavení povolen.",
+    "param.action.description": "Odeslat akci.",
+    "param.target.description": "Cílový hostitel nebo IP adresa.",
+    "param.port.description": "Cílový port.",
+    "param.payload.description": "Textová zátěž k odeslání.",
+    "param.count.description": "Počet odeslání.",
+    "param.interval.description": "Interval mezi odesláními v sekundách.",
+    "param.dry_run.description": "Neposílejte data; vrátit plánovanou operaci.",
+    "param.send_confirmed.description": "Nastavte pouze poté, co human_ask explicitně potvrdí operaci odeslání.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "test sítě"
+    ]
+  },
+  "da": {
+    "tool.description": "Send afgrænsede TCP- eller UDP-data; dry-run er aktiveret som standard.",
+    "param.action.description": "Send handling.",
+    "param.target.description": "Målvært eller IP-adresse.",
+    "param.port.description": "Målhavn.",
+    "param.payload.description": "Tekst nyttelast til at sende.",
+    "param.count.description": "Antal afsendelser.",
+    "param.interval.description": "Interval mellem afsendelser i sekunder.",
+    "param.dry_run.description": "Send ikke data; returnere den planlagte operation.",
+    "param.send_confirmed.description": "Indstil kun efter human_ask eksplicit bekræfter afsendelsesoperationen.",
+    "x_search_terms": [
+      "pakke send",
+      "udp send",
+      "tcp send",
+      "netværkstest"
+    ]
+  },
+  "de": {
+    "tool.description": "Senden Sie begrenzte TCP- oder UDP-Daten. Der Trockenlauf ist standardmäßig aktiviert.",
+    "param.action.description": "Aktion senden.",
+    "param.target.description": "Zielhost oder IP-Adresse.",
+    "param.port.description": "Zielport.",
+    "param.payload.description": "Zu sendende Textnutzlast.",
+    "param.count.description": "Anzahl der Versendungen.",
+    "param.interval.description": "Intervall zwischen den Sendungen in Sekunden.",
+    "param.dry_run.description": "Senden Sie keine Daten; die geplante Operation zurückgeben.",
+    "param.send_confirmed.description": "Wird nur gesetzt, nachdem human_ask den Sendevorgang explizit bestätigt hat.",
+    "x_search_terms": [
+      "Paket senden",
+      "UDP senden",
+      "TCP senden",
+      "Netzwerktest"
+    ]
+  },
+  "el": {
+    "tool.description": "Αποστολή δεσμευμένων δεδομένων TCP ή UDP. Το dry-run είναι ενεργοποιημένο από προεπιλογή.",
+    "param.action.description": "Αποστολή ενέργειας.",
+    "param.target.description": "Στόχευση κεντρικού υπολογιστή ή διεύθυνση IP.",
+    "param.port.description": "Θύρα-στόχος.",
+    "param.payload.description": "Κείμενο ωφέλιμου φορτίου για αποστολή.",
+    "param.count.description": "Αριθμός αποστολών.",
+    "param.interval.description": "Το διάστημα μεταξύ των αποστολών σε δευτερόλεπτα.",
+    "param.dry_run.description": "Μην στέλνετε δεδομένα. επιστροφή της προγραμματισμένης λειτουργίας.",
+    "param.send_confirmed.description": "Ορίστε μόνο αφού το human_ask επιβεβαιώσει ρητά τη λειτουργία αποστολής.",
+    "x_search_terms": [
+      "αποστολή πακέτου",
+      "udp αποστολή",
+      "tcp αποστολή",
+      "δοκιμή δικτύου"
+    ]
+  },
+  "es": {
+    "tool.description": "Enviar datos TCP o UDP acotados; La ejecución en seco está habilitada de forma predeterminada.",
+    "param.action.description": "Enviar acción.",
+    "param.target.description": "Host de destino o dirección IP.",
+    "param.port.description": "Puerto de destino.",
+    "param.payload.description": "Carga útil de texto para enviar.",
+    "param.count.description": "Número de envíos.",
+    "param.interval.description": "Intervalo entre envíos en segundos.",
+    "param.dry_run.description": "No envíe datos; devolver la operación planificada.",
+    "param.send_confirmed.description": "Se establece solo después de que human_ask confirme explícitamente la operación de envío.",
+    "x_search_terms": [
+      "envío de paquetes",
+      "udp envío",
+      "tcp envío",
+      "prueba de red"
+    ]
+  },
+  "fa": {
+    "tool.description": "ارسال داده های TCP یا UDP محدود. dry-run به طور پیش فرض فعال است.",
+    "param.action.description": "اقدام را ارسال کنید.",
+    "param.target.description": "میزبان یا آدرس IP مورد نظر.",
+    "param.port.description": "پورت هدف",
+    "param.payload.description": "برای ارسال پیامک ارسال کنید.",
+    "param.count.description": "تعداد ارسال ها",
+    "param.interval.description": "فاصله بین ارسال در ثانیه",
+    "param.dry_run.description": "داده ارسال نکنید؛ عملیات برنامه ریزی شده را برگردانید.",
+    "param.send_confirmed.description": "تنها پس از تأیید صریح عملیات ارسال توسط human_ask تنظیم شود.",
+    "x_search_terms": [
+      "ارسال بسته",
+      "udp ارسال",
+      "tcp ارسال",
+      "آزمون شبکه"
+    ]
+  },
+  "fi": {
+    "tool.description": "Lähetä rajattuja TCP- tai UDP-tietoja; kuivakäynti on oletuksena käytössä.",
+    "param.action.description": "Lähetä toiminta.",
+    "param.target.description": "Kohdeisäntä- tai IP-osoite.",
+    "param.port.description": "Kohdeportti.",
+    "param.payload.description": "Tekstiviesti lähetettäväksi.",
+    "param.count.description": "Lähetysten määrä.",
+    "param.interval.description": "Lähetysten välinen aika sekunneissa.",
+    "param.dry_run.description": "Älä lähetä tietoja; palauta suunniteltu toimenpide.",
+    "param.send_confirmed.description": "Aseta vasta sen jälkeen, kun human_ask on erikseen vahvistanut lähetystoiminnon.",
+    "x_search_terms": [
+      "pakettilähetys",
+      "udp send",
+      "tcp send",
+      "verkkotesti"
+    ]
+  },
+  "fil": {
+    "tool.description": "Magpadala ng bounded TCP o UDP data; Ang dry-run ay pinagana bilang default.",
+    "param.action.description": "Magpadala ng aksyon.",
+    "param.target.description": "Target na host o IP address.",
+    "param.port.description": "Target na port.",
+    "param.payload.description": "Text payload na ipapadala.",
+    "param.count.description": "Bilang ng mga ipinadala.",
+    "param.interval.description": "Interval sa pagitan ng mga pagpapadala sa ilang segundo.",
+    "param.dry_run.description": "Huwag magpadala ng data; ibalik ang nakaplanong operasyon.",
+    "param.send_confirmed.description": "Itakda lamang pagkatapos na tahasang kumpirmahin ng human_ask ang pagpapatakbo ng pagpapadala.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "network test"
+    ]
+  },
+  "fr": {
+    "tool.description": "Envoyer des données TCP ou UDP limitées ; l’exécution à sec est activée par défaut.",
+    "param.action.description": "Envoyez une action.",
+    "param.target.description": "Hôte cible ou adresse IP.",
+    "param.port.description": "Port cible.",
+    "param.payload.description": "Charge utile de texte à envoyer.",
+    "param.count.description": "Nombre d'envois.",
+    "param.interval.description": "Intervalle entre les envois en secondes.",
+    "param.dry_run.description": "N'envoyez pas de données ; retourner l'opération prévue.",
+    "param.send_confirmed.description": "Défini uniquement après que human_ask ait explicitement confirmé l'opération d'envoi.",
+    "x_search_terms": [
+      "envoi de paquets",
+      "envoi UDP",
+      "envoi TCP",
+      "test réseau"
+    ]
+  },
+  "he": {
+    "tool.description": "שלח נתוני TCP או UDP מוגבלים; ריצה יבשה מופעלת כברירת מחדל.",
+    "param.action.description": "שלח פעולה.",
+    "param.target.description": "מארח יעד או כתובת IP.",
+    "param.port.description": "נמל יעד.",
+    "param.payload.description": "מטען טקסט לשליחה.",
+    "param.count.description": "מספר שליחות.",
+    "param.interval.description": "מרווח בין השליחה בשניות.",
+    "param.dry_run.description": "אל תשלח נתונים; להחזיר את המבצע המתוכנן.",
+    "param.send_confirmed.description": "מוגדר רק לאחר ש-human_ask מאשר במפורש את פעולת השליחה.",
+    "x_search_terms": [
+      "משלוח מנות",
+      "udp send",
+      "tcp send",
+      "בדיקת רשת"
+    ]
+  },
+  "hi": {
+    "tool.description": "बाउंडेड टीसीपी या यूडीपी डेटा भेजें; ड्राई-रन डिफ़ॉल्ट रूप से सक्षम है।",
+    "param.action.description": "कार्रवाई भेजें.",
+    "param.target.description": "लक्ष्य होस्ट या आईपी पता.",
+    "param.port.description": "लक्ष्य बंदरगाह.",
+    "param.payload.description": "भेजने के लिए टेक्स्ट पेलोड.",
+    "param.count.description": "भेजे जाने की संख्या.",
+    "param.interval.description": "सेकंड में प्रेषण के बीच का अंतराल.",
+    "param.dry_run.description": "डेटा न भेजें; नियोजित ऑपरेशन वापस करें.",
+    "param.send_confirmed.description": "ह्यूमन_आस्क द्वारा स्पष्ट रूप से सेंड ऑपरेशन की पुष्टि करने के बाद ही सेट करें।",
+    "x_search_terms": [
+      "पैकेट भेजें",
+      "यूडीपी भेजें",
+      "टीसीपी भेजें",
+      "नेटवर्क परीक्षण"
+    ]
+  },
+  "hu": {
+    "tool.description": "Korlátozott TCP vagy UDP adatok küldése; a szárazonfutás alapértelmezés szerint engedélyezve van.",
+    "param.action.description": "Művelet küldése.",
+    "param.target.description": "Cél gazdagép vagy IP-cím.",
+    "param.port.description": "Cél port.",
+    "param.payload.description": "Szöveges hasznos teher küldeni.",
+    "param.count.description": "Küldések száma.",
+    "param.interval.description": "A küldések közötti intervallum másodpercben.",
+    "param.dry_run.description": "Ne küldjön adatokat; vissza a tervezett műveletet.",
+    "param.send_confirmed.description": "Csak azután állítsa be, hogy a human_ask kifejezetten megerősíti a küldési műveletet.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "hálózati teszt"
+    ]
+  },
+  "id": {
+    "tool.description": "Kirim data TCP atau UDP yang dibatasi; uji coba diaktifkan secara default.",
+    "param.action.description": "Kirim tindakan.",
+    "param.target.description": "Host target atau alamat IP.",
+    "param.port.description": "Pelabuhan sasaran.",
+    "param.payload.description": "Muatan teks untuk dikirim.",
+    "param.count.description": "Jumlah pengiriman.",
+    "param.interval.description": "Interval antar pengiriman dalam hitungan detik.",
+    "param.dry_run.description": "Jangan mengirim data; mengembalikan operasi yang direncanakan.",
+    "param.send_confirmed.description": "Ditetapkan hanya setelah human_ask secara eksplisit mengonfirmasi operasi pengiriman.",
+    "x_search_terms": [
+      "paket kirim",
+      "udp kirim",
+      "tcp kirim",
+      "uji jaringan"
+    ]
+  },
+  "it": {
+    "tool.description": "Invia dati TCP o UDP delimitati; il funzionamento a prova è abilitato per impostazione predefinita.",
+    "param.action.description": "Invia azione.",
+    "param.target.description": "Host o indirizzo IP di destinazione.",
+    "param.port.description": "Porta di destinazione.",
+    "param.payload.description": "Payload di testo da inviare.",
+    "param.count.description": "Numero di invii.",
+    "param.interval.description": "Intervallo tra gli invii in secondi.",
+    "param.dry_run.description": "Non inviare dati; restituire l'operazione pianificata.",
+    "param.send_confirmed.description": "Impostato solo dopo che human_ask ha confermato esplicitamente l'operazione di invio.",
+    "x_search_terms": [
+      "invio pacchetto",
+      "invio udp",
+      "invio TCP",
+      "test di rete"
+    ]
+  },
+  "ja": {
+    "tool.description": "制限された TCP または UDP データを送信します。ドライランはデフォルトで有効になっています。",
+    "param.action.description": "アクションを送信します。",
+    "param.target.description": "ターゲットのホストまたは IP アドレス。",
+    "param.port.description": "ターゲットポート。",
+    "param.payload.description": "送信するテキスト ペイロード。",
+    "param.count.description": "送信数。",
+    "param.interval.description": "送信間の間隔 (秒単位)。",
+    "param.dry_run.description": "データは送信しないでください。計画された操作を返します。",
+    "param.send_confirmed.description": "human_ask が送信操作を明示的に確認した後にのみ設定します。",
+    "x_search_terms": [
+      "パケット送信",
+      "udp送信",
+      "tcp送信",
+      "ネットワークテスト"
+    ]
+  },
+  "ko": {
+    "tool.description": "제한된 TCP 또는 UDP 데이터를 보냅니다. 테스트 실행은 기본적으로 활성화되어 있습니다.",
+    "param.action.description": "조치를 보냅니다.",
+    "param.target.description": "대상 호스트 또는 IP 주소.",
+    "param.port.description": "대상 포트.",
+    "param.payload.description": "보낼 텍스트 페이로드입니다.",
+    "param.count.description": "전송 횟수.",
+    "param.interval.description": "전송 사이의 간격(초)입니다.",
+    "param.dry_run.description": "데이터를 보내지 마십시오. 계획된 작업을 반환합니다.",
+    "param.send_confirmed.description": "human_ask가 전송 작업을 명시적으로 확인한 후에만 설정됩니다.",
+    "x_search_terms": [
+      "패킷 보내기",
+      "udp 보내기",
+      "tcp 보내기",
+      "네트워크 테스트"
+    ]
+  },
+  "mn": {
+    "tool.description": "Хязгаарлагдмал TCP эсвэл UDP өгөгдлийг илгээх; хуурай ажиллуулах нь анхдагчаар идэвхжсэн байна.",
+    "param.action.description": "Үйлдэл илгээх.",
+    "param.target.description": "Зорилтот хост эсвэл IP хаяг.",
+    "param.port.description": "Зорилтот порт.",
+    "param.payload.description": "Илгээх текстийн ачаалал.",
+    "param.count.description": "Илгээлтийн тоо.",
+    "param.interval.description": "Илгээлтийн хоорондох интервал секундээр.",
+    "param.dry_run.description": "Өгөгдөл илгээхгүй байх; төлөвлөсөн үйл ажиллагааг буцаах.",
+    "param.send_confirmed.description": "Зөвхөн human_ask нь илгээх үйлдлийг тодорхой баталгаажуулсны дараа тохируулна.",
+    "x_search_terms": [
+      "paket send",
+      "udp send",
+      "tcp send",
+      "сүлжээний тест"
+    ]
+  },
+  "mr": {
+    "tool.description": "बाउंडेड टीसीपी किंवा यूडीपी डेटा पाठवा; ड्राय-रन डीफॉल्टनुसार सक्षम केले आहे.",
+    "param.action.description": "कारवाई पाठवा.",
+    "param.target.description": "लक्ष्य होस्ट किंवा IP पत्ता.",
+    "param.port.description": "लक्ष्य बंदर.",
+    "param.payload.description": "पाठवण्यासाठी मजकूर पेलोड.",
+    "param.count.description": "पाठवण्याची संख्या.",
+    "param.interval.description": "सेकंदात पाठवण्यामधील मध्यांतर.",
+    "param.dry_run.description": "डेटा पाठवू नका; नियोजित ऑपरेशन परत करा.",
+    "param.send_confirmed.description": "human_ask ने पाठवण्याच्या ऑपरेशनची स्पष्टपणे पुष्टी केल्यानंतरच सेट करा.",
+    "x_search_terms": [
+      "पॅकेट पाठवा",
+      "udp पाठवा",
+      "tcp पाठवा",
+      "नेटवर्क चाचणी"
+    ]
+  },
+  "ms": {
+    "tool.description": "Hantar data TCP atau UDP terhad; larian kering didayakan secara lalai.",
+    "param.action.description": "Hantar tindakan.",
+    "param.target.description": "Hos sasaran atau alamat IP.",
+    "param.port.description": "Pelabuhan sasaran.",
+    "param.payload.description": "Muatan teks untuk dihantar.",
+    "param.count.description": "Bilangan hantaran.",
+    "param.interval.description": "Selang antara hantaran dalam beberapa saat.",
+    "param.dry_run.description": "Jangan hantar data; mengembalikan operasi yang dirancang.",
+    "param.send_confirmed.description": "Tetapkan hanya selepas human_ask secara jelas mengesahkan operasi hantar.",
+    "x_search_terms": [
+      "paket hantar",
+      "udp hantar",
+      "tcp hantar",
+      "ujian rangkaian"
+    ]
+  },
+  "nb": {
+    "tool.description": "Send avgrensede TCP- eller UDP-data; tørrkjøring er aktivert som standard.",
+    "param.action.description": "Send handling.",
+    "param.target.description": "Målvert eller IP-adresse.",
+    "param.port.description": "Målport.",
+    "param.payload.description": "Tekst nyttelast å sende.",
+    "param.count.description": "Antall sendinger.",
+    "param.interval.description": "Intervall mellom sendinger i sekunder.",
+    "param.dry_run.description": "Ikke send data; returnere den planlagte operasjonen.",
+    "param.send_confirmed.description": "Sett kun etter at human_ask eksplisitt bekrefter sendeoperasjonen.",
+    "x_search_terms": [
+      "pakke send",
+      "udp send",
+      "tcp send",
+      "nettverkstest"
+    ]
+  },
+  "nl": {
+    "tool.description": "Verzend begrensde TCP- of UDP-gegevens; drooglopen is standaard ingeschakeld.",
+    "param.action.description": "Actie verzenden.",
+    "param.target.description": "Doelhost of IP-adres.",
+    "param.port.description": "Doelpoort.",
+    "param.payload.description": "Sms-payload om te verzenden.",
+    "param.count.description": "Aantal verzendingen.",
+    "param.interval.description": "Interval tussen verzendingen in seconden.",
+    "param.dry_run.description": "Stuur geen gegevens; de geplande bewerking retourneren.",
+    "param.send_confirmed.description": "Wordt alleen ingesteld nadat human_ask de verzendbewerking expliciet heeft bevestigd.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "netwerktest"
+    ]
+  },
+  "nn": {
+    "tool.description": "Send avgrenset TCP- eller UDP-data. Tørrkjøring er aktivert som standard.",
+    "param.action.description": "Send handling.",
+    "param.target.description": "Målvert eller IP-adresse.",
+    "param.port.description": "Målport.",
+    "param.payload.description": "Tekst nyttelast for å sende.",
+    "param.count.description": "Antall sendinger.",
+    "param.interval.description": "Intervall mellom sendinger i sekunder.",
+    "param.dry_run.description": "Ikke send data; returner den planlagte operasjonen.",
+    "param.send_confirmed.description": "Set først etter at human_ask eksplisitt har bekreftet send-operasjonen.",
+    "x_search_terms": [
+      "pakke sendutp sendtcp send nettverkstest",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Wysyłaj ograniczone dane TCP lub UDP; praca na sucho jest domyślnie włączona.",
+    "param.action.description": "Wyślij akcję.",
+    "param.target.description": "Docelowy host lub adres IP.",
+    "param.port.description": "Port docelowy.",
+    "param.payload.description": "Treść SMS-a do wysłania.",
+    "param.count.description": "Liczba wysłań.",
+    "param.interval.description": "Odstęp między wysyłkami w sekundach.",
+    "param.dry_run.description": "Nie wysyłaj danych; zwrócić zaplanowaną operację.",
+    "param.send_confirmed.description": "Ustawiane tylko wtedy, gdy human_ask jawnie potwierdzi operację wysyłania.",
+    "x_search_terms": [
+      "wysyłanie pakietu ",
+      "udp wysyłanie ",
+      "tcp wysyłanie ",
+      "test sieci"
+    ]
+  },
+  "pt": {
+    "tool.description": "Envie dados TCP ou UDP limitados; o teste está habilitado por padrão.",
+    "param.action.description": "Envie ação.",
+    "param.target.description": "Host de destino ou endereço IP.",
+    "param.port.description": "Porta de destino.",
+    "param.payload.description": "Carga de texto a ser enviada.",
+    "param.count.description": "Número de envios.",
+    "param.interval.description": "Intervalo entre envios em segundos.",
+    "param.dry_run.description": "Não envie dados; devolver a operação planejada.",
+    "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
+    "x_search_terms": [
+      "pacote send",
+      "udp send",
+      "tcp send",
+      "network test"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Envie dados TCP ou UDP limitados; o teste está habilitado por padrão.",
+    "param.action.description": "Envie ação.",
+    "param.target.description": "Host de destino ou endereço IP.",
+    "param.port.description": "Porta de destino.",
+    "param.payload.description": "Carga de texto a ser enviada.",
+    "param.count.description": "Número de envios.",
+    "param.interval.description": "Intervalo entre envios em segundos.",
+    "param.dry_run.description": "Não envie dados; devolver a operação planejada.",
+    "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
+    "x_search_terms": [
+      "pacote send",
+      "udp send",
+      "tcp send",
+      "network test"
+    ]
+  },
+  "ro": {
+    "tool.description": "Trimite date TCP sau UDP limitate; dry-run este activat în mod implicit.",
+    "param.action.description": "Trimiteți acțiune.",
+    "param.target.description": "Gazdă țintă sau adresa IP.",
+    "param.port.description": "Port țintă.",
+    "param.payload.description": "Text util de trimis.",
+    "param.count.description": "Numărul de trimiteri.",
+    "param.interval.description": "Interval între trimiteri în secunde.",
+    "param.dry_run.description": "Nu trimiteți date; returnează operațiunea planificată.",
+    "param.send_confirmed.description": "Setați numai după ce human_ask confirmă în mod explicit operația de trimitere.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "test de rețea"
+    ]
+  },
+  "ru": {
+    "tool.description": "Отправлять ограниченные данные TCP или UDP; Сухой прогон включен по умолчанию.",
+    "param.action.description": "Отправить действие.",
+    "param.target.description": "Целевой хост или IP-адрес.",
+    "param.port.description": "Целевой порт.",
+    "param.payload.description": "Текстовые данные для отправки.",
+    "param.count.description": "Количество отправок.",
+    "param.interval.description": "Интервал между отправками в секундах.",
+    "param.dry_run.description": "Не отправлять данные; вернуть запланированную операцию.",
+    "param.send_confirmed.description": "Устанавливается только после того, как human_ask явно подтвердит операцию отправки.",
+    "x_search_terms": [
+      "отправка пакета",
+      "udp send",
+      "tcp send",
+      "тест сети"
+    ]
+  },
+  "sv": {
+    "tool.description": "Skicka gränsad TCP- eller UDP-data; torrkörning är aktiverat som standard.",
+    "param.action.description": "Skicka åtgärd.",
+    "param.target.description": "Målvärd eller IP-adress.",
+    "param.port.description": "Målhamn.",
+    "param.payload.description": "Text nyttolast att skicka.",
+    "param.count.description": "Antal sändningar.",
+    "param.interval.description": "Intervall mellan sändningar i sekunder.",
+    "param.dry_run.description": "Skicka inte data; returnera den planerade operationen.",
+    "param.send_confirmed.description": "Ställ in endast efter att human_ask uttryckligen bekräftar sändningsoperationen.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "nätverkstest"
+    ]
+  },
+  "sw": {
+    "tool.description": "Tuma data iliyo na mipaka ya TCP au UDP; dry-run imewezeshwa na chaguo-msingi.",
+    "param.action.description": "Tuma kitendo.",
+    "param.target.description": "Mpangishi lengwa au anwani ya IP.",
+    "param.port.description": "Bandari inayolengwa.",
+    "param.payload.description": "Nakala ya malipo ya kutuma.",
+    "param.count.description": "Idadi ya kutuma.",
+    "param.interval.description": "Muda kati ya kutuma kwa sekunde.",
+    "param.dry_run.description": "Usitume data; kurudisha operesheni iliyopangwa.",
+    "param.send_confirmed.description": "Imewekwa tu baada ya human_ask kuthibitisha kwa uwazi utendakazi wa kutuma.",
+    "x_search_terms": [
+      "pakiti send",
+      "udp send",
+      "tcp send",
+      "network test"
+    ]
+  },
+  "th": {
+    "tool.description": "ส่งข้อมูล TCP หรือ UDP ที่มีขอบเขต การทดลองเรียกใช้ถูกเปิดใช้งานโดยค่าเริ่มต้น",
+    "param.action.description": "ส่งการดำเนินการ",
+    "param.target.description": "โฮสต์เป้าหมายหรือที่อยู่ IP",
+    "param.port.description": "พอร์ตเป้าหมาย",
+    "param.payload.description": "เพย์โหลดข้อความที่จะส่ง",
+    "param.count.description": "จำนวนการส่ง.",
+    "param.interval.description": "ช่วงเวลาระหว่างการส่งเป็นวินาที",
+    "param.dry_run.description": "อย่าส่งข้อมูล ส่งคืนการดำเนินการตามแผน",
+    "param.send_confirmed.description": "ตั้งค่าหลังจากที่ human_ask ยืนยันการดำเนินการส่งอย่างชัดเจนแล้วเท่านั้น",
+    "x_search_terms": [
+      "แพ็คเก็ต send",
+      "udp send",
+      "tcp send",
+      "ทดสอบเครือข่าย"
+    ]
+  },
+  "tr": {
+    "tool.description": "Sınırlı TCP veya UDP verilerini gönderin; kuru çalışma varsayılan olarak etkindir.",
+    "param.action.description": "Eylem gönder.",
+    "param.target.description": "Hedef ana bilgisayar veya IP adresi.",
+    "param.port.description": "Hedef bağlantı noktası.",
+    "param.payload.description": "Gönderilecek metin yükü.",
+    "param.count.description": "Gönderim sayısı.",
+    "param.interval.description": "Saniye cinsinden gönderimler arasındaki aralık.",
+    "param.dry_run.description": "Veri göndermeyin; Planlanan işlemi geri döndürün.",
+    "param.send_confirmed.description": "Yalnızca human_ask gönderme işlemini açıkça onayladıktan sonra ayarlayın.",
+    "x_search_terms": [
+      "paket gönderimi",
+      "udp gönderimi",
+      "tcp gönderimi",
+      "ağ testi"
+    ]
+  },
+  "uk": {
+    "tool.description": "Надсилати обмежені дані TCP або UDP; сухий пуск увімкнено за замовчуванням.",
+    "param.action.description": "Надіслати дію.",
+    "param.target.description": "Цільовий хост або IP-адреса.",
+    "param.port.description": "Цільовий порт.",
+    "param.payload.description": "Текстове навантаження для надсилання.",
+    "param.count.description": "Кількість відправок.",
+    "param.interval.description": "Інтервал між відправками в секундах.",
+    "param.dry_run.description": "Не надсилати дані; повернути планову операцію.",
+    "param.send_confirmed.description": "Встановлюється лише після того, як human_ask явно підтвердить операцію надсилання.",
+    "x_search_terms": [
+      "packet send",
+      "udp send",
+      "tcp send",
+      "тест мережі"
+    ]
+  },
+  "vi": {
+    "tool.description": "Gửi dữ liệu TCP hoặc UDP bị giới hạn; chạy khô được bật theo mặc định.",
+    "param.action.description": "Gửi hành động.",
+    "param.target.description": "Địa chỉ máy chủ hoặc IP mục tiêu.",
+    "param.port.description": "Cổng mục tiêu.",
+    "param.payload.description": "Tải trọng văn bản để gửi.",
+    "param.count.description": "Số lượng gửi.",
+    "param.interval.description": "Khoảng thời gian giữa các lần gửi tính bằng giây.",
+    "param.dry_run.description": "Không gửi dữ liệu; trả lại hoạt động theo kế hoạch.",
+    "param.send_confirmed.description": "Chỉ đặt sau khi human_ask xác nhận rõ ràng thao tác gửi.",
+    "x_search_terms": [
+      "gửi gói",
+      "udp gửi",
+      "tcp gửi",
+      "kiểm tra mạng"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "发送有界TCP或UDP数据；默认情况下启用空运行。",
+    "param.action.description": "发送动作。",
+    "param.target.description": "目标主机或IP地址。",
+    "param.port.description": "目标端口。",
+    "param.payload.description": "要发送的文本有效负载。",
+    "param.count.description": "发送数量。",
+    "param.interval.description": "发送之间的间隔（以秒为单位）。",
+    "param.dry_run.description": "不发送数据；返回计划的操作。",
+    "param.send_confirmed.description": "仅在 human_ask 明确确认发送操作后设置。",
+    "x_search_terms": [
+      "数据包发送",
+      "udp发送",
+      "tcp发送",
+      "网络测试"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "發送有界TCP或UDP資料；預設啟用空運行。",
+    "param.action.description": "發送動作。",
+    "param.target.description": "目標主機或IP位址。",
+    "param.port.description": "目標連接埠。",
+    "param.payload.description": "要發送的文字有效負載。",
+    "param.count.description": "發送數量。",
+    "param.interval.description": "發送之間的間隔（以秒為單位）。",
+    "param.dry_run.description": "不發送資料；返回計劃的操作。",
+    "param.send_confirmed.description": "僅在 human_ask 明確確認發送操作後設定。",
+    "x_search_terms": [
+      "資料包發送",
+      "udp發送",
+      "tcp發送",
+      "網路測試"
+    ]
+  }
+}

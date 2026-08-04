@@ -1,0 +1,648 @@
+{
+  "en": {
+    "tool.description": "Probe a network target using low-privilege socket or privileged packet backends.",
+    "param.action.description": "Probe action.",
+    "param.target.description": "Target host or IP address.",
+    "param.port.description": "Target port.",
+    "param.timeout.description": "Probe timeout in seconds.",
+    "param.allow_elevation.description": "Allow the fixed privileged helper to be started after user confirmation.",
+    "param.elevation_confirmed.description": "Set only after human_ask explicitly confirms elevation.",
+    "param.dry_run.description": "Return a plan without sending a packet.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "ar": {
+    "tool.description": "افحص هدف الشبكة باستخدام مأخذ توصيل منخفض الامتيازات أو الحزم الخلفية ذات الامتيازات.",
+    "param.action.description": "إجراء التحقيق.",
+    "param.target.description": "المضيف المستهدف أو عنوان IP.",
+    "param.port.description": "المنفذ المستهدف.",
+    "param.timeout.description": "مهلة التحقيق في ثوان.",
+    "param.allow_elevation.description": "السماح ببدء تشغيل المساعد المميز الثابت بعد تأكيد المستخدم.",
+    "param.elevation_confirmed.description": "يتم التعيين فقط بعد أن يؤكد human_ask الارتفاع بشكل صريح.",
+    "param.dry_run.description": "قم بإرجاع خطة دون إرسال حزمة.",
+    "x_search_terms": [
+      "مسبار الحزمة",
+      "اتصال TCP",
+      "ICMP",
+      "ARP",
+      "مسبار الشبكة"
+    ]
+  },
+  "bn": {
+    "tool.description": "লো-প্রিভিলেজ সকেট বা প্রিভিলেজড প্যাকেট ব্যাকএন্ড ব্যবহার করে একটি নেটওয়ার্ক লক্ষ্য অনুসন্ধান করুন।",
+    "param.action.description": "তদন্ত কার্যক্রম.",
+    "param.target.description": "লক্ষ্য হোস্ট বা আইপি ঠিকানা.",
+    "param.port.description": "টার্গেট পোর্ট।",
+    "param.timeout.description": "সেকেন্ডের মধ্যে প্রোবের সময়সীমা।",
+    "param.allow_elevation.description": "ব্যবহারকারী নিশ্চিতকরণের পরে নির্দিষ্ট সুবিধাপ্রাপ্ত সাহায্যকারীকে শুরু করার অনুমতি দিন।",
+    "param.elevation_confirmed.description": "human_ask স্পষ্টভাবে উচ্চতা নিশ্চিত করার পরেই সেট করুন৷",
+    "param.dry_run.description": "একটি প্যাকেট না পাঠিয়ে একটি পরিকল্পনা ফেরত.",
+    "x_search_terms": [
+      "প্যাকেট প্রোব",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "নেটওয়ার্ক প্রোব"
+    ]
+  },
+  "cs": {
+    "tool.description": "Prozkoumejte síťový cíl pomocí nízkoprivilegovaného soketu nebo privilegovaných backendů paketů.",
+    "param.action.description": "Akce sondy.",
+    "param.target.description": "Cílový hostitel nebo IP adresa.",
+    "param.port.description": "Cílový port.",
+    "param.timeout.description": "Časový limit sondy v sekundách.",
+    "param.allow_elevation.description": "Umožněte spuštění pevného privilegovaného pomocníka po potvrzení uživatelem.",
+    "param.elevation_confirmed.description": "Nastavte pouze poté, co human_ask výslovně potvrdí nadmořskou výšku.",
+    "param.dry_run.description": "Vraťte plán bez odeslání paketu.",
+    "x_search_terms": [
+      "paketová sonda",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "síťová sonda"
+    ]
+  },
+  "da": {
+    "tool.description": "Undersøg et netværksmål ved hjælp af socket med lavt privilegium eller privilegerede pakke-backends.",
+    "param.action.description": "Sondehandling.",
+    "param.target.description": "Målvært eller IP-adresse.",
+    "param.port.description": "Målhavn.",
+    "param.timeout.description": "Probe timeout i sekunder.",
+    "param.allow_elevation.description": "Tillad, at den faste privilegerede hjælper startes efter brugerbekræftelse.",
+    "param.elevation_confirmed.description": "Indstilles kun efter human_ask eksplicit bekræfter elevation.",
+    "param.dry_run.description": "Returner en plan uden at sende en pakke.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "netværksprobe"
+    ]
+  },
+  "de": {
+    "tool.description": "Prüfen Sie ein Netzwerkziel mithilfe von Sockets mit niedrigen Berechtigungen oder privilegierten Paket-Backends.",
+    "param.action.description": "Sondenaktion.",
+    "param.target.description": "Zielhost oder IP-Adresse.",
+    "param.port.description": "Zielport.",
+    "param.timeout.description": "Probe-Timeout in Sekunden.",
+    "param.allow_elevation.description": "Ermöglichen Sie den Start des Hilfsprogramms mit festen Berechtigungen nach Bestätigung durch den Benutzer.",
+    "param.elevation_confirmed.description": "Wird nur gesetzt, nachdem human_ask die Erhöhung explizit bestätigt hat.",
+    "param.dry_run.description": "Senden Sie einen Plan zurück, ohne ein Paket zu senden.",
+    "x_search_terms": [
+      "Paketprobe",
+      "TCP Connect",
+      "ICMP",
+      "ARP",
+      "Netzwerkprobe"
+    ]
+  },
+  "el": {
+    "tool.description": "Ανιχνεύστε έναν στόχο δικτύου χρησιμοποιώντας υποδοχές χαμηλών προνομίων ή προνομιούχα backend πακέτων.",
+    "param.action.description": "Δράση ανίχνευσης.",
+    "param.target.description": "Στόχευση κεντρικού υπολογιστή ή διεύθυνση IP.",
+    "param.port.description": "Θύρα-στόχος.",
+    "param.timeout.description": "Χρονικό όριο ανίχνευσης σε δευτερόλεπτα.",
+    "param.allow_elevation.description": "Επιτρέψτε την εκκίνηση του σταθερού προνομιακού βοηθού μετά την επιβεβαίωση του χρήστη.",
+    "param.elevation_confirmed.description": "Ορίζεται μόνο αφού το human_ask επιβεβαιώσει ρητά την ανύψωση.",
+    "param.dry_run.description": "Επιστρέψτε ένα σχέδιο χωρίς αποστολή πακέτου.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "es": {
+    "tool.description": "Sondee un objetivo de red utilizando un socket con pocos privilegios o backends de paquetes privilegiados.",
+    "param.action.description": "Acción de sondeo.",
+    "param.target.description": "Host de destino o dirección IP.",
+    "param.port.description": "Puerto de destino.",
+    "param.timeout.description": "Tiempo de espera de la sonda en segundos.",
+    "param.allow_elevation.description": "Permita que se inicie el asistente privilegiado fijo después de la confirmación del usuario.",
+    "param.elevation_confirmed.description": "Se establece solo después de que human_ask confirme explícitamente la elevación.",
+    "param.dry_run.description": "Devolver un plan sin enviar un paquete.",
+    "x_search_terms": [
+      "sonda de paquetes",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonda de red"
+    ]
+  },
+  "fa": {
+    "tool.description": "یک هدف شبکه را با استفاده از سوکت های کم امتیاز یا بسته های پشتیبان دارای امتیاز بررسی کنید.",
+    "param.action.description": "عمل کاوشگر",
+    "param.target.description": "میزبان یا آدرس IP مورد نظر.",
+    "param.port.description": "پورت هدف",
+    "param.timeout.description": "زمان کاوش در چند ثانیه",
+    "param.allow_elevation.description": "پس از تأیید کاربر، به کمک کننده ممتاز ثابت راه اندازی شود.",
+    "param.elevation_confirmed.description": "تنظیم فقط پس از تایید صریح human_ask ارتفاع.",
+    "param.dry_run.description": "طرح را بدون ارسال بسته برگردانید.",
+    "x_search_terms": [
+      "کاوشگر بسته",
+      "tcp اتصال",
+      "icmp",
+      "arp",
+      "کاوشگر شبکه"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tutki verkkokohdetta käyttämällä alhaisten oikeuksien liitäntää tai etuoikeutettuja pakettitaustajärjestelmiä.",
+    "param.action.description": "Tutkimustoiminta.",
+    "param.target.description": "Kohdeisäntä- tai IP-osoite.",
+    "param.port.description": "Kohdeportti.",
+    "param.timeout.description": "Anturin aikakatkaisu sekunneissa.",
+    "param.allow_elevation.description": "Salli kiinteän etuoikeutetun apuohjelman käynnistäminen käyttäjän vahvistuksen jälkeen.",
+    "param.elevation_confirmed.description": "Aseta vasta sen jälkeen, kun human_ask on nimenomaisesti vahvistanut korkeuden.",
+    "param.dry_run.description": "Palauta suunnitelma lähettämättä pakettia.",
+    "x_search_terms": [
+      "pakettianturi",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "fil": {
+    "tool.description": "Suriin ang isang target ng network gamit ang low-privilege socket o privileged packet backends.",
+    "param.action.description": "Aksyon ng pagsisiyasat.",
+    "param.target.description": "Target na host o IP address.",
+    "param.port.description": "Target na port.",
+    "param.timeout.description": "Probe timeout sa ilang segundo.",
+    "param.allow_elevation.description": "Payagan ang nakapirming privileged helper na masimulan pagkatapos ng kumpirmasyon ng user.",
+    "param.elevation_confirmed.description": "Itakda lamang pagkatapos na tahasang kumpirmahin ng human_ask ang elevation.",
+    "param.dry_run.description": "Ibalik ang isang plano nang hindi nagpapadala ng packet.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "fr": {
+    "tool.description": "Sondez une cible réseau à l’aide de sockets à faible privilège ou de backends de paquets privilégiés.",
+    "param.action.description": "Action de sonde.",
+    "param.target.description": "Hôte cible ou adresse IP.",
+    "param.port.description": "Port cible.",
+    "param.timeout.description": "Délai d'expiration de la sonde en secondes.",
+    "param.allow_elevation.description": "Autoriser le démarrage de l'assistant privilégié fixe après confirmation de l'utilisateur.",
+    "param.elevation_confirmed.description": "Défini uniquement après que human_ask ait explicitement confirmé l'élévation.",
+    "param.dry_run.description": "Renvoyez un plan sans envoyer de paquet.",
+    "x_search_terms": [
+      "sonde de paquets",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonde réseau"
+    ]
+  },
+  "he": {
+    "tool.description": "בדוק יעד רשת באמצעות שקע בעל הרשאות נמוכות או קצה אחורי של מנות מורשות.",
+    "param.action.description": "פעולת בדיקה.",
+    "param.target.description": "מארח יעד או כתובת IP.",
+    "param.port.description": "נמל יעד.",
+    "param.timeout.description": "פסק זמן לבדיקה בשניות.",
+    "param.allow_elevation.description": "אפשר להפעיל את המסייע הפריבילגי הקבוע לאחר אישור המשתמש.",
+    "param.elevation_confirmed.description": "מוגדר רק לאחר ש-human_ask מאשר במפורש גובה.",
+    "param.dry_run.description": "החזר תוכנית מבלי לשלוח חבילה.",
+    "x_search_terms": [
+      "בדיקת מנות",
+      "tcp connect",
+      "icmp",
+      "arp",
+      " רשת בדיקה"
+    ]
+  },
+  "hi": {
+    "tool.description": "कम-विशेषाधिकार प्राप्त सॉकेट या विशेषाधिकार प्राप्त पैकेट बैकएंड का उपयोग करके नेटवर्क लक्ष्य की जांच करें।",
+    "param.action.description": "जांच कार्रवाई.",
+    "param.target.description": "लक्ष्य होस्ट या आईपी पता.",
+    "param.port.description": "लक्ष्य बंदरगाह.",
+    "param.timeout.description": "सेकंड में जांच का समय समाप्त।",
+    "param.allow_elevation.description": "उपयोगकर्ता की पुष्टि के बाद निश्चित विशेषाधिकार प्राप्त सहायक को प्रारंभ करने की अनुमति दें।",
+    "param.elevation_confirmed.description": "केवल human_ask द्वारा स्पष्ट रूप से उन्नयन की पुष्टि करने के बाद ही सेट करें।",
+    "param.dry_run.description": "पैकेट भेजे बिना योजना लौटाएँ।",
+    "x_search_terms": [
+      "पैकेट जांच",
+      "tcp कनेक्ट",
+      "icmp",
+      "arp",
+      "नेटवर्क जांच"
+    ]
+  },
+  "hu": {
+    "tool.description": "Tekintse meg a hálózati célt alacsony jogosultságokkal rendelkező socket vagy privilegizált csomag-háttérrendszerek használatával.",
+    "param.action.description": "Szonda akció.",
+    "param.target.description": "Cél gazdagép vagy IP-cím.",
+    "param.port.description": "Cél port.",
+    "param.timeout.description": "A szonda időtúllépése másodpercben.",
+    "param.allow_elevation.description": "A felhasználói jóváhagyás után engedélyezze a rögzített kiváltságos segítő elindítását.",
+    "param.elevation_confirmed.description": "Csak azután állítsa be, hogy a human_ask kifejezetten megerősíti a magasságot.",
+    "param.dry_run.description": "Terv visszaküldése csomag küldése nélkül.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "id": {
+    "tool.description": "Selidiki target jaringan menggunakan soket dengan hak istimewa rendah atau backend paket dengan hak istimewa.",
+    "param.action.description": "Tindakan penyelidikan.",
+    "param.target.description": "Host target atau alamat IP.",
+    "param.port.description": "Pelabuhan sasaran.",
+    "param.timeout.description": "Batas waktu pemeriksaan dalam hitungan detik.",
+    "param.allow_elevation.description": "Izinkan pembantu dengan hak istimewa tetap untuk dimulai setelah konfirmasi pengguna.",
+    "param.elevation_confirmed.description": "Ditetapkan hanya setelah human_ask secara eksplisit mengonfirmasi ketinggian.",
+    "param.dry_run.description": "Kembalikan paket tanpa mengirim paket.",
+    "x_search_terms": [
+      "pemeriksaan paket",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "probe jaringan"
+    ]
+  },
+  "it": {
+    "tool.description": "Sonda un target di rete utilizzando socket a basso privilegio o backend di pacchetti privilegiati.",
+    "param.action.description": "Azione della sonda.",
+    "param.target.description": "Host o indirizzo IP di destinazione.",
+    "param.port.description": "Porta di destinazione.",
+    "param.timeout.description": "Timeout della sonda in secondi.",
+    "param.allow_elevation.description": "Consentire l'avvio dell'helper con privilegi fissi dopo la conferma dell'utente.",
+    "param.elevation_confirmed.description": "Impostato solo dopo che human_ask ha confermato esplicitamente l'elevazione.",
+    "param.dry_run.description": "Restituisci un piano senza inviare un pacchetto.",
+    "x_search_terms": [
+      "sonda pacchetto",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonda di rete"
+    ]
+  },
+  "ja": {
+    "tool.description": "低特権ソケットまたは特権パケット バックエンドを使用してネットワーク ターゲットを調査します。",
+    "param.action.description": "プローブアクション。",
+    "param.target.description": "ターゲットのホストまたは IP アドレス。",
+    "param.port.description": "ターゲットポート。",
+    "param.timeout.description": "プローブのタイムアウト (秒単位)。",
+    "param.allow_elevation.description": "ユーザーの確認後に固定特権ヘルパーを開始できるようにします。",
+    "param.elevation_confirmed.description": "human_ask が明示的に昇格を確認した後にのみ設定されます。",
+    "param.dry_run.description": "パケットを送信せずにプランを返します。",
+    "x_search_terms": [
+      "パケット プローブ",
+      "tcp 接続",
+      "icmp",
+      "arp",
+      "ネットワーク プローブ"
+    ]
+  },
+  "ko": {
+    "tool.description": "낮은 권한의 소켓 또는 권한이 있는 패킷 백엔드를 사용하여 네트워크 대상을 프로브합니다.",
+    "param.action.description": "프로브 동작.",
+    "param.target.description": "대상 호스트 또는 IP 주소.",
+    "param.port.description": "대상 포트.",
+    "param.timeout.description": "프로브 시간 초과(초)입니다.",
+    "param.allow_elevation.description": "사용자 확인 후 고정 권한 도우미가 시작되도록 허용합니다.",
+    "param.elevation_confirmed.description": "human_ask가 명시적으로 권한 상승을 확인한 후에만 설정됩니다.",
+    "param.dry_run.description": "패킷을 보내지 않고 계획을 반환합니다.",
+    "x_search_terms": [
+      "패킷 프로브",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "네트워크 프로브"
+    ]
+  },
+  "mn": {
+    "tool.description": "Бага эрх бүхий сокет эсвэл давуу эрхтэй пакет арын хэсэг ашиглан сүлжээний зорилтот байдлыг шалгана уу.",
+    "param.action.description": "Шинжилгээний үйлдэл.",
+    "param.target.description": "Зорилтот хост эсвэл IP хаяг.",
+    "param.port.description": "Зорилтот порт.",
+    "param.timeout.description": "Шалгалтын хугацаа секундээр.",
+    "param.allow_elevation.description": "Хэрэглэгчийн баталгаажуулсны дараа тогтсон давуу эрх бүхий туслагчийг эхлүүлэхийг зөвшөөрнө үү.",
+    "param.elevation_confirmed.description": "Зөвхөн хүний_асуулт нь өндрийг тодорхой баталгаажуулсны дараа тохируулна.",
+    "param.dry_run.description": "Багц илгээхгүйгээр төлөвлөгөөг буцаана уу.",
+    "x_search_terms": [
+      "пакет шалгагч",
+      "tcp холболт",
+      "icmp",
+      "arp",
+      "сүлжээний датчик"
+    ]
+  },
+  "mr": {
+    "tool.description": "कमी-विशेषाधिकार सॉकेट किंवा विशेषाधिकारित पॅकेट बॅकएंड्स वापरून नेटवर्क लक्ष्याची तपासणी करा.",
+    "param.action.description": "चौकशी कारवाई.",
+    "param.target.description": "लक्ष्य होस्ट किंवा IP पत्ता.",
+    "param.port.description": "लक्ष्य बंदर.",
+    "param.timeout.description": "काही सेकंदात प्रोब टाइमआउट.",
+    "param.allow_elevation.description": "वापरकर्त्याच्या पुष्टीकरणानंतर निश्चित विशेषाधिकारित मदतनीस सुरू करण्यास अनुमती द्या.",
+    "param.elevation_confirmed.description": "human_ask स्पष्टपणे उंचीची पुष्टी केल्यानंतरच सेट करा.",
+    "param.dry_run.description": "पॅकेट न पाठवता योजना परत करा.",
+    "x_search_terms": [
+      "पॅकेट प्रोब",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "ms": {
+    "tool.description": "Siasat sasaran rangkaian menggunakan soket keistimewaan rendah atau hujung belakang paket istimewa.",
+    "param.action.description": "Tindakan siasat.",
+    "param.target.description": "Hos sasaran atau alamat IP.",
+    "param.port.description": "Pelabuhan sasaran.",
+    "param.timeout.description": "Tamat masa siasatan dalam beberapa saat.",
+    "param.allow_elevation.description": "Benarkan pembantu istimewa tetap dimulakan selepas pengesahan pengguna.",
+    "param.elevation_confirmed.description": "Tetapkan hanya selepas human_ask secara jelas mengesahkan ketinggian.",
+    "param.dry_run.description": "Kembalikan pelan tanpa menghantar paket.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "nb": {
+    "tool.description": "Undersøk et nettverksmål ved å bruke socket med lav privilegium eller privilegerte pakkestøtter.",
+    "param.action.description": "Sondehandling.",
+    "param.target.description": "Målvert eller IP-adresse.",
+    "param.port.description": "Målport.",
+    "param.timeout.description": "Probe timeout i sekunder.",
+    "param.allow_elevation.description": "Tillat at den faste privilegerte hjelperen startes etter brukerbekreftelse.",
+    "param.elevation_confirmed.description": "Sett kun etter at human_ask eksplisitt bekrefter høyde.",
+    "param.dry_run.description": "Returner en plan uten å sende en pakke.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "nettverksprobe"
+    ]
+  },
+  "nl": {
+    "tool.description": "Onderzoek een netwerkdoel met behulp van sockets met lage bevoegdheden of geprivilegieerde pakketbackends.",
+    "param.action.description": "Sonde-actie.",
+    "param.target.description": "Doelhost of IP-adres.",
+    "param.port.description": "Doelpoort.",
+    "param.timeout.description": "Time-out van sonde in seconden.",
+    "param.allow_elevation.description": "Sta toe dat de vaste geprivilegieerde helper wordt gestart na bevestiging van de gebruiker.",
+    "param.elevation_confirmed.description": "Wordt alleen ingesteld nadat human_ask de hoogte expliciet heeft bevestigd.",
+    "param.dry_run.description": "Retourneer een plan zonder een pakket te verzenden.",
+    "x_search_terms": [
+      "pakketprobe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "netwerkprobe"
+    ]
+  },
+  "nn": {
+    "tool.description": "Probe et nettverksmål ved hjelp av lav-privilege socket eller privilegerte pakke backends.",
+    "param.action.description": "Sond handling.",
+    "param.target.description": "Målvert eller IP-adresse.",
+    "param.port.description": "Målport.",
+    "param.timeout.description": "Tidsavbrudd for sonde i sekunder.",
+    "param.allow_elevation.description": "Tillat at den faste privilegerte hjelperen startes etter brukerbekreftelse.",
+    "param.elevation_confirmed.description": "Sett først etter at human_ask eksplisitt bekrefter elevasjon.",
+    "param.dry_run.description": "Returner plan uten å sende pakke.",
+    "x_search_terms": [
+      "packet probetcp connect icmparp nettverksprobe",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Sonduj cel sieciowy, korzystając z gniazd o niskim poziomie uprawnień lub uprzywilejowanych pakietów.",
+    "param.action.description": "Akcja sondy.",
+    "param.target.description": "Docelowy host lub adres IP.",
+    "param.port.description": "Port docelowy.",
+    "param.timeout.description": "Limit czasu sondy w sekundach.",
+    "param.allow_elevation.description": "Zezwól na uruchomienie stałego uprzywilejowanego pomocnika po potwierdzeniu przez użytkownika.",
+    "param.elevation_confirmed.description": "Ustawiane dopiero po jawnym potwierdzeniu przez human_ask podniesienia poziomu.",
+    "param.dry_run.description": "Zwróć plan bez wysyłania pakietu.",
+    "x_search_terms": [
+      "sonda pakietowa",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonda sieciowa"
+    ]
+  },
+  "pt": {
+    "tool.description": "Teste um alvo de rede usando soquete de baixo privilégio ou back-ends de pacotes privilegiados.",
+    "param.action.description": "Ação de sondagem.",
+    "param.target.description": "Host de destino ou endereço IP.",
+    "param.port.description": "Porta de destino.",
+    "param.timeout.description": "Tempo limite da sonda em segundos.",
+    "param.allow_elevation.description": "Permitir que o auxiliar privilegiado fixo seja iniciado após a confirmação do usuário.",
+    "param.elevation_confirmed.description": "Definido somente após human_ask confirmar explicitamente a elevação.",
+    "param.dry_run.description": "Retorne um plano sem enviar um pacote.",
+    "x_search_terms": [
+      "sonda de pacote",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonda de rede"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Teste um alvo de rede usando soquete de baixo privilégio ou back-ends de pacotes privilegiados.",
+    "param.action.description": "Ação de sondagem.",
+    "param.target.description": "Host de destino ou endereço IP.",
+    "param.port.description": "Porta de destino.",
+    "param.timeout.description": "Tempo limite da sonda em segundos.",
+    "param.allow_elevation.description": "Permitir que o auxiliar privilegiado fixo seja iniciado após a confirmação do usuário.",
+    "param.elevation_confirmed.description": "Definido somente após human_ask confirmar explicitamente a elevação.",
+    "param.dry_run.description": "Retorne um plano sem enviar um pacote.",
+    "x_search_terms": [
+      "sonda de pacote",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sonda de rede"
+    ]
+  },
+  "ro": {
+    "tool.description": "Sondați o țintă de rețea folosind socket cu privilegii reduse sau backend-uri de pachete privilegiate.",
+    "param.action.description": "Acțiunea sondei.",
+    "param.target.description": "Gazdă țintă sau adresa IP.",
+    "param.port.description": "Port țintă.",
+    "param.timeout.description": "Timeout sondei în secunde.",
+    "param.allow_elevation.description": "Permiteți pornirea ajutorului cu privilegii fixe după confirmarea utilizatorului.",
+    "param.elevation_confirmed.description": "Setați numai după ce human_ask confirmă în mod explicit elevația.",
+    "param.dry_run.description": "Returnează un plan fără a trimite un pachet.",
+    "x_search_terms": [
+      "sonda de pachete",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "sondă de rețea"
+    ]
+  },
+  "ru": {
+    "tool.description": "Проверьте сетевую цель, используя сокет с низким уровнем привилегий или серверные части с привилегированными пакетами.",
+    "param.action.description": "Зондовое действие.",
+    "param.target.description": "Целевой хост или IP-адрес.",
+    "param.port.description": "Целевой порт.",
+    "param.timeout.description": "Тайм-аут зонда в секундах.",
+    "param.allow_elevation.description": "Разрешить запуск фиксированного привилегированного помощника после подтверждения пользователя.",
+    "param.elevation_confirmed.description": "Устанавливается только после того, как human_ask явно подтвердит повышение прав.",
+    "param.dry_run.description": "Вернуть план без отправки пакета.",
+    "x_search_terms": [
+      "проверка пакета",
+      "tcp Connect",
+      "icmp",
+      "arp",
+      "сетевая проба"
+    ]
+  },
+  "sv": {
+    "tool.description": "Undersök ett nätverksmål med lågprivilegierade socket eller privilegierade paketbackends.",
+    "param.action.description": "Sondåtgärd.",
+    "param.target.description": "Målvärd eller IP-adress.",
+    "param.port.description": "Målhamn.",
+    "param.timeout.description": "Sond-timeout på sekunder.",
+    "param.allow_elevation.description": "Låt den fasta privilegierade hjälparen startas efter användarbekräftelse.",
+    "param.elevation_confirmed.description": "Ställs endast efter att human_ask uttryckligen bekräftar höjden.",
+    "param.dry_run.description": "Returnera en plan utan att skicka ett paket.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "nätverksprob"
+    ]
+  },
+  "sw": {
+    "tool.description": "Chunguza lengo la mtandao ukitumia soketi za upendeleo wa chini au viunga vya nyuma vya pakiti za bahati.",
+    "param.action.description": "Kitendo cha uchunguzi.",
+    "param.target.description": "Mpangishi lengwa au anwani ya IP.",
+    "param.port.description": "Bandari inayolengwa.",
+    "param.timeout.description": "Chunguza muda umeisha kwa sekunde.",
+    "param.allow_elevation.description": "Ruhusu usaidizi uliobahatika kuanzishwa baada ya uthibitishaji wa mtumiaji.",
+    "param.elevation_confirmed.description": "Imewekwa tu baada ya human_ask kuthibitisha kwa uwazi mwinuko.",
+    "param.dry_run.description": "Rudisha mpango bila kutuma pakiti.",
+    "x_search_terms": [
+      "uchunguzi wa pakiti",
+      "tcp unganisha",
+      "icmp",
+      "arp",
+      " mtandao wa uchunguzi"
+    ]
+  },
+  "th": {
+    "tool.description": "ตรวจสอบเป้าหมายเครือข่ายโดยใช้ซ็อกเก็ตสิทธิ์ต่ำหรือแบ็กเอนด์แพ็กเก็ตที่มีสิทธิ์",
+    "param.action.description": "การดำเนินการสอบสวน",
+    "param.target.description": "โฮสต์เป้าหมายหรือที่อยู่ IP",
+    "param.port.description": "พอร์ตเป้าหมาย",
+    "param.timeout.description": "การหมดเวลาของโพรบเป็นวินาที",
+    "param.allow_elevation.description": "อนุญาตให้เริ่มตัวช่วยที่มีสิทธิพิเศษแบบคงที่ได้หลังจากที่ผู้ใช้ยืนยัน",
+    "param.elevation_confirmed.description": "ตั้งค่าหลังจาก human_ask ยืนยันระดับความสูงอย่างชัดเจนเท่านั้น",
+    "param.dry_run.description": "คืนแผนโดยไม่ต้องส่งแพ็กเก็ต",
+    "x_search_terms": [
+      "แพ็คเก็ตโพรบ",
+      "tcpเชื่อมต่อ",
+      "icmp",
+      "arp",
+      "โพรบเครือข่าย"
+    ]
+  },
+  "tr": {
+    "tool.description": "Düşük ayrıcalıklı soket veya ayrıcalıklı paket arka uçlarını kullanarak bir ağ hedefini araştırın.",
+    "param.action.description": "Prob eylemi.",
+    "param.target.description": "Hedef ana bilgisayar veya IP adresi.",
+    "param.port.description": "Hedef bağlantı noktası.",
+    "param.timeout.description": "Saniye cinsinden prob zaman aşımı.",
+    "param.allow_elevation.description": "Kullanıcı onayından sonra sabit ayrıcalıklı yardımcının başlatılmasına izin verin.",
+    "param.elevation_confirmed.description": "Yalnızca human_ask'ın yüksekliği açıkça onaylamasından sonra ayarlayın.",
+    "param.dry_run.description": "Paket göndermeden bir plan döndürün.",
+    "x_search_terms": [
+      "paket probu",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "ağ probu"
+    ]
+  },
+  "uk": {
+    "tool.description": "Перевірте цільову мережу за допомогою сокета з низьким рівнем привілеїв або привілейованих пакетів.",
+    "param.action.description": "Дія зонда.",
+    "param.target.description": "Цільовий хост або IP-адреса.",
+    "param.port.description": "Цільовий порт.",
+    "param.timeout.description": "Тайм-аут зонду в секундах.",
+    "param.allow_elevation.description": "Дозволити запуск фіксованого привілейованого помічника після підтвердження користувача.",
+    "param.elevation_confirmed.description": "Встановлюється лише після того, як human_ask явно підтвердить підвищення.",
+    "param.dry_run.description": "Повернути план без надсилання пакету.",
+    "x_search_terms": [
+      "packet probe",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "network probe"
+    ]
+  },
+  "vi": {
+    "tool.description": "Thăm dò mục tiêu mạng bằng cách sử dụng ổ cắm đặc quyền thấp hoặc phụ trợ gói đặc quyền.",
+    "param.action.description": "Hành động thăm dò.",
+    "param.target.description": "Địa chỉ máy chủ hoặc IP mục tiêu.",
+    "param.port.description": "Cổng mục tiêu.",
+    "param.timeout.description": "Thăm dò thời gian chờ tính bằng giây.",
+    "param.allow_elevation.description": "Cho phép khởi động trình trợ giúp đặc quyền cố định sau khi người dùng xác nhận.",
+    "param.elevation_confirmed.description": "Chỉ đặt sau khi human_ask xác nhận rõ ràng độ cao.",
+    "param.dry_run.description": "Trả lại gói mà không gửi gói.",
+    "x_search_terms": [
+      "thăm dò gói",
+      "tcp connect",
+      "icmp",
+      "arp",
+      "đầu dò mạng"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "使用低特权套接字或特权数据包后端探测网络目标。",
+    "param.action.description": "探测动作。",
+    "param.target.description": "目标主机或IP地址。",
+    "param.port.description": "目标端口。",
+    "param.timeout.description": "探测超时（以秒为单位）。",
+    "param.allow_elevation.description": "允许在用户确认后启动固定特权助手。",
+    "param.elevation_confirmed.description": "仅在 human_ask 明确确认海拔高度后设置。",
+    "param.dry_run.description": "返回计划而不发送数据包。",
+    "x_search_terms": [
+      "数据包探测",
+      "tcp连接",
+      "icmp",
+      "arp",
+      "网络探测"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "使用低特權套接字或特權資料包後端來偵測網路目標。",
+    "param.action.description": "探測動作。",
+    "param.target.description": "目標主機或IP位址。",
+    "param.port.description": "目標連接埠。",
+    "param.timeout.description": "探測超時（以秒為單位）。",
+    "param.allow_elevation.description": "允許在使用者確認後啟動固定特權助手。",
+    "param.elevation_confirmed.description": "僅在 human_ask 明確確認海拔高度後設定。",
+    "param.dry_run.description": "返回計劃而不發送資料包。",
+    "x_search_terms": [
+      "封包探測",
+      "tcp連接",
+      "icmp",
+      "arp",
+      "網路探測"
+    ]
+  }
+}

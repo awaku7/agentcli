@@ -1,0 +1,496 @@
+{
+  "en": {
+    "tool.description": "Discover TCP ports using a low-privilege Python socket backend.",
+    "param.mode.description": "Discovery mode.",
+    "param.target.description": "Single host or IP address.",
+    "param.ports.description": "TCP ports to check.",
+    "param.timeout.description": "Connection timeout in seconds.",
+    "x_search_terms": [
+      "network discovery",
+      "port scan",
+      "tcp scan",
+      "open port"
+    ]
+  },
+  "ar": {
+    "tool.description": "اكتشف منافذ TCP باستخدام واجهة مقبس Python الخلفية ذات الامتيازات المنخفضة.",
+    "param.mode.description": "وضع الاكتشاف.",
+    "param.target.description": "مضيف واحد أو عنوان IP.",
+    "param.ports.description": "منافذ TCP للتحقق.",
+    "param.timeout.description": "مهلة الاتصال بالثواني.",
+    "x_search_terms": [
+      "اكتشاف الشبكة",
+      "فحص المنافذ",
+      "مسح TCP",
+      "فتح المنفذ"
+    ]
+  },
+  "bn": {
+    "tool.description": "একটি নিম্ন-সুবিধা পাইথন সকেট ব্যাকএন্ড ব্যবহার করে TCP পোর্টগুলি আবিষ্কার করুন।",
+    "param.mode.description": "আবিষ্কার মোড।",
+    "param.target.description": "একক হোস্ট বা আইপি ঠিকানা।",
+    "param.ports.description": "TCP পোর্ট চেক করতে.",
+    "param.timeout.description": "সেকেন্ডের মধ্যে সংযোগের সময়সীমা।",
+    "x_search_terms": [
+      "নেটওয়ার্ক আবিষ্কার",
+      "পোর্ট স্ক্যান",
+      "tcp স্ক্যান",
+      "ওপেন পোর্ট"
+    ]
+  },
+  "cs": {
+    "tool.description": "Objevte porty TCP pomocí nízkoprivilegovaného backendu soketu Pythonu.",
+    "param.mode.description": "Režim Discovery.",
+    "param.target.description": "Jediný hostitel nebo IP adresa.",
+    "param.ports.description": "TCP porty ke kontrole.",
+    "param.timeout.description": "Časový limit připojení v sekundách.",
+    "x_search_terms": [
+      "network discovery",
+      "port scan",
+      "tcp scan",
+      "open port"
+    ]
+  },
+  "da": {
+    "tool.description": "Opdag TCP-porte ved hjælp af en Python-socket-backend med lavt privilegium.",
+    "param.mode.description": "Opdagelsestilstand.",
+    "param.target.description": "Enkelt vært eller IP-adresse.",
+    "param.ports.description": "TCP-porte for at kontrollere.",
+    "param.timeout.description": "Forbindelse timeout i sekunder.",
+    "x_search_terms": [
+      "netværksopdagelse",
+      "portscanning",
+      "tcp-scanning",
+      "åben port"
+    ]
+  },
+  "de": {
+    "tool.description": "Ermitteln Sie TCP-Ports mithilfe eines Python-Socket-Backends mit geringen Berechtigungen.",
+    "param.mode.description": "Entdeckungsmodus.",
+    "param.target.description": "Einzelner Host oder einzelne IP-Adresse.",
+    "param.ports.description": "Zu überprüfende TCP-Ports.",
+    "param.timeout.description": "Verbindungszeitlimit in Sekunden.",
+    "x_search_terms": [
+      "Netzwerkerkennung",
+      "Port-Scan",
+      "TCP-Scan",
+      "Offener Port"
+    ]
+  },
+  "el": {
+    "tool.description": "Ανακαλύψτε θύρες TCP χρησιμοποιώντας ένα backend υποδοχών Python χαμηλών προνομίων.",
+    "param.mode.description": "Λειτουργία εντοπισμού.",
+    "param.target.description": "Ενιαίος κεντρικός υπολογιστής ή διεύθυνση IP.",
+    "param.ports.description": "Θύρες TCP για έλεγχο.",
+    "param.timeout.description": "Λήξη χρονικού ορίου σύνδεσης σε δευτερόλεπτα.",
+    "x_search_terms": [
+      "εντοπισμός δικτύου",
+      "σάρωση θύρας",
+      "σάρωση tcp",
+      "ανοιχτή θύρα"
+    ]
+  },
+  "es": {
+    "tool.description": "Descubra los puertos TCP utilizando un backend de socket Python con bajos privilegios.",
+    "param.mode.description": "Modo descubrimiento.",
+    "param.target.description": "Host único o dirección IP.",
+    "param.ports.description": "Puertos TCP para comprobar.",
+    "param.timeout.description": "Tiempo de espera de conexión en segundos.",
+    "x_search_terms": [
+      "descubrimiento de red",
+      "escaneo de puertos",
+      "escaneo tcp",
+      "puerto abierto"
+    ]
+  },
+  "fa": {
+    "tool.description": "پورت‌های TCP را با استفاده از سوکت پایتون با امتیاز پایین کشف کنید.",
+    "param.mode.description": "حالت کشف",
+    "param.target.description": "یک هاست یا آدرس IP.",
+    "param.ports.description": "پورت های TCP برای بررسی",
+    "param.timeout.description": "پایان زمان اتصال در چند ثانیه.",
+    "x_search_terms": [
+      "کشف شبکه",
+      "اسکن پورت",
+      "اسکن tcp",
+      "پورت باز"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tutustu TCP-portteihin matalan etuoikeuden omaavan Python-socket-taustajärjestelmän avulla.",
+    "param.mode.description": "Löytötila.",
+    "param.target.description": "Yksi isäntä tai IP-osoite.",
+    "param.ports.description": "TCP-portit tarkistettavaksi.",
+    "param.timeout.description": "Yhteyden aikakatkaisu sekunneissa.",
+    "x_search_terms": [
+      "verkon etsintä",
+      "portin skannaus",
+      "tcp-skannaus",
+      "avoin portti"
+    ]
+  },
+  "fil": {
+    "tool.description": "Tuklasin ang mga TCP port gamit ang isang low-privilege na Python socket backend.",
+    "param.mode.description": "Discovery mode.",
+    "param.target.description": "Isang host o IP address.",
+    "param.ports.description": "TCP port upang suriin.",
+    "param.timeout.description": "Timeout ng koneksyon sa ilang segundo.",
+    "x_search_terms": [
+      "pagtuklas ng network",
+      "port scan",
+      "tcp scan",
+      "bukas na port"
+    ]
+  },
+  "fr": {
+    "tool.description": "Découvrez les ports TCP à l'aide d'un backend de socket Python à faibles privilèges.",
+    "param.mode.description": "Mode découverte.",
+    "param.target.description": "Hôte unique ou adresse IP.",
+    "param.ports.description": "Ports TCP à vérifier.",
+    "param.timeout.description": "Délai d'expiration de la connexion en secondes.",
+    "x_search_terms": [
+      "découverte du réseau",
+      "analyse des ports",
+      "analyse TCP",
+      "ouvrir le port"
+    ]
+  },
+  "he": {
+    "tool.description": "גלה יציאות TCP באמצעות קצה אחורי של שקע Python בעל הרשאות נמוכה.",
+    "param.mode.description": "מצב גילוי.",
+    "param.target.description": "מארח בודד או כתובת IP.",
+    "param.ports.description": "יציאות TCP לבדיקה.",
+    "param.timeout.description": "פסק זמן לחיבור בשניות.",
+    "x_search_terms": [
+      "רשת גילוי",
+      "סריקת יציאות",
+      "tcp scan",
+      "יציאה פתוחה"
+    ]
+  },
+  "hi": {
+    "tool.description": "कम-विशेषाधिकार वाले पायथन सॉकेट बैकएंड का उपयोग करके टीसीपी पोर्ट खोजें।",
+    "param.mode.description": "डिस्कवरी मोड.",
+    "param.target.description": "एकल होस्ट या आईपी पता.",
+    "param.ports.description": "जाँच करने के लिए टीसीपी पोर्ट।",
+    "param.timeout.description": "सेकंड में कनेक्शन टाइमआउट.",
+    "x_search_terms": [
+      "नेटवर्क डिस्कवरी",
+      "पोर्ट स्कैन",
+      "टीसीपी स्कैन",
+      "ओपन पोर्ट"
+    ]
+  },
+  "hu": {
+    "tool.description": "Fedezze fel a TCP-portokat alacsony jogosultságokkal rendelkező Python socket háttérprogram segítségével.",
+    "param.mode.description": "Felfedezési mód.",
+    "param.target.description": "Egyetlen gazdagép vagy IP-cím.",
+    "param.ports.description": "ellenőrizni kívánt TCP portok.",
+    "param.timeout.description": "A kapcsolat időtúllépése másodpercben.",
+    "x_search_terms": [
+      "hálózatfelderítés",
+      "port vizsgálat",
+      "tcp scan",
+      "nyitott port"
+    ]
+  },
+  "id": {
+    "tool.description": "Temukan port TCP menggunakan backend soket Python dengan hak istimewa rendah.",
+    "param.mode.description": "Modus penemuan.",
+    "param.target.description": "Host tunggal atau alamat IP.",
+    "param.ports.description": "Port TCP untuk diperiksa.",
+    "param.timeout.description": "Batas waktu koneksi habis dalam hitungan detik.",
+    "x_search_terms": [
+      "penemuan jaringan",
+      "pemindaian port",
+      "pemindaian tcp",
+      "port terbuka"
+    ]
+  },
+  "it": {
+    "tool.description": "Scopri le porte TCP utilizzando un backend socket Python a basso privilegio.",
+    "param.mode.description": "Modalità di scoperta.",
+    "param.target.description": "Singolo host o indirizzo IP.",
+    "param.ports.description": "Porte TCP da controllare.",
+    "param.timeout.description": "Timeout della connessione in secondi.",
+    "x_search_terms": [
+      "rilevamento rete",
+      "scansione porta",
+      "scansione TCP",
+      "porta aperta"
+    ]
+  },
+  "ja": {
+    "tool.description": "低特権の Python ソケット バックエンドを使用して TCP ポートを検出します。",
+    "param.mode.description": "ディスカバリーモード。",
+    "param.target.description": "単一のホストまたは IP アドレス。",
+    "param.ports.description": "確認する TCP ポート。",
+    "param.timeout.description": "接続タイムアウト (秒単位)。",
+    "x_search_terms": [
+      "ネットワーク検出",
+      "ポートスキャン",
+      "tcpスキャン",
+      "ポートを開く"
+    ]
+  },
+  "ko": {
+    "tool.description": "낮은 권한의 Python 소켓 백엔드를 사용하여 TCP 포트를 검색합니다.",
+    "param.mode.description": "발견 모드.",
+    "param.target.description": "단일 호스트 또는 IP 주소.",
+    "param.ports.description": "확인할 TCP 포트.",
+    "param.timeout.description": "연결 시간 초과(초)입니다.",
+    "x_search_terms": [
+      "네트워크 검색",
+      "포트 스캔",
+      "tcp 스캔",
+      "열린 포트"
+    ]
+  },
+  "mn": {
+    "tool.description": "Бага эрх бүхий Python залгуурыг ашиглан TCP портуудыг олж мэдээрэй.",
+    "param.mode.description": "Нээлтийн горим.",
+    "param.target.description": "Ганц хост эсвэл IP хаяг.",
+    "param.ports.description": "TCP портуудыг шалгах.",
+    "param.timeout.description": "Холболтын хугацаа секундээр.",
+    "x_search_terms": [
+      "сүлжээний нээлт",
+      "портын скан",
+      "tcp скан",
+      " портыг нээх"
+    ]
+  },
+  "mr": {
+    "tool.description": "कमी-विशेषाधिकार पायथन सॉकेट बॅकएंड वापरून TCP पोर्ट शोधा.",
+    "param.mode.description": "शोध मोड.",
+    "param.target.description": "एकल होस्ट किंवा IP पत्ता.",
+    "param.ports.description": "तपासण्यासाठी TCP पोर्ट.",
+    "param.timeout.description": "कनेक्शन कालबाह्य सेकंदात.",
+    "x_search_terms": [
+      "नेटवर्क डिस्कवरी",
+      "पोर्ट स्कॅन",
+      "tcp स्कॅन",
+      "ओपन पोर्ट"
+    ]
+  },
+  "ms": {
+    "tool.description": "Temui port TCP menggunakan hujung belakang soket Python yang mempunyai keistimewaan rendah.",
+    "param.mode.description": "Mod penemuan.",
+    "param.target.description": "Hos tunggal atau alamat IP.",
+    "param.ports.description": "Port TCP untuk diperiksa.",
+    "param.timeout.description": "Tamat masa sambungan dalam beberapa saat.",
+    "x_search_terms": [
+      "penemuan rangkaian",
+      "imbasan port",
+      "imbasan tcp",
+      "port terbuka"
+    ]
+  },
+  "nb": {
+    "tool.description": "Oppdag TCP-porter ved å bruke en Python-socket-backend med lavt privilegium.",
+    "param.mode.description": "Oppdagelsesmodus.",
+    "param.target.description": "Enkelt vert eller IP-adresse.",
+    "param.ports.description": "TCP-porter for å sjekke.",
+    "param.timeout.description": "Tidsavbrudd for tilkobling i sekunder.",
+    "x_search_terms": [
+      "nettverksoppdaging",
+      "portskanning",
+      "tcp-skanning",
+      "åpen port"
+    ]
+  },
+  "nl": {
+    "tool.description": "Ontdek TCP-poorten met behulp van een Python-socket-backend met lage bevoegdheden.",
+    "param.mode.description": "Ontdekkingsmodus.",
+    "param.target.description": "Eén host of IP-adres.",
+    "param.ports.description": "TCP-poorten om te controleren.",
+    "param.timeout.description": "Verbindingstime-out in seconden.",
+    "x_search_terms": [
+      "netwerkdetectie",
+      "poortscan",
+      "tcp-scan",
+      "open poort"
+    ]
+  },
+  "nn": {
+    "tool.description": "Oppdag TCP-porter ved hjelp av en lav-privilegium Python-sokkel-backend.",
+    "param.mode.description": "Oppdagelsesmodus.",
+    "param.target.description": "Enkeltvert eller IP-adresse.",
+    "param.ports.description": "TCP-porter for å sjekke.",
+    "param.timeout.description": "Tidsavbrudd for tilkobling i sekunder.",
+    "x_search_terms": [
+      "nettverksoppdagelse,portskanning,tcp-skanning, åpen port",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Odkryj porty TCP przy użyciu zaplecza gniazda Pythona o niskich uprawnieniach.",
+    "param.mode.description": "Tryb odkrywania.",
+    "param.target.description": "Pojedynczy host lub adres IP.",
+    "param.ports.description": "Porty TCP do sprawdzenia.",
+    "param.timeout.description": "Limit czasu połączenia w sekundach.",
+    "x_search_terms": [
+      "wykrywanie sieci",
+      "skanowanie portów",
+      "skanowanie TCP",
+      "otwieranie portu"
+    ]
+  },
+  "pt": {
+    "tool.description": "Descubra portas TCP usando um back-end de soquete Python de baixo privilégio.",
+    "param.mode.description": "Modo de descoberta.",
+    "param.target.description": "Host único ou endereço IP.",
+    "param.ports.description": "Portas TCP a serem verificadas.",
+    "param.timeout.description": "Tempo limite de conexão em segundos.",
+    "x_search_terms": [
+      "descoberta de rede",
+      "port scan",
+      "tcp scan",
+      "open port"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Descubra portas TCP usando um back-end de soquete Python de baixo privilégio.",
+    "param.mode.description": "Modo de descoberta.",
+    "param.target.description": "Host único ou endereço IP.",
+    "param.ports.description": "Portas TCP a serem verificadas.",
+    "param.timeout.description": "Tempo limite de conexão em segundos.",
+    "x_search_terms": [
+      "descoberta de rede",
+      "port scan",
+      "tcp scan",
+      "open port"
+    ]
+  },
+  "ro": {
+    "tool.description": "Descoperiți porturile TCP folosind un backend de socket Python cu privilegii reduse.",
+    "param.mode.description": "Modul de descoperire.",
+    "param.target.description": "O singură gazdă sau adresă IP.",
+    "param.ports.description": "Porturi TCP de verificat.",
+    "param.timeout.description": "Timeout conexiune în secunde.",
+    "x_search_terms": [
+      "descoperire rețea",
+      "scanare port",
+      "scanare tcp",
+      "port deschis"
+    ]
+  },
+  "ru": {
+    "tool.description": "Обнаруживайте TCP-порты с помощью серверной части сокетов Python с низким уровнем привилегий.",
+    "param.mode.description": "Режим обнаружения.",
+    "param.target.description": "Один хост или IP-адрес.",
+    "param.ports.description": "TCP-порты для проверки.",
+    "param.timeout.description": "Таймаут соединения в секундах.",
+    "x_search_terms": [
+      "обнаружение сети",
+      "сканирование портов",
+      "сканирование TCP",
+      "открытый порт"
+    ]
+  },
+  "sv": {
+    "tool.description": "Upptäck TCP-portar med en lågprivilegierad Python-socket-backend.",
+    "param.mode.description": "Upptäcktsläge.",
+    "param.target.description": "Enskild värd eller IP-adress.",
+    "param.ports.description": "TCP-portar att kontrollera.",
+    "param.timeout.description": "Timeout för anslutning på sekunder.",
+    "x_search_terms": [
+      "nätverksupptäckt",
+      "portskanning",
+      "tcp-skanning",
+      "öppen port"
+    ]
+  },
+  "sw": {
+    "tool.description": "Gundua bandari za TCP ukitumia mazingira ya chini ya tundu la Python.",
+    "param.mode.description": "Hali ya ugunduzi.",
+    "param.target.description": "Mpangishi mmoja au anwani ya IP.",
+    "param.ports.description": "TCP bandari kuangalia.",
+    "param.timeout.description": "Muda wa muunganisho umekwisha kwa sekunde.",
+    "x_search_terms": [
+      "ugunduzi wa mtandao",
+      "uchanganuzi wa bandari",
+      "tcp utambazaji",
+      "mlango wazi"
+    ]
+  },
+  "th": {
+    "tool.description": "ค้นหาพอร์ต TCP โดยใช้แบ็กเอนด์ซ็อกเก็ต Python ที่มีสิทธิ์ต่ำ",
+    "param.mode.description": "โหมดการค้นพบ",
+    "param.target.description": "โฮสต์เดียวหรือที่อยู่ IP",
+    "param.ports.description": "พอร์ต TCP ที่จะตรวจสอบ",
+    "param.timeout.description": "หมดเวลาการเชื่อมต่อในไม่กี่วินาที",
+    "x_search_terms": [
+      "การค้นพบเครือข่าย",
+      "สแกนพอร์ต",
+      "สแกน tcp",
+      "เปิดพอร์ต"
+    ]
+  },
+  "tr": {
+    "tool.description": "Düşük ayrıcalıklı bir Python soket arka ucu kullanarak TCP bağlantı noktalarını keşfedin.",
+    "param.mode.description": "Keşif modu.",
+    "param.target.description": "Tek ana bilgisayar veya IP adresi.",
+    "param.ports.description": "Kontrol edilecek TCP bağlantı noktaları.",
+    "param.timeout.description": "Saniye cinsinden bağlantı zaman aşımı.",
+    "x_search_terms": [
+      "ağ keşfi",
+      "bağlantı noktası taraması",
+      "tcp taraması",
+      "bağlantı noktasını aç"
+    ]
+  },
+  "uk": {
+    "tool.description": "Відкрийте для себе порти TCP за допомогою бекенда сокетів Python з низьким рівнем привілеїв.",
+    "param.mode.description": "Режим виявлення.",
+    "param.target.description": "Один хост або IP-адреса.",
+    "param.ports.description": "Перевірити порти TCP.",
+    "param.timeout.description": "Час очікування підключення в секундах.",
+    "x_search_terms": [
+      "виявлення мережі",
+      "сканування порту",
+      "сканування TCP",
+      "відкритий порт"
+    ]
+  },
+  "vi": {
+    "tool.description": "Khám phá các cổng TCP bằng cách sử dụng chương trình phụ trợ ổ cắm Python có đặc quyền thấp.",
+    "param.mode.description": "Chế độ khám phá",
+    "param.target.description": "Địa chỉ máy chủ hoặc IP duy nhất.",
+    "param.ports.description": "Cổng TCP để kiểm tra.",
+    "param.timeout.description": "Thời gian chờ kết nối tính bằng giây.",
+    "x_search_terms": [
+      "khám phá mạng",
+      "quét cổng",
+      "quét tcp",
+      "mở cổng"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "使用低权限 Python 套接字后端发现 TCP 端口。",
+    "param.mode.description": "发现模式。",
+    "param.target.description": "单个主机或 IP 地址。",
+    "param.ports.description": "要检查的 TCP 端口。",
+    "param.timeout.description": "连接超时（以秒为单位）。",
+    "x_search_terms": [
+      "网络发现",
+      "端口扫描",
+      "tcp扫描",
+      "开放端口"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "使用低權限 Python 套接字後端發現 TCP 連接埠。",
+    "param.mode.description": "發現模式。",
+    "param.target.description": "單一主機或 IP 位址。",
+    "param.ports.description": "要檢查的 TCP 連接埠。",
+    "param.timeout.description": "連接超時（以秒為單位）。",
+    "x_search_terms": [
+      "網路發現",
+      "端口掃描",
+      "tcp掃描",
+      "開放端口"
+    ]
+  }
+}

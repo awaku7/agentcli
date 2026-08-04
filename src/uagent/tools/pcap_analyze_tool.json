@@ -1,0 +1,762 @@
+{
+  "en": {
+    "tool.description": "Analyze local pcap files, summarize traffic, extract packets, inspect flows, and detect suspicious communication.",
+    "param.pcap_path.description": "Input pcap file path.",
+    "param.operation.description": "Operation: summary, statistics, flows, packets, extract, or detect.",
+    "param.filter.description": "Packet filter fields.",
+    "param.output_path.description": "Output pcap path for extraction.",
+    "param.detail_level.description": "Packet detail level from 0 to 2; payload is never returned.",
+    "param.rules.description": "Detection rules.",
+    "param.thresholds.description": "Detection thresholds.",
+    "param.limit.description": "Maximum number of returned items.",
+    "param.overwrite.description": "Allow overwriting an existing output file.",
+    "x_search_terms": [
+      "pcap",
+      "packet analysis",
+      "traffic analysis",
+      "flow",
+      "extract",
+      "anomaly detection"
+    ]
+  },
+  "ar": {
+    "tool.description": "تحليل ملفات pcap المحلية، وتلخيص حركة المرور، واستخراج الحزم، وفحص التدفقات، واكتشاف الاتصالات المشبوهة.",
+    "param.pcap_path.description": "إدخال مسار ملف PCAP",
+    "param.operation.description": "العملية: التلخيص، الإحصائيات، التدفقات، الحزم، الاستخراج، أو الكشف.",
+    "param.filter.description": "حقول تصفية الحزمة",
+    "param.output_path.description": "مسار إخراج PCAP للاستخراج.",
+    "param.detail_level.description": "مستوى تفاصيل الحزمة من 0 إلى 2؛ لا يتم إرجاع الحمولة أبدًا.",
+    "param.rules.description": "قواعد الكشف",
+    "param.thresholds.description": "عتبات الكشف",
+    "param.limit.description": "الحد الأقصى لعدد العناصر التي تم إرجاعها.",
+    "param.overwrite.description": "السماح بالكتابة فوق ملف الإخراج الموجود.",
+    "x_search_terms": [
+      "pcap",
+      "تحليل الحزم",
+      "تحليل حركة المرور",
+      "التدفق",
+      "استخراج",
+      "كشف الشذوذ"
+    ]
+  },
+  "bn": {
+    "tool.description": "স্থানীয় pcap ফাইলগুলি বিশ্লেষণ করুন, ট্র্যাফিকের সংক্ষিপ্তসার করুন, প্যাকেটগুলি বের করুন, প্রবাহ পরিদর্শন করুন এবং সন্দেহজনক যোগাযোগ সনাক্ত করুন।",
+    "param.pcap_path.description": "ইনপুট pcap ফাইল পাথ.",
+    "param.operation.description": "অপারেশন: সারাংশ, পরিসংখ্যান, প্রবাহ, প্যাকেট, নির্যাস, বা সনাক্ত.",
+    "param.filter.description": "প্যাকেট ফিল্টার ক্ষেত্র।",
+    "param.output_path.description": "নিষ্কাশনের জন্য আউটপুট pcap পথ।",
+    "param.detail_level.description": "0 থেকে 2 পর্যন্ত প্যাকেটের বিস্তারিত স্তর; পেলোড কখনই ফেরত দেওয়া হয় না।",
+    "param.rules.description": "সনাক্তকরণ নিয়ম।",
+    "param.thresholds.description": "সনাক্তকরণ থ্রেশহোল্ড",
+    "param.limit.description": "ফেরত আইটেম সর্বোচ্চ সংখ্যা.",
+    "param.overwrite.description": "একটি বিদ্যমান আউটপুট ফাইল ওভাররাইট করার অনুমতি দিন।",
+    "x_search_terms": [
+      "pcap",
+      "প্যাকেট বিশ্লেষণ",
+      "ট্রাফিক বিশ্লেষণ",
+      "ফ্লো",
+      "এক্সট্র্যাক্ট",
+      "অসঙ্গতি সনাক্তকরণ"
+    ]
+  },
+  "cs": {
+    "tool.description": "Analyzujte místní soubory pcap, sumarizujte provoz, extrahujte pakety, kontrolujte toky a zjistěte podezřelou komunikaci.",
+    "param.pcap_path.description": "Zadejte cestu k souboru pcap.",
+    "param.operation.description": "Operace: souhrn, statistika, toky, pakety, extrahování nebo zjišťování.",
+    "param.filter.description": "Pole paketového filtru.",
+    "param.output_path.description": "Výstupní cesta pcap pro extrakci.",
+    "param.detail_level.description": "Úroveň podrobnosti paketu od 0 do 2; užitečné zatížení se nikdy nevrací.",
+    "param.rules.description": "Pravidla detekce.",
+    "param.thresholds.description": "Detekční prahy.",
+    "param.limit.description": "Maximální počet vrácených položek.",
+    "param.overwrite.description": "Povolit přepsání existujícího výstupního souboru.",
+    "x_search_terms": [
+      "pcap",
+      "analýza paketů",
+      "analýza provozu",
+      "tok",
+      "extrakt",
+      "detekce anomálií"
+    ]
+  },
+  "da": {
+    "tool.description": "Analyser lokale pcap-filer, opsummer trafik, udpak pakker, inspicér flows og opdag mistænkelig kommunikation.",
+    "param.pcap_path.description": "Indtast pcap filsti.",
+    "param.operation.description": "Operation: resumé, statistik, flows, pakker, udtræk eller detekter.",
+    "param.filter.description": "Pakkefilterfelter.",
+    "param.output_path.description": "Output pccap-sti til udvinding.",
+    "param.detail_level.description": "Pakkedetaljeniveau fra 0 til 2; nyttelast returneres aldrig.",
+    "param.rules.description": "Detektionsregler.",
+    "param.thresholds.description": "Detektionstærskler.",
+    "param.limit.description": "Maksimalt antal returnerede varer.",
+    "param.overwrite.description": "Tillad overskrivning af en eksisterende outputfil.",
+    "x_search_terms": [
+      "pcap",
+      "pakkeanalyse",
+      "trafikanalyse",
+      "flow",
+      "ekstrakt",
+      "detektion af uregelmæssigheder"
+    ]
+  },
+  "de": {
+    "tool.description": "Analysieren Sie lokale PCAP-Dateien, fassen Sie den Datenverkehr zusammen, extrahieren Sie Pakete, prüfen Sie Datenflüsse und erkennen Sie verdächtige Kommunikation.",
+    "param.pcap_path.description": "Geben Sie den Pfad der PCAP-Datei ein.",
+    "param.operation.description": "Vorgang: Zusammenfassung, Statistiken, Flüsse, Pakete, Extrahieren oder Erkennen.",
+    "param.filter.description": "Paketfilterfelder.",
+    "param.output_path.description": "Ausgabe-PCAP-Pfad für die Extraktion.",
+    "param.detail_level.description": "Paketdetaillierungsgrad von 0 bis 2; Die Nutzlast wird niemals zurückgegeben.",
+    "param.rules.description": "Erkennungsregeln.",
+    "param.thresholds.description": "Erkennungsschwellen.",
+    "param.limit.description": "Maximale Anzahl zurückgegebener Artikel.",
+    "param.overwrite.description": "Erlauben Sie das Überschreiben einer vorhandenen Ausgabedatei.",
+    "x_search_terms": [
+      "pcap",
+      "Paketanalyse",
+      "Verkehrsanalyse",
+      "Fluss",
+      "Extrakt",
+      "Anomalieerkennung"
+    ]
+  },
+  "el": {
+    "tool.description": "Αναλύστε τοπικά αρχεία pcap, συνοψίστε την κυκλοφορία, εξάγετε πακέτα, επιθεωρήστε ροές και εντοπίστε ύποπτη επικοινωνία.",
+    "param.pcap_path.description": "Εισαγωγή διαδρομής αρχείου pcap.",
+    "param.operation.description": "Λειτουργία: περίληψη, στατιστικά στοιχεία, ροές, πακέτα, εξαγωγή ή ανίχνευση.",
+    "param.filter.description": "Πεδία φιλτραρίσματος πακέτων.",
+    "param.output_path.description": "Διαδρομή pcap εξόδου για εξαγωγή.",
+    "param.detail_level.description": "Επίπεδο λεπτομέρειας πακέτου από 0 έως 2. ωφέλιμο φορτίο δεν επιστρέφεται ποτέ.",
+    "param.rules.description": "Κανόνες ανίχνευσης.",
+    "param.thresholds.description": "Όρια ανίχνευσης.",
+    "param.limit.description": "Μέγιστος αριθμός επιστρεφόμενων αντικειμένων.",
+    "param.overwrite.description": "Να επιτρέπεται η αντικατάσταση ενός υπάρχοντος αρχείου εξόδου.",
+    "x_search_terms": [
+      "pcap",
+      "ανάλυση πακέτων",
+      "ανάλυση επισκεψιμότητας",
+      "ροή",
+      "απόσπασμα",
+      "ανίχνευση ανωμαλιών"
+    ]
+  },
+  "es": {
+    "tool.description": "Analice archivos pcap locales, resuma el tráfico, extraiga paquetes, inspeccione flujos y detecte comunicaciones sospechosas.",
+    "param.pcap_path.description": "Introduzca la ruta del archivo pcap.",
+    "param.operation.description": "Operación: resumen, estadísticas, flujos, paquetes, extracción o detección.",
+    "param.filter.description": "Campos de filtro de paquetes.",
+    "param.output_path.description": "Ruta pcap de salida para la extracción.",
+    "param.detail_level.description": "Nivel de detalle del paquete de 0 a 2; La carga útil nunca se devuelve.",
+    "param.rules.description": "Reglas de detección.",
+    "param.thresholds.description": "Umbrales de detección.",
+    "param.limit.description": "Número máximo de artículos devueltos.",
+    "param.overwrite.description": "Permitir sobrescribir un archivo de salida existente.",
+    "x_search_terms": [
+      "pcap",
+      "análisis de paquetes",
+      "análisis de tráfico",
+      "flujo",
+      "extracto",
+      "detección de anomalías"
+    ]
+  },
+  "fa": {
+    "tool.description": "فایل‌های pcap محلی را تجزیه و تحلیل کنید، ترافیک را خلاصه کنید، بسته‌ها را استخراج کنید، جریان‌ها را بررسی کنید و ارتباطات مشکوک را شناسایی کنید.",
+    "param.pcap_path.description": "مسیر فایل pcap را وارد کنید.",
+    "param.operation.description": "عملیات: خلاصه، آمار، جریان، بسته بندی، استخراج یا شناسایی.",
+    "param.filter.description": "فیلدهای فیلتر بسته",
+    "param.output_path.description": "مسیر pcap خروجی برای استخراج.",
+    "param.detail_level.description": "سطح جزئیات بسته از 0 تا 2؛ محموله هرگز برگردانده نمی شود",
+    "param.rules.description": "قوانین تشخیص",
+    "param.thresholds.description": "آستانه های تشخیص",
+    "param.limit.description": "حداکثر تعداد کالاهای برگشتی",
+    "param.overwrite.description": "اجازه بازنویسی یک فایل خروجی موجود را بدهید.",
+    "x_search_terms": [
+      "pcap",
+      "تجزیه و تحلیل بسته",
+      "تجزیه و تحلیل ترافیک",
+      "جریان",
+      "استخراج",
+      "تشخیص ناهنجاری"
+    ]
+  },
+  "fi": {
+    "tool.description": "Analysoi paikallisia pcap-tiedostoja, tee yhteenveto liikenteestä, pura paketteja, tarkasta virtaukset ja havaitse epäilyttävä viestintä.",
+    "param.pcap_path.description": "Syötä pcap-tiedoston polku.",
+    "param.operation.description": "Toiminta: yhteenveto, tilastot, virtaukset, paketit, purkaminen tai havaitseminen.",
+    "param.filter.description": "Pakettisuodatinkentät.",
+    "param.output_path.description": "Lähtö pcap polku purkamista varten.",
+    "param.detail_level.description": "Paketin yksityiskohtataso 0 - 2; hyötykuormaa ei koskaan palauteta.",
+    "param.rules.description": "Havaitsemissäännöt.",
+    "param.thresholds.description": "Havaintokynnykset.",
+    "param.limit.description": "Palautettavien tuotteiden enimmäismäärä.",
+    "param.overwrite.description": "Salli olemassa olevan tulostustiedoston korvaaminen.",
+    "x_search_terms": [
+      "pcap",
+      "pakettianalyysi",
+      "liikenneanalyysi",
+      "virtaus",
+      "poimi",
+      "poikkeamien havaitseminen"
+    ]
+  },
+  "fil": {
+    "tool.description": "Suriin ang mga lokal na pcap file, ibuod ang trapiko, kunin ang mga packet, suriin ang mga daloy, at makita ang kahina-hinalang komunikasyon.",
+    "param.pcap_path.description": "Ipasok ang path ng pcap file.",
+    "param.operation.description": "Operasyon: buod, istatistika, daloy, packet, extract, o detect.",
+    "param.filter.description": "Mga field ng packet filter.",
+    "param.output_path.description": "Output pcap path para sa pagkuha.",
+    "param.detail_level.description": "Antas ng detalye ng packet mula 0 hanggang 2; hindi na naibabalik ang payload.",
+    "param.rules.description": "Mga panuntunan sa pagtuklas.",
+    "param.thresholds.description": "Mga hangganan ng pagtuklas.",
+    "param.limit.description": "Pinakamataas na bilang ng mga naibalik na item.",
+    "param.overwrite.description": "Pahintulutan ang pag-overwrite ng isang umiiral nang output file.",
+    "x_search_terms": [
+      "pcap",
+      "packet analysis",
+      "traffic analysis",
+      "flow",
+      "extract",
+      "anomalya detection"
+    ]
+  },
+  "fr": {
+    "tool.description": "Analysez les fichiers pcap locaux, résumez le trafic, extrayez les paquets, inspectez les flux et détectez les communications suspectes.",
+    "param.pcap_path.description": "Entrez le chemin du fichier pcap.",
+    "param.operation.description": "Opération : synthèse, statistiques, flux, paquets, extraction ou détection.",
+    "param.filter.description": "Champs de filtre de paquets.",
+    "param.output_path.description": "Chemin pcap de sortie pour l’extraction.",
+    "param.detail_level.description": "Niveau de détail des paquets de 0 à 2 ; la charge utile n’est jamais renvoyée.",
+    "param.rules.description": "Règles de détection.",
+    "param.thresholds.description": "Seuils de détection.",
+    "param.limit.description": "Nombre maximum d'articles retournés.",
+    "param.overwrite.description": "Autoriser l'écrasement d'un fichier de sortie existant.",
+    "x_search_terms": [
+      "pcap",
+      "analyse de paquets",
+      "analyse de trafic",
+      "flux",
+      "extrait",
+      "détection d'anomalies"
+    ]
+  },
+  "he": {
+    "tool.description": "נתח קבצי pcap מקומיים, סכם תעבורה, חלץ מנות, בדוק זרימות וזיהוי תקשורת חשודה.",
+    "param.pcap_path.description": "קלט נתיב קובץ pcap.",
+    "param.operation.description": "פעולה: סיכום, סטטיסטיקה, זרימות, מנות, חילוץ או זיהוי.",
+    "param.filter.description": "שדות מסנן מנות.",
+    "param.output_path.description": "נתיב pcap פלט לחילוץ.",
+    "param.detail_level.description": "רמת פירוט מנות מ-0 עד 2; מטען לא מוחזר לעולם.",
+    "param.rules.description": "כללי זיהוי.",
+    "param.thresholds.description": "ספי זיהוי.",
+    "param.limit.description": "מספר מקסימלי של פריטים שהוחזרו.",
+    "param.overwrite.description": "אפשר החלפת קובץ פלט קיים.",
+    "x_search_terms": [
+      "pcap",
+      "ניתוח מנות",
+      "ניתוח תנועה",
+      "זרימה",
+      "חילוץ",
+      "זיהוי חריגות"
+    ]
+  },
+  "hi": {
+    "tool.description": "स्थानीय पैक फ़ाइलों का विश्लेषण करें, ट्रैफ़िक का सारांश बनाएं, पैकेट निकालें, प्रवाह का निरीक्षण करें और संदिग्ध संचार का पता लगाएं।",
+    "param.pcap_path.description": "इनपुट pcap फ़ाइल पथ.",
+    "param.operation.description": "ऑपरेशन: सारांश, आँकड़े, प्रवाह, पैकेट, अर्क, या पता लगाना।",
+    "param.filter.description": "पैकेट फ़िल्टर फ़ील्ड.",
+    "param.output_path.description": "निष्कर्षण के लिए आउटपुट पीकैप पथ।",
+    "param.detail_level.description": "पैकेट विवरण स्तर 0 से 2 तक; पेलोड कभी वापस नहीं किया जाता.",
+    "param.rules.description": "पता लगाने के नियम.",
+    "param.thresholds.description": "पता लगाने की सीमाएँ।",
+    "param.limit.description": "लौटाई गई वस्तुओं की अधिकतम संख्या.",
+    "param.overwrite.description": "मौजूदा आउटपुट फ़ाइल को ओवरराइट करने की अनुमति दें।",
+    "x_search_terms": [
+      "pcap",
+      "पैकेट विश्लेषण",
+      "यातायात विश्लेषण",
+      "प्रवाह",
+      "निकालें",
+      "विसंगति का पता लगाना"
+    ]
+  },
+  "hu": {
+    "tool.description": "Elemezheti a helyi pcap fájlokat, összefoglalhatja a forgalmat, csomagokat bonthat ki, ellenőrizheti az áramlásokat és észlelheti a gyanús kommunikációt.",
+    "param.pcap_path.description": "Írja be a pcap fájl elérési útját.",
+    "param.operation.description": "Művelet: összegzés, statisztikák, folyamok, csomagok, kivonat vagy észlelés.",
+    "param.filter.description": "Csomagszűrő mezők.",
+    "param.output_path.description": "Kimeneti pcap elérési út a kinyeréshez.",
+    "param.detail_level.description": "Csomag részletességi szintje 0-tól 2-ig; a hasznos terhet soha nem küldik vissza.",
+    "param.rules.description": "Észlelési szabályok.",
+    "param.thresholds.description": "Észlelési küszöbök.",
+    "param.limit.description": "A visszaküldött termékek maximális száma.",
+    "param.overwrite.description": "Meglévő kimeneti fájl felülírásának engedélyezése.",
+    "x_search_terms": [
+      "pcap",
+      "csomagelemzés",
+      "forgalomelemzés",
+      "flow",
+      "kivonat",
+      "rendellenesség-észlelés"
+    ]
+  },
+  "id": {
+    "tool.description": "Analisis file pcap lokal, rangkum lalu lintas, ekstrak paket, periksa aliran, dan deteksi komunikasi mencurigakan.",
+    "param.pcap_path.description": "Masukkan jalur file pcap.",
+    "param.operation.description": "Operasi: ringkasan, statistik, aliran, paket, ekstrak, atau deteksi.",
+    "param.filter.description": "Bidang filter paket.",
+    "param.output_path.description": "Jalur pcap keluaran untuk ekstraksi.",
+    "param.detail_level.description": "Tingkat detail paket dari 0 hingga 2; muatan tidak pernah dikembalikan.",
+    "param.rules.description": "Aturan deteksi.",
+    "param.thresholds.description": "Ambang batas deteksi.",
+    "param.limit.description": "Jumlah maksimum item yang dikembalikan.",
+    "param.overwrite.description": "Izinkan penimpaan file keluaran yang ada.",
+    "x_search_terms": [
+      "pcap",
+      "analisis paket",
+      "analisis lalu lintas",
+      "aliran",
+      "ekstrak",
+      "deteksi anomali"
+    ]
+  },
+  "it": {
+    "tool.description": "Analizza i file pcap locali, riepiloga il traffico, estrai pacchetti, ispeziona i flussi e rileva comunicazioni sospette.",
+    "param.pcap_path.description": "Immettere il percorso del file pcap.",
+    "param.operation.description": "Operazione: riepilogo, statistiche, flussi, pacchetti, estrazione o rilevamento.",
+    "param.filter.description": "Campi filtro pacchetto.",
+    "param.output_path.description": "Percorso pcap di output per l'estrazione.",
+    "param.detail_level.description": "Livello di dettaglio del pacchetto da 0 a 2; il carico utile non viene mai restituito.",
+    "param.rules.description": "Regole di rilevamento.",
+    "param.thresholds.description": "Soglie di rilevamento.",
+    "param.limit.description": "Numero massimo di articoli restituiti.",
+    "param.overwrite.description": "Consenti la sovrascrittura di un file di output esistente.",
+    "x_search_terms": [
+      "pcap",
+      "analisi dei pacchetti",
+      "analisi del traffico",
+      "flusso",
+      "estrazione",
+      "rilevamento anomalie"
+    ]
+  },
+  "ja": {
+    "tool.description": "ローカルの pcap ファイルを分析し、トラフィックを要約し、パケットを抽出し、フローを検査し、不審な通信を検出します。",
+    "param.pcap_path.description": "pcap ファイルのパスを入力します。",
+    "param.operation.description": "操作: 概要、統計、フロー、パケット、抽出、または検出。",
+    "param.filter.description": "パケットフィルターフィールド。",
+    "param.output_path.description": "抽出用の出力 pcap パス。",
+    "param.detail_level.description": "パケットの詳細レベルは 0 ～ 2。ペイロードは決して返されません。",
+    "param.rules.description": "検出ルール。",
+    "param.thresholds.description": "検出しきい値。",
+    "param.limit.description": "返品されるアイテムの最大数。",
+    "param.overwrite.description": "既存の出力ファイルの上書きを許可します。",
+    "x_search_terms": [
+      "pcap",
+      "パケット分析",
+      "トラフィック分析",
+      "フロー",
+      "抽出",
+      "異常検出"
+    ]
+  },
+  "ko": {
+    "tool.description": "로컬 pcap 파일을 분석하고, 트래픽을 요약하고, 패킷을 추출하고, 흐름을 검사하고, 의심스러운 통신을 탐지합니다.",
+    "param.pcap_path.description": "pcap 파일 경로를 입력하세요.",
+    "param.operation.description": "작업: 요약, 통계, 흐름, 패킷, 추출 또는 감지.",
+    "param.filter.description": "패킷 필터 필드.",
+    "param.output_path.description": "추출을 위한 출력 pcap 경로입니다.",
+    "param.detail_level.description": "0~2의 패킷 세부 수준. 페이로드는 반환되지 않습니다.",
+    "param.rules.description": "탐지 규칙.",
+    "param.thresholds.description": "탐지 임계값.",
+    "param.limit.description": "반품된 항목의 최대 개수입니다.",
+    "param.overwrite.description": "기존 출력 파일 덮어쓰기를 허용합니다.",
+    "x_search_terms": [
+      "pcap",
+      "패킷 분석",
+      "트래픽 분석",
+      "flow",
+      "extract",
+      "이상 탐지"
+    ]
+  },
+  "mn": {
+    "tool.description": "Орон нутгийн pcap файлд дүн шинжилгээ хийх, урсгалыг нэгтгэн дүгнэх, пакетуудыг задлах, урсгалыг шалгах, сэжигтэй харилцаа холбоог илрүүлэх.",
+    "param.pcap_path.description": "pcap файлын замыг оруулна уу.",
+    "param.operation.description": "Үйл ажиллагаа: хураангуй, статистик, урсгал, пакет, задлах, илрүүлэх.",
+    "param.filter.description": "Пакет шүүлтүүрийн талбарууд.",
+    "param.output_path.description": "Олборлолтын гаралтын pcap зам.",
+    "param.detail_level.description": "0-ээс 2 хүртэлх багцын нарийвчилсан түвшин; ачааг хэзээ ч буцааж өгөхгүй.",
+    "param.rules.description": "Илрүүлэх дүрэм.",
+    "param.thresholds.description": "Илрүүлэх босго.",
+    "param.limit.description": "Буцаагдсан зүйлсийн дээд тоо.",
+    "param.overwrite.description": "Одоо байгаа гаралтын файлыг дарж бичихийг зөвшөөрөх.",
+    "x_search_terms": [
+      "pcap",
+      "пакет шинжилгээ",
+      "трафикийн шинжилгээ",
+      "урсгал",
+      "экстракт",
+      "гажиг илрүүлэх"
+    ]
+  },
+  "mr": {
+    "tool.description": "स्थानिक pcap फाइल्सचे विश्लेषण करा, रहदारीचा सारांश द्या, पॅकेट काढा, प्रवाह तपासा आणि संशयास्पद संप्रेषण शोधा.",
+    "param.pcap_path.description": "इनपुट pcap फाइल पथ.",
+    "param.operation.description": "ऑपरेशन: सारांश, आकडेवारी, प्रवाह, पॅकेट, अर्क किंवा शोध.",
+    "param.filter.description": "पॅकेट फिल्टर फील्ड.",
+    "param.output_path.description": "काढण्यासाठी आउटपुट pcap मार्ग.",
+    "param.detail_level.description": "पॅकेट तपशील पातळी 0 ते 2 पर्यंत; पेलोड कधीही परत केला जात नाही.",
+    "param.rules.description": "शोध नियम.",
+    "param.thresholds.description": "शोध थ्रेशोल्ड.",
+    "param.limit.description": "परत केलेल्या आयटमची कमाल संख्या.",
+    "param.overwrite.description": "विद्यमान आउटपुट फाइल ओव्हरराईट करण्यास अनुमती द्या.",
+    "x_search_terms": [
+      "pcap",
+      "पॅकेट विश्लेषण",
+      "वाहतूक विश्लेषण",
+      "प्रवाह",
+      "अर्क",
+      "विसंगती शोध"
+    ]
+  },
+  "ms": {
+    "tool.description": "Menganalisis fail pcap tempatan, meringkaskan trafik, mengekstrak paket, memeriksa aliran dan mengesan komunikasi yang mencurigakan.",
+    "param.pcap_path.description": "Masukkan laluan fail pcap.",
+    "param.operation.description": "Operasi: ringkasan, statistik, aliran, paket, ekstrak atau pengesan.",
+    "param.filter.description": "Medan penapis paket.",
+    "param.output_path.description": "Laluan pcap keluaran untuk pengekstrakan.",
+    "param.detail_level.description": "Tahap butiran paket dari 0 hingga 2; muatan tidak pernah dikembalikan.",
+    "param.rules.description": "Peraturan pengesanan.",
+    "param.thresholds.description": "Ambang pengesanan.",
+    "param.limit.description": "Bilangan maksimum item yang dipulangkan.",
+    "param.overwrite.description": "Benarkan menimpa fail output sedia ada.",
+    "x_search_terms": [
+      "pcap",
+      "analisis paket",
+      "analisis trafik",
+      "aliran",
+      "ekstrak",
+      "pengesanan anomali"
+    ]
+  },
+  "nb": {
+    "tool.description": "Analyser lokale pcap-filer, oppsummer trafikk, pakk ut pakker, inspiser flyter og oppdage mistenkelig kommunikasjon.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.operation.description": "Operasjon: oppsummering, statistikk, flyter, pakker, trekke ut eller oppdage.",
+    "param.filter.description": "Pakkefilterfelt.",
+    "param.output_path.description": "Utgangs-pcap-bane for utvinning.",
+    "param.detail_level.description": "Pakkedetaljnivå fra 0 til 2; nyttelast blir aldri returnert.",
+    "param.rules.description": "Deteksjonsregler.",
+    "param.thresholds.description": "Deteksjonsterskler.",
+    "param.limit.description": "Maksimalt antall returnerte varer.",
+    "param.overwrite.description": "Tillat overskriving av en eksisterende utdatafil.",
+    "x_search_terms": [
+      "pcap",
+      "pakkeanalyse",
+      "trafikkanalyse",
+      "flyt",
+      "ekstrakt",
+      "deteksjon av uregelmessigheter"
+    ]
+  },
+  "nl": {
+    "tool.description": "Analyseer lokale pcap-bestanden, vat verkeer samen, extraheer pakketten, inspecteer stromen en detecteer verdachte communicatie.",
+    "param.pcap_path.description": "Voer het pcap-bestandspad in.",
+    "param.operation.description": "Werking: samenvatting, statistieken, stromen, pakketten, extraheren of detecteren.",
+    "param.filter.description": "Pakketfiltervelden.",
+    "param.output_path.description": "Uitvoer pcap-pad voor extractie.",
+    "param.detail_level.description": "Pakketdetailniveau van 0 tot 2; lading wordt nooit geretourneerd.",
+    "param.rules.description": "Detectieregels.",
+    "param.thresholds.description": "Detectiedrempels.",
+    "param.limit.description": "Maximaal aantal geretourneerde artikelen.",
+    "param.overwrite.description": "Sta het overschrijven van een bestaand uitvoerbestand toe.",
+    "x_search_terms": [
+      "pcap",
+      "pakketanalyse",
+      "verkeersanalyse",
+      "flow",
+      "extract",
+      "anomaliedetectie"
+    ]
+  },
+  "nn": {
+    "tool.description": "Analysere lokale pcap-filer, oppsummere trafikk, pakke ut pakker, inspisere flyt, og oppdage mistenkelig kommunikasjon.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.operation.description": "Operasjon: oppsummering, statistikk, flyt, pakker, ekstraher eller oppdag.",
+    "param.filter.description": "Pakkefilterfelt.",
+    "param.output_path.description": "Utgang pcap bane for utvinning.",
+    "param.detail_level.description": "Pakke detaljnivå fra 0 til 2; nyttelast blir aldri returnert.",
+    "param.rules.description": "Deteksjonsregler.",
+    "param.thresholds.description": "Deteksjonsterskler.",
+    "param.limit.description": "Maksimalt antall returnerte varer.",
+    "param.overwrite.description": "Tillat overskriving av en eksisterende utdatafil.",
+    "x_search_terms": [
+      "pcappakken analysetrafikken analyseflytekstraktanomali deteksjon",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Analizuj lokalne pliki pcap, podsumowuj ruch, wyodrębniaj pakiety, sprawdzaj przepływy i wykrywaj podejrzaną komunikację.",
+    "param.pcap_path.description": "Wprowadź ścieżkę pliku pcap.",
+    "param.operation.description": "Operacja: podsumowanie, statystyki, przepływy, pakiety, wyodrębnienie lub wykrycie.",
+    "param.filter.description": "Pola filtrów pakietów.",
+    "param.output_path.description": "Wyjściowa ścieżka pcap do wyodrębnienia.",
+    "param.detail_level.description": "Poziom szczegółowości pakietu od 0 do 2; ładunek nigdy nie jest zwracany.",
+    "param.rules.description": "Zasady wykrywania.",
+    "param.thresholds.description": "Progi wykrywalności.",
+    "param.limit.description": "Maksymalna liczba zwracanych produktów.",
+    "param.overwrite.description": "Zezwalaj na nadpisywanie istniejącego pliku wyjściowego.",
+    "x_search_terms": [
+      "pcap",
+      "analiza pakietów",
+      "analiza ruchu",
+      "przepływ",
+      "ekstrakt",
+      "wykrywanie anomalii"
+    ]
+  },
+  "pt": {
+    "tool.description": "Analise arquivos pcap locais, resuma o tráfego, extraia pacotes, inspecione fluxos e detecte comunicações suspeitas.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.operation.description": "Operação: resumo, estatísticas, fluxos, pacotes, extração ou detecção.",
+    "param.filter.description": "Campos de filtro de pacotes.",
+    "param.output_path.description": "Caminho pcap de saída para extração.",
+    "param.detail_level.description": "Nível de detalhe do pacote de 0 a 2; a carga útil nunca é retornada.",
+    "param.rules.description": "Regras de detecção.",
+    "param.thresholds.description": "Limites de detecção.",
+    "param.limit.description": "Número máximo de itens devolvidos.",
+    "param.overwrite.description": "Permitir a substituição de um arquivo de saída existente.",
+    "x_search_terms": [
+      "pcap",
+      "análise de pacotes",
+      "análise de tráfego",
+      "fluxo",
+      "extração",
+      "detecção de anomalias"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Analise arquivos pcap locais, resuma o tráfego, extraia pacotes, inspecione fluxos e detecte comunicações suspeitas.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.operation.description": "Operação: resumo, estatísticas, fluxos, pacotes, extração ou detecção.",
+    "param.filter.description": "Campos de filtro de pacotes.",
+    "param.output_path.description": "Caminho pcap de saída para extração.",
+    "param.detail_level.description": "Nível de detalhe do pacote de 0 a 2; a carga útil nunca é retornada.",
+    "param.rules.description": "Regras de detecção.",
+    "param.thresholds.description": "Limites de detecção.",
+    "param.limit.description": "Número máximo de itens devolvidos.",
+    "param.overwrite.description": "Permitir a substituição de um arquivo de saída existente.",
+    "x_search_terms": [
+      "pcap",
+      "análise de pacotes",
+      "análise de tráfego",
+      "fluxo",
+      "extração",
+      "detecção de anomalias"
+    ]
+  },
+  "ro": {
+    "tool.description": "Analizați fișierele locale pcap, rezumați traficul, extrageți pachete, inspectați fluxurile și detectați comunicațiile suspecte.",
+    "param.pcap_path.description": "Introduceți calea fișierului pcap.",
+    "param.operation.description": "Operare: rezumat, statistici, fluxuri, pachete, extrage sau detectează.",
+    "param.filter.description": "Câmpuri de filtrare a pachetelor.",
+    "param.output_path.description": "Calea pcap de ieșire pentru extracție.",
+    "param.detail_level.description": "Nivel de detaliu pachet de la 0 la 2; sarcina utilă nu este returnată niciodată.",
+    "param.rules.description": "Reguli de detectare.",
+    "param.thresholds.description": "Praguri de detectare.",
+    "param.limit.description": "Numărul maxim de articole returnate.",
+    "param.overwrite.description": "Permite suprascrierea unui fișier de ieșire existent.",
+    "x_search_terms": [
+      "pcap",
+      "analiza de pachete",
+      "analiza de trafic",
+      "flow",
+      "extract",
+      "detecția anomaliilor"
+    ]
+  },
+  "ru": {
+    "tool.description": "Анализируйте локальные файлы pcap, суммируйте трафик, извлекайте пакеты, проверяйте потоки и обнаруживайте подозрительные соединения.",
+    "param.pcap_path.description": "Введите путь к файлу pcap.",
+    "param.operation.description": "Операция: сводка, статистика, потоки, пакеты, извлечение или обнаружение.",
+    "param.filter.description": "Поля фильтра пакетов.",
+    "param.output_path.description": "Выходной путь pcap для извлечения.",
+    "param.detail_level.description": "Уровень детализации пакета от 0 до 2; полезная нагрузка никогда не возвращается.",
+    "param.rules.description": "Правила обнаружения.",
+    "param.thresholds.description": "Пороги обнаружения.",
+    "param.limit.description": "Максимальное количество возвращаемых товаров.",
+    "param.overwrite.description": "Разрешить перезапись существующего выходного файла.",
+    "x_search_terms": [
+      "pcap",
+      "анализ пакетов",
+      "анализ трафика",
+      "поток",
+      "извлечение",
+      "обнаружение аномалий"
+    ]
+  },
+  "sv": {
+    "tool.description": "Analysera lokala pcap-filer, sammanfatta trafik, extrahera paket, inspektera flöden och upptäck misstänkt kommunikation.",
+    "param.pcap_path.description": "Mata in pcap-filsökväg.",
+    "param.operation.description": "Operation: sammanfattning, statistik, flöden, paket, extrahera eller detektera.",
+    "param.filter.description": "Paketfilterfält.",
+    "param.output_path.description": "Utgång pcap väg för extraktion.",
+    "param.detail_level.description": "Paketdetaljnivå från 0 till 2; nyttolast returneras aldrig.",
+    "param.rules.description": "Detektionsregler.",
+    "param.thresholds.description": "Detektionströsklar.",
+    "param.limit.description": "Max antal returnerade varor.",
+    "param.overwrite.description": "Tillåt att en befintlig utdatafil skrivs över.",
+    "x_search_terms": [
+      "pcap",
+      "paketanalys",
+      "trafikanalys",
+      "flöde",
+      "extrakt",
+      "avvikelsedetektering"
+    ]
+  },
+  "sw": {
+    "tool.description": "Changanua faili za pcap za ndani, fanya muhtasari wa trafiki, toa pakiti, kagua mtiririko na ugundue mawasiliano ya kutiliwa shaka.",
+    "param.pcap_path.description": "Ingiza njia ya faili ya pcap.",
+    "param.operation.description": "Uendeshaji: muhtasari, takwimu, mtiririko, pakiti, dondoo, au tambua.",
+    "param.filter.description": "Sehemu za vichungi vya pakiti.",
+    "param.output_path.description": "Pato pcap njia kwa ajili ya uchimbaji.",
+    "param.detail_level.description": "Kiwango cha maelezo ya pakiti kutoka 0 hadi 2; mzigo haurudishwi.",
+    "param.rules.description": "Sheria za utambuzi.",
+    "param.thresholds.description": "Viwango vya kugundua.",
+    "param.limit.description": "Idadi ya juu zaidi ya bidhaa zilizorejeshwa.",
+    "param.overwrite.description": "Ruhusu kubatilisha faili iliyopo ya towe.",
+    "x_search_terms": [
+      "pcap",
+      "uchambuzi wa pakiti",
+      "uchanganuzi wa trafiki",
+      "flow",
+      "dondoo",
+      "ugunduzi wa hitilafu"
+    ]
+  },
+  "th": {
+    "tool.description": "วิเคราะห์ไฟล์ pcap ในเครื่อง สรุปการรับส่งข้อมูล แยกแพ็กเก็ต ตรวจสอบโฟลว์ และตรวจจับการสื่อสารที่น่าสงสัย",
+    "param.pcap_path.description": "ป้อนเส้นทางไฟล์ pcap",
+    "param.operation.description": "การดำเนินการ: สรุป สถิติ โฟลว์ แพ็กเก็ต แยก หรือตรวจจับ",
+    "param.filter.description": "ฟิลด์ตัวกรองแพ็คเก็ต",
+    "param.output_path.description": "เส้นทาง pcap เอาท์พุตสำหรับการแตกไฟล์",
+    "param.detail_level.description": "ระดับรายละเอียดแพ็คเก็ตตั้งแต่ 0 ถึง 2; เพย์โหลดจะไม่ถูกส่งคืน",
+    "param.rules.description": "กฎการตรวจจับ",
+    "param.thresholds.description": "เกณฑ์การตรวจจับ",
+    "param.limit.description": "จำนวนสินค้าที่ส่งคืนสูงสุด",
+    "param.overwrite.description": "อนุญาตให้เขียนทับไฟล์เอาต์พุตที่มีอยู่",
+    "x_search_terms": [
+      "pcap",
+      "การวิเคราะห์แพ็คเก็ต",
+      "การวิเคราะห์การรับส่งข้อมูล",
+      "การไหล",
+      "แยก",
+      "การตรวจจับความผิดปกติ"
+    ]
+  },
+  "tr": {
+    "tool.description": "Yerel pcap dosyalarını analiz edin, trafiği özetleyin, paketleri çıkarın, akışları inceleyin ve şüpheli iletişimi tespit edin.",
+    "param.pcap_path.description": "Pcap dosya yolunu girin.",
+    "param.operation.description": "Operasyon: özet, istatistikler, akışlar, paketler, çıkarma veya tespit etme.",
+    "param.filter.description": "Paket filtre alanları.",
+    "param.output_path.description": "Ekstraksiyon için çıktı pcap yolu.",
+    "param.detail_level.description": "0'dan 2'ye kadar paket ayrıntı düzeyi; yük asla iade edilmez.",
+    "param.rules.description": "Algılama kuralları.",
+    "param.thresholds.description": "Algılama eşikleri.",
+    "param.limit.description": "Maksimum iade edilen ürün sayısı.",
+    "param.overwrite.description": "Mevcut bir çıktı dosyasının üzerine yazılmasına izin ver.",
+    "x_search_terms": [
+      "pcap",
+      "paket analizi",
+      "trafik analizi",
+      "akış",
+      "ekstre",
+      "anormallik tespiti"
+    ]
+  },
+  "uk": {
+    "tool.description": "Аналізуйте локальні файли pcap, узагальнюйте трафік, витягуйте пакети, перевіряйте потоки та виявляйте підозріле спілкування.",
+    "param.pcap_path.description": "Введіть шлях до файлу pcap.",
+    "param.operation.description": "Операція: зведення, статистика, потоки, пакети, вилучення або виявлення.",
+    "param.filter.description": "Поля фільтра пакетів.",
+    "param.output_path.description": "Вихідний шлях pcap для вилучення.",
+    "param.detail_level.description": "Рівень деталізації пакетів від 0 до 2; корисне навантаження ніколи не повертається.",
+    "param.rules.description": "Правила виявлення.",
+    "param.thresholds.description": "Пороги виявлення.",
+    "param.limit.description": "Максимальна кількість повернених товарів.",
+    "param.overwrite.description": "Дозволити перезапис існуючого вихідного файлу.",
+    "x_search_terms": [
+      "pcap",
+      "аналіз пакетів",
+      "аналіз трафіку",
+      "потік",
+      "екстракт",
+      "виявлення аномалій"
+    ]
+  },
+  "vi": {
+    "tool.description": "Phân tích các tệp pcap cục bộ, tóm tắt lưu lượng, trích xuất gói, kiểm tra luồng và phát hiện thông tin liên lạc đáng ngờ.",
+    "param.pcap_path.description": "Nhập đường dẫn tập tin pcap.",
+    "param.operation.description": "Hoạt động: tóm tắt, thống kê, luồng, gói, trích xuất hoặc phát hiện.",
+    "param.filter.description": "Các trường lọc gói.",
+    "param.output_path.description": "Đường dẫn pcap đầu ra để trích xuất.",
+    "param.detail_level.description": "Mức độ chi tiết gói từ 0 đến 2; tải trọng không bao giờ được trả lại.",
+    "param.rules.description": "Quy tắc phát hiện",
+    "param.thresholds.description": "Ngưỡng phát hiện.",
+    "param.limit.description": "Số lượng mặt hàng được trả lại tối đa.",
+    "param.overwrite.description": "Cho phép ghi đè một tập tin đầu ra hiện có.",
+    "x_search_terms": [
+      "pcap",
+      "phân tích gói",
+      "phân tích lưu lượng",
+      "luồng",
+      "giải nén",
+      "phát hiện bất thường"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "分析本地 pcap 文件、汇总流量、提取数据包、检查流量并检测可疑通信。",
+    "param.pcap_path.description": "输入pcap文件路径。",
+    "param.operation.description": "操作：汇总、统计、流量、数据包、提取或检测。",
+    "param.filter.description": "数据包过滤字段。",
+    "param.output_path.description": "用于提取的输出 pcap 路径。",
+    "param.detail_level.description": "数据包详细级别从0到2；有效负载永远不会返回。",
+    "param.rules.description": "检测规则。",
+    "param.thresholds.description": "检测阈值。",
+    "param.limit.description": "退回物品的最大数量。",
+    "param.overwrite.description": "允许覆盖现有的输出文件。",
+    "x_search_terms": [
+      "pcap",
+      "数据包分析",
+      "流量分析",
+      "流量",
+      "提取",
+      "异常检测"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "分析本地 pcap 檔案、匯總流量、提取資料包、檢查流量並偵測可疑通訊。",
+    "param.pcap_path.description": "輸入pcap檔路徑。",
+    "param.operation.description": "操作：匯總、統計、流量、資料包、提取或偵測。",
+    "param.filter.description": "資料包過濾欄位。",
+    "param.output_path.description": "用於擷取的輸出 pcap 路徑。",
+    "param.detail_level.description": "封包詳細等級從0到2；有效負載永遠不會回傳。",
+    "param.rules.description": "檢測規則。",
+    "param.thresholds.description": "檢測閾值。",
+    "param.limit.description": "退回物品的最大數量。",
+    "param.overwrite.description": "允許覆蓋現有的輸出檔。",
+    "x_search_terms": [
+      "pcap",
+      "資料包分析",
+      "流量分析",
+      "流量",
+      "擷取",
+      "異常偵測"
+    ]
+  }
+}

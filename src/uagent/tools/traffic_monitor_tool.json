@@ -1,0 +1,458 @@
+{
+  "en": {
+    "tool.description": "Extract metadata-only traffic events from a pcap using Zeek.",
+    "param.pcap_path.description": "Input pcap file path.",
+    "param.output_dir.description": "Directory for Zeek output logs.",
+    "param.limit.description": "Maximum number of events to return.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "network events"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم باستخراج أحداث حركة البيانات الوصفية فقط من PCAP باستخدام Zeek.",
+    "param.pcap_path.description": "إدخال مسار ملف PCAP",
+    "param.output_dir.description": "دليل لسجلات إخراج Zeek.",
+    "param.limit.description": "الحد الأقصى لعدد الأحداث المراد إرجاعها.",
+    "x_search_terms": [
+      "Zeek",
+      "مراقبة حركة المرور",
+      "conn.log",
+      "أحداث الشبكة"
+    ]
+  },
+  "bn": {
+    "tool.description": "Zeek ব্যবহার করে একটি pcap থেকে মেটাডেটা-শুধু ট্রাফিক ইভেন্টগুলি বের করুন।",
+    "param.pcap_path.description": "ইনপুট pcap ফাইল পাথ.",
+    "param.output_dir.description": "Zeek আউটপুট লগ জন্য ডিরেক্টরি.",
+    "param.limit.description": "ফিরতে ইভেন্টের সর্বাধিক সংখ্যা।",
+    "x_search_terms": [
+      "Zeek",
+      "ট্রাফিক মনিটর",
+      "conn.log",
+      "নেটওয়ার্ক ইভেন্ট"
+    ]
+  },
+  "cs": {
+    "tool.description": "Extrahujte události provozu pouze z metadat z pcap pomocí Zeek.",
+    "param.pcap_path.description": "Zadejte cestu k souboru pcap.",
+    "param.output_dir.description": "Adresář pro výstupní protokoly Zeek.",
+    "param.limit.description": "Maximální počet událostí, které se mají vrátit.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor provozu",
+      "conn.log",
+      "síťové události"
+    ]
+  },
+  "da": {
+    "tool.description": "Uddrag kun metadata trafikhændelser fra en pcap ved hjælp af Zeek.",
+    "param.pcap_path.description": "Indtast pcap filsti.",
+    "param.output_dir.description": "Katalog til Zeek output logs.",
+    "param.limit.description": "Maksimalt antal begivenheder at returnere.",
+    "x_search_terms": [
+      "Zeek",
+      "trafikmonitor",
+      "conn.log",
+      "netværksbegivenheder"
+    ]
+  },
+  "de": {
+    "tool.description": "Extrahieren Sie mit Zeek nur Metadaten-Verkehrsereignisse aus einem PCAP.",
+    "param.pcap_path.description": "Geben Sie den Pfad der PCAP-Datei ein.",
+    "param.output_dir.description": "Verzeichnis für Zeek-Ausgabeprotokolle.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Ereignisse.",
+    "x_search_terms": [
+      "Zeek",
+      "Verkehrsmonitor",
+      "conn.log",
+      "Netzwerkereignisse"
+    ]
+  },
+  "el": {
+    "tool.description": "Εξαγωγή συμβάντων κίνησης μόνο για μεταδεδομένα από ένα pcap χρησιμοποιώντας το Zeek.",
+    "param.pcap_path.description": "Εισαγωγή διαδρομής αρχείου pcap.",
+    "param.output_dir.description": "Κατάλογος για αρχεία καταγραφής εξόδου Zeek.",
+    "param.limit.description": "Μέγιστος αριθμός συμβάντων για επιστροφή.",
+    "x_search_terms": [
+      "Zeek",
+      "παρακολούθηση κυκλοφορίας",
+      "conn.log",
+      "συμβάντα δικτύου"
+    ]
+  },
+  "es": {
+    "tool.description": "Extraiga eventos de tráfico de solo metadatos de un pcap usando Zeek.",
+    "param.pcap_path.description": "Introduzca la ruta del archivo pcap.",
+    "param.output_dir.description": "Directorio de registros de salida de Zeek.",
+    "param.limit.description": "Número máximo de eventos para devolver.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor de tráfico",
+      "conn.log",
+      "eventos de red"
+    ]
+  },
+  "fa": {
+    "tool.description": "با استفاده از Zeek، رویدادهای ترافیکی فقط فراداده را از یک pcap استخراج کنید.",
+    "param.pcap_path.description": "مسیر فایل pcap را وارد کنید.",
+    "param.output_dir.description": "دایرکتوری برای گزارش های خروجی Zeek.",
+    "param.limit.description": "حداکثر تعداد رویداد برای بازگشت.",
+    "x_search_terms": [
+      "رویدادهای شبکه Zeek",
+      " نظارت بر ترافیک",
+      "conn.log",
+      ""
+    ]
+  },
+  "fi": {
+    "tool.description": "Pura vain metatiedot sisältävät liikennetapahtumat PCapista Zeekin avulla.",
+    "param.pcap_path.description": "Syötä pcap-tiedoston polku.",
+    "param.output_dir.description": "Zeekin tulostuslokien hakemisto.",
+    "param.limit.description": "Palautettavien tapahtumien enimmäismäärä.",
+    "x_search_terms": [
+      "Zeek",
+      "liikennemonitori",
+      "conn.log",
+      "verkkotapahtumat"
+    ]
+  },
+  "fil": {
+    "tool.description": "I-extract ang metadata-only na mga kaganapan sa trapiko mula sa isang pcap gamit ang Zeek.",
+    "param.pcap_path.description": "Ipasok ang path ng pcap file.",
+    "param.output_dir.description": "Direktoryo para sa mga log ng output ng Zeek.",
+    "param.limit.description": "Maximum na bilang ng mga event na ibabalik.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "mga kaganapan sa network"
+    ]
+  },
+  "fr": {
+    "tool.description": "Extrayez les événements de trafic contenant uniquement des métadonnées d'un pcap à l'aide de Zeek.",
+    "param.pcap_path.description": "Entrez le chemin du fichier pcap.",
+    "param.output_dir.description": "Répertoire des journaux de sortie Zeek.",
+    "param.limit.description": "Nombre maximum d'événements à renvoyer.",
+    "x_search_terms": [
+      "Événements Zeek",
+      "Traffic Monitor",
+      "conn.log",
+      "network"
+    ]
+  },
+  "he": {
+    "tool.description": "חלץ אירועי תעבורה של מטא נתונים בלבד מ-pcap באמצעות Zeek.",
+    "param.pcap_path.description": "קלט נתיב קובץ pcap.",
+    "param.output_dir.description": "ספרייה ליומני פלט של Zeek.",
+    "param.limit.description": "מספר אירועים מקסימלי להחזרה.",
+    "x_search_terms": [
+      "Zeek",
+      "פקח תנועה",
+      "conn.log",
+      "אירועי רשת"
+    ]
+  },
+  "hi": {
+    "tool.description": "ज़ीक का उपयोग करके पीकैप से केवल-मेटाडेटा ट्रैफ़िक ईवेंट निकालें।",
+    "param.pcap_path.description": "इनपुट pcap फ़ाइल पथ.",
+    "param.output_dir.description": "ज़ीक आउटपुट लॉग के लिए निर्देशिका।",
+    "param.limit.description": "वापस आने वाले इवेंट की अधिकतम संख्या.",
+    "x_search_terms": [
+      "ज़ीक",
+      "ट्रैफ़िक मॉनिटर",
+      "conn.log",
+      "नेटवर्क इवेंट"
+    ]
+  },
+  "hu": {
+    "tool.description": "A csak metaadatokat tartalmazó forgalmi események kinyerése pcapről a Zeek segítségével.",
+    "param.pcap_path.description": "Írja be a pcap fájl elérési útját.",
+    "param.output_dir.description": "A Zeek kimeneti naplók könyvtára.",
+    "param.limit.description": "A visszaküldhető események maximális száma.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "hálózati események"
+    ]
+  },
+  "id": {
+    "tool.description": "Ekstrak peristiwa lalu lintas khusus metadata dari pcap menggunakan Zeek.",
+    "param.pcap_path.description": "Masukkan jalur file pcap.",
+    "param.output_dir.description": "Direktori untuk log keluaran Zeek.",
+    "param.limit.description": "Jumlah maksimum acara yang akan dikembalikan.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor lalu lintas",
+      "conn.log",
+      "acara jaringan"
+    ]
+  },
+  "it": {
+    "tool.description": "Estrai eventi di traffico basati solo sui metadati da un pcap utilizzando Zeek.",
+    "param.pcap_path.description": "Immettere il percorso del file pcap.",
+    "param.output_dir.description": "Directory per i log di output Zeek.",
+    "param.limit.description": "Numero massimo di eventi da restituire.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "eventi di rete"
+    ]
+  },
+  "ja": {
+    "tool.description": "Zeek を使用して pcap からメタデータのみのトラフィック イベントを抽出します。",
+    "param.pcap_path.description": "pcap ファイルのパスを入力します。",
+    "param.output_dir.description": "Zeek 出力ログのディレクトリ。",
+    "param.limit.description": "返されるイベントの最大数。",
+    "x_search_terms": [
+      "Zeek",
+      "トラフィックモニター",
+      "conn.log",
+      "ネットワークイベント"
+    ]
+  },
+  "ko": {
+    "tool.description": "Zeek를 사용하여 pcap에서 메타데이터 전용 트래픽 이벤트를 추출합니다.",
+    "param.pcap_path.description": "pcap 파일 경로를 입력하세요.",
+    "param.output_dir.description": "Zeek 출력 로그용 디렉터리입니다.",
+    "param.limit.description": "반환할 최대 이벤트 수입니다.",
+    "x_search_terms": [
+      "Zeek",
+      "트래픽 모니터",
+      "conn.log",
+      "네트워크 이벤트"
+    ]
+  },
+  "mn": {
+    "tool.description": "Zeek ашиглан pcap-ээс зөвхөн мета өгөгдлийн замын хөдөлгөөний үйл явдлыг задлах.",
+    "param.pcap_path.description": "pcap файлын замыг оруулна уу.",
+    "param.output_dir.description": "Zeek гаралтын бүртгэлүүдийн лавлах.",
+    "param.limit.description": "Буцах үйл явдлын дээд тоо.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "сүлжээний үйл явдлууд"
+    ]
+  },
+  "mr": {
+    "tool.description": "Zeek वापरून pcap वरून मेटाडेटा-फक्त रहदारी इव्हेंट काढा.",
+    "param.pcap_path.description": "इनपुट pcap फाइल पथ.",
+    "param.output_dir.description": "Zeek आउटपुट लॉगसाठी निर्देशिका.",
+    "param.limit.description": "परत करण्यासाठी इव्हेंटची कमाल संख्या.",
+    "x_search_terms": [
+      "Zeek",
+      "ट्रॅफिक मॉनिटर",
+      "conn.log",
+      "नेटवर्क इव्हेंट"
+    ]
+  },
+  "ms": {
+    "tool.description": "Ekstrak peristiwa trafik metadata sahaja daripada pcap menggunakan Zeek.",
+    "param.pcap_path.description": "Masukkan laluan fail pcap.",
+    "param.output_dir.description": "Direktori untuk log keluaran Zeek.",
+    "param.limit.description": "Bilangan maksimum acara untuk dikembalikan.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "acara rangkaian"
+    ]
+  },
+  "nb": {
+    "tool.description": "Trekk ut trafikkhendelser som kun er metadata fra en pcap ved hjelp av Zeek.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.output_dir.description": "Katalog for Zeek-utdatalogger.",
+    "param.limit.description": "Maksimalt antall hendelser å returnere.",
+    "x_search_terms": [
+      "Zeek",
+      "trafikkmonitor",
+      "conn.log",
+      "nettverkshendelser"
+    ]
+  },
+  "nl": {
+    "tool.description": "Extraheer verkeersgebeurtenissen met alleen metadata uit een pcap met behulp van Zeek.",
+    "param.pcap_path.description": "Voer het pcap-bestandspad in.",
+    "param.output_dir.description": "Directory voor Zeek-uitvoerlogboeken.",
+    "param.limit.description": "Maximaal aantal evenementen dat moet worden geretourneerd.",
+    "x_search_terms": [
+      "Zeek",
+      "verkeersmonitor",
+      "conn.log",
+      "netwerkgebeurtenissen"
+    ]
+  },
+  "nn": {
+    "tool.description": "Pakk ut metadata-bare trafikkhendelser fra en pcap ved hjelp av Zeek.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.output_dir.description": "Katalog for Zeek utgangslogger.",
+    "param.limit.description": "Maksimalt antall turer tilbake.",
+    "x_search_terms": [
+      "Zeektrafikkmonitorconn.lognettverkshendelser",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Wyodrębnij zdarzenia drogowe zawierające tylko metadane z pcap za pomocą Zeeka.",
+    "param.pcap_path.description": "Wprowadź ścieżkę pliku pcap.",
+    "param.output_dir.description": "Katalog dzienników wyjściowych Zeeka.",
+    "param.limit.description": "Maksymalna liczba zdarzeń do zwrócenia.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor ruchu",
+      "conn.log",
+      "zdarzenia sieciowe"
+    ]
+  },
+  "pt": {
+    "tool.description": "Extraia eventos de tráfego somente de metadados de um pcap usando Zeek.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.output_dir.description": "Diretório para logs de saída do Zeek.",
+    "param.limit.description": "Número máximo de eventos a serem retornados.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor de tráfego",
+      "conn.log",
+      "eventos de rede"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Extraia eventos de tráfego somente de metadados de um pcap usando Zeek.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.output_dir.description": "Diretório para logs de saída do Zeek.",
+    "param.limit.description": "Número máximo de eventos a serem retornados.",
+    "x_search_terms": [
+      "Zeek",
+      "monitor de tráfego",
+      "conn.log",
+      "eventos de rede"
+    ]
+  },
+  "ro": {
+    "tool.description": "Extrageți evenimentele de trafic numai cu metadate dintr-un pcap folosind Zeek.",
+    "param.pcap_path.description": "Introduceți calea fișierului pcap.",
+    "param.output_dir.description": "Director pentru jurnalele de ieșire Zeek.",
+    "param.limit.description": "Numărul maxim de evenimente de returnat.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "evenimente de rețea"
+    ]
+  },
+  "ru": {
+    "tool.description": "Извлекайте события дорожного движения только с метаданными из pcap с помощью Zeek.",
+    "param.pcap_path.description": "Введите путь к файлу pcap.",
+    "param.output_dir.description": "Каталог для журналов вывода Zeek.",
+    "param.limit.description": "Максимальное количество возвращаемых событий.",
+    "x_search_terms": [
+      "Zeek",
+      "traffic Monitor",
+      "conn.log",
+      "сетевые события"
+    ]
+  },
+  "sv": {
+    "tool.description": "Extrahera trafikhändelser endast för metadata från en pcap med Zeek.",
+    "param.pcap_path.description": "Mata in pcap-filsökväg.",
+    "param.output_dir.description": "Katalog för Zeek utdataloggar.",
+    "param.limit.description": "Maximalt antal händelser att returnera.",
+    "x_search_terms": [
+      "Zeek",
+      "trafikövervakning",
+      "conn.log",
+      "nätverkshändelser"
+    ]
+  },
+  "sw": {
+    "tool.description": "Toa matukio ya trafiki ya metadata pekee kutoka kwa pcap ukitumia Zeek.",
+    "param.pcap_path.description": "Ingiza njia ya faili ya pcap.",
+    "param.output_dir.description": "Saraka ya kumbukumbu za matokeo ya Zeek.",
+    "param.limit.description": "Idadi ya juu zaidi ya matukio ya kurudi.",
+    "x_search_terms": [
+      "Zeek",
+      "kifuatilia trafiki",
+      "conn.log",
+      "matukio ya mtandao"
+    ]
+  },
+  "th": {
+    "tool.description": "แยกเหตุการณ์การรับส่งข้อมูลเฉพาะข้อมูลเมตาจาก pcap โดยใช้ Zeek",
+    "param.pcap_path.description": "ป้อนเส้นทางไฟล์ pcap",
+    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกเอาต์พุต Zeek",
+    "param.limit.description": "จำนวนเหตุการณ์สูงสุดที่จะส่งคืน",
+    "x_search_terms": [
+      "Zeek",
+      "traffic monitor",
+      "conn.log",
+      "เหตุการณ์เครือข่าย"
+    ]
+  },
+  "tr": {
+    "tool.description": "Zeek'i kullanarak yalnızca meta verilerden oluşan trafik olaylarını bir pcap'tan çıkarın.",
+    "param.pcap_path.description": "Pcap dosya yolunu girin.",
+    "param.output_dir.description": "Zeek çıktı günlükleri için dizin.",
+    "param.limit.description": "Döndürülecek maksimum etkinlik sayısı.",
+    "x_search_terms": [
+      "Zeek",
+      "trafik monitörü",
+      "conn.log",
+      "ağ olayları"
+    ]
+  },
+  "uk": {
+    "tool.description": "Видобувайте події трафіку лише метаданих із pcap за допомогою Zeek.",
+    "param.pcap_path.description": "Введіть шлях до файлу pcap.",
+    "param.output_dir.description": "Каталог журналів виводу Zeek.",
+    "param.limit.description": "Максимальна кількість подій для повернення.",
+    "x_search_terms": [
+      "Zeek",
+      "монітор трафіку",
+      "conn.log",
+      "події мережі"
+    ]
+  },
+  "vi": {
+    "tool.description": "Trích xuất các sự kiện lưu lượng truy cập chỉ có siêu dữ liệu từ pcap bằng Zeek.",
+    "param.pcap_path.description": "Nhập đường dẫn tập tin pcap.",
+    "param.output_dir.description": "Thư mục cho nhật ký đầu ra của Zeek.",
+    "param.limit.description": "Số lượng sự kiện tối đa để trả về.",
+    "x_search_terms": [
+      "Zeek",
+      "giám sát giao thông",
+      "conn.log",
+      "sự kiện mạng"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "使用 Zeek 从 pcap 中提取仅元数据的流量事件。",
+    "param.pcap_path.description": "输入pcap文件路径。",
+    "param.output_dir.description": "Zeek 输出日志的目录。",
+    "param.limit.description": "返回的最大事件数。",
+    "x_search_terms": [
+      "Zeek",
+      "流量监控",
+      "conn.log",
+      "网络事件"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "使用 Zeek 從 pcap 提取僅元資料的流量事件。",
+    "param.pcap_path.description": "輸入pcap檔路徑。",
+    "param.output_dir.description": "Zeek 輸出日誌的目錄。",
+    "param.limit.description": "傳回的最大事件數。",
+    "x_search_terms": [
+      "Zeek",
+      "流量監控",
+      "conn.log",
+      "網路事件"
+    ]
+  }
+}

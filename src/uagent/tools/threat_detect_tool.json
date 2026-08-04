@@ -1,0 +1,496 @@
+{
+  "en": {
+    "tool.description": "Extract Suricata IDS alerts from a pcap as metadata.",
+    "param.pcap_path.description": "Input pcap file path.",
+    "param.output_dir.description": "Directory for Suricata output logs.",
+    "param.limit.description": "Maximum number of alerts to return.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "threat detection",
+      "eve.json",
+      "security alert"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم باستخراج تنبيهات Suricata IDS من pcap كبيانات وصفية.",
+    "param.pcap_path.description": "إدخال مسار ملف PCAP",
+    "param.output_dir.description": "دليل لسجلات إخراج Suricata.",
+    "param.limit.description": "الحد الأقصى لعدد التنبيهات للعودة.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "كشف التهديدات",
+      "eve.json",
+      "تنبيه أمني"
+    ]
+  },
+  "bn": {
+    "tool.description": "মেটাডেটা হিসাবে একটি pcap থেকে Suricata IDS সতর্কতা বের করুন।",
+    "param.pcap_path.description": "ইনপুট pcap ফাইল পাথ.",
+    "param.output_dir.description": "Suricata আউটপুট লগ জন্য ডিরেক্টরি.",
+    "param.limit.description": "ফেরার জন্য সর্বোচ্চ সংখ্যক সতর্কতা।",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "হুমকি সনাক্তকরণ",
+      "eve.json",
+      "নিরাপত্তা সতর্কতা"
+    ]
+  },
+  "cs": {
+    "tool.description": "Extrahujte výstrahy Suricata IDS z pcap jako metadata.",
+    "param.pcap_path.description": "Zadejte cestu k souboru pcap.",
+    "param.output_dir.description": "Adresář pro výstupní protokoly Suricata.",
+    "param.limit.description": "Maximální počet upozornění, která se mají vrátit.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "detekce hrozeb",
+      "eve.json",
+      "bezpečnostní upozornění"
+    ]
+  },
+  "da": {
+    "tool.description": "Uddrag Suricata IDS-advarsler fra en pcap som metadata.",
+    "param.pcap_path.description": "Indtast pcap filsti.",
+    "param.output_dir.description": "Katalog til Suricata-outputlogfiler.",
+    "param.limit.description": "Maksimalt antal advarsler at returnere.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "trusselsdetektion",
+      "eve.json",
+      "sikkerhedsadvarsel"
+    ]
+  },
+  "de": {
+    "tool.description": "Extrahieren Sie Suricata IDS-Warnungen aus einem PCAP als Metadaten.",
+    "param.pcap_path.description": "Geben Sie den Pfad der PCAP-Datei ein.",
+    "param.output_dir.description": "Verzeichnis für Suricata-Ausgabeprotokolle.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Warnungen.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "Bedrohungserkennung",
+      "eve.json",
+      "Sicherheitswarnung"
+    ]
+  },
+  "el": {
+    "tool.description": "Εξαγωγή ειδοποιήσεων Suricata IDS από ένα pcap ως μεταδεδομένα.",
+    "param.pcap_path.description": "Εισαγωγή διαδρομής αρχείου pcap.",
+    "param.output_dir.description": "Κατάλογος για αρχεία καταγραφής εξόδου Suricata.",
+    "param.limit.description": "Μέγιστος αριθμός ειδοποιήσεων προς επιστροφή.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "ανίχνευση απειλών",
+      "eve.json",
+      "ειδοποίηση ασφαλείας"
+    ]
+  },
+  "es": {
+    "tool.description": "Extraiga las alertas de Suricata IDS de un pcap como metadatos.",
+    "param.pcap_path.description": "Introduzca la ruta del archivo pcap.",
+    "param.output_dir.description": "Directorio de registros de salida de Suricata.",
+    "param.limit.description": "Número máximo de alertas para devolver.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "detección de amenazas",
+      "eve.json",
+      "alerta de seguridad"
+    ]
+  },
+  "fa": {
+    "tool.description": "هشدارهای Suricata IDS را از یک pcap به عنوان ابرداده استخراج کنید.",
+    "param.pcap_path.description": "مسیر فایل pcap را وارد کنید.",
+    "param.output_dir.description": "فهرست سیاهههای مربوط به خروجی Suricata.",
+    "param.limit.description": "حداکثر تعداد هشدار برای بازگشت.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "تشخیص تهدید",
+      "eve.json",
+      "هشدار امنیتی"
+    ]
+  },
+  "fi": {
+    "tool.description": "Pura Suricata IDS -hälytykset pcapista metatietoina.",
+    "param.pcap_path.description": "Syötä pcap-tiedoston polku.",
+    "param.output_dir.description": "Hakemisto Suricatan tulostuslokeille.",
+    "param.limit.description": "Palautettavien ilmoitusten enimmäismäärä.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "uhan havaitseminen",
+      "eve.json",
+      "tietoturvahälytys"
+    ]
+  },
+  "fil": {
+    "tool.description": "I-extract ang mga alerto ng Suricata IDS mula sa isang pcap bilang metadata.",
+    "param.pcap_path.description": "Ipasok ang path ng pcap file.",
+    "param.output_dir.description": "Direktoryo para sa mga tala ng output ng Suricata.",
+    "param.limit.description": "Pinakamataas na bilang ng mga alertong ibabalik.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "pagtukoy sa pagbabanta",
+      "eve.json",
+      "alerto sa seguridad"
+    ]
+  },
+  "fr": {
+    "tool.description": "Extrayez les alertes Suricata IDS d’un pcap en tant que métadonnées.",
+    "param.pcap_path.description": "Entrez le chemin du fichier pcap.",
+    "param.output_dir.description": "Répertoire des journaux de sortie Suricata.",
+    "param.limit.description": "Nombre maximum d'alertes à renvoyer.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "détection des menaces",
+      "eve.json",
+      "alerte de sécurité"
+    ]
+  },
+  "he": {
+    "tool.description": "חלץ התראות Suricata IDS מ-pcap כמטא נתונים.",
+    "param.pcap_path.description": "קלט נתיב קובץ pcap.",
+    "param.output_dir.description": "ספרייה ליומני פלט של Suricata.",
+    "param.limit.description": "המספר המרבי של התראות שיש להחזיר.",
+    "x_search_terms": [
+      "התראת אבטחה Suricata",
+      "IDS",
+      "זיהוי איום",
+      "eve.json",
+      ""
+    ]
+  },
+  "hi": {
+    "tool.description": "मेटाडेटा के रूप में एक पीकैप से सुरीकाटा आईडीएस अलर्ट निकालें।",
+    "param.pcap_path.description": "इनपुट pcap फ़ाइल पथ.",
+    "param.output_dir.description": "Suricata आउटपुट लॉग के लिए निर्देशिका।",
+    "param.limit.description": "लौटने के लिए अलर्ट की अधिकतम संख्या.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "खतरे का पता लगाना",
+      "eve.json",
+      "सुरक्षा चेतावनी"
+    ]
+  },
+  "hu": {
+    "tool.description": "Kivonja a Suricata IDS-riasztásokat egy pcap-ről metaadatként.",
+    "param.pcap_path.description": "Írja be a pcap fájl elérési útját.",
+    "param.output_dir.description": "A Suricata kimeneti naplók könyvtára.",
+    "param.limit.description": "A visszaküldendő riasztások maximális száma.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "fenyegetésészlelés",
+      "eve.json",
+      "biztonsági figyelmeztetés"
+    ]
+  },
+  "id": {
+    "tool.description": "Ekstrak peringatan IDS Suricata dari pcap sebagai metadata.",
+    "param.pcap_path.description": "Masukkan jalur file pcap.",
+    "param.output_dir.description": "Direktori untuk log keluaran Suricata.",
+    "param.limit.description": "Jumlah maksimum peringatan yang akan dikembalikan.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "deteksi ancaman",
+      "eve.json",
+      "peringatan keamanan"
+    ]
+  },
+  "it": {
+    "tool.description": "Estrai gli avvisi Suricata IDS da un pcap come metadati.",
+    "param.pcap_path.description": "Immettere il percorso del file pcap.",
+    "param.output_dir.description": "Directory per i registri di output di Suricata.",
+    "param.limit.description": "Numero massimo di avvisi da restituire.",
+    "x_search_terms": [
+      "Avviso di sicurezza Suricata",
+      "IDS",
+      "rilevamento minacce",
+      "eve.json",
+      ""
+    ]
+  },
+  "ja": {
+    "tool.description": "Suricata IDS アラートを pcap からメタデータとして抽出します。",
+    "param.pcap_path.description": "pcap ファイルのパスを入力します。",
+    "param.output_dir.description": "Suricata 出力ログのディレクトリ。",
+    "param.limit.description": "返されるアラートの最大数。",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "脅威検出",
+      "eve.json",
+      "セキュリティアラート"
+    ]
+  },
+  "ko": {
+    "tool.description": "pcap에서 Suricata IDS 경고를 메타데이터로 추출합니다.",
+    "param.pcap_path.description": "pcap 파일 경로를 입력하세요.",
+    "param.output_dir.description": "Suricata 출력 로그용 디렉터리입니다.",
+    "param.limit.description": "반환할 최대 경고 수입니다.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "위협 감지",
+      "eve.json",
+      "보안 경고"
+    ]
+  },
+  "mn": {
+    "tool.description": "Suricata IDS анхааруулгыг pcap-ээс мета өгөгдөл болгон задлах.",
+    "param.pcap_path.description": "pcap файлын замыг оруулна уу.",
+    "param.output_dir.description": "Suricata гаралтын бүртгэлүүдийн лавлах.",
+    "param.limit.description": "Буцах дохионы дээд тоо.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "аюул илрүүлэх",
+      "eve.json",
+      "аюулгүй байдлын дохиолол"
+    ]
+  },
+  "mr": {
+    "tool.description": "मेटाडेटा म्हणून pcap वरून Suricata IDS अलर्ट काढा.",
+    "param.pcap_path.description": "इनपुट pcap फाइल पथ.",
+    "param.output_dir.description": "Suricata आउटपुट लॉगसाठी निर्देशिका.",
+    "param.limit.description": "परत येण्यासाठी जास्तीत जास्त अलर्टची संख्या.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "धोका ओळख",
+      "eve.json",
+      "सुरक्षा सूचना"
+    ]
+  },
+  "ms": {
+    "tool.description": "Ekstrak makluman Suricata IDS daripada pcap sebagai metadata.",
+    "param.pcap_path.description": "Masukkan laluan fail pcap.",
+    "param.output_dir.description": "Direktori untuk log keluaran Suricata.",
+    "param.limit.description": "Bilangan maksimum makluman untuk dikembalikan.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "pengesanan ancaman",
+      "eve.json",
+      "amaran keselamatan"
+    ]
+  },
+  "nb": {
+    "tool.description": "Trekk ut Suricata IDS-varsler fra en pcap som metadata.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.output_dir.description": "Katalog for Suricata-utdatalogger.",
+    "param.limit.description": "Maksimalt antall varsler å returnere.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "trusselsdeteksjon",
+      "eve.json",
+      "sikkerhetsvarsel"
+    ]
+  },
+  "nl": {
+    "tool.description": "Extraheer Suricata IDS-waarschuwingen uit een pcap als metagegevens.",
+    "param.pcap_path.description": "Voer het pcap-bestandspad in.",
+    "param.output_dir.description": "Directory voor Suricata-uitvoerlogboeken.",
+    "param.limit.description": "Maximaal aantal waarschuwingen dat moet worden geretourneerd.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "bedreigingsdetectie",
+      "eve.json",
+      "beveiligingswaarschuwing"
+    ]
+  },
+  "nn": {
+    "tool.description": "Trekk ut SURICATA IDS-varsler fra en pcap som metadata.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.output_dir.description": "Katalog for Suricata utgangslogger.",
+    "param.limit.description": "Maksimalt antall varsler for å returnere.",
+    "x_search_terms": [
+      "Suricata-ID-ER - trusseldeteksjon-eve.json - sikkerhetsvarsel",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Wyodrębnij alerty Suricata IDS z pcap jako metadane.",
+    "param.pcap_path.description": "Wprowadź ścieżkę pliku pcap.",
+    "param.output_dir.description": "Katalog dzienników wyjściowych Suricata.",
+    "param.limit.description": "Maksymalna liczba alertów do zwrócenia.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "wykrywanie zagrożeń",
+      "eve.json",
+      "alarm bezpieczeństwa"
+    ]
+  },
+  "pt": {
+    "tool.description": "Extraia alertas Suricata IDS de um pcap como metadados.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.output_dir.description": "Diretório para logs de saída do Suricata.",
+    "param.limit.description": "Número máximo de alertas a serem retornados.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "detecção de ameaças",
+      "eve.json",
+      "alerta de segurança"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Extraia alertas Suricata IDS de um pcap como metadados.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.output_dir.description": "Diretório para logs de saída do Suricata.",
+    "param.limit.description": "Número máximo de alertas a serem retornados.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "detecção de ameaças",
+      "eve.json",
+      "alerta de segurança"
+    ]
+  },
+  "ro": {
+    "tool.description": "Extrageți alertele Suricata IDS dintr-un pcap ca metadate.",
+    "param.pcap_path.description": "Introduceți calea fișierului pcap.",
+    "param.output_dir.description": "Director pentru jurnalele de ieșire Suricata.",
+    "param.limit.description": "Numărul maxim de alerte de returnat.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "detecția amenințărilor",
+      "eve.json",
+      "alerta de securitate"
+    ]
+  },
+  "ru": {
+    "tool.description": "Извлеките оповещения Suricata IDS из pcap в виде метаданных.",
+    "param.pcap_path.description": "Введите путь к файлу pcap.",
+    "param.output_dir.description": "Каталог для журналов вывода Suricata.",
+    "param.limit.description": "Максимальное количество возвращаемых оповещений.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "обнаружение угроз",
+      "eve.json",
+      "предупреждение безопасности"
+    ]
+  },
+  "sv": {
+    "tool.description": "Extrahera Suricata IDS-varningar från en pcap som metadata.",
+    "param.pcap_path.description": "Mata in pcap-filsökväg.",
+    "param.output_dir.description": "Katalog för Suricata-utdataloggar.",
+    "param.limit.description": "Maximalt antal varningar att returnera.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "hotdetektering",
+      "eve.json",
+      "säkerhetsvarning"
+    ]
+  },
+  "sw": {
+    "tool.description": "Toa arifa za Suricata IDS kutoka kwa pcap kama metadata.",
+    "param.pcap_path.description": "Ingiza njia ya faili ya pcap.",
+    "param.output_dir.description": "Saraka ya kumbukumbu za matokeo ya Suricata.",
+    "param.limit.description": "Idadi ya juu zaidi ya arifa za kurejesha.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "tahadhari ya usalama",
+      "eve.json",
+      "tahadhari ya usalama"
+    ]
+  },
+  "th": {
+    "tool.description": "แยกการแจ้งเตือน Suricata IDS จาก pcap เป็นข้อมูลเมตา",
+    "param.pcap_path.description": "ป้อนเส้นทางไฟล์ pcap",
+    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกเอาต์พุต Suricata",
+    "param.limit.description": "จำนวนการแจ้งเตือนสูงสุดที่จะส่งคืน",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "การตรวจจับภัยคุกคาม",
+      "eve.json",
+      "การแจ้งเตือนความปลอดภัย"
+    ]
+  },
+  "tr": {
+    "tool.description": "Suricata IDS uyarılarını bir pcap'tan meta veri olarak çıkarın.",
+    "param.pcap_path.description": "Pcap dosya yolunu girin.",
+    "param.output_dir.description": "Suricata çıktı günlükleri dizini.",
+    "param.limit.description": "Döndürülecek maksimum uyarı sayısı.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "tehdit algılama",
+      "eve.json",
+      "güvenlik uyarısı"
+    ]
+  },
+  "uk": {
+    "tool.description": "Витягніть сповіщення Suricata IDS із pcap як метадані.",
+    "param.pcap_path.description": "Введіть шлях до файлу pcap.",
+    "param.output_dir.description": "Каталог для вихідних журналів Suricata.",
+    "param.limit.description": "Максимальна кількість сповіщень для повернення.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "виявлення загроз",
+      "eve.json",
+      "сповіщення системи безпеки"
+    ]
+  },
+  "vi": {
+    "tool.description": "Trích xuất cảnh báo Suricata IDS từ pcap dưới dạng siêu dữ liệu.",
+    "param.pcap_path.description": "Nhập đường dẫn tập tin pcap.",
+    "param.output_dir.description": "Thư mục cho nhật ký đầu ra Suricata.",
+    "param.limit.description": "Số lượng cảnh báo tối đa để trả về.",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "phát hiện mối đe dọa",
+      "eve.json",
+      "cảnh báo bảo mật"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "从 pcap 中提取 Suricata IDS 警报作为元数据。",
+    "param.pcap_path.description": "输入pcap文件路径。",
+    "param.output_dir.description": "Suricata 输出日志的目录。",
+    "param.limit.description": "返回的警报的最大数量。",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "威胁检测",
+      "eve.json",
+      "安全警报"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "從 pcap 提取 Suricata IDS 警報作為元資料。",
+    "param.pcap_path.description": "輸入pcap檔路徑。",
+    "param.output_dir.description": "Suricata 輸出日誌的目錄。",
+    "param.limit.description": "返回的警報的最大數量。",
+    "x_search_terms": [
+      "Suricata",
+      "IDS",
+      "威脅偵測",
+      "eve.json",
+      "安全警報"
+    ]
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "en": {
+    "tool.description": "Inspect selected protocol fields from a local pcap without returning payloads.",
+    "param.pcap_path.description": "Input pcap file path.",
+    "param.backend.description": "Inspection backend: scapy, auto, or tshark.",
+    "param.display_filter.description": "Optional Wireshark/tshark display filter.",
+    "param.fields.description": "Allowed protocol fields to return.",
+    "param.limit.description": "Maximum number of packets to return.",
+    "x_search_terms": [
+      "protocol inspection",
+      "packet fields",
+      "pcap fields",
+      "header analysis"
+    ]
+  },
+  "ar": {
+    "tool.description": "افحص حقول البروتوكول المحددة من PCAP المحلي دون إرجاع الحمولات.",
+    "param.pcap_path.description": "إدخال مسار ملف PCAP",
+    "param.backend.description": "الواجهة الخلفية للفحص: scapy، أو auto، أو tshark.",
+    "param.display_filter.description": "مرشح عرض Wireshark/tshark اختياري.",
+    "param.fields.description": "حقول البروتوكول المسموح لها بالعودة.",
+    "param.limit.description": "الحد الأقصى لعدد الحزم المراد إرجاعها.",
+    "x_search_terms": [
+      "فحص البروتوكول، حقول الحزمة، حقول pcap، تحليل الرأس",
+      "",
+      "",
+      ""
+    ]
+  },
+  "bn": {
+    "tool.description": "পেলোড ফেরত না দিয়ে একটি স্থানীয় pcap থেকে নির্বাচিত প্রোটোকল ক্ষেত্রগুলি পরিদর্শন করুন।",
+    "param.pcap_path.description": "ইনপুট pcap ফাইল পাথ.",
+    "param.backend.description": "পরিদর্শন ব্যাকএন্ড: স্ক্যাপি, অটো, বা টিশার্ক।",
+    "param.display_filter.description": "ঐচ্ছিক Wireshark/tshark প্রদর্শন ফিল্টার।",
+    "param.fields.description": "প্রটোকল ক্ষেত্রগুলিকে ফেরত দেওয়ার অনুমতি দেওয়া হয়েছে৷",
+    "param.limit.description": "ফিরতি প্যাকেটের সর্বাধিক সংখ্যা।",
+    "x_search_terms": [
+      "প্রোটোকল পরিদর্শন",
+      "প্যাকেট ক্ষেত্র",
+      "pcap ক্ষেত্র",
+      "হেডার বিশ্লেষণ"
+    ]
+  },
+  "cs": {
+    "tool.description": "Zkontrolujte vybraná pole protokolu z místního pcap bez vracení dat.",
+    "param.pcap_path.description": "Zadejte cestu k souboru pcap.",
+    "param.backend.description": "Backend inspekce: scapy, auto nebo tshark.",
+    "param.display_filter.description": "Volitelný filtr zobrazení Wireshark/tshark.",
+    "param.fields.description": "Povolená návratnost polí protokolu.",
+    "param.limit.description": "Maximální počet paketů k vrácení.",
+    "x_search_terms": [
+      "kontrola protokolu",
+      "pole paketů",
+      "pole pcap",
+      "analýza záhlaví"
+    ]
+  },
+  "da": {
+    "tool.description": "Inspicer udvalgte protokolfelter fra en lokal pcap uden at returnere nyttelast.",
+    "param.pcap_path.description": "Indtast pcap filsti.",
+    "param.backend.description": "Inspektionsbackend: scapy, auto eller tshark.",
+    "param.display_filter.description": "Valgfrit Wireshark/tshark display filter.",
+    "param.fields.description": "Tilladte protokolfelter at returnere.",
+    "param.limit.description": "Maksimalt antal pakker at returnere.",
+    "x_search_terms": [
+      "protokolinspektion",
+      "pakkefelter",
+      "pcap-felter",
+      "headeranalyse"
+    ]
+  },
+  "de": {
+    "tool.description": "Überprüfen Sie ausgewählte Protokollfelder von einem lokalen PCAP aus, ohne Nutzlasten zurückzugeben.",
+    "param.pcap_path.description": "Geben Sie den Pfad der PCAP-Datei ein.",
+    "param.backend.description": "Inspektions-Backend: Scapy, Auto oder Tshark.",
+    "param.display_filter.description": "Optionaler Wireshark/Tshark-Anzeigefilter.",
+    "param.fields.description": "Zulässige Protokollfelder, die zurückgegeben werden sollen.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Pakete.",
+    "x_search_terms": [
+      "Protokollinspektion",
+      "Paketfelder",
+      "Pcap-Felder",
+      "Header-Analyse"
+    ]
+  },
+  "el": {
+    "tool.description": "Επιθεωρήστε επιλεγμένα πεδία πρωτοκόλλου από ένα τοπικό pcap χωρίς επιστροφή ωφέλιμων φορτίων.",
+    "param.pcap_path.description": "Εισαγωγή διαδρομής αρχείου pcap.",
+    "param.backend.description": "Backend επιθεώρησης: scapy, auto ή tshark.",
+    "param.display_filter.description": "Προαιρετικό φίλτρο οθόνης Wireshark/tshark.",
+    "param.fields.description": "Επιτρεπόμενα πεδία πρωτοκόλλου για επιστροφή.",
+    "param.limit.description": "Μέγιστος αριθμός πακέτων προς επιστροφή.",
+    "x_search_terms": [
+      "επιθεώρηση πρωτοκόλλου",
+      "πεδία πακέτων",
+      "πεδία pcap",
+      "ανάλυση κεφαλίδων"
+    ]
+  },
+  "es": {
+    "tool.description": "Inspeccione los campos de protocolo seleccionados desde un pcap local sin devolver cargas útiles.",
+    "param.pcap_path.description": "Introduzca la ruta del archivo pcap.",
+    "param.backend.description": "Backend de inspección: scapy, auto o tshark.",
+    "param.display_filter.description": "Filtro de visualización opcional Wireshark/tshark.",
+    "param.fields.description": "Campos de protocolo permitidos para regresar.",
+    "param.limit.description": "Número máximo de paquetes a devolver.",
+    "x_search_terms": [
+      "inspección de protocolo",
+      "campos de paquetes",
+      "campos pcap",
+      "análisis de encabezados"
+    ]
+  },
+  "fa": {
+    "tool.description": "فیلدهای پروتکل انتخابی را از یک pcap محلی بدون بازگرداندن بارهای پرداختی بازرسی کنید.",
+    "param.pcap_path.description": "مسیر فایل pcap را وارد کنید.",
+    "param.backend.description": "باطن بازرسی: scapy، auto یا tshark.",
+    "param.display_filter.description": "فیلتر نمایش Wireshark/tshark اختیاری.",
+    "param.fields.description": "فیلدهای پروتکل مجاز برای بازگشت.",
+    "param.limit.description": "حداکثر تعداد بسته برای بازگشت.",
+    "x_search_terms": [
+      "بازرسی پروتکل",
+      "فیلدهای بسته",
+      "فیلدهای pcap",
+      "تجزیه و تحلیل هدر"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tarkista valitut protokollakentät paikalliselta pcapilta palauttamatta hyötykuormia.",
+    "param.pcap_path.description": "Syötä pcap-tiedoston polku.",
+    "param.backend.description": "Tarkastuksen taustaohjelma: scapy, auto tai tshark.",
+    "param.display_filter.description": "Valinnainen Wireshark/tshark-näyttösuodatin.",
+    "param.fields.description": "Sallittu protokollakenttien palauttaminen.",
+    "param.limit.description": "Palautettavien pakettien enimmäismäärä.",
+    "x_search_terms": [
+      "protokollatarkastus",
+      "pakettikentät",
+      "pcap-kentät",
+      "otsikkoanalyysi"
+    ]
+  },
+  "fil": {
+    "tool.description": "Siyasatin ang mga napiling field ng protocol mula sa isang lokal na pcap nang hindi nagbabalik ng mga payload.",
+    "param.pcap_path.description": "Ipasok ang path ng pcap file.",
+    "param.backend.description": "Inspection backend: scapy, auto, o tshark.",
+    "param.display_filter.description": "Opsyonal na Wireshark/tshark display filter.",
+    "param.fields.description": "Pinahintulutang bumalik ang mga field ng protocol.",
+    "param.limit.description": "Pinakamataas na bilang ng mga packet na ibabalik.",
+    "x_search_terms": [
+      "inspeksyon ng protocol",
+      "packet field",
+      "pcap field",
+      "header analysis"
+    ]
+  },
+  "fr": {
+    "tool.description": "Inspectez les champs de protocole sélectionnés à partir d’un pcap local sans renvoyer de charges utiles.",
+    "param.pcap_path.description": "Entrez le chemin du fichier pcap.",
+    "param.backend.description": "Backend d’inspection : scapy, auto ou tshark.",
+    "param.display_filter.description": "Filtre d'affichage Wireshark/tshark en option.",
+    "param.fields.description": "Champs de protocole autorisés à revenir.",
+    "param.limit.description": "Nombre maximum de paquets à renvoyer.",
+    "x_search_terms": [
+      "inspection du protocole",
+      "champs de paquets",
+      "champs pcap",
+      "analyse d'en-tête"
+    ]
+  },
+  "he": {
+    "tool.description": "בדוק שדות פרוטוקולים נבחרים מ-pcap מקומי מבלי להחזיר מטענים.",
+    "param.pcap_path.description": "קלט נתיב קובץ pcap.",
+    "param.backend.description": "קצה אחורי של בדיקה: scapy, אוטומטי או tshark.",
+    "param.display_filter.description": "מסנן תצוגה Wireshark/tshark אופציונלי.",
+    "param.fields.description": "שדות פרוטוקול מותר לחזור.",
+    "param.limit.description": "מספר מקסימלי של מנות להחזרה.",
+    "x_search_terms": [
+      "בדיקת פרוטוקול",
+      "שדות מנות",
+      "שדות pcap",
+      "ניתוח כותרות"
+    ]
+  },
+  "hi": {
+    "tool.description": "पेलोड लौटाए बिना स्थानीय पीकैप से चयनित प्रोटोकॉल फ़ील्ड का निरीक्षण करें।",
+    "param.pcap_path.description": "इनपुट pcap फ़ाइल पथ.",
+    "param.backend.description": "निरीक्षण बैकएंड: स्कैपी, ऑटो, या टीशार्क।",
+    "param.display_filter.description": "वैकल्पिक वायरशार्क/टीशार्क डिस्प्ले फिल्टर।",
+    "param.fields.description": "प्रोटोकॉल फ़ील्ड को वापस लौटने की अनुमति दी गई.",
+    "param.limit.description": "लौटाए जाने वाले पैकेटों की अधिकतम संख्या.",
+    "x_search_terms": [
+      "प्रोटोकॉल निरीक्षण",
+      "पैकेट फ़ील्ड",
+      "pcap फ़ील्ड",
+      "हेडर विश्लेषण"
+    ]
+  },
+  "hu": {
+    "tool.description": "Vizsgálja meg a kiválasztott protokollmezőket egy helyi pcap-ről a hasznos adatok visszaadása nélkül.",
+    "param.pcap_path.description": "Írja be a pcap fájl elérési útját.",
+    "param.backend.description": "Ellenőrzési háttér: scapy, auto vagy tshark.",
+    "param.display_filter.description": "Opcionális Wireshark/tshark kijelzőszűrő.",
+    "param.fields.description": "Engedélyezett protokollmezők visszatérése.",
+    "param.limit.description": "A visszaküldendő csomagok maximális száma.",
+    "x_search_terms": [
+      "protokollellenőrzés",
+      "csomagmezők",
+      "pcap mezők",
+      "fejlécelemzés"
+    ]
+  },
+  "id": {
+    "tool.description": "Periksa bidang protokol yang dipilih dari pcap lokal tanpa mengembalikan muatan.",
+    "param.pcap_path.description": "Masukkan jalur file pcap.",
+    "param.backend.description": "Backend inspeksi: scapy, auto, atau tshark.",
+    "param.display_filter.description": "Filter tampilan Wireshark/tshark opsional.",
+    "param.fields.description": "Bidang protokol diizinkan untuk kembali.",
+    "param.limit.description": "Jumlah maksimum paket yang akan dikembalikan.",
+    "x_search_terms": [
+      "pemeriksaan protokol",
+      "bidang paket",
+      "bidang pcap",
+      "analisis header"
+    ]
+  },
+  "it": {
+    "tool.description": "Ispeziona i campi del protocollo selezionati da un pcap locale senza restituire payload.",
+    "param.pcap_path.description": "Immettere il percorso del file pcap.",
+    "param.backend.description": "Backend di ispezione: scapy, auto o tshark.",
+    "param.display_filter.description": "Filtro di visualizzazione Wireshark/tshark opzionale.",
+    "param.fields.description": "Campi di protocollo consentiti da restituire.",
+    "param.limit.description": "Numero massimo di pacchetti da restituire.",
+    "x_search_terms": [
+      "ispezione del protocollo",
+      "campi dei pacchetti",
+      "campi pcap",
+      "analisi delle intestazioni"
+    ]
+  },
+  "ja": {
+    "tool.description": "ペイロードを返さずに、ローカル pcap から選択したプロトコル フィールドを検査します。",
+    "param.pcap_path.description": "pcap ファイルのパスを入力します。",
+    "param.backend.description": "検査バックエンド: scapy、auto、または tshark。",
+    "param.display_filter.description": "オプションの Wireshark/tshark 表示フィルター。",
+    "param.fields.description": "返されるプロトコル フィールドを許可します。",
+    "param.limit.description": "返されるパケットの最大数。",
+    "x_search_terms": [
+      "プロトコル検査",
+      "パケットフィールド",
+      "pcapフィールド",
+      "ヘッダー分析"
+    ]
+  },
+  "ko": {
+    "tool.description": "페이로드를 반환하지 않고 로컬 pcap에서 선택한 프로토콜 필드를 검사합니다.",
+    "param.pcap_path.description": "pcap 파일 경로를 입력하세요.",
+    "param.backend.description": "검사 백엔드: scapy, auto 또는 tshark.",
+    "param.display_filter.description": "선택적 Wireshark/tshark 표시 필터.",
+    "param.fields.description": "프로토콜 필드 반환이 허용되었습니다.",
+    "param.limit.description": "반환할 최대 패킷 수입니다.",
+    "x_search_terms": [
+      "프로토콜 검사",
+      "패킷 필드",
+      "pcap 필드",
+      "헤더 분석"
+    ]
+  },
+  "mn": {
+    "tool.description": "Ачааллыг буцаахгүйгээр локал pcap-аас сонгосон протоколын талбаруудыг шалгана уу.",
+    "param.pcap_path.description": "pcap файлын замыг оруулна уу.",
+    "param.backend.description": "Шалгалтын арын хэсэг: scapy, auto, эсвэл tshark.",
+    "param.display_filter.description": "Нэмэлт Wireshark/tshark дэлгэцийн шүүлтүүр.",
+    "param.fields.description": "Протоколын талбаруудыг буцаахыг зөвшөөрсөн.",
+    "param.limit.description": "Буцах хамгийн их багцын тоо.",
+    "x_search_terms": [
+      "протоколын шалгалт",
+      "пакет талбарууд",
+      "pcap талбарууд",
+      "толгойн дүн шинжилгээ"
+    ]
+  },
+  "mr": {
+    "tool.description": "पेलोड परत न करता स्थानिक pcap वरून निवडलेल्या प्रोटोकॉल फील्डची तपासणी करा.",
+    "param.pcap_path.description": "इनपुट pcap फाइल पथ.",
+    "param.backend.description": "तपासणी बॅकएंड: स्कॅपी, ऑटो किंवा टीशार्क.",
+    "param.display_filter.description": "पर्यायी वायरशार्क/ट्शार्क डिस्प्ले फिल्टर.",
+    "param.fields.description": "प्रोटोकॉल फील्डला परत येण्याची परवानगी दिली.",
+    "param.limit.description": "परत करण्यासाठी पॅकेटची कमाल संख्या.",
+    "x_search_terms": [
+      "प्रोटोकॉल तपासणी",
+      "पॅकेट फील्ड",
+      "pcap फील्ड",
+      "हेडर विश्लेषण"
+    ]
+  },
+  "ms": {
+    "tool.description": "Periksa medan protokol yang dipilih daripada pcap tempatan tanpa mengembalikan muatan.",
+    "param.pcap_path.description": "Masukkan laluan fail pcap.",
+    "param.backend.description": "Bahagian belakang pemeriksaan: scapy, auto, atau tshark.",
+    "param.display_filter.description": "Penapis paparan Wireshark/tshark pilihan.",
+    "param.fields.description": "Medan protokol yang dibenarkan untuk kembali.",
+    "param.limit.description": "Bilangan maksimum paket untuk dikembalikan.",
+    "x_search_terms": [
+      "pemeriksaan protokol",
+      "medan paket",
+      "medan pcap",
+      "analisis pengepala"
+    ]
+  },
+  "nb": {
+    "tool.description": "Inspiser valgte protokollfelt fra en lokal pcap uten å returnere nyttelast.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.backend.description": "Inspeksjonsbackend: scapy, auto eller tshark.",
+    "param.display_filter.description": "Valgfritt Wireshark/tshark-skjermfilter.",
+    "param.fields.description": "Tillatte protokollfelt å returnere.",
+    "param.limit.description": "Maksimalt antall pakker å returnere.",
+    "x_search_terms": [
+      "protokollinspeksjon",
+      "pakkefelt",
+      "pcap-felt",
+      "overskriftsanalyse"
+    ]
+  },
+  "nl": {
+    "tool.description": "Inspecteer geselecteerde protocolvelden vanaf een lokale pcap zonder payloads terug te sturen.",
+    "param.pcap_path.description": "Voer het pcap-bestandspad in.",
+    "param.backend.description": "Inspectie-backend: scapy, auto of tshark.",
+    "param.display_filter.description": "Optioneel Wireshark/tshark-weergavefilter.",
+    "param.fields.description": "Toegestaan ​​dat protocolvelden terugkeren.",
+    "param.limit.description": "Maximaal aantal te retourneren pakketten.",
+    "x_search_terms": [
+      "protocolinspectie",
+      "pakketvelden",
+      "pcap-velden",
+      "headeranalyse"
+    ]
+  },
+  "nn": {
+    "tool.description": "Inspiser valte protokollfelt frå ein lokal pcap utan å returnere nyttelast.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.backend.description": "Inspeksjon backend: scapy, auto, eller tshark.",
+    "param.display_filter.description": "Valgfritt Wireshark/tshark-skjermfilter.",
+    "param.fields.description": "Tillatte protokollfelt å returnere.",
+    "param.limit.description": "Maksimalt antall pakker som skal returneres.",
+    "x_search_terms": [
+      "protokollinspeksjon - pakkefelt - PCAP-felt- topptekstanalyse",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Sprawdź wybrane pola protokołu z lokalnego pcap bez zwracania ładunków.",
+    "param.pcap_path.description": "Wprowadź ścieżkę pliku pcap.",
+    "param.backend.description": "Zaplecze inspekcji: scapy, auto lub tshark.",
+    "param.display_filter.description": "Opcjonalny filtr wyświetlacza Wireshark/tshark.",
+    "param.fields.description": "Zezwolono na zwrócenie pól protokołu.",
+    "param.limit.description": "Maksymalna liczba pakietów do zwrotu.",
+    "x_search_terms": [
+      "inspekcja protokołu",
+      "pola pakietów",
+      "pola pcap",
+      "analiza nagłówka"
+    ]
+  },
+  "pt": {
+    "tool.description": "Inspecione os campos de protocolo selecionados de um pcap local sem retornar cargas úteis.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.backend.description": "Back-end de inspeção: scapy, auto ou tshark.",
+    "param.display_filter.description": "Filtro de exibição Wireshark/tshark opcional.",
+    "param.fields.description": "Campos de protocolo permitidos para retornar.",
+    "param.limit.description": "Número máximo de pacotes a serem retornados.",
+    "x_search_terms": [
+      "inspeção de protocolo",
+      "campos de pacote",
+      "campos pcap",
+      "análise de cabeçalho"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Inspecione os campos de protocolo selecionados de um pcap local sem retornar cargas úteis.",
+    "param.pcap_path.description": "Insira o caminho do arquivo pcap.",
+    "param.backend.description": "Back-end de inspeção: scapy, auto ou tshark.",
+    "param.display_filter.description": "Filtro de exibição Wireshark/tshark opcional.",
+    "param.fields.description": "Campos de protocolo permitidos para retornar.",
+    "param.limit.description": "Número máximo de pacotes a serem retornados.",
+    "x_search_terms": [
+      "inspeção de protocolo",
+      "campos de pacote",
+      "campos pcap",
+      "análise de cabeçalho"
+    ]
+  },
+  "ro": {
+    "tool.description": "Inspectați câmpurile de protocol selectate dintr-un pcap local fără a returna încărcături utile.",
+    "param.pcap_path.description": "Introduceți calea fișierului pcap.",
+    "param.backend.description": "Backend de inspecție: scapy, auto sau tshark.",
+    "param.display_filter.description": "Filtru de afișare Wireshark/tshark opțional.",
+    "param.fields.description": "Câmpurile de protocol permise să revină.",
+    "param.limit.description": "Numărul maxim de pachete de returnat.",
+    "x_search_terms": [
+      "inspecție protocol",
+      "câmpuri de pachete",
+      "câmpuri pcap",
+      "analiza antet"
+    ]
+  },
+  "ru": {
+    "tool.description": "Проверяйте выбранные поля протокола из локального pcap, не возвращая полезные данные.",
+    "param.pcap_path.description": "Введите путь к файлу pcap.",
+    "param.backend.description": "Серверная часть проверки: scapy, auto или tshark.",
+    "param.display_filter.description": "Дополнительный фильтр отображения Wireshark/tshark.",
+    "param.fields.description": "Разрешено возвращать поля протокола.",
+    "param.limit.description": "Максимальное количество возвращаемых пакетов.",
+    "x_search_terms": [
+      "проверка протокола",
+      "поля пакетов",
+      "поля pcap",
+      "анализ заголовка"
+    ]
+  },
+  "sv": {
+    "tool.description": "Inspektera valda protokollfält från en lokal pcap utan att returnera nyttolaster.",
+    "param.pcap_path.description": "Mata in pcap-filsökväg.",
+    "param.backend.description": "Inspektionsbackend: scapy, auto eller tshark.",
+    "param.display_filter.description": "Valfritt Wireshark/tshark-displayfilter.",
+    "param.fields.description": "Tillåtna protokollfält att returnera.",
+    "param.limit.description": "Maximalt antal paket att returnera.",
+    "x_search_terms": [
+      "protokollinspektion",
+      "paketfält",
+      "pcap-fält",
+      "huvudanalys"
+    ]
+  },
+  "sw": {
+    "tool.description": "Kagua sehemu za itifaki zilizochaguliwa kutoka kwa pcap ya ndani bila kurejesha mizigo ya malipo.",
+    "param.pcap_path.description": "Ingiza njia ya faili ya pcap.",
+    "param.backend.description": "Nyuma ya ukaguzi: scapy, auto, au tshark.",
+    "param.display_filter.description": "Kichujio cha hiari cha kuonyesha Wireshark/tshark.",
+    "param.fields.description": "Sehemu za itifaki zinaruhusiwa kurudi.",
+    "param.limit.description": "Idadi ya juu zaidi ya pakiti za kurejesha.",
+    "x_search_terms": [
+      "ukaguzi wa itifaki",
+      "sehemu za pakiti",
+      "sehemu za pcap",
+      "uchanganuzi wa kichwa"
+    ]
+  },
+  "th": {
+    "tool.description": "ตรวจสอบฟิลด์โปรโตคอลที่เลือกจาก pcap ในเครื่องโดยไม่ส่งคืนเพย์โหลด",
+    "param.pcap_path.description": "ป้อนเส้นทางไฟล์ pcap",
+    "param.backend.description": "การตรวจสอบแบ็กเอนด์: scapy, auto หรือ tshark",
+    "param.display_filter.description": "ตัวกรองการแสดงผล Wireshark/tshark ที่เป็นอุปกรณ์เสริม",
+    "param.fields.description": "ฟิลด์โปรโตคอลที่อนุญาตให้ส่งคืน",
+    "param.limit.description": "จำนวนแพ็กเก็ตสูงสุดที่จะส่งคืน",
+    "x_search_terms": [
+      "การตรวจสอบโปรโตคอล",
+      "ฟิลด์แพ็คเก็ต",
+      "ฟิลด์pcap",
+      "การวิเคราะห์ส่วนหัว"
+    ]
+  },
+  "tr": {
+    "tool.description": "Seçilen protokol alanlarını, yükleri döndürmeden yerel bir PCAP'tan inceleyin.",
+    "param.pcap_path.description": "Pcap dosya yolunu girin.",
+    "param.backend.description": "İnceleme arka ucu: scapy, auto veya tshark.",
+    "param.display_filter.description": "İsteğe bağlı Wireshark/tshark görüntüleme filtresi.",
+    "param.fields.description": "İzin verilen protokol alanlarının geri dönmesine izin verildi.",
+    "param.limit.description": "Döndürülecek maksimum paket sayısı.",
+    "x_search_terms": [
+      "protokol denetimi",
+      "paket alanları",
+      "pcap alanları",
+      "başlık analizi"
+    ]
+  },
+  "uk": {
+    "tool.description": "Перевірте вибрані поля протоколу з локального pcap без повернення корисних даних.",
+    "param.pcap_path.description": "Введіть шлях до файлу pcap.",
+    "param.backend.description": "Сервер перевірки: scapy, auto або tshark.",
+    "param.display_filter.description": "Додатковий фільтр відображення Wireshark/tshark.",
+    "param.fields.description": "Дозволені поля протоколу для повернення.",
+    "param.limit.description": "Максимальна кількість пакетів для повернення.",
+    "x_search_terms": [
+      "перевірка протоколу",
+      "поля пакетів",
+      "поля pcap",
+      "аналіз заголовка"
+    ]
+  },
+  "vi": {
+    "tool.description": "Kiểm tra các trường giao thức đã chọn từ một pcap cục bộ mà không trả lại tải trọng.",
+    "param.pcap_path.description": "Nhập đường dẫn tập tin pcap.",
+    "param.backend.description": "Phần phụ trợ kiểm tra: scapy, auto hoặc tshark.",
+    "param.display_filter.description": "Bộ lọc hiển thị Wireshark/tshark tùy chọn.",
+    "param.fields.description": "Các trường giao thức được phép trả về.",
+    "param.limit.description": "Số lượng gói tối đa để trả lại.",
+    "x_search_terms": [
+      "kiểm tra giao thức",
+      "trường gói",
+      "trường pcap",
+      "phân tích tiêu đề"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "检查本地 pcap 中选定的协议字段，而不返回有效负载。",
+    "param.pcap_path.description": "输入pcap文件路径。",
+    "param.backend.description": "检查后端：scapy、auto 或 tshark。",
+    "param.display_filter.description": "可选的 Wireshark/tshark 显示过滤器。",
+    "param.fields.description": "允许返回的协议字段。",
+    "param.limit.description": "返回的最大数据包数。",
+    "x_search_terms": [
+      "协议检查",
+      "数据包字段",
+      "pcap字段",
+      "标头分析"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "檢查本地 pcap 中選定的協定字段，而不傳回有效負載。",
+    "param.pcap_path.description": "輸入pcap檔路徑。",
+    "param.backend.description": "檢查後端：scapy、auto 或 tshark。",
+    "param.display_filter.description": "可選的 Wireshark/tshark 顯示過濾器。",
+    "param.fields.description": "允許傳回的協定字段。",
+    "param.limit.description": "傳回的最大資料包數。",
+    "x_search_terms": [
+      "協定檢查",
+      "資料包字段",
+      "pcap字段",
+      "標頭分析"
+    ]
+  }
+}

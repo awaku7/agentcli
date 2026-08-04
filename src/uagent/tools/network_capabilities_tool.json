@@ -1,0 +1,382 @@
+{
+  "en": {
+    "tool.description": "Check network tool dependencies, external commands, and privilege state.",
+    "x_search_terms": [
+      "network capabilities",
+      "preflight",
+      "nmap installed",
+      "tshark installed",
+      "privilege check"
+    ]
+  },
+  "ar": {
+    "tool.description": "تحقق من تبعيات أدوات الشبكة والأوامر الخارجية وحالة الامتياز.",
+    "x_search_terms": [
+      "قدرات الشبكة",
+      "الاختبار المبدئي",
+      "nmap مثبت",
+      "tshark مثبت",
+      "فحص الامتياز"
+    ]
+  },
+  "bn": {
+    "tool.description": "নেটওয়ার্ক টুল নির্ভরতা, বাহ্যিক কমান্ড, এবং বিশেষাধিকার অবস্থা পরীক্ষা করুন।",
+    "x_search_terms": [
+      "নেটওয়ার্ক ক্ষমতা",
+      "প্রিফ্লাইট",
+      "nম্যাপ ইনস্টল করা",
+      "tshark ইনস্টল করা",
+      "সুবিধা পরীক্ষা"
+    ]
+  },
+  "cs": {
+    "tool.description": "Zkontrolujte závislosti síťových nástrojů, externí příkazy a stav oprávnění.",
+    "x_search_terms": [
+      "možnosti sítě",
+      "preflight",
+      "nmap nainstalován",
+      "tshark nainstalován",
+      "kontrola oprávnění"
+    ]
+  },
+  "da": {
+    "tool.description": "Tjek netværksværktøjsafhængigheder, eksterne kommandoer og privilegietilstand.",
+    "x_search_terms": [
+      "netværksfunktioner",
+      "preflight",
+      "nmap installeret",
+      "tshark installeret",
+      "kontrol af rettigheder"
+    ]
+  },
+  "de": {
+    "tool.description": "Überprüfen Sie die Abhängigkeiten der Netzwerktools, externe Befehle und den Berechtigungsstatus.",
+    "x_search_terms": [
+      "Netzwerkfunktionen",
+      "Preflight",
+      "nmap installiert",
+      "tshark installiert",
+      "Berechtigungsprüfung"
+    ]
+  },
+  "el": {
+    "tool.description": "Ελέγξτε τις εξαρτήσεις εργαλείων δικτύου, τις εξωτερικές εντολές και την κατάσταση προνομίων.",
+    "x_search_terms": [
+      "δυνατότητες δικτύου",
+      "preflight",
+      "nmap εγκαταστάθηκε",
+      "tshark εγκαταστάθηκε",
+      "έλεγχος προνομίων"
+    ]
+  },
+  "es": {
+    "tool.description": "Verifique las dependencias de las herramientas de red, los comandos externos y el estado de los privilegios.",
+    "x_search_terms": [
+      "capacidades de red",
+      "preflight",
+      "nmap instalado",
+      "tshark instalado",
+      "verificación de privilegios"
+    ]
+  },
+  "fa": {
+    "tool.description": "وابستگی ابزار شبکه، دستورات خارجی و وضعیت امتیاز را بررسی کنید.",
+    "x_search_terms": [
+      "قابلیت های شبکه",
+      "پیش از پرواز",
+      "nmap نصب شد",
+      "tshark نصب شد",
+      "بررسی امتیاز"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tarkista verkkotyökalujen riippuvuudet, ulkoiset komennot ja käyttöoikeustila.",
+    "x_search_terms": [
+      "verkkoominaisuudet",
+      "preflight",
+      "nmap asennettu",
+      "tshark asennettu",
+      "oikeuksien tarkistus"
+    ]
+  },
+  "fil": {
+    "tool.description": "Suriin ang mga dependency ng tool sa network, mga panlabas na utos, at estado ng pribilehiyo.",
+    "x_search_terms": [
+      "network capabilities",
+      "preflight",
+      "nmap install",
+      "tshark install",
+      "privilege check"
+    ]
+  },
+  "fr": {
+    "tool.description": "Vérifiez les dépendances des outils réseau, les commandes externes et l'état des privilèges.",
+    "x_search_terms": [
+      "capacités réseau",
+      "preflight",
+      "nmap installé",
+      "tshark installé",
+      "vérification des privilèges"
+    ]
+  },
+  "he": {
+    "tool.description": "בדוק את התלות בכלי הרשת, פקודות חיצוניות ומצב הרשאות.",
+    "x_search_terms": [
+      "יכולות רשת",
+      "preflight",
+      "nmap מותקן",
+      "tshark מותקן",
+      "בדיקת הרשאות"
+    ]
+  },
+  "hi": {
+    "tool.description": "नेटवर्क उपकरण निर्भरता, बाहरी आदेश और विशेषाधिकार स्थिति की जाँच करें।",
+    "x_search_terms": [
+      "नेटवर्क क्षमताएं",
+      "उड़ानपूर्व",
+      "एनमैप स्थापित",
+      "टीशार्क स्थापित",
+      "विशेषाधिकार जांच"
+    ]
+  },
+  "hu": {
+    "tool.description": "Ellenőrizze a hálózati eszközök függőségeit, a külső parancsokat és a jogosultság állapotát.",
+    "x_search_terms": [
+      "hálózati képességek",
+      "preflight",
+      "nmap telepítve",
+      "tshark telepítve",
+      "jogi ellenőrzés"
+    ]
+  },
+  "id": {
+    "tool.description": "Periksa dependensi alat jaringan, perintah eksternal, dan status hak istimewa.",
+    "x_search_terms": [
+      "kemampuan jaringan",
+      "preflight",
+      "nmap terinstal",
+      "tshark terinstal",
+      "pemeriksaan hak istimewa"
+    ]
+  },
+  "it": {
+    "tool.description": "Controlla le dipendenze degli strumenti di rete, i comandi esterni e lo stato dei privilegi.",
+    "x_search_terms": [
+      "funzionalità di rete",
+      "preflight",
+      "nmap installato",
+      "tshark installato",
+      "controllo privilegi"
+    ]
+  },
+  "ja": {
+    "tool.description": "ネットワーク ツールの依存関係、外部コマンド、特権状態を確認します。",
+    "x_search_terms": [
+      "ネットワーク機能",
+      "プリフライト",
+      "nmap がインストールされている",
+      "tshark がインストールされている",
+      "特権チェック"
+    ]
+  },
+  "ko": {
+    "tool.description": "네트워크 도구 종속성, 외부 명령, 권한 상태를 확인하세요.",
+    "x_search_terms": [
+      "네트워크 기능",
+      "preflight",
+      "nmap 설치",
+      "tshark 설치",
+      "권한 확인"
+    ]
+  },
+  "mn": {
+    "tool.description": "Сүлжээний хэрэгслийн хамаарал, гадаад командууд болон давуу байдлын төлөвийг шалгана уу.",
+    "x_search_terms": [
+      "сүлжээний боломжууд",
+      "preflight",
+      "nmap суулгасан",
+      "tshark суулгасан",
+      "эрх олголтыг шалгах"
+    ]
+  },
+  "mr": {
+    "tool.description": "नेटवर्क टूल अवलंबित्व, बाह्य आदेश आणि विशेषाधिकार स्थिती तपासा.",
+    "x_search_terms": [
+      "नेटवर्क क्षमता",
+      "preflight",
+      "nmap स्थापित",
+      "tshark स्थापित",
+      "विशेषाधिकार तपासणी"
+    ]
+  },
+  "ms": {
+    "tool.description": "Semak kebergantungan alat rangkaian, arahan luaran dan keadaan keistimewaan.",
+    "x_search_terms": [
+      "keupayaan rangkaian",
+      "preflight",
+      "nmap dipasang",
+      "tshark dipasang",
+      "pemeriksaan keistimewaan"
+    ]
+  },
+  "nb": {
+    "tool.description": "Sjekk nettverksverktøyavhengigheter, eksterne kommandoer og rettighetsstatus.",
+    "x_search_terms": [
+      "nettverksfunksjoner",
+      "preflight",
+      "nmap installert",
+      "tshark installert",
+      "rettighetssjekk"
+    ]
+  },
+  "nl": {
+    "tool.description": "Controleer de afhankelijkheden van netwerktools, externe opdrachten en privilegestatus.",
+    "x_search_terms": [
+      "netwerkmogelijkheden",
+      "preflight",
+      "nmap geïnstalleerd",
+      "tshark geïnstalleerd",
+      "privilegecontrole"
+    ]
+  },
+  "nn": {
+    "tool.description": "Kontroller nettverksverktøyavhengigheter, eksterne kommandoer og privilegietilstand.",
+    "x_search_terms": [
+      "nettverksfunksjoner ‎ preflight ‎ nmap installert‎tshark installert‎privilegium sjekk",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Sprawdź zależności narzędzi sieciowych, polecenia zewnętrzne i stan uprawnień.",
+    "x_search_terms": [
+      "możliwości sieci",
+      "preflight",
+      "zainstalowano nmap",
+      "zainstalowano tshark",
+      "sprawdzenie uprawnień"
+    ]
+  },
+  "pt": {
+    "tool.description": "Verifique as dependências da ferramenta de rede, comandos externos e estado de privilégio.",
+    "x_search_terms": [
+      "recursos de rede",
+      "preflight",
+      "nmap instalado",
+      "tshark instalado",
+      "verificação de privilégios"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Verifique as dependências da ferramenta de rede, comandos externos e estado de privilégio.",
+    "x_search_terms": [
+      "recursos de rede",
+      "preflight",
+      "nmap instalado",
+      "tshark instalado",
+      "verificação de privilégios"
+    ]
+  },
+  "ro": {
+    "tool.description": "Verificați dependențele instrumentelor de rețea, comenzile externe și starea privilegiilor.",
+    "x_search_terms": [
+      "capabilități de rețea",
+      "preflight",
+      "nmap instalat",
+      "tshark instalat",
+      "verificarea privilegiilor"
+    ]
+  },
+  "ru": {
+    "tool.description": "Проверьте зависимости сетевых инструментов, внешние команды и состояние привилегий.",
+    "x_search_terms": [
+      "сетевые возможности",
+      "предварительная проверка",
+      "nmap установлен",
+      "tshark установлен",
+      "проверка привилегий"
+    ]
+  },
+  "sv": {
+    "tool.description": "Kontrollera beroenden av nätverksverktyg, externa kommandon och behörighetsstatus.",
+    "x_search_terms": [
+      "nätverkskapacitet",
+      "preflight",
+      "nmap installerad",
+      "tshark installerad",
+      "behörighetskontroll"
+    ]
+  },
+  "sw": {
+    "tool.description": "Angalia utegemezi wa zana za mtandao, amri za nje, na hali ya upendeleo.",
+    "x_search_terms": [
+      "uwezo wa mtandao",
+      "preflight",
+      "nmap imesakinishwa",
+      "tshark imesakinishwa",
+      "kagua haki"
+    ]
+  },
+  "th": {
+    "tool.description": "ตรวจสอบการพึ่งพาเครื่องมือเครือข่าย คำสั่งภายนอก และสถานะสิทธิ์",
+    "x_search_terms": [
+      "ความสามารถของเครือข่าย",
+      "preflight",
+      "nmap ติดตั้ง",
+      "tshark ติดตั้ง",
+      "การตรวจสอบสิทธิ์"
+    ]
+  },
+  "tr": {
+    "tool.description": "Ağ aracı bağımlılıklarını, harici komutları ve ayrıcalık durumunu kontrol edin.",
+    "x_search_terms": [
+      "ağ özellikleri",
+      "ön kontrol",
+      "nmap yüklü",
+      "tshark yüklü",
+      "ayrıcalık kontrolü"
+    ]
+  },
+  "uk": {
+    "tool.description": "Перевірте залежності мережевих інструментів, зовнішні команди та стан привілеїв.",
+    "x_search_terms": [
+      "мережеві можливості",
+      "preflight",
+      "nmap установлено",
+      "tshark встановлено",
+      "перевірка привілеїв"
+    ]
+  },
+  "vi": {
+    "tool.description": "Kiểm tra các phần phụ thuộc của công cụ mạng, các lệnh bên ngoài và trạng thái đặc quyền.",
+    "x_search_terms": [
+      "khả năng mạng",
+      "preflight",
+      "nmap đã cài đặt",
+      "tshark đã cài đặt",
+      "kiểm tra đặc quyền"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "检查网络工具依赖性、外部命令和权限状态。",
+    "x_search_terms": [
+      "网络功能",
+      "预检",
+      "安装nmap",
+      "安装tshark",
+      "权限检查"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "檢查網路工具依賴性、外部命令和權限狀態。",
+    "x_search_terms": [
+      "網路功能",
+      "預檢",
+      "安裝nmap",
+      "安裝tshark",
+      "權限檢查"
+    ]
+  }
+}

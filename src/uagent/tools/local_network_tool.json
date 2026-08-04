@@ -1,0 +1,382 @@
+{
+  "en": {
+    "tool.description": "Read local network interfaces and addresses.",
+    "param.operation.description": "Local network information operation.",
+    "x_search_terms": [
+      "network interface",
+      "local network",
+      "ip address",
+      "adapter"
+    ]
+  },
+  "ar": {
+    "tool.description": "قراءة واجهات وعناوين الشبكة المحلية.",
+    "param.operation.description": "عملية معلومات الشبكة المحلية.",
+    "x_search_terms": [
+      "واجهة الشبكة",
+      "الشبكة المحلية",
+      "عنوان IP",
+      "المحول"
+    ]
+  },
+  "bn": {
+    "tool.description": "স্থানীয় নেটওয়ার্ক ইন্টারফেস এবং ঠিকানা পড়ুন।",
+    "param.operation.description": "স্থানীয় নেটওয়ার্ক তথ্য অপারেশন.",
+    "x_search_terms": [
+      "নেটওয়ার্ক ইন্টারফেস",
+      "স্থানীয় নেটওয়ার্ক",
+      "আইপি ঠিকানা",
+      "অ্যাডাপ্টার"
+    ]
+  },
+  "cs": {
+    "tool.description": "Přečtěte si místní síťová rozhraní a adresy.",
+    "param.operation.description": "Provoz informací o místní síti.",
+    "x_search_terms": [
+      "síťové rozhraní",
+      "lokální síť",
+      "ip adresa",
+      "adaptér"
+    ]
+  },
+  "da": {
+    "tool.description": "Læs lokale netværksgrænseflader og adresser.",
+    "param.operation.description": "Oplysninger om lokalt netværk.",
+    "x_search_terms": [
+      "netværksgrænseflade",
+      "lokalt netværk",
+      "ip-adresse",
+      "adapter"
+    ]
+  },
+  "de": {
+    "tool.description": "Lesen Sie lokale Netzwerkschnittstellen und -adressen.",
+    "param.operation.description": "Lokaler Netzwerkinformationsbetrieb.",
+    "x_search_terms": [
+      "Netzwerkschnittstelle",
+      "Lokales Netzwerk",
+      "IP-Adresse",
+      "Adapter"
+    ]
+  },
+  "el": {
+    "tool.description": "Διαβάστε τις διεπαφές και τις διευθύνσεις τοπικού δικτύου.",
+    "param.operation.description": "Λειτουργία πληροφοριών τοπικού δικτύου.",
+    "x_search_terms": [
+      "διεπαφή δικτύου",
+      "τοπικό δίκτυο",
+      "διεύθυνση ip",
+      "προσαρμογέας"
+    ]
+  },
+  "es": {
+    "tool.description": "Leer interfaces y direcciones de red local.",
+    "param.operation.description": "Operación de información de la red local.",
+    "x_search_terms": [
+      "interfaz de red",
+      "red local",
+      "dirección IP",
+      "adaptador"
+    ]
+  },
+  "fa": {
+    "tool.description": "رابط‌ها و آدرس‌های شبکه محلی را بخوانید.",
+    "param.operation.description": "عملیات اطلاعات شبکه محلی",
+    "x_search_terms": [
+      "رابط شبکه",
+      "شبکه محلی",
+      "آدرس IP",
+      "آداپتور"
+    ]
+  },
+  "fi": {
+    "tool.description": "Lue paikallisverkkoliitännät ja osoitteet.",
+    "param.operation.description": "Paikallisverkon tietojen toiminta.",
+    "x_search_terms": [
+      "verkkoliitäntä",
+      "paikallinen verkko",
+      "ip-osoite",
+      "sovitin"
+    ]
+  },
+  "fil": {
+    "tool.description": "Basahin ang mga interface at address ng lokal na network.",
+    "param.operation.description": "Pagpapatakbo ng impormasyon ng lokal na network.",
+    "x_search_terms": [
+      "interface ng network",
+      "lokal na network",
+      "ip address",
+      "adapter"
+    ]
+  },
+  "fr": {
+    "tool.description": "Lisez les interfaces et les adresses du réseau local.",
+    "param.operation.description": "Fonctionnement des informations sur le réseau local.",
+    "x_search_terms": [
+      "interface réseau",
+      "réseau local",
+      "adresse IP",
+      "adaptateur"
+    ]
+  },
+  "he": {
+    "tool.description": "קרא ממשקי רשת מקומיים וכתובות.",
+    "param.operation.description": "פעולת מידע ברשת מקומית.",
+    "x_search_terms": [
+      "ממשק רשת",
+      "רשת מקומית",
+      "כתובת IP",
+      "מתאם"
+    ]
+  },
+  "hi": {
+    "tool.description": "स्थानीय नेटवर्क इंटरफ़ेस और पते पढ़ें.",
+    "param.operation.description": "स्थानीय नेटवर्क सूचना संचालन.",
+    "x_search_terms": [
+      "नेटवर्क इंटरफ़ेस",
+      "स्थानीय नेटवर्क",
+      "आईपी पता",
+      "एडाप्टर"
+    ]
+  },
+  "hu": {
+    "tool.description": "Olvassa el a helyi hálózati interfészeket és címeket.",
+    "param.operation.description": "Helyi hálózati információs működés.",
+    "x_search_terms": [
+      "hálózati interfész",
+      "helyi hálózati",
+      "ip-cím",
+      "adapter"
+    ]
+  },
+  "id": {
+    "tool.description": "Baca antarmuka dan alamat jaringan lokal.",
+    "param.operation.description": "Operasi informasi jaringan lokal.",
+    "x_search_terms": [
+      "antarmuka jaringan",
+      "jaringan lokal",
+      "alamat ip",
+      "adaptor"
+    ]
+  },
+  "it": {
+    "tool.description": "Leggere le interfacce e gli indirizzi della rete locale.",
+    "param.operation.description": "Funzionamento delle informazioni sulla rete locale.",
+    "x_search_terms": [
+      "interfaccia di rete",
+      "rete locale",
+      "indirizzo IP",
+      "adattatore"
+    ]
+  },
+  "ja": {
+    "tool.description": "ローカル ネットワーク インターフェイスとアドレスを読み取ります。",
+    "param.operation.description": "ローカルネットワーク情報操作。",
+    "x_search_terms": [
+      "ネットワークインターフェース",
+      "ローカルネットワーク",
+      "IPアドレス",
+      "アダプター"
+    ]
+  },
+  "ko": {
+    "tool.description": "로컬 네트워크 인터페이스 및 주소를 읽습니다.",
+    "param.operation.description": "로컬 네트워크 정보 운영.",
+    "x_search_terms": [
+      "네트워크 인터페이스",
+      "로컬 네트워크",
+      "IP 주소",
+      "어댑터"
+    ]
+  },
+  "mn": {
+    "tool.description": "Дотоод сүлжээний интерфейс болон хаягийг уншина уу.",
+    "param.operation.description": "Дотоод сүлжээний мэдээллийн ажиллагаа.",
+    "x_search_terms": [
+      "сүлжээний интерфейс",
+      "орон нутгийн сүлжээ",
+      "ip хаяг",
+      "адаптер"
+    ]
+  },
+  "mr": {
+    "tool.description": "स्थानिक नेटवर्क इंटरफेस आणि पत्ते वाचा.",
+    "param.operation.description": "स्थानिक नेटवर्क माहिती ऑपरेशन.",
+    "x_search_terms": [
+      "नेटवर्क इंटरफेस",
+      "स्थानिक नेटवर्क",
+      "ip पत्ता",
+      "ॲडॉप्टर"
+    ]
+  },
+  "ms": {
+    "tool.description": "Baca antara muka dan alamat rangkaian tempatan.",
+    "param.operation.description": "Operasi maklumat rangkaian tempatan.",
+    "x_search_terms": [
+      "antara muka rangkaian",
+      "rangkaian tempatan",
+      "alamat ip",
+      "penyesuai"
+    ]
+  },
+  "nb": {
+    "tool.description": "Les lokale nettverksgrensesnitt og adresser.",
+    "param.operation.description": "Informasjonsoperasjon for lokalt nettverk.",
+    "x_search_terms": [
+      "nettverksgrensesnitt",
+      "lokalt nettverk",
+      "ip-adresse",
+      "adapter"
+    ]
+  },
+  "nl": {
+    "tool.description": "Lees lokale netwerkinterfaces en adressen.",
+    "param.operation.description": "Bediening van lokale netwerkinformatie.",
+    "x_search_terms": [
+      "netwerkinterface",
+      "lokaal netwerk",
+      "ip-adres",
+      "adapter"
+    ]
+  },
+  "nn": {
+    "tool.description": "Les lokale nettverksgrensesnitt og adresser.",
+    "param.operation.description": "Lokal nettverksinformasjonsoperasjon.",
+    "x_search_terms": [
+      "nettverksgrensesnittlokalt nettverk IP-adresseadapter",
+      "",
+      "",
+      ""
+    ]
+  },
+  "pl": {
+    "tool.description": "Czytaj interfejsy i adresy sieci lokalnej.",
+    "param.operation.description": "Operacja informacji o sieci lokalnej.",
+    "x_search_terms": [
+      "interfejs sieciowy",
+      "sieć lokalna",
+      "adres IP",
+      "adapter"
+    ]
+  },
+  "pt": {
+    "tool.description": "Leia interfaces e endereços de rede local.",
+    "param.operation.description": "Operação de informações de rede local.",
+    "x_search_terms": [
+      "interface de rede",
+      "rede local",
+      "endereço IP",
+      "adaptador"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Leia interfaces e endereços de rede local.",
+    "param.operation.description": "Operação de informações de rede local.",
+    "x_search_terms": [
+      "interface de rede",
+      "rede local",
+      "endereço IP",
+      "adaptador"
+    ]
+  },
+  "ro": {
+    "tool.description": "Citiți interfețele și adresele rețelei locale.",
+    "param.operation.description": "Operarea informațiilor din rețeaua locală.",
+    "x_search_terms": [
+      "interfață de rețea",
+      "rețea locală",
+      "adresă ip",
+      "adaptor"
+    ]
+  },
+  "ru": {
+    "tool.description": "Чтение локальных сетевых интерфейсов и адресов.",
+    "param.operation.description": "Работа с информацией в локальной сети.",
+    "x_search_terms": [
+      "сетевой интерфейс",
+      "локальная сеть",
+      "IP-адрес",
+      "адаптер"
+    ]
+  },
+  "sv": {
+    "tool.description": "Läs lokala nätverksgränssnitt och adresser.",
+    "param.operation.description": "Information om lokalt nätverk.",
+    "x_search_terms": [
+      "nätverksgränssnitt",
+      "lokalt nätverk",
+      "ip-adress",
+      "adapter"
+    ]
+  },
+  "sw": {
+    "tool.description": "Soma violesura vya mtandao wa ndani na anwani.",
+    "param.operation.description": "Operesheni ya habari ya mtandao wa ndani.",
+    "x_search_terms": [
+      "kiolesura cha mtandao",
+      "mtandao wa ndani",
+      "anwani ya ip",
+      "adapta"
+    ]
+  },
+  "th": {
+    "tool.description": "อ่านอินเทอร์เฟซและที่อยู่เครือข่ายท้องถิ่น",
+    "param.operation.description": "การดำเนินการข้อมูลเครือข่ายท้องถิ่น",
+    "x_search_terms": [
+      "อินเทอร์เฟซเครือข่าย",
+      "เครือข่ายท้องถิ่น",
+      "ที่อยู่ IP",
+      "อะแดปเตอร์"
+    ]
+  },
+  "tr": {
+    "tool.description": "Yerel ağ arayüzlerini ve adreslerini okuyun.",
+    "param.operation.description": "Yerel ağ bilgilerinin çalışması.",
+    "x_search_terms": [
+      "ağ arayüzü",
+      "yerel ağ",
+      "ip adresi",
+      "adaptör"
+    ]
+  },
+  "uk": {
+    "tool.description": "Читання локальних мережевих інтерфейсів і адрес.",
+    "param.operation.description": "Операція з інформацією локальної мережі.",
+    "x_search_terms": [
+      "мережевий інтерфейс",
+      "локальна мережа",
+      "IP-адреса",
+      "адаптер"
+    ]
+  },
+  "vi": {
+    "tool.description": "Đọc giao diện và địa chỉ mạng cục bộ.",
+    "param.operation.description": "Hoạt động thông tin mạng cục bộ.",
+    "x_search_terms": [
+      "giao diện mạng",
+      "mạng cục bộ",
+      "địa chỉ IP",
+      "bộ chuyển đổi"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "读取本地网络接口和地址。",
+    "param.operation.description": "本地网络信息运营。",
+    "x_search_terms": [
+      "网络接口",
+      "本地网络",
+      "IP地址",
+      "适配器"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "讀取本機網路介面和位址。",
+    "param.operation.description": "本地網路資訊營運。",
+    "x_search_terms": [
+      "網路介面",
+      "本地網路",
+      "IP位址",
+      "適配器"
+    ]
+  }
+}
