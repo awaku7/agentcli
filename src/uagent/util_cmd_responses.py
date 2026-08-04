@@ -6,6 +6,7 @@ import json
 from typing import Any
 
 from . import core as core_module
+from .i18n import _
 from .providers.responses_manager import (
     ResponsesManager,
     cancel_active_response,
@@ -13,7 +14,15 @@ from .providers.responses_manager import (
 )
 
 
-def _manager(client: Any, depname: str, core: Any) -> ResponsesManager | None:
+def _t(tr: Any, text: str) -> str:
+    """Translate a command message using the session translator when present."""
+    fn = tr if callable(tr) else _
+    return fn(text)
+
+
+def _manager(
+    client: Any, depname: str, core: Any, *, tr: Any = None
+) -> ResponsesManager | None:
     provider = str(
         getattr(core, "responses_state", {}).get("provider")
         or getattr(core, "_responses_provider", "")
@@ -23,8 +32,11 @@ def _manager(client: Any, depname: str, core: Any) -> ResponsesManager | None:
         provider = str(getattr(core, "provider", "") or "").strip().lower()
     if client is None or provider not in ("openai", "azure"):
         print(
-            "[Responses API] Management commands currently support "
-            "OpenAI/Azure only."
+            _t(
+                tr,
+                "[Responses API] Management commands currently support "
+                "OpenAI/Azure only.",
+            )
         )
         return None
     return ResponsesManager(client, provider=provider, model=depname)
@@ -60,15 +72,18 @@ def _handle_cmd_response(
     parts = (arg or "").strip().split()
     sub = (parts[0].lower() if parts else "status")
     explicit_id = parts[1] if len(parts) > 1 else ""
-    manager = _manager(client, depname, core)
+    manager = _manager(client, depname, core, tr=tr)
     if manager is None:
         return True
 
     rid = _response_id(core, explicit_id)
     if sub in ("help", "?"):
         print(
-            "Usage: :response "
-            "[status|cancel|tokens|compact|items|delete] [response_id]"
+            _t(
+                tr,
+                "Usage: :response "
+                "[status|cancel|tokens|compact|items|delete] [response_id]",
+            )
         )
         return True
 
@@ -86,25 +101,28 @@ def _handle_cmd_response(
             try:
                 _print_json(manager.retrieve(rid))
             except Exception as exc:
-                print(f"[Responses API] Retrieve failed: {exc}")
+                print(_t(tr, "[Responses API] Retrieve failed: %(error)s") % {"error": exc})
         else:
-            print("[Responses API] No response ID is available.")
+            print(_t(tr, "[Responses API] No response ID is available."))
         return True
 
     if sub == "cancel":
         if explicit_id:
             if not rid:
-                print("[Responses API] response_id is required.")
+                print(_t(tr, "[Responses API] response_id is required."))
                 return True
             try:
                 _print_json(manager.cancel(rid))
                 core_module.clear_responses_continuation()
             except Exception as exc:
-                print(f"[Responses API] Cancel failed: {exc}")
+                print(_t(tr, "[Responses API] Cancel failed: %(error)s") % {"error": exc})
         elif cancel_active_response(core):
-            print(f"[Responses API] Cancelled {rid or 'active response'}.")
+            print(
+                _t(tr, "[Responses API] Cancelled %(response)s.")
+                % {"response": rid or _t(tr, "active response")}
+            )
         else:
-            print("[Responses API] No cancellable active response is available.")
+            print(_t(tr, "[Responses API] No cancellable active response is available."))
         return True
 
     if sub == "tokens":
@@ -112,43 +130,46 @@ def _handle_cmd_response(
             result = manager.count_input_tokens(input=messages_ref)
             _print_json(result)
         except Exception as exc:
-            print(f"[Responses API] Token count failed: {exc}")
+            print(_t(tr, "[Responses API] Token count failed: %(error)s") % {"error": exc})
         return True
 
     if sub == "compact":
         if not rid:
-            print("[Responses API] No response ID is available.")
+            print(_t(tr, "[Responses API] No response ID is available."))
             return True
         try:
             _print_json(manager.compact(rid))
         except Exception as exc:
-            print(f"[Responses API] Compact failed: {exc}")
+            print(_t(tr, "[Responses API] Compact failed: %(error)s") % {"error": exc})
         return True
 
     if sub == "items":
         if not rid:
-            print("[Responses API] No response ID is available.")
+            print(_t(tr, "[Responses API] No response ID is available."))
             return True
         try:
             _print_json(manager.list_input_items(rid))
         except Exception as exc:
-            print(f"[Responses API] Input item listing failed: {exc}")
+            print(_t(tr, "[Responses API] Input item listing failed: %(error)s") % {"error": exc})
         return True
 
     if sub == "delete":
         if not rid:
-            print("[Responses API] Usage: :response delete <response_id>")
+            print(_t(tr, "[Responses API] Usage: :response delete <response_id>"))
             return True
         try:
             _print_json(manager.delete(rid))
             if rid == _response_id(core):
                 core_module.clear_responses_continuation()
         except Exception as exc:
-            print(f"[Responses API] Delete failed: {exc}")
+            print(_t(tr, "[Responses API] Delete failed: %(error)s") % {"error": exc})
         return True
 
     print(
-        "Usage: :response "
-        "[status|cancel|tokens|compact|items|delete] [response_id]"
+        _t(
+            tr,
+            "Usage: :response "
+            "[status|cancel|tokens|compact|items|delete] [response_id]",
+        )
     )
     return True
