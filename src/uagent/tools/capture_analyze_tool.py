@@ -27,9 +27,16 @@ def _resolve_loopback_interface(requested: str) -> str | None:
     value = str(requested or "loopback").strip()
     if value.lower() in _LOOPBACK_ALIASES:
         try:
-            from scapy.config import conf
+            from scapy.all import conf
 
-            return str(getattr(conf, "loopback_name", "") or "") or None
+            configured = str(getattr(conf, "loopback_name", "") or "")
+            interfaces = getattr(conf, "ifaces", {})
+            for iface in getattr(interfaces, "values", lambda: [])():
+                name = str(getattr(iface, "name", "") or "")
+                ip = str(getattr(iface, "ip", "") or "")
+                if configured == name or ip == "127.0.0.1" or "loopback" in name.lower():
+                    return name or configured or None
+            return configured or None
         except Exception:
             return None
     if "loopback" in value.lower():
@@ -90,7 +97,9 @@ def _capture_loopback(args: dict[str, Any]) -> dict[str, Any]:
     except PermissionError as exc:
         return {"ok": False, "error": {"code": "PRIVILEGE_REQUIRED", "message": str(exc)}}
     except Exception as exc:
-        return {"ok": False, "error": {"code": "LIVE_CAPTURE_FAILED", "message": str(exc)}}
+        message = str(exc)
+        code = "EXTERNAL_DEPENDENCY_MISSING" if "pcap" in message.lower() or "libpcap" in message.lower() else "LIVE_CAPTURE_FAILED"
+        return {"ok": False, "error": {"code": code, "message": message}}
 
 
 def _json_result(value: str) -> dict[str, Any]:
