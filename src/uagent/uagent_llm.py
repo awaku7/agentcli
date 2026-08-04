@@ -84,6 +84,15 @@ def _inject_stop_prompt(
     core: Any,
 ) -> None:
     """Inject a stop command as a user message and log it."""
+    # Cancel the server-side Response first when a streaming response ID is
+    # available. The existing local interruption path remains the fallback.
+    try:
+        from .providers.responses_manager import cancel_active_response
+
+        cancel_active_response(core)
+    except Exception:
+        pass
+
     # Interrupt leaves Responses API chains incomplete (especially mid-tool).
     # Drop previous_response_id so the next turn does not reuse a stale rid.
     try:

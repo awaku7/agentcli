@@ -399,6 +399,10 @@ def _call_openai_azure_round(
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", None)
+            if use_responses_api and provider in ("openai", "azure"):
+                setattr(core, "_responses_client", client)
+                setattr(core, "_responses_provider", provider)
+                setattr(core, "_responses_model", depname)
         except Exception:
             pass
     resp = None
@@ -682,7 +686,9 @@ def _call_openai_azure_round(
                         and isinstance(responses_state, dict)
                     ):
                         responses_state["previous_response_id"] = _stream_rid
-                        from .core import _save_responses_state
+                        from .core import _save_responses_state, set_active_response
+
+                        set_active_response(_stream_rid, status="completed")
 
                         _save_responses_state()
                     # A successful streaming Responses API request also clears
@@ -749,7 +755,9 @@ def _call_openai_azure_round(
                         and isinstance(responses_state, dict)
                     ):
                         responses_state["previous_response_id"] = _resp_rid
-                        from .core import _save_responses_state
+                        from .core import _save_responses_state, set_active_response
+
+                        set_active_response(_resp_rid, status="completed")
 
                         _save_responses_state()
 
@@ -802,7 +810,9 @@ def _call_openai_azure_round(
                                 and isinstance(responses_state, dict)
                             ):
                                 responses_state["previous_response_id"] = _retry_rid
-                                from .core import _save_responses_state
+                                from .core import _save_responses_state, set_active_response
+
+                                set_active_response(_retry_rid, status="completed")
 
                                 _save_responses_state()
 

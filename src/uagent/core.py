@@ -745,6 +745,8 @@ def _save_responses_state() -> None:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         data = {
             "previous_response_id": responses_state.get("previous_response_id", ""),
+            "active_response_id": responses_state.get("active_response_id", ""),
+            "last_response_status": responses_state.get("last_response_status", ""),
             "provider": responses_state.get("provider", ""),
             "model": responses_state.get("model", ""),
             "saved_at": time.time(),
@@ -752,6 +754,33 @@ def _save_responses_state() -> None:
         with _RESPONSES_STATE_FILE_LOCK:
             with open(path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False)
+    except Exception:
+        pass
+
+
+def set_active_response(response_id: str, *, status: str = "in_progress") -> None:
+    """Track the latest server-side Responses API lifecycle state."""
+    if not isinstance(response_id, str) or not response_id.startswith("resp_"):
+        return
+    if status in {"completed", "cancelled", "failed"}:
+        responses_state.pop("active_response_id", None)
+    else:
+        responses_state["active_response_id"] = response_id
+    responses_state["last_response_status"] = status
+    try:
+        _save_responses_state()
+    except Exception:
+        pass
+
+
+def finish_active_response(*, status: str = "completed") -> None:
+    """Mark the tracked Response as finished without changing continuation ID."""
+    if not isinstance(responses_state, dict):
+        return
+    responses_state.pop("active_response_id", None)
+    responses_state["last_response_status"] = status
+    try:
+        _save_responses_state()
     except Exception:
         pass
 
@@ -767,6 +796,8 @@ def clear_responses_continuation() -> None:
     if not isinstance(responses_state, dict):
         return
     responses_state.pop("previous_response_id", None)
+    responses_state.pop("active_response_id", None)
+    responses_state["last_response_status"] = "cancelled"
     responses_state.pop("_stale_rid_occurred", None)
     try:
         _save_responses_state()

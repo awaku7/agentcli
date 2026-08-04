@@ -785,6 +785,12 @@ def parse_responses_stream(
                         rid = as_str(getattr(ev_resp, "id", None) or "")
                         if rid:
                             _stream_response_id = rid
+                            try:
+                                from ..core import set_active_response
+
+                                set_active_response(rid, status="in_progress")
+                            except Exception:
+                                pass
                 elif ev_type == "response.completed":
                     ev_resp = getattr(ev, "response", None)
                     if ev_resp is not None:
