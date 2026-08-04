@@ -1,5 +1,9 @@
 # Responses API 対応状況と今後の優先順位
 
+> **プロジェクト優先度: P0（最優先）**
+>
+> Responses APIの管理機能（特にCancel、Retrieve、Count input tokens）を、他のプロバイダー拡張や低優先度の改善より先に対応する。
+
 ## 現在の対応状況
 
 | Responses API | 対応状況 | 備考 |
@@ -45,7 +49,9 @@
 - Bedrock、Ollama、Alibaba/Qwen、LM Studio、Sakanaは、接続するゲートウェイやモデルごとの差異が大きい。
 - llama.cppを使う場合は`UAGENT_RESPONSES=0`としてChat Completions経路を使う。
 
-## サポート優先順位
+## P0実装優先順位
+
+Responses API管理機能を、Ollama、Alibaba/Qwen、LM Studio、Sakana、llama.cppなどのプロバイダー拡張より先に実装する。
 
 1. **Cancel a response** — Ctrl-C、WebのStop、タイムアウトとAPI側の停止を連携する。
 2. **Retrieve a response** — `previous_response_id`の有効性確認とセッション復元に使う。
