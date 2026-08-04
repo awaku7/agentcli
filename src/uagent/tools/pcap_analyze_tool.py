@@ -900,12 +900,38 @@ def _detect(args: dict[str, Any]) -> str:
             if retransmission_count <= 0:
                 continue
             timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in events]
+            repeated_timestamps = [
+                sorted(
+                    float(event.get("timestamp", 0.0) or 0.0)
+                    for event in events
+                    if (int(event["tcp_seq"]), int(event["tcp_payload_length"])) == repeated_key
+                )
+                for repeated_key, count in sequence_counts.items()
+                if count > 1
+            ]
+            repeat_intervals = [
+                current - previous
+                for group_timestamps in repeated_timestamps
+                for previous, current in zip(group_timestamps, group_timestamps[1:])
+            ]
+            min_interval_ms = max(0.0, float(thresholds.get("retransmission_min_interval_ms", 1.0)))
+            capture_duplicate = bool(repeat_intervals) and max(repeat_intervals) <= 0.0001
+            if capture_duplicate:
+                retransmission_classification = "capture_duplicate"
+                retransmission_confidence = 0.9
+            elif repeat_intervals and min(repeat_intervals) * 1000 >= min_interval_ms:
+                retransmission_classification = "confirmed"
+                retransmission_confidence = round(min(0.99, 0.7 + retransmission_count / max(len(events), 1) * 0.29), 2)
+            else:
+                retransmission_classification = "possible"
+                retransmission_confidence = round(min(0.85, 0.5 + retransmission_count / max(len(events), 1) * 0.35), 2)
             findings.append(
                 {
                     "id": f"finding-{len(findings) + 1:03d}",
                     "category": "tcp_retransmission",
                     "severity": "low",
-                    "confidence": round(min(0.95, 0.5 + retransmission_count / max(len(events), 1) * 0.5), 2),
+                    "classification": retransmission_classification,
+                    "confidence": retransmission_confidence,
                     "src": src,
                     "dst": dst,
                     "src_port": src_port,
