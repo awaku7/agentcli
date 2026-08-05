@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.66] - 2026-08-05
+
+### Added
+
+- feat(tools): expand the catalog with AWS, Azure, GCP, VBA, LotusScript, and Makefile tooling
+- feat(i18n): add runtime localization catalog and translation maintenance scripts
+- feat(tools): add forecasting and pybitchat tool specifications
+
+### Changed
+
+- docs: refresh tool counts, cloud API documentation, and localized README content
+- fix(config): expose the GUI entry point under `project.gui-scripts`
+- fix(search): align Janome POS handling with the active tokenizer output
+
+
 ## [0.5.65] - 2026-08-04
 
 ### Added

@@ -1,5 +1,20 @@
 # 変更履歴
 
+## [0.5.66] - 2026-08-05
+
+### 追加
+
+- feat(tools): AWS、Azure、GCP、VBA、LotusScript、Makefile向けのツールを追加
+- feat(i18n): 実行時ローカライズカタログと翻訳保守スクリプトを追加
+- feat(tools): forecastおよびpybitchatのツール仕様を追加
+
+### 変更
+
+- docs: ツール数、クラウドAPI説明、各言語READMEを更新
+- fix(config): GUIエントリーポイントを`project.gui-scripts`で公開
+- fix(search): 使用中のトークナイザー出力に合わせてJanomeの品詞処理を修正
+
+
 ## [0.5.65] - 2026-08-04
 
 ### 追加
