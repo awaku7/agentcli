@@ -1497,6 +1497,10 @@ msgstr "Gerekçe: yüksek"
 msgid "Reasoning: xhigh"
 msgstr "Gerekçe: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Gerekçe: maksimum"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Ayrıntı düzeyi: kapalı"

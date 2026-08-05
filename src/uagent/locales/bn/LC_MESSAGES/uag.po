@@ -1504,6 +1504,10 @@ msgstr "যুক্তি: উচ্চ"
 msgid "Reasoning: xhigh"
 msgstr "যুক্তি: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "যুক্তি: সর্বোচ্চ"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "শব্দচয়ন: বন্ধ"

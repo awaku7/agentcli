@@ -1512,6 +1512,10 @@ msgstr "Raționament: ridicat"
 msgid "Reasoning: xhigh"
 msgstr "Raționament: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Raționament: maxim"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Verbositate: oprit"

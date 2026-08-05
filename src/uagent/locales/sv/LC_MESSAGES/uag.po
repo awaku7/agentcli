@@ -1493,6 +1493,10 @@ msgstr "Resonemang: hög"
 msgid "Reasoning: xhigh"
 msgstr "Resonemang: mycket hög"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Resonemang: maximalt"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Utförlighet: av"

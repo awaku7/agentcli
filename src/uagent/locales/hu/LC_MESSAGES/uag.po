@@ -1512,6 +1512,10 @@ msgstr "Indoklás: magas"
 msgid "Reasoning: xhigh"
 msgstr "Indoklás: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Indoklás: maximális"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Bőbeszédűség: kikapcsolva"

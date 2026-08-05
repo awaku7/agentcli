@@ -1426,6 +1426,10 @@ msgstr "推理：高"
 msgid "Reasoning: xhigh"
 msgstr "推理：超高"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "推理：最大"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "详细程度：关闭"

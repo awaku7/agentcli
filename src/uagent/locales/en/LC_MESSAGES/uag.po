@@ -1128,6 +1128,11 @@ msgstr "Reasoning: high"
 msgid "Reasoning: xhigh"
 msgstr "Reasoning: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Reasoning: max"
+
+
 msgid "Verbosity: off"
 msgstr "Verbosity: off"
 

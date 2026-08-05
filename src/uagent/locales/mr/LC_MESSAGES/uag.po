@@ -1489,6 +1489,10 @@ msgstr "तर्क: उच्च"
 msgid "Reasoning: xhigh"
 msgstr "तर्क: अतिउच्च"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "तर्क: कमाल"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "सविस्तरता: बंद"

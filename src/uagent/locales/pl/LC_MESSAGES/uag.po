@@ -1509,6 +1509,10 @@ msgstr "Rozumowanie: wysokie"
 msgid "Reasoning: xhigh"
 msgstr "Rozumowanie: bardzo wysokie"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Rozumowanie: maksymalny"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Szczegółowość: wyłączona"

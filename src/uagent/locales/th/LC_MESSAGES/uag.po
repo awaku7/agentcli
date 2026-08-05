@@ -1485,6 +1485,10 @@ msgstr "การใช้เหตุผล: สูง"
 msgid "Reasoning: xhigh"
 msgstr "การใช้เหตุผล: สูงมาก"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "การใช้เหตุผล: สูงสุด"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "ระดับรายละเอียด: ปิด"

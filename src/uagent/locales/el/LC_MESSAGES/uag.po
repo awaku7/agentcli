@@ -1531,6 +1531,10 @@ msgstr "Αιτιολογία: υψηλή"
 msgid "Reasoning: xhigh"
 msgstr "Αιτιολογία: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Αιτιολογία: μέγιστο"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Πολυγλωσσία: απενεργοποίηση"

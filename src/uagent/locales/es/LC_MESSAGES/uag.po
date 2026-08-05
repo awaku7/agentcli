@@ -1513,6 +1513,10 @@ msgstr "Razonamiento: alto"
 msgid "Reasoning: xhigh"
 msgstr "Razonamiento: muy alto"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Razonamiento: máximo"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Verbosidad: desactivada"

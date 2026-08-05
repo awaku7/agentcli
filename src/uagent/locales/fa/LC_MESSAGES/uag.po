@@ -1474,6 +1474,10 @@ msgstr "دلیل: زیاد"
 msgid "Reasoning: xhigh"
 msgstr "دلیل: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "دلیل: حداکثر"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "پرحرفی: خاموش"

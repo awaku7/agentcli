@@ -1508,6 +1508,10 @@ msgstr "Шалтгаан: өндөр"
 msgid "Reasoning: xhigh"
 msgstr "Шалтгаан: x өндөр"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Шалтгаан: хамгийн их"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Товч агуулга: унтраасан"

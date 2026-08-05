@@ -1465,6 +1465,10 @@ msgstr "Penalaran: tinggi"
 msgid "Reasoning: xhigh"
 msgstr "Penalaran: sangat tinggi"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Penalaran: maksimum"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Tingkat detail: mati"

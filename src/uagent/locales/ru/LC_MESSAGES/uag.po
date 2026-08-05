@@ -1509,6 +1509,10 @@ msgstr "Рассуждение: высок."
 msgid "Reasoning: xhigh"
 msgstr "Рассуждение: очень высок."
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Рассуждение: максимум"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Подробность: выкл"

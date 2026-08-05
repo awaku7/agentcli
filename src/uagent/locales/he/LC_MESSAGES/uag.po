@@ -1461,6 +1461,10 @@ msgstr "נימוק: גבוה"
 msgid "Reasoning: xhigh"
 msgstr "נימוק: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "נימוק: מרבי"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "מילולית: כבוי"

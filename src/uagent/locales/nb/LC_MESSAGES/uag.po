@@ -1491,6 +1491,10 @@ msgstr "Resonnering: høy"
 msgid "Reasoning: xhigh"
 msgstr "Resonnering: svært høy"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Resonnering: maksimal"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Utførlighet: av"

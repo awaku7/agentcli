@@ -1434,6 +1434,10 @@ msgstr "추론: 높음"
 msgid "Reasoning: xhigh"
 msgstr "추론: 매우 높음"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "추론: 최대"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "상세도: 끔"

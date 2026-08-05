@@ -1434,6 +1434,10 @@ msgstr "Pangangatwiran: mataas"
 msgid "Reasoning: xhigh"
 msgstr "Pangangatwiran: xhigh"
 
+#: src/uagent/scheckgui.py:1666
+msgid "Reasoning: max"
+msgstr "Pangangatwiran: pinakamataas"
+
 #: src/uagent/scheckgui.py:1547
 msgid "Verbosity: off"
 msgstr "Verbosity: off"
