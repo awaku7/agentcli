@@ -153,24 +153,24 @@ def _paint_icon_attach(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
 
 
 def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
-    """Paint a right-pointing triangle (play/send) icon."""
+    """Paint a recognizable paper-plane send icon."""
     pm = QtGui.QPixmap(size, size)
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
     p.setRenderHint(QtGui.QPainter.Antialiasing)
-    brush = QtGui.QBrush(color)
-    p.setBrush(brush)
-    # Filled right-pointing triangle
-    cx, cy = size / 2, size / 2
-    hw, hh = size * 0.35, size * 0.3
-    triangle = QtGui.QPolygonF(
-        [
-            QtCore.QPointF(cx - hw * 0.6, cy - hh),
-            QtCore.QPointF(cx + hw * 0.6, cy),
-            QtCore.QPointF(cx - hw * 0.6, cy + hh),
-        ]
-    )
-    p.drawPolygon(triangle)
+    p.setPen(QtGui.QPen(color, max(1, size // 12), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap, QtCore.Qt.RoundJoin))
+    p.setBrush(QtGui.QBrush(color))
+    m = size * 0.14
+    plane = QtGui.QPolygonF([
+        QtCore.QPointF(m, size * 0.48),
+        QtCore.QPointF(size - m, m),
+        QtCore.QPointF(size * 0.68, size - m),
+        QtCore.QPointF(size * 0.53, size * 0.56),
+        QtCore.QPointF(m, size * 0.48),
+    ])
+    p.drawPolygon(plane)
+    p.setPen(QtGui.QPen(QtGui.QColor("#ffffff"), max(1, size // 14), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap))
+    p.drawLine(QtCore.QPointF(m + size * 0.08, size * 0.48), QtCore.QPointF(size * 0.54, size * 0.55))
     p.end()
     return QtGui.QIcon(pm)
 
@@ -216,6 +216,36 @@ def _menu_icon_color() -> QtGui.QColor:
     except Exception:
         pass
     return QtGui.QColor("#374151")
+
+
+def _make_stop_icon(size: int = 18) -> QtGui.QIcon:
+    """Create a clear stop-square icon for destructive/cancel actions."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    p.setPen(QtCore.Qt.NoPen)
+    p.setBrush(QtGui.QColor("#ffffff"))
+    margin = max(3, size // 5)
+    p.drawRoundedRect(margin, margin, size - margin * 2, size - margin * 2, 2, 2)
+    p.end()
+    return QtGui.QIcon(pm)
+
+
+def _make_close_icon(size: int = 18) -> QtGui.QIcon:
+    """Create a clean close/cancel cross icon."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    pen = QtGui.QPen(QtGui.QColor("#ffffff"), max(2, size // 7))
+    pen.setCapStyle(QtCore.Qt.RoundCap)
+    p.setPen(pen)
+    margin = max(4, size // 4)
+    p.drawLine(margin, margin, size - margin, size - margin)
+    p.drawLine(size - margin, margin, margin, size - margin)
+    p.end()
+    return QtGui.QIcon(pm)
 
 
 def _make_help_icon(size: int = 16) -> QtGui.QIcon:
@@ -1405,7 +1435,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self._attach_btn.clicked.connect(self._on_choose_files)
         pw_row.addWidget(self._attach_btn)
 
-        self._stop_btn = QtWidgets.QPushButton(_("■"))
+        self._stop_btn = QtWidgets.QPushButton()
+        self._stop_btn.setIcon(_make_stop_icon(20))
+        self._stop_btn.setIconSize(QtCore.QSize(20, 20))
         self._stop_btn.setFixedWidth(40)
         self._stop_btn.setFixedHeight(36)
         self._stop_btn.setToolTip(_("Stop generation"))
@@ -1455,7 +1487,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self._update_display_reasoning_btn()
 
         # Auto-pilot stop button (x key)
-        self._auto_stop_btn = QtWidgets.QPushButton("✕")
+        self._auto_stop_btn = QtWidgets.QPushButton()
+        self._auto_stop_btn.setIcon(_make_close_icon(16))
+        self._auto_stop_btn.setIconSize(QtCore.QSize(16, 16))
         self._auto_stop_btn.setFixedWidth(28)
         self._auto_stop_btn.setFixedHeight(22)
         self._auto_stop_btn.setToolTip(_("Stop auto-pilot"))
