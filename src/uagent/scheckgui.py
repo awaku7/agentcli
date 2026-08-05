@@ -1401,7 +1401,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
-        self.setWindowTitle(_("uag GUI"))
+        self.setWindowTitle("uag GUI")
         self.resize(1100, 850)
         self._attached_images: list[str] = []
         self._attached_files: list[str] = []
@@ -1601,6 +1601,7 @@ class MainWindow(QtWidgets.QMainWindow):
             help_menu = self.menuBar().addMenu(_("Help"))
             help_menu.menuAction().setIcon(_make_help_icon(22))
             act = help_menu.addAction(_("Welcome / Quick Guide"))
+            act.setIcon(_make_help_icon(18))
             act.triggered.connect(self._show_welcome_dialog)
         except Exception:
             pass
@@ -1615,7 +1616,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # View menu (font size)
         try:
             view_menu = self.menuBar().addMenu(_("View"))
-            view_menu.menuAction().setIcon(_make_view_icon(22))
+            view_menu.menuAction().setIcon(_make_font_icon(22, 15))
             font_group = QtGui.QActionGroup(self)
             font_group.setExclusive(True)
             for lv in (0, 1, 2):
@@ -1637,7 +1638,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Mode menu
         try:
             mode_menu = self.menuBar().addMenu(_("Mode"))
-            mode_menu.menuAction().setIcon(_make_mode_icon(22))
+            mode_menu.menuAction().setIcon(_make_reasoning_icon(22))
 
             act_r_off = mode_menu.addAction(_("Reasoning: off"))
             act_r_off.setIcon(_make_reasoning_icon())
@@ -1706,7 +1707,7 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
             tools_menu = self.menuBar().addMenu(_("Tools"))
-            tools_menu.menuAction().setIcon(_make_tools_icon(22))
+            tools_menu.menuAction().setIcon(_make_genre_icon(22))
 
             genre_items = [
                 (
