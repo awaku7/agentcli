@@ -248,6 +248,70 @@ def _make_close_icon(size: int = 18) -> QtGui.QIcon:
     return QtGui.QIcon(pm)
 
 
+def _make_font_icon(size: int = 18, point_size: int = 12) -> QtGui.QIcon:
+    """Create an A-shaped font-size icon; the glyph size conveys the level."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    p.setPen(_menu_icon_color())
+    font = QtGui.QFont("sans-serif", point_size, QtGui.QFont.Bold)
+    p.setFont(font)
+    p.drawText(pm.rect(), QtCore.Qt.AlignCenter, "A")
+    p.end()
+    return QtGui.QIcon(pm)
+
+
+def _make_reasoning_icon(size: int = 18) -> QtGui.QIcon:
+    """Create a brain-like icon for model reasoning controls."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    color = _menu_icon_color()
+    pen = QtGui.QPen(color, max(1, size // 9), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap)
+    p.setPen(pen)
+    r = size * 0.28
+    p.drawArc(int(size * 0.08), int(size * 0.22), int(size * 0.48), int(size * 0.58), 70 * 16, 230 * 16)
+    p.drawArc(int(size * 0.44), int(size * 0.22), int(size * 0.48), int(size * 0.58), -120 * 16, 230 * 16)
+    p.drawLine(size / 2, size * 0.2, size / 2, size * 0.8)
+    p.drawLine(size * 0.25, size * 0.42, size * 0.42, size * 0.5)
+    p.drawLine(size * 0.75, size * 0.42, size * 0.58, size * 0.5)
+    p.end()
+    return QtGui.QIcon(pm)
+
+
+def _make_detail_icon(size: int = 18) -> QtGui.QIcon:
+    """Create a detail/verbosity icon with graduated text lines."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    pen = QtGui.QPen(_menu_icon_color(), max(1, size // 8), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap)
+    p.setPen(pen)
+    for i, width in enumerate((0.42, 0.68, 0.88)):
+        y = size * (0.24 + i * 0.27)
+        p.drawLine(size * 0.08, y, size * width, y)
+    p.end()
+    return QtGui.QIcon(pm)
+
+
+def _make_genre_icon(size: int = 18) -> QtGui.QIcon:
+    """Create a grouped-tools icon for tool genre selection."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    color = _menu_icon_color()
+    p.setPen(QtGui.QPen(color, max(1, size // 10)))
+    p.setBrush(QtCore.Qt.NoBrush)
+    for i, x in enumerate((0.12, 0.38, 0.64)):
+        p.drawRoundedRect(int(size * x), int(size * (0.24 + i * 0.08)), int(size * 0.24), int(size * 0.24), 2, 2)
+    p.drawLine(size * 0.25, size * 0.75, size * 0.75, size * 0.75)
+    p.end()
+    return QtGui.QIcon(pm)
+
+
 def _make_help_icon(size: int = 16) -> QtGui.QIcon:
     try:
         pm = QtGui.QPixmap(size, size)
@@ -1180,14 +1244,29 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _set_welcome_text(self) -> None:
         try:
-            msg = get_welcome_message()
+            msg = get_welcome_message(include_ascii=False)
         except Exception:
             msg = ""
         if not msg:
             return
+        logo = ""
+        try:
+            candidates = [
+                Path(__file__).resolve().parents[2] / "assets" / "uag-logo.svg",
+                Path(__file__).resolve().parent / "assets" / "uag-logo.svg",
+            ]
+            logo_path = next((p for p in candidates if p.is_file()), None)
+            if logo_path:
+                logo = (
+                    '<div style="text-align:center; margin-bottom:12px;">'
+                    f'<img src="{logo_path.as_uri()}" width="600" '
+                    'style="max-width:100%;" /></div>'
+                )
+        except Exception:
+            pass
         html = (
             '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre-wrap;">'
-            + self._escape_html(msg)
+            + logo + self._escape_html(msg)
             + "</div><br>"
         )
         try:
@@ -1199,7 +1278,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _show_welcome_dialog(self) -> None:
         try:
-            msg = get_welcome_message()
+            msg = get_welcome_message(include_ascii=False)
         except Exception:
             msg = ""
         dlg = QtWidgets.QMessageBox(self)
@@ -1322,7 +1401,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
-        self.setWindowTitle(_("uag GUI (Extreme Stability)"))
+        self.setWindowTitle(_("uag GUI"))
         self.resize(1100, 850)
         self._attached_images: list[str] = []
         self._attached_files: list[str] = []
@@ -1542,6 +1621,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for lv in (0, 1, 2):
                 name = _FONT_SIZE_NAMES[lv]
                 act = view_menu.addAction(_("Font: %(name)s") % {"name": name})
+                act.setIcon(_make_font_icon(18, 9 + lv * 3))
                 act.setCheckable(True)
                 act.setChecked(lv == _FONT_SIZE_LEVEL)
                 act.triggered.connect(
@@ -1560,31 +1640,45 @@ class MainWindow(QtWidgets.QMainWindow):
             mode_menu.menuAction().setIcon(_make_mode_icon(22))
 
             act_r_off = mode_menu.addAction(_("Reasoning: off"))
+            act_r_off.setIcon(_make_reasoning_icon())
             act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
 
             act_r_auto = mode_menu.addAction(_("Reasoning: auto"))
+            act_r_auto.setIcon(_make_reasoning_icon())
             act_r_auto.triggered.connect(lambda: self._set_reasoning("auto"))
             act_r_min = mode_menu.addAction(_("Reasoning: minimal"))
+            act_r_min.setIcon(_make_reasoning_icon())
             act_r_min.triggered.connect(lambda: self._set_reasoning("minimal"))
             act_r_low = mode_menu.addAction(_("Reasoning: low"))
+            act_r_low.setIcon(_make_reasoning_icon())
             act_r_low.triggered.connect(lambda: self._set_reasoning("1"))
             act_r_mid = mode_menu.addAction(_("Reasoning: medium"))
+            act_r_mid.setIcon(_make_reasoning_icon())
             act_r_mid.triggered.connect(lambda: self._set_reasoning("2"))
             act_r_high = mode_menu.addAction(_("Reasoning: high"))
+            act_r_high.setIcon(_make_reasoning_icon())
             act_r_high.triggered.connect(lambda: self._set_reasoning("3"))
 
             act_r_xhigh = mode_menu.addAction(_("Reasoning: xhigh"))
+            act_r_xhigh.setIcon(_make_reasoning_icon())
             act_r_xhigh.triggered.connect(lambda: self._set_reasoning("xhigh"))
+            act_r_max = mode_menu.addAction(_("Reasoning: max"))
+            act_r_max.setIcon(_make_reasoning_icon())
+            act_r_max.triggered.connect(lambda: self._set_reasoning("max"))
 
             mode_menu.addSeparator()
 
             act_v_off = mode_menu.addAction(_("Verbosity: off"))
+            act_v_off.setIcon(_make_detail_icon())
             act_v_off.triggered.connect(lambda: self._set_verbosity("0"))
             act_v_low = mode_menu.addAction(_("Verbosity: low"))
+            act_v_low.setIcon(_make_detail_icon())
             act_v_low.triggered.connect(lambda: self._set_verbosity("1"))
             act_v_mid = mode_menu.addAction(_("Verbosity: medium"))
+            act_v_mid.setIcon(_make_detail_icon())
             act_v_mid.triggered.connect(lambda: self._set_verbosity("2"))
             act_v_high = mode_menu.addAction(_("Verbosity: high"))
+            act_v_high.setIcon(_make_detail_icon())
             act_v_high.triggered.connect(lambda: self._set_verbosity("3"))
 
             QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(
@@ -1678,6 +1772,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self._genre_actions = {}
             for key, label, setter in genre_items:
                 act = tools_menu.addAction(label)
+                act.setIcon(_make_genre_icon())
                 act.setCheckable(True)
                 act.setChecked(key in _ENABLED_GENRES)
                 act.triggered.connect(lambda checked, s=setter: s(checked))
