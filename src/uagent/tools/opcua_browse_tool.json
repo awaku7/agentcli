@@ -728,7 +728,7 @@
     "msg.summary": "OPC UA-gennemse: {count} node(r) fra {node} om {ms} ms.",
     "err.url_required": "url er påkrævet.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua gennemse",
       "opcua_browse",
       "opcua",
       "OPCUA",

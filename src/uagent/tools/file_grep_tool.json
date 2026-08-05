@@ -1097,15 +1097,15 @@
     "tool.description": "Maghanap ng pattern sa mga file at ibalik ang mga katugmang linya na may mga numero ng linya (tulad ng grep -n). Kinakailangan ang pattern.",
     "x_search_terms": [
       "file grep",
-      "search text",
+      "paghahanap ng teksto",
       "grep",
       "hanapin ang text",
-      "text search",
+      "paghahanap ng teksto",
       "hanapin sa file",
-      "file search",
+      "paghahanap ng file",
       "patern search",
       "hanapin ang content",
-      "text find"
+      "paghahanap ng teksto"
     ],
     "param.limit.description": "Pinakamataas na bilang ng mga linya ng pagtutugma na ibabalik (default: 100).",
     "param.recur.description": "Kung maghahanap ng subdirectory nang paulit-ulit.",

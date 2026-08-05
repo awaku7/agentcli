@@ -621,7 +621,7 @@
     "msg.subscribed": "Aktibo ang subscription sa ECHONET Lite: id={id}, {label}",
     "err.ip_required": "ip ay kinakailangan.",
     "x_search_terms": [
-      "echonet subscribe",
+      "mag-subscribe sa echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -639,7 +639,7 @@
     "msg.subscribed": "Langganan ECHONET Lite aktif: id={id}, {label}",
     "err.ip_required": "ip diperlukan.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet melanggan",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -657,12 +657,12 @@
     "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
     "err.ip_required": "ip er påkrævet.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet abonnere",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
       "notifikationsmeddelelser",
-      ""
+      "beskeder"
     ]
   },
   "nn": {
@@ -675,12 +675,12 @@
     "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
     "err.ip_required": "ip kreves.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet abonnere",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
       "varslingsmeldinger",
-      ""
+      "meldinger"
     ]
   }
 }

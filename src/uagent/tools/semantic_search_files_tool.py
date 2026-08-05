@@ -151,7 +151,7 @@ def _is_embedding_api_reachable() -> bool:
 
     provider = cfg.get("provider")
     if provider in {"gemini", "vertexai"}:
-        # gemini / vertexai の場合は API キーとモデル名があれば疎通可能とみなす
+        # For gemini / vertexai, consider connectivity possible when an API key and model name are available
         return bool(cfg.get("api_key") and cfg.get("depname"))
 
     base_url = str(cfg.get("base_url") or "").rstrip("/")
@@ -290,10 +290,10 @@ def _get_embedding(text: str) -> list[float]:
                 "Gemini/VertexAI embedding API key or model name is missing"
             )
 
-        # google-genai SDK を使用して埋め込みを生成
+        # Generate embeddings using the google-genai SDK
         if provider == "vertexai":
-            # Vertex AI の場合は http_options または環境変数経由で初期化されることが多いが、
-            # google-genai SDK では vertexai=True を指定して初期化します
+            # Vertex AI is often initialized through http_options or environment variables, but
+            # the google-genai SDK is initialized with vertexai=True
             client = genai.Client(api_key=api_key, vertexai=True)
         else:
             client = genai.Client(api_key=api_key)
@@ -303,7 +303,7 @@ def _get_embedding(text: str) -> list[float]:
             contents=text,
         )
         if response and response.embeddings:
-            # 1つのテキストに対する埋め込みなので、最初の要素の values を取得
+            # Since this is an embedding for one text, take values from the first element
             emb = response.embeddings[0].values
             if isinstance(emb, list):
                 return [float(v) for v in emb]

@@ -31,8 +31,8 @@ TOOL_SPEC = {
                 "physical file dds",
                 "display file dspf",
                 "logical file lf",
-                "DDSを読む",
-                "PF LF DSPF 定義",
+                "Read DDS",
+                "PF/LF/DSPF definitions",
             ],
         ),
         "x_search_terms_en": [

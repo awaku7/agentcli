@@ -658,7 +658,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
       "sagstilstandshistorie",
-      "matter_state_history",
+      "sagstilstandshistorie",
       "matter",
       "MATTER",
       "forespørgsel",
@@ -675,7 +675,7 @@
     "param.clear.description": "Hvis det er sant, slett all historikk.",
     "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
-      "matter state history",
+      "materie stat historie",
       "matter_state_history",
       "matter",
       "MATTER",

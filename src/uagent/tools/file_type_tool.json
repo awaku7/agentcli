@@ -654,7 +654,7 @@
       "extension ng file",
       "uri ng file",
       "type detect",
-      "magic bytes",
+      "magic byte",
       "format ng file",
       "kategorya ng file",
       "kilalain ang file"
@@ -692,7 +692,7 @@
       "filtypenavn",
       "filtype",
       "typedetect",
-      "magic bytes",
+      "magiske bytes",
       "filformat",
       "filkategori",
       "identificer fil"
@@ -711,7 +711,7 @@
       "filtype",
       "filtype",
       "typedetect",
-      "magic bytes",
+      "magiske byte",
       "filformat",
       "filkategori",
       "identifiser fil"

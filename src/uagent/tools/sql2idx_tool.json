@@ -753,7 +753,7 @@
       "basahin ang sql file",
       "sql index",
       "sql parser",
-      "section splitter"
+      "splitter ng seksyon"
     ],
     "param.path.description": "Path sa file.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang partikular na seksyon.",
@@ -773,9 +773,9 @@
     "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk sql2idx.",
     "x_search_terms": [
       "baca sql file",
-      "sql index",
+      "indeks sql",
       "sql parser",
-      "section splitter"
+      "pembahagi bahagian"
     ],
     "param.path.description": "Laluan ke fail.",
     "param.mode.description": "\"indeks\" mengembalikan jadual kandungan bernombor. \"bahagian\" mengembalikan bahagian tertentu.",
@@ -817,8 +817,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for sql2idx.",
     "x_search_terms": [
       "les sql file",
-      "sql index",
-      "sql parser",
+      "sql-indeks",
+      "sql-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",

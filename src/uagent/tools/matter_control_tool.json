@@ -1065,7 +1065,7 @@
     "param.ctrl.description": "Controller-id (valgfrit).",
     "param.dry_run.description": "Hvis det er sandt, valider kommandoen uden at sætte den i kø. Standard: falsk.",
     "x_search_terms": [
-      "matter control",
+      "sagskontrol",
       "matter_control",
       "matter",
       "MATTER",
@@ -1094,11 +1094,11 @@
     "param.ctrl.description": "Kontroller-ID (valgfritt).",
     "param.dry_run.description": "Hvis sant, valider kommandoen utan å sette den i kø. Standard: usant.",
     "x_search_terms": [
-      "matter control",
+      "materiekontroll",
       "matter_control",
       "matter",
       "MATTER",
-      "on/off/open/close/lock/unlock/set_value"
+      "på/av/åpne/lukke/låse/låse opp/sette_verdi"
     ]
   }
 }

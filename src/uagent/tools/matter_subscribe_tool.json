@@ -587,7 +587,7 @@
     "param.duration.description": "Tagal ng subscription sa mga segundo (default 3600).",
     "param.fmt.description": "Format: json o text.",
     "x_search_terms": [
-      "matter subscribe",
+      "bagay mag-subscribe",
       "matter_subscribe",
       "matter",
       "MATTER",
@@ -621,7 +621,7 @@
     "param.duration.description": "Abonnementsvarighed i sekunder (standard 3600).",
     "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
-      "matter subscribe",
+      "sag abonnere",
       "matter_subscribe",
       "matter",
       "MATTER",
@@ -638,7 +638,7 @@
     "param.duration.description": "Abonnementsvarighet i sekunder (standard 3600).",
     "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
-      "matter subscribe",
+      "materie abonnere",
       "matter_subscribe",
       "matter",
       "MATTER",

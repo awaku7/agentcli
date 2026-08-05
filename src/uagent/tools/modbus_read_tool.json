@@ -756,11 +756,11 @@
     "param.address.description": "Panimulang rehistro ng address (0-based).",
     "param.count.description": "Bilang ng mga rehistro na babasahin (max 125).",
     "param.fmt.description": "Format: json o text.",
-    "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
+    "msg.summary": "Nabasa ang modbus: {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "ip ay kinakailangan.",
     "err.invalid_type": "Di-wastong uri. Wasto: {types}.",
     "x_search_terms": [
-      "modbus read",
+      "modbus basahin",
       "modbus_read",
       "modbus",
       "MODBUS",
@@ -782,7 +782,7 @@
     "err.ip_required": "ip diperlukan.",
     "err.invalid_type": "Jenis tidak sah. Sah: {types}.",
     "x_search_terms": [
-      "modbus read",
+      "modbus dibaca",
       "modbus_read",
       "modbus",
       "MODBUS",
@@ -804,7 +804,7 @@
     "err.ip_required": "ip er påkrævet.",
     "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
     "x_search_terms": [
-      "modbus read",
+      "modbus læst",
       "modbus_read",
       "modbus",
       "MODBUS",
@@ -826,7 +826,7 @@
     "err.ip_required": "ip kreves.",
     "err.invalid_type": "Ugyldig type. Gyldig: {types}.",
     "x_search_terms": [
-      "modbus read",
+      "modbus lese",
       "modbus_read",
       "modbus",
       "MODBUS",

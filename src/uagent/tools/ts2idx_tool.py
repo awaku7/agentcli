@@ -34,9 +34,9 @@ TOOL_SPEC = {
                 "js file index",
                 "function list",
                 "class index",
-                "TypeScriptファイルを読む",
-                "関数一覧",
-                "クラス一覧",
+                "Read TypeScript files",
+                "Function list",
+                "Class list",
             ],
         ),
         "x_search_terms_en": [

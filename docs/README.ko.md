@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## 왜 uag인가요?
 
@@ -29,7 +29,7 @@
 
 - **컴퓨터에서 로컬로 실행**됩니다. 귀하의 데이터는 귀하와 함께 유지됩니다(귀하의 API 호출 제외).
 - **제공자의 자유**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21개 이상의 제공자, 모두 단일 인터페이스에서 액세스 가능. 환경 변수를 재구성하여 서로 교체하세요. 다시 설치하거나 마이그레이션할 필요가 없습니다.
-- **195개 도구**: 파일 I/O, 웹 검색, 이미지 생성, Gmail, BLE 장치 검색, MCP 서버 통합 — **111개는 병렬 안전**(스레드 풀을 통해 최대 8개가 동시에 실행되고 `UAGENT_PARALLEL_WORKERS`를 통해 구성 가능). LLM이 한 번에 여러 도구 호출을 실행하면 uag가 자동으로 이를 병렬화합니다.
+- **203개 도구**: 파일 I/O, 웹 검색, 이미지 생성, Gmail, BLE 장치 검색, MCP 서버 통합 — **111개는 병렬 안전**(스레드 풀을 통해 최대 8개가 동시에 실행되고 `UAGENT_PARALLEL_WORKERS`를 통해 구성 가능). LLM이 한 번에 여러 도구 호출을 실행하면 uag가 자동으로 이를 병렬화합니다.
 - **3개의 UI + A2A**: CLI, GUI, 웹 및 에이전트 간 프로토콜. 동일한 엔진, 모든 인터페이스.
 - **에이전트 스킬**: 마켓플레이스에서 커뮤니티 구축 스킬을 설치합니다. uag를 끝없이 확장하세요.
 
@@ -62,7 +62,6 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 
 읽기 전용 도구(파일 검색, 해시 계산, 디렉터리 목록, 번역, DB 쿼리 등)는 적극적으로 병렬화됩니다.
 
-
 ### 🧩 플러그인 시스템(Claude Code 호환)
 
 uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러그인은 스킬, 에이전트, MCP 서버, 후크 등을 `.claude-plugin/plugin.json` 매니페스트와 함께 독립 디렉터리에 묶습니다.
@@ -70,6 +69,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 **지원되는 구성 요소: 기술, 하위 에이전트, MCP 서버, 후크(12개의 수명 주기 이벤트), 슬래시 명령, 출력 스타일, userConfig, 종속성, 채널, 마켓플레이스**
 
 **CLI commands**:
+
 ```
 :plugin list                         # 설치된 플러그인 나열
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 
 자세한 내용은 전체 설명서를 참조하세요. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 세션 연속성
 
 - **세션 중간에 공급자 전환** `UAGENT_PROVIDER`를 사용하면 대화 기록이 보존됩니다.
 - **지난 세션 다시 로드** `:load <index>`로 중단한 지점부터 계속할 수 있습니다.
 
-### 🛠 195  도구
+### 🛠 203 도구
 
 | 카테고리 | 도구 |
 |---|---|
@@ -99,11 +98,12 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **예측** | 9개 모델(AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM 등)을 사용한 시계열 예측, 자동 모델 선택, 플롯 생성, i18n |
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 및 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) 참조|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **26개의 소스 코드 탐색기(idx 제품군)** |
+| **클라우드 API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **29개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
 | **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify ||
-| **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL용 **26가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
+| **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile용 **29가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
 
 ### 🖥 4가지 인터페이스 + VS 코드 확장
 
@@ -118,10 +118,10 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)를 참조하세요.
 
 ### 🏠 IoT 장치 제어
+
 - **사항**: 컨트롤러/브릿지/장치 토폴로지의 읽기 전용 검사
 
 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)를 참조하세요.
-
 
 ### 🎯 상담원 기술 마켓플레이스
 
@@ -174,7 +174,6 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 `tool_catalog` 및 `tool_load`를 사용하면 런타임에 도구를 검색하고 활성화할 수 있습니다.
 시작할 때 모든 것을 로드할 필요가 없습니다. 필요할 때 필요한 것만 활성화하세요.
 
-
 ### 🦀 Rust Native Tools
 
 성능 향상을 위해 `uuid_gen`과 `slugify`는 Rust(PyO3를 통해)로 구현되어 있습니다.
@@ -214,7 +213,6 @@ uag는 **귀하의 머신에서, 귀하의 조건에 따라 귀하의 AI가 되�
 
 ### ✨ 나만의 도구 만들기
 
-
 [ko.md](TOOL_CREATOR_GUIDE.ko.md)
 단계별 안내는 여기에서 확인하세요.
 
@@ -224,8 +222,6 @@ uag는 **귀하의 머신에서, 귀하의 조건에 따라 귀하의 AI가 되�
 
 - **Issues**: 버그나 기능 요청이 있는 경우 GitHub 문제를 개설하세요.
 - **끌어오기 요청**: 저장소를 포크하고 변경 사항을 적용한 뒤 PR을 제출하세요. 개발 환경 설정과 지침은 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)를 참조하세요.
-
-
 
 Realtime 음성 및 AEC3
 

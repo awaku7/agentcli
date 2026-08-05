@@ -826,17 +826,17 @@
     "tool.description": "Magdagdag o magbawas ng mga taon, buwan, linggo, o araw mula sa tinukoy na petsa at ibalik ang resulta. Kasama ang pag-detect sa holiday gamit ang library ng holidays.",
     "x_search_terms": [
       "kalkula",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "petsa calc",
+      "date math",
+      "magdagdag ng mga araw",
+      "ibawas ang mga araw",
+      "kamag-anak na petsa",
+      "petsa ng kalendaryo",
+      "linggo buwan",
+      "araw mula sa petsa",
+      "tseke sa bakasyon",
+      "petsa",
+      "kalkulahin"
     ]
   },
   "ms": {
@@ -874,7 +874,7 @@
     "tool.description": "Tilføj eller træk år, måneder, uger eller dage fra en bestemt dato og returner resultatet. Ferieregistrering er inkluderet ved brug af feriebiblioteket.",
     "x_search_terms": [
       "date_calc",
-      "date calc",
+      "dato beregnet",
       "date matematik",
       "tilføj dage",
       "træk dage fra",
@@ -898,7 +898,7 @@
     "tool.description": "Legg til eller trekk frå år, måneder, uker eller dager frå en spesifisert dato og returner resultatet. Feriedeteksjon er inkludert ved bruk av helligdagsbiblioteket.",
     "x_search_terms": [
       "date_calc",
-      "date calc",
+      "dato calc",
       "date matematikk",
       "legg til dager",
       "trekk frå dager",

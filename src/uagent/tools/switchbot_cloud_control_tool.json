@@ -1213,7 +1213,7 @@
     "param.value.description": "Valgfri numerisk værdi for sæt_værdi-handlinger. Rækkevidde: 0-100.",
     "tool.description": "Styr en SwitchBot Cloud-enhed fra den konfigurerede konto og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot cloud control",
+      "switchbot cloud kontrol",
       "switchbot_cloud_control",
       "switchbot",
       "cloud",
@@ -1246,7 +1246,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Kontroller en SwitchBot Cloud-enhet frå den konfigurerte kontoen og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot cloud control",
+      "switchbot skykontroll",
       "switchbot_cloud_control",
       "switchbot",
       "cloud",

@@ -67,7 +67,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.label.description",
-                        default="Human-readable label (e.g. 'リビング_照明').",
+                        default="Human-readable label (e.g. 'Living_room_air_conditioner').",
                     ),
                 },
                 "on_change_prompt": {

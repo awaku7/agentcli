@@ -955,12 +955,12 @@
     "tool.description": "I-parse ang isang PowerPoint presentation (.pptx) sa mga pamagat ng slide at mga buod ng teksto, na nagbabalik ng isang may bilang na index o isang partikular na seksyon ng slide. Gamitin ito kapag nagbabasa ng malalaking PowerPoint file: tumawag gamit ang mode='index' upang makuha ang listahan ng mga slide na may mga pamagat at preview na teksto, pagkatapos ay tumawag gamit ang mode='section' at section=N upang makuha ang buong nilalaman ng teksto ng slide na iyon.",
     "x_search_terms": [
       "basahin ang pptx file",
-      "powerpoint index",
+      "index ng powerpoint",
       "powerpoint parser",
       "powerpoint slide reader",
       "ppt seksyon",
       "PPTXファイルを読む",
-      "PowerPointインデックス",
+      "PowerPoint",
       "スライド目次",
       "スライド抽出ックス",
       "スライド目次\nスライド抽出ク"
@@ -1015,11 +1015,11 @@
       "powerpoint-parser",
       "powerpoint-diaslæser",
       "ppt afsnit PPTX",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "PPTXファイルを読む",
+      "PowerPointインデックス",
+      "スライド目次",
+      "スライド抽出",
+      "セクション分割"
     ],
     "param.path.description": "Sti til PowerPoint-filen (.pptx).",
     "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse med dias med titler og oversigter. \"sektion\" returnerer hele tekstindholdet i et bestemt dias.",
@@ -1043,11 +1043,11 @@
       "powerpoint-parser",
       "powerpoint-lysbildeleser",
       "ppt seksjon PPTX",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "PPTXファイルを読む",
+      "PowerPointインデックス",
+      "スライド目次",
+      "スライド抽出",
+      "セクション分割"
     ],
     "param.path.description": "Bane til PowerPoint-filen (.pptx).",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med lysbilder med titler og sammendrag. \"seksjon\" returnerer hele tekstinnholdet i et spesifikt lysbilde.",

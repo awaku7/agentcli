@@ -1084,7 +1084,7 @@ def _collect_janome_query_terms(query: str) -> list[str]:
         out: list[str] = []
         for t in jt.tokenize(q):
             pos = str(getattr(t, "part_of_speech", "") or "").split(",", 1)[0]
-            if pos not in {"名詞", "動詞"}:
+            if pos not in {"Noun", "Verb"}:
                 continue
             term = str(getattr(t, "base_form", "") or "").strip().lower()
             if not term or term == "*":

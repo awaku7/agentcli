@@ -52,5 +52,293 @@
     "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-releer), 'begge'.",
     "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
     "err.payload_required": "nyttelast er naudsynt"
+  },
+  "ar": {
+    "tool.description": "أرسل رسالة نصية أو أعلن عبر pybitchat BLE Mesh. يجب أن تكون العقدة قيد التشغيل (إجراء pybitchat_subscribe=start).",
+    "param.type.description": "نوع الرسالة: نصية (رسالة محادثة) أو إعلان (إعلان العقدة).",
+    "param.payload.description": "محتوى الرسالة (نص) أو اللقب (إعلان).",
+    "param.recipient.description": "معرف نظير المستلم الاختياري. لا شيء = البث.",
+    "param.via.description": "النقل: 'ble' (BLE Mesh)، 'nostr' (مرحلات Nostr)، 'كلاهما'.",
+    "param.plain.description": "فرض رسالة مباشرة بنص عادي (غير مشفر). تخطي مصافحة الضوضاء. يُستخدم عند فشل مصافحة الضوضاء مع تطبيق Android.",
+    "err.payload_required": "الحمولة مطلوبة"
+  },
+  "bn": {
+    "tool.description": "একটি পাঠ্য বার্তা পাঠান বা pybitchat BLE মেশের মাধ্যমে ঘোষণা করুন৷ নোড অবশ্যই চলমান থাকবে (pybitchat_subscribe action=start)।",
+    "param.type.description": "বার্তার ধরন: পাঠ্য (চ্যাট বার্তা) বা ঘোষণা (নোড ঘোষণা)।",
+    "param.payload.description": "বার্তার বিষয়বস্তু (টেক্সট) বা ডাকনাম (ঘোষণা)।",
+    "param.recipient.description": "ঐচ্ছিক প্রাপক পিয়ার আইডি। কোনটি = সম্প্রচার নয়।",
+    "param.via.description": "পরিবহন: 'ble' (BLE মেশ), 'নোস্ট্র' (নোস্ট্র রিলে), 'উভয়'।",
+    "param.plain.description": "জোর করে প্লেইন-টেক্সট (এনক্রিপ্ট না করা) DM। নয়েজ হ্যান্ডশেক এড়িয়ে যায়। Android অ্যাপের সাথে নয়েজ হ্যান্ডশেক ব্যর্থ হলে ব্যবহার করুন।",
+    "err.payload_required": "পেলোড প্রয়োজন"
+  },
+  "cs": {
+    "tool.description": "Pošlete textovou zprávu nebo oznamte přes pybitchat BLE Mesh. Uzel musí být spuštěn (pybitchat_subscribe action=start).",
+    "param.type.description": "Typ zprávy: textová (chatová zpráva) nebo oznámit (oznámení uzlu).",
+    "param.payload.description": "Obsah zprávy (text) nebo přezdívka (oznámení).",
+    "param.recipient.description": "Volitelné ID příjemce. Žádné = vysílání.",
+    "param.via.description": "Doprava: 'ble' (BLE Mesh), 'nostr' (Nostr relé), 'obě'.",
+    "param.plain.description": "Vynutit DM ve formátu prostého textu (nešifrované). Přeskočí handshake Noise. Použijte, když selže handshake Noise s aplikací pro Android.",
+    "err.payload_required": "je vyžadováno užitečné zatížení"
+  },
+  "de": {
+    "tool.description": "Senden Sie eine Textnachricht oder kündigen Sie über das pybitchat BLE Mesh an. Der Knoten muss ausgeführt werden (pybitchat_subscribe action=start).",
+    "param.type.description": "Nachrichtentyp: Text (Chat-Nachricht) oder Ankündigung (Knotenankündigung).",
+    "param.payload.description": "Nachrichteninhalt (Text) oder Spitzname (Ankündigung).",
+    "param.recipient.description": "Optionale Empfänger-Peer-ID. Keine = Ausstrahlung.",
+    "param.via.description": "Transport: „ble“ (BLE Mesh), „nostr“ (Nostr-Relais), „both“.",
+    "param.plain.description": "Erzwinge Direktnachrichten im Klartext (unverschlüsselt). Überspringt den Noise-Handshake. Verwenden Sie diese Option, wenn der Noise-Handshake mit der Android-App fehlschlägt.",
+    "err.payload_required": "Nutzlast ist erforderlich"
+  },
+  "el": {
+    "tool.description": "Στείλτε ένα μήνυμα κειμένου ή ανακοινώστε μέσω του pybitchat BLE Mesh. Ο κόμβος πρέπει να εκτελείται (pybitchat_subscribe action=start).",
+    "param.type.description": "Τύπος μηνύματος: κείμενο (μήνυμα συνομιλίας) ή ανακοίνωση (αναγγελία κόμβου).",
+    "param.payload.description": "Περιεχόμενο μηνύματος (κείμενο) ή ψευδώνυμο (αναγγελία).",
+    "param.recipient.description": "Προαιρετικό αναγνωριστικό ομότιμου παραλήπτη. Κανένα = εκπομπή.",
+    "param.via.description": "Μεταφορά: 'ble' (BLE Mesh), 'nostr' (ρελέ Nostr), 'και τα δύο'.",
+    "param.plain.description": "Επιβολή DM απλού κειμένου (μη κρυπτογραφημένη). Παρακάμπτει τη χειραψία Noise. Χρήση όταν η χειραψία Noise αποτυγχάνει με την εφαρμογή Android.",
+    "err.payload_required": "απαιτείται ωφέλιμο φορτίο"
+  },
+  "es": {
+    "tool.description": "Envíe un mensaje de texto o anuncie a través de pybitchat BLE Mesh. El nodo debe estar ejecutándose (pybitchat_subscribe action=start).",
+    "param.type.description": "Tipo de mensaje: texto (mensaje de chat) o anuncio (anuncio de nodo).",
+    "param.payload.description": "Contenido del mensaje (texto) o apodo (anuncio).",
+    "param.recipient.description": "ID de compañero destinatario opcional. Ninguno = transmisión.",
+    "param.via.description": "Transporte: 'ble' (BLE Mesh), 'nostr' (relés Nostr), 'both'.",
+    "param.plain.description": "Forzar DM en texto plano (sin cifrar). Omite el apretón de manos de ruido. Úselo cuando falle el protocolo de enlace de ruido con la aplicación de Android.",
+    "err.payload_required": "se requiere carga útil"
+  },
+  "fa": {
+    "tool.description": "یک پیام متنی ارسال کنید یا از طریق pybitchat BLE Mesh اعلام کنید. گره باید در حال اجرا باشد (pybitchat_subscribe action=start).",
+    "param.type.description": "نوع پیام: متن (پیام چت) یا اعلام (اعلام گره).",
+    "param.payload.description": "محتوای پیام (متن) یا نام مستعار (اعلام).",
+    "param.recipient.description": "شناسه همتای گیرنده اختیاری. هیچ = پخش.",
+    "param.via.description": "حمل و نقل: 'ble' (BLE Mesh)، 'nostr' (رله Nostr)، 'هر دو'.",
+    "param.plain.description": "اجباری DM متن ساده (رمزگذاری نشده). از دست دادن Noise صرفنظر می کند. هنگامی که Noise handshake با برنامه Android ناموفق است استفاده کنید.",
+    "err.payload_required": "محموله مورد نیاز است"
+  },
+  "fi": {
+    "tool.description": "Lähetä tekstiviesti tai ilmoita pybitchat BLE Meshin kautta. Solmun on oltava käynnissä (pybitchat_subscribe action=start).",
+    "param.type.description": "Viestityyppi: teksti (chat-viesti) tai ilmoitus (solmuilmoitus).",
+    "param.payload.description": "Viestin sisältö (teksti) tai lempinimi (ilmoittaa).",
+    "param.recipient.description": "Valinnainen vastaanottajan vertaistunnus. Ei mitään = lähetys.",
+    "param.via.description": "Kuljetus: \"ble\" (BLE Mesh), \"nostr\" (Nostr-releet), \"molemmat\".",
+    "param.plain.description": "Pakota pelkkä teksti (salaamaton) DM. Ohittaa Noise-kättelyn. Käytä, kun Noise handshake epäonnistuu Android-sovelluksen kanssa.",
+    "err.payload_required": "hyötykuorma vaaditaan"
+  },
+  "fr": {
+    "tool.description": "Envoyez un message texte ou annoncez via le pybitchat BLE Mesh. Le nœud doit être en cours d'exécution (pybitchat_subscribe action=start).",
+    "param.type.description": "Type de message : texte (message de chat) ou annonce (annonce du nœud).",
+    "param.payload.description": "Contenu du message (texte) ou pseudo (annonce).",
+    "param.recipient.description": "ID d’homologue du destinataire facultatif. Aucun = diffusion.",
+    "param.via.description": "Transport : 'ble' (BLE Mesh), 'nostr' (relais Nostr), 'both'.",
+    "param.plain.description": "Forcer le DM en texte brut (non chiffré). Ignore la poignée de main Noise. À utiliser lorsque la prise de contact Noise échoue avec l'application Android.",
+    "err.payload_required": "la charge utile est requise"
+  },
+  "he": {
+    "tool.description": "שלח הודעת טקסט או הכרזה דרך pybitchat BLE Mesh. הצומת חייב לפעול (pybitchat_subscribe action=start).",
+    "param.type.description": "סוג הודעה: טקסט (הודעת צ'אט) או הכרזה (הודעת צומת).",
+    "param.payload.description": "תוכן הודעה (טקסט) או כינוי (הכרזה).",
+    "param.recipient.description": "מזהה עמית נמען אופציונלי. אין = שידור.",
+    "param.via.description": "תחבורה: 'ble' (BLE Mesh), 'nostr' (ממסרי Nostr), 'שניהם'.",
+    "param.plain.description": "כפה DM בטקסט רגיל (לא מוצפן). מדלג על לחיצת היד של הרעש. השתמש כאשר לחיצת היד של רעש נכשלת עם אפליקציית Android.",
+    "err.payload_required": "נדרש מטען"
+  },
+  "hi": {
+    "tool.description": "एक टेक्स्ट संदेश भेजें या पाइबिटचैट बीएलई मेश पर घोषणा करें। नोड अवश्य चलना चाहिए (pybitchat_subscribe क्रिया=प्रारंभ)।",
+    "param.type.description": "संदेश प्रकार: टेक्स्ट (चैट संदेश) या घोषणा (नोड घोषणा)।",
+    "param.payload.description": "संदेश सामग्री (पाठ) या उपनाम (घोषणा)।",
+    "param.recipient.description": "वैकल्पिक प्राप्तकर्ता सहकर्मी आईडी। कोई नहीं = प्रसारण.",
+    "param.via.description": "परिवहन: 'ब्ले' (बीएलई मेश), 'नोस्ट्र' (नोस्ट्र रिले), 'दोनों'।",
+    "param.plain.description": "बलपूर्वक सादा-पाठ (अनएन्क्रिप्टेड) ​​डीएम। शोर से हाथ मिलाना छोड़ देता है। एंड्रॉइड ऐप के साथ नॉइज़ हैंडशेक विफल होने पर इसका उपयोग करें।",
+    "err.payload_required": "पेलोड आवश्यक है"
+  },
+  "hu": {
+    "tool.description": "Küldjön szöveges üzenetet vagy jelentse be a pybitchat BLE Mesh-en keresztül. A csomópontnak futnia kell (pybitchat_subscribe action=start).",
+    "param.type.description": "Üzenet típusa: szöveges (csevegőüzenet) vagy bejelentés (csomóponti közlemény).",
+    "param.payload.description": "Üzenet tartalma (szöveg) vagy becenév (bejelentés).",
+    "param.recipient.description": "Opcionális címzett társazonosító. Nincs = adás.",
+    "param.via.description": "Szállítás: 'ble' (BLE Mesh), 'nostr' (Nostr relék), 'mindkettő'.",
+    "param.plain.description": "Egyszerű szöveges (titkosítatlan) DM kényszerítése. Kihagyja a Noise kézfogást. Használja, ha a Zaj kézfogás sikertelen az Android alkalmazással.",
+    "err.payload_required": "hasznos teher szükséges"
+  },
+  "id": {
+    "tool.description": "Kirim pesan teks atau umumkan melalui pybitchat BLE Mesh. Node harus berjalan (pybitchat_subscribe action=start).",
+    "param.type.description": "Jenis pesan: teks (pesan obrolan) atau pengumuman (pengumuman node).",
+    "param.payload.description": "Isi pesan (teks) atau nama panggilan (umumkan).",
+    "param.recipient.description": "ID rekan penerima opsional. Tidak ada = disiarkan.",
+    "param.via.description": "Transportasi: 'ble' (BLE Mesh), 'nostr' (relai Nostr), 'keduanya'.",
+    "param.plain.description": "Paksa DM teks biasa (tidak terenkripsi). Melewati jabat tangan Noise. Gunakan saat jabat tangan Noise gagal dengan aplikasi Android.",
+    "err.payload_required": "muatan diperlukan"
+  },
+  "it": {
+    "tool.description": "Invia un messaggio di testo o annuncia tramite BLE Mesh pybitchat. Il nodo deve essere in esecuzione (pybitchat_subscribe action=start).",
+    "param.type.description": "Tipo di messaggio: testo (messaggio di chat) o annuncio (annuncio del nodo).",
+    "param.payload.description": "Contenuto del messaggio (testo) o nickname (annuncio).",
+    "param.recipient.description": "ID peer destinatario facoltativo. Nessuno = trasmesso.",
+    "param.via.description": "Trasporto: 'ble' (BLE Mesh), 'nostr' (Nostr relè), 'entrambi'.",
+    "param.plain.description": "Forza il DM in testo semplice (non crittografato). Salta l'handshake del rumore. Da utilizzare quando l'handshake Noise non riesce con l'app Android.",
+    "err.payload_required": "è richiesto il carico utile"
+  },
+  "ko": {
+    "tool.description": "문자 메시지를 보내거나 pybitchat BLE Mesh를 통해 공지하세요. 노드가 실행 중이어야 합니다(pybitchat_subscribe action=start).",
+    "param.type.description": "메시지 유형: 텍스트(채팅 메시지) 또는 공지(노드 공지).",
+    "param.payload.description": "메시지 내용(텍스트) 또는 닉네임(알림).",
+    "param.recipient.description": "선택적 수신자 피어 ID입니다. 없음 = 방송.",
+    "param.via.description": "전송: 'ble'(BLE 메시), 'nostr'(Nostr 릴레이), 'both'.",
+    "param.plain.description": "일반 텍스트(암호화되지 않은) DM을 강제합니다. 노이즈 핸드셰이크를 건너뜁니다. Android 앱에서 Noise 핸드셰이크가 실패할 때 사용합니다.",
+    "err.payload_required": "페이로드가 필요합니다"
+  },
+  "mn": {
+    "tool.description": "Pybitchat BLE Mesh дээр мессеж илгээх эсвэл зарлах. Зангилаа ажиллаж байх ёстой (pybitchat_subscribe action=start).",
+    "param.type.description": "Мессежийн төрөл: текст (чат мессеж) эсвэл зарлах (зангилааны мэдэгдэл).",
+    "param.payload.description": "Мессежийн агуулга (текст) эсвэл хоч (зарлах).",
+    "param.recipient.description": "Нэмэлт хүлээн авагчийн ID. Байхгүй = нэвтрүүлэг.",
+    "param.via.description": "Тээвэрлэлт: 'ble' (BLE Mesh), 'nostr' (Nostr релей), 'хоёулаа'.",
+    "param.plain.description": "Энгийн текст (шифрлэгдээгүй) DM-г албадах. Дуу чимээ гар барихыг алгасаж байна. Андройд аппликейшн дээр чимээ шуугиантай гар барих боломжгүй үед ашиглана уу.",
+    "err.payload_required": "ачаалал шаардлагатай"
+  },
+  "mr": {
+    "tool.description": "एक मजकूर संदेश पाठवा किंवा pybitchat BLE Mesh वर घोषणा करा. नोड चालू असणे आवश्यक आहे (pybitchat_subscribe action=start).",
+    "param.type.description": "संदेश प्रकार: मजकूर (चॅट संदेश) किंवा घोषणा (नोड घोषणा).",
+    "param.payload.description": "संदेश सामग्री (मजकूर) किंवा टोपणनाव (घोषणा).",
+    "param.recipient.description": "पर्यायी प्राप्तकर्ता पीअर आयडी. काहीही नाही = प्रसारण.",
+    "param.via.description": "वाहतूक: 'ble' (BLE मेष), 'nostr' (Nostr relays), 'दोन्ही'.",
+    "param.plain.description": "सक्तीने साधा मजकूर (एनक्रिप्ट केलेले) DM. नॉइज हँडशेक वगळते. Android ॲपसह नॉइज हँडशेक अयशस्वी झाल्यावर वापरा.",
+    "err.payload_required": "पेलोड आवश्यक आहे"
+  },
+  "nb": {
+    "tool.description": "Send en tekstmelding eller kunngjør over pybitchat BLE Mesh. Noden må kjøre (pybitchat_subscribe action=start).",
+    "param.type.description": "Meldingstype: tekst (chatmelding) eller kunngjøring (nodekunngjøring).",
+    "param.payload.description": "Meldingsinnhold (tekst) eller kallenavn (kunngjøring).",
+    "param.recipient.description": "Valgfri mottaker-ID. Ingen = kringkasting.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-releer), 'begge'.",
+    "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
+    "err.payload_required": "nyttelast er nødvendig"
+  },
+  "nl": {
+    "tool.description": "Stuur een sms-bericht of kondig het aan via de pybitchat BLE Mesh. Het knooppunt moet actief zijn (pybitchat_subscribe action=start).",
+    "param.type.description": "Berichttype: tekst (chatbericht) of aankondiging (node-aankondiging).",
+    "param.payload.description": "Berichtinhoud (tekst) of bijnaam (aankondigen).",
+    "param.recipient.description": "Optionele peer-ID van de ontvanger. Geen = uitzending.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr-relais), 'beide'.",
+    "param.plain.description": "Forceer DM in platte tekst (niet-gecodeerd). Slaat de Noise-handshake over. Gebruiken wanneer Noise-handshake mislukt met de Android-app.",
+    "err.payload_required": "laadvermogen is vereist"
+  },
+  "pl": {
+    "tool.description": "Wyślij wiadomość tekstową lub ogłoś za pośrednictwem pybitchat BLE Mesh. Węzeł musi być uruchomiony (akcja pybitchat_subscribe=start).",
+    "param.type.description": "Typ wiadomości: tekst (wiadomość na czacie) lub ogłoszenie (ogłoszenie węzła).",
+    "param.payload.description": "Treść wiadomości (tekst) lub pseudonim (ogłoszenie).",
+    "param.recipient.description": "Opcjonalny identyfikator równorzędny odbiorcy. Brak = transmisja.",
+    "param.via.description": "Transport: „ble” (BLE Mesh), „nostr” (przekaźniki Nostr), „oba”.",
+    "param.plain.description": "Wymuś zwykły tekst (nieszyfrowany) DM. Pomija uścisk dłoni Noise. Użyj, gdy uzgadnianie szumu nie powiedzie się w aplikacji na Androida.",
+    "err.payload_required": "wymagany jest ładunek"
+  },
+  "pt": {
+    "tool.description": "Envie uma mensagem de texto ou anuncie pelo pybitchat BLE Mesh. O nó deve estar em execução (pybitchat_subscribe action=start).",
+    "param.type.description": "Tipo de mensagem: texto (mensagem de chat) ou anúncio (anúncio do nó).",
+    "param.payload.description": "Conteúdo da mensagem (texto) ou apelido (anúncio).",
+    "param.recipient.description": "ID de peer do destinatário opcional. Nenhum = transmissão.",
+    "param.via.description": "Transporte: 'ble' (malha BLE), 'nostr' (relés Nostr), 'ambos'.",
+    "param.plain.description": "Força DM de texto simples (não criptografado). Ignora o aperto de mão do ruído. Use quando o handshake de ruído falhar com o aplicativo Android.",
+    "err.payload_required": "a carga útil é obrigatória"
+  },
+  "pt_BR": {
+    "tool.description": "Envie uma mensagem de texto ou anuncie pelo pybitchat BLE Mesh. O nó deve estar em execução (pybitchat_subscribe action=start).",
+    "param.type.description": "Tipo de mensagem: texto (mensagem de chat) ou anúncio (anúncio do nó).",
+    "param.payload.description": "Conteúdo da mensagem (texto) ou apelido (anúncio).",
+    "param.recipient.description": "ID de peer do destinatário opcional. Nenhum = transmissão.",
+    "param.via.description": "Transporte: 'ble' (malha BLE), 'nostr' (relés Nostr), 'ambos'.",
+    "param.plain.description": "Força DM de texto simples (não criptografado). Ignora o aperto de mão do ruído. Use quando o handshake de ruído falhar com o aplicativo Android.",
+    "err.payload_required": "a carga útil é obrigatória"
+  },
+  "ro": {
+    "tool.description": "Trimiteți un mesaj text sau anunțați prin pybitchat BLE Mesh. Nodul trebuie să ruleze (pybitchat_subscribe action=start).",
+    "param.type.description": "Tip mesaj: text (mesaj de chat) sau anunță (anunț de nod).",
+    "param.payload.description": "Conținutul mesajului (text) sau porecla (anunț).",
+    "param.recipient.description": "ID opțional de peer destinatar. None = difuzare.",
+    "param.via.description": "Transport: „ble” (BLE Mesh), „nostr” (relee Nostr), „both”.",
+    "param.plain.description": "Forțați DM text simplu (necriptat). Omite strângerea de mână Noise. Utilizați atunci când strângerea de mână Noise eșuează cu aplicația Android.",
+    "err.payload_required": "sarcina utilă este necesară"
+  },
+  "ru": {
+    "tool.description": "Отправьте текстовое сообщение или объявите через pybitchat BLE Mesh. Узел должен быть запущен (pybitchat_subscribe action=start).",
+    "param.type.description": "Тип сообщения: текстовое (сообщение чата) или анонс (объявление узла).",
+    "param.payload.description": "Содержание сообщения (текст) или никнейм (анонс).",
+    "param.recipient.description": "Необязательный идентификатор узла получателя. Нет = трансляция.",
+    "param.via.description": "Транспорт: «ble» (BLE Mesh), «nostr» (реле Nostr), «оба».",
+    "param.plain.description": "Принудительно использовать открытый текст (незашифрованный) DM. Пропускает шумовое рукопожатие. Используйте при сбое шумового рукопожатия в приложении Android.",
+    "err.payload_required": "требуется полезная нагрузка"
+  },
+  "sv": {
+    "tool.description": "Skicka ett textmeddelande eller meddela över pybitchat BLE Mesh. Noden måste vara igång (pybitchat_subscribe action=start).",
+    "param.type.description": "Meddelandetyp: text (chattmeddelande) eller tillkännagivande (nodmeddelande).",
+    "param.payload.description": "Meddelandeinnehåll (text) eller smeknamn (meddelande).",
+    "param.recipient.description": "Valfritt mottagare-ID. Ingen = sändning.",
+    "param.via.description": "Transport: 'ble' (BLE Mesh), 'nostr' (Nostr reläer), 'båda'.",
+    "param.plain.description": "Tvinga DM i vanlig text (okrypterad). Hoppar över Noise-handslaget. Använd när Noise-handskakning misslyckas med Android-appen.",
+    "err.payload_required": "nyttolast krävs"
+  },
+  "sw": {
+    "tool.description": "Tuma ujumbe mfupi wa maandishi au tangaza kupitia pybitchat BLE Mesh. Nodi lazima iwe inaendeshwa (pybitchat_subscribe action=start).",
+    "param.type.description": "Aina ya ujumbe: maandishi (ujumbe wa gumzo) au tangaza (tangazo la nodi).",
+    "param.payload.description": "Maudhui ya ujumbe (maandishi) au jina la utani (tangaza).",
+    "param.recipient.description": "Kitambulisho cha rika cha mpokeaji cha hiari. Hakuna = matangazo.",
+    "param.via.description": "Usafiri: 'ble' (BLE Mesh), 'nostr' (Relay za Nostr), 'zote'.",
+    "param.plain.description": "Lazimisha DM ya maandishi wazi (isiyosimbwa). Huruka kupeana mkono kwa Kelele. Tumia wakati kupeana mkono kwa Kelele kunashindwa na programu ya Android.",
+    "err.payload_required": "mzigo unahitajika"
+  },
+  "th": {
+    "tool.description": "ส่งข้อความหรือประกาศผ่าน pybitchat BLE Mesh โหนดจะต้องทำงานอยู่ (pybitchat_subscribe action=start)",
+    "param.type.description": "ประเภทข้อความ: ข้อความ (ข้อความแชท) หรือประกาศ (ประกาศโหนด)",
+    "param.payload.description": "เนื้อหาข้อความ (ข้อความ) หรือชื่อเล่น (ประกาศ)",
+    "param.recipient.description": "ID เพียร์ผู้รับเพิ่มเติม ไม่มี = ออกอากาศ",
+    "param.via.description": "การขนส่ง: 'ble' (BLE Mesh), 'nostr' (รีเลย์ Nostr), 'ทั้งสอง'",
+    "param.plain.description": "บังคับข้อความธรรมดา (ไม่เข้ารหัส) DM ข้ามการจับมือที่มีเสียงรบกวน ใช้เมื่อการจับมือกันเสียงรบกวนล้มเหลวด้วยแอป Android",
+    "err.payload_required": "จำเป็นต้องมีเพย์โหลด"
+  },
+  "tr": {
+    "tool.description": "Bir kısa mesaj gönderin veya pybitchat BLE Mesh üzerinden duyuru yapın. Düğümün çalışıyor olması gerekir (pybitchat_subscribe action=start).",
+    "param.type.description": "Mesaj türü: metin (sohbet mesajı) veya duyuru (düğüm duyurusu).",
+    "param.payload.description": "Mesaj içeriği (metin) veya takma ad (duyuru).",
+    "param.recipient.description": "İsteğe bağlı alıcı eş kimliği. Yok = yayın.",
+    "param.via.description": "Aktarım: 'ble' (BLE Mesh), 'nostr' (Nostr röleleri), 'her ikisi'.",
+    "param.plain.description": "Düz metin (şifrelenmemiş) DM'yi zorla. Gürültü el sıkışmasını atlar. Android uygulamasında Gürültü anlaşması başarısız olduğunda kullanın.",
+    "err.payload_required": "yük gerekli"
+  },
+  "uk": {
+    "tool.description": "Надішліть текстове повідомлення або оголосите через pybitchat BLE Mesh. Вузол має бути запущеним (pybitchat_subscribe action=start).",
+    "param.type.description": "Тип повідомлення: текстове (повідомлення в чаті) або оголошення (оголошення вузла).",
+    "param.payload.description": "Вміст повідомлення (текст) або псевдонім (оголошення).",
+    "param.recipient.description": "Додатковий ідентифікатор однорангового одержувача. Немає = трансляція.",
+    "param.via.description": "Транспорт: «ble» (BLE Mesh), «nostr» (реле Nostr), «both».",
+    "param.plain.description": "Примусово відкритий текстовий (незашифрований) DM. Пропускає рукостискання Noise. Використовуйте, коли рукостискання Noise не вдається за допомогою програми Android.",
+    "err.payload_required": "потрібне корисне навантаження"
+  },
+  "vi": {
+    "tool.description": "Gửi tin nhắn văn bản hoặc thông báo qua pybitchat BLE Mesh. Nút phải đang chạy (pybitchat_subscribe action=start).",
+    "param.type.description": "Loại tin nhắn: văn bản (tin nhắn trò chuyện) hoặc thông báo (thông báo nút).",
+    "param.payload.description": "Nội dung tin nhắn (văn bản) hoặc biệt danh (thông báo).",
+    "param.recipient.description": "ID ngang hàng của người nhận tùy chọn. Không có = phát sóng.",
+    "param.via.description": "Vận chuyển: 'ble' (BLE Mesh), 'nostr' (rơle Nostr), 'cả hai'.",
+    "param.plain.description": "Buộc DM văn bản thuần túy (không được mã hóa). Bỏ qua cái bắt tay Tiếng ồn. Sử dụng khi bắt tay Tiếng ồn không thành công với ứng dụng Android.",
+    "err.payload_required": "tải trọng là cần thiết"
+  },
+  "zh_CN": {
+    "tool.description": "通过 pybitchat BLE Mesh 发送短信或公告。该节点必须正在运行（pybitchat_subscribe action=start）。",
+    "param.type.description": "消息类型：text（聊天消息）或announce（节点公告）。",
+    "param.payload.description": "消息内容（文本）或昵称（公告）。",
+    "param.recipient.description": "可选的收件人对等 ID。无=广播。",
+    "param.via.description": "传输：“ble”（BLE 网格）、“nostr”（Nostr 中继）、“两者”。",
+    "param.plain.description": "强制使用纯文本（未加密）DM。跳过噪声握手。当 Android 应用程序的噪声握手失败时使用。",
+    "err.payload_required": "需要有效负载"
+  },
+  "zh_TW": {
+    "tool.description": "透過 pybitchat BLE Mesh 發送簡訊或公告。該節點必須正在運行（pybitchat_subscribe action=start）。",
+    "param.type.description": "訊息類型：text（聊天訊息）或announce（節點公告）。",
+    "param.payload.description": "訊息內容（文字）或暱稱（公告）。",
+    "param.recipient.description": "可選的收件者對等 ID。無=廣播。",
+    "param.via.description": "傳輸：「ble」（BLE 網格）、「nostr」（Nostr 中繼）、「兩者」。",
+    "param.plain.description": "強制使用純文字（未加密）DM。跳過噪音握手。當 Android 應用程式的噪音握手失敗時使用。",
+    "err.payload_required": "需要有效負載"
   }
 }

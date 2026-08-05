@@ -797,7 +797,7 @@
     "err.unknown_subcommand": "[apm] Hindi kilalang subcommand: {cmd}",
     "err.not_found": "[apm] Walang nakitang skill na tumutugma sa '{name}'.",
     "x_search_terms": [
-      "skills apm",
+      "kasanayan apm",
       "skills_apm",
       "skills",
       "SKILLS",

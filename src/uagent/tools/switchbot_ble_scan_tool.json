@@ -1106,7 +1106,7 @@
     "param.timeout.description": "Imbas tamat masa dalam beberapa saat.",
     "tool.description": "Temui peranti SwitchBot BLE yang berdekatan dan kembalikan JSON atau senarai teks.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "imbasan switchbot ble",
       "switchbot_ble_scan",
       "switchbot",
       "temui",
@@ -1137,7 +1137,7 @@
     "param.timeout.description": "Scan-timeout på få sekunder.",
     "tool.description": "Opdag SwitchBot BLE-enheder i nærheden, og returner en JSON- eller tekstliste.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble scanning",
       "switchbot_ble_scan",
       "switchbot",
       "opdag",
@@ -1168,7 +1168,7 @@
     "param.timeout.description": "Tidsavbrudd for skanning på sekunder.",
     "tool.description": "Oppdag SwitchBot BLE-enheter i nærheten og returner en JSON eller tekstliste.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble skanning",
       "switchbot_ble_scan",
       "switchbot",
       "oppdag",

@@ -757,11 +757,11 @@
       "lint",
       "format",
       "code lint",
-      "code format",
+      "format ng code",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "estilo ng code",
+      "static na pagsusuri",
       "linting",
       "formatting"
     ],
@@ -814,7 +814,7 @@
     "param.auto_install.description": "Installer automatisk manglende formateringsværktøj/linterværktøj med pip, før du kører."
   },
   "nn": {
-    "param.cwd.description": "Working dir (under workdir).",
+    "param.cwd.description": "Arbeidskatalog (under arbeidskatalog).",
     "param.mode.description": "check=sjekk berre / fix=automatisk retting",
     "param.targets.description": "Målbanematrise (kun tillatt under workdir).",
     "param.tools.description": "En rekke verktøynavn å kjøre. Hvis tom, velges verktøy automatisk.",

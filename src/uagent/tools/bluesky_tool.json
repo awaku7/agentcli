@@ -937,8 +937,8 @@
       "social",
       "social media",
       "post",
-      "bluesky social",
-      "at protocol",
+      "bluesky sosyal",
+      "sa protocol",
       "microblog",
       "social network",
       "bluesky post"
@@ -989,13 +989,13 @@
       "bluesky",
       "bsky",
       "social",
-      "social media",
+      "sociale medier",
       "post",
-      "bluesky social",
-      "at protocol",
+      "blåsky social",
+      "ved protokol",
       "microblog",
-      "social network",
-      "bluesky post"
+      "sociale netværk",
+      "blåt indlæg"
     ]
   },
   "nn": {
@@ -1006,7 +1006,7 @@
     "param.actor.description": "Håndtere eller DID.",
     "param.q.description": "Søk.",
     "param.uri.description": "AT URI for tråd/like.",
-    "param.cid.description": "CID for like.",
+    "param.cid.description": "Cid for like.",
     "param.lang.description": "Språktag.",
     "param.limit.description": "Maks resultater.",
     "log.opened_app": "[INFO] Åpnet bilde med standardapp.",
@@ -1018,8 +1018,8 @@
       "sosiale",
       "sosiale medier",
       "post",
-      "bluesky social",
-      "at protocol",
+      "bluesky sosial",
+      "i protokollen",
       "microblog",
       "sosiale nettverk",
       "bluesky-innlegg"

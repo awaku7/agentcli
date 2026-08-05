@@ -32,9 +32,9 @@ TOOL_SPEC = {
                 "rust file index",
                 "function list",
                 "struct list",
-                "Rustファイルを読む",
-                "関数一覧",
-                "構造体一覧",
+                "Read Rust files",
+                "Function list",
+                "Struct list",
             ],
         ),
         "x_search_terms_en": [

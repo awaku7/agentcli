@@ -23,7 +23,7 @@ if sys.platform == "win32":
                 default=[
                     "gps",
                     "location",
-                    "現在地",
+                    "Current location",
                 ],
             ),
             "x_search_terms_en": [

@@ -1159,19 +1159,19 @@
     "x_search_terms": [
       "basahin ang cl file",
       "clle index",
-      "clp program structure",
+      "istraktura ng programa ng clp",
       "IBM at CL",
-      "CL source",
-      "CL program",
+      "Pinagmulan ng CL",
+      "programa ng CL",
       "ENDPGM",
       "DCLF",
       "CLLE",
-      "control language"
+      "kontrol na wika"
     ],
     "x_search_terms_en": [
       "basahin ang cl file",
       "clle index",
-      "clp program structure",
+      "istraktura ng programa ng clp",
       "IBM at CL"
     ],
     "param.path.description": "Path sa CL/CLP/CLLE source file.",
@@ -1228,7 +1228,7 @@
       "læs cl-fil",
       "clle-indeks",
       "clp-programstruktur",
-      "IBM i CL",
+      "IBM og CL",
       "CL-kilde",
       "CL-program",
       "ENDPGM",
@@ -1238,9 +1238,9 @@
     ],
     "x_search_terms_en": [
       "læs cl file",
-      "clle index",
+      "clle indeks",
       "clp programstruktur",
-      "IBM i CL"
+      "IBM og CL"
     ],
     "param.path.description": "Sti til CL/CLP/CLLE-kildefilen.",
     "err.path_required": "Fejl: 'sti' er påkrævet.",
@@ -1260,11 +1260,11 @@
   "nn": {
     "x_search_terms": [
       "les cl file",
-      "clle index",
+      "clle-indeks",
       "clp programstruktur",
       "IBM i CL",
-      "CL source",
-      "CL program",
+      "CL-kilde",
+      "CL-program",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -1272,7 +1272,7 @@
     ],
     "x_search_terms_en": [
       "les cl file",
-      "clle index",
+      "clle-indeks",
       "clp programstruktur",
       "IBM i CL"
     ],

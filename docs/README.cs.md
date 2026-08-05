@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Proč uag?
 
@@ -29,7 +29,7 @@
 
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-- **195  nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **111 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
+- **203 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **111 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
 
@@ -62,7 +62,6 @@ Když LLM požaduje více nástrojů současně, uag je **automaticky paralelizu
 
 Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis adresářů, překlad, DB dotazy atd.) jsou agresivně paralelizovány.
 
-
 ### 🧩 Plugin System (kompatibilní s Claude Code)
 
 uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**. Pluginy sdružují dovednosti, agenty, servery MCP, háčky a další do samostatných adresářů s manifestem `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 **Podporované součásti**: dovednosti, dílčí agenti, servery MCP, háky (12 událostí životního cyklu), příkazy lomítka, styly výstupu, userConfig, závislosti, kanály, tržiště
 
 **CLI commands**:
+
 ```
 :plugin list                         # Seznam nainstalovaných pluginů
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 
 Úplnou dokumentaci naleznete v [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Kontinuita relace
 
 - **Změnit poskytovatele uprostřed relace**: `UAGENT_PROVIDER` — historie konverzace se zachová.
 - **Znovu načíst minulé relace**: `:load <index>` — pokračujte tam, kde jste skončili.
 
-### 🛠 195  nástrojů
+### 🛠 203 nástrojů
 
 | Kategorie | Nástroje |
 |---|---|
@@ -99,11 +98,12 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **Předpověď** | Predikce časových řad s 9 modely (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM atd.), automatický výběr modelu, generování grafů, i18n |
 | **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook, **pybitchat** (BLE Mesh) — viz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) a [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigátorů zdrojového kódu (rodina idx)** |
+| **Cloudová rozhraní API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify ||
-| **Zdroj Nav** | **26 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |
+| **Zdroj Nav** | **29 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |
 
 ### 🖥 4 rozhraní + rozšíření VS kódu
 
@@ -118,10 +118,10 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md).
 
 ### 🏠 Ovládání zařízení IoT
+
 - **Záležitost**: Kontrola topologie řadiče/můstku/zařízení pouze pro čtení
 
 Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Trh dovedností agentů
 
@@ -158,7 +158,7 @@ Kdykoli zastavte generování odezvy LLM a vložte příkaz stop zpět do LLM.
 | **WEBOVÉ ROZHRANÍ** | Klikněte na červené tlačítko **■ Stop** (zobrazí se automaticky během zpracování LLM) |
 | **GUI pro stolní počítače** | Klikněte na červené tlačítko **■** (objeví se automaticky během zpracování LLM) |
 
-Přerušení funguje jako "promptní vložení": namísto pouhého přerušení odešle "Stop"` zpět do LLM jako uživatelskou zprávu, která mu umožňuje ladně uzavřít nebo potvrdit přerušení.
+Přerušení funguje jako "promptní vložení": namísto pouhého přerušení odešle "Stop"\` zpět do LLM jako uživatelskou zprávu, která mu umožňuje ladně uzavřít nebo potvrdit přerušení.
 
 Stisknutím klávesy `x` ukončíte režim autopilota (viz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
@@ -173,7 +173,6 @@ Dva doplňkové nástroje založené na Playwrightovi:
 
 `tool_catalog` a `tool_load` umožňují objevovat a povolit nástroje za běhu.
 Není třeba načítat vše při spuštění – aktivujte pouze to, co potřebujete, když to potřebujete.
-
 
 ### 🦀 Rust Native Tools
 
@@ -214,7 +213,6 @@ Bezplatná zkušenost s AI agentem, bez uzamčení dodavatele.
 
 ### ✨ Vytvořte si vlastní nástroje
 
-
 [cs.md](TOOL_CREATOR_GUIDE.cs.md)
 Podrobný postup najdete v dokumentaci.
 
@@ -224,8 +222,6 @@ Příspěvky jsou vítány! Hlášení chyb, návrhy funkcí, vylepšení dokume
 
 - **Issues**: Otevřete problém GitHub pro chyby nebo požadavky na funkce.
 - **Pull requesty**: Vytvořte fork repozitáře, proveďte změny a odešlete PR. Nastavení vývoje a pokyny najdete v [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime Voice a AEC3
 

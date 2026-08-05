@@ -4,7 +4,7 @@ import requests
 import warnings
 from urllib3.exceptions import InsecureRequestWarning
 
-# SSL 検証オフに伴う警告を抑制
+# Suppress warnings caused by disabling SSL verification
 warnings.simplefilter("ignore", InsecureRequestWarning)
 
 from .i18n_helper import make_tool_translator
@@ -23,7 +23,7 @@ TOOL_SPEC = {
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["weather", "forecast", "temperature", "天気", "気温", "天気予報"],
+            default=["weather", "forecast", "temperature", "Weather", "Temperature", "Weather forecast"],
         ),
         "x_search_terms_en": [
             "weather",

@@ -215,7 +215,7 @@ async def _call_mcp_http(
             if http_client is not None:
                 await http_client.aclose()
     except BaseExceptionGroup as eg:
-        # NOTE: ExceptionGroup の内訳を返して原因を特定する（調査用）
+        # NOTE: Return ExceptionGroup details to identify the cause (for investigation)
         import traceback
 
         parts = [f"[Error] MCP http call failed: {str(eg)}"]

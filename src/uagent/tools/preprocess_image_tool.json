@@ -987,16 +987,16 @@
   },
   "fil": {
     "x_search_terms": [
-      "preprocess image",
-      "image preprocess",
-      "image processing",
-      "image prepare",
-      "image transform",
+      "preprocess na imahe",
+      "preprocess ng imahe",
+      "pagpoproseso ng imahe",
+      "maghanda ng larawan",
+      "pagbabago ng imahe",
       "preprocess",
-      "image normalize",
-      "resize image",
-      "image enhancement",
-      "image ops"
+      "gawing normal ang imahe",
+      "baguhin ang laki ng imahe",
+      "pagpapahusay ng imahe",
+      "ops ng imahe"
     ],
     "param.mode.description": "Preprocess mode.",
     "param.grayscale.description": "I-convert ang imahe sa grayscale.",

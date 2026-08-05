@@ -33,9 +33,9 @@ TOOL_SPEC = {
                 "dart file index",
                 "class list",
                 "method list",
-                "Dartファイルを読む",
-                "クラス一覧",
-                "メソッド一覧",
+                "Read Dart files",
+                "Class list",
+                "Method list",
             ],
         ),
         "x_search_terms_en": [

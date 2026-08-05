@@ -1133,7 +1133,7 @@
     "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Få statusen til én SwitchBot Cloud-enhet frå den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot-skystatus",
       "switchbot_cloud_status",
       "switchbot",
       "cloud"

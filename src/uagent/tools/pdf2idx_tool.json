@@ -789,7 +789,7 @@
       "pdf index",
       "pdf parser",
       "pdf page reader",
-      "pdf section"
+      "pdf na seksyon"
     ],
     "param.path.description": "Path sa PDF (.pdf) file.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng isang may bilang na talaan ng mga nilalaman na naglilista ng mga pahina na may mga preview. Ibinabalik ng \"seksyon\" ang buong nilalaman ng teksto ng isang partikular na pahina.",

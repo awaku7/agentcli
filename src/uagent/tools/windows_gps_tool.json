@@ -1220,8 +1220,8 @@
       "kasalukuyang lokasyon",
       "gps coordinate",
       "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "lokasyon ng mga bintana",
+      "sensor ng gps"
     ]
   },
   "ms": {
@@ -1249,7 +1249,7 @@
     "x_search_terms": [
       "gps",
       "lokasi",
-      "windows gps",
+      "gps tingkap",
       "geolokasi",
       "kedudukan",
       "lokasi semasa",

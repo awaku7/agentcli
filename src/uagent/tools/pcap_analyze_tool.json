@@ -212,8 +212,8 @@
     "param.overwrite.description": "Pahintulutan ang pag-overwrite ng isang umiiral nang output file.",
     "x_search_terms": [
       "pcap",
-      "packet analysis",
-      "traffic analysis",
+      "pagsusuri ng pakete",
+      "pagsusuri ng trapiko",
       "flow",
       "extract",
       "anomalya detection"
@@ -492,11 +492,11 @@
     "param.overwrite.description": "Tillat overskriving av en eksisterende utdatafil.",
     "x_search_terms": [
       "pcappakken analysetrafikken analyseflytekstraktanomali deteksjon",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "pakkeanalyse",
+      "trafikkanalyse",
+      "Flyt",
+      "&Pakk ut",
+      "anomalideteksjon"
     ]
   },
   "pl": {

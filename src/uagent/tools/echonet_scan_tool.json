@@ -2873,7 +2873,7 @@
     "Controller": "Controller",
     "Television": "Fjernsyn",
     "x_search_terms": [
-      "echonet scan",
+      "echonet scanning",
       "echonet_scan",
       "echonet",
       "ECHONET",
@@ -2901,8 +2901,8 @@
     "Temperature sensor": "Temperatursensor",
     "Humidity sensor": "Fuktighetssensor",
     "Bath heating status sensor": "Statussensor for badevarme",
-    "CO2 sensor": "CO2 sensor",
-    "VOC sensor": "VOC sensor",
+    "CO2 sensor": "CO2-sensor",
+    "VOC sensor": "VOC-sensor",
     "Electric energy sensor": "Elektrisk energisensor",
     "Current sensor": "Strømsensor",
     "Illuminance sensor": "Lysstyrkesensor",
@@ -2951,7 +2951,7 @@
     "Controller": "Kontroller",
     "Television": "TV",
     "x_search_terms": [
-      "echonet scan",
+      "echonet-skanning",
       "echonet_scan",
       "echonet",
       "ECHONET",

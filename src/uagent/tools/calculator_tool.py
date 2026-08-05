@@ -73,9 +73,9 @@ def run_tool(args: dict[str, Any]) -> str:
             default="[calculator]\\nError: No expression provided.",
         )
 
-    # mathモジュールの関数と定数を公開
+    # Expose math module functions and constants
     allowed_names = {k: v for k, v in math.__dict__.items() if not k.startswith("__")}
-    # 基本的な組み込み関数も許可
+    # Allow basic built-in functions
     allowed_names.update(
         {
             "abs": abs,
@@ -89,7 +89,7 @@ def run_tool(args: dict[str, Any]) -> str:
     )
 
     try:
-        # eval を制限された環境で実行
+        # Execute eval in a restricted environment
         result = eval(expression, {"__builtins__": {}}, allowed_names)
         output = f"[calculator]\nExpression: {expression}\nResult: {result}"
     except Exception as e:

@@ -920,15 +920,15 @@
   "fil": {
     "x_search_terms": [
       "basahin ang markdown file",
-      "markdown table of contents",
-      "markdown index",
-      "markdown section",
+      "talaan ng nilalaman ng markdown",
+      "index ng markdown",
+      "seksyon ng markdown",
       "malaking document reader",
       "md2idx",
       "markdown parser",
       "heading splitter",
-      "document navigation",
-      "section extractor"
+      "pag-navigate sa dokumento",
+      "taga bunot ng seksyon"
     ],
     "param.path.description": "Path sa Markdown file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
@@ -1007,7 +1007,7 @@
       "stor dokumentleser",
       "md2idx",
       "markdown-parser",
-      "heading splitter",
+      "kurssplitter",
       "dokumentnavigering",
       "seksjonsuttrekker"
     ],

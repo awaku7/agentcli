@@ -33,7 +33,7 @@
       "gumawa ng tool",
       "scaffold",
       "bagong tool",
-      "tool template"
+      "template ng tool"
     ],
     "param.name": "Pangalan ng tool (snake_case, hal. 'my_tool')",
     "param.lang": "Wika ng pagpapatupad: 'python' o 'rust'",
@@ -61,7 +61,7 @@
       "opret værktøjsstillads",
       "nyt værktøj",
       "værktøjsskabelon",
-      ""
+      "værktøjsskabelon"
     ],
     "param.name": "Værktøjsnavn (snake_case, f.eks. 'mit_værktøj')",
     "param.lang": "Implementeringssprog: 'python' eller 'rust'",
@@ -82,5 +82,453 @@
     "param.description": "Kort beskrivelse av kva verktøyet gjør",
     "param.output_dir": "Utdatakatalog (standard: UAGENT_EXTERNAL_TOOLS_DIR eller gjeldende katalog)",
     "cmd.help": ":verktøy opprette <namn> --lang python|rust --beskrivelse '...'"
+  },
+  "ar": {
+    "tool.description": "قم ببناء أداة جديدة (Python أو Rust+Python) باستخدام ملفات معيارية.",
+    "x_search_terms": [
+      "إنشاء أداة",
+      "سقالة",
+      "أداة جديدة",
+      "قالب الأداة"
+    ],
+    "param.name": "اسم الأداة (snake_case، على سبيل المثال \"my_tool\")",
+    "param.lang": "لغة التنفيذ: \"python\" أو \"rust\"",
+    "param.description": "وصف موجز لما تفعله الأداة",
+    "param.output_dir": "دليل الإخراج (الافتراضي: UAGENT_EXTERNAL_TOOLS_DIR أو الدليل الحالي)",
+    "cmd.help": ":أداة إنشاء <name> --lang python|rust --description '...'"
+  },
+  "bn": {
+    "tool.description": "বয়লারপ্লেট ফাইল সহ একটি নতুন টুল (Python বা Rust+Python) ভারা।",
+    "x_search_terms": [
+      "টুল তৈরি করুন",
+      "ভারা",
+      "নতুন টুল",
+      "টুল টেমপ্লেট"
+    ],
+    "param.name": "টুলের নাম (snake_case, যেমন 'my_tool')",
+    "param.lang": "বাস্তবায়নের ভাষা: 'পাইথন' বা 'মরিচা'",
+    "param.description": "টুল কি করে তার সংক্ষিপ্ত বিবরণ",
+    "param.output_dir": "আউটপুট ডিরেক্টরি (ডিফল্ট: UAGENT_EXTERNAL_TOOLS_DIR বা বর্তমান ডিরেক্টর)",
+    "cmd.help": ": টুল তৈরি করুন <name> --lang python|rust --description '...'"
+  },
+  "cs": {
+    "tool.description": "Lešení nového nástroje (Python nebo Rust+Python) se standardními soubory.",
+    "x_search_terms": [
+      "vytvořit nástroj",
+      "lešení",
+      "nový nástroj",
+      "šablona nástroje"
+    ],
+    "param.name": "Název nástroje (snake_case, např. 'my_tool')",
+    "param.lang": "Implementační jazyk: 'python' nebo 'rust'",
+    "param.description": "Krátký popis toho, co nástroj dělá",
+    "param.output_dir": "Výstupní adresář (výchozí: UAGENT_EXTERNAL_TOOLS_DIR nebo aktuální adresář)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "de": {
+    "tool.description": "Erstellen Sie ein Gerüst für ein neues Tool (Python oder Rust+Python) mit Boilerplate-Dateien.",
+    "x_search_terms": [
+      "Werkzeug erstellen",
+      "Gerüst",
+      "neues Werkzeug",
+      "Werkzeugvorlage"
+    ],
+    "param.name": "Werkzeugname (snake_case, z. B. „my_tool“)",
+    "param.lang": "Implementierungssprache: „Python“ oder „Rust“",
+    "param.description": "Kurze Beschreibung der Funktionsweise des Tools",
+    "param.output_dir": "Ausgabeverzeichnis (Standard: UAGENT_EXTERNAL_TOOLS_DIR oder aktuelles Verzeichnis)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "el": {
+    "tool.description": "Τοποθετήστε ένα νέο εργαλείο (Python ή Rust+Python) με λίμες boilerplate.",
+    "x_search_terms": [
+      "δημιουργία εργαλείου",
+      "ικρίωμα",
+      "νέο εργαλείο",
+      "πρότυπο εργαλείου"
+    ],
+    "param.name": "Όνομα εργαλείου (snake_case, π.χ. \"my_tool\")",
+    "param.lang": "Γλώσσα υλοποίησης: «python» ή «rust»",
+    "param.description": "Σύντομη περιγραφή του τι κάνει το εργαλείο",
+    "param.output_dir": "Κατάλογος εξόδου (προεπιλογή: UAGENT_EXTERNAL_TOOLS_DIR ή τρέχουσα διεύθυνση)",
+    "cmd.help": ":tool δημιουργία <όνομα> --lang python|rust --περιγραφή '...'"
+  },
+  "es": {
+    "tool.description": "Cree una nueva herramienta (Python o Rust+Python) con archivos repetitivos.",
+    "x_search_terms": [
+      "crear herramienta",
+      "andamio",
+      "nueva herramienta",
+      "plantilla de herramienta"
+    ],
+    "param.name": "Nombre de la herramienta (snake_case, por ejemplo, 'my_tool')",
+    "param.lang": "Lenguaje de implementación: 'python' o 'rust'",
+    "param.description": "Breve descripción de lo que hace la herramienta.",
+    "param.output_dir": "Directorio de salida (predeterminado: UAGENT_EXTERNAL_TOOLS_DIR o directorio actual)",
+    "cmd.help": ":herramienta crear <nombre> --lang python|rust --descripción '...'"
+  },
+  "fa": {
+    "tool.description": "یک ابزار جدید (Python یا Rust+Python) را با فایل های boilerplate داربست کنید.",
+    "x_search_terms": [
+      "ابزار ایجاد کنید",
+      "داربست",
+      "ابزار جدید",
+      "قالب ابزار"
+    ],
+    "param.name": "نام ابزار (snake_case، به عنوان مثال \"my_tool\")",
+    "param.lang": "زبان پیاده سازی: 'python' یا 'rust'",
+    "param.description": "شرح مختصری از کاری که ابزار انجام می دهد",
+    "param.output_dir": "فهرست خروجی (پیش‌فرض: UAGENT_EXTERNAL_TOOLS_DIR یا مسیر فعلی)",
+    "cmd.help": ":tool ایجاد <name> --lang python|rust --description '...'"
+  },
+  "fi": {
+    "tool.description": "Rakenna uusi työkalu (Python tai Rust+Python) tiivistetiedostoilla.",
+    "x_search_terms": [
+      "luo työkalu",
+      "rakennusteline",
+      "uusi työkalu",
+      "työkalumalli"
+    ],
+    "param.name": "Työkalun nimi (snake_case, esim. 'my_tool')",
+    "param.lang": "Toteutuskieli: \"python\" tai \"rust\"",
+    "param.description": "Lyhyt kuvaus työkalun toiminnasta",
+    "param.output_dir": "Lähtöhakemisto (oletus: UAGENT_EXTERNAL_TOOLS_DIR tai nykyinen hakemisto)",
+    "cmd.help": ":tool create <nimi> --lang python|rust --description '...'"
+  },
+  "fr": {
+    "tool.description": "Échafaudez un nouvel outil (Python ou Rust+Python) avec des fichiers passe-partout.",
+    "x_search_terms": [
+      "créer un outil",
+      "échafaudage",
+      "nouvel outil",
+      "modèle d'outil"
+    ],
+    "param.name": "Nom de l'outil (snake_case, par exemple 'my_tool')",
+    "param.lang": "Langage d'implémentation : \"python\" ou \"rust\"",
+    "param.description": "Brève description de ce que fait l'outil",
+    "param.output_dir": "Répertoire de sortie (par défaut : UAGENT_EXTERNAL_TOOLS_DIR ou répertoire actuel)",
+    "cmd.help": ":tool create <nom> --lang python|rust --description '...'"
+  },
+  "he": {
+    "tool.description": "פיגום כלי חדש (Python או Rust+Python) עם קבצי boilerplate.",
+    "x_search_terms": [
+      "ליצור כלי",
+      "פיגום",
+      "כלי חדש",
+      "תבנית כלי"
+    ],
+    "param.name": "שם הכלי (מקרה_נחש, למשל 'הכלי_שלי')",
+    "param.lang": "שפת יישום: 'פיתון' או 'חלודה'",
+    "param.description": "תיאור קצר של מה שהכלי עושה",
+    "param.output_dir": "ספריית פלט (ברירת מחדל: UAGENT_EXTERNAL_TOOLS_DIR או מדריך נוכחי)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "hi": {
+    "tool.description": "बॉयलरप्लेट फ़ाइलों के साथ एक नया टूल (पायथन या रस्ट+पायथन) तैयार करें।",
+    "x_search_terms": [
+      "उपकरण बनाएं",
+      "मचान",
+      "नया उपकरण",
+      "उपकरण टेम्पलेट"
+    ],
+    "param.name": "टूल का नाम (स्नेक_केस, उदाहरण के लिए 'my_tool')",
+    "param.lang": "कार्यान्वयन भाषा: 'पायथन' या 'जंग'",
+    "param.description": "टूल क्या करता है इसका संक्षिप्त विवरण",
+    "param.output_dir": "आउटपुट निर्देशिका (डिफ़ॉल्ट: UAGENT_EXTERNAL_TOOLS_DIR या वर्तमान dir)",
+    "cmd.help": ":टूल क्रिएट <नाम> --लैंग पायथन|रस्ट --विवरण '...'"
+  },
+  "hu": {
+    "tool.description": "Állítson fel egy új eszközt (Python vagy Rust+Python) sablonfájlokkal.",
+    "x_search_terms": [
+      "eszköz létrehozása",
+      "állványzat",
+      "új eszköz",
+      "eszköz sablon"
+    ],
+    "param.name": "Eszköz neve (snake_case, pl. \"saját_eszköz\")",
+    "param.lang": "Megvalósítási nyelv: „python” vagy „rust”",
+    "param.description": "Az eszköz működésének rövid leírása",
+    "param.output_dir": "Kimeneti könyvtár (alapértelmezett: UAGENT_EXTERNAL_TOOLS_DIR vagy jelenlegi könyvtár)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "id": {
+    "tool.description": "Perancah alat baru (Python atau Rust+Python) dengan file boilerplate.",
+    "x_search_terms": [
+      "membuat alat",
+      "perancah",
+      "alat baru",
+      "templat alat"
+    ],
+    "param.name": "Nama alat (snake_case, misalnya 'my_tool')",
+    "param.lang": "Bahasa implementasi: 'python' atau 'rust'",
+    "param.description": "Deskripsi singkat tentang fungsi alat ini",
+    "param.output_dir": "Direktori keluaran (default: UAGENT_EXTERNAL_TOOLS_DIR atau direktori saat ini)",
+    "cmd.help": ":alat buat <nama> --lang python|rust --deskripsi '...'"
+  },
+  "it": {
+    "tool.description": "Impalcatura di un nuovo strumento (Python o Rust+Python) con file boilerplate.",
+    "x_search_terms": [
+      "creare strumento",
+      "impalcatura",
+      "nuovo strumento",
+      "modello di strumento"
+    ],
+    "param.name": "Nome dello strumento (snake_case, ad es. 'my_tool')",
+    "param.lang": "Linguaggio di implementazione: 'python' o 'rust'",
+    "param.description": "Breve descrizione di cosa fa lo strumento",
+    "param.output_dir": "Directory di output (impostazione predefinita: UAGENT_EXTERNAL_TOOLS_DIR o directory corrente)",
+    "cmd.help": ":tool create <nome> --lang python|rust --description '...'"
+  },
+  "ko": {
+    "tool.description": "상용구 파일을 사용하여 새 도구(Python 또는 Rust+Python)를 스캐폴드합니다.",
+    "x_search_terms": [
+      "도구 만들기",
+      "비계",
+      "새로운 도구",
+      "도구 템플릿"
+    ],
+    "param.name": "도구 이름(snake_case, 예: 'my_tool')",
+    "param.lang": "구현 언어: 'python' 또는 'rust'",
+    "param.description": "도구의 기능에 대한 간단한 설명",
+    "param.output_dir": "출력 디렉터리(기본값: UAGENT_EXTERNAL_TOOLS_DIR 또는 현재 디렉터리)",
+    "cmd.help": ":tool create <이름> --lang python|rust --description '...'"
+  },
+  "mn": {
+    "tool.description": "Шинэ хэрэгсэл (Python эсвэл Rust+Python) файлуудыг ашиглан суулгаарай.",
+    "x_search_terms": [
+      "хэрэгсэл үүсгэх",
+      "тавцан",
+      "шинэ хэрэгсэл",
+      "хэрэгслийн загвар"
+    ],
+    "param.name": "Хэрэгслийн нэр (snake_case, жишээ нь 'my_tool')",
+    "param.lang": "Хэрэгжүүлэх хэл: 'python' эсвэл 'rust'",
+    "param.description": "Энэ хэрэгсэл юу хийдэг талаар товч тайлбар",
+    "param.output_dir": "Гаралтын лавлах (өгөгдмөл: UAGENT_EXTERNAL_TOOLS_DIR эсвэл одоогийн директор)",
+    "cmd.help": ":хэрэгсэл үүсгэх <name> --lang python|rust --тайлбар '...'"
+  },
+  "mr": {
+    "tool.description": "बॉयलरप्लेट फाइल्ससह नवीन टूल (पायथन किंवा रस्ट + पायथन) स्कॅफोल्ड करा.",
+    "x_search_terms": [
+      "साधन तयार करा",
+      "मचान",
+      "नवीन साधन",
+      "साधन टेम्पलेट"
+    ],
+    "param.name": "साधनाचे नाव (snake_case, उदा. 'my_tool')",
+    "param.lang": "अंमलबजावणी भाषा: 'पायथन' किंवा 'रस्ट'",
+    "param.description": "साधन काय करते याचे संक्षिप्त वर्णन",
+    "param.output_dir": "आउटपुट निर्देशिका (डीफॉल्ट: UAGENT_EXTERNAL_TOOLS_DIR किंवा वर्तमान dir)",
+    "cmd.help": ": टूल तयार करा <name> --lang python|rust --description '...'"
+  },
+  "nb": {
+    "tool.description": "Stillas et nytt verktøy (Python eller Rust+Python) med boilerplate-filer.",
+    "x_search_terms": [
+      "lage verktøy",
+      "stillas",
+      "nytt verktøy",
+      "verktøymal"
+    ],
+    "param.name": "Verktøynavn (slangehus, f.eks. «mitt_verktøy»)",
+    "param.lang": "Implementeringsspråk: 'python' eller 'rust'",
+    "param.description": "Kort beskrivelse av hva verktøyet gjør",
+    "param.output_dir": "Utdatakatalog (standard: UAGENT_EXTERNAL_TOOLS_DIR eller gjeldende katalog)",
+    "cmd.help": ":verktøy opprette <navn> --lang python|rust --beskrivelse '...'"
+  },
+  "nl": {
+    "tool.description": "Bouw een nieuwe tool (Python of Rust+Python) op met standaardbestanden.",
+    "x_search_terms": [
+      "hulpmiddel maken",
+      "steiger",
+      "nieuw hulpmiddel",
+      "gereedschap sjabloon"
+    ],
+    "param.name": "Gereedschapsnaam (snake_case, bijvoorbeeld 'mijn_tool')",
+    "param.lang": "Implementatietaal: 'python' of 'rust'",
+    "param.description": "Korte beschrijving van wat de tool doet",
+    "param.output_dir": "Uitvoermap (standaard: UAGENT_EXTERNAL_TOOLS_DIR of huidige map)",
+    "cmd.help": ":tool create <naam> --lang python|rust --description '...'"
+  },
+  "pl": {
+    "tool.description": "Utwórz szkielet nowego narzędzia (Python lub Rust+Python) za pomocą plików standardowych.",
+    "x_search_terms": [
+      "utwórz narzędzie",
+      "rusztowanie",
+      "nowe narzędzie",
+      "szablon narzędzia"
+    ],
+    "param.name": "Nazwa narzędzia (snake_case, np. „moje_narzędzie”)",
+    "param.lang": "Język implementacji: „python” lub „rust”",
+    "param.description": "Krótki opis działania narzędzia",
+    "param.output_dir": "Katalog wyjściowy (domyślnie: UAGENT_EXTERNAL_TOOLS_DIR lub katalog bieżący)",
+    "cmd.help": ":tool create <nazwa> --lang python|rust --description '...'"
+  },
+  "pt": {
+    "tool.description": "Crie uma nova ferramenta (Python ou Rust+Python) com arquivos padrão.",
+    "x_search_terms": [
+      "criar ferramenta",
+      "andaime",
+      "nova ferramenta",
+      "modelo de ferramenta"
+    ],
+    "param.name": "Nome da ferramenta (snake_case, por exemplo, 'my_tool')",
+    "param.lang": "Linguagem de implementação: 'python' ou 'rust'",
+    "param.description": "Breve descrição do que a ferramenta faz",
+    "param.output_dir": "Diretório de saída (padrão: UAGENT_EXTERNAL_TOOLS_DIR ou diretório atual)",
+    "cmd.help": ":tool create <nome> --lang python|rust --description '...'"
+  },
+  "pt_BR": {
+    "tool.description": "Crie uma nova ferramenta (Python ou Rust+Python) com arquivos padrão.",
+    "x_search_terms": [
+      "criar ferramenta",
+      "andaime",
+      "nova ferramenta",
+      "modelo de ferramenta"
+    ],
+    "param.name": "Nome da ferramenta (snake_case, por exemplo, 'my_tool')",
+    "param.lang": "Linguagem de implementação: 'python' ou 'rust'",
+    "param.description": "Breve descrição do que a ferramenta faz",
+    "param.output_dir": "Diretório de saída (padrão: UAGENT_EXTERNAL_TOOLS_DIR ou diretório atual)",
+    "cmd.help": ":tool create <nome> --lang python|rust --description '...'"
+  },
+  "ro": {
+    "tool.description": "Folosiți un instrument nou (Python sau Rust+Python) cu fișiere boilerplate.",
+    "x_search_terms": [
+      "creați un instrument",
+      "schelă",
+      "instrument nou",
+      "șablon de instrument"
+    ],
+    "param.name": "Numele instrumentului (snake_case, de exemplu, „my_tool”)",
+    "param.lang": "Limbajul de implementare: „python” sau „rugina”",
+    "param.description": "Scurtă descriere a ceea ce face instrumentul",
+    "param.output_dir": "Director de ieșire (implicit: UAGENT_EXTERNAL_TOOLS_DIR sau directorul curent)",
+    "cmd.help": ":tool create <nume> --lang python|rugina --descriere '...'"
+  },
+  "ru": {
+    "tool.description": "Создайте новый инструмент (Python или Rust+Python) с помощью шаблонных файлов.",
+    "x_search_terms": [
+      "создать инструмент",
+      "эшафот",
+      "новый инструмент",
+      "шаблон инструмента"
+    ],
+    "param.name": "Имя инструмента (snake_case, например, «my_tool»)",
+    "param.lang": "Язык реализации: «python» или «rust».",
+    "param.description": "Краткое описание того, что делает инструмент",
+    "param.output_dir": "Выходной каталог (по умолчанию: UAGENT_EXTERNAL_TOOLS_DIR или текущий каталог)",
+    "cmd.help": ":tool create <имя> --lang python|rust --description '...'"
+  },
+  "sv": {
+    "tool.description": "Ställa ett nytt verktyg (Python eller Rust+Python) med boilerplate-filer.",
+    "x_search_terms": [
+      "skapa verktyg",
+      "ställning",
+      "nytt verktyg",
+      "verktygsmall"
+    ],
+    "param.name": "Verktygets namn (snake_case, t.ex. \"my_tool\")",
+    "param.lang": "Implementeringsspråk: 'python' eller 'rust'",
+    "param.description": "Kort beskrivning av vad verktyget gör",
+    "param.output_dir": "Utdatakatalog (standard: UAGENT_EXTERNAL_TOOLS_DIR eller aktuell katalog)",
+    "cmd.help": ":verktyg skapa <namn> --lang python|rust --description '...'"
+  },
+  "sw": {
+    "tool.description": "Panda zana mpya (Python au Rust+Python) iliyo na faili za boilerplate.",
+    "x_search_terms": [
+      "kuunda chombo",
+      "kiunzi",
+      "chombo kipya",
+      "template ya chombo"
+    ],
+    "param.name": "Jina la chombo (kesi_ya_nyoka, k.m. 'zana_yangu')",
+    "param.lang": "Lugha ya utekelezaji: 'python' au 'kutu'",
+    "param.description": "Maelezo mafupi ya kile chombo hufanya",
+    "param.output_dir": "Saraka ya pato (chaguo-msingi: UAGENT_EXTERNAL_TOOLS_DIR au dir ya sasa)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "th": {
+    "tool.description": "วางเครื่องมือใหม่ (Python หรือ Rust+Python) ด้วยไฟล์สำเร็จรูป",
+    "x_search_terms": [
+      "สร้างเครื่องมือ",
+      "นั่งร้าน",
+      "เครื่องมือใหม่",
+      "แม่แบบเครื่องมือ"
+    ],
+    "param.name": "ชื่อเครื่องมือ (snake_case เช่น 'my_tool')",
+    "param.lang": "ภาษาการใช้งาน: 'python' หรือ 'rust'",
+    "param.description": "คำอธิบายสั้นๆ ว่าเครื่องมือนี้ทำอะไรได้บ้าง",
+    "param.output_dir": "ไดเร็กทอรีเอาต์พุต (ค่าเริ่มต้น: UAGENT_EXTERNAL_TOOLS_DIR หรือ dir ปัจจุบัน)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "tr": {
+    "tool.description": "Standart dosyalar içeren yeni bir araç (Python veya Rust+Python) oluşturun.",
+    "x_search_terms": [
+      "araç oluştur",
+      "iskele",
+      "yeni araç",
+      "aracı şablonu"
+    ],
+    "param.name": "Araç adı (snake_case, örneğin 'my_tool')",
+    "param.lang": "Uygulama dili: 'python' veya 'rust'",
+    "param.description": "Aracın ne yaptığına ilişkin kısa açıklama",
+    "param.output_dir": "Çıkış dizini (varsayılan: UAGENT_EXTERNAL_TOOLS_DIR veya geçerli dizin)",
+    "cmd.help": ":tool create <isim> --lang python|rust --description '...'"
+  },
+  "uk": {
+    "tool.description": "Створіть новий інструмент (Python або Rust+Python) із шаблонними файлами.",
+    "x_search_terms": [
+      "створити інструмент",
+      "ешафот",
+      "новий інструмент",
+      "шаблон інструменту"
+    ],
+    "param.name": "Ім’я інструмента (snake_case, наприклад, «my_tool»)",
+    "param.lang": "Мова реалізації: 'python' або 'rust'",
+    "param.description": "Короткий опис того, що робить інструмент",
+    "param.output_dir": "Вихідний каталог (за замовчуванням: UAGENT_EXTERNAL_TOOLS_DIR або поточний каталог)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "vi": {
+    "tool.description": "Xây dựng một công cụ mới (Python hoặc Rust+Python) bằng các tệp soạn sẵn.",
+    "x_search_terms": [
+      "tạo công cụ",
+      "giàn giáo",
+      "công cụ mới",
+      "mẫu công cụ"
+    ],
+    "param.name": "Tên công cụ (snake_case, ví dụ: 'my_tool')",
+    "param.lang": "Ngôn ngữ triển khai: 'python' hoặc 'rust'",
+    "param.description": "Mô tả ngắn gọn về chức năng của công cụ này",
+    "param.output_dir": "Thư mục đầu ra (mặc định: UAGENT_EXTERNAL_TOOLS_DIR hoặc thư mục hiện tại)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "zh_CN": {
+    "tool.description": "使用样板文件搭建新工具（Python 或 Rust+Python）。",
+    "x_search_terms": [
+      "创建工具",
+      "脚手架",
+      "新工具",
+      "工具模板"
+    ],
+    "param.name": "工具名称（snake_case，例如“my_tool”）",
+    "param.lang": "实现语言：“python”或“rust”",
+    "param.description": "该工具功能的简短描述",
+    "param.output_dir": "输出目录（默认：UAGENT_EXTERNAL_TOOLS_DIR 或当前目录）",
+    "cmd.help": ":tool create <名称> --lang python|rust --description '...'"
+  },
+  "zh_TW": {
+    "tool.description": "使用樣板檔案建構新工具（Python 或 Rust+Python）。",
+    "x_search_terms": [
+      "創建工具",
+      "鷹架",
+      "新工具",
+      "工具模板"
+    ],
+    "param.name": "工具名稱（snake_case，例如“my_tool”）",
+    "param.lang": "實作語言：“python”或“rust”",
+    "param.description": "該工具功能的簡短描述",
+    "param.output_dir": "輸出目錄（預設：UAGENT_EXTERNAL_TOOLS_DIR 或目前目錄）",
+    "cmd.help": ":tool create <姓名> --lang python|rust --description '...'"
   }
 }

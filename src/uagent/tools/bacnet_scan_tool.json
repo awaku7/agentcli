@@ -801,7 +801,7 @@
     "msg.no_devices": "Der blev ikke fundet nogen BACnet/IP-enheder.",
     "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
     "x_search_terms": [
-      "bacnet scan",
+      "bacnet scanning",
       "bacnet_scan",
       "bacnet",
       "BACNET",
@@ -823,7 +823,7 @@
     "msg.no_devices": "Ingen BACnet/IP-enheter ble funnet.",
     "err.bac0_install": "BAC0-biblioteket kunne ikkje installeres.",
     "x_search_terms": [
-      "bacnet scan",
+      "bacnet-skanning",
       "bacnet_scan",
       "bacnet",
       "BACNET",

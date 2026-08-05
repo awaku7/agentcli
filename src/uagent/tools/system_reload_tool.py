@@ -26,7 +26,7 @@ TOOL_SPEC = {
                 "reload system",
                 "refresh tools",
                 "reload code",
-                "システムリロード",
+                "system reload",
                 "recargar sistema",
                 "recharger le système",
                 "시스템 재로드",
@@ -37,7 +37,7 @@ TOOL_SPEC = {
             "reload system",
             "refresh tools",
             "reload code",
-            "システムリロード",
+            "system reload",
             "recargar sistema",
             "recharger le système",
             "시스템 재로드",
@@ -104,11 +104,9 @@ def run_tool(args: dict[str, Any]) -> str:
     stopped = _stop_running_backgrounds()
     try:
         pkg_name = __package__ or "src.uagent.tools"
-        # importlib.reload() はサブモジュールを再帰的に再ロードしないため、
-        # sys.modules に残った旧コード（例: pybitchat_shared.enqueue_send）が
-        # ツールから参照され続ける。パッケージ再ロード前にサブモジュールを
-        # sys.modules から外し、__init__.py のインポートで最新コードを
-        # 再インポートさせる。
+        # importlib.reload() does not recursively reload submodules, so
+        # Stale code left in sys.modules would continue to be referenced by tools.
+        # Remove submodules before package reload so __init__.py imports the latest code.
         for name in list(sys.modules):
             if name.startswith(pkg_name + "."):
                 sys.modules.pop(name, None)
@@ -116,7 +114,7 @@ def run_tool(args: dict[str, Any]) -> str:
         if mod is None:
             mod = importlib.import_module(pkg_name)
         importlib.reload(mod)
-        # reload後はsys.modulesから新しいモジュールを再取得（mod変数は古いまま）
+        # After reload, retrieve the new module from sys.modules (mod still references the old one)
         new_mod = sys.modules.get(pkg_name)
         new_mod._INITIALIZED = False
         new_mod._DYNAMIC_COMMANDS.clear()

@@ -789,14 +789,14 @@
     "x_search_terms": [
       "powershell",
       "pwsh",
-      "power shell",
-      "shell command",
-      "script execution",
+      "kapangyarihan shell",
+      "utos ng shell",
+      "pagpapatupad ng script",
       "windows powershell",
       "command",
-      "execute powershell",
-      "run script",
-      "ps command"
+      "isagawa ang powershell",
+      "patakbuhin ang script",
+      "utos ni ps"
     ],
     "err.command_required": "[pwsh_exec error] 'command' ay kinakailangan",
     "err.blocked": "[na-block ang pwsh_exec] %(reason)s",
@@ -812,19 +812,19 @@
     "x_search_terms": [
       "powershell",
       "pwsh",
-      "power shell",
-      "shell command",
-      "script execution",
+      "cengkerang kuasa",
+      "arahan shell",
+      "pelaksanaan skrip",
       "windows powershell",
       "command",
-      "execute powershell",
-      "run script",
-      "ps command"
+      "laksanakan powershell",
+      "jalankan skrip",
+      "arahan ps"
     ],
     "err.command_required": "[pwsh_exec error] 'arahan' diperlukan",
     "err.blocked": "[pwsh_exec disekat] %(reason)s",
-    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
-    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.exception": "[pwsh_exec ralat] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec ralat] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
     "err.shell_not_found": "[pwsh_exec error] Boleh laku PowerShell tidak ditemui: %(shell)s"
   },
   "da": {
@@ -861,7 +861,7 @@
       "power shell",
       "shell-kommando",
       "skriptutførelse",
-      "windows powershell",
+      "windows-powershell",
       "kommando",
       "kjør powershell",
       "kjør script",

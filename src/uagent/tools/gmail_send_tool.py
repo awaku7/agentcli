@@ -31,7 +31,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "gmail",
                 "send email",
                 "mail",
-                "メール送信",
+                "Send email",
                 "enviar correo",
                 "envoyer email",
                 "이메일 보내기",

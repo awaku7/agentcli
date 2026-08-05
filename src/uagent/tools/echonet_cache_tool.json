@@ -655,7 +655,7 @@
     "err.invalid_action": "Error: ang aksyon ay dapat na 'snapshot' o 'clear'.",
     "param.namespace.description": "Cache namespace (alisin para sa lahat).",
     "x_search_terms": [
-      "echonet cache",
+      "cache ng echonet",
       "echonet_cache",
       "echonet",
       "ECHONET",
@@ -712,7 +712,7 @@
     "err.invalid_action": "Feil: handlingen må være \"øyeblikksbilde\" eller \"clear\".",
     "param.namespace.description": "Cache navneområde (utelat for alle).",
     "x_search_terms": [
-      "echonet cache",
+      "echonet-cache",
       "echonet_cache",
       "echonet",
       "ECHONET",

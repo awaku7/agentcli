@@ -63,7 +63,10 @@ class ToolCallbacks:
     read_file_max_bytes: int = 1_000_000
 
 
-_CALLBACKS: ToolCallbacks = ToolCallbacks()
+# Preserve injected host callbacks across hot-reloads.  ``system_reload`` reloads
+# tool modules in place; recreating this object would silently disconnect the CLI
+# from human_ask and other host-dependent tools.
+_CALLBACKS: ToolCallbacks = globals().get("_CALLBACKS", ToolCallbacks())
 
 
 def init_callbacks(cb: ToolCallbacks) -> None:

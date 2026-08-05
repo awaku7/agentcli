@@ -1461,10 +1461,10 @@
       "archive",
       "zip file",
       "unzip",
-      "extract zip",
+      "i-extract ang zip",
       "zip compress",
       "zip archive",
-      "file compression",
+      "pag-compress ng file",
       "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) ay maaaring i-overwrite ang mga kasalukuyang file.\nzip: {zip_path}\ndest: {dest_dir}\nmga entry: {entries}\n\nIlagay ang y upang magpatuloy, o c upang kanselahin."

@@ -1737,15 +1737,15 @@
     "tool.description": "Pamahalaan ang MCP na mga kahulugan ng server sa mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
       "mcp server",
-      "mcp list",
-      "server list",
+      "listahan ng mcp",
+      "listahan ng server",
       "mcp config",
-      "mcp settings",
-      "mcp server list",
-      "configure mcp",
+      "mga setting ng mcp",
+      "listahan ng mcp server",
+      "i-configure ang mcp",
       "mcp endpoint",
-      "server management",
-      "mcp connection"
+      "pamamahala ng server",
+      "koneksyon sa mcp"
     ],
     "param.path.description": "Path sa mcp_servers.json. Kung tinanggal, ginagamit ang default na lokasyon.",
     "param.pretty.description": "Kung true, pretty-print JSON output (default: true).",
@@ -1796,7 +1796,7 @@
       "konfigurasi titik akhir mcp",
       "pengurusan pelayan",
       "sambungan mcp",
-      ""
+      "sambungan mcp"
     ],
     "param.path.description": "Laluan ke mcp_servers.json. Jika ditinggalkan, gunakan lokasi lalai.",
     "param.pretty.description": "Jika benar, keluaran cantik-cetak JSON (lalai: benar).",

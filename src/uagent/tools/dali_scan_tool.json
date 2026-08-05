@@ -673,7 +673,7 @@
     "msg.summary": "Imbasan DALI: {count} peranti ditemui dalam {ms} ms.",
     "msg.no_devices": "Tiada peranti DALI ditemui.",
     "x_search_terms": [
-      "dali scan",
+      "imbasan dali",
       "dali_scan",
       "dali",
       "DALI",
@@ -692,14 +692,14 @@
     "msg.summary": "DALI-scanning: {count} enhed(er) fundet på {ms} ms.",
     "msg.no_devices": "Der blev ikke fundet nogen DALI-enheder.",
     "x_search_terms": [
-      "dali scan",
+      "dali scanning",
       "dali_scan",
       "dali",
       "DALI",
       "tilsluttede",
       "lysenheder",
       "adresser",
-      ""
+      "adresser"
     ]
   },
   "nn": {
@@ -711,14 +711,14 @@
     "msg.summary": "DALI-skanning: {count} enhet(er) funnet på {ms} ms.",
     "msg.no_devices": "Ingen DALI-enheter ble funnet.",
     "x_search_terms": [
-      "dali scan",
+      "dali skanning",
       "dali_scan",
       "dali",
       "DALI",
       "tilkoblede",
       "belysningsenheter",
       "adresser",
-      ""
+      "adresser"
     ]
   }
 }

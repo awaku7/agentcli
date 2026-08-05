@@ -21,15 +21,15 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## 为什么是uag？
 
-**摆脱供应商锁定。**大多数人工智能助手会将您与特定的提供商或云服务联系起来。 uag 是不同的。
+\*\*摆脱供应商锁定。\*\*大多数人工智能助手会将您与特定的提供商或云服务联系起来。 uag 是不同的。
 
 - **在您的计算机上本地运行**。您的数据保留在您身边（您进行的 API 调用除外）。
 - **提供商自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超过 24 个提供商，均可通过单一界面访问。通过重新配置环境变量在它们之间进行交换——无需重新安装，无需迁移。
-- **195 个工具**：文件 I/O、网络搜索、图像生成、Gmail、BLE 设备扫描、MCP 服务器集成 — **111 个工具是并行安全的**（最多 8 个通过线程池并发执行，可通过“UAGENT_PARALLEL_WORKERS”进行配置）。当 LLM 一次触发多个工具调用时，uag 会自动并行化它们。
+- **203 个工具**：文件 I/O、网络搜索、图像生成、Gmail、BLE 设备扫描、MCP 服务器集成 — **111 个工具是并行安全的**（最多 8 个通过线程池并发执行，可通过“UAGENT_PARALLEL_WORKERS”进行配置）。当 LLM 一次触发多个工具调用时，uag 会自动并行化它们。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理协议。相同的引擎，任何接口。
 - **代理技能**：从市场安装社区构建的技能。无限延伸uag。
 
@@ -62,7 +62,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 只读工具（文件搜索、哈希计算、目录列表、翻译、数据库查询等）被积极并行化。
 
-
 ### 🧩 插件系统（兼容 Claude Code）
 
 uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代理、MCP 服务器、钩子等捆绑到带有 `.claude-plugin/plugin.json` 清单的独立目录中。
@@ -70,6 +69,7 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 **支持的组件**：技能、子代理、MCP 服务器、钩子（12 个生命周期事件）、斜杠命令、输出样式、userConfig、依赖项、通道、市场
 
 **CLI commands**:
+
 ```
 :plugin list                         # 列出已安装的插件
 :plugin install <source> [--scope]
@@ -82,13 +82,14 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 
 详细文档请参阅 [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)。
 
-
 ### 🔄 会话连续性
 
 - **在会话中切换提供商**：`UAGENT_PROVIDER` — 对话历史记录会保留。
 - **重新加载过去的会话**：`:load <index>` — 从上次中断的地方继续。
 
-### 🛠 195 个工具
+### 🛠 203 个工具
+
+- **云 API**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 
 |类别 |工具|
 |---|---|
@@ -99,11 +100,11 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 | **预测** | 使用9种模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）进行时间序列预测，自动模型选择，生成图表，i18n |
 | **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 请参阅 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 和 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**26 个源代码导航器（idx 系列）** |
+| **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 个源代码导航器（idx 系列）** |
 | **MCP** |连接到外部 MCP 服务器、列出工具、执行 |
 | **A2A** |代理间通信（与其他 uag 实例或 A2A 兼容服务器）|
 | **系统** | 环境变量、系统规格、时间、日期计算, uuid_gen, slugify ||
-| **来源导航** | **26 个 idx 工具**，适用于 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL — 无需读取整个文件即可获取函数/类索引或特定定义 |
+| **来源导航** | **29 个 idx 工具**，适用于 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 无需读取整个文件即可获取函数/类索引或特定定义 |
 
 ### 🖥 4 个接口 + VS 代码扩展
 
@@ -118,10 +119,10 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 有关 VS Code 扩展的详细信息 - 安装、命令、键绑定和配置，请参阅 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)。
 
 ### 🏠 物联网设备控制
+
 - **事项**：控制器/网桥/设备拓扑的只读检查
 
 请参阅 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🏠 IoT 设备控制
 
@@ -168,7 +169,7 @@ uag 可以跟踪长时间运行的多文件任务的进度。当 LLM 处理数�
 |---|---|
 | **命令行** |在 LLM 流式传输期间按“c”键 — 当前响应停止，并且“停止”作为用户消息发送，以便 LLM 做出相应响应 |
 | **网页用户界面** |单击红色 **■ 停止** 按钮（LLM 处理期间自动出现）|
-| **桌面图形用户界面** |单击红色 ******** 按钮（LLM 处理期间自动出现）|
+| **桌面图形用户界面** |单击红色 \*\*\*\*\*\*\*\* 按钮（LLM 处理期间自动出现）|
 
 中断充当“提示注入”：它不仅仅是中止，而是将“停止”作为用户消息反馈给 LLM，使其能够优雅地结束或确认中断。
 
@@ -225,7 +226,6 @@ uag 渴望成为 **您的人工智能，在您的机器上，按照您的条件�
 
 ### ✨ 创建您自己的工具
 
-
 [zh_CN.md](TOOL_CREATOR_GUIDE.zh_CN.md)
 分步指南请参阅此处。
 
@@ -235,8 +235,6 @@ uag 渴望成为 **您的人工智能，在您的机器上，按照您的条件�
 
 - **Issues**: 针对错误或功能请求打开 GitHub 问题。
 - **拉取请求**：Fork 仓库，完成修改并提交 PR。有关开发环境设置和指南，请参阅 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)。
-
-
 
 Realtime 语音和 AEC3
 

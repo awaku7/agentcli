@@ -617,15 +617,15 @@
     "tool.description": "Kumonekta sa isang MCP server at ilista ang mga magagamit na tool. Sinusuportahan ang HTTP at stdio transports.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
+      "mga kasangkapan sa mcp",
+      "listahan ng kasangkapan",
       "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
+      "magagamit na mga tool",
+      "mga kakayahan ng mcp",
+      "mga tool sa server",
+      "katalogo ng tool",
       "mcp function",
-      "mcp endpoints"
+      "mga endpoint ng mcp"
     ],
     "param.url.description": "MCP URL ng endpoint ng server. Kung aalisin, maaaring gumamit ng naka-configure na server."
   },

@@ -5,7 +5,7 @@ import subprocess
 
 
 def open_image_with_default_app(path: str) -> bool:
-    """Windows の既定アプリでファイルを開く。成功/失敗を返す。"""
+    """Open a file with the Windows default application and return success or failure."""
     try:
         expanded = os.path.expandvars(os.path.expanduser(path))
         abspath = os.path.abspath(expanded)

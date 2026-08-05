@@ -1,0 +1,686 @@
+{
+  "en": {
+    "tool.description": "Generic GCP API tool using Google API Discovery. It can list services, list API methods, and call Google APIs. Write methods require confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API name, for example compute or storage.",
+    "param.version": "API version, for example v1 or v1beta1.",
+    "param.resource": "Dot-separated resource path, for example projects.locations.",
+    "param.method": "API method, for example get, list, insert, or delete.",
+    "param.parameters": "JSON object containing query/path parameters.",
+    "param.body": "Optional JSON request body.",
+    "param.include_write": "For list_methods, include write-capable methods.",
+    "param.confirm_write": "Required true to execute a non-read-only method."
+  },
+  "ar": {
+    "tool.description": "أداة GCP API العامة باستخدام Google API الاكتشاف. يمكنه سرد الخدمات وسرد طرق API واستدعاء Google واجهات برمجة التطبيقات. تتطلب أساليب الكتابة تأكيد_الكتابة = صحيح.",
+    "x_search_terms": [
+      "gcp",
+      "سحابة جوجل",
+      "جوجل API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API الاسم، على سبيل المثال الحساب أو التخزين.",
+    "param.version": "إصدار API، على سبيل المثال v1 أو v1beta1.",
+    "param.resource": "مسار المورد مفصول بنقاط، على سبيل المثال، project.locations.",
+    "param.method": "طريقة API، على سبيل المثال الحصول على أو إدراج أو إدراج أو حذف.",
+    "param.parameters": "كائن JSON يحتوي على معلمات الاستعلام/المسار.",
+    "param.body": "نص طلب JSON اختياري.",
+    "param.include_write": "بالنسبة إلى list_methods، قم بتضمين الأساليب القادرة على الكتابة.",
+    "param.confirm_write": "مطلوب صحيح لتنفيذ أسلوب غير للقراءة فقط."
+  },
+  "bn": {
+    "tool.description": "জেনেরিক GCP API টুল ব্যবহার করে Google API আবিষ্কার। এটি পরিষেবাগুলিকে তালিকাভুক্ত করতে পারে, API পদ্ধতিগুলিকে তালিকাভুক্ত করতে পারে এবং Google APIগুলিকে কল করতে পারে৷ লিখন পদ্ধতি নিশ্চিত_write=true প্রয়োজন।",
+    "x_search_terms": [
+      "gcp",
+      "গুগল ক্লাউড",
+      "গুগল এপিআই",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API নাম, উদাহরণস্বরূপ গণনা বা সঞ্চয়স্থান।",
+    "param.version": "API সংস্করণ, উদাহরণস্বরূপ v1 বা v1beta1।",
+    "param.resource": "বিন্দু-বিচ্ছিন্ন সম্পদ পথ, উদাহরণস্বরূপ projects.locations.",
+    "param.method": "API পদ্ধতি, উদাহরণস্বরূপ পান, তালিকাভুক্ত করুন, সন্নিবেশ করুন বা মুছুন।",
+    "param.parameters": "JSON বস্তুতে ক্যোয়ারী/পাথ প্যারামিটার রয়েছে।",
+    "param.body": "ঐচ্ছিক JSON অনুরোধের মূল অংশ।",
+    "param.include_write": "তালিকা_পদ্ধতির জন্য, লিখতে সক্ষম পদ্ধতি অন্তর্ভুক্ত করুন।",
+    "param.confirm_write": "একটি অ-পঠনযোগ্য পদ্ধতি চালানোর জন্য সত্য প্রয়োজন।"
+  },
+  "cs": {
+    "tool.description": "Obecný nástroj GCP API využívající Google API Discovery. Může vypisovat služby, vypisovat metody API a volat rozhraní API Google. Metody zápisu vyžadují potvrdit_zápis=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Název Google API, například výpočet nebo úložiště.",
+    "param.version": "API verze, například v1 nebo v1beta1.",
+    "param.resource": "Cesta ke zdroji oddělená tečkami, například projects.locations.",
+    "param.method": "API, například získat, vypsat, vložit nebo odstranit.",
+    "param.parameters": "JSON objekt obsahující parametry dotazu/cesty.",
+    "param.body": "Volitelné tělo požadavku JSON.",
+    "param.include_write": "Pro seznam_method zahrňte metody schopné zápisu.",
+    "param.confirm_write": "Vyžaduje true pro provedení metody, která není jen pro čtení."
+  },
+  "da": {
+    "tool.description": "Generisk GCP API-værktøj ved hjælp af Google API Discovery. Den kan liste tjenester, liste API metoder og kalde Google API'er. Skrivemetoder kræver confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API navn, for eksempel computer eller lager.",
+    "param.version": "API version, for eksempel v1 eller v1beta1.",
+    "param.resource": "Punktsepareret ressourcesti, for eksempel projects.locations.",
+    "param.method": "API metode, for eksempel get, list, insert eller delete.",
+    "param.parameters": "JSON objekt, der indeholder forespørgsels-/stiparametre.",
+    "param.body": "Valgfri JSON anmodningstekst.",
+    "param.include_write": "For liste_metoder skal du inkludere skrivekompatible metoder.",
+    "param.confirm_write": "Påkrævet sand for at udføre en ikke-skrivebeskyttet metode."
+  },
+  "de": {
+    "tool.description": "Generisches GCP API-Tool mit Google API Discovery. Es kann Dienste auflisten, API-Methoden auflisten und Google APIs aufrufen. Schreibmethoden erfordern bestätigen_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "Google Cloud",
+      "Google-API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API Name, zum Beispiel Compute oder Storage.",
+    "param.version": "API-Version, zum Beispiel v1 oder v1beta1.",
+    "param.resource": "Durch Punkte getrennter Ressourcenpfad, zum Beispiel „projects.locations“.",
+    "param.method": "API-Methode, zum Beispiel get, list, insert oder delete.",
+    "param.parameters": "JSON-Objekt, das Abfrage-/Pfadparameter enthält.",
+    "param.body": "Optionaler JSON-Anfragetext.",
+    "param.include_write": "Schließen Sie für list_methods schreibfähige Methoden ein.",
+    "param.confirm_write": "Erforderlich „true“, um eine nicht schreibgeschützte Methode auszuführen."
+  },
+  "el": {
+    "tool.description": "Γενικό εργαλείο GCP API με χρήση Google API Discovery. Μπορεί να παραθέτει υπηρεσίες, να παραθέτει API μεθόδους και να καλεί Google API. Οι μέθοδοι εγγραφής απαιτούν confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API όνομα, για παράδειγμα υπολογισμός ή αποθήκευση.",
+    "param.version": "Έκδοση API, για παράδειγμα v1 ή v1beta1.",
+    "param.resource": "Διαδρομή πόρων διαχωρισμένη με κουκκίδες, για παράδειγμα projects.locations.",
+    "param.method": "Η μέθοδος API, για παράδειγμα λήψη, λίστα, εισαγωγή ή διαγραφή.",
+    "param.parameters": "JSON αντικείμενο που περιέχει παραμέτρους ερωτήματος/διαδρομής.",
+    "param.body": "Προαιρετικό JSON σώμα αιτήματος.",
+    "param.include_write": "Για list_methods, συμπεριλάβετε μεθόδους με δυνατότητα εγγραφής.",
+    "param.confirm_write": "Απαιτείται true για την εκτέλεση μιας μεθόδου που δεν είναι μόνο για ανάγνωση."
+  },
+  "es": {
+    "tool.description": "Herramienta genérica GCP API que utiliza Google API Discovery. Puede enumerar servicios, enumerar API métodos y llamar a Google API. Los métodos de escritura requieren confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google nube",
+      "API de Google",
+      "nube",
+      "gcp_api"
+    ],
+    "param.api": "Google API nombre, por ejemplo, proceso o almacenamiento.",
+    "param.version": "Versión API, por ejemplo v1 o v1beta1.",
+    "param.resource": "Ruta de recursos separada por puntos, por ejemplo proyectos.ubicaciones.",
+    "param.method": "Método API, por ejemplo obtener, enumerar, insertar o eliminar.",
+    "param.parameters": "JSON objeto que contiene parámetros de consulta/ruta.",
+    "param.body": "Cuerpo de solicitud JSON opcional.",
+    "param.include_write": "Para list_methods, incluya métodos con capacidad de escritura.",
+    "param.confirm_write": "Se requiere verdadero para ejecutar un método que no sea de solo lectura."
+  },
+  "fa": {
+    "tool.description": "ابزار GCP عمومی API با استفاده از Google API Discovery. می‌تواند خدمات را فهرست کند، API روش را فهرست کند و Google API را فراخوانی کند. روش های نوشتن به confirm_write=true نیاز دارند.",
+    "x_search_terms": [
+      "gcp",
+      "گوگل ابر",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API نام، به عنوان مثال محاسبه یا ذخیره سازی.",
+    "param.version": "نسخه API، برای مثال v1 یا v1beta1.",
+    "param.resource": "مسیر منبع جدا شده با نقطه، برای مثال projects.locations.",
+    "param.method": "روش API، برای مثال دریافت، فهرست، درج یا حذف.",
+    "param.parameters": "JSON شی حاوی پارامترهای پرس و جو/مسیر.",
+    "param.body": "متن درخواست JSON اختیاری.",
+    "param.include_write": "برای list_methods، متدهای دارای قابلیت نوشتن را نیز بگنجانید.",
+    "param.confirm_write": "برای اجرای یک متد غیر خواندنی، true مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Yleinen GCP API -työkalu, joka käyttää Google API Discoveryä. Se voi luetella palveluita, luetella API menetelmää ja kutsua Google sovellusliittymää. Kirjoitustavat edellyttävät vahvistus_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google pilvi",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API nimi, esimerkiksi laskenta tai tallennus.",
+    "param.version": "API-versio, esimerkiksi v1 tai v1beta1.",
+    "param.resource": "Piste-eroteltu resurssipolku, esimerkiksi projektit.paikat.",
+    "param.method": "API -menetelmä, esimerkiksi hae, listaa, lisää tai poista.",
+    "param.parameters": "JSON objekti, joka sisältää kysely-/polkuparametrit.",
+    "param.body": "Valinnainen JSON-pyynnön runko.",
+    "param.include_write": "List_methodsille sisällytä kirjoituskykyiset menetelmät.",
+    "param.confirm_write": "Vaaditaan tosi, jotta voidaan suorittaa ei-vain luku -menetelmä."
+  },
+  "fil": {
+    "tool.description": "Generic na GCP API tool gamit ang Google API Discovery. Maaari itong maglista ng mga serbisyo, maglista ng API na pamamaraan, at tumawag ng Google na mga API. Ang mga paraan ng pagsulat ay nangangailangan ng confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API pangalan, halimbawa compute o storage.",
+    "param.version": "API na bersyon, halimbawa v1 o v1beta1.",
+    "param.resource": "Pinaghihiwalay ng tuldok na resource path, halimbawa projects.locations.",
+    "param.method": "API na paraan, halimbawa kumuha, ilista, ipasok, o tanggalin.",
+    "param.parameters": "JSON object na naglalaman ng mga parameter ng query/path.",
+    "param.body": "Opsyonal na JSON na katawan ng kahilingan.",
+    "param.include_write": "Para sa list_methods, isama ang mga pamamaraan na may kakayahang sumulat.",
+    "param.confirm_write": "Kinakailangang true para magsagawa ng hindi read-only na paraan."
+  },
+  "fr": {
+    "tool.description": "Outil GCP API générique utilisant Google API Discovery. Il peut répertorier les services, répertorier les méthodes API et appeler les API Google. Les méthodes d'écriture nécessitent confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "nuage google",
+      "API Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Nom Google API, par exemple calcul ou stockage.",
+    "param.version": "Version API, par exemple v1 ou v1beta1.",
+    "param.resource": "Chemin de ressources séparé par des points, par exempleprojects.locations.",
+    "param.method": "Méthode API, par exemple get, list, insert ou delete.",
+    "param.parameters": "Objet JSON contenant les paramètres de requête/chemin.",
+    "param.body": "Corps de requête JSON facultatif.",
+    "param.include_write": "Pour list_methods, incluez des méthodes capables d’écrire.",
+    "param.confirm_write": "Requis true pour exécuter une méthode non en lecture seule."
+  },
+  "he": {
+    "tool.description": "כלי GCP API גנרי באמצעות Google API Discovery. הוא יכול לרשום שירותים, לפרט API שיטות ולקרוא ל-Google ממשקי API. שיטות כתיבה דורשות confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "גוגל ענן",
+      "גוגל API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "שם Google API, למשל מחשוב או אחסון.",
+    "param.version": "גרסה API, למשל v1 או v1beta1.",
+    "param.resource": "נתיב משאבים מופרד בנקודות, למשל projects.locations.",
+    "param.method": "שיטת API, למשל get, list, insert או delete.",
+    "param.parameters": "JSON אובייקט המכיל פרמטרים של שאילתה/נתיב.",
+    "param.body": "גוף הבקשה JSON אופציונלי.",
+    "param.include_write": "עבור list_methods, כלול שיטות עם יכולת כתיבה.",
+    "param.confirm_write": "נדרש נכון לביצוע שיטה שאינה לקריאה בלבד."
+  },
+  "hi": {
+    "tool.description": "जेनेरिक GCP API टूल Google API डिस्कवरी का उपयोग कर रहा है। यह सेवाओं को सूचीबद्ध कर सकता है, API विधियों को सूचीबद्ध कर सकता है, और Google API को कॉल कर सकता है। लिखने के तरीकों के लिए कन्फ़र्म_राइट = सत्य की आवश्यकता होती है।",
+    "x_search_terms": [
+      "gcp",
+      "google क्लाउड",
+      "गूगल एपीआई",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API नाम, उदाहरण के लिए गणना या भंडारण।",
+    "param.version": "API संस्करण, उदाहरण के लिए v1 या v1beta1।",
+    "param.resource": "डॉट-पृथक संसाधन पथ, उदाहरण के लिए प्रोजेक्ट.लोकेशन।",
+    "param.method": "API विधि, उदाहरण के लिए प्राप्त करें, सूचीबद्ध करें, सम्मिलित करें या हटाएं।",
+    "param.parameters": "JSON ऑब्जेक्ट जिसमें क्वेरी/पथ पैरामीटर हैं।",
+    "param.body": "वैकल्पिक JSON अनुरोध निकाय.",
+    "param.include_write": "list_methods के लिए, लिखने-सक्षम विधियाँ शामिल करें।",
+    "param.confirm_write": "गैर-केवल-पठन विधि को निष्पादित करने के लिए सत्य की आवश्यकता है।"
+  },
+  "hu": {
+    "tool.description": "Általános GCP API eszköz a Google API Discovery használatával. Felsorolhat szolgáltatásokat, felsorolhat API metódust, és meghívhat Google API-t. Az írási módszerek megkövetelik a megerősítés_write=true értéket.",
+    "x_search_terms": [
+      "gcp",
+      "google felhő",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API név, például számítás vagy tárhely.",
+    "param.version": "API verzió, például v1 vagy v1beta1.",
+    "param.resource": "Pontokkal elválasztott erőforrás elérési út, például project.locations.",
+    "param.method": "API metódus, például beszerzés, listázás, beszúrás vagy törlés.",
+    "param.parameters": "JSON objektum, amely lekérdezés/útvonal paramétereket tartalmaz.",
+    "param.body": "Nem kötelező JSON kérelem törzse.",
+    "param.include_write": "A list_methods esetén írja be az írásképes metódusokat.",
+    "param.confirm_write": "True szükséges a nem csak olvasható metódus végrehajtásához."
+  },
+  "id": {
+    "tool.description": "Alat GCP API generik menggunakan Google API Discovery. Itu dapat mencantumkan layanan, mencantumkan metode API, dan memanggil Google API. Metode penulisan memerlukan konfirmasi_tulis=benar.",
+    "x_search_terms": [
+      "gcp",
+      "Google awan",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API nama, misalnya komputasi atau penyimpanan.",
+    "param.version": "Versi API, misalnya v1 atau v1beta1.",
+    "param.resource": "Jalur sumber daya yang dipisahkan titik, misalnya proyek.lokasi.",
+    "param.method": "Metode API, misalnya dapatkan, daftar, sisipkan, atau hapus.",
+    "param.parameters": "JSON objek yang berisi parameter kueri/jalur.",
+    "param.body": "Isi permintaan JSON opsional.",
+    "param.include_write": "Untuk list_methods, sertakan metode yang mampu menulis.",
+    "param.confirm_write": "Diperlukan true untuk menjalankan metode non-read-only."
+  },
+  "it": {
+    "tool.description": "Strumento GCP generico API che utilizza Google API Discovery. Può elencare servizi, elencare metodi API e chiamare API Google. I metodi di scrittura richiedono confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "GoogleNuvola",
+      "API di Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Nome Google API, ad esempio calcolo o archiviazione.",
+    "param.version": "Versione API, ad esempio v1 o v1beta1.",
+    "param.resource": "Percorso della risorsa separato da punti, ad esempio progetti.località.",
+    "param.method": "Metodo API, ad esempio ottieni, elenca, inserisci o elimina.",
+    "param.parameters": "Oggetto JSON contenente parametri di query/percorso.",
+    "param.body": "Corpo della richiesta JSON facoltativo.",
+    "param.include_write": "Per list_methods, includere metodi con capacità di scrittura.",
+    "param.confirm_write": "Richiesto true per eseguire un metodo non di sola lettura."
+  },
+  "ja": {
+    "tool.description": "Google API Discovery を使用する汎用 GCP API ツール。サービスの一覧表示、API メソッドの一覧表示、Google API の呼び出しが可能です。書き込みメソッドにはconfirm_write=trueが必要です。",
+    "x_search_terms": [
+      "gcp",
+      "google Cloud",
+      "グーグルAPI",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API 名前 (コンピューティングやストレージなど)。",
+    "param.version": "API バージョン (v1 や v1beta1 など)。",
+    "param.resource": "ドット区切りのリソース パス (projects.locations など)。",
+    "param.method": "API メソッド (get、list、insert、delete など)。",
+    "param.parameters": "JSON オブジェクトにはクエリ/パス パラメータが含まれます。",
+    "param.body": "オプションの JSON リクエスト本文。",
+    "param.include_write": "list_methods には、書き込み可能なメソッドを含めます。",
+    "param.confirm_write": "読み取り専用以外のメソッドを実行するには true が必要です。"
+  },
+  "ko": {
+    "tool.description": "Google API 검색을 사용하는 일반 GCP API 도구입니다. 서비스를 나열하고, API 메소드를 나열하고, Google API를 호출할 수 있습니다. 쓰기 방법에는 verify_write=true가 필요합니다.",
+    "x_search_terms": [
+      "gcp",
+      "구글 클라우드",
+      "구글 API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API 이름(예: 컴퓨팅 또는 스토리지)",
+    "param.version": "API 버전(예: v1 또는 v1beta1)",
+    "param.resource": "점으로 구분된 리소스 경로(예: projects.locations)",
+    "param.method": "API 메서드(예: 가져오기, 나열, 삽입 또는 삭제)",
+    "param.parameters": "쿼리/경로 매개변수가 포함된 JSON 개체입니다.",
+    "param.body": "선택적 JSON 요청 본문.",
+    "param.include_write": "list_methods의 경우 쓰기 가능 메서드를 포함합니다.",
+    "param.confirm_write": "읽기 전용이 아닌 메서드를 실행하려면 true가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "Google API Discovery ашиглан ерөнхий GCP API хэрэгсэл. Энэ нь үйлчилгээг жагсааж, API аргуудыг жагсааж, Google API дуудаж болно. Бичих аргууд нь confirm_write=true шаарддаг.",
+    "x_search_terms": [
+      "gcp",
+      "google үүл",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API нэр, жишээ нь тооцоолох эсвэл хадгалах сан.",
+    "param.version": "API хувилбар, жишээ нь v1 эсвэл v1beta1.",
+    "param.resource": "Цэгээр тусгаарлагдсан нөөцийн зам, жишээ нь төслүүд.байршил.",
+    "param.method": "API арга, жишээ нь авах, жагсаах, оруулах, устгах.",
+    "param.parameters": "Асуулга/замын параметрүүдийг агуулсан JSON объект.",
+    "param.body": "Нэмэлт JSON хүсэлтийн үндсэн хэсэг.",
+    "param.include_write": "Жагсаалтын_аргад бичих чадвартай аргуудыг оруулна уу.",
+    "param.confirm_write": "Зөвхөн уншигдах бус аргыг ажиллуулахын тулд үнэн шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "Google API डिस्कवरी वापरून जेनेरिक GCP API टूल. ते सेवा सूचीबद्ध करू शकते, API पद्धती सूचीबद्ध करू शकते आणि Google API ला कॉल करू शकते. लेखन पद्धतींसाठी confirm_write=true आवश्यक आहे.",
+    "x_search_terms": [
+      "gcp",
+      "गुगल क्लाउड",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API नाव, उदाहरणार्थ गणना किंवा स्टोरेज.",
+    "param.version": "API आवृत्ती, उदाहरणार्थ v1 किंवा v1beta1.",
+    "param.resource": "डॉट-विभक्त संसाधन पथ, उदाहरणार्थ projects.locations.",
+    "param.method": "API पद्धत, उदाहरणार्थ मिळवा, यादी करा, घाला किंवा हटवा.",
+    "param.parameters": "JSON ऑब्जेक्टमध्ये क्वेरी/पथ पॅरामीटर्स आहेत.",
+    "param.body": "पर्यायी JSON विनंती मुख्य भाग.",
+    "param.include_write": "list_methods साठी, लेखन-सक्षम पद्धती समाविष्ट करा.",
+    "param.confirm_write": "केवळ-वाचनीय पद्धत कार्यान्वित करण्यासाठी सत्य आवश्यक आहे."
+  },
+  "ms": {
+    "tool.description": "Alat GCP API generik menggunakan Google API Discovery. Ia boleh menyenaraikan perkhidmatan, menyenaraikan kaedah API dan memanggil Google API. Kaedah tulis memerlukan confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "awan google",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API nama, contohnya pengiraan atau storan.",
+    "param.version": "Versi API, contohnya v1 atau v1beta1.",
+    "param.resource": "Laluan sumber yang dipisahkan titik, contohnya projects.locations.",
+    "param.method": "Kaedah API, contohnya dapatkan, senaraikan, sisipkan atau padam.",
+    "param.parameters": "JSON objek yang mengandungi parameter pertanyaan/laluan.",
+    "param.body": "Badan permintaan JSON pilihan.",
+    "param.include_write": "Untuk list_methods, sertakan kaedah berkebolehan menulis.",
+    "param.confirm_write": "Diperlukan benar untuk melaksanakan kaedah bukan baca sahaja."
+  },
+  "nb": {
+    "tool.description": "Generisk GCP API-verktøy som bruker Google API Discovery. Den kan liste tjenester, liste API metoder og kalle opp Google APIer. Skrivemetoder krever confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google sky",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API navn, for eksempel databehandling eller lagring.",
+    "param.version": "API versjon, for eksempel v1 eller v1beta1.",
+    "param.resource": "Punktseparert ressursbane, for eksempel projects.locations.",
+    "param.method": "API metode, for eksempel get, list, insert eller delete.",
+    "param.parameters": "JSON objekt som inneholder spørrings-/baneparametere.",
+    "param.body": "Valgfri JSON forespørselstekst.",
+    "param.include_write": "For list_methods, inkluderer skrivekompatible metoder.",
+    "param.confirm_write": "Nødvendig sann for å utføre en ikke-skrivebeskyttet metode."
+  },
+  "nl": {
+    "tool.description": "Generieke GCP API-tool die Google API Discovery gebruikt. Het kan services weergeven, API methoden vermelden en Google API's aanroepen. Voor schrijfmethoden is confirm_write=true vereist.",
+    "x_search_terms": [
+      "gcp",
+      "Google-wolk",
+      "google-api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API naam, bijvoorbeeld rekenkracht of opslag.",
+    "param.version": "API versie, bijvoorbeeld v1 of v1beta1.",
+    "param.resource": "Door punten gescheiden resourcepad, bijvoorbeeld projecten.locaties.",
+    "param.method": "API-methode, bijvoorbeeld ophalen, opsommen, invoegen of verwijderen.",
+    "param.parameters": "JSON object met query-/padparameters.",
+    "param.body": "Optionele JSON verzoektekst.",
+    "param.include_write": "Voor list_methods neemt u methoden op die geschikt zijn voor schrijven.",
+    "param.confirm_write": "Vereist true om een ​​niet-alleen-lezen-methode uit te voeren."
+  },
+  "nn": {
+    "tool.description": "Generisk GCP API-verktøy med Google API Discovery. Det kan liste tjenester, liste API-metoder og ringe Google API-er. Skrivemetoder krever confirm_write=true.",
+    "x_search_terms": [
+      "gcpgcp_apigcp_api gcp_api",
+      "google sky",
+      "google api",
+      "sky",
+      "gcp_api"
+    ],
+    "param.api": "Google API-navn, for eksempel beregning eller lagring.",
+    "param.version": "API-versjon, for eksempel v1 eller v1beta1.",
+    "param.resource": "Punkt-separert ressursbane, for eksempel projects.locations.",
+    "param.method": "API-metoden, for eksempel get, list, sett inn eller slett.",
+    "param.parameters": "JSON-objekt som inneholder spørrings-/baneparametere.",
+    "param.body": "Valgfritt JSON forespørselslegeme.",
+    "param.include_write": "For list_methods inkluderer du skrivekompatible metoder.",
+    "param.confirm_write": "Krevd true for å utføre en ikke-lesbar metode."
+  },
+  "pl": {
+    "tool.description": "Ogólne narzędzie GCP API wykorzystujące Google API Discovery. Może wyświetlać listę usług, wyświetlać listę metod API i wywoływać interfejsy API Google. Metody zapisu wymagają potwierdzenia_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "chmura Google'a",
+      "API Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API nazwa, na przykład obliczenia lub pamięć.",
+    "param.version": "Wersja API, na przykład v1 lub v1beta1.",
+    "param.resource": "Ścieżka zasobów oddzielona kropkami, na przykład projekty.lokacje.",
+    "param.method": "Metoda API, na przykład pobierz, wylistuj, wstaw lub usuń.",
+    "param.parameters": "Obiekt JSON zawierający parametry zapytania/ścieżki.",
+    "param.body": "Opcjonalna treść żądania JSON.",
+    "param.include_write": "W przypadku list_methods dołącz metody z możliwością zapisu.",
+    "param.confirm_write": "Wymagane true, aby wykonać metodę inną niż tylko do odczytu."
+  },
+  "pt": {
+    "tool.description": "Ferramenta genérica do GCP API usando Google API Discovery. Ele pode listar serviços, listar métodos API e chamar APIs Google. Os métodos de gravação requerem confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "Google nuvem",
+      "API do Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Nome Google API, por exemplo, computação ou armazenamento.",
+    "param.version": "Versão API, por exemplo v1 ou v1beta1.",
+    "param.resource": "Caminho do recurso separado por pontos, por exemplo projetos.locais.",
+    "param.method": "Método API, por exemplo, obter, listar, inserir ou excluir.",
+    "param.parameters": "Objeto JSON contendo parâmetros de consulta/caminho.",
+    "param.body": "Corpo da solicitação JSON opcional.",
+    "param.include_write": "Para list_methods, inclua métodos com capacidade de gravação.",
+    "param.confirm_write": "Obrigatório true para executar um método não somente leitura."
+  },
+  "pt_BR": {
+    "tool.description": "Ferramenta genérica do GCP API usando Google API Discovery. Ele pode listar serviços, listar métodos API e chamar APIs Google. Os métodos de gravação requerem confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "Google nuvem",
+      "API do Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Nome Google API, por exemplo, computação ou armazenamento.",
+    "param.version": "Versão API, por exemplo v1 ou v1beta1.",
+    "param.resource": "Caminho do recurso separado por pontos, por exemplo projetos.locais.",
+    "param.method": "Método API, por exemplo, obter, listar, inserir ou excluir.",
+    "param.parameters": "Objeto JSON contendo parâmetros de consulta/caminho.",
+    "param.body": "Corpo da solicitação JSON opcional.",
+    "param.include_write": "Para list_methods, inclua métodos com capacidade de gravação.",
+    "param.confirm_write": "Obrigatório true para executar um método não somente leitura."
+  },
+  "ro": {
+    "tool.description": "Instrument GCP generic API care utilizează Google API Discovery. Poate lista servicii, poate enumera API metode și poate apela Google API-uri. Metodele de scriere necesită confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google cloud",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API nume, de exemplu, calcul sau stocare.",
+    "param.version": "Versiunea API, de exemplu v1 sau v1beta1.",
+    "param.resource": "Calea resurselor separate prin puncte, de exemplu projects.locations.",
+    "param.method": "API metoda, de exemplu obțineți, enumerați, inserați sau ștergeți.",
+    "param.parameters": "JSON obiect care conține parametri de interogare/cale.",
+    "param.body": "JSON corp de solicitare opțional.",
+    "param.include_write": "Pentru list_methods, includeți metode capabile de scriere.",
+    "param.confirm_write": "Este necesar true pentru a executa o metodă care nu poate fi doar citită."
+  },
+  "ru": {
+    "tool.description": "Универсальный инструмент GCP API, использующий Google API Discovery. Он может перечислять службы, перечислять API методов и вызывать Google API. Методы записи требуют подтверждения_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "облако Google",
+      "Google API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API имя, например вычислительные ресурсы или хранилище.",
+    "param.version": "Версия API, например v1 или v1beta1.",
+    "param.resource": "Путь к ресурсу, разделенный точкой, например, project.locations.",
+    "param.method": "API, например получение, список, вставка или удаление.",
+    "param.parameters": "Объект JSON, содержащий параметры запроса/пути.",
+    "param.body": "Необязательное тело запроса JSON.",
+    "param.include_write": "Для list_methods включите методы с возможностью записи.",
+    "param.confirm_write": "Требуется true для выполнения метода, не предназначенного только для чтения."
+  },
+  "sv": {
+    "tool.description": "Generiskt GCP API-verktyg med Google API Discovery. Den kan lista tjänster, lista API metoder och anropa Google API:er. Skrivmetoder kräver confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google moln",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API namn, till exempel dator eller lagring.",
+    "param.version": "API version, till exempel v1 eller v1beta1.",
+    "param.resource": "Punktseparerad resurssökväg, till exempel projects.locations.",
+    "param.method": "API metod, till exempel get, list, insert eller delete.",
+    "param.parameters": "JSON objekt som innehåller fråge-/sökvägsparametrar.",
+    "param.body": "Valfri JSON begärandetext.",
+    "param.include_write": "För list_methods, inkludera skrivbara metoder.",
+    "param.confirm_write": "Krävs sant för att köra en metod som inte är skrivskyddad."
+  },
+  "sw": {
+    "tool.description": "Zana ya GCP API kwa kutumia Google API Ugunduzi. Inaweza kuorodhesha huduma, kuorodhesha mbinu API na kupiga simu Google API. Njia za kuandika zinahitaji confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "google wingu",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API jina, kwa mfano hesabu au hifadhi.",
+    "param.version": "API toleo, kwa mfano v1 au v1beta1.",
+    "param.resource": "Njia ya rasilimali iliyotenganishwa na nukta, kwa mfano projects.locations.",
+    "param.method": "API mbinu, kwa mfano pata, orodhesha, weka au futa.",
+    "param.parameters": "JSON kipengee kilicho na vigezo vya hoja/njia.",
+    "param.body": "Mwili wa ombi JSON wa hiari.",
+    "param.include_write": "Kwa list_methods, jumuisha mbinu zinazoweza kuandika.",
+    "param.confirm_write": "Inahitajika kweli ili kutekeleza mbinu isiyo ya kusoma pekee."
+  },
+  "th": {
+    "tool.description": "เครื่องมือ GCP API ทั่วไปที่ใช้ Google API Discovery สามารถแสดงรายการบริการ แสดงรายการวิธีการ API และเรียกใช้ Google API วิธีการเขียนต้องยืนยัน_write=true",
+    "x_search_terms": [
+      "gcp",
+      "กูเกิลคลาวด์",
+      "Google API",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "ชื่อ Google API เช่น การประมวลผลหรือพื้นที่เก็บข้อมูล",
+    "param.version": "เวอร์ชัน API เช่น v1 หรือ v1beta1",
+    "param.resource": "เส้นทางทรัพยากรที่คั่นด้วยจุด เช่น project.locations",
+    "param.method": "วิธีการ API เช่น รับ แสดงรายการ แทรก หรือลบ",
+    "param.parameters": "JSON วัตถุที่มีพารามิเตอร์แบบสอบถาม/เส้นทาง",
+    "param.body": "เนื้อหาคำขอ JSON ที่ไม่บังคับ",
+    "param.include_write": "สำหรับ list_methods ให้รวมวิธีการที่สามารถเขียนได้",
+    "param.confirm_write": "จำเป็นต้องเป็นจริงเพื่อดำเนินการวิธีการที่ไม่ใช่แบบอ่านอย่างเดียว"
+  },
+  "tr": {
+    "tool.description": "Google API Discovery'yi kullanan genel GCP API aracı. Hizmetleri listeleyebilir, API yöntemini listeleyebilir ve Google API'lerini çağırabilir. Yazma yöntemleri, onay_yaz=true gerektirir.",
+    "x_search_terms": [
+      "gcp",
+      "google bulut",
+      "Google API'sı",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API adı; örneğin işlem veya depolama.",
+    "param.version": "API sürümü, örneğin v1 veya v1beta1.",
+    "param.resource": "Noktayla ayrılmış kaynak yolu, örneğin projeler.konumlar.",
+    "param.method": "API yöntemi; örneğin al, listele, ekle veya sil.",
+    "param.parameters": "Sorgu/yol parametrelerini içeren JSON nesnesi.",
+    "param.body": "İsteğe bağlı JSON istek gövdesi.",
+    "param.include_write": "List_methods için yazma özellikli yöntemleri ekleyin.",
+    "param.confirm_write": "Salt okunur olmayan bir yöntemi yürütmek için true gereklidir."
+  },
+  "uk": {
+    "tool.description": "Загальний інструмент GCP API, що використовує Google API Discovery. Він може перераховувати служби, перелічувати API методів і викликати Google API. Методи запису вимагають confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "хмара Google",
+      "google api",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Назва Google API, наприклад compute або storage.",
+    "param.version": "Версія API, наприклад v1 або v1beta1.",
+    "param.resource": "Шлях ресурсу, розділений крапками, наприклад, projects.locations.",
+    "param.method": "API, наприклад get, list, insert або delete.",
+    "param.parameters": "Об’єкт JSON, що містить параметри запиту/шляху.",
+    "param.body": "Додаткове тіло запиту JSON.",
+    "param.include_write": "Для list_methods включіть методи з можливістю запису.",
+    "param.confirm_write": "Для виконання методу, який не призначений лише для читання, потрібне значення true."
+  },
+  "vi": {
+    "tool.description": "Công cụ GCP API chung sử dụng Google API Discovery. Nó có thể liệt kê các dịch vụ, liệt kê các phương thức API và gọi các API Google. Phương thức ghi yêu cầu confirm_write=true.",
+    "x_search_terms": [
+      "gcp",
+      "đám mây của Google",
+      "API Google",
+      "cloud",
+      "gcp_api"
+    ],
+    "param.api": "Google API tên, ví dụ như điện toán hoặc lưu trữ.",
+    "param.version": "Phiên bản API, ví dụ v1 hoặc v1beta1.",
+    "param.resource": "Đường dẫn tài nguyên được phân tách bằng dấu chấm, ví dụ: project.locations.",
+    "param.method": "API, ví dụ: lấy, liệt kê, chèn hoặc xóa.",
+    "param.parameters": "Đối tượng JSON chứa tham số truy vấn/đường dẫn.",
+    "param.body": "Nội dung yêu cầu JSON tùy chọn.",
+    "param.include_write": "Đối với list_methods, hãy bao gồm các phương thức có khả năng ghi.",
+    "param.confirm_write": "Bắt buộc phải đúng để thực thi phương thức không chỉ đọc."
+  },
+  "zh_CN": {
+    "tool.description": "使用 Google API Discovery 的通用 GCP API 工具。它可以列出服务、列出 API 方法并调用 Google API。写入方法需要confirm_write=true。",
+    "x_search_terms": [
+      "gcp",
+      "谷歌云",
+      "谷歌api",
+      "云",
+      "gcp_api"
+    ],
+    "param.api": "Google API 名称，例如计算或存储。",
+    "param.version": "API 版本，例如 v1 或 v1beta1。",
+    "param.resource": "以点分隔的资源路径，例如projects.locations。",
+    "param.method": "API 方法，例如获取、列表、插入或删除。",
+    "param.parameters": "JSON 包含查询/路径参数的对象。",
+    "param.body": "可选 JSON 请求正文。",
+    "param.include_write": "对于 list_methods，包括可写的方法。",
+    "param.confirm_write": "需要 true 才能执行非只读方法。"
+  },
+  "zh_TW": {
+    "tool.description": "使用 Google API Discovery 的通用 GCP API 工具。它可以列出服務、列出 API 方法並呼叫 Google API。寫入方法需要confirm_write=true。",
+    "x_search_terms": [
+      "gcp",
+      "Google雲",
+      "Googleapi",
+      "雲",
+      "gcp_api"
+    ],
+    "param.api": "Google API 名稱，例如計算或儲存。",
+    "param.version": "API 版本，例如 v1 或 v1beta1。",
+    "param.resource": "以點分隔的資源路徑，例如projects.locations。",
+    "param.method": "API 方法，例如取得、清單、插入或刪除。",
+    "param.parameters": "JSON 包含查詢/路徑參數的物件。",
+    "param.body": "可選 JSON 請求正文。",
+    "param.include_write": "對於 list_methods，包括可寫入的方法。",
+    "param.confirm_write": "需要 true 才能執行非唯讀方法。"
+  }
+}

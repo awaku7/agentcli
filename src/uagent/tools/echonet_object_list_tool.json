@@ -691,7 +691,7 @@
     "param.timeout.description": "Timeout sa ilang segundo para sa mga kahilingan sa ECHONET Lite.",
     "tool.description": "Tumuklas ng mga ECHONET Lite na bagay sa isang node at magbalik ng JSON o listahan ng teksto.",
     "x_search_terms": [
-      "echonet object list",
+      "listahan ng echonet object",
       "echonet_object_list",
       "echonet",
       "ECHONET",
@@ -732,7 +732,7 @@
     "tool.description": "Opdag ECHONET Lite-objekter på en node og returner en JSON eller tekstliste.",
     "x_search_terms": [
       "echonet objektliste",
-      "echonet_object_list",
+      "echonet_objektliste",
       "echonet",
       "ECHONET",
       "opdag",

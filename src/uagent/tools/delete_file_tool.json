@@ -721,14 +721,14 @@
     "x_search_terms": [
       "tanggalin ang file",
       "alisin ang file",
-      "erase file",
+      "burahin ang file",
       "file tanggalin",
-      "delete folder",
+      "tanggalin ang folder",
       "alisin folder",
-      "file removal",
-      "delete directory",
-      "erase directory",
-      "delete item"
+      "pagtanggal ng file",
+      "tanggalin ang direktoryo",
+      "burahin ang direktoryo",
+      "tanggalin ang item"
     ],
     "param.skip.description": "Kung totoo, huwag magkamali kapag ang landas ay hindi umiiral.",
     "confirm.delete_paths_bulk": "Tanggalin ang {count} na mga landas?\n\n{paths}\n\nIlagay ang y upang magpatuloy, o c upang kanselahin.",

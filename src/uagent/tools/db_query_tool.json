@@ -651,15 +651,15 @@
     "tool.description": "Magsagawa ng mga query sa SQL laban sa isang database ng SQLite at ibalik ang resulta. Mga read-only na operasyon (SELECT) at schema inspection (PRAGMA) lang ang sinusuportahan.",
     "x_search_terms": [
       "database",
-      "db query",
+      "db tanong",
       "sql",
-      "query database",
-      "database query",
+      "database ng query",
+      "query sa database",
       "sql query",
-      "db select",
-      "run query",
+      "db piliin",
+      "patakbuhin ang query",
       "data query",
-      "database search"
+      "paghahanap sa database"
     ],
     "err.readonly": "[db_query error] Tanging ang SELECT at PRAGMA statement ang pinapayagan.",
     "msg.result": "[db_query]\nmga hilera={rows}\nmga hanay={cols}"
@@ -670,15 +670,15 @@
     "tool.description": "Jalankan pertanyaan SQL terhadap pangkalan data SQLite dan kembalikan hasilnya. Hanya operasi baca sahaja (SELECT) dan pemeriksaan skema (PRAGMA) disokong.",
     "x_search_terms": [
       "pangkalan data",
-      "db query",
+      "pertanyaan db",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "pangkalan data pertanyaan",
+      "pertanyaan pangkalan data",
+      "pertanyaan sql",
+      "db pilih",
+      "jalankan pertanyaan",
+      "pertanyaan data",
+      "carian pangkalan data"
     ],
     "err.readonly": "[db_query error] Hanya pernyataan SELECT dan PRAGMA sahaja dibenarkan.",
     "msg.result": "[db_query]\nbaris={rows}\nlajur={cols}"
@@ -694,7 +694,7 @@
       "forespørgsel database",
       "databaseforespørgsel",
       "sql forespørgsel",
-      "db select",
+      "db vælg",
       "kør forespørgsel",
       "dataforespørgsel",
       "databasesøgning"
@@ -708,12 +708,12 @@
     "tool.description": "Utfør SQL-spørringer mot en SQLite-database og returner resultatet. Berre skrivebeskyttede operasjoner (SELECT) og skjemainspeksjon (PRAGMA) støttes.",
     "x_search_terms": [
       "database",
-      "db query",
+      "db-spørring",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
+      "spørringsdatabase",
+      "database-spørring",
+      "Set inn i region",
+      "db-valg",
       "kjør query",
       "dataspørring",
       "databasesøk"

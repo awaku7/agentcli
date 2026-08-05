@@ -106,7 +106,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.label.description",
-                        default="Human-readable label for this subscription (e.g. '3F会議室_室温').",
+                        default="Human-readable label for this subscription (e.g. '3F room_temperature').",
                     ),
                 },
                 "on_change_prompt": {

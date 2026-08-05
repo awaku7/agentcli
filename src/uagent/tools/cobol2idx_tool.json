@@ -1193,21 +1193,21 @@
     "x_search_terms": [
       "cobol",
       "cobol code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
+      "pagsusuri ng cobol",
+      "index ng code",
+      "source ng cobol",
       "cobol parser",
-      "cobol program",
+      "programa ng cobol",
       "cobol file",
       "legacy code",
       "mainframe"
     ],
     "x_search_terms_en": [
       "basahin ang cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "index ng cobol file",
+      "istraktura ng programa ng cobol",
+      "dibisyon ng cobol",
+      "talata ng cobol"
     ],
     "param.path.description": "Path sa COBOL (.cbl/.cob/.cpy) file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
@@ -1227,14 +1227,14 @@
   "ms": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "kod cobol",
+      "analisis kobol",
+      "indeks kod",
+      "sumber cobol",
+      "pengurai cobol",
+      "program cobol",
+      "fail cobol",
+      "kod warisan",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -1269,7 +1269,7 @@
       "cobol-parser",
       "cobol-program",
       "cobol-fil",
-      "legacy code",
+      "ældre kode",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -1297,21 +1297,21 @@
   "nn": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
+      "cobol-kode",
       "cobol analyse",
       "kodeindeks",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "cobol-kilde",
+      "kobol parser",
+      "cobol-programmet",
+      "kobolfil",
+      "eldre kode",
       "mainframe"
     ],
     "x_search_terms_en": [
       "les cobol fil",
       "cobol filindeks",
       "cobol programstruktur",
-      "cobol division",
+      "kobolinndeling",
       "cobol avsnitt"
     ],
     "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",

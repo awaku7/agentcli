@@ -28,7 +28,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "zipcode",
                 "postal code",
                 "Japan address",
-                "郵便番号",
+                "Postal code",
                 "address lookup",
                 "Japanese zipcode",
                 "〒",
@@ -57,7 +57,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.prefecture.description",
-                        default="Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted.",
+                        default="Japanese prefecture name for listing cities (e.g. 'Tokyo', 'Kanagawa'). Kanji, kana, or romaji accepted.",
                     ),
                 },
             },
@@ -209,10 +209,10 @@ def run_tool(args: dict[str, Any]) -> str:
     return json.dumps(
         {
             "ok": False,
-            "error": "Provide either 'zipcode' (7 digits) or 'prefecture' (e.g. 東京都).",
+            "error": "Provide either 'zipcode' (7 digits) or 'prefecture' (e.g. Tokyo).",
             "usage": {
                 "example_zipcode": {"zipcode": "1000001"},
-                "example_prefecture": {"prefecture": "東京都"},
+                "example_prefecture": {"prefecture": "Tokyo"},
             },
         },
         ensure_ascii=False,

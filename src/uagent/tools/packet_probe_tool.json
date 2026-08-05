@@ -44,7 +44,7 @@
     "param.dry_run.description": "একটি প্যাকেট না পাঠিয়ে একটি পরিকল্পনা ফেরত.",
     "x_search_terms": [
       "প্যাকেট প্রোব",
-      "tcp connect",
+      "tcp সংযোগ",
       "icmp",
       "arp",
       "নেটওয়ার্ক প্রোব"
@@ -61,7 +61,7 @@
     "param.dry_run.description": "Vraťte plán bez odeslání paketu.",
     "x_search_terms": [
       "paketová sonda",
-      "tcp connect",
+      "připojení tcp",
       "icmp",
       "arp",
       "síťová sonda"
@@ -77,8 +77,8 @@
     "param.elevation_confirmed.description": "Indstilles kun efter human_ask eksplicit bekræfter elevation.",
     "param.dry_run.description": "Returner en plan uden at sende en pakke.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "pakkesonde",
+      "tcp forbinde",
       "icmp",
       "arp",
       "netværksprobe"
@@ -111,11 +111,11 @@
     "param.elevation_confirmed.description": "Ορίζεται μόνο αφού το human_ask επιβεβαιώσει ρητά την ανύψωση.",
     "param.dry_run.description": "Επιστρέψτε ένα σχέδιο χωρίς αποστολή πακέτου.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "ανιχνευτής πακέτων",
+      "tcp σύνδεση",
       "icmp",
       "arp",
-      "network probe"
+      "ανιχνευτή δικτύου"
     ]
   },
   "es": {
@@ -129,7 +129,7 @@
     "param.dry_run.description": "Devolver un plan sin enviar un paquete.",
     "x_search_terms": [
       "sonda de paquetes",
-      "tcp connect",
+      "conexión tcp",
       "icmp",
       "arp",
       "sonda de red"
@@ -163,10 +163,10 @@
     "param.dry_run.description": "Palauta suunnitelma lähettämättä pakettia.",
     "x_search_terms": [
       "pakettianturi",
-      "tcp connect",
+      "tcp-yhteys",
       "icmp",
       "arp",
-      "network probe"
+      "verkkoanturi"
     ]
   },
   "fil": {
@@ -180,10 +180,10 @@
     "param.dry_run.description": "Ibalik ang isang plano nang hindi nagpapadala ng packet.",
     "x_search_terms": [
       "packet probe",
-      "tcp connect",
+      "kumonekta ang tcp",
       "icmp",
       "arp",
-      "network probe"
+      "pagsisiyasat ng network"
     ]
   },
   "fr": {
@@ -197,7 +197,7 @@
     "param.dry_run.description": "Renvoyez un plan sans envoyer de paquet.",
     "x_search_terms": [
       "sonde de paquets",
-      "tcp connect",
+      "connexion TCP",
       "icmp",
       "arp",
       "sonde réseau"
@@ -214,7 +214,7 @@
     "param.dry_run.description": "החזר תוכנית מבלי לשלוח חבילה.",
     "x_search_terms": [
       "בדיקת מנות",
-      "tcp connect",
+      "tcp להתחבר",
       "icmp",
       "arp",
       " רשת בדיקה"
@@ -247,11 +247,11 @@
     "param.elevation_confirmed.description": "Csak azután állítsa be, hogy a human_ask kifejezetten megerősíti a magasságot.",
     "param.dry_run.description": "Terv visszaküldése csomag küldése nélkül.",
     "x_search_terms": [
-      "packet probe",
+      "csomagszonda",
       "tcp connect",
       "icmp",
       "arp",
-      "network probe"
+      "hálózati szonda"
     ]
   },
   "id": {
@@ -265,7 +265,7 @@
     "param.dry_run.description": "Kembalikan paket tanpa mengirim paket.",
     "x_search_terms": [
       "pemeriksaan paket",
-      "tcp connect",
+      "koneksi tcp",
       "icmp",
       "arp",
       "probe jaringan"
@@ -282,7 +282,7 @@
     "param.dry_run.description": "Restituisci un piano senza inviare un pacchetto.",
     "x_search_terms": [
       "sonda pacchetto",
-      "tcp connect",
+      "connessione TCP",
       "icmp",
       "arp",
       "sonda di rete"
@@ -316,7 +316,7 @@
     "param.dry_run.description": "패킷을 보내지 않고 계획을 반환합니다.",
     "x_search_terms": [
       "패킷 프로브",
-      "tcp connect",
+      "TCP 연결",
       "icmp",
       "arp",
       "네트워크 프로브"
@@ -350,10 +350,10 @@
     "param.dry_run.description": "पॅकेट न पाठवता योजना परत करा.",
     "x_search_terms": [
       "पॅकेट प्रोब",
-      "tcp connect",
+      "tcp कनेक्ट करा",
       "icmp",
       "arp",
-      "network probe"
+      "नेटवर्क प्रोब"
     ]
   },
   "ms": {
@@ -366,11 +366,11 @@
     "param.elevation_confirmed.description": "Tetapkan hanya selepas human_ask secara jelas mengesahkan ketinggian.",
     "param.dry_run.description": "Kembalikan pelan tanpa menghantar paket.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "kuar paket",
+      "tcp sambung",
       "icmp",
       "arp",
-      "network probe"
+      "siasatan rangkaian"
     ]
   },
   "nb": {
@@ -383,8 +383,8 @@
     "param.elevation_confirmed.description": "Sett kun etter at human_ask eksplisitt bekrefter høyde.",
     "param.dry_run.description": "Returner en plan uten å sende en pakke.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "pakkesonde",
+      "tcp koble til",
       "icmp",
       "arp",
       "nettverksprobe"
@@ -401,7 +401,7 @@
     "param.dry_run.description": "Retourneer een plan zonder een pakket te verzenden.",
     "x_search_terms": [
       "pakketprobe",
-      "tcp connect",
+      "tcp-verbinding",
       "icmp",
       "arp",
       "netwerkprobe"
@@ -418,10 +418,10 @@
     "param.dry_run.description": "Returner plan uten å sende pakke.",
     "x_search_terms": [
       "packet probetcp connect icmparp nettverksprobe",
-      "",
-      "",
-      "",
-      ""
+      "tcp-tilkobling",
+      "icmp",
+      "EAP",
+      "nettverkssonde"
     ]
   },
   "pl": {
@@ -435,7 +435,7 @@
     "param.dry_run.description": "Zwróć plan bez wysyłania pakietu.",
     "x_search_terms": [
       "sonda pakietowa",
-      "tcp connect",
+      "połączenie TCP",
       "icmp",
       "arp",
       "sonda sieciowa"
@@ -452,7 +452,7 @@
     "param.dry_run.description": "Retorne um plano sem enviar um pacote.",
     "x_search_terms": [
       "sonda de pacote",
-      "tcp connect",
+      "conexão tcp",
       "icmp",
       "arp",
       "sonda de rede"
@@ -469,7 +469,7 @@
     "param.dry_run.description": "Retorne um plano sem enviar um pacote.",
     "x_search_terms": [
       "sonda de pacote",
-      "tcp connect",
+      "conexão tcp",
       "icmp",
       "arp",
       "sonda de rede"
@@ -519,8 +519,8 @@
     "param.elevation_confirmed.description": "Ställs endast efter att human_ask uttryckligen bekräftar höjden.",
     "param.dry_run.description": "Returnera en plan utan att skicka ett paket.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "paketsond",
+      "tcp ansluta",
       "icmp",
       "arp",
       "nätverksprob"
@@ -571,7 +571,7 @@
     "param.dry_run.description": "Paket göndermeden bir plan döndürün.",
     "x_search_terms": [
       "paket probu",
-      "tcp connect",
+      "TCP bağlantısı",
       "icmp",
       "arp",
       "ağ probu"
@@ -587,11 +587,11 @@
     "param.elevation_confirmed.description": "Встановлюється лише після того, як human_ask явно підтвердить підвищення.",
     "param.dry_run.description": "Повернути план без надсилання пакету.",
     "x_search_terms": [
-      "packet probe",
-      "tcp connect",
+      "пакетний зонд",
+      "tcp підключення",
       "icmp",
       "arp",
-      "network probe"
+      "зонд мережі"
     ]
   },
   "vi": {
@@ -605,7 +605,7 @@
     "param.dry_run.description": "Trả lại gói mà không gửi gói.",
     "x_search_terms": [
       "thăm dò gói",
-      "tcp connect",
+      "kết nối tcp",
       "icmp",
       "arp",
       "đầu dò mạng"

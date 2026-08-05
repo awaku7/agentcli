@@ -617,16 +617,16 @@
     "param.skill_dir.description": "Ang direktoryo ng kasanayan (dapat naglalaman ng SKILL.md).",
     "tool.description": "Nilo-load ang SKILL.md para sa isang Agent Skill at ibinabalik ang YAML frontmatter at Markdown body nito.",
     "x_search_terms": [
-      "skill load",
-      "load skill",
-      "activate skill",
-      "enable skill",
-      "skill activation",
-      "load agent skill",
-      "skill enable",
-      "use skill",
-      "skill import",
-      "activate agent skill"
+      "pagkarga ng kasanayan",
+      "kasanayan sa pagkarga",
+      "buhayin ang kasanayan",
+      "paganahin ang kasanayan",
+      "pag-activate ng kasanayan",
+      "kasanayan sa load agent",
+      "kakayahan paganahin",
+      "gumamit ng kasanayan",
+      "pag-import ng kasanayan",
+      "buhayin ang kakayahan ng ahente"
     ]
   },
   "ms": {

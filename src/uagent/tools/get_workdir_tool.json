@@ -513,14 +513,14 @@
     "tool.description": "Kunin ang kasalukuyang gumaganang direktoryo.",
     "x_search_terms": [
       "kumuha ng workdir",
-      "working directory",
+      "gumaganang direktoryo",
       "kasalukuyang direktoryo",
-      "work dir",
+      "trabaho dir",
       "pwd",
       "kasalukuyang folder",
       "kumuha ng folder",
       "ipakita ang direktoryo",
-      "work path",
+      "landas ng trabaho",
       "kuhain ang path"
     ]
   },
@@ -543,15 +543,15 @@
     "tool.description": "Hent den aktuelle arbejdsmappe.",
     "x_search_terms": [
       "hent arbejdskatalog",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "arbejdsmappe",
+      "nuværende bibliotek",
+      "arbejde dir",
+      "pwd",
+      "nuværende mappe",
+      "hente mappe",
+      "vis mappe",
+      "arbejdsvej",
+      "få vej"
     ]
   },
   "nn": {

@@ -1,0 +1,648 @@
+{
+  "en": {
+    "tool.description": "AWS tool covering all boto3 services. It can list services, list operations, and call AWS APIs. Read-only operations work by default; write operations require confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon web services",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Action: list_services, list_operations, or call.",
+    "param.service": "AWS service name, for example ec2 or s3.",
+    "param.operation": "A boto3 client operation, for example DescribeInstances or StartInstances.",
+    "param.parameters": "JSON object containing the operation parameters.",
+    "param.region": "Optional AWS region; otherwise use the configured default.",
+    "param.include_write": "For list_operations, include write-capable operations.",
+    "param.confirm_write": "Required true to execute a non-read-only AWS operation. This explicitly confirms the write."
+  },
+  "ar": {
+    "tool.description": "أداة AWS تغطي جميع خدمات boto3. يمكنه سرد الخدمات وقائمة العمليات واستدعاء واجهات برمجة تطبيقات AWS. تعمل عمليات القراءة فقط بشكل افتراضي؛ تتطلب عمليات الكتابة تأكيد_الكتابة = صحيح.",
+    "x_search_terms": [
+      "aws",
+      "خدمات ويب أمازون",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "الإجراء: list_services، list_operations، أو call.",
+    "param.service": "اسم خدمة AWS، على سبيل المثال ec2 أو s3.",
+    "param.operation": "عملية عميل boto3، على سبيل المثال DescribeInstances أو StartInstances.",
+    "param.parameters": "كائن JSON يحتوي على معلمات العملية.",
+    "param.region": "منطقة AWS الاختيارية؛ وإلا استخدم الإعداد الافتراضي الذي تم تكوينه.",
+    "param.include_write": "بالنسبة إلى عمليات القائمة، قم بتضمين العمليات القادرة على الكتابة.",
+    "param.confirm_write": "مطلوب صحيح لتنفيذ عملية AWS غير للقراءة فقط. وهذا يؤكد صراحة الكتابة."
+  },
+  "bn": {
+    "tool.description": "AWS টুল সমস্ত boto3 পরিষেবা কভার করে। এটি পরিষেবাগুলি তালিকাভুক্ত করতে পারে, ক্রিয়াকলাপগুলিকে তালিকাভুক্ত করতে পারে এবং AWS APIগুলিকে কল করতে পারে৷ শুধুমাত্র-পঠন অপারেশন ডিফল্টরূপে কাজ করে; লেখার ক্রিয়াকলাপের জন্য confirm_write=true প্রয়োজন।",
+    "x_search_terms": [
+      "aws",
+      "অ্যামাজন ওয়েব পরিষেবা",
+      "boto3",
+      "cloud",
+      "aws_only"
+    ],
+    "param.action": "কর্ম: তালিকা_পরিষেবা, তালিকা_অপারেশন বা কল।",
+    "param.service": "AWS পরিষেবার নাম, উদাহরণস্বরূপ ec2 বা s3।",
+    "param.operation": "একটি boto3 ক্লায়েন্ট অপারেশন, যেমন DescribeInstances বা StartInstances।",
+    "param.parameters": "JSON অবজেক্টে অপারেশন প্যারামিটার রয়েছে।",
+    "param.region": "ঐচ্ছিক AWS অঞ্চল; অন্যথায় কনফিগার করা ডিফল্ট ব্যবহার করুন।",
+    "param.include_write": "তালিকা_অপারেশনের জন্য, লিখতে সক্ষম অপারেশন অন্তর্ভুক্ত করুন।",
+    "param.confirm_write": "একটি অ-পঠনযোগ্য AWS অপারেশন চালানোর জন্য সত্য প্রয়োজন। এটি স্পষ্টভাবে লেখাটি নিশ্চিত করে।"
+  },
+  "cs": {
+    "tool.description": "Nástroj AWS pokrývající všechny služby boto3. Může vypisovat služby, vypisovat operace a volat AWS API. Operace pouze pro čtení fungují ve výchozím nastavení; operace zápisu vyžadují potvrdit_zápis=true.",
+    "x_search_terms": [
+      "aws",
+      "webové služby amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Akce: list_services, list_operations nebo call.",
+    "param.service": "Název služby AWS, například ec2 nebo s3.",
+    "param.operation": "Operace klienta boto3, například DescribeInstances nebo StartInstances.",
+    "param.parameters": "JSON objekt obsahující parametry operace.",
+    "param.region": "Volitelná oblast AWS; jinak použijte nakonfigurované výchozí nastavení.",
+    "param.include_write": "Pro list_operations zahrňte operace s možností zápisu.",
+    "param.confirm_write": "Vyžaduje true pro provedení operace AWS, která není jen pro čtení. To výslovně potvrzuje zápis."
+  },
+  "da": {
+    "tool.description": "AWS-værktøj, der dækker alle boto3-tjenester. Det kan liste tjenester, liste operationer og kalde AWS API'er. Skrivebeskyttede operationer fungerer som standard; skriveoperationer kræver confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon webtjenester",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Handling: list_services, list_operations eller opkald.",
+    "param.service": "AWS-tjenestenavn, for eksempel ec2 eller s3.",
+    "param.operation": "En boto3-klientoperation, for eksempel DescribeInstances eller StartInstances.",
+    "param.parameters": "JSON objekt, der indeholder operationsparametrene.",
+    "param.region": "Valgfri AWS-region; ellers brug den konfigurerede standard.",
+    "param.include_write": "For list_operations skal du inkludere skrive-kompatible operationer.",
+    "param.confirm_write": "Påkrævet sand for at udføre en ikke-skrivebeskyttet AWS-handling. Dette bekræfter udtrykkeligt skriften."
+  },
+  "de": {
+    "tool.description": "AWS-Tool, das alle boto3-Dienste abdeckt. Es kann Dienste auflisten, Vorgänge auflisten und AWS-APIs aufrufen. Schreibgeschützte Vorgänge funktionieren standardmäßig; Schreibvorgänge erfordern bestätigen_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon web Services",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Aktion: list_services, list_operations oder Aufruf.",
+    "param.service": "AWS-Servicename, zum Beispiel ec2 oder s3.",
+    "param.operation": "Eine boto3-Client-Operation, zum Beispiel DescribeInstances oder StartInstances.",
+    "param.parameters": "JSON-Objekt, das die Operationsparameter enthält.",
+    "param.region": "Optionale AWS-Region; Andernfalls verwenden Sie die konfigurierte Standardeinstellung.",
+    "param.include_write": "Schließen Sie für list_operations schreibfähige Vorgänge ein.",
+    "param.confirm_write": "Erforderlich „true“, um einen nicht schreibgeschützten AWS-Vorgang auszuführen. Dadurch wird der Schreibvorgang ausdrücklich bestätigt."
+  },
+  "el": {
+    "tool.description": "Εργαλείο AWS που καλύπτει όλες τις υπηρεσίες boto3. Μπορεί να παραθέτει υπηρεσίες, λειτουργίες λίστας και να καλεί API AWS. Οι λειτουργίες μόνο για ανάγνωση λειτουργούν από προεπιλογή. Οι λειτουργίες εγγραφής απαιτούν confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "υπηρεσίες web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Ενέργεια: list_services, list_operations ή κλήση.",
+    "param.service": "Όνομα υπηρεσίας AWS, για παράδειγμα ec2 ή s3.",
+    "param.operation": "Μια λειτουργία προγράμματος-πελάτη boto3, για παράδειγμα DescribeInstances ή StartInstances.",
+    "param.parameters": "JSON αντικείμενο που περιέχει τις παραμέτρους λειτουργίας.",
+    "param.region": "Προαιρετική περιοχή AWS. Διαφορετικά χρησιμοποιήστε την προεπιλεγμένη ρύθμιση.",
+    "param.include_write": "Για list_operations, συμπεριλάβετε λειτουργίες με δυνατότητα εγγραφής.",
+    "param.confirm_write": "Απαιτείται true για την εκτέλεση μιας λειτουργίας AWS που δεν είναι μόνο για ανάγνωση. Αυτό επιβεβαιώνει ρητά το γράψιμο."
+  },
+  "es": {
+    "tool.description": "Herramienta AWS que cubre todos los servicios de boto3. Puede enumerar servicios, enumerar operaciones y llamar a las API de AWS. Las operaciones de sólo lectura funcionan de forma predeterminada; las operaciones de escritura requieren confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "servicios web de Amazon",
+      "boto3",
+      "nube",
+      "aws_api"
+    ],
+    "param.action": "Acción: lista_servicios, lista_operaciones o llamada.",
+    "param.service": "Nombre del servicio de AWS, por ejemplo ec2 o s3.",
+    "param.operation": "Una operación de cliente boto3, por ejemplo DescribeInstances o StartInstances.",
+    "param.parameters": "Objeto JSON que contiene los parámetros de operación.",
+    "param.region": "Región AWS opcional; de lo contrario, utilice el valor predeterminado configurado.",
+    "param.include_write": "Para list_operaciones, incluya operaciones con capacidad de escritura.",
+    "param.confirm_write": "Se requiere verdadero para ejecutar una operación de AWS que no sea de solo lectura. Esto confirma explícitamente la escritura."
+  },
+  "fa": {
+    "tool.description": "ابزار AWS که تمام خدمات boto3 را پوشش می دهد. می‌تواند خدمات را فهرست کند، عملیات فهرست کند و APIهای AWS را فراخوانی کند. عملیات فقط خواندنی به طور پیش فرض کار می کنند. عملیات نوشتن به confirm_write=true نیاز دارد.",
+    "x_search_terms": [
+      "aws",
+      "سرویس وب آمازون",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "اقدام: list_services، list_operations یا تماس بگیرید.",
+    "param.service": "نام سرویس AWS، به عنوان مثال ec2 یا s3.",
+    "param.operation": "یک عملیات کلاینت boto3، برای مثال DescribeInstance یا StartInstance.",
+    "param.parameters": "JSON شی حاوی پارامترهای عملیات.",
+    "param.region": "منطقه AWS اختیاری؛ در غیر این صورت از پیش فرض پیکربندی شده استفاده کنید.",
+    "param.include_write": "برای list_operations، عملیات های با قابلیت نوشتن را در نظر بگیرید.",
+    "param.confirm_write": "برای اجرای یک عملیات AWS غیر فقط خواندنی مورد نیاز است. این به صراحت نوشته را تایید می کند."
+  },
+  "fi": {
+    "tool.description": "AWS-työkalu, joka kattaa kaikki boto3-palvelut. Se voi luetella palveluita, luetteloida toimintoja ja kutsua AWS-sovellusliittymiä. Vain luku -toiminnot toimivat oletusarvoisesti; kirjoitustoiminnot vaativat vahvistus_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon-verkkopalvelut",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Toimi: list_services, list_operations tai call.",
+    "param.service": "AWS-palvelun nimi, esimerkiksi ec2 tai s3.",
+    "param.operation": "Boto3-asiakastoiminto, esimerkiksi DescribeInstances tai StartInstances.",
+    "param.parameters": "JSON objekti, joka sisältää toimintaparametrit.",
+    "param.region": "Valinnainen AWS-alue; muussa tapauksessa käytä määritettyä oletusarvoa.",
+    "param.include_write": "Lista_operations-kohtaan sisällytä kirjoituskykyiset toiminnot.",
+    "param.confirm_write": "Vaaditaan tosi, jotta voidaan suorittaa ei-vain luku -AWS-toiminto. Tämä vahvistaa selvästi kirjoituksen."
+  },
+  "fil": {
+    "tool.description": "AWS tool na sumasaklaw sa lahat ng serbisyo ng boto3. Maaari itong maglista ng mga serbisyo, maglista ng mga pagpapatakbo, at tumawag sa mga AWS API. Ang mga read-only na operasyon ay gumagana bilang default; ang mga pagpapatakbo ng pagsulat ay nangangailangan ng confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "mga serbisyo sa web ng amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Pagkilos: list_services, list_operations, o tawag.",
+    "param.service": "Pangalan ng serbisyo ng AWS, halimbawa ec2 o s3.",
+    "param.operation": "Isang boto3 client operation, halimbawa DescribeInstances o StartInstances.",
+    "param.parameters": "JSON object na naglalaman ng mga parameter ng operasyon.",
+    "param.region": "Opsyonal na rehiyon ng AWS; kung hindi, gamitin ang naka-configure na default.",
+    "param.include_write": "Para sa list_operations, isama ang write-capable operations.",
+    "param.confirm_write": "Kinakailangang true para magsagawa ng hindi read-only na operasyon ng AWS. Ito ay tahasang kinukumpirma ang pagsulat."
+  },
+  "fr": {
+    "tool.description": "Outil AWS couvrant tous les services boto3. Il peut répertorier les services, répertorier les opérations et appeler les API AWS. Les opérations en lecture seule fonctionnent par défaut ; les opérations d'écriture nécessitent confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "services Web Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Action : list_services, list_operations ou appel.",
+    "param.service": "Nom du service AWS, par exemple ec2 ou s3.",
+    "param.operation": "Une opération client boto3, par exemple DescribeInstances ou StartInstances.",
+    "param.parameters": "Objet JSON contenant les paramètres d’opération.",
+    "param.region": "Région AWS facultative ; sinon, utilisez la valeur par défaut configurée.",
+    "param.include_write": "Pour list_operations, incluez les opérations capables d’écrire.",
+    "param.confirm_write": "Requis true pour exécuter une opération AWS non en lecture seule. Cela confirme explicitement l'écriture."
+  },
+  "he": {
+    "tool.description": "כלי AWS המכסה את כל שירותי boto3. זה יכול לרשום שירותים, לרשום פעולות ולקרוא לממשקי API של AWS. פעולות לקריאה בלבד פועלות כברירת מחדל; פעולות כתיבה דורשות confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "שירותי האינטרנט של אמזון",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "פעולה: list_services, list_operations, או שיחה.",
+    "param.service": "שם שירות AWS, למשל ec2 או s3.",
+    "param.operation": "פעולת לקוח boto3, למשל DescribeInstances או StartInstances.",
+    "param.parameters": "אובייקט JSON המכיל את פרמטרי הפעולה.",
+    "param.region": "אזור AWS אופציונלי; אחרת השתמש בברירת המחדל המוגדרת.",
+    "param.include_write": "עבור list_operations, כלול פעולות המתאימות לכתיבה.",
+    "param.confirm_write": "נדרש נכון לביצוע פעולת AWS שאינה לקריאה בלבד. זה מאשר במפורש את הכתיבה."
+  },
+  "hi": {
+    "tool.description": "AWS टूल सभी boto3 सेवाओं को कवर करता है। यह सेवाओं को सूचीबद्ध कर सकता है, संचालन सूचीबद्ध कर सकता है और AWS API को कॉल कर सकता है। रीड-ओनली ऑपरेशन डिफ़ॉल्ट रूप से काम करते हैं; लिखने के संचालन के लिए कन्फ़र्म_राइट = सत्य की आवश्यकता होती है।",
+    "x_search_terms": [
+      "aws",
+      "amazon वेब सेवाएं",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "क्रिया: सूची_सेवाएँ, सूची_संचालन, या कॉल।",
+    "param.service": "AWS सेवा नाम, उदाहरण के लिए ec2 या s3.",
+    "param.operation": "एक boto3 क्लाइंट ऑपरेशन, उदाहरण के लिए डिस्क्रिप्शनइंस्टेंस या स्टार्टइंस्टेंस।",
+    "param.parameters": "JSON ऑब्जेक्ट जिसमें ऑपरेशन पैरामीटर हैं।",
+    "param.region": "वैकल्पिक AWS क्षेत्र; अन्यथा कॉन्फ़िगर किए गए डिफ़ॉल्ट का उपयोग करें।",
+    "param.include_write": "list_operations के लिए, लिखने-सक्षम संचालन शामिल करें।",
+    "param.confirm_write": "नॉन-रीड-ओनली AWS ऑपरेशन निष्पादित करने के लिए सत्य आवश्यक है। यह स्पष्ट रूप से लेख की पुष्टि करता है।"
+  },
+  "hu": {
+    "tool.description": "Az összes boto3 szolgáltatást lefedő AWS eszköz. Felsorolhat szolgáltatásokat, listázhat műveleteket, és hívhatja az AWS API-kat. A csak olvasható műveletek alapértelmezés szerint működnek; az írási műveletekhez megerősítés_write=true szükséges.",
+    "x_search_terms": [
+      "aws",
+      "amazon webszolgáltatások",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Művelet: list_services, list_operations vagy hívás.",
+    "param.service": "AWS-szolgáltatás neve, például ec2 vagy s3.",
+    "param.operation": "Boto3-ügyfélművelet, például DescribeInstances vagy StartInstances.",
+    "param.parameters": "A műveleti paramétereket tartalmazó JSON objektum.",
+    "param.region": "Opcionális AWS régió; ellenkező esetben használja a beállított alapértelmezett értéket.",
+    "param.include_write": "A lista_műveletek esetén írható műveleteket is tartalmazzon.",
+    "param.confirm_write": "True érték szükséges egy nem csak olvasható AWS-művelet végrehajtásához. Ez kifejezetten megerősíti az írást."
+  },
+  "id": {
+    "tool.description": "Alat AWS yang mencakup semua layanan boto3. Itu dapat mencantumkan layanan, mencantumkan operasi, dan memanggil API AWS. Operasi baca-saja berfungsi secara default; operasi tulis memerlukan konfirmasi_tulis=benar.",
+    "x_search_terms": [
+      "aws",
+      "layanan web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Tindakan: list_services, list_operations, atau panggilan.",
+    "param.service": "Nama layanan AWS, misalnya ec2 atau s3.",
+    "param.operation": "Operasi klien boto3, misalnya DescriptionInstances atau StartInstances.",
+    "param.parameters": "JSON objek yang berisi parameter operasi.",
+    "param.region": "Wilayah AWS opsional; jika tidak, gunakan default yang dikonfigurasi.",
+    "param.include_write": "Untuk list_operations, sertakan operasi yang mampu menulis.",
+    "param.confirm_write": "Diperlukan true untuk menjalankan operasi AWS non-baca saja. Ini secara eksplisit mengkonfirmasi penulisan tersebut."
+  },
+  "it": {
+    "tool.description": "Strumento AWS che copre tutti i servizi boto3. Può elencare servizi, elencare operazioni e chiamare API AWS. Le operazioni di sola lettura funzionano per impostazione predefinita; le operazioni di scrittura richiedono confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "servizi web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Azione: list_services, list_operazioni o chiamata.",
+    "param.service": "Nome del servizio AWS, ad esempio ec2 o s3.",
+    "param.operation": "Un'operazione client boto3, ad esempio DescribeInstances o StartInstances.",
+    "param.parameters": "JSON oggetto contenente i parametri di funzionamento.",
+    "param.region": "Regione AWS facoltativa; altrimenti utilizzare l'impostazione predefinita configurata.",
+    "param.include_write": "Per list_operazioni, includere operazioni con capacità di scrittura.",
+    "param.confirm_write": "Obbligatorio true per eseguire un'operazione AWS di non sola lettura. Ciò conferma esplicitamente la scrittura."
+  },
+  "ja": {
+    "tool.description": "すべての boto3 サービスをカバーする AWS ツール。サービスの一覧表示、操作の一覧表示、AWS API の呼び出しが可能です。デフォルトでは読み取り専用操作が機能します。書き込み操作にはconfirm_write=trueが必要です。",
+    "x_search_terms": [
+      "aws",
+      "アマゾン ウェブ サービス",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "アクション: list_services、list_operations、または呼び出し。",
+    "param.service": "AWS サービス名 (ec2 や s3 など)。",
+    "param.operation": "boto3 クライアント操作 (DescribeInstances や StartInstances など)。",
+    "param.parameters": "JSON オブジェクトには操作パラメータが含まれます。",
+    "param.region": "オプションの AWS リージョン。それ以外の場合は、設定されたデフォルトを使用します。",
+    "param.include_write": "list_operations には、書き込み可能な操作を含めます。",
+    "param.confirm_write": "読み取り専用以外の AWS オペレーションを実行するには true が必要です。これにより、書き込みが明示的に確認されます。"
+  },
+  "ko": {
+    "tool.description": "모든 boto3 서비스를 다루는 AWS 도구입니다. 서비스를 나열하고, 작업을 나열하고, AWS API를 호출할 수 있습니다. 읽기 전용 작업은 기본적으로 작동합니다. 쓰기 작업에는 verify_write=true가 필요합니다.",
+    "x_search_terms": [
+      "aws",
+      "amazon 웹 서비스",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "작업: list_services, list_options 또는 호출.",
+    "param.service": "AWS 서비스 이름(예: ec2 또는 s3)입니다.",
+    "param.operation": "boto3 클라이언트 작업(예: explainInstances 또는 StartInstances).",
+    "param.parameters": "작업 매개변수가 포함된 JSON 개체입니다.",
+    "param.region": "선택적 AWS 지역; 그렇지 않으면 구성된 기본값을 사용하십시오.",
+    "param.include_write": "list_Operations의 경우 쓰기 가능 작업을 포함합니다.",
+    "param.confirm_write": "읽기 전용이 아닌 AWS 작업을 실행하려면 true가 필요합니다. 이는 쓰기를 명시적으로 확인합니다."
+  },
+  "mn": {
+    "tool.description": "Бүх boto3 үйлчилгээг хамарсан AWS хэрэгсэл. Энэ нь үйлчилгээг жагсааж, үйлдлүүдийг жагсааж, AWS API-г дуудаж болно. Зөвхөн унших үйлдлүүд нь анхдагчаар ажилладаг; бичих үйлдлүүд нь confirm_write=true шаарддаг.",
+    "x_search_terms": [
+      "aws",
+      "amazon вэб үйлчилгээ",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Үйлдэл: жагсаалтын үйлчилгээ, үйлдлүүдийн жагсаалт эсвэл дуудлага.",
+    "param.service": "AWS үйлчилгээний нэр, жишээ нь ec2 эсвэл s3.",
+    "param.operation": "Boto3 клиентийн үйлдэл, жишээ нь DescribeInstances эсвэл StartInstances.",
+    "param.parameters": "Үйлдлийн параметрүүдийг агуулсан JSON объект.",
+    "param.region": "Нэмэлт AWS бүс; бусад тохиолдолд тохируулсан өгөгдмөлийг ашиглана уу.",
+    "param.include_write": "Жагсаалтын_үйлдлүүдийн хувьд бичих чадвартай үйлдлүүдийг оруулна уу.",
+    "param.confirm_write": "Зөвхөн унших боломжгүй AWS үйлдлийг гүйцэтгэхийн тулд үнэн шаардлагатай. Энэ нь бичсэнийг тодорхой баталж байна."
+  },
+  "mr": {
+    "tool.description": "सर्व boto3 सेवा कव्हर करणारे AWS टूल. हे सेवा सूचीबद्ध करू शकते, ऑपरेशन्स सूचीबद्ध करू शकते आणि AWS API ला कॉल करू शकते. केवळ-वाचनीय ऑपरेशन्स डीफॉल्टनुसार कार्य करतात; लेखन ऑपरेशनसाठी confirm_write=true आवश्यक आहे.",
+    "x_search_terms": [
+      "aws",
+      "amazon वेब सेवा",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "क्रिया: list_services, list_operations किंवा call.",
+    "param.service": "AWS सेवा नाव, उदाहरणार्थ ec2 किंवा s3.",
+    "param.operation": "boto3 क्लायंट ऑपरेशन, उदाहरणार्थ वर्णन इन्स्टन्स किंवा स्टार्टइन्स्टन्स.",
+    "param.parameters": "ऑपरेशन पॅरामीटर्स असलेले JSON ऑब्जेक्ट.",
+    "param.region": "पर्यायी AWS प्रदेश; अन्यथा कॉन्फिगर केलेले डीफॉल्ट वापरा.",
+    "param.include_write": "list_operations साठी, लेखन-सक्षम ऑपरेशन्स समाविष्ट करा.",
+    "param.confirm_write": "केवळ-वाचनीय AWS ऑपरेशन कार्यान्वित करण्यासाठी सत्य आवश्यक आहे. हे स्पष्टपणे लेखनाची पुष्टी करते."
+  },
+  "ms": {
+    "tool.description": "Alat AWS meliputi semua perkhidmatan boto3. Ia boleh menyenaraikan perkhidmatan, menyenaraikan operasi dan memanggil API AWS. Operasi baca sahaja berfungsi secara lalai; operasi tulis memerlukan confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "perkhidmatan web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Tindakan: list_services, list_operations, atau call.",
+    "param.service": "Nama perkhidmatan AWS, contohnya ec2 atau s3.",
+    "param.operation": "Operasi pelanggan boto3, contohnya DescribeInstances atau StartInstances.",
+    "param.parameters": "JSON objek yang mengandungi parameter operasi.",
+    "param.region": "Rantau AWS pilihan; sebaliknya gunakan lalai yang dikonfigurasikan.",
+    "param.include_write": "Untuk list_operations, sertakan operasi berkebolehan menulis.",
+    "param.confirm_write": "Diperlukan benar untuk melaksanakan operasi AWS bukan baca sahaja. Ini secara jelas mengesahkan penulisan."
+  },
+  "nb": {
+    "tool.description": "AWS-verktøy som dekker alle boto3-tjenester. Den kan liste tjenester, liste operasjoner og kalle AWS APIer. Skrivebeskyttede operasjoner fungerer som standard; skriveoperasjoner krever confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon webtjenester",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Handling: liste_tjenester, liste_operasjoner eller anrop.",
+    "param.service": "AWS-tjenestenavn, for eksempel ec2 eller s3.",
+    "param.operation": "En boto3-klientoperasjon, for eksempel DescribeInstances eller StartInstances.",
+    "param.parameters": "JSON objekt som inneholder operasjonsparameterne.",
+    "param.region": "Valgfri AWS-region; ellers bruk den konfigurerte standarden.",
+    "param.include_write": "For list_operations, inkluderer skrivekompatible operasjoner.",
+    "param.confirm_write": "Nødvendig sann for å utføre en ikke-skrivebeskyttet AWS-operasjon. Dette bekrefter uttrykkelig skrivingen."
+  },
+  "nl": {
+    "tool.description": "AWS-tool die alle boto3-services omvat. Het kan services vermelden, bewerkingen weergeven en AWS API's aanroepen. Alleen-lezen-bewerkingen werken standaard; voor schrijfbewerkingen is confirm_write=true vereist.",
+    "x_search_terms": [
+      "aws",
+      "amazon webservices",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Actie: list_services, list_operations of call.",
+    "param.service": "AWS-servicenaam, bijvoorbeeld ec2 of s3.",
+    "param.operation": "Een boto3-clientbewerking, bijvoorbeeld DescribeInstances of StartInstances.",
+    "param.parameters": "JSON object dat de bewerkingsparameters bevat.",
+    "param.region": "Optionele AWS-regio; gebruik anders de geconfigureerde standaardwaarde.",
+    "param.include_write": "Voor list_operations neemt u schrijfbewerkingen op.",
+    "param.confirm_write": "Vereist waar om een ​​niet-alleen-lezen AWS-bewerking uit te voeren. Dit bevestigt expliciet het schrijven."
+  },
+  "nn": {
+    "tool.description": "AWS-verktøy som dekker alle boto3-tjenester. Det kan liste tjenester, liste operasjoner, og ringe AWS APIer. Skriveoperasjoner fungerer som standard; skriveoperasjoner krever confirm_write=true.",
+    "x_search_terms": [
+      "»aws» amazon web services »boto3»cloud»aws_api",
+      "Amazon. com- vevtenester",
+      "boto3",
+      "sky",
+      "aws_api"
+    ],
+    "param.action": "Handling: list_services, list_operations eller call.",
+    "param.service": "AWS-tjenestenavn, for eksempel ec2 eller s3.",
+    "param.operation": "En boto3-klientoperasjon, for eksempel DescribeInstances eller StartInstances.",
+    "param.parameters": "JSON-objekt som inneholder operasjonsparametrene.",
+    "param.region": "Valgfritt AWS-region; bruk ellers den konfigurerte standarden.",
+    "param.include_write": "For LIST_Operations, inkluderer skrive-kompatible operasjoner.",
+    "param.confirm_write": "Krevd true for å utføre en ikke-lesbar AWS-operasjon. Dette bekrefter uttrykkelig skrivingen."
+  },
+  "pl": {
+    "tool.description": "Narzędzie AWS obejmujące wszystkie usługi boto3. Może wyświetlać listy usług, wyświetlać operacje i wywoływać interfejsy API AWS. Operacje tylko do odczytu działają domyślnie; operacje zapisu wymagają potwierdzenia_write=true.",
+    "x_search_terms": [
+      "aws",
+      "usługi internetowe Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Akcja: lista_usług, lista_operacji lub wywołanie.",
+    "param.service": "Nazwa usługi AWS, na przykład ec2 lub s3.",
+    "param.operation": "Operacja klienta boto3, na przykład DescribeInstances lub StartInstances.",
+    "param.parameters": "JSON obiekt zawierający parametry operacji.",
+    "param.region": "Opcjonalny region AWS; w przeciwnym razie użyj skonfigurowanej wartości domyślnej.",
+    "param.include_write": "W przypadku operacji list_uwzględnij operacje z możliwością zapisu.",
+    "param.confirm_write": "Wymagane true, aby wykonać operację AWS inną niż tylko do odczytu. To wyraźnie potwierdza zapis."
+  },
+  "pt": {
+    "tool.description": "Ferramenta AWS que cobre todos os serviços boto3. Ele pode listar serviços, listar operações e chamar APIs da AWS. As operações somente leitura funcionam por padrão; operações de gravação requerem confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "serviços web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Ação: list_services, list_operations ou call.",
+    "param.service": "Nome do serviço AWS, por exemplo ec2 ou s3.",
+    "param.operation": "Uma operação do cliente boto3, por exemplo DescribeInstances ou StartInstances.",
+    "param.parameters": "Objeto JSON contendo os parâmetros de operação.",
+    "param.region": "Região AWS opcional; caso contrário, use o padrão configurado.",
+    "param.include_write": "Para list_operações, inclua operações com capacidade de gravação.",
+    "param.confirm_write": "Obrigatório true para executar uma operação AWS não somente leitura. Isso confirma explicitamente a gravação."
+  },
+  "pt_BR": {
+    "tool.description": "Ferramenta AWS que cobre todos os serviços boto3. Ele pode listar serviços, listar operações e chamar APIs da AWS. As operações somente leitura funcionam por padrão; operações de gravação requerem confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "serviços web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Ação: list_services, list_operations ou call.",
+    "param.service": "Nome do serviço AWS, por exemplo ec2 ou s3.",
+    "param.operation": "Uma operação do cliente boto3, por exemplo DescribeInstances ou StartInstances.",
+    "param.parameters": "Objeto JSON contendo os parâmetros de operação.",
+    "param.region": "Região AWS opcional; caso contrário, use o padrão configurado.",
+    "param.include_write": "Para list_operações, inclua operações com capacidade de gravação.",
+    "param.confirm_write": "Obrigatório true para executar uma operação AWS não somente leitura. Isso confirma explicitamente a gravação."
+  },
+  "ro": {
+    "tool.description": "Instrument AWS care acoperă toate serviciile boto3. Poate lista servicii, poate enumera operațiuni și poate apela API-uri AWS. Operațiile numai în citire funcționează implicit; operațiunile de scriere necesită confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "servicii web amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Acțiune: list_services, list_operations sau apel.",
+    "param.service": "Numele serviciului AWS, de exemplu ec2 sau s3.",
+    "param.operation": "O operație client boto3, de exemplu DescribeInstances sau StartInstances.",
+    "param.parameters": "JSON obiect care conține parametrii de funcționare.",
+    "param.region": "Regiunea AWS opțională; în caz contrar, utilizați valoarea implicită configurată.",
+    "param.include_write": "Pentru list_operations, includeți operațiuni capabile de scriere.",
+    "param.confirm_write": "Este necesar true pentru a executa o operațiune AWS care nu este doar în citire. Acest lucru confirmă în mod explicit scrierea."
+  },
+  "ru": {
+    "tool.description": "Инструмент AWS, охватывающий все сервисы boto3. Он может перечислять сервисы, операции и вызывать API AWS. Операции только для чтения работают по умолчанию; операции записи требуют подтверждения_write=true.",
+    "x_search_terms": [
+      "aws",
+      "Веб-сервисы Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Действие: list_services, list_operations или вызов.",
+    "param.service": "Имя сервиса AWS, например ec2 или s3.",
+    "param.operation": "Клиентская операция boto3, например DescribeInstances или StartInstances.",
+    "param.parameters": "JSON объект, содержащий параметры операции.",
+    "param.region": "Дополнительный регион AWS; в противном случае используйте настроенное по умолчанию.",
+    "param.include_write": "Для list_operations включите операции с возможностью записи.",
+    "param.confirm_write": "Требуется true для выполнения операции AWS не только для чтения. Это явно подтверждает запись."
+  },
+  "sv": {
+    "tool.description": "AWS-verktyg som täcker alla boto3-tjänster. Den kan lista tjänster, lista operationer och anropa AWS API:er. Skrivskyddade operationer fungerar som standard; skrivoperationer kräver confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon webbtjänster",
+      "boto3",
+      "moln",
+      "aws_api"
+    ],
+    "param.action": "Åtgärd: list_services, list_operations eller samtal.",
+    "param.service": "AWS-tjänstnamn, till exempel ec2 eller s3.",
+    "param.operation": "En boto3-klientoperation, till exempel DescribeInstances eller StartInstances.",
+    "param.parameters": "JSON objekt som innehåller operationsparametrarna.",
+    "param.region": "Valfri AWS-region; annars använd den konfigurerade standarden.",
+    "param.include_write": "För list_operations, inkludera skrivbara operationer.",
+    "param.confirm_write": "Krävs sant för att utföra en icke-skrivskyddad AWS-operation. Detta bekräftar uttryckligen skrivningen."
+  },
+  "sw": {
+    "tool.description": "Chombo cha AWS kinachofunika huduma zote za boto3. Inaweza kuorodhesha huduma, kuorodhesha shughuli, na kupiga simu API za AWS. Uendeshaji wa kusoma tu hufanya kazi kwa chaguo-msingi; kuandika shughuli zinahitaji confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "amazon huduma za wavuti",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Kitendo: list_services, list_operations, au piga simu.",
+    "param.service": "Jina la huduma ya AWS, kwa mfano ec2 au s3.",
+    "param.operation": "Operesheni ya mteja wa boto3, kwa mfano DescribeInstances au StartInstances.",
+    "param.parameters": "JSON kipengee kilicho na vigezo vya uendeshaji.",
+    "param.region": "Eneo la hiari la AWS; vinginevyo tumia chaguo-msingi iliyosanidiwa.",
+    "param.include_write": "Kwa list_operations, jumuisha shughuli zinazoweza kuandika.",
+    "param.confirm_write": "Inahitajika kweli ili kutekeleza operesheni ya AWS isiyo ya kusoma tu. Hii inathibitisha wazi maandishi."
+  },
+  "th": {
+    "tool.description": "เครื่องมือ AWS ครอบคลุมบริการ boto3 ทั้งหมด สามารถแสดงรายการบริการ แสดงรายการการดำเนินการ และเรียกใช้ AWS API ได้ การดำเนินการแบบอ่านอย่างเดียวจะทำงานตามค่าเริ่มต้น การดำเนินการเขียนต้องมีการยืนยัน_write=true",
+    "x_search_terms": [
+      "aws",
+      "บริการเว็บของ Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "การดำเนินการ: list_services, list_operations หรือการโทร",
+    "param.service": "ชื่อบริการ AWS เช่น ec2 หรือ s3",
+    "param.operation": "การดำเนินการไคลเอ็นต์ boto3 เช่น DescribeInstances หรือ StartInstances",
+    "param.parameters": "JSON วัตถุที่มีพารามิเตอร์การดำเนินการ",
+    "param.region": "ภูมิภาค AWS เสริม; มิฉะนั้นให้ใช้ค่าเริ่มต้นที่กำหนดค่าไว้",
+    "param.include_write": "สำหรับ list_operations ให้รวมการดำเนินการที่สามารถเขียนได้",
+    "param.confirm_write": "จำเป็นต้องมี true เพื่อดำเนินการการดำเนินการ AWS ที่ไม่ใช่แบบอ่านอย่างเดียว นี่เป็นการยืนยันการเขียนอย่างชัดเจน"
+  },
+  "tr": {
+    "tool.description": "Tüm boto3 hizmetlerini kapsayan AWS aracı. Hizmetleri listeleyebilir, işlemleri listeleyebilir ve AWS API'lerini arayabilir. Salt okunur işlemler varsayılan olarak çalışır; yazma işlemleri için onay_yaz=true gerekir.",
+    "x_search_terms": [
+      "aws",
+      "amazon web hizmetleri",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Eylem: list_services, list_operations veya çağrı.",
+    "param.service": "AWS hizmet adı; örneğin ec2 veya s3.",
+    "param.operation": "Bir boto3 istemci işlemi; örneğin, TarifInstances veya StartInstances.",
+    "param.parameters": "JSON işlem parametrelerini içeren nesne.",
+    "param.region": "İsteğe bağlı AWS bölgesi; aksi halde yapılandırılmış varsayılanı kullanın.",
+    "param.include_write": "List_operations için yazma özellikli işlemleri ekleyin.",
+    "param.confirm_write": "Salt okunur olmayan bir AWS işlemini yürütmek için true gereklidir. Bu açıkça yazmayı doğrular."
+  },
+  "uk": {
+    "tool.description": "Інструмент AWS, що охоплює всі сервіси boto3. Він може перераховувати служби, перелічувати операції та викликати AWS API. Операції лише для читання працюють за замовчуванням; операції запису вимагають confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "веб-служби Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Дія: list_services, list_operations або виклик.",
+    "param.service": "Назва служби AWS, наприклад ec2 або s3.",
+    "param.operation": "Клієнтська операція boto3, наприклад DescribeInstances або StartInstances.",
+    "param.parameters": "Об’єкт JSON, що містить параметри операції.",
+    "param.region": "Додатковий регіон AWS; інакше використовуйте налаштоване значення за замовчуванням.",
+    "param.include_write": "Для list_operations включіть операції з можливістю запису.",
+    "param.confirm_write": "Необхідне значення true для виконання операції AWS не лише для читання. Це чітко підтверджує написане."
+  },
+  "vi": {
+    "tool.description": "Công cụ AWS bao gồm tất cả các dịch vụ boto3. Nó có thể liệt kê các dịch vụ, liệt kê hoạt động và gọi API AWS. Hoạt động chỉ đọc hoạt động theo mặc định; thao tác ghi yêu cầu confirm_write=true.",
+    "x_search_terms": [
+      "aws",
+      "dịch vụ web của Amazon",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "Hành động: list_services, list_Operation hoặc gọi.",
+    "param.service": "Tên dịch vụ AWS, ví dụ ec2 hoặc s3.",
+    "param.operation": "Hoạt động của máy khách boto3, ví dụ như DescriptionInstances hoặc StartInstances.",
+    "param.parameters": "Đối tượng JSON chứa các tham số hoạt động.",
+    "param.region": "Khu vực AWS tùy chọn; nếu không thì sử dụng mặc định được cấu hình.",
+    "param.include_write": "Đối với list_Operation, hãy bao gồm các thao tác có khả năng ghi.",
+    "param.confirm_write": "Bắt buộc phải đúng để thực thi thao tác AWS không chỉ đọc. Điều này xác nhận rõ ràng việc viết."
+  },
+  "zh_CN": {
+    "tool.description": "AWS工具涵盖所有boto3服务。它可以列出服务、列出操作并调用 AWS API。默认情况下，只读操作有效；写操作需要confirm_write=true。",
+    "x_search_terms": [
+      "aws",
+      "亚马逊网络服务",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "操作：list_services、list_operations 或调用。",
+    "param.service": "AWS 服务名称，例如 ec2 或 s3。",
+    "param.operation": "boto3 客户端操作，例如DescribeInstances 或StartInstances。",
+    "param.parameters": "JSON 包含操作参数的对象。",
+    "param.region": "可选的AWS区域；否则使用配置的默认值。",
+    "param.include_write": "对于 list_operations，包括可写操作。",
+    "param.confirm_write": "需要 true 才能执行非只读 AWS 操作。这明确确认了写入。"
+  },
+  "zh_TW": {
+    "tool.description": "AWS工具涵蓋所有boto3服務。它可以列出服務、列出操作並呼叫 AWS API。預設情況下，只讀操作有效；寫入操作需要confirm_write=true。",
+    "x_search_terms": [
+      "aws",
+      "亞馬遜網路服務",
+      "boto3",
+      "cloud",
+      "aws_api"
+    ],
+    "param.action": "操作：list_services、list_operations 或呼叫。",
+    "param.service": "AWS 服務名稱，例如 ec2 或 s3。",
+    "param.operation": "boto3 用戶端操作，例如DescribeInstances 或StartInstances。",
+    "param.parameters": "JSON 包含操作參數的物件。",
+    "param.region": "可選的AWS區域；否則使用配置的預設值。",
+    "param.include_write": "對於 list_operations，包括可寫入操作。",
+    "param.confirm_write": "需要 true 才能執行非唯讀 AWS 操作。這明確確認了寫入。"
+  }
+}

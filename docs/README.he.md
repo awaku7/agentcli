@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## למה UAG?
 
@@ -29,7 +29,7 @@
 
 - **פועל באופן מקומי** במחשב שלך. הנתונים שלך נשארים איתך (למעט קריאות API שאתה מבצע).
 - **חופש הספק**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ ספקים, כולם נגישים מממשק אחד. החלף ביניהם על ידי הגדרה מחדש של משתני סביבה - ללא התקנה מחדש, ללא העברה.
-- **195 כלים**: קלט/פלט של קבצים, חיפוש באינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרת MCP - **111 בטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתנים להגדרה באמצעות `UAGENT_PARALLEL_WORKERS`). כאשר ה-LLM יורה שיחות כלים מרובות בו-זמנית, uag מקביל אותן באופן אוטומטי.
+- **203 כלים**: קלט/פלט של קבצים, חיפוש באינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרת MCP - **111 בטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתנים להגדרה באמצעות `UAGENT_PARALLEL_WORKERS`). כאשר ה-LLM יורה שיחות כלים מרובות בו-זמנית, uag מקביל אותן באופן אוטומטי.
 - **3 ממשקי משתמש + A2A**: CLI, GUI, אינטרנט ופרוטוקול סוכן לסוכן. אותו מנוע, כל ממשק.
 - **מיומנויות סוכן**: התקן מיומנויות שנבנו בקהילה מהשוק. להאריך את uag בלי סוף.
 
@@ -62,7 +62,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 כלים לקריאה בלבד (חיפוש קבצים, חישוב גיבוב, רישום ספריות, תרגום, שאילתות DB וכו') מקבילים בצורה אגרסיבית.
 
-
 ### 🧩 מערכת תוספים (תואמת Claude Code)
 
 uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים מאגדים מיומנויות, סוכנים, שרתי MCP, הוקים ועוד לתוך ספריות עצמאיות עם מניפסט `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 **רכיבים נתמכים: מיומנויות, סוכני משנה, שרתי MCP, הוקים (12 אירועי מחזור חיים), פקודות סלאש, סגנונות פלט, userConfig, תלויות, ערוצים, שווקים**
 
 **CLI commands**:
+
 ```
 :plugin list                         # רשימת תוספים מותקנים
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 
 עיינו בתיעוד המלא לפרטים. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 המשכיות הפגישה
 
 - **החלפת ספק באמצע הסשן** עם `UAGENT_PROVIDER` — היסטוריית השיחה נשמרת.
 - **טעינת סשנים קודמים מחדש** באמצעות `:load <index>` — המשיכו מהמקום שבו עצרתם.
 
-### 🛠 195 כלים
+### 🛠 203 כלים
 
 | קטגוריה | כלים |
 |---|---|
@@ -99,11 +98,12 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **תחזית** | חיזוי סדרות זמן עם 9 מודלים (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM וכו'), בחירת מודל אוטומטית, יצירת גרפים, i18n |
 | **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — ראה [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **26 נווטי קוד מקור (משפחת idx)** |
+| **ממשקי API בענן** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **29 נווטי קוד מקור (משפחת idx)** |
 | **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע |
 | **A2A** | תקשורת סוכן לסוכן (עם מופעי uag אחרים או שרתים תואמי A2A) |
 | **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך, uuid_gen, slugify ||
-| **נוב מקור** | **26 כלים idx** עבור Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — קבל אינדקס פונקציה/מעמד או הגדרה ספציפית מבלי לקרוא את כל הקובץ |
+| **נוב מקור** | **29 כלים idx** עבור Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — קבל אינדקס פונקציה/מעמד או הגדרה ספציפית מבלי לקרוא את כל הקובץ |
 
 ### 🖥 4 ממשקים + הרחבת קוד VS
 
@@ -118,10 +118,10 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 ראה [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
 
 ### 🏠 בקרת מכשירי IoT
+
 - **עניין**: בדיקה לקריאה בלבד של טופולוגיה של בקר/גשר/התקן
 
 ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Agent Skills Marketplace
 
@@ -174,7 +174,6 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 `כלים_קטלוג` ו`כלים_טעינת` מאפשרים לך לגלות ולאפשר כלים בזמן ריצה.
 אין צורך לטעון הכל בעת ההפעלה - הפעל רק את מה שאתה צריך, כאשר אתה צריך את זה.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` ו-`slugify` ממומשים ב-Rust (באמצעות PyO3) לשיפור הביצועים.
@@ -214,7 +213,6 @@ uag שואפת להיות **ה-AI שלך, במחשב שלך, בתנאים שלך
 
 ### ✨ צור כלים משלך
 
-
 [he.md](TOOL_CREATOR_GUIDE.he.md)
 לעיון במדריך שלב אחר שלב, ראו כאן.
 
@@ -224,8 +222,6 @@ uag שואפת להיות **ה-AI שלך, במחשב שלך, בתנאים שלך
 
 - **Issues**: פתח בעיה של GitHub עבור באגים או בקשות תכונה.
 - **בקשות משיכה**: צרו fork של המאגר, בצעו את השינויים ושלחו PR. להגדרת סביבת הפיתוח ולהנחיות, עיינו ב-[DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime קול וAEC3
 

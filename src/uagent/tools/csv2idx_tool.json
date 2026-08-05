@@ -787,7 +787,7 @@
       "basahin ang csv file",
       "csv index",
       "csv parser",
-      "section splitter"
+      "splitter ng seksyon"
     ],
     "param.path.description": "Path sa file.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang partikular na seksyon.",
@@ -831,8 +831,8 @@
     "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for csv2idx.",
     "x_search_terms": [
       "læs csv file",
-      "csv index",
-      "csv parser",
+      "csv indeks",
+      "csv-parser",
       "sektionsopdeler"
     ],
     "param.path.description": "Sti til filen.",
@@ -854,8 +854,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for csv2idx.",
     "x_search_terms": [
       "les csv file",
-      "csv index",
-      "csv parser",
+      "csv-indeks",
+      "csv-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",

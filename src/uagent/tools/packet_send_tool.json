@@ -45,8 +45,8 @@
     "param.send_confirmed.description": "মানব_আস্ক স্পষ্টভাবে প্রেরণ অপারেশন নিশ্চিত করার পরেই সেট করুন।",
     "x_search_terms": [
       "প্যাকেট send",
-      "udp send",
-      "tcp send",
+      "udp পাঠান",
+      "tcp পাঠান",
       "নেটওয়ার্ক পরীক্ষা"
     ]
   },
@@ -61,9 +61,9 @@
     "param.dry_run.description": "Neposílejte data; vrátit plánovanou operaci.",
     "param.send_confirmed.description": "Nastavte pouze poté, co human_ask explicitně potvrdí operaci odeslání.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "odeslání paketu",
+      "udp odeslat",
+      "tcp odeslat",
       "test sítě"
     ]
   },
@@ -164,8 +164,8 @@
     "param.send_confirmed.description": "Aseta vasta sen jälkeen, kun human_ask on erikseen vahvistanut lähetystoiminnon.",
     "x_search_terms": [
       "pakettilähetys",
-      "udp send",
-      "tcp send",
+      "udp lähettää",
+      "tcp lähettää",
       "verkkotesti"
     ]
   },
@@ -180,10 +180,10 @@
     "param.dry_run.description": "Huwag magpadala ng data; ibalik ang nakaplanong operasyon.",
     "param.send_confirmed.description": "Itakda lamang pagkatapos na tahasang kumpirmahin ng human_ask ang pagpapatakbo ng pagpapadala.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
-      "network test"
+      "pagpapadala ng packet",
+      "udp ipadala",
+      "tcp ipadala",
+      "pagsubok sa network"
     ]
   },
   "fr": {
@@ -215,8 +215,8 @@
     "param.send_confirmed.description": "מוגדר רק לאחר ש-human_ask מאשר במפורש את פעולת השליחה.",
     "x_search_terms": [
       "משלוח מנות",
-      "udp send",
-      "tcp send",
+      "udp שלח",
+      "tcp לשלוח",
       "בדיקת רשת"
     ]
   },
@@ -248,9 +248,9 @@
     "param.dry_run.description": "Ne küldjön adatokat; vissza a tervezett műveletet.",
     "param.send_confirmed.description": "Csak azután állítsa be, hogy a human_ask kifejezetten megerősíti a küldési műveletet.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "csomagküldés",
+      "udp küldés",
+      "tcp küldés",
       "hálózati teszt"
     ]
   },
@@ -334,8 +334,8 @@
     "param.send_confirmed.description": "Зөвхөн human_ask нь илгээх үйлдлийг тодорхой баталгаажуулсны дараа тохируулна.",
     "x_search_terms": [
       "paket send",
-      "udp send",
-      "tcp send",
+      "udp илгээх",
+      "tcp илгээх",
       "сүлжээний тест"
     ]
   },
@@ -385,7 +385,7 @@
     "param.send_confirmed.description": "Sett kun etter at human_ask eksplisitt bekrefter sendeoperasjonen.",
     "x_search_terms": [
       "pakke send",
-      "udp send",
+      "utp send",
       "tcp send",
       "nettverkstest"
     ]
@@ -401,9 +401,9 @@
     "param.dry_run.description": "Stuur geen gegevens; de geplande bewerking retourneren.",
     "param.send_confirmed.description": "Wordt alleen ingesteld nadat human_ask de verzendbewerking expliciet heeft bevestigd.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "pakket verzonden",
+      "udp verzenden",
+      "tcp-verzenden",
       "netwerktest"
     ]
   },
@@ -419,9 +419,9 @@
     "param.send_confirmed.description": "Set først etter at human_ask eksplisitt har bekreftet send-operasjonen.",
     "x_search_terms": [
       "pakke sendutp sendtcp send nettverkstest",
-      "",
-      "",
-      ""
+      "udp send",
+      "tcp send",
+      "nettverkstest"
     ]
   },
   "pl": {
@@ -453,9 +453,9 @@
     "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
     "x_search_terms": [
       "pacote send",
-      "udp send",
-      "tcp send",
-      "network test"
+      "envio udp",
+      "envio tcp",
+      "teste de rede"
     ]
   },
   "pt_BR": {
@@ -470,9 +470,9 @@
     "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
     "x_search_terms": [
       "pacote send",
-      "udp send",
-      "tcp send",
-      "network test"
+      "envio udp",
+      "envio tcp",
+      "teste de rede"
     ]
   },
   "ro": {
@@ -486,9 +486,9 @@
     "param.dry_run.description": "Nu trimiteți date; returnează operațiunea planificată.",
     "param.send_confirmed.description": "Setați numai după ce human_ask confirmă în mod explicit operația de trimitere.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "trimitere pachet",
+      "udp trimite",
+      "tcp trimite",
       "test de rețea"
     ]
   },
@@ -504,8 +504,8 @@
     "param.send_confirmed.description": "Устанавливается только после того, как human_ask явно подтвердит операцию отправки.",
     "x_search_terms": [
       "отправка пакета",
-      "udp send",
-      "tcp send",
+      "udp отправить",
+      "TCP-отправка",
       "тест сети"
     ]
   },
@@ -520,9 +520,9 @@
     "param.dry_run.description": "Skicka inte data; returnera den planerade operationen.",
     "param.send_confirmed.description": "Ställ in endast efter att human_ask uttryckligen bekräftar sändningsoperationen.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "paket skicka",
+      "udp skicka",
+      "tcp skicka",
       "nätverkstest"
     ]
   },
@@ -538,9 +538,9 @@
     "param.send_confirmed.description": "Imewekwa tu baada ya human_ask kuthibitisha kwa uwazi utendakazi wa kutuma.",
     "x_search_terms": [
       "pakiti send",
-      "udp send",
-      "tcp send",
-      "network test"
+      "udp kutuma",
+      "tcp kutuma",
+      "mtihani wa mtandao"
     ]
   },
   "th": {
@@ -555,8 +555,8 @@
     "param.send_confirmed.description": "ตั้งค่าหลังจากที่ human_ask ยืนยันการดำเนินการส่งอย่างชัดเจนแล้วเท่านั้น",
     "x_search_terms": [
       "แพ็คเก็ต send",
-      "udp send",
-      "tcp send",
+      "ยูดีพีส่ง",
+      "ทีซีพีส่ง",
       "ทดสอบเครือข่าย"
     ]
   },
@@ -588,9 +588,9 @@
     "param.dry_run.description": "Не надсилати дані; повернути планову операцію.",
     "param.send_confirmed.description": "Встановлюється лише після того, як human_ask явно підтвердить операцію надсилання.",
     "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
+      "відправка пакета",
+      "udp відправити",
+      "tcp відправити",
       "тест мережі"
     ]
   },

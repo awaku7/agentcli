@@ -21,15 +21,15 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Pourquoi uag ?
 
-** Libérez-vous de la dépendance vis-à-vis d'un fournisseur. ** La plupart des assistants IA vous lient à un fournisseur ou à un service cloud spécifique. uag est différent.
+\*\* Libérez-vous de la dépendance vis-à-vis d'un fournisseur. \*\* La plupart des assistants IA vous lient à un fournisseur ou à un service cloud spécifique. uag est différent.
 
 - **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
-- **195  outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **111 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
+- **203 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **111 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
 - **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
 
@@ -62,7 +62,6 @@ Lorsque le LLM demande plusieurs outils simultanément, uag les **parallèle aut
 
 Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de répertoires, traduction, requêtes de base de données, etc.) sont parallélisés de manière agressive.
 
-
 ### 🧩 Système de plugins (compatible Claude Code)
 
 uagent implémente un **système de plugins compatible Claude Code**. Les plugins regroupent les compétences, les agents, les serveurs MCP, les hooks et bien plus encore dans des répertoires autonomes avec le manifeste `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implémente un **système de plugins compatible Claude Code**. Les plugin
 **Composants pris en charge** : compétences, sous-agents, serveurs MCP, hooks (12 événements de cycle de vie), commandes Slash, styles de sortie, userConfig, dépendances, canaux, marchés
 
 **CLI commands**:
+
 ```
 :plugin list                         # Liste des plugins installés
 :plugin install <source> [--scope]
@@ -82,13 +82,14 @@ uagent implémente un **système de plugins compatible Claude Code**. Les plugin
 
 Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Continuité des sessions
 
 - **Changer de fournisseur en cours de session** : `UAGENT_PROVIDER` — l’historique des conversations est préservé.
 - **Recharger les sessions passées** : `:load <index>` — reprenez là où vous vous êtes arrêté.
 
-### 🛠 195  Outils
+### 🛠 203 Outils
+
+- **API cloud**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 
 | Catégorie | Outils |
 |---|---|
@@ -99,11 +100,11 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DE
 | **Prévision** | Prévision de séries temporelles avec 9 modèles (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), sélection automatique du modèle, génération de graphiques, i18n |
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — voir [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigateurs de code source (famille idx)** |
+| **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify ||
-| **Navigation source** | **26 outils idx** pour Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — obtenez un index de fonction/classe ou une définition spécifique sans lire l'intégralité du fichier |
+| **Navigation source** | **29 outils idx** pour Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obtenez un index de fonction/classe ou une définition spécifique sans lire l'intégralité du fichier |
 
 ### 🖥 4 interfaces + extension de code VS
 
@@ -118,8 +119,8 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DE
 Voir [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pour plus de détails sur l'extension VS Code — installation, commandes, raccourcis clavier et configuration.
 
 ### 🏠 Contrôle des appareils IoT
-Voir [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
+Voir [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 ### 🎯 Marché des compétences d'agent
 
@@ -153,8 +154,8 @@ Arrêtez la génération de réponse LLM à tout moment et réinjectez une comma
 | Interfaces | Comment interrompre |
 |---|---|
 | **CLI** | Appuyez sur la touche « c » pendant le streaming LLM — la réponse en cours s'arrête et « Stop » est envoyé sous forme de message utilisateur afin que le LLM réponde en conséquence |
-| **INTERFACE INTERIEUR WEB** | Cliquez sur le bouton rouge ** ■ Arrêter ** (apparaît automatiquement pendant le traitement LLM) |
-| **Interface graphique de bureau** | Cliquez sur le bouton rouge ****** (apparaît automatiquement pendant le traitement LLM) |
+| **INTERFACE INTERIEUR WEB** | Cliquez sur le bouton rouge \*\* ■ Arrêter \*\* (apparaît automatiquement pendant le traitement LLM) |
+| **Interface graphique de bureau** | Cliquez sur le bouton rouge \*\*\*\*\*\* (apparaît automatiquement pendant le traitement LLM) |
 
 L'interruption fonctionne comme une « injection rapide » : au lieu de simplement abandonner, elle renvoie « Stop » au LLM sous forme de message utilisateur, lui permettant de conclure ou d'accuser réception de l'interruption en douceur.
 
@@ -173,7 +174,6 @@ Deux outils complémentaires basés sur Playwright :
 Pas besoin de tout charger au démarrage : activez uniquement ce dont vous avez besoin, quand vous en avez besoin.
 
 ### 🦀 Rust Native Tools
-
 
 ### 🌐i18n/L10n
 
@@ -210,7 +210,6 @@ Une expérience d’agent IA gratuite, sans dépendance vis-à-vis d’un fourni
 
 ### ✨ Créez vos propres outils
 
-
 [fr.md](TOOL_CREATOR_GUIDE.fr.md)
 Consultez le guide étape par étape ici.
 
@@ -220,8 +219,6 @@ Les contributions sont les bienvenues ! Rapports de bogues, suggestions de fonct
 
 - **Issues**: Ouvrez un problème GitHub pour des bogues ou des demandes de fonctionnalités.
 - **Demandes d'extraction** : Forkez le dépôt, effectuez vos modifications et soumettez une PR. Consultez [DEVELOP.md](../src/uagent/docs/DEVELOP.md) pour la configuration du développement et les directives.
-
-
 
 Realtime Voix et AEC3
 

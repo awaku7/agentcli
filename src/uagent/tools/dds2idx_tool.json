@@ -1158,21 +1158,21 @@
   "fil": {
     "x_search_terms": [
       "basahin ang dds file",
-      "physical file dds",
-      "display file dspf",
-      "logical file lf",
-      "printer file prtf",
-      "DDS source",
-      "record format",
-      "DDS field",
-      "IBM i DDS",
+      "pisikal na file dds",
+      "ipakita ang file dspf",
+      "lohikal na file lf",
+      "file ng printer prtf",
+      "Pinagmulan ng DDS",
+      "format ng record",
+      "field ng DDS",
+      "IBM at DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "basahin ang dds file",
-      "physical file dds",
-      "display file dspf",
-      "logical file lf"
+      "pisikal na file dds",
+      "ipakita ang file dspf",
+      "lohikal na file lf"
     ],
     "param.path.description": "Path sa DDS (PF/LF/DSPF/PRTF) source file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
@@ -1199,7 +1199,7 @@
       "sumber DDS",
       "format rekod",
       "medan DDS",
-      "IBM i DDS",
+      "IBM dan DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -1226,15 +1226,15 @@
   "da": {
     "x_search_terms": [
       "læs dds file",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "fysisk fil dds",
+      "vise fil dspf",
+      "logisk fil lf",
+      "printer fil prtf",
+      "DDS-kilde",
+      "optageformat",
+      "DDS felt",
+      "IBM og DDS",
+      "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "læs dds-fil",
@@ -1260,15 +1260,15 @@
   "nn": {
     "x_search_terms": [
       "les dds file",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "fysisk fil-DD-er",
+      "visningsfil dspf",
+      "logisk fil lf",
+      "skriverfil prtf",
+      "DDS-kilde",
+      "postformat",
+      "DDS-felt",
+      "IBM i DDS",
+      "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "les dds-fil",

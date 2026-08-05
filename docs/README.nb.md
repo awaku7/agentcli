@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Hvorfor uag?
 
@@ -29,7 +29,7 @@
 
 - **Kjører lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API-anrop du foretar).
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
-- **195  verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **111 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
+- **203 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **111 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
 - **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Utvid uag uendelig.
 
@@ -62,7 +62,6 @@ Når LLM ber om flere verktøy samtidig, uag **paralliserer automatisk** dem.
 
 Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversettelse, DB-spørringer osv.) parallelliseres aggressivt.
 
-
 ### 🧩 Plugin-system (Claude Code-kompatibelt)
 
 uagent implementerer et **Claude Code-kompatibelt programtilleggssystem**. Programtillegg samler ferdigheter, agenter, MCP-servere, kroker og mer i selvstendige kataloger med manifestet `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementerer et **Claude Code-kompatibelt programtilleggssystem**. Progr
 **Støttede komponenter**: ferdigheter, underagenter, MCP-servere, kroker (12 livssyklushendelser), skråstrekkommandoer, utdatastiler, userConfig, avhengigheter, kanaler, markedsplasser
 
 **CLI commands**:
+
 ```
 :plugin list                         # List installerte programtillegg
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementerer et **Claude Code-kompatibelt programtilleggssystem**. Progr
 
 Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Øktkontinuitet
 
 - **Bytte leverandør midt i økten**: `UAGENT_PROVIDER` — samtalehistorikken bevares.
 - **Laste inn tidligere økter på nytt**: `:load <index>` — fortsett der du slapp.
 
-### 🛠 195  verktøy
+### 🛠 203 verktøy
 
 | Kategori | Verktøy |
 |---|---|
@@ -99,11 +98,12 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELO
 | **Prognose** | Tidsserieprognose med 9 modeller (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatisk modellvalg, plotgenerering, i18n |
 | **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **26 kildekodenavigatorer (idx-familie)** |
+| **Sky-API-er** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
 | **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify ||
-| **Kildenav** | **26 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — få en funksjon/klasseindeks eller spesifikk definisjon uten å lese hele filen |
+| **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
 ### 🖥 4 grensesnitt + VS-kodeutvidelse
 
@@ -118,10 +118,10 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELO
 Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) for detaljer om VS Code-utvidelsen – installasjon, kommandoer, tastebindinger og konfigurasjon.
 
 ### 🏠 IoT-enhetskontroll
+
 - **Materie**: Skrivebeskyttet inspeksjon av kontroller/bro/enhetstopologi
 
 Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Agent Skills Marketplace
 
@@ -174,9 +174,7 @@ To komplementære dramatikerbaserte verktøy:
 `tool_catalog` og `tool_load` lar deg oppdage og aktivere verktøy under kjøring.
 Du trenger ikke å laste alt ved oppstart - aktiver bare det du trenger, når du trenger det.
 
-
 ### 🦀 Rust Native Tools
-
 
 ### 🌐 i18n / L10n
 
@@ -213,7 +211,6 @@ En gratis AI-agentopplevelse, fri fra leverandørlåsing.
 
 ### ✨ Lag dine egne verktøy
 
-
 [nb.md](TOOL_CREATOR_GUIDE.nb.md)
 Se den trinnvise veiledningen her.
 
@@ -223,8 +220,6 @@ Bidrag er velkomne! Feilrapporter, funksjonsforslag, dokumentasjonsforbedringer,
 
 - **Issues**: Åpne et GitHub-problem for feil eller funksjonsforespørsler.
 - **Pull-forespørsler**: Lag en fork av repositoriet, gjør endringene dine og send inn en PR. Se [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for utviklingsoppsett og retningslinjer.
-
-
 
 Realtime Stemme og AEC3
 

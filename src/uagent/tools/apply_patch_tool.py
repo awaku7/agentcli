@@ -329,7 +329,7 @@ def _find_hunk_position(
     if not before_text or not text_block:
         return None
 
-    # 位置の許容オフセット: start_line から max_offset 以上離れた位置は棄却
+    # Allowed position offset: reject positions more than max_offset from start_line
     max_offset = max(10, len(before_lines) * 2)
 
     threshold = _compute_fuzzy_threshold(before_lines)
@@ -340,7 +340,7 @@ def _find_hunk_position(
         if m.size > best_size and m.size >= threshold:
             line_pos = text_block[: m.b].count("\n")
             if 0 <= line_pos <= n_text - n_before:
-                # 位置が start_line から離れすぎていないか確認
+                # Confirm that the position is not too far from start_line
                 if abs(line_pos - start_line) <= max_offset:
                     best_pos = line_pos
                     best_size = m.size
@@ -365,7 +365,7 @@ def _apply_hunk_to_text(
         target_nl = _detect_newline(text)
         after = _convert_newlines(after, target_nl)
 
-    # old_start がファイル行数より大きい場合はマッチさせない（空ファイル追加は除く）
+    # Do not match when old_start exceeds the file line count (except adding an empty file)
     if hunk.old_start > len(text_lines) and hunk.old_start > 0:
         return text, False, ""
 
@@ -375,7 +375,7 @@ def _apply_hunk_to_text(
     if pos is None:
         return text, False, ""
 
-    # before と after が同一なら実質変更なし（呼び出し元で diff 空を検出）
+    # If before and after are identical, there is effectively no change (the caller detects an empty diff)
     if before == after:
         return text, True, ""
 
@@ -499,7 +499,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
                 if applied:
                     current = new_text
-                    # diff_preview が空の場合は実質変更なし (before==after)
+                    # An empty diff_preview means there is effectively no change (before == after)
                     if diff:
                         applied_hunks += 1
                         total_applied += 1

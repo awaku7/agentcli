@@ -1192,15 +1192,15 @@
   "fil": {
     "x_search_terms": [
       "audio transcribe",
-      "speech to text",
+      "pananalita sa text",
       "stt",
       "transcription",
-      "audio to text",
+      "audio sa text",
       "transcribe",
-      "speech recognition",
-      "voice to text",
-      "audio recognition",
-      "speech transcription"
+      "pagkilala sa pagsasalita",
+      "boses sa text",
+      "pagkilala sa audio",
+      "transkripsyon ng pananalita"
     ],
     "param.path.description": "Path sa input audio file. Kinakailangan maliban kung nakatakda ang url (Grok/xAI).",
     "param.prompt.description": "Opsyonal na prompt ng konteksto upang mapabuti ang kalidad ng transkripsyon. Binalewala ng Grok/xAI batch STT.",

@@ -586,7 +586,7 @@
     "tool.description": "Ilista ang Matter bridge-managed device at magbalik ng JSON o buod ng text.",
     "x_search_terms": [
       "bagay na listahan ng tulay",
-      "matter_bridge_list",
+      "bagay_bridge_list",
       "matter",
       "MATTER",
       "bridge-managed",
@@ -608,7 +608,7 @@
       "PERKARA",
       "peranti diurus jambatan",
       "pemulangan",
-      ""
+      "kembali"
     ]
   },
   "da": {
@@ -619,7 +619,7 @@
     "param.bridge.description": "Bridge ID (udelad for alle).",
     "tool.description": "Angiv Matter-broadministrerede enheder, og returner en JSON eller tekstoversigt.",
     "x_search_terms": [
-      "matter bridge list",
+      "sagsbroliste",
       "matter_bridge_list",
       "matter",
       "MATTER",
@@ -636,7 +636,7 @@
     "param.bridge.description": "Bridge ID (utelat for alle).",
     "tool.description": "Vis Matter-broadministrerte enheter og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [
-      "matter bridge list",
+      "materiebro-liste",
       "matter_bridge_list",
       "matter",
       "MATTER",

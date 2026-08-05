@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Perché uag?
 
@@ -29,7 +29,7 @@
 
 - **Funziona localmente** sul tuo computer. I tuoi dati rimangono con te (ad eccezione delle chiamate API che effettui).
 - **Libertà dei provider**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 provider, tutti accessibili da un'unica interfaccia. Passa dall'uno all'altro riconfigurando le variabili di ambiente: nessuna reinstallazione, nessuna migrazione.
-- **195 strumenti**: I/O file, ricerca Web, generazione di immagini, Gmail, scansione dispositivi BLE, integrazione server MCP — **111 sono sicuri in parallelo** (fino a 8 eseguiti contemporaneamente tramite pool di thread, configurabile tramite `UAGENT_PARALLEL_WORKERS`). Quando LLM attiva più chiamate di strumenti contemporaneamente, uag le parallelizza automaticamente.
+- **203 strumenti**: I/O file, ricerca Web, generazione di immagini, Gmail, scansione dispositivi BLE, integrazione server MCP — **111 sono sicuri in parallelo** (fino a 8 eseguiti contemporaneamente tramite pool di thread, configurabile tramite `UAGENT_PARALLEL_WORKERS`). Quando LLM attiva più chiamate di strumenti contemporaneamente, uag le parallelizza automaticamente.
 - **3 UI + A2A**: CLI, GUI, Web e protocollo da agente ad agente. Stesso motore, qualsiasi interfaccia.
 - **Competenze agente**: installa competenze sviluppate dalla comunità dal mercato. Estendi uag all'infinito.
 
@@ -62,7 +62,6 @@ Quando LLM richiede più strumenti contemporaneamente, uag li **parallelizza aut
 
 Gli strumenti di sola lettura (ricerca di file, calcolo hash, elenco di directory, traduzione, query DB, ecc.) sono fortemente parallelizzati.
 
-
 ### 🧩 Sistema di plug-in (compatibile con Claude Code)
 
 uagent implementa un **sistema di plug-in compatibile con Claude Code**. I plugin raggruppano competenze, agenti, server MCP, hook e altro in directory autonome con il manifest `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementa un **sistema di plug-in compatibile con Claude Code**. I plugi
 **Componenti supportati**: competenze, agenti secondari, server MCP, hook (12 eventi del ciclo di vita), comandi slash, stili di output, userConfig, dipendenze, canali, marketplace
 
 **CLI commands**:
+
 ```
 :plugin list                         # Elenca i plugin installati
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementa un **sistema di plug-in compatibile con Claude Code**. I plugi
 
 Consulta la documentazione completa in [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Continuità delle sessioni
 
 - **Cambiare provider durante la sessione**: `UAGENT_PROVIDER` — la cronologia delle conversazioni viene conservata.
 - **Ricaricare le sessioni precedenti**: `:load <index>` — riprendi da dove avevi interrotto.
 
-### 🛠 195 Strumenti
+### 🛠 203 Strumenti
 
 | Categoria | Strumenti |
 |---|---|
@@ -99,11 +98,12 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 | **Previsione** | Previsione di serie temporali con 9 modelli (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, ecc.), selezione automatica del modello, generazione di grafici, i18n |
 | **Comunicazione** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — vedi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Strumenti di sviluppo** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigatori del codice sorgente (famiglia idx)** |
+| **API cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Strumenti di sviluppo** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatori del codice sorgente (famiglia idx)** |
 | **MCP** | Connettersi a server MCP esterni, elencare gli strumenti, eseguire |
 | **A2A** | Comunicazione da agente ad agente (con altre istanze uag o server compatibili con A2A) |
 | **Sistema** | variabili di ambiente, specifiche di sistema, ora, calcolo della data, uuid_gen, slugify ||
-| **Nav sorgente** | **26 strumenti idx** per Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — ottieni un indice di funzione/classe o una definizione specifica senza leggere l'intero file |
+| **Nav sorgente** | **29 strumenti idx** per Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — ottieni un indice di funzione/classe o una definizione specifica senza leggere l'intero file |
 
 ### 🖥 4 interfacce + estensione VS Code
 
@@ -118,10 +118,10 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 Vedi [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) per i dettagli sull'estensione VS Code: installazione, comandi, combinazioni di tasti e configurazione.
 
 ### 🏠 Controllo dei dispositivi IoT
+
 - **Importanza**: ispezione in sola lettura della topologia controller/bridge/dispositivo
 
 Vedere [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🏠 Controllo dispositivi IoT
 
@@ -167,10 +167,10 @@ Interrompi la generazione della risposta LLM in qualsiasi momento e inserisci un
 | Interfaccia | Come interrompere |
 |---|---|
 | **CLI** | Premi il tasto "c" durante lo streaming LLM: la risposta corrente si interrompe e "Stop" viene inviato come messaggio utente in modo che LLM risponda di conseguenza |
-| **UI WEB** | Fare clic sul pulsante rosso ***** Interrompi** (appare automaticamente durante l'elaborazione LLM) |
-| **GUI del desktop** | Fare clic sul pulsante rosso ******* (appare automaticamente durante l'elaborazione LLM) |
+| **UI WEB** | Fare clic sul pulsante rosso \*\*\*\*\* Interrompi\*\* (appare automaticamente durante l'elaborazione LLM) |
+| **GUI del desktop** | Fare clic sul pulsante rosso \*\*\*\*\*\*\* (appare automaticamente durante l'elaborazione LLM) |
 
-L'interruzione funziona come "prompt injection": invece di limitarsi ad abortire, restituisce "Stop"` all'LLM come messaggio utente, consentendogli di concludere o riconoscere con garbo l'interruzione.
+L'interruzione funziona come "prompt injection": invece di limitarsi ad abortire, restituisce "Stop"\` all'LLM come messaggio utente, consentendogli di concludere o riconoscere con garbo l'interruzione.
 
 Premere il tasto "x" per uscire dalla modalità pilota automatico (vedere [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
@@ -225,7 +225,6 @@ Un'esperienza di agente AI gratuita, libera dai vincoli del fornitore.
 
 ### ✨ Crea i tuoi strumenti
 
-
 [it.md](TOOL_CREATOR_GUIDE.it.md)
 Consulta qui la guida dettagliata.
 
@@ -235,8 +234,6 @@ I contributi sono benvenuti! Segnalazioni di bug, suggerimenti di funzionalità,
 
 - **Issues**: Apri un problema GitHub per bug o richieste di funzionalità.
 - **Pull request**: Crea un fork del repository, apporta le modifiche e invia una PR. Consulta [DEVELOP.md](../src/uagent/docs/DEVELOP.md) per la configurazione dello sviluppo e le linee guida.
-
-
 
 Realtime Voce e AEC3
 

@@ -795,7 +795,7 @@
     "err.values_required": "kailangan ang mga halaga.",
     "err.invalid_type": "Di-wastong uri. Wasto: {types}.",
     "x_search_terms": [
-      "modbus write",
+      "sumulat ng modbus",
       "modbus_write",
       "modbus",
       "MODBUS",
@@ -818,7 +818,7 @@
     "err.values_required": "nilai diperlukan.",
     "err.invalid_type": "Jenis tidak sah. Sah: {types}.",
     "x_search_terms": [
-      "modbus write",
+      "tulis modbus",
       "modbus_write",
       "modbus",
       "MODBUS",

@@ -657,10 +657,10 @@
       "checksum",
       "md5",
       "sha",
-      "file checksum",
+      "checksum ng file",
       "hash file",
       "file integridad",
-      "hash value",
+      "halaga ng hash",
       "file digest"
     ]
   },
@@ -695,7 +695,7 @@
       "checksum",
       "md5",
       "sha",
-      "file checksum",
+      "fil kontrolsum",
       "hash fil",
       "filintegritet",
       "hashværdi",

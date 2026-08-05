@@ -102,11 +102,11 @@
   "fil": {
     "tool.description": "Suriin ang mga dependency ng tool sa network, mga panlabas na utos, at estado ng pribilehiyo.",
     "x_search_terms": [
-      "network capabilities",
+      "mga kakayahan sa network",
       "preflight",
       "nmap install",
       "tshark install",
-      "privilege check"
+      "tseke ng pribilehiyo"
     ]
   },
   "fr": {
@@ -243,10 +243,10 @@
     "tool.description": "Kontroller nettverksverktøyavhengigheter, eksterne kommandoer og privilegietilstand.",
     "x_search_terms": [
       "nettverksfunksjoner ‎ preflight ‎ nmap installert‎tshark installert‎privilegium sjekk",
-      "",
-      "",
-      "",
-      ""
+      "preflight",
+      "nmap installert",
+      "tshark installert",
+      "privilegiesjekk"
     ]
   },
   "pl": {

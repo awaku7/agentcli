@@ -295,11 +295,11 @@
     "param.port.description": "Opsyonal na lokal o malayuang port na filter.",
     "param.include_process.description": "Isama ang PID at pangalan ng proseso kapag pinahihintulutan.",
     "x_search_terms": [
-      "capture analysis",
-      "offline pcap analysis",
-      "pcap correlation",
-      "traffic classification",
-      "local connection correlation"
+      "pagsusuri sa pagkuha",
+      "offline na pagsusuri ng pcap",
+      "ugnayan ng pcap",
+      "klasipikasyon ng trapiko",
+      "ugnayan ng lokal na koneksyon"
     ],
     "param.live_capture.description": "Kunin lamang sa isang loopback interface bago pag-aralan.",
     "param.interface.description": "Loopback interface alias o pangalan; ang mga non-loopback na interface ay tinanggihan.",
@@ -672,32 +672,32 @@
     "param.bpf_filter.description": "Optioneel BPF-vangfilter."
   },
   "nn": {
-    "tool.description": "Run offline pcap analysis and correlate flows with local connections.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.operations.description": "Analysis operations: summary, statistics, flows, detect, or impact.",
-    "param.correlate.description": "Correlate flow endpoints with current local connections.",
-    "param.detail_level.description": "Packet detail level from 0 to 2; payload is never returned.",
-    "param.rules.description": "Detection rules passed to pcap_analyze.",
-    "param.thresholds.description": "Detection thresholds passed to pcap_analyze.",
-    "param.filter.description": "Packet filter fields passed to pcap_analyze.",
-    "param.limit.description": "Maximum number of returned items.",
-    "param.status.description": "Optional local connection status filter.",
-    "param.local_ip.description": "Optional local IP filter.",
-    "param.remote_ip.description": "Optional remote IP filter.",
-    "param.port.description": "Optional local or remote port filter.",
-    "param.include_process.description": "Include PID and process name when permitted.",
+    "tool.description": "Kjør offline pcap analyse og korrelere flyter med lokale tilkoblinger.",
+    "param.pcap_path.description": "Skriv inn pcap-filbane.",
+    "param.operations.description": "Analyseoperasjoner: oppsummering, statistikk, flyt, detektering eller innvirkning.",
+    "param.correlate.description": "Korrelere flytendepunkter med aktuelle lokale tilkoblinger.",
+    "param.detail_level.description": "Pakke detaljnivå fra 0 til 2; nyttelast blir aldri returnert.",
+    "param.rules.description": "Deteksjonsregler sendt til pcap_analyze.",
+    "param.thresholds.description": "Deteksjonsterskler sendt til pcap_analyze.",
+    "param.filter.description": "Pakkefilterfelt sendt til pcap_analyze.",
+    "param.limit.description": "Maksimalt antall returnerte varer.",
+    "param.status.description": "Valgfritt lokalt tilkoblingsstatusfilter.",
+    "param.local_ip.description": "Valgfritt lokalt IP-filter.",
+    "param.remote_ip.description": "Eksternt IP-filter (tilleggsutstyr).",
+    "param.port.description": "Valgfritt lokalt eller eksternt portfilter.",
+    "param.include_process.description": "Inkluder PID og prosessnavn når det er tillatt.",
     "x_search_terms": [
-      "capture analysis",
-      "offline pcap analysis",
-      "pcap correlation",
-      "traffic classification",
-      "local connection correlation"
+      "fangstanalyse",
+      "offline pcap-analyse",
+      "pCAP-korrelasjon",
+      "trafikk-klassifisering",
+      "lokal sambandskorrelasjon"
     ],
-    "param.live_capture.description": "Capture only on a loopback interface before analyzing.",
-    "param.interface.description": "Loopback interface alias or name; non-loopback interfaces are rejected.",
-    "param.duration.description": "Live capture duration in seconds.",
-    "param.max_packets.description": "Maximum packets captured.",
-    "param.bpf_filter.description": "Optional BPF capture filter."
+    "param.live_capture.description": "Fang bare på et loopback-grensesnitt før du analyserer.",
+    "param.interface.description": "Loopback-grensesnitt alias eller navn; ikke-loopback-grensesnitt blir avvist.",
+    "param.duration.description": "Live-opptakstid i sekunder.",
+    "param.max_packets.description": "Maksimum pakker fanget.",
+    "param.bpf_filter.description": "Valgfritt BPF-fangstfilter."
   },
   "pl": {
     "tool.description": "Przeprowadzaj analizę pcap w trybie offline i koreluj przepływy z połączeniami lokalnymi.",
@@ -884,10 +884,10 @@
     "param.include_process.description": "Jumuisha PID na jina la mchakato inaporuhusiwa.",
     "x_search_terms": [
       "uchanganuzi wa kukamata",
-      "",
-      "",
-      "",
-      ""
+      "uchambuzi wa pcap nje ya mtandao",
+      "uwiano wa pcap",
+      "uainishaji wa trafiki",
+      "uunganisho wa uhusiano wa ndani"
     ],
     "param.live_capture.description": "Piga picha kwenye kiolesura cha nyuma kabla ya kuchanganua.",
     "param.interface.description": "Lakabu la kiolesura cha loopback au jina; violesura visivyo na kitanzi vimekataliwa.",

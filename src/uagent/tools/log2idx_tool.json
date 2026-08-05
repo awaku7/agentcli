@@ -785,9 +785,9 @@
     "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may numerong index o partikular na seksyon para sa log2idx.",
     "x_search_terms": [
       "basahin ang log file",
-      "log index",
+      "index ng log",
       "log parser",
-      "section splitter"
+      "splitter ng seksyon"
     ],
     "param.path.description": "Path sa file.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang partikular na seksyon.",

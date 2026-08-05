@@ -787,7 +787,7 @@
       "basahin ang jso file",
       "jso index",
       "jso parser",
-      "section splitter"
+      "splitter ng seksyon"
     ],
     "param.path.description": "Path sa file.",
     "param.mode.description": "Ang \"index\" ay nagbabalik ng may bilang na talaan ng mga nilalaman. Ang \"seksyon\" ay nagbabalik ng isang partikular na seksyon.",
@@ -808,7 +808,7 @@
     "tool.description": "Parsing fail ke dalam bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk json2idx.",
     "x_search_terms": [
       "baca jso file",
-      "jso index",
+      "indeks jso",
       "jso parser",
       "pemecah bahagian"
     ],
@@ -831,9 +831,9 @@
     "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for json2idx.",
     "x_search_terms": [
       "læs jso file",
-      "jso index",
-      "jso parser",
-      "section splitter"
+      "jso indeks",
+      "jso-parser",
+      "sektionsopdeler"
     ],
     "param.path.description": "Sti til filen.",
     "param.mode.description": "\"indeks\" returnerer en nummereret indholdsfortegnelse. \"sektion\" returnerer en bestemt sektion.",
@@ -854,8 +854,8 @@
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for json2idx.",
     "x_search_terms": [
       "les jso file",
-      "jso index",
-      "jso parser",
+      "jso-indeks",
+      "jso-parser",
       "seksjonsdeler"
     ],
     "param.path.description": "Banen til filen.",

@@ -655,7 +655,7 @@
     "msg.device_info": "Impormasyon ng device para sa {location}",
     "tool.description": "Kumuha ng detalyadong impormasyon tungkol sa isang partikular na UPnP device sa pamamagitan ng paglalarawan ng URL (lokasyon) o IP address nito. Ibinabalik ang metadata ng device, listahan ng serbisyo, at device tree (mga sub-device).",
     "x_search_terms": [
-      "upnp device info",
+      "impormasyon ng device sa upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",

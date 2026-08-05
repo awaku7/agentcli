@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Warum uag?
 
@@ -29,7 +29,7 @@
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **195 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **111 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
+- **203 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **111 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 
@@ -62,7 +62,6 @@ Wenn das LLM mehrere Tools gleichzeitig anfordert, werden diese von uag automati
 
 Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Übersetzung, DB-Abfragen usw.) werden aggressiv parallelisiert.
 
-
 ### 🧩 Plugin-System (Claude Code-kompatibel)
 
 uagent implementiert ein **Claude Code-kompatibles Plugin-System**. Plugins bündeln Fähigkeiten, Agenten, MCP-Server, Hooks und mehr in eigenständigen Verzeichnissen mit dem Manifest `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementiert ein **Claude Code-kompatibles Plugin-System**. Plugins bün
 **Unterstützte Komponenten**: Skills, Subagenten, MCP-Server, Hooks (12 Lebenszyklusereignisse), Slash-Befehle, Ausgabestile, userConfig, Abhängigkeiten, Kanäle, Marktplätze
 
 **CLI commands**:
+
 ```
 :plugin list                         # Installierte Plugins auflisten
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementiert ein **Claude Code-kompatibles Plugin-System**. Plugins bün
 
 Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Sitzungskontinuität
 
 - **Anbieter während der Sitzung wechseln**: `UAGENT_PROVIDER` — der Gesprächsverlauf bleibt erhalten.
 - **Vergangene Sitzungen erneut laden**: `:load <index>` — dort weitermachen, wo Sie aufgehört haben.
 
-### 🛠 195 Werkzeuge
+### 🛠 203 Werkzeuge
 
 | Kategorie | Werkzeuge |
 |---|---|
@@ -99,11 +98,12 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 | **Prognose** | Zeitreihenprognose mit 9 Modellen (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM usw.), automatische Modellauswahl, Diagrammerstellung, i18n |
 | **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – siehe [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) und [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **26 Quellcode-Navigatoren (IDX-Familie)** |
+| **Cloud-APIs** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 Quellcode-Navigatoren (IDX-Familie)** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify ||
-| **Quellennavigation** | **26 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
+| **Quellennavigation** | **29 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
 
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung
 
@@ -118,8 +118,8 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 Weitere Informationen zur VS Code-Erweiterung – Installation, Befehle, Tastenkombinationen und Konfiguration – finden Sie unter [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md).
 
 ### 🏠 IoT-Gerätesteuerung
-Siehe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
+Siehe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 ### 🎯 Marktplatz für Agentenkompetenzen
 
@@ -172,7 +172,6 @@ Zwei komplementäre Playwright-basierte Tools:
 Mit „tool_catalog“ und „tool_load“ können Sie Tools zur Laufzeit erkennen und aktivieren.
 Sie müssen beim Start nicht alles laden – aktivieren Sie nur das, was Sie brauchen, und zwar dann, wenn Sie es brauchen.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` und `slugify` sind für bessere Leistung in Rust (über PyO3) implementiert.
@@ -212,7 +211,6 @@ Ein kostenloses KI-Agenten-Erlebnis, frei von Anbieterbindung.
 
 ### ✨ Erstellen Sie Ihre eigenen Werkzeuge
 
-
 [de.md](TOOL_CREATOR_GUIDE.de.md)
 Eine Schritt-für-Schritt-Anleitung finden Sie hier.
 
@@ -222,8 +220,6 @@ Beiträge sind willkommen! Fehlerberichte, Funktionsvorschläge, Dokumentationsv
 
 - **Issues**: Öffnen Sie ein GitHub-Problem für Fehler oder Funktionsanfragen.
 - **Pull Requests**: Forken Sie das Repository, nehmen Sie Ihre Änderungen vor und senden Sie einen PR. Hinweise zur Entwicklungsumgebung und Richtlinien finden Sie unter [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime Stimme und AEC3
 

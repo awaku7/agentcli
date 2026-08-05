@@ -512,16 +512,16 @@
   "fil": {
     "tool.description": "I-reload ang system at i-load ang pinakabagong code para sa lahat ng tool sa ilalim ng mga tool/ (Python .py file) sa memorya. Patakbuhin ito pagkatapos baguhin ang code.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
+      "pag-reload ng system",
+      "i-reload ang mga tool",
+      "i-reload ang config",
+      "mga tool sa pag-refresh",
+      "i-restart ang mga tool",
       "reload system",
-      "tool reload",
+      "pag-reload ng tool",
       "reload agent",
-      "system refresh",
-      "hot reload"
+      "pag-refresh ng system",
+      "mainit na reload"
     ]
   },
   "ms": {
@@ -558,15 +558,15 @@
     "tool.description": "Last inn systemet på nytt og last inn den nyeste koden for alle verktøy under verktøy/ (Python .py-filer) til minnet. Kjør dette etter å ha endret koden.",
     "x_search_terms": [
       "systemreload",
-      "reload tools",
+      "last inn verktøy på nytt",
       "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "oppdatere verktøy",
+      "restart-verktøy",
+      "lastesystem på nytt",
+      "verktøyet lastes inn på nytt",
+      "last inn agent på nytt",
+      "systemoppdatering",
+      "varm omlasting"
     ]
   }
 }

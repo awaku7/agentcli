@@ -614,16 +614,16 @@
   "fil": {
     "tool.description": "Kumuha ng mga specs ng system (CPU/RAM/disks/volume) sa isang pinakamahusay na pagsisikap na cross-platform na paraan.",
     "x_search_terms": [
-      "system specs",
-      "system info",
+      "mga detalye ng system",
+      "impormasyon ng system",
       "hardware",
       "cpu",
       "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "impormasyon sa computer",
+      "impormasyon ng system",
+      "specs ng pc",
+      "impormasyon ng device",
+      "os impormasyon"
     ],
     "param.include_volumes.description": "Isama ang naka-mount na impormasyon sa paggamit ng volume.",
     "param.include_disks.description": "Isama ang pisikal na impormasyon sa disk kapag magagamit (pinakamahusay na pagsisikap).",

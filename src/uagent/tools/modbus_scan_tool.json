@@ -794,7 +794,7 @@
     "err.invalid_ip_range": "Hindi ma-parse ang ip_range: {text}",
     "err.too_many_ips": "Masyadong maraming IP ({count}). Limitahan sa 255.",
     "x_search_terms": [
-      "modbus scan",
+      "pag-scan ng modbus",
       "modbus_scan",
       "modbus",
       "MODBUS",
@@ -840,7 +840,7 @@
     "err.invalid_ip_range": "Kunne ikke parse ip_range: {text}",
     "err.too_many_ips": "For mange IP'er ({count}). Grænse til 255.",
     "x_search_terms": [
-      "modbus scan",
+      "modbus scanning",
       "modbus_scan",
       "modbus",
       "MODBUS",
@@ -863,7 +863,7 @@
     "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
     "err.too_many_ips": "For mange IP-er ({count}). Begrens til 255.",
     "x_search_terms": [
-      "modbus scan",
+      "modbus-skanning",
       "modbus_scan",
       "modbus",
       "MODBUS",

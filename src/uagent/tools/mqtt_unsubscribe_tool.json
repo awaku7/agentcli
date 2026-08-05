@@ -674,7 +674,7 @@
     "msg.unsubscribed": "Langganan MQTT {id} dibatalkan.",
     "err.id_required": "subscription_id diperlukan.",
     "x_search_terms": [
-      "mqtt unsubscribe",
+      "mqtt berhenti melanggan",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
@@ -693,7 +693,7 @@
     "msg.unsubscribed": "MQTT-abonnement {id} annulleret.",
     "err.id_required": "subscription_id er påkrævet.",
     "x_search_terms": [
-      "mqtt unsubscribe",
+      "mqtt afmeld",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
@@ -712,7 +712,7 @@
     "msg.unsubscribed": "MQTT-abonnement {id} kansellert.",
     "err.id_required": "subscription_id kreves.",
     "x_search_terms": [
-      "mqtt unsubscribe",
+      "mqtt si opp abonnementet",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",

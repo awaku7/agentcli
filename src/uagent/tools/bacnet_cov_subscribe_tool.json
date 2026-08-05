@@ -853,7 +853,7 @@
     "err.ip_required": "ip diperlukan.",
     "err.object_type_required": "object_type diperlukan.",
     "x_search_terms": [
-      "bacnet cov subscribe",
+      "bacnet cov melanggan",
       "bacnet_cov_subscribe",
       "bacnet",
       "BACNET",
@@ -877,7 +877,7 @@
     "err.ip_required": "ip er påkrævet.",
     "err.object_type_required": "objekttype er påkrævet.",
     "x_search_terms": [
-      "bacnet cov subscribe",
+      "bacnet cov abonnere",
       "bacnet_cov_subscribe",
       "bacnet",
       "BACNET",
@@ -901,7 +901,7 @@
     "err.ip_required": "ip kreves.",
     "err.object_type_required": "objekttype kreves.",
     "x_search_terms": [
-      "bacnet cov subscribe",
+      "bacnet cov Abonner",
       "bacnet_cov_subscribe",
       "bacnet",
       "BACNET",

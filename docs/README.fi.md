@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Miksi uag?
 
@@ -29,7 +29,7 @@
 
 - **Toimii paikallisesti** tietokoneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **195 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
+- **203 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa \`UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
@@ -62,7 +62,6 @@ Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne auto
 
 Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös, tietokantakyselyt jne.) rinnastetaan aggressiivisesti.
 
-
 ### 🧩 Plugin-järjestelmä (Claude Code -yhteensopiva)
 
 uagent toteuttaa Claude Code -yhteensopivan plugin-järjestelmän. Plugin-laajennukset kokoavat taidot, agentit, MCP-palvelimet, koukut ja paljon muuta itsenäisiin hakemistoihin, joissa on `.claude-plugin/plugin.json`-manifesti.
@@ -70,6 +69,7 @@ uagent toteuttaa Claude Code -yhteensopivan plugin-järjestelmän. Plugin-laajen
 **Tuetut komponentit**: taidot, aliagentit, MCP-palvelimet, koukut (12 elinkaaritapahtumaa), vinoviivakomennot, tulostustyylit, userConfig, riippuvuudet, kanavat, markkinapaikat
 
 **CLI commands**:
+
 ```
 :plugin list                         # Listaa asennetut plugin-laajennukset
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent toteuttaa Claude Code -yhteensopivan plugin-järjestelmän. Plugin-laajen
 
 Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Istunnon jatkuvuus
 
 - **Vaihda palveluntarjoajaa istunnon aikana** käyttämällä muuttujaa `UAGENT_PROVIDER` — keskusteluhistoria säilyy.
 - **Lataa aiemmat istunnot uudelleen** komennolla `:load <index>` — jatka siitä, mihin jäit.
 
-### 🛠 195 Työkalut
+### 🛠 203 Työkalut
 
 | Luokka | Työkalut |
 |---|---|
@@ -99,11 +98,12 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uag
 | **Ennuste** | Aikasarjaennuste 9 mallilla (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM jne.), automaattinen mallin valinta, kuvaajan luonti, i18n |
 | **Viestintä** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – katso [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ja [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **26 lähdekoodinavigaattoria (idx-perhe)** |
+| **Pilvi-API:t** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **29 lähdekoodinavigaattoria (idx-perhe)** |
 | **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita |
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta, uuid_gen, slugify ||
-| **Lähde Nav** | **26 idx-työkalua** Pythonille, PHP:lle, TypeScriptille, Javalle, C#:lle, Dartille, C/C++:lle, Rustille, Golle, Swiftille, Kotlinille, COBOLille – hanki funktio/luokkaindeksi tai tietty määritelmä lukematta koko tiedostoa |
+| **Lähde Nav** | **29 idx-työkalua** Pythonille, PHP:lle, TypeScriptille, Javalle, C#:lle, Dartille, C/C++:lle, Rustille, Golle, Swiftille, Kotlinille, COBOL, VBA, LotusScript, Makefileille – hanki funktio/luokkaindeksi tai tietty määritelmä lukematta koko tiedostoa |
 
 ### 🖥 4 käyttöliittymää + VS-koodilaajennus
 
@@ -118,8 +118,8 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uag
 Katso [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) saadaksesi lisätietoja VS-koodilaajennuksesta – asennuksesta, komennoista, näppäimistä ja määrityksistä.
 
 ### 🏠 IoT-laitteiden ohjaus
-Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
+Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -134,7 +134,7 @@ uag voi **pyrkiä itsenäisesti tavoitteeseen useilla LLM-kierroksilla**. Täyde
 - **Sama toimittaja, sama API**: Arvioijan arvio käyttää identtistä koodipolkua pääkyselynä – mukaan lukien Responses API -tuki.
 - **Erillinen tuomari LLM** (valinnainen): Aseta UAGENT_AP_PROVIDER käyttämään eri palveluntarjoajaa/mallia arvioijalle (käytä esimerkiksi halvempaa mallia arvioinnissa).
 - **Poistu milloin tahansa**: Paina `x`-näppäintä lopettaaksesi välittömästi, jopa kesken vastauksen. Tai anna arvioijan päättää, milloin tavoite saavutetaan.
-- **Määritettävä**: `--max-kierrokset N' budjetin hallitsemiseksi.
+- **Määritettävä**: \`--max-kierrokset N' budjetin hallitsemiseksi.
 
 Katso täydelliset asiakirjat kohdasta [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
@@ -171,7 +171,6 @@ Kaksi toisiaan täydentävää näytelmäkirjailijapohjaista työkalua:
 
 "tool_catalog" ja "tool_load" antavat sinun löytää ja ottaa työkalut käyttöön suorituksen aikana.
 Kaikkea ei tarvitse ladata käynnistyksen yhteydessä – aktivoi vain tarvitsemasi, kun tarvitset sitä.
-
 
 ### 🦀 Rust Native Tools
 
@@ -212,7 +211,6 @@ Ilmainen tekoälyagenttikokemus ilman toimittajan lukitusta.
 
 ### ✨ Luo omat työkalusi
 
-
 [fi.md](TOOL_CREATOR_GUIDE.fi.md)
 Katso vaiheittainen opas tästä.
 
@@ -222,8 +220,6 @@ Lahjoitukset ovat tervetulleita! Virheraportit, ominaisuusehdotukset, dokumentaa
 
 - **Issues**: Avaa GitHub-ongelma virheiden tai ominaisuuspyyntöjen vuoksi.
 - **Vetopyynnöt**: Tee reposta fork, tee muutokset ja lähetä PR. Kehitysympäristön asetukset ja ohjeet löytyvät tiedostosta [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime Ääni ja AEC3
 

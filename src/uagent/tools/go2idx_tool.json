@@ -954,15 +954,15 @@
   "fil": {
     "x_search_terms": [
       "golang",
-      "go code",
-      "go analysis",
-      "code index",
-      "go source",
-      "go parser",
-      "go function",
-      "go struct",
-      "go file",
-      "go module"
+      "pumunta code",
+      "pumunta sa pagsusuri",
+      "index ng code",
+      "pumunta sa pinagmulan",
+      "pumunta sa parser",
+      "pumunta function",
+      "pumunta sa struct",
+      "mag file",
+      "pumunta sa module"
     ],
     "param.path.description": "Path sa Go (.go) na file.",
     "param.section.description": "Numero ng seksyon na kukunin (ginagamit lamang kapag ang mode='section'). Kunin ang numero mula sa index output.",
@@ -982,14 +982,14 @@
   "ms": {
     "x_search_terms": [
       "golang",
-      "go code",
-      "go analysis",
-      "code index",
-      "go source",
-      "go parser",
-      "go function",
-      "go struct",
-      "go file",
+      "pergi kod",
+      "pergi analisis",
+      "indeks kod",
+      "pergi sumber",
+      "pergi parser",
+      "pergi fungsi",
+      "pergi struct",
+      "pergi fail",
       "go modul"
     ],
     "param.path.description": "Laluan ke fail Go (.go).",
@@ -1010,14 +1010,14 @@
   "da": {
     "x_search_terms": [
       "golang",
-      "go code",
+      "gå kode",
       "go analyse",
       "kodeindeks",
-      "go source",
-      "go parser",
+      "gå kilde",
+      "gå til parser",
       "go funktion",
-      "go struct",
-      "go file",
+      "gå struct",
+      "gå fil",
       "go modul"
     ],
     "param.path.description": "Sti til Go (.go) filen.",
@@ -1038,15 +1038,15 @@
   "nn": {
     "x_search_terms": [
       "golang",
-      "go code",
+      "gå kode",
       "go analyse",
-      "code index",
-      "go source",
-      "go parser",
-      "go function",
+      "kodeindeks",
+      "gå kilde",
+      "gå til parser",
+      "gå-funksjon",
       "go struct",
-      "go file",
-      "go module"
+      "gå fil",
+      "gå-modul"
     ],
     "param.path.description": "Bane til Go (.go)-filen.",
     "param.section.description": "Seksjonsnummer å hente (vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",

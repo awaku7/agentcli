@@ -1027,8 +1027,8 @@
       "lint",
       "biome",
       "eslint",
-      "code style",
-      "static analysis",
+      "estilo ng code",
+      "static na pagsusuri",
       "js lint",
       "ts lint",
       "format"
@@ -1090,7 +1090,7 @@
       "kodestil",
       "statisk analyse",
       "js lint",
-      "ts lint",
+      "ts fnug",
       "format"
     ],
     "param.path.description": "Globmønster eller filsti til lint (f.eks. 'src/**/*.{js,ts,tsx,jsx}' eller 'src/app.ts').",

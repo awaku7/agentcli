@@ -699,7 +699,7 @@
       "validering",
       "færdighedsgennemgang",
       "test færdighedsanalyse",
-      ""
+      "færdighedsanalyse"
     ]
   },
   "nn": {
@@ -717,8 +717,8 @@
       "validering",
       "ferdighetsvurdering",
       "test ferdighetsanalyse",
-      "",
-      ""
+      "test-ferdighet",
+      "ferdighetsanalyse"
     ]
   }
 }

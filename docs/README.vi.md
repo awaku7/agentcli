@@ -21,15 +21,15 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Tại sao lại là uag?
 
-** Thoát khỏi sự ràng buộc của nhà cung cấp.** Hầu hết trợ lý AI đều ràng buộc bạn với một nhà cung cấp hoặc dịch vụ đám mây cụ thể. uag thì khác.
+\*\* Thoát khỏi sự ràng buộc của nhà cung cấp.\*\* Hầu hết trợ lý AI đều ràng buộc bạn với một nhà cung cấp hoặc dịch vụ đám mây cụ thể. uag thì khác.
 
 - **Chạy cục bộ** trên máy của bạn. Dữ liệu của bạn vẫn ở bên bạn (ngoại trừ các lệnh gọi API bạn thực hiện).
 - **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
-- **195  công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **111 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
+- **203 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **111 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
 - **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
 
@@ -62,7 +62,6 @@ Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song**
 
 Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt kê thư mục, dịch thuật, truy vấn DB, v.v.) được song song hóa mạnh mẽ.
 
-
 ### 🧩 Hệ thống plugin (Tương thích với Claude Code)
 
 uagent triển khai **hệ thống plugin tương thích với Claude Code**. Các plugin kết hợp kỹ năng, tác nhân, máy chủ MCP, hook và nhiều thành phần khác vào các thư mục độc lập với manifest `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent triển khai **hệ thống plugin tương thích với Claude Code**. C�
 **Các thành phần được hỗ trợ**: kỹ năng, tác nhân phụ, máy chủ MCP, hook (12 sự kiện vòng đời), lệnh gạch chéo, kiểu đầu ra, userConfig, phụ thuộc, kênh, thị trường
 
 **CLI commands**:
+
 ```
 :plugin list                         # Liệt kê các plugin đã cài đặt
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent triển khai **hệ thống plugin tương thích với Claude Code**. C�
 
 Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Phiên liên tục
 
 - **Chuyển đổi nhà cung cấp giữa phiên**: `UAGENT_PROVIDER` — lịch sử hội thoại được giữ nguyên.
 - **Tải lại các phiên trước**: `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
 
-### 🛠 195  Công cụ
+### 🛠 203 Công cụ
 
 | Danh mục | Công cụ |
 |---|---|
@@ -99,11 +98,12 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_P
 | **Dự báo** | Dự báo chuỗi thời gian với 9 mô hình (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, v.v.), tự động chọn mô hình, tạo biểu đồ, i18n |
 | **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook, **pybitchat** (BLE Mesh) — xem [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) và [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **26 trình điều hướng mã nguồn (dòng idx)** |
+| **API đám mây** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **29 trình điều hướng mã nguồn (dòng idx)** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng, uuid_gen, slugify ||
-| **Điều hướng nguồn** | **26 công cụ idx** dành cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |
+| **Điều hướng nguồn** | **29 công cụ idx** dành cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |
 
 ### 🖥 4 Giao diện + Tiện ích mở rộng Mã VS
 
@@ -118,10 +118,10 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_P
 Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
 
 ### 🏠 Kiểm soát thiết bị IoT
+
 - **Vấn đề**: Kiểm tra chỉ đọc cấu trúc liên kết bộ điều khiển/cầu nối/thiết bị
 
 Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🏠 Điều khiển thiết bị IoT
 
@@ -225,7 +225,6 @@ Trải nghiệm đại lý AI miễn phí, không bị ràng buộc bởi nhà c
 
 ### ✨ Tạo công cụ của riêng bạn
 
-
 [vi.md](TOOL_CREATOR_GUIDE.vi.md)
 Xem hướng dẫn từng bước tại đây.
 
@@ -235,8 +234,6 @@ Mọi đóng góp đều được hoan nghênh! Chúng tôi trân trọng báo c
 
 - **Issues**: Mở sự cố GitHub để tìm lỗi hoặc yêu cầu tính năng.
 - **Pull request**: Fork kho lưu trữ, thực hiện thay đổi và gửi PR. Xem [DEVELOP.md](../src/uagent/docs/DEVELOP.md) để biết cách thiết lập môi trường phát triển và các hướng dẫn.
-
-
 
 Realtime Giọng nói và AEC3
 

@@ -655,7 +655,7 @@
     "msg.unsubscribed": "Kinansela ang subscription sa ECHONET Lite {id}.",
     "err.id_required": "kailangan ang listener_id para sa action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "mag-unsubscribe ang echonet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -674,7 +674,7 @@
     "msg.unsubscribed": "Langganan ECHONET Lite {id} dibatalkan.",
     "err.id_required": "listener_id diperlukan untuk action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet berhenti melanggan",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -693,7 +693,7 @@
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} annulleret.",
     "err.id_required": "listener_id er påkrævet for action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet afmeld",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -712,7 +712,7 @@
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} kansellert.",
     "err.id_required": "listener_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet si opp abonnementet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",

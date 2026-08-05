@@ -642,7 +642,7 @@
     "tool.description": "Dapatkan status satu peranti Matter dan kembalikan JSON atau ringkasan teks.",
     "x_search_terms": [
       "perkara status peranti",
-      "matter_device_status",
+      "status_peranti_perkara",
       "matter",
       "MATTER"
     ]
@@ -659,7 +659,7 @@
     "param.endpoint.description": "Slutpunktsfilter (valgfrit).",
     "tool.description": "Få status for én Matter-enhed, og returner en JSON eller tekstoversigt.",
     "x_search_terms": [
-      "matter device status",
+      "har betydning for enhedens status",
       "matter_device_status",
       "matter",
       "MATTER"
@@ -677,7 +677,7 @@
     "param.endpoint.description": "Endepunktfilter (valgfritt).",
     "tool.description": "Få statusen til én Matter-enhet og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [
-      "matter device status",
+      "materiell enhetsstatus",
       "matter_device_status",
       "matter",
       "MATTER"

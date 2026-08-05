@@ -1248,7 +1248,7 @@
     "param.search_target.description": "SSDP search target (ST) para sa pagtuklas. Default sa InternetGatewayDevice at bumabalik sa ssdp:all kung kinakailangan.",
     "tool.description": "Magsagawa ng mga operasyon ng router ng UPnP IGD: siyasatin ang status ng WAN, maglista ng mga port mapping, magdagdag ng port mapping, o magtanggal ng port mapping.",
     "x_search_terms": [
-      "upnp igd control",
+      "kontrol ng upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -1284,7 +1284,7 @@
     "param.search_target.description": "Sasaran carian SSDP (ST) untuk penemuan. Lalai kepada InternetGatewayDevice dan kembali ke ssdp:all jika perlu.",
     "tool.description": "Lakukan operasi penghala UPnP IGD: periksa status WAN, senaraikan pemetaan port, tambah pemetaan port atau padamkan pemetaan port.",
     "x_search_terms": [
-      "upnp igd control",
+      "kawalan igd upnp",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -1320,7 +1320,7 @@
     "param.search_target.description": "SSDP-søgemål (ST) til opdagelse. Standard til InternetGatewayDevice og falder tilbage til ssdp:all, hvis det er nødvendigt.",
     "tool.description": "Udfør UPnP IGD-routerhandlinger: undersøg WAN-status, liste portkortlægninger, tilføj en portmapping, eller slet en portmapping.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd kontrol",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -1356,7 +1356,7 @@
     "param.search_target.description": "SSDP-søkemål (ST) for oppdagelse. Standard er InternetGatewayDevice og faller tilbake til ssdp:all om naudsynt.",
     "tool.description": "Utfør UPnP IGD-ruteroperasjoner: inspiser WAN-status, liste opp porttilordninger, legg til en porttilordning eller slett en porttilordning.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd-kontroll",
       "upnp_igd_control",
       "upnp",
       "UPNP",

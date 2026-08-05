@@ -783,7 +783,7 @@
     "param.obj.description": "Penapis kod objek (cth. '0130').",
     "tool.description": "Tinjau nod ECHONET Lite berulang kali, mengesan perubahan sifat dan kembalikan JSON atau ringkasan teks.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor echonet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -827,7 +827,7 @@
     "param.obj.description": "Objektkodefilter (f.eks. '0130').",
     "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [
-      "echonet monitor",
+      "echonet-monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",

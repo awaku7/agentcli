@@ -86,7 +86,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.label.description",
-                        default="Human-readable label (e.g. 'ボイラー温度').",
+                        default="Human-readable label (e.g. 'Boiler temperature').",
                     ),
                 },
                 "on_change_prompt": {

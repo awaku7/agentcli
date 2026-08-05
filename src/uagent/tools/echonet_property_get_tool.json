@@ -693,7 +693,7 @@
     "param.obj.description": "Filter ng object code (hal. '0130').",
     "tool.description": "Magbasa ng isang ECHONET Lite property mula sa isang node at magbalik ng JSON o text na resulta.",
     "x_search_terms": [
-      "echonet property get",
+      "makuha ang ari-arian ng echonet",
       "echonet_property_get",
       "echonet",
       "ECHONET"
@@ -713,7 +713,7 @@
     "param.obj.description": "Penapis kod objek (cth. '0130').",
     "tool.description": "Baca satu sifat ECHONET Lite daripada nod dan kembalikan JSON atau hasil teks.",
     "x_search_terms": [
-      "echonet property get",
+      "harta echonet dapat",
       "echonet_property_get",
       "echonet",
       "ECHONET"

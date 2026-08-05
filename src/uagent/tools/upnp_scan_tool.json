@@ -1024,7 +1024,7 @@
     "param.filter_type.description": "Valgfrit uafhængigt af store og små bogstaver understrengsfilter for enhedstype.",
     "tool.description": "Opdag UPnP/SSDP-enheder på det lokale netværk, og returner en JSON- eller tekstliste. Understøtter filtrering efter navn, producent, model eller enhedstype.",
     "x_search_terms": [
-      "upnp scan",
+      "upnp scanning",
       "upnp_scan",
       "upnp",
       "UPNP",
@@ -1052,7 +1052,7 @@
     "param.filter_type.description": "Valgfritt substring-filter som ikke skiller mellom store og små bokstaver for device_type.",
     "tool.description": "Oppdag UPnP/SSDP-enheter på det lokale nettverket og returner en JSON eller tekstliste. Støtter filtrering etter namn, produsent, modell eller enhetstype.",
     "x_search_terms": [
-      "upnp scan",
+      "upnp-skanning",
       "upnp_scan",
       "upnp",
       "UPNP",

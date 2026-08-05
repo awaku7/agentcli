@@ -2891,14 +2891,22 @@ def _is_high_contrast() -> bool:
 
 
 def main():
-    sys.stdout.reconfigure(encoding="utf-8")
+    # Redirect stdout/stderr to in-memory buffer (no intermediate file)
+    # Do this before any startup output.  A gui-scripts launcher has no
+    # console on Windows, so stdout/stderr may also be None.
+    original_stdout = sys.stdout
+    original_stderr = sys.stderr
+    if original_stdout is not None:
+        try:
+            original_stdout.reconfigure(encoding="utf-8")
+        except (AttributeError, OSError, ValueError):
+            pass
+    sys.stdout = RedirectToLog(_log_buffer, original_stdout)
+    sys.stderr = RedirectToLog(_log_buffer, original_stderr)
+
     # readme/quickstart first-run display removed (files no longer bundled)
     print(get_welcome_message())
     ensure_mcp_config_template()
-
-    # Redirect stdout/stderr to in-memory buffer (no intermediate file)
-    sys.stdout = RedirectToLog(_log_buffer, sys.stdout)
-    sys.stderr = RedirectToLog(_log_buffer, sys.stderr)
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(

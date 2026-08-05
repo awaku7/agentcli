@@ -686,14 +686,14 @@
     "tool.description": "Nakukuha ang halaga ng isang tinukoy na variable ng kapaligiran at ibinabalik ito. Opsyonal na i-mask ang halaga.",
     "x_search_terms": [
       "kumuha ng env",
-      "environment variable",
+      "variable ng kapaligiran",
       "env var",
       "environment",
-      "get environment",
+      "kumuha ng kapaligiran",
       "basahin env",
-      "env value",
-      "system env",
-      "environment value",
+      "halaga ng env",
+      "sistema env",
+      "halaga ng kapaligiran",
       "env get"
     ],
     "param.skip.description": "Kung totoo, ibalik ang '(not set)' sa halip na isang error kapag nawawala. Mali ang default.",
@@ -706,15 +706,15 @@
     "tool.description": "Mendapat nilai pembolehubah persekitaran yang ditentukan dan mengembalikannya. Secara pilihan menutup nilai.",
     "x_search_terms": [
       "dapatkan env",
-      "environment variable",
+      "pembolehubah persekitaran",
       "env var",
       "environment",
       "dapatkan persekitaran",
       "baca env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "nilai env",
+      "sistem env",
+      "nilai persekitaran",
+      "env dapat"
     ],
     "param.skip.description": "Jika benar, kembalikan '(not set)' dan bukannya ralat apabila tiada. Lalai adalah palsu.",
     "err.name_required": "[get_env error] 'nama' diperlukan"
@@ -732,8 +732,8 @@
       "få miljø",
       "læs env",
       "env værdi",
-      "system env",
-      "environment value",
+      "systemenv",
+      "miljøværdi",
       "env få"
     ],
     "param.skip.description": "Hvis sandt, returner '(ikke angivet)' i stedet for en fejl, når den mangler. Standard er falsk.",
@@ -751,9 +751,9 @@
       "environment",
       "få miljø",
       "les env",
-      "env value",
+      "env-verdi",
       "system env",
-      "environment value",
+      "miljøverdi",
       "env få"
     ],
     "param.skip.description": "Hvis sant, returner '(ikke angitt)' i staden for en feilmelding når den mangler. Standard er falsk.",

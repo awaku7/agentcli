@@ -930,15 +930,15 @@
     "tool.description": "Kinukuha ang isang screenshot ng buong desktop o isang partikular na window.",
     "x_search_terms": [
       "screenshot",
-      "screen capture",
-      "capture screen",
+      "pagkuha ng screen",
+      "screen ng pagkuha",
       "screen grab",
-      "screenshot tool",
-      "screen snapshot",
+      "tool sa screenshot",
+      "snapshot ng screen",
       "display capture",
       "print screen",
-      "screen image",
-      "capture display"
+      "larawan sa screen",
+      "display ng pagkuha"
     ],
     "next_action.analyze_screenshot": "Mangyaring suriin ang screenshot na ito.",
     "param.close.description": "Kung isasara ang window pagkatapos makuha. Epektibo lamang kung tinukoy ang window_title.",

@@ -165,7 +165,7 @@
       "IDS",
       "זיהוי איום",
       "eve.json",
-      ""
+      "התראת אבטחה"
     ]
   },
   "hi": {
@@ -217,7 +217,7 @@
       "IDS",
       "rilevamento minacce",
       "eve.json",
-      ""
+      "avviso di sicurezza"
     ]
   },
   "ja": {
@@ -318,10 +318,10 @@
     "param.limit.description": "Maksimalt antall varsler for å returnere.",
     "x_search_terms": [
       "Suricata-ID-ER - trusseldeteksjon-eve.json - sikkerhetsvarsel",
-      "",
-      "",
-      "",
-      ""
+      "IDS",
+      "Påvisning av trusler",
+      "eve.json",
+      "Tryggleiksåtvaring"
     ]
   },
   "pl": {

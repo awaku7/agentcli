@@ -256,7 +256,7 @@ def _try_swaymsg(
 
         def _walk(node: dict) -> list[dict]:
             results = []
-            # i3/sway 互換のノードツリー
+            # i3/sway-compatible node tree
             if node.get("type") == "con" and node.get("window") is not None:
                 results.append(node)
             for child in node.get("nodes", []):
@@ -310,22 +310,22 @@ def _try_kde_qdbus(
         if r.returncode != 0 or not r.stdout.strip():
             return None
 
-        # qdbus の出力は Qt 形式: "Argument types: (sssi...)\nvalue1\nvalue2..."
-        # 典型的には各行が1ウィンドウのデータ (title, pid, ...)
-        # 簡易パース: 空行/コメント行をスキップ
+        # qdbus output uses Qt format: "Argument types: (sssi...)\nvalue1\nvalue2..."
+        # Typically each line contains one window record (title, pid, ...)
+        # Simple parse: skip blank and comment lines
         windows = []
         lines = [
             line.strip()
             for line in r.stdout.splitlines()
             if line.strip() and not line.startswith("Argument")
         ]
-        # windowList は QVariantList で返り、qdbus は1行1ウィンドウで表示
+        # windowList returns a QVariantList; qdbus displays one window per line
         for line in lines:
             try:
                 parts = line.split(",")
                 title = parts[0] if len(parts) > 0 else ""
                 pid_str = parts[-1] if len(parts) > 1 else ""
-                visible = True  # KDE windowList は可視ウィンドウのみ
+                visible = True  # KDE windowList contains only visible windows
                 if (not include_all) and (not visible):
                     continue
                 info = {
@@ -384,7 +384,7 @@ def _try_gnome_gdbus(
         if r.returncode != 0:
             return None
 
-        # 戻り値: (true, 'JSON文字列', '')
+        # Return value: (true, 'JSON string', '')
         import ast
 
         parsed = ast.literal_eval(r.stdout.strip())
@@ -400,7 +400,7 @@ def _try_gnome_gdbus(
                 title = item.get("title", "") or ""
                 pid = item.get("pid", 0)
                 wid = item.get("id", 0)
-                visible = bool(title)  # タイトルがあれば可視とみなす
+                visible = bool(title)  # Treat a window as visible when it has a title
                 if (not include_all) and (not visible):
                     continue
                 info = {"hwnd": int(wid), "title": title, "visible": visible}

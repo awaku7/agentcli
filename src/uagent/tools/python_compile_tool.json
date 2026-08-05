@@ -582,14 +582,14 @@
     "x_search_terms": [
       "python compile",
       "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
+      "pagsusuri ng syntax",
+      "pagpapatunay ng python",
+      "mag-compile ng check",
+      "syntax ng python",
+      "pagsusuri ng code",
       "validation",
-      "python checker",
-      "compile python"
+      "tagasuri ng python",
+      "mag-compile ng python"
     ],
     "param.path.description": "Isang Python file, direktoryo, o pattern ng glob upang patunayan gamit ang py_compile. Ang mga direktoryo ay ini-scan nang paulit-ulit para sa *.",
     "param.paths.description": "Maramihang Python file, direktoryo, o glob pattern upang patunayan gamit ang py_compile. Ang mga direktoryo ay ini-scan nang pabalik-balik para sa mga .py na file."
@@ -597,16 +597,16 @@
   "ms": {
     "tool.description": "Sahkan fail Python dengan py_compile. Gunakan alat ini untuk menyemak sintaks fail Python, direktori atau corak glob.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
+      "kompilasi python",
+      "py menyusun",
+      "semakan sintaks",
+      "pengesahan python",
+      "menyusun cek",
+      "sintaks python",
+      "semakan kod",
       "validation",
-      "python checker",
-      "compile python"
+      "penyemak python",
+      "menyusun python"
     ],
     "param.path.description": "Fail Python, direktori atau corak glob untuk disahkan dengan py_compile. Direktori diimbas secara rekursif untuk *.",
     "param.paths.description": "Berbilang fail Python, direktori atau corak glob untuk disahkan dengan py_compile. Direktori diimbas secara rekursif untuk fail .py."

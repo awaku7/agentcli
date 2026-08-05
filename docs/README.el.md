@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Γιατί uag;
 
@@ -29,7 +29,7 @@
 
 - **Εκτελείται τοπικά** στο μηχάνημά σας. Τα δεδομένα σας παραμένουν μαζί σας (εκτός από τις κλήσεις API που πραγματοποιείτε).
 - **Ελευθερία παρόχου**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ πάροχοι, όλοι προσβάσιμοι από μια ενιαία διεπαφή. Εναλλάξτε μεταξύ τους ρυθμίζοντας εκ νέου τις μεταβλητές περιβάλλοντος — χωρίς επανεγκατάσταση, χωρίς μετεγκατάσταση.
-- **195  εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **111 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
+- **203 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **111 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
 - **3 διεπαφές χρήστη + A2A**: Πρωτόκολλο CLI, GUI, Web και Agent-to-Agent. Ίδιος κινητήρας, οποιαδήποτε διεπαφή.
 - **Δεξιότητες πράκτορα**: Εγκαταστήστε δεξιότητες που δημιουργούνται από την κοινότητα από την αγορά. Επεκτείνετε το uag ατελείωτα.
 
@@ -62,7 +62,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 Τα εργαλεία μόνο για ανάγνωση (αναζήτηση αρχείων, υπολογισμός κατακερματισμού, καταχώριση καταλόγου, μετάφραση, ερωτήματα DB, κ.λπ.) παραλληλίζονται επιθετικά.
 
-
 ### 🧩 Σύστημα προσθηκών (Claude Code Συμβατό)
 
 Το uagent υλοποιεί ένα σύστημα προσθηκών συμβατό με Claude Code. Οι προσθήκες ομαδοποιούν δεξιότητες, πράκτορες, MCP διακομιστές, άγκιστρα και άλλα σε αυτόνομους καταλόγους με ένα μανιφέστο `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 **Υποστηριζόμενα στοιχεία: Δεξιότητες, δευτερεύοντες πράκτορες, MCP διακομιστές, Άγκιστρα (12 συμβάντα κύκλου ζωής), εντολές κάθετου, στυλ εξόδου, userConfig, εξαρτήσεις, κανάλια, αγορές**
 
 **CLI commands**:
+
 ```
 :plugin list                         # Λίστα εγκατεστημένων προσθηκών
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 Δείτε την πλήρη τεκμηρίωση για λεπτομέρειες. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Συνέχεια συνεδρίας
 
 - **Εναλλαγή παρόχου στη μέση της συνεδρίας** με `UAGENT_PROVIDER` — το ιστορικό της συνομιλίας διατηρείται.
 - **Επαναφόρτωση προηγούμενων συνεδριών** με `:load <index>` — συνεχίστε από εκεί που σταματήσατε.
 
-### 🛠 195  Εργαλεία
+### 🛠 203 Εργαλεία
 
 | Κατηγορία | Εργαλεία |
 |---|---|
@@ -99,11 +98,12 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία γραφημάτων, i18n |
 | **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — δείτε [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **26 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
+| **Cloud API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **29 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
 | **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |
 | **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας, uuid_gen, slugify ||
-| **Πηγή Nav** | **26 εργαλεία idx** για Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — λάβετε ευρετήριο συνάρτησης/κλάσης ή συγκεκριμένο ορισμό χωρίς να διαβάσετε ολόκληρο το αρχείο |
+| **Πηγή Nav** | **29 εργαλεία idx** για Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — λάβετε ευρετήριο συνάρτησης/κλάσης ή συγκεκριμένο ορισμό χωρίς να διαβάσετε ολόκληρο το αρχείο |
 
 ### 🖥 4 διεπαφές + Επέκταση κώδικα VS
 
@@ -118,10 +118,10 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 Ανατρέξτε στο [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) για λεπτομέρειες σχετικά με την επέκταση κώδικα VS — εγκατάσταση, εντολές, πληκτρολογήσεις και διαμόρφωση.
 
 ### 🏠 Έλεγχος συσκευής IoT
+
 - **Θέμα**: Επιθεώρηση μόνο για ανάγνωση της τοπολογίας ελεγκτή/γέφυρας/συσκευής
 
 Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Agent Skills Marketplace
 
@@ -154,7 +154,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 | Διεπαφή | Πώς να διακόψετε |
 |---|---|
-| **CLI** | Πατήστε το πλήκτρο `c` κατά τη ροή LLM — η τρέχουσα απόκριση σταματά και το "Stop"` αποστέλλεται ως μήνυμα χρήστη, ώστε το LLM να ανταποκρίνεται ανάλογα |
+| **CLI** | Πατήστε το πλήκτρο `c` κατά τη ροή LLM — η τρέχουσα απόκριση σταματά και το "Stop"\` αποστέλλεται ως μήνυμα χρήστη, ώστε το LLM να ανταποκρίνεται ανάλογα |
 | **Διεπαφή χρήστη WEB** | Κάντε κλικ στο κόκκινο κουμπί **■ Stop** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
 | **Γραφικό περιβάλλον εργασίας επιφάνειας εργασίας** | Κάντε κλικ στο κόκκινο κουμπί **■** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
 
@@ -174,9 +174,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 Το "tool_catalog" και το "tool_load" σάς επιτρέπουν να ανακαλύψετε και να ενεργοποιήσετε εργαλεία κατά την εκτέλεση.
 Δεν χρειάζεται να φορτώσετε τα πάντα κατά την εκκίνηση — ενεργοποιήστε μόνο ό,τι χρειάζεστε, όταν το χρειάζεστε.
 
-
 ### 🦀 Rust Native Tools
-
 
 ### 🌐 i18n / L10n
 
@@ -213,7 +211,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 ### ✨ Δημιουργήστε τα δικά σας εργαλεία
 
-
 [el.md](TOOL_CREATOR_GUIDE.el.md)
 Για τον οδηγό βήμα προς βήμα, ανατρέξτε εδώ.
 
@@ -223,8 +220,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 - **Issues**: Ανοίξτε ένα ζήτημα GitHub για σφάλματα ή αιτήματα λειτουργιών.
 - **Αιτήματα έλξης**: Κάντε fork το αποθετήριο, πραγματοποιήστε τις αλλαγές σας και υποβάλετε ένα PR. Για τη ρύθμιση ανάπτυξης και τις οδηγίες, δείτε το [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime Voice και AEC3
 

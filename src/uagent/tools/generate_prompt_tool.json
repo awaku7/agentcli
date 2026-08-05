@@ -722,15 +722,15 @@
     "tool.description": "Bumuo ng prompt string mula sa isang file gamit ang template ng Python format.",
     "x_search_terms": [
       "bumuo ng prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
+      "maagap na henerasyon",
+      "agarang gumawa",
+      "i prompt",
+      "agarang engineering",
+      "maagap na gumagawa",
+      "maagap na tagabuo",
       "gumawa ng prompt",
-      "prompt generator",
-      "text prompt"
+      "agarang generator",
+      "prompt ng text"
     ],
     "param.template.description": "Template ng format ng Python. Halimbawa: '{lines} na linya\n\n{content}'."
   },
@@ -785,15 +785,15 @@
     "tool.description": "Generer en ledetekststreng frå en fil ved hjelp av en Python-formatmal.",
     "x_search_terms": [
       "generer spørsmål",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "rask generasjon",
+      "opprett ledetekst",
+      "ai-prompt",
+      "rask konstruksjon",
+      "prompt maker",
+      "rask byggmester",
+      "opprett ledetekst",
+      "hurtiggenerator",
+      "tekstprompt"
     ],
     "param.template.description": "Python-formatmal. Eksempel: '{lines} linjer\n\n{content}'."
   }

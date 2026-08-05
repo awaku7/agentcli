@@ -750,16 +750,16 @@
   "fil": {
     "tool.description": "Maglista ng mga entry sa isang direktoryo na may pagination, katulad ng ls.",
     "x_search_terms": [
-      "list dir",
+      "listahan dir",
       "directory",
-      "list directory",
-      "dir listing",
+      "listahan ng direktoryo",
+      "listahan ng dir",
       "folder",
-      "list files",
-      "directory listing",
-      "file list",
+      "listahan ng mga file",
+      "listahan ng direktoryo",
+      "listahan ng file",
       "ipakita dir",
-      "folder contents"
+      "mga nilalaman ng folder"
     ],
     "param.path.description": "Direktoryo na ililista (default: kasalukuyang direktoryo). Alyas ng root_path.",
     "param.show_hidden.description": "Isama ang mga nakatagong entry sa listahan.",
@@ -795,15 +795,15 @@
     "tool.description": "Liste poster i en mappe med paginering, svarende til ls.",
     "x_search_terms": [
       "liste katalog-katalog",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "bibliotek",
+      "liste bibliotek",
+      "dir liste",
+      "mappe",
+      "liste filer",
+      "biblioteksfortegnelse",
+      "filliste",
+      "vis dir",
+      "mappens indhold"
     ],
     "param.path.description": "Bibliotek til liste (standard: nuværende bibliotek). Alias ​​af root_path.",
     "param.show_hidden.description": "Inkluder skjulte poster i listen.",
@@ -825,7 +825,7 @@
       "katalogoppføring",
       "filliste",
       "vis kataloginnhold",
-      ""
+      "& Mappeinnhald:"
     ],
     "param.path.description": "Katalog til liste (standard: gjeldende katalog). Alias ​​for root_path.",
     "param.show_hidden.description": "Ta med skjulte oppføringer i oppføringen.",

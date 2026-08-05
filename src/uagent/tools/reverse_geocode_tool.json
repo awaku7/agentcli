@@ -725,14 +725,14 @@
     "param.lon.description": "Longitude (hal. 139.6917).",
     "param.language.description": "Wika para sa resulta (ISO 639-1 code, hal. ja, en, zh, ko). Awtomatikong natukoy kung tinanggal.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
+      "baligtarin ang geocode",
+      "baligtarin ang geocoding",
       "address mula sa coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
+      "lat lon upang tugunan",
+      "gps para tugunan",
+      "baligtarin ang geocode",
+      "paghahanap ng lokasyon",
+      "paghahanap ng address",
       "coordinate to address",
       "geo address"
     ]
@@ -753,6 +753,42 @@
       "adresseoppslag",
       "koordinater til adresse",
       "geoadresse"
+    ]
+  },
+  "mn": {
+    "tool.description": "Өргөрөг/уртрагаас хаяг хайх (урвуу геокодлох). OpenStreetMap Nominatim API ашигладаг. Дэлхий даяар хамрах хүрээ.",
+    "param.lat.description": "Өргөрөг (жишээ нь: 35.6895).",
+    "param.lon.description": "Уртраг (жишээ нь: 139.6917).",
+    "param.language.description": "Үр дүнгийн хэл (ISO 639-1 код, жишээ нь ja, en, zh, ko). Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
+    "x_search_terms": [
+      "урвуу геокод",
+      "урвуу газарзүйн кодчилол",
+      "координатаас хаяг",
+      "хаягаар лат лон",
+      "хаягаар gps",
+      "геокод урвуу",
+      "байршил хайх",
+      "хаяг хайх",
+      "зохицуулах координатууд",
+      "гео хаяг"
+    ]
+  },
+  "mr": {
+    "tool.description": "अक्षांश/रेखांश (रिव्हर्स जिओकोडिंग) वरून पत्ता शोधा. OpenStreetMap Nominatim API वापरते. जगभरातील कव्हरेज.",
+    "param.lat.description": "अक्षांश (उदा. 35.6895).",
+    "param.lon.description": "रेखांश (उदा. १३९.६९१७).",
+    "param.language.description": "निकालासाठी भाषा (ISO 639-1 कोड, उदा. ja, en, zh, ko). वगळल्यास स्वयं आढळले.",
+    "x_search_terms": [
+      "उलट जिओकोड",
+      "उलट जिओकोडिंग",
+      "समन्वयकांकडून पत्ता",
+      "संबोधित करण्यासाठी बराच वेळ",
+      "पत्ता देण्यासाठी gps",
+      "जिओकोड उलट",
+      "स्थान शोध",
+      "पत्ता शोध",
+      "पत्ता करण्यासाठी समन्वय",
+      "भौगोलिक पत्ता"
     ]
   }
 }

@@ -199,17 +199,17 @@ async def main() -> None:
     index_logger = FlowLogger(index_path)
     page_seq = 0
 
-    # セッション状態を保存するファイルのパス
+    # Path for saving session state
     state_path = os.path.join(base_dir, "storage_state.json")
 
     async with async_playwright() as p:
-        # 既存のEdgeプロセスに吸い込まれるのを防ぐため、独立したクリーンな Chromium を優先して起動する
+        # Prefer launching an independent clean Chromium to avoid attaching to an existing Edge process
         try:
             browser = await p.chromium.launch(headless=False)
         except Exception:
             browser = await p.chromium.launch(channel="msedge", headless=False)
 
-        # 過去のセッション状態が存在すれば読み込む
+        # Load existing session state when available
         if os.path.exists(state_path):
             print(f"Loading existing session state from {state_path}")
             context = await browser.new_context(
@@ -319,8 +319,8 @@ async def main() -> None:
                 except Exception:
                     pass
 
-            # セキュリティの厳しいサイト（ServiceNow等）でのCSP違反やスクリプトエラーによる強制終了を防ぐため、
-            # DOM監視やコンソール/ネットワークイベントの監視を最小限にするか、エラーを完全に無視します。
+            # To prevent termination from CSP violations or script errors on strict sites such as ServiceNow,
+            # minimize DOM/console/network monitoring or ignore errors completely.
             # page.on("request", on_request)
             # page.on("console", lambda m: asyncio.create_task(on_console(m)))
             # page.on("pageerror", on_page_error)
@@ -409,14 +409,14 @@ async def main() -> None:
         if url != "about:blank":
             logger.log({"type": "goto", "page_id": page_id, "url": url, "summary": "Navigating to initial URL"})
             try:
-                # タイムアウトを60秒に延長し、エラーが発生してもブラウザが落ちないようにする
+                # Extend the timeout to 60 seconds so errors do not close the browser
                 await page.goto(url, timeout=60000)
             except Exception as e:
                 print(f"Navigation failed or timed out: {e}")
 
         print(ui_started)
         
-        # 初期URLのドメイン（ホスト名）を解析して抽出する
+        # Parse and extract the domain (host) from the initial URL
         from urllib.parse import urlparse
         target_domain = ""
         if url and url != "about:blank":
@@ -424,21 +424,21 @@ async def main() -> None:
             target_domain = parsed.netloc
             print(f"Target domain detected: {target_domain}")
 
-        # ログイン中（別ドメインにリダイレクトされている間）はインスペクターの起動を保留する
+        # Defer launching the inspector while logging in or redirected to another domain
         if target_domain:
             print("==================================================")
             print("Login or redirection detected. Waiting for you to complete login...")
             print(f"Playwright Inspector will launch automatically when you return to: {target_domain}")
             print("==================================================")
             
-            # 最大5分間、元のドメインに戻るのを監視する
+            # Monitor for up to five minutes for a return to the original domain
             for _ in range(300):
                 if not browser.is_connected():
                     break
                 try:
                     current_url = page.url
                     current_domain = urlparse(current_url).netloc
-                    # 元のドメインに戻ってきた、またはログインが完了したと判断できる場合
+                    # When the original domain is reached again or login appears complete
                     if target_domain in current_domain:
                         print("Successfully returned to target domain! Launching Playwright Inspector...")
                         break
@@ -453,7 +453,7 @@ async def main() -> None:
 
         print("Waiting for browser to be closed by user...")
         while browser.is_connected():
-            # ユーザーがブラウザを閉じるまで待機
+            # Wait until the user closes the browser
             await asyncio.sleep(1)
 
         final_png = os.path.join(base_dir, "final.png")
@@ -480,7 +480,7 @@ async def main() -> None:
         logger.log(final_record)
         index_logger.log(final_record)
 
-        # セッション状態をファイルに保存（ブラウザがまだ開いている場合のみ）
+        # Save session state to a file (only while the browser is still open)
         try:
             if browser.is_connected():
                 await context.storage_state(path=state_path)

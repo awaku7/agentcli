@@ -989,13 +989,13 @@
     "x_search_terms": [
       "java",
       "java code",
-      "java analysis",
-      "code index",
+      "pagsusuri ng java",
+      "index ng code",
       "java source",
       "java parser",
       "java function",
-      "java class",
-      "java method",
+      "klase ng java",
+      "pamamaraan ng java",
       "java file"
     ],
     "param.path.description": "Path sa Java (.java) file.",
@@ -1017,15 +1017,15 @@
   "ms": {
     "x_search_terms": [
       "java",
-      "java code",
-      "java analysis",
-      "code index",
-      "java source",
+      "kod java",
+      "analisis java",
+      "indeks kod",
+      "sumber java",
       "java parser",
-      "java function",
-      "java class",
-      "java method",
-      "java file"
+      "fungsi java",
+      "kelas java",
+      "kaedah java",
+      "fail java"
     ],
     "param.path.description": "Laluan ke fail Java (.java).",
     "err.path_required": "Ralat: 'laluan' diperlukan.",

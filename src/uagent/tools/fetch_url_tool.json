@@ -784,12 +784,12 @@
   "fil": {
     "param.url.description": "URL upang ma-access.",
     "x_search_terms": [
-      "fetch url",
+      "kunin ang url",
       "http get",
-      "download page",
+      "pahina ng pag-download",
       "obtener url",
-      "save file",
-      "download file",
+      "i-save ang file",
+      "mag-download ng file",
       "html",
       "scrape"
     ],
@@ -831,7 +831,7 @@
     "param.url.description": "URL til adgang.",
     "x_search_terms": [
       "hent url",
-      "http get",
+      "http få",
       "download side",
       "obtener url",
       "gem fil",
@@ -856,7 +856,7 @@
       "hent url",
       "http hent",
       "nedlastningsside",
-      "obtener url",
+      "cialis url",
       "lagre fil",
       "last ned fil",
       "html",

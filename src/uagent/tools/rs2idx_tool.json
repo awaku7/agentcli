@@ -988,15 +988,15 @@
   "fil": {
     "x_search_terms": [
       "kalawang",
-      "rust code",
-      "rust analysis",
-      "code index",
-      "rust source",
+      "kalawang code",
+      "pagsusuri ng kalawang",
+      "index ng code",
+      "pinagmulan ng kalawang",
       "rust parser",
-      "rust function",
-      "rust struct",
-      "rust file",
-      "rust module"
+      "pag-andar ng kalawang",
+      "kalawang na istraktura",
+      "kalawang na file",
+      "kalawang module"
     ],
     "param.path.description": "Path sa Rust (.rs) file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",

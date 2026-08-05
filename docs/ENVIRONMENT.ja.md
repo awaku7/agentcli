@@ -170,6 +170,29 @@ Gemini / Vertex AI で Google Cloud アクセスが必要な機能で使用し�
 - `UAGENT_GOOGLE_CREDENTIALS`: Google Cloud サービスアカウント JSON のパス、または JSON 文字列（省略可）。
 - `UAGENT_GOOGLE_LOCATION`: Google Cloud のロケーション/リージョン（例: `asia-northeast1`）。
 
+#### AWS / GCP / Azure 管理ツール
+
+AWSツール（`aws_api`）:
+
+- `UAGENT_AWS_ACCESS_KEY_ID`（任意）
+- `UAGENT_AWS_SECRET_ACCESS_KEY`（任意）
+- `UAGENT_AWS_SESSION_TOKEN`（任意）
+- `UAGENT_AWS_PROFILE`（任意）
+- `UAGENT_AWS_REGION`（任意）
+
+GCPツール（`gcp_api`）:
+
+- `UAGENT_GCP_CREDENTIALS_FILE`（任意）: サービスアカウントJSONファイルのパス。未指定時はGoogle Application Default Credentialsを使用します。
+
+Azureツール（`azure_api`）:
+
+- `UAGENT_AZURE_TENANT_ID`（サービスプリンシパル使用時）
+- `UAGENT_AZURE_CLIENT_ID`（サービスプリンシパル使用時）
+- `UAGENT_AZURE_CLIENT_SECRET`（サービスプリンシパル使用時）
+- `UAGENT_AZURE_SUBSCRIPTION_ID`（必須）
+
+Azureのサービスプリンシパル情報が揃っていない場合は、`az login` によるAzure CLI認証を使用します。書き込みAPIは `confirm_write=true` を明示した場合のみ実行されます。
+
 #### MiniMax
 
 `UAGENT_PROVIDER=minimax` の場合に必要：
@@ -255,6 +278,7 @@ LLM バックエンドが直接提供する組み込み Web 検索（グラウ�
   - `0`, `false`, `no`, `off` に設定すると無効化され、ローカルの Web 検索ツールが使用されます。
 
 ## リアルタイム音声環境変数
+
 - `UAGENT_AUDIO_REALTIME_PROVIDER`: プロバイダーの上書き（`openai` / `grok` / `xai` / `google` / `gemini` / `vertexai`）。
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: Gemini Realtime用APIキー。
 - `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtimeモデル名（既定: `gemini-2.0-flash-exp`）。

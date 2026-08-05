@@ -550,11 +550,11 @@
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "Nabasa ng OPC UA: {count} (mga) value sa {ms} ms.",
     "x_search_terms": [
-      "opcua read",
+      "opcua basahin",
       "opcua_read",
       "opcua",
       "OPCUA",
-      "value(s",
+      "halaga(s",
       "server"
     ],
     "param.timeout.description": "Timeout ng koneksyon."
@@ -566,7 +566,7 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.summary": "OPC UA dibaca: {count} nilai dalam {ms} ms.",
     "x_search_terms": [
-      "opcua read",
+      "opcua baca",
       "opcua_read",
       "opcua",
       "OPCUA",
@@ -582,7 +582,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "OPC UA læst: {count} værdi(er) i {ms} ms.",
     "x_search_terms": [
-      "opcua read",
+      "opcua læst",
       "opcua_read",
       "opcua",
       "OPCUA",
@@ -593,16 +593,16 @@
   },
   "nn": {
     "tool.description": "Les nodeverdi(er) frå en OPC UA-server. Returnerer gjeldende verdi og metadata.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_ids.description": "Node-ID(er) å lese. Singel: 'i=85' eller 'ns=2;s=Temp'. Multippel: kommadelt.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "OPC UA lest: {count} verdi(er) i {ms} ms.",
     "x_search_terms": [
-      "opcua read",
+      "opcua lese",
       "opcua_read",
       "opcua",
       "OPCUA",
-      "value(s",
+      "Verdi(er)",
       "server"
     ],
     "param.timeout.description": "Tidsavbrudd for tilkobling."

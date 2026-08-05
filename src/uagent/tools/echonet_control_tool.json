@@ -936,7 +936,7 @@
     "param.value.description": "Opsyonal na numeric na halaga para sa set_value/open/close actions. Saklaw: 0-100.",
     "tool.description": "Magsagawa ng pangunahing kontrol ng ECHONET Lite sa isang node at magbalik ng JSON o resulta ng text.",
     "x_search_terms": [
-      "echonet control",
+      "kontrol ng echonet",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -990,7 +990,7 @@
     "param.value.description": "Valgfri numerisk værdi for sæt_værdi/åbn/luk-handlinger. Rækkevidde: 0-100.",
     "tool.description": "Udfør grundlæggende ECHONET Lite-kontrol på en node og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "echonet control",
+      "ekkonet kontrol",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -1017,7 +1017,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value/open/close-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Utfør grunnleggende ECHONET Lite-kontroll på en node og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "echonet control",
+      "echonet-kontroll",
       "echonet_control",
       "echonet",
       "ECHONET",

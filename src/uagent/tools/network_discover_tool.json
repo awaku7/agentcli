@@ -45,10 +45,10 @@
     "param.ports.description": "TCP porty ke kontrole.",
     "param.timeout.description": "Časový limit připojení v sekundách.",
     "x_search_terms": [
-      "network discovery",
-      "port scan",
-      "tcp scan",
-      "open port"
+      "zjišťování sítě",
+      "skenování portů",
+      "tcp skenování",
+      "otevřený port"
     ]
   },
   "da": {
@@ -164,7 +164,7 @@
     "x_search_terms": [
       "רשת גילוי",
       "סריקת יציאות",
-      "tcp scan",
+      "סריקת tcp",
       "יציאה פתוחה"
     ]
   },
@@ -190,7 +190,7 @@
     "x_search_terms": [
       "hálózatfelderítés",
       "port vizsgálat",
-      "tcp scan",
+      "tcp szkennelés",
       "nyitott port"
     ]
   },
@@ -319,9 +319,9 @@
     "param.timeout.description": "Tidsavbrudd for tilkobling i sekunder.",
     "x_search_terms": [
       "nettverksoppdagelse,portskanning,tcp-skanning, åpen port",
-      "",
-      "",
-      ""
+      "Portskanning",
+      "tcp-skanning",
+      "open port"
     ]
   },
   "pl": {
@@ -345,9 +345,9 @@
     "param.timeout.description": "Tempo limite de conexão em segundos.",
     "x_search_terms": [
       "descoberta de rede",
-      "port scan",
-      "tcp scan",
-      "open port"
+      "varredura de porta",
+      "varredura tcp",
+      "porta aberta"
     ]
   },
   "pt_BR": {
@@ -358,9 +358,9 @@
     "param.timeout.description": "Tempo limite de conexão em segundos.",
     "x_search_terms": [
       "descoberta de rede",
-      "port scan",
-      "tcp scan",
-      "open port"
+      "varredura de porta",
+      "varredura tcp",
+      "porta aberta"
     ]
   },
   "ro": {

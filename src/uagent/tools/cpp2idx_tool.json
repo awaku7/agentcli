@@ -957,12 +957,12 @@
       "cpp",
       "c++",
       "cpp code",
-      "cpp analysis",
-      "code index",
-      "cpp source",
+      "pagsusuri ng cpp",
+      "index ng code",
+      "pinagmulan ng cpp",
       "cpp parser",
       "cpp function",
-      "cpp class"
+      "klase ng cpp"
     ],
     "param.path.description": "Path sa C/C++ (.c/.cpp/.h/.hpp) file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
@@ -1037,7 +1037,7 @@
   },
   "nn": {
     "x_search_terms": [
-      "c plus plus",
+      "c pluss pluss",
       "cpp",
       "c++",
       "cpp-kode",

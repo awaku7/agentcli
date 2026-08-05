@@ -726,7 +726,7 @@
     "err.invalid_object_type": "Di-wastong object_type. Wasto: {types}.",
     "err.ip_or_device_required": "Kinakailangan ang alinman sa ip o device_instance.",
     "x_search_terms": [
-      "bacnet read",
+      "binasa ang bacnet",
       "bacnet_read",
       "bacnet",
       "BACNET",
@@ -747,7 +747,7 @@
     "err.invalid_object_type": "Jenis_objek tidak sah. Sah: {types}.",
     "err.ip_or_device_required": "Sama ada ip atau device_instance diperlukan.",
     "x_search_terms": [
-      "bacnet read",
+      "baca bacnet",
       "bacnet_read",
       "bacnet",
       "BACNET",
@@ -768,7 +768,7 @@
     "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
     "err.ip_or_device_required": "Enten ip eller device_instance er påkrævet.",
     "x_search_terms": [
-      "bacnet read",
+      "bacnet læst",
       "bacnet_read",
       "bacnet",
       "BACNET",
@@ -789,7 +789,7 @@
     "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
     "err.ip_or_device_required": "Enten ip eller device_instance kreves.",
     "x_search_terms": [
-      "bacnet read",
+      "bacnet lese",
       "bacnet_read",
       "bacnet",
       "BACNET",

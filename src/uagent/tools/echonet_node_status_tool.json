@@ -677,7 +677,7 @@
     "param.obj.description": "Objektkodefilter (f.eks. '0130').",
     "tool.description": "Les statusen til en ECHONET Lite-node på det lokale nettverket og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [
-      "echonet node status",
+      "echonet-nodestatus",
       "echonet_node_status",
       "echonet",
       "ECHONET"

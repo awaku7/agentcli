@@ -620,7 +620,7 @@
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "Isulat ng OPC UA: {node} = {val}",
     "x_search_terms": [
-      "opcua write",
+      "opcua magsulat",
       "opcua_write",
       "opcua",
       "OPCUA",
@@ -638,7 +638,7 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.summary": "OPC UA tulis: {node} = {val}",
     "x_search_terms": [
-      "opcua write",
+      "opcua menulis",
       "opcua_write",
       "opcua",
       "OPCUA",
@@ -667,14 +667,14 @@
   },
   "nn": {
     "tool.description": "Skriv en verdi til en OPC UA-servernode.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Målnode-ID (f.eks. 'i=85' eller 'ns=2;s=Setpunkt').",
     "param.value.description": "Verdi å skrive. Bruk typehint for ikke-strengtyper.",
     "param.type.description": "Datatypehint for verdien: string, int, float, bool.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "OPC UA-skriv: {node} = {val}",
     "x_search_terms": [
-      "opcua write",
+      "opcua skrive",
       "opcua_write",
       "opcua",
       "OPCUA",

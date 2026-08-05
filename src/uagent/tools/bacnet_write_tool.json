@@ -831,7 +831,7 @@
     "err.value_required": "Kinakailangan ang isang halaga para sa pagpapatakbo ng pagsulat.",
     "err.ip_or_device_required": "Kinakailangan ang alinman sa ip o device_instance.",
     "x_search_terms": [
-      "bacnet write",
+      "magsulat ng bacnet",
       "bacnet_write",
       "bacnet",
       "BACNET",
@@ -855,7 +855,7 @@
     "err.value_required": "Nilai diperlukan untuk operasi tulis.",
     "err.ip_or_device_required": "Sama ada ip atau device_instance diperlukan.",
     "x_search_terms": [
-      "bacnet write",
+      "tulis bacnet",
       "bacnet_write",
       "bacnet",
       "BACNET",

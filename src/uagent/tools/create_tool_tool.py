@@ -137,9 +137,9 @@ TOOL_SPEC: dict[str, Any] = {{
         "param.input": "Input text"
     }},
     "ja": {{
-        "tool.description": "{desc_short}（日本語説明）",
+        "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],
-        "param.input": "入力テキスト"
+        "param.input": "Input text"
     }}
 }}
 """
@@ -291,9 +291,9 @@ TOOL_SPEC: dict[str, Any] = {{
         "param.input": "Input text"
     }},
     "ja": {{
-        "tool.description": "{desc_short}（日本語説明）",
+        "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],
-        "param.input": "入力テキスト"
+        "param.input": "Input text"
     }}
 }}
 """

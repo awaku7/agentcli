@@ -470,7 +470,7 @@
   "da": {
     "tool.description": "Vis Matter-cache-statistik: hitforhold, antal indgange, TTL.",
     "x_search_terms": [
-      "matter cache status",
+      "sagens cache-status",
       "matter_cache_status",
       "matter",
       "MATTER",
@@ -483,14 +483,14 @@
   "nn": {
     "tool.description": "Vis Matter cache-statistikk: treffforhold, antall oppføringer, TTL.",
     "x_search_terms": [
-      "matter cache status",
+      "materie cache-status",
       "matter_cache_status",
       "matter",
       "MATTER",
       "statistikk",
       "forhold",
       "oppføringsantall",
-      ""
+      "Tal"
     ]
   }
 }

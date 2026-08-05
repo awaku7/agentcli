@@ -36,7 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "project analysis",
                 "source code overview",
                 "repository structure",
-                "コードマップ",
+                "Code map",
             ],
         ),
         "x_search_terms_en": [

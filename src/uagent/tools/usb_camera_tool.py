@@ -49,8 +49,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "take picture",
                 "video device",
                 "camera",
-                "USBカメラ",
-                "写真撮影",
+                "USB camera",
+                "Take a photo",
             ],
         ),
         "x_search_terms_en": [

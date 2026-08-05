@@ -581,15 +581,15 @@
     "param.code.description": "Python code.",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
+      "magpatakbo ng python",
+      "execute sawa",
+      "code ng python",
+      "script ng python",
+      "tumakbo ng sawa",
       "python execute",
-      "python command",
-      "python interpreter",
-      "python program"
+      "utos ng python",
+      "interpreter ng python",
+      "programa ng python"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "Ipatupad ang Python code sa isang kinokontrol na paraan. Gamitin ang tool na ito para sa mga kalkulasyon, pagproseso ng data, o pagpapatakbo ng mga maiikling script. Maghanap ng iba pang naaangkop na tool sa pamamagitan ng `tool_catalog` bago gamitin ang tool na ito."
@@ -598,15 +598,15 @@
     "param.code.description": "Kod Python.",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
-      "python program"
+      "jalankan python",
+      "laksana ular sawa",
+      "kod python",
+      "skrip python",
+      "larian ular sawa",
+      "laksana python",
+      "arahan python",
+      "jurubahasa python",
+      "program python"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "Jalankan kod Python dengan cara terkawal. Gunakan alat ini untuk pengiraan, pemprosesan data atau menjalankan skrip pendek. Cari alatan lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
@@ -619,7 +619,7 @@
       "kør python",
       "python-kode",
       "python-script",
-      "python run",
+      "pythonløb",
       "python eksekver",
       "python-kommando",
       "python-fortolker",

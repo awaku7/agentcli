@@ -1313,11 +1313,11 @@
       "general",
       "orchestrate",
       "patch",
-      "error analysis",
+      "pagsusuri ng error",
       "debugging",
       "translation",
       "localization",
-      "code patch",
+      "patch ng code",
       "debug"
     ],
     "param.permission_level.description": "Antas ng pahintulot sa pagpapatupad para sa sub-agent. Ang 'read_only' ay nagbibigay-daan sa mga file reads, 'propose_only' ay nagbibigay-daan sa mga reads + bagong file ng paggawa.",

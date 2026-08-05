@@ -744,7 +744,7 @@
     "err.ip_range_required": "ip_range diperlukan.",
     "err.invalid_ip_range": "Tidak dapat menghuraikan ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "imbasan opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -765,7 +765,7 @@
     "err.ip_range_required": "ip_range er påkrævet.",
     "err.invalid_ip_range": "Kunne ikke parse ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua scanning",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -786,7 +786,7 @@
     "err.ip_range_required": "ip_range kreves.",
     "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua-skanning",
       "opcua_scan",
       "opcua",
       "OPCUA",

@@ -170,6 +170,29 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 - `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
 - `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
 
+#### AWS / GCP / Azure management tools
+
+AWS tool (`aws_api`):
+
+- `UAGENT_AWS_ACCESS_KEY_ID` (optional)
+- `UAGENT_AWS_SECRET_ACCESS_KEY` (optional)
+- `UAGENT_AWS_SESSION_TOKEN` (optional)
+- `UAGENT_AWS_PROFILE` (optional)
+- `UAGENT_AWS_REGION` (optional)
+
+GCP tool (`gcp_api`):
+
+- `UAGENT_GCP_CREDENTIALS_FILE` (optional): path to a service-account JSON file. If omitted, Google Application Default Credentials are used.
+
+Azure tool (`azure_api`):
+
+- `UAGENT_AZURE_TENANT_ID` (for service-principal authentication)
+- `UAGENT_AZURE_CLIENT_ID` (for service-principal authentication)
+- `UAGENT_AZURE_CLIENT_SECRET` (for service-principal authentication)
+- `UAGENT_AZURE_SUBSCRIPTION_ID` (required)
+
+If the Azure service-principal values are incomplete, Azure CLI authentication via `az login` is used. Write APIs execute only when `confirm_write=true` is explicitly provided.
+
 #### MiniMax
 
 Required if `UAGENT_PROVIDER=minimax`:
@@ -255,6 +278,7 @@ Configuration settings for built-in web search (grounding) features provided dir
   - Set to `0`, `false`, `no`, `off` to disable and fall back to local web search tools.
 
 ## Realtime Audio
+
 - `UAGENT_AUDIO_REALTIME_PROVIDER`: Provider override (`openai`, `grok`, `xai`, `google`, `gemini`, `vertexai`).
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: API key for Gemini Realtime.
 - `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtime model deployment name (default `gemini-2.0-flash-exp`).

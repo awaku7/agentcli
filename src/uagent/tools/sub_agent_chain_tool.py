@@ -1,5 +1,5 @@
 """Sub-Agent Chain Tool Plugin for uag
-複数のサブエージェントを順次実行し、結果をステップ間で受け渡すチェーン実行を行います。
+Run a chain that executes multiple sub-agents sequentially and passes results between steps.
 """
 
 from __future__ import annotations

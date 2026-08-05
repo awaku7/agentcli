@@ -21,15 +21,15 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ##Kwanini uag?
 
 **Jiepushe na kufuli kwa muuzaji.** Wasaidizi wengi wa AI hukufungamanisha na mtoa huduma mahususi au huduma ya wingu. uag ni tofauti.
 
-- ** Huendesha ndani ** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
+- \*\* Huendesha ndani \*\* kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 195**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **111 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
+- **Zana 203**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **111 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jamii kutoka sokoni. Panua uag bila mwisho.
 
@@ -62,7 +62,6 @@ Zana 111 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupit
 
 Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafsiri, hoja za DB, n.k.) zimesawazishwa kwa ukali.
 
-
 ### 🧩 Mfumo wa programu-jalizi (unaooana na Claude Code)
 
 uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jalizi huunganisha ujuzi, mawakala, seva za MCP, hooks na mengine katika saraka zinazojitegemea zenye manifest `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jal
 **Vipengele vinavyotumika: ujuzi, mawakala wasaidizi, seva za MCP, hooks (matukio 12 ya mzunguko wa maisha), amri za slash, mitindo ya matokeo, userConfig, vitegemezi, vituo, masoko**
 
 **CLI commands**:
+
 ```
 :plugin list                         # Orodhesha programu-jalizi zilizosakinishwa
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jal
 
 Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Mwendelezo wa Kikao
 
 - **Badilisha mtoa huduma katikati ya kipindi** kwa kutumia `UAGENT_PROVIDER` — historia ya mazungumzo huhifadhiwa.
 - **Pakia tena vipindi vya awali** kwa kutumia `:load <index>` — endelea ulipoishia.
 
-### 🛠 Zana 195
+### 🛠 Zana 203
 
 | Kitengo | Zana |
 |---|---|
@@ -99,11 +98,12 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **Utabiri** | Utabiri wa mfululizo wa muda na modeli 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, nk.), uteuzi wa modeli kiotomatiki, kizazi cha mpango, i18n |
 | **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — tazama [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 26 vya msimbo wa chanzo (idx family)** |
+| **API za Wingu** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 29 vya msimbo wa chanzo (idx family)** |
 | **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza |
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe, uuid_gen, slugify ||
-| **Chanzo Nav** | **zana 26 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |
+| **Chanzo Nav** | **zana 29 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |
 
 ### 🖥 Violesura 4 + Kiendelezi cha Msimbo wa VS
 
@@ -118,10 +118,10 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
+
 - **Jambo**: Ukaguzi wa kusoma pekee wa kidhibiti/daraja/topolojia ya kifaa
 
 Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Soko la Ujuzi wa Wakala
 
@@ -174,7 +174,6 @@ Zana mbili za msingi za mwandishi wa kucheza:
 `kitalogi_ya_zana` na `kupakia_zana` hukuwezesha kugundua na kuwasha zana wakati wa utekelezaji.
 Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha tu kile unachohitaji, wakati unakihitaji.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` na `slugify` zimetekelezwa katika Rust (kupitia PyO3) kwa utendaji bora.
@@ -214,7 +213,6 @@ Uzoefu wa bure wa wakala wa AI, usio na kufuli kwa muuzaji.
 
 ### ✨ Unda Zana Zako Mwenyewe
 
-
 [sw.md](TOOL_CREATOR_GUIDE.sw.md)
 Tazama mwongozo wa hatua kwa hatua hapa.
 
@@ -224,8 +222,6 @@ Michango inakaribishwa! Ripoti za hitilafu, mapendekezo ya vipengele, uboreshaji
 
 - **Issues**: Fungua GitHub suala la hitilafu au maombi ya vipengele.
 - **Maombi ya kuvuta**: Tengeneza fork ya hazina, fanya mabadiliko yako na uwasilishe PR. Tazama [DEVELOP.md](../src/uagent/docs/DEVELOP.md) kwa usanidi wa maendeleo na miongozo.
-
-
 
 Realtime Sauti na AEC3
 

@@ -30,8 +30,8 @@ TOOL_SPEC = {
                 "clle index",
                 "clp program structure",
                 "IBM i CL",
-                "CLソースを読む",
-                "CLプログラム構造",
+                "Read CL source",
+                "CL program structure",
             ],
         ),
         "x_search_terms_en": [

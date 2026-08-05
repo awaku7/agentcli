@@ -1002,14 +1002,14 @@
     "tool.description": "Nagsasagawa ng semantic search (vector search) laban sa mga lokal na file. Gumagamit ng Embedding API upang i-vector ang mga nilalaman ng file at i-extract ang mga nauugnay na sipi ng dokumento.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
+      "semantic na mga file sa paghahanap",
+      "semantikong paghahanap",
+      "paghahanap ng vector",
+      "pag-embed ng paghahanap",
+      "lokal na paghahanap ng file",
+      "maghanap ng mga file",
+      "paghahanap ng dokumento",
+      "pagkuha ng file",
       "semantic retrieval"
     ],
     "err.no_index": "Error: Walang nakitang mga naka-index na vector. Patakbuhin muna ang index_files."
@@ -1059,7 +1059,7 @@
     "param.top_k.description": "antal.",
     "tool.description": "Udfører en semantisk søgning (vektorsøgning) mod lokale filer. Bruger Embedding API til at vektorisere filindhold og udtrække relevante dokumentpassager.",
     "x_search_terms": [
-      "semantic_search_files",
+      "semantiske_søgefiler",
       "semantiske søgefiler",
       "semantisk søgning",
       "vektorsøgning",

@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Kenapa harus?
 
@@ -29,7 +29,7 @@
 
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
-- **195 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **111 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
+- **203 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **111 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
 - **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
@@ -62,7 +62,6 @@ Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparale
 
 Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan, kueri DB, dll.) diparalelkan secara agresif.
 
-
 ### 🧩 Sistem Plugin (Kompatibel dengan Claude Code)
 
 uagent mengimplementasikan sistem plugin yang kompatibel dengan Claude Code. Plugin menggabungkan keterampilan, agen, server MCP, hook, dan lainnya ke dalam direktori mandiri dengan manifes `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent mengimplementasikan sistem plugin yang kompatibel dengan Claude Code. Plu
 **Komponen yang didukung: Keterampilan, Sub-agen, server MCP, Hook (12 peristiwa siklus hidup), perintah Slash, Gaya keluaran, userConfig, Dependensi, Saluran, Pasar**
 
 **CLI commands**:
+
 ```
 :plugin list                         # Daftar plugin yang diinstal
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent mengimplementasikan sistem plugin yang kompatibel dengan Claude Code. Plu
 
 Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Kontinuitas Sesi
 
 - **Ganti penyedia di tengah sesi** dengan `UAGENT_PROVIDER` — riwayat percakapan tetap tersimpan.
 - **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir.
 
-### 🛠 195 Alat
+### 🛠 203 Alat
 
 | Kategori | Alat |
 |---|---|
@@ -99,11 +98,12 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/D
 | **Peramalan** | Peramalan deret waktu dengan 9 model (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, dll.), pemilihan model otomatis, pembuatan plot, i18n |
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigator kode sumber (keluarga idx)** |
+| **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigator kode sumber (keluarga idx)** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal, uuid_gen, slugify ||
-| **Nav Sumber** | **26 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
+| **Nav Sumber** | **29 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
 
 ### 🖥 4 Antarmuka + Ekstensi Kode VS
 
@@ -118,10 +118,10 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/D
 Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
 
 ### 🏠 Kontrol Perangkat IoT
+
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
 
 Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Pasar Keterampilan Agen
 
@@ -174,7 +174,6 @@ Dua alat berbasis Penulisan Drama yang saling melengkapi:
 `tool_catalog` dan `tool_load` memungkinkan Anda menemukan dan mengaktifkan alat saat runtime.
 Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, saat Anda membutuhkannya.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` dan `slugify` diimplementasikan dalam Rust (melalui PyO3) untuk meningkatkan performa.
@@ -214,7 +213,6 @@ Pengalaman agen AI gratis, bebas dari penguncian vendor.
 
 ### ✨ Buat Alat Anda Sendiri
 
-
 [id.md](TOOL_CREATOR_GUIDE.id.md)
 Lihat panduan langkah demi langkah di sini.
 
@@ -224,8 +222,6 @@ Kontribusi dipersilakan! Laporan bug, saran fitur, peningkatan dokumentasi, terj
 
 - **Issues**: Buka masalah GitHub untuk bug atau permintaan fitur.
 - **Pull request**: Fork repositori, lakukan perubahan, lalu kirimkan PR. Lihat [DEVELOP.md](../src/uagent/docs/DEVELOP.md) untuk penyiapan pengembangan dan panduan.
-
-
 
 Realtime Suara dan AEC3
 

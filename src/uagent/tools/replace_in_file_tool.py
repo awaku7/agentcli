@@ -1387,7 +1387,7 @@ def run_tool(args: dict[str, Any]) -> str:
             lines = orig_norm.splitlines(True)
             max_line = len(lines) + 1
             if line_no <= 0:
-                line_no = 1  # 0 は先頭行として扱う
+                line_no = 1  # 0 is treated as the first line
             if line_no > max_line:
                 raise ValueError(
                     _(

@@ -31,7 +31,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "read email",
                 "inbox",
                 "mail search",
-                "メール受信",
+                "Receive email",
                 "leer correo",
                 "lire email",
                 "이메일 읽기",

@@ -725,7 +725,7 @@
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "DALI {action}: addr={addr} level={level}",
     "x_search_terms": [
-      "dali write",
+      "dali magsulat",
       "dali_write",
       "dali",
       "DALI",
@@ -746,13 +746,13 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.summary": "DALI {action}: addr={addr} level={level}",
     "x_search_terms": [
-      "dali write",
+      "dali tulis",
       "dali_write",
       "dali",
       "DALI",
       "lighting",
       "supports",
-      "on/off"
+      "hidup/mati"
     ]
   },
   "da": {
@@ -767,7 +767,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI {action}: addr={addr} niveau={level}",
     "x_search_terms": [
-      "dali write",
+      "dali skrive",
       "dali_write",
       "dali",
       "DALI",
@@ -782,13 +782,13 @@
     "param.action.description": "Handling: på, av eller dimme.",
     "param.level.description": "Dimnivå (0-254). Nødvendig for handling=dim.",
     "param.group.description": "Valgfri gruppeadresse (0-15) i staden for enkeltadresse.",
-    "param.driver.description": "DALI driver type.",
+    "param.driver.description": "DALI-sjåførtype.",
     "param.host.description": "daliserver vert.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "daliserver-port.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI {action}: adr={addr} nivå={level}",
     "x_search_terms": [
-      "dali write",
+      "dali skrive",
       "dali_write",
       "dali",
       "DALI",

@@ -21,15 +21,15 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## 為什麼是uag？
 
-**擺脫供應商鎖定。 **大多數人工智慧助理會將您與特定的供應商或雲端服務連結起來。 uag 是不同的。
+\*\*擺脫供應商鎖定。 \*\*大多數人工智慧助理會將您與特定的供應商或雲端服務連結起來。 uag 是不同的。
 
 - **在您的電腦上本機運作**。您的資料保留在您身邊（您進行的 API 呼叫除外）。
 - **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 24 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
-- **195 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **111 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
+- **203 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **111 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
 
@@ -62,7 +62,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 只讀工具（檔案搜尋、哈希計算、目錄列表、翻譯、資料庫查詢等）被積極並行化。
 
-
 ### 🧩 插件系統（Claude Code 相容）
 
 uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理、MCP 伺服器、掛鉤等內容，與 `.claude-plugin/plugin.json` 清單一起封裝在獨立目錄中。
@@ -70,6 +69,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 **支援的元件：技能、子代理程式、MCP 伺服器、掛鉤（12 個生命週期事件）、斜線命令、輸出樣式、userConfig、相依項、通道、市場**
 
 **CLI commands**:
+
 ```
 :plugin list                         # 列出已安裝的插件
 :plugin install <source> [--scope]
@@ -82,13 +82,14 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 
 有關詳細資訊，請參閱完整文件。 [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 會話連續性
 
 - **在工作階段中途切換提供者**（使用 `UAGENT_PROVIDER`）— 會話記錄會保留。
 - **重新載入過去的工作階段**（使用 `:load <index>`）— 從上次中斷處繼續。
 
-### 🛠 195  工具
+### 🛠 203 工具
+
+- **雲端 API**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 
 |類別 |工具|
 |---|---|
@@ -99,11 +100,11 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 | **預測** | 使用9種模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）進行時間序列預測，自動模型選擇，產生圖表，i18n |
 | **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 及 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **物聯網** | SwitchBot（雲端 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**26 個原始碼導航器（idx 系列）** |
+| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 個原始碼導航器（idx 系列）** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 |
 | **A2A** |代理間通訊（與其他 uag 實例或 A2A 相容伺服器）|
 | **系統** | 環境變數、系統規格、時間、日期計算, uuid_gen, slugify ||
-| **來源導航** | **26 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
+| **來源導航** | **29 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
 
 ### 🖥 4 個介面 + VS 代碼擴展
 
@@ -118,10 +119,10 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)。
 
 ### 🏠 物聯網設備控制
+
 - **事項**：控制器/橋接器/設備拓樸的唯讀檢查
 
 請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🏠 IoT 設備控制
 
@@ -168,7 +169,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 |---|---|
 | **命令列** |在 LLM 串流期間按下「c」鍵 — 當前回應停止，並且「停止」作為使用者訊息發送，以便 LLM 做出相應回應 |
 | **網頁使用者介面** |點選紅色 **■ 停止** 按鈕（LLM 處理期間自動出現）|
-| **桌面圖形使用者介面** |點選紅色 ******** 按鈕（LLM 處理期間自動出現）|
+| **桌面圖形使用者介面** |點選紅色 \*\*\*\*\*\*\*\* 按鈕（LLM 處理期間自動出現）|
 
 中斷充當「提示注入」：它不僅僅是中止，而是將「停止」作為使用者訊息回饋給 LLM，使其能夠優雅地結束或確認中斷。
 
@@ -214,7 +215,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 ## 專案理念
 
-uag 渴望成為 **您的人工智慧，在您的機器上，按照您的條件。 **
+uag 渴望成為 \*\*您的人工智慧，在您的機器上，按照您的條件。 \*\*
 
 - 無 SaaS 依賴性 — 在本地運行
 - 沒有供應商鎖定－隨時切換
@@ -225,7 +226,6 @@ uag 渴望成為 **您的人工智慧，在您的機器上，按照您的條件�
 
 ### ✨ 建立您自己的工具
 
-
 [zh_TW.md](TOOL_CREATOR_GUIDE.zh_TW.md)
 如需逐步指南，請參閱此處。
 
@@ -235,8 +235,6 @@ uag 渴望成為 **您的人工智慧，在您的機器上，按照您的條件�
 
 - **Issues**: 針對錯誤或功能請求開啟 GitHub 問題。
 - **提取請求**：Fork 儲存庫、完成修改並提交 PR。如需開發環境設定與指南，請參閱 [DEVELOP.md](../src/uagent/docs/DEVELOP.md)。
-
-
 
 Realtime 語音和 AEC3
 

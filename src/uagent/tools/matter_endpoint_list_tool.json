@@ -623,7 +623,7 @@
     "param.ctrl.description": "Controller ID (opsyonal).",
     "x_search_terms": [
       "bagay na listahan ng endpoint",
-      "matter_endpoint_list",
+      "bagay_endpoint_list",
       "matter",
       "MATTER",
       "endpoints"
@@ -658,7 +658,7 @@
     "param.bridge.description": "Bridge ID (valgfrit).",
     "param.ctrl.description": "Controller-id (valgfrit).",
     "x_search_terms": [
-      "matter endpoint list",
+      "sagens slutpunktsliste",
       "matter_endpoint_list",
       "matter",
       "MATTER",
@@ -676,7 +676,7 @@
     "param.bridge.description": "Bro-ID (valgfritt).",
     "param.ctrl.description": "Kontroller-ID (valgfritt).",
     "x_search_terms": [
-      "matter endpoint list",
+      "materie-endepunktliste",
       "matter_endpoint_list",
       "matter",
       "MATTER",

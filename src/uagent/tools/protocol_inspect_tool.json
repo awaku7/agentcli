@@ -22,9 +22,9 @@
     "param.limit.description": "الحد الأقصى لعدد الحزم المراد إرجاعها.",
     "x_search_terms": [
       "فحص البروتوكول، حقول الحزمة، حقول pcap، تحليل الرأس",
-      "",
-      "",
-      ""
+      "حقول الحزمة",
+      "حقول PCAP",
+      "تحليل الرأس"
     ]
   },
   "bn": {
@@ -150,7 +150,7 @@
       "inspeksyon ng protocol",
       "packet field",
       "pcap field",
-      "header analysis"
+      "pagsusuri ng header"
     ]
   },
   "fr": {
@@ -344,9 +344,9 @@
     "param.limit.description": "Maksimalt antall pakker som skal returneres.",
     "x_search_terms": [
       "protokollinspeksjon - pakkefelt - PCAP-felt- topptekstanalyse",
-      "",
-      "",
-      ""
+      "pakkefelt",
+      "pcap-felt",
+      "topptekstanalyse"
     ]
   },
   "pl": {

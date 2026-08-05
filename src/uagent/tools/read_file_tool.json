@@ -1065,16 +1065,16 @@
     "x_search_terms": [
       "read_file",
       "basahin ang file",
-      "file read",
+      "nabasa ang file",
       "file content",
       "basahin ang content",
       "buksan ang file",
-      "load file",
+      "i-load ang file",
       "file reader",
       "text reader",
       "basahin ang text",
-      "partial read",
-      "max lines"
+      "bahagyang nabasa",
+      "max na linya"
     ],
     "param.head.description": "Bilang ng mga linyang babasahin mula sa simula. Hindi magagamit sa tail_lines.",
     "param.maxl.description": "Pinakamataas na bilang ng mga linyang babasahin. Kung null, basahin sa EOF.",

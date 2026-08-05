@@ -1216,7 +1216,7 @@
     "param.value.description": "Nilai angka pilihan untuk tindakan set_value. Julat: 0-100.",
     "tool.description": "Kawal peranti SwitchBot BLE yang berdekatan dan kembalikan JSON atau hasil teks.",
     "x_search_terms": [
-      "switchbot ble control",
+      "kawalan switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "nearby",
@@ -1284,7 +1284,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Kontroller en SwitchBot BLE-enhet i nærheten og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble kontroll",
       "switchbot_ble_control",
       "switchbot",
       "nearby",

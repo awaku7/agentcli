@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## का उग?
 
@@ -29,7 +29,7 @@
 
 - **स्थानिक पातळीवर चालते**: तुमच्या मशीनवर. तुमचा डेटा तुमच्याकडेच राहतो (तुम्ही केलेले API कॉल वगळता).
 - **प्रदाता स्वातंत्र्य**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 प्रदाता, सर्व एकाच इंटरफेसवरून प्रवेशयोग्य. पर्यावरण व्हेरिएबल्स पुन्हा कॉन्फिगर करून त्यांच्यामध्ये अदलाबदल करा — पुन्हा स्थापित नाही, स्थलांतर नाही.
-- **195 साधने**: फाइल I/O, वेब शोध, प्रतिमा निर्मिती, Gmail, BLE डिव्हाइस स्कॅनिंग, MCP सर्व्हर एकत्रीकरण — **111 समांतर-सुरक्षित आहेत** (थ्रेड पूलद्वारे एकावेळी 8 पर्यंत चालतात; `UAGENT_PARALLEL_WORKERS` ने कॉन्फिगर करता येतात). जेव्हा LLM एकाच वेळी अनेक टूल कॉल फायर करते, uag स्वयंचलितपणे त्यांना समांतर करते.
+- **203 साधने**: फाइल I/O, वेब शोध, प्रतिमा निर्मिती, Gmail, BLE डिव्हाइस स्कॅनिंग, MCP सर्व्हर एकत्रीकरण — **111 समांतर-सुरक्षित आहेत** (थ्रेड पूलद्वारे एकावेळी 8 पर्यंत चालतात; `UAGENT_PARALLEL_WORKERS` ने कॉन्फिगर करता येतात). जेव्हा LLM एकाच वेळी अनेक टूल कॉल फायर करते, uag स्वयंचलितपणे त्यांना समांतर करते.
 - **3 UI + A2A**: CLI, GUI, Web आणि एजंट-टू-एजंट प्रोटोकॉल. समान इंजिन, कोणताही इंटरफेस.
 - **Agent Skills**: बाजारपेठेतून समुदाय-निर्मित कौशल्ये स्थापित करा. uag अविरतपणे वाढवा.
 
@@ -62,7 +62,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 केवळ-वाचनीय साधने (फाइल शोध, हॅश गणना, निर्देशिका सूची, भाषांतर, डीबी क्वेरी इ.) आक्रमकपणे समांतर आहेत.
 
-
 ### 🧩 प्लगइन सिस्टम (Claude Code सुसंगत)
 
 uagent **Claude Code-सुसंगत प्लगइन प्रणाली** लागू करते. प्लगइन कौशल्ये, एजंट, MCP सर्व्हर, हुक आणि बरेच काही `.claude-plugin/plugin.json` मॅनिफेस्टसह स्व-निहित निर्देशिकांमध्ये बंडल करतात.
@@ -70,6 +69,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 **समर्थित घटक**: कौशल्ये, सब-एजंट, MCP सर्व्हर, हुक (12 जीवनचक्र इव्हेंट), स्लॅश कमांड, आउटपुट शैली, userConfig, अवलंबन, चॅनेल, मार्केटप्लेस
 
 **CLI commands**:
+
 ```
 :plugin list                         # स्थापित प्लगइन सूचीबद्ध करा
 :plugin install <source> [--scope]
@@ -81,7 +81,6 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 ```
 
 संपूर्ण दस्तऐवजासाठी [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) पहा.
-
 
 ### 🔄 सत्र सातत्य
 
@@ -99,11 +98,12 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **अंदाज** | 9 मॉडेल्ससह टाइम सीरीज अंदाज (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, इ.), स्वयंचलित मॉडेल निवड, प्लॉट निर्मिती, i18n |
 | **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — पहा [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
+| **क्लाउड API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना, uuid_gen, slugify ||
-| **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL साठी **26 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |
+| **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile साठी **29 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |
 
 ### 🖥 4 इंटरफेस + VS कोड विस्तार
 
@@ -118,11 +118,11 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) पहा.
 
 ### 🏠 IoT डिव्हाइस नियंत्रण
+
 - **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण
 - **मॅटर**: कंट्रोलर/ब्रिज/डिव्हाइस टोपोलॉजीची केवळ वाचनीय तपासणी
 
 पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 एजंट स्किल्स मार्केटप्लेस
 
@@ -175,13 +175,12 @@ LLM प्रतिसाद निर्मिती कधीही थां�
 `tool_catalog` आणि `tool_load` तुम्हाला रनटाइममध्ये टूल्स शोधू आणि सक्षम करू देतात.
 स्टार्टअपवर सर्व काही लोड करण्याची गरज नाही — जेव्हा तुम्हाला आवश्यक असेल तेव्हाच सक्रिय करा.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` आणि `slugify` कार्यप्रदर्शनासाठी Rust (PyO3 मार्गे) मध्ये लागू केले आहेत. ते थेट प्री-बिल्ट `.pyd` वरून लोड करतात — **`pip install` ची आवश्यकता नाही**.
 
 बाह्य विकासक Rust-आधारित साधने देखील पाठवू शकतात: wrapper `.py` च्या पुढे `.pyd` ठेवा,
-``uagent.tools.rust_helper`` मधील ``load_rust_pyd()`` वापरा आणि
+`uagent.tools.rust_helper` मधील `load_rust_pyd()` वापरा आणि
 वापरकर्त्यांना अतिरिक्त अवलंबनाशिवाय साधन मिळेल. पहा
 [TOOL_CREATOR_GUIDE.mr.md](TOOL_CREATOR_GUIDE.mr.md).
 
@@ -221,7 +220,7 @@ uag **तुमची AI, तुमच्या मशीनवर, तुमच
 ### ✨ तुमची स्वतःची साधने तयार करा
 
 uag साठी नवीन साधन लिहिणे सोपे आहे — `TOOL_SPEC` आणि `run_tool()` सह एकल `.py` फाइल तयार करा,
-ती ``UAGENT_EXTERNAL_TOOLS_DIR`` मध्ये ठेवा आणि ती त्वरित उपलब्ध होईल. Rust विकासकांसाठी,
+ती `UAGENT_EXTERNAL_TOOLS_DIR` मध्ये ठेवा आणि ती त्वरित उपलब्ध होईल. Rust विकासकांसाठी,
 वापरकर्त्यांसाठी कोणत्याही अतिरिक्त अवलंबनाशिवाय प्री-बिल्ट `.pyd` पाठवा.
 
 क्रमवार मार्गदर्शकासाठी [TOOL_CREATOR_GUIDE.mr.md](TOOL_CREATOR_GUIDE.mr.md) पहा.

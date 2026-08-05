@@ -932,7 +932,7 @@
     "msg.no_changes": "Walang nakitang pagbabago.",
     "err.ip_required": "ip ay kinakailangan.",
     "x_search_terms": [
-      "modbus monitor",
+      "monitor ng modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -986,7 +986,7 @@
     "msg.no_changes": "Ingen ændringer registreret.",
     "err.ip_required": "ip er påkrævet.",
     "x_search_terms": [
-      "modbus monitor",
+      "modbus skærm",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -1013,7 +1013,7 @@
     "msg.no_changes": "Ingen endringer oppdaget.",
     "err.ip_required": "ip kreves.",
     "x_search_terms": [
-      "modbus monitor",
+      "modbus-monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",

@@ -675,7 +675,7 @@
     "err.url_required": "url diperlukan.",
     "err.node_id_required": "node_id diperlukan.",
     "x_search_terms": [
-      "opcua subscribe",
+      "opcua melanggan",
       "opcua_subscribe",
       "opcua",
       "OPCUA",
@@ -694,7 +694,7 @@
     "err.url_required": "url er påkrævet.",
     "err.node_id_required": "node_id er påkrævet.",
     "x_search_terms": [
-      "opcua subscribe",
+      "opcua abonnere",
       "opcua_subscribe",
       "opcua",
       "OPCUA",
@@ -704,7 +704,7 @@
   },
   "nn": {
     "tool.description": "Abonner på dataendringer på en OPC UA-servernode. Når verdien endres, blir LLM automatisk varslet.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Node-ID som skal overvåkes (f.eks. 'i=85' eller 'ns=2;s=Temperature').",
     "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'ボイラー温度').",
     "param.on_change_prompt.description": "Valgfri melding om LLM når verdien endres.",
@@ -713,7 +713,7 @@
     "err.url_required": "url er påkrevd.",
     "err.node_id_required": "node_id kreves.",
     "x_search_terms": [
-      "opcua subscribe",
+      "opcua abonner",
       "opcua_subscribe",
       "opcua",
       "OPCUA",

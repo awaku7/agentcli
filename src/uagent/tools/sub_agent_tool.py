@@ -1,6 +1,6 @@
 """Sub-Agent Tool Plugin for uag
-親エージェントの制御下で動作する安全な専門サブエージェントを実行します。
-本体のコアシステムをインポートせず、util_providers.py のクライアント生成ユーティリティのみを介して動作します。
+Run safe specialist sub-agents under parent-agent control.
+Operate through the client-generation utilities in util_providers.py without importing the core system.
 """
 
 from __future__ import annotations
@@ -29,11 +29,11 @@ BUSY_LABEL = True
 # Constants
 # ---------------------------------------------------------------------------
 
-# 空リスト = 全ツール許可。サブエージェントは human_ask でユーザー確認を取りながら全ツールを実行できる。
+# An empty list allows all tools; the sub-agent must obtain user confirmation through human_ask.
 _SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
     "none": [],
-    "read_only": [],  # 空 = 全ツール許可
-    "propose_only": [],  # 空 = 全ツール許可 (read_only と同一扱い)
+    "read_only": [],  # Empty means all tools are allowed
+    "propose_only": [],  # Empty means all tools are allowed (treated the same as read_only)
 }
 _DEFAULT_CACHE_DIR = Path.home() / ".uag" / "subagent_cache"
 _SUB_AGENT_LOG_DIR = Path.home() / ".uag" / "subagent_logs"
@@ -86,7 +86,7 @@ class AgentSpec:
 
 
 # ---------------------------------------------------------------------------
-# Duplicate-call guard 兼 結果キャッシュ
+# Duplicate-call guard and result cache
 # ---------------------------------------------------------------------------
 
 
@@ -346,136 +346,58 @@ class SubAgentRunner:
         self.specs: Dict[str, AgentSpec] = {
             "planner": AgentSpec(
                 name="planner",
-                description="計画作成エージェント",
+                description="Planning agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは計画作成に特化したサブエージェントです。"
-                    "【段階的思考】最初にタスクの全体像を把握し、次に依存関係を分析し、最後に実行可能な手順に分解してください。"
-                    "【出力フォーマット】出力は必ずJSONで、以下の各フィールドを厳守してください:\n"
-                    '  - status: 必ず"completed"\n'
-                    '  - role: "planner"\n'
-                    "  - summary: 計画の要約（1〜2文）\n"
-                    "  - assumptions: 前提条件のリスト（情報不足の場合は何を仮定したか明記）\n"
-                    "  - risks: リスク・注意点のリスト\n"
-                    "  - next_actions: 具体的な次の行動手順のリスト（各項目は実行可能な粒度で）\n"
-                    "【エッジケース】情報が不足している場合は assumptions にその旨を明記し、必要な追加情報を specific に列挙してください。タスクが既に完了済みの場合は空の next_actions を返してください。\n"
-                    "【自己評価】出力前に「この計画で本当にタスクを完了できるか」を自己チェックし、不足があれば assumptions か risks に追記してください。\n"
-                    "【トークン効率】各フィールドは必要最小限の情報に絞り、冗長な説明は避けてください。"
+                    _('auto.6cb7e91442d0aa96', default='You are a sub-agent specialized in planning. First understand the overall task, then analyze dependencies, and finally break it into executable steps.\n[Output format] Output must be JSON and strictly include these fields:\n  - status: always "completed"\n  - role: "planner"\n  - summary: Plan summary (1–2 sentences)\n  - assumptions: List of assumptions; explicitly state assumptions made due to missing information\n  - risks: List of risks and cautions\n  - next_actions: List of concrete next steps, each at an executable level\n[Edge cases] If information is insufficient, state that in assumptions and list the required additional information specifically. If the task is already complete, return an empty next_actions list.\n[Self-evaluation] Before output, check whether this plan can really complete the task; add missing items to assumptions or risks.\n[Token efficiency] Keep each field to the minimum necessary information and avoid verbose explanations.')
                 ),
             ),
             "reviewer": AgentSpec(
                 name="reviewer",
-                description="レビューエージェント",
+                description="Review agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたはレビューに特化したサブエージェントです。"
-                    "【段階的思考】最初に入力の全体構成を把握し、次に「抜け」「論理矛盾」「危険性」「改善余地」の4軸で検査し、最後に優先順位を付けて報告してください。\n"
-                    "【出力フォーマット】JSONで以下を厳守:\n"
-                    '  - status: "completed" / 問題が致命的なら "error"\n'
-                    '  - role: "reviewer"\n'
-                    "  - summary: レビュー総評（2〜3文）\n"
-                    "  - findings: 発見した問題点のリスト（各項目に severity: high/medium/low を含めること）\n"
-                    "  - risks: 将来問題になりうる箇所\n"
-                    "  - recommended_actions: 修正提案のリスト\n"
-                    '【エッジケース】問題がない場合は findings を空リストにしてください。入力が空や無意味な場合は status を "error" にして理由を message フィールドに記述してください。\n'
-                    "【自己評価】各 finding に対して「本当に問題か？」「誤検知ではないか？」を確認し、確信度が低いものは risks に回してください。\n"
-                    "【トークン効率】類似の問題はグルーピングし、重要度の高いものから順に記載してください。"
+                    _('auto.238f691c6304d301', default='You are a sub-agent specialized in review. First understand the overall structure of the input, then inspect it across four axes—omissions, logical contradictions, risks, and opportunities for improvement—and finally report findings in priority order.\n[Output format] Strictly output JSON with:\n  - status: "completed" / "error" if the problem is fatal\n  - role: "reviewer"\n  - summary: Overall review (2–3 sentences)\n  - findings: List of discovered issues, each including severity: high/medium/low\n  - risks: Areas that may become problems in the future\n  - recommended_actions: List of proposed fixes\n[Edge cases] If there are no problems, return an empty findings list. If the input is empty or meaningless, set status to "error" and explain why in the message field.\n[Self-evaluation] For each finding, check whether it is truly a problem and not a false positive; move low-confidence items to risks.\n[Token efficiency] Group similar issues and list them in descending order of importance.')
                 ),
             ),
             "summarizer": AgentSpec(
                 name="summarizer",
-                description="要約エージェント",
+                description="Summarization agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは要約に特化したサブエージェントです。"
-                    "【段階的思考】最初に入力全体を読み、重要度で情報を選別し、最後に構造化して出力してください。\n"
-                    "【出力フォーマット】JSONで以下を厳守:\n"
-                    '  - status: "completed"\n'
-                    '  - role: "summarizer"\n'
-                    "  - summary: 全体の要約（1〜3文）\n"
-                    "  - key_points: 重要なポイントのリスト（各項目は具体性を保ち、1項目1情報）\n"
-                    "  - open_questions: 未解決の疑問点や確認が必要な点\n"
-                    "【エッジケース】入力が極端に短い（1文など）場合は summary だけでよく、key_points は省略可能です。専門用語は元の表現を維持してください。\n"
-                    "【自己評価】要約が元の意図を正確に反映しているか確認し、重要情報の欠落がないかチェックしてください。\n"
-                    "【トークン効率】冗長表現を避け、各 key_point は20語以内に収めてください。"
+                    _('auto.da98c4c06ff99472', default='You are a sub-agent specialized in summarization. First read the entire input, select information by importance, and finally output it in a structured form.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "summarizer"\n  - summary: Overall summary (1–3 sentences)\n  - key_points: List of important points, keeping each item specific and focused on one piece of information\n  - open_questions: Unresolved questions or items requiring confirmation\n[Edge cases] If the input is extremely short (such as one sentence), summary alone is sufficient and key_points may be omitted. Preserve technical terms as written.\n[Self-evaluation] Confirm that the summary accurately reflects the original intent and does not omit important information.\n[Token efficiency] Avoid verbosity; keep each key_point within 20 words.')
                 ),
             ),
             "patch_designer": AgentSpec(
                 name="patch_designer",
-                description="パッチ設計エージェント",
+                description="Patch design agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは変更差分の設計に特化したサブエージェントです。"
-                    "【段階的思考】最初に現状のコードを理解し、次に最小変更で目的を達成する方法を設計し、最後に変更の影響範囲を検証してください。\n"
-                    "【出力フォーマット】JSONで以下を厳守:\n"
-                    '  - status: "completed"\n'
-                    '  - role: "patch_designer"\n'
-                    "  - summary: 変更概要\n"
-                    "  - files: 変更対象ファイルのリスト\n"
-                    "  - changes: 各ファイルの具体的な変更内容（追加/削除/修正を明確に）\n"
-                    "  - risks: 変更による副作用やリスク\n"
-                    "  - validation_steps: 変更後に実行すべき検証手順\n"
-                    "【エッジケース】変更が必要ない場合は changes を空リストにし、その理由を summary に記述してください。複数の変更案がある場合は推奨順に列挙してください。\n"
-                    "【自己評価】各変更が「本当に必要か」「より安全な代替手段はないか」を確認してください。\n"
-                    "【トークン効率】変更内容は unified diff 形式ではなく、変更の意図と箇所を自然言語で簡潔に説明してください。"
+                    _('auto.417eea12dad04caa', default='You are a sub-agent specialized in designing code changes. First understand the current code, then design the smallest change that achieves the goal, and finally verify the scope of the change.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "patch_designer"\n  - summary: Change summary\n  - files: List of files to change\n  - changes: Specific changes for each file, clearly identifying additions, deletions, and modifications\n  - risks: Side effects and risks caused by the change\n  - validation_steps: Validation steps to run after the change\n[Edge cases] If no change is needed, set changes to an empty list and explain why in summary. If multiple approaches exist, list them in recommended order.\n[Self-evaluation] Check whether each change is truly necessary and whether a safer alternative exists.\n[Token efficiency] Explain the intent and location of changes concisely in natural language rather than unified diff format.')
                 ),
             ),
             "error_analyst": AgentSpec(
                 name="error_analyst",
-                description="エラー分析エージェント",
+                description="Error analysis agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたはエラー分析に特化したサブエージェントです。"
-                    "【段階的思考】最初にエラーメッセージとコンテキストを収集し、次に原因を切り分け（直接原因→根本原因）、最後に再現条件と対処案を整理してください。\n"
-                    "【出力フォーマット】JSONで以下を厳守:\n"
-                    '  - status: "completed"\n'
-                    '  - role: "error_analyst"\n'
-                    "  - summary: エラーの要約\n"
-                    "  - root_cause: 根本原因の説明\n"
-                    "  - evidence: 判断根拠となった事実のリスト（エラーメッセージ、ログ、スタックトレースなど）\n"
-                    "  - proposed_actions: 対処案のリスト（各項目は具体的な操作手順まで含めること）\n"
-                    '【エッジケース】原因が特定できない場合は root_cause を "不明" とし、調査に必要な追加情報を列挙してください。複数の原因が考えられる場合は可能性が高い順に列挙してください。\n'
-                    "【自己評価】「この原因分析でエラーを再現できるか」「対処案で本当に解決するか」を確認してください。\n"
-                    "【トークン効率】evidence は関連部分のみに切り取り、全文を貼り付けないでください。"
+                    _('auto.4651eaae39b1dbbb', default='You are a sub-agent specialized in error analysis. First collect the error message and context, then isolate the cause (direct cause to root cause), and finally organize reproduction conditions and remedies.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "error_analyst"\n  - summary: Error summary\n  - root_cause: Explanation of the root cause\n  - evidence: List of facts supporting the judgment, such as error messages, logs, and stack traces\n  - proposed_actions: List of remedies, including concrete operating steps for each item\n[Edge cases] If the cause cannot be identified, set root_cause to "unknown" and list the additional information needed for investigation. If multiple causes are possible, list them in order of likelihood.\n[Self-evaluation] Confirm whether this analysis can reproduce the error and whether the proposed remedies will actually resolve it.\n[Token efficiency] Include only relevant excerpts in evidence; do not paste the full text.')
                 ),
             ),
             "translator": AgentSpec(
                 name="translator",
-                description="翻訳エージェント",
+                description="Translation agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは翻訳に特化したサブエージェントです。"
-                    "【段階的思考】最初に原文の意図・用語・文体を把握し、次に対象言語の自然な表現へ変換し、最後に用語一貫性とプレースホルダ保全を確認してください。\n"
-                    "【出力フォーマット】JSONで以下を厳守:\n"
-                    '  - status: "completed"\n'
-                    '  - role: "translator"\n'
-                    "  - summary: 翻訳結果の要約\n"
-                    "  - source_lang: 原文言語（ISO 639-1 等）\n"
-                    "  - target_lang: 訳文言語（ISO 639-1 等）\n"
-                    "  - translation: 翻訳本文\n"
-                    "  - notes: 用語選択・曖昧さ・未訳箇所などの補足（必要な場合のみ）\n"
-                    "【エッジケース】原文が複数言語混在の場合は主要言語を source_lang とし、混在箇所を notes に記載してください。"
-                    "翻訳不能な断片がある場合は translation に可能な範囲を入れ、notes に理由を書いてください。\n"
-                    "【自己評価】意味の忠実性・自然さ・用語一貫性・プレースホルダ（{...} / %(name)s 等）の保全を確認してから出力してください。\n"
-                    "【トークン効率】translation 以外に原文全文を重複させないでください。"
+                    _('auto.c30a5aed7a2d7578', default='You are a sub-agent specialized in translation. First understand the intent, terminology, and style of the source, then convert it into natural expressions in the target language, and finally check terminology consistency and placeholder preservation.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "translator"\n  - summary: Summary of the translation result\n  - source_lang: Source language (ISO 639-1, etc.)\n  - target_lang: Target language (ISO 639-1, etc.)\n  - translation: Translated text\n  - notes: Notes on terminology choices, ambiguity, or untranslated portions, only when needed\n[Edge cases] If the source mixes multiple languages, use the primary language as source_lang and describe mixed portions in notes. If a fragment cannot be translated, put the possible result in translation and explain why in notes.\n[Self-evaluation] Before output, confirm fidelity, naturalness, terminology consistency, and preservation of placeholders ({...} / __UAG_PROTECTED_0__, etc.).\n[Token efficiency] Do not duplicate the full source text outside translation.')
                 ),
             ),
             "general": AgentSpec(
                 name="general",
-                description="汎用エージェント",
+                description="General-purpose agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは汎用タスク処理エージェントです。特定の役割に縛られず、与えられたタスクを柔軟に処理してください。\n"
-                    "【段階的思考】最初にタスクの目的と要件を理解し、次に必要な情報やツールを判断し、最後に結果を構造化して出力してください。\n"
-                    "【出力フォーマット】出力はJSONで、以下のフィールドを含めてください:\n"
-                    '  - status: "completed"\n'
-                    '  - role: "general"\n'
-                    "  - summary: 処理結果の要約\n"
-                    "  - details: 詳細な結果（内容はタスクに応じて自由に構造化）\n"
-                    "  - notes: 補足情報や前提条件（必要な場合のみ）\n"
-                    '【エッジケース】タスクの要件が不明確な場合は notes にその旨を記載し、判断した前提条件を明示してください。タスクが実行不能な場合は status を "error" として理由を summary に記述してください。\n'
-                    "【自己評価】出力がタスクの要件を満たしているか確認し、不足があれば補ってから出力してください。\n"
-                    "【トークン効率】details は必要十分な情報に絞り、冗長な説明を避けてください。"
+                    _('auto.924901d00f734fac', default='You are a general-purpose task-processing agent. Process the given task flexibly without being constrained to a specific role.\n[Step-by-step reasoning] First understand the task objective and requirements, then determine the necessary information and tools, and finally output a structured result.\n[Output format] Output JSON containing:\n  - status: "completed"\n  - role: "general"\n  - summary: Summary of the processing result\n  - details: Detailed result, structured as appropriate for the task\n  - notes: Additional information or assumptions, only when needed\n[Edge cases] If the requirements are unclear, state that in notes and make the assumptions explicit. If the task cannot be performed, set status to "error" and explain why in summary.\n[Self-evaluation] Confirm that the output meets the task requirements and fill in any omissions before output.\n[Token efficiency] Keep details to the necessary information and avoid verbosity.')
                 ),
             ),
         }
@@ -492,7 +414,7 @@ class SubAgentRunner:
         self._usage_lock = Lock()
 
     # ------------------------------------------------------------------
-    # 動的役割生成
+    # Dynamic role generation
     # ------------------------------------------------------------------
 
     @staticmethod
@@ -523,7 +445,7 @@ class SubAgentRunner:
         return specs
 
     # ------------------------------------------------------------------
-    # コストトラッキング
+    # Cost tracking
     # ------------------------------------------------------------------
 
     def _accumulate_usage(self, usage: Dict[str, int]) -> None:
@@ -585,7 +507,7 @@ class SubAgentRunner:
                 self._total_usage[k] = 0
 
     # ------------------------------------------------------------------
-    # 永続化ログ
+    # Persistent log
     # ------------------------------------------------------------------
 
     def _write_log(
@@ -642,25 +564,25 @@ class SubAgentRunner:
         return "completed"
 
     # ------------------------------------------------------------------
-    # PermissionLevel 支援 (共通)
+    # PermissionLevel support (shared)
     # ------------------------------------------------------------------
 
     def _build_tool_list_prompt(self, permission_level: str) -> str:
         if permission_level == "none":
             return ""
-        # 空リスト = 全ツール許可
+        # Empty list means all tools are allowed
         return (
-            "\n\n[利用可能なツール]\n"
-            "すべてのツールが利用可能です。\n"
-            "ツールを使用するには {tool_name}(引数1=値1, 引数2=値2) の形式で指示してください。\n"
-            "危険な操作を行う場合は、先に human_ask で確認を取ってください。"
+            "\n\n[Available tools]\n"
+            "All tools are available.\n"
+            "Use a tool with {tool_name}(arg1=value, arg2=value).\n"
+            "For dangerous operations, obtain confirmation through human_ask first."
         )
 
     def _execute_tool_calls(self, text: str, permission_level: str) -> List[str]:
         """Parse tool call patterns and execute them, returning list of result strings."""
         if permission_level == "none":
             return []
-        # 空リスト = 全ツール許可
+        # Empty list means all tools are allowed
         pattern = r"(\w+)\s*\(\s*([^)]*)\s*\)"
         seen_signatures: set[str] = set()
         results: List[str] = []
@@ -704,7 +626,7 @@ class SubAgentRunner:
         """Single-turn tool execution: append results to original text."""
         results = self._execute_tool_calls(text, permission_level)
         if results:
-            return text + "\n\n---\nツール実行結果:\n" + "\n\n".join(results)
+            return text + "\n\n---\nTool execution result:\n" + "\n\n".join(results)
         return text
 
     # ------------------------------------------------------------------
@@ -888,7 +810,7 @@ class SubAgentRunner:
             return (response.choices[0].message.content or "", usage)
 
     # ------------------------------------------------------------------
-    # メイン実行
+    # Main execution
     # ------------------------------------------------------------------
 
     def run(
@@ -936,8 +858,8 @@ class SubAgentRunner:
             current_goal=goal,
             current_state="PROCESSING",
             constraints=[
-                "副作用のある直接操作は禁止",
-                "JSONフォーマットでの確実な返却",
+                "Direct operations with side effects are prohibited",
+                "Reliable return in JSON format",
             ],
             relevant_snippets=self._load_current_file_snippets(current_file),
         )
@@ -1110,16 +1032,16 @@ class SubAgentRunner:
         if required_fields is None and spec.default_required_fields:
             required_fields = list(spec.default_required_fields)
 
-        # --- System prompt 構築 ---
+        # --- Build system prompt ---
         base_prompt = spec.system_prompt
         if permission_level != "none":
             base_prompt += self._build_tool_list_prompt(permission_level)
 
         if max_turns > 1 and permission_level != "none":
             base_prompt += (
-                f"\n\nあなたは最大{max_turns}ターンまで会話を続けられます。"
-                "ツールを使って情報を集めた後、最終ターンではツール呼び出しを含めずに最終回答だけを出力してください。"
-                "各ターンでは、前のターンの出力とツール結果が「会話履歴」として追記されます。"
+                f"\n\nYou can continue the conversation for up to {max_turns} turns."
+                "After gathering information with tools, output only the final answer without tool calls in the final turn."
+                "Each turn appends the previous output and tool results to the conversation history."
             )
 
         if response_mode == "json":
@@ -1142,13 +1064,13 @@ class SubAgentRunner:
                 cb.log_message(
                     {
                         "role": "assistant",
-                        "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task.task}",
+                        "content": f"[Sub-Agent: {agent_name}] Processing started...\nTask: {task.task}",
                     }
                 )
             except Exception:
                 pass
 
-        # --- マルチターン or シングルターン ---
+        # --- Multi-turn or single-turn ---
         if max_turns > 1 and permission_level != "none":
             raw_output, total_retries, llm_usage = self._run_llm_multi_turn(
                 cb=cb,
@@ -1187,13 +1109,13 @@ class SubAgentRunner:
                 cb.log_message(
                     {
                         "role": "assistant",
-                        "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}",
+                        "content": f"[Sub-Agent: {agent_name}] Processing completed.\nResult:\n{raw_output}",
                     }
                 )
             except Exception:
                 pass
 
-        # --- 出力検証 ---
+        # --- Validate output ---
         if response_mode == "json":
             try:
                 result_obj = json.loads(raw_output)
@@ -1226,7 +1148,7 @@ class SubAgentRunner:
         return (result_str, llm_usage, total_retries)
 
     # ------------------------------------------------------------------
-    # マルチターン実行
+    # Multi-turn execution
     # ------------------------------------------------------------------
 
     def _run_llm_multi_turn(
@@ -1243,7 +1165,7 @@ class SubAgentRunner:
         permission_level: str,
         max_turns: int,
     ) -> tuple[str, int, Dict[str, int]]:
-        """マルチターンLLM実行。ツール呼び出しを複数ラウンドにわたって処理する。"""
+        """Run a multi-turn LLM process, handling tool calls across multiple rounds."""
 
         conversation = user_prompt
         total_retries = 0
@@ -1262,13 +1184,13 @@ class SubAgentRunner:
                     cb.log_message(
                         {
                             "role": "assistant",
-                            "content": f"[Sub-Agent] Turn {turn + 1}/{max_turns} - ツール実行結果を反映して次のターンに進みます。",
+                            "content": f"[Sub-Agent] Turn {turn + 1}/{max_turns} - Reflect the tool result and proceed to the next turn.",
                         }
                     )
                 except Exception:
                     pass
 
-            # 最終ターン以外はJSONバリデーションをスキップ（中間出力はツール呼び出しの可能性）
+            # Skip JSON validation before the final turn (intermediate output may contain tool calls)
             current_response_mode = response_mode if is_last else ""
 
             raw, retries, usage = self._call_with_retry(
@@ -1287,21 +1209,21 @@ class SubAgentRunner:
 
             last_raw = raw
 
-            # 最終ターン → そのまま返す
+            # Final turn: return as-is
             if is_last:
                 return raw, total_retries, total_usage
 
-            # 会話履歴に追記
+            # Append to conversation history
             conversation += f"\n\n[Your Response Turn {turn + 1}]:\n{raw}\n"
 
-            # ツール呼び出しをパースして実行
+            # Parse and execute tool calls
             tool_results = self._execute_tool_calls(raw, permission_level)
             if tool_results:
                 for tr in tool_results:
                     conversation += f"\n{tr}\n"
-                continue  # 次のターンへ
+                continue  # the next turn
 
-            # ツール呼び出しがない → これが最終回答
+            # No tool calls: this is the final answer
             return raw, total_retries, total_usage
 
         return last_raw, total_retries, total_usage
@@ -1345,7 +1267,7 @@ class SubAgentRunner:
                         if attempt < max_retries:
                             total_retries += 1
                             last_error = f"Invalid JSON on attempt {attempt + 1}"
-                            system_prompt += "\n\n[前回の出力はJSON形式ではありませんでした。必ず有効なJSONのみを出力してください。]"
+                            system_prompt += "\n\n[The previous output was not valid JSON. Output valid JSON only.]"
                             time.sleep(1)
                             continue
                 return raw, total_retries, total_usage

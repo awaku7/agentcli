@@ -515,11 +515,11 @@
       "zipcode",
       "postal code",
       "zip code",
-      "japan zipcode",
+      "zipcode ng Japan",
       "japanese zip",
       "postcode",
-      "address lookup",
-      "japan address"
+      "paghahanap ng address",
+      "address sa japan"
     ],
     "param.zipcode.description": "7-digit na Japanese zipcode na hahanapin (hal. '1000001'). Ang mga gitling ay hindi pinapansin.",
     "param.prefecture.description": "Pangalan ng Japanese prefecture para ilista ang mga lungsod sa (hal. '東京都', 'Kanagawa'). Tinanggap ang Kanji, kana, o romaji."
@@ -549,7 +549,7 @@
       "japansk postnummer",
       "adresseopslag",
       "japan adresse",
-      ""
+      "japan adresse"
     ],
     "param.zipcode.description": "7-cifret japansk postnummer at slå op (f.eks. '1000001'). Bindestreger ignoreres.",
     "param.prefecture.description": "Japansk præfekturnavn for at vise byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteret."
@@ -564,7 +564,7 @@
       "japansk postnummer",
       "adresseoppslag",
       "japan adresse",
-      ""
+      "japan-adresse"
     ],
     "param.zipcode.description": "7-sifret japansk postnummer for å slå opp (f.eks. '1000001'). Bindestreker ignoreres.",
     "param.prefecture.description": "Japansk prefekturnavn for å liste byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji godtas."

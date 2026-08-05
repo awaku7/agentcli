@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## De ce uag?
 
@@ -29,7 +29,7 @@
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **195  instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **111 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
+- **203 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **111 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
@@ -62,7 +62,6 @@ Când LLM solicită mai multe instrumente simultan, uag **le paralelizează auto
 
 Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listarea directoarelor, traducerea, interogările DB etc.) sunt paralelizate agresiv.
 
-
 ### 🧩 Sistem de pluginuri (compatibil cu Claude Code)
 
 uagent implementează un **sistem de pluginuri compatibil cu Claude Code**. Pluginurile reunesc abilități, agenți, servere MCP, hook-uri și multe altele în directoare autonome cu manifestul `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementează un **sistem de pluginuri compatibil cu Claude Code**. Plug
 **Componente acceptate**: abilități, sub-agenți, servere MCP, cârlige (12 evenimente ale ciclului de viață), comenzi Slash, stiluri de ieșire, userConfig, dependențe, canale, piețe
 
 **CLI commands**:
+
 ```
 :plugin list                         # Listați pluginurile instalate
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementează un **sistem de pluginuri compatibil cu Claude Code**. Plug
 
 Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Continuitatea sesiunii
 
 - **Schimbați furnizorul în timpul sesiunii**: `UAGENT_PROVIDER` — istoricul conversațiilor este păstrat.
 - **Reîncărcați sesiunile anterioare**: `:load <index>` — reluați de unde ați rămas.
 
-### 🛠 195 de instrumente
+### 🛠 203 de instrumente
 
 | Categoria | Instrumente |
 |---|---|
@@ -99,11 +98,12 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVE
 | **Prognoză** | Prognoză serii de timp cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selecție automată a modelului, generare de grafice, i18n |
 | **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigatoare de cod sursă (familia idx)** |
+| **API-uri cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatoare de cod sursă (familia idx)** |
 | **MCP** | Conectați-vă la servere MCP externe, listați instrumentele, executați |
 | **A2A** | Comunicare agent la agent (cu alte instanțe uag sau servere compatibile A2A) |
 | **Sistem** | env vars, specificații de sistem, ora, calculul datei, uuid_gen, slugify ||
-| **Sursa Nav** | **26 instrumente idx** pentru Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — obțineți un index de funcție/clasă sau o definiție specifică fără a citi întregul fișier |
+| **Sursa Nav** | **29 instrumente idx** pentru Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obțineți un index de funcție/clasă sau o definiție specifică fără a citi întregul fișier |
 
 ### 🖥 4 interfețe + extensie cod VS
 
@@ -118,10 +118,10 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVE
 Consultați [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
 
 ### 🏠 Controlul dispozitivelor IoT
+
 - **Materia**: inspecție numai în citire a topologiei controlerului/puntului/dispozitivului
 
 Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🏠 Control dispozitiv IoT
 
@@ -131,7 +131,7 @@ Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USEC
 - **SwitchBot**: Controlul loturilor în cloud și scanarea/controlul BLE. Abonament bazat pe sondaje
 - **ECHONET Lite**: Descoperiți, controlați și abonați-vă la notificările INF de la aparatele electrocasnice (AC, lumini, încălzitoare de apă, etc.)
 - **Materia**: Control de citire/scriere + abonament de atribut pentru monitorizarea schimbării stării
-- **UPnPPD**: Descoperirea dispozitivului[=BR==]=] [IOT_USECASE.md](IOT_USECASE.md)
+- **UPnPPD**: Descoperirea dispozitivului[=BR==]=\] [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Piața abilităților de agenți
 
@@ -184,9 +184,7 @@ Două instrumente complementare bazate pe dramaturg:
 `tool_catalog` și `tool_load` vă permit să descoperiți și să activați instrumente în timpul execuției.
 Nu este nevoie să încărcați totul la pornire - activați doar ceea ce aveți nevoie, atunci când aveți nevoie.
 
-
 ### 🦀 Rust Native Tools
-
 
 ### 🌐 i18n / L10n
 
@@ -223,7 +221,6 @@ O experiență gratuită de agent AI, fără blocarea furnizorului.
 
 ### ✨ Creați-vă propriile instrumente
 
-
 [ro.md](TOOL_CREATOR_GUIDE.ro.md)
 Consultați aici ghidul pas cu pas.
 
@@ -233,8 +230,6 @@ Contribuțiile sunt binevenite! Rapoarte de erori, sugestii de funcții, îmbun�
 
 - **Issues**: Deschideți o problemă GitHub pentru erori sau solicitări de funcții.
 - **Solicitări de extragere**: Creați un fork al depozitului, faceți modificările și trimiteți un PR. Consultați [DEVELOP.md](../src/uagent/docs/DEVELOP.md) pentru configurarea dezvoltării și instrucțiuni.
-
-
 
 Realtime Voce și AEC3
 

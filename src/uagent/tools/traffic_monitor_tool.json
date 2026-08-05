@@ -104,7 +104,7 @@
       "رویدادهای شبکه Zeek",
       " نظارت بر ترافیک",
       "conn.log",
-      ""
+      "رویدادهای شبکه"
     ]
   },
   "fi": {
@@ -126,7 +126,7 @@
     "param.limit.description": "Maximum na bilang ng mga event na ibabalik.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "monitor ng trapiko",
       "conn.log",
       "mga kaganapan sa network"
     ]
@@ -174,7 +174,7 @@
     "param.limit.description": "A visszaküldhető események maximális száma.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "forgalomfigyelő",
       "conn.log",
       "hálózati események"
     ]
@@ -198,7 +198,7 @@
     "param.limit.description": "Numero massimo di eventi da restituire.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "monitor del traffico",
       "conn.log",
       "eventi di rete"
     ]
@@ -234,7 +234,7 @@
     "param.limit.description": "Буцах үйл явдлын дээд тоо.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "замын хөдөлгөөний хяналт",
       "conn.log",
       "сүлжээний үйл явдлууд"
     ]
@@ -258,7 +258,7 @@
     "param.limit.description": "Bilangan maksimum acara untuk dikembalikan.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "pemantau lalu lintas",
       "conn.log",
       "acara rangkaian"
     ]
@@ -294,9 +294,9 @@
     "param.limit.description": "Maksimalt antall turer tilbake.",
     "x_search_terms": [
       "Zeektrafikkmonitorconn.lognettverkshendelser",
-      "",
-      "",
-      ""
+      "trafikkmonitor",
+      "conn.log",
+      "nettverkshendelser"
     ]
   },
   "pl": {
@@ -342,7 +342,7 @@
     "param.limit.description": "Numărul maxim de evenimente de returnat.",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "monitor de trafic",
       "conn.log",
       "evenimente de rețea"
     ]
@@ -390,7 +390,7 @@
     "param.limit.description": "จำนวนเหตุการณ์สูงสุดที่จะส่งคืน",
     "x_search_terms": [
       "Zeek",
-      "traffic monitor",
+      "การตรวจสอบการจราจร",
       "conn.log",
       "เหตุการณ์เครือข่าย"
     ]

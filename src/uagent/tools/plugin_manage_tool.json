@@ -921,12 +921,12 @@
     "tool.description": "Pamahalaan ang uagent na mga plugin: ilista, i-install, alisin, paganahin, huwag paganahin, patunayan, o kumuha ng impormasyon tungkol sa isang plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "pamahalaan ang plugin",
+      "i-install ang plugin",
+      "alisin ang plugin",
+      "paganahin ang plugin",
+      "huwag paganahin ang plugin",
+      "listahan ng mga plugin"
     ],
     "param.action.description": "Operasyon upang maisagawa. Isa sa: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Source URL o path para sa pagkilos sa pag-install (Git URL, HTTP ZIP, lokal na direktoryo).",
@@ -975,7 +975,7 @@
     "tool.description": "Administrer uagent plugins: liste, installer, fjern, aktiver, deaktiver, valider eller få oplysninger om et plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
+      "administrere plugin",
       "installer plugin",
       "fjern plugin",
       "aktiver plugin",
@@ -1002,12 +1002,12 @@
     "tool.description": "Administrer uagent plugins: liste opp, installer, fjern, aktiver, deaktiver, valider eller få informasjon om en plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "administrere plugin",
+      "Installer programtillegg …",
+      "fjern programtillegg",
+      "Aktiver tillegg for skrift",
+      "deaktiver plugin",
+      "liste plugins"
     ],
     "param.action.description": "Operasjon å utføre. En av: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Kilde-URL eller bane for installasjonshandling (Git URL, HTTP ZIP, lokal katalog).",

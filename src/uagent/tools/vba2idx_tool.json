@@ -1,0 +1,534 @@
+{
+  "en": {
+    "tool.description": "Parse VBA source definitions into a numbered index or return one selected definition section.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "Path to a VBA source file.",
+    "param.mode": "index for a numbered index, section for one definition.",
+    "param.section": "1-based section number when mode is section."
+  },
+  "ja": {
+    "tool.description": "VBA ソース定義を番号付きインデックスに解析するか、選択した 1 つの定義セクションを返します。",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "マクロ",
+      "サブ",
+      "関数",
+      "プロパティ"
+    ],
+    "param.path": "VBA ソース ファイルへのパス。",
+    "param.mode": "番号付きインデックスの場合はインデックス、1 つの定義の場合はセクション。",
+    "param.section": "モードがセクションの場合、1 から始まるセクション番号。"
+  },
+  "ar": {
+    "tool.description": "قم بتحليل تعريفات مصدر VBA في فهرس مرقّم أو قم بإرجاع قسم تعريف واحد محدد.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "ماكرو",
+      "Sub",
+      "وظيفة",
+      "خاصية"
+    ],
+    "param.path": "المسار إلى ملف مصدر VBA.",
+    "param.mode": "فهرس لفهرس مرقّم، قسم لتعريف واحد.",
+    "param.section": "1-رقم القسم المستند إلى الوضع عندما يكون القسم."
+  },
+  "bn": {
+    "tool.description": "একটি সংখ্যাযুক্ত সূচকে VBA উত্স সংজ্ঞা পার্স করুন বা একটি নির্বাচিত সংজ্ঞা বিভাগ প্রদান করুন।",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "সম্পত্তি"
+    ],
+    "param.path": "একটি VBA উৎস ফাইলের পথ।",
+    "param.mode": "একটি সংখ্যাযুক্ত সূচকের জন্য সূচক, একটি সংজ্ঞার জন্য বিভাগ।",
+    "param.section": "1-ভিত্তিক বিভাগ নম্বর যখন মোড বিভাগ হয়।"
+  },
+  "cs": {
+    "tool.description": "Analyzujte definice zdroje VBA do číslovaného indexu nebo vraťte jednu vybranou sekci definice.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Podřízená",
+      "funkce",
+      "Vlastnost"
+    ],
+    "param.path": "Cesta ke zdrojovému souboru VBA.",
+    "param.mode": "index pro číslovaný rejstřík, oddíl pro jednu definici.",
+    "param.section": "Číslo sekce založené na 1, když je režim sekce."
+  },
+  "da": {
+    "tool.description": "Parse VBA-kildedefinitioner i et nummereret indeks eller returner en valgt definitionssektion.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Sub",
+      "Funktion",
+      "Ejendom"
+    ],
+    "param.path": "Sti til en VBA-kildefil.",
+    "param.mode": "indeks for et nummereret indeks, sektion for én definition.",
+    "param.section": "1-baseret sektionsnummer, når tilstanden er sektion."
+  },
+  "de": {
+    "tool.description": "Analysieren Sie VBA-Quelldefinitionen in einen nummerierten Index oder geben Sie einen ausgewählten Definitionsabschnitt zurück.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "Makro",
+      "Unter",
+      "Funktion",
+      "Eigenschaft"
+    ],
+    "param.path": "Pfad zu einer VBA-Quelldatei.",
+    "param.mode": "Index für einen nummerierten Index, Abschnitt für eine Definition.",
+    "param.section": "1-basierte Abschnittsnummer, wenn der Modus Abschnitt ist."
+  },
+  "el": {
+    "tool.description": "Αναλύστε τους ορισμούς πηγών VBA σε ένα αριθμημένο ευρετήριο ή επιστρέψτε μια επιλεγμένη ενότητα ορισμού.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Λειτουργία",
+      "Ιδιότητα"
+    ],
+    "param.path": "Διαδρομή προς ένα αρχείο προέλευσης VBA.",
+    "param.mode": "ευρετήριο για αριθμημένο ευρετήριο, ενότητα για έναν ορισμό.",
+    "param.section": "Αριθμός ενότητας βάσει 1 όταν η λειτουργία είναι ενότητα."
+  },
+  "es": {
+    "tool.description": "Analice las definiciones de origen de VBA en un índice numerado o devuelva una sección de definición seleccionada.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Función",
+      "Propiedad"
+    ],
+    "param.path": "Ruta a un archivo fuente VBA.",
+    "param.mode": "índice para un índice numerado, sección para una definición.",
+    "param.section": "Número de sección basado en 1 cuando el modo es sección."
+  },
+  "fa": {
+    "tool.description": "تعاریف منبع VBA را در یک فهرست شماره گذاری شده تجزیه کنید یا یک بخش تعریف انتخاب شده را برگردانید.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "ماکرو",
+      "عملکرد فرعی",
+      "ویژگی",
+      "اموال"
+    ],
+    "param.path": "مسیر فایل منبع VBA.",
+    "param.mode": "شاخص برای یک شاخص شماره گذاری شده، بخش برای یک تعریف.",
+    "param.section": "شماره بخش مبتنی بر 1 وقتی حالت بخش است."
+  },
+  "fi": {
+    "tool.description": "Jäsennä VBA-lähdemääritykset numeroiduksi hakemistoksi tai palauta yksi valittu määritysosio.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Alitoiminto",
+      "Ominaisuus",
+      "Omaisuus"
+    ],
+    "param.path": "Polku VBA-lähdetiedostoon.",
+    "param.mode": "indeksi numeroidulle hakemistolle, osio yhdelle määritelmälle.",
+    "param.section": "1-pohjainen osion numero, kun tila on osa."
+  },
+  "fil": {
+    "tool.description": "I-parse ang mga kahulugan ng pinagmulan ng VBA sa isang may bilang na index o ibalik ang isang napiling seksyon ng kahulugan.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "Path sa isang VBA source file.",
+    "param.mode": "index para sa isang may bilang na index, seksyon para sa isang kahulugan.",
+    "param.section": "1-based na numero ng seksyon kapag ang mode ay seksyon."
+  },
+  "fr": {
+    "tool.description": "Analysez les définitions de source VBA dans un index numéroté ou renvoyez une section de définition sélectionnée.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Fonction",
+      "Propriété"
+    ],
+    "param.path": "Chemin d'accès à un fichier source VBA.",
+    "param.mode": "index pour un index numéroté, section pour une définition.",
+    "param.section": "Numéro de section basé sur 1 lorsque le mode est section."
+  },
+  "he": {
+    "tool.description": "נתח הגדרות מקור VBA לאינדקס ממוספר או החזר קטע הגדרה אחד שנבחר.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "תת",
+      "פונקציית",
+      "נכס"
+    ],
+    "param.path": "נתיב לקובץ מקור VBA.",
+    "param.mode": "אינדקס לאינדקס ממוספר, קטע להגדרה אחת.",
+    "param.section": "מספר קטע מבוסס 1 כאשר המצב הוא קטע."
+  },
+  "hi": {
+    "tool.description": "VBA स्रोत परिभाषाओं को एक क्रमांकित सूचकांक में पार्स करें या एक चयनित परिभाषा अनुभाग लौटाएँ।",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "VBA स्रोत फ़ाइल का पथ.",
+    "param.mode": "क्रमांकित सूचकांक के लिए सूचकांक, एक परिभाषा के लिए अनुभाग।",
+    "param.section": "1-आधारित अनुभाग संख्या जब मोड अनुभाग है।"
+  },
+  "hu": {
+    "tool.description": "Elemezze a VBA-forrásdefiníciókat egy számozott indexbe, vagy adjon vissza egy kiválasztott definíciós részt.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makró",
+      "Alfüggvény",
+      "Tulajdonság",
+      "Tulajdonság"
+    ],
+    "param.path": "VBA-forrásfájl elérési útja.",
+    "param.mode": "index egy számozott indexhez, szakasz egy meghatározáshoz.",
+    "param.section": "1 alapú szakaszszám, ha a mód szakasz."
+  },
+  "id": {
+    "tool.description": "Parsing definisi sumber VBA ke dalam indeks bernomor atau kembalikan satu bagian definisi yang dipilih.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Sub",
+      "Fungsi",
+      "Properti"
+    ],
+    "param.path": "Jalur ke file sumber VBA.",
+    "param.mode": "indeks untuk indeks bernomor, bagian untuk satu definisi.",
+    "param.section": "Nomor bagian berbasis 1 ketika mode adalah bagian."
+  },
+  "it": {
+    "tool.description": "Analizza le definizioni di origine VBA in un indice numerato o restituisce una sezione di definizione selezionata.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sotto",
+      "Funzione",
+      "Proprietà"
+    ],
+    "param.path": "Percorso di un file di origine VBA.",
+    "param.mode": "indice per un indice numerato, sezione per una definizione.",
+    "param.section": "Numero di sezione in base 1 quando la modalità è sezione."
+  },
+  "ko": {
+    "tool.description": "VBA 소스 정의를 번호가 매겨진 인덱스로 구문 분석하거나 선택한 정의 섹션 하나를 반환합니다.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "속성"
+    ],
+    "param.path": "VBA 소스 파일의 경로입니다.",
+    "param.mode": "번호가 매겨진 색인에 대한 색인, 하나의 정의에 대한 섹션.",
+    "param.section": "모드가 섹션인 경우 1 기반 섹션 번호입니다."
+  },
+  "mn": {
+    "tool.description": "VBA эх сурвалжийн тодорхойлолтыг дугаарласан индекс болгон задлах эсвэл сонгосон нэг тодорхойлолтын хэсгийг буцаана уу.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "макро",
+      "Дэд",
+      "Функц",
+      "Property"
+    ],
+    "param.path": "VBA эх файлын зам.",
+    "param.mode": "дугаарлагдсан индексийн индекс, нэг тодорхойлолтод зориулсан хэсэг.",
+    "param.section": "Горим хэсэг байх үед 1-д суурилсан хэсгийн дугаар."
+  },
+  "mr": {
+    "tool.description": "VBA स्त्रोत व्याख्या एका क्रमांकित अनुक्रमणिकेमध्ये पार्स करा किंवा एक निवडलेला परिभाषा विभाग परत करा.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      " मालमत्ता"
+    ],
+    "param.path": "VBA स्त्रोत फाइलचा मार्ग.",
+    "param.mode": "क्रमांकित निर्देशांकासाठी अनुक्रमणिका, एका व्याख्येसाठी विभाग.",
+    "param.section": "मोड विभाग असताना 1-आधारित विभाग क्रमांक."
+  },
+  "ms": {
+    "tool.description": "Menghuraikan definisi sumber VBA ke dalam indeks bernombor atau mengembalikan satu bahagian definisi yang dipilih.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Sub",
+      "Fungsi",
+      "Hartanah"
+    ],
+    "param.path": "Laluan ke fail sumber VBA.",
+    "param.mode": "indeks untuk indeks bernombor, bahagian untuk satu definisi.",
+    "param.section": "Nombor bahagian berasaskan 1 apabila mod adalah bahagian."
+  },
+  "nb": {
+    "tool.description": "Parse VBA-kildedefinisjoner til en nummerert indeks eller returner én valgt definisjonsseksjon.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Sub",
+      "Funksjon",
+      "Egenskap"
+    ],
+    "param.path": "Bane til en VBA-kildefil.",
+    "param.mode": "indeks for en nummerert indeks, seksjon for én definisjon.",
+    "param.section": "1-basert seksjonsnummer når modus er seksjon."
+  },
+  "nl": {
+    "tool.description": "Parseer VBA-brondefinities in een genummerde index of retourneer één geselecteerde definitiesectie.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Functie",
+      "Eigenschap"
+    ],
+    "param.path": "Pad naar een VBA-bronbestand.",
+    "param.mode": "index voor een genummerde index, sectie voor één definitie.",
+    "param.section": "Op 1 gebaseerd sectienummer wanneer de modus sectie is."
+  },
+  "nn": {
+    "tool.description": "Tolk VBA-kildedefinisjoner i en nummerert indeks, eller returner én valgt definisjonsseksjon.",
+    "x_search_terms": [
+      "vba2idxVBAMakroSubFunksjonEgenskap",
+      "VBA",
+      "makroTag Type",
+      "Under",
+      "Funksjon",
+      "Eiendom "
+    ],
+    "param.path": "Sti til en VBA-kildefil.",
+    "param.mode": "indeks for en nummerert indeks, seksjon for en definisjon.",
+    "param.section": "1-basert seksjonsnummer når modus er seksjon."
+  },
+  "pl": {
+    "tool.description": "Przeanalizuj definicje źródłowe VBA w numerowany indeks lub zwróć jedną wybraną sekcję definicji.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "makro",
+      "Sub",
+      "Funkcja",
+      "Właściwość"
+    ],
+    "param.path": "Ścieżka do pliku źródłowego VBA.",
+    "param.mode": "indeks dla indeksu numerowanego, sekcja dla jednej definicji.",
+    "param.section": "Numer sekcji oparty na 1, gdy trybem jest sekcja."
+  },
+  "pt": {
+    "tool.description": "Analise as definições de origem VBA em um índice numerado ou retorne uma seção de definição selecionada.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "Caminho para um arquivo de origem VBA.",
+    "param.mode": "índice para um índice numerado, seção para uma definição.",
+    "param.section": "Número de seção baseado em 1 quando o modo é seção."
+  },
+  "pt_BR": {
+    "tool.description": "Analise as definições de origem VBA em um índice numerado ou retorne uma seção de definição selecionada.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "Caminho para um arquivo de origem VBA.",
+    "param.mode": "índice para um índice numerado, seção para uma definição.",
+    "param.section": "Número de seção baseado em 1 quando o modo é seção."
+  },
+  "ro": {
+    "tool.description": "Analizați definițiile sursei VBA într-un index numerotat sau returnați o secțiune de definiție selectată.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Funcție",
+      "Proprietate"
+    ],
+    "param.path": "Calea către un fișier sursă VBA.",
+    "param.mode": "index pentru un index numerotat, secțiune pentru o definiție.",
+    "param.section": "Număr de secțiune bazat pe 1 când modul este secțiune."
+  },
+  "ru": {
+    "tool.description": "Разберите исходные определения VBA в нумерованный индекс или верните один выбранный раздел определений.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "макрос",
+      "Sub",
+      "Функция",
+      "Свойство"
+    ],
+    "param.path": "Путь к исходному файлу VBA.",
+    "param.mode": "индекс для нумерованного указателя, раздел для одного определения.",
+    "param.section": "Номер раздела отсчитывается от 1, если режим — раздел."
+  },
+  "sv": {
+    "tool.description": "Analysera VBA-källdefinitioner till ett numrerat index eller returnera ett valt definitionsavsnitt.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Funktion",
+      "Egenskap"
+    ],
+    "param.path": "Sökväg till en VBA-källfil.",
+    "param.mode": "index för ett numrerat index, avsnitt för en definition.",
+    "param.section": "1-baserat sektionsnummer när läget är sektion."
+  },
+  "sw": {
+    "tool.description": "Changanua ufafanuzi wa chanzo cha VBA kwenye faharasa yenye nambari au urudishe sehemu moja ya ufafanuzi iliyochaguliwa.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Kazi",
+      "Mali"
+    ],
+    "param.path": "Njia ya faili ya chanzo cha VBA.",
+    "param.mode": "faharasa kwa faharasa yenye nambari, sehemu ya ufafanuzi mmoja.",
+    "param.section": "Nambari ya sehemu yenye msingi 1 wakati hali ni sehemu."
+  },
+  "th": {
+    "tool.description": "แยกวิเคราะห์คำจำกัดความแหล่งที่มาของ VBA ลงในดัชนีลำดับเลขหรือส่งคืนส่วนคำจำกัดความที่เลือกไว้หนึ่งส่วน",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "มาโคร",
+      "ย่อย",
+      "ฟังก์ชัน",
+      "คุณสมบัติ"
+    ],
+    "param.path": "เส้นทางไปยังไฟล์ต้นฉบับ VBA",
+    "param.mode": "ดัชนีสำหรับดัชนีลำดับเลข ส่วนสำหรับคำจำกัดความเดียว",
+    "param.section": "หมายเลขส่วนฐาน 1 เมื่อโหมดเป็นส่วน"
+  },
+  "tr": {
+    "tool.description": "VBA kaynak tanımlarını numaralandırılmış bir dizine ayrıştırın veya seçilen bir tanım bölümünü döndürün.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Fonksiyon",
+      "Özellik"
+    ],
+    "param.path": "VBA kaynak dosyasının yolu.",
+    "param.mode": "numaralandırılmış bir dizin için dizin, bir tanım için bölüm.",
+    "param.section": "Mod bölüm olduğunda 1 tabanlı bölüm numarası."
+  },
+  "uk": {
+    "tool.description": "Проаналізувати вихідні визначення VBA у нумерований індекс або повернути один вибраний розділ визначення.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Function",
+      "Property"
+    ],
+    "param.path": "Шлях до вихідного файлу VBA.",
+    "param.mode": "індекс для нумерованого покажчика, розділ для одного визначення.",
+    "param.section": "Номер розділу на основі 1, якщо режим є розділом."
+  },
+  "vi": {
+    "tool.description": "Phân tích các định nghĩa nguồn VBA thành một chỉ mục được đánh số hoặc trả về một phần định nghĩa đã chọn.",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "macro",
+      "Sub",
+      "Chức năng",
+      "Thuộc tính"
+    ],
+    "param.path": "Đường dẫn đến tệp nguồn VBA.",
+    "param.mode": "chỉ mục cho một chỉ mục được đánh số, phần cho một định nghĩa.",
+    "param.section": "Số phần dựa trên 1 khi chế độ là phần."
+  },
+  "zh_CN": {
+    "tool.description": "将 VBA 源定义解析为编号索引或返回一个选定的定义部分。",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "宏",
+      "子",
+      "函数",
+      "属性"
+    ],
+    "param.path": "VBA 源文件的路径。",
+    "param.mode": "index 表示编号索引，section 表示一个定义。",
+    "param.section": "当模式为节时，从 1 开始的节号。"
+  },
+  "zh_TW": {
+    "tool.description": "將 VBA 來源定義解析為編號索引或傳回一個選定的定義部分。",
+    "x_search_terms": [
+      "vba2idx",
+      "VBA",
+      "宏",
+      "子",
+      "函數",
+      "屬性"
+    ],
+    "param.path": "VBA 原始檔的路徑。",
+    "param.mode": "index 表示編號索引，section 表示一個定義。",
+    "param.section": "當模式為節時，從 1 開始的節號。"
+  }
+}

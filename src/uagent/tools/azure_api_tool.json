@@ -1,0 +1,648 @@
+{
+  "en": {
+    "tool.description": "Generic Azure Resource Manager REST API tool. It can list providers, list provider operations, and call Azure APIs. Non-GET operations require confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "azure arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure resource provider namespace, for example Microsoft.Compute.",
+    "param.resource": "ARM resource path or full management URL.",
+    "param.method": "HTTP method, for example GET, PUT, POST, PATCH, or DELETE.",
+    "param.api_version": "Azure API version.",
+    "param.parameters": "JSON object containing query parameters.",
+    "param.body": "Optional JSON request body.",
+    "param.confirm_write": "Required true for non-GET operations."
+  },
+  "ar": {
+    "tool.description": "أداة Azure العامة لإدارة الموارد REST API. يمكنه سرد الموفرين، وسرد عمليات الموفر، واستدعاء Azure APIs. تتطلب العمليات التي لا تتعلق بـ GET تأكيد_الكتابة = صحيح.",
+    "x_search_terms": [
+      "azure",
+      "مايكروسوفت أزور",
+      "azure Arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure مساحة اسم موفر الموارد، على سبيل المثال Microsoft.Compute.",
+    "param.resource": "مسار موارد ARM أو عنوان URL للإدارة الكاملة.",
+    "param.method": "طريقة HTTP، على سبيل المثال GET أو PUT أو POST أو PATCH أو DELETE.",
+    "param.api_version": "Azure API الإصدار.",
+    "param.parameters": "كائن JSON يحتوي على معلمات الاستعلام.",
+    "param.body": "نص طلب JSON اختياري.",
+    "param.confirm_write": "مطلوب صحيح للعمليات غير GET."
+  },
+  "bn": {
+    "tool.description": "জেনেরিক Azure রিসোর্স ম্যানেজার REST API টুল। এটি প্রদানকারীদের তালিকা করতে পারে, প্রদানকারীর ক্রিয়াকলাপগুলিকে তালিকাভুক্ত করতে পারে এবং Azure API গুলিকে কল করতে পারে৷ Non-GET অপারেশনের জন্য confirm_write=true প্রয়োজন।",
+    "x_search_terms": [
+      "azure",
+      "মাইক্রোসফট আকাশী",
+      "আকাশী বাহু",
+      "Cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure রিসোর্স প্রোভাইডার নেমস্পেস, উদাহরণস্বরূপ Microsoft. Compute.",
+    "param.resource": "ARM সম্পদ পথ বা সম্পূর্ণ ব্যবস্থাপনা URL।",
+    "param.method": "HTTP পদ্ধতি, যেমন GET, PUT, POST, PATCH, বা DELETE৷",
+    "param.api_version": "Azure API সংস্করণ।",
+    "param.parameters": "JSON বস্তুতে ক্যোয়ারী প্যারামিটার রয়েছে।",
+    "param.body": "ঐচ্ছিক JSON অনুরোধের মূল অংশ।",
+    "param.confirm_write": "নন-GET অপারেশনের জন্য সত্য প্রয়োজন।"
+  },
+  "cs": {
+    "tool.description": "Obecný nástroj Azure Resource Manager REST API. Může vypisovat poskytovatele, vypisovat operace poskytovatelů a volat Azure API. Operace bez GET vyžadují potvrdit_zápis=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft Azure",
+      "azurové rameno",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Obor názvů poskytovatele prostředků Azure, například Microsoft.Compute.",
+    "param.resource": "Cesta ke zdroji ARM nebo úplná adresa URL pro správu.",
+    "param.method": "HTTP metoda, například GET, PUT, POST, PATCH nebo DELETE.",
+    "param.api_version": "Verze Azure API.",
+    "param.parameters": "JSON objekt obsahující parametry dotazu.",
+    "param.body": "Volitelné tělo požadavku JSON.",
+    "param.confirm_write": "Vyžadováno true pro operace bez GET."
+  },
+  "da": {
+    "tool.description": "Generisk Azure Resource Manager REST API værktøj. Det kan liste udbydere, liste udbyderoperationer og kalde Azure API'er. Ikke-GET-operationer kræver confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azurblå",
+      "azurblå arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure ressourceudbydernavneområde, for eksempel Microsoft.Compute.",
+    "param.resource": "ARM-ressourcesti eller fuld administrations-URL.",
+    "param.method": "HTTP metode, for eksempel GET, PUT, POST, PATCH eller DELETE.",
+    "param.api_version": "Azure API version.",
+    "param.parameters": "JSON objekt, der indeholder forespørgselsparametre.",
+    "param.body": "Valgfri JSON anmodningstekst.",
+    "param.confirm_write": "Påkrævet sand for ikke-GET-operationer."
+  },
+  "de": {
+    "tool.description": "Generisches Azure Resource Manager REST API-Tool. Es kann Anbieter auflisten, Anbietervorgänge auflisten und Azure-APIs aufrufen. Nicht-GET-Vorgänge erfordern bestätigen_write=true.",
+    "x_search_terms": [
+      "Azure",
+      "Microsoft Azure",
+      "Azure Arm",
+      "Cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure Ressourcenanbieter-Namespace, zum Beispiel Microsoft.Compute.",
+    "param.resource": "ARM-Ressourcenpfad oder vollständige Verwaltungs-URL.",
+    "param.method": "HTTP-Methode, zum Beispiel GET, PUT, POST, PATCH oder DELETE.",
+    "param.api_version": "Azure API Version.",
+    "param.parameters": "JSON-Objekt, das Abfrageparameter enthält.",
+    "param.body": "Optionaler JSON-Anfragetext.",
+    "param.confirm_write": "Erforderlich „true“ für Nicht-GET-Vorgänge."
+  },
+  "el": {
+    "tool.description": "Γενικό εργαλείο Azure Resource Manager REST API. Μπορεί να απαριθμήσει παρόχους, λειτουργίες παρόχων λίστας και να καλέσει Azure API. Οι λειτουργίες που δεν είναι GET απαιτούν confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "γαλάζιος βραχίονας",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure χώρος ονομάτων παρόχου πόρων, για παράδειγμα Microsoft.Compute.",
+    "param.resource": "Διαδρομή πόρων ARM ή διεύθυνση URL πλήρους διαχείρισης.",
+    "param.method": "Η μέθοδος HTTP, για παράδειγμα GET, PUT, POST, PATCH ή DELETE.",
+    "param.api_version": "Azure API έκδοση.",
+    "param.parameters": "JSON αντικείμενο που περιέχει παραμέτρους ερωτήματος.",
+    "param.body": "Προαιρετικό JSON σώμα αιτήματος.",
+    "param.confirm_write": "Απαιτείται αληθές για λειτουργίες εκτός GET."
+  },
+  "es": {
+    "tool.description": "Herramienta genérica Azure Resource Manager REST API. Puede enumerar proveedores, enumerar operaciones de proveedores y llamar a Azure API. Las operaciones que no son GET requieren confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azul",
+      "brazo azul",
+      "nube",
+      "azure_api"
+    ],
+    "param.provider": "Azure espacio de nombres del proveedor de recursos, por ejemplo Microsoft.Compute.",
+    "param.resource": "Ruta de recursos ARM o URL de administración completa.",
+    "param.method": "Método HTTP, por ejemplo GET, PUT, POST, PATCH o DELETE.",
+    "param.api_version": "Versión Azure API.",
+    "param.parameters": "Objeto JSON que contiene parámetros de consulta.",
+    "param.body": "Cuerpo de solicitud JSON opcional.",
+    "param.confirm_write": "Obligatorio verdadero para operaciones que no son GET."
+  },
+  "fa": {
+    "tool.description": "ابزار عمومی Azure Resource Manager REST API. می‌تواند ارائه‌دهندگان را فهرست کند، عملیات ارائه‌دهنده را فهرست کند و Azure API را فراخوانی کند. عملیات غیر GET نیاز به confirm_write=true دارد.",
+    "x_search_terms": [
+      "لاجورد",
+      "مایکروسافت لاجورد",
+      "بازوی لاجوردی",
+      "ابر",
+      "azure_api"
+    ],
+    "param.provider": "فضای نام ارائه دهنده منبع Azure، برای مثال Microsoft.Compute.",
+    "param.resource": "مسیر منبع ARM یا URL مدیریت کامل.",
+    "param.method": "روش HTTP، برای مثال GET، PUT، POST، PATCH یا DELETE.",
+    "param.api_version": "Azure API نسخه.",
+    "param.parameters": "JSON شی حاوی پارامترهای پرس و جو.",
+    "param.body": "متن درخواست JSON اختیاری.",
+    "param.confirm_write": "برای عملیات غیر GET لازم است."
+  },
+  "fi": {
+    "tool.description": "Yleinen Azure Resource Manager REST API -työkalu. Se voi luetella palveluntarjoajia, luetteloida tarjoajien toimintoja ja kutsua Azure API:ta. Muut kuin GET-toiminnot edellyttävät vahvistus_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "taivaansininen käsi",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure resurssitoimittajan nimiavaruus, esimerkiksi Microsoft.Compute.",
+    "param.resource": "ARM-resurssipolku tai täydellinen hallinnan URL-osoite.",
+    "param.method": "HTTP-menetelmä, esimerkiksi GET, PUT, POST, PATCH tai DELETE.",
+    "param.api_version": "Azure API versio.",
+    "param.parameters": "JSON objekti, joka sisältää kyselyparametreja.",
+    "param.body": "Valinnainen JSON-pyynnön runko.",
+    "param.confirm_write": "Pakollinen tosi muille kuin GET-toiminnoille."
+  },
+  "fil": {
+    "tool.description": "Generic na Azure Resource Manager REST API tool. Maaari itong maglista ng mga provider, maglista ng mga pagpapatakbo ng provider, at tumawag ng Azure na mga API. Ang mga non-GET na operasyon ay nangangailangan ng confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "asul na braso",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure resource provider namespace, halimbawa Microsoft.Compute.",
+    "param.resource": "ARM resource path o full management URL.",
+    "param.method": "HTTP na paraan, halimbawa GET, PUT, POST, PATCH, o DELETE.",
+    "param.api_version": "Azure API na bersyon.",
+    "param.parameters": "JSON object na naglalaman ng mga parameter ng query.",
+    "param.body": "Opsyonal na JSON na katawan ng kahilingan.",
+    "param.confirm_write": "Kinakailangang true para sa mga non-GET na pagpapatakbo."
+  },
+  "fr": {
+    "tool.description": "Outil générique Azure Resource Manager REST API. Il peut répertorier les fournisseurs, répertorier les opérations des fournisseurs et appeler les API Azure. Les opérations non-GET nécessitent confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "bras d'azur",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Espace de noms du fournisseur de ressources Azure, par exemple Microsoft.Compute.",
+    "param.resource": "Chemin de ressource ARM ou URL de gestion complète.",
+    "param.method": "Méthode HTTP, par exemple GET, PUT, POST, PATCH ou DELETE.",
+    "param.api_version": "Version Azure API.",
+    "param.parameters": "Objet JSON contenant les paramètres de requête.",
+    "param.body": "Corps de requête JSON facultatif.",
+    "param.confirm_write": "Requis vrai pour les opérations non-GET."
+  },
+  "he": {
+    "tool.description": "כלי Azure משאבים REST API כללי. זה יכול לרשום ספקים, לרשום פעולות של ספקים ולהתקשר ל-Azure ממשקי API. פעולות שאינן GET דורשות confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "מיקרוסופט תכלת",
+      "זרוע תכלת",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure מרחב שמות של ספק משאבים, למשל Microsoft.Compute.",
+    "param.resource": "נתיב משאב ARM או כתובת URL מלאה לניהול.",
+    "param.method": "שיטת HTTP, למשל GET, PUT, POST, PATCH או DELETE.",
+    "param.api_version": "Azure גרסה API.",
+    "param.parameters": "JSON אובייקט המכיל פרמטרים של שאילתה.",
+    "param.body": "גוף הבקשה JSON אופציונלי.",
+    "param.confirm_write": "נדרש נכון עבור פעולות שאינן GET."
+  },
+  "hi": {
+    "tool.description": "जेनेरिक Azure रिसोर्स मैनेजर REST API टूल। यह प्रदाताओं को सूचीबद्ध कर सकता है, प्रदाता संचालन को सूचीबद्ध कर सकता है और Azure एपीआई को कॉल कर सकता है। गैर-जीईटी परिचालनों के लिए कन्फ़र्म_राइट = सत्य की आवश्यकता होती है।",
+    "x_search_terms": [
+      "Azure",
+      "Microsoft Azure",
+      "Azure Arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure संसाधन प्रदाता नामस्थान, उदाहरण के लिए Microsoft.Compute।",
+    "param.resource": "एआरएम संसाधन पथ या पूर्ण प्रबंधन यूआरएल।",
+    "param.method": "HTTP विधि, उदाहरण के लिए GET, PUT, POST, PATCH, या DELETE।",
+    "param.api_version": "Azure API संस्करण.",
+    "param.parameters": "JSON ऑब्जेक्ट जिसमें क्वेरी पैरामीटर हैं।",
+    "param.body": "वैकल्पिक JSON अनुरोध निकाय.",
+    "param.confirm_write": "गैर-जीईटी परिचालनों के लिए सत्य आवश्यक है।"
+  },
+  "hu": {
+    "tool.description": "Általános Azure Resource Manager REST API eszköz. Kilistázhatja a szolgáltatókat, felsorolhatja a szolgáltatói műveleteket, és meghívhat Azure API-kat. A nem GET műveletekhez megerősítés_write=true szükséges.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "azúrkék kar",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure erőforrás-szolgáltató névtér, például Microsoft.Compute.",
+    "param.resource": "ARM erőforrás elérési útja vagy teljes felügyeleti URL-je.",
+    "param.method": "HTTP metódus, például GET, PUT, POST, PATCH vagy DELETE.",
+    "param.api_version": "Azure API verzió.",
+    "param.parameters": "JSON objektum, amely lekérdezési paramétereket tartalmaz.",
+    "param.body": "Nem kötelező JSON kérelem törzse.",
+    "param.confirm_write": "Kötelező igaz a nem GET műveletekhez."
+  },
+  "id": {
+    "tool.description": "Alat generik Azure Resource Manager REST API. Itu dapat mencantumkan penyedia, mencantumkan operasi penyedia, dan memanggil Azure API. Operasi non-GET memerlukan konfirmasi_write=true.",
+    "x_search_terms": [
+      "biru",
+      "microsoft biru",
+      "lengan biru",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure namespace penyedia sumber daya, misalnya Microsoft.Compute.",
+    "param.resource": "Jalur sumber daya ARM atau URL pengelolaan lengkap.",
+    "param.method": "Metode HTTP, misalnya GET, PUT, POST, PATCH, atau DELETE.",
+    "param.api_version": "Azure API versi.",
+    "param.parameters": "JSON objek yang berisi parameter kueri.",
+    "param.body": "Isi permintaan JSON opsional.",
+    "param.confirm_write": "Diperlukan true untuk operasi non-GET."
+  },
+  "it": {
+    "tool.description": "Strumento generico Azure Resource Manager REST API. Può elencare i provider, elencare le operazioni dei provider e chiamare le API Azure. Le operazioni non GET richiedono confirm_write=true.",
+    "x_search_terms": [
+      "azzurro",
+      "microsoft azzurro",
+      "braccio azzurro",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Spazio dei nomi del provider di risorse Azure, ad esempio Microsoft.Compute.",
+    "param.resource": "Percorso della risorsa ARM o URL di gestione completa.",
+    "param.method": "HTTP, ad esempio GET, PUT, POST, PATCH o DELETE.",
+    "param.api_version": "Azure API versione.",
+    "param.parameters": "Oggetto JSON contenente parametri di query.",
+    "param.body": "Corpo della richiesta JSON facoltativo.",
+    "param.confirm_write": "Richiesto true per le operazioni non GET."
+  },
+  "ja": {
+    "tool.description": "汎用 Azure リソース マネージャー REST API ツール。プロバイダーの一覧表示、プロバイダーの操作の一覧表示、Azure API の呼び出しが可能です。非 GET 操作には、confirm_write=true が必要です。",
+    "x_search_terms": [
+      "azure",
+      "マイクロソフトアジュール",
+      "紺碧の腕",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure リソース プロバイダーの名前空間 (Microsoft.Compute など)。",
+    "param.resource": "ARM リソース パスまたは完全な管理 URL。",
+    "param.method": "HTTP メソッド (GET、PUT、POST、PATCH、DELETE など)。",
+    "param.api_version": "Azure API バージョン。",
+    "param.parameters": "クエリパラメータを含むJSONオブジェクト。",
+    "param.body": "オプションの JSON リクエスト本文。",
+    "param.confirm_write": "非 GET 操作の場合は true が必要です。"
+  },
+  "ko": {
+    "tool.description": "일반 Azure 리소스 관리자 REST API 도구. 공급자를 나열하고, 공급자 작업을 나열하고, Azure API를 호출할 수 있습니다. GET이 아닌 작업에는 verify_write=true가 필요합니다.",
+    "x_search_terms": [
+      "azure",
+      "마이크로소프트 애저",
+      "푸른 팔",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure 리소스 공급자 네임스페이스(예: Microsoft.Compute)",
+    "param.resource": "ARM 리소스 경로 또는 전체 관리 URL.",
+    "param.method": "HTTP 메서드(예: GET, PUT, POST, PATCH 또는 DELETE)",
+    "param.api_version": "Azure API 버전입니다.",
+    "param.parameters": "쿼리 매개변수가 포함된 JSON 개체입니다.",
+    "param.body": "선택적 JSON 요청 본문.",
+    "param.confirm_write": "GET 이외의 작업에는 true가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "Ерөнхий Azure Нөөцийн менежер REST API хэрэгсэл. Энэ нь үйлчилгээ үзүүлэгчдийг жагсааж, үйлчилгээ үзүүлэгчийн үйл ажиллагааг жагсааж, Azure API-г дуудаж болно. GET бус үйлдлүүд нь confirm_write=true шаарддаг.",
+    "x_search_terms": [
+      "номин цэнхэр",
+      "microsoft номин цэнхэр",
+      "цэн цэнхэр өнгийн гар",
+      "үүл",
+      "azure_api"
+    ],
+    "param.provider": "Azure нөөц нийлүүлэгчийн нэрийн орон зай, жишээ нь Microsoft.Compute.",
+    "param.resource": "ARM нөөцийн зам эсвэл бүрэн удирдлагын URL.",
+    "param.method": "HTTP арга, жишээ нь GET, PUT, POST, PATCH эсвэл DELETE.",
+    "param.api_version": "Azure API хувилбар.",
+    "param.parameters": "Асуулгын параметрүүдийг агуулсан JSON объект.",
+    "param.body": "Нэмэлт JSON хүсэлтийн үндсэн хэсэг.",
+    "param.confirm_write": "GET бус үйлдлийн хувьд үнэн байх шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "जेनेरिक Azure संसाधन व्यवस्थापक REST API साधन. हे प्रदाते सूचीबद्ध करू शकते, प्रदाता ऑपरेशन्स सूचीबद्ध करू शकते आणि Azure API ला कॉल करू शकते. Non-GET ऑपरेशन्ससाठी confirm_write=true आवश्यक आहे.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "नीलमणी हात",
+      "Cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure संसाधन प्रदाता नेमस्पेस, उदाहरणार्थ Microsoft.Compute.",
+    "param.resource": "ARM संसाधन पथ किंवा संपूर्ण व्यवस्थापन URL.",
+    "param.method": "HTTP पद्धत, उदाहरणार्थ GET, PUT, POST, PATCH किंवा DELETE.",
+    "param.api_version": "Azure API आवृत्ती.",
+    "param.parameters": "JSON ऑब्जेक्टमध्ये क्वेरी पॅरामीटर्स आहेत.",
+    "param.body": "पर्यायी JSON विनंती मुख्य भाग.",
+    "param.confirm_write": "गैर-GET ऑपरेशन्ससाठी सत्य आवश्यक आहे."
+  },
+  "ms": {
+    "tool.description": "Alat Azure Generik Pengurus Sumber REST API. Ia boleh menyenaraikan pembekal, menyenaraikan operasi pembekal dan memanggil Azure API. Operasi bukan GET memerlukan confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "lengan azure",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure ruang nama pembekal sumber, contohnya Microsoft.Compute.",
+    "param.resource": "Laluan sumber ARM atau URL pengurusan penuh.",
+    "param.method": "Kaedah HTTP, contohnya GET, PUT, POST, PATCH atau DELETE.",
+    "param.api_version": "Azure API versi.",
+    "param.parameters": "JSON objek yang mengandungi parameter pertanyaan.",
+    "param.body": "Badan permintaan JSON pilihan.",
+    "param.confirm_write": "Diperlukan benar untuk operasi bukan GET."
+  },
+  "nb": {
+    "tool.description": "Generisk Azure Resource Manager REST API-verktøy. Den kan liste leverandører, liste leverandøroperasjoner og kalle Azure APIer. Ikke-GET-operasjoner krever confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft asurblå",
+      "azurblå arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure ressursleverandørnavneområde, for eksempel Microsoft.Compute.",
+    "param.resource": "ARM-ressursbane eller fullstendig administrasjons-URL.",
+    "param.method": "HTTP metode, for eksempel GET, PUT, POST, PATCH eller DELETE.",
+    "param.api_version": "Azure API versjon.",
+    "param.parameters": "JSON objekt som inneholder spørringsparametere.",
+    "param.body": "Valgfri JSON forespørselstekst.",
+    "param.confirm_write": "Påkrevd sant for ikke-GET-operasjoner."
+  },
+  "nl": {
+    "tool.description": "Generieke Azure Resource Manager REST API-tool. Het kan providers weergeven, providerbewerkingen vermelden en Azure API's aanroepen. Voor niet-GET-bewerkingen is confirm_write=true vereist.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azuur",
+      "azuurblauwe armen",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure naamruimte van de resourceprovider, bijvoorbeeld Microsoft.Compute.",
+    "param.resource": "ARM-bronpad of volledige beheer-URL.",
+    "param.method": "HTTP-methode, bijvoorbeeld GET, PUT, POST, PATCH of DELETE.",
+    "param.api_version": "Azure API versie.",
+    "param.parameters": "JSON object met queryparameters.",
+    "param.body": "Optionele JSON verzoektekst.",
+    "param.confirm_write": "Vereist waar voor niet-GET-bewerkingen."
+  },
+  "nn": {
+    "tool.description": "Generisk Azure Resource Manager REST API-verktøy. Det kan liste leverandører, liste leverandør operasjoner, og ringe Azure APIer. Ikke-GET-operasjoner krever confirm_write=true.",
+    "x_search_terms": [
+      "azur,microsoft azur,azur, arm,cloud,azur, api",
+      "microsoft azure",
+      "azurblå arm",
+      "sky",
+      "azure_api"
+    ],
+    "param.provider": "Azure ressursleverandør-navnerom, for eksempel Microsoft.Compute.",
+    "param.resource": "ARM ressursbane eller full administrasjon URL.",
+    "param.method": "HTTP-metoden, for eksempel GET, PUT, POST, PATCH eller DELETE.",
+    "param.api_version": "Azure API-versjon.",
+    "param.parameters": "JSON-objekt som inneholder spørringsparametere.",
+    "param.body": "Valgfritt JSON forespørselslegeme.",
+    "param.confirm_write": "Obligatorisk sant for ikke-GET-operasjoner."
+  },
+  "pl": {
+    "tool.description": "Ogólne narzędzie Azure Menedżera zasobów REST API. Może wyświetlać listę dostawców, wyświetlać operacje dostawców i wywoływać interfejsy API Azure. Operacje inne niż GET wymagają potwierdzenia_write=true.",
+    "x_search_terms": [
+      "lazur",
+      "lazur Microsoftu",
+      "lazurowe ramię",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Przestrzeń nazw dostawcy zasobów Azure, na przykład Microsoft.Compute.",
+    "param.resource": "Ścieżka zasobów ARM lub pełny adres URL zarządzania.",
+    "param.method": "Metoda HTTP, na przykład GET, PUT, POST, PATCH lub DELETE.",
+    "param.api_version": "Wersja Azure API.",
+    "param.parameters": "Obiekt JSON zawierający parametry zapytania.",
+    "param.body": "Opcjonalna treść żądania JSON.",
+    "param.confirm_write": "Wymagane dla operacji innych niż GET."
+  },
+  "pt": {
+    "tool.description": "Ferramenta genérica Azure Resource Manager REST API. Ele pode listar provedores, listar operações de provedores e chamar APIs Azure. Operações não GET requerem confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "braço azul",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure namespace do provedor de recursos, por exemplo Microsoft.Compute.",
+    "param.resource": "Caminho do recurso ARM ou URL de gerenciamento completo.",
+    "param.method": "Método HTTP, por exemplo GET, PUT, POST, PATCH ou DELETE.",
+    "param.api_version": "Versão Azure API.",
+    "param.parameters": "Objeto JSON contendo parâmetros de consulta.",
+    "param.body": "Corpo da solicitação JSON opcional.",
+    "param.confirm_write": "Obrigatório como verdadeiro para operações não GET."
+  },
+  "pt_BR": {
+    "tool.description": "Ferramenta genérica Azure Resource Manager REST API. Ele pode listar provedores, listar operações de provedores e chamar APIs Azure. Operações não GET requerem confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "braço azul",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure namespace do provedor de recursos, por exemplo Microsoft.Compute.",
+    "param.resource": "Caminho do recurso ARM ou URL de gerenciamento completo.",
+    "param.method": "Método HTTP, por exemplo GET, PUT, POST, PATCH ou DELETE.",
+    "param.api_version": "Versão Azure API.",
+    "param.parameters": "Objeto JSON contendo parâmetros de consulta.",
+    "param.body": "Corpo da solicitação JSON opcional.",
+    "param.confirm_write": "Obrigatório como verdadeiro para operações não GET."
+  },
+  "ro": {
+    "tool.description": "Instrument generic Azure Manager de resurse REST API. Poate enumera furnizorii, poate enumera operațiunile furnizorilor și poate apela Azure API-uri. Operațiile non-GET necesită confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "brațul azur",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure spațiu de nume al furnizorului de resurse, de exemplu Microsoft.Compute.",
+    "param.resource": "Calea resursei ARM sau adresa URL de gestionare completă.",
+    "param.method": "HTTP metoda, de exemplu GET, PUT, POST, PATCH sau DELETE.",
+    "param.api_version": "Versiunea Azure API.",
+    "param.parameters": "JSON obiect care conține parametri de interogare.",
+    "param.body": "JSON corp de solicitare opțional.",
+    "param.confirm_write": "Obligatoriu true pentru operațiuni non-GET."
+  },
+  "ru": {
+    "tool.description": "Универсальный инструмент Azure Resource Manager REST API. Он может перечислять поставщиков, перечислять операции поставщиков и вызывать API Azure. Для операций, отличных от GET, требуется submit_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "azure Arm",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure пространство имен поставщика ресурсов, например Microsoft.Compute.",
+    "param.resource": "Путь к ресурсу ARM или полный URL-адрес управления.",
+    "param.method": "HTTP, например GET, PUT, POST, PATCH или DELETE.",
+    "param.api_version": "Azure API версия.",
+    "param.parameters": "JSON объект, содержащий параметры запроса.",
+    "param.body": "Необязательное тело запроса JSON.",
+    "param.confirm_write": "Требуется true для операций, отличных от GET."
+  },
+  "sv": {
+    "tool.description": "Generiskt Azure Resource Manager REST API verktyg. Den kan lista leverantörer, lista leverantörsoperationer och anropa Azure API:er. Icke-GET-operationer kräver confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azurblå",
+      "azurblå arm",
+      "moln",
+      "azure_api"
+    ],
+    "param.provider": "Azure resursleverantörens namnområde, till exempel Microsoft.Compute.",
+    "param.resource": "ARM-resurssökväg eller fullständig hanterings-URL.",
+    "param.method": "HTTP metod, till exempel GET, PUT, POST, PATCH eller DELETE.",
+    "param.api_version": "Azure API version.",
+    "param.parameters": "JSON objekt som innehåller frågeparametrar.",
+    "param.body": "Valfri JSON begärandetext.",
+    "param.confirm_write": "Krävs sant för icke-GET-operationer."
+  },
+  "sw": {
+    "tool.description": "Zana ya Kidhibiti Rasilimali Azure REST API ya jumla. Inaweza kuorodhesha watoa huduma, kuorodhesha shughuli za watoa huduma, na kupiga simu Azure API. Shughuli zisizo za GET zinahitaji confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft azure",
+      "mkono wa azure",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure nafasi ya jina ya mtoa huduma, kwa mfano Microsoft.Compute.",
+    "param.resource": "Njia ya rasilimali ya ARM au URL kamili ya usimamizi.",
+    "param.method": "HTTP mbinu, kwa mfano GET, PUT, POST, PATCH, au DELETE.",
+    "param.api_version": "Azure API toleo.",
+    "param.parameters": "JSON kipengee kilicho na vigezo vya hoja.",
+    "param.body": "Mwili wa ombi JSON wa hiari.",
+    "param.confirm_write": "Inahitajika kwa shughuli zisizo za GET."
+  },
+  "th": {
+    "tool.description": "เครื่องมือทั่วไป Azure ตัวจัดการทรัพยากร REST API สามารถแสดงรายการผู้ให้บริการ แสดงรายการการดำเนินการของผู้ให้บริการ และเรียกใช้ Azure API การดำเนินการที่ไม่ใช่ GET จำเป็นต้องมีการยืนยัน_write=true",
+    "x_search_terms": [
+      "azure",
+      "ไมโครซอฟต์ อาซัวร์",
+      "แขนสีฟ้า",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure เนมสเปซของผู้ให้บริการทรัพยากร เช่น Microsoft.Compute",
+    "param.resource": "เส้นทางทรัพยากร ARM หรือ URL การจัดการแบบเต็ม",
+    "param.method": "วิธีการ HTTP เช่น GET, PUT, POST, PATCH หรือ DELETE",
+    "param.api_version": "Azure API เวอร์ชัน",
+    "param.parameters": "JSON วัตถุที่มีพารามิเตอร์การค้นหา",
+    "param.body": "เนื้อหาคำขอ JSON ที่ไม่บังคับ",
+    "param.confirm_write": "จำเป็นจริงสำหรับการดำเนินการที่ไม่ใช่ GET"
+  },
+  "tr": {
+    "tool.description": "Genel Azure Kaynak Yöneticisi REST API aracı. Sağlayıcıları listeleyebilir, sağlayıcı işlemlerini listeleyebilir ve Azure API'lerini çağırabilir. GET dışı işlemler için onay_yaz=true gerekir.",
+    "x_search_terms": [
+      "azure",
+      "microsoft azure",
+      "masmavi kol",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure kaynak sağlayıcı ad alanı, örneğin Microsoft.Compute.",
+    "param.resource": "ARM kaynak yolu veya tam yönetim URL'si.",
+    "param.method": "HTTP yöntemi; örneğin GET, PUT, POST, PATCH veya DELETE.",
+    "param.api_version": "Azure API sürümü.",
+    "param.parameters": "Sorgu parametrelerini içeren JSON nesnesi.",
+    "param.body": "İsteğe bağlı JSON istek gövdesi.",
+    "param.confirm_write": "GET dışı işlemler için gerekli true."
+  },
+  "uk": {
+    "tool.description": "Загальний інструмент Azure Resource Manager REST API. Він може перераховувати постачальників, перелічувати операції постачальників і викликати Azure API. Операції, відмінні від GET, вимагають confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "лазурова рука",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Простір імен постачальника ресурсів Azure, наприклад Microsoft.Compute.",
+    "param.resource": "Шлях ресурсу ARM або повна URL-адреса керування.",
+    "param.method": "HTTP, наприклад GET, PUT, POST, PATCH або DELETE.",
+    "param.api_version": "Версія Azure API.",
+    "param.parameters": "Об’єкт JSON, що містить параметри запиту.",
+    "param.body": "Додаткове тіло запиту JSON.",
+    "param.confirm_write": "Обов’язкове значення true для операцій без GET."
+  },
+  "vi": {
+    "tool.description": "Công cụ REST API chung của Trình quản lý tài nguyên. Nó có thể liệt kê các nhà cung cấp, liệt kê các hoạt động của nhà cung cấp và gọi các API Azure. Hoạt động không GET yêu cầu confirm_write=true.",
+    "x_search_terms": [
+      "azure",
+      "Microsoft Azure",
+      "cánh tay xanh",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure không gian tên nhà cung cấp tài nguyên, ví dụ như Microsoft.Compute.",
+    "param.resource": "Đường dẫn tài nguyên ARM hoặc URL quản lý đầy đủ.",
+    "param.method": "HTTP, ví dụ: GET, PUT, POST, PATCH hoặc DELETE.",
+    "param.api_version": "Phiên bản Azure API.",
+    "param.parameters": "Đối tượng JSON chứa tham số truy vấn.",
+    "param.body": "Nội dung yêu cầu JSON tùy chọn.",
+    "param.confirm_write": "Bắt buộc đúng đối với các hoạt động không GET."
+  },
+  "zh_CN": {
+    "tool.description": "通用 Azure 资源管理器 REST API 工具。它可以列出提供程序、列出提供程序操作并调用 Azure API。非GET操作需要confirm_write=true。",
+    "x_search_terms": [
+      "azure",
+      "微软天蓝色",
+      "蔚蓝手臂",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure 资源提供程序命名空间，例如 Microsoft.Compute。",
+    "param.resource": "ARM 资源路径或完整管理 URL。",
+    "param.method": "HTTP 方法，例如 GET、PUT、POST、PATCH 或 DELETE。",
+    "param.api_version": "Azure API 版本。",
+    "param.parameters": "JSON 包含查询参数的对象。",
+    "param.body": "可选 JSON 请求正文。",
+    "param.confirm_write": "对于非 GET 操作，必需为 true。"
+  },
+  "zh_TW": {
+    "tool.description": "通用 Azure 資源管理器 REST API 工具。它可以列出提供者、列出提供者操作並呼叫 Azure API。非GET操作需要confirm_write=true。",
+    "x_search_terms": [
+      "azure",
+      "微軟天藍色",
+      "蔚藍手臂",
+      "cloud",
+      "azure_api"
+    ],
+    "param.provider": "Azure 資源提供者命名空間，例如 Microsoft.Compute。",
+    "param.resource": "ARM 資源路徑或完整管理 URL。",
+    "param.method": "HTTP 方法，例如 GET、PUT、POST、PATCH 或 DELETE。",
+    "param.api_version": "Azure API 版本。",
+    "param.parameters": "JSON 包含查詢參數的物件。",
+    "param.body": "可選 JSON 請求正文。",
+    "param.confirm_write": "對於非 GET 操作，必需為 true。"
+  }
+}

@@ -275,7 +275,7 @@ def _brave_api_search(
     timeout_sec: int = DEFAULT_TIMEOUT_SEC,
     proxies: Optional[dict[str, str]] = DEFAULT_PROXIES,
 ) -> list[dict[str, str]]:
-    """Brave Search API 経由で検索（UAGENT_BRAVE_API_KEY が必要）"""
+    """Search via Brave Search API (UAGENT_BRAVE_API_KEY required)"""
     _emit_debug(f"Performing Brave API Search: {query}")
     params = {"q": query, "count": min(max_results, 20)}
     headers = {
@@ -319,7 +319,7 @@ def _brave_search(
     retries: int = DEFAULT_RETRIES,
     proxies: Optional[dict[str, str]] = DEFAULT_PROXIES,
 ) -> list[dict[str, str]]:
-    """Brave Search: 環境変数 UAGENT_BRAVE_API_KEY があればAPI経由、なければHTMLスクレイピング"""
+    """Brave Search: use the API when UAGENT_BRAVE_API_KEY is set; otherwise use HTML scraping"""
     api_key = os.environ.get("UAGENT_BRAVE_API_KEY", "").strip()
     if api_key:
         _emit_debug("Brave API key found, using API")
@@ -367,7 +367,7 @@ def _brave_search(
                 continue
             break
 
-    # 429の場合はAPIキー設定を促す
+    # Prompt for API key configuration on 429
     if last_exc and "429" in str(last_exc):
         raise RuntimeError(
             _(
@@ -445,7 +445,7 @@ def _startpage_search(
             if results:
                 _emit_debug(f"Found {len(results)} StartPage results")
                 return results
-            # CAPTCHA判定
+            # CAPTCHA detection
             if "captcha" in resp.url.lower():
                 raise RuntimeError(
                     _(
@@ -561,8 +561,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "duckduckgo",
                 "brave search",
                 "search internet",
-                "ウェブ検索",
-                "ネット検索",
+                "Web search",
+                "Internet search",
             ],
         ),
         "x_search_terms_en": [

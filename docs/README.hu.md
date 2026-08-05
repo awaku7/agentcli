@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Miért uag?
 
@@ -29,7 +29,7 @@
 
 - **Lokálisan fut** a gépén. Adatai Önnél maradnak (kivéve az Ön által kezdeményezett API-hívásokat).
 - **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
-- **195 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **111 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
+- **203 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **111 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
 - **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piactérről. Hosszabbítsa meg az uag-ot végtelenül.
 
@@ -56,12 +56,11 @@ Minden szolgáltató ugyanazt az eszközkészletet és felületet használja. V�
 ### ⚡ Párhuzamos szerszámvégrehajtás
 
 Amikor az LLM egyszerre több eszközt kér, az uag **automatikusan párhuzamosítja** azokat.
-111 eszköz `x_parallel_safe` megjelöléssel rendelkezik, és egyidejűleg fut a `ThreadPoolExecutor'-on keresztül (alapértelmezés szerint 8 szál; állítsa be az `UAGENT_PARALLEL_WORKERS` paramétert a módosításhoz).
+111 eszköz `x_parallel_safe` megjelöléssel rendelkezik, és egyidejűleg fut a `ThreadPoolExecutor'-on keresztül (alapértelmezés szerint 8 szál; állítsa be az `UAGENT_PARALLEL_WORKERS\` paramétert a módosításhoz).
 
 **Példa**: Kérdezze meg: "Ellenőrizze az időjárást északi fővárosokban" → Az LLM a `search_web` × 5 országot indítja el → mind az 5 keresés párhuzamosan fut → az eredmények egy kötegben gyűjtve.
 
 A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, fordítás, DB lekérdezések stb.) agresszíven párhuzamosak.
-
 
 ### 🧩 Beépülő modulrendszer (Claude Code kompatibilis)
 
@@ -70,6 +69,7 @@ A uagent egy Claude Code-kompatibilis bővítményrendszert valósít meg. A be�
 **Támogatott összetevők: készségek, segédügynökök, MCP-szerverek, hookok (12 életciklus-esemény), perjelparancsok, kimeneti stílusok, userConfig, függőségek, csatornák, piacterek**
 
 **CLI commands**:
+
 ```
 :plugin list                         # A telepített bővítmények listája
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ A uagent egy Claude Code-kompatibilis bővítményrendszert valósít meg. A be�
 
 A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Munkamenet folytonossága
 
 - **Szolgáltatóváltás a munkamenet közben** a `UAGENT_PROVIDER` használatával — a beszélgetési előzmények megmaradnak.
 - **Korábbi munkamenetek újratöltése** a `:load <index>` paranccsal — folytassa onnan, ahol abbahagyta.
 
-### 🛠 195 Eszközök
+### 🛠 203 Eszközök
 
 | Kategória | Eszközök |
 |---|---|
@@ -99,11 +98,12 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/
 | **Előrejelzés** | Idősor-előrejelzés 9 modellel (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM stb.), automatikus modellválasztás, diagramgenerálás, i18n |
 | **Kommunikáció** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – lásd [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) és [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **26 forráskód-navigátor (idx család)** |
+| **Felhő API-k** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **29 forráskód-navigátor (idx család)** |
 | **MCP** | Csatlakozás külső MCP-kiszolgálókhoz, eszközök listázása, |
 | **A2A** | Ügynök-ügynök kommunikáció (más uag-példányokkal vagy A2A-kompatibilis szerverekkel) |
 | **Rendszer** | env vars, rendszerspecifikációk, idő, dátum számítás, uuid_gen, slugify ||
-| **Navigációs forrás** | **26 idx-eszköz** Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL számára – függvény/osztályindex vagy konkrét definíció beszerzése a teljes fájl beolvasása nélkül |
+| **Navigációs forrás** | **29 idx-eszköz** Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile számára – függvény/osztályindex vagy konkrét definíció beszerzése a teljes fájl beolvasása nélkül |
 
 ### 🖥 4 interfész + VS kód kiterjesztés
 
@@ -118,12 +118,12 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/
 Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
 
 ### 🏠 IoT-eszközvezérlés
-Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
+Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
-A `:skills mp_search' segítségével böngészhet a [SkillsMP](https://skillsmp.com) és a [ClawHub](https://clawhub.ai) webhelyen közösségi készségekért.
+A \`:skills mp_search' segítségével böngészhet a [SkillsMP](https://skillsmp.com) és a [ClawHub](https://clawhub.ai) webhelyen közösségi készségekért.
 Telepítse és bővítse az uag képességeit menet közben.
 
 ### 🤖 Auto-Pilot (`:auto`)
@@ -132,7 +132,7 @@ Az uag **autonóm módon követheti a célt több LLM-körön keresztül**. Tök
 
 - **Hogyan működik**: Minden körben van egy fő lekérdezés (A lépés), amelyet egy felülvizsgálói ítélet követ (B. lépés), amely eldönti, hogy "BEFEJEZTE vagy FOLYTATJA?"
 - **Ugyanaz a szolgáltató, ugyanaz az API**: A felülvizsgálói döntés ugyanazt a kódútvonalat használja fő lekérdezésként – beleértve a Responses API támogatást is.
-- **Különbíró LLM** (opcionális): Állítsa be az `UAGENT_AP_PROVIDER' paramétert, ha más szolgáltatót/modellt szeretne használni a véleményező számára (például használjon olcsóbb modellt az elbíráláshoz).
+- **Különbíró LLM** (opcionális): Állítsa be az \`UAGENT_AP_PROVIDER' paramétert, ha más szolgáltatót/modellt szeretne használni a véleményező számára (például használjon olcsóbb modellt az elbíráláshoz).
 - **Bármikor kilépés**: Nyomja meg az `x` billentyűt az azonnali leállításhoz, akár válasz közben is. Vagy hagyja, hogy az értékelő döntse el, mikor teljesül a cél.
 - **Konfigurálható**: `--max-kör N` a költségvetés szabályozásához.
 
@@ -172,7 +172,6 @@ Két kiegészítő, drámaíró-alapú eszköz:
 A "tool_catalog" és a "tool_load" segítségével futás közben fedezheti fel és engedélyezheti az eszközöket.
 Nem kell mindent betölteni indításkor – csak azt aktiválja, amire szüksége van, amikor szüksége van rá.
 
-
 ### 🦀 Rust Native Tools
 
 A `uuid_gen` és a `slugify` a teljesítmény érdekében Rustban (PyO3-on keresztül) van megvalósítva.
@@ -201,7 +200,7 @@ Kezelje az "uag_envsec" segítségével.
 
 ## Projektfilozófia
 
-uag arra törekszik, hogy az Ön MI-je legyen a gépén, az Ön feltételei szerint.**
+uag arra törekszik, hogy az Ön MI-je legyen a gépén, az Ön feltételei szerint.\*\*
 
 - Nincs SaaS-függőség – helyileg fut
 - Nincs szolgáltatói bezárás - bármikor válthat
@@ -212,7 +211,6 @@ Ingyenes mesterséges intelligencia ügynöki élmény, mentes a szállítói be
 
 ### ✨ Készítse el saját eszközeit
 
-
 [hu.md](TOOL_CREATOR_GUIDE.hu.md)
 A lépésről lépésre bemutatott útmutatóért kattintson ide.
 
@@ -222,8 +220,6 @@ Hozzájárulásokat szívesen fogadunk! Hibajelentések, funkciójavaslatok, dok
 
 - **Issues**: Nyisson meg egy GitHub-problémát a hibákért vagy a funkciókra vonatkozó kérésekért.
 - **Pull kérések**: Forkolja a tárolót, végezze el a módosításokat, majd küldjön PR-t. A fejlesztési beállításokról és irányelvekről a [DEVELOP.md](../src/uagent/docs/DEVELOP.md) fájlban olvashat.
-
-
 
 Realtime Hang és AEC3
 

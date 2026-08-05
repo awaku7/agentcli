@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Neden uag?
 
@@ -29,7 +29,7 @@
 
 - **Makinenizde yerel olarak çalışır**. Verileriniz sizinle kalır (yaptığınız API çağrıları hariç).
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 sağlayıcı, hepsine tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak bunlar arasında geçiş yapın; yeniden yükleme yok, geçiş yok.
-- **195 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **111 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
+- **203 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **111 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
 - **3 kullanıcı arayüzü + A2A**: CLI, GUI, Web ve Aracıdan Aracıya protokolü. Aynı motor, herhangi bir arayüz.
 - **Ajan Becerileri**: Piyasadan topluluk tarafından oluşturulan becerileri yükleyin. Uag'ı sonsuza kadar uzatın.
 
@@ -58,10 +58,9 @@ Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. 'UAGENT_PROVIDE
 LLM aynı anda birden fazla araç talep ettiğinde bunları **otomatik olarak paralelleştirir**.
 111 araç 'x_parallel_safe' olarak işaretlenmiştir ve bir 'ThreadPoolExecutor' aracılığıyla eşzamanlı olarak çalıştırılır (varsayılan olarak 8 iş parçacığı; değiştirmek için 'UAGENT_PARALLEL_WORKERS' ayarlayın).
 
-**Örnek**: "İskandinav başkentlerindeki hava durumunu kontrol edin" sorusunu sorun → Yüksek Lisans `search_web'i çalıştırıyor × 5 ülke → 5 aramanın tümü paralel olarak yürütülüyor → sonuçlar tek bir grupta toplanıyor.
+**Örnek**: "İskandinav başkentlerindeki hava durumunu kontrol edin" sorusunu sorun → Yüksek Lisans \`search_web'i çalıştırıyor × 5 ülke → 5 aramanın tümü paralel olarak yürütülüyor → sonuçlar tek bir grupta toplanıyor.
 
 Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, veritabanı sorguları vb.) agresif bir şekilde paralelleştirilmiştir.
-
 
 ### 🧩 Eklenti Sistemi (Claude Code uyumlu)
 
@@ -70,6 +69,7 @@ uagent, Claude Code uyumlu bir eklenti sistemi uygular. Eklentiler; becerileri, 
 **Desteklenen bileşenler: beceriler, alt aracılar, MCP sunucuları, kancalar (12 yaşam döngüsü olayı), eğik çizgi komutları, çıktı stilleri, userConfig, bağımlılıklar, kanallar, marketler**
 
 **CLI commands**:
+
 ```
 :plugin list                         # Yüklü eklentileri listele
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent, Claude Code uyumlu bir eklenti sistemi uygular. Eklentiler; becerileri, 
 
 Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Oturum Sürekliliği
 
 - **Oturum sırasında sağlayıcı değiştir** `UAGENT_PROVIDER` ile — konuşma geçmişi korunur.
 - **Önceki oturumları yeniden yükle** `:load <index>` ile — kaldığınız yerden devam edin.
 
-### 🛠 195 Araç
+### 🛠 203 Araç
 
 | Kategori | Araçlar |
 |---|---|
@@ -99,11 +98,12 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **Tahmin** | 9 model ile zaman serisi tahmini (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM vb.), otomatik model seçimi, grafik oluşturma, i18n |
 | **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook, **pybitchat** (BLE Mesh) — bkz. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ve [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **26 kaynak kodu gezgini (idx ailesi)** |
+| **Bulut API’leri** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kaynak kodu gezgini (idx ailesi)** |
 | **MCP** | Harici MCP sunucularına bağlanın, araçları listeleyin, çalıştırın |
 | **A2A** | Aracıdan aracıya iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
 | **Sistem** | env değişkenleri, sistem özellikleri, saat, tarih hesaplaması, uuid_gen, slugify ||
-| **Kaynak Gezintisi** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL için **26 idx aracı** — tüm dosyayı okumadan bir işlev/sınıf dizini veya belirli bir tanım edinin |
+| **Kaynak Gezintisi** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile için **29 idx aracı** — tüm dosyayı okumadan bir işlev/sınıf dizini veya belirli bir tanım edinin |
 
 ### 🖥 4 Arayüz + VS Kod Uzantısı
 
@@ -118,10 +118,10 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) adresine bakın.
 
 ### 🏠 IoT Cihaz Kontrolü
+
 - **Madde**: Denetleyici/köprü/cihaz topolojisinin salt okunur denetimi
 
 Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Temsilci Becerileri Pazarı
 
@@ -174,9 +174,7 @@ Otomatik pilot modundan çıkmak için 'x' tuşuna basın (bkz. [README_AUTO.md]
 'tool_catalog' ve 'tool_load', çalışma zamanında araçları keşfetmenize ve etkinleştirmenize olanak tanır.
 Başlangıçta her şeyi yüklemenize gerek yok; yalnızca ihtiyacınız olanı, ihtiyacınız olduğunda etkinleştirin.
 
-
 ### 🦀 Rust Native Tools
-
 
 ### 🌐 i18n / L10n
 
@@ -195,7 +193,7 @@ API anahtarlarını ve sırlarını, şifrelenmiş bir ".env" dosyası olan ".en
 - **Ortam değişkenleri**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Kurulum sihirbazı**: `python -m uagent.setup_cli`
 - **Şifrelenmiş ortam**: `uag_envsec` — `.env`yi `.env.sec` olarak şifreleyin
-- **Responses API**: Responses API modu için `UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.
+- **Responses API**: Responses API modu için \`UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.
 - **Geliştirici belgeleri**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Küçük LLM ipuçları**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
@@ -213,7 +211,6 @@ Satıcıya bağımlı kalmadan ücretsiz bir yapay zeka aracısı deneyimi.
 
 ### ✨ Kendi araçlarınızı oluşturun
 
-
 [tr.md](TOOL_CREATOR_GUIDE.tr.md)
 Adım adım kılavuz için buraya bakın.
 
@@ -223,8 +220,6 @@ Katkılarınızı bekliyoruz! Hata raporları, özellik önerileri, belge iyile�
 
 - **Issues**: Hatalar veya özellik istekleri için GitHub sayısını açın.
 - **Pull istekleri**: Depoyu fork edin, değişikliklerinizi yapın ve bir PR gönderin. Geliştirme kurulumu ve yönergeler için [DEVELOP.md](../src/uagent/docs/DEVELOP.md) dosyasına bakın.
-
-
 
 Realtime Ses ve AEC3
 

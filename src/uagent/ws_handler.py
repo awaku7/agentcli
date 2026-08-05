@@ -7,11 +7,37 @@ Dispatches incoming messages to the appropriate handler.
 
 import json
 import os
+import re
+from html import unescape
 from pathlib import Path
 from typing import Any
 
 from uagent.ws_config import WsConfigManager
 from uagent.ws_session import WsSessionManager
+
+
+def _format_llm_error(exc: BaseException) -> str:
+    """Return a short, readable error instead of forwarding proxy HTML."""
+    raw = str(exc).strip()
+    if "<!doctype" in raw.lower() or "<html" in raw.lower():
+        def text_from_html(value: str) -> str:
+            value = re.sub(r"<[^>]+>", " ", value)
+            return re.sub(r"\s+", " ", unescape(value)).strip()
+
+        reason_match = re.search(
+            r'class=["\']eu_co\s+rsn["\'][^>]*>(.*?)</',
+            raw, flags=re.IGNORECASE | re.DOTALL,
+        )
+        target_match = re.search(
+            r"You tried to visit:\s*.*?>(https?://[^<]+)<",
+            raw, flags=re.IGNORECASE | re.DOTALL,
+        )
+        reason = text_from_html(reason_match.group(1)) if reason_match else "外部ネットワークまたはプロキシにより拒否されました"
+        target = target_match.group(1) if target_match else "LLM API"
+        return f"LLM APIへの接続に失敗しました。\n原因: {reason}\n接続先: {target}"
+
+    detail = raw or "詳細不明"
+    return f"{type(exc).__name__}: {detail[:1000]}"
 
 
 class WsHandler:
@@ -392,9 +418,7 @@ class WsHandler:
             return {"reply": reply or "[uag] No response generated."}
 
         except (Exception, SystemExit) as e:
-            import traceback
-
-            return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
+            return {"reply": f"[uag] {_format_llm_error(e)}"}
 
     async def handle_fim(self, params: dict) -> dict:
         """Fill-in-the-Middle code completion."""

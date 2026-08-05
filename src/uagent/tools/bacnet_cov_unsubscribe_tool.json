@@ -709,7 +709,7 @@
     "msg.unsubscribed": "task_id langganan COV={task_id} dibatalkan.",
     "err.task_id_required": "task_id diperlukan untuk action=unsubscribe.",
     "x_search_terms": [
-      "bacnet cov unsubscribe",
+      "bacnet cov berhenti melanggan",
       "bacnet_cov_unsubscribe",
       "bacnet",
       "BACNET",
@@ -729,7 +729,7 @@
     "msg.unsubscribed": "COV-abonnement task_id={task_id} annulleret.",
     "err.task_id_required": "task_id er påkrævet for action=unsubscribe.",
     "x_search_terms": [
-      "bacnet cov unsubscribe",
+      "bacnet cov afmeld",
       "bacnet_cov_unsubscribe",
       "bacnet",
       "BACNET",
@@ -749,7 +749,7 @@
     "msg.unsubscribed": "COV-abonnement task_id={task_id} kansellert.",
     "err.task_id_required": "task_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "bacnet cov unsubscribe",
+      "bacnet cov si opp abonnementet",
       "bacnet_cov_unsubscribe",
       "bacnet",
       "BACNET",

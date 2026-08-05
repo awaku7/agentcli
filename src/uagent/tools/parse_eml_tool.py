@@ -34,7 +34,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "email",
                 "mail",
                 "outlook",
-                "メールファイル",
+                "Email file",
                 "parse email",
                 "eml parser",
                 "archivo eml",

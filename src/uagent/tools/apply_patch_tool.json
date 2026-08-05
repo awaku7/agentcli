@@ -752,8 +752,8 @@
     "x_search_terms": [
       "ilapat ang patch",
       "patch file",
-      "apply diff",
-      "unified diff apply",
+      "ilapat ang diff",
+      "pinag-isang diff apply",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Pinag-isang diff text na ilalapat (git-format compatible, hal. ---/+++ na mga header).",
@@ -817,9 +817,9 @@
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [
       "bruk patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply",
+      "lappfil",
+      "bruke diff",
+      "enhetlig diff gjelder",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Samlet diff-tekst som skal vert brukt (git-format-kompatibel, f.eks. ---/+++ overskrifter).",

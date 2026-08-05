@@ -1124,11 +1124,11 @@
   "fil": {
     "tool.description": "Ihambing ang mga file o nilalaman ng text at ibalik ang structured diff na output. Sinusuportahan ang pinag-isang, buod, at json_diff na mga mode.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "diff file",
+      "pagkakaiba ng file",
+      "ihambing ang mga file",
       "difference",
-      "unified diff",
+      "pinag-isang diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -1194,7 +1194,7 @@
       "fil diff",
       "sammenlign filer",
       "difference",
-      "unified diff",
+      "samlet diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -1227,7 +1227,7 @@
       "fil diff",
       "sammenlign filer",
       "difference",
-      "unified diff",
+      "enhetlig diff",
       "diff",
       "ファイル比較",
       "差分"

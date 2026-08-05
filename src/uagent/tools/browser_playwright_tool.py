@@ -105,7 +105,7 @@ TOOL_SPEC: dict[str, Any] = {
             "keep browser open",
             "fetch_url",
             "http get",
-            "URL取得",
+            "Get URL",
         ],
         "x_search_terms_en": [
             "browser",

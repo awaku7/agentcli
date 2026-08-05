@@ -89,7 +89,7 @@ _DEBUG = os.environ.get("UAGENT_BITCHAT_DEBUG", "") == "1"
 
 
 def _display_worker() -> None:
-    """表示専用ワーカー: キューから取り出して print_lock 直列化で表示."""
+    """Display-only worker: dequeue from the queue and serialize output with print_lock."""
     while True:
         try:
             msg = _DISPLAY_QUEUE.get()
@@ -140,7 +140,7 @@ def _display_worker() -> None:
 
 
 def _ensure_display_thread() -> None:
-    """表示ワーカーを一度だけ起動する（daemon なのでプロセス終了で消える）."""
+    """Start the display worker only once (it is a daemon and exits with the process)."""
     global _DISPLAY_THREAD, _DISPLAY_THREAD_STARTED
     if _DISPLAY_THREAD_STARTED:
         return
@@ -156,9 +156,9 @@ def _ensure_display_thread() -> None:
 def _notify_display(msg: str) -> None:
     """Display a notification on screen (NOT sent to the LLM).
 
-    BLE 受信スレッドをブロックしないよう、表示キューに put するだけ。
-    実際の表示は専用ワーカースレッドが core の print_lock で直列化する。
-    """
+    Only enqueue the notification so the BLE receive thread is not blocked.
+    Actual display is serialized by the dedicated worker thread using core print_lock.
+"""
     if not _DEBUG and msg.startswith("[bitchat] [debug]"):
         return
     try:
@@ -643,12 +643,10 @@ _TEXT_CHUNK_BYTES = _TEXT_MAX_BYTES
 
 
 def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[str]:
-    """UTF-8 バイト単位で max_bytes 以下になるようテキストを分割する。
+    """Split text so it stays within max_bytes in UTF-8 bytes.
 
-    マルチバイト文字を跨がないよう、UTF-8 エンコード済みバイト列の
-    境界で調整する。Windows コンソール入力等で孤立サロゲートが混入
-    しても落ちないよう errors="replace" でエンコードする (U+FFFD に置換)。
-    """
+    Adjust boundaries so multibyte characters are not split. Encode with errors="replace" so isolated surrogates from Windows console input do not fail (they become U+FFFD).
+"""
     if not text:
         return []
     raw = text.encode("utf-8", errors="replace")
@@ -685,13 +683,10 @@ def enqueue_send(
 ) -> None:
     """Queue a message for delivery.
 
-    via: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'both' (both transports).
+    via: 'ble' (BLE Mesh), 'nostr' (Nostr relays), or 'both' (both transports).
 
-    テキストは BLE 単一フレームで送れるサイズ (_TEXT_CHUNK_BYTES) に
-    分割して送信する。フラグメント化・圧縮を避けて Android アプリとの
-    互換性を保つ。Nostr (1MB) とファイル (1MB) は上限が大きいため
-    分割不要。
-    """
+    Split text into BLE single-frame-sized chunks (_TEXT_CHUNK_BYTES). Avoid fragmentation and compression to preserve Android app compatibility. Nostr (1MB) and files (1MB) have larger limits and do not need splitting.
+"""
     if type_ == "text":
         if isinstance(payload, bytes):
             try:
@@ -719,7 +714,7 @@ def _enqueue_send_one(
     via: str = "ble",
     plain: bool = False,
 ) -> None:
-    """単一メッセージをキュー/リレーへ投入する (enqueue_send の内部処理)。"""
+    """Queue a single message for delivery to the queue or relay (internal enqueue_send processing)."""
     if via in ("both", "nostr"):
         global _NOSTR, _NOSTR_RUNNING, _NOSTR_BRIDGE
         if _NOSTR_RUNNING and _NOSTR is not None:
@@ -775,12 +770,12 @@ def _enqueue_send_one(
 
 
 def _resolve_recipient_hex(recipient: str | None) -> str | None:
-    """recipient 引数を peer_id_hex に解決する。
+    """Resolve the recipient argument to peer_id_hex.
 
-    - 既に有効な hex ならそのまま返す
-    - ニックネームなら _PEER_NICKNAMES から peer_id_hex を逆引き
-    - 解決不可なら None（呼び出し側でドロップ通知する）
-    """
+    - Return it unchanged if it is already valid hex
+    - If it is a nickname, reverse-lookup peer_id_hex from _PEER_NICKNAMES
+    - Return None if it cannot be resolved (the caller sends a drop notification)
+"""
     if not recipient:
         return None
     r = recipient.strip()
@@ -986,13 +981,11 @@ async def _run_ble_service(nickname: str, network: str) -> None:
     ) -> None:
         """Send a NOISE_HANDSHAKE or NOISE_ENCRYPTED packet.
 
-        NOISE フレームは署名なし・パディングなしで送る。理由:
-        - Android の SecurityManager は NOISE_HANDSHAKE / NOISE_ENCRYPTED を
-          署名検証対象外とする (verifyPacketSignature の setOf に含まれない)
-        - 署名・パディングを省くと wire が小さくなり、BLE フレームとして
-          確実に収まる
-        - Android の decode はパディングなしも処理できる
-        """
+        Send NOISE frames without signatures or padding. Reasons:
+        - Android SecurityManager excludes NOISE_HANDSHAKE / NOISE_ENCRYPTED from signature verification
+        - Omitting signatures and padding keeps the wire packet small enough for BLE
+        - Android decode also handles frames without padding
+"""
         recipient_bytes = bytes.fromhex(recipient_hex) if recipient_hex else None
         pkt = BitchatPacket(
             version=1,
@@ -2034,11 +2027,11 @@ _MESH_JUNK_PREFIXES = ("[STATE]", "[TOOL]", "[INFO]", "[WARN]", "[ERROR]")
 
 
 def _sanitize_mesh_text(text: str) -> str:
-    """LLM 応答を mesh に送る前に、不要な制御文字・ログ行を除去する。
+    """Remove unnecessary control characters and log lines from an LLM response before sending it to the mesh.
 
-    - ANSI エスケープシーケンス (ESC[90m 等) を除去
-    - [STATE] / [TOOL] / [INFO] / [WARN] / [ERROR] で始まる行を除去
-    """
+    - Remove ANSI escape sequences (such as ESC[90m)
+    - Remove lines beginning with [STATE], [TOOL], [INFO], [WARN], or [ERROR]
+"""
     text = _ANSI_ESCAPE_RE.sub("", text)
     cleaned = [
         ln for ln in text.splitlines() if not ln.strip().startswith(_MESH_JUNK_PREFIXES)

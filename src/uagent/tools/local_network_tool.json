@@ -23,7 +23,13 @@
       "الشبكة المحلية",
       "عنوان IP",
       "المحول"
-    ]
+    ],
+    "param.findings.description": "نتائج PCAP الخاصة بالبيانات الوصفية فقط للارتباط بالاتصالات المحلية الحالية.",
+    "param.status.description": "مرشح حالة الاتصال الاختياري، على سبيل المثال تم تأسيسه.",
+    "param.local_ip.description": "مرشح IP المحلي الاختياري.",
+    "param.remote_ip.description": "مرشح IP عن بعد اختياري.",
+    "param.port.description": "مرشح منفذ محلي أو بعيد اختياري.",
+    "param.include_process.description": "قم بتضمين PID واسم العملية عندما يكون ذلك مسموحًا به."
   },
   "bn": {
     "tool.description": "স্থানীয় নেটওয়ার্ক ইন্টারফেস এবং ঠিকানা পড়ুন।",
@@ -33,7 +39,13 @@
       "স্থানীয় নেটওয়ার্ক",
       "আইপি ঠিকানা",
       "অ্যাডাপ্টার"
-    ]
+    ],
+    "param.findings.description": "বর্তমান স্থানীয় সংযোগের সাথে সম্পর্কযুক্ত মেটাডেটা শুধুমাত্র pcap ফলাফল।",
+    "param.status.description": "ঐচ্ছিক সংযোগ স্থিতি ফিল্টার, উদাহরণস্বরূপ প্রতিষ্ঠিত.",
+    "param.local_ip.description": "ঐচ্ছিক স্থানীয় আইপি ফিল্টার।",
+    "param.remote_ip.description": "ঐচ্ছিক দূরবর্তী আইপি ফিল্টার.",
+    "param.port.description": "ঐচ্ছিক স্থানীয় বা দূরবর্তী পোর্ট ফিল্টার.",
+    "param.include_process.description": "অনুমতি পেলে পিআইডি এবং প্রক্রিয়ার নাম অন্তর্ভুক্ত করুন।"
   },
   "cs": {
     "tool.description": "Přečtěte si místní síťová rozhraní a adresy.",
@@ -43,7 +55,13 @@
       "lokální síť",
       "ip adresa",
       "adaptér"
-    ]
+    ],
+    "param.findings.description": "Nálezy pcap pouze pro metadata pro korelaci s aktuálními místními připojeními.",
+    "param.status.description": "Volitelný filtr stavu připojení, například ESTABLISHED.",
+    "param.local_ip.description": "Volitelný místní IP filtr.",
+    "param.remote_ip.description": "Volitelný vzdálený IP filtr.",
+    "param.port.description": "Volitelný místní nebo vzdálený filtr portů.",
+    "param.include_process.description": "Pokud je to povoleno, uveďte PID a název procesu."
   },
   "da": {
     "tool.description": "Læs lokale netværksgrænseflader og adresser.",
@@ -53,7 +71,13 @@
       "lokalt netværk",
       "ip-adresse",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Metadata-kun pcap-fund for at korrelere med aktuelle lokale forbindelser.",
+    "param.status.description": "Valgfrit forbindelsesstatusfilter, for eksempel ETABLERET.",
+    "param.local_ip.description": "Valgfrit lokalt IP-filter.",
+    "param.remote_ip.description": "Valgfrit eksternt IP-filter.",
+    "param.port.description": "Valgfrit lokalt eller eksternt portfilter.",
+    "param.include_process.description": "Inkluder PID og procesnavn, når det er tilladt."
   },
   "de": {
     "tool.description": "Lesen Sie lokale Netzwerkschnittstellen und -adressen.",
@@ -63,7 +87,13 @@
       "Lokales Netzwerk",
       "IP-Adresse",
       "Adapter"
-    ]
+    ],
+    "param.findings.description": "Reine Metadaten-PCAP-Ergebnisse zur Korrelation mit aktuellen lokalen Verbindungen.",
+    "param.status.description": "Optionaler Verbindungsstatusfilter, zum Beispiel ESTABLISHED.",
+    "param.local_ip.description": "Optionaler lokaler IP-Filter.",
+    "param.remote_ip.description": "Optionaler Remote-IP-Filter.",
+    "param.port.description": "Optionaler lokaler oder Remote-Portfilter.",
+    "param.include_process.description": "Geben Sie PID und Prozessnamen an, wenn dies zulässig ist."
   },
   "el": {
     "tool.description": "Διαβάστε τις διεπαφές και τις διευθύνσεις τοπικού δικτύου.",
@@ -73,7 +103,13 @@
       "τοπικό δίκτυο",
       "διεύθυνση ip",
       "προσαρμογέας"
-    ]
+    ],
+    "param.findings.description": "Ευρήματα pcap μόνο για μεταδεδομένα για συσχέτιση με τις τρέχουσες τοπικές συνδέσεις.",
+    "param.status.description": "Προαιρετικό φίλτρο κατάστασης σύνδεσης, για παράδειγμα ΕΓΚΑΤΑΣΤΑΣΗ.",
+    "param.local_ip.description": "Προαιρετικό τοπικό φίλτρο IP.",
+    "param.remote_ip.description": "Προαιρετικό απομακρυσμένο φίλτρο IP.",
+    "param.port.description": "Προαιρετικό φίλτρο τοπικής ή απομακρυσμένης θύρας.",
+    "param.include_process.description": "Συμπεριλάβετε PID και όνομα διεργασίας όταν επιτρέπεται."
   },
   "es": {
     "tool.description": "Leer interfaces y direcciones de red local.",
@@ -83,7 +119,13 @@
       "red local",
       "dirección IP",
       "adaptador"
-    ]
+    ],
+    "param.findings.description": "Hallazgos de pcap de solo metadatos para correlacionarlos con las conexiones locales actuales.",
+    "param.status.description": "Filtro de estado de conexión opcional, por ejemplo ESTABLECIDO.",
+    "param.local_ip.description": "Filtro IP local opcional.",
+    "param.remote_ip.description": "Filtro IP remoto opcional.",
+    "param.port.description": "Filtro de puerto local o remoto opcional.",
+    "param.include_process.description": "Incluya el PID y el nombre del proceso cuando esté permitido."
   },
   "fa": {
     "tool.description": "رابط‌ها و آدرس‌های شبکه محلی را بخوانید.",
@@ -93,7 +135,13 @@
       "شبکه محلی",
       "آدرس IP",
       "آداپتور"
-    ]
+    ],
+    "param.findings.description": "یافته‌های pcap فقط با فراداده برای ارتباط با اتصالات محلی فعلی.",
+    "param.status.description": "فیلتر وضعیت اتصال اختیاری، برای مثال ESTABLISHED.",
+    "param.local_ip.description": "فیلتر IP محلی اختیاری.",
+    "param.remote_ip.description": "فیلتر IP از راه دور اختیاری.",
+    "param.port.description": "فیلتر پورت محلی یا راه دور اختیاری.",
+    "param.include_process.description": "در صورت اجازه PID و نام فرآیند را وارد کنید."
   },
   "fi": {
     "tool.description": "Lue paikallisverkkoliitännät ja osoitteet.",
@@ -103,7 +151,13 @@
       "paikallinen verkko",
       "ip-osoite",
       "sovitin"
-    ]
+    ],
+    "param.findings.description": "Vain metatiedot sisältävät pcap-havainnot korreloimaan nykyisten paikallisten yhteyksien kanssa.",
+    "param.status.description": "Valinnainen yhteyden tilasuodatin, esimerkiksi PERUSTETTU.",
+    "param.local_ip.description": "Valinnainen paikallinen IP-suodatin.",
+    "param.remote_ip.description": "Valinnainen IP-etäsuodatin.",
+    "param.port.description": "Valinnainen paikallinen tai etäporttisuodatin.",
+    "param.include_process.description": "Sisällytä PID ja prosessin nimi, jos se on sallittu."
   },
   "fil": {
     "tool.description": "Basahin ang mga interface at address ng lokal na network.",
@@ -113,7 +167,13 @@
       "lokal na network",
       "ip address",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Metadata-only pcap findings upang maiugnay sa mga kasalukuyang lokal na koneksyon.",
+    "param.status.description": "Opsyonal na filter ng katayuan ng koneksyon, halimbawa ESTABLISHED.",
+    "param.local_ip.description": "Opsyonal na lokal na IP filter.",
+    "param.remote_ip.description": "Opsyonal na malayuang IP filter.",
+    "param.port.description": "Opsyonal na lokal o malayuang port na filter.",
+    "param.include_process.description": "Isama ang PID at pangalan ng proseso kapag pinahihintulutan."
   },
   "fr": {
     "tool.description": "Lisez les interfaces et les adresses du réseau local.",
@@ -123,7 +183,13 @@
       "réseau local",
       "adresse IP",
       "adaptateur"
-    ]
+    ],
+    "param.findings.description": "Résultats pcap uniquement basés sur les métadonnées pour établir une corrélation avec les connexions locales actuelles.",
+    "param.status.description": "Filtre d'état de connexion facultatif, par exemple ESTABLISHED.",
+    "param.local_ip.description": "Filtre IP local en option.",
+    "param.remote_ip.description": "Filtre IP distant en option.",
+    "param.port.description": "Filtre de port local ou distant en option.",
+    "param.include_process.description": "Incluez le PID et le nom du processus lorsque cela est autorisé."
   },
   "he": {
     "tool.description": "קרא ממשקי רשת מקומיים וכתובות.",
@@ -133,7 +199,13 @@
       "רשת מקומית",
       "כתובת IP",
       "מתאם"
-    ]
+    ],
+    "param.findings.description": "ממצאי pcap המבוססים על מטא-נתונים בלבד שיתואמו עם החיבורים המקומיים הנוכחיים.",
+    "param.status.description": "מסנן מצב חיבור אופציונלי, למשל ESTABLISHED.",
+    "param.local_ip.description": "מסנן IP מקומי אופציונלי.",
+    "param.remote_ip.description": "מסנן IP מרחוק אופציונלי.",
+    "param.port.description": "מסנן יציאה מקומי או מרחוק אופציונלי.",
+    "param.include_process.description": "כלול PID ושם תהליך כאשר הדבר מותר."
   },
   "hi": {
     "tool.description": "स्थानीय नेटवर्क इंटरफ़ेस और पते पढ़ें.",
@@ -143,7 +215,13 @@
       "स्थानीय नेटवर्क",
       "आईपी पता",
       "एडाप्टर"
-    ]
+    ],
+    "param.findings.description": "मेटाडेटा-केवल पीकैप निष्कर्ष वर्तमान स्थानीय कनेक्शन के साथ सहसंबद्ध हैं।",
+    "param.status.description": "वैकल्पिक कनेक्शन स्थिति फ़िल्टर, उदाहरण के लिए स्थापित।",
+    "param.local_ip.description": "वैकल्पिक स्थानीय आईपी फ़िल्टर।",
+    "param.remote_ip.description": "वैकल्पिक रिमोट आईपी फ़िल्टर।",
+    "param.port.description": "वैकल्पिक स्थानीय या दूरस्थ पोर्ट फ़िल्टर।",
+    "param.include_process.description": "अनुमति मिलने पर पीआईडी ​​और प्रक्रिया का नाम शामिल करें।"
   },
   "hu": {
     "tool.description": "Olvassa el a helyi hálózati interfészeket és címeket.",
@@ -153,7 +231,13 @@
       "helyi hálózati",
       "ip-cím",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Csak metaadatokat tartalmazó pcap megállapítások az aktuális helyi kapcsolatokkal való korreláció érdekében.",
+    "param.status.description": "Opcionális kapcsolati állapotszűrő, például ESTABLISHED.",
+    "param.local_ip.description": "Opcionális helyi IP szűrő.",
+    "param.remote_ip.description": "Opcionális távoli IP-szűrő.",
+    "param.port.description": "Opcionális helyi vagy távoli portszűrő.",
+    "param.include_process.description": "Ha megengedett, adja meg a PID-t és a folyamat nevét."
   },
   "id": {
     "tool.description": "Baca antarmuka dan alamat jaringan lokal.",
@@ -163,7 +247,13 @@
       "jaringan lokal",
       "alamat ip",
       "adaptor"
-    ]
+    ],
+    "param.findings.description": "Temuan pcap khusus metadata untuk dikorelasikan dengan koneksi lokal saat ini.",
+    "param.status.description": "Filter status koneksi opsional, misalnya ESTABLISHED.",
+    "param.local_ip.description": "Filter IP lokal opsional.",
+    "param.remote_ip.description": "Filter IP jarak jauh opsional.",
+    "param.port.description": "Filter port lokal atau jarak jauh opsional.",
+    "param.include_process.description": "Sertakan PID dan nama proses bila diizinkan."
   },
   "it": {
     "tool.description": "Leggere le interfacce e gli indirizzi della rete locale.",
@@ -173,7 +263,13 @@
       "rete locale",
       "indirizzo IP",
       "adattatore"
-    ]
+    ],
+    "param.findings.description": "Risultati pcap solo metadati da correlare con le connessioni locali correnti.",
+    "param.status.description": "Filtro opzionale sullo stato della connessione, ad esempio ESTABLISHED.",
+    "param.local_ip.description": "Filtro IP locale opzionale.",
+    "param.remote_ip.description": "Filtro IP remoto opzionale.",
+    "param.port.description": "Filtro porta locale o remota opzionale.",
+    "param.include_process.description": "Includere PID e nome del processo quando consentito."
   },
   "ja": {
     "tool.description": "ローカル ネットワーク インターフェイスとアドレスを読み取ります。",
@@ -199,7 +295,13 @@
       "로컬 네트워크",
       "IP 주소",
       "어댑터"
-    ]
+    ],
+    "param.findings.description": "현재 로컬 연결과 상호 연관되는 메타데이터 전용 pcap 결과입니다.",
+    "param.status.description": "선택적 연결 상태 필터(예: ESTABLISHED).",
+    "param.local_ip.description": "선택적 로컬 IP 필터.",
+    "param.remote_ip.description": "선택적 원격 IP 필터.",
+    "param.port.description": "선택적인 로컬 또는 원격 포트 필터.",
+    "param.include_process.description": "허용되는 경우 PID 및 프로세스 이름을 포함합니다."
   },
   "mn": {
     "tool.description": "Дотоод сүлжээний интерфейс болон хаягийг уншина уу.",
@@ -209,7 +311,13 @@
       "орон нутгийн сүлжээ",
       "ip хаяг",
       "адаптер"
-    ]
+    ],
+    "param.findings.description": "Одоогийн локал холболттой уялдуулахын тулд зөвхөн мета өгөгдлийн pcap илэрцүүд.",
+    "param.status.description": "Нэмэлт холболтын төлөвийн шүүлтүүр, жишээ нь БАЙГУУЛСАН.",
+    "param.local_ip.description": "Нэмэлт орон нутгийн IP шүүлтүүр.",
+    "param.remote_ip.description": "Нэмэлт алсын IP шүүлтүүр.",
+    "param.port.description": "Нэмэлт дотоод эсвэл алсын порт шүүлтүүр.",
+    "param.include_process.description": "Зөвшөөрөгдсөн үед PID болон процессын нэрийг оруулна уу."
   },
   "mr": {
     "tool.description": "स्थानिक नेटवर्क इंटरफेस आणि पत्ते वाचा.",
@@ -219,7 +327,13 @@
       "स्थानिक नेटवर्क",
       "ip पत्ता",
       "ॲडॉप्टर"
-    ]
+    ],
+    "param.findings.description": "मेटाडेटा-फक्त pcap निष्कर्ष सध्याच्या स्थानिक कनेक्शनशी सहसंबंधित आहेत.",
+    "param.status.description": "पर्यायी कनेक्शन स्थिती फिल्टर, उदाहरणार्थ स्थापित.",
+    "param.local_ip.description": "पर्यायी स्थानिक आयपी फिल्टर.",
+    "param.remote_ip.description": "पर्यायी रिमोट आयपी फिल्टर.",
+    "param.port.description": "पर्यायी स्थानिक किंवा रिमोट पोर्ट फिल्टर.",
+    "param.include_process.description": "परवानगी असेल तेव्हा PID आणि प्रक्रियेचे नाव समाविष्ट करा."
   },
   "ms": {
     "tool.description": "Baca antara muka dan alamat rangkaian tempatan.",
@@ -229,7 +343,13 @@
       "rangkaian tempatan",
       "alamat ip",
       "penyesuai"
-    ]
+    ],
+    "param.findings.description": "Penemuan pcap metadata sahaja untuk dikaitkan dengan sambungan tempatan semasa.",
+    "param.status.description": "Penapis status sambungan pilihan, contohnya DITUBUHKAN.",
+    "param.local_ip.description": "Penapis IP tempatan pilihan.",
+    "param.remote_ip.description": "Penapis IP jauh pilihan.",
+    "param.port.description": "Penapis port tempatan atau jauh pilihan.",
+    "param.include_process.description": "Sertakan PID dan nama proses apabila dibenarkan."
   },
   "nb": {
     "tool.description": "Les lokale nettverksgrensesnitt og adresser.",
@@ -239,7 +359,13 @@
       "lokalt nettverk",
       "ip-adresse",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Metadata-bare pcap-funn for å korrelere med gjeldende lokale tilkoblinger.",
+    "param.status.description": "Valgfritt tilkoblingsstatusfilter, for eksempel ETABLERT.",
+    "param.local_ip.description": "Valgfritt lokalt IP-filter.",
+    "param.remote_ip.description": "Valgfritt eksternt IP-filter.",
+    "param.port.description": "Valgfritt lokalt eller eksternt portfilter.",
+    "param.include_process.description": "Inkluder PID og prosessnavn når det er tillatt."
   },
   "nl": {
     "tool.description": "Lees lokale netwerkinterfaces en adressen.",
@@ -249,17 +375,29 @@
       "lokaal netwerk",
       "ip-adres",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "PCAP-bevindingen met alleen metadata om te correleren met huidige lokale verbindingen.",
+    "param.status.description": "Optioneel verbindingsstatusfilter, bijvoorbeeld GEVESTIGD.",
+    "param.local_ip.description": "Optioneel lokaal IP-filter.",
+    "param.remote_ip.description": "Optioneel extern IP-filter.",
+    "param.port.description": "Optioneel lokaal of extern poortfilter.",
+    "param.include_process.description": "Voeg PID en procesnaam toe indien toegestaan."
   },
   "nn": {
     "tool.description": "Les lokale nettverksgrensesnitt og adresser.",
     "param.operation.description": "Lokal nettverksinformasjonsoperasjon.",
     "x_search_terms": [
       "nettverksgrensesnittlokalt nettverk IP-adresseadapter",
-      "",
-      "",
-      ""
-    ]
+      "Lokalt nettverk",
+      "E-postadresse",
+      "Adapter"
+    ],
+    "param.findings.description": "Metadata-only pcap funn for å korrelere med dagens lokale tilkoblinger.",
+    "param.status.description": "Valgfritt tilkoblingsstatusfilter, for eksempel ETABLERT.",
+    "param.local_ip.description": "Valgfritt lokalt IP-filter.",
+    "param.remote_ip.description": "Eksternt IP-filter (tilleggsutstyr).",
+    "param.port.description": "Valgfritt lokalt eller eksternt portfilter.",
+    "param.include_process.description": "Inkluder PID og prosessnavn når det er tillatt."
   },
   "pl": {
     "tool.description": "Czytaj interfejsy i adresy sieci lokalnej.",
@@ -269,7 +407,13 @@
       "sieć lokalna",
       "adres IP",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Wyniki pcap zawierające wyłącznie metadane umożliwiające korelację z bieżącymi połączeniami lokalnymi.",
+    "param.status.description": "Opcjonalny filtr stanu połączenia, np. NAWIĄZANE.",
+    "param.local_ip.description": "Opcjonalny lokalny filtr IP.",
+    "param.remote_ip.description": "Opcjonalny zdalny filtr IP.",
+    "param.port.description": "Opcjonalny filtr portu lokalnego lub zdalnego.",
+    "param.include_process.description": "Jeśli jest to dozwolone, uwzględnij PID i nazwę procesu."
   },
   "pt": {
     "tool.description": "Leia interfaces e endereços de rede local.",
@@ -279,7 +423,13 @@
       "rede local",
       "endereço IP",
       "adaptador"
-    ]
+    ],
+    "param.findings.description": "Descobertas pcap somente de metadados para correlacionar com as conexões locais atuais.",
+    "param.status.description": "Filtro de status de conexão opcional, por exemplo ESTABLISHED.",
+    "param.local_ip.description": "Filtro IP local opcional.",
+    "param.remote_ip.description": "Filtro IP remoto opcional.",
+    "param.port.description": "Filtro de porta local ou remoto opcional.",
+    "param.include_process.description": "Incluir PID e nome do processo quando permitido."
   },
   "pt_BR": {
     "tool.description": "Leia interfaces e endereços de rede local.",
@@ -289,7 +439,13 @@
       "rede local",
       "endereço IP",
       "adaptador"
-    ]
+    ],
+    "param.findings.description": "Descobertas pcap somente de metadados para correlacionar com as conexões locais atuais.",
+    "param.status.description": "Filtro de status de conexão opcional, por exemplo ESTABLISHED.",
+    "param.local_ip.description": "Filtro IP local opcional.",
+    "param.remote_ip.description": "Filtro IP remoto opcional.",
+    "param.port.description": "Filtro de porta local ou remoto opcional.",
+    "param.include_process.description": "Incluir PID e nome do processo quando permitido."
   },
   "ro": {
     "tool.description": "Citiți interfețele și adresele rețelei locale.",
@@ -299,7 +455,13 @@
       "rețea locală",
       "adresă ip",
       "adaptor"
-    ]
+    ],
+    "param.findings.description": "Constatări pcap numai pentru metadate pentru a se corela cu conexiunile locale actuale.",
+    "param.status.description": "Filtru opțional pentru starea conexiunii, de exemplu ESTABLISHED.",
+    "param.local_ip.description": "Filtru IP local opțional.",
+    "param.remote_ip.description": "Filtru IP la distanță opțional.",
+    "param.port.description": "Opțional filtru de port local sau la distanță.",
+    "param.include_process.description": "Includeți PID și numele procesului atunci când este permis."
   },
   "ru": {
     "tool.description": "Чтение локальных сетевых интерфейсов и адресов.",
@@ -309,7 +471,13 @@
       "локальная сеть",
       "IP-адрес",
       "адаптер"
-    ]
+    ],
+    "param.findings.description": "Результаты PCAP, содержащие только метаданные, коррелируют с текущими локальными соединениями.",
+    "param.status.description": "Дополнительный фильтр состояния соединения, например УСТАНОВЛЕНО.",
+    "param.local_ip.description": "Дополнительный локальный IP-фильтр.",
+    "param.remote_ip.description": "Дополнительный удаленный IP-фильтр.",
+    "param.port.description": "Дополнительный фильтр локального или удаленного порта.",
+    "param.include_process.description": "Если разрешено, укажите PID и имя процесса."
   },
   "sv": {
     "tool.description": "Läs lokala nätverksgränssnitt och adresser.",
@@ -319,7 +487,13 @@
       "lokalt nätverk",
       "ip-adress",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Metadata-bara pcap-fynd för att korrelera med aktuella lokala anslutningar.",
+    "param.status.description": "Valfritt anslutningsstatusfilter, till exempel ETABLISHED.",
+    "param.local_ip.description": "Valfritt lokalt IP-filter.",
+    "param.remote_ip.description": "Valfritt fjärr-IP-filter.",
+    "param.port.description": "Valfritt lokalt eller fjärranslutet portfilter.",
+    "param.include_process.description": "Inkludera PID och processnamn när det är tillåtet."
   },
   "sw": {
     "tool.description": "Soma violesura vya mtandao wa ndani na anwani.",
@@ -329,7 +503,13 @@
       "mtandao wa ndani",
       "anwani ya ip",
       "adapta"
-    ]
+    ],
+    "param.findings.description": "Matokeo ya pcap ya metadata pekee ili kuoanisha na miunganisho ya sasa ya ndani.",
+    "param.status.description": "Kichujio cha hali ya muunganisho wa hiari, kwa mfano IMESIMULIWA.",
+    "param.local_ip.description": "Kichujio cha hiari cha ndani cha IP.",
+    "param.remote_ip.description": "Kichujio cha hiari cha IP cha mbali.",
+    "param.port.description": "Kichujio cha hiari cha ndani au cha mlango wa mbali.",
+    "param.include_process.description": "Jumuisha PID na jina la mchakato inaporuhusiwa."
   },
   "th": {
     "tool.description": "อ่านอินเทอร์เฟซและที่อยู่เครือข่ายท้องถิ่น",
@@ -339,7 +519,13 @@
       "เครือข่ายท้องถิ่น",
       "ที่อยู่ IP",
       "อะแดปเตอร์"
-    ]
+    ],
+    "param.findings.description": "การค้นพบ pcap ของข้อมูลเมตาเท่านั้นเพื่อให้สัมพันธ์กับการเชื่อมต่อภายในเครื่องในปัจจุบัน",
+    "param.status.description": "ตัวกรองสถานะการเชื่อมต่อเพิ่มเติม เช่น ESTABLISHED",
+    "param.local_ip.description": "ตัวเลือกตัวกรอง IP ภายในเครื่อง",
+    "param.remote_ip.description": "ตัวกรอง IP ระยะไกลเสริม",
+    "param.port.description": "ตัวกรองพอร์ตโลคัลหรือรีโมตเสริม",
+    "param.include_process.description": "รวม PID และชื่อกระบวนการเมื่อได้รับอนุญาต"
   },
   "tr": {
     "tool.description": "Yerel ağ arayüzlerini ve adreslerini okuyun.",
@@ -349,7 +535,13 @@
       "yerel ağ",
       "ip adresi",
       "adaptör"
-    ]
+    ],
+    "param.findings.description": "Mevcut yerel bağlantılarla ilişkilendirilecek yalnızca meta veri pcap bulguları.",
+    "param.status.description": "İsteğe bağlı bağlantı durumu filtresi, örneğin KURULDU.",
+    "param.local_ip.description": "İsteğe bağlı yerel IP filtresi.",
+    "param.remote_ip.description": "İsteğe bağlı uzak IP filtresi.",
+    "param.port.description": "İsteğe bağlı yerel veya uzak bağlantı noktası filtresi.",
+    "param.include_process.description": "İzin verildiğinde PID'yi ve işlem adını ekleyin."
   },
   "uk": {
     "tool.description": "Читання локальних мережевих інтерфейсів і адрес.",
@@ -359,7 +551,13 @@
       "локальна мережа",
       "IP-адреса",
       "адаптер"
-    ]
+    ],
+    "param.findings.description": "Висновки pcap лише для метаданих для кореляції з поточними локальними з’єднаннями.",
+    "param.status.description": "Додатковий фільтр статусу підключення, наприклад ВСТАНОВЛЕНО.",
+    "param.local_ip.description": "Додатковий локальний IP-фільтр.",
+    "param.remote_ip.description": "Додатковий віддалений IP-фільтр.",
+    "param.port.description": "Додатковий локальний або віддалений фільтр портів.",
+    "param.include_process.description": "Включіть PID і назву процесу, якщо це дозволено."
   },
   "vi": {
     "tool.description": "Đọc giao diện và địa chỉ mạng cục bộ.",
@@ -369,7 +567,13 @@
       "mạng cục bộ",
       "địa chỉ IP",
       "bộ chuyển đổi"
-    ]
+    ],
+    "param.findings.description": "Các phát hiện pcap chỉ có siêu dữ liệu tương quan với các kết nối cục bộ hiện tại.",
+    "param.status.description": "Bộ lọc trạng thái kết nối tùy chọn, ví dụ như THÀNH LẬP.",
+    "param.local_ip.description": "Bộ lọc IP cục bộ tùy chọn.",
+    "param.remote_ip.description": "Bộ lọc IP từ xa tùy chọn.",
+    "param.port.description": "Bộ lọc cổng cục bộ hoặc từ xa tùy chọn.",
+    "param.include_process.description": "Bao gồm PID và tên quy trình khi được phép."
   },
   "zh_CN": {
     "tool.description": "读取本地网络接口和地址。",
@@ -379,7 +583,13 @@
       "本地网络",
       "IP地址",
       "适配器"
-    ]
+    ],
+    "param.findings.description": "仅元数据 pcap 结果与当前本地连接相关联。",
+    "param.status.description": "可选的连接状态过滤器，例如 ESTABLISHED。",
+    "param.local_ip.description": "可选的本地 IP 过滤器。",
+    "param.remote_ip.description": "可选的远程 IP 过滤器。",
+    "param.port.description": "可选的本地或远程端口过滤器。",
+    "param.include_process.description": "如果允许，请包括 PID 和进程名称。"
   },
   "zh_TW": {
     "tool.description": "讀取本機網路介面和位址。",
@@ -389,6 +599,12 @@
       "本地網路",
       "IP位址",
       "適配器"
-    ]
+    ],
+    "param.findings.description": "僅元資料 pcap 結果與目前本地連線相關聯。",
+    "param.status.description": "可選的連接狀態過濾器，例如 ESTABLISHED。",
+    "param.local_ip.description": "選購的本機 IP 過濾器。",
+    "param.remote_ip.description": "可選的遠端 IP 過濾器。",
+    "param.port.description": "可選的本機或遠端連接埠過濾器。",
+    "param.include_process.description": "如果允許，請包含 PID 和進程名稱。"
   }
 }

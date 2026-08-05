@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## ¿Por qué uag?
 
@@ -29,7 +29,7 @@
 
 - **Se ejecuta localmente** en su máquina. Sus datos permanecen con usted (excepto las llamadas API que realice).
 - **Libertad de proveedores**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Más de 15 proveedores, todos accesibles desde una única interfaz. Cambie entre ellos reconfigurando las variables de entorno: sin reinstalación ni migración.
-- **195  herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **111 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
+- **203 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **111 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
 - **3 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
 - **Habilidades del agente**: instale habilidades creadas por la comunidad desde el mercado. Extiende uag sin cesar.
 
@@ -62,7 +62,6 @@ Cuando el LLM solicita varias herramientas simultáneamente, uag las **paraleliz
 
 Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado de directorios, traducción, consultas de bases de datos, etc.) están agresivamente paralelizadas.
 
-
 ### 🧩 Sistema de complementos (compatible con Claude Code)
 
 uagent implementa un **sistema de complementos compatible con Claude Code**. Los complementos agrupan habilidades, agentes, servidores MCP, enlaces y más en directorios independientes con el manifiesto `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementa un **sistema de complementos compatible con Claude Code**. Los
 **Componentes admitidos**: habilidades, subagentes, servidores MCP, ganchos (12 eventos de ciclo de vida), comandos de barra diagonal, estilos de salida, userConfig, dependencias, canales, mercados
 
 **CLI commands**:
+
 ```
 :plugin list                         # Listar complementos instalados
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementa un **sistema de complementos compatible con Claude Code**. Los
 
 Consulte la documentación completa en [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
 
-
 ### 🔄 Continuidad de la sesión
 
 - **Cambiar de proveedor durante la sesión**: `UAGENT_PROVIDER` — se conserva el historial de conversaciones.
 - **Volver a cargar sesiones anteriores**: `:load <index>` — continúe donde lo dejó.
 
-### 🛠 195  herramientas
+### 🛠 203 herramientas
 
 | Categoría | Herramientas |
 |---|---|
@@ -99,11 +98,12 @@ Consulte la documentación completa en [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 | **Pronóstico** | Pronóstico de series temporales con 9 modelos (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), selección automática de modelo, generación de gráficos, i18n |
 | **Comunicación** | gmail_send, gmail_read, bluesky, discord_channel, equipos_webhook, **pybitchat** (BLE Mesh): consulte [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) y [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Herramientas de desarrollo** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navegadores de código fuente (familia idx)** |
+| **APIs de nube** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Herramientas de desarrollo** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navegadores de código fuente (familia idx)** |
 | **MCP** | Conéctese a servidores MCP externos, enumere herramientas, ejecute |
 | **A2A** | Comunicación de agente a agente (con otras instancias de uag o servidores compatibles con A2A) |
 | **Sistema** | vars env, especificaciones del sistema, hora, cálculo de fecha, uuid_gen, slugify ||
-| **Navegación de origen** | **26 herramientas idx** para Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL: obtenga un índice de función/clase o una definición específica sin leer el archivo completo |
+| **Navegación de origen** | **29 herramientas idx** para Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile: obtenga un índice de función/clase o una definición específica sin leer el archivo completo |
 
 ### 🖥 4 interfaces + extensión de código VS
 
@@ -118,10 +118,10 @@ Consulte la documentación completa en [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) para obtener detalles sobre la extensión VS Code: instalación, comandos, combinaciones de teclas y configuración.
 
 ### 🏠 Control de dispositivos IoT
+
 - **Asunto**: Inspección de solo lectura de la topología del controlador/puente/dispositivo
 
 Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Mercado de habilidades para agentes
 
@@ -176,7 +176,6 @@ No es necesario cargar todo al inicio: active solo lo que necesite, cuando lo ne
 
 ### 🦀 Rust Native Tools
 
-
 ### 🌐i18n/L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / y más.
@@ -212,7 +211,6 @@ Una experiencia de agente de IA gratuita, sin dependencia de proveedores.
 
 ### ✨ Crea tus propias herramientas
 
-
 [es.md](TOOL_CREATOR_GUIDE.es.md)
 Consulta aquí la guía paso a paso.
 
@@ -222,8 +220,6 @@ Consulta aquí la guía paso a paso.
 
 - **Issues**: Abra un problema GitHub para errores o solicitudes de funciones.
 - **Solicitudes de extracción**: Haz un fork del repositorio, realiza tus cambios y envía un PR. Consulta [DEVELOP.md](../src/uagent/docs/DEVELOP.md) para la configuración de desarrollo y las directrices.
-
-
 
 Realtime Voz y AEC3
 

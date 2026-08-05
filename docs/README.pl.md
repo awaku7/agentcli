@@ -21,7 +21,7 @@
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
----
+______________________________________________________________________
 
 ## Dlaczego uag?
 
@@ -29,7 +29,7 @@
 
 - **Działa lokalnie** na Twoim komputerze. Twoje dane pozostają przy Tobie (z wyjątkiem wykonywanych wywołań API).
 - **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
-- **195 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **111 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
+- **203 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **111 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
 - **3 interfejsy użytkownika + A2A**: CLI, GUI, Internet i protokół Agent-Agent. Ten sam silnik, dowolny interfejs.
 - **Umiejętności agenta**: Zainstaluj umiejętności opracowane przez społeczność z rynku. Rozszerzaj uag w nieskończoność.
 
@@ -62,7 +62,6 @@ Kiedy LLM żąda jednocześnie wielu narzędzi, uag **automatycznie porównuje j
 
 Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetlanie listy katalogów, tłumaczenie, zapytania do bazy danych itp.) są agresywnie zrównoleglone.
 
-
 ### 🧩 System wtyczek (zgodny z Claude Code)
 
 uagent implementuje system wtyczek zgodny z Claude Code. Wtyczki łączą umiejętności, agentów, serwery MCP, hooki i inne elementy w samodzielnych katalogach z manifestem `.claude-plugin/plugin.json`.
@@ -70,6 +69,7 @@ uagent implementuje system wtyczek zgodny z Claude Code. Wtyczki łączą umiej�
 **Obsługiwane komponenty: umiejętności, podagenci, serwery MCP, hooki (12 zdarzeń cyklu życia), polecenia ukośnikowe, style wyjścia, userConfig, zależności, kanały, marketplace**
 
 **CLI commands**:
+
 ```
 :plugin list                         # Lista zainstalowanych wtyczek
 :plugin install <source> [--scope]
@@ -82,13 +82,12 @@ uagent implementuje system wtyczek zgodny z Claude Code. Wtyczki łączą umiej�
 
 Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
 
-
 ### 🔄 Ciągłość sesji
 
 - **Zmiana dostawcy w trakcie sesji** za pomocą `UAGENT_PROVIDER` — historia rozmowy zostaje zachowana.
 - **Ponowne wczytanie poprzednich sesji** za pomocą `:load <index>` — kontynuuj od miejsca, w którym przerwano.
 
-### 🛠 195 narzędzi
+### 🛠 203 narzędzi
 
 | Kategoria | Narzędzia |
 |---|---|
@@ -99,11 +98,12 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagen
 | **Prognoza** | Prognozowanie szeregów czasowych z 9 modelami (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM itp.), automatyczny wybór modelu, generowanie wykresów, i18n |
 | **Komunikacja** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — zobacz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **26 nawigatorów kodu źródłowego (rodzina idx)** |
+| **Interfejsy API chmury** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
+| **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **29 nawigatorów kodu źródłowego (rodzina idx)** |
 | **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj |
 | **A2A** | Komunikacja agent-agent (z innymi instancjami uag lub serwerami kompatybilnymi z A2A) |
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty, uuid_gen, slugify ||
-| **Nawigacja źródłowa** | **26 narzędzi idx** dla Pythona, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — uzyskaj indeks funkcji/klasy lub konkretną definicję bez czytania całego pliku |
+| **Nawigacja źródłowa** | **29 narzędzi idx** dla Pythona, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — uzyskaj indeks funkcji/klasy lub konkretną definicję bez czytania całego pliku |
 
 ### 🖥 4 interfejsy + rozszerzenie kodu VS
 
@@ -118,10 +118,10 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagen
 Zobacz [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md), aby uzyskać szczegółowe informacje na temat rozszerzenia VS Code — instalacji, poleceń, przypisań klawiszy i konfiguracji.
 
 ### 🏠 Kontrola urządzeń IoT
+
 - **Materia**: Kontrola topologii kontrolera/mostka/urządzenia w trybie tylko do odczytu
 
 Zobacz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
 
 ### 🎯 Rynek umiejętności agentów
 
@@ -174,7 +174,6 @@ Dwa uzupełniające się narzędzia oparte na Playwright:
 `tool_catalog` i `tool_load` pozwalają odkrywać i włączać narzędzia w czasie wykonywania.
 Nie musisz ładować wszystkiego przy uruchomieniu — aktywuj tylko to, czego potrzebujesz, kiedy tego potrzebujesz.
 
-
 ### 🦀 Rust Native Tools
 
 `uuid_gen` i `slugify` zaimplementowano w Rust (przez PyO3) dla lepszej wydajności.
@@ -214,7 +213,6 @@ Bezpłatne doświadczenie agenta AI, wolne od uzależnienia od dostawcy.
 
 ### ✨ Twórz własne narzędzia
 
-
 [pl.md](TOOL_CREATOR_GUIDE.pl.md)
 Zapoznaj się tutaj z instrukcją krok po kroku.
 
@@ -224,8 +222,6 @@ Zapraszamy do współpracy! Cenimy zgłoszenia błędów, propozycje funkcji, ul
 
 - **Issues**: Otwórz problem GitHub w przypadku błędów lub próśb o funkcje.
 - **Pull requesty**: Utwórz fork repozytorium, wprowadź zmiany i wyślij PR. Informacje o konfiguracji środowiska i wytycznych znajdziesz w [DEVELOP.md](../src/uagent/docs/DEVELOP.md).
-
-
 
 Realtime Głos i AEC3
 

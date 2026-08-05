@@ -1227,11 +1227,11 @@
     "x_search_terms": [
       "basahin ang rpg file",
       "rpgle index",
-      "rpg procedure",
+      "pamamaraan ng rpg",
       "IBM at RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "pinagmulan ng rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -1239,7 +1239,7 @@
     "x_search_terms_en": [
       "basahin ang rpg file",
       "rpgle index",
-      "rpg procedure",
+      "pamamaraan ng rpg",
       "IBM at RPG",
       "dcl-proc",
       "begsr"
@@ -1262,12 +1262,12 @@
   "ms": {
     "x_search_terms": [
       "baca rpg file",
-      "rpgle index",
-      "rpg procedure",
+      "indeks rpgle",
+      "prosedur rpg",
       "IBM dan RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "sumber rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -1298,21 +1298,21 @@
   "da": {
     "x_search_terms": [
       "læs rpg file",
-      "rpgle index",
+      "rpgle indeks",
       "rpg procedure",
-      "IBM i RPG",
+      "IBM og RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rpg kilde",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "læs rpg file",
-      "rpgle index",
+      "rpgle indeks",
       "rpg procedure",
-      "IBM i RPG",
+      "IBM og RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -1339,7 +1339,7 @@
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rPG-kilde",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"

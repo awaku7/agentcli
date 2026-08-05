@@ -619,9 +619,9 @@ def _auto_detect_position() -> tuple[float | None, float | None]:
         from .windows_gps_tool import run_tool as _gps
 
         raw = _gps({})
-        # Parse markdown table: "**緯度**: 34.654" or "**Latitude**: 34.654"
-        lat_m = _re.search(r"\*\*(?:緯度|Latitude)\*\*:?\s*([\d.-]+)", raw)
-        lng_m = _re.search(r"\*\*(?:経度|Longitude)\*\*:?\s*([\d.-]+)", raw)
+        # Parse a markdown table: "**Latitude**: 34.654"
+        lat_m = _re.search(r"\*\*(?:\u7def\u5ea6|Latitude)\*\*:?\s*([\d.-]+)", raw)
+        lng_m = _re.search(r"\*\*(?:\u7d4c\u5ea6|Longitude)\*\*:?\s*([\d.-]+)", raw)
         if lat_m and lng_m:
             return float(lat_m.group(1)), float(lng_m.group(1))
     except Exception:

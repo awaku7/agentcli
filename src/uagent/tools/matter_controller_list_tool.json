@@ -589,7 +589,7 @@
       "matter_controller_list",
       "matter",
       "MATTER",
-      "controller-managed",
+      "pinamamahalaan ng controller",
       "device",
       "return"
     ]
@@ -608,7 +608,7 @@
       "PERKARA",
       "peranti yang diuruskan oleh pengawal",
       "pemulangan",
-      ""
+      "kembali"
     ]
   },
   "da": {
@@ -619,7 +619,7 @@
     "param.ctrl.description": "Controller-id (udelad for alle).",
     "tool.description": "Angiv Matter-controller-administrerede enheder, og returner en JSON eller tekstoversigt.",
     "x_search_terms": [
-      "matter controller list",
+      "sagsansvarlig liste",
       "matter_controller_list",
       "matter",
       "MATTER",
@@ -636,7 +636,7 @@
     "param.ctrl.description": "Kontroller-ID (utelat for alle).",
     "tool.description": "Vis Matter-kontrollerstyrte enheter og returner en JSON eller tekstsammendrag.",
     "x_search_terms": [
-      "matter controller list",
+      "materie-kontrollerliste",
       "matter_controller_list",
       "matter",
       "MATTER",

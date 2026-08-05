@@ -546,7 +546,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.subscription_not_found": "Abonnement ikke fundet: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "sag afmelde",
       "matter_unsubscribe",
       "matter",
       "MATTER",
@@ -561,7 +561,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.subscription_not_found": "Finner ikke abonnement: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "materie unsubscribe",
       "matter_unsubscribe",
       "matter",
       "MATTER",

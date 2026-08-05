@@ -878,7 +878,7 @@
     "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten bliver 8883.",
     "param.insecure.description": "Spring over TLS-certifikatbekræftelse (usikker).",
     "x_search_terms": [
-      "mqtt publish",
+      "mqtt udgive",
       "mqtt_publish",
       "mqtt",
       "MQTT",
@@ -902,7 +902,7 @@
     "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten blir 8883.",
     "param.insecure.description": "Hopp over TLS-sertifikatverifisering (usikker).",
     "x_search_terms": [
-      "mqtt publish",
+      "mqtt publisere",
       "mqtt_publish",
       "mqtt",
       "MQTT",
