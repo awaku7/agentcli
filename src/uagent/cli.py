@@ -295,6 +295,28 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                             ek,
                                             start_position=-len(key_prefix),
                                         )
+                    elif stripped.startswith((":help ", ":h ", ":? ")):
+                        # Complete built-in and dynamically registered help topics.
+                        if stripped.startswith(":help "):
+                            help_prefix_len = len(":help ")
+                        elif stripped.startswith(":h "):
+                            help_prefix_len = len(":h ")
+                        else:
+                            help_prefix_len = len(":? ")
+                        help_arg = stripped[help_prefix_len:]
+                        if " " not in help_arg:
+                            help_topics = {
+                                "help", "h", "?", "cd", "ls", "logs", "load",
+                                "cont", "clean", "shrink", "shrink_llm", "tokens",
+                                "response", "env", "skills", "tools", "tool", "auto",
+                                "model", "r", "reasoning", "v", "verbosity", "mem-list",
+                                "mem-del", "profile", "profile-fromlog", "profile-clear",
+                                "cp", "mv", "rm", "head", "tail", "reload", "exit", "quit",
+                            }
+                            help_topics.update(dyn_map)
+                            for topic in sorted(help_topics):
+                                if topic.startswith(help_arg):
+                                    yield Completion(topic, start_position=-len(help_arg))
                     elif stripped.startswith((":tools ", ":tool ")):
                         # :tools or :tool subcommand completion
                         cmd_prefix_len = (
@@ -305,7 +327,10 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         cmd_name = "tool" if stripped.startswith(":tool ") else "tools"
                         after_tools = stripped[cmd_prefix_len:]
                         if " " not in after_tools:
-                            tools_subcmds = dyn_map.get(cmd_name, [])
+                            tools_subcmds = sorted(
+                                set(dyn_map.get(cmd_name, []))
+                                | {"list", "load", "on", "off", "reload", "output"}
+                            )
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
                                     yield Completion(
@@ -370,7 +395,10 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :skills subcommand completion
                         after_skills = stripped[len(":skills ") :]
                         if " " not in after_skills:
-                            skills_subcmds = dyn_map.get("skills", [])
+                            skills_subcmds = sorted(
+                                set(dyn_map.get("skills", []))
+                                | {"list", "find", "active", "clear"}
+                            )
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
                                     yield Completion(
@@ -389,7 +417,31 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 for sc2 in apm_subcmds:
                                     if sc2.startswith(arg2):
                                         yield Completion(sc2, start_position=-len(arg2))
-                    elif stripped.startswith(":") and " " in stripped:
+                    elif stripped.startswith(":response "):
+                        # :response subcommand completion
+                        after_response = stripped[len(":response ") :]
+                        if " " not in after_response:
+                            response_subcmds = [
+                                "status",
+                                "cancel",
+                                "tokens",
+                                "compact",
+                                "items",
+                                "delete",
+                            ]
+                            for sc in response_subcmds:
+                                if sc.startswith(after_response):
+                                    yield Completion(
+                                        sc,
+                                        start_position=-len(after_response),
+                                    )
+                    elif (
+                        stripped.startswith(":")
+                        and " " in stripped
+                        and not stripped.startswith(
+                            (":r ", ":reasoning ", ":v ", ":verbosity ", ":profile ")
+                        )
+                    ):
                         # Generic dynamic command completion
                         cmd_word = stripped.lstrip(":").split(" ", 1)[0].lower()
                         after_cmd = stripped[len(f":{cmd_word} ") :]
@@ -401,7 +453,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                     elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
-                        if r_prefix and " " not in r_prefix:
+                        if " " not in r_prefix:
                             r_vals = ["0", "1", "2", "3", "auto", "minimal", "xhigh"]
                             for v in r_vals:
                                 if v.startswith(r_prefix):
@@ -409,7 +461,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                     elif stripped.startswith((":v ", ":verbosity ")):
                         # :v verbosity mode values
                         v_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
-                        if v_prefix and " " not in v_prefix:
+                        if " " not in v_prefix:
                             v_vals = [
                                 "0",
                                 "1",
@@ -437,12 +489,15 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         cmds = [
                             "ls",
                             "cd",
+                            "h",
+                            "?",
                             "rm",
                             "cp",
                             "mv",
                             "head",
                             "tail",
                             "load",
+                            "cont",
                             "save",
                             "env",
                             "help",
@@ -474,6 +529,8 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "profile-fromlog",
                             "profile-clear",
                             "model",
+                            "reload",
+                            "plugin",
                         ]
                         # Add dynamic command names (e.g., "tool" from CMD_SPEC)
                         for dyn_cmd in dyn_map:

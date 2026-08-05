@@ -53,6 +53,27 @@ def test_command_completer_tool_create(monkeypatch: pytest.MonkeyPatch) -> None:
     completion_texts_tools = [c.text for c in completions_tools]
     assert "list" in completion_texts_tools
 
+    # Built-in :response options must be completed before generic dynamic
+    # command completion handles commands containing a space.
+    doc_response = Document(text=":response c", cursor_position=len(":response c"))
+    completions_response = list(
+        completer.get_completions(doc_response, MockEvent())
+    )
+    completion_texts_response = [c.text for c in completions_response]
+    assert "cancel" in completion_texts_response
+
+    def completed(text: str) -> list[str]:
+        doc = Document(text=text, cursor_position=len(text))
+        return [c.text for c in completer.get_completions(doc, MockEvent())]
+
+    assert "status" in completed(":response ")
+    assert "auto" in completed(":r ")
+    assert "high" in completed(":verbosity ")
+    assert "response" in completed(":help res")
+    assert ":reload" in completed(":")
+    assert "list" in completed(":tools l")
+    assert "active" in completed(":skills a")
+
 
 def test_dynamic_map_block_false_never_loads(monkeypatch: pytest.MonkeyPatch) -> None:
     """block=False の get_dynamic_commands_map はプラグインロードをブロックしない."""
