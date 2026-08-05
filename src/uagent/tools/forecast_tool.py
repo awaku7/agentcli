@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 import time
 from datetime import datetime
@@ -16,6 +17,7 @@ from .context import get_callbacks
 from .._pip_auto import install_with_status as _auto_install_pkg
 
 _ = make_tool_translator(__file__)
+_logger = logging.getLogger(__name__)
 
 # ── Custom exceptions ──────────────────────────────────────────────────
 
@@ -1196,6 +1198,7 @@ def _select_best_model(
                 rmse_val, elapsed, _, model = _run_with_timeout(_eval, _TIMEOUT_SEC)
                 tier_results.append((rmse_val, elapsed, name, model))
             except Exception:
+                _logger.debug("Forecast model evaluation failed: %s", name, exc_info=True)
                 continue
         if tier_results:
             tier_results.sort(key=lambda x: (x[0], x[1]))
@@ -1410,6 +1413,7 @@ def run_tool(args: dict[str, Any]) -> str:
             }
         )
     except Exception:
+        _logger.exception("Forecast execution failed")
         return json.dumps(
             {
                 "error": _(
