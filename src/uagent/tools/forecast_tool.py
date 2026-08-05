@@ -1099,7 +1099,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     return np.full(h, self.vals[-1])
 
         models.append(("Chronos", lambda: _ChronosWrapper()))
-    except ImportError:
+    except (ImportError, OSError):
         # Auto-install chronos
         if _auto_install_pkg("chronos"):
             try:
@@ -1130,7 +1130,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             return np.full(h, self.vals[-1])
 
                 models.append(("Chronos", lambda: _ChronosWrapper()))
-            except ImportError:
+            except (ImportError, OSError):
                 pass
 
     return models
