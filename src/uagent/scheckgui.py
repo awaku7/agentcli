@@ -1855,6 +1855,24 @@ class MainWindow(QtWidgets.QMainWindow):
                         self._output.insertPlainText(display_text)
                         self._output.ensureCursorVisible()
 
+            # The GUI must not use the redirected [STATE] log as its source of
+            # truth. In GUI mode status lines can be coalesced with streamed
+            # output (and some paths intentionally suppress them), while
+            # core.set_status() has already updated the authoritative state.
+            # Reading the shared state here also covers tool/LLM transitions
+            # that happen without a corresponding complete log line.
+            try:
+                with core.status_lock:
+                    busy = bool(core.status_busy)
+                    label = str(core.status_label or ("BUSY" if busy else "IDLE"))
+                self._status_label.setText(f" [STATE] {label}")
+                if busy:
+                    self._stop_btn.show()
+                else:
+                    self._stop_btn.hide()
+            except Exception:
+                pass
+
             with core.human_ask_lock:
                 active = core.human_ask_active
                 is_password = core.human_ask_is_password
