@@ -37,6 +37,20 @@ def _append_assistant_message(
         "role": "assistant",
         "content": assistant_text,
     }
+    # Keep the server-side Responses API identifier on the assistant log
+    # record itself. Previously it was only emitted as a separate
+    # ``responses_state`` record, and only when the lifecycle callback ran.
+    try:
+        response_id = str(
+            (getattr(core, "responses_state", {}) or {}).get(
+                "previous_response_id", ""
+            )
+            or ""
+        ).strip()
+        if response_id.startswith("resp_"):
+            assistant_msg["response_id"] = response_id
+    except Exception:
+        pass
     if tool_calls_list:
         assistant_msg["tool_calls"] = tool_calls_list
     if isinstance(responses_output_items, list) and responses_output_items:

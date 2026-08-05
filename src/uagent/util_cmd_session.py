@@ -753,14 +753,80 @@ def _handle_cmd_load(
     print(_("Loaded log: %(path)s") % {"path": target_path})
     print(_("Conversation message count: %(n)d") % {"n": len(messages_ref)})
 
-    # Clear responses_state to avoid stale previous_response_id after :load.
+    # Restore the newest Responses state from the loaded log only when it is
+    # structurally valid and matches the active provider/model.  The source
+    # log remains intact; the current session continues in the current log.
     try:
+        old_state = dict(getattr(core, "responses_state", {}) or {})
+        loaded_state = None
+        read_state = getattr(core, "latest_responses_state", None)
+        if callable(read_state):
+            loaded_state = read_state(target_path)
+
+        current_provider = str(
+            old_state.get("provider")
+            or getattr(core, "provider", "")
+            or getattr(core, "_responses_provider", "")
+            or ""
+        ).strip().lower()
+        current_model = str(
+            old_state.get("model")
+            or getattr(core, "depname", "")
+            or getattr(core, "model", "")
+            or ""
+        ).strip()
+
         if hasattr(core, "responses_state"):
             core.responses_state.clear()
+
+        if isinstance(loaded_state, dict):
+            rid = str(loaded_state.get("response_id") or "").strip()
+            loaded_provider = str(loaded_state.get("provider") or "").strip().lower()
+            loaded_model = str(loaded_state.get("model") or "").strip()
+            status = str(loaded_state.get("status") or "").strip().lower()
+            supported = loaded_provider in {"openai", "azure"}
+            same_provider = not current_provider or loaded_provider == current_provider
+            same_model = not current_model or loaded_model == current_model
+            validated = True
+            if supported and rid and getattr(core, "_responses_client", None) is not None:
+                try:
+                    from .providers.responses_manager import ResponsesManager
+
+                    ResponsesManager(
+                        getattr(core, "_responses_client"),
+                        provider=loaded_provider,
+                        model=loaded_model,
+                    ).retrieve(rid)
+                except Exception:
+                    validated = False
+            if (
+                rid.startswith("resp_")
+                and status == "completed"
+                and supported
+                and same_provider
+                and same_model
+                and validated
+            ):
+                core.responses_state.update(
+                    {
+                        "provider": loaded_provider,
+                        "model": loaded_model,
+                        "previous_response_id": rid,
+                        "last_response_status": "completed",
+                    }
+                )
+
         if hasattr(core, "_save_responses_state"):
             core._save_responses_state()
     except Exception:
-        pass
+        # Loading the conversation must still succeed if state inspection fails.
+        try:
+            if hasattr(core, "responses_state"):
+                core.responses_state.clear()
+            if hasattr(core, "_save_responses_state"):
+                core._save_responses_state()
+        except Exception:
+            pass
 
     _prepend_loaded_log_to_current(core=core, source_log_path=target_path, tr=tr)
     return True
@@ -870,9 +936,51 @@ def _handle_cmd_tokens(
     depname: str = "",
 ) -> bool:
     try:
-        from .llm_message_helpers import _count_messages_tokens
+        from .llm_message_helpers import (
+            _count_messages_tokens,
+            _count_request_extras_tokens,
+        )
 
         total_tokens = _count_messages_tokens(messages_ref, depname or None)
+        # Tool schemas are sent beside the conversation and are not part of
+        # messages_ref. Count them locally so :tokens does not under-report
+        # requests when the tool surface is large.
+        tool_specs = []
+        if getattr(core, "tools_enabled", True):
+            try:
+                state = getattr(core, "responses_state", {})
+                provider = str(
+                    (state.get("provider") if isinstance(state, dict) else "")
+                    or getattr(core, "provider", "")
+                    or ""
+                ).strip().lower()
+                responses_env = (env_get("UAGENT_RESPONSES") or "").strip().lower()
+                use_responses = responses_env in ("1", "true", "yes", "on")
+                if isinstance(state, dict) and state.get("previous_response_id"):
+                    use_responses = True
+
+                # Native GPT-5.4 tool_search keeps tool schemas server-side;
+                # they are not part of the client input and must not be added
+                # to this local estimate. Legacy/non-Responses paths still
+                # count the schemas sent by the client.
+                native_tool_search = False
+                if use_responses:
+                    from .tools.llm_tool_narrowing import should_emit_catalog_steering
+
+                    native_tool_search = not should_emit_catalog_steering(
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=True,
+                    )
+                if not native_tool_search:
+                    tool_specs = tools.get_tool_specs() or []
+            except Exception:
+                tool_specs = []
+        total_tokens += _count_request_extras_tokens(
+            messages_ref,
+            tool_specs=tool_specs,
+            depname=depname or None,
+        )
     except Exception as e:
         print(
             _("[tokens error] %(etype)s: %(err)s")

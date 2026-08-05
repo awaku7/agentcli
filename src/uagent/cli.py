@@ -55,8 +55,6 @@ from .util_tools import (
     build_multimodal_user_message,
     parse_startup_args as _parse_startup_args,
     handle_command,
-    _maybe_discard_short_session_log,
-    _sweep_short_session_logs,
 )
 
 # Import scheck_core
@@ -578,6 +576,43 @@ def _prompt_toolkit_input(
         def _cancel(event: Any) -> None:
             raise KeyboardInterrupt()
 
+    # A tool (most notably human_ask) can start while the normal prompt is
+    # already inside prompt_toolkit's blocking prompt(). In that case the
+    # stdin_loop cannot notice the state change until prompt() returns, while
+    # the tool is waiting for the same stdin. Watch the shared state and
+    # terminate the normal prompt as soon as a tool round takes ownership.
+    # Reply prompts must not be interrupted: they own stdin while active.
+    stop_watching = threading.Event()
+    watcher: threading.Thread | None = None
+    if not reply:
+        prompt_app = getattr(session, "app", None)
+
+        def _interrupt_when_busy() -> None:
+            while not stop_watching.wait(0.05):
+                try:
+                    with core.human_ask_lock:
+                        interrupted = bool(core.human_ask_active)
+                    interrupted = interrupted or bool(
+                        getattr(core, "status_busy", False)
+                    )
+                    if not interrupted:
+                        continue
+                    app = prompt_app
+                    if app is not None:
+                        # None tells stdin_loop to discard the stale normal
+                        # prompt and render the current tool/reply prompt.
+                        app.exit(result=None)
+                    return
+                except Exception:
+                    return
+
+        watcher = threading.Thread(
+            target=_interrupt_when_busy,
+            name="prompt-toolkit-state-watcher",
+            daemon=True,
+        )
+        watcher.start()
+
     try:
         if patch_stdout is not None:
             with patch_stdout():
@@ -595,6 +630,10 @@ def _prompt_toolkit_input(
         return None
     except Exception:
         return None
+    finally:
+        if watcher is not None:
+            stop_watching.set()
+            watcher.join(timeout=0.2)
 
 
 setattr(core, "prompt_history_append", _append_prompt_history_entry)
@@ -944,15 +983,15 @@ def stdin_loop() -> None:
                         lock = getattr(core, "print_lock", None)
                         if lock is None:
                             lock = threading.RLock()
+                        # Advertise the prompt before taking print_lock.  If
+                        # this is set only inside the lock, the status thread
+                        # can decide to print IDLE just before the prompt is
+                        # written, producing `agentcli> [STATE] IDLE`.
+                        try:
+                            core._prompt_line_open = True
+                        except Exception:
+                            pass
                         with lock:
-                            # Mark the prompt line before writing it.  The
-                            # status worker can run concurrently; setting
-                            # this flag after out.write() leaves a race where
-                            # [STATE] is appended as `agentcli> [STATE] ...`.
-                            try:
-                                core._prompt_line_open = True
-                            except Exception:
-                                pass
                             try:
                                 if out:
                                     out.write(prompt)
@@ -1259,25 +1298,16 @@ def main() -> None:
     messages = startup.messages
     _bootstrap_prompt_history(messages)
 
-    # Remove leftover short session logs from prior (crashed/killed) runs.
-    try:
-        _sweep_short_session_logs(core=core, tr=_, exclude_current=True, quiet=False)
-    except Exception:
-        pass
-
     if startup.should_exit:
-        try:
-            _maybe_discard_short_session_log(core=core, messages_ref=messages, tr=_)
-        except Exception:
-            pass
         return
 
-    # Ask about session resume at startup (not at first message)
+    # Do not automatically resume a saved Responses chain at startup.
+    # Explicit :load selects a log and may restore its validated latest ID.
     if provider in ("openai", "azure"):
         core.responses_state["provider"] = provider
         core.responses_state["model"] = depname
-        core._check_responses_state_provider(provider, depname)
-        core._maybe_ask_resume()
+        core.responses_state.pop("previous_response_id", None)
+        core.responses_state.pop("active_response_id", None)
 
     start_background_scheduler(core.event_queue)
     # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
@@ -1561,12 +1591,6 @@ def main() -> None:
                 pass
 
         core.set_status(False, "")
-        # Safety net: discard short current session if exit skipped :exit handler
-        # (e.g. KeyboardInterrupt on main thread, or unexpected loop break).
-        try:
-            _maybe_discard_short_session_log(core=core, messages_ref=messages, tr=_)
-        except Exception:
-            pass
         print(_("Exited uag."))
 
 

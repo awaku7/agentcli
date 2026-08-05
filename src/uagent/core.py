@@ -3,6 +3,7 @@ from __future__ import annotations
 # core.py
 import os
 import sys
+import datetime
 
 from .env_utils import env_get, strip_outer_quotes
 from .i18n import _
@@ -621,139 +622,58 @@ def print_status_line() -> None:
 # Responses API previous_response_id, persists across turns in the same process
 responses_state: dict = {}
 
-# Responses state file path (workdir-relative, configurable via UAGENT_RESPONSES_STATE_FILE)
-_RESPONSES_STATE_FILE_LOCK = threading.Lock()
-
-
-def _get_responses_state_base_dir() -> str:
-    """Return the directory for Responses API state files.
-
-    Priority:
-    1) UAGENT_RESPONSES_STATE_DIR env var (optional override)
-    2) ~/.uag/ (default)
-    """
-    d = (env_get("UAGENT_RESPONSES_STATE_DIR") or "").strip()
-    if d:
-        return d
-    return os.path.join(os.path.expanduser("~"), ".uag")
-
-
-def _get_responses_state_file(provider: str, depname: str = "") -> str:
-    env_path = (env_get("UAGENT_RESPONSES_STATE_FILE") or "").strip()
-    if env_path:
-        return env_path
-    safe_prov = re.sub(r'[\\/:*?"<>|]', "_", provider).lower()
-    base_dir = _get_responses_state_base_dir()
-    if depname:
-        safe_model = re.sub(r'[\\/:*?"<>|]', "_", depname).lower()
-        return os.path.join(base_dir, f"responses_state_{safe_prov}_{safe_model}.json")
-    return os.path.join(base_dir, f"responses_state_{safe_prov}.json")
-
-
-# Pending loaded state (not yet confirmed by user)
-_PENDING_RESPONSES_STATE: dict | None = None
-_RESUME_ASKED: bool = False
+# Responses state is persisted only as ``responses_state`` metadata records in
+# the active conversation JSONL.  The legacy provider/model state-file API has
+# been removed; these no-op shims keep older internal call sites harmless.
+_PENDING_RESPONSES_STATE = None
 
 
 def _load_responses_state() -> None:
-    """Load responses_state from disk (pending, not applied yet)."""
-    global _PENDING_RESPONSES_STATE
-    path = _get_responses_state_file()
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        if not isinstance(data, dict):
-            return
-        # Expired? (30 days)
-        saved_at = data.get("saved_at")
-        if isinstance(saved_at, (int, float)):
-            if time.time() - saved_at > 30 * 86400:
-                return  # expired, discard
-        rid = data.get("previous_response_id")
-        if not (isinstance(rid, str) and rid.startswith("resp_")):
-            return
-        _PENDING_RESPONSES_STATE = data
-    except Exception:
-        pass
+    return
 
 
 def _check_responses_state_provider(provider: str, depname: str) -> None:
-    """Discard saved state if provider or model changed.
-    Also tries to load provider-specific state file if not already loaded."""
-    global _PENDING_RESPONSES_STATE
-    if _PENDING_RESPONSES_STATE is None:
-        # Try provider-specific file
-        prov_path = _get_responses_state_file(provider=provider, depname=depname)
-        if os.path.exists(prov_path):
-            try:
-                with open(prov_path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                if isinstance(data, dict):
-                    rid = data.get("previous_response_id")
-                    if isinstance(rid, str) and rid.startswith("resp_"):
-                        _PENDING_RESPONSES_STATE = data
-            except Exception:
-                try:
-                    os.remove(prov_path)
-                except Exception:
-                    pass
-    saved_provider = (
-        _PENDING_RESPONSES_STATE.get("provider", "") if _PENDING_RESPONSES_STATE else ""
-    )
-    saved_model = (
-        _PENDING_RESPONSES_STATE.get("model", "") if _PENDING_RESPONSES_STATE else ""
-    )
-    if saved_provider != provider or saved_model != depname:
-        _PENDING_RESPONSES_STATE = None
-        _save_responses_state()
-
-
-def _maybe_ask_resume() -> None:
-    """Ask user whether to resume previous session (once per process)."""
-    global _RESUME_ASKED, responses_state, _PENDING_RESPONSES_STATE
-    if _RESUME_ASKED:
-        return
-    _RESUME_ASKED = True
-    if _PENDING_RESPONSES_STATE is None:
-        return
-    data = _PENDING_RESPONSES_STATE
-    _PENDING_RESPONSES_STATE = None
-    try:
-        print()
-        print(_("[Responses API] A previous session was found. Continue it?"))
-        print(_("  (y) Yes - reuse previous context (saves tokens)"))
-        print(_("  (n) No  - start fresh, discard saved state"))
-        ans = input("> ").strip().lower()
-        if ans in ("y", "yes", "1"):
-            rid = data.get("previous_response_id")
-            if isinstance(rid, str):
-                responses_state["previous_response_id"] = rid
-                print(_("[Responses API] Continuing previous session."))
-        else:
-            _save_responses_state()  # clear file
-            print(_("[Responses API] Starting fresh session."))
-    except Exception:
-        pass
+    return
 
 
 def _save_responses_state() -> None:
-    """Save responses_state to disk."""
-    provider = responses_state.get("provider", "")
-    depname = responses_state.get("model", "")
-    path = _get_responses_state_file(provider=provider, depname=depname)
+    return
+
+
+def _maybe_ask_resume() -> None:
+    return
+
+
+def _append_responses_state_record() -> None:
+    """Append safe Responses metadata to the active conversation JSONL log."""
+    rid = str(responses_state.get("previous_response_id") or "").strip()
+    provider = str(responses_state.get("provider") or "").strip()
+    model = str(responses_state.get("model") or "").strip()
+    status = str(responses_state.get("last_response_status") or "").strip()
+    if not rid.startswith("resp_") or status != "completed":
+        return
+    previous = latest_responses_state(LOG_FILE)
+    if (
+        isinstance(previous, dict)
+        and str(previous.get("response_id") or "") == rid
+        and str(previous.get("provider") or "") == provider
+        and str(previous.get("model") or "") == model
+        and str(previous.get("status") or "") == status
+    ):
+        return
+    record = {
+        "type": "responses_state",
+        "schema_version": 1,
+        "provider": provider,
+        "model": model,
+        "response_id": rid,
+        "status": status,
+        "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    }
     try:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        data = {
-            "previous_response_id": responses_state.get("previous_response_id", ""),
-            "active_response_id": responses_state.get("active_response_id", ""),
-            "last_response_status": responses_state.get("last_response_status", ""),
-            "provider": responses_state.get("provider", ""),
-            "model": responses_state.get("model", ""),
-            "saved_at": time.time(),
-        }
-        with _RESPONSES_STATE_FILE_LOCK:
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False)
+        os.makedirs(os.path.dirname(LOG_FILE) or ".", exist_ok=True)
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
     except Exception:
         pass
 
@@ -769,6 +689,8 @@ def set_active_response(response_id: str, *, status: str = "in_progress") -> Non
     responses_state["last_response_status"] = status
     try:
         _save_responses_state()
+        if status == "completed":
+            _append_responses_state_record()
     except Exception:
         pass
 
@@ -781,6 +703,8 @@ def finish_active_response(*, status: str = "completed") -> None:
     responses_state["last_response_status"] = status
     try:
         _save_responses_state()
+        if status == "completed":
+            _append_responses_state_record()
     except Exception:
         pass
 
@@ -978,6 +902,10 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
 
     tmp_path = log_path + ".tmp"
 
+    # Preserve non-message Responses metadata while rebuilding from messages.
+    # The metadata is intentionally kept outside the messages list.
+    response_records = read_responses_state_records(log_path)
+
     # Write new JSONL
     with open(tmp_path, "w", encoding="utf-8") as f:
         for m in messages:
@@ -986,6 +914,11 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
                 f.write(json.dumps(masked, ensure_ascii=False) + "\n")
             except Exception:
                 # Skip broken messages
+                continue
+        for record in response_records:
+            try:
+                f.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+            except Exception:
                 continue
 
     os.replace(tmp_path, log_path)
@@ -1005,6 +938,32 @@ def find_log_files(exclude_current: bool = False) -> list[str]:
         files = [f for f in files if os.path.abspath(f) != current_abs]
     files.sort(key=lambda p: os.path.getmtime(p), reverse=True)
     return files
+
+
+def read_responses_state_records(path: str) -> list[dict[str, Any]]:
+    """Read Responses API metadata records from a JSONL conversation log."""
+    records: list[dict[str, Any]] = []
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if not isinstance(obj, dict) or obj.get("type") != "responses_state":
+                    continue
+                if obj.get("schema_version", 1) != 1:
+                    continue
+                records.append(obj)
+    except (OSError, TypeError):
+        return []
+    return records
+
+
+def latest_responses_state(path: str) -> dict[str, Any] | None:
+    """Return the newest Responses API metadata record in a JSONL log."""
+    records = read_responses_state_records(path)
+    return records[-1] if records else None
 
 
 def guess_topics_from_content(content: str) -> set[str]:
@@ -1218,6 +1177,17 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
             mtime_text = _fmt_ts(mtime)
         except Exception:
             mtime_text = _("(mtime unknown)")
+
+        response_state = latest_responses_state(path)
+        response_count = len(read_responses_state_records(path))
+        response_marker = "[R]" if response_count else "[ ]"
+        response_summary = ""
+        if response_state:
+            rid = str(response_state.get("response_id") or "")
+            rid_short = rid if len(rid) <= 18 else rid[:18] + "..."
+            response_summary = f" | {response_marker} {response_count} · {rid_short}"
+        else:
+            response_summary = f" | {response_marker}"
         # Read up to 200 lines from the beginning to get the first user message
         head_lines: list[str] = []
         try:
@@ -1382,7 +1352,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
 
         print(
             _(
-                "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: %(last_user)s"
+                "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: %(last_user)s%(response_summary)s"
             )
             % {
                 "idx": idx,
@@ -1390,6 +1360,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 "turns": turns,
                 "first_user": first_user_text,
                 "last_user": last_user_text,
+                "response_summary": response_summary,
             }
         )
 

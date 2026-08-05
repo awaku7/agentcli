@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from . import tools
@@ -82,34 +83,63 @@ _token_count_cache: dict[int, tuple[int, int]] = {}
 
 
 def _count_messages_tokens_fallback(messages: list[dict[str, Any]]) -> int:
-    """Fallback token counting using tiktoken or character-based heuristic."""
-    try:
-        import tiktoken
-
-        encoding = tiktoken.get_encoding("cl100k_base")
-    except Exception:
-        total_chars = 0
-        for m in messages:
-            content = m.get("content")
-            if isinstance(content, str):
-                total_chars += len(content)
-            elif isinstance(content, list):
-                for part in content:
-                    if isinstance(part, dict) and part.get("type") == "text":
-                        total_chars += len(part.get("text", ""))
-        return total_chars // 3
-
-    total_tokens = 0
+    """Fallback token counting using a simple character-based heuristic."""
+    total_chars = 0
     for m in messages:
         content = m.get("content")
         if isinstance(content, str):
-            total_tokens += len(encoding.encode(content))
+            total_chars += len(content)
         elif isinstance(content, list):
             for part in content:
                 if isinstance(part, dict) and part.get("type") == "text":
-                    text = part.get("text", "")
-                    total_tokens += len(encoding.encode(text))
-    return total_tokens
+                    total_chars += len(part.get("text", ""))
+    return total_chars // 3
+
+
+def _count_auxiliary_tokens(value: Any, depname: str | None = None) -> int:
+    """Count JSON-shaped request data not represented by message content.
+
+    Tool schemas and tool-call fields are sent alongside the conversation, so
+    counting only message content can substantially under-report the request.
+    This helper is local-only and never calls a provider API.
+    """
+    try:
+        text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    except Exception:
+        text = str(value)
+
+    if depname:
+        try:
+            import llmcapa
+
+            n = llmcapa.count_tokens(text, depname)
+            if n is not None:
+                return int(n)
+        except Exception:
+            pass
+
+    return len(text) // 3
+
+
+def _count_request_extras_tokens(
+    messages: list[dict[str, Any]],
+    tool_specs: list[dict[str, Any]] | None = None,
+    depname: str | None = None,
+) -> int:
+    """Count non-content message fields and separately supplied tool schemas."""
+    total = 0
+    for message in messages:
+        if not isinstance(message, dict):
+            total += _count_auxiliary_tokens(message, depname)
+            continue
+        # The model-aware message counter already accounts for role framing;
+        # only count fields it cannot see through content-only fallbacks.
+        extras = {k: v for k, v in message.items() if k not in ("role", "content")}
+        if extras:
+            total += _count_auxiliary_tokens(extras, depname)
+    if tool_specs:
+        total += _count_auxiliary_tokens(tool_specs, depname)
+    return total
 
 
 def _count_messages_tokens(
@@ -120,8 +150,7 @@ def _count_messages_tokens(
 
     When ``depname`` is provided and llmcapa is available, uses
     ``llmcapa.count_messages_tokens`` with a resolved model id (provider
-    aliases applied). Otherwise falls back to tiktoken (cl100k_base) or a
-    character-based heuristic.
+    aliases applied). Otherwise falls back to a character-based heuristic.
 
     Cache is keyed by ``id(messages)`` and reset automatically when the
     list shrinks (compression).

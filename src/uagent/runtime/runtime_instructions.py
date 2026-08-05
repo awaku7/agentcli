@@ -237,7 +237,6 @@ def _prompt_user(candidates: list[InstructionCandidate]) -> list[InstructionCand
     for line in _format_candidate_lines(candidates):
         print(line)
 
-    print()
     print(
         _(
             "Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to skip:"
@@ -264,7 +263,6 @@ def _prompt_user_web(
         [
             _("[INFO] Project instruction files found:"),
             *lines,
-            "",
             _(
                 "Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to skip:"
             ),

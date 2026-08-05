@@ -1273,13 +1273,13 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "pcap_path": {"type": "string", "description": "Input pcap path."},
-                "operation": {"type": "string", "enum": ["summary", "statistics", "flows", "packets", "extract", "detect", "impact"], "description": "Operation."},
+                "pcap_path": {"type": "string", "description": _("param.pcap_path.description", default="Input pcap path.")},
+                "operation": {"type": "string", "enum": ["summary", "statistics", "flows", "packets", "extract", "detect", "impact"], "description": _("param.operation.description", default="Operation.")},
                 "detail_level": {"type": "integer", "minimum": 0, "maximum": 2, "default": 1},
                 "rules": {"type": "array", "items": {"type": "string", "enum": ["port_scan", "connection_burst", "beaconing", "suspicious_dns", "large_transfer", "cleartext_protocol", "repeated_failure", "host_scan", "unusual_port", "tcp_retransmission", "long_lived_connection", "broadcast_anomaly", "syn_flood_candidate", "rtt_anomaly", "protocol_anomaly"]}},
-                "thresholds": {"type": "object", "description": "Detection thresholds."},
-                "output_path": {"type": "string", "description": "Output pcap path."},
-                "filter": {"type": "object", "description": "Filter fields."},
+                "thresholds": {"type": "object", "description": _("param.thresholds.description", default="Detection thresholds.")},
+                "output_path": {"type": "string", "description": _("param.output_path.description", default="Output pcap path.")},
+                "filter": {"type": "object", "description": _("param.filter.description", default="Filter fields.")},
                 "limit": {"type": "integer", "minimum": 1, "maximum": 100000},
                 "overwrite": {"type": "boolean", "default": False},
             },

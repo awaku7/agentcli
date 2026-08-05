@@ -7,7 +7,13 @@
       "local network",
       "ip address",
       "adapter"
-    ]
+    ],
+    "param.findings.description": "Metadata-only pcap findings to correlate with current local connections.",
+    "param.status.description": "Optional connection status filter, for example ESTABLISHED.",
+    "param.local_ip.description": "Optional local IP filter.",
+    "param.remote_ip.description": "Optional remote IP filter.",
+    "param.port.description": "Optional local or remote port filter.",
+    "param.include_process.description": "Include PID and process name when permitted."
   },
   "ar": {
     "tool.description": "قراءة واجهات وعناوين الشبكة المحلية.",
@@ -177,7 +183,13 @@
       "ローカルネットワーク",
       "IPアドレス",
       "アダプター"
-    ]
+    ],
+    "param.findings.description": "現在のローカル接続と関連付けるメタデータのみのpcap検出結果。",
+    "param.status.description": "任意の接続状態フィルター（例: ESTABLISHED）。",
+    "param.local_ip.description": "任意のローカルIPフィルター。",
+    "param.remote_ip.description": "任意のリモートIPフィルター。",
+    "param.port.description": "任意のローカルまたはリモートポートフィルター。",
+    "param.include_process.description": "許可されている場合はPIDとプロセス名を含める。"
   },
   "ko": {
     "tool.description": "로컬 네트워크 인터페이스 및 주소를 읽습니다.",

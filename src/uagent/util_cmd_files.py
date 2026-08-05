@@ -160,6 +160,16 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             return True
 
         target_abs = os.path.abspath(expanded)
+        if os.path.isfile(target_abs):
+            try:
+                size = os.path.getsize(target_abs)
+            except OSError:
+                size = 0
+            print(tr("[ls] [F] %(path)s (%(size)d bytes)") % {
+                "path": target_abs,
+                "size": size,
+            })
+            return True
         if not os.path.isdir(target_abs):
             print(
                 tr("[ls] Directory does not exist: %(src)s -> %(dst)s")

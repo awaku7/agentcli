@@ -201,10 +201,18 @@ def run_tool(args: dict[str, Any]) -> str:
         "timeout": cb.cmd_exec_timeout_ms / 1000.0,
     }
     if os.name == "nt":
-        # Keep Ctrl+C / console signals from tearing down the host via the child.
+        # Do not let the PowerShell child share the CLI's console control
+        # signal group. In particular, an occasionally delivered Ctrl+C can
+        # otherwise be observed by both processes and make the host look as if
+        # it exited silently. CREATE_NO_WINDOW is additive: stdout/stderr are
+        # already pipes, so the child has no reason to own a console window.
         create_new_process_group = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
-        if create_new_process_group:
-            run_kwargs["creationflags"] = create_new_process_group
+        create_no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+        creationflags = create_new_process_group | create_no_window
+        if creationflags:
+            run_kwargs["creationflags"] = creationflags
+
+
 
     try:
         proc = subprocess.run(**run_kwargs)
@@ -213,6 +221,14 @@ def run_tool(args: dict[str, Any]) -> str:
             "err.timeout",
             default="[pwsh_exec timeout] did not finish within %(seconds)s seconds",
         ) % {"seconds": cb.cmd_exec_timeout_ms / 1000.0}
+    except KeyboardInterrupt:
+        # subprocess.run can propagate the console interrupt to the parent
+        # while it is waiting for the child. A tool must return a result, not
+        # terminate the agent process, so convert it to an explicit response.
+        return _(
+            "err.interrupted",
+            default="[pwsh_exec interrupted] PowerShell command was interrupted",
+        )
     except Exception as e:
         return _(
             "err.exception",

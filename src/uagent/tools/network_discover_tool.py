@@ -173,7 +173,7 @@ TOOL_SPEC: dict[str, Any] = {
             "type": "object",
             "properties": {
                 "mode": {"type": "string", "enum": ["port_scan", "host_discovery", "service_scan", "os_scan"], "default": "port_scan"},
-                "target": {"type": "string", "description": "Single host or IP address."},
+                "target": {"type": "string", "description": _("param.target.description", default="Single host or IP address.")},
                 "ports": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 65535}},
                 "timeout": {"type": "number", "minimum": 0.1, "maximum": 30, "default": 2},
             },

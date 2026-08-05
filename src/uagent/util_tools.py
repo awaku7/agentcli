@@ -337,7 +337,6 @@ def handle_command(
         return res
 
     if cmd in ("exit", "quit"):
-        _maybe_discard_short_session_log(core=core, messages_ref=messages_ref, tr=tr)
         print(tr("Exiting."))
         return False
 

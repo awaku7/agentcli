@@ -149,8 +149,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             detail=tr(
                 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N "
                 "(default 5, or UAGENT_CLEAN_THRESHOLD). "
-                "On :exit/:quit/Ctrl-C, the current session log is discarded under the same rule. "
-                "A silent startup sweep also removes leftover short logs from prior sessions."
+                "Automatic deletion at startup and exit is currently disabled; use :clean explicitly."
             ),
         ),
         "shrink": e(

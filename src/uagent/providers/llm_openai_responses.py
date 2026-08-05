@@ -125,6 +125,12 @@ def build_responses_request(
 
         m_clean: dict[str, Any] = dict(m)
 
+        # ``response_id`` is local conversation metadata, not a valid field
+        # on a Responses API input item. It is attached to persisted
+        # assistant messages for UI/state display, but Azure/OpenAI rejects
+        # it when forwarded as input[n].response_id.
+        m_clean.pop("response_id", None)
+
         attachment_items: list[dict[str, Any]] = []
         if role == "user":
             raw_attachments = m_clean.get("attachments")

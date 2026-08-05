@@ -326,6 +326,9 @@
                 <div class="flex gap-3 mt-0.5" style="color:var(--text-tertiary);">
                   <span>{formatSize(log.size)}</span>
                   <span>{log.mtime ? formatTime(log.mtime) : ''}</span>
+                  {#if log.has_responses_state}
+                    <span title={log.latest_response_id || ''}>[R] {log.response_count ?? 0} · {(log.latest_response_id || '').slice(0, 18)}</span>
+                  {/if}
                 </div>
               </button>
             {/each}

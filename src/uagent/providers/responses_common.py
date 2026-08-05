@@ -24,6 +24,36 @@ def as_str(x: Any) -> str:
     return str(x)
 
 
+def responses_usage_to_dict(usage: Any) -> dict[str, Any]:
+    """Convert Responses API usage objects to JSON-friendly data."""
+    if usage is None:
+        return {}
+    if hasattr(usage, "model_dump"):
+        try:
+            value = usage.model_dump()
+            return value if isinstance(value, dict) else {}
+        except Exception:
+            pass
+    result: dict[str, Any] = {}
+    for name in (
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "input_tokens_details",
+        "output_tokens_details",
+    ):
+        value = getattr(usage, name, None)
+        if value is None:
+            continue
+        if hasattr(value, "model_dump"):
+            try:
+                value = value.model_dump()
+            except Exception:
+                pass
+        result[name] = value
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Environment helpers
 # ---------------------------------------------------------------------------
@@ -676,6 +706,7 @@ def parse_responses_response(
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", output_items)
+            setattr(core, "_last_responses_usage", responses_usage_to_dict(getattr(resp, "usage", None)))
         except Exception:
             pass
     return assistant_text, reasoning_content, tool_calls_list, response_id, output_items
@@ -797,6 +828,15 @@ def parse_responses_stream(
                         rid = as_str(getattr(ev_resp, "id", None) or "")
                         if rid:
                             _stream_response_id = rid
+                        try:
+                            if core is not None:
+                                setattr(
+                                    core,
+                                    "_last_responses_usage",
+                                    responses_usage_to_dict(getattr(ev_resp, "usage", None)),
+                                )
+                        except Exception:
+                            pass
 
             if "web_search_call" in as_str(ev_type).lower():
                 info = extract_web_search_call_info(ev)

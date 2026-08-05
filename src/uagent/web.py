@@ -315,7 +315,9 @@ class WebRoom:
                     banner = ""
 
                 try:
-                    welcome_text = get_welcome_message()
+                    # The browser renders the branded SVG in its header.
+                    # Do not send the terminal ASCII masthead as chat content.
+                    welcome_text = get_welcome_message(include_ascii=False)
                 except Exception:
                     welcome_text = ""
 
@@ -1997,6 +1999,34 @@ async def get_logs(page: int = 1, per_page: int = 15):
                     "name": os.path.basename(f),
                     "size": st.st_size,
                     "mtime": st.st_mtime,
+                }
+            )
+            state_records = core.read_responses_state_records(f)
+            latest_state = state_records[-1] if state_records else None
+            items[-1].update(
+                {
+                    "has_responses_state": bool(state_records),
+                    "response_count": len(state_records),
+                    "response_status": (
+                        str(latest_state.get("status") or "unknown")
+                        if latest_state
+                        else "none"
+                    ),
+                    "latest_response_id": (
+                        str(latest_state.get("response_id") or "")
+                        if latest_state
+                        else ""
+                    ),
+                    "response_provider": (
+                        str(latest_state.get("provider") or "")
+                        if latest_state
+                        else ""
+                    ),
+                    "response_model": (
+                        str(latest_state.get("model") or "")
+                        if latest_state
+                        else ""
+                    ),
                 }
             )
         except Exception:

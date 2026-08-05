@@ -11,6 +11,10 @@ import time
 from pathlib import Path
 from typing import Any, Sequence
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _FIXED_MODULE = "uagent.tools.network_privileged_helper"
 
 
@@ -21,7 +25,7 @@ def build_helper_command(
     module: str = _FIXED_MODULE,
 ) -> list[str]:
     if module != _FIXED_MODULE:
-        raise ValueError("only the fixed privileged helper module is allowed")
+        raise ValueError(_("error.fixed_module", default="only the fixed privileged helper module is allowed"))
     return [
         sys.executable,
         "-m",
@@ -52,7 +56,7 @@ def read_result(path: str | Path) -> dict[str, Any]:
     target = Path(path)
     value = json.loads(target.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise ValueError("helper result must be an object")
+        raise ValueError(_("error.result_object", default="helper result must be an object"))
     return value
 
 
@@ -63,14 +67,14 @@ def wait_for_result(path: str | Path, timeout: float = 30.0, interval: float = 0
         if target.is_file():
             return read_result(target)
         time.sleep(interval)
-    raise TimeoutError("privileged helper result timed out")
+    raise TimeoutError(_("error.result_timeout", default="privileged helper result timed out"))
 
 
 def shell_execute_runas(args: Sequence[str]) -> int:
     if os.name != "nt":
-        raise RuntimeError("Windows UAC is only available on Windows")
+        raise RuntimeError(_("error.windows_only", default="Windows UAC is only available on Windows"))
     if not args or args[0] != sys.executable or len(args) < 3 or args[1:3] != ["-m", _FIXED_MODULE]:
-        raise ValueError("only the fixed privileged helper may be elevated")
+        raise ValueError(_("error.fixed_helper", default="only the fixed privileged helper may be elevated"))
     parameters = subprocess.list2cmdline(list(args[1:]))
     result = ctypes.windll.shell32.ShellExecuteW(
         None,
@@ -81,5 +85,5 @@ def shell_execute_runas(args: Sequence[str]) -> int:
         1,
     )
     if result <= 32:
-        raise RuntimeError(f"UAC elevation failed with code {result}")
+        raise RuntimeError(_("error.uac_failed", default="UAC elevation failed with code %(code)s", code=result))
     return int(result)

@@ -56,8 +56,14 @@ def get_welcome_ascii():
 """
 
 
-def get_welcome_message():
-    ascii_art = get_welcome_ascii()
+def get_welcome_message(*, include_ascii: bool = True):
+    """Return the welcome text.
+
+    The terminal keeps the compact ASCII masthead. GUI/web clients render the
+    branded SVG themselves, so they can request the text without duplicating
+    the ASCII banner.
+    """
+    ascii_art = get_welcome_ascii() if include_ascii else ""
     mcp_summary = get_mcp_servers_summary()
     usage_lines = [
         f"v{__version__}",

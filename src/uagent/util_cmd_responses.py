@@ -53,6 +53,20 @@ def _print_json(value: Any) -> None:
     print(json.dumps(value, ensure_ascii=False, indent=2, default=str))
 
 
+def _responses_token_count_payload(
+    messages: list[dict[str, Any]], provider: str
+) -> tuple[str | None, list[dict[str, Any]], list[dict[str, Any]] | None]:
+    """Build the same Responses-shaped payload used by responses.create."""
+    from .providers.llm_openai_responses import build_responses_request
+
+    return build_responses_request(
+        messages,
+        send_tools_this_round=True,
+        provider=provider,
+        previous_response_id=None,
+    )
+
+
 def _handle_cmd_response(
     arg: str,
     messages_ref: list[dict[str, Any]],
@@ -121,7 +135,30 @@ def _handle_cmd_response(
 
     if sub == "tokens":
         try:
-            result = manager.count_input_tokens(input=messages_ref)
+            instructions, responses_input, responses_tools = (
+                _responses_token_count_payload(messages_ref, manager.provider)
+            )
+            # The endpoint requires a non-empty input field.  This fallback
+            # is only for a history containing no countable input items.
+            count_input = responses_input or [
+                {"role": "user", "content": " "}
+            ]
+            result = manager.count_input_tokens(
+                input=count_input,
+                tools=responses_tools,
+                instructions=instructions,
+                previous_response_id=(
+                    str(getattr(core, "responses_state", {}).get("previous_response_id") or "")
+                    if not responses_input
+                    else None
+                ),
+            )
+            # ``input_tokens.count`` only reports input-side data.  Add the
+            # usage from the most recent completed Responses call when it is
+            # available (including output/reasoning tokens).
+            usage = getattr(core, "_last_responses_usage", None)
+            if isinstance(usage, dict) and usage:
+                result = {"input_token_count": result, "last_response_usage": usage}
             _print_json(result)
         except Exception as exc:
             print(tr( "[Responses API] Token count failed: %(error)s") % {"error": exc})

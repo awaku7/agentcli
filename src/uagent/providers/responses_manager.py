@@ -141,15 +141,24 @@ class ResponsesManager:
         *,
         input: Any,
         tools: list[dict[str, Any]] | None = None,
+        instructions: str | None = None,
+        previous_response_id: str | None = None,
         model: str | None = None,
     ) -> Any:
         responses = self._require("count_input_tokens")
+        # The input-token count endpoint requires ``input``.  Keep it in
+        # the request even when the caller supplies an empty value so the SDK
+        # does not silently omit the required parameter.
         kwargs: dict[str, Any] = {
             "model": model or self.model,
-            "input": input,
+            "input": input if input is not None else "",
         }
+        if previous_response_id:
+            kwargs["previous_response_id"] = previous_response_id
         if tools is not None:
             kwargs["tools"] = tools
+        if instructions is not None:
+            kwargs["instructions"] = instructions
         return responses.input_tokens.count(**kwargs)
 
     def compact(self, response_id: str, *, input: Any = None) -> Any:

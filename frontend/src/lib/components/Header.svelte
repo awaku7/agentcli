@@ -32,6 +32,7 @@
   style="background:var(--bg-surface);border:1px solid var(--border-color);box-shadow:var(--shadow-sm);"
 >
   <div class="flex items-center gap-3 min-w-0">
+    <img src="/static/uag-logo.svg" alt="uag - Universal AI Gateway" class="h-10 w-auto rounded-lg shrink-0" />
     <h1
       class="text-lg font-bold tracking-tight shrink-0"
       style="background:linear-gradient(135deg, var(--accent), #8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"

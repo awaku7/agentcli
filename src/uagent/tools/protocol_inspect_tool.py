@@ -142,7 +142,7 @@ TOOL_SPEC: dict[str, Any] = {
             "properties": {
                 "pcap_path": {"type": "string"},
                 "backend": {"type": "string", "enum": ["scapy", "auto", "tshark"], "default": "scapy"},
-                "display_filter": {"type": "string", "description": "Optional tshark display filter."},
+                "display_filter": {"type": "string", "description": _("param.display_filter.description", default="Optional tshark display filter.")},
                 "fields": {"type": "array", "items": {"type": "string"}},
                 "limit": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 100},
             },

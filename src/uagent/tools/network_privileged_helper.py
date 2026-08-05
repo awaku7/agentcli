@@ -10,24 +10,28 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _ALLOWED_ACTIONS = {"tcp_syn", "icmp", "arp"}
 
 
 def validate_request(request: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(request, dict):
-        raise ValueError("request must be an object")
+        raise ValueError(_("error.request_object", default="request must be an object"))
     action = request.get("action")
     if action not in _ALLOWED_ACTIONS:
-        raise ValueError("action is not allowed")
+        raise ValueError(_("error.action_not_allowed", default="action is not allowed"))
     target = str(request.get("target", "")).strip()
     if not target:
-        raise ValueError("target is required")
+        raise ValueError(_("error.target_required", default="target is required"))
     try:
         port = int(request.get("port", 0))
     except (TypeError, ValueError) as exc:
-        raise ValueError("port must be an integer") from exc
+        raise ValueError(_("error.port_integer", default="port must be an integer")) from exc
     if action == "tcp_syn" and not 1 <= port <= 65535:
-        raise ValueError("port must be between 1 and 65535 for tcp_syn")
+        raise ValueError(_("error.port_range", default="port must be between 1 and 65535 for tcp_syn"))
     if action != "tcp_syn":
         port = 0
     return {
@@ -45,7 +49,7 @@ def _scapy_probe(request: dict[str, Any]) -> dict[str, Any]:
         from scapy.all import ARP, ICMP, IP, TCP, Ether, conf, sr1, srp
     except ImportError:
         if not install_with_status("scapy", "scapy", version_spec=">=2.6.0"):
-            raise RuntimeError("scapy is unavailable")
+            raise RuntimeError(_("error.scapy_unavailable", default="scapy is unavailable"))
         from scapy.all import ARP, ICMP, IP, TCP, Ether, conf, sr1, srp
 
     action = request["action"]
