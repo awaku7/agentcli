@@ -121,7 +121,6 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 
 - Authorization Serverでのrefresh token rotationを実環境相当で検証する。
 - 実Authorization Serverでrefresh token rotationと分散refreshの一度限り動作を検証する。
-- 外部注入された`http_client`にもOAuth auth hookを安全に適用できるAPIを整備する。
 - refresh token失効、scope変更、token endpointエラーを検証する。
 - SDK transportとStateless transportで認証ヘッダー・refresh挙動が一致することを確認する。
 - 外部ブラウザーを使用したbrowser OAuthの手動検証手順を文書化する。
