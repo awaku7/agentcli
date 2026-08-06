@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import time
 from typing import Any
+from urllib.parse import urlencode
 
 from .oauth_flow import OAuthTokenResponse, exchange_authorization_code
 from .oauth_metadata import AuthorizationServerMetadata
@@ -72,6 +73,9 @@ class OAuthAuthorizationSession:
             scope=self.scope or "",
             resource=self.resource,
         )
+        if extra_params:
+            separator = "&" if "?" in url else "?"
+            url += separator + urlencode(extra_params)
         return AuthorizationRequest(
             authorization_url=url,
             state=self.state,
