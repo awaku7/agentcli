@@ -137,6 +137,13 @@ def _has_yaml_frontmatter(filepath: str) -> bool:
         return False
 
 
+def _document_type(filepath: str) -> str:
+    """Classify Markdown for explicit LLM-facing tool output."""
+    if os.path.basename(filepath) == "SKILL.md":
+        return "agent_skill" if _has_yaml_frontmatter(filepath) else "agent_skill_candidate"
+    return "markdown_with_frontmatter" if _has_yaml_frontmatter(filepath) else "markdown"
+
+
 def _validate_skill_file(filepath: str, *, strict: bool) -> dict[str, Any]:
     """Validate one ``SKILL.md`` using the shared Agent Skills validator."""
     skill_dir = os.path.dirname(filepath)
@@ -196,20 +203,25 @@ def run_tool(args: dict[str, Any]) -> str:
     results: list[str] = []
     failed_count = 0
     ok_count = 0
+    type_counts: dict[str, int] = {}
+    skill_invalid_count = 0
     _ok_label = _("label.ok", default="OK")
     _fail_label = _("label.fail", default="FAIL")
     _timeout_label = _("label.timeout", default="TIMEOUT")
     _error_label = _("label.error", default="ERROR")
 
     for filepath in sorted(matched_files):
+        doc_type = _document_type(filepath)
+        type_counts[doc_type] = type_counts.get(doc_type, 0) + 1
         try:
             if _has_yaml_frontmatter(filepath) and not frontmatter_ready:
                 failed_count += 1
                 results.append(
                     _msg(
                         "result.frontmatter_missing",
-                        "[{label}] {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+                        "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
                         label=_error_label,
+                        doc_type=doc_type,
                         path=filepath,
                     )
                 )
@@ -228,11 +240,13 @@ def run_tool(args: dict[str, Any]) -> str:
                     )
                     if not skill_result["ok"]:
                         failed_count += 1
+                        skill_invalid_count += 1
                         results.append(
                             _msg(
                                 "result.skill_invalid",
-                                "[{label}] {path}: Agent Skills validation failed: {detail}",
+                                "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
                                 label=_fail_label,
+                                doc_type=doc_type,
                                 path=filepath,
                                 detail="; ".join(skill_result["errors"]),
                             )
@@ -244,8 +258,9 @@ def run_tool(args: dict[str, Any]) -> str:
                     results.append(
                         _msg(
                             "result.ok_formatted",
-                            "[{label}] formatted: {path}",
+                            "[{label}] type={doc_type} formatted: {path}",
                             label=_ok_label,
+                            doc_type=doc_type,
                             path=filepath,
                         )
                     )
@@ -253,8 +268,9 @@ def run_tool(args: dict[str, Any]) -> str:
                     results.append(
                         _msg(
                             "result.ok",
-                            "[{label}] {path}",
+                            "[{label}] type={doc_type} {path}",
                             label=_ok_label,
+                            doc_type=doc_type,
                             path=filepath,
                         )
                     )
@@ -271,8 +287,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 results.append(
                     _msg(
                         "result.fail",
-                        "[{label}] {path}: {detail}",
+                        "[{label}] type={doc_type} {path}: {detail}",
                         label=_fail_label,
+                        doc_type=doc_type,
                         path=filepath,
                         detail=detail,
                     )
@@ -282,8 +299,9 @@ def run_tool(args: dict[str, Any]) -> str:
             results.append(
                 _msg(
                     "result.timeout",
-                    "[{label}] {path}",
+                    "[{label}] type={doc_type} {path}",
                     label=_timeout_label,
+                    doc_type=doc_type,
                     path=filepath,
                 )
             )
@@ -292,19 +310,27 @@ def run_tool(args: dict[str, Any]) -> str:
             results.append(
                 _msg(
                     "result.error",
-                    "[{label}] {path}: {e}",
+                    "[{label}] type={doc_type} {path}: {e}",
                     label=_error_label,
+                    doc_type=doc_type,
                     path=filepath,
                     e=e,
                 )
             )
 
+    type_summary = ", ".join(
+        f"{kind}={count}" for kind, count in sorted(type_counts.items())
+    )
     summary = _msg(
         "result.summary",
         "mdformat_check: {total} files, {ok} ok, {failed} failed",
         total=len(matched_files),
         ok=ok_count,
         failed=failed_count,
+    )
+    summary += (
+        f"; document_types={type_summary or 'none'}"
+        f"; agent_skill_invalid={skill_invalid_count}"
     )
 
     if failed_count == 0:

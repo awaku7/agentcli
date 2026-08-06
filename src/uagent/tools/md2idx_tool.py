@@ -7,6 +7,10 @@ import os
 import re
 from typing import Any
 
+from .agent_skills_shared import (
+    load_skill_frontmatter_only,
+    validate_skill_frontmatter,
+)
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import read_index_source, resolve_index_path
 
@@ -101,6 +105,53 @@ def _strip_inline_markup(text: str) -> str:
     text = re.sub(r"`([^`]+)`", r"\1", text)
     text = re.sub(r"~~(.+?)~~", r"\1", text)
     return text
+
+
+def _document_metadata(path: str) -> dict[str, Any]:
+    """Classify Markdown and validate ``SKILL.md`` front matter."""
+    try:
+        with open(path, "r", encoding="utf-8-sig") as handle:
+            has_frontmatter = handle.readline().strip() == "---"
+    except (OSError, UnicodeError):
+        has_frontmatter = False
+
+    if os.path.basename(path) != "SKILL.md":
+        return {
+            "document_type": (
+                "markdown_with_frontmatter" if has_frontmatter else "markdown"
+            ),
+            "frontmatter": has_frontmatter,
+            "skill_validation": "not_applicable",
+        }
+
+    if not has_frontmatter:
+        return {
+            "document_type": "agent_skill_candidate",
+            "frontmatter": False,
+            "skill_validation": "invalid: frontmatter missing",
+        }
+
+    skill_dir = os.path.dirname(path)
+    try:
+        frontmatter = load_skill_frontmatter_only(skill_dir)
+        ok, errors, warnings = validate_skill_frontmatter(
+            skill_dir, frontmatter, strict=False
+        )
+        return {
+            "document_type": "agent_skill",
+            "frontmatter": True,
+            "skill_validation": "valid" if ok else "invalid",
+            "skill_errors": errors,
+            "skill_warnings": warnings,
+        }
+    except Exception as exc:
+        return {
+            "document_type": "agent_skill",
+            "frontmatter": True,
+            "skill_validation": "invalid",
+            "skill_errors": [f"Failed to validate Agent Skill: {exc!r}"],
+            "skill_warnings": [],
+        }
 
 
 class _MdSectionParser:
@@ -305,12 +356,14 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception as e:
         return _("err.parse_error", default="Error parsing Markdown: {e}", e=str(e))
 
+    metadata = _document_metadata(safe_path)
+
     if mode == "index":
         toc = parser.build_index()
         total = parser.section_count()
         # last = heading section count; 0 means no headings
         last = total - 1 if total > 1 else 0
-        return _(
+        index_output = _(
             "msg.index_output",
             default=(
                 "Table of contents for: {path}\n"
@@ -322,10 +375,26 @@ def run_tool(args: dict[str, Any]) -> str:
                 "To retrieve a section, call md2idx with mode='section' and the section number."
             ),
             path=path,
+            document_type=metadata["document_type"],
+            frontmatter="detected" if metadata["frontmatter"] else "none",
+            skill_validation=metadata["skill_validation"],
+            skill_details="; ".join(
+                metadata.get("skill_errors", [])
+                or metadata.get("skill_warnings", [])
+                or []
+            )
+            or "none",
             total=total,
             last=last,
             toc=toc,
         )
+        metadata_header = (
+            f"Document type: {metadata['document_type']}\n"
+            f"Front matter: {'detected' if metadata['frontmatter'] else 'none'}\n"
+            f"Agent Skills validation: {metadata['skill_validation']}\n"
+            f"Agent Skills details: {'; '.join(metadata.get('skill_errors', []) or metadata.get('skill_warnings', []) or []) or 'none'}\n"
+        )
+        return metadata_header + index_output
 
     elif mode == "section":
         section_num = args.get("section")
