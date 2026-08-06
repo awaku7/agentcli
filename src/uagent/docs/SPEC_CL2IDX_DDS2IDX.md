@@ -93,7 +93,7 @@ src/uagent/tools/dds2idx_tool.json
 ドキュメント更新箇所:
 
 - `src/uagent/docs/DEVELOP.md`（`*2idx` 表）
-- `src/uagent/docs/DEVELOP.ja.md`（同）
+- `src/uagent/docs/DEVELOP.md`（同）
 
 ______________________________________________________________________
 
@@ -580,7 +580,7 @@ ______________________________________________________________________
 3. **dds2idx 実装**  
    固定列＋フォールバック
 4. **i18n JSON**
-5. **DEVELOP.md / DEVELOP.ja.md の表更新**
+5. **DEVELOP.md の表更新**
 6. **サンプルソースでの手動検証**
 7. **（任意）pytest**  
    `tests/` に最小 fixture
@@ -633,7 +633,7 @@ class _DdsIndexBuilder:
 - [x] `dds2idx_tool.py` / `.json` 追加
 - [x] `python -m py_compile` 通過
 - [x] `ruff check` / `ruff format` 通過
-- [x] DEVELOP.md / DEVELOP.ja.md 更新
+- [x] DEVELOP.md 更新
 - [x] 代表サンプルで index → section が実用的
 - [x] pytest: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`
 

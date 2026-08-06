@@ -515,7 +515,7 @@ ______________________________________________________________________
 
 ```text
 docs/
-  N8N_ADAPTATION_PLAN.md          # 本ドキュメント
+  n8n/README.md                    # 接続手順・統合プラン
   n8n/
     mcp_servers.n8n.template.json # トークン無しテンプレ
     a2a_ping.workflow.json        # n8n → uag 最小 WF
