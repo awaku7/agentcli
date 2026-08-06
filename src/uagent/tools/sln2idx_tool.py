@@ -115,14 +115,22 @@ def run_tool(args: dict[str, Any]) -> str:
             raise ValueError("DTD and external entities are not allowed")
         sections = _sln_sections(source, slnx=extension == ".slnx")
     except Exception as exc:
-        return f"Error parsing solution: {exc}"
+        return _(
+            "err.parse_error", default="Error parsing solution: {exc}", exc=str(exc)
+        )
     if args.get("mode", "index") == "section":
         try:
             number = int(args.get("section"))
         except (TypeError, ValueError):
-            return "Error: 'section' must be an integer."
+            return _(
+                "err.section_invalid", default="Error: 'section' must be an integer."
+            )
         if number < 1 or number > len(sections):
-            return f"Error: section must be between 1 and {len(sections)}."
+            return _(
+                "err.section_not_found",
+                default="Error: section must be between 1 and {total}.",
+                total=len(sections),
+            )
         label, body = sections[number - 1]
         return f"Section {number}: {label}\n---\n{body}"
     lines = [f"Solution: {path}", "---"]

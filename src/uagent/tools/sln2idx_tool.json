@@ -1,10 +1,16 @@
 {
   "en": {
     "tool.description": "Parse Visual Studio .sln and .slnx solution files into a numbered index or a selected section.",
-    "err.path_required": "Error: 'path' is required."
+    "err.path_required": "Error: 'path' is required.",
+    "err.parse_error": "Error parsing solution: {exc}",
+    "err.section_invalid": "Error: 'section' must be an integer.",
+    "err.section_not_found": "Error: section must be between 1 and {total}."
   },
   "ja": {
     "tool.description": "Visual Studio の .sln / .slnx ソリューションを番号付きインデックスまたは指定セクションとして解析します。",
-    "err.path_required": "エラー: 'path' は必須です。"
+    "err.path_required": "エラー: 'path' は必須です。",
+    "err.parse_error": "エラー: ソリューションの解析に失敗しました: {exc}",
+    "err.section_invalid": "エラー: 'section' は整数である必要があります。",
+    "err.section_not_found": "エラー: section は1から{total}の範囲で指定してください。"
   }
 }

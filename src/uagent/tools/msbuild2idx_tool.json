@@ -1,10 +1,16 @@
 {
   "en": {
     "tool.description": "Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
-    "err.path_required": "Error: 'path' is required."
+    "err.path_required": "Error: 'path' is required.",
+    "err.parse_error": "Error parsing MSBuild file: {exc}",
+    "err.section_invalid": "Error: 'section' must be an integer.",
+    "err.section_not_found": "Error: section must be between 1 and {total}."
   },
   "ja": {
     "tool.description": "MSBuild XMLプロジェクト（.csproj、.fsproj、.vbproj、.vcxproj、.props、.targetsなど）を番号付きインデックスまたは指定セクションとして解析します。",
-    "err.path_required": "エラー: 'path' は必須です。"
+    "err.path_required": "エラー: 'path' は必須です。",
+    "err.parse_error": "エラー: MSBuildファイルの解析に失敗しました: {exc}",
+    "err.section_invalid": "エラー: 'section' は整数である必要があります。",
+    "err.section_not_found": "エラー: section は1から{total}の範囲で指定してください。"
   }
 }

@@ -105,14 +105,22 @@ def run_tool(args: dict[str, Any]) -> str:
         root, source = _parse(safe)
         sections = _sections(root)
     except Exception as exc:
-        return f"Error parsing MSBuild file: {exc}"
+        return _(
+            "err.parse_error", default="Error parsing MSBuild file: {exc}", exc=str(exc)
+        )
     if args.get("mode", "index") == "section":
         try:
             number = int(args.get("section"))
         except (TypeError, ValueError):
-            return "Error: 'section' must be an integer."
+            return _(
+                "err.section_invalid", default="Error: 'section' must be an integer."
+            )
         if number < 1 or number > len(sections):
-            return f"Error: section must be between 1 and {len(sections)}."
+            return _(
+                "err.section_not_found",
+                default="Error: section must be between 1 and {total}.",
+                total=len(sections),
+            )
         label, body = sections[number - 1]
         return f"Section {number}: {label}\n---\n{body}"
     lines = [f"MSBuild project: {path}", "---"]
