@@ -82,6 +82,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": True,
                 },
+                "protocol_mode": {
+                    "type": "string",
+                    "enum": ["auto", "legacy", "stateless"],
+                    "description": _(
+                        "param.protocol_mode.description",
+                        default="MCP protocol mode: auto, legacy, or stateless.",
+                    ),
+                    "default": "auto",
+                },
             },
             "required": [],
         },
@@ -148,9 +157,13 @@ def _resolve_http_headers(raw: Any) -> dict[str, str]:
 
 
 async def _mcp_tools_list_http(
-    url: str, headers: dict[str, str] | None = None
+    url: str,
+    headers: dict[str, str] | None = None,
+    protocol_mode: str = "auto",
 ) -> dict[str, Any]:
-    async with MCPClient(url=url, headers=headers or {}) as client:
+    async with MCPClient(
+        url=url, headers=headers or {}, protocol_mode=protocol_mode
+    ) as client:
         tools_result = await client.list_tools()
         tools = []
         for tool in getattr(tools_result, "tools", []) or []:
@@ -173,9 +186,14 @@ async def _mcp_tools_list_http(
 
 
 async def _mcp_tools_list_stdio(
-    command: str, args: list[str], env: dict[str, str]
+    command: str,
+    args: list[str],
+    env: dict[str, str],
+    protocol_mode: str = "auto",
 ) -> dict[str, Any]:
-    async with MCPClient(command=command, args=args, env=env) as client:
+    async with MCPClient(
+        command=command, args=args, env=env, protocol_mode=protocol_mode
+    ) as client:
         tools_result = await client.list_tools()
         tools = []
         for tool in getattr(tools_result, "tools", []) or []:
@@ -204,6 +222,7 @@ def run_tool(args: dict[str, Any]) -> str:
     url = args.get("url")
     server_name = args.get("server_name")
     pretty = bool(args.get("pretty", True))
+    protocol_mode = str(args.get("protocol_mode") or "auto").strip().lower()
     # Resolve url/command from config if needed
     command = ""
     cmd_args: list[str] = []
@@ -236,6 +255,10 @@ def run_tool(args: dict[str, Any]) -> str:
                                 else {}
                             )
                             http_headers = _resolve_http_headers(s.get("headers"))
+                            if "protocol_mode" not in args:
+                                protocol_mode = str(
+                                    s.get("protocol_mode") or "auto"
+                                ).strip().lower()
                             break
         except Exception:
             pass
@@ -260,17 +283,23 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         # 1) stdio via configured command
         if (not url) and command:
-            result = asyncio.run(_mcp_tools_list_stdio(command, cmd_args, cmd_env))
+            result = asyncio.run(
+                _mcp_tools_list_stdio(command, cmd_args, cmd_env, protocol_mode)
+            )
 
         # 2) stdio shorthand url
         elif isinstance(url, str) and url.startswith("stdio://"):
             cmd = url[len("stdio://") :]
             # no args/env in shorthand
-            result = asyncio.run(_mcp_tools_list_stdio(cmd, [], {}))
+            result = asyncio.run(
+                _mcp_tools_list_stdio(cmd, [], {}, protocol_mode)
+            )
 
         # 3) http
         else:
-            result = asyncio.run(_mcp_tools_list_http(str(url), http_headers))
+            result = asyncio.run(
+                _mcp_tools_list_http(str(url), http_headers, protocol_mode)
+            )
 
         if pretty:
             return json.dumps(result, ensure_ascii=False, indent=2)

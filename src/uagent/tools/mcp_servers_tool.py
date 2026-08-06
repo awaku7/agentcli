@@ -151,6 +151,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": "streamable-http",
                 },
+                "protocol_mode": {
+                    "type": "string",
+                    "enum": ["auto", "legacy", "stateless"],
+                    "description": _(
+                        "param.protocol_mode.description",
+                        default="(add) MCP protocol mode: auto, legacy, or stateless.",
+                    ),
+                    "default": "auto",
+                },
                 "set_default": {
                     "type": "boolean",
                     "description": _(
@@ -575,6 +584,7 @@ def _mcp_build_server_entry(
     *,
     name: str,
     transport: str,
+    protocol_mode: str,
     url: Any,
     command: Any,
     arg_list: list[Any],
@@ -583,6 +593,7 @@ def _mcp_build_server_entry(
     new_entry: dict[str, Any] = {
         "name": name,
         "transport": transport,
+        "protocol_mode": protocol_mode,
     }
     if url:
         new_entry["url"] = str(url)
@@ -775,6 +786,16 @@ def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> 
     arg_list = args.get("args")
     env = args.get("env")
     transport = str(args.get("transport") or "streamable-http")
+    protocol_mode = str(args.get("protocol_mode") or "auto").strip().lower()
+    if protocol_mode not in {"auto", "legacy", "stateless"}:
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "protocol_mode must be auto, legacy, or stateless",
+            },
+            pretty=pretty,
+        )
 
     set_default = bool(args.get("set_default", False))
     replace = bool(args.get("replace", False))
@@ -805,6 +826,7 @@ def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> 
     new_entry = _mcp_build_server_entry(
         name=name,
         transport=transport,
+        protocol_mode=protocol_mode,
         url=url,
         command=command,
         arg_list=normalized_args,
