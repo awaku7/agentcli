@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import asyncio
 import time
-from typing import Any, Awaitable, Callable
+from typing import Any, AsyncGenerator, Awaitable, Callable
+
+import httpx
 
 from .errors import MCPTransportError
 from .oauth_flow import refresh_access_token
@@ -74,6 +76,24 @@ class OAuthTokenProvider:
         return token
 
 
+class MCPOAuthHTTPXAuth(httpx.Auth):
+    """httpx async auth hook for SDK Streamable HTTP transports."""
+
+    requires_request_body = True
+
+    def __init__(self, provider: "OAuthTokenProvider") -> None:
+        self.provider = provider
+
+    async def async_auth_flow(
+        self, request: httpx.Request
+    ) -> AsyncGenerator[httpx.Request, httpx.Response]:
+        request.headers["Authorization"] = await self.provider.authorization_header(False)
+        response = yield request
+        if response.status_code == 401:
+            request.headers["Authorization"] = await self.provider.authorization_header(True)
+            yield request
+
+
 AuthorizationHeaderProvider = Callable[[bool], Awaitable[str]]
 
 
@@ -84,4 +104,9 @@ async def stored_token_authorization_header(
     return await provider.authorization_header(force_refresh)
 
 
-__all__ = ["AuthorizationHeaderProvider", "OAuthTokenProvider", "stored_token_authorization_header"]
+__all__ = [
+    "AuthorizationHeaderProvider",
+    "MCPOAuthHTTPXAuth",
+    "OAuthTokenProvider",
+    "stored_token_authorization_header",
+]

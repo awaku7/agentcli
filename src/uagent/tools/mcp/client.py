@@ -20,6 +20,7 @@ from .protocol import (
     detect_protocol_mode,
     select_protocol_version,
 )
+from .oauth_provider import MCPOAuthHTTPXAuth
 from .stateless_transport import StatelessHTTPClient
 
 try:
@@ -155,10 +156,21 @@ class MCPClient:
                     if self.url.endswith("/mcp")
                     else self.url.rstrip("/") + "/mcp"
                 )
-                if self.headers and self._http_client is None:
+                if (
+                    (self.headers or self.authorization_provider)
+                    and self._http_client is None
+                ):
                     import httpx
 
-                    self._http_client = httpx.AsyncClient(headers=self.headers)
+                    auth = (
+                        MCPOAuthHTTPXAuth(self.authorization_provider)
+                        if self.authorization_provider is not None
+                        else None
+                    )
+                    self._http_client = httpx.AsyncClient(
+                        headers=self.headers,
+                        auth=auth,
+                    )
                     self._owns_http_client = True
                 read, write, get_session_id = await self._stack.enter_async_context(
                     streamable_http_client(endpoint, http_client=self._http_client)
