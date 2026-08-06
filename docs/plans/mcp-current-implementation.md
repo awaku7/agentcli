@@ -81,6 +81,7 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | HTTP headers | 実装済み。認証・カスタムheaders |
 | 環境変数展開 | 実装済み。`env:VAR` / `${VAR}` |
 | Stateless MCP 2026-07-28 | 部分実装。明示`stateless`時のtools/list / tools/call |
+| Protocol version negotiation | `server/discover`の`supportedVersions`から選択し、後続要求へ反映 |
 | Legacy / Stateless自動判定 | HTTPの`server/discover` probeで部分実装。失敗時はLegacy SDKへfallback |
 | `Mcp-Method` / `Mcp-Name` | Stateless Adapterとauto probe経路で実装 |
 | `server/discover` | `mcp_server_discover`でStateless実装。auto probeにも使用 |

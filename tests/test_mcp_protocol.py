@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from uagent.tools.mcp.protocol import MCPProtocolMode, detect_protocol_mode
+from uagent.tools.mcp.protocol import (
+    MCPProtocolMode,
+    detect_protocol_mode,
+    select_protocol_version,
+)
 
 
 def test_explicit_legacy_mode_requires_session() -> None:
@@ -57,6 +61,15 @@ def test_auto_does_not_guess_from_insufficient_evidence() -> None:
     assert info.mode is MCPProtocolMode.UNKNOWN
     assert info.session_required is False
     assert info.detection_reason == "insufficient_evidence"
+
+
+def test_select_protocol_version_prefers_current_version() -> None:
+    assert select_protocol_version(["2025-11-25", "2026-07-28"]) == "2026-07-28"
+
+
+def test_select_protocol_version_uses_server_fallback() -> None:
+    assert select_protocol_version(["2025-11-25"]) == "2025-11-25"
+    assert select_protocol_version([]) == "2026-07-28"
 
 
 def test_invalid_requested_mode_is_structured_as_unknown() -> None:

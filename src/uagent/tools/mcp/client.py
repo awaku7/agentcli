@@ -15,7 +15,11 @@ from .errors import (
     MCPTransportError,
     MCPUnsupportedError,
 )
-from .protocol import MCPProtocolInfo, detect_protocol_mode
+from .protocol import (
+    MCPProtocolInfo,
+    detect_protocol_mode,
+    select_protocol_version,
+)
 from .stateless_transport import StatelessHTTPClient
 
 try:
@@ -90,7 +94,14 @@ class MCPClient:
                 )
                 try:
                     await probe.__aenter__()
-                    await probe.discover()
+                    discovery = await probe.discover()
+                    result = (
+                        discovery.get("result", {})
+                        if isinstance(discovery, dict)
+                        else {}
+                    )
+                    supported = result.get("supportedVersions", [])
+                    probe.protocol_version = select_protocol_version(supported)
                 except Exception as exc:
                     await probe.__aexit__(None, None, None)
                     if not _is_legacy_probe_rejection(exc):

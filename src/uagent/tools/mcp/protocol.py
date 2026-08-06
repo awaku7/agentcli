@@ -10,6 +10,24 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
+DEFAULT_PROTOCOL_VERSION = "2026-07-28"
+
+
+def select_protocol_version(
+    supported_versions: list[str] | tuple[str, ...] | None,
+    *,
+    preferred: str = DEFAULT_PROTOCOL_VERSION,
+) -> str:
+    """Select a server-supported version without trusting unknown values."""
+    versions = [str(version).strip() for version in (supported_versions or [])]
+    versions = [version for version in versions if version]
+    if preferred in versions:
+        return preferred
+    # The server controls ordering; use its first advertised version when the
+    # preferred version is unavailable so negotiation remains forward-compatible.
+    return versions[0] if versions else preferred
+
+
 class MCPProtocolMode(StrEnum):
     AUTO = "auto"
     LEGACY = "legacy"

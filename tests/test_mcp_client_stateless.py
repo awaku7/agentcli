@@ -55,13 +55,14 @@ def test_mcp_client_auto_detects_stateless_http() -> None:
         def handler(request: httpx.Request) -> httpx.Response:
             nonlocal calls
             calls += 1
+            if request.headers["mcp-method"] == "server/discover":
+                result = {"supportedVersions": ["2025-11-25"]}
+            else:
+                assert request.headers["mcp-protocol-version"] == "2025-11-25"
+                result = {"tools": []}
             return httpx.Response(
                 200,
-                json={
-                    "jsonrpc": "2.0",
-                    "id": 1,
-                    "result": {"tools": []},
-                },
+                json={"jsonrpc": "2.0", "id": 1, "result": result},
             )
 
         transport = httpx.MockTransport(handler)
