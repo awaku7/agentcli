@@ -11,18 +11,7 @@ import os
 from ..env_utils import env_get
 from typing import Any
 
-try:
-    from mcp import ClientSession
-    from mcp.client.streamable_http import streamable_http_client
-    from mcp.client.stdio import stdio_client, StdioServerParameters
-except ImportError:
-    from .._pip_auto import install_with_status as _install_mcp
-
-    if not _install_mcp("mcp"):
-        raise
-    from mcp import ClientSession
-    from mcp.client.streamable_http import streamable_http_client
-    from mcp.client.stdio import stdio_client, StdioServerParameters
+from .mcp.client import MCPClient
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path
@@ -141,17 +130,12 @@ TOOL_SPEC: dict[str, Any] = {
 async def _call_mcp_stdio(
     command: str, args: list[str], env: dict[str, str], name: str, argv: dict[str, Any]
 ) -> str:
-    server_params = StdioServerParameters(
-        command=command, args=args, env={**os.environ, **(env or {})}
-    )
     try:
-        async with stdio_client(server_params) as (read, write):
-            async with ClientSession(read, write) as session:
-                await session.initialize()
-                result = await session.call_tool(name, argv)
-                return _format_result(result)
-    except Exception as e:
-        return f"[Error] MCP stdio call failed: {str(e)}"
+        async with MCPClient(command=command, args=args, env=env) as client:
+            result = await client.call_tool(name, argv)
+            return _format_result(result)
+    except Exception as exc:
+        return f"[Error] MCP stdio call failed: {exc}"
 
 
 def _resolve_http_headers(raw: Any) -> dict[str, str]:
@@ -187,44 +171,12 @@ async def _call_mcp_http(
     argv: dict[str, Any],
     headers: dict[str, str] | None = None,
 ) -> str:
-    mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
     try:
-        http_client = None
-        if headers:
-            try:
-                import httpx
-            except ImportError:
-                from .._pip_auto import install_with_status as _install_httpx
-
-                if not _install_httpx("httpx"):
-                    raise
-                import httpx
-
-            http_client = httpx.AsyncClient(headers=headers)
-        try:
-            async with streamable_http_client(mcp_url, http_client=http_client) as (
-                read,
-                write,
-                session_id,
-            ):
-                async with ClientSession(read, write) as session:
-                    await session.initialize()
-                    result = await session.call_tool(name, argv)
-                    return _format_result(result)
-        finally:
-            if http_client is not None:
-                await http_client.aclose()
-    except BaseExceptionGroup as eg:
-        # NOTE: Return ExceptionGroup details to identify the cause (for investigation)
-        import traceback
-
-        parts = [f"[Error] MCP http call failed: {str(eg)}"]
-        for i, sub in enumerate(getattr(eg, "exceptions", []) or []):
-            tb = "".join(traceback.format_exception(sub))
-            parts.append(f"\n--- sub-exception {i} ({type(sub).__name__}) ---\n{tb}")
-        return "\n".join(parts)
-    except Exception as e:
-        return f"[Error] MCP http call failed: {str(e)}"
+        async with MCPClient(url=url, headers=headers or {}) as client:
+            result = await client.call_tool(name, argv)
+            return _format_result(result)
+    except Exception as exc:
+        return f"[Error] MCP http call failed: {exc}"
 
 
 def _format_result(result: Any) -> str:
