@@ -44,6 +44,8 @@ from mcp.client.stdio import stdio_client, StdioServerParameters
 
 `mcp 1.28.1`では次のメソッドが存在する。
 
+SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protocol-Version`の処理がある。一方、`Mcp-Method` / `Mcp-Name`の処理は確認できない。したがって、2026-07-28 Stateless対応をSDKだけで完結できるとは判断しない。
+
 - `initialize`
 - `list_tools`
 - `call_tool`
