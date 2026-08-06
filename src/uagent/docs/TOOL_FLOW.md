@@ -114,17 +114,17 @@ This section consolidates the former Responses API design, support matrix, and J
 
 ## 目的
 
-Responses APIの管理機能を、プロバイダー差異を隠した共通インターフェースとして追加する。P0ではOpenAI/Azureを対象に、既存のResponses Create処理を壊さずにRetrieve、Cancel、Count input tokensを実装する。
+Responses APIの管理機能は、プロバイダー差異を隠した共通インターフェースとして実装済みである。現在はOpenAI/Azureを対象に、既存のResponses Create処理と分離したRetrieve、Cancel、Delete、List input items、Count input tokens、Compactを提供する。
 
 ## 対象範囲
 
-### Phase 1（P0）
+### 実装状況（P0）
 
 - 共通管理インターフェース
 - OpenAI / Azure
-- Retrieve a response
-- Cancel a response
-- Count input tokens
+- Retrieve a response（実装済み）
+- Cancel a response（実装済み）
+- Count input tokens（実装済み）
 - 既存`previous_response_id`状態との統合
 - Ctrl-C / Web Stopとの連携
 
@@ -340,20 +340,20 @@ Compact後は返却されたResponse IDを次の`previous_response_id`として�
 
 ### Responses API 対応状況と今後の優先順位
 
-> **プロジェクト優先度: P0（最優先）**
+> **現状: P0実装済み・実機検証継続**
 >
-> Responses APIの管理機能（特にCancel、Retrieve、Count input tokens）を、他のプロバイダー拡張や低優先度の改善より先に対応する。
+> Responses API管理機能の共通ラッパーとCLI操作は実装済み。残作業は実機検証、回帰テスト、Web Stop経路の確認である。
 
 ## 現在の対応状況
 
 | Responses API | 対応状況 | 備考 |
 |---|---:|---|
 | Create a response | 対応済み | `client.responses.create()` を通常・ストリーミングで使用 |
-| Retrieve a response | 未対応 | `client.responses.retrieve()` は未使用 |
-| Delete a response | 未対応 | `client.responses.delete()` は未使用 |
-| List input items | 未対応 | `responses.input_items.list()` 相当は未使用 |
-| Count input tokens | Responses APIとしては未対応 | ローカルの概算token数計算は存在 |
-| Cancel a response | 未対応 | Ctrl-C等のローカル中断はあるが、API側のResponseキャンセルは未実装 |
+| Retrieve a response | 対応済み | `ResponsesManager.retrieve()` / `:response status` |
+| Delete a response | 対応済み | `ResponsesManager.delete()` / `:response delete` |
+| List input items | 対応済み | `ResponsesManager.list_input_items()` / `:response items` |
+| Count input tokens | 対応済み | `ResponsesManager.count_input_tokens()` / `:response tokens` |
+| Cancel a response | 対応済み | `ResponsesManager.cancel()` / `:response cancel`、Ctrl-C経路 |
 | Compact a response | 部分対応 | Create時に`context_management`を指定し、サーバー側コンパクションを要求 |
 
 ## プロバイダー別の対応レベル
@@ -382,16 +382,16 @@ Compact後は返却されたResponse IDを次の`previous_response_id`として�
 
 ## プロバイダー共通の制約
 
-- Retrieve、Delete、List input items、Count input tokens、Cancelを呼び出す実装はまだない。
+- Retrieve、Delete、List input items、Count input tokens、Cancelは `ResponsesManager` と `:response` コマンドから利用できる。
 - 「継続」「自動compact」は、管理エンドポイントではなくCreateリクエストの関連パラメーターを指す。
 - OpenRouterは`previous_response_id`と`context_management`を削除し、ローカル履歴を文字列化して送る。
 - DeepSeekはstatelessとして扱い、`previous_response_id`と`context_management`を使用しない。
 - Bedrock、Ollama、Alibaba/Qwen、LM Studio、Sakanaは、接続するゲートウェイやモデルごとの差異が大きい。
 - llama.cppを使う場合は`UAGENT_RESPONSES=0`としてChat Completions経路を使う。
 
-## P0実装優先順位
+## 残作業の優先順位
 
-Responses API管理機能を、Ollama、Alibaba/Qwen、LM Studio、Sakana、llama.cppなどのプロバイダー拡張より先に実装する。
+OpenAI/Azureの実機検証と回帰テストを先に行い、その後にOllama、Alibaba/Qwen、LM Studio、SakanaなどのCapability検証へ進む。
 
 1. **Cancel a response** — Ctrl-C、WebのStop、タイムアウトとAPI側の停止を連携する。
 1. **Retrieve a response** — `previous_response_id`の有効性確認とセッション復元に使う。

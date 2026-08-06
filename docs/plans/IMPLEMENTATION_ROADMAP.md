@@ -16,7 +16,7 @@
 
 ## P0: [Responses API管理機能](responses-api-management.md)
 
-- Status: planned
+- Status: in-progress
 - Priority: P0
 - Source: [`src/uagent/docs/TOOL_FLOW.md`](../../src/uagent/docs/TOOL_FLOW.md)
 
@@ -32,11 +32,11 @@
 
 ### 実装方針
 
-1. `ResponsesCapabilities` と未対応例外を共通化する。
-1. OpenAI/AzureのRetrieveを実装する。
-1. `active_response_id` とセッションJSONLの状態管理を統合する。
-1. Ctrl-C、Web Stop、タイムアウトからCancelへ接続する。
-1. token countとlocal fallbackを実装する。
+1. `ResponsesCapabilities` と未対応例外を共通化する（完了）。
+1. OpenAI/AzureのRetrieve・Cancel・Compact等を実装する（実装済み、実機検証継続）。
+1. `active_response_id` とセッションJSONLの状態管理を統合する（実装済み）。
+1. Ctrl-C、Web Stop、タイムアウトからCancelへ接続する（経路確認・テスト継続）。
+1. token countとlocal fallbackを実装する（CLI実装済み）。
 1. 他プロバイダは実機検証が完了するまで `unknown` / 非対応として扱う。
 
 ### 受け入れ条件
