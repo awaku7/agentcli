@@ -7,6 +7,7 @@ not produce localized user-facing messages; callers translate structured errors.
 from .client import MCPClient
 from .protocol import MCPProtocolInfo, MCPProtocolMode, detect_protocol_mode
 from .stateless_http import build_protocol_headers, validate_protocol_headers
+from .stateless_transport import StatelessHTTPClient
 
 __all__ = [
     "MCPClient",
@@ -15,4 +16,5 @@ __all__ = [
     "detect_protocol_mode",
     "build_protocol_headers",
     "validate_protocol_headers",
+    "StatelessHTTPClient",
 ]
