@@ -1,0 +1,150 @@
+"""Shared MCP client wrapper.
+
+This module deliberately has no localization. Public tools translate the
+structured errors and protocol information returned here.
+"""
+
+from __future__ import annotations
+
+import os
+from contextlib import AsyncExitStack
+from typing import Any
+
+from .errors import MCPTransportError, MCPUnsupportedError
+from .protocol import MCPProtocolInfo, detect_protocol_mode
+
+try:
+    from mcp import ClientSession
+    from mcp.client.stdio import StdioServerParameters, stdio_client
+    from mcp.client.streamable_http import streamable_http_client
+except ImportError:  # pragma: no cover - exercised only in minimal installs
+    from .._pip_auto import install_with_status
+
+    if not install_with_status("mcp"):
+        raise
+    from mcp import ClientSession
+    from mcp.client.stdio import StdioServerParameters, stdio_client
+    from mcp.client.streamable_http import streamable_http_client
+
+
+class MCPClient:
+    """Shared client for the currently supported MCP transports."""
+
+    def __init__(
+        self,
+        *,
+        url: str | None = None,
+        headers: dict[str, str] | None = None,
+        command: str | None = None,
+        args: list[str] | None = None,
+        env: dict[str, str] | None = None,
+        protocol_mode: str = "auto",
+    ) -> None:
+        self.url = url
+        self.headers = headers or {}
+        self.command = command or ""
+        self.args = args or []
+        self.env = env or {}
+        self.requested_mode = protocol_mode
+        self.session: Any = None
+        self.initialize_result: Any = None
+        self.protocol_info: MCPProtocolInfo | None = None
+        self._stack = AsyncExitStack()
+        self._http_client: Any = None
+
+    async def __aenter__(self) -> "MCPClient":
+        try:
+            if self.command and not self.url:
+                params = StdioServerParameters(
+                    command=self.command,
+                    args=self.args,
+                    env={**os.environ, **self.env},
+                )
+                read, write = await self._stack.enter_async_context(
+                    stdio_client(params)
+                )
+            elif self.url:
+                endpoint = (
+                    self.url
+                    if self.url.endswith("/mcp")
+                    else self.url.rstrip("/") + "/mcp"
+                )
+                if self.headers:
+                    import httpx
+
+                    self._http_client = httpx.AsyncClient(headers=self.headers)
+                read, write, get_session_id = await self._stack.enter_async_context(
+                    streamable_http_client(endpoint, http_client=self._http_client)
+                )
+                self.url = endpoint
+                self._session_id = get_session_id()
+            else:
+                raise MCPTransportError(
+                    "MCP_ENDPOINT_MISSING", "connect", {"transport": "unknown"}
+                )
+
+            self.session = await self._stack.enter_async_context(
+                ClientSession(read, write)
+            )
+            if self.requested_mode == "stateless":
+                raise MCPUnsupportedError(
+                    "MCP_STATELESS_SDK_UNSUPPORTED",
+                    "connect",
+                    {"requested_mode": "stateless"},
+                )
+            self.initialize_result = await self.session.initialize()
+            self.protocol_info = detect_protocol_mode(
+                requested_mode=self.requested_mode,
+                protocol_version=self._protocol_version(),
+                session_id=getattr(self, "_session_id", None),
+                initialize_required=True,
+            )
+            return self
+        except MCPTransportError:
+            await self._stack.aclose()
+            raise
+        except MCPUnsupportedError:
+            await self._stack.aclose()
+            raise
+        except Exception as exc:
+            await self._stack.aclose()
+            raise MCPTransportError(
+                "MCP_CONNECT_FAILED", "connect", {"error": str(exc)}
+            ) from exc
+
+    async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
+        await self._stack.aclose()
+        if self._http_client is not None:
+            await self._http_client.aclose()
+
+    def _protocol_version(self) -> str | None:
+        result = self.initialize_result
+        if isinstance(result, dict):
+            value = result.get("protocolVersion") or result.get("protocol_version")
+            return str(value) if value else None
+        value = getattr(result, "protocolVersion", None) or getattr(
+            result, "protocol_version", None
+        )
+        return str(value) if value else None
+
+    async def list_tools(self) -> Any:
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "tools/list")
+        try:
+            return await self.session.list_tools()
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_LIST_TOOLS_FAILED", "tools/list", {"error": str(exc)}
+            ) from exc
+
+    async def call_tool(self, name: str, arguments: dict[str, Any]) -> Any:
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "tools/call")
+        try:
+            return await self.session.call_tool(name, arguments)
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_CALL_TOOL_FAILED",
+                "tools/call",
+                {"tool_name": name, "error": str(exc)},
+            ) from exc

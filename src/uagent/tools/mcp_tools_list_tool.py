@@ -11,18 +11,7 @@ from dataclasses import asdict, is_dataclass
 from ..env_utils import env_get
 from typing import Any
 
-try:
-    from mcp import ClientSession
-    from mcp.client.streamable_http import streamable_http_client
-    from mcp.client.stdio import stdio_client, StdioServerParameters
-except ImportError:
-    from .._pip_auto import install_with_status as _install_mcp
-
-    if not _install_mcp("mcp"):
-        raise
-    from mcp import ClientSession
-    from mcp.client.streamable_http import streamable_http_client
-    from mcp.client.stdio import stdio_client, StdioServerParameters
+from ..mcp.client import MCPClient
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path
@@ -133,32 +122,6 @@ def _to_jsonable(value: Any) -> Any:
     return str(value)
 
 
-async def _get_tools_from_session(read, write):
-    async with ClientSession(read, write) as session:
-        init_result = await session.initialize()
-        tools_result = await session.list_tools()
-
-        tools = []
-        if hasattr(tools_result, "tools"):
-            for t in tools_result.tools:
-                tools.append(
-                    {
-                        "name": t.name,
-                        "description": t.description,
-                        "inputSchema": _to_jsonable(
-                            t.inputSchema
-                            if hasattr(t, "inputSchema")
-                            else getattr(t, "input_schema", {})
-                        ),
-                    }
-                )
-
-        return {
-            "initialize": _to_jsonable(init_result),
-            "tools_list": {"tools": tools},
-        }
-
-
 def _resolve_http_headers(raw: Any) -> dict[str, str]:
     """Build HTTP headers for MCP streamable HTTP.
 
@@ -187,44 +150,52 @@ def _resolve_http_headers(raw: Any) -> dict[str, str]:
 async def _mcp_tools_list_http(
     url: str, headers: dict[str, str] | None = None
 ) -> dict[str, Any]:
-    mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
-    http_client = None
-    if headers:
-        try:
-            import httpx
-        except ImportError:
-            from .._pip_auto import install_with_status as _install_httpx
-
-            if not _install_httpx("httpx"):
-                raise
-            import httpx
-
-        http_client = httpx.AsyncClient(headers=headers)
-    try:
-        async with streamable_http_client(mcp_url, http_client=http_client) as (
-            read,
-            write,
-            session_id,
-        ):
-            result = await _get_tools_from_session(read, write)
-            result["url"] = mcp_url
-            return result
-    finally:
-        if http_client is not None:
-            await http_client.aclose()
+    async with MCPClient(url=url, headers=headers or {}) as client:
+        tools_result = await client.list_tools()
+        tools = []
+        for tool in getattr(tools_result, "tools", []) or []:
+            tools.append(
+                {
+                    "name": tool.name,
+                    "description": tool.description,
+                    "inputSchema": _to_jsonable(
+                        getattr(tool, "inputSchema", None)
+                        or getattr(tool, "input_schema", {})
+                    ),
+                }
+            )
+        return {
+            "url": client.url,
+            "initialize": _to_jsonable(client.initialize_result),
+            "protocol": _to_jsonable(client.protocol_info),
+            "tools_list": {"tools": tools},
+        }
 
 
 async def _mcp_tools_list_stdio(
     command: str, args: list[str], env: dict[str, str]
 ) -> dict[str, Any]:
-    server_params = StdioServerParameters(
-        command=command, args=args, env={**os.environ, **(env or {})}
-    )
-    async with stdio_client(server_params) as (read, write):
-        result = await _get_tools_from_session(read, write)
-        result["command"] = command
-        result["args"] = args
-        return result
+    async with MCPClient(command=command, args=args, env=env) as client:
+        tools_result = await client.list_tools()
+        tools = []
+        for tool in getattr(tools_result, "tools", []) or []:
+            tools.append(
+                {
+                    "name": tool.name,
+                    "description": tool.description,
+                    "inputSchema": _to_jsonable(
+                        getattr(tool, "inputSchema", None)
+                        or getattr(tool, "input_schema", {})
+                    ),
+                }
+            )
+        return {
+            "command": command,
+            "args": args,
+            "initialize": _to_jsonable(client.initialize_result),
+            "protocol": _to_jsonable(client.protocol_info),
+            "tools_list": {"tools": tools},
+        }
 
 
 def run_tool(args: dict[str, Any]) -> str:
