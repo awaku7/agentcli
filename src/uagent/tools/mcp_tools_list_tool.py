@@ -165,14 +165,32 @@ async def _mcp_tools_list_http(
         url=url, headers=headers or {}, protocol_mode=protocol_mode
     ) as client:
         tools_result = await client.list_tools()
+        raw_tools = (
+            getattr(tools_result, "tools", [])
+            or (
+                tools_result.get("result", {}).get("tools", [])
+                if isinstance(tools_result, dict)
+                else []
+            )
+        )
         tools = []
-        for tool in getattr(tools_result, "tools", []) or []:
+        for tool in raw_tools or []:
             tools.append(
                 {
-                    "name": tool.name,
-                    "description": tool.description,
+                    "name": (
+                        tool.get("name") if isinstance(tool, dict) else tool.name
+                    ),
+                    "description": (
+                        tool.get("description")
+                        if isinstance(tool, dict)
+                        else tool.description
+                    ),
                     "inputSchema": _to_jsonable(
-                        getattr(tool, "inputSchema", None)
+                        (
+                            tool.get("inputSchema") or tool.get("input_schema", {})
+                        )
+                        if isinstance(tool, dict)
+                        else getattr(tool, "inputSchema", None)
                         or getattr(tool, "input_schema", {})
                     ),
                 }
@@ -195,14 +213,32 @@ async def _mcp_tools_list_stdio(
         command=command, args=args, env=env, protocol_mode=protocol_mode
     ) as client:
         tools_result = await client.list_tools()
+        raw_tools = (
+            getattr(tools_result, "tools", [])
+            or (
+                tools_result.get("result", {}).get("tools", [])
+                if isinstance(tools_result, dict)
+                else []
+            )
+        )
         tools = []
-        for tool in getattr(tools_result, "tools", []) or []:
+        for tool in raw_tools or []:
             tools.append(
                 {
-                    "name": tool.name,
-                    "description": tool.description,
+                    "name": (
+                        tool.get("name") if isinstance(tool, dict) else tool.name
+                    ),
+                    "description": (
+                        tool.get("description")
+                        if isinstance(tool, dict)
+                        else tool.description
+                    ),
                     "inputSchema": _to_jsonable(
-                        getattr(tool, "inputSchema", None)
+                        (
+                            tool.get("inputSchema") or tool.get("input_schema", {})
+                        )
+                        if isinstance(tool, dict)
+                        else getattr(tool, "inputSchema", None)
                         or getattr(tool, "input_schema", {})
                     ),
                 }

@@ -80,9 +80,9 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | `tools/call` | 実装済み |
 | HTTP headers | 実装済み。認証・カスタムheaders |
 | 環境変数展開 | 実装済み。`env:VAR` / `${VAR}` |
-| Stateless MCP 2026-07-28 | 未検証 |
+| Stateless MCP 2026-07-28 | 部分実装。明示`stateless`時のtools/list / tools/call |
 | Legacy / Stateless自動判定 | 未実装 |
-| `Mcp-Method` / `Mcp-Name` | 未実装 |
+| `Mcp-Method` / `Mcp-Name` | 明示Stateless Adapterで実装。自動経路は未接続 |
 | `server/discover` | 未実装 |
 | Resources公開経路 | 未実装 |
 | Prompts公開経路 | 未実装 |

@@ -12,6 +12,7 @@ from typing import Any
 
 from .errors import MCPTransportError, MCPUnsupportedError
 from .protocol import MCPProtocolInfo, detect_protocol_mode
+from .stateless_transport import StatelessHTTPClient
 
 try:
     from mcp import ClientSession
@@ -51,9 +52,29 @@ class MCPClient:
         self.protocol_info: MCPProtocolInfo | None = None
         self._stack = AsyncExitStack()
         self._http_client: Any = None
+        self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
         try:
+            if self.requested_mode == "stateless":
+                if not self.url or self.command:
+                    raise MCPUnsupportedError(
+                        "MCP_STATELESS_HTTP_REQUIRED",
+                        "connect",
+                        {"transport": "stdio" if self.command else "unknown"},
+                    )
+                self._stateless_client = StatelessHTTPClient(
+                    self.url,
+                    headers=self.headers,
+                )
+                await self._stateless_client.__aenter__()
+                self.url = self._stateless_client.url
+                self.protocol_info = detect_protocol_mode(
+                    requested_mode="stateless",
+                    protocol_version=self._stateless_client.protocol_version,
+                )
+                return self
+
             if self.command and not self.url:
                 params = StdioServerParameters(
                     command=self.command,
@@ -113,9 +134,13 @@ class MCPClient:
             ) from exc
 
     async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
+        if self._stateless_client is not None:
+            await self._stateless_client.__aexit__(exc_type, exc, tb)
+            self._stateless_client = None
         await self._stack.aclose()
         if self._http_client is not None:
             await self._http_client.aclose()
+            self._http_client = None
 
     def _protocol_version(self) -> str | None:
         result = self.initialize_result
@@ -128,6 +153,8 @@ class MCPClient:
         return str(value) if value else None
 
     async def list_tools(self) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.list_tools()
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "tools/list")
         try:
@@ -138,6 +165,8 @@ class MCPClient:
             ) from exc
 
     async def call_tool(self, name: str, arguments: dict[str, Any]) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.call_tool(name, arguments)
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "tools/call")
         try:
