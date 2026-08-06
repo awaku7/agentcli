@@ -142,7 +142,7 @@ def _text_to_value(text: str, template: Any) -> Any:
         parts = text.split("\n")
         # If translator collapsed/expanded lines, pad/trim to template length.
         if len(parts) < len(template):
-            parts = parts + [""] * (len(template) - len(parts))
+            parts = parts + list(template[len(parts) :])
         elif len(parts) > len(template):
             # Keep extras joined into last element rather than dropping content.
             head = parts[: len(template) - 1]
@@ -178,6 +178,8 @@ def _is_missing_or_stale(
         return False
     if isinstance(en_val, list) and isinstance(cur_val, list):
         if len(cur_val) != len(en_val):
+            return True
+        if any(not isinstance(item, str) or not item.strip() for item in cur_val):
             return True
         if skip_same_as_en and cur_val == en_val:
             return True
@@ -629,6 +631,8 @@ def cmd_extract(args: argparse.Namespace) -> int:
         only_missing=not args.force,
         only_existing_lang=not args.add_lang,
     )
+    if args.keys_set:
+        units = [u for u in units if u.key in args.keys_set]
     if not units:
         print("[extract] nothing to do")
         return 0
@@ -721,6 +725,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Optional comma-separated tool names (e.g. translate_text,file_grep)",
     )
+    p.add_argument(
+        "--keys",
+        default="",
+        help="Optional comma-separated translation keys (e.g. x_search_terms)",
+    )
     p.add_argument("--source-lang", default="en", help="Source language (default en)")
     p.add_argument(
         "--force",
@@ -770,6 +779,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     args.tools_set = _parse_tools(args.tools)
+    args.keys_set = _parse_tools(args.keys)
     args.langs_list = _parse_langs(args.langs)
 
     if args.command != "status" and not args.langs_list:

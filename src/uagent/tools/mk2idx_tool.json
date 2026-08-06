@@ -34,13 +34,13 @@
     "err.invalid_section": "خطأ: يجب أن يكون القسم بين 1 و{count}.",
     "err.parse_error": "خطأ في التحليل Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "اقرأ Makefile",
+      "Makefile Index",
+      "اصنع قائمة الأهداف",
+      "makefile parser",
+      "GNU اصنع الأهداف",
+      "Makefile section",
+      "mk2idx"
     ]
   },
   "bn": {
@@ -56,13 +56,13 @@
     "err.invalid_section": "ত্রুটি: বিভাগ 1 এবং {count} এর মধ্যে হতে হবে৷",
     "err.parse_error": "পার্সিং ত্রুটি Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "মেকফাইল পড়ুন",
+      "মেকফাইল ইনডেক্স করুন",
+      "লক্ষ্য তালিকা তৈরি করুন",
+      "মেকফাইল পার্সার",
+      "GNU লক্ষ্য করুন",
+      "মেকফাইল বিভাগসমূহ",
+      "mk2idx"
     ]
   },
   "cs": {
@@ -78,13 +78,13 @@
     "err.invalid_section": "Chyba: sekce musí být mezi 1 a {count}.",
     "err.parse_error": "Chyba při analýze Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "číst Makefile",
+      "Makefile index",
+      "vytvořit seznam cílů",
+      "analyzátor makefile",
+      "GNU Make targets",
+      "Makefile sekce",
+      "mk2idx"
     ]
   },
   "da": {
@@ -100,13 +100,13 @@
     "err.invalid_section": "Fejl: Sektionen skal være mellem 1 og {count}.",
     "err.parse_error": "Fejl ved parsing af Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "læs Makefile",
+      "Makefile index",
+      "lave målliste",
+      "makefile parser",
+      "GNU Lave mål",
+      "Makefile sektioner",
+      "mk2idx"
     ]
   },
   "de": {
@@ -122,13 +122,13 @@
     "err.invalid_section": "Fehler: Abschnitt muss zwischen 1 und {count} liegen.",
     "err.parse_error": "Fehler beim Parsen von Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Lesen Sie Makefile",
+      "Makefile-Index",
+      "Make-Zielliste",
+      "Makefile-Parser",
+      "GNU Make-Ziele",
+      "Makefile-Abschnitte",
+      "mk2idx"
     ]
   },
   "el": {
@@ -144,13 +144,13 @@
     "err.invalid_section": "Σφάλμα: η ενότητα πρέπει να είναι μεταξύ 1 και {count}.",
     "err.parse_error": "Σφάλμα ανάλυσης Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "διαβάστε Makefile",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "es": {
@@ -166,13 +166,13 @@
     "err.invalid_section": "Error: la sección debe estar entre 1 y {count}.",
     "err.parse_error": "Error al analizar Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "leer Makefile",
+      "Índice de Makefile",
+      "hacer lista de objetivos",
+      "analizador de archivos make",
+      "GNU Hacer objetivos",
+      "Secciones de Makefile",
+      "mk2idx"
     ]
   },
   "fa": {
@@ -188,13 +188,13 @@
     "err.invalid_section": "خطا: بخش باید بین 1 و {count} باشد.",
     "err.parse_error": "خطا در تجزیه Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "خواندن Makefile",
+      "Makefile Index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "fi": {
@@ -210,13 +210,13 @@
     "err.invalid_section": "Virhe: osion on oltava välillä 1 - {count}.",
     "err.parse_error": "Virhe jäsennettäessä Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "lue Makefile",
+      "Makefile-hakemisto",
+      "make kohdeluettelo",
+      "makefile-parser",
+      "GNU Tee kohteet",
+      "Makefile-osiot",
+      "mk2idx"
     ]
   },
   "fil": {
@@ -232,13 +232,13 @@
     "err.invalid_section": "Error: ang seksyon ay dapat nasa pagitan ng 1 at {count}.",
     "err.parse_error": "Error sa pag-parse ng Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "basahin ang Makefile",
+      "Makefile index",
+      "gumawa ng listahan ng target",
+      "makefile parser",
+      "GNU Make target",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "fr": {
@@ -254,13 +254,13 @@
     "err.invalid_section": "Erreur : la section doit être comprise entre 1 et {count}.",
     "err.parse_error": "Erreur lors de l'analyse de Makefile : {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "lire Makefile",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make cibles",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "he": {
@@ -276,13 +276,13 @@
     "err.invalid_section": "שגיאה: הקטע חייב להיות בין 1 ל-{count}.",
     "err.parse_error": "שגיאה בניתוח Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "קרא את Makefile",
+      "Makefile index",
+      "makefile index",
+      "makefile parser",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections\nmk2idx"
     ]
   },
   "hi": {
@@ -298,13 +298,13 @@
     "err.invalid_section": "त्रुटि: अनुभाग 1 और {count} के बीच होना चाहिए।",
     "err.parse_error": "पार्स करने में त्रुटि Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "मेकफ़ाइल पढ़ें",
+      "मेकफ़ाइल इंडेक्स",
+      "लक्ष्य सूची बनाएं",
+      "मेकफ़ाइल पार्सर",
+      "जीएनयू लक्ष्य बनाएं",
+      "मेकफ़ाइल अनुभाग",
+      "mk2idx"
     ]
   },
   "hu": {
@@ -320,13 +320,13 @@
     "err.invalid_section": "Hiba: a szakasznak 1 és {count} között kell lennie.",
     "err.parse_error": "Error parsing Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "olvassa el a Makefile-t",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "id": {
@@ -342,13 +342,13 @@
     "err.invalid_section": "Kesalahan: bagian harus antara 1 dan {count}.",
     "err.parse_error": "Kesalahan penguraian Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "baca Makefile",
+      "Indeks Makefile",
+      "buat daftar target",
+      "pengurai makefile",
+      "GNU Buat target",
+      "Bagian Makefile",
+      "mk2idx"
     ]
   },
   "it": {
@@ -364,13 +364,13 @@
     "err.invalid_section": "Errore: la sezione deve essere compresa tra 1 e {count}.",
     "err.parse_error": "Errore durante l'analisi di Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "leggi Makefile",
+      "indice Makefile",
+      "crea elenco destinazioni",
+      "parser makefile",
+      "GNU Crea destinazioni",
+      "sezioni Makefile",
+      "mk2idx"
     ]
   },
   "ja": {
@@ -386,13 +386,13 @@
     "err.invalid_section": "エラー: セクションは 1 ～ {count} の間である必要があります。",
     "err.parse_error": "Makefile の解析エラー: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Makefile の読み取り",
+      "Makefile インデックス",
+      "make ターゲット リスト",
+      "makefile パーサー",
+      "GNU Make ターゲット",
+      "Makefile セクション",
+      "mk2idx"
     ]
   },
   "ko": {
@@ -408,13 +408,13 @@
     "err.invalid_section": "오류: 섹션은 1에서 {count} 사이여야 합니다.",
     "err.parse_error": "Makefile 구문 분석 중 오류 발생: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Makefile",
+      "Makefile 인덱스",
+      "make 대상 목록",
+      "makefile 파서",
+      "GNU Make 대상",
+      "Makefile 섹션",
+      "mk2idx 읽기"
     ]
   },
   "mn": {
@@ -430,13 +430,13 @@
     "err.invalid_section": "Алдаа: хэсэг 1-ээс {count} хооронд байх ёстой.",
     "err.parse_error": "Makefile задлан шинжлэхэд алдаа гарлаа: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "унших",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "mr": {
@@ -452,13 +452,13 @@
     "err.invalid_section": "त्रुटी: विभाग 1 आणि {count} च्या दरम्यान असणे आवश्यक आहे.",
     "err.parse_error": "Makefile पार्स करताना त्रुटी: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "मेकफाइल वाचा",
+      "मेकफाइल इंडेक्स",
+      "लक्ष्य सूची बनवा",
+      "मेकफाइल पार्सर",
+      "GNU लक्ष्य बनवा",
+      "मेकफाइल विभाग",
+      "mk2idx"
     ]
   },
   "ms": {
@@ -474,13 +474,13 @@
     "err.invalid_section": "Ralat: bahagian mestilah antara 1 dan {count}.",
     "err.parse_error": "Ralat menghuraikan Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "baca Makefile",
+      "Makefile index",
+      "buat senarai sasaran",
+      "makefile parser",
+      "GNU Make target",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "nb": {
@@ -496,13 +496,13 @@
     "err.invalid_section": "Feil: delen må være mellom 1 og {count}.",
     "err.parse_error": "Feil ved analyse av Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "les Makefile",
+      "Makefile-indeksen",
+      "lage målliste",
+      "makefil-parser",
+      "GNU Lage mål",
+      "Makefile-seksjoner",
+      "mk2idx"
     ]
   },
   "nl": {
@@ -518,13 +518,13 @@
     "err.invalid_section": "Fout: sectie moet tussen 1 en {count} liggen.",
     "err.parse_error": "Fout bij het parseren van Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "lees Makefile",
+      "Makefile index",
+      "maak doellijst",
+      "makefile parser",
+      "GNU Maak doelen",
+      "Makefile secties",
+      "mk2idx"
     ]
   },
   "nn": {
@@ -540,13 +540,13 @@
     "err.invalid_section": "Feil: delen må være mellom 1 og {count}.",
     "err.parse_error": "Feil ved tolking av Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "les MakefileMakefile indexmake target listmakefile parserGNU Make targets makefile sectionsmk2idx",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "pl": {
@@ -562,13 +562,13 @@
     "err.invalid_section": "Błąd: sekcja musi należeć do zakresu od 1 do {count}.",
     "err.parse_error": "Błąd podczas analizy Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "czytaj Makefile",
+      "Indeks Makefile",
+      "make lista docelowa",
+      "parser makefile",
+      "GNU Make targets",
+      "sekcje Makefile",
+      "mk2idx"
     ]
   },
   "pt": {
@@ -584,13 +584,13 @@
     "err.invalid_section": "Erro: a seção deve estar entre 1 e {count}.",
     "err.parse_error": "Erro ao analisar Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "leia Makefile",
+      "Makefile index",
+      "make lista de destinos",
+      "makefile parser",
+      "GNU Make target",
+      "Makefile seções",
+      "mk2idx"
     ]
   },
   "pt_BR": {
@@ -606,13 +606,13 @@
     "err.invalid_section": "Erro: a seção deve estar entre 1 e {count}.",
     "err.parse_error": "Erro ao analisar Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "leia Makefile",
+      "Makefile index",
+      "make lista de destinos",
+      "makefile parser",
+      "GNU Make target",
+      "Makefile seções",
+      "mk2idx"
     ]
   },
   "ro": {
@@ -628,13 +628,13 @@
     "err.invalid_section": "Eroare: secțiunea trebuie să fie între 1 și {count}.",
     "err.parse_error": "Eroare la analizarea Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "citește Makefile",
+      "Makefile index",
+      "realize list target",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "ru": {
@@ -650,13 +650,13 @@
     "err.invalid_section": "Ошибка: значение раздела должно быть между 1 и {count}.",
     "err.parse_error": "Ошибка анализа Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "читать Makefile",
+      "Индекс Makefile",
+      "создать целевой список",
+      "анализатор makefile",
+      "GNU Make Targets",
+      "Разделы Makefile",
+      "mk2idx"
     ]
   },
   "sv": {
@@ -672,13 +672,13 @@
     "err.invalid_section": "Fel: avsnittet måste vara mellan 1 och {count}.",
     "err.parse_error": "Fel vid analys av Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "läs Makefile",
+      "Makefile index",
+      "gör mållista",
+      "makefilparser",
+      "GNU Gör mål",
+      "Makefilsektioner",
+      "mk2idx"
     ]
   },
   "sw": {
@@ -694,13 +694,13 @@
     "err.invalid_section": "Hitilafu: sehemu lazima iwe kati ya 1 na {count}.",
     "err.parse_error": "Hitilafu katika kuchanganua Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "soma Faili ya Faili",
+      "Faharasa ya Faili",
+      "tengeneza orodha lengwa",
+      "fanya kichanganuzi cha faili",
+      "GNU Tengeneza shabaha",
+      "Tengeneza sehemu",
+      "mk2idx"
     ]
   },
   "th": {
@@ -716,13 +716,13 @@
     "err.invalid_section": "ข้อผิดพลาด: ส่วนต้องอยู่ระหว่าง 1 ถึง {count}",
     "err.parse_error": "เกิดข้อผิดพลาดในการแยกวิเคราะห์ Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "อ่าน Makefile",
+      "ดัชนี Makefile",
+      "สร้างรายการเป้าหมาย",
+      "ตัวแยกวิเคราะห์ makefile",
+      "GNU สร้างเป้าหมาย",
+      "ส่วน Makefile",
+      "mk2idx"
     ]
   },
   "tr": {
@@ -738,13 +738,13 @@
     "err.invalid_section": "Hata: bölüm 1 ile {count} arasında olmalıdır.",
     "err.parse_error": "Makefile ayrıştırılırken hata oluştu: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Makefile oku",
+      "Makefile indeksi",
+      "hedef listesi oluştur",
+      "makefile ayrıştırıcısı",
+      "GNU Hedefler yap",
+      "Makefile bölümleri",
+      "mk2idx"
     ]
   },
   "uk": {
@@ -760,13 +760,13 @@
     "err.invalid_section": "Помилка: розділ має бути від 1 до {count}.",
     "err.parse_error": "Помилка аналізу Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "читати Makefile",
+      "Makefile index",
+      "make target list",
+      "makefile parser",
+      "GNU Make targets",
+      "Makefile sections",
+      "mk2idx"
     ]
   },
   "vi": {
@@ -782,13 +782,13 @@
     "err.invalid_section": "Lỗi: phần phải nằm trong khoảng từ 1 đến {count}.",
     "err.parse_error": "Lỗi phân tích cú pháp Makefile: {e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "đọc Makefile",
+      "Chỉ mục Makefile",
+      "tạo danh sách mục tiêu",
+      "trình phân tích cú pháp makefile",
+      "GNU Tạo mục tiêu",
+      "Các phần Makefile",
+      "mk2idx"
     ]
   },
   "zh_CN": {
@@ -804,13 +804,13 @@
     "err.invalid_section": "错误：部分必须介于 1 和 {count} 之间。",
     "err.parse_error": "解析 Makefile 时出错：{e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "读取 Makefile",
+      "Makefile 索引",
+      "make 目标列表",
+      "makefile 解析器",
+      "GNU Make 目标",
+      "Makefile 部分",
+      "mk2idx"
     ]
   },
   "zh_TW": {
@@ -826,13 +826,13 @@
     "err.invalid_section": "錯誤：部分必須介於 1 和 {count} 之間。",
     "err.parse_error": "解析 Makefile 時發生錯誤：{e}",
     "x_search_terms": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "讀取 Makefile",
+      "Makefile 索引",
+      "make 目標清單",
+      "makefile 解析器",
+      "GNU Make 目標",
+      "Makefile 部分",
+      "mk2idx"
     ]
   }
 }
