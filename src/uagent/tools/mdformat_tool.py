@@ -5,6 +5,7 @@
 Purpose:
 - Check Markdown file formatting using mdformat.
 - Optionally auto-fix formatting issues.
+- Preserve and format YAML front matter, including Agent Skill files.
 
 Usage:
 - Specify a glob pattern (e.g. "docs/**/*.md") or a single file path.
@@ -74,8 +75,8 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-def _ensure_mdformat() -> None:
-    """Auto-install mdformat and mdformat-frontmatter if missing."""
+def _ensure_mdformat() -> bool:
+    """Auto-install mdformat and return whether front matter support is ready."""
     from .._pip_auto import install_with_status as _install
 
     # Ensure mdformat itself
@@ -99,10 +100,25 @@ def _ensure_mdformat() -> None:
             ),
         )
 
+    try:
+        import mdformat_frontmatter  # noqa: F401
+    except ImportError:
+        return False
+    return True
+
+
+def _has_yaml_frontmatter(filepath: str) -> bool:
+    """Return whether a Markdown file starts with YAML front matter."""
+    try:
+        with open(filepath, "r", encoding="utf-8-sig") as handle:
+            return handle.readline().strip() == "---"
+    except (OSError, UnicodeError):
+        return False
+
 
 def run_tool(args: dict[str, Any]) -> str:
-    """Run mdformat on Markdown files matching the given path pattern."""
-    _ensure_mdformat()
+    """Run mdformat, preserving YAML front matter when present."""
+    frontmatter_ready = _ensure_mdformat()
     path_pattern: str = str(args.get("path") or "**/*.md")
     fix_mode: bool = bool(args.get("fix", False))
 
@@ -129,6 +145,8 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     # Build mdformat command
+    # mdformat discovers installed extension plugins through entry points.
+    # The front-matter plugin is ensured above so SKILL.md YAML is preserved.
     cmd = [sys.executable, "-m", "mdformat"]
     if not fix_mode:
         cmd.append("--check")
@@ -143,6 +161,17 @@ def run_tool(args: dict[str, Any]) -> str:
 
     for filepath in sorted(matched_files):
         try:
+            if _has_yaml_frontmatter(filepath) and not frontmatter_ready:
+                failed_count += 1
+                results.append(
+                    _msg(
+                        "result.frontmatter_missing",
+                        "[{label}] {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+                        label=_error_label,
+                        path=filepath,
+                    )
+                )
+                continue
             proc = subprocess.run(
                 cmd + [filepath],
                 capture_output=True,
