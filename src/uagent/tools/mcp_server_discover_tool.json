@@ -1,0 +1,496 @@
+{
+  "en": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ja": {
+    "tool.description": "MCPサーバーのプロトコルバージョン、機能、識別情報を検出します。",
+    "param.url.description": "MCPエンドポイントURL。server_name指定時は省略できます。",
+    "param.server_name.description": "設定済みMCPサーバー名。",
+    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy、またはstateless。",
+    "err.endpoint_required": "エラー: MCPエンドポイントが必要です。",
+    "err.request": "エラー: MCP検出に失敗しました: %(error)s",
+    "x_search_terms": [
+      "MCP検出",
+      "MCPサーバー検出",
+      "MCP機能"
+    ]
+  },
+  "es": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "fr": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "de": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "it": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "pt": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ru": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ko": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ar": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "bn": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "cs": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "el": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "fa": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "fi": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "he": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "hi": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "hu": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "id": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "mn": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "mr": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "nb": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "nl": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "nn": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "pl": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ro": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "sv": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "sw": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "th": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "tr": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "uk": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "vi": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "da": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "fil": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  },
+  "ms": {
+    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP discovery failed: %(error)s",
+    "x_search_terms": [
+      "mcp discover",
+      "mcp server discovery",
+      "mcp capabilities"
+    ]
+  }
+}

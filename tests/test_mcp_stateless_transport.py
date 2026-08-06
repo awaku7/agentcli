@@ -10,6 +10,32 @@ from uagent.tools.mcp.errors import MCPProtocolError
 from uagent.tools.mcp.stateless_transport import StatelessHTTPClient
 
 
+def test_stateless_discover_sends_client_metadata() -> None:
+    async def scenario() -> None:
+        captured: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["headers"] = dict(request.headers)
+            captured["body"] = json.loads(request.read())
+            return httpx.Response(
+                200,
+                json={"jsonrpc": "2.0", "id": 1, "result": {"supportedVersions": ["2026-07-28"]}},
+            )
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            async with StatelessHTTPClient(
+                "https://example.test", http_client=http_client
+            ) as client:
+                await client.discover()
+
+        assert captured["headers"]["mcp-method"] == "server/discover"
+        assert captured["body"]["method"] == "server/discover"
+        assert captured["body"]["params"]["_meta"]["io.modelcontextprotocol/clientInfo"]["name"] == "uag"
+
+    asyncio.run(scenario())
+
+
 def test_stateless_list_tools_sends_protocol_headers() -> None:
     async def scenario() -> None:
         captured: dict[str, object] = {}

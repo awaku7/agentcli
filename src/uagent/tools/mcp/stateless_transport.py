@@ -100,6 +100,21 @@ class StatelessHTTPClient:
             )
         return payload
 
+    async def discover(self) -> dict[str, Any]:
+        return await self.request(
+            "server/discover",
+            params={
+                "_meta": {
+                    "io.modelcontextprotocol/protocolVersion": self.protocol_version,
+                    "io.modelcontextprotocol/clientInfo": {
+                        "name": "uag",
+                        "version": "1.0",
+                    },
+                    "io.modelcontextprotocol/clientCapabilities": {},
+                }
+            },
+        )
+
     async def list_tools(self) -> dict[str, Any]:
         return await self.request("tools/list")
 

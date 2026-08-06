@@ -90,7 +90,7 @@ class MCPClient:
                 )
                 try:
                     await probe.__aenter__()
-                    await probe.list_tools()
+                    await probe.discover()
                 except Exception as exc:
                     await probe.__aexit__(None, None, None)
                     if not _is_legacy_probe_rejection(exc):
@@ -228,6 +228,13 @@ class MCPClient:
                 "tools/call",
                 {"tool_name": name, "error": str(exc)},
             ) from exc
+
+    async def discover(self) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.discover()
+        raise MCPUnsupportedError(
+            "MCP_DISCOVER_UNSUPPORTED", "server/discover", {"mode": "legacy"}
+        )
 
     async def list_resources(self) -> Any:
         if self._stateless_client is not None:
