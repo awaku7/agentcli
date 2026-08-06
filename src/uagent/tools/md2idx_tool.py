@@ -114,7 +114,22 @@ class _MdSectionParser:
         self.text = text
         self.lines = text.split("\n")
         self.headings: list[dict[str, Any]] = []
+        self._frontmatter_end = self._find_frontmatter_end()
         self._parse()
+
+    def _find_frontmatter_end(self) -> int | None:
+        """Return the closing line of YAML front matter, if present.
+
+        Agent Skills use a YAML block delimited by ``---`` at the beginning
+        of ``SKILL.md``. Without this guard, the closing delimiter can be
+        misread as a setext heading underline.
+        """
+        if not self.lines or self.lines[0].lstrip("\ufeff").strip() != "---":
+            return None
+        for index in range(1, len(self.lines)):
+            if self.lines[index].strip() in {"---", "..."}:
+                return index
+        return None
 
     @staticmethod
     def _is_fence_line(line: str, fence_stack: list[str]) -> bool:
@@ -162,6 +177,11 @@ class _MdSectionParser:
         prev_line_nonempty: bool = False
 
         for i, line in enumerate(self.lines):
+            if self._frontmatter_end is not None and i <= self._frontmatter_end:
+                prev_line = line
+                prev_line_nonempty = False
+                continue
+
             stripped = line.strip()
 
             if self._is_fence_line(line, fence_stack):
