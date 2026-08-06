@@ -20,6 +20,7 @@ from .protocol import (
     detect_protocol_mode,
     select_protocol_version,
 )
+from .http_client import MCPHTTPConfig, create_mcp_http_client
 from .oauth_provider import MCPOAuthHTTPXAuth
 from .stateless_transport import StatelessHTTPClient
 
@@ -68,6 +69,7 @@ class MCPClient:
         protocol_mode: str = "auto",
         http_client: Any = None,
         authorization_provider: Any = None,
+        http_config: MCPHTTPConfig | None = None,
     ) -> None:
         self.url = url
         self.headers = headers or {}
@@ -82,6 +84,7 @@ class MCPClient:
         self._http_client: Any = http_client
         self._owns_http_client = http_client is None
         self.authorization_provider = authorization_provider
+        self.http_config = http_config
         self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
@@ -157,17 +160,16 @@ class MCPClient:
                     else self.url.rstrip("/") + "/mcp"
                 )
                 if (
-                    (self.headers or self.authorization_provider)
+                    (self.headers or self.authorization_provider or self.http_config)
                     and self._http_client is None
                 ):
-                    import httpx
-
                     auth = (
                         MCPOAuthHTTPXAuth(self.authorization_provider)
                         if self.authorization_provider is not None
                         else None
                     )
-                    self._http_client = httpx.AsyncClient(
+                    self._http_client = create_mcp_http_client(
+                        self.http_config,
                         headers=self.headers,
                         auth=auth,
                     )
