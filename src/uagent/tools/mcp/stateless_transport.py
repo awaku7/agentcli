@@ -8,7 +8,7 @@ stateless header routing. It has no localization and no hidden session state.
 from __future__ import annotations
 
 import itertools
-from typing import Any
+from typing import Any, Awaitable, Callable
 
 from .errors import MCPProtocolError, MCPTransportError
 from .stateless_http import build_protocol_headers
@@ -24,11 +24,13 @@ class StatelessHTTPClient:
         headers: dict[str, str] | None = None,
         protocol_version: str = "2026-07-28",
         http_client: Any = None,
+        authorization_provider: Callable[[bool], Awaitable[str]] | None = None,
     ) -> None:
         self.url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
         self.headers = headers or {}
         self.protocol_version = protocol_version
         self.http_client = http_client
+        self.authorization_provider = authorization_provider
         self._owns_client = http_client is None
         self._ids = itertools.count(1)
 
@@ -69,14 +71,23 @@ class StatelessHTTPClient:
         request_headers.setdefault("Accept", "application/json")
         request_headers.setdefault("Content-Type", "application/json")
 
-        try:
-            response = await self.http_client.post(
-                self.url, json=body, headers=request_headers
-            )
-        except Exception as exc:
-            raise MCPTransportError(
-                "MCP_HTTP_REQUEST_FAILED", method, {"error": str(exc)}
-            ) from exc
+        if self.authorization_provider is not None:
+            request_headers["Authorization"] = await self.authorization_provider(False)
+
+        async def send() -> Any:
+            try:
+                return await self.http_client.post(
+                    self.url, json=body, headers=request_headers
+                )
+            except Exception as exc:
+                raise MCPTransportError(
+                    "MCP_HTTP_REQUEST_FAILED", method, {"error": str(exc)}
+                ) from exc
+
+        response = await send()
+        if response.status_code == 401 and self.authorization_provider is not None:
+            request_headers["Authorization"] = await self.authorization_provider(True)
+            response = await send()
 
         if response.status_code >= 400:
             raise MCPTransportError(

@@ -66,6 +66,7 @@ class MCPClient:
         env: dict[str, str] | None = None,
         protocol_mode: str = "auto",
         http_client: Any = None,
+        authorization_provider: Any = None,
     ) -> None:
         self.url = url
         self.headers = headers or {}
@@ -79,6 +80,7 @@ class MCPClient:
         self._stack = AsyncExitStack()
         self._http_client: Any = http_client
         self._owns_http_client = http_client is None
+        self.authorization_provider = authorization_provider
         self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
@@ -91,6 +93,7 @@ class MCPClient:
                     self.url,
                     headers=self.headers,
                     http_client=self._http_client,
+                    authorization_provider=self.authorization_provider,
                 )
                 try:
                     await probe.__aenter__()
@@ -127,6 +130,7 @@ class MCPClient:
                     self.url,
                     headers=self.headers,
                     http_client=self._http_client,
+                    authorization_provider=self.authorization_provider,
                 )
                 await self._stateless_client.__aenter__()
                 self.url = self._stateless_client.url

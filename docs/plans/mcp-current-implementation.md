@@ -90,7 +90,7 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | MRTR | 未実装 |
 | Tasks extension | 未実装 |
 | list cache hints | 未実装 |
-| MCP Authorization / CIMD / issuer検証 | Metadata・issuer検証・PKCE・code/refresh exchange・暗号化Token Store・認可セッションを実装。browser callback/CIMDは未実装 |
+| MCP Authorization / CIMD / issuer検証 | Metadata・issuer検証・PKCE・code/refresh exchange・暗号化Token Store・認可セッション・stateless HTTPのBearer付与/401 refreshを実装。browser callback/CIMDは未実装 |
 
 ## I18N境界
 
