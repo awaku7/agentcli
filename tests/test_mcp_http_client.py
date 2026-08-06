@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from uagent.tools.mcp.http_client import MCPHTTPConfig, create_mcp_http_client
+from uagent.tools.mcp.stateless_transport import StatelessHTTPClient
 
 
 def test_http_config_rejects_invalid_proxy() -> None:
@@ -32,3 +33,9 @@ def test_create_http_client_applies_explicit_settings() -> None:
         import asyncio
 
         asyncio.run(client.aclose())
+
+
+def test_stateless_transport_retains_http_config() -> None:
+    config = MCPHTTPConfig(proxy_url="http://proxy.example:8080")
+    transport = StatelessHTTPClient("https://mcp.example/mcp", http_config=config)
+    assert transport.http_config is config

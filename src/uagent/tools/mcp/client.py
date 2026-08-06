@@ -98,6 +98,7 @@ class MCPClient:
                     headers=self.headers,
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
+                    http_config=self.http_config,
                 )
                 try:
                     await probe.__aenter__()
@@ -135,6 +136,7 @@ class MCPClient:
                     headers=self.headers,
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
+                    http_config=self.http_config,
                 )
                 await self._stateless_client.__aenter__()
                 self.url = self._stateless_client.url

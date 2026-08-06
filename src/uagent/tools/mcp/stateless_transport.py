@@ -11,6 +11,7 @@ import itertools
 from typing import Any, Awaitable, Callable
 
 from .errors import MCPProtocolError, MCPTransportError
+from .http_client import MCPHTTPConfig, create_mcp_http_client
 from .stateless_http import build_protocol_headers
 
 
@@ -25,20 +26,20 @@ class StatelessHTTPClient:
         protocol_version: str = "2026-07-28",
         http_client: Any = None,
         authorization_provider: Callable[[bool], Awaitable[str]] | None = None,
+        http_config: MCPHTTPConfig | None = None,
     ) -> None:
         self.url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
         self.headers = headers or {}
         self.protocol_version = protocol_version
         self.http_client = http_client
         self.authorization_provider = authorization_provider
+        self.http_config = http_config
         self._owns_client = http_client is None
         self._ids = itertools.count(1)
 
     async def __aenter__(self) -> "StatelessHTTPClient":
         if self.http_client is None:
-            import httpx
-
-            self.http_client = httpx.AsyncClient()
+            self.http_client = create_mcp_http_client(self.http_config)
         return self
 
     async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
