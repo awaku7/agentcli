@@ -11,7 +11,7 @@ from dataclasses import asdict, is_dataclass
 from ..env_utils import env_get
 from typing import Any
 
-from ..mcp.client import MCPClient
+from .mcp.client import MCPClient
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path

@@ -94,7 +94,7 @@ from mcp.client.stdio import stdio_client, StdioServerParameters
 MCPの内部protocol処理は、公開ツールのI18Nから分離する。
 
 ```text
-src/uagent/mcp/
+src/uagent/tools/mcp/
   → I18Nなし。構造化エラーコードとprotocol値のみ
 
 src/uagent/tools/mcp_tools_list_tool.py
@@ -117,10 +117,10 @@ src/uagent/tools/handle_mcp_v2_tool.py
 既存の2ツールを削除・再実装せず、以下の共通層へ接続処理を移す。
 
 ```text
-src/uagent/mcp/client.py
-src/uagent/mcp/protocol.py
-src/uagent/mcp/capabilities.py
-src/uagent/mcp/errors.py
+src/uagent/tools/mcp/client.py
+src/uagent/tools/mcp/protocol.py
+src/uagent/tools/mcp/capabilities.py
+src/uagent/tools/mcp/errors.py
 ```
 
 移行対象：

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from uagent.mcp.protocol import MCPProtocolMode, detect_protocol_mode
+from uagent.tools.mcp.protocol import MCPProtocolMode, detect_protocol_mode
 
 
 def test_explicit_legacy_mode_requires_session() -> None:
