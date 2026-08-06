@@ -79,7 +79,7 @@
 
 - Status: planned
 - Priority: P1
-- Source: [`docs/n8n/README.md`](../n8n/README.md)
+- Source: [`n8n-integration.md`](n8n-integration.md)
 
 ### Phase 0
 

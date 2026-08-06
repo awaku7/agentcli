@@ -2,7 +2,7 @@
 
 - Status: planned
 - Priority: P1
-- Source: [`docs/n8n/README.md`](../n8n/README.md)
+- Source: [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md)
 
 ## Phase 0
 
