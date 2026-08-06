@@ -58,6 +58,30 @@ class MCPClient:
 
     async def __aenter__(self) -> "MCPClient":
         try:
+            if self.requested_mode == "auto" and self.url and not self.command:
+                # Probe read-only tools/list first. Legacy servers commonly
+                # reject this pre-initialize request, in which case the SDK
+                # initialize path below remains the compatibility fallback.
+                probe = StatelessHTTPClient(
+                    self.url,
+                    headers=self.headers,
+                    http_client=self._http_client,
+                )
+                try:
+                    await probe.__aenter__()
+                    await probe.list_tools()
+                except Exception:
+                    await probe.__aexit__(None, None, None)
+                else:
+                    self._stateless_client = probe
+                    self.url = probe.url
+                    self.protocol_info = detect_protocol_mode(
+                        requested_mode="auto",
+                        protocol_version=probe.protocol_version,
+                        stateless_probe_succeeded=True,
+                    )
+                    return self
+
             if self.requested_mode == "stateless":
                 if not self.url or self.command:
                     raise MCPUnsupportedError(

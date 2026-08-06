@@ -48,6 +48,39 @@ def test_mcp_client_stateless_routes_list_and_call_without_session() -> None:
     asyncio.run(scenario())
 
 
+def test_mcp_client_auto_detects_stateless_http() -> None:
+    async def scenario() -> None:
+        calls = 0
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            nonlocal calls
+            calls += 1
+            return httpx.Response(
+                200,
+                json={
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "result": {"tools": []},
+                },
+            )
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            async with MCPClient(
+                url="https://example.test",
+                protocol_mode="auto",
+                http_client=http_client,
+            ) as client:
+                assert client.protocol_info is not None
+                assert client.protocol_info.mode.value == "stateless"
+                assert client.protocol_info.detection_reason == "stateless_probe"
+                await client.list_tools()
+
+        assert calls == 2
+
+    asyncio.run(scenario())
+
+
 def test_mcp_client_rejects_stateless_stdio() -> None:
     async def scenario() -> None:
         with pytest.raises(MCPUnsupportedError) as exc_info:
