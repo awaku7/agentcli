@@ -48,3 +48,4 @@
 - [`n8n-integration.md`](n8n-integration.md): n8n連携
 - [`ucp-ap2.md`](ucp-ap2.md): UCP / AP2未対応機能
 - [`auto-pilot-interrupt.md`](auto-pilot-interrupt.md): Auto-Pilot / Interrupt残課題
+- [`mcp-2026-07-28.md`](mcp-2026-07-28.md): MCP 2026-07-28仕様対応

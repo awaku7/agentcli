@@ -98,6 +98,27 @@
 - correlation IDとmax depthによるループ防止
 - MCPで不足する場合のみ専用`n8n_*`ツールを設計する
 
+## P1: [MCP 2026-07-28仕様対応](mcp-2026-07-28.md)
+
+- Status: planned
+- Priority: P1
+- Source: [`mcp-2026-07-28.md`](mcp-2026-07-28.md)
+
+### 対象
+
+- Stateless MCPコアとlegacy session方式の互換接続
+- `MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name`ヘッダー
+- `server/discover`と一覧結果のcache hints
+- MRTRの`input_required` / `inputResponses`
+- Tasks拡張、認証issuer検証、CIMD移行
+- 旧HTTP+SSE、Roots、Sampling、Loggingの移行方針
+
+### 前提
+
+- 現行のMCP / stdio / Streamable HTTP接続を壊さない。
+- 仕様バージョン、実装能力、legacy fallbackを明示的に管理する。
+- MCPのstateless化とuag内部のA2Aタスク状態を混同しない。
+
 ## P1: [UCP / AP2の未対応機能](ucp-ap2.md)
 
 - Status: planned
