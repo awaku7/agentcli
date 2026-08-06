@@ -1,18 +1,10 @@
 {
-  "type": "function",
-  "tool_genre": "index",
-  "function": {
-    "name": "msbuild2idx",
-    "description": "Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "path": {"type": "string", "description": "Path to an MSBuild XML file."},
-        "mode": {"type": "string", "enum": ["index", "section"]},
-        "section": {"type": "integer", "description": "Section number for section mode."}
-      },
-      "required": ["path", "mode"],
-      "additionalProperties": false
-    }
+  "en": {
+    "tool.description": "Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
+    "err.path_required": "Error: 'path' is required."
+  },
+  "ja": {
+    "tool.description": "MSBuild XMLプロジェクト（.csproj、.fsproj、.vbproj、.vcxproj、.props、.targetsなど）を番号付きインデックスまたは指定セクションとして解析します。",
+    "err.path_required": "エラー: 'path' は必須です。"
   }
 }

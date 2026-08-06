@@ -5,14 +5,20 @@ import re
 import xml.etree.ElementTree as ET
 from typing import Any
 
+from .i18n_helper import make_tool_translator
 from .index_tool_helpers import read_index_source, resolve_index_path
+
+_ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
     "tool_genre": "index",
     "function": {
         "name": "sln2idx",
-        "description": "Parse Visual Studio .sln and .slnx solution files into a numbered index or a selected section.",
+        "description": _(
+            "tool.description",
+            default="Parse Visual Studio .sln and .slnx solution files into a numbered index or a selected section.",
+        ),
         "x_parallel_safe": True,
         "parameters": {
             "type": "object",
@@ -96,7 +102,7 @@ def _sln_sections(source: str, *, slnx: bool = False) -> list[tuple[str, str]]:
 def run_tool(args: dict[str, Any]) -> str:
     path = str(args.get("path", ""))
     if not path:
-        return "Error: 'path' is required."
+        return _("err.path_required", default="Error: 'path' is required.")
     try:
         safe = resolve_index_path(path)
         if not os.path.isfile(safe):

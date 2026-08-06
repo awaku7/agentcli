@@ -14,7 +14,10 @@ TOOL_SPEC = {
     "tool_genre": "index",
     "function": {
         "name": "msbuild2idx",
-        "description": "Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
+        "description": _(
+            "tool.description",
+            default="Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
+        ),
         "x_parallel_safe": True,
         "parameters": {
             "type": "object",
@@ -94,7 +97,7 @@ def _sections(root: ET.Element) -> list[tuple[str, str]]:
 def run_tool(args: dict[str, Any]) -> str:
     path = str(args.get("path", ""))
     if not path:
-        return "Error: 'path' is required."
+        return _("err.path_required", default="Error: 'path' is required.")
     try:
         safe = resolve_index_path(path)
         if not os.path.isfile(safe):
