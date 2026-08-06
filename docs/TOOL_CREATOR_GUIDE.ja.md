@@ -1,21 +1,21 @@
-# Tool Creator Guide
+# ツール作成者ガイド
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+このガイドでは、**uag 自体を変更することなく**、独自のツールを uag に追加する方法について説明します。
+ツールを uag ソース ツリーに直接追加する場合は、 
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)を参照してください。
 
 ---
 
-## Table of Contents
-
+## 目次
 0. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+
+1. [基本ツール構造](#1-基本ツール構造)
+2. [Python ツールの作成](#2-creating-a-python-tool)
+3. [Rust + Python ツールの作成](#3-creating-a-rust--python-tool)
+4. [TOOL_SPEC リファレンス](#4-tool_spec-reference)
+5. [国際化 (i18n)](#5-国際化-i18n)
+6. [テストとデバッグ](#6-テストとデバッグ)
+7. [参考例](#7-参考例)
 
 ---
 
@@ -73,17 +73,18 @@ Then place `<name>_tool.py` and the built `.pyd` in your
 
 ---
 
-## 1. Basic Tool Structure
 
-A tool consists of the following elements:
+## 1. ツールの基本構造
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+ツールは次の要素で構成されます。
 
-### Minimal Python Tool
+|要素 |必須 |説明 |
+|----------|----------|-------------|
+| `ツールスペック` |はい |ツールの名前、説明、パラメータを定義する辞書 |
+| `run_tool(args)` |はい |ツールが呼び出されたときに実行される関数。 Args は辞書、return は文字列です。 |
+| i18n JSON |おすすめ |翻訳 JSON ファイル (同じベース名、`<name>_tool.json`) |
+
+### 最小限の Python ツール
 
 ```python
 # my_tool.py
@@ -114,14 +115,14 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Python ツールの作成
 
-### Steps
+###手順
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **`UAGENT_EXTERNAL_TOOLS_DIRS` 環境変数を設定します** (まだ設定されていない場合)
 
-   Example:
-   ```bash
+ 例:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
@@ -502,5 +503,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+複数のディレクトリは、`:` (Linux/macOS) または `;` (Windows) で区切ることができます。
+`UAGENT_EXTERNAL_TOOLS_DIR` (単数形) も下位互換性のためにサポートされています。
