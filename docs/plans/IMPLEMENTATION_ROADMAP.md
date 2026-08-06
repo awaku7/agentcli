@@ -14,7 +14,7 @@
 - **P1**: 高優先
 - **P2**: 中長期
 
-## P0: Responses API管理機能
+## P0: [Responses API管理機能](responses-api-management.md)
 
 - Status: planned
 - Priority: P0
@@ -46,7 +46,7 @@
 - APIキー、入力本文、秘密情報を状態へ保存しない。
 - OpenAI/Azure、非対応プロバイダ、異なるモデル、`:load`をテストする。
 
-## P1: Network Toolkitの運用品質向上
+## P1: [Network Toolkitの運用品質向上](network-toolkit.md)
 
 - Status: in-progress
 - Priority: P1
@@ -75,7 +75,7 @@
 - 検出結果にcategory、severity、confidence、evidenceを含める。
 - LLMへRaw packetやpayloadを既定で返さない。
 
-## P1: n8n連携の実証
+## P1: [n8n連携の実証](n8n-integration.md)
 
 - Status: planned
 - Priority: P1
@@ -98,7 +98,7 @@
 - correlation IDとmax depthによるループ防止
 - MCPで不足する場合のみ専用`n8n_*`ツールを設計する
 
-## P1: UCP / AP2の未対応機能
+## P1: [UCP / AP2の未対応機能](ucp-ap2.md)
 
 - Status: planned
 - Priority: P1
@@ -113,7 +113,7 @@
 
 実装前に、UCP仕様の対象バージョン、認証境界、ユーザー確認が必要な操作を確定する。
 
-## P1: Auto-Pilot / Interruptの残課題
+## P1: [Auto-Pilot / Interruptの残課題](auto-pilot-interrupt.md)
 
 - Status: planned
 - Priority: P1
