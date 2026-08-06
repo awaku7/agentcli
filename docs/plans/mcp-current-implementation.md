@@ -1,6 +1,6 @@
 # MCP現行実装棚卸し
 
-- Status: mostly complete（主要機能実装済み。実Proxy/TLS・分散refreshは残課題）
+- Status: mostly complete（主要機能実装済み。実Proxy/TLSは残課題）
 - Priority: P1
 - Related plan: [`mcp-2026-07-28.md`](mcp-2026-07-28.md)
 - Survey date: 2026-08-06
@@ -90,7 +90,7 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | MRTR | 未実装 |
 | Tasks extension | 未実装 |
 | list cache hints | 未実装 |
-| MCP Authorization / CIMD / issuer検証 | Metadata・issuer検証・PKCE・code/refresh exchange・暗号化Token Store・認可セッション・stateless/SDK HTTPのBearer付与/401 refresh・localhost callback listener・browser認可統合・CIMD取得/検証・Proxy/TLS設定・Token Store書き込みロックを実装。分散refresh・実Proxy/TLSは残課題 |
+| MCP Authorization / CIMD / issuer検証 | Metadata・issuer検証・PKCE・code/refresh exchange・暗号化Token Store・認可セッション・stateless/SDK HTTPのBearer付与/401 refresh・localhost callback listener・browser認可統合・CIMD取得/検証・Proxy/TLS設定・Token Store書き込みロック・分散refreshを実装。実Proxy/TLSは残課題 |
 
 ## 残課題（OAuth / Proxy / TLS）
 
@@ -120,7 +120,7 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 ### P2: OAuth実運用の追加検証
 
 - Authorization Serverでのrefresh token rotationを実環境相当で検証する。
-- 同時401発生時に、同一Provider内だけでなく別Provider・別プロセス間でもrefreshが一度だけ実行される仕組みを検討する。
+- 実Authorization Serverでrefresh token rotationと分散refreshの一度限り動作を検証する。
 - 外部注入された`http_client`にもOAuth auth hookを安全に適用できるAPIを整備する。
 - refresh token失効、scope変更、token endpointエラーを検証する。
 - SDK transportとStateless transportで認証ヘッダー・refresh挙動が一致することを確認する。
