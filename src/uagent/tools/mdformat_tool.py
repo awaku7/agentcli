@@ -328,9 +328,11 @@ def run_tool(args: dict[str, Any]) -> str:
         ok=ok_count,
         failed=failed_count,
     )
-    summary += (
-        f"; document_types={type_summary or 'none'}"
-        f"; agent_skill_invalid={skill_invalid_count}"
+    summary += _msg(
+        "result.summary_detail",
+        "; document_types={types}; agent_skill_invalid={skill_invalid}",
+        types=type_summary or "none",
+        skill_invalid=skill_invalid_count,
     )
 
     if failed_count == 0:

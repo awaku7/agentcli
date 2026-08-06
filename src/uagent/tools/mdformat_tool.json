@@ -25,7 +25,12 @@
     "label.ok": "OK",
     "label.fail": "FAIL",
     "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.error": "ERROR",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "ja": {
     "tool.description": "mdformat を使用して Markdown ファイルの形式を確認します。フォーマットの修正が必要なファイルを報告します。オプションで自動修正。",
@@ -53,7 +58,12 @@
     "label.ok": "OK",
     "label.fail": "失敗",
     "label.timeout": "タイムアウト",
-    "label.error": "エラー"
+    "label.error": "エラー",
+    "param.validate_skills.description": "SKILL.md を Agent Skills のフロントマター仕様に従って検証します。",
+    "param.strict_skills.description": "Agent Skills の検証警告をエラーとして扱います。",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML フロントマター対応がありません。mdformat-frontmatter をインストールしてください",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills の検証に失敗しました: {detail}",
+    "result.summary_detail": "; 文書種別={types}; Agent Skill無効={skill_invalid}"
   },
   "ar": {
     "tool.description": "تحقق من تنسيق ملف Markdown باستخدام mdformat. تقارير الملفات التي تحتاج إلى إصلاحات التنسيق. اختياريا الإصلاح التلقائي.",
@@ -81,7 +91,12 @@
     "label.ok": "حسنًا",
     "label.fail": "فشل",
     "label.timeout": "المهلة",
-    "label.error": "خطأ"
+    "label.error": "خطأ",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "bn": {
     "tool.description": "mdformat এর সাথে Markdown ফাইল ফরম্যাটিং চেক করুন। ফাইলগুলি রিপোর্ট করে যেগুলির ফর্ম্যাটিং সংশোধনের প্রয়োজন৷ ঐচ্ছিকভাবে অটো-ফিক্স।",
@@ -109,7 +124,12 @@
     "label.ok": "ঠিক আছে",
     "label.fail": "ব্যর্থ",
     "label.timeout": "টাইমআউট",
-    "label.error": "ত্রুটি"
+    "label.error": "ত্রুটি",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "cs": {
     "tool.description": "Zkontrolujte formátování souboru Markdown pomocí mdformat. Hlásí soubory, které vyžadují opravy formátování. Volitelně automatická oprava.",
@@ -137,7 +157,12 @@
     "label.ok": "OK",
     "label.fail": "SELHÁNÍ",
     "label.timeout": "ČASOVÝ LIMIT",
-    "label.error": "CHYBA"
+    "label.error": "CHYBA",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "de": {
     "tool.description": "Überprüfen Sie die Markdown-Dateiformatierung mit mdformat. Meldet Dateien, die Formatierungskorrekturen benötigen. Optional automatische Korrektur.",
@@ -165,7 +190,12 @@
     "label.ok": "Okay",
     "label.fail": "FEHLER",
     "label.timeout": "AUSZEIT",
-    "label.error": "FEHLER"
+    "label.error": "FEHLER",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "el": {
     "tool.description": "Ελέγξτε τη μορφοποίηση αρχείου Markdown με mdformat. Αναφέρει αρχεία που χρειάζονται επιδιορθώσεις μορφοποίησης. Προαιρετικά αυτόματη επιδιόρθωση.",
@@ -193,7 +223,12 @@
     "label.ok": "ΟΚ",
     "label.fail": "ΑΠΟΤΥΧΙΑ",
     "label.timeout": "TIME OUT",
-    "label.error": "ΣΦΑΛΜΑ"
+    "label.error": "ΣΦΑΛΜΑ",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "es": {
     "tool.description": "Verifique el formato del archivo Markdown con mdformat. Informa archivos que necesitan correcciones de formato. Opcionalmente reparación automática.",
@@ -221,7 +256,12 @@
     "label.ok": "bien",
     "label.fail": "FALLO",
     "label.timeout": "TIEMPO DE ESPERA",
-    "label.error": "ERROR"
+    "label.error": "ERROR",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "fa": {
     "tool.description": "قالب بندی فایل Markdown را با mdformat بررسی کنید. فایل هایی را گزارش می کند که نیاز به اصلاح فرمت دارند. به صورت اختیاری رفع خودکار.",
@@ -249,7 +289,12 @@
     "label.ok": "باشه",
     "label.fail": "شکست",
     "label.timeout": "تایم اوت",
-    "label.error": "خطا"
+    "label.error": "خطا",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "fi": {
     "tool.description": "Tarkista Markdown-tiedoston muotoilu mdformatilla. Raportoi tiedostot, jotka tarvitsevat muotoilukorjauksia. Valinnaisesti automaattinen korjaus.",
@@ -277,7 +322,12 @@
     "label.ok": "OK",
     "label.fail": "EPÄONNISTUI",
     "label.timeout": "AIKAKATKAISU",
-    "label.error": "VIRHE"
+    "label.error": "VIRHE",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "fr": {
     "tool.description": "Vérifiez le formatage du fichier Markdown avec mdformat. Signale les fichiers qui nécessitent des correctifs de formatage. En option, correction automatique.",
@@ -305,7 +355,12 @@
     "label.ok": "D'accord",
     "label.fail": "ÉCHEC",
     "label.timeout": "DÉLAI",
-    "label.error": "ERREUR"
+    "label.error": "ERREUR",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "he": {
     "tool.description": "סמן את עיצוב הקובץ Markdown עם mdformat. מדווח על קבצים שזקוקים לתיקוני עיצוב. אופציונלי תיקון אוטומטי.",
@@ -333,7 +388,12 @@
     "label.ok": "בסדר",
     "label.fail": "נכשל",
     "label.timeout": "פסק זמן",
-    "label.error": "שגיאה"
+    "label.error": "שגיאה",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "hi": {
     "tool.description": "एमडीफॉर्मेट के साथ मार्कडाउन फ़ाइल फ़ॉर्मेटिंग की जाँच करें। उन फ़ाइलों की रिपोर्ट करता है जिन्हें फ़ॉर्मेटिंग सुधार की आवश्यकता होती है। वैकल्पिक रूप से स्वतः ठीक करें.",
@@ -361,7 +421,12 @@
     "label.ok": "ठीक है",
     "label.fail": "असफल",
     "label.timeout": "समयबाह्य",
-    "label.error": "गलती"
+    "label.error": "गलती",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "hu": {
     "tool.description": "Ellenőrizze a Markdown fájl formázását az mdformat segítségével. A formázási javításokat igénylő fájlokat jelenti. Opcionálisan automatikus javítás.",
@@ -389,7 +454,12 @@
     "label.ok": "OK",
     "label.fail": "SIKERTELEN",
     "label.timeout": "IDŐTÚL",
-    "label.error": "HIBA"
+    "label.error": "HIBA",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "id": {
     "tool.description": "Periksa pemformatan file Markdown dengan mdformat. Melaporkan file yang memerlukan perbaikan format. Opsional, perbaiki otomatis.",
@@ -417,7 +487,12 @@
     "label.ok": "Oke",
     "label.fail": "GAGAL",
     "label.timeout": "WAKTU HABIS",
-    "label.error": "KESALAHAN"
+    "label.error": "KESALAHAN",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "it": {
     "tool.description": "Controlla la formattazione del file Markdown con mdformat. Segnala i file che necessitano di correzioni di formattazione. Facoltativamente correzione automatica.",
@@ -445,7 +520,12 @@
     "label.ok": "Va bene",
     "label.fail": "FALLIMENTO",
     "label.timeout": "TEMPO SCADUTO",
-    "label.error": "ERRORE"
+    "label.error": "ERRORE",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "ko": {
     "tool.description": "mdformat으로 마크다운 파일 형식을 확인하세요. 형식 수정이 필요한 파일을 보고합니다. 선택적으로 자동 수정.",
@@ -473,7 +553,12 @@
     "label.ok": "알았어",
     "label.fail": "실패",
     "label.timeout": "시간 초과",
-    "label.error": "오류"
+    "label.error": "오류",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "mn": {
     "tool.description": "Markdown файлын форматыг mdformat ашиглан шалгана уу. Форматыг засах шаардлагатай файлуудыг мэдээлдэг. Сонголтоор автоматаар засах боломжтой.",
@@ -501,7 +586,12 @@
     "label.ok": "OK",
     "label.fail": "БҮТЭЭЛГҮЙ",
     "label.timeout": "ХУГАЦААНЫ ХУГАЦАА",
-    "label.error": "АЛДАА"
+    "label.error": "АЛДАА",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "mr": {
     "tool.description": "mdformat सह मार्कडाउन फाइल फॉरमॅटिंग तपासा. स्वरूपण निराकरणे आवश्यक असलेल्या फाइल्सचा अहवाल देते. वैकल्पिकरित्या स्वयं-निराकरण.",
@@ -529,7 +619,12 @@
     "label.ok": "ठीक आहे",
     "label.fail": "अयशस्वी",
     "label.timeout": "कालबाह्य",
-    "label.error": "एरर"
+    "label.error": "एरर",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "nb": {
     "tool.description": "Sjekk Markdown-filformatering med mdformat. Rapporterer filer som trenger formateringsfikser. Eventuelt autofiks.",
@@ -557,7 +652,12 @@
     "label.ok": "OK",
     "label.fail": "FEIL",
     "label.timeout": "TIDSAVBRUDD",
-    "label.error": "FEIL"
+    "label.error": "FEIL",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "nl": {
     "tool.description": "Controleer de Markdown-bestandsopmaak met mdformat. Rapporteert bestanden waarvoor opmaakcorrecties nodig zijn. Optioneel autofix.",
@@ -585,7 +685,12 @@
     "label.ok": "Oké",
     "label.fail": "FOUT",
     "label.timeout": "TIME-OUT",
-    "label.error": "FOUT"
+    "label.error": "FOUT",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "pl": {
     "tool.description": "Sprawdź formatowanie pliku Markdown za pomocą mdformat. Raportuje pliki wymagające poprawek formatowania. Opcjonalnie automatyczna naprawa.",
@@ -613,7 +718,12 @@
     "label.ok": "OK",
     "label.fail": "NIEPOwodzenie",
     "label.timeout": "LIMIT CZASU",
-    "label.error": "BŁĄD"
+    "label.error": "BŁĄD",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "pt": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
@@ -641,7 +751,12 @@
     "label.ok": "OK",
     "label.fail": "FALHA",
     "label.timeout": "TEMPO LIMITE",
-    "label.error": "ERRO"
+    "label.error": "ERRO",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "pt_BR": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
@@ -669,7 +784,12 @@
     "label.ok": "OK",
     "label.fail": "FALHA",
     "label.timeout": "TEMPO LIMITE",
-    "label.error": "ERRO"
+    "label.error": "ERRO",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "ro": {
     "tool.description": "Verificați formatarea fișierului Markdown cu mdformat. Raportează fișierele care necesită remedieri de formatare. Opțional, remediere automată.",
@@ -697,7 +817,12 @@
     "label.ok": "OK",
     "label.fail": "EȘEC",
     "label.timeout": "PAUZĂ",
-    "label.error": "EROARE"
+    "label.error": "EROARE",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "ru": {
     "tool.description": "Проверьте форматирование файла Markdown с помощью mdformat. Сообщает о файлах, требующих исправления форматирования. Опционально автоисправление.",
@@ -725,7 +850,12 @@
     "label.ok": "ОК",
     "label.fail": "НЕУДАЧА",
     "label.timeout": "ТАЙМ-АУТ",
-    "label.error": "ОШИБКА"
+    "label.error": "ОШИБКА",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "sv": {
     "tool.description": "Kontrollera Markdown-filformatering med mdformat. Rapporterar filer som behöver formateringsfixar. Valfritt autofix.",
@@ -753,7 +883,12 @@
     "label.ok": "OK",
     "label.fail": "MISSLYCKADES",
     "label.timeout": "Tidsgräns",
-    "label.error": "FEL"
+    "label.error": "FEL",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "sw": {
     "tool.description": "Angalia umbizo la faili la Markdown na mdformat. Huripoti faili zinazohitaji marekebisho ya umbizo. Hiari kurekebisha kiotomatiki.",
@@ -781,7 +916,12 @@
     "label.ok": "Sawa",
     "label.fail": "KUSHINDWA",
     "label.timeout": "MUDA UMEISHA",
-    "label.error": "HITILAFU"
+    "label.error": "HITILAFU",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "th": {
     "tool.description": "ตรวจสอบการจัดรูปแบบไฟล์ Markdown ด้วย mdformat รายงานไฟล์ที่ต้องการแก้ไขการจัดรูปแบบ เลือกแก้ไขอัตโนมัติได้",
@@ -809,7 +949,12 @@
     "label.ok": "ตกลง",
     "label.fail": "ล้มเหลว",
     "label.timeout": "หมดเวลา",
-    "label.error": "ข้อผิดพลาด"
+    "label.error": "ข้อผิดพลาด",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "tr": {
     "tool.description": "Markdown dosya formatını mdformat ile kontrol edin. Biçimlendirme düzeltmeleri gerektiren dosyaları bildirir. İsteğe bağlı olarak otomatik düzeltme.",
@@ -837,7 +982,12 @@
     "label.ok": "tamam",
     "label.fail": "BAŞARISIZ",
     "label.timeout": "ZAMAN AŞIMI",
-    "label.error": "HATA"
+    "label.error": "HATA",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "uk": {
     "tool.description": "Перевірте форматування файлу Markdown за допомогою mdformat. Повідомляє про файли, які потребують виправлення форматування. За бажанням автовиправлення.",
@@ -865,7 +1015,12 @@
     "label.ok": "добре",
     "label.fail": "НЕВДАЧА",
     "label.timeout": "ТАЙМ-АУТ",
-    "label.error": "ПОМИЛКА"
+    "label.error": "ПОМИЛКА",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "vi": {
     "tool.description": "Kiểm tra định dạng tệp Markdown bằng mdformat. Báo cáo các tập tin cần sửa định dạng. Tùy chọn tự động sửa lỗi.",
@@ -893,7 +1048,12 @@
     "label.ok": "được rồi",
     "label.fail": "THẤT BẠI",
     "label.timeout": "HẾT THỜI GIAN",
-    "label.error": "LỖI"
+    "label.error": "LỖI",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "zh_CN": {
     "tool.description": "使用 mdformat 检查 Markdown 文件格式。报告需要格式修复的文件。可选择自动修复。",
@@ -921,7 +1081,12 @@
     "label.ok": "好的",
     "label.fail": "失败",
     "label.timeout": "超时",
-    "label.error": "错误"
+    "label.error": "错误",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "zh_TW": {
     "tool.description": "使用 mdformat 檢查 Markdown 文件格式。報告需要格式修復的文件。可選擇自動修復。",
@@ -949,7 +1114,12 @@
     "label.ok": "好的",
     "label.fail": "失敗",
     "label.timeout": "超時",
-    "label.error": "錯誤"
+    "label.error": "錯誤",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "fil": {
     "tool.description": "Suriin ang Markdown file formatting gamit ang mdformat. Nag-uulat ng mga file na nangangailangan ng mga pag-aayos sa pag-format. Opsyonal na auto-fix.",
@@ -977,7 +1147,12 @@
     "label.ok": "OK",
     "label.fail": "FAIL",
     "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.error": "ERROR",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "ms": {
     "tool.description": "Semak pemformatan fail Markdown dengan mdformat. Melaporkan fail yang memerlukan pembetulan pemformatan. Secara pilihan, pembetulan automatik.",
@@ -1005,7 +1180,12 @@
     "label.ok": "OK",
     "label.fail": "GAGAL",
     "label.timeout": "TIMEOUT",
-    "label.error": "RALAT"
+    "label.error": "RALAT",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "da": {
     "tool.description": "Tjek Markdown-filformatering med mdformat. Rapporterer filer, der har brug for formateringsrettelser. Eventuelt autofix.",
@@ -1033,7 +1213,12 @@
     "label.ok": "OK",
     "label.fail": "FEJL",
     "label.timeout": "TIMEOUT",
-    "label.error": "FEJL"
+    "label.error": "FEJL",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   },
   "nn": {
     "tool.description": "Sjekk Markdown-filformatering med mdformat. Rapporterer filer som trenger formateringsfikser. Eventuelt autofiks.",
@@ -1061,6 +1246,11 @@
     "label.ok": "OK",
     "label.fail": "FAIL",
     "label.timeout": "TIMEOUT",
-    "label.error": "FEIL"
+    "label.error": "FEIL",
+    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
+    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
+    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
+    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
+    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
   }
 }

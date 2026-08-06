@@ -388,12 +388,35 @@ def run_tool(args: dict[str, Any]) -> str:
             last=last,
             toc=toc,
         )
-        metadata_header = (
-            f"Document type: {metadata['document_type']}\n"
-            f"Front matter: {'detected' if metadata['frontmatter'] else 'none'}\n"
-            f"Agent Skills validation: {metadata['skill_validation']}\n"
-            f"Agent Skills details: {'; '.join(metadata.get('skill_errors', []) or metadata.get('skill_warnings', []) or []) or 'none'}\n"
-        )
+        metadata_header = chr(10).join(
+            [
+                _(
+                    "meta.document_type",
+                    default="Document type: {value}",
+                ).format(value=metadata["document_type"]),
+                _(
+                    "meta.frontmatter",
+                    default="Front matter: {value}",
+                ).format(
+                    value="detected" if metadata["frontmatter"] else "none"
+                ),
+                _(
+                    "meta.skill_validation",
+                    default="Agent Skills validation: {value}",
+                ).format(value=metadata["skill_validation"]),
+                _(
+                    "meta.skill_details",
+                    default="Agent Skills details: {value}",
+                ).format(
+                    value="; ".join(
+                        metadata.get("skill_errors", [])
+                        or metadata.get("skill_warnings", [])
+                        or []
+                    )
+                    or "none"
+                ),
+            ]
+        ) + chr(10)
         return metadata_header + index_output
 
     elif mode == "section":
