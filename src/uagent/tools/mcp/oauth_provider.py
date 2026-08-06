@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import time
 from typing import Any, Awaitable, Callable
 
@@ -29,6 +30,7 @@ class OAuthTokenProvider:
         self.token_endpoint = token_endpoint
         self.token_store = token_store
         self.http_client = http_client
+        self._refresh_lock = asyncio.Lock()
 
     async def authorization_header(self, force_refresh: bool = False) -> str:
         token = self.token_store.load(self.issuer, self.resource)
@@ -37,11 +39,16 @@ class OAuthTokenProvider:
                 "MCP_OAUTH_TOKEN_MISSING", "oauth/authorize", {"resource": self.resource}
             )
         if force_refresh or token.expired(int(time.time())):
-            if not token.refresh_token:
-                raise MCPTransportError(
-                    "MCP_OAUTH_REFRESH_TOKEN_MISSING", "oauth/refresh", {}
-                )
-            token = await self._refresh(token)
+            async with self._refresh_lock:
+                current = self.token_store.load(self.issuer, self.resource)
+                if current is not None and current.access_token != token.access_token:
+                    token = current
+                else:
+                    if not token.refresh_token:
+                        raise MCPTransportError(
+                            "MCP_OAUTH_REFRESH_TOKEN_MISSING", "oauth/refresh", {}
+                        )
+                    token = await self._refresh(token)
         return f"{token.token_type} {token.access_token}"
 
     async def _refresh(self, previous: StoredToken) -> StoredToken:

@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 from pathlib import Path
 
+
 import httpx
 
 from uagent.tools.mcp.oauth_provider import OAuthTokenProvider
@@ -76,5 +77,49 @@ def test_oauth_provider_refreshes_and_preserves_rotating_token(tmp_path: Path) -
             )
             assert await provider.authorization_header(True) == "Bearer new"
         assert store.load("issuer", "resource").refresh_token == "refresh-old"
+
+    asyncio.run(scenario())
+
+
+def test_oauth_provider_serializes_concurrent_refreshes(tmp_path: Path) -> None:
+    async def scenario() -> None:
+        store = TokenStore(
+            tmp_path / "tokens.json",
+            encrypt=lambda value: value[::-1],
+            decrypt=lambda value: value[::-1],
+        )
+        store.save(
+            "issuer",
+            "resource",
+            StoredToken("old", "Bearer", refresh_token="refresh-old"),
+        )
+        refresh_calls = 0
+
+        async def handler(request: httpx.Request) -> httpx.Response:
+            nonlocal refresh_calls
+            refresh_calls += 1
+            await asyncio.sleep(0)
+            return httpx.Response(
+                200,
+                json={"access_token": "new", "token_type": "Bearer", "expires_in": 60},
+            )
+
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(handler)
+        ) as client:
+            provider = OAuthTokenProvider(
+                issuer="issuer",
+                resource="resource",
+                client_id="client",
+                token_endpoint="https://auth.example/token",
+                token_store=store,
+                http_client=client,
+            )
+            headers = await asyncio.gather(
+                provider.authorization_header(True),
+                provider.authorization_header(True),
+            )
+        assert headers == ["Bearer new", "Bearer new"]
+        assert refresh_calls == 1
 
     asyncio.run(scenario())
