@@ -208,7 +208,7 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 外部の開発者も Rust ベースのツールを配布できます。`.pyd` をラッパー `.py` と同じ
 ディレクトリに配置し、`uagent.tools.rust_helper` の `load_rust_pyd()` を使用する
 だけで、ユーザーは追加の依存関係なしでツールを利用できます。詳細は
-[TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md) を参照してください。
+[TOOL_CREATOR_GUIDE.md](../TOOL_CREATOR_GUIDE.md) を参照してください。
 
 ### 🌐 i18n / L10n
 
@@ -246,7 +246,7 @@ uagは **あなたのマシンで、あなたの思い通りに動く、あな�
 
 uag用の新しいツールを作るのは簡単です。`TOOL_SPEC`と`run_tool()`を含む単一の`.py`ファイルを作成し、`UAGENT_EXTERNAL_TOOLS_DIR`に配置すれば、すぐに利用できます。Rust開発者は、ユーザーに追加の依存関係を要求しないビルド済み`.pyd`を配布できます。
 
-手順については[TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md)を参照してください。
+手順については[TOOL_CREATOR_GUIDE.md](../TOOL_CREATOR_GUIDE.md)を参照してください。
 
 ## 貢献する
 
