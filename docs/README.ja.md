@@ -122,7 +122,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **クラウドAPI** | `aws_api`、`gcp_api`、`azure_api` — AWS、Google Cloud、Azureの汎用API操作。書き込み操作には明示的な確認が必要 |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**29のソースコードナビゲーター（idxファミリ）** |
-| **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
+| **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 — [OAuth / Proxyガイド](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
 | **システム** | 環境変数、システム情報、時刻、日付計算、uuid_gen、slugify |
 | **ソースナビ** | **29のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
