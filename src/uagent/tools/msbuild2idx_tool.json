@@ -1,0 +1,18 @@
+{
+  "type": "function",
+  "tool_genre": "index",
+  "function": {
+    "name": "msbuild2idx",
+    "description": "Parse MSBuild XML project files such as .csproj, .fsproj, .vbproj, .vcxproj, .props, and .targets into a numbered index or a selected section.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {"type": "string", "description": "Path to an MSBuild XML file."},
+        "mode": {"type": "string", "enum": ["index", "section"]},
+        "section": {"type": "integer", "description": "Section number for section mode."}
+      },
+      "required": ["path", "mode"],
+      "additionalProperties": false
+    }
+  }
+}
