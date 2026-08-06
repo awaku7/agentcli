@@ -111,6 +111,15 @@ class MCPOAuthHTTPXAuth(httpx.Auth):
             yield request
 
 
+def attach_oauth_httpx_auth(http_client: Any, provider: "OAuthTokenProvider") -> Any:
+    """Attach OAuth auth to a caller-owned httpx client without overwriting auth."""
+    existing = getattr(http_client, "auth", None)
+    if existing is not None and not isinstance(existing, MCPOAuthHTTPXAuth):
+        raise ValueError("http_client already has a conflicting auth configuration")
+    http_client.auth = MCPOAuthHTTPXAuth(provider)
+    return http_client
+
+
 AuthorizationHeaderProvider = Callable[[bool], Awaitable[str]]
 
 
@@ -124,6 +133,7 @@ async def stored_token_authorization_header(
 __all__ = [
     "AuthorizationHeaderProvider",
     "MCPOAuthHTTPXAuth",
+    "attach_oauth_httpx_auth",
     "OAuthTokenProvider",
     "stored_token_authorization_header",
 ]

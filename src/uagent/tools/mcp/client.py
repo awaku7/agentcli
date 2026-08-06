@@ -21,7 +21,7 @@ from .protocol import (
     select_protocol_version,
 )
 from .http_client import MCPHTTPConfig, create_mcp_http_client
-from .oauth_provider import MCPOAuthHTTPXAuth
+from .oauth_provider import MCPOAuthHTTPXAuth, attach_oauth_httpx_auth
 from .stateless_transport import StatelessHTTPClient
 
 try:
@@ -162,9 +162,15 @@ class MCPClient:
                     else self.url.rstrip("/") + "/mcp"
                 )
                 if (
-                    (self.headers or self.authorization_provider or self.http_config)
-                    and self._http_client is None
+                    self._http_client is not None
+                    and self.authorization_provider is not None
                 ):
+                    attach_oauth_httpx_auth(
+                        self._http_client, self.authorization_provider
+                    )
+                if (
+                    self.headers or self.authorization_provider or self.http_config
+                ) and self._http_client is None:
                     auth = (
                         MCPOAuthHTTPXAuth(self.authorization_provider)
                         if self.authorization_provider is not None
@@ -288,7 +294,9 @@ class MCPClient:
             return await self.session.read_resource(uri)
         except Exception as exc:
             raise MCPTransportError(
-                "MCP_READ_RESOURCE_FAILED", "resources/read", {"uri": uri, "error": str(exc)}
+                "MCP_READ_RESOURCE_FAILED",
+                "resources/read",
+                {"uri": uri, "error": str(exc)},
             ) from exc
 
     async def list_prompts(self) -> Any:
@@ -314,5 +322,7 @@ class MCPClient:
             return await self.session.get_prompt(name, arguments=arguments)
         except Exception as exc:
             raise MCPTransportError(
-                "MCP_GET_PROMPT_FAILED", "prompts/get", {"name": name, "error": str(exc)}
+                "MCP_GET_PROMPT_FAILED",
+                "prompts/get",
+                {"name": name, "error": str(exc)},
             ) from exc
