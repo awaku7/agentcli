@@ -112,6 +112,14 @@ TOOL_SPEC: dict[str, Any] = {
                         default="The name of the tool to execute.",
                     ),
                 },
+                "protocol_mode": {
+                    "type": "string",
+                    "enum": ["auto", "legacy", "stateless"],
+                    "description": _(
+                        "param.protocol_mode.description",
+                        default="MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP.",
+                    ),
+                },
                 "args": {
                     "type": "object",
                     "additionalProperties": True,
@@ -128,10 +136,20 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 async def _call_mcp_stdio(
-    command: str, args: list[str], env: dict[str, str], name: str, argv: dict[str, Any]
+    command: str,
+    args: list[str],
+    env: dict[str, str],
+    name: str,
+    argv: dict[str, Any],
+    protocol_mode: str = "auto",
 ) -> str:
     try:
-        async with MCPClient(command=command, args=args, env=env) as client:
+        async with MCPClient(
+            command=command,
+            args=args,
+            env=env,
+            protocol_mode=protocol_mode,
+        ) as client:
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:
@@ -170,9 +188,14 @@ async def _call_mcp_http(
     name: str,
     argv: dict[str, Any],
     headers: dict[str, str] | None = None,
+    protocol_mode: str = "auto",
 ) -> str:
     try:
-        async with MCPClient(url=url, headers=headers or {}) as client:
+        async with MCPClient(
+            url=url,
+            headers=headers or {},
+            protocol_mode=protocol_mode,
+        ) as client:
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:
@@ -335,6 +358,12 @@ def run_tool(args: dict[str, Any]) -> str:
     url = args.get("url", "")
     name = args.get("tool_name")
     argv = args.get("args", {})
+    protocol_mode = str(args.get("protocol_mode") or "auto").strip().lower()
+    if protocol_mode not in {"auto", "legacy", "stateless"}:
+        return _json_out(
+            ok=False,
+            text="protocol_mode must be one of: auto, legacy, stateless",
+        )
 
     # Allow tool_arguments to be provided as a JSON string (some proxies/LLMs serialize objects).
     if argv is None:
@@ -391,6 +420,9 @@ def run_tool(args: dict[str, Any]) -> str:
                             cmd_args = s.get("args", [])
                             cmd_env = s.get("env", {})
                             http_headers = _resolve_http_headers(s.get("headers"))
+                            configured_mode = str(s.get("protocol_mode") or "").strip().lower()
+                            if configured_mode in {"auto", "legacy", "stateless"}:
+                                protocol_mode = configured_mode
                             found = True
                             break
                     if not found and not url:
@@ -410,17 +442,23 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         if command:
             result_text = asyncio.run(
-                _call_mcp_stdio(command, cmd_args, cmd_env, name, argv)
+                _call_mcp_stdio(
+                    command, cmd_args, cmd_env, name, argv, protocol_mode
+                )
             )
         elif url.startswith("stdio://"):
             parts = url[8:].strip().split()
             if not parts:
                 return _("err.stdio_url_invalid", default="Error: Invalid stdio url")
             result_text = asyncio.run(
-                _call_mcp_stdio(parts[0], parts[1:], {}, name, argv)
+                _call_mcp_stdio(
+                    parts[0], parts[1:], {}, name, argv, protocol_mode
+                )
             )
         else:
-            result_text = asyncio.run(_call_mcp_http(url, name, argv, http_headers))
+            result_text = asyncio.run(_call_mcp_http(
+                url, name, argv, http_headers, protocol_mode
+            ))
         trunc = getattr(cb, "truncate_output", None)
         if callable(trunc):
             try:
