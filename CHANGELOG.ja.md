@@ -279,7 +279,6 @@
 - hooks: SessionStart/Setup/UserPromptSubmit の stdout を `[HOOK]` system コンテキストへ注入（プレーンテキストおよび `additionalContext` JSON）。Web/GUI は遅延適用。ログ再読込時は `[SKILL]` と同様に `[HOOK]` を保持。
 - `:plugin install <name>`: bare 名を登録 marketplace から自動解決（Claude Code の `/plugin install genshijin` 相当）。
 - `:help`: 概要表示と CMD_SPEC を含むコマンド別詳細。
-- MCP: HTTP ヘッダ対応、n8n 適応プランのメモ。
 - `translate_text`: 翻訳時のブランド/製品名保護。
 - ツール JSON i18n 向け tmp ベース一括翻訳。
 

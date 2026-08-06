@@ -75,29 +75,6 @@
 - 検出結果にcategory、severity、confidence、evidenceを含める。
 - LLMへRaw packetやpayloadを既定で返さない。
 
-## P1: [n8n連携の実証](n8n-integration.md)
-
-- Status: planned
-- Priority: P1
-- Source: [`n8n-integration.md`](n8n-integration.md)
-
-### Phase 0
-
-- n8n Instance-level MCPを有効化する。
-- 検証用WorkflowだけをMCP公開する。
-- uagから `mcp_tools_list` と `search_workflows` を確認する。
-- uagからWorkflowを1本実行する。
-- n8nからuag A2Aへpingする。
-- トークンがGit管理下に含まれないことを確認する。
-
-### Phase 1以降
-
-- 公開Workflowの最小集合化
-- description整備
-- 危険操作の二重確認
-- correlation IDとmax depthによるループ防止
-- MCPで不足する場合のみ専用`n8n_*`ツールを設計する
-
 ## P1: [MCP 2026-07-28仕様対応](mcp-2026-07-28.md)
 
 - Status: planned

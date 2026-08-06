@@ -284,7 +284,6 @@
 
 - hooks: SessionStart/Setup/UserPromptSubmit stdout → `[HOOK]` system context injection (plain text + `additionalContext` JSON); Web/GUI deferred apply; log reload keeps `[HOOK]` like `[SKILL]`.
 - `:help`: overview and per-command detail including CMD_SPEC.
-- MCP: HTTP headers support; n8n adaptation plan notes.
 - `translate_text`: brand/product term protection during translation.
 - tmp-based batch translator for tool JSON i18n.
 
