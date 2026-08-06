@@ -12,5 +12,236 @@
     "err.parse_error": "エラー: MSBuildファイルの解析に失敗しました: {exc}",
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: section は1から{total}の範囲で指定してください。"
+  },
+  "ar": {
+    "tool.description": "تحليل ملفات مشروع MSBuild XML مثل .csproj، .fsproj، .vbproj، .vcxproj، .props، و.targets في فهرس مرقّم أو قسم محدد.",
+    "err.path_required": "خطأ: \"المسار\" مطلوب.",
+    "err.parse_error": "خطأ في تحليل ملف MSBuild: {exc}",
+    "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
+    "err.section_not_found": "خطأ: يجب أن يكون القسم بين 1 و{total}."
+  },
+  "bn": {
+    "tool.description": "MSBuild XML প্রজেক্ট ফাইল যেমন .csproj, .fsproj, .vbproj, .vcxproj, .props, এবং .targets একটি সংখ্যাযুক্ত সূচক বা নির্বাচিত বিভাগে পার্স করুন।",
+    "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
+    "err.parse_error": "MSBuild ফাইল পার্স করার সময় ত্রুটি: {exc}৷",
+    "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
+    "err.section_not_found": "ত্রুটি: বিভাগ 1 এবং {total} এর মধ্যে হতে হবে৷"
+  },
+  "cs": {
+    "tool.description": "Analyzujte soubory projektu MSBuild XML, jako jsou .csproj, .fsproj, .vbproj, .vcxproj, .props a .targets do číslovaného indexu nebo vybrané sekce.",
+    "err.path_required": "Chyba: je vyžadována cesta.",
+    "err.parse_error": "Chyba při analýze souboru MSBuild: {exc}",
+    "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
+    "err.section_not_found": "Chyba: sekce musí být mezi 1 a {total}."
+  },
+  "de": {
+    "tool.description": "Analysieren Sie MSBuild XML-Projektdateien wie .csproj, .fsproj, .vbproj, .vcxproj, .props und .targets in einen nummerierten Index oder einen ausgewählten Abschnitt.",
+    "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
+    "err.parse_error": "Fehler beim Parsen der MSBuild-Datei: {exc}",
+    "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
+    "err.section_not_found": "Fehler: Abschnitt muss zwischen 1 und {total} liegen."
+  },
+  "el": {
+    "tool.description": "Αναλύστε τα αρχεία έργου MSBuild XML όπως .csproj, .fsproj, .vbproj, .vcxproj, .props και .targets σε ένα αριθμημένο ευρετήριο ή σε μια επιλεγμένη ενότητα.",
+    "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
+    "err.parse_error": "Σφάλμα ανάλυσης του αρχείου MSBuild: {exc}",
+    "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
+    "err.section_not_found": "Σφάλμα: η ενότητα πρέπει να είναι μεταξύ 1 και {total}."
+  },
+  "es": {
+    "tool.description": "Analice archivos de proyecto XML de MSBuild, como .csproj, .fsproj, .vbproj, .vcxproj, .props y .targets, en un índice numerado o una sección seleccionada.",
+    "err.path_required": "Error: se requiere 'ruta'.",
+    "err.parse_error": "Error al analizar el archivo MSBuild: {exc}",
+    "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
+    "err.section_not_found": "Error: la sección debe estar entre 1 y {total}."
+  },
+  "fa": {
+    "tool.description": "فایل های پروژه MSBuild XML مانند csproj.، .fsproj، .vbproj، .vcxproj، .props، و .targets را در یک فهرست شماره دار یا یک بخش انتخاب شده تجزیه کنید.",
+    "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
+    "err.parse_error": "خطا در تجزیه فایل MSBuild: {exc}",
+    "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
+    "err.section_not_found": "خطا: بخش باید بین 1 و {total} باشد."
+  },
+  "fi": {
+    "tool.description": "Jäsennä MSBuild XML -projektitiedostot, kuten .csproj, .fsproj, .vbproj, .vcxproj, .props ja .targets, numeroiduksi hakemistoksi tai valittuun osioon.",
+    "err.path_required": "Virhe: polku vaaditaan.",
+    "err.parse_error": "Virhe jäsennettäessä MSBuild-tiedostoa: {exc}",
+    "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
+    "err.section_not_found": "Virhe: osion on oltava välillä 1 - {total}."
+  },
+  "fr": {
+    "tool.description": "Analysez les fichiers de projet XML MSBuild tels que .csproj, .fsproj, .vbproj, .vcxproj, .props et .targets dans un index numéroté ou une section sélectionnée.",
+    "err.path_required": "Erreur : « chemin » est requis.",
+    "err.parse_error": "Erreur lors de l'analyse du fichier MSBuild : {exc}",
+    "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
+    "err.section_not_found": "Erreur : la section doit être comprise entre 1 et {total}."
+  },
+  "he": {
+    "tool.description": "נתח קבצי פרויקט MSBuild XML כגון .csproj, .fsproj, .vbproj, .vcxproj, .props ו-.targets לתוך אינדקס ממוספר או קטע נבחר.",
+    "err.path_required": "שגיאה: נדרש 'נתיב'.",
+    "err.parse_error": "שגיאה בניתוח קובץ MSBuild: {exc}",
+    "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
+    "err.section_not_found": "שגיאה: הקטע חייב להיות בין 1 ל-{total}."
+  },
+  "hi": {
+    "tool.description": "MSBuild XML प्रोजेक्ट फ़ाइलों जैसे .csproj, .fsproj, .vbproj, .vcxproj, .props, और .targets को क्रमांकित अनुक्रमणिका या चयनित अनुभाग में पार्स करें।",
+    "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
+    "err.parse_error": "MSBuild फ़ाइल को पार्स करने में त्रुटि: {exc}",
+    "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
+    "err.section_not_found": "त्रुटि: अनुभाग 1 और {total} के बीच होना चाहिए।"
+  },
+  "hu": {
+    "tool.description": "Elemezze az MSBuild XML projektfájlokat, mint például a .csproj, .fsproj, .vbproj, .vcxproj, .props és .targets egy számozott indexbe vagy egy kiválasztott szakaszba.",
+    "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
+    "err.parse_error": "Hiba az MSBuild fájl elemzése során: {exc}",
+    "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
+    "err.section_not_found": "Hiba: a szakasznak 1 és {total} között kell lennie."
+  },
+  "id": {
+    "tool.description": "Parsing file proyek XML MSBuild seperti .csproj, .fsproj, .vbproj, .vcxproj, .props, dan .targets ke dalam indeks bernomor atau bagian yang dipilih.",
+    "err.path_required": "Kesalahan: 'jalur' diperlukan.",
+    "err.parse_error": "Kesalahan saat mengurai file MSBuild: {exc}",
+    "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
+    "err.section_not_found": "Kesalahan: bagian harus antara 1 dan {total}."
+  },
+  "it": {
+    "tool.description": "Analizza file di progetto XML MSBuild come .csproj, .fsproj, .vbproj, .vcxproj, .props e .targets in un indice numerato o una sezione selezionata.",
+    "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
+    "err.parse_error": "Errore durante l'analisi del file MSBuild: {exc}",
+    "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
+    "err.section_not_found": "Errore: la sezione deve essere compresa tra 1 e {total}."
+  },
+  "ko": {
+    "tool.description": ".csproj, .fsproj, .vbproj, .vcxproj, .props 및 .targets와 같은 MSBuild XML 프로젝트 파일을 번호가 매겨진 인덱스 또는 선택한 섹션으로 구문 분석합니다.",
+    "err.path_required": "오류: '경로'가 필요합니다.",
+    "err.parse_error": "MSBuild 파일을 구문 분석하는 중 오류가 발생했습니다: {exc}",
+    "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
+    "err.section_not_found": "오류: 섹션은 1에서 {total} 사이여야 합니다."
+  },
+  "mn": {
+    "tool.description": ".csproj, .fsproj, .vbproj, .vcxproj, .props, болон .targets зэрэг MSBuild XML төслийн файлуудыг дугаарласан индекс эсвэл сонгосон хэсэгт задлан шинжлээрэй.",
+    "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
+    "err.parse_error": "MSBuild файлыг задлахад алдаа гарлаа: {exc}",
+    "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
+    "err.section_not_found": "Алдаа: хэсэг нь 1-ээс {total} хооронд байх ёстой."
+  },
+  "mr": {
+    "tool.description": "MSBuild XML प्रोजेक्ट फाइल्स जसे की .csproj, .fsproj, .vbproj, .vcxproj, .props आणि .लक्ष्यांचे क्रमांकित अनुक्रमणिका किंवा निवडलेल्या विभागात पार्स करा.",
+    "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
+    "err.parse_error": "MSBuild फाइल पार्स करताना त्रुटी: {exc}",
+    "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
+    "err.section_not_found": "त्रुटी: विभाग 1 आणि {total} च्या दरम्यान असणे आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Parse MSBuild XML-prosjektfiler som .csproj, .fsproj, .vbproj, .vcxproj, .props og .targets i en nummerert indeks eller en valgt seksjon.",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.parse_error": "Feil ved parsing av MSBuild-fil: {exc}",
+    "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
+    "err.section_not_found": "Feil: delen må være mellom 1 og {total}."
+  },
+  "nl": {
+    "tool.description": "Parseer MSBuild XML-projectbestanden zoals .csproj, .fsproj, .vbproj, .vcxproj, .props en .targets in een genummerde index of een geselecteerde sectie.",
+    "err.path_required": "Fout: 'pad' is vereist.",
+    "err.parse_error": "Fout bij het parseren van MSBuild-bestand: {exc}",
+    "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
+    "err.section_not_found": "Fout: sectie moet tussen 1 en {total} liggen."
+  },
+  "nn": {
+    "tool.description": "Tolk MSBuild XML-prosjektfiler som .csproj, .fsproj, .vbproj, .vcxproj, .props og .targets i en nummerert indeks eller en valgt seksjon.",
+    "err.path_required": "Feil: 'PATH' er påkrevd.",
+    "err.parse_error": "Feil ved tolking av MSBuild-fil: {exc}",
+    "err.section_invalid": "Feil: 'section' må være et heltall.",
+    "err.section_not_found": "Feil: delen må være mellom 1 og {total}."
+  },
+  "pl": {
+    "tool.description": "Analizuj pliki projektu XML programu MSBuild, takie jak .csproj, .fsproj, .vbproj, .vcxproj, .props i .targets, do numerowanego indeksu lub wybranej sekcji.",
+    "err.path_required": "Błąd: wymagana jest ścieżka.",
+    "err.parse_error": "Błąd podczas analizowania pliku MSBuild: {exc}",
+    "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
+    "err.section_not_found": "Błąd: sekcja musi należeć do zakresu od 1 do {total}."
+  },
+  "pt": {
+    "tool.description": "Analise arquivos de projeto XML do MSBuild, como .csproj, .fsproj, .vbproj, .vcxproj, .props e .targets em um índice numerado ou em uma seção selecionada.",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.parse_error": "Erro ao analisar o arquivo MSBuild: {exc}",
+    "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
+    "err.section_not_found": "Erro: a seção deve estar entre 1 e {total}."
+  },
+  "pt_BR": {
+    "tool.description": "Analise arquivos de projeto XML do MSBuild, como .csproj, .fsproj, .vbproj, .vcxproj, .props e .targets em um índice numerado ou em uma seção selecionada.",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.parse_error": "Erro ao analisar o arquivo MSBuild: {exc}",
+    "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
+    "err.section_not_found": "Erro: a seção deve estar entre 1 e {total}."
+  },
+  "ro": {
+    "tool.description": "Analizați fișierele de proiect MSBuild XML, cum ar fi .csproj, .fsproj, .vbproj, .vcxproj, .props și .targets într-un index numerotat sau într-o secțiune selectată.",
+    "err.path_required": "Eroare: este necesară „calea”.",
+    "err.parse_error": "Eroare la analizarea fișierului MSBuild: {exc}",
+    "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
+    "err.section_not_found": "Eroare: secțiunea trebuie să fie între 1 și {total}."
+  },
+  "ru": {
+    "tool.description": "Анализируйте XML-файлы проекта MSBuild, такие как .csproj, .fsproj, .vbproj, .vcxproj, .props и .targets, в нумерованный индекс или выбранный раздел.",
+    "err.path_required": "Ошибка: требуется «путь».",
+    "err.parse_error": "Ошибка анализа файла MSBuild: {exc}.",
+    "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
+    "err.section_not_found": "Ошибка: значение раздела должно быть между 1 и {total}."
+  },
+  "sv": {
+    "tool.description": "Analysera MSBuild XML-projektfiler som .csproj, .fsproj, .vbproj, .vcxproj, .props och .targets i ett numrerat index eller en vald sektion.",
+    "err.path_required": "Fel: 'sökväg' krävs.",
+    "err.parse_error": "Fel vid analys av MSBuild-fil: {exc}",
+    "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
+    "err.section_not_found": "Fel: avsnittet måste vara mellan 1 och {total}."
+  },
+  "sw": {
+    "tool.description": "Changanua faili za mradi wa MSBuild XML kama vile .csproj, .fsproj, .vbproj, .vcxproj, .props, na .lengwa kwenye faharasa yenye nambari au sehemu iliyochaguliwa.",
+    "err.path_required": "Hitilafu: 'njia' inahitajika.",
+    "err.parse_error": "Hitilafu katika kuchanganua faili ya MSBuild: {exc}",
+    "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
+    "err.section_not_found": "Hitilafu: sehemu lazima iwe kati ya 1 na {total}."
+  },
+  "th": {
+    "tool.description": "แยกไฟล์โครงการ MSBuild XML เช่น .csproj, .fsproj, .vbproj, .vcxproj, .props และ .targets ลงในดัชนีตัวเลขหรือส่วนที่เลือก",
+    "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
+    "err.parse_error": "เกิดข้อผิดพลาดในการแยกวิเคราะห์ไฟล์ MSBuild: {exc}",
+    "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
+    "err.section_not_found": "ข้อผิดพลาด: ส่วนต้องอยู่ระหว่าง 1 ถึง {total}"
+  },
+  "tr": {
+    "tool.description": ".csproj, .fsproj, .vbproj, .vcxproj, .props ve .targets gibi MSBuild XML proje dosyalarını numaralandırılmış bir dizine veya seçilen bir bölüme ayrıştırın.",
+    "err.path_required": "Hata: 'yol' gerekli.",
+    "err.parse_error": "MSBuild dosyası ayrıştırılırken hata oluştu: {exc}",
+    "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
+    "err.section_not_found": "Hata: bölüm 1 ile {total} arasında olmalıdır."
+  },
+  "uk": {
+    "tool.description": "Проаналізуйте файли проекту MSBuild XML, такі як .csproj, .fsproj, .vbproj, .vcxproj, .props і .targets, у нумерований індекс або вибраний розділ.",
+    "err.path_required": "Помилка: потрібен \"шлях\".",
+    "err.parse_error": "Помилка аналізу файлу MSBuild: {exc}",
+    "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
+    "err.section_not_found": "Помилка: розділ має бути від 1 до {total}."
+  },
+  "vi": {
+    "tool.description": "Phân tích cú pháp các tệp dự án XML MSBuild như .csproj, .fsproj, .vbproj, .vcxproj, .props và .target thành một chỉ mục được đánh số hoặc một phần đã chọn.",
+    "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
+    "err.parse_error": "Lỗi phân tích cú pháp tệp MSBuild: {exc}",
+    "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
+    "err.section_not_found": "Lỗi: phần phải nằm trong khoảng từ 1 đến {total}."
+  },
+  "zh_CN": {
+    "tool.description": "将 MSBuild XML 项目文件（例如 .csproj、.fsproj、.vbproj、.vcxproj、.props 和 .targets）解析为编号索引或选定部分。",
+    "err.path_required": "错误：“路径”是必需的。",
+    "err.parse_error": "解析 MSBuild 文件时出错：{exc}",
+    "err.section_invalid": "错误：“节”必须是整数。",
+    "err.section_not_found": "错误：部分必须介于 1 和 {total} 之间。"
+  },
+  "zh_TW": {
+    "tool.description": "將 MSBuild XML 專案檔案（例如 .csproj、.fsproj、.vbproj、.vcxproj、.props 和 .targets）解析為編號索引或選取部分。",
+    "err.path_required": "錯誤：「路徑」是必需的。",
+    "err.parse_error": "解析 MSBuild 檔案時發生錯誤：{exc}",
+    "err.section_invalid": "錯誤：“節”必須是整數。",
+    "err.section_not_found": "錯誤：部分必須介於 1 和 {total} 之間。"
   }
 }
