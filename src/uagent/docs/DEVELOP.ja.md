@@ -258,3 +258,31 @@ ______________________________________________________________________
   - `UAGENT_LANG=en python -m pytest -q`
   - `UAGENT_LANG=ja python -m pytest -q`
 - Matter テストを含め、テスト収集のため `tests/__init__.py` を配置しています。
+
+## 追加整理（英語版との内容同期）
+
+英語版に追加されている運用情報を、日本語版にも反映する。
+
+### 3.6.1 ツール無効化モード（`UAGENT_USE_TOOL` / `:tools on/off`）
+
+- `UAGENT_USE_TOOL=0`（`false` / `no` / `off`）でLLMへのツール送信を無効化できる。
+- CLI引数 `--use-tool` / `--no-use-tool` は環境変数より優先される。
+- CLIでは `:tools on` / `:tools off` で次のLLMラウンドから切り替えられる。
+- Webでは `/api/tools-enabled` のGET/POSTで状態を確認・変更できる。実行中の変更は拒否される。
+- 実行時フラグは `core.tools_enabled` で、各ラウンドの `run_llm_rounds()` が参照する。
+
+### 3.8 Batch state
+
+`batch_state_tool.py` は複数ファイル作業の進捗を `~/.uag/batches/` に保存する。`UAGENT_BATCHES_DIR` で保存先を変更でき、`init`、`load`、`update`、`append_log`、`finalize`、`list`、`delete` を提供する。
+
+### 3.9 OSスケジューラ付きタイマー
+
+`set_timer` に `os_persist=true` を指定すると、uagが停止中でもOSスケジューラから起動できる。Windowsは`schtasks`、Linuxは`systemd-run`（フォールバック`at`）、macOSは`at`を使用する。満了時は `python -m uagent --inject-message ... --workdir ...` で非対話処理を起動する。
+
+### 3.10 APMスキル連携
+
+Microsoft APMが作成した `apm_modules/*/.apm/skills/*/SKILL.md` を `:skills apm list/use/dir/help` から検出・有効化できる。APMのインストール自体はユーザーが行い、uagは生成済みファイルを読み込むだけである。
+
+### 6.1 実行時のプロセス終了方針
+
+復旧可能な実行時エラーでプロセス全体を終了させない。ランタイムヘルパは例外を送出し、CLI/GUI/Web/A2Aがエラーとして処理する。起動時の明示的なfail-fastを除き、裸の`sys.exit`を追加しない。ツールホストはツール内の`Exception`と`SystemExit`をエラー文字列へ変換するが、`KeyboardInterrupt`は握りつぶさない。
