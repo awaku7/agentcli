@@ -46,6 +46,18 @@ def test_sln_index_and_section() -> None:
         path.unlink(missing_ok=True)
 
 
+def test_slnx_index() -> None:
+    path = _write(
+        "._vs_App.slnx",
+        '<Solution><Project Path="App/App.csproj" Name="App" /></Solution>',
+    )
+    try:
+        result = run_sln({"path": str(path), "mode": "section", "section": 1})
+        assert "App/App.csproj" in result
+    finally:
+        path.unlink(missing_ok=True)
+
+
 def test_indexers_reject_unsafe_xml() -> None:
     path = _write(
         "._vs_bad.csproj",

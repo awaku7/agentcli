@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import re
+import xml.etree.ElementTree as ET
 from typing import Any
 
 from .index_tool_helpers import read_index_source, resolve_index_path
@@ -37,26 +38,41 @@ _PROJECT = re.compile(
 )
 
 
-def _sln_sections(source: str) -> list[tuple[str, str]]:
-    projects = []
-    configurations = []
-    dependencies = []
-    for line in source.splitlines():
-        match = _PROJECT.match(line.strip())
-        if match:
-            projects.append(match.groupdict())
-        if (
-            "SolutionConfigurationPlatforms" in line
-            or "ProjectConfigurationPlatforms" in line
-        ):
-            configurations.append(line.strip())
-        if (
-            "ProjectSection(ProjectDependencies)" in line
-            or " = " in line
-            and "ProjectSection" not in line
-        ):
-            if "ProjectDependencies" in line or line.strip().endswith(" ="):
+def _sln_sections(source: str, *, slnx: bool = False) -> list[tuple[str, str]]:
+    projects: list[dict[str, str]] = []
+    configurations: list[str] = []
+    dependencies: list[str] = []
+    if slnx:
+        root = ET.fromstring(source)
+        for node in root.iter():
+            if node.tag.rsplit("}", 1)[-1].lower() == "project":
+                attrs = {key.lower(): value for key, value in node.attrib.items()}
+                projects.append(
+                    {
+                        "name": attrs.get("name") or attrs.get("path") or "(unnamed)",
+                        "path": attrs.get("path") or attrs.get("file") or "",
+                        "guid": attrs.get("guid") or "",
+                        "type": attrs.get("type") or "",
+                    }
+                )
+        configurations = [
+            f"{node.tag.rsplit('}', 1)[-1]}={value}"
+            for node in root.iter()
+            if (value := node.attrib.get("configuration"))
+        ]
+    else:
+        for line in source.splitlines():
+            match = _PROJECT.match(line.strip())
+            if match:
+                projects.append(match.groupdict())
+            if (
+                "SolutionConfigurationPlatforms" in line
+                or "ProjectConfigurationPlatforms" in line
+            ):
+                configurations.append(line.strip())
+            if "ProjectSection(ProjectDependencies)" in line:
                 dependencies.append(line.strip())
+
     project_text = (
         "\n".join(
             f"  {p['name']} | {p['path']} | {p['guid']} | type={p['type']}"
@@ -85,12 +101,13 @@ def run_tool(args: dict[str, Any]) -> str:
         safe = resolve_index_path(path)
         if not os.path.isfile(safe):
             raise FileNotFoundError(path)
-        if os.path.splitext(safe)[1].lower() not in {".sln", ".slnx"}:
+        extension = os.path.splitext(safe)[1].lower()
+        if extension not in {".sln", ".slnx"}:
             raise ValueError("only .sln and .slnx files are supported")
         source = read_index_source(safe)
         if "<!DOCTYPE" in source.upper() or "<!ENTITY" in source.upper():
             raise ValueError("DTD and external entities are not allowed")
-        sections = _sln_sections(source)
+        sections = _sln_sections(source, slnx=extension == ".slnx")
     except Exception as exc:
         return f"Error parsing solution: {exc}"
     if args.get("mode", "index") == "section":
