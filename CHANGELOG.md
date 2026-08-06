@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.67] - 2026-08-06
+
+### Added
+
+- feat(tools): add the localized CMake project indexer with tests
+- feat(tools): add Visual Studio solution and MSBuild indexers with localization
+
+### Changed
+
+- docs: standardize multilingual MCP guide links
+- i18n: improve localized search-term handling and Visual Studio catalog coverage
+
+
 ## [0.5.66] - 2026-08-05
 
 ### Added
