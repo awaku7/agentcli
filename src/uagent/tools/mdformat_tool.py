@@ -21,6 +21,11 @@ import subprocess
 import sys
 from typing import Any
 
+from .agent_skills_shared import (
+    load_skill_frontmatter_only,
+    skill_md_path,
+    validate_skill_frontmatter,
+)
 from .i18n_helper import make_tool_translator
 from .response_util import make_response
 
@@ -65,6 +70,22 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.fix.description",
                         default="If true, auto-fix formatting issues instead of just checking.",
+                    ),
+                    "default": False,
+                },
+                "validate_skills": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.validate_skills.description",
+                        default="Validate SKILL.md files against the Agent Skills frontmatter specification.",
+                    ),
+                    "default": True,
+                },
+                "strict_skills": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.strict_skills.description",
+                        default="Treat Agent Skills validation warnings as errors.",
                     ),
                     "default": False,
                 },
@@ -116,11 +137,32 @@ def _has_yaml_frontmatter(filepath: str) -> bool:
         return False
 
 
+def _validate_skill_file(filepath: str, *, strict: bool) -> dict[str, Any]:
+    """Validate one ``SKILL.md`` using the shared Agent Skills validator."""
+    skill_dir = os.path.dirname(filepath)
+    try:
+        if skill_md_path(skill_dir) != filepath:
+            return {"ok": False, "errors": ["SKILL.md path mismatch"], "warnings": []}
+        frontmatter = load_skill_frontmatter_only(skill_dir)
+        ok, errors, warnings = validate_skill_frontmatter(
+            skill_dir, frontmatter, strict=strict
+        )
+        return {"ok": ok, "errors": errors, "warnings": warnings}
+    except Exception as exc:
+        return {
+            "ok": False,
+            "errors": [f"Failed to validate Agent Skill: {exc!r}"],
+            "warnings": [],
+        }
+
+
 def run_tool(args: dict[str, Any]) -> str:
     """Run mdformat, preserving YAML front matter when present."""
     frontmatter_ready = _ensure_mdformat()
     path_pattern: str = str(args.get("path") or "**/*.md")
     fix_mode: bool = bool(args.get("fix", False))
+    validate_skills: bool = bool(args.get("validate_skills", True))
+    strict_skills: bool = bool(args.get("strict_skills", False))
 
     # Resolve files matching the pattern
     matched_files: list[str] = []
@@ -179,6 +221,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 timeout=30,
             )
             if proc.returncode == 0:
+                skill_result = None
+                if validate_skills and os.path.basename(filepath) == "SKILL.md":
+                    skill_result = _validate_skill_file(
+                        filepath, strict=strict_skills
+                    )
+                    if not skill_result["ok"]:
+                        failed_count += 1
+                        results.append(
+                            _msg(
+                                "result.skill_invalid",
+                                "[{label}] {path}: Agent Skills validation failed: {detail}",
+                                label=_fail_label,
+                                path=filepath,
+                                detail="; ".join(skill_result["errors"]),
+                            )
+                        )
+                        continue
+
                 ok_count += 1
                 if fix_mode:
                     results.append(
