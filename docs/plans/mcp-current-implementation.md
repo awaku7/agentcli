@@ -89,6 +89,29 @@ from mcp.client.stdio import stdio_client, StdioServerParameters
 | list cache hints | 未実装 |
 | MCP Authorization / CIMD / issuer検証 | 未実装 |
 
+## I18N境界
+
+MCPの内部protocol処理は、公開ツールのI18Nから分離する。
+
+```text
+src/uagent/mcp/
+  → I18Nなし。構造化エラーコードとprotocol値のみ
+
+src/uagent/tools/mcp_tools_list_tool.py
+src/uagent/tools/handle_mcp_v2_tool.py
+  → I18Nあり。ユーザー・LLM向けメッセージを翻訳
+```
+
+内部層は英語メッセージを返さず、次のような値を返す。
+
+```json
+{
+  "code": "MCP_TIMEOUT",
+  "operation": "tools/list",
+  "details": {}
+}
+```
+
 ## 次の実装境界
 
 既存の2ツールを削除・再実装せず、以下の共通層へ接続処理を移す。
