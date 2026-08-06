@@ -2,7 +2,7 @@
 
 In deze handleiding wordt uitgelegd hoe u uw eigen tools aan uag kunt toevoegen **zonder uag zelf te wijzigen**.
 Als u een tool rechtstreeks aan de uag-bronstructuur wilt toevoegen, zie
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

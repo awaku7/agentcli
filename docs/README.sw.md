@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Katika uzinduzi wa kwanza, mchawi wa kusanidi hukutembeza kupitia usanidi wa mtoa huduma.
-Angalia [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) kwa anuwai zote za mazingira.
+Angalia [docs/ENVIRONMENT.md](ENVIRONMENT.md) kwa anuwai zote za mazingira.
 
 ## Vipengele
 
@@ -80,7 +80,7 @@ uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jal
 :plugin init <name>                  # Unda muundo wa programu-jalizi mpya
 ```
 
-Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Mwendelezo wa Kikao
 
@@ -96,7 +96,7 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
 | **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
 | **Utabiri** | Utabiri wa mfululizo wa muda na modeli 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, nk.), uteuzi wa modeli kiotomatiki, kizazi cha mpango, i18n |
-| **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — tazama [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — tazama [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API za Wingu** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 29 vya msimbo wa chanzo (idx family)** |
@@ -113,15 +113,15 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `ua` | Ufikiaji unaotegemea kivinjari |
 | **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
-| **Msimbo wa VS** | - | [Kiendelezi](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) yenye Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
+| **Msimbo wa VS** | - | [Kiendelezi](VSCODE.md) yenye Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
 
-Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
+Tazama [VSCODE.md](VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
 
 - **Jambo**: Ukaguzi wa kusoma pekee wa kidhibiti/daraja/topolojia ya kifaa
 
-Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Tazama [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Soko la Ujuzi wa Wakala
 
@@ -138,7 +138,7 @@ uag inaweza **kufuata lengo kwa uhuru katika raundi nyingi za LLM**. Ni kamili k
 - **Ondoka wakati wowote**: Bonyeza kitufe cha `x` ili kuacha mara moja, hata jibu la katikati. Au acha mkaguzi aamue wakati lengo linatimizwa.
 - **Inayoweza kusanidiwa**: `--max-raundi N` ili kudhibiti bajeti.
 
-Tazama [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) kwa uhifadhi kamili.
+Tazama [README_AUTO.md](README_AUTO.md) kwa uhifadhi kamili.
 
 ### 🧩 Kidhibiti cha Jimbo la Kundi
 
@@ -160,7 +160,7 @@ Komesha uzalishaji wa majibu ya LLM wakati wowote na urudishe amri ya kusitisha 
 
 Ukatizaji hufanya kazi kama "sindano ya papo hapo": badala ya kutoa mimba tu, inalisha `"Acha"` kurudi kwenye LLM kama ujumbe wa mtumiaji, ikiiruhusu kuhitimisha au kukiri kukatizwa kwa uzuri.
 
-Bonyeza kitufe cha `x` ili kuondoka kwenye hali ya majaribio ya kiotomatiki (angalia [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Bonyeza kitufe cha `x` ili kuondoka kwenye hali ya majaribio ya kiotomatiki (angalia [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Uendeshaji wa Kivinjari na Kikaguzi cha Wavuti
 
@@ -181,9 +181,9 @@ Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha tu kile unachohitaji
 ### 🌐 i18n / L10n
 
 Kiswahili / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / na zaidi.
-Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) ili kuongeza lugha mpya.
+Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) ili kuongeza lugha mpya.
 
-Tafsiri za README hii zinapatikana katika [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Tafsiri za README hii zinapatikana katika [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Vigezo vya Mazingira Vilivyosimbwa kwa Njia Fiche
 
@@ -192,13 +192,13 @@ Dhibiti ukitumia `uag_envsec`.
 
 ## Usanidi & Maelezo
 
-- **Vigeu vya mazingira**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Vigeu vya mazingira**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Mchawi wa kusanidi**: `python -m uagent.setup_cli`
 - **env iliyosimbwa kwa njia fiche**: `uag_envsec` — simba kwa njia fiche `.env` kama `.env.sec`
 - **API ya Majibu**: Weka `UAGENT_RESPONSES=1` kwa modi ya API ya Majibu (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Imewashwa kiotomatiki kwa Sakana AI (Fugu).
-- **Hati za Msanidi**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Hati za Msanidi**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Falsafa ya Mradi
 

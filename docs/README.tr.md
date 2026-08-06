@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 İlk başlatmada kurulum sihirbazı, sağlayıcı yapılandırmasında size yol gösterir.
-Tüm ortam değişkenleri için [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) adresine bakın.
+Tüm ortam değişkenleri için [docs/ENVIRONMENT.md](ENVIRONMENT.md) adresine bakın.
 
 ## Özellikler
 
@@ -80,7 +80,7 @@ uagent, Claude Code uyumlu bir eklenti sistemi uygular. Eklentiler; becerileri, 
 :plugin init <name>                  # Yeni eklenti iskeleti oluştur
 ```
 
-Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Oturum Sürekliliği
 
@@ -96,7 +96,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **Medya** | created_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Belgeler** | PDF/PPTX/DOCX/RTF/ODT çıkarma, Excel yapılandırılmış çıkarma |
 | **Tahmin** | 9 model ile zaman serisi tahmini (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM vb.), otomatik model seçimi, grafik oluşturma, i18n |
-| **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook, **pybitchat** (BLE Mesh) — bkz. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ve [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook, **pybitchat** (BLE Mesh) — bkz. [COMMUNICATION.md](COMMUNICATION.md) ve [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Bulut API’leri** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kaynak kodu gezgini (idx ailesi)** |
@@ -113,15 +113,15 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](src/uagent/docs/DEV
 | **GUI** | 'uagg' | tkinter aracılığıyla Masaüstü Kullanıcı Arayüzü |
 | **Web** | 'uagw' | Tarayıcı tabanlı erişim |
 | **A2A Sunucusu** | 'uaga' | Çoklu aracı iletişimi için Agent2Agent protokolü |
-| **VS Kodu** | — | [Uzantı](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Sohbet Paneli, Açıklama, Yeniden Düzenleme, Hata Düzeltme ve Araç Ağacı Görünümü ile |
+| **VS Kodu** | — | [Uzantı](VSCODE.md) Sohbet Paneli, Açıklama, Yeniden Düzenleme, Hata Düzeltme ve Araç Ağacı Görünümü ile |
 
-Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) adresine bakın.
+Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](VSCODE.md) adresine bakın.
 
 ### 🏠 IoT Cihaz Kontrolü
 
 - **Madde**: Denetleyici/köprü/cihaz topolojisinin salt okunur denetimi
 
-Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Bkz. [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Temsilci Becerileri Pazarı
 
@@ -138,7 +138,7 @@ uag **birden fazla LLM turunda bağımsız olarak bir hedefi takip edebilir**. Y
 - **İstediğiniz zaman çıkın**: Yanıtın ortasında bile olsa hemen durdurmak için 'x' tuşuna basın. Veya hedefe ne zaman ulaşılacağına incelemecinin karar vermesine izin verin.
 - **Ayarlanabilir**: bütçeyi kontrol etmek için `--max-rounds N`.
 
-Belgelerin tamamı için [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) adresine bakın.
+Belgelerin tamamı için [README_AUTO.md](README_AUTO.md) adresine bakın.
 
 ### 🧩 Grup Durum Yöneticisi
 
@@ -160,7 +160,7 @@ LLM yanıt oluşturmayı istediğiniz zaman durdurun ve LLM'ye geri bir durdurma
 
 Kesinti, "hızlı enjeksiyon" olarak çalışır: sadece iptal etmek yerine, LLM'ye bir kullanıcı mesajı olarak "Durdur"u geri gönderir ve kesintiyi zarif bir şekilde sonlandırmasına veya onaylamasına olanak tanır.
 
-Otomatik pilot modundan çıkmak için 'x' tuşuna basın (bkz. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Otomatik pilot modundan çıkmak için 'x' tuşuna basın (bkz. [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Tarayıcı Otomasyonu ve Web Denetleyicisi
 
@@ -179,9 +179,9 @@ Başlangıçta her şeyi yüklemenize gerek yok; yalnızca ihtiyacınız olanı,
 ### 🌐 i18n / L10n
 
 日本語 / İngilizce / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ve daha fazlası.
-Geçiş yapmak için `UAGENT_LANG`ı ayarlayın. Yeni bir yerel ayar eklemek için [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) adresine bakın.
+Geçiş yapmak için `UAGENT_LANG`ı ayarlayın. Yeni bir yerel ayar eklemek için [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) adresine bakın.
 
-Bu README'nin çevirileri [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) adresinde mevcuttur.
+Bu README'nin çevirileri [docs/README.translations.md](README.translations.md) adresinde mevcuttur.
 
 ### 🔒 Şifrelenmiş Ortam Değişkenleri
 
@@ -190,13 +190,13 @@ API anahtarlarını ve sırlarını, şifrelenmiş bir ".env" dosyası olan ".en
 
 ## Yapılandırma ve Ayrıntılar
 
-- **Ortam değişkenleri**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Ortam değişkenleri**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Kurulum sihirbazı**: `python -m uagent.setup_cli`
 - **Şifrelenmiş ortam**: `uag_envsec` — `.env`yi `.env.sec` olarak şifreleyin
 - **Responses API**: Responses API modu için \`UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.
-- **Geliştirici belgeleri**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Geliştirici belgeleri**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Küçük LLM ipuçları**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Küçük LLM ipuçları**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Proje Felsefesi
 

@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Při prvním spuštění vás průvodce nastavením provede konfigurací poskytovatele.
-Všechny proměnné prostředí najdete na [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
+Všechny proměnné prostředí najdete na [docs/ENVIRONMENT.md](ENVIRONMENT.md).
 
 ## Funkce
 
@@ -80,7 +80,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 :plugin init <name>                  # Vytvořit kostru nového pluginu
 ```
 
-Úplnou dokumentaci naleznete v [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Úplnou dokumentaci naleznete v [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Kontinuita relace
 
@@ -96,7 +96,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **Média** | generovat_image, analyzovat_obraz, img2img, audio_speech, audio_transscribe |
 | **Dokumenty** | Extrakce PDF/PPTX/DOCX/RTF/ODT, strukturovaná extrakce Excel |
 | **Předpověď** | Predikce časových řad s 9 modely (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM atd.), automatický výběr modelu, generování grafů, i18n |
-| **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook, **pybitchat** (BLE Mesh) — viz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) a [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook, **pybitchat** (BLE Mesh) — viz [COMMUNICATION.md](COMMUNICATION.md) a [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloudová rozhraní API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
@@ -113,15 +113,15 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **GUI** | "uagg" | Desktop UI přes tkinter |
 | **Web** | "uagw" | Přístup na základě prohlížeče |
 | **Server A2A** | "uaga" | Agent2Agent protokol pro multi-agentní komunikaci |
-| **VS kód** | — | [Rozšíření](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) s panelem chatu, vysvětlením, refaktorem, opravou chyb a stromovým zobrazením nástrojů |
+| **VS kód** | — | [Rozšíření](VSCODE.md) s panelem chatu, vysvětlením, refaktorem, opravou chyb a stromovým zobrazením nástrojů |
 
-Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md).
+Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](VSCODE.md).
 
 ### 🏠 Ovládání zařízení IoT
 
 - **Záležitost**: Kontrola topologie řadiče/můstku/zařízení pouze pro čtení
 
-Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Viz [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Trh dovedností agentů
 
@@ -138,7 +138,7 @@ uag může **autonomně sledovat cíl ve více kolech LLM**. Ideální pro slož
 - **Ukončit kdykoli**: Stisknutím tlačítka „x“ okamžitě zastavíte, dokonce i uprostřed odezvy. Nebo nechte recenzenta rozhodnout, kdy bude cíl splněn.
 - **Konfigurovatelné**: `--max-rounds N` pro kontrolu rozpočtu.
 
-Úplnou dokumentaci naleznete na [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Úplnou dokumentaci naleznete na [README_AUTO.md](README_AUTO.md).
 
 ### 🧩 Batch State Manager
 
@@ -160,7 +160,7 @@ Kdykoli zastavte generování odezvy LLM a vložte příkaz stop zpět do LLM.
 
 Přerušení funguje jako "promptní vložení": namísto pouhého přerušení odešle "Stop"\` zpět do LLM jako uživatelskou zprávu, která mu umožňuje ladně uzavřít nebo potvrdit přerušení.
 
-Stisknutím klávesy `x` ukončíte režim autopilota (viz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Stisknutím klávesy `x` ukončíte režim autopilota (viz [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Automatizace prohlížeče a webový inspektor
 
@@ -181,9 +181,9 @@ Není třeba načítat vše při spuštění – aktivujte pouze to, co potřebu
 ### 🌐 i18n / L10n
 
 日本語 / anglicky / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / a další.
-Pro přepnutí nastavte `UAGENT_LANG`. Chcete-li přidat nové národní prostředí, přejděte na [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
+Pro přepnutí nastavte `UAGENT_LANG`. Chcete-li přidat nové národní prostředí, přejděte na [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md).
 
-Překlady tohoto README jsou k dispozici na [docs/README.translations.md] (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Překlady tohoto README jsou k dispozici na [docs/README.translations.md] (README.translations.md).
 
 ### 🔒 Šifrované proměnné prostředí
 
@@ -192,13 +192,13 @@ Spravujte pomocí `uag_envsec`.
 
 ## Konfigurace a podrobnosti
 
-- **Proměnné prostředí**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Proměnné prostředí**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Průvodce nastavením**: `python -m uagent.setup_cli`
 - **Šifrované env**: `uag_envsec` — šifrovat `.env` jako `.env.sec`
 - **Responses API**: Nastavte `UAGENT_RESPONSES=1` pro režim Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaticky povoleno pro Sakana AI (Fugu).
-- **Dokumenty pro vývojáře**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Dokumenty pro vývojáře**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Malé tipy LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Malé tipy LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Filosofie projektu
 

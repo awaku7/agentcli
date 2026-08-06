@@ -44,7 +44,7 @@ uag
 ```
 
 初回起動時にセットアップウィザードがプロバイダ設定を案内します。
-環境変数の一覧は [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) を参照してください。
+環境変数の一覧は [docs/ENVIRONMENT.md](ENVIRONMENT.md) を参照してください。
 
 ## リアルタイム音声とAEC3
 
@@ -102,7 +102,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 :plugin init <name>                  # 新規プラグインのスキャフォールド
 ```
 
-詳細は [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) を参照してください。
+詳細は [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md) を参照してください。
 
 ### 🔄 セッションの継続性
 
@@ -118,7 +118,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **予測** | 時系列予測（9モデル: AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM等）、自動モデル選択、プロット生成、i18n対応 |
-| **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook、**pybitchat**（BLE Mesh メッセージング） — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) と [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) 参照 |
+| **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook、**pybitchat**（BLE Mesh メッセージング） — [COMMUNICATION.md](COMMUNICATION.md) と [BITCHAT.md](BITCHAT.md) 参照 |
 | **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **クラウドAPI** | `aws_api`、`gcp_api`、`azure_api` — AWS、Google Cloud、Azureの汎用API操作。書き込み操作には明示的な確認が必要 |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**29のソースコードナビゲーター（idxファミリ）** |
@@ -135,9 +135,9 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **GUI** | `uagg` | tkinterによるデスクトップUI |
 | **Web** | `uagw` | ブラウザベースのアクセス |
 | **A2Aサーバ** | `uaga` | マルチエージェント通信用のAgent2Agentプロトコル |
-| **VS Code** | — | [拡張機能](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) — チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー |
+| **VS Code** | — | [拡張機能](VSCODE.md) — チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー |
 
-VS Code拡張機能の詳細（インストール、コマンド、キーバインド、設定）は [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) を参照してください。
+VS Code拡張機能の詳細（インストール、コマンド、キーバインド、設定）は [VSCODE.md](VSCODE.md) を参照してください。
 
 ### 🏠 IoTデバイス制御
 
@@ -149,7 +149,7 @@ VS Code拡張機能の詳細（インストール、コマンド、キーバイ�
 - **Matter**: 読み取り/書き込み制御 + 状態変化監視のための属性サブスクリプション
 - **UPnP**: デバイスの検出とIGDポート転送
 
-詳細は [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) を参照。
+詳細は [IOT_USECASE.md](IOT_USECASE.md) を参照。
 
 ### 🎯 エージェントスキルマーケットプレイス
 
@@ -165,7 +165,7 @@ uagは複数のLLMラウンドにわたって **自律的に目標を達成** �
 - **いつでも停止**: 応答中でも `x` キーで即座に中断可能。レビューアの自動判定も利用できます。
 - **設定可能**: `--max-rounds N` で最大ラウンド数を指定。
 
-詳細は [README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.ja.md) を参照。
+詳細は [README_AUTO.ja.md](README_AUTO.ja.md) を参照。
 
 ### 🧩 バッチ状態管理
 
@@ -187,7 +187,7 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 
 この割り込みは「プロンプト注入」として機能します。単に中断するだけでなく、`"Stop"` をLLMに送り返すことで、LLMが適切に応答を締めくくれるようになります。
 
-オートパイロットモード（`:auto`）を終了するには `x` キーを押します（[README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.ja.md) 参照）。
+オートパイロットモード（`:auto`）を終了するには `x` キーを押します（[README_AUTO.ja.md](README_AUTO.ja.md) 参照）。
 
 ### 🕵️ ブラウザ自動化とWebインスペクタ
 
@@ -213,7 +213,7 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / など。
-`UAGENT_LANG` で切り替えられます。新しいロケールの追加方法は [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) を参照。
+`UAGENT_LANG` で切り替えられます。新しいロケールの追加方法は [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) を参照。
 
 このREADMEの翻訳版は [docs/README.translations.md](README.translations.md) で参照できます。
 
@@ -223,13 +223,13 @@ APIキーやシークレットは `.env.sec`（暗号化された `.env` ファ�
 
 ## 構成と詳細
 
-- **環境変数**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **環境変数**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **セットアップウィザード**: `python -m uagent.setup_cli`
 - **暗号化環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化
 - **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
-- **開発者向けドキュメント**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **ツールフロー**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
-- **軽量LLM向けヒント**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **開発者向けドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
+- **ツールフロー**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
+- **軽量LLM向けヒント**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## プロジェクトの理念
 
@@ -253,8 +253,8 @@ uag用の新しいツールを作るのは簡単です。`TOOL_SPEC`と`run_tool
 貢献を歓迎します！バグ報告、機能提案、ドキュメントの改善、翻訳、プルリクエストなど、あらゆる協力に感謝します。
 
 - **Issues**: バグや機能リクエストについては、GitHub 問題をオープンしてください。
-- **プルリクエスト**: リポジトリをForkし、変更を加えてPRを送信してください。開発環境の構築とガイドラインは[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を参照してください。
-- **翻訳**: READMEの翻訳やロケールの追加を歓迎します。[ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)を参照してください。
+- **プルリクエスト**: リポジトリをForkし、変更を加えてPRを送信してください。開発環境の構築とガイドラインは[DEVELOP.md](../src/uagent/docs/DEVELOP.md)を参照してください。
+- **翻訳**: READMEの翻訳やロケールの追加を歓迎します。[ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md)を参照してください。
 - **ツールとスキル**: 新しいツールプラグインやAgent Skillsはマーケットプレイス経由で貢献できます。
 
 ### 開発時チェック（PR 前）
@@ -268,4 +268,4 @@ pytest -q tests/<affected_area>
 
 ロケール（`.po`）編集後: `python scripts/compile_locales.py` と `python scripts/po_qc_summary.py`。
 
-ランタイム方針（詳細は [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1）: ヘルパーは `sys.exit` ではなく例外を送出。ツールホストはツール側の `SystemExit`/`Exception` をエラー文字列に変換し、単一ツールがプロセスを落とさない。起動時 fail-fast の exit は意図的に残す。
+ランタイム方針（詳細は [DEVELOP.md](../src/uagent/docs/DEVELOP.md) §6.1）: ヘルパーは `sys.exit` ではなく例外を送出。ツールホストはツール側の `SystemExit`/`Exception` をエラー文字列に変換し、単一ツールがプロセスを落とさない。起動時 fail-fast の exit は意図的に残す。

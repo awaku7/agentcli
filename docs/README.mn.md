@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Эхний эхлүүлэх үед тохиргооны шидтэн таныг үйлчилгээ үзүүлэгчийн тохиргоонд хөтлөх болно.
-Орчны бүх хувьсагчийг [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) харна уу.
+Орчны бүх хувьсагчийг [docs/ENVIRONMENT.md](ENVIRONMENT.md) харна уу.
 
 ## Онцлогууд
 
@@ -80,7 +80,7 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 :plugin init <name>                  # Шинэ залгаасын бүтэц үүсгэх
 ```
 
-Бүрэн баримт бичгийг [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)-ээс үзнэ үү.
+Бүрэн баримт бичгийг [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)-ээс үзнэ үү.
 
 ### 🔄 Сургалтын тасралтгүй байдал
 
@@ -96,7 +96,7 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 | **Хэвлэл мэдээлэл** | зураг үүсгэх, дүн шинжилгээ хийх, img2img, аудио_яриа, аудио_сийрүүлэх |
 | **Баримт бичиг** | PDF/PPTX/DOCX/RTF/ODT олборлолт, Excel-ийн бүтэцтэй олборлолт |
 | **Урьдчилан таамаглах** | 9 загвартай цаг хугацааны цувааны урьдчилсан таамаглал (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM гэх мэт), автомат загвар сонголт, график үүсгэх, i18n |
-| **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) -г үзнэ үү and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) -г үзнэ үү and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Үүлэн API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 эх кодын хөтөч (idx гэр бүл)** |
@@ -113,15 +113,15 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 | **GUI** | `uagg` | Tkinter |-ээр дамжуулан ширээний UI
 | **Вэб** | `uagw` | Хөтөч дээр суурилсан хандалт |
 | **A2A сервер** | `uaga` | Олон агенттай харилцах Agent2Agent протокол |
-| **VS код** | — | [Өргөтгөл](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) чатын самбар, тайлбарлах, дахин засах, алдаа засах, мод харах хэрэгсэлтэй |
+| **VS код** | — | [Өргөтгөл](VSCODE.md) чатын самбар, тайлбарлах, дахин засах, алдаа засах, мод харах хэрэгсэлтэй |
 
-VS Кодын өргөтгөл — суулгац, командууд, товчлуурын холболтууд болон тохиргооны талаарх дэлгэрэнгүй мэдээллийг [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) -с харна уу.
+VS Кодын өргөтгөл — суулгац, командууд, товчлуурын холболтууд болон тохиргооны талаарх дэлгэрэнгүй мэдээллийг [VSCODE.md](VSCODE.md) -с харна уу.
 
 ### 🏠 IoT төхөөрөмжийн хяналт
 
 - **Асуудал**: Хянагч/гүүр/төхөөрөмжийн топологийг зөвхөн унших боломжтой шалгах
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)-г үзнэ үү.
+[IOT_USECASE.md](IOT_USECASE.md)-г үзнэ үү.
 
 ### 🎯 Agent Skills Marketplace
 
@@ -138,7 +138,7 @@ uag нь **бие даасан зорилгыг LLM-ийн олон үе шат�
 - **Хүссэн үедээ гарах**: `x` товчийг дарж шууд, тэр дундаа ч гэсэн зогсооно. Эсвэл зорилгодоо хүрэхийг шүүмжлэгч өөрөө шийднэ.
 - **Тохируулж болох**: `--max-rounds N` төсвийг хянах.
 
-Бүрэн баримтыг [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)-с үзнэ үү.
+Бүрэн баримтыг [README_AUTO.md](README_AUTO.md)-с үзнэ үү.
 
 ### 🧩 Багц улсын менежер
 
@@ -160,7 +160,7 @@ LLM хариу үүсгэхийг хүссэн үедээ зогсоож, зог
 
 Тасалдал нь "шууд тарилга" хэлбэрээр ажилладаг: энэ нь зүгээр л цуцлахын оронд "Зогс"-ыг LLM-д хэрэглэгчийн мессеж болгон буцааж өгч, тасалдлыг эелдэг байдлаар дүгнэх эсвэл хүлээн зөвшөөрөх боломжийг олгодог.
 
-Автомат нисгэгчийн горимоос гарахын тулд `x` товчийг дарна уу ([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) хэсгийг үзнэ үү).
+Автомат нисгэгчийн горимоос гарахын тулд `x` товчийг дарна уу ([README_AUTO.md](README_AUTO.md) хэсгийг үзнэ үү).
 
 ### 🕵️ Хөтөч автоматжуулалт ба вэб шалгагч
 
@@ -181,9 +181,9 @@ LLM хариу үүсгэхийг хүссэн үедээ зогсоож, зог
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / / Español / Français / Русский / гэх мэт.
-Сэлхийн тулд `UAGENT_LANG`-г тохируулна уу. Шинэ хэл нэмэхийн тулд [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)-г үзнэ үү.
+Сэлхийн тулд `UAGENT_LANG`-г тохируулна уу. Шинэ хэл нэмэхийн тулд [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md)-г үзнэ үү.
 
-Энэхүү README-ийн орчуулгыг [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) дээрээс авах боломжтой.
+Энэхүү README-ийн орчуулгыг [docs/README.translations.md](README.translations.md) дээрээс авах боломжтой.
 
 ### 🔒 Шифрлэгдсэн орчны хувьсагч
 
@@ -192,13 +192,13 @@ API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн
 
 ## Тохиргоо ба дэлгэрэнгүй мэдээлэл
 
-- **Орчны хувьсагчид**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Орчны хувьсагчид**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Тохируулах шидтэн**: `python -m uagent.setup_cli`
 - **Шифрлэгдсэн env**: `uag_envsec` — `.env`-г `.env.sec` гэж шифрлэх
 - **Responses API**: Responses API горимд `UAGENT_RESPONSES=1` тохируулна уу (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu)-д автоматаар идэвхжүүлсэн.
-- **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- \*\* LLM-ийн жижиг зөвлөмж\*\*: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- \*\* LLM-ийн жижиг зөвлөмж\*\*: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Төслийн философи
 

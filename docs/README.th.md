@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 ในการเปิดตัวครั้งแรก วิซาร์ดการตั้งค่าจะแนะนำคุณเกี่ยวกับการกำหนดค่าผู้ให้บริการ
-ดู [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
+ดู [docs/ENVIRONMENT.md](ENVIRONMENT.md) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
 
 ## คุณสมบัติ
 
@@ -80,7 +80,7 @@ uagent ใช้ระบบปลั๊กอินที่เข้ากั�
 :plugin init <name>                  # สร้างโครงปลั๊กอินใหม่
 ```
 
-ดูรายละเอียดเพิ่มเติมในเอกสารฉบับเต็ม [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+ดูรายละเอียดเพิ่มเติมในเอกสารฉบับเต็ม [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 ความต่อเนื่องของเซสชัน
 
@@ -98,7 +98,7 @@ uagent ใช้ระบบปลั๊กอินที่เข้ากั�
 | **สื่อ** | Generate_image, analy_image, img2img, audio_speech, audio_transcribe |
 | **เอกสาร** | การแยก PDF/PPTX/DOCX/RTF/ODT, การแยกโครงสร้าง Excel |
 | **พยากรณ์** | การพยากรณ์อนุกรมเวลาด้วย 9 โมเดล (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM ฯลฯ), การเลือกโมเดลอัตโนมัติ, การสร้างพล็อต, i18n |
-| **การสื่อสาร** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — ดู [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **การสื่อสาร** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — ดู [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **ไอโอที** | SwitchBot (คลาวด์ + BLE), ECHONET Lite, สำคัญ, UPnP, reverse_geocode |
 | **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 29 ตัว (ตระกูล idx)** |
 | **เอ็มซีพี** | เชื่อมต่อกับเซิร์ฟเวอร์ MCP ภายนอก แสดงรายการเครื่องมือ ดำเนินการ |
@@ -114,15 +114,15 @@ uagent ใช้ระบบปลั๊กอินที่เข้ากั�
 | **กุย** | `อูกก` | UI เดสก์ท็อปผ่าน tkinter |
 | **เว็บ** | `อู้วว` | การเข้าถึงผ่านเบราว์เซอร์ |
 | **เซิร์ฟเวอร์ A2A** | `อูก้า` | โปรโตคอล Agent2Agent สำหรับการสื่อสารหลายตัวแทน |
-| **รหัส VS** | — | [ส่วนขยาย](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) พร้อมแผงแชท อธิบาย ปรับโครงสร้างใหม่ แก้ไขข้อผิดพลาด และมุมมองแผนผังเครื่องมือ |
+| **รหัส VS** | — | [ส่วนขยาย](VSCODE.md) พร้อมแผงแชท อธิบาย ปรับโครงสร้างใหม่ แก้ไขข้อผิดพลาด และมุมมองแผนผังเครื่องมือ |
 
-ดู [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) สำหรับรายละเอียดเกี่ยวกับส่วนขยาย VS Code — การติดตั้ง คำสั่ง การผูกคีย์ และการกำหนดค่า
+ดู [VSCODE.md](VSCODE.md) สำหรับรายละเอียดเกี่ยวกับส่วนขยาย VS Code — การติดตั้ง คำสั่ง การผูกคีย์ และการกำหนดค่า
 
 ### 🏠 การควบคุมอุปกรณ์ IoT
 
 - **เรื่อง**: การตรวจสอบโทโพโลยีตัวควบคุม/บริดจ์/อุปกรณ์แบบอ่านอย่างเดียว
 
-ดู [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+ดู [IOT_USECASE.md](IOT_USECASE.md)
 
 ### การควบคุมอุปกรณ์ IoT
 
@@ -151,7 +151,7 @@ uag สามารถ **ติดตามเป้าหมายโดยอ�
 - **ออกเมื่อใดก็ได้**: กดปุ่ม `x` เพื่อหยุดทันที แม้จะตอบกลับกลางคันก็ตาม หรือให้ผู้วิจารณ์ตัดสินใจว่าจะบรรลุเป้าหมายเมื่อใด
 - **กำหนดค่าได้**: `--max-rounds N` เพื่อควบคุมงบประมาณ
 
-ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) สำหรับเอกสารฉบับเต็ม
+ดู [README_AUTO.md](README_AUTO.md) สำหรับเอกสารฉบับเต็ม
 
 ### 🧩 ผู้จัดการกลุ่มรัฐ
 
@@ -173,7 +173,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 
 การขัดจังหวะทำงานเหมือน "การแทรกพร้อมท์": แทนที่จะเพียงแค่ยกเลิก การขัดจังหวะจะป้อน `"หยุด"` กลับไปยัง LLM เป็นข้อความผู้ใช้ เพื่อให้สามารถสรุปหรือรับทราบการขัดจังหวะได้อย่างสวยงาม
 
-กดปุ่ม `x` เพื่อออกจากโหมดนำร่องอัตโนมัติ (ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))
+กดปุ่ม `x` เพื่อออกจากโหมดนำร่องอัตโนมัติ (ดู [README_AUTO.md](README_AUTO.md))
 
 ### 🕵️ ระบบอัตโนมัติของเบราว์เซอร์ & ตัวตรวจสอบเว็บ
 
@@ -194,9 +194,9 @@ uag สามารถติดตามความคืบหน้าขอ�
 ### 🌐 i18n / L10n
 
 日本語 / อังกฤษ / 简体中文 / 繁體中文 / เกาหลี / Español / Français / Русский / และอื่นๆ
-ตั้งค่า `UAGENT_LANG` เพื่อเปลี่ยน ดู [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) เพื่อเพิ่มภาษาใหม่
+ตั้งค่า `UAGENT_LANG` เพื่อเปลี่ยน ดู [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) เพื่อเพิ่มภาษาใหม่
 
-คำแปลของ README นี้มีอยู่ใน [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+คำแปลของ README นี้มีอยู่ใน [docs/README.translations.md](README.translations.md)
 
 ### 🔒 ตัวแปรสภาพแวดล้อมที่เข้ารหัส
 
@@ -205,13 +205,13 @@ uag สามารถติดตามความคืบหน้าขอ�
 
 ## การกำหนดค่าและรายละเอียด
 
-- **ตัวแปรสภาพแวดล้อม**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **ตัวแปรสภาพแวดล้อม**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **วิซาร์ดการตั้งค่า**: `python -m uagent.setup_cli`
 - **env ที่เข้ารหัส**: `uag_envsec` — เข้ารหัส `.env` เป็น `.env.sec`
 - **Responses API**: ตั้งค่า `UAGENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) เปิดใช้งานอัตโนมัติสำหรับ Sakana AI (Fugu)
-- **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## ปรัชญาโครงการ
 

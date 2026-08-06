@@ -2,7 +2,7 @@
 
 Tato příručka vysvětluje, jak přidat své vlastní nástroje do uag **bez úpravy samotného uag**.
 Pokud chcete přidat nástroj přímo do stromu zdroje uag, viz
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

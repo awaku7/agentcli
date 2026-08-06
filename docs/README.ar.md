@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 عند التشغيل لأول مرة، يرشدك معالج الإعداد عبر تكوين الموفر.
-راجع [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
+راجع [docs/ENVIRONMENT.md](ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
 
 ## سمات
 
@@ -80,7 +80,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 :plugin init <name>                  # إنشاء هيكل مكون إضافي جديد
 ```
 
-راجع [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) للحصول على الوثائق الكاملة.
+راجع [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md) للحصول على الوثائق الكاملة.
 
 ### 🔄استمرارية الجلسة
 
@@ -98,7 +98,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
 | **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
 | **تنبؤ** | التنبؤ بالسلاسل الزمنية باستخدام 9 نماذج (AutoARIMA وProphet وLightGBM وCatBoost وTimesFM وغيرها)، اختيار النموذج تلقائيًا، إنشاء الرسوم البيانية، تدويل i18n |
-| **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook، **pybitchat** (BLE Mesh) — راجع [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) و [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook، **pybitchat** (BLE Mesh) — راجع [COMMUNICATION.md](COMMUNICATION.md) و [BITCHAT.md](BITCHAT.md) |
 | **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | \*\* أدوات التطوير \*\* | git_ops، python_compile، lint_format، run_tests، db_query، \*\* 29 متصفحًا لكود المصدر (عائلة idx) \*\* |
 | **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |
@@ -114,15 +114,15 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | \*\* واجهة المستخدم الرسومية \*\* | `واغ` | واجهة مستخدم سطح المكتب عبر tkinter |
 | **الويب** | `واجو` | الوصول عبر المتصفح |
 | **خادم A2A** | `واجا` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
-| **رمز VS** | — | [ملحق](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) مع لوحة الدردشة والشرح وإعادة البناء وإصلاح الخطأ وعرض شجرة الأدوات |
+| **رمز VS** | — | [ملحق](VSCODE.md) مع لوحة الدردشة والشرح وإعادة البناء وإصلاح الخطأ وعرض شجرة الأدوات |
 
-راجع [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) للحصول على تفاصيل حول ملحق VS Code - التثبيت والأوامر وارتباطات المفاتيح والتكوين.
+راجع [VSCODE.md](VSCODE.md) للحصول على تفاصيل حول ملحق VS Code - التثبيت والأوامر وارتباطات المفاتيح والتكوين.
 
 ### 🏠 التحكم في أجهزة إنترنت الأشياء
 
 - **المسألة**: فحص للقراءة فقط لهيكل وحدة التحكم/الجسر/الجهاز
 
-راجع [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+راجع [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🏠 التحكم في جهاز إنترنت الأشياء
 
@@ -151,7 +151,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 - **الخروج في أي وقت**: اضغط على مفتاح x للتوقف فورًا، حتى في منتصف الاستجابة. أو دع المراجع يقرر متى يتم تحقيق الهدف.
 - **قابل للتكوين**: `--max-rounds N` للتحكم في الميزانية.
 
-راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) للحصول على الوثائق الكاملة.
+راجع [README_AUTO.md](README_AUTO.md) للحصول على الوثائق الكاملة.
 
 ### 🧩 مدير حالة الدفعة
 
@@ -173,7 +173,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 تعمل المقاطعة كـ "إدخال سريع": بدلاً من مجرد الإجهاض، فإنها تغذي ""Stop"" مرة أخرى إلى LLM كرسالة مستخدم، مما يسمح لها بإنهاء المقاطعة أو الإقرار بها بأمان.
 
-اضغط على المفتاح "x" للخروج من وضع الطيار التلقائي (راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+اضغط على المفتاح "x" للخروج من وضع الطيار التلقائي (راجع [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ أتمتة المتصفح ومفتش الويب
 
@@ -194,9 +194,9 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 ### 🌐i18n / L10n
 
 日本語 / الإنجليزية / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / والمزيد.
-اضبط "UAGENT_LANG" للتبديل. راجع [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) لإضافة لغة جديدة.
+اضبط "UAGENT_LANG" للتبديل. راجع [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) لإضافة لغة جديدة.
 
-تتوفر ترجمات هذا الملف التمهيدي في [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+تتوفر ترجمات هذا الملف التمهيدي في [docs/README.translations.md](README.translations.md).
 
 ### 🔒 متغيرات البيئة المشفرة
 
@@ -205,13 +205,13 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 ## التكوين والتفاصيل
 
-- **متغيرات البيئة**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **متغيرات البيئة**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **معالج الإعداد**: `python -m uagent.setup_cli`
 - **env المشفر**: `uag_envsec` — تشفير `.env` كـ `.env.sec`
 - **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة برمجة التطبيقات للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). تم تمكينه تلقائيًا لـ Sakana AI (Fugu).
-- **مستندات المطورين**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **مستندات المطورين**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **نصائح LLM الصغيرة**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## فلسفة المشروع
 

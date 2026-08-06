@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -44,7 +44,7 @@ uag
 ```
 
 पहले लॉन्च पर, सेटअप विज़ार्ड आपको प्रदाता कॉन्फ़िगरेशन के बारे में बताता है।
-सभी पर्यावरण चर के लिए [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) देखें।
+सभी पर्यावरण चर के लिए [docs/ENVIRONMENT.md](ENVIRONMENT.md) देखें।
 
 ## विशेषताएँ
 
@@ -81,7 +81,7 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 :plugin init <name>                  # नया प्लगइन ढाँचा बनाएँ
 ```
 
-विवरण के लिए पूरा दस्तावेज़ देखें। [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+विवरण के लिए पूरा दस्तावेज़ देखें। [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 सत्र निरंतरता
 
@@ -99,7 +99,7 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 | **मीडिया** | जेनरेट_इमेज, विश्लेषण_इमेज, img2img, ऑडियो_स्पीच, ऑडियो_ट्रांसक्राइब |
 | **दस्तावेज़** | पीडीएफ/पीपीटीएक्स/डीओसीएक्स/आरटीएफ/ओडीटी निष्कर्षण, एक्सेल संरचित निष्कर्षण |
 | **पूर्वानुमान** | 9 मॉडलों के साथ समय श्रृंखला पूर्वानुमान (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, आदि), स्वचालित मॉडल चयन, प्लॉट निर्माण, i18n |
-| **संचार** | gmail_send, gmail_read, ब्लूस्की, डिस्कॉर्ड_चैनल, Teams_webhook, **pybitchat** (BLE Mesh) - देखें [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) और [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **संचार** | gmail_send, gmail_read, ब्लूस्की, डिस्कॉर्ड_चैनल, Teams_webhook, **pybitchat** (BLE Mesh) - देखें [COMMUNICATION.md](COMMUNICATION.md) और [BITCHAT.md](BITCHAT.md) |
 | **आईओटी** | स्विचबॉट (क्लाउड + बीएलई), इकोनेट लाइट, मैटर, यूपीएनपी, reverse_geocode |
 | **डेव टूल्स** | git_ops, Python_compile, lint_format, run_tests, db_query, **29 स्रोत कोड नेविगेटर (idx परिवार)** |
 | **एमसीपी** | बाहरी एमसीपी सर्वर से कनेक्ट करें, टूल सूचीबद्ध करें, निष्पादित करें |
@@ -115,9 +115,9 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 | **जीयूआई** | `उअग्ग` | टिंकर के माध्यम से डेस्कटॉप यूआई |
 | **वेब** | `उगव` | ब्राउज़र-आधारित पहुंच |
 | **A2A सर्वर** | 'उगा' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
-| **वीएस कोड** | — | [एक्सटेंशन](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चैट पैनल, एक्सप्लेन, रिफैक्टर, फिक्स एरर और टूल्स ट्री व्यू के साथ |
+| **वीएस कोड** | — | [एक्सटेंशन](VSCODE.md) चैट पैनल, एक्सप्लेन, रिफैक्टर, फिक्स एरर और टूल्स ट्री व्यू के साथ |
 
-वीएस कोड एक्सटेंशन - इंस्टॉलेशन, कमांड, कीबाइंडिंग और कॉन्फ़िगरेशन पर विवरण के लिए [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) देखें।
+वीएस कोड एक्सटेंशन - इंस्टॉलेशन, कमांड, कीबाइंडिंग और कॉन्फ़िगरेशन पर विवरण के लिए [VSCODE.md](VSCODE.md) देखें।
 
 ### 🏠 IoT डिवाइस नियंत्रण
 
@@ -126,7 +126,7 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 - **मामला**: कंट्रोलर/ब्रिज/डिवाइस टोपोलॉजी का रीड-ओनली निरीक्षण
 - **यूपीएनपी**: डिवाइस खोज और आईजीडी पोर्ट अग्रेषण
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) देखें
+[IOT_USECASE.md](IOT_USECASE.md) देखें
 
 ### 🎯 एजेंट कौशल बाज़ार
 
@@ -143,7 +143,7 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 - **कभी भी बाहर निकलें**: तुरंत रुकने के लिए `x` कुंजी दबाएँ, यहाँ तक कि प्रतिक्रिया के बीच में भी। या फिर समीक्षक को यह तय करने दें कि लक्ष्य कब पूरा होगा।
 - **कॉन्फ़िगर करने योग्य**: बजट को नियंत्रित करने के लिए `--मैक्स-राउंड एन`।
 
-संपूर्ण दस्तावेज़ीकरण के लिए [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) देखें।
+संपूर्ण दस्तावेज़ीकरण के लिए [README_AUTO.md](README_AUTO.md) देखें।
 
 ### 🧩बैच स्टेट मैनेजर
 
@@ -165,7 +165,7 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 
 व्यवधान "प्रॉम्प्ट इंजेक्शन" के रूप में काम करता है: केवल निरस्त करने के बजाय, यह उपयोगकर्ता संदेश के रूप में एलएलएम में `"स्टॉप"` को वापस फीड करता है, जिससे वह व्यवधान को शालीनता से समाप्त करने या स्वीकार करने की अनुमति देता है।
 
-ऑटो-पायलट मोड से बाहर निकलने के लिए `x` कुंजी दबाएँ (देखें [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))।
+ऑटो-पायलट मोड से बाहर निकलने के लिए `x` कुंजी दबाएँ (देखें [README_AUTO.md](README_AUTO.md))।
 
 ### 🕵️ ब्राउज़र ऑटोमेशन और वेब इंस्पेक्टर
 
@@ -186,9 +186,9 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 ### 🌐 i18n / L10n
 
 日本語 / अंग्रेजी / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / और अधिक।
-स्विच करने के लिए `UAGENT_LANG` सेट करें। नया लोकेल जोड़ने के लिए [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) देखें।
+स्विच करने के लिए `UAGENT_LANG` सेट करें। नया लोकेल जोड़ने के लिए [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) देखें।
 
-इस README के ​​अनुवाद [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) पर उपलब्ध हैं।
+इस README के ​​अनुवाद [docs/README.translations.md](README.translations.md) पर उपलब्ध हैं।
 
 ### 🔒 एन्क्रिप्टेड पर्यावरण चर
 
@@ -197,13 +197,13 @@ uagent एक Claude Code-संगत प्लगइन सिस्टम ल
 
 ## कॉन्फ़िगरेशन और विवरण
 
-- **पर्यावरण चर**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **पर्यावरण चर**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **सेटअप विज़ार्ड**: `पायथन -एम uagent.setup_cli`
 - **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
 - **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः सक्षम।
-- **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **डेवलपर दस्तावेज़**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## परियोजना दर्शन
 

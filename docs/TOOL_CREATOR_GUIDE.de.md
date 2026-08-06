@@ -2,7 +2,7 @@
 
 In diesem Leitfaden wird erklärt, wie Sie Ihre eigenen Tools zu UAG hinzufügen, **ohne UAG selbst zu ändern**.
 Wenn Sie ein Tool direkt zum UAG-Quellbaum hinzufügen möchten, siehe
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

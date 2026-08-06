@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Vid första lanseringen leder installationsguiden dig genom leverantörskonfigurationen.
-Se [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) för alla miljövariabler.
+Se [docs/ENVIRONMENT.md](ENVIRONMENT.md) för alla miljövariabler.
 
 ## Funktioner
 
@@ -80,7 +80,7 @@ uagent implementerar ett **Claude Code-kompatibelt pluginsystem**. Plugins samla
 :plugin init <name>                  # Skapa ett nytt plugin-skelett
 ```
 
-Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Sessionskontinuitet
 
@@ -96,7 +96,7 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 | **Media** | generera_bild, analysera_bild, img2img, audio_tal, audio_transcribe |
 | **Dokument** | PDF/PPTX/DOCX/RTF/ODT-extraktion, Excel-strukturerad extrahering |
 | **Prognos** | Tidsserieprognos med 9 modeller (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatiskt modellval, plotgenerering, i18n |
-| **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Moln-API:er** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **29 källkodsnavigatorer (idx-familjen)** |
@@ -113,15 +113,15 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVEL
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Webb** | `uagw` | Webbläsarbaserad åtkomst |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll för multiagentkommunikation |
-| **VS-kod** | — | [Tillägg](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error och Tools Trädvy |
+| **VS-kod** | — | [Tillägg](VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error och Tools Trädvy |
 
-Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) för detaljer om VS Code-tillägget — installation, kommandon, tangentbindningar och konfiguration.
+Se [VSCODE.md](VSCODE.md) för detaljer om VS Code-tillägget — installation, kommandon, tangentbindningar och konfiguration.
 
 ### 🏠 IoT-enhetskontroll
 
 - **Ärende**: Skrivskyddad inspektion av styrenhet/brygga/enhetstopologi
 
-Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Se [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -138,7 +138,7 @@ uag kan **autonomt sträva efter ett mål över flera LLM-omgångar**. Perfekt f
 - **Avsluta när som helst**: Tryck på `x`-tangenten för att stoppa omedelbart, även mitt i svaret. Eller låt granskaren bestämma när målet är uppfyllt.
 - **Konfigurerbar**: `--max-rounds N` för att styra budgeten.
 
-Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) för fullständig dokumentation.
+Se [README_AUTO.md](README_AUTO.md) för fullständig dokumentation.
 
 ### 🧩 Batch State Manager
 
@@ -160,7 +160,7 @@ Stoppa generering av LLM-svar när som helst och injicera ett stoppkommando till
 
 Avbrottet fungerar som "prompt injektion": istället för att bara avbryta, matar det "Stopp"" tillbaka till LLM som ett användarmeddelande, vilket gör det möjligt för den att på ett elegant sätt avsluta eller bekräfta avbrottet.
 
-Tryck på `x`-tangenten för att avsluta autopilotläget (se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Tryck på `x`-tangenten för att avsluta autopilotläget (se [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Webbläsarautomation och webbinspektör
 
@@ -181,9 +181,9 @@ Inget behov av att ladda allt vid start – aktivera bara det du behöver, när 
 ### 🌐 i18n / L10n
 
 日本語 / Engelska / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / och mer.
-Ställ in "UAGENT_LANG" för att byta. Se [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) för att lägga till ett nytt språk.
+Ställ in "UAGENT_LANG" för att byta. Se [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) för att lägga till ett nytt språk.
 
-Översättningar av denna README finns i [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Översättningar av denna README finns i [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Krypterade miljövariabler
 
@@ -192,13 +192,13 @@ Hantera med `uag_envsec`.
 
 ## Konfiguration och detaljer
 
-- **Miljövariabler**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Miljövariabler**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Installationsguide**: `python -m uagent.setup_cli`
 - **Krypterad env**: `uag_envsec` — kryptera `.env` som `.env.sec`
 - **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Autoaktiverad för Sakana AI (Fugu).
-- **Utvecklardokument**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Utvecklardokument**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Små LLM-tips**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Projektfilosofi
 

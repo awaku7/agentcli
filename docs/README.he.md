@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 בהפעלה הראשונה, אשף ההגדרה ילווה אותך דרך תצורת הספק.
-ראה [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) עבור כל משתני הסביבה.
+ראה [docs/ENVIRONMENT.md](ENVIRONMENT.md) עבור כל משתני הסביבה.
 
 ## תכונות
 
@@ -80,7 +80,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 :plugin init <name>                  # יצירת שלד לתוסף חדש
 ```
 
-עיינו בתיעוד המלא לפרטים. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+עיינו בתיעוד המלא לפרטים. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 המשכיות הפגישה
 
@@ -96,7 +96,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **מדיה** | gener_image, analys_image, img2img, audio_speech, audio_transscribe |
 | **מסמכים** | חילוץ PDF/PPTX/DOCX/RTF/ODT, חילוץ מובנה של Excel |
 | **תחזית** | חיזוי סדרות זמן עם 9 מודלים (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM וכו'), בחירת מודל אוטומטית, יצירת גרפים, i18n |
-| **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — ראה [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — ראה [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ממשקי API בענן** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **29 נווטי קוד מקור (משפחת idx)** |
@@ -113,15 +113,15 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **GUI** | `uagg` | ממשק משתמש שולחני באמצעות tkinter |
 | **אינטרנט** | `uagw` | גישה מבוססת דפדפן |
 | **שרת A2A** | `uaga` | פרוטוקול Agent2Agent לתקשורת מרובת סוכנים |
-| **קוד VS** | — | [הרחבה](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) עם לוח צ'אט, הסבר, Refactor, תיקון שגיאה ותצוגת עץ של כלים |
+| **קוד VS** | — | [הרחבה](VSCODE.md) עם לוח צ'אט, הסבר, Refactor, תיקון שגיאה ותצוגת עץ של כלים |
 
-ראה [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
+ראה [VSCODE.md](VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
 
 ### 🏠 בקרת מכשירי IoT
 
 - **עניין**: בדיקה לקריאה בלבד של טופולוגיה של בקר/גשר/התקן
 
-ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+ראה [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -138,7 +138,7 @@ uag יכולה **לרדוף אחר יעד באופן אוטונומי על פנ�
 - **צא בכל עת**: הקש על מקש 'x' כדי לעצור מיד, אפילו באמצע התגובה. או לתת למבקר להחליט מתי היעד מושג.
 - **ניתן להגדרה**: `--max-rounds N` כדי לשלוט בתקציב.
 
-ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) לתיעוד מלא.
+ראה [README_AUTO.md](README_AUTO.md) לתיעוד מלא.
 
 ### 🧩 מנהל מצב אצווה
 
@@ -160,7 +160,7 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 
 ההפרעה פועלת כ"הזרקה מהירה": במקום פשוט להפסיק, היא מחזירה את `"עצור"` אל ה-LLM כהודעת משתמש, ומאפשרת לו לסיים בחינניות או לאשר את ההפרעה.
 
-הקש על מקש 'x' כדי לצאת ממצב טייס אוטומטי (ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+הקש על מקש 'x' כדי לצאת ממצב טייס אוטומטי (ראה [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ אוטומציה של דפדפן ומפקח אינטרנט
 
@@ -181,9 +181,9 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 ### 🌐 i18n / L10n
 
 日本語 / אנגלית / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ועוד.
-הגדר את 'UAGENT_LANG' כדי לעבור. ראה [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) כדי להוסיף מקום חדש.
+הגדר את 'UAGENT_LANG' כדי לעבור. ראה [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) כדי להוסיף מקום חדש.
 
-תרגומים של README זה זמינים ב-[docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+תרגומים של README זה זמינים ב-[docs/README.translations.md](README.translations.md).
 
 ### 🔒 משתני סביבה מוצפנים
 
@@ -192,13 +192,13 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 
 ## תצורה ופרטים
 
-- **משתני סביבה**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **משתני סביבה**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **אשף ההתקנה**: `python -m uagent.setup_cli`
 - **env מוצפן**: `uag_envsec` - הצפין `.env` בתור `.env.sec`
 - **Responses API**: הגדר 'UAGENT_RESPONSES=1' למצב תגובות API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). מופעל אוטומטי עבור Sakana AI (Fugu).
-- **מסמכי מפתח**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **מסמכי מפתח**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **טיפים קטנים LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **טיפים קטנים LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## פילוסופיית הפרויקט
 

@@ -2,7 +2,7 @@
 
 Tämä opas selittää, kuinka voit lisätä omia työkaluja uag:iin **muokkamatta itse uag:ia**.
 Jos haluat lisätä työkalun suoraan uag-lähdepuuhun, katso
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

@@ -2,7 +2,7 @@
 
 Энэ гарын авлага нь **uag-г өөрөө өөрчлөхгүйгээр** өөрийн хэрэглүүрийг uag-д хэрхэн нэмэхийг тайлбарладаг.
 Хэрэв та uag эхийн мод руу шууд хэрэгсэл нэмэхийг хүсвэл, үзнэ үү
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

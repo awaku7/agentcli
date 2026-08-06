@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 প্রথম লঞ্চে, সেটআপ উইজার্ড আপনাকে প্রদানকারী কনফিগারেশনের মাধ্যমে নিয়ে যায়।
-সমস্ত পরিবেশের ভেরিয়েবলের জন্য [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) দেখুন।
+সমস্ত পরিবেশের ভেরিয়েবলের জন্য [docs/ENVIRONMENT.md](ENVIRONMENT.md) দেখুন।
 
 ## বৈশিষ্ট্য
 
@@ -80,7 +80,7 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 :plugin init <name>                  # নতুন প্লাগইনের কাঠামো তৈরি করুন
 ```
 
-সম্পূর্ণ ডকুমেন্টেশনের জন্য [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) দেখুন।
+সম্পূর্ণ ডকুমেন্টেশনের জন্য [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md) দেখুন।
 
 ### 🔄 অধিবেশনের ধারাবাহিকতা
 
@@ -96,7 +96,7 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 | **মিডিয়া** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **নথিপত্র** | PDF/PPTX/DOCX/RTF/ODT নিষ্কাশন, এক্সেল কাঠামোগত নিষ্কাশন |
 | **পূর্বাভাস** | 9টি মডেল সহ সময় সিরিজ পূর্বাভাস (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, ইত্যাদি), স্বয়ংক্রিয় মডেল নির্বাচন, প্লট জেনারেশন, i18n |
-| **যোগাযোগ** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) এবং [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) দেখুন|
+| **যোগাযোগ** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) এবং [BITCHAT.md](BITCHAT.md) দেখুন|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ক্লাউড API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **26 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
@@ -113,9 +113,9 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 | **GUI** | `uagg` | tkinter এর মাধ্যমে ডেস্কটপ UI |
 | **ওয়েব** | `uagw` | ব্রাউজার-ভিত্তিক অ্যাক্সেস |
 | **A2A সার্ভার** | `uaga` | মাল্টি-এজেন্ট যোগাযোগের জন্য Agent2Agent প্রোটোকল |
-| **VS কোড** | — | [এক্সটেনশন](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) চ্যাট প্যানেল, ব্যাখ্যা, রিফ্যাক্টর, ত্রুটি সংশোধন, এবং টুলস ট্রি ভিউ সহ |
+| **VS কোড** | — | [এক্সটেনশন](VSCODE.md) চ্যাট প্যানেল, ব্যাখ্যা, রিফ্যাক্টর, ত্রুটি সংশোধন, এবং টুলস ট্রি ভিউ সহ |
 
-VS কোড এক্সটেনশন — ইনস্টলেশন, কমান্ড, কীবাইন্ডিং এবং কনফিগারেশনের বিস্তারিত জানার জন্য [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) দেখুন।
+VS কোড এক্সটেনশন — ইনস্টলেশন, কমান্ড, কীবাইন্ডিং এবং কনফিগারেশনের বিস্তারিত জানার জন্য [VSCODE.md](VSCODE.md) দেখুন।
 
 ### 🏠 IoT ডিভাইস কন্ট্রোল
 
@@ -123,7 +123,7 @@ VS কোড এক্সটেনশন — ইনস্টলেশন, কম
 - **ইকোনেট লাইট**: স্থানীয় নেটওয়ার্কে গৃহস্থালীর যন্ত্রপাতি (এসি, লাইট, ওয়াটার হিটার ইত্যাদি) আবিষ্কার ও নিয়ন্ত্রণ করুন
 - **ম্যাটার**: কন্ট্রোলার/ব্রিজ/ডিভাইস টপোলজির শুধুমাত্র পঠনযোগ্য পরিদর্শন
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) দেখুন
+[IOT_USECASE.md](IOT_USECASE.md) দেখুন
 
 ### 🎯 এজেন্ট স্কিল মার্কেটপ্লেস
 
@@ -140,7 +140,7 @@ uag **স্বয়ংক্রিয়ভাবে একাধিক LLM �
 - **যেকোনো সময় প্রস্থান করুন**: অবিলম্বে বন্ধ করতে `x` কী টিপুন, এমনকি মধ্য-প্রতিক্রিয়াও। অথবা পর্যালোচককে সিদ্ধান্ত নিতে দিন কখন লক্ষ্য পূরণ হবে।
 - **কনফিগারযোগ্য**: বাজেট নিয়ন্ত্রণ করতে `--সর্বোচ্চ রাউন্ডস N`।
 
-সম্পূর্ণ ডকুমেন্টেশনের জন্য [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) দেখুন।
+সম্পূর্ণ ডকুমেন্টেশনের জন্য [README_AUTO.md](README_AUTO.md) দেখুন।
 
 ### 🧩 ব্যাচ স্টেট ম্যানেজার
 
@@ -162,7 +162,7 @@ uag দীর্ঘ-চলমান মাল্টি-ফাইল টাস্
 
 বিঘ্নটি "প্রম্পট ইনজেকশন" হিসাবে কাজ করে: শুধু বাদ দেওয়ার পরিবর্তে, এটি ব্যবহারকারীর বার্তা হিসাবে LLM-এ `"Stop"` ফিড করে, যা এটিকে সৌহার্দ্যপূর্ণভাবে সমাপ্তি বা বাধা স্বীকার করার অনুমতি দেয়।
 
-অটো-পাইলট মোড থেকে প্রস্থান করতে `x` কী টিপুন (দেখুন [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))।
+অটো-পাইলট মোড থেকে প্রস্থান করতে `x` কী টিপুন (দেখুন [README_AUTO.md](README_AUTO.md))।
 
 ### 🕵️ ব্রাউজার অটোমেশন এবং ওয়েব ইন্সপেক্টর
 
@@ -183,9 +183,9 @@ uag দীর্ঘ-চলমান মাল্টি-ফাইল টাস্
 ### 🌐 i18n / L10n
 
 日本語 / ইংরেজি / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / এবং আরও অনেক কিছু।
-স্যুইচ করতে `UAGENT_LANG` সেট করুন। একটি নতুন লোকেল যোগ করতে [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) দেখুন।
+স্যুইচ করতে `UAGENT_LANG` সেট করুন। একটি নতুন লোকেল যোগ করতে [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) দেখুন।
 
-এই README এর অনুবাদগুলি [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) এ উপলব্ধ।
+এই README এর অনুবাদগুলি [docs/README.translations.md](README.translations.md) এ উপলব্ধ।
 
 ### 🔒 এনক্রিপ্ট করা এনভায়রনমেন্ট ভেরিয়েবল
 
@@ -194,13 +194,13 @@ API কী এবং গোপনীয়তাগুলি `.env.sec`-এ স�
 
 ## কনফিগারেশন এবং বিস্তারিত
 
-- **পরিবেশ ভেরিয়েবল**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **পরিবেশ ভেরিয়েবল**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **সেটআপ উইজার্ড**: `python -m uagent.setup_cli`
 - **এনক্রিপ্ট করা env**: `uag_envsec` — `.env` কে `.env.sec` হিসেবে এনক্রিপ্ট করুন
 - **প্রতিক্রিয়া API**: প্রতিক্রিয়া API মোডের জন্য `UAGENT_RESPONSES=1` সেট করুন (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)। সাকানা এআই (ফুগু) এর জন্য স্বতঃ-সক্ষম।
-- **ডেভেলপার ডক্স**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **ডেভেলপার ডক্স**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **ছোট এলএলএম টিপস**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **ছোট এলএলএম টিপস**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## প্রকল্প দর্শন
 

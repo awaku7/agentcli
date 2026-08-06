@@ -2,7 +2,7 @@
 
 এই নির্দেশিকা ব্যাখ্যা করে কিভাবে uag-এ আপনার নিজের টুলগুলি যোগ করতে হয় **uag নিজে পরিবর্তন না করে**।
 আপনি যদি uag সোর্স ট্রিতে সরাসরি একটি টুল যোগ করতে চান, দেখুন
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)।
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md)।
 
 ---
 

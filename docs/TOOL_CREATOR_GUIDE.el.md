@@ -2,7 +2,7 @@
 
 Αυτός ο οδηγός εξηγεί πώς να προσθέσετε τα δικά σας εργαλεία στο uag **χωρίς να τροποποιήσετε το ίδιο το uag**.
 Εάν θέλετε να προσθέσετε ένα εργαλείο απευθείας στο δέντρο της πηγής uag, δείτε
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

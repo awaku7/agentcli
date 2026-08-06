@@ -206,7 +206,7 @@ Notes:
 For provider-specific details (required environment variables, base URL, model settings, etc.), see:
 
 - [`README.md`](../README.md) (Provider section)
-- [`AGENTS.md`](AGENTS.md) (list of environment variables)
+- [`AGENTS.md`](../AGENTS.md) (list of environment variables)
 
 ______________________________________________________________________
 
@@ -230,7 +230,7 @@ ______________________________________________________________________
 ## 8. Next to read
 
 - [`README.md`](../README.md) (overview / Provider / Web Inspector, etc.)
-- [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
+- [`AGENTS.md`](../AGENTS.md) (tools list / environment variables / MCP shortest example)
 - [`README_AUTO.md`](README_AUTO.md) (`:auto` command guide)
 - [`INTERRUPT.md`](INTERRUPT.md) (c-key interrupt details)
 

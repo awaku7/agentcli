@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 처음 실행하면 설정 마법사가 공급자 구성 과정을 안내합니다.
-모든 환경 변수는 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)를 참조하세요.
+모든 환경 변수는 [docs/ENVIRONMENT.md](ENVIRONMENT.md)를 참조하세요.
 
 ## 특징
 
@@ -80,7 +80,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 :plugin init <name>                  # 새 플러그인 뼈대 만들기
 ```
 
-자세한 내용은 전체 설명서를 참조하세요. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+자세한 내용은 전체 설명서를 참조하세요. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 세션 연속성
 
@@ -96,7 +96,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **미디어** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **문서** | PDF/PPTX/DOCX/RTF/ODT 추출, Excel 구조 추출 |
 | **예측** | 9개 모델(AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM 등)을 사용한 시계열 예측, 자동 모델 선택, 플롯 생성, i18n |
-| **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 및 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) 참조|
+| **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) 및 [BITCHAT.md](BITCHAT.md) 참조|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **클라우드 API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **29개의 소스 코드 탐색기(idx 제품군)** |
@@ -113,15 +113,15 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **GUI** | `uagg` | tkinter를 통한 데스크탑 UI |
 | **웹** | `uagw` | 브라우저 기반 액세스 |
 | **A2A 서버** | `uaga` | 다중 에이전트 통신을 위한 Agent2Agent 프로토콜 |
-| **VS 코드** | — | 채팅 패널, 설명, 리팩터링, 오류 수정 및 도구 트리 보기가 포함된 [확장](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
+| **VS 코드** | — | 채팅 패널, 설명, 리팩터링, 오류 수정 및 도구 트리 보기가 포함된 [확장](VSCODE.md) |
 
-VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)를 참조하세요.
+VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](VSCODE.md)를 참조하세요.
 
 ### 🏠 IoT 장치 제어
 
 - **사항**: 컨트롤러/브릿지/장치 토폴로지의 읽기 전용 검사
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)를 참조하세요.
+[IOT_USECASE.md](IOT_USECASE.md)를 참조하세요.
 
 ### 🎯 상담원 기술 마켓플레이스
 
@@ -138,7 +138,7 @@ uag는 **여러 LLM 라운드에서 자율적으로 목표를 추구**할 수 �
 - **언제든지 종료**: `x` 키를 누르면 응답 중간에도 즉시 중지됩니다. 아니면 검토자가 목표 달성 시기를 결정하도록 하세요.
 - **구성 가능**: `--max-rounds N`으로 예산을 제어합니다.
 
-전체 문서는 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)를 참조하세요.
+전체 문서는 [README_AUTO.md](README_AUTO.md)를 참조하세요.
 
 ### 🧩 배치 상태 관리자
 
@@ -160,7 +160,7 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 
 인터럽트는 "즉시 주입"으로 작동합니다. 단순히 중단하는 대신 "Stop"을 사용자 메시지로 LLM에 다시 공급하여 중단을 정상적으로 종료하거나 승인할 수 있도록 합니다.
 
-자동 조종 모드를 종료하려면 'x' 키를 누르세요([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) 참조).
+자동 조종 모드를 종료하려면 'x' 키를 누르세요([README_AUTO.md](README_AUTO.md) 참조).
 
 ### 🕵️ 브라우저 자동화 및 웹 검사기
 
@@ -181,9 +181,9 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / 그 외 다수.
-전환하려면 'UAGENT_LANG'을 설정하세요. 새 로케일을 추가하려면 [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)를 참조하세요.
+전환하려면 'UAGENT_LANG'을 설정하세요. 새 로케일을 추가하려면 [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md)를 참조하세요.
 
-이 README의 번역은 [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)에서 확인할 수 있습니다.
+이 README의 번역은 [docs/README.translations.md](README.translations.md)에서 확인할 수 있습니다.
 
 ### 🔒 암호화된 환경 변수
 
@@ -192,13 +192,13 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 
 ## 구성 및 세부정보
 
-- **환경 변수**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **환경 변수**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **설정 마법사**: `python -m uagent.setup_cli`
 - **암호화된 환경**: `uag_envsec` — `.env`를 `.env.sec`로 암호화합니다.
 - **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)에 대해 `UAGENT_RESPONSES=1`을 설정합니다. Sakana AI(Fugu)가 자동 활성화됩니다.
-- **개발자 문서**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **개발자 문서**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **도구 흐름**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **작은 LLM 팁**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **작은 LLM 팁**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## 프로젝트 철학
 

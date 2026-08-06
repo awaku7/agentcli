@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 در اولین راه‌اندازی، جادوگر راه‌اندازی شما را از طریق پیکربندی ارائه‌دهنده راهنمایی می‌کند.
-برای همه متغیرهای محیطی به [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) مراجعه کنید.
+برای همه متغیرهای محیطی به [docs/ENVIRONMENT.md](ENVIRONMENT.md) مراجعه کنید.
 
 ## ویژگی ها
 
@@ -80,7 +80,7 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 :plugin init <name>                  # ایجاد اسکلت پلاگین جدید
 ```
 
-برای جزئیات بیشتر به مستندات کامل مراجعه کنید. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+برای جزئیات بیشتر به مستندات کامل مراجعه کنید. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 تداوم جلسه
 
@@ -98,7 +98,7 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 | **رسانه** | تولید_تصویر، تحلیل_تصویر، img2img، گفتار_صوتی، رونویسی_صوتی |
 | **اسناد** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج ساختار یافته اکسل |
 | **پیش‌بینی** | پیش‌بینی سری زمانی با 9 مدل (AutoARIMA، Prophet، LightGBM، CatBoost، TimesFM و غیره)، انتخاب خودکار مدل، تولید نمودار، i18n |
-| **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook , **pybitchat** (BLE Mesh) — به [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) مراجعه کنید and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook , **pybitchat** (BLE Mesh) — به [COMMUNICATION.md](COMMUNICATION.md) مراجعه کنید and [BITCHAT.md](BITCHAT.md)|
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **29 پیمایش کد منبع (خانواده idx)** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
@@ -114,15 +114,15 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 | \*\* رابط کاربری گرافیکی \*\* | "uagg" | رابط کاربری دسکتاپ از طریق tkinter |
 | **وب** | `uagw` | دسترسی مبتنی بر مرورگر |
 | **سرور A2A** | `uaga` | پروتکل Agent2Agent برای ارتباط چند عاملی |
-| \*\* کد VS \*\* | — | [افزونه](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) با پنل چت، توضیح، Refactor، رفع خطا، و نمای درختی ابزارها |
+| \*\* کد VS \*\* | — | [افزونه](VSCODE.md) با پنل چت، توضیح، Refactor، رفع خطا، و نمای درختی ابزارها |
 
-[VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) را برای جزئیات بیشتر در مورد برنامه افزودنی VS Code - نصب، دستورات، کلیدبندی و پیکربندی ببینید.
+[VSCODE.md](VSCODE.md) را برای جزئیات بیشتر در مورد برنامه افزودنی VS Code - نصب، دستورات، کلیدبندی و پیکربندی ببینید.
 
 ### 🏠 کنترل دستگاه اینترنت اشیا
 
 - **موضوع**: بازرسی فقط خواندنی توپولوژی کنترلر/پل/دستگاه
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) را ببینید
+[IOT_USECASE.md](IOT_USECASE.md) را ببینید
 
 ### 🎯 بازار مهارت های نماینده
 
@@ -139,7 +139,7 @@ uag می تواند **به طور مستقل هدفی را در چندین دو�
 - **خروج در هر زمان**: کلید "x" را فشار دهید تا فورا متوقف شود، حتی در اواسط پاسخ. یا اجازه دهید داور تصمیم بگیرد که چه زمانی به هدف رسیده است.
 - **قابل تنظیم**: "--max-round N" برای کنترل بودجه.
 
-برای مستندات کامل به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) مراجعه کنید.
+برای مستندات کامل به [README_AUTO.md](README_AUTO.md) مراجعه کنید.
 
 ### 🧩 Batch State Manager
 
@@ -161,7 +161,7 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 وقفه به‌عنوان «تزریق سریع» عمل می‌کند: به جای صرفاً سقط، «توقف» را به عنوان یک پیام کاربر به LLM برمی‌گرداند و به آن اجازه می‌دهد تا به‌خوبی وقفه را به پایان برساند یا تأیید کند.
 
-برای خروج از حالت خلبان خودکار، کلید «x» را فشار دهید (به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) مراجعه کنید).
+برای خروج از حالت خلبان خودکار، کلید «x» را فشار دهید (به [README_AUTO.md](README_AUTO.md) مراجعه کنید).
 
 ### 🕵️ اتوماسیون مرورگر و بازرس وب
 
@@ -182,9 +182,9 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 ### 🌐 i18n / L10n
 
 日本語 / انگلیسی / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / و بیشتر.
-«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) مراجعه کنید.
+«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) مراجعه کنید.
 
-ترجمه‌های این README در [docs/README.translations.md] (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) موجود است.
+ترجمه‌های این README در [docs/README.translations.md] (README.translations.md) موجود است.
 
 ### 🔒 متغیرهای محیطی رمزگذاری شده
 
@@ -193,13 +193,13 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 ## پیکربندی و جزئیات
 
-- **متغیرهای محیطی**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **متغیرهای محیطی**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **جادوگر راه اندازی**: `python -m uagent.setup_cli`
 - \*\* env رمزگذاری شده \*\*: `uag_envsec` — رمزگذاری `.env` به عنوان `.env.sec`
 - **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) تنظیم کنید. به طور خودکار برای Sakana AI (Fugu) فعال شده است.
-- **اسناد برنامه‌نویس**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **اسناد برنامه‌نویس**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **نکات کوچک LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## فلسفه پروژه
 

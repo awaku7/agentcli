@@ -2,7 +2,7 @@
 
 Bu kılavuz, **uag'ın kendisini değiştirmeden** kendi araçlarınızı uag'a nasıl ekleyeceğinizi açıklar.
 Uag kaynak ağacına doğrudan bir araç eklemek istiyorsanız, bkz.
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

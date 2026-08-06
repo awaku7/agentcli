@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Ved første oppstart leder oppsettsveiviseren deg gjennom leverandørkonfigurasjonen.
-Se [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) for alle miljøvariabler.
+Se [docs/ENVIRONMENT.md](ENVIRONMENT.md) for alle miljøvariabler.
 
 ## Funksjoner
 
@@ -80,7 +80,7 @@ uagent implementerer et **Claude Code-kompatibelt programtilleggssystem**. Progr
 :plugin init <name>                  # Opprett nytt programtillegg
 ```
 
-Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Øktkontinuitet
 
@@ -96,7 +96,7 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELO
 | **Media** | generere_bilde, analyse_bilde, img2img, audio_tale, audio_transkribering |
 | **Dokumenter** | PDF/PPTX/DOCX/RTF/ODT-utvinning, Excel-strukturert utvinning |
 | **Prognose** | Tidsserieprognose med 9 modeller (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatisk modellvalg, plotgenerering, i18n |
-| **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Sky-API-er** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
@@ -113,15 +113,15 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELO
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Nett** | `uagw` | Nettleserbasert tilgang |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll for multi-agent kommunikasjon |
-| **VS-kode** | — | [Utvidelse](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error og Tools Tree View |
+| **VS-kode** | — | [Utvidelse](VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error og Tools Tree View |
 
-Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) for detaljer om VS Code-utvidelsen – installasjon, kommandoer, tastebindinger og konfigurasjon.
+Se [VSCODE.md](VSCODE.md) for detaljer om VS Code-utvidelsen – installasjon, kommandoer, tastebindinger og konfigurasjon.
 
 ### 🏠 IoT-enhetskontroll
 
 - **Materie**: Skrivebeskyttet inspeksjon av kontroller/bro/enhetstopologi
 
-Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Se [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -138,7 +138,7 @@ uag kan **autonomt forfølge et mål på tvers av flere LLM-runder**. Perfekt fo
 - **Avslutt når som helst**: Trykk 'x'-tasten for å stoppe umiddelbart, selv midt i responsen. Eller la anmelderen bestemme når målet er nådd.
 - **Konfigurerbar**: `--max-runder N` for å kontrollere budsjettet.
 
-Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) for full dokumentasjon.
+Se [README_AUTO.md](README_AUTO.md) for full dokumentasjon.
 
 ### 🧩 Batch State Manager
 
@@ -160,7 +160,7 @@ Stopp generering av LLM-svar når som helst og injiser en stoppkommando tilbake 
 
 Avbruddet fungerer som en "prompt injeksjon": i stedet for å bare avbryte, mater den "Stopp" tilbake til LLM som en brukermelding, slik at den elegant kan konkludere eller bekrefte avbruddet.
 
-Trykk `x`-tasten for å avslutte autopilotmodus (se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Trykk `x`-tasten for å avslutte autopilotmodus (se [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Nettleserautomatisering og nettinspektør
 
@@ -179,9 +179,9 @@ Du trenger ikke å laste alt ved oppstart - aktiver bare det du trenger, når du
 ### 🌐 i18n / L10n
 
 日本語 / Engelsk / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / og mer.
-Sett «UAGENT_LANG» for å bytte. Se [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) for å legge til en ny lokalitet.
+Sett «UAGENT_LANG» for å bytte. Se [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) for å legge til en ny lokalitet.
 
-Oversettelser av denne README er tilgjengelig i [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Oversettelser av denne README er tilgjengelig i [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Krypterte miljøvariabler
 
@@ -190,13 +190,13 @@ Administrer med `uag_envsec`.
 
 ## Konfigurasjon og detaljer
 
-- **Miljøvariabler**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Miljøvariabler**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Konfigurasjonsveiviser**: `python -m uagent.setup_cli`
 - **Kryptert env**: `uag_envsec` — krypter `.env` som `.env.sec`
 - **Responses API**: Sett `UAGENT_RESPONSES=1` for Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatisk aktivert for Sakana AI (Fugu).
-- **Utviklerdokumenter**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Utviklerdokumenter**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Små LLM-tips**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Prosjektfilosofi
 

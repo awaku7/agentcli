@@ -2,7 +2,7 @@
 
 Den här guiden förklarar hur du lägger till dina egna verktyg i uag **utan att ändra uag själv**.
 Om du vill lägga till ett verktyg direkt i uag-källträdet, se
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

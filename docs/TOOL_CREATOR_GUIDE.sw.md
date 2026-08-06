@@ -2,7 +2,7 @@
 
 Mwongozo huu unaelezea jinsi ya kuongeza zana zako mwenyewe kwenye uag **bila kurekebisha uag yenyewe**.
 Kama ungependa kuongeza zana moja kwa moja kwenye mti chanzo cha uag, ona
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

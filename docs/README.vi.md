@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cấu hình nhà cung cấp.
-Xem [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) để biết tất cả các biến môi trường.
+Xem [docs/ENVIRONMENT.md](ENVIRONMENT.md) để biết tất cả các biến môi trường.
 
 ## Đặc trưng
 
@@ -80,7 +80,7 @@ uagent triển khai **hệ thống plugin tương thích với Claude Code**. C�
 :plugin init <name>                  # Tạo cấu trúc plugin mới
 ```
 
-Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Phiên liên tục
 
@@ -96,7 +96,7 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_P
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
 | **Dự báo** | Dự báo chuỗi thời gian với 9 mô hình (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, v.v.), tự động chọn mô hình, tạo biểu đồ, i18n |
-| **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook, **pybitchat** (BLE Mesh) — xem [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) và [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook, **pybitchat** (BLE Mesh) — xem [COMMUNICATION.md](COMMUNICATION.md) và [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API đám mây** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **29 trình điều hướng mã nguồn (dòng idx)** |
@@ -113,15 +113,15 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_P
 | **GUI** | `uagg` | Giao diện người dùng máy tính để bàn thông qua tkinter |
 | **Web** | `uagw` | Truy cập dựa trên trình duyệt |
 | **Máy chủ A2A** | `uaga` | Giao thức Agent2Agent cho giao tiếp đa tác nhân |
-| **Mã VS** | — | [Tiện ích mở rộng](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) với Bảng trò chuyện, Giải thích, Tái cấu trúc, Sửa lỗi và Chế độ xem dạng cây công cụ |
+| **Mã VS** | — | [Tiện ích mở rộng](VSCODE.md) với Bảng trò chuyện, Giải thích, Tái cấu trúc, Sửa lỗi và Chế độ xem dạng cây công cụ |
 
-Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
+Xem [VSCODE.md](VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
 
 ### 🏠 Kiểm soát thiết bị IoT
 
 - **Vấn đề**: Kiểm tra chỉ đọc cấu trúc liên kết bộ điều khiển/cầu nối/thiết bị
 
-Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Xem [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🏠 Điều khiển thiết bị IoT
 
@@ -150,7 +150,7 @@ uag có thể **tự động theo đuổi mục tiêu qua nhiều vòng LLM**. H
 - **Thoát bất cứ lúc nào**: Nhấn phím `x` để dừng ngay lập tức, kể cả khi đang phản hồi. Hoặc để người đánh giá quyết định khi nào đạt được mục tiêu.
 - **Có thể định cấu hình**: `--max-rounds N` để kiểm soát ngân sách.
 
-Xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) để biết tài liệu đầy đủ.
+Xem [README_AUTO.md](README_AUTO.md) để biết tài liệu đầy đủ.
 
 ### 🧩 Quản lý trạng thái hàng loạt
 
@@ -172,7 +172,7 @@ Dừng việc tạo phản hồi LLM bất cứ lúc nào và đưa lệnh dừn
 
 Ngắt hoạt động như "chèn nhắc": thay vì chỉ hủy bỏ, nó đưa `"Dừng"` trở lại LLM dưới dạng thông báo người dùng, cho phép LLM kết luận hoặc thừa nhận sự gián đoạn một cách khéo léo.
 
-Nhấn phím `x` để thoát chế độ tự động điều khiển (xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Nhấn phím `x` để thoát chế độ tự động điều khiển (xem [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Tự động hóa trình duyệt & Trình kiểm tra web
 
@@ -193,9 +193,9 @@ Không cần tải mọi thứ khi khởi động — chỉ kích hoạt những
 ### 🌐 i18n/L10n
 
 日本語 / Tiếng Anh / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / và hơn thế nữa.
-Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) để thêm ngôn ngữ mới.
+Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) để thêm ngôn ngữ mới.
 
-Bản dịch của README này có sẵn trong [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Bản dịch của README này có sẵn trong [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Biến môi trường được mã hóa
 
@@ -204,13 +204,13 @@ Quản lý bằng `uag_envsec`.
 
 ## Cấu hình & Chi tiết
 
-- **Biến môi trường**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Biến môi trường**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Trình hướng dẫn thiết lập**: `python -m uagent.setup_cli`
 - **Env được mã hóa**: `uag_envsec` — mã hóa `.env` thành `.env.sec`
 - **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Tự động kích hoạt cho Sakana AI (Fugu).
-- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Mẹo LLM nhỏ**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Mẹo LLM nhỏ**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Triết lý dự án
 

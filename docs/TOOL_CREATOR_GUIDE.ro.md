@@ -2,7 +2,7 @@
 
 Acest ghid explică cum să adăugați propriile instrumente la uag **fără a modifica uag în sine**.
 Dacă doriți să adăugați un instrument direct în arborele sursă uag, vezi
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

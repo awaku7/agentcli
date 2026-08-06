@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 La prima lansare, asistentul de configurare vă ghidează prin configurarea furnizorului.
-Consultați [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) pentru toate variabilele de mediu.
+Consultați [docs/ENVIRONMENT.md](ENVIRONMENT.md) pentru toate variabilele de mediu.
 
 ## Caracteristici
 
@@ -80,7 +80,7 @@ uagent implementează un **sistem de pluginuri compatibil cu Claude Code**. Plug
 :plugin init <name>                  # Creați structura unui plugin nou
 ```
 
-Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Continuitatea sesiunii
 
@@ -96,7 +96,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVE
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
 | **Prognoză** | Prognoză serii de timp cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selecție automată a modelului, generare de grafice, i18n |
-| **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — vezi [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API-uri cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatoare de cod sursă (familia idx)** |
@@ -113,15 +113,15 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](src/uagent/docs/DEVE
 | **GUI** | `uagg` | Interfața de utilizare pentru desktop prin tkinter |
 | **Web** | `uagw` | Acces bazat pe browser |
 | **Server A2A** | `uaga` | Protocol Agent2Agent pentru comunicare multi-agent |
-| **Codul VS** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) cu panou de chat, explicație, refactorizare, remediere erori și vizualizare arborescentă a instrumentelor |
+| **Codul VS** | — | [Extensie](VSCODE.md) cu panou de chat, explicație, refactorizare, remediere erori și vizualizare arborescentă a instrumentelor |
 
-Consultați [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
+Consultați [VSCODE.md](VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
 
 ### 🏠 Controlul dispozitivelor IoT
 
 - **Materia**: inspecție numai în citire a topologiei controlerului/puntului/dispozitivului
 
-Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Vezi [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🏠 Control dispozitiv IoT
 
@@ -148,7 +148,7 @@ uag poate **să urmărească în mod autonom un obiectiv în mai multe runde LLM
 - **Ieșiți oricând**: apăsați tasta `x` pentru a opri imediat, chiar și la mijlocul răspunsului. Sau lăsați recenzentul să decidă când este îndeplinit obiectivul.
 - **Configurabil**: `--max-rounds N` pentru a controla bugetul.
 
-Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pentru documentația completă.
+Consultați [README_AUTO.md](README_AUTO.md) pentru documentația completă.
 
 ### 🧩 Manager de stat lot
 
@@ -170,7 +170,7 @@ Opriți generarea răspunsului LLM în orice moment și injectați o comandă de
 
 Întreruperea funcționează ca „injectare promptă”: în loc să se anuleze, transmite „Stop”” înapoi la LLM sub formă de mesaj de utilizator, permițându-i să încheie sau să confirme cu grație întreruperea.
 
-Apăsați tasta `x` pentru a părăsi modul auto-pilot (consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Apăsați tasta `x` pentru a părăsi modul auto-pilot (consultați [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Automatizare browser și inspector web
 
@@ -189,9 +189,9 @@ Nu este nevoie să încărcați totul la pornire - activați doar ceea ce aveți
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / și multe altele.
-Setați `UAGENT_LANG` pentru a comuta. Consultați [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) pentru a adăuga o nouă localitate.
+Setați `UAGENT_LANG` pentru a comuta. Consultați [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) pentru a adăuga o nouă localitate.
 
-Traducerile acestui README sunt disponibile în [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Traducerile acestui README sunt disponibile în [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Variabile de mediu criptate
 
@@ -200,13 +200,13 @@ Gestionați cu `uag_envsec`.
 
 ## Configurație și detalii
 
-- **Variabile de mediu**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Variabile de mediu**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Setup wizard**: `python -m uagent.setup_cli`
 - **Env criptat**: `uag_envsec` — criptează `.env` ca `.env.sec`
 - **Responses API**: setați `UAGENT_RESPONSES=1` pentru modul Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Activat automat pentru Sakana AI (Fugu).
-- **Documente pentru dezvoltatori**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Documente pentru dezvoltatori**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Sfaturi mici LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Sfaturi mici LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Filosofia proiectului
 

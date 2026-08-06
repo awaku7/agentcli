@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Ensimmäisen käynnistyksen yhteydessä ohjattu asennustoiminto opastaa sinua palveluntarjoajan määrittämisessä.
-Katso kaikki ympäristömuuttujat osoitteesta [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
+Katso kaikki ympäristömuuttujat osoitteesta [docs/ENVIRONMENT.md](ENVIRONMENT.md).
 
 ## Ominaisuudet
 
@@ -80,7 +80,7 @@ uagent toteuttaa Claude Code -yhteensopivan plugin-järjestelmän. Plugin-laajen
 :plugin init <name>                  # Luo uuden plugin-laajennuksen runko
 ```
 
-Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Istunnon jatkuvuus
 
@@ -96,7 +96,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uag
 | **Media** | genero_image, analysoi_kuva, img2img, audio_speech, audio_transcribe |
 | **Asiakirjat** | PDF/PPTX/DOCX/RTF/ODT-uutto, Excel-strukturoitu poiminta |
 | **Ennuste** | Aikasarjaennuste 9 mallilla (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM jne.), automaattinen mallin valinta, kuvaajan luonti, i18n |
-| **Viestintä** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – katso [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ja [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Viestintä** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – katso [COMMUNICATION.md](COMMUNICATION.md) ja [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Pilvi-API:t** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **29 lähdekoodinavigaattoria (idx-perhe)** |
@@ -113,13 +113,13 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](src/uag
 | **GUI** | "uagg" | Työpöytäkäyttöliittymä tkinterin kautta |
 | **Web** | "uagw" | Selainpohjainen pääsy |
 | **A2A-palvelin** | "uaga" | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
-| **VS-koodi** | — | [Laajennus](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) chat-paneelilla, selityksellä, uudelleentekijällä, korjausvirheellä ja työkaluilla puunäkymä |
+| **VS-koodi** | — | [Laajennus](VSCODE.md) chat-paneelilla, selityksellä, uudelleentekijällä, korjausvirheellä ja työkaluilla puunäkymä |
 
-Katso [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) saadaksesi lisätietoja VS-koodilaajennuksesta – asennuksesta, komennoista, näppäimistä ja määrityksistä.
+Katso [VSCODE.md](VSCODE.md) saadaksesi lisätietoja VS-koodilaajennuksesta – asennuksesta, komennoista, näppäimistä ja määrityksistä.
 
 ### 🏠 IoT-laitteiden ohjaus
 
-Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Katso [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -136,7 +136,7 @@ uag voi **pyrkiä itsenäisesti tavoitteeseen useilla LLM-kierroksilla**. Täyde
 - **Poistu milloin tahansa**: Paina `x`-näppäintä lopettaaksesi välittömästi, jopa kesken vastauksen. Tai anna arvioijan päättää, milloin tavoite saavutetaan.
 - **Määritettävä**: \`--max-kierrokset N' budjetin hallitsemiseksi.
 
-Katso täydelliset asiakirjat kohdasta [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Katso täydelliset asiakirjat kohdasta [README_AUTO.md](README_AUTO.md).
 
 ### 🧩 Erätilan johtaja
 
@@ -158,7 +158,7 @@ Pysäytä LLM-vastauksen luominen milloin tahansa ja anna pysäytyskomento takai
 
 Keskeytys toimii "prompt-injektiona": pelkän keskeyttämisen sijaan se syöttää "Stop"' takaisin LLM:lle käyttäjäviestinä, jolloin se voi päättää tai kuitata keskeytyksen sulavasti.
 
-Poistu automaattiohjaustilasta painamalla x-näppäintä (katso [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Poistu automaattiohjaustilasta painamalla x-näppäintä (katso [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Selainautomaatio ja Web Inspector
 
@@ -179,9 +179,9 @@ Kaikkea ei tarvitse ladata käynnistyksen yhteydessä – aktivoi vain tarvitsem
 ### 🌐 i18n / L10n
 
 日本語 / Englanti / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ja paljon muuta.
-Aseta UAGENT_LANG vaihtaaksesi. Katso [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) lisätäksesi uuden kielen.
+Aseta UAGENT_LANG vaihtaaksesi. Katso [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) lisätäksesi uuden kielen.
 
-Tämän README:n käännökset ovat saatavilla osoitteessa [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Tämän README:n käännökset ovat saatavilla osoitteessa [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Salatut ympäristömuuttujat
 
@@ -190,13 +190,13 @@ Hallinnoi komennolla "uag_envsec".
 
 ## Kokoonpano ja tiedot
 
-- **Ympäristömuuttujat**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Ympäristömuuttujat**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Ohjattu asennustoiminto**: `python -m uagent.setup_cli`
 - **Salattu env**: `uag_envsec` — salaa `.env` muodossa `.env.sec`
 - **Responses API**: Aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaattinen käytössä Sakana AI:lle (Fugu).
-- **Kehittäjien asiakirjat**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Kehittäjien asiakirjat**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Pienet LLM-vinkit**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Projektifilosofia
 

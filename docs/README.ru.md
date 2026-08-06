@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 При первом запуске мастер установки проведет вас через настройку поставщика.
-См. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) для всех переменных среды.
+См. [docs/ENVIRONMENT.md](ENVIRONMENT.md) для всех переменных среды.
 
 ## Функции
 
@@ -80,7 +80,7 @@ uagent реализует систему плагинов, совместиму�
 :plugin init <name>                  # Создать каркас нового плагина
 ```
 
-Подробности смотрите в полной документации. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Подробности смотрите в полной документации. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Непрерывность сеанса
 
@@ -98,7 +98,7 @@ uagent реализует систему плагинов, совместиму�
 | **СМИ** | генерировать_изображение, анализировать_изображение, img2img, audio_speech, audio_transcribe |
 | **Документы** | Извлечение PDF/PPTX/DOCX/RTF/ODT, структурированное извлечение Excel |
 | **Прогноз** | Прогнозирование временных рядов с 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM и др.), автоматический выбор модели, построение графиков, i18n |
-| **Общение** | gmail_send, gmail_read, bluesky, discord_channel, groups_webhook, **pybitchat** (BLE Mesh) — см. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) и [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **Общение** | gmail_send, gmail_read, bluesky, discord_channel, groups_webhook, **pybitchat** (BLE Mesh) — см. [COMMUNICATION.md](COMMUNICATION.md) и [BITCHAT.md](BITCHAT.md) |
 | **Интернет вещей** | SwitchBot (Облако + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Инструменты для разработчиков** | git_ops, python_compile, lint_format, run_tests, db_query, **29 навигаторов исходного кода (семейство idx)** |
 | **MCP** | Подключитесь к внешним серверам MCP, просмотрите список инструментов, выполните |
@@ -114,15 +114,15 @@ uagent реализует систему плагинов, совместиму�
 | **Графический интерфейс** | `уагг` | Пользовательский интерфейс рабочего стола через tkinter |
 | **Интернет** | `уагв` | Доступ через браузер |
 | **Сервер A2A** | `уага` | Протокол Agent2Agent для межагентной связи |
-| **Код VS** | — | [Расширение] (https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) с панелью чата, объяснением, рефакторингом, исправлением ошибок и древовидным представлением инструментов |
+| **Код VS** | — | [Расширение] (VSCODE.md) с панелью чата, объяснением, рефакторингом, исправлением ошибок и древовидным представлением инструментов |
 
-См. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) для получения подробной информации о расширении VS Code — установке, командах, сочетаниях клавиш и настройке.
+См. [VSCODE.md](VSCODE.md) для получения подробной информации о расширении VS Code — установке, командах, сочетаниях клавиш и настройке.
 
 ### 🏠 Управление устройствами Интернета вещей
 
 - **Важно**: проверка топологии контроллера/моста/устройства только для чтения.
 
-См. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
+См. [IOT_USECASE.md](IOT_USECASE.md).
 
 ### 🎯 Биржа навыков агентов
 
@@ -139,7 +139,7 @@ uag может **автономно добиваться цели на прот�
 - **Выйти в любое время**: нажмите клавишу «x», чтобы немедленно остановиться, даже в середине ответа. Или позвольте рецензенту решить, когда цель будет достигнута.
 - **Настраивается**: `--max-rounds N` для контроля бюджета.
 
-Полную документацию см. в [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Полную документацию см. в [README_AUTO.md](README_AUTO.md).
 
 ### 🧩 Пакетный менеджер состояний
 
@@ -161,7 +161,7 @@ Human_ask позволяет LLM приостанавливать работу �
 
 Прерывание работает как «быстрая инъекция»: вместо простого прерывания оно передает «Стоп» обратно в LLM в виде пользовательского сообщения, позволяя ему корректно завершить или подтвердить прерывание.
 
-Нажмите клавишу «x», чтобы выйти из режима автопилота (см. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Нажмите клавишу «x», чтобы выйти из режима автопилота (см. [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Автоматизация браузера и веб-инспектор
 
@@ -182,9 +182,9 @@ Human_ask позволяет LLM приостанавливать работу �
 ### 🌐 i18n / L10n
 
 日本語 / Английский / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / и многое другое.
-Установите `UAGENT_LANG` для переключения. См. [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), чтобы добавить новую локаль.
+Установите `UAGENT_LANG` для переключения. См. [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md), чтобы добавить новую локаль.
 
-Переводы этого README доступны в [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Переводы этого README доступны в [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Зашифрованные переменные среды
 
@@ -193,13 +193,13 @@ Human_ask позволяет LLM приостанавливать работу �
 
 ## Конфигурация и подробности
 
-- **Переменные среды**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Переменные среды**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Мастер установки**: `python -m uagent.setup_cli`
 - **Зашифрованный env**: `uag_envsec` — зашифровать `.env` как `.env.sec`
 - **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматически включается для Sakana AI (Fugu).
-- **Документация для разработчиков**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Документация для разработчиков**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Поток инструментов**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Небольшие советы по программе LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Небольшие советы по программе LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Философия проекта
 

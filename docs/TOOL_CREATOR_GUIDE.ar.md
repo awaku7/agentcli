@@ -2,7 +2,7 @@
 
 يشرح هذا الدليل كيفية إضافة أدواتك الخاصة إلى uag **دون تعديل uag نفسه**.
 إذا كنت تريد إضافة أداة مباشرةً إلى شجرة مصدر uag، راجع
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

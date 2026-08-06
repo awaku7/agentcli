@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
-Lihat [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) untuk semua variabel lingkungan.
+Lihat [docs/ENVIRONMENT.md](ENVIRONMENT.md) untuk semua variabel lingkungan.
 
 ## Fitur
 
@@ -80,7 +80,7 @@ uagent mengimplementasikan sistem plugin yang kompatibel dengan Claude Code. Plu
 :plugin init <name>                  # Buat kerangka plugin baru
 ```
 
-Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Kontinuitas Sesi
 
@@ -96,7 +96,7 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/D
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
 | **Peramalan** | Peramalan deret waktu dengan 9 model (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, dll.), pemilihan model otomatis, pembuatan plot, i18n |
-| **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigator kode sumber (keluarga idx)** |
@@ -113,15 +113,15 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](src/uagent/docs/D
 | **GUI** | `uagg` | UI Desktop melalui tkinter |
 | **Jaringan** | `uagw` | Akses berbasis browser |
 | **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
-| **Kode VS** | — | [Ekstensi](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) dengan Panel Obrolan, Penjelasan, Refaktor, Perbaiki Kesalahan, dan Tampilan Pohon Alat |
+| **Kode VS** | — | [Ekstensi](VSCODE.md) dengan Panel Obrolan, Penjelasan, Refaktor, Perbaiki Kesalahan, dan Tampilan Pohon Alat |
 
-Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
+Lihat [VSCODE.md](VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
 
 ### 🏠 Kontrol Perangkat IoT
 
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
 
-Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Lihat [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Pasar Keterampilan Agen
 
@@ -138,7 +138,7 @@ uag dapat **secara mandiri mengejar tujuan di beberapa putaran LLM**. Sempurna u
 - **Keluar kapan saja**: Tekan tombol `x` untuk segera berhenti, bahkan di tengah respons. Atau biarkan pengulas memutuskan kapan tujuannya tercapai.
 - **Dapat dikonfigurasi**: `--max-rounds N` untuk mengontrol anggaran.
 
-Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) untuk dokumentasi lengkap.
+Lihat [README_AUTO.md](README_AUTO.md) untuk dokumentasi lengkap.
 
 ### 🧩 Manajer Status Batch
 
@@ -160,7 +160,7 @@ Hentikan pembuatan respons LLM kapan saja dan masukkan perintah stop kembali ke 
 
 Interupsi berfungsi sebagai "injeksi cepat": alih-alih dibatalkan, interupsi tersebut mengumpankan `"Stop"` kembali ke LLM sebagai pesan pengguna, sehingga memungkinkannya menyimpulkan atau mengakui interupsi dengan baik.
 
-Tekan tombol `x` untuk keluar dari mode auto-pilot (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Tekan tombol `x` untuk keluar dari mode auto-pilot (lihat [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Otomatisasi Browser & Inspektur Web
 
@@ -181,9 +181,9 @@ Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, 
 ### 🌐 i18n / L10n
 
 日本語 / Inggris / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / dan masih banyak lagi.
-Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) untuk menambahkan lokal baru.
+Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) untuk menambahkan lokal baru.
 
-Terjemahan README ini tersedia di [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Terjemahan README ini tersedia di [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Variabel Lingkungan Terenkripsi
 
@@ -192,13 +192,13 @@ Kelola dengan `uag_envsec`.
 
 ## Konfigurasi & Detail
 
-- **Variabel lingkungan**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Variabel lingkungan**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Wizard penyiapan**: `python -m uagent.setup_cli`
 - **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
 - **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Diaktifkan secara otomatis untuk Sakana AI (Fugu).
-- **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Dokumen pengembang**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Tips LLM kecil**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Filosofi Proyek
 

@@ -2,7 +2,7 @@
 
 Panduan ini menjelaskan cara menambahkan alat Anda sendiri ke uag **tanpa memodifikasi uag itu sendiri**.
 Jika Anda ingin menambahkan alat langsung ke pohon sumber uag, lihat
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

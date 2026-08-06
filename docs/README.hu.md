@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Az első indításkor a telepítővarázsló végigvezeti a szolgáltató konfigurációján.
-Az összes környezeti változóhoz lásd az [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) webhelyet.
+Az összes környezeti változóhoz lásd az [docs/ENVIRONMENT.md](ENVIRONMENT.md) webhelyet.
 
 ## Jellemzők
 
@@ -80,7 +80,7 @@ A uagent egy Claude Code-kompatibilis bővítményrendszert valósít meg. A be�
 :plugin init <name>                  # Új bővítmény vázának létrehozása
 ```
 
-A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Munkamenet folytonossága
 
@@ -96,7 +96,7 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/
 | **Média** | gener_image, analysis_image, img2img, audio_speech, audio_transcribe |
 | **Dokumentumok** | PDF/PPTX/DOCX/RTF/ODT kinyerés, Excel strukturált kivonat |
 | **Előrejelzés** | Idősor-előrejelzés 9 modellel (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM stb.), automatikus modellválasztás, diagramgenerálás, i18n |
-| **Kommunikáció** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – lásd [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) és [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Kommunikáció** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – lásd [COMMUNICATION.md](COMMUNICATION.md) és [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Felhő API-k** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **29 forráskód-navigátor (idx család)** |
@@ -113,13 +113,13 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](src/uagent/
 | **GUI** | "uagg" | Asztali felhasználói felület a tkinterrel |
 | **Web** | "uagw" | Böngésző alapú hozzáférés |
 | **A2A szerver** | "uaga" | Agent2Agent protokoll többügynökös kommunikációhoz |
-| **VS kód** | — | [Bővítmény](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Csevegőpanellel, Magyarázattal, Refaktorral, Hibajavítással és Eszközök fanézettel |
+| **VS kód** | — | [Bővítmény](VSCODE.md) Csevegőpanellel, Magyarázattal, Refaktorral, Hibajavítással és Eszközök fanézettel |
 
-Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
+Tekintse meg a [VSCODE.md](VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
 
 ### 🏠 IoT-eszközvezérlés
 
-Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Lásd: [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -136,7 +136,7 @@ Az uag **autonóm módon követheti a célt több LLM-körön keresztül**. Tök
 - **Bármikor kilépés**: Nyomja meg az `x` billentyűt az azonnali leállításhoz, akár válasz közben is. Vagy hagyja, hogy az értékelő döntse el, mikor teljesül a cél.
 - **Konfigurálható**: `--max-kör N` a költségvetés szabályozásához.
 
-A teljes dokumentációért lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+A teljes dokumentációért lásd: [README_AUTO.md](README_AUTO.md).
 
 ### 🧩 Batch State Manager
 
@@ -158,7 +158,7 @@ Bármikor leállíthatja az LLM-válasz generálását, és visszaadhatja a stop
 
 A megszakítás "prompt injekcióként" működik: ahelyett, hogy egyszerűen megszakítaná, a "Stop"-t visszaadja az LLM-nek felhasználói üzenetként, lehetővé téve a megszakítás kecses befejezését vagy nyugtázását.
 
-Nyomja meg az „x” billentyűt az automatikus pilóta módból való kilépéshez (lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Nyomja meg az „x” billentyűt az automatikus pilóta módból való kilépéshez (lásd: [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Böngészőautomatizálás és webellenőr
 
@@ -179,9 +179,9 @@ A `uuid_gen` és a `slugify` a teljesítmény érdekében Rustban (PyO3-on keres
 ### 🌐 i18n / L10n
 
 日本語 / angol / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / és még sok más.
-Állítsa be az „UAGENT_LANG” nyelvet a váltáshoz. Az [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) oldalon új területi beállítást adhat hozzá.
+Állítsa be az „UAGENT_LANG” nyelvet a váltáshoz. Az [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) oldalon új területi beállítást adhat hozzá.
 
-A README fordításai a [docs/README.translations.md] webhelyen érhetők el (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+A README fordításai a [docs/README.translations.md] webhelyen érhetők el (README.translations.md).
 
 ### 🔒 Titkosított környezeti változók
 
@@ -190,13 +190,13 @@ Kezelje az "uag_envsec" segítségével.
 
 ## Konfiguráció és részletek
 
-- **Környezeti változók**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Környezeti változók**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Telepítő varázsló**: `python -m uagent.setup_cli`
 - **Titkosított env**: `uag_envsec` — `.env` titkosítása `.env.sec`-ként
 - **Responses API**: Állítsa be az "UAGENT_RESPONSES=1" értéket a Responses API módhoz (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatikusan engedélyezve a Sakana AI (Fugu) számára.
-- **Fejlesztői dokumentumok**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Fejlesztői dokumentumok**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Kis LLM-tippek**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Kis LLM-tippek**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Projektfilozófia
 

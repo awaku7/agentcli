@@ -2,7 +2,7 @@
 
 यह गाइड बताता है कि यूएजी में अपने टूल कैसे जोड़ें **यूएजी को संशोधित किए बिना**।
 यदि आप सीधे यूएजी स्रोत ट्री में एक टूल जोड़ना चाहते हैं, देखें
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

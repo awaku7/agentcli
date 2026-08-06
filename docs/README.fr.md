@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Au premier lancement, l'assistant d'installation vous guide dans la configuration du fournisseur.
-Voir [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) pour toutes les variables d'environnement.
+Voir [docs/ENVIRONMENT.md](ENVIRONMENT.md) pour toutes les variables d'environnement.
 
 ## Caractéristiques
 
@@ -80,7 +80,7 @@ uagent implémente un **système de plugins compatible Claude Code**. Les plugin
 :plugin init <name>                  # Créer la structure d’un nouveau plugin
 ```
 
-Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Continuité des sessions
 
@@ -98,7 +98,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DE
 | **Médias** | generate_image, analyse_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | Extraction PDF/PPTX/DOCX/RTF/ODT, extraction structurée Excel |
 | **Prévision** | Prévision de séries temporelles avec 9 modèles (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), sélection automatique du modèle, génération de graphiques, i18n |
-| **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — voir [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — voir [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
@@ -114,13 +114,13 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](src/uagent/docs/DE
 | **interface graphique** | `uagg` | Interface utilisateur de bureau via tkinter |
 | **Internet** | `uagw` | Accès par navigateur |
 | **Serveur A2A** | `ouaga` | Protocole Agent2Agent pour la communication multi-agents |
-| **Code VS** | — | [Extension](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) avec panneau de discussion, explication, refactorisation, correction d'erreur et arborescence d'outils |
+| **Code VS** | — | [Extension](VSCODE.md) avec panneau de discussion, explication, refactorisation, correction d'erreur et arborescence d'outils |
 
-Voir [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pour plus de détails sur l'extension VS Code — installation, commandes, raccourcis clavier et configuration.
+Voir [VSCODE.md](VSCODE.md) pour plus de détails sur l'extension VS Code — installation, commandes, raccourcis clavier et configuration.
 
 ### 🏠 Contrôle des appareils IoT
 
-Voir [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Voir [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Marché des compétences d'agent
 
@@ -137,7 +137,7 @@ uag peut **poursuivre un objectif de manière autonome sur plusieurs cycles de L
 - **Quitter à tout moment** : appuyez sur la touche « x » pour arrêter immédiatement, même en pleine réponse. Ou laissez l'examinateur décider quand l'objectif est atteint.
 - **Configurable** : `--max-rounds N` pour contrôler le budget.
 
-Voir [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pour une documentation complète.
+Voir [README_AUTO.md](README_AUTO.md) pour une documentation complète.
 
 ### 🧩 Gestionnaire d'état par lots
 
@@ -159,7 +159,7 @@ Arrêtez la génération de réponse LLM à tout moment et réinjectez une comma
 
 L'interruption fonctionne comme une « injection rapide » : au lieu de simplement abandonner, elle renvoie « Stop » au LLM sous forme de message utilisateur, lui permettant de conclure ou d'accuser réception de l'interruption en douceur.
 
-Appuyez sur la touche « x » pour quitter le mode pilote automatique (voir [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Appuyez sur la touche « x » pour quitter le mode pilote automatique (voir [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Automatisation du navigateur et inspecteur Web
 
@@ -178,9 +178,9 @@ Pas besoin de tout charger au démarrage : activez uniquement ce dont vous avez 
 ### 🌐i18n/L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / et plus encore.
-Définissez `UAGENT_LANG` pour changer. Voir [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) pour ajouter de nouveaux paramètres régionaux.
+Définissez `UAGENT_LANG` pour changer. Voir [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) pour ajouter de nouveaux paramètres régionaux.
 
-Les traductions de ce README sont disponibles dans [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Les traductions de ce README sont disponibles dans [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Variables d'environnement cryptées
 
@@ -189,13 +189,13 @@ Gérez avec `uag_envsec`.
 
 ## Configuration et détails
 
-- **Variables d'environnement** : [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Variables d'environnement** : [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Assistant d'installation** : `python -m uagent.setup_cli`
 - **Env crypté** : `uag_envsec` — crypte `.env` en `.env.sec`
 - **API Réponses** : définissez `UAGENT_RESPONSES=1` pour le mode API Réponses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Activé automatiquement pour Sakana AI (Fugu).
-- **Documents pour développeurs** : [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Documents pour développeurs** : [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Flux d'outils**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Petits conseils LLM** : [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Petits conseils LLM** : [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Philosophie du projet
 

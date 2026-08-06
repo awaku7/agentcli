@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 पहिल्या लॉन्चवर, सेटअप विझार्ड तुम्हाला प्रदाता कॉन्फिगरेशनमध्ये घेऊन जातो.
-सर्व पर्यावरणीय चलांसाठी [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) पहा.
+सर्व पर्यावरणीय चलांसाठी [docs/ENVIRONMENT.md](ENVIRONMENT.md) पहा.
 
 ## वैशिष्ट्ये
 
@@ -80,7 +80,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 :plugin init <name>                  # नवीन प्लगइनचा सांगाडा तयार करा
 ```
 
-संपूर्ण दस्तऐवजासाठी [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) पहा.
+संपूर्ण दस्तऐवजासाठी [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md) पहा.
 
 ### 🔄 सत्र सातत्य
 
@@ -96,7 +96,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **मीडिया** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **कागदपत्रे** | PDF/PPTX/DOCX/RTF/ODT एक्स्ट्रॅक्शन, एक्सेल स्ट्रक्चर्ड एक्सट्रॅक्शन |
 | **अंदाज** | 9 मॉडेल्ससह टाइम सीरीज अंदाज (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, इ.), स्वयंचलित मॉडेल निवड, प्लॉट निर्मिती, i18n |
-| **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — पहा [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — पहा [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **क्लाउड API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
@@ -113,16 +113,16 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **GUI** | `uagg` | tkinter द्वारे डेस्कटॉप UI |
 | **वेब** | `uagw` | ब्राउझर-आधारित प्रवेश |
 | **A2A सर्व्हर** | `उगा` | मल्टी-एजंट संप्रेषणासाठी Agent2Agent प्रोटोकॉल |
-| **VS कोड** | — | [विस्तार](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चॅट पॅनेलसह, स्पष्टीकरण, रिफॅक्टर, त्रुटी दूर करा आणि टूल्स ट्री व्ह्यू |
+| **VS कोड** | — | [विस्तार](VSCODE.md) चॅट पॅनेलसह, स्पष्टीकरण, रिफॅक्टर, त्रुटी दूर करा आणि टूल्स ट्री व्ह्यू |
 
-व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) पहा.
+व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](VSCODE.md) पहा.
 
 ### 🏠 IoT डिव्हाइस नियंत्रण
 
 - **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण
 - **मॅटर**: कंट्रोलर/ब्रिज/डिव्हाइस टोपोलॉजीची केवळ वाचनीय तपासणी
 
-पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+पहा [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 एजंट स्किल्स मार्केटप्लेस
 
@@ -139,7 +139,7 @@ uag **एकाहून अधिक LLM फेऱ्यांमध्ये �
 - **केव्हाही बाहेर पडा**: लगेच थांबण्यासाठी `x` की दाबा, अगदी मध्य-प्रतिसादही. किंवा ध्येय कधी पूर्ण होईल हे समीक्षकाला ठरवू द्या.
 - **कॉन्फिगर करण्यायोग्य**: बजेट नियंत्रित करण्यासाठी `--अधिकतम फेरी N`.
 
-संपूर्ण कागदपत्रांसाठी [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) पहा.
+संपूर्ण कागदपत्रांसाठी [README_AUTO.md](README_AUTO.md) पहा.
 
 ### 🧩 बॅच स्टेट मॅनेजर
 
@@ -161,7 +161,7 @@ LLM प्रतिसाद निर्मिती कधीही थां�
 
 व्यत्यय "प्रॉम्प्ट इंजेक्शन" म्हणून कार्य करते: फक्त रद्द करण्याऐवजी, ते `"थांबा"` ला वापरकर्ता संदेश म्हणून परत LLM ला फीड करते, ज्यामुळे ते व्यत्यय मान्य करण्यास किंवा निष्कर्ष काढण्याची परवानगी देते.
 
-ऑटो-पायलट मोडमधून बाहेर पडण्यासाठी `x` की दाबा (पहा [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+ऑटो-पायलट मोडमधून बाहेर पडण्यासाठी `x` की दाबा (पहा [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ ब्राउझर ऑटोमेशन आणि वेब इन्स्पेक्टर
 
@@ -187,9 +187,9 @@ LLM प्रतिसाद निर्मिती कधीही थां�
 ### 🌐 i18n / L10n
 
 日本語 / इंग्रजी / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / आणि बरेच काही.
-स्विच करण्यासाठी `UAGENT_LANG` सेट करा. नवीन लोकॅल जोडण्यासाठी [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) पहा.
+स्विच करण्यासाठी `UAGENT_LANG` सेट करा. नवीन लोकॅल जोडण्यासाठी [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) पहा.
 
-या README चे भाषांतर [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) मध्ये उपलब्ध आहेत.
+या README चे भाषांतर [docs/README.translations.md](README.translations.md) मध्ये उपलब्ध आहेत.
 
 ### 🔒 एनक्रिप्टेड एन्व्हायर्नमेंट व्हेरिएबल्स
 
@@ -198,13 +198,13 @@ API की आणि गुपिते `.env.sec` मध्ये संग्�
 
 ## कॉन्फिगरेशन आणि तपशील
 
-- **पर्यावरण व्हेरिएबल्स**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **पर्यावरण व्हेरिएबल्स**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **सेटअप विझार्ड**: `python -m uagent.setup_cli`
 - **एनक्रिप्ट केलेले env**: `uag_envsec` — एंक्रिप्ट `.env` म्हणून `.env.sec`
 - **प्रतिसाद API**: प्रतिसाद API मोडसाठी `UAGENT_RESPONSES=1` सेट करा (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) साठी स्वयं-सक्षम.
-- **डेव्हलपर डॉक्स**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **डेव्हलपर डॉक्स**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **लहान LLM टिपा**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **लहान LLM टिपा**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## प्रकल्प तत्वज्ञान
 
@@ -231,7 +231,7 @@ uag साठी नवीन साधन लिहिणे सोपे आ�
 
 - **Issues**: बग किंवा वैशिष्ट्य विनंत्यांसाठी GitHub समस्या उघडा.
 - **पुल विनंत्या**: रेपो फोर्क करा, तुमचे बदल करा आणि PR सबमिट करा. विकास सेटअप आणि मार्गदर्शक तत्त्वांसाठी [DEVELOP.md](../src/uagent/docs/DEVELOP.md) पहा.
-- **भाषांतरे**: README भाषांतरे आणि लोकॅल जोडण्यांचे स्वागत आहे. [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md) पहा.
+- **भाषांतरे**: README भाषांतरे आणि लोकॅल जोडण्यांचे स्वागत आहे. [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) पहा.
 - **साधने आणि कौशल्ये**: नवीन टूल प्लगइन आणि Agent Skills मार्केटप्लेसद्वारे योगदान दिले जाऊ शकतात.
 
 Realtime आवाज आणि AEC3

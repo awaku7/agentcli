@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 首次啟動時，設定精靈將引導您完成提供者設定。
-有關所有環境變量，請參閱 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)。
+有關所有環境變量，請參閱 [docs/ENVIRONMENT.md](ENVIRONMENT.md)。
 
 ＃＃ 特徵
 
@@ -80,7 +80,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 :plugin init <name>                  # 建立新插件的基本架構
 ```
 
-有關詳細資訊，請參閱完整文件。 [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+有關詳細資訊，請參閱完整文件。 [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 會話連續性
 
@@ -98,7 +98,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 | **媒體** |產生影像、分析影像、img2img、音訊語音、音訊轉錄 |
 | **檔案** | PDF/PPTX/DOCX/RTF/ODT擷取、Excel結構化擷取|
 | **預測** | 使用9種模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）進行時間序列預測，自動模型選擇，產生圖表，i18n |
-| **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 及 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](COMMUNICATION.md) 及 [BITCHAT.md](BITCHAT.md)|
 | **物聯網** | SwitchBot（雲端 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 個原始碼導航器（idx 系列）** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 |
@@ -114,15 +114,15 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 | **圖形使用者介面** | `uagg` |透過 tkinter 的桌面 UI |
 | **網頁** | `uagw` |基於瀏覽器的存取 |
 | **A2A 伺服器** | `瓦加` |用於多代理通訊的Agent2Agent協定|
-| **VS 程式碼** | — | [擴充](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) 附有聊天面板、解釋、重構、修復錯誤和工具樹視圖 |
+| **VS 程式碼** | — | [擴充](VSCODE.md) 附有聊天面板、解釋、重構、修復錯誤和工具樹視圖 |
 
-有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)。
+有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](VSCODE.md)。
 
 ### 🏠 物聯網設備控制
 
 - **事項**：控制器/橋接器/設備拓樸的唯讀檢查
 
-請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+請參閱 [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🏠 IoT 設備控制
 
@@ -151,7 +151,7 @@ uag 可以**在多輪法學碩士課程中自主追求一個目標**。非常適
 - **隨時退出**：按下「x」鍵立即停止，即使是在回應中。或讓評審者決定何時達到目標。
 - **可設定**：`--max-rounds N` 來控制預算。
 
-完整文檔，請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)。
+完整文檔，請參閱 [README_AUTO.md](README_AUTO.md)。
 
 ### 🧩 批次狀態管理器
 
@@ -173,7 +173,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 中斷充當「提示注入」：它不僅僅是中止，而是將「停止」作為使用者訊息回饋給 LLM，使其能夠優雅地結束或確認中斷。
 
-按下「x」鍵退出自動駕駛模式（請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)）。
+按下「x」鍵退出自動駕駛模式（請參閱 [README_AUTO.md](README_AUTO.md)）。
 
 ### 🕵️ 瀏覽器自動化和 Web 檢查器
 
@@ -194,9 +194,9 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 ### 🌐 國際化 / 本土化
 
 日本文 / English / 簡體中文 / 繁體中文 / 한국어 / Español / Français / Русский / 等。
-設定`UAGENT_LANG`進行切換。請參閱 [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) 新增新的區域設定。
+設定`UAGENT_LANG`進行切換。請參閱 [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) 新增新的區域設定。
 
-本自述文件的翻譯可在 [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) 中找到。
+本自述文件的翻譯可在 [docs/README.translations.md](README.translations.md) 中找到。
 
 ### 🔒 加密環境變量
 
@@ -205,13 +205,13 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 ## 配置和詳細信息
 
-- **環境變數**：[docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **環境變數**：[docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **設定精靈**：`python -m uagent.setup_cli`
 - **加密的 env**: `uag_envsec` — 將 `.env` 加密為 `.env.sec`
 - **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。自動啟用 Sakana AI (Fugu)。
-- **開發人員文件**：[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **開發人員文件**：[DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **LLM小技巧**：[SLM_TIPS.md](SLM_TIPS.md)
 
 ## 專案理念
 

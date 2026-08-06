@@ -1,7 +1,7 @@
 # टूल क्रिएटर मार्गदर्शक
 
 हे मार्गदर्शक स्पष्ट करते की uag मध्ये तुमची स्वतःची साधने कशी जोडावीत **uag मध्ये बदल न करता**.
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md) पहा.
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md) पहा.
 
 ---
 

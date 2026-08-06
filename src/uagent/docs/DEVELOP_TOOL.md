@@ -3,7 +3,7 @@
 This document explains how to add a new **built-in Tool plugin** to the uag
 source tree. If you want to create a **custom / external tool** without
 modifying uag itself, see
-[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+[TOOL_CREATOR_GUIDE.md](../../../TOOL_CREATOR_GUIDE.md).
 
 ______________________________________________________________________
 
@@ -35,7 +35,7 @@ Optional: add i18n resources:
 - `src/uagent/tools/<your_tool>_tool.json` (translations; e.g. `{"ja": {...}}`)
 
 External / third-party tools go into ``UAGENT_EXTERNAL_TOOLS_DIRS`` instead.
-See the separate [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+See the separate [TOOL_CREATOR_GUIDE.md](../../../TOOL_CREATOR_GUIDE.md).
 
 ______________________________________________________________________
 

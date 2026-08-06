@@ -2,7 +2,7 @@
 
 Ez az útmutató elmagyarázza, hogyan adhat hozzá saját eszközöket az uag-hoz **magának az uagnak a módosítása nélkül**.
 Ha egy eszközt közvetlenül az uag forrásfához szeretne hozzáadni, lásd:
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 

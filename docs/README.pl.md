@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Przy pierwszym uruchomieniu kreator instalacji przeprowadzi Cię przez konfigurację dostawcy.
-Zobacz [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
+Zobacz [docs/ENVIRONMENT.md](ENVIRONMENT.md), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
 
 ## Cechy
 
@@ -80,7 +80,7 @@ uagent implementuje system wtyczek zgodny z Claude Code. Wtyczki łączą umiej�
 :plugin init <name>                  # Utwórz szkielet nowej wtyczki
 ```
 
-Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md)
+Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
 
 ### 🔄 Ciągłość sesji
 
@@ -96,7 +96,7 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagen
 | **Media** | generuj obraz_obraz_analizuj, img2img, mowa_audio, transkrypcja_audio |
 | **Dokumenty** | Ekstrakcja PDF/PPTX/DOCX/RTF/ODT, ekstrakcja strukturalna Excel |
 | **Prognoza** | Prognozowanie szeregów czasowych z 9 modelami (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM itp.), automatyczny wybór modelu, generowanie wykresów, i18n |
-| **Komunikacja** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — zobacz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Komunikacja** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — zobacz [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Interfejsy API chmury** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **29 nawigatorów kodu źródłowego (rodzina idx)** |
@@ -113,15 +113,15 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](src/uagen
 | **GUI** | `uagg` | Interfejs użytkownika komputera stacjonarnego za pośrednictwem tkinter |
 | **Sieć** | `uagw` | Dostęp przez przeglądarkę |
 | **Serwer A2A** | `uaga` | Protokół Agent2Agent do komunikacji wieloagentowej |
-| **Kod VS** | — | [Rozszerzenie](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) z panelem czatu, wyjaśnianiem, refaktoryzacją, naprawianiem błędów i widokiem drzewa narzędzi |
+| **Kod VS** | — | [Rozszerzenie](VSCODE.md) z panelem czatu, wyjaśnianiem, refaktoryzacją, naprawianiem błędów i widokiem drzewa narzędzi |
 
-Zobacz [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md), aby uzyskać szczegółowe informacje na temat rozszerzenia VS Code — instalacji, poleceń, przypisań klawiszy i konfiguracji.
+Zobacz [VSCODE.md](VSCODE.md), aby uzyskać szczegółowe informacje na temat rozszerzenia VS Code — instalacji, poleceń, przypisań klawiszy i konfiguracji.
 
 ### 🏠 Kontrola urządzeń IoT
 
 - **Materia**: Kontrola topologii kontrolera/mostka/urządzenia w trybie tylko do odczytu
 
-Zobacz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Zobacz [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Rynek umiejętności agentów
 
@@ -138,7 +138,7 @@ uag może **autonomicznie realizować cel w wielu rundach LLM**. Idealny do zło
 - **Wyjdź w dowolnym momencie**: Naciśnij klawisz „x”, aby zatrzymać natychmiast, nawet w połowie odpowiedzi. Lub pozwól recenzentowi zdecydować, kiedy cel zostanie osiągnięty.
 - **Konfigurowalne**: `--max-zaokrągla N` w celu kontroli budżetu.
 
-Pełną dokumentację znajdziesz w [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+Pełną dokumentację znajdziesz w [README_AUTO.md](README_AUTO.md).
 
 ### 🧩 Menedżer stanu partii
 
@@ -160,7 +160,7 @@ Zatrzymaj generowanie odpowiedzi LLM w dowolnym momencie i wprowadź polecenie z
 
 Przerwanie działa jako „szybkie wstrzyknięcie”: zamiast po prostu przerywać, przesyła „Stop” z powrotem do LLM jako komunikat użytkownika, umożliwiając mu eleganckie zakończenie lub potwierdzenie przerwania.
 
-Naciśnij klawisz `x`, aby wyjść z trybu autopilota (patrz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Naciśnij klawisz `x`, aby wyjść z trybu autopilota (patrz [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Automatyzacja przeglądarki i inspektor sieciowy
 
@@ -181,9 +181,9 @@ Nie musisz ładować wszystkiego przy uruchomieniu — aktywuj tylko to, czego p
 ### 🌐 i18n / L10n
 
 日本語 / angielski / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / i więcej.
-Ustaw „UAGENT_LANG”, aby przełączyć. Zobacz [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), aby dodać nowe ustawienia regionalne.
+Ustaw „UAGENT_LANG”, aby przełączyć. Zobacz [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md), aby dodać nowe ustawienia regionalne.
 
-Tłumaczenia tego pliku README są dostępne w [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Tłumaczenia tego pliku README są dostępne w [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Zaszyfrowane zmienne środowiskowe
 
@@ -192,13 +192,13 @@ Zarządzaj za pomocą `uag_envsec`.
 
 ## Konfiguracja i szczegóły
 
-- **Zmienne środowiskowe**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Zmienne środowiskowe**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Kreator instalacji**: `python -m uagent.setup_cli`
 - **Zaszyfrowane env**: `uag_envsec` — szyfruj `.env` jako `.env.sec`
 - **API odpowiedzi**: Ustaw `UAGENT_RESPONSES=1` dla trybu API odpowiedzi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatycznie włączone dla Sakana AI (Fugu).
-- **Dokumentacja programisty**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Dokumentacja programisty**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Małe wskazówki LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Małe wskazówki LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Filozofia projektu
 

@@ -2,7 +2,7 @@
 
 이 가이드는 **uag 자체를 수정하지 않고** uag에 자신만의 도구를 추가하는 방법을 설명합니다.
 uag 소스 트리에 직접 도구를 추가하려면, 
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)를 참조하세요.
+[DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md)를 참조하세요.
 
 ---
 

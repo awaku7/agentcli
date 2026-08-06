@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________
@@ -43,7 +43,7 @@ uag
 ```
 
 Під час першого запуску майстер налаштування проведе вас через налаштування постачальника.
-Перегляньте [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) для всіх змінних середовища.
+Перегляньте [docs/ENVIRONMENT.md](ENVIRONMENT.md) для всіх змінних середовища.
 
 ## Особливості
 
@@ -80,7 +80,7 @@ uagent реалізує **систему плагінів, сумісну з Cla
 :plugin init <name>                  # Створити структуру нового плагіна
 ```
 
-Повну документацію дивіться в [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md).
+Повну документацію дивіться в [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md).
 
 ### 🔄 Безперервність сесії
 
@@ -98,7 +98,7 @@ uagent реалізує **систему плагінів, сумісну з Cla
 | **Медіа** | генерувати_зображення, аналізувати_зображення, img2img, аудіо_мовлення, аудіо_транскрибувати |
 | **Документи** | Вилучення PDF/PPTX/DOCX/RTF/ODT, структуроване вилучення Excel |
 | **Прогноз** | Прогнозування часових рядів з 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, створення графіків, i18n |
-| **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — див. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
+| **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — див. [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **Інтернет речей** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **29 навігаторів вихідного коду (сімейство idx)** |
 | **MCP** | Підключення до зовнішніх серверів MCP, список інструментів, виконання |
@@ -114,13 +114,13 @@ uagent реалізує **систему плагінів, сумісну з Cla
 | **GUI** | `uagg` | Інтерфейс робочого столу через tkinter |
 | **Веб** | `uagw` | Браузерний доступ |
 | **Сервер A2A** | `uaga` | Протокол Agent2Agent для мультиагентного зв'язку |
-| **Код VS** | — | [Розширення](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) із панеллю чату, поясненням, рефакторингом, виправленням помилок і переглядом дерева інструментів |
+| **Код VS** | — | [Розширення](VSCODE.md) із панеллю чату, поясненням, рефакторингом, виправленням помилок і переглядом дерева інструментів |
 
-Див. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md), щоб дізнатися більше про розширення VS Code — встановлення, команди, прив’язки клавіш і налаштування.
+Див. [VSCODE.md](VSCODE.md), щоб дізнатися більше про розширення VS Code — встановлення, команди, прив’язки клавіш і налаштування.
 
 ### 🏠 Контроль пристроїв IoT
 
-Перегляньте [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+Перегляньте [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🏠 IoT Device Control
 
@@ -149,7 +149,7 @@ uag може **автономно досягати мети протягом к�
 - **Вийти в будь-який час**: натисніть клавішу `x`, щоб зупинити негайно, навіть у середині відповіді. Або дозвольте рецензенту вирішити, коли мета буде досягнута.
 - **Настроюється**: `--max-rounds N` для контролю бюджету.
 
-Перегляньте [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md), щоб отримати повну документацію.
+Перегляньте [README_AUTO.md](README_AUTO.md), щоб отримати повну документацію.
 
 ### 🧩 Менеджер стану партії
 
@@ -171,7 +171,7 @@ uag може відстежувати перебіг тривалих багат
 
 Переривання працює як «оперативна ін’єкція»: замість того, щоб просто переривати, воно повертає «Stop» назад до LLM як повідомлення користувача, дозволяючи йому вишукано завершити або підтвердити переривання.
 
-Натисніть клавішу `x`, щоб вийти з режиму автопілота (див. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Натисніть клавішу `x`, щоб вийти з режиму автопілота (див. [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Автоматизація веб-переглядача та веб-інспектор
 
@@ -192,9 +192,9 @@ uag може відстежувати перебіг тривалих багат
 ### 🌐 i18n / L10n
 
 日本語 / англійська / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / тощо.
-Встановіть `UAGENT_LANG` для перемикання. Перегляньте [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), щоб додати нову мову.
+Встановіть `UAGENT_LANG` для перемикання. Перегляньте [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md), щоб додати нову мову.
 
-Переклади цього README доступні в [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Переклади цього README доступні в [docs/README.translations.md](README.translations.md).
 
 ### 🔒 Зашифровані змінні середовища
 
@@ -203,13 +203,13 @@ uag може відстежувати перебіг тривалих багат
 
 ## Конфігурація та деталі
 
-- **Змінні середовища**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Змінні середовища**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
 - **Майстер налаштування**: `python -m uagent.setup_cli`
 - **Зашифроване env**: `uag_envsec` — зашифрувати `.env` як `.env.sec`
 - **Responses API**: установіть `UAGENT_RESPONSES=1` для режиму Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматично ввімкнено для Sakana AI (Fugu).
-- **Документація розробника**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Документація розробника**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Невеликі поради LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+- **Невеликі поради LLM**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## Філософія проекту
 
