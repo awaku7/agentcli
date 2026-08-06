@@ -340,13 +340,9 @@ Python任意: scapy, dpkt, httpx, dnspython, pyroute2, pyshark, mitmproxy
 - 外部CLIは本体から無断インストールしない
 - 特権昇格は操作単位で明示同意を要求する
 
-### 次期実装
+### 今後の実装
 
-1. impactランキングとプロセス相関の一括出力強化
-1. 通信分類の閾値・誤検知評価と運用チューニング
-1. loopback限定のライブキャプチャ統合
-1. 他端末用の明示的な端末エージェント設計
-1. Zeek/Suricata/nmap/tsharkとの高度な連携
+実装予定は [`plans/network-toolkit.md`](plans/network-toolkit.md) で管理する。
 
 ## 20. 旧設計書からの統合
 
