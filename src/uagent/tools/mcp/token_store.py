@@ -101,6 +101,7 @@ class TokenStore:
         self, *, timeout: float = 10.0, stale_after: float = 60.0
     ) -> Iterator[None]:
         """Serialize read-modify-write operations across processes."""
+        self.path.parent.mkdir(parents=True, exist_ok=True)
         lock_path = self.path.with_name(f".{self.path.name}.lock")
         deadline = time.monotonic() + timeout
         acquired = False
@@ -130,7 +131,12 @@ class TokenStore:
             except FileNotFoundError:
                 pass
 
-    def save(self, issuer: str, resource: str, token: StoredToken) -> None:
+    def write_lock(self) -> Iterator[None]:
+        """Acquire the cross-process lock for a compound token operation."""
+        return self._write_lock()
+
+    def save_locked(self, issuer: str, resource: str, token: StoredToken) -> None:
+        """Save a token while the caller already holds ``write_lock()``."""
         key = self._key(issuer, resource)
         plaintext = json.dumps(
             {
@@ -142,10 +148,13 @@ class TokenStore:
             },
             separators=(",", ":"),
         )
+        records = self._read()
+        records[key] = self._encrypt(plaintext)
+        self._write(records)
+
+    def save(self, issuer: str, resource: str, token: StoredToken) -> None:
         with self._write_lock():
-            records = self._read()
-            records[key] = self._encrypt(plaintext)
-            self._write(records)
+            self.save_locked(issuer, resource, token)
 
     def load(self, issuer: str, resource: str) -> StoredToken | None:
         encrypted = self._read().get(self._key(issuer, resource))

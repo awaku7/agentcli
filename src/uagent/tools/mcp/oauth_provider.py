@@ -38,19 +38,33 @@ class OAuthTokenProvider:
         token = self.token_store.load(self.issuer, self.resource)
         if token is None:
             raise MCPTransportError(
-                "MCP_OAUTH_TOKEN_MISSING", "oauth/authorize", {"resource": self.resource}
+                "MCP_OAUTH_TOKEN_MISSING",
+                "oauth/authorize",
+                {"resource": self.resource},
             )
         if force_refresh or token.expired(int(time.time())):
             async with self._refresh_lock:
-                current = self.token_store.load(self.issuer, self.resource)
-                if current is not None and current.access_token != token.access_token:
-                    token = current
-                else:
-                    if not token.refresh_token:
-                        raise MCPTransportError(
-                            "MCP_OAUTH_REFRESH_TOKEN_MISSING", "oauth/refresh", {}
-                        )
-                    token = await self._refresh(token)
+                lock = self.token_store.write_lock()
+                await asyncio.to_thread(lock.__enter__)
+                try:
+                    current = self.token_store.load(self.issuer, self.resource)
+                    now = int(time.time())
+                    if (
+                        current is not None
+                        and current != token
+                        and not current.expired(now)
+                    ):
+                        token = current
+                    else:
+                        previous = current or token
+                        if not previous.refresh_token:
+                            raise MCPTransportError(
+                                "MCP_OAUTH_REFRESH_TOKEN_MISSING", "oauth/refresh", {}
+                            )
+                        token = await self._refresh(previous)
+                        self.token_store.save_locked(self.issuer, self.resource, token)
+                finally:
+                    await asyncio.to_thread(lock.__exit__, None, None, None)
         return f"{token.token_type} {token.access_token}"
 
     async def _refresh(self, previous: StoredToken) -> StoredToken:
@@ -72,7 +86,6 @@ class OAuthTokenProvider:
             refresh_token=response.refresh_token or previous.refresh_token,
             scope=response.scope or previous.scope,
         )
-        self.token_store.save(self.issuer, self.resource, token)
         return token
 
 
@@ -87,10 +100,14 @@ class MCPOAuthHTTPXAuth(httpx.Auth):
     async def async_auth_flow(
         self, request: httpx.Request
     ) -> AsyncGenerator[httpx.Request, httpx.Response]:
-        request.headers["Authorization"] = await self.provider.authorization_header(False)
+        request.headers["Authorization"] = await self.provider.authorization_header(
+            False
+        )
         response = yield request
         if response.status_code == 401:
-            request.headers["Authorization"] = await self.provider.authorization_header(True)
+            request.headers["Authorization"] = await self.provider.authorization_header(
+                True
+            )
             yield request
 
 

@@ -18,7 +18,9 @@ def test_stateless_client_adds_auth_and_retries_after_401(tmp_path: Path) -> Non
             encrypt=lambda value: value[::-1],
             decrypt=lambda value: value[::-1],
         )
-        store.save("issuer", "resource", StoredToken("old", "Bearer", refresh_token="r"))
+        store.save(
+            "issuer", "resource", StoredToken("old", "Bearer", refresh_token="r")
+        )
         calls = 0
 
         async def header(force: bool) -> str:
@@ -104,9 +106,7 @@ def test_oauth_provider_serializes_concurrent_refreshes(tmp_path: Path) -> None:
                 json={"access_token": "new", "token_type": "Bearer", "expires_in": 60},
             )
 
-        async with httpx.AsyncClient(
-            transport=httpx.MockTransport(handler)
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
             provider = OAuthTokenProvider(
                 issuer="issuer",
                 resource="resource",
@@ -118,6 +118,50 @@ def test_oauth_provider_serializes_concurrent_refreshes(tmp_path: Path) -> None:
             headers = await asyncio.gather(
                 provider.authorization_header(True),
                 provider.authorization_header(True),
+            )
+        assert headers == ["Bearer new", "Bearer new"]
+        assert refresh_calls == 1
+
+    asyncio.run(scenario())
+
+
+def test_oauth_provider_coordinates_refresh_across_instances(tmp_path: Path) -> None:
+    async def scenario() -> None:
+        store = TokenStore(
+            tmp_path / "tokens.json",
+            encrypt=lambda value: value[::-1],
+            decrypt=lambda value: value[::-1],
+        )
+        store.save(
+            "issuer",
+            "resource",
+            StoredToken("old", "Bearer", refresh_token="refresh-old"),
+        )
+        refresh_calls = 0
+
+        async def handler(request: httpx.Request) -> httpx.Response:
+            nonlocal refresh_calls
+            refresh_calls += 1
+            await asyncio.sleep(0.05)
+            return httpx.Response(
+                200,
+                json={"access_token": "new", "token_type": "Bearer", "expires_in": 60},
+            )
+
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            providers = [
+                OAuthTokenProvider(
+                    issuer="issuer",
+                    resource="resource",
+                    client_id="client",
+                    token_endpoint="https://auth.example/token",
+                    token_store=store,
+                    http_client=client,
+                )
+                for _ in range(2)
+            ]
+            headers = await asyncio.gather(
+                *(provider.authorization_header(True) for provider in providers)
             )
         assert headers == ["Bearer new", "Bearer new"]
         assert refresh_calls == 1
