@@ -347,7 +347,7 @@ class SubAgentRunner:
 
 ## 9. 関連ドキュメント
 
-- `docs/ENVIRONMENT.ja.md` 第10節: 環境変数による個別プロバイダ設定の詳細
+- `docs/ENVIRONMENT.md` 第10節: 環境変数による個別プロバイダ設定の詳細
 - `src/uagent/tools/sub_agent_tool.py`: 実装コード
 - `tests/test_sub_agent_translator.py`: 単体テスト
 - `src/uagent/docs/DEVELOP_TOOL.md`: ツールプラグインの作成方法
