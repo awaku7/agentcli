@@ -10,7 +10,11 @@ import os
 from contextlib import AsyncExitStack
 from typing import Any
 
-from .errors import MCPTransportError, MCPUnsupportedError
+from .errors import (
+    MCPProtocolError,
+    MCPTransportError,
+    MCPUnsupportedError,
+)
 from .protocol import MCPProtocolInfo, detect_protocol_mode
 from .stateless_transport import StatelessHTTPClient
 
@@ -26,6 +30,23 @@ except ImportError:  # pragma: no cover - exercised only in minimal installs
     from mcp import ClientSession
     from mcp.client.stdio import StdioServerParameters, stdio_client
     from mcp.client.streamable_http import streamable_http_client
+
+
+def _is_legacy_probe_rejection(exc: Exception) -> bool:
+    """Return whether an auto probe was rejected as a legacy endpoint."""
+    if isinstance(exc, MCPTransportError):
+        if exc.code != "MCP_HTTP_STATUS_ERROR":
+            return False
+        status = exc.details.get("status_code")
+        return status in {400, 404, 405}
+    if isinstance(exc, MCPProtocolError):
+        if exc.code != "MCP_JSONRPC_ERROR":
+            return False
+        error = exc.details.get("error")
+        if not isinstance(error, dict):
+            return False
+        return error.get("code") == -32601
+    return False
 
 
 class MCPClient:
@@ -70,8 +91,10 @@ class MCPClient:
                 try:
                     await probe.__aenter__()
                     await probe.list_tools()
-                except Exception:
+                except Exception as exc:
                     await probe.__aexit__(None, None, None)
+                    if not _is_legacy_probe_rejection(exc):
+                        raise
                 else:
                     self._stateless_client = probe
                     self.url = probe.url

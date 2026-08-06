@@ -6,7 +6,7 @@ import httpx
 import pytest
 
 from uagent.tools.mcp.client import MCPClient
-from uagent.tools.mcp.errors import MCPUnsupportedError
+from uagent.tools.mcp.errors import MCPTransportError, MCPUnsupportedError
 
 
 def test_mcp_client_stateless_routes_list_and_call_without_session() -> None:
@@ -77,6 +77,26 @@ def test_mcp_client_auto_detects_stateless_http() -> None:
                 await client.list_tools()
 
         assert calls == 2
+
+    asyncio.run(scenario())
+
+
+def test_mcp_client_auto_does_not_fallback_on_auth_error() -> None:
+    async def scenario() -> None:
+        def handler(request: httpx.Request) -> httpx.Response:
+            return httpx.Response(401)
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            with pytest.raises(MCPTransportError) as exc_info:
+                async with MCPClient(
+                    url="https://example.test",
+                    protocol_mode="auto",
+                    http_client=http_client,
+                ):
+                    pass
+        assert exc_info.value.code == "MCP_HTTP_STATUS_ERROR"
+        assert exc_info.value.details["status_code"] == 401
 
     asyncio.run(scenario())
 
