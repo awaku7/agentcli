@@ -107,3 +107,20 @@ class StatelessHTTPClient:
         return await self.request(
             "tools/call", name=name, params={"name": name, "arguments": arguments}
         )
+
+    async def list_resources(self) -> dict[str, Any]:
+        return await self.request("resources/list")
+
+    async def read_resource(self, uri: str) -> dict[str, Any]:
+        return await self.request("resources/read", params={"uri": uri})
+
+    async def list_prompts(self) -> dict[str, Any]:
+        return await self.request("prompts/list")
+
+    async def get_prompt(
+        self, name: str, arguments: dict[str, str] | None = None
+    ) -> dict[str, Any]:
+        params: dict[str, Any] = {"name": name}
+        if arguments is not None:
+            params["arguments"] = arguments
+        return await self.request("prompts/get", name=name, params=params)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 
 import httpx
 import pytest
@@ -66,6 +67,44 @@ def test_stateless_call_tool_sends_tool_name_header_and_params() -> None:
         assert headers["mcp-method"] == "tools/call"
         assert headers["mcp-name"] == "search"
         assert b'"name":"search"' in captured["body"]
+
+    asyncio.run(scenario())
+
+
+def test_stateless_resources_and_prompts_use_protocol_methods() -> None:
+    async def scenario() -> None:
+        captured: list[tuple[str, dict[str, object]]] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            body = request.read()
+            payload = json.loads(body)
+            captured.append((request.headers["mcp-method"], payload))
+            return httpx.Response(
+                200,
+                json={"jsonrpc": "2.0", "id": payload["id"], "result": {}},
+            )
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            async with StatelessHTTPClient(
+                "https://example.test", http_client=http_client
+            ) as client:
+                await client.list_resources()
+                await client.read_resource("file:///README.md")
+                await client.list_prompts()
+                await client.get_prompt("summarize", {"style": "short"})
+
+        assert [method for method, _ in captured] == [
+            "resources/list",
+            "resources/read",
+            "prompts/list",
+            "prompts/get",
+        ]
+        assert captured[1][1]["params"] == {"uri": "file:///README.md"}
+        assert captured[3][1]["params"] == {
+            "name": "summarize",
+            "arguments": {"style": "short"},
+        }
 
     asyncio.run(scenario())
 

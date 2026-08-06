@@ -228,3 +228,53 @@ class MCPClient:
                 "tools/call",
                 {"tool_name": name, "error": str(exc)},
             ) from exc
+
+    async def list_resources(self) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.list_resources()
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "resources/list")
+        try:
+            return await self.session.list_resources()
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_LIST_RESOURCES_FAILED", "resources/list", {"error": str(exc)}
+            ) from exc
+
+    async def read_resource(self, uri: str) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.read_resource(uri)
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "resources/read")
+        try:
+            return await self.session.read_resource(uri)
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_READ_RESOURCE_FAILED", "resources/read", {"uri": uri, "error": str(exc)}
+            ) from exc
+
+    async def list_prompts(self) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.list_prompts()
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "prompts/list")
+        try:
+            return await self.session.list_prompts()
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_LIST_PROMPTS_FAILED", "prompts/list", {"error": str(exc)}
+            ) from exc
+
+    async def get_prompt(
+        self, name: str, arguments: dict[str, str] | None = None
+    ) -> Any:
+        if self._stateless_client is not None:
+            return await self._stateless_client.get_prompt(name, arguments)
+        if self.session is None:
+            raise MCPTransportError("MCP_NOT_CONNECTED", "prompts/get")
+        try:
+            return await self.session.get_prompt(name, arguments=arguments)
+        except Exception as exc:
+            raise MCPTransportError(
+                "MCP_GET_PROMPT_FAILED", "prompts/get", {"name": name, "error": str(exc)}
+            ) from exc
