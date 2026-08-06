@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
+  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -266,8 +266,6 @@ LLM API に直接渡されるオプションパラメータです。
 - `UAGENT_REASONING`: 推論モデルの推論努力レベル（`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`）。
 - `UAGENT_REASONING_EFFORT`: Grok / xAI モデルの推論努力レベル（`none`, `low`, `medium`, `high`）。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
-- `UAGENT_RESPONSES_STATE_FILE`: 特定の Responses API 状態ファイルの絶対パス（自動パスを上書き）。
-- `UAGENT_RESPONSES_STATE_DIR`: Responses API 状態ファイルのディレクトリ（省略可、既定: `~/.uag/`）。
 
 ### 5. 組み込み Web 検索
 

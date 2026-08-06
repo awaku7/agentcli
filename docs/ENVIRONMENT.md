@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
+  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -266,8 +266,6 @@ Optional parameters passed directly to the LLM API.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
-- `UAGENT_RESPONSES_STATE_FILE`: absolute path to a specific Responses API state file (overrides auto path).
-- `UAGENT_RESPONSES_STATE_DIR`: directory for Responses API state files (optional; default: `~/.uag/`).
 
 ### 5. Built-in Web Search
 
