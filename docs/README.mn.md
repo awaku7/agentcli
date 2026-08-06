@@ -100,7 +100,7 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Үүлэн API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 эх кодын хөтөч (idx гэр бүл)** |
-| **MCP** | Гадаад MCP серверүүдтэй холбогдож, хэрэгслүүдийг жагсааж, |
+| **MCP** | Гадаад MCP серверүүдтэй холбогдож, хэрэгслүүдийг жагсааж, — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Агент-агент хоорондын харилцаа (бусад uag instances эсвэл A2A нийцтэй серверүүдтэй) |
 | **Систем** | env vars, системийн үзүүлэлт, цаг, огнооны тооцоо, uuid_gen, slugify ||
 | **Навын эх сурвалж** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile-д зориулсан **29 idx хэрэгсэл** — файлыг бүхэлд нь уншихгүйгээр функц/ангиллын индекс эсвэл тодорхой тодорхойлолт авах боломжтой |

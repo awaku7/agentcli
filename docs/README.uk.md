@@ -101,7 +101,7 @@ uagent реалізує **систему плагінів, сумісну з Cla
 | **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — див. [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **Інтернет речей** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **29 навігаторів вихідного коду (сімейство idx)** |
-| **MCP** | Підключення до зовнішніх серверів MCP, список інструментів, виконання |
+| **MCP** | Підключення до зовнішніх серверів MCP, список інструментів, виконання — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Зв'язок між агентами (з іншими примірниками uag або A2A-сумісними серверами) |
 | **Система** | env vars, характеристики системи, час, обчислення дати, uuid_gen, slugify ||
 | **Source Nav** | **29 інструментів idx** для Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — отримуйте індекс функції/класу або конкретне визначення, не читаючи весь файл |

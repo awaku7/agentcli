@@ -101,7 +101,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — voir [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
-| **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
+| **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify ||
 | **Navigation source** | **29 outils idx** pour Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obtenez un index de fonction/classe ou une définition spécifique sans lire l'intégralité du fichier |

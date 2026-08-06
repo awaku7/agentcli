@@ -100,7 +100,7 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](../src/uage
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Felhő API-k** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **29 forráskód-navigátor (idx család)** |
-| **MCP** | Csatlakozás külső MCP-kiszolgálókhoz, eszközök listázása, |
+| **MCP** | Csatlakozás külső MCP-kiszolgálókhoz, eszközök listázása, — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Ügynök-ügynök kommunikáció (más uag-példányokkal vagy A2A-kompatibilis szerverekkel) |
 | **Rendszer** | env vars, rendszerspecifikációk, idő, dátum számítás, uuid_gen, slugify ||
 | **Navigációs forrás** | **29 idx-eszköz** Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile számára – függvény/osztályindex vagy konkrét definíció beszerzése a teljes fájl beolvasása nélkül |

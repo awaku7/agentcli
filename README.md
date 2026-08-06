@@ -121,7 +121,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Cloud APIs** | `aws_api`, `gcp_api`, `azure_api` — generic AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
-| **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.en.md) |
+| **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation, uuid_gen, slugify |
 | **Source Nav** | **29 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — get a function/class index or specific definition without reading the whole file |

@@ -100,7 +100,7 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/doc
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigator kode sumber (keluarga idx)** |
-| **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
+| **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal, uuid_gen, slugify ||
 | **Nav Sumber** | **29 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |

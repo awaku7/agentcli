@@ -101,7 +101,7 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 | **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 请参阅 [COMMUNICATION.md](COMMUNICATION.md) 和 [BITCHAT.md](BITCHAT.md)|
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 个源代码导航器（idx 系列）** |
-| **MCP** |连接到外部 MCP 服务器、列出工具、执行 |
+| **MCP** |连接到外部 MCP 服务器、列出工具、执行 — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** |代理间通信（与其他 uag 实例或 A2A 兼容服务器）|
 | **系统** | 环境变量、系统规格、时间、日期计算, uuid_gen, slugify ||
 | **来源导航** | **29 个 idx 工具**，适用于 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 无需读取整个文件即可获取函数/类索引或特定定义 |

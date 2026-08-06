@@ -100,7 +100,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloud API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **29 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
-| **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση |
+| **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |
 | **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας, uuid_gen, slugify ||
 | **Πηγή Nav** | **29 εργαλεία idx** για Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — λάβετε ευρετήριο συνάρτησης/κλάσης ή συγκεκριμένο ορισμό χωρίς να διαβάσετε ολόκληρο το αρχείο |

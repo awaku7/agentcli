@@ -100,7 +100,7 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELO
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API đám mây** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **29 trình điều hướng mã nguồn (dòng idx)** |
-| **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
+| **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng, uuid_gen, slugify ||
 | **Điều hướng nguồn** | **29 công cụ idx** dành cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |

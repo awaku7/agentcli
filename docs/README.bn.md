@@ -100,7 +100,7 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ক্লাউড API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **26 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
-| **MCP** | বাহ্যিক MCP সার্ভারের সাথে সংযোগ করুন, টুল তালিকা করুন, কার্যকর করুন |
+| **MCP** | বাহ্যিক MCP সার্ভারের সাথে সংযোগ করুন, টুল তালিকা করুন, কার্যকর করুন — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | এজেন্ট থেকে এজেন্ট যোগাযোগ (অন্যান্য uag উদাহরণ বা A2A-সামঞ্জস্যপূর্ণ সার্ভারের সাথে) |
 | **সিস্টেম** | env vars, সিস্টেম স্পেস, সময়, তারিখ গণনা, uuid_gen, slugify ||
 | **সূত্র Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile-এর জন্য \*\*29 idx টুলস — পুরো ফাইলটি না পড়েই একটি ফাংশন/ক্লাস ইনডেক্স বা নির্দিষ্ট সংজ্ঞা পান।

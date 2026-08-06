@@ -100,7 +100,7 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API za Wingu** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 29 vya msimbo wa chanzo (idx family)** |
-| **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza |
+| **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe, uuid_gen, slugify ||
 | **Chanzo Nav** | **zana 29 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |

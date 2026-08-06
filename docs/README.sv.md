@@ -100,7 +100,7 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Moln-API:er** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **29 källkodsnavigatorer (idx-familjen)** |
-| **MCP** | Anslut till externa MCP-servrar, lista verktyg, kör |
+| **MCP** | Anslut till externa MCP-servrar, lista verktyg, kör — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-till-agent-kommunikation (med andra uag-instanser eller A2A-kompatibla servrar) |
 | **System** | env vars, systemspecifikationer, tid, datumberäkning, uuid_gen, slugify ||
 | **Källnavigering** | **29 idx-verktyg** för Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få ett funktions-/klassindex eller specifik definition utan att läsa hela filen |

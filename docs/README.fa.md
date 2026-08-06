@@ -101,7 +101,7 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 | **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook , **pybitchat** (BLE Mesh) — به [COMMUNICATION.md](COMMUNICATION.md) مراجعه کنید and [BITCHAT.md](BITCHAT.md)|
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **29 پیمایش کد منبع (خانواده idx)** |
-| **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
+| **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
 | **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ, uuid_gen, slugify ||
 | **منبع Nav** | **29 ابزار idx** برای Python، PHP، TypeScript، Java، C#، Dart، C/C++، Rust، Go، Swift، Kotlin، COBOL, VBA, LotusScript, Makefile — دریافت یک شاخص تابع/کلاس یا تعریف خاص بدون خواندن کل فایل |

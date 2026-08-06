@@ -100,7 +100,7 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/ua
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Interfejsy API chmury** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **29 nawigatorów kodu źródłowego (rodzina idx)** |
-| **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj |
+| **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikacja agent-agent (z innymi instancjami uag lub serwerami kompatybilnymi z A2A) |
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty, uuid_gen, slugify ||
 | **Nawigacja źródłowa** | **29 narzędzi idx** dla Pythona, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — uzyskaj indeks funkcji/klasy lub konkretną definicję bez czytania całego pliku |

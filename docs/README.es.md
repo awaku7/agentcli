@@ -100,7 +100,7 @@ Consulte la documentación completa en [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **APIs de nube** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Herramientas de desarrollo** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navegadores de código fuente (familia idx)** |
-| **MCP** | Conéctese a servidores MCP externos, enumere herramientas, ejecute |
+| **MCP** | Conéctese a servidores MCP externos, enumere herramientas, ejecute — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Comunicación de agente a agente (con otras instancias de uag o servidores compatibles con A2A) |
 | **Sistema** | vars env, especificaciones del sistema, hora, cálculo de fecha, uuid_gen, slugify ||
 | **Navegación de origen** | **29 herramientas idx** para Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile: obtenga un índice de función/clase o una definición específica sin leer el archivo completo |

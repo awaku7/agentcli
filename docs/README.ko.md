@@ -100,7 +100,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **클라우드 API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **29개의 소스 코드 탐색기(idx 제품군)** |
-| **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
+| **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
 | **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify ||
 | **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile용 **29가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |

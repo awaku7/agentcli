@@ -100,7 +100,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ממשקי API בענן** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **29 נווטי קוד מקור (משפחת idx)** |
-| **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע |
+| **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | תקשורת סוכן לסוכן (עם מופעי uag אחרים או שרתים תואמי A2A) |
 | **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך, uuid_gen, slugify ||
 | **נוב מקור** | **29 כלים idx** עבור Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — קבל אינדקס פונקציה/מעמד או הגדרה ספציפית מבלי לקרוא את כל הקובץ |

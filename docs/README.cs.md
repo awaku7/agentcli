@@ -100,7 +100,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloudová rozhraní API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
-| **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
+| **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify ||
 | **Zdroj Nav** | **29 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |

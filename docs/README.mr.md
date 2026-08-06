@@ -100,7 +100,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **क्लाउड API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
-| **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
+| **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना, uuid_gen, slugify ||
 | **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile साठी **29 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |

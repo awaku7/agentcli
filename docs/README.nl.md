@@ -100,7 +100,7 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloud-API’s** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 broncode-navigators (idx-familie)** |
-| **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren |
+| **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify ||
 | **Bronnavigatie** | **29 idx-tools** voor Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — verkrijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
