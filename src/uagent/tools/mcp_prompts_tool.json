@@ -1,0 +1,723 @@
+{
+  "en": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ja": {
+    "tool.description": "MCPサーバーのプロンプト一覧を取得、またはプロンプトを取得します。",
+    "param.action.description": "listで一覧、getでプロンプトを取得します。",
+    "param.name.description": "action=getの場合に必要なプロンプト名。",
+    "param.arguments.description": "action=getに渡す任意のプロンプト引数。",
+    "param.url.description": "MCPエンドポイントURL。server_name指定時は省略できます。",
+    "param.server_name.description": "設定済みMCPサーバー名。",
+    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy、またはstateless。",
+    "err.action": "エラー: actionはlistまたはgetを指定してください。",
+    "err.name_required": "エラー: getにはnameが必要です。",
+    "err.arguments_object": "エラー: argumentsはオブジェクトで指定してください。",
+    "err.endpoint_required": "エラー: MCPエンドポイントが必要です。",
+    "err.request": "エラー: MCPプロンプト要求に失敗しました: %(error)s",
+    "x_search_terms": [
+      "MCPプロンプト",
+      "MCPプロンプト取得"
+    ]
+  },
+  "es": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "fr": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "de": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "it": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "pt": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ru": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ko": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ar": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "bn": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "cs": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "el": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "fa": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "fi": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "he": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "hi": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "hu": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "id": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "mn": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "mr": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "nb": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "nl": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "nn": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "pl": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ro": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "sv": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "sw": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "th": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "tr": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "uk": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "vi": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "da": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "fil": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  },
+  "ms": {
+    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
+    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
+    "param.name.description": "Prompt name required when action=get.",
+    "param.arguments.description": "Optional prompt arguments for action=get.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or get.",
+    "err.name_required": "Error: name is required for get.",
+    "err.arguments_object": "Error: arguments must be an object.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "x_search_terms": [
+      "mcp prompts",
+      "mcp prompt",
+      "get mcp prompt"
+    ]
+  }
+}
