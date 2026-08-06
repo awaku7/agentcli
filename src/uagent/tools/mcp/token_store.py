@@ -10,9 +10,11 @@ import hashlib
 import json
 import os
 import tempfile
+import time
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Iterator
 
 
 @dataclass(frozen=True)
@@ -75,9 +77,10 @@ class TokenStore:
 
     def _write(self, records: dict[str, str]) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        payload = json.dumps(
-            {"version": 1, "records": records}, ensure_ascii=False, indent=2
-        ) + "\n"
+        payload = (
+            json.dumps({"version": 1, "records": records}, ensure_ascii=False, indent=2)
+            + "\n"
+        )
         fd, temp_name = tempfile.mkstemp(
             prefix=f".{self.path.name}.", dir=str(self.path.parent)
         )
@@ -93,6 +96,40 @@ class TokenStore:
                 pass
             raise
 
+    @contextmanager
+    def _write_lock(
+        self, *, timeout: float = 10.0, stale_after: float = 60.0
+    ) -> Iterator[None]:
+        """Serialize read-modify-write operations across processes."""
+        lock_path = self.path.with_name(f".{self.path.name}.lock")
+        deadline = time.monotonic() + timeout
+        acquired = False
+        while not acquired:
+            try:
+                fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                try:
+                    os.write(fd, str(os.getpid()).encode("ascii"))
+                finally:
+                    os.close(fd)
+                acquired = True
+            except FileExistsError:
+                try:
+                    if time.time() - lock_path.stat().st_mtime > stale_after:
+                        lock_path.unlink()
+                        continue
+                except FileNotFoundError:
+                    continue
+                if time.monotonic() >= deadline:
+                    raise TimeoutError("timed out waiting for OAuth token store lock")
+                time.sleep(0.05)
+        try:
+            yield
+        finally:
+            try:
+                lock_path.unlink()
+            except FileNotFoundError:
+                pass
+
     def save(self, issuer: str, resource: str, token: StoredToken) -> None:
         key = self._key(issuer, resource)
         plaintext = json.dumps(
@@ -105,9 +142,10 @@ class TokenStore:
             },
             separators=(",", ":"),
         )
-        records = self._read()
-        records[key] = self._encrypt(plaintext)
-        self._write(records)
+        with self._write_lock():
+            records = self._read()
+            records[key] = self._encrypt(plaintext)
+            self._write(records)
 
     def load(self, issuer: str, resource: str) -> StoredToken | None:
         encrypted = self._read().get(self._key(issuer, resource))
@@ -122,14 +160,21 @@ class TokenStore:
         return StoredToken(
             access_token=str(payload["access_token"]),
             token_type=str(payload.get("token_type") or "Bearer"),
-            expires_at=(int(payload["expires_at"]) if payload.get("expires_at") is not None else None),
-            refresh_token=(str(payload["refresh_token"]) if payload.get("refresh_token") else None),
+            expires_at=(
+                int(payload["expires_at"])
+                if payload.get("expires_at") is not None
+                else None
+            ),
+            refresh_token=(
+                str(payload["refresh_token"]) if payload.get("refresh_token") else None
+            ),
             scope=(str(payload["scope"]) if payload.get("scope") else None),
         )
 
     def delete(self, issuer: str, resource: str) -> bool:
-        records = self._read()
-        removed = records.pop(self._key(issuer, resource), None) is not None
-        if removed:
-            self._write(records)
-        return removed
+        with self._write_lock():
+            records = self._read()
+            removed = records.pop(self._key(issuer, resource), None) is not None
+            if removed:
+                self._write(records)
+            return removed
