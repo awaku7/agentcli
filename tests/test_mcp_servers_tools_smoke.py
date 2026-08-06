@@ -24,6 +24,11 @@ def test_tool_catalog_smoke() -> None:
     assert isinstance(obj.get("tools"), list)
     assert any(item.get("name") == "read_file" for item in obj["tools"])
 
+    mcp_out = run_tool({"query": "mcp", "max_results": 100})
+    mcp_obj = json.loads(mcp_out)
+    assert any(item.get("name") == "mcp_resources" for item in mcp_obj["tools"])
+    assert any(item.get("name") == "mcp_prompts" for item in mcp_obj["tools"])
+
 
 def test_mcp_servers_init_template_smoke(repo_tmp_path: Path) -> None:
     from uagent.tools.mcp_servers_tool import run_tool
