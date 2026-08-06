@@ -5,7 +5,9 @@ import json
 import threading
 from http.client import HTTPConnection
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlencode, urlsplit
+
+import httpx
 
 from uagent.tools.mcp.http_client import MCPHTTPConfig, create_mcp_http_client
 from uagent.tools.mcp.oauth_provider import OAuthTokenProvider
@@ -69,7 +71,9 @@ class _ProxyHandler(BaseHTTPRequestHandler):
         return
 
 
-def _server(handler: type[BaseHTTPRequestHandler]) -> tuple[ThreadingHTTPServer, threading.Thread]:
+def _server(
+    handler: type[BaseHTTPRequestHandler],
+) -> tuple[ThreadingHTTPServer, threading.Thread]:
     server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -118,6 +122,100 @@ def test_mcp_oauth_refresh_and_request_through_local_proxy(tmp_path) -> None:
             assert _ProxyHandler.requests == 2
         finally:
             target.shutdown()
+            proxy.shutdown()
+
+    asyncio.run(scenario())
+
+
+class _AuthorizationHandler(BaseHTTPRequestHandler):
+    verifier_challenge = ""
+    code = "code-1"
+
+    def do_GET(self) -> None:  # noqa: N802
+        query = parse_qs(urlsplit(self.path).query)
+        type(self).verifier_challenge = query["code_challenge"][0]
+        redirect = query["redirect_uri"][0]
+        location = (
+            redirect
+            + "?"
+            + urlencode({"code": type(self).code, "state": query["state"][0]})
+        )
+        self.send_response(302)
+        self.send_header("Location", location)
+        self.end_headers()
+
+    def do_POST(self) -> None:  # noqa: N802
+        length = int(self.headers.get("Content-Length", "0"))
+        values = parse_qs(self.rfile.read(length).decode())
+        assert values["code"][0] == type(self).code
+        assert values["code_verifier"]
+        payload = {
+            "access_token": "browser-token",
+            "token_type": "Bearer",
+            "expires_in": 60,
+        }
+        encoded = json.dumps(payload).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(encoded)))
+        self.end_headers()
+        self.wfile.write(encoded)
+
+    def log_message(self, *_args: object) -> None:
+        return
+
+
+def test_complete_browser_oauth_flow_with_local_callback(tmp_path) -> None:
+    from uagent.tools.mcp.oauth_browser_flow import authorize_with_local_callback
+    from uagent.tools.mcp.oauth_metadata import AuthorizationServerMetadata
+
+    async def scenario() -> None:
+        auth, _ = _server(_AuthorizationHandler)
+        proxy, _ = _server(_ProxyHandler)
+        try:
+            auth_url = f"http://127.0.0.1:{auth.server_port}"
+            store = TokenStore(
+                tmp_path / "tokens.json",
+                encrypt=lambda value: value[::-1],
+                decrypt=lambda value: value[::-1],
+            )
+            config = MCPHTTPConfig(
+                proxy_url=f"http://127.0.0.1:{proxy.server_port}",
+                trust_env=False,
+                timeout=5,
+            )
+            async with create_mcp_http_client(config) as client:
+
+                async def opener(url: str) -> None:
+                    async with httpx.AsyncClient(
+                        follow_redirects=True, trust_env=False
+                    ) as browser:
+                        await browser.get(url)
+
+                token = await authorize_with_local_callback(
+                    metadata=AuthorizationServerMetadata(
+                        issuer=auth_url,
+                        authorization_endpoint=auth_url + "/authorize",
+                        token_endpoint=auth_url + "/token",
+                        registration_endpoint=None,
+                        scopes_supported=("mcp:read",),
+                        raw={},
+                    ),
+                    issuer=auth_url,
+                    resource="http://127.0.0.1:mcp",
+                    client_id="local-test",
+                    token_store=store,
+                    http_client=client,
+                    browser_opener=opener,
+                    timeout=5,
+                )
+            assert token.access_token == "browser-token"
+            assert (
+                store.load(auth_url, "http://127.0.0.1:mcp").access_token
+                == "browser-token"
+            )
+        finally:
+            auth.shutdown()
             proxy.shutdown()
 
     asyncio.run(scenario())
