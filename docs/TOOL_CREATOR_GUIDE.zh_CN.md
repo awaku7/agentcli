@@ -4,20 +4,21 @@
 如果您想将工具直接添加到 uag 源代码树中，请参阅
 [DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md)。
 
----
+______________________________________________________________________
 
 ## 目录
+
 0. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
 
-1。 [基本工具结构](#1-基本工具结构)
-2. [创建 Python 工具](#2-创建-python-工具)
-3. [创建 Rust + Python 工具](#3-creating-a-rust--python-tool)
-4. [工具规格参考](#4-工具规格参考)
-5。 [国际化 (i18n)](#5-国际化-i18n)
-6。 [测试和调试](#6-测试和调试)
-7. [参考示例](#7-参考-示例)
+1。 [基本工具结构](#1-%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%BB%93%E6%9E%84)
+2\. [创建 Python 工具](#2-%E5%88%9B%E5%BB%BA-python-%E5%B7%A5%E5%85%B7)
+3\. [创建 Rust + Python 工具](#3-creating-a-rust--python-tool)
+4\. [工具规格参考](#4-%E5%B7%A5%E5%85%B7%E8%A7%84%E6%A0%BC%E5%8F%82%E8%80%83)
+5。 [国际化 (i18n)](#5-%E5%9B%BD%E9%99%85%E5%8C%96-i18n)
+6。 [测试和调试](#6-%E6%B5%8B%E8%AF%95%E5%92%8C%E8%B0%83%E8%AF%95)
+7\. [参考示例](#7-%E5%8F%82%E8%80%83-%E7%A4%BA%E4%BE%8B)
 
----
+______________________________________________________________________
 
 ## 0. Quick Start: Scaffold Command
 
@@ -50,6 +51,7 @@ from the CLI prompt. It generates the boilerplate files automatically.
 ### What Gets Generated
 
 **Python (`--lang python`)**:
+
 - `<name>_tool.py` — Tool implementation with `TOOL_SPEC` and `run_tool()`
 - `<name>_tool.json` — i18n translation template
 
@@ -57,6 +59,7 @@ Both files are ready to use. Place them in your `UAGENT_EXTERNAL_TOOLS_DIRS`
 and restart the agent (or run `system_reload`).
 
 **Rust (`--lang rust`)**:
+
 - `<name>/` — Cargo project directory with `Cargo.toml`, `pyproject.toml`, and `src/lib.rs`
 - `<name>_tool.py` — Python wrapper that loads the compiled `.pyd`
 
@@ -71,8 +74,7 @@ pip install target/wheels/*.whl
 Then place `<name>_tool.py` and the built `.pyd` in your
 `UAGENT_EXTERNAL_TOOLS_DIRS` and restart the agent.
 
----
-
+______________________________________________________________________
 
 ## 1. 基本工具结构
 
@@ -113,7 +115,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
----
+______________________________________________________________________
 
 ## 2. 创建 Python 工具
 
@@ -121,28 +123,29 @@ TOOL_SPEC: dict[str, Any] = {
 
 1. **设置 `UAGENT_EXTERNAL_TOOLS_DIRS` 环境变量**（如果尚未设置）
 
- 示例：
- ```bash
-   # Linux/macOS
-   export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
-   # Windows (cmd)
-   set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
-   ```
+示例：
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+```bash
+  # Linux/macOS
+  export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
+  # Windows (cmd)
+  set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
+```
+
+Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
 2. **Create a Python file**
 
    File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **Implement the required elements**
+1. **Implement the required elements**
 
    - `TOOL_SPEC` dictionary
    - `run_tool(args)` function
    - Optionally, an i18n JSON file
 
-4. **Restart the agent** (or run the `system_reload` tool)
+1. **Restart the agent** (or run the `system_reload` tool)
 
 ### Full Template
 
@@ -191,7 +194,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 See [Section 5](#5-internationalization-i18n) for i18n details.
 
----
+______________________________________________________________________
 
 ## 3. Creating a Rust + Python Tool
 
@@ -219,6 +222,7 @@ For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 #### Step 1: Create the Rust project
 
 **Cargo.toml**
+
 ```toml
 [package]
 name = "my_rust_tools"
@@ -234,6 +238,7 @@ pyo3 = { version = "0.29", features = ["extension-module", "abi3-py311"] }
 ```
 
 **pyproject.toml**
+
 ```toml
 [build-system]
 requires = ["maturin>=1.0"]
@@ -272,6 +277,7 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
 
 **Key points:**
+
 - Expose functions with `#[pyfunction(name = "run_<name>")]`
 - Return type is `PyResult<String>`
 - The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
@@ -288,6 +294,7 @@ Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
 macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
 Or using maturin:
+
 ```bash
 pip install maturin     # build-time only
 maturin build --release
@@ -333,10 +340,10 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**`load_rust_pyd()` resolution order:**
 
 1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Fall back to a pip-installed module
 
 #### Step 5: Distribution
 
@@ -357,7 +364,7 @@ my_rust_tools.pyd       # Pre-built native binary
 - The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
 - The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
----
+______________________________________________________________________
 
 ## 4. TOOL_SPEC Reference
 
@@ -408,7 +415,7 @@ TOOL_SPEC: dict[str, Any] = {
 | `function.x_search_terms_en` | list[str] | Fixed English search keywords |
 | `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
----
+______________________________________________________________________
 
 ## 5. Internationalization (i18n)
 
@@ -448,7 +455,7 @@ description = _(
 
 See existing `_tool.json` files for supported language codes.
 
----
+______________________________________________________________________
 
 ## 6. Testing and Debugging
 
@@ -474,7 +481,7 @@ if "my_tool" in _RUNNERS:
 Errors during tool loading are printed to stderr. If your tool isn't loaded,
 check the uag startup logs.
 
----
+______________________________________________________________________
 
 ## 7. Reference Examples
 

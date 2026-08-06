@@ -3,20 +3,27 @@
 हे मार्गदर्शक स्पष्ट करते की uag मध्ये तुमची स्वतःची साधने कशी जोडावीत **uag मध्ये बदल न करता**.
 [DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md) पहा.
 
----
+______________________________________________________________________
 
 ## सामग्री सारणी
+
 0. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
 
-1. [बेसिक टूल स्ट्रक्चर](#1-बेसिक-टूल-स्ट्रक्चर)
-2. [पायथन टूल तयार करणे](#2-पायथन-टूल-तयार-करणे)
-3. [रस्ट + पायथन टूल तयार करणे](#3-रस्ट-पायथन-टूल-तयार-करणे)
-4. [TOOL_SPEC संदर्भ](#4-tool_spec-संदर्भ)
-5. [आंतरराष्ट्रीयकरण (i18n)](#5-आंतरराष्ट्रीयकरण-i18n)
-6. [चाचणी आणि डीबगिंग](#6-चाचणी-आणि-डीबगिंग)
-7. [संदर्भ उदाहरणे](#7-संदर्भ-उदाहरणे)
+1. [बेसिक टूल स्ट्रक्चर](#1-%E0%A4%AC%E0%A5%87%E0%A4%B8%E0%A4%BF%E0%A4%95-%E0%A4%9F%E0%A5%82%E0%A4%B2-%E0%A4%B8%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%9A%E0%A4%B0)
 
----
+1. [पायथन टूल तयार करणे](#2-%E0%A4%AA%E0%A4%BE%E0%A4%AF%E0%A4%A5%E0%A4%A8-%E0%A4%9F%E0%A5%82%E0%A4%B2-%E0%A4%A4%E0%A4%AF%E0%A4%BE%E0%A4%B0-%E0%A4%95%E0%A4%B0%E0%A4%A3%E0%A5%87)
+
+1. [रस्ट + पायथन टूल तयार करणे](#3-%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%9F-%E0%A4%AA%E0%A4%BE%E0%A4%AF%E0%A4%A5%E0%A4%A8-%E0%A4%9F%E0%A5%82%E0%A4%B2-%E0%A4%A4%E0%A4%AF%E0%A4%BE%E0%A4%B0-%E0%A4%95%E0%A4%B0%E0%A4%A3%E0%A5%87)
+
+1. [TOOL_SPEC संदर्भ](#4-tool_spec-%E0%A4%B8%E0%A4%82%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%AD)
+
+1. [आंतरराष्ट्रीयकरण (i18n)](#5-%E0%A4%86%E0%A4%82%E0%A4%A4%E0%A4%B0%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%AF%E0%A4%95%E0%A4%B0%E0%A4%A3-i18n)
+
+1. [चाचणी आणि डीबगिंग](#6-%E0%A4%9A%E0%A4%BE%E0%A4%9A%E0%A4%A3%E0%A5%80-%E0%A4%86%E0%A4%A3%E0%A4%BF-%E0%A4%A1%E0%A5%80%E0%A4%AC%E0%A4%97%E0%A4%BF%E0%A4%82%E0%A4%97)
+
+1. [संदर्भ उदाहरणे](#7-%E0%A4%B8%E0%A4%82%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%AD-%E0%A4%89%E0%A4%A6%E0%A4%BE%E0%A4%B9%E0%A4%B0%E0%A4%A3%E0%A5%87)
+
+______________________________________________________________________
 
 ## 0. Quick Start: Scaffold Command
 
@@ -49,6 +56,7 @@ from the CLI prompt. It generates the boilerplate files automatically.
 ### What Gets Generated
 
 **Python (`--lang python`)**:
+
 - `<name>_tool.py` — Tool implementation with `TOOL_SPEC` and `run_tool()`
 - `<name>_tool.json` — i18n translation template
 
@@ -56,6 +64,7 @@ Both files are ready to use. Place them in your `UAGENT_EXTERNAL_TOOLS_DIRS`
 and restart the agent (or run `system_reload`).
 
 **Rust (`--lang rust`)**:
+
 - `<name>/` — Cargo project directory with `Cargo.toml`, `pyproject.toml`, and `src/lib.rs`
 - `<name>_tool.py` — Python wrapper that loads the compiled `.pyd`
 
@@ -70,8 +79,7 @@ pip install target/wheels/*.whl
 Then place `<name>_tool.py` and the built `.pyd` in your
 `UAGENT_EXTERNAL_TOOLS_DIRS` and restart the agent.
 
----
-
+______________________________________________________________________
 
 ## 1. मूल उपकरण संरचना
 
@@ -84,6 +92,7 @@ Then place `<name>_tool.py` and the built `.pyd` in your
 | i18n JSON | शिफारस केलेले | भाषांतर JSON फाइल (समान बेसनाव, `<name>_tool.json`) |
 
 ### किमान पायथन टूल
+
 ```python
 # my_tool.py
 from typing import Any
@@ -111,7 +120,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
----
+______________________________________________________________________
 
 ## 2. पायथन टूल तयार करणे
 
@@ -120,6 +129,7 @@ TOOL_SPEC: dict[str, Any] = {
 1. **`UAGENT_EXTERNAL_TOOLS_DIRS` पर्यावरण व्हेरिएबल सेट करा** (आधीच सेट केलेले नसल्यास)
 
    उदाहरण:
+
    ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
@@ -130,17 +140,17 @@ TOOL_SPEC: dict[str, Any] = {
    Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
    `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
-2. **Create a Python file**
+1. **Create a Python file**
 
    File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **Implement the required elements**
+1. **Implement the required elements**
 
    - `TOOL_SPEC` dictionary
    - `run_tool(args)` function
    - Optionally, an i18n JSON file
 
-4. **Restart the agent** (or run the `system_reload` tool)
+1. **Restart the agent** (or run the `system_reload` tool)
 
 ### Full Template
 
@@ -189,7 +199,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 See [Section 5](#5-internationalization-i18n) for i18n details.
 
----
+______________________________________________________________________
 
 ## 3. Creating a Rust + Python Tool
 
@@ -217,6 +227,7 @@ For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 #### Step 1: Create the Rust project
 
 **Cargo.toml**
+
 ```toml
 [package]
 name = "my_rust_tools"
@@ -232,6 +243,7 @@ pyo3 = { version = "0.29", features = ["extension-module", "abi3-py311"] }
 ```
 
 **pyproject.toml**
+
 ```toml
 [build-system]
 requires = ["maturin>=1.0"]
@@ -270,6 +282,7 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
 
 **Key points:**
+
 - Expose functions with `#[pyfunction(name = "run_<name>")]`
 - Return type is `PyResult<String>`
 - The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
@@ -286,6 +299,7 @@ Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
 macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
 Or using maturin:
+
 ```bash
 pip install maturin     # build-time only
 maturin build --release
@@ -331,10 +345,10 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**`load_rust_pyd()` resolution order:**
 
 1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Fall back to a pip-installed module
 
 #### Step 5: Distribution
 
@@ -355,7 +369,7 @@ my_rust_tools.pyd       # Pre-built native binary
 - The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
 - The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
----
+______________________________________________________________________
 
 ## 4. TOOL_SPEC Reference
 
@@ -406,7 +420,7 @@ TOOL_SPEC: dict[str, Any] = {
 | `function.x_search_terms_en` | list[str] | Fixed English search keywords |
 | `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
----
+______________________________________________________________________
 
 ## 5. Internationalization (i18n)
 
@@ -446,7 +460,7 @@ description = _(
 
 See existing `_tool.json` files for supported language codes.
 
----
+______________________________________________________________________
 
 ## 6. Testing and Debugging
 
@@ -472,7 +486,7 @@ if "my_tool" in _RUNNERS:
 Errors during tool loading are printed to stderr. If your tool isn't loaded,
 check the uag startup logs.
 
----
+______________________________________________________________________
 
 ## 7. Reference Examples
 
@@ -504,6 +518,6 @@ $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 एकाधिक निर्देशिका `:` (Linux/macOS) किंवा `;` (Windows) द्वारे विभक्त केल्या जाऊ शकतात.
 `UAGENT_EXTERNAL_TOOLS_DIR` (एकवचन) मागास सुसंगततेसाठी देखील समर्थित आहे.
 
----
+______________________________________________________________________
 
 *हे भाषांतर आपोआप निर्माण झाले. सर्वात अचूक आणि अद्ययावत सामग्रीसाठी, कृपया इंग्रजी आवृत्ती पहा.*

@@ -14,7 +14,6 @@
 - fix(config): expose the GUI entry point under `project.gui-scripts`
 - fix(search): align Janome POS handling with the active tokenizer output
 
-
 ## [0.5.65] - 2026-08-04
 
 ### Added
@@ -40,7 +39,6 @@
 - remove tool-result caching and obsolete cache reuse tests
 - add PFN provider adapter and tests
 - translate localized README documentation blocks
-
 
 ## [0.5.63] - 2026-08-02
 
@@ -80,8 +78,8 @@
 - fix(gpt54): update `test_gpt54_tool_search.py` to the current `UAGENT_GPT54_TOOL_SEARCH=native/legacy/off` design (default native, openai/azure only)
 - fix(i18n): add missing en/ja keys for pybitchat nostr/on/via params; fix `err.payload_required` ja translation
 - fix(i18n): replace non-ASCII arrows/dashes in pybitchat_shared.py comments and messages (utilities i18n check)
-- fix(i18n): fill missing same-as-en keys for 18 tool JSONs (bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control etc.) via `translate_text` engine; wrap literal descriptions in `_()` for browser_playwright_tool/tools_control_tool; i18n sub_agent_tool status returns; replace non-ASCII in _matter_common/index_tool_helpers/nostr_transport
-- fix(i18n): wrap user-facing string literals in utilities with `_()` (21 modules: _genre_control_util/_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_*) and add `make_tool_translator` where missing — `test_tools_utilities_no_user_facing_string_literals` now passes
+- fix(i18n): fill missing same-as-en keys for 18 tool JSONs (bacnet/modbus/opcua/browser_playwright/csv2idx/echonet/json2idx/lint_format/log2idx/tools_control etc.) via `translate_text` engine; wrap literal descriptions in `_()` for browser_playwright_tool/tools_control_tool; i18n sub_agent_tool status returns; replace non-ASCII in \_matter_common/index_tool_helpers/nostr_transport
+- fix(i18n): wrap user-facing string literals in utilities with `_()` (21 modules: \_genre_control_util/\_matter_log/_secp256k1/bacnet_shared/bitchat_geo/dali_shared/email_utils/generate_grok/generate_zai/modbus_shared/mqtt_shared/nostr_transport/opcua_shared/os_scheduler_helper/rust_helper/ucp_shared/vision_\*) and add `make_tool_translator` where missing — `test_tools_utilities_no_user_facing_string_literals` now passes
 - fix(i18n): localize pybitchat display/inject messages (handshake/peer/file/scan/service/Nostr notifications, "sending as plain text (unencrypted)" etc.) via `_()` with %(name)s placeholders; add `pybitchat_shared.json` with en/ja translations
 - fix(logs): `:logs` now shows the same message count that `:load` reports ("Conversation message count") — the count includes the re-inserted system prompt, preserved `[SKILL]`/`[HOOK]` system messages, user/assistant/tool messages, plus the auto-restored `[CWD]` marker when its directory still exists (previously `:logs` counted only user+assistant, so it differed by tool messages + 1)
 - fix(load): `:load` workdir auto-restore now actually works — `[CWD]` is extracted from the raw log lines instead of the normalized messages (which strip non-[SKILL]/[HOOK] system messages); the restored `[CWD]` marker is included in the reported count
@@ -108,7 +106,7 @@
 ### Added
 
 - feat(realtime): update Gemini realtime API protocol and default model (gemini-3.1-flash-live-preview)
-- docs: update DEVELOP.md and multi-language READMEs with latest *2idx tool count (26)
+- docs: update DEVELOP.md and multi-language READMEs with latest \*2idx tool count (26)
 
 ### Removed
 
@@ -130,7 +128,6 @@
 ### Changed
 
 - chore: apply Black formatting and resolve all Ruff findings
-
 
 ## [0.5.58] - 2026-07-27
 
@@ -173,16 +170,19 @@
 ## [0.5.56] - 2026-07-26
 
 ### Added
+
 - Forecast tool: LLM-based time series forecasting with auto-install of dependencies, i18n, CI integration, plot support, and TDD tests. Models: StatsForecast, AutoARIMA, AutoETS, Theta, MSTL, Prophet, LightGBM, CatBoost, TimesFM, Chronos.
 - `:skills list KEYWORD` / `:skills find KEYWORD` for filtering installed skills by name or description.
 
 ### Fixed
+
 - Prophet wrapper: `predict(int)` returns only forecast horizon, `predict(DataFrame)` column rename fix, disable yearly_seasonality for better quarterly fit.
 - LightGBM/CatBoost: feature count mismatch between train and predict; Prophet predict bugs; reorder auto-select tiers per forecast_modules priority list.
 - StatsForecast v2.x API compatibility (forecast needs df argument); update TimesFM to TimesFM_2p5_200M_torch; LightGBM/CatBoost last_feats bug. All 9 models verified end-to-end.
 - Remove duplicate Forecast category rows in 29 language READMEs.
 
 ### Changed
+
 - README and 33 language translations: tool count updated from 170 to 183, add Forecast category.
 - i18n: forecast_tool.json translated to all 34 languages (via tool_json_i18n_batch).
 - Remove test/ directory (test_apply_patch.py) - unused test file cleanup.
@@ -190,22 +190,25 @@
 ## [0.5.55] - 2026-07-24
 
 ### Fixed
+
 - WEB startup link i18n: correct msgstr for msgid "Starting server on" in he/hu/el/ro/bn/ko so localhost URLs read naturally; regenerate matching .mo (CRLF-safe).
 - welcome: non-English GitHub README URL now points to `docs/README.{lang}.md` (en stays root `README.md`).
 
 ## [0.5.54] - 2026-07-24
 
 ### Added
+
 - IBM i source index tools (genre=`index`, mode=`index`|`section`):
   - `cl2idx` — CL/CLP/CLLE (`.cl`/`.clp`/`.clle`): continuation join, multi-line comments, SEU sequence strip, IF/DO/SELECT↔END stack `end_line`, DCL labels, common commands (RTVJOBA/CHKOBJ/SNDRCVF, etc.).
   - `dds2idx` — DDS PF/LF/DSPF/PRTF (`.pf`/`.lf`/`.dspf`/`.prtf`/`.dds`): fixed-column SEU multi-layout scoring, DSPF const/SFLCTL/INDARA, TEXT/COLHDG field labels, file-type score, **REF/REFFLD workdir-local follow** (type annotation on `R` fields), **DSPF indicator/attr decode** (conditioning indicators, DSPATR/COLOR/CF args, packed constants).
-  - `rpg2idx` — RPG/RPGLE/SQLRPGLE (`.rpg`/`.rpgle`/`.sqlrpgle`): free-form (`**free`/`**end-free`, ctl-opt, dcl-*, begsr/endsr, /copy|/include, `...` continuation) and fixed-form F/D/P/C/H/I/O-spec (BEGSR case preserved, SEU strip).
+  - `rpg2idx` — RPG/RPGLE/SQLRPGLE (`.rpg`/`.rpgle`/`.sqlrpgle`): free-form (`**free`/`**end-free`, ctl-opt, dcl-\*, begsr/endsr, /copy|/include, `...` continuation) and fixed-form F/D/P/C/H/I/O-spec (BEGSR case preserved, SEU strip).
 - Regression tests: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`.
 - Review-plan gap regression tests for `go2idx`, `kt2idx`, `cs2idx`, `swift2idx`, `jv2idx`.
 - Review-plan regression tests for `md2idx`, `dart2idx`, `php2idx`, `rs2idx`, `ts2idx`.
-- Regression tests: `tests/test_py2idx_tool.py`, `tests/test_cpp2idx_tool.py` (full *2idx suite now 16 tools).
+- Regression tests: `tests/test_py2idx_tool.py`, `tests/test_cpp2idx_tool.py` (full \*2idx suite now 16 tools).
 
 ### Changed
+
 - `dds2idx`: REF/REFFLD simple follow within workdir — resolve `REF(file)`/`REF(lib/file)`, annotate `R`/`REFFLD` fields with source types (`CUSTID R 10A <= CUSTPF.CUSTID`), mark unresolved targets.
 - `go2idx`: method receiver labels, generic func/type, struct|interface labels, type aliases.
 - `kt2idx`: extension fun, data/sealed labels, companion name, multi-line preprocess.
@@ -220,6 +223,7 @@
 - Plugin enabled status one-liner shared across CLI/Web/GUI (`format_enabled_plugins_status` / `load_plugins_status_at_startup`); i18n msgids for instruction-load INFO lines.
 
 ### Fixed
+
 - `dds2idx`: DSPF indicator/attribute decode — conditioning indicators, `DSPATR`/`COLOR`/`CFnn` args on fields, packed constant lines (`5  2'Name'` → layout; no longer misread form-type `A` as field name).
 - `*2idx` `mode=section` off-by-one: 1-based `entry["line"]` was used as 0-based slice start, so single-line defs returned empty string. Corrected `_source_lines` / `get_section` in dart/rs/ts/cpp/cs/jv/go/kt/swift (others already converted or correct).
 - Responses API `previous_response_id` / OpenRouter: do not send `previous_response_id` on OpenRouter (compat strip + provider gate, same as Grok). On stale/invalid rid or `invalid_prompt` / `APIResponseValidationError` (string `error.code`), clear rid, set `_stale_rid_occurred`, and retry once with full local history. Tests: `test_previous_response_id_compat.py`, `test_openrouter_round_helpers.py`.
@@ -230,7 +234,8 @@
 - WEB STATUS console leak on Windows: set `core._is_web=True` in `init_web()` before any `set_status`.
 
 ### Notes
-- IBM i *2idx (`cl2idx` / `dds2idx` / `rpg2idx`) implementation track complete; no open implementation work.
+
+- IBM i \*2idx (`cl2idx` / `dds2idx` / `rpg2idx`) implementation track complete; no open implementation work.
 - Residual **out of scope** (documented in `SPEC_CL2IDX_DDS2IDX.md` §5.9/§10 and DEVELOP): EBCDIC; `ibmi2idx` dispatcher (do not add); `dds2idx` multi-lib/full object resolve, full DSPATR bit-combo semantics, PRTF rendering, ICF/binary; `rpg2idx` full fixed-column dialect variants, deep embedded-SQL semantics, `/IF` expression evaluation.
 - `rpg2idx`: embedded SQL, `/IF` conditional compile, and common fixed-column paths are implemented (index-level only for SQL//IF).
 - `dds2idx`: REF/REFFLD follow (same workdir, depth 1) and DSPF indicator/attr/const decode are implemented.
@@ -238,18 +243,22 @@
 ## [0.5.53] - 2026-07-20
 
 ### Added
+
 - `echonet_scan` network `scope` filter (`all`/`local`/`external`/`self`/`local_other`) with per-node scope fields and summary counts; cache key includes scope.
 - Dependency: `xai-sdk>=1.17.0` for Grok/xAI gRPC path.
 
 ### Changed
+
 - BACnet tools (`bacnet_scan`/`read`/`write`) share `bacnet_shared` background event-loop lifecycle for BAC0 2025+ async who_is/read/write/disconnect; refcount + optional keep-alive for COV.
 
 ### Fixed
+
 - Single-tool enable reloads the matched tool module (and `*_shared` helper when present) so source edits apply without process restart.
 
 ## [0.5.52] - 2026-07-19
 
 ### Added
+
 - Plugin `commands/*` registered as namespaced `:` commands (`:plugin`, `:plugin sub`, `:plugin:sub`); core-reserved top-level names refused; activate/deactivate lifecycle.
 - Plugin enable/startup activates MCP, agents, and hooks; bare `:plugin install <name>` resolves from registered marketplaces (Claude Code style).
 - hooks: SessionStart/Setup/UserPromptSubmit stdout as `[HOOK]` system context; UserPromptSubmit block decisions on CLI/GUI/Web; `${CLAUDE_PLUGIN_ROOT}` / `${UAGENT_PLUGIN_ROOT}` expansion.
@@ -258,10 +267,12 @@
 - mypy: `typings/numpy` stub shadow + numpy `follow_imports = skip` for 3.11 baseline.
 
 ### Changed
+
 - Plugin `remove`: deactivate components, clear `enabledPlugins` key and `pluginConfigs`, then rmtree (not leave enabled=true residue).
 - auto-unload user copy: "productive rounds" → "LLM rounds" (all locales).
 
 ### Fixed
+
 - Empty assistant / no-tool recovery hardened for Grok (history/UI-only WARN, next-turn recovery).
 - exec: isolate child stdin so CLI does not exit on EOF.
 - Agent tool loops, Responses previous_response_id, catalog steering, short session logs.
@@ -270,6 +281,7 @@
 ## [0.5.51] - 2026-07-19
 
 ### Added
+
 - hooks: SessionStart/Setup/UserPromptSubmit stdout → `[HOOK]` system context injection (plain text + `additionalContext` JSON); Web/GUI deferred apply; log reload keeps `[HOOK]` like `[SKILL]`.
 - `:help`: overview and per-command detail including CMD_SPEC.
 - MCP: HTTP headers support; n8n adaptation plan notes.
@@ -277,6 +289,7 @@
 - tmp-based batch translator for tool JSON i18n.
 
 ### Fixed
+
 - Empty assistant / no-tool loop: drop blank assistant turns from history, keep WARN out of model messages, add next-turn recovery prompt; raise default `UAGENT_EMPTY_NO_TOOL_MAX` for grok/xai to 5.
 - Empty-no-tool follow-up: defer recovery into the next real user turn (no stacked synthetic users), log WARN as UI-only assistant for Web, skip empty assistant append before history, strip `_uagent_ui_only`/`_uagent_internal` in sanitize.
 - Grok: show reasoning effort in CLI status (`LLM:` / `LLM:auto->...`).
@@ -287,6 +300,7 @@
 ## [0.5.50] - 2026-07-18
 
 ### Added
+
 - llmcapa: shared `llmcapa_util` lookup (provider aliases), vision gating, max-token clamp, shrink ctx, richer `:model v`.
 - llmcapa: resolve tokenizer model ids; gate Responses/FIM with capability data; clamp Ollama/FIM/Grok max tokens.
 - llmcapa: clamp profile/translate/sub-agent max tokens; sub-agent usage cost estimate; deprecated model WARN on banner/`:model`; refresh integration docs.
@@ -299,53 +313,63 @@
 - Management tool loop detection: fingerprint by target (`tool_load:name`); `unload_tool(target)` and auto-unload via `disable_single_tool` clear that target's load streak so unload→reload is not blocked.
 
 ### Changed
+
 - llmcapa dependency bumped to >=0.4.1.
 
 ## [0.5.49] - 2026-07-15
 
 ### Added
+
 - Background tools warmup after CLI/GUI/Web startup to reduce first `:` command latency.
 - `switchbot-ble`: multi-device advertisement status decoding per official BLE API.
 - Design notes for browser_playwright session extension and scale tool.
 
 ### Fixed
+
 - `shrink_llm`: stop stacking multiple history-summary system messages; merge prior summaries into one rolling summary.
 - `shrink_llm`: add hysteresis so auto-compression does not re-trigger immediately after a successful shrink.
 - Grok: use simple_xai_chat for history compress/profile LLM paths.
 - Grok: prevent double-printing streamed assistant replies.
 
 ### Changed
+
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
 
 ## [0.5.48] - 2026-07-13
 
 ### Added
+
 - TOOL_CREATOR_GUIDE.md translated into 33 languages via Google Translate.
 - `translate_text` tool: newline placeholder changed to ⏎ (U+23CE) for better translation fidelity.
 - `<<<BLOCKNNNN/>>>` marker format for code block preservation during translation.
 
 ### Changed
+
 - `translate_text`: placeholder `[=BR=]` replaced with `⏎` (U+23CE) to avoid Google Translate corruption.
 - Tool documentation: 33 language versions of TOOL_CREATOR_GUIDE.md available in `docs/`.
 
 ### Fixed
+
 - Code block markers in translated documents now properly survive Google Translate restructuring.
 
 ## [0.5.47] - 2026-07-13
 
 ### Added
+
 - WEB UI: Reasoning display ON/OFF toggle button in Settings panel.
 - Desktop GUI: Reasoning display 🧠 toggle button in status bar.
 - WEB UI: Command results (`:tools list`, `:help`, etc.) now displayed in chat.
 - `git_ops`: `rm` command support.
 
 ### Fixed
+
 - High-contrast mode: toggle knob now has outline for visibility.
 - `catalog_tool.py`: restored missing `run_tool()` function (caused all management tools to fail loading in dev mode).
 - Desktop GUI: font size menu check marks now correctly reflect current size.
 - `read_file_tool.py`: fixed truncation without trailing newline.
 
 ### Changed
+
 - Unified `scheck.py` launcher: merged all mode entry points (cli, gui, web, a2a, ws, setup) into single script.
 - UnifiedPanel.svelte: cleaner styling with consistent border-radius, spacing, and button styles.
 - Renamed `create-tool` skill directory to match frontmatter name.
@@ -353,15 +377,18 @@
 ## [0.5.46] - 2026-07-13
 
 ### Added
+
 - sub-agent Phase 1-3 complete: multi-turn conversations, all-tools support, chain tool, cost tracking, dynamic role assignment, structured logging.
 - reasoning: `:r` command toggle behavior (no argument toggles ON/OFF), `max` level (`:r max` / `:r m`), numeric aliases (4=xhigh, 5=max), display off control.
 - llmcapa integration: `reasoning_effort_values` validation for Claude/DeepSeek/ZAI/OpenRouter providers.
 - i18n: translations for 8 new parameters across 34 languages, `sub_agent_chain_tool.json` created for 34 languages.
 
 ### Fixed
+
 - Cross-platform fixes for `apply_patch`, `cmd_exec_json`, `replace_in_file`, `list_windows_titles` (bug fixes and platform compatibility).
 
 ### Changed
+
 - llmcapa dependency bumped to >=0.3.3.
 - reasoning: removed `ultra` level (kept `xhigh` and `max` only). OpenRouter effort values now properly passed.
 - Cleaned up unused files from repository.
@@ -369,23 +396,29 @@
 ## [0.5.45] - 2026-07-12
 
 ### Added
+
 - New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
 - Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
 
 ### Fixed
+
 - `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
 
 ### Changed
- - 2026-07-12
+
+- 2026-07-12
 
 ### Added
+
 - New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
 - Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
 
 ### Fixed
+
 - `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
 
 ### Changed
+
 - llmcapa dependency bumped to >=0.3.1.
 - README and 33 translations: tool count updated to 170, parallel-safe to 111.
 - AGENTS.md: tool genre list updated to include `dev`, `web`, `utility`.
@@ -393,17 +426,20 @@
 ## [0.5.44] - 2026-07-11
 
 ### Added
+
 - llmcapa v0.3.0 support: pass `provider` argument to `llmcapa.get()` for accurate model lookup.
 - Test suite `test_llmcapa.py` (37 tests): verify provider model specs across all 70 llmcapa providers.
 - Documentation: `docs/llmcapa_improvements.md` with improvement requests for llmcapa.
 - Documentation: `translate_text` tool usage documented in i18n workflow sections.
 
 ### Fixed
+
 - `cmd_exec_json_tool`: exception handling for subprocess.run, unified `error` key in return value, empty string cwd guard.
 - `pwsh_exec_tool`: all error messages now i18n'd, fragile `confirm_if_needed` replace removed, timeout placeholder fixed.
 - `bash_exec_tool`: exception handling for subprocess.run, all error messages now i18n'd.
 
 ### Changed
+
 - i18n documentation consolidated: `DEVELOP_I18N.md` now covers both host-side (gettext) and tool-side (JSON) i18n in one file.
 - README and 33 translations: tool count updated to 171, parallel-safe to 89, provider count to 21.
 - Removed all `.org` backup files (73 files total).
@@ -415,14 +451,17 @@
 ## [0.5.43] - 2026-07-10
 
 ### Added
+
 - 2idx tools: preprocess, decorator/annotation skip, function depth detection, multi-line join for jv2idx, kt2idx, php2idx, rs2idx, ts2idx.
 
 ### Fixed
+
 - Fixed 44 ruff invalid-syntax errors (`except X,Y` → `except (X,Y)`).
 - Fixed 8 ruff warnings across the codebase.
 - Removed unnecessary `core=` parameter from `compress_history_with_llm`.
 
 ### Changed
+
 - Removed `cmd_exec_tool` (superseded by `cmd_exec_json_tool`).
 - Applied Black formatting to 49 files.
 - Updated 2idx tool JSON schemas to match new capabilities.
@@ -430,6 +469,7 @@
 ## [0.5.42] - 2026-07-10
 
 ### Added
+
 - i18n: applied x_search_terms translations for 33 languages across all tool JSON files (59+ files).
 - VSCode: human_ask integration with chat panel, reasoning level dropdown, FIM code completion.
 - VSCode: configurable tool result display (UAGENT_VSCODE_SHOW_TOOL_RESULT).
@@ -441,6 +481,7 @@
 - Documentation: TOOL_TRANSLATION_METHODOLOGY.md with delimiter strategy sections.
 
 ### Fixed
+
 - OpenAI Responses API: content normalization for 2nd+ rounds and previous_response_id.
 - OpenAI Responses API: stale previous_response_id error handling.
 - Web UI: image attachment rendering and tool message display.
@@ -448,12 +489,14 @@
 - Various: cleanup of debug logs, temp files, and CONFIG debug log.
 
 ### Changed
+
 - Provider capabilities centralized in provider_caps.
 - Removed debug temp files; updated .gitignore.
 
 ## [0.5.41] - 2026-07-08
 
 ### Added
+
 - New tool `lint_js_ts`: lint JavaScript/TypeScript files using Biome with 34-language i18n.
 - New tool `mdformat_check`: check/auto-fix Markdown formatting with YAML front matter support.
 - New provider `novita`: OpenAI-compatible API provider with reasoning support.
@@ -462,6 +505,7 @@
 - CLI: reasoning_content shown in gray for Responses API (non-streaming).
 
 ### Fixed
+
 - Image generation: `fmt` → `output_format` keyword for GPT image models.
 - Image generation: filter DALL-E-only quality values (standard/hd) for GPT models.
 - Image generation: map background values to valid options (transparent/opaque/auto).
@@ -471,6 +515,7 @@
 - OpenAI Responses API: note that gpt-5.x models don't send reasoning_text.delta during streaming.
 
 ### Changed
+
 - Frontend rebuilt with fixed asset filenames, SVG favicon.
 - Provider list centralized in `provider_caps.ALL_PROVIDERS`.
 - Removed backup files (*.org*), node_modules; updated .gitignore.
@@ -479,6 +524,7 @@
 ## [0.5.40] - 2026-07-07
 
 ### Added
+
 - `generate_zai`: new tool for generating ZhipuAI (ZAI) compatible code from prompts.
 - `reverse_geocode`: new tool using Nominatim for reverse geocoding with 39-language i18n.
 - `code_map`: add ontology (JSON-LD) export, import/relation extraction, and i18n support.
@@ -486,11 +532,13 @@
 - `translate_text`: extended supported languages for broader coverage.
 
 ### Fixed
+
 - Responses retry state and tool utility edge cases.
 - `browser_playwright_run` and `run_tool` alias restored.
 - i18n: `:tools reload` message now translated for all 34 locales.
 
 ### Changed
+
 - GPT-5.4+ tool list display adjusted.
 - Docs: tool counts updated to 171 tools (87 parallel-safe), reverse_geocode added to IoT table.
 - Docs: JSON-LD ontology and Mermaid dependency graph added to DEVELOP.md.

@@ -238,7 +238,7 @@ ______________________________________________________________________
 
 ## 9. Interrupt (c key)
 
-Press **`c`** during LLM streaming to stop the current response.  
+Press **`c`** during LLM streaming to stop the current response.\
 Instead of just aborting, `"Stop"` is injected as a user message, allowing the LLM to gracefully conclude.
 
 | Interface | How to interrupt |

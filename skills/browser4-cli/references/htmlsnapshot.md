@@ -78,6 +78,6 @@ browser4-cli htmlsnapshot query --sql-stdin < query.sql              # read from
 If `htmlsnapshot get` returns empty when elements exist:
 
 1. Run `browser4-cli htmlsnapshot` first to capture a fresh snapshot
-2. Verify selector with `htmlsnapshot grep <pattern>`
-3. Check page load: AJAX content may take time (`wait --load networkidle`)
-4. Use `htmlsnapshot inspect` to discover working selectors
+1. Verify selector with `htmlsnapshot grep <pattern>`
+1. Check page load: AJAX content may take time (`wait --load networkidle`)
+1. Use `htmlsnapshot inspect` to discover working selectors

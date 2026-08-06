@@ -153,10 +153,10 @@ Notes:
 Typical flow:
 
 1. Use `matter_controller_list` to inspect controllers
-2. Use `matter_bridge_list` to inspect bridges
-3. Use `matter_device_status` to inspect the target device
-4. Use `matter_endpoint_list` and `matter_cluster_list` if you need more structure
-5. Use `matter_control` to send control commands
+1. Use `matter_bridge_list` to inspect bridges
+1. Use `matter_device_status` to inspect the target device
+1. Use `matter_endpoint_list` and `matter_cluster_list` if you need more structure
+1. Use `matter_control` to send control commands
 
 ## Practical usage flow
 

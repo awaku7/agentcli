@@ -18,16 +18,16 @@ uag --tool-genre-mask 1
 
 Bitmask values:
 
-| Bit | Genre   | Description               |
+| Bit | Genre | Description |
 |-----|---------|---------------------------|
-| 1   | basic   | Essential chat/file tools |
-| 2   | comm    | Communication tools       |
-| 4   | office  | Office suite tools        |
-| 8   | devel   | Development tools         |
-| 16  | iot     | IoT device tools          |
-| 32  | exec    | Command execution tools   |
-| 64  | external| External plugins          |
-| 128 | media   | Image/audio tools         |
+| 1 | basic | Essential chat/file tools |
+| 2 | comm | Communication tools |
+| 4 | office | Office suite tools |
+| 8 | devel | Development tools |
+| 16 | iot | IoT device tools |
+| 32 | exec | Command execution tools |
+| 64 | external| External plugins |
+| 128 | media | Image/audio tools |
 
 `--tool-genre-mask 1` loads only the `basic` genre, which contains lightweight tools such as read/write file, calculator, and web search.
 

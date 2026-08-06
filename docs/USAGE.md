@@ -8,7 +8,7 @@ ______________________________________________________________________
 
 | Command | Python module | Interface |
 |---|---|---|
-| `uag`  | `python -m uagent` | CLI (stdin loop) |
+| `uag` | `python -m uagent` | CLI (stdin loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
 | `uagw` | `python -m uagent.web` | Web server (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP server |
@@ -28,15 +28,15 @@ Tool genre bitmask. When provided, the interactive genre selection prompt is ski
 
 | Bit | Genre | Description |
 |-----|-------|-------------|
-| 1   | basic | Essential file/chat tools |
-| 2   | comm  | Communication tools (Bluesky, Teams) |
-| 4   | office| Office suite tools (Excel, PDF, PPTX) |
-| 8   | devel | Development tools (git, lint, compile) |
-| 16  | iot   | IoT device tools (SwitchBot, ECHONET, Matter, UPnP) |
-| 32  | exec  | Command execution tools |
-| 64  | external | External plugin tools |
+| 1 | basic | Essential file/chat tools |
+| 2 | comm | Communication tools (Bluesky, Teams) |
+| 4 | office| Office suite tools (Excel, PDF, PPTX) |
+| 8 | devel | Development tools (git, lint, compile) |
+| 16 | iot | IoT device tools (SwitchBot, ECHONET, Matter, UPnP) |
+| 32 | exec | Command execution tools |
+| 64 | external | External plugin tools |
 | 128 | media | Image/audio generation and analysis |
-| 255 | all   | All tools |
+| 255 | all | All tools |
 
 Examples:
 

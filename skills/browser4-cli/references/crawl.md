@@ -26,11 +26,11 @@ browser4-cli crawl --seed-file urls.txt --sql @extract.sql --format csv -o resul
 ### Link discovery mode (depth >= 1)
 
 1. Load seed URL
-2. Extract links matching `--out-link-selector` (CSS selector)
-3. Optionally filter by `--out-link-pattern` (regex)
-4. Deduplicate, limit to `--top-links`
-5. Load each linked page
-6. If depth > 1, recurse (skip visited URLs)
+1. Extract links matching `--out-link-selector` (CSS selector)
+1. Optionally filter by `--out-link-pattern` (regex)
+1. Deduplicate, limit to `--top-links`
+1. Load each linked page
+1. If depth > 1, recurse (skip visited URLs)
 
 ### Bulk fetch mode (depth = 0)
 

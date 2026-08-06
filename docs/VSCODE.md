@@ -20,7 +20,7 @@ npm run compile
 ### インストール方法
 
 1. `vsce package` で `.vsix` ファイルを生成
-2. VS Code の拡張機能ビューから「...」→「VSIX からのインストール」で選択
+1. VS Code の拡張機能ビューから「...」→「VSIX からのインストール」で選択
 
 または VS Code マーケットプレイスで "uag" を検索してインストール（公開後）。
 
@@ -116,10 +116,10 @@ npm run compile
 ## 動作の仕組み
 
 1. 拡張機能のアクティベーション時に、指定された Python と uag パッケージの有無を確認
-2. `python -m uagent.ws_server --port <port>` で WebSocket サーバを起動
-3. サーバの stdout に `UAG_WS_READY` が出力されるのを待って接続
-4. 接続後、ワークスペースルートを作業ディレクトリとして設定
-5. 各コマンドは WebSocket 経由でサーバと通信
+1. `python -m uagent.ws_server --port <port>` で WebSocket サーバを起動
+1. サーバの stdout に `UAG_WS_READY` が出力されるのを待って接続
+1. 接続後、ワークスペースルートを作業ディレクトリとして設定
+1. 各コマンドは WebSocket 経由でサーバと通信
 
 ### 再接続
 

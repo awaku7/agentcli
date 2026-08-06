@@ -3,7 +3,7 @@
 This document covers **all** i18n mechanisms in uag:
 
 1. **Host side** (gettext `.po`/`.mo`) — for `core.py`, `cli.py`, `gui.py`, `web.py`, `runtime/`, `providers/`, etc.
-2. **Tool side** (JSON key-based) — for `tools/*_tool.py` and their `*_tool.json` translation files.
+1. **Tool side** (JSON key-based) — for `tools/*_tool.py` and their `*_tool.json` translation files.
 
 Both systems share the same goal: user-facing strings are translated while the code stays in English.
 
@@ -54,7 +54,7 @@ print("[WARN] " + _("Failed to read: %(path)s") % {"path": p})
 
 1. **All user-facing strings must go through `_()`**. Avoid hardcoded non-English text.
 
-2. **Use `%(name)s` placeholders** instead of f-strings. This keeps msgid stable for translators.
+1. **Use `%(name)s` placeholders** instead of f-strings. This keeps msgid stable for translators.
 
    ```python
    # Do
@@ -63,15 +63,15 @@ print("[WARN] " + _("Failed to read: %(path)s") % {"path": p})
    print(f"[FATAL] Failed to set workdir: {e}")
    ```
 
-3. **Keep log prefixes stable**. Prefixes like `[INFO]`, `[WARN]`, `[ERROR]`, `[FATAL]` stay in English.
+1. **Keep log prefixes stable**. Prefixes like `[INFO]`, `[WARN]`, `[ERROR]`, `[FATAL]` stay in English.
 
    ```python
    print("[WARN] " + _("Failed to read startup file: %(path)s (%(err)s)") % {...})
    ```
 
-4. **Multi-line strings** can be one msgid. Ensure the msgid in code exactly matches the `.po` file.
+1. **Multi-line strings** can be one msgid. Ensure the msgid in code exactly matches the `.po` file.
 
-5. **SYSTEM_PROMPT handling**: defined as a translatable msgid in `core.py`.
+1. **SYSTEM_PROMPT handling**: defined as a translatable msgid in `core.py`.
 
    ```python
    SYSTEM_PROMPT_MSGID = """\
@@ -272,12 +272,12 @@ ______________________________________________________________________
 ### Host side (gettext)
 
 1. Create directory: `mkdir -p src/uagent/locales/<lang>/LC_MESSAGES/`
-2. Copy English template: `cp src/uagent/locales/en/LC_MESSAGES/uag.po src/uagent/locales/<lang>/LC_MESSAGES/uag.po`
-3. Edit metadata: Change `"Language: en\n"` to `"Language: <lang>\n"`
-4. Translate `msgstr` entries using `translate_text` tool (or any PO editor).
+1. Copy English template: `cp src/uagent/locales/en/LC_MESSAGES/uag.po src/uagent/locales/<lang>/LC_MESSAGES/uag.po`
+1. Edit metadata: Change `"Language: en\n"` to `"Language: <lang>\n"`
+1. Translate `msgstr` entries using `translate_text` tool (or any PO editor).
    The tool preserves `%(name)s` placeholders when `protect_placeholders=True`.
-5. Compile: `python scripts/compile_locales.py`
-6. Commit both `.po` and `.mo`
+1. Compile: `python scripts/compile_locales.py`
+1. Commit both `.po` and `.mo`
 
 ### Tool side (JSON)
 
@@ -296,8 +296,8 @@ touching JSON keys/structure.
 **Manual (single strings):**
 
 1. Open the tool's `*_tool.json`
-2. Add a new top-level key for the language (e.g. `"fr": { ... }`)
-3. Use `translate_text` to translate values:
+1. Add a new top-level key for the language (e.g. `"fr": { ... }`)
+1. Use `translate_text` to translate values:
    ```
    translate_text(
      texts=["English value 1", "English value 2"],
@@ -306,9 +306,9 @@ touching JSON keys/structure.
      protect_placeholders=True   # preserves %(name)s automatically
    )
    ```
-4. Copy the translated strings into the JSON under the new language key
-5. Keep all placeholders `%(...)s` unchanged
-6. Optionally verify with `python scripts/i18n_tools_check.py`
+1. Copy the translated strings into the JSON under the new language key
+1. Keep all placeholders `%(...)s` unchanged
+1. Optionally verify with `python scripts/i18n_tools_check.py`
 
 ______________________________________________________________________
 

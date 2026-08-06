@@ -423,9 +423,9 @@ python tests/ucp_mock_server.py
 Business の Profile に複数 Transport が定義されている場合、uag は以下の優先順位で選択する。
 
 1. REST（最もシンプル、優先）
-2. MCP（既存のMCP統合基盤を活用）
-3. A2A（uagはA2Aサーバにもなれる）
-4. Embedded（埋め込みUI、エージェントには非対応）
+1. MCP（既存のMCP統合基盤を活用）
+1. A2A（uagはA2Aサーバにもなれる）
+1. Embedded（埋め込みUI、エージェントには非対応）
 
 ### エラーハンドリング
 
@@ -478,7 +478,7 @@ Business 側のレート制限（429 Too Many Requests）が発生した場合�
 | # | 問題 | 備考 |
 |---|------|------|
 | 6 | **capability version パースがリスト構造依存**：`capabilities[cap_name][0].get("version")` がハードコード | BusinessのProfile構造次第でエラー。低優先度 |
-| 9 | **fmt パラメータ未対応**：既存ツール（echonet_*）には `fmt=json|text` があるがUCPツールはJSON固定 | LLM用ならJSON固定で十分 |
+| 9 | **fmt パラメータ未対応**：既存ツール（echonet\_\*）には `fmt=json|text` があるがUCPツールはJSON固定 | LLM用ならJSON固定で十分 |
 
 ### 現時点での制約・リスク
 

@@ -37,12 +37,12 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 ## Startup flow
 
 1. Decide workdir (`--workdir` / `-C` > `UAGENT_WORKDIR` > current dir)
-2. Load `.env` and `.env.sec` (decrypted with `.uagent.key`)
-3. Build and print startup banner
-4. Load tool plugins from `src/uagent/tools/`
-5. Create provider client from environment variables
-6. Enter UI loop (CLI/GUI/Web) and receive user input
-7. LLM rounds via `uagent_llm.run_llm_rounds()`
+1. Load `.env` and `.env.sec` (decrypted with `.uagent.key`)
+1. Build and print startup banner
+1. Load tool plugins from `src/uagent/tools/`
+1. Create provider client from environment variables
+1. Enter UI loop (CLI/GUI/Web) and receive user input
+1. LLM rounds via `uagent_llm.run_llm_rounds()`
 
 ## Dev environment tips
 

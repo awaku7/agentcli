@@ -25,41 +25,41 @@ Each tool JSON has the following structure (per language):
 
 ## Supported Languages (33)
 
-| Language          | Code    |
+| Language | Code |
 |-------------------|---------|
-| Arabic            | ar      |
-| Bengali           | bn      |
-| Czech             | cs      |
-| German            | de      |
-| Greek             | el      |
-| Spanish           | es      |
-| Persian           | fa      |
-| Finnish           | fi      |
-| French            | fr      |
-| Hebrew            | he      |
-| Hindi             | hi      |
-| Hungarian         | hu      |
-| Indonesian        | id      |
-| Italian           | it      |
-| Japanese          | ja      |
-| Korean            | ko      |
-| Mongolian         | mn      |
-| Marathi           | mr      |
-| Norwegian Bokmål  | nb      |
-| Dutch             | nl      |
-| Polish            | pl      |
-| Portuguese        | pt      |
-| Portuguese (BR)   | pt_BR   |
-| Romanian          | ro      |
-| Russian           | ru      |
-| Swedish           | sv      |
-| Swahili           | sw      |
-| Thai              | th      |
-| Turkish           | tr      |
-| Ukrainian         | uk      |
-| Vietnamese        | vi      |
-| Chinese (Simpl.)  | zh_CN   |
-| Chinese (Trad.)   | zh_TW   |
+| Arabic | ar |
+| Bengali | bn |
+| Czech | cs |
+| German | de |
+| Greek | el |
+| Spanish | es |
+| Persian | fa |
+| Finnish | fi |
+| French | fr |
+| Hebrew | he |
+| Hindi | hi |
+| Hungarian | hu |
+| Indonesian | id |
+| Italian | it |
+| Japanese | ja |
+| Korean | ko |
+| Mongolian | mn |
+| Marathi | mr |
+| Norwegian Bokmål | nb |
+| Dutch | nl |
+| Polish | pl |
+| Portuguese | pt |
+| Portuguese (BR) | pt_BR |
+| Romanian | ro |
+| Russian | ru |
+| Swedish | sv |
+| Swahili | sw |
+| Thai | th |
+| Turkish | tr |
+| Ukrainian | uk |
+| Vietnamese | vi |
+| Chinese (Simpl.) | zh_CN |
+| Chinese (Trad.) | zh_TW |
 
 ## Data Flow
 
@@ -119,7 +119,7 @@ Level 2 (outer):  list index      — separates N tools (implicit via API)
 
 **Level 1 — Inner delimiter `|`**
 
-Each tool's `x_search_terms_en` is joined with ` | ` (space‑pipe‑space).
+Each tool's `x_search_terms_en` is joined with `|` (space‑pipe‑space).
 This `|` was chosen because:
 
 - It never appears naturally in search terms (unlike `/`, `-`, `,`, or spaces)
@@ -185,13 +185,13 @@ for i, chunk in enumerate(chunks):
 
 #### Comparison
 
-| Aspect               | Variant A (list index)     | Variant B (`===---FFF---===`) |
+| Aspect | Variant A (list index) | Variant B (`===---FFF---===`) |
 |----------------------|---------------------------|-------------------------------|
-| Outer delimiter      | Implicit (array position) | Explicit marker string        |
-| Input to API         | Python list of N strings  | Single concatenated string    |
-| Reliability          | Depends on API preserving array order | Depends on LLM not mangling the marker |
-| Pros                 | Simpler, no marker to maintain | Visible in raw output, works with any transport |
-| Cons                 | Array order must be guaranteed | Marker consumes tokens, could theoretically collide |
+| Outer delimiter | Implicit (array position) | Explicit marker string |
+| Input to API | Python list of N strings | Single concatenated string |
+| Reliability | Depends on API preserving array order | Depends on LLM not mangling the marker |
+| Pros | Simpler, no marker to maintain | Visible in raw output, works with any transport |
+| Cons | Array order must be guaranteed | Marker consumes tokens, could theoretically collide |
 
 Variant A is preferred for new translations. Variant B is documented for
 historical reference and for cases where the transport cannot preserve array
@@ -263,26 +263,26 @@ otherwise terms would map to the wrong tool.
 ## Format Rules
 
 1. Each `x_search_terms` array contains terms in order of relevance
-2. The first term is always the "display name" (e.g. "bacnet scan")
-3. The second term is the function/command name (e.g. "bacnet_scan")
-4. Subsequent terms are alternative keywords and aliases
-5. Proper nouns (protocol names, brands) appear in both original and translated
+1. The first term is always the "display name" (e.g. "bacnet scan")
+1. The second term is the function/command name (e.g. "bacnet_scan")
+1. Subsequent terms are alternative keywords and aliases
+1. Proper nouns (protocol names, brands) appear in both original and translated
    forms (e.g. `bacnet | BACNET` in English → `バックネット | バクネット` in Japanese)
-6. Terms are kept short (≤3 words per term preferred)
+1. Terms are kept short (≤3 words per term preferred)
 
 ## Adding a New Language
 
 1. Collect the N `x_search_terms_en` from each tool file
-2. Join each into a pipe‑delimited string
-3. Call `translate_text` with the list of N strings (Variant A)
-4. Parse the output: split each string on `|`, strip, store in JSON
-5. Update the support matrix in this document
+1. Join each into a pipe‑delimited string
+1. Call `translate_text` with the list of N strings (Variant A)
+1. Parse the output: split each string on `|`, strip, store in JSON
+1. Update the support matrix in this document
 
 ## Adding a New Tool
 
 1. Add `en.x_search_terms` to the tool JSON
-2. Add `x_search_terms_en` to the Python file
-3. Insert the corresponding pipe‑delimited line at the correct position
+1. Add `x_search_terms_en` to the Python file
+1. Insert the corresponding pipe‑delimited line at the correct position
    in the N‑entry array (or regenerate all translations)
 
 ## Verification

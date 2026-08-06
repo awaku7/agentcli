@@ -179,9 +179,9 @@ from uagent.hooks_engine import (
 ### Plugin 検出順序
 
 1. `.uag/plugins/<name>/`（プロジェクト）
-2. `.claude/plugins/<name>/`（Claude Code 互換）
-3. `~/.uag/plugins/<name>/`（ユーザー）
-4. `~/.claude/plugins/<name>/`（Claude Code 互換）
+1. `.claude/plugins/<name>/`（Claude Code 互換）
+1. `~/.uag/plugins/<name>/`（ユーザー）
+1. `~/.claude/plugins/<name>/`（Claude Code 互換）
 
 同名の場合は先に見つかった方が優先。
 
@@ -219,4 +219,3 @@ Claude Code の `/plugin`・`/plugin:cmd` に相当する機能を、uag では 
 - 有効化時に登録、無効化・削除時に解除
 - 実行時はまず `UserPromptSubmit` フックへ ` /<stem> ...` を流す（既存 genshijin hook 互換）
 - `prompt` は `{{args}}` を展開。タスク系は LLM へ渡す
-

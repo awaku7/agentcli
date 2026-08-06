@@ -34,7 +34,7 @@ and raw HTML snapshots for data extraction.
 | Visual | Screenshots, viewport control | `screenshot [--filename f.png]`, `scroll`, `wait`, `resize`, `tab-*` |
 | Script | Execute JS in page | `eval "JS code" [--json]` |
 
----
+______________________________________________________________________
 
 ## 1. Core Loop (Copy-Paste Template)
 
@@ -59,7 +59,7 @@ browser4-cli snapshot -v 0 --auto-diff
 browser4-cli htmlsnapshot get text "<css-selector>" --all
 ```
 
----
+______________________________________________________________________
 
 ## 2. Session & Lifecycle
 
@@ -108,7 +108,7 @@ browser4-cli delete-data                            # delete session data
 browser4-cli open --profile /path/to/profile --profile-mode persistent
 ```
 
----
+______________________________________________________________________
 
 ## 3. Navigation
 
@@ -119,7 +119,7 @@ browser4-cli go-forward          # Next page
 browser4-cli reload              # Reload current page
 ```
 
----
+______________________________________________________________________
 
 ## 4. Snapshot (Accessibility Tree)
 
@@ -152,12 +152,13 @@ Snapshot output example:
 ```
 
 **IMPORTANT — Ref Lifecycle:**
+
 - **Safe (refs survive)**: `fill`, `type`, `press`, `check`, `uncheck`, `select` — property-only changes
 - **Unsafe (re-snapshot after)**: `click` on links/buttons, `goto`, `reload`, tab switches — DOM restructuring
 - **Gray area**: `click` on checkboxes/radio buttons, dropdown toggles — may or may not mutate DOM
 - **Rule of thumb**: you can fill an entire form from a single snapshot. Only re-snapshot if a ref fails.
 
----
+______________________________________________________________________
 
 ## 5. Page Interaction
 
@@ -196,7 +197,7 @@ browser4-cli select <ref> --index 2         # by index
 browser4-cli drag <source-ref> <target-ref>
 ```
 
----
+______________________________________________________________________
 
 ## 6. Data Extraction
 
@@ -297,7 +298,7 @@ browser4-cli eval --stdin < script.js
 browser4-cli eval --file script.js
 ```
 
----
+______________________________________________________________________
 
 ## 7. Bulk Processing
 
@@ -339,7 +340,7 @@ browser4-cli loop -- eval "document.title" -i 3600
 browser4-cli loop -- goto "https://example.com/page-\${i}" -i 86400 -n 30
 ```
 
----
+______________________________________________________________________
 
 ## 8. Browser Storage Management
 
@@ -367,7 +368,7 @@ browser4-cli session-storage-delete <key>
 browser4-cli session-storage-clear
 ```
 
----
+______________________________________________________________________
 
 ## 9. Visual Capture & Viewport
 
@@ -394,7 +395,7 @@ browser4-cli tab-new <url>                    # new tab + navigate
 browser4-cli tab-close [index]                # close tab (default: current)
 ```
 
----
+______________________________________________________________________
 
 ## 10. Global Flags
 
@@ -410,7 +411,7 @@ These flags can appear before any command:
 --version, -v                  Print version
 ```
 
----
+______________________________________________________________________
 
 ## 11. Decision Trees
 
@@ -464,7 +465,7 @@ Need to process multiple pages?
 
 **Warning:** Multiple `get all` calls produce **unaligned arrays**. For correlated fields, use `query`.
 
----
+______________________________________________________________________
 
 ## 12. Common Task Templates
 
@@ -541,7 +542,7 @@ browser4-cli screenshot --filename live.png
 browser4-cli eval "document.title"
 ```
 
----
+______________________________________________________________________
 
 ## 13. Critical Warnings
 
@@ -555,7 +556,7 @@ browser4-cli eval "document.title"
 
 > **Never store refs across navigations.** They become invalid after any page load or DOM restructuring.
 
----
+______________________________________________________________________
 
 ## References
 

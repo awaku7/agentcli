@@ -34,7 +34,7 @@ Optional: add i18n resources:
 
 - `src/uagent/tools/<your_tool>_tool.json` (translations; e.g. `{"ja": {...}}`)
 
-External / third-party tools go into ``UAGENT_EXTERNAL_TOOLS_DIRS`` instead.
+External / third-party tools go into `UAGENT_EXTERNAL_TOOLS_DIRS` instead.
 See the separate [TOOL_CREATOR_GUIDE.md](../../../TOOL_CREATOR_GUIDE.md).
 
 ______________________________________________________________________
@@ -74,15 +74,19 @@ Notes:
 ### 3.1 Tool Level (`tool_level`)
 
 You can specify `tool_level` in `TOOL_SPEC` to control tool loading:
+
 - `tool_level == -1`: Disabled (will not be registered/loaded as an LLM tool, but dynamic commands are allowed).
 - `tool_level == 0` (or missing): Enabled.
 - `tool_level == 1`: Conditional loading (currently treated as disabled by default, but can be enabled dynamically).
 
 For example, platform-specific tools like `cmd_exec` or `pwsh_exec` use:
+
 ```python
 "tool_level": 0 if os.name == "nt" else -1,
 ```
+
 You can also define `LOAD_DISABLED_REASON` at the module level to explain why the tool is disabled:
+
 ```python
 LOAD_DISABLED_REASON = "This tool is available on Windows only."
 ```
@@ -90,6 +94,7 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 ### 3.2 Tool Genre (`tool_genre`)
 
 You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SPEC`. The supported genres are:
+
 - `"basic"`: Basic tools (env, time, prompts, skills, memory, tools control)
 - `"comm"`: Communication tools (e.g., Teams, Discord)
 - `"office"`: Office tools (e.g., Excel, Word, Document extraction)
@@ -101,6 +106,7 @@ You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SP
 - `"file"`: File tools (e.g., create, delete, read, write, search, zip)
 
 Example:
+
 ```python
 TOOL_SPEC: Dict[str, Any] = {
     "tool_level": 1, # Loaded conditionally via genre control
@@ -109,6 +115,7 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": { ... }
 }
 ```
+
 During interactive CLI startup, users are prompted to select which tool genres to enable. The selected genres are then activated dynamically.
 
 ### 3.3 External data flag (prompt injection defense)
@@ -226,7 +233,7 @@ ______________________________________________________________________
 
 ## 8. Rust (native) tools — internal build
 
-Rust tools live under `src/uagent/tools_rust/`.  Each Rust function has a
+Rust tools live under `src/uagent/tools_rust/`. Each Rust function has a
 Python wrapper in the same directory that is auto-discovered by the plugin
 loader.
 
@@ -253,12 +260,12 @@ _rust_mod = load_rust_pyd(
 run_tool = _rust_mod.run_<function_name>
 ```
 
-Use the explicit ``pyd_path`` to point at the Cargo build output.
+Use the explicit `pyd_path` to point at the Cargo build output.
 
 ### 8.2 Rust source
 
 Each function lives in its own file under `src/uagent/tools_rust/src/` and is
-registered in `lib.rs` via ``#[pymodule]``.
+registered in `lib.rs` via `#[pymodule]`.
 
 ```rust
 use pyo3::prelude::*;
@@ -278,16 +285,16 @@ cd src/uagent/tools_rust
 cargo build --release
 ```
 
-The resulting ``uag_tools_rust.pyd`` is loaded automatically by the wrapper.
-No ``pip install`` or ``maturin build`` needed at runtime.
+The resulting `uag_tools_rust.pyd` is loaded automatically by the wrapper.
+No `pip install` or `maturin build` needed at runtime.
 
 ### 8.4 Adding a new Rust function
 
-1. Create ``src/uagent/tools_rust/src/<name>.rs`` with a ``#[pyfunction]``.
-2. Add ``mod <name>;`` and ``m.add_function!(wrap_pyfunction!(<name>::run, ...)?)?;``
-   to ``src/uagent/tools_rust/src/lib.rs``.
-3. Rebuild with ``cargo build --release``.
-4. Create a Python wrapper ``<name>_tool.py`` in ``src/uagent/tools_rust/``.
+1. Create `src/uagent/tools_rust/src/<name>.rs` with a `#[pyfunction]`.
+1. Add `mod <name>;` and `m.add_function!(wrap_pyfunction!(<name>::run, ...)?)?;`
+   to `src/uagent/tools_rust/src/lib.rs`.
+1. Rebuild with `cargo build --release`.
+1. Create a Python wrapper `<name>_tool.py` in `src/uagent/tools_rust/`.
 
 ______________________________________________________________________
 

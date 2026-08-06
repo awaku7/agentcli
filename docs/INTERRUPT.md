@@ -12,8 +12,8 @@ LLM ストリーミング応答中に **c キー** を押すだけで応答生�
 - **タイミング**: LLM ストリーミング出力中の任意のタイミング
 - **効果**:
   1. 現在の応答生成を直ちに中断（途中までの出力は破棄 or `[interrupted]` 表記）
-  2. `{"role": "user", "content": "停止"}` をメッセージ履歴に追加
-  3. LLM が「停止」を受け取り、次の応答を生成する
+  1. `{"role": "user", "content": "停止"}` をメッセージ履歴に追加
+  1. LLM が「停止」を受け取り、次の応答を生成する
 - **既存動作との干渉**: `stdin_loop`（行入力）および `human_ask` に影響しない
 - **クロスプラットフォーム**: Windows (`msvcrt`) / POSIX (`termios`+`tty`) 両対応
 
@@ -174,6 +174,7 @@ def _check_key_posix() -> None:
 ```
 
 **安全である理由**:
+
 - BUSY 中は `stdin_loop` が `input()` / `prompt_toolkit` を呼ばない（`time.sleep(0.1); continue` のみ）
 - `select.select()` で実際に読み取り可能なバイトがある場合のみ raw mode に切り替える
 - 1バイト読み取った直後に `TCSADRAIN` で元の設定に戻す（遅延は出力ドレインまで）

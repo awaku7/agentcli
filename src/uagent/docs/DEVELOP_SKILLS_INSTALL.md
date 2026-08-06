@@ -3,13 +3,16 @@
 This document defines the requirements and design for the skill installation and uninstallation features in **uag**.
 
 ## 1. Goal
+
 Provide a unified, robust, and user-friendly mechanism to install, update, and uninstall Agent Skills from various sources into/from a centralized local directory (`~/.uag/skills`).
 
 ## 2. Target Directory
+
 - Primary installation directory: `~/.uag/skills` (resolved as `os.path.expanduser("~/.uag/skills")`).
 - This directory should be automatically added to the default skill roots searched by `get_default_skill_roots` in `agent_skills_shared.py`.
 
 ## 3. Supported Source Formats
+
 The installation tool must automatically detect the format of the source and handle it appropriately:
 
 | Source Type | Pattern / Detection | Action |
@@ -20,6 +23,7 @@ The installation tool must automatically detect the format of the source and han
 | **Local ZIP Archive** | Valid local file path ending with `.zip` | Extract the ZIP file into `<dest_dir>`. |
 
 ## 4. Command Interface
+
 New subcommands `install` and `uninstall` will be added to the `:skills` command:
 
 ```
@@ -31,17 +35,20 @@ New subcommands `install` and `uninstall` will be added to the `:skills` command
 - `[name]` / `<name>`: The destination folder name under `~/.uag/skills`. For `install`, if omitted, it is inferred from the source (e.g., repository name or ZIP filename).
 
 ### Example Usage:
+
 - `:skills install https://github.com/microsoft/win-dev-skills.git`
 - `:skills install https://example.com/skills/my-custom-skill.zip`
 - `:skills install C:\path\to\local\my-skill`
 - `:skills uninstall win-dev-skills`
 
 ## 5. Tool Specification (`skills_install_tool` & `skills_uninstall_tool`)
+
 Two new tools will be registered under `src/uagent/tools/skills_install_tool.py` and `src/uagent/tools/skills_uninstall_tool.py`.
 
 Additionally, corresponding localization JSON files (`skills_install_tool.json` and `skills_uninstall_tool.json`) must be created in the same directory to support multi-language tool descriptions and parameters via `make_tool_translator`. These JSON files must include translations for all supported languages (en, ja, es, fr, ko, de, it, etc.) to maintain consistency with other tools.
 
 ### 5.1 `skills_install` Spec (JSON Schema):
+
 ```json
 {
   "name": "skills_install",
@@ -69,6 +76,7 @@ Additionally, corresponding localization JSON files (`skills_install_tool.json` 
 ```
 
 ### 5.2 `skills_uninstall` Spec (JSON Schema):
+
 ```json
 {
   "name": "skills_uninstall",
@@ -87,15 +95,19 @@ Additionally, corresponding localization JSON files (`skills_install_tool.json` 
 ```
 
 ### Return Value (Both Tools):
+
 A JSON string containing:
+
 - `ok`: Boolean indicating success.
 - `path`: The absolute path where the skill was installed or uninstalled.
 - `message`: A status or error message.
 
 ## 6. Dynamic Command Registration System
+
 To maintain high modularity and prevent core code bloat, a dynamic command registration system is introduced. This allows tools to define their own CLI commands/subcommands.
 
 ### 6.1 Command Specification (`CMD_SPEC`)
+
 A tool module can optionally export a `CMD_SPEC` dictionary:
 
 ```python
@@ -107,12 +119,14 @@ CMD_SPEC = {
 ```
 
 ### 6.2 Registration Lifecycle
+
 1. During startup, `tools/__init__.py` scans and loads all tool modules.
-2. If a module exports a valid `CMD_SPEC`, it is registered in a global registry `_DYNAMIC_COMMANDS`.
-3. When a command is executed in the CLI, `util_tools.py` checks the dynamic registry first. If a matching handler is found, it is executed.
-4. If a tool is disabled or not loaded, its corresponding commands automatically become unavailable.
+1. If a module exports a valid `CMD_SPEC`, it is registered in a global registry `_DYNAMIC_COMMANDS`.
+1. When a command is executed in the CLI, `util_tools.py` checks the dynamic registry first. If a matching handler is found, it is executed.
+1. If a tool is disabled or not loaded, its corresponding commands automatically become unavailable.
 
 ## 7. Security & Safety Constraints
+
 - **Directory Traversal**: Ensure the destination folder name `[name]` does not contain path traversal sequences (e.g., `..`, `/`, `\`). It must be a single directory name.
 - **ZIP Bomb Protection**: Limit the maximum uncompressed size of extracted ZIP files (e.g., max 50MB) and maximum file count (e.g., max 1000 files).
 - **Git Command Check**: If Git is required but not installed/available in PATH, return a clear error message suggesting the ZIP fallback or installing Git.

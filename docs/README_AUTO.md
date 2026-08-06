@@ -3,7 +3,7 @@
 `:auto` makes uag **repeat a task across multiple LLM rounds**.
 Use it for long-running analysis, editing, research, or any task that needs more than a single message.
 
----
+______________________________________________________________________
 
 ## Basic usage
 
@@ -19,7 +19,7 @@ Examples:
 :auto investigate the bug and fix it --max-rounds 20
 ```
 
----
+______________________________________________________________________
 
 ## What happens
 
@@ -44,7 +44,7 @@ Each round has two steps:
 | **Step A** (main query) | LLM continues working toward the goal |
 | **Step B** (reviewer judgment) | A separate LLM call decides "COMPLETE or CONTINUE?" |
 
----
+______________________________________________________________________
 
 ## How to stop
 
@@ -58,7 +58,7 @@ There are three ways to stop `:auto`:
 
 Use `:auto off` to cancel before it starts, but use the **`x` key** to stop it while running.
 
----
+______________________________________________________________________
 
 ## Options
 
@@ -66,7 +66,7 @@ Use `:auto off` to cancel before it starts, but use the **`x` key** to stop it w
 |---|---|---|
 | `--max-rounds N` | `10` | Maximum number of rounds. Use e.g. `--max-rounds 30` for complex tasks |
 
----
+______________________________________________________________________
 
 ## Separate LLM for reviewer (optional)
 
@@ -100,7 +100,7 @@ How it works:
 - If `UAGENT_AP_PROVIDER` is not set, the reviewer uses the same LLM as the main query (default behavior).
 - Any provider supported by `make_client()` can be used; see [ENVIRONMENT.md](ENVIRONMENT.md) for provider-specific variables.
 
----
+______________________________________________________________________
 
 ## Tips
 
@@ -119,7 +119,7 @@ Complex tasks may need many rounds. Start with the default (10) and increase if 
 
 Press `x` during auto-pilot to interrupt, then manually adjust before continuing.
 
----
+______________________________________________________________________
 
 ## How it works (brief architecture)
 
@@ -138,7 +138,7 @@ CLI: ":auto translate README to Japanese"
 - Main query and reviewer judgment use the **same provider and API path** (Responses API included).
 - Reviewer judgment runs in a **separate message context**; it does not modify the conversation history.
 
----
+______________________________________________________________________
 
 ## Notes
 

@@ -11,6 +11,7 @@ These tools are loaded dynamically. Use `comm_control enable` to activate them, 
 Interact with Bluesky (AT Protocol).
 
 **Environment variables:**
+
 - `UAGENT_BLUESKY_HANDLE` (or `BLUESKY_HANDLE`) — your Bluesky handle (e.g., `user.bsky.social`)
 - `UAGENT_BLUESKY_APP_PASSWORD` (or `BLUESKY_APP_PASSWORD`) — an App Password (set in Bluesky Settings > Moderation > App Passwords)
 
@@ -27,10 +28,12 @@ Interact with Bluesky (AT Protocol).
 | `notifications` | List notifications | `limit` (default 20) |
 
 **Common parameters:**
+
 - `output_format`: `json` (default) or `text`
 - `save_images`: `true` to download images from posts and open with default app (CLI only)
 
 **Examples:**
+
 ```
 bluesky action="post" text="Hello from uag!"
 bluesky action="post" text="Cat photo" image_path="C:/cat.jpg" alt="A cute cat"
@@ -44,6 +47,7 @@ bluesky action="notifications"
 Send messages to and read messages from Discord channels using a bot token.
 
 **Environment variables:**
+
 - `DISCORD_BOT_TOKEN` — Discord bot token
 
 **Actions:**
@@ -55,6 +59,7 @@ Send messages to and read messages from Discord channels using a bot token.
 | `history` | Read recent messages from a channel | `channel_id` (required), `limit` (default 10) |
 
 **Examples:**
+
 ```
 discord_channel_chat action="send" channel_id="123456789" message="Hello from uag!"
 discord_channel_chat action="history" channel_id="123456789" limit=5
@@ -65,6 +70,7 @@ discord_channel_chat action="history" channel_id="123456789" limit=5
 Post messages to Microsoft Teams via an Incoming Webhook URL.
 
 **Environment variables:**
+
 - `TEAMS_WEBHOOK_URL` — Teams Incoming Webhook URL
 
 **Actions:**
@@ -75,6 +81,7 @@ Post messages to Microsoft Teams via an Incoming Webhook URL.
 | `post_card` | Post a card with title and image | `message` (required), `title`, `summary`, `image_url` |
 
 **Examples:**
+
 ```
 teams_webhook_post action="post" message="Build completed successfully."
 teams_webhook_post action="post_card" message="Release v1.2.3" title="New Release" summary="Bug fixes and improvements"
@@ -113,6 +120,7 @@ UAGENT_COMM_ENABLED=1
 Send an email via Gmail SMTP using App Password.
 
 **Environment variables:**
+
 - `UAGENT_GMAIL_ADDRESS` — your Gmail address (e.g., `user@gmail.com`)
 - `UAGENT_GMAIL_APP_PASSWORD` — an App Password (create at https://myaccount.google.com/apppasswords)
 
@@ -128,6 +136,7 @@ Send an email via Gmail SMTP using App Password.
 | `html` | no | If true, body is treated as HTML. Default: false. |
 
 **Examples:**
+
 ```
 gmail_send to="user@example.com" subject="Hello" body="Test message"
 gmail_send to="a@b.com,c@d.com" subject="Report" body="<h1>Report</h1>" html=true
@@ -138,6 +147,7 @@ gmail_send to="a@b.com,c@d.com" subject="Report" body="<h1>Report</h1>" html=tru
 Read/search Gmail inbox via IMAP.
 
 **Environment variables:**
+
 - `UAGENT_GMAIL_ADDRESS` — your Gmail address
 - `UAGENT_GMAIL_APP_PASSWORD` — an App Password
 
@@ -151,6 +161,7 @@ Read/search Gmail inbox via IMAP.
 | `unread` | Unread messages only | `max_results` |
 
 **Examples:**
+
 ```
 gmail_read action="list" max_results=5
 gmail_read action="search" query="SUBJECT hello"

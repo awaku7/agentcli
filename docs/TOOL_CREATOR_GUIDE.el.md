@@ -4,20 +4,27 @@
 Εάν θέλετε να προσθέσετε ένα εργαλείο απευθείας στο δέντρο της πηγής uag, δείτε
 [DEVELOP_TOOL.md](../src/uagent/docs/DEVELOP_TOOL.md).
 
----
+______________________________________________________________________
 
 ## Πίνακας περιεχομένων
+
 0. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
 
-1. [Βασική δομή εργαλείου](#1-βασικό-εργαλείο-δομή)
-2. [Δημιουργία εργαλείου Python](#2-creating-a-python-tool)
-3. [Δημιουργία εργαλείου Rust + Python](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Διεθνοποίηση (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Παραδείγματα αναφοράς](#7-παραδείγματα-αναφορές)
+1. [Βασική δομή εργαλείου](#1-%CE%B2%CE%B1%CF%83%CE%B9%CE%BA%CF%8C-%CE%B5%CF%81%CE%B3%CE%B1%CE%BB%CE%B5%CE%AF%CE%BF-%CE%B4%CE%BF%CE%BC%CE%AE)
 
----
+1. [Δημιουργία εργαλείου Python](#2-creating-a-python-tool)
+
+1. [Δημιουργία εργαλείου Rust + Python](#3-creating-a-rust--python-tool)
+
+1. [TOOL_SPEC Reference](#4-tool_spec-reference)
+
+1. [Διεθνοποίηση (i18n)](#5-internationalization-i18n)
+
+1. [Testing and Debugging](#6-testing-and-debugging)
+
+1. [Παραδείγματα αναφοράς](#7-%CF%80%CE%B1%CF%81%CE%B1%CE%B4%CE%B5%CE%AF%CE%B3%CE%BC%CE%B1%CF%84%CE%B1-%CE%B1%CE%BD%CE%B1%CF%86%CE%BF%CF%81%CE%AD%CF%82)
+
+______________________________________________________________________
 
 ## 0. Quick Start: Scaffold Command
 
@@ -50,6 +57,7 @@ from the CLI prompt. It generates the boilerplate files automatically.
 ### What Gets Generated
 
 **Python (`--lang python`)**:
+
 - `<name>_tool.py` — Tool implementation with `TOOL_SPEC` and `run_tool()`
 - `<name>_tool.json` — i18n translation template
 
@@ -57,6 +65,7 @@ Both files are ready to use. Place them in your `UAGENT_EXTERNAL_TOOLS_DIRS`
 and restart the agent (or run `system_reload`).
 
 **Rust (`--lang rust`)**:
+
 - `<name>/` — Cargo project directory with `Cargo.toml`, `pyproject.toml`, and `src/lib.rs`
 - `<name>_tool.py` — Python wrapper that loads the compiled `.pyd`
 
@@ -71,8 +80,7 @@ pip install target/wheels/*.whl
 Then place `<name>_tool.py` and the built `.pyd` in your
 `UAGENT_EXTERNAL_TOOLS_DIRS` and restart the agent.
 
----
-
+______________________________________________________________________
 
 ## 1. Βασική δομή εργαλείου
 
@@ -113,7 +121,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
----
+______________________________________________________________________
 
 ## 2. Δημιουργία ενός εργαλείου Python
 
@@ -121,28 +129,29 @@ TOOL_SPEC: dict[str, Any] = {
 
 1. **Ορίστε τη μεταβλητή περιβάλλοντος `UAGENT_EXTERNAL_TOOLS_DIRS`** (αν δεν έχει ήδη οριστεί)
 
- Παράδειγμα:
- ```bash
-   # Linux/macOS
-   export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
-   # Windows (cmd)
-   set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
-   ```
+Παράδειγμα:
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+```bash
+  # Linux/macOS
+  export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
+  # Windows (cmd)
+  set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
+```
+
+Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
 
 2. **Create a Python file**
 
    File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
 
-3. **Implement the required elements**
+1. **Implement the required elements**
 
    - `TOOL_SPEC` dictionary
    - `run_tool(args)` function
    - Optionally, an i18n JSON file
 
-4. **Restart the agent** (or run the `system_reload` tool)
+1. **Restart the agent** (or run the `system_reload` tool)
 
 ### Full Template
 
@@ -191,7 +200,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 See [Section 5](#5-internationalization-i18n) for i18n details.
 
----
+______________________________________________________________________
 
 ## 3. Creating a Rust + Python Tool
 
@@ -219,6 +228,7 @@ For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
 #### Step 1: Create the Rust project
 
 **Cargo.toml**
+
 ```toml
 [package]
 name = "my_rust_tools"
@@ -234,6 +244,7 @@ pyo3 = { version = "0.29", features = ["extension-module", "abi3-py311"] }
 ```
 
 **pyproject.toml**
+
 ```toml
 [build-system]
 requires = ["maturin>=1.0"]
@@ -272,6 +283,7 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
 
 **Key points:**
+
 - Expose functions with `#[pyfunction(name = "run_<name>")]`
 - Return type is `PyResult<String>`
 - The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
@@ -288,6 +300,7 @@ Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
 macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
 
 Or using maturin:
+
 ```bash
 pip install maturin     # build-time only
 maturin build --release
@@ -333,10 +346,10 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**`load_rust_pyd()` resolution order:**
 
 1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Fall back to a pip-installed module
 
 #### Step 5: Distribution
 
@@ -357,7 +370,7 @@ my_rust_tools.pyd       # Pre-built native binary
 - The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
 - The wrapper file name and `.pyd` location are independent as long as they are in the same directory
 
----
+______________________________________________________________________
 
 ## 4. TOOL_SPEC Reference
 
@@ -408,7 +421,7 @@ TOOL_SPEC: dict[str, Any] = {
 | `function.x_search_terms_en` | list[str] | Fixed English search keywords |
 | `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
 
----
+______________________________________________________________________
 
 ## 5. Internationalization (i18n)
 
@@ -448,7 +461,7 @@ description = _(
 
 See existing `_tool.json` files for supported language codes.
 
----
+______________________________________________________________________
 
 ## 6. Testing and Debugging
 
@@ -474,7 +487,7 @@ if "my_tool" in _RUNNERS:
 Errors during tool loading are printed to stderr. If your tool isn't loaded,
 check the uag startup logs.
 
----
+______________________________________________________________________
 
 ## 7. Reference Examples
 
