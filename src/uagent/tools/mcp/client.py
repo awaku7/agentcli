@@ -40,6 +40,7 @@ class MCPClient:
         args: list[str] | None = None,
         env: dict[str, str] | None = None,
         protocol_mode: str = "auto",
+        http_client: Any = None,
     ) -> None:
         self.url = url
         self.headers = headers or {}
@@ -51,7 +52,8 @@ class MCPClient:
         self.initialize_result: Any = None
         self.protocol_info: MCPProtocolInfo | None = None
         self._stack = AsyncExitStack()
-        self._http_client: Any = None
+        self._http_client: Any = http_client
+        self._owns_http_client = http_client is None
         self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
@@ -66,6 +68,7 @@ class MCPClient:
                 self._stateless_client = StatelessHTTPClient(
                     self.url,
                     headers=self.headers,
+                    http_client=self._http_client,
                 )
                 await self._stateless_client.__aenter__()
                 self.url = self._stateless_client.url
@@ -90,10 +93,11 @@ class MCPClient:
                     if self.url.endswith("/mcp")
                     else self.url.rstrip("/") + "/mcp"
                 )
-                if self.headers:
+                if self.headers and self._http_client is None:
                     import httpx
 
                     self._http_client = httpx.AsyncClient(headers=self.headers)
+                    self._owns_http_client = True
                 read, write, get_session_id = await self._stack.enter_async_context(
                     streamable_http_client(endpoint, http_client=self._http_client)
                 )
@@ -138,7 +142,7 @@ class MCPClient:
             await self._stateless_client.__aexit__(exc_type, exc, tb)
             self._stateless_client = None
         await self._stack.aclose()
-        if self._http_client is not None:
+        if self._owns_http_client and self._http_client is not None:
             await self._http_client.aclose()
             self._http_client = None
 

@@ -149,4 +149,5 @@ detect_protocol()
 - headers展開回帰
 - legacy initialize回帰
 - Stateless fake server検出
+- `MCPClient`経由のStateless list/call統合
 - SDK非対応時の構造化エラー
