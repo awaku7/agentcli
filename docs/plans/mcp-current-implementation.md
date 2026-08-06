@@ -92,6 +92,43 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | list cache hints | 未実装 |
 | MCP Authorization / CIMD / issuer検証 | Metadata・issuer検証・PKCE・code/refresh exchange・暗号化Token Store・認可セッション・stateless/SDK HTTPのBearer付与/401 refresh・localhost callback listener・browser認可統合・CIMD取得/検証・Proxy/TLS設定を実装 |
 
+## 残課題（OAuth / Proxy / TLS）
+
+### P1: 実TLS証明書チェーンの統合検証
+
+- 自己署名CAとlocalhost証明書をテスト実行時に一時生成する。
+- `MCPHTTPConfig.ca_cert`指定時にHTTPS接続が成功することを確認する。
+- CA未指定・不正CA指定時にTLS検証が失敗することを確認する。
+- 秘密鍵、企業CA、アクセストークンをリポジトリへコミットしない。
+- Windows / Linux / macOSで証明書生成方法を統一する（OpenSSL依存を避けるか、明示的な前提条件にする）。
+
+### P1: 実Proxy環境での検証
+
+- HTTP/HTTPS Proxy経由のMetadata、CIMD、Authorization Server Metadata取得を検証する。
+- Proxy経由のauthorization code交換とrefresh token交換を検証する。
+- Proxy認証（Basicまたは企業固有方式）をsecretから注入する。
+- `NO_PROXY=127.0.0.1,localhost`でlocalhost callbackをProxyへ送らないことを確認する。
+- Proxy障害、タイムアウト、TLS interception時の構造化エラーを確認する。
+
+### P1: Reverse Proxy配下の検証
+
+- 外部canonical URLと内部MCP URLを分離して設定できるようにする。
+- `resource`、issuer、authorization endpoint、CIMDのURLが外部公開URLになることを確認する。
+- `X-Forwarded-Host` / `X-Forwarded-Proto`利用時のissuer・resource mismatchを検証する。
+- 内部ホスト名や内部IPがMetadataに漏れないことを確認する。
+
+### P2: OAuth実運用の追加検証
+
+- Authorization Serverでのrefresh token rotationを実環境相当で検証する。
+- 同時401発生時にrefreshが一度だけ実行されることを確認する。
+- refresh token失効、scope変更、token endpointエラーを検証する。
+- SDK transportとStateless transportで認証ヘッダー・refresh挙動が一致することを確認する。
+- 外部ブラウザーを使用したbrowser OAuthの手動検証手順を文書化する。
+
+### 検証環境に関する注意
+
+公開OAuth/MCP endpointは停止・仕様変更・レート制限・認証情報漏えいのリスクがあるため、CIでは使用しない。CIではリポジトリ内のローカルMCP/OAuth/Proxy fixtureを使用し、実Proxy・企業CA・実Authorization Serverの検証は手動または専用の秘密環境で実施する。
+
 ## I18N境界
 
 MCPの内部protocol処理は、公開ツールのI18Nから分離する。
