@@ -84,7 +84,7 @@ SDKのStreamable HTTP transport内部には、現在のsession IDと`MCP-Protoco
 | Legacy / Stateless自動判定 | HTTPの`tools/list` probeで部分実装。失敗時はLegacy SDKへfallback |
 | `Mcp-Method` / `Mcp-Name` | Stateless Adapterとauto probe経路で実装 |
 | `server/discover` | 未実装 |
-| Resources公開経路 | 未実装 |
+| Resources公開経路 | `mcp_resources`でlist/readを実装。I18N対応 |
 | Prompts公開経路 | 未実装 |
 | MRTR | 未実装 |
 | Tasks extension | 未実装 |

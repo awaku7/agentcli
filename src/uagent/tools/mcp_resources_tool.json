@@ -1,0 +1,647 @@
+{
+  "en": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ja": {
+    "tool.description": "MCPサーバーのリソース一覧を取得、またはリソースを読み取ります。",
+    "param.action.description": "listで一覧、readでURIの内容を取得します。",
+    "param.uri.description": "action=readの場合に必要なリソースURI。",
+    "param.url.description": "MCPエンドポイントURL。server_name指定時は省略できます。",
+    "param.server_name.description": "設定済みMCPサーバー名。",
+    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy、またはstateless。",
+    "err.action": "エラー: actionはlistまたはreadを指定してください。",
+    "err.uri_required": "エラー: readにはuriが必要です。",
+    "err.endpoint_required": "エラー: MCPエンドポイントが必要です。",
+    "err.request": "エラー: MCPリソース要求に失敗しました: %(error)s",
+    "x_search_terms": [
+      "MCPリソース",
+      "MCPリソース読み取り"
+    ]
+  },
+  "es": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "fr": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "de": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "it": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "pt": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ru": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ko": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ar": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "bn": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "cs": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "el": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "fa": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "fi": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "he": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "hi": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "hu": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "id": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "mn": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "mr": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "nb": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "nl": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "nn": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "pl": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ro": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "sv": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "sw": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "th": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "tr": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "uk": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "vi": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "da": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "fil": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  },
+  "ms": {
+    "tool.description": "List MCP resources or read one resource from an MCP server.",
+    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
+    "param.uri.description": "Resource URI required when action=read.",
+    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
+    "param.server_name.description": "Configured MCP server name.",
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "err.action": "Error: action must be list or read.",
+    "err.uri_required": "Error: uri is required for read.",
+    "err.endpoint_required": "Error: MCP endpoint is required.",
+    "err.request": "Error: MCP resource request failed: %(error)s",
+    "x_search_terms": [
+      "mcp resources",
+      "mcp resource",
+      "read mcp resource"
+    ]
+  }
+}
