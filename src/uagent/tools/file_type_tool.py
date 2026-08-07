@@ -160,7 +160,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "file_type",
         "description": _(
             "tool.description",
-            default="Determine the MIME type and format of files using extension, magic bytes, and heuristics.",
+            default="Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
         ),
         "x_search_terms": _(
             "x_search_terms",

@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Determine the MIME type and format of files using extension, magic bytes, and heuristics.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "file type",
       "detect type",
@@ -19,7 +19,7 @@
     "err.not_found": "file not found"
   },
   "ja": {
-    "tool.description": "拡張子・マジックバイト・ヒューリスティックを用いてファイルのMIMEタイプと形式を判定します。",
+    "tool.description": "libmagic（python-magic、Windowsではpython-magic-bin）、マジックバイト、ファイル名のヒューリスティックを使って、1つ以上のファイルを内容から判定します。検出したMIMEタイプ、形式の説明、拡張子からのMIME推測、エンコーディング、ファイルサイズを返します。読み取り専用です。",
     "x_search_terms": [
       "ファイルタイプ",
       "検出タイプ",
@@ -38,7 +38,7 @@
     "err.not_found": "ファイルが見つかりません"
   },
   "es": {
-    "tool.description": "Determina el tipo MIME y el formato de los archivos mediante extensión, bytes mágicos y heurística.",
+    "tool.description": "Identifica uno o varios archivos inspeccionando su contenido con libmagic (python-magic o python-magic-bin en Windows), bytes mágicos y heurísticas del nombre. Devuelve el tipo MIME detectado, la descripción del formato, la estimación MIME basada en la extensión, la codificación y el tamaño. Solo lectura.",
     "x_search_terms": [
       "tipo de archivo",
       "tipo de detección",
@@ -57,7 +57,7 @@
     "err.not_found": "archivo no encontrado"
   },
   "fr": {
-    "tool.description": "Détermine le type MIME et le format des fichiers à l'aide de l'extension, des octets magiques et de l'heuristique.",
+    "tool.description": "Identifie un ou plusieurs fichiers en inspectant leur contenu avec libmagic (python-magic ou python-magic-bin sous Windows), les octets magiques et des heuristiques de nom. Renvoie le type MIME détecté, la description du format, l’estimation MIME fondée sur l’extension, l’encodage et la taille. Lecture seule.",
     "x_search_terms": [
       "type de fichier",
       "type de détection",
@@ -76,7 +76,7 @@
     "err.not_found": "fichier non trouvé"
   },
   "ko": {
-    "tool.description": "확장자, 매직 바이트 및 휴리스틱을 사용하여 파일의 MIME 유형과 형식을 결정합니다.",
+    "tool.description": "libmagic(python-magic 또는 Windows의 python-magic-bin), 매직 바이트 및 파일명 휴리스틱으로 하나 이상의 파일 내용을 검사해 식별합니다. 감지된 MIME 유형, 형식 설명, 확장자 기반 MIME 추정, 인코딩 및 파일 크기를 반환합니다. 읽기 전용입니다.",
     "x_search_terms": [
       "파일 유형",
       "감지 유형",
@@ -95,7 +95,7 @@
     "err.not_found": "파일을 찾을 수 없습니다"
   },
   "de": {
-    "tool.description": "Bestimmt den MIME-Typ und das Format von Dateien anhand von Erweiterung, magischen Bytes und Heuristiken.",
+    "tool.description": "Identifiziert eine oder mehrere Dateien durch Prüfung ihres Inhalts mit libmagic (python-magic oder unter Windows python-magic-bin), Magic Bytes und Dateinamen-Heuristiken. Gibt den erkannten MIME-Typ, die Formatbeschreibung, die erweiterungsbasierte MIME-Schätzung, die Kodierung und die Dateigröße zurück. Nur lesend.",
     "x_search_terms": [
       "Dateityp",
       "Typ erkennen",
@@ -114,7 +114,7 @@
     "err.not_found": "Datei nicht gefunden"
   },
   "it": {
-    "tool.description": "Determina il tipo MIME e il formato dei file utilizzando estensione, byte magici e euristiche.",
+    "tool.description": "Identifica uno o più file esaminandone il contenuto con libmagic (python-magic o python-magic-bin su Windows), magic byte ed euristiche del nome. Restituisce il tipo MIME rilevato, la descrizione del formato, la stima MIME basata sull’estensione, la codifica e la dimensione. Solo lettura.",
     "x_search_terms": [
       "tipo di file",
       "rileva tipo",
@@ -133,7 +133,7 @@
     "err.not_found": "file non trovato"
   },
   "ru": {
-    "tool.description": "Определяет MIME-тип и формат файлов по расширению, магическим байтам и эвристике.",
+    "tool.description": "Определяет один или несколько файлов, проверяя их содержимое с помощью libmagic (python-magic или python-magic-bin в Windows), сигнатур и эвристик имени. Возвращает обнаруженный MIME-тип, описание формата, MIME-предположение по расширению, кодировку и размер. Только чтение.",
     "x_search_terms": [
       "тип файла",
       "определить тип",
@@ -152,7 +152,7 @@
     "err.not_found": "файл не найден"
   },
   "pt_BR": {
-    "tool.description": "Determina o tipo MIME e o formato de arquivos usando extensão, bytes mágicos e heurística.",
+    "tool.description": "Identifica um ou mais arquivos inspecionando seu conteúdo com libmagic (python-magic ou python-magic-bin no Windows), bytes mágicos e heurísticas do nome. Retorna o tipo MIME detectado, a descrição do formato, a estimativa MIME baseada na extensão, a codificação e o tamanho. Somente leitura.",
     "x_search_terms": [
       "tipo de arquivo",
       "detectar tipo",
@@ -171,7 +171,7 @@
     "err.not_found": "arquivo não encontrado"
   },
   "pt": {
-    "tool.description": "Determina o tipo MIME e o formato de ficheiros usando extensão, bytes mágicos e heurística.",
+    "tool.description": "Identifica um ou mais ficheiros inspecionando o conteúdo com libmagic (python-magic ou python-magic-bin no Windows), bytes mágicos e heurísticas do nome. Devolve o tipo MIME detetado, a descrição do formato, a estimativa MIME baseada na extensão, a codificação e o tamanho. Apenas leitura.",
     "x_search_terms": [
       "tipo de arquivo",
       "detectar tipo",
@@ -190,7 +190,7 @@
     "err.not_found": "ficheiro não encontrado"
   },
   "id": {
-    "tool.description": "Menentukan tipe MIME dan format file menggunakan ekstensi, byte ajaib, dan heuristik.",
+    "tool.description": "Identifikasi satu atau lebih file dengan memeriksa kontennya menggunakan libmagic (python-magic atau Windows python-magic-bin), byte ajaib, dan heuristik nama file. Mengembalikan tipe MIME yang terdeteksi, deskripsi format, tebakan MIME berbasis ekstensi, pengkodean, dan ukuran file. Hanya baca.",
     "x_search_terms": [
       "jenis file",
       "mendeteksi tipe",
@@ -209,7 +209,7 @@
     "err.not_found": "file tidak ditemukan"
   },
   "vi": {
-    "tool.description": "Xác định loại MIME và định dạng của tệp bằng phần mở rộng, byte ma thuật và heuristic.",
+    "tool.description": "Xác định một hoặc nhiều tệp bằng cách kiểm tra nội dung của chúng bằng libmagic (python-magic hoặc Windows python-magic-bin), byte ma thuật và chẩn đoán tên tệp. Trả về loại MIME được phát hiện, mô tả định dạng, phỏng đoán MIME dựa trên tiện ích mở rộng, mã hóa và kích thước tệp. Chỉ đọc.",
     "x_search_terms": [
       "loại tệp",
       "phát hiện loại",
@@ -228,7 +228,7 @@
     "err.not_found": "không tìm thấy tệp"
   },
   "pl": {
-    "tool.description": "Określa typ MIME i format plików na podstawie rozszerzenia, magicznych bajtów i heurystyki.",
+    "tool.description": "Zidentyfikuj jeden lub więcej plików, sprawdzając ich zawartość za pomocą libmagic (python-magic lub Windows python-magic-bin), magicznych bajtów i heurystyki nazw plików. Zwraca wykryty typ MIME, opis formatu, odgadnięcie MIME oparte na rozszerzeniu, kodowanie i rozmiar pliku. Tylko do odczytu.",
     "x_search_terms": [
       "typ pliku",
       "wykryj typ",
@@ -247,7 +247,7 @@
     "err.not_found": "nie znaleziono pliku"
   },
   "hi": {
-    "tool.description": "एक्सटेंशन, मैजिक बाइट्स और ह्यूरिस्टिक्स का उपयोग करके फ़ाइलों के MIME प्रकार और प्रारूप का निर्धारण करें।",
+    "tool.description": "libmagic (python-magic या Windows python-magic-bin), मैजिक बाइट्स और फ़ाइल नाम अनुमान के साथ उनकी सामग्री का निरीक्षण करके एक या अधिक फ़ाइलों की पहचान करें। पता लगाए गए MIME प्रकार, प्रारूप विवरण, एक्सटेंशन-आधारित MIME अनुमान, एन्कोडिंग और फ़ाइल आकार लौटाता है। केवल पढ़ने के लिए।",
     "x_search_terms": [
       "फ़ाइल प्रकार",
       "पहचान प्रकार",
@@ -266,7 +266,7 @@
     "err.not_found": "फ़ाइल नहीं मिली"
   },
   "ar": {
-    "tool.description": "تحديد نوع MIME وتنسيق الملفات باستخدام الامتداد والبايتات السحرية والاستدلال.",
+    "tool.description": "يحدد ملفًا واحدًا أو أكثر بفحص محتواها باستخدام libmagic ‏(python-magic أو python-magic-bin في Windows) وبايتات التوقيع وقواعد اسم الملف. يعرض نوع MIME المكتشف ووصف التنسيق وتخمين MIME المستند إلى الامتداد والترميز والحجم. للقراءة فقط.",
     "x_search_terms": [
       "نوع الملف ",
       " نوع الكشف ",
@@ -285,7 +285,7 @@
     "err.not_found": "الملف غير موجود"
   },
   "sv": {
-    "tool.description": "Bestämmer MIME-typ och format för filer med hjälp av filändelse, magiska byte och heuristik.",
+    "tool.description": "Identifiera en eller flera filer genom att inspektera deras innehåll med libmagic (python-magic eller Windows python-magic-bin), magiska bytes och filnamnsheuristik. Returnerar den upptäckta MIME-typen, formatbeskrivningen, tilläggsbaserad MIME-gissning, kodning och filstorlek. Skrivskyddad.",
     "x_search_terms": [
       "filtyp",
       "upptäck typ",
@@ -304,7 +304,7 @@
     "err.not_found": "filen hittades inte"
   },
   "sw": {
-    "tool.description": "Amua aina ya MIME na umbizo la faili kwa kutumia kiendelezi, baiti za kichawi, na heuristiki.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "aina ya faili",
       "gundua aina",
@@ -323,7 +323,7 @@
     "err.not_found": "faili haipatikani"
   },
   "nb": {
-    "tool.description": "Bestemmer MIME-typen og formatet til filer ved hjelp av filendelse, magiske byte og heuristikk.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "filtype",
       "deteksjonstype",
@@ -342,7 +342,7 @@
     "err.not_found": "filen ikke funnet"
   },
   "nl": {
-    "tool.description": "Bepaalt het MIME-type en de indeling van bestanden op basis van extensie, magische bytes en heuristiek.",
+    "tool.description": "Identificeer een of meer bestanden door de inhoud ervan te inspecteren met libmagic (python-magic of Windows python-magic-bin), magische bytes en bestandsnaamheuristieken. Retourneert het gedetecteerde MIME-type, de indelingsbeschrijving, de op de extensie gebaseerde MIME-schatting, de codering en de bestandsgrootte. Alleen-lezen.",
     "x_search_terms": [
       "bestandstype",
       "type detecteren",
@@ -361,7 +361,7 @@
     "err.not_found": "bestand niet gevonden"
   },
   "fi": {
-    "tool.description": "Määrittää tiedostojen MIME-tyypin ja muodon käyttämällä tiedostopäätettä, maagisia tavuja ja heuristiikkaa.",
+    "tool.description": "Tunnista yksi tai useampi tiedosto tarkastamalla niiden sisältö libmagic:lla (python-magic tai Windows python-magic-bin), taikatavuilla ja tiedostonimiheuristiikalla. Palauttaa havaitun MIME-tyypin, muodon kuvauksen, laajennukseen perustuvan MIME-arvauksen, koodauksen ja tiedostokoon. Vain luku.",
     "x_search_terms": [
       "tiedostotyyppi",
       "tunnistaa tyyppi",
@@ -380,7 +380,7 @@
     "err.not_found": "tiedostoa ei löydy"
   },
   "cs": {
-    "tool.description": "Určuje typ MIME a formát souborů pomocí přípony, magických bajtů a heuristiky.",
+    "tool.description": "Identifikujte jeden nebo více souborů kontrolou jejich obsahu pomocí libmagic (python-magic nebo Windows python-magic-bin), magických bajtů a heuristiky názvu souboru. Vrátí zjištěný typ MIME, popis formátu, odhad MIME na základě přípony, kódování a velikost souboru. Pouze pro čtení.",
     "x_search_terms": [
       "typ souboru",
       "typ zjišťování",
@@ -399,7 +399,7 @@
     "err.not_found": "soubor nenalezen"
   },
   "uk": {
-    "tool.description": "Визначає MIME-тип і формат файлів за розширенням, магічними байтами та евристикою.",
+    "tool.description": "Визначте один або кілька файлів, перевіривши їхній вміст за допомогою libmagic (python-magic або Windows python-magic-bin), магічних байтів і евристики імен файлів. Повертає виявлений тип MIME, опис формату, припущення MIME на основі розширення, кодування та розмір файлу. Тільки для читання.",
     "x_search_terms": [
       "тип файлу",
       "визначити тип",
@@ -418,7 +418,7 @@
     "err.not_found": "файл не знайдено"
   },
   "tr": {
-    "tool.description": "Dosyaların MIME türünü ve biçimini uzantı, sihirli baytlar ve buluşsal yöntemler kullanarak belirler.",
+    "tool.description": "Bir veya daha fazla dosyayı, içeriklerini libmagic (python-magic veya Windows python-magic-bin), sihirli baytlar ve dosya adı buluşsal yöntemiyle inceleyerek tanımlayın. Algılanan MIME türünü, biçim açıklamasını, uzantıya dayalı MIME tahminini, kodlamayı ve dosya boyutunu döndürür. Salt okunur.",
     "x_search_terms": [
       "dosya türü",
       "tespit türü",
@@ -437,7 +437,7 @@
     "err.not_found": "dosya bulunamadı"
   },
   "th": {
-    "tool.description": "กำหนดประเภท MIME และรูปแบบของไฟล์โดยใช้นามสกุล ไบต์วิเศษ และฮิวริสติก",
+    "tool.description": "ระบุไฟล์ตั้งแต่หนึ่งไฟล์ขึ้นไปโดยการตรวจสอบเนื้อหาด้วย libmagic (python-magic หรือ Windows python-magic-bin) ไบต์มหัศจรรย์ และการวิเคราะห์ชื่อไฟล์ ส่งคืนประเภท MIME ที่ตรวจพบ คำอธิบายรูปแบบ การเดา MIME ตามส่วนขยาย การเข้ารหัส และขนาดไฟล์ อ่านอย่างเดียว",
     "x_search_terms": [
       "ประเภทไฟล์",
       "ประเภทการตรวจจับ",
@@ -456,7 +456,7 @@
     "err.not_found": "ไม่พบไฟล์"
   },
   "zh_CN": {
-    "tool.description": "使用扩展名、魔术字节和启发式方法确定文件的MIME类型和格式。",
+    "tool.description": "使用 libmagic（python-magic，Windows 使用 python-magic-bin）、文件魔数和文件名启发式规则检查一个或多个文件的内容并识别文件。返回检测到的 MIME 类型、格式说明、基于扩展名的 MIME 推测、编码和文件大小。仅执行读取操作。",
     "x_search_terms": [
       "文件类型",
       "检测类型",
@@ -475,7 +475,7 @@
     "err.not_found": "文件未找到"
   },
   "zh_TW": {
-    "tool.description": "使用副檔名、魔術位元組和啟發式方法確定檔案的MIME類型和格式。",
+    "tool.description": "使用 libmagic（python-magic，Windows 使用 python-magic-bin）、檔案魔數和檔名啟發式規則檢查一個或多個檔案的內容並識別檔案。回傳偵測到的 MIME 類型、格式說明、根據副檔名推測的 MIME、編碼和檔案大小。僅供讀取。",
     "x_search_terms": [
       "檔案類型",
       "偵測類型",
@@ -494,7 +494,7 @@
     "err.not_found": "找不到檔案"
   },
   "bn": {
-    "tool.description": "এক্সটেনশন, ম্যাজিক বাইট এবং হিউরিস্টিক্স ব্যবহার করে ফাইলের MIME টাইপ এবং ফরম্যাট নির্ধারণ করে।",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "ফাইল টাইপ",
       "ডিটেক্ট টাইপ",
@@ -513,7 +513,7 @@
     "err.not_found": "ফাইল পাওয়া যায়নি"
   },
   "fa": {
-    "tool.description": "تعیین نوع MIME و قالب فایل‌ها با استفاده از پسوند، بایت‌های جادویی و اکتشافی.",
+    "tool.description": "یک یا چند فایل را با بازرسی محتوای آنها با libmagic (python-magic یا Windows python-magic-bin)، بایت‌های جادویی و اکتشافات نام فایل شناسایی کنید. نوع MIME شناسایی شده، توضیحات قالب، حدس MIME مبتنی بر پسوند، رمزگذاری و اندازه فایل را برمی‌گرداند. فقط خواندنی.",
     "x_search_terms": [
       "نوع فایل",
       "تشخیص نوع",
@@ -532,7 +532,7 @@
     "err.not_found": "فایل یافت نشد"
   },
   "mn": {
-    "tool.description": "Өргөтгөл, шидэт байт болон эвристик ашиглан файлын MIME төрөл болон форматыг тодорхойлно.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "файлын төрөл",
       "илрүүлэх төрөл",
@@ -551,7 +551,7 @@
     "err.not_found": "файл олдсонгүй"
   },
   "mr": {
-    "tool.description": "विस्तार, मॅजिक बाइट्स आणि ह्युरिस्टिक्स वापरून फाइल्सचा MIME प्रकार आणि फॉरमॅट निश्चित करते.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "फाईल प्रकार",
       "डिटेक्ट प्रकार",
@@ -570,7 +570,7 @@
     "err.not_found": "फाइल आढळली नाही"
   },
   "el": {
-    "tool.description": "Καθορίζει τον τύπο MIME και τη μορφή αρχείων χρησιμοποιώντας επέκταση, μαγικά byte και ευρετική.",
+    "tool.description": "Προσδιορίστε ένα ή περισσότερα αρχεία ελέγχοντας το περιεχόμενό τους με libmagic (python-magic ή Windows python-magic-bin), μαγικά byte και ευρετικά ονόματα αρχείων. Επιστρέφει τον εντοπισμένο τύπο MIME, την περιγραφή μορφής, την εικασία MIME βάσει επέκτασης, την κωδικοποίηση και το μέγεθος αρχείου. Μόνο για ανάγνωση.",
     "x_search_terms": [
       "τύπος αρχείου",
       "τύπος ανίχνευσης",
@@ -589,7 +589,7 @@
     "err.not_found": "το αρχείο δεν βρέθηκε"
   },
   "he": {
-    "tool.description": "קובע את סוג ה-MIME והפורמט של קבצים באמצעות סיומת, בתים קסומים והיוריסטיקה.",
+    "tool.description": "זהה קובץ אחד או יותר על ידי בדיקת תוכנם באמצעות libmagic (python-magic או Windows python-magic-bin), בתים קסומים והיוריסטיקה של שם קובץ. מחזירה את סוג MIME שזוהה, תיאור הפורמט, ניחוש MIME מבוסס סיומת, הקידוד וגודל הקובץ. לקריאה בלבד.",
     "x_search_terms": [
       "סוג קובץ",
       "זיהוי סוג",
@@ -608,7 +608,7 @@
     "err.not_found": "הקובץ לא נמצא"
   },
   "hu": {
-    "tool.description": "Meghatározza a fájlok MIME-típusát és formátumát kiterjesztés, mágikus bájtok és heurisztika alapján.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "fájltípus",
       "észlelés típus",
@@ -627,7 +627,7 @@
     "err.not_found": "a fájl nem található"
   },
   "ro": {
-    "tool.description": "Determină tipul MIME și formatul fișierelor folosind extensia, octeții magici și euristici.",
+    "tool.description": "Identificați unul sau mai multe fișiere inspectând conținutul acestora cu libmagic (python-magic sau Windows python-magic-bin), octeți magici și euristica numelor de fișiere. Returnează tipul MIME detectat, descrierea formatului, estimarea MIME bazată pe extensie, codificarea și dimensiunea fișierului. Numai citire.",
     "x_search_terms": [
       "tip de fișier",
       "tip de detectare",
@@ -646,7 +646,7 @@
     "err.not_found": "fișierul nu a fost găsit"
   },
   "fil": {
-    "tool.description": "Tukuyin ang uri ng MIME at format ng mga file gamit ang extension, magic byte, at heuristics.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "uri ng file",
       "tuklasin ang uri",
@@ -665,7 +665,7 @@
     "err.not_found": "hindi nahanap ang file"
   },
   "ms": {
-    "tool.description": "Tentukan jenis MIME dan format fail menggunakan sambungan, bait ajaib dan heuristik.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "jenis fail",
       "kesan jenis",
@@ -684,7 +684,7 @@
     "err.not_found": "fail tidak ditemui"
   },
   "da": {
-    "tool.description": "Bestem MIME-typen og -formatet for filer ved hjælp af filtypenavn, magiske bytes og heuristik.",
+    "tool.description": "Identificer en eller flere filer ved at inspicere deres indhold med libmagic (python-magic eller Windows python-magic-bin), magiske bytes og filnavnsheuristik. Returnerer den registrerede MIME-type, formatbeskrivelse, udvidelsesbaserede MIME-gæt, kodning og filstørrelse. Skrivebeskyttet.",
     "x_search_terms": [
       "filtype",
       "registreringstype",
@@ -703,7 +703,7 @@
     "err.not_found": "fil ikke fundet"
   },
   "nn": {
-    "tool.description": "Bestem MIME-typen og -formatet til filer ved hjelp av utvidelse, magiske byte og heuristikk.",
+    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
     "x_search_terms": [
       "filtype",
       "deteksjonstype",
