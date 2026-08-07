@@ -2,14 +2,22 @@
 
 ## [未リリース]
 
+## [0.5.68] - 2026-08-07
+
+### 追加
+
+- feat(code_map): シンボル、関係、manifest、lockfile、キャッシュ、CMake、rendererを備えたモジュール型プロジェクト解析を追加
+- feat(code_map): COBOL COPY/CALLおよびObjective-C/Objective-C++のinclude解析を追加
+- feat(http): 汎用HTTPリクエストツールを追加
+- feat(forecast): 回帰予測モデルとローカライズ済みオプションを追加
+
 ### 変更
 
-- refactor(tools): 安定した`code_map_tool.py` Facadeの背後へ`code_map`内部実装を分割
-- feat(code_map): シンボル、関係、manifest、lockfile、キャッシュ、CMake、rendererの多言語対応を拡張
-- feat(code_map): COBOL COPY/CALLおよびObjective-C/Objective-C++のinclude解析を追加
-- feat(code_map): dependency_edges、推移依存メタデータ、ローカルclasspath候補、TFM情報、決定的なバージョン競合報告を追加
+- feat(code_map): dependency_edges、推移依存メタデータ、ローカルclasspath候補、TFM情報、決定的なバージョン競合報告を公開
+- refactor(tools): 分割した内部実装に対する安定したFacadeとして`code_map_tool.py`を維持
 - fix(i18n): 公開Facade側の`code_map_tool.json`に完全なカタログを集約
 - fix(screenshot): 画像を生成しないモックキャプチャバックエンドに対応
+- docs: 多言語ドキュメントとツールカタログを更新
 
 ## [0.5.67] - 2026-08-06
 

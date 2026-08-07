@@ -2,14 +2,22 @@
 
 ## [Unreleased]
 
+## [0.5.68] - 2026-08-07
+
+### Added
+
+- feat(code_map): add modular project analysis with multilingual symbols, relations, manifests, lockfiles, caches, CMake, and renderers
+- feat(code_map): add COBOL COPY/CALL and Objective-C/Objective-C++ include analysis
+- feat(http): add the generic HTTP request tool
+- feat(forecast): add regression forecasting models and localized options
+
 ### Changed
 
-- refactor(tools): split `code_map` internals behind the stable `code_map_tool.py` facade
-- feat(code_map): add multilingual symbol, relation, manifest, lockfile, cache, CMake, and renderer support
-- feat(code_map): add COBOL COPY/CALL and Objective-C/Objective-C++ include analysis
-- feat(code_map): add dependency edges, transitive dependency metadata, local classpath candidates, TFM metadata, and deterministic version conflict reporting
+- feat(code_map): expose dependency edges, transitive dependency metadata, local classpath candidates, TFM metadata, and deterministic version conflict reporting
+- refactor(tools): keep `code_map_tool.py` as the stable facade for split internals
 - fix(i18n): keep the complete `code_map_tool.json` catalog at the public facade path
 - fix(screenshot): tolerate mocked capture backends that do not materialize an image file
+- docs: update localized documentation and tool catalogs
 
 ## [0.5.67] - 2026-08-06
 
