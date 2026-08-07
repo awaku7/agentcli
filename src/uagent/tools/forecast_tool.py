@@ -94,12 +94,15 @@ TOOL_SPEC: dict[str, Any] = {
                         "Prophet",
                         "LightGBM",
                         "CatBoost",
+                        "LinearRegression",
+                        "Ridge",
+                        "Lasso",
                         "TimesFM",
                         "Chronos",
                     ],
                     "description": _(
                         "param.model.description",
-                        default="Forecast model. auto = automatic selection from available models",
+                        default="Forecast model. auto = automatic selection from available models; LinearRegression/Ridge/Lasso use explanatory variables and future_data for multiple regression.",
                     ),
                 },
                 "frequency": {
@@ -107,6 +110,21 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.frequency.description",
                         default="Frequency: D=daily, H=hourly, M=monthly, W=weekly, auto=infer",
+                    ),
+                },
+                "feature_columns": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.feature_columns.description",
+                        default="Explanatory variable columns for regression models. If omitted, use all numeric columns except the date and target columns.",
+                    ),
+                },
+                "future_data": {
+                    "type": "string",
+                    "description": _(
+                        "param.future_data.description",
+                        default="CSV path or DataFrame JSON containing future dates and explanatory variables for regression models.",
                     ),
                 },
                 "confidence": {
@@ -452,6 +470,87 @@ def preprocess(df: pd.DataFrame, date_col: str, value_col: str) -> pd.DataFrame:
     df = df.sort_values(date_col).reset_index(drop=True)
     df = _handle_missing(df, value_col)
     return df
+
+
+def _run_regression_forecast(
+    df: pd.DataFrame,
+    date_col: str,
+    value_col: str,
+    horizon: int,
+    model_name: str,
+    feature_columns: list[str] | None,
+    future_data: str | None,
+    confidence: float,
+) -> tuple[np.ndarray, list[float], list[float], dict[str, float], dict[str, Any]]:
+    """Run a supervised regression forecast with explicit future regressors."""
+    try:
+        from sklearn.linear_model import Lasso, LinearRegression, Ridge
+        from sklearn.metrics import r2_score
+    except ImportError:
+        if not _auto_install_pkg("scikit-learn"):
+            raise ValueError("scikit-learn is required for regression models")
+        from sklearn.linear_model import Lasso, LinearRegression, Ridge
+        from sklearn.metrics import r2_score
+
+    if feature_columns is None or not feature_columns:
+        feature_columns = [
+            c for c in df.select_dtypes(include=[np.number]).columns
+            if c != value_col
+        ]
+    if not feature_columns:
+        raise ValueError("Regression models require numeric feature_columns")
+    missing = [c for c in feature_columns if c not in df.columns]
+    if missing:
+        raise ValueError(f"Feature columns not found: {', '.join(missing)}")
+    if not future_data:
+        raise ValueError("future_data is required for regression forecasts")
+
+    train = df[feature_columns + [value_col]].apply(pd.to_numeric, errors="coerce").dropna()
+    if len(train) < _MIN_ROWS:
+        raise DataTooSmallError(_MIN_ROWS, len(train))
+    future = load_data(future_data)
+    if date_col not in future.columns:
+        raise ValueError(f"Future data is missing date column '{date_col}'")
+    _parse_date_column(future, date_col)
+    missing_future = [c for c in feature_columns if c not in future.columns]
+    if missing_future:
+        raise ValueError(f"Future data is missing feature columns: {', '.join(missing_future)}")
+    future = future.sort_values(date_col).reset_index(drop=True).head(horizon)
+    if len(future) < horizon:
+        raise ValueError(f"Future data needs at least {horizon} rows")
+    x_future = future[feature_columns].apply(pd.to_numeric, errors="coerce")
+    if x_future.isna().any().any():
+        raise ValueError("Future feature columns must contain numeric, non-missing values")
+
+    estimators = {
+        "LinearRegression": LinearRegression(),
+        "Ridge": Ridge(alpha=1.0),
+        "Lasso": Lasso(alpha=0.001, max_iter=10000),
+    }
+    estimator = estimators[model_name]
+    x_train = train[feature_columns]
+    y_train = train[value_col]
+    estimator.fit(x_train, y_train)
+    predictions = np.asarray(estimator.predict(x_future), dtype=float)[:horizon]
+    fitted = np.asarray(estimator.predict(x_train), dtype=float)
+    residual_std = float(np.std(y_train.to_numpy() - fitted, ddof=1)) if len(train) > 2 else 0.0
+    if not np.isfinite(residual_std) or residual_std <= 0:
+        residual_std = float(np.std(y_train.to_numpy(), ddof=1) * 0.05) or 1.0
+    from statistics import NormalDist
+    z = NormalDist().inv_cdf((1.0 + max(0.0, min(1.0, confidence))) / 2.0)
+    lower = [round(float(v - z * residual_std), 4) for v in predictions]
+    upper = [round(float(v + z * residual_std), 4) for v in predictions]
+    coefficients = {
+        name: round(float(coef), 6)
+        for name, coef in zip(feature_columns, np.asarray(estimator.coef_).ravel())
+    }
+    diagnostics = {
+        "coefficients": coefficients,
+        "intercept": round(float(estimator.intercept_), 6),
+        "r2": round(float(r2_score(y_train, fitted)), 6),
+        "feature_columns": feature_columns,
+    }
+    return predictions, lower, upper, _calc_metrics(y_train.to_numpy(), fitted), diagnostics
 
 
 # ── Timeout guard ──────────────────────────────────────────────────────
@@ -1107,7 +1206,9 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("Chronos", lambda: _ChronosWrapper()))
     except (ImportError, OSError):
         # Auto-install chronos
-        if _auto_install_pkg("chronos"):
+        # The correct package is chronos-forecasting; the unrelated `chronos`
+        # package does not provide ChronosPipeline.
+        if _auto_install_pkg("chronos-forecasting"):
             try:
                 import torch
                 from chronos import ChronosPipeline
@@ -1252,7 +1353,28 @@ def run_tool(args: dict[str, Any]) -> str:
         else:
             freq = freq_arg
 
-        # 4. Model selection / training
+        # 4. Explicit regression with future explanatory variables
+        if model_name in {"LinearRegression", "Ridge", "Lasso"}:
+            forecast_vals, ci_lower, ci_upper, metrics, diagnostics = _run_regression_forecast(
+                df,
+                date_col,
+                value_col,
+                horizon,
+                model_name,
+                args.get("feature_columns"),
+                args.get("future_data"),
+                confidence,
+            )
+            result = {
+                "best_model": model_name,
+                "forecast": [round(float(v), 4) for v in forecast_vals],
+                "confidence_interval": {"lower": ci_lower, "upper": ci_upper},
+                "metrics": metrics,
+                "regression": diagnostics,
+            }
+            return json.dumps(result, ensure_ascii=False, default=str)
+
+        # 5. Model selection / training
         if model_name == "auto":
             train = df.iloc[: -max(horizon, 1)]
             valid = df.iloc[-max(horizon, 1) :]
