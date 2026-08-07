@@ -554,6 +554,21 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
     return _PROMPT_SESSION
 
 
+def _reset_prompt_sessions() -> None:
+    """Drop prompt_toolkit sessions after an interrupted/failed prompt.
+
+    PromptSession caches its Application/input context.  If a watcher calls
+    ``Application.exit`` while a tool owns stdin, that cached context can be
+    left associated with a closed Windows asyncio executor.  Reusing it makes
+    every later prompt fail with ``Application is not running`` or
+    ``Executor shutdown has been called``.  A new PromptSession is cheap and
+    is safer than reusing a poisoned one.
+    """
+    global _PROMPT_SESSION, _PROMPT_REPLY_SESSION
+    _PROMPT_SESSION = None
+    _PROMPT_REPLY_SESSION = None
+
+
 def _prompt_toolkit_input(
     prompt: str, *, is_password: bool = False, reply: bool = False
 ) -> str | None:
@@ -621,14 +636,21 @@ def _prompt_toolkit_input(
                 )
         else:
             result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
-        if result is not None and not is_password:
+        if result is None and not reply:
+            # The state watcher intentionally exits the normal prompt when a
+            # tool takes stdin.  That Application must not be reused.
+            _reset_prompt_sessions()
+        elif result is not None and not is_password:
             result = tools_util.strip_surrogates(result)
         return result
     except EOFError:
         raise
     except KeyboardInterrupt:
+        _reset_prompt_sessions()
         return None
     except Exception:
+        # Do not reuse a PromptSession whose Application/input context failed.
+        _reset_prompt_sessions()
         return None
     finally:
         if watcher is not None:

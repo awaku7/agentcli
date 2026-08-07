@@ -18,9 +18,37 @@ tr = _
 tr_ = _
 
 _IMAGE_PATH_RE = re.compile(
-    r"(?P<path>(?:[A-Za-z]:\\|\\\\|\.\/|\.\\)?(?:\"[^\"]+\"|'[^']+'|[^\s\"']+\.(?:png|jpg|jpeg|gif|webp)))",
+    r"(?P<path>(?:[A-Za-z]:\\|\\\\|\.\/|\.\\)?(?:\"[^\"]+\"|'[^']+'|[^\s\"']+\.(?:png|jpg|jpeg|gif|webp|bmp|tif|tiff)))",
     re.IGNORECASE,
 )
+
+
+_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".tif", ".tiff"}
+
+
+def is_valid_image_file(path: str) -> bool:
+    """Return True only for an existing file with a matching image signature."""
+    try:
+        p = Path(os.path.expandvars(os.path.expanduser(str(path))))
+        if not p.is_file() or p.suffix.lower() not in _IMAGE_EXTENSIONS:
+            return False
+        with p.open("rb") as f:
+            header = f.read(32)
+        if header.startswith(b"\x89PNG\r\n\x1a\n"):
+            return True
+        if header.startswith(b"\xff\xd8\xff"):
+            return True
+        if header.startswith((b"GIF87a", b"GIF89a")):
+            return True
+        if header.startswith(b"RIFF") and header[8:12] == b"WEBP":
+            return True
+        if p.suffix.lower() == ".bmp" and header.startswith(b"BM"):
+            return True
+        if p.suffix.lower() in {".tif", ".tiff"} and header[:4] in {b"II*\x00", b"MM\x00*", b"II+\x00", b"MM\x00+"}:
+            return True
+    except (OSError, ValueError, TypeError):
+        pass
+    return False
 
 
 def extract_image_paths(text: str) -> list[str]:
@@ -41,8 +69,9 @@ def extract_image_paths(text: str) -> list[str]:
         p = p.rstrip(',.;:)]}>"')
         p = p.lstrip('"')
 
-        # 重複排除（順序維持）
-        if p not in paths:
+        # 拡張子だけでなく、存在・実体（マジックバイト）も確認する。
+        # 診断中に列挙された .py/.xml/.log 等を画像として扱わない。
+        if is_valid_image_file(p) and p not in paths:
             paths.append(p)
 
     return paths
