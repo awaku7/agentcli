@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
-- **203 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **111 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
+- **220 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **128 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
 - **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
@@ -56,7 +56,7 @@ Semua penyedia berbagi perangkat dan antarmuka yang sama. Beralih berdasarkan pe
 ### ⚡ Eksekusi Alat Paralel
 
 Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparalelkannya**.
-111 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` (8 thread secara default; setel `UAGENT_PARALLEL_WORKERS` untuk diubah).
+128 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` (8 thread secara default; setel `UAGENT_PARALLEL_WORKERS` untuk diubah).
 
 **Contoh**: Tanyakan "Periksa cuaca di ibu kota Nordik" → LLM mengaktifkan `search_web` × 5 negara → kelima penelusuran dijalankan secara paralel → hasil dikumpulkan dalam satu kelompok.
 
@@ -87,7 +87,7 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/doc
 - **Ganti penyedia di tengah sesi** dengan `UAGENT_PROVIDER` — riwayat percakapan tetap tersimpan.
 - **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir.
 
-### 🛠 203 Alat
+### 🛠 220 Alat
 
 | Kategori | Alat |
 |---|---|

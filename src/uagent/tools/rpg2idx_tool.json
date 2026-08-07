@@ -12,14 +12,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "read rpg file",
-      "rpgle index",
-      "rpg procedure",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Path to the RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) source file.",
     "err.path_required": "Error: 'path' is required.",
     "err.file_not_found": "Error: File not found: {path}",
@@ -47,14 +39,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "rpgファイルを読み込む",
-      "rpgleインデックス",
-      "RPGの手順",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) ソースファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",
@@ -84,14 +68,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "leer archivo rpg",
-      "índice rpg",
-      "procedimiento rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Ruta al archivo fuente RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Error: se requiere 'ruta'.",
     "err.file_not_found": "Error: Archivo no encontrado: {path}",
@@ -119,14 +95,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "lire le fichier RPG",
-      "index rpgle",
-      "procédure rpg",
-      "IBM iRPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Chemin d'accès au fichier source RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Erreur : « chemin » est requis.",
@@ -156,14 +124,6 @@
       "RPGprogram",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "rpg 파일 읽기",
-      "RPG 인덱스",
-      "rpg 절차",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "RPG/RPGLE(.rpg/.rpgle/.sqlrpgle) 소스 파일의 경로입니다.",
     "err.path_required": "오류: '경로'가 필요합니다.",
     "err.file_not_found": "오류: 파일을 찾을 수 없습니다: {path}",
@@ -191,14 +151,6 @@
       "sqlrpgle",
       "Rollenspiel",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "RPG-Datei lesen",
-      "rpgle-Index",
-      "rpg-Prozedur",
-      "IBM i-Rollenspiel",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Pfad zur RPG/RPGLE-Quelldatei (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
@@ -228,14 +180,6 @@
       "Gioco di ruolo プ ロ グ ラ ム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "leggi file rpg",
-      "indice rpgle",
-      "procedura rpg",
-      "Gioco di ruolo IBM i",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Percorso del file sorgente RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
     "err.file_not_found": "Errore: file non trovato: {path}",
@@ -263,14 +207,6 @@
       "sqlrpgle",
       "РПГプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "прочитать файл rpg",
-      "индекс rpgle",
-      "процедура rpg",
-      "IBM и РПГ",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Путь к исходному файлу RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Ошибка: требуется «путь».",
@@ -300,14 +236,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "ler arquivo rpg",
-      "índice rpgle",
-      "procedimento rpg",
-      "IBM e RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Caminho para o arquivo de origem RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
     "err.file_not_found": "Erro: Arquivo não encontrado: {path}",
@@ -335,14 +263,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "ler arquivo rpg",
-      "índice rpgle",
-      "procedimento rpg",
-      "IBM e RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Caminho para o arquivo de origem RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
@@ -372,14 +292,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "baca file rpg",
-      "indeks rpgle",
-      "prosedur rpg",
-      "IBM dan RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Jalur ke file sumber RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Kesalahan: 'jalur' diperlukan.",
     "err.file_not_found": "Kesalahan: File tidak ditemukan: {path}",
@@ -407,14 +319,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "đọc tập tin rpg",
-      "chỉ mục rpgle",
-      "thủ tục rpg",
-      "IBM và RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Đường dẫn đến tệp nguồn RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
@@ -444,14 +348,6 @@
       "RPG",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "przeczytaj plik rpg",
-      "indeks rpgle",
-      "procedura rpg",
-      "RPG IBM i",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Ścieżka do pliku źródłowego RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Błąd: wymagana jest ścieżka.",
     "err.file_not_found": "Błąd: Nie znaleziono pliku: {path}",
@@ -479,14 +375,6 @@
       "एसक्यूएलआरपीजीएल",
       "आरपीजीプログラム",
       "आरपीजीएलई"
-    ],
-    "x_search_terms_en": [
-      "आरपीजी फ़ाइल पढ़ें",
-      "आरपीजीएल इंडेक्स",
-      "आरपीजी प्रक्रिया",
-      "आईबीएम आई आरपीजी",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) स्रोत फ़ाइल का पथ।",
     "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
@@ -516,14 +404,6 @@
       "آر بي جي (プ ロ グ ラ ム).",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "قراءة ملف rpg",
-      "فهرس rpgle",
-      "إجراء rpg",
-      "آي بي إم و آر بي جي",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "المسار إلى الملف المصدر RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
     "err.file_not_found": "خطأ: لم يتم العثور على الملف: {path}",
@@ -551,14 +431,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "läs rpg file",
-      "rpgle index",
-      "rpg-förfarande",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Sökväg till källfilen RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Fel: 'sökväg' krävs.",
@@ -588,14 +460,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "soma faili ya rpg",
-      "rpgle index",
-      "rpg utaratibu",
-      "IBM na RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Njia ya kwenda kwa faili chanzo cha RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Hitilafu: 'njia' inahitajika.",
     "err.file_not_found": "Hitilafu: Faili haijapatikana: {path}",
@@ -623,14 +487,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "les rpg-fil",
-      "rpgle-indeks",
-      "rpg-prosedyre",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Banen til kildefilen RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Feil: 'bane' er påkrevd.",
@@ -660,14 +516,6 @@
       "RPG-versie",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "lees rpg-bestand",
-      "rpgle-index",
-      "rpg-procedure",
-      "IBM i-RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Pad naar het RPG/RPGLE-bronbestand (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Fout: 'pad' is vereist.",
     "err.file_not_found": "Fout: Bestand niet gevonden: {path}",
@@ -695,14 +543,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "lue rpg-tiedosto",
-      "rpgle-indeksi",
-      "rpg-menettely",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Polku RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) lähdetiedostoon.",
     "err.path_required": "Virhe: polku vaaditaan.",
@@ -732,14 +572,6 @@
       "RPG hra",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "čtení souboru rpg",
-      "index rpgle",
-      "procedura rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Cesta ke zdrojovému souboru RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Chyba: je vyžadována cesta.",
     "err.file_not_found": "Chyba: Soubor nenalezen: {path}",
@@ -767,14 +599,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "читати файл rpg",
-      "індекс rpgle",
-      "процедура rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Шлях до вихідного файлу RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Помилка: потрібен \"шлях\".",
@@ -804,14 +628,6 @@
       "RPG oyunu",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "rpg dosyasını oku",
-      "rpgle indeksi",
-      "rpg prosedürü",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) kaynak dosyasının yolu.",
     "err.path_required": "Hata: 'yol' gerekli.",
     "err.file_not_found": "Hata: Dosya bulunamadı: {path}",
@@ -839,14 +655,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "อ่านไฟล์ rpg",
-      "ดัชนี RPG",
-      "โพรซีเดอร์ rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์ต้นฉบับ RPG/RPGLE (.rpg/.rpgle/.sqlrpgle)",
     "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
@@ -876,14 +684,6 @@
       "角色扮演游戏",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "读取rpg文件",
-      "rpgle索引",
-      "rpg程序",
-      "IBM i 角色扮演游戏",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) 源文件的路径。",
     "err.path_required": "错误：“路径”是必需的。",
     "err.file_not_found": "错误：找不到文件：{path}",
@@ -911,14 +711,6 @@
       "sqlrpgle",
       "角色扮演遊戲",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "讀取rpg檔",
-      "rpgle索引",
-      "rpg程式",
-      "IBM i 角色扮演遊戲",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) 原始檔的路徑。",
     "err.path_required": "錯誤：「路徑」是必需的。",
@@ -948,14 +740,6 @@
       "RPG プログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "rpg ফাইল পড়ুন",
-      "rpgle সূচক",
-      "rpg পদ্ধতি",
-      "আইবিএম এবং আরপিজি",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) সোর্স ফাইলের পথ।",
     "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
     "err.file_not_found": "ত্রুটি: ফাইল পাওয়া যায়নি: {path}",
@@ -983,14 +767,6 @@
       "sqlrpgle",
       "RPG",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "خواندن فایل rpg",
-      "شاخص rpgle",
-      "rpg رویه",
-      "IBM و RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "مسیر فایل منبع RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
@@ -1020,14 +796,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "rpg файлыг унших",
-      "rpgle индекс",
-      "rpg процедур",
-      "IBM болон RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) эх файлын зам.",
     "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
     "err.file_not_found": "Алдаа: Файл олдсонгүй: {path}",
@@ -1055,14 +823,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "rpg फाइल वाचा",
-      "आरपीजीएल निर्देशांक",
-      "rpg process",
-      "IBM आणि RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) स्रोत फाइलचा मार्ग.",
     "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
@@ -1092,14 +852,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "ανάγνωση αρχείου rpg",
-      "ευρετήριο rpgle",
-      "rpg διαδικασία",
-      "IBM και RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Διαδρομή προς το αρχείο προέλευσης RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
     "err.file_not_found": "Σφάλμα: Το αρχείο δεν βρέθηκε: {path}",
@@ -1127,14 +879,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "קרא קובץ rpg",
-      "אינדקס rpgle",
-      "הליך rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "נתיב לקובץ המקור RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "שגיאה: נדרש 'נתיב'.",
@@ -1164,14 +908,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "rpg fájl olvasása",
-      "rpgle index",
-      "rpg eljárás",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Az RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) forrásfájl elérési útja.",
     "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
     "err.file_not_found": "Hiba: A fájl nem található: {path}",
@@ -1199,14 +935,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "citiți fișierul rpg",
-      "indexul rpgle",
-      "procedura rpg",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Calea către fișierul sursă RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Eroare: este necesară „calea”.",
@@ -1236,14 +964,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "basahin ang rpg file",
-      "rpgle index",
-      "pamamaraan ng rpg",
-      "IBM at RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Path sa RPG/RPGLE (.rpg/.rpgle/.sqlrpgle) source file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
     "err.file_not_found": "Error: Hindi nakita ang file: {path}",
@@ -1271,14 +991,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "baca fail rpg",
-      "indeks rpgle",
-      "prosedur rpg",
-      "IBM dan RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Laluan ke fail sumber RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Ralat: 'laluan' diperlukan.",
@@ -1308,14 +1020,6 @@
       "RPGプログラム",
       "RPGLE"
     ],
-    "x_search_terms_en": [
-      "læs rpg file",
-      "rpgle indeks",
-      "rpg procedure",
-      "IBM og RPG",
-      "dcl-proc",
-      "begsr"
-    ],
     "param.path.description": "Sti til kildefilen RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Fejl: 'sti' er påkrævet.",
     "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
@@ -1343,14 +1047,6 @@
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
-    ],
-    "x_search_terms_en": [
-      "les rpg-fil",
-      "rpgle-indeks",
-      "rpg-prosedyre",
-      "IBM i RPG",
-      "dcl-proc",
-      "begsr"
     ],
     "param.path.description": "Banen til kildefilen RPG/RPGLE (.rpg/.rpgle/.sqlrpgle).",
     "err.path_required": "Feil: 'bane' er påkrevd.",

@@ -29,7 +29,10 @@ TOOL_SPEC = {
                 "mode": {"type": "string", "enum": ["index", "section"]},
                 "section": {
                     "type": "integer",
-                    "description": "Section number for section mode.",
+                    "description": _(
+                        "param.section.description",
+                        default="Section number for section mode.",
+                    ),
                 },
             },
             "required": ["path", "mode"],

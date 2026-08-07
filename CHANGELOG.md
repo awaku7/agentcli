@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- refactor(tools): split `code_map` internals behind the stable `code_map_tool.py` facade
+- feat(code_map): add multilingual symbol, relation, manifest, lockfile, cache, CMake, and renderer support
+- feat(code_map): add COBOL COPY/CALL and Objective-C/Objective-C++ include analysis
+- feat(code_map): add dependency edges, transitive dependency metadata, local classpath candidates, TFM metadata, and deterministic version conflict reporting
+- fix(i18n): keep the complete `code_map_tool.json` catalog at the public facade path
+- fix(screenshot): tolerate mocked capture backends that do not materialize an image file
+
 ## [0.5.67] - 2026-08-06
 
 ### Added
@@ -11,7 +22,6 @@
 
 - docs: standardize multilingual MCP guide links
 - i18n: improve localized search-term handling and Visual Studio catalog coverage
-
 
 ## [0.5.66] - 2026-08-05
 

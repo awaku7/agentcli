@@ -14,9 +14,9 @@ Første gang guider opsætningsguiden dig gennem konfigurationen. Se [miljøvari
 ## Nøglefunktioner
 
 - **24 udbydere**: OpenAI, PFN (PLaMo), Azure, Bedrock, OpenRouter, Ollama, Gemini, Vertex AI, Claude, Grok, NVIDIA, Novita, DeepSeek, Z.AI, HuggingFace, Alibaba Cloud, Moonshot, Xiaomi MiMo, LM Studio, MiniMax, Sakana AI, SAKURA AI Engine, Together AI og Vercel AI Gateway.
-- **203 værktøjer** til filhåndtering, websøgning, billeder, lyd, dokumenter, IoT, MCP, A2A og udvikling.
+- **220 værktøjer** til filhåndtering, websøgning, billeder, lyd, dokumenter, IoT, MCP, A2A og udvikling.
 - **Cloud-API’er**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
-- **111 værktøjer** er markeret som `x_parallel_safe` og kan køres parallelt.
+- **128 værktøjer** er markeret som `x_parallel_safe` og kan køres parallelt.
 - **4 tilgange**: CLI, GUI, Web og A2A samt en VS Code-udvidelse.
 - Dynamisk indlæsning af værktøjer, Agent Skills, sessionskontinuitet og lokal drift.
 

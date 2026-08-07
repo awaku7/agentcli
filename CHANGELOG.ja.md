@@ -1,5 +1,16 @@
 # 変更履歴
 
+## [未リリース]
+
+### 変更
+
+- refactor(tools): 安定した`code_map_tool.py` Facadeの背後へ`code_map`内部実装を分割
+- feat(code_map): シンボル、関係、manifest、lockfile、キャッシュ、CMake、rendererの多言語対応を拡張
+- feat(code_map): COBOL COPY/CALLおよびObjective-C/Objective-C++のinclude解析を追加
+- feat(code_map): dependency_edges、推移依存メタデータ、ローカルclasspath候補、TFM情報、決定的なバージョン競合報告を追加
+- fix(i18n): 公開Facade側の`code_map_tool.json`に完全なカタログを集約
+- fix(screenshot): 画像を生成しないモックキャプチャバックエンドに対応
+
 ## [0.5.67] - 2026-08-06
 
 ### 追加
@@ -11,7 +22,6 @@
 
 - docs: 多言語MCPガイドのリンク表記を標準化
 - i18n: ローカライズ検索語の補完とVisual Studioカタログの対応範囲を改善
-
 
 ## [0.5.66] - 2026-08-05
 

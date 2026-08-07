@@ -76,7 +76,11 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "replace_in_file",
         "description": _(
             "tool.description",
-            default="Safely edit text files (literal/regex replace, insert, append). Supports backslash escape in patterns.",
+            default=(
+                "Safely edit one text file or multiple files selected by glob. Supports literal/regex replacement, "
+                "insert, append, and replace_all_in_files for the same change across a file set. "
+                "Preview broad replacements before applying them. Supports backslash escapes in patterns."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -93,6 +97,14 @@ TOOL_SPEC: dict[str, Any] = {
                 "text editing",
                 "find replace",
                 "search replace",
+                "replace multiple files",
+                "bulk replace",
+                "batch edit",
+                "glob replace",
+                "replace all files",
+                "複数ファイル置換",
+                "一括置換",
+                "glob置換",
             ],
         ),
         "x_search_terms_en": [
@@ -108,6 +120,12 @@ TOOL_SPEC: dict[str, Any] = {
             "text editing",
             "find replace",
             "search replace",
+            "replace multiple files",
+            "bulk replace",
+            "batch edit",
+            "glob replace",
+            "replace all files",
+            "replace_all_in_files",
         ],
         "parameters": {
             "type": "object",

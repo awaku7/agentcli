@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Toimii paikallisesti** tietokoneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **203 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa \`UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
+- **220 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **128 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa \`UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
@@ -56,7 +56,7 @@ Kaikilla palveluntarjoajilla on sama työkalusarja ja käyttöliittymä. Vaihda 
 ### ⚡ Työkalun rinnakkaissuoritus
 
 Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne automaattisesti.
-111 työkalut on merkitty "x_parallel_safe" ja suoritetaan samanaikaisesti "ThreadPoolExecutorin" kautta (oletusarvoisesti 8 säiettä; muuta "UAGENT_PARALLEL_WORKERS").
+128 työkalut on merkitty "x_parallel_safe" ja suoritetaan samanaikaisesti "ThreadPoolExecutorin" kautta (oletusarvoisesti 8 säiettä; muuta "UAGENT_PARALLEL_WORKERS").
 
 **Esimerkki**: Kysy "Tarkista sää Pohjoismaiden pääkaupungeissa" → LLM laukaisee `search_web` × 5 maata → kaikki 5 hakua suoritetaan rinnakkain → tulokset kerätään yhdessä erässä.
 
@@ -87,7 +87,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 - **Vaihda palveluntarjoajaa istunnon aikana** käyttämällä muuttujaa `UAGENT_PROVIDER` — keskusteluhistoria säilyy.
 - **Lataa aiemmat istunnot uudelleen** komennolla `:load <index>` — jatka siitä, mihin jäit.
 
-### 🛠 203 Työkalut
+### 🛠 220 Työkalut
 
 | Luokka | Työkalut |
 |---|---|

@@ -12,7 +12,18 @@ ______________________________________________________________________
 
 ### 変更対象
 
-- `src/uagent/tools/code_map_tool.py`
+- `src/uagent/tools/code_map_tool.py`（公開Facade）
+- `src/uagent/tools/code_map_impl/`（内部実装）
+  - `language_detection.py`
+  - `symbols.py`
+  - `relations.py`
+  - `resolvers.py`
+  - `manifests.py`
+  - `lockfiles.py`
+  - `caches.py`
+  - `cmake.py`
+  - `conflicts.py`
+  - `renderers.py`
 
 ### 仕様確認対象
 
@@ -520,3 +531,36 @@ ______________________________________________________________________
 - `code_map`専用テスト: 検査時点では確認できず
 - サブエージェント検査: 使用モデルが`temperature=0.2`を受け付けず実行不能
 - 検査報告作成時点のGit作業ツリー: 実装変更なし
+
+## 現在の実装状態（2026-08-07）
+
+### 内部構成
+
+`code_map_tool.py`は公開Facadeとして維持し、TOOL_SPEC、run_tool、I18Nカタログの参照先を変えない。実装は`code_map_impl/`へ分割している。
+
+### 依存関係解析
+
+以下を静的に解析する。
+
+- Python、TypeScript/JavaScript、Go、Rust
+- Java/Kotlin/Scala、C/C++、C#
+- PHP、Ruby、Swift、Dart、Lua、R
+- COBOLのCOPY/CALL
+- Objective-C/Objective-C++の#import/#include
+- manifest、lockfile、ローカルキャッシュ
+- dependency_edges、transitive_dependencies、resolved_paths、classpath_paths
+- バージョン競合、TFM、Maven scope/optional/exclusions
+- CMakeの保守的なif/elseif/else、NOT/AND/OR、変数展開
+
+### I18N
+
+公開I18Nカタログは`src/uagent/tools/code_map_tool.json`に集約する。内部モジュールに個別の翻訳カタログを作らない。全ロケールの説明と検索語をカタログへ反映する。
+
+### 検証
+
+- `tests/test_code_map_tool.py`
+- 全体pytest
+- 内部モジュールのpython_compile
+- `system_reload`
+
+を変更後に実行する。

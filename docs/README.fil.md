@@ -14,9 +14,9 @@ Sa unang paggamit, gagabayan ka ng setup wizard sa pag-configure ng provider. Ti
 ## Mahahalagang feature
 
 - **24 provider**: OpenAI, PFN (PLaMo), Azure, Bedrock, OpenRouter, Ollama, Gemini, Vertex AI, Claude, Grok, NVIDIA, Novita, DeepSeek, Z.AI, HuggingFace, Alibaba Cloud, Moonshot, Xiaomi MiMo, LM Studio, MiniMax, Sakana AI, SAKURA AI Engine, Together AI, at Vercel AI Gateway.
-- **203 tool** para sa file I/O, web search, larawan, audio, dokumento, IoT, MCP, A2A, at development.
+- **220 tool** para sa file I/O, web search, larawan, audio, dokumento, IoT, MCP, A2A, at development.
 - **Mga Cloud API**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
-- **111 tool** ang may markang `x_parallel_safe` at maaaring patakbuhin nang sabay-sabay.
+- **128 tool** ang may markang `x_parallel_safe` at maaaring patakbuhin nang sabay-sabay.
 - **4 na interface**: CLI, GUI, Web, at A2A, kasama ang VS Code extension.
 - Dynamic tool loading, Agent Skills, session continuity, at lokal na pagpapatakbo.
 

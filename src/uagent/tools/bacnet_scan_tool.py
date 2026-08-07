@@ -129,7 +129,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_genre": "iot",
     "tool_level": 1,
     "type": "function",
-    "x_parallel_safe": False,
+    "x_parallel_safe": True,
     "function": {
         "name": "bacnet_scan",
         "description": _(

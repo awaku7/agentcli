@@ -19,7 +19,7 @@
     "summary.matches": "{count} match(es)",
     "summary.no_change": "Successfully no change (0 matches)",
     "summary.preview_matches": "Preview: {count} matches found",
-    "tool.description": "Safely edit text files (literal/regex replace, insert, append). Supports backslash escape in patterns.",
+    "tool.description": "Safely edit text files (literal/regex replace, insert, append). Supports backslash escape in patterns. Supports editing multiple files selected by glob with replace_all_in_files.",
     "x_search_terms": [
       "replace_in_file",
       "replace in file",
@@ -32,7 +32,13 @@
       "text replacement",
       "text editing",
       "find replace",
-      "search replace"
+      "search replace",
+      "replace multiple files",
+      "bulk replace",
+      "batch edit",
+      "glob replace",
+      "replace all files",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: pattern).",
     "param.anchor_before.description": "Anchor text. For insert_before: text to search and insert before that line. For replace_between: start boundary.",
@@ -85,7 +91,7 @@
     "summary.matches": "{count} 件の一致",
     "summary.no_change": "変更なし（0 件の一致）",
     "summary.preview_matches": "プレビュー: {count} 件の一致が見つかりました",
-    "tool.description": "テキストファイルを安全に編集（リテラル/正規表現置換、挿入、追記）。エスケープシーケンス対応。",
+    "tool.description": "テキストファイルを安全に編集（リテラル/正規表現置換、挿入、追記）。エスケープシーケンス対応。 globで選択した複数ファイルのreplace_all_in_filesにも対応します。",
     "x_search_terms": [
       "ファイル内置換",
       "ファイル置換",
@@ -98,7 +104,13 @@
       "文字列編集",
       "ファイル修正",
       "置換編集",
-      "編集置換"
+      "編集置換",
+      "複数ファイル置換",
+      "一括置換",
+      "バッチ編集",
+      "glob置換",
+      "全ファイル置換",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid（省略時はpatternを使用）。",
     "param.anchor_before.description": "アンカーテキスト。insert_beforeの場合: このテキストを検索し、その行の前に挿入。replace_betweenの場合: 開始境界。",
@@ -151,7 +163,7 @@
     "summary.matches": "{count} coincidencia(s)",
     "summary.no_change": "Sin cambios (0 coincidencias)",
     "summary.preview_matches": "Vista previa: {count} coincidencias encontradas",
-    "tool.description": "Edita archivos de texto de forma segura.",
+    "tool.description": "Edita archivos de texto de forma segura. Admite editar varios archivos seleccionados mediante glob con replace_all_in_files.",
     "x_search_terms": [
       "reemplazar archivo",
       "editar archivo",
@@ -164,7 +176,13 @@
       "reemplazo de texto",
       "edición de texto",
       "corregir archivo",
-      "modificar archivo"
+      "modificar archivo",
+      "reemplazo de varios archivos",
+      "reemplazo masivo",
+      "edición por lotes",
+      "reemplazo glob",
+      "reemplazar todos los archivos",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (alternativa: patrón).",
     "param.anchor_before.description": "Texto ancla. Para insert_before: texto a buscar e insertar antes de esa línea. Para replace_between: límite inicial.",
@@ -217,7 +235,7 @@
     "summary.matches": "{count} correspondance(s)",
     "summary.no_change": "Aucun changement réussi (0 correspondances)",
     "summary.preview_matches": "Aperçu : {count} correspondances trouvées",
-    "tool.description": "Modifie les fichiers texte en toute sécurité.",
+    "tool.description": "Modifie les fichiers texte en toute sécurité. Prend en charge la modification de plusieurs fichiers sélectionnés avec glob via replace_all_in_files.",
     "x_search_terms": [
       "remplacer fichier",
       "éditer fichier",
@@ -230,7 +248,13 @@
       "remplacement texte",
       "édition texte",
       "corriger fichier",
-      "modifier fichier"
+      "modifier fichier",
+      "remplacement de plusieurs fichiers",
+      "remplacement en masse",
+      "édition par lots",
+      "remplacement glob",
+      "remplacer tous les fichiers",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (repli : modèle).",
     "param.anchor_before.description": "Texte d'ancrage. Pour insert_before : texte à rechercher et à insérer avant cette ligne. Pour replace_between : début de la limite.",
@@ -283,7 +307,7 @@
     "summary.matches": "{count}개 일치",
     "summary.no_change": "변경 사항 없음 (0개 일치)",
     "summary.preview_matches": "미리보기: {count}개의 일치 항목 발견",
-    "tool.description": "텍스트 파일 안전 편집(리터럴/정규식 치환, 삽입, 추가). 이스케이프 시퀀스 지원.",
+    "tool.description": "텍스트 파일 안전 편집(리터럴/정규식 치환, 삽입, 추가). 이스케이프 시퀀스 지원. glob으로 여러 파일을 선택하는 replace_all_in_files를 지원합니다.",
     "x_search_terms": [
       "파일 바꾸기",
       "파일 편집",
@@ -296,7 +320,13 @@
       "텍스트 교체",
       "텍스트 수정",
       "파일 교정",
-      "파일 변경"
+      "파일 변경",
+      "여러 파일 치환",
+      "일괄 치환",
+      "배치 편집",
+      "glob 치환",
+      "모든 파일 치환",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid(생략시 pattern 사용).",
     "param.anchor_before.description": "앵커 텍스트. insert_before의 경우: 해당 줄 앞에 검색하여 삽입할 텍스트입니다. replace_between의 경우: 경계를 시작합니다.",
@@ -349,7 +379,7 @@
     "summary.matches": "{count} Treffer",
     "summary.no_change": "Erfolgreich, keine Änderung (0 Treffer)",
     "summary.preview_matches": "Vorschau: {count} Treffer gefunden",
-    "tool.description": "Textdateien sicher bearbeiten.",
+    "tool.description": "Textdateien sicher bearbeiten. Unterstützt die Bearbeitung mehrerer per glob ausgewählter Dateien mit replace_all_in_files.",
     "x_search_terms": [
       "datei ersetzen",
       "datei bearbeiten",
@@ -362,7 +392,13 @@
       "textersatz",
       "textbearbeitung",
       "datei ändern",
-      "datei korrigieren"
+      "datei korrigieren",
+      "mehrere Dateien ersetzen",
+      "Massenersetzung",
+      "Stapelbearbeitung",
+      "glob-Ersetzung",
+      "alle Dateien ersetzen",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (Fallback: Muster).",
     "param.anchor_before.description": "Ankertext. Für insert_before: Text, der vor dieser Zeile gesucht und eingefügt werden soll. Für replace_between: Startgrenze.",
@@ -415,7 +451,7 @@
     "summary.matches": "{count} corrispondenze",
     "summary.no_change": "Nessuna modifica riuscita (0 corrispondenze)",
     "summary.preview_matches": "Anteprima: {count} corrispondenze trovate",
-    "tool.description": "Modifica in modo sicuro i file di testo.",
+    "tool.description": "Modifica in modo sicuro i file di testo. Supporta la modifica di più file selezionati tramite glob con replace_all_in_files.",
     "x_search_terms": [
       "sostituire file",
       "modificare file",
@@ -428,7 +464,13 @@
       "sostituzione testo",
       "modifica testo",
       "correggere file",
-      "cambiare file"
+      "cambiare file",
+      "sostituzione di più file",
+      "sostituzione in blocco",
+      "modifica batch",
+      "sostituzione glob",
+      "sostituisci tutti i file",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: modello).",
     "param.anchor_before.description": "Testo di ancoraggio. Per insert_before: testo da cercare e inserire prima di quella riga. Per replace_between: confine iniziale.",
@@ -481,7 +523,7 @@
     "summary.matches": "{count} совпадений",
     "summary.no_change": "Без изменений (0 совпадений)",
     "summary.preview_matches": "Предварительный просмотр: найдено {count} совпадений",
-    "tool.description": "Безопасно редактирует текстовые файлы.",
+    "tool.description": "Безопасно редактирует текстовые файлы. Поддерживает редактирование нескольких файлов, выбранных через glob, с помощью replace_all_in_files.",
     "x_search_terms": [
       "заменить файл",
       "редактировать файл",
@@ -494,7 +536,13 @@
       "замена текста",
       "правка текста",
       "исправить файл",
-      "изменить файл"
+      "изменить файл",
+      "замена нескольких файлов",
+      "массовая замена",
+      "пакетное редактирование",
+      "замена glob",
+      "заменить все файлы",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (резервный вариант: шаблон).",
     "param.anchor_before.description": "Текст привязки. Для insert_before: текст для поиска и вставки перед этой строкой. Для replace_between: начальная граница.",
@@ -547,7 +595,7 @@
     "summary.matches": "{count} correspondência(s)",
     "summary.no_change": "Nenhuma alteração com sucesso (0 correspondências)",
     "summary.preview_matches": "Visualização: {count} correspondências encontradas",
-    "tool.description": "Edita arquivos de texto com segurança.",
+    "tool.description": "Edita arquivos de texto com segurança. Suporta a edição de vários arquivos selecionados por glob com replace_all_in_files.",
     "x_search_terms": [
       "substituir arquivo",
       "editar arquivo",
@@ -560,7 +608,13 @@
       "substituição de texto",
       "edição de texto",
       "corrigir arquivo",
-      "modificar arquivo"
+      "modificar arquivo",
+      "substituir vários arquivos",
+      "substituição em massa",
+      "edição em lote",
+      "substituição glob",
+      "substituir todos os arquivos",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: padrão).",
     "param.anchor_before.description": "Texto âncora. Para insert_before: texto a ser pesquisado e inserido antes dessa linha. Para replace_between: limite inicial.",
@@ -613,7 +667,7 @@
     "summary.matches": "{count} correspondência(s)",
     "summary.no_change": "Nenhuma alteração com sucesso (0 correspondências)",
     "summary.preview_matches": "Visualização: {count} correspondências encontradas",
-    "tool.description": "Edita ficheiros de texto com segurança.",
+    "tool.description": "Edita ficheiros de texto com segurança. Suporta a edição de vários ficheiros selecionados por glob com replace_all_in_files.",
     "x_search_terms": [
       "substituir ficheiro",
       "editar ficheiro",
@@ -626,7 +680,13 @@
       "substituição de texto",
       "edição de texto",
       "corrigir ficheiro",
-      "modificar ficheiro"
+      "modificar ficheiro",
+      "substituir vários ficheiros",
+      "substituição em massa",
+      "edição em lote",
+      "substituição glob",
+      "substituir todos os ficheiros",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: padrão).",
     "param.anchor_before.description": "Texto âncora. Para insert_before: texto a ser pesquisado e inserido antes dessa linha. Para replace_between: limite inicial.",
@@ -679,7 +739,7 @@
     "summary.matches": "{count} kecocokan",
     "summary.no_change": "Berhasil tidak ada perubahan (0 cocok)",
     "summary.preview_matches": "Pratinjau: {count} kecocokan ditemukan",
-    "tool.description": "Mengedit file teks dengan aman.",
+    "tool.description": "Mengedit file teks dengan aman. Mendukung pengeditan beberapa file yang dipilih dengan glob menggunakan replace_all_in_files.",
     "x_search_terms": [
       "ganti file",
       "edit file",
@@ -692,7 +752,13 @@
       "penggantian teks",
       "penyuntingan teks",
       "perbaiki file",
-      "ubah file"
+      "ubah file",
+      "penggantian beberapa file",
+      "penggantian massal",
+      "edit batch",
+      "penggantian glob",
+      "ganti semua file",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "pesan gettext (fallback: pattern).",
     "param.anchor_before.description": "Teks jangkar. Untuk insert_before: teks yang akan dicari dan disisipkan sebelum baris itu. Untuk replace_between: batas awal.",
@@ -745,7 +811,7 @@
     "summary.matches": "{count} trận đấu",
     "summary.no_change": "Không có thay đổi thành công (0 kết quả phù hợp)",
     "summary.preview_matches": "Xem trước: Đã tìm thấy {count} kết quả phù hợp",
-    "tool.description": "Chỉnh sửa tệp văn bản một cách an toàn.",
+    "tool.description": "Chỉnh sửa tệp văn bản một cách an toàn. Hỗ trợ chỉnh sửa nhiều tệp được chọn bằng glob với replace_all_in_files.",
     "x_search_terms": [
       "thay tệp",
       "sửa tệp",
@@ -758,7 +824,13 @@
       "đổi văn bản",
       "chỉnh sửa văn bản",
       "sửa file",
-      "đổi file"
+      "đổi file",
+      "thay thế nhiều tệp",
+      "thay thế hàng loạt",
+      "chỉnh sửa hàng loạt",
+      "thay thế glob",
+      "thay thế mọi tệp",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "thông điệp gettext (dự phòng: mẫu).",
     "param.anchor_before.description": "Văn bản neo. Đối với insert_before: văn bản cần tìm kiếm và chèn trước dòng đó. Đối với replace_between: ranh giới bắt đầu.",
@@ -811,7 +883,7 @@
     "summary.matches": "{count} mecze",
     "summary.no_change": "Pomyślnie bez zmian (0 dopasowań)",
     "summary.preview_matches": "Podgląd: znaleziono dopasowania {count}",
-    "tool.description": "Bezpiecznie edytuje pliki tekstowe.",
+    "tool.description": "Bezpiecznie edytuje pliki tekstowe. Obsługuje edycję wielu plików wybranych przez glob za pomocą replace_all_in_files.",
     "x_search_terms": [
       "zastąp plik",
       "edytuj plik",
@@ -824,7 +896,13 @@
       "zastąpienie tekstu",
       "edycja tekstu",
       "popraw plik",
-      "zmień plik"
+      "zmień plik",
+      "zamiana wielu plików",
+      "zamiana zbiorcza",
+      "edycja wsadowa",
+      "zamiana glob",
+      "zamień wszystkie pliki",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (zastępczy: wzór).",
     "param.anchor_before.description": "Tekst kotwicy. Dla insert_before: tekst do wyszukania i wstawienia przed tą linią. Dla replace_between: granica początkowa.",
@@ -877,7 +955,7 @@
     "summary.matches": "{count} मिलान",
     "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं (0 मैच)",
     "summary.preview_matches": "पूर्वावलोकन: {count} मिलान मिले",
-    "tool.description": "मोड: शाब्दिक या नियमित। (शाब्दिक/रेगेक्स बदलें, डालें, जोड़ें)।",
+    "tool.description": "मोड: शाब्दिक या नियमित। (शाब्दिक/रेगेक्स बदलें, डालें, जोड़ें)। glob से चुनी गई कई फ़ाइलों को replace_all_in_files से संपादित करना समर्थित है।",
     "x_search_terms": [
       "फ़ाइल बदलें",
       "फ़ाइल संपादित करें",
@@ -890,7 +968,13 @@
       "पाठ प्रतिस्थापन",
       "पाठ संपादन",
       "फ़ाइल सुधारें",
-      "फ़ाइल संशोधित करें"
+      "फ़ाइल संशोधित करें",
+      "कई फ़ाइलों का प्रतिस्थापन",
+      "थोक प्रतिस्थापन",
+      "बैच संपादन",
+      "glob प्रतिस्थापन",
+      "सभी फ़ाइलें बदलें",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "टेक्स्ट संदेश प्राप्त करें (फ़ॉलबैक: पैटर्न)।",
     "param.anchor_before.description": "एंकर पाठ. insert_before के लिए: खोजने के लिए टेक्स्ट और उस पंक्ति से पहले डालें। replace_between के लिए: प्रारंभ सीमा.",
@@ -943,7 +1027,7 @@
     "summary.matches": "{count} مطابقة (تطابقات)",
     "summary.no_change": "لم يتم التغيير بنجاح (0 تطابقات)",
     "summary.preview_matches": "المعاينة: تم العثور على {count} تطابقات",
-    "tool.description": "يحرّر ملفات النص بأمان.",
+    "tool.description": "يحرّر ملفات النص بأمان. يدعم تحرير عدة ملفات محددة بواسطة glob باستخدام replace_all_in_files.",
     "x_search_terms": [
       "استبدال ملف",
       "تحرير ملف",
@@ -956,7 +1040,13 @@
       "استبدال النص",
       "تحرير النص",
       "إصلاح ملف",
-      "تعديل ملف"
+      "تعديل ملف",
+      "استبدال ملفات متعددة",
+      "استبدال جماعي",
+      "تحرير دفعي",
+      "استبدال glob",
+      "استبدال جميع الملفات",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (الرجوع: النمط).",
     "param.anchor_before.description": "نص مرساة. بالنسبة إلى insert_before: النص المطلوب البحث عنه وإدراجه قبل هذا السطر. بالنسبة لـ replace_between: حدود البداية.",
@@ -1009,7 +1099,7 @@
     "summary.matches": "{count} träff(ar)",
     "summary.no_change": "Lyckades utan ändring (0 träffar)",
     "summary.preview_matches": "Förhandsgranskning: {count} matchningar hittades",
-    "tool.description": "Redigera textfiler säkert.",
+    "tool.description": "Redigera textfiler säkert. Stöder redigering av flera filer valda med glob med replace_all_in_files.",
     "x_search_terms": [
       "ersätt fil",
       "redigera fil",
@@ -1022,7 +1112,13 @@
       "textersättning",
       "textredigering",
       "korrigera fil",
-      "ändra fil"
+      "ändra fil",
+      "ersätt flera filer",
+      "massersättning",
+      "batchredigering",
+      "glob-ersättning",
+      "ersätt alla filer",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (återgång: mönster).",
     "param.anchor_before.description": "Ankare text. För insert_before: text att söka och infoga före den raden. För replace_between: startgräns.",
@@ -1075,7 +1171,7 @@
     "summary.matches": "{count} zinazolingana",
     "summary.no_change": "Hakuna mabadiliko (vinavyolingana 0)",
     "summary.preview_matches": "Hakiki: {count} zinazolingana zimepatikana",
-    "tool.description": "Hariri faili za maandishi kwa usalama.",
+    "tool.description": "Hariri faili za maandishi kwa usalama. Inasaidia kuhariri faili nyingi zilizochaguliwa kwa glob kwa kutumia replace_all_in_files.",
     "x_search_terms": [
       "badilisha faili",
       "hariri faili",
@@ -1088,7 +1184,13 @@
       "badilishaji maandishi",
       "uhariri maandishi",
       "rekebisha faili",
-      "badilisha faili"
+      "badilisha faili",
+      "kubadilisha faili nyingi",
+      "badilisha kwa wingi",
+      "uhariri wa kundi",
+      "badilisha glob",
+      "badilisha faili zote",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (rudi nyuma: muundo).",
     "param.anchor_before.description": "Maandishi ya nanga. Kwa insert_before: maandishi ya kutafuta na kuingiza kabla ya mstari huo. Kwa replace_between: mpaka wa kuanzia.",
@@ -1141,7 +1243,7 @@
     "summary.matches": "{count} treff",
     "summary.no_change": "Vellykket uten endring (0 treff)",
     "summary.preview_matches": "Forhåndsvisning: {count} treff funnet",
-    "tool.description": "Rediger tekstfiler trygt.",
+    "tool.description": "Rediger tekstfiler trygt. Støtter redigering av flere filer valgt med glob ved hjelp av replace_all_in_files.",
     "x_search_terms": [
       "erstatt fil",
       "rediger fil",
@@ -1154,7 +1256,13 @@
       "teksterstatning",
       "tekstredigering",
       "korriger fil",
-      "endre fil"
+      "endre fil",
+      "erstatte flere filer",
+      "masseerstatning",
+      "batchredigering",
+      "glob-erstatning",
+      "erstatt alle filer",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (reserve: mønster).",
     "param.anchor_before.description": "Ankertekst. For insert_before: tekst som skal søkes og settes inn før den linjen. For replace_between: startgrense.",
@@ -1207,7 +1315,7 @@
     "summary.matches": "{count} treffer(s)",
     "summary.no_change": "Succesvol geen wijziging (0 treffers)",
     "summary.preview_matches": "Voorbeeld: {count} overeenkomsten gevonden",
-    "tool.description": "Bewerk tekstbestanden veilig.",
+    "tool.description": "Bewerk tekstbestanden veilig. Ondersteunt het bewerken van meerdere bestanden die via glob zijn geselecteerd met replace_all_in_files.",
     "x_search_terms": [
       "vervang bestand",
       "bewerk bestand",
@@ -1220,7 +1328,13 @@
       "tekstvervanging",
       "tekstbewerking",
       "corrigeer bestand",
-      "wijzig bestand"
+      "wijzig bestand",
+      "meerdere bestanden vervangen",
+      "bulk vervangen",
+      "batchbewerking",
+      "glob-vervanging",
+      "alle bestanden vervangen",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: patroon).",
     "param.anchor_before.description": "Anker tekst. Voor insert_before: tekst die moet worden gezocht en vóór die regel moet worden ingevoegd. Voor replace_between: begingrens.",
@@ -1273,7 +1387,7 @@
     "summary.matches": "{count} osuma(a)",
     "summary.no_change": "Ei muutoksia (0 osumaa)",
     "summary.preview_matches": "Esikatselu: löytyi {count} osumaa",
-    "tool.description": "Muokkaa tekstitiedostoja turvallisesti.",
+    "tool.description": "Muokkaa tekstitiedostoja turvallisesti. Tukee globilla valittujen useiden tiedostojen muokkausta replace_all_in_files-toiminnolla.",
     "x_search_terms": [
       "korvaa tiedosto",
       "muokkaa tiedosto",
@@ -1286,7 +1400,13 @@
       "tekstinkorvaus",
       "tekstin muokkaus",
       "korjaa tiedosto",
-      "vaihda tiedosto"
+      "vaihda tiedosto",
+      "usean tiedoston korvaus",
+      "joukkokorvaus",
+      "erämuokkaus",
+      "glob-korvaus",
+      "korvaa kaikki tiedostot",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (varaus: kuvio).",
     "param.anchor_before.description": "Ankkuriteksti. Kohdalle insert_before: etsittävä teksti ja lisättävä ennen tätä riviä. Kohde replace_between: aloitusraja.",
@@ -1339,7 +1459,7 @@
     "summary.matches": "Shod: {count}",
     "summary.no_change": "Úspěšně beze změny (0 shod)",
     "summary.preview_matches": "Náhled: nalezeno {count} shod",
-    "tool.description": "Bezpečně upravuje textové soubory.",
+    "tool.description": "Bezpečně upravuje textové soubory. Podporuje úpravu více souborů vybraných pomocí glob pomocí replace_all_in_files.",
     "x_search_terms": [
       "nahradit soubor",
       "upravit soubor",
@@ -1352,7 +1472,13 @@
       "náhrada textu",
       "úprava textu",
       "opravit soubor",
-      "změnit soubor"
+      "změnit soubor",
+      "nahrazení více souborů",
+      "hromadné nahrazení",
+      "dávková úprava",
+      "glob nahrazení",
+      "nahradit všechny soubory",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (záložní: vzor).",
     "param.anchor_before.description": "Kotva text. Pro insert_before: text, který se má vyhledat a vložit před tento řádek. Pro replace_between: počáteční hranice.",
@@ -1405,7 +1531,7 @@
     "summary.matches": "Збігів: {count}",
     "summary.no_change": "Успішно без змін (0 збігів)",
     "summary.preview_matches": "Попередній перегляд: знайдено {count} збігів",
-    "tool.description": "Безпечно редагує текстові файли.",
+    "tool.description": "Безпечно редагує текстові файли. Підтримує редагування кількох файлів, вибраних через glob, за допомогою replace_all_in_files.",
     "x_search_terms": [
       "замінити файл",
       "редагувати файл",
@@ -1418,7 +1544,13 @@
       "заміна тексту",
       "редагування тексту",
       "виправити файл",
-      "змінити файл"
+      "змінити файл",
+      "заміна кількох файлів",
+      "масова заміна",
+      "пакетне редагування",
+      "заміна glob",
+      "замінити всі файли",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (запасний варіант: шаблон).",
     "param.anchor_before.description": "Якірний текст. Для insert_before: текст для пошуку та вставлення перед цим рядком. Для replace_between: початкова межа.",
@@ -1471,7 +1603,7 @@
     "summary.matches": "{count} eşleşme(ler)",
     "summary.no_change": "Başarıyla değişiklik yok (0 eşleşme)",
     "summary.preview_matches": "Önizleme: {count} eşleşme bulundu",
-    "tool.description": "Metin dosyalarını güvenli şekilde düzenler.",
+    "tool.description": "Metin dosyalarını güvenli şekilde düzenler. glob ile seçilen birden çok dosyanın replace_all_in_files ile düzenlenmesini destekler.",
     "x_search_terms": [
       "dosya değiştir",
       "dosya düzenle",
@@ -1484,7 +1616,13 @@
       "metin değişimi",
       "metin düzenleme",
       "dosyayı düzelt",
-      "dosyayı değiştir"
+      "dosyayı değiştir",
+      "birden çok dosyayı değiştirme",
+      "toplu değiştirme",
+      "toplu düzenleme",
+      "glob değiştirme",
+      "tüm dosyaları değiştir",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (geri dönüş: model).",
     "param.anchor_before.description": "Bağlantı metni. insert_before için: aranacak ve bu satırdan önce eklenecek metin. replace_between için: başlangıç sınırı.",
@@ -1537,7 +1675,7 @@
     "summary.matches": "การแข่งขัน {count}",
     "summary.no_change": "ไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)",
     "summary.preview_matches": "ดูตัวอย่าง: พบการจับคู่ {count}",
-    "tool.description": "แก้ไขไฟล์ข้อความอย่างปลอดภัย (แทนที่ตามตัวอักษร/regex, แทรก, ต่อท้าย)",
+    "tool.description": "แก้ไขไฟล์ข้อความอย่างปลอดภัย (แทนที่ตามตัวอักษร/regex, แทรก, ต่อท้าย) รองรับการแก้ไขหลายไฟล์ที่เลือกด้วย glob โดยใช้ replace_all_in_files",
     "x_search_terms": [
       "แทนที่ไฟล์",
       "แก้ไขไฟล์",
@@ -1550,7 +1688,13 @@
       "การแทนที่ข้อความ",
       "การแก้ไขข้อความ",
       "แก้ไขไฟล์",
-      "เปลี่ยนไฟล์"
+      "เปลี่ยนไฟล์",
+      "แทนที่หลายไฟล์",
+      "แทนที่เป็นชุด",
+      "แก้ไขแบบแบตช์",
+      "แทนที่ด้วย glob",
+      "แทนที่ทุกไฟล์",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (ทางเลือก: รูปแบบ)",
     "param.anchor_before.description": "ยึดข้อความ สำหรับ insert_before: ข้อความที่จะค้นหาและแทรกก่อนบรรทัดนั้น สำหรับ replace_between: ขอบเขตเริ่มต้น",
@@ -1603,7 +1747,7 @@
     "summary.matches": "{count} 个匹配",
     "summary.no_change": "未发现更改（0 个匹配）",
     "summary.preview_matches": "预览：找到 {count} 个匹配项",
-    "tool.description": "安全编辑文本文件（字面量/正则替换、插入、追加）。支持转义序列。",
+    "tool.description": "安全编辑文本文件（字面量/正则替换、插入、追加）。支持转义序列。 支持通过 glob 使用 replace_all_in_files 编辑多个文件。",
     "x_search_terms": [
       "替换文件",
       "编辑文件",
@@ -1616,7 +1760,13 @@
       "文本替换",
       "文本编辑",
       "修正文件",
-      "修改文件"
+      "修改文件",
+      "多文件替换",
+      "批量替换",
+      "批量编辑",
+      "glob替换",
+      "替换所有文件",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid（省略时使用pattern）。",
     "param.anchor_before.description": "锚文本。对于 insert_before：要在该行之前搜索和插入的文本。对于 replace_between：起始边界。",
@@ -1669,7 +1819,7 @@
     "summary.matches": "{count} 個相符",
     "summary.no_change": "未發現更改（0 個相符）",
     "summary.preview_matches": "預覽：找到 {count} 個相符項",
-    "tool.description": "安全编辑文本文件（字面量/正则替换、插入、追加）。支持转义序列。",
+    "tool.description": "安全编辑文本文件（字面量/正则替换、插入、追加）。支持转义序列。 支援透過 glob 使用 replace_all_in_files 編輯多個檔案。",
     "x_search_terms": [
       "取代檔案",
       "編輯檔案",
@@ -1682,7 +1832,13 @@
       "文字取代",
       "文字編輯",
       "修正檔案",
-      "修改檔案"
+      "修改檔案",
+      "多檔案取代",
+      "批次取代",
+      "批次編輯",
+      "glob取代",
+      "取代所有檔案",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid（省略时使用pattern）。",
     "param.anchor_before.description": "錨文本。對於 insert_before：要在該行之前搜尋和插入的文字。對於 replace_between：起始邊界。",
@@ -1735,7 +1891,7 @@
     "summary.matches": "{count}টি মিল",
     "summary.no_change": "সফলভাবে কোন পরিবর্তন হয়নি (0টি মিল)",
     "summary.preview_matches": "পূর্বরূপ: {count} মিল পাওয়া গেছে",
-    "tool.description": "নিরাপদে পাঠ্য ফাইল সম্পাদনা করুন (আক্ষরিক/রেজেক্স প্রতিস্থাপন, সন্নিবেশ করান, যুক্ত করুন)। প্যাটার্নে ব্যাকস্ল্যাশ এস্কেপ সমর্থন করে।",
+    "tool.description": "নিরাপদে পাঠ্য ফাইল সম্পাদনা করুন (আক্ষরিক/রেজেক্স প্রতিস্থাপন, সন্নিবেশ করান, যুক্ত করুন)। প্যাটার্নে ব্যাকস্ল্যাশ এস্কেপ সমর্থন করে। glob দিয়ে নির্বাচিত একাধিক ফাইল replace_all_in_files ব্যবহার করে সম্পাদনা সমর্থিত।",
     "x_search_terms": [
       "ফাইল প্রতিস্থাপন",
       "ফাইল সম্পাদনা",
@@ -1748,7 +1904,13 @@
       "লেখা বদল",
       "লেখা সংশোধন",
       "ফাইল ঠিক করুন",
-      "ফাইল পরিবর্তন"
+      "ফাইল পরিবর্তন",
+      "একাধিক ফাইল প্রতিস্থাপন",
+      "বাল্ক প্রতিস্থাপন",
+      "ব্যাচ সম্পাদনা",
+      "glob প্রতিস্থাপন",
+      "সব ফাইল প্রতিস্থাপন",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (ফলব্যাক: প্যাটার্ন)।",
     "param.anchor_before.description": "অ্যাঙ্কর টেক্সট। insert_before এর জন্য: সেই লাইনের আগে অনুসন্ধান এবং সন্নিবেশ করার জন্য পাঠ্য। replace_between এর জন্য: শুরু সীমানা।",
@@ -1801,7 +1963,7 @@
     "summary.matches": "{count} مورد تطبیق",
     "summary.no_change": "با موفقیت بدون تغییر (0 مطابق)",
     "summary.preview_matches": "پیش‌نمایش: {count} تطبیق پیدا شد",
-    "tool.description": "فایل‌های متنی را با خیال راحت ویرایش کنید.",
+    "tool.description": "فایل‌های متنی را با خیال راحت ویرایش کنید. از ویرایش چند فایل انتخاب‌شده با glob با استفاده از replace_all_in_files پشتیبانی می‌کند.",
     "x_search_terms": [
       "جایگزینی فایل",
       "ویرایش فایل",
@@ -1814,7 +1976,13 @@
       "جایگزینی نوشته",
       "ویرایش نوشته",
       "اصلاح فایل",
-      "تغییر فایل"
+      "تغییر فایل",
+      "جایگزینی چند فایل",
+      "جایگزینی انبوه",
+      "ویرایش دسته‌ای",
+      "جایگزینی glob",
+      "جایگزینی همه فایل‌ها",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "بولی باشد (fallback: pattern).",
     "param.anchor_before.description": "متن لنگر. برای insert_before: متنی برای جستجو و درج قبل از آن خط. برای replace_between: مرز شروع.",
@@ -1867,7 +2035,7 @@
     "summary.matches": "{count} тааралт",
     "summary.no_change": "Амжилттай өөрчлөлт гарсангүй (0 таарч)",
     "summary.preview_matches": "Урьдчилан үзэх: {count} таарч олдсон",
-    "tool.description": "Текст файлуудыг аюулгүй засварлана.",
+    "tool.description": "Текст файлуудыг аюулгүй засварлана. glob-оор сонгосон олон файлыг replace_all_in_files ашиглан засварлахыг дэмжинэ.",
     "x_search_terms": [
       "файл солих",
       "файл засах",
@@ -1880,7 +2048,13 @@
       "текстийн солилт",
       "текстийн засвар",
       "файлыг засах",
-      "файлыг өөрчлөх"
+      "файлыг өөрчлөх",
+      "олон файл солих",
+      "бөөнөөр солих",
+      "багц засварлах",
+      "glob солих",
+      "бүх файл солих",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (backback: загвар).",
     "param.anchor_before.description": "Зангуу текст. insert_before-ын хувьд: хайлт хийх, мөрийн өмнө оруулах текст. replace_between-ийн хувьд: эхлэлийн хязгаар.",
@@ -1933,7 +2107,7 @@
     "summary.matches": "{count} जुळणी",
     "summary.no_change": "यशस्वीरित्या कोणताही बदल नाही (0 जुळण्या)",
     "summary.preview_matches": "पूर्वावलोकन: {count} जुळण्या आढळल्या",
-    "tool.description": "मजकूर फायली सुरक्षितपणे संपादित करा.",
+    "tool.description": "मजकूर फायली सुरक्षितपणे संपादित करा. glob द्वारे निवडलेल्या अनेक फाइल्सचे replace_all_in_files वापरून संपादन समर्थित आहे.",
     "x_search_terms": [
       "फाइल बदला",
       "फाइल संपादित करा",
@@ -1946,7 +2120,13 @@
       "मजकूर बदल",
       "मजकूर संपादन",
       "फाइल दुरुस्त करा",
-      "फाइल बदल"
+      "फाइल बदल",
+      "अनेक फाइल्स बदलणे",
+      "मोठ्या प्रमाणात बदल",
+      "बॅच संपादन",
+      "glob बदल",
+      "सर्व फाइल्स बदला",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (फॉलबॅक: पॅटर्न).",
     "param.anchor_before.description": "अँकर मजकूर. insert_before साठी: शोधण्यासाठी आणि त्या ओळीच्या आधी घालण्यासाठी मजकूर. replace_between साठी: प्रारंभ सीमा.",
@@ -1999,7 +2179,7 @@
     "summary.matches": "{count} αντιστοιχίσεις",
     "summary.no_change": "Επιτυχώς καμία αλλαγή (0 αντιστοιχίσεις)",
     "summary.preview_matches": "Προεπισκόπηση: Βρέθηκαν αντιστοιχίσεις {count}",
-    "tool.description": "εισαγωγή, προσθήκη). Υποστηρίζει διαφυγή ανάστροφης κάθετου σε μοτίβα.",
+    "tool.description": "εισαγωγή, προσθήκη). Υποστηρίζει διαφυγή ανάστροφης κάθετου σε μοτίβα. Υποστηρίζει την επεξεργασία πολλών αρχείων που επιλέγονται με glob μέσω replace_all_in_files.",
     "x_search_terms": [
       "replace_in_file",
       "αντικατάσταση σε αρχείο",
@@ -2012,7 +2192,13 @@
       "αντικατάσταση κειμένου",
       "επεξεργασία κειμένου",
       "εύρεση αντικατάσταση [=#ll=] αναζήτηση αντικατάσταση [=#ll=] αναζήτηση αντικατάσταση [=#ll=]",
-      "Έναρξη αγκύρωσης."
+      "Έναρξη αγκύρωσης.",
+      "αντικατάσταση πολλών αρχείων",
+      "μαζική αντικατάσταση",
+      "μαζική επεξεργασία",
+      "αντικατάσταση glob",
+      "αντικατάσταση όλων των αρχείων",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "Άγκυρα τέλους.",
     "param.anchor_before.description": "Κείμενο άγκυρας. Για insert_before: κείμενο για αναζήτηση και εισαγωγή πριν από αυτήν τη γραμμή. Για replace_between: όριο έναρξης.",
@@ -2065,7 +2251,7 @@
     "summary.matches": "{count} התאמות",
     "summary.no_change": "ללא שינוי בהצלחה (0 התאמות)",
     "summary.preview_matches": "תצוגה מקדימה: {count} התאמות נמצאו",
-    "tool.description": "ערוך בבטחה קבצי טקסט (החלפה מילולית/רגונית, הוספה, הוספה). תומך בבריחה לאחור בתבניות.",
+    "tool.description": "ערוך בבטחה קבצי טקסט (החלפה מילולית/רגונית, הוספה, הוספה). תומך בבריחה לאחור בתבניות. תומך בעריכת מספר קבצים שנבחרו באמצעות glob עם replace_all_in_files.",
     "x_search_terms": [
       "לצרף). תומך בבריחה לאחור בתבניות.",
       "replace_in_file",
@@ -2078,7 +2264,13 @@
       "טקסט עריכת",
       "החלפת טקסט",
       "עריכת טקסט",
-      "חיפוש נפילה החלפה [=gi#] דפוס)."
+      "חיפוש נפילה החלפה [=gi#] דפוס).",
+      "החלפת מספר קבצים",
+      "החלפה גורפת",
+      "עריכת אצווה",
+      "החלפת glob",
+      "החלפת כל הקבצים",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (הסתגלות: תבנית).",
     "param.anchor_before.description": "טקסט עוגן. עבור insert_before: טקסט לחיפוש והוספה לפני שורה זו. עבור replace_between: גבול התחלה.",
@@ -2144,7 +2336,13 @@
       "szöveg szerkesztése",
       "csere keresése",
       "keresési minta visszaszerzése",
-      "szöveg cseréje"
+      "szöveg cseréje",
+      "replace multiple files",
+      "bulk replace",
+      "batch edit",
+      "glob replace",
+      "replace all files",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (tartalék: minta).",
     "param.anchor_before.description": "Horgonyszöveg. insert_before esetén: a keresendő szöveg és a sor elé szúrható be. replace_between esetén: kezdőhatár.",
@@ -2197,7 +2395,7 @@
     "summary.matches": "{count} potriviri",
     "summary.no_change": "Nicio modificare (0 potriviri)",
     "summary.preview_matches": "Previzualizare: {count} potriviri găsite",
-    "tool.description": "(înlocuiți/editați fișierele text în siguranță, inserați/reduceți aplicația în siguranță). Acceptă evadarea backslash în modele.",
+    "tool.description": "(înlocuiți/editați fișierele text în siguranță, inserați/reduceți aplicația în siguranță). Acceptă evadarea backslash în modele. Acceptă editarea mai multor fișiere selectate prin glob cu replace_all_in_files.",
     "x_search_terms": [
       "înlocuiți_în_fișier",
       "înlocuiți în fișier",
@@ -2210,7 +2408,13 @@
       "editare text",
       "înlocuire text",
       "editare text",
-      "găsi înlocuire"
+      "găsi înlocuire",
+      "înlocuire fișiere multiple",
+      "înlocuire în bloc",
+      "editare batch",
+      "înlocuire glob",
+      "înlocuiește toate fișierele",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "căutare înlocuire",
     "param.anchor_before.description": "Text ancora. Pentru insert_before: text de căutat și de inserat înainte de acel rând. Pentru replace_between: limita de început.",
@@ -2276,7 +2480,13 @@
       "pagpapalit ng teksto",
       "pag-edit ng teksto",
       "hanapin palitan",
-      "hanapin palitan"
+      "hanapin palitan",
+      "replace multiple files",
+      "bulk replace",
+      "batch edit",
+      "glob replace",
+      "replace all files",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: pattern).",
     "param.anchor_before.description": "Anchor text. Para sa insert_before: text na hahanapin at ipasok bago ang linyang iyon. Para sa replace_between: simulan ang hangganan.",
@@ -2342,7 +2552,13 @@
       "penggantian teks",
       "pengeditan teks",
       "cari ganti",
-      "cari ganti"
+      "cari ganti",
+      "replace multiple files",
+      "bulk replace",
+      "batch edit",
+      "glob replace",
+      "replace all files",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgid (fallback: pattern).",
     "param.anchor_before.description": "Teks sauh. Untuk insert_before: teks untuk mencari dan memasukkan sebelum baris itu. Untuk replace_between: sempadan mula.",
@@ -2395,7 +2611,7 @@
     "summary.matches": "{count} match(er)",
     "summary.no_change": "Ingen ændring lykkedes (0 kampe)",
     "summary.preview_matches": "Forhåndsvisning: {count} resultater fundet",
-    "tool.description": "Rediger tekstfiler sikkert (bogstaveligt/regex erstatte, indsætte, tilføje). Understøtter tilbageslag i mønstre.",
+    "tool.description": "Rediger tekstfiler sikkert (bogstaveligt/regex erstatte, indsætte, tilføje). Understøtter tilbageslag i mønstre. Understøtter redigering af flere filer valgt med glob ved hjælp af replace_all_in_files.",
     "x_search_terms": [
       "replace_in_file",
       "erstatte i filen",
@@ -2408,7 +2624,13 @@
       "teksterstatning",
       "tekstredigering",
       "find erstat",
-      "søg erstat"
+      "søg erstat",
+      "erstat flere filer",
+      "masseerstatning",
+      "batchredigering",
+      "glob-erstatning",
+      "erstat alle filer",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (tilbagefald: mønster).",
     "param.anchor_before.description": "Ankertekst. For insert_before: tekst, der skal søges og indsættes før den linje. For replace_between: startgrænse.",
@@ -2474,7 +2696,13 @@
       "teksterstatning",
       "tekstredigering",
       "finn erstatt",
-      "søk erstatte"
+      "søk erstatte",
+      "replace multiple files",
+      "bulk replace",
+      "batch edit",
+      "glob replace",
+      "replace all files",
+      "replace_all_in_files"
     ],
     "param.po_msgid.description": "gettext msgstr (tilbakekomst: mønster).",
     "param.anchor_before.description": "Ankertekst. For insert_before: tekst som skal søkes og settes inn før den linjen. For replace_between: startgrense.",

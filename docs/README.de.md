@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **203 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **111 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
+- **220 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **128 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 
@@ -56,7 +56,7 @@ Alle Anbieter nutzen das gleiche Toolset und die gleiche Schnittstelle. Wechseln
 ### ⚡ Parallele Werkzeugausführung
 
 Wenn das LLM mehrere Tools gleichzeitig anfordert, werden diese von uag automatisch parallelisiert.
-111 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen „ThreadPoolExecutor“ ausgeführt (8 Threads standardmäßig; setzen Sie „UAGENT_PARALLEL_WORKERS“ auf Änderung).
+128 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen „ThreadPoolExecutor“ ausgeführt (8 Threads standardmäßig; setzen Sie „UAGENT_PARALLEL_WORKERS“ auf Änderung).
 
 **Beispiel**: Fragen Sie „Überprüfen Sie das Wetter in den nordischen Hauptstädten“ → LLM löst „search_web“ × 5 Länder aus → alle 5 Suchanfragen werden parallel ausgeführt → Ergebnisse werden in einem Stapel gesammelt.
 
@@ -87,7 +87,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 - **Anbieter während der Sitzung wechseln**: `UAGENT_PROVIDER` — der Gesprächsverlauf bleibt erhalten.
 - **Vergangene Sitzungen erneut laden**: `:load <index>` — dort weitermachen, wo Sie aufgehört haben.
 
-### 🛠 203 Werkzeuge
+### 🛠 220 Werkzeuge
 
 | Kategorie | Werkzeuge |
 |---|---|

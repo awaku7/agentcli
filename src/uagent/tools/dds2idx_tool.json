@@ -12,12 +12,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "read dds file",
-      "physical file dds",
-      "display file dspf",
-      "logical file lf"
-    ],
     "param.path.description": "Path to the DDS (PF/LF/DSPF/PRTF) source file.",
     "err.path_required": "Error: 'path' is required.",
     "err.file_not_found": "Error: File not found: {path}",
@@ -45,12 +39,6 @@
       "DDS 項目",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "ddsファイルを読む",
-      "物理ファイル DD",
-      "表示ファイル dspf",
-      "論理ファイル lf"
     ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) ソースファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",
@@ -80,12 +68,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "leer archivo dds",
-      "archivo físico dds",
-      "archivo de visualización dspf",
-      "archivo lógico lf"
-    ],
     "param.path.description": "Ruta al archivo fuente DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Error: se requiere 'ruta'.",
     "err.file_not_found": "Error: Archivo no encontrado: {path}",
@@ -113,12 +95,6 @@
       "Champ DDS",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "lire le fichier dds",
-      "fichier physique dds",
-      "afficher le fichier dspf",
-      "fichier logique lf"
     ],
     "param.path.description": "Chemin d'accès au fichier source DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Erreur : « chemin » est requis.",
@@ -148,12 +124,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "dds 파일",
-      "물리적 파일 dds",
-      "표시 파일 dspf",
-      "논리 파일 lf 읽기"
-    ],
     "param.path.description": "DDS(PF/LF/DSPF/PRTF) 소스 파일의 경로입니다.",
     "err.path_required": "오류: '경로'가 필요합니다.",
     "err.file_not_found": "오류: 파일을 찾을 수 없습니다: {path}",
@@ -181,12 +151,6 @@
       "DDS-Feld",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "dds-Datei lesen",
-      "physische Datei dds",
-      "Anzeigedatei dspf",
-      "logische Datei lf"
     ],
     "param.path.description": "Pfad zur DDS-Quelldatei (PF/LF/DSPF/PRTF).",
     "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
@@ -216,12 +180,6 @@
       "IBM iDDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "leggi il file dds",
-      "file fisico dds",
-      "file di visualizzazione dspf",
-      "file logico lf"
-    ],
     "param.path.description": "Percorso del file di origine DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
     "err.file_not_found": "Errore: file non trovato: {path}",
@@ -249,12 +207,6 @@
       "поле DDS",
       "IBM и DDS",
       "ПФ НЧ ДСПФ"
-    ],
-    "x_search_terms_en": [
-      "прочитать файл dds",
-      "физический файл dds",
-      "отобразить файл dspf",
-      "логический файл lf"
     ],
     "param.path.description": "Путь к исходному файлу DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Ошибка: требуется «путь».",
@@ -284,12 +236,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "ler arquivo dds",
-      "arquivo físico dds",
-      "arquivo de exibição dspf",
-      "arquivo lógico lf"
-    ],
     "param.path.description": "Caminho para o arquivo de origem DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
     "err.file_not_found": "Erro: Arquivo não encontrado: {path}",
@@ -317,12 +263,6 @@
       "campo DDS",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "ler arquivo dds",
-      "arquivo físico dds",
-      "arquivo de exibição dspf",
-      "arquivo lógico lf"
     ],
     "param.path.description": "Caminho para o arquivo de origem DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
@@ -352,12 +292,6 @@
       "IBM dan DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "membaca file dds",
-      "file fisik dds",
-      "file tampilan dspf",
-      "file logis lf"
-    ],
     "param.path.description": "Jalur ke file sumber DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Kesalahan: 'jalur' diperlukan.",
     "err.file_not_found": "Kesalahan: File tidak ditemukan: {path}",
@@ -385,12 +319,6 @@
       "Trường DDS",
       "IBM và DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "đọc tệp dds",
-      "tệp vật lý dds",
-      "tệp hiển thị dspf",
-      "tệp logic lf"
     ],
     "param.path.description": "Đường dẫn đến tệp nguồn DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
@@ -420,12 +348,6 @@
       "DDS dla IBM i",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "odczytaj plik dds",
-      "plik fizyczny dds",
-      "plik wyświetlający dspf",
-      "plik logiczny lf"
-    ],
     "param.path.description": "Ścieżka do pliku źródłowego DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Błąd: wymagana jest ścieżka.",
     "err.file_not_found": "Błąd: Nie znaleziono pliku: {path}",
@@ -453,12 +375,6 @@
       "डीडीएस फ़ील्ड",
       "आईबीएम आई डीडीएस",
       "पीएफ एलएफ डीएसपीएफ"
-    ],
-    "x_search_terms_en": [
-      "डीडीएस फ़ाइल पढ़ें",
-      "भौतिक फ़ाइल डीडीएस",
-      "डिस्प्ले फ़ाइल डीएसपीएफ़",
-      "लॉजिकल फ़ाइल एलएफ"
     ],
     "param.path.description": "डीडीएस (पीएफ/एलएफ/डीएसपीएफ/पीआरटीएफ) स्रोत फ़ाइल का पथ।",
     "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
@@ -488,12 +404,6 @@
       "آي بي إم وDDS",
       "الجبهة الوطنية LF دسف"
     ],
-    "x_search_terms_en": [
-      "قراءة ملف dds - ملف فعلي dds - عرض ملف dspf - ملف منطقي lf",
-      "dds الملف الفعلي",
-      "عرض ملف dspf",
-      "الملف المنطقي lf"
-    ],
     "param.path.description": "المسار إلى الملف المصدر DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
     "err.file_not_found": "خطأ: لم يتم العثور على الملف: {path}",
@@ -521,12 +431,6 @@
       "DDS-fält",
       "IBM och DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "läs dds-fil",
-      "fysisk fil dds",
-      "visningsfil dspf",
-      "logisk fil lf"
     ],
     "param.path.description": "Sökväg till källfilen DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Fel: 'sökväg' krävs.",
@@ -556,12 +460,6 @@
       "IBM na DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "soma faili ya dds",
-      "faili halisi dds",
-      "onyesha faili dspf",
-      "faili ya kimantiki lf"
-    ],
     "param.path.description": "Njia ya kwenda kwa faili ya chanzo ya DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Hitilafu: 'njia' inahitajika.",
     "err.file_not_found": "Hitilafu: Faili haijapatikana: {path}",
@@ -589,12 +487,6 @@
       "DDS-feltet",
       "IBM og DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "les dds-fil",
-      "fysisk fil dds",
-      "visningsfil dspf",
-      "logisk fil lf"
     ],
     "param.path.description": "Banen til kildefilen DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Feil: 'bane' er påkrevd.",
@@ -624,12 +516,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "lees dds-bestand",
-      "fysiek bestand dds",
-      "toon bestand dspf",
-      "logisch bestand lf"
-    ],
     "param.path.description": "Pad naar het DDS-bronbestand (PF/LF/DSPF/PRTF).",
     "err.path_required": "Fout: 'pad' is vereist.",
     "err.file_not_found": "Fout: Bestand niet gevonden: {path}",
@@ -657,12 +543,6 @@
       "DDS-kenttä",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "lue dds-tiedosto",
-      "fyysinen tiedosto dds",
-      "näytä tiedosto dspf",
-      "looginen tiedosto lf"
     ],
     "param.path.description": "Polku DDS (PF/LF/DSPF/PRTF) -lähdetiedostoon.",
     "err.path_required": "Virhe: 'polku' vaaditaan.",
@@ -692,12 +572,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "číst soubor dds",
-      "fyzický soubor dds",
-      "zobrazit soubor dspf",
-      "logický soubor lf"
-    ],
     "param.path.description": "Cesta ke zdrojovému souboru DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Chyba: je vyžadována cesta.",
     "err.file_not_found": "Chyba: Soubor nenalezen: {path}",
@@ -725,12 +599,6 @@
       "поле DDS",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "читати файл DDS",
-      "фізичний файл DDS",
-      "відображати файл dspf",
-      "логічний файл lf"
     ],
     "param.path.description": "Шлях до вихідного файлу DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Помилка: потрібен \"шлях\".",
@@ -760,12 +628,6 @@
       "IBM ve DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "dds dosyasını oku",
-      "fiziksel dosya dds",
-      "display dosyası dspf",
-      "mantıksal dosya lf"
-    ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) kaynak dosyasının yolu.",
     "err.path_required": "Hata: 'yol' gerekli.",
     "err.file_not_found": "Hata: Dosya bulunamadı: {path}",
@@ -793,12 +655,6 @@
       "ฟิลด์ DDS",
       "ไอบีเอ็ม i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "อ่านไฟล์ dds",
-      "ไฟล์ฟิสิคัล dds",
-      "ไฟล์แสดง dspf",
-      "ไฟล์โลจิคัล lf"
     ],
     "param.path.description": "พาธไปยังไฟล์ต้นฉบับ DDS (PF/LF/DSPF/PRTF)",
     "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
@@ -828,12 +684,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "读取dds文件",
-      "物理文件dds",
-      "显示文件dspf",
-      "逻辑文件lf"
-    ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) 源文件的路径。",
     "err.path_required": "错误：“路径”是必需的。",
     "err.file_not_found": "错误：找不到文件：{path}",
@@ -861,12 +711,6 @@
       "DDS欄位",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "讀取dds檔案",
-      "物理檔案dds",
-      "顯示檔案dspf",
-      "邏輯檔案lf"
     ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) 原始檔的路徑。",
     "err.path_required": "錯誤：「路徑」是必需的。",
@@ -896,12 +740,6 @@
       "আইবিএম এবং ডিডিএস",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "dds ফাইল পড়ুন",
-      "শারীরিক ফাইল dds",
-      "ডিএসপিএফ ফাইল প্রদর্শন করুন",
-      "লজিক্যাল ফাইল lf"
-    ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) সোর্স ফাইলের পথ।",
     "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
     "err.file_not_found": "ত্রুটি: ফাইল পাওয়া যায়নি: {path}",
@@ -929,12 +767,6 @@
       "فیلد DDS",
       "IBM و DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "خواندن فایل dds",
-      "فایل فیزیکی dds",
-      "نمایش فایل dspf",
-      "فایل منطقی lf"
     ],
     "param.path.description": "مسیر فایل منبع DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
@@ -964,12 +796,6 @@
       "IBM болон DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "dds файлыг унших",
-      "физик файл dds",
-      "дэлгэцийн файл dspf",
-      "логик файл lf"
-    ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) эх файлын зам.",
     "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
     "err.file_not_found": "Алдаа: Файл олдсонгүй: {path}",
@@ -997,12 +823,6 @@
       "DDS फील्ड",
       "IBM आणि DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "dds फाइल वाचा",
-      "फिजिकल फाइल dds",
-      "डिस्प्ले फाइल dspf",
-      "लॉजिकल फाइल lf"
     ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) स्रोत फाइलचा मार्ग.",
     "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
@@ -1032,12 +852,6 @@
       "IBM και DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "ανάγνωση αρχείου dds",
-      "φυσικό αρχείο dds",
-      "εμφάνιση αρχείου dspf",
-      "λογικό αρχείο lf"
-    ],
     "param.path.description": "Διαδρομή προς το αρχείο προέλευσης DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
     "err.file_not_found": "Σφάλμα: Το αρχείο δεν βρέθηκε: {path}",
@@ -1065,12 +879,6 @@
       "שדה DDS",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "קרא קובץ dds",
-      "קובץ פיזי dds",
-      "תצוגה קובץ dspf",
-      "קובץ לוגי lf"
     ],
     "param.path.description": "נתיב לקובץ המקור DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "שגיאה: נדרש 'נתיב'.",
@@ -1100,12 +908,6 @@
       "IBM i DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "dds fájl olvasása",
-      "fizikai fájl dds",
-      "fájl megjelenítése dspf",
-      "logikai fájl lf"
-    ],
     "param.path.description": "A DDS (PF/LF/DSPF/PRTF) forrásfájl elérési útja.",
     "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
     "err.file_not_found": "Hiba: A fájl nem található: {path}",
@@ -1133,12 +935,6 @@
       "câmpul DDS",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "citiți fișierul dds",
-      "fișierul fizic dds",
-      "fișierul afișat dspf",
-      "fișierul logic lf"
     ],
     "param.path.description": "Calea către fișierul sursă DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Eroare: este necesară „calea”.",
@@ -1168,12 +964,6 @@
       "IBM at DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "basahin ang dds file",
-      "pisikal na file dds",
-      "ipakita ang file dspf",
-      "lohikal na file lf"
-    ],
     "param.path.description": "Path sa DDS (PF/LF/DSPF/PRTF) source file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
     "err.file_not_found": "Error: Hindi nakita ang file: {path}",
@@ -1201,12 +991,6 @@
       "medan DDS",
       "IBM dan DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "baca fail dds",
-      "fail fizikal dds",
-      "fail paparan dspf",
-      "fail logik lf"
     ],
     "param.path.description": "Laluan ke fail sumber DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Ralat: 'laluan' diperlukan.",
@@ -1236,12 +1020,6 @@
       "IBM og DDS",
       "PF LF DSPF"
     ],
-    "x_search_terms_en": [
-      "læs dds-fil",
-      "fysisk fil dds",
-      "visningsfil dspf",
-      "logisk fil lf"
-    ],
     "param.path.description": "Sti til kildefilen DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Fejl: 'sti' er påkrævet.",
     "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
@@ -1269,12 +1047,6 @@
       "DDS-felt",
       "IBM i DDS",
       "PF LF DSPF"
-    ],
-    "x_search_terms_en": [
-      "les dds-fil",
-      "fysisk fil dds",
-      "visningsfil dspf",
-      "logisk fil lf"
     ],
     "param.path.description": "Banen til kildefilen DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "Feil: 'bane' er påkrevd.",

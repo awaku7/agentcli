@@ -12,13 +12,6 @@
       "legacy code",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
-    ],
     "param.path.description": "Path to the COBOL (.cbl/.cob/.cpy) file.",
     "err.path_required": "Error: 'path' is required.",
     "err.file_not_found": "Error: File not found: {path}",
@@ -46,13 +39,6 @@
       "cobol ファイル",
       "レガシー コード",
       "メインフレーム"
-    ],
-    "x_search_terms_en": [
-      "COBOLファイルを読む",
-      "COBOLファイルインデックス",
-      "COBOLプログラム構造",
-      "COBOL分割",
-      "COBOL段落"
     ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",
@@ -82,13 +68,6 @@
       "código heredado",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "leer archivo cobol",
-      "índice de archivo cobol",
-      "estructura del programa cobol",
-      "división cobol",
-      "párrafo cobol"
-    ],
     "param.path.description": "Ruta al archivo COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Error: se requiere 'ruta'.",
     "err.file_not_found": "Error: Archivo no encontrado: {path}",
@@ -116,13 +95,6 @@
       "fichier cobol",
       "code hérité",
       "ordinateur central"
-    ],
-    "x_search_terms_en": [
-      "lire le fichier cobol",
-      "index du fichier cobol",
-      "structure du programme cobol",
-      "division cobol",
-      "paragraphe cobol"
     ],
     "param.path.description": "Chemin d'accès au fichier COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Erreur : « chemin » est requis.",
@@ -152,13 +124,6 @@
       "레거시 코드",
       "메인프레임"
     ],
-    "x_search_terms_en": [
-      "cobol 파일",
-      "cobol 파일 인덱스",
-      "cobol 프로그램 구조",
-      "cobol 분할",
-      "cobol 단락 읽기"
-    ],
     "param.path.description": "COBOL(.cbl/.cob/.cpy) 파일의 경로입니다.",
     "err.path_required": "오류: '경로'가 필요합니다.",
     "err.file_not_found": "오류: 파일을 찾을 수 없습니다: {path}",
@@ -186,13 +151,6 @@
       "Cobol-Datei",
       "Legacy-Code",
       "Mainframe"
-    ],
-    "x_search_terms_en": [
-      "Cobol-Datei lesen",
-      "Cobol-Dateiindex",
-      "Cobol-Programmstruktur",
-      "Cobol-Division",
-      "Cobol-Absatz"
     ],
     "param.path.description": "Pfad zur COBOL-Datei (.cbl/.cob/.cpy).",
     "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
@@ -222,13 +180,6 @@
       "codice legacy",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "leggi file cobol",
-      "indice file cobol",
-      "struttura programma cobol",
-      "divisione cobol",
-      "paragrafo cobol"
-    ],
     "param.path.description": "Percorso del file COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
     "err.file_not_found": "Errore: file non trovato: {path}",
@@ -256,13 +207,6 @@
       "Файл Кобола",
       "Устаревший код",
       "мэйнфрейм"
-    ],
-    "x_search_terms_en": [
-      "прочитать файл Кобола",
-      "Индекс файла Кобола",
-      "Структура программы Кобола",
-      "Деление Кобола",
-      "Абзац Кобола"
     ],
     "param.path.description": "Путь к файлу COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Ошибка: требуется «путь».",
@@ -292,13 +236,6 @@
       "código legado",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "leia arquivo cobol",
-      "índice de arquivo cobol",
-      "estrutura de programa cobol",
-      "divisão cobol",
-      "parágrafo cobol"
-    ],
     "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
     "err.file_not_found": "Erro: arquivo não encontrado: {path}",
@@ -326,13 +263,6 @@
       "arquivo cobol",
       "código legado",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "leia arquivo cobol",
-      "índice de arquivo cobol",
-      "estrutura de programa cobol",
-      "divisão cobol",
-      "parágrafo cobol"
     ],
     "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
@@ -362,13 +292,6 @@
       "kode lama",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "membaca file cobol",
-      "indeks file cobol",
-      "struktur program cobol",
-      "pembagian cobol",
-      "paragraf cobol"
-    ],
     "param.path.description": "Jalur ke file COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Kesalahan: 'jalur' diperlukan.",
     "err.file_not_found": "Kesalahan: File tidak ditemukan: {path}",
@@ -396,13 +319,6 @@
       "tệp cobol",
       "mã kế thừa",
       "máy tính lớn"
-    ],
-    "x_search_terms_en": [
-      "đọc tập tin cobol",
-      "chỉ mục tập tin cobol",
-      "cấu trúc chương trình cobol",
-      "phân chia cobol",
-      "đoạn cobol"
     ],
     "param.path.description": "Đường dẫn đến tệp COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
@@ -432,13 +348,6 @@
       "starszy kod",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "przeczytaj plik Cobol ",
-      "indeks pliku Cobol ",
-      "struktura programu Cobol ",
-      "dzielenie Cobol ",
-      "akapit Cobol"
-    ],
     "param.path.description": "Ścieżka do pliku COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Błąd: wymagana jest ścieżka.",
     "err.file_not_found": "Błąd: Nie znaleziono pliku: {path}",
@@ -466,13 +375,6 @@
       "कोबोल फ़ाइल",
       "विरासत कोड",
       "मेनफ्रेम"
-    ],
-    "x_search_terms_en": [
-      "कोबोल फ़ाइल पढ़ें",
-      "कोबोल फ़ाइल इंडेक्स",
-      "कोबोल प्रोग्राम संरचना",
-      "कोबोल डिवीजन",
-      "कोबोल पैराग्राफ"
     ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) फ़ाइल का पथ।",
     "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
@@ -502,13 +404,6 @@
       "رمز قديم",
       "الإطار الرئيسي"
     ],
-    "x_search_terms_en": [
-      "قراءة ملف كوبول، فهرس ملف كوبول، هيكل برنامج كوبول، قسم كوبول، فقرة كوبول",
-      "فهرس ملف كوبول",
-      "هيكل برنامج كوبول",
-      "قسم كوبول",
-      "فقرة كوبول"
-    ],
     "param.path.description": "المسار إلى ملف COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
     "err.file_not_found": "خطأ: لم يتم العثور على الملف: {path}",
@@ -536,13 +431,6 @@
       "cobol-fil",
       "äldre kod",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "läs cobol fil",
-      "cobol filindex",
-      "cobol programstruktur",
-      "cobol division",
-      "cobol paragraf"
     ],
     "param.path.description": "Sökväg till filen COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Fel: 'sökväg' krävs.",
@@ -572,13 +460,6 @@
       "kanuni ya urithi",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "soma faili ya cobol",
-      " faharasa ya faili ya cobol",
-      "muundo wa programu ya cobol",
-      "mgawanyiko wa cobol",
-      "aya ya cobol"
-    ],
     "param.path.description": "Njia ya kwenda kwa faili ya COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Hitilafu: 'njia' inahitajika.",
     "err.file_not_found": "Hitilafu: Faili haikupatikana: {path}",
@@ -606,13 +487,6 @@
       "cobol filen",
       "eldre kode",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "les cobol fil",
-      "cobol filindeks",
-      "cobol programstruktur",
-      "cobol divisjon",
-      "cobol avsnitt"
     ],
     "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",
     "err.path_required": "Feil: 'bane' er påkrevd.",
@@ -642,13 +516,6 @@
       "verouderde code",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "cobol-bestand lezen",
-      "cobol-bestandsindex",
-      "cobol-programmastructuur",
-      "cobol-verdeling",
-      "cobol-paragraaf"
-    ],
     "param.path.description": "Pad naar het COBOL-bestand (.cbl/.cob/.cpy).",
     "err.path_required": "Fout: 'pad' is vereist.",
     "err.file_not_found": "Fout: Bestand niet gevonden: {path}",
@@ -676,13 +543,6 @@
       "cobol-tiedosto",
       "vanha koodi",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "lue cobol-tiedosto",
-      "cobol-tiedostohakemisto",
-      "cobol-ohjelman rakenne",
-      "cobol-jako",
-      "cobol-kappale"
     ],
     "param.path.description": "Polku COBOL-tiedostoon (.cbl/.cob/.cpy).",
     "err.path_required": "Virhe: polku vaaditaan.",
@@ -712,13 +572,6 @@
       "starší kód",
       "sálový počítač"
     ],
-    "x_search_terms_en": [
-      "číst soubor cobol",
-      "index souboru cobol",
-      "struktura programu cobol",
-      "dělení cobol",
-      "odstavec cobol"
-    ],
     "param.path.description": "Cesta k souboru COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Chyba: je vyžadována cesta.",
     "err.file_not_found": "Chyba: Soubor nenalezen: {path}",
@@ -746,13 +599,6 @@
       "файл cobol",
       "застарілий код",
       "мейнфрейм"
-    ],
-    "x_search_terms_en": [
-      "читати файл cobol",
-      "індекс файлу cobol",
-      "структура програми cobol",
-      "поділ cobol",
-      "параграф cobol"
     ],
     "param.path.description": "Шлях до файлу COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Помилка: потрібен \"шлях\".",
@@ -782,13 +628,6 @@
       "eski kod",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "cobol dosyasını oku",
-      "cobol dosya dizini",
-      "cobol program yapısı",
-      "cobol bölümü",
-      "cobol paragrafı"
-    ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) dosyasının yolu.",
     "err.path_required": "Hata: 'yol' gerekli.",
     "err.file_not_found": "Hata: Dosya bulunamadı: {path}",
@@ -816,13 +655,6 @@
       "ไฟล์ cobol",
       "รหัสเดิม",
       "เมนเฟรม"
-    ],
-    "x_search_terms_en": [
-      "อ่านไฟล์โคบอล",
-      "ดัชนีไฟล์โคบอล",
-      "โครงสร้างโปรแกรมโคบอล",
-      "การแบ่งโคบอล",
-      "ย่อหน้าโคบอล"
     ],
     "param.path.description": "เส้นทางไปยังไฟล์ COBOL (.cbl/.cob/.cpy)",
     "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
@@ -852,13 +684,6 @@
       "遗留代码",
       "大型机"
     ],
-    "x_search_terms_en": [
-      "读取cobol文件",
-      "cobol文件索引",
-      "cobol程序结构",
-      "cobol除法",
-      "cobol段落"
-    ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) 文件的路径。",
     "err.path_required": "错误：“路径”是必需的。",
     "err.file_not_found": "错误：找不到文件：{path}",
@@ -886,13 +711,6 @@
       "cobol檔",
       "遺留程式碼",
       "大型機"
-    ],
-    "x_search_terms_en": [
-      "讀取cobol檔",
-      "cobol檔索引",
-      "cobol程式結構",
-      "cobol除法",
-      "cobol段落"
     ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) 檔案的路徑。",
     "err.path_required": "錯誤：「路徑」是必需的。",
@@ -922,13 +740,6 @@
       "উত্তরাধিকার কোড",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "cobol ফাইল পড়ুন",
-      "cobol ফাইল সূচক",
-      "cobol প্রোগ্রাম গঠন",
-      "cobol বিভাগ",
-      "cobol অনুচ্ছেদ"
-    ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) ফাইলের পথ।",
     "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
     "err.file_not_found": "ত্রুটি: ফাইল পাওয়া যায়নি: {path}",
@@ -956,13 +767,6 @@
       "فایل cobol",
       "کد میراث",
       "پردازنده مرکزی"
-    ],
-    "x_search_terms_en": [
-      "خواندن فایل cobol",
-      " فهرست فایل cobol",
-      "ساختار برنامه cobol",
-      " تقسیم cobol",
-      " پاراگراف cobol"
     ],
     "param.path.description": "مسیر فایل COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
@@ -992,13 +796,6 @@
       "хуучирсан код",
       "мэйн фрейм"
     ],
-    "x_search_terms_en": [
-      "кобол файлыг унших",
-      "кобол файлын индекс",
-      "кобол програмын бүтэц",
-      "коболын хэлтэс",
-      "кобол догол мөр"
-    ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) файлын зам.",
     "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
     "err.file_not_found": "Алдаа: Файл олдсонгүй: {path}",
@@ -1026,13 +823,6 @@
       "cobol फाइल",
       "वारसा कोड",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "कोबोल फाइल वाचा",
-      "कोबोल फाइल इंडेक्स",
-      "कोबोल प्रोग्राम स्ट्रक्चर",
-      "कोबोल डिव्हिजन",
-      "कोबोल परिच्छेद"
     ],
     "param.path.description": "COBOL (.cbl/.cob/.cpy) फाइलचा मार्ग.",
     "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
@@ -1062,13 +852,6 @@
       "κωδικός παλαιού τύπου",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "ανάγνωση αρχείου cobol",
-      "ευρετήριο αρχείου cobol",
-      "δομή προγράμματος cobol",
-      "διαίρεση cobol",
-      "παράγραφος cobol"
-    ],
     "param.path.description": "Διαδρομή προς το αρχείο COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
     "err.file_not_found": "Σφάλμα: Το αρχείο δεν βρέθηκε: {path}",
@@ -1096,13 +879,6 @@
       "קובץ cobol",
       "קוד מדור קודם",
       "מיינפריים"
-    ],
-    "x_search_terms_en": [
-      "קרא את קובץ cobol",
-      "אינדקס קובץ cobol",
-      "מבנה תוכנית cobol",
-      "חלוקת cobol",
-      "פסקת cobol"
     ],
     "param.path.description": "נתיב לקובץ COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "שגיאה: נדרש 'נתיב'.",
@@ -1132,13 +908,6 @@
       "örökölt kód",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "Cobol fájl olvasása",
-      "cobol fájl index",
-      "cobol programstruktúra",
-      "cobol felosztás",
-      "cobol bekezdés"
-    ],
     "param.path.description": "A COBOL (.cbl/.cob/.cpy) fájl elérési útja.",
     "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
     "err.file_not_found": "Hiba: A fájl nem található: {path}",
@@ -1166,13 +935,6 @@
       "fișier cobol",
       "cod moștenit",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "citiți fișierul cobol",
-      "indexul fișierului cobol",
-      "structura programului cobol",
-      "diviziunea cobol",
-      "paragraful cobol"
     ],
     "param.path.description": "Calea către fișierul COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Eroare: „calea” este necesară.",
@@ -1202,13 +964,6 @@
       "legacy code",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "basahin ang cobol file",
-      "index ng cobol file",
-      "istraktura ng programa ng cobol",
-      "dibisyon ng cobol",
-      "talata ng cobol"
-    ],
     "param.path.description": "Path sa COBOL (.cbl/.cob/.cpy) file.",
     "err.path_required": "Error: 'path' ay kinakailangan.",
     "err.file_not_found": "Error: Hindi nakita ang file: {path}",
@@ -1236,13 +991,6 @@
       "fail cobol",
       "kod warisan",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "baca fail cobol",
-      "indeks fail cobol",
-      "struktur program cobol",
-      "bahagian cobol",
-      "perenggan cobol"
     ],
     "param.path.description": "Laluan ke fail COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "Ralat: 'laluan' diperlukan.",
@@ -1272,13 +1020,6 @@
       "ældre kode",
       "mainframe"
     ],
-    "x_search_terms_en": [
-      "læs cobol fil",
-      "cobol filindeks",
-      "cobol programstruktur",
-      "cobol division",
-      "cobol afsnit"
-    ],
     "param.path.description": "Sti til COBOL-filen (.cbl/.cob/.cpy).",
     "err.path_required": "Fejl: 'sti' er påkrævet.",
     "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
@@ -1306,13 +1047,6 @@
       "kobolfil",
       "eldre kode",
       "mainframe"
-    ],
-    "x_search_terms_en": [
-      "les cobol fil",
-      "cobol filindeks",
-      "cobol programstruktur",
-      "kobolinndeling",
-      "cobol avsnitt"
     ],
     "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",
     "err.path_required": "Feil: 'bane' er påkrevd.",

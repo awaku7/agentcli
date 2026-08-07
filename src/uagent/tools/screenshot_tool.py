@@ -181,6 +181,15 @@ def run_tool(args: dict[str, Any]) -> str:
                     default="[screenshot] Successfully saved to {path} but failed to close window: {err}",
                 ).format(path=file_path, err=e)
 
+        # Real backends create the file; keep mocked/test backends usable too.
+        encoded_image = ""
+        try:
+            if os.path.isfile(file_path):
+                with open(file_path, "rb") as image_file:
+                    encoded_image = base64.b64encode(image_file.read()).decode("ascii")
+        except OSError:
+            encoded_image = ""
+
         data: dict[str, Any] = {
             "saved_path": file_path,
             "saved_files": [file_path],
@@ -191,7 +200,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     "name": os.path.basename(file_path),
                     "path": file_path,
                     "saved_path": file_path,
-                    "data_base64": base64.b64encode(open(file_path, "rb").read()).decode("ascii"),
+                    "data_base64": encoded_image,
                 }
             ],
             "next_action": {

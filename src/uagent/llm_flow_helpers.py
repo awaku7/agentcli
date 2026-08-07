@@ -468,14 +468,14 @@ def _execute_tool_calls(
 
     for tc in tool_calls_list:
         name = tc["function"]["name"]
-        if not tools.is_parallel_safe(name):
-            continue
         arg_str = tc["function"].get("arguments") or "{}"
         try:
             parsed_args = json.loads(arg_str)
             if not isinstance(parsed_args, dict):
                 continue
         except Exception:
+            continue
+        if not tools.is_parallel_safe(name, parsed_args):
             continue
         _parallel_batch.append((len(_parallel_batch), name, parsed_args))
         _parallel_tc_ids.append(tc["id"])

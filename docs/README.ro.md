@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **203 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **111 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
+- **220 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **128 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
@@ -56,7 +56,7 @@ Toți furnizorii au același set de instrumente și interfață. Comutați setâ
 ### ⚡ Execuție paralelă a instrumentului
 
 Când LLM solicită mai multe instrumente simultan, uag **le paralelizează automat**.
-111 de instrumente sunt marcate `x_parallel_safe` și se execută simultan printr-un `ThreadPoolExecutor` (8 fire de execuție în mod implicit; setați `UAGENT_PARALLEL_WORKERS` să se schimbe).
+128 de instrumente sunt marcate `x_parallel_safe` și se execută simultan printr-un `ThreadPoolExecutor` (8 fire de execuție în mod implicit; setați `UAGENT_PARALLEL_WORKERS` să se schimbe).
 
 **Exemplu**: Întrebați „Verificați vremea în capitalele nordice” → LLM declanșează `search_web` × 5 țări → toate cele 5 căutări se desfășoară în paralel → rezultate colectate într-un singur lot.
 
@@ -87,7 +87,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 - **Schimbați furnizorul în timpul sesiunii**: `UAGENT_PROVIDER` — istoricul conversațiilor este păstrat.
 - **Reîncărcați sesiunile anterioare**: `:load <index>` — reluați de unde ați rămas.
 
-### 🛠 203 de instrumente
+### 🛠 220 de instrumente
 
 | Categoria | Instrumente |
 |---|---|

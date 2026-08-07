@@ -1565,9 +1565,17 @@ _PARALLEL_TOOL_EXECUTOR = concurrent.futures.ThreadPoolExecutor(
 _TRACE_LOCK = Lock()
 
 
-def is_parallel_safe(tool_name: str) -> bool:
-    """Check whether a tool is marked as safe for parallel execution."""
+def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool:
+    """Check whether a tool call is safe for parallel execution.
+
+    Most tools use a static ``x_parallel_safe`` flag. HTTP requests are
+    method-sensitive: read-only methods may run in parallel, while writes
+    remain serial.
+    """
     _ensure_loaded()
+    if tool_name == "http_request":
+        method = str((args or {}).get("method") or "GET").upper()
+        return method in {"GET", "HEAD", "OPTIONS"}
     for spec in TOOL_SPECS:
         if spec.get("function", {}).get("name") == tool_name:
             return bool(spec.get("x_parallel_safe", False))

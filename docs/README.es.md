@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Se ejecuta localmente** en su máquina. Sus datos permanecen con usted (excepto las llamadas API que realice).
 - **Libertad de proveedores**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Más de 15 proveedores, todos accesibles desde una única interfaz. Cambie entre ellos reconfigurando las variables de entorno: sin reinstalación ni migración.
-- **203 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **111 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
+- **220 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **128 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
 - **3 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
 - **Habilidades del agente**: instale habilidades creadas por la comunidad desde el mercado. Extiende uag sin cesar.
 
@@ -56,7 +56,7 @@ Todos los proveedores comparten el mismo conjunto de herramientas e interfaz. Ca
 ### ⚡ Ejecución de herramientas paralelas
 
 Cuando el LLM solicita varias herramientas simultáneamente, uag las **paraleliza automáticamente**.
-111 herramientas están marcadas como `x_parallel_safe` y se ejecutan simultáneamente a través de un `ThreadPoolExecutor` (8 subprocesos de forma predeterminada; configure `UAGENT_PARALLEL_WORKERS` para cambiar).
+128 herramientas están marcadas como `x_parallel_safe` y se ejecutan simultáneamente a través de un `ThreadPoolExecutor` (8 subprocesos de forma predeterminada; configure `UAGENT_PARALLEL_WORKERS` para cambiar).
 
 **Ejemplo**: Pregunte "Consulte el clima en las capitales nórdicas" → LLM activa `search_web` × 5 países → las 5 búsquedas se ejecutan en paralelo → los resultados se recopilan en un lote.
 
@@ -87,7 +87,7 @@ Consulte la documentación completa en [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 - **Cambiar de proveedor durante la sesión**: `UAGENT_PROVIDER` — se conserva el historial de conversaciones.
 - **Volver a cargar sesiones anteriores**: `:load <index>` — continúe donde lo dejó.
 
-### 🛠 203 herramientas
+### 🛠 220 herramientas
 
 | Categoría | Herramientas |
 |---|---|

@@ -14,9 +14,9 @@ Pada pelancaran pertama, wizard persediaan akan membantu anda mengkonfigurasi pe
 ## Ciri utama
 
 - **24 penyedia**: OpenAI, PFN (PLaMo), Azure, Bedrock, OpenRouter, Ollama, Gemini, Vertex AI, Claude, Grok, NVIDIA, Novita, DeepSeek, Z.AI, HuggingFace, Alibaba Cloud, Moonshot, Xiaomi MiMo, LM Studio, MiniMax, Sakana AI, SAKURA AI Engine, Together AI dan Vercel AI Gateway.
-- **203 alat** untuk operasi fail, carian web, imej, audio, dokumen, IoT, MCP, A2A dan pembangunan.
+- **220 alat** untuk operasi fail, carian web, imej, audio, dokumen, IoT, MCP, A2A dan pembangunan.
 - **API awan**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
-- **111 alat** ditanda `x_parallel_safe` dan boleh dijalankan secara selari.
+- **128 alat** ditanda `x_parallel_safe` dan boleh dijalankan secara selari.
 - **4 antara muka**: CLI, GUI, Web dan A2A, serta sambungan VS Code.
 - Pemuatan alat dinamik, Agent Skills, kesinambungan sesi dan operasi tempatan.
 
