@@ -72,6 +72,7 @@ from .tools.pybitchat_shared import (
 )
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
+from .attachment_utils import materialize_attachment
 from .providers.util_providers import make_client as util_make_client
 from .tools.context import ToolCallbacks, get_callbacks
 from .tools.skill_history import make_finish_skill_handler
@@ -2094,6 +2095,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for att in msg.get("attachments") or []:
                 if not isinstance(att, dict):
                     continue
+                att = materialize_attachment(att, get_state_dir() / "remote_attachments")
                 if str(att.get("type") or "").lower() not in (
                     "image",
                     "image/png",

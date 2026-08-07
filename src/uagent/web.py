@@ -184,6 +184,9 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
             item = dict(att)
             path = item.get("path") or item.get("saved_path") or item.get("file_path")
             mime = str(item.get("mime") or item.get("type") or "").lower()
+            b64 = item.get("data_base64") or item.get("base64")
+            if isinstance(b64, str) and b64 and not item.get("data_url"):
+                item["data_url"] = f"data:{mime if mime.startswith('image/') else 'image/png'};base64,{b64}"
             if (
                 path
                 and not item.get("data_url")

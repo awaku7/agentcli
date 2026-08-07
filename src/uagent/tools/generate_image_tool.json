@@ -25,7 +25,8 @@
     "param.moderation.description": "Image moderation mode (optional).",
     "param.quality.description": "Image quality.",
     "param.background.description": "Image background.",
-    "err.depname_missing": "[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
@@ -53,7 +54,8 @@
     "param.moderation.description": "画像モデレーション モード (オプション)。",
     "param.quality.description": "画質。",
     "param.background.description": "画像の背景。",
-    "err.depname_missing": "[generate_image] イメージモデル(デプロイ名)が設定されていません。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。"
+    "err.depname_missing": "[generate_image] イメージモデル(デプロイ名)が設定されていません。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。",
+    "param.include_base64.description": "リモートクライアント向けに画像のBase64データを含めます。"
   },
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo.",
@@ -81,7 +83,8 @@
     "param.moderation.description": "Modo de moderación de imagen (opcional).",
     "param.quality.description": "Calidad de imagen.",
     "param.background.description": "Fondo de la imagen.",
-    "err.depname_missing": "[generate_image] El modelo de imagen (nombre de la implementación) no está configurado. \n Configure la variable de entorno UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] El modelo de imagen (nombre de la implementación) no está configurado. \n Configure la variable de entorno UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Incluir datos de imagen en Base64 para clientes remotos."
   },
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier.",
@@ -109,7 +112,8 @@
     "param.moderation.description": "Mode de modération des images (facultatif).",
     "param.quality.description": "Qualité des images.",
     "param.background.description": "Fond d'image.",
-    "err.depname_missing": "[generate_image] Le modèle d'image (nom du déploiement) n'est pas défini.\nVeuillez définir la variable d'environnement UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Le modèle d'image (nom du déploiement) n'est pas défini.\nVeuillez définir la variable d'environnement UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Inclure les données d’image Base64 pour les clients distants."
   },
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
@@ -137,7 +141,8 @@
     "param.moderation.description": "이미지 조정 모드(선택 사항).",
     "param.quality.description": "이미지 품질.",
     "param.background.description": "이미지 배경.",
-    "err.depname_missing": "[generate_image] 이미지 모델(배포 이름)이 설정되지 않았습니다.\n환경 변수 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME을 설정하세요."
+    "err.depname_missing": "[generate_image] 이미지 모델(배포 이름)이 설정되지 않았습니다.\n환경 변수 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME을 설정하세요.",
+    "param.include_base64.description": "원격 클라이언트를 위해 Base64 이미지 데이터를 포함합니다."
   },
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
@@ -165,7 +170,8 @@
     "param.moderation.description": "Bildmoderationsmodus (optional).",
     "param.quality.description": "Bildqualität.",
     "param.background.description": "Bildhintergrund.",
-    "err.depname_missing": "[generate_image] Image-Modell (Bereitstellungsname) ist nicht festgelegt. \nBitte legen Sie die Umgebungsvariable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME fest."
+    "err.depname_missing": "[generate_image] Image-Modell (Bereitstellungsname) ist nicht festgelegt. \nBitte legen Sie die Umgebungsvariable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME fest.",
+    "param.include_base64.description": "Base64-Bilddaten für Remote-Clients einschließen."
   },
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
@@ -193,7 +199,8 @@
     "param.moderation.description": "Modalità di moderazione delle immagini (opzionale).",
     "param.quality.description": "Qualità dell'immagine.",
     "param.background.description": "Sfondo dell'immagine.",
-    "err.depname_missing": "[generate_image] Il modello immagine (nome distribuzione) non è impostato.\nImposta la variabile di ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Il modello immagine (nome distribuzione) non è impostato.\nImposta la variabile di ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
@@ -221,7 +228,8 @@
     "param.moderation.description": "Режим модерации изображений (опционально).",
     "param.quality.description": "Качество изображения.",
     "param.background.description": "Фон изображения.",
-    "err.depname_missing": "[generate_image] Модель образа (имя развертывания) не задана.\nЗадайте переменную среды UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Модель образа (имя развертывания) не задана.\nЗадайте переменную среды UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -249,7 +257,8 @@
     "param.moderation.description": "Modo de moderação de imagem (opcional).",
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
-    "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -277,7 +286,8 @@
     "param.moderation.description": "Modo de moderação de imagem (opcional).",
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
-    "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
@@ -305,7 +315,8 @@
     "param.moderation.description": "Mode moderasi gambar (opsional).",
     "param.quality.description": "Kualitas gambar.",
     "param.background.description": "Latar belakang gambar.",
-    "err.depname_missing": "[generate_image] Model gambar (nama penerapan) tidak disetel.\nHarap setel variabel lingkungan UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Model gambar (nama penerapan) tidak disetel.\nHarap setel variabel lingkungan UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
@@ -333,7 +344,8 @@
     "param.moderation.description": "Chế độ kiểm duyệt hình ảnh (tùy chọn).",
     "param.quality.description": "Chất lượng hình ảnh.",
     "param.background.description": "Nền hình ảnh.",
-    "err.depname_missing": "[generate_image] Mô hình hình ảnh (tên triển khai) chưa được đặt.\nVui lòng đặt biến môi trường UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Mô hình hình ảnh (tên triển khai) chưa được đặt.\nVui lòng đặt biến môi trường UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "pl": {
     "tool.description": "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web).",
@@ -361,7 +373,8 @@
     "param.moderation.description": "Tryb moderacji obrazu (opcjonalnie).",
     "param.quality.description": "Jakość obrazu.",
     "param.background.description": "Tło obrazu.",
-    "err.depname_missing": "[generate_image] Model obrazu (nazwa wdrożenia) nie jest ustawiony. \nUstaw zmienną środowiskową UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Model obrazu (nazwa wdrożenia) nie jest ustawiony. \nUstaw zmienną środowiskową UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "hi": {
     "tool.description": "टेक्स्ट प्रॉम्प्ट से चित्र बनाता है, उसे PNG के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। खोलना कॉलर (CLI/GUI/Web) संभालता है।",
@@ -389,7 +402,8 @@
     "param.moderation.description": "छवि मॉडरेशन मोड (वैकल्पिक).",
     "param.quality.description": "छवि के गुणवत्ता।",
     "param.background.description": "छवि पृष्ठभूमि.",
-    "err.depname_missing": "[जेनरेट_इमेज] छवि मॉडल (परिनियोजन नाम) सेट नहीं है। कृपया पर्यावरण चर UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करें।"
+    "err.depname_missing": "[जेनरेट_इमेज] छवि मॉडल (परिनियोजन नाम) सेट नहीं है। कृपया पर्यावरण चर UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करें।",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ar": {
     "tool.description": "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web).",
@@ -417,7 +431,8 @@
     "param.moderation.description": "وضع تعديل الصورة (اختياري).",
     "param.quality.description": "جودة الصورة.",
     "param.background.description": "خلفية الصورة.",
-    "err.depname_missing": "[generate_image] لم يتم تعيين نموذج الصورة (اسم النشر). \nيرجى ضبط متغير البيئة UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] لم يتم تعيين نموذج الصورة (اسم النشر). \nيرجى ضبط متغير البيئة UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",
@@ -445,7 +460,8 @@
     "param.moderation.description": "Bildmodereringsläge (valfritt).",
     "param.quality.description": "Bildkvalitet.",
     "param.background.description": "Bildbakgrund.",
-    "err.depname_missing": "[generate_image] Bildmodell (distributionsnamn) är inte inställd.\nAnge miljövariabeln UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Bildmodell (distributionsnamn) är inte inställd.\nAnge miljövariabeln UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "sw": {
     "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili.",
@@ -473,7 +489,8 @@
     "param.moderation.description": "Hali ya udhibiti wa picha (si lazima).",
     "param.quality.description": "Ubora wa picha.",
     "param.background.description": "Mandharinyuma ya picha.",
-    "err.depname_missing": "[generate_image] Muundo wa picha (jina la matumizi) halijawekwa.\nTafadhali weka kigezo cha mazingira UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Muundo wa picha (jina la matumizi) halijawekwa.\nTafadhali weka kigezo cha mazingira UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "nb": {
     "tool.description": "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web).",
@@ -501,7 +518,8 @@
     "param.moderation.description": "Bildemodereringsmodus (valgfritt).",
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
-    "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "nl": {
     "tool.description": "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug.",
@@ -529,7 +547,8 @@
     "param.moderation.description": "Modus voor beeldmoderatie (optioneel).",
     "param.quality.description": "Beeldkwaliteit.",
     "param.background.description": "Afbeelding achtergrond.",
-    "err.depname_missing": "[generate_image] Afbeeldingsmodel (implementatienaam) is niet ingesteld.\nStel de omgevingsvariabele UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME in."
+    "err.depname_missing": "[generate_image] Afbeeldingsmodel (implementatienaam) is niet ingesteld.\nStel de omgevingsvariabele UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME in.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "fi": {
     "tool.description": "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web).",
@@ -557,7 +576,8 @@
     "param.moderation.description": "Kuvan moderointitila (valinnainen).",
     "param.quality.description": "Kuvan laatu.",
     "param.background.description": "Kuvan tausta.",
-    "err.depname_missing": "[generate_image] Kuvamallia (käyttöönoton nimi) ei ole asetettu.\nAseta ympäristömuuttuja UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Kuvamallia (käyttöönoton nimi) ei ole asetettu.\nAseta ympäristömuuttuja UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web).",
@@ -585,7 +605,8 @@
     "param.moderation.description": "Režim moderování obrazu (volitelné).",
     "param.quality.description": "Kvalita obrazu.",
     "param.background.description": "Pozadí obrázku.",
-    "err.depname_missing": "[generate_image] Model obrázku (název nasazení) není nastaven.\nNastavte proměnnou prostředí UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Model obrázku (název nasazení) není nastaven.\nNastavte proměnnou prostředí UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "uk": {
     "tool.description": "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web).",
@@ -613,7 +634,8 @@
     "param.moderation.description": "Режим модерації зображення (опціонально).",
     "param.quality.description": "Якість зображення.",
     "param.background.description": "Фон зображення.",
-    "err.depname_missing": "[generate_image] Модель зображення (ім’я розгортання) не встановлено.\nУстановіть змінну середовища UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Модель зображення (ім’я розгортання) не встановлено.\nУстановіть змінну середовища UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "tr": {
     "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür.",
@@ -641,7 +663,8 @@
     "param.moderation.description": "Görüntü denetleme modu (isteğe bağlı).",
     "param.quality.description": "Görüntü kalitesi.",
     "param.background.description": "Görüntü arka planı.",
-    "err.depname_missing": "[generate_image] Görüntü modeli (dağıtım adı) ayarlanmadı.\nLütfen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME ortam değişkenini ayarlayın."
+    "err.depname_missing": "[generate_image] Görüntü modeli (dağıtım adı) ayarlanmadı.\nLütfen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME ortam değişkenini ayarlayın.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "th": {
     "tool.description": "สร้างภาพจากพรอมต์ข้อความ บันทึกเป็น PNG และคืนค่าพาธของไฟล์ การเปิดไฟล์เป็นหน้าที่ของผู้เรียก (CLI/GUI/Web).",
@@ -669,7 +692,8 @@
     "param.moderation.description": "โหมดการกลั่นกรองรูปภาพ (ไม่จำเป็น)",
     "param.quality.description": "คุณภาพของภาพ",
     "param.background.description": "ภาพพื้นหลัง",
-    "err.depname_missing": "[generate_image] ไม่ได้ตั้งค่าโมเดลรูปภาพ (ชื่อการปรับใช้) \nโปรดตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME"
+    "err.depname_missing": "[generate_image] ไม่ได้ตั้งค่าโมเดลรูปภาพ (ชื่อการปรับใช้) \nโปรดตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "zh_CN": {
     "tool.description": "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）。",
@@ -697,7 +721,8 @@
     "param.moderation.description": "图像审核模式（可选）。",
     "param.quality.description": "图像质量。",
     "param.background.description": "图像背景。",
-    "err.depname_missing": "[generate_image] 未设置映像模型（部署名称）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。"
+    "err.depname_missing": "[generate_image] 未设置映像模型（部署名称）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
+    "param.include_base64.description": "为远程客户端包含Base64图像数据。"
   },
   "zh_TW": {
     "tool.description": "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）。",
@@ -725,7 +750,8 @@
     "param.moderation.description": "影像審核模式（可選）。",
     "param.quality.description": "影像品質。",
     "param.background.description": "圖像背景。",
-    "err.depname_missing": "[generate_image] 未設定映像模型（部署名稱）。 \n請設定環境變數 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。"
+    "err.depname_missing": "[generate_image] 未設定映像模型（部署名稱）。 \n請設定環境變數 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
+    "param.include_base64.description": "為遠端用戶端包含Base64圖像資料。"
   },
   "bn": {
     "tool.description": "টেক্সট প্রম্পট থেকে একটি ছবি তৈরি করে, PNG হিসেবে সংরক্ষণ করে, এবং ফাইলের পথ ফেরত দেয়। খোলার কাজটি কলার (CLI/GUI/Web) করে।",
@@ -753,7 +779,8 @@
     "param.moderation.description": "চিত্র সংযম মোড (ঐচ্ছিক)।",
     "param.quality.description": "ছবির গুণমান।",
     "param.background.description": "ছবির পটভূমি।",
-    "err.depname_missing": "[generate_image] ছবির মডেল (ডিপ্লয়মেন্ট নাম) সেট করা নেই।\nঅনুগ্রহ করে পরিবেশ পরিবর্তনশীল UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME সেট করুন৷"
+    "err.depname_missing": "[generate_image] ছবির মডেল (ডিপ্লয়মেন্ট নাম) সেট করা নেই।\nঅনুগ্রহ করে পরিবেশ পরিবর্তনশীল UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME সেট করুন৷",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "fa": {
     "tool.description": "از یک prompt متنی تصویر تولید می‌کند، آن را به‌صورت PNG ذخیره می‌کند و مسیر فایل را برمی‌گرداند.",
@@ -781,7 +808,8 @@
     "param.moderation.description": "حالت تعدیل تصویر (اختیاری).",
     "param.quality.description": "کیفیت تصویر.",
     "param.background.description": "پس زمینه تصویر.",
-    "err.depname_missing": "[generate_image] مدل تصویر (نام استقرار) تنظیم نشده است.\nلطفاً متغیر محیطی UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME را تنظیم کنید."
+    "err.depname_missing": "[generate_image] مدل تصویر (نام استقرار) تنظیم نشده است.\nلطفاً متغیر محیطی UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME را تنظیم کنید.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "mn": {
     "tool.description": "Текст prompt-оос зураг үүсгэж, PNG болгон хадгалаад файлын замыг буцаана. Нээх үйлдлийг дуудсан тал (CLI/GUI/Web) гүйцэтгэнэ.",
@@ -809,7 +837,8 @@
     "param.moderation.description": "Зургийг зохицуулах горим (заавал биш).",
     "param.quality.description": "Зургийн чанар.",
     "param.background.description": "Зургийн дэвсгэр.",
-    "err.depname_missing": "[зургийг_үүсгэх] Зургийн загвар (байршуулах нэр) тохируулагдаагүй байна.\nUAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME орчны хувьсагчийг тохируулна уу."
+    "err.depname_missing": "[зургийг_үүсгэх] Зургийн загвар (байршуулах нэр) тохируулагдаагүй байна.\nUAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME орчны хувьсагчийг тохируулна уу.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "mr": {
     "tool.description": "टेक्स्ट प्रॉम्प्टवरून प्रतिमा तयार करते, PNG म्हणून जतन करते आणि फाइलचा मार्ग परत करते. उघडण्याची क्रिया कॉलर (CLI/GUI/Web) करतो.",
@@ -837,7 +866,8 @@
     "param.moderation.description": "प्रतिमा नियंत्रण मोड (पर्यायी).",
     "param.quality.description": "प्रतिमा गुणवत्ता.",
     "param.background.description": "प्रतिमा पार्श्वभूमी.",
-    "err.depname_missing": "[generate_image] प्रतिमा मॉडेल (उपयोजन नाव) सेट केलेले नाही. \nकृपया पर्यावरण व्हेरिएबल UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करा."
+    "err.depname_missing": "[generate_image] प्रतिमा मॉडेल (उपयोजन नाव) सेट केलेले नाही. \nकृपया पर्यावरण व्हेरिएबल UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करा.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "el": {
     "tool.description": "Δημιουργεί μια εικόνα από μια προτροπή κειμένου, την αποθηκεύει ως PNG και επιστρέφει τη διαδρομή του αρχείου. Το άνοιγμα γίνεται από τον καλούντα (CLI/GUI/Web).",
@@ -865,7 +895,8 @@
     "param.moderation.description": "Ποιότητα εικόνας.",
     "param.quality.description": "Φόντο εικόνας. Το πρότυπο",
     "param.background.description": "Φόντο εικόνας.",
-    "err.depname_missing": "[generate_image] Το μοντέλο εικόνας (όνομα ανάπτυξης) δεν έχει οριστεί.\nΡυθμίστε τη μεταβλητή περιβάλλοντος UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Το μοντέλο εικόνας (όνομα ανάπτυξης) δεν έχει οριστεί.\nΡυθμίστε τη μεταβλητή περιβάλλοντος UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "he": {
     "tool.description": "יצירת לולאה סופה, PNG=] יוצר לולאה סיום, PNG ומחזירה את נתיב הקובץ או מוחלט).",
@@ -893,7 +924,8 @@
     "param.moderation.description": "מצב ניהול תמונה (אופציונלי).",
     "param.quality.description": "איכות תמונה.",
     "param.background.description": "רקע תמונה.",
-    "err.depname_missing": "[generate_image] מודל התמונה (שם הפריסה) לא מוגדר.\nאנא הגדר את משתנה הסביבה UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] מודל התמונה (שם הפריסה) לא מוגדר.\nאנא הגדר את משתנה הסביבה UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "hu": {
     "tool.description": "záró ciklus, és szöveg visszaadása promócióként, kép #=] a fájl elérési útját a hívó kezeli (",
@@ -921,7 +953,8 @@
     "param.moderation.description": "Képmoderálási mód (opcionális).",
     "param.quality.description": "Képminőség.",
     "param.background.description": "Kép háttér.",
-    "err.depname_missing": "[generate_image] A képmodell (telepítési név) nincs beállítva.\nÁllítsa be az UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME környezeti változót."
+    "err.depname_missing": "[generate_image] A képmodell (telepítési név) nincs beállítva.\nÁllítsa be az UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME környezeti változót.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ro": {
     "tool.description": "stop skill [=#==] end skill [=#==] end skill [=#==] end loop, o imagine PNG și returnează calea fișierului (relativ sau absolut). Valori implicite pentru outputs/image_generations dacă sunt omise.",
@@ -949,7 +982,8 @@
     "param.moderation.description": "Modul de moderare a imaginii (opțional).",
     "param.quality.description": "Calitatea imaginii.",
     "param.background.description": "Fundalul imaginii.",
-    "err.depname_missing": "[generate_image] Modelul de imagine (numele implementării) nu este setat.\nSetați variabila de mediu UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Modelul de imagine (numele implementării) nu este setat.\nSetați variabila de mediu UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "fil": {
     "tool.description": "Bumubuo ng larawan mula sa isang text prompt, sine-save ito bilang PNG, at ibinabalik ang path ng file. Ang pagbubukas ay pinangangasiwaan ng tumatawag (CLI/GUI/Web).",
@@ -977,7 +1011,8 @@
     "param.moderation.description": "Moderation mode ng imahe (opsyonal).",
     "param.quality.description": "Kalidad ng imahe.",
     "param.background.description": "Background ng larawan.",
-    "err.depname_missing": "[generate_image] Ang modelo ng larawan (pangalan ng deployment) ay hindi nakatakda.\nPakitakda ang environment variable na UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Ang modelo ng larawan (pangalan ng deployment) ay hindi nakatakda.\nPakitakda ang environment variable na UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ms": {
     "tool.description": "Menghasilkan imej daripada gesaan teks, menyimpannya sebagai PNG dan mengembalikan laluan fail. Pembukaan dikendalikan oleh pemanggil (CLI/GUI/Web).",
@@ -1005,7 +1040,8 @@
     "param.moderation.description": "Mod penyederhanaan imej (pilihan).",
     "param.quality.description": "Kualiti imej.",
     "param.background.description": "Latar belakang imej.",
-    "err.depname_missing": "[generate_image] Model imej (nama penempatan) tidak ditetapkan.\nSila tetapkan pembolehubah persekitaran UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Model imej (nama penempatan) tidak ditetapkan.\nSila tetapkan pembolehubah persekitaran UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "da": {
     "tool.description": "Genererer et billede fra en tekstprompt, gemmer det som en PNG og returnerer filstien. Åbning håndteres af den, der ringer (CLI/GUI/Web).",
@@ -1033,7 +1069,8 @@
     "param.moderation.description": "Billedmodereringstilstand (valgfrit).",
     "param.quality.description": "Billedkvalitet.",
     "param.background.description": "Billede baggrund.",
-    "err.depname_missing": "[generate_image] Billedmodel (implementeringsnavn) er ikke indstillet.\nIndstil venligst miljøvariablen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Billedmodel (implementeringsnavn) er ikke indstillet.\nIndstil venligst miljøvariablen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "nn": {
     "tool.description": "Genererer et bilde frå en tekstmelding, lagrer det som en PNG og returnerer filbanen. Åpning håndteres av den som ringer (CLI/GUI/Web).",
@@ -1061,6 +1098,7 @@
     "param.moderation.description": "Bildemodereringsmodus (valgfritt).",
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
-    "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+    "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "param.include_base64.description": "Include base64 image data for remote clients."
   }
 }

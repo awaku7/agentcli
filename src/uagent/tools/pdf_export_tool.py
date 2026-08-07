@@ -1,12 +1,14 @@
 # src/uagent/tools/pdf_export_tool.py
 from __future__ import annotations
 
+import base64
 import asyncio
 import json
 import os
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
@@ -295,8 +297,21 @@ def run_tool(args: dict[str, Any]) -> str:
 
         _generate_pdf_from_html(html, output_path)
 
-        return (
-            f"Successfully created PDF at '{output_path}' ({len(messages)} messages)."
+        with open(output_path, "rb") as pdf_file:
+            pdf_b64 = base64.b64encode(pdf_file.read()).decode("ascii")
+        return make_response(
+            True,
+            f"Successfully created PDF at '{output_path}' ({len(messages)} messages).",
+            data={
+                "saved_files": [output_path],
+                "attachments": [{
+                    "type": "file",
+                    "mime": "application/pdf",
+                    "name": os.path.basename(output_path),
+                    "path": output_path,
+                    "data_base64": pdf_b64,
+                }],
+            },
         )
     except Exception as e:
         return f"Error generating PDF: {e}"

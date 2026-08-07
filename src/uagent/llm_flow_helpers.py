@@ -160,9 +160,13 @@ def _build_auto_user_message_from_next_action(
     if isinstance(attachments, list) and attachments:
         auto_user_msg["attachments"] = attachments
     else:
-        tool_attachments = tool_msg.get("attachments")
-        if isinstance(tool_attachments, list) and tool_attachments:
-            auto_user_msg["attachments"] = tool_attachments
+        # Generated media is for the client/UI attachment channel. Do not feed
+        # its potentially large Base64 payload back into the LLM continuation.
+        tool_name = str(tool_msg.get("name") or "")
+        if tool_name not in {"generate_image", "mermaid_render", "img2img", "forecast", "generate_qr_code", "screenshot", "pdf_export", "audio_speech"}:
+            tool_attachments = tool_msg.get("attachments")
+            if isinstance(tool_attachments, list) and tool_attachments:
+                auto_user_msg["attachments"] = tool_attachments
 
     return auto_user_msg
 

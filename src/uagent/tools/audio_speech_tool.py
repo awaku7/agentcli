@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 from pathlib import Path
 from typing import Any
 
@@ -569,6 +570,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "name": Path(safe_out).name,
                 "path": safe_out,
                 "saved_path": safe_out,
+                "data_base64": base64.b64encode(Path(safe_out).read_bytes()).decode("ascii"),
             }
         ],
         "provider": provider,

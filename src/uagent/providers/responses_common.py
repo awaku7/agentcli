@@ -205,6 +205,11 @@ def attachment_to_content_item(att: Any) -> Optional[dict[str, Any]]:
         return None
 
     data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
+    if not (isinstance(data_url, str) and data_url.startswith("data:")):
+        b64 = att.get("data_base64") or att.get("base64")
+        if isinstance(b64, str) and b64:
+            mime = as_str(att.get("mime") or "image/png")
+            data_url = f"data:{mime};base64,{b64}"
     if isinstance(data_url, str) and data_url.startswith("data:"):
         return {"type": "input_image", "image_url": data_url}
 

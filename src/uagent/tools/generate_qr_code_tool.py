@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import os
 from typing import Any
 
@@ -196,6 +197,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "mime": "image/png",
             "name": os.path.basename(safe_path),
             "path": safe_path,
+            "data_base64": base64.b64encode(open(safe_path, "rb").read()).decode("ascii"),
         }
     ]
 

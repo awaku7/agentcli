@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import logging
 import os
@@ -123,6 +124,11 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.plot.description",
                         default="Generate and save forecast plot image",
                     ),
+                },
+                "include_base64": {
+                    "type": "boolean",
+                    "description": _("param.include_base64.description", default="Include the forecast plot as base64 for remote clients."),
+                    "default": True,
                 },
                 "output_dir": {
                     "type": "string",
@@ -1373,6 +1379,17 @@ def run_tool(args: dict[str, Any]) -> str:
         }
         if plot_path:
             result["plot"] = plot_path
+            if os.path.isfile(plot_path):
+                attachment: dict[str, Any] = {
+                    "type": "image",
+                    "mime": "image/png",
+                    "name": os.path.basename(plot_path),
+                    "path": plot_path,
+                }
+                if bool(args.get("include_base64", True)):
+                    with open(plot_path, "rb") as plot_file:
+                        attachment["data_base64"] = base64.b64encode(plot_file.read()).decode("ascii")
+                result["attachments"] = [attachment]
 
         output = json.dumps(result, ensure_ascii=False, default=str)
         if cb.truncate_output:

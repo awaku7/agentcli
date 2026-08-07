@@ -7,6 +7,7 @@ from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
+import base64
 import datetime
 import os
 import time
@@ -190,6 +191,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     "name": os.path.basename(file_path),
                     "path": file_path,
                     "saved_path": file_path,
+                    "data_base64": base64.b64encode(open(file_path, "rb").read()).decode("ascii"),
                 }
             ],
             "next_action": {

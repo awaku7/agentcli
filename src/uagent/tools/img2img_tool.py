@@ -613,6 +613,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "mime": "image/png",
             "name": os.path.basename(path),
             "path": path,
+            "data_base64": base64.b64encode(open(path, "rb").read()).decode("ascii"),
         }
         for path in saved
     ]

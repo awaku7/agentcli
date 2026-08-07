@@ -29,7 +29,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Directory to save plot image. Defaults to ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Directory to save plot image. Defaults to ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ja": {
     "tool.forecast.description": "時系列予測を実行します。将来の予測、傾向分析、売上予測、または数値予測のタスクについて質問された場合にこれを使用します。",
@@ -61,7 +62,8 @@
     "param.model.enum_catboost": "キャットブースト",
     "param.model.enum_timesfm": "タイムズFM",
     "param.model.enum_chronos": "クロノス",
-    "param.output_dir.description": "プロットイメージを保存するディレクトリ。デフォルトは ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "プロットイメージを保存するディレクトリ。デフォルトは ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "リモートクライアント向けに予測グラフをBase64で含めます。"
   },
   "fil": {
     "tool.forecast.description": "Isagawa ang pagtataya ng serye ng oras. Gamitin ito kapag tinanong tungkol sa mga hula sa hinaharap, pagsusuri sa trend, mga pagtataya sa benta, o anumang gawain sa pagtataya ng numero.",
@@ -93,7 +95,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Direktoryo upang i-save ang larawan ng plot. Default sa ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Direktoryo upang i-save ang larawan ng plot. Default sa ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ms": {
     "tool.forecast.description": "Laksanakan ramalan siri masa. Gunakan ini apabila ditanya tentang ramalan masa depan, analisis aliran, ramalan jualan atau sebarang tugas ramalan berangka.",
@@ -125,7 +128,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Direktori untuk menyimpan imej plot. Lalai kepada ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Direktori untuk menyimpan imej plot. Lalai kepada ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "da": {
     "tool.forecast.description": "Udfør tidsserieprognoser. Brug dette, når du bliver spurgt om fremtidige forudsigelser, trendanalyse, salgsprognoser eller enhver numerisk prognoseopgave.",
@@ -157,7 +161,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Directory for at gemme plotbilledet. Som standard er ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Directory for at gemme plotbilledet. Som standard er ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "nn": {
     "tool.forecast.description": "Utfør tidsserieprognoser. Bruk dette når du blir spurt om fremtidige spådommer, trendanalyse, salgsprognoser eller en kva som helst numerisk prognoseoppgave.",
@@ -189,7 +194,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Katalog for å lagre plottbilde. Standardinnstillingen er ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Katalog for å lagre plottbilde. Standardinnstillingen er ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ar": {
     "tool.forecast.description": "تنفيذ التنبؤ بالسلاسل الزمنية. استخدم هذا عند سؤالك عن التنبؤات المستقبلية، أو تحليل الاتجاه، أو توقعات المبيعات، أو أي مهمة تنبؤ رقمية.",
@@ -221,7 +227,8 @@
     "param.model.enum_catboost": "كات بوست",
     "param.model.enum_timesfm": "تايمز اف ام",
     "param.model.enum_chronos": "كرونوس",
-    "param.output_dir.description": "دليل لحفظ صورة المؤامرة. الإعدادات الافتراضية هي ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "دليل لحفظ صورة المؤامرة. الإعدادات الافتراضية هي ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "bn": {
     "tool.forecast.description": "সময় সিরিজের পূর্বাভাস কার্যকর করুন। ভবিষ্যত ভবিষ্যদ্বাণী, প্রবণতা বিশ্লেষণ, বিক্রয় পূর্বাভাস, বা কোনো সংখ্যাসূচক পূর্বাভাস কাজ সম্পর্কে জিজ্ঞাসা করা হলে এটি ব্যবহার করুন।",
@@ -253,7 +260,8 @@
     "param.model.enum_catboost": "ক্যাটবুস্ট",
     "param.model.enum_timesfm": "টাইমসএফএম",
     "param.model.enum_chronos": "ক্রোনোস",
-    "param.output_dir.description": "প্লট ইমেজ সংরক্ষণ করার জন্য ডিরেক্টরি. ~/.uag/outputs/forecast_plots-এ ডিফল্ট"
+    "param.output_dir.description": "প্লট ইমেজ সংরক্ষণ করার জন্য ডিরেক্টরি. ~/.uag/outputs/forecast_plots-এ ডিফল্ট",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "cs": {
     "tool.forecast.description": "Proveďte prognózu časových řad. Použijte to, když se vás zeptáte na budoucí předpovědi, analýzu trendů, předpovědi prodeje nebo jakýkoli numerický předpovědní úkol.",
@@ -285,7 +293,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Adresář pro uložení obrázku plotu. Výchozí je ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Adresář pro uložení obrázku plotu. Výchozí je ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "de": {
     "tool.forecast.description": "Führen Sie Zeitreihenprognosen aus. Verwenden Sie diese Option, wenn Sie nach Zukunftsprognosen, Trendanalysen, Verkaufsprognosen oder anderen numerischen Prognoseaufgaben gefragt werden.",
@@ -317,7 +326,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Verzeichnis zum Speichern des Plotbilds. Der Standardwert ist ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Verzeichnis zum Speichern des Plotbilds. Der Standardwert ist ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Die Prognosegrafik als Base64 für Remote-Clients einschließen."
   },
   "el": {
     "tool.forecast.description": "Εκτελέστε πρόβλεψη χρονοσειρών. Χρησιμοποιήστε το όταν ρωτάτε για μελλοντικές προβλέψεις, ανάλυση τάσεων, προβλέψεις πωλήσεων ή οποιαδήποτε εργασία αριθμητικής πρόβλεψης.",
@@ -349,7 +359,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Χρόνος",
-    "param.output_dir.description": "Κατάλογος για αποθήκευση εικόνας πλοκής. Προεπιλογές σε ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Κατάλογος για αποθήκευση εικόνας πλοκής. Προεπιλογές σε ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "es": {
     "tool.forecast.description": "Ejecutar pronósticos de series de tiempo. Úselo cuando se le pregunte sobre predicciones futuras, análisis de tendencias, pronósticos de ventas o cualquier tarea de pronóstico numérico.",
@@ -381,7 +392,8 @@
     "param.model.enum_catboost": "gatoboost",
     "param.model.enum_timesfm": "HorariosFM",
     "param.model.enum_chronos": "Cronos",
-    "param.output_dir.description": "Directorio para guardar la imagen del trazado. El valor predeterminado es ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Directorio para guardar la imagen del trazado. El valor predeterminado es ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Incluir el gráfico de pronóstico en Base64 para clientes remotos."
   },
   "fa": {
     "tool.forecast.description": "اجرای پیش بینی سری های زمانی هنگامی که در مورد پیش‌بینی‌های آینده، تحلیل روند، پیش‌بینی فروش یا هر کار پیش‌بینی عددی سؤال می‌شود، از آن استفاده کنید.",
@@ -413,7 +425,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "کرونوس",
-    "param.output_dir.description": "دایرکتوری برای ذخیره تصویر طرح. پیش‌فرض ~/.uag/outputs/forecast_plots است"
+    "param.output_dir.description": "دایرکتوری برای ذخیره تصویر طرح. پیش‌فرض ~/.uag/outputs/forecast_plots است",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "fi": {
     "tool.forecast.description": "Suorita aikasarjaennustus. Käytä tätä, kun sinulta kysytään tulevaisuuden ennusteista, trendianalyysistä, myyntiennusteista tai mistä tahansa numeerisesta ennustetehtävästä.",
@@ -445,7 +458,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Hakemisto juonen kuvan tallentamiseen. Oletusarvo on ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Hakemisto juonen kuvan tallentamiseen. Oletusarvo on ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "fr": {
     "tool.forecast.description": "Exécuter des prévisions de séries chronologiques. Utilisez-le lorsque vous êtes interrogé sur les prévisions futures, l'analyse des tendances, les prévisions de ventes ou toute tâche de prévision numérique.",
@@ -477,7 +491,8 @@
     "param.model.enum_catboost": "ChatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Répertoire pour enregistrer l’image du tracé. La valeur par défaut est ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Répertoire pour enregistrer l’image du tracé. La valeur par défaut est ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Inclure le graphique de prévision en Base64 pour les clients distants."
   },
   "he": {
     "tool.forecast.description": "ביצוע חיזוי סדרות זמן. השתמש בזה כששואלים אותך לגבי תחזיות עתידיות, ניתוח מגמות, תחזיות מכירות או כל משימת חיזוי מספרית.",
@@ -509,7 +524,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "כרונוס",
-    "param.output_dir.description": "ספרייה לשמירת תמונת העלילה. ברירת המחדל היא ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "ספרייה לשמירת תמונת העלילה. ברירת המחדל היא ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "hi": {
     "tool.forecast.description": "समय श्रृंखला पूर्वानुमान निष्पादित करें. भविष्य की भविष्यवाणियों, प्रवृत्ति विश्लेषण, बिक्री पूर्वानुमान, या किसी संख्यात्मक पूर्वानुमान कार्य के बारे में पूछे जाने पर इसका उपयोग करें।",
@@ -541,7 +557,8 @@
     "param.model.enum_catboost": "कैटबूस्ट",
     "param.model.enum_timesfm": "टाइम्सएफएम",
     "param.model.enum_chronos": "क्रोनोस",
-    "param.output_dir.description": "प्लॉट छवि को सहेजने के लिए निर्देशिका। डिफ़ॉल्ट ~/.uag/आउटपुट/पूर्वानुमान_प्लॉट"
+    "param.output_dir.description": "प्लॉट छवि को सहेजने के लिए निर्देशिका। डिफ़ॉल्ट ~/.uag/आउटपुट/पूर्वानुमान_प्लॉट",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "hu": {
     "tool.forecast.description": "Idősoros előrejelzés végrehajtása. Használja ezt, ha jövőbeli előrejelzésekről, trendelemzésről, értékesítési előrejelzésekről vagy bármilyen numerikus előrejelzési feladatról kérdezik.",
@@ -573,7 +590,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Könyvtár a telekkép mentéséhez. Az alapértelmezett érték ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Könyvtár a telekkép mentéséhez. Az alapértelmezett érték ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "id": {
     "tool.forecast.description": "Jalankan perkiraan deret waktu. Gunakan ini ketika ditanya tentang prediksi masa depan, analisis tren, perkiraan penjualan, atau tugas perkiraan numerik apa pun.",
@@ -605,7 +623,8 @@
     "param.model.enum_catboost": "Peningkatan Kucing",
     "param.model.enum_timesfm": "WaktuFM",
     "param.model.enum_chronos": "Kronos",
-    "param.output_dir.description": "Direktori untuk menyimpan gambar plot. Defaultnya adalah ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Direktori untuk menyimpan gambar plot. Defaultnya adalah ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "it": {
     "tool.forecast.description": "Eseguire previsioni di serie temporali. Utilizzalo quando ti viene chiesto informazioni su previsioni future, analisi delle tendenze, previsioni di vendita o qualsiasi attività di previsione numerica.",
@@ -637,7 +656,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Crono",
-    "param.output_dir.description": "Directory in cui salvare l'immagine della trama. Il valore predefinito è ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Directory in cui salvare l'immagine della trama. Il valore predefinito è ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ko": {
     "tool.forecast.description": "시계열 예측을 실행합니다. 미래 예측, 추세 분석, 판매 예측 또는 수치 예측 작업에 대해 질문을 받을 때 이를 사용하세요.",
@@ -669,7 +689,8 @@
     "param.model.enum_catboost": "캣부스트",
     "param.model.enum_timesfm": "타임즈FM",
     "param.model.enum_chronos": "크로노스",
-    "param.output_dir.description": "플롯 이미지를 저장할 디렉터리입니다. 기본값은 ~/.uag/outputs/forecast_plots입니다."
+    "param.output_dir.description": "플롯 이미지를 저장할 디렉터리입니다. 기본값은 ~/.uag/outputs/forecast_plots입니다.",
+    "param.include_base64.description": "원격 클라이언트를 위해 예측 그래프를 Base64로 포함합니다."
   },
   "mn": {
     "tool.forecast.description": "Хугацааны цувралын таамаглалыг гүйцэтгэх. Ирээдүйн таамаглал, чиг хандлагын дүн шинжилгээ, борлуулалтын таамаглал эсвэл аливаа тоон таамаглалын талаар асуухад үүнийг ашиглана уу.",
@@ -701,7 +722,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Зургийг хадгалах лавлах. Анхдагчаар ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Зургийг хадгалах лавлах. Анхдагчаар ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "mr": {
     "tool.forecast.description": "वेळ मालिका अंदाज कार्यान्वित करा. भविष्यातील अंदाज, कल विश्लेषण, विक्री अंदाज किंवा कोणत्याही संख्यात्मक अंदाज कार्याबद्दल विचारल्यावर याचा वापर करा.",
@@ -733,7 +755,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "क्रोनोस",
-    "param.output_dir.description": "प्लॉट प्रतिमा जतन करण्यासाठी निर्देशिका. ~/.uag/outputs/forecast_plots वर डीफॉल्ट"
+    "param.output_dir.description": "प्लॉट प्रतिमा जतन करण्यासाठी निर्देशिका. ~/.uag/outputs/forecast_plots वर डीफॉल्ट",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "nb": {
     "tool.forecast.description": "Utfør tidsserieprognoser. Bruk dette når du blir spurt om fremtidige spådommer, trendanalyse, salgsprognoser eller en hvilken som helst numerisk prognoseoppgave.",
@@ -765,7 +788,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Katalog for å lagre plottbilde. Standardinnstillingen er ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Katalog for å lagre plottbilde. Standardinnstillingen er ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "nl": {
     "tool.forecast.description": "Voer tijdreeksprognoses uit. Gebruik dit wanneer u wordt gevraagd naar toekomstige voorspellingen, trendanalyses, verkoopprognoses of welke numerieke voorspellingstaak dan ook.",
@@ -797,7 +821,8 @@
     "param.model.enum_catboost": "KatBoost",
     "param.model.enum_timesfm": "TijdenFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Directory om plotafbeelding op te slaan. Standaard ingesteld op ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Directory om plotafbeelding op te slaan. Standaard ingesteld op ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "pl": {
     "tool.forecast.description": "Wykonaj prognozowanie szeregów czasowych. Użyj tej opcji, gdy zostaniesz zapytany o przyszłe przewidywania, analizę trendów, prognozę sprzedaży lub dowolne zadanie prognozowania numerycznego.",
@@ -829,7 +854,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Katalog do zapisania obrazu fabuły. Domyślnie ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Katalog do zapisania obrazu fabuły. Domyślnie ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "pt": {
     "tool.forecast.description": "Executar previsão de série temporal. Use-o quando questionado sobre previsões futuras, análises de tendências, previsões de vendas ou qualquer tarefa de previsão numérica.",
@@ -861,7 +887,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "Times FM",
     "param.model.enum_chronos": "Cronos",
-    "param.output_dir.description": "Diretório para salvar a imagem do gráfico. O padrão é ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Diretório para salvar a imagem do gráfico. O padrão é ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "pt_BR": {
     "tool.forecast.description": "Executar previsão de série temporal. Use-o quando questionado sobre previsões futuras, análises de tendências, previsões de vendas ou qualquer tarefa de previsão numérica.",
@@ -893,7 +920,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "Times FM",
     "param.model.enum_chronos": "Cronos",
-    "param.output_dir.description": "Diretório para salvar a imagem do gráfico. O padrão é ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Diretório para salvar a imagem do gráfico. O padrão é ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ro": {
     "tool.forecast.description": "Efectuați prognoza serii temporale. Utilizați acest lucru atunci când sunteți întrebat despre previziuni viitoare, analiza tendințelor, prognozele vânzărilor sau orice sarcină de prognoză numerică.",
@@ -925,7 +953,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Director pentru a salva imaginea parcelei. Setarea implicită este ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Director pentru a salva imaginea parcelei. Setarea implicită este ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "ru": {
     "tool.forecast.description": "Выполнение прогнозирования временных рядов. Используйте это, когда вас спрашивают о прогнозах на будущее, анализе тенденций, прогнозах продаж или любой задаче численного прогнозирования.",
@@ -957,7 +986,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "ТаймсФМ",
     "param.model.enum_chronos": "Хронос",
-    "param.output_dir.description": "Каталог для сохранения изображения графика. По умолчанию ~/.uag/outputs/forecast_plots."
+    "param.output_dir.description": "Каталог для сохранения изображения графика. По умолчанию ~/.uag/outputs/forecast_plots.",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "sv": {
     "tool.forecast.description": "Utför tidsserieprognoser. Använd detta när du frågas om framtida förutsägelser, trendanalys, försäljningsprognoser eller någon numerisk prognosuppgift.",
@@ -989,7 +1019,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Katalog för att spara plotbild. Standardinställningen är ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Katalog för att spara plotbild. Standardinställningen är ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "sw": {
     "tool.forecast.description": "Tekeleza utabiri wa mfululizo wa saa. Tumia hii unapoulizwa kuhusu ubashiri wa siku zijazo, uchanganuzi wa mwenendo, utabiri wa mauzo, au kazi yoyote ya utabiri wa nambari.",
@@ -1021,7 +1052,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
-    "param.output_dir.description": "Saraka ya kuhifadhi picha ya njama. Chaguomsingi hadi ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Saraka ya kuhifadhi picha ya njama. Chaguomsingi hadi ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "th": {
     "tool.forecast.description": "ดำเนินการพยากรณ์อนุกรมเวลา ใช้สิ่งนี้เมื่อถามเกี่ยวกับการคาดการณ์ในอนาคต การวิเคราะห์แนวโน้ม การคาดการณ์การขาย หรืองานการคาดการณ์เชิงตัวเลขใดๆ",
@@ -1053,7 +1085,8 @@
     "param.model.enum_catboost": "แคทบูสท์",
     "param.model.enum_timesfm": "ไทม์สเอฟเอ็ม",
     "param.model.enum_chronos": "โครโนส",
-    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกภาพพล็อต ค่าเริ่มต้นเป็น ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกภาพพล็อต ค่าเริ่มต้นเป็น ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "tr": {
     "tool.forecast.description": "Zaman serisi tahminini yürütün. Gelecek tahminleri, trend analizi, satış tahminleri veya herhangi bir sayısal tahmin görevi hakkında soru sorulduğunda bunu kullanın.",
@@ -1085,7 +1118,8 @@
     "param.model.enum_catboost": "KediBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Kronos",
-    "param.output_dir.description": "Çizim görüntüsünün kaydedileceği dizin. Varsayılan olarak ~/.uag/outputs/forecast_plots şeklindedir"
+    "param.output_dir.description": "Çizim görüntüsünün kaydedileceği dizin. Varsayılan olarak ~/.uag/outputs/forecast_plots şeklindedir",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "uk": {
     "tool.forecast.description": "Виконати прогнозування часових рядів. Використовуйте це, коли вас запитають про майбутні прогнози, аналіз тенденцій, прогнози продажів або будь-яке завдання чисельного прогнозування.",
@@ -1117,7 +1151,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Хронос",
-    "param.output_dir.description": "Каталог для збереження зображення ділянки. За замовчуванням ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Каталог для збереження зображення ділянки. За замовчуванням ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "vi": {
     "tool.forecast.description": "Thực hiện dự báo chuỗi thời gian. Hãy sử dụng thông tin này khi được hỏi về dự đoán trong tương lai, phân tích xu hướng, dự báo doanh số hoặc bất kỳ nhiệm vụ dự báo số nào.",
@@ -1149,7 +1184,8 @@
     "param.model.enum_catboost": "CatBoost",
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Thời gian",
-    "param.output_dir.description": "Thư mục lưu hình ảnh cốt truyện. Mặc định là ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "Thư mục lưu hình ảnh cốt truyện. Mặc định là ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "Include the forecast plot as base64 for remote clients."
   },
   "zh_CN": {
     "tool.forecast.description": "执行时间序列预测。当被问及未来预测、趋势分析、销售预测或任何数值预测任务时，请使用此选项。",
@@ -1181,7 +1217,8 @@
     "param.model.enum_catboost": "猫助推器",
     "param.model.enum_timesfm": "时代调频",
     "param.model.enum_chronos": "克罗诺斯",
-    "param.output_dir.description": "保存绘图图像的目录。默认为 ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "保存绘图图像的目录。默认为 ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "为远程客户端包含Base64格式的预测图。"
   },
   "zh_TW": {
     "tool.forecast.description": "執行時間序列預測。當被問及未來預測、趨勢分析、銷售預測或任何數值預測任務時，請使用此選項。",
@@ -1213,6 +1250,7 @@
     "param.model.enum_catboost": "貓助推器",
     "param.model.enum_timesfm": "時代調頻",
     "param.model.enum_chronos": "克羅諾斯",
-    "param.output_dir.description": "儲存繪圖影像的目錄。預設為 ~/.uag/outputs/forecast_plots"
+    "param.output_dir.description": "儲存繪圖影像的目錄。預設為 ~/.uag/outputs/forecast_plots",
+    "param.include_base64.description": "為遠端用戶端包含Base64格式的預測圖。"
   }
 }

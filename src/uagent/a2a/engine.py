@@ -87,7 +87,7 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
         for msg in messages[start_idx:]:
             if not isinstance(msg, dict):
                 continue
-            if msg.get("role") != "tool" or msg.get("name") != "generate_image":
+            if msg.get("role") != "tool":
                 continue
 
             for att in msg.get("attachments") or []:
@@ -96,6 +96,11 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
                 if str(att.get("type") or "").lower() != "image":
                     continue
                 data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
+                if not (isinstance(data_url, str) and data_url.startswith("data:")):
+                    b64 = att.get("data_base64") or att.get("base64")
+                    if isinstance(b64, str) and b64:
+                        mime = str(att.get("mime") or "image/png")
+                        data_url = f"data:{mime};base64,{b64}"
                 if not isinstance(data_url, str) or not data_url.startswith("data:"):
                     continue
                 name = str(att.get("name") or att.get("filename") or "image.png")
