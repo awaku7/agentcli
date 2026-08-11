@@ -74,6 +74,39 @@ def test_print_status_line_waits_for_natural_newline(monkeypatch):
     assert not core._stream_line_open
 
 
+def test_set_status_uses_reasoning_label_for_generic_llm(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "auto")
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "status_label", "")
+    monkeypatch.setattr(core, "last_reasoning_label", "")
+    monkeypatch.setattr(core, "print_status_line", lambda: None)
+
+    core.set_status(True, "LLM")
+
+    assert core.status_label == "LLM:auto"
+
+
+def test_web_room_status_uses_reasoning_label(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    room = webmod.WebRoom("test-room")
+
+    room.set_status(True, "LLM")
+
+    assert room.status["label"] == "LLM:high"
+
+
+def test_set_status_keeps_generic_llm_when_reasoning_is_off(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(core, "status_busy", False)
+    monkeypatch.setattr(core, "status_label", "")
+    monkeypatch.setattr(core, "last_reasoning_label", "")
+    monkeypatch.setattr(core, "print_status_line", lambda: None)
+
+    core.set_status(True, "LLM")
+
+    assert core.status_label == "LLM"
+
+
 def test_print_stream_delta_tracks_open_line(monkeypatch):
     stdout = io.StringIO()
     monkeypatch.setattr(sys, "stdout", stdout)

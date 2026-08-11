@@ -1,0 +1,686 @@
+{
+  "en": {
+    "tool.description": "Calculate the straight-line distance between two latitude/longitude points using the Haversine formula. Optionally resolves both points to addresses with OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "straight-line distance",
+      "geodesic distance",
+      "distance between coordinates",
+      "haversine distance",
+      "latitude longitude distance",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitude of point A.",
+    "param.lon_a.description": "Longitude of point A.",
+    "param.lat_b.description": "Latitude of point B.",
+    "param.lon_b.description": "Longitude of point B.",
+    "param.resolve_addresses.description": "Also resolve both coordinates to addresses.",
+    "param.language.description": "Address language for optional reverse geocoding."
+  },
+  "ar": {
+    "tool.description": "احسب مسافة الخط المستقيم بين نقطتي خط العرض/خط الطول باستخدام صيغة Haversine. يحل كلا النقطتين اختياريًا إلى العناوين باستخدام OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "مسافة الخط المستقيم",
+      "المسافة الجيوديسية",
+      "المسافة بين الإحداثيات",
+      "مسافة خط الطول",
+      "مسافة خط الطول",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "خط عرض النقطة أ.",
+    "param.lon_a.description": "خط طول النقطة أ.",
+    "param.lat_b.description": "خط عرض النقطة B.",
+    "param.lon_b.description": "خط طول النقطة B.",
+    "param.resolve_addresses.description": "قم أيضًا بحل كلا الإحداثيات إلى العناوين.",
+    "param.language.description": "لغة العنوان للترميز الجغرافي العكسي الاختياري."
+  },
+  "bn": {
+    "tool.description": "হ্যাভারসাইন সূত্র ব্যবহার করে দুটি অক্ষাংশ/দ্রাঘিমাংশের মধ্যে সরলরেখার দূরত্ব গণনা করুন। ঐচ্ছিকভাবে OpenStreetMap Nominatim এর মাধ্যমে ঠিকানার উভয় পয়েন্টের সমাধান করে।",
+    "x_search_terms": [
+      "সরলরেখার দূরত্ব",
+      "জিওডেসিক দূরত্ব",
+      "স্থানাঙ্কের মধ্যে দূরত্ব",
+      "হাভারসাইন দূরত্ব",
+      "অক্ষাংশ দ্রাঘিমাংশ দূরত্ব",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "A বিন্দুর অক্ষাংশ।",
+    "param.lon_a.description": "বিন্দু A এর দ্রাঘিমাংশ।",
+    "param.lat_b.description": "বি বিন্দুর অক্ষাংশ।",
+    "param.lon_b.description": "বি বিন্দুর দ্রাঘিমাংশ।",
+    "param.resolve_addresses.description": "এছাড়াও ঠিকানায় উভয় স্থানাঙ্ক সমাধান করুন।",
+    "param.language.description": "ঐচ্ছিক বিপরীত জিওকোডিংয়ের জন্য ঠিকানার ভাষা।"
+  },
+  "cs": {
+    "tool.description": "Vypočítejte přímkovou vzdálenost mezi dvěma body zeměpisné šířky/délky pomocí Haversinova vzorce. Volitelně převádí oba body na adresy pomocí OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "přímá vzdálenost",
+      "geodetická vzdálenost",
+      "vzdálenost mezi souřadnicemi",
+      "haversinová vzdálenost",
+      "zeměpisná šířka zeměpisná délka vzdálenost",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Zeměpisná šířka bodu A.",
+    "param.lon_a.description": "Zeměpisná délka bodu A.",
+    "param.lat_b.description": "Zeměpisná šířka bodu B.",
+    "param.lon_b.description": "Zeměpisná délka bodu B.",
+    "param.resolve_addresses.description": "Vyřešte také obě souřadnice na adresy.",
+    "param.language.description": "Jazyk adresy pro volitelné zpětné geokódování."
+  },
+  "da": {
+    "tool.description": "Beregn den retlinede afstand mellem to bredde-/længdepunkter ved hjælp af Haversine-formlen. Løser valgfrit begge punkter til adresser med OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "lineær afstand",
+      "geodetisk afstand",
+      "afstand mellem koordinater",
+      "haversineafstand",
+      "breddegrad længdegrad",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Breddegrad for punkt A.",
+    "param.lon_a.description": "Længdegrad af punkt A.",
+    "param.lat_b.description": "Breddegrad for punkt B.",
+    "param.lon_b.description": "Længdegrad af punkt B.",
+    "param.resolve_addresses.description": "Løs også begge koordinater til adresser.",
+    "param.language.description": "Adressesprog til valgfri omvendt geokodning."
+  },
+  "de": {
+    "tool.description": "Berechnen Sie die geradlinige Entfernung zwischen zwei Breiten-/Längengradpunkten mithilfe der Haversine-Formel. Löst optional beide Punkte in Adressen mit OpenStreetMap Nominatim auf.",
+    "x_search_terms": [
+      "geradlinige Entfernung",
+      "geodätische Entfernung",
+      "Entfernung zwischen Koordinaten",
+      "Haversinus-Entfernung",
+      "Breitengrad-Längengrad-Entfernung",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Breitengrad von Punkt A.",
+    "param.lon_a.description": "Längengrad von Punkt A.",
+    "param.lat_b.description": "Breitengrad von Punkt B.",
+    "param.lon_b.description": "Längengrad von Punkt B.",
+    "param.resolve_addresses.description": "Lösen Sie außerdem beide Koordinaten in Adressen auf.",
+    "param.language.description": "Adresssprache für optionale umgekehrte Geokodierung."
+  },
+  "el": {
+    "tool.description": "Υπολογίστε την ευθεία απόσταση μεταξύ δύο σημείων γεωγραφικού πλάτους/μήκους χρησιμοποιώντας τον τύπο Haversine. Επιλύει προαιρετικά και τα δύο σημεία σε διευθύνσεις με το OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "απόσταση ευθείας γραμμής",
+      "γεωδαιτική απόσταση",
+      "απόσταση μεταξύ συντεταγμένων",
+      "απόσταση αποχέτευσης",
+      "γεωγραφικό πλάτος γεωγραφικό μήκος απόσταση",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Γεωγραφικό πλάτος του σημείου Α.",
+    "param.lon_a.description": "Γεωγραφικό μήκος του σημείου Α.",
+    "param.lat_b.description": "Γεωγραφικό πλάτος του σημείου Β.",
+    "param.lon_b.description": "Γεωγραφικό μήκος του σημείου Β.",
+    "param.resolve_addresses.description": "Επιλύστε επίσης και τις δύο συντεταγμένες σε διευθύνσεις.",
+    "param.language.description": "Γλώσσα διεύθυνσης για προαιρετική αντίστροφη γεωκωδικοποίηση."
+  },
+  "es": {
+    "tool.description": "Calcule la distancia en línea recta entre dos puntos de latitud/longitud usando la fórmula de Haversine. Opcionalmente resuelve ambos puntos en direcciones con OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distancia en línea recta",
+      "distancia geodésica",
+      "distancia entre coordenadas",
+      "distancia haversine",
+      "latitud longitud distancia",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitud del punto A.",
+    "param.lon_a.description": "Longitud del punto A.",
+    "param.lat_b.description": "Latitud del punto B.",
+    "param.lon_b.description": "Longitud del punto B.",
+    "param.resolve_addresses.description": "También resuelva ambas coordenadas en direcciones.",
+    "param.language.description": "Idioma de dirección para geocodificación inversa opcional."
+  },
+  "fa": {
+    "tool.description": "فاصله خط مستقیم بین دو نقطه طول و عرض جغرافیایی را با استفاده از فرمول هاورسین محاسبه کنید. به صورت اختیاری هر دو نقطه را به آدرس ها با OpenStreetMap Nominatim حل می کند.",
+    "x_search_terms": [
+      "فاصله خط مستقیم",
+      "فاصله ژئودزیکی",
+      "فاصله بین مختصات",
+      "haversine distance",
+      "latitude longitude distance",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "عرض جغرافیایی نقطه A.",
+    "param.lon_a.description": "طول نقطه A.",
+    "param.lat_b.description": "عرض جغرافیایی نقطه B.",
+    "param.lon_b.description": "طول نقطه B.",
+    "param.resolve_addresses.description": "همچنین هر دو مختصات را به آدرس ها حل کنید.",
+    "param.language.description": "زبان آدرس برای کدگذاری جغرافیایی معکوس اختیاری."
+  },
+  "fi": {
+    "tool.description": "Laske kahden leveys-/pituusastepisteen välinen suora etäisyys Haversine-kaavan avulla. Vaihtoehtoisesti ratkaisee molemmat pisteet osoitteiksi OpenStreetMap Nominatim -sovelluksella.",
+    "x_search_terms": [
+      "suoraviivainen etäisyys",
+      "geodeettinen etäisyys",
+      "koordinaattien välinen etäisyys",
+      "haversine-etäisyys",
+      "leveysaste pituusaste",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Pisteen A leveysaste.",
+    "param.lon_a.description": "Pisteen A pituusaste.",
+    "param.lat_b.description": "Pisteen B leveysaste.",
+    "param.lon_b.description": "Pisteen B pituusaste.",
+    "param.resolve_addresses.description": "Ratkaise myös molemmat koordinaatit osoitteiksi.",
+    "param.language.description": "Osoitekieli valinnaista käänteistä geokoodausta varten."
+  },
+  "fil": {
+    "tool.description": "Kalkulahin ang straight-line na distansya sa pagitan ng dalawang latitude/longitude point gamit ang Haversine formula. Opsyonal na niresolba ang parehong mga punto sa mga address gamit ang OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "straight-line distance",
+      "geodesic distance",
+      "distansya sa pagitan ng coordinates",
+      "haversine distance",
+      "latitude longitude distance",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitude ng punto A.",
+    "param.lon_a.description": "Longitude ng punto A.",
+    "param.lat_b.description": "Latitude ng punto B.",
+    "param.lon_b.description": "Longitude ng punto B.",
+    "param.resolve_addresses.description": "Resolbahin din ang parehong mga coordinate sa mga address.",
+    "param.language.description": "Wika ng address para sa opsyonal na reverse geocoding."
+  },
+  "fr": {
+    "tool.description": "Calculez la distance en ligne droite entre deux points de latitude/longitude à l’aide de la formule Haversine. Résout éventuellement les deux points en adresses avec OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distance en ligne droite",
+      "distance géodésique",
+      "distance entre coordonnées",
+      "distance haversine",
+      "latitude longitude distance",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitude du point A.",
+    "param.lon_a.description": "Longitude du point A.",
+    "param.lat_b.description": "Latitude du point B.",
+    "param.lon_b.description": "Longitude du point B.",
+    "param.resolve_addresses.description": "Résolvez également les deux coordonnées en adresses.",
+    "param.language.description": "Langue d'adresse pour le géocodage inversé en option."
+  },
+  "he": {
+    "tool.description": "חשב את המרחק בקו הישר בין שתי נקודות קווי רוחב/קו אורך באמצעות נוסחת Haversine. אופציונלי פותר את שתי הנקודות לכתובות עם OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "מרחק קו ישר",
+      "מרחק גיאודזי",
+      "מרחק בין קואורדינטות",
+      "מרחק קו אורך",
+      "מרחק קו אורך",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "קו הרוחב של נקודה A.",
+    "param.lon_a.description": "קו האורך של נקודה A.",
+    "param.lat_b.description": "קו הרוחב של נקודה B.",
+    "param.lon_b.description": "קו האורך של נקודה B.",
+    "param.resolve_addresses.description": "פתרו גם את שתי הקואורדינטות לכתובות.",
+    "param.language.description": "שפת כתובת עבור קידוד גיאוגרפי אופציונלי."
+  },
+  "hi": {
+    "tool.description": "हैवरसाइन सूत्र का उपयोग करके दो अक्षांश/देशांतर बिंदुओं के बीच सीधी रेखा की दूरी की गणना करें। वैकल्पिक रूप से OpenStreetMap Nominatim वाले पते के दोनों बिंदुओं का समाधान करता है।",
+    "x_search_terms": [
+      "सीधी-रेखा दूरी",
+      "जियोडेसिक दूरी",
+      "निर्देशांक के बीच की दूरी",
+      "हैवर्साइन दूरी",
+      "अक्षांश देशांतर दूरी",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "बिंदु A का अक्षांश.",
+    "param.lon_a.description": "बिंदु A का देशांतर.",
+    "param.lat_b.description": "बिंदु B का अक्षांश.",
+    "param.lon_b.description": "बिंदु B का देशांतर.",
+    "param.resolve_addresses.description": "दोनों निर्देशांकों को पतों पर भी हल करें।",
+    "param.language.description": "वैकल्पिक रिवर्स जियोकोडिंग के लिए पता भाषा।"
+  },
+  "hu": {
+    "tool.description": "Számítsa ki két szélességi/hosszúsági pont közötti egyenes távolságot a Haversine képlet segítségével. Opcionálisan mindkét pontot címekké oldja fel az OpenStreetMap Nominatim segítségével.",
+    "x_search_terms": [
+      "egyenes vonalú távolság",
+      "geodéziai távolság",
+      "koordináták közötti távolság",
+      "haversine távolság",
+      "szélesség hosszúsági távolság",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Az A pont szélessége.",
+    "param.lon_a.description": "Az A pont hosszúsági foka.",
+    "param.lat_b.description": "A B pont szélessége.",
+    "param.lon_b.description": "A B pont hosszúsági foka.",
+    "param.resolve_addresses.description": "Mindkét koordinátát feloldja címekre is.",
+    "param.language.description": "Cím nyelve az opcionális fordított geokódoláshoz."
+  },
+  "id": {
+    "tool.description": "Hitung jarak garis lurus antara dua titik lintang/bujur dengan menggunakan rumus Haversine. Secara opsional, selesaikan kedua titik ke alamat dengan OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "jarak garis lurus",
+      "jarak geodesik",
+      "jarak antar koordinat",
+      "jarak garis lintang",
+      "jarak lintang bujur",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Garis lintang titik A.",
+    "param.lon_a.description": "Bujur titik A.",
+    "param.lat_b.description": "Garis lintang titik B.",
+    "param.lon_b.description": "Bujur titik B.",
+    "param.resolve_addresses.description": "Selesaikan juga kedua koordinat ke alamat.",
+    "param.language.description": "Bahasa alamat untuk geocoding terbalik opsional."
+  },
+  "it": {
+    "tool.description": "Calcola la distanza in linea retta tra due punti di latitudine/longitudine utilizzando la formula di Haversine. Facoltativamente risolve entrambi i punti in indirizzi con OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distanza in linea retta",
+      "distanza geodetica",
+      "distanza tra le coordinate",
+      "distanza haversina",
+      "latitudine longitudine distanza",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitudine del punto A.",
+    "param.lon_a.description": "Longitudine del punto A.",
+    "param.lat_b.description": "Latitudine del punto B.",
+    "param.lon_b.description": "Longitudine del punto B.",
+    "param.resolve_addresses.description": "Risolvi anche entrambe le coordinate in indirizzi.",
+    "param.language.description": "Lingua dell'indirizzo per la geocodificazione inversa opzionale."
+  },
+  "ja": {
+    "tool.description": "Hasversine の公式を使用して、2 つの緯度/経度の点間の直線距離を計算します。オプションで、OpenStreetMap Nominatim を使用して両方のポイントをアドレスに解決します。",
+    "x_search_terms": [
+      "直線距離",
+      "測地距離",
+      "座標間距離",
+      "正弦距離",
+      "緯度経度距離",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "点Aの緯度。",
+    "param.lon_a.description": "点Aの経度。",
+    "param.lat_b.description": "点Bの緯度。",
+    "param.lon_b.description": "点Bの経度。",
+    "param.resolve_addresses.description": "また、両方の座標をアドレスに解決します。",
+    "param.language.description": "オプションのリバース ジオコーディングのアドレス言語。"
+  },
+  "ko": {
+    "tool.description": "Haversine 공식을 사용하여 두 위도/경도 지점 사이의 직선 거리를 계산합니다. 선택적으로 OpenStreetMap Nominatim을 사용하여 두 지점 모두 주소를 확인합니다.",
+    "x_search_terms": [
+      "직선 거리",
+      "측지 거리",
+      "좌표 간 거리",
+      "하버사인 거리",
+      "위도 경도 거리",
+      "緯degree経島の距離",
+      "直Line距離"
+    ],
+    "param.lat_a.description": "A 지점의 위도",
+    "param.lon_a.description": "A 지점의 경도",
+    "param.lat_b.description": "B 지점의 위도",
+    "param.lon_b.description": "B 지점의 경도",
+    "param.resolve_addresses.description": "또한 두 좌표를 모두 주소로 확인합니다.",
+    "param.language.description": "선택적 역지오코딩을 위한 주소 언어입니다."
+  },
+  "mn": {
+    "tool.description": "Хаверсины томьёог ашиглан өргөрөг/уртрагын хоёр цэгийн хоорондох шулуун шугамын зайг тооцоол. Сонголтоор хоёр цэгийг OpenStreetMap Nominatim ашиглан хаягаар шийддэг.",
+    "x_search_terms": [
+      "шулуун шугамын зай",
+      "геодезийн зай",
+      "координат хоорондын зай",
+      "гаверсины зай",
+      "өргөргийн уртрагийн зай",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "А цэгийн өргөрөг.",
+    "param.lon_a.description": "А цэгийн уртраг.",
+    "param.lat_b.description": "В цэгийн өргөрөг.",
+    "param.lon_b.description": "В цэгийн уртраг.",
+    "param.resolve_addresses.description": "Мөн хоёр координатыг хаягаар шийднэ.",
+    "param.language.description": "Нэмэлт урвуу геокодлох хаягийн хэл."
+  },
+  "mr": {
+    "tool.description": "Haversine सूत्र वापरून दोन अक्षांश/रेखांश बिंदूंमधील सरळ रेषेच्या अंतराची गणना करा. OpenStreetMap Nominatim सह पत्त्यांच्या दोन्ही बिंदूंचे वैकल्पिकरित्या निराकरण करते.",
+    "x_search_terms": [
+      "सरळ रेषेतील अंतर",
+      "जिओडेसिक अंतर",
+      "निर्देशांकांमधील अंतर",
+      "हॅव्हरसाइन अंतर",
+      "अक्षांश रेखांश अंतर",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "बिंदू A चे अक्षांश.",
+    "param.lon_a.description": "बिंदू A चे रेखांश.",
+    "param.lat_b.description": "बिंदू B चे अक्षांश.",
+    "param.lon_b.description": "बिंदू B चे रेखांश.",
+    "param.resolve_addresses.description": "तसेच पत्त्यांवर दोन्ही समन्वय सोडवा.",
+    "param.language.description": "पर्यायी रिव्हर्स जिओकोडिंगसाठी पत्ता भाषा."
+  },
+  "ms": {
+    "tool.description": "Kira jarak garis lurus antara dua titik latitud/longitud menggunakan formula Haversine. Secara pilihan menyelesaikan kedua-dua titik ke alamat dengan OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "jarak garis lurus",
+      "jarak geodesik",
+      "jarak antara koordinat",
+      "jarak haversine",
+      "jarak longitud latitud",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitud titik A.",
+    "param.lon_a.description": "Longitud titik A.",
+    "param.lat_b.description": "Latitud titik B.",
+    "param.lon_b.description": "Longitud titik B.",
+    "param.resolve_addresses.description": "Selesaikan juga kedua-dua koordinat ke alamat.",
+    "param.language.description": "Bahasa alamat untuk geokod terbalik pilihan."
+  },
+  "nb": {
+    "tool.description": "Beregn rettlinjeavstanden mellom to bredde-/lengdegradspunkter ved å bruke Haversine-formelen. Løser valgfritt begge punkter til adresser med OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "rettlinjeavstand",
+      "geodesisk avstand",
+      "avstand mellom koordinater",
+      "haversinusavstand",
+      "breddegrad lengdegradsavstand",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Breddegrad for punkt A.",
+    "param.lon_a.description": "Lengdegrad av punkt A.",
+    "param.lat_b.description": "Breddegrad for punkt B.",
+    "param.lon_b.description": "Lengdegrad av punkt B.",
+    "param.resolve_addresses.description": "Løs også begge koordinatene til adresser.",
+    "param.language.description": "Adressespråk for valgfri omvendt geokoding."
+  },
+  "nl": {
+    "tool.description": "Bereken de afstand in rechte lijn tussen twee breedtegraad-/lengtegraadpunten met behulp van de Haversine-formule. Optioneel worden beide punten omgezet in adressen met OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "afstand in rechte lijn",
+      "geodetische afstand",
+      "afstand tussen coördinaten",
+      "haversine-afstand",
+      "breedtegraad lengtegraad",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Breedtegraad van punt A.",
+    "param.lon_a.description": "Lengtegraad van punt A.",
+    "param.lat_b.description": "Breedtegraad van punt B.",
+    "param.lon_b.description": "Lengtegraad van punt B.",
+    "param.resolve_addresses.description": "Zet beide coördinaten ook om in adressen.",
+    "param.language.description": "Adrestaal voor optionele omgekeerde geocodering."
+  },
+  "nn": {
+    "tool.description": "Beregn den lineære avstanden mellom to breddegrad-/lengdegradspunkter ved hjelp av Haversine-formelen. Eventuelt løser begge punktene til adresser med OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "lineær avstand GeodesiskavstandAvstand mellomkoordinater HaversineavstandBreddegrad Lengdegrad緯度経度の距離Avstand直線距離",
+      "geodesic distance",
+      "distance between coordinates",
+      "haversine distance",
+      "latitude longitude distance",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Breddegrad av punkt A.",
+    "param.lon_a.description": "Lengdegrad av punkt A.",
+    "param.lat_b.description": "Breddegrad av punkt B.",
+    "param.lon_b.description": "Lengdegrad av punkt B.",
+    "param.resolve_addresses.description": "Også løse begge koordinatene til adresser.",
+    "param.language.description": "Adressespråk for valgfri omvendt geokoding."
+  },
+  "pl": {
+    "tool.description": "Oblicz odległość w linii prostej między dwoma punktami szerokości/długości geograficznej, korzystając ze wzoru Haversine'a. Opcjonalnie przypisuje oba punkty adresom za pomocą OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "odległość w linii prostej",
+      "odległość geodezyjna",
+      "odległość między współrzędnymi",
+      "odległość Haversine",
+      "szerokość geograficzna odległość",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Szerokość geograficzna punktu A.",
+    "param.lon_a.description": "Długość geograficzna punktu A.",
+    "param.lat_b.description": "Szerokość geograficzna punktu B.",
+    "param.lon_b.description": "Długość geograficzna punktu B.",
+    "param.resolve_addresses.description": "Rozwiąż także obie współrzędne na adresy.",
+    "param.language.description": "Język adresu dla opcjonalnego odwrotnego geokodowania."
+  },
+  "pt": {
+    "tool.description": "Calcule a distância em linha reta entre dois pontos de latitude/longitude usando a fórmula Haversine. Opcionalmente, resolve ambos os pontos para endereços com OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distância em linha reta",
+      "distância geodésica",
+      "distância entre coordenadas",
+      "distância haversine",
+      "latitude longitude distância",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitude do ponto A.",
+    "param.lon_a.description": "Longitude do ponto A.",
+    "param.lat_b.description": "Latitude do ponto B.",
+    "param.lon_b.description": "Longitude do ponto B.",
+    "param.resolve_addresses.description": "Resolva também ambas as coordenadas para endereços.",
+    "param.language.description": "Idioma de endereço para geocodificação reversa opcional."
+  },
+  "pt_BR": {
+    "tool.description": "Calcule a distância em linha reta entre dois pontos de latitude/longitude usando a fórmula Haversine. Opcionalmente, resolve ambos os pontos para endereços com OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distância em linha reta",
+      "distância geodésica",
+      "distância entre coordenadas",
+      "distância haversine",
+      "latitude longitude distância",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitude do ponto A.",
+    "param.lon_a.description": "Longitude do ponto A.",
+    "param.lat_b.description": "Latitude do ponto B.",
+    "param.lon_b.description": "Longitude do ponto B.",
+    "param.resolve_addresses.description": "Resolva também ambas as coordenadas para endereços.",
+    "param.language.description": "Idioma de endereço para geocodificação reversa opcional."
+  },
+  "ro": {
+    "tool.description": "Calculați distanța în linie dreaptă dintre două puncte de latitudine/longitudine folosind formula Havesine. Opțional, rezolvă ambele puncte la adrese cu OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "distanță în linie dreaptă",
+      "distanță geodezică",
+      "distanță între coordonate",
+      "distanță inversă",
+      "latitudine longitudine distanță",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitudinea punctului A.",
+    "param.lon_a.description": "Longitudinea punctului A.",
+    "param.lat_b.description": "Latitudinea punctului B.",
+    "param.lon_b.description": "Longitudinea punctului B.",
+    "param.resolve_addresses.description": "Rezolvați, de asemenea, ambele coordonate la adrese.",
+    "param.language.description": "Limba adresei pentru geocodare inversă opțională."
+  },
+  "ru": {
+    "tool.description": "Рассчитайте расстояние по прямой между двумя точками широты и долготы, используя формулу Хаверсинуса. При необходимости преобразует обе точки в адреса с помощью OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "расстояние по прямой",
+      "геодезическое расстояние",
+      "расстояние между координатами",
+      "гаверсинусное расстояние",
+      "расстояние по широте и долготе",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Широта точки А.",
+    "param.lon_a.description": "Долгота точки А.",
+    "param.lat_b.description": "Широта точки Б.",
+    "param.lon_b.description": "Долгота точки Б.",
+    "param.resolve_addresses.description": "Также преобразуйте обе координаты в адреса.",
+    "param.language.description": "Язык адреса для дополнительного обратного геокодирования."
+  },
+  "sv": {
+    "tool.description": "Beräkna det raka avståndet mellan två latitud/longitudpunkter med Haversine-formeln. Löser valfritt båda punkter till adresser med OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "rätlinjeavstånd",
+      "geodiskt avstånd",
+      "avstånd mellan koordinater",
+      "haversinusavstånd",
+      "latitud longitudavstånd",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitud för punkt A.",
+    "param.lon_a.description": "Longitud för punkt A.",
+    "param.lat_b.description": "Latitud för punkt B.",
+    "param.lon_b.description": "Longitud för punkt B.",
+    "param.resolve_addresses.description": "Lös även båda koordinaterna till adresser.",
+    "param.language.description": "Adressspråk för valfri omvänd geokodning."
+  },
+  "sw": {
+    "tool.description": "Kokotoa umbali wa mstari wa moja kwa moja kati ya nukta mbili za latitudo/longitudo kwa kutumia fomula ya Haversine. Hutatua pointi zote mbili kwa anwani kwa kutumia OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "umbali wa mstari ulionyooka",
+      " umbali wa geodesic",
+      "umbali kati ya viwianishi",
+      "haversine umbali",
+      " umbali wa longitudo latitudo",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Latitudo ya uhakika A.",
+    "param.lon_a.description": "Urefu wa pointi A.",
+    "param.lat_b.description": "Latitudo ya uhakika B.",
+    "param.lon_b.description": "Urefu wa pointi B.",
+    "param.resolve_addresses.description": "Pia suluhisha kuratibu zote mbili kwa anwani.",
+    "param.language.description": "Lugha ya anwani kwa hiari ya kubadilisha misimbo ya kijiografia."
+  },
+  "th": {
+    "tool.description": "คำนวณระยะทางเส้นตรงระหว่างจุดละติจูด/ลองจิจูดสองจุดโดยใช้สูตรฮาเวอร์ซีน เลือกแก้ไขทั้งสองจุดเป็นที่อยู่ด้วย OpenStreetMap Nominatim",
+    "x_search_terms": [
+      "ระยะทางเป็นเส้นตรง",
+      "ระยะทางทางภูมิศาสตร์",
+      "ระยะทางระหว่างพิกัด",
+      "ระยะทางฮาเวอซีน",
+      "ระยะทางละติจูดลองจิจูด",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "ละติจูดของจุด A",
+    "param.lon_a.description": "ลองจิจูดของจุด A",
+    "param.lat_b.description": "ละติจูดของจุด B",
+    "param.lon_b.description": "ลองจิจูดของจุด B",
+    "param.resolve_addresses.description": "แก้ไขพิกัดทั้งสองไปยังที่อยู่ด้วย",
+    "param.language.description": "ภาษาที่อยู่สำหรับการเข้ารหัสทางภูมิศาสตร์แบบย้อนกลับที่เป็นทางเลือก"
+  },
+  "tr": {
+    "tool.description": "Haversine formülünü kullanarak iki enlem/boylam noktası arasındaki düz çizgi mesafesini hesaplayın. İsteğe bağlı olarak her iki noktayı OpenStreetMap Nominatim ile adreslere çözümler.",
+    "x_search_terms": [
+      "düz çizgi mesafesi",
+      "jeodezik mesafe",
+      "koordinatlar arasındaki mesafe",
+      "haversinüs mesafesi",
+      "enlem boylam mesafesi",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "A noktasının enlemi.",
+    "param.lon_a.description": "A noktasının boylamı.",
+    "param.lat_b.description": "B noktasının enlemi.",
+    "param.lon_b.description": "B noktasının boylamı.",
+    "param.resolve_addresses.description": "Ayrıca her iki koordinatı da adreslere çözümleyin.",
+    "param.language.description": "İsteğe bağlı ters coğrafi kodlama için adres dili."
+  },
+  "uk": {
+    "tool.description": "Обчисліть відстань по прямій лінії між двома точками широти/довготи за допомогою формули Гаверсинуса. Додатково вирішує обидві точки на адреси за допомогою OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "пряма відстань",
+      "геодезична відстань",
+      "відстань між координатами",
+      "гаверсинусна відстань",
+      "широта довгота відстань",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Широта точки А.",
+    "param.lon_a.description": "Довгота точки А.",
+    "param.lat_b.description": "Широта точки Б.",
+    "param.lon_b.description": "Довгота точки В.",
+    "param.resolve_addresses.description": "Також переведіть обидві координати в адреси.",
+    "param.language.description": "Мова адреси для додаткового зворотного геокодування."
+  },
+  "vi": {
+    "tool.description": "Tính khoảng cách đường thẳng giữa hai điểm vĩ độ/kinh độ bằng công thức Haversine. Tùy chọn phân giải cả hai điểm thành địa chỉ bằng OpenStreetMap Nominatim.",
+    "x_search_terms": [
+      "khoảng cách đường thẳng",
+      "khoảng cách trắc địa",
+      "khoảng cách giữa các tọa độ",
+      "khoảng cách có độ dài",
+      "khoảng cách kinh độ vĩ độ",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "Vĩ độ của điểm A.",
+    "param.lon_a.description": "Kinh độ của điểm A.",
+    "param.lat_b.description": "Vĩ độ của điểm B.",
+    "param.lon_b.description": "Kinh độ của điểm B.",
+    "param.resolve_addresses.description": "Đồng thời giải quyết cả hai tọa độ thành địa chỉ.",
+    "param.language.description": "Ngôn ngữ địa chỉ cho mã hóa địa lý ngược tùy chọn."
+  },
+  "zh_CN": {
+    "tool.description": "使用半正弦公式计算两个纬度/经度点之间的直线距离。可以选择将两个点解析为 OpenStreetMap Nominatim 的地址。",
+    "x_search_terms": [
+      "直线距离",
+      "测地距离",
+      "坐标间距离",
+      "半正弦距离",
+      "纬度经度距离",
+      "纬度経度の距离",
+      "直线距离"
+    ],
+    "param.lat_a.description": "A 点的纬度。",
+    "param.lon_a.description": "A 点的经度。",
+    "param.lat_b.description": "B 点的纬度。",
+    "param.lon_b.description": "B 点的经度。",
+    "param.resolve_addresses.description": "还将这两个坐标解析为地址。",
+    "param.language.description": "用于可选反向地理编码的地址语言。"
+  },
+  "zh_TW": {
+    "tool.description": "使用半正弦公式計算兩個緯度/經度點之間的直線距離。可以選擇將兩個點解析為 OpenStreetMap Nominatim 的位址。",
+    "x_search_terms": [
+      "直線距離",
+      "測地距離",
+      "座標間距離",
+      "半正弦距離",
+      "緯度經度距離",
+      "緯度経度の距離",
+      "直線距離"
+    ],
+    "param.lat_a.description": "A 點的緯度。",
+    "param.lon_a.description": "A 點的經度。",
+    "param.lat_b.description": "B 點的緯度。",
+    "param.lon_b.description": "B 點的經度。",
+    "param.resolve_addresses.description": "也將這兩個座標解析為位址。",
+    "param.language.description": "用於可選反向地理編碼的位址語言。"
+  }
+}

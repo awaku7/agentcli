@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **220 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **128 are statically marked parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **222 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **130 are statically marked parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -76,11 +76,11 @@ All providers share the same toolset and interface. Switch by setting `UAGENT_PR
 ### ⚡ Parallel Tool Execution
 
 When the LLM requests multiple tools simultaneously, uag **automatically parallelizes** them.
-128 tools are statically marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
+130 tools are statically marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
 
 **Example**: Ask "Check the weather in Nordic capitals" → LLM fires `search_web` × 5 countries → all 5 searches run in parallel → results collected in one batch.
 
-The current count is based on tool modules that define a `TOOL_SPEC` (currently 220, including the 2 Rust-backed tools in `src/uagent/tools_rust/`). `http_request` uses method-sensitive safety: `GET`/`HEAD`/`OPTIONS` calls may run in parallel, while write methods remain serial.
+The current count is based on tool modules that define a `TOOL_SPEC` (currently 222, including the 2 Rust-backed tools in `src/uagent/tools_rust/`). `http_request` uses method-sensitive safety: `GET`/`HEAD`/`OPTIONS` calls may run in parallel, while write methods remain serial.
 
 Read-only tools (file search, hash calculation, directory listing, translation, DB queries, etc.) are aggressively parallelized.
 
@@ -110,12 +110,12 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 220 Tools
+### 🛠 222 Tools
 
 | Category | Tools |
 |---|---|
 | **File Operations** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (.eml files) |
-| **Web** | fetch_url, search_web, screenshot, browser_playwright |
+| **Web** | fetch_url, search_web, screenshot, browser_playwright, `public_transit_route` ([guide](docs/PUBLIC_TRANSIT_ROUTE.md)) |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **Forecast** | Time series forecasting with 9 models (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), auto model selection, plot generation, i18n |
@@ -125,7 +125,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
-| **System** | env vars, system specs, time, date calculation, uuid_gen, slugify |
+| **System** | env vars, system specs, time, date calculation, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
 | **Source Nav** | **29 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — get a function/class index or specific definition without reading the whole file |
 
 ### 🖥 4 Interfaces + VS Code Extension

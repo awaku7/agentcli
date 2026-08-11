@@ -884,7 +884,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                     await asyncio.sleep(_FRAGMENT_PACING)
         return failed
 
-    async def _send_packet(packet: BitchatPacket) -> None:
+    async def _send_packet(packet: BitchatPacket) -> bool:
         padded = packet.type in (
             int(MessageType.NOISE_HANDSHAKE),
             int(MessageType.NOISE_ENCRYPTED),
@@ -911,6 +911,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 await client.disconnect()
             except Exception:
                 pass
+        return bool(failed)
 
     async def _relay_packet(packet: BitchatPacket, source_addr: str | None) -> None:
         """Forward a verified signed packet without replacing its signature."""

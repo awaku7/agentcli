@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **在您的電腦上本機運作**。您的資料保留在您身邊（您進行的 API 呼叫除外）。
 - **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 24 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
-- **220 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **128 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
+- **222 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **130 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
 
@@ -56,7 +56,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 ### ⚡ 平行工具執行
 
 當 LLM 同時要求多個工具時，uag **會自動並行化**它們。
-128 個工具被標記為“x_parallel_safe”，並透過“ThreadPoolExecutor”並發執行（預設為 8 個執行緒；設定“UAGENT_PARALLEL_WORKERS”進行更改）。
+130 個工具被標記為“x_parallel_safe”，並透過“ThreadPoolExecutor”並發執行（預設為 8 個執行緒；設定“UAGENT_PARALLEL_WORKERS”進行更改）。
 
 **範例**：詢問「檢查北歐首都的天氣」 → LLM 觸發 `search_web` × 5 個國家 → 所有 5 個搜尋並行運行 → 一批收集結果。
 
@@ -87,7 +87,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 - **在工作階段中途切換提供者**（使用 `UAGENT_PROVIDER`）— 會話記錄會保留。
 - **重新載入過去的工作階段**（使用 `:load <index>`）— 從上次中斷處繼續。
 
-### 🛠 220 工具
+### 🛠 222 工具
 
 - **雲端 API**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 
@@ -103,7 +103,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 | **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 個原始碼導航器（idx 系列）** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** |代理間通訊（與其他 uag 實例或 A2A 相容伺服器）|
-| **系統** | 環境變數、系統規格、時間、日期計算, uuid_gen, slugify ||
+| **系統** | 環境變數、系統規格、時間、日期計算, uuid_gen, slugify, quantities ||
 | **來源導航** | **29 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
 
 ### 🖥 4 個介面 + VS 代碼擴展

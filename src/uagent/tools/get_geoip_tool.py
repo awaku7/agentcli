@@ -37,9 +37,9 @@ def _get_mmdb_reader() -> Any:
 
     db_path = env_get("UAGENT_GEOIP_DB_PATH") or ""
     if not db_path:
-        # Fall back to bundled DB-IP Lite database (src/uagent/data/).
+        # Fall back to bundled DB-IP Lite database (src/uagent/tools/data/).
         db_path = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)),
+            os.path.dirname(__file__),
             "data",
             "dbip-city-lite.mmdb",
         )

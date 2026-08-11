@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-- **220 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **128 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
+- **222 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **130 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
 
@@ -56,7 +56,7 @@ Všichni poskytovatelé sdílejí stejnou sadu nástrojů a rozhraní. Přepnět
 ### ⚡ Paralelní provádění nástroje
 
 Když LLM požaduje více nástrojů současně, uag je **automaticky paralelizuje**.
-128 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím `ThreadPoolExecutor` (ve výchozím nastavení 8 vláken; pro změnu nastavte `UAGENT_PARALLEL_WORKERS`).
+130 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím `ThreadPoolExecutor` (ve výchozím nastavení 8 vláken; pro změnu nastavte `UAGENT_PARALLEL_WORKERS`).
 
 **Příklad**: Zeptejte se „Zkontrolujte počasí v severských metropolích“ → LLM spustí `search_web` × 5 zemí → všech 5 vyhledávání běží paralelně → výsledky shromážděné v jedné dávce.
 
@@ -87,7 +87,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 - **Změnit poskytovatele uprostřed relace**: `UAGENT_PROVIDER` — historie konverzace se zachová.
 - **Znovu načíst minulé relace**: `:load <index>` — pokračujte tam, kde jste skončili.
 
-### 🛠 220 nástrojů
+### 🛠 222 nástrojů
 
 | Kategorie | Nástroje |
 |---|---|
@@ -102,7 +102,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
-| **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify ||
+| **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify, quantities ||
 | **Zdroj Nav** | **29 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |
 
 ### 🖥 4 rozhraní + rozšíření VS kódu

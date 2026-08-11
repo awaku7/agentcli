@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **220 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **128 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
+- **222 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **130 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 
@@ -56,7 +56,7 @@ Alle Anbieter nutzen das gleiche Toolset und die gleiche Schnittstelle. Wechseln
 ### ⚡ Parallele Werkzeugausführung
 
 Wenn das LLM mehrere Tools gleichzeitig anfordert, werden diese von uag automatisch parallelisiert.
-128 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen „ThreadPoolExecutor“ ausgeführt (8 Threads standardmäßig; setzen Sie „UAGENT_PARALLEL_WORKERS“ auf Änderung).
+130 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen „ThreadPoolExecutor“ ausgeführt (8 Threads standardmäßig; setzen Sie „UAGENT_PARALLEL_WORKERS“ auf Änderung).
 
 **Beispiel**: Fragen Sie „Überprüfen Sie das Wetter in den nordischen Hauptstädten“ → LLM löst „search_web“ × 5 Länder aus → alle 5 Suchanfragen werden parallel ausgeführt → Ergebnisse werden in einem Stapel gesammelt.
 
@@ -87,7 +87,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 - **Anbieter während der Sitzung wechseln**: `UAGENT_PROVIDER` — der Gesprächsverlauf bleibt erhalten.
 - **Vergangene Sitzungen erneut laden**: `:load <index>` — dort weitermachen, wo Sie aufgehört haben.
 
-### 🛠 220 Werkzeuge
+### 🛠 222 Werkzeuge
 
 | Kategorie | Werkzeuge |
 |---|---|
@@ -102,7 +102,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 | **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 Quellcode-Navigatoren (IDX-Familie)** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
-| **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify ||
+| **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify, quantities ||
 | **Quellennavigation** | **29 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
 
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung

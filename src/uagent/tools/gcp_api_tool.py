@@ -98,8 +98,8 @@ def _discovery_doc(api: str, version: str) -> dict[str, Any]:
     return response.json()
 
 
-def _methods(resources: dict[str, Any], prefix: str = "") -> list[dict[str, str]]:
-    found: list[dict[str, str]] = []
+def _methods(resources: dict[str, Any], prefix: str = "") -> list[dict[str, Any]]:
+    found: list[dict[str, Any]] = []
     for resource_name, resource in resources.items():
         resource_path = f"{prefix}.{resource_name}" if prefix else resource_name
         for method_name in resource.get("methods", {}):

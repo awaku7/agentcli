@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Wordt lokaal uitgevoerd** op uw computer. Uw gegevens blijven bij u (behalve API-aanroepen die u doet).
 - **Providervrijheid**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 providers, allemaal toegankelijk via één enkele interface. Wissel ertussen door de omgevingsvariabelen opnieuw te configureren: geen herinstallatie, geen migratie.
-- **220 tools**: bestands-I/O, zoeken op internet, genereren van afbeeldingen, Gmail, scannen van BLE-apparaten, MCP-serverintegratie — **128 zijn parallel veilig** (maximaal 8 worden gelijktijdig uitgevoerd via threadpool, configureerbaar via `UAGENT_PARALLEL_WORKERS`). Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, parallelliseert uag deze automatisch.
+- **222 tools**: bestands-I/O, zoeken op internet, genereren van afbeeldingen, Gmail, scannen van BLE-apparaten, MCP-serverintegratie — **130 zijn parallel veilig** (maximaal 8 worden gelijktijdig uitgevoerd via threadpool, configureerbaar via `UAGENT_PARALLEL_WORKERS`). Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, parallelliseert uag deze automatisch.
 - **3 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
 - **Agentvaardigheden**: installeer door de community ontwikkelde vaardigheden van de marktplaats. Breid uag eindeloos uit.
 
@@ -56,7 +56,7 @@ Alle providers delen dezelfde toolset en interface. Schakel over door `UAGENT_PR
 ### ⚡ Parallelle gereedschapsuitvoering
 
 Wanneer de LLM meerdere tools tegelijkertijd aanvraagt, parallelliseert uag deze automatisch.
-128 tools zijn gemarkeerd als `x_parallel_safe` en worden gelijktijdig uitgevoerd via een `ThreadPoolExecutor` (standaard 8 threads; stel `UAGENT_PARALLEL_WORKERS` in op wijzigen).
+130 tools zijn gemarkeerd als `x_parallel_safe` en worden gelijktijdig uitgevoerd via een `ThreadPoolExecutor` (standaard 8 threads; stel `UAGENT_PARALLEL_WORKERS` in op wijzigen).
 
 **Voorbeeld**: Vraag "Check het weer in de Scandinavische hoofdsteden" → LLM activeert `search_web` × 5 landen → alle 5 zoekopdrachten worden parallel uitgevoerd → resultaten verzameld in één batch.
 
@@ -87,7 +87,7 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 - **Halverwege de sessie van aanbieder wisselen** met `UAGENT_PROVIDER` — de gespreksgeschiedenis blijft behouden.
 - **Eerdere sessies opnieuw laden** met `:load <index>` — ga verder waar je was gebleven.
 
-### 🛠 220 Gereedschap
+### 🛠 222 Gereedschap
 
 | Categorie | Gereedschap |
 |---|---|
@@ -102,7 +102,7 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 | **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 broncode-navigators (idx-familie)** |
 | **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
-| **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify ||
+| **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify, quantities ||
 | **Bronnavigatie** | **29 idx-tools** voor Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — verkrijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
 
 ### 🖥 4 interfaces + VS-code-extensie

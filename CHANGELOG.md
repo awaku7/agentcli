@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.5.69] - 2026-08-11
+
+### Added
+
+- feat(tools): add the Pint-based `quantities` unit conversion and physical quantity tool
+- feat(tools): add Yahoo! Japan Transit route search with candidate routes, fare breakdowns, and query-preserving source links
+- feat(tools): add `geodesic_distance` for Haversine straight-line distance and optional reverse geocoding
+- feat(transit): add a bundled MLIT N02 station master for resolving ambiguous station names by destination proximity
+
+### Changed
+
+- feat(i18n): add complete localized catalogs for the new tools
+- docs: update tool counts, parallel-safe counts, transit, quantities, and geodesic-distance documentation
+- fix(packaging): include tool data resources in source and wheel distributions
+- fix(status): normalize generic LLM status labels while preserving reasoning state
+- fix(types): resolve mypy issues in token, cloud API, and pybitchat helpers
+
+
 ## [0.5.68] - 2026-08-07
 
 ### Added

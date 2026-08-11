@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Makinenizde yerel olarak çalışır**. Verileriniz sizinle kalır (yaptığınız API çağrıları hariç).
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 sağlayıcı, hepsine tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak bunlar arasında geçiş yapın; yeniden yükleme yok, geçiş yok.
-- **220 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **128 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
+- **222 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **130 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
 - **3 kullanıcı arayüzü + A2A**: CLI, GUI, Web ve Aracıdan Aracıya protokolü. Aynı motor, herhangi bir arayüz.
 - **Ajan Becerileri**: Piyasadan topluluk tarafından oluşturulan becerileri yükleyin. Uag'ı sonsuza kadar uzatın.
 
@@ -56,7 +56,7 @@ Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. 'UAGENT_PROVIDE
 ### ⚡ Paralel Takım Yürütme
 
 LLM aynı anda birden fazla araç talep ettiğinde bunları **otomatik olarak paralelleştirir**.
-128 araç 'x_parallel_safe' olarak işaretlenmiştir ve bir 'ThreadPoolExecutor' aracılığıyla eşzamanlı olarak çalıştırılır (varsayılan olarak 8 iş parçacığı; değiştirmek için 'UAGENT_PARALLEL_WORKERS' ayarlayın).
+130 araç 'x_parallel_safe' olarak işaretlenmiştir ve bir 'ThreadPoolExecutor' aracılığıyla eşzamanlı olarak çalıştırılır (varsayılan olarak 8 iş parçacığı; değiştirmek için 'UAGENT_PARALLEL_WORKERS' ayarlayın).
 
 **Örnek**: "İskandinav başkentlerindeki hava durumunu kontrol edin" sorusunu sorun → Yüksek Lisans \`search_web'i çalıştırıyor × 5 ülke → 5 aramanın tümü paralel olarak yürütülüyor → sonuçlar tek bir grupta toplanıyor.
 
@@ -87,7 +87,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 - **Oturum sırasında sağlayıcı değiştir** `UAGENT_PROVIDER` ile — konuşma geçmişi korunur.
 - **Önceki oturumları yeniden yükle** `:load <index>` ile — kaldığınız yerden devam edin.
 
-### 🛠 220 Araç
+### 🛠 222 Araç
 
 | Kategori | Araçlar |
 |---|---|
@@ -102,7 +102,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 | **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kaynak kodu gezgini (idx ailesi)** |
 | **MCP** | Harici MCP sunucularına bağlanın, araçları listeleyin, çalıştırın — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Aracıdan aracıya iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
-| **Sistem** | env değişkenleri, sistem özellikleri, saat, tarih hesaplaması, uuid_gen, slugify ||
+| **Sistem** | env değişkenleri, sistem özellikleri, saat, tarih hesaplaması, uuid_gen, slugify, quantities ||
 | **Kaynak Gezintisi** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile için **29 idx aracı** — tüm dosyayı okumadan bir işlev/sınıf dizini veya belirli bir tanım edinin |
 
 ### 🖥 4 Arayüz + VS Kod Uzantısı

@@ -1,0 +1,8 @@
+{
+  "source": "国土交通省 国土数値情報 N02 鉄道データ（令和6年）",
+  "derived_from": "https://github.com/antfu/mlit-json/blob/main/data/stations.json",
+  "source_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2024.html",
+  "terms_url": "https://nlftp.mlit.go.jp/ksj/other/yakkan.html",
+  "retrieved_at": "2026-08-11",
+  "license_note": "Railway data is subject to the MLIT 国土数値情報利用約款; the upstream repository code is MIT licensed."
+}

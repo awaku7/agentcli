@@ -392,6 +392,10 @@ class WebRoom:
 
     def set_status(self, busy: bool, label: str = ""):
         workdir = self.base_dir
+        try:
+            label = core.normalize_status_label(busy, label)
+        except Exception:
+            pass
 
         self.status = {
             "busy": busy,

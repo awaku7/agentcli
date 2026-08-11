@@ -11,7 +11,7 @@ import json
 import os
 import tempfile
 import time
-from contextlib import contextmanager
+from contextlib import AbstractContextManager, contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterator
@@ -113,7 +113,7 @@ class TokenStore:
                 finally:
                     os.close(fd)
                 acquired = True
-            except FileExistsError:
+            except (FileExistsError, PermissionError):
                 try:
                     if time.time() - lock_path.stat().st_mtime > stale_after:
                         lock_path.unlink()
@@ -131,7 +131,7 @@ class TokenStore:
             except FileNotFoundError:
                 pass
 
-    def write_lock(self) -> Iterator[None]:
+    def write_lock(self) -> AbstractContextManager[None]:
         """Acquire the cross-process lock for a compound token operation."""
         return self._write_lock()
 

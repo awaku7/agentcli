@@ -730,11 +730,23 @@ def clear_responses_continuation() -> None:
         pass
 
 
+def normalize_status_label(busy: bool, label: str = "") -> str:
+    """Return the display label shared by CLI, GUI, and Web status views."""
+    if busy and label == "LLM":
+        reasoning = (os.environ.get("UAGENT_REASONING") or "").strip().lower()
+        if reasoning in {"auto", "minimal", "low", "medium", "high", "xhigh", "max"}:
+            return f"LLM:{reasoning}"
+    return label
+
+
 def set_status(busy: bool, label: str = "") -> None:
     """
     Update the Busy/Idle state and draw the status line if there are changes.
     """
     global status_busy, status_label, last_reasoning_label
+
+    # Keep CLI, GUI, and Web status labels consistent.
+    label = normalize_status_label(busy, label)
 
     # Clear on user/command input so toggling reasoning off does not leave stale
     # labels in the next prompt.

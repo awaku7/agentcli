@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Kjører lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API-anrop du foretar).
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
-- **220 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **128 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
+- **222 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **130 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
 - **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Utvid uag uendelig.
 
@@ -56,7 +56,7 @@ Alle leverandører deler samme verktøysett og grensesnitt. Bytt ved å sette 'U
 ### ⚡ Parallell verktøyutførelse
 
 Når LLM ber om flere verktøy samtidig, uag **paralliserer automatisk** dem.
-128 verktøy er merket 'x_parallel_safe' og kjøres samtidig via en 'ThreadPoolExecutor' (8 tråder som standard; sett 'UAGENT_PARALLEL_WORKERS' for å endre).
+130 verktøy er merket 'x_parallel_safe' og kjøres samtidig via en 'ThreadPoolExecutor' (8 tråder som standard; sett 'UAGENT_PARALLEL_WORKERS' for å endre).
 
 **Eksempel**: Spør "Sjekk været i nordiske hovedsteder" → LLM avfyrer `search_web` × 5 land → alle 5 søkene kjøres parallelt → resultater samlet i én batch.
 
@@ -87,7 +87,7 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 - **Bytte leverandør midt i økten**: `UAGENT_PROVIDER` — samtalehistorikken bevares.
 - **Laste inn tidligere økter på nytt**: `:load <index>` — fortsett der du slapp.
 
-### 🛠 220 verktøy
+### 🛠 222 verktøy
 
 | Kategori | Verktøy |
 |---|---|
@@ -102,7 +102,7 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 | **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
-| **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify ||
+| **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify, quantities ||
 | **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
 ### 🖥 4 grensesnitt + VS-kodeutvidelse

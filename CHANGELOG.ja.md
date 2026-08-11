@@ -2,6 +2,24 @@
 
 ## [未リリース]
 
+## [0.5.69] - 2026-08-11
+
+### 追加
+
+- feat(tools): Pintによる単位変換・物理量計算ツール `quantities` を追加
+- feat(tools): 候補経路、運賃内訳、検索クエリ付き出典リンクに対応したYahoo!路線情報ツールを追加
+- feat(tools): Haversine法による直線距離と任意の逆ジオコーディングに対応した `geodesic_distance` を追加
+- feat(transit): 到着地との近さで同名駅を解決するMLIT N02駅マスターを追加
+
+### 変更
+
+- feat(i18n): 新しいツールの多言語カタログを追加
+- docs: ツール数、並列実行対応数、経路探索、数量計算、直線距離のドキュメントを更新
+- fix(packaging): ツール用データリソースをsdistとwheelに収録
+- fix(status): 推論状態を維持しながら一般的なLLM状態ラベルを正規化
+- fix(types): token、Cloud API、pybitchatヘルパーのmypy問題を修正
+
+
 ## [0.5.68] - 2026-08-07
 
 ### 追加

@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
 - **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、Novita、HuggingFace…24のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
-- **220ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **128のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
+- **222ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **130のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
 - **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIを通じて家電を制御。
 - **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
@@ -78,7 +78,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 ### ⚡ ツールの並列実行
 
 LLMが複数のツールを同時に要求すると、uagは **自動的に並列実行** します。
-128のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
+130のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
 
 **例**: 「北欧の首都の天気を調べて」と質問 → LLMが `search_web` を5ヶ国分同時に要求 → 5つの検索が並行実行 → 結果が1つのバッチにまとまる。
 
@@ -109,12 +109,12 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 - **セッション中のプロバイダ切り替え**: `UAGENT_PROVIDER` を変更しても会話履歴は保持されます。
 - **過去セッションの再読み込み**: `:load <番号>` で中断したところから再開。
 
-### 🛠 220ツール
+### 🛠 222ツール
 
 | カテゴリ | ツール |
 |---|---|
 | **ファイル操作** | read/write/create/delete/search/grep/hash/zip、file_type、parse_eml（.emlファイル） |
-| **Web** | fetch_url、search_web、screenshot、browser_playwright |
+| **Web** | fetch_url、search_web、screenshot、browser_playwright、`public_transit_route`（[ガイド](PUBLIC_TRANSIT_ROUTE.ja.md)） |
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **予測** | 時系列予測（9モデル: AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM等）、自動モデル選択、プロット生成、i18n対応 |
@@ -124,7 +124,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**29のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 — [OAuth / Proxyガイド](MCP_OAUTH_PROXY_GUIDE.ja.md) |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
-| **システム** | 環境変数、システム情報、時刻、日付計算、uuid_gen、slugify |
+| **システム** | 環境変数、システム情報、時刻、日付計算、[quantities](QUANTITIES.ja.md)、[geodesic_distance](GEODESIC_DISTANCE.ja.md)、uuid_gen、slugify |
 | **ソースナビ** | **29のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
 
 ### 🖥 4つのインターフェース + VS Code拡張

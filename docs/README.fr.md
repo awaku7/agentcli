@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
-- **220 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **128 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
+- **222 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **130 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
 - **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
 
@@ -56,7 +56,7 @@ Tous les fournisseurs partagent le même ensemble d’outils et la même interfa
 ### ⚡ Exécution d'outils parallèles
 
 Lorsque le LLM demande plusieurs outils simultanément, uag les **parallèle automatiquement**.
-128 outils sont marqués « x_parallel_safe » et s'exécutent simultanément via un « ThreadPoolExecutor » (8 threads par défaut ; définissez « UAGENT_PARALLEL_WORKERS » pour changer).
+130 outils sont marqués « x_parallel_safe » et s'exécutent simultanément via un « ThreadPoolExecutor » (8 threads par défaut ; définissez « UAGENT_PARALLEL_WORKERS » pour changer).
 
 **Exemple** : demandez « Vérifiez la météo dans les capitales nordiques » → LLM déclenche `search_web` × 5 pays → les 5 recherches s'exécutent en parallèle → résultats collectés en un seul lot.
 
@@ -87,7 +87,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 - **Changer de fournisseur en cours de session** : `UAGENT_PROVIDER` — l’historique des conversations est préservé.
 - **Recharger les sessions passées** : `:load <index>` — reprenez là où vous vous êtes arrêté.
 
-### 🛠 220 Outils
+### 🛠 222 Outils
 
 - **API cloud**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 
@@ -103,7 +103,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 | **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
-| **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify ||
+| **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify, quantities ||
 | **Navigation source** | **29 outils idx** pour Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obtenez un index de fonction/classe ou une définition spécifique sans lire l'intégralité du fichier |
 
 ### 🖥 4 interfaces + extension de code VS
