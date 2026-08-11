@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.5.70] - 2026-08-11
+
+### Changed
+
+- fix(deps): pin `llmcapa` to the verified 0.5.1 release
+
+
 ## [0.5.69] - 2026-08-11
 
 ### Added
