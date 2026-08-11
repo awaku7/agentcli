@@ -159,19 +159,39 @@ def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
     p.setRenderHint(QtGui.QPainter.Antialiasing)
-    p.setPen(QtGui.QPen(color, max(1, size // 12), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap, QtCore.Qt.RoundJoin))
+    p.setPen(
+        QtGui.QPen(
+            color,
+            max(1, size // 12),
+            QtCore.Qt.SolidLine,
+            QtCore.Qt.RoundCap,
+            QtCore.Qt.RoundJoin,
+        )
+    )
     p.setBrush(QtGui.QBrush(color))
     m = size * 0.14
-    plane = QtGui.QPolygonF([
-        QtCore.QPointF(m, size * 0.48),
-        QtCore.QPointF(size - m, m),
-        QtCore.QPointF(size * 0.68, size - m),
-        QtCore.QPointF(size * 0.53, size * 0.56),
-        QtCore.QPointF(m, size * 0.48),
-    ])
+    plane = QtGui.QPolygonF(
+        [
+            QtCore.QPointF(m, size * 0.48),
+            QtCore.QPointF(size - m, m),
+            QtCore.QPointF(size * 0.68, size - m),
+            QtCore.QPointF(size * 0.53, size * 0.56),
+            QtCore.QPointF(m, size * 0.48),
+        ]
+    )
     p.drawPolygon(plane)
-    p.setPen(QtGui.QPen(QtGui.QColor("#ffffff"), max(1, size // 14), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap))
-    p.drawLine(QtCore.QPointF(m + size * 0.08, size * 0.48), QtCore.QPointF(size * 0.54, size * 0.55))
+    p.setPen(
+        QtGui.QPen(
+            QtGui.QColor("#ffffff"),
+            max(1, size // 14),
+            QtCore.Qt.SolidLine,
+            QtCore.Qt.RoundCap,
+        )
+    )
+    p.drawLine(
+        QtCore.QPointF(m + size * 0.08, size * 0.48),
+        QtCore.QPointF(size * 0.54, size * 0.55),
+    )
     p.end()
     return QtGui.QIcon(pm)
 
@@ -272,8 +292,22 @@ def _make_reasoning_icon(size: int = 18) -> QtGui.QIcon:
     color = _menu_icon_color()
     pen = QtGui.QPen(color, max(1, size // 9), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap)
     p.setPen(pen)
-    p.drawArc(int(size * 0.08), int(size * 0.22), int(size * 0.48), int(size * 0.58), 70 * 16, 230 * 16)
-    p.drawArc(int(size * 0.44), int(size * 0.22), int(size * 0.48), int(size * 0.58), -120 * 16, 230 * 16)
+    p.drawArc(
+        int(size * 0.08),
+        int(size * 0.22),
+        int(size * 0.48),
+        int(size * 0.58),
+        70 * 16,
+        230 * 16,
+    )
+    p.drawArc(
+        int(size * 0.44),
+        int(size * 0.22),
+        int(size * 0.48),
+        int(size * 0.58),
+        -120 * 16,
+        230 * 16,
+    )
     p.drawLine(size / 2, size * 0.2, size / 2, size * 0.8)
     p.drawLine(size * 0.25, size * 0.42, size * 0.42, size * 0.5)
     p.drawLine(size * 0.75, size * 0.42, size * 0.58, size * 0.5)
@@ -287,7 +321,9 @@ def _make_detail_icon(size: int = 18) -> QtGui.QIcon:
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
     p.setRenderHint(QtGui.QPainter.Antialiasing)
-    pen = QtGui.QPen(_menu_icon_color(), max(1, size // 8), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap)
+    pen = QtGui.QPen(
+        _menu_icon_color(), max(1, size // 8), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap
+    )
     p.setPen(pen)
     for i, width in enumerate((0.42, 0.68, 0.88)):
         y = size * (0.24 + i * 0.27)
@@ -306,7 +342,14 @@ def _make_genre_icon(size: int = 18) -> QtGui.QIcon:
     p.setPen(QtGui.QPen(color, max(1, size // 10)))
     p.setBrush(QtCore.Qt.NoBrush)
     for i, x in enumerate((0.12, 0.38, 0.64)):
-        p.drawRoundedRect(int(size * x), int(size * (0.24 + i * 0.08)), int(size * 0.24), int(size * 0.24), 2, 2)
+        p.drawRoundedRect(
+            int(size * x),
+            int(size * (0.24 + i * 0.08)),
+            int(size * 0.24),
+            int(size * 0.24),
+            2,
+            2,
+        )
     p.drawLine(size * 0.25, size * 0.75, size * 0.75, size * 0.75)
     p.end()
     return QtGui.QIcon(pm)
@@ -1266,7 +1309,8 @@ class MainWindow(QtWidgets.QMainWindow):
             pass
         html = (
             '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre-wrap;">'
-            + logo + self._escape_html(msg)
+            + logo
+            + self._escape_html(msg)
             + "</div><br>"
         )
         try:
@@ -2094,7 +2138,9 @@ class MainWindow(QtWidgets.QMainWindow):
             for att in msg.get("attachments") or []:
                 if not isinstance(att, dict):
                     continue
-                att = materialize_attachment(att, get_state_dir() / "remote_attachments")
+                att = materialize_attachment(
+                    att, get_state_dir() / "remote_attachments"
+                )
                 if str(att.get("type") or "").lower() not in (
                     "image",
                     "image/png",

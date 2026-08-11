@@ -810,7 +810,10 @@ def _call_openai_azure_round(
                                 and isinstance(responses_state, dict)
                             ):
                                 responses_state["previous_response_id"] = _retry_rid
-                                from .core import _save_responses_state, set_active_response
+                                from .core import (
+                                    _save_responses_state,
+                                    set_active_response,
+                                )
 
                                 set_active_response(_retry_rid, status="completed")
 

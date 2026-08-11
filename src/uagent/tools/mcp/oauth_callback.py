@@ -83,7 +83,9 @@ class OAuthCallbackListener:
             )
             if self._future is not None and not self._future.done():
                 self._future.set_result(callback)
-            await self._respond(writer, 200, "Authorization received. You may close this window.")
+            await self._respond(
+                writer, 200, "Authorization received. You may close this window."
+            )
         except (asyncio.TimeoutError, UnicodeError):
             await self._respond(writer, 400, "Invalid callback request")
         finally:
@@ -93,7 +95,9 @@ class OAuthCallbackListener:
     @staticmethod
     async def _respond(writer: asyncio.StreamWriter, status: int, body: str) -> None:
         payload = body.encode("utf-8")
-        reason = "OK" if status == 200 else "Bad Request" if status == 400 else "Not Found"
+        reason = (
+            "OK" if status == 200 else "Bad Request" if status == 400 else "Not Found"
+        )
         response = (
             f"HTTP/1.1 {status} {reason}\r\n"
             "Content-Type: text/plain; charset=utf-8\r\n"

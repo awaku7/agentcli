@@ -1,4 +1,5 @@
 """Safe TCP/UDP packet/data sending with dry-run by default."""
+
 from __future__ import annotations
 
 import json
@@ -14,14 +15,18 @@ _MAX_PAYLOAD = 1400
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
     action = str(args.get("action", "")).lower()
     target = str(args.get("target", "")).strip()
     if action not in {"udp_send", "tcp_send"}:
-        return _error("UNSUPPORTED_ACTION", "Only udp_send and tcp_send are implemented.")
+        return _error(
+            "UNSUPPORTED_ACTION", "Only udp_send and tcp_send are implemented."
+        )
     if not target:
         return _error("TARGET_REQUIRED", "target is required.")
     try:
@@ -33,7 +38,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if port < 1 or port > 65535:
         return _error("INVALID_PORT", "port must be between 1 and 65535.")
     if count < 1 or count > _MAX_COUNT:
-        return _error("COUNT_LIMIT_EXCEEDED", f"count must be between 1 and {_MAX_COUNT}.")
+        return _error(
+            "COUNT_LIMIT_EXCEEDED", f"count must be between 1 and {_MAX_COUNT}."
+        )
     if interval < 0 or interval > 60:
         return _error("INVALID_INTERVAL", "interval must be between 0 and 60 seconds.")
 
@@ -45,7 +52,9 @@ def run_tool(args: dict[str, Any]) -> str:
     else:
         return _error("INVALID_PAYLOAD", "payload must be text or bytes.")
     if len(data) > _MAX_PAYLOAD:
-        return _error("PAYLOAD_LIMIT_EXCEEDED", f"payload must be at most {_MAX_PAYLOAD} bytes.")
+        return _error(
+            "PAYLOAD_LIMIT_EXCEEDED", f"payload must be at most {_MAX_PAYLOAD} bytes."
+        )
 
     dry_run = bool(args.get("dry_run", True))
     if not dry_run and not bool(args.get("send_confirmed", False)):
@@ -134,7 +143,12 @@ TOOL_SPEC: dict[str, Any] = {
                 "port": {"type": "integer", "minimum": 1, "maximum": 65535},
                 "payload": {"type": "string"},
                 "count": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1},
-                "interval": {"type": "number", "minimum": 0, "maximum": 60, "default": 1},
+                "interval": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 60,
+                    "default": 1,
+                },
                 "dry_run": {"type": "boolean", "default": True},
                 "send_confirmed": {"type": "boolean", "default": False},
             },

@@ -99,7 +99,9 @@ def _resolve(args: dict[str, Any]) -> tuple[dict[str, Any], str]:
         config = json.load(handle)
     for server in config.get("mcp_servers", []):
         if isinstance(server, dict) and server.get("name") == server_name:
-            mode = str(args.get("protocol_mode") or server.get("protocol_mode") or "auto")
+            mode = str(
+                args.get("protocol_mode") or server.get("protocol_mode") or "auto"
+            )
             return {
                 "url": server.get("url") or None,
                 "command": server.get("command") or None,
@@ -129,10 +131,16 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         connection, _resolved_name = _resolve(args)
         if not connection.get("url") and not connection.get("command"):
-            return _("err.endpoint_required", default="Error: MCP endpoint is required.")
-        mode = str(args.get("protocol_mode") or connection.get("protocol_mode") or "auto")
+            return _(
+                "err.endpoint_required", default="Error: MCP endpoint is required."
+            )
+        mode = str(
+            args.get("protocol_mode") or connection.get("protocol_mode") or "auto"
+        )
         connection["protocol_mode"] = mode
         result = asyncio.run(_request(connection, action, uri))
         return json.dumps(result, ensure_ascii=False, default=str)
     except Exception as exc:
-        return _("err.request", default="Error: MCP resource request failed: %(error)s") % {"error": exc}
+        return _(
+            "err.request", default="Error: MCP resource request failed: %(error)s"
+        ) % {"error": exc}

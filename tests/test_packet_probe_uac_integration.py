@@ -12,13 +12,17 @@ def test_packet_probe_uses_fixed_uac_helper_when_allowed(monkeypatch) -> None:
         "create_request_paths",
         lambda: ("request.json", "result.json"),
     )
-    monkeypatch.setattr(packet_probe_tool.windows_uac_launcher, "write_request", lambda *_args: None)
+    monkeypatch.setattr(
+        packet_probe_tool.windows_uac_launcher, "write_request", lambda *_args: None
+    )
     monkeypatch.setattr(
         packet_probe_tool.windows_uac_launcher,
         "build_helper_command",
         lambda *_args: ["python", "-m", "uagent.tools.network_privileged_helper"],
     )
-    monkeypatch.setattr(packet_probe_tool.windows_uac_launcher, "shell_execute_runas", lambda _args: 33)
+    monkeypatch.setattr(
+        packet_probe_tool.windows_uac_launcher, "shell_execute_runas", lambda _args: 33
+    )
     monkeypatch.setattr(
         packet_probe_tool.windows_uac_launcher,
         "wait_for_result",

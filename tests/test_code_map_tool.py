@@ -187,7 +187,6 @@ def test_empty_and_missing_directories(repo_tmp_path: Path) -> None:
     assert missing["ok"] is False
 
 
-
 def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
     project = repo_tmp_path / "legacy"
     project.mkdir()
@@ -200,7 +199,7 @@ def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
         encoding="utf-8",
     )
     (project / "helper.lss").write_text(
-        'Function Helper()\nEnd Function\n', encoding="utf-8"
+        "Function Helper()\nEnd Function\n", encoding="utf-8"
     )
 
     result = _json_result(

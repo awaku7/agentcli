@@ -18,7 +18,9 @@ def _store(path: Path) -> TokenStore:
 
 def test_token_store_encrypts_and_keys_by_issuer_resource(tmp_path: Path) -> None:
     store = _store(tmp_path / "oauth_tokens.json")
-    token = StoredToken("access-secret", "Bearer", expires_at=100, refresh_token="refresh-secret")
+    token = StoredToken(
+        "access-secret", "Bearer", expires_at=100, refresh_token="refresh-secret"
+    )
     store.save("https://auth.example", "https://mcp.example/mcp", token)
 
     raw = (tmp_path / "oauth_tokens.json").read_text(encoding="utf-8")

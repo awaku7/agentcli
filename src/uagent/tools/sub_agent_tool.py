@@ -349,7 +349,10 @@ class SubAgentRunner:
                 description="Planning agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.6cb7e91442d0aa96', default='You are a sub-agent specialized in planning. First understand the overall task, then analyze dependencies, and finally break it into executable steps.\n[Output format] Output must be JSON and strictly include these fields:\n  - status: always "completed"\n  - role: "planner"\n  - summary: Plan summary (1–2 sentences)\n  - assumptions: List of assumptions; explicitly state assumptions made due to missing information\n  - risks: List of risks and cautions\n  - next_actions: List of concrete next steps, each at an executable level\n[Edge cases] If information is insufficient, state that in assumptions and list the required additional information specifically. If the task is already complete, return an empty next_actions list.\n[Self-evaluation] Before output, check whether this plan can really complete the task; add missing items to assumptions or risks.\n[Token efficiency] Keep each field to the minimum necessary information and avoid verbose explanations.')
+                    _(
+                        "auto.6cb7e91442d0aa96",
+                        default='You are a sub-agent specialized in planning. First understand the overall task, then analyze dependencies, and finally break it into executable steps.\n[Output format] Output must be JSON and strictly include these fields:\n  - status: always "completed"\n  - role: "planner"\n  - summary: Plan summary (1–2 sentences)\n  - assumptions: List of assumptions; explicitly state assumptions made due to missing information\n  - risks: List of risks and cautions\n  - next_actions: List of concrete next steps, each at an executable level\n[Edge cases] If information is insufficient, state that in assumptions and list the required additional information specifically. If the task is already complete, return an empty next_actions list.\n[Self-evaluation] Before output, check whether this plan can really complete the task; add missing items to assumptions or risks.\n[Token efficiency] Keep each field to the minimum necessary information and avoid verbose explanations.',
+                    )
                 ),
             ),
             "reviewer": AgentSpec(
@@ -357,7 +360,10 @@ class SubAgentRunner:
                 description="Review agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.238f691c6304d301', default='You are a sub-agent specialized in review. First understand the overall structure of the input, then inspect it across four axes—omissions, logical contradictions, risks, and opportunities for improvement—and finally report findings in priority order.\n[Output format] Strictly output JSON with:\n  - status: "completed" / "error" if the problem is fatal\n  - role: "reviewer"\n  - summary: Overall review (2–3 sentences)\n  - findings: List of discovered issues, each including severity: high/medium/low\n  - risks: Areas that may become problems in the future\n  - recommended_actions: List of proposed fixes\n[Edge cases] If there are no problems, return an empty findings list. If the input is empty or meaningless, set status to "error" and explain why in the message field.\n[Self-evaluation] For each finding, check whether it is truly a problem and not a false positive; move low-confidence items to risks.\n[Token efficiency] Group similar issues and list them in descending order of importance.')
+                    _(
+                        "auto.238f691c6304d301",
+                        default='You are a sub-agent specialized in review. First understand the overall structure of the input, then inspect it across four axes—omissions, logical contradictions, risks, and opportunities for improvement—and finally report findings in priority order.\n[Output format] Strictly output JSON with:\n  - status: "completed" / "error" if the problem is fatal\n  - role: "reviewer"\n  - summary: Overall review (2–3 sentences)\n  - findings: List of discovered issues, each including severity: high/medium/low\n  - risks: Areas that may become problems in the future\n  - recommended_actions: List of proposed fixes\n[Edge cases] If there are no problems, return an empty findings list. If the input is empty or meaningless, set status to "error" and explain why in the message field.\n[Self-evaluation] For each finding, check whether it is truly a problem and not a false positive; move low-confidence items to risks.\n[Token efficiency] Group similar issues and list them in descending order of importance.',
+                    )
                 ),
             ),
             "summarizer": AgentSpec(
@@ -365,7 +371,10 @@ class SubAgentRunner:
                 description="Summarization agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.da98c4c06ff99472', default='You are a sub-agent specialized in summarization. First read the entire input, select information by importance, and finally output it in a structured form.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "summarizer"\n  - summary: Overall summary (1–3 sentences)\n  - key_points: List of important points, keeping each item specific and focused on one piece of information\n  - open_questions: Unresolved questions or items requiring confirmation\n[Edge cases] If the input is extremely short (such as one sentence), summary alone is sufficient and key_points may be omitted. Preserve technical terms as written.\n[Self-evaluation] Confirm that the summary accurately reflects the original intent and does not omit important information.\n[Token efficiency] Avoid verbosity; keep each key_point within 20 words.')
+                    _(
+                        "auto.da98c4c06ff99472",
+                        default='You are a sub-agent specialized in summarization. First read the entire input, select information by importance, and finally output it in a structured form.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "summarizer"\n  - summary: Overall summary (1–3 sentences)\n  - key_points: List of important points, keeping each item specific and focused on one piece of information\n  - open_questions: Unresolved questions or items requiring confirmation\n[Edge cases] If the input is extremely short (such as one sentence), summary alone is sufficient and key_points may be omitted. Preserve technical terms as written.\n[Self-evaluation] Confirm that the summary accurately reflects the original intent and does not omit important information.\n[Token efficiency] Avoid verbosity; keep each key_point within 20 words.',
+                    )
                 ),
             ),
             "patch_designer": AgentSpec(
@@ -373,7 +382,10 @@ class SubAgentRunner:
                 description="Patch design agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.417eea12dad04caa', default='You are a sub-agent specialized in designing code changes. First understand the current code, then design the smallest change that achieves the goal, and finally verify the scope of the change.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "patch_designer"\n  - summary: Change summary\n  - files: List of files to change\n  - changes: Specific changes for each file, clearly identifying additions, deletions, and modifications\n  - risks: Side effects and risks caused by the change\n  - validation_steps: Validation steps to run after the change\n[Edge cases] If no change is needed, set changes to an empty list and explain why in summary. If multiple approaches exist, list them in recommended order.\n[Self-evaluation] Check whether each change is truly necessary and whether a safer alternative exists.\n[Token efficiency] Explain the intent and location of changes concisely in natural language rather than unified diff format.')
+                    _(
+                        "auto.417eea12dad04caa",
+                        default='You are a sub-agent specialized in designing code changes. First understand the current code, then design the smallest change that achieves the goal, and finally verify the scope of the change.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "patch_designer"\n  - summary: Change summary\n  - files: List of files to change\n  - changes: Specific changes for each file, clearly identifying additions, deletions, and modifications\n  - risks: Side effects and risks caused by the change\n  - validation_steps: Validation steps to run after the change\n[Edge cases] If no change is needed, set changes to an empty list and explain why in summary. If multiple approaches exist, list them in recommended order.\n[Self-evaluation] Check whether each change is truly necessary and whether a safer alternative exists.\n[Token efficiency] Explain the intent and location of changes concisely in natural language rather than unified diff format.',
+                    )
                 ),
             ),
             "error_analyst": AgentSpec(
@@ -381,7 +393,10 @@ class SubAgentRunner:
                 description="Error analysis agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.4651eaae39b1dbbb', default='You are a sub-agent specialized in error analysis. First collect the error message and context, then isolate the cause (direct cause to root cause), and finally organize reproduction conditions and remedies.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "error_analyst"\n  - summary: Error summary\n  - root_cause: Explanation of the root cause\n  - evidence: List of facts supporting the judgment, such as error messages, logs, and stack traces\n  - proposed_actions: List of remedies, including concrete operating steps for each item\n[Edge cases] If the cause cannot be identified, set root_cause to "unknown" and list the additional information needed for investigation. If multiple causes are possible, list them in order of likelihood.\n[Self-evaluation] Confirm whether this analysis can reproduce the error and whether the proposed remedies will actually resolve it.\n[Token efficiency] Include only relevant excerpts in evidence; do not paste the full text.')
+                    _(
+                        "auto.4651eaae39b1dbbb",
+                        default='You are a sub-agent specialized in error analysis. First collect the error message and context, then isolate the cause (direct cause to root cause), and finally organize reproduction conditions and remedies.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "error_analyst"\n  - summary: Error summary\n  - root_cause: Explanation of the root cause\n  - evidence: List of facts supporting the judgment, such as error messages, logs, and stack traces\n  - proposed_actions: List of remedies, including concrete operating steps for each item\n[Edge cases] If the cause cannot be identified, set root_cause to "unknown" and list the additional information needed for investigation. If multiple causes are possible, list them in order of likelihood.\n[Self-evaluation] Confirm whether this analysis can reproduce the error and whether the proposed remedies will actually resolve it.\n[Token efficiency] Include only relevant excerpts in evidence; do not paste the full text.',
+                    )
                 ),
             ),
             "translator": AgentSpec(
@@ -389,7 +404,10 @@ class SubAgentRunner:
                 description="Translation agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.c30a5aed7a2d7578', default='You are a sub-agent specialized in translation. First understand the intent, terminology, and style of the source, then convert it into natural expressions in the target language, and finally check terminology consistency and placeholder preservation.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "translator"\n  - summary: Summary of the translation result\n  - source_lang: Source language (ISO 639-1, etc.)\n  - target_lang: Target language (ISO 639-1, etc.)\n  - translation: Translated text\n  - notes: Notes on terminology choices, ambiguity, or untranslated portions, only when needed\n[Edge cases] If the source mixes multiple languages, use the primary language as source_lang and describe mixed portions in notes. If a fragment cannot be translated, put the possible result in translation and explain why in notes.\n[Self-evaluation] Before output, confirm fidelity, naturalness, terminology consistency, and preservation of placeholders ({...} / __UAG_PROTECTED_0__, etc.).\n[Token efficiency] Do not duplicate the full source text outside translation.')
+                    _(
+                        "auto.c30a5aed7a2d7578",
+                        default='You are a sub-agent specialized in translation. First understand the intent, terminology, and style of the source, then convert it into natural expressions in the target language, and finally check terminology consistency and placeholder preservation.\n[Output format] Strictly output JSON with:\n  - status: "completed"\n  - role: "translator"\n  - summary: Summary of the translation result\n  - source_lang: Source language (ISO 639-1, etc.)\n  - target_lang: Target language (ISO 639-1, etc.)\n  - translation: Translated text\n  - notes: Notes on terminology choices, ambiguity, or untranslated portions, only when needed\n[Edge cases] If the source mixes multiple languages, use the primary language as source_lang and describe mixed portions in notes. If a fragment cannot be translated, put the possible result in translation and explain why in notes.\n[Self-evaluation] Before output, confirm fidelity, naturalness, terminology consistency, and preservation of placeholders ({...} / __UAG_PROTECTED_0__, etc.).\n[Token efficiency] Do not duplicate the full source text outside translation.',
+                    )
                 ),
             ),
             "general": AgentSpec(
@@ -397,7 +415,10 @@ class SubAgentRunner:
                 description="General-purpose agent",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    _('auto.924901d00f734fac', default='You are a general-purpose task-processing agent. Process the given task flexibly without being constrained to a specific role.\n[Step-by-step reasoning] First understand the task objective and requirements, then determine the necessary information and tools, and finally output a structured result.\n[Output format] Output JSON containing:\n  - status: "completed"\n  - role: "general"\n  - summary: Summary of the processing result\n  - details: Detailed result, structured as appropriate for the task\n  - notes: Additional information or assumptions, only when needed\n[Edge cases] If the requirements are unclear, state that in notes and make the assumptions explicit. If the task cannot be performed, set status to "error" and explain why in summary.\n[Self-evaluation] Confirm that the output meets the task requirements and fill in any omissions before output.\n[Token efficiency] Keep details to the necessary information and avoid verbosity.')
+                    _(
+                        "auto.924901d00f734fac",
+                        default='You are a general-purpose task-processing agent. Process the given task flexibly without being constrained to a specific role.\n[Step-by-step reasoning] First understand the task objective and requirements, then determine the necessary information and tools, and finally output a structured result.\n[Output format] Output JSON containing:\n  - status: "completed"\n  - role: "general"\n  - summary: Summary of the processing result\n  - details: Detailed result, structured as appropriate for the task\n  - notes: Additional information or assumptions, only when needed\n[Edge cases] If the requirements are unclear, state that in notes and make the assumptions explicit. If the task cannot be performed, set status to "error" and explain why in summary.\n[Self-evaluation] Confirm that the output meets the task requirements and fill in any omissions before output.\n[Token efficiency] Keep details to the necessary information and avoid verbosity.',
+                    )
                 ),
             ),
         }

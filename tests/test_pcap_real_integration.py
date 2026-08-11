@@ -12,14 +12,18 @@ def _write_fixture(path: Path) -> None:
 
     writer = PcapWriter(str(path), append=False, sync=True)
     try:
-        packet = IP(src="192.168.1.10", dst="192.168.1.20") / TCP(
-            sport=50000, dport=443, seq=1000, flags="A"
-        ) / Raw(b"hello")
+        packet = (
+            IP(src="192.168.1.10", dst="192.168.1.20")
+            / TCP(sport=50000, dport=443, seq=1000, flags="A")
+            / Raw(b"hello")
+        )
         packet.time = 1.0
         writer.write(packet)
-        retransmission = IP(src="192.168.1.10", dst="192.168.1.20") / TCP(
-            sport=50000, dport=443, seq=1000, flags="A"
-        ) / Raw(b"hello")
+        retransmission = (
+            IP(src="192.168.1.10", dst="192.168.1.20")
+            / TCP(sport=50000, dport=443, seq=1000, flags="A")
+            / Raw(b"hello")
+        )
         retransmission.time = 2.0
         writer.write(retransmission)
     finally:
@@ -33,14 +37,10 @@ def test_real_pcap_summary_and_flows(tmp_path: Path) -> None:
     _write_fixture(source)
 
     summary = json.loads(
-        pcap_analyze_tool.run_tool(
-            {"pcap_path": str(source), "operation": "summary"}
-        )
+        pcap_analyze_tool.run_tool({"pcap_path": str(source), "operation": "summary"})
     )
     flows = json.loads(
-        pcap_analyze_tool.run_tool(
-            {"pcap_path": str(source), "operation": "flows"}
-        )
+        pcap_analyze_tool.run_tool({"pcap_path": str(source), "operation": "flows"})
     )
 
     assert summary["ok"] is True

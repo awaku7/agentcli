@@ -126,7 +126,10 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "include_base64": {
                     "type": "boolean",
-                    "description": _("param.include_base64.description", default="Include base64 image data for remote clients."),
+                    "description": _(
+                        "param.include_base64.description",
+                        default="Include base64 image data for remote clients.",
+                    ),
                     "default": True,
                 },
                 "prefix": {
@@ -863,7 +866,9 @@ def run_tool(args: dict[str, Any]) -> str:
         if bool(args.get("include_base64", True)):
             try:
                 with open(path, "rb") as image_file:
-                    att["data_base64"] = base64.b64encode(image_file.read()).decode("ascii")
+                    att["data_base64"] = base64.b64encode(image_file.read()).decode(
+                        "ascii"
+                    )
             except OSError:
                 pass
         if idx < len(url_list):

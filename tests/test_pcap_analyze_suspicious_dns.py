@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 
 
-def test_detect_finds_suspicious_dns_nxdomain_ratio(tmp_path: Path, monkeypatch) -> None:
+def test_detect_finds_suspicious_dns_nxdomain_ratio(
+    tmp_path: Path, monkeypatch
+) -> None:
     from uagent.tools import pcap_analyze_tool
 
     packets = [

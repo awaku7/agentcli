@@ -32,34 +32,64 @@ TOOL_SPEC: dict[str, Any] = {
         "x_search_terms": _(
             "x_search_terms",
             default=[
-                "HTTPリクエスト", "REST API", "APIリクエスト", "POST API",
-                "PUT API", "PATCH API", "DELETE API", "HTTPクライアント", "Postman",
+                "HTTPリクエスト",
+                "REST API",
+                "APIリクエスト",
+                "POST API",
+                "PUT API",
+                "PATCH API",
+                "DELETE API",
+                "HTTPクライアント",
+                "Postman",
             ],
         ),
         "x_search_terms_en": [
-            "http request", "REST API", "API request", "POST API", "PUT API",
-            "PATCH API", "DELETE API", "HTTP client", "Postman",
+            "http request",
+            "REST API",
+            "API request",
+            "POST API",
+            "PUT API",
+            "PATCH API",
+            "DELETE API",
+            "HTTP client",
+            "Postman",
         ],
         "parameters": {
             "type": "object",
             "properties": {
                 "method": {
                     "type": "string",
-                    "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "DELETE",
+                        "HEAD",
+                        "OPTIONS",
+                    ],
                     "default": "GET",
-                    "description": _("param.method.description", default="HTTP method."),
+                    "description": _(
+                        "param.method.description", default="HTTP method."
+                    ),
                 },
                 "url": {
                     "type": "string",
-                    "description": _("param.url.description", default="HTTP or HTTPS URL."),
+                    "description": _(
+                        "param.url.description", default="HTTP or HTTPS URL."
+                    ),
                 },
                 "query": {
                     "type": "object",
-                    "description": _("param.query.description", default="Query-string parameters."),
+                    "description": _(
+                        "param.query.description", default="Query-string parameters."
+                    ),
                 },
                 "headers": {
                     "type": "object",
-                    "description": _("param.headers.description", default="Additional HTTP headers."),
+                    "description": _(
+                        "param.headers.description", default="Additional HTTP headers."
+                    ),
                 },
                 "body": {
                     "description": _(
@@ -104,19 +134,35 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "timeout": {
-                    "type": "integer", "default": 30, "minimum": 1, "maximum": 300,
-                    "description": _("param.timeout.description", default="Request timeout in seconds."),
+                    "type": "integer",
+                    "default": 30,
+                    "minimum": 1,
+                    "maximum": 300,
+                    "description": _(
+                        "param.timeout.description",
+                        default="Request timeout in seconds.",
+                    ),
                 },
                 "max_bytes": {
-                    "type": "integer", "default": 2000000, "minimum": 1, "maximum": 10000000,
-                    "description": _("param.max_bytes.description", default="Maximum response size in bytes."),
+                    "type": "integer",
+                    "default": 2000000,
+                    "minimum": 1,
+                    "maximum": 10000000,
+                    "description": _(
+                        "param.max_bytes.description",
+                        default="Maximum response size in bytes.",
+                    ),
                 },
                 "ssl": {
-                    "type": "boolean", "default": True,
-                    "description": _("param.ssl.description", default="Verify TLS certificates."),
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.ssl.description", default="Verify TLS certificates."
+                    ),
                 },
                 "parse_json": {
-                    "type": "boolean", "default": False,
+                    "type": "boolean",
+                    "default": False,
                     "description": _(
                         "param.parse_json.description",
                         default="Parse a JSON response into response_json when possible.",
@@ -147,7 +193,9 @@ def _query_url(url: str, query: Any) -> str:
         else:
             extra.append((str(key), str(value)))
     combined = "&".join(item for item in (existing, urlencode(extra)) if item)
-    return urlunsplit((parts.scheme, parts.netloc, parts.path, combined, parts.fragment))
+    return urlunsplit(
+        (parts.scheme, parts.netloc, parts.path, combined, parts.fragment)
+    )
 
 
 def _header_dict(headers: HTTPMessage | None) -> dict[str, str]:
@@ -196,7 +244,9 @@ def run_tool(args: dict[str, Any]) -> str:
             data = str(body_value).encode("utf-8")
 
     if data is not None:
-        headers.setdefault("Content-Type", str(args.get("content_type") or "application/json"))
+        headers.setdefault(
+            "Content-Type", str(args.get("content_type") or "application/json")
+        )
 
     request = Request(url, data=data, headers=headers, method=method)
     verify_ssl = args.get("ssl", True)
@@ -220,7 +270,9 @@ def run_tool(args: dict[str, Any]) -> str:
             truncated = len(raw) > max_bytes
             raw = raw[:max_bytes]
             response_headers = _header_dict(getattr(response, "headers", None))
-            charset = getattr(getattr(response, "headers", None), "get_content_charset", lambda: None)()
+            charset = getattr(
+                getattr(response, "headers", None), "get_content_charset", lambda: None
+            )()
             try:
                 text = raw.decode(charset or "utf-8", errors="replace")
             except Exception:
@@ -242,8 +294,24 @@ def run_tool(args: dict[str, Any]) -> str:
     except HTTPError as exc:
         raw = exc.read(max_bytes)
         text = raw.decode("utf-8", errors="replace")
-        return json.dumps({"ok": False, "status_code": exc.code, "url": url, "headers": _header_dict(exc.headers), "body": text, "error": str(exc.reason)}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "status_code": exc.code,
+                "url": url,
+                "headers": _header_dict(exc.headers),
+                "body": text,
+                "error": str(exc.reason),
+            },
+            ensure_ascii=False,
+        )
     except (URLError, TimeoutError, ValueError) as exc:
-        return json.dumps({"ok": False, "url": url, "error": f"{type(exc).__name__}: {exc}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "url": url, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({"ok": False, "url": url, "error": f"{type(exc).__name__}: {exc}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "url": url, "error": f"{type(exc).__name__}: {exc}"},
+            ensure_ascii=False,
+        )

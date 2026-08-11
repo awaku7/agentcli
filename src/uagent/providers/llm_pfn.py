@@ -207,9 +207,7 @@ def pfn_chat_with_tools(
         "stream": use_stream,
     }
     temp = (
-        env_get("UAGENT_PFN_TEMPERATURE")
-        or env_get("UAGENT_TEMPERATURE")
-        or "0.2"
+        env_get("UAGENT_PFN_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or "0.2"
     ).strip()
     try:
         kwargs["temperature"] = float(temp)

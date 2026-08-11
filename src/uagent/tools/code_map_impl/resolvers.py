@@ -1,4 +1,5 @@
 """Project-local module and dependency path resolvers."""
+
 from __future__ import annotations
 
 import re
@@ -90,7 +91,13 @@ def _resolve_cobol_module(module: str, importing_file: str, root: str) -> list[s
     name = Path(module).name
     importing_dir = Path(importing_file).resolve().parent
     root_path = Path(root).resolve()
-    search_dirs = [importing_dir, root_path, root_path / "src", root_path / "copybooks", root_path / "cpy"]
+    search_dirs = [
+        importing_dir,
+        root_path,
+        root_path / "src",
+        root_path / "copybooks",
+        root_path / "cpy",
+    ]
     suffixes = ["", ".cpy", ".CPY", ".cbl", ".CBL", ".cob", ".COB", ".cobol"]
     results: list[str] = []
     for directory in search_dirs:
@@ -101,12 +108,16 @@ def _resolve_cobol_module(module: str, importing_file: str, root: str) -> list[s
     return list(dict.fromkeys(results))
 
 
-def _resolve_extended_module(module: str, importing_file: str, root: str, language: str) -> list[str]:
+def _resolve_extended_module(
+    module: str, importing_file: str, root: str, language: str
+) -> list[str]:
     """Resolve common project-local imports/includes for extended languages."""
     root_path = Path(root).resolve()
     source_dir = Path(importing_file).resolve().parent
     module = module.strip().strip("'\"")
-    if language in ("C", "C++", "C/C++ Header", "Ruby", "PHP", "Dart", "Lua", "R") and (module.startswith("/") or module.startswith(".")):
+    if language in ("C", "C++", "C/C++ Header", "Ruby", "PHP", "Dart", "Lua", "R") and (
+        module.startswith("/") or module.startswith(".")
+    ):
         base = source_dir / module
     elif language in ("Java", "Kotlin", "Kotlin Script", "Scala", "C#"):
         base = root_path.joinpath(*module.replace("\\", ".").split("."))
@@ -114,13 +125,24 @@ def _resolve_extended_module(module: str, importing_file: str, root: str, langua
         base = root_path / module
     suffixes = [""]
     suffixes += {
-        "Java": [".java"], "Kotlin": [".kt", ".kts"], "Kotlin Script": [".kt", ".kts"],
-        "Scala": [".scala"], "C#": [".cs"], "C": [".c", ".h"],
+        "Java": [".java"],
+        "Kotlin": [".kt", ".kts"],
+        "Kotlin Script": [".kt", ".kts"],
+        "Scala": [".scala"],
+        "C#": [".cs"],
+        "C": [".c", ".h"],
         "C++": [".cpp", ".cc", ".cxx", ".hpp", ".h"],
-        "Objective-C": [".m", ".h"], "Objective-C++": [".mm", ".h", ".hpp"], "C/C++ Header": [".h", ".hpp"],
-        "PHP": [".php"], "Ruby": [".rb"], "Swift": [".swift"], "Dart": [".dart"],
-        "Lua": [".lua"], "R": [".r"],
-        "VBA": [".bas", ".cls", ".frm"], "LotusScript": [".lss"],
+        "Objective-C": [".m", ".h"],
+        "Objective-C++": [".mm", ".h", ".hpp"],
+        "C/C++ Header": [".h", ".hpp"],
+        "PHP": [".php"],
+        "Ruby": [".rb"],
+        "Swift": [".swift"],
+        "Dart": [".dart"],
+        "Lua": [".lua"],
+        "R": [".r"],
+        "VBA": [".bas", ".cls", ".frm"],
+        "LotusScript": [".lss"],
     }.get(language, [])
     candidates = [base]
     if not str(base).startswith(str(root_path)):
@@ -129,11 +151,14 @@ def _resolve_extended_module(module: str, importing_file: str, root: str, langua
     for candidate in candidates:
         for suffix in suffixes:
             path = candidate if not suffix else Path(str(candidate) + suffix)
-            if path.is_file(): results.append(str(path.resolve()))
+            if path.is_file():
+                results.append(str(path.resolve()))
         if candidate.is_dir():
             for suffix in suffixes:
                 if suffix and (candidate / (candidate.name + suffix)).is_file():
-                    results.append(str((candidate / (candidate.name + suffix)).resolve()))
+                    results.append(
+                        str((candidate / (candidate.name + suffix)).resolve())
+                    )
     return list(dict.fromkeys(results))
 
 
@@ -243,5 +268,3 @@ def _resolve_go_module(
         for f in candidate.glob("*.go")
         if str(f.resolve()) in file_paths
     ]
-
-

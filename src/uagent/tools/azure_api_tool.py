@@ -32,7 +32,9 @@ def _credential() -> Any:
     client = os.getenv("UAGENT_AZURE_CLIENT_ID", "").strip()
     secret = os.getenv("UAGENT_AZURE_CLIENT_SECRET", "")
     if tenant and client and secret:
-        return ClientSecretCredential(tenant_id=tenant, client_id=client, client_secret=secret)
+        return ClientSecretCredential(
+            tenant_id=tenant, client_id=client, client_secret=secret
+        )
     return AzureCliCredential()
 
 
@@ -43,7 +45,9 @@ def _subscription_id() -> str:
     return value
 
 
-def _request(method: str, url: str, params: dict[str, Any] | None = None, body: Any = None) -> Any:
+def _request(
+    method: str, url: str, params: dict[str, Any] | None = None, body: Any = None
+) -> Any:
     credential = _credential()
     token = credential.get_token("https://management.azure.com/.default").token
     response = requests.request(
@@ -51,7 +55,10 @@ def _request(method: str, url: str, params: dict[str, Any] | None = None, body: 
         url,
         params=params,
         json=body,
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
         timeout=60,
     )
     response.raise_for_status()
@@ -121,7 +128,10 @@ def run_tool(args: dict[str, Any]) -> str:
         if isinstance(body, str) and body.strip():
             body = json.loads(body)
         result = _request(method, _url(resource), parameters, body)
-        return json.dumps({"method": method, "resource": resource, "result": result}, ensure_ascii=False)
+        return json.dumps(
+            {"method": method, "resource": resource, "result": result},
+            ensure_ascii=False,
+        )
     except Exception as exc:
         return json.dumps(
             {"ok": False, "error": type(exc).__name__, "message": str(exc)},
@@ -147,18 +157,69 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["azure", "microsoft azure", "azure arm", "cloud", "azure_api"],
         ),
-        "x_search_terms_en": ["azure", "microsoft azure", "azure arm", "cloud", "azure_api"],
+        "x_search_terms_en": [
+            "azure",
+            "microsoft azure",
+            "azure arm",
+            "cloud",
+            "azure_api",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
-                "action": {"type": "string", "enum": ["list_providers", "list_operations", "call"], "default": "list_providers"},
-                "provider": {"type": "string", "description": _("param.provider", default="Azure resource provider namespace, for example Microsoft.Compute.")},
-                "resource": {"type": "string", "description": _("param.resource", default="ARM resource path or full management URL.")},
-                "method": {"type": "string", "default": "GET", "description": _("param.method", default="HTTP method, for example GET, PUT, POST, PATCH, or DELETE.")},
-                "api_version": {"type": "string", "default": _API_VERSION, "description": _("param.api_version", default="Azure API version.")},
-                "parameters": {"type": "string", "description": _("param.parameters", default="JSON object containing query parameters.")},
-                "body": {"type": "string", "description": _("param.body", default="Optional JSON request body.")},
-                "confirm_write": {"type": "boolean", "default": False, "description": _("param.confirm_write", default="Required true for non-GET operations.")},
+                "action": {
+                    "type": "string",
+                    "enum": ["list_providers", "list_operations", "call"],
+                    "default": "list_providers",
+                },
+                "provider": {
+                    "type": "string",
+                    "description": _(
+                        "param.provider",
+                        default="Azure resource provider namespace, for example Microsoft.Compute.",
+                    ),
+                },
+                "resource": {
+                    "type": "string",
+                    "description": _(
+                        "param.resource",
+                        default="ARM resource path or full management URL.",
+                    ),
+                },
+                "method": {
+                    "type": "string",
+                    "default": "GET",
+                    "description": _(
+                        "param.method",
+                        default="HTTP method, for example GET, PUT, POST, PATCH, or DELETE.",
+                    ),
+                },
+                "api_version": {
+                    "type": "string",
+                    "default": _API_VERSION,
+                    "description": _("param.api_version", default="Azure API version."),
+                },
+                "parameters": {
+                    "type": "string",
+                    "description": _(
+                        "param.parameters",
+                        default="JSON object containing query parameters.",
+                    ),
+                },
+                "body": {
+                    "type": "string",
+                    "description": _(
+                        "param.body", default="Optional JSON request body."
+                    ),
+                },
+                "confirm_write": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.confirm_write",
+                        default="Required true for non-GET operations.",
+                    ),
+                },
             },
             "required": ["action"],
             "additionalProperties": False,

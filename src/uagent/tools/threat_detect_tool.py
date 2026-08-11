@@ -1,4 +1,5 @@
 """Suricata EVE alert extraction with metadata-only output."""
+
 from __future__ import annotations
 
 import json
@@ -26,7 +27,13 @@ def _run_suricata(pcap_path: str, output_dir: str) -> Path:
         raise FileNotFoundError("suricata executable was not found")
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    result = subprocess.run([suricata, "-r", pcap_path, "-l", str(out)], capture_output=True, text=True, timeout=300, check=False)
+    result = subprocess.run(
+        [suricata, "-r", pcap_path, "-l", str(out)],
+        capture_output=True,
+        text=True,
+        timeout=300,
+        check=False,
+    )
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or "suricata failed")
     return out / "eve.json"
@@ -63,7 +70,9 @@ def _parse_eve(path: Path, limit: int) -> list[dict[str, Any]]:
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -73,10 +82,22 @@ def run_tool(args: dict[str, Any]) -> str:
     limit = max(1, min(int(args.get("limit", 100)), 10000))
     try:
         if _find_suricata() is None:
-            return _error("EXTERNAL_DEPENDENCY_MISSING", "suricata executable was not found.")
-        eve_path = _run_suricata(pcap_path, str(args.get("output_dir", "outputs/suricata")))
+            return _error(
+                "EXTERNAL_DEPENDENCY_MISSING", "suricata executable was not found."
+            )
+        eve_path = _run_suricata(
+            pcap_path, str(args.get("output_dir", "outputs/suricata"))
+        )
         alerts = _parse_eve(eve_path, limit)
-        return json.dumps({"ok": True, "backend": "suricata", "alerts": alerts, "returned_alerts": len(alerts)}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": True,
+                "backend": "suricata",
+                "alerts": alerts,
+                "returned_alerts": len(alerts),
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
         return _error("SURICATA_FAILED", str(exc))
 
@@ -86,13 +107,21 @@ TOOL_SPEC: dict[str, Any] = {
     "x_parallel_safe": False,
     "function": {
         "name": "threat_detect",
-        "description": _("tool.description", default="Extract Suricata IDS alerts from a pcap as metadata."),
+        "description": _(
+            "tool.description",
+            default="Extract Suricata IDS alerts from a pcap as metadata.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "pcap_path": {"type": "string"},
                 "output_dir": {"type": "string", "default": "outputs/suricata"},
-                "limit": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 100},
+                "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000,
+                    "default": 100,
+                },
             },
             "required": ["pcap_path"],
         },

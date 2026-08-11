@@ -3,6 +3,7 @@
 The implementation lives in :mod:`code_map_impl.runner`; the translation
 catalog intentionally remains next to this facade as ``code_map_tool.json``.
 """
+
 from __future__ import annotations
 
 import importlib

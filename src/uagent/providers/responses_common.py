@@ -711,7 +711,11 @@ def parse_responses_response(
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", output_items)
-            setattr(core, "_last_responses_usage", responses_usage_to_dict(getattr(resp, "usage", None)))
+            setattr(
+                core,
+                "_last_responses_usage",
+                responses_usage_to_dict(getattr(resp, "usage", None)),
+            )
         except Exception:
             pass
     return assistant_text, reasoning_content, tool_calls_list, response_id, output_items
@@ -838,7 +842,9 @@ def parse_responses_stream(
                                 setattr(
                                     core,
                                     "_last_responses_usage",
-                                    responses_usage_to_dict(getattr(ev_resp, "usage", None)),
+                                    responses_usage_to_dict(
+                                        getattr(ev_resp, "usage", None)
+                                    ),
                                 )
                         except Exception:
                             pass

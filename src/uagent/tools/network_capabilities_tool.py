@@ -1,4 +1,5 @@
 """Preflight network dependencies and privilege state without running scans."""
+
 from __future__ import annotations
 
 import importlib.util
@@ -52,10 +53,15 @@ def run_tool(args: dict[str, Any]) -> str:
     for package in ("scapy", "psutil", "httpx", "dnspython", "pyroute2"):
         import_name = "dns" if package == "dnspython" else package
         packages[package] = {
-            "status": "available" if importlib.util.find_spec(import_name) else "missing",
+            "status": (
+                "available" if importlib.util.find_spec(import_name) else "missing"
+            ),
             "import_name": import_name,
         }
-    executables = {name: _executable_status(name) for name in ("nmap", "tshark", "wireshark", "zeek", "suricata")}
+    executables = {
+        name: _executable_status(name)
+        for name in ("nmap", "tshark", "wireshark", "zeek", "suricata")
+    }
     elevated = _python_is_admin()
     return json.dumps(
         {

@@ -397,9 +397,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 _(
                     "meta.frontmatter",
                     default="Front matter: {value}",
-                ).format(
-                    value="detected" if metadata["frontmatter"] else "none"
-                ),
+                ).format(value="detected" if metadata["frontmatter"] else "none"),
                 _(
                     "meta.skill_validation",
                     default="Agent Skills validation: {value}",

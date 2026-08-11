@@ -36,7 +36,9 @@ def test_local_browser_flow_opens_url_and_stores_token(tmp_path: Path) -> None:
 
             async def redirect_request() -> None:
                 target = urlsplit(redirect)
-                reader, writer = await asyncio.open_connection(target.hostname, target.port)
+                reader, writer = await asyncio.open_connection(
+                    target.hostname, target.port
+                )
                 writer.write(
                     f"GET {target.path}?code=code-1&state={state} HTTP/1.1\r\n"
                     "Host: localhost\r\n\r\n".encode()
@@ -75,6 +77,9 @@ def test_local_browser_flow_opens_url_and_stores_token(tmp_path: Path) -> None:
             )
         assert opened and "code_challenge_method=S256" in opened[0]
         assert token.access_token == "access-1"
-        assert store.load(metadata.issuer, "https://mcp.example/mcp").refresh_token == "refresh-1"
+        assert (
+            store.load(metadata.issuer, "https://mcp.example/mcp").refresh_token
+            == "refresh-1"
+        )
 
     asyncio.run(scenario())

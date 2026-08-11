@@ -23,7 +23,14 @@ TOOL_SPEC = {
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["weather", "forecast", "temperature", "Weather", "Temperature", "Weather forecast"],
+            default=[
+                "weather",
+                "forecast",
+                "temperature",
+                "Weather",
+                "Temperature",
+                "Weather forecast",
+            ],
         ),
         "x_search_terms_en": [
             "weather",

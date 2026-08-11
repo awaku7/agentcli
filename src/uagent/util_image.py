@@ -44,7 +44,12 @@ def is_valid_image_file(path: str) -> bool:
             return True
         if p.suffix.lower() == ".bmp" and header.startswith(b"BM"):
             return True
-        if p.suffix.lower() in {".tif", ".tiff"} and header[:4] in {b"II*\x00", b"MM\x00*", b"II+\x00", b"MM\x00+"}:
+        if p.suffix.lower() in {".tif", ".tiff"} and header[:4] in {
+            b"II*\x00",
+            b"MM\x00*",
+            b"II+\x00",
+            b"MM\x00+",
+        }:
             return True
     except (OSError, ValueError, TypeError):
         pass

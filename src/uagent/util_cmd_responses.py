@@ -18,11 +18,15 @@ def _manager(
     client: Any, depname: str, core: Any, *, tr: Any = None
 ) -> ResponsesManager | None:
     tr = tr if callable(tr) else _
-    provider = str(
-        getattr(core, "responses_state", {}).get("provider")
-        or getattr(core, "_responses_provider", "")
-        or ""
-    ).strip().lower()
+    provider = (
+        str(
+            getattr(core, "responses_state", {}).get("provider")
+            or getattr(core, "_responses_provider", "")
+            or ""
+        )
+        .strip()
+        .lower()
+    )
     if not provider:
         provider = str(getattr(core, "provider", "") or "").strip().lower()
     if client is None or provider not in ("openai", "azure"):
@@ -42,9 +46,7 @@ def _response_id(core: Any, explicit: str = "") -> str:
     state = getattr(core, "responses_state", {})
     if isinstance(state, dict):
         return str(
-            state.get("active_response_id")
-            or state.get("previous_response_id")
-            or ""
+            state.get("active_response_id") or state.get("previous_response_id") or ""
         )
     return ""
 
@@ -79,7 +81,7 @@ def _handle_cmd_response(
     """Handle ``:response <status|cancel|tokens|compact|items|delete>``."""
     tr = tr if callable(tr) else _
     parts = (arg or "").strip().split()
-    sub = (parts[0].lower() if parts else "status")
+    sub = parts[0].lower() if parts else "status"
     explicit_id = parts[1] if len(parts) > 1 else ""
     manager = _manager(client, depname, core, tr=tr)
     if manager is None:
@@ -109,28 +111,28 @@ def _handle_cmd_response(
             try:
                 _print_json(manager.retrieve(rid))
             except Exception as exc:
-                print(tr( "[Responses API] Retrieve failed: %(error)s") % {"error": exc})
+                print(tr("[Responses API] Retrieve failed: %(error)s") % {"error": exc})
         else:
-            print(tr( "[Responses API] No response ID is available."))
+            print(tr("[Responses API] No response ID is available."))
         return True
 
     if sub == "cancel":
         if explicit_id:
             if not rid:
-                print(tr( "[Responses API] response_id is required."))
+                print(tr("[Responses API] response_id is required."))
                 return True
             try:
                 _print_json(manager.cancel(rid))
                 core_module.clear_responses_continuation()
             except Exception as exc:
-                print(tr( "[Responses API] Cancel failed: %(error)s") % {"error": exc})
+                print(tr("[Responses API] Cancel failed: %(error)s") % {"error": exc})
         elif cancel_active_response(core):
             print(
-                tr( "[Responses API] Cancelled %(response)s.")
-                % {"response": rid or tr( "active response")}
+                tr("[Responses API] Cancelled %(response)s.")
+                % {"response": rid or tr("active response")}
             )
         else:
-            print(tr( "[Responses API] No cancellable active response is available."))
+            print(tr("[Responses API] No cancellable active response is available."))
         return True
 
     if sub == "tokens":
@@ -140,15 +142,16 @@ def _handle_cmd_response(
             )
             # The endpoint requires a non-empty input field.  This fallback
             # is only for a history containing no countable input items.
-            count_input = responses_input or [
-                {"role": "user", "content": " "}
-            ]
+            count_input = responses_input or [{"role": "user", "content": " "}]
             result = manager.count_input_tokens(
                 input=count_input,
                 tools=responses_tools,
                 instructions=instructions,
                 previous_response_id=(
-                    str(getattr(core, "responses_state", {}).get("previous_response_id") or "")
+                    str(
+                        getattr(core, "responses_state", {}).get("previous_response_id")
+                        or ""
+                    )
                     if not responses_input
                     else None
                 ),
@@ -161,39 +164,42 @@ def _handle_cmd_response(
                 result = {"input_token_count": result, "last_response_usage": usage}
             _print_json(result)
         except Exception as exc:
-            print(tr( "[Responses API] Token count failed: %(error)s") % {"error": exc})
+            print(tr("[Responses API] Token count failed: %(error)s") % {"error": exc})
         return True
 
     if sub == "compact":
         if not rid:
-            print(tr( "[Responses API] No response ID is available."))
+            print(tr("[Responses API] No response ID is available."))
             return True
         try:
             _print_json(manager.compact(rid))
         except Exception as exc:
-            print(tr( "[Responses API] Compact failed: %(error)s") % {"error": exc})
+            print(tr("[Responses API] Compact failed: %(error)s") % {"error": exc})
         return True
 
     if sub == "items":
         if not rid:
-            print(tr( "[Responses API] No response ID is available."))
+            print(tr("[Responses API] No response ID is available."))
             return True
         try:
             _print_json(manager.list_input_items(rid))
         except Exception as exc:
-            print(tr( "[Responses API] Input item listing failed: %(error)s") % {"error": exc})
+            print(
+                tr("[Responses API] Input item listing failed: %(error)s")
+                % {"error": exc}
+            )
         return True
 
     if sub == "delete":
         if not rid:
-            print(tr( "[Responses API] Usage: :response delete <response_id>"))
+            print(tr("[Responses API] Usage: :response delete <response_id>"))
             return True
         try:
             _print_json(manager.delete(rid))
             if rid == _response_id(core):
                 core_module.clear_responses_continuation()
         except Exception as exc:
-            print(tr( "[Responses API] Delete failed: %(error)s") % {"error": exc})
+            print(tr("[Responses API] Delete failed: %(error)s") % {"error": exc})
         return True
 
     print(

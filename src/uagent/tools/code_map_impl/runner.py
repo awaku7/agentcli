@@ -15,25 +15,26 @@ from .language_detection import EXTENSION_MAP, detect_source_language
 from .symbols import extract_symbols
 from .conflicts import normalize_dependency_versions
 from .relations import build_relations
-from .manifests import (extract_project_dependencies, extract_manifest_graph, extract_local_artifact_edges, extract_recursive_artifact_edges, extract_dependency_edges)
+from .manifests import (
+    extract_project_dependencies,
+    extract_manifest_graph,
+    extract_local_artifact_edges,
+    extract_recursive_artifact_edges,
+    extract_dependency_edges,
+)
 from .caches import resolve_dependency_cache, dependency_classpath_paths
 from .lockfiles import extract_lock_dependencies
-from .renderers import build_ontology, build_tree, tree_to_mermaid, render_mermaid_to_image
+from .renderers import (
+    build_ontology,
+    build_tree,
+    tree_to_mermaid,
+    render_mermaid_to_image,
+)
 from .excel_vba import (
     extract_vba_modules,
     supported_office_script,
     supported_workbook,
 )
-
-
-
-
-
-
-
-
-
-
 
 # Keep the translation catalog at the public tool facade path.
 _ = make_tool_translator(Path(__file__).resolve().parent.parent / "code_map_tool.py")
@@ -368,27 +369,33 @@ def _collect_source_files(root: Path) -> list[str]:
     return _deduplicate_paths(files)
 
 
-def _resolve_project_dependencies(dependencies: list[dict[str, Any]], root: Path) -> list[dict[str, Any]]:
-    result=[]
+def _resolve_project_dependencies(
+    dependencies: list[dict[str, Any]], root: Path
+) -> list[dict[str, Any]]:
+    result = []
     dart_config = root / ".dart_tool" / "package_config.json"
     dart_packages: dict[str, str] = {}
     if dart_config.is_file():
         try:
-            cfg=json.loads(dart_config.read_text(encoding="utf-8", errors="replace"))
+            cfg = json.loads(dart_config.read_text(encoding="utf-8", errors="replace"))
             for pkg in cfg.get("packages", []):
                 if pkg.get("name") and pkg.get("rootUri"):
-                    dart_packages[str(pkg["name"])] = str((dart_config.parent / pkg["rootUri"]).resolve())
-        except Exception: pass
+                    dart_packages[str(pkg["name"])] = str(
+                        (dart_config.parent / pkg["rootUri"]).resolve()
+                    )
+        except Exception:
+            pass
     for dep in dependencies:
-        item=dict(dep)
+        item = dict(dep)
         if item.get("manager") == "DartPub" and item.get("name") in dart_packages:
-            paths=[dart_packages[item["name"]]]
+            paths = [dart_packages[item["name"]]]
         else:
-            paths=resolve_dependency_cache(item, root)
+            paths = resolve_dependency_cache(item, root)
         if paths:
-            item["resolved_paths"]=paths
-            classpath=dependency_classpath_paths(item, paths, root)
-            if classpath: item["classpath_paths"]=classpath
+            item["resolved_paths"] = paths
+            classpath = dependency_classpath_paths(item, paths, root)
+            if classpath:
+                item["classpath_paths"] = classpath
         result.append(item)
     return result
 
@@ -494,11 +501,19 @@ def _find_project_files(root: str) -> dict[str, Any]:
                     sources.append(str(makefile.parent / filename))
 
     for cmake in cmake_files:
-        try: cmake_text = cmake.read_text(encoding="utf-8", errors="replace")
-        except OSError: cmake_text = ""
-        for m in re.finditer(r"\bfind_package\s*\(\s*([A-Za-z0-9_+.-]+)", cmake_text, re.IGNORECASE):
+        try:
+            cmake_text = cmake.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            cmake_text = ""
+        for m in re.finditer(
+            r"\bfind_package\s*\(\s*([A-Za-z0-9_+.-]+)", cmake_text, re.IGNORECASE
+        ):
             projects.append(str(cmake.resolve()))
-        for m in re.finditer(r"\btarget_link_libraries\s*\(\s*[^\s)]+\s+([^)]*)\)", cmake_text, re.IGNORECASE | re.DOTALL):
+        for m in re.finditer(
+            r"\btarget_link_libraries\s*\(\s*[^\s)]+\s+([^)]*)\)",
+            cmake_text,
+            re.IGNORECASE | re.DOTALL,
+        ):
             projects.append(str(cmake.resolve()))
 
     package_files = list(root_path.rglob("package.json"))
@@ -525,24 +540,51 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 base = pyproject.parent / dirname
                 sources.extend(str(f) for f in base.rglob("*.py") if base.is_dir())
 
-    target_frameworks=[]
+    target_frameworks = []
     for csproj in csproj_files:
         try:
-            xml_root=ET.parse(csproj).getroot()
+            xml_root = ET.parse(csproj).getroot()
             for node in xml_root.iter():
-                if node.tag.rsplit("}",1)[-1] in ("TargetFramework","TargetFrameworks") and node.text:
-                    target_frameworks.extend(x.strip() for x in node.text.split(";") if x.strip())
-        except (ET.ParseError,OSError): pass
+                if (
+                    node.tag.rsplit("}", 1)[-1]
+                    in ("TargetFramework", "TargetFrameworks")
+                    and node.text
+                ):
+                    target_frameworks.extend(
+                        x.strip() for x in node.text.split(";") if x.strip()
+                    )
+        except (ET.ParseError, OSError):
+            pass
     project_paths = [Path(x) for x in _deduplicate_paths(projects)]
-    manifest_candidates= list(root_path.rglob("pom.xml")) + list(root_path.rglob("composer.json")) + list(root_path.rglob("Gemfile")) + list(root_path.rglob("Package.swift")) + list(root_path.rglob("pubspec.yaml")) + list(root_path.rglob("build.sbt")) + list(root_path.rglob("DESCRIPTION")) + list(root_path.rglob("*.rockspec"))
+    manifest_candidates = (
+        list(root_path.rglob("pom.xml"))
+        + list(root_path.rglob("composer.json"))
+        + list(root_path.rglob("Gemfile"))
+        + list(root_path.rglob("Package.swift"))
+        + list(root_path.rglob("pubspec.yaml"))
+        + list(root_path.rglob("build.sbt"))
+        + list(root_path.rglob("DESCRIPTION"))
+        + list(root_path.rglob("*.rockspec"))
+    )
     project_paths.extend(manifest_candidates)
-    project_paths = [Path(x) for x in _deduplicate_paths([str(x) for x in project_paths])]
+    project_paths = [
+        Path(x) for x in _deduplicate_paths([str(x) for x in project_paths])
+    ]
     declared_dependencies = extract_project_dependencies(root_path, project_paths)
     lock_dependencies = extract_lock_dependencies(root_path)
-    resolved_dependencies = _resolve_project_dependencies(declared_dependencies, root_path)
-    resolved_dependencies, dependency_conflicts = normalize_dependency_versions(resolved_dependencies)
+    resolved_dependencies = _resolve_project_dependencies(
+        declared_dependencies, root_path
+    )
+    resolved_dependencies, dependency_conflicts = normalize_dependency_versions(
+        resolved_dependencies
+    )
     local_edges = extract_local_artifact_edges(resolved_dependencies, root_path)
-    dependency_edges = extract_dependency_edges(root_path) + extract_manifest_graph(root_path) + local_edges + extract_recursive_artifact_edges(resolved_dependencies, root_path)
+    dependency_edges = (
+        extract_dependency_edges(root_path)
+        + extract_manifest_graph(root_path)
+        + local_edges
+        + extract_recursive_artifact_edges(resolved_dependencies, root_path)
+    )
     return {
         "projects": [str(x) for x in project_paths],
         "dependencies": resolved_dependencies,
@@ -634,7 +676,10 @@ def run_tool(args: dict[str, Any]) -> str:
             script_source = str(input_path)
         else:
             return json.dumps(
-                {"ok": False, "error": "Only directories, .xlsm/.xltm/.xlsb workbooks, and .ts/.js scripts are supported"},
+                {
+                    "ok": False,
+                    "error": "Only directories, .xlsm/.xltm/.xlsb workbooks, and .ts/.js scripts are supported",
+                },
                 ensure_ascii=False,
             )
     else:

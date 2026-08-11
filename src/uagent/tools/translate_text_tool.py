@@ -747,10 +747,7 @@ def _translate_mymemory(
     if source in {"", "auto"}:
         source = "en"
     params = {"q": text, "langpair": f"{source}|nn-NO"}
-    url = (
-        "https://api.mymemory.translated.net/get?"
-        + urllib.parse.urlencode(params)
-    )
+    url = "https://api.mymemory.translated.net/get?" + urllib.parse.urlencode(params)
     req = urllib.request.Request(url, headers={"User-Agent": "uagentcli/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=20, context=_SSL_CTX) as resp:

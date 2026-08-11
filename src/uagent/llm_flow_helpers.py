@@ -42,9 +42,7 @@ def _append_assistant_message(
     # ``responses_state`` record, and only when the lifecycle callback ran.
     try:
         response_id = str(
-            (getattr(core, "responses_state", {}) or {}).get(
-                "previous_response_id", ""
-            )
+            (getattr(core, "responses_state", {}) or {}).get("previous_response_id", "")
             or ""
         ).strip()
         if response_id.startswith("resp_"):
@@ -163,7 +161,16 @@ def _build_auto_user_message_from_next_action(
         # Generated media is for the client/UI attachment channel. Do not feed
         # its potentially large Base64 payload back into the LLM continuation.
         tool_name = str(tool_msg.get("name") or "")
-        if tool_name not in {"generate_image", "mermaid_render", "img2img", "forecast", "generate_qr_code", "screenshot", "pdf_export", "audio_speech"}:
+        if tool_name not in {
+            "generate_image",
+            "mermaid_render",
+            "img2img",
+            "forecast",
+            "generate_qr_code",
+            "screenshot",
+            "pdf_export",
+            "audio_speech",
+        }:
             tool_attachments = tool_msg.get("attachments")
             if isinstance(tool_attachments, list) and tool_attachments:
                 auto_user_msg["attachments"] = tool_attachments
@@ -545,47 +552,47 @@ def _execute_tool_calls(
                 tool_result = _prefetched_result
                 fresh_tool_calls.append(tc)
             else:
-                    # Fire PreToolUse hook
-                    _fire_tool_hooks("PreToolUse", name)
+                # Fire PreToolUse hook
+                _fire_tool_hooks("PreToolUse", name)
 
-                    core.set_status(True, f"tool:{name}")
-                    try:
-                        # ファイルアクセスをキャッシュ管理に記録
-                        if name == "read_file" and "filename" in parsed_args:
-                            cache_mgr.record_file_access(parsed_args["filename"])
+                core.set_status(True, f"tool:{name}")
+                try:
+                    # ファイルアクセスをキャッシュ管理に記録
+                    if name == "read_file" and "filename" in parsed_args:
+                        cache_mgr.record_file_access(parsed_args["filename"])
 
-                        tool_result = tools.run_tool(name, parsed_args)
+                    tool_result = tools.run_tool(name, parsed_args)
 
-                        # Fire PostToolUse hook
-                        _fire_tool_hooks("PostToolUse", name)
-                    except Exception as e:
-                        # Fire PostToolUseFailure hook
-                        _fire_tool_hooks("PostToolUseFailure", name)
-                        tb = traceback.format_exc()
-                        tool_result = _(
-                            "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
-                            default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
-                        ) % {
-                            "name": name,
-                            "etype": type(e).__name__,
-                            "err": e,
-                            "tb": tb,
-                        }
-                    except SystemExit as e:
-                        # Defense in depth: tools.run_tool should already convert this.
-                        _fire_tool_hooks("PostToolUseFailure", name)
-                        tool_result = (
-                            f"[tool runtime error] name={name!r} err=SystemExit: {e}"
-                        )
-                    fresh_tool_calls.append(tc)
-            if getattr(core, "show_tool_output", False):
-                    _display = (
-                        tool_result
-                        if isinstance(tool_result, str)
-                        else json.dumps(tool_result, ensure_ascii=False)
+                    # Fire PostToolUse hook
+                    _fire_tool_hooks("PostToolUse", name)
+                except Exception as e:
+                    # Fire PostToolUseFailure hook
+                    _fire_tool_hooks("PostToolUseFailure", name)
+                    tb = traceback.format_exc()
+                    tool_result = _(
+                        "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                        default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                    ) % {
+                        "name": name,
+                        "etype": type(e).__name__,
+                        "err": e,
+                        "tb": tb,
+                    }
+                except SystemExit as e:
+                    # Defense in depth: tools.run_tool should already convert this.
+                    _fire_tool_hooks("PostToolUseFailure", name)
+                    tool_result = (
+                        f"[tool runtime error] name={name!r} err=SystemExit: {e}"
                     )
-                    print("[tool output] " + _("name=%(name)s") % {"name": name})
-                    print(_display)
+                fresh_tool_calls.append(tc)
+            if getattr(core, "show_tool_output", False):
+                _display = (
+                    tool_result
+                    if isinstance(tool_result, str)
+                    else json.dumps(tool_result, ensure_ascii=False)
+                )
+                print("[tool output] " + _("name=%(name)s") % {"name": name})
+                print(_display)
             executed_new_tool = True
 
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)

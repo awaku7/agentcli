@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
-
 DEFAULT_PROTOCOL_VERSION = "2026-07-28"
 
 

@@ -10,9 +10,19 @@ def test_protocol_inspect_returns_selected_fields_only(
     from uagent.tools import protocol_inspect_tool
 
     packets = [
-        {"src_ip": "192.168.1.10", "dst_ip": "192.168.1.20", "protocol": "tcp", "dst_port": 443, "length": 120, "timestamp": 1.0, "payload": b"secret"}
+        {
+            "src_ip": "192.168.1.10",
+            "dst_ip": "192.168.1.20",
+            "protocol": "tcp",
+            "dst_port": 443,
+            "length": 120,
+            "timestamp": 1.0,
+            "payload": b"secret",
+        }
     ]
-    monkeypatch.setattr(protocol_inspect_tool, "_iter_packets", lambda _path: iter(packets))
+    monkeypatch.setattr(
+        protocol_inspect_tool, "_iter_packets", lambda _path: iter(packets)
+    )
     monkeypatch.setattr(protocol_inspect_tool, "_packet_info", lambda packet: packet)
 
     source = tmp_path / "capture.pcap"

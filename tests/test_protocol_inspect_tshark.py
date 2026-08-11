@@ -12,7 +12,9 @@ def test_protocol_inspect_uses_tshark_when_requested(tmp_path, monkeypatch) -> N
     monkeypatch.setattr(
         protocol_inspect_tool,
         "_run_tshark",
-        lambda *_args, **_kwargs: [{"ip.src": "192.168.1.10", "ip.dst": "192.168.1.20"}],
+        lambda *_args, **_kwargs: [
+            {"ip.src": "192.168.1.10", "ip.dst": "192.168.1.20"}
+        ],
     )
 
     result = json.loads(

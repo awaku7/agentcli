@@ -19,7 +19,11 @@ def test_stateless_discover_sends_client_metadata() -> None:
             captured["body"] = json.loads(request.read())
             return httpx.Response(
                 200,
-                json={"jsonrpc": "2.0", "id": 1, "result": {"supportedVersions": ["2026-07-28"]}},
+                json={
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "result": {"supportedVersions": ["2026-07-28"]},
+                },
             )
 
         transport = httpx.MockTransport(handler)
@@ -31,7 +35,12 @@ def test_stateless_discover_sends_client_metadata() -> None:
 
         assert captured["headers"]["mcp-method"] == "server/discover"
         assert captured["body"]["method"] == "server/discover"
-        assert captured["body"]["params"]["_meta"]["io.modelcontextprotocol/clientInfo"]["name"] == "uag"
+        assert (
+            captured["body"]["params"]["_meta"]["io.modelcontextprotocol/clientInfo"][
+                "name"
+            ]
+            == "uag"
+        )
 
     asyncio.run(scenario())
 

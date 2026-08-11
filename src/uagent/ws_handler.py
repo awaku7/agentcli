@@ -20,19 +20,26 @@ def _format_llm_error(exc: BaseException) -> str:
     """Return a short, readable error instead of forwarding proxy HTML."""
     raw = str(exc).strip()
     if "<!doctype" in raw.lower() or "<html" in raw.lower():
+
         def text_from_html(value: str) -> str:
             value = re.sub(r"<[^>]+>", " ", value)
             return re.sub(r"\s+", " ", unescape(value)).strip()
 
         reason_match = re.search(
             r'class=["\']eu_co\s+rsn["\'][^>]*>(.*?)</',
-            raw, flags=re.IGNORECASE | re.DOTALL,
+            raw,
+            flags=re.IGNORECASE | re.DOTALL,
         )
         target_match = re.search(
             r"You tried to visit:\s*.*?>(https?://[^<]+)<",
-            raw, flags=re.IGNORECASE | re.DOTALL,
+            raw,
+            flags=re.IGNORECASE | re.DOTALL,
         )
-        reason = text_from_html(reason_match.group(1)) if reason_match else "外部ネットワークまたはプロキシにより拒否されました"
+        reason = (
+            text_from_html(reason_match.group(1))
+            if reason_match
+            else "外部ネットワークまたはプロキシにより拒否されました"
+        )
         target = target_match.group(1) if target_match else "LLM API"
         return f"LLM APIへの接続に失敗しました。\n原因: {reason}\n接続先: {target}"
 

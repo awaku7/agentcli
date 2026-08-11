@@ -186,7 +186,9 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
             mime = str(item.get("mime") or item.get("type") or "").lower()
             b64 = item.get("data_base64") or item.get("base64")
             if isinstance(b64, str) and b64 and not item.get("data_url"):
-                item["data_url"] = f"data:{mime if mime.startswith('image/') else 'image/png'};base64,{b64}"
+                item["data_url"] = (
+                    f"data:{mime if mime.startswith('image/') else 'image/png'};base64,{b64}"
+                )
             if (
                 path
                 and not item.get("data_url")
@@ -2021,14 +2023,10 @@ async def get_logs(page: int = 1, per_page: int = 15):
                         else ""
                     ),
                     "response_provider": (
-                        str(latest_state.get("provider") or "")
-                        if latest_state
-                        else ""
+                        str(latest_state.get("provider") or "") if latest_state else ""
                     ),
                     "response_model": (
-                        str(latest_state.get("model") or "")
-                        if latest_state
-                        else ""
+                        str(latest_state.get("model") or "") if latest_state else ""
                     ),
                 }
             )

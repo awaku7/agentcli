@@ -4,6 +4,7 @@ This is intentionally offline and deterministic: it keeps placeholders and
 technical tokens untouched while applying reviewed Bokmål -> Nynorsk forms.
 It is a reproducible first pass for the host PO and tool JSON catalogues.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -105,6 +106,7 @@ REPLACEMENTS = {
     "Velg": "Vel",
 }
 
+
 # Word boundaries prevent changing technical identifiers such as --force.
 def translate_text(text: str) -> str:
     for source, target in sorted(REPLACEMENTS.items(), key=lambda item: -len(item[0])):
@@ -149,13 +151,17 @@ def update_json(root: Path) -> int:
             return value
 
         data["nn"] = walk(block)
-        path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
     return changed
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--po", type=Path, default=Path("src/uagent/locales/nn/LC_MESSAGES/uag.po"))
+    parser.add_argument(
+        "--po", type=Path, default=Path("src/uagent/locales/nn/LC_MESSAGES/uag.po")
+    )
     parser.add_argument("--tools", type=Path, default=Path("src/uagent/tools"))
     args = parser.parse_args()
     print(f"PO changed entries: {update_po(args.po)}")

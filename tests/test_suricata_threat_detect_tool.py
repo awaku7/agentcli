@@ -16,7 +16,11 @@ def test_threat_detect_parses_suricata_eve_alerts(tmp_path: Path, monkeypatch) -
                 "src_ip": "192.168.1.10",
                 "dest_ip": "192.168.1.20",
                 "dest_port": 443,
-                "alert": {"signature": "Test signature", "severity": 2, "category": "Test"},
+                "alert": {
+                    "signature": "Test signature",
+                    "severity": 2,
+                    "category": "Test",
+                },
             }
         )
         + "\n",

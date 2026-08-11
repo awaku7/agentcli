@@ -73,10 +73,25 @@ def test_connections_can_omit_process_metadata(monkeypatch) -> None:
     class FakePsutil:
         @staticmethod
         def net_connections(kind="inet"):
-            return [type("Conn", (), {"laddr": ("127.0.0.1", 1), "raddr": (), "status": "LISTEN", "pid": 1})()]
+            return [
+                type(
+                    "Conn",
+                    (),
+                    {
+                        "laddr": ("127.0.0.1", 1),
+                        "raddr": (),
+                        "status": "LISTEN",
+                        "pid": 1,
+                    },
+                )()
+            ]
 
     monkeypatch.setattr(local_network_tool, "_get_psutil", lambda: FakePsutil)
-    result = json.loads(local_network_tool.run_tool({"operation": "connections", "include_process": False}))
+    result = json.loads(
+        local_network_tool.run_tool(
+            {"operation": "connections", "include_process": False}
+        )
+    )
 
     assert result["ok"] is True
     assert "pid" not in result["connections"][0]

@@ -3,6 +3,7 @@
 This module intentionally accepts structured probe requests only. It is not a
 TOOL_SPEC and must not be exposed as an arbitrary command runner.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -29,9 +30,16 @@ def validate_request(request: dict[str, Any]) -> dict[str, Any]:
     try:
         port = int(request.get("port", 0))
     except (TypeError, ValueError) as exc:
-        raise ValueError(_("error.port_integer", default="port must be an integer")) from exc
+        raise ValueError(
+            _("error.port_integer", default="port must be an integer")
+        ) from exc
     if action == "tcp_syn" and not 1 <= port <= 65535:
-        raise ValueError(_("error.port_range", default="port must be between 1 and 65535 for tcp_syn"))
+        raise ValueError(
+            _(
+                "error.port_range",
+                default="port must be between 1 and 65535 for tcp_syn",
+            )
+        )
     if action != "tcp_syn":
         port = 0
     return {
@@ -49,13 +57,19 @@ def _scapy_probe(request: dict[str, Any]) -> dict[str, Any]:
         from scapy.all import ARP, ICMP, IP, TCP, Ether, conf, sr1, srp
     except ImportError:
         if not install_with_status("scapy", "scapy", version_spec=">=2.6.0"):
-            raise RuntimeError(_("error.scapy_unavailable", default="scapy is unavailable"))
+            raise RuntimeError(
+                _("error.scapy_unavailable", default="scapy is unavailable")
+            )
         from scapy.all import ARP, ICMP, IP, TCP, Ether, conf, sr1, srp
 
     action = request["action"]
     target = request["target"]
     if action == "tcp_syn":
-        reply = sr1(IP(dst=target) / TCP(dport=request["port"], flags="S"), timeout=2, verbose=False)
+        reply = sr1(
+            IP(dst=target) / TCP(dport=request["port"], flags="S"),
+            timeout=2,
+            verbose=False,
+        )
         if reply is None:
             state = "no_response"
         elif reply.haslayer(TCP) and reply[TCP].flags & 0x12 == 0x12:
@@ -64,13 +78,28 @@ def _scapy_probe(request: dict[str, Any]) -> dict[str, Any]:
             state = "closed"
         else:
             state = "other_response"
-        return {"action": action, "target": target, "port": request["port"], "state": state}
+        return {
+            "action": action,
+            "target": target,
+            "port": request["port"],
+            "state": state,
+        }
     if action == "icmp":
         reply = sr1(IP(dst=target) / ICMP(), timeout=2, verbose=False)
-        return {"action": action, "target": target, "state": "reachable" if reply else "no_response"}
+        return {
+            "action": action,
+            "target": target,
+            "state": "reachable" if reply else "no_response",
+        }
     conf.verb = 0
-    answered, unused_answers = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=target), timeout=2, verbose=False)
-    return {"action": action, "target": target, "state": "reachable" if answered else "no_response"}
+    answered, unused_answers = srp(
+        Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=target), timeout=2, verbose=False
+    )
+    return {
+        "action": action,
+        "target": target,
+        "state": "reachable" if answered else "no_response",
+    }
 
 
 def run_request(request: dict[str, Any]) -> dict[str, Any]:

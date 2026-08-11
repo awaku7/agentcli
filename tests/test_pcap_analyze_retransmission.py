@@ -89,12 +89,14 @@ def test_detect_classifies_capture_duplicate(tmp_path: Path, monkeypatch) -> Non
 
     result = json.loads(
         pcap_analyze_tool.run_tool(
-            {"pcap_path": str(source), "operation": "detect", "rules": ["tcp_retransmission"]}
+            {
+                "pcap_path": str(source),
+                "operation": "detect",
+                "rules": ["tcp_retransmission"],
+            }
         )
     )
     assert result["findings"][0]["classification"] == "capture_duplicate"
-
-
 
 
 def test_detect_ignores_different_tcp_sequences(tmp_path: Path, monkeypatch) -> None:

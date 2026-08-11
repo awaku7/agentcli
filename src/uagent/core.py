@@ -672,7 +672,9 @@ def _append_responses_state_record() -> None:
     try:
         os.makedirs(os.path.dirname(LOG_FILE) or ".", exist_ok=True)
         with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+            f.write(
+                json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
+            )
     except Exception:
         pass
 
@@ -916,7 +918,9 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
                 continue
         for record in response_records:
             try:
-                f.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+                f.write(
+                    json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
+                )
             except Exception:
                 continue
 

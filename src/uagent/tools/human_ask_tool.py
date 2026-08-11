@@ -89,14 +89,17 @@ def run_tool(args: dict[str, Any]) -> str:
 
     def _error_result(error_message: str) -> str:
         """Return JSON when the host did not initialize human_ask callbacks."""
-        return json.dumps({
-            "tool": "human_ask",
-            "message": message,
-            "user_reply": "",
-            "display_reply": error_message,
-            "cancelled": True,
-            "error": error_message,
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "tool": "human_ask",
+                "message": message,
+                "user_reply": "",
+                "display_reply": error_message,
+                "cancelled": True,
+                "error": error_message,
+            },
+            ensure_ascii=False,
+        )
 
     # Auto-pilot mode: skip user interaction, tell the LLM to decide autonomously
     if cb.is_auto_pilot_active and cb.is_auto_pilot_active():
@@ -137,10 +140,12 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     if cb.human_ask_lock is None:
-        return _error_result(_(
-            "err.lock_uninitialized",
-            default="[human_ask error] human_ask_lock callback is not initialized.",
-        ))
+        return _error_result(
+            _(
+                "err.lock_uninitialized",
+                default="[human_ask error] human_ask_lock callback is not initialized.",
+            )
+        )
 
     if cb.human_ask_active_ref is None or cb.human_ask_set_active is None:
         return _(

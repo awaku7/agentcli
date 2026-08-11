@@ -46,7 +46,9 @@ def build_authorization_url(
     resource: str | None = None,
 ) -> str:
     if not authorization_endpoint or not client_id or not redirect_uri:
-        raise ValueError("authorization endpoint, client_id, and redirect_uri are required")
+        raise ValueError(
+            "authorization endpoint, client_id, and redirect_uri are required"
+        )
     params = {
         "response_type": "code",
         "client_id": client_id,

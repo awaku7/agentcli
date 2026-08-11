@@ -304,13 +304,15 @@ def run_tool(args: dict[str, Any]) -> str:
             f"Successfully created PDF at '{output_path}' ({len(messages)} messages).",
             data={
                 "saved_files": [output_path],
-                "attachments": [{
-                    "type": "file",
-                    "mime": "application/pdf",
-                    "name": os.path.basename(output_path),
-                    "path": output_path,
-                    "data_base64": pdf_b64,
-                }],
+                "attachments": [
+                    {
+                        "type": "file",
+                        "mime": "application/pdf",
+                        "name": os.path.basename(output_path),
+                        "path": output_path,
+                        "data_base64": pdf_b64,
+                    }
+                ],
             },
         )
     except Exception as e:

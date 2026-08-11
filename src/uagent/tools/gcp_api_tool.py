@@ -53,7 +53,9 @@ def _ensure_google_client() -> Any:
             display_name="Google API Python Client",
             version_spec=">=2.160.0",
         ):
-            raise RuntimeError("Automatic Google API Python Client installation failed.")
+            raise RuntimeError(
+                "Automatic Google API Python Client installation failed."
+            )
         from googleapiclient import discovery
     return discovery
 
@@ -178,7 +180,13 @@ def run_tool(args: dict[str, Any]) -> str:
             parameters["body"] = body
         result = target(**parameters).execute()
         return json.dumps(
-            {"api": api, "version": version, "resource": resource, "method": method, "result": _jsonable(result)},
+            {
+                "api": api,
+                "version": version,
+                "resource": resource,
+                "method": method,
+                "result": _jsonable(result),
+            },
             ensure_ascii=False,
         )
     except Exception as exc:
@@ -210,15 +218,68 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "action": {"type": "string", "enum": ["list_services", "list_methods", "call"], "default": "list_services"},
-                "api": {"type": "string", "description": _("param.api", default="Google API name, for example compute or storage.")},
-                "version": {"type": "string", "description": _("param.version", default="API version, for example v1 or v1beta1.")},
-                "resource": {"type": "string", "description": _("param.resource", default="Dot-separated resource path, for example projects.locations.")},
-                "method": {"type": "string", "description": _("param.method", default="API method, for example get, list, insert, or delete.")},
-                "parameters": {"type": "string", "description": _("param.parameters", default="JSON object containing query/path parameters.")},
-                "body": {"type": "string", "description": _("param.body", default="Optional JSON request body.")},
-                "include_write": {"type": "boolean", "default": False, "description": _("param.include_write", default="For list_methods, include write-capable methods.")},
-                "confirm_write": {"type": "boolean", "default": False, "description": _("param.confirm_write", default="Required true to execute a non-read-only method.")},
+                "action": {
+                    "type": "string",
+                    "enum": ["list_services", "list_methods", "call"],
+                    "default": "list_services",
+                },
+                "api": {
+                    "type": "string",
+                    "description": _(
+                        "param.api",
+                        default="Google API name, for example compute or storage.",
+                    ),
+                },
+                "version": {
+                    "type": "string",
+                    "description": _(
+                        "param.version",
+                        default="API version, for example v1 or v1beta1.",
+                    ),
+                },
+                "resource": {
+                    "type": "string",
+                    "description": _(
+                        "param.resource",
+                        default="Dot-separated resource path, for example projects.locations.",
+                    ),
+                },
+                "method": {
+                    "type": "string",
+                    "description": _(
+                        "param.method",
+                        default="API method, for example get, list, insert, or delete.",
+                    ),
+                },
+                "parameters": {
+                    "type": "string",
+                    "description": _(
+                        "param.parameters",
+                        default="JSON object containing query/path parameters.",
+                    ),
+                },
+                "body": {
+                    "type": "string",
+                    "description": _(
+                        "param.body", default="Optional JSON request body."
+                    ),
+                },
+                "include_write": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.include_write",
+                        default="For list_methods, include write-capable methods.",
+                    ),
+                },
+                "confirm_write": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.confirm_write",
+                        default="Required true to execute a non-read-only method.",
+                    ),
+                },
             },
             "required": ["action"],
             "additionalProperties": False,

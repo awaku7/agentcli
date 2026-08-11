@@ -10,7 +10,6 @@ from collections.abc import Mapping
 
 from .errors import MCPProtocolError
 
-
 DEFAULT_PROTOCOL_VERSION = "2026-07-28"
 
 

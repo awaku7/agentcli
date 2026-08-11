@@ -165,10 +165,13 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
                 size = os.path.getsize(target_abs)
             except OSError:
                 size = 0
-            print(tr("[ls] [F] %(path)s (%(size)d bytes)") % {
-                "path": target_abs,
-                "size": size,
-            })
+            print(
+                tr("[ls] [F] %(path)s (%(size)d bytes)")
+                % {
+                    "path": target_abs,
+                    "size": size,
+                }
+            )
             return True
         if not os.path.isdir(target_abs):
             print(

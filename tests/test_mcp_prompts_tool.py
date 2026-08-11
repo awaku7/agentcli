@@ -8,7 +8,9 @@ def test_mcp_prompts_validates_action_and_name() -> None:
 
     assert "action" in run_tool({"action": "invalid"})
     assert "name" in run_tool({"action": "get"})
-    assert "arguments" in run_tool({"action": "get", "name": "summarize", "arguments": "bad"})
+    assert "arguments" in run_tool(
+        {"action": "get", "name": "summarize", "arguments": "bad"}
+    )
 
 
 def test_mcp_prompts_gets_with_shared_client(monkeypatch) -> None:

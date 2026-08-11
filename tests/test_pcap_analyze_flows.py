@@ -32,9 +32,7 @@ def test_flows_aggregate_five_tuple_metadata(tmp_path: Path, monkeypatch) -> Non
     source.write_bytes(b"pcap")
 
     result = json.loads(
-        pcap_analyze_tool.run_tool(
-            {"pcap_path": str(source), "operation": "flows"}
-        )
+        pcap_analyze_tool.run_tool({"pcap_path": str(source), "operation": "flows"})
     )
 
     assert result["ok"] is True

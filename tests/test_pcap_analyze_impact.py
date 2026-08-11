@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 
 
-def test_impact_ranks_device_by_bytes_and_exposes_metrics(tmp_path: Path, monkeypatch) -> None:
+def test_impact_ranks_device_by_bytes_and_exposes_metrics(
+    tmp_path: Path, monkeypatch
+) -> None:
     from uagent.tools import pcap_analyze_tool
 
     packets = [
@@ -54,7 +56,9 @@ def test_impact_ranks_device_by_bytes_and_exposes_metrics(tmp_path: Path, monkey
 
     assert result["ok"] is True
     assert result["operation"] == "impact"
-    device = next(item for item in result["devices"] if item["device"] == "192.168.0.54")
+    device = next(
+        item for item in result["devices"] if item["device"] == "192.168.0.54"
+    )
     assert device["bytes"] == 2146
     assert device["retransmissions"] == 1
     assert device["broadcast_packets"] == 1

@@ -420,7 +420,9 @@ def run_tool(args: dict[str, Any]) -> str:
                             cmd_args = s.get("args", [])
                             cmd_env = s.get("env", {})
                             http_headers = _resolve_http_headers(s.get("headers"))
-                            configured_mode = str(s.get("protocol_mode") or "").strip().lower()
+                            configured_mode = (
+                                str(s.get("protocol_mode") or "").strip().lower()
+                            )
                             if configured_mode in {"auto", "legacy", "stateless"}:
                                 protocol_mode = configured_mode
                             found = True
@@ -442,23 +444,19 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         if command:
             result_text = asyncio.run(
-                _call_mcp_stdio(
-                    command, cmd_args, cmd_env, name, argv, protocol_mode
-                )
+                _call_mcp_stdio(command, cmd_args, cmd_env, name, argv, protocol_mode)
             )
         elif url.startswith("stdio://"):
             parts = url[8:].strip().split()
             if not parts:
                 return _("err.stdio_url_invalid", default="Error: Invalid stdio url")
             result_text = asyncio.run(
-                _call_mcp_stdio(
-                    parts[0], parts[1:], {}, name, argv, protocol_mode
-                )
+                _call_mcp_stdio(parts[0], parts[1:], {}, name, argv, protocol_mode)
             )
         else:
-            result_text = asyncio.run(_call_mcp_http(
-                url, name, argv, http_headers, protocol_mode
-            ))
+            result_text = asyncio.run(
+                _call_mcp_http(url, name, argv, http_headers, protocol_mode)
+            )
         trunc = getattr(cb, "truncate_output", None)
         if callable(trunc):
             try:

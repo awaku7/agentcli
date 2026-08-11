@@ -107,9 +107,15 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_PFN_BASE_URL",
             False,
-            _("PLaMo base URL (optional, default: https://api.platform.preferredai.jp/v1)"),
+            _(
+                "PLaMo base URL (optional, default: https://api.platform.preferredai.jp/v1)"
+            ),
         ),
-        ("UAGENT_PFN_DEPNAME", False, _("PLaMo model name (optional, default: plamo-3.0-prime)")),
+        (
+            "UAGENT_PFN_DEPNAME",
+            False,
+            _("PLaMo model name (optional, default: plamo-3.0-prime)"),
+        ),
     ],
     "azure": [
         (

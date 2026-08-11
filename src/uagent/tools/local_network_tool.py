@@ -1,4 +1,5 @@
 """Cross-platform local network information using psutil."""
+
 from __future__ import annotations
 
 import json
@@ -24,7 +25,9 @@ def _get_psutil():
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def _interfaces() -> str:
@@ -45,7 +48,10 @@ def _interfaces() -> str:
                 }
             )
         interfaces.append(item)
-    return json.dumps({"ok": True, "operation": "interfaces", "interfaces": interfaces}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": True, "operation": "interfaces", "interfaces": interfaces},
+        ensure_ascii=False,
+    )
 
 
 def _connection_records(args: dict[str, Any]) -> list[dict[str, Any]]:
@@ -127,7 +133,9 @@ def _correlate(args: dict[str, Any]) -> str:
             and dst == conn.get("remote_ip")
             and (dst_port is None or int(dst_port) == conn.get("remote_port"))
         ]
-        results.append({"finding": finding, "matched": bool(matches), "connections": matches})
+        results.append(
+            {"finding": finding, "matched": bool(matches), "connections": matches}
+        )
     return json.dumps(
         {"ok": True, "operation": "correlate", "results": results},
         ensure_ascii=False,
@@ -148,7 +156,10 @@ def run_tool(args: dict[str, Any]) -> str:
             return _connections(args)
         if operation == "correlate":
             return _correlate(args)
-        return _error("UNSUPPORTED_OPERATION", "Supported operations are interfaces, connections, and correlate.")
+        return _error(
+            "UNSUPPORTED_OPERATION",
+            "Supported operations are interfaces, connections, and correlate.",
+        )
     except Exception as exc:
         return _error("LOCAL_NETWORK_FAILED", str(exc))
 
@@ -165,13 +176,58 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "operation": {"type": "string", "enum": ["interfaces", "connections", "correlate"], "default": "interfaces", "description": _("param.operation.description", default="Discovery operation.")},
-                "findings": {"type": "array", "description": _("param.findings.description", default="Metadata-only pcap findings to correlate with current local connections.")},
-                "status": {"type": "string", "description": _("param.status.description", default="Optional connection status filter, for example ESTABLISHED.")},
-                "local_ip": {"type": "string", "description": _("param.local_ip.description", default="Optional local IP filter.")},
-                "remote_ip": {"type": "string", "description": _("param.remote_ip.description", default="Optional remote IP filter.")},
-                "port": {"type": "integer", "minimum": 0, "description": _("param.port.description", default="Optional local or remote port filter.")},
-                "include_process": {"type": "boolean", "default": True, "description": _("param.include_process.description", default="Include PID and process name when permitted.")},
+                "operation": {
+                    "type": "string",
+                    "enum": ["interfaces", "connections", "correlate"],
+                    "default": "interfaces",
+                    "description": _(
+                        "param.operation.description", default="Discovery operation."
+                    ),
+                },
+                "findings": {
+                    "type": "array",
+                    "description": _(
+                        "param.findings.description",
+                        default="Metadata-only pcap findings to correlate with current local connections.",
+                    ),
+                },
+                "status": {
+                    "type": "string",
+                    "description": _(
+                        "param.status.description",
+                        default="Optional connection status filter, for example ESTABLISHED.",
+                    ),
+                },
+                "local_ip": {
+                    "type": "string",
+                    "description": _(
+                        "param.local_ip.description",
+                        default="Optional local IP filter.",
+                    ),
+                },
+                "remote_ip": {
+                    "type": "string",
+                    "description": _(
+                        "param.remote_ip.description",
+                        default="Optional remote IP filter.",
+                    ),
+                },
+                "port": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": _(
+                        "param.port.description",
+                        default="Optional local or remote port filter.",
+                    ),
+                },
+                "include_process": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.include_process.description",
+                        default="Include PID and process name when permitted.",
+                    ),
+                },
             },
         },
     },

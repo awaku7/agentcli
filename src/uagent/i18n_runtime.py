@@ -30,7 +30,9 @@ def _language() -> str:
 
 @lru_cache(maxsize=1)
 def _catalog() -> dict[str, Any]:
-    path = Path(os.getenv("UAGENT_I18N_CATALOG", Path(__file__).with_name("i18n_catalog.json")))
+    path = Path(
+        os.getenv("UAGENT_I18N_CATALOG", Path(__file__).with_name("i18n_catalog.json"))
+    )
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
         return data if isinstance(data, dict) else {}

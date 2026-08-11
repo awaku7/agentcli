@@ -30,7 +30,9 @@ def validate_client_id_url(client_id: str) -> str:
 def _json_response(response: Any) -> dict[str, Any]:
     if response.status_code >= 400:
         raise MCPTransportError(
-            "MCP_CIMD_HTTP_ERROR", "oauth/client-metadata", {"status_code": response.status_code}
+            "MCP_CIMD_HTTP_ERROR",
+            "oauth/client-metadata",
+            {"status_code": response.status_code},
         )
     try:
         payload = response.json()
@@ -40,7 +42,9 @@ def _json_response(response: Any) -> dict[str, Any]:
         ) from exc
     if not isinstance(payload, dict):
         raise MCPProtocolError(
-            "MCP_CIMD_INVALID_DOCUMENT", "oauth/client-metadata", {"type": type(payload).__name__}
+            "MCP_CIMD_INVALID_DOCUMENT",
+            "oauth/client-metadata",
+            {"type": type(payload).__name__},
         )
     return payload
 
@@ -54,13 +58,17 @@ def parse_client_metadata(client_id: str, payload: dict[str, Any]) -> ClientMeta
             "oauth/client-metadata",
             {"expected": client_id, "actual": actual_client_id},
         )
-    redirect_uris = tuple(str(item) for item in payload.get("redirect_uris", []) if item)
+    redirect_uris = tuple(
+        str(item) for item in payload.get("redirect_uris", []) if item
+    )
     if not redirect_uris:
         raise MCPProtocolError(
             "MCP_CIMD_REDIRECT_URIS_MISSING", "oauth/client-metadata", {}
         )
     grant_types = tuple(str(item) for item in payload.get("grant_types", []) if item)
-    response_types = tuple(str(item) for item in payload.get("response_types", []) if item)
+    response_types = tuple(
+        str(item) for item in payload.get("response_types", []) if item
+    )
     auth_method = str(payload.get("token_endpoint_auth_method") or "none")
     return ClientMetadata(
         client_id=actual_client_id,

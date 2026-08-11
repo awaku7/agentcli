@@ -20,9 +20,7 @@ def test_summary_returns_counts_without_packet_payload(
     source.write_bytes(b"pcap")
 
     result = json.loads(
-        pcap_analyze_tool.run_tool(
-            {"pcap_path": str(source), "operation": "summary"}
-        )
+        pcap_analyze_tool.run_tool({"pcap_path": str(source), "operation": "summary"})
     )
 
     assert result["ok"] is True

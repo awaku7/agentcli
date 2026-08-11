@@ -1,4 +1,5 @@
 """Import and dependency relation extraction for code_map."""
+
 from __future__ import annotations
 
 import ast
@@ -7,11 +8,39 @@ from pathlib import Path
 from typing import Any
 
 from .language_detection import detect_source_language
+
 try:
     from .language_detection import RELATION_LANGUAGES
 except ImportError:  # compatibility with a stale module during hot reload
-    RELATION_LANGUAGES = {"Python", "TypeScript", "JavaScript", "Go", "Rust", "COBOL", "COBOL Copybook", "Java", "Kotlin", "Scala", "C", "C++", "C#", "PHP", "Ruby", "Swift", "Dart", "Lua", "R", "Objective-C", "Objective-C++"}
-from .resolvers import (_resolve_go_module, _resolve_module_to_file, _resolve_python_module, _resolve_rs_internal)
+    RELATION_LANGUAGES = {
+        "Python",
+        "TypeScript",
+        "JavaScript",
+        "Go",
+        "Rust",
+        "COBOL",
+        "COBOL Copybook",
+        "Java",
+        "Kotlin",
+        "Scala",
+        "C",
+        "C++",
+        "C#",
+        "PHP",
+        "Ruby",
+        "Swift",
+        "Dart",
+        "Lua",
+        "R",
+        "Objective-C",
+        "Objective-C++",
+    }
+from .resolvers import (
+    _resolve_go_module,
+    _resolve_module_to_file,
+    _resolve_python_module,
+    _resolve_rs_internal,
+)
 
 # ---------------------------------------------------------------------------
 # Import / relation extraction
@@ -183,8 +212,12 @@ def _extract_imports_cobol(filepath: str) -> list[dict[str, Any]]:
         code = line[7:] if len(line) > 7 else line
         copy_match = re.search(r"\bCOPY\s+([A-Za-z0-9_-]+)", code, re.IGNORECASE)
         if copy_match:
-            imports.append({"type": "copy", "module": copy_match.group(1), "line": line_number})
-        for call_match in re.finditer(r"\bCALL\s+([A-Za-z0-9_-]+|\"[^\"]+\"|'[^']+')", code, re.IGNORECASE):
+            imports.append(
+                {"type": "copy", "module": copy_match.group(1), "line": line_number}
+            )
+        for call_match in re.finditer(
+            r"\bCALL\s+([A-Za-z0-9_-]+|\"[^\"]+\"|'[^']+')", code, re.IGNORECASE
+        ):
             module = call_match.group(1).strip("\"'")
             if module:
                 imports.append({"type": "call", "module": module, "line": line_number})
@@ -202,18 +235,27 @@ def _extract_imports_extended(filepath: str, language: str) -> list[dict[str, An
     if language in ("Java", "Kotlin", "Kotlin Script", "Scala"):
         patterns.append(("import", r"^\s*import\s+([A-Za-z_][\w.]*)"))
     elif language in ("C", "C++", "C/C++ Header", "Objective-C", "Objective-C++"):
-        patterns.append(("include", r"^\s*#\s*(?:include|import)\s*[<\"]([^>\"]+)[>\"]"))
+        patterns.append(
+            ("include", r"^\s*#\s*(?:include|import)\s*[<\"]([^>\"]+)[>\"]")
+        )
     elif language == "C#":
         patterns.append(("using", r"^\s*using\s+(?:static\s+)?([A-Za-z_][\w.]*)\s*;"))
     elif language == "PHP":
-        patterns.extend([
-            ("require", r"\b(?:require|require_once|include|include_once)\s*[('\"]([^)'\"]+)[)'\"]"),
-            ("use", r"^\s*use\s+([A-Za-z_][\\\w]*)"),
-        ])
+        patterns.extend(
+            [
+                (
+                    "require",
+                    r"\b(?:require|require_once|include|include_once)\s*[('\"]([^)'\"]+)[)'\"]",
+                ),
+                ("use", r"^\s*use\s+([A-Za-z_][\\\w]*)"),
+            ]
+        )
     elif language == "Ruby":
-        patterns.extend([
-            ("require", r"^\s*require(?:_relative)?\s*[('\"]([^)'\"]+)[)'\"]"),
-        ])
+        patterns.extend(
+            [
+                ("require", r"^\s*require(?:_relative)?\s*[('\"]([^)'\"]+)[)'\"]"),
+            ]
+        )
     elif language == "Swift":
         patterns.append(("import", r"^\s*import\s+(?:typealias\s+)?([A-Za-z_][\w.]*)"))
     elif language == "Dart":
@@ -221,25 +263,40 @@ def _extract_imports_extended(filepath: str, language: str) -> list[dict[str, An
     elif language == "Lua":
         patterns.append(("require", r"\brequire\s*[('\"]([^)'\"]+)[)'\"]"))
     elif language == "R":
-        patterns.extend([
-            ("library", r"\b(?:library|require)\s*\(\s*['\"]?([A-Za-z0-9_.-]+)"),
-            ("source", r"\bsource\s*\(\s*['\"]([^'\"]+)['\"]"),
-        ])
+        patterns.extend(
+            [
+                ("library", r"\b(?:library|require)\s*\(\s*['\"]?([A-Za-z0-9_.-]+)"),
+                ("source", r"\bsource\s*\(\s*['\"]([^'\"]+)['\"]"),
+            ]
+        )
     elif language == "VBA":
-        patterns.extend([
-            ("declare", r"^\s*(?:Public\s+|Private\s+)?Declare\s+(?:PtrSafe\s+)?(?:Function|Sub)\s+(\w+)"),
-            ("reference", r"^\s*Attribute\s+VB_Name\s*=\s*[\"']([^\"']+)")
-        ])
+        patterns.extend(
+            [
+                (
+                    "declare",
+                    r"^\s*(?:Public\s+|Private\s+)?Declare\s+(?:PtrSafe\s+)?(?:Function|Sub)\s+(\w+)",
+                ),
+                ("reference", r"^\s*Attribute\s+VB_Name\s*=\s*[\"']([^\"']+)"),
+            ]
+        )
     elif language == "LotusScript":
-        patterns.extend([
-            ("use", r"^\s*(?:Option\s+)?Use(?:LSX)?\s+[\"']?([^\"'\s]+)"),
-            ("use", r"^\s*UseLSX\s+[\"']([^\"']+)")
-        ])
+        patterns.extend(
+            [
+                ("use", r"^\s*(?:Option\s+)?Use(?:LSX)?\s+[\"']?([^\"'\s]+)"),
+                ("use", r"^\s*UseLSX\s+[\"']([^\"']+)"),
+            ]
+        )
     for kind, pattern in patterns:
         for match in re.finditer(pattern, source, re.IGNORECASE | re.MULTILINE):
             module = match.group(1).strip()
             if module:
-                imports.append({"type": kind, "module": module, "line": source[:match.start()].count("\n") + 1})
+                imports.append(
+                    {
+                        "type": kind,
+                        "module": module,
+                        "line": source[: match.start()].count("\n") + 1,
+                    }
+                )
     return imports
 
 
@@ -266,9 +323,8 @@ def _extract_imports(filepath: str) -> list[dict[str, Any]]:
     return []
 
 
-
-
 # Relation graph builder
+
 
 def build_relations(
     files_with_symbols: list[dict[str, Any]],
@@ -334,5 +390,3 @@ def build_relations(
                     )
 
     return relations
-
-

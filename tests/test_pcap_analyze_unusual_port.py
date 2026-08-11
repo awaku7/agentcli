@@ -39,7 +39,9 @@ def test_detect_finds_unusual_destination_port(tmp_path: Path, monkeypatch) -> N
     assert result["findings"][0]["dst_port"] == 31337
 
 
-def test_unusual_port_uses_builtin_well_known_ports(tmp_path: Path, monkeypatch) -> None:
+def test_unusual_port_uses_builtin_well_known_ports(
+    tmp_path: Path, monkeypatch
+) -> None:
     from uagent.tools import pcap_analyze_tool
 
     monkeypatch.setattr(pcap_analyze_tool, "_iter_packets", lambda _path: iter([]))

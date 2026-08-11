@@ -24,9 +24,9 @@ def test_response_status_command_retrieves_saved_response(capsys) -> None:
         },
     )
 
-    assert handle_command(
-        ":response status", [], _Client(), "gpt-5.4", core=core
-    ) is True
+    assert (
+        handle_command(":response status", [], _Client(), "gpt-5.4", core=core) is True
+    )
     output = capsys.readouterr().out
     assert '"id": "resp_1"' in output
     assert "completed" in output

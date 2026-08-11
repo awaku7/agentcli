@@ -6,6 +6,7 @@ pretends that copying English is a translation. It reports hard-coded Japanese
 strings and checks tool sidecar catalogs against the project's 38 locale set.
 Use --write-report to create a JSON report for a translation pass.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -19,10 +20,44 @@ from typing import Any
 
 # English plus the 37 locale variants used by the documentation set.
 SUPPORTED_LOCALES = (
-    "en", "ar", "bn", "cs", "da", "de", "el", "es", "fa", "fi", "fil",
-    "fr", "he", "hi", "hu", "id", "it", "ja", "ko", "mn", "mr", "ms",
-    "nb", "nl", "nn", "pl", "pt", "pt_BR", "ro", "ru", "sv", "sw", "th",
-    "tr", "uk", "vi", "zh_CN", "zh_TW",
+    "en",
+    "ar",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "el",
+    "es",
+    "fa",
+    "fi",
+    "fil",
+    "fr",
+    "he",
+    "hi",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "mn",
+    "mr",
+    "ms",
+    "nb",
+    "nl",
+    "nn",
+    "pl",
+    "pt",
+    "pt_BR",
+    "ro",
+    "ru",
+    "sv",
+    "sw",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh_CN",
+    "zh_TW",
 )
 JAPANESE_RE = re.compile(r"[ぁ-んァ-ヶ一-龯]")
 
@@ -66,7 +101,9 @@ def scan_python(root: Path) -> list[JapaneseLiteral]:
             source = path.read_text(encoding="utf-8")
             tree = ast.parse(source, filename=str(path))
         except (OSError, SyntaxError) as exc:
-            findings.append(JapaneseLiteral(str(path), 0, 0, f"<parse error: {exc}>", "parse"))
+            findings.append(
+                JapaneseLiteral(str(path), 0, 0, f"<parse error: {exc}>", "parse")
+            )
             continue
         for parent in ast.walk(tree):
             for child in ast.iter_child_nodes(parent):
@@ -110,16 +147,22 @@ def scan_catalogs(tool_dir: Path) -> list[CatalogFinding]:
             if isinstance(data.get(locale), dict) and keys - set(data.get(locale, {}))
         }
         if missing_locales or extra_locales or missing_keys:
-            findings.append(CatalogFinding(str(path), missing_locales, extra_locales, missing_keys))
+            findings.append(
+                CatalogFinding(str(path), missing_locales, extra_locales, missing_keys)
+            )
     return findings
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Audit Python i18n and 38-locale tool catalogs.")
+    parser = argparse.ArgumentParser(
+        description="Audit Python i18n and 38-locale tool catalogs."
+    )
     parser.add_argument("--root", type=Path, default=Path("src/uagent"))
     parser.add_argument("--tool-dir", type=Path, default=Path("src/uagent/tools"))
     parser.add_argument("--write-report", type=Path)
-    parser.add_argument("--strict", action="store_true", help="Return non-zero when findings exist.")
+    parser.add_argument(
+        "--strict", action="store_true", help="Return non-zero when findings exist."
+    )
     args = parser.parse_args()
 
     literals = scan_python(args.root)

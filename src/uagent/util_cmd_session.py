@@ -763,12 +763,16 @@ def _handle_cmd_load(
         if callable(read_state):
             loaded_state = read_state(target_path)
 
-        current_provider = str(
-            old_state.get("provider")
-            or getattr(core, "provider", "")
-            or getattr(core, "_responses_provider", "")
-            or ""
-        ).strip().lower()
+        current_provider = (
+            str(
+                old_state.get("provider")
+                or getattr(core, "provider", "")
+                or getattr(core, "_responses_provider", "")
+                or ""
+            )
+            .strip()
+            .lower()
+        )
         current_model = str(
             old_state.get("model")
             or getattr(core, "depname", "")
@@ -788,7 +792,11 @@ def _handle_cmd_load(
             same_provider = not current_provider or loaded_provider == current_provider
             same_model = not current_model or loaded_model == current_model
             validated = True
-            if supported and rid and getattr(core, "_responses_client", None) is not None:
+            if (
+                supported
+                and rid
+                and getattr(core, "_responses_client", None) is not None
+            ):
                 try:
                     from .providers.responses_manager import ResponsesManager
 
@@ -949,11 +957,15 @@ def _handle_cmd_tokens(
         if getattr(core, "tools_enabled", True):
             try:
                 state = getattr(core, "responses_state", {})
-                provider = str(
-                    (state.get("provider") if isinstance(state, dict) else "")
-                    or getattr(core, "provider", "")
-                    or ""
-                ).strip().lower()
+                provider = (
+                    str(
+                        (state.get("provider") if isinstance(state, dict) else "")
+                        or getattr(core, "provider", "")
+                        or ""
+                    )
+                    .strip()
+                    .lower()
+                )
                 responses_env = (env_get("UAGENT_RESPONSES") or "").strip().lower()
                 use_responses = responses_env in ("1", "true", "yes", "on")
                 if isinstance(state, dict) and state.get("previous_response_id"):

@@ -17,7 +17,9 @@ def test_wait_for_result_reads_existing_file(tmp_path) -> None:
     from uagent.tools import windows_uac_launcher
 
     result_path = tmp_path / "result.json"
-    result_path.write_text('{"ok":false,"code":"ELEVATION_CANCELLED"}', encoding="utf-8")
+    result_path.write_text(
+        '{"ok":false,"code":"ELEVATION_CANCELLED"}', encoding="utf-8"
+    )
 
     result = windows_uac_launcher.wait_for_result(result_path, timeout=0.1)
 

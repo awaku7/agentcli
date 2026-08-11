@@ -2,6 +2,7 @@
 
 The tool intentionally returns metadata only. Packet bytes and payloads remain local.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -20,21 +21,63 @@ _ = make_tool_translator(__file__)
 # IANA/common service ports are a classification aid, not a security allowlist.
 # Site-specific ports can be supplied through thresholds.allowed_destination_ports.
 WELL_KNOWN_SERVICES = {
-    20: "ftp-data", 21: "ftp", 22: "ssh", 23: "telnet", 25: "smtp",
-    53: "dns", 67: "dhcp-server", 68: "dhcp-client", 69: "tftp",
-    80: "http", 110: "pop3", 119: "nntp", 123: "ntp", 135: "msrpc",
-    137: "netbios-ns", 138: "netbios-dgm", 139: "netbios-ssn", 143: "imap",
-    161: "snmp", 162: "snmp-trap", 389: "ldap", 443: "https", 445: "smb",
-    465: "smtps", 500: "isakmp", 514: "syslog", 587: "submission",
-    636: "ldaps", 993: "imaps", 995: "pop3s", 1433: "ms-sql",
-    1521: "oracle", 1723: "pptp", 1900: "ssdp", 2049: "nfs",
-    2375: "docker", 2376: "docker-tls", 3306: "mysql", 3389: "rdp",
-    4500: "ipsec-nat-t", 5000: "app/http-alt", 5222: "xmpp-client",
-    5228: "google-play", 5229: "google-services", 5353: "mdns",
-    5432: "postgresql", 5672: "amqp", 5900: "vnc", 6379: "redis",
-    6443: "kubernetes-api", 8000: "http-alt", 8080: "http-proxy",
-    8443: "https-alt", 9000: "app/http-alt", 9200: "elasticsearch",
-    11211: "memcached", 27017: "mongodb",
+    20: "ftp-data",
+    21: "ftp",
+    22: "ssh",
+    23: "telnet",
+    25: "smtp",
+    53: "dns",
+    67: "dhcp-server",
+    68: "dhcp-client",
+    69: "tftp",
+    80: "http",
+    110: "pop3",
+    119: "nntp",
+    123: "ntp",
+    135: "msrpc",
+    137: "netbios-ns",
+    138: "netbios-dgm",
+    139: "netbios-ssn",
+    143: "imap",
+    161: "snmp",
+    162: "snmp-trap",
+    389: "ldap",
+    443: "https",
+    445: "smb",
+    465: "smtps",
+    500: "isakmp",
+    514: "syslog",
+    587: "submission",
+    636: "ldaps",
+    993: "imaps",
+    995: "pop3s",
+    1433: "ms-sql",
+    1521: "oracle",
+    1723: "pptp",
+    1900: "ssdp",
+    2049: "nfs",
+    2375: "docker",
+    2376: "docker-tls",
+    3306: "mysql",
+    3389: "rdp",
+    4500: "ipsec-nat-t",
+    5000: "app/http-alt",
+    5222: "xmpp-client",
+    5228: "google-play",
+    5229: "google-services",
+    5353: "mdns",
+    5432: "postgresql",
+    5672: "amqp",
+    5900: "vnc",
+    6379: "redis",
+    6443: "kubernetes-api",
+    8000: "http-alt",
+    8080: "http-proxy",
+    8443: "https-alt",
+    9000: "app/http-alt",
+    9200: "elasticsearch",
+    11211: "memcached",
+    27017: "mongodb",
 }
 BUILTIN_WELL_KNOWN_PORTS = set(WELL_KNOWN_SERVICES)
 
@@ -83,7 +126,11 @@ def _close_writer(writer: Any) -> None:
 
 def _pcap_cache_path(source: Path) -> Path:
     configured_root = os.environ.get("UAGENT_PCAP_CACHE_DIR")
-    root = Path(configured_root).expanduser() if configured_root else Path.home() / ".uag" / "cache" / "pcap"
+    root = (
+        Path(configured_root).expanduser()
+        if configured_root
+        else Path.home() / ".uag" / "cache" / "pcap"
+    )
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     return root / f"{digest}.sqlite"
 
@@ -111,11 +158,18 @@ def _metadata_records(source: Path) -> list[dict[str, Any]] | None:
     signature = (str(source.stat().st_size), str(source.stat().st_mtime_ns))
     try:
         with sqlite3.connect(cache) as db:
-            db.execute("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
-            db.execute("CREATE TABLE IF NOT EXISTS packets (id INTEGER PRIMARY KEY, data TEXT NOT NULL)")
+            db.execute(
+                "CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+            )
+            db.execute(
+                "CREATE TABLE IF NOT EXISTS packets (id INTEGER PRIMARY KEY, data TEXT NOT NULL)"
+            )
             row = db.execute("SELECT value FROM meta WHERE key='signature'").fetchone()
             if row and row[0] == "|".join(signature):
-                return [json.loads(item[0]) for item in db.execute("SELECT data FROM packets ORDER BY id")]
+                return [
+                    json.loads(item[0])
+                    for item in db.execute("SELECT data FROM packets ORDER BY id")
+                ]
             db.execute("DELETE FROM packets")
             db.execute("DELETE FROM meta")
             reader = _iter_packets(str(source))
@@ -124,10 +178,16 @@ def _metadata_records(source: Path) -> list[dict[str, Any]] | None:
                 for packet in reader:
                     record = _packet_info(packet)
                     records.append(record)
-                    db.execute("INSERT INTO packets(data) VALUES (?)", (json.dumps(record, ensure_ascii=False),))
+                    db.execute(
+                        "INSERT INTO packets(data) VALUES (?)",
+                        (json.dumps(record, ensure_ascii=False),),
+                    )
             finally:
                 _close_reader(reader)
-            db.execute("INSERT INTO meta(key, value) VALUES ('signature', ?)", ("|".join(signature),))
+            db.execute(
+                "INSERT INTO meta(key, value) VALUES ('signature', ?)",
+                ("|".join(signature),),
+            )
             db.commit()
             return records
     except (OSError, sqlite3.Error, ValueError, TypeError):
@@ -188,7 +248,9 @@ def _packet_info(packet: Any) -> dict[str, Any]:
         )
     elif packet.haslayer(UDP):
         layer = packet[UDP]
-        info.update(protocol="udp", src_port=int(layer.sport), dst_port=int(layer.dport))
+        info.update(
+            protocol="udp", src_port=int(layer.sport), dst_port=int(layer.dport)
+        )
     elif info["src_ip"] or info["dst_ip"]:
         info["protocol"] = "ip"
     return info
@@ -209,7 +271,9 @@ def _matches(info: dict[str, Any], spec: dict[str, Any]) -> bool:
         value = info.get(field.removesuffix("_cidr"))
         if expected:
             try:
-                if value is None or ipaddress.ip_address(value) not in ipaddress.ip_network(expected):
+                if value is None or ipaddress.ip_address(
+                    value
+                ) not in ipaddress.ip_network(expected):
                     return False
             except ValueError:
                 return False
@@ -220,7 +284,10 @@ def _matches(info: dict[str, Any], spec: dict[str, Any]) -> bool:
             return False
 
     port = spec.get("port")
-    if port is not None and int(port) not in (info.get("src_port"), info.get("dst_port")):
+    if port is not None and int(port) not in (
+        info.get("src_port"),
+        info.get("dst_port"),
+    ):
         return False
 
     length = int(info.get("length", 0) or 0)
@@ -233,11 +300,19 @@ def _matches(info: dict[str, Any], spec: dict[str, Any]) -> bool:
 
 def _artifact(path: Path) -> dict[str, Any]:
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    return {"kind": "pcap", "name": path.name, "local": True, "size": path.stat().st_size, "sha256": digest}
+    return {
+        "kind": "pcap",
+        "name": path.name,
+        "local": True,
+        "size": path.stat().st_size,
+        "sha256": digest,
+    }
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def _extract(args: dict[str, Any]) -> str:
@@ -255,7 +330,9 @@ def _extract(args: dict[str, Any]) -> str:
         return _error("OUTPUT_REQUIRED", "output_path is required.")
     try:
         if source.resolve() == output.resolve():
-            return _error("INPUT_OUTPUT_SAME", "Input and output paths must be different.")
+            return _error(
+                "INPUT_OUTPUT_SAME", "Input and output paths must be different."
+            )
     except OSError:
         return _error("INVALID_PATH", "The input or output path is invalid.")
     if output.exists() and not bool(args.get("overwrite", False)):
@@ -377,7 +454,13 @@ def _packets(args: dict[str, Any]) -> str:
                 "length": info.get("length", 0),
             }
             if detail_level >= 2:
-                for key in ("tcp_flags", "tcp_seq", "tcp_payload_length", "dns_rcode", "dns_query_length"):
+                for key in (
+                    "tcp_flags",
+                    "tcp_seq",
+                    "tcp_payload_length",
+                    "dns_rcode",
+                    "dns_query_length",
+                ):
                     if info.get(key) is not None:
                         item[key] = info[key]
             selected.append(item)
@@ -422,7 +505,9 @@ def _statistics(args: dict[str, Any]) -> str:
     finally:
         _close_reader(reader)
 
-    duration = 0.0 if first_seen is None or last_seen is None else last_seen - first_seen
+    duration = (
+        0.0 if first_seen is None or last_seen is None else last_seen - first_seen
+    )
     return json.dumps(
         {
             "ok": True,
@@ -510,10 +595,28 @@ def _detect(args: dict[str, Any]) -> str:
         return _error("INPUT_NOT_FOUND", "The input pcap file was not found.")
 
     rules = list(args.get("rules") or ["port_scan"])
-    supported = {"port_scan", "connection_burst", "beaconing", "suspicious_dns", "large_transfer", "cleartext_protocol", "repeated_failure", "host_scan", "unusual_port", "tcp_retransmission", "long_lived_connection", "broadcast_anomaly", "syn_flood_candidate", "rtt_anomaly", "protocol_anomaly"}
+    supported = {
+        "port_scan",
+        "connection_burst",
+        "beaconing",
+        "suspicious_dns",
+        "large_transfer",
+        "cleartext_protocol",
+        "repeated_failure",
+        "host_scan",
+        "unusual_port",
+        "tcp_retransmission",
+        "long_lived_connection",
+        "broadcast_anomaly",
+        "syn_flood_candidate",
+        "rtt_anomaly",
+        "protocol_anomaly",
+    }
     unknown = [str(rule) for rule in rules if str(rule) not in supported]
     if unknown:
-        return _error("UNKNOWN_DETECTION_RULE", f"Unsupported detection rule: {unknown[0]}")
+        return _error(
+            "UNKNOWN_DETECTION_RULE", f"Unsupported detection rule: {unknown[0]}"
+        )
 
     thresholds = dict(args.get("thresholds") or {})
     if "unusual_port" in rules:
@@ -543,7 +646,17 @@ def _detect(args: dict[str, Any]) -> str:
 
     for info in packet_records:
         packets_analyzed += 1
-        if info.get("protocol") not in {"tcp", "udp", "dns", "http", "ftp", "telnet", "smtp", "imap", "pop3"}:
+        if info.get("protocol") not in {
+            "tcp",
+            "udp",
+            "dns",
+            "http",
+            "ftp",
+            "telnet",
+            "smtp",
+            "imap",
+            "pop3",
+        }:
             continue
         src = str(info.get("src_ip") or "")
         dst = str(info.get("dst_ip") or "")
@@ -561,14 +674,24 @@ def _detect(args: dict[str, Any]) -> str:
             for start in range(len(events)):
                 first_time = float(events[start].get("timestamp", 0.0) or 0.0)
                 window_events = [
-                    event for event in events[start:]
+                    event
+                    for event in events[start:]
                     if float(event.get("timestamp", 0.0) or 0.0) - first_time <= window
                 ]
-                ports = {int(event["dst_port"]) for event in window_events if event.get("dst_port") is not None}
+                ports = {
+                    int(event["dst_port"])
+                    for event in window_events
+                    if event.get("dst_port") is not None
+                }
                 if len(ports) < port_threshold:
                     continue
-                last_time = max(float(event.get("timestamp", 0.0) or 0.0) for event in window_events)
-                confidence = min(0.99, 0.5 + (len(ports) - port_threshold) / max(port_threshold, 1) * 0.1)
+                last_time = max(
+                    float(event.get("timestamp", 0.0) or 0.0) for event in window_events
+                )
+                confidence = min(
+                    0.99,
+                    0.5 + (len(ports) - port_threshold) / max(port_threshold, 1) * 0.1,
+                )
                 findings.append(
                     {
                         "id": f"finding-{len(findings) + 1:03d}",
@@ -580,7 +703,10 @@ def _detect(args: dict[str, Any]) -> str:
                         "distinct_ports": len(ports),
                         "first_seen": first_time,
                         "last_seen": last_time,
-                        "evidence": {"window_seconds": window, "event_count": len(window_events)},
+                        "evidence": {
+                            "window_seconds": window,
+                            "event_count": len(window_events),
+                        },
                         "recommendation": "Review the source host and intended scan activity.",
                     }
                 )
@@ -590,31 +716,51 @@ def _detect(args: dict[str, Any]) -> str:
 
     if "connection_burst" in rules:
         burst_threshold = max(2, int(thresholds.get("connection_burst_events", 100)))
-        burst_window = max(1.0, float(thresholds.get("connection_burst_window_seconds", 10)))
+        burst_window = max(
+            1.0, float(thresholds.get("connection_burst_window_seconds", 10))
+        )
         for (src, dst), events in groups.items():
-            events = [event for event in events if event.get("protocol") in {"tcp", "udp"}]
+            events = [
+                event for event in events if event.get("protocol") in {"tcp", "udp"}
+            ]
             events.sort(key=lambda item: float(item.get("timestamp", 0.0) or 0.0))
             for start in range(len(events)):
                 first_time = float(events[start].get("timestamp", 0.0) or 0.0)
                 window_events = [
-                    event for event in events[start:]
-                    if float(event.get("timestamp", 0.0) or 0.0) - first_time <= burst_window
+                    event
+                    for event in events[start:]
+                    if float(event.get("timestamp", 0.0) or 0.0) - first_time
+                    <= burst_window
                 ]
                 if len(window_events) < burst_threshold:
                     continue
-                last_time = max(float(event.get("timestamp", 0.0) or 0.0) for event in window_events)
+                last_time = max(
+                    float(event.get("timestamp", 0.0) or 0.0) for event in window_events
+                )
                 findings.append(
                     {
                         "id": f"finding-{len(findings) + 1:03d}",
                         "category": "connection_burst",
                         "severity": "medium",
-                        "confidence": round(min(0.99, 0.5 + (len(window_events) - burst_threshold) / max(burst_threshold, 1) * 0.1), 2),
+                        "confidence": round(
+                            min(
+                                0.99,
+                                0.5
+                                + (len(window_events) - burst_threshold)
+                                / max(burst_threshold, 1)
+                                * 0.1,
+                            ),
+                            2,
+                        ),
                         "src": src,
                         "dst": dst,
                         "event_count": len(window_events),
                         "first_seen": first_time,
                         "last_seen": last_time,
-                        "evidence": {"window_seconds": burst_window, "event_count": len(window_events)},
+                        "evidence": {
+                            "window_seconds": burst_window,
+                            "event_count": len(window_events),
+                        },
                         "recommendation": "Review the connection burst and expected application behavior.",
                     }
                 )
@@ -624,15 +770,23 @@ def _detect(args: dict[str, Any]) -> str:
 
     if "beaconing" in rules:
         min_events = max(4, int(thresholds.get("beaconing_min_events", 5)))
-        jitter_ratio = max(0.0, min(float(thresholds.get("beaconing_jitter_ratio", 0.2)), 1.0))
-        min_interval = max(0.1, float(thresholds.get("beaconing_min_interval_seconds", 1)))
+        jitter_ratio = max(
+            0.0, min(float(thresholds.get("beaconing_jitter_ratio", 0.2)), 1.0)
+        )
+        min_interval = max(
+            0.1, float(thresholds.get("beaconing_min_interval_seconds", 1))
+        )
         for (src, dst), events in groups.items():
-            events = [event for event in events if event.get("protocol") in {"tcp", "udp"}]
+            events = [
+                event for event in events if event.get("protocol") in {"tcp", "udp"}
+            ]
             events.sort(key=lambda item: float(item.get("timestamp", 0.0) or 0.0))
             if len(events) < min_events:
                 continue
             timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in events]
-            intervals = [right - left for left, right in zip(timestamps, timestamps[1:])]
+            intervals = [
+                right - left for left, right in zip(timestamps, timestamps[1:])
+            ]
             intervals = [interval for interval in intervals if interval >= min_interval]
             if len(intervals) < min_events - 1:
                 continue
@@ -655,7 +809,10 @@ def _detect(args: dict[str, Any]) -> str:
                     "jitter_ratio": round(jitter, 3),
                     "first_seen": timestamps[0],
                     "last_seen": timestamps[-1],
-                    "evidence": {"intervals": len(intervals), "jitter_ratio": round(jitter, 3)},
+                    "evidence": {
+                        "intervals": len(intervals),
+                        "jitter_ratio": round(jitter, 3),
+                    },
                     "recommendation": "Review the periodic communication and its expected application behavior.",
                 }
             )
@@ -664,16 +821,24 @@ def _detect(args: dict[str, Any]) -> str:
 
     if "suspicious_dns" in rules:
         dns_min_queries = max(2, int(thresholds.get("dns_min_queries", 10)))
-        nxdomain_ratio_threshold = max(0.0, min(float(thresholds.get("dns_nxdomain_ratio", 0.5)), 1.0))
+        nxdomain_ratio_threshold = max(
+            0.0, min(float(thresholds.get("dns_nxdomain_ratio", 0.5)), 1.0)
+        )
         for (src, dst), events in groups.items():
             dns_events = [event for event in events if event.get("protocol") == "dns"]
             if len(dns_events) < dns_min_queries:
                 continue
-            nxdomain_count = sum(1 for event in dns_events if str(event.get("dns_rcode", "")).upper() == "NXDOMAIN")
+            nxdomain_count = sum(
+                1
+                for event in dns_events
+                if str(event.get("dns_rcode", "")).upper() == "NXDOMAIN"
+            )
             ratio = nxdomain_count / len(dns_events)
             if ratio < nxdomain_ratio_threshold:
                 continue
-            timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in dns_events]
+            timestamps = [
+                float(event.get("timestamp", 0.0) or 0.0) for event in dns_events
+            ]
             findings.append(
                 {
                     "id": f"finding-{len(findings) + 1:03d}",
@@ -695,10 +860,14 @@ def _detect(args: dict[str, Any]) -> str:
                 break
 
     if "large_transfer" in rules:
-        transfer_threshold = max(1, int(thresholds.get("large_transfer_bytes", 100_000_000)))
+        transfer_threshold = max(
+            1, int(thresholds.get("large_transfer_bytes", 100_000_000))
+        )
         transfer_groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
         for (src, dst), events in groups.items():
-            transfer_events = [event for event in events if event.get("protocol") in {"tcp", "udp"}]
+            transfer_events = [
+                event for event in events if event.get("protocol") in {"tcp", "udp"}
+            ]
             if transfer_events:
                 transfer_groups[(src, dst)] = transfer_events
         for (src, dst), events in transfer_groups.items():
@@ -711,7 +880,10 @@ def _detect(args: dict[str, Any]) -> str:
                     "id": f"finding-{len(findings) + 1:03d}",
                     "category": "large_transfer",
                     "severity": "low",
-                    "confidence": round(min(0.95, 0.5 + total_bytes / max(transfer_threshold, 1) * 0.1), 2),
+                    "confidence": round(
+                        min(0.95, 0.5 + total_bytes / max(transfer_threshold, 1) * 0.1),
+                        2,
+                    ),
                     "src": src,
                     "dst": dst,
                     "event_count": len(events),
@@ -728,9 +900,15 @@ def _detect(args: dict[str, Any]) -> str:
     if "cleartext_protocol" in rules:
         cleartext = {"http", "ftp", "telnet", "smtp", "imap", "pop3"}
         for (src, dst), events in groups.items():
-            for protocol in sorted({str(event.get("protocol")) for event in events} & cleartext):
-                matching = [event for event in events if event.get("protocol") == protocol]
-                timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in matching]
+            for protocol in sorted(
+                {str(event.get("protocol")) for event in events} & cleartext
+            ):
+                matching = [
+                    event for event in events if event.get("protocol") == protocol
+                ]
+                timestamps = [
+                    float(event.get("timestamp", 0.0) or 0.0) for event in matching
+                ]
                 findings.append(
                     {
                         "id": f"finding-{len(findings) + 1:03d}",
@@ -758,17 +936,25 @@ def _detect(args: dict[str, Any]) -> str:
             failures = [
                 event
                 for event in events
-                if event.get("protocol") == "tcp" and "R" in str(event.get("tcp_flags") or "").upper()
+                if event.get("protocol") == "tcp"
+                and "R" in str(event.get("tcp_flags") or "").upper()
             ]
             if len(failures) < failure_threshold:
                 continue
-            timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in failures]
+            timestamps = [
+                float(event.get("timestamp", 0.0) or 0.0) for event in failures
+            ]
             findings.append(
                 {
                     "id": f"finding-{len(findings) + 1:03d}",
                     "category": "repeated_failure",
                     "severity": "medium",
-                    "confidence": round(min(0.95, 0.5 + len(failures) / max(failure_threshold, 1) * 0.1), 2),
+                    "confidence": round(
+                        min(
+                            0.95, 0.5 + len(failures) / max(failure_threshold, 1) * 0.1
+                        ),
+                        2,
+                    ),
                     "src": src,
                     "dst": dst,
                     "event_count": len(failures),
@@ -794,25 +980,45 @@ def _detect(args: dict[str, Any]) -> str:
             for start in range(len(events)):
                 first_time = float(events[start].get("timestamp", 0.0) or 0.0)
                 window_events = [
-                    event for event in events[start:]
-                    if float(event.get("timestamp", 0.0) or 0.0) - first_time <= host_window
+                    event
+                    for event in events[start:]
+                    if float(event.get("timestamp", 0.0) or 0.0) - first_time
+                    <= host_window
                 ]
-                hosts = {str(event.get("dst_ip")) for event in window_events if event.get("dst_ip")}
+                hosts = {
+                    str(event.get("dst_ip"))
+                    for event in window_events
+                    if event.get("dst_ip")
+                }
                 if len(hosts) < host_threshold:
                     continue
-                last_time = max(float(event.get("timestamp", 0.0) or 0.0) for event in window_events)
+                last_time = max(
+                    float(event.get("timestamp", 0.0) or 0.0) for event in window_events
+                )
                 findings.append(
                     {
                         "id": f"finding-{len(findings) + 1:03d}",
                         "category": "host_scan",
                         "severity": "medium",
-                        "confidence": round(min(0.95, 0.5 + (len(hosts) - host_threshold) / max(host_threshold, 1) * 0.1), 2),
+                        "confidence": round(
+                            min(
+                                0.95,
+                                0.5
+                                + (len(hosts) - host_threshold)
+                                / max(host_threshold, 1)
+                                * 0.1,
+                            ),
+                            2,
+                        ),
                         "src": src,
                         "distinct_hosts": len(hosts),
                         "event_count": len(window_events),
                         "first_seen": first_time,
                         "last_seen": last_time,
-                        "evidence": {"window_seconds": host_window, "event_count": len(window_events)},
+                        "evidence": {
+                            "window_seconds": host_window,
+                            "event_count": len(window_events),
+                        },
                         "recommendation": "Review the source host and intended discovery activity.",
                     }
                 )
@@ -831,10 +1037,18 @@ def _detect(args: dict[str, Any]) -> str:
                 if event.get("protocol") != "tcp":
                     continue
                 flags = str(event.get("tcp_flags") or "").upper()
-                if "S" in flags and "A" not in flags and event.get("dst_port") is not None:
+                if (
+                    "S" in flags
+                    and "A" not in flags
+                    and event.get("dst_port") is not None
+                ):
                     tcp_syn_seen = True
                     tcp_service_keys.add(
-                        (str(event.get("src_ip")), str(event.get("dst_ip")), int(event["dst_port"]))
+                        (
+                            str(event.get("src_ip")),
+                            str(event.get("dst_ip")),
+                            int(event["dst_port"]),
+                        )
                     )
 
         seen_ports: set[tuple[str, str, int]] = set()
@@ -845,14 +1059,20 @@ def _detect(args: dict[str, Any]) -> str:
                 if port is None or int(port) in allowed_ports:
                     continue
                 key = (str(event.get("src_ip")), str(event.get("dst_ip")), int(port))
-                if protocol == "tcp" and (not tcp_syn_seen or key not in tcp_service_keys):
+                if protocol == "tcp" and (
+                    not tcp_syn_seen or key not in tcp_service_keys
+                ):
                     # A partial TCP capture without an initial SYN cannot
                     # establish the server/client direction safely.
                     continue
                 if protocol not in {"tcp", "udp"} or key in seen_ports:
                     continue
                 seen_ports.add(key)
-                direction_basis = "tcp_initial_syn" if protocol == "tcp" and tcp_syn_seen else "packet_destination"
+                direction_basis = (
+                    "tcp_initial_syn"
+                    if protocol == "tcp" and tcp_syn_seen
+                    else "packet_destination"
+                )
                 findings.append(
                     {
                         "id": f"finding-{len(findings) + 1:03d}",
@@ -865,7 +1085,11 @@ def _detect(args: dict[str, Any]) -> str:
                         "service": WELL_KNOWN_SERVICES.get(key[2]),
                         "port_registry": port_registry,
                         "protocol": protocol,
-                        "direction": "server_bound" if protocol == "tcp" else "datagram_destination",
+                        "direction": (
+                            "server_bound"
+                            if protocol == "tcp"
+                            else "datagram_destination"
+                        ),
                         "evidence": {
                             "allowed_destination_ports": sorted(allowed_ports),
                             "direction_basis": direction_basis,
@@ -879,10 +1103,16 @@ def _detect(args: dict[str, Any]) -> str:
                 break
 
     if "tcp_retransmission" in rules:
-        retransmission_groups: dict[tuple[str, str, int, int], list[dict[str, Any]]] = {}
+        retransmission_groups: dict[tuple[str, str, int, int], list[dict[str, Any]]] = (
+            {}
+        )
         for events in groups.values():
             for event in events:
-                if event.get("protocol") != "tcp" or not event.get("tcp_payload_length") or event.get("tcp_seq") is None:
+                if (
+                    event.get("protocol") != "tcp"
+                    or not event.get("tcp_payload_length")
+                    or event.get("tcp_seq") is None
+                ):
                     continue
                 key = (
                     str(event.get("src_ip")),
@@ -896,7 +1126,9 @@ def _detect(args: dict[str, Any]) -> str:
             for event in events:
                 key = (int(event["tcp_seq"]), int(event["tcp_payload_length"]))
                 sequence_counts[key] = sequence_counts.get(key, 0) + 1
-            retransmission_count = sum(count - 1 for count in sequence_counts.values() if count > 1)
+            retransmission_count = sum(
+                count - 1 for count in sequence_counts.values() if count > 1
+            )
             if retransmission_count <= 0:
                 continue
             timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in events]
@@ -904,7 +1136,8 @@ def _detect(args: dict[str, Any]) -> str:
                 sorted(
                     float(event.get("timestamp", 0.0) or 0.0)
                     for event in events
-                    if (int(event["tcp_seq"]), int(event["tcp_payload_length"])) == repeated_key
+                    if (int(event["tcp_seq"]), int(event["tcp_payload_length"]))
+                    == repeated_key
                 )
                 for repeated_key, count in sequence_counts.items()
                 if count > 1
@@ -914,17 +1147,27 @@ def _detect(args: dict[str, Any]) -> str:
                 for group_timestamps in repeated_timestamps
                 for previous, current in zip(group_timestamps, group_timestamps[1:])
             ]
-            min_interval_ms = max(0.0, float(thresholds.get("retransmission_min_interval_ms", 1.0)))
-            capture_duplicate = bool(repeat_intervals) and max(repeat_intervals) <= 0.0001
+            min_interval_ms = max(
+                0.0, float(thresholds.get("retransmission_min_interval_ms", 1.0))
+            )
+            capture_duplicate = (
+                bool(repeat_intervals) and max(repeat_intervals) <= 0.0001
+            )
             if capture_duplicate:
                 retransmission_classification = "capture_duplicate"
                 retransmission_confidence = 0.9
             elif repeat_intervals and min(repeat_intervals) * 1000 >= min_interval_ms:
                 retransmission_classification = "confirmed"
-                retransmission_confidence = round(min(0.99, 0.7 + retransmission_count / max(len(events), 1) * 0.29), 2)
+                retransmission_confidence = round(
+                    min(0.99, 0.7 + retransmission_count / max(len(events), 1) * 0.29),
+                    2,
+                )
             else:
                 retransmission_classification = "possible"
-                retransmission_confidence = round(min(0.85, 0.5 + retransmission_count / max(len(events), 1) * 0.35), 2)
+                retransmission_confidence = round(
+                    min(0.85, 0.5 + retransmission_count / max(len(events), 1) * 0.35),
+                    2,
+                )
             findings.append(
                 {
                     "id": f"finding-{len(findings) + 1:03d}",
@@ -940,7 +1183,11 @@ def _detect(args: dict[str, Any]) -> str:
                     "retransmission_count": retransmission_count,
                     "first_seen": min(timestamps),
                     "last_seen": max(timestamps),
-                    "evidence": {"repeated_sequence_ranges": len([count for count in sequence_counts.values() if count > 1])},
+                    "evidence": {
+                        "repeated_sequence_ranges": len(
+                            [count for count in sequence_counts.values() if count > 1]
+                        )
+                    },
                     "recommendation": "Review packet loss, congestion, link quality, and TCP endpoint behavior.",
                 }
             )
@@ -950,7 +1197,12 @@ def _detect(args: dict[str, Any]) -> str:
     if "suspicious_dns" in rules:
         long_query_threshold = max(1, int(thresholds.get("dns_long_query_length", 200)))
         for (src, dst), events in groups.items():
-            long_queries = [event for event in events if event.get("protocol") == "dns" and int(event.get("dns_query_length", 0) or 0) >= long_query_threshold]
+            long_queries = [
+                event
+                for event in events
+                if event.get("protocol") == "dns"
+                and int(event.get("dns_query_length", 0) or 0) >= long_query_threshold
+            ]
             if not long_queries:
                 continue
             findings.append(
@@ -962,7 +1214,10 @@ def _detect(args: dict[str, Any]) -> str:
                     "src": src,
                     "dst": dst,
                     "query_count": len(long_queries),
-                    "max_query_length": max(int(event.get("dns_query_length", 0) or 0) for event in long_queries),
+                    "max_query_length": max(
+                        int(event.get("dns_query_length", 0) or 0)
+                        for event in long_queries
+                    ),
                     "evidence": {"threshold_length": long_query_threshold},
                     "recommendation": "Review long DNS queries without exposing the queried domain to the LLM.",
                 }
@@ -973,7 +1228,9 @@ def _detect(args: dict[str, Any]) -> str:
     if "long_lived_connection" in rules:
         long_threshold = max(1.0, float(thresholds.get("long_lived_seconds", 3600)))
         for (src, dst), events in groups.items():
-            events = [event for event in events if event.get("protocol") in {"tcp", "udp"}]
+            events = [
+                event for event in events if event.get("protocol") in {"tcp", "udp"}
+            ]
             if len(events) < 2:
                 continue
             timestamps = [float(event.get("timestamp", 0.0) or 0.0) for event in events]
@@ -1001,7 +1258,9 @@ def _detect(args: dict[str, Any]) -> str:
         broadcast_threshold = max(2, int(thresholds.get("broadcast_events", 100)))
         excluded_broadcast_ports = {
             int(port)
-            for port in thresholds.get("broadcast_excluded_ports", [137, 138, 1900, 5353, 17500])
+            for port in thresholds.get(
+                "broadcast_excluded_ports", [137, 138, 1900, 5353, 17500]
+            )
         }
         broadcasts: dict[str, list[dict[str, Any]]] = {}
         for events in groups.values():
@@ -1013,9 +1272,10 @@ def _detect(args: dict[str, Any]) -> str:
                     if port is not None
                 }
                 if (
-                    (dst == "255.255.255.255" or dst.endswith(".255") or dst.startswith("224."))
-                    and not port_values.intersection(excluded_broadcast_ports)
-                ):
+                    dst == "255.255.255.255"
+                    or dst.endswith(".255")
+                    or dst.startswith("224.")
+                ) and not port_values.intersection(excluded_broadcast_ports):
                     broadcasts.setdefault(str(event.get("src_ip")), []).append(event)
         for src, events in broadcasts.items():
             if len(events) < broadcast_threshold:
@@ -1061,7 +1321,11 @@ def _detect(args: dict[str, Any]) -> str:
                 (int(event.get("src_port") or 0), int(event.get("dst_port") or 0))
                 for event in syn_only
             }
-            syn_ack_count = sum(1 for src_port, dst_port in syn_keys if (dst_port, src_port) in reverse_syn_ack)
+            syn_ack_count = sum(
+                1
+                for src_port, dst_port in syn_keys
+                if (dst_port, src_port) in reverse_syn_ack
+            )
             if len(syn_keys) < syn_threshold or len(syn_keys) <= syn_ack_count * 2:
                 continue
             findings.append(
@@ -1084,7 +1348,11 @@ def _detect(args: dict[str, Any]) -> str:
     if "rtt_anomaly" in rules:
         rtt_threshold = max(1.0, float(thresholds.get("rtt_ms", 100)))
         for (src, dst), events in groups.items():
-            rtts = [float(event["rtt_ms"]) for event in events if event.get("rtt_ms") is not None]
+            rtts = [
+                float(event["rtt_ms"])
+                for event in events
+                if event.get("rtt_ms") is not None
+            ]
             if not rtts or sum(rtts) / len(rtts) < rtt_threshold:
                 continue
             findings.append(
@@ -1107,7 +1375,16 @@ def _detect(args: dict[str, Any]) -> str:
 
     if "protocol_anomaly" in rules:
         for (src, dst), events in groups.items():
-            anomalies = [event for event in events if event.get("protocol") == "tcp" and ("S" in str(event.get("tcp_flags") or "").upper() and "F" in str(event.get("tcp_flags") or "").upper() or str(event.get("tcp_flags") or "").upper() in {"", "NULL"})]
+            anomalies = [
+                event
+                for event in events
+                if event.get("protocol") == "tcp"
+                and (
+                    "S" in str(event.get("tcp_flags") or "").upper()
+                    and "F" in str(event.get("tcp_flags") or "").upper()
+                    or str(event.get("tcp_flags") or "").upper() in {"", "NULL"}
+                )
+            ]
             if not anomalies:
                 continue
             findings.append(
@@ -1127,13 +1404,20 @@ def _detect(args: dict[str, Any]) -> str:
                 break
 
     findings = findings[:limit]
-    counts = {level: sum(1 for item in findings if item["severity"] == level) for level in ("high", "medium", "low")}
+    counts = {
+        level: sum(1 for item in findings if item["severity"] == level)
+        for level in ("high", "medium", "low")
+    }
     return json.dumps(
         {
             "ok": True,
             "operation": "detect",
             "findings": findings,
-            "summary": {"packets_analyzed": packets_analyzed, "findings": len(findings), **counts},
+            "summary": {
+                "packets_analyzed": packets_analyzed,
+                "findings": len(findings),
+                **counts,
+            },
         },
         ensure_ascii=False,
     )
@@ -1167,7 +1451,13 @@ def _impact(args: dict[str, Any]) -> str:
         length = int(event.get("length", 0) or 0)
         protocol = str(event.get("protocol") or "")
         flags = str(event.get("tcp_flags") or "").upper()
-        connection_key = (src, dst, event.get("src_port"), event.get("dst_port"), protocol)
+        connection_key = (
+            src,
+            dst,
+            event.get("src_port"),
+            event.get("dst_port"),
+            protocol,
+        )
         for host, peer, is_source in ((src, dst, True), (dst, src, False)):
             item = hosts.setdefault(
                 host,
@@ -1186,7 +1476,11 @@ def _impact(args: dict[str, Any]) -> str:
             )
             item["packets"] += 1
             item["bytes"] += length
-            item["connections"].add(connection_key if is_source else (dst, src, event.get("dst_port"), event.get("src_port"), protocol))
+            item["connections"].add(
+                connection_key
+                if is_source
+                else (dst, src, event.get("dst_port"), event.get("src_port"), protocol)
+            )
             item["peers"].add(peer)
             if is_source:
                 item["destinations"][peer] = item["destinations"].get(peer, 0) + length
@@ -1194,10 +1488,22 @@ def _impact(args: dict[str, Any]) -> str:
                 item["resets"] += 1
             if "S" in flags and "A" not in flags:
                 item["syn_count"] += 1
-            if dst == "255.255.255.255" or dst.endswith(".255") or dst.startswith("224.") or dst.startswith("ff02:"):
+            if (
+                dst == "255.255.255.255"
+                or dst.endswith(".255")
+                or dst.startswith("224.")
+                or dst.startswith("ff02:")
+            ):
                 item["broadcast_packets"] += 1
             if protocol == "tcp" and event.get("tcp_payload_length"):
-                payload_key = (src, dst, event.get("src_port"), event.get("dst_port"), event.get("tcp_seq"), event.get("tcp_payload_length"))
+                payload_key = (
+                    src,
+                    dst,
+                    event.get("src_port"),
+                    event.get("dst_port"),
+                    event.get("tcp_seq"),
+                    event.get("tcp_payload_length"),
+                )
                 if payload_key in seen_payloads:
                     item["retransmissions"] += 1
                 seen_payloads.add(payload_key)
@@ -1228,13 +1534,22 @@ def _impact(args: dict[str, Any]) -> str:
                 "broadcast_packets": item["broadcast_packets"],
                 "top_destinations": [
                     {"ip": ip, "bytes": bytes_}
-                    for ip, bytes_ in sorted(item["destinations"].items(), key=lambda pair: pair[1], reverse=True)[:5]
+                    for ip, bytes_ in sorted(
+                        item["destinations"].items(),
+                        key=lambda pair: pair[1],
+                        reverse=True,
+                    )[:5]
                 ],
             }
         )
     ranked.sort(key=lambda item: item["impact_score"], reverse=True)
     return json.dumps(
-        {"ok": True, "operation": "impact", "devices": ranked[:limit], "device_count": len(ranked)},
+        {
+            "ok": True,
+            "operation": "impact",
+            "devices": ranked[:limit],
+            "device_count": len(ranked),
+        },
         ensure_ascii=False,
     )
 
@@ -1273,13 +1588,74 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "pcap_path": {"type": "string", "description": _("param.pcap_path.description", default="Input pcap path.")},
-                "operation": {"type": "string", "enum": ["summary", "statistics", "flows", "packets", "extract", "detect", "impact"], "description": _("param.operation.description", default="Operation.")},
-                "detail_level": {"type": "integer", "minimum": 0, "maximum": 2, "default": 1},
-                "rules": {"type": "array", "items": {"type": "string", "enum": ["port_scan", "connection_burst", "beaconing", "suspicious_dns", "large_transfer", "cleartext_protocol", "repeated_failure", "host_scan", "unusual_port", "tcp_retransmission", "long_lived_connection", "broadcast_anomaly", "syn_flood_candidate", "rtt_anomaly", "protocol_anomaly"]}},
-                "thresholds": {"type": "object", "description": _("param.thresholds.description", default="Detection thresholds.")},
-                "output_path": {"type": "string", "description": _("param.output_path.description", default="Output pcap path.")},
-                "filter": {"type": "object", "description": _("param.filter.description", default="Filter fields.")},
+                "pcap_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.pcap_path.description", default="Input pcap path."
+                    ),
+                },
+                "operation": {
+                    "type": "string",
+                    "enum": [
+                        "summary",
+                        "statistics",
+                        "flows",
+                        "packets",
+                        "extract",
+                        "detect",
+                        "impact",
+                    ],
+                    "description": _(
+                        "param.operation.description", default="Operation."
+                    ),
+                },
+                "detail_level": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2,
+                    "default": 1,
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "port_scan",
+                            "connection_burst",
+                            "beaconing",
+                            "suspicious_dns",
+                            "large_transfer",
+                            "cleartext_protocol",
+                            "repeated_failure",
+                            "host_scan",
+                            "unusual_port",
+                            "tcp_retransmission",
+                            "long_lived_connection",
+                            "broadcast_anomaly",
+                            "syn_flood_candidate",
+                            "rtt_anomaly",
+                            "protocol_anomaly",
+                        ],
+                    },
+                },
+                "thresholds": {
+                    "type": "object",
+                    "description": _(
+                        "param.thresholds.description", default="Detection thresholds."
+                    ),
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_path.description", default="Output pcap path."
+                    ),
+                },
+                "filter": {
+                    "type": "object",
+                    "description": _(
+                        "param.filter.description", default="Filter fields."
+                    ),
+                },
                 "limit": {"type": "integer", "minimum": 1, "maximum": 100000},
                 "overwrite": {"type": "boolean", "default": False},
             },

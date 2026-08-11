@@ -1,10 +1,12 @@
 """Symbol extraction helpers for code_map."""
+
 from __future__ import annotations
 
 import re
 from typing import Any
 
 from .language_detection import SYMBOL_PATTERNS, detect_source_language
+
 
 def extract_symbols(filepath: str) -> list[dict[str, Any]]:
     """Extract symbol definitions from a source file."""
@@ -68,5 +70,3 @@ def extract_symbols(filepath: str) -> list[dict[str, Any]]:
                     break  # one match per line (first pattern wins)
 
     return symbols
-
-

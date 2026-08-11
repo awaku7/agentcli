@@ -129,9 +129,7 @@ class ResponsesManager:
     def delete(self, response_id: str) -> Any:
         return self._require("delete").delete(response_id)
 
-    def list_input_items(
-        self, response_id: str, *, limit: int | None = None
-    ) -> Any:
+    def list_input_items(self, response_id: str, *, limit: int | None = None) -> Any:
         responses = self._require("list_input_items")
         kwargs = {} if limit is None else {"limit": limit}
         return responses.input_items.list(response_id, **kwargs)

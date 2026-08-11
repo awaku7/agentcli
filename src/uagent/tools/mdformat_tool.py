@@ -140,8 +140,14 @@ def _has_yaml_frontmatter(filepath: str) -> bool:
 def _document_type(filepath: str) -> str:
     """Classify Markdown for explicit LLM-facing tool output."""
     if os.path.basename(filepath) == "SKILL.md":
-        return "agent_skill" if _has_yaml_frontmatter(filepath) else "agent_skill_candidate"
-    return "markdown_with_frontmatter" if _has_yaml_frontmatter(filepath) else "markdown"
+        return (
+            "agent_skill"
+            if _has_yaml_frontmatter(filepath)
+            else "agent_skill_candidate"
+        )
+    return (
+        "markdown_with_frontmatter" if _has_yaml_frontmatter(filepath) else "markdown"
+    )
 
 
 def _validate_skill_file(filepath: str, *, strict: bool) -> dict[str, Any]:
@@ -235,9 +241,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if proc.returncode == 0:
                 skill_result = None
                 if validate_skills and os.path.basename(filepath) == "SKILL.md":
-                    skill_result = _validate_skill_file(
-                        filepath, strict=strict_skills
-                    )
+                    skill_result = _validate_skill_file(filepath, strict=strict_skills)
                     if not skill_result["ok"]:
                         failed_count += 1
                         skill_invalid_count += 1

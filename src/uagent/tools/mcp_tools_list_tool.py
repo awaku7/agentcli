@@ -165,30 +165,23 @@ async def _mcp_tools_list_http(
         url=url, headers=headers or {}, protocol_mode=protocol_mode
     ) as client:
         tools_result = await client.list_tools()
-        raw_tools = (
-            getattr(tools_result, "tools", [])
-            or (
-                tools_result.get("result", {}).get("tools", [])
-                if isinstance(tools_result, dict)
-                else []
-            )
+        raw_tools = getattr(tools_result, "tools", []) or (
+            tools_result.get("result", {}).get("tools", [])
+            if isinstance(tools_result, dict)
+            else []
         )
         tools = []
         for tool in raw_tools or []:
             tools.append(
                 {
-                    "name": (
-                        tool.get("name") if isinstance(tool, dict) else tool.name
-                    ),
+                    "name": (tool.get("name") if isinstance(tool, dict) else tool.name),
                     "description": (
                         tool.get("description")
                         if isinstance(tool, dict)
                         else tool.description
                     ),
                     "inputSchema": _to_jsonable(
-                        (
-                            tool.get("inputSchema") or tool.get("input_schema", {})
-                        )
+                        (tool.get("inputSchema") or tool.get("input_schema", {}))
                         if isinstance(tool, dict)
                         else getattr(tool, "inputSchema", None)
                         or getattr(tool, "input_schema", {})
@@ -213,30 +206,23 @@ async def _mcp_tools_list_stdio(
         command=command, args=args, env=env, protocol_mode=protocol_mode
     ) as client:
         tools_result = await client.list_tools()
-        raw_tools = (
-            getattr(tools_result, "tools", [])
-            or (
-                tools_result.get("result", {}).get("tools", [])
-                if isinstance(tools_result, dict)
-                else []
-            )
+        raw_tools = getattr(tools_result, "tools", []) or (
+            tools_result.get("result", {}).get("tools", [])
+            if isinstance(tools_result, dict)
+            else []
         )
         tools = []
         for tool in raw_tools or []:
             tools.append(
                 {
-                    "name": (
-                        tool.get("name") if isinstance(tool, dict) else tool.name
-                    ),
+                    "name": (tool.get("name") if isinstance(tool, dict) else tool.name),
                     "description": (
                         tool.get("description")
                         if isinstance(tool, dict)
                         else tool.description
                     ),
                     "inputSchema": _to_jsonable(
-                        (
-                            tool.get("inputSchema") or tool.get("input_schema", {})
-                        )
+                        (tool.get("inputSchema") or tool.get("input_schema", {}))
                         if isinstance(tool, dict)
                         else getattr(tool, "inputSchema", None)
                         or getattr(tool, "input_schema", {})
@@ -292,9 +278,11 @@ def run_tool(args: dict[str, Any]) -> str:
                             )
                             http_headers = _resolve_http_headers(s.get("headers"))
                             if "protocol_mode" not in args:
-                                protocol_mode = str(
-                                    s.get("protocol_mode") or "auto"
-                                ).strip().lower()
+                                protocol_mode = (
+                                    str(s.get("protocol_mode") or "auto")
+                                    .strip()
+                                    .lower()
+                                )
                             break
         except Exception:
             pass
@@ -327,9 +315,7 @@ def run_tool(args: dict[str, Any]) -> str:
         elif isinstance(url, str) and url.startswith("stdio://"):
             cmd = url[len("stdio://") :]
             # no args/env in shorthand
-            result = asyncio.run(
-                _mcp_tools_list_stdio(cmd, [], {}, protocol_mode)
-            )
+            result = asyncio.run(_mcp_tools_list_stdio(cmd, [], {}, protocol_mode))
 
         # 3) http
         else:

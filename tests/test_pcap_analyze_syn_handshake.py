@@ -5,7 +5,9 @@ from pathlib import Path
 from tests.test_pcap_analyze_remaining_rules import run_rule, base_packet
 
 
-def test_syn_flood_ignores_completed_reverse_handshakes(tmp_path: Path, monkeypatch) -> None:
+def test_syn_flood_ignores_completed_reverse_handshakes(
+    tmp_path: Path, monkeypatch
+) -> None:
     packets = []
     for index in range(5):
         client_port = 50000 + index
@@ -42,7 +44,9 @@ def test_syn_flood_ignores_completed_reverse_handshakes(tmp_path: Path, monkeypa
 
 def test_syn_flood_reports_unanswered_syns(tmp_path: Path, monkeypatch) -> None:
     packets = [
-        base_packet(src_port=50000 + index, dst_port=443, tcp_flags="S", timestamp=float(index))
+        base_packet(
+            src_port=50000 + index, dst_port=443, tcp_flags="S", timestamp=float(index)
+        )
         for index in range(5)
     ]
 

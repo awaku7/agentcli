@@ -7,6 +7,7 @@ Input JSONL format, one translation per line:
 The script performs no network access. It validates protected tokens before
 atomically updating the migration catalog.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,14 +27,18 @@ def tokens(value: object) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Apply validated I18N translations.")
     parser.add_argument("catalog", type=Path)
-    parser.add_argument("translations", type=Path, help="JSONL from translate_text processing")
+    parser.add_argument(
+        "translations", type=Path, help="JSONL from translate_text processing"
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     data: dict[str, Any] = json.loads(args.catalog.read_text(encoding="utf-8"))
     accepted = 0
     rejected: list[str] = []
-    for line_no, line in enumerate(args.translations.read_text(encoding="utf-8").splitlines(), 1):
+    for line_no, line in enumerate(
+        args.translations.read_text(encoding="utf-8").splitlines(), 1
+    ):
         if not line.strip():
             continue
         try:
@@ -56,9 +61,17 @@ def main() -> int:
 
     if not args.dry_run and not rejected:
         tmp = args.catalog.with_suffix(args.catalog.suffix + ".tmp")
-        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        tmp.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
         tmp.replace(args.catalog)
-    print(json.dumps({"accepted": accepted, "rejected": rejected, "dry_run": args.dry_run}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {"accepted": accepted, "rejected": rejected, "dry_run": args.dry_run},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 1 if rejected else 0
 
 

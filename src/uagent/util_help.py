@@ -170,7 +170,9 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "response": e(
             tr("Manage Responses API lifecycle"),
-            usage=(":response [status|cancel|tokens|compact|items|delete] [response_id]"),
+            usage=(
+                ":response [status|cancel|tokens|compact|items|delete] [response_id]"
+            ),
             detail=tr(
                 "Manage the current Responses API response. "
                 "status retrieves the current response; cancel stops it; "

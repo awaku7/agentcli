@@ -50,10 +50,14 @@ def test_parse_pfn_response_normalizes_tool_call():
 
 def test_parse_pfn_response_recovers_json_content_tool_call():
     response = SimpleNamespace(
-        choices=[SimpleNamespace(message=SimpleNamespace(
-            content='{"name":"tool_catalog","arguments":{"query":"weather"}}',
-            tool_calls=[],
-        ))]
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    content='{"name":"tool_catalog","arguments":{"query":"weather"}}',
+                    tool_calls=[],
+                )
+            )
+        ]
     )
     text, calls = llm_pfn.parse_pfn_response(response)
     assert text == ""

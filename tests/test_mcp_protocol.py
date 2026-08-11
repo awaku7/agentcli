@@ -8,9 +8,7 @@ from uagent.tools.mcp.protocol import (
 
 
 def test_explicit_legacy_mode_requires_session() -> None:
-    info = detect_protocol_mode(
-        requested_mode="legacy", protocol_version="2025-11-25"
-    )
+    info = detect_protocol_mode(requested_mode="legacy", protocol_version="2025-11-25")
 
     assert info.mode is MCPProtocolMode.LEGACY
     assert info.session_required is True

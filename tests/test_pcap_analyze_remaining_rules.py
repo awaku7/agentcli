@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 
 
-def run_rule(tmp_path: Path, monkeypatch, rule: str, packets: list[dict], thresholds: dict) -> dict:
+def run_rule(
+    tmp_path: Path, monkeypatch, rule: str, packets: list[dict], thresholds: dict
+) -> dict:
     from uagent.tools import pcap_analyze_tool
 
     monkeypatch.setattr(pcap_analyze_tool, "_iter_packets", lambda _path: iter(packets))
@@ -50,8 +52,12 @@ def test_long_lived_connection(tmp_path: Path, monkeypatch) -> None:
 
 
 def test_broadcast_anomaly(tmp_path: Path, monkeypatch) -> None:
-    packets = [base_packet(dst_ip="192.168.1.255", timestamp=float(i)) for i in range(4)]
-    result = run_rule(tmp_path, monkeypatch, "broadcast_anomaly", packets, {"broadcast_events": 3})
+    packets = [
+        base_packet(dst_ip="192.168.1.255", timestamp=float(i)) for i in range(4)
+    ]
+    result = run_rule(
+        tmp_path, monkeypatch, "broadcast_anomaly", packets, {"broadcast_events": 3}
+    )
     assert result["ok"] is True
     assert result["findings"][0]["category"] == "broadcast_anomaly"
 
@@ -61,7 +67,9 @@ def test_syn_flood_candidate(tmp_path: Path, monkeypatch) -> None:
         base_packet(src_port=50000 + i, tcp_flags="S", timestamp=float(i))
         for i in range(5)
     ]
-    result = run_rule(tmp_path, monkeypatch, "syn_flood_candidate", packets, {"syn_events": 3})
+    result = run_rule(
+        tmp_path, monkeypatch, "syn_flood_candidate", packets, {"syn_events": 3}
+    )
     assert result["ok"] is True
     assert result["findings"][0]["category"] == "syn_flood_candidate"
 

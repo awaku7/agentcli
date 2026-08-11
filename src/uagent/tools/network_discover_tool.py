@@ -1,4 +1,5 @@
 """Low-privilege network discovery using Python's standard library."""
+
 from __future__ import annotations
 
 import json
@@ -49,8 +50,15 @@ def _find_nmap() -> str | None:
             r"C:\Program Files (x86)\Nmap\nmap.exe",
         ]
     else:
-        candidates = ["/usr/bin/nmap", "/usr/local/bin/nmap", "/snap/bin/nmap", "/opt/homebrew/bin/nmap"]
-    return next((candidate for candidate in candidates if os.path.isfile(candidate)), None)
+        candidates = [
+            "/usr/bin/nmap",
+            "/usr/local/bin/nmap",
+            "/snap/bin/nmap",
+            "/opt/homebrew/bin/nmap",
+        ]
+    return next(
+        (candidate for candidate in candidates if os.path.isfile(candidate)), None
+    )
 
 
 def _run_nmap(mode: str, target: str, ports: list[int], timeout: float) -> str:
@@ -69,9 +77,13 @@ def _run_nmap(mode: str, target: str, ports: list[int], timeout: float) -> str:
     if ports and mode != "host_discovery":
         argv.extend(["-p", ",".join(str(port) for port in ports)])
     argv.append(target)
-    result = subprocess.run(argv, capture_output=True, text=True, timeout=timeout, check=False)
+    result = subprocess.run(
+        argv, capture_output=True, text=True, timeout=timeout, check=False
+    )
     if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip() or f"nmap exited with {result.returncode}")
+        raise RuntimeError(
+            result.stderr.strip() or f"nmap exited with {result.returncode}"
+        )
     return result.stdout
 
 
@@ -82,7 +94,11 @@ def _parse_nmap_xml(xml_text: str) -> list[dict[str, Any]]:
         address = host.find("address")
         item: dict[str, Any] = {
             "ip": address.attrib.get("addr") if address is not None else None,
-            "status": (host.find("status").attrib.get("state") if host.find("status") is not None else "unknown"),
+            "status": (
+                host.find("status").attrib.get("state")
+                if host.find("status") is not None
+                else "unknown"
+            ),
             "ports": [],
         }
         for port in host.findall("./ports/port"):
@@ -98,14 +114,18 @@ def _parse_nmap_xml(xml_text: str) -> list[dict[str, Any]]:
                 product = service.attrib.get("product")
                 version = service.attrib.get("version")
                 if product or version:
-                    entry["version"] = " ".join(part for part in (product, version) if part)
+                    entry["version"] = " ".join(
+                        part for part in (product, version) if part
+                    )
             item["ports"].append(entry)
         hosts.append(item)
     return hosts
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def _port_scan(args: dict[str, Any]) -> str:
@@ -116,7 +136,10 @@ def _port_scan(args: dict[str, Any]) -> str:
     if not isinstance(raw_ports, list) or not raw_ports:
         return _error("PORTS_REQUIRED", "ports must be a non-empty list.")
     if len(raw_ports) > _MAX_PORTS:
-        return _error("PORT_LIMIT_EXCEEDED", f"At most {_MAX_PORTS} ports may be scanned per call.")
+        return _error(
+            "PORT_LIMIT_EXCEEDED",
+            f"At most {_MAX_PORTS} ports may be scanned per call.",
+        )
     try:
         ports = sorted({int(port) for port in raw_ports})
     except (TypeError, ValueError):
@@ -152,9 +175,14 @@ def run_tool(args: dict[str, Any]) -> str:
             try:
                 xml_text = _run_nmap(mode, target, ports, timeout)
             except FileNotFoundError:
-                return _error("EXTERNAL_DEPENDENCY_MISSING", "nmap executable was not found.")
+                return _error(
+                    "EXTERNAL_DEPENDENCY_MISSING", "nmap executable was not found."
+                )
             hosts = _parse_nmap_xml(xml_text)
-            return json.dumps({"ok": True, "backend": "nmap", "mode": mode, "hosts": hosts}, ensure_ascii=False)
+            return json.dumps(
+                {"ok": True, "backend": "nmap", "mode": mode, "hosts": hosts},
+                ensure_ascii=False,
+            )
         return _error("UNSUPPORTED_MODE", "Unsupported discovery mode.")
     except Exception as exc:
         return _error("NETWORK_DISCOVER_FAILED", str(exc))
@@ -172,10 +200,27 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "mode": {"type": "string", "enum": ["port_scan", "host_discovery", "service_scan", "os_scan"], "default": "port_scan"},
-                "target": {"type": "string", "description": _("param.target.description", default="Single host or IP address.")},
-                "ports": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 65535}},
-                "timeout": {"type": "number", "minimum": 0.1, "maximum": 30, "default": 2},
+                "mode": {
+                    "type": "string",
+                    "enum": ["port_scan", "host_discovery", "service_scan", "os_scan"],
+                    "default": "port_scan",
+                },
+                "target": {
+                    "type": "string",
+                    "description": _(
+                        "param.target.description", default="Single host or IP address."
+                    ),
+                },
+                "ports": {
+                    "type": "array",
+                    "items": {"type": "integer", "minimum": 1, "maximum": 65535},
+                },
+                "timeout": {
+                    "type": "number",
+                    "minimum": 0.1,
+                    "maximum": 30,
+                    "default": 2,
+                },
             },
             "required": ["target", "ports"],
         },

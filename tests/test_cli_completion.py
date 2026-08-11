@@ -56,9 +56,7 @@ def test_command_completer_tool_create(monkeypatch: pytest.MonkeyPatch) -> None:
     # Built-in :response options must be completed before generic dynamic
     # command completion handles commands containing a space.
     doc_response = Document(text=":response c", cursor_position=len(":response c"))
-    completions_response = list(
-        completer.get_completions(doc_response, MockEvent())
-    )
+    completions_response = list(completer.get_completions(doc_response, MockEvent()))
     completion_texts_response = [c.text for c in completions_response]
     assert "cancel" in completion_texts_response
 

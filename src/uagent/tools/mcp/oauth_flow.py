@@ -38,14 +38,14 @@ def _parse_token_response(response: Any) -> OAuthTokenResponse:
         ) from exc
     if not isinstance(payload, dict):
         raise MCPProtocolError(
-            "MCP_OAUTH_INVALID_RESPONSE", "oauth/token", {"type": type(payload).__name__}
+            "MCP_OAUTH_INVALID_RESPONSE",
+            "oauth/token",
+            {"type": type(payload).__name__},
         )
     access_token = str(payload.get("access_token") or "")
     token_type = str(payload.get("token_type") or "")
     if not access_token or not token_type:
-        raise MCPProtocolError(
-            "MCP_OAUTH_TOKEN_FIELDS_MISSING", "oauth/token", {}
-        )
+        raise MCPProtocolError("MCP_OAUTH_TOKEN_FIELDS_MISSING", "oauth/token", {})
     expires_raw = payload.get("expires_in")
     try:
         expires_in = int(expires_raw) if expires_raw is not None else None
@@ -57,7 +57,9 @@ def _parse_token_response(response: Any) -> OAuthTokenResponse:
         access_token=access_token,
         token_type=token_type,
         expires_in=expires_in,
-        refresh_token=(str(payload["refresh_token"]) if payload.get("refresh_token") else None),
+        refresh_token=(
+            str(payload["refresh_token"]) if payload.get("refresh_token") else None
+        ),
         scope=(str(payload["scope"]) if payload.get("scope") else None),
         raw=payload,
     )

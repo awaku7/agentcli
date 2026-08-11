@@ -13,7 +13,9 @@ _DEF_RE = re.compile(
     r"(Sub|Function|Property\s+(?:Get|Set|Let)|Class|Type|Enum)\b\s*(.*)$",
     re.IGNORECASE,
 )
-_END_RE = re.compile(r"^\s*End\s+(Sub|Function|Property|Class|Type|Enum)\b", re.IGNORECASE)
+_END_RE = re.compile(
+    r"^\s*End\s+(Sub|Function|Property|Class|Type|Enum)\b", re.IGNORECASE
+)
 
 
 def _parse(text: str) -> list[dict[str, Any]]:
@@ -83,15 +85,57 @@ TOOL_SPEC: dict[str, Any] = {
     "x_parallel_safe": True,
     "function": {
         "name": "ls2idx",
-        "description": _("tool.description", default="Parse LotusScript definitions into an index or return one selected section."),
-        "x_search_terms": _("x_search_terms", default=["ls2idx", "LotusScript", "Domino", "Notes", "Sub", "Function", "Class"]),
-        "x_search_terms_en": ["ls2idx", "LotusScript", "Domino", "Notes", "Sub", "Function", "Class"],
+        "description": _(
+            "tool.description",
+            default="Parse LotusScript definitions into an index or return one selected section.",
+        ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "ls2idx",
+                "LotusScript",
+                "Domino",
+                "Notes",
+                "Sub",
+                "Function",
+                "Class",
+            ],
+        ),
+        "x_search_terms_en": [
+            "ls2idx",
+            "LotusScript",
+            "Domino",
+            "Notes",
+            "Sub",
+            "Function",
+            "Class",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
-                "path": {"type": "string", "description": _("param.path", default="Path to a LotusScript source file.")},
-                "mode": {"type": "string", "enum": ["index", "section"], "default": "index", "description": _("param.mode", default="index for a numbered index, section for one definition.")},
-                "section": {"type": "integer", "minimum": 1, "description": _("param.section", default="1-based section number when mode is section.")},
+                "path": {
+                    "type": "string",
+                    "description": _(
+                        "param.path", default="Path to a LotusScript source file."
+                    ),
+                },
+                "mode": {
+                    "type": "string",
+                    "enum": ["index", "section"],
+                    "default": "index",
+                    "description": _(
+                        "param.mode",
+                        default="index for a numbered index, section for one definition.",
+                    ),
+                },
+                "section": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": _(
+                        "param.section",
+                        default="1-based section number when mode is section.",
+                    ),
+                },
             },
             "required": ["path"],
             "additionalProperties": False,

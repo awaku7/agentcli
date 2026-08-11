@@ -25,19 +25,77 @@ TOOL_SPEC: dict[str, Any] = {
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["Mermaid", "flowchart", "diagram", "offline renderer", "PNG", "SVG"],
+            default=[
+                "Mermaid",
+                "flowchart",
+                "diagram",
+                "offline renderer",
+                "PNG",
+                "SVG",
+            ],
         ),
-        "x_search_terms_en": ["Mermaid", "flowchart", "diagram", "offline renderer", "PNG", "SVG"],
+        "x_search_terms_en": [
+            "Mermaid",
+            "flowchart",
+            "diagram",
+            "offline renderer",
+            "PNG",
+            "SVG",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
-                "source": {"type": "string", "description": _("param.source.description", default="Mermaid source text." )},
-                "input_path": {"type": "string", "description": _("param.input_path.description", default="Optional Mermaid file path." )},
-                "output_path": {"type": "string", "description": _("param.output_path.description", default="Output .png, .svg, or .pdf path." )},
-                "scale": {"type": "number", "minimum": 0.25, "default": 1.0, "description": _("param.scale.description", default="PNG scale factor." )},
-                "background": {"type": "string", "default": "white", "description": _("param.background.description", default="Background color." )},
-                "theme": {"type": "string", "enum": ["default", "forest", "dark", "neutral"], "default": "default", "description": _("param.theme.description", default="Mermaid theme." )},
-                "include_base64": {"type": "boolean", "description": _("param.include_base64.description", default="Include base64 data for remote clients."), "default": True},
+                "source": {
+                    "type": "string",
+                    "description": _(
+                        "param.source.description", default="Mermaid source text."
+                    ),
+                },
+                "input_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.input_path.description",
+                        default="Optional Mermaid file path.",
+                    ),
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_path.description",
+                        default="Output .png, .svg, or .pdf path.",
+                    ),
+                },
+                "scale": {
+                    "type": "number",
+                    "minimum": 0.25,
+                    "default": 1.0,
+                    "description": _(
+                        "param.scale.description", default="PNG scale factor."
+                    ),
+                },
+                "background": {
+                    "type": "string",
+                    "default": "white",
+                    "description": _(
+                        "param.background.description", default="Background color."
+                    ),
+                },
+                "theme": {
+                    "type": "string",
+                    "enum": ["default", "forest", "dark", "neutral"],
+                    "default": "default",
+                    "description": _(
+                        "param.theme.description", default="Mermaid theme."
+                    ),
+                },
+                "include_base64": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.include_base64.description",
+                        default="Include base64 data for remote clients.",
+                    ),
+                    "default": True,
+                },
             },
             "required": ["output_path"],
             "additionalProperties": False,
@@ -52,10 +110,12 @@ BUSY_LABEL = False
 def _load_mermaidx():
     try:
         import mermaidx
+
         return mermaidx
     except ImportError:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "mermaidx"])
         import mermaidx
+
         return mermaidx
 
 
@@ -67,14 +127,37 @@ def _font_file(source: str) -> Path | None:
         Path(r"C:\Windows\Fonts\NotoSansCJKjp-Regular.otf"),
         Path.home() / ".fonts" / "NotoSansCJK-Regular.ttc",
     ]
-    japanese = [Path(r"C:\Windows\Fonts\meiryo.ttc"), Path(r"C:\Windows\Fonts\YuGothM.ttc"), Path(r"C:\Windows\Fonts\msgothic.ttc")]
+    japanese = [
+        Path(r"C:\Windows\Fonts\meiryo.ttc"),
+        Path(r"C:\Windows\Fonts\YuGothM.ttc"),
+        Path(r"C:\Windows\Fonts\msgothic.ttc"),
+    ]
     chinese = [Path(r"C:\Windows\Fonts\msyh.ttc"), Path(r"C:\Windows\Fonts\simsun.ttc")]
-    korean = [Path(r"C:\Windows\Fonts\malgun.ttf"), Path(r"C:\Windows\Fonts\malgunbd.ttf")]
-    arabic = [Path(r"C:\Windows\Fonts\NotoSansArabic-Regular.ttf"), Path(r"C:\Windows\Fonts\trado.ttf"), Path(r"C:\Windows\Fonts\arial.ttf")]
-    hebrew = [Path(r"C:\Windows\Fonts\NotoSansHebrew-Regular.ttf"), Path(r"C:\Windows\Fonts\arial.ttf")]
-    devanagari = [Path(r"C:\Windows\Fonts\NotoSansDevanagari-Regular.ttf"), Path(r"C:\Windows\Fonts\Nirmala.ttf")]
-    thai = [Path(r"C:\Windows\Fonts\NotoSansThai-Regular.ttf"), Path(r"C:\Windows\Fonts\LeelawUI.ttf")]
-    bengali = [Path(r"C:\Windows\Fonts\NotoSansBengali-Regular.ttf"), Path(r"C:\Windows\Fonts\Nirmala.ttf")]
+    korean = [
+        Path(r"C:\Windows\Fonts\malgun.ttf"),
+        Path(r"C:\Windows\Fonts\malgunbd.ttf"),
+    ]
+    arabic = [
+        Path(r"C:\Windows\Fonts\NotoSansArabic-Regular.ttf"),
+        Path(r"C:\Windows\Fonts\trado.ttf"),
+        Path(r"C:\Windows\Fonts\arial.ttf"),
+    ]
+    hebrew = [
+        Path(r"C:\Windows\Fonts\NotoSansHebrew-Regular.ttf"),
+        Path(r"C:\Windows\Fonts\arial.ttf"),
+    ]
+    devanagari = [
+        Path(r"C:\Windows\Fonts\NotoSansDevanagari-Regular.ttf"),
+        Path(r"C:\Windows\Fonts\Nirmala.ttf"),
+    ]
+    thai = [
+        Path(r"C:\Windows\Fonts\NotoSansThai-Regular.ttf"),
+        Path(r"C:\Windows\Fonts\LeelawUI.ttf"),
+    ]
+    bengali = [
+        Path(r"C:\Windows\Fonts\NotoSansBengali-Regular.ttf"),
+        Path(r"C:\Windows\Fonts\Nirmala.ttf"),
+    ]
     if re.search(r"[ぁ-ゖァ-ヺ々〆〄]", source):
         candidates = broad + japanese
     elif re.search(r"[가-힣]", source):
@@ -92,7 +175,10 @@ def _font_file(source: str) -> Path | None:
     elif re.search(r"[ঀ-৿]", source):
         candidates = bengali
     else:
-        candidates = [Path(r"C:\Windows\Fonts\arial.ttf"), Path(r"C:\Windows\Fonts\DejaVuSans.ttf")]
+        candidates = [
+            Path(r"C:\Windows\Fonts\arial.ttf"),
+            Path(r"C:\Windows\Fonts\DejaVuSans.ttf"),
+        ]
     source = next((p for p in candidates if p.exists()), None)
     if source is None:
         return None
@@ -103,7 +189,9 @@ def _font_file(source: str) -> Path | None:
             try:
                 from fontTools.ttLib import TTCollection
             except ImportError:
-                subprocess.check_call([sys.executable, "-m", "pip", "install", "fonttools"])
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", "fonttools"]
+                )
                 from fontTools.ttLib import TTCollection
             collection = TTCollection(source)
             buffer = io.BytesIO()
@@ -118,10 +206,17 @@ def _japanese_svg(svg: str, font_path: Path | None) -> str:
     family = "Meiryo"
     if font_path:
         encoded = base64.b64encode(font_path.read_bytes()).decode("ascii")
-        css = (f"<style>@font-face{{font-family:'{family}';src:url(data:font/ttf;base64,{encoded})}}"
-               f"*{{font-family:'{family}' !important}}</style>")
+        css = (
+            f"<style>@font-face{{font-family:'{family}';src:url(data:font/ttf;base64,{encoded})}}"
+            f"*{{font-family:'{family}' !important}}</style>"
+        )
         svg = svg.replace(">", ">" + css, 1)
-    return re.sub(r"trebuchet ms,?verdana,?arial,sans-serif", f"'{family}', sans-serif", svg, flags=re.I)
+    return re.sub(
+        r"trebuchet ms,?verdana,?arial,sans-serif",
+        f"'{family}', sans-serif",
+        svg,
+        flags=re.I,
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -143,6 +238,7 @@ def run_tool(args: dict[str, Any]) -> str:
         output.write_text(svg, encoding="utf-8")
     elif output.suffix.lower() == ".png":
         import resvg_py
+
         rendered = resvg_py.svg_to_bytes(
             svg_string=svg,
             background=str(args.get("background") or "white"),
@@ -154,7 +250,9 @@ def run_tool(args: dict[str, Any]) -> str:
     else:
         diagram.save(str(output), format="pdf")
     suffix = output.suffix.lower()
-    mime = {".png": "image/png", ".svg": "image/svg+xml", ".pdf": "application/pdf"}[suffix]
+    mime = {".png": "image/png", ".svg": "image/svg+xml", ".pdf": "application/pdf"}[
+        suffix
+    ]
     attachment: dict[str, Any] = {
         "type": "image" if suffix in {".png", ".svg"} else "file",
         "mime": mime,
@@ -162,10 +260,18 @@ def run_tool(args: dict[str, Any]) -> str:
         "path": str(output),
     }
     if bool(args.get("include_base64", True)):
-        attachment["data_base64"] = base64.b64encode(output.read_bytes()).decode("ascii")
+        attachment["data_base64"] = base64.b64encode(output.read_bytes()).decode(
+            "ascii"
+        )
     data = {"saved_files": [str(output)], "attachments": [attachment]}
-    return make_response(True, _("ok.rendered", default="[OK] Mermaid rendered"), data=data)
+    return make_response(
+        True, _("ok.rendered", default="[OK] Mermaid rendered"), data=data
+    )
 
 
 if __name__ == "__main__":
-    print(run_tool({"source": "flowchart TD; A[Start]-->B[Done]", "output_path": "mermaid.png"}))
+    print(
+        run_tool(
+            {"source": "flowchart TD; A[Start]-->B[Done]", "output_path": "mermaid.png"}
+        )
+    )

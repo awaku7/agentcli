@@ -76,7 +76,9 @@ async def fetch_protected_resource_metadata(
         response = await http_client.get(url, headers={"Accept": "application/json"})
     except Exception as exc:
         raise MCPTransportError(
-            "MCP_METADATA_REQUEST_FAILED", "oauth-protected-resource", {"error": str(exc)}
+            "MCP_METADATA_REQUEST_FAILED",
+            "oauth-protected-resource",
+            {"error": str(exc)},
         ) from exc
     payload = _json_response(response, "oauth-protected-resource")
     resource = str(payload.get("resource") or resource_url)
@@ -86,7 +88,9 @@ async def fetch_protected_resource_metadata(
             "oauth-protected-resource",
             {"expected": resource_url, "actual": resource},
         )
-    servers = tuple(str(item) for item in payload.get("authorization_servers", []) if item)
+    servers = tuple(
+        str(item) for item in payload.get("authorization_servers", []) if item
+    )
     if not servers:
         raise MCPProtocolError(
             "MCP_AUTHORIZATION_SERVER_MISSING", "oauth-protected-resource", {}
@@ -105,7 +109,9 @@ async def fetch_authorization_server_metadata(
         response = await http_client.get(url, headers={"Accept": "application/json"})
     except Exception as exc:
         raise MCPTransportError(
-            "MCP_METADATA_REQUEST_FAILED", "oauth-authorization-server", {"error": str(exc)}
+            "MCP_METADATA_REQUEST_FAILED",
+            "oauth-authorization-server",
+            {"error": str(exc)},
         ) from exc
     payload = _json_response(response, "oauth-authorization-server")
     actual_issuer = str(payload.get("issuer") or "")

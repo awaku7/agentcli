@@ -212,8 +212,6 @@ def run_tool(args: dict[str, Any]) -> str:
         if creationflags:
             run_kwargs["creationflags"] = creationflags
 
-
-
     try:
         proc = subprocess.run(**run_kwargs)
     except subprocess.TimeoutExpired:

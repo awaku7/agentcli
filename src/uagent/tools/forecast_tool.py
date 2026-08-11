@@ -145,7 +145,10 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "include_base64": {
                     "type": "boolean",
-                    "description": _("param.include_base64.description", default="Include the forecast plot as base64 for remote clients."),
+                    "description": _(
+                        "param.include_base64.description",
+                        default="Include the forecast plot as base64 for remote clients.",
+                    ),
                     "default": True,
                 },
                 "output_dir": {
@@ -494,8 +497,7 @@ def _run_regression_forecast(
 
     if feature_columns is None or not feature_columns:
         feature_columns = [
-            c for c in df.select_dtypes(include=[np.number]).columns
-            if c != value_col
+            c for c in df.select_dtypes(include=[np.number]).columns if c != value_col
         ]
     if not feature_columns:
         raise ValueError("Regression models require numeric feature_columns")
@@ -505,7 +507,9 @@ def _run_regression_forecast(
     if not future_data:
         raise ValueError("future_data is required for regression forecasts")
 
-    train = df[feature_columns + [value_col]].apply(pd.to_numeric, errors="coerce").dropna()
+    train = (
+        df[feature_columns + [value_col]].apply(pd.to_numeric, errors="coerce").dropna()
+    )
     if len(train) < _MIN_ROWS:
         raise DataTooSmallError(_MIN_ROWS, len(train))
     future = load_data(future_data)
@@ -514,13 +518,17 @@ def _run_regression_forecast(
     _parse_date_column(future, date_col)
     missing_future = [c for c in feature_columns if c not in future.columns]
     if missing_future:
-        raise ValueError(f"Future data is missing feature columns: {', '.join(missing_future)}")
+        raise ValueError(
+            f"Future data is missing feature columns: {', '.join(missing_future)}"
+        )
     future = future.sort_values(date_col).reset_index(drop=True).head(horizon)
     if len(future) < horizon:
         raise ValueError(f"Future data needs at least {horizon} rows")
     x_future = future[feature_columns].apply(pd.to_numeric, errors="coerce")
     if x_future.isna().any().any():
-        raise ValueError("Future feature columns must contain numeric, non-missing values")
+        raise ValueError(
+            "Future feature columns must contain numeric, non-missing values"
+        )
 
     estimators = {
         "LinearRegression": LinearRegression(),
@@ -533,10 +541,13 @@ def _run_regression_forecast(
     estimator.fit(x_train, y_train)
     predictions = np.asarray(estimator.predict(x_future), dtype=float)[:horizon]
     fitted = np.asarray(estimator.predict(x_train), dtype=float)
-    residual_std = float(np.std(y_train.to_numpy() - fitted, ddof=1)) if len(train) > 2 else 0.0
+    residual_std = (
+        float(np.std(y_train.to_numpy() - fitted, ddof=1)) if len(train) > 2 else 0.0
+    )
     if not np.isfinite(residual_std) or residual_std <= 0:
         residual_std = float(np.std(y_train.to_numpy(), ddof=1) * 0.05) or 1.0
     from statistics import NormalDist
+
     z = NormalDist().inv_cdf((1.0 + max(0.0, min(1.0, confidence))) / 2.0)
     lower = [round(float(v - z * residual_std), 4) for v in predictions]
     upper = [round(float(v + z * residual_std), 4) for v in predictions]
@@ -550,7 +561,13 @@ def _run_regression_forecast(
         "r2": round(float(r2_score(y_train, fitted)), 6),
         "feature_columns": feature_columns,
     }
-    return predictions, lower, upper, _calc_metrics(y_train.to_numpy(), fitted), diagnostics
+    return (
+        predictions,
+        lower,
+        upper,
+        _calc_metrics(y_train.to_numpy(), fitted),
+        diagnostics,
+    )
 
 
 # ── Timeout guard ──────────────────────────────────────────────────────
@@ -1305,7 +1322,9 @@ def _select_best_model(
                 rmse_val, elapsed, _, model = _run_with_timeout(_eval, _TIMEOUT_SEC)
                 tier_results.append((rmse_val, elapsed, name, model))
             except Exception:
-                _logger.debug("Forecast model evaluation failed: %s", name, exc_info=True)
+                _logger.debug(
+                    "Forecast model evaluation failed: %s", name, exc_info=True
+                )
                 continue
         if tier_results:
             tier_results.sort(key=lambda x: (x[0], x[1]))
@@ -1355,15 +1374,17 @@ def run_tool(args: dict[str, Any]) -> str:
 
         # 4. Explicit regression with future explanatory variables
         if model_name in {"LinearRegression", "Ridge", "Lasso"}:
-            forecast_vals, ci_lower, ci_upper, metrics, diagnostics = _run_regression_forecast(
-                df,
-                date_col,
-                value_col,
-                horizon,
-                model_name,
-                args.get("feature_columns"),
-                args.get("future_data"),
-                confidence,
+            forecast_vals, ci_lower, ci_upper, metrics, diagnostics = (
+                _run_regression_forecast(
+                    df,
+                    date_col,
+                    value_col,
+                    horizon,
+                    model_name,
+                    args.get("feature_columns"),
+                    args.get("future_data"),
+                    confidence,
+                )
             )
             result = {
                 "best_model": model_name,
@@ -1510,7 +1531,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 }
                 if bool(args.get("include_base64", True)):
                     with open(plot_path, "rb") as plot_file:
-                        attachment["data_base64"] = base64.b64encode(plot_file.read()).decode("ascii")
+                        attachment["data_base64"] = base64.b64encode(
+                            plot_file.read()
+                        ).decode("ascii")
                 result["attachments"] = [attachment]
 
         output = json.dumps(result, ensure_ascii=False, default=str)

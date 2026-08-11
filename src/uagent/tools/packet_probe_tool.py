@@ -1,4 +1,5 @@
 """Low-privilege network probes."""
+
 from __future__ import annotations
 
 import json
@@ -23,11 +24,16 @@ def _probe_tcp(target: str, port: int, timeout: float) -> dict[str, Any]:
         state = "closed"
     except OSError as exc:
         return {"state": "unreachable", "error": str(exc)}
-    return {"state": state, "latency_ms": round((time.perf_counter() - started) * 1000, 3)}
+    return {
+        "state": state,
+        "latency_ms": round((time.perf_counter() - started) * 1000, 3),
+    }
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def _run_elevated_raw(action: str, target: str, port: int) -> str:
@@ -54,14 +60,18 @@ def _run_elevated_raw(action: str, target: str, port: int) -> str:
         request_path,
         {"action": action, "target": target, "port": port, "dry_run": False},
     )
-    command = windows_uac_launcher.build_helper_command(str(request_path), str(result_path))
+    command = windows_uac_launcher.build_helper_command(
+        str(request_path), str(result_path)
+    )
     try:
         windows_uac_launcher.shell_execute_runas(command)
         result = windows_uac_launcher.wait_for_result(result_path, timeout=30)
     except PermissionError:
         return _error("ELEVATION_CANCELLED", "The Windows UAC request was cancelled.")
     except TimeoutError:
-        return _error("ELEVATION_TIMEOUT", "The privileged helper did not return in time.")
+        return _error(
+            "ELEVATION_TIMEOUT", "The privileged helper did not return in time."
+        )
     except Exception as exc:
         return _error("ELEVATION_FAILED", str(exc))
     result["elevated"] = True
@@ -136,10 +146,18 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "action": {"type": "string", "enum": ["tcp_connect", "tcp_syn", "icmp", "arp"]},
+                "action": {
+                    "type": "string",
+                    "enum": ["tcp_connect", "tcp_syn", "icmp", "arp"],
+                },
                 "target": {"type": "string"},
                 "port": {"type": "integer", "minimum": 1, "maximum": 65535},
-                "timeout": {"type": "number", "minimum": 0.1, "maximum": 30, "default": 2},
+                "timeout": {
+                    "type": "number",
+                    "minimum": 0.1,
+                    "maximum": 30,
+                    "default": 2,
+                },
                 "dry_run": {"type": "boolean", "default": False},
                 "allow_elevation": {"type": "boolean", "default": False},
                 "elevation_confirmed": {"type": "boolean", "default": False},

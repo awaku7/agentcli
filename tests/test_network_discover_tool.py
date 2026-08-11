@@ -51,7 +51,11 @@ def test_port_scan_rejects_excessive_ports() -> None:
 
     result = json.loads(
         network_discover_tool.run_tool(
-            {"mode": "port_scan", "target": "192.168.1.10", "ports": list(range(1, 1000))}
+            {
+                "mode": "port_scan",
+                "target": "192.168.1.10",
+                "ports": list(range(1, 1000)),
+            }
         )
     )
 

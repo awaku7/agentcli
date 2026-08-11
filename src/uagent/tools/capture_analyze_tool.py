@@ -5,6 +5,7 @@ This is intentionally an offline integration step: it composes the existing
 starting a live capture. Live capture can be added later behind an explicit
 permission boundary.
 """
+
 from __future__ import annotations
 
 import json
@@ -34,7 +35,11 @@ def _resolve_loopback_interface(requested: str) -> str | None:
             for iface in getattr(interfaces, "values", lambda: [])():
                 name = str(getattr(iface, "name", "") or "")
                 ip = str(getattr(iface, "ip", "") or "")
-                if configured == name or ip == "127.0.0.1" or "loopback" in name.lower():
+                if (
+                    configured == name
+                    or ip == "127.0.0.1"
+                    or "loopback" in name.lower()
+                ):
                     return name or configured or None
             return configured or None
         except Exception:
@@ -95,10 +100,17 @@ def _capture_loopback(args: dict[str, Any]) -> dict[str, Any]:
             "pcap_path": str(Path(path)),
         }
     except PermissionError as exc:
-        return {"ok": False, "error": {"code": "PRIVILEGE_REQUIRED", "message": str(exc)}}
+        return {
+            "ok": False,
+            "error": {"code": "PRIVILEGE_REQUIRED", "message": str(exc)},
+        }
     except Exception as exc:
         message = str(exc)
-        code = "EXTERNAL_DEPENDENCY_MISSING" if "pcap" in message.lower() or "libpcap" in message.lower() else "LIVE_CAPTURE_FAILED"
+        code = (
+            "EXTERNAL_DEPENDENCY_MISSING"
+            if "pcap" in message.lower() or "libpcap" in message.lower()
+            else "LIVE_CAPTURE_FAILED"
+        )
         return {"ok": False, "error": {"code": code, "message": message}}
 
 
@@ -139,21 +151,37 @@ def _flow_findings(flow_result: dict[str, Any]) -> list[dict[str, Any]]:
     return findings
 
 
-def _classify(results: dict[str, dict[str, Any]], errors: list[dict[str, Any]]) -> dict[str, Any]:
+def _classify(
+    results: dict[str, dict[str, Any]], errors: list[dict[str, Any]]
+) -> dict[str, Any]:
     """Classify evidence conservatively; never treat this as an attack verdict."""
     if errors:
-        return {"classification": "unknown", "score": None, "reasons": ["analysis_error"]}
+        return {
+            "classification": "unknown",
+            "score": None,
+            "reasons": ["analysis_error"],
+        }
 
     detect = results.get("detect", {})
     findings = detect.get("findings", []) or []
     categories = {
-        str(item.get("category", ""))
-        for item in findings
-        if isinstance(item, dict)
+        str(item.get("category", "")) for item in findings if isinstance(item, dict)
     }
-    high = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "high")
-    medium = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "medium")
-    low = sum(1 for item in findings if isinstance(item, dict) and item.get("severity") == "low")
+    high = sum(
+        1
+        for item in findings
+        if isinstance(item, dict) and item.get("severity") == "high"
+    )
+    medium = sum(
+        1
+        for item in findings
+        if isinstance(item, dict) and item.get("severity") == "medium"
+    )
+    low = sum(
+        1
+        for item in findings
+        if isinstance(item, dict) and item.get("severity") == "low"
+    )
     reasons = sorted(category for category in categories if category)
     strong = {"port_scan", "host_scan", "beaconing", "syn_flood_candidate"}
     if high > 0 or len(categories & strong) >= 2 or medium >= 2:
@@ -168,10 +196,22 @@ def _classify(results: dict[str, dict[str, Any]], errors: list[dict[str, Any]]) 
     if medium > 0 or low > 0 or max_impact >= 40:
         if max_impact >= 60:
             reasons.append("impact_score")
-        return {"classification": "review", "score": round(max(max_impact, 40), 2), "reasons": reasons}
+        return {
+            "classification": "review",
+            "score": round(max(max_impact, 40), 2),
+            "reasons": reasons,
+        }
     if "detect" in results:
-        return {"classification": "normal", "score": round(max_impact, 2), "reasons": []}
-    return {"classification": "unknown", "score": None, "reasons": ["insufficient_evidence"]}
+        return {
+            "classification": "normal",
+            "score": round(max_impact, 2),
+            "reasons": [],
+        }
+    return {
+        "classification": "unknown",
+        "score": None,
+        "reasons": ["insufficient_evidence"],
+    }
 
 
 def _analysis_args(args: dict[str, Any], operation: str) -> dict[str, Any]:
@@ -214,9 +254,13 @@ def run_tool(args: dict[str, Any]) -> str:
 
     raw_operations = work_args.get("operations", list(_DEFAULT_OPERATIONS))
     if isinstance(raw_operations, str):
-        operations = [item.strip().lower() for item in raw_operations.split(",") if item.strip()]
+        operations = [
+            item.strip().lower() for item in raw_operations.split(",") if item.strip()
+        ]
     elif isinstance(raw_operations, list):
-        operations = [str(item).strip().lower() for item in raw_operations if str(item).strip()]
+        operations = [
+            str(item).strip().lower() for item in raw_operations if str(item).strip()
+        ]
     else:
         operations = list(_DEFAULT_OPERATIONS)
 
@@ -246,7 +290,11 @@ def run_tool(args: dict[str, Any]) -> str:
             errors.append({"operation": operation, "error": result.get("error")})
 
     correlation: dict[str, Any] | None = None
-    if bool(work_args.get("correlate", True)) and "flows" in results and results["flows"].get("ok"):
+    if (
+        bool(work_args.get("correlate", True))
+        and "flows" in results
+        and results["flows"].get("ok")
+    ):
         local_args = {
             "operation": "correlate",
             "findings": _flow_findings(results["flows"]),
@@ -272,7 +320,9 @@ def run_tool(args: dict[str, Any]) -> str:
             "warnings": (
                 ["Live capture is restricted to a loopback interface."]
                 if capture_info is not None
-                else ["This operation analyzes an existing pcap; it does not start live capture."]
+                else [
+                    "This operation analyzes an existing pcap; it does not start live capture."
+                ]
             ),
             "errors": errors,
         },
@@ -292,24 +342,81 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "pcap_path": {"type": "string", "description": _("param.pcap_path.description", default="Input pcap path; omit when live_capture is true.")},
-                "live_capture": {"type": "boolean", "default": False, "description": _("param.live_capture.description", default="Capture only on a loopback interface before analyzing.")},
-                "interface": {"type": "string", "default": "loopback", "description": _("param.interface.description", default="Loopback interface alias or name; non-loopback interfaces are rejected.")},
-                "duration": {"type": "integer", "minimum": 1, "maximum": 60, "default": 10, "description": _("param.duration.description", default="Live capture duration in seconds.")},
-                "max_packets": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 1000, "description": _("param.max_packets.description", default="Maximum packets captured.")},
-                "bpf_filter": {"type": "string", "description": _("param.bpf_filter.description", default="Optional BPF capture filter.")},
+                "pcap_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.pcap_path.description",
+                        default="Input pcap path; omit when live_capture is true.",
+                    ),
+                },
+                "live_capture": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.live_capture.description",
+                        default="Capture only on a loopback interface before analyzing.",
+                    ),
+                },
+                "interface": {
+                    "type": "string",
+                    "default": "loopback",
+                    "description": _(
+                        "param.interface.description",
+                        default="Loopback interface alias or name; non-loopback interfaces are rejected.",
+                    ),
+                },
+                "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 60,
+                    "default": 10,
+                    "description": _(
+                        "param.duration.description",
+                        default="Live capture duration in seconds.",
+                    ),
+                },
+                "max_packets": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000,
+                    "default": 1000,
+                    "description": _(
+                        "param.max_packets.description",
+                        default="Maximum packets captured.",
+                    ),
+                },
+                "bpf_filter": {
+                    "type": "string",
+                    "description": _(
+                        "param.bpf_filter.description",
+                        default="Optional BPF capture filter.",
+                    ),
+                },
                 "operations": {
                     "type": "array",
                     "items": {"type": "string", "enum": sorted(_ALLOWED_OPERATIONS)},
                     "default": list(_DEFAULT_OPERATIONS),
-                    "description": _("param.operations.description", default="Analysis operations: summary, statistics, flows, detect, impact."),
+                    "description": _(
+                        "param.operations.description",
+                        default="Analysis operations: summary, statistics, flows, detect, impact.",
+                    ),
                 },
                 "correlate": {"type": "boolean", "default": True},
-                "detail_level": {"type": "integer", "minimum": 0, "maximum": 2, "default": 1},
+                "detail_level": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2,
+                    "default": 1,
+                },
                 "rules": {"type": "array", "items": {"type": "string"}},
                 "thresholds": {"type": "object"},
                 "filter": {"type": "object"},
-                "limit": {"type": "integer", "minimum": 1, "maximum": 100000, "default": 1000},
+                "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100000,
+                    "default": 1000,
+                },
                 "status": {"type": "string"},
                 "local_ip": {"type": "string"},
                 "remote_ip": {"type": "string"},

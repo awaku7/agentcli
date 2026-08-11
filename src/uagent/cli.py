@@ -304,17 +304,49 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         help_arg = stripped[help_prefix_len:]
                         if " " not in help_arg:
                             help_topics = {
-                                "help", "h", "?", "cd", "ls", "logs", "load",
-                                "cont", "clean", "shrink", "shrink_llm", "tokens",
-                                "response", "env", "skills", "tools", "tool", "auto",
-                                "model", "r", "reasoning", "v", "verbosity", "mem-list",
-                                "mem-del", "profile", "profile-fromlog", "profile-clear",
-                                "cp", "mv", "rm", "head", "tail", "reload", "exit", "quit",
+                                "help",
+                                "h",
+                                "?",
+                                "cd",
+                                "ls",
+                                "logs",
+                                "load",
+                                "cont",
+                                "clean",
+                                "shrink",
+                                "shrink_llm",
+                                "tokens",
+                                "response",
+                                "env",
+                                "skills",
+                                "tools",
+                                "tool",
+                                "auto",
+                                "model",
+                                "r",
+                                "reasoning",
+                                "v",
+                                "verbosity",
+                                "mem-list",
+                                "mem-del",
+                                "profile",
+                                "profile-fromlog",
+                                "profile-clear",
+                                "cp",
+                                "mv",
+                                "rm",
+                                "head",
+                                "tail",
+                                "reload",
+                                "exit",
+                                "quit",
                             }
                             help_topics.update(dyn_map)
                             for topic in sorted(help_topics):
                                 if topic.startswith(help_arg):
-                                    yield Completion(topic, start_position=-len(help_arg))
+                                    yield Completion(
+                                        topic, start_position=-len(help_arg)
+                                    )
                     elif stripped.startswith((":tools ", ":tool ")):
                         # :tools or :tool subcommand completion
                         cmd_prefix_len = (

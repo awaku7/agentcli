@@ -41,8 +41,7 @@ def test_authorization_session_builds_pkce_url_and_stores_token(tmp_path: Path) 
 
         def handler(http_request: httpx.Request) -> httpx.Response:
             body = dict(
-                pair.split("=", 1)
-                for pair in http_request.content.decode().split("&")
+                pair.split("=", 1) for pair in http_request.content.decode().split("&")
             )
             assert body["code"] == "code-1"
             assert body["code_verifier"] == request.code_verifier
@@ -65,7 +64,10 @@ def test_authorization_session_builds_pkce_url_and_stores_token(tmp_path: Path) 
                 http_client=client,
             )
         assert token.access_token == "access-1"
-        assert store.load(metadata.issuer, "https://mcp.example/mcp").refresh_token == "refresh-1"
+        assert (
+            store.load(metadata.issuer, "https://mcp.example/mcp").refresh_token
+            == "refresh-1"
+        )
         assert json.loads((tmp_path / "tokens.json").read_text())
 
     asyncio.run(scenario())

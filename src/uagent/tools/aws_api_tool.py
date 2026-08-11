@@ -38,9 +38,7 @@ def _boto_session() -> Any:
             display_name="boto3",
             version_spec=">=1.35.0",
         ):
-            raise RuntimeError(
-                "Automatic boto3 installation failed."
-            )
+            raise RuntimeError("Automatic boto3 installation failed.")
         import boto3
     access_key = os.getenv("UAGENT_AWS_ACCESS_KEY_ID") or None
     secret_key = os.getenv("UAGENT_AWS_SECRET_ACCESS_KEY") or None
@@ -48,9 +46,11 @@ def _boto_session() -> Any:
         aws_access_key_id=access_key,
         aws_secret_access_key=secret_key,
         aws_session_token=os.getenv("UAGENT_AWS_SESSION_TOKEN") or None,
-        profile_name=(os.getenv("UAGENT_AWS_PROFILE") or None)
-        if not (access_key and secret_key)
-        else None,
+        profile_name=(
+            (os.getenv("UAGENT_AWS_PROFILE") or None)
+            if not (access_key and secret_key)
+            else None
+        ),
         region_name=os.getenv("UAGENT_AWS_REGION") or None,
     )
 
@@ -114,9 +114,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 {
                     "service": service,
                     "read_only": not include_write,
-                    "operations": _all_operations(client)
-                    if include_write
-                    else _readonly_operations(client),
+                    "operations": (
+                        _all_operations(client)
+                        if include_write
+                        else _readonly_operations(client)
+                    ),
                 },
                 ensure_ascii=False,
             )
@@ -134,7 +136,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 f"Read-only policy rejected operation: {operation}. "
                 "Set confirm_write=true to explicitly authorize a write operation."
             )
-        allowed = _all_operations(client) if confirm_write else _readonly_operations(client)
+        allowed = (
+            _all_operations(client) if confirm_write else _readonly_operations(client)
+        )
         if operation not in allowed:
             raise ValueError(f"Unknown AWS operation: {operation}")
 
@@ -178,7 +182,13 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["aws", "amazon web services", "boto3", "cloud", "aws_api"],
         ),
-        "x_search_terms_en": ["aws", "amazon web services", "boto3", "cloud", "aws_api"],
+        "x_search_terms_en": [
+            "aws",
+            "amazon web services",
+            "boto3",
+            "cloud",
+            "aws_api",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

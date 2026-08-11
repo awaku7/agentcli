@@ -10,11 +10,25 @@ def test_extract_filters_tcp_destination_port_and_returns_metadata(
     from uagent.tools import pcap_analyze_tool
 
     packets = [
-        {"src_ip": "192.168.1.10", "dst_ip": "192.168.1.20", "protocol": "tcp", "dst_port": 443, "length": 100},
-        {"src_ip": "192.168.1.10", "dst_ip": "192.168.1.20", "protocol": "tcp", "dst_port": 80, "length": 100},
+        {
+            "src_ip": "192.168.1.10",
+            "dst_ip": "192.168.1.20",
+            "protocol": "tcp",
+            "dst_port": 443,
+            "length": 100,
+        },
+        {
+            "src_ip": "192.168.1.10",
+            "dst_ip": "192.168.1.20",
+            "protocol": "tcp",
+            "dst_port": 80,
+            "length": 100,
+        },
     ]
     monkeypatch.setattr(pcap_analyze_tool, "_iter_packets", lambda _path: iter(packets))
-    monkeypatch.setattr(pcap_analyze_tool, "_write_packet", lambda _writer, packet: None)
+    monkeypatch.setattr(
+        pcap_analyze_tool, "_write_packet", lambda _writer, packet: None
+    )
 
     source = tmp_path / "capture.pcap"
     output = tmp_path / "filtered.pcap"
@@ -64,7 +78,9 @@ def test_extract_respects_limit(tmp_path: Path, monkeypatch) -> None:
 
     packets = [{"protocol": "tcp", "length": 64} for _ in range(5)]
     monkeypatch.setattr(pcap_analyze_tool, "_iter_packets", lambda _path: iter(packets))
-    monkeypatch.setattr(pcap_analyze_tool, "_write_packet", lambda _writer, packet: None)
+    monkeypatch.setattr(
+        pcap_analyze_tool, "_write_packet", lambda _writer, packet: None
+    )
 
     source = tmp_path / "capture.pcap"
     output = tmp_path / "filtered.pcap"
@@ -92,7 +108,9 @@ def test_default_response_does_not_include_payload(tmp_path: Path, monkeypatch) 
 
     packets = [{"protocol": "tcp", "length": 64, "payload": b"secret"}]
     monkeypatch.setattr(pcap_analyze_tool, "_iter_packets", lambda _path: iter(packets))
-    monkeypatch.setattr(pcap_analyze_tool, "_write_packet", lambda _writer, packet: None)
+    monkeypatch.setattr(
+        pcap_analyze_tool, "_write_packet", lambda _writer, packet: None
+    )
 
     source = tmp_path / "capture.pcap"
     output = tmp_path / "filtered.pcap"

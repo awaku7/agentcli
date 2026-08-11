@@ -1,4 +1,5 @@
 """Low-dependency protocol field inspection for local pcap files."""
+
 from __future__ import annotations
 
 import json
@@ -41,31 +42,58 @@ def _find_tshark() -> str | None:
             r"C:\Program Files (x86)\Wireshark\tshark.exe",
         ]
     else:
-        candidates = ["/usr/bin/tshark", "/usr/local/bin/tshark", "/opt/homebrew/bin/tshark"]
-    return next((candidate for candidate in candidates if os.path.isfile(candidate)), None)
+        candidates = [
+            "/usr/bin/tshark",
+            "/usr/local/bin/tshark",
+            "/opt/homebrew/bin/tshark",
+        ]
+    return next(
+        (candidate for candidate in candidates if os.path.isfile(candidate)), None
+    )
 
 
-def _run_tshark(path: str, display_filter: str, fields: list[str], limit: int) -> list[dict[str, Any]]:
+def _run_tshark(
+    path: str, display_filter: str, fields: list[str], limit: int
+) -> list[dict[str, Any]]:
     if any(any(char in field for char in "\r\n\t ;|") for field in fields):
         raise ValueError("invalid tshark field")
     tshark_path = _find_tshark()
     if not tshark_path:
         raise FileNotFoundError("tshark executable was not found")
-    argv = [tshark_path, "-r", path, "-Y", display_filter, "-T", "fields", "-E", "separator=	"]
+    argv = [
+        tshark_path,
+        "-r",
+        path,
+        "-Y",
+        display_filter,
+        "-T",
+        "fields",
+        "-E",
+        "separator=	",
+    ]
     for field in fields:
         argv.extend(["-e", field])
-    result = subprocess.run(argv, capture_output=True, text=True, timeout=60, check=False)
+    result = subprocess.run(
+        argv, capture_output=True, text=True, timeout=60, check=False
+    )
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or "tshark failed")
     rows = []
     for line in result.stdout.splitlines()[:limit]:
         values = line.split("	")
-        rows.append({field: (values[index] if index < len(values) else None) for index, field in enumerate(fields)})
+        rows.append(
+            {
+                field: (values[index] if index < len(values) else None)
+                for index, field in enumerate(fields)
+            }
+        )
     return rows
 
 
 def _error(code: str, message: str) -> str:
-    return json.dumps({"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": False, "error": {"code": code, "message": message}}, ensure_ascii=False
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -74,7 +102,13 @@ def run_tool(args: dict[str, Any]) -> str:
         return _error("INPUT_REQUIRED", "pcap_path is required.")
     backend = str(args.get("backend", "scapy")).lower()
     display_filter = str(args.get("display_filter", "")).strip()
-    raw_fields = args.get("fields") or ["timestamp", "src_ip", "dst_ip", "protocol", "length"]
+    raw_fields = args.get("fields") or [
+        "timestamp",
+        "src_ip",
+        "dst_ip",
+        "protocol",
+        "length",
+    ]
     if not isinstance(raw_fields, list):
         return _error("INVALID_FIELDS", "fields must be a list.")
     fields = [str(field) for field in raw_fields]
@@ -90,12 +124,23 @@ def run_tool(args: dict[str, Any]) -> str:
         if tshark_path:
             try:
                 rows = _run_tshark(str(source), display_filter, fields, limit)
-                return json.dumps({"ok": True, "backend": "tshark", "packets": rows, "returned_packets": len(rows), "truncated": len(rows) >= limit}, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": True,
+                        "backend": "tshark",
+                        "packets": rows,
+                        "returned_packets": len(rows),
+                        "truncated": len(rows) >= limit,
+                    },
+                    ensure_ascii=False,
+                )
             except Exception as exc:
                 if backend == "tshark":
                     return _error("TSHARK_FAILED", str(exc))
         elif backend == "tshark":
-            return _error("EXTERNAL_DEPENDENCY_MISSING", "tshark executable was not found.")
+            return _error(
+                "EXTERNAL_DEPENDENCY_MISSING", "tshark executable was not found."
+            )
         degraded = True
     else:
         degraded = False
@@ -141,10 +186,25 @@ TOOL_SPEC: dict[str, Any] = {
             "type": "object",
             "properties": {
                 "pcap_path": {"type": "string"},
-                "backend": {"type": "string", "enum": ["scapy", "auto", "tshark"], "default": "scapy"},
-                "display_filter": {"type": "string", "description": _("param.display_filter.description", default="Optional tshark display filter.")},
+                "backend": {
+                    "type": "string",
+                    "enum": ["scapy", "auto", "tshark"],
+                    "default": "scapy",
+                },
+                "display_filter": {
+                    "type": "string",
+                    "description": _(
+                        "param.display_filter.description",
+                        default="Optional tshark display filter.",
+                    ),
+                },
                 "fields": {"type": "array", "items": {"type": "string"}},
-                "limit": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 100},
+                "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000,
+                    "default": 100,
+                },
             },
             "required": ["pcap_path"],
         },

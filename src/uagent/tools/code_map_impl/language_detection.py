@@ -1,4 +1,5 @@
 """Language detection and symbol pattern definitions for code_map."""
+
 from __future__ import annotations
 
 import re
@@ -168,22 +169,50 @@ SYMBOL_PATTERNS: dict[str, list[str]] = {
 
 
 RELATION_LANGUAGES: set[str] = {
-    "Python", "TypeScript", "JavaScript", "TypeScript (React)",
-    "JavaScript (React)", "Go", "Rust", "COBOL", "COBOL Copybook",
-    "Java", "Kotlin", "Kotlin Script", "Scala", "C", "C++",
-    "C/C++ Header", "Objective-C", "Objective-C++", "C#", "PHP", "Ruby",
-    "Swift", "Dart", "Lua", "R", "VBA", "LotusScript",
+    "Python",
+    "TypeScript",
+    "JavaScript",
+    "TypeScript (React)",
+    "JavaScript (React)",
+    "Go",
+    "Rust",
+    "COBOL",
+    "COBOL Copybook",
+    "Java",
+    "Kotlin",
+    "Kotlin Script",
+    "Scala",
+    "C",
+    "C++",
+    "C/C++ Header",
+    "Objective-C",
+    "Objective-C++",
+    "C#",
+    "PHP",
+    "Ruby",
+    "Swift",
+    "Dart",
+    "Lua",
+    "R",
+    "VBA",
+    "LotusScript",
 }
 
 
 def detect_source_language(filepath: str) -> str:
     """Detect ambiguous header language using conservative content heuristics."""
-    ext=Path(filepath).suffix.lower()
+    ext = Path(filepath).suffix.lower()
     if ext not in (".h", ".hpp"):
         return EXTENSION_MAP.get(ext, "Unknown")
-    try: text=Path(filepath).read_text(encoding="utf-8", errors="replace")
-    except OSError: return EXTENSION_MAP.get(ext, "Unknown")
-    if re.search(r"@(?:interface|implementation|protocol|property|class|end)\b|#\s*import\b", text):
+    try:
+        text = Path(filepath).read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return EXTENSION_MAP.get(ext, "Unknown")
+    if re.search(
+        r"@(?:interface|implementation|protocol|property|class|end)\b|#\s*import\b",
+        text,
+    ):
         return "Objective-C" if ext == ".h" else "Objective-C++"
-    if re.search(r"\b(?:namespace|template|class)\b|std::|#\s*include\s*<", text): return "C++ Header"
+    if re.search(r"\b(?:namespace|template|class)\b|std::|#\s*include\s*<", text):
+        return "C++ Header"
     return "C/C++ Header"

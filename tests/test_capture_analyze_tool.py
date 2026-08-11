@@ -12,9 +12,7 @@ def test_missing_pcap_path_is_structured_error() -> None:
 
 
 def test_live_capture_rejects_non_loopback_interface() -> None:
-    result = json.loads(
-        tool.run_tool({"live_capture": True, "interface": "Ethernet"})
-    )
+    result = json.loads(tool.run_tool({"live_capture": True, "interface": "Ethernet"}))
     assert result["ok"] is False
     assert result["error"]["code"] == "INTERFACE_NOT_ALLOWED"
 
@@ -35,7 +33,9 @@ def test_live_capture_composes_analysis(monkeypatch) -> None:
     monkeypatch.setattr(
         tool.pcap_analyze_tool,
         "run_tool",
-        lambda args: json.dumps({"ok": True, "operation": args["operation"], "findings": []}),
+        lambda args: json.dumps(
+            {"ok": True, "operation": args["operation"], "findings": []}
+        ),
     )
     monkeypatch.setattr(
         tool.local_network_tool,
@@ -102,7 +102,9 @@ def test_classification_is_conservative() -> None:
 
     review = tool._classify(
         {
-            "detect": {"findings": [{"category": "unusual_port", "severity": "medium"}]},
+            "detect": {
+                "findings": [{"category": "unusual_port", "severity": "medium"}]
+            },
             "impact": {"devices": []},
         },
         [],

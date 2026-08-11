@@ -158,7 +158,7 @@ def _notify_display(msg: str) -> None:
 
     Only enqueue the notification so the BLE receive thread is not blocked.
     Actual display is serialized by the dedicated worker thread using core print_lock.
-"""
+    """
     if not _DEBUG and msg.startswith("[bitchat] [debug]"):
         return
     try:
@@ -646,7 +646,7 @@ def _split_text_chunks(text: str, max_bytes: int = _TEXT_CHUNK_BYTES) -> list[st
     """Split text so it stays within max_bytes in UTF-8 bytes.
 
     Adjust boundaries so multibyte characters are not split. Encode with errors="replace" so isolated surrogates from Windows console input do not fail (they become U+FFFD).
-"""
+    """
     if not text:
         return []
     raw = text.encode("utf-8", errors="replace")
@@ -686,7 +686,7 @@ def enqueue_send(
     via: 'ble' (BLE Mesh), 'nostr' (Nostr relays), or 'both' (both transports).
 
     Split text into BLE single-frame-sized chunks (_TEXT_CHUNK_BYTES). Avoid fragmentation and compression to preserve Android app compatibility. Nostr (1MB) and files (1MB) have larger limits and do not need splitting.
-"""
+    """
     if type_ == "text":
         if isinstance(payload, bytes):
             try:
@@ -775,7 +775,7 @@ def _resolve_recipient_hex(recipient: str | None) -> str | None:
     - Return it unchanged if it is already valid hex
     - If it is a nickname, reverse-lookup peer_id_hex from _PEER_NICKNAMES
     - Return None if it cannot be resolved (the caller sends a drop notification)
-"""
+    """
     if not recipient:
         return None
     r = recipient.strip()
@@ -985,7 +985,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         - Android SecurityManager excludes NOISE_HANDSHAKE / NOISE_ENCRYPTED from signature verification
         - Omitting signatures and padding keeps the wire packet small enough for BLE
         - Android decode also handles frames without padding
-"""
+        """
         recipient_bytes = bytes.fromhex(recipient_hex) if recipient_hex else None
         pkt = BitchatPacket(
             version=1,
@@ -2031,7 +2031,7 @@ def _sanitize_mesh_text(text: str) -> str:
 
     - Remove ANSI escape sequences (such as ESC[90m)
     - Remove lines beginning with [STATE], [TOOL], [INFO], [WARN], or [ERROR]
-"""
+    """
     text = _ANSI_ESCAPE_RE.sub("", text)
     cleaned = [
         ln for ln in text.splitlines() if not ln.strip().startswith(_MESH_JUNK_PREFIXES)

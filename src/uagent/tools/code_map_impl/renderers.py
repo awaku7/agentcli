@@ -1,4 +1,5 @@
 """Output renderers for code_map."""
+
 from __future__ import annotations
 
 import urllib.request
@@ -17,6 +18,7 @@ def _make_uri(path: str, root: str) -> str:
 
 def _make_symbol_uri(symbol_name: str, file_uri: str) -> str:
     return f"{file_uri}#{symbol_name}"
+
 
 def build_ontology(
     core_result: dict[str, Any],
@@ -122,9 +124,7 @@ def _symbol_type_to_ontology(symbol_type: str) -> str:
 # ---------------------------------------------------------------------------
 
 
-def build_tree(
-    file_list: list[str], root: str, max_depth: int
-) -> list[dict[str, Any]]:
+def build_tree(file_list: list[str], root: str, max_depth: int) -> list[dict[str, Any]]:
     """Build a nested tree structure from flat file list."""
     root_path = Path(root).resolve()
     tree: list[dict[str, Any]] = []
@@ -264,5 +264,3 @@ def render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
 # ---------------------------------------------------------------------------
 # Main logic
 # ---------------------------------------------------------------------------
-
-

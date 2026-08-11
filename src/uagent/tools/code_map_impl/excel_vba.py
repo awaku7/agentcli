@@ -1,4 +1,5 @@
 """Safe, static extraction of VBA modules from macro-enabled workbooks."""
+
 from __future__ import annotations
 
 import tempfile
@@ -8,7 +9,9 @@ from typing import Any
 from ..._pip_auto import install_with_status
 
 
-def extract_vba_modules(workbook: Path) -> tuple[tempfile.TemporaryDirectory[str], Path, list[dict[str, Any]]]:
+def extract_vba_modules(
+    workbook: Path,
+) -> tuple[tempfile.TemporaryDirectory[str], Path, list[dict[str, Any]]]:
     """Extract VBA source modules without executing the workbook.
 
     ``oletools`` is optional and is installed on demand only for Excel macro

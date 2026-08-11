@@ -8,7 +8,6 @@ import pytest
 from uagent.tools.mcp.errors import MCPProtocolError
 from uagent.tools.mcp.oauth_cimd import fetch_client_metadata, parse_client_metadata
 
-
 CLIENT_ID = "https://client.example/metadata.json"
 
 
@@ -48,9 +47,7 @@ def test_fetch_cimd_uses_client_id_url() -> None:
                 },
             )
 
-        async with httpx.AsyncClient(
-            transport=httpx.MockTransport(handler)
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
             metadata = await fetch_client_metadata(CLIENT_ID, http_client=client)
         assert metadata.client_id == CLIENT_ID
         assert requested == [CLIENT_ID]

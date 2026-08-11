@@ -83,15 +83,41 @@ TOOL_SPEC: dict[str, Any] = {
     "x_parallel_safe": True,
     "function": {
         "name": "vba2idx",
-        "description": _("tool.description", default="Parse VBA definitions into an index or return one selected section."),
-        "x_search_terms": _("x_search_terms", default=["vba2idx", "VBA", "macro", "Sub", "Function", "Property"]),
+        "description": _(
+            "tool.description",
+            default="Parse VBA definitions into an index or return one selected section.",
+        ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["vba2idx", "VBA", "macro", "Sub", "Function", "Property"],
+        ),
         "x_search_terms_en": ["vba2idx", "VBA", "macro", "Sub", "Function", "Property"],
         "parameters": {
             "type": "object",
             "properties": {
-                "path": {"type": "string", "description": _("param.path", default="Path to a VBA source file.")},
-                "mode": {"type": "string", "enum": ["index", "section"], "default": "index", "description": _("param.mode", default="index for a numbered index, section for one definition.")},
-                "section": {"type": "integer", "minimum": 1, "description": _("param.section", default="1-based section number when mode is section.")},
+                "path": {
+                    "type": "string",
+                    "description": _(
+                        "param.path", default="Path to a VBA source file."
+                    ),
+                },
+                "mode": {
+                    "type": "string",
+                    "enum": ["index", "section"],
+                    "default": "index",
+                    "description": _(
+                        "param.mode",
+                        default="index for a numbered index, section for one definition.",
+                    ),
+                },
+                "section": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": _(
+                        "param.section",
+                        default="1-based section number when mode is section.",
+                    ),
+                },
             },
             "required": ["path"],
             "additionalProperties": False,

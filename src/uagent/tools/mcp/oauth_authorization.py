@@ -63,7 +63,9 @@ class OAuthAuthorizationSession:
         self.state = generate_state()
         self.code_verifier = generate_code_verifier()
 
-    def authorization_request(self, *, extra_params: dict[str, str] | None = None) -> AuthorizationRequest:
+    def authorization_request(
+        self, *, extra_params: dict[str, str] | None = None
+    ) -> AuthorizationRequest:
         url = build_authorization_url(
             self.metadata.authorization_endpoint,
             client_id=self.client_id,

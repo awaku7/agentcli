@@ -110,11 +110,15 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         connection, _resolved_name = _resolve(args)
         if not connection.get("url") and not connection.get("command"):
-            return _("err.endpoint_required", default="Error: MCP endpoint is required.")
+            return _(
+                "err.endpoint_required", default="Error: MCP endpoint is required."
+            )
         connection["protocol_mode"] = str(
             args.get("protocol_mode") or connection.get("protocol_mode") or "auto"
         )
         result = asyncio.run(_request(connection, action, name, arguments))
         return json.dumps(result, ensure_ascii=False, default=str)
     except Exception as exc:
-        return _("err.request", default="Error: MCP prompt request failed: %(error)s") % {"error": exc}
+        return _(
+            "err.request", default="Error: MCP prompt request failed: %(error)s"
+        ) % {"error": exc}

@@ -22,7 +22,9 @@ def _run(tmp_path: Path, monkeypatch, packets: list[dict]) -> dict:
     )
 
 
-def test_tcp_reverse_ephemeral_port_is_not_reported(tmp_path: Path, monkeypatch) -> None:
+def test_tcp_reverse_ephemeral_port_is_not_reported(
+    tmp_path: Path, monkeypatch
+) -> None:
     result = _run(
         tmp_path,
         monkeypatch,
@@ -52,7 +54,9 @@ def test_tcp_reverse_ephemeral_port_is_not_reported(tmp_path: Path, monkeypatch)
     assert result["findings"] == []
 
 
-def test_tcp_service_port_is_reported_from_initial_syn(tmp_path: Path, monkeypatch) -> None:
+def test_tcp_service_port_is_reported_from_initial_syn(
+    tmp_path: Path, monkeypatch
+) -> None:
     result = _run(
         tmp_path,
         monkeypatch,
@@ -86,7 +90,9 @@ def test_tcp_service_port_is_reported_from_initial_syn(tmp_path: Path, monkeypat
     assert finding["evidence"]["direction_basis"] == "tcp_initial_syn"
 
 
-def test_udp_direction_remains_datagram_destination(tmp_path: Path, monkeypatch) -> None:
+def test_udp_direction_remains_datagram_destination(
+    tmp_path: Path, monkeypatch
+) -> None:
     result = _run(
         tmp_path,
         monkeypatch,
@@ -107,7 +113,9 @@ def test_udp_direction_remains_datagram_destination(tmp_path: Path, monkeypatch)
     assert result["findings"][0]["evidence"]["direction_basis"] == "packet_destination"
 
 
-def test_partial_tcp_capture_is_not_classified_directionally(tmp_path: Path, monkeypatch) -> None:
+def test_partial_tcp_capture_is_not_classified_directionally(
+    tmp_path: Path, monkeypatch
+) -> None:
     result = _run(
         tmp_path,
         monkeypatch,
