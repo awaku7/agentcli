@@ -4623,3 +4623,34 @@ msgstr "%(n)d 활성화됨: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"당신은 reviewer입니다. 아래 대화를 평가하고 \"%(goal)s\" 목표가 달성되었는지 확인하세요.\n"
+"달성됨 → COMPLETE\n"
+"더 필요함 → CONTINUE\n"
+"COMPLETE 또는 CONTINUE로 답장하세요.\n"
+"CONTINUE인 경우 아직 누락된 내용을 간략하게 설명하세요.\n"
+"형식: CONTINUE: <이유>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"summary 텍스트만 반환합니다."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"정리된 JSON 객체만 반환합니다."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"당신은 translation 엔진입니다. 사용자의 텍스트를 충실하게 번역하세요. 설명을 추가하지 마십시오. 코드 블록, 인라인 코드, JSON, 파일 경로 및 URL을 그대로 보존합니다."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"사용자 요청에 외부 도구가 필요할 수 있는 경우 해당 도구를 사용할 수 없다고 주장하지 마십시오. 필요한 도구를 찾으려면 먼저 간결한 쿼리로 tool_catalog을 호출하고 필요한 경우 tool_load을 호출한 다음 사용자에게 응답하세요. JSON 예제를 인쇄하는 대신 사용 가능한 도구 기능을 사용하십시오."

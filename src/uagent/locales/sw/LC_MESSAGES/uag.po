@@ -4688,3 +4688,34 @@ msgstr "%(n)d imewashwa: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Wewe ni reviewer. Tathmini mazungumzo yaliyo hapa chini na ubaini ikiwa lengo \"%(goal)s\" limeafikiwa.\n"
+"Imefikiwa → COMPLETE\n"
+"Inahitajika zaidi → CONTINUE\n"
+"Jibu ukitumia COMPLETE au CONTINUE.\n"
+"Kama CONTINUE, eleza kwa ufupi kile ambacho bado kinakosekana.\n"
+"Rea_2:"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Rudisha maandishi summary pekee."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Rudisha tu kitu JSON kilichosafishwa."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Wewe ni translation injini. Tafsiri maandishi ya mtumiaji kwa uaminifu. Usiongeze maelezo. Hifadhi vizuizi vya misimbo, msimbo wa ndani, JSON, njia za faili na URL kwa neno moja."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Wakati ombi la mtumiaji linaweza kuhitaji zana ya nje, usidai kuwa zana hiyo haipatikani. Kwanza piga simu tool_catalog ukiwa na swali fupi ili kupata zana inayohitajika, kisha piga tool_load ikihitajika, kisha ujibu mtumiaji. Tumia zana zinazopatikana za kukokotoa badala ya kuchapisha mfano wa JSON."

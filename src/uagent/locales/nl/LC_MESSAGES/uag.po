@@ -4813,3 +4813,34 @@ msgstr "%(n)d ingeschakeld: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Je bent een reviewer. Evalueer het onderstaande gesprek en bepaal of het doel '%(goal)s' is bereikt.\n"
+"Behaald → COMPLETE\n"
+"Meer nodig → CONTINUE\n"
+"Reageer met COMPLETE of CONTINUE.\n"
+"Indien CONTINUE, vermeld kort wat er nog ontbreekt.\n"
+"Formaat: CONTINUE: <reden>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Retourneert alleen de tekst summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Retourneer alleen het gereinigde object JSON."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Je bent een translation-motor. Vertaal de tekst van de gebruiker getrouw. Voeg geen uitleg toe. Bewaar codeblokken, inline code, JSON, bestandspaden en URL's woordelijk."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Wanneer voor een gebruikersverzoek mogelijk een extern hulpmiddel nodig is, mag u niet beweren dat het hulpmiddel niet beschikbaar is. Bel eerst tool_catalog met een korte vraag om het benodigde gereedschap te vinden, bel vervolgens indien nodig tool_load en antwoord dan pas de gebruiker. Gebruik de beschikbare toolfuncties in plaats van een JSON-voorbeeld af te drukken."

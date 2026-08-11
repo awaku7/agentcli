@@ -4836,3 +4836,34 @@ msgstr "%(n)d engedélyezve: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Ön reviewer. Értékelje az alábbi beszélgetést, és állapítsa meg, hogy a „%(goal)s” cél megvalósult-e.\n"
+"Elért → COMPLETE\n"
+"További szükséges → CONTINUE\n"
+"Válaszoljon a következővel: COMPLETE vagy CONTINUE.\n"
+"Ha CONTINUE, röviden adja meg, mi hiányzik még.\n"
+"Formátum: <re___2>:"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Csak a summary szöveget adja vissza."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Csak a megtisztított JSON objektumot adja vissza."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Ön egy translation motor. Fordítsa le hűen a felhasználó szövegét. Ne adjon hozzá magyarázatokat. Szó szerint őrizze meg a kódblokkokat, a soron belüli kódot, a JSON-et, a fájl útvonalakat és az URL-eket."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Ha egy felhasználói kérés külső eszközt igényel, ne állítsa, hogy az eszköz nem elérhető. Először hívja a tool_catalog számot egy tömör lekérdezéssel, hogy megtalálja a kívánt eszközt, majd hívja a tool_load számot, ha szükséges, és csak ezután válaszoljon a felhasználónak. A JSON példa nyomtatása helyett használja a rendelkezésre álló eszközfunkciókat."

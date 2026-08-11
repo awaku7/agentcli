@@ -4605,3 +4605,34 @@ msgstr "%(n)d 已启用：%(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的工作目录路径是文件：%(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"您是 reviewer。评估下面的对话并确定目标“%(goal)s”是否已实现。\n"
+"已实现→COMPLETE\n"
+"需要更多→CONTINUE\n"
+"回复COMPLETE或CONTINUE。\n"
+"如果是CONTINUE，请简要说明还缺少什么。\n"
+"格式：CONTINUE：<原因>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"仅返回 summary 文本。"
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"仅返回清理后的 JSON 对象。"
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"您是 translation 引擎。忠实翻译用户的文本。不要添加解释。逐字保留代码块、内联代码、JSON、文件路径和 URL。"
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"当用户请求可能需要外部工具时，不要声称该工具不可用。首先通过简洁的查询调用 tool_catalog 来查找所需的工具，然后在需要时调用 tool_load，然后才回答用户。使用可用的工具功能而不是打印 JSON 示例。"

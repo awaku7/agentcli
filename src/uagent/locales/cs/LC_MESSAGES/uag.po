@@ -4810,3 +4810,34 @@ msgstr "%(n)d povoleno: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Jste reviewer. Vyhodnoťte níže uvedenou konverzaci a určete, zda bylo dosaženo cíle „%(goal)s“.\n"
+"Dosaženo → COMPLETE\n"
+"Potřebuje více → CONTINUE\n"
+"Odpovězte pomocí COMPLETE nebo CONTINUE.\n"
+"Pokud CONTINUE, stručně uveďte, co ještě chybí>.\n"
+"Formát: <aPH_2>: _rePH_son"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Vrátit pouze text summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Vraťte pouze vyčištěný objekt JSON."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Jste motor translation. Přeložte text uživatele věrně. Nepřidávejte vysvětlení. Zachovat bloky kódu, vložený kód, JSON, cesty k souborům a adresy URL doslovně."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Pokud požadavek uživatele může vyžadovat externí nástroj, netvrdte, že nástroj je nedostupný. Nejprve zavolejte tool_catalog se stručným dotazem, abyste nalezli požadovaný nástroj, poté v případě potřeby zavolejte tool_load a teprve potom odpovězte uživateli. Místo tisku příkladu JSON použijte dostupné funkce nástroje."

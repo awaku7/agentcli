@@ -4808,3 +4808,34 @@ msgstr "%(n)d etkin: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Sen bir reviewer'sün. Aşağıdaki konuşmayı değerlendirin ve \"%(goal)s\" hedefine ulaşılıp ulaşılmadığını belirleyin.\n"
+"Başarıldı → COMPLETE\n"
+"Daha fazla ihtiyaç var → CONTINUE\n"
+"COMPLETE veya CONTINUE ile yanıtlayın.\n"
+"CONTINUE ise, hala neyin eksik olduğunu kısaca belirtin.\n"
+"Biçim: CONTINUE: <sebep>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Yalnızca summary metnini döndür."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Yalnızca temizlenmiş JSON nesnesini döndür."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Siz bir translation motorusunuz. Kullanıcının metnini aslına uygun bir şekilde çevirin. Açıklama eklemeyin. Kod bloklarını, satır içi kodu, JSON'i, dosya yollarını ve URL'leri aynen koruyun."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Bir kullanıcı isteğinin harici bir araç gerektirmesi durumunda, aracın mevcut olmadığını iddia etmeyin. Gerekli aracı bulmak için önce kısa bir sorguyla tool_catalog'ı arayın, ardından gerekirse tool_load'i arayın ve ancak bundan sonra kullanıcıya yanıt verin. JSON örneğini yazdırmak yerine mevcut araç işlevlerini kullanın."

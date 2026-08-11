@@ -15,6 +15,8 @@ import sys
 import uuid
 from typing import Any
 
+from .i18n import _
+
 INPUT_RATE = 16_000
 OUTPUT_RATE = 24_000
 CHANNELS = 1
@@ -183,7 +185,7 @@ async def run_session(sd: Any) -> None:
                 "textInput": {
                     "promptName": prompt_name,
                     "contentName": system_name,
-                    "content": "You are a helpful voice assistant.",
+                    "content": _("You are a helpful voice assistant."),
                 }
             }
         )

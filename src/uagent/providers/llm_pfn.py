@@ -16,6 +16,7 @@ from .. import tools as _tools
 from ..env_utils import env_get
 from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import _maybe_print_certifi_where
+from ..i18n import _
 
 
 def _pfn_tool_specs() -> list[dict[str, Any]]:
@@ -36,12 +37,15 @@ def _pfn_messages(
     if not send_tools_this_round:
         return messages
     out = [dict(message) for message in messages]
-    instruction = (
-        "When a user request may require an external tool, do not claim that "
-        "the tool is unavailable. First call tool_catalog with a concise query "
-        "to find the required tool, then call tool_load if needed, and only "
-        "then answer the user. Use the available tool functions rather than "
-        "printing a JSON example."
+    instruction = _(
+        "pfn.catalog_steering",
+        default=(
+            "When a user request may require an external tool, do not claim that "
+            "the tool is unavailable. First call tool_catalog with a concise query "
+            "to find the required tool, then call tool_load if needed, and only "
+            "then answer the user. Use the available tool functions rather than "
+            "printing a JSON example."
+        ),
     )
     for index, message in enumerate(out):
         if message.get("role") == "system":

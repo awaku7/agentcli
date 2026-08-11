@@ -4827,3 +4827,34 @@ msgstr "%(n)d идэвхжүүлсэн: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Заасан ажлын чиглэлийн зам нь файл юм: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Та бол reviewer. Доорх харилцан яриаг үнэлж, \"%(goal)s\" зорилгодоо хүрсэн эсэхийг тодорхойлно уу.\n"
+"Хэрэглээ → COMPLETE\n"
+"Илүү их шаардлагатай → CONTINUE\n"
+"COMPLETE эсвэл CONTINUE гэж хариулна уу.\n"
+"Хэрэв CONTINUE бол юу дутуу байгааг товчхон хэлнэ үү:\n"
+"PH_a."
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Зөвхөн summary текстийг буцаана уу."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Зөвхөн цэвэрлэсэн JSON объектыг буцаана уу."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Та бол translation хөдөлгүүр. Хэрэглэгчийн текстийг үнэнчээр орчуулаарай. Тайлбар нэмж болохгүй. Кодын блок, шугаман код, JSON, файлын зам, URL хаягийг үгчлэн хадгална."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Хэрэглэгчийн хүсэлтэд гадны хэрэгсэл шаардлагатай бол уг хэрэгслийг ашиглах боломжгүй гэж бүү мэдэгдээрэй. Эхлээд tool_catalog руу залгаад шаардлагатай хэрэгслийг олохын тулд товч асууж, дараа нь шаардлагатай бол tool_load руу залгаж, зөвхөн дараа нь хэрэглэгчдэд хариулна уу. JSON жишээ хэвлэхийн оронд боломжтой хэрэгслийн функцуудыг ашиглана уу."

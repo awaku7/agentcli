@@ -4880,3 +4880,33 @@ msgstr "%(n)d ενεργοποιημένο: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Η καθορισμένη διαδρομή workdir είναι ένα αρχείο: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Είστε reviewer. Αξιολογήστε τη συνομιλία παρακάτω και προσδιορίστε εάν ο στόχος \"%(goal)s\" έχει επιτευχθεί.\n"
+"Επιτεύχθηκε → COMPLETE\n"
+"Απαιτούνται περισσότερα → CONTINUE\n"
+"Απάντηση με COMPLETE ή CONTINUE.\n"
+"Εάν CONTINUE, δηλώστε εν συντομία τι λείπει. __reson_2: Μορφή:"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Επιστρέψτε μόνο το κείμενο summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Επιστρέψτε μόνο το καθαρισμένο αντικείμενο JSON."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Είστε translation κινητήρας. Μεταφράστε πιστά το κείμενο του χρήστη. Μην προσθέτετε επεξηγήσεις. Διατηρήστε μπλοκ κώδικα, ενσωματωμένο κώδικα, JSON, διαδρομές αρχείων και διευθύνσεις URL κατά λέξη."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Όταν ένα αίτημα χρήστη μπορεί να απαιτεί ένα εξωτερικό εργαλείο, μην ισχυρίζεστε ότι το εργαλείο δεν είναι διαθέσιμο. Πρώτα καλέστε tool_catalog με ένα συνοπτικό ερώτημα για να βρείτε το απαιτούμενο εργαλείο, μετά καλέστε tool_load εάν χρειάζεται και μόνο τότε απαντήστε στον χρήστη. Χρησιμοποιήστε τις διαθέσιμες λειτουργίες εργαλείου αντί να εκτυπώσετε ένα παράδειγμα JSON."

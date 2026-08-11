@@ -4566,3 +4566,34 @@ msgstr "Pinagana ang %(n)d: %(names)s"
 #: src/uagent/runtime/runtime_workdir.py:49
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Ang tinukoy na workdir path ay isang file: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Isa kang reviewer. Suriin ang pag-uusap sa ibaba at tukuyin kung ang layunin na \"%(goal)s\" ay nakamit.\n"
+"Nakamit → COMPLETE\n"
+"Higit pang kailangan → CONTINUE\n"
+"Tumugon ng COMPLETE o CONTINUE.\n"
+"Kung CONTINUE, maikling sabihin kung ano ang kulang pa.\n"
+"Format: CONTINUE"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Ibalik lamang ang summary na teksto."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Ibalik lamang ang nalinis na JSON na bagay."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Isa kang translation engine. Isalin nang tapat ang text ng user. Huwag magdagdag ng mga paliwanag. Panatilihin ang mga bloke ng code, inline na code, JSON, mga path ng file, at mga URL na verbatim."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Kapag ang kahilingan ng user ay maaaring mangailangan ng panlabas na tool, huwag i-claim na hindi available ang tool. Tumawag muna sa tool_catalog na may maigsi na query upang mahanap ang kinakailangang tool, pagkatapos ay tumawag sa tool_load kung kinakailangan, at pagkatapos lamang sagutin ang user. Gamitin ang magagamit na mga function ng tool sa halip na mag-print ng JSON na halimbawa."

@@ -4624,3 +4624,34 @@ msgstr "%(n)d đã bật: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Bạn là reviewer. Đánh giá cuộc trò chuyện bên dưới và xác định xem mục tiêu \"%(goal)s\" có đạt được hay không.\n"
+"Đạt được → COMPLETE\n"
+"Cần thêm → CONTINUE\n"
+"Trả lời bằng COMPLETE hoặc CONTINUE.\n"
+"Nếu CONTINUE, hãy nêu ngắn gọn những gì vẫn còn thiếu.\n"
+"Định dạng: CONTINUE: <lý do>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Chỉ trả lại văn bản summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Chỉ trả lại đối tượng JSON đã được làm sạch."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Bạn là công cụ translation. Dịch văn bản của người dùng một cách trung thực. Đừng thêm lời giải thích. Giữ nguyên các khối mã, mã nội tuyến, JSON, đường dẫn tệp và URL."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Khi yêu cầu của người dùng có thể yêu cầu một công cụ bên ngoài, đừng cho rằng công cụ đó không khả dụng. Trước tiên, hãy gọi tool_catalog bằng truy vấn ngắn gọn để tìm công cụ được yêu cầu, sau đó gọi tool_load nếu cần và chỉ sau đó mới trả lời người dùng. Sử dụng các chức năng công cụ có sẵn thay vì in ví dụ JSON."

@@ -1065,6 +1065,25 @@ def stdin_loop() -> None:
                         with core.human_ask_lock:
                             prompt_interrupted = core.human_ask_active
                         if prompt_interrupted or getattr(core, "status_busy", False):
+                            # The prompt was drawn, but this input slot is no
+                            # longer usable because another tool owns stdin.
+                            # Clear the stale prompt before continuing; otherwise
+                            # it remains visible immediately before the next
+                            # [STATE] IDLE line even though no input is accepted.
+                            try:
+                                with lock:
+                                    clear = (
+                                        chr(13)
+                                        + (" " * len(prompt.rstrip("\r\n")))
+                                        + chr(13)
+                                    )
+                                    if out:
+                                        out.write(clear)
+                                        out.flush()
+                                    else:
+                                        print(clear, end="", flush=True)
+                            except Exception:
+                                pass
                             try:
                                 core._prompt_line_open = False
                                 core.prompt_needs_redraw = False

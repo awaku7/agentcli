@@ -4744,3 +4744,34 @@ msgstr "%(n)d ممكّن: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسار دليل العمل المحدد هو ملف: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"أنت reviewer. قم بتقييم المحادثة أدناه وحدد ما إذا كان الهدف \"%(goal)s\" قد تم تحقيقه.\n"
+"تم تحقيقه → COMPLETE\n"
+"هناك حاجة إلى المزيد → CONTINUE\n"
+"قم بالرد بـ COMPLETE أو CONTINUE.\n"
+"إذا كان CONTINUE، فاذكر بإيجاز ما لا يزال مفقودًا.\n"
+"التنسيق: CONTINUE: <السبب>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"قم بإرجاع النص summary فقط."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"قم بإرجاع الكائن JSON الذي تم تنظيفه فقط."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"أنت محرك translation. ترجمة نص المستخدم بأمانة. لا تضيف تفسيرات. احتفظ بكتل التعليمات البرمجية، والتعليمات البرمجية المضمنة، JSON، ومسارات الملفات، وعناوين URL حرفيًا."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"عندما يتطلب طلب المستخدم أداة خارجية، فلا تدعي أن الأداة غير متوفرة. اتصل أولاً بـ tool_catalog باستخدام استعلام موجز للعثور على الأداة المطلوبة، ثم اتصل بـ tool_load إذا لزم الأمر، وبعد ذلك فقط قم بالإجابة على المستخدم. استخدم وظائف الأداة المتاحة بدلاً من طباعة مثال JSON."

@@ -102,6 +102,32 @@ class TestFormatLines:
         assert any("Context Window" in ln for ln in lines)
         assert any("Features" in ln for ln in lines)
 
+    def test_format_uses_complete_feature_list_when_available(self) -> None:
+        class Capability:
+            model_id = "demo"
+            provider = "demo"
+            display_name = "Demo"
+            context_window = 1000
+            max_output_tokens = 100
+            tokenizer_name = "demo"
+            license_type = None
+            knowledge_cutoff = None
+            deprecated = False
+            input_modalities = ["text", "audio"]
+            output_modalities = ["text"]
+            pricing = {}
+
+            def features(self):
+                return ["audio_input", "chat_completion", "file_input"]
+
+            def supports(self, _name):
+                raise AssertionError("features() should be preferred")
+
+        lines = format_capability_lines(Capability())
+        feature_line = next(line for line in lines if "Features" in line)
+        assert "audio_input" in feature_line
+        assert "file_input" in feature_line
+
 
 class TestProviderAllowsChatVision:
     def test_non_vision_model_blocked(self) -> None:
@@ -227,9 +253,10 @@ class TestAudioOutputHelpers:
         assert "audio" in err.lower() or "tts" in err.lower()
 
     def test_catalog_miss_allows(self) -> None:
-        # gpt-4o-mini-tts may be absent from llmcapa; miss => allow
-        assert supports_audio_output("gpt-4o-mini-tts", "openai", default=None) is None
-        assert check_audio_output_support("gpt-4o-mini-tts", "openai") is None
+        # An unknown model should remain permissive; catalog misses => allow.
+        unknown_model = "definitely-not-a-real-tts-model-xyz"
+        assert supports_audio_output(unknown_model, "openai", default=None) is None
+        assert check_audio_output_support(unknown_model, "openai") is None
 
     def test_empty_model_allows(self) -> None:
         assert check_audio_output_support("", "openai") is None

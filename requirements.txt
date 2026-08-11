@@ -12,7 +12,7 @@ prompt-toolkit>=3.0.52
 certifi>=2026.2.25
 
 # Documents & Data
-llmcapa>=0.4.9
+llmcapa>=0.5.0
 pyyaml>=6.0.3
 numpy>=2.4.4
 

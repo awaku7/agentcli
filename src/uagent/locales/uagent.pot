@@ -4498,3 +4498,23 @@ msgstr ""
 msgid "Specified workdir path is a file: %(path)s"
 msgstr ""
 
+
+#: src/uagent/util_cmd_auto.py
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+
+#: src/uagent/profile_manager.py
+msgid "profile.summary_only"
+msgstr ""
+
+#: src/uagent/profile_manager.py
+msgid "profile.cleaned_json_only"
+msgstr ""
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+

@@ -4739,3 +4739,29 @@ msgstr "%(n)d فعال شد: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسیر مشخص‌شدهٔ workdir یک فایل است: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"شما یک reviewer هستید. مکالمه زیر را ارزیابی کنید و مشخص کنید که آیا هدف \"%(goal)s\" محقق شده است یا نه."
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"فقط متن summary را برگردانید."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"فقط شی JSON پاک شده را برگردانید."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"شما یک موتور translation هستید. متن کاربر را صادقانه ترجمه کنید. توضیحات اضافه نکنید. بلوک های کد، کد درون خطی، JSON، مسیرهای فایل، و URL ها را به کلمه حفظ کنید."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"هنگامی که درخواست کاربر ممکن است به ابزار خارجی نیاز داشته باشد، ادعا نکنید که ابزار در دسترس نیست. ابتدا با پرس و جوی مختصر با tool_catalog تماس بگیرید تا ابزار مورد نیاز را بیابید، سپس در صورت نیاز با tool_load تماس بگیرید و تنها پس از آن به کاربر پاسخ دهید. به جای چاپ یک مثال JSON از توابع ابزار موجود استفاده کنید."

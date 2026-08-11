@@ -6,6 +6,7 @@ import re
 from typing import Any
 
 from .language_detection import SYMBOL_PATTERNS, detect_source_language
+from .tree_sitter_symbols import extract_tree_sitter_symbols
 
 
 def extract_symbols(filepath: str) -> list[dict[str, Any]]:
@@ -13,6 +14,13 @@ def extract_symbols(filepath: str) -> list[dict[str, Any]]:
     lang = detect_source_language(filepath)
     if not lang:
         return []
+
+    # Prefer a syntax tree when a supported grammar is available.  The helper
+    # deliberately returns an empty list on optional-dependency or parse
+    # failures, so the established regex extractor remains a reliable fallback.
+    tree_symbols = extract_tree_sitter_symbols(filepath, lang)
+    if tree_symbols:
+        return tree_symbols
 
     patterns = SYMBOL_PATTERNS.get(lang, [])
     if not patterns and lang not in ("C/C++ Header",):
@@ -50,7 +58,12 @@ def extract_symbols(filepath: str) -> list[dict[str, Any]]:
                         continue
                     seen.add(name)
                     symbol_type: str = "symbol"
-                    if "def " in pattern or "fn " in pattern or "func " in pattern:
+                    if lang in ("VBA", "LotusScript"):
+                        if re.search(r"\b(?:Sub|Function|Property)\b", pattern):
+                            symbol_type = "function"
+                        elif re.search(r"\b(?:Type|Enum|Class)\b", pattern):
+                            symbol_type = "class"
+                    elif "def " in pattern or "fn " in pattern or "func " in pattern:
                         symbol_type = "function"
                     elif "class " in pattern:
                         symbol_type = "class"

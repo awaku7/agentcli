@@ -155,3 +155,51 @@ def test_replace_all_in_files_honors_custom_exclude_glob(repo_tmp_path: Path) ->
     _load(out)
     assert keep.read_text(encoding="utf-8") == "changed\n"
     assert skip.read_text(encoding="utf-8") == "needle\n"
+
+
+def test_insert_before_respects_confirm_over(repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "insert_many.txt"
+    p.write_text("needle\nneedle\n", encoding="utf-8")
+
+    obj = _load(
+        replace_in_file(
+            {
+                "path": str(p),
+                "action": "insert_before",
+                "anchor_before": "needle",
+                "replacement": "header\n",
+                "preview": False,
+                "confirm_over": 1,
+            }
+        )
+    )
+    assert obj["blocked"] is True
+    assert obj["match_count"] == 2
+    assert p.read_text(encoding="utf-8") == "needle\nneedle\n"
+
+
+def test_replace_all_in_files_uses_aggregate_confirm_over(
+    repo_tmp_path: Path,
+) -> None:
+    first = repo_tmp_path / "first.txt"
+    second = repo_tmp_path / "second.txt"
+    first.write_text("needle\n", encoding="utf-8")
+    second.write_text("needle\n", encoding="utf-8")
+
+    obj = _load(
+        replace_in_file(
+            {
+                "path": str(repo_tmp_path),
+                "action": "replace_all_in_files",
+                "pattern": "needle",
+                "replacement": "changed",
+                "preview": False,
+                "confirm_over": 1,
+                "glob": "*.txt",
+            }
+        )
+    )
+    assert obj["blocked"] is True
+    assert obj["match_count"] == 2
+    assert first.read_text(encoding="utf-8") == "needle\n"
+    assert second.read_text(encoding="utf-8") == "needle\n"

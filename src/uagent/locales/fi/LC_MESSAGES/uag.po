@@ -4809,3 +4809,34 @@ msgstr "%(n)d käytössä: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Olet reviewer. Arvioi alla olevaa keskustelua ja päätä, onko tavoite \"%(goal)s\" saavutettu.\n"
+"Saavutettu → COMPLETE\n"
+"Tarvitaan lisää → CONTINUE\n"
+"Vastaa numerolla COMPLETE tai CONTINUE.\n"
+"Jos CONTINUE, kerro lyhyesti, mitä vielä puuttuu.\n"
+"Muotoile: <re___2>:"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Palauta vain teksti summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Palauta vain puhdistettu JSON-objekti."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Olet translation-moottori. Käännä käyttäjän teksti uskollisesti. Älä lisää selityksiä. Säilytä koodilohkot, tekstin sisäinen koodi, JSON, tiedostopolut ja URL-osoitteet sanatarkasti."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Kun käyttäjän pyyntö saattaa edellyttää ulkoista työkalua, älä väitä, että työkalu ei ole käytettävissä. Soita ensin numeroon tool_catalog tiiviillä kyselyllä löytääksesi tarvittava työkalu, soita sitten tarvittaessa numeroon tool_load ja vasta sitten vastaa käyttäjälle. Käytä käytettävissä olevia työkalutoimintoja JSON-esimerkin tulostamisen sijaan."

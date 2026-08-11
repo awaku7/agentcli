@@ -4851,3 +4851,34 @@ msgstr "%(n)d увімкнено: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Вказаний шлях до робочого каталогу є файлом: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Ви reviewer. Оцініть розмову нижче та визначте, чи досягнуто мети «%(goal)s».\n"
+"Досягнуто → COMPLETE\n"
+"Потрібно більше → CONTINUE\n"
+"У відповідь укажіть COMPLETE або CONTINUE.\n"
+"Якщо CONTINUE, коротко вкажіть, чого ще не вистачає.\n"
+"Формат: CONTINUE: <причина>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Повернути лише текст summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Повернути лише очищений об’єкт JSON."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Ви двигун translation. Правильно перекладайте текст користувача. Не додавайте пояснень. Дослівно зберігайте блоки коду, вбудований код, JSON, шляхи до файлів і URL-адреси."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Якщо для запиту користувача може знадобитися зовнішній інструмент, не стверджуйте, що інструмент недоступний. Спочатку зателефонуйте tool_catalog із коротким запитом, щоб знайти потрібний інструмент, потім зателефонуйте tool_load, якщо потрібно, і лише тоді дайте відповідь користувачеві. Використовуйте доступні функції інструмента, а не друкуйте приклад JSON."

@@ -4790,3 +4790,32 @@ msgstr "%(n)d সক্ষম: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"আপনি একজন reviewer নীচের কথোপকথনটি মূল্যায়ন করুন এবং লক্ষ্য \"%(goal)s\" অর্জিত হয়েছে কিনা তা নির্ধারণ করুন। \n"
+"অর্জিত → COMPLETE\n"
+"আরো প্রয়োজন → CONTINUE\n"
+" COMPLETE বা CONTINUE এর সাথে উত্তর দিন।"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"শুধুমাত্র summary পাঠ্য ফেরত দিন।"
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"শুধুমাত্র পরিষ্কার করা JSON বস্তু ফেরত দিন।"
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"আপনি একটি translation ইঞ্জিন৷ ব্যবহারকারীর লেখা বিশ্বস্ততার সাথে অনুবাদ করুন। ব্যাখ্যা যোগ করবেন না. কোড ব্লক, ইনলাইন কোড, JSON, ফাইল পাথ, এবং URL গুলি শব্দার্থে সংরক্ষণ করুন৷"
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"যখন কোনও ব্যবহারকারীর অনুরোধের জন্য একটি বাহ্যিক সরঞ্জামের প্রয়োজন হতে পারে, তখন দাবি করবেন না যে সরঞ্জামটি অনুপলব্ধ। প্রয়োজনীয় টুল খুঁজে পেতে প্রথমে একটি সংক্ষিপ্ত ক্যোয়ারী সহ tool_catalog এ কল করুন, তারপর প্রয়োজন হলে tool_load এ কল করুন এবং শুধুমাত্র তারপর ব্যবহারকারীকে উত্তর দিন। একটি JSON উদাহরণ প্রিন্ট করার পরিবর্তে উপলব্ধ টুল ফাংশন ব্যবহার করুন৷"

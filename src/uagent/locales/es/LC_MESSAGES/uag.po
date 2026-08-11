@@ -4868,3 +4868,34 @@ msgstr "%(n)d habilitado: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "la ruta de workdir especificada es un archivo: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Eres un reviewer. Evalúe la conversación a continuación y determine si se logró el objetivo \"%(goal)s\".\n"
+"Logrado → COMPLETE\n"
+"Más necesario → CONTINUE\n"
+"Responder con COMPLETE o CONTINUE.\n"
+"Si CONTINUE, indique brevemente lo que aún falta.\n"
+"Formato: CONTINUE: <razón>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Devuelve solo el texto summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Devuelve solo el objeto JSON limpio."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Eres un motor translation. Traduce fielmente el texto del usuario. No agregue explicaciones. Conserve los bloques de código, el código en línea, JSON, las rutas de archivo y las URL palabra por palabra."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Cuando una solicitud de usuario pueda requerir una herramienta externa, no afirme que la herramienta no está disponible. Primero llame a tool_catalog con una consulta concisa para encontrar la herramienta requerida, luego llame a tool_load si es necesario y solo entonces responda al usuario. Utilice las funciones de herramientas disponibles en lugar de imprimir un ejemplo JSON."

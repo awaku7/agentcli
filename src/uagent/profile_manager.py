@@ -353,7 +353,9 @@ def _summarize_profile_text(
             provider=provider,
             client=client,
             model_name=model_name,
-            system_prompt="Return only the summary text.",
+            system_prompt=_(
+                "profile.summary_only", default="Return only the summary text."
+            ),
             user_prompt=prompt,
             max_tokens=128,
             temperature=0.0,
@@ -456,7 +458,10 @@ def _deduplicate_profile_with_llm(
             provider=provider,
             client=client,
             model_name=model_name,
-            system_prompt="Return only the cleaned JSON object.",
+            system_prompt=_(
+                "profile.cleaned_json_only",
+                default="Return only the cleaned JSON object.",
+            ),
             user_prompt=prompt,
             max_tokens=1000,
             temperature=0.0,

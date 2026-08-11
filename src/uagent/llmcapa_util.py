@@ -727,27 +727,37 @@ def format_capability_lines(cap: Any) -> list[str]:
             lines.append(
                 _("    Output:        %(value)s") % {"value": ", ".join(out_mods)}
             )
+        # Prefer the complete feature list exposed by llmcapa 0.5.x. Keep the
+        # explicit probes as a compatibility fallback for older Capability
+        # objects that do not implement ``features()``.
         feats: list[str] = []
-        for name in (
-            "function_calling",
-            "json_mode",
-            "streaming",
-            "vision",
-            "reasoning",
-            "chat_completion",
-            "responses_api",
-            "reasoning_effort",
-            "thinking_budget",
-            "anthropic_api",
-            "google_api",
-            "fim",
-        ):
-            try:
-                if cap.supports(name):
-                    feats.append(name)
-            except Exception:
-                if getattr(cap, f"supports_{name}", False):
-                    feats.append(name)
+        try:
+            raw_features = cap.features()
+            if raw_features:
+                feats = sorted({str(feature) for feature in raw_features})
+        except Exception:
+            pass
+        if not feats:
+            for name in (
+                "function_calling",
+                "json_mode",
+                "streaming",
+                "vision",
+                "reasoning",
+                "chat_completion",
+                "responses_api",
+                "reasoning_effort",
+                "thinking_budget",
+                "anthropic_api",
+                "google_api",
+                "fim",
+            ):
+                try:
+                    if cap.supports(name):
+                        feats.append(name)
+                except Exception:
+                    if getattr(cap, f"supports_{name}", False):
+                        feats.append(name)
         if feats:
             lines.append(
                 _("    Features:      %(value)s") % {"value": ", ".join(feats)}

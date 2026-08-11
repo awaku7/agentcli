@@ -4782,3 +4782,29 @@ msgstr "%(n)d सक्षम: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट वर्कडीआईआर पथ एक फ़ाइल है: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"आप reviewer हैं। नीचे दी गई बातचीत का मूल्यांकन करें और निर्धारित करें कि क्या लक्ष्य \"%(goal)s\" हासिल कर लिया गया है।"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"केवल summary टेक्स्ट लौटाएँ।"
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"केवल साफ़ की गई JSON वस्तु लौटाएँ।"
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"आप एक translation इंजन हैं। उपयोगकर्ता के पाठ का ईमानदारी से अनुवाद करें। स्पष्टीकरण न जोड़ें. कोड ब्लॉक, इनलाइन कोड, JSON, फ़ाइल पथ और URL शब्दशः सुरक्षित रखें।"
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"जब उपयोगकर्ता के अनुरोध के लिए किसी बाहरी टूल की आवश्यकता हो, तो यह दावा न करें कि टूल अनुपलब्ध है। आवश्यक टूल ढूंढने के लिए पहले संक्षिप्त क्वेरी के साथ tool_catalog पर कॉल करें, फिर यदि आवश्यक हो तो tool_load पर कॉल करें और उसके बाद ही उपयोगकर्ता को उत्तर दें। JSON उदाहरण को प्रिंट करने के बजाय उपलब्ध टूल फ़ंक्शंस का उपयोग करें।"

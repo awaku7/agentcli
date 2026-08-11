@@ -4778,3 +4778,34 @@ msgstr "%(n)d aktiverat: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Angiven workdir-sökväg är en fil: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Du är en reviewer. Utvärdera konversationen nedan och avgör om målet \"%(goal)s\" har uppnåtts.\n"
+"Uppnådd → COMPLETE\n"
+"Mer behövs → CONTINUE\n"
+"Svara med COMPLETE eller CONTINUE.\n"
+"Om CONTINUE, ange kort vad som fortfarande saknas.\n"
+">Format: <COMPLETE"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Returnera endast texten summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Returnera endast det rengjorda JSON-objektet."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Du är en translation-motor. Översätt användarens text troget. Lägg inte till förklaringar. Bevara kodblock, inline-kod, JSON, filsökvägar och webbadresser ordagrant."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"När en användarförfrågan kan kräva ett externt verktyg, hävda inte att verktyget är otillgängligt. Ring först tool_catalog med en kortfattad fråga för att hitta det nödvändiga verktyget, ring sedan tool_load om det behövs och svara först sedan användaren. Använd de tillgängliga verktygsfunktionerna istället för att skriva ut ett JSON-exempel."

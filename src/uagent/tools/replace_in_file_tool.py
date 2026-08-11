@@ -1482,7 +1482,14 @@ def run_tool(args: dict[str, Any]) -> str:
         changed = replaced_text != orig_norm
         if (
             not preview
-            and action in {"replace", "replace_po_entry", "replace_between"}
+            and action
+            in {
+                "replace",
+                "replace_po_entry",
+                "replace_between",
+                "insert_before",
+                "insert_after",
+            }
             and occurrence == 0
             and match_count > confirm_over
         ):
@@ -1491,6 +1498,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "path": path,
                 "match_count": match_count,
                 "changed": False,
+                "blocked": True,
                 "summary": _make_summary(
                     preview=preview,
                     match_count=match_count,
@@ -1724,6 +1732,90 @@ def run_tool(args: dict[str, Any]) -> str:
                     for candidate in globber(name_pattern)
                     if _eligible_target(candidate)
                 ]
+            # Preflight the complete target set before a non-preview bulk
+            # replacement.  Without this pass, files processed early in the
+            # loop could be written before a later file pushes the aggregate
+            # match count over confirm_over.
+            if not preview:
+                preflight_total = 0
+                preflight_errors: list[dict[str, Any]] = []
+                preflight_encoding = str(args.get("encoding", "utf-8"))
+                preflight_expand = bool(args.get("expand_newline_tokens", True))
+                preflight_pattern = (
+                    _expand_newline_tokens_to_lf(pattern)
+                    if preflight_expand
+                    else pattern
+                )
+                preflight_regex = (
+                    re.compile(preflight_pattern, re.MULTILINE)
+                    if mode == "regex"
+                    else None
+                )
+                for fp in targets:
+                    try:
+                        content, _preflight_newlines, _preflight_encoding_used = (
+                            _read_text_robust(
+                                str(fp), preflight_encoding, cb.read_file_max_bytes
+                            )
+                        )
+                        content = _normalize_lf(content)
+                        if preflight_regex is not None:
+                            preflight_total += sum(
+                                1 for _ in preflight_regex.finditer(content)
+                            )
+                        else:
+                            preflight_total += len(
+                                _find_hits_literal(content, preflight_pattern)
+                            )
+                    except Exception as exc:
+                        preflight_errors.append(
+                            {"ok": False, "path": str(fp), "error": str(exc)}
+                        )
+                if preflight_errors:
+                    return json.dumps(
+                        {
+                            "ok": False,
+                            "path": str(root),
+                            "action": action,
+                            "results": preflight_errors,
+                            "scanned_files": len(targets),
+                            "changed_files": 0,
+                            "written_files": 0,
+                            "match_count": preflight_total,
+                            "replaced_count": 0,
+                            "summary": _(
+                                "summary.error",
+                                default="Error: bulk preflight failed",
+                            ),
+                        },
+                        ensure_ascii=False,
+                    )
+                if preflight_total > confirm_over:
+                    return json.dumps(
+                        {
+                            "ok": True,
+                            "path": str(root),
+                            "action": action,
+                            "results": [],
+                            "scanned_files": len(targets),
+                            "changed_files": 0,
+                            "written_files": 0,
+                            "match_count": preflight_total,
+                            "replaced_count": 0,
+                            "blocked": True,
+                            "summary": _make_summary(
+                                preview=False,
+                                match_count=preflight_total,
+                                blocked=True,
+                                reason=(
+                                    f"match_count {preflight_total} > "
+                                    f"confirm_over {confirm_over}"
+                                ),
+                            ),
+                        },
+                        ensure_ascii=False,
+                    )
+
             results = []
             for fp in targets:
                 try:

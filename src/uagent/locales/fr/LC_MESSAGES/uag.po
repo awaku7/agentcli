@@ -4862,3 +4862,34 @@ msgstr "%(n)d activé : %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Le chemin du répertoire de travail spécifié est un fichier : %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Vous êtes un reviewer. Évaluez la conversation ci-dessous et déterminez si l'objectif « %(goal)s » a été atteint.\n"
+"Atteint → COMPLETE\n"
+"Plus nécessaire → CONTINUE\n"
+"Répondez avec COMPLETE ou CONTINUE.\n"
+"Si CONTINUE, indiquez brièvement ce qui manque encore.\n"
+"Format : CONTINUE : <raison>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Renvoie uniquement le texte summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Renvoie uniquement l'objet JSON nettoyé."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Vous êtes un moteur translation. Traduisez fidèlement le texte de l’utilisateur. N'ajoutez pas d'explications. Conservez les blocs de code, le code en ligne, JSON, les chemins de fichiers et les URL textuellement."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Lorsqu’une demande utilisateur peut nécessiter un outil externe, ne prétendez pas que l’outil est indisponible. Appelez d'abord tool_catalog avec une requête concise pour trouver l'outil requis, puis appelez tool_load si nécessaire, et répondez ensuite seulement à l'utilisateur. Utilisez les fonctions d'outils disponibles plutôt que d'imprimer un exemple JSON."

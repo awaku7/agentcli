@@ -34,6 +34,7 @@ from dataclasses import dataclass
 from typing import Any, Optional
 
 from .env_utils import env_get
+from .i18n import _
 
 _LANG_RE = re.compile(r"^[a-zA-Z]{2,3}([_-][a-zA-Z0-9]{2,8})*$")
 
@@ -142,11 +143,14 @@ def load_translate_config() -> Optional[TranslateConfig]:
 
 
 def _translation_prompts(src_lang: str, dst_lang: str, text: str) -> tuple[str, str]:
-    system = (
-        "You are a translation engine. "
-        "Translate the user's text faithfully. "
-        "Do not add explanations. "
-        "Preserve code blocks, inline code, JSON, file paths, and URLs verbatim."
+    system = _(
+        "translate.engine_system_prompt",
+        default=(
+            "You are a translation engine. "
+            "Translate the user's text faithfully. "
+            "Do not add explanations. "
+            "Preserve code blocks, inline code, JSON, file paths, and URLs verbatim."
+        ),
     )
     user = (
         f"Translate from {src_lang or 'auto'} to {dst_lang}.\n\n"

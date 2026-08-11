@@ -47,12 +47,14 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "code_map",
         "description": _(
             "tool.description",
-            default="Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, COBOL, PHP, Ruby, Swift, Dart, Scala, Lua, R, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
+            default="Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Uses Tree-sitter parsing with automatic optional installation and falls back to regex extraction when unavailable. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, COBOL, PHP, Ruby, Swift, Dart, Scala, Lua, R, VBA, LotusScript, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
         ),
         "x_search_terms": _(
             "x_search_terms",
             default=[
                 "code map",
+                "Tree-sitter",
+                "AST symbol extraction",
                 "codebase structure",
                 "file tree",
                 "symbol list",
@@ -78,6 +80,8 @@ TOOL_SPEC: dict[str, Any] = {
         ),
         "x_search_terms_en": [
             "code map",
+            "Tree-sitter",
+            "AST symbol extraction",
             "codebase structure",
             "file tree",
             "symbol list",

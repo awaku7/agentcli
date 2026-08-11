@@ -4651,3 +4651,34 @@ msgstr "%(n)d diaktifkan: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Path workdir yang ditentukan adalah file: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Anda adalah reviewer. Evaluasi percakapan di bawah ini dan tentukan apakah tujuan \"%(goal)s\" telah tercapai.\n"
+"Tercapai → COMPLETE\n"
+"Lebih dibutuhkan → CONTINUE\n"
+"Balas dengan COMPLETE atau CONTINUE.\n"
+"Jika CONTINUE, nyatakan secara singkat apa yang masih kurang.\n"
+"Format: CONTINUE: <alasan>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Kembalikan hanya teks summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Kembalikan hanya objek JSON yang telah dibersihkan."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Anda adalah mesin translation. Terjemahkan teks pengguna dengan setia. Jangan menambahkan penjelasan. Pertahankan blok kode, kode sebaris, JSON, jalur file, dan URL kata demi kata."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Jika permintaan pengguna mungkin memerlukan alat eksternal, jangan mengklaim bahwa alat tersebut tidak tersedia. Pertama-tama panggil tool_catalog dengan kueri singkat untuk menemukan alat yang diperlukan, lalu panggil tool_load jika diperlukan, dan baru kemudian jawab pengguna. Gunakan fungsi alat yang tersedia daripada mencetak contoh JSON."

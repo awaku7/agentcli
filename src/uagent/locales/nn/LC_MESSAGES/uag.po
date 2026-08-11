@@ -4502,3 +4502,29 @@ msgstr "%(n)d aktivert: %(names)s"
 #: src/uagent/runtime/runtime_workdir.py:49
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Spesifisert workdir-bane er en fil: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Du er reviewer. Evaluer samtalen under og finn ut om målet \"%(goal)s\" er nådd.Oppnådd→_PH_1_Mer trengs→_PH_2_Svar med_PH_1 eller_PH_2.Hvis CONTINUE, oppgi kort hva som mangler.Format: CONTINUE: <reason>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Returner kun summary-teksten."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Returner kun det rensede JSON-objektet."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Du er en translation-motor. Oversett brukerens tekst trofast. Ikke legg til forklaringer. Bevar kodeblokker, innebygd kode, JSON, filbaner og URL-adresser ordrett."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Når ein brukarforespørsel kan krevje eit eksternt verktøy, må du ikkje hevde at verktøyet er utilgjengeleg. Ring først tool_catalog med en kortfattet spørring for å finne det nødvendige verktøyet, ring tool_load om nødvendig, og svar deretter brukeren. Bruk de tilgjengelige verktøyfunksjonene i stedet for å skrive ut et JSON-eksempel."

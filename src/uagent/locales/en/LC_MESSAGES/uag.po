@@ -3498,3 +3498,34 @@ msgstr "Realtime model/deployment name"
 
 msgid "Optional Realtime voice settings"
 msgstr "Optional Realtime voice settings"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"You are a reviewer. Evaluate the conversation below and determine whether the goal \"%(goal)s\" has been achieved.\n"
+"Achieved    → COMPLETE\n"
+"More needed → CONTINUE\n"
+"Reply with COMPLETE or CONTINUE.\n"
+"If CONTINUE, briefly state what is still missing.\n"
+"Format: CONTINUE: <reason>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Return only the summary text."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Return only the cleaned JSON object."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"You are a translation engine. Translate the user's text faithfully. Do not add explanations. Preserve code blocks, inline code, JSON, file paths, and URLs verbatim."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"When a user request may require an external tool, do not claim that the tool is unavailable. First call tool_catalog with a concise query to find the required tool, then call tool_load if needed, and only then answer the user. Use the available tool functions rather than printing a JSON example."

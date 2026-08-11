@@ -4706,3 +4706,34 @@ msgstr "%(n)d מופעל: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"אתה reviewer. הערך את השיחה שלהלן וקבע אם המטרה \"%(goal)s\" הושגה.\n"
+"הושג → COMPLETE\n"
+"נדרש יותר → CONTINUE\n"
+"השב עם COMPLETE או CONTINUE.\n"
+"אם CONTINUE, ציין בקצרה מה עדיין חסר.\n"
+"a_2 פורמט: <CONTINUE"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"החזר רק את הטקסט summary."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"החזר רק את האובייקט JSON שנוקה."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"אתה מנוע translation. תרגם נאמנה את הטקסט של המשתמש. אל תוסיף הסברים. שמור בלוקי קוד, קוד מוטבע, JSON, נתיבי קבצים וכתובות אתרים מילולית."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"כאשר בקשת משתמש עשויה לדרוש כלי חיצוני, אל תטען שהכלי אינו זמין. תחילה התקשר ל-tool_catalog עם שאילתה תמציתית כדי למצוא את הכלי הנדרש, לאחר מכן התקשר ל-tool_load במידת הצורך, ורק לאחר מכן ענה למשתמש. השתמש בפונקציות הכלי הזמינות במקום להדפיס דוגמה JSON."

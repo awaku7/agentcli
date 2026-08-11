@@ -4748,3 +4748,34 @@ msgstr "%(n)d เปิดใช้งาน: %(names)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"คุณเป็น reviewer ประเมินการสนทนาด้านล่างและพิจารณาว่าบรรลุเป้าหมาย \"%(goal)s\" หรือไม่\n"
+"บรรลุผล → COMPLETE\n"
+"ต้องการเพิ่มเติม → CONTINUE\n"
+"ตอบกลับด้วย COMPLETE หรือ CONTINUE.\n"
+"หาก CONTINUE ให้ระบุสั้นๆ ว่ายังมีสิ่งใดที่ยังขาดอยู่\n"
+"รูปแบบ: CONTINUE: <reason>"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"ส่งกลับเฉพาะข้อความ summary"
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"ส่งคืนเฉพาะวัตถุ JSON ที่ทำความสะอาดแล้ว"
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"คุณคือเครื่องยนต์ translation แปลข้อความของผู้ใช้อย่างซื่อสัตย์ อย่าเพิ่มคำอธิบาย เก็บรักษาบล็อกโค้ด โค้ดอินไลน์ JSON เส้นทางไฟล์ และ URL คำต่อคำ"
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"เมื่อคำขอของผู้ใช้อาจต้องใช้เครื่องมือภายนอก อย่าอ้างว่าเครื่องมือไม่พร้อมใช้งาน ขั้นแรกให้โทร tool_catalog ด้วยคำถามที่กระชับเพื่อค้นหาเครื่องมือที่จำเป็น จากนั้นโทร tool_load หากจำเป็น จากนั้นจึงตอบผู้ใช้เท่านั้น ใช้ฟังก์ชันเครื่องมือที่มีอยู่แทนที่จะพิมพ์ตัวอย่าง JSON"

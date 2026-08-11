@@ -4521,3 +4521,34 @@ msgstr "%(n)d didayakan: %(names)s"
 #: src/uagent/runtime/runtime_workdir.py:49
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Laluan workdir yang ditentukan ialah fail: %(path)s"
+
+
+# Added for localized system prompts.
+msgid "auto.review_judgment_system_prompt"
+msgstr ""
+"Anda seorang reviewer. Nilaikan perbualan di bawah dan tentukan sama ada matlamat \"%(goal)s\" telah tercapai.\n"
+"Tercapai → COMPLETE\n"
+"Lagi diperlukan → CONTINUE\n"
+"Balas dengan COMPLETE atau CONTINUE.\n"
+"Jika CONTINUE, nyatakan secara ringkas perkara yang masih tiada.\n"
+"Format: CONTINUE"
+
+# Added for localized system prompts.
+msgid "profile.summary_only"
+msgstr ""
+"Kembalikan teks summary sahaja."
+
+# Added for localized system prompts.
+msgid "profile.cleaned_json_only"
+msgstr ""
+"Kembalikan hanya objek JSON yang telah dibersihkan."
+
+# Added for localized system prompts.
+msgid "translate.engine_system_prompt"
+msgstr ""
+"Anda ialah enjin translation. Terjemah teks pengguna dengan setia. Jangan tambah penjelasan. Kekalkan blok kod, kod sebaris, JSON, laluan fail dan URL secara verbatim."
+
+# Added for localized system prompts.
+msgid "pfn.catalog_steering"
+msgstr ""
+"Apabila permintaan pengguna mungkin memerlukan alat luaran, jangan dakwa alat itu tidak tersedia. Mula-mula panggil tool_catalog dengan pertanyaan ringkas untuk mencari alat yang diperlukan, kemudian hubungi tool_load jika perlu, dan kemudian jawab pengguna. Gunakan fungsi alat yang tersedia dan bukannya mencetak contoh JSON."

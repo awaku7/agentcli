@@ -30,18 +30,20 @@ def _build_judgment_messages(
 ) -> list[dict[str, Any]]:
     """Build messages for the reviewer judgment query.
 
-    The system prompt is kept in English (LLM-oriented).
-    Only the final user message uses gettext so it can be localized
-    when displayed to the user, but functionally the LLM reads English.
+    The explanatory text is localized through gettext. The COMPLETE/CONTINUE
+    tokens and output format remain unchanged because they are protocol values.
     """
-    system_prompt = (
-        "You are a reviewer. Evaluate the conversation below and "
-        "determine whether the goal '%(goal)s' has been achieved.\n"
-        "Achieved    \u2192 COMPLETE\n"
-        "More needed \u2192 CONTINUE\n"
-        "Reply with COMPLETE or CONTINUE.\n"
-        "If CONTINUE, briefly state what is still missing.\n"
-        "Format: CONTINUE: <reason>"
+    system_prompt = _(
+        "auto.review_judgment_system_prompt",
+        default=(
+            "You are a reviewer. Evaluate the conversation below and "
+            "determine whether the goal '%(goal)s' has been achieved.\n"
+            "Achieved    \u2192 COMPLETE\n"
+            "More needed \u2192 CONTINUE\n"
+            "Reply with COMPLETE or CONTINUE.\n"
+            "If CONTINUE, briefly state what is still missing.\n"
+            "Format: CONTINUE: <reason>"
+        ),
     ) % {"goal": goal}
 
     msgs: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
