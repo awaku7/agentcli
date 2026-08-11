@@ -104,6 +104,11 @@ def run_tool(args: dict[str, Any]) -> str:
     stopped = _stop_running_backgrounds()
     try:
         pkg_name = __package__ or "src.uagent.tools"
+        # The context module is deliberately removed below. Preserve the
+        # host-injected callbacks or a reload will silently reset human_ask to
+        # an empty ToolCallbacks object until the host is restarted.
+        old_context = sys.modules.get(pkg_name + ".context")
+        preserved_callbacks = getattr(old_context, "_CALLBACKS", None)
         # importlib.reload() does not recursively reload submodules, so
         # Stale code left in sys.modules would continue to be referenced by tools.
         # Remove submodules before package reload so __init__.py imports the latest code.
@@ -116,6 +121,9 @@ def run_tool(args: dict[str, Any]) -> str:
         importlib.reload(mod)
         # After reload, retrieve the new module from sys.modules (mod still references the old one)
         new_mod = sys.modules.get(pkg_name)
+        new_context = sys.modules.get(pkg_name + ".context")
+        if preserved_callbacks is not None and new_context is not None:
+            new_context.init_callbacks(preserved_callbacks)
         new_mod._INITIALIZED = False
         new_mod._DYNAMIC_COMMANDS.clear()
         new_mod._load_plugins()
