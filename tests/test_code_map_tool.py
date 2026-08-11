@@ -187,4 +187,37 @@ def test_empty_and_missing_directories(repo_tmp_path: Path) -> None:
     assert missing["ok"] is False
 
 
+
+def test_vba_and_lotusscript_support(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "legacy"
+    project.mkdir()
+    (project / "main.bas").write_text(
+        'Attribute VB_Name = "Main"\nPublic Sub RunReport()\nEnd Sub\n',
+        encoding="utf-8",
+    )
+    (project / "agent.lss").write_text(
+        'Use "helper"\nFunction BuildAgent()\nEnd Function\n',
+        encoding="utf-8",
+    )
+    (project / "helper.lss").write_text(
+        'Function Helper()\nEnd Function\n', encoding="utf-8"
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
+    )
+    languages = {entry["relative_path"]: entry["language"] for entry in result["files"]}
+    assert languages["main.bas"] == "VBA"
+    assert languages["agent.lss"] == "LotusScript"
+    assert any(
+        symbol["name"] == "RunReport"
+        for entry in result["files"]
+        for symbol in entry.get("symbols", [])
+    )
+    assert any(
+        relation["target"] == str((project / "helper.lss").resolve())
+        for relation in result["relations"]
+    )
+
+
 # Keep the test module free of generated code-map artifacts.

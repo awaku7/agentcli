@@ -11,7 +11,6 @@ import json
 import time
 import glob
 import queue
-import re
 import threading
 from typing import Any, Optional
 

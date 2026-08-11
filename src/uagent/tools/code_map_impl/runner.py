@@ -1,11 +1,9 @@
 # src/uagent/tools/code_map_tool.py
 from __future__ import annotations
 
-import ast
 import datetime
 import errno
 import json
-import urllib.request
 import os
 import re
 import xml.etree.ElementTree as ET
@@ -13,16 +11,19 @@ from pathlib import Path
 from typing import Any
 
 from ..i18n_helper import make_tool_translator
-from .language_detection import EXTENSION_MAP, SYMBOL_PATTERNS, detect_source_language
+from .language_detection import EXTENSION_MAP, detect_source_language
 from .symbols import extract_symbols
 from .conflicts import normalize_dependency_versions
-from .cmake import cmake_active_source
-from .resolvers import (_resolve_go_module, _resolve_module_to_file, _resolve_python_module, _resolve_rs_internal)
 from .relations import build_relations
 from .manifests import (extract_project_dependencies, extract_manifest_graph, extract_local_artifact_edges, extract_recursive_artifact_edges, extract_dependency_edges)
-from .caches import resolve_dependency_cache, dependency_classpath_paths, project_target_frameworks
+from .caches import resolve_dependency_cache, dependency_classpath_paths
 from .lockfiles import extract_lock_dependencies
 from .renderers import build_ontology, build_tree, tree_to_mermaid, render_mermaid_to_image
+from .excel_vba import (
+    extract_vba_modules,
+    supported_office_script,
+    supported_workbook,
+)
 
 
 
@@ -70,6 +71,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "Ruby require",
                 "Swift import",
                 "Dart import",
+                "VBA",
+                "LotusScript",
             ],
         ),
         "x_search_terms_en": [
@@ -92,6 +95,8 @@ TOOL_SPEC: dict[str, Any] = {
             "Ruby require",
             "Swift import",
             "Dart import",
+            "VBA",
+            "LotusScript",
         ],
         "parameters": {
             "type": "object",
@@ -100,7 +105,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.path.description",
-                        default="Root directory to analyze (default: current working directory).",
+                        default="Root directory, .xlsm/.xltm/.xlsb workbook, or exported .ts/.js Office Script to analyze.",
                     ),
                     "default": ".",
                 },
@@ -602,7 +607,38 @@ def run_tool(args: dict[str, Any]) -> str:
     else:
         include_relations = bool(include_relations_raw)
 
-    root = Path(base_path).resolve()
+    input_path = Path(base_path).resolve()
+    workbook_source: str | None = None
+    script_source: str | None = None
+    extracted_modules: list[dict[str, Any]] = []
+    if input_path.is_file():
+        if supported_workbook(input_path):
+            try:
+                _vba_temp, root, extracted_modules = extract_vba_modules(input_path)
+            except Exception as exc:
+                return json.dumps(
+                    {"ok": False, "error": f"VBA extraction failed: {exc}"},
+                    ensure_ascii=False,
+                )
+            workbook_source = str(input_path)
+        elif supported_office_script(input_path):
+            # Office Scripts are exported TypeScript/JavaScript files. Copy the
+            # single file into an isolated scan root so sibling files are not
+            # accidentally included in a direct-file scan.
+            import shutil
+            import tempfile
+
+            _script_temp = tempfile.TemporaryDirectory(prefix="code_map_office_script_")
+            root = Path(_script_temp.name)
+            shutil.copy2(input_path, root / input_path.name)
+            script_source = str(input_path)
+        else:
+            return json.dumps(
+                {"ok": False, "error": "Only directories, .xlsm/.xltm/.xlsb workbooks, and .ts/.js scripts are supported"},
+                ensure_ascii=False,
+            )
+    else:
+        root = input_path
     if not root.exists() or not root.is_dir():
         return json.dumps(
             {"ok": False, "error": f"Directory not found: {base_path}"},
@@ -616,6 +652,14 @@ def run_tool(args: dict[str, Any]) -> str:
         "files": [],
         "total_files": 0,
     }
+    if workbook_source:
+        result["workbook"] = workbook_source
+        result["vba_modules"] = [
+            {key: value for key, value in module.items() if key != "path"}
+            for module in extracted_modules
+        ]
+    if script_source:
+        result["office_script"] = script_source
 
     # Detect project files
     project_info = _find_project_files(str(root))
@@ -643,7 +687,6 @@ def run_tool(args: dict[str, Any]) -> str:
             Path(fpath).relative_to(root) if Path(fpath).is_relative_to(root) else fpath
         )
         entry["relative_path"] = str(rel)
-        ext = os.path.splitext(fpath)[1].lower()
         lang = detect_source_language(fpath)
         entry["language"] = lang
 

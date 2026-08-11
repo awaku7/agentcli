@@ -38,6 +38,10 @@ EXTENSION_MAP: dict[str, str] = {
     ".cob": "COBOL",
     ".cobol": "COBOL",
     ".cpy": "COBOL Copybook",
+    ".bas": "VBA",
+    ".cls": "VBA",
+    ".frm": "VBA",
+    ".lss": "LotusScript",
 }
 
 SYMBOL_PATTERNS: dict[str, list[str]] = {
@@ -150,8 +154,17 @@ SYMBOL_PATTERNS: dict[str, list[str]] = {
         r"^\s*class\s+(\w+)",
         r"^\s*namespace\s+(\w+)",
     ],
+    "VBA": [
+        r"^\s*(?:Public\s+|Private\s+|Friend\s+|Static\s+)*(?:Async\s+)?Sub\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+|Friend\s+|Static\s+)*(?:Async\s+)?Function\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)*(?:Property\s+)(?:Get|Let|Set)\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)*(?:Type|Enum|Class)\s+(\w+)",
+    ],
+    "LotusScript": [
+        r"^\s*(?:Public\s+|Private\s+)?(?:Sub|Function)\s+(\w+)",
+        r"^\s*Property\s+(?:Get|Set)\s+(\w+)",
+    ],
 }
-
 
 
 RELATION_LANGUAGES: set[str] = {
@@ -159,7 +172,7 @@ RELATION_LANGUAGES: set[str] = {
     "JavaScript (React)", "Go", "Rust", "COBOL", "COBOL Copybook",
     "Java", "Kotlin", "Kotlin Script", "Scala", "C", "C++",
     "C/C++ Header", "Objective-C", "Objective-C++", "C#", "PHP", "Ruby",
-    "Swift", "Dart", "Lua", "R",
+    "Swift", "Dart", "Lua", "R", "VBA", "LotusScript",
 }
 
 

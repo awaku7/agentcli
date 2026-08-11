@@ -7,7 +7,7 @@ import pytest
 
 
 def _write_fixture(path: Path) -> None:
-    scapy = pytest.importorskip("scapy.all")
+    pytest.importorskip("scapy.all")
     from scapy.all import IP, TCP, PcapWriter, Raw
 
     writer = PcapWriter(str(path), append=False, sync=True)

@@ -2,14 +2,12 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
 from typing import Any
 
 from .language_detection import SYMBOL_PATTERNS, detect_source_language
 
 def extract_symbols(filepath: str) -> list[dict[str, Any]]:
     """Extract symbol definitions from a source file."""
-    ext = Path(filepath).suffix.lower()
     lang = detect_source_language(filepath)
     if not lang:
         return []

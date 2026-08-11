@@ -8,6 +8,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
+from .cmake import cmake_active_source
+
 def extract_project_dependencies(root: Path, project_files: list[Path]) -> list[dict[str, Any]]:
     """Extract declared dependencies from common project/manifest files.
 
@@ -92,7 +94,7 @@ def extract_project_dependencies(root: Path, project_files: list[Path]) -> list[
         elif suffix == "gemfile":
             for m in re.finditer(r"\bgem\s+['\"]([^'\"]+)", text): add(project,"RubyGems",m.group(1))
         elif suffix in ("package.swift",):
-            for m in re.finditer(r'\.package\s*\([^\n]*?(?:url|path)\s*:\s*"([^"]+)', text): add("SwiftPM", str(path), m.group(1))
+            for m in re.finditer(r'\.package\s*\([^\n]*?(?:url|path)\s*:\s*"([^"]+)', text): add(project, "SwiftPM", m.group(1))
         elif suffix == "pubspec.yaml":
             in_deps=False
             for line in text.splitlines():
@@ -274,8 +276,11 @@ def extract_manifest_graph(root: Path) -> list[dict[str, str]]:
                 for line in desc.read_text(encoding="utf-8", errors="replace").splitlines():
                     if re.match(r"^(Imports|Depends|Suggests):",line):
                         for target in line.split(":",1)[1].split(","):
-                            token=target.strip(); match=re.match(r"([^ (]+)\s*(?:\(([^)]+)\))?",token)
-                            if match: add("R",desc.parent.name,match.group(1)+((" "+match.group(2)) if match.group(2) else ""))
+                            token = target.strip()
+                            match = re.match(r"([^ (]+)\s*(?:\(([^)]+)\))?", token)
+                            if match:
+                                version = match.group(2)
+                                add("R", desc.parent.name, match.group(1) + ((" " + version) if version else ""))
             except OSError: pass
     # Local rockspec dependency edges
     for path in root.rglob("*.rockspec"):

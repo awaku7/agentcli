@@ -1,10 +1,8 @@
 """Project-local module and dependency path resolvers."""
 from __future__ import annotations
 
-import os
 import re
 from pathlib import Path
-from typing import Any
 
 from .language_detection import RELATION_LANGUAGES
 
@@ -122,6 +120,7 @@ def _resolve_extended_module(module: str, importing_file: str, root: str, langua
         "Objective-C": [".m", ".h"], "Objective-C++": [".mm", ".h", ".hpp"], "C/C++ Header": [".h", ".hpp"],
         "PHP": [".php"], "Ruby": [".rb"], "Swift": [".swift"], "Dart": [".dart"],
         "Lua": [".lua"], "R": [".r"],
+        "VBA": [".bas", ".cls", ".frm"], "LotusScript": [".lss"],
     }.get(language, [])
     candidates = [base]
     if not str(base).startswith(str(root_path)):

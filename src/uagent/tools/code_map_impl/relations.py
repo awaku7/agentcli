@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .language_detection import EXTENSION_MAP, detect_source_language
+from .language_detection import detect_source_language
 try:
     from .language_detection import RELATION_LANGUAGES
 except ImportError:  # compatibility with a stale module during hot reload
@@ -225,6 +225,16 @@ def _extract_imports_extended(filepath: str, language: str) -> list[dict[str, An
             ("library", r"\b(?:library|require)\s*\(\s*['\"]?([A-Za-z0-9_.-]+)"),
             ("source", r"\bsource\s*\(\s*['\"]([^'\"]+)['\"]"),
         ])
+    elif language == "VBA":
+        patterns.extend([
+            ("declare", r"^\s*(?:Public\s+|Private\s+)?Declare\s+(?:PtrSafe\s+)?(?:Function|Sub)\s+(\w+)"),
+            ("reference", r"^\s*Attribute\s+VB_Name\s*=\s*[\"']([^\"']+)")
+        ])
+    elif language == "LotusScript":
+        patterns.extend([
+            ("use", r"^\s*(?:Option\s+)?Use(?:LSX)?\s+[\"']?([^\"'\s]+)"),
+            ("use", r"^\s*UseLSX\s+[\"']([^\"']+)")
+        ])
     for kind, pattern in patterns:
         for match in re.finditer(pattern, source, re.IGNORECASE | re.MULTILINE):
             module = match.group(1).strip()
@@ -235,7 +245,6 @@ def _extract_imports_extended(filepath: str, language: str) -> list[dict[str, An
 
 def _extract_imports(filepath: str) -> list[dict[str, Any]]:
     """Extract import relations from a source file based on its extension."""
-    ext = Path(filepath).suffix.lower()
     lang = detect_source_language(filepath)
     if lang == "Python":
         return _extract_imports_python(filepath)

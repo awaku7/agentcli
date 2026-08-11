@@ -69,7 +69,7 @@ def _scapy_probe(request: dict[str, Any]) -> dict[str, Any]:
         reply = sr1(IP(dst=target) / ICMP(), timeout=2, verbose=False)
         return {"action": action, "target": target, "state": "reachable" if reply else "no_response"}
     conf.verb = 0
-    answered, _ = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=target), timeout=2, verbose=False)
+    answered, unused_answers = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=target), timeout=2, verbose=False)
     return {"action": action, "target": target, "state": "reachable" if answered else "no_response"}
 
 

@@ -14,6 +14,6 @@ BUSY_LABEL = _runner.BUSY_LABEL
 STATUS_LABEL = _runner.STATUS_LABEL
 TOOL_SPEC = _runner.TOOL_SPEC
 run_tool = _runner.run_tool
-from .code_map_impl.renderers import tree_to_mermaid as _tree_to_mermaid
+from .code_map_impl.renderers import tree_to_mermaid as _tree_to_mermaid  # noqa: F401
 
 __all__ = ["BUSY_LABEL", "STATUS_LABEL", "TOOL_SPEC", "run_tool"]

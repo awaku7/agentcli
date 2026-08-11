@@ -85,7 +85,6 @@ REPLACEMENTS = {
     "dette": "dette",
     "disse": "desse",
     "Denne": "Denne",
-    "disse": "desse",
     "før": "før",
     "etter": "etter",
     "sammen": "saman",
@@ -104,7 +103,6 @@ REPLACEMENTS = {
     "skrive": "skrive",
     "velg": "vel",
     "Velg": "Vel",
-    "vellykket": "vellukka",
 }
 
 # Word boundaries prevent changing technical identifiers such as --force.

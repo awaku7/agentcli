@@ -272,7 +272,6 @@ def _make_reasoning_icon(size: int = 18) -> QtGui.QIcon:
     color = _menu_icon_color()
     pen = QtGui.QPen(color, max(1, size // 9), QtCore.Qt.SolidLine, QtCore.Qt.RoundCap)
     p.setPen(pen)
-    r = size * 0.28
     p.drawArc(int(size * 0.08), int(size * 0.22), int(size * 0.48), int(size * 0.58), 70 * 16, 230 * 16)
     p.drawArc(int(size * 0.44), int(size * 0.22), int(size * 0.48), int(size * 0.58), -120 * 16, 230 * 16)
     p.drawLine(size / 2, size * 0.2, size / 2, size * 0.8)
