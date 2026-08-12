@@ -2,11 +2,11 @@ from __future__ import annotations
 
 # tools/ble_ops_tool.py
 import asyncio
-import importlib.util
 import sys
 from typing import Any
 
 from .._pip_auto import install_with_status as _install_ble_pyside
+from ._bleak_helper import ensure_bleak
 from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
@@ -236,7 +236,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 default="Error: 'PySide6' library is required.",
             )
     else:
-        if importlib.util.find_spec("bleak") is None:
+        if not ensure_bleak():
             return _(
                 "err.bleak_missing",
                 default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak",

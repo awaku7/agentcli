@@ -29,7 +29,7 @@ try:
     from mcp.client.stdio import StdioServerParameters, stdio_client
     from mcp.client.streamable_http import streamable_http_client
 except ImportError:  # pragma: no cover - exercised only in minimal installs
-    from .._pip_auto import install_with_status
+    from ..._pip_auto import install_with_status
 
     if not install_with_status("mcp"):
         raise

@@ -6,6 +6,7 @@ from ..env_utils import env_get
 import sys
 import json
 import re
+import shutil
 import warnings
 from datetime import datetime
 import importlib.util
@@ -69,6 +70,21 @@ def _ensure_thai_nlp() -> bool:
         os.environ["PYTHAINLP_DATA"] = os.path.join(
             cache_root, "uag", "pythainlp-data"
         )
+    data_dir = os.path.abspath(
+        os.path.expanduser(
+            os.environ.get("PYTHAINLP_DATA")
+            or os.environ.get("PYTHAINLP_DATA_DIR", "")
+        )
+    )
+    legacy_dir = os.path.abspath(os.path.join(os.getcwd(), "pythainlp-data"))
+    if os.path.isdir(legacy_dir) and legacy_dir != data_dir:
+        try:
+            os.makedirs(data_dir, exist_ok=True)
+            shutil.copytree(legacy_dir, data_dir, dirs_exist_ok=True)
+            shutil.rmtree(legacy_dir)
+        except OSError:
+            # A cache migration failure must not prevent normal startup.
+            pass
     if not _auto_install("pythainlp", version_spec=">=5.3.4"):
         return False
     try:

@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from ._bleak_helper import ensure_bleak
 from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
@@ -402,6 +403,7 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
+    ensure_bleak()
     try:
         import bleak  # noqa: F401
     except ImportError:
