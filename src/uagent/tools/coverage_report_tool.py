@@ -162,15 +162,32 @@ def _run(cmd: list[str], timeout: int) -> tuple[int, str, str]:
         return 124, "", "coverage command timed out"
 
 
-def _ensure_dependencies(language: str, auto_install: bool) -> None:
-    if language != "python":
+def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> None:
+    if language == "python":
+        if not auto_install:
+            return
+        if not _auto_install("coverage", "coverage"):
+            raise RuntimeError("coverage is required and could not be installed")
+        if not _auto_install("pytest", "pytest"):
+            raise RuntimeError("pytest is required and could not be installed")
         return
-    if not auto_install:
+    if language == "typescript":
+        code, _, _ = _run(["npx", "--no-install", "c8", "--version"], timeout)
+        if code == 0 or not auto_install:
+            return
+        code, _, error = _run(["npm", "install", "--no-save", "c8"], timeout)
+        if code != 0:
+            raise RuntimeError(error or "c8 is required and could not be installed")
         return
-    if not _auto_install("coverage", "coverage"):
-        raise RuntimeError("coverage is required and could not be installed")
-    if not _auto_install("pytest", "pytest"):
-        raise RuntimeError("pytest is required and could not be installed")
+    if language == "rust":
+        code, _, _ = _run(["cargo", "llvm-cov", "--version"], timeout)
+        if code == 0 or not auto_install:
+            return
+        code, _, error = _run(["cargo", "install", "cargo-llvm-cov"], timeout)
+        if code != 0:
+            raise RuntimeError(
+                error or "cargo-llvm-cov is required and could not be installed"
+            )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -197,7 +214,9 @@ def run_tool(args: dict[str, Any]) -> str:
             if args.get("dry_run", False):
                 result["available"] = shutil.which(command[0]) is not None
                 return json.dumps(result, ensure_ascii=False)
-            _ensure_dependencies(language, bool(args.get("auto_install", True)))
+            _ensure_dependencies(
+                language, bool(args.get("auto_install", True)), timeout
+            )
             code, stdout, stderr = _run(command, timeout)
             result.update(
                 {

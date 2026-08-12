@@ -50,3 +50,23 @@ def test_coverage_auto_installs_python_dependencies(monkeypatch, tmp_path):
 
     assert result["ok"] is True
     assert installed == [("coverage", "coverage"), ("pytest", "pytest")]
+
+
+def test_coverage_auto_installs_typescript_and_rust_tools(monkeypatch):
+    commands = []
+
+    def fake_run(command, timeout):
+        commands.append(command)
+        if command[:4] == ["npx", "--no-install", "c8", "--version"]:
+            return 1, "", "missing c8"
+        if command[:3] == ["cargo", "llvm-cov", "--version"]:
+            return 1, "", "missing llvm-cov"
+        return 0, "", ""
+
+    monkeypatch.setattr(coverage_report_tool, "_run", fake_run)
+
+    coverage_report_tool._ensure_dependencies("typescript", True, 10)
+    coverage_report_tool._ensure_dependencies("rust", True, 10)
+
+    assert ["npm", "install", "--no-save", "c8"] in commands
+    assert ["cargo", "install", "cargo-llvm-cov"] in commands

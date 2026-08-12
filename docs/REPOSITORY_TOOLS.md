@@ -38,8 +38,8 @@ Runs the project test command through a language-specific coverage adapter.
 Supported adapters:
 
 - `python`: `coverage` and pytest
-- `typescript`: `c8` and npm test
-- `rust`: `cargo llvm-cov`
+- `typescript`: `c8` and npm test; missing `c8` can be installed with npm
+- `rust`: `cargo llvm-cov`; missing `cargo-llvm-cov` can be installed with cargo
 - `go`: `go test -coverprofile`
 
 Key options:
@@ -48,9 +48,9 @@ Key options:
 - `test_target`: optional safe test target
 - `timeout`: execution timeout in seconds
 - `dry_run`: show the selected command without running it
-- `auto_install`: automatically install missing Python coverage dependencies with pip
+- `auto_install`: automatically install missing coverage dependencies using pip, npm, or cargo
 
-Python coverage dependencies are installed only when execution is requested; dry runs do not install packages.
+Coverage dependencies are installed only when execution is requested; dry runs do not install packages.
 
 The tool returns the selected adapter, command, execution status, output, and coverage totals when the adapter provides them.
 
