@@ -19,17 +19,35 @@ from threading import Lock, RLock
 
 from .._pip_auto import install_with_status as _auto_install
 
-if not _auto_install("janome", version_spec=">=0.5.0"):
-    JanomeTokenizer = None
-else:
+JanomeTokenizer = None
+jieba = None
+_janome_initialized = False
+_jieba_initialized = False
+
+
+def _ensure_janome() -> bool:
+    global JanomeTokenizer, _janome_initialized
+    if _janome_initialized:
+        return JanomeTokenizer is not None
+    _janome_initialized = True
+    if not _auto_install("janome", version_spec=">=0.5.0"):
+        return False
     try:
-        from janome.tokenizer import Tokenizer as JanomeTokenizer
+        from janome.tokenizer import Tokenizer
+
+        JanomeTokenizer = Tokenizer
     except Exception:
         JanomeTokenizer = None
+    return JanomeTokenizer is not None
 
-if not _auto_install("jieba", version_spec=">=0.42.1"):
-    jieba = None
-else:
+
+def _ensure_jieba() -> bool:
+    global jieba, _jieba_initialized
+    if _jieba_initialized:
+        return jieba is not None
+    _jieba_initialized = True
+    if not _auto_install("jieba", version_spec=">=0.42.1"):
+        return False
     try:
         with warnings.catch_warnings():
             warnings.filterwarnings(
@@ -37,9 +55,12 @@ else:
                 message=r"pkg_resources is deprecated as an API.*",
                 category=UserWarning,
             )
-            import jieba
+            import jieba as jieba_module
+
+        jieba = jieba_module
     except Exception:
         jieba = None
+    return jieba is not None
 
 # PyThaiNLP creates its data directory when its tokenizers/taggers are
 # imported. Do not install/import it during every startup: Thai tokenization
@@ -1125,7 +1146,7 @@ def _expand_catalog_token(token: str) -> list[str]:
 
 def _collect_janome_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
-    if not q or JanomeTokenizer is None:
+    if not q or not _ensure_janome():
         return []
     try:
         jt = JanomeTokenizer()
@@ -1146,7 +1167,7 @@ def _collect_janome_query_terms(query: str) -> list[str]:
 
 def _collect_jieba_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
-    if not q or jieba is None:
+    if not q or not _ensure_jieba():
         return []
     try:
         out: list[str] = []
