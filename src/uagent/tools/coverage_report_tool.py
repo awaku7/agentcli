@@ -123,8 +123,16 @@ def _adapter(language: str, target: str, output: Path) -> tuple[str, list[str], 
     if language == "typescript":
         return (
             "TypeScript/JavaScript",
-            ["npx", "--no-install", "c8", "npm", "test"],
-            "npx --no-install c8 npm test",
+            [
+                "npx",
+                "--no-install",
+                "c8",
+                "--reporter=json",
+                "--reporter=text",
+                "npm",
+                "test",
+            ],
+            "npx --no-install c8 --reporter=json --reporter=text npm test",
         )
     if language == "rust":
         return (
@@ -160,6 +168,69 @@ def _run(cmd: list[str], timeout: int) -> tuple[int, str, str]:
         return 127, "", "required coverage command was not found"
     except subprocess.TimeoutExpired:
         return 124, "", "coverage command timed out"
+
+
+def _ratio(covered: float, total: float) -> float:
+    return round((covered / total) * 100, 2) if total else 100.0
+
+
+def _parse_typescript(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        report = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    totals = {
+        "lines": [0, 0],
+        "statements": [0, 0],
+        "functions": [0, 0],
+        "branches": [0, 0],
+    }
+    for item in report.values():
+        for key in totals:
+            metrics = item.get(key, {}) if isinstance(item, dict) else {}
+            totals[key][0] += int(metrics.get("covered", 0))
+            totals[key][1] += int(metrics.get("total", 0))
+    return {
+        f"{key}_percent": _ratio(covered, total)
+        for key, (covered, total) in totals.items()
+    }
+
+
+def _parse_rust(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        report = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    data = report.get("data", [])
+    totals = data[0].get("totals", {}) if data else {}
+    result = {}
+    for key, value in totals.items():
+        if isinstance(value, dict) and "percent" in value:
+            result[f"{key}_percent"] = value["percent"]
+    return result or None
+
+
+def _parse_go(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    covered = total = 0
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+    for line in lines[1:]:
+        try:
+            _, count = line.rsplit(" ", 1)
+            _, statements, _ = line.rsplit(" ", 2)
+            total += int(statements)
+            covered += int(statements) if int(count) > 0 else 0
+        except (ValueError, IndexError):
+            continue
+    return {"statements_percent": _ratio(covered, total)} if total else None
 
 
 def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> None:
@@ -238,6 +309,20 @@ def run_tool(args: dict[str, Any]) -> str:
                         result["coverage_error"] = str(exc)
                 elif json_err:
                     result["coverage_error"] = json_err
+            elif code == 0 and language == "typescript":
+                coverage = _parse_typescript(
+                    Path.cwd() / "coverage" / "coverage-final.json"
+                )
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language == "rust":
+                coverage = _parse_rust(output)
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language == "go":
+                coverage = _parse_go(output)
+                if coverage:
+                    result["coverage"] = coverage
             return json.dumps(result, ensure_ascii=False)
     except Exception as exc:
         return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)

@@ -70,3 +70,22 @@ def test_coverage_auto_installs_typescript_and_rust_tools(monkeypatch):
 
     assert ["npm", "install", "--no-save", "c8"] in commands
     assert ["cargo", "install", "cargo-llvm-cov"] in commands
+
+
+def test_coverage_parsers_normalize_language_reports(tmp_path):
+    ts = tmp_path / "coverage-final.json"
+    ts.write_text(
+        '{"a.ts":{"lines":{"covered":3,"total":4},"statements":{"covered":3,"total":4},"functions":{"covered":1,"total":2},"branches":{"covered":2,"total":4}}}',
+        encoding="utf-8",
+    )
+    rust = tmp_path / "rust.json"
+    rust.write_text(
+        '{"data":[{"totals":{"lines":{"percent":75.0},"functions":{"percent":50.0}}}]}',
+        encoding="utf-8",
+    )
+    go = tmp_path / "cover.out"
+    go.write_text("mode: set\na.go:1.1,2.2 2 1\na.go:3.1,4.2 3 0\n", encoding="utf-8")
+
+    assert coverage_report_tool._parse_typescript(ts)["lines_percent"] == 75.0
+    assert coverage_report_tool._parse_rust(rust)["lines_percent"] == 75.0
+    assert coverage_report_tool._parse_go(go)["statements_percent"] == 40.0
