@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python-quality:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install black ruff pytest
+
+      - name: Ruff
+        run: python -m ruff check src tests
+
+      - name: Black
+        run: python -m black --check src tests
+
+      - name: I18N catalog status
+        run: python scripts/tool_json_i18n_batch.py status
+
+      - name: Validate tool catalogs
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          catalogs=(src/uagent/tools/*_tool.json)
+          test "${#catalogs[@]}" -gt 0
+          for catalog in "${catalogs[@]}"; do
+            python scripts/i18n_validate.py "$catalog"
+          done
+
+      - name: Tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q .
