@@ -111,3 +111,17 @@ def test_coverage_parsers_normalize_language_reports(tmp_path):
     assert coverage_report_tool._parse_typescript(ts)["lines_percent"] == 75.0
     assert coverage_report_tool._parse_rust(rust)["lines_percent"] == 75.0
     assert coverage_report_tool._parse_go(go)["statements_percent"] == 40.0
+
+    jacoco = tmp_path / "jacoco.xml"
+    jacoco.write_text(
+        '<report><counter type="LINE" missed="1" covered="3"/></report>',
+        encoding="utf-8",
+    )
+    cobertura = tmp_path / "cobertura.xml"
+    cobertura.write_text('<coverage line-rate="0.8"/>', encoding="utf-8")
+    lcov = tmp_path / "lcov.info"
+    lcov.write_text("LF:10\nLH:7\n", encoding="utf-8")
+
+    assert coverage_report_tool._parse_xml_coverage(jacoco)["line_percent"] == 75.0
+    assert coverage_report_tool._parse_xml_coverage(cobertura)["line_percent"] == 80.0
+    assert coverage_report_tool._parse_lcov(lcov)["lines_percent"] == 70.0

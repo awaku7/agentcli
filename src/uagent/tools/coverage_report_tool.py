@@ -7,6 +7,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -275,6 +276,54 @@ def _parse_go(path: Path) -> dict[str, Any] | None:
     return {"statements_percent": _ratio(covered, total)} if total else None
 
 
+def _parse_xml_coverage(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        root = ET.parse(path).getroot()
+    except (OSError, ET.ParseError):
+        return None
+    counters = {}
+    for counter in root.iter("counter"):
+        kind = (counter.get("type") or "").lower()
+        covered = int(counter.get("covered", 0))
+        missed = int(counter.get("missed", 0))
+        if kind:
+            counters[f"{kind}_percent"] = _ratio(covered, covered + missed)
+    if counters:
+        return counters
+    result = {}
+    for key in ("line-rate", "branch-rate", "function-rate"):
+        value = root.get(key)
+        if value is not None:
+            result[f"{key[:-5]}_percent"] = round(float(value) * 100, 2)
+    return result or None
+
+
+def _parse_lcov(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        values = {}
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.startswith(("LF:", "LH:")):
+                key, value = line.split(":", 1)
+                values[key] = values.get(key, 0) + int(value)
+    except (OSError, ValueError):
+        return None
+    if "LF" not in values:
+        return None
+    return {"lines_percent": _ratio(values.get("LH", 0), values["LF"])}
+
+
+def _sorted_files(pattern: str) -> list[Path]:
+    return sorted(Path.cwd().glob(pattern))
+
+
+def _first_existing(paths: list[Path]) -> Path | None:
+    return next((path for path in paths if path.is_file()), None)
+
+
 def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> None:
     if language == "python":
         if not auto_install:
@@ -373,6 +422,27 @@ def run_tool(args: dict[str, Any]) -> str:
                     result["coverage"] = coverage
             elif code == 0 and language == "go":
                 coverage = _parse_go(output)
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language in {"java", "kotlin", "dotnet"}:
+                candidates = [
+                    Path("target/site/jacoco/jacoco.xml"),
+                    Path("build/reports/jacoco/test/jacocoTestReport.xml"),
+                    *_sorted_files("**/coverage.cobertura.xml"),
+                ]
+                report_path = _first_existing(candidates)
+                coverage = _parse_xml_coverage(report_path) if report_path else None
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language == "cpp":
+                report_path = _first_existing(
+                    [
+                        Path("coverage.info"),
+                        Path("build/coverage.info"),
+                        *_sorted_files("**/lcov.info"),
+                    ]
+                )
+                coverage = _parse_lcov(report_path) if report_path else None
                 if coverage:
                     result["coverage"] = coverage
             return json.dumps(result, ensure_ascii=False)
