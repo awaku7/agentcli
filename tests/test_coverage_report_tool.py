@@ -35,6 +35,7 @@ def test_coverage_rejects_unsafe_target():
         ("ruby", "Ruby"),
         ("php", "PHP"),
         ("swift", "Swift"),
+        ("dart", "Dart"),
     ],
 )
 def test_coverage_supports_additional_languages(

@@ -47,10 +47,11 @@ Supported adapters:
 - `ruby`: Bundler/Rake with SimpleCov
 - `php`: PHPUnit Clover XML
 - `swift`: `swift test --enable-code-coverage`
+- `dart`: Dart test or Flutter test with lcov
 
 Key options:
 
-- `language`: `auto`, `python`, `typescript`, `rust`, `go`, `java`, `kotlin`, `dotnet`, `cpp`, `ruby`, `php`, or `swift`
+- `language`: `auto`, `python`, `typescript`, `rust`, `go`, `java`, `kotlin`, `dotnet`, `cpp`, `ruby`, `php`, `swift`, or `dart`
 - `test_target`: optional safe test target
 - `timeout`: execution timeout in seconds
 - `dry_run`: show the selected command without running it

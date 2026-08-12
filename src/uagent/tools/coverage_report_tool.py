@@ -53,6 +53,7 @@ TOOL_SPEC: dict[str, Any] = {
                         "ruby",
                         "php",
                         "swift",
+                        "dart",
                     ],
                     "description": _(
                         "param.language.description", default="Coverage adapter to use."
@@ -126,6 +127,8 @@ def _detect_language(root: Path, requested: str) -> str:
         return "php"
     if (root / "Package.swift").exists() or list(root.glob("**/*.swift")):
         return "swift"
+    if (root / "pubspec.yaml").exists() or list(root.glob("**/*.dart")):
+        return "dart"
     if (
         (root / "pyproject.toml").exists()
         or (root / "pytest.ini").exists()
@@ -199,6 +202,22 @@ def _adapter(language: str, target: str, output: Path) -> tuple[str, list[str], 
             ".NET",
             ["dotnet", "test", "--collect:XPlat Code Coverage"],
             "dotnet test --collect:XPlat Code Coverage",
+        )
+    if language == "dart":
+        try:
+            is_flutter = "flutter" in Path("pubspec.yaml").read_text(encoding="utf-8")
+        except OSError:
+            is_flutter = False
+        if is_flutter:
+            return (
+                "Dart/Flutter",
+                ["flutter", "test", "--coverage"],
+                "flutter test --coverage",
+            )
+        return (
+            "Dart",
+            ["dart", "test", "--coverage=coverage"],
+            "dart test --coverage=coverage",
         )
     if language == "cpp":
         return (
@@ -449,6 +468,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "ruby",
             "php",
             "swift",
+            "dart",
         }:
             raise ValueError("unsupported language")
         timeout = int(args.get("timeout", 300))
@@ -535,10 +555,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 coverage = _parse_xml_coverage(report_path) if report_path else None
                 if coverage:
                     result["coverage"] = coverage
-            elif code == 0 and language == "cpp":
+            elif code == 0 and language in {"cpp", "dart"}:
                 report_path = _first_existing(
                     [
                         Path("coverage.info"),
+                        Path("coverage/lcov.info"),
                         Path("build/coverage.info"),
                         *_sorted_files("**/lcov.info"),
                     ]
