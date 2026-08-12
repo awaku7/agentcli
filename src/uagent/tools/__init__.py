@@ -40,16 +40,48 @@ else:
     except Exception:
         jieba = None
 
-if not _auto_install("pythainlp", version_spec=">=5.3.4"):
-    thai_word_tokenize = None
-    thai_pos_tag = None
-else:
+# PyThaiNLP creates its data directory when its tokenizers/taggers are
+# imported. Do not install/import it during every startup: Thai tokenization
+# is only needed when a Thai query is actually searched. This avoids creating
+# ``pythainlp-data`` in the user's current working directory on macOS and
+# other platforms.
+thai_word_tokenize = None
+thai_pos_tag = None
+_thai_nlp_initialized = False
+
+
+def _ensure_thai_nlp() -> bool:
+    global thai_word_tokenize, thai_pos_tag, _thai_nlp_initialized
+    if _thai_nlp_initialized:
+        return thai_word_tokenize is not None
+    _thai_nlp_initialized = True
+    if not os.environ.get("PYTHAINLP_DATA") and not os.environ.get("PYTHAINLP_DATA_DIR"):
+        if sys.platform == "darwin":
+            cache_root = os.path.expanduser("~/Library/Caches")
+        elif os.name == "nt":
+            cache_root = os.environ.get(
+                "LOCALAPPDATA", os.path.expanduser("~/.cache")
+            )
+        else:
+            cache_root = os.environ.get(
+                "XDG_CACHE_HOME", os.path.expanduser("~/.cache")
+            )
+        os.environ["PYTHAINLP_DATA"] = os.path.join(
+            cache_root, "uag", "pythainlp-data"
+        )
+    if not _auto_install("pythainlp", version_spec=">=5.3.4"):
+        return False
     try:
-        from pythainlp.tokenize import word_tokenize as thai_word_tokenize
-        from pythainlp.tag import pos_tag as thai_pos_tag
+        from pythainlp.tokenize import word_tokenize
+        from pythainlp.tag import pos_tag
+
+        thai_word_tokenize = word_tokenize
+        thai_pos_tag = pos_tag
     except Exception:
         thai_word_tokenize = None
         thai_pos_tag = None
+    return thai_word_tokenize is not None
+
 
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
 from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
@@ -1113,7 +1145,7 @@ def _collect_jieba_query_terms(query: str) -> list[str]:
 
 def _collect_thai_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
-    if not q or thai_word_tokenize is None:
+    if not q or not _ensure_thai_nlp():
         return []
     try:
         out: list[str] = []
