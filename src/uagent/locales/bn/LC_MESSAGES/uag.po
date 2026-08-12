@@ -378,7 +378,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (সাহায্য অনুপলব্ধ: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1590,9 +1590,7 @@ msgstr "[মোড] যুক্তি =%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=বন্ধ, 1=নিম্ন, 2=মধ্যম, 3=উচ্চ; "
-"auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1601,7 +1599,7 @@ msgstr "[মোড] ভার্বোসিটি=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3] (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোন আর্গ=কিপ)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2556,11 +2554,11 @@ msgstr "[AUTO] অটো-পাইলট বন্ধ।"
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "ব্যবহার: :auto <goal> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto বন্ধ"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2583,7 +2581,7 @@ msgstr "[AUTO] সর্বোচ্চ রাউন্ড: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <পথ>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2661,7 +2659,7 @@ msgstr "[লগ] অবৈধ PDF সূচী: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[লগ] ব্যবহার: :logs pdf <index> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2720,7 +2718,7 @@ msgstr "src এবং dst প্রয়োজন"
 
 #: src/uagent/util_cmd_files.py:351
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <src> <dst> [-f|--ওভাররাইট] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:358 src/uagent/util_cmd_files.py:415
 #, python-format
@@ -2754,7 +2752,7 @@ msgstr "[cp] কপি করা হয়েছে: %(src)s -> %(dst)s"
 
 #: src/uagent/util_cmd_files.py:423
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <src> <dst> [-f|--ওভাররাইট] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:430 src/uagent/util_cmd_files.py:474
 #, python-format
@@ -2789,7 +2787,7 @@ msgstr "[mv] সরানো হয়েছে: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ": head <path> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2808,7 +2806,7 @@ msgstr "[মাথা] খালি।"
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ": লেজ <পথ> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2826,7 +2824,7 @@ msgstr "[লেজ] খালি।"
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <path|glob> [পথ|গ্লোব]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2939,7 +2937,7 @@ msgstr "[Responses API] ইনপুট আইটেম তালিকা ব�
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] ব্যবহার: :response মুছে ফেলুন <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -2997,9 +2995,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"চালানোর জন্য একটি দক্ষতা নম্বর নির্বাচন করুন। বাতিল করতে c লিখুন।\n"
-"টিপ: :দক্ষতা পরিষ্কার (প্রয়োগিত দক্ষতা সরান)\n"
-"নম্বর লিখুন:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3214,7 +3212,7 @@ msgstr "[লোড ত্রুটি] ব্যর্থ হয়েছে: %(
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ": লোড <index|path>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3562,9 +3560,7 @@ msgstr "ইঙ্গিত:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr ""
-"বিস্তারিত জানার জন্য :help <command> টাইপ করুন (যেমন :help টুলস, :help "
-"দক্ষতা)।"
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3698,8 +3694,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"অন্তর্নির্মিত: তালিকা/সক্রিয়/ক্লিয়ার (রানটাইম দক্ষতা হ্যান্ডলারগুলি দেখুন)। \n"
-":skills তালিকা <কীওয়ার্ড> কীওয়ার্ড (নাম/বর্ণনা) দ্বারা ফিল্টার দক্ষতা। একটি সাবকমান্ডের জন্য :help দক্ষতা ইনস্টল করা হয়।"
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3714,8 +3713,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools চালু disk\n"
-":tools আউটপুট UI এ টুলের ফলাফল দেখানো টগল"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3731,7 +3734,7 @@ msgstr "প্লাগইন ইনস্টল করুন এবং পর�
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "প্রতিটি কাজের জন্য :help প্লাগইন <সাবকমান্ড> দেখুন।"
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3845,7 +3848,7 @@ msgstr "আপনি কি বোঝাতে চেয়েছেন: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "সম্পূর্ণ তালিকার জন্য :help চেষ্টা করুন।"
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3928,7 +3931,7 @@ msgstr "[env] অস্পষ্ট: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env KEY VALUE সেট করুন"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3937,7 +3940,7 @@ msgstr "[env] সেট করুন %(key)s"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env KEY আনসেট করুন"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 #, python-format
@@ -3951,7 +3954,7 @@ msgstr "[env] সংরক্ষিত .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ":env দেখান [KEY] / :env সেট KEY VALUE / :env আনসেট KEY / :env সংরক্ষণ"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -4046,7 +4049,7 @@ msgstr "[tools] LLM এ পাঠানোর টুল এখন %(state)s"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "ব্যবহার: :tools [তালিকা|অন|অফ|আউটপুট] [আর্গস...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4181,7 +4184,7 @@ msgstr "room_id এবং কমান্ড প্রয়োজন"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[ত্রুটি] :cd ব্যর্থ হয়েছে: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

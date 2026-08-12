@@ -375,7 +375,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":yardım (yardım kullanılamıyor: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1583,9 +1583,7 @@ msgstr "[mod] akıl yürütme=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=kapalı, 1=düşük, 2=orta, 3=yüksek; "
-"auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1594,7 +1592,7 @@ msgstr "[mod] ayrıntı düzeyi=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]  (0=kapalı, 1=düşük, 2=orta, 3=yüksek; arg yok=koru)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2567,11 +2565,11 @@ msgstr "[AUTO] Otomatik pilot kapatıldı."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Kullanım: :auto <hedef> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto kapalı"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2594,7 +2592,7 @@ msgstr "[AUTO] Maksimum tur sayısı: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <yol>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2672,7 +2670,7 @@ msgstr "[günlükler] Geçersiz PDF dizini: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[günlükler] Kullanım: :logs pdf <dizin> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2765,7 +2763,7 @@ msgstr "[cp] Kopyalandı: %(src)s -> %(dst)s"
 
 #: src/uagent/util_cmd_files.py:423
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <kaynak> <dst> [-f|--üzerine yaz] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:430 src/uagent/util_cmd_files.py:474
 #, python-format
@@ -2800,7 +2798,7 @@ msgstr "[mv] Taşındı: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":head <yol> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2819,7 +2817,7 @@ msgstr "[kafa] Boş."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":tail <yol> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2837,7 +2835,7 @@ msgstr "[kuyruk] Boş."
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <yol|küre> [yol|küre]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2950,7 +2948,7 @@ msgstr "[Responses API] Giriş öğesi listeleme başarısız oldu: %(error)s"
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] Kullanım: :response delete <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -3008,9 +3006,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Çalıştırılacak bir beceri numarası seçin. İptal etmek için c girin.\n"
-"İpucu: :becerileri temizleyin (uygulanan becerileri kaldırın)\n"
-"Numarayı girin:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3221,7 +3219,7 @@ msgstr "[yükleme hatası] Başarısız: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ":load <dizin|yol>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3309,7 +3307,7 @@ msgstr "[%(idx)s] %(dt)s %(note)s"
 
 #: src/uagent/util_cmd_session.py:909
 msgid ":mem-del <index>"
-msgstr ":mem-del <dizin>"
+msgstr ":mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:915
 #, python-format
@@ -3390,7 +3388,7 @@ msgstr "Temizlenecek kullanıcı profili dosyası bulunamadı."
 
 #: src/uagent/util_cmd_session.py:1023
 msgid ":shared-mem-del <index>"
-msgstr ":paylaşılan-mem-del <dizin>"
+msgstr ":shared-mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:1038
 #, python-format
@@ -3565,8 +3563,7 @@ msgstr "İpuçları:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr ""
-"Ayrıntılar için :help <komut> yazın (ör. :help araçlar, :help beceriler)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3702,11 +3699,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"Yerleşik: liste/etkin/temizle (çalışma zamanı becerileri işleyicilerine bakın).\n"
-":skills list <anahtar kelime> Becerileri anahtar kelimeye göre filtreleyin (ad/açıklama).\n"
-":skills find <anahtar kelime> Filtreli listeyle aynı.\n"
-"Dinamik alt komutlar CMD_SPEC aracından gelir (kurma, kaldırma, apm, mp_search).\n"
-"Bir alt komut için :help beceri yüklemesini kullanın."
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3721,12 +3718,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools açık|kapalı Araçların LLM\n"
-":tools'a gönderilmesini etkinleştirme/devre dışı bırakma açık|kapalı <tür> Bir araç türünü etkinleştirme/devre dışı bırakma (ve genel senkronizasyon açık)\n"
-":tools liste [sorgu] Yüklenen araçları listele\n"
-":tools yükle <ad> Bir aracı ada göre yükle\n"
-":tools yeniden yükle Araç modüllerini diskten yeniden yükle\n"
-":tools çıkışı Kullanıcı arayüzünde araç sonuçlarını göstermeyi değiştir"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3742,7 +3739,7 @@ msgstr "Eklentileri yükleyin ve yönetin"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "Her eylem için :help eklentisi <altkomutu>'na bakın."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3859,7 +3856,7 @@ msgstr "Bunu mu demek istediniz: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "Tam liste için :help'ı deneyin."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3941,7 +3938,7 @@ msgstr "[env] Belirsiz: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env ANAHTAR DEĞERİNİ ayarla"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3950,7 +3947,7 @@ msgstr "[env] %(key)s'ı ayarla"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env ANAHTARI kaldır"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 #, python-format
@@ -3964,9 +3961,7 @@ msgstr "[env] Kaydedilen .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ""
-":env göster [ANAHTAR] / :env ANAHTAR DEĞERİNİ ayarla / :env ANAHTARI kaldır "
-"/ :env kaydet"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -4061,7 +4056,7 @@ msgstr "[tools] LLM adresine araç gönderme artık %(state)s"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "Kullanım: :tools [liste|açık|kapalı|çıkış] [args...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4199,7 +4194,7 @@ msgstr "room_id ve komut gerekli"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[Hata] :cd başarısız oldu: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

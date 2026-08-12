@@ -376,7 +376,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ": тусламж (тусламж боломжгүй: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1594,9 +1594,7 @@ msgstr "[горим] үндэслэл=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=унтраах, 1=бага, 2=дунд, 3=өндөр; "
-"auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1605,8 +1603,7 @@ msgstr "[горим] дэлгэрэнгүй мэдээлэл=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-":v [0|1|2|3] (0=унтраах, 1=бага, 2=дунд, 3=өндөр; arg байхгүй=хадгалах)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2568,11 +2565,11 @@ msgstr "[AUTO] Автомат нисгэгч унтарсан."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Хэрэглээ: :auto <зорилго> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto унтарна"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2595,7 +2592,7 @@ msgstr "[AUTO] Хамгийн их тойрог: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <зам>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2673,7 +2670,7 @@ msgstr "[лог] PDF индекс буруу: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[лог] Хэрэглээ: :logs pdf <индекс> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2732,7 +2729,7 @@ msgstr "src болон dst шаардлагатай"
 
 #: src/uagent/util_cmd_files.py:351
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <src> <dst> [-f|--давж бичих] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:358 src/uagent/util_cmd_files.py:415
 #, python-format
@@ -2766,7 +2763,7 @@ msgstr "[cp] Хуулагдсан: %(src)s -> %(dst)s"
 
 #: src/uagent/util_cmd_files.py:423
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <src> <dst> [-f|--давж бичих] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:430 src/uagent/util_cmd_files.py:474
 #, python-format
@@ -2801,7 +2798,7 @@ msgstr "[mv] Зөөгдсөн: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":толгой <зам> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2820,7 +2817,7 @@ msgstr "[толгой] Хоосон."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":сүүл <зам> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2838,7 +2835,7 @@ msgstr "[сүүл] Хоосон."
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <зам|глоб> [зам|бөмбөрцөг]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2950,7 +2947,7 @@ msgstr "[Responses API] Оруулах зүйлийн жагсаалт амжи�
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] Хэрэглээ: :response устгах <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -3008,9 +3005,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Ажиллуулах ур чадварын дугаарыг сонгоно уу. Цуцлахын тулд c оруулна уу.\n"
-"Зөвлөмж:: ур чадвар тодорхой (хэрэглэсэн ур чадваруудыг хасна)\n"
-"Дугаар оруулна уу:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3228,7 +3225,7 @@ msgstr "[ачааллын алдаа] Амжилтгүй: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ": ачаалах <индекс|зам>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3318,7 +3315,7 @@ msgstr "[%(idx)s] %(dt)s %(note)s"
 
 #: src/uagent/util_cmd_session.py:909
 msgid ":mem-del <index>"
-msgstr ":mem-del <индекс>"
+msgstr ":mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:915
 #, python-format
@@ -3400,7 +3397,7 @@ msgstr "Устгах хэрэглэгчийн профайл файл олдсо
 
 #: src/uagent/util_cmd_session.py:1023
 msgid ":shared-mem-del <index>"
-msgstr ":shared-mem-del <индекс>"
+msgstr ":shared-mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:1038
 #, python-format
@@ -3577,9 +3574,7 @@ msgstr "Санамж:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr ""
-"Дэлгэрэнгүйг :help <command> гэж бичнэ үү (жишээ нь: :help хэрэгсэл, :help "
-"ур чадвар)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3715,11 +3710,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"Баригдсан: жагсаалт/идэвхтэй/цэвэр (ажиллах цагийн ур чадвар зохицуулагчийг харна уу).\n"
-":skills жагсаалт <түлхүүр үг> ур чадварыг түлхүүр үгээр шүүнэ (нэр/тайлбар).\n"
-":skills <түлхүүр үг>-г олоорой. Шүүлтүүртэй жагсаалттай адил.\n"
-"Динамик дэд командууд нь CMD_SPEC хэрэглүүрээс ирдэг (суулгах, устгах, apm, mp_se \n"
-"PH_se). дэд тушаал."
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3734,11 +3729,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools асаалттай|унтраах LLM\n"
-":tools руу илгээх хэрэгслийг идэвхжүүлэх/идэвхгүй болгох|унтраах <төрөл> Хэрэгслийн төрлийг идэвхжүүлэх/идэвхгүй болгох (болон глобал синхрончлох) \n"
-":tools жагсаалт [асуулга] Ачаалагдсан хэрэгслүүдийг жагсаах\n"
-":tools ачаалах <нэр> Нэг хэрэгслийг PH_0 нэрээр ачаалах disk\n"
-":tools гаралт Хэрэгслийн үр дүнг UI дээр харуулах/унтраах"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3754,7 +3750,7 @@ msgstr "Залгаасуудыг суулгаж удирдах"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "Үйлдэл бүрийг :help залгаас <дэд команд> харна уу."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3874,7 +3870,7 @@ msgstr "Та: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "Бүрэн жагсаалтыг харахын тулд :help-г оролдоно уу."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3957,7 +3953,7 @@ msgstr "[env] Хоёрдмол утгатай: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env ҮНДСЭН УТГА-г тохируулна"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3966,7 +3962,7 @@ msgstr "[env] %(key)s-г тохируулна уу"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env түлхүүрийг тохируулаагүй"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 #, python-format
@@ -3980,9 +3976,7 @@ msgstr "[env] Хадгалсан .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ""
-":env харуулах [ТҮЛХҮҮР] / :env ТҮЛХҮҮР УТГА тохируулах / :env тохируулаагүй "
-"ТҮЛХҮҮР / :env хадгалах"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -4077,7 +4071,7 @@ msgstr "[хэрэгслүүд] LLM руу илгээх хэрэгсэл одоо
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "Хэрэглээ: :tools [жагсаалт|асаалттай|унтраалттай|гаралт] [args...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4217,7 +4211,7 @@ msgstr "room_id болон тушаал шаардлагатай"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[Алдаа] :cd амжилтгүй болсон: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

@@ -364,7 +364,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (עזרה לא זמינה: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1545,9 +1545,7 @@ msgstr "[mode] reasoning=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|אוטומטי|מינימלי|xhigh] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; "
-"אוטומטי/מינימלי/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1556,7 +1554,7 @@ msgstr "[מצב] מילוליות=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אין arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2526,11 +2524,11 @@ msgstr "[AUTO] הטייס האוטומטי כבוי."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "שימוש: :auto <יעד> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto כבוי"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2553,7 +2551,7 @@ msgstr "[AUTO] מקסימום סיבובים: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <נתיב>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2631,7 +2629,7 @@ msgstr "[יומנים] אינדקס PDF לא חוקי: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[לוגים] שימוש: :logs pdf <index> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2759,7 +2757,7 @@ msgstr "[mv] הועבר: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":head <נתיב> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2778,7 +2776,7 @@ msgstr "[ראש] ריק."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":tail <נתיב> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2796,7 +2794,7 @@ msgstr "[זנב] ריק."
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <path|glob> [נתיב|גלוב]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2907,7 +2905,7 @@ msgstr "[Responses API] רישום פריט קלט נכשל: %(error)s"
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] שימוש: :response delete <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -2965,9 +2963,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"בחר מספר מיומנות להפעלה. הזן c כדי לבטל.\n"
-"טיפ: :כישורים ברורים (הסר מיומנויות יישומיות)\n"
-"הזן מספר:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3171,7 +3169,7 @@ msgstr "[טעינה שגיאה] נכשל: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ":טען <index|נתיב>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3503,7 +3501,7 @@ msgstr "רמזים:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr "הקלד :help <command> לפרטים (למשל :help כלים, :help כישורים)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3634,10 +3632,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"מובנה: רשימה/פעיל/נקה (ראה מטפלים במיומנויות זמן ריצה).\n"
-":skills רשימה <מילת מפתח> סינון מיומנויות לפי מילת מפתח (שם/תיאור).\n"
-":skills מצא את <מילת מפתח> זהה לרשימה עם מסנן.\n"
-"פקודות משנה דינמיות מגיעות מהכלי CMD_SPEC (התקנה, הסרה, apm, mp_Usearch מיומנויות)."
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3652,12 +3651,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools מופעל|כבוי הפעל/השבת שליחה של כלים אל LLM\n"
-":tools מופעל|כבוי <ז'אנר> הפעל/השבת ז'אנר כלי (וסנכרון גלובלי מופעל)\n"
-":tools רשימה [שאילתה] רשימת כלים שנטענו\n"
-":tools טען <שם> טען כלי אחד לפי שם\n"
-"\n"
-":tools טען מחדש את כלי הדיסק_PH_0 תוצאות בממשק המשתמש"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3673,7 +3672,7 @@ msgstr "התקן ונהל תוספים"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "ראה :help תוסף <תת-פקודה> עבור כל פעולה."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3786,7 +3785,7 @@ msgstr "האם התכוונת ל: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "נסה את :help לרשימה המלאה."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3867,7 +3866,7 @@ msgstr "[env] דו-משמעי: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env הגדר KEY VALUE"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3985,7 +3984,7 @@ msgstr "[כלים] שליחת הכלים אל LLM היא כעת %(state)s"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "שימוש: :tools [רשימה|מופעל|כבוי|פלט] [args...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4119,7 +4118,7 @@ msgstr "יש צורך ב-room_id ובפקודה"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[שגיאה] :cd נכשל: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

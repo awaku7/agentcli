@@ -356,7 +356,7 @@ msgstr "[WARN] LLMエラーにより履歴の圧縮に失敗しました。shrin
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help（ヘルプを利用できません: %(err)s）"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1510,8 +1510,7 @@ msgstr "[モード] 推論=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=オフ, 1=低, 2=中, 3=高; auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1520,7 +1519,7 @@ msgstr "[mode] 詳細度=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; 引数なし=維持)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2465,11 +2464,11 @@ msgstr "[AUTO] オートパイロットをオフにしました。"
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "使い方: :auto <ゴール> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr "       :auto オフ"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2492,7 +2491,7 @@ msgstr "[AUTO] 最大ラウンド数: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <パス>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2570,7 +2569,7 @@ msgstr "[ログ] 無効な PDF インデックス: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[ログ] 使用法: :logs pdf <インデックス> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2696,7 +2695,7 @@ msgstr "[mv] 移動しました: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":head <パス> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2715,7 +2714,7 @@ msgstr "[頭] 空です。"
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":tail <パス> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2733,7 +2732,7 @@ msgstr "[尾] 空です。"
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <パス|グロブ> [パス|グロブ]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2844,7 +2843,7 @@ msgstr "[Responses API] 入力項目のリストに失敗しました: %(error)s
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] 使用法: :response delete <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -2902,9 +2901,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"実行するスキル番号を選択してください。キャンセルするには c を入力してください。\n"
-"ヒント: :skills clear  （適用済みスキルを削除）\n"
-"番号を入力してください:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3103,7 +3102,7 @@ msgstr "[ロード エラー] 失敗: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ":load <インデックス|パス>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3186,7 +3185,7 @@ msgstr "[%(idx)s] %(dt)s %(note)s"
 
 #: src/uagent/util_cmd_session.py:909
 msgid ":mem-del <index>"
-msgstr ":mem-del <インデックス>"
+msgstr ":mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:915
 #, python-format
@@ -3262,7 +3261,7 @@ msgstr "消去するユーザープロファイルファイルが見つかりま
 
 #: src/uagent/util_cmd_session.py:1023
 msgid ":shared-mem-del <index>"
-msgstr ":shared-mem-del <インデックス>"
+msgstr ":shared-mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:1038
 #, python-format
@@ -3429,7 +3428,7 @@ msgstr "ヒント:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr "詳細については、「:help <コマンド>」と入力します (例: :help ツール、:help スキル)。"
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3556,11 +3555,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"組み込み: list/active/clear (ランタイム スキル ハンドラーを参照)。\n"
-":skills list <keyword> キーワード (名前/説明) でスキルをフィルターします。\n"
-":skills find <keyword> フィルター付きリストと同じです。\n"
-"動的サブコマンドはツール CMD_SPEC (インストール、アンインストール、apm、mp_search) から取得されます。\n"
-"サブコマンドには :help スキル インストールを使用します。"
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3575,12 +3574,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools on|off LLM へのツールの送信を有効/無効にする\n"
-":tools on|off <genre> ツール ジャンルを有効/無効にする (および同期グローバル オン)\n"
-":tools list [query] ロードされたツールをリストする\n"
-":tools load <name> 名前で 1 つのツールをロードする\n"
-":tools reload ディスクからツール モジュールを再ロードする\n"
-":tools 出力 UI でのツール結果の表示を切り替えます"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3596,7 +3595,7 @@ msgstr "プラグインのインストールと管理"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "各アクションについては、:help プラグイン <サブコマンド> を参照してください。"
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3709,7 +3708,7 @@ msgstr "どういう意味ですか: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "完全なリストについては、:help を試してください。"
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3788,7 +3787,7 @@ msgstr "[env] あいまい: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env キー値を設定"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3797,7 +3796,7 @@ msgstr "[env] %(key)s を設定します"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env unsetキー"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 #, python-format
@@ -3906,7 +3905,7 @@ msgstr "[ツール] LLM に送信するツールは %(state)s になりました
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "使用法: :tools [リスト|オン|オフ|出力] [引数...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4040,7 +4039,7 @@ msgstr "room_id とコマンドは必須です"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[Error] :cd が失敗しました: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

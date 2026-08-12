@@ -372,7 +372,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help  (msaada haupatikani: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1562,9 +1562,7 @@ msgstr "[hali] hoja=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=zima, 1=chini, 2=ya kati, 3=juu; "
-"auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1573,7 +1571,7 @@ msgstr "[hali] maelezo=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]  (0=zima, 1=chini, 2=katikati, 3=juu; bila hoja=weka)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2541,11 +2539,11 @@ msgstr "[AUTO] Majaribio ya kiotomatiki yamezimwa."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Matumizi: :auto <lengo> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto punguzo"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2568,7 +2566,7 @@ msgstr "[AUTO] Upeo wa raundi: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <njia>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
@@ -2632,7 +2630,7 @@ msgstr "[kumbukumbu] Faharasa batili ya PDF: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[magogo] Matumizi: :logs pdf <index> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2754,7 +2752,7 @@ msgstr "[mv] Imehamishwa: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":kichwa <njia> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 msgid "[head error] %(etype)s: %(err)s"
@@ -2771,7 +2769,7 @@ msgstr "[kichwa] Tupu."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":mkia <njia> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 msgid "[tail error] %(etype)s: %(err)s"
@@ -2787,7 +2785,7 @@ msgstr "[mkia] Tupu."
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <njia|glob> [njia|glob]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 msgid "[rm error] Failed to parse arguments: %(err)s"
@@ -2897,7 +2895,7 @@ msgstr ""
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] Matumizi: :response delete <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -2949,9 +2947,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Chagua namba ya ujuzi wa kuendesha. Weka c ili kughairi.\n"
-"Kidokezo: :skills clear  (ondoa ujuzi uliotumika)\n"
-"Weka namba:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3144,7 +3142,7 @@ msgstr "[hitilafu ya upakiaji] Imeshindwa: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ":mzigo <index|njia>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3473,7 +3471,7 @@ msgstr "Vidokezo:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr "Andika :help <command> kwa maelezo (k.m. zana :help, ujuzi :help)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3609,10 +3607,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"Imejumuishwa ndani: orodha/inatumika/wazi (angalia vidhibiti vya ustadi wa wakati wa kutekelezwa).\n"
-":skills orodhesha <nenomsingi> Chuja ujuzi kwa nenomsingi (jina/maelezo).\n"
-":skills pata <nenomsingi> Sawa na orodha iliyo na kichujio.\n"
-" Amri ndogo zinazobadilika hutoka kwenye zana CMD_SPEC (sakinisha, sanidua, apm_PH_1 ujuzi wa kusakinisha). amri ndogo."
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3627,11 +3626,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools imewashwa|zimwa Washa/lemaza kutuma zana kwa LLM\n"
-":tools imewashwa|zima <genre> Washa/lemaza aina ya zana (na usawazishe kimataifa kuwasha)\n"
-":tools orodha [swali] Orodhesha zana zilizopakiwa\n"
-":tools pakia <jina> Pakia tena zana moja kwa jina_0_PH_0} diski\n"
-":tools towe Geuza kuonyesha matokeo ya zana katika UI"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3647,7 +3647,7 @@ msgstr "Sakinisha na udhibiti programu-jalizi"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "Angalia :help programu-jalizi <subcommand> kwa kila kitendo."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3764,7 +3764,7 @@ msgstr "Je, ulimaanisha: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "Jaribu :help kwa orodha kamili."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 msgid "No dynamic subcommand help for '%(sub)s'."
@@ -3839,7 +3839,7 @@ msgstr "[env] Haijaeleweka: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env kuweka KEY VALUE"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 msgid "[env] Set %(key)s"
@@ -3847,7 +3847,7 @@ msgstr "[env] Weka %(key)s"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env ondoa KEY"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 msgid "[env] Unset %(key)s"
@@ -3859,8 +3859,7 @@ msgstr "[env] Imehifadhiwa .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ""
-":env onyesho [KEY] / :env weka THAMANI YA KEY / :env ondoa KEY / :env save"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -3947,7 +3946,7 @@ msgstr "[tools] Chombo kinachotuma kwa LLM sasa ni %(state)s"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "Matumizi: :tools [list|on|off|output] [args...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4082,7 +4081,7 @@ msgstr "room_id na amri inahitajika"
 
 #: src/uagent/web.py:2240
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[Hitilafu] :cd imeshindwa: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 msgid "[Command Error] %(err)s"

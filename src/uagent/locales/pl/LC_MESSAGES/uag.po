@@ -378,7 +378,7 @@ msgstr ""
 #: src/uagent/core.py:2201
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help  (pomoc niedostępna: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1596,9 +1596,7 @@ msgstr "[tryb] rozumowanie=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=wyłączone, 1=niskie, 2=średnie, "
-"3=wysokie; auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -1607,8 +1605,7 @@ msgstr "[tryb] szczegółowość=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-":v [0|1|2|3]  (0=wył., 1=nisko, 2=średnio, 3=wysoko; brak arg=pozostaw)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2581,11 +2578,11 @@ msgstr "[AUTO] Autopilot wyłączony."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Zastosowanie: :auto <cel> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
-msgstr ":auto wyłączone"
+msgstr "       :auto off"
 
 #: src/uagent/util_cmd_auto.py:288
 #, python-format
@@ -2608,7 +2605,7 @@ msgstr "[AUTO] Maksymalna liczba rund: %(max)d"
 
 #: src/uagent/util_cmd_files.py:34
 msgid ":cd <path>"
-msgstr ":cd <ścieżka>"
+msgstr ":cd <path>"
 
 #: src/uagent/util_cmd_files.py:44
 #, python-format
@@ -2686,7 +2683,7 @@ msgstr "[dzienniki] Nieprawidłowy indeks PDF: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[logi] Użycie: :logs pdf <indeks> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 #, python-format
@@ -2745,7 +2742,7 @@ msgstr "src i dst są wymagane"
 
 #: src/uagent/util_cmd_files.py:351
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <źródło> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:358 src/uagent/util_cmd_files.py:415
 #, python-format
@@ -2779,7 +2776,7 @@ msgstr "[cp] Skopiowano: %(src)s -> %(dst)s"
 
 #: src/uagent/util_cmd_files.py:423
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <źródło> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
 #: src/uagent/util_cmd_files.py:430 src/uagent/util_cmd_files.py:474
 #, python-format
@@ -2814,7 +2811,7 @@ msgstr "[mv] Przeniesiono: %(src)s -> %(dst)s"
 #: src/uagent/util_cmd_files.py:482 src/uagent/util_cmd_files.py:494
 #: src/uagent/util_cmd_files.py:506 src/uagent/util_cmd_files.py:525
 msgid ":head <path> [n]"
-msgstr ":head <ścieżka> [n]"
+msgstr ":head <path> [n]"
 
 #: src/uagent/util_cmd_files.py:489 src/uagent/util_cmd_files.py:550
 #, python-format
@@ -2833,7 +2830,7 @@ msgstr "[głowa] Puste."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":tail <ścieżka> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 #, python-format
@@ -2851,7 +2848,7 @@ msgstr "[ogon] Pusty."
 
 #: src/uagent/util_cmd_files.py:634 src/uagent/util_cmd_files.py:644
 msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <ścieżka|glob> [ścieżka|glob]"
+msgstr ":rm <path|glob> [path|glob]"
 
 #: src/uagent/util_cmd_files.py:640
 #, python-format
@@ -2967,7 +2964,7 @@ msgstr ""
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] Użycie: :response usuń <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -3026,9 +3023,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Wybierz numer skilla do uruchomienia. Wpisz c, aby anulować.\n"
-"Wskazówka: :skills clear  (usuń zastosowane skille)\n"
-"Wpisz numer:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3251,7 +3248,7 @@ msgstr "[błąd ładowania] Nie udało się: %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:673
 msgid ":load <index|path>"
-msgstr ":load <indeks|ścieżka>"
+msgstr ":load <index|path>"
 
 #: src/uagent/util_cmd_session.py:680
 #, python-format
@@ -3341,7 +3338,7 @@ msgstr "[%(idx)s] %(dt)s %(note)s"
 
 #: src/uagent/util_cmd_session.py:909
 msgid ":mem-del <index>"
-msgstr ":mem-del <indeks>"
+msgstr ":mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:915
 #, python-format
@@ -3424,7 +3421,7 @@ msgstr "Nie znaleziono pliku profilu użytkownika do wyczyszczenia."
 
 #: src/uagent/util_cmd_session.py:1023
 msgid ":shared-mem-del <index>"
-msgstr ":shared-mem-del <indeks>"
+msgstr ":shared-mem-del <index>"
 
 #: src/uagent/util_cmd_session.py:1038
 #, python-format
@@ -3600,9 +3597,7 @@ msgstr "Wskazówki:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr ""
-"Wpisz :help <polecenie>, aby uzyskać szczegółowe informacje (np. narzędzia "
-":help, umiejętności :help)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3739,11 +3734,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"Wbudowane: lista/aktywne/wyczyść (zobacz procedury obsługi umiejętności w czasie wykonywania).\n"
-":skills list <słowo kluczowe> Filtruj umiejętności według słowa kluczowego (nazwa/opis).\n"
-":skills find <słowo kluczowe> Tak samo jak lista z filtrem.\n"
-"Dynamiczne podpolecenia pochodzą z narzędzia CMD_SPEC (instalacja, dezinstalacja, apm, mp_search).\n"
-"Użyj :help instalowanie umiejętności jako podkomendy."
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3758,12 +3753,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools on|off Włącz/wyłącz wysyłanie narzędzi do LLM\n"
-":tools on|off <gatunek> Włącz/wyłącz gatunek narzędzia (i synchronizuj globalnie włączone)\n"
-":tools lista [zapytanie] Lista załadowanych narzędzi\n"
-":tools loading <nazwa> Załaduj jedno narzędzie według nazwy\n"
-":tools przeładuj Przeładuj moduły narzędzi z dysku\n"
-":tools wyjście Przełącz wyświetlanie wyników narzędzia w interfejsie użytkownika"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3779,7 +3774,7 @@ msgstr "Instaluj wtyczki i zarządzaj nimi"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "Aby zapoznać się z każdą akcją, zobacz wtyczkę :help <podkomenda>."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3894,7 +3889,7 @@ msgstr "Czy miałeś na myśli: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "Wypróbuj :help, aby zobaczyć pełną listę."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 #, python-format
@@ -3976,7 +3971,7 @@ msgstr "[env] Niejednoznaczne: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env ustaw KLUCZOWĄ WARTOŚĆ"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 #, python-format
@@ -3985,7 +3980,7 @@ msgstr "[env] Ustaw %(key)s"
 
 #: src/uagent/util_model.py:93
 msgid ":env unset KEY"
-msgstr ":env nieustawiony KLUCZ"
+msgstr ":env unset KEY"
 
 #: src/uagent/util_model.py:97
 #, python-format
@@ -3999,9 +3994,7 @@ msgstr "[env] Zapisano .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ""
-":env pokaż [KLUCZ] / :env ustaw KLUCZ WARTOŚĆ / :env usuń KLUCZ / :env "
-"zapisz"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -4096,7 +4089,7 @@ msgstr "[narzędzia] Wysyłanie narzędzia do LLM to teraz %(state)s"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "Użycie: :tools [lista|włącz|wyłącz|wyjście] [argumenty...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."
@@ -4236,7 +4229,7 @@ msgstr "room_id i polecenie są wymagane"
 #: src/uagent/web.py:2240
 #, python-format
 msgid "[Error] :cd failed: %(err)s"
-msgstr "[Błąd] :cd nie powiodło się: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
 
 #: src/uagent/web.py:2283
 #, python-format

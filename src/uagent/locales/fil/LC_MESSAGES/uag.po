@@ -355,7 +355,7 @@ msgstr ""
 
 #: src/uagent/core.py:2201
 msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (hindi available ang tulong: %(err)s)"
+msgstr ":help  (help unavailable: %(err)s)"
 
 #: src/uagent/core.py:2213
 msgid ""
@@ -1517,9 +1517,7 @@ msgstr "[mode] pangangatwiran=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh] (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
+msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 msgid "[mode] verbosity=%(mode)s"
@@ -1527,7 +1525,7 @@ msgstr "[mode] verbosity=%(mode)s"
 
 #: src/uagent/scheckgui.py:1730 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3] (0=off, 1=low, 2=medium, 3=high; walang arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 #: src/uagent/scheckgui.py:1873
 msgid "Enter password..."
@@ -2466,7 +2464,7 @@ msgstr "[AUTO] Naka-off ang auto-pilot."
 
 #: src/uagent/util_cmd_auto.py:273
 msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Paggamit: :auto <layunin> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
 
 #: src/uagent/util_cmd_auto.py:274
 msgid "       :auto off"
@@ -2554,7 +2552,7 @@ msgstr "[mga log] Di-wastong PDF index: '%(idx)s'"
 
 #: src/uagent/util_cmd_files.py:219
 msgid "[logs] Usage: :logs pdf <index> [output_path]"
-msgstr "[logs] Paggamit: :logs pdf <index> [output_path]"
+msgstr "[logs] Usage: :logs pdf <index> [output_path]"
 
 #: src/uagent/util_cmd_files.py:229
 msgid ""
@@ -2680,7 +2678,7 @@ msgstr "[ulo] Walang laman."
 #: src/uagent/util_cmd_files.py:558 src/uagent/util_cmd_files.py:570
 #: src/uagent/util_cmd_files.py:582 src/uagent/util_cmd_files.py:601
 msgid ":tail <path> [n]"
-msgstr ":buntot <path> [n]"
+msgstr ":tail <path> [n]"
 
 #: src/uagent/util_cmd_files.py:565 src/uagent/util_cmd_files.py:626
 msgid "[tail error] %(etype)s: %(err)s"
@@ -2805,7 +2803,7 @@ msgstr "[Responses API] Nabigo ang listahan ng input item: %(error)s"
 
 #: src/uagent/util_cmd_responses.py:153
 msgid "[Responses API] Usage: :response delete <response_id>"
-msgstr "[Responses API] Paggamit: :response tanggalin <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
 
 #: src/uagent/util_cmd_responses.py:160
 msgid "[Responses API] Delete failed: %(error)s"
@@ -2857,9 +2855,9 @@ msgid ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Pumili ng numero ng kasanayan na tatakbo. Ilagay ang c para kanselahin.\n"
-"Tip: :skills clear (alisin ang mga inilapat na kasanayan)\n"
-"Ilagay ang numero:"
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
 
 #: src/uagent/util_cmd_session.py:198 src/uagent/util_cmd_session.py:236
 msgid "[skills] Cancelled."
@@ -3368,9 +3366,7 @@ msgstr "Mga pahiwatig:"
 
 #: src/uagent/util_help.py:80
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
-msgstr ""
-"I-type ang :help <command> para sa mga detalye (hal. :help tool, :help "
-"skills)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
 
 #: src/uagent/util_help.py:81
 msgid "Enter a line that is just 'f' to enter multiline input mode."
@@ -3508,11 +3504,11 @@ msgid ""
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
-"Built-in: list/active/clear (tingnan ang runtime skills handler).\n"
-":skills list <keyword> I-filter ang mga kasanayan ayon sa keyword (pangalan/paglalarawan).\n"
-":skills hanapin ang <keyword> Pareho sa listahan na may filter.\n"
-"Dynamic na subcommands ay nagmumula sa tool na CMD_SPEC (i-install, i-uninstall, apm, mp_search).\n"
-":helpGamitin ang mga kasanayan sa pag-install.\n"
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
 
 #: src/uagent/util_help.py:201
 msgid "Control tool sending, genres, and loaded tools"
@@ -3527,12 +3523,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools on|off I-enable/i-disable ang pagpapadala ng mga tool sa LLM\n"
-":tools on|off <genre> I-enable/disable ang isang tool genre (at sync global on)\n"
-":tools list [query] List load tool\n"
-":tools load <name> Mag-load ng isang tool ayon sa pangalan\n"
-":tools reload ng disk na nagpapakita ng mga resulta ng tool __ I-reload ang PH_0\n"
-" mga module ng tool sa pag-reload PH\n"
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI"
 
 #: src/uagent/util_help.py:213
 msgid "Tool authoring helpers"
@@ -3548,7 +3544,7 @@ msgstr "I-install at pamahalaan ang mga plugin"
 
 #: src/uagent/util_help.py:222
 msgid "See :help plugin <subcommand> for each action."
-msgstr "Tingnan ang :help plugin <subcommand> para sa bawat pagkilos."
+msgstr "See :help plugin <subcommand> for each action."
 
 #: src/uagent/util_help.py:225
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
@@ -3664,7 +3660,7 @@ msgstr "ibig mo bang sabihin: "
 
 #: src/uagent/util_help.py:372
 msgid "Try :help for the full list."
-msgstr "Subukan ang :help para sa buong listahan."
+msgstr "Try :help for the full list."
 
 #: src/uagent/util_help.py:378
 msgid "No dynamic subcommand help for '%(sub)s'."
@@ -3739,7 +3735,7 @@ msgstr "[env] Malabo: %(key)s"
 
 #: src/uagent/util_model.py:83
 msgid ":env set KEY VALUE"
-msgstr ":env itakda ang KEY VALUE"
+msgstr ":env set KEY VALUE"
 
 #: src/uagent/util_model.py:88
 msgid "[env] Set %(key)s"
@@ -3759,8 +3755,7 @@ msgstr "[env] Nai-save na .env.sec: %(path)s"
 
 #: src/uagent/util_model.py:113
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-msgstr ""
-":env ipakita ang [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
+msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 
 #: src/uagent/util_model.py:233 src/uagent/util_model.py:247
 #: src/uagent/util_model.py:487
@@ -3847,7 +3842,7 @@ msgstr "[tools] Ang pagpapadala ng tool sa LLM ay %(state)s na ngayon"
 
 #: src/uagent/util_tools.py:240
 msgid "Usage: :tools [list|on|off|output] [args...]"
-msgstr "Paggamit: :tools [list|on|off|output] [args...]"
+msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 #: src/uagent/util_tools.py:341
 msgid "Exiting."

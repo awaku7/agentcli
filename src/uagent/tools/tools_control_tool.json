@@ -20,16 +20,16 @@
     "tool.description": "Dummy tool for tools control registration."
   },
   "ja": {
-    "cmd.help.tools_list": "  :tools list [query]               読み込んだツール一覧を表示（名前/説明でフィルタ可）",
-    "cmd.help.tools_load": ":tools ロード <名前>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "使用方法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ツールを読み込みました: {name}",
     "msg.tools.not_found": "[tools] ツールが見つかりません: {name}",
-    "cmd.help.tools_output": "  :tools output                     ツール実行結果の表示をON/OFF切り替え",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] ツール出力表示: {state}",
     "msg.tools.list_header": "[ツール] ロードされたツール ({count}):",
     "msg.tools.no_match": "[ツール] 一致するツールがありません: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    ツールコードをすべてディスクから再読み込みします。",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] システムは正常にリロードされました。すべてのツールが最新のコードで更新されました。",
     "x_search_terms": [
       "ツールコントロール",
@@ -40,14 +40,14 @@
     "tool.description": "ツール制御登録用のダミーツールです。"
   },
   "es": {
-    "cmd.help.tools_list": "  :tools list [query]               Listar herramientas cargadas, opcionalmente filtradas por nombre/descripción",
-    "cmd.help.tools_load": ": carga de herramientas <nombre>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Herramienta cargada: {name}",
     "msg.tools.not_found": "[tools] Herramienta no encontrada: {name}",
-    "cmd.help.tools_output": "  :tools output                     Alternar visualización de resultados de herramientas",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Visualización de salida de herramientas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recargar todo el codigo de herramientas desde el disco.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] El sistema se recargó exitosamente. Todas las herramientas actualizadas con el código más reciente.",
     "x_search_terms": [
       "control de herramientas",
@@ -60,14 +60,14 @@
     "tool.description": "Herramienta ficticia para el registro de control de herramientas."
   },
   "fr": {
-    "cmd.help.tools_list": "  :tools list [query]               Lister les outils chargés, éventuellement filtrés par nom/description",
-    "cmd.help.tools_load": ":tools charge <nom>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Utilisation : :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Outil chargé : {name}",
     "msg.tools.not_found": "[tools] Outil non trouvé : {name}",
-    "cmd.help.tools_output": "  :tools output                     Afficher/masquer les résultats d'exécution des outils",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Affichage des résultats d'outils: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recharger tout le code des outils depuis le disque.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Le système a été rechargé avec succès. Tous les outils mis à jour avec le dernier code.",
     "x_search_terms": [
       "contrôle des outils",
@@ -80,14 +80,14 @@
     "tool.description": "Outil factice pour l’enregistrement du contrôle des outils."
   },
   "ko": {
-    "cmd.help.tools_list": "  :tools list [query]               로드된 도구를 나열하며, 선택적으로 이름/설명으로 필터링",
-    "cmd.help.tools_load": ":도구 로드 <이름>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "사용법: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 도구 로드됨: {name}",
     "msg.tools.not_found": "[tools] 도구를 찾을 수 없음: {name}",
-    "cmd.help.tools_output": "  :tools output                     도구 실행 결과 표시 전환",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 도구 출력 표시: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    디스크에서 모든 도구 코드를 다시 로드합니다.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 시스템이 성공적으로 다시 로드되었습니다. 모든 도구가 최신 코드로 업데이트되었습니다.",
     "x_search_terms": [
       "도구 제어",
@@ -100,14 +100,14 @@
     "tool.description": "도구 제어 등록을 위한 더미 도구입니다."
   },
   "de": {
-    "cmd.help.tools_list": "  :tools list [query]               Geladene Werkzeuge auflisten, optional nach Name/Beschreibung gefiltert",
-    "cmd.help.tools_load": ":tools laden <Name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Verwendung: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Werkzeug geladen: {name}",
     "msg.tools.not_found": "[tools] Werkzeug nicht gefunden: {name}",
-    "cmd.help.tools_output": "  :tools output                     Anzeige der Tool-Ergebnisse umschalten",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tool-Ausgabeanzeige: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Den gesamten Werkzeugcode von der Festplatte neu laden.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] System wurde erfolgreich neu geladen. Alle Tools wurden mit dem neuesten Code aktualisiert.",
     "x_search_terms": [
       "Werkzeugsteuerung",
@@ -120,14 +120,14 @@
     "tool.description": "Dummy-Tool für die Registrierung der Werkzeugsteuerung."
   },
   "it": {
-    "cmd.help.tools_list": "  :tools list [query]               Elenca gli strumenti caricati, opzionalmente filtrati per nome/descrizione",
-    "cmd.help.tools_load": ":gli strumenti caricano <nome>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Utilizzo: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Strumento caricato: {name}",
     "msg.tools.not_found": "[tools] Strumento non trovato: {name}",
-    "cmd.help.tools_output": "  :tools output                     Attiva/disattiva visualizzazione risultati strumenti",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Visualizzazione output strumenti: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Ricaricare tutto il codice degli strumenti dal disco.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema ricaricato con successo. Tutti gli strumenti aggiornati con il codice più recente.",
     "x_search_terms": [
       "controllo degli strumenti",
@@ -140,14 +140,14 @@
     "tool.description": "Strumento fittizio per la registrazione del controllo degli strumenti."
   },
   "ru": {
-    "cmd.help.tools_list": "  :tools list [query]               Список загруженных инструментов, опционально отфильтрованных по имени/описанию",
-    "cmd.help.tools_load": ":tools load <имя>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Использование: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Инструмент загружен: {name}",
     "msg.tools.not_found": "[tools] Инструмент не найден: {name}",
-    "cmd.help.tools_output": "  :tools output                     Переключить отображение результатов инструментов",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Отображение вывода инструментов: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Перезагрузить весь код инструментов с диска.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Система успешно перезагрузилась. Все инструменты обновлены последней версией кода.",
     "x_search_terms": [
       "управление инструментами",
@@ -160,14 +160,14 @@
     "tool.description": "Инструмент-пустышка для регистрации управления инструментами."
   },
   "pt_BR": {
-    "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
-    "cmd.help.tools_load": ":ferramentas carregam <nome>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
-    "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente.",
     "x_search_terms": [
       "controlo de ferramentas",
@@ -180,14 +180,14 @@
     "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "pt": {
-    "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
-    "cmd.help.tools_load": ":ferramentas carregam <nome>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
-    "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente.",
     "x_search_terms": [
       "controlo de ferramentas",
@@ -200,14 +200,14 @@
     "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "id": {
-    "cmd.help.tools_list": "  :tools list [query]               Daftar alat yang dimuat, opsional difilter berdasarkan nama/deskripsi",
-    "cmd.help.tools_load": ":alat memuat <nama>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Penggunaan: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Alat dimuat: {name}",
     "msg.tools.not_found": "[tools] Alat tidak ditemukan: {name}",
-    "cmd.help.tools_output": "  :tools output                     Alihkan tampilan hasil eksekusi alat",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tampilan output alat: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Memuat ulang semua kode alat dari disk.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistem berhasil dimuat ulang. Semua alat diperbarui dengan kode terbaru.",
     "x_search_terms": [
       "kontrol alat",
@@ -220,14 +220,14 @@
     "tool.description": "Alat tiruan untuk alat kontrol registrasi."
   },
   "vi": {
-    "cmd.help.tools_list": "  :tools list [query]               Liệt kê các công cụ đã tải, tùy chọn lọc theo tên/mô tả",
-    "cmd.help.tools_load": ":tải công cụ <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Cách dùng: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Đã tải công cụ: {name}",
     "msg.tools.not_found": "[tools] Không tìm thấy công cụ: {name}",
-    "cmd.help.tools_output": "  :tools output                     Chuyển đổi hiển thị kết quả công cụ",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Hiển thị đầu ra công cụ: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Tai lai toan bo ma cong cu tu dia.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Hệ thống đã được tải lại thành công. Tất cả các công cụ được cập nhật với mã mới nhất.",
     "x_search_terms": [
       "kiểm soát công cụ",
@@ -240,14 +240,14 @@
     "tool.description": "Công cụ giả để đăng ký kiểm soát công cụ."
   },
   "pl": {
-    "cmd.help.tools_list": "  :tools list [query]               Wymień załadowane narzędzia, opcjonalnie filtrowane według nazwy/opisu",
-    "cmd.help.tools_load": ":tools ładuje <nazwa>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Użycie: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Załadowano narzędzie: {name}",
     "msg.tools.not_found": "[tools] Nie znaleziono narzędzia: {name}",
-    "cmd.help.tools_output": "  :tools output                     Przełącz wyświetlanie wyników narzędzi",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Wyświetlanie wyników narzędzi: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Przeladuj caly kod narzedzia z dysku.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] System został pomyślnie załadowany ponownie. Wszystkie narzędzia zaktualizowane o najnowszy kod.",
     "x_search_terms": [
       "kontrola narzędzi",
@@ -260,14 +260,14 @@
     "tool.description": "Atrapa narzędzia do rejestracji kontroli narzędzi."
   },
   "hi": {
-    "cmd.help.tools_list": "  :tools list [query]               लोड किए गए उपकरणों की सूची बनाएं, वैकल्पिक रूप से नाम/विवरण के अनुसार फ़िल्टर किया गया",
-    "cmd.help.tools_load": ":टूल्स लोड <नाम>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "उपयोग: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] उपकरण लोड किया गया: {name}",
     "msg.tools.not_found": "[tools] उपकरण नहीं मिला: {name}",
-    "cmd.help.tools_output": "  :tools output                     उपकरण निष्पादन परिणाम प्रदर्शन टॉगल करें",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] उपकरण आउटपुट प्रदर्शन: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    डिस्क से सभी टूल कोड को पुनः लोड करें।",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] सिस्टम सफलतापूर्वक पुनः लोड हुआ। सभी उपकरण नवीनतम कोड के साथ अद्यतन किए गए।",
     "x_search_terms": [
       "उपकरण नियंत्रण",
@@ -280,14 +280,14 @@
     "tool.description": "उपकरण नियंत्रण पंजीकरण के लिए डमी उपकरण।"
   },
   "ar": {
-    "cmd.help.tools_list": "  :tools list [query]               قائمة الأدوات المحملة، اختيارياً تمت تصفيتها حسب الاسم/الوصف",
-    "cmd.help.tools_load": ": تحميل الأدوات <الاسم>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "الاستخدام: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] تم تحميل الأداة: {name}",
     "msg.tools.not_found": "[tools] الأداة غير موجودة: {name}",
-    "cmd.help.tools_output": "  :tools output                     تبديل عرض نتائج تنفيذ الأدوات",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] عرض مخرجات الأدوات: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    اعادة تحميل كل كود الاداة من القرص.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] تم إعادة تحميل النظام بنجاح. تم تحديث جميع الأدوات بأحدث التعليمات البرمجية.",
     "x_search_terms": [
       "التحكم بالأدوات",
@@ -300,14 +300,14 @@
     "tool.description": "أداة وهمية لتسجيل أدوات التحكم."
   },
   "sv": {
-    "cmd.help.tools_list": "  :tools list [query]               Lista laddade verktyg, eventuellt filtrerade efter namn/beskrivning",
-    "cmd.help.tools_load": ":verktyg laddar <namn>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Användning: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Laddat verktyg: {name}",
     "msg.tools.not_found": "[tools] Verktyg hittades inte: {name}",
-    "cmd.help.tools_output": "  :tools output                     Växla visning av verktygsresultat",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Verktygsutdatavisning: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Ladda om all verktygskod fran disken.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systemet har laddats om. Alla verktyg uppdaterade med senaste kod.",
     "x_search_terms": [
       "verktygskontroll",
@@ -320,14 +320,14 @@
     "tool.description": "Dummy-verktyg för registrering av verktygskontroll."
   },
   "sw": {
-    "cmd.help.tools_list": "  :tools list [query]               Orodhesha zana zilizopakiwa, kwa hiari kuchujwa kwa jina/maelezo",
-    "cmd.help.tools_load": ":zana kupakia <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Matumizi: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Chombo kimepakiwa: {name}",
     "msg.tools.not_found": "[tools] Chombo hakijapatikana: {name}",
-    "cmd.help.tools_output": "  :tools output                     Geuza onyesho la matokeo ya utekelezaji wa zana",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Onyesho la matokeo ya zana: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Pakia upya msimbo wote wa zana kutoka kwa diski.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Mfumo umepakiwa upya. Zana zote zimesasishwa na msimbo wa hivi punde.",
     "x_search_terms": [
       "udhibiti wa zana",
@@ -340,14 +340,14 @@
     "tool.description": "Chombo cha dummy cha usajili wa udhibiti wa zana."
   },
   "nb": {
-    "cmd.help.tools_list": "  :tools list [query]               List innlastede verktøy, eventuelt filtrert etter navn/beskrivelse",
-    "cmd.help.tools_load": ":verktøy laster inn <navn>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Bruk: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Lastet verktøy: {name}",
     "msg.tools.not_found": "[tools] Verktøy ikke funnet: {name}",
-    "cmd.help.tools_output": "  :tools output                     Veksle visning av verktøyresultater",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Verktøyutdatavisning: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Last inn alt verktoykoden fra disken pa nytt.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode.",
     "x_search_terms": [
       "verktøykontroll",
@@ -360,14 +360,14 @@
     "tool.description": "Dummyverktøy for verktøykontrollregistrering."
   },
   "nl": {
-    "cmd.help.tools_list": "  :tools list [query]               Toon geladen tools, optioneel gefilterd op naam/beschrijving",
-    "cmd.help.tools_load": ":tools laad <naam>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Gebruik: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Tool geladen: {name}",
     "msg.tools.not_found": "[tools] Tool niet gevonden: {name}",
-    "cmd.help.tools_output": "  :tools output                     Schakel weergave van toolresultaten",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tooluitvoerweergave: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Herlaad alle toolcode van de schijf.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systeem is succesvol opnieuw geladen. Alle tools bijgewerkt met de nieuwste code.",
     "x_search_terms": [
       "gereedschapscontrole",
@@ -380,14 +380,14 @@
     "tool.description": "Dummytool voor gereedschapscontroleregistratie."
   },
   "fi": {
-    "cmd.help.tools_list": "  :tools list [query]               Listaa ladatut työkalut, valinnaisesti suodatettuna nimen/kuvauksen perusteella",
-    "cmd.help.tools_load": ":tools load <nimi>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Käyttö: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Työkalu ladattu: {name}",
     "msg.tools.not_found": "[tools] Työkalua ei löydy: {name}",
-    "cmd.help.tools_output": "  :tools output                     Vaihda työkalujen tulosten näyttöä",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Työkalujen tulostusnäyttö: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Lataa kaikki tyokalukoodi uudelleen levylta.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Järjestelmän uudelleenlataus onnistui. Kaikki työkalut päivitetty uusimmalla koodilla.",
     "x_search_terms": [
       "työkalujen ohjaus",
@@ -400,16 +400,16 @@
     "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin."
   },
   "cs": {
-    "cmd.help.tools_list": "  :tools list [query]               Seznam načtených nástrojů, volitelně filtrovaných podle názvu/popisu",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Použití: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
-    "cmd.help.tools_output": "  :tools output                     Přepnout zobrazení výsledků nástrojů",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Zobrazení výstupu nástrojů: {state}",
     "msg.tools.list_header": "[tools] Načtené nástroje ({count}):",
     "msg.tools.no_match": "[nástroje] Žádné odpovídající nástroje: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Znovu nacist veskery kod nastroje z disku.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systém byl úspěšně znovu načten. Všechny nástroje aktualizovány nejnovějším kódem.",
     "x_search_terms": [
       "ovládání nástrojů",
@@ -420,16 +420,16 @@
     "tool.description": "Dummy nástroj pro registraci ovládání nástrojů."
   },
   "uk": {
-    "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
     "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Використання: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
-    "cmd.help.tools_output": "  :tools output                     Перемкнути відображення результатів інструментів",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Відображення виводу інструментів: {state}",
     "msg.tools.list_header": "[інструменти] Завантажені інструменти ({count}):",
     "msg.tools.no_match": "[інструменти] Немає відповідних інструментів: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Pereavantazhyty ves kod instrumentu z dyska.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Систему успішно перезавантажено. Усі інструменти оновлено останнім кодом.",
     "x_search_terms": [
       "керування інструментами",
@@ -440,14 +440,14 @@
     "tool.description": "Фіктивний інструмент для реєстрації інструментів контролю."
   },
   "tr": {
-    "cmd.help.tools_list": "  :tools list [query]               Yüklenmiş araçları listele, isteğe bağlı olarak ad/açıklamaya göre filtrele",
-    "cmd.help.tools_load": ":araçlar <ad> yükle",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Kullanım: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Araç yüklendi: {name}",
     "msg.tools.not_found": "[tools] Araç bulunamadı: {name}",
-    "cmd.help.tools_output": "  :tools output                     Araç yürütme sonuçlarının görüntülenmesini aç/kapat",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Araç çıktı görüntüleme: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Diskteki tum arac kodlarini yeniden yukleyin.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistem başarıyla yeniden yüklendi. Tüm araçlar en son kodla güncellendi.",
     "x_search_terms": [
       "araç kontrolü",
@@ -460,14 +460,14 @@
     "tool.description": "Araç kontrolü kaydı için sahte araç."
   },
   "th": {
-    "cmd.help.tools_list": "  :tools list [query]               แสดงรายการเครื่องมือที่โหลดแล้ว สามารถกรองตามชื่อ/คำอธิบายได้",
-    "cmd.help.tools_load": ":tools โหลด <ชื่อ>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "การใช้งาน: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] โหลดเครื่องมือแล้ว: {name}",
     "msg.tools.not_found": "[tools] ไม่พบเครื่องมือ: {name}",
-    "cmd.help.tools_output": "  :tools output                     สลับการแสดงผลลัพธ์การทำงานของเครื่องมือ",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] การแสดงผลลัพธ์ของเครื่องมือ: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    โหลดโค้ดเครื่องมือทั้งหมดจากดิสก์อีกครั้ง",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] โหลดระบบสำเร็จแล้ว เครื่องมือทั้งหมดอัปเดตด้วยรหัสล่าสุด",
     "x_search_terms": [
       "ควบคุมเครื่องมือ",
@@ -480,14 +480,14 @@
     "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนการควบคุมเครื่องมือ"
   },
   "zh_CN": {
-    "cmd.help.tools_list": "  :tools list [query]               列出已加载的工具，可选按名称/描述筛选",
-    "cmd.help.tools_load": ":工具加载<名称>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "用法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 已加载工具: {name}",
     "msg.tools.not_found": "[tools] 未找到工具: {name}",
-    "cmd.help.tools_output": "  :tools output                     切换工具执行结果的显示",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 工具输出显示: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    从磁盘重新加载所有工具代码。",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 系统重新加载成功。所有工具均更新为最新代码。",
     "x_search_terms": [
       "工具控制",
@@ -500,14 +500,14 @@
     "tool.description": "用于工具控制注册的虚拟工具。"
   },
   "zh_TW": {
-    "cmd.help.tools_list": "  :tools list [query]               列出已載入的工具，可選按名稱/描述篩選",
-    "cmd.help.tools_load": ":工具載入<名稱>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "用法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 已載入工具: {name}",
     "msg.tools.not_found": "[tools] 找不到工具: {name}",
-    "cmd.help.tools_output": "  :tools output                     切換工具執行結果的顯示",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 工具輸出顯示: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    從磁碟重新載入所有工具程式碼。",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 系統重新載入成功。所有工具均更新為最新程式碼。",
     "x_search_terms": [
       "工具控制",
@@ -520,14 +520,14 @@
     "tool.description": "用於工具控制註冊的虛擬工具。"
   },
   "bn": {
-    "cmd.help.tools_list": "  :tools list [query]               লোড করা টুলগুলি তালিকাভুক্ত করুন, ঐচ্ছিকভাবে নাম/বিবরণ অনুসারে ফিল্টার করুন",
-    "cmd.help.tools_load": ": টুলস লোড <নাম>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "ব্যবহার: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] টুল লোড হয়েছে: {name}",
     "msg.tools.not_found": "[tools] টুল পাওয়া যায়নি: {name}",
-    "cmd.help.tools_output": "  :tools output                     টুল নির্বাহের ফলাফল প্রদর্শন টগল করুন",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] টুল আউটপুট প্রদর্শন: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    ডিস্ক থেকে সমস্ত টুল কোড পুনরায় লোড করুন।",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] সিস্টেম সফলভাবে পুনরায় লোড হয়েছে। সমস্ত সরঞ্জাম সর্বশেষ কোড সহ আপডেট করা হয়েছে।",
     "x_search_terms": [
       "সরঞ্জাম নিয়ন্ত্রণ",
@@ -540,16 +540,16 @@
     "tool.description": "সরঞ্জাম নিয়ন্ত্রণ নিবন্ধনের জন্য ডামি টুল।"
   },
   "fa": {
-    "cmd.help.tools_list": "  :tools list [query]               فهرست ابزارهای بارگذاری شده، به صورت اختیاری بر اساس نام/توضیح فیلتر شده",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
     "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "کاربرد: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ابزار بارگذاری شد: {name}",
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
-    "cmd.help.tools_output": "  :tools output                     تغییر نمایش نتایج اجرای ابزارها",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] نمایش خروجی ابزار: {state}",
     "msg.tools.list_header": "[ابزار] ابزارهای بارگذاری شده ({count}):",
     "msg.tools.no_match": "[ابزار] هیچ ابزار منطبقی وجود ندارد: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    بارگذاري مجدد تمام کد ابزار از ديسک.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] سیستم با موفقیت بارگیری مجدد شد. همه ابزارها با آخرین کد به روز شده اند.",
     "x_search_terms": [
       "کنترل ابزارها",
@@ -560,14 +560,14 @@
     "tool.description": "ابزار ساختگی برای ثبت نام کنترل ابزار."
   },
   "mn": {
-    "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсаах, нэр/тодорхойлолтоор шүүх боломжтой",
-    "cmd.help.tools_load": ":хэрэгслүүд <нэр> ачаална",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Хэрэглээ: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Хэрэгсэл ачаалагдсан: {name}",
     "msg.tools.not_found": "[tools] Хэрэгсэл олдсонгүй: {name}",
-    "cmd.help.tools_output": "  :tools output                     Хэрэгслийн гүйцэтгэлийн үр дүнг харуулахыг идэвх/идэвхгүй болгох",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Хэрэгслийн гаралтын дэлгэц: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Дискээс бүх хэрэгслийн кодыг дахин ачаалах.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Системийг амжилттай дахин ачааллаа. Бүх хэрэгслийг хамгийн сүүлийн кодоор шинэчилсэн.",
     "x_search_terms": [
       "хэрэгсэл хяналт",
@@ -580,14 +580,14 @@
     "tool.description": "Хэрэгслийн хяналтын бүртгэлд зориулсан дамми хэрэгсэл."
   },
   "mr": {
-    "cmd.help.tools_list": "  :tools list [query]               लोड केलेली साधने यादी करा, वैकल्पिकरित्या नाव/वर्णनानुसार फिल्टर केलेले",
-    "cmd.help.tools_load": ": साधने लोड <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "वापर: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] साधन लोड केले: {name}",
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
-    "cmd.help.tools_output": "  :tools output                     साधन अंमलबजावणी परिणाम प्रदर्शन टॉगल करा",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] साधन आउटपुट प्रदर्शन: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    डिस्कवरून सर्व टूल कोड पुन्हा लोड करा.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] प्रणाली यशस्वीरित्या रीलोड झाली. सर्व साधने नवीनतम कोडसह अद्यतनित केली आहेत.",
     "x_search_terms": [
       "साधने नियंत्रण",
@@ -600,14 +600,14 @@
     "tool.description": "टूल्स कंट्रोल नोंदणीसाठी डमी टूल."
   },
   "el": {
-    "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
-    "cmd.help.tools_load": ":tools load <όνομα>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Χρήση: :tools φόρτωση <όνομα_εργαλείου>",
     "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
     "msg.tools.not_found": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
-    "cmd.help.tools_output": "  :tools output                     Εναλλαγή εμφάνισης αποτελεσμάτων εργαλείων",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Επαναφορτωστε ολο τον κωδικα εργαλειου απο τον δισκο.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Το σύστημα επαναφορτώθηκε με επιτυχία. Όλα τα εργαλεία ενημερώθηκαν με τον πιο πρόσφατο κώδικα.",
     "x_search_terms": [
       "έλεγχος εργαλείων",
@@ -620,14 +620,14 @@
     "tool.description": "Εργαλείο εικονικής εγγραφής για τον έλεγχο εργαλείων."
   },
   "he": {
-    "cmd.help.tools_list": ":כלים ב-comm הפעל כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
-    "cmd.help.tools_load": ":tools טען <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "שימוש: :כלים נטענים <שם_כלי>",
     "msg.tools.loaded_single": "[כלים] הכלי לא נמצא: {name}",
     "msg.tools.not_found": "[כלים] הכלי לא נמצא: {name}",
-    "cmd.help.tools_output": "  :tools output                     החלף תצוגת תוצאות הפעלת כלים",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] תצוגת פלט כלים: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    טען מחדש את כל קוד הכלי מהדיסק.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] המערכת נטענה מחדש בהצלחה. כל הכלים מעודכנים בקוד העדכני ביותר.",
     "x_search_terms": [
       "שליטת כלים",
@@ -640,16 +640,16 @@
     "tool.description": "כלי דמה לרישום בקרת כלים."
   },
   "hu": {
-    "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
     "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Használat: :tools load <eszköz_neve>",
     "msg.tools.loaded_single": "[eszközök] Az eszköz nem található: {name}",
     "msg.tools.not_found": "[eszközök] Az eszköz nem található: {name}",
-    "cmd.help.tools_output": "  :tools output                     Eszközök végrehajtási eredményeinek megjelenítésének váltása",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Eszköz kimenet megjelenítése: {state}",
     "msg.tools.list_header": "[eszközök] Betöltött eszközök ({count}):",
     "msg.tools.no_match": "[eszközök] Nincsenek megfelelő eszközök: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Az osszes eszkozkod ujratoltese a lemezrol.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] A rendszer újratöltése sikeresen megtörtént. Minden eszköz frissítve a legújabb kóddal.",
     "x_search_terms": [
       "eszközök vezérlés",
@@ -660,14 +660,14 @@
     "tool.description": "Dummy eszköz a szerszámok ellenőrzéséhez."
   },
   "ro": {
-    "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",
-    "cmd.help.tools_load": ":tools load <nume>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Utilizare: :tools load <nume_instrument>",
     "msg.tools.loaded_single": "[tools] Instrument negăsit: {name}",
     "msg.tools.not_found": "[instrumente] Instrumentul nu a fost găsit: {name}",
-    "cmd.help.tools_output": "  :tools output                     Comutarea afișării rezultatelor de execuție a instrumentelor",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Afișare ieșire instrument: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Reincarcati tot codul instrumentului de pe disc.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistemul a fost reîncărcat cu succes. Toate instrumentele au fost actualizate cu cel mai recent cod.",
     "x_search_terms": [
       "control unelte",
@@ -680,16 +680,16 @@
     "tool.description": "Instrument fals pentru înregistrarea controlului sculelor."
   },
   "fil": {
-    "cmd.help.tools_list": "  :tools list [query] List load na mga tool, opsyonal na na-filter ayon sa pangalan/paglalarawan",
-    "cmd.help.tools_load": "  :mag-load ng mga tool <name>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Paggamit: :load ng mga tool <pangalan_gamit>",
     "msg.tools.loaded_single": "[mga tool] Nag-load ng tool: {name}",
     "msg.tools.not_found": "[mga tool] Hindi nakita ang tool: {name}",
-    "cmd.help.tools_output": "  :tools output I-toggle ang pagpapakita ng mga resulta ng pagpapatupad ng tool",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Ang display ng output ng tool ay {state} na ngayon",
     "msg.tools.list_header": "[mga tool] Nag-load ng mga tool ({count}):",
     "msg.tools.no_match": "[tools] Walang katugmang tool: {q}",
-    "cmd.help.tools_reload": "  :tools reload I-reload ang lahat ng tool code mula sa disk.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Matagumpay na na-reload ang system. Na-update ang lahat ng tool gamit ang pinakabagong code.",
     "x_search_terms": [
       "tool control",
@@ -700,16 +700,16 @@
     "tool.description": "Dummy tool para sa mga tool control registration."
   },
   "ms": {
-    "cmd.help.tools_list": "  :tools list [query] Senaraikan alatan yang dimuatkan, secara pilihan ditapis mengikut nama/huraian",
-    "cmd.help.tools_load": "  :alat memuatkan <nama>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Penggunaan: :tools load <tool_name>",
     "msg.tools.loaded_single": "[alat] Alat yang dimuatkan: {name}",
     "msg.tools.not_found": "[alat] Alat tidak ditemui: {name}",
-    "cmd.help.tools_output": "  :tools output Togol paparan hasil pelaksanaan alat",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Paparan output alat kini {state}",
     "msg.tools.list_header": "[alat] Alat yang dimuatkan ({count}):",
     "msg.tools.no_match": "[alat] Tiada alatan yang sepadan: {q}",
-    "cmd.help.tools_reload": "  :tools reload Muat semula semua kod alat dari cakera.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[alat] Sistem berjaya dimuatkan semula. Semua alatan dikemas kini dengan kod terkini.",
     "x_search_terms": [
       "alat kawalan",
@@ -720,16 +720,16 @@
     "tool.description": "Alat dummy untuk pendaftaran kawalan alat."
   },
   "da": {
-    "cmd.help.tools_list": "  :værktøjsliste [forespørgsel] Liste over indlæste værktøjer, eventuelt filtreret efter navn/beskrivelse",
-    "cmd.help.tools_load": "  :værktøjer indlæser <navn>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Brug: :værktøjer indlæser <værktøjsnavn>",
     "msg.tools.loaded_single": "[værktøjer] Indlæst værktøj: {name}",
     "msg.tools.not_found": "[værktøjer] Værktøj ikke fundet: {name}",
-    "cmd.help.tools_output": "  :værktøjsudgang Skift visning af værktøjsudførelsesresultater",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[værktøjer] Værktøjsoutputdisplayet er nu {state}",
     "msg.tools.list_header": "[værktøjer] Indlæste værktøjer ({count}):",
     "msg.tools.no_match": "[værktøjer] Ingen matchende værktøjer: {q}",
-    "cmd.help.tools_reload": "  :tools genindlæs Genindlæs al værktøjskode fra disken.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[værktøjer] Systemet blev genindlæst. Alle værktøjer opdateret med nyeste kode.",
     "x_search_terms": [
       "værktøjer kontrol",
@@ -740,16 +740,16 @@
     "tool.description": "Dummy-værktøj til registrering af værktøjskontrol."
   },
   "nn": {
-    "cmd.help.tools_list": "  :tools list [query] Liste over lastede verktøy, eventuelt filtrert etter namn/beskrivelse",
-    "cmd.help.tools_load": "  :verktøy laster inn <namn>",
+    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Bruk: :verktøy laster inn <verktøynavn>",
     "msg.tools.loaded_single": "[verktøy] Lastet verktøy: {name}",
     "msg.tools.not_found": "[verktøy] Verktøyet ble ikkje funnen: {name}",
-    "cmd.help.tools_output": "  :tools output Veksle visning av verktøyutførelsesresultater",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[verktøy] Verktøyutdataskjermen er no {state}",
     "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
     "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
-    "cmd.help.tools_reload": "  :tools reload Last all verktøykode frå disken på nytt.",
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[verktøy] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode.",
     "x_search_terms": [
       "verktøykontroll",
