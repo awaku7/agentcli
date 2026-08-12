@@ -106,6 +106,15 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify, quantities ||
 | **Navigation source** | **29 outils idx** pour Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obtenez un index de fonction/classe ou une définition spécifique sans lire l'intégralité du fichier |
 
+#### Examen et couverture du référentiel
+
+- `git_review` : résume les modifications de Git, les fichiers à risque, les candidats de test et les résultats secrets sans exposer les valeurs secrètes.
+- `security_scan` : analyse les fichiers du référentiel à la recherche de secrets probables et de fichiers de configuration à risque.
+- `coverage_report` : exécute et normalise la couverture pour Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift et Dart/Flutter.
+- Les dépendances de couverture manquantes peuvent être installées automatiquement lorsque l'exécution est demandée ; `dry_run` n'installe jamais de packages.
+
+Voir [Repository Analysis Tools](REPOSITORY_TOOLS.md) pour les paramètres, la sortie et les détails de sécurité.
+
 ### 🖥 4 interfaces + extension de code VS
 
 | Mode | Commande | Objectif |

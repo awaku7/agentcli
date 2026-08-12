@@ -106,6 +106,14 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 | **系统** | 环境变量、系统规格、时间、日期计算, uuid_gen, slugify, quantities ||
 | **来源导航** | **29 个 idx 工具**，适用于 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 无需读取整个文件即可获取函数/类索引或特定定义 |
 
+#### 存储库审查和覆盖
+- `git_review`：总结 Git 更改、有风险的文件、测试候选项和秘密结果，而不暴露秘密值。
+- `security_scan`：扫描存储库文件以查找可能的秘密和有风险的配置文件。
+- `coverage_report`：运行并规范化 Python、TypeScript/JavaScript、Rust、Go、Java/Kotlin、.NET、C/C++、Ruby、PHP、 Swift 和 Dart/Flutter。
+- 请求执行时可以自动安装缺少的覆盖依赖项； `dry_run` 从不安装软件包。
+
+有关参数、输出和安全详细信息，请参阅[存储库分析工具](REPOSITORY_TOOLS.md)。
+
 ### 🖥 4 个接口 + VS 代码扩展
 
 |模式|命令 |目的|

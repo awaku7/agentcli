@@ -105,6 +105,15 @@ Consulte a documentação completa em [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 | **Sistema** | env vars, especificações do sistema, hora, cálculo de data, uuid_gen, slugify, quantities ||
 | **Navegação de origem** | **29 ferramentas idx** para Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obtenha um índice de função/classe ou definição específica sem ler o arquivo inteiro |
 
+#### Revisão e cobertura do repositório
+
+- `git_review`: resume alterações do Git, arquivos arriscados, candidatos de teste e descobertas secretas sem expor valores secretos.
+- `security_scan`: verifica os arquivos do repositório em busca de segredos prováveis e arquivos de configuração arriscados.
+- `coverage_report`: executa e normaliza a cobertura para Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift e Dart/Flutter.
+- Dependências de cobertura ausentes podem ser instaladas automaticamente quando a execução é solicitada; `dry_run` nunca instala pacotes.
+
+Veja [Ferramentas de análise de repositório](REPOSITORY_TOOLS.md) para parâmetros, saída e detalhes de segurança.
+
 ### 🖥 4 interfaces + extensão de código VS
 
 | Modo | Comando | Finalidade |

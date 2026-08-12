@@ -105,6 +105,15 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify, quantities ||
 | **Bronnavigatie** | **29 idx-tools** voor Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — verkrijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
 
+#### Beoordeling en dekking van de repository
+
+- `git_review`: vat Git-wijzigingen, risicovolle bestanden, testkandidaten en geheime bevindingen samen zonder geheime waarden bloot te leggen.
+- `security_scan`: scan repository-bestanden op waarschijnlijke geheimen en risicovolle configuratiebestanden.
+- `coverage_report`: voer en normaliseer de dekking voor Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift en Dart/Flutter.
+- Ontbrekende dekkingsafhankelijkheden kunnen automatisch worden geïnstalleerd wanneer uitvoering wordt gevraagd; `dry_run` installeert nooit pakketten.
+
+Zie [Repository Analysis Tools](REPOSITORY_TOOLS.md) voor parameters, uitvoer en veiligheidsdetails.
+
 ### 🖥 4 interfaces + VS-code-extensie
 
 | Modus | Commando | Doel |

@@ -105,6 +105,15 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך, uuid_gen, slugify, quantities ||
 | **נוב מקור** | **29 כלים idx** עבור Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — קבל אינדקס פונקציה/מעמד או הגדרה ספציפית מבלי לקרוא את כל הקובץ |
 
+#### סקירה וכיסוי של מאגר
+
+- `git_review`: סיכום שינויים ב-Git, קבצים מסוכנים, מועמדי בדיקה וממצאים סודיים מבלי לחשוף ערכים סודיים.
+- `security_scan`: סרוק קבצי מאגר עבור סודות סבירים וקובצי תצורה מסוכנים.
+- `coverage_honscript,/`coverage_report,/` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ו-Dart/Flutter.
+- ניתן להתקין תלות כיסוי חסרות באופן אוטומטי כאשר מתבקשת ביצוע; `dry_run` אף פעם לא מתקין חבילות.
+
+עיין ב[כלי ניתוח מאגר](REPOSITORY_TOOLS.md) לפרמטרים, פלט ופרטי בטיחות.
+
 ### 🖥 4 ממשקים + הרחבת קוד VS
 
 | מצב | פקודה | מטרה |

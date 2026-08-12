@@ -105,6 +105,15 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify, quantities ||
 | **Zdroj Nav** | **29 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |
 
+#### Kontrola a pokrytí úložiště
+
+- `git_review`: shrnutí změn Gitu, rizikové soubory, kandidáty na testování a tajná zjištění bez odhalení tajných hodnot.
+- `security_scan`: skenování souborů úložiště na pravděpodobná tajemství a rizikové konfigurační soubory.
+- `coverage_report`: spouštění, GoScript, typ/normalizace pokrytí pro Py Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift a Dart/Flutter.
+- Chybějící závislosti pokrytí lze nainstalovat automaticky, když je požadováno spuštění; `dry_run` nikdy neinstaluje balíčky.
+
+Viz [Nástroje pro analýzu úložiště](REPOSITORY_TOOLS.md) pro parametry, výstup a bezpečnostní podrobnosti.
+
 ### 🖥 4 rozhraní + rozšíření VS kódu
 
 | Režim | Příkaz | Účel |

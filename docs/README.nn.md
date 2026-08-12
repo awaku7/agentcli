@@ -105,6 +105,8 @@ Sjå den fullstendige dokumentasjonen for meir informasjon. [DEVELOP_PLUGIN.md](
 | **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify, quantities ||
 | **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon utan å lese hele filen |
 
+"git_review": oppsummer Git-endringer, risikofylte filer, testkandidater og hemmelige funn uten å eksponere hemmelige verdier. "security_scan": skann depotfiler for sannsynlige hemmeligheter og risikofylte konfigurasjonsfiler. "coverage_report": Kjør og normaliser dekning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, php, Swift og Dart/Flutter.Manglende dekningsavhengighet kan væreinstallert automatisk når utføring er forespurt; `dry_run` installerer aldri pakker.Se[Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+
 ### 🖥 4 grensesnitt + VS-kodeutvidelse
 
 | Modus | Kommando | Formål |

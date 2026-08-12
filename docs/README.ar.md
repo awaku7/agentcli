@@ -106,6 +106,15 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **النظام** | env vars، مواصفات النظام، الوقت، حساب التاريخ, uuid_gen, slugify, quantities ||
 | **التنقل المصدر** | **29 أداة idx** لـ Python وPHP وTypeScript وJava وC# وDart وC/C++ وRust وGo وSwift وKotlin وCOBOL, VBA, LotusScript, Makefile - احصل على فهرس وظيفة/فئة أو تعريف محدد دون قراءة الملف بأكمله |
 
+#### مراجعة المستودع وتغطيته
+
+- `git_review`: تلخيص تغييرات Git والملفات الخطرة ومرشحي الاختبار والنتائج السرية دون الكشف عن القيم السرية. 
+- `security_scan`: فحص ملفات المستودع بحثًا عن الأسرار المحتملة وملفات التكوين المحفوفة بالمخاطر. 
+- `coverage_report`: تشغيل وتطبيع التغطية لـ Python وTypeScript/JavaScript وRust وGo وJava/Kotlin و.NET، C/C++، وRuby، وPHP، وSwift، وDart/Flutter. 
+- يمكن تثبيت تبعيات التغطية المفقودة تلقائيًا عند طلب التنفيذ؛ لا يقوم `dry_run` بتثبيت الحزم مطلقًا.
+
+راجع [أدوات تحليل المستودع](REPOSITORY_TOOLS.md) لمعرفة المعلمات والمخرجات وتفاصيل الأمان.
+
 ### 🖥 4 واجهات + ملحق VS Code
 
 | الوضع | الأمر | الغرض |

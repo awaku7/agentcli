@@ -105,6 +105,15 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELO
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng, uuid_gen, slugify, quantities ||
 | **Điều hướng nguồn** | **29 công cụ idx** dành cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |
 
+#### Đánh giá và bảo hiểm kho lưu trữ
+
+- `git_review`: tóm tắt các thay đổi Git, các tệp rủi ro, các ứng cử viên kiểm tra và các phát hiện bí mật mà không để lộ các giá trị bí mật.
+- `security_scan`: quét các tệp kho lưu trữ để tìm các bí mật có thể xảy ra và các tệp cấu hình rủi ro.
+- `coverage_report`: chạy và chuẩn hóa phạm vi bảo hiểm cho Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift và Dart/Flutter.
+- Các phụ thuộc vùng phủ sóng bị thiếu có thể được cài đặt tự động khi yêu cầu thực thi; `dry_run` không bao giờ cài đặt gói.
+
+Xem [Công cụ phân tích kho lưu trữ](REPOSITORY_TOOLS.md) để biết thông số, đầu ra và chi tiết an toàn.
+
 ### 🖥 4 Giao diện + Tiện ích mở rộng Mã VS
 
 | Chế độ | Lệnh | Mục đích |

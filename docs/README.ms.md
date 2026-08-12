@@ -35,3 +35,12 @@ uag menyokong BACnet, Modbus TCP, OPC UA, SwitchBot, ECHONET Lite, Matter dan UP
 Untuk PFN/PLaMo, gunakan `UAGENT_PROVIDER=pfn` bersama `UAGENT_PFN_API_KEY`, `UAGENT_PFN_BASE_URL` dan `UAGENT_PFN_DEPNAME`.
 
 Lihat [README.md](../README.md) untuk dokumentasi lengkap dalam bahasa Inggeris.
+#### Semakan dan liputan repositori
+
+- `git_review`: meringkaskan perubahan Git, fail berisiko, calon ujian dan penemuan rahsia tanpa mendedahkan nilai rahsia.
+- `security_scan`: imbas fail repositori untuk kemungkinan rahsia dan fail konfigurasi berisiko.
+- `coverage_report`: run dan liputan RusScript/Java, Python Type, Rustrip/Java .NET, C/C++, Ruby, PHP, Swift dan Dart/Flutter.
+- Kebergantungan liputan yang hilang boleh dipasang secara automatik apabila pelaksanaan diminta; `dry_run` tidak pernah memasang pakej.
+
+Lihat [Alat Analisis Repositori](REPOSITORY_TOOLS.md) untuk parameter, output dan butiran keselamatan.
+

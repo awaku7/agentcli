@@ -35,3 +35,12 @@ Sinusuportahan ng uag ang BACnet, Modbus TCP, OPC UA, SwitchBot, ECHONET Lite, M
 Para sa PFN/PLaMo, gamitin ang `UAGENT_PROVIDER=pfn` kasama ang `UAGENT_PFN_API_KEY`, `UAGENT_PFN_BASE_URL`, at `UAGENT_PFN_DEPNAME`.
 
 Tingnan ang [README.md](../README.md) para sa kumpletong dokumentasyon sa Ingles.
+#### Pagsusuri at saklaw ng repository
+
+- `git_review`: ibuod ang mga pagbabago sa Git, mapanganib na mga file, mga kandidato sa pagsubok, at mga lihim na natuklasan nang hindi inilalantad ang mga lihim na halaga.
+- `security_scan`: i-scan ang mga file ng repositoryo para sa mga malamang na lihim at mapanganib na mga configuration file.
+- `coverage_report`: run at Russript/Javat na saklaw, I-type ang JavaScript/Java para sa Go, I-type ang normalize ng Script/Java. .NET, C/C++, Ruby, PHP, Swift, at Dart/Flutter.
+- Maaaring awtomatikong mai-install ang mga nawawalang dependency sa coverage kapag hiniling ang pagpapatupad; Ang `dry_run` ay hindi kailanman nag-i-install ng mga package.
+
+Tingnan ang [Repository Analysis Tools](REPOSITORY_TOOLS.md) para sa mga parameter, output, at mga detalye ng kaligtasan.
+

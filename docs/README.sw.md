@@ -105,6 +105,15 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe, uuid_gen, slugify, quantities ||
 | **Chanzo Nav** | **zana 29 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |
 
+#### Mapitio ya hazina na chanjo
+
+- `git_review`: fanya muhtasari wa mabadiliko ya Git, faili hatari, watahiniwa wa majaribio, na matokeo ya siri bila kufichua thamani za siri.
+- `security_scan`: changanua faili za hazina kwa ajili ya uwezekano wa siri na faili za usanidi hatari.
+- `coverage_report_Jaizen` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, na Dart/Flutter.
+- Vitegemezi vya chanjo vinavyokosekana vinaweza kusakinishwa kiotomatiki wakati utekelezaji unapoombwa; `dry_run` haisakinishi vifurushi kamwe.
+
+Angalia [Zana za Uchanganuzi wa Hifadhi](REPOSITORY_TOOLS.md) kwa vigezo, pato na maelezo ya usalama.
+
 ### 🖥 Violesura 4 + Kiendelezi cha Msimbo wa VS
 
 | Hali | Amri | Kusudi |

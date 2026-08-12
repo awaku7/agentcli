@@ -105,6 +105,15 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/doc
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal, uuid_gen, slugify, quantities ||
 | **Nav Sumber** | **29 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
 
+#### Tinjauan dan cakupan repositori
+
+- `git_review`: merangkum perubahan Git, file berisiko, kandidat pengujian, dan temuan rahasia tanpa mengungkap nilai rahasia.
+- `security_scan`: memindai file repositori untuk mencari kemungkinan rahasia dan file konfigurasi berisiko.
+- `coverage_report`: menjalankan dan menormalkan cakupan untuk Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, dan Dart/Flutter.
+- Dependensi cakupan yang hilang dapat diinstal secara otomatis saat eksekusi diminta; `dry_run` tidak pernah menginstal paket.
+
+Lihat [Alat Analisis Repositori](REPOSITORY_TOOLS.md) untuk parameter, keluaran, dan detail keamanan.
+
 ### 🖥 4 Antarmuka + Ekstensi Kode VS
 
 | Modus | Perintah | Tujuan |

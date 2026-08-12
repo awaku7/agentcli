@@ -105,6 +105,15 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify, quantities ||
 | **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile용 **29가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
 
+#### 리포지토리 검토 및 적용 범위
+
+- `git_review`: 비밀 값을 노출하지 않고 Git 변경 사항, 위험한 파일, 테스트 후보, 비밀 결과를 요약합니다.
+- `security_scan`: 리포지토리 파일에서 가능성이 있는 비밀 및 위험한 구성 파일을 검색합니다.
+- `coverage_report`: Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby에 대한 적용 범위를 실행하고 정규화합니다. PHP, Swift 및 Dart/Flutter.
+- 누락된 적용 범위 종속성은 실행 요청 시 자동으로 설치될 수 있습니다. `dry_run`은 패키지를 설치하지 않습니다.
+
+매개변수, 출력 및 안전 세부정보는 [리포지토리 분석 도구](REPOSITORY_TOOLS.md)를 참조하세요.
+
 ### 🖥 4가지 인터페이스 + VS 코드 확장
 
 | 모드 | 명령 | 목적 |

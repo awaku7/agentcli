@@ -105,6 +105,15 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/ua
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty, uuid_gen, slugify, quantities ||
 | **Nawigacja źródłowa** | **29 narzędzi idx** dla Pythona, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — uzyskaj indeks funkcji/klasy lub konkretną definicję bez czytania całego pliku |
 
+#### Przegląd i pokrycie repozytorium
+
+- `git_review`: podsumowanie zmian w Git, ryzykownych plikach, kandydatów do testów i tajnych ustaleń bez ujawniania tajnych wartości.
+- `security_scan`: skanowanie plików repozytorium pod kątem prawdopodobnych sekretów i ryzykownych plików konfiguracyjnych.
+- `coverage_report`: uruchamianie i normalizowanie pokrycia dla Pythona, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift i Dart/Flutter.
+- Brakujące zależności zasięgu można zainstalować automatycznie, gdy zażądane zostanie wykonanie; `dry_run` nigdy nie instaluje pakietów.
+
+Zobacz [Narzędzia analizy repozytorium] (REPOSITORY_TOOLS.md), aby uzyskać parametry, dane wyjściowe i szczegóły dotyczące bezpieczeństwa.
+
 ### 🖥 4 interfejsy + rozszerzenie kodu VS
 
 | Tryb | Polecenie | Cel |

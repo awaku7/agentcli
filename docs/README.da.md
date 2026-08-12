@@ -35,3 +35,12 @@ uag understøtter blandt andet BACnet, Modbus TCP, OPC UA, SwitchBot, ECHONET Li
 Skift udbyder med `UAGENT_PROVIDER`. For PFN/PLaMo bruges `UAGENT_PROVIDER=pfn` sammen med `UAGENT_PFN_API_KEY`, `UAGENT_PFN_BASE_URL` og `UAGENT_PFN_DEPNAME`.
 
 Se [README.md](../README.md) for den komplette dokumentation på engelsk.
+#### Repository-gennemgang og -dækning
+
+- `git_review`: opsummere Git-ændringer, risikable filer, testkandidater og hemmelige fund uden at afsløre hemmelige værdier.
+- `security_scan`: scan lagerfiler for sandsynlige hemmeligheder og risikable konfigurationsfiler.
+- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
+- Manglende dækningsafhængigheder kan installeres automatisk, når der anmodes om udførelse; `dry_run` installerer aldrig pakker.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametre, output og sikkerhedsdetaljer.
+

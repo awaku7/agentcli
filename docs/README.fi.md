@@ -105,6 +105,33 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta, uuid_gen, slugify, quantities ||
 | **Lähde Nav** | **29 idx-työkalua** Pythonille, PHP:lle, TypeScriptille, Javalle, C#:lle, Dartille, C/C++:lle, Rustille, Golle, Swiftille, Kotlinille, COBOL, VBA, LotusScript, Makefileille – hanki funktio/luokkaindeksi tai tietty määritelmä lukematta koko tiedostoa |
 
+#### Arkiston tarkistus ja kattavuus
+
+- `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
+- `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
+- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
+- Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
+
+Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).
+
+#### Arkiston tarkistus ja kattavuus
+
+- `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
+- `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
+- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
+- Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
+
+Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).
+
+#### Arkiston tarkistus ja kattavuus
+
+- `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
+- `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
+- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
+- Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
+
+Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).
+
 ### 🖥 4 käyttöliittymää + VS-koodilaajennus
 
 | Tila | Komento | Tarkoitus |

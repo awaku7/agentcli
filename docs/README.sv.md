@@ -105,6 +105,33 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **System** | env vars, systemspecifikationer, tid, datumberäkning, uuid_gen, slugify, quantities ||
 | **Källnavigering** | **29 idx-verktyg** för Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få ett funktions-/klassindex eller specifik definition utan att läsa hela filen |
 
+#### Repository granskning och täckning
+
+- `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
+- `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
+- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
+- Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
+
+#### Repository granskning och täckning
+
+- `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
+- `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
+- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
+- Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
+
+#### Repository granskning och täckning
+
+- `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
+- `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
+- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
+- Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
+
 ### 🖥 4 gränssnitt + VS-kodförlängning
 
 | Läge | Kommando | Syfte |

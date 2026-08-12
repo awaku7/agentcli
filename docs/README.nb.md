@@ -105,6 +105,21 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 | **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify, quantities ||
 | **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
+#### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
+- Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+
+#### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
+- Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+
+#### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
+- Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
+
+Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+
 ### 🖥 4 grensesnitt + VS-kodeutvidelse
 
 | Modus | Kommando | Formål |

@@ -105,6 +105,15 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **Sistema** | variabili di ambiente, specifiche di sistema, ora, calcolo della data, uuid_gen, slugify, quantities ||
 | **Nav sorgente** | **29 strumenti idx** per Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — ottieni un indice di funzione/classe o una definizione specifica senza leggere l'intero file |
 
+#### Revisione e copertura del repository
+
+- `git_review`: riepiloga modifiche Git, file rischiosi, candidati ai test e risultati segreti senza esporre valori segreti.
+- `security_scan`: scansiona i file del repository per probabili segreti e file di configurazione rischiosi.
+- `coverage_report`: esegui e normalizza la copertura per Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift e Dart/Flutter.
+- Le dipendenze della copertura mancante possono essere installate automaticamente quando viene richiesta l'esecuzione; `dry_run` non installa mai pacchetti.
+
+Vedi [Strumenti di analisi del repository](REPOSITORY_TOOLS.md) per parametri, output e dettagli sulla sicurezza.
+
 ### 🖥 4 interfacce + estensione VS Code
 
 | Modalità | Comando | Scopo |

@@ -105,6 +105,20 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना, uuid_gen, slugify, quantities ||
 | **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile साठी **29 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |
 
+#### रेपॉजिटरी पुनरावलोकन आणि कव्हरेज
+
+- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter. 
+- अंमलबजावणीची विनंती केल्यावर गहाळ कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित केले जाऊ शकते; `dry_run` कधीही पॅकेजेस इंस्टॉल करत नाही.
+
+पॅरामीटर्स, आउटपुट आणि सुरक्षितता तपशीलांसाठी [Repository Analysis Tools](REPOSITORY_TOOLS.md) पहा.
+
+#### रेपॉजिटरी पुनरावलोकन आणि कव्हरेज
+
+- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter. 
+- अंमलबजावणीची विनंती केल्यावर गहाळ कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित केले जाऊ शकते; `dry_run` कधीही पॅकेजेस इंस्टॉल करत नाही.
+
+पॅरामीटर्स, आउटपुट आणि सुरक्षितता तपशीलांसाठी [Repository Analysis Tools](REPOSITORY_TOOLS.md) पहा.
+
 ### 🖥 4 इंटरफेस + VS कोड विस्तार
 
 | मोड | आज्ञा | उद्देश |

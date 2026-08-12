@@ -105,6 +105,15 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify, quantities ||
 | **Quellennavigation** | **29 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
 
+#### Repository-Überprüfung und -Abdeckung
+
+- „git_review“: Git-Änderungen, riskante Dateien, Testkandidaten und geheime Ergebnisse zusammenfassen, ohne geheime Werte preiszugeben.
+- „security_scan“: Repository-Dateien nach wahrscheinlichen Geheimnissen und riskanten Konfigurationsdateien durchsuchen.
+- „coverage_report“: Abdeckung für Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++ ausführen und normalisieren, Ruby, PHP, Swift und Dart/Flutter.
+ – Fehlende Abdeckungsabhängigkeiten können automatisch installiert werden, wenn die Ausführung angefordert wird; „dry_run“ installiert niemals Pakete.
+
+Siehe [Repository Analysis Tools](REPOSITORY_TOOLS.md) für Parameter, Ausgabe und Sicherheitsdetails.
+
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung
 
 | Modus | Befehl | Zweck |

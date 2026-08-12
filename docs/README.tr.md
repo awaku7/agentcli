@@ -105,6 +105,15 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 | **Sistem** | env değişkenleri, sistem özellikleri, saat, tarih hesaplaması, uuid_gen, slugify, quantities ||
 | **Kaynak Gezintisi** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile için **29 idx aracı** — tüm dosyayı okumadan bir işlev/sınıf dizini veya belirli bir tanım edinin |
 
+#### Depo incelemesi ve kapsamı
+
+- `git_review`: Git değişikliklerini, riskli dosyaları, test adaylarını ve gizli bulguları gizli değerleri açığa çıkarmadan özetleyin.
+- `security_scan`: depo dosyalarını olası sırlar ve riskli yapılandırma dosyaları için tarayın.
+- `coverage_report`: Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET için kapsamı çalıştırın ve normalleştirin, C/C++, Ruby, PHP, Swift ve Dart/Flutter.
+- Eksik kapsam bağımlılıkları, yürütme istendiğinde otomatik olarak kurulabilir; `dry_run' hiçbir zaman paketleri yüklemez.
+
+Parametreler, çıktı ve güvenlik ayrıntıları için [Depo Analiz Araçları](REPOSITORY_TOOLS.md) konusuna bakın.
+
 ### 🖥 4 Arayüz + VS Kod Uzantısı
 
 | Modu | Komut | Amaç |

@@ -105,6 +105,15 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 | **Sistem** | env vars, specificații de sistem, ora, calculul datei, uuid_gen, slugify, quantities ||
 | **Sursa Nav** | **29 instrumente idx** pentru Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obțineți un index de funcție/clasă sau o definiție specifică fără a citi întregul fișier |
 
+#### Revizuirea și acoperirea depozitului
+
+- `git_review`: rezumați modificările Git, fișierele riscante, candidații de testare și constatările secrete, fără a expune valorile secrete.
+- `security_scan`: scanați fișierele de depozit pentru secrete probabile și fișiere de configurare riscante.
+- `coverage_report și normalizeScript, acoperire pentru runda/Java_Script,`: Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift și Dart/Flutter.
+- Dependențele de acoperire lipsă pot fi instalate automat când se solicită execuția; `dry_run` nu instalează niciodată pachete.
+
+Consultați [Instrumente de analiză a depozitului](REPOSITORY_TOOLS.md) pentru parametri, rezultate și detalii de siguranță.
+
 ### 🖥 4 interfețe + extensie cod VS
 
 | Modul | Comanda | Scop |
