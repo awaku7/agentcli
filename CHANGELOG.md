@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.5.71] - 2026-08-11
+
+### Added
+
+- feat(packaging): lazily install optional language tokenizer dependencies only when the related tools are used
+- feat(packaging): lazily install BLE dependencies and defer optional tool imports
+
+### Changed
+
+- fix(packaging): finish lazy optional dependency loading across document, spreadsheet, PDF, presentation, screenshot, semantic-search, and cryptographic tools
+- fix(packaging): initialize the `pythainlp` cache safely
+- fix(mcp): correct MCP client import handling
+- fix(cli): correct i18n command and option syntax
+- fix(status): keep Python IDLE shell status output free of ANSI color control sequences
+- docs: update localized tool headings, descriptions, and README tool listings
+- docs: document repository analysis and coverage tools
+
+
 ## [0.5.70] - 2026-08-11
 
 ### Changed
