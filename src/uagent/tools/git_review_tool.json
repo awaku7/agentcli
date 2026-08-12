@@ -1,0 +1,534 @@
+{
+  "en": {
+    "tool.description": "Review Git changes, risky files, and possible secrets without modifying the repository.",
+    "param.staged.description": "Review staged changes instead of unstaged changes.",
+    "param.include_untracked.description": "Include untracked files in the review.",
+    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
+    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ja": {
+    "tool.description": "リポジトリを変更せずに、Git の変更、危険なファイル、秘密情報の可能性をレビューします。",
+    "param.staged.description": "未ステージの変更ではなく、ステージ済みの変更をレビューします。",
+    "param.include_untracked.description": "未追跡ファイルをレビューに含めます。",
+    "param.scan_secrets.description": "秘密情報の値を返さず、変更されたテキストファイルから秘密情報の可能性を検出します。",
+    "param.max_files.description": "検査する変更ファイルの最大数です。",
+    "x_search_terms": [
+      "Gitレビュー",
+      "変更レビュー",
+      "差分レビュー",
+      "秘密情報検出",
+      "コードレビュー"
+    ]
+  },
+  "es": {
+    "tool.description": "Revise los cambios de Git, los archivos riesgosos y los posibles secretos sin modificar el repositorio.",
+    "param.staged.description": "Revise los cambios preparados en lugar de los cambios no preparados.",
+    "param.include_untracked.description": "Incluya archivos sin seguimiento en la revisión.",
+    "param.scan_secrets.description": "Escanee archivos de texto modificados en busca de secretos probables sin devolver valores secretos.",
+    "param.max_files.description": "Número máximo de archivos modificados para inspeccionar.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "fr": {
+    "tool.description": "Examinez les modifications Git, les fichiers à risque et les secrets possibles sans modifier le référentiel.",
+    "param.staged.description": "Examinez les modifications planifiées au lieu des modifications non planifiées.",
+    "param.include_untracked.description": "Incluez les fichiers non suivis dans l'examen.",
+    "param.scan_secrets.description": "Analysez les fichiers texte modifiés à la recherche de secrets probables sans renvoyer de valeurs secrètes.",
+    "param.max_files.description": "Nombre maximum de fichiers modifiés à inspecter.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ko": {
+    "tool.description": "저장소를 수정하지 않고 Git 변경 사항, 위험한 파일 및 가능한 비밀을 검토합니다.",
+    "param.staged.description": "단계화되지 않은 변경 사항 대신 단계화된 변경 사항을 검토합니다.",
+    "param.include_untracked.description": "추적되지 않은 파일을 검토에 포함합니다.",
+    "param.scan_secrets.description": "비밀 값을 반환하지 않고 변경된 텍스트 파일에서 비밀 값을 반환하지 않고 비밀 가능성이 있는지 스캔합니다.",
+    "param.max_files.description": "검사할 변경된 파일의 최대 수입니다.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "de": {
+    "tool.description": "Überprüfen Sie Git-Änderungen, riskante Dateien und mögliche Geheimnisse, ohne das Repository zu ändern.",
+    "param.staged.description": "Überprüfen Sie bereitgestellte Änderungen statt nicht bereitgestellter Änderungen.",
+    "param.include_untracked.description": "Beziehen Sie nicht verfolgte Dateien in die Überprüfung ein.",
+    "param.scan_secrets.description": "Scannen Sie geänderte Textdateien auf wahrscheinliche Geheimnisse, ohne geheime Werte zurückzugeben.",
+    "param.max_files.description": "Maximale Anzahl geänderter Dateien zur Überprüfung.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "it": {
+    "tool.description": "Esamina le modifiche Git, i file rischiosi e i possibili segreti senza modificare il repository.",
+    "param.staged.description": "Esamina le modifiche graduali anziché quelle non graduali.",
+    "param.include_untracked.description": "Includi file non tracciati nella revisione.",
+    "param.scan_secrets.description": "Scansiona i file di testo modificati per probabili segreti senza restituire valori segreti.",
+    "param.max_files.description": "Numero massimo di file modificati da ispezionare.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ru": {
+    "tool.description": "Просматривайте изменения Git, опасные файлы и возможные секреты, не изменяя репозиторий.",
+    "param.staged.description": "Просматривайте поэтапные изменения вместо непроиндексированных изменений.",
+    "param.include_untracked.description": "Включайте в проверку неотслеживаемые файлы.",
+    "param.scan_secrets.description": "Сканируйте измененные текстовые файлы на предмет вероятных секретов, не возвращая секретных значений.",
+    "param.max_files.description": "Максимальное количество измененных файлов для проверки.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Revise alterações do Git, arquivos arriscados e possíveis segredos sem modificar o repositório.",
+    "param.staged.description": "Revise alterações preparadas em vez de alterações não preparadas.",
+    "param.include_untracked.description": "Inclua arquivos não rastreados na revisão.",
+    "param.scan_secrets.description": "Verifique arquivos de texto alterados em busca de segredos prováveis sem retornar valores secretos.",
+    "param.max_files.description": "Número máximo de arquivos alterados para inspecionar.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "pt": {
+    "tool.description": "Revise alterações do Git, arquivos arriscados e possíveis segredos sem modificar o repositório.",
+    "param.staged.description": "Revise alterações preparadas em vez de alterações não preparadas.",
+    "param.include_untracked.description": "Inclua arquivos não rastreados na revisão.",
+    "param.scan_secrets.description": "Verifique arquivos de texto alterados em busca de segredos prováveis sem retornar valores secretos.",
+    "param.max_files.description": "Número máximo de arquivos alterados para inspecionar.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "id": {
+    "tool.description": "Tinjau perubahan Git, file berisiko, dan kemungkinan rahasia tanpa memodifikasi repositori.",
+    "param.staged.description": "Tinjau perubahan bertahap, bukan perubahan tidak bertahap.",
+    "param.include_untracked.description": "Sertakan file yang tidak terlacak dalam tinjauan.",
+    "param.scan_secrets.description": "Pindai file teks yang diubah untuk mencari kemungkinan rahasia tanpa mengembalikan nilai rahasia.",
+    "param.max_files.description": "Jumlah maksimum file yang diubah untuk diperiksa.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "vi": {
+    "tool.description": "Xem lại các thay đổi Git, tệp rủi ro và các bí mật có thể có mà không cần sửa đổi kho lưu trữ.",
+    "param.staged.description": "Xem lại các thay đổi theo giai đoạn thay vì các thay đổi chưa được sắp xếp.",
+    "param.include_untracked.description": "Đưa các tệp không bị theo dõi vào đánh giá.",
+    "param.scan_secrets.description": "Quét các tệp văn bản đã thay đổi để tìm các bí mật có thể xảy ra mà không trả về giá trị bí mật.",
+    "param.max_files.description": "Số lượng tệp đã thay đổi tối đa cần kiểm tra.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "pl": {
+    "tool.description": "Przeglądaj zmiany w Gicie, ryzykowne pliki i możliwe sekrety bez modyfikowania repozytorium.",
+    "param.staged.description": "Przeglądaj zmiany etapowe zamiast niestacjonarnych.",
+    "param.include_untracked.description": "Uwzględnij nieśledzone pliki w przeglądzie.",
+    "param.scan_secrets.description": "Skanuj zmienione pliki tekstowe pod kątem prawdopodobnych sekretów bez zwracania wartości tajnych.",
+    "param.max_files.description": "Maksymalna liczba zmienionych plików do sprawdzenia.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "hi": {
+    "tool.description": "रिपॉजिटरी को संशोधित किए बिना Git परिवर्तनों, जोखिम भरी फ़ाइलों और संभावित रहस्यों की समीक्षा करें। चरणबद्ध परिवर्तनों के बजाय चरणबद्ध परिवर्तनों की समीक्षा करें। समीक्षा में अनट्रैक की गई फ़ाइलों को शामिल करें। गुप्त मूल्यों को वापस किए बिना संभावित रहस्यों के लिए परिवर्तित पाठ फ़ाइलों को स्कैन करें। निरीक्षण करने के लिए परिवर्तित फ़ाइलों की अधिकतम संख्या। गुप्त मूल्यों को वापस किए बिना संभावित रहस्यों और जोखिम भरी कॉन्फ़िगरेशन फ़ाइलों के लिए रिपॉजिटरी फ़ाइलों को स्कैन करें। स्कैन करने के लिए निर्देशिका, वर्तमान के सापेक्ष वर्कडिर.",
+    "param.staged.description": "निरीक्षण के लिए फाइलों की अधिकतम संख्या.",
+    "param.include_untracked.description": "छिपी हुई फ़ाइलें और निर्देशिकाएं शामिल करें.",
+    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
+    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم بمراجعة تغييرات Git والملفات الخطرة والأسرار المحتملة دون تعديل المستودع.",
+    "param.staged.description": "قم بمراجعة التغييرات المرحلية بدلاً من التغييرات غير المرحلية.",
+    "param.include_untracked.description": "قم بتضمين الملفات التي لم يتم تعقبها في المراجعة.",
+    "param.scan_secrets.description": "قم بمسح الملفات النصية التي تم تغييرها بحثًا عن الأسرار المحتملة دون إرجاع القيم السرية.",
+    "param.max_files.description": "الحد الأقصى لعدد الملفات التي تم تغييرها للفحص.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "sv": {
+    "tool.description": "Granska Git-ändringar, riskfyllda filer och möjliga hemligheter utan att modifiera arkivet.",
+    "param.staged.description": "Granska stegade ändringar istället för ostadgade ändringar.",
+    "param.include_untracked.description": "Inkludera ospårade filer i granskningen.",
+    "param.scan_secrets.description": "Skanna ändrade textfiler efter troliga hemligheter utan att returnera hemliga värden.",
+    "param.max_files.description": "Maximalt antal ändrade filer för att inspektera.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "sw": {
+    "tool.description": "Kagua mabadiliko ya Git, faili hatari, na siri zinazowezekana bila kurekebisha hazina.",
+    "param.staged.description": "Kagua mabadiliko kwa hatua badala ya mabadiliko ambayo hayajaratibiwa.",
+    "param.include_untracked.description": "Jumuisha faili ambazo hazijafuatiliwa katika ukaguzi.",
+    "param.scan_secrets.description": "Changanua faili za maandishi zilizobadilishwa kwa uwezekano wa siri bila kurudisha thamani za siri.",
+    "param.max_files.description": "Idadi ya juu zaidi ya faili zilizobadilishwa ili kukagua.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "nb": {
+    "tool.description": "Gjennomgå Git-endringer, risikable filer og mulige hemmeligheter uten å endre depotet.",
+    "param.staged.description": "Gjennomgå trinnvise endringer i stedet for ustadierte endringer.",
+    "param.include_untracked.description": "Inkluder usporede filer i anmeldelsen.",
+    "param.scan_secrets.description": "Skann endrede tekstfiler for sannsynlige hemmeligheter uten å returnere hemmelige verdier.",
+    "param.max_files.description": "Maksimalt antall endrede filer for å inspisere.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "nl": {
+    "tool.description": "Bekijk Git-wijzigingen, risicovolle bestanden en mogelijke geheimen zonder de opslagplaats aan te passen.",
+    "param.staged.description": "Bekijk gefaseerde wijzigingen in plaats van niet-gefaseerde wijzigingen.",
+    "param.include_untracked.description": "Neem niet-bijgehouden bestanden op in de beoordeling.",
+    "param.scan_secrets.description": "Scan gewijzigde tekstbestanden op waarschijnlijke geheimen zonder geheime waarden terug te geven.",
+    "param.max_files.description": "Maximumaantal gewijzigde bestanden om te inspecteren.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tarkista Git-muutokset, riskitiedostot ja mahdolliset salaisuudet arkistoa muokkaamatta.",
+    "param.staged.description": "Tarkista vaiheittaiset muutokset vaiheittaisten muutosten sijaan.",
+    "param.include_untracked.description": "Sisällytä tarkastukseen jäljittämättömät tiedostot.",
+    "param.scan_secrets.description": "Tarkista muuttuneet tekstitiedostot todennäköisten salaisuuksien varalta palauttamatta salaisia arvoja.",
+    "param.max_files.description": "Tarkastettavien muutettujen tiedostojen enimmäismäärä.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "cs": {
+    "tool.description": "Prohlédněte si změny Git, rizikové soubory a možná tajemství bez úpravy úložiště.",
+    "param.staged.description": "Zkontrolujte naplánované změny místo nedokončených změn.",
+    "param.include_untracked.description": "Zahrňte do kontroly nesledované soubory.",
+    "param.scan_secrets.description": "Prohledejte změněné textové soubory na pravděpodobná tajemství bez vracení tajných hodnot.",
+    "param.max_files.description": "Maximální počet změněných souborů ke kontrole.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "uk": {
+    "tool.description": "Переглядайте зміни Git, ризиковані файли та можливі секрети, не модифікуючи сховище.",
+    "param.staged.description": "Переглядайте поетапні зміни замість непоетапних змін.",
+    "param.include_untracked.description": "Включіть у перегляд невідстежувані файли.",
+    "param.scan_secrets.description": "Скануйте змінені текстові файли на ймовірні секрети без повернення секретних значень.",
+    "param.max_files.description": "Максимальна кількість змінених файлів для перевірки.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "tr": {
+    "tool.description": "Depoyu değiştirmeden Git değişikliklerini, riskli dosyaları ve olası gizli dizileri inceleyin.",
+    "param.staged.description": "Aşamalı değişiklikler yerine aşamalı değişiklikleri inceleyin.",
+    "param.include_untracked.description": "İzlenmeyen dosyaları incelemeye dahil edin.",
+    "param.scan_secrets.description": "Gizli değerleri döndürmeden, olası gizli diziler için değiştirilen metin dosyalarını tarayın.",
+    "param.max_files.description": "İncelenecek maksimum değiştirilen dosya sayısı.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "th": {
+    "tool.description": "ตรวจสอบการเปลี่ยนแปลง Git ไฟล์ที่มีความเสี่ยง และความลับที่เป็นไปได้โดยไม่ต้องแก้ไขที่เก็บ",
+    "param.staged.description": "ตรวจสอบการเปลี่ยนแปลงตามขั้นตอนแทนการเปลี่ยนแปลงที่ไม่ได้จัดฉาก",
+    "param.include_untracked.description": "รวมไฟล์ที่ไม่ได้ติดตามในการทบทวน",
+    "param.scan_secrets.description": "สแกนไฟล์ข้อความที่เปลี่ยนแปลงเพื่อหาความลับที่เป็นไปได้โดยไม่ต้องส่งคืนค่าความลับ",
+    "param.max_files.description": "จำนวนสูงสุดของไฟล์ที่เปลี่ยนแปลงเพื่อตรวจสอบ",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "在不修改存储库的情况下查看 Git 更改、有风险的文件和可能的机密。",
+    "param.staged.description": "查看暂存的更改而不是未暂存的更改。",
+    "param.include_untracked.description": "在审阅中包括未跟踪的文件。",
+    "param.scan_secrets.description": "扫描已更改的文本文件以查找可能的机密，而不返回机密值。",
+    "param.max_files.description": "要检查的已更改文件的最大数量。",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "在不修改儲存庫的情況下查看 Git 變更、有風險的文件和可能的機密。",
+    "param.staged.description": "查看暫存的變更而不是未暫存的變更。",
+    "param.include_untracked.description": "在審閱中包括未追蹤的文件。",
+    "param.scan_secrets.description": "掃描已更改的文字檔案以查找可能的機密，而不傳回機密值。",
+    "param.max_files.description": "要檢查的已更改檔案的最大數量。",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "bn": {
+    "tool.description": "রিপোজিটরি পরিবর্তন না করেই গিট পরিবর্তন, ঝুঁকিপূর্ণ ফাইল এবং সম্ভাব্য গোপনীয়তা পর্যালোচনা করুন।",
+    "param.staged.description": "পর্যায়ভুক্ত পরিবর্তনের পরিবর্তে পর্যায়ক্রমে পরিবর্তনগুলি পর্যালোচনা করুন।",
+    "param.include_untracked.description": "ট্র্যাক না করা ফাইলগুলি পর্যালোচনায় অন্তর্ভুক্ত করুন।",
+    "param.scan_secrets.description": "গোপন মান ফিরিয়ে না এনে সম্ভাব্য গোপনীয়তার জন্য পরিবর্তিত পাঠ্য ফাইলগুলি স্ক্যান করুন। গোপন মান ফিরিয়ে না দিয়ে কনফিগারেশন ফাইল।",
+    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "fa": {
+    "tool.description": "تغییرات Git، فایل‌های مخاطره‌آمیز و اسرار احتمالی را بدون تغییر مخزن بررسی کنید.",
+    "param.staged.description": "تغییرات مرحله‌ای را به جای تغییرات بدون مرحله بازبینی کنید.",
+    "param.include_untracked.description": "فایل‌های ردیابی نشده را در بازبینی قرار دهید. مقادیر.",
+    "param.scan_secrets.description": "دایرکتوری برای اسکن، نسبت به workdir فعلی.",
+    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "mn": {
+    "tool.description": "Git-ийн өөрчлөлтүүд, эрсдэлтэй файлууд болон боломжит нууцуудыг хадгалах газрыг өөрчлөхгүйгээр хянана уу.",
+    "param.staged.description": "Үе шатгүй өөрчлөлтийн оронд үе шаттай өөрчлөлтүүдийг шалгана уу.",
+    "param.include_untracked.description": "Хяналтад хянагддаггүй файлуудыг оруулна уу.",
+    "param.scan_secrets.description": "Өөрчлөгдсөн текст файлаас нууц утгыг буцаахгүйгээр нууцлалыг хайж олох боломжтой. нууц утгууд.",
+    "param.max_files.description": "Одоогийн ажлын директортой харьцуулахад скан хийх лавлах.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "mr": {
+    "tool.description": "रिपॉजिटरीमध्ये बदल न करता Git चे बदल, जोखमीच्या फाइल्स आणि संभाव्य गुपितांचे पुनरावलोकन करा.",
+    "param.staged.description": "स्टेज न केलेल्या बदलांऐवजी स्टेज केलेल्या बदलांचे पुनरावलोकन करा.",
+    "param.include_untracked.description": "ट्रॅक न केलेल्या फाइल्स रिव्ह्यूमध्ये समाविष्ट करा.",
+    "param.scan_secrets.description": "गुप्त व्हॅल्यू परत न करता संभाव्य गुपितांसाठी बदललेल्या मजकूर फाइल्स स्कॅन करा. गुप्त मूल्ये परत न करता कॉन्फिगरेशन फायली.",
+    "param.max_files.description": "स्कॅन करण्यासाठी निर्देशिका, वर्तमान वर्कडायरच्या सापेक्ष.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "el": {
+    "tool.description": "Ελέγξτε τις αλλαγές του Git, τα επικίνδυνα αρχεία και τα πιθανά μυστικά χωρίς να τροποποιήσετε το χώρο αποθήκευσης.",
+    "param.staged.description": "Ελέγξτε τις σταδιακές αλλαγές αντί για μη σταδιοποιημένες αλλαγές.",
+    "param.include_untracked.description": "Συμπεριλάβετε αρχεία που δεν έχουν παρακολουθηθεί στην αναθεώρηση.",
+    "param.scan_secrets.description": "Σαρώστε τα αλλαγμένα αρχεία κειμένου για πιθανά μυστικά χωρίς να επιστρέψετε μυστικές τιμές.",
+    "param.max_files.description": "Μέγιστος αριθμός αλλαγμένων αρχείων προς επιθεώρηση.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "he": {
+    "tool.description": "סקור שינויים ב-Git, קבצים מסוכנים וסודות אפשריים מבלי לשנות את המאגר.",
+    "param.staged.description": "סקור שינויים מבוימים במקום שינויים לא מבוימים.",
+    "param.include_untracked.description": "כלול בסקירה קבצים ללא מעקב.",
+    "param.scan_secrets.description": "סרוק קבצי טקסט שהשתנו לאיתור סודות סבירים מבלי להחזיר ערכים סודיים.",
+    "param.max_files.description": "מספר מקסימלי של קבצים שהשתנו לבדיקה.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "hu": {
+    "tool.description": "Tekintse át a Git-módosításokat, a kockázatos fájlokat és a lehetséges titkokat anélkül, hogy módosítaná a tárat.",
+    "param.staged.description": "Tekintse át a fokozatos módosításokat a nem szakaszos módosítások helyett.",
+    "param.include_untracked.description": "Vegye fel a nem nyomon követett fájlokat az áttekintésbe.",
+    "param.scan_secrets.description": "A módosított szöveges fájlok vizsgálata a valószínű titkok után anélkül, hogy titkos értékeket adna vissza.",
+    "param.max_files.description": "A vizsgálandó módosított fájlok maximális száma.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ro": {
+    "tool.description": "Examinați modificările Git, fișierele riscante și secretele posibile fără a modifica depozitul.",
+    "param.staged.description": "Examinați modificările în etape în loc de modificările neetapăte.",
+    "param.include_untracked.description": "Includeți fișierele neurmărite în examinare.",
+    "param.scan_secrets.description": "Scanați fișierele text modificate pentru secrete probabile fără a returna valori secrete.",
+    "param.max_files.description": "Număr maxim de fișiere modificate de inspectat.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "fil": {
+    "tool.description": "Suriin ang mga pagbabago sa Git, mga mapanganib na file, at posibleng mga lihim nang hindi binabago ang repositoryo.",
+    "param.staged.description": "Suriin ang mga nakaplanong pagbabago sa halip na hindi naka-stage na mga pagbabago.",
+    "param.include_untracked.description": "Isama ang mga hindi sinusubaybayang file sa pagsusuri.",
+    "param.scan_secrets.description": "I-scan ang mga binagong text file para sa mga malamang na lihim nang hindi ibinabalik ang mga lihim na halaga.",
+    "param.max_files.description": "Maximum na bilang ng mga binagong file upang siyasatin.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "ms": {
+    "tool.description": "Semak perubahan Git, fail berisiko dan rahsia yang mungkin tanpa mengubah suai repositori.",
+    "param.staged.description": "Semak perubahan berperingkat dan bukannya perubahan tidak berperingkat.",
+    "param.include_untracked.description": "Sertakan fail yang tidak dijejaki dalam semakan.",
+    "param.scan_secrets.description": "Imbas fail teks yang ditukar untuk mencari rahsia yang mungkin tanpa mengembalikan nilai rahsia.",
+    "param.max_files.description": "Bilangan maksimum fail yang diubah untuk diperiksa.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "da": {
+    "tool.description": "Gennemgå Git-ændringer, risikable filer og mulige hemmeligheder uden at ændre lageret.",
+    "param.staged.description": "Gennemgå trinvise ændringer i stedet for uiscenesatte ændringer.",
+    "param.include_untracked.description": "Inkluder ikke-sporede filer i gennemgangen.",
+    "param.scan_secrets.description": "Scan ændrede tekstfiler for sandsynlige hemmeligheder uden at returnere hemmelige værdier.",
+    "param.max_files.description": "Maksimalt antal ændrede filer for at inspicere.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  },
+  "nn": {
+    "tool.description": "Gjennomgå Git-endringar, risikofylte filer og moglege hemmelegheiter utan å endre depotet.Gjennomgåstadierte endringar i staden for ikkje-stadierte endringar.Tamed usporede filer i gjennomgangen.Skann endra tekstfiler for sannsynlege hemmelegheiter utan å returnere hemmelege verdiar.Maksimalt antall endrede filer som skal inspiseres.Skanndepotfiler for sannsynlege hemmelegheiter og risikofylte konfigurasjonsfiler utan å returnere hemmelege verdiar.Katalog som skal skannes, i forhold til strømmenworkdir.Maksimalt antall filer som skal inspiseres.Tamed skjulte filer og kataloger.",
+    "param.staged.description": "Review staged changes instead of unstaged changes.",
+    "param.include_untracked.description": "Include untracked files in the review.",
+    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
+    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "x_search_terms": [
+      "git review",
+      "git diff review",
+      "changed files",
+      "secret scan",
+      "code review"
+    ]
+  }
+}

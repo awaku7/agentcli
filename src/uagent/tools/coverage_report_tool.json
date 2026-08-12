@@ -1,0 +1,534 @@
+{
+  "en": {
+    "tool.description": "Run project coverage using a detected language tool and return execution and coverage data when available.",
+    "param.language.description": "Coverage adapter to use.",
+    "param.test_target.description": "Optional safe test target, such as a test directory.",
+    "param.timeout.description": "Maximum execution time in seconds.",
+    "param.dry_run.description": "Only report the detected adapter and command without running tests.",
+    "x_search_terms": [
+      "coverage",
+      "test coverage",
+      "line coverage",
+      "branch coverage",
+      "lcov"
+    ]
+  },
+  "ja": {
+    "tool.description": "検出した言語用ツールでプロジェクトのカバレッジを実行し、正規化した結果を返します。",
+    "param.language.description": "使用するカバレッジアダプターです。",
+    "param.test_target.description": "テストディレクトリなどの安全な相対テスト対象を指定できます。",
+    "param.timeout.description": "実行の最大時間（秒）です。",
+    "param.dry_run.description": "テストを実行せず、検出したアダプターとコマンドだけを報告します。",
+    "x_search_terms": [
+      "カバレッジ",
+      "テストカバレッジ",
+      "行カバレッジ",
+      "分岐カバレッジ",
+      "テスト網羅率"
+    ]
+  },
+  "es": {
+    "tool.description": "Ejecute la cobertura del proyecto utilizando una herramienta de lenguaje detectado y devuelva datos de ejecución y cobertura cuando estén disponibles.",
+    "param.language.description": "Adaptador de cobertura a utilizar.",
+    "param.test_target.description": "Objetivo de prueba seguro opcional, como un directorio de prueba.",
+    "param.timeout.description": "Tiempo máximo de ejecución en segundos.",
+    "param.dry_run.description": "Informe únicamente el adaptador y el comando detectados sin ejecutar pruebas.",
+    "x_search_terms": [
+      "cobertura",
+      "cobertura de prueba",
+      "cobertura de línea",
+      "cobertura de sucursal",
+      "lcov"
+    ]
+  },
+  "fr": {
+    "tool.description": "Exécutez la couverture du projet à l’aide d’un outil linguistique détecté et renvoyez les données d’exécution et de couverture lorsqu’elles sont disponibles.",
+    "param.language.description": "Adaptateur de couverture à utiliser.",
+    "param.test_target.description": "Cible de test sécurisée facultative, telle qu'un répertoire de test.",
+    "param.timeout.description": "Temps d'exécution maximum en secondes.",
+    "param.dry_run.description": "Signalez uniquement l’adaptateur et la commande détectés sans exécuter de tests.",
+    "x_search_terms": [
+      "couverture",
+      "couverture de test",
+      "couverture de ligne",
+      "couverture de succursale",
+      "lcov"
+    ]
+  },
+  "ko": {
+    "tool.description": "감지된 언어 도구를 사용하여 프로젝트 커버리지를 실행하고 가능한 경우 실행 및 커버리지 데이터를 반환합니다.",
+    "param.language.description": "사용할 커버리지 어댑터.",
+    "param.test_target.description": "테스트 디렉터리와 같은 선택적 안전 테스트 대상입니다.",
+    "param.timeout.description": "최대 실행 시간(초)입니다.",
+    "param.dry_run.description": "테스트를 실행하지 않고 감지된 어댑터 및 명령만 보고합니다.",
+    "x_search_terms": [
+      "커버리지",
+      "테스트 커버리지",
+      "회선 커버리지",
+      "지점 커버리지",
+      "lcov"
+    ]
+  },
+  "de": {
+    "tool.description": "Führen Sie die Projektabdeckung mit einem erkannten Sprachtool aus und geben Sie Ausführungs- und Abdeckungsdaten zurück, sofern verfügbar.",
+    "param.language.description": "Zu verwendender Abdeckungsadapter.",
+    "param.test_target.description": "Optionales sicheres Testziel, z. B. ein Testverzeichnis.",
+    "param.timeout.description": "Maximale Ausführungszeit in Sekunden.",
+    "param.dry_run.description": "Melden Sie nur den erkannten Adapter und Befehl, ohne Tests auszuführen.",
+    "x_search_terms": [
+      "Abdeckung",
+      "Testabdeckung",
+      "Leitungsabdeckung",
+      "Abzweigabdeckung",
+      "lcov"
+    ]
+  },
+  "it": {
+    "tool.description": "Esegui la copertura del progetto utilizzando uno strumento linguistico rilevato e restituisci i dati di esecuzione e copertura quando disponibili.",
+    "param.language.description": "Adattatore di copertura da utilizzare.",
+    "param.test_target.description": "Destinazione di test sicura facoltativa, ad esempio una directory di test.",
+    "param.timeout.description": "Tempo massimo di esecuzione in secondi.",
+    "param.dry_run.description": "Segnala solo l'adattatore e il comando rilevati senza eseguire test.",
+    "x_search_terms": [
+      "copertura",
+      "copertura test",
+      "copertura linea",
+      "copertura filiale",
+      "lcov"
+    ]
+  },
+  "ru": {
+    "tool.description": "Запустите покрытие проекта с помощью обнаруженного языкового инструмента и получите данные о выполнении и покрытии, если они доступны.",
+    "param.language.description": "Адаптер покрытия для использования.",
+    "param.test_target.description": "Необязательная безопасная цель тестирования, например тестовый каталог.",
+    "param.timeout.description": "Максимальное время выполнения в секундах.",
+    "param.dry_run.description": "Сообщайте только об обнаруженном адаптере и команде без выполнения тестов.",
+    "x_search_terms": [
+      "покрытие",
+      "тестовое покрытие",
+      "линейное покрытие",
+      "покрытие филиалов",
+      "lcov"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Execute a cobertura do projeto usando uma ferramenta de linguagem detectada e retorne dados de execução e cobertura quando disponíveis.",
+    "param.language.description": "Adaptador de cobertura para usar.",
+    "param.test_target.description": "Alvo de teste seguro opcional, como um diretório de teste.",
+    "param.timeout.description": "Tempo máximo de execução em segundos.",
+    "param.dry_run.description": "Relate apenas o adaptador e o comando detectados sem executar testes.",
+    "x_search_terms": [
+      "cobertura",
+      "cobertura de teste",
+      "cobertura de linha",
+      "cobertura de filial",
+      "lcov"
+    ]
+  },
+  "pt": {
+    "tool.description": "Execute a cobertura do projeto usando uma ferramenta de linguagem detectada e retorne dados de execução e cobertura quando disponíveis.",
+    "param.language.description": "Adaptador de cobertura para usar.",
+    "param.test_target.description": "Alvo de teste seguro opcional, como um diretório de teste.",
+    "param.timeout.description": "Tempo máximo de execução em segundos.",
+    "param.dry_run.description": "Relate apenas o adaptador e o comando detectados sem executar testes.",
+    "x_search_terms": [
+      "cobertura",
+      "cobertura de teste",
+      "cobertura de linha",
+      "cobertura de filial",
+      "lcov"
+    ]
+  },
+  "id": {
+    "tool.description": "Jalankan cakupan proyek menggunakan alat bahasa yang terdeteksi dan kembalikan data eksekusi dan cakupan bila tersedia.",
+    "param.language.description": "Adaptor cakupan untuk digunakan.",
+    "param.test_target.description": "Target pengujian aman opsional, seperti direktori pengujian.",
+    "param.timeout.description": "Waktu eksekusi maksimum dalam hitungan detik.",
+    "param.dry_run.description": "Hanya laporkan adaptor dan perintah yang terdeteksi tanpa menjalankan pengujian.",
+    "x_search_terms": [
+      "cakupan",
+      "cakupan uji",
+      "cakupan jalur",
+      "cakupan cabang",
+      "lcov"
+    ]
+  },
+  "vi": {
+    "tool.description": "Chạy phạm vi dự án bằng cách sử dụng công cụ ngôn ngữ được phát hiện và trả về dữ liệu thực thi và phạm vi bao phủ khi có sẵn.",
+    "param.language.description": "Bộ chuyển đổi vùng phủ sóng để sử dụng.",
+    "param.test_target.description": "Mục tiêu kiểm tra an toàn tùy chọn, chẳng hạn như thư mục kiểm tra.",
+    "param.timeout.description": "Thời gian thực hiện tối đa tính bằng giây.",
+    "param.dry_run.description": "Chỉ báo cáo bộ điều hợp được phát hiện và lệnh mà không chạy thử nghiệm.",
+    "x_search_terms": [
+      "phạm vi bảo hiểm",
+      "phạm vi bảo hiểm kiểm tra",
+      "phạm vi bảo hiểm đường dây",
+      "phạm vi bảo hiểm chi nhánh",
+      "lcov"
+    ]
+  },
+  "pl": {
+    "tool.description": "Uruchom pokrycie projektu za pomocą narzędzia wykrytego języka i zwróć dane dotyczące wykonania i pokrycia, jeśli są dostępne.",
+    "param.language.description": "Adapter zasięgu do użycia.",
+    "param.test_target.description": "Opcjonalny bezpieczny cel testu, taki jak katalog testowy.",
+    "param.timeout.description": "Maksymalny czas wykonania w sekundach.",
+    "param.dry_run.description": "Zgłaszaj tylko wykryty adapter i polecenie bez przeprowadzania testów.",
+    "x_search_terms": [
+      "zasięg",
+      "zasięg testowy",
+      "zasięg linii",
+      "zasięg oddziału",
+      "lcov"
+    ]
+  },
+  "hi": {
+    "tool.description": "किसी ज्ञात भाषा उपकरण का उपयोग करके प्रोजेक्ट कवरेज चलाएँ और उपलब्ध होने पर निष्पादन और कवरेज डेटा लौटाएँ।",
+    "param.language.description": "उपयोग करने के लिए कवरेज एडॉप्टर.",
+    "param.test_target.description": "वैकल्पिक सुरक्षित परीक्षण लक्ष्य, जैसे परीक्षण निर्देशिका।",
+    "param.timeout.description": "अधिकतम निष्पादन समय सेकंड में.",
+    "param.dry_run.description": "परीक्षण चलाए बिना केवल पता लगाए गए एडॉप्टर और कमांड की रिपोर्ट करें।",
+    "x_search_terms": [
+      "कवरेज",
+      "टेस्ट कवरेज",
+      "लाइन कवरेज",
+      "ब्रांच कवरेज",
+      "lcov"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم بتشغيل تغطية المشروع باستخدام أداة اللغة المكتشفة وإرجاع بيانات التنفيذ والتغطية عند توفرها.",
+    "param.language.description": "محول التغطية للاستخدام.",
+    "param.test_target.description": "هدف اختبار آمن اختياري، مثل دليل الاختبار.",
+    "param.timeout.description": "الحد الأقصى لوقت التنفيذ بالثواني.",
+    "param.dry_run.description": "قم بالإبلاغ فقط عن المحول والأمر المكتشفين دون إجراء اختبارات.",
+    "x_search_terms": [
+      "التغطية",
+      "تغطية الاختبار",
+      "تغطية الخط",
+      "تغطية الفرع",
+      "lcov"
+    ]
+  },
+  "sv": {
+    "tool.description": "Kör projekttäckning med hjälp av ett upptäckt språkverktyg och returnera exekverings- och täckningsdata när det är tillgängligt.",
+    "param.language.description": "Täckningsadapter att använda.",
+    "param.test_target.description": "Valfritt säkert testmål, till exempel en testkatalog.",
+    "param.timeout.description": "Maximal utförandetid i sekunder.",
+    "param.dry_run.description": "Rapportera endast den upptäckta adaptern och kommandot utan att köra tester.",
+    "x_search_terms": [
+      "täckning",
+      "testtäckning",
+      "linjetäckning",
+      "filialtäckning",
+      "lcov"
+    ]
+  },
+  "sw": {
+    "tool.description": "Endesha huduma ya mradi kwa kutumia zana ya lugha iliyotambuliwa na urejeshe data ya utekelezaji na chanjo inapopatikana.",
+    "param.language.description": "Adapta ya chanjo ya kutumia.",
+    "param.test_target.description": "Lengo la jaribio salama la hiari, kama vile saraka ya jaribio.",
+    "param.timeout.description": "Muda wa juu zaidi wa utekelezaji katika sekunde.",
+    "param.dry_run.description": "Ripoti tu adapta na amri iliyotambuliwa bila kufanya majaribio.",
+    "x_search_terms": [
+      "chanjo",
+      "ufunikaji wa majaribio",
+      "ufunikaji wa mstari",
+      "ufunikaji wa tawi",
+      "lcov"
+    ]
+  },
+  "nb": {
+    "tool.description": "Kjør prosjektdekning ved å bruke et oppdaget språkverktøy og returner utførelses- og dekningsdata når tilgjengelig.",
+    "param.language.description": "Dekningsadapter å bruke.",
+    "param.test_target.description": "Valgfritt trygt testmål, for eksempel en testkatalog.",
+    "param.timeout.description": "Maksimal utførelsestid i sekunder.",
+    "param.dry_run.description": "Rapporter kun den oppdagede adapteren og kommandoen uten å kjøre tester.",
+    "x_search_terms": [
+      "dekning",
+      "testdekning",
+      "linjedekning",
+      "filialdekning",
+      "lcov"
+    ]
+  },
+  "nl": {
+    "tool.description": "Voer projectdekking uit met behulp van een gedetecteerde taaltool en retourneer uitvoerings- en dekkingsgegevens wanneer deze beschikbaar zijn.",
+    "param.language.description": "Dekkingsadapter te gebruiken.",
+    "param.test_target.description": "Optioneel veilig testdoel, zoals een testmap.",
+    "param.timeout.description": "Maximale uitvoeringstijd in seconden.",
+    "param.dry_run.description": "Rapporteer alleen de gedetecteerde adapter en opdracht zonder tests uit te voeren.",
+    "x_search_terms": [
+      "dekking",
+      "testdekking",
+      "lijndekking",
+      "filiaaldekking",
+      "lcov"
+    ]
+  },
+  "fi": {
+    "tool.description": "Suorita projektin kattavuus tunnistetun kielityökalun avulla ja palauta toteutus- ja kattavuustiedot, kun niitä on saatavilla.",
+    "param.language.description": "Peittoadapteri käytettäväksi.",
+    "param.test_target.description": "Valinnainen turvallinen testikohde, kuten testihakemisto.",
+    "param.timeout.description": "Suurin suoritusaika sekunneissa.",
+    "param.dry_run.description": "Raportoi vain havaittu sovitin ja komento suorittamatta testejä.",
+    "x_search_terms": [
+      "kattavuus",
+      "testauksen kattavuus",
+      "linjan kattavuus",
+      " haaran kattavuus",
+      "lcov"
+    ]
+  },
+  "cs": {
+    "tool.description": "Spusťte pokrytí projektu pomocí nástroje zjištěného jazyka a vraťte data o provedení a pokrytí, pokud jsou k dispozici.",
+    "param.language.description": "K použití krycí adaptér.",
+    "param.test_target.description": "Volitelný bezpečný cíl testu, jako je adresář testů.",
+    "param.timeout.description": "Maximální doba provedení v sekundách.",
+    "param.dry_run.description": "Hlásit pouze detekovaný adaptér a příkaz bez spuštění testů.",
+    "x_search_terms": [
+      "pokrytí",
+      "test pokrytí",
+      "linkové pokrytí",
+      "pobočka",
+      "lcov"
+    ]
+  },
+  "uk": {
+    "tool.description": "Запустіть покриття проекту за допомогою інструменту виявленої мови та поверніть дані про виконання та покриття, якщо вони доступні.",
+    "param.language.description": "Перехідник для покриття.",
+    "param.test_target.description": "Додаткова ціль безпечного тестування, наприклад тестовий каталог.",
+    "param.timeout.description": "Максимальний час виконання в секундах.",
+    "param.dry_run.description": "Повідомляйте лише про виявлений адаптер і команду без виконання тестів.",
+    "x_search_terms": [
+      "покриття",
+      "тестове покриття",
+      "покриття лінії",
+      "покриття гілок",
+      "lcov"
+    ]
+  },
+  "tr": {
+    "tool.description": "Algılanan bir dil aracını kullanarak proje kapsamını çalıştırın ve mümkün olduğunda yürütme ve kapsam verilerini döndürün.",
+    "param.language.description": "Kullanılacak kapsama adaptörü.",
+    "param.test_target.description": "Test dizini gibi isteğe bağlı güvenli test hedefi.",
+    "param.timeout.description": "Saniye cinsinden maksimum yürütme süresi.",
+    "param.dry_run.description": "Testleri çalıştırmadan yalnızca algılanan bağdaştırıcıyı ve komutu raporlayın.",
+    "x_search_terms": [
+      "kapsama alanı",
+      "test kapsamı",
+      "hat kapsamı",
+      "şube kapsamı",
+      "lcov"
+    ]
+  },
+  "th": {
+    "tool.description": "เรียกใช้ความครอบคลุมของโปรเจ็กต์โดยใช้เครื่องมือภาษาที่ตรวจพบ และส่งคืนข้อมูลการดำเนินการและความครอบคลุมเมื่อมี",
+    "param.language.description": "อะแดปเตอร์ครอบคลุมการใช้งาน",
+    "param.test_target.description": "เป้าหมายการทดสอบที่ปลอดภัยเพิ่มเติม เช่น ไดเร็กทอรีทดสอบ",
+    "param.timeout.description": "เวลาดำเนินการสูงสุดเป็นวินาที",
+    "param.dry_run.description": "รายงานเฉพาะอะแดปเตอร์และคำสั่งที่ตรวจพบโดยไม่ทำการทดสอบ",
+    "x_search_terms": [
+      "ความครอบคลุม",
+      "ความครอบคลุมการทดสอบ",
+      "ความครอบคลุมของเส้น",
+      "ความครอบคลุมสาขา",
+      "lcov"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "使用检测到的语言工具运行项目覆盖率，并在可用时返回执行和覆盖率数据。",
+    "param.language.description": "使用的覆盖适配器。",
+    "param.test_target.description": "可选的安全测试目标，例如测试目录。",
+    "param.timeout.description": "最大执行时间（以秒为单位）。",
+    "param.dry_run.description": "仅报告检测到的适配器和命令，而不运行测试。",
+    "x_search_terms": [
+      "覆盖率",
+      "测试覆盖率",
+      "线路覆盖率",
+      "分支覆盖率",
+      "lcov"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "使用偵測到的語言工具運行專案覆蓋率，並在可用時返回執行和覆蓋率資料。",
+    "param.language.description": "使用的覆蓋適配器。",
+    "param.test_target.description": "可選的安全測試目標，例如測試目錄。",
+    "param.timeout.description": "最大執行時間（以秒為單位）。",
+    "param.dry_run.description": "僅報告檢測到的適配器和命令，而不執行測試。",
+    "x_search_terms": [
+      "覆蓋率",
+      "測試覆蓋率",
+      "線路覆蓋率",
+      "分支覆蓋率",
+      "lcov"
+    ]
+  },
+  "bn": {
+    "tool.description": "একটি সনাক্ত করা ভাষা টুল ব্যবহার করে প্রকল্পের কভারেজ চালান এবং যখন উপলব্ধ হয় তখন এক্সিকিউশন এবং কভারেজ ডেটা ফেরত দিন।",
+    "param.language.description": "ব্যবহার করার জন্য কভারেজ অ্যাডাপ্টার।",
+    "param.test_target.description": "ঐচ্ছিক নিরাপদ পরীক্ষার লক্ষ্য, যেমন একটি পরীক্ষা ডিরেক্টরি।",
+    "param.timeout.description": "সেকেন্ডে সর্বোচ্চ কার্যকর করার সময়।",
+    "param.dry_run.description": "পরীক্ষা চালানো ছাড়াই শুধুমাত্র সনাক্ত করা অ্যাডাপ্টার এবং কমান্ড রিপোর্ট করুন।",
+    "x_search_terms": [
+      "কভারেজ",
+      "পরীক্ষা কভারেজ",
+      "লাইন কভারেজ",
+      "শাখা কভারেজ",
+      "lcov"
+    ]
+  },
+  "fa": {
+    "tool.description": "پوشش پروژه را با استفاده از یک ابزار زبان شناسایی شده اجرا کنید و در صورت وجود، داده های اجرا و پوشش را برگردانید.",
+    "param.language.description": "آداپتور پوشش برای استفاده",
+    "param.test_target.description": "هدف تست ایمن اختیاری، مانند فهرست راهنمای آزمایشی.",
+    "param.timeout.description": "حداکثر زمان اجرا بر حسب ثانیه",
+    "param.dry_run.description": "فقط آداپتور و فرمان شناسایی شده را بدون اجرای آزمایش گزارش دهید.",
+    "x_search_terms": [
+      "پوشش",
+      "پوشش تست",
+      "پوشش خط",
+      "پوشش شعب",
+      "lcov"
+    ]
+  },
+  "mn": {
+    "tool.description": "Илэрсэн хэлний хэрэглүүрийг ашиглан төслийн хамрах хүрээг ажиллуулж, боломжтой үед гүйцэтгэл болон хамрах хүрээний өгөгдлийг буцаана уу.",
+    "param.language.description": "Хамрах хүрээний адаптер ашиглах.",
+    "param.test_target.description": "Туршилтын лавлах гэх мэт нэмэлт аюулгүй туршилтын зорилтот.",
+    "param.timeout.description": "Гүйцэтгэх хамгийн дээд хугацаа секундээр.",
+    "param.dry_run.description": "Туршилт хийхгүйгээр зөвхөн илэрсэн адаптер болон командыг мэдээлнэ үү.",
+    "x_search_terms": [
+      "хамрах хүрээ",
+      "туршилтын хамрах хүрээ",
+      "шугам хамрах хүрээ",
+      "салбарын хамрах хүрээ",
+      "lcov"
+    ]
+  },
+  "mr": {
+    "tool.description": "डिटेक्टेड लँग्वेज टूल वापरून प्रोजेक्ट कव्हरेज चालवा आणि उपलब्ध असेल तेव्हा अंमलबजावणी आणि कव्हरेज डेटा परत करा.",
+    "param.language.description": "वापरण्यासाठी कव्हरेज अडॅप्टर.",
+    "param.test_target.description": "पर्यायी सुरक्षित चाचणी लक्ष्य, जसे की चाचणी निर्देशिका.",
+    "param.timeout.description": "सेकंदात कमाल अंमलबजावणी वेळ.",
+    "param.dry_run.description": "चाचण्या न चालवता फक्त आढळलेल्या अडॅप्टर आणि कमांडचा अहवाल द्या.",
+    "x_search_terms": [
+      "कव्हरेज",
+      "चाचणी कव्हरेज",
+      "लाइन कव्हरेज",
+      "शाखा कव्हरेज",
+      "lcov"
+    ]
+  },
+  "el": {
+    "tool.description": "Εκτελέστε την κάλυψη έργου χρησιμοποιώντας ένα εργαλείο γλώσσας που έχει εντοπιστεί και επιστρέψτε δεδομένα εκτέλεσης και κάλυψης όταν είναι διαθέσιμα.",
+    "param.language.description": "Προσαρμογέας κάλυψης για χρήση.",
+    "param.test_target.description": "Προαιρετικός ασφαλής στόχος δοκιμής, όπως κατάλογος δοκιμής.",
+    "param.timeout.description": "Μέγιστος χρόνος εκτέλεσης σε δευτερόλεπτα.",
+    "param.dry_run.description": "Αναφέρετε μόνο τον εντοπισμένο προσαρμογέα και την εντολή χωρίς να εκτελούνται δοκιμές.",
+    "x_search_terms": [
+      "κάλυψη",
+      "κάλυψη δοκιμής",
+      "κάλυψη γραμμής",
+      "κάλυψη υποκαταστήματος",
+      "lcov"
+    ]
+  },
+  "he": {
+    "tool.description": "הפעל סיקור פרויקט באמצעות כלי שפה שזוהה והחזר נתוני ביצוע וכיסוי כאשר הם זמינים.",
+    "param.language.description": "מתאם כיסוי לשימוש.",
+    "param.test_target.description": "יעד בדיקה בטוח אופציונלי, כגון ספריית בדיקה.",
+    "param.timeout.description": "זמן ביצוע מקסימלי בשניות.",
+    "param.dry_run.description": "דווח רק על המתאם והפקודה שזוהו מבלי להפעיל בדיקות.",
+    "x_search_terms": [
+      "כיסוי",
+      "כיסוי בדיקה",
+      "כיסוי קו",
+      "כיסוי סניף",
+      "לקוב"
+    ]
+  },
+  "hu": {
+    "tool.description": "Futtassa a projekt lefedettségét egy észlelt nyelvi eszközzel, és adja vissza a végrehajtási és lefedettségi adatokat, ha rendelkezésre állnak.",
+    "param.language.description": "Használható fedőadapter.",
+    "param.test_target.description": "Opcionális biztonságos tesztcél, például egy tesztkönyvtár.",
+    "param.timeout.description": "Maximális végrehajtási idő másodpercben.",
+    "param.dry_run.description": "Csak az észlelt adaptert és parancsot jelentse tesztek futtatása nélkül.",
+    "x_search_terms": [
+      "lefedettség",
+      "teszt lefedettség",
+      "vonal lefedettség",
+      "elágazás lefedettség",
+      "lcov"
+    ]
+  },
+  "ro": {
+    "tool.description": "Rulați acoperirea proiectului utilizând un instrument de limbă detectat și returnați datele de execuție și acoperire atunci când sunt disponibile.",
+    "param.language.description": "Adaptor de acoperire de utilizat.",
+    "param.test_target.description": "Țintă de testare sigură opțională, cum ar fi un director de testare.",
+    "param.timeout.description": "Timp maxim de execuție în secunde.",
+    "param.dry_run.description": "Raportați numai adaptorul și comanda detectate fără a rula teste.",
+    "x_search_terms": [
+      "acoperire",
+      "acoperire de testare",
+      "acoperire linie",
+      "acoperire sucursală",
+      "lcov"
+    ]
+  },
+  "fil": {
+    "tool.description": "Patakbuhin ang saklaw ng proyekto gamit ang isang natukoy na tool sa wika at ibalik ang data ng pagpapatupad at saklaw kapag available.",
+    "param.language.description": "Coverage adapter na gagamitin.",
+    "param.test_target.description": "Opsyonal na target na ligtas na pagsubok, tulad ng isang direktoryo ng pagsubok.",
+    "param.timeout.description": "Pinakamataas na oras ng pagpapatupad sa mga segundo.",
+    "param.dry_run.description": "Iulat lamang ang nakitang adapter at command nang hindi nagpapatakbo ng mga pagsubok.",
+    "x_search_terms": [
+      "saklaw",
+      "saklaw ng pagsubok",
+      "saklaw ng linya",
+      "saklaw ng sangay",
+      "lcov"
+    ]
+  },
+  "ms": {
+    "tool.description": "Jalankan liputan projek menggunakan alat bahasa yang dikesan dan kembalikan data pelaksanaan dan liputan apabila tersedia.",
+    "param.language.description": "Penyesuai perlindungan untuk digunakan.",
+    "param.test_target.description": "Sasaran ujian selamat pilihan, seperti direktori ujian.",
+    "param.timeout.description": "Masa pelaksanaan maksimum dalam beberapa saat.",
+    "param.dry_run.description": "Hanya laporkan penyesuai dan arahan yang dikesan tanpa menjalankan ujian.",
+    "x_search_terms": [
+      "liputan",
+      "liputan ujian",
+      "liputan talian",
+      "liputan cawangan",
+      "lcov"
+    ]
+  },
+  "da": {
+    "tool.description": "Kør projektdækning ved hjælp af et detekteret sprogværktøj og returner udførelses- og dækningsdata, når de er tilgængelige.",
+    "param.language.description": "Dækningsadapter til brug.",
+    "param.test_target.description": "Valgfrit sikkert testmål, såsom en testmappe.",
+    "param.timeout.description": "Maksimal udførelsestid i sekunder.",
+    "param.dry_run.description": "Rapporter kun den detekterede adapter og kommando uden at køre test.",
+    "x_search_terms": [
+      "dækning",
+      "testdækning",
+      "linjedækning",
+      "filialdækning",
+      "lcov"
+    ]
+  },
+  "nn": {
+    "tool.description": "Kjør prosjektdekning ved hjelp av et registrert språkverktøy, og returner eksekverings- og dekningsdata når de er tilgjengelige.",
+    "param.language.description": "Dekningsadapter til bruk.",
+    "param.test_target.description": "Valgfritt sikkert testmål, for eksempel en testkatalog.",
+    "param.timeout.description": "Maksimal utførelsestid i sekunder.",
+    "param.dry_run.description": "Bare rapporter det oppdagede kortet og kommandoen uten å kjøre tester.",
+    "x_search_terms": [
+      "dekningtest dekninglinje dekningfilial dekninglcov",
+      "test coverage",
+      "line coverage",
+      "branch coverage",
+      "lcov"
+    ]
+  }
+}

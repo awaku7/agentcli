@@ -1,0 +1,496 @@
+{
+  "en": {
+    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
+    "param.root.description": "Directory to scan, relative to the current workdir.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ja": {
+    "tool.description": "秘密情報の値を返さずに、リポジトリ内の秘密情報の可能性と危険な設定ファイルを検査します。",
+    "param.root.description": "現在の作業ディレクトリからの相対パスで指定する検査対象ディレクトリです。",
+    "param.max_files.description": "検査するファイルの最大数です。",
+    "param.include_hidden.description": "隠しファイルと隠しディレクトリを含めます。",
+    "x_search_terms": [
+      "セキュリティ検査",
+      "秘密情報検出",
+      "認証情報",
+      "秘密鍵",
+      "危険な設定"
+    ]
+  },
+  "es": {
+    "tool.description": "Escanee los archivos del repositorio en busca de secretos probables y archivos de configuración riesgosos sin devolver valores secretos. workdir.",
+    "param.root.description": "Número máximo de archivos para inspeccionar.",
+    "param.max_files.description": "Incluir archivos y directorios ocultos.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "fr": {
+    "tool.description": "Analysez les fichiers du référentiel à la recherche de secrets probables et de fichiers de configuration à risque sans renvoyer de valeurs secrètes.",
+    "param.root.description": "Répertoire à analyser, par rapport à l'actuel. workdir.",
+    "param.max_files.description": "Nombre maximum de fichiers à inspecter.",
+    "param.include_hidden.description": "Inclure les fichiers et répertoires cachés.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ko": {
+    "tool.description": "비밀 값을 반환하지 않고 저장소 파일에서 가능성 있는 비밀과 위험한 구성 파일을 스캔합니다.",
+    "param.root.description": "현재 작업 디렉터리를 기준으로 스캔할 디렉터리입니다.",
+    "param.max_files.description": "최대 개수 검사할 파일 수.",
+    "param.include_hidden.description": "숨겨진 파일 및 디렉터리를 포함합니다.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "de": {
+    "tool.description": "Scannen Sie Repository-Dateien auf wahrscheinliche Geheimnisse und riskante Konfigurationsdateien, ohne geheime Werte zurückzugeben.",
+    "param.root.description": "Zu scannendes Verzeichnis, relativ zum aktuellen Arbeitsverzeichnis.",
+    "param.max_files.description": "Maximale Anzahl der zu prüfenden Dateien.",
+    "param.include_hidden.description": "Versteckte Dateien und Verzeichnisse einbeziehen.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "it": {
+    "tool.description": "Scansiona i file del repository per probabili segreti e file di configurazione rischiosi senza restituire valori segreti.",
+    "param.root.description": "Directory da scansionare, relativa a quella corrente workdir.",
+    "param.max_files.description": "Numero massimo di file da controllare.",
+    "param.include_hidden.description": "Includi file e directory nascosti.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ru": {
+    "tool.description": "Сканируйте файлы репозитория на наличие вероятных секретов и рискованных файлов конфигурации без возврата секретных значений.",
+    "param.root.description": "Каталог для сканирования относительно текущего рабочий каталог.",
+    "param.max_files.description": "Максимальное количество файлов для проверки.",
+    "param.include_hidden.description": "Включить скрытые файлы и каталоги.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Verifique os arquivos do repositório em busca de segredos prováveis e arquivos de configuração arriscados sem retornar valores secretos.",
+    "param.root.description": "Diretório a ser verificado, em relação ao atual workdir.",
+    "param.max_files.description": "Número máximo de arquivos para inspecionar.",
+    "param.include_hidden.description": "Incluir arquivos e diretórios ocultos.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "pt": {
+    "tool.description": "Verifique os arquivos do repositório em busca de segredos prováveis e arquivos de configuração arriscados sem retornar valores secretos.",
+    "param.root.description": "Diretório a ser verificado, em relação ao atual workdir.",
+    "param.max_files.description": "Número máximo de arquivos para inspecionar.",
+    "param.include_hidden.description": "Incluir arquivos e diretórios ocultos.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "id": {
+    "tool.description": "Pindai file repositori untuk kemungkinan rahasia dan file konfigurasi berisiko tanpa mengembalikan nilai rahasia.",
+    "param.root.description": "Direktori yang akan dipindai, relatif terhadap direktori kerja saat ini.",
+    "param.max_files.description": "Jumlah maksimum file yang akan diperiksa.",
+    "param.include_hidden.description": "Sertakan file dan direktori tersembunyi.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "vi": {
+    "tool.description": "Quét các tệp kho lưu trữ để tìm các bí mật có thể có và các tệp cấu hình rủi ro mà không trả về các giá trị bí mật.",
+    "param.root.description": "Thư mục cần quét, liên quan đến thư mục công việc hiện tại.",
+    "param.max_files.description": "Số lượng tệp tối đa để kiểm tra.",
+    "param.include_hidden.description": "Bao gồm các tập tin và thư mục ẩn.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "pl": {
+    "tool.description": "Skanuj pliki repozytorium pod kątem prawdopodobnych sekretów i ryzykownych plików konfiguracyjnych bez zwracania tajnych wartości.",
+    "param.root.description": "Katalog do przeskanowania w stosunku do bieżący katalog roboczy.",
+    "param.max_files.description": "Maksymalna liczba plików do sprawdzenia.",
+    "param.include_hidden.description": "Uwzględnij ukryte pliki i katalogi.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "hi": {
+    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
+    "param.root.description": "Directory to scan, relative to the current workdir.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم بمسح ملفات المستودع بحثًا عن الأسرار المحتملة وملفات التكوين المحفوفة بالمخاطر دون إرجاع القيم السرية.",
+    "param.root.description": "الدليل المراد مسحه، بالنسبة إلى الدليل الحالي Workdir.",
+    "param.max_files.description": "الحد الأقصى لعدد الملفات التي سيتم فحصها.",
+    "param.include_hidden.description": "تضمين الملفات والأدلة المخفية.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "sv": {
+    "tool.description": "Skanna arkivfiler utan riskfyllda hemlighetskonfigurationsfiler värden.",
+    "param.root.description": "Katalog att skanna, i förhållande till den aktuella arbetskatalogen.",
+    "param.max_files.description": "Maximalt antal filer att inspektera.",
+    "param.include_hidden.description": "Inkludera dolda filer och kataloger.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "sw": {
+    "tool.description": "Changanua faili za hazina bila uwezekano wa kusanidi uwekaji wa usiri. kuchanganua, ikilinganishwa na kazi ya sasa.",
+    "param.root.description": "Idadi ya juu zaidi ya faili za kukagua.",
+    "param.max_files.description": "Jumuisha faili na saraka zilizofichwa.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "nb": {
+    "tool.description": "Skann arkivfiler uten risikofylte hemmeligheter og returnerer sannsynlige hemmeligheter verdier.",
+    "param.root.description": "Katalog å skanne, i forhold til gjeldende arbeidskatalog.",
+    "param.max_files.description": "Maksimalt antall filer å inspisere.",
+    "param.include_hidden.description": "Inkluder skjulte filer og kataloger.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "nl": {
+    "tool.description": "Scan opslagplaatsbestanden op waarschijnlijke geheimen en risicovolle configuratiebestanden zonder geheime waarden terug te geven.",
+    "param.root.description": "Directory om te scannen, relatief aan de huidige workdir.",
+    "param.max_files.description": "Maximumaantal te inspecteren bestanden.",
+    "param.include_hidden.description": "Inclusief verborgen bestanden en mappen.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tarkista arkistotiedostot ilman todennäköisten salaisuustietojen ja salaisten määritysten riskiarvojen palauttamista. skannata, suhteessa nykyiseen työhakemistoon.",
+    "param.root.description": "Tarkastettavien tiedostojen enimmäismäärä.",
+    "param.max_files.description": "Sisällytä piilotetut tiedostot ja hakemistot.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "cs": {
+    "tool.description": "Prohledejte rizikové soubory repozitáře, abyste našli pravděpodobná tajemství. vzhledem k aktuálnímu pracovnímu adresáři.",
+    "param.root.description": "Maximální počet souborů ke kontrole.",
+    "param.max_files.description": "Zahrnout skryté soubory a adresáře.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "uk": {
+    "tool.description": "Скануйте файли сховища на наявність ймовірних секретів і ризикованих файлів конфігурації без повернення секретних значень.",
+    "param.root.description": "Каталог для сканування відносно поточного робочого каталогу.",
+    "param.max_files.description": "Максимальна кількість файлів для перевірки.",
+    "param.include_hidden.description": "Включити приховані файли та каталоги.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "tr": {
+    "tool.description": "Gizli değerleri döndürmeden depo dosyalarını olası gizli diziler ve riskli yapılandırma dosyaları için tarayın.",
+    "param.root.description": "Geçerli duruma göre taranacak dizin çalışmadir.",
+    "param.max_files.description": "İncelenecek maksimum dosya sayısı.",
+    "param.include_hidden.description": "Gizli dosya ve dizinleri dahil edin.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "th": {
+    "tool.description": "สแกนไฟล์ที่เก็บเพื่อหาความลับที่เป็นไปได้และไฟล์การกำหนดค่าที่มีความเสี่ยงโดยไม่ส่งคืนค่าความลับ",
+    "param.root.description": "ไดเร็กทอรีที่จะสแกนสัมพันธ์กับ workdir ปัจจุบัน",
+    "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะตรวจสอบ",
+    "param.include_hidden.description": "รวมไฟล์และไดเร็กทอรีที่ซ่อนไว้",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "扫描存储库文件以查找可能的机密和有风险的配置文件，而不返回机密值。",
+    "param.root.description": "要扫描的目录，相对于当前工作目录。",
+    "param.max_files.description": "最大数量要检查的文件。",
+    "param.include_hidden.description": "包括隐藏文件和目录。",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "掃描儲存庫文件以查找可能的機密和有風險的配置文件，而不傳回機密值。",
+    "param.root.description": "要掃描的目錄，相對於目前工作目錄。",
+    "param.max_files.description": "最大數量要檢查的文件。",
+    "param.include_hidden.description": "包括隱藏檔案和目錄。",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "bn": {
+    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
+    "param.root.description": "Directory to scan, relative to the current workdir.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "fa": {
+    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
+    "param.root.description": "Directory to scan, relative to the current workdir.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "mn": {
+    "tool.description": "Шалгах файлын дээд тоо.",
+    "param.root.description": "Нуугдсан файлууд болон сангуудыг оруулна.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "mr": {
+    "tool.description": "तपासणीसाठी फाइल्सची कमाल संख्या.",
+    "param.root.description": "लपविलेल्या फाइल्स आणि निर्देशिकांचा समावेश करा.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "el": {
+    "tool.description": "Σάρωση αρχείων μυστικών παραμέτρων και αρχείων επικίνδυνης αποθήκευσης για την επιστροφή αρχείων. τιμές.",
+    "param.root.description": "Κατάλογος προς σάρωση, σε σχέση με τον τρέχοντα οδηγό εργασίας.",
+    "param.max_files.description": "Μέγιστος αριθμός αρχείων προς επιθεώρηση.",
+    "param.include_hidden.description": "Συμπεριλάβετε κρυφά αρχεία και καταλόγους.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "he": {
+    "tool.description": "סרוק קבצי מאגר וללא החזרת סודות סבירים ערכים.",
+    "param.root.description": "ספרייה לסריקה, ביחס למדריך העבודה הנוכחי.",
+    "param.max_files.description": "מספר מקסימלי של קבצים לבדיקה.",
+    "param.include_hidden.description": "כלול קבצים וספריות מוסתרים.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "hu": {
+    "tool.description": "A lerakat‎ kockázati konfigurációs fájlok vizsgálata a valószínű titkosítási fájlok titkosítási értékeinek visszaadása nélkül. a vizsgálathoz, az aktuális munkakönyvtárhoz viszonyítva.",
+    "param.root.description": "A vizsgálandó fájlok maximális száma.",
+    "param.max_files.description": "Tartalmazza a rejtett fájlokat és könyvtárakat.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ro": {
+    "tool.description": "Scanați fișiere secrete și configurări riscante pentru depozitare secrete. valori.",
+    "param.root.description": "Director de scanat, în raport cu directorul de lucru curent.",
+    "param.max_files.description": "Numărul maxim de fișiere de inspectat.",
+    "param.include_hidden.description": "Includeți fișiere și directoare ascunse.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "fil": {
+    "tool.description": "I-scan ang mga file ng repositoryo para sa malamang na mga lihim ng configuration, at i-scan ang mga lihim na configuration ng file na may panganib. kaugnay sa kasalukuyang workdir.",
+    "param.root.description": "Maximum na bilang ng mga file na susuriin.",
+    "param.max_files.description": "Isama ang mga nakatagong file at direktoryo.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "ms": {
+    "tool.description": "Imbas fail repositori untuk memulangkan fail rahsia dan fail rahsia yang berisiko. berbanding dengan workdir semasa.",
+    "param.root.description": "Bilangan maksimum fail untuk diperiksa.",
+    "param.max_files.description": "Sertakan fail dan direktori tersembunyi.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "da": {
+    "tool.description": "Scan lagerfiler uden risikofyldte hemmeligheders konfiguration værdier.",
+    "param.root.description": "Mappe, der skal scannes, i forhold til den aktuelle arbejdskatalog.",
+    "param.max_files.description": "Maksimalt antal filer, der skal inspiceres.",
+    "param.include_hidden.description": "Inkluder skjulte filer og mapper.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  },
+  "nn": {
+    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
+    "param.root.description": "Directory to scan, relative to the current workdir.",
+    "param.max_files.description": "Maximum number of files to inspect.",
+    "param.include_hidden.description": "Include hidden files and directories.",
+    "x_search_terms": [
+      "security scan",
+      "secret scan",
+      "credentials",
+      "private key",
+      "risky config"
+    ]
+  }
+}
