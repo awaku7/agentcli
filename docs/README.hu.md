@@ -113,14 +113,6 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](../src/uage
 
 A paraméterekkel, kimenettel és biztonsági részletekkel kapcsolatban lásd a [Repository Analysis Tools] (REPOSITORY_TOOLS.md) részt.
 
-#### Repository áttekintése és lefedettsége
-
-- `git_review`: a Git-módosítások, kockázatos fájlok, tesztjelöltek és titkos megállapítások összegzése titkos értékek felfedése nélkül.
-- `security_scan`: a lerakatfájlok ellenőrzése a valószínű titkok és a kockázatos konfigurációs fájlok után. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift és Dart/Flutter.
-- A hiányzó lefedettségi függőségek automatikusan telepíthetők, amikor a végrehajtást kérik; A „dry_run” soha nem telepít csomagokat.
-
-A paraméterekkel, kimenettel és biztonsági részletekkel kapcsolatban lásd a [Repository Analysis Tools] (REPOSITORY_TOOLS.md) részt.
-
 ### 🖥 4 interfész + VS kód kiterjesztés
 
 | mód | Parancs | Cél |

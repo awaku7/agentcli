@@ -128,14 +128,14 @@ Se [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for fuld dokumentation
 | **System** | env vars, systemspecifikationer, tid, datoberegning, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
 | **Kilde Nav** | **29 idx-værktøjer** til Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få et funktions-/klasseindeks eller en specifik definition uden at læse hele filen |
 
-#### Repository gennemgang og dækning
+#### Gennemgang af repository og dækning
 
 - `git_review`: opsummer Git-ændringer, risikable filer, testkandidater og hemmelige fund uden at afsløre hemmelige værdier.
 - `security_scan`: scan lagerfiler for sandsynlige hemmeligheder og risikable konfigurationsfiler.
 - `coverage_report`: Kør og normaliser dækning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
 - Manglende dækningsafhængigheder kan installeres automatisk, når der anmodes om udførelse; `dry_run` installerer aldrig pakker.
 
-Se [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) for parametre, output og sikkerhedsdetaljer.
+Se [Værktøjer til repository-analyse](docs/REPOSITORY_TOOLS.md) for parametre, output og sikkerhedsdetaljer.
 
 ### 🖥 4 grænseflader + VS-kodeudvidelse
 

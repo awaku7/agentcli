@@ -109,28 +109,10 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 
 - `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
 - `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
-- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
+- `coverage_report` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
 - Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
 
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
-
-#### Repository granskning och täckning
-
-- `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
-- `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
-- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
-- Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
-
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
-
-#### Repository granskning och täckning
-
-- `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
-- `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
-- `coverage_honorize,` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.
-- Saknade täckningsberoenden kan installeras automatiskt när exekvering begärs; `dry_run` installerar aldrig paket.
-
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
+Se [Verktyg för repositoryanalys](REPOSITORY_TOOLS.md) för parametrar, utdata och säkerhetsdetaljer.
 
 ### 🖥 4 gränssnitt + VS-kodförlängning
 

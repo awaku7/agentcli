@@ -113,7 +113,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 - `coverage_report` : exécute et normalise la couverture pour Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift et Dart/Flutter.
 - Les dépendances de couverture manquantes peuvent être installées automatiquement lorsque l'exécution est demandée ; `dry_run` n'installe jamais de packages.
 
-Voir [Repository Analysis Tools](REPOSITORY_TOOLS.md) pour les paramètres, la sortie et les détails de sécurité.
+Voir [Outils d’analyse du dépôt](REPOSITORY_TOOLS.md) pour les paramètres, la sortie et les détails de sécurité.
 
 ### 🖥 4 interfaces + extension de code VS
 

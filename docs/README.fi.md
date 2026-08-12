@@ -109,25 +109,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 
 - `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
 - `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
-- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
-- Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
-
-Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).
-
-#### Arkiston tarkistus ja kattavuus
-
-- `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
-- `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
-- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
-- Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
-
-Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).
-
-#### Arkiston tarkistus ja kattavuus
-
-- `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
-- `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
-- `coverage_honze,Script`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
+- `coverage_report`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.
 - Puuttuvat kattavuusriippuvuudet voidaan asentaa automaattisesti, kun suoritusta pyydetään; `dry_run` ei koskaan asenna paketteja.
 
 Katso parametrit, tulosteet ja turvallisuustiedot kohdasta [Arkistoanalyysityökalut] (REPOSITORY_TOOLS.md).

@@ -112,7 +112,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 - „coverage_report“: Abdeckung für Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++ ausführen und normalisieren, Ruby, PHP, Swift und Dart/Flutter.
  – Fehlende Abdeckungsabhängigkeiten können automatisch installiert werden, wenn die Ausführung angefordert wird; „dry_run“ installiert niemals Pakete.
 
-Siehe [Repository Analysis Tools](REPOSITORY_TOOLS.md) für Parameter, Ausgabe und Sicherheitsdetails.
+Siehe [Repository-Analysetools](REPOSITORY_TOOLS.md) für Parameter, Ausgabe und Sicherheitsdetails.
 
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung
 

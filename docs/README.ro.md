@@ -109,7 +109,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 
 - `git_review`: rezumați modificările Git, fișierele riscante, candidații de testare și constatările secrete, fără a expune valorile secrete.
 - `security_scan`: scanați fișierele de depozit pentru secrete probabile și fișiere de configurare riscante.
-- `coverage_report și normalizeScript, acoperire pentru runda/Java_Script,`: Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift și Dart/Flutter.
+- `coverage_report`: Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift și Dart/Flutter.
 - Dependențele de acoperire lipsă pot fi instalate automat când se solicită execuția; `dry_run` nu instalează niciodată pachete.
 
 Consultați [Instrumente de analiză a depozitului](REPOSITORY_TOOLS.md) pentru parametri, rezultate și detalii de siguranță.

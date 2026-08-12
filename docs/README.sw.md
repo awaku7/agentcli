@@ -109,7 +109,7 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 
 - `git_review`: fanya muhtasari wa mabadiliko ya Git, faili hatari, watahiniwa wa majaribio, na matokeo ya siri bila kufichua thamani za siri.
 - `security_scan`: changanua faili za hazina kwa ajili ya uwezekano wa siri na faili za usanidi hatari.
-- `coverage_report_Jaizen` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, na Dart/Flutter.
+- `coverage_report` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, na Dart/Flutter.
 - Vitegemezi vya chanjo vinavyokosekana vinaweza kusakinishwa kiotomatiki wakati utekelezaji unapoombwa; `dry_run` haisakinishi vifurushi kamwe.
 
 Angalia [Zana za Uchanganuzi wa Hifadhi](REPOSITORY_TOOLS.md) kwa vigezo, pato na maelezo ya usalama.

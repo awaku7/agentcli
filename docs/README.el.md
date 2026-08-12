@@ -112,7 +112,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 -` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
 - Οι εξαρτήσεις κάλυψης που λείπουν μπορούν να εγκατασταθούν αυτόματα όταν ζητηθεί η εκτέλεση. Το "dry_run" δεν εγκαθιστά ποτέ πακέτα.
 
-Ανατρέξτε στο [Repository Analysis Tools](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
+Ανατρέξτε στο [Εργαλεία ανάλυσης αποθετηρίου](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
 
 #### Αναθεώρηση και κάλυψη αποθετηρίου
 
@@ -121,7 +121,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 -` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
 - Οι εξαρτήσεις κάλυψης που λείπουν μπορούν να εγκατασταθούν αυτόματα όταν ζητηθεί η εκτέλεση. Το "dry_run" δεν εγκαθιστά ποτέ πακέτα.
 
-Ανατρέξτε στο [Repository Analysis Tools](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
+Ανατρέξτε στο [Εργαλεία ανάλυσης αποθετηρίου](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
 
 ### 🖥 4 διεπαφές + Επέκταση κώδικα VS
 

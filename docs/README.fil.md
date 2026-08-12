@@ -135,7 +135,7 @@ Tingnan ang [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) para sa buong
 - `coverage_report`: patakbuhin at gawing normal ang coverage para sa Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, at Dart/Flutter.
 - Ang mga nawawalang dependency sa saklaw ay maaaring awtomatikong mai-install kapag hiniling ang pagpapatupad; Ang `dry_run` ay hindi kailanman nag-i-install ng mga pakete.
 
-Tingnan ang [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) para sa mga parameter, output, at mga detalye ng kaligtasan.
+Tingnan ang [Mga Tool sa Pagsusuri ng Repository](docs/REPOSITORY_TOOLS.md) para sa mga parameter, output, at mga detalye ng kaligtasan.
 
 ### 🖥 4 na Interface + VS Code Extension
 

@@ -108,17 +108,7 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 #### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
 - Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
 
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
-
-#### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
-- Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
-
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
-
-#### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
-- Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
-
-Se [Repository Analysis Tools](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+Se [Verktøy for depotanalyse](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
 
 ### 🖥 4 grensesnitt + VS-kodeutvidelse
 
