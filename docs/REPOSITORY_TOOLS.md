@@ -44,10 +44,13 @@ Supported adapters:
 - `java` / `kotlin`: Gradle JaCoCo or Maven JaCoCo
 - `dotnet`: `dotnet test --collect:XPlat Code Coverage`
 - `cpp`: CMake test target
+- `ruby`: Bundler/Rake with SimpleCov
+- `php`: PHPUnit Clover XML
+- `swift`: `swift test --enable-code-coverage`
 
 Key options:
 
-- `language`: `auto`, `python`, `typescript`, `rust`, `go`, `java`, `kotlin`, `dotnet`, or `cpp`
+- `language`: `auto`, `python`, `typescript`, `rust`, `go`, `java`, `kotlin`, `dotnet`, `cpp`, `ruby`, `php`, or `swift`
 - `test_target`: optional safe test target
 - `timeout`: execution timeout in seconds
 - `dry_run`: show the selected command without running it

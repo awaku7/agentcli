@@ -44,10 +44,13 @@ Gitの変更内容を、秘密情報の値を露出させずに要約します�
 - `java` / `kotlin`: Gradle JaCoCo または Maven JaCoCo
 - `dotnet`: `dotnet test --collect:XPlat Code Coverage`
 - `cpp`: CMakeのテストターゲット
+- `ruby`: Bundler/Rake と SimpleCov
+- `php`: PHPUnit Clover XML
+- `swift`: `swift test --enable-code-coverage`
 
 主なオプション：
 
-- `language`: `auto`、`python`、`typescript`、`rust`、`go`、`java`、`kotlin`、`dotnet`、`cpp`
+- `language`: `auto`、`python`、`typescript`、`rust`、`go`、`java`、`kotlin`、`dotnet`、`cpp`、`ruby`、`php`、`swift`
 - `test_target`: 任意の安全なテスト対象
 - `timeout`: 実行タイムアウト（秒）
 - `dry_run`: コマンドを表示するだけで実行しない

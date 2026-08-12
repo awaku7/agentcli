@@ -50,6 +50,9 @@ TOOL_SPEC: dict[str, Any] = {
                         "kotlin",
                         "dotnet",
                         "cpp",
+                        "ruby",
+                        "php",
+                        "swift",
                     ],
                     "description": _(
                         "param.language.description", default="Coverage adapter to use."
@@ -113,6 +116,16 @@ def _detect_language(root: Path, requested: str) -> str:
         return "dotnet"
     if (root / "CMakeLists.txt").exists() or list(root.glob("**/*.cpp")):
         return "cpp"
+    if (root / "Gemfile").exists() or list(root.glob("**/*.rb")):
+        return "ruby"
+    if (
+        (root / "composer.json").exists()
+        or (root / "phpunit.xml").exists()
+        or list(root.glob("**/*.php"))
+    ):
+        return "php"
+    if (root / "Package.swift").exists() or list(root.glob("**/*.swift")):
+        return "swift"
     if (
         (root / "pyproject.toml").exists()
         or (root / "pytest.ini").exists()
@@ -188,6 +201,24 @@ def _adapter(language: str, target: str, output: Path) -> tuple[str, list[str], 
             "C/C++",
             ["cmake", "--build", "build", "--target", "test"],
             "cmake --build build --target test",
+        )
+    if language == "ruby":
+        return (
+            "Ruby",
+            ["bundle", "exec", "rake", "test"],
+            "bundle exec rake test",
+        )
+    if language == "php":
+        return (
+            "PHP",
+            ["vendor/bin/phpunit", "--coverage-clover", "coverage.xml"],
+            "vendor/bin/phpunit --coverage-clover coverage.xml",
+        )
+    if language == "swift":
+        return (
+            "Swift",
+            ["swift", "test", "--enable-code-coverage"],
+            "swift test --enable-code-coverage",
         )
     raise ValueError("no supported coverage adapter was detected")
 
@@ -292,6 +323,11 @@ def _parse_xml_coverage(path: Path) -> dict[str, Any] | None:
             counters[f"{kind}_percent"] = _ratio(covered, covered + missed)
     if counters:
         return counters
+    for metrics in root.iter("metrics"):
+        total = int(metrics.get("statements", 0))
+        covered = int(metrics.get("coveredstatements", 0))
+        if total:
+            return {"statements_percent": _ratio(covered, total)}
     result = {}
     for key in ("line-rate", "branch-rate", "function-rate"):
         value = root.get(key)
@@ -314,6 +350,22 @@ def _parse_lcov(path: Path) -> dict[str, Any] | None:
     if "LF" not in values:
         return None
     return {"lines_percent": _ratio(values.get("LH", 0), values["LF"])}
+
+
+def _parse_simplecov(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        report = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    covered = total = 0
+    for item in report.get("files", {}).values():
+        lines = item.get("coverage", []) if isinstance(item, dict) else []
+        executable = [value for value in lines if value is not None]
+        total += len(executable)
+        covered += sum(value > 0 for value in executable)
+    return {"lines_percent": _ratio(covered, total)} if total else None
 
 
 def _sorted_files(pattern: str) -> list[Path]:
@@ -365,6 +417,9 @@ def run_tool(args: dict[str, Any]) -> str:
             "kotlin",
             "dotnet",
             "cpp",
+            "ruby",
+            "php",
+            "swift",
         }:
             raise ValueError("unsupported language")
         timeout = int(args.get("timeout", 300))
@@ -443,6 +498,18 @@ def run_tool(args: dict[str, Any]) -> str:
                     ]
                 )
                 coverage = _parse_lcov(report_path) if report_path else None
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language == "php":
+                report_path = _first_existing(
+                    [Path("coverage.xml"), Path("build/logs/clover.xml")]
+                )
+                coverage = _parse_xml_coverage(report_path) if report_path else None
+                if coverage:
+                    result["coverage"] = coverage
+            elif code == 0 and language == "ruby":
+                report_path = _first_existing(_sorted_files("coverage/.resultset.json"))
+                coverage = _parse_simplecov(report_path) if report_path else None
                 if coverage:
                     result["coverage"] = coverage
             return json.dumps(result, ensure_ascii=False)

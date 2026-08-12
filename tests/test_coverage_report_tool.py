@@ -32,6 +32,9 @@ def test_coverage_rejects_unsafe_target():
         ("kotlin", "Java/Kotlin"),
         ("dotnet", ".NET"),
         ("cpp", "C/C++"),
+        ("ruby", "Ruby"),
+        ("php", "PHP"),
+        ("swift", "Swift"),
     ],
 )
 def test_coverage_supports_additional_languages(
@@ -47,7 +50,7 @@ def test_coverage_supports_additional_languages(
 
 def test_coverage_rejects_unknown_language():
     result = json.loads(
-        coverage_report_tool.run_tool({"language": "ruby", "dry_run": True})
+        coverage_report_tool.run_tool({"language": "perl", "dry_run": True})
     )
     assert result["ok"] is False
 
@@ -125,3 +128,18 @@ def test_coverage_parsers_normalize_language_reports(tmp_path):
     assert coverage_report_tool._parse_xml_coverage(jacoco)["line_percent"] == 75.0
     assert coverage_report_tool._parse_xml_coverage(cobertura)["line_percent"] == 80.0
     assert coverage_report_tool._parse_lcov(lcov)["lines_percent"] == 70.0
+
+    clover = tmp_path / "clover.xml"
+    clover.write_text(
+        '<coverage><project><metrics statements="10" coveredstatements="8"/></project></coverage>',
+        encoding="utf-8",
+    )
+    simplecov = tmp_path / "resultset.json"
+    simplecov.write_text(
+        '{"files":{"a.rb":{"coverage":[1,0,null,2]}}}', encoding="utf-8"
+    )
+
+    assert (
+        coverage_report_tool._parse_xml_coverage(clover)["statements_percent"] == 80.0
+    )
+    assert coverage_report_tool._parse_simplecov(simplecov)["lines_percent"] == 66.67
