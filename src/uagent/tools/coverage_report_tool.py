@@ -182,8 +182,12 @@ def _adapter(language: str, target: str, output: Path) -> tuple[str, list[str], 
         if Path("gradlew").is_file() or Path("gradlew.bat").is_file():
             return (
                 "Java/Kotlin",
-                ["gradle", "test", "jacocoTestReport"],
-                "gradle test jacocoTestReport",
+                [
+                    ("gradlew.bat" if os.name == "nt" else "./gradlew"),
+                    "test",
+                    "jacocoTestReport",
+                ],
+                "gradlew test jacocoTestReport",
             )
         return (
             "Java/Kotlin",
@@ -404,6 +408,11 @@ def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> Non
             )
 
 
+def _command_available(command: str) -> bool:
+    path = Path(command)
+    return path.is_file() or shutil.which(command) is not None
+
+
 def run_tool(args: dict[str, Any]) -> str:
     try:
         requested = str(args.get("language", "auto") or "auto")
@@ -439,11 +448,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 "dry_run": bool(args.get("dry_run", False)),
             }
             if args.get("dry_run", False):
-                result["available"] = shutil.which(command[0]) is not None
+                result["available"] = _command_available(command[0])
+                result["required_command"] = command[0]
                 return json.dumps(result, ensure_ascii=False)
             _ensure_dependencies(
                 language, bool(args.get("auto_install", True)), timeout
             )
+            if not _command_available(command[0]):
+                result.update(
+                    {
+                        "ok": False,
+                        "returncode": 127,
+                        "error": (
+                            f"required command not found for {language}: {command[0]}"
+                        ),
+                        "required_command": command[0],
+                    }
+                )
+                return json.dumps(result, ensure_ascii=False)
             code, stdout, stderr = _run(command, timeout)
             result.update(
                 {
@@ -512,6 +534,14 @@ def run_tool(args: dict[str, Any]) -> str:
                 coverage = _parse_simplecov(report_path) if report_path else None
                 if coverage:
                     result["coverage"] = coverage
+                else:
+                    result["coverage_error"] = (
+                        "SimpleCov result not found; enable SimpleCov in the test command"
+                    )
+            elif code == 0 and language == "swift":
+                result["coverage_error"] = (
+                    "Swift tests completed; use llvm-cov export to collect coverage data"
+                )
             return json.dumps(result, ensure_ascii=False)
     except Exception as exc:
         return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
