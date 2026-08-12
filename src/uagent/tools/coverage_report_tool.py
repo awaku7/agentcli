@@ -10,6 +10,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from .._pip_auto import auto_install as _auto_install
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -69,6 +70,14 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Only report the detected adapter and command without running tests.",
                     ),
                     "default": False,
+                },
+                "auto_install": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.auto_install.description",
+                        default="Automatically install missing Python coverage dependencies with pip.",
+                    ),
+                    "default": True,
                 },
             },
         },
@@ -153,6 +162,17 @@ def _run(cmd: list[str], timeout: int) -> tuple[int, str, str]:
         return 124, "", "coverage command timed out"
 
 
+def _ensure_dependencies(language: str, auto_install: bool) -> None:
+    if language != "python":
+        return
+    if not auto_install:
+        return
+    if not _auto_install("coverage", "coverage"):
+        raise RuntimeError("coverage is required and could not be installed")
+    if not _auto_install("pytest", "pytest"):
+        raise RuntimeError("pytest is required and could not be installed")
+
+
 def run_tool(args: dict[str, Any]) -> str:
     try:
         requested = str(args.get("language", "auto") or "auto")
@@ -177,6 +197,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if args.get("dry_run", False):
                 result["available"] = shutil.which(command[0]) is not None
                 return json.dumps(result, ensure_ascii=False)
+            _ensure_dependencies(language, bool(args.get("auto_install", True)))
             code, stdout, stderr = _run(command, timeout)
             result.update(
                 {

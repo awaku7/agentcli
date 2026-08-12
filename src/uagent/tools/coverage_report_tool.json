@@ -5,6 +5,7 @@
     "param.test_target.description": "Optional safe test target, such as a test directory.",
     "param.timeout.description": "Maximum execution time in seconds.",
     "param.dry_run.description": "Only report the detected adapter and command without running tests.",
+    "param.auto_install.description": "Automatically install missing Python coverage dependencies with pip.",
     "x_search_terms": [
       "coverage",
       "test coverage",
@@ -19,6 +20,7 @@
     "param.test_target.description": "テストディレクトリなどの安全な相対テスト対象を指定できます。",
     "param.timeout.description": "実行の最大時間（秒）です。",
     "param.dry_run.description": "テストを実行せず、検出したアダプターとコマンドだけを報告します。",
+    "param.auto_install.description": "不足しているPythonカバレッジ依存関係をpipで自動インストールします。",
     "x_search_terms": [
       "カバレッジ",
       "テストカバレッジ",
@@ -33,6 +35,7 @@
     "param.test_target.description": "Objetivo de prueba seguro opcional, como un directorio de prueba.",
     "param.timeout.description": "Tiempo máximo de ejecución en segundos.",
     "param.dry_run.description": "Informe únicamente el adaptador y el comando detectados sin ejecutar pruebas.",
+    "param.auto_install.description": "Instale automáticamente las dependencias de cobertura de Python que faltan con pip.",
     "x_search_terms": [
       "cobertura",
       "cobertura de prueba",
@@ -47,6 +50,7 @@
     "param.test_target.description": "Cible de test sécurisée facultative, telle qu'un répertoire de test.",
     "param.timeout.description": "Temps d'exécution maximum en secondes.",
     "param.dry_run.description": "Signalez uniquement l’adaptateur et la commande détectés sans exécuter de tests.",
+    "param.auto_install.description": "Installez automatiquement les dépendances de couverture Python manquantes avec pip.",
     "x_search_terms": [
       "couverture",
       "couverture de test",
@@ -61,6 +65,7 @@
     "param.test_target.description": "테스트 디렉터리와 같은 선택적 안전 테스트 대상입니다.",
     "param.timeout.description": "최대 실행 시간(초)입니다.",
     "param.dry_run.description": "테스트를 실행하지 않고 감지된 어댑터 및 명령만 보고합니다.",
+    "param.auto_install.description": "pip를 사용하여 누락된 Python 적용 범위 종속성을 자동으로 설치합니다.",
     "x_search_terms": [
       "커버리지",
       "테스트 커버리지",
@@ -75,6 +80,7 @@
     "param.test_target.description": "Optionales sicheres Testziel, z. B. ein Testverzeichnis.",
     "param.timeout.description": "Maximale Ausführungszeit in Sekunden.",
     "param.dry_run.description": "Melden Sie nur den erkannten Adapter und Befehl, ohne Tests auszuführen.",
+    "param.auto_install.description": "Fehlende Python-Abdeckungsabhängigkeiten automatisch mit pip installieren.",
     "x_search_terms": [
       "Abdeckung",
       "Testabdeckung",
@@ -89,6 +95,7 @@
     "param.test_target.description": "Destinazione di test sicura facoltativa, ad esempio una directory di test.",
     "param.timeout.description": "Tempo massimo di esecuzione in secondi.",
     "param.dry_run.description": "Segnala solo l'adattatore e il comando rilevati senza eseguire test.",
+    "param.auto_install.description": "Installa automaticamente le dipendenze di copertura Python mancanti con pip.",
     "x_search_terms": [
       "copertura",
       "copertura test",
@@ -103,6 +110,7 @@
     "param.test_target.description": "Необязательная безопасная цель тестирования, например тестовый каталог.",
     "param.timeout.description": "Максимальное время выполнения в секундах.",
     "param.dry_run.description": "Сообщайте только об обнаруженном адаптере и команде без выполнения тестов.",
+    "param.auto_install.description": "Автоматически установите недостающие зависимости покрытия Python с помощью pip.",
     "x_search_terms": [
       "покрытие",
       "тестовое покрытие",
@@ -117,6 +125,7 @@
     "param.test_target.description": "Alvo de teste seguro opcional, como um diretório de teste.",
     "param.timeout.description": "Tempo máximo de execução em segundos.",
     "param.dry_run.description": "Relate apenas o adaptador e o comando detectados sem executar testes.",
+    "param.auto_install.description": "Instale automaticamente dependências de cobertura ausentes do Python com pip.",
     "x_search_terms": [
       "cobertura",
       "cobertura de teste",
@@ -131,6 +140,7 @@
     "param.test_target.description": "Alvo de teste seguro opcional, como um diretório de teste.",
     "param.timeout.description": "Tempo máximo de execução em segundos.",
     "param.dry_run.description": "Relate apenas o adaptador e o comando detectados sem executar testes.",
+    "param.auto_install.description": "Instale automaticamente dependências de cobertura ausentes do Python com pip.",
     "x_search_terms": [
       "cobertura",
       "cobertura de teste",
@@ -145,6 +155,7 @@
     "param.test_target.description": "Target pengujian aman opsional, seperti direktori pengujian.",
     "param.timeout.description": "Waktu eksekusi maksimum dalam hitungan detik.",
     "param.dry_run.description": "Hanya laporkan adaptor dan perintah yang terdeteksi tanpa menjalankan pengujian.",
+    "param.auto_install.description": "Instal dependensi cakupan Python yang hilang secara otomatis dengan pip.",
     "x_search_terms": [
       "cakupan",
       "cakupan uji",
@@ -159,6 +170,7 @@
     "param.test_target.description": "Mục tiêu kiểm tra an toàn tùy chọn, chẳng hạn như thư mục kiểm tra.",
     "param.timeout.description": "Thời gian thực hiện tối đa tính bằng giây.",
     "param.dry_run.description": "Chỉ báo cáo bộ điều hợp được phát hiện và lệnh mà không chạy thử nghiệm.",
+    "param.auto_install.description": "Tự động cài đặt các phần phụ thuộc phạm vi bảo hiểm Python bị thiếu bằng pip.",
     "x_search_terms": [
       "phạm vi bảo hiểm",
       "phạm vi bảo hiểm kiểm tra",
@@ -173,6 +185,7 @@
     "param.test_target.description": "Opcjonalny bezpieczny cel testu, taki jak katalog testowy.",
     "param.timeout.description": "Maksymalny czas wykonania w sekundach.",
     "param.dry_run.description": "Zgłaszaj tylko wykryty adapter i polecenie bez przeprowadzania testów.",
+    "param.auto_install.description": "Automatycznie zainstaluj brakujące zależności zasięgu Pythona za pomocą pip.",
     "x_search_terms": [
       "zasięg",
       "zasięg testowy",
@@ -187,6 +200,7 @@
     "param.test_target.description": "वैकल्पिक सुरक्षित परीक्षण लक्ष्य, जैसे परीक्षण निर्देशिका।",
     "param.timeout.description": "अधिकतम निष्पादन समय सेकंड में.",
     "param.dry_run.description": "परीक्षण चलाए बिना केवल पता लगाए गए एडॉप्टर और कमांड की रिपोर्ट करें।",
+    "param.auto_install.description": "पिप के साथ स्वचालित रूप से लापता पायथन कवरेज निर्भरताएँ स्थापित करें।",
     "x_search_terms": [
       "कवरेज",
       "टेस्ट कवरेज",
@@ -201,6 +215,7 @@
     "param.test_target.description": "هدف اختبار آمن اختياري، مثل دليل الاختبار.",
     "param.timeout.description": "الحد الأقصى لوقت التنفيذ بالثواني.",
     "param.dry_run.description": "قم بالإبلاغ فقط عن المحول والأمر المكتشفين دون إجراء اختبارات.",
+    "param.auto_install.description": "تثبيت تبعيات تغطية Python المفقودة تلقائيًا باستخدام النقطة.",
     "x_search_terms": [
       "التغطية",
       "تغطية الاختبار",
@@ -215,6 +230,7 @@
     "param.test_target.description": "Valfritt säkert testmål, till exempel en testkatalog.",
     "param.timeout.description": "Maximal utförandetid i sekunder.",
     "param.dry_run.description": "Rapportera endast den upptäckta adaptern och kommandot utan att köra tester.",
+    "param.auto_install.description": "Installera automatiskt saknade Python-täckningsberoenden med pip.",
     "x_search_terms": [
       "täckning",
       "testtäckning",
@@ -229,6 +245,7 @@
     "param.test_target.description": "Lengo la jaribio salama la hiari, kama vile saraka ya jaribio.",
     "param.timeout.description": "Muda wa juu zaidi wa utekelezaji katika sekunde.",
     "param.dry_run.description": "Ripoti tu adapta na amri iliyotambuliwa bila kufanya majaribio.",
+    "param.auto_install.description": "Sakinisha kiotomatiki utegemezi wa chanjo wa Python na bomba.",
     "x_search_terms": [
       "chanjo",
       "ufunikaji wa majaribio",
@@ -243,6 +260,7 @@
     "param.test_target.description": "Valgfritt trygt testmål, for eksempel en testkatalog.",
     "param.timeout.description": "Maksimal utførelsestid i sekunder.",
     "param.dry_run.description": "Rapporter kun den oppdagede adapteren og kommandoen uten å kjøre tester.",
+    "param.auto_install.description": "Installer automatisk manglende Python-dekningsavhengigheter med pip.",
     "x_search_terms": [
       "dekning",
       "testdekning",
@@ -257,6 +275,7 @@
     "param.test_target.description": "Optioneel veilig testdoel, zoals een testmap.",
     "param.timeout.description": "Maximale uitvoeringstijd in seconden.",
     "param.dry_run.description": "Rapporteer alleen de gedetecteerde adapter en opdracht zonder tests uit te voeren.",
+    "param.auto_install.description": "Installeer automatisch ontbrekende Python-dekkingsafhankelijkheden met pip.",
     "x_search_terms": [
       "dekking",
       "testdekking",
@@ -271,6 +290,7 @@
     "param.test_target.description": "Valinnainen turvallinen testikohde, kuten testihakemisto.",
     "param.timeout.description": "Suurin suoritusaika sekunneissa.",
     "param.dry_run.description": "Raportoi vain havaittu sovitin ja komento suorittamatta testejä.",
+    "param.auto_install.description": "Asenna puuttuvat Python-peitto riippuvuudet automaattisesti pip:llä.",
     "x_search_terms": [
       "kattavuus",
       "testauksen kattavuus",
@@ -285,6 +305,7 @@
     "param.test_target.description": "Volitelný bezpečný cíl testu, jako je adresář testů.",
     "param.timeout.description": "Maximální doba provedení v sekundách.",
     "param.dry_run.description": "Hlásit pouze detekovaný adaptér a příkaz bez spuštění testů.",
+    "param.auto_install.description": "Automaticky nainstalujte chybějící závislosti pokrytí Pythonu pomocí pip.",
     "x_search_terms": [
       "pokrytí",
       "test pokrytí",
@@ -299,6 +320,7 @@
     "param.test_target.description": "Додаткова ціль безпечного тестування, наприклад тестовий каталог.",
     "param.timeout.description": "Максимальний час виконання в секундах.",
     "param.dry_run.description": "Повідомляйте лише про виявлений адаптер і команду без виконання тестів.",
+    "param.auto_install.description": "Автоматично встановлюйте відсутні залежності покриття Python за допомогою pip.",
     "x_search_terms": [
       "покриття",
       "тестове покриття",
@@ -313,6 +335,7 @@
     "param.test_target.description": "Test dizini gibi isteğe bağlı güvenli test hedefi.",
     "param.timeout.description": "Saniye cinsinden maksimum yürütme süresi.",
     "param.dry_run.description": "Testleri çalıştırmadan yalnızca algılanan bağdaştırıcıyı ve komutu raporlayın.",
+    "param.auto_install.description": "Eksik Python kapsamı bağımlılıklarını pip ile otomatik olarak yükleyin.",
     "x_search_terms": [
       "kapsama alanı",
       "test kapsamı",
@@ -327,6 +350,7 @@
     "param.test_target.description": "เป้าหมายการทดสอบที่ปลอดภัยเพิ่มเติม เช่น ไดเร็กทอรีทดสอบ",
     "param.timeout.description": "เวลาดำเนินการสูงสุดเป็นวินาที",
     "param.dry_run.description": "รายงานเฉพาะอะแดปเตอร์และคำสั่งที่ตรวจพบโดยไม่ทำการทดสอบ",
+    "param.auto_install.description": "ติดตั้งการอ้างอิงความครอบคลุมของ Python ที่ขาดหายไปโดยอัตโนมัติด้วย pip",
     "x_search_terms": [
       "ความครอบคลุม",
       "ความครอบคลุมการทดสอบ",
@@ -341,6 +365,7 @@
     "param.test_target.description": "可选的安全测试目标，例如测试目录。",
     "param.timeout.description": "最大执行时间（以秒为单位）。",
     "param.dry_run.description": "仅报告检测到的适配器和命令，而不运行测试。",
+    "param.auto_install.description": "使用 pip 自动安装缺少的 Python 覆盖依赖项。",
     "x_search_terms": [
       "覆盖率",
       "测试覆盖率",
@@ -355,6 +380,7 @@
     "param.test_target.description": "可選的安全測試目標，例如測試目錄。",
     "param.timeout.description": "最大執行時間（以秒為單位）。",
     "param.dry_run.description": "僅報告檢測到的適配器和命令，而不執行測試。",
+    "param.auto_install.description": "使用 pip 自動安裝缺少的 Python 覆蓋依賴項。",
     "x_search_terms": [
       "覆蓋率",
       "測試覆蓋率",
@@ -369,6 +395,7 @@
     "param.test_target.description": "ঐচ্ছিক নিরাপদ পরীক্ষার লক্ষ্য, যেমন একটি পরীক্ষা ডিরেক্টরি।",
     "param.timeout.description": "সেকেন্ডে সর্বোচ্চ কার্যকর করার সময়।",
     "param.dry_run.description": "পরীক্ষা চালানো ছাড়াই শুধুমাত্র সনাক্ত করা অ্যাডাপ্টার এবং কমান্ড রিপোর্ট করুন।",
+    "param.auto_install.description": "পিপ সহ অনুপস্থিত পাইথন কভারেজ নির্ভরতা স্বয়ংক্রিয়ভাবে ইনস্টল করুন।",
     "x_search_terms": [
       "কভারেজ",
       "পরীক্ষা কভারেজ",
@@ -383,6 +410,7 @@
     "param.test_target.description": "هدف تست ایمن اختیاری، مانند فهرست راهنمای آزمایشی.",
     "param.timeout.description": "حداکثر زمان اجرا بر حسب ثانیه",
     "param.dry_run.description": "فقط آداپتور و فرمان شناسایی شده را بدون اجرای آزمایش گزارش دهید.",
+    "param.auto_install.description": "به طور خودکار وابستگی های پوشش پایتون گم شده را با پیپ نصب کنید.",
     "x_search_terms": [
       "پوشش",
       "پوشش تست",
@@ -397,6 +425,7 @@
     "param.test_target.description": "Туршилтын лавлах гэх мэт нэмэлт аюулгүй туршилтын зорилтот.",
     "param.timeout.description": "Гүйцэтгэх хамгийн дээд хугацаа секундээр.",
     "param.dry_run.description": "Туршилт хийхгүйгээр зөвхөн илэрсэн адаптер болон командыг мэдээлнэ үү.",
+    "param.auto_install.description": "Алга болсон Python хамрах хүрээний хамаарлыг pip-ээр автоматаар суулгана.",
     "x_search_terms": [
       "хамрах хүрээ",
       "туршилтын хамрах хүрээ",
@@ -411,6 +440,7 @@
     "param.test_target.description": "पर्यायी सुरक्षित चाचणी लक्ष्य, जसे की चाचणी निर्देशिका.",
     "param.timeout.description": "सेकंदात कमाल अंमलबजावणी वेळ.",
     "param.dry_run.description": "चाचण्या न चालवता फक्त आढळलेल्या अडॅप्टर आणि कमांडचा अहवाल द्या.",
+    "param.auto_install.description": "pip सह गहाळ Python कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित करा.",
     "x_search_terms": [
       "कव्हरेज",
       "चाचणी कव्हरेज",
@@ -425,6 +455,7 @@
     "param.test_target.description": "Προαιρετικός ασφαλής στόχος δοκιμής, όπως κατάλογος δοκιμής.",
     "param.timeout.description": "Μέγιστος χρόνος εκτέλεσης σε δευτερόλεπτα.",
     "param.dry_run.description": "Αναφέρετε μόνο τον εντοπισμένο προσαρμογέα και την εντολή χωρίς να εκτελούνται δοκιμές.",
+    "param.auto_install.description": "Αυτόματη εγκατάσταση εξαρτήσεων κάλυψης Python που λείπουν με pip.",
     "x_search_terms": [
       "κάλυψη",
       "κάλυψη δοκιμής",
@@ -439,6 +470,7 @@
     "param.test_target.description": "יעד בדיקה בטוח אופציונלי, כגון ספריית בדיקה.",
     "param.timeout.description": "זמן ביצוע מקסימלי בשניות.",
     "param.dry_run.description": "דווח רק על המתאם והפקודה שזוהו מבלי להפעיל בדיקות.",
+    "param.auto_install.description": "התקן אוטומטית תלות חסרות בכיסוי Python עם pip.",
     "x_search_terms": [
       "כיסוי",
       "כיסוי בדיקה",
@@ -453,6 +485,7 @@
     "param.test_target.description": "Opcionális biztonságos tesztcél, például egy tesztkönyvtár.",
     "param.timeout.description": "Maximális végrehajtási idő másodpercben.",
     "param.dry_run.description": "Csak az észlelt adaptert és parancsot jelentse tesztek futtatása nélkül.",
+    "param.auto_install.description": "A hiányzó Python-lefedettség-függőségek automatikus telepítése a pip segítségével.",
     "x_search_terms": [
       "lefedettség",
       "teszt lefedettség",
@@ -467,6 +500,7 @@
     "param.test_target.description": "Țintă de testare sigură opțională, cum ar fi un director de testare.",
     "param.timeout.description": "Timp maxim de execuție în secunde.",
     "param.dry_run.description": "Raportați numai adaptorul și comanda detectate fără a rula teste.",
+    "param.auto_install.description": "Instalați automat dependențele de acoperire Python lipsă cu pip.",
     "x_search_terms": [
       "acoperire",
       "acoperire de testare",
@@ -481,11 +515,12 @@
     "param.test_target.description": "Opsyonal na target na ligtas na pagsubok, tulad ng isang direktoryo ng pagsubok.",
     "param.timeout.description": "Pinakamataas na oras ng pagpapatupad sa mga segundo.",
     "param.dry_run.description": "Iulat lamang ang nakitang adapter at command nang hindi nagpapatakbo ng mga pagsubok.",
+    "param.auto_install.description": "Awtomatikong i-install ang nawawalang mga dependency sa saklaw ng Python gamit ang pip.",
     "x_search_terms": [
-      "saklaw",
-      "saklaw ng pagsubok",
-      "saklaw ng linya",
-      "saklaw ng sangay",
+      "coverage",
+      "test coverage",
+      "line coverage",
+      "branch coverage",
       "lcov"
     ]
   },
@@ -495,6 +530,7 @@
     "param.test_target.description": "Sasaran ujian selamat pilihan, seperti direktori ujian.",
     "param.timeout.description": "Masa pelaksanaan maksimum dalam beberapa saat.",
     "param.dry_run.description": "Hanya laporkan penyesuai dan arahan yang dikesan tanpa menjalankan ujian.",
+    "param.auto_install.description": "Pasang secara automatik kebergantungan liputan Python yang hilang dengan pip.",
     "x_search_terms": [
       "liputan",
       "liputan ujian",
@@ -509,6 +545,7 @@
     "param.test_target.description": "Valgfrit sikkert testmål, såsom en testmappe.",
     "param.timeout.description": "Maksimal udførelsestid i sekunder.",
     "param.dry_run.description": "Rapporter kun den detekterede adapter og kommando uden at køre test.",
+    "param.auto_install.description": "Installer automatisk manglende Python-dækningsafhængigheder med pip.",
     "x_search_terms": [
       "dækning",
       "testdækning",
@@ -523,6 +560,7 @@
     "param.test_target.description": "Valgfritt sikkert testmål, for eksempel en testkatalog.",
     "param.timeout.description": "Maksimal utførelsestid i sekunder.",
     "param.dry_run.description": "Bare rapporter det oppdagede kortet og kommandoen uten å kjøre tester.",
+    "param.auto_install.description": "Installer automatisk manglende Python-dekningsavhengigheter med pip.",
     "x_search_terms": [
       "dekningtest dekninglinje dekningfilial dekninglcov",
       "test coverage",

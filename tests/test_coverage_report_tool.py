@@ -28,3 +28,25 @@ def test_coverage_rejects_unknown_language():
         coverage_report_tool.run_tool({"language": "ruby", "dry_run": True})
     )
     assert result["ok"] is False
+
+
+def test_coverage_auto_installs_python_dependencies(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    installed = []
+    monkeypatch.setattr(
+        coverage_report_tool,
+        "_auto_install",
+        lambda package, module: installed.append((package, module)) or True,
+    )
+    monkeypatch.setattr(
+        coverage_report_tool, "_run", lambda command, timeout: (0, "", "")
+    )
+
+    result = json.loads(
+        coverage_report_tool.run_tool(
+            {"language": "python", "auto_install": True, "timeout": 10}
+        )
+    )
+
+    assert result["ok"] is True
+    assert installed == [("coverage", "coverage"), ("pytest", "pytest")]

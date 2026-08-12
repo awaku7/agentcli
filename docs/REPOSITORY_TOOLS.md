@@ -48,6 +48,9 @@ Key options:
 - `test_target`: optional safe test target
 - `timeout`: execution timeout in seconds
 - `dry_run`: show the selected command without running it
+- `auto_install`: automatically install missing Python coverage dependencies with pip
+
+Python coverage dependencies are installed only when execution is requested; dry runs do not install packages.
 
 The tool returns the selected adapter, command, execution status, output, and coverage totals when the adapter provides them.
 
