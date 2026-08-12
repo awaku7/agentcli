@@ -122,11 +122,20 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — see [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Cloud APIs** | `aws_api`, `gcp_api`, `azure_api` — generic AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
+| **Dev Tools** | git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
 | **Source Nav** | **29 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — get a function/class index or specific definition without reading the whole file |
+
+#### Repository review and coverage
+
+- `git_review`: summarize Git changes, risky files, test candidates, and secret findings without exposing secret values.
+- `security_scan`: scan repository files for likely secrets and risky configuration files.
+- `coverage_report`: run and normalize coverage for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, and Dart/Flutter.
+- Missing coverage dependencies can be installed automatically when execution is requested; `dry_run` never installs packages.
+
+See [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) for parameters, output, and safety details.
 
 ### 🖥 4 Interfaces + VS Code Extension
 
