@@ -385,9 +385,19 @@ def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> Non
         if not auto_install:
             return
         if not _auto_install("coverage", "coverage"):
-            raise RuntimeError("coverage is required and could not be installed")
+            raise RuntimeError(
+                _(
+                    "error.coverage_install_failed",
+                    default="coverage is required and could not be installed",
+                )
+            )
         if not _auto_install("pytest", "pytest"):
-            raise RuntimeError("pytest is required and could not be installed")
+            raise RuntimeError(
+                _(
+                    "error.pytest_install_failed",
+                    default="pytest is required and could not be installed",
+                )
+            )
         return
     if language == "typescript":
         code, _, _ = _run(["npx", "--no-install", "c8", "--version"], timeout)
@@ -395,7 +405,13 @@ def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> Non
             return
         code, _, error = _run(["npm", "install", "--no-save", "c8"], timeout)
         if code != 0:
-            raise RuntimeError(error or "c8 is required and could not be installed")
+            raise RuntimeError(
+                error
+                or _(
+                    "error.c8_install_failed",
+                    default="c8 is required and could not be installed",
+                )
+            )
         return
     if language == "rust":
         code, _, _ = _run(["cargo", "llvm-cov", "--version"], timeout)
@@ -404,7 +420,11 @@ def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> Non
         code, _, error = _run(["cargo", "install", "cargo-llvm-cov"], timeout)
         if code != 0:
             raise RuntimeError(
-                error or "cargo-llvm-cov is required and could not be installed"
+                error
+                or _(
+                    "error.cargo_llvm_cov_install_failed",
+                    default="cargo-llvm-cov is required and could not be installed",
+                )
             )
 
 
@@ -460,7 +480,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         "ok": False,
                         "returncode": 127,
                         "error": (
-                            f"required command not found for {language}: {command[0]}"
+                            _(
+                                "error.command_not_found",
+                                default="required command not found for %(language)s: %(command)s",
+                            )
+                            % {"language": language, "command": command[0]}
                         ),
                         "required_command": command[0],
                     }
@@ -476,7 +500,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 }
             )
             if code == 0 and language == "python":
-                json_code, _, json_err = _run(
+                json_code, _json_stdout, json_err = _run(
                     ["python", "-m", "coverage", "json", "-o", str(output)], timeout
                 )
                 if json_code == 0 and output.is_file():
@@ -535,12 +559,14 @@ def run_tool(args: dict[str, Any]) -> str:
                 if coverage:
                     result["coverage"] = coverage
                 else:
-                    result["coverage_error"] = (
-                        "SimpleCov result not found; enable SimpleCov in the test command"
+                    result["coverage_error"] = _(
+                        "error.simplecov_result_missing",
+                        default="SimpleCov result not found; enable SimpleCov in the test command",
                     )
             elif code == 0 and language == "swift":
-                result["coverage_error"] = (
-                    "Swift tests completed; use llvm-cov export to collect coverage data"
+                result["coverage_error"] = _(
+                    "error.swift_coverage_unavailable",
+                    default="Swift tests completed; use llvm-cov export to collect coverage data",
                 )
             return json.dumps(result, ensure_ascii=False)
     except Exception as exc:
