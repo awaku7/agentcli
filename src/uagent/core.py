@@ -503,6 +503,16 @@ def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
     sys.stderr.flush()
 
 
+def _is_idle_shell() -> bool:
+    """Return True when stdout/stderr are handled by Python IDLE."""
+    for stream in (sys.stdout, sys.stderr):
+        module = type(stream).__module__.lower()
+        name = type(stream).__name__.lower()
+        if "idlelib" in module or "idle" in name:
+            return True
+    return "idlelib" in sys.modules
+
+
 def print_status_line() -> None:
     """
     Draw the current busy / label status in a single line.
@@ -549,7 +559,9 @@ def print_status_line() -> None:
 
     # Color/ANSI control
     # Default: enable ANSI colors unless explicitly disabled.
-    no_color = bool(env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR"))
+    no_color = bool(
+        env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR") or _is_idle_shell()
+    )
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
     # Prefer a natural newline boundary so status does not split a sentence.
@@ -608,7 +620,10 @@ def print_status_line() -> None:
                 )
                 # On Windows, do not gate on VT: we color via console attributes.
                 # On other OS, ANSI needs a TTY (already required above).
-                use_color = want_color
+                # The post-turn IDLE write is the path that can be mangled by
+                # prompt/terminal wrappers; keep IDLE plain while retaining
+                # color for BUSY status updates.
+                use_color = want_color and busy
                 _write_status_line(
                     f"[STATE] {state}{label_part}",
                     busy=busy,
