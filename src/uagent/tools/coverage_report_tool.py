@@ -39,7 +39,17 @@ TOOL_SPEC: dict[str, Any] = {
             "properties": {
                 "language": {
                     "type": "string",
-                    "enum": ["auto", "python", "typescript", "rust", "go"],
+                    "enum": [
+                        "auto",
+                        "python",
+                        "typescript",
+                        "rust",
+                        "go",
+                        "java",
+                        "kotlin",
+                        "dotnet",
+                        "cpp",
+                    ],
                     "description": _(
                         "param.language.description", default="Coverage adapter to use."
                     ),
@@ -88,18 +98,26 @@ TOOL_SPEC: dict[str, Any] = {
 def _detect_language(root: Path, requested: str) -> str:
     if requested != "auto":
         return requested
-    if (
-        (root / "pyproject.toml").exists()
-        or (root / "pytest.ini").exists()
-        or list(root.glob("**/*.py"))
-    ):
-        return "python"
     if (root / "package.json").exists() or list(root.glob("**/*.ts")):
         return "typescript"
     if (root / "Cargo.toml").exists():
         return "rust"
     if (root / "go.mod").exists():
         return "go"
+    if (root / "pom.xml").exists() or (root / "build.gradle").exists():
+        return "java"
+    if list(root.glob("**/*.kt")) or (root / "settings.gradle.kts").exists():
+        return "kotlin"
+    if list(root.glob("**/*.sln")) or list(root.glob("**/*.csproj")):
+        return "dotnet"
+    if (root / "CMakeLists.txt").exists() or list(root.glob("**/*.cpp")):
+        return "cpp"
+    if (
+        (root / "pyproject.toml").exists()
+        or (root / "pytest.ini").exists()
+        or list(root.glob("**/*.py"))
+    ):
+        return "python"
     return "unknown"
 
 
@@ -145,6 +163,30 @@ def _adapter(language: str, target: str, output: Path) -> tuple[str, list[str], 
             "Go",
             ["go", "test", "-coverprofile", str(output), "./..."],
             "go test -coverprofile",
+        )
+    if language in {"java", "kotlin"}:
+        if Path("gradlew").is_file() or Path("gradlew.bat").is_file():
+            return (
+                "Java/Kotlin",
+                ["gradle", "test", "jacocoTestReport"],
+                "gradle test jacocoTestReport",
+            )
+        return (
+            "Java/Kotlin",
+            ["mvn", "test", "jacoco:report"],
+            "mvn test jacoco:report",
+        )
+    if language == "dotnet":
+        return (
+            ".NET",
+            ["dotnet", "test", "--collect:XPlat Code Coverage"],
+            "dotnet test --collect:XPlat Code Coverage",
+        )
+    if language == "cpp":
+        return (
+            "C/C++",
+            ["cmake", "--build", "build", "--target", "test"],
+            "cmake --build build --target test",
         )
     raise ValueError("no supported coverage adapter was detected")
 
@@ -264,7 +306,17 @@ def _ensure_dependencies(language: str, auto_install: bool, timeout: int) -> Non
 def run_tool(args: dict[str, Any]) -> str:
     try:
         requested = str(args.get("language", "auto") or "auto")
-        if requested not in {"auto", "python", "typescript", "rust", "go"}:
+        if requested not in {
+            "auto",
+            "python",
+            "typescript",
+            "rust",
+            "go",
+            "java",
+            "kotlin",
+            "dotnet",
+            "cpp",
+        }:
             raise ValueError("unsupported language")
         timeout = int(args.get("timeout", 300))
         if not 1 <= timeout <= 3600:

@@ -41,10 +41,13 @@ Supported adapters:
 - `typescript`: `c8` and npm test; missing `c8` can be installed with npm
 - `rust`: `cargo llvm-cov`; missing `cargo-llvm-cov` can be installed with cargo
 - `go`: `go test -coverprofile`
+- `java` / `kotlin`: Gradle JaCoCo or Maven JaCoCo
+- `dotnet`: `dotnet test --collect:XPlat Code Coverage`
+- `cpp`: CMake test target
 
 Key options:
 
-- `language`: `auto`, `python`, `typescript`, `rust`, or `go`
+- `language`: `auto`, `python`, `typescript`, `rust`, `go`, `java`, `kotlin`, `dotnet`, or `cpp`
 - `test_target`: optional safe test target
 - `timeout`: execution timeout in seconds
 - `dry_run`: show the selected command without running it

@@ -41,10 +41,13 @@ Gitの変更内容を、秘密情報の値を露出させずに要約します�
 - `typescript`: `c8` と npm test
 - `rust`: `cargo llvm-cov`
 - `go`: `go test -coverprofile`
+- `java` / `kotlin`: Gradle JaCoCo または Maven JaCoCo
+- `dotnet`: `dotnet test --collect:XPlat Code Coverage`
+- `cpp`: CMakeのテストターゲット
 
 主なオプション：
 
-- `language`: `auto`、`python`、`typescript`、`rust`、`go`
+- `language`: `auto`、`python`、`typescript`、`rust`、`go`、`java`、`kotlin`、`dotnet`、`cpp`
 - `test_target`: 任意の安全なテスト対象
 - `timeout`: 実行タイムアウト（秒）
 - `dry_run`: コマンドを表示するだけで実行しない

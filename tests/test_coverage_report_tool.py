@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from uagent.tools import coverage_report_tool
 
 
@@ -21,6 +23,26 @@ def test_coverage_rejects_unsafe_target():
         )
     )
     assert result["ok"] is False
+
+
+@pytest.mark.parametrize(
+    "language, expected",
+    [
+        ("java", "Java/Kotlin"),
+        ("kotlin", "Java/Kotlin"),
+        ("dotnet", ".NET"),
+        ("cpp", "C/C++"),
+    ],
+)
+def test_coverage_supports_additional_languages(
+    tmp_path, monkeypatch, language, expected
+):
+    monkeypatch.chdir(tmp_path)
+    result = json.loads(
+        coverage_report_tool.run_tool({"language": language, "dry_run": True})
+    )
+    assert result["ok"] is True
+    assert result["language"] == expected
 
 
 def test_coverage_rejects_unknown_language():
