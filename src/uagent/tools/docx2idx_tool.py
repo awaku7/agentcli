@@ -5,10 +5,25 @@ from typing import Any, List, Dict
 
 from .._pip_auto import install_with_status
 
-if install_with_status("python-docx", "docx"):
-    import docx
-else:
-    docx = None
+docx = None
+_docx_initialized = False
+
+
+def _ensure_docx() -> bool:
+    global docx, _docx_initialized
+    if _docx_initialized:
+        return docx is not None
+    _docx_initialized = True
+    if not install_with_status("python-docx", "docx"):
+        return False
+    try:
+        import docx as _docx
+
+        docx = _docx
+    except Exception:
+        docx = None
+    return docx is not None
+
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import resolve_index_path
@@ -140,6 +155,8 @@ class _DocxIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    if not _ensure_docx():
+        return "Error: python-docx is not installed or could not be imported."
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

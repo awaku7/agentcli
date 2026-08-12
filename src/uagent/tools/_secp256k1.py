@@ -14,16 +14,31 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-if install_with_status("ecdsa"):
-    from ecdsa import SECP256k1, SigningKey
-else:
-    SECP256k1 = SigningKey = None
-from ecdsa.ellipticcurve import Point
+SECP256k1 = SigningKey = Point = None
+curve = G = order = half_order = None
+_ecdsa_initialized = False
 
-curve = SECP256k1.curve
-G = SECP256k1.generator
-order = SECP256k1.order
-half_order = order // 2
+
+def _ensure_ecdsa() -> bool:
+    global SECP256k1, SigningKey, Point, curve, G, order, half_order
+    global _ecdsa_initialized
+    if _ecdsa_initialized:
+        return SECP256k1 is not None
+    _ecdsa_initialized = True
+    if not install_with_status("ecdsa"):
+        return False
+    try:
+        from ecdsa import SECP256k1 as _SECP256k1, SigningKey as _SigningKey
+        from ecdsa.ellipticcurve import Point as _Point
+
+        SECP256k1, SigningKey, Point = _SECP256k1, _SigningKey, _Point
+        curve = SECP256k1.curve
+        G = SECP256k1.generator
+        order = SECP256k1.order
+        half_order = order // 2
+    except Exception:
+        SECP256k1 = SigningKey = Point = None
+    return SECP256k1 is not None
 
 
 def _tagged_hash(tag: str, data: bytes) -> bytes:
@@ -52,6 +67,8 @@ def generate_private_key() -> bytes:
 
 
 def private_to_public(priv_bytes: bytes) -> bytes:
+    if not _ensure_ecdsa():
+        raise RuntimeError("ecdsa is not installed or could not be imported")
     """Derive 32-byte x-only public key from 32-byte private key."""
     sk = SigningKey.from_string(priv_bytes, curve=SECP256k1)
     vk = sk.get_verifying_key()
@@ -59,6 +76,8 @@ def private_to_public(priv_bytes: bytes) -> bytes:
 
 
 def schnorr_sign(priv_bytes: bytes, msg: bytes) -> bytes:
+    if not _ensure_ecdsa():
+        raise RuntimeError("ecdsa is not installed or could not be imported")
     """Create a BIP340 Schnorr signature.
 
     Args:
@@ -111,6 +130,8 @@ def schnorr_sign(priv_bytes: bytes, msg: bytes) -> bytes:
 
 
 def schnorr_verify(pub_xonly: bytes, msg: bytes, sig: bytes) -> bool:
+    if not _ensure_ecdsa():
+        raise RuntimeError("ecdsa is not installed or could not be imported")
     """Verify a BIP340 Schnorr signature.
 
     Args:
@@ -174,6 +195,8 @@ def schnorr_verify(pub_xonly: bytes, msg: bytes, sig: bytes) -> bool:
 
 
 def ecdh_shared_key(priv_bytes: bytes, pub_xonly: bytes) -> bytes:
+    if not _ensure_ecdsa():
+        raise RuntimeError("ecdsa is not installed or could not be imported")
     """Compute ECDH shared key (SHA-256) for kind-1059 encryption.
 
     Args:

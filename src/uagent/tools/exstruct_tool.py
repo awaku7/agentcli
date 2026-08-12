@@ -13,19 +13,30 @@ _ = make_tool_translator(__file__)
 # unless the "office" genre is enabled or the tool is individually loaded.
 LAZY_LOAD = True
 
-# Auto-install exstruct if missing
+# The package is installed/imported only when this tool is first used.
 from .._pip_auto import install_with_status as _install_exstruct
 
-if _install_exstruct("exstruct"):
-    import exstruct  # noqa: F401
+exstruct = None
+_HAS_EXSTRUCT = False
+_EXSTRUCT_INITIALIZED = False
 
-    _HAS_EXSTRUCT = True
-else:
-    _HAS_EXSTRUCT = False
-    LOAD_DISABLED_REASON = _(
-        "load.disabled",
-        default="The 'exstruct' package is not installed. Please install it with: pip install exstruct",
-    )
+
+def _ensure_exstruct() -> bool:
+    global exstruct, _HAS_EXSTRUCT, _EXSTRUCT_INITIALIZED
+    if _EXSTRUCT_INITIALIZED:
+        return _HAS_EXSTRUCT
+    _EXSTRUCT_INITIALIZED = True
+    if not _install_exstruct("exstruct"):
+        return False
+    try:
+        import exstruct as _exstruct
+
+        exstruct = _exstruct
+        _HAS_EXSTRUCT = True
+    except Exception:
+        _HAS_EXSTRUCT = False
+    return _HAS_EXSTRUCT
+
 
 BUSY_LABEL = True
 
@@ -43,11 +54,9 @@ def _import_msoffcrypto():
 
 
 def _import_exstruct():
-    """Return the exstruct module, or None if not installed."""
-    if not _HAS_EXSTRUCT:
+    """Return the exstruct module, installing it only on first use."""
+    if not _ensure_exstruct():
         return None
-    # Module-level import already succeeded
-    pass  # exstruct availability check
     return exstruct
 
 

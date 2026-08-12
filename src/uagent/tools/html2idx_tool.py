@@ -5,10 +5,25 @@ from typing import Any, List, Dict
 
 from .._pip_auto import install_with_status
 
-if install_with_status("beautifulsoup4", "bs4"):
-    from bs4 import BeautifulSoup
-else:
-    BeautifulSoup = None
+BeautifulSoup = None
+_bs4_initialized = False
+
+
+def _ensure_bs4() -> bool:
+    global BeautifulSoup, _bs4_initialized
+    if _bs4_initialized:
+        return BeautifulSoup is not None
+    _bs4_initialized = True
+    if not install_with_status("beautifulsoup4", "bs4"):
+        return False
+    try:
+        from bs4 import BeautifulSoup as _BeautifulSoup
+
+        BeautifulSoup = _BeautifulSoup
+    except Exception:
+        BeautifulSoup = None
+    return BeautifulSoup is not None
+
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import read_index_source, resolve_index_path
@@ -139,6 +154,8 @@ class _HtmlIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    if not _ensure_bs4():
+        return "Error: beautifulsoup4 is not installed or could not be imported."
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

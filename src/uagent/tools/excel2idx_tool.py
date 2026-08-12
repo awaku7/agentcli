@@ -5,10 +5,25 @@ from typing import Any, List, Dict
 
 from .._pip_auto import install_with_status
 
-if install_with_status("openpyxl", "openpyxl"):
-    import openpyxl
-else:
-    openpyxl = None
+openpyxl = None
+_openpyxl_initialized = False
+
+
+def _ensure_openpyxl() -> bool:
+    global openpyxl, _openpyxl_initialized
+    if _openpyxl_initialized:
+        return openpyxl is not None
+    _openpyxl_initialized = True
+    if not install_with_status("openpyxl", "openpyxl"):
+        return False
+    try:
+        import openpyxl as _openpyxl
+
+        openpyxl = _openpyxl
+    except Exception:
+        openpyxl = None
+    return openpyxl is not None
+
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import resolve_index_path
@@ -150,6 +165,8 @@ class _ExcelIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    if not _ensure_openpyxl():
+        return "Error: openpyxl is not installed or could not be imported."
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

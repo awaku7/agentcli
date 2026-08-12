@@ -29,24 +29,44 @@ _ = make_tool_translator(__file__)
 # Optional external libraries
 from .._pip_auto import install_with_status
 
-if install_with_status("pdfplumber", version_spec=">=0.11.9"):
-    import pdfplumber
-else:
-    pdfplumber = None  # type: ignore[assignment]
+pdfplumber = None  # type: ignore[assignment]
+Presentation = None  # type: ignore[assignment]
+MSO_SHAPE_TYPE = None  # type: ignore[assignment]
+msoffcrypto = None  # type: ignore[assignment]
+_dependencies_initialized = False
 
-if not install_with_status("python-pptx", "pptx", version_spec=">=1.0.2"):
-    Presentation = None  # type: ignore[assignment]
-    MSO_SHAPE_TYPE = None  # type: ignore[assignment]
-else:
-    try:
-        from pptx import Presentation
-        from pptx.enum.shapes import MSO_SHAPE_TYPE
-    except Exception:
-        Presentation = None
-        MSO_SHAPE_TYPE = None
 
-if not install_with_status("msoffcrypto-tool", "msoffcrypto"):
-    msoffcrypto = None  # type: ignore[assignment]
+def _ensure_dependencies() -> bool:
+    global pdfplumber, Presentation, MSO_SHAPE_TYPE, msoffcrypto
+    global _dependencies_initialized
+    if _dependencies_initialized:
+        return any((pdfplumber, Presentation, msoffcrypto))
+    _dependencies_initialized = True
+    if install_with_status("pdfplumber", version_spec=">=0.11.9"):
+        try:
+            import pdfplumber as _pdfplumber
+
+            pdfplumber = _pdfplumber
+        except Exception:
+            pass
+    if install_with_status("python-pptx", "pptx", version_spec=">=1.0.2"):
+        try:
+            from pptx import Presentation as _Presentation
+            from pptx.enum.shapes import MSO_SHAPE_TYPE as _MSO_SHAPE_TYPE
+
+            Presentation = _Presentation
+            MSO_SHAPE_TYPE = _MSO_SHAPE_TYPE
+        except Exception:
+            pass
+    if install_with_status("msoffcrypto-tool", "msoffcrypto"):
+        try:
+            import msoffcrypto as _msoffcrypto
+
+            msoffcrypto = _msoffcrypto
+        except Exception:
+            pass
+    return any((pdfplumber, Presentation, msoffcrypto))
+
 
 # Compatibility layer: complement collections and collections.abc
 for name in ("Mapping", "MutableMapping", "Sequence"):
@@ -565,6 +585,7 @@ def _get_pages_text(doc: dict[str, Any]) -> list[str]:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _ensure_dependencies()
     path = (args.get("path") or "").strip()
     password = str(args.get("password") or "").strip() or None
     page_index = args.get("page_index") or args.get("page")

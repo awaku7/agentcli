@@ -5,10 +5,25 @@ from typing import Any, List, Dict
 
 from .._pip_auto import install_with_status
 
-if install_with_status("pdfplumber", "pdfplumber", version_spec=">=0.11.9"):
-    import pdfplumber
-else:
-    pdfplumber = None
+pdfplumber = None
+_pdfplumber_initialized = False
+
+
+def _ensure_pdfplumber() -> bool:
+    global pdfplumber, _pdfplumber_initialized
+    if _pdfplumber_initialized:
+        return pdfplumber is not None
+    _pdfplumber_initialized = True
+    if not install_with_status("pdfplumber", "pdfplumber", version_spec=">=0.11.9"):
+        return False
+    try:
+        import pdfplumber as _pdfplumber
+
+        pdfplumber = _pdfplumber
+    except Exception:
+        pdfplumber = None
+    return pdfplumber is not None
+
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import resolve_index_path
@@ -132,6 +147,8 @@ class _PdfIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    if not _ensure_pdfplumber():
+        return "Error: optional dependency could not be installed or imported."
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

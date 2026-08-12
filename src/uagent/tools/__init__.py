@@ -62,6 +62,7 @@ def _ensure_jieba() -> bool:
         jieba = None
     return jieba is not None
 
+
 # PyThaiNLP creates its data directory when its tokenizers/taggers are
 # imported. Do not install/import it during every startup: Thai tokenization
 # is only needed when a Thai query is actually searched. This avoids creating
@@ -77,24 +78,21 @@ def _ensure_thai_nlp() -> bool:
     if _thai_nlp_initialized:
         return thai_word_tokenize is not None
     _thai_nlp_initialized = True
-    if not os.environ.get("PYTHAINLP_DATA") and not os.environ.get("PYTHAINLP_DATA_DIR"):
+    if not os.environ.get("PYTHAINLP_DATA") and not os.environ.get(
+        "PYTHAINLP_DATA_DIR"
+    ):
         if sys.platform == "darwin":
             cache_root = os.path.expanduser("~/Library/Caches")
         elif os.name == "nt":
-            cache_root = os.environ.get(
-                "LOCALAPPDATA", os.path.expanduser("~/.cache")
-            )
+            cache_root = os.environ.get("LOCALAPPDATA", os.path.expanduser("~/.cache"))
         else:
             cache_root = os.environ.get(
                 "XDG_CACHE_HOME", os.path.expanduser("~/.cache")
             )
-        os.environ["PYTHAINLP_DATA"] = os.path.join(
-            cache_root, "uag", "pythainlp-data"
-        )
+        os.environ["PYTHAINLP_DATA"] = os.path.join(cache_root, "uag", "pythainlp-data")
     data_dir = os.path.abspath(
         os.path.expanduser(
-            os.environ.get("PYTHAINLP_DATA")
-            or os.environ.get("PYTHAINLP_DATA_DIR", "")
+            os.environ.get("PYTHAINLP_DATA") or os.environ.get("PYTHAINLP_DATA_DIR", "")
         )
     )
     legacy_dir = os.path.abspath(os.path.join(os.getcwd(), "pythainlp-data"))

@@ -5,10 +5,25 @@ from typing import Any, List, Dict
 
 from .._pip_auto import install_with_status
 
-if install_with_status("python-pptx", "pptx", version_spec=">=1.0.2"):
-    import pptx
-else:
-    pptx = None
+pptx = None
+_pptx_initialized = False
+
+
+def _ensure_pptx() -> bool:
+    global pptx, _pptx_initialized
+    if _pptx_initialized:
+        return pptx is not None
+    _pptx_initialized = True
+    if not install_with_status("python-pptx", "pptx", version_spec=">=1.0.2"):
+        return False
+    try:
+        import pptx as _pptx
+
+        pptx = _pptx
+    except Exception:
+        pptx = None
+    return pptx is not None
+
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import resolve_index_path
@@ -154,6 +169,8 @@ class _PptxIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    if not _ensure_pptx():
+        return "Error: optional dependency could not be installed or imported."
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

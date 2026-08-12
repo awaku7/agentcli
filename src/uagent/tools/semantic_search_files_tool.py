@@ -16,12 +16,27 @@ from typing import Any
 
 from .._pip_auto import install_with_status
 
-if not install_with_status("numpy"):
-    HAS_NUMPY = False
-else:
-    import numpy as np
+np = None
+HAS_NUMPY = False
+_numpy_initialized = False
 
-    HAS_NUMPY = True
+
+def _ensure_numpy() -> bool:
+    global np, HAS_NUMPY, _numpy_initialized
+    if _numpy_initialized:
+        return HAS_NUMPY
+    _numpy_initialized = True
+    if not install_with_status("numpy"):
+        return False
+    try:
+        import numpy as _np
+
+        np = _np
+        HAS_NUMPY = True
+    except Exception:
+        HAS_NUMPY = False
+    return HAS_NUMPY
+
 
 EMBEDDING_PROVIDER = (
     (env_get("UAGENT_EMBEDDING_PROVIDER") or env_get("UAGENT_PROVIDER") or "")
@@ -874,6 +889,7 @@ def semantic_search_files(
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _ensure_numpy()
     query = args.get("query")
     if not query:
         return _("err.query_required", default="Error: query is required.")

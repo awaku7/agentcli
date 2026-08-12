@@ -23,10 +23,24 @@ try:
 except Exception:
     pygetwindow = None
 
-if pyautogui is None:
-    install_with_status("pyautogui")
-if pygetwindow is None:
-    install_with_status("pygetwindow")
+
+def _ensure_screenshot_dependencies() -> None:
+    global pyautogui, pygetwindow
+    if pyautogui is None and install_with_status("pyautogui"):
+        try:
+            import pyautogui as _pyautogui
+
+            pyautogui = _pyautogui
+        except Exception:
+            pass
+    if pygetwindow is None and install_with_status("pygetwindow"):
+        try:
+            import pygetwindow as _pygetwindow
+
+            pygetwindow = _pygetwindow
+        except Exception:
+            pass
+
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
@@ -96,6 +110,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _ensure_screenshot_dependencies()
     if pyautogui is None:
         return make_response(
             False,
