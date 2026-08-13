@@ -1181,8 +1181,16 @@ async def _run_ble_service(nickname: str, network: str) -> None:
 
     def _dispatch(pkt: BitchatPacket, source_addr: str | None = None) -> None:
         if pkt.sender_id == identity.peer_id_bytes:
+            _notify_display(
+                "[bitchat] [debug] DISPATCH self packet ignored type=%d"
+                % int(pkt.type)
+            )
             return
         peer_hex = pkt.sender_id.hex()
+        _notify_display(
+            "[bitchat] [debug] DISPATCH type=%d sender=%s payload_len=%d"
+            % (int(pkt.type), peer_hex[:8], len(pkt.payload))
+        )
         if pkt.type == int(MessageType.ANNOUNCE):
             announced = decode_announcement(pkt.payload)
             if announced is None or not verify_packet_signature(
@@ -1450,15 +1458,28 @@ async def _run_ble_service(nickname: str, network: str) -> None:
         try:
             if _STOP_EVENT.is_set():
                 return
+            _notify_display(
+                "[bitchat] [debug] NOTIFY from %s data_len=%d" % (addr, len(data))
+            )
             assembler = _notification_assemblers.setdefault(
                 addr, NotificationStreamAssembler()
             )
-            for frame in assembler.append(bytes(data)):
+            frames = assembler.append(bytes(data))
+            _notify_display(
+                "[bitchat] [debug] NOTIFY frames=%d" % len(frames)
+            )
+            for frame in frames:
                 pkt = decode(frame)
+                _notify_display(
+                    "[bitchat] [debug] NOTIFY frame_len=%d decoded=%s"
+                    % (len(frame), pkt is not None)
+                )
                 if pkt is not None:
                     _dispatch(pkt, addr)
-        except Exception:
-            pass
+        except Exception as exc:
+            _notify_display(
+                "[bitchat] [debug] NOTIFY exception %s: %r" % (addr, exc)
+            )
 
     async def _connect(device: BLEDevice) -> None:
         addr = device.address
@@ -1482,10 +1503,15 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             )
             await _send_announce()
         except asyncio.TimeoutError:
-            # Suppress TimeoutError display (frequent during BLE scan)
-            pass
-        except BleakError:
-            # suppressed: connect failure display
+            _notify_display(
+                "[bitchat] [debug] CONNECT timeout %s attempt=%d"
+                % (addr, attempts)
+            )
+        except BleakError as exc:
+            _notify_display(
+                "[bitchat] [debug] CONNECT BleakError %s attempt=%d: %r"
+                % (addr, attempts, exc)
+            )
             if attempts >= _MAX_CONNECT_ATTEMPTS:
                 _IGNORED.add(addr)
             else:
@@ -1494,8 +1520,11 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 await client.disconnect()
             except Exception:
                 pass
-        except Exception:
-            # suppressed: _notify_display(f"[bitchat] Unexpected error with {addr}: {exc}")
+        except Exception as exc:
+            _notify_display(
+                "[bitchat] [debug] CONNECT exception %s attempt=%d: %r"
+                % (addr, attempts, exc)
+            )
             _IGNORED.add(addr)
             try:
                 await client.disconnect()
