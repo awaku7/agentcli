@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Kjører lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API-anrop du foretar).
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ leverandører, alle tilgjengelege frå ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
-- **222 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **130 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
+- **229 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **130 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
 - **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter frå markedsplassen. Utvid uag uendelig.
 
@@ -87,7 +87,7 @@ Sjå den fullstendige dokumentasjonen for meir informasjon. [DEVELOP_PLUGIN.md](
 - **Byt leverandør midt i økta** med `UAGENT_PROVIDER` — samtalehistorikken blir bevart.
 - **Last inn tidlegare økter på nytt** med `:load <index>` — hald fram der du slapp.
 
-### 🛠 222 verktøy
+### 🛠 229 verktøy
 
 | Kategori | Verktøy |
 |---|---|

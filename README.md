@@ -129,12 +129,12 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 222 Tools
+### 🛠 229 Tools
 
 | Category | Tools |
 |---|---|
-| **File Operations** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (.eml files) |
-| **Web** | fetch_url, search_web, screenshot, browser_playwright, `public_transit_route` ([guide](docs/PUBLIC_TRANSIT_ROUTE.md)) |
+| **File Operations** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (.eml files), `path_alias` |
+| **Web** | fetch_url, search_web, screenshot, browser_playwright, `url_alias`, `public_transit_route` ([guide](docs/PUBLIC_TRANSIT_ROUTE.md)) |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **Forecast** | Time series forecasting with 9 models (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), auto model selection, plot generation, i18n |
@@ -155,6 +155,8 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - Missing coverage dependencies can be installed automatically when execution is requested; `dry_run` never installs packages.
 
 See [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) for parameters, output, and safety details.
+
+See [Path and URL aliases](docs/PATH_URL_ALIASES.md) for shortening repeated file paths and URLs in tool arguments.
 
 ### 🖥 4 Interfaces + VS Code Extension
 

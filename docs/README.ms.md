@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Berjalan secara setempat** pada mesin anda. Data anda kekal bersama anda (kecuali panggilan API yang anda buat).
 - **Kebebasan pembekal**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 pembekal, semuanya boleh diakses daripada satu antara muka. Tukar antara mereka dengan mengkonfigurasi semula pembolehubah persekitaran — tiada pemasangan semula, tiada penghijrahan.
-- **222 alatan**: Fail I/O, carian web, penjanaan imej, Gmail, pengimbasan peranti BLE, penyepaduan pelayan MCP — **130 ditandakan secara statik selamat selari** (sehingga 8 dilaksanakan serentak melalui kumpulan benang, boleh dikonfigurasikan melalui `UAGENT_PARALLEL_WORKERS`). Apabila LLM melancarkan berbilang panggilan alat serentak, uag menyamakannya secara automatik.
+- **229 alatan**: Fail I/O, carian web, penjanaan imej, Gmail, pengimbasan peranti BLE, penyepaduan pelayan MCP — **130 ditandakan secara statik selamat selari** (sehingga 8 dilaksanakan serentak melalui kumpulan benang, boleh dikonfigurasikan melalui `UAGENT_PARALLEL_WORKERS`). Apabila LLM melancarkan berbilang panggilan alat serentak, uag menyamakannya secara automatik.
 - **3 UI + A2A**: CLI, GUI, Web dan protokol Ejen-ke-Ejen. Enjin yang sama, mana-mana antara muka.
 - **IoT sedia**: SwitchBot, ECHONET Lite, Matter, UPnP — mengawal peranti rumah anda melalui AI.
 - **Kemahiran Ejen**: Pasang kemahiran yang dibina komuniti daripada pasaran. Panjangkan uag tanpa henti.
@@ -80,7 +80,7 @@ Apabila LLM meminta berbilang alatan secara serentak, uag **menyamakannya secara
 
 **Contoh**: Tanya "Semak cuaca di ibu kota Nordic" → LLM menembak `search_web` × 5 negara → kesemua 5 carian dijalankan secara selari → hasil dikumpul dalam satu kelompok.
 
-Kiraan semasa adalah berdasarkan modul alat yang mentakrifkan `TOOL_SPEC` (pada masa ini 222, termasuk 2 alat bersandarkan Karat dalam `src/uagent/tools_rust/`). `http_request` menggunakan keselamatan sensitif kaedah: Panggilan `GET`/`HEAD`/`OPTIONS` mungkin berjalan selari, manakala kaedah tulis kekal bersiri.
+Kiraan semasa adalah berdasarkan modul alat yang mentakrifkan `TOOL_SPEC` (pada masa ini 229, termasuk 2 alat bersandarkan Karat dalam `src/uagent/tools_rust/`). `http_request` menggunakan keselamatan sensitif kaedah: Panggilan `GET`/`HEAD`/`OPTIONS` mungkin berjalan selari, manakala kaedah tulis kekal bersiri.
 
 Alat baca sahaja (carian fail, pengiraan cincang, penyenaraian direktori, terjemahan, pertanyaan DB, dll.) diselaraskan secara agresif.
 
@@ -110,7 +110,7 @@ Lihat [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) untuk dokumentasi p
 - **Muat semula sesi lepas** dengan `:load <index>` — sambung semula dari tempat anda berhenti.
 - **Caching hasil alat** mengelakkan pelaksanaan semula yang berlebihan apabila panggilan alat yang sama berulang.
 
-### 🛠 222 Alat
+### 🛠 229 Alat
 
 | Kategori | Alatan |
 |---|---|

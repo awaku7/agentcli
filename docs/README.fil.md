@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Tumatakbo nang lokal** sa iyong makina. Mananatili sa iyo ang iyong data (maliban sa mga tawag sa API na gagawin mo).
 - **Kalayaan ng provider**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 na provider, lahat ay naa-access mula sa isang interface. Magpalit sa pagitan ng mga ito sa pamamagitan ng muling pag-configure ng mga variable ng kapaligiran — walang muling pag-install, walang paglipat.
-- **222 tool**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **130 ay statically marked parallel-safe** (hanggang sa 8 ay sabay-sabay na isinasagawa sa pamamagitan ng thread pool, na na-configure sa pamamagitan ng `UAGENT_PARALLEL_WORKERS`). Kapag nagpagana ang LLM ng maraming tool na tawag nang sabay-sabay, awtomatiko silang pinapaparallelize ng uag.
+- **229 tool**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **130 ay statically marked parallel-safe** (hanggang sa 8 ay sabay-sabay na isinasagawa sa pamamagitan ng thread pool, na na-configure sa pamamagitan ng `UAGENT_PARALLEL_WORKERS`). Kapag nagpagana ang LLM ng maraming tool na tawag nang sabay-sabay, awtomatiko silang pinapaparallelize ng uag.
 - **3 UI + A2A**: CLI, GUI, Web, at Agent-to-Agent protocol. Parehong makina, anumang interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — kontrolin ang iyong mga device sa bahay sa pamamagitan ng AI.
 - **Mga Kasanayan sa Ahente**: Mag-install ng mga kasanayang binuo ng komunidad mula sa marketplace. Extend uag walang katapusang.
@@ -80,7 +80,7 @@ Ang 130 tool ay statically minarkahan ng `x_parallel_safe` at sabay-sabay na isi
 
 **Halimbawa**: Itanong ang "Suriin ang lagay ng panahon sa Nordic capitals" → LLM fires `search_web` × 5 bansa → lahat ng 5 paghahanap ay tumatakbo nang magkatulad → resulta na nakolekta sa isang batch.
 
-Ang kasalukuyang bilang ay batay sa mga module ng tool na tumutukoy sa isang `TOOL_SPEC` (kasalukuyang 222, kasama ang 2 Rust-backed na tool sa `src/uagent/tools_rust/`). Gumagamit ang `http_request` ng kaligtasan na sensitibo sa pamamaraan: Ang mga tawag na `GET`/`HEAD`/`OPTIONS` ay maaaring tumakbo nang magkatulad, habang ang mga paraan ng pagsulat ay nananatiling serial.
+Ang kasalukuyang bilang ay batay sa mga module ng tool na tumutukoy sa isang `TOOL_SPEC` (kasalukuyang 229, kasama ang 2 Rust-backed na tool sa `src/uagent/tools_rust/`). Gumagamit ang `http_request` ng kaligtasan na sensitibo sa pamamaraan: Ang mga tawag na `GET`/`HEAD`/`OPTIONS` ay maaaring tumakbo nang magkatulad, habang ang mga paraan ng pagsulat ay nananatiling serial.
 
 Ang mga read-only na tool (paghahanap ng file, pagkalkula ng hash, listahan ng direktoryo, pagsasalin, mga query sa DB, atbp.) ay agresibong pinagkakatulad.
 
@@ -110,7 +110,7 @@ Tingnan ang [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) para sa buong
 - **I-reload ang mga nakaraang session** gamit ang `:load <index>` — ituloy kung saan ka tumigil.
 - **Pag-cache ng resulta ng tool** ay iniiwasan ang paulit-ulit na muling pagpapatupad kapag umuulit ang parehong tawag sa tool.
 
-### 🛠 222 Tools
+### 🛠 229 Tools
 
 | Kategorya | Mga tool |
 |---|---|

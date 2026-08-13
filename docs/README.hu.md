@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Lokálisan fut** a gépén. Adatai Önnél maradnak (kivéve az Ön által kezdeményezett API-hívásokat).
 - **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
-- **222 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **130 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
+- **229 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **130 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
 - **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piactérről. Hosszabbítsa meg az uag-ot végtelenül.
 
@@ -87,7 +87,7 @@ A részletekért lásd a teljes dokumentációt. [DEVELOP_PLUGIN.md](../src/uage
 - **Szolgáltatóváltás a munkamenet közben** a `UAGENT_PROVIDER` használatával — a beszélgetési előzmények megmaradnak.
 - **Korábbi munkamenetek újratöltése** a `:load <index>` paranccsal — folytassa onnan, ahol abbahagyta.
 
-### 🛠 222 Eszközök
+### 🛠 229 Eszközök
 
 | Kategória | Eszközök |
 |---|---|

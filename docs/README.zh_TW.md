@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **在您的電腦上本機運作**。您的資料保留在您身邊（您進行的 API 呼叫除外）。
 - **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 24 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
-- **222 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **130 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
+- **229 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **130 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
 
@@ -87,7 +87,7 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 - **在工作階段中途切換提供者**（使用 `UAGENT_PROVIDER`）— 會話記錄會保留。
 - **重新載入過去的工作階段**（使用 `:load <index>`）— 從上次中斷處繼續。
 
-### 🛠 222 工具
+### 🛠 229 工具
 
 - **雲端 API**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 

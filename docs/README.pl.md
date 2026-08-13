@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Działa lokalnie** na Twoim komputerze. Twoje dane pozostają przy Tobie (z wyjątkiem wykonywanych wywołań API).
 - **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
-- **222 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **130 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
+- **229 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **130 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
 - **3 interfejsy użytkownika + A2A**: CLI, GUI, Internet i protokół Agent-Agent. Ten sam silnik, dowolny interfejs.
 - **Umiejętności agenta**: Zainstaluj umiejętności opracowane przez społeczność z rynku. Rozszerzaj uag w nieskończoność.
 
@@ -87,7 +87,7 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/ua
 - **Zmiana dostawcy w trakcie sesji** za pomocą `UAGENT_PROVIDER` — historia rozmowy zostaje zachowana.
 - **Ponowne wczytanie poprzednich sesji** za pomocą `:load <index>` — kontynuuj od miejsca, w którym przerwano.
 
-### 🛠 222 narzędzi
+### 🛠 229 narzędzi
 
 | Kategoria | Narzędzia |
 |---|---|

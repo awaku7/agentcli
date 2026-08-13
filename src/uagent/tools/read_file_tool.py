@@ -95,7 +95,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.filename.description",
-                        default="Path of the file to read.",
+                        default="Path of the file to read. Short path aliases @A{0} through @A{9} are supported.",
                     ),
                 },
                 "start_line": {

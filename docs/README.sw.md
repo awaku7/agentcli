@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - \*\* Huendesha ndani \*\* kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 222**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **130 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
+- **Zana 229**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **130 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jamii kutoka sokoni. Panua uag bila mwisho.
 
@@ -87,7 +87,7 @@ Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 - **Badilisha mtoa huduma katikati ya kipindi** kwa kutumia `UAGENT_PROVIDER` — historia ya mazungumzo huhifadhiwa.
 - **Pakia tena vipindi vya awali** kwa kutumia `:load <index>` — endelea ulipoishia.
 
-### 🛠 Zana 222
+### 🛠 Zana 229
 
 | Kitengo | Zana |
 |---|---|

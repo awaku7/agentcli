@@ -18,6 +18,7 @@ import threading
 from threading import Lock, RLock
 
 from .._pip_auto import install_with_status as _auto_install
+from .path_alias_shared import resolve_tool_args
 
 JanomeTokenizer = None
 jieba = None
@@ -1704,6 +1705,11 @@ def _call_tool_runner(name: str, runner: Any, args: dict[str, Any]) -> str:
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
     _ensure_loaded()
+    # Resolve @A{0}..@A{9} path aliases at the common dispatch boundary.
+    try:
+        args = resolve_tool_args(args)
+    except ValueError as exc:
+        return f"[tool argument error] name={name!r} err={exc}"
     runner = _RUNNERS.get(name)
     if runner is None:
         # Lazy-load fallback: try to import and register the module on demand.

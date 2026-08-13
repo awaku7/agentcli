@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
-- **222 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **130 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
+- **229 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **130 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
 - **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
 
@@ -87,7 +87,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 - **Changer de fournisseur en cours de session** : `UAGENT_PROVIDER` — l’historique des conversations est préservé.
 - **Recharger les sessions passées** : `:load <index>` — reprenez là où vous vous êtes arrêté.
 
-### 🛠 222 Outils
+### 🛠 229 Outils
 
 - **API cloud**: `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation.
 

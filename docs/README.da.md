@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Kører lokalt** på din maskine. Dine data forbliver hos dig (undtagen API-kald, du foretager).
 - **Udbyderfrihed**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 udbydere, alle tilgængelige fra en enkelt grænseflade. Skift mellem dem ved at omkonfigurere miljøvariabler - ingen geninstallation, ingen migrering.
-- **222 værktøjer**: Fil-I/O, websøgning, billedgenerering, Gmail, BLE-enhedsscanning, MCP-serverintegration — **130 er statisk markeret parallelt-sikre** (op til 8 udføres samtidigt via trådpulje, konfigureres via `UAGENT_PARALLEL_WORKERS`). Når LLM udløser flere værktøjsopkald på én gang, paralleliserer uag dem automatisk.
+- **229 værktøjer**: Fil-I/O, websøgning, billedgenerering, Gmail, BLE-enhedsscanning, MCP-serverintegration — **130 er statisk markeret parallelt-sikre** (op til 8 udføres samtidigt via trådpulje, konfigureres via `UAGENT_PARALLEL_WORKERS`). Når LLM udløser flere værktøjsopkald på én gang, paralleliserer uag dem automatisk.
 - **3 UI'er + A2A**: CLI, GUI, Web og Agent-to-Agent protokol. Samme motor, enhver grænseflade.
 - **IoT klar**: SwitchBot, ECHONET Lite, Matter, UPnP — styr dine hjemmeenheder gennem AI.
 - **Agent færdigheder**: Installer fællesskabsbyggede færdigheder fra markedspladsen. Forlæng uag uendeligt.
@@ -80,7 +80,7 @@ Når LLM anmoder om flere værktøjer samtidigt, uag **paralliserer automatisk**
 
 **Eksempel**: Spørg "Tjek vejret i nordiske hovedstæder" → LLM affyrer `search_web` × 5 lande → alle 5 søgninger kører parallelt → resultater samlet i én batch.
 
-Den aktuelle optælling er baseret på værktøjsmoduler, der definerer en `TOOL_SPEC` (i øjeblikket 222, inklusive de 2 ruststøttede værktøjer i `src/uagent/tools_rust/`). `http_request` bruger metodefølsom sikkerhed: `GET`/`HEAD`/`OPTIONS` opkald kan køre parallelt, mens skrivemetoder forbliver serielle.
+Den aktuelle optælling er baseret på værktøjsmoduler, der definerer en `TOOL_SPEC` (i øjeblikket 229, inklusive de 2 ruststøttede værktøjer i `src/uagent/tools_rust/`). `http_request` bruger metodefølsom sikkerhed: `GET`/`HEAD`/`OPTIONS` opkald kan køre parallelt, mens skrivemetoder forbliver serielle.
 
 Skrivebeskyttede værktøjer (filsøgning, hash-beregning, katalogliste, oversættelse, DB-forespørgsler osv.) paralleliseres aggressivt.
 
@@ -110,7 +110,7 @@ Se [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for fuld dokumentation
 - **Genindlæs tidligere sessioner** med `:load <index>` — fortsæt, hvor du slap.
 - **Caching af værktøjsresultat** undgår redundant genudførelse, når det samme værktøjskald gentages.
 
-### 🛠 222 værktøjer
+### 🛠 229 værktøjer
 
 | Kategori | Værktøjer |
 |---|---|

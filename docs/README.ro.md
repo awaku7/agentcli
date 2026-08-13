@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **222 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **130 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
+- **229 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **130 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
@@ -87,7 +87,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 - **Schimbați furnizorul în timpul sesiunii**: `UAGENT_PROVIDER` — istoricul conversațiilor este păstrat.
 - **Reîncărcați sesiunile anterioare**: `:load <index>` — reluați de unde ați rămas.
 
-### 🛠 222 de instrumente
+### 🛠 229 de instrumente
 
 | Categoria | Instrumente |
 |---|---|

@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Toimii paikallisesti** tietokoneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **222 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **130 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa \`UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
+- **229 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **130 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa \`UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
@@ -87,7 +87,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 - **Vaihda palveluntarjoajaa istunnon aikana** käyttämällä muuttujaa `UAGENT_PROVIDER` — keskusteluhistoria säilyy.
 - **Lataa aiemmat istunnot uudelleen** komennolla `:load <index>` — jatka siitä, mihin jäit.
 
-### 🛠 222 Työkalut
+### 🛠 229 Työkalut
 
 | Luokka | Työkalut |
 |---|---|

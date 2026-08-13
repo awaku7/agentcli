@@ -29,7 +29,7 @@ ______________________________________________________________________
 
 - **Funziona localmente** sul tuo computer. I tuoi dati rimangono con te (ad eccezione delle chiamate API che effettui).
 - **Libertà dei provider**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 24 provider, tutti accessibili da un'unica interfaccia. Passa dall'uno all'altro riconfigurando le variabili di ambiente: nessuna reinstallazione, nessuna migrazione.
-- **222 strumenti**: I/O file, ricerca Web, generazione di immagini, Gmail, scansione dispositivi BLE, integrazione server MCP — **130 sono sicuri in parallelo** (fino a 8 eseguiti contemporaneamente tramite pool di thread, configurabile tramite `UAGENT_PARALLEL_WORKERS`). Quando LLM attiva più chiamate di strumenti contemporaneamente, uag le parallelizza automaticamente.
+- **229 strumenti**: I/O file, ricerca Web, generazione di immagini, Gmail, scansione dispositivi BLE, integrazione server MCP — **130 sono sicuri in parallelo** (fino a 8 eseguiti contemporaneamente tramite pool di thread, configurabile tramite `UAGENT_PARALLEL_WORKERS`). Quando LLM attiva più chiamate di strumenti contemporaneamente, uag le parallelizza automaticamente.
 - **3 UI + A2A**: CLI, GUI, Web e protocollo da agente ad agente. Stesso motore, qualsiasi interfaccia.
 - **Competenze agente**: installa competenze sviluppate dalla comunità dal mercato. Estendi uag all'infinito.
 
@@ -87,7 +87,7 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 - **Cambiare provider durante la sessione**: `UAGENT_PROVIDER` — la cronologia delle conversazioni viene conservata.
 - **Ricaricare le sessioni precedenti**: `:load <index>` — riprendi da dove avevi interrotto.
 
-### 🛠 222 Strumenti
+### 🛠 229 Strumenti
 
 | Categoria | Strumenti |
 |---|---|
