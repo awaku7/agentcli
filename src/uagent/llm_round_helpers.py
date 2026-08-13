@@ -1205,7 +1205,10 @@ def _call_openai_azure_round(
                 assistant_text = str(raw_content)
 
             # Extract reasoning_content if present (e.g. o1/o3, OpenRouter reasoning models)
+            # Official OpenRouter SDK returns reasoning in `reasoning` (not `reasoning_content`).
             _rc = getattr(msg, "reasoning_content", None)
+            if not (isinstance(_rc, str) and _rc):
+                _rc = getattr(msg, "reasoning", None)
             if isinstance(_rc, str) and _rc:
                 reasoning_content = _rc
                 show_reasoning(
