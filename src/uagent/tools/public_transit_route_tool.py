@@ -1,4 +1,4 @@
-"""Search public-transit routes and fares through Yahoo! Japan Transit."""
+"""Search public-transit routes through a selected route provider."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import datetime as _dt
 import html as _html
 import json
 import math
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -28,8 +29,8 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Search Japanese public-transit routes and fares with Yahoo! Japan Transit. "
-                "Returns multiple candidate routes, travel time, transfers, fare, and itinerary."
+                "Search Japanese public-transit routes with a selected provider (Yahoo! Japan Transit or Google Maps). "
+                "Returns multiple candidate routes, total fare, per-operator or per-segment fare breakdown, travel time, transfers, and itinerary."
             ),
         ),
         "x_search_terms": _(
@@ -75,6 +76,15 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.destination.description",
                         default="Arrival station, bus stop, address, or facility.",
                     ),
+                },
+                "provider": {
+                    "type": "string",
+                    "description": _(
+                        "param.provider.description",
+                        default="Route provider: yahoo or google.",
+                    ),
+                    "enum": ["yahoo", "google"],
+                    "default": "yahoo",
                 },
                 "departure": {
                     "type": "string",
@@ -291,23 +301,34 @@ def _fare_breakdown(edges: list[Any]) -> list[dict[str, Any]]:
         base = _to_int(price.get("price")) or 0
         extra = _to_int(price.get("expPrice")) or 0
         if base > 0 and group not in base_by_group:
-            base_by_group[group] = {"amount_yen": base, "operator": operator}
+            base_by_group[group] = {
+                "amount_yen": base,
+                "operator": operator,
+                "from_station": str(edge.get("stationName") or ""),
+                "to_station": str(edge.get("destination") or ""),
+            }
         if extra > 0:
             extra_by_group[group] = {
                 "amount_yen": max(
                     extra_by_group.get(group, {}).get("amount_yen", 0), extra
                 ),
                 "operator": operator,
+                "from_station": str(edge.get("stationName") or ""),
+                "to_station": str(edge.get("destination") or ""),
             }
     breakdown: list[dict[str, Any]] = []
     for group, item in base_by_group.items():
-        breakdown.append({"unit": "fare", "label": "乗車券", **item})
+        breakdown.append({
+            "unit": "fare",
+            "label": _("fare.ticket", default="Fare"),
+            **item,
+        })
         extra = extra_by_group.get(group)
         if extra:
             breakdown.append(
                 {
                     "unit": "surcharge",
-                    "label": "特別料金",
+                    "label": _("fare.surcharge", default="Surcharge"),
                     "amount_yen": extra["amount_yen"],
                     "operator": extra["operator"],
                 }
@@ -389,10 +410,175 @@ def _to_int(value: Any) -> int | None:
 def _duration_minutes(value: Any) -> int | None:
     if not value:
         return None
-    match = re.search(r"(?:(\d+)時間)?(?:(\d+)分)?", str(value))
+    if isinstance(value, dict):
+        value = value.get("text") or value.get("duration") or value.get("seconds")
+    if isinstance(value, (int, float)):
+        return round(float(value) / 60)
+    text = str(value)
+    match = re.search(
+        r"(?:(\d+)\s*(?:時間|hours?|hrs?))?\s*"
+        r"(?:(\d+)\s*(?:分|minutes?|mins?))?",
+        text,
+        re.IGNORECASE,
+    )
     if not match or (match.group(1) is None and match.group(2) is None):
         return None
     return int(match.group(1) or 0) * 60 + int(match.group(2) or 0)
+
+
+_GOOGLE_ROUTES_URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
+
+
+def _google_route(route: dict[str, Any], rank: int) -> dict[str, Any]:
+    legs = route.get("legs") or []
+    leg = legs[0] if isinstance(legs, list) and legs and isinstance(legs[0], dict) else {}
+    segments: list[dict[str, Any]] = []
+    for step in leg.get("steps") or []:
+        if not isinstance(step, dict):
+            continue
+        transit = step.get("transitDetails") or step.get("transit_details") or {}
+        line = transit.get("transitLine") or transit.get("line") or {}
+        vehicle = line.get("vehicle") or {}
+        stop_details = transit.get("stopDetails") or {
+            "departureStop": transit.get("departure_stop") or {},
+            "arrivalStop": transit.get("arrival_stop") or {},
+        }
+        if transit:
+            departure_stop = stop_details.get("departureStop") or {}
+            arrival_stop = stop_details.get("arrivalStop") or {}
+            agencies = line.get("agencies") or []
+            segments.append({
+                "station": departure_stop.get("name"),
+                "arrival_station": arrival_stop.get("name"),
+                "line": line.get("nameShort") or line.get("short_name") or line.get("name"),
+                "operator": (agencies[0] if agencies else {}).get("name"),
+                "vehicle": vehicle.get("name") or vehicle.get("type"),
+                "departure": (step.get("localizedValues") or {}).get("departureTime"),
+                "arrival": (step.get("localizedValues") or {}).get("arrivalTime"),
+                "duration_minutes": _duration_minutes(step.get("localizedValues", {}).get("staticDuration")),
+            })
+        elif step.get("travelMode") == "WALK":
+            segments.append({
+                "line": _("segment.walk", default="Walking"),
+                "vehicle": "WALK",
+                "duration_minutes": _duration_minutes(step.get("localizedValues", {}).get("staticDuration")),
+            })
+    return {
+        "rank": rank,
+        "departure": (leg.get("localizedValues") or {}).get("startTime"),
+        "arrival": (leg.get("localizedValues") or {}).get("endTime"),
+        "duration": (
+            route.get("localizedValues", {}).get("duration")
+            or leg.get("localizedValues", {}).get("duration")
+            or (leg.get("duration") or {}).get("text")
+            or leg.get("duration")
+        ),
+        "duration_minutes": _duration_minutes(
+            route.get("localizedValues", {}).get("duration")
+            or leg.get("localizedValues", {}).get("duration")
+            or (leg.get("duration") or {}).get("text")
+            or leg.get("duration")
+        ),
+        "transfers": max(0, sum(1 for segment in segments if segment.get("arrival_station")) - 1),
+        "fare_amount": _to_int((route.get("travelAdvisory") or {}).get("transitFare", {}).get("units")),
+        "fare_yen": (
+            _to_int((route.get("travelAdvisory") or {}).get("transitFare", {}).get("units"))
+            if ((route.get("travelAdvisory") or {}).get("transitFare") or {}).get("currencyCode") == "JPY"
+            else None
+        ),
+        "fare_currency": ((route.get("travelAdvisory") or {}).get("transitFare") or {}).get("currencyCode"),
+        "fare_detail": None,
+        "payment_unit": "google",
+        "fare_breakdown": [],
+        "distance_km": round(float(route.get("distanceMeters", 0) or 0) / 1000, 3),
+        "segments": segments,
+        "itinerary": route.get("description") or "",
+        "is_fastest": rank == 1,
+        "is_easiest": False,
+        "is_cheapest": False,
+    }
+
+
+def _google_waypoint(value: str) -> dict[str, Any]:
+    match = re.fullmatch(r"\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*", value)
+    if match:
+        return {
+            "location": {
+                "latLng": {
+                    "latitude": float(match.group(1)),
+                    "longitude": float(match.group(2)),
+                }
+            }
+        }
+    return {"address": value}
+
+
+def _run_google(args: dict[str, Any], origin: str, destination: str, max_routes: int) -> str:
+    api_key = (os.getenv("UAGENT_GOOGLE_MAPS_API_KEY") or "").strip()
+    if not api_key:
+        return _error(
+            _("err.google_key_missing", default="UAGENT_GOOGLE_MAPS_API_KEY is not set."),
+            provider="google",
+        )
+    departure_raw = get_str(args, "departure", "").strip()
+    payload = {
+        "origin": _google_waypoint(origin),
+        "destination": _google_waypoint(destination),
+        "travelMode": "TRANSIT",
+        "languageCode": "ja",
+        "units": "METRIC",
+        # Match Google's official transit example. Routes API may return up
+        # to three alternatives when available.
+        "computeAlternativeRoutes": True,
+        "transitPreferences": {
+            "allowedTravelModes": ["TRAIN"],
+            "routingPreference": "FEWER_TRANSFERS",
+        },
+    }
+    if departure_raw:
+        departure = _parse_departure(departure_raw)
+        payload["departureTime"] = departure.astimezone().isoformat(timespec="seconds")
+    # If omitted, Routes API uses the current time in the routing service.
+    # The official transit example uses routes.*; it also avoids field-mask
+    # spelling differences between REST and protobuf JSON names.
+    field_mask = "routes.*"
+    response = requests.post(
+        _GOOGLE_ROUTES_URL,
+        json=payload,
+        headers={
+            "Content-Type": "application/json",
+            "X-Goog-Api-Key": api_key,
+            "X-Goog-FieldMask": field_mask,
+        },
+        timeout=20,
+    )
+    response.raise_for_status()
+    data = response.json()
+    raw_routes = data.get("routes") or []
+    routes = [_google_route(route, index) for index, route in enumerate(raw_routes[:max_routes], 1)]
+    if not routes:
+        return _error(
+            _("err.no_routes", default="No public-transit routes were found."),
+            origin=origin,
+            destination=destination,
+            provider="google",
+            source="Google Routes API",
+        )
+    return json.dumps({
+        "ok": True,
+        "origin": origin,
+        "destination": destination,
+        "routes": routes,
+        "provider": "google",
+        "source": "Google Routes API",
+        "source_url": _GOOGLE_ROUTES_URL,
+        "checked_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "fare_type": "provider_dependent",
+        "notice": _(
+            "notice.google_fare",
+            default="Google route availability and fares are provider-dependent and may change.",
+        ),
+    }, ensure_ascii=False)
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -406,7 +592,31 @@ def run_tool(args: dict[str, Any]) -> str:
                 default="Both origin and destination are required.",
             )
         )
+    provider = get_str(args, "provider", "yahoo").strip().lower() or "yahoo"
+    if provider not in {"yahoo", "google"}:
+        return _error(
+            _(
+                "err.provider_invalid",
+                default="Provider must be either yahoo or google.",
+            ),
+            provider=provider,
+        )
     max_routes = max(1, min(6, get_int(args, "max_routes", 3)))
+    if provider == "google":
+        try:
+            return _run_google(args, origin, destination, max_routes)
+        except Exception as exc:
+            return _error(
+                _(
+                    "err.google_search_failed",
+                    default="Google Maps route search failed: %(error)s",
+                )
+                % {"error": str(exc)},
+                origin=origin,
+                destination=destination,
+                provider="google",
+                source="Google Routes API",
+            )
     resolved_origin = _resolve_origin(origin, destination)
     search_args = dict(args)
     search_args["origin"] = resolved_origin
@@ -465,6 +675,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "origin_resolved": resolved_origin,
             "destination": destination,
             "routes": routes,
+            "provider": "yahoo",
             "source": "Yahoo! Japan Transit",
             "source_url": f"{_BASE_URL}?{query}",
             "source_link": _(

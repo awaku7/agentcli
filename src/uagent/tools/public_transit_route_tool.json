@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Search Japanese public-transit routes and fares with Yahoo! Japan Transit. Returns multiple candidate routes, travel time, transfers, fare, and itinerary.",
+    "tool.description": "Search Japanese public-transit routes with a selected provider (Yahoo! Japan Transit or Google Maps). Returns multiple candidate routes, total fare, per-segment or per-operator fare breakdown, travel time, transfers, and itinerary.",
     "x_search_terms": [
       "public transit",
       "train route",
@@ -11,7 +11,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Departure station, bus stop, address, or facility.",
     "param.destination.description": "Arrival station, bus stop, address, or facility.",
@@ -24,10 +25,18 @@
     "err.no_routes": "No public-transit routes were found.",
     "err.search_failed": "Yahoo! Japan Transit search failed: %(error)s",
     "notice.fare": "Fares and schedules are provided by Yahoo! Japan Transit and may change.",
-    "source.link": "[Open Yahoo! Japan Transit route search](%(url)s)"
+    "source.link": "[Open Yahoo! Japan Transit route search](%(url)s)",
+    "param.provider.description": "Route provider: yahoo or google.",
+    "err.provider_invalid": "Provider must be either yahoo or google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY is not set.",
+    "err.google_search_failed": "Google Maps route search failed: %(error)s",
+    "notice.google_fare": "Google route availability and fares are provider-dependent and may change.",
+    "fare.ticket": "Fare",
+    "fare.surcharge": "Surcharge",
+    "segment.walk": "Walking"
   },
   "ar": {
-    "tool.description": "ابحث عن طرق وأسعار النقل العام اليابانية باستخدام Yahoo! اليابان العابر. إرجاع طرق مرشحة متعددة، ووقت السفر، والتحويلات، والأجرة، ومسار الرحلة.",
+    "tool.description": "ابحث عن مسارات النقل العام اليابانية مع موفر محدد (Yahoo! Japan Transit أو Google Maps). يُرجع طرقًا مرشحة متعددة، وإجمالي الأجرة، وتفصيل الأجرة لكل قطاع أو لكل مشغل، ووقت السفر، والتحويلات، ومسار الرحلة.",
     "x_search_terms": [
       "النقل العام ",
       " طريق القطار ",
@@ -38,7 +47,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo Transit"
+      "Yahoo Transit",
+      "Google Maps"
     ],
     "param.origin.description": "محطة المغادرة، محطة الحافلات، العنوان، أو المنشأة.",
     "param.destination.description": "محطة الوصول، محطة الحافلات، العنوان، أو المنشأة.",
@@ -51,10 +61,18 @@
     "err.no_routes": "لم يتم العثور على طرق النقل العام.",
     "err.search_failed": "ياهو! فشل البحث عن النقل العام في اليابان: %(error)s",
     "notice.fare": "يتم توفير الأسعار والجداول الزمنية بواسطة Yahoo! اليابان العابر وقد تتغير.",
-    "source.link": "[افتح ياهو! البحث عن طريق النقل العام في اليابان](%(url)s)"
+    "source.link": "[افتح ياهو! البحث عن طريق النقل العام في اليابان](%(url)s)",
+    "param.provider.description": "مزود الطريق: ياهو أو جوجل.",
+    "err.provider_invalid": "يجب أن يكون الموفر إما ياهو أو جوجل.",
+    "err.google_key_missing": "لم يتم تعيين UAGENT_GOOGLE_MAPS_API_KEY.",
+    "err.google_search_failed": "Google فشل البحث عن مسار الخرائط: %(error)s",
+    "notice.google_fare": "Google يعتمد توفر المسار والأسعار على مقدم الخدمة وقد يتغير.",
+    "fare.ticket": "الأجرة",
+    "fare.surcharge": "تكلفة إضافية",
+    "segment.walk": "المشي"
   },
   "bn": {
-    "tool.description": "Yahoo! দিয়ে জাপানি পাবলিক-ট্রানজিট রুট এবং ভাড়া অনুসন্ধান করুন! জাপান ট্রানজিট। একাধিক প্রার্থীর রুট, ভ্রমণের সময়, স্থানান্তর, ভাড়া এবং ভ্রমণপথ ফেরত দেয়।",
+    "tool.description": "একটি নির্বাচিত প্রদানকারীর (Yahoo! জাপান ট্রানজিট বা Google মানচিত্র) দিয়ে জাপানি পাবলিক-ট্রানজিট রুট খুঁজুন। একাধিক প্রার্থীর রুট, মোট ভাড়া, প্রতি-সেগমেন্ট বা প্রতি-অপারেটর ভাড়া ব্রেকডাউন, ভ্রমণের সময়, স্থানান্তর এবং ভ্রমণপথ প্রদান করে।",
     "x_search_terms": [
       "পাবলিক ট্রানজিট",
       "ট্রেন রুট",
@@ -65,7 +83,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo ট্রানজিট"
+      "Yahoo ট্রানজিট",
+      "Google Maps"
     ],
     "param.origin.description": "প্রস্থান স্টেশন, বাস স্টপ, ঠিকানা, বা সুবিধা।",
     "param.destination.description": "আগমন স্টেশন, বাস স্টপ, ঠিকানা, বা সুবিধা।",
@@ -78,10 +97,18 @@
     "err.no_routes": "কোনো পাবলিক-ট্রানজিট রুট পাওয়া যায়নি।",
     "err.search_failed": "ইয়াহু! জাপান ট্রানজিট অনুসন্ধান ব্যর্থ হয়েছে: %(error)s৷",
     "notice.fare": "ভাড়া এবং সময়সূচী Yahoo! জাপান ট্রানজিট এবং পরিবর্তন হতে পারে.",
-    "source.link": "[ইয়াহু খুলুন! জাপান ট্রানজিট রুট অনুসন্ধান](%(url)s)"
+    "source.link": "[ইয়াহু খুলুন! জাপান ট্রানজিট রুট অনুসন্ধান](%(url)s)",
+    "param.provider.description": "রুট প্রদানকারী: ইয়াহু বা গুগল।",
+    "err.provider_invalid": "প্রদানকারী অবশ্যই ইয়াহু বা গুগল হতে হবে।",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY সেট করা নেই।",
+    "err.google_search_failed": "Google মানচিত্র রুট অনুসন্ধান ব্যর্থ হয়েছে: %(error)s",
+    "notice.google_fare": "Google রুটের প্রাপ্যতা এবং ভাড়া প্রদানকারী-নির্ভর এবং পরিবর্তিত হতে পারে।",
+    "fare.ticket": "ভাড়া",
+    "fare.surcharge": "সারচার্জ",
+    "segment.walk": "হাঁটা"
   },
   "cs": {
-    "tool.description": "Vyhledávejte japonské trasy veřejné dopravy a tarify s Yahoo! Japonský tranzit. Vrátí několik kandidátských tras, dobu jízdy, přestupy, jízdné a itinerář.",
+    "tool.description": "Vyhledávejte japonské trasy veřejné dopravy u vybraného poskytovatele (Yahoo! Japan Transit nebo Mapy Google). Vrátí více kandidátských tras, celkové jízdné, rozpis jízdného podle segmentu nebo operátora, dobu jízdy, přestupy a itinerář.",
     "x_search_terms": [
       "veřejná doprava",
       "trasa vlaku",
@@ -92,7 +119,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo tranzit"
+      "Yahoo tranzit",
+      "Google Maps"
     ],
     "param.origin.description": "Výchozí stanice, autobusová zastávka, adresa nebo zařízení.",
     "param.destination.description": "Příjezdová stanice, autobusová zastávka, adresa nebo zařízení.",
@@ -105,10 +133,18 @@
     "err.no_routes": "Nebyly nalezeny žádné trasy veřejné dopravy.",
     "err.search_failed": "Yahoo! Vyhledávání japonské veřejné dopravy se nezdařilo: %(error)s",
     "notice.fare": "Tarify a jízdní řády poskytuje Yahoo! Japonský tranzit a může se změnit.",
-    "source.link": "[Otevřít Yahoo! Vyhledávání trasy japonské veřejné dopravy](%(url)s)"
+    "source.link": "[Otevřít Yahoo! Vyhledávání trasy japonské veřejné dopravy](%(url)s)",
+    "param.provider.description": "Poskytovatel trasy: yahoo nebo google.",
+    "err.provider_invalid": "Poskytovatel musí být buď yahoo, nebo google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY není nastaveno.",
+    "err.google_search_failed": "Google Vyhledávání trasy v Mapách se nezdařilo: %(error)s",
+    "notice.google_fare": "Dostupnost trasy a ceny Google závisí na poskytovateli a mohou se změnit.",
+    "fare.ticket": "Jízdné",
+    "fare.surcharge": "Příplatek",
+    "segment.walk": "Chůze"
   },
   "da": {
-    "tool.description": "Søg japanske offentlige transportruter og priser med Yahoo! Japan Transit. Returnerer flere kandidatruter, rejsetid, overførsler, billetpris og rejseplan.",
+    "tool.description": "Søg japanske ruter med offentlig transport med en valgt udbyder (Yahoo! Japan Transit eller Google Maps). Returnerer flere kandidatruter, samlet billetpris, prisfordeling pr. segment eller pr. operatør, rejsetid, overførsler og rejseplan.",
     "x_search_terms": [
       "offentlig transport",
       "togrute",
@@ -119,7 +155,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Afgangsstation, busstoppested, adresse eller anlæg.",
     "param.destination.description": "Ankomststation, busstoppested, adresse eller facilitet.",
@@ -132,10 +169,18 @@
     "err.no_routes": "Der blev ikke fundet nogen ruter for offentlig transport.",
     "err.search_failed": "Yahoo! Japan Transit-søgning mislykkedes: %(error)s",
     "notice.fare": "Priser og tidsplaner leveres af Yahoo! Japan Transit og kan ændre sig.",
-    "source.link": "[Åbn Yahoo! Japan Transit rutesøgning](%(url)s)"
+    "source.link": "[Åbn Yahoo! Japan Transit rutesøgning](%(url)s)",
+    "param.provider.description": "Ruteudbyder: Yahoo eller Google.",
+    "err.provider_invalid": "Udbyderen skal enten være yahoo eller google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY er ikke indstillet.",
+    "err.google_search_failed": "Google Maps-rutesøgning mislykkedes: %(error)s",
+    "notice.google_fare": "Google rutetilgængelighed og -priser er udbyderafhængige og kan ændre sig.",
+    "fare.ticket": "Billetpris",
+    "fare.surcharge": "Tillæg",
+    "segment.walk": "Gåture"
   },
   "de": {
-    "tool.description": "Suchen Sie mit Yahoo! nach Routen und Tarifen für öffentliche Verkehrsmittel in Japan. Japan-Transit. Gibt mehrere Kandidatenrouten, Reisezeit, Transfers, Tarif und Reiseroute zurück.",
+    "tool.description": "Suchen Sie nach Routen des öffentlichen Nahverkehrs in Japan bei einem ausgewählten Anbieter (Yahoo! Japan Transit oder Google Maps). Gibt mehrere mögliche Routen, den Gesamtpreis, eine Aufschlüsselung der Tarife pro Segment oder pro Betreiber, Reisezeit, Transfers und Reiseroute zurück.",
     "x_search_terms": [
       "öffentliche Verkehrsmittel",
       "Zugroute",
@@ -146,7 +191,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo Transit"
+      "Yahoo Transit",
+      "Google Maps"
     ],
     "param.origin.description": "Abfahrtsbahnhof, Bushaltestelle, Adresse oder Einrichtung.",
     "param.destination.description": "Ankunftsbahnhof, Bushaltestelle, Adresse oder Einrichtung.",
@@ -159,10 +205,18 @@
     "err.no_routes": "Es wurden keine öffentlichen Verkehrsmittel gefunden.",
     "err.search_failed": "Yahoo! Suche nach Japan Transit fehlgeschlagen: %(error)s",
     "notice.fare": "Tarife und Fahrpläne werden von Yahoo! bereitgestellt. Japan Transit und kann sich ändern.",
-    "source.link": "[Öffnen Sie Yahoo! Japan Transit Routensuche](%(url)s)"
+    "source.link": "[Öffnen Sie Yahoo! Japan Transit Routensuche](%(url)s)",
+    "param.provider.description": "Routenanbieter: Yahoo oder Google.",
+    "err.provider_invalid": "Der Anbieter muss entweder Yahoo oder Google sein.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY ist nicht festgelegt.",
+    "err.google_search_failed": "Google Maps-Routensuche fehlgeschlagen: %(error)s",
+    "notice.google_fare": "Google Routenverfügbarkeit und Tarife sind anbieterabhängig und können sich ändern.",
+    "fare.ticket": "Fahrpreis",
+    "fare.surcharge": "Aufpreis",
+    "segment.walk": "Gehen"
   },
   "el": {
-    "tool.description": "Αναζήτηση ιαπωνικών δρομολογίων δημόσιας συγκοινωνίας και ναύλων με το Yahoo! Ιαπωνία Διαμετακόμιση. Επιστρέφει πολλαπλές υποψήφιες διαδρομές, χρόνο ταξιδιού, μεταφορές, ναύλο και δρομολόγιο.",
+    "tool.description": "Αναζήτηση ιαπωνικών δρομολογίων δημόσιας συγκοινωνίας με έναν επιλεγμένο πάροχο (Yahoo! Japan Transit ή Google Maps). Επιστρέφει πολλαπλές υποψήφιες διαδρομές, συνολικό ναύλο, ανάλυση ναύλου ανά τμήμα ή ανά φορέα, χρόνο ταξιδιού, μεταφορές και δρομολόγιο.",
     "x_search_terms": [
       "δημόσια συγκοινωνία",
       "διαδρομή τρένου",
@@ -173,7 +227,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Σταθμός αναχώρησης, στάση λεωφορείου, διεύθυνση ή εγκατάσταση.",
     "param.destination.description": "Σταθμός άφιξης, στάση λεωφορείου, διεύθυνση ή εγκατάσταση.",
@@ -186,10 +241,18 @@
     "err.no_routes": "Δεν βρέθηκαν δρομολόγια δημόσιας συγκοινωνίας.",
     "err.search_failed": "Yahoo! Η αναζήτηση Japan Transit απέτυχε: %(error)s",
     "notice.fare": "Οι ναύλοι και τα δρομολόγια παρέχονται από το Yahoo! Ιαπωνία Transit και ενδέχεται να αλλάξει.",
-    "source.link": "[Ανοίξτε το Yahoo! Αναζήτηση διαδρομής Ιαπωνίας συγκοινωνίας](%(url)s)"
+    "source.link": "[Ανοίξτε το Yahoo! Αναζήτηση διαδρομής Ιαπωνίας συγκοινωνίας](%(url)s)",
+    "param.provider.description": "Πάροχος διαδρομής: yahoo ή google.",
+    "err.provider_invalid": "Ο πάροχος πρέπει να είναι είτε yahoo είτε google.",
+    "err.google_key_missing": "Το UAGENT_GOOGLE_MAPS_API_KEY δεν έχει οριστεί.",
+    "err.google_search_failed": "Google Η αναζήτηση διαδρομής στους Χάρτες απέτυχε: %(error)s",
+    "notice.google_fare": "Η διαθεσιμότητα και οι ναύλοι της διαδρομής Google εξαρτώνται από τον πάροχο και ενδέχεται να αλλάξουν.",
+    "fare.ticket": "Ναύλος",
+    "fare.surcharge": "Προσαύξηση",
+    "segment.walk": "Περπάτημα"
   },
   "es": {
-    "tool.description": "Busque rutas y tarifas de transporte público japonés con Yahoo! Tránsito de Japón. Devuelve múltiples rutas candidatas, tiempo de viaje, traslados, tarifa e itinerario.",
+    "tool.description": "Busque rutas de transporte público japonesas con un proveedor seleccionado (Yahoo! Japan Transit o Google Maps). Devuelve múltiples rutas candidatas, tarifa total, desglose de tarifas por segmento o por operador, tiempo de viaje, traslados e itinerario.",
     "x_search_terms": [
       "transporte público",
       "ruta de tren",
@@ -200,7 +263,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Estación de salida, parada de autobús, dirección o instalación.",
     "param.destination.description": "Estación de llegada, parada de autobús, dirección o instalación.",
@@ -213,10 +277,18 @@
     "err.no_routes": "No se encontraron rutas de transporte público.",
     "err.search_failed": "Yahoo! Error en la búsqueda de Japan Transit: %(error)s",
     "notice.fare": "Yahoo! proporciona tarifas y horarios. Tránsito de Japón y puede cambiar.",
-    "source.link": "[Abre Yahoo! Búsqueda de ruta de tránsito de Japón](%(url)s)"
+    "source.link": "[Abre Yahoo! Búsqueda de ruta de tránsito de Japón](%(url)s)",
+    "param.provider.description": "Proveedor de ruta: yahoo o google.",
+    "err.provider_invalid": "El proveedor debe ser yahoo o google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY no está configurado.",
+    "err.google_search_failed": "Google Error en la búsqueda de ruta en Maps: %(error)s",
+    "notice.google_fare": "La disponibilidad de rutas y las tarifas de Google dependen del proveedor y pueden cambiar.",
+    "fare.ticket": "tarifa",
+    "fare.surcharge": "Recargo",
+    "segment.walk": "Caminando"
   },
   "fa": {
-    "tool.description": "جستجوی مسیرهای حمل و نقل عمومی ژاپن و کرایه ها با Yahoo! ترانزیت ژاپن چندین مسیر نامزد، زمان سفر، نقل و انتقالات، کرایه و برنامه سفر را برمی‌گرداند.",
+    "tool.description": "مسیرهای حمل و نقل عمومی ژاپن را با ارائه دهنده انتخاب شده جستجو کنید (Yahoo! Japan Transit یا Google Maps). چندین مسیر نامزد، کرایه کل، تفکیک کرایه هر بخش یا هر اپراتور، زمان سفر، نقل و انتقالات و برنامه سفر را برمی‌گرداند.",
     "x_search_terms": [
       "حمل و نقل عمومی",
       "مسیر قطار",
@@ -227,7 +299,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "ترانزیت یاهو"
+      "ترانزیت یاهو",
+      "Google Maps"
     ],
     "param.origin.description": "ایستگاه حرکت، ایستگاه اتوبوس، آدرس یا تأسیسات.",
     "param.destination.description": "ایستگاه ورود، ایستگاه اتوبوس، آدرس یا امکانات.",
@@ -240,10 +313,18 @@
     "err.no_routes": "هیچ مسیر حمل و نقل عمومی پیدا نشد.",
     "err.search_failed": "یاهو جستجوی ترانزیت ژاپن ناموفق بود: %(error)s",
     "notice.fare": "کرایه ها و برنامه ها توسط Yahoo! ترانزیت ژاپن و ممکن است تغییر کند.",
-    "source.link": "[یاهو را باز کنید! جستجوی مسیر حمل‌ونقل ژاپن](%(url)s)"
+    "source.link": "[یاهو را باز کنید! جستجوی مسیر حمل‌ونقل ژاپن](%(url)s)",
+    "param.provider.description": "ارائه دهنده مسیر: یاهو یا گوگل.",
+    "err.provider_invalid": "ارائه دهنده باید یاهو یا گوگل باشد.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY تنظیم نشده است.",
+    "err.google_search_failed": "Google جستجوی مسیر Maps ناموفق بود: %(error)s",
+    "notice.google_fare": "Google در دسترس بودن مسیر و کرایه ها به ارائه دهنده بستگی دارد و ممکن است تغییر کند.",
+    "fare.ticket": "کرایه",
+    "fare.surcharge": "اضافه شارژ",
+    "segment.walk": "راه رفتن"
   },
   "fi": {
-    "tool.description": "Hae Japanin julkisen liikenteen reittejä ja hintoja Yahoo! Japanin transit. Palauttaa useita ehdokasreittejä, matka-ajan, siirrot, hinnan ja matkasuunnitelman.",
+    "tool.description": "Hae Japanin julkisen liikenteen reittejä valitun palveluntarjoajan avulla (Yahoo! Japan Transit tai Google Maps). Palauttaa useita ehdokasreittejä, kokonaishinnan, segmenttikohtaisen tai operaattorikohtaisen hintaerittelyn, matka-ajan, siirrot ja matkasuunnitelman.",
     "x_search_terms": [
       "julkinen liikenne",
       "junareitti",
@@ -254,7 +335,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Lähtöasema, bussipysäkki, osoite tai laitos.",
     "param.destination.description": "Saapumisasema, bussipysäkki, osoite tai laitos.",
@@ -267,10 +349,18 @@
     "err.no_routes": "Julkisen liikenteen reittejä ei löytynyt.",
     "err.search_failed": "Yahoo! Japan Transit -haku epäonnistui: %(error)s",
     "notice.fare": "Hinnat ja aikataulut tarjoaa Yahoo! Japan Transit ja saattaa muuttua.",
-    "source.link": "[Avaa Yahoo! Japanin julkisen liikenteen reittihaku](%(url)s)"
+    "source.link": "[Avaa Yahoo! Japanin julkisen liikenteen reittihaku](%(url)s)",
+    "param.provider.description": "Reitin tarjoaja: yahoo tai google.",
+    "err.provider_invalid": "Palveluntarjoajan on oltava joko yahoo tai google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY:tä ei ole asetettu.",
+    "err.google_search_failed": "Google Mapsin reittihaku epäonnistui: %(error)s",
+    "notice.google_fare": "Google reitin saatavuus ja hinnat ovat palveluntarjoajakohtaisia ja voivat muuttua.",
+    "fare.ticket": "Hinta",
+    "fare.surcharge": "Lisämaksu",
+    "segment.walk": "Kävely"
   },
   "fil": {
-    "tool.description": "Maghanap ng mga ruta at pamasahe sa Japanese na pampublikong sasakyan sa Yahoo! Japan Transit. Ibinabalik ang maraming ruta ng kandidato, oras ng paglalakbay, paglilipat, pamasahe, at itineraryo.",
+    "tool.description": "Maghanap ng mga ruta ng pampublikong sasakyan sa Japan na may napiling provider (Yahoo! Japan Transit o Google Maps). Ibinabalik ang maramihang mga ruta ng kandidato, kabuuang pamasahe, per-segment o per-operator fare breakdown, oras ng paglalakbay, paglilipat, at itineraryo.",
     "x_search_terms": [
       "pampublikong sasakyan",
       "ruta ng tren",
@@ -281,7 +371,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Istasyon ng pag-alis, hintuan ng bus, address, o pasilidad.",
     "param.destination.description": "Estasyon ng pagdating, hintuan ng bus, address, o pasilidad.",
@@ -294,10 +385,18 @@
     "err.no_routes": "Walang nakitang mga ruta ng pampublikong sasakyan.",
     "err.search_failed": "Yahoo! Nabigo ang paghahanap sa Japan Transit: %(error)s",
     "notice.fare": "Ang mga pamasahe at iskedyul ay ibinibigay ng Yahoo! Japan Transit at maaaring magbago.",
-    "source.link": "[Buksan ang Yahoo! Paghahanap ng ruta ng Japan Transit](%(url)s)"
+    "source.link": "[Buksan ang Yahoo! Paghahanap ng ruta ng Japan Transit](%(url)s)",
+    "param.provider.description": "Tagabigay ng ruta: yahoo o google.",
+    "err.provider_invalid": "Ang provider ay dapat na yahoo o google.",
+    "err.google_key_missing": "Ang UAGENT_GOOGLE_MAPS_API_KEY ay hindi nakatakda.",
+    "err.google_search_failed": "Google Nabigo ang paghahanap ng ruta sa mapa: %(error)s",
+    "notice.google_fare": "Google ang availability ng ruta at mga pamasahe ay nakadepende sa provider at maaaring magbago.",
+    "fare.ticket": "pamasahe",
+    "fare.surcharge": "Dagdag na bayad",
+    "segment.walk": "Naglalakad"
   },
   "fr": {
-    "tool.description": "Recherchez les itinéraires et les tarifs des transports publics japonais avec Yahoo! Transit au Japon. Renvoie plusieurs itinéraires candidats, le temps de trajet, les transferts, le tarif et l'itinéraire.",
+    "tool.description": "Recherchez les itinéraires de transports en commun japonais auprès d'un fournisseur sélectionné (Yahoo! Japan Transit ou Google Maps). Renvoie plusieurs itinéraires candidats, le tarif total, la répartition des tarifs par segment ou par opérateur, le temps de trajet, les transferts et l'itinéraire.",
     "x_search_terms": [
       "transport en commun",
       "itinéraire en train",
@@ -308,7 +407,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Gare de départ, arrêt de bus, adresse ou établissement.",
     "param.destination.description": "Gare d'arrivée, arrêt de bus, adresse ou établissement.",
@@ -321,10 +421,18 @@
     "err.no_routes": "Aucun itinéraire de transport en commun n'a été trouvé.",
     "err.search_failed": "Yahoo! Échec de la recherche Japan Transit : %(error)s",
     "notice.fare": "Les tarifs et horaires sont fournis par Yahoo! Japan Transit et peut changer.",
-    "source.link": "[Ouvrez Yahoo! Recherche d'itinéraire de transit au Japon](%(url)s)"
+    "source.link": "[Ouvrez Yahoo! Recherche d'itinéraire de transit au Japon](%(url)s)",
+    "param.provider.description": "Fournisseur d'itinéraire : Yahoo ou Google.",
+    "err.provider_invalid": "Le fournisseur doit être Yahoo ou Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY n'est pas défini.",
+    "err.google_search_failed": "Google Échec de la recherche d'itinéraire sur Maps : %(error)s",
+    "notice.google_fare": "La disponibilité de l'itinéraire et les tarifs Google dépendent du fournisseur et peuvent changer.",
+    "fare.ticket": "Tarif",
+    "fare.surcharge": "Supplément",
+    "segment.walk": "Marcher"
   },
   "he": {
-    "tool.description": "חפש בדרכי תחבורה ציבורית ותעריפים יפניים עם Yahoo! מעבר יפן. מחזיר מספר מסלולים מועמדים, זמן נסיעה, העברות, תעריף ומסלול.",
+    "tool.description": "חפש בדרכי תחבורה ציבורית יפניות עם ספק נבחר (Yahoo! Japan Transit או Google מפות). מחזירה מספר מסלולים מועמדים, תעריף כולל, פירוט תעריף לפי מקטע או לכל מפעיל, זמן נסיעה, העברות ומסלול.",
     "x_search_terms": [
       "תחבורה ציבורית",
       "מסלול רכבת",
@@ -335,7 +443,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "תחבורה ציבורית"
+      "תחבורה ציבורית",
+      "Google Maps"
     ],
     "param.origin.description": "תחנת יציאה, תחנת אוטובוס, כתובת או מתקן.",
     "param.destination.description": "תחנת הגעה, תחנת אוטובוס, כתובת או מתקן.",
@@ -348,10 +457,18 @@
     "err.no_routes": "לא נמצאו נתיבי תחבורה ציבורית.",
     "err.search_failed": "Yahoo! חיפוש תחבורה ציבורית ביפן נכשל: %(error)s",
     "notice.fare": "תעריפים ולוחות זמנים מסופקים על ידי Yahoo! Transit יפן ועשוי להשתנות.",
-    "source.link": "[פתח את Yahoo! חיפוש נתיב תחבורה יפן](%(url)s)"
+    "source.link": "[פתח את Yahoo! חיפוש נתיב תחבורה יפן](%(url)s)",
+    "param.provider.description": "ספק מסלול: yahoo או google.",
+    "err.provider_invalid": "הספק חייב להיות yahoo או google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY לא מוגדר.",
+    "err.google_search_failed": "Google חיפוש נתיב מפות נכשל: %(error)s",
+    "notice.google_fare": "Google זמינות ותעריפים תלויים בספק ועשויים להשתנות.",
+    "fare.ticket": "תעריף",
+    "fare.surcharge": "תוספת תשלום",
+    "segment.walk": "הליכה"
   },
   "hi": {
-    "tool.description": "Yahoo! के साथ जापानी सार्वजनिक-पारगमन मार्ग और किराए खोजें! जापान पारगमन. एकाधिक उम्मीदवार मार्ग, यात्रा समय, स्थानान्तरण, किराया और यात्रा कार्यक्रम लौटाता है।",
+    "tool.description": "किसी चयनित प्रदाता (याहू! जापान ट्रांज़िट या Google मैप्स) के साथ जापानी सार्वजनिक-पारगमन मार्ग खोजें। एकाधिक उम्मीदवार मार्ग, कुल किराया, प्रति-सेगमेंट या प्रति-ऑपरेटर किराया विवरण, यात्रा समय, स्थानान्तरण और यात्रा कार्यक्रम लौटाता है।",
     "x_search_terms": [
       "सार्वजनिक परिवहन",
       "ट्रेन मार्ग",
@@ -362,7 +479,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "याहू पारगमन"
+      "याहू पारगमन",
+      "Google Maps"
     ],
     "param.origin.description": "प्रस्थान स्टेशन, बस स्टॉप, पता, या सुविधा।",
     "param.destination.description": "आगमन स्टेशन, बस स्टॉप, पता, या सुविधा।",
@@ -375,10 +493,18 @@
     "err.no_routes": "कोई सार्वजनिक-पारगमन मार्ग नहीं मिला.",
     "err.search_failed": "याहू! जापान ट्रांज़िट खोज विफल: %(error)s",
     "notice.fare": "किराया और शेड्यूल याहू द्वारा उपलब्ध कराए जाते हैं! जापान पारगमन और बदल सकता है।",
-    "source.link": "[याहू खोलें! जापान पारगमन मार्ग खोज](%(url)s)"
+    "source.link": "[याहू खोलें! जापान पारगमन मार्ग खोज](%(url)s)",
+    "param.provider.description": "मार्ग प्रदाता: याहू या गूगल.",
+    "err.provider_invalid": "प्रदाता याहू या गूगल होना चाहिए।",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY सेट नहीं है.",
+    "err.google_search_failed": "Google मानचित्र मार्ग खोज विफल: %(error)s",
+    "notice.google_fare": "Google मार्ग की उपलब्धता और किराया प्रदाता पर निर्भर हैं और बदल सकते हैं।",
+    "fare.ticket": "किराया",
+    "fare.surcharge": "अधिभार",
+    "segment.walk": "चलना"
   },
   "hu": {
-    "tool.description": "Keressen japán tömegközlekedési útvonalakat és viteldíjakat a Yahoo! Japán Transit. Több jelölt útvonalat, utazási időt, transzfereket, viteldíjat és útvonalat ad vissza.",
+    "tool.description": "Keressen japán tömegközlekedési útvonalakat egy kiválasztott szolgáltatóval (Yahoo! Japan Transit vagy Google Maps). Több jelölt útvonalat, teljes viteldíjat, szegmensenkénti vagy üzemeltetőnkénti viteldíjat, utazási időt, transzfereket és útvonalat ad vissza.",
     "x_search_terms": [
       "tömegközlekedés",
       "vonatútvonal",
@@ -389,7 +515,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo tranzit"
+      "Yahoo tranzit",
+      "Google Maps"
     ],
     "param.origin.description": "Indulási állomás, buszmegálló, cím vagy létesítmény.",
     "param.destination.description": "Érkezési állomás, buszmegálló, cím vagy létesítmény.",
@@ -402,10 +529,18 @@
     "err.no_routes": "Nem található tömegközlekedési útvonal.",
     "err.search_failed": "Jehu! A japán tömegközlekedés keresése sikertelen: %(error)s",
     "notice.fare": "A viteldíjakat és a menetrendeket a Yahoo! Japán Transit és változhat.",
-    "source.link": "[Nyissa meg a Yahoo! Japán tömegközlekedési útvonal keresése](%(url)s)"
+    "source.link": "[Nyissa meg a Yahoo! Japán tömegközlekedési útvonal keresése](%(url)s)",
+    "param.provider.description": "Útvonal szolgáltató: yahoo vagy google.",
+    "err.provider_invalid": "A szolgáltatónak a Yahoo-nak vagy a Google-nak kell lennie.",
+    "err.google_key_missing": "A UAGENT_GOOGLE_MAPS_API_KEY nincs beállítva.",
+    "err.google_search_failed": "Google A Térképes útvonal keresése sikertelen: %(error)s",
+    "notice.google_fare": "A Google útvonal elérhetősége és viteldíjai szolgáltatótól függenek, és változhatnak.",
+    "fare.ticket": "Viteldíj",
+    "fare.surcharge": "Felár",
+    "segment.walk": "Séta"
   },
   "id": {
-    "tool.description": "Cari rute dan tarif angkutan umum Jepang dengan Yahoo! Transit Jepang. Mengembalikan beberapa rute kandidat, waktu perjalanan, transfer, tarif, dan rencana perjalanan.",
+    "tool.description": "Telusuri rute angkutan umum Jepang dengan penyedia yang dipilih (Yahoo! Japan Transit atau Google Maps). Menampilkan beberapa rute kandidat, total tarif, rincian tarif per segmen atau per operator, waktu perjalanan, transfer, dan rencana perjalanan.",
     "x_search_terms": [
       "angkutan umum",
       "rute kereta api",
@@ -416,7 +551,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Stasiun keberangkatan, halte bus, alamat, atau fasilitas.",
     "param.destination.description": "Stasiun kedatangan, halte bus, alamat, atau fasilitas.",
@@ -429,10 +565,18 @@
     "err.no_routes": "Tidak ditemukan rute angkutan umum.",
     "err.search_failed": "Yahoo! Penelusuran Transit Jepang gagal: %(error)s",
     "notice.fare": "Tarif dan jadwal disediakan oleh Yahoo! Jepang Transit dan dapat berubah.",
-    "source.link": "[Buka Yahoo! Penelusuran rute Transit Jepang](%(url)s)"
+    "source.link": "[Buka Yahoo! Penelusuran rute Transit Jepang](%(url)s)",
+    "param.provider.description": "Penyedia rute: yahoo atau google.",
+    "err.provider_invalid": "Penyedia harus yahoo atau google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY tidak disetel.",
+    "err.google_search_failed": "Google Pencarian rute peta gagal: %(error)s",
+    "notice.google_fare": "Google ketersediaan rute dan tarif bergantung pada penyedia dan dapat berubah.",
+    "fare.ticket": "Tarif",
+    "fare.surcharge": "Biaya tambahan",
+    "segment.walk": "Berjalan"
   },
   "it": {
-    "tool.description": "Cerca percorsi e tariffe dei trasporti pubblici giapponesi con Yahoo! Transito in Giappone. Restituisce più rotte candidate, tempo di viaggio, trasferimenti, tariffa e itinerario.",
+    "tool.description": "Cerca percorsi di trasporto pubblico giapponese con un fornitore selezionato (Yahoo! Japan Transit o Google Maps). Restituisce più rotte candidate, tariffa totale, suddivisione tariffaria per segmento o per operatore, tempo di viaggio, trasferimenti e itinerario.",
     "x_search_terms": [
       "trasporto pubblico",
       "percorso del treno",
@@ -443,7 +587,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Stazione di partenza, fermata dell'autobus, indirizzo o struttura.",
     "param.destination.description": "Stazione di arrivo, fermata dell'autobus, indirizzo o struttura.",
@@ -456,10 +601,18 @@
     "err.no_routes": "Non sono stati trovati percorsi di trasporto pubblico.",
     "err.search_failed": "Yahoo! Ricerca di trasporti pubblici in Giappone non riuscita: %(error)s",
     "notice.fare": "Le tariffe e gli orari sono forniti da Yahoo! Japan Transit e potrebbe cambiare.",
-    "source.link": "[Apri Yahoo! Ricerca percorso di trasporto pubblico in Giappone](%(url)s)"
+    "source.link": "[Apri Yahoo! Ricerca percorso di trasporto pubblico in Giappone](%(url)s)",
+    "param.provider.description": "Fornitore del percorso: yahoo o google.",
+    "err.provider_invalid": "Il provider deve essere Yahoo o Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY non è impostato.",
+    "err.google_search_failed": "Google Ricerca del percorso su Maps non riuscita: %(error)s",
+    "notice.google_fare": "La disponibilità e le tariffe delle rotte Google dipendono dal fornitore e potrebbero cambiare.",
+    "fare.ticket": "Tariffa",
+    "fare.surcharge": "Supplemento",
+    "segment.walk": "Camminare"
   },
   "ja": {
-    "tool.description": "Yahoo! で日本の公共交通機関のルートと運賃を検索します。日本交通。複数の候補ルート、移動時間、乗り換え、運賃、旅程を返します。",
+    "tool.description": "選択したプロバイダー (Yahoo! Japan Transit または Google Maps) で日本の公共交通機関のルートを検索します。複数の候補ルート、合計運賃、区間ごとまたは事業者ごとの運賃の内訳、移動時間、乗り換え、および旅程を返します。",
     "x_search_terms": [
       "公共交通機関",
       "電車路線",
@@ -470,7 +623,8 @@
       "電車",
       "鉄道運賃",
       "バス路線",
-      "Yahoo交通"
+      "Yahoo交通",
+      "Google Maps"
     ],
     "param.origin.description": "出発駅、バス停、住所、施設。",
     "param.destination.description": "到着駅、バス停、住所、施設。",
@@ -483,10 +637,18 @@
     "err.no_routes": "公共交通機関のルートは見つかりませんでした。",
     "err.search_failed": "ヤフー！日本の交通機関の検索が失敗しました: %(error)s",
     "notice.fare": "運賃と時刻表はYahoo!から提供されます。日本交通機関により変更となる場合がございます。",
-    "source.link": "[Yahoo!路線情報で開く](%(url)s)"
+    "source.link": "[Yahoo!路線情報で開く](%(url)s)",
+    "param.provider.description": "ルートプロバイダー: yahoo または google。",
+    "err.provider_invalid": "プロバイダーは yahoo または google である必要があります。",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY が設定されていません。",
+    "err.google_search_failed": "Google マップのルート検索に失敗しました: %(error)s",
+    "notice.google_fare": "Google ルートの空き状況と運賃はプロバイダーによって異なり、変更される場合があります。",
+    "fare.ticket": "乗車券",
+    "fare.surcharge": "特別料金",
+    "segment.walk": "徒歩"
   },
   "ko": {
-    "tool.description": "Yahoo!에서 일본 대중교통 경로와 요금을 검색하세요. 일본교통. 여러 후보 경로, 이동 시간, 환승, 요금 및 여행 일정을 반환합니다.",
+    "tool.description": "선택한 제공업체(Yahoo! Japan Transit 또는 Google 지도)로 일본 대중교통 경로를 검색하세요. 여러 후보 경로, 총 요금, 구간별 또는 운영자별 요금 분석, 이동 시간, 환승 및 여정을 반환합니다.",
     "x_search_terms": [
       "대중교통",
       "기차노선",
@@ -497,7 +659,8 @@
       "electronic",
       "鉄道運賃",
       "bass経路",
-      "야후 대중교통"
+      "야후 대중교통",
+      "Google Maps"
     ],
     "param.origin.description": "출발역, 버스정류장, 주소, 시설",
     "param.destination.description": "도착역, 버스정류장, 주소, 시설",
@@ -510,10 +673,18 @@
     "err.no_routes": "대중교통 경로를 찾을 수 없습니다.",
     "err.search_failed": "야후! 일본 대중교통 검색 실패: %(error)s",
     "notice.fare": "요금과 일정은 Yahoo!에서 제공됩니다. Japan Transit은 변경될 수 있습니다.",
-    "source.link": "[야후!를 열어라! 일본 대중교통 경로 검색](%(url)s)"
+    "source.link": "[야후!를 열어라! 일본 대중교통 경로 검색](%(url)s)",
+    "param.provider.description": "경로 제공자: yahoo 또는 google.",
+    "err.provider_invalid": "공급자는 Yahoo 또는 Google이어야 합니다.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY가 설정되지 않았습니다.",
+    "err.google_search_failed": "Google 지도 경로 검색 실패: %(error)s",
+    "notice.google_fare": "Google 경로 이용 가능 여부 및 요금은 제공업체에 따라 다르며 변경될 수 있습니다.",
+    "fare.ticket": "요금",
+    "fare.surcharge": "추가요금",
+    "segment.walk": "걷기"
   },
   "mn": {
-    "tool.description": "Yahoo!-ээс Японы нийтийн тээврийн маршрут, үнэ тарифыг хай! Япон транзит. Олон нэр дэвшигчийн маршрут, аяллын цаг, шилжүүлэг, тийз, аяллын хөтөлбөрийг буцаана.",
+    "tool.description": "Сонгосон үйлчилгээ үзүүлэгчээс (Yahoo! Japan Transit эсвэл Google Газрын зураг) Японы нийтийн тээврийн маршрутыг хайх. Олон нэр дэвшигчийн маршрут, нийт үнэ, сегмент тус бүр эсвэл оператор тус бүрийн тарифын задаргаа, аяллын цаг, шилжүүлэг, аяллын чиглэлийг буцаана.",
     "x_search_terms": [
       "нийтийн тээвэр",
       "галт тэрэгний маршрут",
@@ -524,7 +695,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo транзит"
+      "Yahoo транзит",
+      "Google Maps"
     ],
     "param.origin.description": "Явах буудал, автобусны буудал, хаяг, байгууламж.",
     "param.destination.description": "Ирэх буудал, автобусны буудал, хаяг, байгууламж.",
@@ -537,10 +709,18 @@
     "err.no_routes": "Нийтийн тээврийн маршрут олдсонгүй.",
     "err.search_failed": "Yahoo! Японы нийтийн тээврийн хайлт амжилтгүй болсон: %(error)s",
     "notice.fare": "Үнэ болон хуваарийг Yahoo! Япон Транзит ба өөрчлөгдөж магадгүй.",
-    "source.link": "[Yahoo-г нээ! Японы нийтийн тээврийн маршрут хайх](%(url)s)"
+    "source.link": "[Yahoo-г нээ! Японы нийтийн тээврийн маршрут хайх](%(url)s)",
+    "param.provider.description": "Маршрут нийлүүлэгч: yahoo эсвэл google.",
+    "err.provider_invalid": "Үйлчилгээ үзүүлэгч нь yahoo эсвэл google байх ёстой.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY тохируулаагүй байна.",
+    "err.google_search_failed": "Google Газрын зургийн маршрутын хайлт амжилтгүй болсон: %(error)s",
+    "notice.google_fare": "Google маршрутын хүртээмж, үнэ нь үйлчилгээ үзүүлэгчээс хамаарах бөгөөд өөрчлөгдөж болно.",
+    "fare.ticket": "Үнэ",
+    "fare.surcharge": "Нэмэлт хураамж",
+    "segment.walk": "Алхаж байна"
   },
   "mr": {
-    "tool.description": "Yahoo! सह जपानी सार्वजनिक-परिवहन मार्ग आणि भाडे शोधा! जपान ट्रान्झिट. अनेक उमेदवार मार्ग, प्रवास वेळ, बदल्या, भाडे आणि प्रवासाचा कार्यक्रम परत करते.",
+    "tool.description": "निवडलेल्या प्रदात्यासह जपानी सार्वजनिक-ट्रान्झिट मार्ग शोधा (Yahoo! Japan Transit किंवा Google नकाशे). एकापेक्षा जास्त उमेदवार मार्ग, एकूण भाडे, प्रति-सेगमेंट किंवा प्रति-ऑपरेटर भाडे ब्रेकडाउन, प्रवास वेळ, हस्तांतरण आणि प्रवासाचा कार्यक्रम परत करते.",
     "x_search_terms": [
       "सार्वजनिक परिवहन",
       "ट्रेन मार्ग",
@@ -551,7 +731,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo ट्रान्झिट"
+      "Yahoo ट्रान्झिट",
+      "Google Maps"
     ],
     "param.origin.description": "निर्गमन स्टेशन, बस स्टॉप, पत्ता किंवा सुविधा.",
     "param.destination.description": "आगमन स्टेशन, बस स्टॉप, पत्ता किंवा सुविधा.",
@@ -564,10 +745,18 @@
     "err.no_routes": "कोणतेही सार्वजनिक-परिवहन मार्ग सापडले नाहीत.",
     "err.search_failed": "याहू! जपान ट्रान्झिट शोध अयशस्वी: %(error)s",
     "notice.fare": "भाडे आणि वेळापत्रक Yahoo! जपान संक्रमण आणि बदलू शकते.",
-    "source.link": "[याहू उघडा! जपान परिवहन मार्ग शोध](%(url)s)"
+    "source.link": "[याहू उघडा! जपान परिवहन मार्ग शोध](%(url)s)",
+    "param.provider.description": "मार्ग प्रदाता: yahoo किंवा google.",
+    "err.provider_invalid": "प्रदाता एकतर याहू किंवा गुगल असणे आवश्यक आहे.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY सेट केलेले नाही.",
+    "err.google_search_failed": "Google नकाशे मार्ग शोध अयशस्वी: %(error)s",
+    "notice.google_fare": "Google मार्ग उपलब्धता आणि भाडे प्रदात्यावर अवलंबून आहेत आणि बदलू शकतात.",
+    "fare.ticket": "भाडे",
+    "fare.surcharge": "अधिभार",
+    "segment.walk": "चालणे"
   },
   "ms": {
-    "tool.description": "Cari laluan dan tambang pengangkutan awam Jepun dengan Yahoo! Transit Jepun. Mengembalikan berbilang laluan calon, masa perjalanan, pemindahan, tambang dan jadual perjalanan.",
+    "tool.description": "Cari laluan transit awam Jepun dengan pembekal yang dipilih (Yahoo! Japan Transit atau Peta Google). Mengembalikan berbilang laluan calon, jumlah tambang, pecahan tambang setiap segmen atau setiap pengendali, masa perjalanan, pemindahan dan jadual perjalanan.",
     "x_search_terms": [
       "pengangkutan awam",
       "laluan kereta api",
@@ -578,7 +767,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Transit Yahoo"
+      "Transit Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "Stesen berlepas, perhentian bas, alamat, atau kemudahan.",
     "param.destination.description": "Stesen ketibaan, perhentian bas, alamat, atau kemudahan.",
@@ -591,10 +781,18 @@
     "err.no_routes": "Tiada laluan pengangkutan awam ditemui.",
     "err.search_failed": "Yahoo! Carian Transit Jepun gagal: %(error)s",
     "notice.fare": "Tambang dan jadual disediakan oleh Yahoo! Transit Jepun dan mungkin berubah.",
-    "source.link": "[Buka Yahoo! Carian laluan Transit Jepun](%(url)s)"
+    "source.link": "[Buka Yahoo! Carian laluan Transit Jepun](%(url)s)",
+    "param.provider.description": "Pembekal laluan: yahoo atau google.",
+    "err.provider_invalid": "Pembekal mestilah sama ada yahoo atau google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY tidak ditetapkan.",
+    "err.google_search_failed": "Google Carian laluan Peta gagal: %(error)s",
+    "notice.google_fare": "Google ketersediaan laluan dan tambang bergantung kepada pembekal dan mungkin berubah.",
+    "fare.ticket": "tambang",
+    "fare.surcharge": "Surcaj",
+    "segment.walk": "berjalan"
   },
   "nb": {
-    "tool.description": "Søk etter japanske ruter og priser for offentlig transport med Yahoo! Japan transitt. Returnerer flere kandidatruter, reisetid, overføringer, billettpris og reiserute.",
+    "tool.description": "Søk etter japanske kollektivtransportruter med en valgt leverandør (Yahoo! Japan Transit eller Google Maps). Returnerer flere kandidatruter, totalpris, prisfordeling per segment eller per operatør, reisetid, overføringer og reiserute.",
     "x_search_terms": [
       "offentlig transport",
       "togrute",
@@ -605,7 +803,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transitt"
+      "Yahoo transitt",
+      "Google Maps"
     ],
     "param.origin.description": "Avgangsstasjon, bussholdeplass, adresse eller anlegg.",
     "param.destination.description": "Ankomststasjon, bussholdeplass, adresse eller anlegg.",
@@ -618,10 +817,18 @@
     "err.no_routes": "Ingen ruter for kollektivtransport ble funnet.",
     "err.search_failed": "Yahoo! Japan Transit-søk mislyktes: %(error)s",
     "notice.fare": "Priser og tidsplaner er levert av Yahoo! Japan Transit og kan endres.",
-    "source.link": "[Åpne Yahoo! Japan Transit rutesøk](%(url)s)"
+    "source.link": "[Åpne Yahoo! Japan Transit rutesøk](%(url)s)",
+    "param.provider.description": "Ruteleverandør: Yahoo eller Google.",
+    "err.provider_invalid": "Leverandøren må enten være yahoo eller google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY er ikke angitt.",
+    "err.google_search_failed": "Google Kart-rutesøk mislyktes: %(error)s",
+    "notice.google_fare": "Google rutetilgjengelighet og priser er leverandøravhengig og kan endres.",
+    "fare.ticket": "Billettpris",
+    "fare.surcharge": "Tillegg",
+    "segment.walk": "Går"
   },
   "nl": {
-    "tool.description": "Zoek Japanse openbaarvervoerroutes en tarieven met Yahoo! Japan-doorvoer. Retourneert meerdere kandidaatroutes, reistijd, transfers, tarief en reisschema.",
+    "tool.description": "Zoek Japanse openbaarvervoerroutes met een geselecteerde aanbieder (Yahoo! Japan Transit of Google Maps). Retourneert meerdere kandidaatroutes, het totale tarief, de uitsplitsing van de tarieven per segment of per operator, reistijd, transfers en route.",
     "x_search_terms": [
       "openbaar vervoer",
       "treinroute",
@@ -632,7 +839,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Vertrekstation, bushalte, adres of faciliteit.",
     "param.destination.description": "Aankomststation, bushalte, adres of faciliteit.",
@@ -645,10 +853,18 @@
     "err.no_routes": "Er zijn geen openbaarvervoerroutes gevonden.",
     "err.search_failed": "Yahoo! Zoeken naar Japan Transit mislukt: %(error)s",
     "notice.fare": "Tarieven en dienstregelingen worden geleverd door Yahoo! Japan Transit en kan veranderen.",
-    "source.link": "[Open Yahoo! Japan Transitroute zoeken](%(url)s)"
+    "source.link": "[Open Yahoo! Japan Transitroute zoeken](%(url)s)",
+    "param.provider.description": "Routeaanbieder: Yahoo of Google.",
+    "err.provider_invalid": "Provider moet Yahoo of Google zijn.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY is niet ingesteld.",
+    "err.google_search_failed": "Google Zoeken naar Maps-route mislukt: %(error)s",
+    "notice.google_fare": "De beschikbaarheid en tarieven van Google routes zijn afhankelijk van de aanbieder en kunnen veranderen.",
+    "fare.ticket": "Tarief",
+    "fare.surcharge": "Toeslag",
+    "segment.walk": "Lopen"
   },
   "nn": {
-    "tool.description": "Søk japanske kollektivruter og priser med Yahoo! Japan Transit. Returnerer flere kandidatruter, reisetid, overføringer, pris og reiserute.",
+    "tool.description": "Søk Japanske kollektivruter med utvald leverandør (Yahoo! Japan Transit eller Google Maps). Returnerer flere kandidatruter, totalpris, prisoppdeling per segment eller per operatør, reisetid, overføringer og reiserute.",
     "x_search_terms": [
       "kollektivtransport-togrute - rutesøk-overføringsguide -乗換案内 togpris電車鉄道運賃-バス経路Yahoo Transit",
       "train route",
@@ -659,7 +875,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Avgangsstasjon, bussholdeplass, adresse eller anlegg.",
     "param.destination.description": "Ankomststasjon, bussholdeplass, adresse eller anlegg.",
@@ -672,10 +889,18 @@
     "err.no_routes": "Ingen kollektivruter er funnet.",
     "err.search_failed": "Yahoo! Japan Transit-søk mislyktes: %(error)s",
     "notice.fare": "Priser og tidsplaner er levert av Yahoo! Japan Transit og kan endres.",
-    "source.link": "[Åpne Yahoo! Japan Transit-rutesøk](%(url)s)"
+    "source.link": "[Åpne Yahoo! Japan Transit-rutesøk](%(url)s)",
+    "param.provider.description": "Rute leverandør: yahoo eller google.",
+    "err.provider_invalid": "Leverandør må være enten yahoo eller google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY er ikke angitt.",
+    "err.google_search_failed": "Google Rutesøk i Kart mislyktes: %(error)s",
+    "notice.google_fare": "Google rutetilgjengelighet og priser er leverandøravhengige og kan endres.",
+    "fare.ticket": "Pris",
+    "fare.surcharge": "Tilleggsgebyr",
+    "segment.walk": "Gonge"
   },
   "pl": {
-    "tool.description": "Szukaj tras i cen japońskiego transportu publicznego w Yahoo! Tranzyt Japonii. Zwraca wiele proponowanych tras, czas podróży, transfery, taryfę i plan podróży.",
+    "tool.description": "Przeszukuj trasy japońskiego transportu publicznego u wybranego dostawcy (Yahoo! Japan Transit lub mapy Google). Zwraca wiele proponowanych tras, cenę całkowitą, podział taryf na segment lub operatora, czas podróży, transfery i plan podróży.",
     "x_search_terms": [
       "transport publiczny",
       "trasa pociągu",
@@ -686,7 +911,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Transport Yahoo"
+      "Transport Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "Dworzec odjazdowy, przystanek autobusowy, adres lub obiekt.",
     "param.destination.description": "Stacja przyjazdowa, przystanek autobusowy, adres lub obiekt.",
@@ -699,10 +925,18 @@
     "err.no_routes": "Nie znaleziono żadnych tras transportu publicznego.",
     "err.search_failed": "Wieśniak! Wyszukiwanie transportu publicznego w Japonii nie powiodło się: %(error)s",
     "notice.fare": "Taryfy i rozkłady jazdy są dostarczane przez Yahoo! Japan Transit i może ulec zmianie.",
-    "source.link": "[Otwórz Yahoo! Wyszukiwanie tras transportu publicznego w Japonii](%(url)s)"
+    "source.link": "[Otwórz Yahoo! Wyszukiwanie tras transportu publicznego w Japonii](%(url)s)",
+    "param.provider.description": "Dostawca tras: Yahoo lub Google.",
+    "err.provider_invalid": "Dostawcą musi być Yahoo lub Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY nie jest ustawiony.",
+    "err.google_search_failed": "Google Wyszukiwanie trasy w Mapach nie powiodło się: %(error)s",
+    "notice.google_fare": "Dostępność tras i ceny Google zależą od operatora i mogą ulec zmianie.",
+    "fare.ticket": "Opłata",
+    "fare.surcharge": "Dopłata",
+    "segment.walk": "Chodzenie"
   },
   "pt": {
-    "tool.description": "Pesquise rotas e tarifas de transporte público japonês no Yahoo! Trânsito no Japão. Retorna múltiplas rotas candidatas, tempo de viagem, transferências, tarifa e itinerário.",
+    "tool.description": "Pesquise rotas de transporte público japonês com um provedor selecionado (Yahoo! Japan Transit ou Google Maps). Retorna múltiplas rotas candidatas, tarifa total, detalhamento de tarifa por segmento ou por operadora, tempo de viagem, transferências e itinerário.",
     "x_search_terms": [
       "transporte público",
       "rota de trem",
@@ -713,7 +947,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Trânsito Yahoo"
+      "Trânsito Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "Estação de partida, ponto de ônibus, endereço ou instalação.",
     "param.destination.description": "Estação de chegada, ponto de ônibus, endereço ou instalação.",
@@ -726,10 +961,18 @@
     "err.no_routes": "Nenhuma rota de transporte público foi encontrada.",
     "err.search_failed": "Yahoo! Falha na pesquisa de transporte público do Japão: %(error)s",
     "notice.fare": "Tarifas e horários são fornecidos pelo Yahoo! Trânsito no Japão e pode mudar.",
-    "source.link": "[Abra o Yahoo! Pesquisa de rota do Japão Transit](%(url)s)"
+    "source.link": "[Abra o Yahoo! Pesquisa de rota do Japão Transit](%(url)s)",
+    "param.provider.description": "Provedor de rota: Yahoo ou Google.",
+    "err.provider_invalid": "O provedor deve ser Google ou Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY não está definido.",
+    "err.google_search_failed": "Google Falha na pesquisa de rota no Maps: %(error)s",
+    "notice.google_fare": "A disponibilidade da rota e as tarifas de Google dependem do provedor e podem mudar.",
+    "fare.ticket": "Tarifa",
+    "fare.surcharge": "Sobretaxa",
+    "segment.walk": "Caminhando"
   },
   "pt_BR": {
-    "tool.description": "Pesquise rotas e tarifas de transporte público japonês no Yahoo! Trânsito no Japão. Retorna múltiplas rotas candidatas, tempo de viagem, transferências, tarifa e itinerário.",
+    "tool.description": "Pesquise rotas de transporte público japonês com um provedor selecionado (Yahoo! Japan Transit ou Google Maps). Retorna múltiplas rotas candidatas, tarifa total, detalhamento de tarifa por segmento ou por operadora, tempo de viagem, transferências e itinerário.",
     "x_search_terms": [
       "transporte público",
       "rota de trem",
@@ -740,7 +983,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Trânsito Yahoo"
+      "Trânsito Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "Estação de partida, ponto de ônibus, endereço ou instalação.",
     "param.destination.description": "Estação de chegada, ponto de ônibus, endereço ou instalação.",
@@ -753,10 +997,18 @@
     "err.no_routes": "Nenhuma rota de transporte público foi encontrada.",
     "err.search_failed": "Yahoo! Falha na pesquisa de transporte público do Japão: %(error)s",
     "notice.fare": "Tarifas e horários são fornecidos pelo Yahoo! Trânsito no Japão e pode mudar.",
-    "source.link": "[Abra o Yahoo! Pesquisa de rota do Japão Transit](%(url)s)"
+    "source.link": "[Abra o Yahoo! Pesquisa de rota do Japão Transit](%(url)s)",
+    "param.provider.description": "Provedor de rota: Yahoo ou Google.",
+    "err.provider_invalid": "O provedor deve ser Google ou Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY não está definido.",
+    "err.google_search_failed": "Google Falha na pesquisa de rota no Maps: %(error)s",
+    "notice.google_fare": "A disponibilidade da rota e as tarifas de Google dependem do provedor e podem mudar.",
+    "fare.ticket": "Tarifa",
+    "fare.surcharge": "Sobretaxa",
+    "segment.walk": "Caminhando"
   },
   "ro": {
-    "tool.description": "Căutați rute și tarife de transport public în Japonia cu Yahoo! Tranzitul Japoniei. Returnează mai multe rute candidate, timpul de călătorie, transferurile, tariful și itinerarul.",
+    "tool.description": "Căutați rute de transport public japoneze cu un furnizor selectat (Yahoo! Japan Transit sau Google Maps). Returnează mai multe rute candidate, tariful total, defalcarea tarifului per segment sau per operator, timpul de călătorie, transferurile și itinerarul.",
     "x_search_terms": [
       "transport public",
       "rută de tren",
@@ -767,7 +1019,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Stația de plecare, stația de autobuz, adresa sau instalația.",
     "param.destination.description": "Stație de sosire, stație de autobuz, adresă sau unitate.",
@@ -780,10 +1033,18 @@
     "err.no_routes": "Nu au fost găsite rute de transport public.",
     "err.search_failed": "Yahoo! Căutarea în transportul public din Japonia nu a reușit: %(error)s",
     "notice.fare": "Tarifele și orarele sunt furnizate de Yahoo! Japonia Tranzit și se poate schimba.",
-    "source.link": "[Deschideți Yahoo! Căutare rută de transport public în Japonia](%(url)s)"
+    "source.link": "[Deschideți Yahoo! Căutare rută de transport public în Japonia](%(url)s)",
+    "param.provider.description": "Furnizor de rută: Yahoo sau Google.",
+    "err.provider_invalid": "Furnizorul trebuie să fie fie Yahoo, fie Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY nu este setat.",
+    "err.google_search_failed": "Google Căutarea traseului pe Hărți a eșuat: %(error)s",
+    "notice.google_fare": "Google Disponibilitatea rutelor și tarifele depind de furnizor și se pot modifica.",
+    "fare.ticket": "Tariful",
+    "fare.surcharge": "Suplimentar",
+    "segment.walk": "Mersul pe jos"
   },
   "ru": {
-    "tool.description": "Ищите маршруты и тарифы общественного транспорта Японии с помощью Yahoo! Японский транзит. Возвращает несколько возможных маршрутов, время в пути, трансферы, тарифы и маршрут.",
+    "tool.description": "Найдите маршруты общественного транспорта Японии у выбранного поставщика (Yahoo! Japan Transit или Google Maps). Возвращает несколько возможных маршрутов, общую стоимость проезда, разбивку тарифов по сегментам или операторам, время в пути, пересадки и маршрут.",
     "x_search_terms": [
       "общественный транспорт",
       "маршрут поезда",
@@ -794,7 +1055,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo Transit"
+      "Yahoo Transit",
+      "Google Maps"
     ],
     "param.origin.description": "Станция отправления, автобусная остановка, адрес или учреждение.",
     "param.destination.description": "Станция прибытия, автобусная остановка, адрес или учреждение.",
@@ -807,10 +1069,18 @@
     "err.no_routes": "Маршруты общественного транспорта не найдены.",
     "err.search_failed": "Yahoo! Ошибка поиска транзита по Японии: %(error)s",
     "notice.fare": "Тарифы и расписание предоставлены Yahoo! Япония Транзит и может измениться.",
-    "source.link": "[Откройте Yahoo! Поиск маршрута транзита по Японии](%(url)s)"
+    "source.link": "[Откройте Yahoo! Поиск маршрута транзита по Японии](%(url)s)",
+    "param.provider.description": "Поставщик маршрутов: Yahoo или Google.",
+    "err.provider_invalid": "Поставщиком должен быть Yahoo или Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY не установлен.",
+    "err.google_search_failed": "Google Не удалось найти маршрут на Картах: %(error)s",
+    "notice.google_fare": "Google Наличие маршрутов и тарифы зависят от поставщика услуг и могут меняться.",
+    "fare.ticket": "Тариф",
+    "fare.surcharge": "Доплата",
+    "segment.walk": "Прогулка"
   },
   "sv": {
-    "tool.description": "Sök japanska kollektivtrafikrutter och priser med Yahoo! Japan Transit. Returnerar flera kandidatrutter, restid, överföringar, biljettpris och resplan.",
+    "tool.description": "Sök japanska kollektivtrafikrutter med en vald leverantör (Yahoo! Japan Transit eller Google Maps). Returnerar flera kandidatrutter, totalpris, prisuppdelning per segment eller per operatör, restid, överföringar och resplan.",
     "x_search_terms": [
       "kollektivtrafik",
       "tågväg",
@@ -821,7 +1091,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Avgångsstation, busshållplats, adress eller anläggning.",
     "param.destination.description": "Ankomststation, busshållplats, adress eller anläggning.",
@@ -834,10 +1105,18 @@
     "err.no_routes": "Inga kollektivtrafikvägar hittades.",
     "err.search_failed": "Yahoo! Japan Transit-sökning misslyckades: %(error)s",
     "notice.fare": "Priser och tidtabeller tillhandahålls av Yahoo! Japan Transit och kan ändras.",
-    "source.link": "[Öppna Yahoo! Japan Transit ruttsökning](%(url)s)"
+    "source.link": "[Öppna Yahoo! Japan Transit ruttsökning](%(url)s)",
+    "param.provider.description": "Ruttleverantör: Yahoo eller Google.",
+    "err.provider_invalid": "Leverantören måste vara antingen Yahoo eller Google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY är inte inställd.",
+    "err.google_search_failed": "Google Maps ruttsökning misslyckades: %(error)s",
+    "notice.google_fare": "Google rutttillgänglighet och priser är leverantörsberoende och kan ändras.",
+    "fare.ticket": "Pris",
+    "fare.surcharge": "Tilläggsavgift",
+    "segment.walk": "Promenader"
   },
   "sw": {
-    "tool.description": "Tafuta njia na nauli za usafiri wa umma za Kijapani kwa kutumia Yahoo! Usafiri wa Japani. Hurejesha njia nyingi za wagombea, muda wa kusafiri, uhamisho, nauli na ratiba.",
+    "tool.description": "Tafuta njia za usafiri wa umma za Kijapani ukitumia mtoa huduma aliyechaguliwa (Yahoo! Japan Transit au Google Ramani). Hurejesha njia nyingi za wagombea, nauli jumla, uchanganuzi wa nauli kwa kila sehemu au kwa kila mtoa huduma, muda wa kusafiri, uhamisho na ratiba.",
     "x_search_terms": [
       "usafiri wa umma",
       "njia ya treni",
@@ -848,7 +1127,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Usafiri wa Yahoo"
+      "Usafiri wa Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "Kituo cha kuondoka, kituo cha basi, anwani, au kituo.",
     "param.destination.description": "Kituo cha kuwasili, kituo cha basi, anwani, au kituo.",
@@ -861,10 +1141,18 @@
     "err.no_routes": "Hakuna njia za usafiri wa umma zilizopatikana.",
     "err.search_failed": "Yahoo! Utafutaji wa Usafiri wa Japani haukufaulu: %(error)s",
     "notice.fare": "Nauli na ratiba hutolewa na Yahoo! Japan Transit na inaweza kubadilika.",
-    "source.link": "[Fungua Yahoo! Utafutaji wa njia ya Usafiri wa Japani](%(url)s)"
+    "source.link": "[Fungua Yahoo! Utafutaji wa njia ya Usafiri wa Japani](%(url)s)",
+    "param.provider.description": "Mtoa huduma wa njia: yahoo au google.",
+    "err.provider_invalid": "Mtoa huduma lazima awe yahoo au google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY haijawekwa.",
+    "err.google_search_failed": "Google Utafutaji wa njia ya Ramani haukufaulu: %(error)s",
+    "notice.google_fare": "Google upatikanaji wa njia na nauli zinategemea mtoa huduma na zinaweza kubadilika.",
+    "fare.ticket": "Nauli",
+    "fare.surcharge": "Ada ya ziada",
+    "segment.walk": "Kutembea"
   },
   "th": {
-    "tool.description": "ค้นหาเส้นทางการขนส่งสาธารณะและค่าโดยสารของญี่ปุ่นด้วย Yahoo! การขนส่งของญี่ปุ่น ส่งคืนเส้นทางที่มีให้เลือกหลายเส้นทาง เวลาเดินทาง การต่อเครื่อง ค่าโดยสาร และรายละเอียดการเดินทาง",
+    "tool.description": "ค้นหาเส้นทางการขนส่งสาธารณะของญี่ปุ่นด้วยผู้ให้บริการที่เลือก (Yahoo! Japan Transit หรือ Google Maps) ส่งคืนเส้นทางที่เป็นตัวเลือกหลายเส้นทาง ค่าโดยสารทั้งหมด รายละเอียดค่าโดยสารต่อเซกเมนต์หรือต่อผู้ให้บริการ เวลาเดินทาง การต่อเครื่อง และแผนการเดินทาง",
     "x_search_terms": [
       "การขนส่งสาธารณะ",
       "เส้นทางรถไฟ",
@@ -875,7 +1163,8 @@
       "電車",
       "鉄道運賃",
       "ルス経路",
-      "การขนส่งสาธารณะของ Yahoo"
+      "การขนส่งสาธารณะของ Yahoo",
+      "Google Maps"
     ],
     "param.origin.description": "สถานีต้นทาง ป้ายรถเมล์ ที่อยู่ หรือสิ่งอำนวยความสะดวก",
     "param.destination.description": "สถานีปลายทาง ป้ายรถเมล์ ที่อยู่ หรือสิ่งอำนวยความสะดวก",
@@ -888,10 +1177,18 @@
     "err.no_routes": "ไม่พบเส้นทางการขนส่งสาธารณะ",
     "err.search_failed": "ยาฮู! การค้นหาระบบขนส่งมวลชนของญี่ปุ่นล้มเหลว: %(error)s",
     "notice.fare": "ค่าโดยสารและตารางเวลาให้บริการโดย Yahoo! Japan Transit และอาจมีการเปลี่ยนแปลง",
-    "source.link": "[เปิดยาฮู! ค้นหาเส้นทางการขนส่งสาธารณะของญี่ปุ่น](%(url)s)"
+    "source.link": "[เปิดยาฮู! ค้นหาเส้นทางการขนส่งสาธารณะของญี่ปุ่น](%(url)s)",
+    "param.provider.description": "ผู้ให้บริการเส้นทาง: yahoo หรือ google",
+    "err.provider_invalid": "ผู้ให้บริการต้องเป็น yahoo หรือ google",
+    "err.google_key_missing": "ไม่ได้ตั้งค่า UAGENT_GOOGLE_MAPS_API_KEY",
+    "err.google_search_failed": "Google การค้นหาเส้นทางแผนที่ล้มเหลว: %(error)s",
+    "notice.google_fare": "Google เส้นทางที่ว่างและค่าโดยสารขึ้นอยู่กับผู้ให้บริการและอาจมีการเปลี่ยนแปลง",
+    "fare.ticket": "ค่าโดยสาร",
+    "fare.surcharge": "ค่าบริการเพิ่มเติม",
+    "segment.walk": "เดิน"
   },
   "tr": {
-    "tool.description": "Yahoo! ile Japonya toplu taşıma rotalarını ve ücretlerini arayın Japonya Transit. Birden fazla aday rotayı, seyahat süresini, transferleri, ücreti ve seyahat planını döndürür.",
+    "tool.description": "Seçilen bir sağlayıcıyla (Yahoo! Japan Transit veya Google Haritalar) Japon toplu taşıma rotalarını arayın. Birden fazla aday rotayı, toplam ücreti, segment başına veya operatör başına ücret dökümünü, seyahat süresini, transferleri ve seyahat planını döndürür.",
     "x_search_terms": [
       "toplu taşıma",
       "tren rotası",
@@ -902,7 +1199,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Kalkış istasyonu, otobüs durağı, adres veya tesis.",
     "param.destination.description": "Varış istasyonu, otobüs durağı, adres veya tesis.",
@@ -915,10 +1213,18 @@
     "err.no_routes": "Toplu taşıma güzergahı bulunamadı.",
     "err.search_failed": "Yahoo! Japonya Transit araması başarısız oldu: %(error)s",
     "notice.fare": "Ücretler ve tarifeler Yahoo! Japonya Transit ve değişebilir.",
-    "source.link": "[Yahoo'yu açın! Japonya Transit rota araması](%(url)s)"
+    "source.link": "[Yahoo'yu açın! Japonya Transit rota araması](%(url)s)",
+    "param.provider.description": "Rota sağlayıcı: yahoo veya google.",
+    "err.provider_invalid": "Sağlayıcı yahoo ya da google olmalıdır.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY ayarlı değil.",
+    "err.google_search_failed": "Google Haritalar rota araması başarısız oldu: %(error)s",
+    "notice.google_fare": "Google güzergah kullanılabilirliği ve ücretler sağlayıcıya bağlıdır ve değişebilir.",
+    "fare.ticket": "Ücret",
+    "fare.surcharge": "Ek ücret",
+    "segment.walk": "Yürüyüş"
   },
   "uk": {
-    "tool.description": "Шукайте японські маршрути громадського транспорту та тарифи за допомогою Yahoo! Японський транзит. Повертає кілька варіантів маршрутів, час у дорозі, пересадки, вартість проїзду та маршрут.",
+    "tool.description": "Шукайте японські маршрути громадського транспорту за допомогою вибраного постачальника (Yahoo! Japan Transit або Google Maps). Повертає кілька потенційних маршрутів, загальну вартість, розподіл тарифів за сегментами або операторами, час у дорозі, пересадки та маршрут.",
     "x_search_terms": [
       "громадський транспорт",
       "маршрут поїзда",
@@ -929,7 +1235,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo transit"
+      "Yahoo transit",
+      "Google Maps"
     ],
     "param.origin.description": "Станція відправлення, автобусна зупинка, адреса чи заклад.",
     "param.destination.description": "Станція прибуття, автобусна зупинка, адреса або заклад.",
@@ -942,10 +1249,18 @@
     "err.no_routes": "Маршрутів громадського транспорту не знайдено.",
     "err.search_failed": "Yahoo! Помилка пошуку Japan Transit: %(error)s",
     "notice.fare": "Тарифи та розклад надає Yahoo! Японський транзит і може змінитися.",
-    "source.link": "[Відкрийте Yahoo! Пошук маршруту транзиту Японії](%(url)s)"
+    "source.link": "[Відкрийте Yahoo! Пошук маршруту транзиту Японії](%(url)s)",
+    "param.provider.description": "Провайдер маршруту: yahoo або google.",
+    "err.provider_invalid": "Постачальником має бути yahoo або google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY не встановлено.",
+    "err.google_search_failed": "Google Помилка пошуку маршруту на Картах: %(error)s",
+    "notice.google_fare": "Наявність маршруту Google і тарифи залежать від постачальника послуг і можуть змінюватися.",
+    "fare.ticket": "Вартість проїзду",
+    "fare.surcharge": "Доплата",
+    "segment.walk": "ходьба"
   },
   "vi": {
-    "tool.description": "Tìm kiếm các tuyến đường và giá vé giao thông công cộng Nhật Bản với Yahoo! Quá cảnh Nhật Bản. Trả về nhiều tuyến đường ứng viên, thời gian di chuyển, chuyển tuyến, giá vé và hành trình.",
+    "tool.description": "Tìm kiếm các tuyến giao thông công cộng của Nhật Bản với nhà cung cấp đã chọn (Yahoo! Japan Transit hoặc Google Maps). Trả về nhiều tuyến đường đề xuất, tổng giá vé, phân tích giá vé theo chặng hoặc theo nhà khai thác, thời gian di chuyển, chuyển tuyến và hành trình.",
     "x_search_terms": [
       "phương tiện công cộng",
       "tuyến tàu",
@@ -956,7 +1271,8 @@
       "電車",
       "鉄道運賃",
       "バス経路",
-      "Yahoo Transit"
+      "Yahoo Transit",
+      "Google Maps"
     ],
     "param.origin.description": "Trạm khởi hành, trạm xe buýt, địa chỉ hoặc cơ sở.",
     "param.destination.description": "Trạm đến, trạm xe buýt, địa chỉ hoặc cơ sở.",
@@ -969,10 +1285,18 @@
     "err.no_routes": "Không tìm thấy tuyến đường giao thông công cộng nào.",
     "err.search_failed": "Yahoo! Tìm kiếm Chuyển tuyến Nhật Bản không thành công: %(error)s",
     "notice.fare": "Giá vé và lịch trình được cung cấp bởi Yahoo! Japan Transit và có thể thay đổi.",
-    "source.link": "[Mở Yahoo! Tìm kiếm tuyến đường của Chuyển tuyến Nhật Bản](%(url)s)"
+    "source.link": "[Mở Yahoo! Tìm kiếm tuyến đường của Chuyển tuyến Nhật Bản](%(url)s)",
+    "param.provider.description": "Nhà cung cấp tuyến đường: yahoo hoặc google.",
+    "err.provider_invalid": "Nhà cung cấp phải là yahoo hoặc google.",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY chưa được đặt.",
+    "err.google_search_failed": "Google Tìm kiếm tuyến đường trên Bản đồ không thành công: %(error)s",
+    "notice.google_fare": "Google tình trạng sẵn có của tuyến đường và giá vé phụ thuộc vào nhà cung cấp và có thể thay đổi.",
+    "fare.ticket": "Giá vé",
+    "fare.surcharge": "Phụ phí",
+    "segment.walk": "Đi bộ"
   },
   "zh_CN": {
-    "tool.description": "使用 Yahoo! 搜索日本公共交通路线和票价日本运输。返回多条候选路线、行程时间、换乘、票价和行程。",
+    "tool.description": "通过选定的提供商（Yahoo! Japan Transit 或 Google 地图）搜索日本公共交通路线。返回多条候选路线、总票价、每个航段或每个运营商的票价明细、旅行时间、换乘和行程。",
     "x_search_terms": [
       "公共交通",
       "火车路线",
@@ -983,7 +1307,8 @@
       "电车",
       "鉄道运租赁",
       "バ斯経路",
-      "雅虎公交"
+      "雅虎公交",
+      "Google Maps"
     ],
     "param.origin.description": "出发站、巴士站、地址或设施。",
     "param.destination.description": "到达站、公交车站、地址或设施。",
@@ -996,10 +1321,18 @@
     "err.no_routes": "未找到公共交通路线。",
     "err.search_failed": "雅虎！日本交通搜索失败：%(error)s",
     "notice.fare": "票价和时刻表由 Yahoo! 提供日本交通可能会发生变化。",
-    "source.link": "[打开雅虎！日本交通路线搜索](%(url)s)"
+    "source.link": "[打开雅虎！日本交通路线搜索](%(url)s)",
+    "param.provider.description": "路线提供商：yahoo 或 google。",
+    "err.provider_invalid": "提供商必须是 yahoo 或 google。",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY 未设置。",
+    "err.google_search_failed": "Google 地图路线搜索失败：%(error)s",
+    "notice.google_fare": "Google 路线可用性和票价取决于提供商，并且可能会发生变化。",
+    "fare.ticket": "票价",
+    "fare.surcharge": "附加费",
+    "segment.walk": "步行"
   },
   "zh_TW": {
-    "tool.description": "使用 Yahoo! 搜尋日本公共交通路線和票價日本運輸。返回多條候選路線、行程時間、轉乘、票價和行程。",
+    "tool.description": "透過選定的提供者（Yahoo! Japan Transit 或 Google 地圖）搜尋日本公共交通路線。返回多條候選路線、總票價、每個航段或每個運營商的票價明細、旅行時間、換乘和行程。",
     "x_search_terms": [
       "大眾運輸",
       "火車路線",
@@ -1010,7 +1343,8 @@
       "電車",
       "鉄道運租賃",
       "バ斯経路",
-      "雅虎公車"
+      "雅虎公車",
+      "Google Maps"
     ],
     "param.origin.description": "出發站、巴士站、地址或設施。",
     "param.destination.description": "到達站、公車站、地址或設施。",
@@ -1023,6 +1357,14 @@
     "err.no_routes": "未找到公共運輸路線。",
     "err.search_failed": "雅虎！日本交通搜尋失敗：%(error)s",
     "notice.fare": "票價和時刻表由 Yahoo! 提供日本交通可能會改變。",
-    "source.link": "[打開雅虎！日本交通路線搜尋](%(url)s)"
+    "source.link": "[打開雅虎！日本交通路線搜尋](%(url)s)",
+    "param.provider.description": "路線提供者：yahoo 或 google。",
+    "err.provider_invalid": "提供者必須是 yahoo 或 google。",
+    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY 未設定。",
+    "err.google_search_failed": "Google 地圖路線搜尋失敗：%(error)s",
+    "notice.google_fare": "Google 路线可用性和票价取决于提供商，并且可能会发生变化。",
+    "fare.ticket": "票價",
+    "fare.surcharge": "附加費",
+    "segment.walk": "行人徒步區"
   }
 }

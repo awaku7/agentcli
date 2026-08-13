@@ -78,6 +78,57 @@ def test_resolve_ambiguous_origin_from_destination() -> None:
     assert route_tool._resolve_origin("郡山", "東京駅") == "郡山(福島県)"
 
 
+def test_google_provider_requires_api_key(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_GOOGLE_MAPS_API_KEY", raising=False)
+    result = json.loads(
+        route_tool.run_tool(
+            {"origin": "東京駅", "destination": "新宿駅", "provider": "google"}
+        )
+    )
+    assert result["ok"] is False
+    assert result["provider"] == "google"
+
+
+def test_google_route_normalization() -> None:
+    route = route_tool._google_route(
+        {
+            "summary": "JR and Metro",
+            "travelAdvisory": {
+                "transitFare": {"units": "220", "currencyCode": "JPY"}
+            },
+            "legs": [
+                {
+                    "duration": {"text": "1 hour 5 mins"},
+                    "distance": {"value": 5000},
+                    "departure_time": {"text": "09:00"},
+                    "arrival_time": {"text": "10:05"},
+                    "steps": [
+                        {
+                            "travel_mode": "TRANSIT",
+                            "duration": {"text": "60 mins"},
+                            "transit_details": {
+                                "departure_stop": {"name": "東京"},
+                                "arrival_stop": {"name": "新宿"},
+                                "departure_time": {"text": "09:00"},
+                                "arrival_time": {"text": "10:00"},
+                                "line": {
+                                    "short_name": "中央線",
+                                    "agencies": [{"name": "JR東日本"}],
+                                    "vehicle": {"name": "電車", "type": "RAIL"},
+                                },
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        1,
+    )
+    assert route["fare_yen"] == 220
+    assert route["duration_minutes"] == 65
+    assert route["segments"][0]["line"] == "中央線"
+
+
 def test_run_tool_normalizes_yahoo_result(monkeypatch) -> None:
     class Response:
         text = _html()
