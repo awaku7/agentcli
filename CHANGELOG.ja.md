@@ -1,6 +1,12 @@
 # 変更履歴
 
-## [未リリース]
+## [0.5.72] - 2026-08-13
+
+### 変更
+
+- fix(openrouter): 公式OpenRouter SDKのレスポンス（`reasoning` フィールド、`reasoning_content` ではない）から推論を抽出
+- fix(bitchat): 全ロケールで `nostr` ステータスの誤訳を修正
+- feat(bitchat): BLE受信・接続のデバッグログを追加（`UAGENT_BITCHAT_DEBUG=1` で有効）
 
 ## [0.5.71] - 2026-08-11
 

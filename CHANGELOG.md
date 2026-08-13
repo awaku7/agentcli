@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [0.5.72] - 2026-08-13
+
+### Changed
+
+- fix(openrouter): extract reasoning from the official OpenRouter SDK response (`reasoning` field, not `reasoning_content`)
+- fix(bitchat): correct mistranslation of `nostr` status across all locales
+- feat(bitchat): add BLE receive/connect debug logging (gated by `UAGENT_BITCHAT_DEBUG=1`)
 
 ## [0.5.71] - 2026-08-11
 
