@@ -334,6 +334,8 @@ def get_model_name() -> str:
         )
     if provider == "ollama":
         return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.1") or "llama3.1"
+    if provider == "llama_cpp":
+        return env_get("UAGENT_LLAMA_CPP_DEPNAME", "local-model") or "local-model"
     if provider == "nvidia":
         return (
             env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
@@ -573,6 +575,21 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         except TypeError:
             client = OpenAI(api_key=api_key, base_url=base_url)
 
+        return provider, client, model_name
+
+    if provider == "llama_cpp":
+        from openai import OpenAI  # llama-server exposes an OpenAI-compatible API
+
+        api_key = env_get("UAGENT_LLAMA_CPP_API_KEY") or "dummy"
+        base_url = core.get_env_url(
+            "UAGENT_LLAMA_CPP_BASE_URL", "http://localhost:8080/v1"
+        )
+        timeout_sec = _env_float("UAGENT_LLAMA_CPP_TIMEOUT_SEC", 120.0)
+        http_client = make_httpx_client(timeout=timeout_sec)
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
         return provider, client, model_name
 
     if provider == "openrouter":

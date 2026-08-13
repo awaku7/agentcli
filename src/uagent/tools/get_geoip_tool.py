@@ -70,7 +70,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "get_geoip",
         "description": _(
             "tool.description",
-            default="Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). Inaccurate with VPN/proxy/mobile. Prefer get_windows_gps for accurate GPS coordinates.",
+            default="Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). Inaccurate with VPN/proxy/mobile. Prefer get_current_location for accurate GPS coordinates.",
         ),
         "x_search_terms": _(
             "x_search_terms",

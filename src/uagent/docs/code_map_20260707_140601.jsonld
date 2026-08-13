@@ -24050,25 +24050,25 @@
       "uag:name": "analyze_image_zai"
     },
     {
-      "@id": "uag:file/src/uagent/tools/windows_gps_tool.py",
+      "@id": "uag:file/src/uagent/tools/current_location_tool.py",
       "@type": "uag:SourceFile",
       "uag:language": "Python",
-      "uag:relative_path": "src\\uagent\\tools\\windows_gps_tool.py"
+      "uag:relative_path": "src\\uagent\\tools\\current_location_tool.py"
     },
     {
-      "@id": "uag:file/src/uagent/tools/windows_gps_tool.py#run_tool",
+      "@id": "uag:file/src/uagent/tools/current_location_tool.py#run_tool",
       "@type": "uag:Symbol",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/windows_gps_tool.py"
+        "@id": "uag:file/src/uagent/tools/current_location_tool.py"
       },
       "uag:line": 44,
       "uag:name": "run_tool"
     },
     {
-      "@id": "uag:file/src/uagent/tools/windows_gps_tool.py#_get_location",
+      "@id": "uag:file/src/uagent/tools/current_location_tool.py#_get_location",
       "@type": "uag:Symbol",
       "uag:file": {
-        "@id": "uag:file/src/uagent/tools/windows_gps_tool.py"
+        "@id": "uag:file/src/uagent/tools/current_location_tool.py"
       },
       "uag:line": 111,
       "uag:name": "_get_location"

@@ -52,6 +52,12 @@ class TestProviderCandidates:
     def test_bedrock_maps_to_amazon(self) -> None:
         assert "amazon" in provider_candidates("bedrock")
 
+    def test_llama_cpp_falls_back_to_ollama_catalog(self) -> None:
+        candidates = provider_candidates("llama_cpp")
+        assert candidates[0] == "llama_cpp"
+        assert "llama.cpp" in candidates
+        assert "ollama" in candidates
+
 
 class TestGetCapability:
     def test_openai_gpt4o(self) -> None:

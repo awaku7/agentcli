@@ -30,11 +30,11 @@ def test_tool_calls_include_name() -> None:
 
 
 def test_clear_general_tool_loop_streaks_keeps_mgmt() -> None:
-    _TOOL_CALL_FINGERPRINTS["tool:get_windows_gps:{}"] = 3
+    _TOOL_CALL_FINGERPRINTS["tool:get_current_location:{}"] = 3
     _TOOL_CALL_FINGERPRINTS["tool_load:search_web"] = 2
     _TOOL_CALL_FINGERPRINTS["tool_catalog:query=news:all=False"] = 1
     clear_general_tool_loop_streaks()
-    assert "tool:get_windows_gps:{}" not in _TOOL_CALL_FINGERPRINTS
+    assert "tool:get_current_location:{}" not in _TOOL_CALL_FINGERPRINTS
     assert _TOOL_CALL_FINGERPRINTS["tool_load:search_web"] == 2
     assert _TOOL_CALL_FINGERPRINTS["tool_catalog:query=news:all=False"] == 1
 
@@ -42,7 +42,7 @@ def test_clear_general_tool_loop_streaks_keeps_mgmt() -> None:
 def test_catalog_boundary_allows_fresh_general_streak() -> None:
     # Build up a near-threshold general streak.
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD - 1):
-        blocked, _, _ = check_general_tool_loop([_tc("get_windows_gps")])
+        blocked, _, _ = check_general_tool_loop([_tc("get_current_location")])
         assert blocked is False
 
     # Re-planning boundary.
@@ -50,9 +50,9 @@ def test_catalog_boundary_allows_fresh_general_streak() -> None:
 
     # Same tool can start over without immediately tripping.
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD - 1):
-        blocked, _, count = check_general_tool_loop([_tc("get_windows_gps")])
+        blocked, _, count = check_general_tool_loop([_tc("get_current_location")])
         assert blocked is False
-    blocked, name, count = check_general_tool_loop([_tc("get_windows_gps")])
+    blocked, name, count = check_general_tool_loop([_tc("get_current_location")])
     assert blocked is True
-    assert name == "get_windows_gps"
+    assert name == "get_current_location"
     assert count == _GENERAL_TOOL_LOOP_THRESHOLD

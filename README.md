@@ -69,9 +69,28 @@ OpenAI Realtime supports a safety-limited Function Calling integration. The curr
 
 ### 🧠 Multi-Provider Architecture
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
 
 All providers share the same toolset and interface. Switch by setting `UAGENT_PROVIDER` — no code changes, no separate installations.
+
+#### Ollama and llama.cpp
+
+Ollama and llama.cpp are separate providers. Ollama uses its own service and model management, while `llama.cpp` connects to a `llama-server` OpenAI-compatible endpoint:
+
+```bash
+# Ollama
+UAGENT_PROVIDER=ollama
+UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
+UAGENT_OLLAMA_DEPNAME=llama3.1
+
+# llama.cpp / llama-server
+UAGENT_PROVIDER=llama_cpp
+UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
+UAGENT_LLAMA_CPP_DEPNAME=local-model
+UAGENT_LLAMA_CPP_API_KEY=dummy
+```
+
+The llama.cpp provider uses the Chat Completions-compatible path. Keep `UAGENT_RESPONSES=0` unless a compatible proxy is configured.
 
 ### ⚡ Parallel Tool Execution
 

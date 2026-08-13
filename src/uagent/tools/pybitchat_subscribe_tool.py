@@ -614,9 +614,9 @@ def _auto_detect_position() -> tuple[float | None, float | None]:
     """Auto-detect current position via GPS sensor or IP geolocation."""
     import re as _re
 
-    # Try Windows GPS sensor first
+    # Try the native location provider first
     try:
-        from .windows_gps_tool import run_tool as _gps
+        from .current_location_tool import run_tool as _gps
 
         raw = _gps({})
         # Parse a markdown table: "**Latitude**: 34.654"

@@ -14,6 +14,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "bedrock",
         "openrouter",
         "ollama",
+        "llama_cpp",
         "gemini",
         "vertexai",
         "grok",

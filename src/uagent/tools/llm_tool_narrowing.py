@@ -96,6 +96,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "vertexai": ("UAGENT_VERTEXAI_DEPNAME", "gemini-2.5-flash"),
     "claude": ("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5"),
     "ollama": ("UAGENT_OLLAMA_DEPNAME", "llama3.1"),
+    "llama_cpp": ("UAGENT_LLAMA_CPP_DEPNAME", "local-model"),
     "nvidia": ("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"),
     "deepseek": ("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash"),
     "zai": ("UAGENT_ZAI_DEPNAME", "glm-5.2"),

@@ -209,7 +209,17 @@ def _format_openmeteo(data: dict, display_city: str) -> str:
 def run_tool(args):
     lat = args.get("lat")
     lon = args.get("lon")
-    city = args.get("city", "")
+    city = (args.get("city") or "").strip()
+
+    # A coordinate query is valid only when both coordinates are present.
+    # If a city is supplied, it remains a valid city query and coordinates
+    # are ignored unless the pair is complete. Validate this before
+    # constructing the wttr.in URL.
+    if (lat is None) != (lon is None) and not city:
+        return _(
+            "err.location_required",
+            default="Error: Provide a city name, or lat+lon coordinates.",
+        )
 
     if lat is None and lon is None and not city:
         return _(
@@ -304,7 +314,13 @@ def run_tool(args):
 
         return "\n".join(output)
 
-    except requests.exceptions.RequestException as wttr_err:
+    except (
+        requests.exceptions.RequestException,
+        ValueError,
+        KeyError,
+        IndexError,
+        TypeError,
+    ) as wttr_err:
         # --- Fallback: Open-Meteo ---
         fallback_source = _("err.fallback_source", default="[via Open-Meteo fallback]")
         try:

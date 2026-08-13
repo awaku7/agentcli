@@ -22,6 +22,10 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "bedrock": ("amazon", "bedrock"),
     "openrouter": ("openrouter", "openai"),
     "ollama": ("ollama",),
+    # llama-server and Ollama can expose the same OpenAI-compatible model
+    # names. Prefer llama.cpp-specific rows, then transparently fall back to
+    # Ollama's catalog when llmcapa has no llama.cpp row for the model.
+    "llama_cpp": ("llama.cpp", "llama_cpp", "ollama"),
     "gemini": ("google", "gemini"),
     "vertexai": ("google", "vertexai"),
     "grok": ("xai", "grok"),

@@ -148,7 +148,7 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
 _MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
-# Same-args general tool loops (e.g. get_windows_gps xN) are also blocked.
+# Same-args general tool loops (e.g. get_current_location xN) are also blocked.
 # Keep this close to the management threshold so runaway tool spam stops early.
 _GENERAL_TOOL_LOOP_THRESHOLD = 4
 # Tools that may legitimately be called repeatedly with identical args in one
@@ -236,7 +236,7 @@ def clear_general_tool_loop_streaks() -> None:
     """Clear general-tool loop counters.
 
     tool_catalog is a re-planning boundary: once the model re-searches tools,
-    previous same-args streaks (e.g. get_windows_gps x3) should not carry over.
+    previous same-args streaks (e.g. get_current_location x3) should not carry over.
     Management fingerprints (tool_load:/tool_catalog:...) are kept.
     """
     for key in list(_TOOL_CALL_FINGERPRINTS.keys()):

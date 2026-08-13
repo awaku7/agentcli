@@ -76,6 +76,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("grok", "Grok"),
     ("claude", "Claude"),
     ("ollama", "Ollama"),
+    ("llama_cpp", "llama.cpp / llama-server"),
     ("nvidia", "NVIDIA"),
     ("deepseek", "DeepSeek"),
     ("zai", "Z.AI (Zhipu AI)"),
@@ -223,6 +224,28 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_OLLAMA_NUM_PREDICT",
             False,
             _("Ollama num_predict (default: llmcapa max_output_tokens)"),
+        ),
+    ],
+    "llama_cpp": [
+        (
+            "UAGENT_LLAMA_CPP_BASE_URL",
+            True,
+            _("llama.cpp server base URL (e.g. http://localhost:8080/v1)"),
+        ),
+        (
+            "UAGENT_LLAMA_CPP_API_KEY",
+            False,
+            _("llama.cpp API key (optional, default: dummy)"),
+        ),
+        (
+            "UAGENT_LLAMA_CPP_DEPNAME",
+            False,
+            _("llama.cpp model name (optional, default: local-model)"),
+        ),
+        (
+            "UAGENT_LLAMA_CPP_TIMEOUT_SEC",
+            False,
+            _("llama.cpp request timeout in seconds (default: 120)"),
         ),
     ],
     "deepseek": [
