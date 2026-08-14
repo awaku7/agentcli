@@ -21,3 +21,19 @@ def test_unknown_action_is_rejected() -> None:
         assert "unsupported policy action" in str(exc)
     else:
         raise AssertionError("invalid action was accepted")
+
+
+def test_mcp_skill_plugin_and_credential_decisions() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "mcp_servers": {"trusted.example": {"action": "allow"}, "evil.example": {"action": "deny"}},
+            "credentials": {"provider/openai": {"action": "deny"}},
+            "skills": {"unsafe": {"action": "deny"}},
+            "plugins": {"unknown": {"action": "confirm"}},
+        }
+    )
+    assert policy.decide_mcp_server("https://evil.example/mcp").denied
+    assert not policy.decide_mcp_server("https://trusted.example/mcp").denied
+    assert policy.decide_credential("provider/openai").denied
+    assert policy.decide_skill("unsafe").denied
+    assert policy.decide_plugin("unknown").requires_confirmation

@@ -72,6 +72,16 @@ class MCPClient:
         http_config: MCPHTTPConfig | None = None,
     ) -> None:
         self.url = url
+        if self.url:
+            from ..enterprise_policy import get_enterprise_policy
+
+            mcp_decision = get_enterprise_policy().decide_mcp_server(self.url)
+            if mcp_decision.denied:
+                raise MCPTransportError(
+                    "MCP_POLICY_DENIED",
+                    "connect",
+                    {"reason": mcp_decision.reason, "url": self.url},
+                )
         self.headers = headers or {}
         self.command = command or ""
         self.args = args or []

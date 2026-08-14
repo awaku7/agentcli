@@ -253,7 +253,7 @@ network:
 - [x] trace / duration / correlation ID（event_id / correlation_id / duration_ms / tool_call_id）
 - [x] Enterprise Policy Engine (`src/uagent/tools/enterprise_policy.py`)
 - [ ] Skill / Plugin permission
-- [ ] MCP / network allowlist
+- [x] MCP / network allowlist (`EnterprisePolicy`)
 
 ### Phase D: 高度化
 

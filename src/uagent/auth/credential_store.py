@@ -235,6 +235,14 @@ def resolve_credential_secret(
 ) -> str | None:
     """Resolve a credential from the shared store, then environment fallback."""
     _validate_name(name)
+    try:
+        from ..tools.enterprise_policy import get_enterprise_policy
+
+        decision = get_enterprise_policy().decide_credential(name)
+        if decision.denied:
+            return None
+    except Exception:
+        pass
     active_store = store or get_default_credential_store()
     if active_store is not None:
         credential = active_store.get(name)

@@ -32,6 +32,8 @@ class EnterprisePolicy:
     mcp_servers: dict[str, str] = field(default_factory=dict)
     network: dict[str, Any] = field(default_factory=dict)
     credentials: dict[str, str] = field(default_factory=dict)
+    skills: dict[str, str] = field(default_factory=dict)
+    plugins: dict[str, str] = field(default_factory=dict)
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any] | None) -> "EnterprisePolicy":
@@ -42,6 +44,8 @@ class EnterprisePolicy:
             mcp_servers=_actions(raw.get("mcp_servers")),
             network=dict(raw.get("network") or {}),
             credentials=_actions(raw.get("credentials")),
+            skills=_actions(raw.get("skills")),
+            plugins=_actions(raw.get("plugins")),
         )
 
     @classmethod
@@ -64,6 +68,25 @@ class EnterprisePolicy:
     def from_environment(cls) -> "EnterprisePolicy":
         path = (os.environ.get("UAGENT_POLICY_FILE") or "").strip()
         return cls.from_file(path) if path else cls()
+
+    def decide_credential(self, name: str) -> PolicyDecision:
+        action = _normalize_action(self.credentials.get(name, "allow"))
+        return PolicyDecision(action, f"credential:{name}") if action != "allow" else PolicyDecision("allow")
+
+    def decide_mcp_server(self, url: str) -> PolicyDecision:
+        for pattern, action in self.mcp_servers.items():
+            if pattern in url:
+                normalized = _normalize_action(action)
+                return PolicyDecision(normalized, f"mcp:{pattern}")
+        return PolicyDecision("allow")
+
+    def decide_skill(self, name: str) -> PolicyDecision:
+        action = _normalize_action(self.skills.get(name, "allow"))
+        return PolicyDecision(action, f"skill:{name}") if action != "allow" else PolicyDecision("allow")
+
+    def decide_plugin(self, name: str) -> PolicyDecision:
+        action = _normalize_action(self.plugins.get(name, "allow"))
+        return PolicyDecision(action, f"plugin:{name}") if action != "allow" else PolicyDecision("allow")
 
     def decide(self, tool_name: str, args: Mapping[str, Any] | None = None) -> PolicyDecision:
         args = args or {}
