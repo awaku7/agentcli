@@ -17,23 +17,25 @@ try:
     import pyautogui
 except Exception:
     pyautogui = None
+_PYAUTOGUI_AVAILABLE_AT_IMPORT = pyautogui is not None
 
 try:
     import pygetwindow
 except Exception:
     pygetwindow = None
+_PYGETWINDOW_AVAILABLE_AT_IMPORT = pygetwindow is not None
 
 
 def _ensure_screenshot_dependencies() -> None:
     global pyautogui, pygetwindow
-    if pyautogui is None and install_with_status("pyautogui"):
+    if (not _PYAUTOGUI_AVAILABLE_AT_IMPORT) and pyautogui is None and install_with_status("pyautogui"):
         try:
             import pyautogui as _pyautogui
 
             pyautogui = _pyautogui
         except Exception:
             pass
-    if pygetwindow is None and install_with_status("pygetwindow"):
+    if (not _PYGETWINDOW_AVAILABLE_AT_IMPORT) and pygetwindow is None and install_with_status("pygetwindow"):
         try:
             import pygetwindow as _pygetwindow
 

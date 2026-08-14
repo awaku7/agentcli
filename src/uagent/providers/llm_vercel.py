@@ -434,9 +434,7 @@ def vercel_chat_with_tools(
                             "Model does not support tools. Auto-disabling tools and retrying..."
                         )
                     )
-                    from .. import core as _core_module
-
-                    _core_module.tools_enabled = False
+                    core.tools_enabled = False
                     send_tools_this_round = False
                     req_tools = None
                     continue

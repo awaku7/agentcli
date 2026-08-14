@@ -110,12 +110,22 @@ def _ask_reviewer_judgment(
     else:
         raw = (result_text or "").strip()
 
-    upper = raw.upper()
-    if "COMPLETE" in upper:
-        judgment = "COMPLETE"
+    # Only an explicit decision token may stop auto-pilot.  Substring matching
+    # incorrectly treated phrases such as "not COMPLETE" or "INCOMPLETE" as
+    # successful completion.
+    decision = ""
+    for line in raw.splitlines():
+        token = line.strip().upper()
+        if token == "COMPLETE" or token.startswith("COMPLETE:"):
+            decision = "COMPLETE"
+            break
+        if token == "CONTINUE" or token.startswith("CONTINUE:"):
+            decision = "CONTINUE"
+            break
+    judgment = "COMPLETE" if decision == "COMPLETE" else "CONTINUE"
+    if judgment == "COMPLETE":
         feedback = ""
     else:
-        judgment = "CONTINUE"
         # Extract feedback after "CONTINUE:" or the whole text minus "CONTINUE"
         feedback = raw
         for prefix in ("CONTINUE:", "continue:", "CONTINUE", "continue"):

@@ -14,14 +14,14 @@ from urllib.parse import urlencode
 
 from .oauth_flow import OAuthTokenResponse, exchange_authorization_code
 from .oauth_metadata import AuthorizationServerMetadata
-from .oauth_pkce import (
+from ...auth.pkce import (
     build_authorization_url,
     code_challenge_s256,
     generate_code_verifier,
     generate_state,
     validate_state,
 )
-from .token_store import StoredToken, TokenStore
+from ...auth.token_store import StoredToken, TokenStore
 
 
 @dataclass(frozen=True)

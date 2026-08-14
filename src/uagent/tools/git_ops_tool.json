@@ -48,7 +48,7 @@
       "git プル",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "危険な操作を許可するかどうか（既定値は false）。例: push --force、reset --hard。",
     "tool.description": "安全第一の制限を設けて Git コマンドを実行します。一部の操作や引数内の特殊文字は、セキュリティのために制限される場合があります。"
   },
   "es": {

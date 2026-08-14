@@ -5,6 +5,10 @@ import sys
 import time
 from datetime import datetime, timezone
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 
 Location = tuple[float, float, float | None, str | None, str | None]
 
@@ -17,7 +21,7 @@ def get_location() -> Location:
         return _macos()
     if sys.platform.startswith("linux"):
         return _linux()
-    raise RuntimeError(f"Unsupported platform: {sys.platform}")
+    raise RuntimeError(_("location.unsupported_platform", default="Unsupported platform: {platform}").format(platform=sys.platform))
 
 
 def _windows() -> Location:
@@ -28,8 +32,10 @@ def _windows() -> Location:
         "winrt.windows.devices.geolocation",
     ):
         raise RuntimeError(
-            "Windows Location API backend is unavailable; install "
-            "winrt-Windows.Devices.Geolocation"
+            _(
+                "location.windows_unavailable",
+                default="Windows Location API backend is unavailable; install winrt-Windows.Devices.Geolocation",
+            )
         )
     from winrt.windows.devices.geolocation import Geolocator
 
@@ -52,16 +58,20 @@ def _macos() -> Location:
         "pyobjc-framework-CoreLocation", "CoreLocation", version_spec=">=11.1"
     ):
         raise RuntimeError(
-            "macOS Core Location backend is unavailable; install "
-            "pyobjc-framework-CoreLocation"
+            _(
+                "location.macos_unavailable",
+                default="macOS Core Location backend is unavailable; install pyobjc-framework-CoreLocation",
+            )
         )
     try:
         import CoreLocation
         from Foundation import NSDate, NSRunLoop, NSObject
     except ImportError as exc:
         raise RuntimeError(
-            "macOS Core Location backend is unavailable; install "
-            "pyobjc-framework-CoreLocation"
+            _(
+                "location.macos_unavailable",
+                default="macOS Core Location backend is unavailable; install pyobjc-framework-CoreLocation",
+            )
         ) from exc
 
     class Delegate(NSObject):
@@ -92,7 +102,7 @@ def _macos() -> Location:
     if delegate.error is not None:
         raise RuntimeError(str(delegate.error))
     if delegate.location is None:
-        raise RuntimeError("Timed out waiting for macOS location")
+        raise RuntimeError(_("location.error", default="Timed out waiting for macOS location"))
 
     coord = delegate.location.coordinate
     timestamp = delegate.location.timestamp
@@ -117,7 +127,10 @@ def _linux() -> Location:
 
     if not install_with_status("dbus-next", "dbus_next", version_spec=">=0.2.3"):
         raise RuntimeError(
-            "Linux GeoClue2 backend is unavailable; install dbus-next"
+            _(
+                "location.linux_unavailable",
+                default="Linux GeoClue2 backend is unavailable; install dbus-next",
+            )
         )
     from dbus_next import BusType, Variant
     from dbus_next.aio import MessageBus

@@ -11,7 +11,7 @@ from .oauth_authorization import OAuthAuthorizationSession
 from .oauth_callback import OAuthCallbackListener
 from .oauth_flow import OAuthTokenResponse
 from .oauth_metadata import AuthorizationServerMetadata
-from .token_store import TokenStore
+from ...auth.token_store import TokenStore
 
 
 async def authorize_with_local_callback(

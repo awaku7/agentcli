@@ -10,7 +10,7 @@ import httpx
 
 from .errors import MCPTransportError
 from .oauth_flow import refresh_access_token
-from .token_store import StoredToken, TokenStore
+from ...auth.token_store import StoredToken, TokenStore
 
 
 class OAuthTokenProvider:

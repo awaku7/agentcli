@@ -1155,11 +1155,10 @@ def gemini_chat_with_tools(
                 # Stop consuming Gemini chunks once the c-key interrupt is set.
                 # The outer round handles the common stop-prompt path.
                 try:
-                    from uagent import core as _core_module
-
-                    with _core_module.interrupt_lock:
-                        if _core_module.interrupt_requested:
-                            break
+                    if core is not None:
+                        with core.interrupt_lock:
+                            if core.interrupt_requested:
+                                break
                 except Exception:
                     pass
                 (

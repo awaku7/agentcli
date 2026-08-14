@@ -29,9 +29,13 @@ from typing import Optional
 from pathlib import Path
 
 import threading
+import contextvars
 
 # Thread-local language override (used by Web per-room locale)
 _thread_lang = threading.local()
+_context_lang: contextvars.ContextVar[str | None] = contextvars.ContextVar(
+    "uagent_locale", default=None
+)
 
 
 def set_thread_lang(lang: str | None) -> None:
@@ -61,6 +65,32 @@ def get_thread_lang() -> str | None:
     except Exception:
         pass
     return None
+
+
+def set_contextvar_locale(lang: str | None) -> contextvars.Token[str | None]:
+    """Set the locale for the current async context and return a reset token."""
+
+    normalized = _normalize_lang_tag(lang) if lang else None
+    return _context_lang.set(normalized)
+
+
+def reset_contextvar_locale(token: contextvars.Token[str | None]) -> None:
+    """Restore a locale previously replaced by set_contextvar_locale."""
+
+    _context_lang.reset(token)
+
+
+def get_contextvar_locale() -> str | None:
+    """Return the locale carried by the current async context, if any."""
+
+    value = _context_lang.get()
+    return value.strip().lower() if isinstance(value, str) and value.strip() else None
+
+
+def get_locale() -> str:
+    """Return the effective locale for synchronous and asynchronous callers."""
+
+    return get_contextvar_locale() or get_thread_lang() or detect_lang()
 
 
 def _find_localedir_candidates() -> list[str]:
@@ -400,7 +430,7 @@ def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
     If translation is missing, fall back to `default` when provided,
     otherwise fall back to `msgid`.
     """
-    lang = get_thread_lang() or detect_lang()
+    lang = get_locale()
     tr = _get_translation(lang)
     try:
         text = tr.gettext(msgid)

@@ -25,9 +25,15 @@ except ImportError:
     from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
-from ..i18n import _
+from ..i18n import (
+    _,
+    detect_lang,
+    reset_contextvar_locale,
+    set_contextvar_locale,
+)
 from ..runtime.runtime_init import reload_dotenv_custom
 from ..runtime.runtime_env import validate_or_exit_startup_env
+from ..runtime.logging_setup import log_event
 from .auth import require_bearer_auth
 from .engine import run_once
 from .errors import A2AHttpError, aip193_error
@@ -37,7 +43,7 @@ from .models import (
     SendMessageResponse,
     task_to_model,
 )
-from .task_store import InMemoryTaskStore, TaskRecord
+from .task_store import InMemoryTaskStore, TaskRecord, TaskRuntime, TaskStatus
 
 
 def _bool_env(name: str, default: bool = False) -> bool:
@@ -51,6 +57,9 @@ def build_app() -> FastAPI:
     app = FastAPI(title=_("uagent A2A"))
 
     store = InMemoryTaskStore()
+    from ..tools import configure_default_confirmation
+
+    configure_default_confirmation()
     sem = asyncio.Semaphore(int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
 
     @app.exception_handler(A2AHttpError)
@@ -106,30 +115,68 @@ def build_app() -> FastAPI:
         }
 
     async def _execute_task(task_id: str, user_text: str) -> None:
-        async with sem:
-            assistant_msg, err = run_once(user_text=user_text)
-            if err:
-                store.update(task_id, status="FAILED", error=err)
-                return
-            store.update(
-                task_id,
-                status="SUCCEEDED",
-                output_message=assistant_msg,
-            )
+        runtime = store.runtime(task_id)
+        locale_token = set_contextvar_locale(runtime.locale if runtime else detect_lang())
+        try:
+            async with sem:
+                if runtime and runtime.cancel_event and runtime.cancel_event.is_set():
+                    store.transition(task_id, TaskStatus.CANCEL_REQUESTED.value, TaskStatus.CANCELLED.value)
+                    return
+                try:
+                    assistant_msg, err = await asyncio.to_thread(run_once, user_text=user_text)
+                except asyncio.CancelledError:
+                    store.transition(
+                        task_id,
+                        (TaskStatus.IN_PROGRESS.value, TaskStatus.CANCEL_REQUESTED.value),
+                        TaskStatus.CANCELLED.value,
+                    )
+                    raise
+                except Exception as exc:
+                    store.transition(
+                        task_id,
+                        TaskStatus.IN_PROGRESS.value,
+                        TaskStatus.FAILED.value,
+                        error={"code": "INTERNAL", "message": str(exc)},
+                    )
+                    return
+                if err:
+                    store.transition(
+                        task_id,
+                        TaskStatus.IN_PROGRESS.value,
+                        TaskStatus.FAILED.value,
+                        error=err,
+                    )
+                    return
+                store.transition(
+                    task_id,
+                    TaskStatus.IN_PROGRESS.value,
+                    TaskStatus.SUCCEEDED.value,
+                    output_message=assistant_msg,
+                )
+        finally:
+            reset_contextvar_locale(locale_token)
 
     @app.post("/message:send", response_model=SendMessageResponse)
     async def message_send(
         req: SendMessageRequest,
+        request: Request,
         _auth: Any = Depends(require_bearer_auth),
     ) -> SendMessageResponse:
         user_text = str(req.message.content or "")
         task_id = str(uuid4())
         rec = TaskRecord(id=task_id, input_message=req.message.model_dump())
         store.create(rec)
+        log_event("a2a.task.created", task_id=task_id, locale=request.headers.get("accept-language", ""))
+
+        runtime = TaskRuntime(
+            cancel_event=asyncio.Event(),
+            locale=(request.headers.get("accept-language", "").split(",")[0] or detect_lang()),
+        )
+        store.register_runtime(task_id, runtime)
 
         # Execute synchronously unless returnImmediately is true.
         if bool(req.returnImmediately):
-            asyncio.create_task(_execute_task(task_id, user_text))
+            runtime.asyncio_task = asyncio.create_task(_execute_task(task_id, user_text))
             return SendMessageResponse(task=task_to_model(store.get(task_id)))  # type: ignore[arg-type]
 
         await _execute_task(task_id, user_text)
@@ -204,8 +251,29 @@ def build_app() -> FastAPI:
             raise A2AHttpError(
                 status_code=404, code="NOT_FOUND", message="Task not found"
             )
-        # Best-effort: we do not interrupt in-flight execution yet.
-        store.update(task_id, status="CANCELLED")
+        if rec.status in (
+            TaskStatus.SUCCEEDED.value,
+            TaskStatus.FAILED.value,
+            TaskStatus.CANCELLED.value,
+        ):
+            return {"task": task_to_model(rec).model_dump()}
+
+        runtime = store.runtime(task_id)
+        requested = store.transition(
+            task_id,
+            TaskStatus.IN_PROGRESS.value,
+            TaskStatus.CANCEL_REQUESTED.value,
+        )
+        if requested is not None and runtime:
+            if runtime.cancel_event:
+                runtime.cancel_event.set()
+            if runtime.asyncio_task and not runtime.asyncio_task.done():
+                runtime.asyncio_task.cancel()
+            store.transition(
+                task_id,
+                TaskStatus.CANCEL_REQUESTED.value,
+                TaskStatus.CANCELLED.value,
+            )
         rec2 = store.get(task_id)
         return {"task": task_to_model(rec2).model_dump()}  # type: ignore[arg-type]
 

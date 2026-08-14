@@ -1631,6 +1631,26 @@ _PARALLEL_TOOL_EXECUTOR = concurrent.futures.ThreadPoolExecutor(
 
 # Lock for thread-safe [TOOL] trace output
 _TRACE_LOCK = Lock()
+_CONFIRMATION_CALLBACK = None
+
+
+def set_confirmation_callback(callback):
+    """Install a host/UI confirmation callback for side-effecting tools."""
+    global _CONFIRMATION_CALLBACK
+    _CONFIRMATION_CALLBACK = callback
+
+
+def configure_default_confirmation() -> None:
+    from .tool_policy import default_confirmation_callback
+
+    set_confirmation_callback(default_confirmation_callback)
+
+
+def get_tool_policy(tool_name: str, args: dict[str, Any] | None = None):
+    """Return the normalized side-effect policy for a tool call."""
+    from .tool_policy import policy_for
+
+    return policy_for(tool_name, args)
 
 
 def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool:
@@ -1641,9 +1661,13 @@ def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool
     remain serial.
     """
     _ensure_loaded()
-    if tool_name == "http_request":
-        method = str((args or {}).get("method") or "GET").upper()
-        return method in {"GET", "HEAD", "OPTIONS"}
+    from .tool_policy import is_parallel_safe as _policy_is_parallel_safe
+
+    policy_result = _policy_is_parallel_safe(tool_name, args)
+    if policy_result:
+        return True
+    # Compatibility fallback for existing plugin declarations. Unknown tools
+    # remain serial unless they explicitly opted into the legacy flag.
     for spec in TOOL_SPECS:
         if spec.get("function", {}).get("name") == tool_name:
             return bool(spec.get("x_parallel_safe", False))
@@ -1730,6 +1754,20 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                 pass
         if runner is None:
             return f"[tool error] unknown tool: {name}"
+
+    policy = get_tool_policy(name, args)
+    try:
+        from ..runtime.logging_setup import log_event
+
+        log_event("tool.dispatch", tool=name, side_effect=policy.side_effect.value, resource_key=policy.resource_key)
+    except Exception:
+        pass
+    if policy.requires_confirmation and _CONFIRMATION_CALLBACK is not None:
+        try:
+            if not bool(_CONFIRMATION_CALLBACK(name, args, policy)):
+                return "[tool policy] confirmation denied"
+        except Exception as exc:
+            return f"[tool policy] confirmation failed: {type(exc).__name__}"
 
     # ---- trace (pre) ----
     # Use pre-built flag to avoid linear scan of TOOL_SPECS.

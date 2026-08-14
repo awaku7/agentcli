@@ -491,9 +491,7 @@ def together_chat_with_tools(
                             "Auto-disabling tools and retrying..."
                         )
                     )
-                    from .. import core as _core_module
-
-                    _core_module.tools_enabled = False
+                    core.tools_enabled = False
                     send_tools_this_round = False
                     req_tools = None
                     continue

@@ -11,6 +11,7 @@ from typing import Any
 from urllib.parse import urljoin, urlparse
 
 from .errors import MCPProtocolError, MCPTransportError
+from ...auth.oauth_common import OAuthMetadataTrustError, validate_endpoint_trust
 
 
 @dataclass(frozen=True)
@@ -38,6 +39,50 @@ def protected_resource_metadata_url(resource_url: str) -> str:
         raise ValueError("resource URL must be absolute")
     origin = f"{parsed.scheme}://{parsed.netloc}"
     return urljoin(origin + "/", ".well-known/oauth-protected-resource")
+
+
+def protected_resource_metadata_urls(resource_url: str) -> tuple[str, ...]:
+    """Return path-aware then origin RFC 9728 discovery candidates."""
+    parsed = urlparse(resource_url)
+    if not parsed.scheme or not parsed.netloc:
+        raise ValueError("resource URL must be absolute")
+    path = parsed.path or "/"
+    candidates: list[str] = []
+    if path != "/":
+        candidates.append(
+            f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-protected-resource{path}"
+        )
+    candidates.append(f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-protected-resource")
+    return tuple(dict.fromkeys(candidates))
+
+
+def authorization_server_metadata_urls(issuer: str) -> tuple[str, ...]:
+    """Return RFC 8414 path-aware and origin discovery candidates."""
+    parsed = urlparse(issuer)
+    if not parsed.scheme or not parsed.netloc:
+        raise ValueError("issuer must be an absolute URL")
+    candidates: list[str] = []
+    path = parsed.path.rstrip("/")
+    if path:
+        candidates.append(
+            f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-authorization-server{path}"
+        )
+    candidates.append(f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-authorization-server")
+    return tuple(dict.fromkeys(candidates))
+
+
+def _is_localhost(host: str) -> bool:
+    return host in {"localhost", "127.0.0.1", "::1"}
+
+
+def validate_oauth_transport(url: str, *, allow_http_localhost: bool = True) -> None:
+    """Reject insecure OAuth metadata and endpoint URLs by default."""
+    parsed = urlparse(url)
+    if parsed.scheme == "https":
+        return
+    if parsed.scheme == "http" and allow_http_localhost and _is_localhost(parsed.hostname or ""):
+        return
+    raise MCPProtocolError("MCP_INSECURE_OAUTH_URL", "oauth-metadata", {"url": url})
 
 
 def authorization_server_metadata_url(issuer: str) -> str:
@@ -71,16 +116,36 @@ async def fetch_protected_resource_metadata(
     *,
     http_client: Any,
 ) -> ProtectedResourceMetadata:
-    url = protected_resource_metadata_url(resource_url)
-    try:
-        response = await http_client.get(url, headers={"Accept": "application/json"})
-    except Exception as exc:
+    payload: dict[str, Any] | None = None
+    last_error: Exception | None = None
+    for url in protected_resource_metadata_urls(resource_url):
+        try:
+            response = await http_client.get(url, headers={"Accept": "application/json"})
+            if response.status_code >= 400:
+                continue
+            candidate = _json_response(response, "oauth-protected-resource")
+            resource = str(candidate.get("resource") or "")
+            if resource and resource != resource_url:
+                last_error = MCPProtocolError(
+                    "MCP_RESOURCE_METADATA_MISMATCH",
+                    "oauth-protected-resource",
+                    {"expected": resource_url, "actual": resource},
+                )
+                continue
+            if "authorization_servers" not in candidate:
+                continue
+            payload = candidate
+            break
+        except Exception as exc:
+            last_error = exc
+    if payload is None:
+        if last_error is not None:
+            raise last_error
         raise MCPTransportError(
             "MCP_METADATA_REQUEST_FAILED",
             "oauth-protected-resource",
-            {"error": str(exc)},
-        ) from exc
-    payload = _json_response(response, "oauth-protected-resource")
+            {"error": "no valid metadata candidate"},
+        )
     resource = str(payload.get("resource") or resource_url)
     if resource != resource_url:
         raise MCPProtocolError(
@@ -104,23 +169,35 @@ async def fetch_authorization_server_metadata(
     *,
     http_client: Any,
 ) -> AuthorizationServerMetadata:
-    url = authorization_server_metadata_url(issuer)
-    try:
-        response = await http_client.get(url, headers={"Accept": "application/json"})
-    except Exception as exc:
+    payload: dict[str, Any] | None = None
+    last_error: Exception | None = None
+    for url in authorization_server_metadata_urls(issuer):
+        try:
+            response = await http_client.get(url, headers={"Accept": "application/json"})
+            if response.status_code >= 400:
+                continue
+            candidate = _json_response(response, "oauth-authorization-server")
+            actual_issuer = str(candidate.get("issuer") or "")
+            if actual_issuer.rstrip("/") != issuer.rstrip("/"):
+                last_error = MCPProtocolError(
+                    "MCP_ISSUER_MISMATCH",
+                    "oauth-authorization-server",
+                    {"expected": issuer, "actual": actual_issuer},
+                )
+                continue
+            payload = candidate
+            break
+        except Exception as exc:
+            last_error = exc
+    if payload is None:
+        if last_error is not None:
+            raise last_error
         raise MCPTransportError(
             "MCP_METADATA_REQUEST_FAILED",
             "oauth-authorization-server",
-            {"error": str(exc)},
-        ) from exc
-    payload = _json_response(response, "oauth-authorization-server")
-    actual_issuer = str(payload.get("issuer") or "")
-    if actual_issuer.rstrip("/") != issuer.rstrip("/"):
-        raise MCPProtocolError(
-            "MCP_ISSUER_MISMATCH",
-            "oauth-authorization-server",
-            {"expected": issuer, "actual": actual_issuer},
+            {"error": "no valid metadata candidate"},
         )
+    actual_issuer = str(payload.get("issuer") or "")
     authorization_endpoint = str(payload.get("authorization_endpoint") or "")
     token_endpoint = str(payload.get("token_endpoint") or "")
     if not authorization_endpoint or not token_endpoint:
@@ -128,6 +205,17 @@ async def fetch_authorization_server_metadata(
             "MCP_AUTHORIZATION_ENDPOINT_MISSING", "oauth-authorization-server", {}
         )
     registration_endpoint = payload.get("registration_endpoint")
+    try:
+        authorization_endpoint = validate_endpoint_trust(authorization_endpoint, issuer)
+        token_endpoint = validate_endpoint_trust(token_endpoint, issuer)
+        if registration_endpoint := payload.get("registration_endpoint"):
+            registration_endpoint = validate_endpoint_trust(str(registration_endpoint), issuer)
+    except OAuthMetadataTrustError as exc:
+        raise MCPProtocolError(
+            "MCP_OAUTH_ENDPOINT_TRUST_FAILURE",
+            "oauth-authorization-server",
+            {"error": str(exc)},
+        ) from exc
     scopes = tuple(str(item) for item in payload.get("scopes_supported", []) if item)
     return AuthorizationServerMetadata(
         actual_issuer,

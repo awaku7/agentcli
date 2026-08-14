@@ -20,6 +20,9 @@ from typing import Any
 
 from . import tools
 
+tools.configure_default_confirmation()
+from .runtime.logging_setup import log_event
+
 try:
     from .tools.mcp_servers_shared import ensure_mcp_config_template
 except ImportError:
@@ -1346,6 +1349,7 @@ def stdin_loop() -> None:
 
 
 def main() -> None:
+    log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")
     if UAGENT_REALTIME:
         from .realtime import run as run_realtime

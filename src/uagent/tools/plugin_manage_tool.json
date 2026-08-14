@@ -40,7 +40,7 @@
     "param.action.description": "実行する操作。list/install/remove/enable/disable/validate/info のいずれかです。",
     "param.source.description": "install で使用するソース URL またはパス（Git URL、HTTP の ZIP、ローカルディレクトリ）。",
     "param.name.description": "プラグイン名（info/remove/enable/disable/validate の対象）。",
-    "param.scope.description": "Installation scope: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Default: 'user'.",
+    "param.scope.description": "インストール先の範囲: user（~/.uag/plugins/）、project（.uag/plugins/）、local（.uag/plugins.local/）。既定値は user です。",
     "cmd.help.plugin_list": "  :plugin list [--enabled] [--verbose]  List installed plugins.",
     "cmd.help.plugin_install": "  :plugin install <source> [name] [--scope user|project|local]  Install a plugin.",
     "cmd.help.plugin_remove": "  :plugin remove <name>  Remove (uninstall) a plugin.",

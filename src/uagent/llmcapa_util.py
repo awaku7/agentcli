@@ -377,10 +377,10 @@ def provider_allows_responses_api(
     Provider must be in RESPONSES_PROVIDERS. When model capability is known,
     ``supports_responses_api`` must not be explicitly false.
     """
-    from .providers.provider_caps import RESPONSES_PROVIDERS
+    from .providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
 
     prov = normalize_provider(provider)
-    if prov not in RESPONSES_PROVIDERS:
+    if "responses" not in DEFAULT_PROVIDER_REGISTRY.resolve(prov, model_id).capabilities:
         return False
     mid = (model_id or "").strip() or current_model(prov)
     if not mid:
@@ -400,10 +400,10 @@ def provider_allows_fim(
     Provider must be in FIM_SUPPORTED_PROVIDERS (implementation exists).
     When model capability is known, ``supports_fim`` must not be false.
     """
-    from .providers.provider_caps import FIM_SUPPORTED_PROVIDERS
+    from .providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
 
     prov = normalize_provider(provider)
-    if prov not in FIM_SUPPORTED_PROVIDERS:
+    if "fim" not in DEFAULT_PROVIDER_REGISTRY.resolve(prov, model_id).capabilities:
         return False
     mid = (model_id or "").strip() or current_model(prov)
     if not mid:

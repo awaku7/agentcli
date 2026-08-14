@@ -166,7 +166,7 @@ class _ExcelIndexBuilder:
 
 def run_tool(args: dict[str, Any]) -> str:
     if not _ensure_openpyxl():
-        return "Error: openpyxl is not installed or could not be imported."
+        return _("err.openpyxl_missing", default="Error: openpyxl is not installed or could not be imported.")
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

@@ -43,6 +43,9 @@ set_thread_lang(detect_lang())
 
 from . import core as core
 from . import tools
+
+tools.configure_default_confirmation()
+from .runtime.logging_setup import log_event
 from .welcome import get_welcome_message
 from .runtime import runtime_init as _runtime_init
 from .utils.paths import get_history_file_path, get_state_dir
@@ -2938,6 +2941,7 @@ def _is_high_contrast() -> bool:
 
 
 def main():
+    log_event("gui.start")
     # Redirect stdout/stderr to in-memory buffer (no intermediate file)
     # Do this before any startup output.  A gui-scripts launcher has no
     # console on Windows, so stdout/stderr may also be None.

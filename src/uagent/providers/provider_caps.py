@@ -6,6 +6,9 @@ do not need to maintain their own copies of the same lists.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import Protocol
+
 # All known provider keys. Centralised here to avoid duplication across files.
 ALL_PROVIDERS: frozenset[str] = frozenset(
     {
@@ -82,3 +85,44 @@ FIM_SUPPORTED_PROVIDERS: frozenset[str] = frozenset(
         "deepseek",
     }
 )
+
+
+@dataclass(frozen=True)
+class ProviderSpec:
+    name: str
+    capabilities: frozenset[str]
+    supports_tools: bool
+    supports_streaming: bool
+    supports_vision: bool
+
+
+class ProviderRegistry(Protocol):
+    def resolve(self, provider: str, model: str | None = None) -> ProviderSpec: ...
+
+
+class StaticProviderRegistry:
+    """Deterministic provider capability lookup used by runtime and UI code."""
+
+    def resolve(self, provider: str, model: str | None = None) -> ProviderSpec:
+        name = (provider or "").strip().lower()
+        if name not in ALL_PROVIDERS:
+            return ProviderSpec(name=name or "unknown", capabilities=frozenset({"unknown"}), supports_tools=False, supports_streaming=False, supports_vision=False)
+        capabilities = {"chat", "streaming"}
+        if name in RESPONSES_PROVIDERS:
+            capabilities.add("responses")
+        if name in CHAT_VISION_PROVIDERS:
+            capabilities.add("vision")
+        if name in FIM_SUPPORTED_PROVIDERS:
+            capabilities.add("fim")
+        if name not in {"llama_cpp", "hf", "lmstudio"}:
+            capabilities.add("tools")
+        return ProviderSpec(
+            name=name,
+            capabilities=frozenset(capabilities),
+            supports_tools="tools" in capabilities,
+            supports_streaming=True,
+            supports_vision="vision" in capabilities,
+        )
+
+
+DEFAULT_PROVIDER_REGISTRY = StaticProviderRegistry()

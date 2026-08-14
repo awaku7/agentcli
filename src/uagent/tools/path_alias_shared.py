@@ -10,6 +10,10 @@ from pathlib import Path
 from threading import RLock
 from typing import Any
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 _ALIAS_RE = re.compile(r"^@A\{([0-9])\}(?:[\\/](.*))?$")
 _STORE_LOCK = RLock()
 _URL_ALIAS_RE = re.compile(r"^@B\{([0-9])\}(.*)$")
@@ -65,15 +69,15 @@ def resolve_url_alias(value: str) -> str:
     aliases = load_url_aliases()
     base = aliases.get(slot)
     if base is None:
-        raise ValueError(f"unknown URL alias: @B{{{slot}}}")
+        raise ValueError(_("alias.unknown_url", default=f"unknown URL alias: @B{{{slot}}}"))
     suffix = match.group(2)
     if suffix and not suffix.startswith(("/", "?", "#")):
-        raise ValueError("URL alias suffix must start with '/', '?' or '#'")
+        raise ValueError(_("alias.url_suffix", default="URL alias suffix must start with '/', '?' or '#'"))
     return base.rstrip("/") + suffix
 
 
 def url_alias_label(slot: int) -> str:
-    return f"@B{{{slot}}}"
+    return _("alias.label", default=f"@B{{{slot}}}")
 
 
 def _store_path() -> Path:
@@ -130,12 +134,12 @@ def resolve_alias(value: str) -> str:
         # explicitly overridden with path_alias(set).
         root = Path.cwd()
     if root is None:
-        raise ValueError(f"unknown path alias: @A{{{slot}}}")
+        raise ValueError(_("alias.unknown_path", default=f"unknown path alias: @A{{{slot}}}"))
     relative = match.group(2) or ""
     resolved_root = root.expanduser().resolve()
     resolved = (resolved_root / relative).resolve()
     if resolved != resolved_root and resolved_root not in resolved.parents:
-        raise ValueError("path escapes alias root")
+        raise ValueError(_("alias.path_escape", default="path escapes alias root"))
     return str(resolved)
 
 
@@ -179,4 +183,4 @@ def resolve_tool_args(args: dict[str, Any]) -> dict[str, Any]:
 
 
 def alias_label(slot: int) -> str:
-    return f"@A{{{slot}}}"
+    return _("alias.label", default=f"@A{{{slot}}}")

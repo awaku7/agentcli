@@ -1,0 +1,36 @@
+"""Structured event logging helpers for adapter boundaries."""
+
+from __future__ import annotations
+
+import json
+import logging
+from typing import Any
+
+
+_LOGGER = logging.getLogger("uagent.events")
+_SECRET_KEYS = {"token", "access_token", "refresh_token", "client_secret", "authorization_code"}
+
+
+def _safe_fields(fields: dict[str, Any]) -> dict[str, Any]:
+    return {key: "[REDACTED]" if key.lower() in _SECRET_KEYS else value for key, value in fields.items()}
+
+
+def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) -> None:
+    """Append one masked JSONL message without owning session state."""
+    import os
+
+    try:
+        masked = mask_fn(message)
+        directory = os.path.dirname(log_file)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
+        with open(log_file, "a", encoding="utf-8") as stream:
+            stream.write(json.dumps(masked, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
+def log_event(event_code: str, **fields: Any) -> None:
+    """Emit a stable event code with secret fields removed."""
+    payload = {"event_code": event_code, **_safe_fields(fields)}
+    _LOGGER.info(json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str))

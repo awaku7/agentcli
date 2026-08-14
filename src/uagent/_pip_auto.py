@@ -7,6 +7,61 @@ from .i18n import _
 
 import subprocess
 import sys
+import os
+
+
+_ALLOWED_PACKAGES = {
+    "fastapi", "uvicorn", "pydantic", "packaging", "playwright", "pyautogui",
+    "python-docx", "openpyxl", "beautifulsoup4", "pypdf", "python-pptx",
+    "pymupdf", "pillow", "qrcode", "pandas", "numpy", "sounddevice",
+    "webrtc-audio-processing", "dbus-next", "pyobjc-framework-corelocation",
+    "zai-sdk", "tree-sitter", "tree-sitter-language-pack", "httpx", "requests",
+}
+
+
+def _install_policy() -> str:
+    value = (os.environ.get("UAGENT_AUTO_INSTALL", "allow") or "allow").strip().lower()
+    return value if value in {"allow", "prompt", "off"} else "allow"
+
+
+def _install_allowed(package_name: str) -> bool:
+    normalized = package_name.split("[", 1)[0].split("=", 1)[0].strip().lower()
+    return normalized in _ALLOWED_PACKAGES
+
+
+def _policy_message(label: str, mode: str) -> None:
+    print(
+        _(
+            "Automatic installation is disabled for %(label)s (policy: %(mode)s).",
+            default="Automatic installation is disabled for %(label)s (policy: %(mode)s).",
+        )
+        % {"label": label, "mode": mode},
+        file=sys.stderr,
+    )
+
+
+def _confirm_install(label: str) -> bool:
+    if not sys.stdin.isatty() or not sys.stderr.isatty():
+        _policy_message(label, "prompt-noninteractive")
+        return False
+    answer = input(
+        _("Install %(package)s now? [y/N] ", default="Install %(package)s now? [y/N] ")
+        % {"package": label}
+    )
+    return answer.strip().lower() in {"y", "yes"}
+
+
+def _may_install(label: str) -> bool:
+    policy = _install_policy()
+    if policy == "off":
+        _policy_message(label, policy)
+        return False
+    if not _install_allowed(label):
+        _policy_message(label, "not-allowlisted")
+        return False
+    if policy == "prompt":
+        return _confirm_install(label)
+    return True
 
 
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
@@ -27,6 +82,9 @@ def auto_install(package_name: str, module_name: str | None = None) -> bool:
         return True
     except ImportError:
         pass
+
+    if not _may_install(package_name):
+        return False
 
     # Attempt pip install
     try:
@@ -155,6 +213,9 @@ def install_with_status(
     # Already works
     if _verify():
         return True
+
+    if not _may_install(label):
+        return False
 
     # Try installing
     print(_("Installing %(label)s...") % {"label": label}, file=sys.stderr)

@@ -95,9 +95,7 @@ def cancel_active_response(core: Any) -> bool:
     except Exception:
         return False
     try:
-        from ..core import clear_responses_continuation
-
-        clear_responses_continuation()
+        core.clear_responses_continuation()
     except Exception:
         pass
     return True

@@ -413,94 +413,10 @@ def print_reasoning_delta(s: str) -> None:
 
 
 def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
-    """Write one [STATE] line to stderr.
+    """Compatibility shim for runtime.console."""
+    from .runtime.console import write_status_line
 
-    On Windows consoles, prefer Win32 text attributes instead of ANSI ESC.
-    Some hosts report VT enabled but still render ESC as "?" (especially on
-    the post-turn IDLE line), which produces "?[32m[STATE] IDLE?[0m".
-    Attribute-based coloring never emits ESC, so it cannot leak.
-
-    Windows console newlines must be CRLF. WriteConsoleW does not translate
-    bare LF into CR+LF, so LF-only leaves the cursor at the previous column
-    and subsequent [STATE] lines appear indented/stair-stepped.
-    """
-    # WriteConsoleW does not apply OPOST-style NL->CRLF translation.
-    nl = (chr(13) + chr(10)) if os.name == "nt" else chr(10)
-    if not use_color:
-        sys.stderr.write(text + nl)
-        sys.stderr.flush()
-        return
-
-    # Windows console: color via SetConsoleTextAttribute (no ANSI bytes).
-    if os.name == "nt":
-        try:
-            import ctypes
-            from ctypes import wintypes
-
-            kernel32 = ctypes.windll.kernel32
-            STD_ERROR_HANDLE = wintypes.DWORD(-12).value
-            handle = kernel32.GetStdHandle(STD_ERROR_HANDLE)
-            INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
-            if handle and handle != INVALID_HANDLE_VALUE:
-
-                class COORD(ctypes.Structure):
-                    _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
-
-                class SMALL_RECT(ctypes.Structure):
-                    _fields_ = [
-                        ("Left", wintypes.SHORT),
-                        ("Top", wintypes.SHORT),
-                        ("Right", wintypes.SHORT),
-                        ("Bottom", wintypes.SHORT),
-                    ]
-
-                class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
-                    _fields_ = [
-                        ("dwSize", COORD),
-                        ("dwCursorPosition", COORD),
-                        ("wAttributes", wintypes.WORD),
-                        ("srWindow", SMALL_RECT),
-                        ("dwMaximumWindowSize", COORD),
-                    ]
-
-                csbi = CONSOLE_SCREEN_BUFFER_INFO()
-                if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(csbi)):
-                    old_attr = int(csbi.wAttributes)
-                    # Keep background nibble; set bright FG yellow/green.
-                    bg = old_attr & 0xF0
-                    fg = 0x0E if busy else 0x0A  # yellow / green
-                    kernel32.SetConsoleTextAttribute(handle, bg | fg)
-                    try:
-                        # WriteConsoleW avoids Python stdio encoding turning ESC-like
-                        # control into "?" on some hosts; plain text is fine here.
-                        # Use CRLF so the cursor returns to column 0 on the next line.
-                        data = text + nl
-                        written = wintypes.DWORD(0)
-                        if not kernel32.WriteConsoleW(
-                            handle,
-                            data,
-                            len(data),
-                            ctypes.byref(written),
-                            None,
-                        ):
-                            # Fallback to stdio if WriteConsoleW fails.
-                            sys.stderr.write(text + nl)
-                            sys.stderr.flush()
-                    finally:
-                        kernel32.SetConsoleTextAttribute(handle, old_attr)
-                    return
-        except Exception:
-            pass
-        # Not a real console or API failed: plain text (never ANSI on nt fallback).
-        sys.stderr.write(text + nl)
-        sys.stderr.flush()
-        return
-
-    # Non-Windows: ANSI is reliable on TTYs.
-    esc = chr(27)
-    color = (esc + "[33m") if busy else (esc + "[32m")
-    sys.stderr.write(f"{color}{text}{esc}[0m" + nl)
-    sys.stderr.flush()
+    write_status_line(text, busy=busy, use_color=use_color)
 
 
 def _is_idle_shell() -> bool:
@@ -560,7 +476,7 @@ def print_status_line() -> None:
     # Color/ANSI control
     # Default: enable ANSI colors unless explicitly disabled.
     no_color = bool(
-        env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR") or _is_idle_shell()
+        env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR")
     )
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
@@ -623,7 +539,7 @@ def print_status_line() -> None:
                 # The post-turn IDLE write is the path that can be mangled by
                 # prompt/terminal wrappers; keep IDLE plain while retaining
                 # color for BUSY status updates.
-                use_color = want_color and busy
+                use_color = want_color
                 _write_status_line(
                     f"[STATE] {state}{label_part}",
                     busy=busy,
@@ -746,12 +662,10 @@ def clear_responses_continuation() -> None:
 
 
 def normalize_status_label(busy: bool, label: str = "") -> str:
-    """Return the display label shared by CLI, GUI, and Web status views."""
-    if busy and label == "LLM":
-        reasoning = (os.environ.get("UAGENT_REASONING") or "").strip().lower()
-        if reasoning in {"auto", "minimal", "low", "medium", "high", "xhigh", "max"}:
-            return f"LLM:{reasoning}"
-    return label
+    """Compatibility shim for the runtime status module."""
+    from .runtime.status import normalize_status_label as _normalize
+
+    return _normalize(busy, label)
 
 
 def set_status(busy: bool, label: str = "") -> None:
@@ -823,24 +737,16 @@ def get_prompt() -> str:
     if auto_pilot_active:
         return "[AUTO] > "
 
-    if busy:
-        if label:
-            return f"[BUSY:{label}] > "
-        else:
-            return "[BUSY] > "
-    else:
-        # Display the current workdir in the prompt when idle
-        # Example: /path/to/project>
-        try:
-            cwd = os.getcwd()
-        except Exception:
-            cwd = "?"
-        base = os.path.basename(cwd.rstrip(os.sep)) or cwd
-        with status_lock:
-            _lr = last_reasoning_label
-        if _lr:
-            return f"{base}[{_lr}]> "
-        return f"{base}> "
+    from .runtime.prompt_context import format_prompt
+
+    try:
+        cwd = os.getcwd()
+    except Exception:
+        cwd = "?"
+    base = os.path.basename(cwd.rstrip(os.sep)) or cwd
+    with status_lock:
+        _lr = last_reasoning_label
+    return format_prompt(busy=busy, label=label, cwd_name=base, reasoning_label=_lr)
 
 
 def get_env(name: str) -> str:
@@ -872,87 +778,24 @@ def get_env_url(name: str, default: Optional[str] = None) -> str:
 
 
 def truncate_output(label: str, text: str, limit: int = MAX_TOOL_OUTPUT_CHARS) -> str:
-    if text is None:
-        return ""
-    if len(text) <= limit:
-        return text
-    omitted = len(text) - limit
-    return text[:limit] + f"\n[{label} truncated: {omitted} chars omitted]"
+    """Compatibility shim for runtime.history."""
+    from .runtime.history import truncate_output as _truncate
+
+    return _truncate(label, text, limit)
 
 
 def log_message(message: dict[str, Any]) -> None:
-    """
-    Append and save the message (dict) in the format passed to ChatCompletion as JSONL.
-    Mask sensitive information (such as human_ask passwords) before saving.
-    """
-    try:
-        # Create and write a masked copy to avoid destructive changes
-        masked_msg = _mask_message(message)
+    """Compatibility shim for runtime.logging_setup."""
+    from .runtime.logging_setup import append_masked_message
 
-        dirpath = os.path.dirname(LOG_FILE)
-        if dirpath:
-            os.makedirs(dirpath, exist_ok=True)
-        with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(json.dumps(masked_msg, ensure_ascii=False) + "\n")
-    except Exception:
-        # Silently ignore if logging fails
-        pass
+    append_masked_message(LOG_FILE, message, _mask_message)
 
 
 def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
-    """Rewrite current session log file (core.LOG_FILE) from in-memory messages.
+    """Compatibility shim for runtime.history."""
+    from .runtime.history import rewrite_jsonl_log
 
-    - Create one-generation backup into <log_dir>/.backup/<basename>.org
-    - Write into a temp file and atomically replace
-    - Mask secrets (human_ask password input etc.)
-
-    Returns: path to rewritten log file.
-    """
-
-    log_path = LOG_FILE
-    log_dir = os.path.dirname(log_path) or "."
-
-    # Ensure backup dir
-    backup_dir = os.path.join(log_dir, ".backup")
-    os.makedirs(backup_dir, exist_ok=True)
-
-    backup_path = os.path.join(backup_dir, os.path.basename(log_path) + ".org")
-
-    # Backup existing log if present
-    try:
-        if os.path.exists(log_path):
-            # Copy bytes to preserve exact original (including any non-utf8 artifacts)
-            with open(log_path, "rb") as rf, open(backup_path, "wb") as wf:
-                wf.write(rf.read())
-    except Exception:
-        # Backup failure should not abort rewrite; still attempt to rewrite
-        pass
-
-    tmp_path = log_path + ".tmp"
-
-    # Preserve non-message Responses metadata while rebuilding from messages.
-    # The metadata is intentionally kept outside the messages list.
-    response_records = read_responses_state_records(log_path)
-
-    # Write new JSONL
-    with open(tmp_path, "w", encoding="utf-8") as f:
-        for m in messages:
-            try:
-                masked = _mask_message(m)
-                f.write(json.dumps(masked, ensure_ascii=False) + "\n")
-            except Exception:
-                # Skip broken messages
-                continue
-        for record in response_records:
-            try:
-                f.write(
-                    json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
-                )
-            except Exception:
-                continue
-
-    os.replace(tmp_path, log_path)
-    return log_path
+    return rewrite_jsonl_log(LOG_FILE, messages, read_responses_state_records(LOG_FILE), _mask_message)
 
 
 # ==============================

@@ -72,6 +72,9 @@ from .providers import util_providers as providers
 from . import util_tools as tools_util
 from .utils.paths import get_history_file_path
 from . import tools
+
+tools.configure_default_confirmation()
+from .runtime.logging_setup import log_event
 from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .welcome import get_welcome_message
 from .gui_ansi import ansi_to_html, wrap_pre
@@ -1175,6 +1178,7 @@ def run_agent_worker(
     # inherit room via tools.run_tool wrapper (see init_web).
     _thread_ctx.room = room
     set_thread_lang(getattr(room, "lang", "en"))
+    log_event("web.room.task.started", room_id=getattr(room, "room_id", ""), locale=getattr(room, "lang", "en"))
 
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
@@ -1553,6 +1557,7 @@ def run_agent_worker(
             room.add_message({"role": "assistant", "content": msg})
 
     finally:
+        log_event("web.room.task.completed", room_id=getattr(room, "room_id", ""))
         # Best-effort cleanup; never let one failure skip lock release / IDLE.
         try:
             if callable(_orig_log_message):
@@ -2529,6 +2534,7 @@ def init_web():
 
 
 def main():
+    log_event("web.start")
     sys.__stdout__.reconfigure(encoding="utf-8")
     import argparse
 

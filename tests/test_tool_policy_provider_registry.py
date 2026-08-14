@@ -1,0 +1,20 @@
+from __future__ import annotations
+
+from uagent.providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
+from uagent.tools.tool_policy import SideEffect, policy_for
+
+
+def test_tool_policy_defaults_to_conservative_side_effects() -> None:
+    assert policy_for("calculator").side_effect is SideEffect.READ_ONLY
+    assert policy_for("gmail_send").requires_confirmation
+    assert policy_for("delete_file").side_effect is SideEffect.DESTRUCTIVE
+    assert policy_for("unknown_future_tool").parallel_safe is False
+
+
+def test_provider_registry_distinguishes_unknown_capability() -> None:
+    openai = DEFAULT_PROVIDER_REGISTRY.resolve("openai")
+    unknown = DEFAULT_PROVIDER_REGISTRY.resolve("future-provider")
+    assert openai.supports_tools
+    assert "unknown" not in openai.capabilities
+    assert unknown.capabilities == frozenset({"unknown"})
+    assert not unknown.supports_tools

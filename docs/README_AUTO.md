@@ -5,6 +5,16 @@ Use it for long-running analysis, editing, research, or any task that needs more
 
 ______________________________________________________________________
 
+## Optional dependency installation policy
+
+When a feature is first used, uagent may install a declared optional dependency. Control this behavior with `UAGENT_AUTO_INSTALL`:
+
+- `allow` (default): install an allow-listed optional dependency automatically.
+- `prompt`: ask only in an interactive TTY; non-interactive A2A, Web, and CI runs do not install.
+- `off`: never invoke pip; the error includes the package name so it can be installed manually.
+
+Only packages registered by uagent are eligible. Unknown package names are rejected without invoking pip.
+
 ## Basic usage
 
 ```

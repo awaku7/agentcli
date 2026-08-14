@@ -787,18 +787,19 @@ def parse_responses_stream(
 
         for ev in it:
             # --- Interrupt check ---
-            if core is not None:
-                from uagent import core as _core_module
-
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
+            interrupt_source = core
+            if interrupt_source is None or not hasattr(interrupt_source, "interrupt_lock"):
+                interrupt_source = sys.modules.get("uagent.core")
+            if interrupt_source is not None and hasattr(interrupt_source, "interrupt_lock"):
+                with interrupt_source.interrupt_lock:
+                    if interrupt_source.interrupt_requested:
                         # Keep interrupt_requested=True so the outer round can
                         # inject the Stop prompt. Clear Responses continuation
                         # here because this stream response is incomplete.
                         _stream_interrupted = True
                         try:
                             clear_fn = getattr(
-                                _core_module, "clear_responses_continuation", None
+                                interrupt_source, "clear_responses_continuation", None
                             )
                             if callable(clear_fn):
                                 clear_fn()
@@ -826,9 +827,13 @@ def parse_responses_stream(
                         if rid:
                             _stream_response_id = rid
                             try:
-                                from ..core import set_active_response
-
-                                set_active_response(rid, status="in_progress")
+                                active_fn = getattr(
+                                    core or sys.modules.get("uagent.core"),
+                                    "set_active_response",
+                                    None,
+                                )
+                                if callable(active_fn):
+                                    active_fn(rid, status="in_progress")
                             except Exception:
                                 pass
                 elif ev_type == "response.completed":

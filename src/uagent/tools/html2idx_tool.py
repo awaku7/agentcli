@@ -155,7 +155,7 @@ class _HtmlIndexBuilder:
 
 def run_tool(args: dict[str, Any]) -> str:
     if not _ensure_bs4():
-        return "Error: beautifulsoup4 is not installed or could not be imported."
+        return _("err.bs4_missing", default="Error: beautifulsoup4 is not installed or could not be imported.")
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
