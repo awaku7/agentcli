@@ -27,3 +27,17 @@ def test_multi_agent_non_fail_fast_collects_exceptions() -> None:
             await run_agents([AgentTask("same", lambda _: 1), AgentTask("same", lambda _: 2)])
 
     asyncio.run(scenario())
+
+
+def test_remote_runtime_wait_and_cancel(monkeypatch) -> None:
+    from uagent.runtime.remote_agent import RemoteAgentRuntime
+
+    runtime = RemoteAgentRuntime(base_url="https://agent.example")
+    calls = []
+    statuses = iter(["IN_PROGRESS", "SUCCEEDED"])
+    runtime.client.get_task = lambda _task_id: {"task": {"status": next(statuses)}}
+    runtime.client.cancel_task = lambda task_id: {"task": {"id": task_id, "status": "CANCELLED"}}
+    result = runtime.wait("task-1", timeout=1, interval=0)
+    assert result["task"]["status"] == "SUCCEEDED"
+    assert runtime.cancel("task-1")["task"]["status"] == "CANCELLED"
+    runtime.close()

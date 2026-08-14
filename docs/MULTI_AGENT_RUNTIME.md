@@ -27,4 +27,4 @@ finally:
 
 Authentication uses the shared CredentialStore when supplied. Stable protocol values and error codes are not localized; user-facing clients should translate only their presentation.
 
-Remote execution remains subject to A2A authentication, ToolPolicy, Enterprise Policy, cancellation, and task-store behavior on the remote server.
+`RemoteAgentRuntime` supports retry with bounded backoff, task polling via `wait()`, listing, and cancellation. Remote execution remains subject to A2A authentication, ToolPolicy, Enterprise Policy, cancellation, and task-store behavior on the remote server.
