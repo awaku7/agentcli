@@ -8,7 +8,9 @@ ______________________________________________________________________
 ## Basic usage
 
 ```
-:auto <goal> [--max-rounds N]
+:auto <goal> [--max-rounds N|INFINITE]
+:auto <goal> --infinite
+:auto INFINITE <goal>
 ```
 
 Examples:
@@ -65,6 +67,7 @@ ______________________________________________________________________
 | Option | Default | Description |
 |---|---|---|
 | `--max-rounds N` | `10` | Maximum number of rounds. Use e.g. `--max-rounds 30` for complex tasks |
+| `--max-rounds INFINITE` / `--infinite` | unlimited | Continue until the reviewer returns `COMPLETE` or the user stops it |
 
 ______________________________________________________________________
 

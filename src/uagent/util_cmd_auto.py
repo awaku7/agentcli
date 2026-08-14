@@ -209,11 +209,12 @@ def _run_auto_pilot_loop(
 
         # 2. Max rounds check (after judgment to count actual followup rounds)
         core.auto_pilot_round += 1
-        if core.auto_pilot_round > core.auto_pilot_max_rounds:
+        max_rounds = core.auto_pilot_max_rounds
+        if max_rounds is not None and core.auto_pilot_round > max_rounds:
             core.auto_pilot_active = False
             print(
                 _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
-                % {"max": core.auto_pilot_max_rounds}
+                % {"max": max_rounds}
             )
             return
 
@@ -221,10 +222,13 @@ def _run_auto_pilot_loop(
         next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
 
         core.set_status(True, "AUTO")
-        print(
-            _("[AUTO] Round %(round)d/%(max)d")
-            % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
-        )
+        if core.auto_pilot_max_rounds is None:
+            print(_("[AUTO] Round %(round)d/INFINITE") % {"round": core.auto_pilot_round})
+        else:
+            print(
+                _("[AUTO] Round %(round)d/%(max)d")
+                % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
+            )
 
         user_msg = {"role": "user", "content": next_prompt}
         messages.append(user_msg)
@@ -260,7 +264,9 @@ def _handle_cmd_auto(
     """Handle the :auto command.
 
     Usage:
-      :auto <goal> [--max-rounds N]
+      :auto <goal> [--max-rounds N|INFINITE]
+      :auto <goal> --infinite
+      :auto INFINITE <goal>
       :auto off
     """
     a = (arg or "").strip()
@@ -276,25 +282,48 @@ def _handle_cmd_auto(
         print(tr("       :auto off"))
         return CommandResult()
 
-    # Parse goal and options
+    # Parse goal and options. INFINITE is accepted as an explicit mode token
+    # as well as the value of --max-rounds.
     goal_parts: list[str] = []
-    max_rounds = 10
+    max_rounds: int | None = 10
+    infinite_mode = False
     tokens = shlex.split(a)
     i = 0
     while i < len(tokens):
-        if tokens[i] == "--max-rounds" and i + 1 < len(tokens):
+        token = tokens[i]
+        if token == "--infinite":
+            infinite_mode = True
+            i += 1
+        elif token == "--max-rounds" and i + 1 < len(tokens):
+            raw_max = tokens[i + 1]
+            if raw_max.upper() == "INFINITE":
+                infinite_mode = True
+                i += 2
+                continue
             try:
-                max_rounds = int(tokens[i + 1])
+                max_rounds = int(raw_max)
             except ValueError:
                 print(
                     tr("Invalid value for --max-rounds: %(val)s")
-                    % {"val": tokens[i + 1]}
+                    % {"val": raw_max}
+                )
+                return CommandResult()
+            if max_rounds <= 0:
+                print(
+                    tr("Invalid value for --max-rounds: %(val)s")
+                    % {"val": raw_max}
                 )
                 return CommandResult()
             i += 2
-        else:
-            goal_parts.append(tokens[i])
+        elif not goal_parts and token.upper() == "INFINITE":
+            infinite_mode = True
             i += 1
+        else:
+            goal_parts.append(token)
+            i += 1
+
+    if infinite_mode:
+        max_rounds = None
 
     goal = " ".join(goal_parts)
     if not goal:
@@ -309,7 +338,10 @@ def _handle_cmd_auto(
     core.auto_pilot_active = True
 
     print(_("[AUTO] Started. Goal: %(goal)s") % {"goal": goal})
-    print(_("[AUTO] Max rounds: %(max)d") % {"max": max_rounds})
+    if max_rounds is None:
+        print(_("[AUTO] Max rounds: INFINITE"))
+    else:
+        print(_("[AUTO] Max rounds: %(max)d") % {"max": max_rounds})
 
     # Return CommandResult with run_llm=True to trigger the first LLM call
     return CommandResult(run_llm=True, prompt=goal)
