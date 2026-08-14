@@ -235,7 +235,7 @@ def _parse_departure(value: str) -> _dt.datetime:
     raw = value.strip().replace("Z", "+00:00")
     parsed = _dt.datetime.fromisoformat(raw)
     if parsed.tzinfo is not None:
-        parsed = parsed.astimezone().replace(tzinfo=None)
+        parsed = parsed.replace(tzinfo=None)
     return parsed.replace(second=0, microsecond=0)
 
 

@@ -9,6 +9,7 @@ _ = make_tool_translator(__file__)
 
 import base64
 import datetime
+import importlib.util
 import os
 import time
 from typing import Any
@@ -31,6 +32,7 @@ def _ensure_screenshot_dependencies() -> None:
     if (
         (not _PYAUTOGUI_AVAILABLE_AT_IMPORT)
         and pyautogui is None
+        and importlib.util.find_spec("pyautogui") is None
         and install_with_status("pyautogui")
     ):
         try:
@@ -42,6 +44,7 @@ def _ensure_screenshot_dependencies() -> None:
     if (
         (not _PYGETWINDOW_AVAILABLE_AT_IMPORT)
         and pygetwindow is None
+        and importlib.util.find_spec("pygetwindow") is None
         and install_with_status("pygetwindow")
     ):
         try:

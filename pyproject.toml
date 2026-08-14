@@ -41,6 +41,8 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "pytest",
+    "pdfplumber",
+    "pint",
     "pandas",
     "openpyxl",
     "python-pptx",

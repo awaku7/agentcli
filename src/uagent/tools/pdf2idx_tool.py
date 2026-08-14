@@ -147,11 +147,6 @@ class _PdfIndexBuilder:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    if not _ensure_pdfplumber():
-        return _(
-            "err.optional_dependency_missing",
-            default="Error: optional dependency could not be installed or imported.",
-        )
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
@@ -167,6 +162,12 @@ def run_tool(args: dict[str, Any]) -> str:
     if not os.path.isfile(resolved):
         return _("err.file_not_found", default="Error: File not found: {path}").format(
             path=path
+        )
+
+    if not _ensure_pdfplumber():
+        return _(
+            "err.optional_dependency_missing",
+            default="Error: optional dependency could not be installed or imported.",
         )
 
     try:

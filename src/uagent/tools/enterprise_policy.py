@@ -8,6 +8,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 
 @dataclass(frozen=True)
 class PolicyDecision:
@@ -65,11 +69,19 @@ class EnterprisePolicy:
                 import yaml  # type: ignore
             except ImportError as exc:
                 raise ValueError(
-                    "YAML policy requires PyYAML; use JSON instead"
+                    _(
+                        "err.yaml_dependency",
+                        default="YAML policy requires PyYAML; use JSON instead",
+                    )
                 ) from exc
             raw = yaml.safe_load(text) or {}
         if not isinstance(raw, Mapping):
-            raise ValueError("enterprise policy must be an object")
+            raise ValueError(
+                _(
+                    "err.policy_object_required",
+                    default="enterprise policy must be an object",
+                )
+            )
         return cls.from_mapping(raw)
 
     @classmethod
@@ -165,7 +177,12 @@ def _actions(value: Any) -> dict[str, str]:
 def _normalize_action(value: Any) -> str:
     action = str(value or "allow").strip().lower()
     if action not in {"allow", "deny", "confirm"}:
-        raise ValueError(f"unsupported policy action: {action}")
+        raise ValueError(
+            _(
+                "err.unsupported_policy_action",
+                default="unsupported policy action: {action}",
+            ).format(action=action)
+        )
     return action
 
 

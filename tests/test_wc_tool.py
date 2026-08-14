@@ -34,5 +34,6 @@ def test_wc_text_output_includes_all_counts(repo_tmp_path: Path) -> None:
     path.write_text("a b\n", encoding="utf-8")
     output = run_tool({"paths": [str(path)], "return": "text"})
     fields = output.split()
-    assert fields[:4] == ["1", "2", "5", "5"]
+    expected_size = str(len(path.read_bytes()))
+    assert fields[:4] == ["1", "2", expected_size, expected_size]
     assert fields[4].endswith("sample.txt")
