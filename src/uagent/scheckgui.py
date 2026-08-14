@@ -46,6 +46,7 @@ from . import tools
 
 tools.configure_default_confirmation()
 from .runtime.logging_setup import log_event
+from .runtime.execution import lifecycle_execution
 from .welcome import get_welcome_message
 from .runtime import runtime_init as _runtime_init
 from .utils.paths import get_history_file_path, get_state_dir
@@ -76,6 +77,7 @@ from .tools.pybitchat_shared import (
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
 from .attachment_utils import materialize_attachment
+
 from .providers.util_providers import make_client as util_make_client
 from .tools.context import ToolCallbacks, get_callbacks
 from .tools.skill_history import make_finish_skill_handler
@@ -512,6 +514,11 @@ def _gui_norm_path(p: Any) -> str:
         return s
 
 
+def _run_lifecycle(fn, *args, **kwargs):
+    with lifecycle_execution():
+        return fn(*args, **kwargs)
+
+
 class RedirectToLog:
     def __init__(self, buffer: "io.StringIO", original_stream):
         self.buffer = buffer
@@ -834,7 +841,7 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            util_run_llm_rounds(
+                            _run_lifecycle(util_run_llm_rounds, 
                                 self._provider,
                                 self._client,
                                 self._depname,
@@ -935,7 +942,7 @@ class ScheckWorker(QtCore.QObject):
                             self.messages.append(m)
                             core.log_message(m)
 
-                            util_run_llm_rounds(
+                            _run_lifecycle(util_run_llm_rounds, 
                                 self._provider,
                                 self._client,
                                 self._depname,
@@ -990,7 +997,7 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            util_run_llm_rounds(
+                            _run_lifecycle(util_run_llm_rounds, 
                                 self._provider,
                                 self._client,
                                 self._depname,

@@ -22,6 +22,7 @@ from . import tools
 
 tools.configure_default_confirmation()
 from .runtime.logging_setup import log_event
+from .runtime.execution import lifecycle_execution
 
 try:
     from .tools.mcp_servers_shared import ensure_mcp_config_template
@@ -1447,19 +1448,21 @@ def main() -> None:
                     messages.append(user_msg)
                     _append_prompt_history_entry(prompt)
                     core.log_message(user_msg)
-                    try:
-                        llm_util.run_llm_rounds(
-                            provider,
-                            client,
-                            depname,
-                            messages,
-                            core=core,
-                            make_client_fn=providers.make_client,
-                            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                        )
-                    except Exception as exc:
-                        print(f"LLM round interrupted: {exc}")
+                    with lifecycle_execution() as lifecycle:
+                        try:
+                            llm_util.run_llm_rounds(
+                                provider,
+                                client,
+                                depname,
+                                messages,
+                                core=core,
+                                make_client_fn=providers.make_client,
+                                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                            )
+                        except Exception as exc:
+                            lifecycle.fail()
+                            print(f"LLM round interrupted: {exc}")
 
                     # Auto-pilot loop: if auto mode is active, continue rounds
                     if core.auto_pilot_active:
@@ -1602,19 +1605,21 @@ def main() -> None:
                 messages.append(user_msg)
                 core.log_message(user_msg)
 
-                try:
-                    llm_util.run_llm_rounds(
-                        provider,
-                        client,
-                        depname,
-                        messages,
-                        core=core,
-                        make_client_fn=providers.make_client,
-                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                    )
-                except Exception as exc:
-                    print(f"[bitchat] LLM round interrupted: {exc}")
+                with lifecycle_execution() as lifecycle:
+                    try:
+                        llm_util.run_llm_rounds(
+                            provider,
+                            client,
+                            depname,
+                            messages,
+                            core=core,
+                            make_client_fn=providers.make_client,
+                            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                        )
+                    except Exception as exc:
+                        lifecycle.fail()
+                        print(f"[bitchat] LLM round interrupted: {exc}")
 
                 # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                 if ev.get("src") == "bitchat":

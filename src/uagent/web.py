@@ -75,6 +75,7 @@ from . import tools
 
 tools.configure_default_confirmation()
 from .runtime.logging_setup import log_event
+from .runtime.execution import lifecycle_execution
 from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .welcome import get_welcome_message
 from .gui_ansi import ansi_to_html, wrap_pre
@@ -1492,19 +1493,14 @@ def run_agent_worker(
 
             # Track history length before LLM round to sync new messages to room after
             _before_hist_len = len(room.history)
-            llm_util.run_llm_rounds(
-                provider_name,
-                client,
-                depname,
-                room.history,
-                core=core,
-                make_client_fn=providers.make_client,
-                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-            )
-            # Auto-pilot loop
-            if core.auto_pilot_active:
-                tools_util._run_auto_pilot_loop(
+            with lifecycle_execution(
+                cancel_exceptions=(LLMWaitInterrupted,),
+            ) as lifecycle:
+                try:
+                    room.agent_lifecycle = lifecycle
+                except Exception:
+                    pass
+                llm_util.run_llm_rounds(
                     provider_name,
                     client,
                     depname,
@@ -1514,6 +1510,18 @@ def run_agent_worker(
                     append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                 )
+                # Auto-pilot loop
+                if core.auto_pilot_active:
+                    tools_util._run_auto_pilot_loop(
+                        provider_name,
+                        client,
+                        depname,
+                        room.history,
+                        core=core,
+                        make_client_fn=providers.make_client,
+                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                    )
             # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
             for m in room.history[_before_hist_len:]:
                 if isinstance(m, dict) and m.get("role") == "assistant":
