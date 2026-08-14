@@ -35,7 +35,7 @@ from ..i18n import (
 )
 from ..runtime.runtime_init import reload_dotenv_custom
 from ..runtime.runtime_env import validate_or_exit_startup_env
-from ..runtime.logging_setup import log_event
+from ..runtime.logging_setup import bind_event_context, log_event, reset_event_context
 from .auth import require_bearer_auth
 from .engine import run_once
 from .errors import A2AHttpError, aip193_error
@@ -152,6 +152,7 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
 
     async def _execute_task(task_id: str, user_text: str) -> None:
         runtime = store.runtime(task_id)
+        event_token = bind_event_context(task_id=task_id, correlation_id=task_id)
         locale_token = set_contextvar_locale(runtime.locale if runtime else detect_lang())
         try:
             async with sem:
@@ -201,6 +202,7 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
                 )
         finally:
             reset_contextvar_locale(locale_token)
+            reset_event_context(event_token)
 
     @app.post("/message:send", response_model=SendMessageResponse)
     async def message_send(

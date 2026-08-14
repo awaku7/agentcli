@@ -1708,8 +1708,11 @@ def run_tools_parallel(
     return [(n, a, r) for n, a, r in results]  # type: ignore[misc]
 
 
-def _call_tool_runner(name: str, runner: Any, args: dict[str, Any]) -> str:
+def _call_tool_runner(name: str, runner: Any, args: dict[str, Any], *, tool_call_id: str) -> str:
     """Invoke a tool runner without letting it terminate the host process."""
+    import time
+
+    started = time.perf_counter()
     try:
         from ..runtime.execution import mark_tool_running, mark_tool_waiting
 
@@ -1720,14 +1723,29 @@ def _call_tool_runner(name: str, runner: Any, args: dict[str, Any]) -> str:
     try:
         result = runner(args)
     except Exception as e:
+        try:
+            from ..runtime.logging_setup import log_event
+            log_event("tool.failed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type=type(e).__name__)
+        except Exception:
+            pass
         return f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
     except SystemExit as e:
         # Tools must return errors, not exit the agent process.
+        try:
+            from ..runtime.logging_setup import log_event
+            log_event("tool.failed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type="SystemExit")
+        except Exception:
+            pass
         return f"[tool runtime error] name={name!r} err=SystemExit: {e}"
     finally:
         if callable(mark_tool_running):
             mark_tool_running()
 
+    try:
+        from ..runtime.logging_setup import log_event
+        log_event("tool.completed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="ok")
+    except Exception:
+        pass
     if isinstance(result, str):
         return result
     try:
@@ -1765,11 +1783,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         if runner is None:
             return f"[tool error] unknown tool: {name}"
 
+    from uuid import uuid4
+    tool_call_id = str(uuid4())
     policy = get_tool_policy(name, args)
     try:
         from ..runtime.logging_setup import log_event
 
-        log_event("tool.dispatch", tool=name, side_effect=policy.side_effect.value, resource_key=policy.resource_key)
+        log_event("tool.dispatch", tool=name, tool_call_id=tool_call_id, side_effect=policy.side_effect.value, resource_key=policy.resource_key)
     except Exception:
         pass
     if policy.requires_confirmation and _CONFIRMATION_CALLBACK is not None:
@@ -1791,7 +1811,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # human_ask needs to set active state before clearing Busy,
         # so we delegate status handling to the runner implementation.
         try:
-            return _call_tool_runner(name, runner, args)
+            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
         finally:
             _safe_set_status(True, "LLM")
 
@@ -1800,12 +1820,12 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            return _call_tool_runner(name, runner, args)
+            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
         finally:
             _safe_set_status(True, "LLM")
 
     # Otherwise do not touch status
-    return _call_tool_runner(name, runner, args)
+    return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
 
 
 # Lazy initialization: tools are loaded on first use

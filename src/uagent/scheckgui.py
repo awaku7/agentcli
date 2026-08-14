@@ -2958,6 +2958,8 @@ def _is_high_contrast() -> bool:
 
 
 def main():
+    from .runtime.logging_setup import bind_event_context
+    bind_event_context(session_id="gui", correlation_id="gui")
     log_event("gui.start")
     # Redirect stdout/stderr to in-memory buffer (no intermediate file)
     # Do this before any startup output.  A gui-scripts launcher has no

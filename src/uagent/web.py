@@ -2560,6 +2560,8 @@ def init_web():
 
 
 def main():
+    from .runtime.logging_setup import bind_event_context
+    bind_event_context(session_id="web", correlation_id="web")
     log_event("web.start")
     sys.__stdout__.reconfigure(encoding="utf-8")
     import argparse

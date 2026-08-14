@@ -23,6 +23,7 @@ from ...auth.pkce import (
 )
 from ...auth.token_store import StoredToken, TokenStore
 from ...auth import Credential, CredentialKind, CredentialStore, get_default_credential_store
+from ...runtime.logging_setup import log_event
 
 
 @dataclass(frozen=True)
@@ -100,15 +101,21 @@ class OAuthAuthorizationSession:
     ) -> OAuthTokenResponse:
         if not validate_state(self.state, callback_state):
             raise ValueError("OAuth state mismatch")
-        token = await exchange_authorization_code(
-            self.metadata.token_endpoint,
-            code=code,
-            code_verifier=self.code_verifier,
-            client_id=self.client_id,
-            redirect_uri=self.redirect_uri,
-            resource=self.resource,
-            http_client=http_client,
-        )
+        log_event("oauth.started", issuer=self.issuer, resource=self.resource, flow="authorization_code")
+        try:
+            token = await exchange_authorization_code(
+                self.metadata.token_endpoint,
+                code=code,
+                code_verifier=self.code_verifier,
+                client_id=self.client_id,
+                redirect_uri=self.redirect_uri,
+                resource=self.resource,
+                http_client=http_client,
+            )
+        except Exception as exc:
+            log_event("oauth.failed", issuer=self.issuer, resource=self.resource, status="error", error_type=type(exc).__name__)
+            raise
+        log_event("oauth.completed", issuer=self.issuer, resource=self.resource, status="ok")
         expires_at = (
             int(time.time()) + token.expires_in
             if token.expires_in is not None

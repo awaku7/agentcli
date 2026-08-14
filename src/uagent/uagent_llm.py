@@ -1476,6 +1476,28 @@ def _run_one_round(
     )
 
 
+def _observed_llm_rounds(fn: Any) -> Any:
+    """Add structured lifecycle events around one LLM execution."""
+    from functools import wraps
+    import time
+    from .runtime.logging_setup import log_event
+
+    @wraps(fn)
+    def wrapped(provider: str, client: Any, depname: str, messages: list[dict[str, Any]], *args: Any, **kwargs: Any) -> str | None:
+        started = time.perf_counter()
+        log_event("llm.started", provider=provider, model=depname, status="started")
+        try:
+            result = fn(provider, client, depname, messages, *args, **kwargs)
+        except Exception as exc:
+            log_event("llm.failed", provider=provider, model=depname, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type=type(exc).__name__)
+            raise
+        log_event("llm.completed", provider=provider, model=depname, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="ok")
+        return result
+
+    return wrapped
+
+
+@_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
     client: Any,
