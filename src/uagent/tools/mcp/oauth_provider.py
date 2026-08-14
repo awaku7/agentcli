@@ -8,6 +8,7 @@ from typing import Any, AsyncGenerator, Awaitable, Callable
 
 import httpx
 
+from ...auth.credential_store import Credential, CredentialKind, CredentialStore
 from .errors import MCPTransportError
 from .oauth_flow import refresh_access_token
 from ...auth.token_store import StoredToken, TokenStore
@@ -25,6 +26,8 @@ class OAuthTokenProvider:
         token_endpoint: str,
         token_store: TokenStore,
         http_client: Any,
+        credential_store: CredentialStore | None = None,
+        credential_name: str | None = None,
     ) -> None:
         self.issuer = issuer
         self.resource = resource
@@ -33,9 +36,43 @@ class OAuthTokenProvider:
         self.token_store = token_store
         self.http_client = http_client
         self._refresh_lock = asyncio.Lock()
+        self.credential_store = credential_store
+        self.credential_name = credential_name or f"mcp/{resource}"
+
+    def _load_token(self) -> StoredToken | None:
+        if self.credential_store is None:
+            return self.token_store.load(self.issuer, self.resource)
+        credential = self.credential_store.get(self.credential_name)
+        if credential is None:
+            return None
+        return StoredToken(
+            access_token=credential.secret,
+            token_type=credential.metadata.get("token_type", "Bearer"),
+            expires_at=credential.expires_at,
+            refresh_token=credential.metadata.get("refresh_token"),
+            scope=credential.metadata.get("scope"),
+        )
+
+    def _save_token(self, token: StoredToken) -> None:
+        if self.credential_store is None:
+            self.token_store.save_locked(self.issuer, self.resource, token)
+            return
+        self.credential_store.set(
+            Credential(
+                name=self.credential_name,
+                kind=CredentialKind.OAUTH_TOKEN,
+                secret=token.access_token,
+                expires_at=token.expires_at,
+                metadata={
+                    "token_type": token.token_type,
+                    **({"refresh_token": token.refresh_token} if token.refresh_token else {}),
+                    **({"scope": token.scope} if token.scope else {}),
+                },
+            )
+        )
 
     async def authorization_header(self, force_refresh: bool = False) -> str:
-        token = self.token_store.load(self.issuer, self.resource)
+        token = self._load_token()
         if token is None:
             raise MCPTransportError(
                 "MCP_OAUTH_TOKEN_MISSING",
@@ -47,7 +84,7 @@ class OAuthTokenProvider:
                 lock = self.token_store.write_lock()
                 await asyncio.to_thread(lock.__enter__)
                 try:
-                    current = self.token_store.load(self.issuer, self.resource)
+                    current = self._load_token()
                     now = int(time.time())
                     if (
                         current is not None
@@ -62,7 +99,7 @@ class OAuthTokenProvider:
                                 "MCP_OAUTH_REFRESH_TOKEN_MISSING", "oauth/refresh", {}
                             )
                         token = await self._refresh(previous)
-                        self.token_store.save_locked(self.issuer, self.resource, token)
+                        self._save_token(token)
                 finally:
                     await asyncio.to_thread(lock.__exit__, None, None, None)
         return f"{token.token_type} {token.access_token}"

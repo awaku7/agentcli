@@ -6,6 +6,7 @@ from pathlib import Path
 
 import httpx
 
+from uagent.auth import Credential, CredentialKind, InMemoryCredentialStore
 from uagent.tools.mcp.oauth_provider import OAuthTokenProvider
 from uagent.tools.mcp.stateless_transport import StatelessHTTPClient
 from uagent.tools.mcp.token_store import StoredToken, TokenStore
@@ -165,5 +166,50 @@ def test_oauth_provider_coordinates_refresh_across_instances(tmp_path: Path) -> 
             )
         assert headers == ["Bearer new", "Bearer new"]
         assert refresh_calls == 1
+
+    asyncio.run(scenario())
+
+
+def test_oauth_provider_can_use_credential_store_for_mcp_tokens(tmp_path: Path) -> None:
+    async def scenario() -> None:
+        token_store = TokenStore(
+            tmp_path / "tokens.json",
+            encrypt=lambda value: value[::-1],
+            decrypt=lambda value: value[::-1],
+        )
+        credential_store = InMemoryCredentialStore()
+        credential_store.set(
+            Credential(
+                name="mcp/resource",
+                kind=CredentialKind.OAUTH_TOKEN,
+                secret="old",
+                metadata={"token_type": "Bearer", "refresh_token": "refresh-old"},
+            )
+        )
+
+        async def handler(request: httpx.Request) -> httpx.Response:
+            assert "refresh-old" in request.content.decode()
+            return httpx.Response(
+                200,
+                json={"access_token": "new", "token_type": "Bearer", "expires_in": 60},
+            )
+
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            provider = OAuthTokenProvider(
+                issuer="issuer",
+                resource="resource",
+                client_id="client",
+                token_endpoint="https://auth.example/token",
+                token_store=token_store,
+                http_client=client,
+                credential_store=credential_store,
+                credential_name="mcp/resource",
+            )
+            assert await provider.authorization_header(True) == "Bearer new"
+
+        saved = credential_store.get("mcp/resource")
+        assert saved is not None
+        assert saved.secret == "new"
+        assert saved.metadata["refresh_token"] == "refresh-old"
 
     asyncio.run(scenario())

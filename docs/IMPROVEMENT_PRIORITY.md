@@ -241,7 +241,7 @@ network:
 ### Phase B: 認証・タスク基盤
 
 - [x] CredentialStore Protocol (`src/uagent/auth/credential_store.py`)
-- [ ] OAuth / Provider / MCP の統合（Provider の一部のみ対応）
+- [ ] OAuth / Provider / MCP の統合（Provider は対応済み、MCP OAuth は CredentialStore を選択可能。A2A/OAuth 全体の統一は未完了）
 - [x] Secret access logging (`credential.accessed` / `credential.stored` / `credential.deleted`)
 - [x] TaskStore Protocol (`src/uagent/a2a/task_store.py`)
 - [x] SQLiteTaskStore (`src/uagent/a2a/task_store.py`)
