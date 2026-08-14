@@ -9,6 +9,27 @@ This document records the durable implementation contracts for uagent. Temporary
 - Async locale propagation uses `contextvars`; thread-local language APIs remain compatibility APIs.
 - `core.py` remains an API compatibility facade for runtime modules. New state, console, history, logging, prompt, and cancellation logic belongs under `src/uagent/runtime/`.
 
+## I18N and TDD requirements
+
+I18N is part of the Agent execution context, not only a presentation concern.
+
+- Propagate locale through asynchronous execution with `contextvars`.
+- Resolve locale at CLI, Web, GUI, and A2A entry points.
+- Keep user-facing messages translatable; do not hard-code them in runtime paths.
+- Keep logs, event codes, API status values, tool names, provider names, and field names stable and machine-readable.
+- Test missing translations, placeholder mismatches, non-interactive execution, errors, and cancellation in each affected locale path.
+- Keep localized README and design documentation synchronized when durable behavior changes.
+
+New behavior is developed with TDD:
+
+```text
+Red → add a failing test
+Green → implement the minimum behavior
+Refactor → improve boundaries, types, duplication, and readability
+```
+
+A change is complete only when its tests cover success, failure, boundary values, cancellation, authorization, and locale behavior as applicable, followed by the full acceptance suite.
+
 ## Optional dependency installation
 
 `UAGENT_AUTO_INSTALL` controls runtime installation:
