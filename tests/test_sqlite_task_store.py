@@ -58,3 +58,18 @@ def test_sqlite_task_store_update_does_not_overwrite_status(tmp_path) -> None:
 
     assert store.update("update", status=TaskStatus.SUCCEEDED.value) is None
     assert store.get("update").status == TaskStatus.IN_PROGRESS.value
+
+
+def test_sqlite_task_store_recovers_incomplete_tasks_after_restart(tmp_path) -> None:
+    path = tmp_path / "tasks.sqlite3"
+    store = SQLiteTaskStore(path)
+    store.create(TaskRecord(id="interrupted"))
+    reopened = SQLiteTaskStore(path)
+
+    recovered = reopened.recover_incomplete()
+
+    assert [item.id for item in recovered] == ["interrupted"]
+    record = reopened.get("interrupted")
+    assert record.status == TaskStatus.FAILED.value
+    assert record.error == {"code": "TASK_INTERRUPTED_BY_RESTART"}
+    assert reopened.recover_incomplete() == []

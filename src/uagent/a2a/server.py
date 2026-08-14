@@ -93,6 +93,12 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
     app.state.credential_store = credential_store or get_default_credential_store()
 
     store = _build_task_store()
+    try:
+        recovered = store.recover_incomplete()
+    except AttributeError:
+        recovered = []
+    if recovered:
+        log_event("task.recovered_after_restart", count=len(recovered), status="failed")
     from ..tools import configure_default_confirmation
 
     configure_default_confirmation()

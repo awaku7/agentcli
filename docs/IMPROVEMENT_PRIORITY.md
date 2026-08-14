@@ -245,7 +245,7 @@ network:
 - [x] Secret access logging (`credential.accessed` / `credential.stored` / `credential.deleted`)
 - [x] TaskStore Protocol (`src/uagent/a2a/task_store.py`)
 - [x] SQLiteTaskStore (`src/uagent/a2a/task_store.py`)
-- [ ] restart recovery（永続化は済み、実行中ランタイムの復旧は未実装）
+- [x] restart recovery (`docs/RESTART_RECOVERY.md`; 実行中タスクを安全に FAILED 化)
 
 ### Phase C: 観測性・ポリシー
 

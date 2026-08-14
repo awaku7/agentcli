@@ -66,6 +66,10 @@ class TaskStore(Protocol):
     ) -> Optional[TaskRecord]:
         ...
 
+    def recover_incomplete(self) -> list[TaskRecord]:
+        """Mark tasks interrupted by process restart as failed."""
+        ...
+
 
 class InMemoryTaskStore:
     def __init__(self) -> None:
@@ -137,6 +141,22 @@ class InMemoryTaskStore:
                 setattr(rec, k, v)
             rec.updated_at = _now_iso()
             return rec
+
+
+    def recover_incomplete(self) -> list[TaskRecord]:
+        recovered: list[TaskRecord] = []
+        with self._lock:
+            for rec in self.list(limit=100000):
+                if rec.status in {TaskStatus.IN_PROGRESS.value, TaskStatus.CANCEL_REQUESTED.value}:
+                    updated = self.transition(
+                        rec.id,
+                        rec.status,
+                        TaskStatus.FAILED.value,
+                        error={"code": "TASK_INTERRUPTED_BY_RESTART"},
+                    )
+                    if updated is not None:
+                        recovered.append(updated)
+        return recovered
 
 
 class SQLiteTaskStore:
@@ -289,3 +309,24 @@ class SQLiteTaskStore:
                 values,
             )
             return self._record(conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,)).fetchone())
+
+
+    def recover_incomplete(self) -> list[TaskRecord]:
+        recovered: list[TaskRecord] = []
+        with self._lock, self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            rows = conn.execute(
+                "SELECT id, status FROM tasks WHERE status IN (?, ?)",
+                (TaskStatus.IN_PROGRESS.value, TaskStatus.CANCEL_REQUESTED.value),
+            ).fetchall()
+            for row in rows:
+                now = _now_iso()
+                error = self._json({"code": "TASK_INTERRUPTED_BY_RESTART"})
+                conn.execute(
+                    "UPDATE tasks SET status = ?, error = ?, updated_at = ? WHERE id = ? AND status = ?",
+                    (TaskStatus.FAILED.value, error, now, row["id"], row["status"]),
+                )
+                record = self.get(str(row["id"]))
+                if record is not None:
+                    recovered.append(record)
+        return recovered
