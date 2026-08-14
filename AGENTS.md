@@ -93,6 +93,13 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
 - After changing tools, startup, or MCP behavior, run the affected path end-to-end.
 
+## Git commit convention
+
+- Write every commit message in English.
+- Use a concise Conventional Commits-style subject when practical, for example `feat: add infinite mode to auto command` or `fix: preserve locale in background tasks`.
+- Complete the work in this order: implement, run the relevant tests and checks, review the diff, then commit.
+- Keep each commit focused on one completed work item.
+
 ## Coding conventions
 
 - New tools go in `src/uagent/tools/<name>_tool.py` with `TOOL_SPEC` dict and a `run_tool()` function.
