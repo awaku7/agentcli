@@ -1,6 +1,7 @@
 # 改善優先順位と期待効果
 
 この文書は、`uag_improvement_plan.md` に記載された改善項目を、現在の実装状況を踏まえて整理したものです。
+実装済みの範囲と未実装の拡張を区別し、ロードマップのチェック状態を実コードとテストに合わせて更新します。
 
 ## 結論
 
@@ -12,7 +13,7 @@
 1. 構造化 Observability の全境界適用
 1. Enterprise Policy Engine
 
-この順番で進めることで、uag は単なる機能集合から、状態を一貫して管理できる Agent Runtime へ発展します。
+主要なRuntime基盤は実装済みです。今後は個別イベントの完全化、OS固有の秘密情報ストア、分散合意、Plugin sandboxなど、残っている拡張を優先度順に進めます。
 
 ## 1. Agent Lifecycle
 
@@ -45,9 +46,16 @@ PAUSED
 
 - `src/uagent/runtime/lifecycle.py`
 - Agent 状態の enum と遷移表
-- `start()`、`pause()`、`resume()`、`cancel()`、`wait()`
+- `start()`、`pause()`、`resume()`、`cancel()`、`timeout()`
+- `wait()` 相当の待機APIは未実装で、今後の拡張対象
 - cancellation と timeout の統合
 - CLI/Web/GUI/A2A の状態通知統合
+
+### 現状
+
+`AgentLifecycle` と `lifecycle_execution()` が実装され、CLI、Web、GUI、A2Aの主要な実行経路で状態を追跡します。キャンセル、タイムアウト、失敗、pause/resumeの状態遷移とテストがあります。
+
+一方、現在のイベントは主に `agent.lifecycle.changed` という汎用イベントです。`agent.created`、`agent.started`、`agent.waiting_tool` などの個別イベント体系と、独立した `wait()` APIは未実装です。
 
 ### 期待効果
 
@@ -88,11 +96,11 @@ class CredentialStore(Protocol):
 ### 保存先の優先順位
 
 ```text
-OS Secret Store
-    ↓
 Encrypted Store
     ↓
 Environment
+
+`PersistentCredentialStore` と暗号化された `TokenStore` が実装済みで、CredentialStoreから取得できない場合に環境変数へフォールバックします。Windows Credential Manager、macOS Keychain、Linux Secret ServiceなどのOS固有Secret Storeは今後の拡張対象です。
 ```
 
 ### 期待効果
@@ -111,6 +119,8 @@ uag credential list
 uag credential set openai
 uag credential remove github
 ```
+
+上記のCredential CLIは現時点では未実装です。
 
 ## 3. SQLite TaskStore
 
@@ -143,11 +153,11 @@ uag task show <task-id>
 uag task resume <task-id>
 ```
 
-## 4. 構造化 Observability の全境界適用
+## 4. 構造化 Observability の主要境界適用
 
 ### 概要
 
-既存のイベントログを、Agent、Task、LLM、Tool、OAuth、Credential の全境界へ拡張します。
+既存のイベントログを、Agent、Task、LLM、Tool、OAuth、Credential の主要境界へ拡張します。個別イベント体系の完全適用は残課題です。
 
 ### 共通フィールド
 
@@ -213,11 +223,15 @@ providers:
     action: allow
 
 mcp_servers:
-  - https://trusted.example.com
+  https://trusted.example.com: allow
 
 network:
   default: deny
 ```
+
+### 現状
+
+Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに対する制御と、Tool dispatch境界でのdeny/confirm判定が実装されています。MCPとNetworkのallowlistは現在、文字列の部分一致による簡易判定です。
 
 ### 期待効果
 
@@ -249,7 +263,8 @@ network:
 
 ### Phase C: 観測性・ポリシー
 
-- [x] structured observability の全境界適用（CLI / Web / GUI / A2A / LLM / OAuth / Tool）
+- [x] structured observability の主要境界への適用（CLI / Web / GUI / A2A / LLM / OAuth / Tool）
+- [ ] Agent Lifecycleの個別イベント体系（`agent.created` など）の完全適用
 - [x] trace / duration / correlation ID（event_id / correlation_id / duration_ms / tool_call_id）
 - [x] Enterprise Policy Engine (`src/uagent/tools/enterprise_policy.py`)
 - [x] Skill / Plugin permission (`EnterprisePolicy` + runtime plugin loading)
