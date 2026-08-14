@@ -5,6 +5,7 @@ from typing import Any
 
 import requests
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from ..llmcapa_util import check_audio_input_support
 from .arg_util import get_bool, get_list, get_path, get_str
@@ -174,6 +175,11 @@ def _env_first(keys: list[str], *, required: bool = False, default: str = "") ->
         value = (env_get(key) or "").strip()
         if value:
             return value
+        if key.startswith("UAGENT_") and key.endswith("_API_KEY"):
+            provider = key[len("UAGENT_") : -len("_API_KEY")].lower()
+            value = (get_provider_api_key(provider) or "").strip()
+            if value:
+                return value
     if required:
         raise RuntimeError(f"Missing required env var(s): {', '.join(keys)}")
     return default
