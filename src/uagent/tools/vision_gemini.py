@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from typing import Optional
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -18,6 +19,10 @@ def _img_env(
     keys = [f"UAGENT_{p}_IMG_{m}_{n}", f"UAGENT_{p}_{n}"]
     for k in keys:
         v = (env_get(k) or "").strip()
+        if v:
+            return v
+    if n == "API_KEY":
+        v = (get_provider_api_key(provider) or "").strip()
         if v:
             return v
     if required:

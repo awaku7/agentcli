@@ -8,6 +8,7 @@ import json
 import mimetypes
 from pathlib import Path
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -42,7 +43,7 @@ def _get_deepseek_client():
             _("err.import_openai", default="Failed to import openai package.")
         )
 
-    api_key = env_get("UAGENT_DEEPSEEK_API_KEY") or env_get("UAGENT_OPENAI_API_KEY")
+    api_key = get_provider_api_key("deepseek") or get_provider_api_key("openai")
     base_url = env_get("UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
     if not api_key:
         raise RuntimeError(
