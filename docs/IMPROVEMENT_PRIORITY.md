@@ -257,7 +257,7 @@ network:
 
 ### Phase D: 高度化
 
-- [ ] Checkpoint / Recovery
+- [x] Checkpoint / Recovery (`TaskStore.save_checkpoint` / `load_checkpoint`)
 - [ ] DAG-based Tool Scheduler
 - [ ] Distributed A2A
 - [ ] Multi-Agent orchestration

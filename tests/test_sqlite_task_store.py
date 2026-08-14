@@ -73,3 +73,11 @@ def test_sqlite_task_store_recovers_incomplete_tasks_after_restart(tmp_path) -> 
     assert record.status == TaskStatus.FAILED.value
     assert record.error == {"code": "TASK_INTERRUPTED_BY_RESTART"}
     assert reopened.recover_incomplete() == []
+
+
+def test_sqlite_task_store_checkpoint_round_trip(tmp_path) -> None:
+    store = SQLiteTaskStore(tmp_path / "tasks.sqlite3")
+    store.create(TaskRecord(id="checkpoint"))
+
+    assert store.save_checkpoint("checkpoint", {"step": 2, "messages": ["ok"]}) is not None
+    assert store.load_checkpoint("checkpoint") == {"step": 2, "messages": ["ok"]}

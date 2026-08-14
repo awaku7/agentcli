@@ -33,6 +33,7 @@ class TaskRecord:
     input_message: Optional[dict[str, Any]] = None
     output_message: Optional[dict[str, Any]] = None
     error: Optional[dict[str, Any]] = None
+    checkpoint: Optional[dict[str, Any]] = None
 
 
 @dataclass
@@ -68,6 +69,12 @@ class TaskStore(Protocol):
 
     def recover_incomplete(self) -> list[TaskRecord]:
         """Mark tasks interrupted by process restart as failed."""
+        ...
+
+    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any]) -> Optional[TaskRecord]:
+        ...
+
+    def load_checkpoint(self, task_id: str) -> Optional[dict[str, Any]]:
         ...
 
 
@@ -159,6 +166,14 @@ class InMemoryTaskStore:
         return recovered
 
 
+    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any]) -> Optional[TaskRecord]:
+        return self.update(task_id, checkpoint=dict(checkpoint))
+
+    def load_checkpoint(self, task_id: str) -> Optional[dict[str, Any]]:
+        record = self.get(task_id)
+        return dict(record.checkpoint) if record and record.checkpoint is not None else None
+
+
 class SQLiteTaskStore:
     """SQLite-backed TaskStore; runtime handles remain process-local."""
 
@@ -176,10 +191,14 @@ class SQLiteTaskStore:
                     status TEXT NOT NULL,
                     input_message TEXT,
                     output_message TEXT,
-                    error TEXT
+                    error TEXT,
+                    checkpoint TEXT
                 )
                 """
             )
+            columns = {row[1] for row in conn.execute("PRAGMA table_info(tasks)")}
+            if "checkpoint" not in columns:
+                conn.execute("ALTER TABLE tasks ADD COLUMN checkpoint TEXT")
 
     def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.path, timeout=10.0)
@@ -204,6 +223,7 @@ class SQLiteTaskStore:
             input_message=cls._loads(row["input_message"]),
             output_message=cls._loads(row["output_message"]),
             error=cls._loads(row["error"]),
+            checkpoint=cls._loads(row["checkpoint"]) if "checkpoint" in row.keys() else None,
         )
 
     def create(self, rec: TaskRecord) -> None:
@@ -211,8 +231,8 @@ class SQLiteTaskStore:
             conn.execute(
                 """
                 INSERT OR REPLACE INTO tasks
-                (id, created_at, updated_at, status, input_message, output_message, error)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (id, created_at, updated_at, status, input_message, output_message, error, checkpoint)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     rec.id,
@@ -222,6 +242,7 @@ class SQLiteTaskStore:
                     self._json(rec.input_message),
                     self._json(rec.output_message),
                     self._json(rec.error),
+                    self._json(rec.checkpoint),
                 ),
             )
 
@@ -241,7 +262,7 @@ class SQLiteTaskStore:
     def update(self, task_id: str, **kwargs: Any) -> Optional[TaskRecord]:
         if "status" in kwargs:
             return None
-        allowed = {"created_at", "updated_at", "input_message", "output_message", "error"}
+        allowed = {"created_at", "updated_at", "input_message", "output_message", "error", "checkpoint"}
         if not set(kwargs).issubset(allowed):
             raise ValueError("unsupported task update field")
         if not kwargs:
@@ -254,7 +275,7 @@ class SQLiteTaskStore:
             values: list[Any] = []
             for key, value in kwargs.items():
                 assignments.append(f"{key} = ?")
-                values.append(self._json(value) if key in {"input_message", "output_message", "error"} else value)
+                values.append(self._json(value) if key in {"input_message", "output_message", "error", "checkpoint"} else value)
             assignments.append("updated_at = ?")
             values.append(_now_iso())
             values.append(task_id)
@@ -299,10 +320,10 @@ class SQLiteTaskStore:
             assignments: list[str] = []
             values: list[Any] = []
             for key, value in updates.items():
-                if key not in {"status", "updated_at", "output_message", "error"}:
+                if key not in {"status", "updated_at", "output_message", "error", "checkpoint"}:
                     raise ValueError("unsupported task transition field")
                 assignments.append(f"{key} = ?")
-                values.append(self._json(value) if key in {"output_message", "error"} else value)
+                values.append(self._json(value) if key in {"output_message", "error", "checkpoint"} else value)
             values.extend([task_id, row["status"]])
             conn.execute(
                 f"UPDATE tasks SET {', '.join(assignments)} WHERE id = ? AND status = ?",
@@ -330,3 +351,11 @@ class SQLiteTaskStore:
                 if record is not None:
                     recovered.append(record)
         return recovered
+
+
+    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any]) -> Optional[TaskRecord]:
+        return self.update(task_id, checkpoint=dict(checkpoint))
+
+    def load_checkpoint(self, task_id: str) -> Optional[dict[str, Any]]:
+        record = self.get(task_id)
+        return dict(record.checkpoint) if record and record.checkpoint is not None else None
