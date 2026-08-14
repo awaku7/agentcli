@@ -100,7 +100,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 | **Prévision** | Prévision de séries temporelles avec 9 modèles (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), sélection automatique du modèle, génération de graphiques, i18n |
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — voir [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
+| **Outils de développement** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 navigateurs de code source (famille idx)** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ Consultez la documentation complète dans [DEVELOP_PLUGIN.md](../src/uagent/docs
 
 #### Examen et couverture du référentiel
 
+- `workspace_status`: Signalez la branche Git de l'espace de travail actif, les modifications, l'état de synchronisation en amont, le runtime Python et les marqueurs de projet courants sans modifier les fichiers.
 - `git_review` : résume les modifications de Git, les fichiers à risque, les candidats de test et les résultats secrets sans exposer les valeurs secrètes.
 - `security_scan` : analyse les fichiers du référentiel à la recherche de secrets probables et de fichiers de configuration à risque.
 - `coverage_report` : exécute et normalise la couverture pour Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift et Dart/Flutter.

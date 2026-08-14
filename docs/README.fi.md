@@ -99,7 +99,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 | **Viestintä** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – katso [COMMUNICATION.md](COMMUNICATION.md) ja [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Pilvi-API:t** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **29 lähdekoodinavigaattoria (idx-perhe)** |
+| **Kehittäjätyökalut** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 lähdekoodinavigaattoria (idx-perhe)** |
 | **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Katso lisätietoja täydellisestä dokumentaatiosta. [DEVELOP_PLUGIN.md](../src/
 
 #### Arkiston tarkistus ja kattavuus
 
+- `workspace_status`: Raportoi aktiivisen työtilan Git haara, muutokset, ylävirran synkronoinnin tila, Python ajonaika ja yleiset projektimerkit muokkaamatta tiedostoja.
 - `git_review`: yhteenveto Git-muutoksista, riskialttiista tiedostoista, testiehdokkaista ja salaisista löydöistä paljastamatta salaisia arvoja.
 - `security_scan`: skannaa arkistotiedostot todennäköisten salaisuuksien ja riskialttiiden asetustiedostojen varalta.
 - `coverage_report`:for run andJavacover, Scriptage. Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ja Dart/Flutter.

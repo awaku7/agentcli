@@ -99,7 +99,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 | **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — ראה [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ממשקי API בענן** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **29 נווטי קוד מקור (משפחת idx)** |
+| **כלי פיתוח** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 נווטי קוד מקור (משפחת idx)** |
 | **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | תקשורת סוכן לסוכן (עם מופעי uag אחרים או שרתים תואמי A2A) |
 | **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 
 #### סקירה וכיסוי של מאגר
 
+- `workspace_status`: דווח על ענף סביבת העבודה הפעיל Git, שינויים, מצב סנכרון במעלה הזרם, זמן ריצה Python וסמני פרויקט נפוצים מבלי לשנות קבצים.
 - `git_review`: סיכום שינויים ב-Git, קבצים מסוכנים, מועמדי בדיקה וממצאים סודיים מבלי לחשוף ערכים סודיים.
 - `security_scan`: סרוק קבצי מאגר עבור סודות סבירים וקובצי תצורה מסוכנים.
 - \`coverage_report Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ו-Dart/Flutter.

@@ -100,7 +100,7 @@ uagent ใช้ระบบปลั๊กอินที่เข้ากั�
 | **พยากรณ์** | การพยากรณ์อนุกรมเวลาด้วย 9 โมเดล (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM ฯลฯ), การเลือกโมเดลอัตโนมัติ, การสร้างพล็อต, i18n |
 | **การสื่อสาร** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — ดู [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **ไอโอที** | SwitchBot (คลาวด์ + BLE), ECHONET Lite, สำคัญ, UPnP, reverse_geocode |
-| **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 29 ตัว (ตระกูล idx)** |
+| **เครื่องมือสำหรับการพัฒนา** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 29 ตัว (ตระกูล idx)** |
 | **เอ็มซีพี** | เชื่อมต่อกับเซิร์ฟเวอร์ MCP ภายนอก แสดงรายการเครื่องมือ ดำเนินการ |
 | **A2A** | การสื่อสารระหว่างเอเจนต์กับเอเจนต์ (กับอินสแตนซ์ uag อื่นๆ หรือเซิร์ฟเวอร์ที่เข้ากันได้กับ A2A)
 | **ระบบ** | env vars, ข้อมูลจำเพาะของระบบ, เวลา, การคำนวณวันที่, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ uagent ใช้ระบบปลั๊กอินที่เข้ากั�
 
 #### การตรวจสอบพื้นที่เก็บข้อมูลและความครอบคลุม
 
+- `workspace_status`: รายงานพื้นที่ทำงานสาขา Git ที่ใช้งานอยู่ การเปลี่ยนแปลง สถานะการซิงค์อัปสตรีม รันไทม์ Python และเครื่องหมายโครงการทั่วไปโดยไม่ต้องแก้ไขไฟล์
 - `git_review`: สรุปการเปลี่ยนแปลง Git ไฟล์ที่มีความเสี่ยง ผู้สมัครทดสอบ และการค้นพบความลับโดยไม่เปิดเผยค่าความลับ
 - `security_scan`: สแกนไฟล์พื้นที่เก็บข้อมูลเพื่อหาความลับที่เป็นไปได้และไฟล์การกำหนดค่าที่มีความเสี่ยง
 - `coverage_report`: เรียกใช้และปรับมาตรฐานการครอบคลุมสำหรับ Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift และ Dart/Flutter

@@ -99,7 +99,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 | **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — पहा [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **क्लाउड API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
+| **देव साधने** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 
 #### रेपॉजिटरी पुनरावलोकन आणि कव्हरेज
 
+- `workspace_status`: फायली सुधारित न करता सक्रिय कार्यस्थान Git शाखा, बदल, अपस्ट्रीम सिंक स्थिती, Python रनटाइम आणि सामान्य प्रोजेक्ट मार्करचा अहवाल द्या.
 - `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter.
 - अंमलबजावणीची विनंती केल्यावर गहाळ कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित केले जाऊ शकते; `dry_run` कधीही पॅकेजेस इंस्टॉल करत नाही.
 

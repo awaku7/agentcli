@@ -99,7 +99,7 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/ua
 | **Komunikacja** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — zobacz [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Interfejsy API chmury** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **29 nawigatorów kodu źródłowego (rodzina idx)** |
+| **Narzędzia deweloperskie** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 nawigatorów kodu źródłowego (rodzina idx)** |
 | **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikacja agent-agent (z innymi instancjami uag lub serwerami kompatybilnymi z A2A) |
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Pełna dokumentacja zawiera więcej szczegółów. [DEVELOP_PLUGIN.md](../src/ua
 
 #### Przegląd i pokrycie repozytorium
 
+- `workspace_status`: Zgłaszaj gałąź aktywnego obszaru roboczego Git, zmiany, stan synchronizacji nadrzędnej, środowisko wykonawcze Python i typowe znaczniki projektu bez modyfikowania plików.
 - `git_review`: podsumowanie zmian w Git, ryzykownych plikach, kandydatów do testów i tajnych ustaleń bez ujawniania tajnych wartości.
 - `security_scan`: skanowanie plików repozytorium pod kątem prawdopodobnych sekretów i ryzykownych plików konfiguracyjnych.
 - `coverage_report`: uruchamianie i normalizowanie pokrycia dla Pythona, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift i Dart/Flutter.

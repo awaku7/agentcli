@@ -99,7 +99,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 | **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook, **pybitchat** (BLE Mesh) — viz [COMMUNICATION.md](COMMUNICATION.md) a [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloudová rozhraní API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
+| **Nástroje pro vývojáře** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 navigátorů zdrojového kódu (rodina idx)** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent implementuje **systém zásuvných modulů kompatibilní s Claude Code**.
 
 #### Kontrola a pokrytí úložiště
 
+- `workspace_status`: Hlásit větev aktivního pracovního prostoru Git, změny, stav synchronizace upstream, runtime Python a běžné značky projektu bez úpravy souborů.
 - `git_review`: shrnutí změn Gitu, rizikové soubory, kandidáty na testování a tajná zjištění bez odhalení tajných hodnot.
 - `security_scan`: skenování souborů úložiště na pravděpodobná tajemství a rizikové konfigurační soubory.
 - `coverage_report`: spouštění, GoScript, typ/normalizace pokrytí pro Py Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift a Dart/Flutter.

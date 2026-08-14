@@ -99,7 +99,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 | **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — vezi [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API-uri cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatoare de cod sursă (familia idx)** |
+| **Instrumente de dezvoltare** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatoare de cod sursă (familia idx)** |
 | **MCP** | Conectați-vă la servere MCP externe, listați instrumentele, executați — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Comunicare agent la agent (cu alte instanțe uag sau servere compatibile A2A) |
 | **Sistem** | env vars, specificații de sistem, ora, calculul datei, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Consultați documentația completă în [DEVELOP_PLUGIN.md](../src/uagent/docs/D
 
 #### Revizuirea și acoperirea depozitului
 
+- `workspace_status`: Raportați spațiul de lucru activ Git ramificație, modificări, starea de sincronizare în amonte, Python timpul de execuție și marcatorii obișnuiți de proiect fără a modifica fișierele.
 - `git_review`: rezumați modificările Git, fișierele riscante, candidații de testare și constatările secrete, fără a expune valorile secrete.
 - `security_scan`: scanați fișierele de depozit pentru secrete probabile și fișiere de configurare riscante.
 - `coverage_report`: Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift și Dart/Flutter.

@@ -99,7 +99,7 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **Comunicazione** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — vedi [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Strumenti di sviluppo** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatori del codice sorgente (famiglia idx)** |
+| **Strumenti di sviluppo** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 navigatori del codice sorgente (famiglia idx)** |
 | **MCP** | Connettersi a server MCP esterni, elencare gli strumenti, eseguire — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Comunicazione da agente ad agente (con altre istanze uag o server compatibili con A2A) |
 | **Sistema** | variabili di ambiente, specifiche di sistema, ora, calcolo della data, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Consulta la documentazione completa in [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 
 #### Revisione e copertura del repository
 
+- `workspace_status`: Segnala il ramo Git dell'area di lavoro attiva, le modifiche, lo stato di sincronizzazione upstream, il runtime Python e gli indicatori di progetto comuni senza modificare i file.
 - `git_review`: riepiloga modifiche Git, file rischiosi, candidati ai test e risultati segreti senza esporre valori segreti.
 - `security_scan`: scansiona i file del repository per probabili segreti e file di configurazione rischiosi.
 - `coverage_report`: esegui e normalizza la copertura per Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift e Dart/Flutter.

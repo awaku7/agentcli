@@ -100,7 +100,7 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 | **پیش‌بینی** | پیش‌بینی سری زمانی با 9 مدل (AutoARIMA، Prophet، LightGBM، CatBoost، TimesFM و غیره)، انتخاب خودکار مدل، تولید نمودار، i18n |
 | **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook , **pybitchat** (BLE Mesh) — به [COMMUNICATION.md](COMMUNICATION.md) مراجعه کنید and [BITCHAT.md](BITCHAT.md)|
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
-| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **29 پیمایش کد منبع (خانواده idx)** |
+| **ابزارهای توسعه** | workspace_status, git_ops، python_compile، lint_format، run_tests، db_query، **29 پیمایش کد منبع (خانواده idx)** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
 | **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ uagent یک سیستم افزونه سازگار با Claude Code را پیاد�
 
 #### بررسی و پوشش مخزن
 
+- `workspace_status`: شاخه فضای کاری فعال Git، تغییرات، وضعیت همگام سازی بالادست، زمان اجرا Python و نشانگرهای پروژه رایج را بدون تغییر فایل ها گزارش دهید.
 - `git_review`: خلاصه کردن تغییرات Git، فایل‌های مخاطره‌آمیز، نامزدهای آزمایشی و یافته‌های مخفی بدون افشای مقادیر مخفی. TypeScript/JavaScript، Rust، Go، Java/Kotlin، .NET، C/C++، Ruby، PHP، Swift و Dart/Flutter.
 - وابستگی های پوشش از دست رفته را می توان به طور خودکار در صورت درخواست اجرا نصب کرد. «dry_run» هرگز بسته‌ها را نصب نمی‌کند.
 

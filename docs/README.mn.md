@@ -99,7 +99,7 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 | **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) -г үзнэ үү and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Үүлэн API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 эх кодын хөтөч (idx гэр бүл)** |
+| **Dev Tools** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 эх кодын хөтөч (idx гэр бүл)** |
 | **MCP** | Гадаад MCP серверүүдтэй холбогдож, хэрэгслүүдийг жагсааж, — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Агент-агент хоорондын харилцаа (бусад uag instances эсвэл A2A нийцтэй серверүүдтэй) |
 | **Систем** | env vars, системийн үзүүлэлт, цаг, огнооны тооцоо, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent нь **Claude Code-тэй нийцтэй залгаасын систем�
 
 #### Хадгалах сангийн хяналт, хамрах хүрээ
 
+- `workspace_status`: Идэвхтэй ажлын талбарын Git салбар, өөрчлөлт, синхрончлолын дээд төлөв, Python ажиллах хугацаа, файлуудыг өөрчлөхгүйгээр нийтлэг төслийн тэмдэглэгээг мэдээлнэ үү.
 - `git_review`: нууц утгыг ил гаргахгүйгээр Git-ийн өөрчлөлт, эрсдэлтэй файлууд, туршилтын нэр дэвшигчид болон нууц олдворуудыг нэгтгэн дүгнэх. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, болон Dart/Flutter.
 - Алдагдсан хамрах хүрээний хамаарлыг гүйцэтгэх хүсэлт гаргах үед автоматаар суулгаж болно; `dry_run` нь хэзээ ч багц суулгадаггүй.
 

@@ -99,7 +99,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 | **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook, **pybitchat** (BLE Mesh) — bkz. [COMMUNICATION.md](COMMUNICATION.md) ve [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Bulut API’leri** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kaynak kodu gezgini (idx ailesi)** |
+| **Geliştirme Araçları** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 kaynak kodu gezgini (idx ailesi)** |
 | **MCP** | Harici MCP sunucularına bağlanın, araçları listeleyin, çalıştırın — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Aracıdan aracıya iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
 | **Sistem** | env değişkenleri, sistem özellikleri, saat, tarih hesaplaması, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 
 #### Depo incelemesi ve kapsamı
 
+- `workspace_status`: Etkin çalışma alanı Git dalını, değişiklikleri, yukarı akış senkronizasyon durumunu, Python çalışma zamanını ve ortak proje işaretleyicilerini, dosyaları değiştirmeden raporlayın.
 - `git_review`: Git değişikliklerini, riskli dosyaları, test adaylarını ve gizli bulguları gizli değerleri açığa çıkarmadan özetleyin.
 - `security_scan`: depo dosyalarını olası sırlar ve riskli yapılandırma dosyaları için tarayın.
 - `coverage_report`: Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET için kapsamı çalıştırın ve normalleştirin, C/C++, Ruby, PHP, Swift ve Dart/Flutter.

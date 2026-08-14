@@ -99,7 +99,7 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 | **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Moln-API:er** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **29 källkodsnavigatorer (idx-familjen)** |
+| **Utvecklarverktyg** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 källkodsnavigatorer (idx-familjen)** |
 | **MCP** | Anslut till externa MCP-servrar, lista verktyg, kör — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-till-agent-kommunikation (med andra uag-instanser eller A2A-kompatibla servrar) |
 | **System** | env vars, systemspecifikationer, tid, datumberäkning, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Se den fullständiga dokumentationen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DE
 
 #### Repository granskning och täckning
 
+- `workspace_status`: Rapportera den aktiva arbetsytan Git-gren, ändringar, uppströmssynkroniseringstillstånd, Python körtid och vanliga projektmarkörer utan att ändra filer.
 - `git_review`: sammanfatta Git-ändringar, riskfyllda filer, testkandidater och hemliga fynd utan att avslöja hemliga värden.
 - `security_scan`: genomsök förvarsfiler efter troliga hemligheter och riskfyllda konfigurationsfiler.
 - `coverage_report` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift och Dart/Flutter.

@@ -99,7 +99,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) 및 [BITCHAT.md](BITCHAT.md) 참조|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **클라우드 API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **29개의 소스 코드 탐색기(idx 제품군)** |
+| **개발 도구** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
 | **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent는 Claude Code 호환 플러그인 시스템을 구현합니다. 플러�
 
 #### 리포지토리 검토 및 적용 범위
 
+- `workspace_status`: 파일을 수정하지 않고 활성 작업공간 Git 분기, 변경 사항, 업스트림 동기화 상태, Python 런타임 및 공통 프로젝트 마커를 보고합니다.
 - `git_review`: 비밀 값을 노출하지 않고 Git 변경 사항, 위험한 파일, 테스트 후보, 비밀 결과를 요약합니다.
 - `security_scan`: 리포지토리 파일에서 가능성이 있는 비밀 및 위험한 구성 파일을 검색합니다.
 - `coverage_report`: Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby에 대한 적용 범위를 실행하고 정규화합니다. PHP, Swift 및 Dart/Flutter.

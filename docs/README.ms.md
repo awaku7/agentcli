@@ -122,7 +122,7 @@ Lihat [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) untuk dokumentasi p
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) dan [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — operasi AWS generik, Google Cloud dan API Azure; operasi tulis memerlukan pengesahan yang jelas |
-| **Alat Pembangun** | git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 navigator kod sumber (keluarga idx)** |
+| **Alat Pembangun** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 navigator kod sumber (keluarga idx)** |
 | **MCP** | Sambung ke pelayan MCP luaran, senaraikan alatan, jalankan — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikasi ejen-ke-ejen (dengan kejadian uag lain atau pelayan serasi A2A) |
 | **Sistem** | env vars, spesifikasi sistem, masa, pengiraan tarikh, [kuantiti](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
@@ -130,6 +130,7 @@ Lihat [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) untuk dokumentasi p
 
 #### Semakan dan liputan repositori
 
+- `workspace_status`: Laporkan cawangan Git ruang kerja aktif, perubahan, keadaan penyegerakan huluan, masa jalan Python dan penanda projek biasa tanpa mengubah suai fail.
 - `git_review`: meringkaskan perubahan Git, fail berisiko, calon ujian dan penemuan rahsia tanpa mendedahkan nilai rahsia.
 - `security_scan`: imbas fail repositori untuk kemungkinan rahsia dan fail konfigurasi berisiko.
 - `coverage_report`: jalankan dan normalkan liputan untuk Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift dan Dart/Flutter.

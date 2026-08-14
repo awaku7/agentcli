@@ -122,7 +122,7 @@ Se [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for fuld dokumentation
 | **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) og [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Cloud API'er** | `aws_api`, `gcp_api`, `azure_api` — generiske AWS-, Google Cloud- og Azure API-operationer; skriveoperationer kræver eksplicit bekræftelse |
-| **Udviklerværktøjer** | git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
+| **Udviklerværktøjer** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
 | **MCP** | Opret forbindelse til eksterne MCP-servere, liste værktøjer, udfør — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-til-agent-kommunikation (med andre uag-instanser eller A2A-kompatible servere) |
 | **System** | env vars, systemspecifikationer, tid, datoberegning, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
@@ -130,6 +130,7 @@ Se [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for fuld dokumentation
 
 #### Gennemgang af repository og dækning
 
+- `workspace_status`: Rapporter det aktive arbejdsområde Git-gren, ændringer, upstream-synkroniseringstilstand, Python runtime og almindelige projektmarkører uden at ændre filer.
 - `git_review`: opsummer Git-ændringer, risikable filer, testkandidater og hemmelige fund uden at afsløre hemmelige værdier.
 - `security_scan`: scan lagerfiler for sandsynlige hemmeligheder og risikable konfigurationsfiler.
 - `coverage_report`: Kør og normaliser dækning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.

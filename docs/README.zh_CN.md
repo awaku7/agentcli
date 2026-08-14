@@ -100,7 +100,7 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 | **预测** | 使用9种模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）进行时间序列预测，自动模型选择，生成图表，i18n |
 | **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 请参阅 [COMMUNICATION.md](COMMUNICATION.md) 和 [BITCHAT.md](BITCHAT.md)|
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**29 个源代码导航器（idx 系列）** |
+| **开发工具** | workspace_status, git_ops、python_compile、lint_format、run_tests、db_query、**29 个源代码导航器（idx 系列）** |
 | **MCP** |连接到外部 MCP 服务器、列出工具、执行 — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** |代理间通信（与其他 uag 实例或 A2A 兼容服务器）|
 | **系统** | 环境变量、系统规格、时间、日期计算, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ uagent 实现了**兼容 Claude Code 的插件系统**。插件将技能、代�
 
 #### 存储库审查和覆盖
 
+- `workspace_status`: 报告活动工作区 Git 分支、更改、上游同步状态、Python 运行时和常见项目标记，而无需修改文件。
 - `git_review`：总结 Git 更改、有风险的文件、测试候选项和秘密结果，而不暴露秘密值。
 - `security_scan`：扫描存储库文件以查找可能的秘密和有风险的配置文件。
 - `coverage_report`：运行并规范化 Python、TypeScript/JavaScript、Rust、Go、Java/Kotlin、.NET、C/C++、Ruby、PHP、 Swift 和 Dart/Flutter。

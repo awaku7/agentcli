@@ -99,7 +99,7 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 | **Communicatie** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — zie [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloud-API’s** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 broncode-navigators (idx-familie)** |
+| **Ontwikkeltools** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 broncode-navigators (idx-familie)** |
 | **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Zie de volledige documentatie voor meer informatie. [DEVELOP_PLUGIN.md](../src/u
 
 #### Beoordeling en dekking van de repository
 
+- `workspace_status`: Rapporteer de actieve werkruimte Git vertakking, wijzigingen, upstream-synchronisatiestatus, Python runtime en algemene projectmarkeringen zonder bestanden te wijzigen.
 - `git_review`: vat Git-wijzigingen, risicovolle bestanden, testkandidaten en geheime bevindingen samen zonder geheime waarden bloot te leggen.
 - `security_scan`: scan repository-bestanden op waarschijnlijke geheimen en risicovolle configuratiebestanden.
 - `coverage_report`: voer en normaliseer de dekking voor Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift en Dart/Flutter.

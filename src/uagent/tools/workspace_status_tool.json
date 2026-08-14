@@ -1,0 +1,344 @@
+{
+  "en": {
+    "tool.description": "Inspect the current workspace, including Git status and the local runtime.",
+    "x_search_terms": [
+      "workspace status",
+      "repository status",
+      "git status",
+      "development environment"
+    ]
+  },
+  "ar": {
+    "tool.description": "افحص مساحة العمل الحالية، بما في ذلك حالة Git ووقت التشغيل المحلي.",
+    "x_search_terms": [
+      "حالة مساحة العمل",
+      "حالة المستودع",
+      "حالة git",
+      "بيئة التطوير"
+    ]
+  },
+  "bn": {
+    "tool.description": "গিট স্ট্যাটাস এবং স্থানীয় রানটাইম সহ বর্তমান কর্মক্ষেত্র পরিদর্শন করুন।",
+    "x_search_terms": [
+      "ওয়ার্কস্পেস স্ট্যাটাস",
+      "রিপোজিটরি স্ট্যাটাস",
+      "গিট স্ট্যাটাস",
+      "ডেভেলপমেন্ট এনভায়রনমেন্ট"
+    ]
+  },
+  "cs": {
+    "tool.description": "Zkontrolujte aktuální pracovní prostor, včetně stavu Git a místního runtime.",
+    "x_search_terms": [
+      "stav pracovního prostoru",
+      "stav úložiště",
+      "stav git",
+      "vývojové prostředí"
+    ]
+  },
+  "da": {
+    "tool.description": "Undersøg det aktuelle arbejdsområde, inklusive Git-status og den lokale kørselstid.",
+    "x_search_terms": [
+      "workspace status",
+      "repository status",
+      "git status",
+      "udviklingsmiljø"
+    ]
+  },
+  "de": {
+    "tool.description": "Überprüfen Sie den aktuellen Arbeitsbereich, einschließlich Git-Status und der lokalen Laufzeit.",
+    "x_search_terms": [
+      "Arbeitsbereichsstatus",
+      "Repository-Status",
+      "Git-Status",
+      "Entwicklungsumgebung"
+    ]
+  },
+  "el": {
+    "tool.description": "Επιθεωρήστε τον τρέχοντα χώρο εργασίας, συμπεριλαμβανομένης της κατάστασης Git και του τοπικού χρόνου εκτέλεσης.",
+    "x_search_terms": [
+      "κατάσταση χώρου εργασίας",
+      "κατάσταση αποθετηρίου",
+      "κατάσταση git",
+      "περιβάλλον ανάπτυξης"
+    ]
+  },
+  "es": {
+    "tool.description": "Inspeccione el espacio de trabajo actual, incluido el estado de Git y el tiempo de ejecución local.",
+    "x_search_terms": [
+      "estado del espacio de trabajo",
+      "estado del repositorio",
+      "estado de git",
+      "entorno de desarrollo"
+    ]
+  },
+  "fa": {
+    "tool.description": "فضای کاری فعلی، از جمله وضعیت Git و زمان اجرا محلی را بررسی کنید.",
+    "x_search_terms": [
+      "وضعیت فضای کاری",
+      "وضعیت مخزن",
+      "وضعیت git",
+      "محیط توسعه"
+    ]
+  },
+  "fi": {
+    "tool.description": "Tarkista nykyinen työtila, mukaan lukien Git-tila ja paikallinen suoritusaika.",
+    "x_search_terms": [
+      "työtilan tila",
+      "tietovaraston tila",
+      "gitin tila",
+      "kehitysympäristö"
+    ]
+  },
+  "fil": {
+    "tool.description": "Siyasatin ang kasalukuyang workspace, kasama ang Git status at ang lokal na runtime.",
+    "x_search_terms": [
+      "workspace status",
+      "repository status",
+      "git status",
+      "development environment"
+    ]
+  },
+  "fr": {
+    "tool.description": "Inspectez l'espace de travail actuel, y compris l'état de Git et le runtime local.",
+    "x_search_terms": [
+      "statut de l'espace de travail",
+      "statut du référentiel",
+      "statut git",
+      "environnement de développement"
+    ]
+  },
+  "he": {
+    "tool.description": "בדוק את סביבת העבודה הנוכחית, כולל סטטוס Git וזמן הריצה המקומי.",
+    "x_search_terms": [
+      "מצב סביבת עבודה",
+      "מצב מאגר",
+      "סטטוס git",
+      "סביבת פיתוח"
+    ]
+  },
+  "hi": {
+    "tool.description": "Git स्थिति और स्थानीय रनटाइम सहित वर्तमान कार्यक्षेत्र का निरीक्षण करें।",
+    "x_search_terms": [
+      "कार्यक्षेत्र स्थिति",
+      "रिपोजिटरी स्थिति",
+      "गिट स्थिति",
+      "विकास वातावरण"
+    ]
+  },
+  "hu": {
+    "tool.description": "Ellenőrizze az aktuális munkaterületet, beleértve a Git állapotát és a helyi futási környezetet.",
+    "x_search_terms": [
+      "munkaterület állapota",
+      "lerakat állapota",
+      "git állapot",
+      "fejlesztési környezet"
+    ]
+  },
+  "id": {
+    "tool.description": "Periksa ruang kerja saat ini, termasuk status Git dan runtime lokal.",
+    "x_search_terms": [
+      "status ruang kerja",
+      "status repositori",
+      "status git",
+      "lingkungan pengembangan"
+    ]
+  },
+  "it": {
+    "tool.description": "Esamina l'area di lavoro corrente, incluso lo stato Git e il runtime locale.",
+    "x_search_terms": [
+      "stato dell'area di lavoro",
+      "stato del repository",
+      "stato git",
+      "ambiente di sviluppo"
+    ]
+  },
+  "ja": {
+    "tool.description": "Git ステータスやローカル ランタイムなど、現在のワークスペースを検査します。",
+    "x_search_terms": [
+      "ワークスペースのステータス",
+      "リポジトリのステータス",
+      "gitのステータス",
+      "開発環境"
+    ]
+  },
+  "ko": {
+    "tool.description": "Git 상태 및 로컬 런타임을 포함하여 현재 작업공간을 검사합니다.",
+    "x_search_terms": [
+      "작업공간 상태",
+      "저장소 상태",
+      "git 상태",
+      "개발 환경"
+    ]
+  },
+  "mn": {
+    "tool.description": "Git статус болон орон нутгийн ажиллах цаг зэрэг одоогийн ажлын талбарыг шалгана уу.",
+    "x_search_terms": [
+      "ажлын талбарын байдал",
+      " репозиторын статус",
+      "git статус",
+      "хөгжлийн орчин"
+    ]
+  },
+  "mr": {
+    "tool.description": "Git स्थिती आणि स्थानिक रनटाइमसह, वर्तमान कार्यक्षेत्राचे निरीक्षण करा.",
+    "x_search_terms": [
+      "कार्यक्षेत्र स्थिती",
+      "रिपॉझिटरी स्थिती",
+      "गिट स्थिती",
+      "विकास वातावरण"
+    ]
+  },
+  "ms": {
+    "tool.description": "Periksa ruang kerja semasa, termasuk status Git dan masa jalan setempat.",
+    "x_search_terms": [
+      "status ruang kerja",
+      "status repositori",
+      "status git",
+      "persekitaran pembangunan"
+    ]
+  },
+  "nb": {
+    "tool.description": "Inspiser det gjeldende arbeidsområdet, inkludert Git-status og den lokale kjøretiden.",
+    "x_search_terms": [
+      "arbeidsområdestatus",
+      "repository status",
+      "git status",
+      "utviklingsmiljø"
+    ]
+  },
+  "nl": {
+    "tool.description": "Inspecteer de huidige werkruimte, inclusief Git-status en de lokale runtime.",
+    "x_search_terms": [
+      "werkruimtestatus",
+      "repositorystatus",
+      "git status",
+      "ontwikkelomgeving"
+    ]
+  },
+  "nn": {
+    "tool.description": "Kontroller gjeldende arbeidsområde, inkludert Git-status og lokal kjøretid.",
+    "x_search_terms": [
+      "statusfor arbeidsområde - depotstatus - git-status - utviklingsmiljø",
+      "repository status",
+      "git status",
+      "development environment"
+    ]
+  },
+  "pl": {
+    "tool.description": "Sprawdź bieżący obszar roboczy, w tym status Git i lokalne środowisko wykonawcze.",
+    "x_search_terms": [
+      "status obszaru roboczego",
+      "stan repozytorium",
+      "status git",
+      "środowisko programistyczne"
+    ]
+  },
+  "pt": {
+    "tool.description": "Inspecione o espaço de trabalho atual, incluindo o status do Git e o tempo de execução local.",
+    "x_search_terms": [
+      "status do espaço de trabalho",
+      "status do repositório",
+      "statusgit",
+      "ambiente de desenvolvimento"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Inspecione o espaço de trabalho atual, incluindo o status do Git e o tempo de execução local.",
+    "x_search_terms": [
+      "status do espaço de trabalho",
+      "status do repositório",
+      "statusgit",
+      "ambiente de desenvolvimento"
+    ]
+  },
+  "ro": {
+    "tool.description": "Inspectați spațiul de lucru curent, inclusiv starea Git și timpul de execuție local.",
+    "x_search_terms": [
+      "starea spațiului de lucru",
+      "starea depozitului",
+      "starea git",
+      "mediul de dezvoltare"
+    ]
+  },
+  "ru": {
+    "tool.description": "Проверьте текущую рабочую область, включая статус Git и локальную среду выполнения.",
+    "x_search_terms": [
+      "статус рабочей области",
+      "статус репозитория",
+      "статус git",
+      "среда разработки"
+    ]
+  },
+  "sv": {
+    "tool.description": "Inspektera den aktuella arbetsytan, inklusive Git-status och den lokala körtiden.",
+    "x_search_terms": [
+      "arbetsyta status",
+      "repository status",
+      "git status",
+      "utvecklingsmiljö"
+    ]
+  },
+  "sw": {
+    "tool.description": "Kagua nafasi ya sasa ya kazi, ikijumuisha hali ya Git na muda wa uendeshaji wa ndani.",
+    "x_search_terms": [
+      "hali ya nafasi ya kazi",
+      "hadhi ya hazina",
+      "hali ya git",
+      "mazingira ya ukuzaji"
+    ]
+  },
+  "th": {
+    "tool.description": "ตรวจสอบพื้นที่ทำงานปัจจุบัน รวมถึงสถานะ Git และรันไทม์ในเครื่อง",
+    "x_search_terms": [
+      "สถานะพื้นที่ทำงาน",
+      "สถานะพื้นที่เก็บข้อมูล",
+      "สถานะ git",
+      "สภาพแวดล้อมการพัฒนา"
+    ]
+  },
+  "tr": {
+    "tool.description": "Git durumu ve yerel çalışma zamanı dahil olmak üzere mevcut çalışma alanını inceleyin.",
+    "x_search_terms": [
+      "çalışma alanı durumu",
+      "depo durumu",
+      "git durumu",
+      "geliştirme ortamı"
+    ]
+  },
+  "uk": {
+    "tool.description": "Перегляньте поточну робочу область, включаючи статус Git і локальне середовище виконання.",
+    "x_search_terms": [
+      "статус робочої області",
+      "статус сховища",
+      "статус git",
+      "середовище розробки"
+    ]
+  },
+  "vi": {
+    "tool.description": "Kiểm tra không gian làm việc hiện tại, bao gồm trạng thái Git và thời gian chạy cục bộ.",
+    "x_search_terms": [
+      "trạng thái không gian làm việc",
+      "trạng thái kho lưu trữ",
+      "trạng thái git",
+      "môi trường phát triển"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "检查当前工作区，包括 Git 状态和本地运行时。",
+    "x_search_terms": [
+      "工作空间状态",
+      "存储库状态",
+      "git状态",
+      "开发环境"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "檢查目前工作區，包括 Git 狀態和本地運行時。",
+    "x_search_terms": [
+      "工作空間狀態",
+      "儲存庫狀態",
+      "git狀態",
+      "開發環境"
+    ]
+  }
+}

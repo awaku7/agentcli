@@ -99,7 +99,7 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/doc
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **29 navigator kode sumber (keluarga idx)** |
+| **Alat Pengembang** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 navigator kode sumber (keluarga idx)** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Lihat dokumentasi lengkap untuk detailnya. [DEVELOP_PLUGIN.md](../src/uagent/doc
 
 #### Tinjauan dan cakupan repositori
 
+- `workspace_status`: Laporkan cabang Git ruang kerja aktif, perubahan, status sinkronisasi upstream, waktu proses Python, dan penanda proyek umum tanpa mengubah file.
 - `git_review`: merangkum perubahan Git, file berisiko, kandidat pengujian, dan temuan rahasia tanpa mengungkap nilai rahasia.
 - `security_scan`: memindai file repositori untuk mencari kemungkinan rahasia dan file konfigurasi berisiko.
 - `coverage_report`: menjalankan dan menormalkan cakupan untuk Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, dan Dart/Flutter.

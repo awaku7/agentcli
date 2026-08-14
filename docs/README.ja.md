@@ -121,7 +121,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook、**pybitchat**（BLE Mesh メッセージング） — [COMMUNICATION.md](COMMUNICATION.md) と [BITCHAT.md](BITCHAT.md) 参照 |
 | **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **クラウドAPI** | `aws_api`、`gcp_api`、`azure_api` — AWS、Google Cloud、Azureの汎用API操作。書き込み操作には明示的な確認が必要 |
-| **開発ツール** | git_ops、git_review、security_scan、coverage_report、python_compile、lint_format、run_tests、db_query、**29のソースコードナビゲーター（idxファミリ）** |
+| **開発ツール** | workspace_status, git_ops、git_review、security_scan、coverage_report、python_compile、lint_format、run_tests、db_query、**29のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 — [OAuth / Proxyガイド](MCP_OAUTH_PROXY_GUIDE.ja.md) |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
 | **システム** | 環境変数、システム情報、時刻、日付計算、[quantities](QUANTITIES.ja.md)、[geodesic_distance](GEODESIC_DISTANCE.ja.md)、uuid_gen、slugify |
@@ -129,6 +129,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 
 #### リポジトリレビューとカバレッジ
 
+- `workspace_status`: ファイルを変更せずに、アクティブなワークスペース Git ブランチ、変更、アップストリーム同期状態、Python ランタイム、および共通プロジェクト マーカーをレポートします。
 - `git_review`: Gitの変更、リスクのあるファイル、テスト候補、秘密情報の検出結果を値を露出せずに要約します。
 - `security_scan`: 秘密情報らしい文字列や危険な設定ファイルをスキャンします。
 - `coverage_report`: Python、TypeScript/JavaScript、Rust、Go、Java/Kotlin、.NET、C/C++、Ruby、PHP、Swift、Dart/Flutterのカバレッジを実行・正規化します。

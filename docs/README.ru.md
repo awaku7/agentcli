@@ -100,7 +100,7 @@ uagent реализует систему плагинов, совместиму�
 | **Прогноз** | Прогнозирование временных рядов с 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM и др.), автоматический выбор модели, построение графиков, i18n |
 | **Общение** | gmail_send, gmail_read, bluesky, discord_channel, groups_webhook, **pybitchat** (BLE Mesh) — см. [COMMUNICATION.md](COMMUNICATION.md) и [BITCHAT.md](BITCHAT.md) |
 | **Интернет вещей** | SwitchBot (Облако + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **Инструменты для разработчиков** | git_ops, python_compile, lint_format, run_tests, db_query, **29 навигаторов исходного кода (семейство idx)** |
+| **Инструменты для разработчиков** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 навигаторов исходного кода (семейство idx)** |
 | **MCP** | Подключитесь к внешним серверам MCP, просмотрите список инструментов, выполните — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **А2А** | Связь между агентами (с другими экземплярами uag или A2A-совместимыми серверами) |
 | **Система** | переменные env, системные характеристики, расчет времени, даты, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ uagent реализует систему плагинов, совместиму�
 
 #### Проверка и покрытие репозитория
 
+- `workspace_status`: Сообщайте об активной ветке Git рабочей области, изменениях, состоянии восходящей синхронизации, среде выполнения Python и общих маркерах проекта, не изменяя файлы.
 - `git_review`: суммируйте изменения Git, рискованные файлы, тестовые кандидаты и секретные результаты, не раскрывая секретные значения.
 - `security_scan`: сканируйте файлы репозитория на наличие вероятных секретов и рискованных файлов конфигурации.
 - `coverage_report`: запускайте и нормализуйте покрытие для Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift и Dart/Flutter.

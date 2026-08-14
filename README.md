@@ -141,7 +141,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — see [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Cloud APIs** | `aws_api`, `gcp_api`, `azure_api` — generic AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Dev Tools** | git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
+| **Dev Tools** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
@@ -149,6 +149,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 
 #### Repository review and coverage
 
+- `workspace_status`: report the active workspace's Git branch, changes, upstream sync state, Python runtime, and common project markers without modifying files.
 - `git_review`: summarize Git changes, risky files, test candidates, and secret findings without exposing secret values.
 - `security_scan`: scan repository files for likely secrets and risky configuration files.
 - `coverage_report`: run and normalize coverage for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, and Dart/Flutter.

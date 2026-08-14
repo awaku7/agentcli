@@ -100,7 +100,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **تنبؤ** | التنبؤ بالسلاسل الزمنية باستخدام 9 نماذج (AutoARIMA وProphet وLightGBM وCatBoost وTimesFM وغيرها)، اختيار النموذج تلقائيًا، إنشاء الرسوم البيانية، تدويل i18n |
 | **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook، **pybitchat** (BLE Mesh) — راجع [COMMUNICATION.md](COMMUNICATION.md) و [BITCHAT.md](BITCHAT.md) |
 | **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
-| \*\* أدوات التطوير \*\* | git_ops، python_compile، lint_format، run_tests، db_query، \*\* 29 متصفحًا لكود المصدر (عائلة idx) \*\* |
+| \*\* أدوات التطوير \*\* | workspace_status, git_ops، python_compile، lint_format، run_tests، db_query، \*\* 29 متصفحًا لكود المصدر (عائلة idx) \*\* |
 | **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |
 | **A2A** | الاتصال من وكيل إلى وكيل (مع مثيلات UAG الأخرى أو الخوادم المتوافقة مع A2A) |
 | **النظام** | env vars، مواصفات النظام، الوقت، حساب التاريخ, uuid_gen, slugify, quantities ||
@@ -108,6 +108,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 #### مراجعة المستودع وتغطيته
 
+- `workspace_status`: قم بالإبلاغ عن فرع مساحة العمل النشطة Git والتغييرات وحالة المزامنة الأولية ووقت التشغيل Python وعلامات المشروع الشائعة دون تعديل الملفات.
 - `git_review`: تلخيص تغييرات Git والملفات الخطرة ومرشحي الاختبار والنتائج السرية دون الكشف عن القيم السرية.
 - `security_scan`: فحص ملفات المستودع بحثًا عن الأسرار المحتملة وملفات التكوين المحفوفة بالمخاطر.
 - `coverage_report`: تشغيل وتطبيع التغطية لـ Python وTypeScript/JavaScript وRust وGo وJava/Kotlin و.NET، C/C++، وRuby، وPHP، وSwift، وDart/Flutter.

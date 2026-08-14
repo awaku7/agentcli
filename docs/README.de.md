@@ -99,7 +99,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 | **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – siehe [COMMUNICATION.md](COMMUNICATION.md) und [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloud-APIs** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **29 Quellcode-Navigatoren (IDX-Familie)** |
+| **Entwicklungstools** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 Quellcode-Navigatoren (IDX-Familie)** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 
 #### Repository-Überprüfung und -Abdeckung
 
+- `workspace_status`: Melden Sie den Git-Zweig des aktiven Arbeitsbereichs, Änderungen, den Upstream-Synchronisierungsstatus, die Python-Laufzeit und allgemeine Projektmarkierungen, ohne Dateien zu ändern.
 - „git_review“: Git-Änderungen, riskante Dateien, Testkandidaten und geheime Ergebnisse zusammenfassen, ohne geheime Werte preiszugeben.
 - „security_scan“: Repository-Dateien nach wahrscheinlichen Geheimnissen und riskanten Konfigurationsdateien durchsuchen.
 - „coverage_report“: Abdeckung für Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++ ausführen und normalisieren, Ruby, PHP, Swift und Dart/Flutter.

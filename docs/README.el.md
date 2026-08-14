@@ -99,7 +99,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 | **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — δείτε [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Cloud API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **29 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
+| **Εργαλεία προγραμματιστών** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
 | **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |
 | **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 #### Αναθεώρηση και κάλυψη αποθετηρίου
 
+- `workspace_status`: Αναφέρετε τον ενεργό χώρο εργασίας Git κλάδο, τις αλλαγές, την κατάσταση συγχρονισμού ανάντη, τον χρόνο εκτέλεσης Python και τους κοινούς δείκτες έργου χωρίς τροποποίηση αρχείων.
 - `git_review`: συνοψίστε τις αλλαγές Git, τα επικίνδυνα αρχεία, τους υποψήφιους δοκιμών και τα μυστικά ευρήματα χωρίς να αποκαλύψετε μυστικές τιμές.
 - `security_scan`: σάρωση αρχείων αποθήκης για πιθανά μυστικά και επικίνδυνα αρχεία διαμόρφωσης.
   -\` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.

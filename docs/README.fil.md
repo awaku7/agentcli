@@ -122,7 +122,7 @@ Tingnan ang [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) para sa buong
 | **Komunikasyon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — tingnan ang [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) at [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Mga Cloud API** | `aws_api`, `gcp_api`, `azure_api` — generic na mga pagpapatakbo ng AWS, Google Cloud, at Azure API; ang mga pagpapatakbo ng pagsulat ay nangangailangan ng tahasang kumpirmasyon |
-| **Dev Tools** | git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
+| **Dev Tools** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
 | **MCP** | Kumonekta sa mga panlabas na MCP server, maglista ng mga tool, i-execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Komunikasyon ng ahente-sa-agent (kasama ang iba pang mga uag instance o A2A-compatible na server) |
 | **System** | env vars, specs ng system, oras, pagkalkula ng petsa, [mga dami](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
@@ -130,6 +130,7 @@ Tingnan ang [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) para sa buong
 
 #### Pagsusuri at saklaw ng repositoryo
 
+- `workspace_status`: Iulat ang aktibong workspace Git branch, mga pagbabago, upstream na estado ng pag-sync, Python runtime, at mga karaniwang marker ng proyekto nang hindi binabago ang mga file.
 - `git_review`: ibuod ang mga pagbabago sa Git, mga mapanganib na file, mga kandidato sa pagsubok, at mga lihim na natuklasan nang hindi inilalantad ang mga lihim na halaga.
 - `security_scan`: i-scan ang mga repository file para sa malamang na mga lihim at mapanganib na configuration file.
 - `coverage_report`: patakbuhin at gawing normal ang coverage para sa Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, at Dart/Flutter.

@@ -99,12 +99,15 @@ Sjå den fullstendige dokumentasjonen for meir informasjon. [DEVELOP_PLUGIN.md](
 | **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — se [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Sky-API-ar** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
+| **Utviklerverktøy** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 kildekodenavigatorer (idx-familie)** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
 | **System** | env vars, systemspesifikasjoner, klokkeslett, datoberegning, uuid_gen, slugify, quantities ||
 | **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon utan å lese hele filen |
 
+#### Repositorygjennomgang og dekning
+
+- `workspace_status`: Rapporter det aktive arbeidsområdet Git-gren, endringer, oppstrømssynkroniseringstilstand, Python-kjøretid og vanlige prosjektmarkører uten å endre filer.
 "git_review": oppsummer Git-endringer, risikofylte filer, testkandidater og hemmelige funn uten å eksponere hemmelige verdier. "security_scan": skann depotfiler for sannsynlige hemmeligheter og risikofylte konfigurasjonsfiler. "coverage_report": Kjør og normaliser dekning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, php, Swift og Dart/Flutter.Manglende dekningsavhengighet kan væreinstallert automatisk når utføring er forespurt; `dry_run` installerer aldri pakker.Se[Verktøy for analyse av depot](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
 
 ### 🖥 4 grensesnitt + VS-kodeutvidelse

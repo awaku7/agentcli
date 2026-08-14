@@ -99,7 +99,7 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 | **যোগাযোগ** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](COMMUNICATION.md) এবং [BITCHAT.md](BITCHAT.md) দেখুন|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **ক্লাউড API** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **26 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
+| **দেব টুলস** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **26 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
 | **MCP** | বাহ্যিক MCP সার্ভারের সাথে সংযোগ করুন, টুল তালিকা করুন, কার্যকর করুন — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | এজেন্ট থেকে এজেন্ট যোগাযোগ (অন্যান্য uag উদাহরণ বা A2A-সামঞ্জস্যপূর্ণ সার্ভারের সাথে) |
 | **সিস্টেম** | env vars, সিস্টেম স্পেস, সময়, তারিখ গণনা, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ uagent একটি **Claude Code-সামঞ্জস্যপূর্ণ প
 
 #### রিপোজিটরি রিভিউ এবং কভারেজ
 
+- `workspace_status`: ফাইল পরিবর্তন না করে সক্রিয় কর্মক্ষেত্র Git শাখা, পরিবর্তন, আপস্ট্রিম সিঙ্ক অবস্থা, Python রানটাইম, এবং সাধারণ প্রকল্প চিহ্নিতকারীর প্রতিবেদন করুন৷
 - `git_review`: গিট পরিবর্তন, ঝুঁকিপূর্ণ ফাইল, পরীক্ষা প্রার্থী এবং গোপন ফলাফল প্রকাশ না করে সংক্ষিপ্ত করুন। TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, এবং Dart/Flutter।
 - এক্সিকিউশনের অনুরোধ করা হলে মিসিং কভারেজ নির্ভরতা স্বয়ংক্রিয়ভাবে ইনস্টল করা যেতে পারে; `dry_run` কখনো প্যাকেজ ইনস্টল করে না।
 

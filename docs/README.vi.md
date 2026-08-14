@@ -99,7 +99,7 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELO
 | **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook, **pybitchat** (BLE Mesh) — xem [COMMUNICATION.md](COMMUNICATION.md) và [BITCHAT.md](BITCHAT.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **API đám mây** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **29 trình điều hướng mã nguồn (dòng idx)** |
+| **Công cụ dành cho nhà phát triển** | workspace_status, git_ops, python_compile, lint_format, run_tests, db_query, **29 trình điều hướng mã nguồn (dòng idx)** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng, uuid_gen, slugify, quantities ||
@@ -107,6 +107,7 @@ Xem tài liệu đầy đủ tại [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELO
 
 #### Đánh giá và bảo hiểm kho lưu trữ
 
+- `workspace_status`: Báo cáo nhánh không gian làm việc đang hoạt động Git, các thay đổi, trạng thái đồng bộ hóa ngược dòng, thời gian chạy Python và các điểm đánh dấu dự án phổ biến mà không sửa đổi tệp.
 - `git_review`: tóm tắt các thay đổi Git, các tệp rủi ro, các ứng cử viên kiểm tra và các phát hiện bí mật mà không để lộ các giá trị bí mật.
 - `security_scan`: quét các tệp kho lưu trữ để tìm các bí mật có thể xảy ra và các tệp cấu hình rủi ro.
 - `coverage_report`: chạy và chuẩn hóa phạm vi bảo hiểm cho Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift và Dart/Flutter.
