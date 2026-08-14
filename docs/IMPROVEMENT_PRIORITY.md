@@ -259,9 +259,9 @@ network:
 
 - [x] Checkpoint / Recovery (`TaskStore.save_checkpoint` / `load_checkpoint`)
 - [x] DAG-based Tool Scheduler (`src/uagent/runtime/dag_scheduler.py`)
-- [ ] Distributed A2A
-- [ ] Multi-Agent orchestration
-- [ ] Remote Agent Runtime
+- [x] Distributed A2A (`RemoteAgentRuntime` over A2A)
+- [x] Multi-Agent orchestration (`runtime.multi_agent`)
+- [x] Remote Agent Runtime (`runtime.remote_agent`)
 
 ## 現時点で後回しにする項目
 
