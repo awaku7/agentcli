@@ -6,6 +6,21 @@
 
 - docs: document test-only dependency installation and CI-equivalent local checks
 
+## [0.6.0] - 2026-08-15
+
+### Added
+
+- feat: add distributed leader lease coordination and durable task checkpoints
+- feat: add resilient remote agent task control, checkpoint recovery, and streamed A2A task events
+- feat: add dependency-aware DAG scheduling and persistent task storage
+- feat: add enterprise policy enforcement across credentials, MCP, skills, and plugins
+- feat: add shared credential storage and lifecycle/observability integration across runtimes
+
+### Changed
+
+- fix(deps): align the pinned `llmcapa` dependency with the installed 0.5.4 release
+- ci: separate and complete test dependencies across supported platforms
+- docs: update improvement roadmap, local CI checks, architecture, and policy guidance
 ## [0.5.72] - 2026-08-13
 
 ### Changed
