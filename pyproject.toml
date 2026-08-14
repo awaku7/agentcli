@@ -48,6 +48,7 @@ test = [
     "odfpy",
     "scapy",
     "bitchat-protocol>=0.2.0",
+    "mcp",
     "fastapi",
     "uvicorn",
     "cryptography",
