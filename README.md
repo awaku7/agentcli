@@ -320,3 +320,5 @@ Organization-level policies for tools, providers, credentials, MCP servers, netw
 ### Runtime recovery and orchestration
 
 See [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
+
+See [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.

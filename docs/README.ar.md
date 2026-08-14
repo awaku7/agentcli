@@ -278,3 +278,5 @@ Enterprise Policy Engine supports organization-level rules for tools, providers,
 ### Runtime recovery and orchestration
 
 See [RESTART_RECOVERY.md](RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
+
+See [DISTRIBUTED_COORDINATION.md](DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.
