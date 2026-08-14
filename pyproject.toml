@@ -50,6 +50,8 @@ test = [
     "bitchat-protocol>=0.2.0",
     "mcp",
     "holidays",
+    "pyautogui",
+    "pygetwindow",
     "fastapi",
     "uvicorn",
     "cryptography",
