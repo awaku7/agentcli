@@ -242,7 +242,7 @@ network:
 
 - [x] CredentialStore Protocol (`src/uagent/auth/credential_store.py`)
 - [ ] OAuth / Provider / MCP の統合（Provider の一部のみ対応）
-- [ ] Secret access logging
+- [x] Secret access logging (`credential.accessed` / `credential.stored` / `credential.deleted`)
 - [x] TaskStore Protocol (`src/uagent/a2a/task_store.py`)
 - [x] SQLiteTaskStore (`src/uagent/a2a/task_store.py`)
 - [ ] restart recovery（永続化は済み、実行中ランタイムの復旧は未実装）

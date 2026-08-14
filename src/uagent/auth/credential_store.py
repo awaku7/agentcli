@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
+from ..runtime.logging_setup import log_event
+
 if TYPE_CHECKING:
     from .token_store import TokenStore
 
@@ -47,7 +49,9 @@ class InMemoryCredentialStore:
 
     def get(self, name: str) -> Credential | None:
         _validate_name(name)
-        return self._credentials.get(name)
+        credential = self._credentials.get(name)
+        log_event("credential.accessed", credential_name=name, found=credential is not None)
+        return credential
 
     def set(self, credential: Credential, *, name: str | None = None) -> None:
         if not isinstance(credential, Credential):
@@ -58,10 +62,13 @@ class InMemoryCredentialStore:
         if not credential.secret:
             raise ValueError("credential secret is required")
         self._credentials[credential.name] = credential
+        log_event("credential.stored", credential_name=credential.name, kind=credential.kind.value)
 
     def delete(self, name: str) -> bool:
         _validate_name(name)
-        return self._credentials.pop(name, None) is not None
+        deleted = self._credentials.pop(name, None) is not None
+        log_event("credential.deleted", credential_name=name, deleted=deleted)
+        return deleted
 
 
 class TokenStoreCredentialAdapter:
@@ -89,6 +96,7 @@ class TokenStoreCredentialAdapter:
             return None
         token = self._token_store.load(self._issuer, self._resource)
         if token is None:
+            log_event("credential.accessed", credential_name=name, found=False)
             return None
         metadata: dict[str, str] = {
             "token_type": token.token_type,
@@ -97,13 +105,15 @@ class TokenStoreCredentialAdapter:
             metadata["refresh_token"] = token.refresh_token
         if token.scope:
             metadata["scope"] = token.scope
-        return Credential(
+        credential = Credential(
             name=self._name,
             kind=CredentialKind.OAUTH_TOKEN,
             secret=token.access_token,
             expires_at=token.expires_at,
             metadata=metadata,
         )
+        log_event("credential.accessed", credential_name=name, found=True)
+        return credential
 
     def set(self, credential: Credential, *, name: str | None = None) -> None:
         if credential.kind is not CredentialKind.OAUTH_TOKEN:
@@ -128,12 +138,15 @@ class TokenStoreCredentialAdapter:
                 scope=credential.metadata.get("scope"),
             ),
         )
+        log_event("credential.stored", credential_name=credential.name, kind=credential.kind.value)
 
     def delete(self, name: str) -> bool:
         _validate_name(name)
         if name != self._name:
             return False
-        return self._token_store.delete(self._issuer, self._resource)
+        deleted = self._token_store.delete(self._issuer, self._resource)
+        log_event("credential.deleted", credential_name=name, deleted=deleted)
+        return deleted
 
 
 def _validate_name(name: str) -> None:
