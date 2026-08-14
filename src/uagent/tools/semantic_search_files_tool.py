@@ -5,6 +5,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import os
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 import json
 import sqlite3
@@ -77,11 +78,10 @@ _DB_LOCK = threading.RLock()
 def _embedding_env(provider: str, suffix: str, *, default: str = "") -> str:
     key = f"UAGENT_{provider.upper()}_EMBEDDING_{suffix.upper()}"
     value = env_get(key)
-    if not value and provider == "openai":
-        if suffix == "api_key":
-            value = env_get("UAGENT_OPENAI_API_KEY") or env_get("UAGENT_API_KEY")
-        elif suffix == "base_url":
-            value = env_get("UAGENT_OPENAI_BASE_URL")
+    if suffix == "api_key":
+        value = value or get_provider_api_key(provider) or env_get("UAGENT_API_KEY")
+    elif not value and provider == "openai" and suffix == "base_url":
+        value = env_get("UAGENT_OPENAI_BASE_URL")
     return (value or default).strip()
 
 

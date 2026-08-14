@@ -2353,8 +2353,11 @@ def fim(
         or _env_get(f"UAGENT_{provider.upper()}_DEPNAME")
         or ""
     )
-    api_key = _env_get("UAGENT_FIM_API_KEY") or _env_get(
-        f"UAGENT_{provider.upper()}_API_KEY"
+    from .auth.provider_credentials import get_provider_api_key
+
+    api_key = _env_get("UAGENT_FIM_API_KEY") or get_provider_api_key(
+        provider,
+        env_getter=_env_get,
     )
 
     try:
