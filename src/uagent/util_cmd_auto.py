@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shlex
 from typing import Any
 
@@ -66,20 +67,19 @@ def _build_judgment_messages(
 
 
 def _parse_reviewer_judgment(raw: str) -> tuple[str, str]:
-    """Parse reviewer protocol output; CONTINUE wins on mixed output."""
-    saw_complete = False
-    saw_continue = False
-    for line in (raw or "").splitlines():
-        token = line.strip().upper()
-        if token == "COMPLETE" or token.startswith("COMPLETE:"):
-            saw_complete = True
-        if token == "CONTINUE" or token.startswith("CONTINUE:"):
-            saw_continue = True
-    if saw_continue:
-        return "CONTINUE", raw or ""
-    if saw_complete:
+    """Parse reviewer output; word matches are accepted and CONTINUE wins."""
+    text = raw or ""
+    upper = text.upper()
+    # Accept punctuation and explanatory text (for example ``COMPLETE.``),
+    # while avoiding substrings such as ``INCOMPLETE``.  CONTINUE is checked
+    # first so mixed or contradictory output remains conservative.
+    if re.search(r"\bCONTINUE\b", upper):
+        return "CONTINUE", text
+    if re.search(r"\bNOT\s+COMPLETE\b", upper):
+        return "CONTINUE", text
+    if re.search(r"\bCOMPLETE\b", upper):
         return "COMPLETE", ""
-    return "CONTINUE", raw or ""
+    return "CONTINUE", text
 
 
 def _ask_reviewer_judgment(
