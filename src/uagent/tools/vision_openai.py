@@ -17,6 +17,7 @@ import mimetypes
 from pathlib import Path
 from typing import Any
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -68,7 +69,7 @@ def _img_env(provider: str, mode: str, name: str, *, default: str = "") -> str:
     p = provider.strip().upper()
     m = mode.strip().upper()
     n = name.strip().upper()
-    return _env_first(
+    value = _env_first(
         [
             f"UAGENT_IMG_{m}_{n}",
             f"UAGENT_{p}_IMG_{m}_{n}",
@@ -76,6 +77,9 @@ def _img_env(provider: str, mode: str, name: str, *, default: str = "") -> str:
         ],
         default=default,
     )
+    if not value and n == "API_KEY":
+        value = get_provider_api_key(provider) or ""
+    return value
 
 
 def analyze_image_openai(
