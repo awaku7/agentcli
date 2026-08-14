@@ -230,20 +230,22 @@ network:
 
 ## 実装ロードマップ
 
+> 凡例: `[x]` はリポジトリ内に実装とテストがある項目です。`[ ]` は未実装、または対象範囲の一部に留まる項目です。
+
 ### Phase A: Runtime 安定化
 
-- [ ] Agent Lifecycle
-- [ ] Lifecycle と cancellation の統合
+- [x] Agent Lifecycle (`src/uagent/runtime/lifecycle.py`)
+- [x] Lifecycle と cancellation の統合 (`src/uagent/runtime/execution.py`)
 - [ ] Lifecycle event の追加
 
 ### Phase B: 認証・タスク基盤
 
-- [ ] CredentialStore Protocol
-- [ ] OAuth / Provider / MCP の統合
+- [x] CredentialStore Protocol (`src/uagent/auth/credential_store.py`)
+- [ ] OAuth / Provider / MCP の統合（Provider の一部のみ対応）
 - [ ] Secret access logging
-- [ ] TaskStore Protocol
-- [ ] SQLiteTaskStore
-- [ ] restart recovery
+- [x] TaskStore Protocol (`src/uagent/a2a/task_store.py`)
+- [x] SQLiteTaskStore (`src/uagent/a2a/task_store.py`)
+- [ ] restart recovery（永続化は済み、実行中ランタイムの復旧は未実装）
 
 ### Phase C: 観測性・ポリシー
 
