@@ -283,7 +283,7 @@ auto_pilot_goal: str = ""
 
 
 def _check_key_win() -> None:
-    """Check for 'c' keypress on Windows (msvcrt, non-blocking)."""
+    """Check cancellation keys on Windows (msvcrt, non-blocking)."""
     try:
         import msvcrt  # type: ignore
 
@@ -302,11 +302,10 @@ def _check_key_win() -> None:
 
 
 def _check_key_posix() -> None:
-    """Check for 'c' keypress on POSIX (termios/tty, non-blocking).
+    """Check cancellation keys on POSIX (termios/tty, non-blocking).
 
-    Safety: this is called only when status_busy == True.
-    During busy periods, stdin_loop is NOT calling input() or prompt_toolkit,
-    so temporarily switching stdin to raw mode is safe.
+    During auto-pilot, the monitor also remains active between LLM rounds so
+    ``x`` is not lost while the UI briefly returns to IDLE.
     """
     # Only works on a real TTY; skip if stdin is piped/redirected
     if not sys.stdin.isatty():
@@ -351,8 +350,10 @@ def start_interrupt_monitor() -> None:
         import os as _os
 
         while not _interrupt_monitor_stop.is_set():
-            # Only monitor while BUSY
-            if not status_busy:
+            # Keep monitoring during auto-pilot between rounds as well as
+            # during normal BUSY work; otherwise x can be lost during the
+            # short IDLE gap between the reviewer and the next LLM call.
+            if not status_busy and not auto_pilot_active:
                 _interrupt_monitor_stop.wait(0.1)
                 continue
 

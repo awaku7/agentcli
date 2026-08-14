@@ -251,7 +251,7 @@ network:
 
 - [x] structured observability の全境界適用（CLI / Web / GUI / A2A / LLM / OAuth / Tool）
 - [x] trace / duration / correlation ID（event_id / correlation_id / duration_ms / tool_call_id）
-- [ ] Enterprise Policy Engine
+- [x] Enterprise Policy Engine (`src/uagent/tools/enterprise_policy.py`)
 - [ ] Skill / Plugin permission
 - [ ] MCP / network allowlist
 
