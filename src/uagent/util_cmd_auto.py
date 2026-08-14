@@ -113,16 +113,23 @@ def _ask_reviewer_judgment(
     # Only an explicit decision token may stop auto-pilot.  Substring matching
     # incorrectly treated phrases such as "not COMPLETE" or "INCOMPLETE" as
     # successful completion.
-    decision = ""
+    saw_complete = False
+    saw_continue = False
     for line in raw.splitlines():
         token = line.strip().upper()
         if token == "COMPLETE" or token.startswith("COMPLETE:"):
-            decision = "COMPLETE"
-            break
+            saw_complete = True
         if token == "CONTINUE" or token.startswith("CONTINUE:"):
-            decision = "CONTINUE"
-            break
-    judgment = "COMPLETE" if decision == "COMPLETE" else "CONTINUE"
+            saw_continue = True
+
+    # CONTINUE has precedence whenever both protocol tokens are present.
+    # This prevents mixed reviewer output from stopping auto-pilot early.
+    if saw_continue:
+        judgment = "CONTINUE"
+    elif saw_complete:
+        judgment = "COMPLETE"
+    else:
+        judgment = "CONTINUE"
     if judgment == "COMPLETE":
         feedback = ""
     else:
