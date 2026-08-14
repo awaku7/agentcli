@@ -515,7 +515,17 @@ def _gui_norm_path(p: Any) -> str:
 
 
 def _run_lifecycle(fn, *args, **kwargs):
-    with lifecycle_execution():
+    def _on_lifecycle(snapshot) -> None:
+        try:
+            core.set_status(
+                snapshot.status.value
+                not in {"COMPLETED", "FAILED", "CANCELLED", "TIMEOUT"},
+                snapshot.status.value,
+            )
+        except Exception:
+            pass
+
+    with lifecycle_execution(on_transition=_on_lifecycle):
         return fn(*args, **kwargs)
 
 

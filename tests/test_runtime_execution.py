@@ -7,7 +7,7 @@ from uagent.runtime.execution import (
     mark_tool_running,
     mark_tool_waiting,
 )
-from uagent.runtime.lifecycle import AgentStatus
+from uagent.runtime.lifecycle import AgentStatus, LifecycleSnapshot
 
 
 def test_lifecycle_execution_completes_on_success() -> None:
@@ -15,6 +15,18 @@ def test_lifecycle_execution_completes_on_success() -> None:
         assert lifecycle.status is AgentStatus.RUNNING
 
     assert lifecycle.status is AgentStatus.COMPLETED
+
+
+def test_lifecycle_execution_notifies_transition_callback() -> None:
+    snapshots: list[LifecycleSnapshot] = []
+
+    with lifecycle_execution(on_transition=snapshots.append):
+        pass
+
+    assert [item.status for item in snapshots] == [
+        AgentStatus.RUNNING,
+        AgentStatus.COMPLETED,
+    ]
 
 
 def test_lifecycle_execution_fails_on_exception() -> None:

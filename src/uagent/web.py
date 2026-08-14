@@ -1493,8 +1493,26 @@ def run_agent_worker(
 
             # Track history length before LLM round to sync new messages to room after
             _before_hist_len = len(room.history)
+
+            def _on_lifecycle(snapshot) -> None:
+                payload = {
+                    "type": "lifecycle",
+                    "status": snapshot.status.value,
+                    "updated_at": snapshot.updated_at,
+                }
+                _web_stream_send(payload)
+                try:
+                    room.set_status(
+                        snapshot.status.value
+                        not in {"COMPLETED", "FAILED", "CANCELLED", "TIMEOUT"},
+                        snapshot.status.value,
+                    )
+                except Exception:
+                    pass
+
             with lifecycle_execution(
                 cancel_exceptions=(LLMWaitInterrupted,),
+                on_transition=_on_lifecycle,
             ) as lifecycle:
                 try:
                     room.agent_lifecycle = lifecycle

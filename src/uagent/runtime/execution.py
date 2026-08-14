@@ -3,14 +3,21 @@ from __future__ import annotations
 import asyncio
 from contextlib import contextmanager
 from contextvars import ContextVar
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 
-from .lifecycle import AgentLifecycle, InvalidLifecycleTransition
+from .lifecycle import (
+    AgentLifecycle,
+    InvalidLifecycleTransition,
+    LifecycleSnapshot,
+)
 from .logging_setup import log_event
 
 
 _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
     "uagent_current_lifecycle", default=None
+)
+_CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = ContextVar(
+    "uagent_current_lifecycle_callback", default=None
 )
 
 
@@ -19,6 +26,7 @@ def lifecycle_execution(
     lifecycle: AgentLifecycle | None = None,
     *,
     cancel_exceptions: tuple[type[BaseException], ...] = (),
+    on_transition: Callable[[LifecycleSnapshot], None] | None = None,
 ) -> Iterator[AgentLifecycle]:
     """Track one synchronous Agent execution with a shared lifecycle.
 
@@ -27,7 +35,8 @@ def lifecycle_execution(
     transitions are ignored so a concurrent cancellation remains authoritative.
     """
     current = lifecycle or AgentLifecycle()
-    token = _CURRENT_LIFECYCLE.set(current)
+    lifecycle_token = _CURRENT_LIFECYCLE.set(current)
+    callback_token = _CURRENT_CALLBACK.set(on_transition)
     _safe_transition(current, "start")
     try:
         try:
@@ -47,7 +56,8 @@ def lifecycle_execution(
         else:
             _safe_transition(current, "complete")
     finally:
-        _CURRENT_LIFECYCLE.reset(token)
+        _CURRENT_CALLBACK.reset(callback_token)
+        _CURRENT_LIFECYCLE.reset(lifecycle_token)
 
 
 def current_lifecycle() -> AgentLifecycle | None:
@@ -79,3 +89,9 @@ def _safe_transition(lifecycle: AgentLifecycle, method: str) -> None:
         )
     except Exception:
         pass
+    callback = _CURRENT_CALLBACK.get()
+    if callback is not None:
+        try:
+            callback(snapshot)
+        except Exception:
+            pass
