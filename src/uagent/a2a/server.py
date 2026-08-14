@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+from contextvars import copy_context
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
 
@@ -44,6 +45,7 @@ from .models import (
     task_to_model,
 )
 from .task_store import InMemoryTaskStore, TaskRecord, TaskRuntime, TaskStatus
+from ..runtime.execution import lifecycle_execution
 from ..runtime.lifecycle import InvalidLifecycleTransition
 
 
@@ -137,7 +139,11 @@ def build_app() -> FastAPI:
                     return
                 _lifecycle_transition(runtime, "start")
                 try:
-                    assistant_msg, err = await asyncio.to_thread(run_once, user_text=user_text)
+                    with lifecycle_execution(runtime.lifecycle):
+                        ctx = copy_context()
+                        assistant_msg, err = await asyncio.to_thread(
+                            ctx.run, run_once, user_text=user_text
+                        )
                 except asyncio.CancelledError:
                     _lifecycle_transition(runtime, "cancel")
                     store.transition(

@@ -853,7 +853,7 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (first call)
                             if core.auto_pilot_active:
-                                _run_auto_pilot_loop(
+                                _run_lifecycle(_run_auto_pilot_loop, 
                                     self._provider,
                                     self._client,
                                     self._depname,
@@ -954,7 +954,7 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (native multimodal path)
                             if core.auto_pilot_active:
-                                _run_auto_pilot_loop(
+                                _run_lifecycle(_run_auto_pilot_loop, 
                                     self._provider,
                                     self._client,
                                     self._depname,
@@ -1009,7 +1009,7 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (fallback path)
                             if core.auto_pilot_active:
-                                _run_auto_pilot_loop(
+                                _run_lifecycle(_run_auto_pilot_loop, 
                                     self._provider,
                                     self._client,
                                     self._depname,

@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import pytest
 
-from uagent.runtime.execution import lifecycle_execution
+from uagent.runtime.execution import (
+    lifecycle_execution,
+    mark_tool_running,
+    mark_tool_waiting,
+)
 from uagent.runtime.lifecycle import AgentStatus
 
 
@@ -32,7 +36,9 @@ def test_lifecycle_execution_cancels_on_keyboard_interrupt() -> None:
 
 def test_lifecycle_execution_can_mark_tool_waiting() -> None:
     with lifecycle_execution() as lifecycle:
-        assert lifecycle.waiting_for_tool().status is AgentStatus.WAITING_TOOL
-        assert lifecycle.resume().status is AgentStatus.RUNNING
+        mark_tool_waiting()
+        assert lifecycle.status is AgentStatus.WAITING_TOOL
+        mark_tool_running()
+        assert lifecycle.status is AgentStatus.RUNNING
 
     assert lifecycle.status is AgentStatus.COMPLETED

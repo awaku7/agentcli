@@ -1711,12 +1711,22 @@ def run_tools_parallel(
 def _call_tool_runner(name: str, runner: Any, args: dict[str, Any]) -> str:
     """Invoke a tool runner without letting it terminate the host process."""
     try:
+        from ..runtime.execution import mark_tool_running, mark_tool_waiting
+
+        mark_tool_waiting()
+    except Exception:
+        mark_tool_running = None
+        mark_tool_waiting = None
+    try:
         result = runner(args)
     except Exception as e:
         return f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
     except SystemExit as e:
         # Tools must return errors, not exit the agent process.
         return f"[tool runtime error] name={name!r} err=SystemExit: {e}"
+    finally:
+        if callable(mark_tool_running):
+            mark_tool_running()
 
     if isinstance(result, str):
         return result

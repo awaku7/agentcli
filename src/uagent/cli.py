@@ -1467,16 +1467,17 @@ def main() -> None:
                     # Auto-pilot loop: if auto mode is active, continue rounds
                     if core.auto_pilot_active:
                         try:
-                            tools_util._run_auto_pilot_loop(
-                                provider,
-                                client,
-                                depname,
-                                messages,
-                                core=core,
-                                make_client_fn=providers.make_client,
-                                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                            )
+                            with lifecycle_execution():
+                                tools_util._run_auto_pilot_loop(
+                                    provider,
+                                    client,
+                                    depname,
+                                    messages,
+                                    core=core,
+                                    make_client_fn=providers.make_client,
+                                    append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                                    try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                                )
                         except Exception as exc:
                             print(f"[AUTO] Auto-pilot interrupted: {exc}")
                         core.set_status(False, "")
