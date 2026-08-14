@@ -20,6 +20,7 @@ import time
 from typing import Any
 from urllib.parse import quote, urlparse, urlunparse
 
+from .auth.provider_credentials import get_provider_api_key
 from .i18n import _, detect_lang
 from .realtime_audio import EchoProcessor
 
@@ -71,31 +72,7 @@ def _provider() -> str:
 
 
 def _api_key() -> str:
-    provider = _provider()
-    if provider == "azure":
-        return (
-            os.getenv("UAGENT_AZURE_API_KEY") or os.getenv("AZURE_OPENAI_API_KEY") or ""
-        ).strip()
-    if provider in {"grok", "xai"}:
-        return (
-            os.getenv("UAGENT_XAI_API_KEY")
-            or os.getenv("UAGENT_GROK_API_KEY")
-            or os.getenv("XAI_API_KEY")
-            or ""
-        ).strip()
-    if provider in {"google", "gemini", "vertexai", "vertex"}:
-        return (
-            os.getenv("UAGENT_GEMINI_API_KEY")
-            or os.getenv("UAGENT_GOOGLE_API_KEY")
-            or os.getenv("UAGENT_VERTEXAI_API_KEY")
-            or os.getenv("GEMINI_API_KEY")
-            or os.getenv("GOOGLE_API_KEY")
-            or os.getenv("VERTEXAI_API_KEY")
-            or ""
-        ).strip()
-    return (
-        os.getenv("UAGENT_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") or ""
-    ).strip()
+    return (get_provider_api_key(_provider()) or "").strip()
 
 
 def _openai_language_code(lang: str | None = None) -> str:

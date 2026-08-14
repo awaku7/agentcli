@@ -33,6 +33,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
+from .auth.provider_credentials import get_provider_api_key
 from .env_utils import env_get
 from .i18n import _
 
@@ -59,6 +60,15 @@ def _looks_english(text: str) -> bool:
         return False
     letters = sum(1 for ch in sample if "a" <= ch.lower() <= "z")
     return letters >= 10
+
+
+def _translate_api_key(provider: str, *env_names: str) -> str:
+    specific = _env_first(*env_names)
+    if specific:
+        return specific
+    return get_provider_api_key(provider) or _env_first(
+        "UAGENT_TRANSLATE_API_KEY", "UAGENT_API_KEY"
+    )
 
 
 def _env_first(*names: str) -> str:
@@ -89,7 +99,7 @@ def load_translate_config() -> Optional[TranslateConfig]:
 
     if provider in ("openai", "openai_compat"):
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_OPENAI_DEPNAME")
-        api_key = _env_first(
+        api_key = _translate_api_key(provider, 
             "UAGENT_TRANSLATE_API_KEY", "UAGENT_OPENAI_API_KEY", "UAGENT_API_KEY"
         )
         base_url = _env_first(
@@ -97,7 +107,7 @@ def load_translate_config() -> Optional[TranslateConfig]:
         )
     elif provider == "azure":
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_AZURE_DEPNAME")
-        api_key = _env_first(
+        api_key = _translate_api_key(provider, 
             "UAGENT_TRANSLATE_API_KEY", "UAGENT_AZURE_API_KEY", "UAGENT_API_KEY"
         )
         base_url = _env_first(
@@ -105,7 +115,7 @@ def load_translate_config() -> Optional[TranslateConfig]:
         )
     elif provider == "openrouter":
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_OPENROUTER_DEPNAME")
-        api_key = _env_first(
+        api_key = _translate_api_key(provider, 
             "UAGENT_TRANSLATE_API_KEY",
             "UAGENT_OPENROUTER_API_KEY",
             "UAGENT_API_KEY",
@@ -117,19 +127,19 @@ def load_translate_config() -> Optional[TranslateConfig]:
         )
     elif provider == "gemini":
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_GEMINI_DEPNAME")
-        api_key = _env_first(
+        api_key = _translate_api_key(provider, 
             "UAGENT_TRANSLATE_API_KEY", "UAGENT_GEMINI_API_KEY", "UAGENT_API_KEY"
         )
         base_url = _env_first("UAGENT_TRANSLATE_BASE_URL", "UAGENT_BASE_URL")
     elif provider == "claude":
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_CLAUDE_DEPNAME")
-        api_key = _env_first(
+        api_key = _translate_api_key(provider, 
             "UAGENT_TRANSLATE_API_KEY", "UAGENT_CLAUDE_API_KEY", "UAGENT_API_KEY"
         )
         base_url = _env_first("UAGENT_TRANSLATE_BASE_URL", "UAGENT_BASE_URL")
     else:
         depname = _env_first("UAGENT_TRANSLATE_DEPNAME")
-        api_key = _env_first("UAGENT_TRANSLATE_API_KEY", "UAGENT_API_KEY")
+        api_key = _translate_api_key(provider, "UAGENT_TRANSLATE_API_KEY", "UAGENT_API_KEY")
         base_url = _env_first("UAGENT_TRANSLATE_BASE_URL", "UAGENT_BASE_URL")
 
     return TranslateConfig(
