@@ -258,7 +258,7 @@ network:
 ### Phase D: 高度化
 
 - [x] Checkpoint / Recovery (`TaskStore.save_checkpoint` / `load_checkpoint`)
-- [ ] DAG-based Tool Scheduler
+- [x] DAG-based Tool Scheduler (`src/uagent/runtime/dag_scheduler.py`)
 - [ ] Distributed A2A
 - [ ] Multi-Agent orchestration
 - [ ] Remote Agent Runtime
