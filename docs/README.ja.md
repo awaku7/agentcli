@@ -283,3 +283,7 @@ pytest -q tests/<affected_area>
 ## アーキテクチャと運用上の不変条件
 
 A2A のライフサイクル、I18N コンテキスト、オプション依存関係のインストール、ツール安全性、プロバイダー機能、OAuth の信頼境界、構造化イベント、受入検証に関する永続的な実装契約は、[ARCHITECTURE.md](ARCHITECTURE.md) を参照してください。
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

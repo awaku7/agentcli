@@ -270,3 +270,7 @@ OpenAI Realtime يدعم التكامل المحدود الأمان Function Cal
 ## البنية وثوابت التشغيل
 
 راجع [ARCHITECTURE.md](ARCHITECTURE.md) للاطلاع على عقود التنفيذ الدائمة التي تغطي دورة حياة A2A، وسياقات I18N، وتثبيت التبعيات الاختيارية، وسلامة الأدوات، وقدرات المزوّدين، وحدود الثقة في OAuth، والأحداث المهيكلة، والتحقق من القبول.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

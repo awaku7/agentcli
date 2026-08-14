@@ -111,7 +111,6 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 
 Se [Verktøy for depotanalyse](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
 
-
 #### Repositorygjennomgang og dekning
 
 - `workspace_status`: Rapporter den aktive arbeidsområdet Git grenen, endringer, oppstrøms synkroniseringstilstand, Python kjøretid og vanlige prosjektmarkører uten å endre filer.
@@ -256,3 +255,7 @@ OpenAI Realtime støtter en sikkerhetsbegrenset Function Calling-integrasjon. De
 ## Arkitektur og driftsinvarianter
 
 Se [ARCHITECTURE.md](ARCHITECTURE.md) for varige implementasjonskontrakter som dekker A2A-livssyklus, I18N-kontekster, installasjon av valgfrie avhengigheter, verktøysikkerhet, leverandørfunksjoner, OAuth-tillitsgrenser, strukturerte hendelser og akseptanseverifisering.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

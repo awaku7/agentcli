@@ -269,3 +269,7 @@ OpenAI Realtime нь аюулгүй байдлын хязгаарлагдмал 
 ## Архитектур ба ажиллагааны инвариантууд
 
 A2A-ийн амьдралын мөчлөг, I18N контекст, нэмэлт хамаарлын суурилуулалт, хэрэгслийн аюулгүй байдал, үйлчилгээ үзүүлэгчийн боломж, OAuth-ийн итгэлцлийн хил, бүтэцтэй үйл явдал болон хүлээн авалтын баталгаажуулалтыг хамарсан байнгын хэрэгжүүлэлтийн гэрээг [ARCHITECTURE.md](ARCHITECTURE.md)-оос үзнэ үү.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

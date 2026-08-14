@@ -269,3 +269,7 @@ OpenAI Realtime hỗ trợ tích hợp Function Calling ở mức giới hạn a
 ## Kiến trúc và bất biến vận hành
 
 Xem [ARCHITECTURE.md](ARCHITECTURE.md) để biết các hợp đồng triển khai lâu dài bao quát vòng đời A2A, ngữ cảnh I18N, cài đặt phần phụ thuộc tùy chọn, an toàn công cụ, khả năng của nhà cung cấp, ranh giới tin cậy OAuth, sự kiện có cấu trúc và xác minh nghiệm thu.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

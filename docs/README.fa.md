@@ -264,3 +264,7 @@ OpenAI Realtime از یکپارچگی Function Calling با محدودیت ای�
 ## معماری و ناوردایی‌های عملیاتی
 
 برای قراردادهای پایدار پیاده‌سازی که چرخهٔ حیات A2A، زمینه‌های I18N، نصب وابستگی‌های اختیاری، ایمنی ابزارها، قابلیت‌های ارائه‌دهندگان، مرزهای اعتماد OAuth، رویدادهای ساختاریافته و تأیید پذیرش را پوشش می‌دهند، به [ARCHITECTURE.md](ARCHITECTURE.md) مراجعه کنید.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

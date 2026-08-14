@@ -291,3 +291,7 @@ Dasar masa jalan (butiran dalam [DEVELOP.md](https://github.com/awaku7/agentcli/
 ## Seni bina dan invarian operasi
 
 Lihat [ARCHITECTURE.md](ARCHITECTURE.md) untuk kontrak pelaksanaan kekal yang merangkumi kitar hayat A2A, konteks I18N, pemasangan kebergantungan pilihan, keselamatan alat, keupayaan penyedia, sempadan kepercayaan OAuth, peristiwa berstruktur dan pengesahan penerimaan.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

@@ -257,3 +257,7 @@ OpenAI Realtime inaweza kutumia muunganisho usio na kikomo wa Function Calling. 
 ## Usanifu na invarianti za uendeshaji
 
 Angalia [ARCHITECTURE.md](ARCHITECTURE.md) kwa mikataba ya kudumu ya utekelezaji inayohusu mzunguko wa maisha wa A2A, miktadha ya I18N, usakinishaji wa vitegemezi vya hiari, usalama wa zana, uwezo wa watoa huduma, mipaka ya uaminifu ya OAuth, matukio yaliyopangwa na uthibitishaji wa kukubalika.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

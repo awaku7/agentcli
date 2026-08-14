@@ -108,7 +108,7 @@ Sjå den fullstendige dokumentasjonen for meir informasjon. [DEVELOP_PLUGIN.md](
 #### Repositorygjennomgang og dekning
 
 - `workspace_status`: Rapporter det aktive arbeidsområdet Git-gren, endringer, oppstrømssynkroniseringstilstand, Python-kjøretid og vanlige prosjektmarkører uten å endre filer.
-"git_review": oppsummer Git-endringer, risikofylte filer, testkandidater og hemmelige funn uten å eksponere hemmelige verdier. "security_scan": skann depotfiler for sannsynlige hemmeligheter og risikofylte konfigurasjonsfiler. "coverage_report": Kjør og normaliser dekning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, php, Swift og Dart/Flutter.Manglende dekningsavhengighet kan væreinstallert automatisk når utføring er forespurt; `dry_run` installerer aldri pakker.Se[Verktøy for analyse av depot](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
+  "git_review": oppsummer Git-endringer, risikofylte filer, testkandidater og hemmelige funn uten å eksponere hemmelige verdier. "security_scan": skann depotfiler for sannsynlige hemmeligheter og risikofylte konfigurasjonsfiler. "coverage_report": Kjør og normaliser dekning for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, php, Swift og Dart/Flutter.Manglende dekningsavhengighet kan væreinstallert automatisk når utføring er forespurt; `dry_run` installerer aldri pakker.Se[Verktøy for analyse av depot](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
 
 ### 🖥 4 grensesnitt + VS-kodeutvidelse
 
@@ -252,3 +252,7 @@ OpenAI Realtime støtter en sikkerhetsbegrenset Function Calling-integrasjon. De
 ## Arkitektur og driftsinvariantar
 
 Sjå [ARCHITECTURE.md](ARCHITECTURE.md) for varige implementasjonskontraktar som dekkjer A2A-livssyklus, I18N-kontekstar, installasjon av valfrie avhengnader, verktøysikkerheit, leverandørfunksjonar, OAuth-tillitsgrenser, strukturerte hendingar og akseptanseverifisering.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

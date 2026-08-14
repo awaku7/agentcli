@@ -312,3 +312,7 @@ Runtime policy (details in [DEVELOP.md](https://github.com/awaku7/agentcli/blob/
 ## Architecture and operational invariants
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the durable contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+
+## Enterprise Policy Engine
+
+Organization-level policies for tools, providers, credentials, MCP servers, networks, skills, and plugins are supported. Set `UAGENT_POLICY_FILE` to a JSON/YAML policy file; see [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) for configuration examples, roles, confirmation, and allowlists.

@@ -265,3 +265,7 @@ OpenAI Realtime একটি নিরাপত্তা-সীমিত Functio
 ## আর্কিটেকচার এবং অপারেশনাল ইনভেরিয়েন্ট
 
 A2A জীবনচক্র, I18N প্রসঙ্গ, ঐচ্ছিক নির্ভরতা ইনস্টলেশন, টুল নিরাপত্তা, প্রদানকারীর সক্ষমতা, OAuth ট্রাস্ট বাউন্ডারি, কাঠামোবদ্ধ ইভেন্ট এবং গ্রহণযোগ্যতা যাচাইয়ের স্থায়ী বাস্তবায়ন চুক্তির জন্য [ARCHITECTURE.md](ARCHITECTURE.md) দেখুন।
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

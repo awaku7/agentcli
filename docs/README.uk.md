@@ -268,3 +268,7 @@ OpenAI Realtime підтримує обмежену безпеку інтегр�
 ## Архітектура та операційні інваріанти
 
 Див. [ARCHITECTURE.md](ARCHITECTURE.md), де описано сталі контракти реалізації, що охоплюють життєвий цикл A2A, контексти I18N, встановлення необов’язкових залежностей, безпеку інструментів, можливості провайдерів, межі довіри OAuth, структуровані події та приймальну перевірку.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

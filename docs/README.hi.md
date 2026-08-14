@@ -280,3 +280,7 @@ OpenAI Realtime सुरक्षा-सीमित Function Calling एकी
 ## आर्किटेक्चर और परिचालन इनवेरिएंट
 
 A2A जीवनचक्र, I18N संदर्भ, वैकल्पिक निर्भरता इंस्टॉलेशन, टूल सुरक्षा, प्रदाता क्षमताओं, OAuth विश्वास सीमाओं, संरचित इवेंट और स्वीकृति सत्यापन को कवर करने वाले स्थायी कार्यान्वयन अनुबंधों के लिए [ARCHITECTURE.md](ARCHITECTURE.md) देखें।
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

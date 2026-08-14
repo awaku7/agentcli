@@ -255,3 +255,7 @@ OpenAI Realtime, güvenlikle sınırlı bir Function Calling entegrasyonunu dest
 ## Mimari ve operasyonel değişmezler
 
 A2A yaşam döngüsü, I18N bağlamları, isteğe bağlı bağımlılıkların kurulumu, araç güvenliği, sağlayıcı yetenekleri, OAuth güven sınırları, yapılandırılmış olaylar ve kabul doğrulamasını kapsayan kalıcı uygulama sözleşmeleri için [ARCHITECTURE.md](ARCHITECTURE.md) dosyasına bakın.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

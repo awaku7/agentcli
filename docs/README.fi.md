@@ -255,3 +255,7 @@ OpenAI Realtime tukee turvarajoitettua Function Calling-integraatiota. Nykyinen 
 ## Arkkitehtuuri ja toiminnan invariantit
 
 Katso [ARCHITECTURE.md](ARCHITECTURE.md) pysyvistä toteutussopimuksista, jotka kattavat A2A:n elinkaaren, I18N-kontekstit, valinnaisten riippuvuuksien asennuksen, työkalujen turvallisuuden, palveluntarjoajien ominaisuudet, OAuth-luottamusrajat, rakenteiset tapahtumat ja hyväksynnän varmennuksen.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

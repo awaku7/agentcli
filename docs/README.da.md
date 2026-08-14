@@ -291,3 +291,7 @@ Runtime-politik (detaljer i [DEVELOP.md](https://github.com/awaku7/agentcli/blob
 ## Arkitektur og driftsinvarianter
 
 Se [ARCHITECTURE.md](ARCHITECTURE.md) for de varige implementeringskontrakter, der dækker A2A-livscyklus, I18N-kontekster, installation af valgfrie afhængigheder, værktøjssikkerhed, udbyderfunktioner, OAuth-tillidsgrænser, strukturerede hændelser og acceptverifikation.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

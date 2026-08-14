@@ -291,3 +291,7 @@ Patakaran sa runtime (mga detalye sa [DEVELOP.md](https://github.com/awaku7/agen
 ## Arkitektura at mga operational invariant
 
 Tingnan ang [ARCHITECTURE.md](ARCHITECTURE.md) para sa mga permanenteng kontrata sa pagpapatupad na sumasaklaw sa lifecycle ng A2A, mga konteksto ng I18N, pag-install ng opsyonal na dependency, kaligtasan ng tool, mga kakayahan ng provider, mga hangganan ng tiwala sa OAuth, mga structured event, at verification ng pagtanggap.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

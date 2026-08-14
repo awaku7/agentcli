@@ -270,3 +270,7 @@ OpenAI Realtime รองรับการผสานรวม Function Callin
 ## สถาปัตยกรรมและค่าคงที่ในการดำเนินงาน
 
 ดู [ARCHITECTURE.md](ARCHITECTURE.md) สำหรับสัญญาการนำไปใช้งานถาวรที่ครอบคลุมวงจรชีวิต A2A บริบท I18N การติดตั้งไลบรารีเสริม ความปลอดภัยของเครื่องมือ ความสามารถของผู้ให้บริการ ขอบเขตความเชื่อถือของ OAuth เหตุการณ์แบบมีโครงสร้าง และการตรวจสอบการยอมรับระบบ
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

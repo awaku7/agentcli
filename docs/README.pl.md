@@ -257,3 +257,7 @@ OpenAI Realtime obsługuje integrację Function Calling z ograniczeniami bezpiec
 ## Architektura i niezmienniki operacyjne
 
 Zobacz [ARCHITECTURE.md](ARCHITECTURE.md), aby poznać trwałe kontrakty implementacyjne obejmujące cykl życia A2A, konteksty I18N, instalację opcjonalnych zależności, bezpieczeństwo narzędzi, możliwości dostawców, granice zaufania OAuth, zdarzenia strukturalne i weryfikację akceptacyjną.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.

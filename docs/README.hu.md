@@ -254,3 +254,7 @@ OpenAI A Realtime támogatja a biztonságilag korlátozott Function Calling inte
 ## Architektúra és működési invariánsok
 
 Az A2A életciklusát, az I18N-kontextusokat, az opcionális függőségek telepítését, az eszközbiztonságot, a szolgáltatói képességeket, az OAuth bizalmi határait, a strukturált eseményeket és az elfogadási ellenőrzést lefedő tartós megvalósítási szerződésekért lásd az [ARCHITECTURE.md](ARCHITECTURE.md) dokumentumot.
+
+## Enterprise Policy Engine
+
+Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.
