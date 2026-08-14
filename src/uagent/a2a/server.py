@@ -286,6 +286,22 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
             )
         return {"task": task_to_model(rec).model_dump()}
 
+    @app.get("/tasks/{task_id}/checkpoint")
+    async def get_checkpoint(task_id: str, _auth: Any = Depends(require_bearer_auth)):
+        if not store.get(task_id):
+            raise A2AHttpError(status_code=404, code="NOT_FOUND", message="Task not found")
+        return {"task_id": task_id, "checkpoint": store.load_checkpoint(task_id)}
+
+    @app.post("/tasks/{task_id}/checkpoint")
+    async def save_checkpoint(task_id: str, body: dict[str, Any], _auth: Any = Depends(require_bearer_auth)):
+        if not store.get(task_id):
+            raise A2AHttpError(status_code=404, code="NOT_FOUND", message="Task not found")
+        checkpoint = body.get("checkpoint") if isinstance(body, dict) else None
+        if not isinstance(checkpoint, dict):
+            raise A2AHttpError(status_code=400, code="INVALID_ARGUMENT", message="checkpoint must be an object")
+        saved = store.save_checkpoint(task_id, checkpoint)
+        return {"task_id": task_id, "checkpoint": saved.checkpoint if saved else None}
+
     @app.get("/tasks", response_model=ListTasksResponse)
     async def list_tasks(
         limit: int = 100,

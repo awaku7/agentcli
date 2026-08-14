@@ -26,6 +26,12 @@ class RemoteAgentRuntime:
     def cancel(self, task_id: str, *, retries: int = 2) -> dict[str, Any]:
         return self._retry(lambda: self.client.cancel_task(task_id), retries)
 
+    def get_checkpoint(self, task_id: str, *, retries: int = 2) -> dict[str, Any]:
+        return self._retry(lambda: self.client.get_checkpoint(task_id), retries)
+
+    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any], *, retries: int = 2) -> dict[str, Any]:
+        return self._retry(lambda: self.client.save_checkpoint(task_id, checkpoint), retries)
+
     def list_tasks(self, *, limit: int = 100, offset: int = 0, retries: int = 2) -> dict[str, Any]:
         return self._retry(lambda: self.client.list_tasks(limit=limit, offset=offset), retries)
 

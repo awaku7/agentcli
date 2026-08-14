@@ -96,3 +96,17 @@ class A2AClient:
         r = self._client.post(f"/tasks/{task_id}:cancel", headers=self._auth_headers())
         r.raise_for_status()
         return r.json()
+
+    def get_checkpoint(self, task_id: str) -> dict[str, Any]:
+        r = self._client.get(f"/tasks/{task_id}/checkpoint", headers=self._auth_headers())
+        r.raise_for_status()
+        return r.json()
+
+    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any]) -> dict[str, Any]:
+        r = self._client.post(
+            f"/tasks/{task_id}/checkpoint",
+            json={"checkpoint": checkpoint},
+            headers=self._auth_headers(),
+        )
+        r.raise_for_status()
+        return r.json()
