@@ -17,6 +17,7 @@ from threading import Lock
 from typing import Any, Dict, List, Optional
 
 from .context import get_callbacks
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from ..providers.util_providers import make_client
 from .i18n_helper import make_tool_translator
@@ -996,6 +997,7 @@ class SubAgentRunner:
         sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
+            or (get_provider_api_key(sub_provider) if sub_provider else "")
             or ""
         ).strip()
 

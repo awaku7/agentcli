@@ -6,7 +6,6 @@ import datetime as _dt
 import html as _html
 import json
 import math
-import os
 import re
 from pathlib import Path
 from typing import Any
@@ -14,6 +13,7 @@ from urllib.parse import urlencode
 
 import requests
 
+from ..auth.provider_credentials import get_provider_api_key
 from .arg_util import get_int, get_list, get_str
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -514,7 +514,7 @@ def _google_waypoint(value: str) -> dict[str, Any]:
 
 
 def _run_google(args: dict[str, Any], origin: str, destination: str, max_routes: int) -> str:
-    api_key = (os.getenv("UAGENT_GOOGLE_MAPS_API_KEY") or "").strip()
+    api_key = (get_provider_api_key("google_maps") or "").strip()
     if not api_key:
         return _error(
             _("err.google_key_missing", default="UAGENT_GOOGLE_MAPS_API_KEY is not set."),

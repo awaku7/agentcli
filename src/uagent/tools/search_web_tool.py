@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 import random
 import time
@@ -12,7 +13,6 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 
-import os
 from .i18n_helper import make_tool_translator
 from .context import get_callbacks
 
@@ -320,7 +320,7 @@ def _brave_search(
     proxies: Optional[dict[str, str]] = DEFAULT_PROXIES,
 ) -> list[dict[str, str]]:
     """Brave Search: use the API when UAGENT_BRAVE_API_KEY is set; otherwise use HTML scraping"""
-    api_key = os.environ.get("UAGENT_BRAVE_API_KEY", "").strip()
+    api_key = (get_provider_api_key("brave") or "").strip()
     if api_key:
         _emit_debug("Brave API key found, using API")
         try:
