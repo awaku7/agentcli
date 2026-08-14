@@ -298,11 +298,34 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 
 ### Development checks (before PR)
 
+Install the test-only dependencies first. They are kept out of the runtime
+dependency list:
+
+```bash
+python -m pip install -e ".[test]"
+python -m pip install black ruff
+```
+
+Run the same checks used by GitHub Actions before pushing:
+
+```bash
+python -m ruff check src tests
+python -m black --check src tests
+python scripts/tool_json_i18n_batch.py status
+python -m pytest -q .
+```
+
+For a faster local iteration, run only the affected tests:
+
+```bash
+pytest -q tests/<affected_area>
+```
+
+Additional checks when relevant:
+
 ```bash
 python -m py_compile src/uagent/
-ruff format src/ && ruff check src/
 mypy src/uagent
-pytest -q tests/<affected_area>
 ```
 
 After locale (`.po`) edits: `python scripts/compile_locales.py` and `python scripts/po_qc_summary.py`.

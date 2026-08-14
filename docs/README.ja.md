@@ -258,6 +258,30 @@ uag用の新しいツールを作るのは簡単です。`TOOL_SPEC`と`run_tool
 
 手順については[TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md)を参照してください。
 
+### Pull Request前のローカル確認
+
+テスト専用の依存関係はランタイム依存関係から分離されています。最初に次を実行してください。
+
+```bash
+python -m pip install -e ".[test]"
+python -m pip install black ruff
+```
+
+GitHub Actionsと同じ主要チェックは次のコマンドで実行できます。
+
+```bash
+python -m ruff check src tests
+python -m black --check src tests
+python scripts/tool_json_i18n_batch.py status
+python -m pytest -q .
+```
+
+変更範囲だけを素早く確認する場合は、次のように対象テストを指定します。
+
+```bash
+pytest -q tests/<対象テストまたはディレクトリ>
+```
+
 ## 貢献する
 
 貢献を歓迎します！バグ報告、機能提案、ドキュメントの改善、翻訳、プルリクエストなど、あらゆる協力に感謝します。

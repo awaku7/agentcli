@@ -48,7 +48,8 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 
 - Python 3.11+ required. Check with `python --version`.
 - Node.js v24.18.0 required for locale tooling.
-- Install deps: `pip install -e ".[dev]"` (or read `pyproject.toml` for dependencies).
+- Install runtime deps with `pip install -e .`; install test-only deps with
+  `pip install -e ".[test]"`.
 - Work in the project root (`C:\KAIHATSU\agentcli` on the primary dev machine).
 - Use VSCode for editing. The workspace is at the project root.
 - Environment variables prefixed with `UAGENT_` configure behavior.
@@ -87,10 +88,15 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 ## Commands to run before committing
 
 - **Python syntax**: `python -m py_compile src/uagent/` (catches import/syntax errors).
-- **Format/lint**: `ruff format src/` and `ruff check src/` (or `black src/` as fallback).
+- **Format/lint**: `python -m ruff check src tests` and
+  `python -m black --check src tests`.
 - **Locale compile**: `python scripts/compile_locales.py` (after editing .po files).
 - **Locale QC**: `python scripts/po_qc_summary.py` (check translation quality).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
+- **CI-equivalent test run**: after `pip install -e ".[test]"`, run
+  `python -m pytest -q .` before pushing.
+- **Tool catalogs**: `python scripts/tool_json_i18n_batch.py status` and validate
+  each `src/uagent/tools/*_tool.json` with `scripts/i18n_validate.py`.
 - After changing tools, startup, or MCP behavior, run the affected path end-to-end.
 
 ## Git commit convention

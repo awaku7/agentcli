@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- docs: document test-only dependency installation and CI-equivalent local checks
+
 ## [0.5.72] - 2026-08-13
 
 ### Changed
