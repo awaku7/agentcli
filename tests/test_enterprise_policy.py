@@ -37,3 +37,12 @@ def test_mcp_skill_plugin_and_credential_decisions() -> None:
     assert policy.decide_credential("provider/openai").denied
     assert policy.decide_skill("unsafe").denied
     assert policy.decide_plugin("unknown").requires_confirmation
+
+
+def test_role_overrides_tool_policy(monkeypatch) -> None:
+    policy = EnterprisePolicy.from_mapping({
+        "tools": {"shell": {"action": "allow"}},
+        "roles": {"viewer": {"tools": {"shell": {"action": "deny"}}}},
+    })
+    assert policy.decide("shell", {"role": "viewer"}).denied
+    assert not policy.decide("shell", {"role": "admin"}).denied

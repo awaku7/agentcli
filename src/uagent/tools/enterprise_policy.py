@@ -34,6 +34,7 @@ class EnterprisePolicy:
     credentials: dict[str, str] = field(default_factory=dict)
     skills: dict[str, str] = field(default_factory=dict)
     plugins: dict[str, str] = field(default_factory=dict)
+    roles: dict[str, dict[str, str]] = field(default_factory=dict)
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any] | None) -> "EnterprisePolicy":
@@ -46,6 +47,7 @@ class EnterprisePolicy:
             credentials=_actions(raw.get("credentials")),
             skills=_actions(raw.get("skills")),
             plugins=_actions(raw.get("plugins")),
+            roles={str(role): _actions(value.get("tools")) for role, value in (raw.get("roles") or {}).items() if isinstance(value, Mapping)},
         )
 
     @classmethod
@@ -90,7 +92,9 @@ class EnterprisePolicy:
 
     def decide(self, tool_name: str, args: Mapping[str, Any] | None = None) -> PolicyDecision:
         args = args or {}
-        action = _normalize_action(self.tools.get(tool_name, "allow"))
+        role = str(args.get("role") or os.environ.get("UAGENT_ROLE") or "").strip()
+        role_actions = self.roles.get(role, {})
+        action = _normalize_action(role_actions.get(tool_name, self.tools.get(tool_name, "allow")))
         if action != "allow":
             return PolicyDecision(action, f"tool:{tool_name}")
 
@@ -129,9 +133,25 @@ def _normalize_action(value: Any) -> str:
 
 
 _DEFAULT_POLICY = EnterprisePolicy.from_environment()
+_POLICY_PATH = (os.environ.get("UAGENT_POLICY_FILE") or "").strip()
+_POLICY_MTIME: float | None = None
+if _POLICY_PATH:
+    try:
+        _POLICY_MTIME = Path(_POLICY_PATH).stat().st_mtime
+    except OSError:
+        pass
 
 
 def get_enterprise_policy() -> EnterprisePolicy:
+    global _DEFAULT_POLICY, _POLICY_MTIME
+    if _POLICY_PATH:
+        try:
+            mtime = Path(_POLICY_PATH).stat().st_mtime
+            if _POLICY_MTIME != mtime:
+                _DEFAULT_POLICY = EnterprisePolicy.from_file(_POLICY_PATH)
+                _POLICY_MTIME = mtime
+        except OSError:
+            pass
     return _DEFAULT_POLICY
 
 

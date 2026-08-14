@@ -1796,6 +1796,9 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             log_event("policy.denied", tool=name, tool_call_id=tool_call_id, reason=enterprise.reason, status="denied")
             return f"[tool policy] enterprise policy denied: {enterprise.reason}"
         if enterprise.requires_confirmation:
+            from ..runtime.logging_setup import log_event
+
+            log_event("policy.confirmation_required", tool=name, tool_call_id=tool_call_id, reason=enterprise.reason, status="pending")
             policy = policy.__class__(
                 side_effect=policy.side_effect,
                 parallel_safe=policy.parallel_safe,
