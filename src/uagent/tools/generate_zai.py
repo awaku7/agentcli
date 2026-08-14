@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -32,6 +33,10 @@ def _env_first(keys: list[str], *, default: str = "") -> str:
         v = (env_get(k) or "").strip()
         if v:
             return v
+    if not default:
+        value = get_provider_api_key("zai") or ""
+        if value:
+            return value.strip()
     return default
 
 
