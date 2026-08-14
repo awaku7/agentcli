@@ -46,3 +46,14 @@ def test_role_overrides_tool_policy(monkeypatch) -> None:
     })
     assert policy.decide("shell", {"role": "viewer"}).denied
     assert not policy.decide("shell", {"role": "admin"}).denied
+
+
+def test_missing_policy_file_is_created_as_allow_all(tmp_path, monkeypatch) -> None:
+    from uagent.tools.enterprise_policy import EnterprisePolicy
+
+    path = tmp_path / "missing-policy.yaml"
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(path))
+    policy = EnterprisePolicy.from_environment()
+    assert path.exists()
+    assert not policy.decide("any_tool").denied
+    assert not policy.decide_mcp_server("https://example.test").denied

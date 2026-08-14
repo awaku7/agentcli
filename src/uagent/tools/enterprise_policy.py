@@ -68,8 +68,23 @@ class EnterprisePolicy:
 
     @classmethod
     def from_environment(cls) -> "EnterprisePolicy":
+        """Load the configured policy, creating an allow-all default if absent."""
         path = (os.environ.get("UAGENT_POLICY_FILE") or "").strip()
-        return cls.from_file(path) if path else cls()
+        if not path:
+            from ..utils.paths import get_state_dir
+
+            path = str(get_state_dir() / "enterprise-policy.yaml")
+        target = Path(path).expanduser()
+        if not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            # JSON is valid YAML and keeps the generated default dependency-free.
+            target.write_text(
+                "{}\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            return cls()
+        return cls.from_file(target)
 
     def decide_credential(self, name: str) -> PolicyDecision:
         action = _normalize_action(self.credentials.get(name, "allow"))
@@ -134,6 +149,13 @@ def _normalize_action(value: Any) -> str:
 
 _DEFAULT_POLICY = EnterprisePolicy.from_environment()
 _POLICY_PATH = (os.environ.get("UAGENT_POLICY_FILE") or "").strip()
+if not _POLICY_PATH:
+    try:
+        from ..utils.paths import get_state_dir
+
+        _POLICY_PATH = str(get_state_dir() / "enterprise-policy.yaml")
+    except Exception:
+        _POLICY_PATH = ""
 _POLICY_MTIME: float | None = None
 if _POLICY_PATH:
     try:

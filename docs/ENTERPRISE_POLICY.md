@@ -10,7 +10,7 @@ Set `UAGENT_POLICY_FILE` to a JSON or YAML policy file:
 UAGENT_POLICY_FILE=/path/to/uagent-policy.yaml
 ```
 
-The file is loaded at startup. When the file changes, uag reloads it automatically before the next policy evaluation.
+The file is loaded at startup. If it does not exist, uag creates an empty `{}` policy file, which means allow-all and preserves the existing behavior. When the file changes, uag reloads it automatically before the next policy evaluation.
 
 ## Example
 
