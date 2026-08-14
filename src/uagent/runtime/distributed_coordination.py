@@ -17,7 +17,9 @@ class LeaseUnavailable(RuntimeError):
 class LeaderLease:
     """Best-effort atomic lease suitable for a shared filesystem."""
 
-    def __init__(self, path: str | Path, *, ttl: float = 30.0, owner: str | None = None) -> None:
+    def __init__(
+        self, path: str | Path, *, ttl: float = 30.0, owner: str | None = None
+    ) -> None:
         self.path = Path(path)
         self.ttl = max(1.0, float(ttl))
         self.owner = owner or f"{socket.gethostname()}:{os.getpid()}:{uuid.uuid4().hex}"

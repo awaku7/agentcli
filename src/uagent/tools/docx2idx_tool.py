@@ -156,7 +156,10 @@ class _DocxIndexBuilder:
 
 def run_tool(args: dict[str, Any]) -> str:
     if not _ensure_docx():
-        return _("err.docx_missing", default="Error: python-docx is not installed or could not be imported.")
+        return _(
+            "err.docx_missing",
+            default="Error: python-docx is not installed or could not be imported.",
+        )
     path = args.get("path")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")

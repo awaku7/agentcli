@@ -1483,15 +1483,35 @@ def _observed_llm_rounds(fn: Any) -> Any:
     from .runtime.logging_setup import log_event
 
     @wraps(fn)
-    def wrapped(provider: str, client: Any, depname: str, messages: list[dict[str, Any]], *args: Any, **kwargs: Any) -> str | None:
+    def wrapped(
+        provider: str,
+        client: Any,
+        depname: str,
+        messages: list[dict[str, Any]],
+        *args: Any,
+        **kwargs: Any,
+    ) -> str | None:
         started = time.perf_counter()
         log_event("llm.started", provider=provider, model=depname, status="started")
         try:
             result = fn(provider, client, depname, messages, *args, **kwargs)
         except Exception as exc:
-            log_event("llm.failed", provider=provider, model=depname, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type=type(exc).__name__)
+            log_event(
+                "llm.failed",
+                provider=provider,
+                model=depname,
+                duration_ms=round((time.perf_counter() - started) * 1000, 3),
+                status="error",
+                error_type=type(exc).__name__,
+            )
             raise
-        log_event("llm.completed", provider=provider, model=depname, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="ok")
+        log_event(
+            "llm.completed",
+            provider=provider,
+            model=depname,
+            duration_ms=round((time.perf_counter() - started) * 1000, 3),
+            status="ok",
+        )
         return result
 
     return wrapped

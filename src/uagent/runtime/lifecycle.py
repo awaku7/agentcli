@@ -28,7 +28,12 @@ class LifecycleSnapshot:
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        datetime.now(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 _ALLOWED_TRANSITIONS: dict[AgentStatus, frozenset[AgentStatus]] = {

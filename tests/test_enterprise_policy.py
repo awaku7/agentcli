@@ -4,14 +4,19 @@ from uagent.tools.enterprise_policy import EnterprisePolicy
 def test_tool_policy_actions_and_network_default_deny() -> None:
     policy = EnterprisePolicy.from_mapping(
         {
-            "tools": {"shell": {"action": "deny"}, "delete_file": {"action": "confirm"}},
+            "tools": {
+                "shell": {"action": "deny"},
+                "delete_file": {"action": "confirm"},
+            },
             "network": {"default": "deny", "allowlist": ["trusted.example"]},
         }
     )
     assert policy.decide("shell").denied
     assert policy.decide("delete_file").requires_confirmation
     assert policy.decide("http_request", {"url": "https://evil.example"}).denied
-    assert not policy.decide("http_request", {"url": "https://trusted.example/api"}).denied
+    assert not policy.decide(
+        "http_request", {"url": "https://trusted.example/api"}
+    ).denied
 
 
 def test_unknown_action_is_rejected() -> None:
@@ -26,7 +31,10 @@ def test_unknown_action_is_rejected() -> None:
 def test_mcp_skill_plugin_and_credential_decisions() -> None:
     policy = EnterprisePolicy.from_mapping(
         {
-            "mcp_servers": {"trusted.example": {"action": "allow"}, "evil.example": {"action": "deny"}},
+            "mcp_servers": {
+                "trusted.example": {"action": "allow"},
+                "evil.example": {"action": "deny"},
+            },
             "credentials": {"provider/openai": {"action": "deny"}},
             "skills": {"unsafe": {"action": "deny"}},
             "plugins": {"unknown": {"action": "confirm"}},
@@ -40,10 +48,12 @@ def test_mcp_skill_plugin_and_credential_decisions() -> None:
 
 
 def test_role_overrides_tool_policy(monkeypatch) -> None:
-    policy = EnterprisePolicy.from_mapping({
-        "tools": {"shell": {"action": "allow"}},
-        "roles": {"viewer": {"tools": {"shell": {"action": "deny"}}}},
-    })
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "tools": {"shell": {"action": "allow"}},
+            "roles": {"viewer": {"tools": {"shell": {"action": "deny"}}}},
+        }
+    )
     assert policy.decide("shell", {"role": "viewer"}).denied
     assert not policy.decide("shell", {"role": "admin"}).denied
 
@@ -57,3 +67,13 @@ def test_missing_policy_file_is_created_as_allow_all(tmp_path, monkeypatch) -> N
     assert path.exists()
     assert not policy.decide("any_tool").denied
     assert not policy.decide_mcp_server("https://example.test").denied
+
+
+def test_replace_in_file_preview_is_read_only_but_write_requires_confirmation() -> None:
+    from uagent.tools.tool_policy import SideEffect, policy_for
+
+    preview = policy_for("replace_in_file", {"path": "a.txt", "preview": True})
+    write = policy_for("replace_in_file", {"path": "a.txt", "preview": False})
+    assert preview.side_effect is SideEffect.READ_ONLY
+    assert preview.requires_confirmation is False
+    assert write.requires_confirmation is True

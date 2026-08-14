@@ -1182,8 +1182,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
     def _dispatch(pkt: BitchatPacket, source_addr: str | None = None) -> None:
         if pkt.sender_id == identity.peer_id_bytes:
             _notify_display(
-                "[bitchat] [debug] DISPATCH self packet ignored type=%d"
-                % int(pkt.type)
+                "[bitchat] [debug] DISPATCH self packet ignored type=%d" % int(pkt.type)
             )
             return
         peer_hex = pkt.sender_id.hex()
@@ -1465,9 +1464,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 addr, NotificationStreamAssembler()
             )
             frames = assembler.append(bytes(data))
-            _notify_display(
-                "[bitchat] [debug] NOTIFY frames=%d" % len(frames)
-            )
+            _notify_display("[bitchat] [debug] NOTIFY frames=%d" % len(frames))
             for frame in frames:
                 pkt = decode(frame)
                 _notify_display(
@@ -1477,9 +1474,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
                 if pkt is not None:
                     _dispatch(pkt, addr)
         except Exception as exc:
-            _notify_display(
-                "[bitchat] [debug] NOTIFY exception %s: %r" % (addr, exc)
-            )
+            _notify_display("[bitchat] [debug] NOTIFY exception %s: %r" % (addr, exc))
 
     async def _connect(device: BLEDevice) -> None:
         addr = device.address
@@ -1504,8 +1499,7 @@ async def _run_ble_service(nickname: str, network: str) -> None:
             await _send_announce()
         except asyncio.TimeoutError:
             _notify_display(
-                "[bitchat] [debug] CONNECT timeout %s attempt=%d"
-                % (addr, attempts)
+                "[bitchat] [debug] CONNECT timeout %s attempt=%d" % (addr, attempts)
             )
         except BleakError as exc:
             _notify_display(

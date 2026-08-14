@@ -52,7 +52,9 @@ def protected_resource_metadata_urls(resource_url: str) -> tuple[str, ...]:
         candidates.append(
             f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-protected-resource{path}"
         )
-    candidates.append(f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-protected-resource")
+    candidates.append(
+        f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-protected-resource"
+    )
     return tuple(dict.fromkeys(candidates))
 
 
@@ -67,7 +69,9 @@ def authorization_server_metadata_urls(issuer: str) -> tuple[str, ...]:
         candidates.append(
             f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-authorization-server{path}"
         )
-    candidates.append(f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-authorization-server")
+    candidates.append(
+        f"{parsed.scheme}://{parsed.netloc}/.well-known/oauth-authorization-server"
+    )
     return tuple(dict.fromkeys(candidates))
 
 
@@ -80,7 +84,11 @@ def validate_oauth_transport(url: str, *, allow_http_localhost: bool = True) -> 
     parsed = urlparse(url)
     if parsed.scheme == "https":
         return
-    if parsed.scheme == "http" and allow_http_localhost and _is_localhost(parsed.hostname or ""):
+    if (
+        parsed.scheme == "http"
+        and allow_http_localhost
+        and _is_localhost(parsed.hostname or "")
+    ):
         return
     raise MCPProtocolError("MCP_INSECURE_OAUTH_URL", "oauth-metadata", {"url": url})
 
@@ -120,7 +128,9 @@ async def fetch_protected_resource_metadata(
     last_error: Exception | None = None
     for url in protected_resource_metadata_urls(resource_url):
         try:
-            response = await http_client.get(url, headers={"Accept": "application/json"})
+            response = await http_client.get(
+                url, headers={"Accept": "application/json"}
+            )
             if response.status_code >= 400:
                 continue
             candidate = _json_response(response, "oauth-protected-resource")
@@ -173,7 +183,9 @@ async def fetch_authorization_server_metadata(
     last_error: Exception | None = None
     for url in authorization_server_metadata_urls(issuer):
         try:
-            response = await http_client.get(url, headers={"Accept": "application/json"})
+            response = await http_client.get(
+                url, headers={"Accept": "application/json"}
+            )
             if response.status_code >= 400:
                 continue
             candidate = _json_response(response, "oauth-authorization-server")
@@ -209,7 +221,9 @@ async def fetch_authorization_server_metadata(
         authorization_endpoint = validate_endpoint_trust(authorization_endpoint, issuer)
         token_endpoint = validate_endpoint_trust(token_endpoint, issuer)
         if registration_endpoint := payload.get("registration_endpoint"):
-            registration_endpoint = validate_endpoint_trust(str(registration_endpoint), issuer)
+            registration_endpoint = validate_endpoint_trust(
+                str(registration_endpoint), issuer
+            )
     except OAuthMetadataTrustError as exc:
         raise MCPProtocolError(
             "MCP_OAUTH_ENDPOINT_TRUST_FAILURE",

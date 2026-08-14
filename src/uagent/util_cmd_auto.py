@@ -239,7 +239,9 @@ def _run_auto_pilot_loop(
 
         core.set_status(True, "AUTO")
         if core.auto_pilot_max_rounds is None:
-            print(_("[AUTO] Round %(round)d/INFINITE") % {"round": core.auto_pilot_round})
+            print(
+                _("[AUTO] Round %(round)d/INFINITE") % {"round": core.auto_pilot_round}
+            )
         else:
             print(
                 _("[AUTO] Round %(round)d/%(max)d")
@@ -319,16 +321,10 @@ def _handle_cmd_auto(
             try:
                 max_rounds = int(raw_max)
             except ValueError:
-                print(
-                    tr("Invalid value for --max-rounds: %(val)s")
-                    % {"val": raw_max}
-                )
+                print(tr("Invalid value for --max-rounds: %(val)s") % {"val": raw_max})
                 return CommandResult()
             if max_rounds <= 0:
-                print(
-                    tr("Invalid value for --max-rounds: %(val)s")
-                    % {"val": raw_max}
-                )
+                print(tr("Invalid value for --max-rounds: %(val)s") % {"val": raw_max})
                 return CommandResult()
             i += 2
         elif not goal_parts and token.upper() == "INFINITE":

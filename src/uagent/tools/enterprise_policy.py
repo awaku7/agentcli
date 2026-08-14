@@ -47,7 +47,11 @@ class EnterprisePolicy:
             credentials=_actions(raw.get("credentials")),
             skills=_actions(raw.get("skills")),
             plugins=_actions(raw.get("plugins")),
-            roles={str(role): _actions(value.get("tools")) for role, value in (raw.get("roles") or {}).items() if isinstance(value, Mapping)},
+            roles={
+                str(role): _actions(value.get("tools"))
+                for role, value in (raw.get("roles") or {}).items()
+                if isinstance(value, Mapping)
+            },
         )
 
     @classmethod
@@ -60,7 +64,9 @@ class EnterprisePolicy:
             try:
                 import yaml  # type: ignore
             except ImportError as exc:
-                raise ValueError("YAML policy requires PyYAML; use JSON instead") from exc
+                raise ValueError(
+                    "YAML policy requires PyYAML; use JSON instead"
+                ) from exc
             raw = yaml.safe_load(text) or {}
         if not isinstance(raw, Mapping):
             raise ValueError("enterprise policy must be an object")
@@ -88,7 +94,11 @@ class EnterprisePolicy:
 
     def decide_credential(self, name: str) -> PolicyDecision:
         action = _normalize_action(self.credentials.get(name, "allow"))
-        return PolicyDecision(action, f"credential:{name}") if action != "allow" else PolicyDecision("allow")
+        return (
+            PolicyDecision(action, f"credential:{name}")
+            if action != "allow"
+            else PolicyDecision("allow")
+        )
 
     def decide_mcp_server(self, url: str) -> PolicyDecision:
         for pattern, action in self.mcp_servers.items():
@@ -99,17 +109,29 @@ class EnterprisePolicy:
 
     def decide_skill(self, name: str) -> PolicyDecision:
         action = _normalize_action(self.skills.get(name, "allow"))
-        return PolicyDecision(action, f"skill:{name}") if action != "allow" else PolicyDecision("allow")
+        return (
+            PolicyDecision(action, f"skill:{name}")
+            if action != "allow"
+            else PolicyDecision("allow")
+        )
 
     def decide_plugin(self, name: str) -> PolicyDecision:
         action = _normalize_action(self.plugins.get(name, "allow"))
-        return PolicyDecision(action, f"plugin:{name}") if action != "allow" else PolicyDecision("allow")
+        return (
+            PolicyDecision(action, f"plugin:{name}")
+            if action != "allow"
+            else PolicyDecision("allow")
+        )
 
-    def decide(self, tool_name: str, args: Mapping[str, Any] | None = None) -> PolicyDecision:
+    def decide(
+        self, tool_name: str, args: Mapping[str, Any] | None = None
+    ) -> PolicyDecision:
         args = args or {}
         role = str(args.get("role") or os.environ.get("UAGENT_ROLE") or "").strip()
         role_actions = self.roles.get(role, {})
-        action = _normalize_action(role_actions.get(tool_name, self.tools.get(tool_name, "allow")))
+        action = _normalize_action(
+            role_actions.get(tool_name, self.tools.get(tool_name, "allow"))
+        )
         if action != "allow":
             return PolicyDecision(action, f"tool:{tool_name}")
 
@@ -182,4 +204,9 @@ def set_enterprise_policy(policy: EnterprisePolicy) -> None:
     _DEFAULT_POLICY = policy
 
 
-__all__ = ["EnterprisePolicy", "PolicyDecision", "get_enterprise_policy", "set_enterprise_policy"]
+__all__ = [
+    "EnterprisePolicy",
+    "PolicyDecision",
+    "get_enterprise_policy",
+    "set_enterprise_policy",
+]

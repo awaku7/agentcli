@@ -24,9 +24,11 @@ def test_dag_rejects_cycle_and_missing_dependency() -> None:
         with pytest.raises(DagCycleError):
             await run_dag([DagNode("a", lambda _: None, ("missing",))])
         with pytest.raises(DagCycleError):
-            await run_dag([
-                DagNode("a", lambda _: None, ("b",)),
-                DagNode("b", lambda _: None, ("a",)),
-            ])
+            await run_dag(
+                [
+                    DagNode("a", lambda _: None, ("b",)),
+                    DagNode("b", lambda _: None, ("a",)),
+                ]
+            )
 
     asyncio.run(scenario())

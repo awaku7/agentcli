@@ -10,14 +10,25 @@ from datetime import datetime, timezone
 from typing import Any, Iterator
 from uuid import uuid4
 
-
 _LOGGER = logging.getLogger("uagent.events")
-_SECRET_KEYS = {"token", "access_token", "refresh_token", "client_secret", "authorization_code"}
-_EVENT_CONTEXT: ContextVar[dict[str, Any]] = ContextVar("uagent_event_context", default={})
+_SECRET_KEYS = {
+    "token",
+    "access_token",
+    "refresh_token",
+    "client_secret",
+    "authorization_code",
+}
+_EVENT_CONTEXT: ContextVar[dict[str, Any]] = ContextVar(
+    "uagent_event_context", default={}
+)
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+    return (
+        datetime.now(timezone.utc)
+        .isoformat(timespec="milliseconds")
+        .replace("+00:00", "Z")
+    )
 
 
 def bind_event_context(**fields: Any):
@@ -46,7 +57,10 @@ def event_context(**fields: Any) -> Iterator[None]:
 
 
 def _safe_fields(fields: dict[str, Any]) -> dict[str, Any]:
-    return {key: "[REDACTED]" if key.lower() in _SECRET_KEYS else value for key, value in fields.items()}
+    return {
+        key: "[REDACTED]" if key.lower() in _SECRET_KEYS else value
+        for key, value in fields.items()
+    }
 
 
 def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) -> None:
@@ -71,4 +85,8 @@ def log_event(event_code: str, **fields: Any) -> None:
     context.setdefault("timestamp", _now_iso())
     context.setdefault("status", "event")
     payload = {**context, "event_code": event_code, **fields}
-    _LOGGER.info(json.dumps(_safe_fields(payload), ensure_ascii=False, sort_keys=True, default=str))
+    _LOGGER.info(
+        json.dumps(
+            _safe_fields(payload), ensure_ascii=False, sort_keys=True, default=str
+        )
+    )

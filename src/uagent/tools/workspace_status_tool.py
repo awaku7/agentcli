@@ -82,7 +82,9 @@ def _git_status(cwd: str) -> dict[str, Any]:
         ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
         cwd,
     )
-    _, counts, _ = _run(["git", "rev-list", "--left-right", "--count", "@{upstream}...HEAD"], cwd)
+    _, counts, _ = _run(
+        ["git", "rev-list", "--left-right", "--count", "@{upstream}...HEAD"], cwd
+    )
 
     ahead = behind = None
     if counts:
@@ -120,7 +122,8 @@ def run_tool(args: dict[str, Any]) -> str:
             "runtime": {
                 "python_executable": sys.executable,
                 "python_version": sys.version.split()[0],
-                "virtual_environment": sys.prefix != getattr(sys, "base_prefix", sys.prefix),
+                "virtual_environment": sys.prefix
+                != getattr(sys, "base_prefix", sys.prefix),
             },
             "project_markers": markers,
         },

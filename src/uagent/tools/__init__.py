@@ -1708,7 +1708,9 @@ def run_tools_parallel(
     return [(n, a, r) for n, a, r in results]  # type: ignore[misc]
 
 
-def _call_tool_runner(name: str, runner: Any, args: dict[str, Any], *, tool_call_id: str) -> str:
+def _call_tool_runner(
+    name: str, runner: Any, args: dict[str, Any], *, tool_call_id: str
+) -> str:
     """Invoke a tool runner without letting it terminate the host process."""
     import time
 
@@ -1725,7 +1727,15 @@ def _call_tool_runner(name: str, runner: Any, args: dict[str, Any], *, tool_call
     except Exception as e:
         try:
             from ..runtime.logging_setup import log_event
-            log_event("tool.failed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type=type(e).__name__)
+
+            log_event(
+                "tool.failed",
+                tool=name,
+                tool_call_id=tool_call_id,
+                duration_ms=round((time.perf_counter() - started) * 1000, 3),
+                status="error",
+                error_type=type(e).__name__,
+            )
         except Exception:
             pass
         return f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
@@ -1733,7 +1743,15 @@ def _call_tool_runner(name: str, runner: Any, args: dict[str, Any], *, tool_call
         # Tools must return errors, not exit the agent process.
         try:
             from ..runtime.logging_setup import log_event
-            log_event("tool.failed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="error", error_type="SystemExit")
+
+            log_event(
+                "tool.failed",
+                tool=name,
+                tool_call_id=tool_call_id,
+                duration_ms=round((time.perf_counter() - started) * 1000, 3),
+                status="error",
+                error_type="SystemExit",
+            )
         except Exception:
             pass
         return f"[tool runtime error] name={name!r} err=SystemExit: {e}"
@@ -1743,7 +1761,14 @@ def _call_tool_runner(name: str, runner: Any, args: dict[str, Any], *, tool_call
 
     try:
         from ..runtime.logging_setup import log_event
-        log_event("tool.completed", tool=name, tool_call_id=tool_call_id, duration_ms=round((time.perf_counter() - started) * 1000, 3), status="ok")
+
+        log_event(
+            "tool.completed",
+            tool=name,
+            tool_call_id=tool_call_id,
+            duration_ms=round((time.perf_counter() - started) * 1000, 3),
+            status="ok",
+        )
     except Exception:
         pass
     if isinstance(result, str):
@@ -1784,6 +1809,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             return f"[tool error] unknown tool: {name}"
 
     from uuid import uuid4
+
     tool_call_id = str(uuid4())
     policy = get_tool_policy(name, args)
     try:
@@ -1793,12 +1819,24 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         if enterprise.denied:
             from ..runtime.logging_setup import log_event
 
-            log_event("policy.denied", tool=name, tool_call_id=tool_call_id, reason=enterprise.reason, status="denied")
+            log_event(
+                "policy.denied",
+                tool=name,
+                tool_call_id=tool_call_id,
+                reason=enterprise.reason,
+                status="denied",
+            )
             return f"[tool policy] enterprise policy denied: {enterprise.reason}"
         if enterprise.requires_confirmation:
             from ..runtime.logging_setup import log_event
 
-            log_event("policy.confirmation_required", tool=name, tool_call_id=tool_call_id, reason=enterprise.reason, status="pending")
+            log_event(
+                "policy.confirmation_required",
+                tool=name,
+                tool_call_id=tool_call_id,
+                reason=enterprise.reason,
+                status="pending",
+            )
             policy = policy.__class__(
                 side_effect=policy.side_effect,
                 parallel_safe=policy.parallel_safe,
@@ -1810,7 +1848,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     try:
         from ..runtime.logging_setup import log_event
 
-        log_event("tool.dispatch", tool=name, tool_call_id=tool_call_id, side_effect=policy.side_effect.value, resource_key=policy.resource_key)
+        log_event(
+            "tool.dispatch",
+            tool=name,
+            tool_call_id=tool_call_id,
+            side_effect=policy.side_effect.value,
+            resource_key=policy.resource_key,
+        )
     except Exception:
         pass
     if policy.requires_confirmation and _CONFIRMATION_CALLBACK is not None:

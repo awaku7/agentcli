@@ -11,14 +11,25 @@ from ..a2a.client import A2AClient
 class RemoteAgentRuntime:
     """Submit and inspect tasks on a remote A2A agent."""
 
-    def __init__(self, *, base_url: str, token: str | None = None, credential_store: Any = None) -> None:
-        self.client = A2AClient(base_url=base_url, token=token, credential_store=credential_store)
+    def __init__(
+        self, *, base_url: str, token: str | None = None, credential_store: Any = None
+    ) -> None:
+        self.client = A2AClient(
+            base_url=base_url, token=token, credential_store=credential_store
+        )
 
     def close(self) -> None:
         self.client.close()
 
-    def submit(self, text: str, *, return_immediately: bool = True, retries: int = 2) -> dict[str, Any]:
-        return self._retry(lambda: self.client.send_message(text=text, return_immediately=return_immediately), retries)
+    def submit(
+        self, text: str, *, return_immediately: bool = True, retries: int = 2
+    ) -> dict[str, Any]:
+        return self._retry(
+            lambda: self.client.send_message(
+                text=text, return_immediately=return_immediately
+            ),
+            retries,
+        )
 
     def get_task(self, task_id: str, *, retries: int = 2) -> dict[str, Any]:
         return self._retry(lambda: self.client.get_task(task_id), retries)
@@ -29,17 +40,27 @@ class RemoteAgentRuntime:
     def get_checkpoint(self, task_id: str, *, retries: int = 2) -> dict[str, Any]:
         return self._retry(lambda: self.client.get_checkpoint(task_id), retries)
 
-    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any], *, retries: int = 2) -> dict[str, Any]:
-        return self._retry(lambda: self.client.save_checkpoint(task_id, checkpoint), retries)
+    def save_checkpoint(
+        self, task_id: str, checkpoint: dict[str, Any], *, retries: int = 2
+    ) -> dict[str, Any]:
+        return self._retry(
+            lambda: self.client.save_checkpoint(task_id, checkpoint), retries
+        )
 
     def subscribe(self, task_id: str):
         """Yield server-sent task events until the remote task is terminal."""
         return self.client.subscribe_task(task_id)
 
-    def list_tasks(self, *, limit: int = 100, offset: int = 0, retries: int = 2) -> dict[str, Any]:
-        return self._retry(lambda: self.client.list_tasks(limit=limit, offset=offset), retries)
+    def list_tasks(
+        self, *, limit: int = 100, offset: int = 0, retries: int = 2
+    ) -> dict[str, Any]:
+        return self._retry(
+            lambda: self.client.list_tasks(limit=limit, offset=offset), retries
+        )
 
-    def wait(self, task_id: str, *, timeout: float = 300, interval: float = 1.0) -> dict[str, Any]:
+    def wait(
+        self, task_id: str, *, timeout: float = 300, interval: float = 1.0
+    ) -> dict[str, Any]:
         deadline = time.monotonic() + max(0.0, timeout)
         while True:
             task = self.get_task(task_id)

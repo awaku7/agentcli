@@ -22,11 +22,15 @@ def write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
             handle = kernel32.GetStdHandle(wintypes.DWORD(-12).value)
             invalid = wintypes.HANDLE(-1).value
             if handle and handle != invalid:
+
                 class COORD(ctypes.Structure):
                     _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
 
                 class SMALL_RECT(ctypes.Structure):
-                    _fields_ = [(name, wintypes.SHORT) for name in ("Left", "Top", "Right", "Bottom")]
+                    _fields_ = [
+                        (name, wintypes.SHORT)
+                        for name in ("Left", "Top", "Right", "Bottom")
+                    ]
 
                 class CSBI(ctypes.Structure):
                     _fields_ = [
@@ -40,11 +44,15 @@ def write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
                 info = CSBI()
                 if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(info)):
                     old_attr = int(info.wAttributes)
-                    kernel32.SetConsoleTextAttribute(handle, (old_attr & 0xF0) | (0x0E if busy else 0x0A))
+                    kernel32.SetConsoleTextAttribute(
+                        handle, (old_attr & 0xF0) | (0x0E if busy else 0x0A)
+                    )
                     try:
                         data = text + nl
                         written = wintypes.DWORD(0)
-                        if not kernel32.WriteConsoleW(handle, data, len(data), ctypes.byref(written), None):
+                        if not kernel32.WriteConsoleW(
+                            handle, data, len(data), ctypes.byref(written), None
+                        ):
                             sys.stderr.write(data)
                             sys.stderr.flush()
                     finally:

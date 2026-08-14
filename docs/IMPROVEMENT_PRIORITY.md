@@ -263,14 +263,13 @@ network:
 - [x] Multi-Agent orchestration (`runtime.multi_agent`)
 - [x] Remote Agent Runtime (`runtime.remote_agent`)
 
+> 注記: etcd / ZooKeeper 相当の本格的な consensus、ネットワーク分断耐性、OpenTelemetry の完全導入は、外部基盤を必要とする別スコープです。現行実装は共有ファイル lease と A2A の認証済み task / checkpoint / SSE 同期を提供します。
+
 ## 現時点で後回しにする項目
 
 次の項目は重要ですが、基盤が固まる前に着手すると再設計が発生しやすいため、後回しにします。
 
 - Redis TaskStore
-- DAG-based scheduler
-- Distributed A2A
-- Remote Agent Runtime
 - OpenTelemetry の本格導入
 - Plugin sandbox の完全実装
 

@@ -80,7 +80,9 @@ def test_different_fingerprint_resets_other_counters() -> None:
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD - 1):
         blocked, _, _ = check_general_tool_loop([_tc("get_current_location")])
         assert blocked is False
-    assert any(k.startswith("tool:get_current_location:") for k in _TOOL_CALL_FINGERPRINTS)
+    assert any(
+        k.startswith("tool:get_current_location:") for k in _TOOL_CALL_FINGERPRINTS
+    )
 
     # Different fingerprint should drop the previous streak.
     blocked, _, _ = check_general_tool_loop(

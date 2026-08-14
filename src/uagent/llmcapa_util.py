@@ -380,7 +380,10 @@ def provider_allows_responses_api(
     from .providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
 
     prov = normalize_provider(provider)
-    if "responses" not in DEFAULT_PROVIDER_REGISTRY.resolve(prov, model_id).capabilities:
+    if (
+        "responses"
+        not in DEFAULT_PROVIDER_REGISTRY.resolve(prov, model_id).capabilities
+    ):
         return False
     mid = (model_id or "").strip() or current_model(prov)
     if not mid:

@@ -788,9 +788,13 @@ def parse_responses_stream(
         for ev in it:
             # --- Interrupt check ---
             interrupt_source = core
-            if interrupt_source is None or not hasattr(interrupt_source, "interrupt_lock"):
+            if interrupt_source is None or not hasattr(
+                interrupt_source, "interrupt_lock"
+            ):
                 interrupt_source = sys.modules.get("uagent.core")
-            if interrupt_source is not None and hasattr(interrupt_source, "interrupt_lock"):
+            if interrupt_source is not None and hasattr(
+                interrupt_source, "interrupt_lock"
+            ):
                 with interrupt_source.interrupt_lock:
                     if interrupt_source.interrupt_requested:
                         # Keep interrupt_requested=True so the outer round can

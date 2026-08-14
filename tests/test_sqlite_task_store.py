@@ -79,5 +79,7 @@ def test_sqlite_task_store_checkpoint_round_trip(tmp_path) -> None:
     store = SQLiteTaskStore(tmp_path / "tasks.sqlite3")
     store.create(TaskRecord(id="checkpoint"))
 
-    assert store.save_checkpoint("checkpoint", {"step": 2, "messages": ["ok"]}) is not None
+    assert (
+        store.save_checkpoint("checkpoint", {"step": 2, "messages": ["ok"]}) is not None
+    )
     assert store.load_checkpoint("checkpoint") == {"step": 2, "messages": ["ok"]}

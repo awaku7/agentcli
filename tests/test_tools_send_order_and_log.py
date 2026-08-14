@@ -54,7 +54,10 @@ def test_format_tool_names_preserves_order() -> None:
         {"type": "function", "name": "search_web", "description": "", "parameters": {}},
         {
             "type": "function",
-            "function": {"name": "get_current_location", "parameters": {"type": "object"}},
+            "function": {
+                "name": "get_current_location",
+                "parameters": {"type": "object"},
+            },
         },
     ]
     assert format_tool_names_for_log(specs) == [

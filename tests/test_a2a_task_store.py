@@ -21,7 +21,9 @@ def test_late_worker_completion_cannot_overwrite_cancel() -> None:
     store.transition("t2", "IN_PROGRESS", "CANCEL_REQUESTED")
     store.transition("t2", "CANCEL_REQUESTED", "CANCELLED")
 
-    assert store.transition("t2", "IN_PROGRESS", "FAILED", error={"code": "late"}) is None
+    assert (
+        store.transition("t2", "IN_PROGRESS", "FAILED", error={"code": "late"}) is None
+    )
     assert store.get("t2").status == "CANCELLED"
 
 

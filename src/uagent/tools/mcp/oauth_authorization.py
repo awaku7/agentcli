@@ -22,7 +22,12 @@ from ...auth.pkce import (
     validate_state,
 )
 from ...auth.token_store import StoredToken, TokenStore
-from ...auth import Credential, CredentialKind, CredentialStore, get_default_credential_store
+from ...auth import (
+    Credential,
+    CredentialKind,
+    CredentialStore,
+    get_default_credential_store,
+)
 from ...runtime.logging_setup import log_event
 
 
@@ -63,7 +68,9 @@ class OAuthAuthorizationSession:
         self.redirect_uri = redirect_uri
         self.scope = scope
         self.token_store = token_store
-        self.credential_store = credential_store or (get_default_credential_store() if token_store is None else None)
+        self.credential_store = credential_store or (
+            get_default_credential_store() if token_store is None else None
+        )
         self.state = generate_state()
         self.code_verifier = generate_code_verifier()
 
@@ -101,7 +108,12 @@ class OAuthAuthorizationSession:
     ) -> OAuthTokenResponse:
         if not validate_state(self.state, callback_state):
             raise ValueError("OAuth state mismatch")
-        log_event("oauth.started", issuer=self.issuer, resource=self.resource, flow="authorization_code")
+        log_event(
+            "oauth.started",
+            issuer=self.issuer,
+            resource=self.resource,
+            flow="authorization_code",
+        )
         try:
             token = await exchange_authorization_code(
                 self.metadata.token_endpoint,
@@ -113,9 +125,17 @@ class OAuthAuthorizationSession:
                 http_client=http_client,
             )
         except Exception as exc:
-            log_event("oauth.failed", issuer=self.issuer, resource=self.resource, status="error", error_type=type(exc).__name__)
+            log_event(
+                "oauth.failed",
+                issuer=self.issuer,
+                resource=self.resource,
+                status="error",
+                error_type=type(exc).__name__,
+            )
             raise
-        log_event("oauth.completed", issuer=self.issuer, resource=self.resource, status="ok")
+        log_event(
+            "oauth.completed", issuer=self.issuer, resource=self.resource, status="ok"
+        )
         expires_at = (
             int(time.time()) + token.expires_in
             if token.expires_in is not None
@@ -130,7 +150,11 @@ class OAuthAuthorizationSession:
                     expires_at=expires_at,
                     metadata={
                         "token_type": token.token_type,
-                        **({"refresh_token": token.refresh_token} if token.refresh_token else {}),
+                        **(
+                            {"refresh_token": token.refresh_token}
+                            if token.refresh_token
+                            else {}
+                        ),
                         **({"scope": token.scope} if token.scope else {}),
                     },
                 )

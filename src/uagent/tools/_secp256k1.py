@@ -68,7 +68,12 @@ def generate_private_key() -> bytes:
 
 def private_to_public(priv_bytes: bytes) -> bytes:
     if not _ensure_ecdsa():
-        raise RuntimeError(_("secp256k1.ecdsa_missing", default="ecdsa is not installed or could not be imported"))
+        raise RuntimeError(
+            _(
+                "secp256k1.ecdsa_missing",
+                default="ecdsa is not installed or could not be imported",
+            )
+        )
     """Derive 32-byte x-only public key from 32-byte private key."""
     sk = SigningKey.from_string(priv_bytes, curve=SECP256k1)
     vk = sk.get_verifying_key()
@@ -77,7 +82,12 @@ def private_to_public(priv_bytes: bytes) -> bytes:
 
 def schnorr_sign(priv_bytes: bytes, msg: bytes) -> bytes:
     if not _ensure_ecdsa():
-        raise RuntimeError(_("secp256k1.ecdsa_missing", default="ecdsa is not installed or could not be imported"))
+        raise RuntimeError(
+            _(
+                "secp256k1.ecdsa_missing",
+                default="ecdsa is not installed or could not be imported",
+            )
+        )
     """Create a BIP340 Schnorr signature.
 
     Args:
@@ -131,7 +141,12 @@ def schnorr_sign(priv_bytes: bytes, msg: bytes) -> bytes:
 
 def schnorr_verify(pub_xonly: bytes, msg: bytes, sig: bytes) -> bool:
     if not _ensure_ecdsa():
-        raise RuntimeError(_("secp256k1.ecdsa_missing", default="ecdsa is not installed or could not be imported"))
+        raise RuntimeError(
+            _(
+                "secp256k1.ecdsa_missing",
+                default="ecdsa is not installed or could not be imported",
+            )
+        )
     """Verify a BIP340 Schnorr signature.
 
     Args:
@@ -196,7 +211,12 @@ def schnorr_verify(pub_xonly: bytes, msg: bytes, sig: bytes) -> bool:
 
 def ecdh_shared_key(priv_bytes: bytes, pub_xonly: bytes) -> bytes:
     if not _ensure_ecdsa():
-        raise RuntimeError(_("secp256k1.ecdsa_missing", default="ecdsa is not installed or could not be imported"))
+        raise RuntimeError(
+            _(
+                "secp256k1.ecdsa_missing",
+                default="ecdsa is not installed or could not be imported",
+            )
+        )
     """Compute ECDH shared key (SHA-256) for kind-1059 encryption.
 
     Args:

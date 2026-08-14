@@ -476,9 +476,7 @@ def print_status_line() -> None:
 
     # Color/ANSI control
     # Default: enable ANSI colors unless explicitly disabled.
-    no_color = bool(
-        env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR")
-    )
+    no_color = bool(env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR"))
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
     # Prefer a natural newline boundary so status does not split a sentence.
@@ -796,7 +794,9 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
     """Compatibility shim for runtime.history."""
     from .runtime.history import rewrite_jsonl_log
 
-    return rewrite_jsonl_log(LOG_FILE, messages, read_responses_state_records(LOG_FILE), _mask_message)
+    return rewrite_jsonl_log(
+        LOG_FILE, messages, read_responses_state_records(LOG_FILE), _mask_message
+    )
 
 
 # ==============================

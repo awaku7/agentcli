@@ -34,7 +34,9 @@ def rewrite_jsonl_log(
                 continue
         for record in response_records:
             try:
-                stream.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")
+                stream.write(
+                    json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
+                )
             except Exception:
                 continue
     os.replace(tmp_path, log_path)

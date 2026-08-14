@@ -25,21 +25,32 @@ TOOL_SPEC: dict[str, Any] = {
                 "action": {
                     "type": "string",
                     "enum": ["set", "list", "delete"],
-                    "description": _("param.action.description", default="Operation to perform."),
+                    "description": _(
+                        "param.action.description", default="Operation to perform."
+                    ),
                 },
                 "slot": {
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 9,
-                    "description": _("param.slot.description", default="Alias number; 0 produces @A{0}, 9 produces @A{9}."),
+                    "description": _(
+                        "param.slot.description",
+                        default="Alias number; 0 produces @A{0}, 9 produces @A{9}.",
+                    ),
                 },
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="Directory to assign to the alias."),
+                    "description": _(
+                        "param.path.description",
+                        default="Directory to assign to the alias.",
+                    ),
                 },
                 "overwrite": {
                     "type": "boolean",
-                    "description": _("param.overwrite.description", default="For set, allow replacing an existing alias."),
+                    "description": _(
+                        "param.overwrite.description",
+                        default="For set, allow replacing an existing alias.",
+                    ),
                 },
             },
             "required": ["action"],
@@ -66,16 +77,24 @@ def run_tool(args: dict[str, Any]) -> str:
             visible[0] = Path.cwd()
         return _result(
             ok=True,
-            aliases={alias_label(slot): str(path) for slot, path in sorted(visible.items())},
+            aliases={
+                alias_label(slot): str(path) for slot, path in sorted(visible.items())
+            },
         )
 
     if action == "delete":
         try:
             slot = int(args.get("slot"))
         except (TypeError, ValueError):
-            return _result(ok=False, error=_("err.slot", default="slot must be an integer from 0 to 9"))
+            return _result(
+                ok=False,
+                error=_("err.slot", default="slot must be an integer from 0 to 9"),
+            )
         if not 0 <= slot <= 9:
-            return _result(ok=False, error=_("err.slot", default="slot must be an integer from 0 to 9"))
+            return _result(
+                ok=False,
+                error=_("err.slot", default="slot must be an integer from 0 to 9"),
+            )
         if slot not in aliases:
             return _result(ok=False, error=f"alias not registered: {alias_label(slot)}")
         del aliases[slot]
@@ -86,14 +105,22 @@ def run_tool(args: dict[str, Any]) -> str:
         try:
             slot = int(args.get("slot"))
         except (TypeError, ValueError):
-            return _result(ok=False, error=_("err.slot", default="slot must be an integer from 0 to 9"))
+            return _result(
+                ok=False,
+                error=_("err.slot", default="slot must be an integer from 0 to 9"),
+            )
         if not 0 <= slot <= 9:
-            return _result(ok=False, error=_("err.slot", default="slot must be an integer from 0 to 9"))
+            return _result(
+                ok=False,
+                error=_("err.slot", default="slot must be an integer from 0 to 9"),
+            )
         raw_path = str(args.get("path") or "").strip()
         if not raw_path:
             return _result(ok=False, error="path is required")
         if slot in aliases and not bool(args.get("overwrite", False)):
-            return _result(ok=False, error=f"alias already registered: {alias_label(slot)}")
+            return _result(
+                ok=False, error=f"alias already registered: {alias_label(slot)}"
+            )
         path = Path(raw_path).expanduser().resolve()
         if not path.is_dir():
             return _result(ok=False, error="path must be an existing directory")

@@ -35,14 +35,11 @@ class Credential:
 
 @runtime_checkable
 class CredentialStore(Protocol):
-    def get(self, name: str) -> Credential | None:
-        ...
+    def get(self, name: str) -> Credential | None: ...
 
-    def set(self, credential: Credential, *, name: str | None = None) -> None:
-        ...
+    def set(self, credential: Credential, *, name: str | None = None) -> None: ...
 
-    def delete(self, name: str) -> bool:
-        ...
+    def delete(self, name: str) -> bool: ...
 
 
 class InMemoryCredentialStore:
@@ -54,7 +51,9 @@ class InMemoryCredentialStore:
     def get(self, name: str) -> Credential | None:
         _validate_name(name)
         credential = self._credentials.get(name)
-        log_event("credential.accessed", credential_name=name, found=credential is not None)
+        log_event(
+            "credential.accessed", credential_name=name, found=credential is not None
+        )
         return credential
 
     def set(self, credential: Credential, *, name: str | None = None) -> None:
@@ -66,7 +65,11 @@ class InMemoryCredentialStore:
         if not credential.secret:
             raise ValueError("credential secret is required")
         self._credentials[credential.name] = credential
-        log_event("credential.stored", credential_name=credential.name, kind=credential.kind.value)
+        log_event(
+            "credential.stored",
+            credential_name=credential.name,
+            kind=credential.kind.value,
+        )
 
     def delete(self, name: str) -> bool:
         _validate_name(name)
@@ -74,12 +77,15 @@ class InMemoryCredentialStore:
         log_event("credential.deleted", credential_name=name, deleted=deleted)
         return deleted
 
+
 class PersistentCredentialStore:
     """Encrypted file-backed CredentialStore using the shared TokenStore backend."""
 
     _ISSUER = "uagent/credential"
 
-    def __init__(self, path: str | Path | None = None, *, encrypt=None, decrypt=None) -> None:
+    def __init__(
+        self, path: str | Path | None = None, *, encrypt=None, decrypt=None
+    ) -> None:
         from .token_store import TokenStore
 
         if path is None:
@@ -125,16 +131,23 @@ class PersistentCredentialStore:
                 token_type=credential.kind.value,
                 expires_at=credential.expires_at,
                 refresh_token=credential.metadata.get("refresh_token"),
-                scope=json.dumps(credential.metadata, ensure_ascii=False, sort_keys=True),
+                scope=json.dumps(
+                    credential.metadata, ensure_ascii=False, sort_keys=True
+                ),
             ),
         )
-        log_event("credential.stored", credential_name=credential.name, kind=credential.kind.value)
+        log_event(
+            "credential.stored",
+            credential_name=credential.name,
+            kind=credential.kind.value,
+        )
 
     def delete(self, name: str) -> bool:
         _validate_name(name)
         deleted = self._tokens.delete(self._ISSUER, name)
         log_event("credential.deleted", credential_name=name, deleted=deleted)
         return deleted
+
 
 _DEFAULT_CREDENTIAL_STORE: CredentialStore | None = None
 
@@ -214,7 +227,11 @@ class TokenStoreCredentialAdapter:
                 scope=credential.metadata.get("scope"),
             ),
         )
-        log_event("credential.stored", credential_name=credential.name, kind=credential.kind.value)
+        log_event(
+            "credential.stored",
+            credential_name=credential.name,
+            kind=credential.kind.value,
+        )
 
     def delete(self, name: str) -> bool:
         _validate_name(name)

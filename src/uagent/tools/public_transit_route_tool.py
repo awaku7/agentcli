@@ -318,11 +318,13 @@ def _fare_breakdown(edges: list[Any]) -> list[dict[str, Any]]:
             }
     breakdown: list[dict[str, Any]] = []
     for group, item in base_by_group.items():
-        breakdown.append({
-            "unit": "fare",
-            "label": _("fare.ticket", default="Fare"),
-            **item,
-        })
+        breakdown.append(
+            {
+                "unit": "fare",
+                "label": _("fare.ticket", default="Fare"),
+                **item,
+            }
+        )
         extra = extra_by_group.get(group)
         if extra:
             breakdown.append(
@@ -416,8 +418,7 @@ def _duration_minutes(value: Any) -> int | None:
         return round(float(value) / 60)
     text = str(value)
     match = re.search(
-        r"(?:(\d+)\s*(?:時間|hours?|hrs?))?\s*"
-        r"(?:(\d+)\s*(?:分|minutes?|mins?))?",
+        r"(?:(\d+)\s*(?:時間|hours?|hrs?))?\s*" r"(?:(\d+)\s*(?:分|minutes?|mins?))?",
         text,
         re.IGNORECASE,
     )
@@ -431,7 +432,9 @@ _GOOGLE_ROUTES_URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
 
 def _google_route(route: dict[str, Any], rank: int) -> dict[str, Any]:
     legs = route.get("legs") or []
-    leg = legs[0] if isinstance(legs, list) and legs and isinstance(legs[0], dict) else {}
+    leg = (
+        legs[0] if isinstance(legs, list) and legs and isinstance(legs[0], dict) else {}
+    )
     segments: list[dict[str, Any]] = []
     for step in leg.get("steps") or []:
         if not isinstance(step, dict):
@@ -447,22 +450,34 @@ def _google_route(route: dict[str, Any], rank: int) -> dict[str, Any]:
             departure_stop = stop_details.get("departureStop") or {}
             arrival_stop = stop_details.get("arrivalStop") or {}
             agencies = line.get("agencies") or []
-            segments.append({
-                "station": departure_stop.get("name"),
-                "arrival_station": arrival_stop.get("name"),
-                "line": line.get("nameShort") or line.get("short_name") or line.get("name"),
-                "operator": (agencies[0] if agencies else {}).get("name"),
-                "vehicle": vehicle.get("name") or vehicle.get("type"),
-                "departure": (step.get("localizedValues") or {}).get("departureTime"),
-                "arrival": (step.get("localizedValues") or {}).get("arrivalTime"),
-                "duration_minutes": _duration_minutes(step.get("localizedValues", {}).get("staticDuration")),
-            })
+            segments.append(
+                {
+                    "station": departure_stop.get("name"),
+                    "arrival_station": arrival_stop.get("name"),
+                    "line": line.get("nameShort")
+                    or line.get("short_name")
+                    or line.get("name"),
+                    "operator": (agencies[0] if agencies else {}).get("name"),
+                    "vehicle": vehicle.get("name") or vehicle.get("type"),
+                    "departure": (step.get("localizedValues") or {}).get(
+                        "departureTime"
+                    ),
+                    "arrival": (step.get("localizedValues") or {}).get("arrivalTime"),
+                    "duration_minutes": _duration_minutes(
+                        step.get("localizedValues", {}).get("staticDuration")
+                    ),
+                }
+            )
         elif step.get("travelMode") == "WALK":
-            segments.append({
-                "line": _("segment.walk", default="Walking"),
-                "vehicle": "WALK",
-                "duration_minutes": _duration_minutes(step.get("localizedValues", {}).get("staticDuration")),
-            })
+            segments.append(
+                {
+                    "line": _("segment.walk", default="Walking"),
+                    "vehicle": "WALK",
+                    "duration_minutes": _duration_minutes(
+                        step.get("localizedValues", {}).get("staticDuration")
+                    ),
+                }
+            )
     return {
         "rank": rank,
         "departure": (leg.get("localizedValues") or {}).get("startTime"),
@@ -479,14 +494,25 @@ def _google_route(route: dict[str, Any], rank: int) -> dict[str, Any]:
             or (leg.get("duration") or {}).get("text")
             or leg.get("duration")
         ),
-        "transfers": max(0, sum(1 for segment in segments if segment.get("arrival_station")) - 1),
-        "fare_amount": _to_int((route.get("travelAdvisory") or {}).get("transitFare", {}).get("units")),
+        "transfers": max(
+            0, sum(1 for segment in segments if segment.get("arrival_station")) - 1
+        ),
+        "fare_amount": _to_int(
+            (route.get("travelAdvisory") or {}).get("transitFare", {}).get("units")
+        ),
         "fare_yen": (
-            _to_int((route.get("travelAdvisory") or {}).get("transitFare", {}).get("units"))
-            if ((route.get("travelAdvisory") or {}).get("transitFare") or {}).get("currencyCode") == "JPY"
+            _to_int(
+                (route.get("travelAdvisory") or {}).get("transitFare", {}).get("units")
+            )
+            if ((route.get("travelAdvisory") or {}).get("transitFare") or {}).get(
+                "currencyCode"
+            )
+            == "JPY"
             else None
         ),
-        "fare_currency": ((route.get("travelAdvisory") or {}).get("transitFare") or {}).get("currencyCode"),
+        "fare_currency": (
+            (route.get("travelAdvisory") or {}).get("transitFare") or {}
+        ).get("currencyCode"),
         "fare_detail": None,
         "payment_unit": "google",
         "fare_breakdown": [],
@@ -513,11 +539,16 @@ def _google_waypoint(value: str) -> dict[str, Any]:
     return {"address": value}
 
 
-def _run_google(args: dict[str, Any], origin: str, destination: str, max_routes: int) -> str:
+def _run_google(
+    args: dict[str, Any], origin: str, destination: str, max_routes: int
+) -> str:
     api_key = (get_provider_api_key("google_maps") or "").strip()
     if not api_key:
         return _error(
-            _("err.google_key_missing", default="UAGENT_GOOGLE_MAPS_API_KEY is not set."),
+            _(
+                "err.google_key_missing",
+                default="UAGENT_GOOGLE_MAPS_API_KEY is not set.",
+            ),
             provider="google",
         )
     departure_raw = get_str(args, "departure", "").strip()
@@ -555,7 +586,10 @@ def _run_google(args: dict[str, Any], origin: str, destination: str, max_routes:
     response.raise_for_status()
     data = response.json()
     raw_routes = data.get("routes") or []
-    routes = [_google_route(route, index) for index, route in enumerate(raw_routes[:max_routes], 1)]
+    routes = [
+        _google_route(route, index)
+        for index, route in enumerate(raw_routes[:max_routes], 1)
+    ]
     if not routes:
         return _error(
             _("err.no_routes", default="No public-transit routes were found."),
@@ -564,21 +598,24 @@ def _run_google(args: dict[str, Any], origin: str, destination: str, max_routes:
             provider="google",
             source="Google Routes API",
         )
-    return json.dumps({
-        "ok": True,
-        "origin": origin,
-        "destination": destination,
-        "routes": routes,
-        "provider": "google",
-        "source": "Google Routes API",
-        "source_url": _GOOGLE_ROUTES_URL,
-        "checked_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
-        "fare_type": "provider_dependent",
-        "notice": _(
-            "notice.google_fare",
-            default="Google route availability and fares are provider-dependent and may change.",
-        ),
-    }, ensure_ascii=False)
+    return json.dumps(
+        {
+            "ok": True,
+            "origin": origin,
+            "destination": destination,
+            "routes": routes,
+            "provider": "google",
+            "source": "Google Routes API",
+            "source_url": _GOOGLE_ROUTES_URL,
+            "checked_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+            "fare_type": "provider_dependent",
+            "notice": _(
+                "notice.google_fare",
+                default="Google route availability and fares are provider-dependent and may change.",
+            ),
+        },
+        ensure_ascii=False,
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:

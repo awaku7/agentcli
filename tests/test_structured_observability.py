@@ -53,7 +53,10 @@ def test_tool_runner_emits_call_id_and_duration(caplog) -> None:
     from uagent.tools import _call_tool_runner
 
     with caplog.at_level(logging.INFO, logger="uagent.events"):
-        assert _call_tool_runner("demo", lambda _args: "ok", {}, tool_call_id="call-1") == "ok"
+        assert (
+            _call_tool_runner("demo", lambda _args: "ok", {}, tool_call_id="call-1")
+            == "ok"
+        )
 
     event = json.loads(caplog.records[-1].message)
     assert event["event_code"] == "tool.completed"

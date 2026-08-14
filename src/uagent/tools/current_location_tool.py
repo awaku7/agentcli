@@ -84,4 +84,3 @@ def run_tool(args: dict) -> str:
         )
 
     return "\n".join(output)
-

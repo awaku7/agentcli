@@ -13,7 +13,9 @@ class AgentTask:
     run: Callable[[dict[str, Any]], Awaitable[Any] | Any]
 
 
-async def run_agents(tasks: list[AgentTask], *, fail_fast: bool = True) -> dict[str, Any]:
+async def run_agents(
+    tasks: list[AgentTask], *, fail_fast: bool = True
+) -> dict[str, Any]:
     """Run independent agents concurrently and collect results by name."""
     names = [task.name for task in tasks]
     if len(set(names)) != len(names):
@@ -30,7 +32,9 @@ async def run_agents(tasks: list[AgentTask], *, fail_fast: bool = True) -> dict[
         return dict(pairs)
 
     results: dict[str, Any] = {}
-    outcomes = await asyncio.gather(*(invoke(task) for task in tasks), return_exceptions=True)
+    outcomes = await asyncio.gather(
+        *(invoke(task) for task in tasks), return_exceptions=True
+    )
     for task, outcome in zip(tasks, outcomes):
         results[task.name] = outcome
     return results

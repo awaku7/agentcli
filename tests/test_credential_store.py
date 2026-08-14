@@ -9,7 +9,6 @@ from uagent.auth import (
     CredentialKind,
     CredentialStore,
     InMemoryCredentialStore,
-    PersistentCredentialStore,
 )
 
 
@@ -127,7 +126,11 @@ def test_persistent_credential_store_round_trip(tmp_path) -> None:
     from uagent.auth import PersistentCredentialStore
 
     path = tmp_path / "credentials.json"
-    first = PersistentCredentialStore(path, encrypt=lambda value: f"enc:{value}", decrypt=lambda value: value.removeprefix("enc:"))
+    first = PersistentCredentialStore(
+        path,
+        encrypt=lambda value: f"enc:{value}",
+        decrypt=lambda value: value.removeprefix("enc:"),
+    )
     first.set(
         Credential(
             name="a2a/default",
@@ -137,7 +140,11 @@ def test_persistent_credential_store_round_trip(tmp_path) -> None:
         )
     )
 
-    second = PersistentCredentialStore(path, encrypt=lambda value: f"enc:{value}", decrypt=lambda value: value.removeprefix("enc:"))
+    second = PersistentCredentialStore(
+        path,
+        encrypt=lambda value: f"enc:{value}",
+        decrypt=lambda value: value.removeprefix("enc:"),
+    )
     credential = second.get("a2a/default")
     assert credential is not None
     assert credential.secret == "persisted"

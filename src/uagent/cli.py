@@ -1351,6 +1351,7 @@ def stdin_loop() -> None:
 
 def main() -> None:
     from .runtime.logging_setup import bind_event_context
+
     bind_event_context(session_id="cli", correlation_id="cli")
     log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")

@@ -106,7 +106,13 @@ class StaticProviderRegistry:
     def resolve(self, provider: str, model: str | None = None) -> ProviderSpec:
         name = (provider or "").strip().lower()
         if name not in ALL_PROVIDERS:
-            return ProviderSpec(name=name or "unknown", capabilities=frozenset({"unknown"}), supports_tools=False, supports_streaming=False, supports_vision=False)
+            return ProviderSpec(
+                name=name or "unknown",
+                capabilities=frozenset({"unknown"}),
+                supports_tools=False,
+                supports_streaming=False,
+                supports_vision=False,
+            )
         capabilities = {"chat", "streaming"}
         if name in RESPONSES_PROVIDERS:
             capabilities.add("responses")

@@ -21,7 +21,11 @@ def get_location() -> Location:
         return _macos()
     if sys.platform.startswith("linux"):
         return _linux()
-    raise RuntimeError(_("location.unsupported_platform", default="Unsupported platform: {platform}").format(platform=sys.platform))
+    raise RuntimeError(
+        _(
+            "location.unsupported_platform", default="Unsupported platform: {platform}"
+        ).format(platform=sys.platform)
+    )
 
 
 def _windows() -> Location:
@@ -89,20 +93,29 @@ def _macos() -> Location:
     delegate = Delegate.alloc().init()
     manager = CoreLocation.CLLocationManager.alloc().init()
     manager.setDelegate_(delegate)
-    if CoreLocation.CLLocationManager.authorizationStatus() == CoreLocation.kCLAuthorizationStatusNotDetermined:
+    if (
+        CoreLocation.CLLocationManager.authorizationStatus()
+        == CoreLocation.kCLAuthorizationStatusNotDetermined
+    ):
         manager.requestWhenInUseAuthorization()
     manager.startUpdatingLocation()
 
     deadline = time.monotonic() + 20
     run_loop = NSRunLoop.currentRunLoop()
-    while delegate.location is None and delegate.error is None and time.monotonic() < deadline:
+    while (
+        delegate.location is None
+        and delegate.error is None
+        and time.monotonic() < deadline
+    ):
         run_loop.runUntilDate_(NSDate.dateWithTimeIntervalSinceNow_(0.1))
     manager.stopUpdatingLocation()
 
     if delegate.error is not None:
         raise RuntimeError(str(delegate.error))
     if delegate.location is None:
-        raise RuntimeError(_("location.error", default="Timed out waiting for macOS location"))
+        raise RuntimeError(
+            _("location.error", default="Timed out waiting for macOS location")
+        )
 
     coord = delegate.location.coordinate
     timestamp = delegate.location.timestamp
@@ -147,7 +160,9 @@ def _linux() -> Location:
         client_path = await manager.call_get_client()
 
         client_intro = await bus.introspect("org.freedesktop.GeoClue2", client_path)
-        client_obj = bus.get_proxy_object("org.freedesktop.GeoClue2", client_path, client_intro)
+        client_obj = bus.get_proxy_object(
+            "org.freedesktop.GeoClue2", client_path, client_intro
+        )
         client = client_obj.get_interface("org.freedesktop.GeoClue2.Client")
         props = client_obj.get_interface("org.freedesktop.DBus.Properties")
         await props.call_set(

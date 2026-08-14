@@ -75,14 +75,16 @@ def load_plugins_at_startup(
         enterprise_policy = get_enterprise_policy()
         plugin_decision = enterprise_policy.decide_plugin(str(name))
         if plugin_decision.denied:
-            loaded.append({
-                "name": name,
-                "version": manifest.get("version", "0.0.0"),
-                "path": plugin_path,
-                "enabled": False,
-                "policy_denied": plugin_decision.reason,
-                "components": {},
-            })
+            loaded.append(
+                {
+                    "name": name,
+                    "version": manifest.get("version", "0.0.0"),
+                    "path": plugin_path,
+                    "enabled": False,
+                    "policy_denied": plugin_decision.reason,
+                    "components": {},
+                }
+            )
             continue
 
         # Check if enabled
@@ -95,12 +97,15 @@ def load_plugins_at_startup(
         components = discover_plugin_components(plugin_path, manifest)
         skills = components.get("skills", [])
         denied_skills = [
-            skill for skill in skills
+            skill
+            for skill in skills
             if enterprise_policy.decide_skill(str(skill)).denied
         ]
         if denied_skills:
             components = dict(components)
-            components["skills"] = [skill for skill in skills if skill not in denied_skills]
+            components["skills"] = [
+                skill for skill in skills if skill not in denied_skills
+            ]
 
         plugin_info: dict[str, Any] = {
             "name": name,

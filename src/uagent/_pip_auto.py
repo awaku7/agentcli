@@ -9,13 +9,32 @@ import subprocess
 import sys
 import os
 
-
 _ALLOWED_PACKAGES = {
-    "fastapi", "uvicorn", "pydantic", "packaging", "playwright", "pyautogui",
-    "python-docx", "openpyxl", "beautifulsoup4", "pypdf", "python-pptx",
-    "pymupdf", "pillow", "qrcode", "pandas", "numpy", "sounddevice",
-    "webrtc-audio-processing", "dbus-next", "pyobjc-framework-corelocation",
-    "zai-sdk", "tree-sitter", "tree-sitter-language-pack", "httpx", "requests",
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "packaging",
+    "playwright",
+    "pyautogui",
+    "python-docx",
+    "openpyxl",
+    "beautifulsoup4",
+    "pypdf",
+    "python-pptx",
+    "pymupdf",
+    "pillow",
+    "qrcode",
+    "pandas",
+    "numpy",
+    "sounddevice",
+    "webrtc-audio-processing",
+    "dbus-next",
+    "pyobjc-framework-corelocation",
+    "zai-sdk",
+    "tree-sitter",
+    "tree-sitter-language-pack",
+    "httpx",
+    "requests",
 }
 
 

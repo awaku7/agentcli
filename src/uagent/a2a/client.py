@@ -10,7 +10,12 @@ except ImportError:
     _install_httpx("httpx")
     import httpx
 
-from ..auth import CredentialKind, CredentialStore, get_default_credential_store, resolve_credential_secret
+from ..auth import (
+    CredentialKind,
+    CredentialStore,
+    get_default_credential_store,
+    resolve_credential_secret,
+)
 from ..env_utils import env_get
 
 
@@ -98,11 +103,15 @@ class A2AClient:
         return r.json()
 
     def get_checkpoint(self, task_id: str) -> dict[str, Any]:
-        r = self._client.get(f"/tasks/{task_id}/checkpoint", headers=self._auth_headers())
+        r = self._client.get(
+            f"/tasks/{task_id}/checkpoint", headers=self._auth_headers()
+        )
         r.raise_for_status()
         return r.json()
 
-    def save_checkpoint(self, task_id: str, checkpoint: dict[str, Any]) -> dict[str, Any]:
+    def save_checkpoint(
+        self, task_id: str, checkpoint: dict[str, Any]
+    ) -> dict[str, Any]:
         r = self._client.post(
             f"/tasks/{task_id}/checkpoint",
             json={"checkpoint": checkpoint},
@@ -110,7 +119,6 @@ class A2AClient:
         )
         r.raise_for_status()
         return r.json()
-
 
     def subscribe_task(self, task_id: str):
         """Yield task events from the remote SSE subscription endpoint."""

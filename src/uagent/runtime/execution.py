@@ -12,7 +12,6 @@ from .lifecycle import (
 )
 from .logging_setup import log_event
 
-
 _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
     "uagent_current_lifecycle", default=None
 )

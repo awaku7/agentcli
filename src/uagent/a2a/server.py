@@ -88,20 +88,25 @@ def _build_task_store() -> InMemoryTaskStore | SQLiteTaskStore:
     return InMemoryTaskStore()
 
 
-def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
+def build_app(
+    *, credential_store: CredentialStore | None = None, recover_tasks: bool = False
+) -> FastAPI:
     app = FastAPI(title=_("uagent A2A"))
     app.state.credential_store = credential_store or get_default_credential_store()
 
     store = _build_task_store()
-    try:
-        recovered = store.recover_incomplete()
-    except AttributeError:
-        recovered = []
-    if recovered:
-        log_event("task.recovered_after_restart", count=len(recovered), status="failed")
-    from ..tools import configure_default_confirmation
-
-    configure_default_confirmation()
+    if recover_tasks:
+        try:
+            recovered = store.recover_incomplete()
+        except AttributeError:
+            recovered = []
+        if recovered:
+            log_event(
+                "task.recovered_after_restart", count=len(recovered), status="failed"
+            )
+    # Tool confirmation is configured by the executable entry point. Keeping
+    # app construction free of the large tools package makes unit tests and
+    # embedders deterministic and avoids unrelated plugin warmup work.
     sem = asyncio.Semaphore(int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
 
     @app.exception_handler(A2AHttpError)
@@ -159,12 +164,18 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
     async def _execute_task(task_id: str, user_text: str) -> None:
         runtime = store.runtime(task_id)
         event_token = bind_event_context(task_id=task_id, correlation_id=task_id)
-        locale_token = set_contextvar_locale(runtime.locale if runtime else detect_lang())
+        locale_token = set_contextvar_locale(
+            runtime.locale if runtime else detect_lang()
+        )
         try:
             async with sem:
                 if runtime and runtime.cancel_event and runtime.cancel_event.is_set():
                     _lifecycle_transition(runtime, "cancel")
-                    store.transition(task_id, TaskStatus.CANCEL_REQUESTED.value, TaskStatus.CANCELLED.value)
+                    store.transition(
+                        task_id,
+                        TaskStatus.CANCEL_REQUESTED.value,
+                        TaskStatus.CANCELLED.value,
+                    )
                     return
                 _lifecycle_transition(runtime, "start")
                 try:
@@ -177,7 +188,10 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
                     _lifecycle_transition(runtime, "cancel")
                     store.transition(
                         task_id,
-                        (TaskStatus.IN_PROGRESS.value, TaskStatus.CANCEL_REQUESTED.value),
+                        (
+                            TaskStatus.IN_PROGRESS.value,
+                            TaskStatus.CANCEL_REQUESTED.value,
+                        ),
                         TaskStatus.CANCELLED.value,
                     )
                     raise
@@ -220,17 +234,26 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
         task_id = str(uuid4())
         rec = TaskRecord(id=task_id, input_message=req.message.model_dump())
         store.create(rec)
-        log_event("a2a.task.created", task_id=task_id, locale=request.headers.get("accept-language", ""))
+        log_event(
+            "a2a.task.created",
+            task_id=task_id,
+            locale=request.headers.get("accept-language", ""),
+        )
 
         runtime = TaskRuntime(
             cancel_event=asyncio.Event(),
-            locale=(request.headers.get("accept-language", "").split(",")[0] or detect_lang()),
+            locale=(
+                request.headers.get("accept-language", "").split(",")[0]
+                or detect_lang()
+            ),
         )
         store.register_runtime(task_id, runtime)
 
         # Execute synchronously unless returnImmediately is true.
         if bool(req.returnImmediately):
-            runtime.asyncio_task = asyncio.create_task(_execute_task(task_id, user_text))
+            runtime.asyncio_task = asyncio.create_task(
+                _execute_task(task_id, user_text)
+            )
             return SendMessageResponse(task=task_to_model(store.get(task_id)))  # type: ignore[arg-type]
 
         await _execute_task(task_id, user_text)
@@ -289,16 +312,26 @@ def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
     @app.get("/tasks/{task_id}/checkpoint")
     async def get_checkpoint(task_id: str, _auth: Any = Depends(require_bearer_auth)):
         if not store.get(task_id):
-            raise A2AHttpError(status_code=404, code="NOT_FOUND", message="Task not found")
+            raise A2AHttpError(
+                status_code=404, code="NOT_FOUND", message="Task not found"
+            )
         return {"task_id": task_id, "checkpoint": store.load_checkpoint(task_id)}
 
     @app.post("/tasks/{task_id}/checkpoint")
-    async def save_checkpoint(task_id: str, body: dict[str, Any], _auth: Any = Depends(require_bearer_auth)):
+    async def save_checkpoint(
+        task_id: str, body: dict[str, Any], _auth: Any = Depends(require_bearer_auth)
+    ):
         if not store.get(task_id):
-            raise A2AHttpError(status_code=404, code="NOT_FOUND", message="Task not found")
+            raise A2AHttpError(
+                status_code=404, code="NOT_FOUND", message="Task not found"
+            )
         checkpoint = body.get("checkpoint") if isinstance(body, dict) else None
         if not isinstance(checkpoint, dict):
-            raise A2AHttpError(status_code=400, code="INVALID_ARGUMENT", message="checkpoint must be an object")
+            raise A2AHttpError(
+                status_code=400,
+                code="INVALID_ARGUMENT",
+                message="checkpoint must be an object",
+            )
         saved = store.save_checkpoint(task_id, checkpoint)
         return {"task_id": task_id, "checkpoint": saved.checkpoint if saved else None}
 
@@ -471,7 +504,10 @@ def main(argv: Optional[list[str]] = None) -> None:
     except Exception:
         pass
 
-    app = build_app()
+    from ..tools import configure_default_confirmation
+
+    configure_default_confirmation()
+    app = build_app(recover_tasks=True)
     uvicorn.run(app, host=str(args.host), port=int(args.port), reload=bool(args.reload))
 
 

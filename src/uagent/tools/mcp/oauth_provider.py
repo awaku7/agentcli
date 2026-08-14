@@ -8,7 +8,12 @@ from typing import Any, AsyncGenerator, Awaitable, Callable
 
 import httpx
 
-from ...auth.credential_store import Credential, CredentialKind, CredentialStore, get_default_credential_store
+from ...auth.credential_store import (
+    Credential,
+    CredentialKind,
+    CredentialStore,
+    get_default_credential_store,
+)
 from .errors import MCPTransportError
 from .oauth_flow import refresh_access_token
 from ...auth.token_store import StoredToken, TokenStore
@@ -67,7 +72,11 @@ class OAuthTokenProvider:
                 expires_at=token.expires_at,
                 metadata={
                     "token_type": token.token_type,
-                    **({"refresh_token": token.refresh_token} if token.refresh_token else {}),
+                    **(
+                        {"refresh_token": token.refresh_token}
+                        if token.refresh_token
+                        else {}
+                    ),
                     **({"scope": token.scope} if token.scope else {}),
                 },
             )

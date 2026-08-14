@@ -851,7 +851,8 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            _run_lifecycle(util_run_llm_rounds, 
+                            _run_lifecycle(
+                                util_run_llm_rounds,
                                 self._provider,
                                 self._client,
                                 self._depname,
@@ -863,7 +864,8 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (first call)
                             if core.auto_pilot_active:
-                                _run_lifecycle(_run_auto_pilot_loop, 
+                                _run_lifecycle(
+                                    _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,
                                     self._depname,
@@ -952,7 +954,8 @@ class ScheckWorker(QtCore.QObject):
                             self.messages.append(m)
                             core.log_message(m)
 
-                            _run_lifecycle(util_run_llm_rounds, 
+                            _run_lifecycle(
+                                util_run_llm_rounds,
                                 self._provider,
                                 self._client,
                                 self._depname,
@@ -964,7 +967,8 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (native multimodal path)
                             if core.auto_pilot_active:
-                                _run_lifecycle(_run_auto_pilot_loop, 
+                                _run_lifecycle(
+                                    _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,
                                     self._depname,
@@ -1007,7 +1011,8 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            _run_lifecycle(util_run_llm_rounds, 
+                            _run_lifecycle(
+                                util_run_llm_rounds,
                                 self._provider,
                                 self._client,
                                 self._depname,
@@ -1019,7 +1024,8 @@ class ScheckWorker(QtCore.QObject):
                             )
                             # Auto-pilot loop (fallback path)
                             if core.auto_pilot_active:
-                                _run_lifecycle(_run_auto_pilot_loop, 
+                                _run_lifecycle(
+                                    _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,
                                     self._depname,
@@ -2959,6 +2965,7 @@ def _is_high_contrast() -> bool:
 
 def main():
     from .runtime.logging_setup import bind_event_context
+
     bind_event_context(session_id="gui", correlation_id="gui")
     log_event("gui.start")
     # Redirect stdout/stderr to in-memory buffer (no intermediate file)

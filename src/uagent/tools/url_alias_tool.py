@@ -26,10 +26,36 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "action": {"type": "string", "enum": ["set", "list", "delete"], "description": _("param.action.description", default="Operation to perform.")},
-                "slot": {"type": "integer", "minimum": 0, "maximum": 9, "description": _("param.slot.description", default="Alias number; 0 produces @B{0}, 9 produces @B{9}.")},
-                "url": {"type": "string", "description": _("param.path.description", default="Base URL to assign to the alias.")},
-                "overwrite": {"type": "boolean", "description": _("param.overwrite.description", default="Allow replacing an existing alias.")},
+                "action": {
+                    "type": "string",
+                    "enum": ["set", "list", "delete"],
+                    "description": _(
+                        "param.action.description", default="Operation to perform."
+                    ),
+                },
+                "slot": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9,
+                    "description": _(
+                        "param.slot.description",
+                        default="Alias number; 0 produces @B{0}, 9 produces @B{9}.",
+                    ),
+                },
+                "url": {
+                    "type": "string",
+                    "description": _(
+                        "param.path.description",
+                        default="Base URL to assign to the alias.",
+                    ),
+                },
+                "overwrite": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.overwrite.description",
+                        default="Allow replacing an existing alias.",
+                    ),
+                },
             },
             "required": ["action"],
             "additionalProperties": False,
@@ -58,7 +84,9 @@ def run_tool(args: dict[str, Any]) -> str:
     aliases = load_url_aliases()
 
     if action == "list":
-        return _result(ok=True, aliases={url_alias_label(k): v for k, v in sorted(aliases.items())})
+        return _result(
+            ok=True, aliases={url_alias_label(k): v for k, v in sorted(aliases.items())}
+        )
 
     slot = _slot(args)
     if slot is None:
@@ -66,7 +94,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if action == "delete":
         if slot not in aliases:
-            return _result(ok=False, error=f"alias not registered: {url_alias_label(slot)}")
+            return _result(
+                ok=False, error=f"alias not registered: {url_alias_label(slot)}"
+            )
         del aliases[slot]
         save_url_aliases(aliases)
         return _result(ok=True, deleted=url_alias_label(slot))
@@ -77,7 +107,9 @@ def run_tool(args: dict[str, Any]) -> str:
         if parsed.scheme not in {"http", "https"} or not parsed.netloc:
             return _result(ok=False, error="url must be an absolute http(s) URL")
         if slot in aliases and not bool(args.get("overwrite", False)):
-            return _result(ok=False, error=f"alias already registered: {url_alias_label(slot)}")
+            return _result(
+                ok=False, error=f"alias already registered: {url_alias_label(slot)}"
+            )
         aliases[slot] = url
         save_url_aliases(aliases)
         return _result(ok=True, alias=url_alias_label(slot))

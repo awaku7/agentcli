@@ -1179,7 +1179,11 @@ def run_agent_worker(
     # inherit room via tools.run_tool wrapper (see init_web).
     _thread_ctx.room = room
     set_thread_lang(getattr(room, "lang", "en"))
-    log_event("web.room.task.started", room_id=getattr(room, "room_id", ""), locale=getattr(room, "lang", "en"))
+    log_event(
+        "web.room.task.started",
+        room_id=getattr(room, "room_id", ""),
+        locale=getattr(room, "lang", "en"),
+    )
 
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
@@ -2561,6 +2565,7 @@ def init_web():
 
 def main():
     from .runtime.logging_setup import bind_event_context
+
     bind_event_context(session_id="web", correlation_id="web")
     log_event("web.start")
     sys.__stdout__.reconfigure(encoding="utf-8")

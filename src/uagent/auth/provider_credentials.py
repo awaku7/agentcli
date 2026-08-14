@@ -5,7 +5,6 @@ from collections.abc import Callable, Mapping
 
 from .credential_store import Credential, CredentialKind, CredentialStore
 
-
 _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     "openai": ("UAGENT_OPENAI_API_KEY", "OPENAI_API_KEY"),
     "azure": ("UAGENT_AZURE_API_KEY", "AZURE_OPENAI_API_KEY"),

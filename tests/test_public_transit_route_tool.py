@@ -93,9 +93,7 @@ def test_google_route_normalization() -> None:
     route = route_tool._google_route(
         {
             "summary": "JR and Metro",
-            "travelAdvisory": {
-                "transitFare": {"units": "220", "currencyCode": "JPY"}
-            },
+            "travelAdvisory": {"transitFare": {"units": "220", "currencyCode": "JPY"}},
             "legs": [
                 {
                     "duration": {"text": "1 hour 5 mins"},

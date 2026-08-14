@@ -18,7 +18,10 @@ def test_shared_pkce_and_oauth_trust_helpers() -> None:
 
 
 def test_policy_has_resource_key_and_unknown_is_conservative() -> None:
-    assert policy_for("delete_file", {"path": "a.txt"}).resource_key == "delete_file:path:a.txt"
+    assert (
+        policy_for("delete_file", {"path": "a.txt"}).resource_key
+        == "delete_file:path:a.txt"
+    )
     assert policy_for("future_tool").side_effect is SideEffect.IDEMPOTENT_WRITE
     assert not DEFAULT_PROVIDER_REGISTRY.resolve("future").supports_tools
 
