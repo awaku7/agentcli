@@ -49,6 +49,7 @@ test = [
     "scapy",
     "bitchat-protocol>=0.2.0",
     "mcp",
+    "holidays",
     "fastapi",
     "uvicorn",
     "cryptography",
