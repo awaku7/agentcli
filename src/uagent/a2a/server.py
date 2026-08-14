@@ -44,6 +44,7 @@ from .models import (
     task_to_model,
 )
 from .task_store import InMemoryTaskStore, TaskRecord, TaskRuntime, TaskStatus
+from ..runtime.lifecycle import InvalidLifecycleTransition
 
 
 def _bool_env(name: str, default: bool = False) -> bool:
@@ -51,6 +52,17 @@ def _bool_env(name: str, default: bool = False) -> bool:
     if not v:
         return bool(default)
     return v in ("1", "true", "yes", "on")
+
+
+def _lifecycle_transition(runtime: TaskRuntime | None, method: str) -> None:
+    if runtime is None:
+        return
+    try:
+        getattr(runtime.lifecycle, method)()
+    except InvalidLifecycleTransition:
+        # Task cancellation and worker completion race by design. The task store
+        # remains authoritative when a terminal transition already happened.
+        pass
 
 
 def build_app() -> FastAPI:
@@ -120,11 +132,14 @@ def build_app() -> FastAPI:
         try:
             async with sem:
                 if runtime and runtime.cancel_event and runtime.cancel_event.is_set():
+                    _lifecycle_transition(runtime, "cancel")
                     store.transition(task_id, TaskStatus.CANCEL_REQUESTED.value, TaskStatus.CANCELLED.value)
                     return
+                _lifecycle_transition(runtime, "start")
                 try:
                     assistant_msg, err = await asyncio.to_thread(run_once, user_text=user_text)
                 except asyncio.CancelledError:
+                    _lifecycle_transition(runtime, "cancel")
                     store.transition(
                         task_id,
                         (TaskStatus.IN_PROGRESS.value, TaskStatus.CANCEL_REQUESTED.value),
@@ -132,6 +147,7 @@ def build_app() -> FastAPI:
                     )
                     raise
                 except Exception as exc:
+                    _lifecycle_transition(runtime, "fail")
                     store.transition(
                         task_id,
                         TaskStatus.IN_PROGRESS.value,
@@ -140,6 +156,7 @@ def build_app() -> FastAPI:
                     )
                     return
                 if err:
+                    _lifecycle_transition(runtime, "fail")
                     store.transition(
                         task_id,
                         TaskStatus.IN_PROGRESS.value,
@@ -147,6 +164,7 @@ def build_app() -> FastAPI:
                         error=err,
                     )
                     return
+                _lifecycle_transition(runtime, "complete")
                 store.transition(
                     task_id,
                     TaskStatus.IN_PROGRESS.value,
@@ -265,6 +283,7 @@ def build_app() -> FastAPI:
             TaskStatus.CANCEL_REQUESTED.value,
         )
         if requested is not None and runtime:
+            _lifecycle_transition(runtime, "cancel")
             if runtime.cancel_event:
                 runtime.cancel_event.set()
             if runtime.asyncio_task and not runtime.asyncio_task.done():

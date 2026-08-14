@@ -27,10 +27,12 @@ def test_late_worker_completion_cannot_overwrite_cancel() -> None:
 
 def test_runtime_handle_is_stored_without_being_api_data() -> None:
     from uagent.a2a.task_store import TaskRuntime
+    from uagent.runtime.lifecycle import AgentStatus
 
     store = InMemoryTaskStore()
     store.create(TaskRecord(id="t3"))
     runtime = TaskRuntime(cancel_event=asyncio.Event(), locale="ja")
+    assert runtime.lifecycle.status is AgentStatus.CREATED
     assert store.register_runtime("t3", runtime)
     assert store.runtime("t3") is runtime
     assert not hasattr(store.get("t3"), "asyncio_task")

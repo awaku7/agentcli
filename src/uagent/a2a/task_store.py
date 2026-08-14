@@ -7,6 +7,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Optional
 
+from ..runtime.lifecycle import AgentLifecycle
+
 
 def _now_iso() -> str:
     return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
@@ -36,6 +38,7 @@ class TaskRuntime:
     asyncio_task: asyncio.Task[None] | None = None
     cancel_event: asyncio.Event | None = None
     locale: str = "en"
+    lifecycle: AgentLifecycle = field(default_factory=AgentLifecycle)
 
 
 class InMemoryTaskStore:
