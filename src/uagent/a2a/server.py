@@ -44,7 +44,13 @@ from .models import (
     SendMessageResponse,
     task_to_model,
 )
-from .task_store import InMemoryTaskStore, TaskRecord, TaskRuntime, TaskStatus
+from .task_store import (
+    InMemoryTaskStore,
+    SQLiteTaskStore,
+    TaskRecord,
+    TaskRuntime,
+    TaskStatus,
+)
 from ..runtime.execution import lifecycle_execution
 from ..runtime.lifecycle import InvalidLifecycleTransition
 
@@ -67,10 +73,24 @@ def _lifecycle_transition(runtime: TaskRuntime | None, method: str) -> None:
         pass
 
 
+def _build_task_store() -> InMemoryTaskStore | SQLiteTaskStore:
+    backend = (env_get("UAGENT_TASK_STORE", "memory") or "memory").strip().lower()
+    if backend == "sqlite":
+        path = env_get("UAGENT_TASK_STORE_PATH", "") or ""
+        if not path:
+            from ..utils.paths import get_state_dir
+
+            path = str(get_state_dir() / "a2a" / "tasks.sqlite3")
+        return SQLiteTaskStore(path)
+    if backend not in {"memory", "inmemory"}:
+        raise ValueError(f"unsupported UAGENT_TASK_STORE backend: {backend}")
+    return InMemoryTaskStore()
+
+
 def build_app() -> FastAPI:
     app = FastAPI(title=_("uagent A2A"))
 
-    store = InMemoryTaskStore()
+    store = _build_task_store()
     from ..tools import configure_default_confirmation
 
     configure_default_confirmation()
