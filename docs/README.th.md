@@ -266,6 +266,6 @@ python scheck.py realtime
 
 OpenAI Realtime รองรับการผสานรวม Function Calling ที่จำกัดด้านความปลอดภัย อะแดปเตอร์ปัจจุบันเปิดเผยฟังก์ชัน get_current_time แบบอ่านอย่างเดียวโดยอัตโนมัติ เครื่องมือทำลายล้างและการควบคุมอุปกรณ์จำเป็นต้องมีรายการที่อนุญาตและขั้นตอนการยืนยันอย่างชัดเจน Grok เรียลไทม์ใช้อะแดปเตอร์แยกต่างหากและไม่ได้ใช้เส้นทาง Function Calling เฉพาะ OpenAI นี้
 
-## Architecture and operational invariants
+## สถาปัตยกรรมและค่าคงที่ในการดำเนินงาน
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+ดู [ARCHITECTURE.md](ARCHITECTURE.md) สำหรับสัญญาการนำไปใช้งานถาวรที่ครอบคลุมวงจรชีวิต A2A บริบท I18N การติดตั้งไลบรารีเสริม ความปลอดภัยของเครื่องมือ ความสามารถของผู้ให้บริการ ขอบเขตความเชื่อถือของ OAuth เหตุการณ์แบบมีโครงสร้าง และการตรวจสอบการยอมรับระบบ

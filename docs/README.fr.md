@@ -250,6 +250,6 @@ python scheck.py realtime
 
 OpenAI Realtime prend en charge une intégration Function Calling à sécurité limitée. L’adaptateur actuel expose automatiquement la fonction get_current_time en lecture seule. Les outils destructeurs et les contrôles d'appareils nécessitent une liste d'autorisation et un flux de confirmation explicites. Grok realtime utilise un adaptateur distinct et n'utilise pas ce chemin Function Calling spécifique à OpenAI.
 
-## Architecture and operational invariants
+## Architecture et invariants opérationnels
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+Consultez [ARCHITECTURE.md](ARCHITECTURE.md) pour connaître les contrats d’implémentation durables couvrant le cycle de vie A2A, les contextes I18N, l’installation des dépendances facultatives, la sécurité des outils, les capacités des fournisseurs, les limites de confiance OAuth, les événements structurés et la vérification d’acceptation.

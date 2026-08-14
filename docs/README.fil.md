@@ -287,6 +287,6 @@ Pagkatapos ng locale (`.po`) na mga pag-edit: `python scripts/compile_locales.py
 
 Patakaran sa runtime (mga detalye sa [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): tumaas ang mga katulong sa halip na `sys.exit`; ginagawang error string ng tool host ang tool na `SystemExit`/`Exception` kaya hindi maaaring patayin ng isang tool ang proseso. Nananatiling sinadya ang mga paglabas na mabilis mabibigo sa startup.
 
-## Architecture and operational invariants
+## Arkitektura at mga operational invariant
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+Tingnan ang [ARCHITECTURE.md](ARCHITECTURE.md) para sa mga permanenteng kontrata sa pagpapatupad na sumasaklaw sa lifecycle ng A2A, mga konteksto ng I18N, pag-install ng opsyonal na dependency, kaligtasan ng tool, mga kakayahan ng provider, mga hangganan ng tiwala sa OAuth, mga structured event, at verification ng pagtanggap.

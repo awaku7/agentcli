@@ -287,6 +287,6 @@ Selepas suntingan setempat (`.po`): `python scripts/compile_locales.py` dan `pyt
 
 Dasar masa jalan (butiran dalam [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): pembantu menaikkan bukannya `sys.exit`; hos alat menukar alat `SystemExit`/`Exception` menjadi rentetan ralat supaya satu alat tidak boleh mematikan proses. Keluar cepat gagal permulaan kekal disengajakan.
 
-## Architecture and operational invariants
+## Seni bina dan invarian operasi
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+Lihat [ARCHITECTURE.md](ARCHITECTURE.md) untuk kontrak pelaksanaan kekal yang merangkumi kitar hayat A2A, konteks I18N, pemasangan kebergantungan pilihan, keselamatan alat, keupayaan penyedia, sempadan kepercayaan OAuth, peristiwa berstruktur dan pengesahan penerimaan.

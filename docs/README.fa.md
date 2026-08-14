@@ -260,6 +260,6 @@ python scheck.py realtime
 
 OpenAI Realtime از یکپارچگی Function Calling با محدودیت ایمنی پشتیبانی می کند. آداپتور فعلی عملکرد get_current_time فقط خواندنی را به طور خودکار نمایش می دهد. ابزارهای مخرب و کنترل‌های دستگاه نیاز به فهرست مجاز و جریان تأیید صریح دارند. Grok بلادرنگ از یک آداپتور جداگانه استفاده می کند و از این مسیر Function Calling مخصوص OpenAI استفاده نمی کند.
 
-## Architecture and operational invariants
+## معماری و ناوردایی‌های عملیاتی
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+برای قراردادهای پایدار پیاده‌سازی که چرخهٔ حیات A2A، زمینه‌های I18N، نصب وابستگی‌های اختیاری، ایمنی ابزارها، قابلیت‌های ارائه‌دهندگان، مرزهای اعتماد OAuth، رویدادهای ساختاریافته و تأیید پذیرش را پوشش می‌دهند، به [ARCHITECTURE.md](ARCHITECTURE.md) مراجعه کنید.

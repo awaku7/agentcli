@@ -279,6 +279,6 @@ pytest -q tests/<affected_area>
 
 ランタイム方針（詳細は [DEVELOP.md](../src/uagent/docs/DEVELOP.md) §6.1）: ヘルパーは `sys.exit` ではなく例外を送出。ツールホストはツール側の `SystemExit`/`Exception` をエラー文字列に変換し、単一ツールがプロセスを落とさない。起動時 fail-fast の exit は意図的に残す。
 
-## Architecture and operational invariants
+## アーキテクチャと運用上の不変条件
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+A2A のライフサイクル、I18N コンテキスト、オプション依存関係のインストール、ツール安全性、プロバイダー機能、OAuth の信頼境界、構造化イベント、受入検証に関する永続的な実装契約は、[ARCHITECTURE.md](ARCHITECTURE.md) を参照してください。
