@@ -64,3 +64,59 @@ def test_store_rejects_empty_names_and_secrets() -> None:
         store.set(Credential(name="", kind=CredentialKind.API_KEY, secret="v"))
     with pytest.raises(ValueError):
         store.set(Credential(name="x", kind=CredentialKind.API_KEY, secret=""))
+
+
+def test_token_store_adapter_round_trip(tmp_path) -> None:
+    from uagent.auth.credential_store import TokenStoreCredentialAdapter
+    from uagent.auth.token_store import TokenStore
+
+    tokens = TokenStore(
+        tmp_path / "tokens.json",
+        encrypt=lambda value: f"enc:{value}",
+        decrypt=lambda value: value.removeprefix("enc:"),
+    )
+    store = TokenStoreCredentialAdapter(
+        tokens,
+        issuer="https://issuer.example",
+        resource="https://resource.example/mcp",
+        name="mcp/example",
+    )
+    credential = Credential(
+        name="mcp/example",
+        kind=CredentialKind.OAUTH_TOKEN,
+        secret="access-token",
+        expires_at=123,
+        metadata={
+            "token_type": "Bearer",
+            "refresh_token": "refresh-token",
+            "scope": "mcp.read",
+        },
+    )
+
+    store.set(credential)
+    loaded = store.get("mcp/example")
+
+    assert loaded == credential
+    assert store.delete("mcp/example") is True
+    assert store.get("mcp/example") is None
+
+
+def test_token_store_adapter_rejects_non_oauth_credentials(tmp_path) -> None:
+    from uagent.auth.credential_store import TokenStoreCredentialAdapter
+    from uagent.auth.token_store import TokenStore
+
+    tokens = TokenStore(
+        tmp_path / "tokens.json",
+        encrypt=lambda value: value,
+        decrypt=lambda value: value,
+    )
+    store = TokenStoreCredentialAdapter(
+        tokens,
+        issuer="issuer",
+        resource="resource",
+    )
+
+    with pytest.raises(ValueError, match="OAUTH_TOKEN"):
+        store.set(
+            Credential(name="oauth/default", kind=CredentialKind.API_KEY, secret="key")
+        )

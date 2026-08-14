@@ -5,6 +5,7 @@ from .credential_store import (
     CredentialKind,
     CredentialStore,
     InMemoryCredentialStore,
+    TokenStoreCredentialAdapter,
 )
 from .oauth_common import (
     OAuthMetadataTrustError,
@@ -18,6 +19,7 @@ __all__ = [
     "CredentialKind",
     "CredentialStore",
     "InMemoryCredentialStore",
+    "TokenStoreCredentialAdapter",
     "OAuthMetadataTrustError",
     "normalize_issuer",
     "validate_endpoint_trust",
