@@ -252,7 +252,7 @@ network:
 - [x] structured observability の全境界適用（CLI / Web / GUI / A2A / LLM / OAuth / Tool）
 - [x] trace / duration / correlation ID（event_id / correlation_id / duration_ms / tool_call_id）
 - [x] Enterprise Policy Engine (`src/uagent/tools/enterprise_policy.py`)
-- [ ] Skill / Plugin permission
+- [x] Skill / Plugin permission (`EnterprisePolicy` + runtime plugin loading)
 - [x] MCP / network allowlist (`EnterprisePolicy`)
 
 ### Phase D: 高度化
