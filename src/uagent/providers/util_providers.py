@@ -6,6 +6,7 @@ from typing import Any
 
 from ..i18n import _
 from ..env_utils import env_get
+from ..auth.provider_credentials import get_provider_api_key
 from .provider_caps import ALL_PROVIDERS
 
 from threading import Lock
@@ -445,6 +446,16 @@ def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float |
     return None
 
 
+def _provider_api_key(core: Any, provider: str) -> str | None:
+    store = getattr(core, "credential_store", None)
+    getter = getattr(core, "get_env", None)
+    return get_provider_api_key(
+        provider,
+        store=store,
+        env_getter=getter if callable(getter) else None,
+    )
+
+
 def make_client(core: Any) -> tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
@@ -455,7 +466,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         from openai import AzureOpenAI  # lazy
 
         base_url = core.get_env_url("UAGENT_AZURE_BASE_URL")
-        api_key = core.get_env("UAGENT_AZURE_API_KEY")
+        api_key = _provider_api_key(core, "AZURE")
         api_version = core.get_env("UAGENT_AZURE_API_VERSION")
 
         http_client = make_httpx_client()
@@ -479,7 +490,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "openai":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_OPENAI_API_KEY")
+        api_key = _provider_api_key(core, "OPENAI")
         base_url = core.get_env_url(
             "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
         )
@@ -504,7 +515,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "pfn":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_PFN_API_KEY")
+        api_key = _provider_api_key(core, "PFN")
         base_url = core.get_env_url(
             "UAGENT_PFN_BASE_URL",
             "https://api.platform.preferredai.jp/v1",
@@ -522,7 +533,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "bedrock":
         from openai import OpenAI  # lazy
 
-        api_key = env_get("UAGENT_BEDROCK_API_KEY") or "dummy"
+        api_key = _provider_api_key(core, "BEDROCK") or "dummy"
         base_url = core.get_env_url("UAGENT_BEDROCK_BASE_URL")
 
         def _hook(resp: Any) -> None:
@@ -545,7 +556,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "nvidia":
         from openai import OpenAI  # lazy
 
-        api_key = env_get("UAGENT_NVIDIA_API_KEY") or "dummy"
+        api_key = _provider_api_key(core, "NVIDIA") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
         )
@@ -562,7 +573,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "ollama":
         from openai import OpenAI  # lazy
 
-        api_key = env_get("UAGENT_OLLAMA_API_KEY") or "dummy"
+        api_key = _provider_api_key(core, "OLLAMA") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1"
         )
@@ -604,7 +615,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             except Exception:
                 sdk_cls = None
 
-        api_key = env_get("UAGENT_OPENROUTER_API_KEY") or "dummy"
+        api_key = _provider_api_key(core, "OPENROUTER") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
         )
@@ -661,7 +672,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "grok":
-        api_key = (core.get_env("UAGENT_GROK_API_KEY") or "").strip()
+        api_key = (_provider_api_key(core, "GROK") or "").strip()
 
         # UAGENT_GROK_USE_XAI_SDK: "1" (default) uses xai_sdk (gRPC), "0" uses OpenAI SDK (REST).
         # Zscaler/proxy environments may need "0" because gRPC/HTTP2 is blocked.
@@ -706,7 +717,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "deepseek":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_DEEPSEEK_API_KEY")
+        api_key = _provider_api_key(core, "DEEPSEEK")
         base_url = core.get_env_url(
             "UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com"
         )
@@ -728,7 +739,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         if _install_zai_sdk("zai-sdk", "zai", display_name="zai-sdk"):
             from zai import ZaiClient
 
-        api_key = core.get_env("UAGENT_ZAI_API_KEY")
+        api_key = _provider_api_key(core, "ZAI")
         base_url = core.get_env_url(
             "UAGENT_ZAI_BASE_URL", "https://api.z.ai/api/paas/v4/"
         )
@@ -757,7 +768,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "alibaba":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_ALIBABA_API_KEY")
+        api_key = _provider_api_key(core, "ALIBABA")
         base_url = core.get_env_url(
             "UAGENT_ALIBABA_BASE_URL",
             "https://dashscope.aliyuncs.com/compatible-mode/v1",
@@ -775,7 +786,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "moonshot":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_MOONSHOT_API_KEY")
+        api_key = _provider_api_key(core, "MOONSHOT")
         base_url = core.get_env_url(
             "UAGENT_MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1"
         )
@@ -792,7 +803,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "mimo":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_MIMO_API_KEY")
+        api_key = _provider_api_key(core, "MIMO")
         base_url = core.get_env_url(
             "UAGENT_MIMO_BASE_URL", "https://api.xiaomimimo.com/v1"
         )
@@ -809,7 +820,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "lmstudio":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_LMSTUDIO_API_KEY") or "dummy"
+        api_key = _provider_api_key(core, "LMSTUDIO") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1"
         )
@@ -826,7 +837,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "minimax":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_MINIMAX_API_KEY")
+        api_key = _provider_api_key(core, "MINIMAX")
         base_url = core.get_env_url("UAGENT_MINIMAX_BASE_URL", "https://api.minimax.io")
 
         http_client = make_httpx_client()
@@ -841,7 +852,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "hf":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_HF_API_KEY")
+        api_key = _provider_api_key(core, "HF")
         base_url = core.get_env_url(
             "UAGENT_HF_BASE_URL",
             "https://router.huggingface.co/v1",
@@ -859,7 +870,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "novita":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_NOVITA_API_KEY")
+        api_key = _provider_api_key(core, "NOVITA")
         base_url = core.get_env_url(
             "UAGENT_NOVITA_BASE_URL",
             "https://api.novita.ai/openai",
@@ -877,7 +888,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "sakura":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_SAKURA_API_KEY")
+        api_key = _provider_api_key(core, "SAKURA")
         base_url = core.get_env_url(
             "UAGENT_SAKURA_BASE_URL",
             "https://api.ai.sakura.ad.jp/v1",
@@ -895,7 +906,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "sakana":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_SAKANA_API_KEY")
+        api_key = _provider_api_key(core, "SAKANA")
         base_url = core.get_env_url(
             "UAGENT_SAKANA_BASE_URL",
             "https://api.sakana.ai/v1",
@@ -924,7 +935,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             else:
                 from openai import OpenAI as TogetherClient
 
-        api_key = core.get_env("UAGENT_TOGETHER_API_KEY")
+        api_key = _provider_api_key(core, "TOGETHER")
         base_url = core.get_env_url(
             "UAGENT_TOGETHER_BASE_URL",
             "https://api.together.ai/v1",
@@ -944,7 +955,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "vercel":
         from openai import OpenAI  # lazy
 
-        api_key = core.get_env("UAGENT_VERCEL_API_KEY")
+        api_key = _provider_api_key(core, "VERCEL")
         base_url = core.get_env_url(
             "UAGENT_VERCEL_BASE_URL",
             "https://gateway.vercel.ai/v1",
@@ -962,7 +973,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "gemini":
         from google import genai  # lazy
 
-        api_key = core.get_env("UAGENT_GEMINI_API_KEY")
+        api_key = _provider_api_key(core, "GEMINI")
         if genai is None:
             raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
@@ -990,7 +1001,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         if genai is None:
             raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
-        api_key = core.get_env("UAGENT_VERTEXAI_API_KEY")
+        api_key = _provider_api_key(core, "VERTEXAI")
         project = env_get("UAGENT_VERTEXAI_PROJECT")
         location = env_get("UAGENT_VERTEXAI_LOCATION")
 
@@ -1024,7 +1035,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "claude":
         from anthropic import Anthropic  # lazy
 
-        api_key = core.get_env("UAGENT_CLAUDE_API_KEY")
+        api_key = _provider_api_key(core, "CLAUDE")
         if Anthropic is None:
             raise RuntimeError("[FATAL] " + _("anthropic package is not installed."))
 

@@ -7,6 +7,7 @@ from .credential_store import (
     InMemoryCredentialStore,
     TokenStoreCredentialAdapter,
 )
+from .provider_credentials import get_provider_api_key, get_provider_credential
 from .oauth_common import (
     OAuthMetadataTrustError,
     normalize_issuer,
@@ -20,6 +21,8 @@ __all__ = [
     "CredentialStore",
     "InMemoryCredentialStore",
     "TokenStoreCredentialAdapter",
+    "get_provider_api_key",
+    "get_provider_credential",
     "OAuthMetadataTrustError",
     "normalize_issuer",
     "validate_endpoint_trust",
