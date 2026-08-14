@@ -65,6 +65,23 @@ def _build_judgment_messages(
     return msgs
 
 
+def _parse_reviewer_judgment(raw: str) -> tuple[str, str]:
+    """Parse reviewer protocol output; CONTINUE wins on mixed output."""
+    saw_complete = False
+    saw_continue = False
+    for line in (raw or "").splitlines():
+        token = line.strip().upper()
+        if token == "COMPLETE" or token.startswith("COMPLETE:"):
+            saw_complete = True
+        if token == "CONTINUE" or token.startswith("CONTINUE:"):
+            saw_continue = True
+    if saw_continue:
+        return "CONTINUE", raw or ""
+    if saw_complete:
+        return "COMPLETE", ""
+    return "CONTINUE", raw or ""
+
+
 def _ask_reviewer_judgment(
     provider: str,
     client: Any,
@@ -113,26 +130,8 @@ def _ask_reviewer_judgment(
     # Only an explicit decision token may stop auto-pilot.  Substring matching
     # incorrectly treated phrases such as "not COMPLETE" or "INCOMPLETE" as
     # successful completion.
-    saw_complete = False
-    saw_continue = False
-    for line in raw.splitlines():
-        token = line.strip().upper()
-        if token == "COMPLETE" or token.startswith("COMPLETE:"):
-            saw_complete = True
-        if token == "CONTINUE" or token.startswith("CONTINUE:"):
-            saw_continue = True
-
-    # CONTINUE has precedence whenever both protocol tokens are present.
-    # This prevents mixed reviewer output from stopping auto-pilot early.
-    if saw_continue:
-        judgment = "CONTINUE"
-    elif saw_complete:
-        judgment = "COMPLETE"
-    else:
-        judgment = "CONTINUE"
-    if judgment == "COMPLETE":
-        feedback = ""
-    else:
+    judgment, feedback = _parse_reviewer_judgment(raw)
+    if judgment != "COMPLETE":
         # Extract feedback after "CONTINUE:" or the whole text minus "CONTINUE"
         feedback = raw
         for prefix in ("CONTINUE:", "continue:", "CONTINUE", "continue"):
