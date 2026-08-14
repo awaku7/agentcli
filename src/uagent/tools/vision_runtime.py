@@ -19,6 +19,7 @@ from pathlib import Path
 
 from typing import Any, cast
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -91,7 +92,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
 
     if provider == "azure":
         base_url = env_get("UAGENT_AZURE_BASE_URL")
-        api_key = env_get("UAGENT_AZURE_API_KEY")
+        api_key = get_provider_api_key("azure")
         api_version = env_get("UAGENT_AZURE_API_VERSION")
         model = env_get("UAGENT_AZURE_DEPNAME")
         if not (base_url and api_key and api_version and model):
@@ -110,7 +111,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
         )
     else:
         if provider == "bedrock":
-            api_key = env_get("UAGENT_BEDROCK_API_KEY")
+            api_key = get_provider_api_key("BEDROCK")
             base_url = env_get("UAGENT_BEDROCK_BASE_URL")
             model = env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.2") or "gpt-5.2"
             if not (api_key and base_url and model):
@@ -124,7 +125,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
                 )
             client = OpenAI(api_key=api_key, base_url=base_url)
         elif provider == "openrouter":
-            api_key = env_get("UAGENT_OPENROUTER_API_KEY")
+            api_key = get_provider_api_key("OPENROUTER")
             base_url = env_get(
                 "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
             )
@@ -140,7 +141,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
                 )
             client = OpenAI(api_key=api_key, base_url=base_url)
         else:
-            api_key = env_get("UAGENT_OPENAI_API_KEY")
+            api_key = get_provider_api_key("OPENAI")
             base_url = env_get("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
             model = env_get("UAGENT_OPENAI_DEPNAME")
             if not (api_key and model):
