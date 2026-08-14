@@ -110,3 +110,24 @@ class A2AClient:
         )
         r.raise_for_status()
         return r.json()
+
+
+    def subscribe_task(self, task_id: str):
+        """Yield task events from the remote SSE subscription endpoint."""
+        import json
+
+        with self._client.stream(
+            "POST", f"/tasks/{task_id}:subscribe", headers=self._auth_headers()
+        ) as response:
+            response.raise_for_status()
+            data: list[str] = []
+            for line in response.iter_lines():
+                if line.startswith("data: "):
+                    data.append(line[6:])
+                elif not line and data:
+                    payload = "\n".join(data)
+                    data.clear()
+                    try:
+                        yield json.loads(payload)
+                    except json.JSONDecodeError:
+                        continue
