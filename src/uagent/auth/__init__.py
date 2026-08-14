@@ -4,8 +4,11 @@ from .credential_store import (
     Credential,
     CredentialKind,
     CredentialStore,
+    get_default_credential_store,
     InMemoryCredentialStore,
+    PersistentCredentialStore,
     TokenStoreCredentialAdapter,
+    resolve_credential_secret,
 )
 from .provider_credentials import get_provider_api_key, get_provider_credential
 from .oauth_common import (
@@ -19,8 +22,11 @@ __all__ = [
     "Credential",
     "CredentialKind",
     "CredentialStore",
+    "get_default_credential_store",
     "InMemoryCredentialStore",
+    "PersistentCredentialStore",
     "TokenStoreCredentialAdapter",
+    "resolve_credential_secret",
     "get_provider_api_key",
     "get_provider_credential",
     "OAuthMetadataTrustError",

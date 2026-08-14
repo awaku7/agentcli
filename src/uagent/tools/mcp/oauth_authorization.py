@@ -22,6 +22,7 @@ from ...auth.pkce import (
     validate_state,
 )
 from ...auth.token_store import StoredToken, TokenStore
+from ...auth import Credential, CredentialKind, CredentialStore, get_default_credential_store
 
 
 @dataclass(frozen=True)
@@ -52,6 +53,7 @@ class OAuthAuthorizationSession:
         redirect_uri: str,
         scope: str | None = None,
         token_store: TokenStore | None = None,
+        credential_store: CredentialStore | None = None,
     ) -> None:
         self.metadata = metadata
         self.issuer = issuer
@@ -60,6 +62,7 @@ class OAuthAuthorizationSession:
         self.redirect_uri = redirect_uri
         self.scope = scope
         self.token_store = token_store
+        self.credential_store = credential_store or (get_default_credential_store() if token_store is None else None)
         self.state = generate_state()
         self.code_verifier = generate_code_verifier()
 
@@ -106,18 +109,33 @@ class OAuthAuthorizationSession:
             resource=self.resource,
             http_client=http_client,
         )
-        if self.token_store is not None:
+        expires_at = (
+            int(time.time()) + token.expires_in
+            if token.expires_in is not None
+            else None
+        )
+        if self.credential_store is not None:
+            self.credential_store.set(
+                Credential(
+                    name=f"mcp/{self.resource}",
+                    kind=CredentialKind.OAUTH_TOKEN,
+                    secret=token.access_token,
+                    expires_at=expires_at,
+                    metadata={
+                        "token_type": token.token_type,
+                        **({"refresh_token": token.refresh_token} if token.refresh_token else {}),
+                        **({"scope": token.scope} if token.scope else {}),
+                    },
+                )
+            )
+        elif self.token_store is not None:
             self.token_store.save(
                 self.issuer,
                 self.resource,
                 StoredToken(
                     access_token=token.access_token,
                     token_type=token.token_type,
-                    expires_at=(
-                        int(time.time()) + token.expires_in
-                        if token.expires_in is not None
-                        else None
-                    ),
+                    expires_at=expires_at,
                     refresh_token=token.refresh_token,
                     scope=token.scope,
                 ),

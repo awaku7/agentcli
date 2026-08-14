@@ -10,6 +10,7 @@ except ImportError:
     _install_httpx("httpx")
     import httpx
 
+from ..auth import CredentialKind, CredentialStore, get_default_credential_store, resolve_credential_secret
 from ..env_utils import env_get
 
 
@@ -24,11 +25,23 @@ class A2AClient:
         base_url: Optional[str] = None,
         token: Optional[str] = None,
         timeout_sec: float = 60.0,
+        credential_store: CredentialStore | None = None,
+        credential_name: str = "a2a/default",
     ) -> None:
         self.base_url = _norm(
             base_url or env_get("UAGENT_A2A_BASE_URL", "http://127.0.0.1:8765")
         )
-        self.token = _norm(token or env_get("UAGENT_A2A_TOKEN", ""))
+        self.credential_store = credential_store or get_default_credential_store()
+        self.token = _norm(
+            token
+            or resolve_credential_secret(
+                credential_name,
+                kind=CredentialKind.A2A,
+                store=self.credential_store,
+                env_names=("UAGENT_A2A_TOKEN",),
+            )
+            or ""
+        )
         self._client = httpx.Client(base_url=self.base_url, timeout=timeout_sec)
 
     def close(self) -> None:

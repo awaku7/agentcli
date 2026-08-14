@@ -8,7 +8,7 @@ from typing import Any, AsyncGenerator, Awaitable, Callable
 
 import httpx
 
-from ...auth.credential_store import Credential, CredentialKind, CredentialStore
+from ...auth.credential_store import Credential, CredentialKind, CredentialStore, get_default_credential_store
 from .errors import MCPTransportError
 from .oauth_flow import refresh_access_token
 from ...auth.token_store import StoredToken, TokenStore
@@ -36,15 +36,17 @@ class OAuthTokenProvider:
         self.token_store = token_store
         self.http_client = http_client
         self._refresh_lock = asyncio.Lock()
-        self.credential_store = credential_store
+        self.credential_store = credential_store or get_default_credential_store()
+        self._credential_selected = credential_store is not None
         self.credential_name = credential_name or f"mcp/{resource}"
 
     def _load_token(self) -> StoredToken | None:
-        if self.credential_store is None:
-            return self.token_store.load(self.issuer, self.resource)
         credential = self.credential_store.get(self.credential_name)
         if credential is None:
-            return None
+            if self._credential_selected:
+                return None
+            return self.token_store.load(self.issuer, self.resource)
+        self._credential_selected = True
         return StoredToken(
             access_token=credential.secret,
             token_type=credential.metadata.get("token_type", "Bearer"),
@@ -54,7 +56,7 @@ class OAuthTokenProvider:
         )
 
     def _save_token(self, token: StoredToken) -> None:
-        if self.credential_store is None:
+        if not self._credential_selected:
             self.token_store.save_locked(self.issuer, self.resource, token)
             return
         self.credential_store.set(

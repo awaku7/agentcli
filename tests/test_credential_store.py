@@ -4,11 +4,12 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from uagent.auth.credential_store import (
+from uagent.auth import (
     Credential,
     CredentialKind,
     CredentialStore,
     InMemoryCredentialStore,
+    PersistentCredentialStore,
 )
 
 
@@ -120,3 +121,25 @@ def test_token_store_adapter_rejects_non_oauth_credentials(tmp_path) -> None:
         store.set(
             Credential(name="oauth/default", kind=CredentialKind.API_KEY, secret="key")
         )
+
+
+def test_persistent_credential_store_round_trip(tmp_path) -> None:
+    from uagent.auth import PersistentCredentialStore
+
+    path = tmp_path / "credentials.json"
+    first = PersistentCredentialStore(path, encrypt=lambda value: f"enc:{value}", decrypt=lambda value: value.removeprefix("enc:"))
+    first.set(
+        Credential(
+            name="a2a/default",
+            kind=CredentialKind.A2A,
+            secret="persisted",
+            metadata={"source": "test"},
+        )
+    )
+
+    second = PersistentCredentialStore(path, encrypt=lambda value: f"enc:{value}", decrypt=lambda value: value.removeprefix("enc:"))
+    credential = second.get("a2a/default")
+    assert credential is not None
+    assert credential.secret == "persisted"
+    assert credential.kind is CredentialKind.A2A
+    assert credential.metadata == {"source": "test"}

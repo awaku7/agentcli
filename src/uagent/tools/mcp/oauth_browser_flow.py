@@ -12,6 +12,7 @@ from .oauth_callback import OAuthCallbackListener
 from .oauth_flow import OAuthTokenResponse
 from .oauth_metadata import AuthorizationServerMetadata
 from ...auth.token_store import TokenStore
+from ...auth import CredentialStore
 
 
 async def authorize_with_local_callback(
@@ -22,6 +23,7 @@ async def authorize_with_local_callback(
     client_id: str,
     scope: str | None = None,
     token_store: TokenStore | None = None,
+    credential_store: CredentialStore | None = None,
     http_client: Any = None,
     callback_path: str = "/callback",
     timeout: float = 300,
@@ -38,6 +40,7 @@ async def authorize_with_local_callback(
             redirect_uri=listener.redirect_uri,
             scope=scope,
             token_store=token_store,
+            credential_store=credential_store,
         )
         request = session.authorization_request()
         result = opener(request.authorization_url)

@@ -7,6 +7,7 @@ from typing import Any
 from ..i18n import _
 from ..env_utils import env_get
 from ..auth.provider_credentials import get_provider_api_key
+from ..auth.credential_store import get_default_credential_store
 from .provider_caps import ALL_PROVIDERS
 
 from threading import Lock
@@ -447,7 +448,7 @@ def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float |
 
 
 def _provider_api_key(core: Any, provider: str) -> str | None:
-    store = getattr(core, "credential_store", None)
+    store = getattr(core, "credential_store", None) or get_default_credential_store()
     getter = getattr(core, "get_env", None)
     return get_provider_api_key(
         provider,

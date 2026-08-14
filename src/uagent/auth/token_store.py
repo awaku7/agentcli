@@ -41,7 +41,7 @@ class TokenStore:
             path = get_state_dir() / "mcps" / "oauth_tokens.json"
         self.path = Path(path).expanduser()
         if encrypt is None or decrypt is None:
-            from ..secrets_tool import decrypt_from_b64, encrypt_to_b64
+            from ..tools.secrets_tool import decrypt_from_b64, encrypt_to_b64
 
             encrypt = encrypt or encrypt_to_b64
             decrypt = decrypt or decrypt_from_b64

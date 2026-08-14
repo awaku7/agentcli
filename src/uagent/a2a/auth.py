@@ -3,14 +3,14 @@ from __future__ import annotations
 from typing import Optional
 
 try:
-    from fastapi import Header
+    from fastapi import Header, Request
 except ImportError:
     from .._pip_auto import install_with_status as _install_fa
 
     _install_fa("fastapi")
-    from fastapi import Header
+    from fastapi import Header, Request
 
-from ..env_utils import env_get
+from ..auth import CredentialKind, resolve_credential_secret
 from ..i18n import _
 from .errors import A2AHttpError
 
@@ -19,7 +19,10 @@ def _norm(v: str) -> str:
     return (v or "").strip()
 
 
-def require_bearer_auth(authorization: Optional[str] = Header(default=None)) -> None:
+def require_bearer_auth(
+    request: Request,
+    authorization: Optional[str] = Header(default=None),
+) -> None:
     """Bearer auth for A2A endpoints.
 
     Token source:
@@ -28,7 +31,16 @@ def require_bearer_auth(authorization: Optional[str] = Header(default=None)) -> 
     If UAGENT_A2A_TOKEN is empty, authenticated endpoints are disabled.
     """
 
-    expected = _norm(env_get("UAGENT_A2A_TOKEN", ""))
+    store = getattr(request.app.state, "credential_store", None)
+    expected = _norm(
+        resolve_credential_secret(
+            "a2a/default",
+            kind=CredentialKind.A2A,
+            store=store,
+            env_names=("UAGENT_A2A_TOKEN",),
+        )
+        or ""
+    )
     if not expected:
         raise A2AHttpError(
             status_code=503,

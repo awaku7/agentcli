@@ -26,6 +26,7 @@ except ImportError:
     from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
+from ..auth import CredentialStore, get_default_credential_store
 from ..i18n import (
     _,
     detect_lang,
@@ -87,8 +88,9 @@ def _build_task_store() -> InMemoryTaskStore | SQLiteTaskStore:
     return InMemoryTaskStore()
 
 
-def build_app() -> FastAPI:
+def build_app(*, credential_store: CredentialStore | None = None) -> FastAPI:
     app = FastAPI(title=_("uagent A2A"))
+    app.state.credential_store = credential_store or get_default_credential_store()
 
     store = _build_task_store()
     from ..tools import configure_default_confirmation
