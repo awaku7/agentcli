@@ -264,3 +264,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime hỗ trợ tích hợp Function Calling ở mức giới hạn an toàn. Bộ điều hợp hiện tại tự động hiển thị chức năng get_current_time chỉ đọc. Các công cụ phá hủy và điều khiển thiết bị yêu cầu phải có danh sách cho phép và quy trình xác nhận rõ ràng. Grok thời gian thực sử dụng bộ chuyển đổi riêng và không sử dụng đường dẫn Function Calling dành riêng cho OpenAI này.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

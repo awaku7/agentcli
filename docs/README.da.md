@@ -286,3 +286,7 @@ pytest -q tests/<affected_area>
 Efter lokalitet (`.po`) redigeringer: `python scripts/compile_locales.py` og `python scripts/po_qc_summary.py`.
 
 Runtime-politik (detaljer i [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): hjælpere hæver i stedet for `sys.exit`; Værktøjsværten forvandler værktøjet `SystemExit`/`Exception` til fejlstrenge, så et enkelt værktøj ikke kan dræbe processen. Opstartsfejl-hurtige afslutninger forbliver med vilje.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

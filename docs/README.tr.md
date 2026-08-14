@@ -110,7 +110,7 @@ Ayrıntılar için tam belgelere bakın. [DEVELOP_PLUGIN.md](../src/uagent/docs/
 - `git_review`: Git değişikliklerini, riskli dosyaları, test adaylarını ve gizli bulguları gizli değerleri açığa çıkarmadan özetleyin.
 - `security_scan`: depo dosyalarını olası sırlar ve riskli yapılandırma dosyaları için tarayın.
 - `coverage_report`: Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET için kapsamı çalıştırın ve normalleştirin, C/C++, Ruby, PHP, Swift ve Dart/Flutter.
-- Eksik kapsam bağımlılıkları, yürütme istendiğinde otomatik olarak kurulabilir; `dry_run' hiçbir zaman paketleri yüklemez.
+- Eksik kapsam bağımlılıkları, yürütme istendiğinde otomatik olarak kurulabilir; \`dry_run' hiçbir zaman paketleri yüklemez.
 
 Parametreler, çıktı ve güvenlik ayrıntıları için [Depo Analiz Araçları](REPOSITORY_TOOLS.md) konusuna bakın.
 
@@ -250,3 +250,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime, güvenlikle sınırlı bir Function Calling entegrasyonunu destekler. Geçerli bağdaştırıcı salt okunur get_current_time işlevini otomatik olarak kullanıma sunar. Yıkıcı araçlar ve cihaz kontrolleri, açık bir izin verilenler listesi ve onay akışı gerektirir. Grok gerçek zamanlı, ayrı bir bağdaştırıcı kullanır ve bu OpenAI'e özgü Function Calling yolunu kullanmaz.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

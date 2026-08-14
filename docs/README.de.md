@@ -110,7 +110,7 @@ Einzelheiten finden Sie in der vollständigen Dokumentation [DEVELOP_PLUGIN.md](
 - „git_review“: Git-Änderungen, riskante Dateien, Testkandidaten und geheime Ergebnisse zusammenfassen, ohne geheime Werte preiszugeben.
 - „security_scan“: Repository-Dateien nach wahrscheinlichen Geheimnissen und riskanten Konfigurationsdateien durchsuchen.
 - „coverage_report“: Abdeckung für Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++ ausführen und normalisieren, Ruby, PHP, Swift und Dart/Flutter.
- – Fehlende Abdeckungsabhängigkeiten können automatisch installiert werden, wenn die Ausführung angefordert wird; „dry_run“ installiert niemals Pakete.
+  – Fehlende Abdeckungsabhängigkeiten können automatisch installiert werden, wenn die Ausführung angefordert wird; „dry_run“ installiert niemals Pakete.
 
 Siehe [Repository-Analysetools](REPOSITORY_TOOLS.md) für Parameter, Ausgabe und Sicherheitsdetails.
 
@@ -250,3 +250,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime unterstützt eine sicherheitsbegrenzte Function Calling-Integration. Der aktuelle Adapter macht die schreibgeschützte Funktion get_current_time automatisch verfügbar. Zerstörerische Tools und Gerätekontrollen erfordern eine explizite Zulassungsliste und einen Bestätigungsablauf. Grok Realtime verwendet einen separaten Adapter und verwendet nicht diesen OpenAI-spezifischen Function Calling-Pfad.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

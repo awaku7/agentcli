@@ -111,7 +111,7 @@ uagent реализует систему плагинов, совместиму�
 - `git_review`: суммируйте изменения Git, рискованные файлы, тестовые кандидаты и секретные результаты, не раскрывая секретные значения.
 - `security_scan`: сканируйте файлы репозитория на наличие вероятных секретов и рискованных файлов конфигурации.
 - `coverage_report`: запускайте и нормализуйте покрытие для Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift и Dart/Flutter.
-– Отсутствующие зависимости покрытия могут быть установлены автоматически при запросе выполнения; `dry_run` никогда не устанавливает пакеты.
+  – Отсутствующие зависимости покрытия могут быть установлены автоматически при запросе выполнения; `dry_run` никогда не устанавливает пакеты.
 
 См. [Инструменты анализа репозитория] (REPOSITORY_TOOLS.md) для получения информации о параметрах, выводе и безопасности.
 
@@ -253,3 +253,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime поддерживает интеграцию Function Calling с ограничениями по безопасности. Текущий адаптер автоматически предоставляет функцию get_current_time только для чтения. Деструктивные инструменты и элементы управления устройствами требуют явного списка разрешений и потока подтверждения. Grok Realtime использует отдельный адаптер и не использует этот путь Function Calling, характерный для OpenAI.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

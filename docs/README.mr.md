@@ -107,14 +107,14 @@ uagent **Claude Code-सुसंगत प्लगइन प्रणाली
 
 #### रेपॉजिटरी पुनरावलोकन आणि कव्हरेज
 
-- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter. 
+- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter.
 - अंमलबजावणीची विनंती केल्यावर गहाळ कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित केले जाऊ शकते; `dry_run` कधीही पॅकेजेस इंस्टॉल करत नाही.
 
 पॅरामीटर्स, आउटपुट आणि सुरक्षितता तपशीलांसाठी [रेपॉजिटरी विश्लेषण साधने](REPOSITORY_TOOLS.md) पहा.
 
 #### रेपॉजिटरी पुनरावलोकन आणि कव्हरेज
 
-- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter. 
+- `git_review`: Git बदल, धोकादायक फाइल्स, चाचणी उमेदवार आणि गुप्त मूल्ये उघड न करता गुप्त निष्कर्ष सारांशित करा. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift आणि Dart/Flutter.
 - अंमलबजावणीची विनंती केल्यावर गहाळ कव्हरेज अवलंबित्व स्वयंचलितपणे स्थापित केले जाऊ शकते; `dry_run` कधीही पॅकेजेस इंस्टॉल करत नाही.
 
 पॅरामीटर्स, आउटपुट आणि सुरक्षितता तपशीलांसाठी [रेपॉजिटरी विश्लेषण साधने](REPOSITORY_TOOLS.md) पहा.
@@ -268,3 +268,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime सुरक्षितता-मर्यादित Function Calling एकत्रीकरणास समर्थन देते. वर्तमान ॲडॉप्टर केवळ-वाचनीय get_current_time कार्य स्वयंचलितपणे उघड करतो. विध्वंसक साधने आणि डिव्हाइस नियंत्रणांना सुस्पष्ट अनुमत सूची आणि पुष्टीकरण प्रवाह आवश्यक आहे. Grok रिअलटाईम स्वतंत्र अडॅप्टर वापरतो आणि हा OpenAI-विशिष्ट Function Calling पथ वापरत नाही.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

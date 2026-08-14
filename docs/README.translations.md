@@ -64,3 +64,7 @@
 | Language | File |
 |----------|------|
 | [Swahili](README.sw.md) | `README.sw.md` |
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

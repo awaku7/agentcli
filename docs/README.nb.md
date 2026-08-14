@@ -106,6 +106,7 @@ Se den fullstendige dokumentasjonen i [DEVELOP_PLUGIN.md](../src/uagent/docs/DEV
 | **Kildenav** | **29 idx-verktøy** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — få en funksjon/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
 #### Repository review and dekning Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift og Dart/Flutter.
+
 - Manglende dekningsavhengigheter kan installeres automatisk når utførelse er forespurt; `dry_run` installerer aldri pakker.
 
 Se [Verktøy for depotanalyse](REPOSITORY_TOOLS.md) for parametere, utdata og sikkerhetsdetaljer.
@@ -246,3 +247,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime støtter en sikkerhetsbegrenset Function Calling-integrasjon. Den gjeldende adapteren viser den skrivebeskyttede get_current_time-funksjonen automatisk. Destruktive verktøy og enhetskontroller krever en eksplisitt godkjenningsliste og bekreftelsesflyt. Grok sanntid bruker en separat adapter og bruker ikke denne OpenAI-spesifikke Function Calling-banen.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

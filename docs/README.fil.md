@@ -286,3 +286,7 @@ pytest -q tests/<affected_area>
 Pagkatapos ng locale (`.po`) na mga pag-edit: `python scripts/compile_locales.py` at `python scripts/po_qc_summary.py`.
 
 Patakaran sa runtime (mga detalye sa [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): tumaas ang mga katulong sa halip na `sys.exit`; ginagawang error string ng tool host ang tool na `SystemExit`/`Exception` kaya hindi maaaring patayin ng isang tool ang proseso. Nananatiling sinadya ang mga paglabas na mabilis mabibigo sa startup.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

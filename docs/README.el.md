@@ -109,7 +109,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 - `git_review`: συνοψίστε τις αλλαγές Git, τα επικίνδυνα αρχεία, τους υποψήφιους δοκιμών και τα μυστικά ευρήματα χωρίς να αποκαλύψετε μυστικές τιμές.
 - `security_scan`: σάρωση αρχείων αποθήκης για πιθανά μυστικά και επικίνδυνα αρχεία διαμόρφωσης.
--` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
+  -\` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
 - Οι εξαρτήσεις κάλυψης που λείπουν μπορούν να εγκατασταθούν αυτόματα όταν ζητηθεί η εκτέλεση. Το "dry_run" δεν εγκαθιστά ποτέ πακέτα.
 
 Ανατρέξτε στο [Εργαλεία ανάλυσης αποθετηρίου](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
@@ -118,7 +118,7 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 - `git_review`: συνοψίστε τις αλλαγές Git, τα επικίνδυνα αρχεία, τους υποψήφιους δοκιμών και τα μυστικά ευρήματα χωρίς να αποκαλύψετε μυστικές τιμές.
 - `security_scan`: σάρωση αρχείων αποθήκης για πιθανά μυστικά και επικίνδυνα αρχεία διαμόρφωσης.
--` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
+  -\` coverage: runth_reon. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
 - Οι εξαρτήσεις κάλυψης που λείπουν μπορούν να εγκατασταθούν αυτόματα όταν ζητηθεί η εκτέλεση. Το "dry_run" δεν εγκαθιστά ποτέ πακέτα.
 
 Ανατρέξτε στο [Εργαλεία ανάλυσης αποθετηρίου](REPOSITORY_TOOLS.md) για λεπτομέρειες σχετικά με τις παραμέτρους, την έξοδο και την ασφάλεια.
@@ -259,3 +259,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime υποστηρίζει μια ενσωμάτωση Function Calling περιορισμένης ασφάλειας. Ο τρέχων προσαρμογέας εκθέτει αυτόματα τη λειτουργία get_current_time μόνο για ανάγνωση. Τα καταστροφικά εργαλεία και τα χειριστήρια συσκευών απαιτούν ρητή λίστα επιτρεπόμενων και ροή επιβεβαίωσης. Το Grok σε πραγματικό χρόνο χρησιμοποιεί έναν ξεχωριστό προσαρμογέα και δεν χρησιμοποιεί αυτήν τη διαδρομή Function Calling για το OpenAI.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

@@ -278,3 +278,7 @@ pytest -q tests/<affected_area>
 ロケール（`.po`）編集後: `python scripts/compile_locales.py` と `python scripts/po_qc_summary.py`。
 
 ランタイム方針（詳細は [DEVELOP.md](../src/uagent/docs/DEVELOP.md) §6.1）: ヘルパーは `sys.exit` ではなく例外を送出。ツールホストはツール側の `SystemExit`/`Exception` をエラー文字列に変換し、単一ツールがプロセスを落とさない。起動時 fail-fast の exit は意図的に残す。
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

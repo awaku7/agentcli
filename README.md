@@ -308,7 +308,6 @@ After locale (`.po`) edits: `python scripts/compile_locales.py` and `python scri
 
 Runtime policy (details in [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): helpers raise instead of `sys.exit`; the tool host turns tool `SystemExit`/`Exception` into error strings so a single tool cannot kill the process. Startup fail-fast exits remain intentional.
 
-
 ## Architecture and operational invariants
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the durable contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

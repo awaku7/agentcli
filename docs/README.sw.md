@@ -252,3 +252,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime inaweza kutumia muunganisho usio na kikomo wa Function Calling. Adapta ya sasa hufichua kitendakazi cha kusoma tu get_current_time kiotomatiki. Zana haribifu na vidhibiti vya kifaa vinahitaji orodha ya wazi ya ruhusa na mtiririko wa uthibitishaji. Grok katika muda halisi hutumia adapta tofauti na haitumii njia hii OpenAI mahususi Function Calling.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

@@ -107,10 +107,11 @@ uagent 實作了 Claude Code 相容的插件系統。插件會將技能、代理
 | **來源導航** | **29 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL, VBA, LotusScript, Makefile — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
 
 #### 儲存庫審查和覆蓋
-- `git_review`：總結 Git 更改、有風險的文件、測試候選項和秘密結果，而不暴露秘密值。 
-- `security_scan`：扫描存储库文件以查找可能的秘密和有风险的配置文件。 
-- `coverage_report`：執行並規範 Python、TypeScript/JavaScript、Rust、Go、Java/Kotlin、.NET、C/C++、Ruby、PHP、 Swift 和 Dart/Flutter。 
-- 请求执行时可以自动安装缺少的覆盖依赖项； `dry_run` 从不安装软件包。 
+
+- `git_review`：總結 Git 更改、有風險的文件、測試候選項和秘密結果，而不暴露秘密值。
+- `security_scan`：扫描存储库文件以查找可能的秘密和有风险的配置文件。
+- `coverage_report`：執行並規範 Python、TypeScript/JavaScript、Rust、Go、Java/Kotlin、.NET、C/C++、Ruby、PHP、 Swift 和 Dart/Flutter。
+- 请求执行时可以自动安装缺少的覆盖依赖项； `dry_run` 从不安装软件包。
 
 有关参数、输出和安全详细信息，请参阅[存储库分析工具](REPOSITORY_TOOLS.md)。
 
@@ -264,3 +265,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime 支援安全限制的 Function Calling 整合。目前適配器會自動公開只讀 get_current_time 函數。破壞性工具和設備控制需要明確的許可名單和確認流程。 Grok 即時使用單獨的轉接器，且不使用此 OpenAI 特定的 Function Calling 路徑。
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

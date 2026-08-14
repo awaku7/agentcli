@@ -263,3 +263,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime підтримує обмежену безпеку інтеграцію Function Calling. Поточний адаптер автоматично надає функцію get_current_time лише для читання. Деструктивні інструменти та елементи керування пристроєм вимагають явного білого списку та процесу підтвердження. Grok realtime використовує окремий адаптер і не використовує цей OpenAI-специфічний шлях Function Calling.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

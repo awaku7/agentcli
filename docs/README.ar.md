@@ -108,9 +108,9 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex A
 
 #### مراجعة المستودع وتغطيته
 
-- `git_review`: تلخيص تغييرات Git والملفات الخطرة ومرشحي الاختبار والنتائج السرية دون الكشف عن القيم السرية. 
-- `security_scan`: فحص ملفات المستودع بحثًا عن الأسرار المحتملة وملفات التكوين المحفوفة بالمخاطر. 
-- `coverage_report`: تشغيل وتطبيع التغطية لـ Python وTypeScript/JavaScript وRust وGo وJava/Kotlin و.NET، C/C++، وRuby، وPHP، وSwift، وDart/Flutter. 
+- `git_review`: تلخيص تغييرات Git والملفات الخطرة ومرشحي الاختبار والنتائج السرية دون الكشف عن القيم السرية.
+- `security_scan`: فحص ملفات المستودع بحثًا عن الأسرار المحتملة وملفات التكوين المحفوفة بالمخاطر.
+- `coverage_report`: تشغيل وتطبيع التغطية لـ Python وTypeScript/JavaScript وRust وGo وJava/Kotlin و.NET، C/C++، وRuby، وPHP، وSwift، وDart/Flutter.
 - يمكن تثبيت تبعيات التغطية المفقودة تلقائيًا عند طلب التنفيذ؛ لا يقوم `dry_run` بتثبيت الحزم مطلقًا.
 
 راجع [أدوات تحليل المستودع](REPOSITORY_TOOLS.md) لمعرفة المعلمات والمخرجات وتفاصيل الأمان.
@@ -265,3 +265,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime يدعم التكامل المحدود الأمان Function Calling. يعرض المحول الحالي وظيفة القراءة فقط get_current_time تلقائيًا. تتطلب الأدوات التدميرية وعناصر التحكم في الأجهزة وجود قائمة مسموح بها وتدفق تأكيد واضح. يستخدم الوقت الفعلي Grok محولًا منفصلاً ولا يستخدم مسار Function Calling الخاص بـ OpenAI.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.

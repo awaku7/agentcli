@@ -109,7 +109,7 @@ uagent מיישמת מערכת תוספים תואמת Claude Code. תוספים
 
 - `git_review`: סיכום שינויים ב-Git, קבצים מסוכנים, מועמדי בדיקה וממצאים סודיים מבלי לחשוף ערכים סודיים.
 - `security_scan`: סרוק קבצי מאגר עבור סודות סבירים וקובצי תצורה מסוכנים.
-- `coverage_report Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ו-Dart/Flutter.
+- \`coverage_report Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ו-Dart/Flutter.
 - ניתן להתקין תלות כיסוי חסרות באופן אוטומטי כאשר מתבקשת ביצוע; `dry_run` אף פעם לא מתקין חבילות.
 
 עיין ב[כלי ניתוח מאגר](REPOSITORY_TOOLS.md) לפרמטרים, פלט ופרטי בטיחות.
@@ -252,3 +252,7 @@ python scheck.py realtime
 ### OpenAI Realtime Function Calling
 
 OpenAI Realtime תומך באינטגרציה של Function Calling מוגבלת לבטיחות. המתאם הנוכחי חושף את הפונקציה לקריאה בלבד get_current_time באופן אוטומטי. כלים הרסניים ובקרות מכשירים דורשים רשימת היתרים וזרימת אישור מפורשת. Grok בזמן אמת משתמש במתאם נפרד ואינו משתמש בנתיב Function Calling הספציפי הזה ל-OpenAI.
+
+## Architecture and operational invariants
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable implementation contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
