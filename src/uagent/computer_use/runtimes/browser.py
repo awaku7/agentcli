@@ -21,7 +21,7 @@ class BrowserRuntime:
         """Recover focus when a native coordinate click hits a wrapper element."""
         active_is_editable = self.page.evaluate("""() => {
                 const el = document.activeElement;
-                return !!el && (el.matches('input, textarea, select, [contenteditable="true"]'));
+                return !!el && (el.matches('textarea, select, [contenteditable="true"]') || (el.matches('input') && !['checkbox', 'radio', 'button', 'submit', 'hidden'].includes((el.type || '').toLowerCase())));
             }""")
         if active_is_editable:
             return
