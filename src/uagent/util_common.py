@@ -184,6 +184,20 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
     parser.add_argument(
+        "--computer-use",
+        dest="computer_use",
+        action="store_true",
+        default=None,
+        help=_("Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
+        "--no-computer-use",
+        dest="computer_use",
+        action="store_false",
+        default=None,
+        help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
         "--inject-message",
         "-M",
         dest="inject_message",

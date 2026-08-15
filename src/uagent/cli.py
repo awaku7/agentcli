@@ -76,6 +76,11 @@ UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 
+# Initialize the shared Computer Use policy override before startup config is used.
+_computer_use_arg = _startup_args.get("computer_use")
+if _computer_use_arg is not None:
+    os.environ["UAGENT_COMPUTER_USE"] = "1" if _computer_use_arg else "0"
+
 # Initialize runtime tools_enabled flag.
 # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
 _use_tool_arg = _startup_args.get("use_tool")
