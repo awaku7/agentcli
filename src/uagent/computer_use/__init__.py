@@ -6,6 +6,7 @@ from .adapters.openai import OpenAIComputerAdapter
 from .adapters.gemini import GeminiComputerAdapter
 from .adapters.custom import CustomComputerAdapter
 from .audit import AuditEvent, InMemoryAuditSink
+from .config import computer_use_policy_from_env
 from .capability import ComputerUseCapabilityError, get_computer_use_capability
 from .policy import ComputerUsePolicy, PolicyDecision
 from .loop import run_anthropic_computer_loop
@@ -22,6 +23,7 @@ __all__ = [
     "ComputerRuntime",
     "ComputerUseCapabilityError",
     "ComputerUsePolicy",
+    "computer_use_policy_from_env",
     "InMemoryAuditSink",
     "OpenAIComputerAdapter",
     "PolicyDecision",

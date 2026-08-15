@@ -1,0 +1,29 @@
+from uagent.computer_use.config import computer_use_policy_from_env
+
+
+def test_policy_from_env_is_disabled_by_default(monkeypatch):
+    monkeypatch.delenv("UAGENT_COMPUTER_USE", raising=False)
+    policy = computer_use_policy_from_env()
+    assert policy.enabled is False
+
+
+def test_policy_from_env_is_shared_across_entrypoints(monkeypatch):
+    monkeypatch.setenv("UAGENT_COMPUTER_USE", "1")
+    monkeypatch.setenv("UAGENT_COMPUTER_ENVIRONMENT", "browser")
+    monkeypatch.setenv("UAGENT_COMPUTER_ALLOWED_ACTIONS", "screenshot,click,type")
+    monkeypatch.setenv("UAGENT_COMPUTER_ALLOWED_DOMAINS", "example.com,example.org")
+    monkeypatch.setenv("UAGENT_COMPUTER_REQUIRE_CONFIRMATION", "1")
+    monkeypatch.setenv("UAGENT_COMPUTER_MAX_ACTIONS", "20")
+    monkeypatch.setenv("UAGENT_COMPUTER_MAX_TURNS", "5")
+    monkeypatch.setenv("UAGENT_COMPUTER_TIMEOUT", "45")
+
+    policy = computer_use_policy_from_env()
+
+    assert policy.enabled is True
+    assert policy.environment == "browser"
+    assert policy.allowed_actions == frozenset({"screenshot", "click", "type"})
+    assert policy.allowed_domains == frozenset({"example.com", "example.org"})
+    assert policy.require_confirmation is True
+    assert policy.max_actions == 20
+    assert policy.max_turns == 5
+    assert policy.timeout == 45.0
