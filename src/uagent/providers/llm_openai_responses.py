@@ -44,6 +44,7 @@ def build_responses_request(
     provider: str = "openai",
     tool_specs: Optional[list[dict[str, Any]]] = None,
     previous_response_id: Optional[str] = None,
+    core: Any = None,
 ) -> tuple[Optional[str], list[dict[str, Any]], Optional[list[dict[str, Any]]]]:
     """Build payload for OpenAI/Azure Responses API.
 
@@ -332,6 +333,17 @@ def build_responses_request(
                     or {"type": "object", "properties": {}},
                 }
             )
+        native_tool = (
+            getattr(core, "computer_use_native_tool", None)
+            if core is not None
+            else None
+        )
+        if (
+            provider == "openai"
+            and isinstance(native_tool, dict)
+            and native_tool.get("type") == "computer"
+        ):
+            flat_tools.append(dict(native_tool))
         req_tools = flat_tools
 
     return instructions_str, input_msgs, req_tools

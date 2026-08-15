@@ -667,6 +667,30 @@ def parse_responses_response(
                         citations=citations,
                     )
 
+            elif getattr(item, "type", None) == "computer_call":
+                cid = (
+                    getattr(item, "call_id", None)
+                    or getattr(item, "id", None)
+                    or f"computer_{int(time.time() * 1000)}"
+                )
+                tool_calls_list.append(
+                    {
+                        "id": cid,
+                        "type": "function",
+                        "function": {
+                            "name": "computer",
+                            "arguments": json.dumps(
+                                {
+                                    "actions": [
+                                        responses_item_to_dict(a) or {}
+                                        for a in (getattr(item, "actions", None) or [])
+                                    ]
+                                },
+                                ensure_ascii=False,
+                            ),
+                        },
+                    }
+                )
             elif getattr(item, "type", None) == "function_call":
                 args_val = getattr(item, "arguments", None)
                 if isinstance(args_val, dict):

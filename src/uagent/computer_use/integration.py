@@ -15,22 +15,19 @@ from .runtime import ComputerRuntime, execute_action
 
 
 def _host_confirmation_callback():
-    """Resolve the shared CLI/GUI/Web/A2A confirmation callback."""
     try:
         from .. import tools
 
         getter = getattr(tools, "get_confirmation_callback", None)
-        if callable(getter):
-            return getter()
+        return getter() if callable(getter) else None
     except Exception:
-        pass
-    return None
+        return None
 
 
 def make_unavailable_computer_use_handler(*, reason: str):
-    """Return a safe handler that reports an unavailable Runtime to the LLM."""
+    """Return a safe handler that reports an unavailable Runtime."""
 
-    def handle(*, tool_call: dict[str, Any], action: dict[str, Any], messages, core):
+    def handle(*, tool_call: dict[str, Any], action, messages, core):
         del action, messages, core
         return json.dumps(
             {
@@ -54,13 +51,7 @@ def install_computer_use_handler(
     audit: Any | None = None,
     session_id: str | None = None,
 ) -> Any | None:
-    """Install the Computer Use callback on a live round-loop ``core``.
-
-    Entrypoints provide a Runtime by assigning ``core.computer_use_runtime``;
-    this function deliberately does not create a browser or desktop session.
-    Missing Runtime configuration is reported by the round loop and never
-    causes an enabled CLI/GUI/Web/A2A process to crash at startup.
-    """
+    """Install the guarded Computer Use callback on a live round-loop core."""
     if not policy.enabled:
         return None
     selected_runtime = runtime or getattr(core, "computer_use_runtime", None)
@@ -78,56 +69,86 @@ def install_computer_use_handler(
     def handle(*, tool_call: dict[str, Any], action: dict[str, Any], messages, core):
         del messages
         action_id = str(tool_call.get("id") or "computer")
-        normalized = normalize_action(
-            action_id=action_id, payload=action, provider=provider
-        )
+        items = action.get("actions") if isinstance(action, dict) else None
+        if not isinstance(items, list):
+            items = [action]
         turn_id = str(getattr(core, "computer_use_turn_id", "") or "")
-        with lock:
-            if state["actions"] >= policy.max_actions:
-                error = "Computer Use max_actions limit reached"
-                return json.dumps(
-                    {"success": False, "action_id": action_id, "error": error}
-                )
-            if turn_id:
-                state["turns"].add(turn_id)
-            if len(state["turns"]) > policy.max_turns:
-                error = "Computer Use max_turns limit reached"
-                return json.dumps(
-                    {"success": False, "action_id": action_id, "error": error}
-                )
-            if time.monotonic() - state["started"] > policy.timeout:
-                error = "Computer Use timeout reached"
-                return json.dumps(
-                    {"success": False, "action_id": action_id, "error": error}
-                )
-            state["actions"] += 1
-        result = execute_action(
-            normalized,
-            policy=policy,
-            runtime=selected_runtime,
-            confirm=confirmation,
-            audit=sink,
-            session_id=session_id,
-            turn_id=turn_id or None,
-        )
+        outputs = []
+        for index, item in enumerate(items):
+            if not isinstance(item, dict):
+                continue
+            item_id = f"{action_id}:{index}" if len(items) > 1 else action_id
+            normalized = normalize_action(
+                action_id=item_id, payload=item, provider=provider
+            )
+            with lock:
+                if state["actions"] >= policy.max_actions:
+                    outputs.append(
+                        {
+                            "success": False,
+                            "action_id": item_id,
+                            "error": "Computer Use max_actions limit reached",
+                        }
+                    )
+                    break
+                if turn_id:
+                    state["turns"].add(turn_id)
+                if len(state["turns"]) > policy.max_turns:
+                    outputs.append(
+                        {
+                            "success": False,
+                            "action_id": item_id,
+                            "error": "Computer Use max_turns limit reached",
+                        }
+                    )
+                    break
+                if time.monotonic() - state["started"] > policy.timeout:
+                    outputs.append(
+                        {
+                            "success": False,
+                            "action_id": item_id,
+                            "error": "Computer Use timeout reached",
+                        }
+                    )
+                    break
+                state["actions"] += 1
+            result = execute_action(
+                normalized,
+                policy=policy,
+                runtime=selected_runtime,
+                confirm=confirmation,
+                audit=sink,
+                session_id=session_id,
+                turn_id=turn_id or None,
+            )
+            outputs.append(
+                {
+                    "success": result.success,
+                    "action_id": result.action_id,
+                    "error": result.error,
+                    "provider": provider,
+                    "model": model,
+                    "screenshot": bool(result.screenshot),
+                    "screenshot_data": (
+                        base64.b64encode(result.screenshot.data).decode("ascii")
+                        if result.screenshot is not None
+                        else None
+                    ),
+                    "screenshot_media_type": (
+                        result.screenshot.media_type
+                        if result.screenshot is not None
+                        else None
+                    ),
+                }
+            )
+        if len(outputs) == 1:
+            return json.dumps(outputs[0], ensure_ascii=False)
         return json.dumps(
             {
-                "success": result.success,
-                "action_id": result.action_id,
-                "error": result.error,
-                "provider": provider,
-                "model": model,
-                "screenshot": bool(result.screenshot),
-                "screenshot_data": (
-                    base64.b64encode(result.screenshot.data).decode("ascii")
-                    if result.screenshot is not None
-                    else None
-                ),
-                "screenshot_media_type": (
-                    result.screenshot.media_type
-                    if result.screenshot is not None
-                    else None
-                ),
+                "success": bool(outputs)
+                and all(x.get("success", False) for x in outputs),
+                "action_id": action_id,
+                "results": outputs,
             },
             ensure_ascii=False,
         )
@@ -145,7 +166,7 @@ def make_computer_use_handler(
     audit: Any | None = None,
     session_id: str | None = None,
 ):
-    """Backward-compatible alias for the guarded handler factory."""
+    """Backward-compatible handler factory."""
 
     class _Core:
         computer_use_runtime = runtime

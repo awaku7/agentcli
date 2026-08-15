@@ -509,6 +509,7 @@ def _call_openai_azure_round(
                         provider=provider,
                         tool_specs=responses_tool_specs,
                         previous_response_id=_prev_rid,
+                        core=core,
                     )
 
                     resp_kwargs = {
