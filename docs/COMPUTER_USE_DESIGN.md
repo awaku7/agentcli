@@ -447,7 +447,7 @@ Computer Useの実装は、テストを先に作成するTDD（Test-Driven Devel
 
 実Runtimeや外部APIに依存するテストは、mock / fake / dry-runを基本とする。Provider APIを使うE2Eテストは、明示的なオプトインがない限り実行しない。
 
-## 12. 実装フェーズ
+## 13. 実装フェーズ
 
 ### Phase 1: Capabilityと設定
 
@@ -532,7 +532,7 @@ Computer Use機能で追加するユーザー向けメッセージ、LLM向け�
 - Prompt Injection対策のシステム指示
 - Provider Adapterが生成するtool result内の説明文
 
-ユーザー向け文言とLLM向け文言は、同じ翻訳キーを無理に共有せず、用途を区別したキー名前空間で管理する。LLM向けメッセージはモデルの理解に影響するため、翻訳の正確性、プレースホルダー、操作名、禁止事項をテストで検証する。
+ユーザー向け文言とLLM向け文言は、同じ翻訳キーを無理に共有せず、用途を区別したキー名前空間で管理する。LLM向けメッセージも、選択された言語で自然に対話できる表現を用意する。モデルの理解に影響するため、翻訳の正確性、プレースホルダー、操作名、禁止事項をテストで検証する。
 実装ルール:
 
 - ユーザー向け、LLM向けともにハードコードした自然言語文字列を追加しない
@@ -540,14 +540,14 @@ Computer Use機能で追加するユーザー向けメッセージ、LLM向け�
 - ユーザー向けとLLM向けで用途別のメッセージキーを管理する
 - プレースホルダー名を全言語で一致させる
 - action名、tool type、APIフィールド名、enum値などのプロトコル識別子は翻訳しない
-- 英語を原文・フォールバックとする
+- 未翻訳時は英語へフォールバックする
 - `.po` / `.mo` のコンパイルを行う
 - 翻訳の未登録、重複、プレースホルダー不一致をCIで検出する
 - CLI、GUI、Web、A2Aで同じメッセージキーを共有する
 
 受け入れ条件は、ユーザー向け・LLM向けの両方について38言語すべてで翻訳リソースの検証が通り、未翻訳時も英語フォールバックで動作することとする。LLM向けメッセージは、操作名・禁止事項・プレースホルダーが壊れていないことをテストで確認する。
 
-## 15. 受け入れ基準
+## 16. 受け入れ基準
 
 - Computer Useを明示的に有効化しない限り、既存のagentcli動作が変わらない
 - 未対応モデルを誤ってComputer Use対応と判定しない
@@ -558,9 +558,9 @@ Computer Use機能で追加するユーザー向けメッセージ、LLM向け�
 - CLI、GUI、Web、A2Aで設定と停止条件が一致する
 - 既存テストがすべて通過する
 
-## 15. レビュー反映版の実装決定
+## 17. レビュー反映版の実装決定
 
-### 15.1 推奨アーキテクチャ
+### 17.1 推奨アーキテクチャ
 
 Computer Useの処理経路は、次の責務分離を維持する。
 
@@ -584,7 +584,7 @@ LLM
 
 LLMから生成されたアクションをRuntimeへ直接渡さない。必ず `Provider Adapter → ComputerAction → Safety Layer → Runtime` の経路を通す。
 
-### 15.2 llmcapaとの責務分離
+### 17.2 llmcapaとの責務分離
 
 `llmcapa 0.5.7` をComputer Use capabilityの正規情報源とする。UAG側で同じモデル情報を独自管理しない。
 
@@ -594,7 +594,7 @@ UAG → llmcapa → ComputerUseCapability
 
 UAG内部に互換型が必要な場合も、コピーしたデータベースではなく、読み取り専用のViewまたはAdapterとして実装する。
 
-### 15.3 `ComputerAction.action_id`
+### 17.3 `ComputerAction.action_id`
 
 Providerから返されたComputer Callと実行結果を対応付けるため、§6で定義した正規化アクションに `action_id` を必須で持たせる。
 
@@ -607,7 +607,7 @@ session_id
             └─ result
 ```
 
-### 15.4 座標系
+### 17.4 座標系
 
 座標系が混在する可能性に備え、将来的に次の区別を可能にする。
 
@@ -620,7 +620,7 @@ class CoordinateSpace(str, Enum):
 
 初期実装ではRuntime内部で変換を吸収してよい。ただし、スクリーン座標、ブラウザーviewport、CSS pixel、physical pixelを混同しない。
 
-### 15.5 `ComputerUsePolicy`
+### 17.5 `ComputerUsePolicy`
 
 環境変数だけで安全設定を管理せず、すべてのエントリーポイントで共有するPolicyオブジェクトを持つ。
 
@@ -646,7 +646,7 @@ Web ─────┼──> ComputerUsePolicy
 A2A ─────┘
 ```
 
-### 15.6 Safety Layerのbefore / after分離
+### 17.6 Safety Layerのbefore / after分離
 
 Safety Layerは実行前と実行後の両方で動作する。
 
@@ -666,7 +666,7 @@ Audit
 
 実行前には、クリック、キー入力、URL遷移、ファイル操作、外部送信、決済、削除などを検査する。実行後には、結果、エラー、スクリーンショット、状態変化、確認結果を監査ログへ渡す。
 
-### 15.7 Runtime境界
+### 17.7 Runtime境界
 
 共通Runtimeインターフェースは小さく保つ。
 
@@ -686,7 +686,7 @@ ComputerRuntime
 
 DOM操作と画面座標操作を混同しない。BrowserRuntimeだけがDOM操作を持ち、Provider AdapterやDesktopRuntimeへ漏らさない。
 
-### 15.8 BedrockのTransport分離
+### 17.8 BedrockのTransport分離
 
 Bedrockでは、Computer Useの意味論とTransportを分ける。
 
@@ -704,7 +704,7 @@ Transport  Transport
 
 AnthropicとBedrockでComputerAction変換を重複させず、Transport差分だけを分離する。
 
-### 15.9 Capabilityを使った置換判定
+### 17.9 Capabilityを使った置換判定
 
 モデル選択時は、単なる `supports("computer_use")` ではなく、必要な操作と環境を指定する。
 
@@ -719,7 +719,7 @@ source.can_be_replaced_by(
 
 `tool_version` はメタデータであり、新しいバージョンだから自動的に互換とは判定しない。互換性はAPI、tool/schema、actions、environment、必須条件を基準にする。
 
-### 15.10 Audit
+### 17.10 Audit
 
 Computer Useでは、少なくとも次の情報を記録する。
 
@@ -741,7 +741,7 @@ screenshot_hash
 
 資格情報や個人情報を含むスクリーンショットを無制限に保存しない。保存する場合はマスキング、保持期限、削除方法を定める。
 
-### 15.11 Prompt Injection対策
+### 17.11 Prompt Injection対策
 
 画面、Webページ、PDF、メール、チャットの内容は第三者コンテンツとして扱う。画面上の指示をユーザー許可やシステム指示とはみなさない。
 
@@ -756,3 +756,5 @@ Safety Policy
   ↓
 Runtime
 ```
+
+
