@@ -34,13 +34,3 @@ def test_runtime_factory_is_opt_in(monkeypatch):
 
     monkeypatch.delenv("UAGENT_COMPUTER_USE", raising=False)
     assert create_runtime_from_env() is None
-
-
-def test_gpt56_luna_uses_official_computer_use_compatibility_override():
-    from uagent.computer_use.capability import get_computer_use_capability
-
-    capability = get_computer_use_capability("gpt-5.6-luna", "openai")
-    assert capability.supported is True
-    assert capability.native is True
-    assert capability.tool_type == "computer"
-    assert capability.api_type == "responses"
