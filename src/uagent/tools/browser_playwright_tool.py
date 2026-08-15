@@ -2062,6 +2062,33 @@ def close_session(args: dict[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
+def _run_async_blocking(coro_factory: Callable[[], Any]) -> Any:
+    """Run async Playwright work from sync callers, including active loops."""
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(coro_factory())
+
+    import queue
+    import threading
+
+    result_queue: queue.Queue[tuple[bool, Any]] = queue.Queue(maxsize=1)
+
+    def worker() -> None:
+        try:
+            result_queue.put((True, asyncio.run(coro_factory())))
+        except BaseException as exc:
+            result_queue.put((False, exc))
+
+    thread = threading.Thread(target=worker, daemon=True)
+    thread.start()
+    thread.join()
+    ok, result = result_queue.get()
+    if not ok:
+        raise result
+    return result
+
+
 def browser_playwright_run(args: dict[str, Any]) -> dict[str, Any]:
     cleaned = dict(args)
     session_action = cleaned.get("session_action")
@@ -2111,16 +2138,9 @@ def browser_playwright_run(args: dict[str, Any]) -> dict[str, Any]:
         cleaned.pop(k, None)
     cleaned.pop("actions", None)
 
-    try:
-        return asyncio.run(execute_actions(list(actions), headless, **cleaned))
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        try:
-            return loop.run_until_complete(
-                execute_actions(list(actions), headless, **cleaned)
-            )
-        finally:
-            loop.close()
+    return _run_async_blocking(
+        lambda: execute_actions(list(actions), headless, **cleaned)
+    )
 
 
 # Alias for tool loader
