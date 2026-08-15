@@ -590,6 +590,12 @@ def gemini_chat_with_tools(
 
     tools_list: list[Any] = []
 
+    native_tool = (
+        getattr(core, "computer_use_native_tool", None) if core is not None else None
+    )
+    if isinstance(native_tool, dict) and "computer_use" in native_tool:
+        tools_list.append(native_tool)
+
     if send_tools:
         tool_specs = tools.get_tool_specs() or []
     else:
@@ -817,6 +823,20 @@ def gemini_chat_with_tools(
             else:
                 resp_obj = {"content": ""}
 
+            if isinstance(resp_obj, dict) and resp_obj.get("screenshot_data"):
+                resp_obj = {
+                    "content": [
+                        {
+                            "inline_data": {
+                                "mime_type": resp_obj.get(
+                                    "screenshot_media_type", "image/png"
+                                ),
+                                "data": resp_obj["screenshot_data"],
+                            }
+                        }
+                    ],
+                    "success": resp_obj.get("success", False),
+                }
             try:
                 fr_dict = {"name": tool_name, "response": resp_obj}
                 if isinstance(tool_call_id, str) and tool_call_id:
