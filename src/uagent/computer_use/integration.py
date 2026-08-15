@@ -112,10 +112,15 @@ def install_computer_use_handler(
                     )
                     break
                 state["actions"] += 1
+            domain = None
+            current_domain = getattr(selected_runtime, "current_domain", None)
+            if callable(current_domain):
+                domain = current_domain()
             result = execute_action(
                 normalized,
                 policy=policy,
                 runtime=selected_runtime,
+                domain=domain,
                 confirm=confirmation,
                 audit=sink,
                 session_id=session_id,

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any
+from urllib.parse import urlparse
 
 from ..actions import ComputerAction
 from ..results import ComputerActionResult, Screenshot
@@ -16,6 +17,13 @@ class BrowserRuntime:
 
     def screenshot(self) -> Screenshot:
         return Screenshot(data=self.page.screenshot(), media_type="image/png")
+
+    def current_domain(self) -> str | None:
+        url = getattr(self.page, "url", "")
+        try:
+            return urlparse(str(url)).hostname
+        except Exception:
+            return None
 
     def _ensure_editable_focus(self) -> None:
         """Recover focus when a native coordinate click hits a wrapper element."""

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Computer Use Lab</title></head>
+<body>
+  <main>
+    <h1>Computer Use Lab</h1>
+    <label for="search">Search</label>
+    <input id="search" name="search" type="text" aria-label="Search" autofocus>
+    <p id="status">Ready</p>
+  </main>
+  <script>
+    const input = document.getElementById("search");
+    const status = document.getElementById("status");
+    input.addEventListener("input", () => {
+      status.textContent = input.value ? `Entered: ${input.value}` : "Ready";
+    });
+  </script>
+</body>
+</html>

@@ -4,7 +4,16 @@ from __future__ import annotations
 
 import atexit
 import os
+import threading
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from typing import Any
+
+
+class _QuietLabHandler(SimpleHTTPRequestHandler):
+    def log_message(self, format: str, *args: Any) -> None:
+        return
 
 
 class EntrypointRuntimeManager:
@@ -71,6 +80,13 @@ def _create_browser_runtime() -> EntrypointRuntimeManager:
     page = context.new_page()
     page.set_default_timeout(30000)
     initial_url = os.environ.get("UAGENT_COMPUTER_BROWSER_URL", "about:blank")
+    lab_server = None
+    if initial_url.strip().lower() == "local":
+        lab_dir = Path(__file__).resolve().parent
+        handler = partial(_QuietLabHandler, directory=str(lab_dir))
+        lab_server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
+        threading.Thread(target=lab_server.serve_forever, daemon=True).start()
+        initial_url = f"http://127.0.0.1:{lab_server.server_port}/lab.html"
     page.goto(initial_url)
     # Make the headed browser visible and focused before the first LLM turn.
     try:
@@ -79,6 +95,9 @@ def _create_browser_runtime() -> EntrypointRuntimeManager:
         pass
 
     def close() -> None:
+        if lab_server is not None:
+            lab_server.shutdown()
+            lab_server.server_close()
         try:
             context.close()
         finally:
