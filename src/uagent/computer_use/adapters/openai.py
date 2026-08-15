@@ -19,16 +19,19 @@ def _get(value: Any, name: str, default: Any = None) -> Any:
 class OpenAIComputerAdapter:
     provider = "openai"
 
-    def build_tool(self, capability: Any) -> dict[str, str]:
+    def build_tool(self, capability: Any) -> dict[str, Any]:
         if not getattr(capability, "supported", False) or not getattr(
             capability, "native", False
         ):
             raise ComputerUseCapabilityError(
                 "OpenAI adapter requires a native Computer Use capability"
             )
-        if getattr(capability, "tool_type", None) != "computer":
-            raise ComputerUseCapabilityError("OpenAI tool_type must be 'computer'")
-        return {"type": "computer"}
+        tool_type = getattr(capability, "tool_type", None)
+        if tool_type not in {"computer", "computer_use_preview"}:
+            raise ComputerUseCapabilityError(
+                "OpenAI tool_type must be 'computer' or 'computer_use_preview'"
+            )
+        return {"type": tool_type}
 
     def parse_actions(self, response: Any) -> list[ComputerAction]:
         actions: list[ComputerAction] = []

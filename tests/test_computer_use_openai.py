@@ -54,3 +54,14 @@ def test_openai_builds_computer_call_output():
     assert output["type"] == "computer_call_output"
     assert output["call_id"] == "call_2"
     assert output["output"]["type"] == "computer_screenshot"
+
+
+class PreviewCapability:
+    supported = True
+    native = True
+    tool_type = "computer_use_preview"
+
+
+def test_openai_builds_preview_computer_tool():
+    tool = OpenAIComputerAdapter().build_tool(PreviewCapability())
+    assert tool == {"type": "computer_use_preview"}

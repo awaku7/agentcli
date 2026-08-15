@@ -369,7 +369,7 @@ def build_responses_request(
             provider
             in {"openai", "azure", "azure-openai", "azure_foundry", "azure-foundry"}
             and isinstance(native_tool, dict)
-            and native_tool.get("type") == "computer"
+            and native_tool.get("type") in {"computer", "computer_use_preview"}
         ):
             flat_tools.append(dict(native_tool))
         req_tools = flat_tools
