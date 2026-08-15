@@ -71,7 +71,14 @@ class BrowserRuntime:
                 self.page.mouse.move(x, y)
             elif action.action == "type":
                 self._ensure_editable_focus()
-                self.page.keyboard.type(action.text or "")
+                text = action.text or ""
+                editable = self.page.locator(
+                    'input:not([type=checkbox]):not([type=radio]):visible, textarea:visible, [contenteditable="true"]:visible'
+                )
+                if editable.count() == 1:
+                    editable.first.fill(text)
+                else:
+                    self.page.keyboard.type(text)
             elif action.action == "keypress":
                 self.page.keyboard.press(action.key or "")
             elif action.action == "scroll":
