@@ -12,7 +12,7 @@ set "UAGENT_COMPUTER_HEADLESS=0"
 set "UAGENT_COMPUTER_BROWSER_URL=local"
 rem Local lab only: disable confirmation to make the automated smoke test deterministic.
 set "UAGENT_COMPUTER_REQUIRE_CONFIRMATION=0"
-set "UAGENT_COMPUTER_ALLOWED_ACTIONS=screenshot,click,type,keypress,scroll"
+set "UAGENT_COMPUTER_ALLOWED_ACTIONS=screenshot,navigate,click,type,keypress,scroll"
 set "UAGENT_COMPUTER_ALLOWED_DOMAINS=127.0.0.1"
 set "UAGENT_COMPUTER_MAX_ACTIONS=20"
 set "UAGENT_COMPUTER_MAX_TURNS=10"

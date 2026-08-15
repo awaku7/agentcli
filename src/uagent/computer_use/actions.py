@@ -8,6 +8,7 @@ from typing import Any
 _SUPPORTED_ACTIONS = frozenset(
     {
         "screenshot",
+        "navigate",
         "click",
         "right_click",
         "middle_click",

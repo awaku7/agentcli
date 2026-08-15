@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+from urllib.parse import urlparse
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
@@ -1517,6 +1519,59 @@ def _observed_llm_rounds(fn: Any) -> Any:
     return wrapped
 
 
+def _maybe_navigate_computer_runtime(
+    messages: list[dict[str, Any]], core: Any, policy: Any
+) -> None:
+    """Navigate the existing native BrowserRuntime for an explicit user URL."""
+    runtime = getattr(core, "computer_use_runtime", None)
+    navigate = getattr(runtime, "execute", None) if runtime is not None else None
+    if not callable(navigate):
+        return
+    latest = next(
+        (
+            m
+            for m in reversed(messages)
+            if isinstance(m, dict) and m.get("role") == "user"
+        ),
+        None,
+    )
+    text = str((latest or {}).get("content") or "")
+    urls = re.findall(r"https?://[^\s<>\"']+", text)
+    if not urls:
+        return
+    visited = getattr(core, "computer_use_navigated_urls", None)
+    if not isinstance(visited, set):
+        visited = set()
+        core.computer_use_navigated_urls = visited
+    from .computer_use.actions import ComputerAction
+    from .computer_use.runtime import execute_action
+
+    for raw_url in urls:
+        url = raw_url.rstrip(".,。、;；)）]")
+        if url in visited:
+            continue
+        action = ComputerAction(
+            action_id=f"navigate:{len(visited)}",
+            action="navigate",
+            provider="computer",
+            text=url,
+        )
+        confirmation = getattr(core, "computer_use_confirmation", None)
+        result = execute_action(
+            action,
+            policy=policy,
+            runtime=runtime,
+            confirm=confirmation,
+            audit=None,
+            session_id="computer-use",
+            domain=urlparse(url).hostname,
+        )
+        visited.add(url)
+        if not result.success:
+            core.computer_use_diagnostic = result.error or "navigation failed"
+        break
+
+
 @_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
@@ -1579,6 +1634,7 @@ def run_llm_rounds(
                     install_computer_use_handler(
                         core=core, provider=provider, model=depname, policy=policy
                     )
+                    _maybe_navigate_computer_runtime(messages, core, policy)
                     from .computer_use.native import prepare_native_computer_use
 
                     prepare_native_computer_use(

@@ -48,6 +48,18 @@ class BrowserRuntime:
                 bring_to_front = getattr(self.page, "bring_to_front", None)
                 if callable(bring_to_front):
                     bring_to_front()
+            if action.action == "navigate":
+                url = str(action.text or "").strip()
+                parsed = urlparse(url)
+                if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+                    raise ValueError("navigate requires an absolute http(s) URL")
+                self.page.goto(url, wait_until="domcontentloaded")
+                self.page.bring_to_front()
+                return ComputerActionResult(
+                    action_id=action.action_id,
+                    success=True,
+                    screenshot=self.screenshot(),
+                )
             if action.action == "screenshot":
                 return ComputerActionResult(
                     action_id=action.action_id,
