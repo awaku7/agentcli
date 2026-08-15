@@ -67,6 +67,11 @@ def _create_browser_runtime() -> EntrypointRuntimeManager:
     page = context.new_page()
     initial_url = os.environ.get("UAGENT_COMPUTER_BROWSER_URL", "about:blank")
     page.goto(initial_url)
+    # Make the headed browser visible and focused before the first LLM turn.
+    try:
+        page.bring_to_front()
+    except Exception:
+        pass
 
     def close() -> None:
         try:
