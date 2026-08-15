@@ -23,7 +23,17 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         except Exception:
             pass
 
-    if provider not in {"claude", "anthropic", "openai", "gemini", "vertexai"}:
+    if provider not in {
+        "claude",
+        "anthropic",
+        "openai",
+        "azure",
+        "azure-openai",
+        "azure_foundry",
+        "azure-foundry",
+        "gemini",
+        "vertexai",
+    }:
         return False
     try:
         from .capability import get_computer_use_capability
@@ -41,7 +51,13 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
                 capability, width=width, height=height
             )
             core.computer_use_native_headers = adapter.beta_headers(capability)
-        elif provider == "openai":
+        elif provider in {
+            "openai",
+            "azure",
+            "azure-openai",
+            "azure_foundry",
+            "azure-foundry",
+        }:
             from .adapters.openai import OpenAIComputerAdapter
 
             core.computer_use_native_tool = OpenAIComputerAdapter().build_tool(

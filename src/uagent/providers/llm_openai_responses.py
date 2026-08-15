@@ -366,7 +366,8 @@ def build_responses_request(
             else None
         )
         if (
-            provider == "openai"
+            provider
+            in {"openai", "azure", "azure-openai", "azure_foundry", "azure-foundry"}
             and isinstance(native_tool, dict)
             and native_tool.get("type") == "computer"
         ):
