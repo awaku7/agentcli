@@ -11,6 +11,18 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
     This is deliberately best-effort: unsupported or unknown models do not
     alter the existing request path.
     """
+    # Clear state first so a reused core cannot send a stale tool when the
+    # provider/model changes between rounds or sessions.
+    for name in (
+        "computer_use_native_tool",
+        "computer_use_native_headers",
+        "computer_use_native_provider",
+    ):
+        try:
+            setattr(core, name, None)
+        except Exception:
+            pass
+
     if provider not in {"claude", "anthropic", "openai", "gemini", "vertexai"}:
         return False
     try:

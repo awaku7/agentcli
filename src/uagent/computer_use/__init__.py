@@ -12,7 +12,11 @@ from .capability import ComputerUseCapabilityError, get_computer_use_capability
 from .policy import ComputerUsePolicy, PolicyDecision
 from .native import prepare_native_computer_use
 from .loop import run_anthropic_computer_loop
-from .integration import install_computer_use_handler, make_computer_use_handler
+from .integration import (
+    install_computer_use_handler,
+    make_computer_use_handler,
+    make_unavailable_computer_use_handler,
+)
 from .results import ComputerActionResult, Screenshot
 from .runtime import ComputerRuntime, execute_action
 
@@ -34,7 +38,6 @@ __all__ = [
     "Screenshot",
     "execute_action",
     "get_computer_use_capability",
-    "install_computer_use_handler",
     "install_computer_use_handler",
     "make_computer_use_handler",
     "make_unavailable_computer_use_handler",
