@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 
 from typing import Any, Optional
@@ -40,7 +41,7 @@ _WEB_SEARCH_RULES: str = _("""[Web search rules]
 
 
 def _responses_tool_output(
-    call_id: str, content: Any, tool_name: str
+    call_id: str, content: Any, tool_name: str, core: Any = None
 ) -> dict[str, Any]:
     """Convert a normalized tool result to a Responses input item."""
     if tool_name not in {"computer", "computer_use_preview"}:
@@ -65,6 +66,19 @@ def _responses_tool_output(
             f"data:{screenshot.get('screenshot_media_type', 'image/png')};base64,"
             + str(screenshot["screenshot_data"])
         )
+    elif core is not None:
+        # Keep the Responses payload valid even when a legacy handler omitted
+        # screenshot_data from its serialized result.
+        try:
+            runtime = getattr(core, "computer_use_runtime", None)
+            shot = runtime.screenshot() if runtime is not None else None
+            if shot is not None:
+                output["image_url"] = (
+                    f"data:{shot.media_type};base64,"
+                    + base64.b64encode(shot.data).decode("ascii")
+                )
+        except Exception:
+            pass
     return {"type": "computer_call_output", "call_id": call_id, "output": output}
 
 
@@ -132,7 +146,9 @@ def build_responses_request(
                     if isinstance(call_id, str) and call_id in _pending_call_ids:
                         output = as_str(tm.get("content", ""))
                         input_msgs.append(
-                            _responses_tool_output(call_id, output, tm.get("name", ""))
+                            _responses_tool_output(
+                                call_id, output, tm.get("name", ""), core
+                            )
                         )
             elif role == "user":
                 if not _tool_continuation:
