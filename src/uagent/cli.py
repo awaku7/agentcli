@@ -1387,6 +1387,25 @@ def main() -> None:
     if startup.should_exit:
         return
 
+    # Eagerly create the opt-in Computer Use Runtime for the interactive CLI
+    # so the operator can see the managed browser before entering a prompt.
+    if (os.environ.get("UAGENT_COMPUTER_USE") or "").strip().lower() not in {
+        "",
+        "0",
+        "false",
+        "no",
+        "off",
+    }:
+        try:
+            from .computer_use.entrypoint_runtime import create_runtime_from_env
+
+            manager = create_runtime_from_env()
+            if manager is not None:
+                core.computer_use_runtime_manager = manager
+                core.computer_use_runtime = manager.runtime
+        except Exception as exc:
+            core.computer_use_diagnostic = str(exc)
+
     # Do not automatically resume a saved Responses chain at startup.
     # Explicit :load selects a log and may restore its validated latest ID.
     if provider in ("openai", "azure"):
