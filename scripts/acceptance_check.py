@@ -1,10 +1,10 @@
 """Run the improvement-design acceptance checks locally."""
+
 from __future__ import annotations
 
 import subprocess
 import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,8 +15,18 @@ def run(command: list[str]) -> bool:
 
 
 def check_event_codes() -> bool:
-    required = {"cli.start", "web.start", "gui.start", "a2a.task.created", "tool.dispatch", "web.room.task.started", "web.room.task.completed"}
-    text = "\n".join(p.read_text(encoding="utf-8") for p in (ROOT / "src" / "uagent").rglob("*.py"))
+    required = {
+        "cli.start",
+        "web.start",
+        "gui.start",
+        "a2a.task.created",
+        "tool.dispatch",
+        "web.room.task.started",
+        "web.room.task.completed",
+    }
+    text = "\n".join(
+        p.read_text(encoding="utf-8") for p in (ROOT / "src" / "uagent").rglob("*.py")
+    )
     missing = sorted(code for code in required if code not in text)
     if missing:
         print("missing event codes:", ", ".join(missing))

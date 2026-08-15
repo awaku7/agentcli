@@ -1,4 +1,5 @@
 """Fail if runtime/provider modules introduce forbidden core back-references."""
+
 from __future__ import annotations
 
 import ast
@@ -23,7 +24,11 @@ def main() -> int:
             if isinstance(node, ast.Import):
                 names = [alias.name for alias in node.names]
             elif isinstance(node, ast.ImportFrom):
-                names = [node.module or ""] if node.level == 0 else ["uagent." + (node.module or "")]
+                names = (
+                    [node.module or ""]
+                    if node.level == 0
+                    else ["uagent." + (node.module or "")]
+                )
             else:
                 continue
             if any(name == "uagent.core" for name in names):
