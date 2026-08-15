@@ -43,7 +43,7 @@ def _responses_tool_output(
     call_id: str, content: Any, tool_name: str
 ) -> dict[str, Any]:
     """Convert a normalized tool result to a Responses input item."""
-    if tool_name != "computer":
+    if tool_name not in {"computer", "computer_use_preview"}:
         return {
             "type": "function_call_output",
             "call_id": call_id,

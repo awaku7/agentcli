@@ -121,6 +121,18 @@ def install_computer_use_handler(
                 session_id=session_id,
                 turn_id=turn_id or None,
             )
+            # Responses computer calls require a screenshot output after each
+            # action, not only after an explicit screenshot action.
+            if result.success and result.screenshot is None:
+                try:
+                    result = type(result)(
+                        action_id=result.action_id,
+                        success=result.success,
+                        error=result.error,
+                        screenshot=selected_runtime.screenshot(),
+                    )
+                except Exception:
+                    pass
             outputs.append(
                 {
                     "success": result.success,
