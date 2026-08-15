@@ -11,6 +11,40 @@ from .policy import ComputerUsePolicy
 from .runtime import ComputerRuntime, execute_action
 
 
+def install_computer_use_handler(
+    *,
+    core: Any,
+    provider: str,
+    model: str,
+    policy: ComputerUsePolicy,
+    runtime: ComputerRuntime | None = None,
+    audit: Any | None = None,
+    session_id: str | None = None,
+) -> Any | None:
+    """Install the Computer Use callback on a live round-loop ``core``.
+
+    Entrypoints provide a runtime by assigning ``core.computer_use_runtime``;
+    this function deliberately does not create a browser or desktop session.
+    """
+    if not policy.enabled:
+        return None
+    selected_runtime = runtime or getattr(core, "computer_use_runtime", None)
+    if selected_runtime is None:
+        raise RuntimeError(
+            "Computer Use is enabled but no computer_use_runtime is configured"
+        )
+    handler = make_computer_use_handler(
+        provider=provider,
+        model=model,
+        policy=policy,
+        runtime=selected_runtime,
+        audit=audit,
+        session_id=session_id,
+    )
+    core.computer_use_handler = handler
+    return handler
+
+
 def make_computer_use_handler(
     *,
     provider: str,

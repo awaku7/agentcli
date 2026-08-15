@@ -1543,6 +1543,19 @@ def run_llm_rounds(
         core.responses_state["provider"] = provider
         core.responses_state["model"] = depname
 
+    # Install the shared Computer Use callback before the first round.
+    if not judgment_mode:
+        try:
+            policy = core.get_computer_use_policy()
+            if policy.enabled:
+                from .computer_use.integration import install_computer_use_handler
+
+                install_computer_use_handler(
+                    core=core, provider=provider, model=depname, policy=policy
+                )
+        except AttributeError:
+            pass
+
     max_tool_rounds = 200
     round_count = 0
 
