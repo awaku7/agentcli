@@ -1640,6 +1640,11 @@ def set_confirmation_callback(callback):
     _CONFIRMATION_CALLBACK = callback
 
 
+def get_confirmation_callback():
+    """Return the currently configured host confirmation callback."""
+    return _CONFIRMATION_CALLBACK
+
+
 def configure_default_confirmation() -> None:
     from .tool_policy import default_confirmation_callback
 

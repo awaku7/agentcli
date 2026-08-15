@@ -34,7 +34,9 @@ __all__ = [
     "execute_action",
     "get_computer_use_capability",
     "install_computer_use_handler",
+    "install_computer_use_handler",
     "make_computer_use_handler",
+    "make_unavailable_computer_use_handler",
     "run_anthropic_computer_loop",
     "normalize_action",
 ]

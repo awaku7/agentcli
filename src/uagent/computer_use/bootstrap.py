@@ -9,7 +9,7 @@ from .integration import install_computer_use_handler
 
 
 def configure_computer_use(
-    core: Any, *, provider: str, model: str, runtime: Any
+    core: Any, *, provider: str, model: str, runtime: Any | None
 ) -> Any | None:
     """Attach an entrypoint-created runtime and install the round-loop handler.
 
@@ -17,6 +17,9 @@ def configure_computer_use(
     sessions have different lifecycles and permissions.
     """
     policy = computer_use_policy_from_env()
+    if runtime is None:
+        core.computer_use_runtime = None
+        return None
     core.computer_use_runtime = runtime
     return install_computer_use_handler(
         core=core,

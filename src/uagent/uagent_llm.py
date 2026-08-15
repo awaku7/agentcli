@@ -1544,15 +1544,25 @@ def run_llm_rounds(
         core.responses_state["model"] = depname
 
     # Install the shared Computer Use callback before the first round.
+    # A missing Runtime is a diagnosable capability failure, not a process crash.
     if not judgment_mode:
         try:
             policy = core.get_computer_use_policy()
             if policy.enabled:
-                from .computer_use.integration import install_computer_use_handler
-
-                install_computer_use_handler(
-                    core=core, provider=provider, model=depname, policy=policy
+                from .computer_use.integration import (
+                    install_computer_use_handler,
+                    make_unavailable_computer_use_handler,
                 )
+
+                try:
+                    install_computer_use_handler(
+                        core=core, provider=provider, model=depname, policy=policy
+                    )
+                except RuntimeError as exc:
+                    core.computer_use_diagnostic = str(exc)
+                    core.computer_use_handler = make_unavailable_computer_use_handler(
+                        reason=str(exc)
+                    )
         except AttributeError:
             pass
 
@@ -1607,6 +1617,8 @@ def run_llm_rounds(
         while True:
             round_count += 1
             _TOTAL_ROUNDS += 1
+            if not judgment_mode:
+                core.computer_use_turn_id = str(round_count)
 
             (
                 round_status,
