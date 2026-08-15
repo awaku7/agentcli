@@ -555,7 +555,19 @@ def _execute_tool_calls(
                 # Fire PreToolUse hook
                 _fire_tool_hooks("PreToolUse", name)
 
-                core.set_status(True, f"tool:{name}")
+                status_label = f"tool:{name}"
+                if name in {"computer", "computer_use_preview"}:
+                    action_items = parsed_args.get("actions")
+                    if not isinstance(action_items, list):
+                        action_items = [parsed_args]
+                    action_names = [
+                        str(item.get("action") or item.get("type") or "action")
+                        for item in action_items
+                        if isinstance(item, dict)
+                    ]
+                    if action_names:
+                        status_label += ":" + ",".join(action_names[:4])
+                core.set_status(True, status_label)
                 try:
                     # ファイルアクセスをキャッシュ管理に記録
                     if name == "read_file" and "filename" in parsed_args:
