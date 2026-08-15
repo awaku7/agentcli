@@ -17,6 +17,20 @@ class BrowserRuntime:
     def screenshot(self) -> Screenshot:
         return Screenshot(data=self.page.screenshot(), media_type="image/png")
 
+    def _ensure_editable_focus(self) -> None:
+        """Recover focus when a native coordinate click hits a wrapper element."""
+        active_is_editable = self.page.evaluate("""() => {
+                const el = document.activeElement;
+                return !!el && (el.matches('input, textarea, select, [contenteditable="true"]'));
+            }""")
+        if active_is_editable:
+            return
+        candidates = self.page.locator(
+            'input:not([type=checkbox]):not([type=radio]):visible, textarea:visible, [contenteditable="true"]:visible'
+        )
+        if candidates.count() == 1:
+            candidates.first.focus()
+
     def execute(self, action: ComputerAction) -> ComputerActionResult:
         try:
             if action.action == "screenshot":
@@ -49,6 +63,7 @@ class BrowserRuntime:
                     raise ValueError("move requires coordinate")
                 self.page.mouse.move(x, y)
             elif action.action == "type":
+                self._ensure_editable_focus()
                 self.page.keyboard.type(action.text or "")
             elif action.action == "keypress":
                 self.page.keyboard.press(action.key or "")
