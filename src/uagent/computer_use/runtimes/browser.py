@@ -33,6 +33,13 @@ class BrowserRuntime:
 
     def execute(self, action: ComputerAction) -> ComputerActionResult:
         try:
+            if action.action != "screenshot":
+                # Make the managed page active in headed mode before input.
+                # Playwright input is page-scoped, but foregrounding prevents
+                # the user-visible browser from appearing out of sync.
+                bring_to_front = getattr(self.page, "bring_to_front", None)
+                if callable(bring_to_front):
+                    bring_to_front()
             if action.action == "screenshot":
                 return ComputerActionResult(
                     action_id=action.action_id,
