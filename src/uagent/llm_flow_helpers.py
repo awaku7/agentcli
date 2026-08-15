@@ -562,7 +562,9 @@ def _execute_tool_calls(
                         cache_mgr.record_file_access(parsed_args["filename"])
 
                     computer_handler = getattr(core, "computer_use_handler", None)
-                    if name == "computer" and callable(computer_handler):
+                    if name in {"computer", "computer_use_preview"} and callable(
+                        computer_handler
+                    ):
                         tool_result = computer_handler(
                             tool_call=tc,
                             action=parsed_args,
