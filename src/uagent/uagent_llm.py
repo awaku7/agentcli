@@ -1558,6 +1558,11 @@ def run_llm_rounds(
                     install_computer_use_handler(
                         core=core, provider=provider, model=depname, policy=policy
                     )
+                    from .computer_use.native import prepare_native_computer_use
+
+                    prepare_native_computer_use(
+                        core=core, provider=provider, model=depname
+                    )
                 except RuntimeError as exc:
                     core.computer_use_diagnostic = str(exc)
                     core.computer_use_handler = make_unavailable_computer_use_handler(

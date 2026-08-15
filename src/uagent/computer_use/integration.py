@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import time
 from threading import Lock
@@ -117,6 +118,16 @@ def install_computer_use_handler(
                 "provider": provider,
                 "model": model,
                 "screenshot": bool(result.screenshot),
+                "screenshot_data": (
+                    base64.b64encode(result.screenshot.data).decode("ascii")
+                    if result.screenshot is not None
+                    else None
+                ),
+                "screenshot_media_type": (
+                    result.screenshot.media_type
+                    if result.screenshot is not None
+                    else None
+                ),
             },
             ensure_ascii=False,
         )

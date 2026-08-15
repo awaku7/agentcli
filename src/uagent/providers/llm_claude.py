@@ -327,11 +327,34 @@ def claude_chat_with_tools(
 
         elif role == "tool":
             new_role = "user"
+            result_content: Any = content
+            try:
+                result_json = json.loads(content) if isinstance(content, str) else {}
+                screenshot_data = result_json.get("screenshot_data")
+                if screenshot_data:
+                    result_content = [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": result_json.get(
+                                    "screenshot_media_type", "image/png"
+                                ),
+                                "data": screenshot_data,
+                            },
+                        }
+                    ]
+                    if result_json.get("error"):
+                        result_content.append(
+                            {"type": "text", "text": result_json["error"]}
+                        )
+            except Exception:
+                pass
             new_content_blocks.append(
                 {
                     "type": "tool_result",
                     "tool_use_id": m.get("tool_call_id"),
-                    "content": content,
+                    "content": result_content,
                 }
             )
 
@@ -350,6 +373,13 @@ def claude_chat_with_tools(
         _tool_specs_iter = tools.get_tool_specs()
     else:
         _tool_specs_iter = []
+    native_tool = (
+        getattr(core, "computer_use_native_tool", None) if core is not None else None
+    )
+    if native_tool and isinstance(native_tool, dict):
+        # Native tools use Anthropic's top-level tool shape, not JSON Schema.
+        anthropic_tools.append(dict(native_tool))
+
     for spec in _tool_specs_iter:
         fn = spec.get("function", {})
         name = fn.get("name", "")
@@ -480,6 +510,11 @@ def claude_chat_with_tools(
         req_kwargs["system"] = system_blocks
     if anthropic_tools:
         req_kwargs["tools"] = anthropic_tools
+    native_headers = (
+        getattr(core, "computer_use_native_headers", None) if core is not None else None
+    )
+    if native_headers:
+        req_kwargs["extra_headers"] = {"anthropic-beta": ",".join(native_headers)}
 
     if use_adaptive_thinking and thinking_param is not None:
         req_kwargs["thinking"] = thinking_param

@@ -10,6 +10,7 @@ from .config import computer_use_policy_from_env
 from .bootstrap import configure_computer_use
 from .capability import ComputerUseCapabilityError, get_computer_use_capability
 from .policy import ComputerUsePolicy, PolicyDecision
+from .native import prepare_native_computer_use
 from .loop import run_anthropic_computer_loop
 from .integration import install_computer_use_handler, make_computer_use_handler
 from .results import ComputerActionResult, Screenshot
@@ -39,4 +40,5 @@ __all__ = [
     "make_unavailable_computer_use_handler",
     "run_anthropic_computer_loop",
     "normalize_action",
+    "prepare_native_computer_use",
 ]
