@@ -561,7 +561,16 @@ def _execute_tool_calls(
                     if name == "read_file" and "filename" in parsed_args:
                         cache_mgr.record_file_access(parsed_args["filename"])
 
-                    tool_result = tools.run_tool(name, parsed_args)
+                    computer_handler = getattr(core, "computer_use_handler", None)
+                    if name == "computer" and callable(computer_handler):
+                        tool_result = computer_handler(
+                            tool_call=tc,
+                            action=parsed_args,
+                            messages=messages,
+                            core=core,
+                        )
+                    else:
+                        tool_result = tools.run_tool(name, parsed_args)
 
                     # Fire PostToolUse hook
                     _fire_tool_hooks("PostToolUse", name)
