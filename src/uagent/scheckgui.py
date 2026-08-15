@@ -3016,6 +3016,20 @@ def main():
         default=None,
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
+    parser.add_argument(
+        "--computer-use",
+        dest="computer_use",
+        action="store_true",
+        default=None,
+        help=_("Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
+        "--no-computer-use",
+        dest="computer_use",
+        action="store_false",
+        default=None,
+        help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
     args, unknown = parser.parse_known_args()
 
     decision = _runtime_init.decide_workdir(
@@ -3024,6 +3038,8 @@ def main():
     )
     _runtime_init.apply_workdir(decision)
     _runtime_init.reload_dotenv_custom()
+    if getattr(args, "computer_use", None) is not None:
+        os.environ["UAGENT_COMPUTER_USE"] = "1" if args.computer_use else "0"
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
 

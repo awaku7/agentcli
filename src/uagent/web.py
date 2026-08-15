@@ -2597,6 +2597,20 @@ def main():
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
     parser.add_argument(
+        "--computer-use",
+        dest="computer_use",
+        action="store_true",
+        default=None,
+        help=_("Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
+        "--no-computer-use",
+        dest="computer_use",
+        action="store_false",
+        default=None,
+        help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
         "--host",
         type=str,
         default=None,
@@ -2637,6 +2651,8 @@ def main():
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
         _runtime_init.reload_dotenv_custom()
+        if getattr(web_args, "computer_use", None) is not None:
+            os.environ["UAGENT_COMPUTER_USE"] = "1" if web_args.computer_use else "0"
         # Fail-fast env validation (aggregate missing vars)
         _runtime_init.validate_or_exit_startup_env(context="web")
         banner = _runtime_init.build_startup_banner(

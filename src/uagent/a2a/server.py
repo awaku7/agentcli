@@ -456,6 +456,20 @@ def main(argv: Optional[list[str]] = None) -> None:
         default=None,
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
+    parser.add_argument(
+        "--computer-use",
+        dest="computer_use",
+        action="store_true",
+        default=None,
+        help=_("Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
+    parser.add_argument(
+        "--no-computer-use",
+        dest="computer_use",
+        action="store_false",
+        default=None,
+        help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
+    )
 
     args = parser.parse_args(argv)
 
@@ -469,6 +483,8 @@ def main(argv: Optional[list[str]] = None) -> None:
         pass
 
     reload_dotenv_custom()
+    if getattr(args, "computer_use", None) is not None:
+        os.environ["UAGENT_COMPUTER_USE"] = "1" if args.computer_use else "0"
     validate_or_exit_startup_env(context="a2a")
 
     # Tool genre selection (same dialog as CLI startup)
