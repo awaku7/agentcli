@@ -62,9 +62,14 @@ def _create_browser_runtime() -> EntrypointRuntimeManager:
         "yes",
         "on",
     }
-    browser = playwright.chromium.launch(headless=headless)
-    context = browser.new_context()
+    browser = playwright.chromium.launch(
+        headless=headless,
+        env={},
+        args=["--disable-extensions", "--disable-file-system"],
+    )
+    context = browser.new_context(viewport={"width": 1280, "height": 720})
     page = context.new_page()
+    page.set_default_timeout(30000)
     initial_url = os.environ.get("UAGENT_COMPUTER_BROWSER_URL", "about:blank")
     page.goto(initial_url)
     # Make the headed browser visible and focused before the first LLM turn.
