@@ -25,9 +25,18 @@ _SUPPORTED_ACTIONS = frozenset(
 
 _ACTION_ALIASES = {
     "left_click": "click",
+    "click_at": "click",
     "mouse_move": "move",
+    "hover_at": "move",
     "key": "keypress",
+    "press_key": "keypress",
+    "key_combination": "keypress",
     "left_click_drag": "drag",
+    "drag_and_drop": "drag",
+    "take_screenshot": "screenshot",
+    "type_text_at": "type",
+    "scroll_at": "scroll",
+    "scroll_document": "scroll",
 }
 
 
