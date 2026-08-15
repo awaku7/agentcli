@@ -17,6 +17,6 @@ set "UAGENT_COMPUTER_MAX_ACTIONS=20"
 set "UAGENT_COMPUTER_MAX_TURNS=10"
 set "UAGENT_COMPUTER_TIMEOUT=120"
 
-python -m uagent --computer-use --inject-message "ネイティブのComputer Use機能を使って、現在のWikipediaページのスクリーンショットを取得してください。screenshotツールやbrowser_playwrightは使わないでください。"
+python -m uagent --computer-use
 set "EXIT_CODE=%ERRORLEVEL%"
 endlocal & exit /b %EXIT_CODE%
