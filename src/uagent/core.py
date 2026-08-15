@@ -257,6 +257,18 @@ tools_enabled = True
 # Toggled via :tools output in CLI.
 show_tool_output = False
 
+
+def get_computer_use_policy():
+    """Return the shared Computer Use policy for the current process.
+
+    The policy is resolved lazily so CLI/GUI/Web/A2A startup code can load its
+    environment configuration before requesting it.
+    """
+    from .computer_use.config import computer_use_policy_from_env
+
+    return computer_use_policy_from_env()
+
+
 # Remember the last selected reasoning effort so CUI prompt can show it even when
 # status lines are not printed (e.g., when stderr is not a TTY).
 # Example stored values: "LLM:auto->low", "LLM:medium"

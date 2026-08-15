@@ -5,4 +5,9 @@ from .openai import OpenAIComputerAdapter
 from .gemini import GeminiComputerAdapter
 from .custom import CustomComputerAdapter
 
-__all__ = ["AnthropicComputerAdapter", "OpenAIComputerAdapter", "GeminiComputerAdapter", "CustomComputerAdapter"]
+__all__ = [
+    "AnthropicComputerAdapter",
+    "OpenAIComputerAdapter",
+    "GeminiComputerAdapter",
+    "CustomComputerAdapter",
+]
