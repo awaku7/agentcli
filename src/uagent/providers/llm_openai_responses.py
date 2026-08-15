@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 from typing import Any, Optional
 
 from .. import tools
@@ -35,6 +37,35 @@ _WEB_SEARCH_RULES: str = _("""[Web search rules]
 # ---------------------------------------------------------------------------
 # Request builder
 # ---------------------------------------------------------------------------
+
+
+def _responses_tool_output(
+    call_id: str, content: Any, tool_name: str
+) -> dict[str, Any]:
+    """Convert a normalized tool result to a Responses input item."""
+    if tool_name != "computer":
+        return {
+            "type": "function_call_output",
+            "call_id": call_id,
+            "output": as_str(content),
+        }
+    try:
+        payload = json.loads(content) if isinstance(content, str) else content
+    except Exception:
+        payload = {}
+    candidates = payload.get("results", []) if isinstance(payload, dict) else []
+    if not candidates and isinstance(payload, dict):
+        candidates = [payload]
+    screenshot = next(
+        (item for item in candidates if item.get("screenshot_data")), None
+    )
+    output = {"type": "computer_screenshot", "image_url": None}
+    if screenshot:
+        output["image_url"] = (
+            f"data:{screenshot.get('screenshot_media_type', 'image/png')};base64,"
+            + str(screenshot["screenshot_data"])
+        )
+    return {"type": "computer_call_output", "call_id": call_id, "output": output}
 
 
 def build_responses_request(
@@ -101,11 +132,7 @@ def build_responses_request(
                     if isinstance(call_id, str) and call_id in _pending_call_ids:
                         output = as_str(tm.get("content", ""))
                         input_msgs.append(
-                            {
-                                "type": "function_call_output",
-                                "call_id": call_id,
-                                "output": output,
-                            }
+                            _responses_tool_output(call_id, output, tm.get("name", ""))
                         )
             elif role == "user":
                 if not _tool_continuation:
