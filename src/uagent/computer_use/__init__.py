@@ -2,6 +2,7 @@
 
 from .actions import ComputerAction, normalize_action
 from .adapters.anthropic import AnthropicComputerAdapter
+from .audit import AuditEvent, InMemoryAuditSink
 from .capability import ComputerUseCapabilityError, get_computer_use_capability
 from .policy import ComputerUsePolicy, PolicyDecision
 from .loop import run_anthropic_computer_loop
@@ -11,10 +12,12 @@ from .runtime import ComputerRuntime, execute_action
 __all__ = [
     "ComputerAction",
     "AnthropicComputerAdapter",
+    "AuditEvent",
     "ComputerActionResult",
     "ComputerRuntime",
     "ComputerUseCapabilityError",
     "ComputerUsePolicy",
+    "InMemoryAuditSink",
     "PolicyDecision",
     "Screenshot",
     "execute_action",
