@@ -19,7 +19,24 @@ def _host_confirmation_callback():
         from .. import tools
 
         getter = getattr(tools, "get_confirmation_callback", None)
-        return getter() if callable(getter) else None
+        callback = getter() if callable(getter) else None
+        if not callable(callback):
+            return None
+
+        # The host tool-policy callback uses (name, args, policy), while the
+        # Computer Runtime boundary uses (ComputerAction). Adapt explicitly.
+        from ..tools.tool_policy import policy_for
+
+        def confirm(action: Any) -> bool:
+            args = {
+                "action": action.action,
+                "coordinate": action.coordinate,
+                "text_length": len(action.text or ""),
+                "key": action.key,
+            }
+            return bool(callback("computer", args, policy_for("computer", args)))
+
+        return confirm
     except Exception:
         return None
 
