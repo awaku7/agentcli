@@ -1548,6 +1548,18 @@ def run_llm_rounds(
     if not judgment_mode:
         try:
             policy = core.get_computer_use_policy()
+            if not policy.enabled:
+                for name in (
+                    "computer_use_runtime",
+                    "computer_use_handler",
+                    "computer_use_native_tool",
+                    "computer_use_native_headers",
+                    "computer_use_native_provider",
+                ):
+                    try:
+                        setattr(core, name, None)
+                    except Exception:
+                        pass
             if policy.enabled:
                 from .computer_use.integration import (
                     install_computer_use_handler,
@@ -1555,6 +1567,15 @@ def run_llm_rounds(
                 )
 
                 try:
+                    if getattr(core, "computer_use_runtime", None) is None:
+                        from .computer_use.entrypoint_runtime import (
+                            create_runtime_from_env,
+                        )
+
+                        manager = create_runtime_from_env()
+                        if manager is not None:
+                            core.computer_use_runtime_manager = manager
+                            core.computer_use_runtime = manager.runtime
                     install_computer_use_handler(
                         core=core, provider=provider, model=depname, policy=policy
                     )

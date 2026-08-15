@@ -27,3 +27,10 @@ def test_native_preparation_clears_stale_state_for_unsupported_provider():
     assert core.computer_use_native_tool is None
     assert core.computer_use_native_headers is None
     assert core.computer_use_native_provider is None
+
+
+def test_runtime_factory_is_opt_in(monkeypatch):
+    from uagent.computer_use.entrypoint_runtime import create_runtime_from_env
+
+    monkeypatch.delenv("UAGENT_COMPUTER_USE", raising=False)
+    assert create_runtime_from_env() is None
