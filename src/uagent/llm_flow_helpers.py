@@ -560,11 +560,30 @@ def _execute_tool_calls(
                     action_items = parsed_args.get("actions")
                     if not isinstance(action_items, list):
                         action_items = [parsed_args]
-                    action_names = [
-                        str(item.get("action") or item.get("type") or "action")
-                        for item in action_items
-                        if isinstance(item, dict)
-                    ]
+                    action_names = []
+                    for item in action_items:
+                        if not isinstance(item, dict):
+                            continue
+                        action_name = str(
+                            item.get("action") or item.get("type") or "action"
+                        )
+                        if (
+                            action_name
+                            in {"click", "double_click", "right_click", "move"}
+                            and "x" in item
+                            and "y" in item
+                        ):
+                            action_name += f"@{item['x']},{item['y']}"
+                        elif action_name in {"type", "keypress"}:
+                            if action_name == "type":
+                                action_name += (
+                                    f"(len={len(str(item.get('text') or ''))})"
+                                )
+                            else:
+                                action_name += (
+                                    f"({item.get('key') or item.get('keys') or ''})"
+                                )
+                        action_names.append(action_name)
                     if action_names:
                         status_label += ":" + ",".join(action_names[:4])
                 core.set_status(True, status_label)
