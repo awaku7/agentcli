@@ -49,11 +49,9 @@ Tingnan ang [docs/ENVIRONMENT.md](https://github.com/awaku7/enRONclidoc.mblob/ag
 
 Computer Use ay nag-opt-in at sumusuporta sa parehong nakikitang Playwright browser runtime
 at isang desktop runtime. Kapag pinagana, ang parehong mga runtime ay ginawa at nairehistro;
-ang napiling runtime ay kinokontrol ng `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 `top` sa halip ay piliin ang desktop na runtime`
 `top`
 . Ang Runtime na mapagkukunan ay

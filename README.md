@@ -50,14 +50,7 @@ See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 Computer Use is opt-in and supports both a visible Playwright browser runtime
 and a desktop runtime. When enabled, both runtimes are created and registered;
-the selected runtime is controlled by `UAGENT_COMPUTER_ENVIRONMENT`:
-
-```bat
-set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
-```
-
-Use `desktop` to select the OS desktop runtime instead. Runtime resources are
+the BrowserRuntime is used by the existing handler API by default. Runtime resources are
 closed together on normal exit, `Ctrl-C`, and process shutdown. Set
 `UAGENT_COMPUTER_HEADLESS=1` for browser-based CI or smoke tests.
 See [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)

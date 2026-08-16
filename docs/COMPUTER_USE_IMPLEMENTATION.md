@@ -20,7 +20,7 @@ configure_computer_use(
 
 現在のエントリーポイントRuntime managerはBrowserRuntimeとDesktopRuntimeを両方生成し、
 `manager.runtimes["browser"]` / `manager.runtimes["desktop"]` として登録します。
-`UAGENT_COMPUTER_ENVIRONMENT=browser|desktop` で既定の選択Runtimeを切り替えられます。
+既存のhandler APIではBrowserRuntimeを既定Runtimeとして使用します。
 `core.computer_use_browser_runtime` と `core.computer_use_desktop_runtime` にも登録され、
 終了時には両Runtimeが解放されます。
 

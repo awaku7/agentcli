@@ -48,11 +48,9 @@ Angalia. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs
 
 Matumizi ya Kompyuta ni ya kuchagua kuingia na yanatumia Playwright wakati wa utekelezaji wa kivinjari
 na muda wa matumizi wa eneo-kazi. Inapowashwa, saa zote mbili za utekelezaji huundwa na kusajiliwa;
-muda wa utekelezaji uliochaguliwa unadhibitiwa na `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 weka UAGENT_COMPUTER_USE=1
-weka UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 endesha desktop

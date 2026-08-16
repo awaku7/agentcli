@@ -53,11 +53,9 @@ Xem [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 Sử dụng máy tính được chọn tham gia và hỗ trợ cả thời gian chạy trình duyệt Playwright hiển thị
 và thời gian chạy trên máy tính để bàn. Khi được bật, cả hai thời gian chạy đều được tạo và đăng ký;
-thời gian chạy đã chọn được kiểm soát bởi `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 Sử dụng `desktop` để chọn thời gian chạy máy tính để bàn của hệ điều hành thay thế. Các tài nguyên thời gian chạy

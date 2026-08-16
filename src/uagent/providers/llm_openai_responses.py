@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import base64
 import json
+import os
+import sys
 
 from typing import Any, Optional
 
@@ -44,18 +46,10 @@ def _responses_tool_output(
     call_id: str, content: Any, tool_name: str, core: Any = None
 ) -> dict[str, Any]:
     """Convert a normalized tool result to a Responses input item."""
-    # A local runtime exposes ``computer`` as a normal function tool.  Only
-    # provider-native computer calls may use the Responses computer output
-    # item; sending that item for a local function call causes a 400 error.
-    if (
-        tool_name not in {"computer", "computer_use_preview"}
-        or getattr(core, "computer_use_runtime", None) is not None
-    ):
-        return {
-            "type": "function_call_output",
-            "call_id": call_id,
-            "output": as_str(content),
-        }
+    # A local runtime exposes ``computer`` as a normal function tool. Native
+    # Responses computer calls are identified by the native tool metadata,
+    # not by whether a local runtime has already been created.
+    native_active = bool(getattr(core, "computer_use_native_active", False))
     try:
         payload = json.loads(content) if isinstance(content, str) else content
     except Exception:
@@ -63,6 +57,18 @@ def _responses_tool_output(
     candidates = payload.get("results", []) if isinstance(payload, dict) else []
     if not candidates and isinstance(payload, dict):
         candidates = [payload]
+    has_screenshot = any(
+        isinstance(item, dict) and item.get("screenshot_data") for item in candidates
+    )
+    is_native_computer = (
+        tool_name in {"computer", "computer_use_preview"} and native_active
+    ) or (not tool_name and native_active)
+    if not is_native_computer:
+        return {
+            "type": "function_call_output",
+            "call_id": call_id,
+            "output": as_str(content),
+        }
     screenshot = next(
         (item for item in candidates if item.get("screenshot_data")), None
     )
@@ -85,6 +91,24 @@ def _responses_tool_output(
                 )
         except Exception:
             pass
+    if (os.environ.get("UAGENT_DEBUG_COMPUTER") or "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        image_url = output.get("image_url")
+        print(
+            "[computer-debug] "
+            f"tool_name={tool_name!r} native={is_native_computer} "
+            f"native_active={native_active} has_screenshot={has_screenshot} "
+            f"screenshot_data_len={sum(len(str(item.get('screenshot_data') or '')) for item in candidates if isinstance(item, dict))} "
+            f"output_keys={sorted(output.keys())} "
+            f"image_url_present={bool(image_url)} "
+            f"image_url_len={len(str(image_url or ''))}",
+            file=sys.stderr,
+            flush=True,
+        )
     return {"type": "computer_call_output", "call_id": call_id, "output": output}
 
 
@@ -382,7 +406,16 @@ def build_responses_request(
                     or {"type": "object", "properties": {}},
                 }
             )
-        if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+        native_active = bool(
+            getattr(core, "computer_use_native_active", False)
+            if core is not None
+            else False
+        )
+        if (
+            core is not None
+            and getattr(core, "computer_use_runtime", None) is not None
+            and not native_active
+        ):
             from ..computer_use.native import local_computer_tool_spec
 
             if not any(
@@ -398,13 +431,17 @@ def build_responses_request(
             else None
         )
         if (
-            getattr(core, "computer_use_runtime", None) is None
+            (getattr(core, "computer_use_runtime", None) is None or native_active)
             and provider
             in {"openai", "azure", "azure-openai", "azure_foundry", "azure-foundry"}
             and isinstance(native_tool, dict)
             and native_tool.get("type") in {"computer", "computer_use_preview"}
         ):
             flat_tools.append(dict(native_tool))
+            try:
+                core.computer_use_native_active = True
+            except Exception:
+                pass
         req_tools = flat_tools
 
     return instructions_str, input_msgs, req_tools

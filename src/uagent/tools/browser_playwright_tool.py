@@ -73,6 +73,7 @@ ACTION_ENUM = [
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
+    "computer_use_conflict": True,
     "type": "function",
     "external_data": True,
     "tool_genre": "basic",

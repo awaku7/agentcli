@@ -16,6 +16,16 @@ MODES = {
 
 
 def main():
+    if (os.environ.get("UAGENT_DEBUG_FAULTHANDLER") or "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        import faulthandler
+
+        faulthandler.dump_traceback_later(10, repeat=True)
+
     mode = "cli"
     args = sys.argv[1:]
     if args and args[0] in MODES:

@@ -50,11 +50,9 @@ Lihat [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/EN
 
 Computer Use ikut serta dan mendukung Playwright runtime browser yang terlihat
 dan runtime desktop. Bila diaktifkan, kedua runtime akan dibuat dan didaftarkan;
-runtime yang dipilih dikontrol oleh `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 Gunakan `desktop` untuk memilih runtime desktop OS. Runtime sumber daya

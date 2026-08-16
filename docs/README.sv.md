@@ -47,11 +47,9 @@ Se \[docs/ENVIRONMENT.md\](https://github.com/awadocku7/agentincli/environment/e
 
 Datoranvändning är opt-in och stöder både en synlig Playwright webbläsarruntime
 och en skrivbordskörning. När det är aktiverat skapas och registreras båda körtiderna;
-den valda körtiden styrs av `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-ställ in UAGENT_COMPUTER_ENVIRONMENT=webbläsaren
 ``
  för att välja operativsystemet körtid för skrivbordet istället. Körtidsresurser
 stängs samman vid normal avslutning, `Ctrl-C` och processavstängning. Ställ in

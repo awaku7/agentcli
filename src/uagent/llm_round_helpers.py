@@ -470,10 +470,13 @@ def _call_openai_azure_round(
                     _all_tools: list[dict[str, Any]] = []
                     try:
                         from .tools._genre_control_util import _find_tool_modules
+                        from .tools import is_computer_use_conflict
 
                         for _mname, _mod in _find_tool_modules():
                             _spec = getattr(_mod, "TOOL_SPEC", None)
                             if not isinstance(_spec, dict):
+                                continue
+                            if is_computer_use_conflict(_spec):
                                 continue
                             _fn = _spec.get("function", {})
                             if not isinstance(_fn, dict):

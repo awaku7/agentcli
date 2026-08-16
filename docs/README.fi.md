@@ -47,11 +47,9 @@ Katso [docs/ENVIRONMENT.md](https://github.com/awaku7/agent/agentcliment/ENVIRON
 
 Computer Use on valinnainen ja tukee sekä näkyvää Playwright-selaimen suoritusaikaa
 että työpöydän suoritusaikaa. Kun tämä on käytössä, molemmat suoritusajat luodaan ja rekisteröidään;
-valittua suoritusaikaa ohjaa `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=selain sen sijaan. Runtime resurssit
 suljetaan yhdessä normaalin poistumisen, `Ctrl-C` ja prosessin sulkemisen yhteydessä. Aseta
 `UAGENT_COMPUTER_HEADLESS=1` selainpohjaisille CI- tai savutesteille.
 Katso [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)

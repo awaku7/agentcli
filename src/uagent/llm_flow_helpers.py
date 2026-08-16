@@ -661,6 +661,38 @@ def _execute_tool_calls(
         except Exception:
             parsed_tool_result = None
         if isinstance(parsed_tool_result, dict):
+            # Responses API can re-capture the current Computer Use screen
+            # from the bound runtime. Do not accumulate large base64 screenshots
+            # in the conversation history for OpenAI/Azure continuations.
+            provider_name = ""
+            try:
+                provider_name = str(
+                    (getattr(core, "responses_state", {}) or {}).get("provider", "")
+                ).lower()
+            except Exception:
+                pass
+            if name in {"computer", "computer_use_preview"} and provider_name in {
+                "openai",
+                "azure",
+                "azure-openai",
+                "azure_foundry",
+                "azure-foundry",
+            }:
+
+                def _strip_computer_images(value):
+                    if isinstance(value, dict):
+                        return {
+                            k: _strip_computer_images(v)
+                            for k, v in value.items()
+                            if k not in {"screenshot_data", "screenshot_media_type"}
+                        }
+                    if isinstance(value, list):
+                        return [_strip_computer_images(v) for v in value]
+                    return value
+
+                parsed_tool_result = _strip_computer_images(parsed_tool_result)
+                tool_msg["content"] = json.dumps(parsed_tool_result, ensure_ascii=False)
+
             data = parsed_tool_result.get("data")
             if isinstance(data, dict):
                 attachments = data.get("attachments")

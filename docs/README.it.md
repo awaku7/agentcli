@@ -50,11 +50,9 @@ Vedi [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENV
 
 Computer Use è attivabile e supporta sia un runtime del browser Playwright visibile
 sia un runtime del desktop. Quando abilitato, entrambi i runtime vengono creati e registrati;
-il runtime selezionato è controllato da `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 Utilizzare `desktop` per selezionare invece il runtime del desktop del sistema operativo. Le risorse Runtime vengono

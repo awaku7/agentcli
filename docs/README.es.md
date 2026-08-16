@@ -50,11 +50,9 @@ Consulte [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs
 
 Computer Use es opcional y admite tanto un tiempo de ejecución de navegador Playwright
 visible como un tiempo de ejecución de escritorio. Cuando está habilitado, ambos tiempos de ejecución se crean y registran;
-el tiempo de ejecución seleccionado está controlado por `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 Use `desktop` para seleccionar el tiempo de ejecución del escritorio del sistema operativo. Runtime recursos están

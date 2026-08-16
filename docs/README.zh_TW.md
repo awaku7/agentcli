@@ -54,7 +54,6 @@ uag
 
 計算機使用是可選的，並且支援可見的Playwright 瀏覽器運行時
 和桌面運行時。啟用後，將建立並註冊兩個執行時間；
-所選運行時由 `UAGENT_COMPUTER_ENVIRONMENT` 控制：
 
 ```bat
 set UAGENT_COMPUTER_USE=1

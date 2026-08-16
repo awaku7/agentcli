@@ -78,6 +78,7 @@ else:
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "computer_use_conflict": True,
     "type": "function",
     "tool_genre": "exec",
     "tool_level": -1,

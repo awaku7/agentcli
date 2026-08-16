@@ -16,6 +16,7 @@ _ = make_tool_translator(__file__)
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "computer_use_conflict": True,
     "type": "function",
     "tool_genre": "devel",
     "function": {

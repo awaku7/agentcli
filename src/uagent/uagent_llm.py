@@ -1295,8 +1295,13 @@ def _run_one_round(
         responses_output_items = getattr(core, "_last_responses_output_items", None)
 
         # --- Interrupt check (OpenAI/Azure) ---
+        confirmation_just_completed = bool(
+            getattr(core, "computer_use_confirmation_just_completed", False)
+        )
+        if confirmation_just_completed:
+            core.computer_use_confirmation_just_completed = False
         with _core_module.interrupt_lock:
-            if _core_module.interrupt_requested:
+            if _core_module.interrupt_requested and not confirmation_just_completed:
                 _core_module.interrupt_requested = False
                 _inject_stop_prompt(messages, core)
                 return (
@@ -1521,55 +1526,91 @@ def _observed_llm_rounds(fn: Any) -> Any:
 
 def _maybe_navigate_computer_runtime(
     messages: list[dict[str, Any]], core: Any, policy: Any
-) -> None:
-    """Navigate the existing native BrowserRuntime for an explicit user URL."""
+) -> bool:
+    from .runtime.logging_setup import log_event
+
+    def debug(message: str) -> None:
+        if (env_get("UAGENT_DEBUG_COMPUTER", "") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }:
+            print(f"[computer-debug] {message}", flush=True)
+
+    log_event("computer.explicit_navigation.start")
+    debug("explicit navigation: entered")
+    """Do not navigate from the LLM thread.
+
+    Navigation, including an initial or mid-task URL change, must be returned
+    by the provider as a Computer Use ``navigate`` action and executed by the
+    selected Runtime in the normal action loop.
+    """
     runtime = getattr(core, "computer_use_runtime", None)
-    navigate = getattr(runtime, "execute", None) if runtime is not None else None
-    if not callable(navigate):
-        return
+    if runtime is None:
+        log_event("computer.explicit_navigation.no_runtime")
+        return False
     latest = next(
         (
-            m
-            for m in reversed(messages)
-            if isinstance(m, dict) and m.get("role") == "user"
+            item
+            for item in reversed(messages)
+            if isinstance(item, dict) and item.get("role") == "user"
         ),
         None,
     )
-    text = str((latest or {}).get("content") or "")
-    urls = re.findall(r"https?://[^\s<>\"']+", text)
+    content = (latest or {}).get("content")
+    if isinstance(content, list):
+        text = " ".join(
+            str(part.get("text", "")) if isinstance(part, dict) else str(part)
+            for part in content
+        )
+    else:
+        text = str(content or "")
+    urls = re.findall(r"https?://[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]+", text)
     if not urls:
-        return
-    visited = getattr(core, "computer_use_navigated_urls", None)
-    if not isinstance(visited, set):
-        visited = set()
-        core.computer_use_navigated_urls = visited
+        log_event("computer.explicit_navigation.no_url")
+        return False
+    url = urls[0].rstrip(".,。、;；)）]")
     from .computer_use.actions import ComputerAction
+    from .computer_use.integration import _host_confirmation_callback
     from .computer_use.runtime import execute_action
 
-    for raw_url in urls:
-        url = raw_url.rstrip(".,。、;；)）]")
-        if url in visited:
-            continue
-        action = ComputerAction(
-            action_id=f"navigate:{len(visited)}",
+    confirmation = getattr(core, "computer_use_confirmation", None)
+    if not callable(confirmation):
+        confirmation = _host_confirmation_callback(core)
+
+    debug(f"explicit navigation: executing navigate url={url}")
+    log_event("computer.explicit_navigation.action_start", url=url)
+    result = execute_action(
+        ComputerAction(
+            action_id="explicit:navigate",
             action="navigate",
             provider="computer",
             text=url,
+        ),
+        policy=policy,
+        runtime=runtime,
+        confirm=confirmation,
+        audit=None,
+        session_id="computer-use",
+        domain=urlparse(url).hostname,
+    )
+    debug(
+        "explicit navigation: action result "
+        f"success={result.success} error={result.error!r}"
+    )
+    if not result.success:
+        log_event(
+            "computer.explicit_navigation.failed",
+            error=result.error or "navigation failed",
         )
-        confirmation = getattr(core, "computer_use_confirmation", None)
-        result = execute_action(
-            action,
-            policy=policy,
-            runtime=runtime,
-            confirm=confirmation,
-            audit=None,
-            session_id="computer-use",
-            domain=urlparse(url).hostname,
-        )
-        visited.add(url)
-        if not result.success:
-            core.computer_use_diagnostic = result.error or "navigation failed"
-        break
+        core.computer_use_diagnostic = result.error or "navigation failed"
+        # Do not fall back to model-generated Ctrl+L/type/Enter actions after
+        # an explicit bootstrap navigation failure.
+        return True
+    log_event("computer.explicit_navigation.done", url=url)
+    debug("explicit navigation: execute_action returned success")
+    return True
 
 
 @_observed_llm_rounds
@@ -1598,6 +1639,8 @@ def run_llm_rounds(
         core.responses_state["provider"] = provider
         core.responses_state["model"] = depname
 
+    direct_navigation_done = False
+
     # Install the shared Computer Use callback before the first round.
     # A missing Runtime is a diagnosable capability failure, not a process crash.
     if not judgment_mode:
@@ -1625,11 +1668,65 @@ def run_llm_rounds(
                     install_computer_use_handler(
                         core=core, provider=provider, model=depname, policy=policy
                     )
-                    _maybe_navigate_computer_runtime(messages, core, policy)
                     from .computer_use.native import prepare_native_computer_use
 
                     prepare_native_computer_use(
                         core=core, provider=provider, model=depname
+                    )
+                    # Create the selected runtime before applying an explicit
+                    # URL. Native Computer Use must operate on the visible
+                    # desktop surface, not a detached browser page.
+                    current_runtime = getattr(core, "computer_use_runtime", None)
+                    runtime_closed = False
+                    page = getattr(current_runtime, "page", None)
+                    is_closed = getattr(page, "is_closed", None)
+                    if callable(is_closed):
+                        try:
+                            runtime_closed = bool(is_closed())
+                        except Exception:
+                            runtime_closed = True
+                    if current_runtime is None or runtime_closed:
+                        old_manager = getattr(
+                            core, "computer_use_runtime_manager", None
+                        )
+                        if old_manager is not None and callable(
+                            getattr(old_manager, "close", None)
+                        ):
+                            old_manager.close()
+                        core.computer_use_runtime = None
+                        from .computer_use.entrypoint_runtime import (
+                            create_runtime_from_env,
+                        )
+                        from .computer_use.integration import _register_runtime_manager
+
+                        manager = create_runtime_from_env(
+                            force=True,
+                            provider=provider,
+                            environment=(
+                                getattr(
+                                    core,
+                                    "computer_use_environment",
+                                    (
+                                        "browser"
+                                        if provider
+                                        in {
+                                            "openai",
+                                            "azure",
+                                            "azure-openai",
+                                            "azure_foundry",
+                                            "azure-foundry",
+                                            "gemini",
+                                            "vertexai",
+                                        }
+                                        else "desktop"
+                                    ),
+                                )
+                            ),
+                        )
+                        if manager is not None:
+                            _register_runtime_manager(core, manager)
+                    direct_navigation_done = _maybe_navigate_computer_runtime(
+                        messages, core, policy
                     )
                 except RuntimeError as exc:
                     core.computer_use_diagnostic = str(exc)
@@ -1638,6 +1735,24 @@ def run_llm_rounds(
                     )
         except AttributeError:
             pass
+
+    if direct_navigation_done:
+        diagnostic = str(getattr(core, "computer_use_diagnostic", "") or "")
+        if (env_get("UAGENT_DEBUG_COMPUTER", "") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }:
+            print(
+                "[computer-debug] run_llm_rounds: direct navigation return", flush=True
+            )
+        # The fast path returns before the normal LLM-loop finally block, so
+        # release BUSY state explicitly.
+        core.set_status(False, "")
+        if diagnostic:
+            return f"ブラウザーを開けませんでした: {diagnostic}"
+        return "ブラウザーを開きました。"
 
     max_tool_rounds = 200
     round_count = 0

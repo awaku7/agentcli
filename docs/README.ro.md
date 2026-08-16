@@ -48,11 +48,9 @@ Consultați \[docs/ENVIRONMENT.md\](https://github.com/awaku7/RO/maindoc. variab
 
 Utilizarea computerului este înscrisă și acceptă atât un timp de rulare vizibil al browserului Playwright
 , cât și un timp de rulare pentru desktop. Când sunt activate, ambele runtime sunt create și înregistrate;
-timpul de execuție selectat este controlat de `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 `````
@@ -61,7 +59,6 @@ set UAGENT_COMPUTER_ENVIRONMENT=browser
 
 
 ```bat
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ````
 
 ```Use. Resursele de rulare sunt

@@ -276,7 +276,8 @@ last_reasoning_label = ""
 
 # --- Interrupt (c-key) ---
 interrupt_requested = False
-"""Set True when user presses 'c' during LLM streaming."""
+# True while the CLI owns stdin for normal/user confirmation input.
+input_prompt_active = False
 
 interrupt_lock = threading.Lock()
 
@@ -295,18 +296,24 @@ auto_pilot_goal: str = ""
 
 
 def _check_key_win() -> None:
-    """Check cancellation keys on Windows (msvcrt, non-blocking)."""
+    """Check dedicated function keys without consuming normal text input."""
+    with human_ask_lock:
+        if human_ask_active or input_prompt_active or not status_busy:
+            return
     try:
         import msvcrt  # type: ignore
 
-        if msvcrt.kbhit():
-            key = msvcrt.getch()
-            if key in (b"c", b"C"):
-                with interrupt_lock:
+        if not msvcrt.kbhit():
+            return
+        key = msvcrt.getch()
+        if key in (b"\x00", b"\xe0") and msvcrt.kbhit():
+            scan = msvcrt.getch()
+            with interrupt_lock:
+                if scan == b"\x86":  # F12
                     global interrupt_requested
                     interrupt_requested = True
-            elif key in (b"x", b"X"):
-                with auto_pilot_exit_lock:
+            with auto_pilot_exit_lock:
+                if scan == b"\x85":  # F11
                     global auto_pilot_exit_requested
                     auto_pilot_exit_requested = True
     except Exception:
@@ -314,12 +321,10 @@ def _check_key_win() -> None:
 
 
 def _check_key_posix() -> None:
-    """Check cancellation keys on POSIX (termios/tty, non-blocking).
-
-    During auto-pilot, the monitor also remains active between LLM rounds so
-    ``x`` is not lost while the UI briefly returns to IDLE.
-    """
-    # Only works on a real TTY; skip if stdin is piped/redirected
+    """Check F11/F12 terminal escape sequences without consuming text."""
+    with human_ask_lock:
+        if human_ask_active or input_prompt_active or not status_busy:
+            return
     if not sys.stdin.isatty():
         return
     try:
@@ -330,24 +335,28 @@ def _check_key_posix() -> None:
         r, _, _ = select.select([sys.stdin], [], [], 0)
         if not r:
             return
-
         fd = sys.stdin.fileno()
         old = termios.tcgetattr(fd)
         try:
             tty.setraw(fd)
-            ch = sys.stdin.buffer.read(1)
+            data = sys.stdin.buffer.read(1)
+            if data == b"\x1b":
+                for _ in range(4):
+                    ready, _, _ = select.select([sys.stdin], [], [], 0.02)
+                    if not ready:
+                        break
+                    data += sys.stdin.buffer.read(1)
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
-        if ch:
-            if ch.lower() == b"c":
-                with interrupt_lock:
-                    global interrupt_requested
-                    interrupt_requested = True
-            elif ch.lower() == b"x":
-                with auto_pilot_exit_lock:
-                    global auto_pilot_exit_requested
-                    auto_pilot_exit_requested = True
+        with interrupt_lock:
+            if data == b"\x1b[24~":  # F12
+                global interrupt_requested
+                interrupt_requested = True
+        with auto_pilot_exit_lock:
+            if data == b"\x1b[23~":  # F11
+                global auto_pilot_exit_requested
+                auto_pilot_exit_requested = True
     except Exception:
         pass
 
@@ -2088,6 +2097,7 @@ SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
 - For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
 - If you need additional information or confirmation from the user, use the human_ask tool.
+- For Computer Use browser tasks, keep using the currently visible browser session. When the user asks to search, enter only the new search query in the page's search field; do not prepend or concatenate the current URL. Use the address bar only when the user explicitly asks to open a URL.
 - When handling relative date expressions, call get_current_time to reference the current time.
 - Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.
 - Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).

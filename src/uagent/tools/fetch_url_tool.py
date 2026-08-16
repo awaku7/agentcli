@@ -32,6 +32,7 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 BUSY_LABEL = True
 
 TOOL_SPEC: dict[str, Any] = {
+    "computer_use_conflict": True,
     "external_data": True,
     "type": "function",
     "x_parallel_safe": True,

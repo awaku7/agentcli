@@ -50,11 +50,9 @@ Tüm ortamlar için [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blo
 
 Bilgisayar Kullanımı isteğe bağlıdır ve hem görünür bir Playwright tarayıcı çalışma zamanını
 hem de bir masaüstü çalışma zamanını destekler. Etkinleştirildiğinde, her iki çalışma zamanı da oluşturulur ve kaydedilir;
-seçilen çalışma zamanı `UAGENT_COMPUTER_ENVIRONMENT` tarafından kontrol edilir:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=tarayıcı
 ```
 
 Bunun yerine işletim sistemi masaüstü çalışma zamanını seçmek için `masaüstü'nü kullanın. Çalışma zamanı kaynakları normal çıkışta, "Ctrl-C"de ve işlem kapatıldığında birlikte kapatılır. Tarayıcı tabanlı CI veya duman testleri için `UAGENT_COMPUTER_HEADLESS=1\` ayarlayın.

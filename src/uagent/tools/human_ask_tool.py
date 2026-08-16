@@ -227,6 +227,11 @@ def run_tool(args: dict[str, Any]) -> str:
         try:
             # stdin_loop/GUI sends the user input to local_q
             user_reply = local_q.get() or ""
+            # The answer has been received. Release stdin ownership before
+            # post-processing the reply so the CLI cannot spin waiting for
+            # human_ask to finish its JSON cleanup.
+            with cb.human_ask_lock:
+                cb.human_ask_set_active(False)
         finally:
             stop_keepalive.set()
             try:

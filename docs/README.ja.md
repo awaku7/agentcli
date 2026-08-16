@@ -50,11 +50,9 @@ uag
 
 Computer Use はオプトインであり、表示される Playwright ブラウザ ランタイム
 とデスクトップ ランタイムの両方をサポートします。有効にすると、両方のランタイムが作成および登録されます。
-選択したランタイムは `UAGENT_COMPUTER_ENVIRONMENT` によって制御されます:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 代わりに `desktop` を使用して OS デスクトップ ランタイムを選択します。 Runtime リソースは、通常の終了、`Ctrl-C`、およびプロセスのシャットダウン時に一緒に閉じられます。ブラウザベースの CI またはスモーク テストの場合は、

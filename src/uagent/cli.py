@@ -988,6 +988,7 @@ def stdin_loop() -> None:
                 prompt = getattr(core, "get_prompt", lambda: "User> ")()
 
                 # Read input
+                core.input_prompt_active = True
                 if is_reply:
                     line = _prompt_toolkit_input("[REPLY] > ", reply=True)
                     if line is None:
@@ -1243,6 +1244,7 @@ def stdin_loop() -> None:
         if _skip:
             continue
 
+        core.input_prompt_active = False
         line = line.rstrip("\n")
 
         # Response processing for human_ask

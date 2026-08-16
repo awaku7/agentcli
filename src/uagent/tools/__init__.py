@@ -1066,6 +1066,25 @@ def log_tools_being_sent(
             print(f"  {i:02d}. {name}", flush=True)
 
 
+def _computer_use_is_enabled() -> bool:
+    """Return the shared Computer Use enablement flag for tool filtering."""
+    return (env_get("UAGENT_COMPUTER_USE", "1") or "1").strip().lower() not in {
+        "0",
+        "false",
+        "no",
+        "off",
+    }
+
+
+def is_computer_use_conflict(spec: dict[str, Any] | None) -> bool:
+    """Whether a TOOL_SPEC must be hidden while Computer Use is enabled."""
+    return bool(
+        _computer_use_is_enabled()
+        and isinstance(spec, dict)
+        and spec.get("computer_use_conflict") is True
+    )
+
+
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
@@ -1086,6 +1105,8 @@ def get_tool_specs() -> list[dict[str, Any]]:
 
     clean_specs: list[dict[str, Any]] = []
     for spec in TOOL_SPECS:
+        if is_computer_use_conflict(spec):
+            continue
         # Skip native-mode exclusions (management tools, hidden tools)
         if _native_exclusions:
             _fn = spec.get("function", {})
@@ -1103,6 +1124,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("tool_level", None)
         spec_copy.pop("load_order", None)
         spec_copy.pop("tool_genre", None)
+        spec_copy.pop("computer_use_conflict", None)
         spec_copy.pop("_single_load_seq", None)
         # Remove top-level extended fields (x_* prefixed) that strict OpenAI-compatible
         # APIs (e.g. HuggingFace router) reject.
@@ -1406,6 +1428,8 @@ def get_tool_catalog(
             for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
                 if not isinstance(spec, dict):
+                    continue
+                if is_computer_use_conflict(spec):
                     continue
                 fn = spec.get("function") or {}
                 if not isinstance(fn, dict):

@@ -50,11 +50,9 @@ Siehe [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/EN
 
 Computer Use ist Opt-in und unterstützt sowohl eine sichtbare Playwright Browser-Laufzeitumgebung
 als auch eine Desktop-Laufzeitumgebung. Wenn diese Option aktiviert ist, werden beide Laufzeiten erstellt und registriert.
-Die ausgewählte Laufzeit wird von „UAGENT_COMPUTER_ENVIRONMENT“ gesteuert:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 Verwenden Sie stattdessen „desktop“, um die Betriebssystem-Desktop-Laufzeit auszuwählen. Runtime Ressourcen werden bei normalem Beenden, „Ctrl-C“ und Herunterfahren des Prozesses geschlossen. Legen Sie

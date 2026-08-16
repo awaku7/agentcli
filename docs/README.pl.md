@@ -54,11 +54,9 @@ Zobacz [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/E
 
 Korzystanie z komputera jest opcjonalne i obsługuje zarówno widoczne środowisko wykonawcze przeglądarki Playwright
 , jak i środowisko wykonawcze komputera stacjonarnego. Po włączeniu oba środowiska wykonawcze są tworzone i rejestrowane;
-wybrane środowisko wykonawcze jest kontrolowane przez `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=przeglądarka
 ```
 
 Użyj `desktop`, aby zamiast tego wybrać środowisko wykonawcze systemu operacyjnego. Zasoby wykonawcze są

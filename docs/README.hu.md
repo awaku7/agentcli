@@ -47,11 +47,9 @@ Lásd: [docs/ENVIRONMENT.md](https://github.com/awakublo7/agent)ENVIVIMENT/docli
 
 Computer Use opcionális, és támogatja a látható Playwright böngésző futtatási környezetet
 és az asztali futási környezetet is. Ha engedélyezve van, mindkét futási idő létrejön és regisztrálásra kerül;
-a kiválasztott futásidőt az `UAGENT_COMPUTER_ENVIRONMENT` szabályozza:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=böngésző helyette. A Runtime erőforrás 
 egymásba zárva van normál kilépéskor, `Ctrl-C`, és a folyamat leállításakor. Állítsa be az 
 `UAGENT_COMPUTER_HEADLESS=1` beállítást a böngésző alapú CI- vagy füsttesztekhez.
 Az integrációs és biztonsági részletekért lásd: [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)

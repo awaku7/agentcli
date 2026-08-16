@@ -48,11 +48,9 @@ Se \[docs/ENVIRONMENT.md\](https://github.com/awadockub7/agentincli/environment/
 
 Computer Use er opt-in og understøtter både en synlig Playwright browser runtime
 og en desktop runtime. Når det er aktiveret, oprettes og registreres begge kørselstider;
-den valgte kørselstid styres af `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-indstil UAGENT_COMPUTER_ENVIRONMENT=browser
 ``U` for at vælge 'desk-køretid på skrivebordet. Runtime ressourcer
 lukkes sammen ved normal exit, `Ctrl-C` og procesnedlukning. Indstil
 `UAGENT_COMPUTER_HEADLESS=1` til browserbaserede CI- eller røgtests.

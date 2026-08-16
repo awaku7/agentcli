@@ -16,7 +16,12 @@ class BrowserRuntime:
         self.page = page
 
     def screenshot(self) -> Screenshot:
-        return Screenshot(data=self.page.screenshot(), media_type="image/png")
+        # Bound screenshot capture so a stalled renderer cannot leave the
+        # entire LLM round in BUSY indefinitely.
+        return Screenshot(
+            data=self.page.screenshot(timeout=5000),
+            media_type="image/png",
+        )
 
     def current_domain(self) -> str | None:
         url = getattr(self.page, "url", "")
@@ -41,6 +46,10 @@ class BrowserRuntime:
 
     def execute(self, action: ComputerAction) -> ComputerActionResult:
         try:
+            if action.action == "navigate":
+                from ...runtime.logging_setup import log_event
+
+                log_event("computer.runtime.navigate.start", url=action.text or "")
             if action.action != "screenshot":
                 # Make the managed page active in headed mode before input.
                 # Playwright input is page-scoped, but foregrounding prevents
@@ -53,14 +62,35 @@ class BrowserRuntime:
                 parsed = urlparse(url)
                 if parsed.scheme not in {"http", "https"} or not parsed.netloc:
                     raise ValueError("navigate requires an absolute http(s) URL")
-                self.page.goto(url, wait_until="domcontentloaded")
+                self.page.goto(
+                    # Do not wait for all page resources. Sites such as Google
+                    # can keep network activity open indefinitely; the next
+                    # Computer Use screenshot observes the rendered state.
+                    url,
+                    wait_until="commit",
+                    timeout=10000,
+                )
+                log_event("computer.runtime.navigate.goto_done", url=url)
                 self.page.bring_to_front()
+                current_url = str(getattr(self.page, "url", "") or "")
+                current = urlparse(current_url)
+                if current.scheme not in {"http", "https"} or not current.netloc:
+                    raise RuntimeError(
+                        "navigation did not leave about:blank: "
+                        f"{current_url or '<empty>'}"
+                    )
+                if current.hostname != parsed.hostname:
+                    raise RuntimeError(
+                        "navigation landed on unexpected host: "
+                        f"{current.hostname or '<empty>'}"
+                    )
                 return ComputerActionResult(
                     action_id=action.action_id,
                     success=True,
                     screenshot=self.screenshot(),
                 )
             if action.action == "screenshot":
+                log_event("computer.runtime.navigate.verified", url=current_url)
                 return ComputerActionResult(
                     action_id=action.action_id,
                     success=True,

@@ -63,6 +63,7 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         "computer_use_native_tool",
         "computer_use_native_headers",
         "computer_use_native_provider",
+        "computer_use_native_active",
     ):
         try:
             setattr(core, name, None)

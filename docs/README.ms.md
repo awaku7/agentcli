@@ -49,11 +49,9 @@ Lihat [docs/ENVIRONMENT.md](https://github.com/awaku7/agentRONclidocmblo7/agentR
 
 Computer Use ikut serta dan menyokong kedua-dua Playwright masa jalan penyemak imbas
 dan masa jalan desktop. Apabila didayakan, kedua-dua masa jalan dibuat dan didaftarkan;
-masa jalan yang dipilih dikawal oleh `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-tetapkan UAGENT_COMPUTER_ENVIRONMENT=browser
 des``top`
  sebaliknya, pilih masa jalankan desktop`
 

@@ -55,11 +55,9 @@ uag
 
 计算机使用是可选的，并且支持可见的Playwright 浏览器运行时
 和桌面运行时。启用后，将创建并注册两个运行时；
-所选运行时由 `UAGENT_COMPUTER_ENVIRONMENT` 控制：
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ````
 
 使用 `desktop` 来选择操作系统桌面运行时。运行时资源在正常退出、“Ctrl-C”和进程关闭时一起关闭。设置

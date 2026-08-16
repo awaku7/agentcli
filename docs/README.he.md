@@ -46,11 +46,9 @@ uag
 
 Computer Use מצטרף ותומך הן בזמן ריצה גלוי של הדפדפן Playwright
 והן בזמן ריצה של שולחן העבודה. כאשר מופעל, שני זמני הריצה נוצרים ונרשמים;
-זמן הריצה שנבחר נשלט על ידי `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ````bat
 set UAGENT_COMPUTER_USE=1
-הגדר UAGENT_COMPUTER_ENVIRONMENT=דפדפן
 `להשתמש בשולחן העבודה במקום הפעלה של שולחן העבודה. Runtime משאבים
 סגורים יחד ביציאה רגילה, `Ctrl-C` ובכיבוי התהליך. הגדר
 `UAGENT_COMPUTER_HEADLESS=1` עבור בדיקות CI או עשן מבוססי דפדפן.

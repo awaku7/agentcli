@@ -48,11 +48,9 @@ uag
 
 Computer Use অপ্ট-ইন করে এবং একটি দৃশ্যমান Playwright ব্রাউজার রানটাইম
 এবং একটি ডেস্কটপ রানটাইম উভয়কেই সমর্থন করে৷ সক্রিয় করা হলে, উভয় রানটাইম তৈরি এবং নিবন্ধিত হয়; 
-নির্বাচিত রানটাইম `UAGENT_COMPUTER_ENVIRONMENT` দ্বারা নিয়ন্ত্রিত হয়: 
 
 ``bat
 set UAGENT_COMPUTER_USE=1
-সেট UAGENT_COMPUTER_ENVIRONMENT=ব্রাউজার
 `Os`কে টপকে দে`সেকে ডিস্ক করতে পরিবর্তে রানটাইম। স্বাভাবিক প্রস্থান, `Ctrl-C`, এবং প্রক্রিয়া শাটডাউনে Runtime সংস্থানগুলি একসাথে বন্ধ করা হয়। ব্রাউজার-ভিত্তিক CI বা ধোঁয়া পরীক্ষার জন্য
 `UAGENT_COMPUTER_HEADLESS=1` সেট করুন। 
 একীকরণ এবং নিরাপত্তা বিশদ বিবরণের জন্য [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)

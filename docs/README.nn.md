@@ -47,8 +47,6 @@ Se [docs/ENVIRONMENT.md](ENVIRONMENT.md) for alle miljøvariabler.
 
 ## Computer Use
 
-Computer Use er valfritt og støttar ein synleg Playwright-nettlesar-Runtime og ein desktop-Runtime. Når funksjonen blir aktivert, blir begge oppretta og registrerte; valet blir gjort med `UAGENT_COMPUTER_ENVIRONMENT`.
-
 Runtime-ressursar blir frigjorde ved normal avslutning, `Ctrl-C` eller når prosessen sluttar.
 
 ## Sanntidslyd og AEC3

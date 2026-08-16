@@ -25,6 +25,8 @@ SUPPORTED_ACTIONS = frozenset(
 )
 
 _ACTION_ALIASES = {
+    "open_url": "navigate",
+    "hotkey": "keypress",
     "left_click": "click",
     "click_at": "click",
     "mouse_move": "move",

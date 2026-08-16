@@ -46,11 +46,9 @@ Viz \[docs/ENVIRONMENT.md\](https://github.com/awaku7/ENagent environment/VI pro
 
 Computer Use je přihlášeno a podporuje viditelné Playwright běhové prostředí prohlížeče
 i běhové prostředí pro stolní počítače. Když je tato možnost povolena, vytvoří se a zaregistrují obě runtime;
-vybrané runtime je řízeno `UAGENT_COMPUTER_ENVIRONMENT`:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-nastaví UAGENT_COMPUTER_ENVIRONMENT=prohlížeč
 ```
 
 Namísto toho vyberte desktop\`\`\`\`

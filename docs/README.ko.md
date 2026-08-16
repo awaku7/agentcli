@@ -50,11 +50,9 @@ uag
 
 Computer Use은 선택 사항이며 표시되는 Playwright 브라우저 런타임
 과 데스크톱 런타임을 모두 지원합니다. 활성화되면 두 런타임이 모두 생성 및 등록됩니다.
-선택한 런타임은 `UAGENT_COMPUTER_ENVIRONMENT`에 의해 제어됩니다:
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-set UAGENT_COMPUTER_ENVIRONMENT=browser
 ```
 
 대신 `desktop`을 사용하여 OS 데스크톱 런타임을 선택하세요. Runtime 리소스는
