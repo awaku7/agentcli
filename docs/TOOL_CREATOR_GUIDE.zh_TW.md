@@ -6,6 +6,17 @@
 
 ______________________________________________________________________
 
+## 目錄
+
+0. [快速開始：建立腳手架指令](#0-quick-start-scaffold-command)
+1. [工具基本結構](#1-)
+1. [建立 Python 工具](#2-python-)
+1. [建立 Rust + Python 工具](#3-creating-a-rust--python-tool)
+1. [TOOL_SPEC 參考](#4-tool_spec-reference)
+1. [國際化（i18n）](#5-internationalization-i18n)
+1. [測試與除錯](#6-testing-and-debugging)
+1. [參考範例](#7-reference-examples)
+
 ##目錄
 0\. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
 
