@@ -1,269 +1,285 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+ <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-<h1 align="center">uag - Universal AI Gateway</h1>
+<h1 Universal_Icenter —PH_2 Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Mazingira yako, uhuru wako.
-</p>
-
-<p align="center">
-  Uendeshaji wa faili / Utafutaji wa wavuti / Uundaji wa picha & uchanganuzi / PDF & Excel uchimbaji / IoT udhibiti / MCP muunganisho<br>
-  24 providers / 3 UIs / Utekelezaji wa zana Sambamba / Agent Skills sokoni
+ <b>U</b>zima <b>A</b>I <b>G</b>ateway — Mazingira yako, uhuru wako.
 </p>
 
 <p align="center">
-  <a href="https://github.com/awaku7/agentcli">GitHub</a>
-  ·
-  <a href="https://pypi.org/project/uag/">PyPI</a>
-  ·
-  <a href="README.translations.md">Read this in your language</a>
+ Utendaji wa faili / Utafutaji wa Wavuti / Utoaji wa picha na uchanganuzi / PDF_T_1br / Udhibiti wa faili / PDF_T_1 Watoa huduma 24 / UI 3 / Utekelezaji wa zana Sambamba / Soko la Ujuzi wa Mawakala
+</p>
+
+<p align="center">
+ <a href="https://github.com/awaku7/agentcli">GitHub</a>
+ ·
+ <a href="https://py/Pypi.org"<a href="https://py/Pypi.org" ·
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Soma hili katika lugha yako</a>
 </p>
 
 ______________________________________________________________________
 
-##Kwanini uag?
+## Kwa nini uag?
 
-**Jiepushe na kufuli kwa muuzaji.** Wasaidizi wengi wa AI hukufungamanisha na mtoa huduma mahususi au huduma ya wingu. uag ni tofauti.
+**Jiepushe na kufuli kwa muuzaji.** Wasaidizi wengi wa AI hukuunganisha na mtoa huduma mahususi au huduma ya wingu. uag ni tofauti.
 
-- \*\* Huendesha ndani \*\* kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
-- **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 229**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **130 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
-- **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
-- **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jamii kutoka sokoni. Panua uag bila mwisho.
+- **Inaendeshwa karibu nawe** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu API unazopiga).
+- **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... Watoa huduma 24, zote zinapatikana kwa kutumia kiolesura kimoja. Badilisha kati yao kwa kusanidi upya vigezo vya mazingira — hakuna kusakinisha tena, hakuna uhamishaji.
+- **zana 222**: Faili I/O, utafutaji wa wavuti, utengenezaji wa picha, Gmail, BLE kuchanganua kifaa, MCP muunganisho wa seva — **130 zimewekwa alama sawia-salama** (hadi AG 8 kutekelezwa kwa wakati mmoja kupitia mtandao wa URKENT_PARO, URKENT_WORKERS). LLM inapopiga simu za zana nyingi kwa wakati mmoja, uag huzilinganisha kiotomatiki.
+- **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, kiolesura chochote.
+- **IoT tayari**: SwitchBot, ECHONET Lite, Matter, UPnP — dhibiti vifaa vyako vya nyumbani kupitia AI.
+- **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jumuiya kutoka sokoni. Ongeza uag bila kikomo.
 
-uag ni **msaidizi wako wa AI kwa masharti yako**. Haijafungwa kwa mtoa huduma, haijafungwa kwenye kiolesura, haijafungwa kwenye jukwaa.
+uag ni **msaidizi wako wa AI kwa masharti yako**. Haijafungamana na mtoa huduma, haijafungwa kwenye kiolesura, haijafungwa kwenye jukwaa.
 
-## Anza Haraka
+## Anza kwa Haraka
 
 ```bash
 pip install uag
 uag
 ```
 
-Katika uzinduzi wa kwanza, mchawi wa kusanidi hukutembeza kupitia usanidi wa mtoa huduma.
-Angalia [docs/ENVIRONMENT.md](ENVIRONMENT.md) kwa anuwai zote za mazingira.
+Katika uzinduzi wa kwanza, mchawi wa usanidi hukupitisha kwenye usanidi wa mtoa huduma.
+Angalia. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) kwa anuwai zote za mazingira.
 
-## Vipengele
+## Matumizi ya Kompyuta
+
+Matumizi ya Kompyuta ni ya kuchagua kuingia na yanatumia Playwright wakati wa utekelezaji wa kivinjari
+na muda wa matumizi wa eneo-kazi. Inapowashwa, saa zote mbili za utekelezaji huundwa na kusajiliwa;
+muda wa utekelezaji uliochaguliwa unadhibitiwa na `UAGENT_COMPUTER_ENVIRONMENT`:
+
+```bat
+weka UAGENT_COMPUTER_USE=1
+weka UAGENT_COMPUTER_ENVIRONMENT=browser
+```
+
+endesha desktop
+
+````
+ juu ya eneo-kazi. Rasilimali za muda 
+hufungwa pamoja wakati wa kutoka kwa kawaida, `Ctrl-C`, na kuzima kwa mchakato. Weka
+`UAGENT_COMPUTER_HEADLESS=1` kwa majaribio ya CI au moshi kulingana na kivinjari.
+Angalia [hati/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)
+kwa ujumuishaji na maelezo ya usalama.
+
+## Sauti ya Wakati Halisi na AEC3
+
+Modi ya sauti ya wakati halisi inaweza kutumia OpenAI Wakati Halisi, Azure OpenAI GPT Wakati Halisi, xAI Grok Sauti API, Google Gemini Multimodal Live API, na Sonic Inayotumia maikrofoni na Noduva ya Amazon na Noduck kamili ya Amazon. Mandhari ya nyuma ya `pywebrtc-audio` AEC3 inayohitajika husakinishwa kiotomatiki, na SDK ya hiari ya Bedrock ya kutiririsha njia mbili itasakinishwa kiotomatiki tu wakati mtoa huduma wa Bedrock amechaguliwa:
+
+``` bash
+python scheck.py wakati halisi
+````
+
+kupokea kipaza sauti kwa mkono (`kipaza sauti cha AEC3) na kupokea sauti ya sauti. mzungumzaji (`mbali\`) ili msaidizi aweze kusikiliza anapozungumza. Washa uchunguzi unapochunguza maswala ya sauti pekee:
+
+```bat
+weka UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Upigaji simu wa Utendaji Wakati Halisi
+
+\_\_Uunganisho wa Usalama wa Muda halisi. Adapta ya sasa ya wakati halisi hufichua kiotomatiki `get_current_time` ya kusoma tu. Zana haribifu na vidhibiti vya kifaa havifichuliwi bila orodha ya wazi ya ruhusa na mtiririko wa uthibitishaji. Grok wakati halisi hutumia adapta tofauti na haitumii njia hii mahususi ya kupiga simu ya OpenAI.
+
+## Sifa
 
 ### 🧠 Usanifu wa Watoa Huduma nyingi
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita ZINGA / AIbaba / AIbaba Deep Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Pamoja AI / Vercel AI Gateway
+Watoa huduma wote wanashiriki seti sawa ya zana na kiolesura. Badili kwa kuweka `UAGENT_PROVIDER` — hakuna mabadiliko ya msimbo, hakuna usakinishaji tofauti.
 
-Watoa huduma wote wanashiriki zana sawa na kiolesura. Badili kwa kuweka `UAGENT_PROVIDER` — hakuna mabadiliko ya msimbo, hakuna usakinishaji tofauti.
+#### Ollama na llama.cpp
 
+Ollama na llama.cpp ni watoa huduma tofauti. Ollama hutumia huduma yake mwenyewe na usimamizi wa kielelezo, huku `llama.cpp` inaunganishwa na `llama-server` OpenAI- sehemu ya mwisho inayooana:
+
+```bash
+# Ollama
+UAGENT_PROVIDER=ollama
+UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
+UAGENT_OLLAMA_DEPNAME=llama3.1
+# llama.cpp / llama-server
+UAGENT_PROVIDER=llama_cpp
+UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
+UAGENT_LLAMA_CPP_DEPNAME=local-model
+UAGENT_LLAMA_CPP_API_KEY``matumizi
+ anatumia `map
+. Njia inayolingana na ukamilishaji. Weka `UAGENT_RESPONSES=0` isipokuwa seva mbadala inayooana haijasanidiwa.
 ### ⚡ Utekelezaji wa Zana Sambamba
-
-Wakati LLM inaomba zana nyingi kwa wakati mmoja, uag **inazilinganisha kiotomatiki**.
-Zana 130 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` (nyuzi 8 kwa chaguomsingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
-
-**Mfano**: Uliza "Angalia hali ya hewa katika herufi kubwa za Nordic" → Mioto ya LLM `search_web` × nchi 5 → utafutaji wote 5 unakwenda sambamba → matokeo yaliyokusanywa katika kundi moja.
-
-Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafsiri, hoja za DB, n.k.) zimesawazishwa kwa ukali.
-
-### 🧩 Mfumo wa programu-jalizi (unaooana na Claude Code)
-
-uagent hutekeleza mfumo wa programu-jalizi unaooana na Claude Code. Programu-jalizi huunganisha ujuzi, mawakala, seva za MCP, hooks na mengine katika saraka zinazojitegemea zenye manifest `.claude-plugin/plugin.json`.
-
-**Vipengele vinavyotumika: ujuzi, mawakala wasaidizi, seva za MCP, hooks (matukio 12 ya mzunguko wa maisha), amri za slash, mitindo ya matokeo, userConfig, vitegemezi, vituo, masoko**
-
-**CLI commands**:
-
-```
-:plugin list                         # Orodhesha programu-jalizi zilizosakinishwa
-:plugin install <source> [--scope]
-:plugin install <name>@<marketplace>  # Sakinisha kutoka kwenye soko
-:plugin remove <name>                # Ondoa usakinishaji
-:plugin enable/disable <name>        # Washa au zima
-:plugin marketplace add/remove/list  # Dhibiti masoko
-:plugin init <name>                  # Unda muundo wa programu-jalizi mpya
+Wakati LLM inapoomba zana nyingi kwa wakati mmoja, uag **husawazisha kiotomatiki**. `ThreadPoolExecutor` (nyuzi 8 kwa chaguo-msingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
+**Mfano**: Uliza "Angalia hali ya hewa katika herufi kubwa za Nordic" → LLM huwasha `search_web` × nchi 5 → matokeo yote ya utafutaji 5 yanaendeshwa kwa usawa → kusanya matokeo ya fungu moja la utafutaji → kusanya matokeo ya fungu moja la utafutaji. inayofafanua `TOOL_SPEC` (ambayo kwa sasa ni 222, ikijumuisha zana 2 zinazoungwa mkono na kutu katika `src/uagent/tools_rust/`). `http_request` hutumia usalama nyeti wa mbinu: simu za `GET`/`HEAD`/`OPTIONS` zinaweza kuendeshwa kwa sambamba, huku mbinu za kuandika zikisalia mfululizo.
+Zana za kusoma pekee (utaftaji wa faili, kukokotoa heshi, kuorodhesha saraka, tafsiri, hoja za DB, n.k.) zimesawazishwa kwa ukali. Inaoana)
+uagent inatekeleza **Claude mfumo jalizi unaooana na Msimbo**. Huingiza ujuzi wa kifurushi, mawakala, MCP seva, ndoano, na zaidi katika saraka zinazojitosheleza kwa kutumia faili ya maelezo ya `.claude-plugin/plugin.json`.
+**Vipengele vinavyotumika**: Ujuzi, Mawakala Ndogo, MCP seva, Hooks (12 za mzunguko wa maisha, Mitindo ya Mtumiaji, Mitindo ya Kutegemea, Mitindo ya Utegemezi), Slash Vituo, Marketplaces
+**CLI amri**:
 ```
 
-Tazama nyaraka kamili kwa maelezo zaidi. [DEVELOP_PLUGIN.md](../src/uagent/docs/DEVELOP_PLUGIN.md)
+:orodha ya programu-jalizi # Orodhesha programu-jalizi zilizosakinishwa
+:isakinisha programu-jalizi <source> [--scope] # Sakinisha (dir/zip/git/http)
+:plugin install <name>@<marketplace> # Sakinisha kutoka sokoni
+me> #Sakinisha kutoka sokoni
+me> #plugin Geuza
+:sokoni jalizi ongeza/ondoa/orodhesha # Dhibiti soko
+:ingilizi ya programu-jalizi <jina> # Programu-jalizi mpya ya kiunzi
 
-### 🔄 Mwendelezo wa Kikao
-
-- **Badilisha mtoa huduma katikati ya kipindi** kwa kutumia `UAGENT_PROVIDER` — historia ya mazungumzo huhifadhiwa.
-- **Pakia tena vipindi vya awali** kwa kutumia `:load <index>` — endelea ulipoishia.
-
-### 🛠 Zana 229
-
-| Kitengo | Zana |
+````
+Angalia [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.🏎#Sehemu kamili ya####) Muendelezo
+- **Badilisha watoa huduma katika kipindi cha katikati** ukitumia `UAGENT_PROVIDER` — historia ya mazungumzo imehifadhiwa.
+- **Pakia upya vipindi vilivyopita** kwa `:load <index>` — endelea ulipoishia.
+- **Uakibishaji wa matokeo ya zana** huepuka kutekeleza tena kusikohitajika wakati simu sawa ya kifaa inaporudiwa #2|9| Kitengo | Zana |
 |---|---|
-| **Uendeshaji wa Faili** | soma/andika/unda/futa/tafuta/grep/hash/zip, file_type, changanua_eml (faili.eml) |
-| **Mtandao** | fetch_url, search_web, screenshot, browser_playwright |
-| **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
-| **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
-| **Utabiri** | Utabiri wa mfululizo wa muda na modeli 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, nk.), uteuzi wa modeli kiotomatiki, kizazi cha mpango, i18n |
-| **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — tazama [COMMUNICATION.md](COMMUNICATION.md) and [BITCHAT.md](BITCHAT.md)|
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **API za Wingu** | `aws_api`, `gcp_api`, `azure_api` — AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
-| **Zana za Usanidi** | workspace_status, git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 29 vya msimbo wa chanzo (idx family)** |
-| **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza — [OAuth / Proxy guide](MCP_OAUTH_PROXY_GUIDE.md) |
-| **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
-| **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe, uuid_gen, slugify, quantities ||
-| **Chanzo Nav** | **zana 29 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |
-
+| **Uendeshaji wa Faili** | soma/andika/unda/futa/tafuta/grep/hash/zip, aina_ya faili, changanua_eml (faili.eml), `path_alias` |
+| **Mtandao** | fetch_url, search_web, screenshot, browser_playwright, `url_lakas`, `public_transit_rout` ([mwongozo](docs/PUBLIC_TRANSIT_ROUTE.md)) |
+| **Vyombo vya habari** | tengeneza_picha, changanua_picha, img2img, audio_speech, audio_transcribe |
+| **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, Uchimbaji muundo wa Excel |
+| **Utabiri** | Utabiri wa mfululizo wa saa wenye miundo 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, n.k.), uteuzi wa kielelezo kiotomatiki, kutengeneza njama, i18n |
+| **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — tazama [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) na [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
+| **IoT** | SwitchBot (Wingu + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
+| **API za Wingu** | `aws_api`, `gcp_api`, `azure_api` — shughuli za kawaida za AWS, Google Cloud, na Azure API; shughuli za kuandika zinahitaji uthibitisho dhahiri |
+| **Zana za Usanidi** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tets, db_query, **vielekezi 29 vya msimbo wa chanzo (idx family)** |
+| **MCP** | Unganisha kwenye seva za MCP za nje, zana za kuorodhesha, tekeleza — [OAuth / Mwongozo wa Proksi](hati/MCP_OAUTH_PROXY_GUIDE.md) |
+| **A2A** | Mawasiliano kati ya wakala kwa wakala (pamoja na matukio mengine uag au seva zinazooana A2A) |
+| **Mfumo** | env vars, vipimo vya mfumo, muda, hesabu ya tarehe, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
+| **Chanzo Nav** | **zana 29 za idx** za Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile - pata faharasa ya kitendakazi/darasa au ufafanuzi mahususi bila kusoma faili nzima |
 #### Mapitio ya hazina na chanjo
-
-- `workspace_status`: Ripoti nafasi ya kazi inayotumika Git tawi, mabadiliko, hali ya usawazishaji wa juu, Python muda wa utekelezaji, na vialamisho vya kawaida vya mradi bila kurekebisha faili.
+-`, `nafasi ya kazi ya ripoti inabadilisha nafasi ya kazi hali ya kusawazisha, muda wa utekelezaji wa Python, na vialamisho vya kawaida vya mradi bila kurekebisha faili.
 - `git_review`: fanya muhtasari wa mabadiliko ya Git, faili hatari, watahiniwa wa majaribio, na matokeo ya siri bila kufichua thamani za siri.
-- `security_scan`: changanua faili za hazina kwa ajili ya uwezekano wa siri na faili za usanidi hatari.
-- `coverage_report` Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, na Dart/Flutter.
+- `security_scan`: changanua faili za hazina kwa ajili ya uwezekano wa siri na faili za usanidi hatari kwa ajili ya uendeshaji wa faili za usanidi. TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, na Dart/Flutter.
 - Vitegemezi vya chanjo vinavyokosekana vinaweza kusakinishwa kiotomatiki wakati utekelezaji unapoombwa; `dry_run` haisakinishi vifurushi kamwe.
-
-Angalia [Zana za Uchanganuzi wa Hifadhi](REPOSITORY_TOOLS.md) kwa vigezo, pato na maelezo ya usalama.
-
-### 🖥 Violesura 4 + Kiendelezi cha Msimbo wa VS
-
+Angalia [Zana za Uchambuzi wa Hifadhi](docs/REPOSITORY_TOOLS.md) kwa vigezo, matokeo na maelezo ya usalama.
+Angalia [Lakabu za Njia na URL](hati/PATH_URL_ALIASES.md) kwa kufupisha vielelezo vya faili vinavyorudiwa#4 Violesura + VS Kiendelezi cha Msimbo
 | Hali | Amri | Kusudi |
 |---|---|---|
-| **CLI** | `ua` | Uendeshaji wa haraka wa msingi wa terminal |
+| **CLI** | `uag` | Uendeshaji wa haraka wa msingi wa terminal |
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `ua` | Ufikiaji unaotegemea kivinjari |
-| **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
-| **Msimbo wa VS** | - | [Kiendelezi](VSCODE.md) yenye Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
-
-Tazama [VSCODE.md](VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
-
-### 🏠 Kidhibiti cha Kifaa cha IoT
-
-- **Jambo**: Ukaguzi wa kusoma pekee wa kidhibiti/daraja/topolojia ya kifaa
-
-Tazama [IOT_USECASE.md](IOT_USECASE.md)
-
+| **A2A Seva** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
+| **Msimbo wa VS** | - | [Kiendelezi](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) iliyo na Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
+Angalia [VSCODE.md](https://github.com/awaku7/Vmadetails/VD Upanuzi wa Msimbo wa VS — usakinishaji, amri, viunganishi muhimu, na usanidi.
+### 🏠 Udhibiti wa Kifaa cha IoT
+- **BACnet**: Kusoma/kuandika vifaa vya BACnet/IP (HVAC, taa, mita za umeme). Usajili wa COV kwa arifa zinazotumwa na programu hata wakati huitumii
+- **Modbus TCP**: Soma/andika rejista za kushikilia/kuingiza na koili. Ufuatiliaji wa mabadiliko kulingana na kura
+- **OPC UA**: Vinjari nafasi ya anwani, vibadilishi vya kusoma/kuandika, jisajili ili upate mabadiliko ya data
+- **SwitchBot**: Kidhibiti cha bechi ya Wingu & BLE scan/control. Usajili unaotegemea upigaji kura
+- **ECHONET Lite**: Gundua, dhibiti na ujiandikishe kupokea arifa za INF kutoka kwa vifaa vya nyumbani (AC, taa, hita za maji, n.k.)
+- **Matter**: Udhibiti wa kusoma/andika + sifa kwa ufuatiliaji wa mabadiliko ya hali
+- **UPnP**: Ugunduzi wa mlango wa kifaa & IGD [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 ### 🎯 Soko la Ujuzi wa Wakala
-
-`:ujuzi mp_search` ili kuvinjari [SkillsMP](https://skillsmp.com) na [ClawHub](https://clawhub.ai) kwa ujuzi wa jumuiya.
-Sakinisha na upanue uwezo wa uag kwenye nzi.
-
-### 🤖 Pilot-Otomatiki (`:otomati`)
-
-uag inaweza **kufuata lengo kwa uhuru katika raundi nyingi za LLM**. Ni kamili kwa kazi ngumu, za hatua nyingi zinazohitaji uboreshaji wa kurudia.
-
-- **Jinsi inavyofanya kazi**: Kila duru ina hoja kuu (Hatua A) ikifuatiwa na hukumu ya mhakiki (Hatua B) inayoamua "KIKAMILISHA au ENDELEA?"
-- **Mtoa huduma sawa, API sawa**: Hukumu ya mkaguzi hutumia njia inayofanana ya msimbo kama hoja kuu - ikiwa ni pamoja na usaidizi wa API ya Majibu.
-- **Mwamuzi tofauti LLM** (si lazima): Weka `UAGENT_AP_PROVIDER` ili utumie mtoaji/muundo tofauti kwa mkaguzi (k.m. tumia muundo wa bei nafuu zaidi kutathmini).
-- **Ondoka wakati wowote**: Bonyeza kitufe cha `x` ili kuacha mara moja, hata jibu la katikati. Au acha mkaguzi aamue wakati lengo linatimizwa.
-- **Inayoweza kusanidiwa**: `--max-raundi N` ili kudhibiti bajeti.
-
-Tazama [README_AUTO.md](README_AUTO.md) kwa uhifadhi kamili.
-
-### 🧩 Kidhibiti cha Jimbo la Kundi
-
-uag inaweza kufuatilia maendeleo katika kazi za muda mrefu za faili nyingi. Wakati LLM inachakata faili nyingi, `batch_state` huendelea kuwa na orodha ya faili zinazosubiri, zilizokamilishwa na ambazo hazijafaulu kwenye diski. Kipindi kikimalizika au mzunguko ungeisha, kipindi kifuatacho kitaanza tena pale kiliposimama - hakuna kinachopotea.
-
-### 🛡 Binadamu-katika-Kitanzi
-
-`human_ask` huruhusu LLM kusitisha na kuomba uthibitisho wako kabla ya kutekeleza utendakazi wa uharibifu (kufuta faili, kubatilisha, amri za shell). Wewe kukaa katika udhibiti.
-
-### 🛑 Katiza (kitufe cha c / kitufe cha Kusimamisha)
-
-Komesha uzalishaji wa majibu ya LLM wakati wowote na urudishe amri ya kusitisha kwa LLM.
-
+`:ujuzi mp_search` ili kuvinjari [SkillsMP](https://wclai/Skills. kwa ujuzi wa jumuiya.
+Sakinisha na upanue uwezo wa uag kwa njia ya ndege.
+### 🤖 Majaribio ya Kiotomatiki (`:oto`)
+uag yanaweza **kufuata lengo kiotomatiki katika raundi nyingi LLM**. Ni kamili kwa kazi ngumu, za hatua nyingi zinazohitaji uboreshaji unaorudiwa.
+- **Jinsi inavyofanya kazi**: Kila awamu ina swali kuu (Hatua A) ikifuatwa na hukumu ya mkaguzi (Hatua B) ambayo itaamua "KIKAMILISHA au ENDELEA?"
+- **Mtoa huduma sawa, API**: Hukumu ya mkaguzi hutumia njia ya msimbo sawa kama hoja kuu - ikiwa ni pamoja na Majibu __tejaji*PH_2 usaidizi wa Majibu __tejaji*PH_2. (si lazima): Weka `UAGENT_AP_PROVIDER` ili kutumia mtoaji/muundo tofauti kwa mkaguzi (k.m. tumia muundo wa bei nafuu kutathmini).
+- **Ondoka wakati wowote**: Bonyeza kitufe cha `x` ili kuacha mara moja, hata jibu la katikati. Au mruhusu mhakiki aamue wakati lengo litakapotimizwa.
+- **Inaweza kusanidiwa**: `--raundi-ya juu zaidi N` ili kudhibiti bajeti.
+Angalia [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.####Batch ⏧#Bajeti kamili ya hati Msimamizi
+uag anaweza kufuatilia maendeleo katika majukumu ya muda mrefu ya faili nyingi. LLM inapochakata faili nyingi, `batch_state` hudumisha orodha ya faili ambazo hazijakamilika, zilizokamilika na ambazo hazijakamilika kwenye diski. Kipindi kikiisha au muda wa mzunguko kuisha, mwendo unaofuata utaanza tena kutoka pale kiliposimama - hakuna kitakachopotea.
+### 🛡 Human-in-the-Loop
+`human_ask` huruhusu LLM kusitisha na kuomba uthibitisho wako kabla ya kutekeleza utendakazi wa uharibifu (kufuta faili, kubatilisha, amri za shell). Wewe endelea kudhibiti.
+### 🛑 Katiza (kitufe cha c-c / kitufe cha Komesha)
+Simamisha LLM uundaji wa majibu wakati wowote na urudishe amri ya kusitisha kwenye LLM.
 | Kiolesura | Jinsi ya kukatiza |
 |---|---|
-| **CLI** | Bonyeza kitufe cha `c` wakati wa utiririshaji wa LLM — jibu la sasa litasimama, na `"Sitisha"` hutumwa kama ujumbe wa mtumiaji ili LLM ijibu ipasavyo |
-| **WEB UI** | Bofya kitufe chekundu **■ Acha** (kinaonekana kiotomatiki wakati wa uchakataji wa LLM) |
-| **GUI ya Eneo-kazi** | Bofya kitufe chekundu **■** (huonekana kiotomatiki wakati wa uchakataji wa LLM) |
-
-Ukatizaji hufanya kazi kama "sindano ya papo hapo": badala ya kutoa mimba tu, inalisha `"Acha"` kurudi kwenye LLM kama ujumbe wa mtumiaji, ikiiruhusu kuhitimisha au kukiri kukatizwa kwa uzuri.
-
-Bonyeza kitufe cha `x` ili kuondoka kwenye hali ya majaribio ya kiotomatiki (angalia [README_AUTO.md](README_AUTO.md)).
-
-### 🕵️ Uendeshaji wa Kivinjari na Kikaguzi cha Wavuti
-
-Zana mbili za msingi za mwandishi wa kucheza:
-
-- **browser_playwright**: Rekebisha vipindi halisi vya kivinjari — vinjari, bofya, jaza fomu, toa data, shughulikia mtiririko wa kurasa nyingi. Inafanya kazi bila kichwa au kichwa.
-- **mkaguzi_wa_mwigizaji**: Rekodi mabadiliko ya kivinjari, nasa vijipicha na picha za skrini za DOM kwa kila hatua. Inafaa kwa kutatua mwingiliano wa wavuti au kukagua mabadiliko ya ukurasa kwa wakati.
-
+| **CLI** | Bonyeza kitufe cha `c` wakati wa LLM utiririshaji — jibu la sasa litakoma, na `"Simamisha"` hutumwa kama ujumbe wa mtumiaji kwa hivyo LLM ijibu ipasavyo |
+| **WEB UI** | Bofya kitufe chekundu **■ Sitisha** (kinaonekana kiotomatiki wakati LLM uchakataji) |
+| **GUI ya Eneo-kazi** | Bofya kitufe chekundu **■** (huonekana kiotomatiki wakati wa LLM kuchakata) |
+Kikatizi hufanya kazi kama "sindano ya papo hapo": badala ya kuacha tu, hurudisha `"Acha"` hadi LLM kama ujumbe wa mtumiaji, na kuuruhusu kuhitimisha au kukiri kukatizwa kwa ustadi.
+Bonyeza kitufe cha 'ona otomatiki' ili kuondoka kwenye kitufe cha `x`. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+### 🕵️ Kivinjari Kiotomatiki na Kikaguzi cha Wavuti
+Vipindi viwili vya Playwright vinavyosaidiana, kivinjari**:_-chezea kivinjari kiotomatiki*:_-chezea kiotomatiki kivinjari bofya, jaza fomu, toa data, shughulikia mtiririko wa kurasa nyingi. Hufanya kazi bila kichwa au kichwa.
+- **mkaguzi_wa_mwigizaji**: Rekodi mabadiliko ya kivinjari, nasa vijipicha vya DOM na picha za skrini kwa kila hatua. Inafaa kwa utatuzi wa mwingiliano wa wavuti au mabadiliko ya ukurasa wa ukaguzi kwa wakati.
 ### 🔄 Dynamic Tool Loading
-
-`kitalogi_ya_zana` na `kupakia_zana` hukuwezesha kugundua na kuwasha zana wakati wa utekelezaji.
-Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha tu kile unachohitaji, wakati unakihitaji.
-
-### 🦀 Rust Native Tools
-
-`uuid_gen` na `slugify` zimetekelezwa katika Rust (kupitia PyO3) kwa utendaji bora.
-
+`tool_catalog` na `tool_load` hukuwezesha kugundua na kuwezesha zana wakati wa utekelezaji.
+Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha unachohitaji pekee, unapokihitaji.
+#### Ruid_Updative` `slugify` inatekelezwa katika Rust (kupitia PyO3) kwa ajili ya utendakazi.
+Zinapakia moja kwa moja kutoka kwa `.pyd` iliyojengwa awali — **hakuna `pip install` inayohitajika**.
+Wasanidi wa nje wanaweza pia kusafirisha zana zinazotokana na kutu: weka `.pyd` kando ya kanga `.py`, tumia `pyd(_`st) `uagent.tools.rust_helper`, na
+watumiaji hupata zana bila utegemezi wowote wa ziada. Tazama
+[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
 ### 🌐 i18n / L10n
+日本語 / Kiingereza / 简体中文 / 繁体中文 / 繁体中文 / Français / Русский / na zaidi.
+Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) ili kuongeza lugha mpya.
+Tafsiri za README hii zinapatikana katika [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+### 🔒 Vigezo vya Mazingira Vilivyosimbwa
+Hifadhi API funguo na siri katika `.env.`sec file` — env. `uag_envsec`.
+## Usanidi na Maelezo
 
-Kiswahili / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / na zaidi.
-Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](../src/uagent/docs/DEVELOP_I18N.md) ili kuongeza lugha mpya.
-
-Tafsiri za README hii zinapatikana katika [docs/README.translations.md](README.translations.md).
-
-### 🔒 Vigezo vya Mazingira Vilivyosimbwa kwa Njia Fiche
-
-Hifadhi funguo na siri za API katika `.env.sec` — faili ya `.env` iliyosimbwa kwa njia fiche.
-Dhibiti ukitumia `uag_envsec`.
-
-## Usanidi & Maelezo
-
-- **Vigeu vya mazingira**: [docs/ENVIRONMENT.md](ENVIRONMENT.md)
-- **Mchawi wa kusanidi**: `python -m uagent.setup_cli`
-- **env iliyosimbwa kwa njia fiche**: `uag_envsec` — simba kwa njia fiche `.env` kama `.env.sec`
-- **API ya Majibu**: Weka `UAGENT_RESPONSES=1` kwa modi ya API ya Majibu (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Imewashwa kiotomatiki kwa Sakana AI (Fugu).
-- **Hati za Msanidi**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
-- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](SLM_TIPS.md)
+- **Vigezo vya mazingira**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
+- **Mchawi wa kusanidi**: `python_`ncrypted_ph. env**: `uag_envsec` — simba kwa njia fiche `.env` kama `.env.sec`
+- **Majibu API**: Weka `UAGENT_RESPONSES=1` kwa Majibu API modi (OpenAI/Azure/Bedrock/OpennaIOLM Studio/Alibaba/Alibaba Studio/Alibaba). Imewashwa kiotomatiki kwa Sakana AI (Fugu).
+- **Hati za Msanidi**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Mtiririko wa zana**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — jinsi zana zinavyotumwa kwa LLMs (kinyago cha aina, katalogi_ya_zana, GPT-5.4+ utaftaji_wa_zana asilia)
+_* **Vidokezo_vidogo 5 [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Falsafa ya Mradi
 
-uag anatamani kuwa **AI yako, kwenye mashine yako, kwa masharti yako.**
+uag inatamani kuwa **AI yako, kwenye mashine yako, kulingana na masharti yako.**
 
-- Hakuna utegemezi wa SaaS - inaendeshwa ndani ya nchi
-- Hakuna kufuli kwa mtoa huduma - badilisha wakati wowote
-- Hakuna kufuli kwa UI - CLI / GUI / Wavuti / A2A
-- Hakuna kipengele cha kufuli - panua kwa zana na ujuzi
+- Hakuna utegemezi wa SaaS — inaendeshwa ndani ya nchi
+- Hakuna kufuli kwa mtoa huduma — badilisha wakati wowote
+- Hakuna kifungia cha UI kwa kutumia kipengele cha CLI / GUI / Wavuti / ___PH ujuzi
 
-Uzoefu wa bure wa wakala wa AI, usio na kufuli kwa muuzaji.
+Utumiaji wa wakala wa AI bila malipo, usio na kufuli kwa muuzaji.
 
 ### ✨ Unda Zana Zako Mwenyewe
 
-[sw.md](TOOL_CREATOR_GUIDE.sw.md)
-Tazama mwongozo wa hatua kwa hatua hapa.
+Kuandika zana mpya ya uag ni rahisi - unda faili `.py` moja na
+`TOOL_SPEC` na ``endesha, weka chombo() `UAGENT_EXTERNAL_TOOLS_DIR`, na
+inapatikana mara moja. Kwa wasanidi wa kutu, safirisha `.pyd` iliyojengwa awali ikiwa na
+ utegemezi sifuri zaidi kwa watumiaji.
 
-## Kuchangia
+Angalia [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
+
+ kwa hatua kwa hatua.## Kuchangia
 
 Michango inakaribishwa! Ripoti za hitilafu, mapendekezo ya vipengele, uboreshaji wa hati, tafsiri na maombi ya kuvuta — yote yanathaminiwa.
 
-- **Issues**: Fungua GitHub suala la hitilafu au maombi ya vipengele.
-- **Maombi ya kuvuta**: Tengeneza fork ya hazina, fanya mabadiliko yako na uwasilishe PR. Tazama [DEVELOP.md](../src/uagent/docs/DEVELOP.md) kwa usanidi wa maendeleo na miongozo.
+- **Masuala**: Fungua GitHub suala la hitilafu au maombi ya kipengele.
+- **Vuta maombi**: Fanya repo, fanya mabadiliko yako na uwasilishe PR. Angalia [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) kwa usanidi na miongozo ya usanidi.
+- **Tafsiri**: Tafsiri za README na nyongeza za lugha zinakaribishwa. Angalia [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
+- **Zana na Ujuzi**: Programu-jalizi mpya za zana na Ujuzi wa Wakala zinaweza kuchangiwa kupitia soko.#be#
+ Ukaguzi wa Maendeleo PR)
 
-Realtime Sauti na AEC3
+Sakinisha vitegemezi vya majaribio pekee kwanza. Huwekwa nje ya muda wa utekelezaji
+orodha ya utegemezi:
 
-## Realtime hali ya sauti inaweza kutumia maikrofoni ya duplex kamili na ingizo/pato la spika. Ikiwa mandhari ya nyuma ya AEC3 haipo, uag husakinisha pywebrtc-audio kiotomatiki.
+```bash
+python -m pip install -e ".[test]"
+python -m pip install black ruff
+````
 
-**Watoa huduma kwa wakati halisi**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice na Amazon Bedrock Nova Sonic. SDK ya utiririshaji wa pande mbili wa Bedrock husakinishwa kiotomatiki tu Bedrock inapochaguliwa.
+Endesha ukaguzi sawa na GitHub Vitendo kabla ya kusukuma ruff -`py`bansh
+︎ﻠ tests
+python -m black --angalia src tests
+python scripts/tool_json_i18n_batch.py status
+python -m pytest -q .
 
-```bat
-python scheck.py realtime
-```
+````
 
-AEC3 hutumia mawimbi halisi ya maikrofoni (karibu) na sauti inayotumwa kwa spika (mbali). Washa uchunguzi unapochunguza matatizo ya sauti pekee.
+Kwa marudio ya haraka ya ndani, fanya majaribio yaliyoathiriwa pekee:
+test
+`` vipimo/<affected_eneo>
+``
 
-```bat
-set UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
+Ukaguzi wa ziada inapofaa:
 
-### OpenAI Realtime Function Calling
+```bash
+python -m py_compile src/uagent/
+mypy src/uagent
+````
 
-OpenAI Realtime inaweza kutumia muunganisho usio na kikomo wa Function Calling. Adapta ya sasa hufichua kitendakazi cha kusoma tu get_current_time kiotomatiki. Zana haribifu na vidhibiti vya kifaa vinahitaji orodha ya wazi ya ruhusa na mtiririko wa uthibitishaji. Grok katika muda halisi hutumia adapta tofauti na haitumii njia hii OpenAI mahususi Function Calling.
+Baada ya kuhariri \`\`s. scripts/compile_locales.py`na`scripts za chatu/po_qc_summary.py\`.
 
-## Usanifu na invarianti za uendeshaji
+Sera ya muda wa utekelezaji (maelezo katika [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOPed) §1 wasaidia. `sys.toka`; seva pangishi ya zana hugeuza zana `SystemExit`/`Exception` kuwa mifuatano ya hitilafu ili zana moja haiwezi kuua mchakato. Njia za kutoka kwa kutofaulu kwa uanzishaji hubaki kuwa za kukusudia.
 
-Angalia [ARCHITECTURE.md](ARCHITECTURE.md) kwa mikataba ya kudumu ya utekelezaji inayohusu mzunguko wa maisha wa A2A, miktadha ya I18N, usakinishaji wa vitegemezi vya hiari, usalama wa zana, uwezo wa watoa huduma, mipaka ya uaminifu ya OAuth, matukio yaliyopangwa na uthibitishaji wa kukubalika.
+## Vigezo vya usanifu na uendeshaji
 
-## Enterprise Policy Engine
+Angalia [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) kwa mikataba ya kudumu inayojumuisha A2A lifecycle, miktadha ya I18N, usakinishaji wa hiari wa utegemezi, usalama wa zana, uwezo wa mtoa huduma, mipaka ya uaminifu ya OAuth, ⎏ uthibitishaji wa matukio yaliyopangwa.## Enterprise Policy Engine
 
-Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.
+Sera za kiwango cha shirika za zana, watoa huduma, vitambulisho, seva MCP, mitandao, ujuzi na programu jalizi zinatumika. Weka `UAGENT_POLICY_FILE` kuwa faili ya sera ya JSON/YAML; tazama [hati/ENTERPRISE_POLICY.md](hati/ENTERPRISE_POLICY.md) kwa mifano ya usanidi, majukumu, uthibitishaji, na orodha za vibali.
 
-### Runtime recovery and orchestration
+### Urejeshaji na upangaji wa muda wa kukimbia
 
-See [RESTART_RECOVERY.md](RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
-
-See [DISTRIBUTED_COORDINATION.md](DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.
+Angalia [RESTART_RECOVERY.md](COVERY.START_RE) [DAG_SCHEDULER.md](hati/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) kwa urejeshaji wa kudumu, utekelezaji wa kufahamu utegemezi, upangaji wa wakala wengi, na matumizi ya mbali A2A .\_PH_1 [DISTRIBUTED_COORDINATION.md](hati/DISTRIBUTED_COORDINATION.md) kwa ajili ya uratibu wa ukodishaji wa kiongozi wa wakati unaoshirikiwa.

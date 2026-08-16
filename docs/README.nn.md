@@ -45,11 +45,42 @@ uag
 Ved første oppstart leder oppsettsveiviseren deg gjennom leverandørkonfigurasjonen.
 Se [docs/ENVIRONMENT.md](ENVIRONMENT.md) for alle miljøvariabler.
 
+## Computer Use
+
+Computer Use er valfritt og støttar ein synleg Playwright-nettlesar-Runtime og ein desktop-Runtime. Når funksjonen blir aktivert, blir begge oppretta og registrerte; valet blir gjort med `UAGENT_COMPUTER_ENVIRONMENT`.
+
+Runtime-ressursar blir frigjorde ved normal avslutning, `Ctrl-C` eller når prosessen sluttar.
+
+## Sanntidslyd og AEC3
+
+Sanntidsmodus for lyd støttar full-dupleks mikrofon- og høyttalarlyd. Dersom AEC3-bakenden manglar, installerer uag automatisk `pywebrtc-audio`.
+
+**Sanntidsleverandørar**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice og Amazon Bedrock Nova Sonic. SDK-en for tovegsskøyring i Bedrock blir installert automatisk berre når Bedrock er valt.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 brukar det faktiske mikrofonsignalet (`near`) og lyden som faktisk blir sendt til høgtalaren (`far`). Aktiver diagnostikk berre når du undersøker lydproblem.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### Funksjonskall i OpenAI Realtime
+
+OpenAI Realtime støttar ei sikkerheitsavgrensa funksjonskall-integrering. Den gjeldande adapteren eksponerer den skrivebeskytta `get_current_time`-funksjonen automatisk. Farlege verktøy og einingskontroll krev ei uttrykkeleg godkjenningsliste og ein stadfestingsflyt. Grok sanntid brukar ein separat adapter.
+
 ## Funksjoner
 
 ### 🧠 Arkitektur med flere leverandører
 
 OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
+
+#### Ollama og llama.cpp
+
+Ollama og llama.cpp er separate leverandørar. Ollama brukar sin eigen teneste, medan llama.cpp koplar til eit OpenAI-kompatibelt endepunkt.
 
 Alle leverandører deler samme verktøysett og grensesnitt. Bytt ved å sette 'UAGENT_PROVIDER' — ingen kodeendringer, ingen separate installasjoner.
 
@@ -230,35 +261,20 @@ Bidrag er velkomne! Feilrapportar, funksjonsforslag, dokumentasjonsforbetringar,
 
 Realtime Stemme og AEC3
 
-## Realtime stemmemodus støtter full-dupleks mikrofon og høyttalerinngang/utgang. Hvis AEC3-backend mangler, installerer uag automatisk pywebrtc-audio.
+### Utviklingskontrollar (før PR)
 
-**Realtidsleverandørar**: OpenAI Realtime, Azure OpenAI GPT Realtime, Google Gemini Live, xAI Grok Voice og Amazon Bedrock Nova Sonic. SDK-en for tovegsskøyring i Bedrock blir installert automatisk berre når Bedrock er valt.
-
-```bat
-python scheck.py realtime
-```
-
-AEC3 brukar det faktiske mikrofonsignalet (nær) og lyden som faktisk sendes til høyttaleren (fjern). Aktiver diagnostikk berre når du undersøker lydproblemer.
-
-```bat
-set UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
-
-### OpenAI Realtime Function Calling
-
-OpenAI Realtime støtter en sikkerhetsbegrenset Function Calling-integrasjon. Den gjeldende adapteren viser den skrivebeskyttede get_current_time-funksjonen automatisk. Destruktive verktøy og enhetskontroller krever en eksplisitt godkjenningsliste og bekreftelsesflyt. Grok sanntid brukar en separat adapter og brukar ikke denne OpenAI-spesifikke Function Calling-banen.
+Køyr syntakssjekk, linting, formatering og relevante testar før du sender inn ein pull request.
 
 ## Arkitektur og driftsinvariantar
 
 Sjå [ARCHITECTURE.md](ARCHITECTURE.md) for varige implementasjonskontraktar som dekkjer A2A-livssyklus, I18N-kontekstar, installasjon av valfrie avhengnader, verktøysikkerheit, leverandørfunksjonar, OAuth-tillitsgrenser, strukturerte hendingar og akseptanseverifisering.
 
-## Enterprise Policy Engine
+## Verksemdas policy-motor
 
-Enterprise Policy Engine supports organization-level rules for tools, providers, credentials, MCP servers, networks, skills, and plugins. Configure `UAGENT_POLICY_FILE` with a JSON/YAML policy file. See [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for examples, roles, confirmation, and allowlists.
+Verksemdas policy-motor støttar organisasjonsreglar for verktøy, leverandørar, legitimasjonar, MCP-serverar, nettverk, ferdigheiter og pluginar. Konfigurer `UAGENT_POLICY_FILE` med ei JSON/YAML-policyfil. Sjå [ENTERPRISE_POLICY.md](ENTERPRISE_POLICY.md) for døme, roller, stadfesting og tillatelseslister.
 
-### Runtime recovery and orchestration
+### Gjenoppretting og orkestrering av runtime
 
-See [RESTART_RECOVERY.md](RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
+Sjå [RESTART_RECOVERY.md](RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](MULTI_AGENT_RUNTIME.md) for varig gjenoppretting, avhengnadsmedviten køyring, multiagent-orkestrering og ekstern A2A-bruk.
 
-See [DISTRIBUTED_COORDINATION.md](DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.
+Sjå [DISTRIBUTED_COORDINATION.md](DISTRIBUTED_COORDINATION.md) for koordinering av leiarleige i delt runtime.

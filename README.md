@@ -46,6 +46,23 @@ uag
 On first launch, the setup wizard walks you through provider configuration.
 See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) for all environment variables.
 
+## Computer Use
+
+Computer Use is opt-in and supports both a visible Playwright browser runtime
+and a desktop runtime. When enabled, both runtimes are created and registered;
+the selected runtime is controlled by `UAGENT_COMPUTER_ENVIRONMENT`:
+
+```bat
+set UAGENT_COMPUTER_USE=1
+set UAGENT_COMPUTER_ENVIRONMENT=browser
+```
+
+Use `desktop` to select the OS desktop runtime instead. Runtime resources are
+closed together on normal exit, `Ctrl-C`, and process shutdown. Set
+`UAGENT_COMPUTER_HEADLESS=1` for browser-based CI or smoke tests.
+See [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)
+for the integration and safety details.
+
 ## Realtime Voice and AEC3
 
 The realtime voice mode supports OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice API, Google Gemini Multimodal Live API, and Amazon Bedrock Nova Sonic with full-duplex microphone and speaker I/O. The required `pywebrtc-audio` AEC3 backend is installed automatically, and Bedrock's optional bidirectional-streaming SDK is installed automatically only when the Bedrock provider is selected:
