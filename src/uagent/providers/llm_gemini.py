@@ -593,13 +593,27 @@ def gemini_chat_with_tools(
     native_tool = (
         getattr(core, "computer_use_native_tool", None) if core is not None else None
     )
-    if isinstance(native_tool, dict) and "computer_use" in native_tool:
+    if (
+        getattr(core, "computer_use_runtime", None) is None
+        and isinstance(native_tool, dict)
+        and "computer_use" in native_tool
+    ):
         tools_list.append(native_tool)
 
     if send_tools:
         tool_specs = tools.get_tool_specs() or []
     else:
         tool_specs = []
+    if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+        from ..computer_use.native import local_computer_tool_spec
+
+        if not any(
+            (spec.get("function", {}).get("name") == "computer")
+            for spec in tool_specs
+            if isinstance(spec, dict)
+        ):
+            tool_specs = list(tool_specs)
+            tool_specs.append(local_computer_tool_spec())
     if not isinstance(tool_specs, list):
         tool_specs = []
 

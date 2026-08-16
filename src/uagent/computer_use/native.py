@@ -1,18 +1,64 @@
-"""Provider-native Computer Use request preparation."""
+"""Provider-native and local Computer Use request preparation."""
 
 from __future__ import annotations
 
 from typing import Any
 
 
-def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool:
-    """Populate native tool metadata on ``core`` when llmcapa permits it.
+def local_computer_tool_spec() -> dict[str, Any]:
+    """Return the provider-neutral function tool for the local runtime."""
+    action = {
+        "type": "object",
+        "properties": {
+            "action": {"type": "string"},
+            "x": {"type": "integer"},
+            "y": {"type": "integer"},
+            "coordinate": {"type": "array", "items": {"type": "integer"}},
+            "text": {"type": "string"},
+            "key": {"type": "string"},
+            "scroll_x": {"type": "integer"},
+            "scroll_y": {"type": "integer"},
+            "region": {
+                "type": "array",
+                "items": {"type": "integer"},
+                "minItems": 4,
+                "maxItems": 4,
+            },
+        },
+        "required": ["action"],
+    }
+    return {
+        "type": "function",
+        "function": {
+            "name": "computer",
+            "description": "Control the local desktop through the guarded Computer Use runtime.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "actions": {"type": "array", "items": action},
+                    "action": {"type": "string"},
+                    "x": {"type": "integer"},
+                    "y": {"type": "integer"},
+                    "coordinate": {"type": "array", "items": {"type": "integer"}},
+                    "text": {"type": "string"},
+                    "key": {"type": "string"},
+                    "scroll_x": {"type": "integer"},
+                    "scroll_y": {"type": "integer"},
+                    "region": {
+                        "type": "array",
+                        "items": {"type": "integer"},
+                        "minItems": 4,
+                        "maxItems": 4,
+                    },
+                },
+                "anyOf": [{"required": ["actions"]}, {"required": ["action"]}],
+            },
+        },
+    }
 
-    This is deliberately best-effort: unsupported or unknown models do not
-    alter the existing request path.
-    """
-    # Clear state first so a reused core cannot send a stale tool when the
-    # provider/model changes between rounds or sessions.
+
+def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool:
+    """Populate native tool metadata when no local runtime is bound."""
     for name in (
         "computer_use_native_tool",
         "computer_use_native_headers",
@@ -22,6 +68,14 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
             setattr(core, name, None)
         except Exception:
             pass
+
+    # A local runtime must use the local function handler. Native provider
+    # tools bypass DesktopRuntime and are executed by the provider host.
+    if getattr(core, "computer_use_runtime", None) is not None:
+        core.computer_use_native_diagnostic = (
+            "native Computer Use disabled because a local runtime is bound"
+        )
+        return False
 
     if provider not in {
         "claude",

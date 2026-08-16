@@ -17,11 +17,16 @@ configure_computer_use(
 
 `configure_computer_use()` は `UAGENT_COMPUTER_USE` のPolicyを読み取り、
 `core.computer_use_runtime` と既存LLM round loopのhandlerを設定します。
-Runtimeを自動生成しないため、Browser/Desktopの権限・ライフサイクルは各入口が管理します。
+
+現在のエントリーポイントRuntime managerはBrowserRuntimeとDesktopRuntimeを両方生成し、
+`manager.runtimes["browser"]` / `manager.runtimes["desktop"]` として登録します。
+`UAGENT_COMPUTER_ENVIRONMENT=browser|desktop` で既定の選択Runtimeを切り替えられます。
+`core.computer_use_browser_runtime` と `core.computer_use_desktop_runtime` にも登録され、
+終了時には両Runtimeが解放されます。
 
 ## 安全上の既定値
 
-- Computer Useは既定で無効
+- Computer Useは既定で有効（`UAGENT_COMPUTER_USE=0` で無効化）
 - 有効化時も確認を既定で要求
 - 許可アクション、ドメイン、最大Action数、最大Turn数をPolicyで制限
 - Runtime未設定で有効化した場合は実行せず明示的に失敗
@@ -32,11 +37,11 @@ Runtimeを自動生成しないため、Browser/Desktopの権限・ライフサ�
 TDDで次の順に検証します。
 
 1. Action正規化、Policy、Safety、Audit
-2. Mock Runtimeによるround loop
-3. Anthropic/OpenAI/Gemini adapterの契約テスト
-4. 実API E2E（資格情報と明示フラグがある場合のみ）
-5. Playwright/OS backendを用いた実環境テスト（明示フラグがある場合のみ）
-6. 38ロケールのI18Nキー検証
+1. Mock Runtimeによるround loop
+1. Anthropic/OpenAI/Gemini adapterの契約テスト
+1. 実API E2E（資格情報と明示フラグがある場合のみ）
+1. Playwright/OS backendを用いた実環境テスト（明示フラグがある場合のみ）
+1. 38ロケールのI18Nキー検証
 
 実API・実環境テストは通常のCIでは実行せず、破壊的操作を許可しません。
 
@@ -47,6 +52,6 @@ TDDで次の順に検証します。
 - Anthropic / OpenAI / Gemini / Bedrock / Custom adapter: 実装済み
 - 既存round loopへのhandler接続: 実装済み
 - 共通Runtime bootstrap: 実装済み
-- 各エントリーポイントの実Runtime生成: 次段階
+- BrowserRuntime / DesktopRuntimeの同時生成・登録: 実装済み
 - 実API E2E・実Browser/Desktop E2E: opt-inテストとして追加予定
 - 38言語のComputer Use専用メッセージ監査: 最終段階

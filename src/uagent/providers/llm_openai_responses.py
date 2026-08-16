@@ -44,7 +44,13 @@ def _responses_tool_output(
     call_id: str, content: Any, tool_name: str, core: Any = None
 ) -> dict[str, Any]:
     """Convert a normalized tool result to a Responses input item."""
-    if tool_name not in {"computer", "computer_use_preview"}:
+    # A local runtime exposes ``computer`` as a normal function tool.  Only
+    # provider-native computer calls may use the Responses computer output
+    # item; sending that item for a local function call causes a 400 error.
+    if (
+        tool_name not in {"computer", "computer_use_preview"}
+        or getattr(core, "computer_use_runtime", None) is not None
+    ):
         return {
             "type": "function_call_output",
             "call_id": call_id,
@@ -376,13 +382,24 @@ def build_responses_request(
                     or {"type": "object", "properties": {}},
                 }
             )
+        if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+            from ..computer_use.native import local_computer_tool_spec
+
+            if not any(
+                item.get("name") == "computer"
+                for item in flat_tools
+                if isinstance(item, dict)
+            ):
+                local = local_computer_tool_spec()["function"]
+                flat_tools.append({"type": "function", **local})
         native_tool = (
             getattr(core, "computer_use_native_tool", None)
             if core is not None
             else None
         )
         if (
-            provider
+            getattr(core, "computer_use_runtime", None) is None
+            and provider
             in {"openai", "azure", "azure-openai", "azure_foundry", "azure-foundry"}
             and isinstance(native_tool, dict)
             and native_tool.get("type") in {"computer", "computer_use_preview"}

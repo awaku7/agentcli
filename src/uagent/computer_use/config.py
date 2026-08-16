@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 
+from .actions import SUPPORTED_ACTIONS
 from .policy import ComputerUsePolicy
 
 
@@ -28,24 +29,24 @@ def _float(name: str, default: float) -> float:
         return default
 
 
-def _csv(name: str) -> frozenset[str]:
-    return frozenset(
-        item.strip().lower()
-        for item in os.environ.get(name, "").split(",")
-        if item.strip()
-    )
+def _csv(name: str, *, default: frozenset[str] = frozenset()) -> frozenset[str]:
+    value = os.environ.get(name)
+    if value is None or not value.strip():
+        return default
+    return frozenset(item.strip().lower() for item in value.split(",") if item.strip())
 
 
 def computer_use_policy_from_env() -> ComputerUsePolicy:
     """Build the common policy used by CLI, GUI, Web, and A2A."""
     return ComputerUsePolicy(
-        enabled=_bool("UAGENT_COMPUTER_USE", False),
-        environment=(
-            os.environ.get("UAGENT_COMPUTER_ENVIRONMENT", "browser").strip().lower()
-            or "browser"
-        ),
+        enabled=_bool("UAGENT_COMPUTER_USE", True),
+        # Keep the shared policy's historical default. Runtime selection is
+        # handled independently by the entrypoint runtime manager.
+        environment="desktop",
         require_confirmation=_bool("UAGENT_COMPUTER_REQUIRE_CONFIRMATION", True),
-        allowed_actions=_csv("UAGENT_COMPUTER_ALLOWED_ACTIONS"),
+        allowed_actions=_csv(
+            "UAGENT_COMPUTER_ALLOWED_ACTIONS", default=SUPPORTED_ACTIONS
+        ),
         allowed_domains=_csv("UAGENT_COMPUTER_ALLOWED_DOMAINS"),
         max_actions=_int("UAGENT_COMPUTER_MAX_ACTIONS", 50),
         max_turns=_int("UAGENT_COMPUTER_MAX_TURNS", 20),

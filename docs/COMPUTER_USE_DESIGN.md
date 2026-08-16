@@ -756,5 +756,3 @@ Safety Policy
   ↓
 Runtime
 ```
-
-

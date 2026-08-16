@@ -370,13 +370,26 @@ def claude_chat_with_tools(
 
     anthropic_tools = []
     if send_tools:
-        _tool_specs_iter = tools.get_tool_specs()
+        _tool_specs_iter = list(tools.get_tool_specs() or [])
+        if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+            from ..computer_use.native import local_computer_tool_spec
+
+            if not any(
+                (spec.get("function", {}).get("name") == "computer")
+                for spec in _tool_specs_iter
+                if isinstance(spec, dict)
+            ):
+                _tool_specs_iter.append(local_computer_tool_spec())
     else:
         _tool_specs_iter = []
     native_tool = (
         getattr(core, "computer_use_native_tool", None) if core is not None else None
     )
-    if native_tool and isinstance(native_tool, dict):
+    if (
+        getattr(core, "computer_use_runtime", None) is None
+        and native_tool
+        and isinstance(native_tool, dict)
+    ):
         # Native tools use Anthropic's top-level tool shape, not JSON Schema.
         anthropic_tools.append(dict(native_tool))
 

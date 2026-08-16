@@ -14,6 +14,17 @@ from .policy import ComputerUsePolicy
 from .runtime import ComputerRuntime, execute_action
 
 
+def _register_runtime_manager(core: Any, manager: Any) -> Any:
+    """Expose every backend while preserving the selected runtime API."""
+    core.computer_use_runtime_manager = manager
+    core.computer_use_runtime = manager.runtime
+    runtimes = getattr(manager, "runtimes", {})
+    if isinstance(runtimes, dict):
+        core.computer_use_browser_runtime = runtimes.get("browser")
+        core.computer_use_desktop_runtime = runtimes.get("desktop")
+    return manager.runtime
+
+
 def _host_confirmation_callback():
     try:
         from .. import tools
@@ -72,10 +83,16 @@ def install_computer_use_handler(
     if not policy.enabled:
         return None
     selected_runtime = runtime or getattr(core, "computer_use_runtime", None)
+    # Bind the concrete desktop runtime at handler installation time.  The
+    # handler is shared by CLI/GUI/Web/A2A; leaving this lazy made it possible
+    # for a provider-native computer call to be accepted without ever being
+    # connected to the local input backend.
     if selected_runtime is None:
-        raise RuntimeError(
-            "Computer Use is enabled but no computer_use_runtime is configured"
-        )
+        from .entrypoint_runtime import create_runtime_from_env
+
+        manager = create_runtime_from_env()
+        if manager is not None:
+            selected_runtime = _register_runtime_manager(core, manager)
     sink = audit or InMemoryAuditSink()
     confirmation = getattr(core, "computer_use_confirmation", None)
     if confirmation is None:
@@ -84,6 +101,7 @@ def install_computer_use_handler(
     lock = Lock()
 
     def handle(*, tool_call: dict[str, Any], action: dict[str, Any], messages, core):
+        nonlocal selected_runtime
         del messages
         action_id = str(tool_call.get("id") or "computer")
         items = action.get("actions") if isinstance(action, dict) else None
@@ -129,6 +147,26 @@ def install_computer_use_handler(
                     )
                     break
                 state["actions"] += 1
+            # Create the configured backend only when an actual action arrives.
+            # Enabling the generic Computer Use capability must not open a
+            # browser as a side effect.
+            if selected_runtime is None:
+                selected_runtime = getattr(core, "computer_use_runtime", None)
+                if selected_runtime is None:
+                    from .entrypoint_runtime import create_runtime_from_env
+
+                    manager = create_runtime_from_env()
+                    if manager is not None:
+                        selected_runtime = _register_runtime_manager(core, manager)
+                if selected_runtime is None:
+                    outputs.append(
+                        {
+                            "success": False,
+                            "action_id": item_id,
+                            "error": "Computer Use runtime is unavailable",
+                        }
+                    )
+                    break
             domain = None
             current_domain = getattr(selected_runtime, "current_domain", None)
             if callable(current_domain):

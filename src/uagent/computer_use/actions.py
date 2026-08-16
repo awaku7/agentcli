@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-_SUPPORTED_ACTIONS = frozenset(
+SUPPORTED_ACTIONS = frozenset(
     {
         "screenshot",
         "navigate",
@@ -86,7 +86,7 @@ def normalize_action(
     """
     raw_action = str(payload.get("action") or payload.get("type") or "").strip()
     action = _ACTION_ALIASES.get(raw_action, raw_action)
-    if action not in _SUPPORTED_ACTIONS:
+    if action not in SUPPORTED_ACTIONS:
         raise ValueError(f"unsupported computer action: {raw_action or '<empty>'}")
 
     coordinate = payload.get("coordinate")

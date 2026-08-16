@@ -1622,15 +1622,6 @@ def run_llm_rounds(
                 )
 
                 try:
-                    if getattr(core, "computer_use_runtime", None) is None:
-                        from .computer_use.entrypoint_runtime import (
-                            create_runtime_from_env,
-                        )
-
-                        manager = create_runtime_from_env()
-                        if manager is not None:
-                            core.computer_use_runtime_manager = manager
-                            core.computer_use_runtime = manager.runtime
                     install_computer_use_handler(
                         core=core, provider=provider, model=depname, policy=policy
                     )

@@ -50,7 +50,14 @@ class ComputerUsePolicy:
                 False,
                 reason=f"action is not allowed: {action.action}",
             )
-        if self.allowed_domains and domain not in self.allowed_domains:
+        # Domain allowlists apply to browser navigation only. Desktop actions
+        # (mouse/keyboard/screenshot) have no URL domain and must not be
+        # rejected merely because ``domain`` is None.
+        if (
+            requested_environment != "desktop"
+            and self.allowed_domains
+            and domain not in self.allowed_domains
+        ):
             return PolicyDecision(False, reason=f"domain is not allowed: {domain}")
         if self.require_confirmation:
             return PolicyDecision(
