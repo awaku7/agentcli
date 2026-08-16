@@ -39,7 +39,7 @@ def _csv(name: str, *, default: frozenset[str] = frozenset()) -> frozenset[str]:
 def computer_use_policy_from_env() -> ComputerUsePolicy:
     """Build the common policy used by CLI, GUI, Web, and A2A."""
     return ComputerUsePolicy(
-        enabled=_bool("UAGENT_COMPUTER_USE", True),
+        enabled=_bool("UAGENT_COMPUTER_USE", False),
         # Keep the shared policy's historical default. Runtime selection is
         # handled independently by the entrypoint runtime manager.
         environment="desktop",

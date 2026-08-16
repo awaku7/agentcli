@@ -26,7 +26,7 @@ configure_computer_use(
 
 ## 安全上の既定値
 
-- Computer Useは既定で有効（`UAGENT_COMPUTER_USE=0` で無効化）
+- Computer Useは既定で無効（`UAGENT_COMPUTER_USE=1` で明示的に有効化）
 - 有効化時も確認を既定で要求
 - 許可アクション、ドメイン、最大Action数、最大Turn数をPolicyで制限
 - Runtime未設定で有効化した場合は実行せず明示的に失敗

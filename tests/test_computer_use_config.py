@@ -2,10 +2,10 @@ from uagent.computer_use.actions import SUPPORTED_ACTIONS
 from uagent.computer_use.config import computer_use_policy_from_env
 
 
-def test_policy_from_env_is_enabled_by_default(monkeypatch):
+def test_policy_from_env_is_disabled_by_default(monkeypatch):
     monkeypatch.delenv("UAGENT_COMPUTER_USE", raising=False)
     policy = computer_use_policy_from_env()
-    assert policy.enabled is True
+    assert policy.enabled is False
 
 
 def test_policy_allows_all_actions_when_action_list_is_omitted(monkeypatch):
