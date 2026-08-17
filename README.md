@@ -350,6 +350,19 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the durable contracts cover
 
 Organization-level policies for tools, providers, credentials, MCP servers, networks, skills, and plugins are supported. Set `UAGENT_POLICY_FILE` to a JSON/YAML policy file; see [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) for configuration examples, roles, confirmation, and allowlists.
 
+## Credential Store
+
+Provider API keys, OAuth tokens, MCP credentials, and A2A credentials can use the shared `CredentialStore`. The default backend is `auto`: when the optional `python-keyring` package is available, uag uses the native OS secret store (Windows Credential Manager, macOS Keychain, or Linux Secret Service); otherwise it falls back to the encrypted file store and then environment variables during resolution.
+
+```text
+:credential set provider/openai api_key
+:credential get provider/openai
+:credential remove provider/openai
+:credential list
+```
+
+`set` masks the secret input, `get` never prints the secret, and `remove` requires confirmation. Set `UAGENT_CREDENTIAL_STORE_BACKEND=os` to require the OS keyring or `file` to force the encrypted file backend. See [docs/IMPROVEMENT_PRIORITY.md](docs/IMPROVEMENT_PRIORITY.md) and [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) for the storage and policy details.
+
 ### Runtime recovery and orchestration
 
 See [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
