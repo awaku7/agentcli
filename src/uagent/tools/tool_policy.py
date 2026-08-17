@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import json
+import os
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any
-import os
 
 
 class SideEffect(str, Enum):
@@ -62,7 +63,6 @@ _DESTRUCTIVE = {
     "rename_path",
     "replace_in_file",
     "binary_edit",
-    "git_ops",
 }
 
 
@@ -135,9 +135,38 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
 def default_confirmation_callback(
     tool_name: str, args: dict[str, Any], policy: ToolPolicy
 ) -> bool:
-    """Conservative host callback; explicit allow is required for side effects."""
+    """Ask the human for confirmation, with an environment override for automation."""
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
-    return value in {"1", "true", "yes", "on", "allow"}
+    if value in {"1", "true", "yes", "on", "allow"}:
+        return True
+
+    # Reuse the normal human_ask callback path so CLI/GUI/Web can all confirm
+    # side effects interactively instead of treating a missing env var as denial.
+    try:
+        from .human_ask_tool import run_tool
+
+        result = json.loads(
+            run_tool(
+                {
+                    "message": (
+                        f"Allow the side-effecting tool '{tool_name}' to run? "
+                        "Reply yes to continue or no to cancel."
+                    ),
+                    "is_password": False,
+                }
+            )
+        )
+        if result.get("auto_pilot_skipped") or result.get("cancelled"):
+            return False
+        return str(result.get("user_reply", "")).strip().lower() in {
+            "y",
+            "yes",
+            "承認",
+            "許可",
+            "はい",
+        }
+    except Exception:
+        return False
 
 
 def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool:
