@@ -2,8 +2,14 @@
 
 ## Unreleased
 
+### Added
+
+- feat(i18n): complete localized Computer Use messages and tool catalog translations across supported locales
+- feat(i18n): wire host and Computer Use internationalization, including shared policy confirmations
+
 ### Changed
 
+- docs: update Computer Use internationalization implementation guidance
 - docs: document test-only dependency installation and CI-equivalent local checks
 
 ## [0.6.0] - 2026-08-15
