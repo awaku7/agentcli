@@ -206,13 +206,19 @@ def _format_capa(cap) -> list[str]:
 def _fetch_model_capa(provider: str, model: str) -> list[str]:
     """Fetch llmcapa info for a model. Returns detail lines, or empty if unavailable."""
     try:
-        from .llmcapa_util import format_capability_lines, get_capability
+        from .llmcapa_util import (
+            format_capability_lines,
+            get_capability,
+            get_context_window,
+        )
 
         prov = provider if provider not in ("(none)", "") else None
         cap = get_capability(model, prov)
         if cap:
             # Prefer shared formatter (includes provider/cost); fall back to local.
-            lines = format_capability_lines(cap)
+            lines = format_capability_lines(
+                cap, context_window_override=get_context_window(model, prov)
+            )
             return (
                 lines
                 if lines

@@ -308,7 +308,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 | Phase D: 高度化 | 5 | 5 | Checkpoint、Scheduler、Distributed/Remote/Multi-Agentを実装済み |
 | **合計** | **20** | **20** | **100%** |
 
-ロードマップ上の主要項目は実装済みです。今後は、個別イベントのCLI/Web/GUI/A2Aでのペイロード統一、OS固有Secret Store、分散合意、Plugin sandboxなどの拡張を進めます。
+ロードマップ上の主要項目は実装済みです。今後は、llama.cppの`/props`やOllamaの`/api/show`情報の各UIへの表示統一、個別イベントのCLI/Web/GUI/A2Aでのペイロード統一、分散合意、Plugin sandboxなどの拡張を進めます。
 
 ## 現時点で後回しにする項目
 

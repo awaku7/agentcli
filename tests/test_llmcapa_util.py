@@ -60,6 +60,54 @@ class TestProviderCandidates:
 
 
 class TestGetCapability:
+    def test_llama_cpp_prefers_props_context(self, monkeypatch) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"default_generation_settings":{"n_ctx":262144}}'
+
+        urls: list[str] = []
+        monkeypatch.setenv("UAGENT_LLAMA_CPP_BASE_URL", "http://example.test/v1/")
+        monkeypatch.setattr(
+            util,
+            "urlopen",
+            lambda url, timeout: (urls.append(url) or Response()),
+        )
+
+        assert util.get_context_window("props-priority-model", "llama_cpp") == 262144
+        assert urls == ["http://example.test/props?model=props-priority-model"]
+
+    def test_ollama_prefers_api_show_context(self, monkeypatch) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"model_info":{"llama.context_length":32768}}'
+
+        monkeypatch.setenv("UAGENT_OLLAMA_BASE_URL", "http://example.test/v1")
+        captured: list[object] = []
+        monkeypatch.setattr(
+            util,
+            "urlopen",
+            lambda request, timeout: (captured.append(request) or Response()),
+        )
+
+        assert util.get_context_window("ollama-priority-model", "ollama") == 32768
+        assert captured[0].full_url == "http://example.test/api/show"
+
     def test_openai_gpt4o(self) -> None:
         cap = get_capability("gpt-4o", "openai")
         assert cap is not None

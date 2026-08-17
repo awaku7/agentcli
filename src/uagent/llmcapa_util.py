@@ -7,8 +7,11 @@ shrink thresholds, max-token clamping, and :model display.
 
 from __future__ import annotations
 
+import json
 from functools import lru_cache
 from typing import Any
+from urllib.parse import quote, urlsplit, urlunsplit
+from urllib.request import Request, urlopen
 
 from .env_utils import env_get
 from .i18n import _
@@ -228,6 +231,14 @@ def get_context_window(
     model_id: str | None = None,
     provider: str | None = None,
 ) -> int | None:
+    if normalize_provider(provider) == "llama_cpp":
+        props_ctx = _get_llama_cpp_props_context(model_id)
+        if props_ctx is not None:
+            return props_ctx
+    if normalize_provider(provider) == "ollama":
+        show_ctx = _get_ollama_show_context(model_id)
+        if show_ctx is not None:
+            return show_ctx
     cap = get_capability(model_id, provider)
     if cap is None:
         return None
@@ -236,6 +247,66 @@ def get_context_window(
     except Exception:
         return None
     return ctx if ctx > 0 else None
+
+
+@lru_cache(maxsize=128)
+def _get_llama_cpp_props_context(model_id: str | None) -> int | None:
+    """Read llama-server's effective ``n_ctx`` before offline catalog data."""
+    model = (model_id or "").strip()
+    base = (env_get("UAGENT_LLAMA_CPP_BASE_URL", "") or "").strip()
+    if not model or not base:
+        return None
+    try:
+        parts = urlsplit(base)
+        path = parts.path.rstrip("/")
+        if path.endswith("/v1"):
+            path = path[:-3].rstrip("/")
+        props_url = urlunsplit((parts.scheme, parts.netloc, path + "/props", "", ""))
+        url = f"{props_url}?model={quote(model, safe='')}"
+        timeout = float(env_get("UAGENT_LLAMA_CPP_PROPS_TIMEOUT_SEC", "5") or "5")
+        with urlopen(url, timeout=timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        value = payload.get("default_generation_settings", {}).get("n_ctx")
+        context = int(value or 0)
+        return context if context > 0 else None
+    except Exception:
+        return None
+
+
+@lru_cache(maxsize=128)
+def _get_ollama_show_context(model_id: str | None) -> int | None:
+    """Read Ollama's model-specific context length from ``/api/show``."""
+    model = (model_id or "").strip()
+    base = (env_get("UAGENT_OLLAMA_BASE_URL", "") or "").strip()
+    if not model or not base:
+        return None
+    try:
+        parts = urlsplit(base)
+        path = parts.path.rstrip("/")
+        if path.endswith("/v1"):
+            path = path[:-3].rstrip("/")
+        show_url = urlunsplit((parts.scheme, parts.netloc, path + "/api/show", "", ""))
+        request = Request(
+            show_url,
+            data=json.dumps({"name": model}).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        timeout = float(env_get("UAGENT_OLLAMA_PROPS_TIMEOUT_SEC", "5") or "5")
+        with urlopen(request, timeout=timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        model_info = payload.get("model_info") or {}
+        for value in (
+            value
+            for key, value in model_info.items()
+            if str(key).endswith(".context_length")
+        ):
+            context = int(value or 0)
+            if context > 0:
+                return context
+    except Exception:
+        pass
+    return None
 
 
 def get_max_output_tokens(
@@ -676,7 +747,9 @@ def deprecated_model_warning(
     return _("Model '%(model_id)s' is deprecated.") % {"model_id": mid}
 
 
-def format_capability_lines(cap: Any) -> list[str]:
+def format_capability_lines(
+    cap: Any, *, context_window_override: int | None = None
+) -> list[str]:
     """Format a Capability into human-readable detail lines."""
     if cap is None:
         return []
@@ -692,7 +765,11 @@ def format_capability_lines(cap: Any) -> list[str]:
             _("    Display Name:  %(value)s")
             % {"value": getattr(cap, "display_name", "")}
         )
-        ctx = int(getattr(cap, "context_window", 0) or 0)
+        ctx = int(
+            context_window_override
+            if context_window_override is not None
+            else getattr(cap, "context_window", 0) or 0
+        )
         out = int(getattr(cap, "max_output_tokens", 0) or 0)
         lines.append(_("    Context Window: %(value)s tokens") % {"value": f"{ctx:,}"})
         lines.append(_("    Max Output:    %(value)s tokens") % {"value": f"{out:,}"})
