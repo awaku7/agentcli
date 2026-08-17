@@ -209,21 +209,32 @@ def _fetch_model_capa(provider: str, model: str) -> list[str]:
         from .llmcapa_util import (
             format_capability_lines,
             get_capability,
-            get_context_window,
+            get_context_window_details,
         )
 
         prov = provider if provider not in ("(none)", "") else None
         cap = get_capability(model, prov)
         if cap:
             # Prefer shared formatter (includes provider/cost); fall back to local.
+            live_context, context_source = get_context_window_details(model, prov)
             lines = format_capability_lines(
-                cap, context_window_override=get_context_window(model, prov)
+                cap,
+                context_window_override=live_context,
+                context_source=context_source,
             )
             return (
                 lines
                 if lines
                 else [f"    model_id: {cap.model_id}"] + _format_capa(cap)
             )
+        live_context, context_source = get_context_window_details(model, prov)
+        if live_context is not None:
+            return [
+                f"    model_id: {model}",
+                f"    provider: {prov or '?'}",
+                f"    Context Window: {live_context:,} tokens",
+                f"    Context Source: {context_source}",
+            ]
     except Exception:
         pass
     return []

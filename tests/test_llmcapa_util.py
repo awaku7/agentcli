@@ -108,6 +108,30 @@ class TestGetCapability:
         assert util.get_context_window("ollama-priority-model", "ollama") == 32768
         assert captured[0].full_url == "http://example.test/api/show"
 
+    def test_lmstudio_prefers_v1_model_context(self, monkeypatch) -> None:
+        import uagent.llmcapa_util as util
+
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"models":[{"key":"studio-model","max_context_length":16384}]}'
+
+        monkeypatch.setenv("UAGENT_LMSTUDIO_BASE_URL", "http://example.test/v1")
+        urls: list[str] = []
+        monkeypatch.setattr(
+            util,
+            "urlopen",
+            lambda url, timeout: (urls.append(url) or Response()),
+        )
+
+        assert util.get_context_window("studio-model", "lmstudio") == 16384
+        assert urls == ["http://example.test/api/v1/models"]
+
     def test_openai_gpt4o(self) -> None:
         cap = get_capability("gpt-4o", "openai")
         assert cap is not None

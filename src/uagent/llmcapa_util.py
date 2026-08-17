@@ -231,22 +231,35 @@ def get_context_window(
     model_id: str | None = None,
     provider: str | None = None,
 ) -> int | None:
+    context, _source = get_context_window_details(model_id, provider)
+    return context
+
+
+def get_context_window_details(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> tuple[int | None, str]:
+    """Return the resolved context window and its source label."""
     if normalize_provider(provider) == "llama_cpp":
         props_ctx = _get_llama_cpp_props_context(model_id)
         if props_ctx is not None:
-            return props_ctx
+            return props_ctx, "/props"
     if normalize_provider(provider) == "ollama":
         show_ctx = _get_ollama_show_context(model_id)
         if show_ctx is not None:
-            return show_ctx
+            return show_ctx, "/api/show"
+    if normalize_provider(provider) == "lmstudio":
+        lmstudio_ctx = _get_lmstudio_v1_context(model_id)
+        if lmstudio_ctx is not None:
+            return lmstudio_ctx, "/api/v1/models"
     cap = get_capability(model_id, provider)
     if cap is None:
-        return None
+        return None, "unavailable"
     try:
         ctx = int(getattr(cap, "context_window", 0) or 0)
     except Exception:
-        return None
-    return ctx if ctx > 0 else None
+        return None, "unavailable"
+    return (ctx, "llmcapa") if ctx > 0 else (None, "unavailable")
 
 
 @lru_cache(maxsize=128)
@@ -304,6 +317,45 @@ def _get_ollama_show_context(model_id: str | None) -> int | None:
             context = int(value or 0)
             if context > 0:
                 return context
+    except Exception:
+        pass
+    return None
+
+
+@lru_cache(maxsize=32)
+def _get_lmstudio_v1_context(model_id: str | None) -> int | None:
+    """Read LM Studio's native v1 model metadata."""
+    model = (model_id or "").strip()
+    base = (env_get("UAGENT_LMSTUDIO_BASE_URL", "") or "").strip()
+    if not model or not base:
+        return None
+    try:
+        parts = urlsplit(base)
+        path = parts.path.rstrip("/")
+        if path.endswith("/v1"):
+            path = path[:-3].rstrip("/")
+        models_url = urlunsplit(
+            (parts.scheme, parts.netloc, path + "/api/v1/models", "", "")
+        )
+        timeout = float(env_get("UAGENT_LMSTUDIO_PROPS_TIMEOUT_SEC", "5") or "5")
+        with urlopen(models_url, timeout=timeout) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        models = payload.get("models", []) if isinstance(payload, dict) else payload
+        if not isinstance(models, list):
+            return None
+        for item in models:
+            if not isinstance(item, dict):
+                continue
+            identifiers = {
+                str(item.get(key) or "").strip()
+                for key in ("id", "key", "name", "model")
+            }
+            if model not in identifiers:
+                continue
+            for key in ("max_context_length", "context_length"):
+                context = int(item.get(key) or 0)
+                if context > 0:
+                    return context
     except Exception:
         pass
     return None
@@ -748,7 +800,10 @@ def deprecated_model_warning(
 
 
 def format_capability_lines(
-    cap: Any, *, context_window_override: int | None = None
+    cap: Any,
+    *,
+    context_window_override: int | None = None,
+    context_source: str | None = None,
 ) -> list[str]:
     """Format a Capability into human-readable detail lines."""
     if cap is None:
@@ -772,6 +827,8 @@ def format_capability_lines(
         )
         out = int(getattr(cap, "max_output_tokens", 0) or 0)
         lines.append(_("    Context Window: %(value)s tokens") % {"value": f"{ctx:,}"})
+        if context_source:
+            lines.append(_("    Context Source: %(value)s") % {"value": context_source})
         lines.append(_("    Max Output:    %(value)s tokens") % {"value": f"{out:,}"})
         lines.append(
             _("    Tokenizer:     %(value)s")
