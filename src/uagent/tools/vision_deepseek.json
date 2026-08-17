@@ -1,4 +1,9 @@
 {
+  "en": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
   "ar": {
     "err.import_openai": "فشل استيراد حزمة openai.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY مفقود (أو UAGENT_OPENAI_API_KEY).",
@@ -14,15 +19,20 @@
     "err.missing_env": "Chybí UAGENT_DEEPSEEK_API_KEY (nebo UAGENT_OPENAI_API_KEY).",
     "warn.empty": "[WARN] prázdná odpověď"
   },
+  "da": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
   "de": {
     "err.import_openai": "Fehler beim Importieren des OpenAI-Pakets.",
     "err.missing_env": "Fehlender UAGENT_DEEPSEEK_API_KEY (oder UAGENT_OPENAI_API_KEY).",
     "warn.empty": "[WARN] leere Antwort"
   },
-  "en": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
+  "el": {
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai.",
+    "err.missing_env": "Λείπει UAGENT_DEEPSEEK_API_KEY (ή UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση"
   },
   "es": {
     "err.import_openai": "No se pudo importar el paquete openai.",
@@ -39,15 +49,30 @@
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (tai UAGENT_OPENAI_API_KEY) puuttuu.",
     "warn.empty": "[VAROITUS] tyhjä vastaus"
   },
+  "fil": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
   "fr": {
     "err.import_openai": "Échec de l'importation du package openai.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY manquant (ou UAGENT_OPENAI_API_KEY).",
     "warn.empty": "[WARN] réponse vide"
   },
+  "he": {
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל.",
+    "err.missing_env": "חסר UAGENT_DEEPSEEK_API_KEY (או UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[אזהרה] תגובה ריקה"
+  },
   "hi": {
     "err.import_openai": "openai पैकेज आयात करने में विफल.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (या UAGENT_OPENAI_API_KEY) गुम है।",
     "warn.empty": "[चेतावनी] खाली प्रतिक्रिया"
+  },
+  "hu": {
+    "err.import_openai": "Nem sikerült importálni az openai csomagot.",
+    "err.missing_env": "Hiányzó UAGENT_DEEPSEEK_API_KEY (vagy UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] üres válasz"
   },
   "id": {
     "err.import_openai": "Gagal mengimpor paket openai.",
@@ -79,25 +104,10 @@
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (किंवा UAGENT_OPENAI_API_KEY) गहाळ आहे.",
     "warn.empty": "[चेतावणी] रिक्त प्रतिसाद"
   },
-  "el": {
-    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai.",
-    "err.missing_env": "Λείπει UAGENT_DEEPSEEK_API_KEY (ή UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση"
-  },
-  "he": {
-    "err.import_openai": "ייבוא ​​חבילת openai נכשל.",
-    "err.missing_env": "חסר UAGENT_DEEPSEEK_API_KEY (או UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[אזהרה] תגובה ריקה"
-  },
-  "hu": {
-    "err.import_openai": "Nem sikerült importálni az openai csomagot.",
-    "err.missing_env": "Hiányzó UAGENT_DEEPSEEK_API_KEY (vagy UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] üres válasz"
-  },
-  "ro": {
-    "err.import_openai": "Nu s-a putut importa pachetul openai.",
-    "err.missing_env": "Lipsește UAGENT_DEEPSEEK_API_KEY (sau UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] răspuns gol"
+  "ms": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
   },
   "nb": {
     "err.import_openai": "Kunne ikke importere openai-pakken.",
@@ -108,6 +118,11 @@
     "err.import_openai": "Kan openai-pakket niet importeren.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (of UAGENT_OPENAI_API_KEY) ontbreekt.",
     "warn.empty": "[WARN] leeg antwoord"
+  },
+  "nn": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
   },
   "pl": {
     "err.import_openai": "Nie udało się zaimportować pakietu Openai.",
@@ -123,6 +138,11 @@
     "err.import_openai": "Falha ao importar o pacote openai.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (ou UAGENT_OPENAI_API_KEY) ausente.",
     "warn.empty": "[WARN] resposta vazia"
+  },
+  "ro": {
+    "err.import_openai": "Nu s-a putut importa pachetul openai.",
+    "err.missing_env": "Lipsește UAGENT_DEEPSEEK_API_KEY (sau UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] răspuns gol"
   },
   "ru": {
     "err.import_openai": "Не удалось импортировать пакет openai.",

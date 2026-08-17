@@ -4,129 +4,9 @@
     "skill.clear_log": "{message} (Cleared {removed} skill messages)",
     "skill.ok": "{message}"
   },
-  "ja": {
-    "skill.prefix": "【スキル】",
-    "skill.clear_log": "{message} ({removed} 件のスキルメッセージをクリアしました)",
-    "skill.ok": "{message}"
-  },
-  "es": {
-    "skill.prefix": "[HABILIDAD]",
-    "skill.clear_log": "{message} (mensajes de habilidad {removed} borrados)",
-    "skill.ok": "{message}"
-  },
-  "fr": {
-    "skill.prefix": "[COMPÉTENCE]",
-    "skill.clear_log": "{message} (messages de compétence {removed} effacés)",
-    "skill.ok": "{message}"
-  },
-  "ko": {
-    "skill.prefix": "[스킬]",
-    "skill.clear_log": "{message}({removed} 스킬 메시지 삭제됨)",
-    "skill.ok": "{message}"
-  },
-  "de": {
-    "skill.prefix": "[FÄHIGKEIT]",
-    "skill.clear_log": "{message} ({removed} Skill-Nachrichten gelöscht)",
-    "skill.ok": "{message}"
-  },
-  "it": {
-    "skill.prefix": "[ABILITA']",
-    "skill.clear_log": "{message} (Cancellati {removed} messaggi di abilità)",
-    "skill.ok": "{message}"
-  },
-  "ru": {
-    "skill.prefix": "[НАВЫКИ]",
-    "skill.clear_log": "{message} (Удалены сообщения о навыках {removed})",
-    "skill.ok": "{message}"
-  },
-  "pt_BR": {
-    "skill.prefix": "[HABILIDADE]",
-    "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
-    "skill.ok": "{message}"
-  },
-  "pt": {
-    "skill.prefix": "[HABILIDADE]",
-    "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
-    "skill.ok": "{message}"
-  },
-  "id": {
-    "skill.prefix": "[Keterampilan]",
-    "skill.clear_log": "{message} (Menghapus {removed} pesan keterampilan)",
-    "skill.ok": "{message}"
-  },
-  "vi": {
-    "skill.prefix": "[KỸ NĂNG]",
-    "skill.clear_log": "{message} (Đã xóa {removed} thông báo kỹ năng)",
-    "skill.ok": "{message}"
-  },
-  "pl": {
-    "skill.prefix": "[UMIEJĘTNOŚCI]",
-    "skill.clear_log": "{message} (Wyczyszczono {removed} komunikatów umiejętności)",
-    "skill.ok": "{message}"
-  },
-  "hi": {
-    "skill.prefix": "[कौशल]",
-    "skill.clear_log": "{message} ({removed} कौशल संदेश साफ़ किए गए)",
-    "skill.ok": "{message}"
-  },
   "ar": {
     "skill.prefix": "[المهارة]",
     "skill.clear_log": "{message} (تم مسح {removed} من رسائل المهارات)",
-    "skill.ok": "{message}"
-  },
-  "sv": {
-    "skill.prefix": "[SKILL]",
-    "skill.clear_log": "{message} (Rensade {removed} färdighetsmeddelanden)",
-    "skill.ok": "{message}"
-  },
-  "sw": {
-    "skill.prefix": "[SKILL]",
-    "skill.clear_log": "{message} (Ujumbe {removed} wa ujuzi umefuta)",
-    "skill.ok": "{message}"
-  },
-  "nb": {
-    "skill.prefix": "[FERDIGHET]",
-    "skill.clear_log": "{message} (Tømte {removed} ferdighetsmeldinger)",
-    "skill.ok": "{message}"
-  },
-  "nl": {
-    "skill.prefix": "[VAARDIGHEID]",
-    "skill.clear_log": "{message} ({removed} vaardigheidsberichten gewist)",
-    "skill.ok": "{message}"
-  },
-  "fi": {
-    "skill.prefix": "[TAITO]",
-    "skill.clear_log": "{message} (poistettu {removed} taitoviestiä)",
-    "skill.ok": "{message}"
-  },
-  "cs": {
-    "skill.prefix": "[DOVEDNOST]",
-    "skill.clear_log": "{message} (vymazáno {removed} zpráv o dovednostech)",
-    "skill.ok": "{message}"
-  },
-  "uk": {
-    "skill.prefix": "[НАВИЩІСТЬ]",
-    "skill.clear_log": "{message} (Очищено {removed} повідомлень про навички)",
-    "skill.ok": "{message}"
-  },
-  "tr": {
-    "skill.prefix": "[BECERİ]",
-    "skill.clear_log": "{message} ({removed} beceri mesajı temizlendi)",
-    "skill.ok": "{message}"
-  },
-  "th": {
-    "skill.prefix": "[ทักษะ]",
-    "skill.clear_log": "{message} (ล้างข้อความทักษะ {removed})",
-    "skill.ok": "{message}"
-  },
-  "zh_CN": {
-    "skill.prefix": "[技能]",
-    "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
-    "skill.ok": "{message}"
-  },
-  "zh_TW": {
-    "skill.prefix": "[技能]",
-    "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
     "skill.ok": "{message}"
   },
   "bn": {
@@ -134,9 +14,84 @@
     "skill.clear_log": "{message} (সাফ করা {removed} দক্ষতা বার্তা)",
     "skill.ok": "{message}"
   },
+  "cs": {
+    "skill.prefix": "[DOVEDNOST]",
+    "skill.clear_log": "{message} (vymazáno {removed} zpráv o dovednostech)",
+    "skill.ok": "{message}"
+  },
+  "da": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "de": {
+    "skill.prefix": "[FÄHIGKEIT]",
+    "skill.clear_log": "{message} ({removed} Skill-Nachrichten gelöscht)",
+    "skill.ok": "{message}"
+  },
+  "el": {
+    "skill.prefix": "[ΕΠΙΔΕΞΙΟΤΗΤΑ]",
+    "skill.clear_log": "{message} (Διαγράφηκαν μηνύματα δεξιοτήτων {removed})",
+    "skill.ok": "{message}"
+  },
+  "es": {
+    "skill.prefix": "[HABILIDAD]",
+    "skill.clear_log": "{message} (mensajes de habilidad {removed} borrados)",
+    "skill.ok": "{message}"
+  },
   "fa": {
     "skill.prefix": "[مهارت]",
     "skill.clear_log": "{message} (پیام های مهارت {removed} پاک شد)",
+    "skill.ok": "{message}"
+  },
+  "fi": {
+    "skill.prefix": "[TAITO]",
+    "skill.clear_log": "{message} (poistettu {removed} taitoviestiä)",
+    "skill.ok": "{message}"
+  },
+  "fil": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "fr": {
+    "skill.prefix": "[COMPÉTENCE]",
+    "skill.clear_log": "{message} (messages de compétence {removed} effacés)",
+    "skill.ok": "{message}"
+  },
+  "he": {
+    "skill.prefix": "[מְיוּמָנוּת]",
+    "skill.clear_log": "{message} (הודעות מיומנות {removed} נוקו)",
+    "skill.ok": "{message}"
+  },
+  "hi": {
+    "skill.prefix": "[कौशल]",
+    "skill.clear_log": "{message} ({removed} कौशल संदेश साफ़ किए गए)",
+    "skill.ok": "{message}"
+  },
+  "hu": {
+    "skill.prefix": "A forrás URL vagy elérési útja (Git URL, HTTP ZIP URL, helyi könyvtár vagy helyi ZIP).",
+    "skill.clear_log": "{message} ({removed} ügyességi üzenetek törölve)",
+    "skill.ok": "{message}"
+  },
+  "id": {
+    "skill.prefix": "[Keterampilan]",
+    "skill.clear_log": "{message} (Menghapus {removed} pesan keterampilan)",
+    "skill.ok": "{message}"
+  },
+  "it": {
+    "skill.prefix": "[ABILITA']",
+    "skill.clear_log": "{message} (Cancellati {removed} messaggi di abilità)",
+    "skill.ok": "{message}"
+  },
+  "ja": {
+    "skill.prefix": "【スキル】",
+    "skill.clear_log": "{message} ({removed} 件のスキルメッセージをクリアしました)",
+    "skill.ok": "{message}"
+  },
+  "ko": {
+    "skill.prefix": "[스킬]",
+    "skill.clear_log": "{message}({removed} 스킬 메시지 삭제됨)",
     "skill.ok": "{message}"
   },
   "mn": {
@@ -149,24 +104,89 @@
     "skill.clear_log": "{message} ({removed} कौशल्य संदेश साफ)",
     "skill.ok": "{message}"
   },
-  "el": {
-    "skill.prefix": "[ΕΠΙΔΕΞΙΟΤΗΤΑ]",
-    "skill.clear_log": "{message} (Διαγράφηκαν μηνύματα δεξιοτήτων {removed})",
+  "ms": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
     "skill.ok": "{message}"
   },
-  "he": {
-    "skill.prefix": "[מְיוּמָנוּת]",
-    "skill.clear_log": "{message} (הודעות מיומנות {removed} נוקו)",
+  "nb": {
+    "skill.prefix": "[FERDIGHET]",
+    "skill.clear_log": "{message} (Tømte {removed} ferdighetsmeldinger)",
     "skill.ok": "{message}"
   },
-  "hu": {
-    "skill.prefix": "A forrás URL vagy elérési útja (Git URL, HTTP ZIP URL, helyi könyvtár vagy helyi ZIP).",
-    "skill.clear_log": "{message} ({removed} ügyességi üzenetek törölve)",
+  "nl": {
+    "skill.prefix": "[VAARDIGHEID]",
+    "skill.clear_log": "{message} ({removed} vaardigheidsberichten gewist)",
+    "skill.ok": "{message}"
+  },
+  "nn": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "pl": {
+    "skill.prefix": "[UMIEJĘTNOŚCI]",
+    "skill.clear_log": "{message} (Wyczyszczono {removed} komunikatów umiejętności)",
+    "skill.ok": "{message}"
+  },
+  "pt": {
+    "skill.prefix": "[HABILIDADE]",
+    "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
+    "skill.ok": "{message}"
+  },
+  "pt_BR": {
+    "skill.prefix": "[HABILIDADE]",
+    "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
     "skill.ok": "{message}"
   },
   "ro": {
     "skill.prefix": "[ABILITATE]",
     "skill.clear_log": "{message} (Mesaje de aptitudini {removed} șterse)",
+    "skill.ok": "{message}"
+  },
+  "ru": {
+    "skill.prefix": "[НАВЫКИ]",
+    "skill.clear_log": "{message} (Удалены сообщения о навыках {removed})",
+    "skill.ok": "{message}"
+  },
+  "sv": {
+    "skill.prefix": "[SKILL]",
+    "skill.clear_log": "{message} (Rensade {removed} färdighetsmeddelanden)",
+    "skill.ok": "{message}"
+  },
+  "sw": {
+    "skill.prefix": "[SKILL]",
+    "skill.clear_log": "{message} (Ujumbe {removed} wa ujuzi umefuta)",
+    "skill.ok": "{message}"
+  },
+  "th": {
+    "skill.prefix": "[ทักษะ]",
+    "skill.clear_log": "{message} (ล้างข้อความทักษะ {removed})",
+    "skill.ok": "{message}"
+  },
+  "tr": {
+    "skill.prefix": "[BECERİ]",
+    "skill.clear_log": "{message} ({removed} beceri mesajı temizlendi)",
+    "skill.ok": "{message}"
+  },
+  "uk": {
+    "skill.prefix": "[НАВИЩІСТЬ]",
+    "skill.clear_log": "{message} (Очищено {removed} повідомлень про навички)",
+    "skill.ok": "{message}"
+  },
+  "vi": {
+    "skill.prefix": "[KỸ NĂNG]",
+    "skill.clear_log": "{message} (Đã xóa {removed} thông báo kỹ năng)",
+    "skill.ok": "{message}"
+  },
+  "zh_CN": {
+    "skill.prefix": "[技能]",
+    "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
+    "skill.ok": "{message}"
+  },
+  "zh_TW": {
+    "skill.prefix": "[技能]",
+    "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
     "skill.ok": "{message}"
   }
 }

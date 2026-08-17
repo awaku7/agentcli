@@ -1,4 +1,16 @@
 {
+  "en": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
+    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
   "ar": {
     "err.image_not_found": "ملف الصورة غير موجود: {path}",
     "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",
@@ -35,6 +47,18 @@
     "err.missing_env.openrouter": "Chybějící požadované proměnné prostředí pro openrouter (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Chybějící požadované proměnné prostředí pro openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
+  "da": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
+    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
   "de": {
     "err.image_not_found": "Bilddatei nicht gefunden: {path}",
     "err.image_too_large": "Bilddatei zu groß: {size} Bytes (Limit={max_bytes})",
@@ -47,17 +71,17 @@
     "err.missing_env.openrouter": "Fehlende erforderliche Umgebungsvariablen für openrouter (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Fehlende erforderliche Umgebungsvariablen für openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
-  "en": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
-    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  "el": {
+    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
+    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
+    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
+    "err.unsupported_provider": "Λείπουν τα απαιτούμενα env vars για openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.azure": "Λείπουν τα απαραίτητα env vars για το azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "ακυρώθηκε από τον χρήστη",
+    "err.missing_env.openrouter": "Λείπουν τα απαιτούμενα env vars για openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Λείπουν τα απαιτούμενα env vars για openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "es": {
     "err.image_not_found": "archivo de imagen no encontrado: {path}",
@@ -95,6 +119,18 @@
     "err.missing_env.openrouter": "Openrouteria varten tarvittavat ympäristömuuttujat puuttuvat (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Openai:ta varten tarvittavat ympäristömuuttujat puuttuvat (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
+  "fil": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
+    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
   "fr": {
     "err.image_not_found": "fichier image introuvable : {path}",
     "err.image_too_large": "fichier image trop volumineux : {size} octets (limite={max_bytes})",
@@ -107,6 +143,18 @@
     "err.missing_env.openrouter": "Variables d'environnement requises pour openrouter manquantes (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Variables d'environnement requises pour openai manquantes (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
+  "he": {
+    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
+    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
+    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[אזהרה] תגובה ריקה",
+    "err.unsupported_provider": "חסרים גרסה נדרשת של env עבור תכלת (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) חסרים עבור bedrock en=] (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.azure": "וריאציות קוד נדרשות חסרות עבור הנתב הפתוח (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.bedrock": "וריאציות קוד דרושות חסרות עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
+    "err.missing_env.openrouter": "חסרות וריאציות של env נדרשות עבור נתב פתוח (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "חסרות גרסה נדרשת של env עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
   "hi": {
     "err.image_not_found": "छवि फ़ाइल नहीं मिली: {path}",
     "err.image_too_large": "छवि फ़ाइल बहुत बड़ी है: {size} बाइट्स (सीमा={max_bytes})",
@@ -118,6 +166,18 @@
     "err.missing_env.bedrock": "bedrock के लिए आवश्यक env चर गायब (UAGENT_BEDROCK_BASE_URL/API_KEY)",
     "err.missing_env.openrouter": "openrouter के लिए आवश्यक env चर गायब (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "openai के लिए आवश्यक env चर गायब (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
+  "hu": {
+    "err.image_not_found": "képfájl nem található: {path}",
+    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
+    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
+    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] üres válasz",
+    "err.unsupported_provider": "Hiányoznak az openrouter kötelező env-változatai (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.azure": "Hiányoznak a szükséges env vars az Azure-hoz (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Hiányoznak az alapkőzet kötelező env varjai (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Hiányoznak a szükséges env vars az openrouterhez (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Hiányoznak az openai kötelező env varjai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "id": {
     "err.image_not_found": "file gambar tidak ditemukan: {path}",
@@ -191,53 +251,17 @@
     "err.missing_env.openrouter": "openrouter साठी आवश्यक env व्हेरिएबल्स गहाळ (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "openai साठी आवश्यक env व्हेरिएबल्स गहाळ (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
-  "el": {
-    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
-    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
-    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
-    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
-    "err.unsupported_provider": "Λείπουν τα απαιτούμενα env vars για openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.azure": "Λείπουν τα απαραίτητα env vars για το azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "ακυρώθηκε από τον χρήστη",
-    "err.missing_env.openrouter": "Λείπουν τα απαιτούμενα env vars για openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Λείπουν τα απαιτούμενα env vars για openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
-  },
-  "he": {
-    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
-    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
-    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
-    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[אזהרה] תגובה ריקה",
-    "err.unsupported_provider": "חסרים גרסה נדרשת של env עבור תכלת (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) חסרים עבור bedrock en=] (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.azure": "וריאציות קוד נדרשות חסרות עבור הנתב הפתוח (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.bedrock": "וריאציות קוד דרושות חסרות עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
-    "err.missing_env.openrouter": "חסרות וריאציות של env נדרשות עבור נתב פתוח (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "חסרות גרסה נדרשת של env עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
-  },
-  "hu": {
-    "err.image_not_found": "képfájl nem található: {path}",
-    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
-    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
-    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[WARN] üres válasz",
-    "err.unsupported_provider": "Hiányoznak az openrouter kötelező env-változatai (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.azure": "Hiányoznak a szükséges env vars az Azure-hoz (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Hiányoznak az alapkőzet kötelező env varjai (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Hiányoznak a szükséges env vars az openrouterhez (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Hiányoznak az openai kötelező env varjai (UAGENT_OPENAI_API_KEY/DEPNAME)"
-  },
-  "ro": {
-    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
-    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
-    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
-    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[WARN] răspuns gol",
-    "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) [=endrock vars. (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.azure": "Lipsesc valorile de mediu necesare pentru openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.bedrock": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
-    "err.missing_env.openrouter": "Lipsesc valorile medii necesare pentru openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  "ms": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
+    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "nb": {
     "err.image_not_found": "bildefilen ble ikke funnet: {path}",
@@ -262,6 +286,18 @@
     "err.missing_env.bedrock": "Ontbrekende vereiste omgevingsvariabelen voor bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
     "err.missing_env.openrouter": "Ontbrekende vereiste omgevingsvariabelen voor openrouter (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Ontbrekende vereiste omgevingsvariabelen voor openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
+  "nn": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
+    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "pl": {
     "err.image_not_found": "nie znaleziono pliku obrazu: {path}",
@@ -298,6 +334,18 @@
     "err.missing_env.bedrock": "Variáveis de ambiente necessárias para bedrock ausentes (UAGENT_BEDROCK_BASE_URL/API_KEY)",
     "err.missing_env.openrouter": "Variáveis de ambiente necessárias para openrouter ausentes (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "Variáveis de ambiente necessárias para openai ausentes (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
+  "ro": {
+    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
+    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
+    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
+    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] răspuns gol",
+    "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) [=endrock vars. (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.azure": "Lipsesc valorile de mediu necesare pentru openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.bedrock": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
+    "err.missing_env.openrouter": "Lipsesc valorile medii necesare pentru openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "ru": {
     "err.image_not_found": "файл изображения не найден: {path}",

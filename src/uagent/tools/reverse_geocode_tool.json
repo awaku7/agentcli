@@ -1,22 +1,4 @@
 {
-  "ja": {
-    "tool.description": "緯度経度から住所を検索します（逆ジオコーディング）。OpenStreetMap Nominatim APIを使用します。全世界対応。",
-    "param.lat.description": "緯度（例: 35.6895）。",
-    "param.lon.description": "経度（例: 139.6917）。",
-    "param.language.description": "結果の言語（ISO 639-1言語コード、例: ja, en, zh, ko）。未指定の場合は自動検出。",
-    "x_search_terms": [
-      "逆ジオコーディング",
-      "リバースジオコーディング",
-      "緯度経度から住所",
-      "住所検索",
-      "位置情報",
-      "reverse geocode",
-      "geocode reverse",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address"
-    ]
-  },
   "en": {
     "tool.description": "Look up an address from latitude/longitude (reverse geocoding). Uses the OpenStreetMap Nominatim API. Worldwide coverage.",
     "param.lat.description": "Latitude (e.g. 35.6895).",
@@ -33,150 +15,6 @@
       "address lookup",
       "coordinates to address",
       "geo address"
-    ]
-  },
-  "zh_CN": {
-    "tool.description": "根据经纬度查找地址（反向地理编码）。使用OpenStreetMap Nominatim API。全球覆盖。",
-    "param.lat.description": "纬度（例如: 35.6895）。",
-    "param.lon.description": "经度（例如: 139.6917）。",
-    "param.language.description": "结果语言（ISO 639-1语言代码，例如: ja, en, zh, ko）。未指定时自动检测。",
-    "x_search_terms": [
-      "反向地理编码",
-      "反向地理编码",
-      "坐标地址",
-      "经纬度到地址",
-      "gps到地址",
-      "反向地理编码",
-      "位置查找",
-      "地址查找",
-      "坐标到地址",
-      "地理地址"
-    ]
-  },
-  "zh_TW": {
-    "tool.description": "根據經緯度查找地址（反向地理編碼）。使用OpenStreetMap Nominatim API。全球覆蓋。",
-    "param.lat.description": "緯度（例如: 35.6895）。",
-    "param.lon.description": "經度（例如: 139.6917）。",
-    "param.language.description": "結果語言（ISO 639-1語言代碼，例如: ja, en, zh, ko）。未指定時自動檢測。",
-    "x_search_terms": [
-      "反向地理編碼",
-      "反向地理編碼",
-      "座標地址",
-      "經緯度到地址",
-      "gps到地址",
-      "反向地理編碼",
-      "位置查找",
-      "地址查找",
-      "坐標到地址",
-      "地理地址"
-    ]
-  },
-  "ko": {
-    "tool.description": "위도/경도에서 주소를 검색합니다（역방향 지오코딩）。OpenStreetMap Nominatim API를 사용합니다. 전 세계 지원.",
-    "param.lat.description": "위도（예: 35.6895）。",
-    "param.lon.description": "경도（예: 139.6917）。",
-    "param.language.description": "결과 언어（ISO 639-1 언어 코드, 예: ja, en, zh, ko）。지정하지 않으면 자동 감지.",
-    "x_search_terms": [
-      "역 지오코드",
-      "역 지오코딩",
-      "좌표에서 주소",
-      "위도에서 주소로",
-      "Gps에서 주소로",
-      "지오코드 역",
-      "위치 조회",
-      "주소 조회",
-      "좌표에서 주소",
-      "지리적 주소로"
-    ]
-  },
-  "fr": {
-    "tool.description": "Recherche une adresse à partir de la latitude/longitude (géocodage inverse). Utilise l'API OpenStreetMap Nominatim. Couverture mondiale.",
-    "param.lat.description": "Latitude (ex: 35.6895).",
-    "param.lon.description": "Longitude (ex: 139.6917).",
-    "param.language.description": "Langue du résultat (code ISO 639-1, ex: ja, en, zh, ko). Détection automatique si omis.",
-    "x_search_terms": [
-      "géocodage inversé",
-      "géocodage inversé",
-      "adresse à partir des coordonnées",
-      "lat lon à l'adresse",
-      "gps à l'adresse",
-      "géocodage inversé",
-      "recherche d'emplacement",
-      "recherche d'adresse",
-      "coordonnées à l'adresse",
-      "adresse géographique"
-    ]
-  },
-  "de": {
-    "tool.description": "Adresse aus Breiten-/Längengrad suchen (Reverse Geocoding). Nutzt die OpenStreetMap Nominatim API. Weltweite Abdeckung.",
-    "param.lat.description": "Breitengrad (z.B. 35.6895).",
-    "param.lon.description": "Längengrad (z.B. 139.6917).",
-    "param.language.description": "Sprache des Ergebnisses (ISO 639-1 Code, z.B. ja, en, zh, ko). Automatische Erkennung wenn nicht angegeben.",
-    "x_search_terms": [
-      "Geokodierung umkehren",
-      "Geokodierung umkehren",
-      "Adresse von Koordinaten",
-      "Lat Lon zu Adresse",
-      "GPS zu Adresse",
-      "Geokodierung umgekehrt",
-      "Standortsuche",
-      "Adresssuche",
-      "Koordinaten zu Adresse",
-      "Geo-Adresse"
-    ]
-  },
-  "es": {
-    "tool.description": "Buscar una dirección a partir de latitud/longitud (geocodificación inversa). Utiliza la API de OpenStreetMap Nominatim. Cobertura mundial.",
-    "param.lat.description": "Latitud (ej: 35.6895).",
-    "param.lon.description": "Longitud (ej: 139.6917).",
-    "param.language.description": "Idioma del resultado (código ISO 639-1, ej: ja, en, zh, ko). Detección automática si se omite.",
-    "x_search_terms": [
-      "geocódigo inverso",
-      "geocodificación inversa",
-      "dirección desde coordenadas",
-      "latitud hasta dirección",
-      "gps a dirección",
-      "geocódigo inverso",
-      "búsqueda de ubicación",
-      "búsqueda de dirección",
-      "coordenadas a dirección",
-      "dirección geográfica"
-    ]
-  },
-  "pt_BR": {
-    "tool.description": "Pesquisar um endereço a partir de latitude/longitude (geocodificação reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
-    "param.lat.description": "Latitude (ex: 35.6895).",
-    "param.lon.description": "Longitude (ex: 139.6917).",
-    "param.language.description": "Idioma do resultado (código ISO 639-1, ex: ja, en, zh, ko). Detecção automática se omitido.",
-    "x_search_terms": [
-      "geocódigo reverso",
-      "geocodificação reversa",
-      "endereço de coordenadas",
-      "lat lon para endereço",
-      "gps para endereço",
-      "geocódigo reverso",
-      "pesquisa de localização",
-      "pesquisa de endereço",
-      "coordenadas para endereço",
-      "endereço geográfico"
-    ]
-  },
-  "ru": {
-    "tool.description": "Поиск адреса по широте/долготе (обратное геокодирование). Использует API OpenStreetMap Nominatim. Покрытие по всему миру.",
-    "param.lat.description": "Широта (например: 35.6895).",
-    "param.lon.description": "Долгота (например: 139.6917).",
-    "param.language.description": "Язык результата (код ISO 639-1, например: ja, en, zh, ko). Автоопределение если не указан.",
-    "x_search_terms": [
-      "обратный геокод",
-      "обратное геокодирование",
-      "адрес из координат",
-      "широта до адреса",
-      "от GPS до адреса",
-      "обратный геокод",
-      "поиск местоположения",
-      "поиск адреса",
-      "координаты до адреса",
-      "географический адрес"
     ]
   },
   "ar": {
@@ -197,112 +35,22 @@
       "العنوان الجغرافي"
     ]
   },
-  "hi": {
-    "tool.description": "अक्षांश/देशांतर से पता खोजें (रिवर्स जियोकोडिंग)। OpenStreetMap Nominatim API का उपयोग करता है। वैश्विक कवरेज।",
-    "param.lat.description": "अक्षांश (उदा: 35.6895)।",
-    "param.lon.description": "देशांतर (उदा: 139.6917)।",
-    "param.language.description": "परिणाम की भाषा (ISO 639-1 कोड, उदा: ja, en, zh, ko)। छोड़े जाने पर स्वतः पता लगाया जाता है।",
+  "bn": {
+    "tool.description": "অক্ষাংশ/দ্রাঘিমাংশ থেকে একটি ঠিকানা দেখুন (বিপরীত জিয়োকোডিং)। OpenStreetMap Nominatim API ব্যবহার করে। বিশ্বব্যাপী কভারেজ।",
+    "param.lat.description": "অক্ষাংশ (যেমন 35.6895)।",
+    "param.lon.description": "দ্রাঘিমাংশ (যেমন 139.6917)।",
+    "param.language.description": "ফলাফলের জন্য ভাষা (ISO 639-1 কোড, যেমন ja, en, zh, ko)। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
     "x_search_terms": [
-      "रिवर्स जियोकोड",
-      "रिवर्स जियोकोडिंग",
-      "निर्देशांक से पता",
-      "अक्षांश से पता",
-      "जीपीएस से पता",
-      "जियोकोड रिवर्स",
-      "स्थान लुकअप",
-      "पता लुकअप",
-      "निर्देशांक से पता",
-      "जियो पता"
-    ]
-  },
-  "it": {
-    "tool.description": "Cerca un indirizzo da latitudine/longitudine (geocodificazione inversa). Utilizza l'API Nominatim di OpenStreetMap. Copertura mondiale.",
-    "param.lat.description": "Latitudine (es. 35.6895).",
-    "param.lon.description": "Longitudine (es. 139.6917).",
-    "param.language.description": "Lingua per il risultato (codice ISO 639-1, ad esempio ja, en, zh, ko). Rilevato automaticamente se omesso.",
-    "x_search_terms": [
-      "geocodifica inversa",
-      "geocodifica inversa",
-      "indirizzo dalle coordinate",
-      "lat lon all'indirizzo",
-      "gps all'indirizzo",
-      "geocodifica inversa",
-      "ricerca posizione",
-      "ricerca indirizzo",
-      "coordinate per indirizzo",
-      "indirizzo geografico"
-    ]
-  },
-  "nl": {
-    "tool.description": "Zoek een adres op aan de hand van lengte- en breedtegraad (omgekeerde geocodering). Maakt gebruik van de OpenStreetMap Nominatim-API. Wereldwijde dekking.",
-    "param.lat.description": "Breedtegraad (bijvoorbeeld 35,6895).",
-    "param.lon.description": "Lengtegraad (bijvoorbeeld 139,6917).",
-    "param.language.description": "Taal voor het resultaat (ISO 639-1-code, bijvoorbeeld ja, en, zh, ko). Wordt automatisch gedetecteerd indien weggelaten.",
-    "x_search_terms": [
-      "omgekeerde geocode",
-      "omgekeerde geocodering",
-      "adres van coördinaten",
-      "lat lon naar adres",
-      "gps naar adres",
-      "geocode omgekeerd",
-      "locatie opzoeken",
-      "adres opzoeken",
-      "coördinaten naar adres",
-      "geo-adres"
-    ]
-  },
-  "sv": {
-    "tool.description": "Slå upp en adress från latitud/longitud (omvänd geokodning). Använder OpenStreetMap Nominatim API. Världsomspännande täckning.",
-    "param.lat.description": "Latitud (t.ex. 35.6895).",
-    "param.lon.description": "Longitud (t.ex. 139,6917).",
-    "param.language.description": "Språk för resultatet (ISO 639-1-kod, t.ex. ja, en, zh, ko). Upptäcks automatiskt om den utelämnas.",
-    "x_search_terms": [
-      "omvänd geokod",
-      "omvänd geokodning",
-      "adress från koordinater",
-      "lat lon till adress",
-      "gps till adress",
-      "geokod omvänd",
-      "platssökning",
-      "adresssökning",
-      "koordinater till adress",
-      "geoadress"
-    ]
-  },
-  "fi": {
-    "tool.description": "Etsi osoite leveys-/pituusasteista (käänteinen geokoodaus). Käyttää OpenStreetMap Nominatim API:ta. Maailmanlaajuinen kattavuus.",
-    "param.lat.description": "Leveysaste (esim. 35,6895).",
-    "param.lon.description": "Pituusaste (esim. 139,6917).",
-    "param.language.description": "Tuloksen kieli (ISO 639-1 koodi, esim. ja, en, zh, ko). Havaitsee automaattisesti, jos se jätetään pois.",
-    "x_search_terms": [
-      "käänteinen geokoodi",
-      "käänteinen geokoodaus",
-      "osoite koordinaateista",
-      "lat lon osoitteeseen",
-      "gps osoitteeseen",
-      "geokoodin käänteinen",
-      "sijainnin haku",
-      "osoitteenhaku",
-      "koordinaatit osoitteeseen",
-      "geoosoite"
-    ]
-  },
-  "pl": {
-    "tool.description": "Wyszukaj adres na podstawie szerokości/długości geograficznej (odwrotne geokodowanie). Korzysta z interfejsu API OpenStreetMap Nominatim. Zasięg ogólnoświatowy.",
-    "param.lat.description": "Szerokość geograficzna (np. 35,6895).",
-    "param.lon.description": "Długość geograficzna (np. 139,6917).",
-    "param.language.description": "Język wyniku (kod ISO 639-1, np. ja, en, zh, ko). Wykrywane automatycznie w przypadku pominięcia.",
-    "x_search_terms": [
-      "odwrócony geokod",
-      "odwrotne geokodowanie",
-      "adres ze współrzędnych",
-      "długość geograficzna do adresu",
-      "gps do adresu",
-      "odwrotny kod geograficzny",
-      "wyszukiwanie lokalizacji",
-      "wyszukiwanie adresu",
-      "współrzędne do adresu",
-      "adres geograficzny"
+      "রিভার্স জিওকোড",
+      "রিভার্স জিওকোডিং",
+      "অ্যাড্রেস থেকে কোঅর্ডিনেট",
+      "লট লন অ্যাড্রেস",
+      "জিপিএস থেকে অ্যাড্রেস",
+      "জিওকোড রিভার্স",
+      "লোকেশন লুকআপ",
+      "অ্যাড্রেস লুকআপ",
+      "ঠিকানায় স্থানাঙ্ক",
+      "জিও অ্যাড্রেস"
     ]
   },
   "cs": {
@@ -323,6 +71,186 @@
       "souřadnic k adrese\ngeoadresa"
     ]
   },
+  "da": {
+    "tool.description": "Slå en adresse op fra breddegrad/længdegrad (omvendt geokodning). Bruger OpenStreetMap Nominatim API. Verdensomspændende dækning.",
+    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
+    "param.lon.description": "Længdegrad (f.eks. 139.6917).",
+    "param.language.description": "Sprog for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Auto-detekteret hvis udeladt.",
+    "x_search_terms": [
+      "omvendt geokode",
+      "omvendt geokodning",
+      "adresse fra koordinater",
+      "lat lon til adresse",
+      "gps til adresse",
+      "geokode omvendt",
+      "placeringsopslag",
+      "adresseopslag",
+      "koordinater til adresse",
+      "geoadresse"
+    ]
+  },
+  "de": {
+    "tool.description": "Adresse aus Breiten-/Längengrad suchen (Reverse Geocoding). Nutzt die OpenStreetMap Nominatim API. Weltweite Abdeckung.",
+    "param.lat.description": "Breitengrad (z.B. 35.6895).",
+    "param.lon.description": "Längengrad (z.B. 139.6917).",
+    "param.language.description": "Sprache des Ergebnisses (ISO 639-1 Code, z.B. ja, en, zh, ko). Automatische Erkennung wenn nicht angegeben.",
+    "x_search_terms": [
+      "Geokodierung umkehren",
+      "Geokodierung umkehren",
+      "Adresse von Koordinaten",
+      "Lat Lon zu Adresse",
+      "GPS zu Adresse",
+      "Geokodierung umgekehrt",
+      "Standortsuche",
+      "Adresssuche",
+      "Koordinaten zu Adresse",
+      "Geo-Adresse"
+    ]
+  },
+  "el": {
+    "tool.description": "Αναζητήστε μια διεύθυνση από γεωγραφικό πλάτος/μήκος (αντίστροφη γεωκωδικοποίηση). Χρησιμοποιεί το OpenStreetMap Nominatim API. Παγκόσμια κάλυψη.",
+    "param.lat.description": "Γεωγραφικό πλάτος (π.χ. 35,6895).",
+    "param.lon.description": "Γεωγραφικό μήκος (π.χ. 139,6917).",
+    "param.language.description": "Γλώσσα για το αποτέλεσμα (κωδικός ISO 639-1, π.χ. ja, en, zh, ko). Ανιχνεύεται αυτόματα εάν παραλειφθεί.",
+    "x_search_terms": [
+      "αντίστροφη γεωκώδικα",
+      "αντίστροφη γεωκωδικοποίηση",
+      "διεύθυνση από συντεταγμένες",
+      "lat lon στη διεύθυνση",
+      "gps στη διεύθυνση",
+      "γεωκώδικα αντίστροφη",
+      "αναζήτηση τοποθεσίας",
+      "αναζήτηση διεύθυνσης",
+      "συντεταγμένες στη διεύθυνση",
+      "γεωγραφική διεύθυνση"
+    ]
+  },
+  "es": {
+    "tool.description": "Buscar una dirección a partir de latitud/longitud (geocodificación inversa). Utiliza la API de OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitud (ej: 35.6895).",
+    "param.lon.description": "Longitud (ej: 139.6917).",
+    "param.language.description": "Idioma del resultado (código ISO 639-1, ej: ja, en, zh, ko). Detección automática si se omite.",
+    "x_search_terms": [
+      "geocódigo inverso",
+      "geocodificación inversa",
+      "dirección desde coordenadas",
+      "latitud hasta dirección",
+      "gps a dirección",
+      "geocódigo inverso",
+      "búsqueda de ubicación",
+      "búsqueda de dirección",
+      "coordenadas a dirección",
+      "dirección geográfica"
+    ]
+  },
+  "fa": {
+    "tool.description": "آدرسی را از طول و عرض جغرافیایی جستجو کنید (ژئوکدینگ معکوس). از OpenStreetMap Nominatim API استفاده می کند. پوشش جهانی.",
+    "param.lat.description": "عرض جغرافیایی (به عنوان مثال 35.6895).",
+    "param.lon.description": "طول جغرافیایی (به عنوان مثال 139.6917).",
+    "param.language.description": "زبان نتیجه (کد ISO 639-1، به عنوان مثال ja، en، zh، ko). در صورت حذف به طور خودکار شناسایی می شود.",
+    "x_search_terms": [
+      "معکوس geocode",
+      "معکوس جغرافیایی",
+      "آدرس از مختصات",
+      "lat lon به آدرس",
+      "gps به آدرس",
+      "ژئوکد معکوس",
+      "جستجوی مکان",
+      "جستجوی آدرس",
+      " مختصات به آدرس",
+      "آدرس جغرافیایی"
+    ]
+  },
+  "fi": {
+    "tool.description": "Etsi osoite leveys-/pituusasteista (käänteinen geokoodaus). Käyttää OpenStreetMap Nominatim API:ta. Maailmanlaajuinen kattavuus.",
+    "param.lat.description": "Leveysaste (esim. 35,6895).",
+    "param.lon.description": "Pituusaste (esim. 139,6917).",
+    "param.language.description": "Tuloksen kieli (ISO 639-1 koodi, esim. ja, en, zh, ko). Havaitsee automaattisesti, jos se jätetään pois.",
+    "x_search_terms": [
+      "käänteinen geokoodi",
+      "käänteinen geokoodaus",
+      "osoite koordinaateista",
+      "lat lon osoitteeseen",
+      "gps osoitteeseen",
+      "geokoodin käänteinen",
+      "sijainnin haku",
+      "osoitteenhaku",
+      "koordinaatit osoitteeseen",
+      "geoosoite"
+    ]
+  },
+  "fil": {
+    "tool.description": "Maghanap ng isang address mula sa latitude/longitude (reverse geocoding). Gumagamit ng OpenStreetMap Nominatim API. Saklaw sa buong mundo.",
+    "param.lat.description": "Latitude (hal. 35.6895).",
+    "param.lon.description": "Longitude (hal. 139.6917).",
+    "param.language.description": "Wika para sa resulta (ISO 639-1 code, hal. ja, en, zh, ko). Awtomatikong natukoy kung tinanggal.",
+    "x_search_terms": [
+      "baligtarin ang geocode",
+      "baligtarin ang geocoding",
+      "address mula sa coordinates",
+      "lat lon upang tugunan",
+      "gps para tugunan",
+      "baligtarin ang geocode",
+      "paghahanap ng lokasyon",
+      "paghahanap ng address",
+      "coordinate to address",
+      "geo address"
+    ]
+  },
+  "fr": {
+    "tool.description": "Recherche une adresse à partir de la latitude/longitude (géocodage inverse). Utilise l'API OpenStreetMap Nominatim. Couverture mondiale.",
+    "param.lat.description": "Latitude (ex: 35.6895).",
+    "param.lon.description": "Longitude (ex: 139.6917).",
+    "param.language.description": "Langue du résultat (code ISO 639-1, ex: ja, en, zh, ko). Détection automatique si omis.",
+    "x_search_terms": [
+      "géocodage inversé",
+      "géocodage inversé",
+      "adresse à partir des coordonnées",
+      "lat lon à l'adresse",
+      "gps à l'adresse",
+      "géocodage inversé",
+      "recherche d'emplacement",
+      "recherche d'adresse",
+      "coordonnées à l'adresse",
+      "adresse géographique"
+    ]
+  },
+  "he": {
+    "tool.description": "חפש כתובת מקו רוחב/קו אורך (קידוד גאוגרפי הפוך). משתמש ב-OpenStreetMap Nominatim API. כיסוי עולמי.",
+    "param.lat.description": "קו רוחב (למשל 35.6895).",
+    "param.lon.description": "קו אורך (למשל 139.6917).",
+    "param.language.description": "שפה לתוצאה (קוד ISO 639-1, למשל ja, en, zh, ko). זוהה אוטומטית אם הושמטה.",
+    "x_search_terms": [
+      "הפוך קוד גיאוגרפי",
+      "היפוך גיאוגרפיה",
+      "כתובת מקואורדינטות",
+      "lat lon לכתובת",
+      "gps לכתובת",
+      "קוד גיאוגרפי הפוך",
+      "חיפוש מיקום",
+      "חיפוש כתובת",
+      "קואורדינטות לכתובת",
+      "כתובת גיאוגרפית"
+    ]
+  },
+  "hi": {
+    "tool.description": "अक्षांश/देशांतर से पता खोजें (रिवर्स जियोकोडिंग)। OpenStreetMap Nominatim API का उपयोग करता है। वैश्विक कवरेज।",
+    "param.lat.description": "अक्षांश (उदा: 35.6895)।",
+    "param.lon.description": "देशांतर (उदा: 139.6917)।",
+    "param.language.description": "परिणाम की भाषा (ISO 639-1 कोड, उदा: ja, en, zh, ko)। छोड़े जाने पर स्वतः पता लगाया जाता है।",
+    "x_search_terms": [
+      "रिवर्स जियोकोड",
+      "रिवर्स जियोकोडिंग",
+      "निर्देशांक से पता",
+      "अक्षांश से पता",
+      "जीपीएस से पता",
+      "जियोकोड रिवर्स",
+      "स्थान लुकअप",
+      "पता लुकअप",
+      "निर्देशांक से पता",
+      "जियो पता"
+    ]
+  },
   "hu": {
     "tool.description": "Keressen egy címet a szélességi/hosszúsági fok alapján (fordított geokódolás). Az OpenStreetMap Nominatim API-t használja. Világszerte lefedettség.",
     "param.lat.description": "Szélesség (pl. 35,6895).",
@@ -339,6 +267,240 @@
       "címkeresés",
       "koordináták a címhez",
       "földrajzi cím"
+    ]
+  },
+  "id": {
+    "tool.description": "Cari alamat dari lintang/bujur (geocoding terbalik). Menggunakan API Nominatim OpenStreetMap. Cakupan di seluruh dunia.",
+    "param.lat.description": "Lintang (misalnya 35.6895).",
+    "param.lon.description": "Bujur (misalnya 139.6917).",
+    "param.language.description": "Bahasa untuk hasil (kode ISO 639-1, misal ja, en, zh, ko). Terdeteksi otomatis jika dihilangkan.",
+    "x_search_terms": [
+      "membalikkan geocode",
+      "membalikkan geocoding",
+      "alamat dari koordinat",
+      "lat lon ke alamat",
+      "gps ke alamat",
+      "geocode membalikkan",
+      "pencarian lokasi",
+      "pencarian alamat",
+      "koordinat ke alamat",
+      "alamat geografis"
+    ]
+  },
+  "it": {
+    "tool.description": "Cerca un indirizzo da latitudine/longitudine (geocodificazione inversa). Utilizza l'API Nominatim di OpenStreetMap. Copertura mondiale.",
+    "param.lat.description": "Latitudine (es. 35.6895).",
+    "param.lon.description": "Longitudine (es. 139.6917).",
+    "param.language.description": "Lingua per il risultato (codice ISO 639-1, ad esempio ja, en, zh, ko). Rilevato automaticamente se omesso.",
+    "x_search_terms": [
+      "geocodifica inversa",
+      "geocodifica inversa",
+      "indirizzo dalle coordinate",
+      "lat lon all'indirizzo",
+      "gps all'indirizzo",
+      "geocodifica inversa",
+      "ricerca posizione",
+      "ricerca indirizzo",
+      "coordinate per indirizzo",
+      "indirizzo geografico"
+    ]
+  },
+  "ja": {
+    "tool.description": "緯度経度から住所を検索します（逆ジオコーディング）。OpenStreetMap Nominatim APIを使用します。全世界対応。",
+    "param.lat.description": "緯度（例: 35.6895）。",
+    "param.lon.description": "経度（例: 139.6917）。",
+    "param.language.description": "結果の言語（ISO 639-1言語コード、例: ja, en, zh, ko）。未指定の場合は自動検出。",
+    "x_search_terms": [
+      "逆ジオコーディング",
+      "リバースジオコーディング",
+      "緯度経度から住所",
+      "住所検索",
+      "位置情報",
+      "reverse geocode",
+      "geocode reverse",
+      "address from coordinates",
+      "lat lon to address",
+      "gps to address"
+    ]
+  },
+  "ko": {
+    "tool.description": "위도/경도에서 주소를 검색합니다（역방향 지오코딩）。OpenStreetMap Nominatim API를 사용합니다. 전 세계 지원.",
+    "param.lat.description": "위도（예: 35.6895）。",
+    "param.lon.description": "경도（예: 139.6917）。",
+    "param.language.description": "결과 언어（ISO 639-1 언어 코드, 예: ja, en, zh, ko）。지정하지 않으면 자동 감지.",
+    "x_search_terms": [
+      "역 지오코드",
+      "역 지오코딩",
+      "좌표에서 주소",
+      "위도에서 주소로",
+      "Gps에서 주소로",
+      "지오코드 역",
+      "위치 조회",
+      "주소 조회",
+      "좌표에서 주소",
+      "지리적 주소로"
+    ]
+  },
+  "mn": {
+    "tool.description": "Өргөрөг/уртрагаас хаяг хайх (урвуу геокодлох). OpenStreetMap Nominatim API ашигладаг. Дэлхий даяар хамрах хүрээ.",
+    "param.lat.description": "Өргөрөг (жишээ нь: 35.6895).",
+    "param.lon.description": "Уртраг (жишээ нь: 139.6917).",
+    "param.language.description": "Үр дүнгийн хэл (ISO 639-1 код, жишээ нь ja, en, zh, ko). Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
+    "x_search_terms": [
+      "урвуу геокод",
+      "урвуу газарзүйн кодчилол",
+      "координатаас хаяг",
+      "хаягаар лат лон",
+      "хаягаар gps",
+      "геокод урвуу",
+      "байршил хайх",
+      "хаяг хайх",
+      "зохицуулах координатууд",
+      "гео хаяг"
+    ]
+  },
+  "mr": {
+    "tool.description": "अक्षांश/रेखांश (रिव्हर्स जिओकोडिंग) वरून पत्ता शोधा. OpenStreetMap Nominatim API वापरते. जगभरातील कव्हरेज.",
+    "param.lat.description": "अक्षांश (उदा. 35.6895).",
+    "param.lon.description": "रेखांश (उदा. १३९.६९१७).",
+    "param.language.description": "निकालासाठी भाषा (ISO 639-1 कोड, उदा. ja, en, zh, ko). वगळल्यास स्वयं आढळले.",
+    "x_search_terms": [
+      "उलट जिओकोड",
+      "उलट जिओकोडिंग",
+      "समन्वयकांकडून पत्ता",
+      "संबोधित करण्यासाठी बराच वेळ",
+      "पत्ता देण्यासाठी gps",
+      "जिओकोड उलट",
+      "स्थान शोध",
+      "पत्ता शोध",
+      "पत्ता करण्यासाठी समन्वय",
+      "भौगोलिक पत्ता"
+    ]
+  },
+  "ms": {
+    "tool.description": "Cari alamat dari latitud/longitud (geokod terbalik). Menggunakan OpenStreetMap Nominatim API. Liputan seluruh dunia.",
+    "param.lat.description": "Latitud (cth. 35.6895).",
+    "param.lon.description": "Longitud (cth. 139.6917).",
+    "param.language.description": "Bahasa untuk keputusan (kod ISO 639-1, cth. ja, en, zh, ko). Auto dikesan jika ditinggalkan.",
+    "x_search_terms": [
+      "geokod terbalik",
+      "geokod terbalik",
+      "alamat dari koordinat",
+      "lat lon ke alamat",
+      "gps ke alamat",
+      "geokod terbalik",
+      "pencarian lokasi",
+      "pencarian alamat",
+      "koordinat ke alamat",
+      "alamat geo"
+    ]
+  },
+  "nb": {
+    "tool.description": "Slå opp en adresse fra breddegrad/lengdegrad (omvendt geokoding). Bruker OpenStreetMap Nominatim API. Verdensomspennende dekning.",
+    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
+    "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
+    "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
+    "x_search_terms": [
+      "omvendt geokode",
+      "omvendt geokoding",
+      "adresse fra koordinater",
+      "lat lon til adresse",
+      "gps til adresse",
+      "geokode omvendt",
+      "plasseringsoppslag",
+      "adresseoppslag",
+      "koordinater til adresse",
+      "geoadresse"
+    ]
+  },
+  "nl": {
+    "tool.description": "Zoek een adres op aan de hand van lengte- en breedtegraad (omgekeerde geocodering). Maakt gebruik van de OpenStreetMap Nominatim-API. Wereldwijde dekking.",
+    "param.lat.description": "Breedtegraad (bijvoorbeeld 35,6895).",
+    "param.lon.description": "Lengtegraad (bijvoorbeeld 139,6917).",
+    "param.language.description": "Taal voor het resultaat (ISO 639-1-code, bijvoorbeeld ja, en, zh, ko). Wordt automatisch gedetecteerd indien weggelaten.",
+    "x_search_terms": [
+      "omgekeerde geocode",
+      "omgekeerde geocodering",
+      "adres van coördinaten",
+      "lat lon naar adres",
+      "gps naar adres",
+      "geocode omgekeerd",
+      "locatie opzoeken",
+      "adres opzoeken",
+      "coördinaten naar adres",
+      "geo-adres"
+    ]
+  },
+  "nn": {
+    "tool.description": "Slå opp en adresse frå breddegrad/lengdegrad (omvendt geokoding). Brukar OpenStreetMap Nominatim API. Verdensomspennende dekning.",
+    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
+    "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
+    "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
+    "x_search_terms": [
+      "omvendt geokode",
+      "omvendt geokoding",
+      "adresse frå koordinater",
+      "lat lon til adresse",
+      "gps til adresse",
+      "geokode omvendt",
+      "plasseringsoppslag",
+      "adresseoppslag",
+      "koordinater til adresse",
+      "geoadresse"
+    ]
+  },
+  "pl": {
+    "tool.description": "Wyszukaj adres na podstawie szerokości/długości geograficznej (odwrotne geokodowanie). Korzysta z interfejsu API OpenStreetMap Nominatim. Zasięg ogólnoświatowy.",
+    "param.lat.description": "Szerokość geograficzna (np. 35,6895).",
+    "param.lon.description": "Długość geograficzna (np. 139,6917).",
+    "param.language.description": "Język wyniku (kod ISO 639-1, np. ja, en, zh, ko). Wykrywane automatycznie w przypadku pominięcia.",
+    "x_search_terms": [
+      "odwrócony geokod",
+      "odwrotne geokodowanie",
+      "adres ze współrzędnych",
+      "długość geograficzna do adresu",
+      "gps do adresu",
+      "odwrotny kod geograficzny",
+      "wyszukiwanie lokalizacji",
+      "wyszukiwanie adresu",
+      "współrzędne do adresu",
+      "adres geograficzny"
+    ]
+  },
+  "pt": {
+    "tool.description": "Procure um endereço por latitude/longitude (geocodificação reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitude (por exemplo, 35,6895).",
+    "param.lon.description": "Longitude (por exemplo, 139,6917).",
+    "param.language.description": "Idioma do resultado (código ISO 639-1, por exemplo, ja, en, zh, ko). Detectado automaticamente se omitido.",
+    "x_search_terms": [
+      "geocódigo reverso",
+      "geocodificação reversa",
+      "endereço de coordenadas",
+      "lat lon para endereço",
+      "gps para endereço",
+      "geocódigo reverso",
+      "pesquisa de localização",
+      "pesquisa de endereço",
+      "coordenadas para endereço",
+      "endereço geográfico"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Pesquisar um endereço a partir de latitude/longitude (geocodificação reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitude (ex: 35.6895).",
+    "param.lon.description": "Longitude (ex: 139.6917).",
+    "param.language.description": "Idioma do resultado (código ISO 639-1, ex: ja, en, zh, ko). Detecção automática se omitido.",
+    "x_search_terms": [
+      "geocódigo reverso",
+      "geocodificação reversa",
+      "endereço de coordenadas",
+      "lat lon para endereço",
+      "gps para endereço",
+      "geocódigo reverso",
+      "pesquisa de localização",
+      "pesquisa de endereço",
+      "coordenadas para endereço",
+      "endereço geográfico"
     ]
   },
   "ro": {
@@ -359,22 +521,76 @@
       "adresă geografică"
     ]
   },
-  "el": {
-    "tool.description": "Αναζητήστε μια διεύθυνση από γεωγραφικό πλάτος/μήκος (αντίστροφη γεωκωδικοποίηση). Χρησιμοποιεί το OpenStreetMap Nominatim API. Παγκόσμια κάλυψη.",
-    "param.lat.description": "Γεωγραφικό πλάτος (π.χ. 35,6895).",
-    "param.lon.description": "Γεωγραφικό μήκος (π.χ. 139,6917).",
-    "param.language.description": "Γλώσσα για το αποτέλεσμα (κωδικός ISO 639-1, π.χ. ja, en, zh, ko). Ανιχνεύεται αυτόματα εάν παραλειφθεί.",
+  "ru": {
+    "tool.description": "Поиск адреса по широте/долготе (обратное геокодирование). Использует API OpenStreetMap Nominatim. Покрытие по всему миру.",
+    "param.lat.description": "Широта (например: 35.6895).",
+    "param.lon.description": "Долгота (например: 139.6917).",
+    "param.language.description": "Язык результата (код ISO 639-1, например: ja, en, zh, ko). Автоопределение если не указан.",
     "x_search_terms": [
-      "αντίστροφη γεωκώδικα",
-      "αντίστροφη γεωκωδικοποίηση",
-      "διεύθυνση από συντεταγμένες",
-      "lat lon στη διεύθυνση",
-      "gps στη διεύθυνση",
-      "γεωκώδικα αντίστροφη",
-      "αναζήτηση τοποθεσίας",
-      "αναζήτηση διεύθυνσης",
-      "συντεταγμένες στη διεύθυνση",
-      "γεωγραφική διεύθυνση"
+      "обратный геокод",
+      "обратное геокодирование",
+      "адрес из координат",
+      "широта до адреса",
+      "от GPS до адреса",
+      "обратный геокод",
+      "поиск местоположения",
+      "поиск адреса",
+      "координаты до адреса",
+      "географический адрес"
+    ]
+  },
+  "sv": {
+    "tool.description": "Slå upp en adress från latitud/longitud (omvänd geokodning). Använder OpenStreetMap Nominatim API. Världsomspännande täckning.",
+    "param.lat.description": "Latitud (t.ex. 35.6895).",
+    "param.lon.description": "Longitud (t.ex. 139,6917).",
+    "param.language.description": "Språk för resultatet (ISO 639-1-kod, t.ex. ja, en, zh, ko). Upptäcks automatiskt om den utelämnas.",
+    "x_search_terms": [
+      "omvänd geokod",
+      "omvänd geokodning",
+      "adress från koordinater",
+      "lat lon till adress",
+      "gps till adress",
+      "geokod omvänd",
+      "platssökning",
+      "adresssökning",
+      "koordinater till adress",
+      "geoadress"
+    ]
+  },
+  "sw": {
+    "tool.description": "Tafuta anwani kutoka latitudo/longitudo (reverse geocoding). Inatumia API ya OpenStreetMap Nominatim. Chanjo duniani kote.",
+    "param.lat.description": "Latitudo (k.m. 35.6895).",
+    "param.lon.description": "Longitudo (k.m. 139.6917).",
+    "param.language.description": "Lugha ya matokeo (msimbo wa ISO 639-1, k.m. ja, en, zh, ko). Imegunduliwa kiotomatiki ikiwa imeachwa.",
+    "x_search_terms": [
+      "geuza msimbo wa kijiografia",
+      "kubadilisha geocoding",
+      "anwani kutoka kwa viwianishi",
+      "latlon kushughulikia",
+      "gps kushughulikia",
+      "geocode kinyume",
+      "location look",
+      "utafutaji wa anwani",
+      "kuratibu kwa anwani",
+      "jiografia"
+    ]
+  },
+  "th": {
+    "tool.description": "ค้นหาที่อยู่จากละติจูด/ลองจิจูด (Reverse Geocoding) ใช้ OpenStreetMap Nominatim API ครอบคุมทั่วโลก",
+    "param.lat.description": "ละติจูด (เช่น 35.6895)",
+    "param.lon.description": "ลองจิจูด (เช่น 139.6917)",
+    "param.language.description": "ภาษาสำหรับผลลัพธ์ (รหัส ISO 639-1 เช่น ja, en, zh, ko) ตรวจพบอัตโนมัติหากละเว้น",
+    "x_search_terms": [
+      "geocode ย้อนกลับ",
+      "geocoding ย้อนกลับ",
+      "ที่อยู่จากพิกัด",
+      "lat lon ไปยังที่อยู่",
+      "gps ไปยังที่อยู่",
+      "geocode ย้อนกลับ",
+      "การค้นหาตำแหน่ง",
+      "การค้นหาที่อยู่",
+      "พิกัดไปยังที่อยู่",
+      "ที่อยู่ทางภูมิศาสตร์"
     ]
   },
   "tr": {
@@ -413,24 +629,6 @@
       "геоадреса"
     ]
   },
-  "th": {
-    "tool.description": "ค้นหาที่อยู่จากละติจูด/ลองจิจูด (Reverse Geocoding) ใช้ OpenStreetMap Nominatim API ครอบคุมทั่วโลก",
-    "param.lat.description": "ละติจูด (เช่น 35.6895)",
-    "param.lon.description": "ลองจิจูด (เช่น 139.6917)",
-    "param.language.description": "ภาษาสำหรับผลลัพธ์ (รหัส ISO 639-1 เช่น ja, en, zh, ko) ตรวจพบอัตโนมัติหากละเว้น",
-    "x_search_terms": [
-      "geocode ย้อนกลับ",
-      "geocoding ย้อนกลับ",
-      "ที่อยู่จากพิกัด",
-      "lat lon ไปยังที่อยู่",
-      "gps ไปยังที่อยู่",
-      "geocode ย้อนกลับ",
-      "การค้นหาตำแหน่ง",
-      "การค้นหาที่อยู่",
-      "พิกัดไปยังที่อยู่",
-      "ที่อยู่ทางภูมิศาสตร์"
-    ]
-  },
   "vi": {
     "tool.description": "Tra cứu địa chỉ từ vĩ độ/kinh độ (mã hóa địa lý đảo ngược). Sử dụng API Nominatim OpenStreetMap. Bảo hiểm trên toàn thế giới.",
     "param.lat.description": "Vĩ độ (ví dụ: 35,6895).",
@@ -449,346 +647,40 @@
       "địa chỉ địa lý"
     ]
   },
-  "id": {
-    "tool.description": "Cari alamat dari lintang/bujur (geocoding terbalik). Menggunakan API Nominatim OpenStreetMap. Cakupan di seluruh dunia.",
-    "param.lat.description": "Lintang (misalnya 35.6895).",
-    "param.lon.description": "Bujur (misalnya 139.6917).",
-    "param.language.description": "Bahasa untuk hasil (kode ISO 639-1, misal ja, en, zh, ko). Terdeteksi otomatis jika dihilangkan.",
+  "zh_CN": {
+    "tool.description": "根据经纬度查找地址（反向地理编码）。使用OpenStreetMap Nominatim API。全球覆盖。",
+    "param.lat.description": "纬度（例如: 35.6895）。",
+    "param.lon.description": "经度（例如: 139.6917）。",
+    "param.language.description": "结果语言（ISO 639-1语言代码，例如: ja, en, zh, ko）。未指定时自动检测。",
     "x_search_terms": [
-      "membalikkan geocode",
-      "membalikkan geocoding",
-      "alamat dari koordinat",
-      "lat lon ke alamat",
-      "gps ke alamat",
-      "geocode membalikkan",
-      "pencarian lokasi",
-      "pencarian alamat",
-      "koordinat ke alamat",
-      "alamat geografis"
+      "反向地理编码",
+      "反向地理编码",
+      "坐标地址",
+      "经纬度到地址",
+      "gps到地址",
+      "反向地理编码",
+      "位置查找",
+      "地址查找",
+      "坐标到地址",
+      "地理地址"
     ]
   },
-  "bn": {
-    "tool.description": "অক্ষাংশ/দ্রাঘিমাংশ থেকে একটি ঠিকানা দেখুন (বিপরীত জিয়োকোডিং)। OpenStreetMap Nominatim API ব্যবহার করে। বিশ্বব্যাপী কভারেজ।",
-    "param.lat.description": "অক্ষাংশ (যেমন 35.6895)।",
-    "param.lon.description": "দ্রাঘিমাংশ (যেমন 139.6917)।",
-    "param.language.description": "ফলাফলের জন্য ভাষা (ISO 639-1 কোড, যেমন ja, en, zh, ko)। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
+  "zh_TW": {
+    "tool.description": "根據經緯度查找地址（反向地理編碼）。使用OpenStreetMap Nominatim API。全球覆蓋。",
+    "param.lat.description": "緯度（例如: 35.6895）。",
+    "param.lon.description": "經度（例如: 139.6917）。",
+    "param.language.description": "結果語言（ISO 639-1語言代碼，例如: ja, en, zh, ko）。未指定時自動檢測。",
     "x_search_terms": [
-      "রিভার্স জিওকোড",
-      "রিভার্স জিওকোডিং",
-      "অ্যাড্রেস থেকে কোঅর্ডিনেট",
-      "লট লন অ্যাড্রেস",
-      "জিপিএস থেকে অ্যাড্রেস",
-      "জিওকোড রিভার্স",
-      "লোকেশন লুকআপ",
-      "অ্যাড্রেস লুকআপ",
-      "ঠিকানায় স্থানাঙ্ক",
-      "জিও অ্যাড্রেস"
-    ]
-  },
-  "sw": {
-    "tool.description": "Tafuta anwani kutoka latitudo/longitudo (reverse geocoding). Inatumia API ya OpenStreetMap Nominatim. Chanjo duniani kote.",
-    "param.lat.description": "Latitudo (k.m. 35.6895).",
-    "param.lon.description": "Longitudo (k.m. 139.6917).",
-    "param.language.description": "Lugha ya matokeo (msimbo wa ISO 639-1, k.m. ja, en, zh, ko). Imegunduliwa kiotomatiki ikiwa imeachwa.",
-    "x_search_terms": [
-      "geuza msimbo wa kijiografia",
-      "kubadilisha geocoding",
-      "anwani kutoka kwa viwianishi",
-      "latlon kushughulikia",
-      "gps kushughulikia",
-      "geocode kinyume",
-      "location look",
-      "utafutaji wa anwani",
-      "kuratibu kwa anwani",
-      "jiografia"
-    ]
-  },
-  "fa": {
-    "tool.description": "آدرسی را از طول و عرض جغرافیایی جستجو کنید (ژئوکدینگ معکوس). از OpenStreetMap Nominatim API استفاده می کند. پوشش جهانی.",
-    "param.lat.description": "عرض جغرافیایی (به عنوان مثال 35.6895).",
-    "param.lon.description": "طول جغرافیایی (به عنوان مثال 139.6917).",
-    "param.language.description": "زبان نتیجه (کد ISO 639-1، به عنوان مثال ja، en، zh، ko). در صورت حذف به طور خودکار شناسایی می شود.",
-    "x_search_terms": [
-      "معکوس geocode",
-      "معکوس جغرافیایی",
-      "آدرس از مختصات",
-      "lat lon به آدرس",
-      "gps به آدرس",
-      "ژئوکد معکوس",
-      "جستجوی مکان",
-      "جستجوی آدرس",
-      " مختصات به آدرس",
-      "آدرس جغرافیایی"
-    ]
-  },
-  "he": {
-    "tool.description": "חפש כתובת מקו רוחב/קו אורך (קידוד גאוגרפי הפוך). משתמש ב-OpenStreetMap Nominatim API. כיסוי עולמי.",
-    "param.lat.description": "קו רוחב (למשל 35.6895).",
-    "param.lon.description": "קו אורך (למשל 139.6917).",
-    "param.language.description": "שפה לתוצאה (קוד ISO 639-1, למשל ja, en, zh, ko). זוהה אוטומטית אם הושמטה.",
-    "x_search_terms": [
-      "הפוך קוד גיאוגרפי",
-      "היפוך גיאוגרפיה",
-      "כתובת מקואורדינטות",
-      "lat lon לכתובת",
-      "gps לכתובת",
-      "קוד גיאוגרפי הפוך",
-      "חיפוש מיקום",
-      "חיפוש כתובת",
-      "קואורדינטות לכתובת",
-      "כתובת גיאוגרפית"
-    ]
-  },
-  "pt": {
-    "tool.description": "Procure um endereço por latitude/longitude (geocodificação reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
-    "param.lat.description": "Latitude (por exemplo, 35,6895).",
-    "param.lon.description": "Longitude (por exemplo, 139,6917).",
-    "param.language.description": "Idioma do resultado (código ISO 639-1, por exemplo, ja, en, zh, ko). Detectado automaticamente se omitido.",
-    "x_search_terms": [
-      "geocódigo reverso",
-      "geocodificação reversa",
-      "endereço de coordenadas",
-      "lat lon para endereço",
-      "gps para endereço",
-      "geocódigo reverso",
-      "pesquisa de localização",
-      "pesquisa de endereço",
-      "coordenadas para endereço",
-      "endereço geográfico"
-    ]
-  },
-  "nb": {
-    "tool.description": "Slå opp en adresse fra breddegrad/lengdegrad (omvendt geokoding). Bruker OpenStreetMap Nominatim API. Verdensomspennende dekning.",
-    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
-    "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
-    "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
-    "x_search_terms": [
-      "omvendt geokode",
-      "omvendt geokoding",
-      "adresse fra koordinater",
-      "lat lon til adresse",
-      "gps til adresse",
-      "geokode omvendt",
-      "plasseringsoppslag",
-      "adresseoppslag",
-      "koordinater til adresse",
-      "geoadresse"
-    ]
-  },
-  "da": {
-    "tool.description": "Slå en adresse op fra breddegrad/længdegrad (omvendt geokodning). Bruger OpenStreetMap Nominatim API. Verdensomspændende dækning.",
-    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
-    "param.lon.description": "Længdegrad (f.eks. 139.6917).",
-    "param.language.description": "Sprog for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Auto-detekteret hvis udeladt.",
-    "x_search_terms": [
-      "omvendt geokode",
-      "omvendt geokodning",
-      "adresse fra koordinater",
-      "lat lon til adresse",
-      "gps til adresse",
-      "geokode omvendt",
-      "placeringsopslag",
-      "adresseopslag",
-      "koordinater til adresse",
-      "geoadresse"
-    ]
-  },
-  "bg": {
-    "tool.description": "Потърсете адрес от географска ширина/дължина (обратно геокодиране). Използва OpenStreetMap Nominatim API. Световно покритие.",
-    "param.lat.description": "Географска ширина (напр. 35.6895).",
-    "param.lon.description": "Географска дължина (напр. 139.6917).",
-    "param.language.description": "Език за резултата (код по ISO 639-1, напр. ja, en, zh, ko). Открива се автоматично, ако е пропуснато.",
-    "x_search_terms": [
-      "обратно геокодиране",
-      "обратно геокодиране",
-      "адрес от координати",
-      "ширина до адрес",
-      "gps до адрес",
-      "геокод обратно",
-      "търсене на местоположение",
-      "търсене на адрес",
-      "координати до адрес",
-      "гео адрес"
-    ]
-  },
-  "sr": {
-    "tool.description": "Потражите адресу из географске ширине/дужине (обрнуто геокодирање). Користи ОпенСтреетМап Номинатим АПИ. Покривеност широм света.",
-    "param.lat.description": "Географска ширина (нпр. 35,6895).",
-    "param.lon.description": "Географска дужина (нпр. 139,6917).",
-    "param.language.description": "Језик за резултат (ИСО 639-1 код, нпр. ја, ен, зх, ко). Аутоматски се открива ако се изостави.",
-    "x_search_terms": [
-      "обрнути геокод",
-      "обрнуто геокодирање",
-      "адреса од координата",
-      "лат лон до адресе",
-      "гпс до адресе",
-      "геоцоде обрнуто",
-      "тражење локације",
-      "тражење адресе",
-      "координате до адресе",
-      "гео адресе"
-    ]
-  },
-  "hr": {
-    "tool.description": "Potražite adresu iz zemljopisne širine/dužine (obrnuto geokodiranje). Koristi OpenStreetMap Nominatim API. Pokrivenost diljem svijeta.",
-    "param.lat.description": "Geografska širina (npr. 35,6895).",
-    "param.lon.description": "Zemljopisna dužina (npr. 139,6917).",
-    "param.language.description": "Jezik za rezultat (kod ISO 639-1, npr. ja, en, zh, ko). Automatski otkriveno ako je izostavljeno.",
-    "x_search_terms": [
-      "obrnuto geokodiranje",
-      "obrnuto geokodiranje",
-      "adresa od koordinata",
-      "geografska širina do adrese",
-      "gps do adrese",
-      "obrnuto geokodiranje",
-      "pretraživanje lokacije",
-      "pretraživanje adrese",
-      "koordinate do adrese",
-      "geografska adresa"
-    ]
-  },
-  "ms": {
-    "tool.description": "Cari alamat dari latitud/longitud (geokod terbalik). Menggunakan OpenStreetMap Nominatim API. Liputan seluruh dunia.",
-    "param.lat.description": "Latitud (cth. 35.6895).",
-    "param.lon.description": "Longitud (cth. 139.6917).",
-    "param.language.description": "Bahasa untuk keputusan (kod ISO 639-1, cth. ja, en, zh, ko). Auto dikesan jika ditinggalkan.",
-    "x_search_terms": [
-      "geokod terbalik",
-      "geokod terbalik",
-      "alamat dari koordinat",
-      "lat lon ke alamat",
-      "gps ke alamat",
-      "geokod terbalik",
-      "pencarian lokasi",
-      "pencarian alamat",
-      "koordinat ke alamat",
-      "alamat geo"
-    ]
-  },
-  "ta": {
-    "tool.description": "அட்சரேகை / தீர்க்கரேகை (தலைகீழ் புவிசார் குறியீடு) இலிருந்து ஒரு முகவரியைப் பார்க்கவும். OpenStreetMap Nominatim API ஐப் பயன்படுத்துகிறது. உலகளாவிய கவரேஜ்.",
-    "param.lat.description": "அட்சரேகை (எ.கா. 35.6895).",
-    "param.lon.description": "தீர்க்கரேகை (எ.கா. 139.6917).",
-    "param.language.description": "முடிவுக்கான மொழி (ISO 639-1 குறியீடு, எ.கா. ja, en, zh, ko). தவிர்க்கப்பட்டால் தானாகவே கண்டறியப்படும்.",
-    "x_search_terms": [
-      "தலைகீழ் புவிசார் குறியீடு",
-      "தலைகீழ் ஜியோகோடிங்",
-      "விலாசம்",
-      "லட் லோன் முகவரி",
-      "ஜிபிஎஸ் இருந்து முகவரிக்கு",
-      "புவிசார் குறியீடு தலைகீழ்",
-      "இருப்பிடத் தேடல்",
-      "முகவரி தேடல்",
-      "உரையாற்ற ஒருங்கிணைக்கிறது",
-      "புவி முகவரி"
-    ]
-  },
-  "ur": {
-    "tool.description": "عرض البلد/طول البلد (ریورس جیو کوڈنگ) سے پتہ تلاش کریں۔ OpenStreetMap Nominatim API استعمال کرتا ہے۔ دنیا بھر میں کوریج۔",
-    "param.lat.description": "عرض البلد (مثالاً 35.6895)۔",
-    "param.lon.description": "طول البلد (مثالاً 139.6917)۔",
-    "param.language.description": "نتیجہ کے لیے زبان (ISO 639-1 کوڈ، جیسے ja, en, zh, ko)۔ اگر چھوڑ دیا جائے تو خود بھی پتہ چلا۔",
-    "x_search_terms": [
-      "ریورس جیو کوڈ",
-      " ریورس جیو کوڈنگ",
-      " ایڈریس کوآرڈینیٹس سے لے کر ایڈریس تک",
-      " جی پی ایس سے ایڈریس",
-      " جیو کوڈ ریورس",
-      " لوکیشن کی تلاش",
-      " ایڈریس کی تلاش",
-      " ایڈریس کے لیے کوآرڈینیٹس",
-      " جیو ایڈریس",
-      "جیو ایڈریس"
-    ]
-  },
-  "ne": {
-    "tool.description": "अक्षांश/देशान्तरबाट ठेगाना हेर्नुहोस् (रिभर्स जियोकोडिङ)। OpenStreetMap Nominatim API प्रयोग गर्दछ। विश्वव्यापी कभरेज।",
-    "param.lat.description": "अक्षांश (जस्तै 35.6895)।",
-    "param.lon.description": "देशान्तर (जस्तै १३८८८८८८८)।",
-    "param.language.description": "नतिजाको लागि भाषा (ISO 639-1 कोड, जس्तै ja, en, zh, ko)। हटाइयो भये स्वत: पत्ता लगाइन्छ।",
-    "x_search_terms": [
-      "रिवर्स जियोकोड",
-      " रिवर्स जियोकोडिङ",
-      " ठेगाना बाट निर्देशांक",
-      " lat lon ठेगाना",
-      "gps देखि ठेगाना",
-      " जियोकोड रिभर्स",
-      " स्थान लुकअप",
-      " ठेगाना लुकअप",
-      " ठेगानामा निर्देशांक",
-      " भू ठेगाना"
-    ]
-  },
-  "fil": {
-    "tool.description": "Maghanap ng isang address mula sa latitude/longitude (reverse geocoding). Gumagamit ng OpenStreetMap Nominatim API. Saklaw sa buong mundo.",
-    "param.lat.description": "Latitude (hal. 35.6895).",
-    "param.lon.description": "Longitude (hal. 139.6917).",
-    "param.language.description": "Wika para sa resulta (ISO 639-1 code, hal. ja, en, zh, ko). Awtomatikong natukoy kung tinanggal.",
-    "x_search_terms": [
-      "baligtarin ang geocode",
-      "baligtarin ang geocoding",
-      "address mula sa coordinates",
-      "lat lon upang tugunan",
-      "gps para tugunan",
-      "baligtarin ang geocode",
-      "paghahanap ng lokasyon",
-      "paghahanap ng address",
-      "coordinate to address",
-      "geo address"
-    ]
-  },
-  "nn": {
-    "tool.description": "Slå opp en adresse frå breddegrad/lengdegrad (omvendt geokoding). Brukar OpenStreetMap Nominatim API. Verdensomspennende dekning.",
-    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
-    "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
-    "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
-    "x_search_terms": [
-      "omvendt geokode",
-      "omvendt geokoding",
-      "adresse frå koordinater",
-      "lat lon til adresse",
-      "gps til adresse",
-      "geokode omvendt",
-      "plasseringsoppslag",
-      "adresseoppslag",
-      "koordinater til adresse",
-      "geoadresse"
-    ]
-  },
-  "mn": {
-    "tool.description": "Өргөрөг/уртрагаас хаяг хайх (урвуу геокодлох). OpenStreetMap Nominatim API ашигладаг. Дэлхий даяар хамрах хүрээ.",
-    "param.lat.description": "Өргөрөг (жишээ нь: 35.6895).",
-    "param.lon.description": "Уртраг (жишээ нь: 139.6917).",
-    "param.language.description": "Үр дүнгийн хэл (ISO 639-1 код, жишээ нь ja, en, zh, ko). Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
-    "x_search_terms": [
-      "урвуу геокод",
-      "урвуу газарзүйн кодчилол",
-      "координатаас хаяг",
-      "хаягаар лат лон",
-      "хаягаар gps",
-      "геокод урвуу",
-      "байршил хайх",
-      "хаяг хайх",
-      "зохицуулах координатууд",
-      "гео хаяг"
-    ]
-  },
-  "mr": {
-    "tool.description": "अक्षांश/रेखांश (रिव्हर्स जिओकोडिंग) वरून पत्ता शोधा. OpenStreetMap Nominatim API वापरते. जगभरातील कव्हरेज.",
-    "param.lat.description": "अक्षांश (उदा. 35.6895).",
-    "param.lon.description": "रेखांश (उदा. १३९.६९१७).",
-    "param.language.description": "निकालासाठी भाषा (ISO 639-1 कोड, उदा. ja, en, zh, ko). वगळल्यास स्वयं आढळले.",
-    "x_search_terms": [
-      "उलट जिओकोड",
-      "उलट जिओकोडिंग",
-      "समन्वयकांकडून पत्ता",
-      "संबोधित करण्यासाठी बराच वेळ",
-      "पत्ता देण्यासाठी gps",
-      "जिओकोड उलट",
-      "स्थान शोध",
-      "पत्ता शोध",
-      "पत्ता करण्यासाठी समन्वय",
-      "भौगोलिक पत्ता"
+      "反向地理編碼",
+      "反向地理編碼",
+      "座標地址",
+      "經緯度到地址",
+      "gps到地址",
+      "反向地理編碼",
+      "位置查找",
+      "地址查找",
+      "坐標到地址",
+      "地理地址"
     ]
   }
 }

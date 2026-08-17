@@ -4,140 +4,95 @@
     "err.outside_workdir": "path is outside workdir: root={root} path={path}",
     "err.path_empty": "path is empty"
   },
-  "ja": {
-    "err.file_not_found": "ファイルが見つかりません: {filename}",
-    "err.outside_workdir": "作業ディレクトリ外のパスです: root={root} path={path}",
-    "err.path_empty": "パスが空です"
-  },
-  "es": {
-    "err.file_not_found": "archivo no encontrado: {filename}",
-    "err.outside_workdir": "la ruta está fuera del directorio de trabajo: root={root} ruta={path}",
-    "err.path_empty": "el camino está vacío"
-  },
-  "fr": {
-    "err.file_not_found": "fichier introuvable : {filename}",
-    "err.outside_workdir": "le chemin se trouve en dehors du répertoire de travail : root={root} path={path}",
-    "err.path_empty": "le chemin est vide"
-  },
-  "ko": {
-    "err.file_not_found": "파일을 찾을 수 없습니다: {filename}",
-    "err.outside_workdir": "경로가 작업 디렉터리 외부에 있습니다: root={root} path={path}",
-    "err.path_empty": "경로가 비어 있습니다"
-  },
-  "de": {
-    "err.file_not_found": "Datei nicht gefunden: {filename}",
-    "err.outside_workdir": "Pfad liegt außerhalb des Arbeitsverzeichnisses: root={root} path={path}",
-    "err.path_empty": "Pfad ist leer"
-  },
-  "it": {
-    "err.file_not_found": "File non trovato: {filename}",
-    "err.outside_workdir": "Il percorso è esterno alla directory di lavoro: root={root} path={path}",
-    "err.path_empty": "Il percorso è vuoto"
-  },
-  "ru": {
-    "err.file_not_found": "Файл не найден: {filename}",
-    "err.outside_workdir": "Путь находится вне рабочей директории: root={root} path={path}",
-    "err.path_empty": "Путь пуст"
-  },
-  "pt_BR": {
-    "err.file_not_found": "arquivo não encontrado: {filename}",
-    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
-    "err.path_empty": "o caminho está vazio"
-  },
-  "pt": {
-    "err.file_not_found": "arquivo não encontrado: {filename}",
-    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
-    "err.path_empty": "o caminho está vazio"
-  },
-  "id": {
-    "err.file_not_found": "file tidak ditemukan: {filename}",
-    "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
-    "err.path_empty": "path kosong"
-  },
-  "vi": {
-    "err.file_not_found": "không tìm thấy tập tin: {filename}",
-    "err.outside_workdir": "đường dẫn nằm ngoài nơi làm việc: root={root} path={path}",
-    "err.path_empty": "đường dẫn trống"
-  },
-  "pl": {
-    "err.file_not_found": "nie znaleziono pliku: {filename}",
-    "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
-    "err.path_empty": "ścieżka jest pusta"
-  },
-  "hi": {
-    "err.file_not_found": "फ़ाइल नहीं मिली: {filename}",
-    "err.outside_workdir": "पथ कार्यदिर के बाहर है: रूट={root} पथ={path}",
-    "err.path_empty": "रास्ता खाली है"
-  },
   "ar": {
     "err.file_not_found": "لم يتم العثور على الملف: {filename}",
     "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
     "err.path_empty": "المسار فارغ"
-  },
-  "sv": {
-    "err.file_not_found": "filen hittades inte: {filename}",
-    "err.outside_workdir": "sökvägen är utanför arbetskatalogen: root={root} sökväg={path}",
-    "err.path_empty": "vägen är tom"
-  },
-  "sw": {
-    "err.file_not_found": "faili haijapatikana: {filename}",
-    "err.outside_workdir": "njia iko nje ya workdir: mzizi={root} njia={path}",
-    "err.path_empty": "njia ni tupu"
-  },
-  "nb": {
-    "err.file_not_found": "fil ikke funnet: {filename}",
-    "err.outside_workdir": "banen er utenfor arbeidskatalogen: root={root} bane={path}",
-    "err.path_empty": "banen er tom"
-  },
-  "nl": {
-    "err.file_not_found": "bestand niet gevonden: {filename}",
-    "err.outside_workdir": "pad bevindt zich buiten de werkmap: root={root} pad={path}",
-    "err.path_empty": "pad is leeg"
-  },
-  "fi": {
-    "err.file_not_found": "tiedostoa ei löydy: {filename}",
-    "err.outside_workdir": "polku on työhakemiston ulkopuolella: root={root} polku={path}",
-    "err.path_empty": "polku on tyhjä"
-  },
-  "cs": {
-    "err.file_not_found": "soubor nenalezen: {filename}",
-    "err.outside_workdir": "cesta je mimo pracovní adresář: root={root} cesta={path}",
-    "err.path_empty": "cesta je prázdná"
-  },
-  "uk": {
-    "err.file_not_found": "файл не знайдено: {filename}",
-    "err.outside_workdir": "шлях знаходиться поза робочим каталогом: root={root} path={path}",
-    "err.path_empty": "шлях порожній"
-  },
-  "tr": {
-    "err.file_not_found": "dosya bulunamadı: {filename}",
-    "err.outside_workdir": "yol çalışma dizininin dışında: root={root} path={path}",
-    "err.path_empty": "yol boş"
-  },
-  "th": {
-    "err.file_not_found": "ไม่พบไฟล์: {filename}",
-    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
-    "err.path_empty": "เส้นทางว่างเปล่า"
-  },
-  "zh_CN": {
-    "err.file_not_found": "未找到文件：{filename}",
-    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
-    "err.path_empty": "路径为空"
-  },
-  "zh_TW": {
-    "err.file_not_found": "未找到文件：{filename}",
-    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
-    "err.path_empty": "路徑為空"
   },
   "bn": {
     "err.file_not_found": "ফাইল পাওয়া যায়নি: {filename}",
     "err.outside_workdir": "পথটি ওয়ার্কডিরের বাইরে: রুট={root} পথ={path}",
     "err.path_empty": "পথ ফাঁকা"
   },
+  "cs": {
+    "err.file_not_found": "soubor nenalezen: {filename}",
+    "err.outside_workdir": "cesta je mimo pracovní adresář: root={root} cesta={path}",
+    "err.path_empty": "cesta je prázdná"
+  },
+  "da": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "de": {
+    "err.file_not_found": "Datei nicht gefunden: {filename}",
+    "err.outside_workdir": "Pfad liegt außerhalb des Arbeitsverzeichnisses: root={root} path={path}",
+    "err.path_empty": "Pfad ist leer"
+  },
+  "el": {
+    "err.file_not_found": "το αρχείο δεν βρέθηκε: {filename}",
+    "err.outside_workdir": "η διαδρομή είναι εκτός workdir: root={root} path={path}",
+    "err.path_empty": "διαδρομή είναι κενή"
+  },
+  "es": {
+    "err.file_not_found": "archivo no encontrado: {filename}",
+    "err.outside_workdir": "la ruta está fuera del directorio de trabajo: root={root} ruta={path}",
+    "err.path_empty": "el camino está vacío"
+  },
   "fa": {
     "err.file_not_found": "فایل یافت نشد: {filename}",
     "err.outside_workdir": "مسیر خارج از workdir است: root={root} مسیر={path}",
     "err.path_empty": "مسیر خالی است"
+  },
+  "fi": {
+    "err.file_not_found": "tiedostoa ei löydy: {filename}",
+    "err.outside_workdir": "polku on työhakemiston ulkopuolella: root={root} polku={path}",
+    "err.path_empty": "polku on tyhjä"
+  },
+  "fil": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "fr": {
+    "err.file_not_found": "fichier introuvable : {filename}",
+    "err.outside_workdir": "le chemin se trouve en dehors du répertoire de travail : root={root} path={path}",
+    "err.path_empty": "le chemin est vide"
+  },
+  "he": {
+    "err.file_not_found": "הקובץ לא נמצא: {filename}",
+    "err.outside_workdir": "הנתיב נמצא מחוץ ל-workdir: root={root} path={path}",
+    "err.path_empty": "הנתיב ריק"
+  },
+  "hi": {
+    "err.file_not_found": "फ़ाइल नहीं मिली: {filename}",
+    "err.outside_workdir": "पथ कार्यदिर के बाहर है: रूट={root} पथ={path}",
+    "err.path_empty": "रास्ता खाली है"
+  },
+  "hu": {
+    "err.file_not_found": "a fájl nem található: {filename}",
+    "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
+    "err.path_empty": "az út üres"
+  },
+  "id": {
+    "err.file_not_found": "file tidak ditemukan: {filename}",
+    "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
+    "err.path_empty": "path kosong"
+  },
+  "it": {
+    "err.file_not_found": "File non trovato: {filename}",
+    "err.outside_workdir": "Il percorso è esterno alla directory di lavoro: root={root} path={path}",
+    "err.path_empty": "Il percorso è vuoto"
+  },
+  "ja": {
+    "err.file_not_found": "ファイルが見つかりません: {filename}",
+    "err.outside_workdir": "作業ディレクトリ外のパスです: root={root} path={path}",
+    "err.path_empty": "パスが空です"
+  },
+  "ko": {
+    "err.file_not_found": "파일을 찾을 수 없습니다: {filename}",
+    "err.outside_workdir": "경로가 작업 디렉터리 외부에 있습니다: root={root} path={path}",
+    "err.path_empty": "경로가 비어 있습니다"
   },
   "mn": {
     "err.file_not_found": "файл олдсонгүй: {filename}",
@@ -149,24 +104,89 @@
     "err.outside_workdir": "मार्ग वर्कडायरच्या बाहेर आहे: रूट={root} पथ={path}",
     "err.path_empty": "मार्ग रिकामा आहे"
   },
-  "el": {
-    "err.file_not_found": "το αρχείο δεν βρέθηκε: {filename}",
-    "err.outside_workdir": "η διαδρομή είναι εκτός workdir: root={root} path={path}",
-    "err.path_empty": "διαδρομή είναι κενή"
+  "ms": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
   },
-  "he": {
-    "err.file_not_found": "הקובץ לא נמצא: {filename}",
-    "err.outside_workdir": "הנתיב נמצא מחוץ ל-workdir: root={root} path={path}",
-    "err.path_empty": "הנתיב ריק"
+  "nb": {
+    "err.file_not_found": "fil ikke funnet: {filename}",
+    "err.outside_workdir": "banen er utenfor arbeidskatalogen: root={root} bane={path}",
+    "err.path_empty": "banen er tom"
   },
-  "hu": {
-    "err.file_not_found": "a fájl nem található: {filename}",
-    "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
-    "err.path_empty": "az út üres"
+  "nl": {
+    "err.file_not_found": "bestand niet gevonden: {filename}",
+    "err.outside_workdir": "pad bevindt zich buiten de werkmap: root={root} pad={path}",
+    "err.path_empty": "pad is leeg"
+  },
+  "nn": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "pl": {
+    "err.file_not_found": "nie znaleziono pliku: {filename}",
+    "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
+    "err.path_empty": "ścieżka jest pusta"
+  },
+  "pt": {
+    "err.file_not_found": "arquivo não encontrado: {filename}",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.path_empty": "o caminho está vazio"
+  },
+  "pt_BR": {
+    "err.file_not_found": "arquivo não encontrado: {filename}",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.path_empty": "o caminho está vazio"
   },
   "ro": {
     "err.file_not_found": "fișierul nu a fost găsit: {filename}",
     "err.outside_workdir": "calea este în afara workdir: root={root} path={path}",
     "err.path_empty": "calea este goală"
+  },
+  "ru": {
+    "err.file_not_found": "Файл не найден: {filename}",
+    "err.outside_workdir": "Путь находится вне рабочей директории: root={root} path={path}",
+    "err.path_empty": "Путь пуст"
+  },
+  "sv": {
+    "err.file_not_found": "filen hittades inte: {filename}",
+    "err.outside_workdir": "sökvägen är utanför arbetskatalogen: root={root} sökväg={path}",
+    "err.path_empty": "vägen är tom"
+  },
+  "sw": {
+    "err.file_not_found": "faili haijapatikana: {filename}",
+    "err.outside_workdir": "njia iko nje ya workdir: mzizi={root} njia={path}",
+    "err.path_empty": "njia ni tupu"
+  },
+  "th": {
+    "err.file_not_found": "ไม่พบไฟล์: {filename}",
+    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
+    "err.path_empty": "เส้นทางว่างเปล่า"
+  },
+  "tr": {
+    "err.file_not_found": "dosya bulunamadı: {filename}",
+    "err.outside_workdir": "yol çalışma dizininin dışında: root={root} path={path}",
+    "err.path_empty": "yol boş"
+  },
+  "uk": {
+    "err.file_not_found": "файл не знайдено: {filename}",
+    "err.outside_workdir": "шлях знаходиться поза робочим каталогом: root={root} path={path}",
+    "err.path_empty": "шлях порожній"
+  },
+  "vi": {
+    "err.file_not_found": "không tìm thấy tập tin: {filename}",
+    "err.outside_workdir": "đường dẫn nằm ngoài nơi làm việc: root={root} path={path}",
+    "err.path_empty": "đường dẫn trống"
+  },
+  "zh_CN": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
+    "err.path_empty": "路径为空"
+  },
+  "zh_TW": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
+    "err.path_empty": "路徑為空"
   }
 }

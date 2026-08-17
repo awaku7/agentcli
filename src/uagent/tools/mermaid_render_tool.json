@@ -1,25 +1,4 @@
 {
-  "ja": {
-    "tool.description": "Python ネイティブのレンダラーを使用して、人魚図を完全にオフラインで PNG、SVG、または PDF にレンダリングします。",
-    "x_search_terms": [
-      "マーメイド",
-      "フローチャート",
-      "クラス図",
-      "シーケンス図",
-      "オフラインレンダラー",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "人魚のソーステキスト。",
-    "param.input_path.description": "オプションの Mermaid ファイル パス。",
-    "param.output_path.description": "出力 .png、.svg、または .pdf パス。",
-    "param.scale.description": "PNG スケール係数。",
-    "param.background.description": "背景色。",
-    "param.theme.description": "人魚のテーマ。",
-    "param.include_base64.description": "リモート クライアントの Base64 データを含めます。",
-    "ok.rendered": "[OK] 人魚のレンダリング"
-  },
   "en": {
     "tool.description": "Render Mermaid diagrams to PNG, SVG, or PDF completely offline using a Python-native renderer.",
     "x_search_terms": [
@@ -40,426 +19,6 @@
     "param.theme.description": "Mermaid theme.",
     "param.include_base64.description": "Include base64 data for remote clients.",
     "ok.rendered": "[OK] Mermaid rendered"
-  },
-  "es": {
-    "tool.description": "Renderice diagramas de Mermaid en PNG, SVG o PDF completamente sin conexión utilizando un renderizador nativo de Python.",
-    "x_search_terms": [
-      "Sirena",
-      "diagrama de flujo",
-      "diagrama de clases",
-      "diagrama de secuencia",
-      "renderizador fuera de línea",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Texto fuente de sirena.",
-    "param.input_path.description": "Ruta de archivo opcional de Mermaid.",
-    "param.output_path.description": "Ruta de salida .png, .svg o .pdf.",
-    "param.scale.description": "Factor de escala PNG.",
-    "param.background.description": "Color de fondo.",
-    "param.theme.description": "Tema de sirena.",
-    "param.include_base64.description": "Incluya datos base64 para clientes remotos.",
-    "ok.rendered": "[OK] Sirena renderizada"
-  },
-  "fr": {
-    "tool.description": "Rendre les diagrammes Mermaid au format PNG, SVG ou PDF complètement hors ligne à l'aide d'un moteur de rendu natif Python.",
-    "x_search_terms": [
-      "Sirène",
-      "organigramme",
-      "diagramme de classes",
-      "diagramme de séquence",
-      "rendu hors ligne",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Texte source de la sirène.",
-    "param.input_path.description": "Chemin de fichier Mermaid facultatif.",
-    "param.output_path.description": "Chemin de sortie .png, .svg ou .pdf.",
-    "param.scale.description": "Facteur d’échelle PNG.",
-    "param.background.description": "Couleur de fond.",
-    "param.theme.description": "Thème sirène.",
-    "param.include_base64.description": "Incluez les données base64 pour les clients distants.",
-    "ok.rendered": "[OK] Rendu de la sirène"
-  },
-  "de": {
-    "tool.description": "Rendern Sie Mermaid-Diagramme vollständig offline mit einem Python-nativen Renderer in PNG, SVG oder PDF.",
-    "x_search_terms": [
-      "Meerjungfrau",
-      "Flussdiagramm",
-      "Klassendiagramm",
-      "Sequenzdiagramm",
-      "Offline-Renderer",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Meerjungfrau-Quelltext.",
-    "param.input_path.description": "Optionaler Mermaid-Dateipfad.",
-    "param.output_path.description": "Ausgabepfad im PNG-, SVG- oder PDF-Format.",
-    "param.scale.description": "PNG-Skalierungsfaktor.",
-    "param.background.description": "Hintergrundfarbe.",
-    "param.theme.description": "Meerjungfrau-Thema.",
-    "param.include_base64.description": "Beziehen Sie Base64-Daten für Remote-Clients ein.",
-    "ok.rendered": "[OK] Meerjungfrau gerendert"
-  },
-  "zh_CN": {
-    "tool.description": "使用 Python 原生渲染器完全离线将 Mermaid 图渲染为 PNG、SVG 或 PDF。",
-    "x_search_terms": [
-      "Mermaid",
-      "流程图",
-      "类图",
-      "序列图",
-      "离线渲染器",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "美人鱼源文本。",
-    "param.input_path.description": "可选的美人鱼文件路径。",
-    "param.output_path.description": "输出 .png、.svg 或 .pdf 路径。",
-    "param.scale.description": "PNG 比例因子。",
-    "param.background.description": "背景颜色。",
-    "param.theme.description": "美人鱼主题。",
-    "param.include_base64.description": "包括远程客户端的 Base64 数据。",
-    "ok.rendered": "[确定] 美人鱼渲染"
-  },
-  "zh_TW": {
-    "tool.description": "使用 Python 原生渲染器完全離線將 Mermaid 圖渲染為 PNG、SVG 或 PDF。",
-    "x_search_terms": [
-      "Mermaid",
-      "流程圖",
-      "類別圖",
-      "序列圖",
-      "離線渲染器",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "美人魚來源文字。",
-    "param.input_path.description": "可選的美人魚文件路徑。",
-    "param.output_path.description": "輸出 .png、.svg 或 .pdf 路徑。",
-    "param.scale.description": "PNG 比例因子。",
-    "param.background.description": "背景顏色。",
-    "param.theme.description": "美人魚主題。",
-    "param.include_base64.description": "包括遠端客戶端的 Base64 資料。",
-    "ok.rendered": "[確定] 美人魚渲染"
-  },
-  "ko": {
-    "tool.description": "Python 기본 렌더러를 사용하여 Mermaid 다이어그램을 PNG, SVG 또는 PDF로 완전히 오프라인으로 렌더링할 수 있습니다.",
-    "x_search_terms": [
-      "인어",
-      "흐름도",
-      "클래스 다이어그램",
-      "시퀀스 다이어그램",
-      "오프라인 렌더러",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "인어 소스 텍스트.",
-    "param.input_path.description": "선택적 인어 파일 경로입니다.",
-    "param.output_path.description": ".png, .svg 또는 .pdf 경로를 출력합니다.",
-    "param.scale.description": "PNG 배율 인자.",
-    "param.background.description": "배경색.",
-    "param.theme.description": "인어 테마.",
-    "param.include_base64.description": "원격 클라이언트에 대한 base64 데이터를 포함합니다.",
-    "ok.rendered": "[OK] 인어 렌더링"
-  },
-  "pt_BR": {
-    "tool.description": "Renderize diagramas Mermaid em PNG, SVG ou PDF completamente offline usando um renderizador nativo de Python.",
-    "x_search_terms": [
-      "Sereia",
-      "fluxograma",
-      "diagrama de classes",
-      "diagrama de sequência",
-      "renderizador offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Texto fonte da sereia.",
-    "param.input_path.description": "Caminho de arquivo Mermaid opcional.",
-    "param.output_path.description": "Caminho de saída .png, .svg ou .pdf.",
-    "param.scale.description": "Fator de escala PNG.",
-    "param.background.description": "Cor de fundo.",
-    "param.theme.description": "Tema sereia.",
-    "param.include_base64.description": "Inclui dados base64 para clientes remotos.",
-    "ok.rendered": "[OK] Sereia renderizada"
-  },
-  "pt": {
-    "tool.description": "Renderize diagramas Mermaid em PNG, SVG ou PDF completamente offline usando um renderizador nativo de Python.",
-    "x_search_terms": [
-      "Sereia",
-      "fluxograma",
-      "diagrama de classes",
-      "diagrama de sequência",
-      "renderizador offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Texto fonte da sereia.",
-    "param.input_path.description": "Caminho de arquivo Mermaid opcional.",
-    "param.output_path.description": "Caminho de saída .png, .svg ou .pdf.",
-    "param.scale.description": "Fator de escala PNG.",
-    "param.background.description": "Cor de fundo.",
-    "param.theme.description": "Tema sereia.",
-    "param.include_base64.description": "Inclui dados base64 para clientes remotos.",
-    "ok.rendered": "[OK] Sereia renderizada"
-  },
-  "it": {
-    "tool.description": "Rendi i diagrammi della sirena in PNG, SVG o PDF completamente offline utilizzando un renderer nativo di Python.",
-    "x_search_terms": [
-      "Sirena",
-      "diagramma di flusso",
-      "diagramma classe",
-      "diagramma sequenza",
-      "renderizzatore offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Testo sorgente della sirena.",
-    "param.input_path.description": "Percorso file Sirena opzionale.",
-    "param.output_path.description": "Percorso di output .png, .svg o .pdf.",
-    "param.scale.description": "Fattore di scala PNG.",
-    "param.background.description": "Colore di sfondo.",
-    "param.theme.description": "Tema della sirena.",
-    "param.include_base64.description": "Includere dati base64 per client remoti.",
-    "ok.rendered": "[OK] Sirena renderizzata"
-  },
-  "nl": {
-    "tool.description": "Render zeemeermindiagrammen volledig offline naar PNG, SVG of PDF met behulp van een Python-native renderer.",
-    "x_search_terms": [
-      "Zeemeermin",
-      "stroomdiagram",
-      "klassediagram",
-      "volgordediagram",
-      "offline renderer",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Brontekst zeemeermin.",
-    "param.input_path.description": "Optioneel zeemeerminbestandspad.",
-    "param.output_path.description": "Uitvoerpad .png, .svg of .pdf.",
-    "param.scale.description": "PNG-schaalfactor.",
-    "param.background.description": "Achtergrondkleur.",
-    "param.theme.description": "Zeemeermin thema.",
-    "param.include_base64.description": "Voeg base64-gegevens toe voor externe clients.",
-    "ok.rendered": "[OK] Zeemeermin weergegeven"
-  },
-  "ru": {
-    "tool.description": "Рендеринг диаграмм Mermaid в PNG, SVG или PDF полностью автономно с помощью встроенного средства рендеринга Python.",
-    "x_search_terms": [
-      "Русалка",
-      "блок-схема",
-      "диаграмма классов",
-      "диаграмма последовательности",
-      "автономный рендеринг",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Исходный текст Русалки.",
-    "param.input_path.description": "Необязательный путь к файлу Mermaid.",
-    "param.output_path.description": "Выведите путь в формате .png, .svg или .pdf.",
-    "param.scale.description": "Масштабный коэффициент PNG.",
-    "param.background.description": "Цвет фона.",
-    "param.theme.description": "Русалочная тема.",
-    "param.include_base64.description": "Включите данные base64 для удаленных клиентов.",
-    "ok.rendered": "[ОК] Русалка визуализирована"
-  },
-  "uk": {
-    "tool.description": "Відтворюйте діаграми Mermaid у форматі PNG, SVG або PDF повністю в автономному режимі за допомогою засобу відтворення на основі Python.",
-    "x_search_terms": [
-      "Mermaid",
-      "блок-схема",
-      "діаграма класів",
-      "діаграма послідовності",
-      "офлайн рендерер",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Вихідний текст русалки.",
-    "param.input_path.description": "Додатковий шлях до файлу Mermaid.",
-    "param.output_path.description": "Виведіть шлях у форматі .png, .svg або .pdf.",
-    "param.scale.description": "PNG масштабний коефіцієнт.",
-    "param.background.description": "Колір фону.",
-    "param.theme.description": "Тема русалки.",
-    "param.include_base64.description": "Включіть дані base64 для віддалених клієнтів.",
-    "ok.rendered": "[ОК] Русалку відтворено"
-  },
-  "pl": {
-    "tool.description": "Renderuj diagramy syreny do formatu PNG, SVG lub PDF całkowicie w trybie offline, korzystając z modułu renderującego natywnego dla języka Python.",
-    "x_search_terms": [
-      "Syrenka",
-      "schemat blokowy",
-      "diagram klas",
-      "diagram sekwencji",
-      "renderer offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Tekst źródłowy syreny.",
-    "param.input_path.description": "Opcjonalna ścieżka pliku Mermaid.",
-    "param.output_path.description": "Wyjściowa ścieżka .png, .svg lub .pdf.",
-    "param.scale.description": "Współczynnik skali PNG.",
-    "param.background.description": "Kolor tła.",
-    "param.theme.description": "Motyw syreny.",
-    "param.include_base64.description": "Uwzględnij dane Base64 dla klientów zdalnych.",
-    "ok.rendered": "[OK] Syrena wyrenderowana"
-  },
-  "cs": {
-    "tool.description": "Vykreslujte diagramy mořské panny do PNG, SVG nebo PDF zcela offline pomocí vykreslovače nativního Pythonu.",
-    "x_search_terms": [
-      "Mořská panna",
-      "vývojový diagram",
-      "diagram tříd",
-      "sekvenční schéma",
-      "offline renderer",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Zdrojový text mořské panny.",
-    "param.input_path.description": "Volitelná cesta k souboru Mořská panna.",
-    "param.output_path.description": "Výstup ve formátu .png, .svg nebo .pdf.",
-    "param.scale.description": "Měřítko PNG.",
-    "param.background.description": "Barva pozadí.",
-    "param.theme.description": "Téma mořské panny.",
-    "param.include_base64.description": "Zahrnout data base64 pro vzdálené klienty.",
-    "ok.rendered": "[OK] Vykreslena mořská panna"
-  },
-  "sk": {
-    "tool.description": "Vykreslite diagramy morskej panny do formátu PNG, SVG alebo PDF úplne offline pomocou vykresľovacieho modulu natívneho v Pythone.",
-    "x_search_terms": [
-      "Morská panna",
-      "vývojový diagram",
-      "diagram tried",
-      "sekvenčný diagram",
-      "offline renderer",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Zdrojový text morskej panny.",
-    "param.input_path.description": "Voliteľná cesta k súboru Morská panna.",
-    "param.output_path.description": "Výstupná cesta vo formáte .png, .svg alebo .pdf.",
-    "param.scale.description": "PNG mierkový faktor.",
-    "param.background.description": "Farba pozadia.",
-    "param.theme.description": "Motív morskej panny.",
-    "param.include_base64.description": "Zahrnúť dáta base64 pre vzdialených klientov.",
-    "ok.rendered": "[OK] Vykreslená morská panna"
-  },
-  "hu": {
-    "tool.description": "Rendelje meg a Mermaid diagramokat PNG, SVG vagy PDF formátumban teljesen offline, Python-natív rendererrel.",
-    "x_search_terms": [
-      "Mermaid",
-      "folyamatábra",
-      "osztálydiagram",
-      "szekvenciadiagram",
-      "offline renderer",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Mermaid forrásszöveg.",
-    "param.input_path.description": "Opcionális Mermaid fájl elérési útja.",
-    "param.output_path.description": "Kimeneti .png, .svg vagy .pdf elérési út.",
-    "param.scale.description": "PNG léptéktényező.",
-    "param.background.description": "Háttérszín.",
-    "param.theme.description": "Sellő téma.",
-    "param.include_base64.description": "Tartalmazzon base64 adatokat a távoli ügyfelek számára.",
-    "ok.rendered": "[OK] Mermaid renderelt"
-  },
-  "ro": {
-    "tool.description": "Redați diagramele Mermaid în PNG, SVG sau PDF complet offline utilizând o redare nativă Python.",
-    "x_search_terms": [
-      "Mermaid",
-      "organigrama",
-      "diagrama de clasă",
-      "diagrama secvenței",
-      "redator offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Text sursă sirenă.",
-    "param.input_path.description": "Calea opțională a fișierului Mermaid.",
-    "param.output_path.description": "Ieșiți calea .png, .svg sau .pdf.",
-    "param.scale.description": "factor de scară PNG.",
-    "param.background.description": "Culoare de fundal.",
-    "param.theme.description": "Tema sirenelor.",
-    "param.include_base64.description": "Includeți date base64 pentru clienții la distanță.",
-    "ok.rendered": "[OK] Sirenă redată"
-  },
-  "bg": {
-    "tool.description": "Рендирайте диаграми на Mermaid в PNG, SVG или PDF напълно офлайн, като използвате естествен рендър на Python.",
-    "x_search_terms": [
-      "Mermaid",
-      "блок-схема",
-      "диаграма на класове",
-      "диаграма на последователност",
-      "офлайн изобразяване",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Русалка изходен текст.",
-    "param.input_path.description": "Незадължителен път на Mermaid файл.",
-    "param.output_path.description": "Извеждане на .png, .svg или .pdf път.",
-    "param.scale.description": "PNG коефициент на мащабиране.",
-    "param.background.description": "Цвят на фона.",
-    "param.theme.description": "Тема русалка.",
-    "param.include_base64.description": "Включете base64 данни за отдалечени клиенти.",
-    "ok.rendered": "[OK] Русалка е изобразена"
-  },
-  "el": {
-    "tool.description": "Αποδώστε τα διαγράμματα Mermaid σε PNG, SVG ή PDF εντελώς εκτός σύνδεσης χρησιμοποιώντας μια εγγενή απόδοση απόδοσης Python.",
-    "x_search_terms": [
-      "Γοργόνα",
-      "διάγραμμα ροής",
-      "διάγραμμα τάξης",
-      "διάγραμμα ακολουθίας",
-      " απόδοση εκτός σύνδεσης",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Γοργόνα πηγαίο κείμενο.",
-    "param.input_path.description": "Προαιρετική διαδρομή αρχείου Mermaid.",
-    "param.output_path.description": "Έξοδος διαδρομής .png, .svg ή .pdf.",
-    "param.scale.description": "Συντελεστής κλίμακας PNG.",
-    "param.background.description": "Χρώμα φόντου.",
-    "param.theme.description": "Θέμα γοργόνα.",
-    "param.include_base64.description": "Συμπεριλάβετε δεδομένα base64 για απομακρυσμένους πελάτες.",
-    "ok.rendered": "[ΟΚ] Γοργόνα αποδόθηκε"
-  },
-  "tr": {
-    "tool.description": "Python'da yerel bir oluşturucu kullanarak Denizkızı diyagramlarını tamamen çevrimdışı olarak PNG, SVG veya PDF'ye dönüştürün.",
-    "x_search_terms": [
-      "Denizkızı",
-      "akış şeması",
-      "sınıf diyagramı",
-      "sıra diyagramı",
-      "çevrimdışı oluşturucu",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Deniz kızı kaynak metni.",
-    "param.input_path.description": "İsteğe bağlı Denizkızı dosya yolu.",
-    "param.output_path.description": ".png, .svg veya .pdf yolunun çıktısını alın.",
-    "param.scale.description": "PNG ölçek faktörü.",
-    "param.background.description": "Arka plan rengi.",
-    "param.theme.description": "Deniz kızı teması.",
-    "param.include_base64.description": "Uzak istemciler için base64 verilerini ekleyin.",
-    "ok.rendered": "[Tamam] Deniz Kızı render'ı"
   },
   "ar": {
     "tool.description": "قم بعرض مخططات حورية البحر إلى PNG أو SVG أو PDF دون الاتصال بالإنترنت تمامًا باستخدام عارض Python الأصلي.",
@@ -482,69 +41,6 @@
     "param.include_base64.description": "قم بتضمين بيانات base64 للعملاء البعيدين.",
     "ok.rendered": "[موافق] تم تقديم حورية البحر"
   },
-  "he": {
-    "tool.description": "עבד דיאגרמות של בת הים ל-PNG, SVG או PDF באופן לא מקוון לחלוטין באמצעות מעבד מקורי של Python.",
-    "x_search_terms": [
-      "בתולת ים",
-      "תרשים זרימה",
-      "דיאגרמת כיתה",
-      "דיאגרמת רצף",
-      "מעבד לא מקוון",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "טקסט מקור של בת הים.",
-    "param.input_path.description": "נתיב קובץ בת ים אופציונלי.",
-    "param.output_path.description": "פלט נתיב .png, .svg או .pdf.",
-    "param.scale.description": "גורם קנה מידה PNG.",
-    "param.background.description": "צבע רקע.",
-    "param.theme.description": "נושא בת ים.",
-    "param.include_base64.description": "כלול נתוני base64 עבור לקוחות מרוחקים.",
-    "ok.rendered": "[בסדר] בת הים מעובדת"
-  },
-  "fa": {
-    "tool.description": "نمودارهای Mermaid را با استفاده از یک رندر بومی پایتون به صورت کاملا آفلاین به PNG، SVG یا PDF ارائه دهید.",
-    "x_search_terms": [
-      "پری دریایی",
-      "فلوچارت",
-      "نمودار کلاس",
-      "نمودار توالی",
-      "پردازنده آفلاین",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "متن منبع پری دریایی.",
-    "param.input_path.description": "مسیر فایل اختیاری Mermaid.",
-    "param.output_path.description": "خروجی مسیر png.، svg. یا pdf.",
-    "param.scale.description": "فاکتور مقیاس PNG.",
-    "param.background.description": "رنگ پس زمینه.",
-    "param.theme.description": "تم پری دریایی.",
-    "param.include_base64.description": "شامل داده های base64 برای مشتریان راه دور.",
-    "ok.rendered": "[OK] پری دریایی ارائه شده است"
-  },
-  "hi": {
-    "tool.description": "पायथन-नेटिव रेंडरर का उपयोग करके मरमेड आरेखों को पीएनजी, एसवीजी, या पीडीएफ में पूरी तरह ऑफ़लाइन प्रस्तुत करें।",
-    "x_search_terms": [
-      "मरमेड",
-      "फ़्लोचार्ट",
-      "क्लास डायग्राम",
-      "अनुक्रम डायग्राम",
-      "ऑफ़लाइन रेंडरर",
-      "पीएनजी",
-      "एसवीजी",
-      "पीडीएफ"
-    ],
-    "param.source.description": "जलपरी स्रोत पाठ.",
-    "param.input_path.description": "वैकल्पिक मरमेड फ़ाइल पथ.",
-    "param.output_path.description": "आउटपुट .png, .svg, या .pdf पथ।",
-    "param.scale.description": "पीएनजी स्केल फैक्टर।",
-    "param.background.description": "पृष्ठभूमि का रंग।",
-    "param.theme.description": "जलपरी थीम.",
-    "param.include_base64.description": "दूरस्थ ग्राहकों के लिए बेस64 डेटा शामिल करें।",
-    "ok.rendered": "[ठीक] जलपरी प्रस्तुत की गई"
-  },
   "bn": {
     "tool.description": "একটি পাইথন-নেটিভ রেন্ডারার ব্যবহার করে সম্পূর্ণরূপে অফলাইনে PNG, SVG, বা PDF তে Mermaid ডায়াগ্রাম রেন্ডার করুন।",
     "x_search_terms": [
@@ -566,110 +62,26 @@
     "param.include_base64.description": "দূরবর্তী ক্লায়েন্টদের জন্য base64 ডেটা অন্তর্ভুক্ত করুন।",
     "ok.rendered": "[ঠিক আছে] মারমেইড রেন্ডার করা হয়েছে"
   },
-  "th": {
-    "tool.description": "เรนเดอร์ไดอะแกรม Mermaid เป็น PNG, SVG หรือ PDF ออฟไลน์โดยสมบูรณ์โดยใช้ตัวเรนเดอร์ Python-native",
+  "cs": {
+    "tool.description": "Vykreslujte diagramy mořské panny do PNG, SVG nebo PDF zcela offline pomocí vykreslovače nativního Pythonu.",
     "x_search_terms": [
-      "เมอร์เมด",
-      "ผังงาน",
-      "คลาสไดอะแกรม",
-      "แผนภาพลำดับ",
-      "ตัวเรนเดอร์ออฟไลน์",
+      "Mořská panna",
+      "vývojový diagram",
+      "diagram tříd",
+      "sekvenční schéma",
+      "offline renderer",
       "PNG",
       "SVG",
       "PDF"
     ],
-    "param.source.description": "ข้อความต้นฉบับของนางเงือก",
-    "param.input_path.description": "เส้นทางไฟล์ Mermaid ทางเลือก",
-    "param.output_path.description": "เส้นทางเอาต์พุต .png, .svg หรือ .pdf",
-    "param.scale.description": "ตัวคูณขนาด PNG",
-    "param.background.description": "สีพื้นหลัง.",
-    "param.theme.description": "ธีมนางเงือก",
-    "param.include_base64.description": "รวมข้อมูล base64 สำหรับไคลเอ็นต์ระยะไกล",
-    "ok.rendered": "[ตกลง] เรนเดอร์นางเงือกแล้ว"
-  },
-  "vi": {
-    "tool.description": "Kết xuất sơ đồ Nàng tiên cá thành PNG, SVG hoặc PDF hoàn toàn ngoại tuyến bằng trình kết xuất gốc Python.",
-    "x_search_terms": [
-      "Nàng tiên cá",
-      "sơ đồ",
-      "sơ đồ lớp",
-      "sơ đồ trình tự",
-      "trình kết xuất ngoại tuyến",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Văn bản nguồn nàng tiên cá.",
-    "param.input_path.description": "Đường dẫn tệp Nàng tiên cá tùy chọn.",
-    "param.output_path.description": "Đường dẫn đầu ra .png, .svg hoặc .pdf.",
-    "param.scale.description": "Yếu tố tỷ lệ PNG.",
-    "param.background.description": "Màu nền.",
-    "param.theme.description": "Chủ đề nàng tiên cá.",
-    "param.include_base64.description": "Bao gồm dữ liệu base64 cho khách hàng từ xa.",
-    "ok.rendered": "[OK] Kết xuất nàng tiên cá"
-  },
-  "id": {
-    "tool.description": "Render diagram Mermaid ke PNG, SVG, atau PDF sepenuhnya offline menggunakan penyaji asli Python.",
-    "x_search_terms": [
-      "Putri duyung",
-      "diagram alur",
-      "diagram kelas",
-      "diagram urutan",
-      "penyaji offline",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Teks sumber putri duyung.",
-    "param.input_path.description": "Jalur file Mermaid opsional.",
-    "param.output_path.description": "Keluaran jalur .png, .svg, atau .pdf.",
-    "param.scale.description": "Faktor skala PNG.",
-    "param.background.description": "Warna latar belakang.",
-    "param.theme.description": "Tema putri duyung.",
-    "param.include_base64.description": "Sertakan data base64 untuk klien jarak jauh.",
-    "ok.rendered": "[OK] Putri duyung ditampilkan"
-  },
-  "ms": {
-    "tool.description": "Render diagram Mermaid ke PNG, SVG atau PDF sepenuhnya di luar talian menggunakan pemapar asli Python.",
-    "x_search_terms": [
-      "Mermaid",
-      "carta alir",
-      "rajah kelas",
-      "rajah jujukan",
-      "penyampai luar talian",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Teks sumber ikan duyung.",
-    "param.input_path.description": "Laluan fail Mermaid pilihan.",
-    "param.output_path.description": "Output .png, .svg atau laluan .pdf.",
-    "param.scale.description": "faktor skala PNG.",
-    "param.background.description": "Warna latar belakang.",
-    "param.theme.description": "Tema ikan duyung.",
-    "param.include_base64.description": "Sertakan data base64 untuk pelanggan jauh.",
-    "ok.rendered": "[OK] Ikan duyung dibuat"
-  },
-  "sv": {
-    "tool.description": "Återge sjöjungfrudiagram till PNG, SVG eller PDF helt offline med en Python-inbyggd renderare.",
-    "x_search_terms": [
-      "Sjöjungfru",
-      "flödesschema",
-      "klassdiagram",
-      "sekvensdiagram",
-      "offline-renderare",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Mermaid källtext.",
-    "param.input_path.description": "Valfri Mermaid-filsökväg.",
-    "param.output_path.description": "Skriv ut .png-, .svg- eller .pdf-sökväg.",
-    "param.scale.description": "PNG-skalfaktor.",
-    "param.background.description": "Bakgrundsfärg.",
-    "param.theme.description": "Sjöjungfru tema.",
-    "param.include_base64.description": "Inkludera base64-data för fjärrklienter.",
-    "ok.rendered": "[OK] Sjöjungfru renderad"
+    "param.source.description": "Zdrojový text mořské panny.",
+    "param.input_path.description": "Volitelná cesta k souboru Mořská panna.",
+    "param.output_path.description": "Výstup ve formátu .png, .svg nebo .pdf.",
+    "param.scale.description": "Měřítko PNG.",
+    "param.background.description": "Barva pozadí.",
+    "param.theme.description": "Téma mořské panny.",
+    "param.include_base64.description": "Zahrnout data base64 pro vzdálené klienty.",
+    "ok.rendered": "[OK] Vykreslena mořská panna"
   },
   "da": {
     "tool.description": "Gengiv havfruediagrammer til PNG, SVG eller PDF helt offline ved hjælp af en Python-native renderer.",
@@ -692,26 +104,89 @@
     "param.include_base64.description": "Inkluder base64-data til fjernklienter.",
     "ok.rendered": "[OK] Havfrue gengivet"
   },
-  "no": {
-    "tool.description": "Gjengi havfruediagrammer til PNG, SVG eller PDF helt offline ved hjelp av en Python-native renderer.",
+  "de": {
+    "tool.description": "Rendern Sie Mermaid-Diagramme vollständig offline mit einem Python-nativen Renderer in PNG, SVG oder PDF.",
     "x_search_terms": [
-      "Havfrue",
-      "flytskjema",
-      "klassediagram",
-      "sekvensdiagram",
-      "frakoblet renderer",
+      "Meerjungfrau",
+      "Flussdiagramm",
+      "Klassendiagramm",
+      "Sequenzdiagramm",
+      "Offline-Renderer",
       "PNG",
       "SVG",
       "PDF"
     ],
-    "param.source.description": "Havfrue kildetekst.",
-    "param.input_path.description": "Valgfri Mermaid-filbane.",
-    "param.output_path.description": "Skriv ut .png-, .svg- eller .pdf-bane.",
-    "param.scale.description": "PNG-skalafaktor.",
-    "param.background.description": "Bakgrunnsfarge.",
-    "param.theme.description": "Havfrue tema.",
-    "param.include_base64.description": "Inkluder base64-data for eksterne klienter.",
-    "ok.rendered": "[OK] Havfrue gjengitt"
+    "param.source.description": "Meerjungfrau-Quelltext.",
+    "param.input_path.description": "Optionaler Mermaid-Dateipfad.",
+    "param.output_path.description": "Ausgabepfad im PNG-, SVG- oder PDF-Format.",
+    "param.scale.description": "PNG-Skalierungsfaktor.",
+    "param.background.description": "Hintergrundfarbe.",
+    "param.theme.description": "Meerjungfrau-Thema.",
+    "param.include_base64.description": "Beziehen Sie Base64-Daten für Remote-Clients ein.",
+    "ok.rendered": "[OK] Meerjungfrau gerendert"
+  },
+  "el": {
+    "tool.description": "Αποδώστε τα διαγράμματα Mermaid σε PNG, SVG ή PDF εντελώς εκτός σύνδεσης χρησιμοποιώντας μια εγγενή απόδοση απόδοσης Python.",
+    "x_search_terms": [
+      "Γοργόνα",
+      "διάγραμμα ροής",
+      "διάγραμμα τάξης",
+      "διάγραμμα ακολουθίας",
+      " απόδοση εκτός σύνδεσης",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Γοργόνα πηγαίο κείμενο.",
+    "param.input_path.description": "Προαιρετική διαδρομή αρχείου Mermaid.",
+    "param.output_path.description": "Έξοδος διαδρομής .png, .svg ή .pdf.",
+    "param.scale.description": "Συντελεστής κλίμακας PNG.",
+    "param.background.description": "Χρώμα φόντου.",
+    "param.theme.description": "Θέμα γοργόνα.",
+    "param.include_base64.description": "Συμπεριλάβετε δεδομένα base64 για απομακρυσμένους πελάτες.",
+    "ok.rendered": "[ΟΚ] Γοργόνα αποδόθηκε"
+  },
+  "es": {
+    "tool.description": "Renderice diagramas de Mermaid en PNG, SVG o PDF completamente sin conexión utilizando un renderizador nativo de Python.",
+    "x_search_terms": [
+      "Sirena",
+      "diagrama de flujo",
+      "diagrama de clases",
+      "diagrama de secuencia",
+      "renderizador fuera de línea",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Texto fuente de sirena.",
+    "param.input_path.description": "Ruta de archivo opcional de Mermaid.",
+    "param.output_path.description": "Ruta de salida .png, .svg o .pdf.",
+    "param.scale.description": "Factor de escala PNG.",
+    "param.background.description": "Color de fondo.",
+    "param.theme.description": "Tema de sirena.",
+    "param.include_base64.description": "Incluya datos base64 para clientes remotos.",
+    "ok.rendered": "[OK] Sirena renderizada"
+  },
+  "fa": {
+    "tool.description": "نمودارهای Mermaid را با استفاده از یک رندر بومی پایتون به صورت کاملا آفلاین به PNG، SVG یا PDF ارائه دهید.",
+    "x_search_terms": [
+      "پری دریایی",
+      "فلوچارت",
+      "نمودار کلاس",
+      "نمودار توالی",
+      "پردازنده آفلاین",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "متن منبع پری دریایی.",
+    "param.input_path.description": "مسیر فایل اختیاری Mermaid.",
+    "param.output_path.description": "خروجی مسیر png.، svg. یا pdf.",
+    "param.scale.description": "فاکتور مقیاس PNG.",
+    "param.background.description": "رنگ پس زمینه.",
+    "param.theme.description": "تم پری دریایی.",
+    "param.include_base64.description": "شامل داده های base64 برای مشتریان راه دور.",
+    "ok.rendered": "[OK] پری دریایی ارائه شده است"
   },
   "fi": {
     "tool.description": "Renderöi Merenneito-kaaviot PNG-, SVG- tai PDF-muotoon täysin offline-tilassa Python-natiivin renderöijan avulla.",
@@ -734,90 +209,6 @@
     "param.include_base64.description": "Sisällytä base64-tiedot etäasiakkaille.",
     "ok.rendered": "[OK] Merenneito renderöity"
   },
-  "et": {
-    "tool.description": "Renderdage Mermaid diagrammid PNG-, SVG- või PDF-vormingus täiesti võrguühenduseta, kasutades Pythoni natiivset renderdajat.",
-    "x_search_terms": [
-      "Merineitsi",
-      "vooskeemi",
-      "klassidiagramm",
-      "järjestusdiagramm",
-      "võrguühenduseta renderdaja",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Merineitsi lähtetekst.",
-    "param.input_path.description": "Valikuline Mermaid failitee.",
-    "param.output_path.description": "Väljundi .png, svg või .pdf tee.",
-    "param.scale.description": "PNG mastaabitegur.",
-    "param.background.description": "Taustavärv.",
-    "param.theme.description": "Merineitsi teema.",
-    "param.include_base64.description": "Kaasake kaugklientide jaoks base64 andmed.",
-    "ok.rendered": "[OK] Merineitsi renderdatud"
-  },
-  "lv": {
-    "tool.description": "Renderējiet Mermaid diagrammas PNG, SVG vai PDF formātā pilnīgi bezsaistē, izmantojot Python vietējo renderētāju.",
-    "x_search_terms": [
-      "Mermaid",
-      "plūsmas diagramma",
-      "klases diagramma",
-      "secības diagramma",
-      "bezsaistes renderētājs",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Mermaid avota teksts.",
-    "param.input_path.description": "Izvēles Mermaid faila ceļš.",
-    "param.output_path.description": "Izvades .png, .svg vai .pdf ceļš.",
-    "param.scale.description": "PNG mēroga koeficients.",
-    "param.background.description": "Fona krāsa.",
-    "param.theme.description": "Mermaid tēma.",
-    "param.include_base64.description": "Iekļaut base64 datus attāliem klientiem.",
-    "ok.rendered": "[OK] Nāriņa renderēta"
-  },
-  "lt": {
-    "tool.description": "Pateikite „Mermaid“ diagramas PNG, SVG arba PDF formatu visiškai neprisijungę, naudodami vietinį „Python“ atvaizdavimo įrenginį.",
-    "x_search_terms": [
-      "Undinė",
-      "blokavimo schema",
-      "klasių diagrama",
-      "sekos diagrama",
-      "atsijungus atvaizdavimo priemonė",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Mermaid šaltinio tekstas.",
-    "param.input_path.description": "Pasirenkamas Mermaid failo kelias.",
-    "param.output_path.description": "Išvesties .png, .svg arba .pdf kelias.",
-    "param.scale.description": "PNG mastelio koeficientas.",
-    "param.background.description": "Fono spalva.",
-    "param.theme.description": "Undinėlės tema.",
-    "param.include_base64.description": "Įtraukite „base64“ duomenis nuotoliniams klientams.",
-    "ok.rendered": "[Gerai] Undinė perteikta"
-  },
-  "sl": {
-    "tool.description": "Upodobite diagrame Mermaid v PNG, SVG ali PDF popolnoma brez povezave z uporabo izvornega upodabljalnika Python.",
-    "x_search_terms": [
-      "Mermaid",
-      "diagram poteka",
-      "diagram razredov",
-      "diagram zaporedja",
-      "upodabljalnik brez povezave",
-      "PNG",
-      "SVG",
-      "PDF"
-    ],
-    "param.source.description": "Izvorno besedilo Mermaid.",
-    "param.input_path.description": "Izbirna pot datoteke Mermaid.",
-    "param.output_path.description": "Izhodna pot .png, .svg ali .pdf.",
-    "param.scale.description": "PNG faktor lestvice.",
-    "param.background.description": "Barva ozadja.",
-    "param.theme.description": "Tema morske deklice.",
-    "param.include_base64.description": "Vključite podatke base64 za oddaljene odjemalce.",
-    "ok.rendered": "[OK] Sirena je upodobljena"
-  },
   "fil": {
     "tool.description": "I-render ang mga diagram ng Mermaid sa PNG, SVG, o PDF nang ganap na offline gamit ang isang Python-native renderer.",
     "x_search_terms": [
@@ -838,6 +229,174 @@
     "param.theme.description": "Tema ng sirena.",
     "param.include_base64.description": "Isama ang base64 data para sa mga malalayong kliyente.",
     "ok.rendered": "[OK] Nag-render ang sirena"
+  },
+  "fr": {
+    "tool.description": "Rendre les diagrammes Mermaid au format PNG, SVG ou PDF complètement hors ligne à l'aide d'un moteur de rendu natif Python.",
+    "x_search_terms": [
+      "Sirène",
+      "organigramme",
+      "diagramme de classes",
+      "diagramme de séquence",
+      "rendu hors ligne",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Texte source de la sirène.",
+    "param.input_path.description": "Chemin de fichier Mermaid facultatif.",
+    "param.output_path.description": "Chemin de sortie .png, .svg ou .pdf.",
+    "param.scale.description": "Facteur d’échelle PNG.",
+    "param.background.description": "Couleur de fond.",
+    "param.theme.description": "Thème sirène.",
+    "param.include_base64.description": "Incluez les données base64 pour les clients distants.",
+    "ok.rendered": "[OK] Rendu de la sirène"
+  },
+  "he": {
+    "tool.description": "עבד דיאגרמות של בת הים ל-PNG, SVG או PDF באופן לא מקוון לחלוטין באמצעות מעבד מקורי של Python.",
+    "x_search_terms": [
+      "בתולת ים",
+      "תרשים זרימה",
+      "דיאגרמת כיתה",
+      "דיאגרמת רצף",
+      "מעבד לא מקוון",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "טקסט מקור של בת הים.",
+    "param.input_path.description": "נתיב קובץ בת ים אופציונלי.",
+    "param.output_path.description": "פלט נתיב .png, .svg או .pdf.",
+    "param.scale.description": "גורם קנה מידה PNG.",
+    "param.background.description": "צבע רקע.",
+    "param.theme.description": "נושא בת ים.",
+    "param.include_base64.description": "כלול נתוני base64 עבור לקוחות מרוחקים.",
+    "ok.rendered": "[בסדר] בת הים מעובדת"
+  },
+  "hi": {
+    "tool.description": "पायथन-नेटिव रेंडरर का उपयोग करके मरमेड आरेखों को पीएनजी, एसवीजी, या पीडीएफ में पूरी तरह ऑफ़लाइन प्रस्तुत करें।",
+    "x_search_terms": [
+      "मरमेड",
+      "फ़्लोचार्ट",
+      "क्लास डायग्राम",
+      "अनुक्रम डायग्राम",
+      "ऑफ़लाइन रेंडरर",
+      "पीएनजी",
+      "एसवीजी",
+      "पीडीएफ"
+    ],
+    "param.source.description": "जलपरी स्रोत पाठ.",
+    "param.input_path.description": "वैकल्पिक मरमेड फ़ाइल पथ.",
+    "param.output_path.description": "आउटपुट .png, .svg, या .pdf पथ।",
+    "param.scale.description": "पीएनजी स्केल फैक्टर।",
+    "param.background.description": "पृष्ठभूमि का रंग।",
+    "param.theme.description": "जलपरी थीम.",
+    "param.include_base64.description": "दूरस्थ ग्राहकों के लिए बेस64 डेटा शामिल करें।",
+    "ok.rendered": "[ठीक] जलपरी प्रस्तुत की गई"
+  },
+  "hu": {
+    "tool.description": "Rendelje meg a Mermaid diagramokat PNG, SVG vagy PDF formátumban teljesen offline, Python-natív rendererrel.",
+    "x_search_terms": [
+      "Mermaid",
+      "folyamatábra",
+      "osztálydiagram",
+      "szekvenciadiagram",
+      "offline renderer",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Mermaid forrásszöveg.",
+    "param.input_path.description": "Opcionális Mermaid fájl elérési útja.",
+    "param.output_path.description": "Kimeneti .png, .svg vagy .pdf elérési út.",
+    "param.scale.description": "PNG léptéktényező.",
+    "param.background.description": "Háttérszín.",
+    "param.theme.description": "Sellő téma.",
+    "param.include_base64.description": "Tartalmazzon base64 adatokat a távoli ügyfelek számára.",
+    "ok.rendered": "[OK] Mermaid renderelt"
+  },
+  "id": {
+    "tool.description": "Render diagram Mermaid ke PNG, SVG, atau PDF sepenuhnya offline menggunakan penyaji asli Python.",
+    "x_search_terms": [
+      "Putri duyung",
+      "diagram alur",
+      "diagram kelas",
+      "diagram urutan",
+      "penyaji offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Teks sumber putri duyung.",
+    "param.input_path.description": "Jalur file Mermaid opsional.",
+    "param.output_path.description": "Keluaran jalur .png, .svg, atau .pdf.",
+    "param.scale.description": "Faktor skala PNG.",
+    "param.background.description": "Warna latar belakang.",
+    "param.theme.description": "Tema putri duyung.",
+    "param.include_base64.description": "Sertakan data base64 untuk klien jarak jauh.",
+    "ok.rendered": "[OK] Putri duyung ditampilkan"
+  },
+  "it": {
+    "tool.description": "Rendi i diagrammi della sirena in PNG, SVG o PDF completamente offline utilizzando un renderer nativo di Python.",
+    "x_search_terms": [
+      "Sirena",
+      "diagramma di flusso",
+      "diagramma classe",
+      "diagramma sequenza",
+      "renderizzatore offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Testo sorgente della sirena.",
+    "param.input_path.description": "Percorso file Sirena opzionale.",
+    "param.output_path.description": "Percorso di output .png, .svg o .pdf.",
+    "param.scale.description": "Fattore di scala PNG.",
+    "param.background.description": "Colore di sfondo.",
+    "param.theme.description": "Tema della sirena.",
+    "param.include_base64.description": "Includere dati base64 per client remoti.",
+    "ok.rendered": "[OK] Sirena renderizzata"
+  },
+  "ja": {
+    "tool.description": "Python ネイティブのレンダラーを使用して、人魚図を完全にオフラインで PNG、SVG、または PDF にレンダリングします。",
+    "x_search_terms": [
+      "マーメイド",
+      "フローチャート",
+      "クラス図",
+      "シーケンス図",
+      "オフラインレンダラー",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "人魚のソーステキスト。",
+    "param.input_path.description": "オプションの Mermaid ファイル パス。",
+    "param.output_path.description": "出力 .png、.svg、または .pdf パス。",
+    "param.scale.description": "PNG スケール係数。",
+    "param.background.description": "背景色。",
+    "param.theme.description": "人魚のテーマ。",
+    "param.include_base64.description": "リモート クライアントの Base64 データを含めます。",
+    "ok.rendered": "[OK] 人魚のレンダリング"
+  },
+  "ko": {
+    "tool.description": "Python 기본 렌더러를 사용하여 Mermaid 다이어그램을 PNG, SVG 또는 PDF로 완전히 오프라인으로 렌더링할 수 있습니다.",
+    "x_search_terms": [
+      "인어",
+      "흐름도",
+      "클래스 다이어그램",
+      "시퀀스 다이어그램",
+      "오프라인 렌더러",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "인어 소스 텍스트.",
+    "param.input_path.description": "선택적 인어 파일 경로입니다.",
+    "param.output_path.description": ".png, .svg 또는 .pdf 경로를 출력합니다.",
+    "param.scale.description": "PNG 배율 인자.",
+    "param.background.description": "배경색.",
+    "param.theme.description": "인어 테마.",
+    "param.include_base64.description": "원격 클라이언트에 대한 base64 데이터를 포함합니다.",
+    "ok.rendered": "[OK] 인어 렌더링"
   },
   "mn": {
     "tool.description": "Mermaid диаграммыг PNG, SVG, эсвэл PDF форматаар бүрэн офлайнаар Python-н уугуул renderer ашиглан дүрслээрэй.",
@@ -881,6 +440,27 @@
     "param.include_base64.description": "रिमोट क्लायंटसाठी बेस64 डेटा समाविष्ट करा.",
     "ok.rendered": "[ओके] जलपरी प्रस्तुत"
   },
+  "ms": {
+    "tool.description": "Render diagram Mermaid ke PNG, SVG atau PDF sepenuhnya di luar talian menggunakan pemapar asli Python.",
+    "x_search_terms": [
+      "Mermaid",
+      "carta alir",
+      "rajah kelas",
+      "rajah jujukan",
+      "penyampai luar talian",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Teks sumber ikan duyung.",
+    "param.input_path.description": "Laluan fail Mermaid pilihan.",
+    "param.output_path.description": "Output .png, .svg atau laluan .pdf.",
+    "param.scale.description": "faktor skala PNG.",
+    "param.background.description": "Warna latar belakang.",
+    "param.theme.description": "Tema ikan duyung.",
+    "param.include_base64.description": "Sertakan data base64 untuk pelanggan jauh.",
+    "ok.rendered": "[OK] Ikan duyung dibuat"
+  },
   "nb": {
     "tool.description": "Gjengi havfruediagrammer til PNG, SVG eller PDF helt offline ved hjelp av en Python-native renderer.",
     "x_search_terms": [
@@ -901,6 +481,27 @@
     "param.theme.description": "Havfrue tema.",
     "param.include_base64.description": "Inkluder base64-data for eksterne klienter.",
     "ok.rendered": "[OK] Havfrue gjengitt"
+  },
+  "nl": {
+    "tool.description": "Render zeemeermindiagrammen volledig offline naar PNG, SVG of PDF met behulp van een Python-native renderer.",
+    "x_search_terms": [
+      "Zeemeermin",
+      "stroomdiagram",
+      "klassediagram",
+      "volgordediagram",
+      "offline renderer",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Brontekst zeemeermin.",
+    "param.input_path.description": "Optioneel zeemeerminbestandspad.",
+    "param.output_path.description": "Uitvoerpad .png, .svg of .pdf.",
+    "param.scale.description": "PNG-schaalfactor.",
+    "param.background.description": "Achtergrondkleur.",
+    "param.theme.description": "Zeemeermin thema.",
+    "param.include_base64.description": "Voeg base64-gegevens toe voor externe clients.",
+    "ok.rendered": "[OK] Zeemeermin weergegeven"
   },
   "nn": {
     "tool.description": "Render Mermaid-diagram til PNG, SVG eller PDF heilt utan nettverk ved hjelp av ein Python-basert renderar.",
@@ -923,6 +524,132 @@
     "param.include_base64.description": "Ta med base64-data for fjernklientar.",
     "ok.rendered": "[OK] Mermaid-rendering fullført"
   },
+  "pl": {
+    "tool.description": "Renderuj diagramy syreny do formatu PNG, SVG lub PDF całkowicie w trybie offline, korzystając z modułu renderującego natywnego dla języka Python.",
+    "x_search_terms": [
+      "Syrenka",
+      "schemat blokowy",
+      "diagram klas",
+      "diagram sekwencji",
+      "renderer offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Tekst źródłowy syreny.",
+    "param.input_path.description": "Opcjonalna ścieżka pliku Mermaid.",
+    "param.output_path.description": "Wyjściowa ścieżka .png, .svg lub .pdf.",
+    "param.scale.description": "Współczynnik skali PNG.",
+    "param.background.description": "Kolor tła.",
+    "param.theme.description": "Motyw syreny.",
+    "param.include_base64.description": "Uwzględnij dane Base64 dla klientów zdalnych.",
+    "ok.rendered": "[OK] Syrena wyrenderowana"
+  },
+  "pt": {
+    "tool.description": "Renderize diagramas Mermaid em PNG, SVG ou PDF completamente offline usando um renderizador nativo de Python.",
+    "x_search_terms": [
+      "Sereia",
+      "fluxograma",
+      "diagrama de classes",
+      "diagrama de sequência",
+      "renderizador offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Texto fonte da sereia.",
+    "param.input_path.description": "Caminho de arquivo Mermaid opcional.",
+    "param.output_path.description": "Caminho de saída .png, .svg ou .pdf.",
+    "param.scale.description": "Fator de escala PNG.",
+    "param.background.description": "Cor de fundo.",
+    "param.theme.description": "Tema sereia.",
+    "param.include_base64.description": "Inclui dados base64 para clientes remotos.",
+    "ok.rendered": "[OK] Sereia renderizada"
+  },
+  "pt_BR": {
+    "tool.description": "Renderize diagramas Mermaid em PNG, SVG ou PDF completamente offline usando um renderizador nativo de Python.",
+    "x_search_terms": [
+      "Sereia",
+      "fluxograma",
+      "diagrama de classes",
+      "diagrama de sequência",
+      "renderizador offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Texto fonte da sereia.",
+    "param.input_path.description": "Caminho de arquivo Mermaid opcional.",
+    "param.output_path.description": "Caminho de saída .png, .svg ou .pdf.",
+    "param.scale.description": "Fator de escala PNG.",
+    "param.background.description": "Cor de fundo.",
+    "param.theme.description": "Tema sereia.",
+    "param.include_base64.description": "Inclui dados base64 para clientes remotos.",
+    "ok.rendered": "[OK] Sereia renderizada"
+  },
+  "ro": {
+    "tool.description": "Redați diagramele Mermaid în PNG, SVG sau PDF complet offline utilizând o redare nativă Python.",
+    "x_search_terms": [
+      "Mermaid",
+      "organigrama",
+      "diagrama de clasă",
+      "diagrama secvenței",
+      "redator offline",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Text sursă sirenă.",
+    "param.input_path.description": "Calea opțională a fișierului Mermaid.",
+    "param.output_path.description": "Ieșiți calea .png, .svg sau .pdf.",
+    "param.scale.description": "factor de scară PNG.",
+    "param.background.description": "Culoare de fundal.",
+    "param.theme.description": "Tema sirenelor.",
+    "param.include_base64.description": "Includeți date base64 pentru clienții la distanță.",
+    "ok.rendered": "[OK] Sirenă redată"
+  },
+  "ru": {
+    "tool.description": "Рендеринг диаграмм Mermaid в PNG, SVG или PDF полностью автономно с помощью встроенного средства рендеринга Python.",
+    "x_search_terms": [
+      "Русалка",
+      "блок-схема",
+      "диаграмма классов",
+      "диаграмма последовательности",
+      "автономный рендеринг",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Исходный текст Русалки.",
+    "param.input_path.description": "Необязательный путь к файлу Mermaid.",
+    "param.output_path.description": "Выведите путь в формате .png, .svg или .pdf.",
+    "param.scale.description": "Масштабный коэффициент PNG.",
+    "param.background.description": "Цвет фона.",
+    "param.theme.description": "Русалочная тема.",
+    "param.include_base64.description": "Включите данные base64 для удаленных клиентов.",
+    "ok.rendered": "[ОК] Русалка визуализирована"
+  },
+  "sv": {
+    "tool.description": "Återge sjöjungfrudiagram till PNG, SVG eller PDF helt offline med en Python-inbyggd renderare.",
+    "x_search_terms": [
+      "Sjöjungfru",
+      "flödesschema",
+      "klassdiagram",
+      "sekvensdiagram",
+      "offline-renderare",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Mermaid källtext.",
+    "param.input_path.description": "Valfri Mermaid-filsökväg.",
+    "param.output_path.description": "Skriv ut .png-, .svg- eller .pdf-sökväg.",
+    "param.scale.description": "PNG-skalfaktor.",
+    "param.background.description": "Bakgrundsfärg.",
+    "param.theme.description": "Sjöjungfru tema.",
+    "param.include_base64.description": "Inkludera base64-data för fjärrklienter.",
+    "ok.rendered": "[OK] Sjöjungfru renderad"
+  },
   "sw": {
     "tool.description": "Toa michoro ya Mermaid kwa PNG, SVG, au PDF nje ya mtandao kabisa kwa kutumia kionyeshi asili cha Python.",
     "x_search_terms": [
@@ -943,5 +670,131 @@
     "param.theme.description": "Mandhari ya Mermaid.",
     "param.include_base64.description": "Jumuisha data ya base64 kwa wateja wa mbali.",
     "ok.rendered": "[Sawa] Mermaid iliyotolewa"
+  },
+  "th": {
+    "tool.description": "เรนเดอร์ไดอะแกรม Mermaid เป็น PNG, SVG หรือ PDF ออฟไลน์โดยสมบูรณ์โดยใช้ตัวเรนเดอร์ Python-native",
+    "x_search_terms": [
+      "เมอร์เมด",
+      "ผังงาน",
+      "คลาสไดอะแกรม",
+      "แผนภาพลำดับ",
+      "ตัวเรนเดอร์ออฟไลน์",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "ข้อความต้นฉบับของนางเงือก",
+    "param.input_path.description": "เส้นทางไฟล์ Mermaid ทางเลือก",
+    "param.output_path.description": "เส้นทางเอาต์พุต .png, .svg หรือ .pdf",
+    "param.scale.description": "ตัวคูณขนาด PNG",
+    "param.background.description": "สีพื้นหลัง.",
+    "param.theme.description": "ธีมนางเงือก",
+    "param.include_base64.description": "รวมข้อมูล base64 สำหรับไคลเอ็นต์ระยะไกล",
+    "ok.rendered": "[ตกลง] เรนเดอร์นางเงือกแล้ว"
+  },
+  "tr": {
+    "tool.description": "Python'da yerel bir oluşturucu kullanarak Denizkızı diyagramlarını tamamen çevrimdışı olarak PNG, SVG veya PDF'ye dönüştürün.",
+    "x_search_terms": [
+      "Denizkızı",
+      "akış şeması",
+      "sınıf diyagramı",
+      "sıra diyagramı",
+      "çevrimdışı oluşturucu",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Deniz kızı kaynak metni.",
+    "param.input_path.description": "İsteğe bağlı Denizkızı dosya yolu.",
+    "param.output_path.description": ".png, .svg veya .pdf yolunun çıktısını alın.",
+    "param.scale.description": "PNG ölçek faktörü.",
+    "param.background.description": "Arka plan rengi.",
+    "param.theme.description": "Deniz kızı teması.",
+    "param.include_base64.description": "Uzak istemciler için base64 verilerini ekleyin.",
+    "ok.rendered": "[Tamam] Deniz Kızı render'ı"
+  },
+  "uk": {
+    "tool.description": "Відтворюйте діаграми Mermaid у форматі PNG, SVG або PDF повністю в автономному режимі за допомогою засобу відтворення на основі Python.",
+    "x_search_terms": [
+      "Mermaid",
+      "блок-схема",
+      "діаграма класів",
+      "діаграма послідовності",
+      "офлайн рендерер",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Вихідний текст русалки.",
+    "param.input_path.description": "Додатковий шлях до файлу Mermaid.",
+    "param.output_path.description": "Виведіть шлях у форматі .png, .svg або .pdf.",
+    "param.scale.description": "PNG масштабний коефіцієнт.",
+    "param.background.description": "Колір фону.",
+    "param.theme.description": "Тема русалки.",
+    "param.include_base64.description": "Включіть дані base64 для віддалених клієнтів.",
+    "ok.rendered": "[ОК] Русалку відтворено"
+  },
+  "vi": {
+    "tool.description": "Kết xuất sơ đồ Nàng tiên cá thành PNG, SVG hoặc PDF hoàn toàn ngoại tuyến bằng trình kết xuất gốc Python.",
+    "x_search_terms": [
+      "Nàng tiên cá",
+      "sơ đồ",
+      "sơ đồ lớp",
+      "sơ đồ trình tự",
+      "trình kết xuất ngoại tuyến",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Văn bản nguồn nàng tiên cá.",
+    "param.input_path.description": "Đường dẫn tệp Nàng tiên cá tùy chọn.",
+    "param.output_path.description": "Đường dẫn đầu ra .png, .svg hoặc .pdf.",
+    "param.scale.description": "Yếu tố tỷ lệ PNG.",
+    "param.background.description": "Màu nền.",
+    "param.theme.description": "Chủ đề nàng tiên cá.",
+    "param.include_base64.description": "Bao gồm dữ liệu base64 cho khách hàng từ xa.",
+    "ok.rendered": "[OK] Kết xuất nàng tiên cá"
+  },
+  "zh_CN": {
+    "tool.description": "使用 Python 原生渲染器完全离线将 Mermaid 图渲染为 PNG、SVG 或 PDF。",
+    "x_search_terms": [
+      "Mermaid",
+      "流程图",
+      "类图",
+      "序列图",
+      "离线渲染器",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "美人鱼源文本。",
+    "param.input_path.description": "可选的美人鱼文件路径。",
+    "param.output_path.description": "输出 .png、.svg 或 .pdf 路径。",
+    "param.scale.description": "PNG 比例因子。",
+    "param.background.description": "背景颜色。",
+    "param.theme.description": "美人鱼主题。",
+    "param.include_base64.description": "包括远程客户端的 Base64 数据。",
+    "ok.rendered": "[确定] 美人鱼渲染"
+  },
+  "zh_TW": {
+    "tool.description": "使用 Python 原生渲染器完全離線將 Mermaid 圖渲染為 PNG、SVG 或 PDF。",
+    "x_search_terms": [
+      "Mermaid",
+      "流程圖",
+      "類別圖",
+      "序列圖",
+      "離線渲染器",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "美人魚來源文字。",
+    "param.input_path.description": "可選的美人魚文件路徑。",
+    "param.output_path.description": "輸出 .png、.svg 或 .pdf 路徑。",
+    "param.scale.description": "PNG 比例因子。",
+    "param.background.description": "背景顏色。",
+    "param.theme.description": "美人魚主題。",
+    "param.include_base64.description": "包括遠端客戶端的 Base64 資料。",
+    "ok.rendered": "[確定] 美人魚渲染"
   }
 }

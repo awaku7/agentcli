@@ -4,140 +4,95 @@
     "msg.no_memory": "(no long-term memory yet)",
     "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
   },
-  "ja": {
-    "err.load": "[long_memory エラー] {err_type}: {err}",
-    "msg.no_memory": "(長期記憶はまだありません)",
-    "msg.truncated": "\n[long_memory: {max_bytes} 文字で切り詰めました]"
-  },
-  "es": {
-    "err.load": "[error de memoria larga] {err_type}: {err}",
-    "msg.no_memory": "(aún no hay memoria a largo plazo)",
-    "msg.truncated": "\n[memoria_larga truncada: limitada a {max_bytes} caracteres]"
-  },
-  "fr": {
-    "err.load": "[erreur de mémoire longue] {err_type} : {err}",
-    "msg.no_memory": "(pas encore de mémoire à long terme)",
-    "msg.truncated": "\n[long_memory tronqué : limité à {max_bytes} caractères]"
-  },
-  "ko": {
-    "err.load": "[long_memory 오류] {err_type}: {err}",
-    "msg.no_memory": "(아직 장기기억이 없음)",
-    "msg.truncated": "[long_memory 잘림: {max_bytes} 문자로 제한됨]"
-  },
-  "de": {
-    "err.load": "[long_memory-Fehler] {err_type}: {err}",
-    "msg.no_memory": "(noch kein Langzeitgedächtnis)",
-    "msg.truncated": "[long_memory gekürzt: begrenzt auf {max_bytes} Zeichen]"
-  },
-  "it": {
-    "err.load": "[errore memoria_lunga] {err_type}: {err}",
-    "msg.no_memory": "(nessuna memoria a lungo termine ancora)",
-    "msg.truncated": "[long_memory troncato: limitato a {max_bytes} caratteri]"
-  },
-  "ru": {
-    "err.load": "[ошибка длинной_памяти] {err_type}: {err}",
-    "msg.no_memory": "(пока нет долговременной памяти)",
-    "msg.truncated": "[long_memory усечен: ограничено символами {max_bytes}]"
-  },
-  "pt_BR": {
-    "err.load": "[erro de memória longa] {err_type}: {err}",
-    "msg.no_memory": "(sem memória de longo prazo ainda)",
-    "msg.truncated": "[long_memory truncado: limitado a {max_bytes} caracteres]"
-  },
-  "pt": {
-    "err.load": "[erro de long_memory] {err_type}: {err}",
-    "msg.no_memory": "(ainda não há memória de longo prazo)",
-    "msg.truncated": "\n[long_memory truncado: limitado a {max_bytes} caracteres]"
-  },
-  "id": {
-    "err.load": "[galat long_memory] {err_type}: {err}",
-    "msg.no_memory": "(belum ada memori jangka panjang)",
-    "msg.truncated": "\n[memori jangka panjang dipotong: dibatasi hingga {max_bytes} karakter]"
-  },
-  "vi": {
-    "err.load": "[lỗi long_memory] {err_type}: {err}",
-    "msg.no_memory": "(chưa có trí nhớ dài hạn)",
-    "msg.truncated": "[long_memory bị cắt bớt: giới hạn ở {max_bytes} ký tự]"
-  },
-  "pl": {
-    "err.load": "[błąd długiej_pamięci] {err_type}: {err}",
-    "msg.no_memory": "(nie ma jeszcze pamięci długotrwałej)",
-    "msg.truncated": "[długa_pamięć obcięta: ograniczona do {max_bytes} znaków]"
-  },
-  "hi": {
-    "err.load": "[long_memory त्रुटि] {err_type}: {err}",
-    "msg.no_memory": "(अभी तक कोई दीर्घकालिक स्मृति नहीं है)",
-    "msg.truncated": "\n[long_memory छोटा किया गया: {max_bytes} वर्णों तक सीमित]"
-  },
   "ar": {
     "err.load": "[خطأ في الذاكرة الطويلة] {err_type}: {err}",
     "msg.no_memory": "(لا توجد ذاكرة طويلة المدى بعد)",
     "msg.truncated": "[تم اقتطاع الذاكرة الطويلة: يقتصر على {max_bytes} من الأحرف]"
-  },
-  "sv": {
-    "err.load": "[long_memory-fel] {err_type}: {err}",
-    "msg.no_memory": "(ingen långtidsminne ännu)",
-    "msg.truncated": "\n[long_memory avkortad: begränsad till {max_bytes} tecken]"
-  },
-  "sw": {
-    "err.load": "[hitilafu ya long_memory] {err_type}: {err}",
-    "msg.no_memory": "(bado hakuna kumbukumbu ya muda mrefu)",
-    "msg.truncated": "\n[long_memory imepunguzwa: imewekewa kikomo cha {max_bytes} herufi]"
-  },
-  "nb": {
-    "err.load": "[long_memory-feil] {err_type}: {err}",
-    "msg.no_memory": "(ingen langtidsminne ennå)",
-    "msg.truncated": "\n[long_memory avkortet: begrenset til {max_bytes} tegn]"
-  },
-  "nl": {
-    "err.load": "[fout lang geheugen] {err_type}: {err}",
-    "msg.no_memory": "(nog geen langetermijngeheugen)",
-    "msg.truncated": "\n[lang geheugen afgekapt: beperkt tot {max_bytes} tekens]"
-  },
-  "fi": {
-    "err.load": "[pitkä_muistivirhe] {err_type}: {err}",
-    "msg.no_memory": "(ei vielä pitkäaikaista muistia)",
-    "msg.truncated": "\n[long_memory typistetty: rajoitettu {max_bytes} merkkiin]"
-  },
-  "cs": {
-    "err.load": "[chyba long_memory] {err_type}: {err}",
-    "msg.no_memory": "(zatím žádná dlouhodobá paměť)",
-    "msg.truncated": "\n[long_memory zkrácen: omezeno na {max_bytes} znaků]"
-  },
-  "uk": {
-    "err.load": "[помилка long_memory] {err_type}: {err}",
-    "msg.no_memory": "(довготривалої пам’яті ще немає)",
-    "msg.truncated": "\n[long_memory скорочено: обмежено {max_bytes} символами]"
-  },
-  "tr": {
-    "err.load": "[uzun_bellek hatası] {err_type}: {err}",
-    "msg.no_memory": "(henüz uzun süreli hafıza yok)",
-    "msg.truncated": "[uzun_bellek kesildi: {max_bytes} karakterle sınırlı]"
-  },
-  "th": {
-    "err.load": "[ข้อผิดพลาดหน่วยความจำยาว] {err_type}: {err}",
-    "msg.no_memory": "(ยังไม่มีความจำระยะยาว)",
-    "msg.truncated": "\n[long_memory ถูกตัดทอน: จำกัด ไว้ที่ {max_bytes} ตัวอักษร]"
-  },
-  "zh_CN": {
-    "err.load": "[长内存错误] {err_type}: {err}",
-    "msg.no_memory": "（还没有长期记忆）",
-    "msg.truncated": "\n[长内存截断：仅限于 {max_bytes} 字符]"
-  },
-  "zh_TW": {
-    "err.load": "[長內存錯誤] {err_type}: {err}",
-    "msg.no_memory": "（還沒有長期記憶）",
-    "msg.truncated": "\n[長內存截斷：僅限於 {max_bytes} 字元]"
   },
   "bn": {
     "err.load": "[long_memory error] {err_type}: {err}",
     "msg.no_memory": "(এখনও দীর্ঘমেয়াদী স্মৃতি নেই)",
     "msg.truncated": "\n[দীর্ঘ_স্মৃতি কাটা: {max_bytes} অক্ষরে সীমাবদ্ধ]"
   },
+  "cs": {
+    "err.load": "[chyba long_memory] {err_type}: {err}",
+    "msg.no_memory": "(zatím žádná dlouhodobá paměť)",
+    "msg.truncated": "\n[long_memory zkrácen: omezeno na {max_bytes} znaků]"
+  },
+  "da": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "de": {
+    "err.load": "[long_memory-Fehler] {err_type}: {err}",
+    "msg.no_memory": "(noch kein Langzeitgedächtnis)",
+    "msg.truncated": "[long_memory gekürzt: begrenzt auf {max_bytes} Zeichen]"
+  },
+  "el": {
+    "err.load": "[σφάλμα long_memory] {err_type}: {err}",
+    "msg.no_memory": "Καταχωρίστε τις συσκευές που διαχειρίζονται γέφυρα Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
+    "msg.truncated": "\n[long_memory περικομμένη: περιορισμένη σε χαρακτήρες {max_bytes}]"
+  },
+  "es": {
+    "err.load": "[error de memoria larga] {err_type}: {err}",
+    "msg.no_memory": "(aún no hay memoria a largo plazo)",
+    "msg.truncated": "\n[memoria_larga truncada: limitada a {max_bytes} caracteres]"
+  },
   "fa": {
     "err.load": "[خطای long_memory] {err_type}: {err}",
     "msg.no_memory": "(هنوز حافظه بلند مدت وجود ندارد)",
     "msg.truncated": "\n[long_memory کوتاه شده: محدود به نویسه‌های {max_bytes}]"
+  },
+  "fi": {
+    "err.load": "[pitkä_muistivirhe] {err_type}: {err}",
+    "msg.no_memory": "(ei vielä pitkäaikaista muistia)",
+    "msg.truncated": "\n[long_memory typistetty: rajoitettu {max_bytes} merkkiin]"
+  },
+  "fil": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "fr": {
+    "err.load": "[erreur de mémoire longue] {err_type} : {err}",
+    "msg.no_memory": "(pas encore de mémoire à long terme)",
+    "msg.truncated": "\n[long_memory tronqué : limité à {max_bytes} caractères]"
+  },
+  "he": {
+    "err.load": "[שגיאת זיכרון ארוכה] {err_type}: {err}",
+    "msg.no_memory": "רשימת מכשירים מנוהלים ב-Matter והחזרת JSON או סיכום טקסט.",
+    "msg.truncated": "\n[זיכרון ארוך קטוע: מוגבל לתווים {max_bytes}]"
+  },
+  "hi": {
+    "err.load": "[long_memory त्रुटि] {err_type}: {err}",
+    "msg.no_memory": "(अभी तक कोई दीर्घकालिक स्मृति नहीं है)",
+    "msg.truncated": "\n[long_memory छोटा किया गया: {max_bytes} वर्णों तक सीमित]"
+  },
+  "hu": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "A hídkezeléssel felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaadása.",
+    "msg.truncated": "\n[long_memory csonka: {max_bytes} karakterekre korlátozva]"
+  },
+  "id": {
+    "err.load": "[galat long_memory] {err_type}: {err}",
+    "msg.no_memory": "(belum ada memori jangka panjang)",
+    "msg.truncated": "\n[memori jangka panjang dipotong: dibatasi hingga {max_bytes} karakter]"
+  },
+  "it": {
+    "err.load": "[errore memoria_lunga] {err_type}: {err}",
+    "msg.no_memory": "(nessuna memoria a lungo termine ancora)",
+    "msg.truncated": "[long_memory troncato: limitato a {max_bytes} caratteri]"
+  },
+  "ja": {
+    "err.load": "[long_memory エラー] {err_type}: {err}",
+    "msg.no_memory": "(長期記憶はまだありません)",
+    "msg.truncated": "\n[long_memory: {max_bytes} 文字で切り詰めました]"
+  },
+  "ko": {
+    "err.load": "[long_memory 오류] {err_type}: {err}",
+    "msg.no_memory": "(아직 장기기억이 없음)",
+    "msg.truncated": "[long_memory 잘림: {max_bytes} 문자로 제한됨]"
   },
   "mn": {
     "err.load": "[урт_санах ойн алдаа] {err_type}: {err}",
@@ -149,24 +104,89 @@
     "msg.no_memory": "(अद्याप दीर्घकालीन स्मृती नाही)",
     "msg.truncated": "\n[long_memory truncated: {max_bytes} अक्षरांपर्यंत मर्यादित]"
   },
-  "el": {
-    "err.load": "[σφάλμα long_memory] {err_type}: {err}",
-    "msg.no_memory": "Καταχωρίστε τις συσκευές που διαχειρίζονται γέφυρα Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
-    "msg.truncated": "\n[long_memory περικομμένη: περιορισμένη σε χαρακτήρες {max_bytes}]"
-  },
-  "he": {
-    "err.load": "[שגיאת זיכרון ארוכה] {err_type}: {err}",
-    "msg.no_memory": "רשימת מכשירים מנוהלים ב-Matter והחזרת JSON או סיכום טקסט.",
-    "msg.truncated": "\n[זיכרון ארוך קטוע: מוגבל לתווים {max_bytes}]"
-  },
-  "hu": {
+  "ms": {
     "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "A hídkezeléssel felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaadása.",
-    "msg.truncated": "\n[long_memory csonka: {max_bytes} karakterekre korlátozva]"
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "nb": {
+    "err.load": "[long_memory-feil] {err_type}: {err}",
+    "msg.no_memory": "(ingen langtidsminne ennå)",
+    "msg.truncated": "\n[long_memory avkortet: begrenset til {max_bytes} tegn]"
+  },
+  "nl": {
+    "err.load": "[fout lang geheugen] {err_type}: {err}",
+    "msg.no_memory": "(nog geen langetermijngeheugen)",
+    "msg.truncated": "\n[lang geheugen afgekapt: beperkt tot {max_bytes} tekens]"
+  },
+  "nn": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "pl": {
+    "err.load": "[błąd długiej_pamięci] {err_type}: {err}",
+    "msg.no_memory": "(nie ma jeszcze pamięci długotrwałej)",
+    "msg.truncated": "[długa_pamięć obcięta: ograniczona do {max_bytes} znaków]"
+  },
+  "pt": {
+    "err.load": "[erro de long_memory] {err_type}: {err}",
+    "msg.no_memory": "(ainda não há memória de longo prazo)",
+    "msg.truncated": "\n[long_memory truncado: limitado a {max_bytes} caracteres]"
+  },
+  "pt_BR": {
+    "err.load": "[erro de memória longa] {err_type}: {err}",
+    "msg.no_memory": "(sem memória de longo prazo ainda)",
+    "msg.truncated": "[long_memory truncado: limitado a {max_bytes} caracteres]"
   },
   "ro": {
     "err.load": "[eroare de memorie lungă] {err_type}: {err}",
     "msg.no_memory": "nume de clasă",
     "msg.truncated": "\n[long_memory trunchiată: limitată la caracterele {max_bytes}]"
+  },
+  "ru": {
+    "err.load": "[ошибка длинной_памяти] {err_type}: {err}",
+    "msg.no_memory": "(пока нет долговременной памяти)",
+    "msg.truncated": "[long_memory усечен: ограничено символами {max_bytes}]"
+  },
+  "sv": {
+    "err.load": "[long_memory-fel] {err_type}: {err}",
+    "msg.no_memory": "(ingen långtidsminne ännu)",
+    "msg.truncated": "\n[long_memory avkortad: begränsad till {max_bytes} tecken]"
+  },
+  "sw": {
+    "err.load": "[hitilafu ya long_memory] {err_type}: {err}",
+    "msg.no_memory": "(bado hakuna kumbukumbu ya muda mrefu)",
+    "msg.truncated": "\n[long_memory imepunguzwa: imewekewa kikomo cha {max_bytes} herufi]"
+  },
+  "th": {
+    "err.load": "[ข้อผิดพลาดหน่วยความจำยาว] {err_type}: {err}",
+    "msg.no_memory": "(ยังไม่มีความจำระยะยาว)",
+    "msg.truncated": "\n[long_memory ถูกตัดทอน: จำกัด ไว้ที่ {max_bytes} ตัวอักษร]"
+  },
+  "tr": {
+    "err.load": "[uzun_bellek hatası] {err_type}: {err}",
+    "msg.no_memory": "(henüz uzun süreli hafıza yok)",
+    "msg.truncated": "[uzun_bellek kesildi: {max_bytes} karakterle sınırlı]"
+  },
+  "uk": {
+    "err.load": "[помилка long_memory] {err_type}: {err}",
+    "msg.no_memory": "(довготривалої пам’яті ще немає)",
+    "msg.truncated": "\n[long_memory скорочено: обмежено {max_bytes} символами]"
+  },
+  "vi": {
+    "err.load": "[lỗi long_memory] {err_type}: {err}",
+    "msg.no_memory": "(chưa có trí nhớ dài hạn)",
+    "msg.truncated": "[long_memory bị cắt bớt: giới hạn ở {max_bytes} ký tự]"
+  },
+  "zh_CN": {
+    "err.load": "[长内存错误] {err_type}: {err}",
+    "msg.no_memory": "（还没有长期记忆）",
+    "msg.truncated": "\n[长内存截断：仅限于 {max_bytes} 字符]"
+  },
+  "zh_TW": {
+    "err.load": "[長內存錯誤] {err_type}: {err}",
+    "msg.no_memory": "（還沒有長期記憶）",
+    "msg.truncated": "\n[長內存截斷：僅限於 {max_bytes} 字元]"
   }
 }

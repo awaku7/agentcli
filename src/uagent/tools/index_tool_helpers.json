@@ -1,36 +1,116 @@
 {
-  "en": {"err.file_too_large": "file is too large: {size} > {max_bytes} bytes"},
-  "ja": {"err.file_too_large": "ファイルが大きすぎます: {size} > {max_bytes} バイト"},
-  "es": {"err.file_too_large": "el archivo es demasiado grande: {size} > {max_bytes} bytes"},
-  "fr": {"err.file_too_large": "le fichier est trop volumineux : {size} > {max_bytes} octets"},
-  "ko": {"err.file_too_large": "파일이 너무 큽니다: {size} > {max_bytes}바이트"},
-  "de": {"err.file_too_large": "Datei ist zu groß: {size} > {max_bytes} Bytes"},
-  "it": {"err.file_too_large": "il file è troppo grande: {size} > {max_bytes} byte"},
-  "ru": {"err.file_too_large": "файл слишком большой: {size} > {max_bytes} байт"},
-  "pt_BR": {"err.file_too_large": "o arquivo é grande demais: {size} > {max_bytes} bytes"},
-  "pt": {"err.file_too_large": "o ficheiro é demasiado grande: {size} > {max_bytes} bytes"},
-  "id": {"err.file_too_large": "file terlalu besar: {size} > {max_bytes} byte"},
-  "vi": {"err.file_too_large": "tệp quá lớn: {size} > {max_bytes} byte"},
-  "pl": {"err.file_too_large": "plik jest zbyt duży: {size} > {max_bytes} bajtów"},
-  "hi": {"err.file_too_large": "फ़ाइल बहुत बड़ी है: {size} > {max_bytes} बाइट"},
-  "ar": {"err.file_too_large": "الملف كبير جدًا: {size} > {max_bytes} بايت"},
-  "sv": {"err.file_too_large": "filen är för stor: {size} > {max_bytes} byte"},
-  "sw": {"err.file_too_large": "faili ni kubwa sana: {size} > {max_bytes} baiti"},
-  "nb": {"err.file_too_large": "filen er for stor: {size} > {max_bytes} byte"},
-  "nl": {"err.file_too_large": "bestand is te groot: {size} > {max_bytes} bytes"},
-  "fi": {"err.file_too_large": "tiedosto on liian suuri: {size} > {max_bytes} tavua"},
-  "cs": {"err.file_too_large": "soubor je příliš velký: {size} > {max_bytes} bajtů"},
-  "uk": {"err.file_too_large": "файл завеликий: {size} > {max_bytes} байтів"},
-  "tr": {"err.file_too_large": "dosya çok büyük: {size} > {max_bytes} bayt"},
-  "th": {"err.file_too_large": "ไฟล์มีขนาดใหญ่เกินไป: {size} > {max_bytes} ไบต์"},
-  "zh_CN": {"err.file_too_large": "文件过大：{size} > {max_bytes} 字节"},
-  "zh_TW": {"err.file_too_large": "檔案過大：{size} > {max_bytes} 位元組"},
-  "bn": {"err.file_too_large": "ফাইলটি খুব বড়: {size} > {max_bytes} বাইট"},
-  "fa": {"err.file_too_large": "فایل بیش از حد بزرگ است: {size} > {max_bytes} بایت"},
-  "mn": {"err.file_too_large": "файл хэт том байна: {size} > {max_bytes} байт"},
-  "mr": {"err.file_too_large": "फाइल खूप मोठी आहे: {size} > {max_bytes} बाइट्स"},
-  "el": {"err.file_too_large": "το αρχείο είναι πολύ μεγάλο: {size} > {max_bytes} byte"},
-  "he": {"err.file_too_large": "הקובץ גדול מדי: {size} > {max_bytes} בתים"},
-  "hu": {"err.file_too_large": "a fájl túl nagy: {size} > {max_bytes} bájt"},
-  "ro": {"err.file_too_large": "fișierul este prea mare: {size} > {max_bytes} octeți"}
+  "en": {
+    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+  },
+  "ar": {
+    "err.file_too_large": "الملف كبير جدًا: {size} > {max_bytes} بايت"
+  },
+  "bn": {
+    "err.file_too_large": "ফাইলটি খুব বড়: {size} > {max_bytes} বাইট"
+  },
+  "cs": {
+    "err.file_too_large": "soubor je příliš velký: {size} > {max_bytes} bajtů"
+  },
+  "da": {
+    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+  },
+  "de": {
+    "err.file_too_large": "Datei ist zu groß: {size} > {max_bytes} Bytes"
+  },
+  "el": {
+    "err.file_too_large": "το αρχείο είναι πολύ μεγάλο: {size} > {max_bytes} byte"
+  },
+  "es": {
+    "err.file_too_large": "el archivo es demasiado grande: {size} > {max_bytes} bytes"
+  },
+  "fa": {
+    "err.file_too_large": "فایل بیش از حد بزرگ است: {size} > {max_bytes} بایت"
+  },
+  "fi": {
+    "err.file_too_large": "tiedosto on liian suuri: {size} > {max_bytes} tavua"
+  },
+  "fil": {
+    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+  },
+  "fr": {
+    "err.file_too_large": "le fichier est trop volumineux : {size} > {max_bytes} octets"
+  },
+  "he": {
+    "err.file_too_large": "הקובץ גדול מדי: {size} > {max_bytes} בתים"
+  },
+  "hi": {
+    "err.file_too_large": "फ़ाइल बहुत बड़ी है: {size} > {max_bytes} बाइट"
+  },
+  "hu": {
+    "err.file_too_large": "a fájl túl nagy: {size} > {max_bytes} bájt"
+  },
+  "id": {
+    "err.file_too_large": "file terlalu besar: {size} > {max_bytes} byte"
+  },
+  "it": {
+    "err.file_too_large": "il file è troppo grande: {size} > {max_bytes} byte"
+  },
+  "ja": {
+    "err.file_too_large": "ファイルが大きすぎます: {size} > {max_bytes} バイト"
+  },
+  "ko": {
+    "err.file_too_large": "파일이 너무 큽니다: {size} > {max_bytes}바이트"
+  },
+  "mn": {
+    "err.file_too_large": "файл хэт том байна: {size} > {max_bytes} байт"
+  },
+  "mr": {
+    "err.file_too_large": "फाइल खूप मोठी आहे: {size} > {max_bytes} बाइट्स"
+  },
+  "ms": {
+    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+  },
+  "nb": {
+    "err.file_too_large": "filen er for stor: {size} > {max_bytes} byte"
+  },
+  "nl": {
+    "err.file_too_large": "bestand is te groot: {size} > {max_bytes} bytes"
+  },
+  "nn": {
+    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+  },
+  "pl": {
+    "err.file_too_large": "plik jest zbyt duży: {size} > {max_bytes} bajtów"
+  },
+  "pt": {
+    "err.file_too_large": "o ficheiro é demasiado grande: {size} > {max_bytes} bytes"
+  },
+  "pt_BR": {
+    "err.file_too_large": "o arquivo é grande demais: {size} > {max_bytes} bytes"
+  },
+  "ro": {
+    "err.file_too_large": "fișierul este prea mare: {size} > {max_bytes} octeți"
+  },
+  "ru": {
+    "err.file_too_large": "файл слишком большой: {size} > {max_bytes} байт"
+  },
+  "sv": {
+    "err.file_too_large": "filen är för stor: {size} > {max_bytes} byte"
+  },
+  "sw": {
+    "err.file_too_large": "faili ni kubwa sana: {size} > {max_bytes} baiti"
+  },
+  "th": {
+    "err.file_too_large": "ไฟล์มีขนาดใหญ่เกินไป: {size} > {max_bytes} ไบต์"
+  },
+  "tr": {
+    "err.file_too_large": "dosya çok büyük: {size} > {max_bytes} bayt"
+  },
+  "uk": {
+    "err.file_too_large": "файл завеликий: {size} > {max_bytes} байтів"
+  },
+  "vi": {
+    "err.file_too_large": "tệp quá lớn: {size} > {max_bytes} byte"
+  },
+  "zh_CN": {
+    "err.file_too_large": "文件过大：{size} > {max_bytes} 字节"
+  },
+  "zh_TW": {
+    "err.file_too_large": "檔案過大：{size} > {max_bytes} 位元組"
+  }
 }

@@ -1,4 +1,13 @@
 {
+  "en": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
   "ar": {
     "err.image_not_found": "لم يتم العثور على ملف الصورة: {path}",
     "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",
@@ -26,6 +35,15 @@
     "prompt.default": "Popište prosím tento obrázek podrobně.",
     "err.missing_env.azure": "Chybí požadované env vars pro analýzu azurového obrazu."
   },
+  "da": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
   "de": {
     "err.image_not_found": "Bilddatei nicht gefunden: {path}",
     "err.image_too_large": "Bilddatei zu groß: {size} Bytes (Limit={max_bytes})",
@@ -35,14 +53,14 @@
     "warn.empty_response": "[WARN] leere Antwort",
     "err.missing_env.azure": "Für die Azure-Image-Analyse fehlen erforderliche Umgebungsvariablen."
   },
-  "en": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  "el": {
+    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
+    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
+    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (chat): {provider!r}",
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
+    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
+    "err.missing_env.azure": "Λείπουν τα απαιτούμενα env vars για azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY)"
   },
   "es": {
     "err.image_not_found": "archivo de imagen no encontrado: {path}",
@@ -71,6 +89,15 @@
     "warn.empty_response": "[VAROITUS] tyhjä vastaus",
     "err.missing_env.azure": "Taivaansinisen kuva-analyysin pakolliset env-muuttujat puuttuvat."
   },
+  "fil": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
   "fr": {
     "err.image_not_found": "fichier image introuvable : {path}",
     "err.image_too_large": "fichier image trop volumineux : {size} octets (limite={max_bytes})",
@@ -80,6 +107,15 @@
     "warn.empty_response": "[WARN] réponse vide",
     "err.missing_env.azure": "Vars d'environnement requis manquants pour l'analyse d'image Azure."
   },
+  "he": {
+    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
+    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
+    "err.unsupported_provider": "ספק לא נתמך עבור analyse_image (צ'אט): {provider!r}",
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
+    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[אזהרה] תגובה ריקה",
+    "err.missing_env.azure": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/azure/bedrock/openrouter/ollama"
+  },
   "hi": {
     "err.image_not_found": "छवि फ़ाइल नहीं मिली: {path}",
     "err.image_too_large": "छवि फ़ाइल बहुत बड़ी है: {size} बाइट्स (सीमा={max_bytes})",
@@ -88,6 +124,15 @@
     "prompt.default": "कृपया इस छवि का विस्तार से वर्णन करें।",
     "warn.empty_response": "[चेतावनी] खाली प्रतिक्रिया",
     "err.missing_env.azure": "नीला छवि विश्लेषण के लिए आवश्यक env संस्करण गुम हैं।"
+  },
+  "hu": {
+    "err.image_not_found": "képfájl nem található: {path}",
+    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
+    "err.unsupported_provider": "Nem támogatott szolgáltató az elemző_képhez (csevegés): {provider!r}",
+    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
+    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] üres válasz",
+    "err.missing_env.azure": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY)"
   },
   "id": {
     "err.image_not_found": "file gambar tidak ditemukan: {path}",
@@ -143,41 +188,14 @@
     "warn.empty_response": "[चेतावणी] रिक्त प्रतिसाद",
     "err.missing_env.azure": "अझर इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे."
   },
-  "el": {
-    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
-    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
-    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (chat): {provider!r}",
-    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
-    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
-    "err.missing_env.azure": "Λείπουν τα απαιτούμενα env vars για azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY)"
-  },
-  "he": {
-    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
-    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
-    "err.unsupported_provider": "ספק לא נתמך עבור analyse_image (צ'אט): {provider!r}",
-    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
-    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[אזהרה] תגובה ריקה",
-    "err.missing_env.azure": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/azure/bedrock/openrouter/ollama"
-  },
-  "hu": {
-    "err.image_not_found": "képfájl nem található: {path}",
-    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
-    "err.unsupported_provider": "Nem támogatott szolgáltató az elemző_képhez (csevegés): {provider!r}",
-    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
-    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[WARN] üres válasz",
-    "err.missing_env.azure": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY)"
-  },
-  "ro": {
-    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
-    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
-    "err.unsupported_provider": "Furnizor neacceptat pentru analiza_imagine (chat): {provider!r}",
-    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
-    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
-    "warn.empty_response": "[WARN] răspuns gol",
-    "err.missing_env.azure": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/azure/bedrock/openrouter/ollama"
+  "ms": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
   },
   "nb": {
     "err.image_not_found": "Finner ikke bildefil: {path}",
@@ -196,6 +214,15 @@
     "prompt.default": "Beschrijf deze afbeelding in detail.",
     "warn.empty_response": "[WARN] leeg antwoord",
     "err.missing_env.azure": "Ontbrekende vereiste env-vars voor Azure-beeldanalyse."
+  },
+  "nn": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
   },
   "pl": {
     "err.image_not_found": "nie znaleziono pliku obrazu: {path}",
@@ -223,6 +250,15 @@
     "prompt.default": "Por favor, descreva esta imagem em detalhes.",
     "warn.empty_response": "[WARN] resposta vazia",
     "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure."
+  },
+  "ro": {
+    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
+    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
+    "err.unsupported_provider": "Furnizor neacceptat pentru analiza_imagine (chat): {provider!r}",
+    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
+    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] răspuns gol",
+    "err.missing_env.azure": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/azure/bedrock/openrouter/ollama"
   },
   "ru": {
     "err.image_not_found": "файл изображения не найден: {path}",
