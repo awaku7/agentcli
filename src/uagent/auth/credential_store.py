@@ -149,6 +149,80 @@ class PersistentCredentialStore:
         return deleted
 
 
+class OSCredentialStore:
+    """CredentialStore backed by the platform keyring when available."""
+
+    _SERVICE = "uagent"
+
+    def __init__(self, *, keyring_module=None) -> None:
+        if keyring_module is None:
+            try:
+                import keyring as keyring_module
+            except ImportError as exc:
+                raise RuntimeError("python-keyring is not installed") from exc
+        self._keyring = keyring_module
+
+    def get(self, name: str) -> Credential | None:
+        _validate_name(name)
+        raw = self._keyring.get_password(self._SERVICE, name)
+        if not raw:
+            log_event("credential.accessed", credential_name=name, found=False)
+            return None
+        try:
+            payload = json.loads(raw)
+            credential = Credential(
+                name=name,
+                kind=CredentialKind(str(payload["kind"])),
+                secret=str(payload["secret"]),
+                expires_at=(
+                    int(payload["expires_at"])
+                    if payload.get("expires_at") is not None
+                    else None
+                ),
+                metadata={
+                    str(key): str(value)
+                    for key, value in (payload.get("metadata") or {}).items()
+                },
+            )
+        except (TypeError, ValueError, KeyError, json.JSONDecodeError) as exc:
+            raise ValueError("invalid OS credential payload") from exc
+        log_event("credential.accessed", credential_name=name, found=True)
+        return credential
+
+    def set(self, credential: Credential, *, name: str | None = None) -> None:
+        if not isinstance(credential, Credential) or not credential.secret:
+            raise ValueError("a non-empty Credential is required")
+        _validate_name(credential.name)
+        if name is not None and name != credential.name:
+            raise ValueError("credential name does not match store name")
+        payload = json.dumps(
+            {
+                "kind": credential.kind.value,
+                "secret": credential.secret,
+                "expires_at": credential.expires_at,
+                "metadata": credential.metadata,
+            },
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        self._keyring.set_password(self._SERVICE, credential.name, payload)
+        log_event(
+            "credential.stored",
+            credential_name=credential.name,
+            kind=credential.kind.value,
+        )
+
+    def delete(self, name: str) -> bool:
+        _validate_name(name)
+        existing = self._keyring.get_password(self._SERVICE, name)
+        if not existing:
+            log_event("credential.deleted", credential_name=name, deleted=False)
+            return False
+        self._keyring.delete_password(self._SERVICE, name)
+        log_event("credential.deleted", credential_name=name, deleted=True)
+        return True
+
+
 _DEFAULT_CREDENTIAL_STORE: CredentialStore | None = None
 
 
@@ -156,7 +230,17 @@ def get_default_credential_store() -> CredentialStore:
     """Return the process-wide encrypted store shared by local adapters."""
     global _DEFAULT_CREDENTIAL_STORE
     if _DEFAULT_CREDENTIAL_STORE is None:
-        _DEFAULT_CREDENTIAL_STORE = PersistentCredentialStore()
+        backend = (
+            os.getenv("UAGENT_CREDENTIAL_STORE_BACKEND", "auto") or "auto"
+        ).lower()
+        if backend in {"auto", "os", "keyring"}:
+            try:
+                _DEFAULT_CREDENTIAL_STORE = OSCredentialStore()
+            except Exception:
+                if backend != "auto":
+                    raise
+        if _DEFAULT_CREDENTIAL_STORE is None:
+            _DEFAULT_CREDENTIAL_STORE = PersistentCredentialStore()
     return _DEFAULT_CREDENTIAL_STORE
 
 

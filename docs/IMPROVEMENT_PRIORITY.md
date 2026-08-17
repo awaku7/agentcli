@@ -28,7 +28,7 @@
 1. 構造化 Observability の全境界適用
 1. Enterprise Policy Engine
 
-主要なRuntime基盤は実装済みです。今後は個別イベントの完全化、OS固有の秘密情報ストア、分散合意、Plugin sandboxなど、残っている拡張を優先度順に進めます。
+主要なRuntime基盤とOS固有の秘密情報ストアは実装済みです。今後はCredential CLI、個別イベントのペイロード統一、分散合意、Plugin sandboxなど、残っている拡張を優先度順に進めます。
 
 ## 1. Agent Lifecycle
 
@@ -117,7 +117,7 @@ Encrypted Store
     ↓
 Environment
 
-`PersistentCredentialStore` と暗号化された `TokenStore` が実装済みで、CredentialStoreから取得できない場合に環境変数へフォールバックします。Windows Credential Manager、macOS Keychain、Linux Secret ServiceなどのOS固有Secret Storeは今後の拡張対象です。
+`PersistentCredentialStore`、暗号化された `TokenStore`、および任意依存の `OSCredentialStore` が実装済みです。`python-keyring` が利用可能な環境では、Windows Credential Manager、macOS Keychain、Linux Secret Serviceなどのネイティブバックエンドを自動利用し、利用できない場合は暗号化ファイルへフォールバックします。CredentialStoreから取得できない場合は、従来どおり環境変数へフォールバックします。
 ```
 
 ### 期待効果

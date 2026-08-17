@@ -150,3 +150,41 @@ def test_persistent_credential_store_round_trip(tmp_path) -> None:
     assert credential.secret == "persisted"
     assert credential.kind is CredentialKind.A2A
     assert credential.metadata == {"source": "test"}
+
+
+def test_os_credential_store_round_trip() -> None:
+    from uagent.auth import OSCredentialStore
+
+    class Keyring:
+        values: dict[tuple[str, str], str] = {}
+
+        @classmethod
+        def get_password(cls, service: str, name: str) -> str | None:
+            return cls.values.get((service, name))
+
+        @classmethod
+        def set_password(cls, service: str, name: str, value: str) -> None:
+            cls.values[(service, name)] = value
+
+        @classmethod
+        def delete_password(cls, service: str, name: str) -> None:
+            del cls.values[(service, name)]
+
+    store = OSCredentialStore(keyring_module=Keyring)
+    store.set(
+        Credential(
+            name="provider/openai",
+            kind=CredentialKind.API_KEY,
+            secret="secret-value",
+            expires_at=123,
+            metadata={"source": "keychain"},
+        )
+    )
+
+    credential = store.get("provider/openai")
+    assert credential is not None
+    assert credential.secret == "secret-value"
+    assert credential.expires_at == 123
+    assert credential.metadata == {"source": "keychain"}
+    assert store.delete("provider/openai") is True
+    assert store.get("provider/openai") is None
