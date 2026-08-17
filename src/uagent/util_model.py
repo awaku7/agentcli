@@ -415,10 +415,13 @@ def _handle_cmd_model(
                 lines.append(_("    WARN: %(warn)s") % {"warn": warn})
         except Exception:
             pass
-    if verbose and provider not in ("(none)", ""):
-        capa_lines = _fetch_model_capa(provider, model)
-        if capa_lines:
-            lines.extend(capa_lines)
+    if provider not in ("(none)", ""):
+        if verbose:
+            capa_lines = _fetch_model_capa(provider, model)
+            if capa_lines:
+                lines.extend(capa_lines)
+        else:
+            lines.extend(_fetch_context_lines(provider, model))
 
     # Resolve optional modalities with the same logic as startup banner.
     try:
