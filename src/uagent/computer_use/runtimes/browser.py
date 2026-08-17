@@ -18,8 +18,18 @@ class BrowserRuntime:
     def screenshot(self) -> Screenshot:
         # Bound screenshot capture so a stalled renderer cannot leave the
         # entire LLM round in BUSY indefinitely.
+        capture = getattr(self.page, "screenshot", None)
+        if not callable(capture):
+            raise RuntimeError("browser page does not provide screenshot()")
+        try:
+            data = capture(timeout=5000)
+        except TypeError:
+            # Keep compatibility with page-like adapters and test doubles.
+            data = capture()
+        if not isinstance(data, (bytes, bytearray)):
+            raise TypeError("browser screenshot() must return bytes")
         return Screenshot(
-            data=self.page.screenshot(timeout=5000),
+            data=bytes(data),
             media_type="image/png",
         )
 
@@ -90,7 +100,6 @@ class BrowserRuntime:
                     screenshot=self.screenshot(),
                 )
             if action.action == "screenshot":
-                log_event("computer.runtime.navigate.verified", url=current_url)
                 return ComputerActionResult(
                     action_id=action.action_id,
                     success=True,

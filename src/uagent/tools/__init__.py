@@ -1068,7 +1068,7 @@ def log_tools_being_sent(
 
 def _computer_use_is_enabled() -> bool:
     """Return the shared Computer Use enablement flag for tool filtering."""
-    return (env_get("UAGENT_COMPUTER_USE", "1") or "1").strip().lower() not in {
+    return (env_get("UAGENT_COMPUTER_USE", "0") or "0").strip().lower() not in {
         "0",
         "false",
         "no",
