@@ -53,5 +53,16 @@ TDDで次の順に検証します。
 - 既存round loopへのhandler接続: 実装済み
 - 共通Runtime bootstrap: 実装済み
 - BrowserRuntime / DesktopRuntimeの同時生成・登録: 実装済み
-- 実API E2E・実Browser/Desktop E2E: opt-inテストとして追加予定
-- 38言語のComputer Use専用メッセージ監査: 最終段階
+- 実API E2E・実Browser/Desktop E2E: opt-inテストとして追加予定（Webは実起動せず、静的確認のみ）
+- 38言語のComputer Use専用メッセージ監査: 完了
+- 38ロケールのPO/MOへComputer Use関連メッセージを反映: 完了
+- I18Nカタログ監査: `tools_scanned=221`、`missing_units=0`
+- I18N関連テストおよびComputer Useテスト: 完了
+
+### 検証済みの範囲
+
+- `babel.cfg` にComputer Useのgettext対象を追加
+- CLI/GUI/Computer Useの確認文、Capability/Policy/Runtimeエラーをgettext化
+- 38ロケールの翻訳リソースをコンパイル済み
+- Webサーバーは起動せず、GUI/Webの共有 `human_ask` 経路は静的に確認
+- 最新コミット: `0ded704e`（push済み）
