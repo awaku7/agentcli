@@ -31,11 +31,11 @@
     "param.max_files.description": "Incluir archivos y directorios ocultos.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "escaneo de seguridad",
+      "escaneo secreto",
+      "credenciales",
+      "clave privada",
+      "configuración arriesgada"
     ]
   },
   "fr": {
@@ -44,11 +44,11 @@
     "param.max_files.description": "Nombre maximum de fichiers à inspecter.",
     "param.include_hidden.description": "Inclure les fichiers et répertoires cachés.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "analyse de sécurité",
+      "analyse secrète",
+      "informations d'identification",
+      "clé privée",
+      "configuration risquée"
     ]
   },
   "ko": {
@@ -57,11 +57,11 @@
     "param.max_files.description": "최대 개수 검사할 파일 수.",
     "param.include_hidden.description": "숨겨진 파일 및 디렉터리를 포함합니다.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "보안 검사",
+      "비밀 검사",
+      "자격 증명",
+      "개인 키",
+      "위험한 구성"
     ]
   },
   "de": {
@@ -70,11 +70,11 @@
     "param.max_files.description": "Maximale Anzahl der zu prüfenden Dateien.",
     "param.include_hidden.description": "Versteckte Dateien und Verzeichnisse einbeziehen.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "Sicherheitsscan",
+      "geheimer Scan",
+      "Anmeldeinformationen",
+      "privater Schlüssel",
+      "riskante Konfiguration"
     ]
   },
   "it": {
@@ -83,11 +83,11 @@
     "param.max_files.description": "Numero massimo di file da controllare.",
     "param.include_hidden.description": "Includi file e directory nascosti.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "scansione di sicurezza",
+      "scansione segreta",
+      "credenziali",
+      "chiave privata",
+      "configurazione rischiosa"
     ]
   },
   "ru": {
@@ -96,11 +96,11 @@
     "param.max_files.description": "Максимальное количество файлов для проверки.",
     "param.include_hidden.description": "Включить скрытые файлы и каталоги.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "сканирование безопасности",
+      "секретное сканирование",
+      "учетные данные",
+      "закрытый ключ",
+      "рискованная конфигурация"
     ]
   },
   "pt_BR": {
@@ -109,11 +109,11 @@
     "param.max_files.description": "Número máximo de arquivos para inspecionar.",
     "param.include_hidden.description": "Incluir arquivos e diretórios ocultos.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "verificação de segurança",
+      "verificação secreta",
+      "credenciais",
+      "chave privada",
+      "configuração arriscada"
     ]
   },
   "pt": {
@@ -122,11 +122,11 @@
     "param.max_files.description": "Número máximo de arquivos para inspecionar.",
     "param.include_hidden.description": "Incluir arquivos e diretórios ocultos.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "verificação de segurança",
+      "verificação secreta",
+      "credenciais",
+      "chave privada",
+      "configuração arriscada"
     ]
   },
   "id": {
@@ -135,11 +135,11 @@
     "param.max_files.description": "Jumlah maksimum file yang akan diperiksa.",
     "param.include_hidden.description": "Sertakan file dan direktori tersembunyi.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "pemindaian keamanan",
+      "pemindaian rahasia",
+      "kredensial",
+      "kunci pribadi",
+      "konfigurasi berisiko"
     ]
   },
   "vi": {
@@ -148,11 +148,11 @@
     "param.max_files.description": "Số lượng tệp tối đa để kiểm tra.",
     "param.include_hidden.description": "Bao gồm các tập tin và thư mục ẩn.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "quét bảo mật",
+      "quét bí mật",
+      "thông tin xác thực",
+      "khóa riêng",
+      "cấu hình rủi ro"
     ]
   },
   "pl": {
@@ -161,11 +161,11 @@
     "param.max_files.description": "Maksymalna liczba plików do sprawdzenia.",
     "param.include_hidden.description": "Uwzględnij ukryte pliki i katalogi.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "skanowanie bezpieczeństwa",
+      "skanowanie tajne",
+      "poświadczenia",
+      "klucz prywatny",
+      "ryzykowna konfiguracja"
     ]
   },
   "hi": {
@@ -174,11 +174,11 @@
     "param.max_files.description": "Maximum number of files to inspect.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "सुरक्षा स्कैन",
+      "गुप्त स्कैन",
+      "क्रेडेंशियल्स",
+      "निजी कुंजी",
+      "जोखिम भरा कॉन्फिगरेशन"
     ]
   },
   "ar": {
@@ -187,11 +187,11 @@
     "param.max_files.description": "الحد الأقصى لعدد الملفات التي سيتم فحصها.",
     "param.include_hidden.description": "تضمين الملفات والأدلة المخفية.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "فحص الأمان ",
+      " المسح السري ",
+      " بيانات الاعتماد ",
+      " المفتاح الخاص ",
+      " تكوين محفوف بالمخاطر"
     ]
   },
   "sv": {
@@ -200,10 +200,10 @@
     "param.max_files.description": "Maximalt antal filer att inspektera.",
     "param.include_hidden.description": "Inkludera dolda filer och kataloger.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
+      "säkerhetsgenomsökning",
+      "hemlig sökning",
+      "referenser",
+      "privat nyckel",
       "risky config"
     ]
   },
@@ -213,7 +213,7 @@
     "param.max_files.description": "Jumuisha faili na saraka zilizofichwa.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
+      "usalama scan",
       "secret scan",
       "credentials",
       "private key",
@@ -226,11 +226,11 @@
     "param.max_files.description": "Maksimalt antall filer å inspisere.",
     "param.include_hidden.description": "Inkluder skjulte filer og kataloger.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "sikkerhetsskanning",
+      "hemmelig skanning",
+      "legitimasjon",
+      "privat nøkkel",
+      "risikofylt konfig"
     ]
   },
   "nl": {
@@ -239,11 +239,11 @@
     "param.max_files.description": "Maximumaantal te inspecteren bestanden.",
     "param.include_hidden.description": "Inclusief verborgen bestanden en mappen.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "beveiligingsscan",
+      "geheime scan",
+      "inloggegevens",
+      "privésleutel",
+      "riskante configuratie"
     ]
   },
   "fi": {
@@ -252,11 +252,11 @@
     "param.max_files.description": "Sisällytä piilotetut tiedostot ja hakemistot.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "suojausskannaus",
+      "salainen tarkistus",
+      "kirjautumistiedot",
+      "yksityinen avain",
+      "riskillinen määritys"
     ]
   },
   "cs": {
@@ -265,11 +265,11 @@
     "param.max_files.description": "Zahrnout skryté soubory a adresáře.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "bezpečnostní kontrola",
+      "tajná kontrola",
+      "přihlašovací údaje",
+      "soukromý klíč",
+      "riziková konfigurace"
     ]
   },
   "uk": {
@@ -278,11 +278,11 @@
     "param.max_files.description": "Максимальна кількість файлів для перевірки.",
     "param.include_hidden.description": "Включити приховані файли та каталоги.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "сканування безпеки",
+      "секретне сканування",
+      "облікові дані",
+      "приватний ключ",
+      "ризикована конфігурація"
     ]
   },
   "tr": {
@@ -291,11 +291,11 @@
     "param.max_files.description": "İncelenecek maksimum dosya sayısı.",
     "param.include_hidden.description": "Gizli dosya ve dizinleri dahil edin.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "güvenlik taraması",
+      "gizli tarama",
+      "kimlik bilgileri",
+      "özel anahtar",
+      "riskli yapılandırma"
     ]
   },
   "th": {
@@ -304,11 +304,11 @@
     "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะตรวจสอบ",
     "param.include_hidden.description": "รวมไฟล์และไดเร็กทอรีที่ซ่อนไว้",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "การสแกนความปลอดภัย",
+      "การสแกนความลับ",
+      "ข้อมูลประจำตัว",
+      "คีย์ส่วนตัว",
+      "การกำหนดค่าที่มีความเสี่ยง"
     ]
   },
   "zh_CN": {
@@ -317,11 +317,11 @@
     "param.max_files.description": "最大数量要检查的文件。",
     "param.include_hidden.description": "包括隐藏文件和目录。",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "安全扫描",
+      "秘密扫描",
+      "凭证",
+      "私钥",
+      "风险配置"
     ]
   },
   "zh_TW": {
@@ -330,11 +330,11 @@
     "param.max_files.description": "最大數量要檢查的文件。",
     "param.include_hidden.description": "包括隱藏檔案和目錄。",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "安全掃描",
+      "秘密掃描",
+      "憑證",
+      "私鑰",
+      "風險配置"
     ]
   },
   "bn": {
@@ -343,11 +343,11 @@
     "param.max_files.description": "Maximum number of files to inspect.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "নিরাপত্তা স্ক্যান",
+      "গোপন স্ক্যান",
+      "প্রমাণপত্র",
+      "প্রাইভেট কী",
+      "ঝুঁকিপূর্ণ কনফিগারেশন"
     ]
   },
   "fa": {
@@ -356,11 +356,11 @@
     "param.max_files.description": "Maximum number of files to inspect.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "اسکن امنیتی",
+      "اسکن مخفی",
+      "اطلاعات اعتبار",
+      "کلید خصوصی",
+      "پیکربندی خطرناک"
     ]
   },
   "mn": {
@@ -369,11 +369,11 @@
     "param.max_files.description": "Maximum number of files to inspect.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "аюулгүй байдлын скан",
+      "нууц скан",
+      " итгэмжлэл",
+      "хувийн түлхүүр",
+      "эрсдэлтэй тохиргоо"
     ]
   },
   "mr": {
@@ -382,11 +382,11 @@
     "param.max_files.description": "Maximum number of files to inspect.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "सुरक्षा स्कॅन",
+      "गुप्त स्कॅन",
+      "क्रेडेन्शियल",
+      "खाजगी की",
+      "जोखीम कॉन्फिगरेशन"
     ]
   },
   "el": {
@@ -395,11 +395,11 @@
     "param.max_files.description": "Μέγιστος αριθμός αρχείων προς επιθεώρηση.",
     "param.include_hidden.description": "Συμπεριλάβετε κρυφά αρχεία και καταλόγους.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "σάρωση ασφαλείας",
+      "μυστική σάρωση",
+      "διαπιστευτήρια",
+      "ιδιωτικό κλειδί",
+      "επικίνδυνη διαμόρφωση"
     ]
   },
   "he": {
@@ -408,11 +408,11 @@
     "param.max_files.description": "מספר מקסימלי של קבצים לבדיקה.",
     "param.include_hidden.description": "כלול קבצים וספריות מוסתרים.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "סריקת אבטחה",
+      "סריקה סודית",
+      "אישורים",
+      "מפתח פרטי",
+      "תצורה מסוכנת"
     ]
   },
   "hu": {
@@ -421,11 +421,11 @@
     "param.max_files.description": "Tartalmazza a rejtett fájlokat és könyvtárakat.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "biztonsági ellenőrzés",
+      "titkos ellenőrzés",
+      "hitelesítési adatok",
+      "privát kulcs",
+      "kockázatos konfiguráció"
     ]
   },
   "ro": {
@@ -434,11 +434,11 @@
     "param.max_files.description": "Numărul maxim de fișiere de inspectat.",
     "param.include_hidden.description": "Includeți fișiere și directoare ascunse.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "scanare de securitate",
+      "scanare secretă",
+      "acreditări",
+      "cheie privată",
+      "configurație riscantă"
     ]
   },
   "fil": {
@@ -447,11 +447,11 @@
     "param.max_files.description": "Isama ang mga nakatagong file at direktoryo.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "pag-scan sa seguridad",
+      "lihim na pag-scan",
+      "mga kredensyal",
+      "pribadong key",
+      "mapanganib na config"
     ]
   },
   "ms": {
@@ -460,11 +460,11 @@
     "param.max_files.description": "Sertakan fail dan direktori tersembunyi.",
     "param.include_hidden.description": "Include hidden files and directories.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "imbasan keselamatan",
+      "imbasan rahsia",
+      "kelayakan",
+      "kunci peribadi",
+      "konfigurasi berisiko"
     ]
   },
   "da": {
@@ -473,11 +473,11 @@
     "param.max_files.description": "Maksimalt antal filer, der skal inspiceres.",
     "param.include_hidden.description": "Inkluder skjulte filer og mapper.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "sikkerhedsscanning",
+      "hemmelig scanning",
+      "legitimationsoplysninger",
+      "privat nøgle",
+      "risikofyldt konfiguration"
     ]
   },
   "nn": {

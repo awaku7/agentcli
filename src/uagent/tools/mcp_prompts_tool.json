@@ -50,9 +50,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "indicaciones de mcp",
+      "indicación de mcp",
+      "obtener indicación de mcp"
     ]
   },
   "fr": {
@@ -69,9 +69,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "invites mcp",
+      "invite mcp",
+      "obtenir l'invite mcp"
     ]
   },
   "de": {
@@ -88,9 +88,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-Eingabeaufforderungen",
+      "mcp-Eingabeaufforderung",
+      "mcp-Eingabeaufforderung erhalten"
     ]
   },
   "it": {
@@ -107,9 +107,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "prompt mcp",
+      "prompt mcp",
+      "ottieni il prompt mcp"
     ]
   },
   "pt": {
@@ -126,9 +126,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "prompts mcp",
+      "prompt mcp",
+      "obter prompt mcp"
     ]
   },
   "pt_BR": {
@@ -145,9 +145,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "prompts mcp",
+      "prompt mcp",
+      "obter prompt mcp"
     ]
   },
   "ru": {
@@ -164,9 +164,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "Подсказки mcp",
+      "подсказка mcp",
+      "получить подсказку mcp"
     ]
   },
   "zh_CN": {
@@ -183,9 +183,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp 提示",
+      "mcp 提示",
+      "获取 mcp 提示"
     ]
   },
   "zh_TW": {
@@ -202,9 +202,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp 提示",
+      "mcp 提示",
+      "取得 mcp 提示"
     ]
   },
   "ko": {
@@ -221,9 +221,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp 프롬프트",
+      "mcp 프롬프트",
+      "mcp 프롬프트 가져오기"
     ]
   },
   "ar": {
@@ -240,9 +240,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "مطالبات mcp",
+      "موجه mcp",
+      "احصل على موجه mcp"
     ]
   },
   "bn": {
@@ -259,9 +259,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp প্রম্পট",
+      "mcp প্রম্পট",
+      " mcp প্রম্পট পান"
     ]
   },
   "cs": {
@@ -335,9 +335,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-kehotteet",
+      "mcp-kehote",
+      "hae mcp-kehote"
     ]
   },
   "he": {
@@ -356,7 +356,7 @@
     "x_search_terms": [
       "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "קבל הודעת mcp"
     ]
   },
   "hi": {
@@ -373,9 +373,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "एमसीपी प्रॉम्प्ट",
+      "एमसीपी प्रॉम्प्ट",
+      "एमसीपी प्रॉम्प्ट प्राप्त करें"
     ]
   },
   "hu": {
@@ -394,7 +394,7 @@
     "x_search_terms": [
       "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "mcp prompt lekérése"
     ]
   },
   "id": {
@@ -411,9 +411,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "perintah mcp",
+      "perintah mcp",
+      "dapatkan perintah mcp"
     ]
   },
   "mn": {
@@ -432,7 +432,7 @@
     "x_search_terms": [
       "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "mcp prompt авах"
     ]
   },
   "mr": {
@@ -449,9 +449,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp प्रॉम्प्ट",
+      "mcp प्रॉम्प्ट",
+      " mcp प्रॉम्प्ट मिळवा"
     ]
   },
   "nb": {
@@ -468,9 +468,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-prompt",
+      "mcp-prompt",
+      "få mcp-prompt"
     ]
   },
   "nl": {
@@ -487,9 +487,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-prompts",
+      "mcp-prompt",
+      "haal mcp-prompt"
     ]
   },
   "nn": {
@@ -525,9 +525,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "Monit mcp",
+      "monit mcp",
+      "uzyskaj monit mcp"
     ]
   },
   "ro": {
@@ -546,7 +546,7 @@
     "x_search_terms": [
       "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "obține prompt mcp"
     ]
   },
   "sv": {
@@ -563,9 +563,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-prompt",
+      "mcp-prompt",
+      "få mcp-prompt"
     ]
   },
   "sw": {
@@ -582,9 +582,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "madokezo ya mcp",
+      "mcp haraka",
+      "pata upesi wa mcp"
     ]
   },
   "th": {
@@ -603,7 +603,7 @@
     "x_search_terms": [
       "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "get mcp prompts"
     ]
   },
   "tr": {
@@ -620,9 +620,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp istemleri",
+      "mcp istemi",
+      "mcp istemini al"
     ]
   },
   "uk": {
@@ -639,9 +639,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "підказки mcp",
+      "підказка mcp",
+      "отримати підказку mcp"
     ]
   },
   "vi": {
@@ -658,9 +658,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "lời nhắc mcp",
+      "lời nhắc mcp",
+      "nhận lời nhắc mcp"
     ]
   },
   "da": {
@@ -677,9 +677,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-prompt",
+      "mcp-prompt",
+      "få mcp-prompt"
     ]
   },
   "fil": {
@@ -696,9 +696,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
       "mcp prompt",
-      "get mcp prompt"
+      "mcp prompt",
+      "kumuha ng mcp prompt"
     ]
   },
   "ms": {
@@ -715,9 +715,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP prompt request failed: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "gesaan mcp",
+      "gesaan mcp",
+      "dapatkan gesaan mcp"
     ]
   }
 }

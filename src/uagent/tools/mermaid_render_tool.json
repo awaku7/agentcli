@@ -817,5 +817,131 @@
     "param.theme.description": "Tema morske deklice.",
     "param.include_base64.description": "Vključite podatke base64 za oddaljene odjemalce.",
     "ok.rendered": "[OK] Sirena je upodobljena"
+  },
+  "fil": {
+    "tool.description": "I-render ang mga diagram ng Mermaid sa PNG, SVG, o PDF nang ganap na offline gamit ang isang Python-native renderer.",
+    "x_search_terms": [
+      "Mermaid",
+      "flowchart",
+      "class diagram",
+      "sequence diagram",
+      "offline renderer",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Mermaid source text.",
+    "param.input_path.description": "Opsyonal na landas ng file ng Mermaid.",
+    "param.output_path.description": "Output .png, .svg, o .pdf path.",
+    "param.scale.description": "PNG scale factor.",
+    "param.background.description": "Kulay ng background.",
+    "param.theme.description": "Tema ng sirena.",
+    "param.include_base64.description": "Isama ang base64 data para sa mga malalayong kliyente.",
+    "ok.rendered": "[OK] Nag-render ang sirena"
+  },
+  "mn": {
+    "tool.description": "Mermaid диаграммыг PNG, SVG, эсвэл PDF форматаар бүрэн офлайнаар Python-н уугуул renderer ашиглан дүрслээрэй.",
+    "x_search_terms": [
+      "Лусын дагина",
+      " урсгал диаграм",
+      "ангиллын диаграм",
+      "дараалын диаграм",
+      "офлайн дүрслэгч",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Лусын дагина эх бичвэр.",
+    "param.input_path.description": "Лусын дагина файлын нэмэлт зам.",
+    "param.output_path.description": "Гаралт .png, .svg, эсвэл .pdf зам.",
+    "param.scale.description": "PNG масштабын хүчин зүйл.",
+    "param.background.description": "Арын дэвсгэр өнгө.",
+    "param.theme.description": "Лусын дагина сэдэв.",
+    "param.include_base64.description": "Алсын үйлчлүүлэгчдэд зориулсан base64 өгөгдлийг оруулах.",
+    "ok.rendered": "[OK] Лусын дагина дүрслэгдсэн"
+  },
+  "mr": {
+    "tool.description": "Python-नेटिव्ह रेंडरर वापरून PNG, SVG किंवा PDF मध्ये मरमेड आकृती पूर्णपणे ऑफलाइन रेंडर करा.",
+    "x_search_terms": [
+      "मरमेड",
+      "फ्लोचार्ट",
+      "क्लास डायग्राम",
+      "सिक्वेंस डायग्राम",
+      "ऑफलाइन प्रस्तुतकर्ता",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "मरमेड स्त्रोत मजकूर.",
+    "param.input_path.description": "पर्यायी मरमेड फाइल पथ.",
+    "param.output_path.description": "आउटपुट .png, .svg, किंवा .pdf पथ.",
+    "param.scale.description": "पीएनजी स्केल फॅक्टर.",
+    "param.background.description": "पार्श्वभूमी रंग.",
+    "param.theme.description": "मरमेड थीम.",
+    "param.include_base64.description": "रिमोट क्लायंटसाठी बेस64 डेटा समाविष्ट करा.",
+    "ok.rendered": "[ओके] जलपरी प्रस्तुत"
+  },
+  "nb": {
+    "tool.description": "Gjengi havfruediagrammer til PNG, SVG eller PDF helt offline ved hjelp av en Python-native renderer.",
+    "x_search_terms": [
+      "Havfrue",
+      "flytskjema",
+      "klassediagram",
+      "sekvensdiagram",
+      "frakoblet gjengiver",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Havfrue kildetekst.",
+    "param.input_path.description": "Valgfri Mermaid-filbane.",
+    "param.output_path.description": "Skriv ut .png-, .svg- eller .pdf-bane.",
+    "param.scale.description": "PNG-skalafaktor.",
+    "param.background.description": "Bakgrunnsfarge.",
+    "param.theme.description": "Havfrue tema.",
+    "param.include_base64.description": "Inkluder base64-data for eksterne klienter.",
+    "ok.rendered": "[OK] Havfrue gjengitt"
+  },
+  "nn": {
+    "tool.description": "Render Mermaid diagrams to PNG, SVG, or PDF completely offline using a Python-native renderer.",
+    "x_search_terms": [
+      "Mermaid",
+      "flowchart",
+      "class diagram",
+      "sequence diagram",
+      "offline renderer",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Mermaid source text.",
+    "param.input_path.description": "Optional Mermaid file path.",
+    "param.output_path.description": "Output .png, .svg, or .pdf path.",
+    "param.scale.description": "PNG scale factor.",
+    "param.background.description": "Background color.",
+    "param.theme.description": "Mermaid theme.",
+    "param.include_base64.description": "Include base64 data for remote clients.",
+    "ok.rendered": "[OK] Mermaid rendered"
+  },
+  "sw": {
+    "tool.description": "Toa michoro ya Mermaid kwa PNG, SVG, au PDF nje ya mtandao kabisa kwa kutumia kionyeshi asili cha Python.",
+    "x_search_terms": [
+      "Mermaid",
+      "flowchart",
+      "mchoro wa darasa",
+      "mchoro wa mfuatano",
+      "kionyeshi nje ya mtandao",
+      "PNG",
+      "SVG",
+      "PDF"
+    ],
+    "param.source.description": "Maandishi ya chanzo cha nguva.",
+    "param.input_path.description": "Njia ya hiari ya faili ya Mermaid.",
+    "param.output_path.description": "Pato .png, .svg, au .pdf njia.",
+    "param.scale.description": "Kipengele cha kipimo cha PNG.",
+    "param.background.description": "Rangi ya usuli.",
+    "param.theme.description": "Mandhari ya Mermaid.",
+    "param.include_base64.description": "Jumuisha data ya base64 kwa wateja wa mbali.",
+    "ok.rendered": "[Sawa] Mermaid iliyotolewa"
   }
 }

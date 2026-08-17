@@ -47,6 +47,8 @@
     "msg.tools.not_found": "[tools] Herramienta no encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Visualización de salida de herramientas: {state}",
+    "msg.tools.list_header": "[herramientas] Herramientas cargadas ({count}):",
+    "msg.tools.no_match": "[herramientas] No hay herramientas coincidentes: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] El sistema se recargó exitosamente. Todas las herramientas actualizadas con el código más reciente.",
     "x_search_terms": [
@@ -55,8 +57,6 @@
       "herramientas",
       "HERRAMIENTAS"
     ],
-    "msg.tools.list_header": "[herramientas] Herramientas cargadas ({count}):",
-    "msg.tools.no_match": "[herramientas] No hay herramientas coincidentes: {q}",
     "tool.description": "Herramienta ficticia para el registro de control de herramientas."
   },
   "fr": {
@@ -67,6 +67,8 @@
     "msg.tools.not_found": "[tools] Outil non trouvé : {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Affichage des résultats d'outils: {state}",
+    "msg.tools.list_header": "[outils] Outils chargés ({count}) :",
+    "msg.tools.no_match": "[outils] Aucun outil correspondant : {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Le système a été rechargé avec succès. Tous les outils mis à jour avec le dernier code.",
     "x_search_terms": [
@@ -75,8 +77,6 @@
       "outils",
       "OUTILS"
     ],
-    "msg.tools.list_header": "[outils] Outils chargés ({count}) :",
-    "msg.tools.no_match": "[outils] Aucun outil correspondant : {q}",
     "tool.description": "Outil factice pour l’enregistrement du contrôle des outils."
   },
   "ko": {
@@ -87,6 +87,8 @@
     "msg.tools.not_found": "[tools] 도구를 찾을 수 없음: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 도구 출력 표시: {state}",
+    "msg.tools.list_header": "[도구] 로드된 도구({count}):",
+    "msg.tools.no_match": "[도구] 일치하는 도구 없음: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 시스템이 성공적으로 다시 로드되었습니다. 모든 도구가 최신 코드로 업데이트되었습니다.",
     "x_search_terms": [
@@ -95,8 +97,6 @@
       "도구",
       "도구"
     ],
-    "msg.tools.list_header": "[도구] 로드된 도구({count}):",
-    "msg.tools.no_match": "[도구] 일치하는 도구 없음: {q}",
     "tool.description": "도구 제어 등록을 위한 더미 도구입니다."
   },
   "de": {
@@ -107,6 +107,8 @@
     "msg.tools.not_found": "[tools] Werkzeug nicht gefunden: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tool-Ausgabeanzeige: {state}",
+    "msg.tools.list_header": "[Werkzeuge] Geladene Werkzeuge ({count}):",
+    "msg.tools.no_match": "[Tools] Keine passenden Tools: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] System wurde erfolgreich neu geladen. Alle Tools wurden mit dem neuesten Code aktualisiert.",
     "x_search_terms": [
@@ -115,8 +117,6 @@
       "Werkzeuge",
       "WERKZEUGE"
     ],
-    "msg.tools.list_header": "[Werkzeuge] Geladene Werkzeuge ({count}):",
-    "msg.tools.no_match": "[Tools] Keine passenden Tools: {q}",
     "tool.description": "Dummy-Tool für die Registrierung der Werkzeugsteuerung."
   },
   "it": {
@@ -127,6 +127,8 @@
     "msg.tools.not_found": "[tools] Strumento non trovato: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Visualizzazione output strumenti: {state}",
+    "msg.tools.list_header": "[strumenti] Strumenti caricati ({count}):",
+    "msg.tools.no_match": "[strumenti] Nessuno strumento corrispondente: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema ricaricato con successo. Tutti gli strumenti aggiornati con il codice più recente.",
     "x_search_terms": [
@@ -135,8 +137,6 @@
       "strumenti",
       "STRUMENTI"
     ],
-    "msg.tools.list_header": "[strumenti] Strumenti caricati ({count}):",
-    "msg.tools.no_match": "[strumenti] Nessuno strumento corrispondente: {q}",
     "tool.description": "Strumento fittizio per la registrazione del controllo degli strumenti."
   },
   "ru": {
@@ -147,6 +147,8 @@
     "msg.tools.not_found": "[tools] Инструмент не найден: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Отображение вывода инструментов: {state}",
+    "msg.tools.list_header": "[инструменты] Загруженные инструменты ({count}):",
+    "msg.tools.no_match": "[инструменты] Нет подходящих инструментов: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Система успешно перезагрузилась. Все инструменты обновлены последней версией кода.",
     "x_search_terms": [
@@ -155,8 +157,6 @@
       "инструменты",
       "ИНСТРУМЕНТЫ"
     ],
-    "msg.tools.list_header": "[инструменты] Загруженные инструменты ({count}):",
-    "msg.tools.no_match": "[инструменты] Нет подходящих инструментов: {q}",
     "tool.description": "Инструмент-пустышка для регистрации управления инструментами."
   },
   "pt_BR": {
@@ -167,6 +167,8 @@
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
+    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente.",
     "x_search_terms": [
@@ -175,8 +177,6 @@
       "ferramentas",
       "FERRAMENTAS"
     ],
-    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
-    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
     "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "pt": {
@@ -187,6 +187,8 @@
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
+    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente.",
     "x_search_terms": [
@@ -195,8 +197,6 @@
       "ferramentas",
       "FERRAMENTAS"
     ],
-    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
-    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}",
     "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
   },
   "id": {
@@ -207,6 +207,8 @@
     "msg.tools.not_found": "[tools] Alat tidak ditemukan: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tampilan output alat: {state}",
+    "msg.tools.list_header": "[alat] Alat yang dimuat ({count}):",
+    "msg.tools.no_match": "[alat] Tidak ada alat yang cocok: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistem berhasil dimuat ulang. Semua alat diperbarui dengan kode terbaru.",
     "x_search_terms": [
@@ -215,8 +217,6 @@
       "alat",
       "ALAT"
     ],
-    "msg.tools.list_header": "[alat] Alat yang dimuat ({count}):",
-    "msg.tools.no_match": "[alat] Tidak ada alat yang cocok: {q}",
     "tool.description": "Alat tiruan untuk alat kontrol registrasi."
   },
   "vi": {
@@ -227,6 +227,8 @@
     "msg.tools.not_found": "[tools] Không tìm thấy công cụ: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Hiển thị đầu ra công cụ: {state}",
+    "msg.tools.list_header": "[công cụ] Công cụ đã tải ({count}):",
+    "msg.tools.no_match": "[công cụ] Không có công cụ phù hợp: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Hệ thống đã được tải lại thành công. Tất cả các công cụ được cập nhật với mã mới nhất.",
     "x_search_terms": [
@@ -235,8 +237,6 @@
       "công cụ",
       "CÔNG CỤ"
     ],
-    "msg.tools.list_header": "[công cụ] Công cụ đã tải ({count}):",
-    "msg.tools.no_match": "[công cụ] Không có công cụ phù hợp: {q}",
     "tool.description": "Công cụ giả để đăng ký kiểm soát công cụ."
   },
   "pl": {
@@ -247,6 +247,8 @@
     "msg.tools.not_found": "[tools] Nie znaleziono narzędzia: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Wyświetlanie wyników narzędzi: {state}",
+    "msg.tools.list_header": "[narzędzia] Załadowane narzędzia ({count}):",
+    "msg.tools.no_match": "[narzędzia] Brak pasujących narzędzi: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] System został pomyślnie załadowany ponownie. Wszystkie narzędzia zaktualizowane o najnowszy kod.",
     "x_search_terms": [
@@ -255,8 +257,6 @@
       "narzędzia",
       "NARZĘDZIA"
     ],
-    "msg.tools.list_header": "[narzędzia] Załadowane narzędzia ({count}):",
-    "msg.tools.no_match": "[narzędzia] Brak pasujących narzędzi: {q}",
     "tool.description": "Atrapa narzędzia do rejestracji kontroli narzędzi."
   },
   "hi": {
@@ -267,6 +267,8 @@
     "msg.tools.not_found": "[tools] उपकरण नहीं मिला: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] उपकरण आउटपुट प्रदर्शन: {state}",
+    "msg.tools.list_header": "[उपकरण] लोड किए गए उपकरण ({count}):",
+    "msg.tools.no_match": "[उपकरण] कोई मिलान उपकरण नहीं: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] सिस्टम सफलतापूर्वक पुनः लोड हुआ। सभी उपकरण नवीनतम कोड के साथ अद्यतन किए गए।",
     "x_search_terms": [
@@ -275,8 +277,6 @@
       "उपकरण",
       "उपकरण"
     ],
-    "msg.tools.list_header": "[उपकरण] लोड किए गए उपकरण ({count}):",
-    "msg.tools.no_match": "[उपकरण] कोई मिलान उपकरण नहीं: {q}",
     "tool.description": "उपकरण नियंत्रण पंजीकरण के लिए डमी उपकरण।"
   },
   "ar": {
@@ -287,6 +287,8 @@
     "msg.tools.not_found": "[tools] الأداة غير موجودة: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] عرض مخرجات الأدوات: {state}",
+    "msg.tools.list_header": "[الأدوات] الأدوات المحملة ({count}):",
+    "msg.tools.no_match": "[الأدوات] لا توجد أدوات مطابقة: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] تم إعادة تحميل النظام بنجاح. تم تحديث جميع الأدوات بأحدث التعليمات البرمجية.",
     "x_search_terms": [
@@ -295,8 +297,6 @@
       "أدوات",
       "أدوات"
     ],
-    "msg.tools.list_header": "[الأدوات] الأدوات المحملة ({count}):",
-    "msg.tools.no_match": "[الأدوات] لا توجد أدوات مطابقة: {q}",
     "tool.description": "أداة وهمية لتسجيل أدوات التحكم."
   },
   "sv": {
@@ -307,6 +307,8 @@
     "msg.tools.not_found": "[tools] Verktyg hittades inte: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Verktygsutdatavisning: {state}",
+    "msg.tools.list_header": "[verktyg] Laddade verktyg ({count}):",
+    "msg.tools.no_match": "[verktyg] Inga matchande verktyg: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systemet har laddats om. Alla verktyg uppdaterade med senaste kod.",
     "x_search_terms": [
@@ -315,8 +317,6 @@
       "verktyg",
       "VERKTYG"
     ],
-    "msg.tools.list_header": "[verktyg] Laddade verktyg ({count}):",
-    "msg.tools.no_match": "[verktyg] Inga matchande verktyg: {q}",
     "tool.description": "Dummy-verktyg för registrering av verktygskontroll."
   },
   "sw": {
@@ -327,6 +327,8 @@
     "msg.tools.not_found": "[tools] Chombo hakijapatikana: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Onyesho la matokeo ya zana: {state}",
+    "msg.tools.list_header": "[zana] Zana zilizopakiwa ({count}):",
+    "msg.tools.no_match": "[zana] Hakuna zana zinazolingana: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Mfumo umepakiwa upya. Zana zote zimesasishwa na msimbo wa hivi punde.",
     "x_search_terms": [
@@ -335,8 +337,6 @@
       "zana",
       "ZANA"
     ],
-    "msg.tools.list_header": "[zana] Zana zilizopakiwa ({count}):",
-    "msg.tools.no_match": "[zana] Hakuna zana zinazolingana: {q}",
     "tool.description": "Chombo cha dummy cha usajili wa udhibiti wa zana."
   },
   "nb": {
@@ -347,6 +347,8 @@
     "msg.tools.not_found": "[tools] Verktøy ikke funnet: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Verktøyutdatavisning: {state}",
+    "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
+    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode.",
     "x_search_terms": [
@@ -355,8 +357,6 @@
       "verktøy",
       "VERKTØY"
     ],
-    "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
-    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
     "tool.description": "Dummyverktøy for verktøykontrollregistrering."
   },
   "nl": {
@@ -367,6 +367,8 @@
     "msg.tools.not_found": "[tools] Tool niet gevonden: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Tooluitvoerweergave: {state}",
+    "msg.tools.list_header": "[tools] Geladen tools ({count}):",
+    "msg.tools.no_match": "[tools] Geen overeenkomende tools: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Systeem is succesvol opnieuw geladen. Alle tools bijgewerkt met de nieuwste code.",
     "x_search_terms": [
@@ -375,8 +377,6 @@
       "gereedschap",
       "GEREEDSCHAP"
     ],
-    "msg.tools.list_header": "[tools] Geladen tools ({count}):",
-    "msg.tools.no_match": "[tools] Geen overeenkomende tools: {q}",
     "tool.description": "Dummytool voor gereedschapscontroleregistratie."
   },
   "fi": {
@@ -387,6 +387,8 @@
     "msg.tools.not_found": "[tools] Työkalua ei löydy: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Työkalujen tulostusnäyttö: {state}",
+    "msg.tools.list_header": "[työkalut] Ladatut työkalut ({count}):",
+    "msg.tools.no_match": "[työkalut] Ei vastaavia työkaluja: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Järjestelmän uudelleenlataus onnistui. Kaikki työkalut päivitetty uusimmalla koodilla.",
     "x_search_terms": [
@@ -395,8 +397,6 @@
       "työkalut",
       "TYÖKALUT"
     ],
-    "msg.tools.list_header": "[työkalut] Ladatut työkalut ({count}):",
-    "msg.tools.no_match": "[työkalut] Ei vastaavia työkaluja: {q}",
     "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin."
   },
   "cs": {
@@ -447,6 +447,8 @@
     "msg.tools.not_found": "[tools] Araç bulunamadı: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Araç çıktı görüntüleme: {state}",
+    "msg.tools.list_header": "[tools] Yüklenen araçlar ({count}):",
+    "msg.tools.no_match": "[araçlar] Eşleşen araç yok: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistem başarıyla yeniden yüklendi. Tüm araçlar en son kodla güncellendi.",
     "x_search_terms": [
@@ -455,8 +457,6 @@
       "araçlar",
       "ARAÇLAR"
     ],
-    "msg.tools.list_header": "[tools] Yüklenen araçlar ({count}):",
-    "msg.tools.no_match": "[araçlar] Eşleşen araç yok: {q}",
     "tool.description": "Araç kontrolü kaydı için sahte araç."
   },
   "th": {
@@ -467,6 +467,8 @@
     "msg.tools.not_found": "[tools] ไม่พบเครื่องมือ: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] การแสดงผลลัพธ์ของเครื่องมือ: {state}",
+    "msg.tools.list_header": "[เครื่องมือ] เครื่องมือที่โหลด ({count}):",
+    "msg.tools.no_match": "[เครื่องมือ] ไม่มีเครื่องมือที่ตรงกัน: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] โหลดระบบสำเร็จแล้ว เครื่องมือทั้งหมดอัปเดตด้วยรหัสล่าสุด",
     "x_search_terms": [
@@ -475,8 +477,6 @@
       "เครื่องมือ",
       "เครื่องมือ"
     ],
-    "msg.tools.list_header": "[เครื่องมือ] เครื่องมือที่โหลด ({count}):",
-    "msg.tools.no_match": "[เครื่องมือ] ไม่มีเครื่องมือที่ตรงกัน: {q}",
     "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนการควบคุมเครื่องมือ"
   },
   "zh_CN": {
@@ -487,6 +487,8 @@
     "msg.tools.not_found": "[tools] 未找到工具: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 工具输出显示: {state}",
+    "msg.tools.list_header": "[工具] 加载的工具 ({count})：",
+    "msg.tools.no_match": "[工具] 没有匹配的工具：{q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 系统重新加载成功。所有工具均更新为最新代码。",
     "x_search_terms": [
@@ -495,8 +497,6 @@
       "工具",
       "工具"
     ],
-    "msg.tools.list_header": "[工具] 加载的工具 ({count})：",
-    "msg.tools.no_match": "[工具] 没有匹配的工具：{q}",
     "tool.description": "用于工具控制注册的虚拟工具。"
   },
   "zh_TW": {
@@ -507,6 +507,8 @@
     "msg.tools.not_found": "[tools] 找不到工具: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] 工具輸出顯示: {state}",
+    "msg.tools.list_header": "[工具] 載入的工具 ({count})：",
+    "msg.tools.no_match": "[工具] 沒有匹配的工具：{q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] 系統重新載入成功。所有工具均更新為最新程式碼。",
     "x_search_terms": [
@@ -515,8 +517,6 @@
       "工具",
       "工具"
     ],
-    "msg.tools.list_header": "[工具] 載入的工具 ({count})：",
-    "msg.tools.no_match": "[工具] 沒有匹配的工具：{q}",
     "tool.description": "用於工具控制註冊的虛擬工具。"
   },
   "bn": {
@@ -527,6 +527,8 @@
     "msg.tools.not_found": "[tools] টুল পাওয়া যায়নি: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] টুল আউটপুট প্রদর্শন: {state}",
+    "msg.tools.list_header": "[tools] লোড করা টুল ({count}):",
+    "msg.tools.no_match": "[tools] কোনো মিল নেই এমন টুলস: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] সিস্টেম সফলভাবে পুনরায় লোড হয়েছে। সমস্ত সরঞ্জাম সর্বশেষ কোড সহ আপডেট করা হয়েছে।",
     "x_search_terms": [
@@ -535,8 +537,6 @@
       "সরঞ্জাম",
       "সরঞ্জাম"
     ],
-    "msg.tools.list_header": "[tools] লোড করা টুল ({count}):",
-    "msg.tools.no_match": "[tools] কোনো মিল নেই এমন টুলস: {q}",
     "tool.description": "সরঞ্জাম নিয়ন্ত্রণ নিবন্ধনের জন্য ডামি টুল।"
   },
   "fa": {
@@ -567,6 +567,8 @@
     "msg.tools.not_found": "[tools] Хэрэгсэл олдсонгүй: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Хэрэгслийн гаралтын дэлгэц: {state}",
+    "msg.tools.list_header": "[хэрэгсэл] Ачаалсан хэрэгслүүд ({count}):",
+    "msg.tools.no_match": "[хэрэгсэл] Тохирох хэрэгсэл алга: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Системийг амжилттай дахин ачааллаа. Бүх хэрэгслийг хамгийн сүүлийн кодоор шинэчилсэн.",
     "x_search_terms": [
@@ -575,8 +577,6 @@
       "хэрэгслүүд",
       "хэрэгслүүд"
     ],
-    "msg.tools.list_header": "[хэрэгсэл] Ачаалсан хэрэгслүүд ({count}):",
-    "msg.tools.no_match": "[хэрэгсэл] Тохирох хэрэгсэл алга: {q}",
     "tool.description": "Хэрэгслийн хяналтын бүртгэлд зориулсан дамми хэрэгсэл."
   },
   "mr": {
@@ -587,6 +587,8 @@
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] साधन आउटपुट प्रदर्शन: {state}",
+    "msg.tools.list_header": "[tools] लोड केलेली साधने ({count}):",
+    "msg.tools.no_match": "[tools] जुळणारी साधने नाहीत: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] प्रणाली यशस्वीरित्या रीलोड झाली. सर्व साधने नवीनतम कोडसह अद्यतनित केली आहेत.",
     "x_search_terms": [
@@ -595,8 +597,6 @@
       "साधने",
       "साधने"
     ],
-    "msg.tools.list_header": "[tools] लोड केलेली साधने ({count}):",
-    "msg.tools.no_match": "[tools] जुळणारी साधने नाहीत: {q}",
     "tool.description": "टूल्स कंट्रोल नोंदणीसाठी डमी टूल."
   },
   "el": {
@@ -607,6 +607,8 @@
     "msg.tools.not_found": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}",
+    "msg.tools.list_header": "[εργαλεία] Φορτωμένα εργαλεία ({count}):",
+    "msg.tools.no_match": "[εργαλεία] Δεν υπάρχουν εργαλεία που να ταιριάζουν: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Το σύστημα επαναφορτώθηκε με επιτυχία. Όλα τα εργαλεία ενημερώθηκαν με τον πιο πρόσφατο κώδικα.",
     "x_search_terms": [
@@ -615,8 +617,6 @@
       "εργαλεία",
       "ΕΡΓΑΛΕΙΑ"
     ],
-    "msg.tools.list_header": "[εργαλεία] Φορτωμένα εργαλεία ({count}):",
-    "msg.tools.no_match": "[εργαλεία] Δεν υπάρχουν εργαλεία που να ταιριάζουν: {q}",
     "tool.description": "Εργαλείο εικονικής εγγραφής για τον έλεγχο εργαλείων."
   },
   "he": {
@@ -627,6 +627,8 @@
     "msg.tools.not_found": "[כלים] הכלי לא נמצא: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] תצוגת פלט כלים: {state}",
+    "msg.tools.list_header": "[כלים] כלים טעונים ({count}):",
+    "msg.tools.no_match": "[כלים] אין כלים תואמים: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] המערכת נטענה מחדש בהצלחה. כל הכלים מעודכנים בקוד העדכני ביותר.",
     "x_search_terms": [
@@ -635,8 +637,6 @@
       "כלים",
       "כלים"
     ],
-    "msg.tools.list_header": "[כלים] כלים טעונים ({count}):",
-    "msg.tools.no_match": "[כלים] אין כלים תואמים: {q}",
     "tool.description": "כלי דמה לרישום בקרת כלים."
   },
   "hu": {
@@ -667,6 +667,8 @@
     "msg.tools.not_found": "[instrumente] Instrumentul nu a fost găsit: {name}",
     "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
     "msg.tools.output_state": "[tools] Afișare ieșire instrument: {state}",
+    "msg.tools.list_header": "[instrumente] Instrumente încărcate ({count}):",
+    "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
     "msg.tools.reloaded": "[tools] Sistemul a fost reîncărcat cu succes. Toate instrumentele au fost actualizate cu cel mai recent cod.",
     "x_search_terms": [
@@ -675,8 +677,6 @@
       "unelte",
       "UNELTE"
     ],
-    "msg.tools.list_header": "[instrumente] Instrumente încărcate ({count}):",
-    "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}",
     "tool.description": "Instrument fals pentru înregistrarea controlului sculelor."
   },
   "fil": {

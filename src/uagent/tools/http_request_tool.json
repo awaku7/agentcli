@@ -113,6 +113,17 @@
   },
   "de": {
     "tool.description": "Senden Sie eine HTTP-Anfrage an einen REST oder HTTP API und geben Sie den Status, die Header und den Antworttext zurück. Unterstützt JSON-, Formular- und Textanfragetexte. GET/HEAD/OPTIONS Anfragen sind schreibgeschützt; Schreibmethoden bleiben standardmäßig seriell.",
+    "x_search_terms": [
+      "HTTP Anfrage",
+      "REST API",
+      "API Anfrage",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP Kunde",
+      "Postman"
+    ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP oder HTTPS URL.",
     "param.query.description": "Query-String-Parameter.",
@@ -126,18 +137,7 @@
     "param.timeout.description": "Anfrage-Timeout in Sekunden.",
     "param.max_bytes.description": "Maximale Antwortgröße in Bytes.",
     "param.ssl.description": "Überprüfen Sie TLS-Zertifikate.",
-    "param.parse_json.description": "Parsen Sie eine JSON-Antwort in response_json, wenn möglich.",
-    "x_search_terms": [
-      "HTTP Anfrage",
-      "REST API",
-      "API Anfrage",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP Kunde",
-      "Postman"
-    ]
+    "param.parse_json.description": "Parsen Sie eine JSON-Antwort in response_json, wenn möglich."
   },
   "it": {
     "tool.description": "Invia una richiesta HTTP a REST o HTTP API e restituisce lo stato, le intestazioni e il corpo della risposta. Supporta JSON, moduli e corpi di richieste di testo. Le richieste GET/HEAD/OPTIONS sono di sola lettura; i metodi di scrittura rimangono seriali per impostazione predefinita.",
@@ -225,6 +225,9 @@
   },
   "zh_CN": {
     "tool.description": "将 HTTP 请求发送到 REST 或 HTTP API 并返回状态、标头和响应正文。支持 JSON、表单和文本请求正文。 GET/HEAD/OPTIONS 请求是只读的；默认情况下，写入方法保持串行。",
+    "x_search_terms": [
+      "HTTP请求、REST API、API 请求、POST API、PUT API、PATCH API、DELETE API、HTTP 客户端、Postman"
+    ],
     "param.method.description": "HTTP 方法。",
     "param.url.description": "HTTP 或 HTTPS URL。",
     "param.query.description": "查询字符串参数。",
@@ -238,13 +241,13 @@
     "param.timeout.description": "请求超时（以秒为单位）。",
     "param.max_bytes.description": "最大响应大小（以字节为单位）。",
     "param.ssl.description": "验证 TLS 证书。",
-    "param.parse_json.description": "尽可能将 JSON 响应解析为 response_json。",
-    "x_search_terms": [
-      "HTTP请求、REST API、API 请求、POST API、PUT API、PATCH API、DELETE API、HTTP 客户端、Postman"
-    ]
+    "param.parse_json.description": "尽可能将 JSON 响应解析为 response_json。"
   },
   "zh_TW": {
     "tool.description": "將 HTTP 請求傳送到 REST 或 HTTP API 並傳回狀態、標頭和回應正文。支援 JSON、表單和文字請求正文。 GET/HEAD/OPTIONS 請求是唯讀的；預設情況下，寫入方法保持串列。",
+    "x_search_terms": [
+      "HTTP請求、REST API、API 請求、POST API、PUT API、PATCH API、DELETE API、HTTP 端、Postman"
+    ],
     "param.method.description": "HTTP 方法。",
     "param.url.description": "HTTP 或 HTTPS URL。",
     "param.query.description": "查詢字串參數。",
@@ -258,13 +261,21 @@
     "param.timeout.description": "請求逾時（以秒為單位）。",
     "param.max_bytes.description": "最大回應大小（以位元組為單位）。",
     "param.ssl.description": "驗證 TLS 憑證。",
-    "param.parse_json.description": "盡可能將 JSON 回應解析為 response_json。",
-    "x_search_terms": [
-      "HTTP請求、REST API、API 請求、POST API、PUT API、PATCH API、DELETE API、HTTP 端、Postman"
-    ]
+    "param.parse_json.description": "盡可能將 JSON 回應解析為 response_json。"
   },
   "pt_BR": {
     "tool.description": "Envie uma solicitação HTTP para REST ou HTTP API e retorne o status, os cabeçalhos e o corpo da resposta. Suporta corpos de solicitação JSON, formulário e texto. As solicitações GET/HEAD/OPTIONS são somente leitura; os métodos de gravação permanecem seriais por padrão.",
+    "x_search_terms": [
+      "HTTP solicitação",
+      "REST API",
+      "API solicitação",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP cliente",
+      "Postman"
+    ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP ou HTTPS URL.",
     "param.query.description": "Parâmetros de string de consulta.",
@@ -278,18 +289,7 @@
     "param.timeout.description": "Tempo limite da solicitação em segundos.",
     "param.max_bytes.description": "Tamanho máximo da resposta em bytes.",
     "param.ssl.description": "Verifique os certificados TLS.",
-    "param.parse_json.description": "Analise uma resposta JSON em response_json quando possível.",
-    "x_search_terms": [
-      "HTTP solicitação",
-      "REST API",
-      "API solicitação",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP cliente",
-      "Postman"
-    ]
+    "param.parse_json.description": "Analise uma resposta JSON em response_json quando possível."
   },
   "id": {
     "tool.description": "Kirim permintaan HTTP ke REST atau HTTP API dan kembalikan status, header, dan isi respons. Mendukung JSON, formulir, dan badan permintaan teks. GET/HEAD/OPTIONS permintaan bersifat hanya baca; metode penulisan tetap serial secara default.",
@@ -321,6 +321,17 @@
   },
   "tr": {
     "tool.description": "Bir REST veya HTTP API'e bir HTTP isteği gönderin ve durumu, başlıkları ve yanıt metnini döndürün. JSON, form ve metin istek gövdelerini destekler. GET/HEAD/OPTIONS istekleri salt okunurdur; yazma yöntemleri varsayılan olarak seri kalır.",
+    "x_search_terms": [
+      "HTTP isteği",
+      "REST API",
+      "API isteği",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP istemcisi",
+      "Postman"
+    ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP veya HTTPS URL.",
     "param.query.description": "Sorgu dizisi parametreleri.",
@@ -334,21 +345,21 @@
     "param.timeout.description": "Saniye olarak zaman aşımı isteği.",
     "param.max_bytes.description": "Bayt cinsinden maksimum yanıt boyutu.",
     "param.ssl.description": "TLS sertifikalarını doğrulayın.",
-    "param.parse_json.description": "Ayrıştır Mümkün olduğunda response_json'e JSON yanıtı.",
+    "param.parse_json.description": "Ayrıştır Mümkün olduğunda response_json'e JSON yanıtı."
+  },
+  "pl": {
+    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
     "x_search_terms": [
-      "HTTP isteği",
+      "HTTP żądanie",
       "REST API",
-      "API isteği",
+      "API żądanie",
       "POST API",
       "PUT API",
       "PATCH API",
       "DELETE API",
-      "HTTP istemcisi",
+      "HTTP klient",
       "Postman"
-    ]
-  },
-  "pl": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    ],
     "param.method.description": "HTTP metoda.",
     "param.url.description": "HTTP lub HTTPS URL.",
     "param.query.description": "Parametry ciągu zapytania.",
@@ -362,21 +373,21 @@
     "param.timeout.description": "Limit czasu żądania w sekundach.",
     "param.max_bytes.description": "Maksymalny rozmiar odpowiedzi w bajtach.",
     "param.ssl.description": "Zweryfikuj certyfikaty TLS.",
-    "param.parse_json.description": "Przeanalizuj odpowiedź JSON w response_json, jeśli to możliwe.",
+    "param.parse_json.description": "Przeanalizuj odpowiedź JSON w response_json, jeśli to możliwe."
+  },
+  "nl": {
+    "tool.description": "Verzend een HTTP-verzoek naar een REST of HTTP API en retourneer de status, headers en antwoordtekst. Ondersteunt JSON, formulier- en tekstverzoekteksten. GET/HEAD/OPTIONS verzoeken zijn alleen-lezen; schrijfmethoden blijven standaard serieel.",
     "x_search_terms": [
-      "HTTP żądanie",
+      "HTTP verzoek",
       "REST API",
-      "API żądanie",
+      "API verzoek",
       "POST API",
       "PUT API",
       "PATCH API",
       "DELETE API",
-      "HTTP klient",
+      "HTTP klant",
       "Postman"
-    ]
-  },
-  "nl": {
-    "tool.description": "Verzend een HTTP-verzoek naar een REST of HTTP API en retourneer de status, headers en antwoordtekst. Ondersteunt JSON, formulier- en tekstverzoekteksten. GET/HEAD/OPTIONS verzoeken zijn alleen-lezen; schrijfmethoden blijven standaard serieel.",
+    ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP of HTTPS URL.",
     "param.query.description": "Querystringparameters.",
@@ -390,35 +401,10 @@
     "param.timeout.description": "Time-out aanvragen in seconden.",
     "param.max_bytes.description": "Maximale responsgrootte in bytes.",
     "param.ssl.description": "Verifieer TLS certificaten.",
-    "param.parse_json.description": "Parse een JSON antwoord in response_json wanneer mogelijk.",
-    "x_search_terms": [
-      "HTTP verzoek",
-      "REST API",
-      "API verzoek",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP klant",
-      "Postman"
-    ]
+    "param.parse_json.description": "Parse een JSON antwoord in response_json wanneer mogelijk."
   },
   "sv": {
     "tool.description": "Skicka en HTTP-förfrågan till en REST eller HTTP API och returnera status, rubriker och svarstext. Stöder JSON, formulär och textbegäran. GET/HEAD/OPTIONS förfrågningar är skrivskyddade; skrivmetoder förblir seriella som standard.",
-    "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP eller HTTPS URL.",
-    "param.query.description": "Frågesträngsparametrar.",
-    "param.headers.description": "Additional HTTP headers.",
-    "param.body.description": "Begäran. Objekt och arrayer är JSON-kodade; strängar skickas som text.",
-    "param.body_text.description": "Raw request body. Har företräde framför body.",
-    "param.content_type.description": "Content-Type for a supplied body.",
-    "param.bearer_token.description": "Valfritt Bearer token.",
-    "param.username.description": "Valfritt HTTPauth Basic username.",
-    "param.password.description": "Valfritt HTTP Basic-auth lösenord.",
-    "param.timeout.description": "Begär timeout på sekunder.",
-    "param.max_bytes.description": "Maximal svarsstorlek i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse ett JSON-svar till response_json när det är möjligt.",
     "x_search_terms": [
       "HTTP begäran",
       "REST API",
@@ -434,10 +420,34 @@
       "REST DELETE API",
       "HTTP klient",
       "Postman"
-    ]
+    ],
+    "param.method.description": "HTTP method.",
+    "param.url.description": "HTTP eller HTTPS URL.",
+    "param.query.description": "Frågesträngsparametrar.",
+    "param.headers.description": "Additional HTTP headers.",
+    "param.body.description": "Begäran. Objekt och arrayer är JSON-kodade; strängar skickas som text.",
+    "param.body_text.description": "Raw request body. Har företräde framför body.",
+    "param.content_type.description": "Content-Type for a supplied body.",
+    "param.bearer_token.description": "Valfritt Bearer token.",
+    "param.username.description": "Valfritt HTTPauth Basic username.",
+    "param.password.description": "Valfritt HTTP Basic-auth lösenord.",
+    "param.timeout.description": "Begär timeout på sekunder.",
+    "param.max_bytes.description": "Maximal svarsstorlek i bytes.",
+    "param.ssl.description": "Verify TLS certificates.",
+    "param.parse_json.description": "Parse ett JSON-svar till response_json när det är möjligt."
   },
   "fi": {
     "tool.description": "Lähetä HTTP-pyyntö numeroon REST tai HTTP API ja palauta tila, otsikot ja vastauksen teksti. Tukee JSON-, lomake- ja tekstipyyntötekstejä. GET/HEAD/OPTIONS pyynnöt ovat vain luku -tilassa; kirjoitusmenetelmät pysyvät oletusarvoisesti sarjamuotoisina.",
+    "x_search_terms": [
+      "HTTP-pyyntö",
+      "REST API",
+      "API-pyyntö",
+      "POST API",
+      "PH_15 API PATCH API",
+      "DELETE API",
+      "HTTP asiakas",
+      "Postman"
+    ],
     "param.method.description": "HTTP-menetelmä.",
     "param.url.description": "HTTP tai HTTPS URL.",
     "param.query.description": "Kysely-merkkijonoparametrit.",
@@ -451,20 +461,22 @@
     "param.timeout.description": "Pyydä aikakatkaisua sekunneissa.",
     "param.max_bytes.description": "||||||||||||||||||PH_1|Vertaa| sertifikaatit.",
     "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Järjestele JSON-vastaus kohteeseen response_json, kun mahdollista.",
-    "x_search_terms": [
-      "HTTP-pyyntö",
-      "REST API",
-      "API-pyyntö",
-      "POST API",
-      "PH_15 API PATCH API",
-      "DELETE API",
-      "HTTP asiakas",
-      "Postman"
-    ]
+    "param.parse_json.description": "Järjestele JSON-vastaus kohteeseen response_json, kun mahdollista."
   },
   "cs": {
     "tool.description": "Odeslat požadavek HTTP na REST nebo HTTP API a vrátit stav, záhlaví a tělo odpovědi. Podporuje JSON, formuláře a textové požadavky. Požadavky GET/HEAD/OPTIONS jsou pouze pro čtení; metody zápisu zůstávají ve výchozím nastavení sériové.",
+    "x_search_terms": [
+      "HTTP požadavek",
+      "REST API",
+      "API požadavek",
+      "POST",
+      "POST",
+      "__5",
+      "PH_1 PATCH API",
+      "DELETE API",
+      "HTTP klient",
+      "Postman"
+    ],
     "param.method.description": "HTTP metoda.",
     "param.url.description": "HTTP nebo HTTPS URL.",
     "param.query.description": "Parametry řetězce dotazu.",
@@ -478,36 +490,10 @@
     "param.timeout.description": "Časový limit požadavku v sekundách.",
     "param.max_bytes.description": "Maximální velikost odpovědi v bajtech.",
     "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Pokud je to možné, analyzujte odpověď JSON do response_json.",
-    "x_search_terms": [
-      "HTTP požadavek",
-      "REST API",
-      "API požadavek",
-      "POST",
-      "POST",
-      "__5",
-      "PH_1 PATCH API",
-      "DELETE API",
-      "HTTP klient",
-      "Postman"
-    ]
+    "param.parse_json.description": "Pokud je to možné, analyzujte odpověď JSON do response_json."
   },
   "da": {
     "tool.description": "Send en HTTP-anmodning til en REST eller HTTP API og returner status, overskrifter og svartekst. Understøtter JSON, formular- og tekstanmodningstekster. GET/HEAD/OPTIONS anmodninger er skrivebeskyttet; skrivemetoder forbliver serielle som standard.",
-    "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP eller HTTPS URL.",
-    "param.query.description": "Forespørgselsstrengparametre.",
-    "param.headers.description": "Additional HTTP headers.",
-    "param.body.description": "Forespørgselstekst. Objekter og arrays er JSON-kodede; strenge sendes som tekst.",
-    "param.body_text.description": "Rå anmodningstekst. Har forrang over body.",
-    "param.content_type.description": "Content-Type for a supplied body.",
-    "param.bearer_token.description": "Valgfrit Bearer token.",
-    "param.username.description": "Valgfri HTTPauth Basic username.",
-    "param.password.description": "Valgfri HTTP Basic-auth-adgangskode.",
-    "param.timeout.description": "Anmod om timeout i sekunder.",
-    "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse et JSON-svar i response_json, når det er muligt.",
     "x_search_terms": [
       "HTTP anmodning",
       "REST API",
@@ -521,24 +507,24 @@
       "PATCH DELETE API",
       "HTTP klient",
       "Postman"
-    ]
+    ],
+    "param.method.description": "HTTP method.",
+    "param.url.description": "HTTP eller HTTPS URL.",
+    "param.query.description": "Forespørgselsstrengparametre.",
+    "param.headers.description": "Additional HTTP headers.",
+    "param.body.description": "Forespørgselstekst. Objekter og arrays er JSON-kodede; strenge sendes som tekst.",
+    "param.body_text.description": "Rå anmodningstekst. Har forrang over body.",
+    "param.content_type.description": "Content-Type for a supplied body.",
+    "param.bearer_token.description": "Valgfrit Bearer token.",
+    "param.username.description": "Valgfri HTTPauth Basic username.",
+    "param.password.description": "Valgfri HTTP Basic-auth-adgangskode.",
+    "param.timeout.description": "Anmod om timeout i sekunder.",
+    "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
+    "param.ssl.description": "Verify TLS certificates.",
+    "param.parse_json.description": "Parse et JSON-svar i response_json, når det er muligt."
   },
   "nb": {
     "tool.description": "Send en HTTP-forespørsel til en REST eller HTTP API og returner status, overskrifter og svartekst. Støtter JSON, skjema- og tekstforespørselstekster. GET/HEAD/OPTIONS forespørsler er skrivebeskyttet; skrivemetoder forblir serielle som standard.",
-    "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP eller HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
-    "param.headers.description": "Additional HTTP headers.",
-    "param.body.description": "Forespørselstekst. Objekter og matriser er JSON-kodet; strenger sendes som tekst.",
-    "param.body_text.description": "Rå forespørselstekst. Har forrang over body.",
-    "param.content_type.description": "Content-Type for en levert body.",
-    "param.bearer_token.description": "Valgfri Bearer token.",
-    "param.username.description": "Valgfri HTTPauth Basic username.",
-    "param.password.description": "Valgfritt HTTP Basic-authort passord.",
-    "param.timeout.description": "Be om tidsavbrudd på sekunder.",
-    "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse et JSON-svar til response_json når det er mulig.",
     "x_search_terms": [
       "HTTP forespørsel",
       "REST API",
@@ -552,10 +538,35 @@
       "API DELETE API",
       "HTTP klient",
       "Postman"
-    ]
+    ],
+    "param.method.description": "HTTP method.",
+    "param.url.description": "HTTP eller HTTPS URL.",
+    "param.query.description": "Query-string parameters.",
+    "param.headers.description": "Additional HTTP headers.",
+    "param.body.description": "Forespørselstekst. Objekter og matriser er JSON-kodet; strenger sendes som tekst.",
+    "param.body_text.description": "Rå forespørselstekst. Har forrang over body.",
+    "param.content_type.description": "Content-Type for en levert body.",
+    "param.bearer_token.description": "Valgfri Bearer token.",
+    "param.username.description": "Valgfri HTTPauth Basic username.",
+    "param.password.description": "Valgfritt HTTP Basic-authort passord.",
+    "param.timeout.description": "Be om tidsavbrudd på sekunder.",
+    "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
+    "param.ssl.description": "Verify TLS certificates.",
+    "param.parse_json.description": "Parse et JSON-svar til response_json når det er mulig."
   },
   "uk": {
     "tool.description": "Надішліть запит HTTP до REST або HTTP API і поверніть статус, заголовки та тіло відповіді. Підтримує JSON, форми та тіла текстових запитів. GET/HEAD/OPTIONS запити лише для читання; методи запису залишаються послідовними за замовчуванням.",
+    "x_search_terms": [
+      "HTTP запит",
+      "REST API",
+      "API запит",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP клієнт",
+      "Postman"
+    ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP або HTTPS URL.",
     "param.query.description": "Параметри рядка запиту.",
@@ -569,18 +580,7 @@
     "param.timeout.description": "Час очікування запиту в секундах.",
     "param.max_bytes.description": "Максимальний розмір відповіді в байтах.",
     "param.ssl.description": "Перевірити TLS сертифікати.",
-    "param.parse_json.description": "Проаналізуйте відповідь JSON на response_json, якщо це можливо.",
-    "x_search_terms": [
-      "HTTP запит",
-      "REST API",
-      "API запит",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP клієнт",
-      "Postman"
-    ]
+    "param.parse_json.description": "Проаналізуйте відповідь JSON на response_json, якщо це можливо."
   },
   "vi": {
     "tool.description": "Gửi yêu cầu HTTP tới REST hoặc HTTP API và trả về trạng thái, tiêu đề và nội dung phản hồi. Hỗ trợ JSON, nội dung yêu cầu biểu mẫu và văn bản. Yêu cầu GET/HEAD/OPTIONS ở dạng chỉ đọc; các phương thức ghi vẫn giữ nguyên theo mặc định.",
@@ -721,11 +721,11 @@
   "hi": {
     "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
     "x_search_terms": [
-      "http request",
+      "http अनुरोध",
       "REST API",
-      "API request",
+      "API अनुरोध",
       "POST API",
-      "PUT API",
+      "PUTAPI",
       "PATCH API",
       "DELETE API",
       "HTTP client",
@@ -749,15 +749,15 @@
   "mr": {
     "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
     "x_search_terms": [
-      "http request",
-      "REST API",
-      "API request",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP client",
-      "Postman"
+      "http विनंती",
+      "बाकी API",
+      "API विनंती",
+      "पोस्ट करा API",
+      "पुट API",
+      "पॅच API",
+      " हटवा API",
+      "HTTP क्लायंट",
+      "पोस्टमन"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP or HTTPS URL.",
@@ -805,15 +805,15 @@
   "bn": {
     "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
     "x_search_terms": [
-      "http request",
-      "REST API",
-      "API request",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP client",
-      "Postman"
+      "http অনুরোধ",
+      "বাকী API",
+      "API অনুরোধ",
+      "পোস্ট API",
+      "পুট API",
+      "প্যাচ API",
+      " মুছুন API",
+      "HTTP ক্লায়েন্ট",
+      "পোস্টম্যান"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP or HTTPS URL.",
@@ -861,15 +861,15 @@
   "el": {
     "tool.description": "Στείλτε ένα αίτημα HTTP σε REST ή HTTP API και επιστρέψτε την κατάσταση, τις κεφαλίδες και το σώμα απάντησης.",
     "x_search_terms": [
-      "http request",
+      "http αίτημα",
       "REST API",
-      "API request",
+      "API αίτημα",
       "POST API",
       "PUT API",
       "PATCH API",
-      "DELETE API",
-      "HTTP client",
-      "Postman"
+      "ΔΙΑΓΡΑΦΗ API",
+      "HTTP πελάτη",
+      "Ταχυδρόμος"
     ],
     "param.method.description": "HTTP μέθοδος.",
     "param.url.description": "HTTP ή HTTPS URL.",
@@ -917,15 +917,15 @@
   "fa": {
     "tool.description": "یک درخواست HTTP را به یک REST یا HTTP API ارسال کنید و وضعیت، هدرها و بدنه پاسخ را برگردانید.",
     "x_search_terms": [
-      "http request",
+      "درخواست http",
       "REST API",
-      "API request",
+      "API درخواست",
       "POST API",
       "PUT API",
       "PATCH API",
-      "DELETE API",
-      "HTTP client",
-      "Postman"
+      "حذف API",
+      "HTTP مشتری",
+      "پستچی"
     ],
     "param.method.description": "HTTP متد. URL.",
     "param.url.description": "HTTP or HTTPS URL.",
@@ -963,6 +963,118 @@
     "param.content_type.description": "Content-Type kwa shirika linalotolewa.",
     "param.bearer_token.description": "Hiari Bearer tokeni.",
     "param.username.description": "Hiari HTTP HTTP __password-audescript. HTTP Basic-password kwenye response_json inapowezekana.",
+    "param.password.description": "Optional HTTP Basic-auth password.",
+    "param.timeout.description": "Request timeout in seconds.",
+    "param.max_bytes.description": "Maximum response size in bytes.",
+    "param.ssl.description": "Verify TLS certificates.",
+    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+  },
+  "fil": {
+    "tool.description": "Magpadala ng HTTP na kahilingan sa isang REST o HTTP API at ibalik ang status, mga header, at katawan ng tugon. Sinusuportahan ang JSON, form, at text request body. Ang mga kahilingan sa GET/HEAD/OPTIONS ay read-only; mananatiling serial ang mga paraan ng pagsulat bilang default.",
+    "x_search_terms": [
+      "http request",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postman"
+    ],
+    "param.method.description": "HTTP na paraan.",
+    "param.url.description": "HTTP o HTTPS URL.",
+    "param.query.description": "Mga parameter ng query-string.",
+    "param.headers.description": "Karagdagang HTTP na mga header.",
+    "param.body.description": "Humiling ng katawan. Ang mga bagay at array ay JSON-naka-encode; ang mga string ay ipinadala bilang teksto.",
+    "param.body_text.description": "Raw request body. Nangunguna sa katawan.",
+    "param.content_type.description": "Content-Uri para sa isang ibinigay na katawan.",
+    "param.bearer_token.description": "Opsyonal na token ng Tagadala.",
+    "param.username.description": "Opsyonal HTTP Basic-auth username.",
+    "param.password.description": "Opsyonal HTTP Basic-auth password.",
+    "param.timeout.description": "Humiling ng timeout sa ilang segundo.",
+    "param.max_bytes.description": "Pinakamataas na laki ng tugon sa bytes.",
+    "param.ssl.description": "I-verify ang mga TLS certificate.",
+    "param.parse_json.description": "Mag-parse ng JSON na tugon sa response_json kapag posible."
+  },
+  "hu": {
+    "tool.description": "Küldjön egy HTTP kérést egy REST vagy HTTP API címre, és adja vissza az állapotot, a fejléceket és a válasz törzsét. Támogatja a JSON, űrlap- és szöveges kérések törzseit. A GET/HEAD/OPTIONS kérések csak olvashatók; az írási metódusok alapértelmezés szerint soros maradnak.",
+    "x_search_terms": [
+      "http kérés",
+      "REST API",
+      "API kérés",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "TÖRLÉS API",
+      "HTTP kliens",
+      "Postman"
+    ],
+    "param.method.description": "HTTP módszer.",
+    "param.url.description": "HTTP vagy HTTPS URL.",
+    "param.query.description": "Lekérdezési karakterlánc paraméterei.",
+    "param.headers.description": "További HTTP fejléc.",
+    "param.body.description": "Kérelem szerve. Az objektumok és tömbök JSON kódolásúak; a karakterláncokat szövegként küldi el.",
+    "param.body_text.description": "Nyers kérelem törzse. Elsőbbséget élvez a testtel szemben.",
+    "param.content_type.description": "Tartalom típusa a mellékelt törzshöz.",
+    "param.bearer_token.description": "Opcionális hordozó token.",
+    "param.username.description": "Opcionális HTTP Alapszintű hitelesítési felhasználónév.",
+    "param.password.description": "Opcionális HTTP Alapszintű hitelesítési jelszó.",
+    "param.timeout.description": "Időtúllépés kérése másodpercben.",
+    "param.max_bytes.description": "Maximális válaszméret bájtban.",
+    "param.ssl.description": "Ellenőrizze a TLS-tanúsítványokat.",
+    "param.parse_json.description": "Ha lehetséges, elemezze a JSON választ a response_json fájlba."
+  },
+  "ms": {
+    "tool.description": "Hantar permintaan HTTP ke REST atau HTTP API dan kembalikan status, pengepala dan badan respons. Menyokong JSON, borang dan badan permintaan teks. Permintaan GET/HEAD/OPTIONS adalah baca sahaja; kaedah tulis kekal bersiri secara lalai.",
+    "x_search_terms": [
+      "http request",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postmen"
+    ],
+    "param.method.description": "HTTP kaedah.",
+    "param.url.description": "HTTP atau HTTPS URL.",
+    "param.query.description": "Parameter rentetan pertanyaan.",
+    "param.headers.description": "Pengepala HTTP tambahan.",
+    "param.body.description": "Badan permintaan. Objek dan tatasusunan dikodkan JSON; rentetan dihantar sebagai teks.",
+    "param.body_text.description": "Badan permintaan mentah. Diutamakan daripada badan.",
+    "param.content_type.description": "Jenis Kandungan untuk badan yang dibekalkan.",
+    "param.bearer_token.description": "Token Pembawa Pilihan.",
+    "param.username.description": "Nama pengguna pengesahan asas HTTP pilihan.",
+    "param.password.description": "Kata laluan pengesahan asas HTTP pilihan.",
+    "param.timeout.description": "Minta tamat masa dalam beberapa saat.",
+    "param.max_bytes.description": "Saiz tindak balas maksimum dalam bait.",
+    "param.ssl.description": "Sahkan sijil TLS.",
+    "param.parse_json.description": "Menghuraikan respons JSON ke dalam response_json apabila boleh."
+  },
+  "nn": {
+    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    "x_search_terms": [
+      "http request",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postman"
+    ],
+    "param.method.description": "HTTP method.",
+    "param.url.description": "HTTP or HTTPS URL.",
+    "param.query.description": "Query-string parameters.",
+    "param.headers.description": "Additional HTTP headers.",
+    "param.body.description": "Request body. Objects and arrays are JSON-encoded; strings are sent as text.",
+    "param.body_text.description": "Raw request body. Takes precedence over body.",
+    "param.content_type.description": "Content-Type for a supplied body.",
+    "param.bearer_token.description": "Optional Bearer token.",
+    "param.username.description": "Optional HTTP Basic-auth username.",
     "param.password.description": "Optional HTTP Basic-auth password.",
     "param.timeout.description": "Request timeout in seconds.",
     "param.max_bytes.description": "Maximum response size in bytes.",

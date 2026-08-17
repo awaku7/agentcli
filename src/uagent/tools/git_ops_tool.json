@@ -256,8 +256,8 @@
       "puxar",
       "vcs"
     ],
-    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança.",
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard."
+    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
   },
   "id": {
     "error.git_not_found": "[git_ops error] perintah git tidak ditemukan. Pastikan Git terpasang.",
@@ -282,8 +282,8 @@
       "git tarik",
       "vcs"
     ],
-    "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan.",
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard."
+    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan."
   },
   "vi": {
     "error.git_not_found": "[lỗi git_ops] không tìm thấy lệnh git. Hãy đảm bảo Git đã được cài đặt.",
@@ -308,8 +308,8 @@
       "kéo git",
       "vcs"
     ],
-    "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật.",
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard."
+    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật."
   },
   "pl": {
     "error.git_not_found": "[błąd git_ops] Nie znaleziono polecenia git.",

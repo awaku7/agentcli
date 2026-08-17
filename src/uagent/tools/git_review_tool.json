@@ -34,11 +34,11 @@
     "param.scan_secrets.description": "Escanee archivos de texto modificados en busca de secretos probables sin devolver valores secretos.",
     "param.max_files.description": "Número máximo de archivos modificados para inspeccionar.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "revisión de git",
+      "revisión de diferencias de git",
+      "archivos modificados",
+      "escaneo secreto",
+      "revisión de código"
     ]
   },
   "fr": {
@@ -50,7 +50,7 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
+      "fichiers modifiés",
       "secret scan",
       "code review"
     ]
@@ -62,11 +62,11 @@
     "param.scan_secrets.description": "비밀 값을 반환하지 않고 변경된 텍스트 파일에서 비밀 값을 반환하지 않고 비밀 가능성이 있는지 스캔합니다.",
     "param.max_files.description": "검사할 변경된 파일의 최대 수입니다.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git 검토",
+      "git diff 검토",
+      "변경된 파일",
+      "비밀 스캔",
+      "코드 검토"
     ]
   },
   "de": {
@@ -76,11 +76,11 @@
     "param.scan_secrets.description": "Scannen Sie geänderte Textdateien auf wahrscheinliche Geheimnisse, ohne geheime Werte zurückzugeben.",
     "param.max_files.description": "Maximale Anzahl geänderter Dateien zur Überprüfung.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "Git-Überprüfung",
+      "Git-Diff-Überprüfung",
+      "geänderte Dateien",
+      "geheimer Scan",
+      "Code-Überprüfung"
     ]
   },
   "it": {
@@ -90,11 +90,11 @@
     "param.scan_secrets.description": "Scansiona i file di testo modificati per probabili segreti senza restituire valori segreti.",
     "param.max_files.description": "Numero massimo di file modificati da ispezionare.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "revisione git",
+      "revisione git diff",
+      "file modificati",
+      "scansione segreta",
+      "revisione codice"
     ]
   },
   "ru": {
@@ -104,11 +104,11 @@
     "param.scan_secrets.description": "Сканируйте измененные текстовые файлы на предмет вероятных секретов, не возвращая секретных значений.",
     "param.max_files.description": "Максимальное количество измененных файлов для проверки.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "обзор git",
+      "обзор git diff",
+      "измененные файлы",
+      "секретное сканирование",
+      "проверка кода"
     ]
   },
   "pt_BR": {
@@ -120,7 +120,7 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
+      "arquivos alterados",
       "secret scan",
       "code review"
     ]
@@ -134,7 +134,7 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
+      "arquivos alterados",
       "secret scan",
       "code review"
     ]
@@ -148,8 +148,8 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
+      "mengubah file",
+      "pemindaian rahasia",
       "code review"
     ]
   },
@@ -160,11 +160,11 @@
     "param.scan_secrets.description": "Quét các tệp văn bản đã thay đổi để tìm các bí mật có thể xảy ra mà không trả về giá trị bí mật.",
     "param.max_files.description": "Số lượng tệp đã thay đổi tối đa cần kiểm tra.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "đánh giá git",
+      "đánh giá git diff",
+      "các tập tin đã thay đổi",
+      "quét bí mật",
+      "đánh giá mã"
     ]
   },
   "pl": {
@@ -174,11 +174,11 @@
     "param.scan_secrets.description": "Skanuj zmienione pliki tekstowe pod kątem prawdopodobnych sekretów bez zwracania wartości tajnych.",
     "param.max_files.description": "Maksymalna liczba zmienionych plików do sprawdzenia.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "recenzja git",
+      "recenzja git diff",
+      "zmienione pliki",
+      "skanowanie tajne",
+      "przegląd kodu"
     ]
   },
   "hi": {
@@ -188,11 +188,11 @@
     "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
     "param.max_files.description": "Maximum number of changed files to inspect.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "गिट समीक्षा",
+      "गिट अंतर समीक्षा",
+      "बदली गई फ़ाइलें",
+      "गुप्त स्कैन",
+      "कोड समीक्षा"
     ]
   },
   "ar": {
@@ -202,11 +202,11 @@
     "param.scan_secrets.description": "قم بمسح الملفات النصية التي تم تغييرها بحثًا عن الأسرار المحتملة دون إرجاع القيم السرية.",
     "param.max_files.description": "الحد الأقصى لعدد الملفات التي تم تغييرها للفحص.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "مراجعة git",
+      "مراجعة الفرق git",
+      "الملفات المتغيرة",
+      "المسح السري",
+      "مراجعة الكود"
     ]
   },
   "sv": {
@@ -218,9 +218,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "ändrade filer",
+      "hemlig skanning",
+      "kodgranskning"
     ]
   },
   "sw": {
@@ -232,9 +232,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "faili zilizobadilishwa",
+      "siri scan",
+      "mapitio ya msimbo"
     ]
   },
   "nb": {
@@ -246,9 +246,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "endrede filer",
+      "hemmelig skanning",
+      "kodegjennomgang"
     ]
   },
   "nl": {
@@ -260,8 +260,8 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
+      "gewijzigde bestanden",
+      "geheime scan",
       "code review"
     ]
   },
@@ -272,11 +272,11 @@
     "param.scan_secrets.description": "Tarkista muuttuneet tekstitiedostot todennäköisten salaisuuksien varalta palauttamatta salaisia arvoja.",
     "param.max_files.description": "Tarkastettavien muutettujen tiedostojen enimmäismäärä.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git-arvostelu",
+      "git diff-arvostelu",
+      "muutetut tiedostot",
+      "salainen skannaus",
+      "kooditarkistus"
     ]
   },
   "cs": {
@@ -286,11 +286,11 @@
     "param.scan_secrets.description": "Prohledejte změněné textové soubory na pravděpodobná tajemství bez vracení tajných hodnot.",
     "param.max_files.description": "Maximální počet změněných souborů ke kontrole.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git recenze",
+      "git diff recenze",
+      "změněné soubory",
+      "tajné skenování",
+      "kontrola kódu"
     ]
   },
   "uk": {
@@ -300,11 +300,11 @@
     "param.scan_secrets.description": "Скануйте змінені текстові файли на ймовірні секрети без повернення секретних значень.",
     "param.max_files.description": "Максимальна кількість змінених файлів для перевірки.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "огляд git",
+      "огляд git diff",
+      "змінені файли",
+      "секретне сканування",
+      "перегляд коду"
     ]
   },
   "tr": {
@@ -314,11 +314,11 @@
     "param.scan_secrets.description": "Gizli değerleri döndürmeden, olası gizli diziler için değiştirilen metin dosyalarını tarayın.",
     "param.max_files.description": "İncelenecek maksimum değiştirilen dosya sayısı.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git incelemesi",
+      "git fark incelemesi",
+      "değiştirilen dosyalar",
+      "gizli tarama",
+      "kod incelemesi"
     ]
   },
   "th": {
@@ -330,9 +330,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "ไฟล์ที่เปลี่ยนแปลง",
+      "สแกนความลับ",
+      "ตรวจสอบโค้ด"
     ]
   },
   "zh_CN": {
@@ -342,11 +342,11 @@
     "param.scan_secrets.description": "扫描已更改的文本文件以查找可能的机密，而不返回机密值。",
     "param.max_files.description": "要检查的已更改文件的最大数量。",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git 审查",
+      "git diff 审查",
+      "更改的文件",
+      "秘密扫描",
+      "代码审查"
     ]
   },
   "zh_TW": {
@@ -356,11 +356,11 @@
     "param.scan_secrets.description": "掃描已更改的文字檔案以查找可能的機密，而不傳回機密值。",
     "param.max_files.description": "要檢查的已更改檔案的最大數量。",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git 審查",
+      "git diff 審查",
+      "更改的文件",
+      "秘密掃描",
+      "程式碼審查"
     ]
   },
   "bn": {
@@ -370,11 +370,11 @@
     "param.scan_secrets.description": "গোপন মান ফিরিয়ে না এনে সম্ভাব্য গোপনীয়তার জন্য পরিবর্তিত পাঠ্য ফাইলগুলি স্ক্যান করুন। গোপন মান ফিরিয়ে না দিয়ে কনফিগারেশন ফাইল।",
     "param.max_files.description": "Maximum number of changed files to inspect.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git পর্যালোচনা",
+      "git diff পর্যালোচনা",
+      "পরিবর্তিত ফাইল",
+      "গোপন স্ক্যান",
+      "কোড পর্যালোচনা"
     ]
   },
   "fa": {
@@ -384,11 +384,11 @@
     "param.scan_secrets.description": "دایرکتوری برای اسکن، نسبت به workdir فعلی.",
     "param.max_files.description": "Maximum number of changed files to inspect.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "بررسی git",
+      " بررسی تفاوت git",
+      "فایل های تغییر یافته",
+      "اسکن مخفی",
+      "بررسی کد"
     ]
   },
   "mn": {
@@ -400,9 +400,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "өөрчлөгдсөн файлууд",
+      "нууц скан хийх",
+      "кодын хяналт"
     ]
   },
   "mr": {
@@ -412,11 +412,11 @@
     "param.scan_secrets.description": "गुप्त व्हॅल्यू परत न करता संभाव्य गुपितांसाठी बदललेल्या मजकूर फाइल्स स्कॅन करा. गुप्त मूल्ये परत न करता कॉन्फिगरेशन फायली.",
     "param.max_files.description": "स्कॅन करण्यासाठी निर्देशिका, वर्तमान वर्कडायरच्या सापेक्ष.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git पुनरावलोकन",
+      "git diff पुनरावलोकन",
+      "बदललेल्या फायली",
+      "गुप्त स्कॅन",
+      "कोड पुनरावलोकन"
     ]
   },
   "el": {
@@ -428,9 +428,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      " αλλαγμένα αρχεία",
+      "μυστική σάρωση",
+      "αναθεώρηση κώδικα"
     ]
   },
   "he": {
@@ -442,9 +442,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "קבצים שהשתנו",
+      "סריקה סודית",
+      "סקירת קוד"
     ]
   },
   "hu": {
@@ -454,11 +454,11 @@
     "param.scan_secrets.description": "A módosított szöveges fájlok vizsgálata a valószínű titkok után anélkül, hogy titkos értékeket adna vissza.",
     "param.max_files.description": "A vizsgálandó módosított fájlok maximális száma.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git felülvizsgálat",
+      "git diff áttekintés",
+      "módosított fájlok",
+      "titkos vizsgálat",
+      "kód ellenőrzés"
     ]
   },
   "ro": {
@@ -470,9 +470,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "fișiere schimbate",
+      "scanare secretă",
+      "revizuire cod"
     ]
   },
   "fil": {
@@ -498,7 +498,7 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
+      "menukar fail",
       "secret scan",
       "code review"
     ]
@@ -512,9 +512,9 @@
     "x_search_terms": [
       "git review",
       "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "ændrede filer",
+      "hemmelig scanning",
+      "kodegennemgang"
     ]
   },
   "nn": {

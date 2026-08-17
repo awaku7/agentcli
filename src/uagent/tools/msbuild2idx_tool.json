@@ -278,5 +278,29 @@
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：部分必須介於 1 和 {total} 之間。",
     "param.section.description": "部分模式的部分編號。"
+  },
+  "da": {
+    "tool.description": "Parse MSBuild XML-projektfiler såsom .csproj, .fsproj, .vbproj, .vcxproj, .props og .targets i et nummereret indeks eller en valgt sektion.",
+    "err.path_required": "Fejl: 'sti' er påkrævet.",
+    "err.parse_error": "Fejl ved parsing af MSBuild-fil: {exc}",
+    "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
+    "err.section_not_found": "Fejl: Sektionen skal være mellem 1 og {total}.",
+    "param.section.description": "Sektionsnummer for sektionstilstand."
+  },
+  "fil": {
+    "tool.description": "I-parse ang mga MSBuild XML project file gaya ng .csproj, .fsproj, .vbproj, .vcxproj, .props, at .targets sa isang may bilang na index o isang napiling seksyon.",
+    "err.path_required": "Error: 'path' ay kinakailangan.",
+    "err.parse_error": "Error sa pag-parse ng MSBuild file: {exc}",
+    "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
+    "err.section_not_found": "Error: ang seksyon ay dapat nasa pagitan ng 1 at {total}.",
+    "param.section.description": "Numero ng seksyon para sa mode ng seksyon."
+  },
+  "ms": {
+    "tool.description": "Parsing fail projek XML MSBuild seperti .csproj, .fsproj, .vbproj, .vcxproj, .props dan .targets ke dalam indeks bernombor atau bahagian yang dipilih.",
+    "err.path_required": "Ralat: 'laluan' diperlukan.",
+    "err.parse_error": "Ralat menghuraikan fail MSBuild: {exc}",
+    "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
+    "err.section_not_found": "Ralat: bahagian mestilah antara 1 dan {total}.",
+    "param.section.description": "Nombor bahagian untuk mod bahagian."
   }
 }

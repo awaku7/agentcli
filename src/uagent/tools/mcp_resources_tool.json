@@ -44,9 +44,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "recursos mcp",
+      "recurso mcp",
+      "leer recurso mcp"
     ]
   },
   "fr": {
@@ -61,9 +61,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "ressources mcp",
+      "ressource mcp",
+      "lire la ressource mcp"
     ]
   },
   "de": {
@@ -78,9 +78,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-Ressourcen",
+      "mcp-Ressource",
+      "mcp-Ressource lesen"
     ]
   },
   "it": {
@@ -95,9 +95,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "risorse mcp",
+      "risorsa mcp",
+      "leggi risorsa mcp"
     ]
   },
   "pt": {
@@ -112,9 +112,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "recursos mcp",
+      "recurso mcp",
+      "ler recurso mcp"
     ]
   },
   "pt_BR": {
@@ -129,9 +129,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "recursos mcp",
+      "recurso mcp",
+      "ler recurso mcp"
     ]
   },
   "ru": {
@@ -146,9 +146,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "ресурсы mcp",
+      "ресурс mcp",
+      "прочитать ресурс mcp"
     ]
   },
   "zh_CN": {
@@ -163,9 +163,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp资源",
+      "mcp资源",
+      "读取mcp资源"
     ]
   },
   "zh_TW": {
@@ -180,9 +180,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp資源",
+      "mcp資源",
+      "讀取mcp資源"
     ]
   },
   "ko": {
@@ -197,9 +197,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp 리소스",
+      "mcp 리소스",
+      "mcp 리소스 읽기"
     ]
   },
   "ar": {
@@ -214,9 +214,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "موارد mcp",
+      "موارد mcp",
+      "اقرأ مورد mcp"
     ]
   },
   "bn": {
@@ -231,9 +231,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp সম্পদ",
+      "mcp সম্পদ",
+      " mcp সম্পদ পড়ুন"
     ]
   },
   "cs": {
@@ -265,9 +265,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "πόροι mcp",
+      " πόρος mcp",
+      " διαβάστε πόρο mcp"
     ]
   },
   "fa": {
@@ -282,9 +282,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "منابع mcp",
+      "منبع mcp",
+      "منبع mcp را بخوانید"
     ]
   },
   "fi": {
@@ -299,9 +299,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-resurssit",
+      "mcp-resurssi",
+      "lue mcp-resurssi"
     ]
   },
   "he": {
@@ -316,9 +316,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
+      "משאבי mcp",
       "mcp resource",
-      "read mcp resource"
+      "קרא משאב mcp"
     ]
   },
   "hi": {
@@ -333,9 +333,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "एमसीपी संसाधन",
+      "एमसीपी संसाधन",
+      "एमसीपी संसाधन पढ़ें"
     ]
   },
   "hu": {
@@ -350,9 +350,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp erőforrások",
+      "mcp erőforrás",
+      "mcp erőforrás olvasása"
     ]
   },
   "id": {
@@ -367,9 +367,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "sumber daya mcp",
+      "sumber daya mcp",
+      "baca sumber daya mcp"
     ]
   },
   "mn": {
@@ -386,7 +386,7 @@
     "x_search_terms": [
       "mcp resources",
       "mcp resource",
-      "read mcp resource"
+      "mcp нөөцийг уншина уу"
     ]
   },
   "mr": {
@@ -401,9 +401,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp संसाधन",
+      "mcp संसाधन",
+      " mcp संसाधन वाचा"
     ]
   },
   "nb": {
@@ -418,9 +418,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-ressurser",
+      "mcp-ressurs",
+      "les mcp-ressurs"
     ]
   },
   "nl": {
@@ -435,9 +435,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-bronnen",
+      "mcp-bron",
+      "lees mcp-bron"
     ]
   },
   "nn": {
@@ -469,9 +469,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "Zasoby mcp",
+      "zasób mcp",
+      "przeczytaj zasób mcp"
     ]
   },
   "ro": {
@@ -488,7 +488,7 @@
     "x_search_terms": [
       "mcp resources",
       "mcp resource",
-      "read mcp resource"
+      "citește resursa mcp"
     ]
   },
   "sv": {
@@ -503,9 +503,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-resurser",
+      "mcp-resurs",
+      "läs mcp-resurs"
     ]
   },
   "sw": {
@@ -520,9 +520,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "rasilimali za mcp",
+      "mcp rasilimali",
+      "soma rasilimali ya mcp"
     ]
   },
   "th": {
@@ -537,9 +537,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "ทรัพยากร mcp",
+      "ทรัพยากร mcp",
+      "อ่านทรัพยากร mcp"
     ]
   },
   "tr": {
@@ -554,9 +554,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp kaynakları",
+      "mcp kaynağı",
+      "mcp kaynağını oku"
     ]
   },
   "uk": {
@@ -571,9 +571,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "ресурси mcp",
+      "ресурс mcp",
+      "читати ресурс mcp"
     ]
   },
   "vi": {
@@ -588,9 +588,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "tài nguyên mcp",
+      "tài nguyên mcp",
+      "đọc tài nguyên mcp"
     ]
   },
   "da": {
@@ -605,9 +605,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-ressourcer",
+      "mcp-ressource",
+      "læs mcp-ressource"
     ]
   },
   "fil": {
@@ -624,7 +624,7 @@
     "x_search_terms": [
       "mcp resources",
       "mcp resource",
-      "read mcp resource"
+      "basahin mcp resource"
     ]
   },
   "ms": {
@@ -639,9 +639,9 @@
     "err.endpoint_required": "Error: MCP endpoint is required.",
     "err.request": "Error: MCP resource request failed: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "sumber mcp",
+      "sumber mcp",
+      "baca sumber mcp"
     ]
   }
 }

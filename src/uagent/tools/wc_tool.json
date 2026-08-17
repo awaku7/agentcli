@@ -184,10 +184,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "liczba słów",
+      "liczba linii",
+      "liczba bajtów",
+      "statystyki plików"
     ]
   },
   "hi": {
@@ -227,10 +227,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
+      "ord count",
       "line count",
       "byte count",
-      "file statistics"
+      "filstatistik"
     ]
   },
   "sw": {
@@ -240,10 +240,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "hesabu ya maneno",
+      "hesabu ya mstari",
+      "hesabu ya baiti",
+      "takwimu za faili"
     ]
   },
   "nb": {
@@ -253,10 +253,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "ordtelling",
+      "linjetelling",
+      "byteantall",
+      "filstatistikk"
     ]
   },
   "nl": {
@@ -266,10 +266,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "aantal woorden",
+      "aantal regels",
+      "aantal bytes",
+      "bestandsstatistieken"
     ]
   },
   "fi": {
@@ -279,10 +279,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "sanojen määrä",
+      "rivien määrä",
+      "tavumäärä",
+      "tiedostotilastot"
     ]
   },
   "cs": {
@@ -292,10 +292,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "počet slov",
+      "počet řádků",
+      "počet bajtů",
+      "statistika souboru"
     ]
   },
   "uk": {
@@ -305,10 +305,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "кількість слів",
+      "кількість рядків",
+      "кількість байтів",
+      "статистика файлів"
     ]
   },
   "tr": {
@@ -318,10 +318,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "kelime sayısı",
+      "satır sayısı",
+      "bayt sayısı",
+      "dosya istatistikleri"
     ]
   },
   "th": {
@@ -331,10 +331,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "จำนวนคำ",
+      "จำนวนบรรทัด",
+      "จำนวนไบต์",
+      "สถิติไฟล์"
     ]
   },
   "zh_CN": {
@@ -374,10 +374,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "শব্দ গণনা",
+      "লাইন গণনা",
+      "বাইট গণনা",
+      "ফাইল পরিসংখ্যান"
     ]
   },
   "fa": {
@@ -387,10 +387,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "تعداد کلمات",
+      "تعداد خطوط",
+      "تعداد بایت",
+      "آمار فایل"
     ]
   },
   "mn": {
@@ -400,10 +400,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "үгний тоо",
+      "мөрийн тоо",
+      "байтын тоо",
+      "файлын статистик"
     ]
   },
   "mr": {
@@ -413,10 +413,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "शब्द संख्या",
+      "लाइन संख्या",
+      "बाइट संख्या",
+      "फाइल आकडेवारी"
     ]
   },
   "el": {
@@ -426,10 +426,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      " πλήθος λέξεων",
+      " πλήθος γραμμών",
+      " πλήθος byte",
+      "στατιστικά αρχείων"
     ]
   },
   "he": {
@@ -439,10 +439,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "ספירת מילים",
+      "ספירת שורות",
+      "ספירת בתים",
+      "נתונים סטטיסטיים של קבצים"
     ]
   },
   "hu": {
@@ -452,10 +452,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
+      "szószám",
+      "sorszám",
       "byte count",
-      "file statistics"
+      "fájlstatisztika"
     ]
   },
   "ro": {
@@ -465,10 +465,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "număr de cuvinte",
+      "număr de linii",
+      "număr de octeți",
+      "statistici fișier"
     ]
   },
   "fil": {
@@ -478,10 +478,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "bilang ng salita",
+      "bilang ng linya",
+      "bilang ng byte",
+      "mga istatistika ng file"
     ]
   },
   "ms": {
@@ -491,10 +491,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "bilangan perkataan",
+      "bilangan baris",
+      "bilangan bait",
+      "statistik fail"
     ]
   },
   "da": {
@@ -504,10 +504,10 @@
     "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
     "x_search_terms": [
       "wc",
-      "word count",
+      "ord count",
       "line count",
       "byte count",
-      "file statistics"
+      "filstatistik"
     ]
   },
   "nn": {

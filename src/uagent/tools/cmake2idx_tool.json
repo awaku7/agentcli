@@ -565,7 +565,7 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake парсер"
     ],
     "param.path.description": "Шлях до файлу CMake.",
     "param.mode.description": "\"index\" повертає пронумерований зміст; \"section\" повертає один розділ.",
