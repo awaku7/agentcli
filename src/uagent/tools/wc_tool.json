@@ -511,16 +511,16 @@
     ]
   },
   "nn": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Lesebufferstorleik i byte; større verdiar er raskare for store filer.",
+    "param.paths.description": "Filer som skal teljast.",
+    "param.return.description": "Utdat format.",
+    "tool.description": "Rask, skriveverna teljing av linjer, ord, byte og teikn i filer.",
     "x_search_terms": [
       "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
+      "ordteljing",
+      "linjeteljing",
+      "byt teljing",
+      "filstatistikk"
     ]
   }
 }

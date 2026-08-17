@@ -984,7 +984,7 @@
       "git-trekk",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Om farlege operasjonar skal tillatast (standard er false). Døme: push --force, reset --hard.",
     "tool.description": "Kjør Git-kommandoer med sikkerhetsbegrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset for sikkerheten."
   }
 }

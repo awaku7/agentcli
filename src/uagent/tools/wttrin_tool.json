@@ -2135,7 +2135,7 @@
       "værforhold"
     ],
     "err.geocoding_failed": "Feil: Kunne ikke finne byen '{city}'.",
-    "err.fallback_source": "[via Open-Meteo fallback]",
+    "err.fallback_source": "[via Open-Meteo-reservekjelde]",
     "wmo.0": "Klar himmel",
     "wmo.1": "Hovedsakelig tydelig",
     "wmo.2": "Delvis skyet",

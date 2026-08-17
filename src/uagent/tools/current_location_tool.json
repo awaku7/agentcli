@@ -1183,7 +1183,7 @@
     "acc.low": "Lav presisjon",
     "acc.very_low": "Svært lav presisjon",
     "src.unknown": "Ukjend",
-    "src.cellular": "Cellular",
+    "src.cellular": "Mobilnett",
     "src.satellite": "GPS/satellitt",
     "src.wifi": "WiFi-posisjonering",
     "src.ip": "IP geolokalisering",

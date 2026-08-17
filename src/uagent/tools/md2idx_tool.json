@@ -1172,9 +1172,9 @@
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse. \"seksjon\" returnerer en bestemt seksjon etter nummer.",
     "param.section.description": "Seksjonsnummer å hente (vert brukt berre når modus='seksjon'). Få tallet frå indeksutgangen.",
     "tool.description": "Del en Markdown-fil i seksjoner på overskriftsnivå og returner en nummerert indeks eller en spesifikk seksjon. Bruk dette når du trenger å lese et stort Markdown-dokument: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun innholdet du trenger. Dette sparer tokens sammenlignet med å lese hele filen.",
-    "meta.document_type": "Document type: {value}",
-    "meta.frontmatter": "Front matter: {value}",
-    "meta.skill_validation": "Agent Skills validation: {value}",
-    "meta.skill_details": "Agent Skills details: {value}"
+    "meta.document_type": "Dokumenttype: {value}",
+    "meta.frontmatter": "Framsidestoff: {value}",
+    "meta.skill_validation": "Validering av Agent Skills: {value}",
+    "meta.skill_details": "Detaljar om Agent Skills: {value}"
   }
 }

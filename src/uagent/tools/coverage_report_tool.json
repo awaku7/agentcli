@@ -824,7 +824,7 @@
     "error.pytest_install_failed": "pytest er påkrevd og kunne ikke installeres",
     "error.c8_install_failed": "c8 er påkrevd og kan ikke installeres",
     "error.cargo_llvm_cov_install_failed": "cargo-llvm-cov er påkrevd og kunne ikke installeres",
-    "error.command_not_found": "required command not found for %(language)s: %(command)s",
+    "error.command_not_found": "fann ikkje nødvendig kommando for %(language)s: %(command)s",
     "error.simplecov_result_missing": "SimpleCov-resultat ikke funnet; aktiver SimpleCov i testkommandoen",
     "error.swift_coverage_unavailable": "SWIFT-tester fullført; bruk llvm-cov-eksport for å samle dekningsdata",
     "x_search_terms": [

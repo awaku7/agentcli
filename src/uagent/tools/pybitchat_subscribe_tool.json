@@ -288,7 +288,7 @@
     "cmd.chat_on": "bitchat chat-modus: PÅ (mesh-videresending aktiv)",
     "cmd.chat_off": "bitchat chat-modus: AV",
     "cmd.error": "Feil: %(error)s",
-    "cmd.status_node": "bitchat node: %(state)s",
+    "cmd.status_node": "bitchat-node: %(state)s",
     "cmd.status_chat": "  chattemodus: %(mode)s",
     "cmd.status_peers_none": "  jevnaldrende: ingen",
     "cmd.status_peer": "peer: %(name)s",
@@ -320,7 +320,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh-noden kjører allerede som %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh node stoppet.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Feil: --network krev ein verdi (mainnet|testnet)",
     "cmd.start.unknown_arg": "Feil: Ukjend argument: %(arg)s"
   },
   "ar": {

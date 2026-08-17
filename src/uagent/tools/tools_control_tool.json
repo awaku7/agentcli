@@ -740,16 +740,16 @@
     "tool.description": "Dummy-værktøj til registrering af værktøjskontrol."
   },
   "nn": {
-    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
+    "cmd.help.tools_list": "  :tools list [query]               List innlasta verktøy, eventuelt filtrerte etter namn eller omtale",
     "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Bruk: :verktøy laster inn <verktøynavn>",
     "msg.tools.loaded_single": "[verktøy] Lastet verktøy: {name}",
     "msg.tools.not_found": "[verktøy] Verktøyet ble ikkje funnen: {name}",
-    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
+    "cmd.help.tools_output": "  :tools output                     Slå vising av verktøyresultat av eller på",
     "msg.tools.output_state": "[verktøy] Verktøyutdataskjermen er no {state}",
     "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
     "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
+    "cmd.help.tools_reload": "  :tools reload                    Last inn all verktøykode frå disken på nytt.",
     "msg.tools.reloaded": "[verktøy] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode.",
     "x_search_terms": [
       "verktøykontroll",

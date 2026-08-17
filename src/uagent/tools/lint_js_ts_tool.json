@@ -1135,7 +1135,7 @@
     "result.more": "... og {count} til",
     "err.no_npx": "Node.js/npx er ikkje tilgjengeleg. Installer Node.js (https://nodejs.org) for å bruke dette verktøyet.",
     "label.ok": "OK",
-    "label.fail": "FAIL",
+    "label.fail": "FEIL",
     "label.error": "FEIL",
     "label.no_issues": "Ingen problemer funnet"
   }

@@ -441,20 +441,20 @@
     ]
   },
   "nn": {
-    "tool.description": "List MCP resources or read one resource from an MCP server.",
-    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
-    "param.uri.description": "Resource URI required when action=read.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.action": "Error: action must be list or read.",
-    "err.uri_required": "Error: uri is required for read.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP resource request failed: %(error)s",
+    "tool.description": "List MCP-ressursar eller les ein ressurs frå ein MCP-tenar.",
+    "param.action.description": "Bruk list for å liste ressursar eller read for å hente ein URI.",
+    "param.uri.description": "Ressurs-URI er nødvendig når action=read.",
+    "param.url.description": "MCP-endepunkt-URL, med mindre server_name er konfigurert.",
+    "param.server_name.description": "Namn på konfigurert MCP-tenar.",
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus.",
+    "err.action": "Feil: action må vere list eller read.",
+    "err.uri_required": "Feil: uri er nødvendig for read.",
+    "err.endpoint_required": "Feil: MCP-endepunkt er nødvendig.",
+    "err.request": "Feil: førespurnad etter MCP-ressurs mislukkast: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "mcp-ressursar",
+      "mcp-ressurs",
+      "les mcp-ressurs"
     ]
   },
   "pl": {

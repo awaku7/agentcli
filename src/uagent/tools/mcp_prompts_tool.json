@@ -493,22 +493,22 @@
     ]
   },
   "nn": {
-    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
-    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
-    "param.name.description": "Prompt name required when action=get.",
-    "param.arguments.description": "Optional prompt arguments for action=get.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.action": "Error: action must be list or get.",
-    "err.name_required": "Error: name is required for get.",
-    "err.arguments_object": "Error: arguments must be an object.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP prompt request failed: %(error)s",
+    "tool.description": "List MCP-spørjingar eller hent ei spørjing frå ein MCP-tenar.",
+    "param.action.description": "Bruk list for å liste spørjingar eller get for å hente ei.",
+    "param.name.description": "Spørjingsnamn er nødvendig når action=get.",
+    "param.arguments.description": "Valfrie spørjingsargument for action=get.",
+    "param.url.description": "MCP-endepunkt-URL, med mindre server_name er konfigurert.",
+    "param.server_name.description": "Namn på konfigurert MCP-tenar.",
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus.",
+    "err.action": "Feil: action må vere list eller get.",
+    "err.name_required": "Feil: name er nødvendig for get.",
+    "err.arguments_object": "Feil: arguments må vere eit objekt.",
+    "err.endpoint_required": "Feil: MCP-endepunkt er nødvendig.",
+    "err.request": "Feil: førespurnad etter MCP-spørjing mislukkast: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "mcp-spørjingar",
+      "mcp-spørjing",
+      "hent mcp-spørjing"
     ]
   },
   "pl": {

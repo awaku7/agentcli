@@ -519,16 +519,16 @@
   },
   "nn": {
     "tool.description": "Gjennomgå Git-endringar, risikofylte filer og moglege hemmelegheiter utan å endre depotet.Gjennomgåstadierte endringar i staden for ikkje-stadierte endringar.Tamed usporede filer i gjennomgangen.Skann endra tekstfiler for sannsynlege hemmelegheiter utan å returnere hemmelege verdiar.Maksimalt antall endrede filer som skal inspiseres.Skanndepotfiler for sannsynlege hemmelegheiter og risikofylte konfigurasjonsfiler utan å returnere hemmelege verdiar.Katalog som skal skannes, i forhold til strømmenworkdir.Maksimalt antall filer som skal inspiseres.Tamed skjulte filer og kataloger.",
-    "param.staged.description": "Review staged changes instead of unstaged changes.",
-    "param.include_untracked.description": "Include untracked files in the review.",
-    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
-    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "param.staged.description": "Gå gjennom stega endringar i staden for endringar som ikkje er stega.",
+    "param.include_untracked.description": "Ta med filer som ikkje er spora i gjennomgangen.",
+    "param.scan_secrets.description": "Skann endra tekstfiler etter moglege løyndomar utan å vise sjølve løyndomsverdiane.",
+    "param.max_files.description": "Maksimalt tal endra filer som skal undersøkast.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "git-gjennomgang",
+      "git diff-gjennomgang",
+      "endra filer",
+      "løyndomsskanning",
+      "kodegjennomgang"
     ]
   }
 }

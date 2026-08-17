@@ -1223,7 +1223,7 @@
   "nn": {
     "err.dir_not_found": "Feil: Katalog ble ikkje funnen: {root_path}",
     "err.query_required": "Feil: spørring er naudsynt.",
-    "out.db": "DB: {db_path}",
+    "out.db": "Database: {db_path}",
     "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / sammenslått: {m}",
     "out.no_docs": "Ingen relevante dokumenter funnet.",
     "out.query": "Søk: {query}",

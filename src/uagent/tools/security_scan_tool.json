@@ -481,16 +481,16 @@
     ]
   },
   "nn": {
-    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
-    "param.root.description": "Directory to scan, relative to the current workdir.",
-    "param.max_files.description": "Maximum number of files to inspect.",
-    "param.include_hidden.description": "Include hidden files and directories.",
+    "tool.description": "Skann filer i depotet etter moglege løyndomar og risikable konfigurasjonsfiler utan å vise løyndomsverdiane.",
+    "param.root.description": "Katalog som skal skannast, relativ til gjeldande arbeidskatalog.",
+    "param.max_files.description": "Maksimalt tal filer som skal undersøkast.",
+    "param.include_hidden.description": "Ta med skjulte filer og katalogar.",
     "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
+      "sikkerheitsskanning",
+      "løyndomsskanning",
+      "påloggingsopplysningar",
+      "privat nøkkel",
+      "risikabel konfigurasjon"
     ]
   }
 }

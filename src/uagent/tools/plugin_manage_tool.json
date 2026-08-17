@@ -1012,17 +1012,17 @@
     "param.action.description": "Operasjon å utføre. En av: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Kilde-URL eller bane for installasjonshandling (Git URL, HTTP ZIP, lokal katalog).",
     "param.name.description": "Pluginnavn (mål for info/fjern/aktiver/deaktiver/valider).",
-    "param.scope.description": "Installation scope: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Default: 'user'.",
-    "cmd.help.plugin_list": "  :plugin list [--enabled] [--verbose]  List installed plugins.",
-    "cmd.help.plugin_install": "  :plugin install <source> [name] [--scope user|project|local]  Install a plugin.",
-    "cmd.help.plugin_remove": "  :plugin remove <name>  Remove (uninstall) a plugin.",
+    "param.scope.description": "Installasjonsområde: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Standard: 'user'.",
+    "cmd.help.plugin_list": "  :plugin list [--enabled] [--verbose]  List installerte programtillegg.",
+    "cmd.help.plugin_install": "  :plugin install <source> [name] [--scope user|project|local]  Installer eit programtillegg.",
+    "cmd.help.plugin_remove": "  :plugin remove <name>  Fjern (avinstaller) eit programtillegg.",
     "cmd.help.plugin_uninstall": "  :plugin uninstall <name>  Alias for remove.",
-    "cmd.help.plugin_enable": "  :plugin enable <name>  Enable a plugin.",
-    "cmd.help.plugin_disable": "  :plugin disable <name>  Disable a plugin.",
-    "cmd.help.plugin_reload": "  :plugin reload  Re-scan all plugin directories.",
-    "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
-    "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
-    "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_enable": "  :plugin enable <name>  Slå på eit programtillegg.",
+    "cmd.help.plugin_disable": "  :plugin disable <name>  Slå av eit programtillegg.",
+    "cmd.help.plugin_reload": "  :plugin reload  Skann alle programtilleggskatalogar på nytt.",
+    "cmd.help.plugin_info": "  :plugin info <name>  Vis detaljar om programtillegget.",
+    "cmd.help.plugin_init": "  :plugin init <name>  Opprett grunnstruktur for ein ny programtilleggskatalog.",
+    "cmd.help.plugin_validate": "  :plugin validate <name>  Valider manifestet til eit programtillegg.",
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Registrer ein marknadsplass\n  :plugin marketplace remove <name>  Fjern ein marknadsplass\n  :plugin marketplace list           List registrerte marknadsplassar\n  :plugin marketplace update <name>  Oppdater ein marknadsplasskatalog"
   }
 }

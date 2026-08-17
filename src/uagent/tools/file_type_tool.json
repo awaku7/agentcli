@@ -703,7 +703,7 @@
     "err.not_found": "fil ikke fundet"
   },
   "nn": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Identifiser éi eller fleire filer ved å undersøkje innhaldet med libmagic (python-magic eller Windows python-magic-bin), magiske byte og heuristikk basert på filnamn. Returnerer oppdaga MIME-type, formatomtale, MIME-gjetting basert på filending, teiknkoding og filstorleik. Skriveverna.",
     "x_search_terms": [
       "filtype",
       "deteksjonstype",

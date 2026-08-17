@@ -719,6 +719,6 @@
       "mcp-endepunkter"
     ],
     "param.url.description": "MCP serverendepunkt-URL. Hvis utelatt, kan en konfigurert server vert brukt.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus."
   }
 }

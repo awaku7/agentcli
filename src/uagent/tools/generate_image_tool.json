@@ -1099,6 +1099,6 @@
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
     "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Ta med base64-biletdata for fjernklientar."
   }
 }

@@ -1011,7 +1011,7 @@
     "err.linux_permission": "Feil under BLE-drift: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nDu mangler kanskje tillatelser til å få tilgang til Bluetooth-kontakten. Prøv ett av følgende:\n1. Legg til brukeren din i bluetooth-gruppen (anbefalt):\n sudo usermod -aG bluetooth $USER\n (Krever omstart eller pålogging på nytt)\n2. Gi tillatelser direkte til Python-binæren:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Feil under BLE-operasjon: {err_msg}\n\n[macOS Permission Guide]\nBluetooth-tilgang kan ha blitt nektet av macOS-sikkerhetsbegrensninger.\nÅpne \"Systeminnstillinger > Personvern og sikkerhet > Bluetooth\" og sørg for at terminalen, VS-koden eller Python-prosessen har tilgang til Bluetooth.",
     "err.operation_failed": "Feil under BLE-operasjon: {err_msg}",
-    "param.uuid.description": "Char UUID.",
+    "param.uuid.description": "Teikn-UUID.",
     "param.scan_mode.description": "Skannemodus: ble (kun BLE) eller alle (BLE + Classic).",
     "err.pyside6_missing": "Feil: 'PySide6'-biblioteket er ikke installert. Installer den ved å bruke:\npip install PySide6",
     "x_search_terms": [

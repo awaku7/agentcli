@@ -984,7 +984,7 @@
     "msg.next_page_hint": "Bruk page={next} for å se flere resultater.",
     "msg.install_hint": "Installer en ferdighet med: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installer en ferdighet med: skills_install source=<url>",
-    "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Search and browse SkillsMP (skillsmp.com) or ClawHub (clawhub.ai) marketplace for Agent Skills.",
+    "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Søk i og bla gjennom SkillsMP- (skillsmp.com) eller ClawHub-marknadsplassen (clawhub.ai) etter Agent Skills.",
     "prefix.error": "[feil]"
   }
 }

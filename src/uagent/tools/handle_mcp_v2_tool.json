@@ -833,6 +833,6 @@
     "param.args.description": "Verktøyargumenter som skal overføres til MCP-verktøyet. Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng.",
     "err.tool_name_required": "Feil: verktøynavn kreves.",
     "err.stdio_url_invalid": "Feil: Ugyldig standard nettadresse",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy (tilstandsfull SDK) eller tilstandlaus HTTP."
   }
 }

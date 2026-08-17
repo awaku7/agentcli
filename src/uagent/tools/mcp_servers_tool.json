@@ -1973,6 +1973,6 @@
     "warn.name_duplicate": "ADVARSEL: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FEIL: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operasjon å utføre. En av: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus."
   }
 }

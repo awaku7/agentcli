@@ -524,7 +524,7 @@
     "param.path.description": "Mappe som skal tilordnes aliaset.",
     "param.overwrite.description": "For sett, tillat å erstatte et eksisterende alias.",
     "err.slot": "sporet må vere eit heiltal frå 0 til 9",
-    "err.path": "path must be an existing directory",
+    "err.path": "path må vere ein eksisterande katalog",
     "err.path_required": "Er nødvendig",
     "err.exists": "alias allerede registrert: {alias}",
     "err.not_registered": "alias ikke registrert: {alias}",

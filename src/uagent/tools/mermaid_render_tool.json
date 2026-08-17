@@ -903,25 +903,25 @@
     "ok.rendered": "[OK] Havfrue gjengitt"
   },
   "nn": {
-    "tool.description": "Render Mermaid diagrams to PNG, SVG, or PDF completely offline using a Python-native renderer.",
+    "tool.description": "Render Mermaid-diagram til PNG, SVG eller PDF heilt utan nettverk ved hjelp av ein Python-basert renderar.",
     "x_search_terms": [
       "Mermaid",
-      "flowchart",
-      "class diagram",
-      "sequence diagram",
-      "offline renderer",
+      "flytskjema",
+      "klassediagram",
+      "sekvensdiagram",
+      "fråkopla renderar",
       "PNG",
       "SVG",
       "PDF"
     ],
-    "param.source.description": "Mermaid source text.",
-    "param.input_path.description": "Optional Mermaid file path.",
-    "param.output_path.description": "Output .png, .svg, or .pdf path.",
-    "param.scale.description": "PNG scale factor.",
-    "param.background.description": "Background color.",
-    "param.theme.description": "Mermaid theme.",
-    "param.include_base64.description": "Include base64 data for remote clients.",
-    "ok.rendered": "[OK] Mermaid rendered"
+    "param.source.description": "Mermaid-kjeldetekst.",
+    "param.input_path.description": "Valfri sti til Mermaid-fil.",
+    "param.output_path.description": "Utdatasti med .png, .svg eller .pdf.",
+    "param.scale.description": "Skaleringsfaktor for PNG.",
+    "param.background.description": "Bakgrunnsfarge.",
+    "param.theme.description": "Mermaid-tema.",
+    "param.include_base64.description": "Ta med base64-data for fjernklientar.",
+    "ok.rendered": "[OK] Mermaid-rendering fullført"
   },
   "sw": {
     "tool.description": "Toa michoro ya Mermaid kwa PNG, SVG, au PDF nje ya mtandao kabisa kwa kutumia kionyeshi asili cha Python.",

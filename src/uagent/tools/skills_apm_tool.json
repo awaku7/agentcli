@@ -851,7 +851,7 @@
     ]
   },
   "nn": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    List ferdigheiter frå APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver ei APM-ferdigheit\n  :skills apm dir [path]              Vis eller set APM-prosjektróta",
     "msg.use_hint": "[apm] Bruk ':skills apm use <number>' for å aktivere en ferdighet.",
     "err.name_required": "[apm] Spesifiser et ferdighetsnavn eller nummer.",
     "msg.found_skills": "[apm] Fant {n} ferdigheter i {path}/apm_modules/:",

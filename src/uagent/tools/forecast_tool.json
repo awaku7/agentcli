@@ -220,7 +220,7 @@
     "param.model.enum_timesfm": "TimesFM",
     "param.model.enum_chronos": "Chronos",
     "param.output_dir.description": "Katalog for å lagre plottbilde. Standardinnstillingen er ~/.uag/outputs/forecast_plots",
-    "param.include_base64.description": "Include the forecast plot as base64 for remote clients.",
+    "param.include_base64.description": "Ta med prognoseplottet som base64 for fjernklientar.",
     "param.feature_columns.description": "Forklarende variabelkolonner for regresjonsmodeller. Hvis utelatt, bruk alle numeriske kolonner unntatt dato- og målkolonner.",
     "param.future_data.description": "CSV-bane eller DataFrame JSON som inneheld framtidige datoar og forklarande variablar for regresjonsmodellar.",
     "param.model.enum_linearregression": "LinearRegression",

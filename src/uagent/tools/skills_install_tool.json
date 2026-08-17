@@ -1895,7 +1895,7 @@
     "success.installed_marketplace": "Vellykket installert markedsplass/pakke '{name}' til {path} ({count} ferdighetsdefinisjoner funnet).",
     "warn.missing_skill_md": "Skill installert på {path}, men SKILL.md ble ikkje funnen i roten.",
     "err.unexpected": "Det oppstod en uventet feil: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installer ei ferdigheit eller ein marknadsplasspakke frå ei kjelde",
     "prefix.skills": "[ferdigheter]",
     "prefix.skills_error": "[ferdighetsfeil]"
   }

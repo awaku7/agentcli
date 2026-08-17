@@ -338,16 +338,16 @@
     ]
   },
   "nn": {
-    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP discovery failed: %(error)s",
+    "tool.description": "Finn protokollversjonar, funksjonar og identitet for ein MCP-tenar.",
+    "param.url.description": "MCP-endepunkt-URL, med mindre server_name er konfigurert.",
+    "param.server_name.description": "Namn på konfigurert MCP-tenar.",
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus.",
+    "err.endpoint_required": "Feil: MCP-endepunkt er nødvendig.",
+    "err.request": "Feil: MCP-oppdaging mislukkast: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp capabilities"
+      "mcp-oppdaging",
+      "mcp-tenaroppdaging",
+      "mcp-funksjonar"
     ]
   },
   "pl": {
