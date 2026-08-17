@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-17 15:48+0900\n"
+"POT-Creation-Date: 2026-08-17 18:08+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4690,5 +4690,12 @@ msgstr ""
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
+msgstr ""
+
+#: src/uagent/tools/tool_policy.py:154
+#, python-format
+msgid ""
+"Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or"
+" no to cancel."
 msgstr ""
 
