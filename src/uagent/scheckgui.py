@@ -2090,7 +2090,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 msg = (
                     _("Enter password...")
                     if is_password
-                    else "Enter response for human_ask..."
+                    else _("Enter response for human_ask...")
                 )
                 self._input.setPlaceholderText(msg)
                 self._pw_input.setPlaceholderText(msg)

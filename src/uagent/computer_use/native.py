@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..i18n import _
+
 
 def local_computer_tool_spec() -> dict[str, Any]:
     """Return the provider-neutral function tool for the local runtime."""
@@ -31,7 +33,7 @@ def local_computer_tool_spec() -> dict[str, Any]:
         "type": "function",
         "function": {
             "name": "computer",
-            "description": "Control the local desktop through the guarded Computer Use runtime.",
+            "description": _("Control the local desktop through the guarded Computer Use runtime."),
             "parameters": {
                 "type": "object",
                 "properties": {

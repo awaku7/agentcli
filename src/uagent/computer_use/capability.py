@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from ..llmcapa_util import get_capability
+from ..i18n import _
 
 
 class ComputerUseCapabilityError(RuntimeError):
@@ -25,10 +26,10 @@ def get_computer_use_capability(
 
     if capability is None or computer_use is None:
         raise ComputerUseCapabilityError(
-            f"Computer Use capability is unavailable for {provider}/{model}"
+            _("Computer Use capability is unavailable for %(provider)s/%(model)s") % {"provider": provider, "model": model}
         )
     if not getattr(computer_use, "supported", False):
         raise ComputerUseCapabilityError(
-            f"Computer Use is not supported for {provider}/{model}"
+            _("Computer Use is not supported for %(provider)s/%(model)s") % {"provider": provider, "model": model}
         )
     return computer_use

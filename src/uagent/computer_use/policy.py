@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .actions import ComputerAction
+from ..i18n import _
 
 
 @dataclass(frozen=True)
@@ -38,17 +39,17 @@ class ComputerUsePolicy:
     ) -> PolicyDecision:
         """Check whether an action may proceed before Runtime execution."""
         if not self.enabled:
-            return PolicyDecision(False, reason="computer use is disabled")
+            return PolicyDecision(False, reason=_("computer use is disabled"))
         requested_environment = environment or self.environment
         if requested_environment != self.environment:
             return PolicyDecision(
                 False,
-                reason=f"environment is not allowed: {requested_environment}",
+                reason=_("environment is not allowed: %(environment)s") % {"environment": requested_environment},
             )
         if action.action not in self.allowed_actions:
             return PolicyDecision(
                 False,
-                reason=f"action is not allowed: {action.action}",
+                reason=_("action is not allowed: %(action)s") % {"action": action.action},
             )
         # Domain allowlists apply to browser navigation only. Desktop actions
         # (mouse/keyboard/screenshot) have no URL domain and must not be
@@ -58,11 +59,11 @@ class ComputerUsePolicy:
             and self.allowed_domains
             and domain not in self.allowed_domains
         ):
-            return PolicyDecision(False, reason=f"domain is not allowed: {domain}")
+            return PolicyDecision(False, reason=_("domain is not allowed: %(domain)s") % {"domain": domain})
         if self.require_confirmation:
             return PolicyDecision(
                 False,
                 requires_confirmation=True,
-                reason="user confirmation is required",
+                reason=_("user confirmation is required"),
             )
         return PolicyDecision(True)

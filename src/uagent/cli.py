@@ -1491,7 +1491,7 @@ def main() -> None:
                             )
                         except Exception as exc:
                             lifecycle.fail()
-                            print(f"LLM round interrupted: {exc}")
+                            print(_("LLM round interrupted: %(err)s") % {"err": exc})
 
                     # Auto-pilot loop: if auto mode is active, continue rounds
                     if core.auto_pilot_active:
@@ -1508,7 +1508,7 @@ def main() -> None:
                                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                                 )
                         except Exception as exc:
-                            print(f"[AUTO] Auto-pilot interrupted: {exc}")
+                            print("[AUTO] " + _("Auto-pilot interrupted: %(err)s") % {"err": exc})
                         core.set_status(False, "")
                 continue
 
@@ -1649,7 +1649,7 @@ def main() -> None:
                         )
                     except Exception as exc:
                         lifecycle.fail()
-                        print(f"[bitchat] LLM round interrupted: {exc}")
+                        print("[bitchat] " + _("LLM round interrupted: %(err)s") % {"err": exc})
 
                 # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                 if ev.get("src") == "bitchat":

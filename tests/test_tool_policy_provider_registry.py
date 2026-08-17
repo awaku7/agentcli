@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 from uagent.providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
-from uagent.tools.tool_policy import SideEffect, policy_for
+from uagent.tools.tool_policy import (
+    SideEffect,
+    default_confirmation_callback,
+    policy_for,
+)
 
 
 def test_tool_policy_defaults_to_conservative_side_effects() -> None:
@@ -18,3 +22,22 @@ def test_provider_registry_distinguishes_unknown_capability() -> None:
     assert "unknown" not in openai.capabilities
     assert unknown.capabilities == frozenset({"unknown"})
     assert not unknown.supports_tools
+
+
+def test_default_confirmation_uses_human_ask(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    monkeypatch.setattr(
+        "uagent.tools.human_ask_tool.run_tool",
+        lambda _args: "{\"user_reply\": \"yes\", \"cancelled\": false}",
+    )
+    assert default_confirmation_callback(
+        "delete_file", {}, policy_for("delete_file")
+    )
+
+    monkeypatch.setattr(
+        "uagent.tools.human_ask_tool.run_tool",
+        lambda _args: "{\"user_reply\": \"no\", \"cancelled\": false}",
+    )
+    assert not default_confirmation_callback(
+        "delete_file", {}, policy_for("delete_file")
+    )

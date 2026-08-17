@@ -58,19 +58,20 @@ def _register_runtime_manager(core: Any, manager: Any) -> Any:
 def _host_confirmation_callback(core: Any | None = None):
     try:
         from .. import tools
+        from ..i18n import _
 
         def confirm(action: Any) -> bool:
             # Use the shared human_ask route so CLI, GUI, and Web entry points
             # all display a confirmation prompt. The generic default tool
             # callback silently returns False and provides no visible prompt.
-            prompt = "Computer Use requests permission for action " f"'{action.action}'"
+            prompt = _("Computer Use requests permission for action '%(action)s'") % {"action": action.action}
             if action.coordinate is not None:
-                prompt += f" at {action.coordinate}"
+                prompt += _(" at %(coordinate)s") % {"coordinate": action.coordinate}
             if action.key:
-                prompt += f" with key '{action.key}'"
+                prompt += _(" with key '%(key)s'") % {"key": action.key}
             if action.text:
-                prompt += f" (text length {len(action.text)})"
-            prompt += ".\nAllow this action? Enter y/yes to allow, or c to deny."
+                prompt += _(" (text length %(length)d)") % {"length": len(action.text)}
+            prompt += _(".\nAllow this action? Enter y/yes to allow, or c to deny.")
             result = tools.run_tool(
                 "human_ask", {"message": prompt, "is_password": False}
             )

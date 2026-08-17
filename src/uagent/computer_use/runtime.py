@@ -6,6 +6,7 @@ from collections.abc import Callable
 from typing import Any, Protocol
 
 from .actions import ComputerAction
+from ..i18n import _
 from .audit import make_audit_event
 from .policy import ComputerUsePolicy
 from .results import ComputerActionResult, Screenshot
@@ -48,7 +49,7 @@ def execute_action(
             result = ComputerActionResult(
                 action_id=action.action_id,
                 success=False,
-                error="user confirmation was not granted",
+                error=_("user confirmation was not granted"),
             )
             if audit is not None:
                 audit.record(
@@ -95,7 +96,7 @@ def execute_action(
         result = ComputerActionResult(
             action_id=action.action_id,
             success=False,
-            error="runtime returned a mismatched action_id",
+            error=_("runtime returned a mismatched action_id"),
         )
     if audit is not None:
         audit.record(

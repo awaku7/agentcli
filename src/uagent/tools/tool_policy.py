@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+
+from ..i18n import _
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any
@@ -149,8 +151,8 @@ def default_confirmation_callback(
             run_tool(
                 {
                     "message": (
-                        f"Allow the side-effecting tool '{tool_name}' to run? "
-                        "Reply yes to continue or no to cancel."
+                        _("Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel.")
+                        % {"tool": tool_name}
                     ),
                     "is_password": False,
                 }
@@ -161,9 +163,9 @@ def default_confirmation_callback(
         return str(result.get("user_reply", "")).strip().lower() in {
             "y",
             "yes",
-            "承認",
-            "許可",
-            "はい",
+            "\u627f\u8a8d",
+            "\u8a31\u53ef",
+            "\u306f\u3044",
         }
     except Exception:
         return False

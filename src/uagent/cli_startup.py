@@ -284,7 +284,7 @@ def run_cli_startup(
             try:
                 provider, client, depname = providers.make_client(core)
             except (ValueError, RuntimeError) as e:
-                print(f"error: {e}", file=sys.stderr)
+                print("error: " + _("%(err)s") % {"err": e}, file=sys.stderr)
                 sys.exit(2)
 
             _startup_timing_mark("provider")
