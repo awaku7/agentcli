@@ -1583,7 +1583,9 @@ msgstr "[mod] akıl yürütme=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4804,7 +4806,6 @@ msgstr "%(n)d etkin: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4817,20 +4818,69 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Yalnızca summary metnini döndür."
+msgstr "Yalnızca summary metnini döndür."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Yalnızca temizlenmiş JSON nesnesini döndür."
+msgstr "Yalnızca temizlenmiş JSON nesnesini döndür."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Siz bir translation motorusunuz. Kullanıcının metnini aslına uygun bir şekilde çevirin. Açıklama eklemeyin. Kod bloklarını, satır içi kodu, JSON'i, dosya yollarını ve URL'leri aynen koruyun."
+"Siz bir translation motorusunuz. Kullanıcının metnini aslına uygun bir "
+"şekilde çevirin. Açıklama eklemeyin. Kod bloklarını, satır içi kodu, JSON'i,"
+" dosya yollarını ve URL'leri aynen koruyun."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Bir kullanıcı isteğinin harici bir araç gerektirmesi durumunda, aracın mevcut olmadığını iddia etmeyin. Gerekli aracı bulmak için önce kısa bir sorguyla tool_catalog'ı arayın, ardından gerekirse tool_load'i arayın ve ancak bundan sonra kullanıcıya yanıt verin. JSON örneğini yazdırmak yerine mevcut araç işlevlerini kullanın."
+"Bir kullanıcı isteğinin harici bir araç gerektirmesi durumunda, aracın "
+"mevcut olmadığını iddia etmeyin. Gerekli aracı bulmak için önce kısa bir "
+"sorguyla tool_catalog'ı arayın, ardından gerekirse tool_load'i arayın ve "
+"ancak bundan sonra kullanıcıya yanıt verin. JSON örneğini yazdırmak yerine "
+"mevcut araç işlevlerini kullanın."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM tur kesintiye uğradı: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Otomatik pilot kesintiye uğradı: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask için yanıtı girin..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use'i etkinleştirin (UAGENT_COMPUTER_USE env değişkenini geçersiz "
+"kılar)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use'i devre dışı bırakın (UAGENT_COMPUTER_USE env değişkenini "
+"geçersiz kılar)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use özelliği %(provider)s/%(model)s için kullanılamıyor"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use, %(provider)s/%(model)s için desteklenmiyor"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use, '%(action)s' eylemi için izin istiyor"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Korunan Computer Use çalışma zamanı aracılığıyla yerel masaüstünü kontrol "
+"edin."
+
+msgid "computer use is disabled"
+msgstr "bilgisayar kullanımı devre dışı"
+
+msgid "user confirmation is required"
+msgstr "kullanıcı onayı gerekli"
+
+msgid "user confirmation was not granted"
+msgstr "kullanıcı onayı verilmedi"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "çalışma zamanı eşleşmeyen bir action_id döndürdü"

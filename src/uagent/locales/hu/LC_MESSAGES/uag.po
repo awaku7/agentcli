@@ -1598,7 +1598,9 @@ msgstr "[mód] érvelés=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4835,7 +4837,6 @@ msgstr "%(n)d engedélyezve: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4848,20 +4849,67 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Csak a summary szöveget adja vissza."
+msgstr "Csak a summary szöveget adja vissza."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Csak a megtisztított JSON objektumot adja vissza."
+msgstr "Csak a megtisztított JSON objektumot adja vissza."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Ön egy translation motor. Fordítsa le hűen a felhasználó szövegét. Ne adjon hozzá magyarázatokat. Szó szerint őrizze meg a kódblokkokat, a soron belüli kódot, a JSON-et, a fájl útvonalakat és az URL-eket."
+"Ön egy translation motor. Fordítsa le hűen a felhasználó szövegét. Ne adjon "
+"hozzá magyarázatokat. Szó szerint őrizze meg a kódblokkokat, a soron belüli "
+"kódot, a JSON-et, a fájl útvonalakat és az URL-eket."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Ha egy felhasználói kérés külső eszközt igényel, ne állítsa, hogy az eszköz nem elérhető. Először hívja a tool_catalog számot egy tömör lekérdezéssel, hogy megtalálja a kívánt eszközt, majd hívja a tool_load számot, ha szükséges, és csak ezután válaszoljon a felhasználónak. A JSON példa nyomtatása helyett használja a rendelkezésre álló eszközfunkciókat."
+"Ha egy felhasználói kérés külső eszközt igényel, ne állítsa, hogy az eszköz "
+"nem elérhető. Először hívja a tool_catalog számot egy tömör lekérdezéssel, "
+"hogy megtalálja a kívánt eszközt, majd hívja a tool_load számot, ha "
+"szükséges, és csak ezután válaszoljon a felhasználónak. A JSON példa "
+"nyomtatása helyett használja a rendelkezésre álló eszközfunkciókat."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM forduló megszakítva: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Auto-pilot megszakítva: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Írja be a választ a következőhöz: human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use engedélyezése (felülbírálja a UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use letiltása (felülbírálja a UAGENT_COMPUTER_USE env var-t)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"A Computer Use képesség nem érhető el a %(provider)s/%(model)s számára"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "A Computer Use nem támogatott a %(provider)s/%(model)s esetében"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use engedélyt kér a '%(action)s' művelethez"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"A helyi asztal vezérlése a védett Computer Use futási környezeten keresztül."
+
+msgid "computer use is disabled"
+msgstr "a számítógép használata le van tiltva"
+
+msgid "user confirmation is required"
+msgstr "felhasználói megerősítés szükséges"
+
+msgid "user confirmation was not granted"
+msgstr "felhasználói megerősítés nem történt meg"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime nem egyező action_id értéket adott vissza"

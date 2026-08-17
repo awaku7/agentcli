@@ -1518,7 +1518,9 @@ msgstr "[mode] 추론=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4623,7 +4625,6 @@ msgstr "%(n)d 활성화됨: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4636,20 +4637,60 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"summary 텍스트만 반환합니다."
+msgstr "summary 텍스트만 반환합니다."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"정리된 JSON 객체만 반환합니다."
+msgstr "정리된 JSON 객체만 반환합니다."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"당신은 translation 엔진입니다. 사용자의 텍스트를 충실하게 번역하세요. 설명을 추가하지 마십시오. 코드 블록, 인라인 코드, JSON, 파일 경로 및 URL을 그대로 보존합니다."
+"당신은 translation 엔진입니다. 사용자의 텍스트를 충실하게 번역하세요. 설명을 추가하지 마십시오. 코드 블록, 인라인 코드, "
+"JSON, 파일 경로 및 URL을 그대로 보존합니다."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"사용자 요청에 외부 도구가 필요할 수 있는 경우 해당 도구를 사용할 수 없다고 주장하지 마십시오. 필요한 도구를 찾으려면 먼저 간결한 쿼리로 tool_catalog을 호출하고 필요한 경우 tool_load을 호출한 다음 사용자에게 응답하세요. JSON 예제를 인쇄하는 대신 사용 가능한 도구 기능을 사용하십시오."
+"사용자 요청에 외부 도구가 필요할 수 있는 경우 해당 도구를 사용할 수 없다고 주장하지 마십시오. 필요한 도구를 찾으려면 먼저 간결한 "
+"쿼리로 tool_catalog을 호출하고 필요한 경우 tool_load을 호출한 다음 사용자에게 응답하세요. JSON 예제를 인쇄하는 "
+"대신 사용 가능한 도구 기능을 사용하십시오."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM라운드 중단됨: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "자동 조종 장치가 중단되었습니다: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask에 대한 응답을 입력하세요..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use을 활성화합니다(UAGENT_COMPUTER_USE 환경 변수 재정의)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use을 비활성화합니다(UAGENT_COMPUTER_USE 환경 변수 재정의)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "%(provider)s/%(model)s에는 Computer Use 기능을 사용할 수 없습니다."
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use은 %(provider)s/%(model)s에 대해 지원되지 않습니다."
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use이(가) '%(action)s' 작업에 대한 권한을 요청합니다."
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "보호된 Computer Use 런타임을 통해 로컬 데스크톱을 제어하세요."
+
+msgid "computer use is disabled"
+msgstr "컴퓨터 사용이 비활성화되었습니다"
+
+msgid "user confirmation is required"
+msgstr "사용자 확인이 필요합니다"
+
+msgid "user confirmation was not granted"
+msgstr "사용자 확인이 승인되지 않았습니다."
+
+msgid "runtime returned a mismatched action_id"
+msgstr "런타임에서 일치하지 않는 action_id을 반환했습니다."

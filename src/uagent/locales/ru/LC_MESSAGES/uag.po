@@ -1595,7 +1595,9 @@ msgstr "[mode] режим рассуждений=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4848,7 +4850,6 @@ msgstr "%(n)d включено: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Указанный путь рабочей папки — это файл: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4861,20 +4862,69 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Вернуть только текст summary."
+msgstr "Вернуть только текст summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Возвращайте только очищенный объект JSON."
+msgstr "Возвращайте только очищенный объект JSON."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Вы — двигатель translation. Тщательно переводите текст пользователя. Не добавляйте пояснений. Сохраняйте блоки кода, встроенный код, JSON, пути к файлам и URL-адреса дословно."
+"Вы — двигатель translation. Тщательно переводите текст пользователя. Не "
+"добавляйте пояснений. Сохраняйте блоки кода, встроенный код, JSON, пути к "
+"файлам и URL-адреса дословно."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Если для запроса пользователя может потребоваться внешний инструмент, не заявляйте, что этот инструмент недоступен. Сначала позвоните tool_catalog с кратким запросом, чтобы найти необходимый инструмент, затем позвоните tool_load, если необходимо, и только после этого ответьте пользователю. Используйте доступные функции инструмента вместо того, чтобы распечатывать пример JSON."
+"Если для запроса пользователя может потребоваться внешний инструмент, не "
+"заявляйте, что этот инструмент недоступен. Сначала позвоните tool_catalog с "
+"кратким запросом, чтобы найти необходимый инструмент, затем позвоните "
+"tool_load, если необходимо, и только после этого ответьте пользователю. "
+"Используйте доступные функции инструмента вместо того, чтобы распечатывать "
+"пример JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM раунд прерван: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Автопилот прерван: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Введите ответ для human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Включить Computer Use (переопределяет переменную среды UAGENT_COMPUTER_USE)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Отключить Computer Use (переопределяет переменную среды "
+"UAGENT_COMPUTER_USE)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Возможность Computer Use недоступна для %(provider)s/%(model)s."
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use не поддерживается для %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use запрашивает разрешение на действие «%(action)s»"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Управляйте локальным рабочим столом через защищенную среду выполнения "
+"Computer Use."
+
+msgid "computer use is disabled"
+msgstr "использование компьютера отключено"
+
+msgid "user confirmation is required"
+msgstr "требуется подтверждение пользователя"
+
+msgid "user confirmation was not granted"
+msgstr "подтверждение пользователя не было предоставлено"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "среда выполнения вернула несоответствующий action_id"

@@ -1548,7 +1548,9 @@ msgstr "[mode] suy luận=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4620,7 +4622,6 @@ msgstr "%(n)d đã bật: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4633,20 +4634,65 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Chỉ trả lại văn bản summary."
+msgstr "Chỉ trả lại văn bản summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Chỉ trả lại đối tượng JSON đã được làm sạch."
+msgstr "Chỉ trả lại đối tượng JSON đã được làm sạch."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Bạn là công cụ translation. Dịch văn bản của người dùng một cách trung thực. Đừng thêm lời giải thích. Giữ nguyên các khối mã, mã nội tuyến, JSON, đường dẫn tệp và URL."
+"Bạn là công cụ translation. Dịch văn bản của người dùng một cách trung thực."
+" Đừng thêm lời giải thích. Giữ nguyên các khối mã, mã nội tuyến, JSON, đường"
+" dẫn tệp và URL."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Khi yêu cầu của người dùng có thể yêu cầu một công cụ bên ngoài, đừng cho rằng công cụ đó không khả dụng. Trước tiên, hãy gọi tool_catalog bằng truy vấn ngắn gọn để tìm công cụ được yêu cầu, sau đó gọi tool_load nếu cần và chỉ sau đó mới trả lời người dùng. Sử dụng các chức năng công cụ có sẵn thay vì in ví dụ JSON."
+"Khi yêu cầu của người dùng có thể yêu cầu một công cụ bên ngoài, đừng cho "
+"rằng công cụ đó không khả dụng. Trước tiên, hãy gọi tool_catalog bằng truy "
+"vấn ngắn gọn để tìm công cụ được yêu cầu, sau đó gọi tool_load nếu cần và "
+"chỉ sau đó mới trả lời người dùng. Sử dụng các chức năng công cụ có sẵn thay"
+" vì in ví dụ JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM vòng bị gián đoạn: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Tự động điều khiển bị gián đoạn: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Nhập câu trả lời cho human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Bật Computer Use (ghi đè UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Tắt Computer Use (ghi đè UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Khả năng Computer Use không khả dụng cho %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use không được hỗ trợ cho %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use yêu cầu quyền thực hiện hành động '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Điều khiển máy tính để bàn cục bộ thông qua thời gian chạy Computer Use được"
+" bảo vệ."
+
+msgid "computer use is disabled"
+msgstr "việc sử dụng máy tính bị vô hiệu hóa"
+
+msgid "user confirmation is required"
+msgstr "cần có xác nhận của người dùng"
+
+msgid "user confirmation was not granted"
+msgstr "xác nhận người dùng không được cấp"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "thời gian chạy trả về action_id không khớp"

@@ -1611,7 +1611,9 @@ msgstr "[Modus] Begründung=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4860,7 +4862,6 @@ msgstr "%(n)d aktiviert: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Der angegebene Arbeitsverzeichnispfad ist eine Datei: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4873,20 +4874,71 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Gibt nur den summary-Text zurück."
+msgstr "Gibt nur den summary-Text zurück."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Gibt nur das bereinigte JSON-Objekt zurück."
+msgstr "Gibt nur das bereinigte JSON-Objekt zurück."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Sie sind eine translation-Engine. Übersetzen Sie den Text des Benutzers getreu. Fügen Sie keine Erklärungen hinzu. Behalten Sie Codeblöcke, Inline-Code, JSON, Dateipfade und URLs wörtlich bei."
+"Sie sind eine translation-Engine. Übersetzen Sie den Text des Benutzers "
+"getreu. Fügen Sie keine Erklärungen hinzu. Behalten Sie Codeblöcke, Inline-"
+"Code, JSON, Dateipfade und URLs wörtlich bei."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Wenn eine Benutzeranfrage möglicherweise ein externes Tool erfordert, behaupten Sie nicht, dass das Tool nicht verfügbar ist. Rufen Sie zuerst tool_catalog mit einer prägnanten Abfrage auf, um das benötigte Werkzeug zu finden, rufen Sie dann bei Bedarf tool_load auf und antworten Sie erst dann dem Benutzer. Verwenden Sie die verfügbaren Toolfunktionen, anstatt ein JSON-Beispiel auszudrucken."
+"Wenn eine Benutzeranfrage möglicherweise ein externes Tool erfordert, "
+"behaupten Sie nicht, dass das Tool nicht verfügbar ist. Rufen Sie zuerst "
+"tool_catalog mit einer prägnanten Abfrage auf, um das benötigte Werkzeug zu "
+"finden, rufen Sie dann bei Bedarf tool_load auf und antworten Sie erst dann "
+"dem Benutzer. Verwenden Sie die verfügbaren Toolfunktionen, anstatt ein "
+"JSON-Beispiel auszudrucken."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM Runde unterbrochen: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Autopilot unterbrochen: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Antwort für human_ask eingeben..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Aktivieren Sie Computer Use (überschreibt die Umgebungsvariable "
+"UAGENT_COMPUTER_USE)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Deaktivieren Sie Computer Use (überschreibt die Umgebungsvariable "
+"UAGENT_COMPUTER_USE)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Die Computer Use-Funktion ist für %(provider)s/%(model)s nicht verfügbar"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use wird für %(provider)s/%(model)s nicht unterstützt"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use fordert Erlaubnis für Aktion „%(action)s“ an"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Steuern Sie den lokalen Desktop über die geschützte Computer Use-Laufzeit."
+
+msgid "computer use is disabled"
+msgstr "Die Computernutzung ist deaktiviert"
+
+msgid "user confirmation is required"
+msgstr "Eine Benutzerbestätigung ist erforderlich"
+
+msgid "user confirmation was not granted"
+msgstr "Die Benutzerbestätigung wurde nicht erteilt"
+
+msgid "runtime returned a mismatched action_id"
+msgstr ""
+"Die Laufzeit hat einen nicht übereinstimmenden Wert action_id zurückgegeben"

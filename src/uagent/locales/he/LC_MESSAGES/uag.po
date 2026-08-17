@@ -1545,7 +1545,9 @@ msgstr "[mode] reasoning=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4706,7 +4708,6 @@ msgstr "%(n)d מופעל: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4719,20 +4720,61 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"החזר רק את הטקסט summary."
+msgstr "החזר רק את הטקסט summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"החזר רק את האובייקט JSON שנוקה."
+msgstr "החזר רק את האובייקט JSON שנוקה."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"אתה מנוע translation. תרגם נאמנה את הטקסט של המשתמש. אל תוסיף הסברים. שמור בלוקי קוד, קוד מוטבע, JSON, נתיבי קבצים וכתובות אתרים מילולית."
+"אתה מנוע translation. תרגם נאמנה את הטקסט של המשתמש. אל תוסיף הסברים. שמור "
+"בלוקי קוד, קוד מוטבע, JSON, נתיבי קבצים וכתובות אתרים מילולית."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"כאשר בקשת משתמש עשויה לדרוש כלי חיצוני, אל תטען שהכלי אינו זמין. תחילה התקשר ל-tool_catalog עם שאילתה תמציתית כדי למצוא את הכלי הנדרש, לאחר מכן התקשר ל-tool_load במידת הצורך, ורק לאחר מכן ענה למשתמש. השתמש בפונקציות הכלי הזמינות במקום להדפיס דוגמה JSON."
+"כאשר בקשת משתמש עשויה לדרוש כלי חיצוני, אל תטען שהכלי אינו זמין. תחילה התקשר"
+" ל-tool_catalog עם שאילתה תמציתית כדי למצוא את הכלי הנדרש, לאחר מכן התקשר "
+"ל-tool_load במידת הצורך, ורק לאחר מכן ענה למשתמש. השתמש בפונקציות הכלי "
+"הזמינות במקום להדפיס דוגמה JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM סיבוב מופסק: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "הטייס האוטומטי הופסק: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "הזן תגובה עבור human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "הפעל את Computer Use (עוקף את UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "השבת את Computer Use (עוקף את UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "יכולת Computer Use אינה זמינה עבור %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use אינו נתמך עבור %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use מבקש הרשאה לפעולה '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "שלוט בשולחן העבודה המקומי באמצעות זמן הריצה Computer Use המוגן."
+
+msgid "computer use is disabled"
+msgstr "השימוש במחשב מושבת"
+
+msgid "user confirmation is required"
+msgstr "נדרש אישור משתמש"
+
+msgid "user confirmation was not granted"
+msgstr "אישור המשתמש לא ניתן"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "זמן הריצה החזיר action_id לא תואם"

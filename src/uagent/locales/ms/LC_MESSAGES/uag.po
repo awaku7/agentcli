@@ -1509,7 +1509,9 @@ msgstr "[mod] penaakulan=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 msgid "[mode] verbosity=%(mode)s"
@@ -4519,7 +4521,6 @@ msgstr "%(n)d didayakan: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Laluan workdir yang ditentukan ialah fail: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4532,20 +4533,63 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Kembalikan teks summary sahaja."
+msgstr "Kembalikan teks summary sahaja."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Kembalikan hanya objek JSON yang telah dibersihkan."
+msgstr "Kembalikan hanya objek JSON yang telah dibersihkan."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Anda ialah enjin translation. Terjemah teks pengguna dengan setia. Jangan tambah penjelasan. Kekalkan blok kod, kod sebaris, JSON, laluan fail dan URL secara verbatim."
+"Anda ialah enjin translation. Terjemah teks pengguna dengan setia. Jangan "
+"tambah penjelasan. Kekalkan blok kod, kod sebaris, JSON, laluan fail dan URL"
+" secara verbatim."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Apabila permintaan pengguna mungkin memerlukan alat luaran, jangan dakwa alat itu tidak tersedia. Mula-mula panggil tool_catalog dengan pertanyaan ringkas untuk mencari alat yang diperlukan, kemudian hubungi tool_load jika perlu, dan kemudian jawab pengguna. Gunakan fungsi alat yang tersedia dan bukannya mencetak contoh JSON."
+"Apabila permintaan pengguna mungkin memerlukan alat luaran, jangan dakwa "
+"alat itu tidak tersedia. Mula-mula panggil tool_catalog dengan pertanyaan "
+"ringkas untuk mencari alat yang diperlukan, kemudian hubungi tool_load jika "
+"perlu, dan kemudian jawab pengguna. Gunakan fungsi alat yang tersedia dan "
+"bukannya mencetak contoh JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM pusingan terganggu: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Auto-pilot terganggu: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Masukkan jawapan untuk human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Dayakan Computer Use (mengatasi UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Lumpuhkan Computer Use (mengatasi UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Keupayaan Computer Use tidak tersedia untuk %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use tidak disokong untuk %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use meminta kebenaran untuk tindakan '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Kawal desktop tempatan melalui masa jalan Computer Use yang dikawal."
+
+msgid "computer use is disabled"
+msgstr "penggunaan komputer dilumpuhkan"
+
+msgid "user confirmation is required"
+msgstr "pengesahan pengguna diperlukan"
+
+msgid "user confirmation was not granted"
+msgstr "pengesahan pengguna tidak diberikan"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "masa jalan mengembalikan action_id yang tidak sepadan"

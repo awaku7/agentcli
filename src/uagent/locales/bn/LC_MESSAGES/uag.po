@@ -1590,7 +1590,9 @@ msgstr "[মোড] যুক্তি =%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4794,7 +4796,6 @@ msgstr "%(n)d সক্ষম: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4805,20 +4806,64 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"শুধুমাত্র summary পাঠ্য ফেরত দিন।"
+msgstr "শুধুমাত্র summary পাঠ্য ফেরত দিন।"
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"শুধুমাত্র পরিষ্কার করা JSON বস্তু ফেরত দিন।"
+msgstr "শুধুমাত্র পরিষ্কার করা JSON বস্তু ফেরত দিন।"
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"আপনি একটি translation ইঞ্জিন৷ ব্যবহারকারীর লেখা বিশ্বস্ততার সাথে অনুবাদ করুন। ব্যাখ্যা যোগ করবেন না. কোড ব্লক, ইনলাইন কোড, JSON, ফাইল পাথ, এবং URL গুলি শব্দার্থে সংরক্ষণ করুন৷"
+"আপনি একটি translation ইঞ্জিন৷ ব্যবহারকারীর লেখা বিশ্বস্ততার সাথে অনুবাদ "
+"করুন। ব্যাখ্যা যোগ করবেন না. কোড ব্লক, ইনলাইন কোড, JSON, ফাইল পাথ, এবং URL "
+"গুলি শব্দার্থে সংরক্ষণ করুন৷"
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"যখন কোনও ব্যবহারকারীর অনুরোধের জন্য একটি বাহ্যিক সরঞ্জামের প্রয়োজন হতে পারে, তখন দাবি করবেন না যে সরঞ্জামটি অনুপলব্ধ। প্রয়োজনীয় টুল খুঁজে পেতে প্রথমে একটি সংক্ষিপ্ত ক্যোয়ারী সহ tool_catalog এ কল করুন, তারপর প্রয়োজন হলে tool_load এ কল করুন এবং শুধুমাত্র তারপর ব্যবহারকারীকে উত্তর দিন। একটি JSON উদাহরণ প্রিন্ট করার পরিবর্তে উপলব্ধ টুল ফাংশন ব্যবহার করুন৷"
+"যখন কোনও ব্যবহারকারীর অনুরোধের জন্য একটি বাহ্যিক সরঞ্জামের প্রয়োজন হতে "
+"পারে, তখন দাবি করবেন না যে সরঞ্জামটি অনুপলব্ধ। প্রয়োজনীয় টুল খুঁজে পেতে "
+"প্রথমে একটি সংক্ষিপ্ত ক্যোয়ারী সহ tool_catalog এ কল করুন, তারপর প্রয়োজন "
+"হলে tool_load এ কল করুন এবং শুধুমাত্র তারপর ব্যবহারকারীকে উত্তর দিন। একটি "
+"JSON উদাহরণ প্রিন্ট করার পরিবর্তে উপলব্ধ টুল ফাংশন ব্যবহার করুন৷"
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM রাউন্ড বাধাপ্রাপ্ত: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "অটো-পাইলট বাধাপ্রাপ্ত: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask এর জন্য প্রতিক্রিয়া লিখুন..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use সক্ষম করুন (অভাররাইড UAGENT_COMPUTER_USE env var)।"
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "অক্ষম করুন Computer Use (অভাররাইড UAGENT_COMPUTER_USE env var)।"
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "%(provider)s/%(model)s এর জন্য Computer Use ক্ষমতা অনুপলব্ধ৷"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use %(provider)s/%(model)s এর জন্য সমর্থিত নয়"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use '%(action)s' অ্যাকশনের জন্য অনুমতির অনুরোধ করে"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"সুরক্ষিত Computer Use রানটাইমের মাধ্যমে স্থানীয় ডেস্কটপ নিয়ন্ত্রণ করুন।"
+
+msgid "computer use is disabled"
+msgstr "কম্পিউটার ব্যবহার অক্ষম করা হয়"
+
+msgid "user confirmation is required"
+msgstr "ব্যবহারকারী নিশ্চিতকরণ প্রয়োজন"
+
+msgid "user confirmation was not granted"
+msgstr "ব্যবহারকারী নিশ্চিতকরণ মঞ্জুর করা হয়নি"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "রানটাইম একটি অমিল action_id ফেরত দিয়েছে"

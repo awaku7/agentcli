@@ -1578,7 +1578,9 @@ msgstr "[modus] resonnering=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4771,7 +4773,6 @@ msgstr "%(n)d aktivert: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "den angitte workdir-stien er en fil: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4784,20 +4785,65 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Returner bare teksten summary."
+msgstr "Returner bare teksten summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Returner bare det rensede JSON-objektet."
+msgstr "Returner bare det rensede JSON-objektet."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Du er en translation motor. Oversett brukerens tekst trofast. Ikke legg til forklaringer. Bevar kodeblokker, innebygd kode, JSON, filbaner og nettadresser ordrett."
+"Du er en translation motor. Oversett brukerens tekst trofast. Ikke legg til "
+"forklaringer. Bevar kodeblokker, innebygd kode, JSON, filbaner og "
+"nettadresser ordrett."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Når en brukerforespørsel kan kreve et eksternt verktøy, ikke påstå at verktøyet er utilgjengelig. Ring først tool_catalog med et kortfattet spørsmål for å finne det nødvendige verktøyet, ring deretter tool_load om nødvendig, og svar først deretter brukeren. Bruk de tilgjengelige verktøyfunksjonene i stedet for å skrive ut et JSON eksempel."
+"Når en brukerforespørsel kan kreve et eksternt verktøy, ikke påstå at "
+"verktøyet er utilgjengelig. Ring først tool_catalog med et kortfattet "
+"spørsmål for å finne det nødvendige verktøyet, ring deretter tool_load om "
+"nødvendig, og svar først deretter brukeren. Bruk de tilgjengelige "
+"verktøyfunksjonene i stedet for å skrive ut et JSON eksempel."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM runde avbrutt: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Autopilot avbrutt: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Skriv inn svar for human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Aktiver Computer Use (overstyrer UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Deaktiver Computer Use (overstyrer UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use-funksjonen er utilgjengelig for %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use støttes ikke for %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use ber om tillatelse til handlingen '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Kontroller det lokale skrivebordet gjennom den bevoktede Computer Use "
+"kjøretiden."
+
+msgid "computer use is disabled"
+msgstr "datamaskinbruk er deaktivert"
+
+msgid "user confirmation is required"
+msgstr "brukerbekreftelse kreves"
+
+msgid "user confirmation was not granted"
+msgstr "brukerbekreftelse ble ikke gitt"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime returnerte en feilaktig action_id"

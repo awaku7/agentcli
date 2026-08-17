@@ -1493,7 +1493,9 @@ msgstr "[modus] resonnement=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 msgid "[mode] verbosity=%(mode)s"
@@ -4500,28 +4502,74 @@ msgstr "%(n)d aktivert: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Spesifisert workdir-bane er en fil: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Du er reviewer. Evaluer samtalen under og finn ut om målet \"%(goal)s\" er nådd.Oppnådd→_PH_1_Mer trengs→_PH_2_Svar med_PH_1 eller_PH_2.Hvis CONTINUE, oppgi kort hva som mangler.Format: CONTINUE: <reason>"
+"Du er reviewer. Evaluer samtalen under og finn ut om målet \"%(goal)s\" er "
+"nådd.Oppnådd→_PH_1_Mer trengs→_PH_2_Svar med_PH_1 eller_PH_2.Hvis CONTINUE, "
+"oppgi kort hva som mangler.Format: CONTINUE: <reason>"
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Returner kun summary-teksten."
+msgstr "Returner kun summary-teksten."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Returner kun det rensede JSON-objektet."
+msgstr "Returner kun det rensede JSON-objektet."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Du er en translation-motor. Oversett brukerens tekst trofast. Ikke legg til forklaringer. Bevar kodeblokker, innebygd kode, JSON, filbaner og URL-adresser ordrett."
+"Du er en translation-motor. Oversett brukerens tekst trofast. Ikke legg til "
+"forklaringer. Bevar kodeblokker, innebygd kode, JSON, filbaner og URL-"
+"adresser ordrett."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Når ein brukarforespørsel kan krevje eit eksternt verktøy, må du ikkje hevde at verktøyet er utilgjengeleg. Ring først tool_catalog med en kortfattet spørring for å finne det nødvendige verktøyet, ring tool_load om nødvendig, og svar deretter brukeren. Bruk de tilgjengelige verktøyfunksjonene i stedet for å skrive ut et JSON-eksempel."
+"Når ein brukarforespørsel kan krevje eit eksternt verktøy, må du ikkje hevde"
+" at verktøyet er utilgjengeleg. Ring først tool_catalog med en kortfattet "
+"spørring for å finne det nødvendige verktøyet, ring tool_load om nødvendig, "
+"og svar deretter brukeren. Bruk de tilgjengelige verktøyfunksjonene i stedet"
+" for å skrive ut et JSON-eksempel."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM runde avbrutt: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Auto-pilot avbrutt: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Skriv inn svar for human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Aktiver Computer Use (overstyrer UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Deaktiver Computer Use (overstyrer UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use-funksjonen er utilgjengelig for %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use støttes ikke for %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use ber om tillatelse til handling '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Kontroller det lokale skrivebordet gjennom den beskyttede Computer Use-"
+"kjøretiden."
+
+msgid "computer use is disabled"
+msgstr "datamaskinbruk er deaktivert"
+
+msgid "user confirmation is required"
+msgstr "brukerbekreftelse er påkrevd"
+
+msgid "user confirmation was not granted"
+msgstr "brukerbekreftelse er ikke innvilget"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime returnerte en uoverensstemmelse action_id"

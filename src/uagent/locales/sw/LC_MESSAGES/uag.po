@@ -1562,7 +1562,9 @@ msgstr "[hali] hoja=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4688,7 +4690,6 @@ msgstr "%(n)d imewashwa: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4701,20 +4702,62 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Rudisha maandishi summary pekee."
+msgstr "Rudisha maandishi summary pekee."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Rudisha tu kitu JSON kilichosafishwa."
+msgstr "Rudisha tu kitu JSON kilichosafishwa."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Wewe ni translation injini. Tafsiri maandishi ya mtumiaji kwa uaminifu. Usiongeze maelezo. Hifadhi vizuizi vya misimbo, msimbo wa ndani, JSON, njia za faili na URL kwa neno moja."
+"Wewe ni translation injini. Tafsiri maandishi ya mtumiaji kwa uaminifu. "
+"Usiongeze maelezo. Hifadhi vizuizi vya misimbo, msimbo wa ndani, JSON, njia "
+"za faili na URL kwa neno moja."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Wakati ombi la mtumiaji linaweza kuhitaji zana ya nje, usidai kuwa zana hiyo haipatikani. Kwanza piga simu tool_catalog ukiwa na swali fupi ili kupata zana inayohitajika, kisha piga tool_load ikihitajika, kisha ujibu mtumiaji. Tumia zana zinazopatikana za kukokotoa badala ya kuchapisha mfano wa JSON."
+"Wakati ombi la mtumiaji linaweza kuhitaji zana ya nje, usidai kuwa zana hiyo"
+" haipatikani. Kwanza piga simu tool_catalog ukiwa na swali fupi ili kupata "
+"zana inayohitajika, kisha piga tool_load ikihitajika, kisha ujibu mtumiaji. "
+"Tumia zana zinazopatikana za kukokotoa badala ya kuchapisha mfano wa JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM raundi imekatizwa: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Majaribio ya kiotomatiki yamekatizwa: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Weka jibu la human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Washa Computer Use (inabatilisha UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Zima Computer Use (inabatilisha UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Uwezo wa Computer Use haupatikani kwa %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use haitumiki kwa %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use anaomba ruhusa ya kuchukua hatua '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Dhibiti eneo-kazi la ndani kupitia muda wa Computer Use unaolindwa."
+
+msgid "computer use is disabled"
+msgstr "matumizi ya kompyuta yamezimwa"
+
+msgid "user confirmation is required"
+msgstr "uthibitisho wa mtumiaji unahitajika"
+
+msgid "user confirmation was not granted"
+msgstr "uthibitisho wa mtumiaji haukutolewa"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "muda wa utekelezaji ulileta action_id isiyolingana"

@@ -1517,7 +1517,9 @@ msgstr "[mode] pangangatwiran=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 msgid "[mode] verbosity=%(mode)s"
@@ -4562,7 +4564,6 @@ msgstr "Pinagana ang %(n)d: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Ang tinukoy na workdir path ay isang file: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4575,20 +4576,71 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Ibalik lamang ang summary na teksto."
+msgstr "Ibalik lamang ang summary na teksto."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Ibalik lamang ang nalinis na JSON na bagay."
+msgstr "Ibalik lamang ang nalinis na JSON na bagay."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Isa kang translation engine. Isalin nang tapat ang text ng user. Huwag magdagdag ng mga paliwanag. Panatilihin ang mga bloke ng code, inline na code, JSON, mga path ng file, at mga URL na verbatim."
+"Isa kang translation engine. Isalin nang tapat ang text ng user. Huwag "
+"magdagdag ng mga paliwanag. Panatilihin ang mga bloke ng code, inline na "
+"code, JSON, mga path ng file, at mga URL na verbatim."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Kapag ang kahilingan ng user ay maaaring mangailangan ng panlabas na tool, huwag i-claim na hindi available ang tool. Tumawag muna sa tool_catalog na may maigsi na query upang mahanap ang kinakailangang tool, pagkatapos ay tumawag sa tool_load kung kinakailangan, at pagkatapos lamang sagutin ang user. Gamitin ang magagamit na mga function ng tool sa halip na mag-print ng JSON na halimbawa."
+"Kapag ang kahilingan ng user ay maaaring mangailangan ng panlabas na tool, "
+"huwag i-claim na hindi available ang tool. Tumawag muna sa tool_catalog na "
+"may maigsi na query upang mahanap ang kinakailangang tool, pagkatapos ay "
+"tumawag sa tool_load kung kinakailangan, at pagkatapos lamang sagutin ang "
+"user. Gamitin ang magagamit na mga function ng tool sa halip na mag-print ng"
+" JSON na halimbawa."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM round ang naantala: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Naantala ang auto-pilot: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Ilagay ang tugon para sa human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Paganahin ang Computer Use (i-override ang UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Huwag paganahin ang Computer Use (i-override ang UAGENT_COMPUTER_USE env "
+"var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Hindi available ang kakayahan ng Computer Use para sa %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Ang Computer Use ay hindi suportado para sa %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr ""
+"Computer Use ay humihiling ng pahintulot para sa pagkilos '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Kontrolin ang lokal na desktop sa pamamagitan ng binabantayang Computer Use "
+"runtime."
+
+msgid "computer use is disabled"
+msgstr "hindi pinagana ang paggamit ng computer"
+
+msgid "user confirmation is required"
+msgstr "kinakailangan ang kumpirmasyon ng user"
+
+msgid "user confirmation was not granted"
+msgstr "hindi ibinigay ang kumpirmasyon ng user"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "Ang runtime ay nagbalik ng hindi tugmang action_id"

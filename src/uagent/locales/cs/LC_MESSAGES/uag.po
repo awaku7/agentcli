@@ -1582,7 +1582,9 @@ msgstr "[režim] uvažování=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4807,7 +4809,6 @@ msgstr "%(n)d povoleno: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4820,20 +4821,65 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Vrátit pouze text summary."
+msgstr "Vrátit pouze text summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Vraťte pouze vyčištěný objekt JSON."
+msgstr "Vraťte pouze vyčištěný objekt JSON."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Jste motor translation. Přeložte text uživatele věrně. Nepřidávejte vysvětlení. Zachovat bloky kódu, vložený kód, JSON, cesty k souborům a adresy URL doslovně."
+"Jste motor translation. Přeložte text uživatele věrně. Nepřidávejte "
+"vysvětlení. Zachovat bloky kódu, vložený kód, JSON, cesty k souborům a "
+"adresy URL doslovně."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Pokud požadavek uživatele může vyžadovat externí nástroj, netvrdte, že nástroj je nedostupný. Nejprve zavolejte tool_catalog se stručným dotazem, abyste nalezli požadovaný nástroj, poté v případě potřeby zavolejte tool_load a teprve potom odpovězte uživateli. Místo tisku příkladu JSON použijte dostupné funkce nástroje."
+"Pokud požadavek uživatele může vyžadovat externí nástroj, netvrdte, že "
+"nástroj je nedostupný. Nejprve zavolejte tool_catalog se stručným dotazem, "
+"abyste nalezli požadovaný nástroj, poté v případě potřeby zavolejte "
+"tool_load a teprve potom odpovězte uživateli. Místo tisku příkladu JSON "
+"použijte dostupné funkce nástroje."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM kolo přerušeno: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Autopilot přerušen: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Zadejte odpověď pro human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Povolit Computer Use (přepíše UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Zakázat Computer Use (přepíše UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Funkce Computer Use není pro %(provider)s/%(model)s k dispozici"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use není podporováno pro %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use žádá o povolení k akci „%(action)s“"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Ovládejte místní plochu prostřednictvím chráněného běhového prostředí "
+"Computer Use."
+
+msgid "computer use is disabled"
+msgstr "používání počítače je zakázáno"
+
+msgid "user confirmation is required"
+msgstr "je vyžadováno potvrzení uživatele"
+
+msgid "user confirmation was not granted"
+msgstr "potvrzení uživatele nebylo uděleno"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime vrátilo neshodné action_id"

@@ -1559,7 +1559,9 @@ msgstr "[حالت] استدلال=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4738,28 +4740,73 @@ msgstr "%(n)d فعال شد: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسیر مشخص‌شدهٔ workdir یک فایل است: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"شما یک reviewer هستید. مکالمه زیر را ارزیابی کنید و مشخص کنید که آیا هدف \"%(goal)s\" محقق شده است یا نه."
+"شما یک reviewer هستید. مکالمه زیر را ارزیابی کنید و مشخص کنید که آیا هدف "
+"\"%(goal)s\" محقق شده است یا نه."
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"فقط متن summary را برگردانید."
+msgstr "فقط متن summary را برگردانید."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"فقط شی JSON پاک شده را برگردانید."
+msgstr "فقط شی JSON پاک شده را برگردانید."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"شما یک موتور translation هستید. متن کاربر را صادقانه ترجمه کنید. توضیحات اضافه نکنید. بلوک های کد، کد درون خطی، JSON، مسیرهای فایل، و URL ها را به کلمه حفظ کنید."
+"شما یک موتور translation هستید. متن کاربر را صادقانه ترجمه کنید. توضیحات "
+"اضافه نکنید. بلوک های کد، کد درون خطی، JSON، مسیرهای فایل، و URL ها را به "
+"کلمه حفظ کنید."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"هنگامی که درخواست کاربر ممکن است به ابزار خارجی نیاز داشته باشد، ادعا نکنید که ابزار در دسترس نیست. ابتدا با پرس و جوی مختصر با tool_catalog تماس بگیرید تا ابزار مورد نیاز را بیابید، سپس در صورت نیاز با tool_load تماس بگیرید و تنها پس از آن به کاربر پاسخ دهید. به جای چاپ یک مثال JSON از توابع ابزار موجود استفاده کنید."
+"هنگامی که درخواست کاربر ممکن است به ابزار خارجی نیاز داشته باشد، ادعا نکنید "
+"که ابزار در دسترس نیست. ابتدا با پرس و جوی مختصر با tool_catalog تماس بگیرید"
+" تا ابزار مورد نیاز را بیابید، سپس در صورت نیاز با tool_load تماس بگیرید و "
+"تنها پس از آن به کاربر پاسخ دهید. به جای چاپ یک مثال JSON از توابع ابزار "
+"موجود استفاده کنید."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM دور قطع شد: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "خلبان خودکار قطع شد: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "پاسخ را برای human_ask وارد کنید..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use را فعال کنید (UAGENT_COMPUTER_USE env var را لغو می کند)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use را غیرفعال کنید (UAGENT_COMPUTER_USE env var را لغو می کند)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "قابلیت Computer Use برای %(provider)s/%(model)s در دسترس نیست"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use برای %(provider)s/%(model)s پشتیبانی نمی شود"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use برای اقدام «%(action)s» اجازه درخواست می‌کند"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "دسکتاپ محلی را از طریق زمان اجرا Computer Use محافظت شده کنترل کنید."
+
+msgid "computer use is disabled"
+msgstr "استفاده از کامپیوتر غیرفعال است"
+
+msgid "user confirmation is required"
+msgstr "تایید کاربر مورد نیاز است"
+
+msgid "user confirmation was not granted"
+msgstr "تایید کاربر داده نشد"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "زمان اجرا یک action_id نامتناسب را برگرداند"

@@ -1510,7 +1510,9 @@ msgstr "[mode] 推理=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4605,7 +4607,6 @@ msgstr "%(n)d 已启用：%(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的工作目录路径是文件：%(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4618,20 +4619,57 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"仅返回 summary 文本。"
+msgstr "仅返回 summary 文本。"
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"仅返回清理后的 JSON 对象。"
+msgstr "仅返回清理后的 JSON 对象。"
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
-msgstr ""
-"您是 translation 引擎。忠实翻译用户的文本。不要添加解释。逐字保留代码块、内联代码、JSON、文件路径和 URL。"
+msgstr "您是 translation 引擎。忠实翻译用户的文本。不要添加解释。逐字保留代码块、内联代码、JSON、文件路径和 URL。"
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"当用户请求可能需要外部工具时，不要声称该工具不可用。首先通过简洁的查询调用 tool_catalog 来查找所需的工具，然后在需要时调用 tool_load，然后才回答用户。使用可用的工具功能而不是打印 JSON 示例。"
+"当用户请求可能需要外部工具时，不要声称该工具不可用。首先通过简洁的查询调用 tool_catalog 来查找所需的工具，然后在需要时调用 "
+"tool_load，然后才回答用户。使用可用的工具功能而不是打印 JSON 示例。"
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM 轮中断：%(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "自动驾驶仪中断：%(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "输入 human_ask 的回复..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "启用 Computer Use（覆盖 UAGENT_COMPUTER_USE 环境变量）。"
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "禁用 Computer Use（覆盖 UAGENT_COMPUTER_USE 环境变量）。"
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use 功能不适用于 %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "%(provider)s/%(model)s 不支持 Computer Use"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use 请求操作“%(action)s”的权限"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "通过受保护的 Computer Use 运行时控制本地桌面。"
+
+msgid "computer use is disabled"
+msgstr "计算机使用已被禁用"
+
+msgid "user confirmation is required"
+msgstr "需要用户确认"
+
+msgid "user confirmation was not granted"
+msgstr "未授予用户确认"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "运行时返回不匹配的 action_id"

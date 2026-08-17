@@ -1574,7 +1574,9 @@ msgstr "[मोड] तर्क=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4765,7 +4767,6 @@ msgstr "%(n)d सक्षम: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट workdir मार्ग फाइल आहे: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4776,20 +4777,63 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"फक्त summary मजकूर परत करा."
+msgstr "फक्त summary मजकूर परत करा."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"फक्त साफ केलेला JSON ऑब्जेक्ट परत करा."
+msgstr "फक्त साफ केलेला JSON ऑब्जेक्ट परत करा."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"तुम्ही translation इंजिन आहात. वापरकर्त्याच्या मजकुराचे विश्वासूपणे भाषांतर करा. स्पष्टीकरण जोडू नका. कोड ब्लॉक्स, इनलाइन कोड, JSON, फाईल पथ आणि URL शब्दशः जतन करा."
+"तुम्ही translation इंजिन आहात. वापरकर्त्याच्या मजकुराचे विश्वासूपणे भाषांतर "
+"करा. स्पष्टीकरण जोडू नका. कोड ब्लॉक्स, इनलाइन कोड, JSON, फाईल पथ आणि URL "
+"शब्दशः जतन करा."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"जेव्हा वापरकर्त्याच्या विनंतीसाठी बाह्य साधनाची आवश्यकता असू शकते, तेव्हा साधन अनुपलब्ध असल्याचा दावा करू नका. प्रथम आवश्यक साधन शोधण्यासाठी संक्षिप्त क्वेरीसह tool_catalog वर कॉल करा, नंतर आवश्यक असल्यास tool_load वर कॉल करा आणि त्यानंतरच वापरकर्त्याला उत्तर द्या. JSON उदाहरण मुद्रित करण्याऐवजी उपलब्ध साधन कार्ये वापरा."
+"जेव्हा वापरकर्त्याच्या विनंतीसाठी बाह्य साधनाची आवश्यकता असू शकते, तेव्हा "
+"साधन अनुपलब्ध असल्याचा दावा करू नका. प्रथम आवश्यक साधन शोधण्यासाठी संक्षिप्त"
+" क्वेरीसह tool_catalog वर कॉल करा, नंतर आवश्यक असल्यास tool_load वर कॉल करा "
+"आणि त्यानंतरच वापरकर्त्याला उत्तर द्या. JSON उदाहरण मुद्रित करण्याऐवजी "
+"उपलब्ध साधन कार्ये वापरा."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM फेरी व्यत्यय: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "स्वयं-पायलट व्यत्यय: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask साठी प्रतिसाद प्रविष्ट करा..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use सक्षम करा (ओव्हरराइड UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use अक्षम करा (ओव्हरराइड UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "%(provider)s/%(model)s साठी Computer Use क्षमता अनुपलब्ध आहे"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use %(provider)s/%(model)s साठी समर्थित नाही"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use '%(action)s' क्रियेसाठी परवानगीची विनंती करतो"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "संरक्षित Computer Use रनटाइमद्वारे स्थानिक डेस्कटॉप नियंत्रित करा."
+
+msgid "computer use is disabled"
+msgstr "संगणक वापर अक्षम आहे"
+
+msgid "user confirmation is required"
+msgstr "वापरकर्ता पुष्टीकरण आवश्यक आहे"
+
+msgid "user confirmation was not granted"
+msgstr "वापरकर्ता पुष्टीकरण मंजूर केले नाही"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "रनटाइमने न जुळणारे action_id परत केले"

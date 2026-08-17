@@ -1619,7 +1619,9 @@ msgstr "[λειτουργία] συλλογισμός=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4875,7 +4877,6 @@ msgstr "%(n)d ενεργοποιημένο: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Η καθορισμένη διαδρομή workdir είναι ένα αρχείο: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4887,20 +4888,69 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Επιστρέψτε μόνο το κείμενο summary."
+msgstr "Επιστρέψτε μόνο το κείμενο summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Επιστρέψτε μόνο το καθαρισμένο αντικείμενο JSON."
+msgstr "Επιστρέψτε μόνο το καθαρισμένο αντικείμενο JSON."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Είστε translation κινητήρας. Μεταφράστε πιστά το κείμενο του χρήστη. Μην προσθέτετε επεξηγήσεις. Διατηρήστε μπλοκ κώδικα, ενσωματωμένο κώδικα, JSON, διαδρομές αρχείων και διευθύνσεις URL κατά λέξη."
+"Είστε translation κινητήρας. Μεταφράστε πιστά το κείμενο του χρήστη. Μην "
+"προσθέτετε επεξηγήσεις. Διατηρήστε μπλοκ κώδικα, ενσωματωμένο κώδικα, JSON, "
+"διαδρομές αρχείων και διευθύνσεις URL κατά λέξη."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Όταν ένα αίτημα χρήστη μπορεί να απαιτεί ένα εξωτερικό εργαλείο, μην ισχυρίζεστε ότι το εργαλείο δεν είναι διαθέσιμο. Πρώτα καλέστε tool_catalog με ένα συνοπτικό ερώτημα για να βρείτε το απαιτούμενο εργαλείο, μετά καλέστε tool_load εάν χρειάζεται και μόνο τότε απαντήστε στον χρήστη. Χρησιμοποιήστε τις διαθέσιμες λειτουργίες εργαλείου αντί να εκτυπώσετε ένα παράδειγμα JSON."
+"Όταν ένα αίτημα χρήστη μπορεί να απαιτεί ένα εξωτερικό εργαλείο, μην "
+"ισχυρίζεστε ότι το εργαλείο δεν είναι διαθέσιμο. Πρώτα καλέστε tool_catalog "
+"με ένα συνοπτικό ερώτημα για να βρείτε το απαιτούμενο εργαλείο, μετά καλέστε"
+" tool_load εάν χρειάζεται και μόνο τότε απαντήστε στον χρήστη. "
+"Χρησιμοποιήστε τις διαθέσιμες λειτουργίες εργαλείου αντί να εκτυπώσετε ένα "
+"παράδειγμα JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM διακοπή γύρου: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Ο αυτόματος πιλότος διακόπηκε: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Εισαγάγετε απάντηση για human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Ενεργοποίηση Computer Use (αντικαθιστά το UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Απενεργοποίηση Computer Use (αντικαθιστά UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Η δυνατότητα Computer Use δεν είναι διαθέσιμη για %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Το Computer Use δεν υποστηρίζεται για %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use ζητά άδεια για την ενέργεια \"%(action)s\""
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Ελέγξτε την τοπική επιφάνεια εργασίας μέσω του φυλασσόμενου χρόνου εκτέλεσης"
+" Computer Use."
+
+msgid "computer use is disabled"
+msgstr "η χρήση υπολογιστή είναι απενεργοποιημένη"
+
+msgid "user confirmation is required"
+msgstr "απαιτείται επιβεβαίωση χρήστη"
+
+msgid "user confirmation was not granted"
+msgstr "επιβεβαίωση χρήστη δεν χορηγήθηκε"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "Ο χρόνος εκτέλεσης επέστρεψε μια αναντιστοιχία action_id"

@@ -1600,7 +1600,9 @@ msgstr "[modul] raționament=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4849,7 +4851,6 @@ msgstr "%(n)d activat: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Calea workdir specificată este un fișier: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4862,20 +4863,66 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Returnați numai textul summary."
+msgstr "Returnați numai textul summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Returnați numai obiectul JSON curățat."
+msgstr "Returnați numai obiectul JSON curățat."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Sunteți un motor translation. Traduceți cu fidelitate textul utilizatorului. Nu adăugați explicații. Păstrați blocurile de cod, codul inline, JSON, căile fișierelor și adresele URL literal."
+"Sunteți un motor translation. Traduceți cu fidelitate textul utilizatorului."
+" Nu adăugați explicații. Păstrați blocurile de cod, codul inline, JSON, "
+"căile fișierelor și adresele URL literal."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Când o cerere de utilizator poate necesita un instrument extern, nu pretindeți că instrumentul este indisponibil. Mai întâi sunați tool_catalog cu o interogare concisă pentru a găsi instrumentul necesar, apoi sunați tool_load dacă este necesar și abia apoi răspundeți utilizatorului. Utilizați funcțiile instrumentului disponibile în loc să imprimați un exemplu JSON."
+"Când o cerere de utilizator poate necesita un instrument extern, nu "
+"pretindeți că instrumentul este indisponibil. Mai întâi sunați tool_catalog "
+"cu o interogare concisă pentru a găsi instrumentul necesar, apoi sunați "
+"tool_load dacă este necesar și abia apoi răspundeți utilizatorului. "
+"Utilizați funcțiile instrumentului disponibile în loc să imprimați un "
+"exemplu JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM rundă întreruptă: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Pilot automat întrerupt: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Introduceți răspunsul pentru human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Activați Computer Use (înlocuiește UAGENT_COMPUTER_USE var env)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Dezactivați Computer Use (înlocuiește UAGENT_COMPUTER_USE var env)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Capacitatea Computer Use nu este disponibilă pentru %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use nu este acceptat pentru %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use solicită permisiunea pentru acțiunea „%(action)s”"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Controlați desktopul local prin timpul de execuție protejat Computer Use."
+
+msgid "computer use is disabled"
+msgstr "utilizarea computerului este dezactivată"
+
+msgid "user confirmation is required"
+msgstr "este necesară confirmarea utilizatorului"
+
+msgid "user confirmation was not granted"
+msgstr "confirmarea utilizatorului nu a fost acordată"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime a returnat un action_id nepotrivit"

@@ -1594,7 +1594,9 @@ msgstr "[горим] үндэслэл=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4822,7 +4824,6 @@ msgstr "%(n)d идэвхжүүлсэн: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Заасан ажлын чиглэлийн зам нь файл юм: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4835,20 +4836,66 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Зөвхөн summary текстийг буцаана уу."
+msgstr "Зөвхөн summary текстийг буцаана уу."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Зөвхөн цэвэрлэсэн JSON объектыг буцаана уу."
+msgstr "Зөвхөн цэвэрлэсэн JSON объектыг буцаана уу."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Та бол translation хөдөлгүүр. Хэрэглэгчийн текстийг үнэнчээр орчуулаарай. Тайлбар нэмж болохгүй. Кодын блок, шугаман код, JSON, файлын зам, URL хаягийг үгчлэн хадгална."
+"Та бол translation хөдөлгүүр. Хэрэглэгчийн текстийг үнэнчээр орчуулаарай. "
+"Тайлбар нэмж болохгүй. Кодын блок, шугаман код, JSON, файлын зам, URL "
+"хаягийг үгчлэн хадгална."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Хэрэглэгчийн хүсэлтэд гадны хэрэгсэл шаардлагатай бол уг хэрэгслийг ашиглах боломжгүй гэж бүү мэдэгдээрэй. Эхлээд tool_catalog руу залгаад шаардлагатай хэрэгслийг олохын тулд товч асууж, дараа нь шаардлагатай бол tool_load руу залгаж, зөвхөн дараа нь хэрэглэгчдэд хариулна уу. JSON жишээ хэвлэхийн оронд боломжтой хэрэгслийн функцуудыг ашиглана уу."
+"Хэрэглэгчийн хүсэлтэд гадны хэрэгсэл шаардлагатай бол уг хэрэгслийг ашиглах "
+"боломжгүй гэж бүү мэдэгдээрэй. Эхлээд tool_catalog руу залгаад шаардлагатай "
+"хэрэгслийг олохын тулд товч асууж, дараа нь шаардлагатай бол tool_load руу "
+"залгаж, зөвхөн дараа нь хэрэглэгчдэд хариулна уу. JSON жишээ хэвлэхийн оронд"
+" боломжтой хэрэгслийн функцуудыг ашиглана уу."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM тойрог тасалдсан: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Автомат нисгэгч тасалдсан: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask-д хариу оруулна уу..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use-г идэвхжүүлэх (UAGENT_COMPUTER_USE env var-ыг дарна)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Computer Use-г идэвхгүй болгох (UAGENT_COMPUTER_USE env var-ыг дарна)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use чадвар %(provider)s/%(model)s-д боломжгүй"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use-г %(provider)s/%(model)s-д дэмждэггүй"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use '%(action)s' үйлдэл хийх зөвшөөрөл хүсч байна"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Хамгаалагдсан Computer Use ажиллах хугацаанд дамжуулан дотоод ширээний "
+"компьютерийг удирдаарай."
+
+msgid "computer use is disabled"
+msgstr "компьютерийн хэрэглээ идэвхгүй болсон"
+
+msgid "user confirmation is required"
+msgstr "хэрэглэгчийн баталгаажуулалт шаардлагатай"
+
+msgid "user confirmation was not granted"
+msgstr "хэрэглэгчийн баталгаажуулалтыг өгөөгүй"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "ажиллах хугацаа нь таарахгүй action_id-г буцаасан"

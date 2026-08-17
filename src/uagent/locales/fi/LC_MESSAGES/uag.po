@@ -1588,7 +1588,9 @@ msgstr "[tila] päättely=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4807,7 +4809,6 @@ msgstr "%(n)d käytössä: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4820,20 +4821,65 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Palauta vain teksti summary."
+msgstr "Palauta vain teksti summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Palauta vain puhdistettu JSON-objekti."
+msgstr "Palauta vain puhdistettu JSON-objekti."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Olet translation-moottori. Käännä käyttäjän teksti uskollisesti. Älä lisää selityksiä. Säilytä koodilohkot, tekstin sisäinen koodi, JSON, tiedostopolut ja URL-osoitteet sanatarkasti."
+"Olet translation-moottori. Käännä käyttäjän teksti uskollisesti. Älä lisää "
+"selityksiä. Säilytä koodilohkot, tekstin sisäinen koodi, JSON, tiedostopolut"
+" ja URL-osoitteet sanatarkasti."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Kun käyttäjän pyyntö saattaa edellyttää ulkoista työkalua, älä väitä, että työkalu ei ole käytettävissä. Soita ensin numeroon tool_catalog tiiviillä kyselyllä löytääksesi tarvittava työkalu, soita sitten tarvittaessa numeroon tool_load ja vasta sitten vastaa käyttäjälle. Käytä käytettävissä olevia työkalutoimintoja JSON-esimerkin tulostamisen sijaan."
+"Kun käyttäjän pyyntö saattaa edellyttää ulkoista työkalua, älä väitä, että "
+"työkalu ei ole käytettävissä. Soita ensin numeroon tool_catalog tiiviillä "
+"kyselyllä löytääksesi tarvittava työkalu, soita sitten tarvittaessa numeroon"
+" tool_load ja vasta sitten vastaa käyttäjälle. Käytä käytettävissä olevia "
+"työkalutoimintoja JSON-esimerkin tulostamisen sijaan."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM kierros keskeytetty: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Automaattiohjaus keskeytetty: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Anna vastaus kohteelle human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Ota käyttöön Computer Use (ohittaa UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Poista käytöstä Computer Use (ohittaa UAGENT_COMPUTER_USE env var)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Computer Use-ominaisuus ei ole käytettävissä malleissa "
+"%(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use ei tue %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use pyytää lupaa toimintoon '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Hallitse paikallista työpöytää suojatun Computer Use-ajoajan kautta."
+
+msgid "computer use is disabled"
+msgstr "tietokoneen käyttö on estetty"
+
+msgid "user confirmation is required"
+msgstr "vaaditaan käyttäjän vahvistus"
+
+msgid "user confirmation was not granted"
+msgstr "käyttäjän vahvistusta ei myönnetty"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "suoritusaika palautti yhteensopimattoman action_id"

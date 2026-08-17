@@ -1592,7 +1592,9 @@ msgstr "[mode] redenering=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4810,7 +4812,6 @@ msgstr "%(n)d ingeschakeld: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4823,20 +4824,68 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Retourneert alleen de tekst summary."
+msgstr "Retourneert alleen de tekst summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Retourneer alleen het gereinigde object JSON."
+msgstr "Retourneer alleen het gereinigde object JSON."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Je bent een translation-motor. Vertaal de tekst van de gebruiker getrouw. Voeg geen uitleg toe. Bewaar codeblokken, inline code, JSON, bestandspaden en URL's woordelijk."
+"Je bent een translation-motor. Vertaal de tekst van de gebruiker getrouw. "
+"Voeg geen uitleg toe. Bewaar codeblokken, inline code, JSON, bestandspaden "
+"en URL's woordelijk."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Wanneer voor een gebruikersverzoek mogelijk een extern hulpmiddel nodig is, mag u niet beweren dat het hulpmiddel niet beschikbaar is. Bel eerst tool_catalog met een korte vraag om het benodigde gereedschap te vinden, bel vervolgens indien nodig tool_load en antwoord dan pas de gebruiker. Gebruik de beschikbare toolfuncties in plaats van een JSON-voorbeeld af te drukken."
+"Wanneer voor een gebruikersverzoek mogelijk een extern hulpmiddel nodig is, "
+"mag u niet beweren dat het hulpmiddel niet beschikbaar is. Bel eerst "
+"tool_catalog met een korte vraag om het benodigde gereedschap te vinden, bel"
+" vervolgens indien nodig tool_load en antwoord dan pas de gebruiker. Gebruik"
+" de beschikbare toolfuncties in plaats van een JSON-voorbeeld af te drukken."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM ronde onderbroken: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Automatische piloot onderbroken: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Antwoord invoeren voor human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Schakel Computer Use in (overschrijft UAGENT_COMPUTER_USE "
+"omgevingsvariabele)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Schakel Computer Use uit (overschrijft UAGENT_COMPUTER_USE "
+"omgevingsvariabele)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"Computer Use-mogelijkheid is niet beschikbaar voor %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use wordt niet ondersteund voor %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use vraagt toestemming voor actie '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Beheer het lokale bureaublad via de bewaakte runtime Computer Use."
+
+msgid "computer use is disabled"
+msgstr "computergebruik is uitgeschakeld"
+
+msgid "user confirmation is required"
+msgstr "gebruikersbevestiging is vereist"
+
+msgid "user confirmation was not granted"
+msgstr "gebruikersbevestiging is niet verleend"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime heeft een niet-overeenkomende action_id geretourneerd"

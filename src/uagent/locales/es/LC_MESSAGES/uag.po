@@ -1601,7 +1601,9 @@ msgstr "[modo] razonamiento=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4862,7 +4864,6 @@ msgstr "%(n)d habilitado: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "la ruta de workdir especificada es un archivo: %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4875,20 +4876,67 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Devuelve solo el texto summary."
+msgstr "Devuelve solo el texto summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Devuelve solo el objeto JSON limpio."
+msgstr "Devuelve solo el objeto JSON limpio."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Eres un motor translation. Traduce fielmente el texto del usuario. No agregue explicaciones. Conserve los bloques de código, el código en línea, JSON, las rutas de archivo y las URL palabra por palabra."
+"Eres un motor translation. Traduce fielmente el texto del usuario. No "
+"agregue explicaciones. Conserve los bloques de código, el código en línea, "
+"JSON, las rutas de archivo y las URL palabra por palabra."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Cuando una solicitud de usuario pueda requerir una herramienta externa, no afirme que la herramienta no está disponible. Primero llame a tool_catalog con una consulta concisa para encontrar la herramienta requerida, luego llame a tool_load si es necesario y solo entonces responda al usuario. Utilice las funciones de herramientas disponibles en lugar de imprimir un ejemplo JSON."
+"Cuando una solicitud de usuario pueda requerir una herramienta externa, no "
+"afirme que la herramienta no está disponible. Primero llame a tool_catalog "
+"con una consulta concisa para encontrar la herramienta requerida, luego "
+"llame a tool_load si es necesario y solo entonces responda al usuario. "
+"Utilice las funciones de herramientas disponibles en lugar de imprimir un "
+"ejemplo JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM ronda interrumpida: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Piloto automático interrumpido: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Ingrese la respuesta para human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Habilite Computer Use (anula UAGENT_COMPUTER_USE var env)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Deshabilite Computer Use (anula UAGENT_COMPUTER_USE var env)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"La capacidad Computer Use no está disponible para %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use no es compatible con %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use solicita permiso para la acción '%(action)s'"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr ""
+"Controle el escritorio local a través del tiempo de ejecución protegido "
+"Computer Use."
+
+msgid "computer use is disabled"
+msgstr "el uso de la computadora está deshabilitado"
+
+msgid "user confirmation is required"
+msgstr "se requiere confirmación del usuario"
+
+msgid "user confirmation was not granted"
+msgstr "no se otorgó la confirmación del usuario"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "El tiempo de ejecución devolvió un action_id que no coincide."
