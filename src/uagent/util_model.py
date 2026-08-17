@@ -240,6 +240,24 @@ def _fetch_model_capa(provider: str, model: str) -> list[str]:
     return []
 
 
+def _fetch_context_lines(provider: str, model: str) -> list[str]:
+    """Return the final context value/source for the compact model view."""
+    try:
+        from .llmcapa_util import get_context_window_details
+
+        context, source = get_context_window_details(model, provider)
+        value = f"{context:,} tokens" if context is not None else "unknown"
+        return [
+            f"    Context Window: {value}",
+            f"    Context Source: {source}",
+        ]
+    except Exception:
+        return [
+            "    Context Window: unknown",
+            "    Context Source: unavailable",
+        ]
+
+
 def _model_provider_note(
     explicit_key: str, *, fallback_key: str = "UAGENT_PROVIDER"
 ) -> str:
@@ -298,6 +316,8 @@ def _append_resolved_model_section(
     )
     if extra_lines:
         lines.extend(extra_lines)
+    if not verbose:
+        lines.extend(_fetch_context_lines(provider, model))
     if verbose:
         capa_lines = _fetch_model_capa(provider, model)
         if capa_lines:
