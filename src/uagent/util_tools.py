@@ -118,6 +118,7 @@ from .util_cmd_auto import (
     _run_auto_pilot_loop,
     _handle_cmd_auto,
 )
+from .util_cmd_credentials import handle_credential_command
 from .util_cmd_responses import _handle_cmd_response
 from .util_cmd_session import (
     _handle_cmd_skills,
@@ -242,6 +243,9 @@ def handle_command(
 
     if cmd == "env":
         return _handle_cmd_env(arg, tr=tr)
+
+    if cmd in {"credential", "credentials"}:
+        return handle_credential_command(arg, core=core, tr=tr)
 
     if cmd == "skills":
         return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)

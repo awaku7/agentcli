@@ -132,12 +132,12 @@ Environment
 将来的には、次のような CLI 操作へ拡張できます。
 
 ```text
-uag credential list
-uag credential set openai
-uag credential remove github
+:credential list
+:credential set openai
+:credential remove github
 ```
 
-上記のCredential CLIは現時点では未実装です。
+CLIでは `:credential get|set|remove NAME` を利用できます。`set` は秘密入力をマスクし、`get` は秘密値を表示せず、`remove` は確認を要求します。バックエンドが名前列挙をサポートする場合は `:credential list` も利用できます。
 
 ## 3. SQLite TaskStore
 
