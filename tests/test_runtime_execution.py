@@ -54,3 +54,29 @@ def test_lifecycle_execution_can_mark_tool_waiting() -> None:
         assert lifecycle.status is AgentStatus.RUNNING
 
     assert lifecycle.status is AgentStatus.COMPLETED
+
+
+def test_lifecycle_execution_emits_specific_events(monkeypatch) -> None:
+    events: list[str] = []
+
+    monkeypatch.setattr(
+        "uagent.runtime.execution.log_event",
+        lambda event, **fields: events.append(event),
+    )
+
+    with lifecycle_execution():
+        mark_tool_waiting()
+        mark_tool_running()
+
+    assert events == [
+        "agent.lifecycle.changed",
+        "agent.created",
+        "agent.lifecycle.changed",
+        "agent.started",
+        "agent.lifecycle.changed",
+        "agent.waiting_tool",
+        "agent.lifecycle.changed",
+        "agent.started",
+        "agent.lifecycle.changed",
+        "agent.completed",
+    ]

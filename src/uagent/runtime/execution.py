@@ -19,6 +19,17 @@ _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = Cont
     "uagent_current_lifecycle_callback", default=None
 )
 
+_LIFECYCLE_EVENTS = {
+    "CREATED": "agent.created",
+    "RUNNING": "agent.started",
+    "WAITING_TOOL": "agent.waiting_tool",
+    "COMPLETED": "agent.completed",
+    "FAILED": "agent.failed",
+    "CANCELLED": "agent.cancelled",
+    "TIMEOUT": "agent.timeout",
+    "PAUSED": "agent.paused",
+}
+
 
 @contextmanager
 def lifecycle_execution(
@@ -36,6 +47,8 @@ def lifecycle_execution(
     current = lifecycle or AgentLifecycle()
     lifecycle_token = _CURRENT_LIFECYCLE.set(current)
     callback_token = _CURRENT_CALLBACK.set(on_transition)
+    if current.status.value == "CREATED":
+        _emit_lifecycle_events(current.snapshot())
     _safe_transition(current, "start")
     try:
         try:
@@ -80,17 +93,21 @@ def _safe_transition(lifecycle: AgentLifecycle, method: str) -> None:
         snapshot = getattr(lifecycle, method)()
     except InvalidLifecycleTransition:
         return
-    try:
-        log_event(
-            "agent.lifecycle.changed",
-            status=snapshot.status.value,
-            updated_at=snapshot.updated_at,
-        )
-    except Exception:
-        pass
+    _emit_lifecycle_events(snapshot)
     callback = _CURRENT_CALLBACK.get()
     if callback is not None:
         try:
             callback(snapshot)
         except Exception:
             pass
+
+
+def _emit_lifecycle_events(snapshot: LifecycleSnapshot) -> None:
+    fields = {"status": snapshot.status.value, "updated_at": snapshot.updated_at}
+    try:
+        log_event("agent.lifecycle.changed", **fields)
+        event_name = _LIFECYCLE_EVENTS.get(snapshot.status.value)
+        if event_name is not None:
+            log_event(event_name, **fields)
+    except Exception:
+        pass

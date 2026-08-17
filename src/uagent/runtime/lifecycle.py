@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import threading
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from enum import Enum
@@ -19,6 +20,10 @@ class AgentStatus(str, Enum):
 
 class InvalidLifecycleTransition(RuntimeError):
     """Raised when an Agent status transition is not permitted."""
+
+
+class LifecycleWaitCancelled(InterruptedError):
+    """Raised when a lifecycle wait is cancelled by its cancellation event."""
 
 
 @dataclass(frozen=True)
@@ -72,6 +77,7 @@ class AgentLifecycle:
 
     def __init__(self, *, initial_status: AgentStatus = AgentStatus.CREATED) -> None:
         self._lock = threading.RLock()
+        self._condition = threading.Condition(self._lock)
         self._status = initial_status
         self._updated_at = _now_iso()
         self._history: list[LifecycleSnapshot] = [
@@ -103,7 +109,48 @@ class AgentLifecycle:
             self._updated_at = _now_iso()
             snapshot = LifecycleSnapshot(new_status, self._updated_at)
             self._history.append(snapshot)
+            self._condition.notify_all()
             return snapshot
+
+    def wait(
+        self,
+        status: AgentStatus | None = None,
+        timeout: float | None = None,
+        *,
+        cancel_event: threading.Event | None = None,
+    ) -> LifecycleSnapshot:
+        """Wait for a lifecycle transition or a target status.
+
+        With ``status`` omitted, waits for the next transition after this
+        method is called. With ``status`` supplied, returns when the lifecycle
+        reaches that status. A timeout raises ``TimeoutError`` and an optional
+        ``cancel_event`` raises ``LifecycleWaitCancelled`` when set.
+        """
+        target = AgentStatus(status) if status is not None else None
+        end_at = None if timeout is None else time.monotonic() + timeout
+        with self._condition:
+            baseline = len(self._history)
+            while True:
+                if target is not None and self._status is target:
+                    return self.snapshot()
+                if target is None and len(self._history) > baseline:
+                    return self.snapshot()
+                if target is None and self._status in {
+                    AgentStatus.COMPLETED,
+                    AgentStatus.FAILED,
+                    AgentStatus.CANCELLED,
+                    AgentStatus.TIMEOUT,
+                }:
+                    return self.snapshot()
+                if cancel_event is not None and cancel_event.is_set():
+                    raise LifecycleWaitCancelled("lifecycle wait cancelled")
+                remaining = None if end_at is None else end_at - time.monotonic()
+                if remaining is not None and remaining <= 0:
+                    raise TimeoutError("lifecycle wait timed out")
+                wait_for = remaining
+                if cancel_event is not None:
+                    wait_for = 0.05 if remaining is None else min(remaining, 0.05)
+                self._condition.wait(timeout=wait_for)
 
     def start(self) -> LifecycleSnapshot:
         return self.transition(AgentStatus.RUNNING)

@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import threading
+import time
+
 import pytest
 
 from uagent.runtime.lifecycle import (
     AgentLifecycle,
     AgentStatus,
     InvalidLifecycleTransition,
+    LifecycleWaitCancelled,
 )
 
 
@@ -77,3 +81,32 @@ def test_lifecycle_keeps_transition_history() -> None:
         AgentStatus.RUNNING,
         AgentStatus.COMPLETED,
     ]
+
+
+def test_lifecycle_waits_for_target_status() -> None:
+    lifecycle = AgentLifecycle()
+    result: list[AgentStatus] = []
+
+    def waiter() -> None:
+        result.append(lifecycle.wait(AgentStatus.COMPLETED, timeout=1).status)
+
+    thread = threading.Thread(target=waiter)
+    thread.start()
+    time.sleep(0.02)
+    lifecycle.start()
+    lifecycle.complete()
+    thread.join(timeout=1)
+
+    assert result == [AgentStatus.COMPLETED]
+
+
+def test_lifecycle_wait_timeout_and_cancel() -> None:
+    lifecycle = AgentLifecycle()
+
+    with pytest.raises(TimeoutError):
+        lifecycle.wait(AgentStatus.COMPLETED, timeout=0.01)
+
+    cancelled = threading.Event()
+    cancelled.set()
+    with pytest.raises(LifecycleWaitCancelled):
+        lifecycle.wait(AgentStatus.COMPLETED, cancel_event=cancelled)

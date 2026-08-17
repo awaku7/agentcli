@@ -5,7 +5,7 @@
 
 ## 実装状況の調査結果
 
-2026-08-17 時点で、本文のロードマップ項目を実コード、関連テスト、ドキュメントで再確認しました。ロードマップのチェック項目は **18/20 件（90%）** が実装済みです。この割合は項目数ベースの目安であり、各項目の規模や完成度を重み付けしたものではありません。
+2026-08-17 時点で、本文のロードマップ項目を実コード、関連テスト、ドキュメントで再確認しました。ロードマップのチェック項目は **20/20 件（100%）** が実装済みです。この割合は項目数ベースの目安であり、各項目の規模や完成度を重み付けしたものではありません。
 
 確認した主な実装領域は次のとおりです。
 
@@ -62,7 +62,7 @@ PAUSED
 - `src/uagent/runtime/lifecycle.py`
 - Agent 状態の enum と遷移表
 - `start()`、`pause()`、`resume()`、`cancel()`、`timeout()`
-- `wait()` 相当の待機APIは未実装で、今後の拡張対象
+- `AgentLifecycle.wait()`（対象ステータス、timeout、cancel event）
 - cancellation と timeout の統合
 - CLI/Web/GUI/A2A の状態通知統合
 
@@ -70,7 +70,7 @@ PAUSED
 
 `AgentLifecycle` と `lifecycle_execution()` が実装され、CLI、Web、GUI、A2Aの主要な実行経路で状態を追跡します。キャンセル、タイムアウト、失敗、pause/resumeの状態遷移とテストがあります。
 
-一方、現在のイベントは主に `agent.lifecycle.changed` という汎用イベントです。`agent.created`、`agent.started`、`agent.waiting_tool` などの個別イベント体系と、独立した `wait()` APIは未実装です。
+`agent.lifecycle.changed` を後方互換で維持しつつ、`agent.created`、`agent.started`、`agent.waiting_tool`、`agent.completed`、`agent.failed`、`agent.cancelled`、`agent.timeout` などの個別イベントを実装しました。`AgentLifecycle.wait()` は対象ステータス、タイムアウト、キャンセルイベントに対応します。
 
 なお、`CancellationToken.wait()`、`OAuthCallback.wait()`、`RemoteAgentRuntime.wait()` などの待機APIは実装済みです。ここで未実装としているのは、`AgentLifecycle` 自体が提供する独立した待機APIです。
 
@@ -267,7 +267,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 - [x] Agent Lifecycle (`src/uagent/runtime/lifecycle.py`)
 - [x] Lifecycle と cancellation の統合 (`src/uagent/runtime/execution.py`)
-- [ ] Lifecycle event の追加
+- [x] Lifecycle event の追加 (`agent.created` / `agent.started` / `agent.waiting_tool` など)
 
 ### Phase B: 認証・タスク基盤
 
@@ -281,7 +281,8 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 ### Phase C: 観測性・ポリシー
 
 - [x] structured observability の主要境界への適用（CLI / Web / GUI / A2A / LLM / OAuth / Tool）
-- [ ] Agent Lifecycleの個別イベント体系（`agent.created` など）の完全適用
+- [x] Agent Lifecycleの個別イベント体系（`agent.created` など）の完全適用
+- [x] `AgentLifecycle.wait()`（対象ステータス、timeout、cancel event）
 - [x] trace / duration / correlation ID（event_id / correlation_id / duration_ms / tool_call_id）
 - [x] Enterprise Policy Engine (`src/uagent/tools/enterprise_policy.py`)
 - [x] Skill / Plugin permission (`EnterprisePolicy` + runtime plugin loading)
@@ -301,13 +302,13 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 | フェーズ | 実装済み | 全項目 | 状況 |
 |---|---:|---:|---|
-| Phase A: Runtime 安定化 | 2 | 3 | Lifecycle 基盤は実装済み。個別イベント体系が未完了 |
+| Phase A: Runtime 安定化 | 3 | 3 | Lifecycle、個別イベント、待機APIを実装済み |
 | Phase B: 認証・タスク基盤 | 6 | 6 | CredentialStore、TaskStore、SQLite、restart recoveryを実装済み |
-| Phase C: 観測性・ポリシー | 5 | 6 | 主要境界は適用済み。Lifecycle個別イベントが未完了 |
+| Phase C: 観測性・ポリシー | 6 | 6 | 主要境界とLifecycle個別イベントを実装済み |
 | Phase D: 高度化 | 5 | 5 | Checkpoint、Scheduler、Distributed/Remote/Multi-Agentを実装済み |
-| **合計** | **18** | **20** | **90%** |
+| **合計** | **20** | **20** | **100%** |
 
-未完了のロードマップ項目は、Phase A/C に重複して記載された Lifecycle の個別イベント体系と、独立した `AgentLifecycle.wait()` APIです。後者は、`RemoteAgentRuntime.wait()` など既存の待機APIとは別の項目です。
+ロードマップ上の主要項目は実装済みです。今後は、個別イベントのCLI/Web/GUI/A2Aでのペイロード統一、OS固有Secret Store、分散合意、Plugin sandboxなどの拡張を進めます。
 
 ## 現時点で後回しにする項目
 
