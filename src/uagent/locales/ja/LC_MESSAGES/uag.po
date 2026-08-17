@@ -1510,7 +1510,9 @@ msgstr "[モード] 推論=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4632,25 +4634,64 @@ msgstr ""
 
 #: src/uagent/profile_manager.py
 msgid "profile.summary_only"
-msgstr ""
-"要約文だけを返してください。"
+msgstr "要約文だけを返してください。"
 
 #: src/uagent/profile_manager.py
 msgid "profile.cleaned_json_only"
 msgstr ""
 "あなたは翻訳エンジンです。ユーザーのテキストを忠実に翻訳してください。説明を追加しないでください。コードブロック、インラインコード、JSON、ファイルパス、URLはそのまま保持してください。"
+
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
-msgstr "あなたは翻訳エンジンです。ユーザーのテキストを忠実に翻訳してください。説明を追加しないでください。コードブロック、インラインコード、JSON、ファイルパス、URLはそのまま保持してください。"
+msgstr ""
+"あなたは翻訳エンジンです。ユーザーのテキストを忠実に翻訳してください。説明を追加しないでください。コードブロック、インラインコード、JSON、ファイルパス、URLはそのまま保持してください。"
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"ユーザーの依頼に外部ツールが必要になる可能性がある場合、ツールが利用できないとは言わないでください。まず簡潔な query で tool_catalog を呼び出して必要なツールを探し、必要なら tool_load を呼び出してから、ユーザーに回答してください。JSONの例を出力するのではなく、利用可能なツール関数を使用してください."
-
-
+"ユーザーの依頼に外部ツールが必要になる可能性がある場合、ツールが利用できないとは言わないでください。まず簡潔な query で tool_catalog"
+" を呼び出して必要なツールを探し、必要なら tool_load "
+"を呼び出してから、ユーザーに回答してください。JSONの例を出力するのではなく、利用可能なツール関数を使用してください."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"整形して重複排除したJSONオブジェクトだけを返してください。"
+msgstr "整形して重複排除したJSONオブジェクトだけを返してください。"
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM ラウンド中断: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "自動操縦が中断されました: %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "human_ask に対する応答を入力してください..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use を有効にします (UAGENT_COMPUTER_USE 環境変数をオーバーライドします)。"
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Computer Use を無効にします (UAGENT_COMPUTER_USE 環境変数をオーバーライドします)。"
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use 機能は %(provider)s/%(model)s では使用できません"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use は %(provider)s/%(model)s ではサポートされていません"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use はアクション「%(action)s」に対する権限をリクエストします"
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "保護された Computer Use ランタイムを通じてローカル デスクトップを制御します。"
+
+msgid "computer use is disabled"
+msgstr "コンピューターの使用は無効になっています"
+
+msgid "user confirmation is required"
+msgstr "ユーザーの確認が必要です"
+
+msgid "user confirmation was not granted"
+msgstr "ユーザー確認が許可されませんでした"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "ランタイムは不一致の action_id を返しました"
