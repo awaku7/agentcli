@@ -891,6 +891,8 @@ def stdin_loop() -> None:
     _last_ha_reply_mono = 0.0
 
     while True:
+        # Never carry the ownership marker across an abandoned prompt slot.
+        core.input_prompt_active = False
         _skip = False
         try:
             # First, check if we are waiting for a reply
@@ -1042,6 +1044,19 @@ def stdin_loop() -> None:
                                 line = tools_util.strip_surrogates(line)
                         except Exception:
                             line = None
+                        if line is None:
+                            # ``None`` is also the sentinel used when the
+                            # watcher aborts a normal prompt because a tool
+                            # or human_ask has taken stdin.  Do not fall back
+                            # to blocking readline() while input is unavailable.
+                            with core.human_ask_lock:
+                                prompt_interrupted = core.human_ask_active
+                            if prompt_interrupted or getattr(
+                                core, "status_busy", False
+                            ):
+                                core.input_prompt_active = False
+                                _skip = True
+                                continue
                     else:
                         # Manual prompt drawing fallback
                         lock = getattr(core, "print_lock", None)
@@ -1097,6 +1112,7 @@ def stdin_loop() -> None:
                             try:
                                 core._prompt_line_open = False
                                 core.prompt_needs_redraw = False
+                                core.input_prompt_active = False
                             except Exception:
                                 pass
                             continue
