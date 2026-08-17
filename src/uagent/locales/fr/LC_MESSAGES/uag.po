@@ -1611,7 +1611,9 @@ msgstr "[mode] raisonnement=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 #: src/uagent/scheckgui.py:1728 src/uagent/util_mode.py:211
 #, python-format
@@ -4857,7 +4859,6 @@ msgstr "%(n)d activé : %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Le chemin du répertoire de travail spécifié est un fichier : %(path)s"
 
-
 # Added for localized system prompts.
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
@@ -4870,20 +4871,69 @@ msgstr ""
 
 # Added for localized system prompts.
 msgid "profile.summary_only"
-msgstr ""
-"Renvoie uniquement le texte summary."
+msgstr "Renvoie uniquement le texte summary."
 
 # Added for localized system prompts.
 msgid "profile.cleaned_json_only"
-msgstr ""
-"Renvoie uniquement l'objet JSON nettoyé."
+msgstr "Renvoie uniquement l'objet JSON nettoyé."
 
 # Added for localized system prompts.
 msgid "translate.engine_system_prompt"
 msgstr ""
-"Vous êtes un moteur translation. Traduisez fidèlement le texte de l’utilisateur. N'ajoutez pas d'explications. Conservez les blocs de code, le code en ligne, JSON, les chemins de fichiers et les URL textuellement."
+"Vous êtes un moteur translation. Traduisez fidèlement le texte de "
+"l’utilisateur. N'ajoutez pas d'explications. Conservez les blocs de code, le"
+" code en ligne, JSON, les chemins de fichiers et les URL textuellement."
 
 # Added for localized system prompts.
 msgid "pfn.catalog_steering"
 msgstr ""
-"Lorsqu’une demande utilisateur peut nécessiter un outil externe, ne prétendez pas que l’outil est indisponible. Appelez d'abord tool_catalog avec une requête concise pour trouver l'outil requis, puis appelez tool_load si nécessaire, et répondez ensuite seulement à l'utilisateur. Utilisez les fonctions d'outils disponibles plutôt que d'imprimer un exemple JSON."
+"Lorsqu’une demande utilisateur peut nécessiter un outil externe, ne "
+"prétendez pas que l’outil est indisponible. Appelez d'abord tool_catalog "
+"avec une requête concise pour trouver l'outil requis, puis appelez tool_load"
+" si nécessaire, et répondez ensuite seulement à l'utilisateur. Utilisez les "
+"fonctions d'outils disponibles plutôt que d'imprimer un exemple JSON."
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM tour interrompu : %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Pilote automatique interrompu : %(err)s"
+
+msgid "Enter response for human_ask..."
+msgstr "Saisissez la réponse pour human_ask..."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Activez Computer Use (remplace la variable d'environnement "
+"UAGENT_COMPUTER_USE)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr ""
+"Désactivez Computer Use (remplace la variable d'environnement "
+"UAGENT_COMPUTER_USE)."
+
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr ""
+"La fonctionnalité Computer Use n'est pas disponible pour "
+"%(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use n'est pas pris en charge pour %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use demande l'autorisation pour l'action \"%(action)s\""
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Contrôlez le bureau local via le runtime protégé Computer Use."
+
+msgid "computer use is disabled"
+msgstr "l'utilisation de l'ordinateur est désactivée"
+
+msgid "user confirmation is required"
+msgstr "une confirmation de l'utilisateur est requise"
+
+msgid "user confirmation was not granted"
+msgstr "la confirmation de l'utilisateur n'a pas été accordée"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "l'exécution a renvoyé un action_id incompatible"
