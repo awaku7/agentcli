@@ -5,7 +5,7 @@ import json
 import sqlite3
 import threading
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Optional, Protocol, runtime_checkable
 
@@ -13,7 +13,12 @@ from ..runtime.lifecycle import AgentLifecycle
 
 
 def _now_iso() -> str:
-    return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    return (
+        datetime.now(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 class TaskStatus(str, Enum):

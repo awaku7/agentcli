@@ -16,7 +16,7 @@
 - `src/uagent/tools/enterprise_policy.py` と Enterprise Policy 関連テスト
 - `src/uagent/runtime/logging_setup.py`、Tool dispatch、LLM、OAuth のイベント実装と関連テスト
 
-対象基盤テストは **40 passed / 1 skipped** でした。TaskStore のテストでは、Python 3.14 における `datetime.utcnow()` の非推奨警告が 10 件発生しますが、テスト失敗ではありません。
+対象基盤テストは **40 passed / 1 skipped** でした。なお、TaskStore の `datetime.utcnow()` は `datetime.now(timezone.utc)` へ置き換え済みで、Python 3.14 の非推奨警告は解消済みです。TaskStore 関連の再確認テストは **5 passed**、Ruff/Blackも成功しています。
 
 ## 結論
 
