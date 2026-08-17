@@ -3,6 +3,21 @@
 この文書は、`uag_improvement_plan.md` に記載された改善項目を、現在の実装状況を踏まえて整理したものです。
 実装済みの範囲と未実装の拡張を区別し、ロードマップのチェック状態を実コードとテストに合わせて更新します。
 
+## 実装状況の調査結果
+
+2026-08-17 時点で、本文のロードマップ項目を実コード、関連テスト、ドキュメントで再確認しました。ロードマップのチェック項目は **18/20 件（90%）** が実装済みです。この割合は項目数ベースの目安であり、各項目の規模や完成度を重み付けしたものではありません。
+
+確認した主な実装領域は次のとおりです。
+
+- `src/uagent/runtime/lifecycle.py` / `execution.py` と Lifecycle 関連テスト
+- `src/uagent/auth/credential_store.py`、`token_store.py` と CredentialStore 関連テスト
+- `src/uagent/a2a/task_store.py` と InMemory/SQLite TaskStore 関連テスト
+- `src/uagent/runtime/dag_scheduler.py`、`distributed_coordination.py`、`multi_agent.py`、`remote_agent.py`
+- `src/uagent/tools/enterprise_policy.py` と Enterprise Policy 関連テスト
+- `src/uagent/runtime/logging_setup.py`、Tool dispatch、LLM、OAuth のイベント実装と関連テスト
+
+対象基盤テストは **40 passed / 1 skipped** でした。TaskStore のテストでは、Python 3.14 における `datetime.utcnow()` の非推奨警告が 10 件発生しますが、テスト失敗ではありません。
+
 ## 結論
 
 最優先で実装する順序は次のとおりです。
@@ -56,6 +71,8 @@ PAUSED
 `AgentLifecycle` と `lifecycle_execution()` が実装され、CLI、Web、GUI、A2Aの主要な実行経路で状態を追跡します。キャンセル、タイムアウト、失敗、pause/resumeの状態遷移とテストがあります。
 
 一方、現在のイベントは主に `agent.lifecycle.changed` という汎用イベントです。`agent.created`、`agent.started`、`agent.waiting_tool` などの個別イベント体系と、独立した `wait()` APIは未実装です。
+
+なお、`CancellationToken.wait()`、`OAuthCallback.wait()`、`RemoteAgentRuntime.wait()` などの待機APIは実装済みです。ここで未実装としているのは、`AgentLifecycle` 自体が提供する独立した待機APIです。
 
 ### 期待効果
 
@@ -279,6 +296,18 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 - [x] Remote Agent Runtime (`runtime.remote_agent`)
 
 > 注記: etcd / ZooKeeper 相当の本格的な consensus、ネットワーク分断耐性、OpenTelemetry の完全導入は、外部基盤を必要とする別スコープです。現行実装は共有ファイル lease と A2A の認証済み task / checkpoint / SSE 同期を提供します。
+
+### ロードマップの集計
+
+| フェーズ | 実装済み | 全項目 | 状況 |
+|---|---:|---:|---|
+| Phase A: Runtime 安定化 | 2 | 3 | Lifecycle 基盤は実装済み。個別イベント体系が未完了 |
+| Phase B: 認証・タスク基盤 | 6 | 6 | CredentialStore、TaskStore、SQLite、restart recoveryを実装済み |
+| Phase C: 観測性・ポリシー | 5 | 6 | 主要境界は適用済み。Lifecycle個別イベントが未完了 |
+| Phase D: 高度化 | 5 | 5 | Checkpoint、Scheduler、Distributed/Remote/Multi-Agentを実装済み |
+| **合計** | **18** | **20** | **90%** |
+
+未完了のロードマップ項目は、Phase A/C に重複して記載された Lifecycle の個別イベント体系と、独立した `AgentLifecycle.wait()` APIです。後者は、`RemoteAgentRuntime.wait()` など既存の待機APIとは別の項目です。
 
 ## 現時点で後回しにする項目
 
