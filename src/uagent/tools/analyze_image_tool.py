@@ -113,12 +113,12 @@ _IMAGE_ANALYSIS_PROVIDERS = {
 
 def is_loadable() -> bool:
     """Check backend availability using the current runtime environment."""
-    provider = (
-        (env_get("UAGENT_IMG_ANALYSIS_PROVIDER") or env_get("UAGENT_PROVIDER") or "")
-        .strip()
-        .lower()
-    )
-    return provider in _IMAGE_ANALYSIS_PROVIDERS
+    explicit_provider = (env_get("UAGENT_IMG_ANALYSIS_PROVIDER") or "").strip().lower()
+    # Preserve the historical behavior when no dedicated image provider is
+    # configured: the tool can load and report its runtime error.
+    if not explicit_provider:
+        return True
+    return explicit_provider in _IMAGE_ANALYSIS_PROVIDERS
 
 
 LOAD_DISABLED_REASON = ""
