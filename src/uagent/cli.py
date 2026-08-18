@@ -700,6 +700,16 @@ def _prompt_toolkit_input(
             watcher.join(timeout=0.2)
 
 
+def _clear_abandoned_prompt() -> None:
+    """Erase a prompt line that was abandoned when work became busy."""
+    try:
+        with core.print_lock:
+            sys.stdout.write("\r\x1b[2K")
+            sys.stdout.flush()
+    except Exception:
+        pass
+
+
 setattr(core, "prompt_history_append", _append_prompt_history_entry)
 
 
@@ -1026,9 +1036,9 @@ def stdin_loop() -> None:
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
 
-                            # prompt_toolkit redraws the prompt itself. Mark it
-                            # as open while waiting so the status worker does not
-                            # emit a redundant IDLE line between prompt redraws.
+                            # Treat the prompt_toolkit-rendered line like the
+                            # manual prompt so status output can close it
+                            # before writing [STATE].
                             try:
                                 core._prompt_line_open = True
                             except Exception:
@@ -1055,6 +1065,7 @@ def stdin_loop() -> None:
                             if prompt_interrupted or getattr(
                                 core, "status_busy", False
                             ):
+                                _clear_abandoned_prompt()
                                 core.input_prompt_active = False
                                 _skip = True
                                 continue

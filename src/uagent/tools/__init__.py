@@ -218,7 +218,16 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
 
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with _TRACE_LOCK:
-            print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
+            # Windows console color attributes are process-global. Serialize
+            # tool traces with status output so [TOOL] cannot inherit the
+            # [STATE] color.
+            try:
+                from .. import core as _core
+
+                with _core.print_lock:
+                    print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
+            except Exception:
+                print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
     except Exception:
         return
 
