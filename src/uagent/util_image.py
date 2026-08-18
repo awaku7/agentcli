@@ -56,6 +56,18 @@ def is_valid_image_file(path: str) -> bool:
     return False
 
 
+def media_file_to_data_url(path: str, *, max_bytes: int = 50_000_000) -> str:
+    """Convert a local media file to a bounded base64 data URL."""
+    p = Path(str(path))
+    if not p.exists() or not p.is_file():
+        raise FileNotFoundError(f"media file not found: {path}")
+    if p.stat().st_size > max_bytes:
+        raise ValueError(f"media file exceeds {max_bytes} bytes: {path}")
+    mime = mimetypes.guess_type(str(p))[0] or "application/octet-stream"
+    data = p.read_bytes()
+    return f"data:{mime};base64,{base64.b64encode(data).decode('ascii')}"
+
+
 def extract_image_paths(text: str) -> list[str]:
     """テキストから画像ファイルっぽいパスを抽出（ゆるめ）。"""
     if not text:
@@ -187,6 +199,7 @@ def build_multimodal_user_message(
     text: str,
     image_paths: list[str],
     *,
+    video_paths: list[str] | None = None,
     provider: str,
     use_responses_api: bool | None = None,
     max_bytes: int = 10_000_000,
@@ -209,6 +222,14 @@ def build_multimodal_user_message(
 
     text_s = text if isinstance(text, str) else ("" if text is None else str(text))
     paths = [p for p in (image_paths or []) if isinstance(p, str) and p.strip()]
+    video_paths = [
+        p for p in (video_paths or []) if isinstance(p, str) and p.strip()
+    ]
+
+    # Video input is currently supported only by OpenAI-compatible llama-server
+    # chat templates. Callers must gate it with the model's video capability.
+    if video_paths and prov != "llama_cpp":
+        video_paths = []
 
     # Gemini / Vertex AI: provider layer only reads message["attachments"].
     if prov in ("gemini", "vertexai"):
@@ -265,6 +286,30 @@ def build_multimodal_user_message(
                     "text": "[WARN] "
                     + (
                         tr("Failed to attach image: %(path)s (%(etype)s: %(err)s)")
+                        % {
+                            "path": path,
+                            "etype": type(e).__name__,
+                            "err": e,
+                        }
+                    ),
+                }
+            )
+    for path in video_paths:
+        try:
+            data_url = media_file_to_data_url(path, max_bytes=50_000_000)
+            parts.append(
+                {
+                    "type": "input_video",
+                    "input_video": {"url": data_url},
+                }
+            )
+        except Exception as e:
+            parts.append(
+                {
+                    "type": "text",
+                    "text": "[WARN] "
+                    + (
+                        tr("Failed to attach video: %(path)s (%(etype)s: %(err)s)")
                         % {
                             "path": path,
                             "etype": type(e).__name__,
