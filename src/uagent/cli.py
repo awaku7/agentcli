@@ -261,6 +261,89 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             path_doc, complete_event
                         ):
                             yield comp
+                    elif stripped.startswith(":logs "):
+                        # :logs subcommands and numeric/export arguments.
+                        after_logs = stripped[len(":logs ") :]
+                        parts = after_logs.split()
+                        last = parts[-1] if parts else ""
+                        if len(parts) <= 1:
+                            log_opts = ["all", "--all", "-a", "pdf"] + [
+                                str(n) for n in (5, 10, 20, 50, 100)
+                            ]
+                            for value in log_opts:
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                        elif parts[0].lower() == "pdf" and len(parts) == 2:
+                            for value in ("0", "1", "2", "3", "4", "5", "10"):
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                    elif stripped.startswith(":auto "):
+                        # :auto accepts a free-form goal plus stop/round options.
+                        after_auto = stripped[len(":auto ") :]
+                        parts = after_auto.split()
+                        last = parts[-1] if parts else ""
+                        if not parts or after_auto.endswith(" "):
+                            candidates = ["off", "INFINITE", "--infinite", "--max-rounds"]
+                            for value in candidates:
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                        elif last.startswith("--"):
+                            for value in ("--infinite", "--max-rounds"):
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                        elif len(parts) >= 2 and parts[-2] == "--max-rounds":
+                            for value in ("1", "5", "10", "20", "30", "50", "100", "INFINITE"):
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                    elif stripped.startswith(":plugin "):
+                        # :plugin subcommands, plugin options, and marketplace actions.
+                        after_plugin = stripped[len(":plugin ") :]
+                        parts = after_plugin.split()
+                        last = parts[-1] if parts else ""
+                        if len(parts) <= 1:
+                            values = [
+                                "list", "install", "remove", "uninstall", "enable",
+                                "disable", "reload", "info", "init", "validate",
+                                "marketplace",
+                            ]
+                            for value in values:
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                        else:
+                            sub = parts[0].lower()
+                            if sub == "marketplace" and len(parts) <= 2:
+                                values = ["add", "remove", "list", "update"]
+                                for value in values:
+                                    if value.startswith(last):
+                                        yield Completion(value, start_position=-len(last))
+                            elif sub == "install" and (last.startswith("--") or after_plugin.endswith(" ")):
+                                values = ["--scope", "--name", "user", "project", "local"]
+                                for value in values:
+                                    if value.startswith(last):
+                                        yield Completion(value, start_position=-len(last))
+                            elif sub == "list" and (last.startswith("--") or after_plugin.endswith(" ")):
+                                for value in ("--enabled", "--verbose"):
+                                    if value.startswith(last):
+                                        yield Completion(value, start_position=-len(last))
+                    elif stripped.startswith(":mem-del "):
+                        # Memory indexes are numeric; offer common index values.
+                        after_mem = stripped[len(":mem-del ") :]
+                        last = after_mem.split()[-1] if after_mem.split() else ""
+                        for value in ("0", "1", "2", "3", "4", "5", "10"):
+                            if value.startswith(last):
+                                yield Completion(value, start_position=-len(last))
+                    elif stripped.startswith(":shared-mem-del "):
+                        after_shared_mem = stripped[len(":shared-mem-del ") :]
+                        last = after_shared_mem.split()[-1] if after_shared_mem.split() else ""
+                        for value in ("0", "1", "2", "3", "4", "5", "10"):
+                            if value.startswith(last):
+                                yield Completion(value, start_position=-len(last))
+                    elif stripped.startswith(":profile-fromlog "):
+                        after_profile = stripped[len(":profile-fromlog ") :]
+                        last = after_profile.split()[-1] if after_profile.split() else ""
+                        for value in ("0", "10", "50", "100", "500"):
+                            if value.startswith(last):
+                                yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":env "):
                         # :env subcommand completion
                         after_env = stripped[len(":env ") :]
@@ -515,6 +598,12 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             for val in v_vals:
                                 if val.startswith(v_prefix):
                                     yield Completion(val, start_position=-len(v_prefix))
+                    elif stripped.startswith(":profile fromlog "):
+                        after_profile = stripped[len(":profile fromlog ") :]
+                        last = after_profile.split()[-1] if after_profile.split() else ""
+                        for value in ("0", "10", "50", "100", "500"):
+                            if value.startswith(last):
+                                yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":profile "):
                         # :profile subcommand
                         p_prefix = stripped[len(":profile ") :]
