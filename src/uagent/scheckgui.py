@@ -945,9 +945,20 @@ class ScheckWorker(QtCore.QObject):
                                 for p in (ev.get("images") or [])
                                 if isinstance(p, str) and os.path.isfile(p)
                             ]
+                            video_paths = [
+                                p
+                                for p in (ev.get("videos") or [])
+                                if (
+                                    isinstance(p, str)
+                                    and os.path.isfile(p)
+                                    and os.path.getsize(p) <= 50_000_000
+                                    and prov == "llama_cpp"
+                                )
+                            ]
                             m = build_multimodal_user_message(
                                 text.strip(),
                                 img_paths,
+                                video_paths=video_paths,
                                 provider=prov,
                                 use_responses_api=use_responses_api,
                             )
@@ -2694,6 +2705,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         sent_images = list(self._attached_images)
         sent_files = list(self._attached_files)
+        video_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".mpeg", ".mpg"}
+        sent_videos = [
+            p for p in sent_files
+            if os.path.splitext(str(p))[1].lower() in video_exts
+        ]
 
         if active and q:
             is_pw = bool(is_password)
@@ -2723,6 +2739,7 @@ class MainWindow(QtWidgets.QMainWindow):
                         "kind": "gui_user",
                         "text": text,
                         "images": sent_images,
+                        "videos": sent_videos,
                         "files": sent_files,
                     }
                 )
