@@ -73,6 +73,22 @@ def _openai_fast_mode_enabled() -> bool:
     return raw in {"1", "true", "yes", "on", "fast"}
 
 
+def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
+    """Map the shared reasoning preference to llama.cpp chat-template kwargs.
+
+    llama-server's Qwen-style templates use ``enable_thinking`` rather than
+    provider-neutral reasoning effort values.  Leave unset/``auto`` alone so
+    the model/template default remains in control.  This is llama.cpp-only;
+    Ollama has a separate, model-dependent thinking API.
+    """
+    reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
+    if reasoning == "off":
+        chat_kwargs["chat_template_kwargs"] = {"enable_thinking": False}
+    elif reasoning in {"minimal", "low", "medium", "high", "xhigh", "max"}:
+        chat_kwargs["chat_template_kwargs"] = {"enable_thinking": True}
+
+
+
 def _translate_call_messages(
     call_messages: list[dict[str, Any]], tr_cfg: Any
 ) -> list[dict[str, Any]]:
@@ -875,6 +891,8 @@ def _call_openai_azure_round(
                     "messages": call_messages,
                     "temperature": resolved_temp,
                 }
+                if provider == "llama_cpp":
+                    _apply_llama_cpp_reasoning_kwargs(chat_kwargs)
                 # OpenAI Fast mode is intentionally not applied to Azure or
                 # other OpenAI-compatible providers.
                 if provider == "openai" and _openai_fast_mode_enabled():
