@@ -120,7 +120,7 @@ class StaticProviderRegistry:
             capabilities.add("vision")
         if name in FIM_SUPPORTED_PROVIDERS:
             capabilities.add("fim")
-        if name not in {"llama_cpp", "hf", "lmstudio"}:
+        if name not in {"hf", "lmstudio"}:
             capabilities.add("tools")
         return ProviderSpec(
             name=name,

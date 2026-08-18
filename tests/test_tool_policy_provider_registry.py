@@ -17,8 +17,11 @@ def test_tool_policy_defaults_to_conservative_side_effects() -> None:
 
 def test_provider_registry_distinguishes_unknown_capability() -> None:
     openai = DEFAULT_PROVIDER_REGISTRY.resolve("openai")
+    llama_cpp = DEFAULT_PROVIDER_REGISTRY.resolve("llama_cpp")
     unknown = DEFAULT_PROVIDER_REGISTRY.resolve("future-provider")
     assert openai.supports_tools
+    assert llama_cpp.supports_tools
+    assert "tools" in llama_cpp.capabilities
     assert "unknown" not in openai.capabilities
     assert unknown.capabilities == frozenset({"unknown"})
     assert not unknown.supports_tools
