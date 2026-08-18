@@ -918,6 +918,11 @@ def _call_openai_azure_round(
                 if send_tools_this_round and req_tools is not None:
                     chat_kwargs["tools"] = req_tools
                     chat_kwargs["tool_choice"] = "auto"
+                    if provider == "llama_cpp":
+                        # llama-server and the uagent executor both support
+                        # parallel calls; unsafe tools are still serialized by
+                        # _execute_tool_calls based on their safety policy.
+                        chat_kwargs["parallel_tool_calls"] = True
 
                 # OpenRouter provider routing / extensions (optional)
                 apply_openrouter_extra_body(chat_kwargs, provider=provider)
