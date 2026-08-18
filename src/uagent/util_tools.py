@@ -34,6 +34,7 @@ from .util_common import (
 from .util_image import (
     _IMAGE_PATH_RE,
     extract_image_paths,
+    extract_video_paths,
     open_image_with_default_app,
     image_file_to_data_url,
     media_file_to_data_url,

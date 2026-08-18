@@ -24,6 +24,7 @@ _IMAGE_PATH_RE = re.compile(
 
 
 _IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".tif", ".tiff"}
+_VIDEO_EXTENSIONS = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".mpeg", ".mpg"}
 
 
 def is_valid_image_file(path: str) -> bool:
@@ -91,6 +92,20 @@ def extract_image_paths(text: str) -> list[str]:
         if is_valid_image_file(p) and p not in paths:
             paths.append(p)
 
+    return paths
+
+
+def extract_video_paths(text: str) -> list[str]:
+    """Extract existing local video paths from user text by extension."""
+    if not text:
+        return []
+    paths: list[str] = []
+    for token in re.findall(r"(?:[A-Za-z]:[\\]|\./|\\\\)?[^\s\"'<>]+", text):
+        candidate = token.rstrip(",.;:)]}>")
+        if Path(candidate).suffix.lower() in _VIDEO_EXTENSIONS:
+            p = os.path.expandvars(os.path.expanduser(candidate))
+            if os.path.isfile(p) and p not in paths:
+                paths.append(p)
     return paths
 
 

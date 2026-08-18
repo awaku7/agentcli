@@ -55,6 +55,7 @@ from .tools.pybitchat_shared import (
 
 from .util_tools import (
     extract_image_paths,
+    extract_video_paths,
     provider_allows_chat_vision,
     build_multimodal_user_message,
     parse_startup_args as _parse_startup_args,
@@ -1567,11 +1568,13 @@ def main() -> None:
 
                 if allow_multimodal:
                     paths = extract_image_paths(text)
-                    if paths:
+                    video_paths = extract_video_paths(text) if prov == "llama_cpp" else []
+                    if paths or video_paths:
                         # Build a candidate list with absolute paths and sizes (best-effort).
                         infos: list[str] = []
                         ok_paths: list[str] = []
-                        for p in paths:
+                        ok_video_paths: list[str] = []
+                        for p in paths + video_paths:
                             try:
                                 expanded = os.path.expandvars(os.path.expanduser(p))
                                 abspath = os.path.abspath(expanded)
@@ -1580,11 +1583,15 @@ def main() -> None:
                                     continue
                                 size = os.path.getsize(abspath)
                                 infos.append(f"- {abspath} ({size} bytes)")
-                                ok_paths.append(abspath)
+                                if p in video_paths:
+                                    if size <= 50_000_000:
+                                        ok_video_paths.append(abspath)
+                                else:
+                                    ok_paths.append(abspath)
                             except Exception as e:
                                 infos.append(f"- {p} (error: {type(e).__name__}: {e})")
 
-                        if ok_paths:
+                        if ok_paths or ok_video_paths:
                             msg = (
                                 _(
                                     "Image file paths were found in your input.\n"
@@ -1620,6 +1627,7 @@ def main() -> None:
                                 user_msg = build_multimodal_user_message(
                                     text,
                                     ok_paths,
+                                    video_paths=ok_video_paths,
                                     provider=prov,
                                     use_responses_api=use_responses_api,
                                 )
