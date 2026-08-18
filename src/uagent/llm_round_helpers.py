@@ -81,12 +81,19 @@ def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
     the model/template default remains in control.  This is llama.cpp-only;
     Ollama has a separate, model-dependent thinking API.
     """
-    chat_kwargs["reasoning_format"] = "deepseek"
+    # These are llama-server fields, not parameters declared by the OpenAI
+    # Python SDK. Put them in extra_body so Completions.create does not reject
+    # the request before it reaches llama-server (notably with Qwen).
+    extra_body = chat_kwargs.get("extra_body")
+    if not isinstance(extra_body, dict):
+        extra_body = {}
+    extra_body["reasoning_format"] = "deepseek"
     reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
     if reasoning == "off":
-        chat_kwargs["chat_template_kwargs"] = {"enable_thinking": False}
+        extra_body["chat_template_kwargs"] = {"enable_thinking": False}
     elif reasoning in {"minimal", "low", "medium", "high", "xhigh", "max"}:
-        chat_kwargs["chat_template_kwargs"] = {"enable_thinking": True}
+        extra_body["chat_template_kwargs"] = {"enable_thinking": True}
+    chat_kwargs["extra_body"] = extra_body
 
 
 
