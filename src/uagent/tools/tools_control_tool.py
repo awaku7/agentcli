@@ -138,6 +138,63 @@ def _tool_expire_display(
 def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
 
+    # Native GPT-5.4+ tool_search sends the complete tool inventory to the
+    # Responses API and performs server-side narrowing.  In that mode show
+    # the same inventory, including unloaded tools, while omitting the
+    # legacy management tools.
+    try:
+        from ..env_utils import env_get
+        from .llm_tool_narrowing import _is_gpt54_tool_search_target
+
+        provider = (env_get("UAGENT_PROVIDER", "") or "").strip().lower()
+        depname_env = {
+            "openai": "UAGENT_OPENAI_DEPNAME",
+            "azure": "UAGENT_AZURE_DEPNAME",
+        }.get(provider)
+        depname = (env_get(depname_env, "") if depname_env else "") or ""
+        native_tool_search = _is_gpt54_tool_search_target(
+            provider=provider,
+            depname=depname,
+            use_responses_api=True,
+        )
+    except Exception:
+        native_tool_search = False
+
+    if native_tool_search:
+        from . import get_tool_catalog
+        from ..util_tools import CommandResult
+
+        management_tools = {"tool_catalog", "tool_load", "unload_tool"}
+        rows = get_tool_catalog(query="", all_items=True)
+        names = {
+            str(row.get("name") or "").strip(): row
+            for row in rows
+            if isinstance(row, dict)
+            and str(row.get("name") or "").strip() not in management_tools
+        }
+        if q:
+            names = {name: row for name, row in names.items() if q in name.lower()}
+        if not names:
+            print(
+                _(
+                    "msg.tools.no_match",
+                    default="[tools] No matching tools: {q}",
+                ).format(q=q)
+                if q
+                else "[tools] No tools available."
+            )
+        else:
+            print(
+                _(
+                    "msg.tools.list_header",
+                    default="[tools] Available tools ({count}) [native tool_search]:",
+                ).format(count=len(names))
+            )
+            for name in sorted(names):
+                state = "loaded" if names[name].get("loaded") else "available"
+                print(f"  {name}  {state}")
+        return CommandResult()
+
     from . import get_tool_specs
     from ..uagent_llm import (
         _TOOL_LAST_ROUND,
