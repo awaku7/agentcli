@@ -18,7 +18,7 @@
  ·
  <a href="https://pypi.org/project/uag/">PyPI</a>
  ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">귀하의 언어로 읽어보세요</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________

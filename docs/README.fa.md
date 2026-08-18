@@ -12,7 +12,7 @@ _ign = PH_4-al"> دروازه</h1>
  <a href="https://github.com/awaku7/agentcli">GitHub</a> <a ·
  href="https://pypi.org/project/uag/">PyPI</a>
  ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">این را به زبان خود بخوانید</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 ___________________________________________## چرا uag؟
 
 **از قفل شدن فروشنده رها شوید.** اکثر دستیاران هوش مصنوعی شما را به یک ارائه دهنده یا سرویس ابری خاص گره می زنند. uag متفاوت است.

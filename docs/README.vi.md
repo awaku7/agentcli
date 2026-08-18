@@ -21,7 +21,7 @@ Hoạt động tệp / Tìm kiếm trên web / Tạo và phân tích hình ảnh
  ·
  <a href="https://pypi.org/project/uag/">PyPI</a>
  ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Đọc phần này trong trang của bạn ngôn ngữ</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________

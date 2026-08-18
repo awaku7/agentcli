@@ -16,7 +16,7 @@
  <a href="https://github.com/awaku7/agentcli">GitHub</a>
  ·
  <a href="https://pypi.org/project/uag/">Py ·</a>
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Læs dette på dit sprog</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ______________________________________________________________________

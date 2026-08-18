@@ -18,7 +18,7 @@
  ·
  <a href="https://pypi.org/project/uag/">PyPI</a>
  ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/____README.translations.md">Lue tämä omalla kielelläsi</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 _________________________________________## Miksi uag?
 

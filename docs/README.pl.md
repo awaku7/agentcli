@@ -21,7 +21,7 @@ Obsługa plików / Wyszukiwanie w Internecie / Generowanie i analiza obrazów / 
 ·
 <a href="https://pypi.org/project/uag/">PyPI</a>
 ·
-<a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Przeczytaj to w swoim języku</a>
+<a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 
 </p>
 

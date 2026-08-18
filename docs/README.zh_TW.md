@@ -20,7 +20,7 @@ href="https://github.com/awaku7/agentcli">GitHub</a>
 ·
 <a href="https://pypi.org/project/uag/">PyPI</a>
 ·
-<a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">用您的語言閱讀此內容</a>
+<a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 
 </p>
 

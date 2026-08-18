@@ -16,7 +16,7 @@ _ign_cent <h1" Gateway</h1>
  <a href="https://github.com/awaku7/agentcli">GitHub</a> <a ·
  href="https://pypi.org/project/uag/">PyPI</a>
  ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Διαβάστε το στη γλώσσα σας</a>
+ <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 __________________________________________## Γιατί uag;
 
 **Απαλλαγείτε από το κλείδωμα προμηθευτή.** Οι περισσότεροι βοηθοί τεχνητής νοημοσύνης σας συνδέουν με έναν συγκεκριμένο πάροχο ή υπηρεσία cloud. Το uag είναι διαφορετικό.
