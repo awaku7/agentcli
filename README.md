@@ -53,7 +53,7 @@ and a desktop runtime. When enabled, both runtimes are created and registered;
 the BrowserRuntime is used by the existing handler API by default. Runtime resources are
 closed together on normal exit, `Ctrl-C`, and process shutdown. Set
 `UAGENT_COMPUTER_HEADLESS=1` for browser-based CI or smoke tests.
-See [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)
+See [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md)
 for the integration and safety details.
 
 ## Realtime Voice and AEC3
@@ -131,7 +131,7 @@ uagent implements a **Claude Code-compatible plugin system**. Plugins bundle ski
 :plugin init <name>                  # Scaffold new plugin
 ```
 
-See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+See [DEVELOP_PLUGIN.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
 
 ### 🔄 Session Continuity
 
@@ -144,7 +144,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | Category | Tools |
 |---|---|
 | **File Operations** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (.eml files), `path_alias` |
-| **Web** | fetch_url, search_web, screenshot, browser_playwright, `url_alias`, `public_transit_route` ([guide](docs/PUBLIC_TRANSIT_ROUTE.md)) |
+| **Web** | fetch_url, search_web, screenshot, browser_playwright, `url_alias`, `public_transit_route` ([guide](https://github.com/awaku7/agentcli/blob/main/docs/PUBLIC_TRANSIT_ROUTE.md)) |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **Forecast** | Time series forecasting with 9 models (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), auto model selection, plot generation, i18n |
@@ -152,9 +152,9 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Cloud APIs** | `aws_api`, `gcp_api`, `azure_api` — generic AWS, Google Cloud, and Azure API operations; write operations require explicit confirmation |
 | **Dev Tools** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 source code navigators (idx family)** |
-| **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
+| **MCP** | Connect to external MCP servers, list tools, execute — [OAuth / Proxy guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
-| **System** | env vars, system specs, time, date calculation, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
+| **System** | env vars, system specs, time, date calculation, [quantities](https://github.com/awaku7/agentcli/blob/main/docs/QUANTITIES.md), [geodesic_distance](https://github.com/awaku7/agentcli/blob/main/docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
 | **Source Nav** | **29 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — get a function/class index or specific definition without reading the whole file |
 
 #### Repository review and coverage
@@ -165,9 +165,9 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - `coverage_report`: run and normalize coverage for Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift, and Dart/Flutter.
 - Missing coverage dependencies can be installed automatically when execution is requested; `dry_run` never installs packages.
 
-See [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) for parameters, output, and safety details.
+See [Repository Analysis Tools](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) for parameters, output, and safety details.
 
-See [Path and URL aliases](docs/PATH_URL_ALIASES.md) for shortening repeated file paths and URLs in tool arguments.
+See [Path and URL aliases](https://github.com/awaku7/agentcli/blob/main/docs/PATH_URL_ALIASES.md) for shortening repeated file paths and URLs in tool arguments.
 
 ### 🖥 4 Interfaces + VS Code Extension
 
@@ -344,11 +344,11 @@ Runtime policy (details in [DEVELOP.md](https://github.com/awaku7/agentcli/blob/
 
 ## Architecture and operational invariants
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the durable contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
+See [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) for the durable contracts covering A2A lifecycle, I18N contexts, optional dependency installation, tool safety, provider capabilities, OAuth trust boundaries, structured events, and acceptance verification.
 
 ## Enterprise Policy Engine
 
-Organization-level policies for tools, providers, credentials, MCP servers, networks, skills, and plugins are supported. Set `UAGENT_POLICY_FILE` to a JSON/YAML policy file; see [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) for configuration examples, roles, confirmation, and allowlists.
+Organization-level policies for tools, providers, credentials, MCP servers, networks, skills, and plugins are supported. Set `UAGENT_POLICY_FILE` to a JSON/YAML policy file; see [docs/ENTERPRISE_POLICY.md](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) for configuration examples, roles, confirmation, and allowlists.
 
 ## Credential Store
 
@@ -361,10 +361,10 @@ Provider API keys, OAuth tokens, MCP credentials, and A2A credentials can use th
 :credential list
 ```
 
-`set` masks the secret input, `get` never prints the secret, and `remove` requires confirmation. Set `UAGENT_CREDENTIAL_STORE_BACKEND=os` to require the OS keyring or `file` to force the encrypted file backend. See [docs/IMPROVEMENT_PRIORITY.md](docs/IMPROVEMENT_PRIORITY.md) and [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) for the storage and policy details.
+`set` masks the secret input, `get` never prints the secret, and `remove` requires confirmation. Set `UAGENT_CREDENTIAL_STORE_BACKEND=os` to require the OS keyring or `file` to force the encrypted file backend. See [docs/IMPROVEMENT_PRIORITY.md](https://github.com/awaku7/agentcli/blob/main/docs/IMPROVEMENT_PRIORITY.md) and [docs/ENTERPRISE_POLICY.md](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) for the storage and policy details.
 
 ### Runtime recovery and orchestration
 
-See [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
+See [RESTART_RECOVERY.md](https://github.com/awaku7/agentcli/blob/main/docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](https://github.com/awaku7/agentcli/blob/main/docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](https://github.com/awaku7/agentcli/blob/main/docs/MULTI_AGENT_RUNTIME.md) for durable recovery, dependency-aware execution, multi-agent orchestration, and remote A2A usage.
 
-See [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.
+See [DISTRIBUTED_COORDINATION.md](https://github.com/awaku7/agentcli/blob/main/docs/DISTRIBUTED_COORDINATION.md) for shared-runtime leader lease coordination.
