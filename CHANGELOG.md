@@ -1,16 +1,21 @@
 # Changelog
 
-## Unreleased
+## [0.6.2] - 2026-08-18
 
 ### Added
 
 - feat(i18n): complete localized Computer Use messages and tool catalog translations across supported locales
 - feat(i18n): wire host and Computer Use internationalization, including shared policy confirmations
+- feat(cli): expand `:` command and argument tab completion for logs, auto-pilot, plugins, memories, and profiles
 
 ### Changed
 
 - docs: update Computer Use internationalization implementation guidance
 - docs: document test-only dependency installation and CI-equivalent local checks
+- docs: document auto-pilot termination semantics and translate the tool flow documentation to English
+- docs: correct Auto-Pilot key descriptions in localized READMEs and standardize translation links
+- docs: use absolute GitHub links for repository documentation while preserving the PyPI link
+- test: add a space-steganography sample and detector for Unicode space experiments
 
 ## [0.6.0] - 2026-08-15
 
@@ -27,6 +32,7 @@
 - fix(deps): align the pinned `llmcapa` dependency with the installed 0.5.4 release
 - ci: separate and complete test dependencies across supported platforms
 - docs: update improvement roadmap, local CI checks, architecture, and policy guidance
+
 ## [0.5.72] - 2026-08-13
 
 ### Changed
@@ -52,13 +58,11 @@
 - docs: update localized tool headings, descriptions, and README tool listings
 - docs: document repository analysis and coverage tools
 
-
 ## [0.5.70] - 2026-08-11
 
 ### Changed
 
 - fix(deps): pin `llmcapa` to the verified 0.5.1 release
-
 
 ## [0.5.69] - 2026-08-11
 
@@ -76,7 +80,6 @@
 - fix(packaging): include tool data resources in source and wheel distributions
 - fix(status): normalize generic LLM status labels while preserving reasoning state
 - fix(types): resolve mypy issues in token, cloud API, and pybitchat helpers
-
 
 ## [0.5.68] - 2026-08-07
 
