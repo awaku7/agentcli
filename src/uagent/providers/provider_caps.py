@@ -74,6 +74,7 @@ CHAT_VISION_PROVIDERS: frozenset[str] = frozenset(
         "claude",
         "gemini",
         "vertexai",
+        "llama_cpp",
     }
 )
 
