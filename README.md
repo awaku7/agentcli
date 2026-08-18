@@ -205,7 +205,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
 - **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
 - **Separate judge LLM** (optional): Set `UAGENT_AP_PROVIDER` to use a different provider/model for the reviewer (e.g. use a cheaper model for judging).
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
+- **Exit anytime**: Press **F11** to stop auto-pilot; **F12** stops the current LLM response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
 See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) for full documentation.
@@ -218,19 +218,19 @@ uag can track progress across long-running multi-file tasks. When the LLM proces
 
 `human_ask` lets the LLM pause and ask for your confirmation before performing destructive operations (file deletion, overwrites, shell commands). You stay in control.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Interrupt (F12 / Stop button)
 
 Stop LLM response generation at any time and inject a stop command back to the LLM.
 
 | Interface | How to interrupt |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming — the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **CLI** | Press F12 during LLM streaming — the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
 | **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
 | **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
 
 The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
 
-Press `x` key to exit auto-pilot mode (see [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Press **F11** to stop auto-pilot; **F12** stops the current LLM response (see [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browser Automation & Web Inspector
 

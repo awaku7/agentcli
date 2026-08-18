@@ -188,13 +188,13 @@ Stopp generering av LLM-svar når som helst og injiser en stoppkommando tilbake 
 
 | Grensesnitt | Korleis avbryte |
 |---|---|
-| **CLI** | Trykk `c`-tasten under LLM-streaming — gjeldende svar stopper, og `"Stopp"` sendes som en brukermelding slik at LLM svarer tilsvarende |
+| **CLI** | Trykk F12-tasten under LLM-streaming — gjeldende svar stopper, og `"Stopp"` sendes som en brukermelding slik at LLM svarer tilsvarende |
 | **WEB UI** | Klikk på den røde **■ Stopp**-knappen (vises automatisk under LLM-behandling) |
 | **GUI for skrivebord** | Klikk på den røde **■**-knappen (vises automatisk under LLM-behandling) |
 
 Avbruddet fungerer som en "prompt injeksjon": i staden for å berre avbryte, mater den "Stopp" tilbake til LLM som en brukermelding, slik at den elegant kan konkludere eller bekrefte avbruddet.
 
-Trykk `x`-tasten for å avslutte autopilotmodus (se [README_AUTO.md](README_AUTO.md)).
+Trykk F11-tasten for å avslutte autopilotmodus (se [README_AUTO.md](README_AUTO.md)).
 
 ### 🕵️ Nettleserautomatisering og nettinspektør
 

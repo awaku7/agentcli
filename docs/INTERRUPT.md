@@ -8,7 +8,7 @@ LLM ストリーミング応答中に **c キー** を押すだけで応答生�
 
 ## 要求
 
-- **トリガー**: 1 回の `c` キー押下（大文字小文字不問、Ctrl+C ではない）
+- **トリガー**: 1 回の F12押下（大文字小文字不問、Ctrl+C ではない）
 - **タイミング**: LLM ストリーミング出力中の任意のタイミング
 - **効果**:
   1. 現在の応答生成を直ちに中断（途中までの出力は破棄 or `[interrupted]` 表記）
@@ -74,7 +74,7 @@ LLM ストリーミング応答中に **c キー** を押すだけで応答生�
 ### 1. core.py: グローバルフラグとモニタースレッド
 
 ```python
-# --- Interrupt (c-key) ---
+# --- Interrupt (F12) ---
 interrupt_requested = False
 """Set True when user presses 'c' during LLM streaming."""
 

@@ -63,7 +63,7 @@ Key modules:
     - Judgment uses the same provider/code path as the main query via
       `run_llm_rounds(judgment_mode=True)`, including Responses API support.
     - **Exit mechanisms:**
-      - Press `x` to exit immediately (checked mid-round in `run_llm_rounds`).
+      - Press F11 to stop auto-pilot at the next safe checkpoint; F12 interrupts the current LLM response.
       - Reviewer returns `COMPLETE` → auto-pilot stops.
       - `--max-rounds N` reached (default 10).
       - `:auto off` to stop.

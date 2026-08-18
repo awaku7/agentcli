@@ -172,7 +172,7 @@ Instalați și extindeți capacitățile lui uag din mers.
 uag poate **să urmărească în mod autonom un obiectiv în mai multe LLM runde**. Perfect pentru sarcini complexe, cu mai mulți pași, care necesită o rafinare iterativă.
 - **Cum funcționează**: Fiecare rundă are o interogare principală (Pasul A) urmată de o judecată a recenzentului (Pasul B) care decide „COMPLETĂ sau CONTINUA?”
 - **Același furnizor, același API**: Judecata recenzentului folosește calea de cod identică ca interogarea principală — inclusiv răspunsurile .API suport .API**Separate .API** LLM** (opțional): setați `UAGENT_AP_PROVIDER` să folosească un alt furnizor/model pentru examinator (de exemplu, utilizați un model mai ieftin pentru evaluare).
-- **Ieșiți oricând**: apăsați tasta `x` pentru a opri imediat, chiar și la mijlocul răspunsului. Sau lăsați recenzentul să decidă când este îndeplinit obiectivul.
+- **Ieșiți oricând**: apăsați tasta F11 pentru a opri imediat, chiar și la mijlocul răspunsului. Sau lăsați recenzentul să decidă când este îndeplinit obiectivul.
 - **Configurabil**: `--max-rounds N` pentru a controla bugetul.
 Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pentru documentația completă.
 ⏩## Batch State Manager. poate urmări progresul în sarcinile cu mai multe fișiere de lungă durată. Când LLM procesează zeci de fișiere, `batch_state` persistă pe disc lista fișierelor în așteptare, finalizate și eșuate. Dacă sesiunea se termină sau expiră o rundă, următoarea rulare reia de unde s-a oprit — nimic nu se pierde.
@@ -182,7 +182,7 @@ Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/R
 Opriți generarea răspunsului LLM în orice moment și injectați o comandă de oprire înapoi în LLM.
 | Interfață | Cum se întrerupe |
 |---|---|
-| **CLI** | Apăsați tasta `c` în timpul streamingului LLM — răspunsul curent se oprește și `"Stop"` este trimis ca mesaj de utilizator, astfel încât LLM să răspundă în consecință |
+| **CLI** | Apăsați tasta F12 în timpul streamingului LLM — răspunsul curent se oprește și `"Stop"` este trimis ca mesaj de utilizator, astfel încât LLM să răspundă în consecință |
 | **Interfață de utilizare WEB** | Faceți clic pe butonul roșu **■ Stop** (apare automat în timpul procesării LLM) |
 | **Interfață grafică pentru desktop** | Faceți clic pe butonul roșu **■** (apare automat în timpul procesării LLM) |
 Întreruperea funcționează ca „injectare promptă”: în loc să se anuleze, transmite „Stop”” înapoi către LLM sub formă de mesaj de utilizator, permițându-i să încheie cu grație sau să recunoască întreruperea tastei.

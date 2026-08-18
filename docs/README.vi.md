@@ -186,7 +186,7 @@ uag có thể **tự động theo đuổi mục tiêu trong nhiều LLM vòng**.
 - **Cách hoạt động**: Mỗi vòng có một truy vấn chính (Bước A), theo sau là phán đoán của người đánh giá (Bước B) quyết định "HOÀN THÀNH hay TIẾP TỤC?"
 - **Cùng một nhà cung cấp, giống API**: Phán quyết của người đánh giá sử dụng đường dẫn mã giống hệt như truy vấn chính — bao gồm Phản hồi API hỗ trợ.
 - **Thẩm phán riêng LLM** (tùy chọn): Đặt `UAGENT_AP_PROVIDER` để sử dụng một nhà cung cấp/mô hình khác cho người đánh giá (ví dụ: sử dụng mô hình rẻ hơn để đánh giá).
-- **Thoát bất cứ lúc nào**: Nhấn phím `x` để dừng ngay lập tức, kể cả khi đang phản hồi. Hoặc để người đánh giá quyết định khi nào đạt được mục tiêu.
+- **Thoát bất cứ lúc nào**: Nhấn phím F11 để dừng ngay lập tức, kể cả khi đang phản hồi. Hoặc để người đánh giá quyết định khi nào đạt được mục tiêu.
 - **Có thể định cấu hình**: `--max-rounds N` để kiểm soát ngân sách.
 Xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) để có tài liệu đầy đủ.
 ### 🧩 Batch State Manager
@@ -197,11 +197,11 @@ uag có thể theo dõi tiến trình trong thời gian dài nhiệm vụ nhiề
 Dừng tạo phản hồi LLM bất cứ lúc nào và đưa lệnh dừng trở lại LLM.
 | Giao diện | Cách ngắt lời |
 |---|---|
-| **CLI** | Nhấn phím `c` trong khi phát trực tuyến LLM — phản hồi hiện tại dừng và `"Dừng"` được gửi dưới dạng tin nhắn người dùng để LLM phản hồi tương ứng |
+| **CLI** | Nhấn phím F12 trong khi phát trực tuyến LLM — phản hồi hiện tại dừng và `"Dừng"` được gửi dưới dạng tin nhắn người dùng để LLM phản hồi tương ứng |
 | **Giao diện người dùng WEB** | Nhấp vào nút **■ Dừng** màu đỏ (tự động xuất hiện trong quá trình xử lý LLM) |
 | **Giao diện máy tính để bàn** | Nhấp vào nút **■** màu đỏ (tự động xuất hiện trong quá trình xử lý LLM) |
 Ngắt hoạt động như "nhắc nhở": thay vì chỉ hủy bỏ, nó sẽ đưa `"Dừng"` trở lại LLM dưới dạng thông báo người dùng, cho phép nó kết thúc hoặc xác nhận sự gián đoạn một cách duyên dáng.
-Nhấn phím `x` để thoát chế độ tự động điều khiển (xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Nhấn phím F11 để thoát chế độ tự động điều khiển (xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 ### 🕵️ Tự động hóa trình duyệt và Thanh tra web
 Hai công cụ bổ sung dựa trên Playwright:
 - **browser_playwright**: Tự động hóa các phiên trình duyệt thực — điều hướng, nhấp chuột, điền vào biểu mẫu, trích xuất dữ liệu, xử lý các luồng nhiều trang. Hoạt động không có đầu hoặc có đầu.

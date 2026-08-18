@@ -183,7 +183,7 @@ Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUT
 Stoppa LLM-svarsgenerering när som helst och injicera ett stoppkommando tillbaka till LLM.
 | Gränssnitt | Hur man avbryter |
 |---|---|
-| **CLI** | Tryck på `c`-tangenten under LLM-strömning — det aktuella svaret stoppar, och `"Stopp"` skickas som ett användarmeddelande så att LLM svarar i enlighet därmed |
+| **CLI** | Tryck på F12-tangenten under LLM-strömning — det aktuella svaret stoppar, och `"Stopp"` skickas som ett användarmeddelande så att LLM svarar i enlighet därmed |
 | **WEB UI** | Klicka på den röda **■ Stopp**-knappen (visas automatiskt under LLM-bearbetning) |
 | **GUI för skrivbord** | Klicka på den röda **■**-knappen (visas automatiskt under LLM-bearbetning) |
 Avbrottet fungerar som "promptinjektion": istället för att bara avbryta, matar det tillbaka "Stopp" till LLM som ett användarmeddelande, vilket gör att den på ett elegant sätt kan avsluta eller bekräfta avbrottet.

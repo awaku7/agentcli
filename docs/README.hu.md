@@ -212,7 +212,7 @@ Bármikor leállíthatja a LLM válaszgenerálást, és visszaadhatja a stop par
 
 | Interfész | Hogyan kell megszakítani |
 |---|---|
-| **CLI** | Nyomja meg a `c` billentyűt a LLM adatfolyam közben – az aktuális válasz leáll, és a "Stop"-t felhasználói üzenetként küldi el, így a LLM ennek megfelelően válaszol |
+| **CLI** | Nyomja meg a F12 billentyűt a LLM adatfolyam közben – az aktuális válasz leáll, és a "Stop"-t felhasználói üzenetként küldi el, így a LLM ennek megfelelően válaszol |
 | **WEBES UI** | Kattintson a piros **■ Stop** gombra (automatikusan megjelenik a LLM feldolgozás során) |
 | **Asztali GUI** | Kattintson a piros **■** gombra (automatikusan megjelenik a LLM feldolgozása közben) |
 

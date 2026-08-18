@@ -203,7 +203,7 @@ uag może **autonomicznie realizować cel w wielu LLM rundach**. Idealny do zło
 - **Jak to działa**: Każda runda składa się z głównego zapytania (krok A), po którym następuje ocena recenzenta (krok B), która decyduje: „UKOŃCZYĆ czy KONTYNUOWAĆ?”
 - **Ten sam dostawca, ten sam API**: Ocena recenzenta wykorzystuje tę samą ścieżkę kodu co główne zapytanie — łącznie z obsługą odpowiedzi API.
 - **Oddzielny sędzia LLM** (opcjonalnie): Ustaw `UAGENT_AP_PROVIDER`, aby użyć innego dostawcy/modelu dla recenzenta (np. użyj tańszego modelu do oceny).
-- **Wyjdź w dowolnym momencie**: Naciśnij klawisz `x`, aby zatrzymać natychmiast, nawet w połowie odpowiedzi. Możesz też pozwolić recenzentowi zdecydować, kiedy cel zostanie osiągnięty.
+- **Wyjdź w dowolnym momencie**: Naciśnij klawisz F11, aby zatrzymać natychmiast, nawet w połowie odpowiedzi. Możesz też pozwolić recenzentowi zdecydować, kiedy cel zostanie osiągnięty.
 - **Konfigurowalne**: `--max-rounds N` w celu kontrolowania budżetu.
   Zobacz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md), aby uzyskać pełną dokumentację.
 
@@ -220,11 +220,11 @@ uag może śledzić postęp długotrwałych zadań obejmujących wiele plików. 
 Zatrzymaj generowanie odpowiedzi LLM w dowolnym momencie i wprowadź polecenie zatrzymania z powrotem do LLM.
 | Interfejs | Jak przerwać |
 |---|---|
-| **CLI** | Naciśnij klawisz `c` podczas przesyłania strumieniowego LLM — bieżąca odpowiedź zostanie zatrzymana, a jako wiadomość do użytkownika zostanie wysłany komunikat „Stop”, dzięki czemu LLM odpowiednio zareaguje |
+| **CLI** | Naciśnij klawisz F12 podczas przesyłania strumieniowego LLM — bieżąca odpowiedź zostanie zatrzymana, a jako wiadomość do użytkownika zostanie wysłany komunikat „Stop”, dzięki czemu LLM odpowiednio zareaguje |
 | **Interfejs WWW** | Kliknij czerwony przycisk **■ Zatrzymaj** (pojawia się automatycznie podczas przetwarzania LLM) |
 | **GUI pulpitu** | Kliknij czerwony przycisk **■** (pojawia się automatycznie podczas przetwarzania LLM) |
 Przerwanie działa jako „wstrzyknięcie monitu”: zamiast po prostu przerywać, przekazuje komunikat „Stop” z powrotem do LLM jako komunikat użytkownika, umożliwiając mu eleganckie zakończenie lub potwierdzenie przerwania.
-Naciśnij klawisz `x`, aby wyjść z trybu autopilota (patrz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Naciśnij klawisz F11, aby wyjść z trybu autopilota (patrz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatyzacja przeglądarki i inspektor sieciowy
 

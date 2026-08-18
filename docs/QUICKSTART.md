@@ -232,18 +232,18 @@ ______________________________________________________________________
 - [`README.md`](../README.md) (overview / Provider / Web Inspector, etc.)
 - [`AGENTS.md`](../AGENTS.md) (tools list / environment variables / MCP shortest example)
 - [`README_AUTO.md`](README_AUTO.md) (`:auto` command guide)
-- [`INTERRUPT.md`](INTERRUPT.md) (c-key interrupt details)
+- [`INTERRUPT.md`](INTERRUPT.md) (F12 interrupt details)
 
 ______________________________________________________________________
 
-## 9. Interrupt (c key)
+## 9. Interrupt (F12)
 
-Press **`c`** during LLM streaming to stop the current response.\
+Press **F12** during LLM streaming to stop the current response.\
 Instead of just aborting, `"Stop"` is injected as a user message, allowing the LLM to gracefully conclude.
 
 | Interface | How to interrupt |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming |
+| **CLI** | Press F12 during LLM streaming |
 
 For details, see [`INTERRUPT.md`](INTERRUPT.md).
 
@@ -267,7 +267,7 @@ Stop methods:
 
 | Method | Description |
 |---|---|
-| **`x` key** | Stops immediately, even mid-LLM-response (recommended) |
+| **F11 key** | Stops auto-pilot at the next safe checkpoint |
 | **`COMPLETE` judged** | Reviewer decides goal is met |
 | **`--max-rounds N` reached** | Default 10 rounds |
 

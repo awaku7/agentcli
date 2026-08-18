@@ -170,7 +170,7 @@ Sakinisha na upanue uwezo wa uag kwa njia ya ndege.
 uag yanaweza **kufuata lengo kiotomatiki katika raundi nyingi LLM**. Ni kamili kwa kazi ngumu, za hatua nyingi zinazohitaji uboreshaji unaorudiwa.
 - **Jinsi inavyofanya kazi**: Kila awamu ina swali kuu (Hatua A) ikifuatwa na hukumu ya mkaguzi (Hatua B) ambayo itaamua "KIKAMILISHA au ENDELEA?"
 - **Mtoa huduma sawa, API**: Hukumu ya mkaguzi hutumia njia ya msimbo sawa kama hoja kuu - ikiwa ni pamoja na Majibu __tejaji*PH_2 usaidizi wa Majibu __tejaji*PH_2. (si lazima): Weka `UAGENT_AP_PROVIDER` ili kutumia mtoaji/muundo tofauti kwa mkaguzi (k.m. tumia muundo wa bei nafuu kutathmini).
-- **Ondoka wakati wowote**: Bonyeza kitufe cha `x` ili kuacha mara moja, hata jibu la katikati. Au mruhusu mhakiki aamue wakati lengo litakapotimizwa.
+- **Ondoka wakati wowote**: Bonyeza kitufe cha F11 ili kuacha mara moja, hata jibu la katikati. Au mruhusu mhakiki aamue wakati lengo litakapotimizwa.
 - **Inaweza kusanidiwa**: `--raundi-ya juu zaidi N` ili kudhibiti bajeti.
 Angalia [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.####Batch ⏧#Bajeti kamili ya hati Msimamizi
 uag anaweza kufuatilia maendeleo katika majukumu ya muda mrefu ya faili nyingi. LLM inapochakata faili nyingi, `batch_state` hudumisha orodha ya faili ambazo hazijakamilika, zilizokamilika na ambazo hazijakamilika kwenye diski. Kipindi kikiisha au muda wa mzunguko kuisha, mwendo unaofuata utaanza tena kutoka pale kiliposimama - hakuna kitakachopotea.
@@ -180,11 +180,11 @@ uag anaweza kufuatilia maendeleo katika majukumu ya muda mrefu ya faili nyingi. 
 Simamisha LLM uundaji wa majibu wakati wowote na urudishe amri ya kusitisha kwenye LLM.
 | Kiolesura | Jinsi ya kukatiza |
 |---|---|
-| **CLI** | Bonyeza kitufe cha `c` wakati wa LLM utiririshaji — jibu la sasa litakoma, na `"Simamisha"` hutumwa kama ujumbe wa mtumiaji kwa hivyo LLM ijibu ipasavyo |
+| **CLI** | Bonyeza kitufe cha F12 wakati wa LLM utiririshaji — jibu la sasa litakoma, na `"Simamisha"` hutumwa kama ujumbe wa mtumiaji kwa hivyo LLM ijibu ipasavyo |
 | **WEB UI** | Bofya kitufe chekundu **■ Sitisha** (kinaonekana kiotomatiki wakati LLM uchakataji) |
 | **GUI ya Eneo-kazi** | Bofya kitufe chekundu **■** (huonekana kiotomatiki wakati wa LLM kuchakata) |
 Kikatizi hufanya kazi kama "sindano ya papo hapo": badala ya kuacha tu, hurudisha `"Acha"` hadi LLM kama ujumbe wa mtumiaji, na kuuruhusu kuhitimisha au kukiri kukatizwa kwa ustadi.
-Bonyeza kitufe cha 'ona otomatiki' ili kuondoka kwenye kitufe cha `x`. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Bonyeza kitufe cha 'ona otomatiki' ili kuondoka kwenye kitufe cha F11. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 ### 🕵️ Kivinjari Kiotomatiki na Kikaguzi cha Wavuti
 Vipindi viwili vya Playwright vinavyosaidiana, kivinjari**:_-chezea kivinjari kiotomatiki*:_-chezea kiotomatiki kivinjari bofya, jaza fomu, toa data, shughulikia mtiririko wa kurasa nyingi. Hufanya kazi bila kichwa au kichwa.
 - **mkaguzi_wa_mwigizaji**: Rekodi mabadiliko ya kivinjari, nasa vijipicha vya DOM na picha za skrini kwa kila hatua. Inafaa kwa utatuzi wa mwingiliano wa wavuti au mabadiliko ya ukurasa wa ukaguzi kwa wakati.

@@ -210,7 +210,7 @@ uag dapat **secara mandiri mengejar sasaran dalam beberapa putaran LLM**. Sempur
 - **Cara kerjanya**: Setiap putaran memiliki kueri utama (Langkah A) diikuti dengan penilaian peninjau (Langkah B) yang memutuskan "SELESAI atau LANJUTKAN?"
 - **Penyedia yang sama, API yang sama**: Penilaian peninjau menggunakan jalur kode yang sama dengan kueri utama — termasuk dukungan Respons API.
 - **Juri terpisah LLM** (opsional): Setel `UAGENT_AP_PROVIDER` untuk menggunakan penyedia/model yang berbeda untuk pengulas (misalnya, gunakan model yang lebih murah untuk menilai).
-- **Keluar kapan saja**: Tekan tombol `x` untuk segera berhenti, bahkan di tengah respons. Atau biarkan peninjau memutuskan kapan sasaran tercapai.
+- **Keluar kapan saja**: Tekan tombol F11 untuk segera berhenti, bahkan di tengah respons. Atau biarkan peninjau memutuskan kapan sasaran tercapai.
 - **Dapat dikonfigurasi**: `--max-rounds N` untuk mengontrol anggaran.
 
 Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) untuk dokumentasi lengkap.
@@ -229,13 +229,13 @@ Hentikan pembuatan respons LLM kapan saja dan masukkan perintah stop kembali ke 
 
 | Antarmuka | Cara menyela |
 |---|---|
-| **CLI** | Tekan tombol `c` selama LLM streaming — respons saat ini berhenti, dan `"Stop"` dikirim sebagai pesan pengguna sehingga LLM merespons dengan tepat |
+| **CLI** | Tekan tombol F12 selama LLM streaming — respons saat ini berhenti, dan `"Stop"` dikirim sebagai pesan pengguna sehingga LLM merespons dengan tepat |
 | **UI WEB** | Klik tombol merah **■ Stop** (muncul otomatis selama LLM pemrosesan) |
 | **Desktop GUI** | Klik tombol merah **■** (muncul secara otomatis selama pemrosesan LLM) |
 
 Interupsi berfungsi sebagai "injeksi cepat": alih-alih hanya dibatalkan, interupsi akan mengumpankan `"Stop"` kembali ke LLM sebagai pesan pengguna, sehingga memungkinkannya mengakhiri atau menerima interupsi dengan baik.
 
-Tekan tombol `x` untuk keluar dari mode pilot otomatis (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Tekan tombol F11 untuk keluar dari mode pilot otomatis (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Otomatisasi Browser & Web Inspektur
 

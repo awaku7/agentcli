@@ -206,7 +206,7 @@ uag uzun süredir devam eden çok dosyalı görevlerdeki ilerlemeyi izleyebilir.
 İstediğiniz zaman LLM yanıt oluşturmayı durdurun ve LLM'e geri bir durdurma komutu enjekte edin.
 | Arayüz | |
 |---|---|
-| **CLI** | LLM akışı sırasında `c` tuşuna basın — mevcut yanıt durur ve LLM'ün buna göre yanıt vermesi için `"Durdur"` bir kullanıcı mesajı olarak gönderilir |
+| **CLI** | LLM akışı sırasında F12 tuşuna basın — mevcut yanıt durur ve LLM'ün buna göre yanıt vermesi için `"Durdur"` bir kullanıcı mesajı olarak gönderilir |
 | **WEB kullanıcı arayüzü** | Kırmızı **■ Durdur** düğmesine tıklayın (LLM işlemi sırasında otomatik olarak görünür) |
 | **Masaüstü GUI** | Kırmızı **■** düğmesine tıklayın (LLM işlemi sırasında otomatik olarak görünür) |
 Kesinti, "bilgi istemi enjeksiyonu" olarak çalışır: yalnızca iptal etmek yerine, LLM'e bir kullanıcı mesajı olarak ""Durdur""u geri gönderir ve kesintiyi zarif bir şekilde sonlandırmasına veya kesintiyi kabul etmesine olanak tanır.

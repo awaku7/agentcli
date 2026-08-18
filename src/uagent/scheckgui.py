@@ -1646,7 +1646,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().addPermanentWidget(self._display_reasoning_btn)
         self._update_display_reasoning_btn()
 
-        # Auto-pilot stop button (x key)
+        # Auto-pilot stop button
         self._auto_stop_btn = QtWidgets.QPushButton()
         self._auto_stop_btn.setIcon(_make_close_icon(16))
         self._auto_stop_btn.setIconSize(QtCore.QSize(16, 16))
@@ -2670,10 +2670,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self._stop_btn.hide()
 
     def _on_auto_stop(self) -> None:
-        """Stop auto-pilot mode (x key equivalent)."""
+        """Stop auto-pilot mode from the GUI stop button."""
         with core.auto_pilot_exit_lock:
             core.auto_pilot_exit_requested = True
-        print("\n[AUTO] " + _("Stop requested by user (x key)."))
+        print("\n[AUTO] " + _("Stop requested by user (GUI stop button)."))
         self._auto_stop_btn.hide()
 
     def _on_send(self):

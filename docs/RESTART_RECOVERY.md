@@ -24,7 +24,6 @@ $env:UAGENT_TASK_STORE_PATH = "$HOME/.uag/a2a/tasks.sqlite3"
 
 `TASK_INTERRUPTED_BY_RESTART` and `task.recovered_after_restart` are stable machine-readable values and are not translated. User-facing clients should translate their presentation while preserving these values in API responses and logs.
 
-
 ## Checkpoints
 
 Task stores also expose `save_checkpoint(task_id, checkpoint)` and `load_checkpoint(task_id)` for durable recovery metadata. Checkpoints contain structured, application-owned data; secret values must not be stored in them. Automatic resume of an interrupted LLM or Tool call is intentionally not performed yet.

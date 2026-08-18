@@ -209,7 +209,7 @@ uag boleh **secara autonomi mengejar matlamat merentasi berbilang LLM pusingan**
 - **Cara ia berfungsi**: Setiap pusingan mempunyai pertanyaan utama (Langkah A) diikuti dengan penghakiman penyemak (Langkah B) yang memutuskan "SELESAI atau TERUSKAN?"
 - **Pembekal yang sama, sama API**: Pertimbangan penyemak menggunakan laluan kod pertanyaan yang sama 
 PH-3 termasuk laluan kod pertanyaan yang sama. **Hakim berasingan LLM** (pilihan): Tetapkan `UAGENT_AP_PROVIDER` untuk menggunakan pembekal/model yang berbeza untuk penyemak (cth. gunakan model yang lebih murah untuk menilai).
-- **Keluar pada bila-bila masa**: Tekan kekunci `x` untuk berhenti serta-merta, walaupun tindak balas pertengahan. Atau biarkan penyemak membuat keputusan apabila matlamat tercapai.
+- **Keluar pada bila-bila masa**: Tekan kekunci F11 untuk berhenti serta-merta, walaupun tindak balas pertengahan. Atau biarkan penyemak membuat keputusan apabila matlamat tercapai.
 - **Boleh Dikonfigurasikan**: `--pusingan maksimum N` untuk mengawal belanjawan.
 
 Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) ## untuk dokumentasi penuh 
@@ -227,7 +227,7 @@ Hentikan penjanaan respons LLM pada bila-bila masa dan suntikan arahan berhenti 
 
 | Antara muka | Bagaimana hendak mengganggu |
 |---|---|
-| **CLI** | Tekan kekunci `c` semasa penstriman LLM — respons semasa berhenti dan `"Berhenti"` dihantar sebagai mesej pengguna supaya LLM bertindak balas dengan sewajarnya |
+| **CLI** | Tekan kekunci F12 semasa penstriman LLM — respons semasa berhenti dan `"Berhenti"` dihantar sebagai mesej pengguna supaya LLM bertindak balas dengan sewajarnya |
 | **UI WEB** | Klik butang merah **■ Berhenti** (muncul secara automatik semasa pemprosesan LLM) |
 | **Desktop GUI** | Klik butang **■** merah (muncul secara automatik semasa pemprosesan LLM) |
 

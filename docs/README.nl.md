@@ -210,7 +210,7 @@ uag kan **autonoom een doel nastreven in meerdere LLM ronden**. Perfect voor com
 - **Hoe het werkt**: elke ronde heeft een hoofdquery (stap A) gevolgd door een oordeel van de recensent (stap B) die beslist: "COMPLETE or CONTINUE?"
 - **Dezelfde provider, dezelfde API**: het oordeel van de recensent gebruikt hetzelfde codepad als de hoofdquery, inclusief ondersteuning voor antwoorden API.
 - **Afzonderlijke rechter LLM** (optioneel): stel `UAGENT_AP_PROVIDER` in om een andere provider/model te gebruiken voor de recensent (gebruik bijvoorbeeld een goedkoper model voor beoordeling).
-- **Op elk gewenst moment afsluiten**: druk op de `x`-toets om onmiddellijk te stoppen, zelfs halverwege de reactie. Of laat de recensent beslissen wanneer het doel is bereikt.
+- **Op elk gewenst moment afsluiten**: druk op de F11-toets om onmiddellijk te stoppen, zelfs halverwege de reactie. Of laat de recensent beslissen wanneer het doel is bereikt.
 - **Configureerbaar**: `--max-rounds N` om het budget te controleren.
 
 Zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) voor volledige documentatie.
@@ -229,13 +229,13 @@ Stop het genereren van LLM-reacties op elk gewenst moment en injecteer een stopc
 
 | Interface | Onderbreken |
 |---|---|
-| **CLI** | Druk op de `c`-toets tijdens het streamen van LLM - het huidige antwoord stopt en `"Stop"` wordt verzonden als een gebruikersbericht, zodat de LLM overeenkomstig reageert |
+| **CLI** | Druk op de F12-toets tijdens het streamen van LLM - het huidige antwoord stopt en `"Stop"` wordt verzonden als een gebruikersbericht, zodat de LLM overeenkomstig reageert |
 | **WEBUI** | Klik op de rode knop **■ Stoppen** (verschijnt automatisch tijdens de verwerking van LLM) |
 | **Bureaublad GUI** | Klik op de rode **■** knop (verschijnt automatisch tijdens de verwerking van LLM) |
 
 De interrupt werkt als "prompt injection": in plaats van alleen maar af te breken, wordt `"Stop"` teruggestuurd naar de LLM als een gebruikersbericht, zodat deze de onderbreking netjes kan beëindigen of bevestigen.
 
-Druk op de `x`-toets om de automatische pilootmodus te verlaten (zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Druk op de F11-toets om de automatische pilootmodus te verlaten (zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browserautomatisering en Web Inspector
 

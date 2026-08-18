@@ -206,7 +206,7 @@ uag ay maaaring **awtonomyang ituloy ang isang layunin sa maraming LLM round**. 
 
 - **Paano ito gumagana**: Ang bawat round ay may pangunahing query (Hakbang A) na sinusundan ng paghatol ng reviewer (Hakbang B) na nagpapasya sa "KUMPLETO o MAGPATULOY?"
 - **Parehong provider, parehong API**: Ang paghuhusga ng reviewer ay gumagamit ng kaparehong query code na path_3 — kasama ang path ng suporta sa query_3 — kabilang ang path ng suporta sa query_3. **Hiwalay na hukom LLM** (opsyonal): Itakda ang `UAGENT_AP_PROVIDER` na gumamit ng ibang provider/modelo para sa reviewer (hal. gumamit ng mas murang modelo para sa paghusga).
-- **Lumabas anumang oras**: Pindutin ang `x` key upang ihinto kaagad, kahit sa kalagitnaan ng pagtugon. O hayaan ang reviewer na magpasya kung kailan natugunan ang layunin.
+- **Lumabas anumang oras**: Pindutin ang F11 upang ihinto kaagad, kahit sa kalagitnaan ng pagtugon. O hayaan ang reviewer na magpasya kung kailan natugunan ang layunin.
 - **Configurable**: `--max-rounds N` para kontrolin ang badyet.
 
 Tingnan ang [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) 
@@ -220,13 +220,13 @@ uag ang pag-unlad sa mga matagal nang multi-file na gawain. Kapag ang LLM ay nag
 
 `human_ask` hinahayaan ang LLM na i-pause at hingin ang iyong kumpirmasyon bago magsagawa ng mga mapanirang operasyon (pagtanggal ng file, pag-overwrite, mga shell). Mananatili kang may kontrol.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Interrupt (F12 / Stop button)
 
 Stop LLM response generation anumang oras at mag-inject ng stop command pabalik sa LLM.
 
 | Interface | Paano matakpan |
 |---|---|
-| **CLI** | Pindutin ang `c` key habang nag-stream ng LLM — hihinto ang kasalukuyang tugon, at ipapadala ang `"Stop"` bilang mensahe ng user upang tumugon nang naaayon ang LLM |
+| **CLI** | Pindutin ang F12 habang nag-stream ng LLM — hihinto ang kasalukuyang tugon, at ipapadala ang `"Stop"` bilang mensahe ng user upang tumugon nang naaayon ang LLM |
 | **WEB UI** | I-click ang pulang **■ Stop** button (awtomatikong lilitaw sa panahon ng pagproseso ng LLM) |
 | **Desktop GUI** | I-click ang pulang **■** na buton (awtomatikong lilitaw sa panahon ng pagpoproseso ng LLM) |
 

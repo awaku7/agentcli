@@ -208,7 +208,7 @@ Stopp generering av LLM-svar når som helst og injiser en stoppkommando tilbake 
 
 | Grensesnitt | Hvordan avbryte |
 |---|---|
-| **CLI** | Trykk `c`-tasten under LLM-streaming — gjeldende svar stopper, og `"Stopp"` sendes som en brukermelding slik at LLM svarer tilsvarende |
+| **CLI** | Trykk F12-tasten under LLM-streaming — gjeldende svar stopper, og `"Stopp"` sendes som en brukermelding slik at LLM svarer tilsvarende |
 | **WEB UI** | Klikk på den røde **■ Stopp**-knappen (vises automatisk under LLM-behandling) |
 | **Skrivebord GUI** | Klikk på den røde **■**-knappen (vises automatisk under LLM-behandling) |
 

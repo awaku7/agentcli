@@ -229,13 +229,13 @@ Interrompi la generazione della risposta LLM in qualsiasi momento e invia un com
 
 | Interfaccia | Come interrompere |
 |---|---|
-| **CLI** | Premi il tasto `c` durante lo streaming LLM: la risposta corrente si interrompe e `"Stop"` viene inviato come messaggio utente in modo che LLM risponda di conseguenza |
+| **CLI** | Premi il tasto F12 durante lo streaming LLM: la risposta corrente si interrompe e `"Stop"` viene inviato come messaggio utente in modo che LLM risponda di conseguenza |
 | **UI WEB** | Fai clic sul pulsante rosso \*\*\*\*\* Interrompi\*\* (appare automaticamente durante l'elaborazione LLM) |
 | **Desktop GUI** | Fare clic sul pulsante rosso \*\*\*\*\*\*\* (appare automaticamente durante l'elaborazione LLM) |
 
 L'interruzione funziona come "prompt injection": invece di limitarsi ad abortire, invia `"Stop"` a LLM come messaggio utente, consentendogli di concludere o riconoscere l'interruzione con garbo.
 
-Premi il tasto `x` per uscire dalla modalità pilota automatico (vedi [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Premi il tasto F11 per uscire dalla modalità pilota automatico (vedi [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automazione del browser e Web Inspector
 

@@ -79,7 +79,6 @@ python scripts/acceptance_check.py
 
 The suite checks import graph policy, all tests, ruff, required design artifacts, and required event codes. A change is acceptable only when it reports `acceptance: OK`.
 
-
 ## Remote checkpoint synchronization
 
 A2A exposes authenticated task checkpoint get/save endpoints. Stable checkpoint payloads and error codes are not localized; clients translate only user-facing labels.

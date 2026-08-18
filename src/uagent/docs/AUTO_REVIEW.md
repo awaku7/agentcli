@@ -53,8 +53,8 @@ User: ":auto translate README to Japanese"
 
 | # | Problem | Detail |
 |---|---|---|
-| P1 | `x` key exit is not immediate | Flag is checked only at loop top; during `run_llm_rounds()` (Step A) the main thread is blocked, so `x` takes effect only after the current round finishes. |
-| P2 | LLM round cannot be interrupted mid-flight | `run_llm_rounds()` has no mechanism to abort on `auto_pilot_exit_requested`. The interrupt monitor (`c` key → `interrupt_requested`) works but only injects a stop prompt, it doesn't exit the auto-pilot loop. |
+| P1 | F11 auto-pilot exit is not immediate | Flag is checked only at loop top; during `run_llm_rounds()` (Step A) the main thread is blocked, so F11 takes effect only after the current round finishes. |
+| P2 | LLM round cannot be interrupted mid-flight | `run_llm_rounds()` has no mechanism to abort on `auto_pilot_exit_requested`. The interrupt monitor (F12 → `interrupt_requested`) works but only injects a stop prompt, it doesn't exit the auto-pilot loop. |
 | P3 | Judgment bypasses `run_llm_rounds()` | `_ask_reviewer_judgment()` calls `client.chat.completions.create()` directly. This means it does NOT use the same code path as the main query — no Responses API, no provider-specific handling. |
 | P4 | Judgment fallback for non-OpenAI providers | Providers like Gemini/Claude raise `AttributeError`/`NotImplementedError` in `_ask_reviewer_judgment()`, which is caught and silently returns `"CONTINUE"`. Result: auto-pilot never terminates via judgment on those providers. |
 | P5 | Judgment shares main context | `_build_judgment_messages()` builds a separate message list for the reviewer, but the judgment itself is performed inline in `_run_auto_pilot_loop()`. Not truly separated. |
@@ -139,16 +139,16 @@ if judgment_mode:
             return ""  # signal exit
 ```
 
-This allows `x` key to abort even during an LLM call, without waiting for the round to finish.
+This allows F11 to abort even during an LLM call, without waiting for the round to finish.
 
-#### 2.4.2 Better `x` key UX
+#### 2.4.2 Better F11 UX
 
-The interrupt monitor already detects `x` key and sets `auto_pilot_exit_requested`. The missing piece is that `_run_auto_pilot_loop()` only checks this flag at the top of the while loop. With the mid-round check above, `x` can now take effect:
+The interrupt monitor already detects F11 and sets `auto_pilot_exit_requested`. The missing piece is that `_run_auto_pilot_loop()` only checks this flag at the top of the while loop. With the mid-round check above, F11 can now take effect:
 
 - During Step A (`run_llm_rounds`) → mid-round check triggers and returns early
 - During Step B (`_ask_reviewer_judgment` → `run_llm_rounds` in judgment mode) → same
 
-If `x` is pressed between rounds, the existing top-of-loop check handles it.
+If F11 is pressed between rounds, the existing top-of-loop check handles it.
 
 ### 2.5 Backward compatibility
 
@@ -173,7 +173,7 @@ After implementation, verify with these scenarios:
 | # | Scenario | Expected result |
 |---|---|---|
 | T1 | `:auto "say hello and stop" --max-rounds 1` | Runs 1 round, then completes (no infinite loop). |
-| T2 | `:auto "count from 1 to 5"` → press `x` during round 2 | `x` takes effect immediately, loop exits before round 2 finishes. |
+| T2 | `:auto "count from 1 to 5"` → press F11 during round 2 | F11 takes effect immediately, loop exits before round 2 finishes. |
 | T3 | `:auto "analyze this file"` on Gemini/Claude provider | Judgment uses the same provider path; COMPLETE/CONTINUE works (no silent fallback). |
 | T4 | `:auto off` | Stops auto-pilot immediately regardless of state. |
 | T5 | Normal (non-auto) usage after `:auto` has finished | No side effects from judgment mode; main messages are clean. |
@@ -356,7 +356,7 @@ ______________________________________________________________________
 
 - Should `run_llm_rounds()` in judgment mode print streaming output or suppress it entirely?
   → Proposal: suppress. Judgment is a meta-operation; showing tokens to the user is noise.
-- Should `x` key also trigger `:auto off` equivalent (reset `auto_pilot_active`)?
+- Should F11 also trigger `:auto off` equivalent (reset `auto_pilot_active`)?
   → Already done: `_run_auto_pilot_loop()` sets `core.auto_pilot_active = False` on exit.
 
 ## 8. 統合前の設計記録（旧 `docs/AUTO_REVIEW.md`）
@@ -379,8 +379,8 @@ ______________________________________________________________________
   1. メインクエリ: レビュー/分析のための質問
   1. メタクエリ: 「レビュワーとして、目的は達成されたか？」を判定
 - **安全弁**: 最大ラウンド数 `--max-rounds N`（デフォルト 10）を超えたら強制終了
-- **割り込み**: `x` キーで自動モードを即座に終了し、通常の手動対話に戻る
-- **既存の `c` キーとの関係**: `c` = 今のLLM応答を中断（"停止"注入、モードは継続）。`x` = 自動モード自体を抜ける
+- **割り込み**: F11で自動モードを即座に終了し、通常の手動対話に戻る
+- **既存の F12との関係**: F12 = 今のLLM応答を中断（"停止"注入、モードは継続）。F11 = 自動モード自体を抜ける
 
 ## アーキテクチャ
 
@@ -423,7 +423,7 @@ run_llm_rounds() → LLMがレビュー結果を返す
 
 | ファイル | 変更内容 |
 |---|---|
-| `core.py` | 自動モード状態変数 + `x` キー検出を `_check_key_win/posix` に追加 |
+| `core.py` | 自動モード状態変数 + F11検出を `_check_key_win/posix` に追加 |
 | `cli.py` | `:auto` コマンド + `_run_auto_pilot_loop()` + メタクエリ判定関数 |
 | `web.py` | WebSocket `"auto_pilot"` ハンドラ |
 | `templates/index.html` | 自動モード中は入力欄ロック＋「Auto running...」表示 |
@@ -512,12 +512,12 @@ def _run_auto_pilot_loop(provider, client, depname, messages, core, ...):
       Step B: メタクエリ（レビュワーとして完了判定）
     """
     while True:
-        # 1. x key exit check
+        # 1. F11 exit check
         with core.auto_pilot_exit_lock:
             if core.auto_pilot_exit_requested:
                 core.auto_pilot_exit_requested = False
                 core.auto_pilot_active = False
-                print(_("\n[AUTO] Exited by user (x key)."))
+                print(_("\n[AUTO] Exited by user (F11)."))
                 return
 
         # 2. Max rounds check
@@ -675,7 +675,7 @@ workdir>
 
 ## 実装順序（推奨）
 
-1. `core.py`: 状態変数 + `x` キー監視
+1. `core.py`: 状態変数 + F11監視
 1. `cli.py`: `:auto` コマンド + `_run_auto_pilot_loop()` + `_ask_reviewer_judgment()`
 1. 動作確認（CLI, OpenAI/Azure で）
 1. 他プロバイダ（Gemini/Claude）対応

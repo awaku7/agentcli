@@ -700,11 +700,14 @@ def _prompt_toolkit_input(
             watcher.join(timeout=0.2)
 
 
-def _clear_abandoned_prompt() -> None:
+def _clear_abandoned_prompt(prompt: str = "") -> None:
     """Erase a prompt line that was abandoned when work became busy."""
     try:
         with core.print_lock:
-            sys.stdout.write("\r\x1b[2K")
+            # ANSI erase is preferred; padding also handles terminals that do
+            # not implement CSI 2K (notably some Windows console wrappers).
+            width = max(80, len(prompt) + 1)
+            sys.stdout.write("\r\x1b[2K" + (" " * width) + "\r")
             sys.stdout.flush()
     except Exception:
         pass
@@ -1036,6 +1039,34 @@ def stdin_loop() -> None:
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
 
+                            # The normal prompt must relinquish stdin when a
+                            # tool or human_ask starts.  Without this watcher,
+                            # the prompt remains visible and is redrawn on
+                            # every status update even though it cannot accept
+                            # input.
+                            stop_prompt_watch = threading.Event()
+
+                            def _watch_normal_prompt() -> None:
+                                while not stop_prompt_watch.wait(0.05):
+                                    with core.human_ask_lock:
+                                        interrupted = bool(core.human_ask_active)
+                                    interrupted = interrupted or bool(
+                                        getattr(core, "status_busy", False)
+                                    )
+                                    if not interrupted:
+                                        continue
+                                    app = getattr(prompt_session, "app", None)
+                                    if app is not None:
+                                        app.exit(result=None)
+                                    return
+
+                            prompt_watcher = threading.Thread(
+                                target=_watch_normal_prompt,
+                                name="prompt-toolkit-normal-state-watcher",
+                                daemon=True,
+                            )
+                            prompt_watcher.start()
+
                             # Treat the prompt_toolkit-rendered line like the
                             # manual prompt so status output can close it
                             # before writing [STATE].
@@ -1047,6 +1078,8 @@ def stdin_loop() -> None:
                                 with patch_stdout():
                                     line = prompt_session.prompt(prompt)
                             finally:
+                                stop_prompt_watch.set()
+                                prompt_watcher.join(timeout=0.2)
                                 try:
                                     core._prompt_line_open = False
                                 except Exception:
@@ -1065,7 +1098,7 @@ def stdin_loop() -> None:
                             if prompt_interrupted or getattr(
                                 core, "status_busy", False
                             ):
-                                _clear_abandoned_prompt()
+                                _clear_abandoned_prompt(prompt)
                                 core.input_prompt_active = False
                                 _skip = True
                                 continue

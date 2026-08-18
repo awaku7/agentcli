@@ -190,7 +190,7 @@ uag kan **autonomt forfølge et mål på tværs af flere LLM runder**. Perfekt t
 - **Sådan fungerer det**: Hver runde har en hovedforespørgsel (trin A) efterfulgt af en korrekturbedømmelse (trin B), der beslutter "FULDSTÆNDIG eller FORTSÆT?"
 - **Samme udbyder, samme bruger API** hovedforespørgslen - API**: inklusive svar API support.
 - **Separat dommer LLM** (valgfrit): Indstil `UAGENT_AP_PROVIDER` til at bruge en anden udbyder/model for anmelderen (brug f.eks. en billigere model til bedømmelse).
-- **Afslut når som helst**: Tryk på tasten `x` for at stoppe med det samme, selv midt i svaret. Eller lad anmelderen bestemme, hvornår målet er nået.
+- **Afslut når som helst**: Tryk på tasten F11 for at stoppe med det samme, selv midt i svaret. Eller lad anmelderen bestemme, hvornår målet er nået.
 - **Konfigurerbar**: `--max-rounds N` for at kontrollere budgettet.
 
 Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) for fuld dokumentation.#
@@ -208,7 +208,7 @@ Stop LLM-svargenerering når som helst og injicer en stopkommando tilbage til LL
 
 | Interface | Sådan afbrydes |
 |---|---|
-| **CLI** | Tryk på `c`-tasten under LLM-streaming — det aktuelle svar stopper, og `"Stop"` sendes som en brugermeddelelse, så LLM svarer i overensstemmelse hermed |
+| **CLI** | Tryk på F12-tasten under LLM-streaming — det aktuelle svar stopper, og `"Stop"` sendes som en brugermeddelelse, så LLM svarer i overensstemmelse hermed |
 | **WEB UI** | Klik på den røde **■ Stop**-knap (vises automatisk under LLM-behandling) |
 | **Desktop GUI** | Klik på den røde **■**-knap (vises automatisk under LLM-behandling) |
 

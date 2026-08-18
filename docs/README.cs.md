@@ -192,7 +192,7 @@ uag může **autonomně sledovat cíl v několika LLM kolech**. Perfektní pro s
 
 - **Jak to funguje**: Každé kolo má hlavní dotaz (krok A) následovaný posudkem recenzenta (krok B), který rozhodne „DOKONČIT nebo POKRAČOVAT?“
 - **Stejný poskytovatel, stejný dotaz API**: Posudek recenzenta používá identickou podporu kódu, včetně cesty k odpovědi-PH_3 jako hlavní kód odpovědi-PH **Samostatný porotce LLM** (volitelné): Nastavte `UAGENT_AP_PROVIDER` pro použití jiného poskytovatele/modelu pro recenzenta (např. použijte levnější model pro posuzování).
-- **Ukončit kdykoli**: Stisknutím klávesy `x` okamžitě zastavíte, dokonce i uprostřed odezvy. Nebo nechte recenzenta, aby rozhodl, kdy je cíl splněn.
+- **Ukončit kdykoli**: Stisknutím klávesy F11 okamžitě zastavíte, dokonce i uprostřed odezvy. Nebo nechte recenzenta, aby rozhodl, kdy je cíl splněn.
 - **Konfigurovatelné**: `--max-rounds N` pro kontrolu rozpočtu.
 
 Úplnou dokumentaci naleznete v [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md). Správce
@@ -209,7 +209,7 @@ Zastavte generování odpovědi LLM kdykoli a zadejte příkaz zastavení zpět 
 
 | Rozhraní | Jak přerušit |
 |---|---|
-| **CLI** | Stiskněte klávesu `c` během streamování LLM – aktuální odpověď se zastaví a `"Stop"` se odešle jako uživatelská zpráva, takže LLM odpovídajícím způsobem zareaguje |
+| **CLI** | Stiskněte klávesu F12 během streamování LLM – aktuální odpověď se zastaví a `"Stop"` se odešle jako uživatelská zpráva, takže LLM odpovídajícím způsobem zareaguje |
 | **WEBOVÉ ROZHRANÍ** | Klikněte na červené tlačítko **■ Zastavit** (zobrazí se automaticky během zpracování LLM) |
 | **Počítač GUI** | Klikněte na červené tlačítko **■** (objeví se automaticky během zpracování LLM) |
 

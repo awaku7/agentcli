@@ -274,7 +274,7 @@ def get_computer_use_policy():
 # Example stored values: "LLM:auto->low", "LLM:medium"
 last_reasoning_label = ""
 
-# --- Interrupt (c-key) ---
+# --- Interrupt (F12) ---
 interrupt_requested = False
 # True while the CLI owns stdin for normal/user confirmation input.
 input_prompt_active = False
@@ -362,7 +362,7 @@ def _check_key_posix() -> None:
 
 
 def start_interrupt_monitor() -> None:
-    """Start daemon thread that monitors for single 'c' keypress."""
+    """Start daemon thread that monitors F11/F12 function keys."""
     global _interrupt_monitor_thread
     if _interrupt_monitor_thread is not None:
         return
@@ -372,7 +372,7 @@ def start_interrupt_monitor() -> None:
 
         while not _interrupt_monitor_stop.is_set():
             # Keep monitoring during auto-pilot between rounds as well as
-            # during normal BUSY work; otherwise x can be lost during the
+            # during normal BUSY work; otherwise F11 can be lost during the
             # short IDLE gap between the reviewer and the next LLM call.
             if not status_busy and not auto_pilot_active:
                 _interrupt_monitor_stop.wait(0.1)
@@ -526,11 +526,11 @@ def print_status_line() -> None:
                     _stream_line_open = False
                     _reasoning_stream_open = False
                 if prompt_open:
-                    # 手動描画プロンプトの行を閉じる。これで [STATE] が
-                    # 「agentcli> [STATE] BUSY」のようにプロンプトの右に
-                    # 連結されるのを防ぐ。
+                    # Close and erase an abandoned prompt before writing
+                    # [STATE].  A newline alone leaves a misleading
+                    # input-looking `agentcli>` line on screen.
                     try:
-                        sys.stdout.write(nl)
+                        sys.stdout.write(chr(13) + chr(27) + "[2K" + nl)
                         sys.stdout.flush()
                     except Exception:
                         try:

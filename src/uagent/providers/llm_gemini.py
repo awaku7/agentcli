@@ -1186,7 +1186,7 @@ def gemini_chat_with_tools(
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
             for response in stream_iter:
-                # Stop consuming Gemini chunks once the c-key interrupt is set.
+                # Stop consuming Gemini chunks once the F12 interrupt is set.
                 # The outer round handles the common stop-prompt path.
                 try:
                     if core is not None:

@@ -64,11 +64,11 @@ There are three ways to stop `:auto`:
 
 | Method | Description |
 |---|---|
-| **`x` key** | Stops immediately, even mid-LLM-response (recommended) |
+| **F11 key** | Stops auto-pilot at the next safe checkpoint |
 | **Reviewer says `COMPLETE`** | Auto-pilot stops when the goal is deemed achieved |
 | **`--max-rounds N` reached** | Default is 10; change with `--max-rounds` |
 
-Use `:auto off` to cancel before it starts, but use the **`x` key** to stop it while running.
+Use `:auto off` to cancel before it starts. While it is running, press **F11** to stop auto-pilot; press **F12** to stop the current LLM response.
 
 ______________________________________________________________________
 
@@ -130,7 +130,7 @@ Complex tasks may need many rounds. Start with the default (10) and increase if 
 
 ### Combine with other commands
 
-Press `x` during auto-pilot to interrupt, then manually adjust before continuing.
+Press F11 during auto-pilot to stop it, or F12 to stop the current LLM response, then manually adjust before continuing.
 
 ______________________________________________________________________
 

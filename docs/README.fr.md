@@ -210,7 +210,7 @@ uag peut **poursuivre de manière autonome un objectif sur plusieurs tours LLM**
 - **Comment ça marche** : chaque cycle comporte une requête principale (étape A) suivie d'un jugement du réviseur (étape B) qui décide "TERMINER ou CONTINUER ?"
 - **Même fournisseur, même API** : Le jugement du réviseur utilise le chemin de code identique à la requête principale, y compris la prise en charge des réponses API.
 - **Juge séparé LLM** (facultatif) : définissez `UAGENT_AP_PROVIDER` pour utiliser un fournisseur/modèle différent pour le réviseur (par exemple, utilisez un modèle moins cher pour juger).
-- **Quitter à tout moment** : appuyez sur la touche `x` pour arrêter immédiatement, même en cours de réponse. Ou laissez le réviseur décider quand l'objectif est atteint.
+- **Quitter à tout moment** : appuyez sur la touche F11 pour arrêter immédiatement, même en cours de réponse. Ou laissez le réviseur décider quand l'objectif est atteint.
 - **Configurable** : `--max-rounds N` pour contrôler le budget.
 
 Voir [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pour une documentation complète.

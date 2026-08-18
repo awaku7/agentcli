@@ -197,77 +197,93 @@ def _run_auto_pilot_loop(
                     os.environ.pop(_std_key, None)
 
     feedback = ""
-    while True:
-        # 1. x key exit check
-        with core.auto_pilot_exit_lock:
-            if core.auto_pilot_exit_requested:
-                core.auto_pilot_exit_requested = False
-                core.auto_pilot_active = False
-                print(_("[AUTO] Exited by user (x key)."))
+    try:
+        while True:
+            # The flag can be cleared by the GUI stop button or another
+            # controller.  Do not require a keyboard event in that case.
+            if not core.auto_pilot_active:
+                print(_("[AUTO] Stopped."))
                 return
 
-        # === Step B first: Reviewer judgment ===
-        # On the first iteration this judges the initial goal execution.
-        # On subsequent iterations this judges the followup from Step A.
-        judgment, feedback = _ask_reviewer_judgment(
-            _judge_provider,
-            _judge_client,
-            _judge_depname,
-            messages,
-            core,
-            make_client_fn=make_client_fn,
-        )
+            # F11 requests an auto-pilot stop; F12 is reserved for stopping
+            # the current LLM response.
+            with core.auto_pilot_exit_lock:
+                if core.auto_pilot_exit_requested:
+                    core.auto_pilot_exit_requested = False
+                    core.auto_pilot_active = False
+                    print(_("[AUTO] Exited by user (F11)."))
+                    return
 
-        if judgment == "COMPLETE":
-            core.auto_pilot_active = False
-            print(_("[AUTO] Review/analysis completed."))
-            return
-
-        # 2. Max rounds check (after judgment to count actual followup rounds)
-        core.auto_pilot_round += 1
-        max_rounds = core.auto_pilot_max_rounds
-        if max_rounds is not None and core.auto_pilot_round > max_rounds:
-            core.auto_pilot_active = False
-            print(
-                _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
-                % {"max": max_rounds}
-            )
-            return
-
-        # === Step A: Main query (refinement followup) ===
-        next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
-
-        core.set_status(True, "AUTO")
-        if core.auto_pilot_max_rounds is None:
-            print(
-                _("[AUTO] Round %(round)d/INFINITE") % {"round": core.auto_pilot_round}
-            )
-        else:
-            print(
-                _("[AUTO] Round %(round)d/%(max)d")
-                % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
+            # === Step B first: Reviewer judgment ===
+            # On the first iteration this judges the initial goal execution.
+            # On subsequent iterations this judges the followup from Step A.
+            judgment, feedback = _ask_reviewer_judgment(
+                _judge_provider,
+                _judge_client,
+                _judge_depname,
+                messages,
+                core,
+                make_client_fn=make_client_fn,
             )
 
-        user_msg = {"role": "user", "content": next_prompt}
-        messages.append(user_msg)
-        core.log_message(user_msg)
+            if judgment == "COMPLETE":
+                core.auto_pilot_active = False
+                print(_("[AUTO] Review/analysis completed."))
+                return
 
-        # Reset interrupt flag for each round
-        with core.interrupt_lock:
-            core.interrupt_requested = False
+            # 2. Max rounds check (after judgment to count actual followup rounds)
+            core.auto_pilot_round += 1
+            max_rounds = core.auto_pilot_max_rounds
+            if max_rounds is not None and core.auto_pilot_round > max_rounds:
+                core.auto_pilot_active = False
+                print(
+                    _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
+                    % {"max": max_rounds}
+                )
+                return
 
-        llm_util.run_llm_rounds(
-            provider,
-            client,
-            depname,
-            messages,
-            core=core,
-            make_client_fn=make_client_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-        )
+            # === Step A: Main query (refinement followup) ===
+            next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
 
-        core.set_status(True, "AUTO")
+            core.set_status(True, "AUTO")
+            if core.auto_pilot_max_rounds is None:
+                print(
+                    _("[AUTO] Round %(round)d/INFINITE")
+                    % {"round": core.auto_pilot_round}
+                )
+            else:
+                print(
+                    _("[AUTO] Round %(round)d/%(max)d")
+                    % {
+                        "round": core.auto_pilot_round,
+                        "max": core.auto_pilot_max_rounds,
+                    }
+                )
+
+            user_msg = {"role": "user", "content": next_prompt}
+            messages.append(user_msg)
+            core.log_message(user_msg)
+
+            # Reset interrupt flag for each round
+            with core.interrupt_lock:
+                core.interrupt_requested = False
+
+            llm_util.run_llm_rounds(
+                provider,
+                client,
+                depname,
+                messages,
+                core=core,
+                make_client_fn=make_client_fn,
+                append_result_to_outfile_fn=append_result_to_outfile_fn,
+                try_open_images_from_text_fn=try_open_images_from_text_fn,
+            )
+
+            core.set_status(True, "AUTO")
+
+    finally:
+        # Never leave auto mode latched after completion or an exception.
+        core.auto_pilot_active = False
 
 
 def _handle_cmd_auto(

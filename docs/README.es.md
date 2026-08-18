@@ -210,7 +210,7 @@ uag puede **perseguir de forma autónoma un objetivo en múltiples rondas de LLM
 - **Cómo funciona**: cada ronda tiene una consulta principal (Paso A) seguida de un criterio del revisor (Paso B) que decide "¿COMPLETAR o CONTINUAR?"
 - **Mismo proveedor, mismo API**: el criterio del revisor utiliza la misma ruta de código que la consulta principal, incluido el soporte de Respuestas API.
 - **Juez separado LLM** (opcional): configure `UAGENT_AP_PROVIDER` para usar un proveedor/modelo diferente para el revisor (por ejemplo, use un modelo más económico para juzgar).
-- **Salir en cualquier momento**: presione la tecla `x` para detenerse inmediatamente, incluso a mitad de la respuesta. O deje que el revisor decida cuándo se cumple el objetivo.
+- **Salir en cualquier momento**: presione la tecla F11 para detenerse inmediatamente, incluso a mitad de la respuesta. O deje que el revisor decida cuándo se cumple el objetivo.
 - **Configurable**: `--max-rounds N` para controlar el presupuesto.
 
 Consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) para obtener la documentación completa.
@@ -229,13 +229,13 @@ Detener la generación de respuesta de LLM en cualquier momento e inyectar un co
 
 | Interfaz | Cómo interrumpir |
 |---|---|
-| **CLI** | Presione la tecla `c` durante la transmisión de LLM: la respuesta actual se detiene y `"Detener"` se envía como un mensaje de usuario para que LLM responda en consecuencia |
+| **CLI** | Presione la tecla F12 durante la transmisión de LLM: la respuesta actual se detiene y `"Detener"` se envía como un mensaje de usuario para que LLM responda en consecuencia |
 | **UI WEB** | Haga clic en el botón rojo **■ Detener** (aparece automáticamente durante el procesamiento de LLM) |
 | **Escritorio GUI** | Haga clic en el botón rojo **■** (aparece automáticamente durante el procesamiento de LLM) |
 
 La interrupción funciona como "inyección rápida": en lugar de simplemente abortar, envía `"Detener"` al LLM como un mensaje de usuario, lo que le permite concluir o reconocer la interrupción con gracia.
 
-Presione la tecla `x` para salir del modo de piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Presione la tecla F11 para salir del modo de piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatización del navegador y Web Inspector
 
