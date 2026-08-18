@@ -56,6 +56,28 @@ Each round has two steps:
 | **Step A** (main query) | LLM continues working toward the goal |
 | **Step B** (reviewer judgment) | A separate LLM call decides "COMPLETE or CONTINUE?" |
 
+## Termination semantics (current implementation)
+
+The initial user goal is executed once by the normal generation path before `_run_auto_pilot_loop()` starts. The first operation inside the loop is the reviewer judgment for that initial result; no follow-up LLM round is run if the reviewer returns `COMPLETE`.
+
+A reviewer result is interpreted as follows:
+
+- `CONTINUE` takes precedence over `COMPLETE` when both words appear.
+- `NOT COMPLETE` is treated as `CONTINUE`.
+- An explicit `COMPLETE` (without a continuing decision) stops auto-pilot.
+- Missing or unrecognized decision text is treated conservatively as `CONTINUE`.
+- Reviewer-call errors also fall back to `CONTINUE`.
+
+The `--max-rounds N` counter applies to follow-up Step A LLM rounds. It is incremented after a reviewer returns `CONTINUE` and checked before the follow-up runs. With the default `N=10`, the initial execution is followed by at most 10 additional Step A rounds, each followed by reviewer judgment. `--infinite` or `--max-rounds INFINITE` removes this limit; reviewer completion or an explicit stop is still required.
+
+Auto-pilot also stops when:
+
+- the user presses F11 or runs `:auto off`;
+- a controller clears the active flag (for example, the GUI stop button); or
+- an exception exits the loop. The active flag is cleared in `finally` so auto-pilot is not left latched.
+
+F12 stops the current LLM response but does not by itself request auto-pilot termination. There is currently no automatic stop based on unchanged output, successful tests, completed file changes, elapsed time, or tool completion; those outcomes must be reflected in the reviewer decision or bounded by `--max-rounds`.
+
 ______________________________________________________________________
 
 ## How to stop

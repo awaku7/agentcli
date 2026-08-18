@@ -1,179 +1,192 @@
 # Tool Sending Flow
 
-## 概要
+This document describes how uagent selects, sends, loads, unloads, and manages tools across providers and API modes. It also documents the Responses API lifecycle and continuation state.
 
-LLM にツールを送る方式はプロバイダとモードによって異なります。
+## Overview
 
-## 方式一覧
+The way tools are sent to an LLM depends on the provider and the selected mode.
 
-### A. Chat Completions API（DeepSeek 等、Responses API 未使用）
+## Tool-dispatch modes
 
-```
+### A. Chat Completions API (for example, DeepSeek)
+
+```python
 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 ```
 
-- `tools.get_tool_specs()` は `TOOL_SPECS` から全ツールを返す
-- `TOOL_SPECS` への登録は `tool_level` / `tool_genre` / genre mask で制御される
-- デフォルトでは基本ツールのみ登録され、その他は `tool_catalog` → `tool_load` で動的ロード
-- `UAGENT_GPT54_TOOL_SEARCH` の影響は受けない
+- `tools.get_tool_specs()` returns all currently registered tools from `TOOL_SPECS`.
+- Registration is controlled by `tool_level`, `tool_genre`, and the genre mask.
+- By default, only core tools are registered. Other tools are loaded dynamically through `tool_catalog` and `tool_load`.
+- `UAGENT_GPT54_TOOL_SEARCH` has no effect in this mode.
 
-### B. Responses API + OpenAI/Azure + GPT-5.4+（デフォルト = native mode）
+### B. Responses API + OpenAI/Azure + GPT-5.4 or later (default: native mode)
 
 ```python
-responses_tool_specs = None  # → build_responses_request 内で get_tool_specs()
+responses_tool_specs = None  # build_responses_request calls get_tool_specs()
 ```
 
-- 全ツールをサーバに送信し、サーバ側 tool_search が narrow
-- 管理ツール（tool_catalog / tool_load / unload_tool）も含まれる
-- auto-unload: スキップ（`_is_gpt54_tool_search_target` が True）
-- compaction: 自動適用（`_get_shrink_max_tokens` の閾値）
+- All tool specifications are sent to the server and server-side `tool_search` narrows them.
+- Management tools (`tool_catalog`, `tool_load`, and `unload_tool`) are included.
+- Auto-unload is skipped when `_is_gpt54_tool_search_target()` is true.
+- Compaction is applied automatically according to `_get_shrink_max_tokens()` thresholds.
 
-### C. Responses API + OpenAI/Azure + GPT-5.4+ + `UAGENT_GPT54_TOOL_SEARCH=legacy`
+### C. Responses API + OpenAI/Azure + GPT-5.4 or later + legacy mode
+
+Set:
+
+```text
+UAGENT_GPT54_TOOL_SEARCH=legacy
+```
 
 ```python
 responses_tool_specs = _select_tool_specs_legacy(call_messages)
 ```
 
-- 初期は `tool_catalog` / `tool_load` / `unload_tool` / `human_ask` のみ
-- LLM が `tool_catalog` で目的のツールを検索 → `tool_load` で動的ロード
-- `_select_tool_specs_legacy()` はユーザーメッセージに基づいてツールを絞り込む
+- Initially, only `tool_catalog`, `tool_load`, `unload_tool`, and `human_ask` are sent.
+- The LLM searches for a required tool with `tool_catalog`, then loads it with `tool_load`.
+- `_select_tool_specs_legacy()` narrows the initial tool set using the user message.
 
-### D. Responses API + OpenAI/Azure + GPT-5.4+ + `UAGENT_GPT54_TOOL_SEARCH=native`
+### D. Responses API + OpenAI/Azure + GPT-5.4 or later + native mode
 
-- A と同じく全ツール送信
-- ただし管理ツール（tool_catalog / tool_load / unload_tool）は除外される（サーバ側 tool_search に任せる）
-- `_should_preload_lazy_specs()` が True になり、genre フィルタをバイパスして全ツールが強制登録される
+Set:
 
-## モード判定
-
-| モード | `_get_gpt54_tool_search_mode()` | `_should_preload_lazy_specs()` | 備考 |
-|---|---|---|---|
-| デフォルト（A / B） | `"native"` | `False` | view 3, 4 参照 |
-| legacy（C） | `"legacy"` | `False` | 明示設定が必要 |
-| native（D） | `"native"` | `True` | `UAGENT_GPT54_TOOL_SEARCH=native` が必要 |
-
-## auto-unload スキップ条件
-
-```python
-if not (_should_preload_lazy_specs()
-        or _is_gpt54_tool_search_target(...)
-        or bool(core.responses_state.get("previous_response_id"))):
-    # auto-unload 実行
+```text
+UAGENT_GPT54_TOOL_SEARCH=native
 ```
 
-以下のいずれかに該当する場合はスキップ:
+- All tools are sent, as in mode B.
+- Management tools are omitted because server-side `tool_search` is used.
+- `_should_preload_lazy_specs()` becomes true, bypassing genre filtering and forcing all tools to be registered.
 
-1. `_should_preload_lazy_specs()` が True（native mode 明示）
-1. `_is_gpt54_tool_search_target()` が True（OpenAI/Azure + GPT-5.4+ の Responses API）
-1. `previous_response_id` が設定されている（全プロバイダの Responses API）
+## Mode selection
 
-## tool_catalog による動的ツールロード
+| Mode | `_get_gpt54_tool_search_mode()` | `_should_preload_lazy_specs()` | Notes |
+|---|---|---:|---|
+| Default (A/B) | `native` | `False` | See the native paths |
+| Legacy (C) | `legacy` | `False` | Must be explicitly selected |
+| Native (D) | `native` | `True` | Requires `UAGENT_GPT54_TOOL_SEARCH=native` |
 
-LLM に最初から全ツールを送るのではなく、必要に応じてツールを動的にロードする仕組みです。
+## Auto-unload skip conditions
 
-### 動作の流れ
+Auto-unload is performed only when the following condition is false:
 
-1. 初期状態では `tool_catalog` / `tool_load` / `unload_tool` / `human_ask` のみが LLM に送られる
-1. LLM が `tool_catalog` を呼び出すと、利用可能な全ツールの一覧が返る\
-   → クエリ（`query`）指定時は、先頭（最高スコア）の未ロードツールが自動的にロードされる\
-   → レスポンスの `auto_loaded` フィールドに自動ロードされたツール名が格納され、該当ツールの `loaded` が `true` に更新される
-1. 上記以外で必要なツールは `tool_load(tool_name)` で動的ロードする
-1. ロードされたツールは次ラウンド以降のツールリストに追加される
-1. `unload_tool(tool_name)` で明示的にアンロードできる
-1. 一定ラウンド使われなかったツールは auto-unload される（`UAGENT_AUTO_UNLOAD_ROUNDS`、デフォルト `10`）\
-   → 自動ロードされたツールもこの対象となる（`_LOADED_SINGLE_TOOLS` に登録されるため）
+```python
+if not (
+    _should_preload_lazy_specs()
+    or _is_gpt54_tool_search_target(...)
+    or bool(core.responses_state.get("previous_response_id"))
+):
+    # auto-unload
+```
 
-### 適用されるケース
+Auto-unload is skipped when any of these conditions is true:
 
-| ケース | tool_catalog が使われるか |
+1. `_should_preload_lazy_specs()` is true (explicit native mode).
+1. `_is_gpt54_tool_search_target()` is true (OpenAI/Azure + GPT-5.4 or later Responses API).
+1. `previous_response_id` is set (Responses API continuation for any provider).
+
+## Dynamic loading with `tool_catalog`
+
+Instead of sending every tool to the LLM at the start, tools can be loaded on demand.
+
+### Flow
+
+1. Initially, only `tool_catalog`, `tool_load`, `unload_tool`, and `human_ask` are sent.
+1. When the LLM calls `tool_catalog`, it receives the available-tool list.
+   - With a `query`, the highest-scoring unloaded tool may be loaded automatically.
+   - The response contains the automatically loaded tool name in `auto_loaded`.
+   - The tool's `loaded` field is set to `true`.
+1. Other required tools can be loaded explicitly with `tool_load(tool_name)`.
+1. Loaded tools are added to the tool list for subsequent rounds.
+1. A tool can be explicitly removed with `unload_tool(tool_name)`.
+1. A tool that has not been used for the configured number of rounds is automatically unloaded. The default is 10 rounds, controlled by `UAGENT_AUTO_UNLOAD_ROUNDS`.
+
+Automatically loaded tools are also eligible for auto-unload because they are registered in `_LOADED_SINGLE_TOOLS`.
+
+### Applicability
+
+| Case | Is `tool_catalog` used? |
 |---|---|
-| Chat Completions API（DeepSeek 等） | はい（genre mask で絞られた残りを動的ロード） |
-| Responses API + GPT-5.4+（デフォルト） | いいえ（全ツール送信、サーバ側 tool_search） |
-| Responses API + GPT-5.4+ + `legacy` | はい（`_select_tool_specs_legacy` で明示的に使用） |
-| Responses API + GPT-5.4+ + `native` | いいえ（tool_catalog 自体が除外される） |
+| Chat Completions API (for example, DeepSeek) | Yes; remaining tools are loaded dynamically after genre filtering |
+| Responses API + GPT-5.4 or later (default) | No; all tools are sent and the server performs `tool_search` |
+| Responses API + GPT-5.4 or later + `legacy` | Yes; `_select_tool_specs_legacy()` uses it explicitly |
+| Responses API + GPT-5.4 or later + `native` | No; `tool_catalog` itself is omitted |
 
-### 実装
+### Implementation
 
-- `tool_catalog` / `tool_load` / `unload_tool` は `tools/catalog_tool.py` に実装
-- これらは `tool_genre: "devel"` に属し、`tool_level=0`（常時有効）
-- `_select_tool_specs_legacy()` はユーザーメッセージを解析し、関連ツールを初期セットに追加する
+- `tool_catalog`, `tool_load`, and `unload_tool` are implemented in `tools/catalog_tool.py`.
+- These tools belong to the `devel` genre and use `tool_level=0`, so they are always enabled.
+- `_select_tool_specs_legacy()` analyzes user messages and adds related tools to the initial set.
 
-## 環境変数
+## Environment variables
 
-| 変数 | デフォルト | 説明 |
+| Variable | Default | Description |
 |---|---|---|
-| `UAGENT_GPT54_TOOL_SEARCH` | (未設定 = native) | `native` / `legacy` / `off` |
-| `UAGENT_RESPONSES` | (自動) | `1` で強制有効化 |
-| `UAGENT_AUTO_UNLOAD_ROUNDS` | `10` | 未使用ツールをアンロードするラウンド数 |
+| `UAGENT_GPT54_TOOL_SEARCH` | unset (`native`) | `native`, `legacy`, or `off` |
+| `UAGENT_RESPONSES` | automatic | Set to `1` to force Responses API support |
+| `UAGENT_AUTO_UNLOAD_ROUNDS` | `10` | Number of unused rounds before unloading a tool |
 
-## Responses API management and state
+# Responses API management and state
 
-This section consolidates the former Responses API design, support matrix, and JSONL state policy. The tool flow sections above remain the canonical description of tool dispatch; this section is the canonical description of Responses lifecycle and continuation state.
+This section documents the common Responses API management interface, provider support, and JSONL continuation-state policy. The tool-flow sections above remain authoritative for tool dispatch.
 
-### Responses API 管理機能設計
+## Management design
 
-## 目的
+Responses management is implemented as a provider-independent interface. OpenAI and Azure currently provide the strongest support. The interface is separate from the normal Responses Create path and covers Retrieve, Cancel, Delete, List input items, Count input tokens, and Compact operations where supported.
 
-Responses APIの管理機能は、プロバイダー差異を隠した共通インターフェースとして実装済みである。現在はOpenAI/Azureを対象に、既存のResponses Create処理と分離したRetrieve、Cancel、Delete、List input items、Count input tokens、Compactを提供する。
+## Scope and implementation status
 
-## 対象範囲
+### P0 implemented
 
-### 実装状況（P0）
-
-- 共通管理インターフェース
-- OpenAI / Azure
-- Retrieve a response（実装済み）
-- Cancel a response（実装済み）
-- Count input tokens（実装済み）
-- 既存`previous_response_id`状態との統合
-- Ctrl-C / Web Stopとの連携
+- Common management interface
+- OpenAI and Azure support
+- Retrieve a response
+- Cancel a response
+- Count input tokens
+- Integration with `previous_response_id`
+- Ctrl-C and Web Stop integration
 
 ### Phase 2
 
-- 手動Compact
-- サーバーcompactとローカルshrinkのCapability切り替え
-- OpenRouter、DeepSeek、BedrockのCapability対応
+- Manual compact
+- Capability switching between server compact and local shrinking
+- Capability support for OpenRouter, DeepSeek, and Bedrock
 
 ### Phase 3
 
 - List input items
 - Delete a response
-- Ollama、Alibaba/Qwen、LM Studio、Sakanaの実機検証
+- Live verification for Ollama, Alibaba/Qwen, LM Studio, and Sakana
 
-### 対象外
+### Out of scope
 
-- llama.cppへのResponses API実装
-- Responses APIとChat Completionsの完全な相互変換
-- プロバイダーごとの全API機能の抽象化
+- A Responses API implementation for llama.cpp
+- Full conversion between Responses API and Chat Completions
+- Abstracting every provider-specific API feature
 
-## 共通インターフェース案
+## Common interface
 
-新しいプロバイダー管理モジュールを追加し、既存の`client.responses.create()`経路とは分離する。
+A provider-management module is kept separate from the existing `client.responses.create()` path.
 
 ```python
 class ResponsesManager(Protocol):
     def retrieve(self, response_id: str) -> Any: ...
-
     def cancel(self, response_id: str) -> Any: ...
-
     def delete(self, response_id: str) -> Any: ...
-
     def list_input_items(
         self, response_id: str, *, limit: int | None = None
     ) -> list[Any]: ...
-
     def count_input_tokens(
         self, *, model: str, input: Any, tools: list[dict] | None = None
     ) -> int: ...
-
     def compact(self, response_id: str) -> Any: ...
 ```
 
-実装上はプロバイダーのOpenAI SDK clientを受け取り、管理APIが未対応の場合は`UnsupportedResponsesOperation`を返す。例外を握りつぶしてChat Completionsへ暗黙に切り替えない。
+The manager receives the provider's OpenAI SDK client. If an operation is unsupported, it returns `UnsupportedResponsesOperation`; it must not silently fall back to Chat Completions.
 
-## Capability
+## Capabilities
 
-プロバイダー・モデルごとに管理機能の可否を表す。
+Capabilities describe which management operations are available for a provider and model.
 
 ```python
 @dataclass(frozen=True)
@@ -189,7 +202,7 @@ class ResponsesCapabilities:
     previous_response_id: bool = False
 ```
 
-初期値：
+Initial capability matrix:
 
 | Provider | Create | Retrieve | Cancel | Count tokens | Compact | Previous ID |
 |---|---:|---:|---:|---:|---:|---:|
@@ -204,11 +217,11 @@ class ResponsesCapabilities:
 | Sakana / Fugu | yes | unknown | unknown | unknown | unknown | unknown |
 | llama.cpp | no | no | no | no | no | no |
 
-`unknown`は未検証を意味し、初期実装では非対応として扱う。実機検証後にのみ`yes`へ変更する。
+`unknown` means that the feature has not been verified and is treated as unsupported until live verification succeeds.
 
-## Response状態管理
+## Response state
 
-既存の`responses_state`を継続利用し、管理操作に必要な情報を追加する。
+The existing `responses_state` is retained and extended with management information:
 
 ```json
 {
@@ -221,103 +234,93 @@ class ResponsesCapabilities:
 }
 ```
 
-### 状態更新
+### State updates
 
-- Create開始時: `active_response_id`は未設定
-- Create完了時: `previous_response_id`と`active_response_id`を保存
-- Cancel成功時: `last_response_status=cancelled`、継続IDを破棄
-- Retrieveで404/期限切れ: 継続IDを破棄し、新規セッションへ移行
-- provider/model変更時: 既存IDを再利用しない
-- tool continuation失敗時: 既存の`clear_responses_continuation()`を使用
+- At Create start, `active_response_id` is unset.
+- On successful Create, save `previous_response_id` and `active_response_id`.
+- On successful Cancel, set `last_response_status=cancelled` and discard the continuation ID.
+- If Retrieve returns 404 or an expired response, discard the continuation ID and start a new session.
+- Do not reuse an ID after changing provider or model.
+- If tool continuation fails, use the existing `clear_responses_continuation()` path.
 
-### 保存方針
+### Storage policy
 
-- API keyや入力本文は保存しない
-- Response ID、provider、model、状態、時刻だけ保存する
-- 既存のプロバイダー・モデル別state fileを利用する
+- Never store API keys or prompt contents.
+- Store only the response ID, provider, model, status, and timestamps.
+- Use the existing provider/model-specific state file until JSONL migration is complete.
 
-## Cancel設計
+## Cancel
 
 ```text
-ユーザーのCtrl-C / Web Stop
-  ↓
-active_response_idを読み取る
-  ↓
-Capability.cancelを確認
-  ↓
-responses.cancel(response_id)
-  ↓
-ストリーム・待機処理をローカルでも停止
-  ↓
-active_response_idを消去
-  ↓
-不完全なprevious_response_idを再利用しない
+User Ctrl-C / Web Stop
+  -> read active_response_id
+  -> check Capability.cancel
+  -> call responses.cancel(response_id)
+  -> stop local streaming/waiting as well
+  -> clear active_response_id
+  -> do not reuse an incomplete previous_response_id
 ```
 
-Cancel APIが未対応、またはResponse IDがない場合は、API呼び出しを行わずローカル中断だけを実行する。ユーザーには「API側キャンセル未対応」と通知する。
+If Cancel is unsupported or no response ID exists, perform only local interruption and notify the user that provider-side cancellation is unavailable.
 
-## Retrieve設計
+## Retrieve
 
-Retrieveは次のタイミングで使用する。
+Retrieve is used for saved `previous_response_id` validation at startup, before resuming a session, for status commands, and when a response must be verified before cancellation.
 
-- 起動時の保存済み`previous_response_id`検証
-- セッション再開前の状態確認
-- ユーザーの状態確認コマンド
-- Cancel前のResponse存在確認が必要な場合
+- A 404, expired response, or provider mismatch clears the saved ID and starts a new session.
+- A network error preserves the ID and is treated as retryable.
 
-404、期限切れ、プロバイダー不一致の場合は、保存済みIDを破棄して新規セッションを開始する。ネットワークエラーの場合はIDを破棄せず、再試行可能なエラーとして扱う。
+## Count input tokens
 
-## Count input tokens設計
+Use the following priority order:
 
-優先順位は以下とする。
+1. The provider's Responses token-count API.
+1. The local `llmcapa` estimate.
+1. A conservative context-limit threshold when the count is unknown.
 
-1. プロバイダーのResponses token count API
-1. 既存のローカル`llmcapa`推定
-1. トークン数不明としてコンテキスト上限の安全側閾値を使用
+When images, tool schemas, or reasoning settings are present, prefer the provider result. Unsupported APIs must not disable the existing local shrinking behavior.
 
-画像、tool schema、reasoning設定を含む場合は、プロバイダーAPIの結果を優先する。APIが未対応の場合も、既存のローカルshrink処理を停止させない。
+## Compact
 
-## Compact設計
+- OpenAI/Azure: use server-side compact.
+- OpenRouter/DeepSeek: do not use server-side compact.
+- Unverified providers: fall back to local shrinking.
+- Manual compact is exposed through the UI command when available.
 
-- OpenAI/Azure: サーバーcompactを使用
-- OpenRouter/DeepSeek: サーバーcompactを使用しない
-- 未検証プロバイダー: ローカルshrinkへフォールバック
-- 手動compactは`/compact`などのUIから呼び出す
+After compact, save the returned response ID as the next `previous_response_id`. If compact fails, do not immediately discard the old ID; retry or choose local shrinking.
 
-Compact後は返却されたResponse IDを次の`previous_response_id`として保存する。compact失敗時は元の継続IDを直ちに破棄せず、再試行またはローカルshrinkを選択する。
+## Error handling
 
-## エラー処理
-
-| エラー | 処理 |
+| Error | Handling |
 |---|---|
-| Unsupported | ローカル代替へフォールバックし、debugログに記録 |
-| 404 / invalid response ID | 継続IDを破棄して新規セッション |
-| 401 / 403 | 認証・権限エラーとしてユーザーに通知。自動再試行しない |
-| 429 | 既存のrate-limit retry方針に従う |
-| timeout / network error | IDを保持し、再試行可能として扱う |
-| malformed response | IDを安全側で破棄し、診断情報を保存 |
+| Unsupported | Fall back locally and record a debug message |
+| 404 / invalid response ID | Discard the continuation ID and start a new session |
+| 401 / 403 | Notify the user; do not retry automatically |
+| 429 | Follow the existing rate-limit retry policy |
+| Timeout / network error | Preserve the ID and treat it as retryable |
+| Malformed response | Discard the ID safely and preserve diagnostic information |
 
-## テスト計画
+## Testing plan
 
-### Unit test
+### Unit tests
 
-- Capability判定
-- provider/model変更時のID破棄
-- Retrieve成功、404、timeout
-- Cancel成功、未対応、IDなし
-- Count token API成功・失敗・ローカルfallback
-- compact対応・非対応時のfallback
-- state fileの保存と読み込み
+- Capability selection
+- ID discard when provider or model changes
+- Retrieve success, 404, and timeout
+- Cancel success, unsupported operation, and missing ID
+- Token-count API success, failure, and local fallback
+- Compact support and fallback
+- State-file save and load
 
-### Mock integration test
+### Mock integration tests
 
 - OpenAI Responses manager
 - Azure Responses manager
-- Ctrl-CからCancel APIまでの連携
-- streaming中のCancel
-- tool continuation中断後のID破棄
+- Ctrl-C through Cancel API
+- Cancellation during streaming
+- ID discard after interrupted tool continuation
 
-### 実機検証
+### Live verification
 
 1. OpenAI
 1. Azure OpenAI
@@ -325,118 +328,104 @@ Compact後は返却されたResponse IDを次の`previous_response_id`として�
 1. DeepSeek
 1. Bedrock
 
-実機検証で確認できない機能はCapabilityを`unknown`のままにし、暗黙に有効化しない。
+Features that cannot be verified live remain `unknown` and are not enabled implicitly.
 
-## 実装順
+## Implementation order
 
-1. `ResponsesCapabilities`とUnsupported例外
-1. OpenAI/Azure managerのRetrieve
-1. `active_response_id`の状態管理
-1. CancelとCtrl-C / Web Stop連携
-1. Count input tokensとローカルfallback
-1. 手動Compact
-1. 他プロバイダーCapabilityと実機検証
-1. List input items / Delete
+1. Add `ResponsesCapabilities` and the unsupported-operation exception.
+1. Implement Retrieve for OpenAI/Azure.
+1. Manage `active_response_id`.
+1. Connect Cancel with Ctrl-C and Web Stop.
+1. Add Count input tokens and local fallback.
+1. Add manual Compact.
+1. Verify other provider capabilities.
+1. Add List input items and Delete.
 
-### Responses API 対応状況と今後の優先順位
+# Responses API status and priorities
 
-> **現状: P0実装済み・実機検証継続**
+> **Current status: P0 implemented; live verification continues.**
 >
-> Responses API管理機能の共通ラッパーとCLI操作は実装済み。残作業は実機検証、回帰テスト、Web Stop経路の確認である。
+> The common Responses management wrapper and CLI operations are implemented. Remaining work is live verification, regression testing, and confirmation of the Web Stop path.
 
-## 現在の対応状況
+## Current support
 
-| Responses API | 対応状況 | 備考 |
-|---|---:|---|
-| Create a response | 対応済み | `client.responses.create()` を通常・ストリーミングで使用 |
-| Retrieve a response | 対応済み | `ResponsesManager.retrieve()` / `:response status` |
-| Delete a response | 対応済み | `ResponsesManager.delete()` / `:response delete` |
-| List input items | 対応済み | `ResponsesManager.list_input_items()` / `:response items` |
-| Count input tokens | 対応済み | `ResponsesManager.count_input_tokens()` / `:response tokens` |
-| Cancel a response | 対応済み | `ResponsesManager.cancel()` / `:response cancel`、Ctrl-C経路 |
-| Compact a response | 部分対応 | Create時に`context_management`を指定し、サーバー側コンパクションを要求 |
+| Operation | Status | Notes |
+|---|---|---|
+| Create a response | Implemented | Uses `client.responses.create()` for normal and streaming calls |
+| Retrieve a response | Implemented | `ResponsesManager.retrieve()` / `:response status` |
+| Delete a response | Implemented | `ResponsesManager.delete()` / `:response delete` |
+| List input items | Implemented | `ResponsesManager.list_input_items()` / `:response items` |
+| Count input tokens | Implemented | `ResponsesManager.count_input_tokens()` / `:response tokens` |
+| Cancel a response | Implemented | `ResponsesManager.cancel()` / `:response cancel` and Ctrl-C |
+| Compact a response | Partial | Requests server-side compaction through `context_management` during Create |
 
-## プロバイダー別の対応レベル
+## Provider support levels
 
-ここでいうレベルは、公式APIの網羅的な実機検証ではなく、agentcliの現在の実装経路に基づく分類である。
+The levels below describe the current agentcli implementation path, not complete official provider certification.
 
-| プロバイダー | レベル | Create / streaming | 継続 | 自動compact | 実装上の注意 |
+| Provider | Level | Create / streaming | Continuation | Auto-compact | Notes |
 |---|:---:|---|---|---|---|
-| OpenAI | A | 対応 | 対応 | 対応 | 標準のResponsesリクエストビルダーを使用 |
-| Azure OpenAI | A | 対応 | 対応 | 対応 | OpenAI互換経路。APIバージョン・モデル差異は要確認 |
-| Amazon Bedrock | B | 対応 | 送信を試行 | 送信を試行 | inputを単一文字列へ変換し、tool定義もフラット化 |
-| OpenRouter | B | 対応 | 無効化 | 無効化 | inputを文字列化。継続はローカル履歴で処理 |
-| DeepSeek | B | 対応 | 非対応 | 非対応 | stateless。現状は`deepseek-v4-flash`前提 |
-| Ollama | C | 対応 | サーバー依存 | サーバー依存 | `extra_body`と`max_output_tokens`を補正。固有機能は要検証 |
-| Alibaba / Qwen | C | 汎用経路で試行 | 要検証 | 要検証 | 専用Responses互換処理なし |
-| LM Studio | C | 汎用経路で試行 | 要検証 | 要検証 | ローカルサーバーの対応バージョンに依存 |
-| Sakana AI / Fugu | C | 汎用経路で試行 | 要検証 | 要検証 | FuguはResponses APIを自動有効化する対象 |
-| llama.cpp | D | 非対応 | 非対応 | 非対応 | 標準`llama-server`はChat Completions中心。Responses API変換プロキシが必要 |
+| OpenAI | A | Supported | Supported | Supported | Standard Responses request builder |
+| Azure OpenAI | A | Supported | Supported | Supported | OpenAI-compatible path; verify API and model differences |
+| Amazon Bedrock | B | Supported | Attempted | Attempted | Input is converted to one string and tool definitions are flattened |
+| OpenRouter | B | Supported | Disabled | Disabled | Uses local history after converting input to text |
+| DeepSeek | B | Supported | Unsupported | Unsupported | Stateless; currently assumes `deepseek-v4-flash` |
+| Ollama | C | Generic path | Provider-dependent | Provider-dependent | Adjusts `extra_body` and `max_output_tokens`; live verification required |
+| Alibaba / Qwen | C | Generic path | To verify | To verify | No dedicated Responses compatibility path |
+| LM Studio | C | Generic path | To verify | To verify | Depends on the local server version |
+| Sakana AI / Fugu | C | Generic path | To verify | To verify | Fugu is an automatic Responses API target |
+| llama.cpp | D | Unsupported | Unsupported | Unsupported | Standard `llama-server` is Chat Completions-oriented |
 
-### レベルの意味
+### Meaning of levels
 
-- **A**: OpenAI/Azure形式に近く、Create、streaming、tool calling、継続、自動compactを実装上扱える。
-- **B**: Create、streaming、tool callingは扱えるが、独自形式または一部機能の無効化が必要。
-- **C**: OpenAI互換の汎用経路でCreateを試行できるが、継続・compact等は要検証。
-- **D**: 現在の実装ではResponses経路を推奨できない。
+- **A**: Create, streaming, tool calling, continuation, and auto-compact are supported by the implementation path.
+- **B**: Create, streaming, and tool calling work, but provider-specific transformations or disabled features are required.
+- **C**: Create can be attempted through a generic OpenAI-compatible path; continuation and compact require verification.
+- **D**: The Responses path is not recommended by the current implementation.
 
-## プロバイダー共通の制約
+## Common provider constraints
 
-- Retrieve、Delete、List input items、Count input tokens、Cancelは `ResponsesManager` と `:response` コマンドから利用できる。
-- 「継続」「自動compact」は、管理エンドポイントではなくCreateリクエストの関連パラメーターを指す。
-- OpenRouterは`previous_response_id`と`context_management`を削除し、ローカル履歴を文字列化して送る。
-- DeepSeekはstatelessとして扱い、`previous_response_id`と`context_management`を使用しない。
-- Bedrock、Ollama、Alibaba/Qwen、LM Studio、Sakanaは、接続するゲートウェイやモデルごとの差異が大きい。
-- llama.cppを使う場合は`UAGENT_RESPONSES=0`としてChat Completions経路を使う。
+- Retrieve, Delete, List input items, Count input tokens, and Cancel are available through `ResponsesManager` and `:response` commands.
+- Continuation and auto-compact refer to parameters on Create requests, not only management endpoints.
+- OpenRouter removes `previous_response_id` and `context_management` and sends local history as text.
+- DeepSeek is treated as stateless and does not use `previous_response_id` or `context_management`.
+- Bedrock, Ollama, Alibaba/Qwen, LM Studio, and Sakana behavior varies by gateway and model.
+- For llama.cpp, use Chat Completions with `UAGENT_RESPONSES=0`.
 
-## 残作業の優先順位
+## Priorities
 
-OpenAI/Azureの実機検証と回帰テストを先に行い、その後にOllama、Alibaba/Qwen、LM Studio、SakanaなどのCapability検証へ進む。
+Verify OpenAI/Azure first, then verify Ollama, Alibaba/Qwen, LM Studio, and Sakana capabilities.
 
-1. **Cancel a response** — Ctrl-C、WebのStop、タイムアウトとAPI側の停止を連携する。
-1. **Retrieve a response** — `previous_response_id`の有効性確認とセッション復元に使う。
-1. **Count input tokens** — コンテキスト上限、compact、コスト計算を正確にする。
-1. **手動 Compact** — 既存の自動compactに`/compact`操作を追加する。
-1. **List input items** — サーバー側履歴を正式なストレージとして利用する場合に対応する。
-1. **Delete a response** — 履歴削除や機密情報消去が必要になった段階で対応する。
+1. Cancel a response and connect Ctrl-C, Web Stop, timeout, and provider-side cancellation.
+1. Retrieve a response and validate `previous_response_id`.
+1. Count input tokens for context limits, compaction, and cost estimation.
+1. Add manual Compact to the existing automatic compact path.
+1. List input items when server-side history is required.
+1. Delete a response when history deletion or sensitive-data removal is required.
 
-## 今後の方針
+## References
 
-1. 共通のResponses管理APIクライアントを追加する。
-1. プロバイダーごとに`retrieve`、`cancel`、`input_items.list`、`input_tokens`、`compact`のCapabilityを定義する。
-1. Capabilityが不明または非対応の場合は、ローカル履歴・ローカルtoken推定・ローカルshrinkへフォールバックする。
-1. 最初の実機検証対象はOpenAI、Azure、OpenRouter、DeepSeekとする。
+- [llama.cpp issue #19138: Support OpenAI Responses API](https://github.com/ggml-org/llama.cpp/issues/19138)
 
-## 参照
+# JSONL storage policy for Responses state
 
-- [llama.cpp #19138: Support OpenAI Responses API](https://github.com/ggml-org/llama.cpp/issues/19138)
+## Purpose
 
-### Responses API 状態の JSONL 保存方針
+Store `previous_response_id` in the current conversation JSONL instead of a dedicated state file. This keeps conversation history and Responses continuation state in the same session and allows returning to an earlier response chain when needed.
 
-## 目的
+## Current problem
 
-`previous_response_id` を専用の状態ファイルに保存する方式を廃止し、現在の会話ログ JSONL に保存する。
-
-これにより、会話履歴と Responses API の継続状態を同じセッション単位で管理し、必要に応じて過去の Response チェーンへ戻れるようにする。
-
-## 現状の問題
-
-現在は、Responses API の状態を次のような専用ファイルへ保存している。
+The legacy approach stores state in files such as:
 
 ```text
 ~/.uag/responses_state_<provider>_<model>.json
 ```
 
-この方式には次の問題がある。
+This makes it difficult to associate a response with a conversation, identify which conversation an ID belongs to, return to an earlier response, and keep `:load` or log reconstruction consistent.
 
-- 会話ログと Response 状態の対応関係が分かりにくい
-- 同じプロバイダー・モデルでも、どの会話の `response_id` か判別しにくい
-- 過去の N 個前の Response へ戻れない
-- `:load` やログの再構築と状態ファイルの整合性を保ちにくい
+## JSONL format
 
-## JSONL への保存形式
-
-通常の会話メッセージとは別に、`role` を持たないメタデータ行を追加する。
+Add metadata records without a `role` field alongside ordinary messages:
 
 ```json
 {
@@ -451,129 +440,78 @@ OpenAI/Azureの実機検証と回帰テストを先に行い、その後にOllam
 }
 ```
 
-### 必須フィールド
+Required fields are `type`, `schema_version`, `provider`, `model`, `response_id`, `status`, and `created_at`. `turn` is optional but useful for ordering and display. Never store API keys, access tokens, or prompt-cache contents.
 
-| フィールド | 説明 |
-|---|---|
-| `type` | `responses_state` 固定 |
-| `schema_version` | メタデータ形式のバージョン |
-| `provider` | Response を生成したプロバイダー |
-| `model` | Response を生成したモデルまたはデプロイメント名 |
-| `response_id` | `previous_response_id` として再利用する Response ID |
-| `status` | 通常は `completed` |
-| `created_at` | 保存時刻 |
+## Save timing
 
-`turn` は任意だが、ログ上の順序や表示を分かりやすくするため保存する。
+Save state only after a response completes successfully. Do not save a stream in progress, a cancelled response, an API error, an incomplete tool call, or a stale-ID retry. Record the ID only after confirming that the next turn can continue with it.
 
-APIキー、アクセストークン、プロンプトキャッシュの内容などの秘密情報は保存しない。
+## Conditions for using a saved response
 
-## 保存タイミング
+When `:load N` explicitly loads a log, use its newest completed Response as a continuation candidate only if all of the following are true:
 
-Response の開始時ではなく、正常完了後にのみ保存する。
+- `status == "completed"`;
+- `response_id` starts with `resp_`;
+- saved provider and current provider match;
+- saved model and current model/deployment match;
+- the current provider supports `previous_response_id`;
+- the record is not stale.
 
-次の状態は保存対象外とする。
-
-- ストリーム途中
-- キャンセル済み Response
-- API エラー
-- ツール呼び出しが未完了
-- stale な `response_id` のリトライ中
-
-Response ID は、実際に次のターンで継続可能であることが確認できた後に記録する。
-
-## Response の利用条件
-
-`:load N` でログを明示的に読み込んだ場合、そのログに含まれる最新の完了済み Response を継続候補として扱う。次の条件をすべて満たす場合だけ使用する。
-
-- `status == "completed"`
-- `response_id` が `resp_` で始まる
-- 保存時の `provider` と現在のプロバイダーが一致する
-- 保存時の `model` と現在のモデルまたはデプロイメント名が一致する
-- 現在のプロバイダーが `previous_response_id` に対応している
-- stale 状態としてマークされていない
-
-モデルが違う場合は使用しない。
+Do not reuse an ID after changing provider or model. For example:
 
 ```text
-openai / gpt-5.4     -> openai / gpt-5.4-mini  : 無効
-azure / deployment-a -> openai / gpt-5.4       : 無効
+openai / gpt-5.4 -> openai / gpt-5.4-mini : invalid
+azure / deployment-a -> openai / gpt-5.4   : invalid
 ```
 
-Azure のようにモデル名だけでは接続先を一意に特定できない場合は、秘密情報を含まないエンドポイント識別情報を追加で記録することを検討する。
+For Azure, consider storing a non-secret endpoint identifier when the model name alone cannot uniquely identify the connection.
 
-## 非対応プロバイダー
+## Unsupported providers
 
-`previous_response_id` に対応していないプロバイダーでは、JSONL に状態レコードが存在しても継続に使用しない。
+Providers that do not support `previous_response_id` must not use saved IDs for continuation even if a JSONL record exists. The current explicit non-continuation providers are Grok, OpenRouter, and DeepSeek. They may display state, but must not use it to continue. Capability detection and runtime Responses conditions should be reused instead of relying only on a fixed provider list.
 
-現行コードで明示的に継続を無効化しているプロバイダーは次の通り。
+## Stale responses
 
-- Grok
-- OpenRouter
-- DeepSeek
-
-これらのプロバイダーでは、状態の表示は許可しても、継続には使用しない。
-
-判定はプロバイダー名の固定リストだけでなく、既存のモデル能力判定と Responses API のランタイム条件を再利用する。
-
-## stale Response の扱い
-
-JSONL に Response ID が残っていても、API 側で次の状態になっている可能性がある。
-
-- Response が削除済み
-- 保持期間切れ
-- プロバイダー側で無効化
-- ツールチェーンが途中で切れている
-- 現在の入力状態と整合しない
-
-`:load` 時の継続確認に失敗した場合は、次のように処理する。
+A saved ID may refer to a deleted, expired, disabled, or interrupted response, or may no longer match the current input state. When continuation validation fails:
 
 ```text
-load 時の継続確認失敗
-  -> previous_response_id をクリア
-  -> stale 状態を記録または無効化
-  -> 新しい Response チェーンで再試行
+validation failure
+  -> clear previous_response_id
+  -> record or mark stale state
+  -> retry with a new Response chain
 ```
 
-既存の stale `previous_response_id` リトライ処理は維持する。
+Preserve the existing stale-ID retry behavior.
 
-## 現在のログとの関係
+## Relationship to current logs
 
-現在のセッションログは次の形式で保存される。
+Session logs use names such as:
 
 ```text
 scheck_log_YYYYMMDD_HHMMSS.jsonl
 ```
 
-`responses_state` レコードは、対応する assistant Response の後に追記する。
+Append a `responses_state` record after the corresponding completed assistant response:
 
 ```jsonl
-{"role":"user","content":"今日の天気"}
+{"role":"user","content":"What is the weather today?"}
 {"role":"assistant","content":"..."}
 {"type":"responses_state","schema_version":1,"provider":"openai","model":"gpt-5.4","response_id":"resp_abc123","status":"completed","turn":1,"created_at":"..."}
 ```
 
-## `:load` とログ再構築
+The normal message loader must ignore records without `role` when constructing the messages array.
 
-既存の会話読み込み処理は `role` のない行を無視できるため、`responses_state` レコードを通常の messages 配列へ混入させない。
+## `:load` and log reconstruction
 
-ただし、`rewrite_current_log_from_messages()` は現在の messages だけから JSONL を再構築するため、そのままでは状態レコードが消える。
+`rewrite_current_log_from_messages()` currently rebuilds JSONL from messages and could remove metadata records. Reconstruction must either preserve `responses_state` records from the original JSONL or keep them in memory and append them after reconstruction. Preserving original metadata is recommended.
 
-再構築時は次のどちらかを実施する。
+When another JSONL is loaded, use its newest completed `responses_state` as a continuation candidate only after validating provider, model, capability, and freshness. If validation fails, load message history without setting a Response ID. Do not unconditionally delete state after `:load`.
 
-1. 元の JSONL から `responses_state` レコードを読み込み、再構築後に保持する
-1. Response 状態を別のインメモリ配列で管理し、再構築時に末尾へ戻す
+`:load` prepends the selected log to the current session log and does not delete the source file. Subsequent conversation messages continue to be appended to the current session log. `:logs` should identify logs containing Response state.
 
-推奨は、元ログのメタデータを保持して再構築する方式である。
+## Deprecating dedicated state files
 
-`:load` で別の JSONL を読み込んだ場合は、そのログに含まれる最新の `responses_state` レコードを継続候補にする。`:logs` では、状態レコードを持つログを識別できるように表示する。
-
-`:load` は対象ログを現在のセッションへ流し込み、現在のセッションログの先頭へ対象ログを prepend する。元のログファイルは削除しない。読み込み後の会話は、引き続き現在のセッションログへ追記する。
-
-読み込んだログに `responses_state` がある場合は、最新の完了済み Response ID を検証する。provider、model、対応能力、有効性の条件を満たした場合だけ、現在の `responses_state` に設定して継続する。検証に失敗した場合は、メッセージ履歴だけを読み込み、Response ID は設定しない。従来のように `:load` 後に無条件で `responses_state` を消去するのではなく、検証結果に応じて引き継ぐ。
-
-## 専用状態ファイルの廃止
-
-JSONL 方式へ移行後は、次を廃止する。
+After migration to JSONL, deprecate:
 
 ```text
 responses_state_<provider>_<model>.json
@@ -581,44 +519,40 @@ UAGENT_RESPONSES_STATE_DIR
 UAGENT_RESPONSES_STATE_FILE
 ```
 
-既存の専用状態ファイルは、自動移行できる会話ログとの対応が保証できないため、原則として自動移行しない。
+Do not automatically migrate legacy state files unless the correspondence to a conversation log is guaranteed. If migration is needed, require an explicit command that names the target log.
 
-必要なら、明示的な移行コマンドで対象ログを指定して移行する。
+## Startup behavior
 
-## 起動時の動作
+Do not unconditionally reuse an old Response at startup. Recommended behavior:
 
-起動時に無条件で古い Response を再利用しない。
+- let `:logs` identify logs containing Response state;
+- validate the newest Response only when the user runs `:load N`;
+- set the continuation ID only after validation succeeds;
+- load message history without a Response ID when validation fails.
 
-推奨動作は次の通り。
+Automatic resume may be enabled explicitly, but should remain disabled by default for safety.
 
-- `:logs` で Response 状態を持つログを識別できるようにする
-- ユーザーが `:load N` を実行した場合だけ、そのログの最新 Response を検証
-- 検証に成功した場合は継続 ID を設定
-- 検証に失敗した場合は ID なしでログを読み込む
+## Implementation order
 
-自動再開が必要な場合は、明示的な設定で有効化する。ただし、デフォルトは安全のため無効とする。
+1. Add JSONL `responses_state` read/write helpers.
+1. Append metadata after successful Response completion.
+1. Stop reading and writing the dedicated state files.
+1. Show Response-state presence and a summary in `:logs`.
+1. Validate the newest Response during `:load`.
+1. Validate provider, model, and capabilities.
+1. Integrate stale-ID fallback with existing handling.
+1. Preserve metadata in `rewrite_current_log_from_messages()`.
+1. Deprecate the old dedicated-state settings.
+1. Test OpenAI/Azure, unsupported providers, model changes, `:load`, and log reconstruction.
 
-## 実装順序
+## Acceptance criteria
 
-1. JSONL の `responses_state` レコード読み書きヘルパーを追加
-1. Response 正常完了時にメタデータを追記
-1. 現在の専用状態ファイル読み込み・保存処理を停止
-1. `:logs` に Response 状態の有無と概要を表示
-1. `:load` で最新 Response の有効性と利用条件を検証
-1. provider/model/対応能力の検証を追加
-1. stale ID のフォールバックを既存処理と統合
-1. `rewrite_current_log_from_messages()` でメタデータを保持
-1. 既存の専用状態ファイル設定を廃止または非推奨化
-1. OpenAI/Azure、非対応プロバイダー、異なるモデル、`:load`、ログ再構築をテスト
-
-## 受け入れ条件
-
-- Response 完了後、現在の JSONL に状態レコードが追加される
-- 専用の `responses_state_*.json` が新規作成されない
-- `:logs` で Response 状態を持つログを識別できる
-- `:load N` で同一 provider/model の最新 Response を検証・継続できる
-- 非対応プロバイダーでは保存済み ID を継続に使用しない
-- stale ID で次の会話が停止しない
-- `:load` 後も状態レコードを参照できる
-- ログ再構築後も状態レコードが失われない
-- 状態レコードに秘密情報が含まれない
+- A state record is appended to the current JSONL after a Response completes.
+- No new `responses_state_*.json` file is created.
+- `:logs` identifies logs containing Response state.
+- `:load N` validates and continues the newest Response for the same provider and model.
+- Unsupported providers never use saved IDs for continuation.
+- A stale ID cannot stop the next conversation.
+- State records remain available after `:load`.
+- State records survive log reconstruction.
+- State records contain no secrets.
