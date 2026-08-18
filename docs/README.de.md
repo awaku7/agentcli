@@ -209,7 +209,7 @@ uag kann **autonom ein Ziel über mehrere LLM-Runden verfolgen**. Perfekt für k
 - **So funktioniert es**: Jede Runde besteht aus einer Hauptabfrage (Schritt A), gefolgt von einem Prüferurteil (Schritt B), das über „ABSCHLUSS oder WEITER?“ entscheidet.
 - **Gleicher Anbieter, dasselbe API**: Das Prüferurteil verwendet den gleichen Codepfad wie die Hauptabfrage – einschließlich Antworten API-Unterstützung.
 - **Separater Richter LLM** (optional): Legen Sie „UAGENT_AP_PROVIDER“ fest, um einen anderen Anbieter/ein anderes Modell für den Prüfer zu verwenden (z. B. ein günstigeres Modell für die Beurteilung).
-- **Jederzeit beenden**: Drücken Sie die Taste „x“, um sofort zu stoppen, auch mitten in der Antwort. Oder lassen Sie den Prüfer entscheiden, wann das Ziel erreicht ist.
+- **Jederzeit beenden**: Drücken Sie **F11**, um den Auto-Pilot zu stoppen. **F12** stoppt nur die aktuelle LLM-Antwort. Oder lassen Sie den Prüfer entscheiden, wann das Ziel erreicht ist.
 - **Konfigurierbar**: „--max-rounds N“, um das Budget zu kontrollieren.
 
 Siehe [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) für eine vollständige Dokumentation.
@@ -234,7 +234,7 @@ Stoppen Sie die Generierung der LLM-Antwort jederzeit und geben Sie einen Stoppb
 
 Die Unterbrechung funktioniert als „prompte Injektion“: Anstatt nur abzubrechen, wird „Stop“ als Benutzermeldung an den LLM zurückgegeben, sodass dieser die Unterbrechung ordnungsgemäß abschließen oder bestätigen kann.
 
-Drücken Sie die Taste „x“, um den Autopilot-Modus zu verlassen (siehe [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+**F11** beendet den Autopilot-Modus. **F12** stoppt nur die aktuelle LLM-Antwort (siehe [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browser-Automatisierung & Web Inspector
 

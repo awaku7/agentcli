@@ -235,7 +235,7 @@ Arrêtez la génération de réponse LLM à tout moment et réinjectez une comma
 
 L'interruption fonctionne comme une « injection rapide » : au lieu de simplement abandonner, elle renvoie « Stop » au LLM sous forme de message utilisateur, lui permettant de conclure ou d'accuser réception de l'interruption en douceur.
 
-Appuyez sur la touche « x » pour quitter le mode pilote automatique (voir [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Appuyez sur **F11** pour quitter le mode pilote automatique. **F12** arrête uniquement la réponse LLM actuelle (voir [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatisation du navigateur et Web Inspector
 

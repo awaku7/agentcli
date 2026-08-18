@@ -212,8 +212,7 @@ Stop LLM-svargenerering når som helst og injicer en stopkommando tilbage til LL
 | **WEB UI** | Klik på den røde **■ Stop**-knap (vises automatisk under LLM-behandling) |
 | **Desktop GUI** | Klik på den røde **■**-knap (vises automatisk under LLM-behandling) |
 
-Afbrydelsen fungerer som "prompt-injektion": i stedet for blot at afbryde, sender den `"Stop"` tilbage til LLM'en som en brugermeddelelse, hvilket giver den mulighed for elegant at afslutte eller anerkende afbrydelsen af autopilot til exit-tilstand (
-xit). [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+Tryk på **F11** for at afslutte Auto-Pilot. **F12** stopper kun det aktuelle LLM-svar (se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browserautomatisering og Web Inspector
 

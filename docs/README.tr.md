@@ -189,7 +189,7 @@ uag **birden fazla LLM turda bağımsız olarak bir hedefi takip edebilir**. Yin
 - **Nasıl çalışır**: Her turda bir ana sorgu (A Adımı) ve ardından "TAMAM mı yoksa DEVAM ET" kararı veren bir gözden geçiren kararı (Adım B) bulunur
 - **Aynı sağlayıcı, aynı API**: Gözden geçirenin kararı, Yanıtlar API desteği de dahil olmak üzere ana sorguyla aynı kod yolunu kullanır.
 - **Ayrı jüri LLM** (isteğe bağlı): Kullanmak için `UAGENT_AP_PROVIDER`ı ayarlayın inceleyen için farklı bir sağlayıcı/model (ör. değerlendirme için daha ucuz bir model kullanın).
-- **İstediğiniz zaman çıkın**: Yanıtın ortasında bile hemen durmak için 'x' tuşuna basın. Veya hedefe ne zaman ulaşılacağına incelemecinin karar vermesine izin verin.
+- **İstediğiniz zaman çıkın**: Auto-Pilot'u durdurmak için **F11** tuşuna basın. **F12** yalnızca mevcut LLM yanıtını durdurur. Veya hedefe ne zaman ulaşılacağına incelemecinin karar vermesine izin verin.
 - **Yapılandırılabilir**: bütçeyi kontrol etmek için `--max-rounds N`.
   Tüm belgeler için [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) adresine bakın.
 
@@ -210,7 +210,7 @@ uag uzun süredir devam eden çok dosyalı görevlerdeki ilerlemeyi izleyebilir.
 | **WEB kullanıcı arayüzü** | Kırmızı **■ Durdur** düğmesine tıklayın (LLM işlemi sırasında otomatik olarak görünür) |
 | **Masaüstü GUI** | Kırmızı **■** düğmesine tıklayın (LLM işlemi sırasında otomatik olarak görünür) |
 Kesinti, "bilgi istemi enjeksiyonu" olarak çalışır: yalnızca iptal etmek yerine, LLM'e bir kullanıcı mesajı olarak ""Durdur""u geri gönderir ve kesintiyi zarif bir şekilde sonlandırmasına veya kesintiyi kabul etmesine olanak tanır.
-Otomatik pilot modundan çıkmak için "x" tuşuna basın (bkz. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+**F11** tuşuna basarak otomatik pilot modundan çıkın. **F12** yalnızca mevcut LLM yanıtını durdurur (bkz. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Tarayıcı Otomasyonu ve Web Denetçisi
 

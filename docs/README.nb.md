@@ -190,7 +190,7 @@ uag kan **autonomt forfølge et mål over flere LLM runder**. Perfekt for komple
 - **Slik fungerer det**: Hver runde har et hovedspørring (trinn A) etterfulgt av en anmelders vurdering (trinn B) som bestemmer "FULLFØRE eller FORTSETTE?"
 - **Samme leverandør, samme bruker API**: inkludert svar API-støtte.
 - **Separat dommer LLM** (valgfritt): Angi 'UAGENT_AP_PROVIDER' til å bruke en annen leverandør/modell for anmelderen (bruk f.eks. en billigere modell for å bedømme).
-- **Avslutt når som helst**: Trykk på 'x'-tasten for å stoppe umiddelbart, selv midt i svaret. Eller la anmelderen avgjøre når målet er nådd.
+- **Avslutt når som helst**: Trykk **F11** for å stoppe Auto-Pilot. **F12** stopper bare det aktuelle LLM-svaret. Eller la anmelderen avgjøre når målet er nådd.
 - **Konfigurerbar**: `--max-rounds N` for å kontrollere budsjettet.
 
 Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) for full dokumentasjon.#

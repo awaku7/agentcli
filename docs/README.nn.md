@@ -169,7 +169,7 @@ uag kan **autonomt forfølge et mål på tvers av flere LLM-runder**. Perfekt fo
 - **Korleis fungerer det**: Hver runde har et hovedspørsmål (trinn A) etterfulgt av en anmelders vurdering (trinn B) som bestemmer "FULLT eller FORTSETT?"
 - **Samme leverandør, samme API**: Kontrollørens vurdering brukar den identiske kodebanen som hovedspørringen - inkludert Responses API-støtte.
 - **Separat dommer LLM** (valgfritt): Angi «UAGENT_AP_PROVIDER» til å bruke en annen leverandør/modell for anmelderen (bruk f.eks. en billigere modell for å bedømme).
-- **Avslutt når som helst**: Trykk 'x'-tasten for å stoppe umiddelbart, selv midt i responsen. Eller la anmelderen bestemme når målet er nådd.
+- **Avslutt når som helst**: Trykk **F11** for å stoppe Auto-Pilot. **F12** stopper bare det aktuelle LLM-svaret. Eller la anmelderen bestemme når målet er nådd.
 - **Konfigurerbar**: `--max-runder N` for å kontrollere budsjettet.
 
 Se [README_AUTO.md](README_AUTO.md) for full dokumentasjon.

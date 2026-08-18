@@ -186,7 +186,7 @@ Opriți generarea răspunsului LLM în orice moment și injectați o comandă de
 | **Interfață de utilizare WEB** | Faceți clic pe butonul roșu **■ Stop** (apare automat în timpul procesării LLM) |
 | **Interfață grafică pentru desktop** | Faceți clic pe butonul roșu **■** (apare automat în timpul procesării LLM) |
 Întreruperea funcționează ca „injectare promptă”: în loc să se anuleze, transmite „Stop”” înapoi către LLM sub formă de mesaj de utilizator, permițându-i să încheie cu grație sau să recunoască întreruperea tastei.
-x` [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+**F11** pentru a ieși din Auto-Pilot. **F12** oprește doar răspunsul LLM curent (consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 ### 🕵️ Browser Automation & Web Inspector
 Două instrumente complementare bazate pe Playwright:
 - ****browser-extras, automate sesiune de navigare: browser_play, automate sesiune de navigare, clic real-play** date, gestionează fluxuri cu mai multe pagini. Funcționează fără cap sau cu cap.
