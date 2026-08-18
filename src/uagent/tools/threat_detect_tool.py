@@ -104,6 +104,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_level": 1,
     "x_parallel_safe": False,
     "function": {
         "name": "threat_detect",
