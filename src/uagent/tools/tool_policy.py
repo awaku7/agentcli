@@ -63,7 +63,6 @@ _EXTERNAL_SEND = {
 _DESTRUCTIVE = {
     "delete_file",
     "rename_path",
-    "replace_in_file",
     "binary_edit",
 }
 

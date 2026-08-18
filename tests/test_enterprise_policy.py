@@ -69,11 +69,11 @@ def test_missing_policy_file_is_created_as_allow_all(tmp_path, monkeypatch) -> N
     assert not policy.decide_mcp_server("https://example.test").denied
 
 
-def test_replace_in_file_preview_is_read_only_but_write_requires_confirmation() -> None:
+def test_replace_in_file_preview_and_write_are_not_destructive() -> None:
     from uagent.tools.tool_policy import SideEffect, policy_for
 
     preview = policy_for("replace_in_file", {"path": "a.txt", "preview": True})
     write = policy_for("replace_in_file", {"path": "a.txt", "preview": False})
     assert preview.side_effect is SideEffect.READ_ONLY
     assert preview.requires_confirmation is False
-    assert write.requires_confirmation is True
+    assert write.requires_confirmation is False
