@@ -36,6 +36,7 @@ from .util_image import (
     extract_image_paths,
     open_image_with_default_app,
     image_file_to_data_url,
+    media_file_to_data_url,
     provider_allows_chat_vision,
     build_multimodal_user_message,
     try_open_images_from_text,

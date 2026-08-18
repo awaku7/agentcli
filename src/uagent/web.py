@@ -1384,6 +1384,7 @@ def run_agent_worker(
                     .strip()
                 )
                 is_image = mime.startswith("image/") or mime == "image"
+                is_video = mime.startswith("video/") and os.path.getsize(path) <= 50_000_000
                 label = os.path.basename(name) or os.path.basename(path) or path
                 if is_image:
                     attachment_lines.append(
@@ -1406,13 +1407,24 @@ def run_agent_worker(
                         item["data_url"] = tools_util.image_file_to_data_url(path)
                     except Exception:
                         pass
+                if is_video and not item.get("data_url"):
+                    try:
+                        item["data_url"] = tools_util.media_file_to_data_url(
+                            path, max_bytes=50_000_000
+                        )
+                    except Exception:
+                        item["type"] = "file"
                 clean_attachments.append(item)
 
-            # Build multimodal content if there are image attachments
+            # Build multimodal content for images and guarded llama.cpp videos.
             has_image = any(
                 att.get("type") == "image" for att in (clean_attachments or [])
             )
-            if has_image:
+            has_video = provider_name == "llama_cpp" and any(
+                att.get("type") == "video" and att.get("data_url")
+                for att in (clean_attachments or [])
+            )
+            if has_image or has_video:
                 # Use multimodal format (Chat Completions standard image_url)
                 parts: list[dict[str, Any]] = (
                     [{"type": "text", "text": user_input}] if user_input.strip() else []
@@ -1424,6 +1436,13 @@ def run_agent_worker(
                             {
                                 "type": "image_url",
                                 "image_url": {"url": data_url},
+                            }
+                        )
+                    elif data_url and att.get("type") == "video" and provider_name == "llama_cpp":
+                        parts.append(
+                            {
+                                "type": "input_video",
+                                "input_video": {"url": data_url},
                             }
                         )
                 user_msg = {"role": "user", "content": parts}
@@ -1718,12 +1737,13 @@ async def upload_files(
 
             mime = str(getattr(upload, "content_type", "") or "").lower().strip()
             is_image = mime.startswith("image/")
+            is_video = mime.startswith("video/") and os.path.getsize(dst_path) <= 50_000_000
             item: dict[str, Any] = {
                 "name": original_name,
                 "saved_path": dst_path,
                 "path": dst_path,
                 "mime": mime,
-                "type": "image" if is_image else "file",
+                "type": "image" if is_image else ("video" if is_video else "file"),
             }
             if is_image:
                 try:
