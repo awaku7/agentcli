@@ -81,6 +81,7 @@ def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
     the model/template default remains in control.  This is llama.cpp-only;
     Ollama has a separate, model-dependent thinking API.
     """
+    chat_kwargs["reasoning_format"] = "deepseek"
     reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
     if reasoning == "off":
         chat_kwargs["chat_template_kwargs"] = {"enable_thinking": False}

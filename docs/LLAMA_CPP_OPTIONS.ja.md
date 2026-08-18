@@ -35,7 +35,7 @@ uagent経由の通常の`/v1/chat/completions`では、以下の値が使われ�
 | `UAGENT_REASONING=off` | 未指定 | llama.cppへ`chat_template_kwargs.enable_thinking=false`を送信し、thinkingを無効化 |
 | `UAGENT_REASONING=auto` | 未指定 | llama.cppへ指定せず、モデル／chat templateの既定値に任せる |
 | `UAGENT_REASONING=minimal/low/medium/high/xhigh/max` | 未指定 | `enable_thinking=true`を送信。値そのものはQwenのtemplateには渡さない |
-| `reasoning_format` | `none`（サーバー設定） | reasoningの抽出形式。`none`は生の出力として扱い、`deepseek`等では`reasoning_content`へ分離する |
+| `reasoning_format` | `deepseek`（uagent経由） | reasoningの抽出形式。`none`は生の出力として扱い、`deepseek`では`reasoning_content`へ分離する |
 | `reasoning_control` | `false` | ストリーミング中にreasoningブロックを終了できるようにする |
 | `chat_template_kwargs` | `{}` | chat templateへ渡す追加パラメータ。Qwen系では`enable_thinking`等を指定する |
 
