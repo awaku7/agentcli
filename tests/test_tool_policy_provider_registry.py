@@ -31,15 +31,13 @@ def test_default_confirmation_uses_human_ask(monkeypatch) -> None:
     monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
     monkeypatch.setattr(
         "uagent.tools.human_ask_tool.run_tool",
-        lambda _args: "{\"user_reply\": \"yes\", \"cancelled\": false}",
+        lambda _args: '{"user_reply": "yes", "cancelled": false}',
     )
-    assert default_confirmation_callback(
-        "delete_file", {}, policy_for("delete_file")
-    )
+    assert default_confirmation_callback("delete_file", {}, policy_for("delete_file"))
 
     monkeypatch.setattr(
         "uagent.tools.human_ask_tool.run_tool",
-        lambda _args: "{\"user_reply\": \"no\", \"cancelled\": false}",
+        lambda _args: '{"user_reply": "no", "cancelled": false}',
     )
     assert not default_confirmation_callback(
         "delete_file", {}, policy_for("delete_file")

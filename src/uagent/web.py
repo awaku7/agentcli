@@ -1384,7 +1384,9 @@ def run_agent_worker(
                     .strip()
                 )
                 is_image = mime.startswith("image/") or mime == "image"
-                is_video = mime.startswith("video/") and os.path.getsize(path) <= 50_000_000
+                is_video = (
+                    mime.startswith("video/") and os.path.getsize(path) <= 50_000_000
+                )
                 label = os.path.basename(name) or os.path.basename(path) or path
                 if is_image:
                     attachment_lines.append(
@@ -1438,7 +1440,11 @@ def run_agent_worker(
                                 "image_url": {"url": data_url},
                             }
                         )
-                    elif data_url and att.get("type") == "video" and provider_name == "llama_cpp":
+                    elif (
+                        data_url
+                        and att.get("type") == "video"
+                        and provider_name == "llama_cpp"
+                    ):
                         parts.append(
                             {
                                 "type": "input_video",
@@ -1737,7 +1743,9 @@ async def upload_files(
 
             mime = str(getattr(upload, "content_type", "") or "").lower().strip()
             is_image = mime.startswith("image/")
-            is_video = mime.startswith("video/") and os.path.getsize(dst_path) <= 50_000_000
+            is_video = (
+                mime.startswith("video/") and os.path.getsize(dst_path) <= 50_000_000
+            )
             item: dict[str, Any] = {
                 "name": original_name,
                 "saved_path": dst_path,

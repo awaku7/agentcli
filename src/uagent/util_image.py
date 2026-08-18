@@ -237,9 +237,7 @@ def build_multimodal_user_message(
 
     text_s = text if isinstance(text, str) else ("" if text is None else str(text))
     paths = [p for p in (image_paths or []) if isinstance(p, str) and p.strip()]
-    video_paths = [
-        p for p in (video_paths or []) if isinstance(p, str) and p.strip()
-    ]
+    video_paths = [p for p in (video_paths or []) if isinstance(p, str) and p.strip()]
 
     # Video input is currently supported only by OpenAI-compatible llama-server
     # chat templates. Callers must gate it with the model's video capability.

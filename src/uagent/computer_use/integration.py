@@ -64,7 +64,9 @@ def _host_confirmation_callback(core: Any | None = None):
             # Use the shared human_ask route so CLI, GUI, and Web entry points
             # all display a confirmation prompt. The generic default tool
             # callback silently returns False and provides no visible prompt.
-            prompt = _("Computer Use requests permission for action '%(action)s'") % {"action": action.action}
+            prompt = _("Computer Use requests permission for action '%(action)s'") % {
+                "action": action.action
+            }
             if action.coordinate is not None:
                 prompt += _(" at %(coordinate)s") % {"coordinate": action.coordinate}
             if action.key:

@@ -96,7 +96,6 @@ def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
     chat_kwargs["extra_body"] = extra_body
 
 
-
 def _translate_call_messages(
     call_messages: list[dict[str, Any]], tr_cfg: Any
 ) -> list[dict[str, Any]]:

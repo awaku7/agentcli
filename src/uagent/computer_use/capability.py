@@ -26,10 +26,12 @@ def get_computer_use_capability(
 
     if capability is None or computer_use is None:
         raise ComputerUseCapabilityError(
-            _("Computer Use capability is unavailable for %(provider)s/%(model)s") % {"provider": provider, "model": model}
+            _("Computer Use capability is unavailable for %(provider)s/%(model)s")
+            % {"provider": provider, "model": model}
         )
     if not getattr(computer_use, "supported", False):
         raise ComputerUseCapabilityError(
-            _("Computer Use is not supported for %(provider)s/%(model)s") % {"provider": provider, "model": model}
+            _("Computer Use is not supported for %(provider)s/%(model)s")
+            % {"provider": provider, "model": model}
         )
     return computer_use

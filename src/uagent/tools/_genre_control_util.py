@@ -196,6 +196,26 @@ def disable_genre_tools(genre: str) -> list[str]:
     return removed_names
 
 
+def is_tool_loadable(spec: dict[str, Any] | None, mod: Any = None) -> bool:
+    """Return whether a tool can be dynamically loaded."""
+    if not isinstance(spec, dict):
+        return False
+    try:
+        if int(spec.get("tool_level", 0)) == -1:
+            return False
+    except (TypeError, ValueError):
+        return False
+    if mod is not None and getattr(mod, "LOAD_DISABLED_REASON", ""):
+        return False
+    checker = getattr(mod, "is_loadable", None) if mod is not None else None
+    if callable(checker):
+        try:
+            return bool(checker())
+        except Exception:
+            return False
+    return True
+
+
 def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
     """Enable a single tool by name (regardless of genre).
 
@@ -217,6 +237,9 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
             continue
         if func_info.get("name") != tool_name:
             continue
+
+        if not is_tool_loadable(spec, mod):
+            return False
 
         # Reload only the matched tool module so source edits apply without
         # restarting the process, while avoiding wipe of unrelated module state.
@@ -242,6 +265,8 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
                 return False
             func_info = spec.get("function", {})
             if not isinstance(func_info, dict) or func_info.get("name") != tool_name:
+                return False
+            if not is_tool_loadable(spec, mod):
                 return False
         except Exception:
             return False

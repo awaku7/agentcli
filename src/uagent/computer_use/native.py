@@ -33,7 +33,9 @@ def local_computer_tool_spec() -> dict[str, Any]:
         "type": "function",
         "function": {
             "name": "computer",
-            "description": _("Control the local desktop through the guarded Computer Use runtime."),
+            "description": _(
+                "Control the local desktop through the guarded Computer Use runtime."
+            ),
             "parameters": {
                 "type": "object",
                 "properties": {

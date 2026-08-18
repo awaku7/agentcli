@@ -1509,7 +1509,10 @@ def main() -> None:
                                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                                 )
                         except Exception as exc:
-                            print("[AUTO] " + _("Auto-pilot interrupted: %(err)s") % {"err": exc})
+                            print(
+                                "[AUTO] "
+                                + _("Auto-pilot interrupted: %(err)s") % {"err": exc}
+                            )
                         core.set_status(False, "")
                 continue
 
@@ -1568,7 +1571,9 @@ def main() -> None:
 
                 if allow_multimodal:
                     paths = extract_image_paths(text)
-                    video_paths = extract_video_paths(text) if prov == "llama_cpp" else []
+                    video_paths = (
+                        extract_video_paths(text) if prov == "llama_cpp" else []
+                    )
                     if paths or video_paths:
                         # Build a candidate list with absolute paths and sizes (best-effort).
                         infos: list[str] = []
@@ -1657,7 +1662,10 @@ def main() -> None:
                         )
                     except Exception as exc:
                         lifecycle.fail()
-                        print("[bitchat] " + _("LLM round interrupted: %(err)s") % {"err": exc})
+                        print(
+                            "[bitchat] "
+                            + _("LLM round interrupted: %(err)s") % {"err": exc}
+                        )
 
                 # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                 if ev.get("src") == "bitchat":

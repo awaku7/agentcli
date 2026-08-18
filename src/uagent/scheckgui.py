@@ -2707,8 +2707,7 @@ class MainWindow(QtWidgets.QMainWindow):
         sent_files = list(self._attached_files)
         video_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".mpeg", ".mpg"}
         sent_videos = [
-            p for p in sent_files
-            if os.path.splitext(str(p))[1].lower() in video_exts
+            p for p in sent_files if os.path.splitext(str(p))[1].lower() in video_exts
         ]
 
         if active and q:

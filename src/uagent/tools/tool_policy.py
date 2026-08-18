@@ -150,7 +150,9 @@ def default_confirmation_callback(
             run_tool(
                 {
                     "message": (
-                        _("Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel.")
+                        _(
+                            "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel."
+                        )
                         % {"tool": tool_name}
                     ),
                     "is_password": False,

@@ -159,6 +159,7 @@ TOOL_SPECS: list[dict[str, Any]] = []
 # Cache for get_tool_specs(); rebuilt on demand when TOOL_SPECS changes.
 _TOOL_SPECS_CACHE: list[dict[str, Any]] | None = None
 _TOOL_SPECS_DIRTY: bool = True
+_ANALYZE_IMAGE_HIDDEN: bool | None = None
 
 # Pre-built dict: tool_name -> emit_trace flag (avoids linear scan in run_tool).
 _TOOL_TRACE_FLAGS: dict[str, bool] = {}
@@ -355,6 +356,13 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
     if not isinstance(spec, dict) or not callable(runner):
         return False
+    _loadable_check = getattr(mod, "is_loadable", None)
+    if callable(_loadable_check):
+        try:
+            if not bool(_loadable_check()):
+                return False
+        except Exception:
+            return False
 
     # Optional tool level in TOOL_SPEC (default: 0; -1 if tool_genre is set)
     # - tool_level == -1: disabled (do not register/load as LLM tool, but allow dynamic commands)
@@ -1085,11 +1093,43 @@ def is_computer_use_conflict(spec: dict[str, Any] | None) -> bool:
     )
 
 
+def _hide_analyze_image_for_chat_vision() -> bool:
+    """Hide analyze_image when the main chat can carry image_url input.
+
+    Evaluate this at tool-spec request time because provider/model environment
+    variables may be loaded after tool modules are imported.
+    """
+    try:
+        from ..env_utils import env_get
+        from ..util_image import provider_allows_chat_vision
+
+        provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+        use_responses = (env_get("UAGENT_RESPONSES") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+        )
+        return bool(
+            provider
+            and provider_allows_chat_vision(
+                provider,
+                use_responses_api=use_responses,
+            )
+        )
+    except Exception:
+        return False
+
+
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
-    global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY
-    if not _TOOL_SPECS_DIRTY and _TOOL_SPECS_CACHE is not None:
+    global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY, _ANALYZE_IMAGE_HIDDEN
+    hide_analyze_image = _hide_analyze_image_for_chat_vision()
+    if (
+        not _TOOL_SPECS_DIRTY
+        and _TOOL_SPECS_CACHE is not None
+        and _ANALYZE_IMAGE_HIDDEN == hide_analyze_image
+    ):
         return _TOOL_SPECS_CACHE
 
     # Native GPT-5.4 tool_search: exclude management tools (server handles all)
@@ -1157,6 +1197,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         clean_specs.append(spec_copy)
     _TOOL_SPECS_CACHE = clean_specs
     _TOOL_SPECS_DIRTY = False
+    _ANALYZE_IMAGE_HIDDEN = hide_analyze_image
     return clean_specs
 
 
@@ -1334,6 +1375,7 @@ def get_tool_catalog(
             pass
 
     specs = get_tool_specs() if tool_specs is None else tool_specs
+    from ._genre_control_util import is_tool_loadable
 
     # Build set of loaded tool names for dedup
     loaded_names: set[str] = set()
@@ -1431,6 +1473,8 @@ def get_tool_catalog(
                     continue
                 if is_computer_use_conflict(spec):
                     continue
+                if not is_tool_loadable(spec, mod):
+                    continue
                 fn = spec.get("function") or {}
                 if not isinstance(fn, dict):
                     continue
@@ -1495,6 +1539,8 @@ def get_tool_catalog(
                     spec = getattr(_mod, "TOOL_SPEC", None)
                 if not isinstance(spec, dict):
                     continue
+            if not is_tool_loadable(spec, _mod if "_mod" in locals() else None):
+                continue
             fn = spec.get("function", {})
             if not isinstance(fn, dict):
                 continue

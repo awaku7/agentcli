@@ -44,12 +44,14 @@ class ComputerUsePolicy:
         if requested_environment != self.environment:
             return PolicyDecision(
                 False,
-                reason=_("environment is not allowed: %(environment)s") % {"environment": requested_environment},
+                reason=_("environment is not allowed: %(environment)s")
+                % {"environment": requested_environment},
             )
         if action.action not in self.allowed_actions:
             return PolicyDecision(
                 False,
-                reason=_("action is not allowed: %(action)s") % {"action": action.action},
+                reason=_("action is not allowed: %(action)s")
+                % {"action": action.action},
             )
         # Domain allowlists apply to browser navigation only. Desktop actions
         # (mouse/keyboard/screenshot) have no URL domain and must not be
@@ -59,7 +61,10 @@ class ComputerUsePolicy:
             and self.allowed_domains
             and domain not in self.allowed_domains
         ):
-            return PolicyDecision(False, reason=_("domain is not allowed: %(domain)s") % {"domain": domain})
+            return PolicyDecision(
+                False,
+                reason=_("domain is not allowed: %(domain)s") % {"domain": domain},
+            )
         if self.require_confirmation:
             return PolicyDecision(
                 False,

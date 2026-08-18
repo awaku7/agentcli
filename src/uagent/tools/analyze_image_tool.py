@@ -94,6 +94,36 @@ except Exception:
         TOOL_SPEC = None  # type: ignore[assignment]
 
 
+# This tool delegates to a separate vision API.  llama.cpp is not one of its
+# backends; its native image input, when supported, is handled by the main
+# chat path instead.  Mark unsupported configurations as non-loadable so the
+# catalog does not offer a tool that will fail only after execution.
+_IMAGE_ANALYSIS_PROVIDERS = {
+    "ollama",
+    "openai",
+    "azure",
+    "alibaba",
+    "moonshot",
+    "gemini",
+    "vertexai",
+    "deepseek",
+    "zai",
+}
+
+
+def is_loadable() -> bool:
+    """Check backend availability using the current runtime environment."""
+    provider = (
+        (env_get("UAGENT_IMG_ANALYSIS_PROVIDER") or env_get("UAGENT_PROVIDER") or "")
+        .strip()
+        .lower()
+    )
+    return provider in _IMAGE_ANALYSIS_PROVIDERS
+
+
+LOAD_DISABLED_REASON = ""
+
+
 def _env_first(keys: list[str], *, required: bool, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
