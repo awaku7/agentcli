@@ -145,15 +145,18 @@ def provider_allows_chat_vision(
 ) -> bool:
     """Return True if main-chat image auto-attach is allowed for this provider.
 
-    CHAT_VISION_PROVIDERS (openai/azure/openrouter/grok/claude/gemini/vertexai)
-    already convert multimodal content at the provider layer and do not require
-    UAGENT_RESPONSES.  Other RESPONSES_PROVIDERS still need Responses enabled.
+    Provider transport metadata identifies providers that can carry image
+    content on the chat path without requiring UAGENT_RESPONSES. Other
+    RESPONSES_PROVIDERS still need Responses enabled.
 
     When ``model_id`` is given (or resolvable from env) and llmcapa knows the
     model, vision/image-input support is required in addition to provider gating.
     Unknown models keep the provider-level allow decision.
     """
-    from .providers.provider_caps import CHAT_VISION_PROVIDERS, RESPONSES_PROVIDERS
+    from .providers.provider_caps import (
+        DEFAULT_PROVIDER_REGISTRY,
+        RESPONSES_PROVIDERS,
+    )
     from .llmcapa_util import supports_vision, current_model
 
     prov = (provider or "").strip().lower()
@@ -163,7 +166,8 @@ def provider_allows_chat_vision(
             "true",
         )
 
-    if prov in CHAT_VISION_PROVIDERS:
+    provider_spec = DEFAULT_PROVIDER_REGISTRY.resolve(prov)
+    if provider_spec.chat_vision_format is not None:
         provider_ok = True
     else:
         provider_ok = bool(use_responses_api) and prov in RESPONSES_PROVIDERS

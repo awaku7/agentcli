@@ -65,18 +65,16 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
 #
 # Responses-only providers (bedrock, alibaba, ollama, lmstudio, sakana, …)
 # remain gated by UAGENT_RESPONSES + RESPONSES_PROVIDERS at the call site.
-CHAT_VISION_PROVIDERS: frozenset[str] = frozenset(
-    {
-        "openai",
-        "azure",
-        "openrouter",
-        "grok",
-        "claude",
-        "gemini",
-        "vertexai",
-        "llama_cpp",
-    }
-)
+_CHAT_VISION_FORMATS: dict[str, str] = {
+    "openai": "image_url",
+    "azure": "image_url",
+    "openrouter": "image_url",
+    "grok": "image_url",
+    "claude": "image_url",
+    "gemini": "attachments",
+    "vertexai": "attachments",
+    "llama_cpp": "image_url",
+}
 
 
 # Providers that support Fill-in-the-Middle (FIM) code completion.
@@ -95,6 +93,7 @@ class ProviderSpec:
     supports_tools: bool
     supports_streaming: bool
     supports_vision: bool
+    chat_vision_format: str | None = None
 
 
 class ProviderRegistry(Protocol):
@@ -117,7 +116,8 @@ class StaticProviderRegistry:
         capabilities = {"chat", "streaming"}
         if name in RESPONSES_PROVIDERS:
             capabilities.add("responses")
-        if name in CHAT_VISION_PROVIDERS:
+        chat_vision_format = _CHAT_VISION_FORMATS.get(name)
+        if chat_vision_format is not None:
             capabilities.add("vision")
         if name in FIM_SUPPORTED_PROVIDERS:
             capabilities.add("fim")
@@ -129,6 +129,7 @@ class StaticProviderRegistry:
             supports_tools="tools" in capabilities,
             supports_streaming=True,
             supports_vision="vision" in capabilities,
+            chat_vision_format=chat_vision_format,
         )
 
 
