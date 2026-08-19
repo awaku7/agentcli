@@ -20,6 +20,19 @@ def test_event_context_adds_correlation_fields(caplog) -> None:
     assert payload["timestamp"]
 
 
+def test_standalone_event_gets_common_schema_fields(caplog) -> None:
+    with caplog.at_level(logging.INFO, logger="uagent.events"):
+        log_event("standalone")
+
+    payload = json.loads(caplog.records[-1].message)
+    assert payload["schema_version"] == "1"
+    assert payload["event_id"]
+    assert payload["correlation_id"]
+    assert payload["timestamp"]
+    assert payload["event_code"] == "standalone"
+    assert payload["status"] == "event"
+
+
 def test_event_context_does_not_leak(caplog) -> None:
     with caplog.at_level(logging.INFO, logger="uagent.events"):
         with event_context(session_id="s1"):

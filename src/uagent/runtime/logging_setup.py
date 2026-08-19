@@ -21,6 +21,7 @@ _SECRET_KEYS = {
 _EVENT_CONTEXT: ContextVar[dict[str, Any]] = ContextVar(
     "uagent_event_context", default={}
 )
+_EVENT_SCHEMA_VERSION = "1"
 
 
 def _now_iso() -> str:
@@ -81,7 +82,9 @@ def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) 
 def log_event(event_code: str, **fields: Any) -> None:
     """Emit a stable event code with secret fields removed."""
     context = dict(_EVENT_CONTEXT.get())
+    context.setdefault("schema_version", _EVENT_SCHEMA_VERSION)
     context.setdefault("event_id", str(uuid4()))
+    context.setdefault("correlation_id", str(uuid4()))
     context.setdefault("timestamp", _now_iso())
     context.setdefault("status", "event")
     payload = {**context, "event_code": event_code, **fields}
