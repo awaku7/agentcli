@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
+  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -77,6 +77,20 @@ set UAGENT_RESPONSES=0
 
 - `UAGENT_OLLAMA_DEPNAME`（必須）
 - `UAGENT_OLLAMA_BASE_URL`（省略可、既定: `http://localhost:11434/v1`）
+
+#### llama.cpp / llama-server
+
+`UAGENT_PROVIDER=llama_cpp` の場合：
+
+- `UAGENT_LLAMA_CPP_BASE_URL`（必須、既定: `http://localhost:8080/v1`）
+- `UAGENT_LLAMA_CPP_DEPNAME`（省略可、既定: `local-model`）
+- `UAGENT_LLAMA_CPP_API_KEY`（省略可、既定: `dummy`）
+- `UAGENT_LLAMA_CPP_TIMEOUT_SEC`（省略可、既定: `120`）
+- `UAGENT_LLAMA_CPP_TOP_K`（省略可）
+- `UAGENT_LLAMA_CPP_MIN_P`（省略可）
+- `UAGENT_LLAMA_CPP_REPEAT_PENALTY`（省略可）
+
+llama.cpp 連携は現在 Chat Completions を使用します。互換プロキシ／サーバーを構成していない限り、`UAGENT_RESPONSES=0` を維持してください。
 
 #### Google Gemini
 

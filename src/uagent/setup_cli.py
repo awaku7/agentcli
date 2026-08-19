@@ -247,6 +247,21 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             False,
             _("llama.cpp request timeout in seconds (default: 120)"),
         ),
+        (
+            "UAGENT_LLAMA_CPP_TOP_K",
+            False,
+            _("llama.cpp top_k (optional)"),
+        ),
+        (
+            "UAGENT_LLAMA_CPP_MIN_P",
+            False,
+            _("llama.cpp min_p (optional)"),
+        ),
+        (
+            "UAGENT_LLAMA_CPP_REPEAT_PENALTY",
+            False,
+            _("llama.cpp repeat_penalty (optional)"),
+        ),
     ],
     "deepseek": [
         ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),

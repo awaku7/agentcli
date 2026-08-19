@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
+  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -77,6 +77,20 @@ Required if `UAGENT_PROVIDER=ollama`:
 
 - `UAGENT_OLLAMA_DEPNAME` (required)
 - `UAGENT_OLLAMA_BASE_URL` (optional, default: `http://localhost:11434/v1`)
+
+#### llama.cpp / llama-server
+
+Required when `UAGENT_PROVIDER=llama_cpp`:
+
+- `UAGENT_LLAMA_CPP_BASE_URL` (required, default: `http://localhost:8080/v1`)
+- `UAGENT_LLAMA_CPP_DEPNAME` (optional, default: `local-model`)
+- `UAGENT_LLAMA_CPP_API_KEY` (optional, default: `dummy`)
+- `UAGENT_LLAMA_CPP_TIMEOUT_SEC` (optional, default: `120`)
+- `UAGENT_LLAMA_CPP_TOP_K` (optional)
+- `UAGENT_LLAMA_CPP_MIN_P` (optional)
+- `UAGENT_LLAMA_CPP_REPEAT_PENALTY` (optional)
+
+The llama.cpp integration currently uses Chat Completions. Keep `UAGENT_RESPONSES=0` unless a compatible proxy/server is configured.
 
 #### Google Gemini
 

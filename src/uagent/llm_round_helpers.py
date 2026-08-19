@@ -38,6 +38,7 @@ from .providers.llm_openrouter import (
 )
 from .providers.llm_openrouter_responses import apply_openrouter_responses_compat
 from .providers.llm_ollama import apply_ollama_extra_body
+from .providers.llm_llama_cpp import apply_llama_cpp_extra_body
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
 from .providers.llm_pfn import pfn_chat_with_tools
@@ -936,6 +937,9 @@ def _call_openai_azure_round(
 
                 # Ollama provider routing / extensions (optional)
                 apply_ollama_extra_body(chat_kwargs, provider=provider)
+
+                # llama-server sampling extensions (optional)
+                apply_llama_cpp_extra_body(chat_kwargs, provider=provider)
 
                 # OpenRouter/Azure-proxy tool schema compatibility workarounds
                 apply_openrouter_tool_schema_compat(chat_kwargs, provider=provider)
