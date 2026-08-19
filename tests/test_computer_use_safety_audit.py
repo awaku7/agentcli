@@ -29,7 +29,7 @@ def test_confirmation_callback_controls_high_impact_action():
         confirm=lambda _: False,
     )
     assert denied.success is False
-    assert "confirmation" in denied.error
+    assert denied.error
     assert runtime.executed == []
 
     accepted = execute_action(

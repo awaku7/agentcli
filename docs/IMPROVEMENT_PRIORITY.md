@@ -5,7 +5,7 @@
 
 ## 実装状況の調査結果
 
-2026-08-17 時点で、本文のロードマップ項目を実コード、関連テスト、ドキュメントで再確認しました。ロードマップのチェック項目は **20/20 件（100%）** が実装済みです。この割合は項目数ベースの目安であり、各項目の規模や完成度を重み付けしたものではありません。
+2026-08-19 時点で、本文のロードマップ項目を実コード、関連テスト、ドキュメントで再確認しました。ロードマップのチェック項目は **20/20 件（100%）** が実装済みです。ただし、これは項目の主要な実装とテストが存在することを示す項目数ベースの目安であり、分散合意、OpenTelemetry完全導入、Plugin sandbox完全実装などの本格的な拡張まで完了したことを意味しません。各項目の規模や完成度も重み付けしていません。
 
 確認した主な実装領域は次のとおりです。
 
@@ -16,7 +16,15 @@
 - `src/uagent/tools/enterprise_policy.py` と Enterprise Policy 関連テスト
 - `src/uagent/runtime/logging_setup.py`、Tool dispatch、LLM、OAuth のイベント実装と関連テスト
 
-対象基盤テストは **40 passed / 1 skipped** でした。なお、TaskStore の `datetime.utcnow()` は `datetime.now(timezone.utc)` へ置き換え済みで、Python 3.14 の非推奨警告は解消済みです。TaskStore 関連の再確認テストは **5 passed**、Ruff/Blackも成功しています。
+今回の再確認で反映した周辺実装は次のとおりです。
+
+- `--non-interactive` に処理を統一し、stdin待ちや`.env.sec`確認を行わない。`human_ask`は入力待ちをせずLLMに自律判断を促す
+- 非対話モードでは `AGENTS.md` / `CLAUDE.md` を自動読み込みせず、作業ディレクトリ変更後も再読み込みしない
+- 非TTYを含むプロンプト表示で、`[STATE]` を stale prompt より優先する
+- ANSIの `CSI 2K` を使わず、Windowsコンソールで `?[2K` が表示されないようにする
+- Qwen/llama.cppが省略整数引数を`0`で補完する場合の`read_file`引数を補正する
+
+実装領域の個別テスト、ステータス表示テスト、非対話モードテスト、Pythonコンパイル、Ruffを再確認しました。Computer Useのエラーテストは、日本語ロケールでも表示文言に依存しない検証へ修正済みです。リポジトリ全体のテストは警告付きですが、**全テスト成功**を確認しています。なお、TaskStoreの`datetime.utcnow()`は`datetime.now(timezone.utc)`へ置き換え済みで、Python 3.14の非推奨警告は解消済みです。
 
 ## 結論
 
@@ -151,7 +159,7 @@ TaskStore
 └── SQLiteTaskStore
 ```
 
-Redis は、SQLite の導入後に必要性を確認して検討します。
+Redisは、SQLiteの性能・同時実行要件が不足した場合に検討します。Python側では`redis`（redis-py）ライブラリ、運用時には別途Redis Serverが必要になるため、オプション依存として分離します。
 
 ### 期待効果
 
@@ -310,13 +318,46 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 ロードマップ上の主要項目は実装済みです。今後は、llama.cppの`/props`やOllamaの`/api/show`情報の各UIへの表示統一、個別イベントのCLI/Web/GUI/A2Aでのペイロード統一、分散合意、Plugin sandboxなどの拡張を進めます。
 
-## 現時点で後回しにする項目
+## 現行実装との注意点
 
-次の項目は重要ですが、基盤が固まる前に着手すると再設計が発生しやすいため、後回しにします。
+ロードマップの主要項目は実装済みですが、次の点は「実装済み」と「完全運用」を分けて扱います。
 
-- Redis TaskStore
-- OpenTelemetry の本格導入
-- Plugin sandbox の完全実装
+- Enterprise PolicyのMCP / Network allowlistは、現在は文字列部分一致による簡易判定です。厳密なホスト、ポート、サブドメイン境界の検証は拡張課題です。
+- Distributed A2Aは共有ファイルleaseと認証済みA2A task / checkpoint / SSE同期を提供します。etcd / ZooKeeper相当のconsensusやネットワーク分断耐性は未実装です。
+- Observabilityは主要境界に適用済みですが、全イベントのpayloadを完全に同一仕様へ統一する作業は継続課題です。
+- Computer Useエラーテストは日本語ロケールでも表示文言に依存しない検証へ修正済みです。リポジトリ全体のテストは警告付きですが成功しています。
+
+## 今後の実装優先順位
+
+ロードマップの主要基盤は実装済みのため、残課題はリスクと依存関係を考慮して次の順序で進めます。
+
+### P0: 品質ゲート
+
+- [x] 日本語ロケールでも成立するComputer Useエラーテストへ修正
+- [x] 全体テスト、Ruff、Black、受入チェックを安定して成功させる
+
+### P1: セキュリティ境界
+
+- MCP / Network allowlistを部分一致から厳密なURL、hostname、port、subdomain判定へ強化
+- Plugin sandboxを強化（作業ディレクトリ、ネットワーク、subprocess、リソース制限）
+
+### P2: 観測性
+
+- CLI / Web / GUI / A2Aのイベントpayloadとschemaを統一
+- schema統一後にOpenTelemetryのtrace/span/exporterを導入
+
+### P3: 分散実行
+
+- Distributed A2Aのlease競合、再接続、二重実行、ネットワーク分断を強化
+- 必要性が明確になった場合にetcd / ZooKeeper相当のconsensusを検討
+
+### P4: スケール対応
+
+- SQLiteで性能・同時実行要件が不足した場合にRedis TaskStoreを追加
+- Redis導入時はPython側の`redis`（redis-py）ライブラリとRedisサーバーが必要
+- Redisを必須依存にせず、オプション依存として分離する
+
+Redis、OpenTelemetry、Plugin sandbox、consensusは、要件と外部基盤を確認してから着手します。
 
 ## 全体的な改善効果
 

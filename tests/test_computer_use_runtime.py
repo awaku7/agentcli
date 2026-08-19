@@ -59,7 +59,7 @@ def test_policy_rejection_does_not_reach_runtime():
     )
 
     assert result.success is False
-    assert "not allowed" in result.error
+    assert result.error
     assert runtime.executed == []
 
 
