@@ -22,6 +22,15 @@ _EVENT_CONTEXT: ContextVar[dict[str, Any]] = ContextVar(
     "uagent_event_context", default={}
 )
 _EVENT_SCHEMA_VERSION = "1"
+_COMMON_EVENT_FIELDS = (
+    "agent_id",
+    "session_id",
+    "task_id",
+    "tool_call_id",
+    "provider",
+    "duration_ms",
+    "error_type",
+)
 
 
 def _now_iso() -> str:
@@ -87,7 +96,13 @@ def log_event(event_code: str, **fields: Any) -> None:
     context.setdefault("correlation_id", str(uuid4()))
     context.setdefault("timestamp", _now_iso())
     context.setdefault("status", "event")
-    payload = {**context, "event_code": event_code, **fields}
+    # Event codes and field names are machine-readable and must never be
+    # localized. Only human-facing consumers translate their own messages.
+    payload = {**context, **fields}
+    payload["schema_version"] = _EVENT_SCHEMA_VERSION
+    payload["event_code"] = event_code
+    for field_name in _COMMON_EVENT_FIELDS:
+        payload.setdefault(field_name, None)
     _LOGGER.info(
         json.dumps(
             _safe_fields(payload), ensure_ascii=False, sort_keys=True, default=str

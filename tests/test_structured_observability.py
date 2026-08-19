@@ -31,6 +31,13 @@ def test_standalone_event_gets_common_schema_fields(caplog) -> None:
     assert payload["timestamp"]
     assert payload["event_code"] == "standalone"
     assert payload["status"] == "event"
+    assert payload["agent_id"] is None
+    assert payload["session_id"] is None
+    assert payload["task_id"] is None
+    assert payload["tool_call_id"] is None
+    assert payload["provider"] is None
+    assert payload["duration_ms"] is None
+    assert payload["error_type"] is None
 
 
 def test_event_context_does_not_leak(caplog) -> None:
@@ -41,7 +48,7 @@ def test_event_context_does_not_leak(caplog) -> None:
 
     inside, outside = (json.loads(record.message) for record in caplog.records[-2:])
     assert inside["session_id"] == "s1"
-    assert "session_id" not in outside
+    assert outside["session_id"] is None
 
 
 def test_llm_observer_emits_completion_event(caplog) -> None:
