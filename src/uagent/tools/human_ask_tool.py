@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # tools/human_ask_tool.py
+import os
 from typing import Any
 import json
 import queue
@@ -100,6 +101,32 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             ensure_ascii=False,
         )
+
+    # Non-interactive mode has no stdin/UI consumer. Never block waiting
+    # for a reply; return an autonomous continuation result.
+    non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+    if non_interactive:
+        print(
+            _(
+                "ui.non_interactive_skip",
+                default="[NON-INTERACTIVE] human_ask skipped; the model must decide autonomously.",
+            ),
+            flush=True,
+        )
+        payload = {
+            "tool": "human_ask",
+            "message": message,
+            "user_reply": "",
+            "display_reply": "[NON-INTERACTIVE mode] Cannot ask the user. Decide autonomously based on the available information and continue working toward the goal.",
+            "cancelled": False,
+            "non_interactive_skipped": True,
+        }
+        return json.dumps(payload, ensure_ascii=False)
 
     # Auto-pilot mode: skip user interaction, tell the LLM to decide autonomously
     if cb.is_auto_pilot_active and cb.is_auto_pilot_active():

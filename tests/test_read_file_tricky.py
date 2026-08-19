@@ -127,6 +127,23 @@ def test_start_line_and_maxl(repo_tmp_path: Path) -> None:
 # ===================================================================
 
 
+def test_qwen_zero_placeholders_do_not_conflict(repo_tmp_path: Path) -> None:
+    f = repo_tmp_path / "qwen_defaults.txt"
+    f.write_text("a\nb\nc\n", encoding="utf-8")
+    out = _run(
+        {
+            "filename": str(f),
+            "head": 0,
+            "tail": 0,
+            "maxl": 2,
+            "page": 1,
+            "start_line": 1,
+        }
+    )
+    assert _is_json_err(out) is None
+    assert out.splitlines() == ["a", "b"]
+
+
 def test_head_basic(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "head_test.txt"
     f.write_text("a\nb\nc\nd\n", encoding="utf-8")

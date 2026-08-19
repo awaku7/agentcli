@@ -484,14 +484,10 @@ def print_status_line() -> None:
         busy = status_busy
         label = status_label
 
-    # When the interactive prompt is already visible, the idle state is
-    # represented by the prompt itself. Emitting a separate IDLE line here
-    # races with the prompt stream and can appear as `agentcli> [STATE] IDLE`.
-    if not busy:
-        with print_lock:
-            if _prompt_line_open:
-                return
-
+    # Status has priority over a stale prompt. If a prompt is still marked
+    # open, close it below and emit the state on its own line; the input loop
+    # will redraw the prompt afterward. This also applies to non-TTY prompt
+    # wrappers that render `agentcli> ` themselves.
     state = "BUSY" if busy else "IDLE"
     label_part = f" [{label}]" if label else ""
 
@@ -530,7 +526,9 @@ def print_status_line() -> None:
                     # [STATE].  A newline alone leaves a misleading
                     # input-looking `agentcli>` line on screen.
                     try:
-                        sys.stdout.write(chr(13) + chr(27) + "[2K" + nl)
+                        # Avoid CSI 2K: unsupported Windows console wrappers
+                        # print it literally as `?[2K`.
+                        sys.stdout.write(chr(13) + (" " * 120) + chr(13) + nl)
                         sys.stdout.flush()
                     except Exception:
                         try:

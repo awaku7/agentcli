@@ -178,8 +178,16 @@ def _maybe_offer_envsec_sync(
         if not diff_keys:
             return False
 
-        interactive = context == "cli" and bool(
-            getattr(sys.stdin, "isatty", lambda: False)()
+        non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
+        interactive = (
+            not non_interactive
+            and context == "cli"
+            and bool(getattr(sys.stdin, "isatty", lambda: False)())
         )
         if interactive:
             prompt = _(
@@ -241,8 +249,16 @@ def _maybe_offer_envsec_sync(
             )
             return False
 
-    interactive = context == "cli" and bool(
-        getattr(sys.stdin, "isatty", lambda: False)()
+    non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+    interactive = (
+        not non_interactive
+        and context == "cli"
+        and bool(getattr(sys.stdin, "isatty", lambda: False)())
     )
     if interactive:
         prompt = _(

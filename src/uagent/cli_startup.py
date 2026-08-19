@@ -110,6 +110,9 @@ def run_cli_startup(
     import io
     import os
 
+    if non_interactive:
+        os.environ["UAGENT_NON_INTERACTIVE"] = "1"
+
     startup_timing_enabled = (
         os.environ.get("UAGENT_STARTUP_TIMING") or ""
     ).strip().lower() in {"1", "true", "yes", "on"}

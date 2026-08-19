@@ -73,6 +73,10 @@ UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
 if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
+# Non-interactive runs must never wait for a person or load project
+# instruction files intended for an interactive session.
+if UAGENT_NON_INTERACTIVE:
+    os.environ["UAGENT_NON_INTERACTIVE"] = "1"
 UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
@@ -793,10 +797,10 @@ def _clear_abandoned_prompt(prompt: str = "") -> None:
     """Erase a prompt line that was abandoned when work became busy."""
     try:
         with core.print_lock:
-            # ANSI erase is preferred; padding also handles terminals that do
-            # not implement CSI 2K (notably some Windows console wrappers).
+            # Do not emit CSI 2K here. Some Windows console wrappers render
+            # unsupported ANSI sequences literally as `?[2K`.
             width = max(80, len(prompt) + 1)
-            sys.stdout.write("\r\x1b[2K" + (" " * width) + "\r")
+            sys.stdout.write("\r" + (" " * width) + "\r")
             sys.stdout.flush()
     except Exception:
         pass

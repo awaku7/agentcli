@@ -167,6 +167,38 @@ def run_tool(args: dict[str, Any]) -> str:
     if tail_lines is None:
         tail_lines = args.get("tail_lines")
 
+    # Some local Qwen/llama.cpp tool-call templates materialize omitted
+    # optional integer properties as ``0``.  In particular, a request for
+    # ``maxl=100`` can arrive as ``head=0, tail=0, maxl=100``.  Treat those
+    # zeroes as omitted when another positive line selector is present; an
+    # explicit lone ``head=0``/``tail=0`` remains a valid empty read.
+    def _as_int_or_none(value: Any) -> int | None:
+        if value is None:
+            return None
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
+    head_value = _as_int_or_none(head_lines)
+    tail_value = _as_int_or_none(tail_lines)
+    maxl_value = _as_int_or_none(args.get("maxl"))
+    start_line_value = _as_int_or_none(args.get("start_line", 1))
+    if (
+        (head_value == 0 or tail_value == 0)
+        and (
+            any(
+                value is not None and value > 0
+                for value in (head_value, tail_value, maxl_value)
+            )
+            or (start_line_value is not None and start_line_value > 1)
+        )
+    ):
+        if head_value == 0:
+            head_lines = None
+        if tail_value == 0:
+            tail_lines = None
+
     max_lines: int | None
 
     if head_lines is not None and tail_lines is not None:

@@ -323,6 +323,15 @@ def _prompt_user_web(
     return selected
 
 
+def _is_non_interactive_mode() -> bool:
+    return os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+
+
 def load_project_instruction_files(
     *,
     workdir: str | None = None,
@@ -331,6 +340,10 @@ def load_project_instruction_files(
 
     Returns a list of content strings to inject as system messages.
     """
+    # Non-interactive runs are deliberately independent of repository-local instructions.
+    if _is_non_interactive_mode():
+        return []
+
     # Check opt-out env var
     if os.environ.get("UAGENT_LOAD_INSTRUCTIONS", "1").strip() in (
         "0",
@@ -404,6 +417,9 @@ def reload_instruction_files(
 
     Returns a list of content strings to inject as additional system messages.
     """
+    if _is_non_interactive_mode():
+        return []
+
     if workdir is None:
         workdir = os.getcwd()
 
