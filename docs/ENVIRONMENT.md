@@ -86,9 +86,11 @@ Required when `UAGENT_PROVIDER=llama_cpp`:
 - `UAGENT_LLAMA_CPP_DEPNAME` (optional, default: `local-model`)
 - `UAGENT_LLAMA_CPP_API_KEY` (optional, default: `dummy`)
 - `UAGENT_LLAMA_CPP_TIMEOUT_SEC` (optional, default: `120`)
-- `UAGENT_LLAMA_CPP_TOP_K` (optional)
-- `UAGENT_LLAMA_CPP_MIN_P` (optional)
-- `UAGENT_LLAMA_CPP_REPEAT_PENALTY` (optional)
+- `UAGENT_LLAMA_CPP_TOP_K` (optional): Restricts sampling to the top K candidate tokens. Smaller values are more conservative; unset uses the llama-server default.
+- `UAGENT_LLAMA_CPP_MIN_P` (optional): Removes tokens whose probability is below this fraction of the most likely token. Higher values narrow the candidate set; unset uses the llama-server default.
+- `UAGENT_LLAMA_CPP_REPEAT_PENALTY` (optional): Penalizes tokens that have already appeared. `1.0` disables the penalty; higher values suppress repetition more strongly. Unset uses the llama-server default.
+
+These values are sent as llama-server `extra_body` sampling parameters. Invalid values and values less than or equal to zero are not sent.
 
 The llama.cpp integration currently uses Chat Completions. Keep `UAGENT_RESPONSES=0` unless a compatible proxy/server is configured.
 
