@@ -1,0 +1,724 @@
+{
+  "en": {
+    "tool.description": "Convert supported Mermaid flowcharts into editable Excel shapes without pywin32, including connectors, labels, styles, subgraphs, and automatic sizing.",
+    "x_search_terms": [
+      "mermaid",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "Mermaid source text.",
+    "param.source_path.description": "Optional Mermaid file path.",
+    "param.output_path.description": "Output .xlsx path.",
+    "error.source_required": "mermaid or source_path is required",
+    "error.output_required": "output_path is required",
+    "error.output_extension": "output_path must end with .xlsx"
+  },
+  "ja": {
+    "tool.description": "対応しているMermaidフローチャートを、コネクタ・ラベル・スタイル・サブグラフ・自動サイズ調整付きの編集可能なExcel図形へ、pywin32なしで変換します。",
+    "x_search_terms": [
+      "Mermaid",
+      "Excel",
+      "xlsx",
+      "図形",
+      "フローチャート",
+      "サブグラフ",
+      "コネクタ",
+      "ダイアグラム"
+    ],
+    "param.mermaid.description": "Mermaidソース文字列。",
+    "param.source_path.description": "Mermaidファイルのパス（任意）。",
+    "param.output_path.description": "出力する.xlsxファイルのパス。",
+    "error.source_required": "mermaidまたはsource_pathが必要です",
+    "error.output_required": "output_pathが必要です",
+    "error.output_extension": "output_pathは.xlsxで終わる必要があります"
+  },
+  "ar": {
+    "tool.description": "تحويل المخططات الانسيابية المدعومة لـ Mermaid إلى أشكال Excel قابلة للتحرير بدون pywin32، بما في ذلك الموصلات والتسميات والأنماط والرسوم البيانية الفرعية والتحجيم التلقائي.",
+    "x_search_terms": [
+      "حورية البحر",
+      "اكسل",
+      "xlsx",
+      "الأشكال",
+      "مخطط انسيابي",
+      "رسم بياني فرعي",
+      "موصلات",
+      "مخطط"
+    ],
+    "param.mermaid.description": "حورية البحر النص المصدر.",
+    "param.source_path.description": "مسار ملف حورية البحر اختياري.",
+    "param.output_path.description": "مسار الإخراج .xlsx.",
+    "error.source_required": "مطلوب حورية البحر أو source_path",
+    "error.output_required": "output_path مطلوب",
+    "error.output_extension": "يجب أن ينتهي output_path بـ .xlsx"
+  },
+  "bn": {
+    "tool.description": "সমর্থিত মারমেইড ফ্লোচার্টগুলিকে pywin32 ছাড়াই সম্পাদনাযোগ্য এক্সেল আকারে রূপান্তর করুন, যার মধ্যে সংযোগকারী, লেবেল, শৈলী, সাবগ্রাফ এবং স্বয়ংক্রিয় আকার।",
+    "x_search_terms": [
+      "mermaid",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "মারমেইড উৎস টেক্সট.",
+    "param.source_path.description": "ঐচ্ছিক মারমেইড ফাইল পাথ।",
+    "param.output_path.description": "আউটপুট .xlsx পাথ।",
+    "error.source_required": "মারমেইড বা source_path প্রয়োজন",
+    "error.output_required": "output_path প্রয়োজন",
+    "error.output_extension": "output_path অবশ্যই .xlsx দিয়ে শেষ হবে"
+  },
+  "cs": {
+    "tool.description": "Převádějte podporované vývojové diagramy mořské panny do upravitelných tvarů Excelu bez pywin32, včetně konektorů, štítků, stylů, podgrafů a automatické velikosti.",
+    "x_search_terms": [
+      "mořská panna",
+      "excel",
+      "xlsx",
+      "tvary",
+      "vývojový diagram",
+      "podgraf",
+      "konektory",
+      "diagram"
+    ],
+    "param.mermaid.description": "Zdrojový text mořské panny.",
+    "param.source_path.description": "Volitelná cesta k souboru Mořská panna.",
+    "param.output_path.description": "Výstupní cesta .xlsx.",
+    "error.source_required": "je vyžadována mořská panna nebo source_path",
+    "error.output_required": "Je vyžadováno output_path",
+    "error.output_extension": "output_path musí končit .xlsx"
+  },
+  "da": {
+    "tool.description": "Konverter understøttede havfrue-flowcharts til redigerbare Excel-former uden pywin32, inklusive stik, etiketter, typografier, undergrafer og automatisk størrelse.",
+    "x_search_terms": [
+      "havfrue",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "stik",
+      "diagram"
+    ],
+    "param.mermaid.description": "Havfrue kildetekst.",
+    "param.source_path.description": "Valgfri Mermaid-filsti.",
+    "param.output_path.description": "Output .xlsx-sti.",
+    "error.source_required": "havfrue eller kildesti er påkrævet",
+    "error.output_required": "output_path er påkrævet",
+    "error.output_extension": "output_path skal slutte med .xlsx"
+  },
+  "de": {
+    "tool.description": "Konvertieren Sie unterstützte Mermaid-Flussdiagramme ohne pywin32 in bearbeitbare Excel-Formen, einschließlich Konnektoren, Beschriftungen, Stilen, Unterdiagrammen und automatischer Größenanpassung.",
+    "x_search_terms": [
+      "Meerjungfrau",
+      "Excel",
+      "XLSX",
+      "Formen",
+      "Flussdiagramm",
+      "Untergraph",
+      "Anschlüsse",
+      "Diagramm"
+    ],
+    "param.mermaid.description": "Meerjungfrau-Quelltext.",
+    "param.source_path.description": "Optionaler Mermaid-Dateipfad.",
+    "param.output_path.description": "Ausgabe-.xlsx-Pfad.",
+    "error.source_required": "mermaid oder source_path ist erforderlich",
+    "error.output_required": "output_path ist erforderlich",
+    "error.output_extension": "output_path muss mit .xlsx enden"
+  },
+  "el": {
+    "tool.description": "Μετατρέψτε τα υποστηριζόμενα διαγράμματα ροής Mermaid σε επεξεργάσιμα σχήματα Excel χωρίς pywin32, συμπεριλαμβανομένων των συνδέσεων, των ετικετών, των στυλ, των υπογραφών και του αυτόματου μεγέθους.",
+    "x_search_terms": [
+      "γοργόνα",
+      "excel",
+      "xlsx",
+      "σχήματα",
+      "διάγραμμα ροής",
+      "υπογράφημα",
+      "συνδέσεις",
+      "διάγραμμα"
+    ],
+    "param.mermaid.description": "Γοργόνα πηγαίο κείμενο.",
+    "param.source_path.description": "Προαιρετική διαδρομή αρχείου Mermaid.",
+    "param.output_path.description": "Έξοδος διαδρομή .xlsx.",
+    "error.source_required": "απαιτείται mermaid ή source_path",
+    "error.output_required": "Απαιτείται output_path",
+    "error.output_extension": "Το output_path πρέπει να τελειώνει με .xlsx"
+  },
+  "es": {
+    "tool.description": "Convierta diagramas de flujo de Mermaid compatibles en formas editables de Excel sin pywin32, incluidos conectores, etiquetas, estilos, subgráficos y tamaño automático.",
+    "x_search_terms": [
+      "sirena",
+      "excel",
+      "xlsx",
+      "formas",
+      "diagrama de flujo",
+      "subgrafo",
+      "conectores",
+      "diagrama"
+    ],
+    "param.mermaid.description": "Texto fuente de sirena.",
+    "param.source_path.description": "Ruta de archivo opcional de Mermaid.",
+    "param.output_path.description": "Ruta de salida .xlsx.",
+    "error.source_required": "Se requiere sirena o source_path",
+    "error.output_required": "Se requiere output_path",
+    "error.output_extension": "output_path debe terminar en .xlsx"
+  },
+  "fa": {
+    "tool.description": "فلوچارت های پشتیبانی شده Mermaid را بدون pywin32 به اشکال اکسل قابل ویرایش تبدیل کنید، از جمله اتصال دهنده ها، برچسب ها، استایل ها، زیرگراف ها و اندازه خودکار.",
+    "x_search_terms": [
+      "عروس دریایی",
+      "اکسل",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "متن منبع پری دریایی.",
+    "param.source_path.description": "مسیر فایل اختیاری Mermaid.",
+    "param.output_path.description": "خروجی مسیر xlsx.",
+    "error.source_required": "mermaid یا source_path مورد نیاز است",
+    "error.output_required": "output_path مورد نیاز است",
+    "error.output_extension": "output_path باید به xlsx. ختم شود"
+  },
+  "fi": {
+    "tool.description": "Muunna tuetut Mermaid-vuokaaviot muokattaviksi Excel-muodoiksi ilman pywin32:ta, mukaan lukien liittimet, tarrat, tyylit, alikaaviot ja automaattinen koon määritys.",
+    "x_search_terms": [
+      "merenneito",
+      "excel",
+      "xlsx",
+      "muodot",
+      "vuokaavio",
+      "alikaavio",
+      "liittimet",
+      "kaavio"
+    ],
+    "param.mermaid.description": "Merenneito lähdeteksti.",
+    "param.source_path.description": "Valinnainen Mermaid-tiedostopolku.",
+    "param.output_path.description": "Lähtö .xlsx polku.",
+    "error.source_required": "merenneito tai lähdepolku vaaditaan",
+    "error.output_required": "output_path vaaditaan",
+    "error.output_extension": "output_path tulee päättyä .xlsx"
+  },
+  "fil": {
+    "tool.description": "I-convert ang mga sinusuportahang flowchart ng Mermaid sa nae-edit na mga hugis ng Excel na walang pywin32, kasama ang mga connector, label, estilo, subgraph, at awtomatikong pag-size.",
+    "x_search_terms": [
+      "sirena",
+      "excel",
+      "xlsx",
+      "mga hugis",
+      "flowchart",
+      "subgraph",
+      "konektor",
+      "diagram"
+    ],
+    "param.mermaid.description": "Mermaid source text.",
+    "param.source_path.description": "Opsyonal na landas ng file ng Mermaid.",
+    "param.output_path.description": "Output .xlsx path.",
+    "error.source_required": "kailangan ang sirena o source_path",
+    "error.output_required": "Kinakailangan ang output_path",
+    "error.output_extension": "Dapat magtapos ang output_path sa .xlsx"
+  },
+  "fr": {
+    "tool.description": "Convertissez les organigrammes Mermaid pris en charge en formes Excel modifiables sans pywin32, y compris les connecteurs, les étiquettes, les styles, les sous-graphiques et le dimensionnement automatique.",
+    "x_search_terms": [
+      "sirène",
+      "excel",
+      "xlsx",
+      "formes",
+      "organigramme",
+      "sous-graphique",
+      "connecteurs",
+      "diagramme"
+    ],
+    "param.mermaid.description": "Texte source de la sirène.",
+    "param.source_path.description": "Chemin de fichier Mermaid facultatif.",
+    "param.output_path.description": "Chemin de sortie .xlsx.",
+    "error.source_required": "sirène ou source_path est requis",
+    "error.output_required": "output_path est requis",
+    "error.output_extension": "output_path doit se terminer par .xlsx"
+  },
+  "he": {
+    "tool.description": "המר תרשימי זרימה נתמכים של בת הים לצורות Excel הניתנות לעריכה ללא pywin32, כולל מחברים, תוויות, סגנונות, תרשימי משנה ושינוי גודל אוטומטי.",
+    "x_search_terms": [
+      "בת ים",
+      "excel",
+      "xlsx",
+      "צורות",
+      "תרשים זרימה",
+      "תת-גרף",
+      "מחברים",
+      "דיאגרמת"
+    ],
+    "param.mermaid.description": "טקסט מקור של בת הים.",
+    "param.source_path.description": "נתיב קובץ בת ים אופציונלי.",
+    "param.output_path.description": "נתיב ‎.xlsx פלט.",
+    "error.source_required": "יש צורך ב-mermaid או source_path",
+    "error.output_required": "output_path נדרש",
+    "error.output_extension": "output_path חייב להסתיים ב-.xlsx"
+  },
+  "hi": {
+    "tool.description": "समर्थित मरमेड फ़्लोचार्ट को कनेक्टर, लेबल, स्टाइल, सबग्राफ और स्वचालित आकार सहित, pywin32 के बिना संपादन योग्य एक्सेल आकार में कनवर्ट करें।",
+    "x_search_terms": [
+      "जलपरी",
+      "एक्सेल",
+      "xlsx",
+      "आकार",
+      "फ़्लोचार्ट",
+      "सबग्राफ",
+      "कनेक्टर",
+      "आरेख"
+    ],
+    "param.mermaid.description": "जलपरी स्रोत पाठ.",
+    "param.source_path.description": "वैकल्पिक मरमेड फ़ाइल पथ.",
+    "param.output_path.description": "आउटपुट .xlsx पथ.",
+    "error.source_required": "जलपरी या source_path आवश्यक है",
+    "error.output_required": "output_path आवश्यक है",
+    "error.output_extension": "output_path को .xlsx पर समाप्त होना चाहिए"
+  },
+  "hu": {
+    "tool.description": "Konvertálja a támogatott Mermaid folyamatábrákat szerkeszthető Excel-alakzatokká pywin32 nélkül, beleértve a csatlakozókat, címkéket, stílusokat, részgráfokat és automatikus méretezést.",
+    "x_search_terms": [
+      "sellő",
+      "excel",
+      "xlsx",
+      "shapes",
+      "folyamatábra",
+      "algrafikon",
+      "csatlakozók",
+      "diagram"
+    ],
+    "param.mermaid.description": "Mermaid forrásszöveg.",
+    "param.source_path.description": "Opcionális Mermaid fájl elérési útja.",
+    "param.output_path.description": "Kimeneti .xlsx elérési út.",
+    "error.source_required": "sellő vagy forrás_útvonal szükséges",
+    "error.output_required": "output_path szükséges",
+    "error.output_extension": "A output_path-nak .xlsx-re kell végződnie"
+  },
+  "id": {
+    "tool.description": "Konversikan diagram alur Mermaid yang didukung menjadi bentuk Excel yang dapat diedit tanpa pywin32, termasuk konektor, label, gaya, subgraf, dan ukuran otomatis.",
+    "x_search_terms": [
+      "putri duyung",
+      "excel",
+      "xlsx",
+      "bentuk",
+      "diagram alur",
+      "subgraf",
+      "konektor",
+      "diagram"
+    ],
+    "param.mermaid.description": "Teks sumber putri duyung.",
+    "param.source_path.description": "Jalur file Mermaid opsional.",
+    "param.output_path.description": "Keluaran jalur .xlsx.",
+    "error.source_required": "putri duyung atau source_path diperlukan",
+    "error.output_required": "output_path diperlukan",
+    "error.output_extension": "output_path harus diakhiri dengan .xlsx"
+  },
+  "it": {
+    "tool.description": "Converti i diagrammi di flusso Sirena supportati in forme Excel modificabili senza pywin32, inclusi connettori, etichette, stili, sottografi e dimensionamento automatico.",
+    "x_search_terms": [
+      "sirena",
+      "excel",
+      "xlsx",
+      "forme",
+      "diagramma",
+      "sottografo",
+      "connettori",
+      "diagramma"
+    ],
+    "param.mermaid.description": "Testo sorgente della sirena.",
+    "param.source_path.description": "Percorso file Sirena opzionale.",
+    "param.output_path.description": "Percorso di output .xlsx.",
+    "error.source_required": "sirena o source_path è obbligatorio",
+    "error.output_required": "output_path è obbligatorio",
+    "error.output_extension": "output_path deve terminare con .xlsx"
+  },
+  "ko": {
+    "tool.description": "커넥터, 레이블, 스타일, 하위 그래프 및 자동 크기 조정을 포함하여 지원되는 Mermaid 순서도를 pywin32 없이 편집 가능한 Excel 모양으로 변환합니다.",
+    "x_search_terms": [
+      "인어",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "인어 소스 텍스트.",
+    "param.source_path.description": "선택적 인어 파일 경로입니다.",
+    "param.output_path.description": ".xlsx 경로를 출력합니다.",
+    "error.source_required": "mermaid 또는 source_path가 필요합니다.",
+    "error.output_required": "output_path이 필요합니다",
+    "error.output_extension": "output_path은 .xlsx로 끝나야 합니다."
+  },
+  "mn": {
+    "tool.description": "Дэмжигдсэн Лусын дагина урсгал диаграммыг холбогч, шошго, загвар, дэд график, автомат хэмжээс зэрэг pywin32гүйгээр засварлаж болох Excel хэлбэрт хөрвүүлээрэй.",
+    "x_search_terms": [
+      "лусын дагина",
+      "excel",
+      "xlsx",
+      "дүрсүүд",
+      "урсгал диаграм",
+      " дэд график",
+      "холбогч",
+      "диаграм"
+    ],
+    "param.mermaid.description": "Лусын дагина эх бичвэр.",
+    "param.source_path.description": "Лусын дагина файлын нэмэлт зам.",
+    "param.output_path.description": "Гаралтын .xlsx зам.",
+    "error.source_required": "лусын дагина эсвэл эх_зам шаардлагатай",
+    "error.output_required": "output_path шаардлагатай",
+    "error.output_extension": "output_path нь .xlsx-ээр төгсөх ёстой"
+  },
+  "mr": {
+    "tool.description": "कनेक्टर, लेबल्स, शैली, सबग्राफ आणि स्वयंचलित आकारमानासह समर्थित मर्मेड फ्लोचार्ट्सचे संपादन करण्यायोग्य एक्सेल आकारांमध्ये pywin32 शिवाय रूपांतरित करा.",
+    "x_search_terms": [
+      "mermaid",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "मरमेड स्त्रोत मजकूर.",
+    "param.source_path.description": "पर्यायी मरमेड फाइल पथ.",
+    "param.output_path.description": "आउटपुट .xlsx पथ.",
+    "error.source_required": "mermaid किंवा source_path आवश्यक आहे",
+    "error.output_required": "output_path आवश्यक आहे",
+    "error.output_extension": "output_path .xlsx ने समाप्त होणे आवश्यक आहे"
+  },
+  "ms": {
+    "tool.description": "Tukar carta alir Mermaid yang disokong kepada bentuk Excel yang boleh diedit tanpa pywin32, termasuk penyambung, label, gaya, subgraf dan saiz automatik.",
+    "x_search_terms": [
+      "ikan duyung",
+      "excel",
+      "xlsx",
+      "bentuk",
+      "carta alir",
+      "subgraf",
+      "penyambung",
+      "rajah"
+    ],
+    "param.mermaid.description": "Teks sumber ikan duyung.",
+    "param.source_path.description": "Laluan fail Mermaid pilihan.",
+    "param.output_path.description": "Laluan .xlsx keluaran.",
+    "error.source_required": "ikan duyung atau source_path diperlukan",
+    "error.output_required": "output_path diperlukan",
+    "error.output_extension": "output_path mesti berakhir dengan .xlsx"
+  },
+  "nb": {
+    "tool.description": "Konverter støttede Mermaid-flytskjemaer til redigerbare Excel-former uten pywin32, inkludert koblinger, etiketter, stiler, undergrafer og automatisk dimensjonering.",
+    "x_search_terms": [
+      "havfrue",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flytskjema",
+      "subgraph",
+      "koblinger",
+      "diagram"
+    ],
+    "param.mermaid.description": "Havfrue kildetekst.",
+    "param.source_path.description": "Valgfri Mermaid-filbane.",
+    "param.output_path.description": "Utdata .xlsx-bane.",
+    "error.source_required": "mermaid eller source_path kreves",
+    "error.output_required": "output_path kreves",
+    "error.output_extension": "output_path må slutte med .xlsx"
+  },
+  "nl": {
+    "tool.description": "Converteer ondersteunde Mermaid-stroomdiagrammen naar bewerkbare Excel-vormen zonder pywin32, inclusief connectoren, labels, stijlen, subgrafieken en automatische grootte.",
+    "x_search_terms": [
+      "zeemeermin",
+      "excel",
+      "xlsx",
+      "shapes",
+      "stroomdiagram",
+      "subgrafiek",
+      "connectoren",
+      "diagram"
+    ],
+    "param.mermaid.description": "Brontekst zeemeermin.",
+    "param.source_path.description": "Optioneel zeemeerminbestandspad.",
+    "param.output_path.description": "Uitvoer .xlsx-pad.",
+    "error.source_required": "zeemeermin of source_path is vereist",
+    "error.output_required": "output_path is vereist",
+    "error.output_extension": "output_path moet eindigen op .xlsx"
+  },
+  "nn": {
+    "tool.description": "Konverter støttede Mermaid flytskjemaer til redigerbare Excel-figurer uten pywin32, inkludert koblinger, etiketter, stiler, undergrafer og automatisk dimensjonering.",
+    "x_search_terms": [
+      "havfrueexcelxlsxfigurerflowchartsubgraphconnectorsdiagram",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "connectors",
+      "diagram"
+    ],
+    "param.mermaid.description": "Mermaid source text.",
+    "param.source_path.description": "Valgfri Mermaid-filbane.",
+    "param.output_path.description": "Utgang .xlsx-bane.",
+    "error.source_required": "mermaid eller source_path er påkrevd",
+    "error.output_required": "output_path er påkrevd",
+    "error.output_extension": "output_path må slutte med .xlsx"
+  },
+  "pl": {
+    "tool.description": "Konwertuj obsługiwane schematy blokowe Mermaid na edytowalne kształty programu Excel bez pywin32, w tym łączniki, etykiety, style, podgrafy i automatyczne ustalanie rozmiaru.",
+    "x_search_terms": [
+      "syrenka",
+      "excel",
+      "xlsx",
+      "shapes",
+      "schemat blokowy",
+      "subgraph",
+      "złącza",
+      "schemat"
+    ],
+    "param.mermaid.description": "Tekst źródłowy syreny.",
+    "param.source_path.description": "Opcjonalna ścieżka pliku Mermaid.",
+    "param.output_path.description": "Wyjściowa ścieżka .xlsx.",
+    "error.source_required": "wymagana jest syrenka lub ścieżka_źródłowa",
+    "error.output_required": "Wymagany jest output_path",
+    "error.output_extension": "output_path musi kończyć się rozszerzeniem .xlsx"
+  },
+  "pt": {
+    "tool.description": "Converta fluxogramas Mermaid compatíveis em formas editáveis ​​do Excel sem pywin32, incluindo conectores, rótulos, estilos, subgráficos e dimensionamento automático.",
+    "x_search_terms": [
+      "sereia",
+      "excel",
+      "xlsx",
+      "formas",
+      "fluxograma",
+      "subgráfico",
+      "conectores",
+      "diagrama"
+    ],
+    "param.mermaid.description": "Texto fonte da sereia.",
+    "param.source_path.description": "Caminho de arquivo Mermaid opcional.",
+    "param.output_path.description": "Caminho .xlsx de saída.",
+    "error.source_required": "sereia ou source_path é obrigatório",
+    "error.output_required": "output_path é obrigatório",
+    "error.output_extension": "output_path deve terminar com .xlsx"
+  },
+  "pt_BR": {
+    "tool.description": "Converta fluxogramas Mermaid compatíveis em formas editáveis ​​do Excel sem pywin32, incluindo conectores, rótulos, estilos, subgráficos e dimensionamento automático.",
+    "x_search_terms": [
+      "sereia",
+      "excel",
+      "xlsx",
+      "formas",
+      "fluxograma",
+      "subgráfico",
+      "conectores",
+      "diagrama"
+    ],
+    "param.mermaid.description": "Texto fonte da sereia.",
+    "param.source_path.description": "Caminho de arquivo Mermaid opcional.",
+    "param.output_path.description": "Caminho .xlsx de saída.",
+    "error.source_required": "sereia ou source_path é obrigatório",
+    "error.output_required": "output_path é obrigatório",
+    "error.output_extension": "output_path deve terminar com .xlsx"
+  },
+  "ro": {
+    "tool.description": "Convertiți diagramele de flux Mermaid acceptate în forme Excel editabile fără pywin32, inclusiv conectori, etichete, stiluri, subgrafe și dimensionare automată.",
+    "x_search_terms": [
+      "sirenă",
+      "excel",
+      "xlsx",
+      "forme",
+      "organigrama",
+      "subgraf",
+      "conectori",
+      "diagramă"
+    ],
+    "param.mermaid.description": "Text sursă sirenă.",
+    "param.source_path.description": "Calea opțională a fișierului Mermaid.",
+    "param.output_path.description": "Calea .xlsx de ieșire.",
+    "error.source_required": "este obligatorie mermaid sau source_path",
+    "error.output_required": "output_path este necesar",
+    "error.output_extension": "output_path trebuie să se termine cu .xlsx"
+  },
+  "ru": {
+    "tool.description": "Преобразуйте поддерживаемые блок-схемы Mermaid в редактируемые фигуры Excel без pywin32, включая соединители, метки, стили, подграфы и автоматическое изменение размера.",
+    "x_search_terms": [
+      "русалка",
+      "excel",
+      "xlsx",
+      "формы",
+      "блок-схема",
+      "подграф",
+      "соединители",
+      "диаграмма"
+    ],
+    "param.mermaid.description": "Исходный текст Русалки.",
+    "param.source_path.description": "Необязательный путь к файлу Mermaid.",
+    "param.output_path.description": "Выходной путь .xlsx.",
+    "error.source_required": "требуется русалка или source_path",
+    "error.output_required": "output_path требуется",
+    "error.output_extension": "output_path должен заканчиваться расширением .xlsx"
+  },
+  "sv": {
+    "tool.description": "Konvertera mermaid-flödesscheman som stöds till redigerbara Excel-former utan pywin32, inklusive kontakter, etiketter, stilar, subgrafer och automatisk storlek.",
+    "x_search_terms": [
+      "mermaid",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flödesschema",
+      "subgraph",
+      "anslutningar",
+      "diagram"
+    ],
+    "param.mermaid.description": "Mermaid källtext.",
+    "param.source_path.description": "Valfri Mermaid-filsökväg.",
+    "param.output_path.description": "Utdata .xlsx sökväg.",
+    "error.source_required": "mermaid eller source_path krävs",
+    "error.output_required": "output_path krävs",
+    "error.output_extension": "output_path måste sluta med .xlsx"
+  },
+  "sw": {
+    "tool.description": "Badilisha chati za Mermaid zinazotumika kuwa maumbo ya Excel inayoweza kuhaririwa bila pywin32, ikijumuisha viunganishi, lebo, mitindo, taswira ndogo na ukubwa wa kiotomatiki.",
+    "x_search_terms": [
+      "nguva",
+      "excel",
+      "xlsx",
+      "shapes",
+      "flowchart",
+      "subgraph",
+      "viunganishi",
+      "mchoro"
+    ],
+    "param.mermaid.description": "Maandishi ya chanzo cha nguva.",
+    "param.source_path.description": "Njia ya hiari ya faili ya Mermaid.",
+    "param.output_path.description": "Njia ya pato .xlsx.",
+    "error.source_required": "nguva au source_path inahitajika",
+    "error.output_required": "output_path inahitajika",
+    "error.output_extension": "output_path lazima imalizike kwa .xlsx"
+  },
+  "th": {
+    "tool.description": "แปลงผังงาน Mermaid ที่รองรับให้เป็นรูปร่าง Excel ที่แก้ไขได้โดยไม่ต้องใช้ pywin32 รวมถึงตัวเชื่อมต่อ ป้ายกำกับ สไตล์ กราฟย่อย และการปรับขนาดอัตโนมัติ",
+    "x_search_terms": [
+      "นางเงือก",
+      "excel",
+      "xlsx",
+      "รูปร่าง",
+      "ผังงาน",
+      "กราฟย่อย",
+      "ตัวเชื่อมต่อ",
+      "แผนภาพ"
+    ],
+    "param.mermaid.description": "ข้อความต้นฉบับของนางเงือก",
+    "param.source_path.description": "เส้นทางไฟล์ Mermaid ทางเลือก",
+    "param.output_path.description": "เส้นทางเอาต์พุต .xlsx",
+    "error.source_required": "จำเป็นต้องมีนางเงือกหรือ source_path",
+    "error.output_required": "output_path จำเป็น",
+    "error.output_extension": "output_path ต้องลงท้ายด้วย .xlsx"
+  },
+  "tr": {
+    "tool.description": "Desteklenen Deniz Kızı akış şemalarını, bağlayıcılar, etiketler, stiller, alt grafikler ve otomatik boyutlandırma dahil olmak üzere pywin32 olmadan düzenlenebilir Excel şekillerine dönüştürün.",
+    "x_search_terms": [
+      "deniz kızı",
+      "excel",
+      "xlsx",
+      "şekiller",
+      "akış şeması",
+      "alt grafik",
+      "bağlayıcılar",
+      "diyagram"
+    ],
+    "param.mermaid.description": "Deniz kızı kaynak metni.",
+    "param.source_path.description": "İsteğe bağlı Denizkızı dosya yolu.",
+    "param.output_path.description": "Çıkış .xlsx yolu.",
+    "error.source_required": "denizkızı veya kaynak_yolu gerekli",
+    "error.output_required": "output_path gerekli",
+    "error.output_extension": "output_path .xlsx ile bitmelidir"
+  },
+  "uk": {
+    "tool.description": "Перетворюйте підтримувані блок-схеми Mermaid у форми Excel, які можна редагувати, без pywin32, включаючи з’єднувачі, мітки, стилі, підграфи та автоматичне змінення розміру.",
+    "x_search_terms": [
+      "русалка",
+      "excel",
+      "xlsx",
+      "форми",
+      "блок-схема",
+      "підграф",
+      "з’єднувачі",
+      "діаграма"
+    ],
+    "param.mermaid.description": "Вихідний текст русалки.",
+    "param.source_path.description": "Додатковий шлях до файлу Mermaid.",
+    "param.output_path.description": "Вихідний шлях .xlsx.",
+    "error.source_required": "потрібен mermaid або source_path",
+    "error.output_required": "Потрібен output_path",
+    "error.output_extension": "output_path має закінчуватися на .xlsx"
+  },
+  "vi": {
+    "tool.description": "Chuyển đổi sơ đồ Nàng tiên cá được hỗ trợ thành các hình dạng Excel có thể chỉnh sửa mà không cần pywin32, bao gồm trình kết nối, nhãn, kiểu, sơ đồ con và tự động định cỡ.",
+    "x_search_terms": [
+      "nàng tiên cá",
+      "excel",
+      "xlsx",
+      "hình",
+      "sơ đồ",
+      "sơ đồ con",
+      "đầu nối",
+      "sơ đồ"
+    ],
+    "param.mermaid.description": "Văn bản nguồn nàng tiên cá.",
+    "param.source_path.description": "Đường dẫn tệp Nàng tiên cá tùy chọn.",
+    "param.output_path.description": "Đầu ra đường dẫn .xlsx.",
+    "error.source_required": "nàng tiên cá hoặc source_path là bắt buộc",
+    "error.output_required": "output_path là bắt buộc",
+    "error.output_extension": "output_path phải kết thúc bằng .xlsx"
+  },
+  "zh_CN": {
+    "tool.description": "将支持的 Mermaid 流程图转换为可编辑的 Excel 形状，无需 pywin32，包括连接器、标签、样式、子图和自动调整大小。",
+    "x_search_terms": [
+      "美人鱼",
+      "excel",
+      "xlsx",
+      "形状",
+      "流程图",
+      "子图",
+      "连接器",
+      "图表"
+    ],
+    "param.mermaid.description": "美人鱼源文本。",
+    "param.source_path.description": "可选的美人鱼文件路径。",
+    "param.output_path.description": "输出.xlsx路径。",
+    "error.source_required": "mermaid 或 source_path 为必填项",
+    "error.output_required": "output_path 为必填项",
+    "error.output_extension": "output_path 必须以 .xlsx 结尾"
+  },
+  "zh_TW": {
+    "tool.description": "將支援的 Mermaid 流程圖轉換為可編輯的 Excel 形狀，無需 pywin32，包括連接器、標籤、樣式、子圖和自動調整大小。",
+    "x_search_terms": [
+      "美人魚",
+      "excel",
+      "xlsx",
+      "形狀",
+      "流程圖",
+      "子圖",
+      "連接器",
+      "圖表"
+    ],
+    "param.mermaid.description": "美人魚來源文字。",
+    "param.source_path.description": "可選的美人魚文件路徑。",
+    "param.output_path.description": "輸出.xlsx路徑。",
+    "error.source_required": "mermaid 或 source_path 為必填項",
+    "error.output_required": "output_path 為必填項",
+    "error.output_extension": "output_path 必須以 .xlsx 結尾"
+  }
+}
