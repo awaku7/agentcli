@@ -101,7 +101,6 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_OPENAI_API_KEY", True, _("OpenAI API key")),
         ("UAGENT_OPENAI_BASE_URL", False, _("OpenAI base URL (optional)")),
         ("UAGENT_OPENAI_DEPNAME", False, _("OpenAI model/deployment name (optional)")),
-        ("UAGENT_OPENAI_FAST_MODE", False, _("OpenAI Fast mode (1/true to enable)")),
     ],
     "pfn": [
         ("UAGENT_PFN_API_KEY", True, _("PLaMo API key")),
