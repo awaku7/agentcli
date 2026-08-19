@@ -77,37 +77,12 @@ python scheck.py realtime
 ```bat
 set UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
-```
-
-### OpenAI Gọi hàm theo thời gian thực
-
-OpenAI Thời gian thực hỗ trợ tích hợp Gọi hàm ở giới hạn an toàn. Bộ điều hợp thời gian thực hiện tại tự động hiển thị `get_current_time` chỉ đọc. Các công cụ phá hủy và điều khiển thiết bị sẽ không bị lộ nếu không có danh sách cho phép và quy trình xác nhận rõ ràng. Grok thời gian thực sử dụng bộ điều hợp riêng và không sử dụng đường dẫn gọi hàm dành riêng cho OpenAI này.
-
-## Tính năng
-
-### 🧠 Kiến trúc đa nhà cung cấp
-
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
-Tất cả các nhà cung cấp đều có chung bộ công cụ và giao diện. Chuyển đổi bằng cách cài đặt `UAGENT_PROVIDER` — không thay đổi mã, không cài đặt riêng.
-
-#### Ollama và llama.cpp
-
-Ollama và llama.cpp là các nhà cung cấp riêng biệt. Ollama sử dụng dịch vụ và quản lý mô hình của riêng mình, trong khi `llama.cpp` kết nối với điểm cuối tương thích với `llama-server` OpenAI:
-\`\`bash
-
-# Ollama
-
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
+```bash
 # llama.cpp / llama-server
-
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
 UAGENT_LLAMA_CPP_API_KEY=dummy
-
 ```
 Nhà cung cấp llama.cpp sử dụng đường dẫn tương thích với Hoàn thành trò chuyện. Giữ `UAGENT_RESPONSES=0` trừ khi proxy tương thích được định cấu hình.
 ### ⚡ Thực thi công cụ song song

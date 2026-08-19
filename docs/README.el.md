@@ -79,29 +79,11 @@ OpenAI / PFN (PLaMo) / Azure / Υπόβαθρο / OpenRouter / Ollama / llama.cp
 Ollama και llama.cpp είναι ξεχωριστοί πάροχοι. Το Ollama χρησιμοποιεί τη δική του υπηρεσία και διαχείριση μοντέλων, ενώ το `llama.cpp` συνδέεται με ένα τελικό σημείο συμβατό με `llama-server` OpenAI:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_DPY` Ο πάροχος llama.cpp χρησιμοποιεί τη διαδρομή συμβατή με Ολοκληρώσεις συνομιλίας. Διατηρήστε το `UAGENT_RESPONSES=0` εκτός εάν έχει διαμορφωθεί συμβατός διακομιστής μεσολάβησης.
-
-### ⚡ Παράλληλη εκτέλεση εργαλείου
-
-Όταν το LLM ζητά πολλά εργαλεία ταυτόχρονα, το uag **σημειώνει αυτόματα*130 το εργαλείο για παραλληλισμό**. `x_parallel_safe` και εκτελέστε ταυτόχρονα μέσω ενός `ThreadPoolExecutor` (8 νήματα από προεπιλογή, ρυθμίστε το `UAGENT_PARALLEL_WORKERS` για αλλαγή).
-
-**Παράδειγμα**: Ρωτήστε "Έλεγχος του καιρού στις σκανδιναβικές πρωτεύουσες" → 6, πυροδοτούμε όλες τις χώρες × PH 5 οι αναζητήσεις εκτελούνται παράλληλα → τα αποτελέσματα συλλέγονται σε μία παρτίδα.
-
-Η τρέχουσα μέτρηση βασίζεται σε λειτουργικές μονάδες που ορίζουν ένα "TOOL_SPEC" (προς το παρόν 222, συμπεριλαμβανομένων των 2 εργαλείων με υποστήριξη Rust στο `src/uagent/tools_rust/`). Το "http_request" χρησιμοποιεί ασφάλεια ευαίσθητη στη μέθοδο: Οι κλήσεις "GET"/"HEAD"/"OPTIONS" ενδέχεται να εκτελούνται παράλληλα, ενώ οι μέθοδοι εγγραφής παραμένουν σειριακές. (Claude Συμβατό με κώδικα)
-
-uagent υλοποιεί ένα **Claude σύστημα προσθήκης συμβατό με κώδικα**. Προσθήκες ομαδοποιούν δεξιότητες, πράκτορες, MCP διακομιστές, αγκίστρια και άλλα σε αυτόνομους καταλόγους με μια δήλωση «.claude-plugin/plugin.json». userConfig, Dependencies, Channels, Marketplaces
-
-**CLI commands**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :pluginlist # List installed plugins

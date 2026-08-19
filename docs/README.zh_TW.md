@@ -99,25 +99,11 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemin
 Ollama 和 llama.cpp 是單獨的提供者。 Ollama 使用自己的服務和模型管理，而 `llama.cpp` 連接到 `llama-server` OpenAI 相容端點：
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-的AGENT_LLAMA提供者使用聊天完成相容的路徑。除非配置了相容的代理，否則保持“UAGENT_RESPONSES=0”。 
-### ⚡並行工具執行
-當 LLM 同時請求多個工具時，uag **自動並行化**它們。 
-130 個工具靜態標記為“x_parallel_safe”，並透過“ThreadPoolExecutor”並發執行（預設為 8 個執行緒；設定`UAGENT_PARALLEL_WORKERS` 變更）。 
-**範例**：詢問「檢查北歐首都的天氣」→ LLM 觸發 `search_web` × 5 個國家 → 所有 5 個搜尋並行運行 → 一批收集結果。 
-目前計數是基於定義「TOOL_SPEC」的工具模組（目前為 222 個，包括 2 個 Rust 支援的工具） `src/uagent/tools_rust/`)。 `http_request` 使用方法敏感的安全性：`GET`/`HEAD`/`OPTIONS` 呼叫可以並行運行，而寫入方法保持串列。 
-唯讀工具（檔案搜尋、哈希計算、目錄列表、翻譯、資料庫查詢等）被積極並行化。 
-### 🧩插件系統（Claude 程式碼相容）
-uagent 實作了 **Claude 程式碼相容的插件系統**。插件透過 `.claude-plugin/plugin.json` 清單將技能、代理、MCP 伺服器、掛鉤等捆綁到獨立目錄中。 
-**支持的组件**：技能、子代理、MCP 服务器、挂钩（12 个生命周期事件）、斜线命令、输出样式、用户配置、依赖项、通道、市场
-**CLI命令**:
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # 列出已安装的插件

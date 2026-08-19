@@ -61,31 +61,11 @@ python scheck.py بلادرنگ
 Ollama و llama.cpp ارائه دهندگان جداگانه هستند. Ollama از سرویس و مدیریت مدل خود استفاده می کند، در حالی که `llama.cpp` به یک "llama-server" OpenAI-compatible endpoint متصل می شود:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1 ارائه دهنده llama.cpp از مسیر سازگار با تکمیل چت استفاده می کند. "UAGENT_RESPONSES=0" را نگه دارید مگر اینکه یک پروکسی سازگار پیکربندی شده باشد.
-
-### ⚡ اجرای ابزار موازی
-
-وقتی LLM چندین ابزار را به طور همزمان درخواست می کند، uag **به طور خودکار به صورت خودکار علامت گذاری می شود**30 ابزار آنها را موازی می کند. «x_parallel_safe» و به طور همزمان از طریق «ThreadPoolExecutor» اجرا شود (8 رشته به طور پیش‌فرض؛ «UAGENT_PARALLEL_WORKERS» را برای تغییر تنظیم کنید).
-
-**مثال**: بپرسید «آب و هوا را در پایتخت‌های شمال اروپا بررسی کنید» ← 6 ما __PH 5 همه کشورها را آتش می‌زنیم. جستجوها به صورت موازی انجام می‌شوند ← نتایج جمع‌آوری‌شده در یک دسته.
-
-تعداد فعلی بر اساس ماژول‌های ابزاری است که «TOOL_SPEC» را تعریف می‌کنند (در حال حاضر 222، از جمله 2 ابزار دارای پشتوانه Rust در «src/uagent/tools_rust/»). «http_request» از ایمنی حساس به روش استفاده می‌کند: تماس‌های «GET»/«HEAD»/ «OPTIONS» ممکن است به صورت موازی اجرا شوند، در حالی که روش‌های نوشتن سریال باقی می‌مانند. (Claude Code Compatible)
-
-uagent یک سیستم افزونه **Claude سازگار با کد** را پیاده سازی می کند. افزونه‌ها مهارت‌ها، عامل‌ها، سرورهای MCP، قلاب‌ها و موارد دیگر را با مانیفست «.claude-plugin/plugin.json» در دایرکتوری‌های مستقل جمع می‌کنند.
-
-**مولفه‌های پشتیبانی‌شده**: مهارت‌ها، عامل‌های فرعی، MCP سبک زندگی، فرمان‌های چرخه زندگی S. userConfig، Dependencies، Channels، Marketplaces
-
-**CLI فرمان**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 : لیست پلاگین # فهرست پلاگین های نصب شده marketplace

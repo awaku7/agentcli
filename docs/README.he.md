@@ -88,36 +88,11 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemin
 Ollama ו-llama.cpp הם ספקים נפרדים. אולמה משתמשת בניהול שירות ומודל משלה, בעוד ש-`llama.cpp` מתחבר לנקודת קצה תואמת `לאמה-שרת` OpenAI:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEYdum=`llama . הספק משתמש בנתיב התואם ל-Chat Completions. שמור על `UAGENT_RESPONSES=0` אלא אם מוגדר פרוקסי תואם.
-
-### ⚡ ביצוע כלי מקביל
-
-כאשר LLM מבקש מספר כלים בו-זמנית, uag **מקביל באופן אוטומטי** אותם.
-130 כלים 'safe_' מסומנים באופן סטטי כ-'safe_' כלים. `ThreadPoolExecutor` (8 שרשורים כברירת מחדל; הגדר את `UAGENT_PARALLEL_WORKERS` לשינוי).
-
-**דוגמה**: שאל "בדוק את מזג האוויר בבירות נורדיות" → LLM יורה `search_web` × 5 מדינות → כל 5 החיפושים פועלים במקביל 
-
-**הכלי שנאסף על בסיס מודול אחד מוגדר על בסיס מודול נוכחי. a `TOOL_SPEC` (כרגע 222, כולל 2 הכלים בעלי גיבוי חלודה ב-`src/uagent/tools_rust/`). `http_request` משתמש בבטיחות רגישה לשיטה: קריאות `GET`/`HEAD`/`OPTIONS` עשויות לפעול במקביל, בעוד ששיטות הכתיבה נשארות טוריות.
-
-כלים לקריאה בלבד (חיפוש קבצים, חישוב גיבוב, רישום ספריות, תרגום, שאילתות DB וכו') עוברות במקביל במקביל.
-
-__#4 מערכת Plugin תואם)
-
-uagent מיישמת מערכת **Claude תואמת תוסף קוד**. תוספים מאגדים מיומנויות, סוכנים, MCP שרתים, הוקס ועוד לתוך ספריות עצמאיות עם מניפסט של `.claude-plugin/plugin.json`.
-
-**רכיבים נתמכים**: מיומנויות, סוכני משנה, MCP שרתים, Hooks (12 אירועים במחזור חיים), פקודות Slash, תלויות במשתמש, פלט, סגנונות Marketplaces
-
-**CLI פקודות**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # רשימת תוספים מותקנים

@@ -93,11 +93,6 @@ Semua penyedia berbagi perangkat dan antarmuka yang sama. Beralih berdasarkan pe
 Ollama dan llama.cpp adalah penyedia terpisah. Ollama menggunakan layanan dan manajemen modelnya sendiri, sementara `llama.cpp` terhubung ke `server llama` titik akhir yang kompatibel dengan OpenAI:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1

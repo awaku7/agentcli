@@ -93,12 +93,7 @@ Tous les fournisseurs partagent le même ensemble d'outils et la même interface
 Ollama et llama.cpp sont des fournisseurs distincts. Ollama utilise son propre service et sa propre gestion de modèles, tandis que `llama.cpp` se connecte à un point de terminaison compatible `llama-server` OpenAI :
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
-#llama.cpp / llama-server
+# llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model

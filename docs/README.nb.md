@@ -89,33 +89,11 @@ Alle leverandører deler samme verktøysett og grensesnitt. Bytt ved å sette `U
 Ollama og llama.cpp er separate leverandører. Ollama bruker sin egen tjeneste- og modelladministrasjon, mens `llama.cpp` kobler til et `llama-server` OpenAI-kompatibelt endepunkt:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEYdum. leverandøren bruker den chatfullføringskompatible banen. Behold `UAGENT_RESPONSES=0` med mindre en kompatibel proxy er konfigurert.
-
-### ⚡ Parallell Tool Execution
-
-Når LLM ber om flere verktøy samtidig, uag **parallellerer automatisk** dem.
-130 verktøy er statisk merket med_currente'x' og statisk "safe" `ThreadPoolExecutor` (8 tråder som standard; sett `UAGENT_PARALLEL_WORKERS` for å endre).
-
-**Eksempel**: Spør "Sjekk været i nordiske hovedsteder" → LLM fyrer av `search_web` × 5 land → alle 5 søk kjører parallelt →resultatene samles inn i én gruppe som er basert på en modul. en `TOOL_SPEC` (for øyeblikket 222, inkludert de 2 ruststøttede verktøyene i `src/uagent/tools_rust/`). `http_request` bruker metodesensitiv sikkerhet: `GET`/`HEAD`/`OPTIONS`-anrop kan kjøres parallelt, mens skrivemetodene forblir serielle.
-
-Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversettelse, DB-spørringer osv.) parallelliseres aggressivt.
-⏟___#4 Kompatibel)
-
-uagent implementerer et **Claude kodekompatibelt pluginsystem**. Plugins samler ferdigheter, agenter, MCP-servere, kroker og mer i selvstendige kataloger med et `.claude-plugin/plugin.json`-manifest.
-
-**Støttede komponenter**: Ferdigheter, Sub-agenter, MCP servere, Hooks (12 livssyklushendelser), Slash-kommandoer, Configs, Configs, User Output Marketplaces
-
-**CLI kommandoer**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # Liste installerte plugins

@@ -88,29 +88,11 @@ Alla leverantörer delar samma verktygsuppsättning och gränssnitt. Byt genom a
 Ollama och llama.cpp är separata leverantörer. Ollama använder sin egen tjänst och modellhantering, medan `llama.cpp` ansluter till en `llama-server` OpenAI-kompatibel slutpunkt:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_`
-_KEYdummy`s provide`s sökvägen som är kompatibel med Chattavslut. Behåll `UAGENT_RESPONSES=0` såvida inte en kompatibel proxy är konfigurerad.
-### ⚡ Parallell verktygsexekvering
-När LLM begär flera verktyg samtidigt, uag **parallellerar** dem automatiskt.
-130 verktyg är statiskt markerade som "säkert_ och körs parallellt" samtidigt `ThreadPoolExecutor` (8 trådar som standard; ställ in `UAGENT_PARALLEL_WORKERS` för att ändra).
-**Exempel**: Fråga "Kontrollera vädret i nordiska huvudstäder" → LLM avfyrar `search_web` × 5 länder → alla 5 sökningar körs parallellt → resultat samlas in i ett aktuellt verktygsbatchantal. `TOOL_SPEC` (för närvarande 222, inklusive de 2 Rust-backed verktygen i `src/uagent/tools_rust/`). `http_request` använder metodkänslig säkerhet: `GET`/`HEAD`/`OPTIONS`-anrop kan köras parallellt, medan skrivmetoder förblir seriella.
-Skrivskyddade verktyg (filsökning, hashberäkning, katalogförteckning, översättning, DB-frågor, etc.) är aggressivt parallelliserade.
-#
-#
-#
-#
-#
- Plugin System (PH___5 Code Compatible) implementerar ett **Claude kodkompatibelt pluginsystem**. Plugins samlar färdigheter, agenter, MCP-servrar, hooks och mer i fristående kataloger med ett `.claude-plugin/plugin.json`-manifest.
-**Komponenter som stöds**: Skills, Sub-agents, MCP-servrar, Hooks (12 livscykelhändelser), Slash-kommandon, Output Channel styles,Contencies, Output Channel styles, Marketplaces
-**CLI-kommandon**:
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # Lista installerade plugins

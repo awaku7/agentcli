@@ -89,34 +89,11 @@ Alle udbydere deler det samme værktøjssæt og interface. Skift ved at indstill
 Ollama og llama.cpp er separate udbydere. Ollama bruger sin egen service- og modelstyring, mens `llama.cpp` opretter forbindelse til et `llama-server` OpenAI-kompatibelt slutpunkt:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEYdum=`llama_API_KEYdum. udbyder bruger den Chat-afslutninger-kompatible sti. Behold `UAGENT_RESPONSES=0`, medmindre der er konfigureret en kompatibel proxy.
-
-### ⚡ Parallel værktøjsudførelse
-
-Når LLM anmoder om flere værktøjer samtidigt, uag **parallellerer automatisk** dem.
-130_x-værktøjer er alle statisk markeret med en "safe"-værktøjer. `ThreadPoolExecutor` (8 tråde som standard; indstil `UAGENT_PARALLEL_WORKERS` til at ændre).
-
-**Eksempel**: Spørg "Tjek vejret i nordiske hovedstæder" → LLM affyrer `search_web` × 5 lande → alle 5 søgninger kører parallelt →resultaterne er samlet i ét batch. en `TOOL_SPEC` (i øjeblikket 222, inklusive de 2 ruststøttede værktøjer i `src/uagent/tools_rust/`). `http_request` bruger metodefølsom sikkerhed: `GET`/`HEAD`/`OPTIONS`-kald kan køre parallelt, mens skrivemetoder forbliver serielle.
-
-Skrivebeskyttede værktøjer (filsøgning, hash-beregning, katalogliste, oversættelse, DB-forespørgsler osv.) paralleliseres aggressivt.
-
-__#4 Plugin-system (🏟__#4 Kompatibel)
-
-uagent implementerer et **Claude kodekompatibelt plugin-system**. Plugins samler færdigheder, agenter, MCP-servere, hooks og mere i selvstændige mapper med et `.claude-plugin/plugin.json`-manifest.
-
-**Understøttede komponenter**: Færdigheder, underagenter, MCP-servere, hooks (12 livscyklushændelser), skråstreg, kanalafhængige kommandoer, brugeroutput, output Markedspladser
-
-**CLI kommandoer**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # Liste over installerede plugins

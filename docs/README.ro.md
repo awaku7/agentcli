@@ -93,23 +93,11 @@ Toți furnizorii au același set de instrumente și interfață. Comutați setâ
 #### Ollama și llama.cpp
 Ollama și llama.cpp sunt furnizori separați. Ollama folosește propriul serviciu și managementul modelului, în timp ce `llama.cpp` se conectează la un punct final compatibil OpenAI cu `llama-server`:
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=dummy-compatible oferă chat-compatible. calea. Păstrați `UAGENT_RESPONSES=0` cu excepția cazului în care este configurat un proxy compatibil.
-### ⚡ Execuție paralelă a instrumentului
-Când LLM solicită mai multe instrumente simultan, uag **le paralelizează automat**. `ThreadPoolExecutor` (8 fire în mod implicit; setați `UAGENT_PARALLEL_WORKERS` să se schimbe).
-**Exemplu**: Întrebați „Verificați vremea în capitalele nordice” → LLM declanșează `search_web` × 5 țări → toate cele 5 căutări rulează în paralel → rezultatele culese într-un singur lot. `TOOL_SPEC` (în prezent 222, inclusiv cele 2 instrumente cu suport Rust din `src/uagent/tools_rust/`). `http_request` folosește siguranța sensibilă la metode: apelurile `GET`/`HEAD`/`OPTIONS` pot rula în paralel, în timp ce metodele de scriere rămân seriale.
-Uneltele numai pentru citire (căutare fișiere, calcul hash, listare directoare, traducere, interogări DB etc.) sunt paralelizate agresiv.
-#PH#_2 Codul de sistem Compatibil)
-uagent implementează un sistem de plugin **Claude compatibil cu cod**. Pluginurile reunesc abilități, agenți, servere MCP, hook-uri și multe altele în directoare autonome cu un manifest `.claude-plugin/plugin.json`.
-**Componente acceptate**: Skills, Sub-agents, MCP servers, Hooks (12 evenimente ciclului de viață), Output, Slash comenzi, fig. Marketplaces
-**Comenzi CLI**:
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 :listă de pluginuri # Listă pluginuri instalate
 :plugin install <source> [--scope] # Instalare (dir/zip/git/http)

@@ -94,35 +94,11 @@ Ang lahat ng provider ay nagbabahagi ng parehong toolset at interface. Lumipat s
 Ollama at llama.cpp ay magkahiwalay na provider. Gumagamit si Ollama ng sarili nitong serbisyo at pamamahala ng modelo, habang kumokonekta ang `llama.cpp` sa isang `llama-server` OpenAI-compatible na endpoint:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY`=`dummy
- ang provider. Completions-compatible path. Panatilihin ang `UAGENT_RESPONSES=0` maliban kung ang isang katugmang proxy ay na-configure.
-
-### ⚡ Parallel Tool Execution
-
-Kapag ang LLM ay humiling ng maramihang mga tool nang sabay-sabay, uag **awtomatikong ipinaparallelize** ang mga ito. 
-130 `parallel na tool ay stax_safety_marked_tools sabay-sabay sa pamamagitan ng `ThreadPoolExecutor` (8 thread bilang default; itakda ang `UAGENT_PARALLEL_WORKERS` upang baguhin).
-
-**Halimbawa**: Itanong ang "Suriin ang lagay ng panahon sa Nordic capitals" → LLM fires `search_web` × 5 bansa → lahat ng 5 pangkat → parallel na paghahanap ay tumatakbo sa mga resulta ng 
- → parallel → para sa kasalukuyang paghahanap. ang bilang ay batay sa mga module ng tool na tumutukoy sa isang `TOOL_SPEC` (kasalukuyang 222, kasama ang 2 Rust-backed na tool sa `src/uagent/tools_rust/`). Gumagamit ang `http_request` ng kaligtasan na sensitibo sa pamamaraan: Ang mga tawag na `GET`/`HEAD`/`OPTIONS` ay maaaring tumakbo nang magkatulad, habang ang mga paraan ng pagsulat ay nananatiling serial.
-
-Read-only na mga tool (paghahanap ng file, pagkalkula ng hash, listahan ng direktoryo, pagsasalin, mga query sa DB, atbp.) ay agresibong parallelized.### 
- System ng Plugin Compatible)
-
-uagent ay nagpapatupad ng **Claude Code-compatible na plugin system**. Mga kasanayan sa bundle ng plugin, ahente, MCP server, hook, at higit pa sa mga self-contained na direktoryo na may manifest na `.claude-plugin/plugin.json`.
-
-**Mga sinusuportahang bahagi**: Mga Kasanayan, Sub-agents, MCP server, Hooks (12 mga kaganapan sa lifecycle ng user), Mga utos ng Slash sa istilo ng Output, Mga utos ng Output na Channel Marketplaces
-
-**CLI commands**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :listahan ng plugin # Listahan ng mga naka-install na plugin

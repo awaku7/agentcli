@@ -90,10 +90,6 @@ Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. `UAGENT_PROVIDE
 Ollama ve llama.cpp ayrı sağlayıcılardır. Ollama kendi hizmet ve model yönetimini kullanırken `llama.cpp`, OpenAI uyumlu bir lama sunucusuna bağlanır:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1

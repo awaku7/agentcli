@@ -70,48 +70,12 @@ AEC3 পাইপলাইনে অডিও প্রাপ্ত করার
 set UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 
-```
-
-### OpenAI রিয়েলটাইম ফাংশন কলিং
-
-OpenAI-এ ফান টেগিং-এর নিরাপত্তা সহায়তা বর্তমান রিয়েলটাইম অ্যাডাপ্টার শুধুমাত্র পঠনযোগ্য `get_current_time` স্বয়ংক্রিয়ভাবে প্রকাশ করে। ধ্বংসাত্মক সরঞ্জাম এবং ডিভাইস নিয়ন্ত্রণ একটি সুস্পষ্ট অনুমোদিত তালিকা এবং নিশ্চিতকরণ ফ্লো ছাড়া প্রকাশ করা হয় না। Grok রিয়েলটাইম একটি পৃথক অ্যাডাপ্টার ব্যবহার করে এবং এই OpenAI-নির্দিষ্ট ফাংশন-কল পাথ ব্যবহার করে না৷
-
-## বৈশিষ্ট্য
-
-### 🧠 মাল্টি-প্রোভাইডার আর্কিটেকচার
-
-OpenAI / PFN (PLaMo) / Azure / বেডরক / ওপেনরাউটার / ওল্লামা / llama.cpp / Gemini / Vertex AI / Claude / Claude / Claude / N_PH_1 / Nov. (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI ইঞ্জিন / টুগেদার AI / Vercel AI Gateway
-
- একই টুল এবং আন্তঃসেট প্রদানকারীরা শেয়ার করে। `UAGENT_PROVIDER` সেট করে স্যুইচ করুন — কোনো কোড পরিবর্তন নেই, কোনো আলাদা ইনস্টলেশন নেই। ওল্লামা তার নিজস্ব পরিষেবা এবং মডেল পরিচালনা ব্যবহার করে, যখন `llama.cpp` একটি `llama-সার্ভার` OpenAI-সামঞ্জস্যপূর্ণ এন্ডপয়েন্টের সাথে সংযোগ করে:
-
-``bash
-# ওল্লামা
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
+```bash
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY
-UAGENT_LLAMA_CPP_API_KEY=The llama.cpp প্রদানকারী চ্যাট সমাপ্তি-সামঞ্জস্যপূর্ণ পথ ব্যবহার করে। একটি সামঞ্জস্যপূর্ণ প্রক্সি কনফিগার করা না থাকলে `UAGENT_RESPONSES=0` রাখুন। 
-
-### ⚡ সমান্তরাল টুল এক্সিকিউশন
-
- যখন LLM একই সাথে একাধিক টুলের অনুরোধ করে, uag **স্বয়ংক্রিয়ভাবে 
-01 টুল চিহ্নিত করা হয়। `x_parallel_safe` এবং `ThreadPoolExecutor` এর মাধ্যমে একই সাথে চালান (ডিফল্টভাবে 8টি থ্রেড; পরিবর্তন করতে `UAGENT_PARALLEL_WORKERS` সেট করুন)। সমান্তরালভাবে চালান → একটি ব্যাচে সংগৃহীত ফলাফল। 
-
- বর্তমান গণনা টুল মডিউলের উপর ভিত্তি করে যা একটি `TOOL_SPEC` সংজ্ঞায়িত করে (বর্তমানে 222, `src/uagent/tools_rust/`-এ 2টি মরিচা-সমর্থিত সরঞ্জাম সহ)। `http_request` পদ্ধতি-সংবেদনশীল নিরাপত্তা ব্যবহার করে: `GET`/`HEAD`/`OPTIONS` কলগুলি সমান্তরালভাবে চলতে পারে, যখন লেখার পদ্ধতিগুলি সিরিয়াল থাকে। 
-
- শুধুমাত্র-পঠনযোগ্য টুলস (ফাইল অনুসন্ধান, হ্যাশ গণনা, ডিরেক্টরি তালিকা, অনুবাদ, DB প্রশ্ন, ইত্যাদি) আক্রমনাত্মকভাবে Pgin
-#
-#🎎 সিস্টেম সমান্তরাল। (Claude কোড সামঞ্জস্যপূর্ণ)
-
-uagent একটি **Claude কোড-সামঞ্জস্যপূর্ণ প্লাগইন সিস্টেম** প্রয়োগ করে। প্লাগইনগুলি একটি `.claude-plugin/plugin.json` ম্যানিফেস্ট সহ স্বয়ংসম্পূর্ণ ডিরেক্টরিতে দক্ষতা, এজেন্ট, MCP সার্ভার, হুক এবং আরও অনেক কিছুকে একত্রিত করে। userConfig, নির্ভরতা, চ্যানেল, মার্কেটপ্লেস
-
-**CLI কমান্ড**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :প্লাগইন তালিকা # ইনস্টল করা প্লাগইনগুলির তালিকা

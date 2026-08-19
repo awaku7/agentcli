@@ -77,51 +77,12 @@ AEC3 ने वास्तविकपणे ऑडिओची पाइपल
 set UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 
-```
-
-### OpenAI रीअलटाइम फंक्शन कॉलिंग
-
-OpenAI मध्ये Fun tegration रीअलटाइम समर्थन. वर्तमान रिअलटाइम ॲडॉप्टर केवळ-वाचनीय `get_current_time` स्वयंचलितपणे उघड करतो. विध्वंसक साधने आणि डिव्हाइस नियंत्रणे स्पष्ट अनुमत सूची आणि पुष्टीकरण प्रवाहाशिवाय उघड होत नाहीत. Grok रिअलटाईम स्वतंत्र अडॅप्टर वापरतो आणि हा OpenAI-विशिष्ट फंक्शन-कॉल पथ वापरत नाही.
-
-## वैशिष्ट्ये
-
-### 🧠 मल्टी-प्रोव्हायडर आर्किटेक्चर
-
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Claude / Claude / audio_speech / Nov. (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM स्टुडिओ / MiniMax / Sakana AI (Fugu) / SAKURA AI इंजिन / एकत्र AI / Vercel AI Gateway
-
- समान साधन आणि सर्व प्रदाते समान साधन सामायिक करतात. `UAGENT_PROVIDER` सेट करून स्विच करा — कोणताही कोड बदलणार नाही, कोणतीही स्वतंत्र स्थापना नाही.
-
-#### Ollama आणि llama.cpp
-
-Ollama आणि llama.cpp स्वतंत्र प्रदाता आहेत. Ollama स्वतःची सेवा आणि मॉडेल व्यवस्थापन वापरते, तर `llama.cpp` `llama-server` OpenAI-सुसंगत एंडपॉइंटशी कनेक्ट करते:
-
-``bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
+```bash
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=The llama.cpp प्रदाता चॅट पूर्णता-सुसंगत मार्ग वापरतो. सुसंगत प्रॉक्सी कॉन्फिगर केल्याशिवाय `UAGENT_RESPONSES=0` ठेवा.
-
-### ⚡ समांतर टूल एक्झिक्यूशन
-
-जेव्हा LLM एकाच वेळी अनेक टूल्सची विनंती करते, uag **स्वयंचलितपणे ते टूल्स 
-01 चिन्हांकित केले जातात.**3. `x_parallel_safe` आणि `ThreadPoolExecutor` द्वारे एकाच वेळी कार्यान्वित करा (डिफॉल्टनुसार 8 थ्रेड; बदलण्यासाठी `UAGENT_PARALLEL_WORKERS` सेट करा).
-
-**उदाहरण**: विचारा "नॉर्डिक कॅपिटलमधील हवामान तपासा" → आम्ही सर्व देश शोधतो _`s × 5 _ 5 देश शोधतो. समांतरपणे चालवा → एका बॅचमध्ये गोळा केलेले परिणाम.
-
-सध्याची संख्या टूल मॉड्यूल्सवर आधारित आहे जी `TOOL_SPEC` परिभाषित करतात (सध्या २२२, `src/uagent/tools_rust/` मधील 2 रस्ट-बॅक्ड टूल्ससह). `http_request` पद्धत-संवेदनशील सुरक्षितता वापरते: `GET`/`HEAD`/`OPTIONS` कॉल समांतर चालतात, तर लेखन पद्धती अनुक्रमांक राहतात. 
-
- केवळ-वाचनीय साधने (फाइल शोध, हॅश गणना, निर्देशिका सूची, भाषांतर, DB क्वेरी, इ.) आक्रमकपणे सिस्टम P ⎏#🎏#🎏 समांतर आहेत. (Claude कोड सुसंगत)
-
-uagent **Claude कोड-सुसंगत प्लगइन प्रणाली** लागू करते. प्लगइन बंडल कौशल्ये, एजंट, MCP सर्व्हर, हुक आणि बरेच काही `.claude-plugin/plugin.json` मॅनिफेस्टसह स्वयं-समाविष्ट डिरेक्टरीमध्ये करतात. userConfig, Dependencies, चॅनेल, Marketplaces
-
-**CLI कमांड**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :प्लगइन सूची # स्थापित प्लगइनची सूची

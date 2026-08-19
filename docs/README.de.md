@@ -92,11 +92,6 @@ Alle Anbieter nutzen das gleiche Toolset und die gleiche Schnittstelle. Wechseln
 Ollama und llama.cpp sind separate Anbieter. Ollama verwendet seine eigene Dienst- und Modellverwaltung, während „llama.cpp“ eine Verbindung zu einem „llama-server“ OpenAI-kompatiblen Endpunkt herstellt:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1

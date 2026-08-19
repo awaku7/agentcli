@@ -87,33 +87,11 @@ Kaikilla palveluntarjoajilla on samat työkalut ja käyttöliittymä. Vaihda ase
 Ollama ja llama.cpp ovat erillisiä palveluntarjoajia. Ollama käyttää omaa palvelu- ja mallihallintaansa, kun taas `llama.cpp` muodostaa yhteyden `llama-server` OpenAI-yhteensopivaan päätepisteeseen:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
-
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=cpp-palveluntarjoaja. käyttää Chat Completions -yhteensopivaa polkua. Säilytä `UAGENT_RESPONSES=0`, ellei yhteensopivaa välityspalvelinta ole määritetty.
-
-### ⚡ Rinnakkaistyökalun suorittaminen
-
-Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee ne automaattisesti** ja `x-työkalut ovat statisesti rinnakkaismerkittyjä. suorittaa samanaikaisesti ThreadPoolExecutorin kautta (oletusarvoisesti 8 säiettä; muuta UAGENT_PARALLEL_WORKERS).
-
-**Esimerkki**: Kysy "Tarkista sää Pohjoismaiden pääkaupungeissa" → LLM sytyttää rinnakkain `search_web` → 5 hakutuloksia kerättiin yhdessä maassa. erä.
-
-Nykyinen määrä perustuu työkalumoduuleihin, jotka määrittävät TOOL_SPEC:n (tällä hetkellä 222, mukaan lukien 2 ruostetaustaista työkalua tiedostossa `src/uagent/tools_rust/`). "http_request" käyttää menetelmäherkkää turvallisuutta: "GET"/"HEAD"/"OPTIONS"-kutsut voivat ajaa rinnakkain, kun taas kirjoitusmenetelmät pysyvät sarjamuotoisina.
-
-Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös, tietokantakyselyt jne.) ovat aggressiivisesti rinnastettuja järjestelmän kanssa. (Claude Code Compatible)
-
-uagent toteuttaa **Claude Code-yhteensopivan laajennusjärjestelmän**. Plugins niputtaa taitoja, agentteja, MCP palvelimia, koukkuja ja paljon muuta itsenäisiin hakemistoihin `.claude-plugin/plugin.json-luettelolla.
-
-**Tuetut komponentit**: taidot, aliagentit, MCP palvelimet, Slash-tapahtumat, Slash-tapahtumat,2 Slash-tapahtumat,2 userConfig, Dependencies, Channels, Marketplaces
-
-**CLI-komennot**:
-
+UAGENT_LLAMA_CPP_API_KEY=dummy
 ```
 
 :plugin list # Listaa asennetut laajennukset

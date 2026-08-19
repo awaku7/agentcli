@@ -92,10 +92,6 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemin
 Ollama และ llama.cpp เป็นผู้ให้บริการที่แยกจากกัน Ollama ใช้บริการและการจัดการโมเดลของตัวเอง ในขณะที่ `llama.cpp` เชื่อมต่อกับปลายทางที่เข้ากันได้กับ `llama-server` OpenAI:
 
 ```bash
-# Ollama
-UAGENT_PROVIDER=ollama
-UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-UAGENT_OLLAMA_DEPNAME=llama3.1
 # llama.cpp / llama-server
 UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
