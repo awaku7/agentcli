@@ -80,7 +80,7 @@ Ollama και llama.cpp είναι ξεχωριστοί πάροχοι. Το Oll
 
 ```bash
 # Ollama
-UAGENT_PROVIDER=olama
+UAGENT_PROVIDER=ollama
 UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
 UAGENT_OLLAMA_DEPNAME=llama3.1
 

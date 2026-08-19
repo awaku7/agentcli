@@ -62,7 +62,7 @@ Ollama و llama.cpp ارائه دهندگان جداگانه هستند. Ollama 
 
 ```bash
 # Ollama
-UAGENT_PROVIDER=olama
+UAGENT_PROVIDER=ollama
 UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
 UAGENT_OLLAMA_DEPNAME=llama3.1
 

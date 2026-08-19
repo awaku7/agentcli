@@ -76,7 +76,7 @@ OpenAI リアルタイムは、安全性が制限された関数呼び出し統�
 
 ### 🧠 マルチプロバイダー アーキテクチャ
 
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakena AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
+OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
 
 すべてのプロバイダーは同じツールセットとインターフェイスを共有しています。 `UAGENT_PROVIDER` を設定して切り替えます。コードの変更や個別のインストールは必要ありません。
 
@@ -85,8 +85,8 @@ OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemin
 Ollama と llama.cpp は別のプロバイダーです。 Ollama は独自のサービスとモデル管理を使用しますが、`llama.cpp` は `llama-server` OpenAI 互換エンドポイントに接続します:
 
 ```bash
-#オラマ
-UAGENT_PROVIDER=オラマ
+# Ollama
+UAGENT_PROVIDER=ollama
 UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
 UAGENT_OLLAMA_DEPNAME=llama3.1
 
