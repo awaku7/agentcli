@@ -1,13 +1,13 @@
 ---
 name: create-tool
-description: 新規ツール（Python + JSON）を生成し、i18n翻訳（全34ロケール）・ruff/black整形・py_compile検証まで一貫実行する。
+description: 新規ツール（Python + JSON）を生成し、i18n翻訳（本体の全対応ロケール）・ruff/black整形・py_compile検証まで一貫実行する。
 license: Apache-2.0
 ---
 
 # 目的
 
 agentcli に新規ツールを追加する一連の工程を自動実行する。
-手作業で抜けがちな **i18n翻訳（全34言語）・コード整形・構文チェック** まで含めて完了する。
+手作業で抜けがちな **i18n翻訳（本体の全対応言語）・コード整形・構文チェック** まで含めて完了する。
 
 # 入力（このスキルがユーザーに確認すること）
 
@@ -124,15 +124,15 @@ def run_tool(args: dict[str, Any]) -> str:
 - `run_tool()` は必ず `str` を返す
 - エラーハンドリングを含める
 
-## Step 2: JSON ファイル生成（全34ロケール、翻訳込み）
+## Step 2: JSON ファイル生成（本体の全対応ロケール、翻訳込み）
 
 `python_exec` で以下のスクリプトを実行し、`src/uagent/tools/<name>_tool.json` を一発生成する。
 
 ### 処理内容
 
 1. `en` セクションをユーザー入力から作成
-1. `ja` を含む残り33ロケールについて、`translate_text` を呼び出して翻訳
-1. 全34ロケールをまとめて `json.dumps(indent=2, ensure_ascii=False)` で書き出し
+1. 本体のロケールディレクトリを検出し、`en` 以外の全ロケールについて `translate_text` を呼び出して翻訳
+1. 検出した全ロケールをまとめて `json.dumps(indent=2, ensure_ascii=False)` で書き出し
 
 ### 翻訳対象キー（各ロケール）
 
@@ -140,43 +140,21 @@ def run_tool(args: dict[str, Any]) -> str:
 - `x_search_terms`（配列の各要素を翻訳）
 - `param.<name>.description`（各パラメータ）
 
-### ロケール一覧（34）と Google 言語コード
+### 対応ロケールの検出と Google 言語コード
 
-| JSON locale | Google code |
-|---|---|
-| ja | ja |
-| es | es |
-| fr | fr |
-| ko | ko |
-| de | de |
-| it | it |
-| ru | ru |
-| pt_br | pt |
-| pt | pt |
-| id | id |
-| vi | vi |
-| pl | pl |
-| hi | hi |
-| ar | ar |
-| sv | sv |
-| sw | sw |
-| nb | no |
-| nl | nl |
-| fi | fi |
-| cs | cs |
-| uk | uk |
-| tr | tr |
-| th | th |
-| zh_cn | zh-CN |
-| zh_tw | zh-TW |
-| bn | bn |
-| fa | fa |
-| mn | mn |
-| mr | mr |
-| el | el |
-| he | iw |
-| hu | hu |
-| ro | ro |
+固定のロケール数や一覧を使わず、作成時点の本体から動的に取得する。
+
+- `src/uagent/locales/*/LC_MESSAGES/uag.po` または `uag.mo` の親ディレクトリ名を列挙する
+- `en` を必ず含め、`en` 以外を翻訳対象にする
+- 現在の本体では次の38ロケールを提供している: `ar`, `bn`, `cs`, `da`, `de`, `el`, `en`, `es`, `fa`, `fi`, `fil`, `fr`, `he`, `hi`, `hu`, `id`, `it`, `ja`, `ko`, `mn`, `mr`, `ms`, `nb`, `nl`, `nn`, `pl`, `pt`, `pt_BR`, `ro`, `ru`, `sv`, `sw`, `th`, `tr`, `uk`, `vi`, `zh_CN`, `zh_TW`
+- 新しいロケールが本体に追加された場合は、SKILLの一覧を更新せず自動的に対象へ含める
+
+Google Translate の言語コードは、ロケール名から次の規則で導出する。
+
+- `_` を `-` に変換: `zh_CN` → `zh-CN`, `zh_TW` → `zh-TW`, `pt_BR` → `pt-BR`
+- `nb` / `nn` → `no`
+- `he` → `iw`
+- それ以外はロケール名をそのまま使用
 
 ### 実装戦略
 
@@ -239,7 +217,7 @@ def restore(text: str, mapping: dict[str, str]) -> str:
 - `python_compile` がエラーなし
 - `lint_format(mode=check)` がエラーなし
 - 2ファイルが存在する
-- JSON に全34ロケールのエントリが含まれている
+- JSON に本体の全対応ロケール（`src/uagent/locales` から検出したロケール）のエントリが含まれている
 - JSON 内の全 `{xxx}` プレースホルダが元の名前を維持している（`{パス}` などに翻訳されていない）
 
 # 失敗時のよくある原因
