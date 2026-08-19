@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.6.3] - 2026-08-19
+
+### Added
+
+- feat: add structured observability event envelopes and normalize event-specific payloads
+- feat: add a Mermaid-to-editable-Excel flowchart conversion tool
+
+### Changed
+
+- fix: enforce strict enterprise endpoint allowlists
+- docs: refresh task-store scope, generated code-map summary, and provider configuration guidance
+- test: make Computer Use errors locale independent
+- refactor: keep OpenAI fast mode out of the setup wizard
+
+### Removed
+
+- remove the obsolete standalone Mermaid Excel converter package sources and tests
+
 ## [0.6.2] - 2026-08-18
 
 ### Added
