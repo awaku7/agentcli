@@ -19,6 +19,37 @@ def test_tool_policy_actions_and_network_default_deny() -> None:
     ).denied
 
 
+def test_network_allowlist_uses_host_boundaries_and_ports() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "network": {
+                "default": "deny",
+                "allowlist": ["trusted.example.com"],
+            }
+        }
+    )
+    assert not policy.decide("http_request", {"url": "https://trusted.example.com/api"}).denied
+    assert not policy.decide("http_request", {"url": "https://api.trusted.example.com/api"}).denied
+    assert policy.decide("http_request", {"url": "https://trusted.example.com.attacker.test"}).denied
+    assert policy.decide("http_request", {"url": "https://trusted.example.com:8443"}).denied
+    assert policy.decide("http_request", {"url": "https://user:pass@trusted.example.com"}).denied
+
+
+def test_mcp_allowlist_uses_url_scheme_port_and_path_boundaries() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "mcp_servers": {
+                "https://trusted.example.com/mcp": {"action": "allow"},
+                "https://blocked.example.com": {"action": "deny"},
+            }
+        }
+    )
+    assert not policy.decide_mcp_server("https://trusted.example.com/mcp/tools").denied
+    assert policy.decide_mcp_server("https://trusted.example.com/mcp-evil").denied
+    assert policy.decide_mcp_server("http://trusted.example.com/mcp/tools").denied
+    assert policy.decide_mcp_server("https://blocked.example.com/api").denied
+
+
 def test_unknown_action_is_rejected() -> None:
     try:
         EnterprisePolicy.from_mapping({"tools": {"shell": {"action": "maybe"}}})

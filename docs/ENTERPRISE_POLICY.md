@@ -73,7 +73,7 @@ The policy engine records structured events such as `policy.denied` and `policy.
 
 ## Scope and limitations
 
-The policy is enforced at Tool dispatch, Credential resolution, MCP connection, and plugin startup boundaries. Unknown policy actions are rejected. Network and MCP allowlists use substring matching; use specific hostnames or URLs in production.
+The policy is enforced at Tool dispatch, Credential resolution, MCP connection, and plugin startup boundaries. Unknown policy actions are rejected. Network and MCP allowlists use scheme, hostname-boundary, port, and path-boundary matching; MCP configurations containing allow actions deny unregistered endpoints.
 
 See also:
 

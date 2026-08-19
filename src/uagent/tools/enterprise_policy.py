@@ -7,6 +7,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
+from urllib.parse import SplitResult, urlsplit
 
 from .i18n_helper import make_tool_translator
 
@@ -113,10 +114,14 @@ class EnterprisePolicy:
         )
 
     def decide_mcp_server(self, url: str) -> PolicyDecision:
+        has_allowlist = False
         for pattern, action in self.mcp_servers.items():
-            if pattern in url:
-                normalized = _normalize_action(action)
+            normalized = _normalize_action(action)
+            has_allowlist = has_allowlist or normalized == "allow"
+            if _endpoint_matches(str(pattern), url):
                 return PolicyDecision(normalized, f"mcp:{pattern}")
+        if has_allowlist:
+            return PolicyDecision("deny", f"mcp:allowlist:{url}")
         return PolicyDecision("allow")
 
     def decide_skill(self, name: str) -> PolicyDecision:
@@ -157,10 +162,71 @@ class EnterprisePolicy:
         if url:
             default = _normalize_action(self.network.get("default", "allow"))
             allowed = self.network.get("allowlist") or self.network.get("allow") or []
-            if default == "deny" and not any(str(item) in url for item in allowed):
+            if default == "deny" and not any(
+                _endpoint_matches(str(item), url) for item in allowed
+            ):
                 return PolicyDecision("deny", f"network:{url}")
 
         return PolicyDecision("allow")
+
+
+def _split_endpoint(value: str) -> SplitResult | None:
+    raw = str(value or "").strip()
+    if not raw or any(char.isspace() for char in raw):
+        return None
+    candidate = raw if "://" in raw else f"//{raw}"
+    try:
+        parsed = urlsplit(candidate)
+        if not parsed.hostname or parsed.username is not None or parsed.password is not None:
+            return None
+        _ = parsed.port
+        return parsed
+    except ValueError:
+        return None
+
+
+def _effective_port(parsed: SplitResult) -> int | None:
+    if parsed.port is not None:
+        return parsed.port
+    return {"http": 80, "https": 443}.get(parsed.scheme.lower())
+
+
+def _host_matches(pattern_host: str, target_host: str) -> bool:
+    pattern = pattern_host.rstrip(".").lower()
+    target = target_host.rstrip(".").lower()
+    return bool(pattern and target and (target == pattern or target.endswith("." + pattern)))
+
+
+def _path_matches(pattern_path: str, target_path: str) -> bool:
+    pattern = pattern_path.rstrip("/") or "/"
+    target = target_path or "/"
+    return pattern == "/" or target == pattern or target.startswith(pattern + "/")
+
+
+def _endpoint_matches(pattern: str, target: str) -> bool:
+    """Match endpoint policies by scheme/host/port/path boundaries."""
+    expected = _split_endpoint(pattern)
+    actual = _split_endpoint(target)
+    if expected is None or actual is None:
+        return False
+    if expected.scheme and expected.scheme.lower() != actual.scheme.lower():
+        return False
+    if not _host_matches(expected.hostname or "", actual.hostname or ""):
+        return False
+    expected_port = _effective_port(expected)
+    actual_port = _effective_port(actual)
+    if expected_port is not None and expected_port != actual_port:
+        return False
+    if (
+        not expected.scheme
+        and expected.port is None
+        and actual.scheme.lower() in {"http", "https"}
+        and actual_port not in {80, 443}
+    ):
+        return False
+    if expected.path and expected.path != "/" and not _path_matches(expected.path, actual.path):
+        return False
+    return True
 
 
 def _actions(value: Any) -> dict[str, str]:

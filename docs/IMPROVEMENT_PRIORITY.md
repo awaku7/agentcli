@@ -256,7 +256,7 @@ network:
 
 ### 現状
 
-Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに対する制御と、Tool dispatch境界でのdeny/confirm判定が実装されています。MCPとNetworkのallowlistは現在、文字列の部分一致による簡易判定です。
+Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに対する制御と、Tool dispatch境界でのdeny/confirm判定が実装されています。MCPとNetworkのallowlistは、URLのscheme、hostname境界、port、path境界を検証する厳密判定を実装済みです。allow actionを含むMCP定義では、未登録のendpointをdenyします。
 
 ### 期待効果
 
@@ -322,7 +322,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 ロードマップの主要項目は実装済みですが、次の点は「実装済み」と「完全運用」を分けて扱います。
 
-- Enterprise PolicyのMCP / Network allowlistは、現在は文字列部分一致による簡易判定です。厳密なホスト、ポート、サブドメイン境界の検証は拡張課題です。
+- Enterprise PolicyのMCP / Network allowlistは、scheme、hostname境界、port、path境界を検証する厳密判定を実装済みです。allow actionを含むMCP定義では、未登録endpointをdenyします。
 - Distributed A2Aは共有ファイルleaseと認証済みA2A task / checkpoint / SSE同期を提供します。etcd / ZooKeeper相当のconsensusやネットワーク分断耐性は未実装です。
 - Observabilityは主要境界に適用済みですが、全イベントのpayloadを完全に同一仕様へ統一する作業は継続課題です。
 - Computer Useエラーテストは日本語ロケールでも表示文言に依存しない検証へ修正済みです。リポジトリ全体のテストは警告付きですが成功しています。
@@ -338,7 +338,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 ### P1: セキュリティ境界
 
-- MCP / Network allowlistを部分一致から厳密なURL、hostname、port、subdomain判定へ強化
+- [x] MCP / Network allowlistをscheme、hostname境界、port、path境界の厳密判定へ強化
 - Plugin sandboxを強化（作業ディレクトリ、ネットワーク、subprocess、リソース制限）
 
 ### P2: 観測性
