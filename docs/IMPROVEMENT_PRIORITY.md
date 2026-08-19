@@ -159,7 +159,7 @@ TaskStore
 └── SQLiteTaskStore
 ```
 
-Redisは、SQLiteの性能・同時実行要件が不足した場合に検討します。Python側では`redis`（redis-py）ライブラリ、運用時には別途Redis Serverが必要になるため、オプション依存として分離します。
+Redis TaskStoreは実装対象外とします。TaskStoreはInMemoryTaskStoreとSQLiteTaskStoreを使用し、Redis Serverや`redis`（redis-py）ライブラリを新たな運用前提にしません。
 
 ### 期待効果
 
@@ -353,11 +353,10 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 ### P4: スケール対応
 
-- SQLiteで性能・同時実行要件が不足した場合にRedis TaskStoreを追加
-- Redis導入時はPython側の`redis`（redis-py）ライブラリとRedisサーバーが必要
-- Redisを必須依存にせず、オプション依存として分離する
+- Redis TaskStoreは実装対象外
+- TaskStoreはInMemoryTaskStoreとSQLiteTaskStoreを使用する
 
-Redis、OpenTelemetry、Plugin sandbox、consensusは、要件と外部基盤を確認してから着手します。
+OpenTelemetry、Plugin sandbox、consensusは、要件と外部基盤を確認してから着手します。
 
 ## 全体的な改善効果
 
