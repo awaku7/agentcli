@@ -40,6 +40,17 @@ def test_standalone_event_gets_common_schema_fields(caplog) -> None:
     assert payload["error_type"] is None
 
 
+def test_event_category_fields_are_normalized(caplog) -> None:
+    with caplog.at_level(logging.INFO, logger="uagent.events"):
+        log_event("tool.completed", tool="read_file", duration_ms="12")
+
+    payload = json.loads(caplog.records[-1].message)
+    assert payload["tool"] == "read_file"
+    assert payload["duration_ms"] == 12
+    assert payload["tool_call_id"] is None
+    assert payload["error_type"] is None
+
+
 def test_event_context_does_not_leak(caplog) -> None:
     with caplog.at_level(logging.INFO, logger="uagent.events"):
         with event_context(session_id="s1"):

@@ -324,7 +324,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 - Enterprise PolicyのMCP / Network allowlistは、scheme、hostname境界、port、path境界を検証する厳密判定を実装済みです。allow actionを含むMCP定義では、未登録endpointをdenyします。
 - Distributed A2Aは共有ファイルleaseと認証済みA2A task / checkpoint / SSE同期を提供します。etcd / ZooKeeper相当のconsensusやネットワーク分断耐性は未実装です。
-- Observabilityは主要境界に適用済みで、共通envelope（`schema_version`、`event_id`、`correlation_id`、`timestamp`、`status`、`event_code`）を追加しました。イベント固有payloadの完全統一は継続課題です。
+- Observabilityは主要境界に適用済みで、共通envelopeとイベントカテゴリ別payload（Agent、Tool、LLM、Credential、OAuth、Task）を統一しました。
 - Computer Useエラーテストは日本語ロケールでも表示文言に依存しない検証へ修正済みです。リポジトリ全体のテストは警告付きですが成功しています。
 
 ## 今後の実装優先順位
@@ -343,7 +343,7 @@ Tool、Provider、MCP server、Network、Credential、Skill、Plugin、Roleに�
 
 ### P2: 観測性
 
-- CLI / Web / GUI / A2Aのイベントpayloadとschemaを統一
+- [x] CLI / Web / GUI / A2Aの共通envelopeとイベントカテゴリ別payloadを統一
 - schema統一後にOpenTelemetryのtrace/span/exporterを導入
 
 ### P3: 分散実行
