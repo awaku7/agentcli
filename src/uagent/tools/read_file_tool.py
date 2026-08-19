@@ -184,15 +184,12 @@ def run_tool(args: dict[str, Any]) -> str:
     tail_value = _as_int_or_none(tail_lines)
     maxl_value = _as_int_or_none(args.get("maxl"))
     start_line_value = _as_int_or_none(args.get("start_line", 1))
-    if (
-        (head_value == 0 or tail_value == 0)
-        and (
-            any(
-                value is not None and value > 0
-                for value in (head_value, tail_value, maxl_value)
-            )
-            or (start_line_value is not None and start_line_value > 1)
+    if (head_value == 0 or tail_value == 0) and (
+        any(
+            value is not None and value > 0
+            for value in (head_value, tail_value, maxl_value)
         )
+        or (start_line_value is not None and start_line_value > 1)
     ):
         if head_value == 0:
             head_lines = None

@@ -40,9 +40,7 @@ def _levels(graph: Graph) -> dict[str, int]:
 def _text_size(text: str, shape: str) -> tuple[float, float]:
     """Estimate a safe shape size; enlarge only when the default is too small."""
     lines = text.replace("<br>", "\n").splitlines() or [""]
-    max_width = max(
-        sum(14 if ord(ch) > 0x3000 else 8 for ch in line) for line in lines
-    )
+    max_width = max(sum(14 if ord(ch) > 0x3000 else 8 for ch in line) for line in lines)
     width = max(120.0, max_width + 32.0)
     height = max(50.0, len(lines) * 20.0 + 20.0)
     if shape == "diamond":
@@ -51,13 +49,18 @@ def _text_size(text: str, shape: str) -> tuple[float, float]:
     return width, height
 
 
-def layout_graph(graph: Graph, *, gap_x: float = 180, gap_y: float = 100) -> dict[str, Position]:
+def layout_graph(
+    graph: Graph, *, gap_x: float = 180, gap_y: float = 100
+) -> dict[str, Position]:
     levels = _levels(graph)
     rows: dict[int, list[str]] = defaultdict(list)
     for node_id, level in levels.items():
         rows[level].append(node_id)
 
-    sizes = {node_id: _text_size(node.text, node.shape) for node_id, node in graph.nodes.items()}
+    sizes = {
+        node_id: _text_size(node.text, node.shape)
+        for node_id, node in graph.nodes.items()
+    }
     positions: dict[str, Position] = {}
 
     if graph.direction in {"LR", "RL"}:
@@ -79,7 +82,9 @@ def layout_graph(graph: Graph, *, gap_x: float = 180, gap_y: float = 100) -> dic
         if graph.direction == "RL":
             max_x = max((p.x + p.width for p in positions.values()), default=0)
             positions = {
-                node_id: Position(max_x - pos.x - pos.width, pos.y, pos.width, pos.height)
+                node_id: Position(
+                    max_x - pos.x - pos.width, pos.y, pos.width, pos.height
+                )
                 for node_id, pos in positions.items()
             }
     else:

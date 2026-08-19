@@ -28,11 +28,21 @@ def test_network_allowlist_uses_host_boundaries_and_ports() -> None:
             }
         }
     )
-    assert not policy.decide("http_request", {"url": "https://trusted.example.com/api"}).denied
-    assert not policy.decide("http_request", {"url": "https://api.trusted.example.com/api"}).denied
-    assert policy.decide("http_request", {"url": "https://trusted.example.com.attacker.test"}).denied
-    assert policy.decide("http_request", {"url": "https://trusted.example.com:8443"}).denied
-    assert policy.decide("http_request", {"url": "https://user:pass@trusted.example.com"}).denied
+    assert not policy.decide(
+        "http_request", {"url": "https://trusted.example.com/api"}
+    ).denied
+    assert not policy.decide(
+        "http_request", {"url": "https://api.trusted.example.com/api"}
+    ).denied
+    assert policy.decide(
+        "http_request", {"url": "https://trusted.example.com.attacker.test"}
+    ).denied
+    assert policy.decide(
+        "http_request", {"url": "https://trusted.example.com:8443"}
+    ).denied
+    assert policy.decide(
+        "http_request", {"url": "https://user:pass@trusted.example.com"}
+    ).denied
 
 
 def test_mcp_allowlist_uses_url_scheme_port_and_path_boundaries() -> None:

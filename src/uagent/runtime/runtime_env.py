@@ -178,7 +178,9 @@ def _maybe_offer_envsec_sync(
         if not diff_keys:
             return False
 
-        non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower() in (
+        non_interactive = os.environ.get(
+            "UAGENT_NON_INTERACTIVE", ""
+        ).strip().lower() in (
             "1",
             "true",
             "yes",

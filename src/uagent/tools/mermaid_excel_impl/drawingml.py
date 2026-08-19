@@ -1,9 +1,7 @@
-from html import escape
 from xml.etree.ElementTree import Element, SubElement, tostring, register_namespace
 
 from .layout import Position
 from .model import Graph
-
 
 """Generate Excel DrawingML for editable Mermaid flowcharts.
 
@@ -71,10 +69,20 @@ def _add_text(parent: Element, text: str) -> None:
         SubElement(run, _tag(A, "t")).text = line
 
 
-def _add_shape(root: Element, node_id: str, text: str, shape: str, pos: Position, index: int, style: dict[str, str] | None = None) -> None:
+def _add_shape(
+    root: Element,
+    node_id: str,
+    text: str,
+    shape: str,
+    pos: Position,
+    index: int,
+    style: dict[str, str] | None = None,
+) -> None:
     anchor = SubElement(root, _tag(XDR, "twoCellAnchor"))
     _marker(anchor, "from", round(pos.x / 64), round(pos.y / 20))
-    _marker(anchor, "to", round((pos.x + pos.width) / 64), round((pos.y + pos.height) / 20))
+    _marker(
+        anchor, "to", round((pos.x + pos.width) / 64), round((pos.y + pos.height) / 20)
+    )
 
     sp = SubElement(anchor, _tag(XDR, "sp"), macro="", textlink="")
     nv = SubElement(sp, _tag(XDR, "nvSpPr"))
@@ -87,15 +95,23 @@ def _add_shape(root: Element, node_id: str, text: str, shape: str, pos: Position
     SubElement(geom, _tag(A, "avLst"))
     style = style or {}
     fill = SubElement(sp_pr, _tag(A, "solidFill"))
-    SubElement(fill, _tag(A, "srgbClr"), val=style.get("fill", "E8F1FF").lstrip("#").upper())
+    SubElement(
+        fill, _tag(A, "srgbClr"), val=style.get("fill", "E8F1FF").lstrip("#").upper()
+    )
     line = SubElement(sp_pr, _tag(A, "ln"), w="12700")
     line_fill = SubElement(line, _tag(A, "solidFill"))
-    SubElement(line_fill, _tag(A, "srgbClr"), val=style.get("stroke", "4472C4").lstrip("#").upper())
+    SubElement(
+        line_fill,
+        _tag(A, "srgbClr"),
+        val=style.get("stroke", "4472C4").lstrip("#").upper(),
+    )
     _add_text(sp, text)
     SubElement(anchor, _tag(XDR, "clientData"))
 
 
-def _add_edge_label(root: Element, label_id: int, text: str, source: Position, target: Position) -> None:
+def _add_edge_label(
+    root: Element, label_id: int, text: str, source: Position, target: Position
+) -> None:
     """Add an editable, transparent text box near an edge label."""
     sx = source.x + source.width / 2
     sy = source.y + source.height / 2
@@ -112,7 +128,9 @@ def _add_edge_label(root: Element, label_id: int, text: str, source: Position, t
     _marker(anchor, "to", round((x + width) / 64), round(max(0, y + height) / 20))
     shape = SubElement(anchor, _tag(XDR, "sp"), macro="", textlink="")
     nv = SubElement(shape, _tag(XDR, "nvSpPr"))
-    c_nv_pr = SubElement(nv, _tag(XDR, "cNvPr"), id=str(label_id), name=f"label_{label_id}")
+    c_nv_pr = SubElement(
+        nv, _tag(XDR, "cNvPr"), id=str(label_id), name=f"label_{label_id}"
+    )
     _add_creation_id(c_nv_pr, label_id)
     SubElement(nv, _tag(XDR, "cNvSpPr"))
     sp_pr = SubElement(shape, _tag(XDR, "spPr"))
@@ -189,7 +207,9 @@ def _add_connector(
     else:
         source_idx, target_idx = 4, 1  # left -> top
     SubElement(c_nv_cxn, _tag(A, "stCxn"), id=str(source_shape_id), idx=str(source_idx))
-    SubElement(c_nv_cxn, _tag(A, "endCxn"), id=str(target_shape_id), idx=str(target_idx))
+    SubElement(
+        c_nv_cxn, _tag(A, "endCxn"), id=str(target_shape_id), idx=str(target_idx)
+    )
 
     sp_pr = SubElement(connector, _tag(XDR, "spPr"))
     transform_attrs = {}
@@ -198,8 +218,18 @@ def _add_connector(
     if dy < 0:
         transform_attrs["flipV"] = "1"
     xfrm = SubElement(sp_pr, _tag(A, "xfrm"), **transform_attrs)
-    SubElement(xfrm, _tag(A, "off"), x=str(round(min(sx, tx) * 12700)), y=str(round(min(sy, ty) * 12700)))
-    SubElement(xfrm, _tag(A, "ext"), cx=str(max(1, round(abs(tx - sx) * 12700))), cy=str(max(1, round(abs(ty - sy) * 12700))))
+    SubElement(
+        xfrm,
+        _tag(A, "off"),
+        x=str(round(min(sx, tx) * 12700)),
+        y=str(round(min(sy, ty) * 12700)),
+    )
+    SubElement(
+        xfrm,
+        _tag(A, "ext"),
+        cx=str(max(1, round(abs(tx - sx) * 12700))),
+        cy=str(max(1, round(abs(ty - sy) * 12700))),
+    )
     geom = SubElement(sp_pr, _tag(A, "prstGeom"), prst="straightConnector1")
     SubElement(geom, _tag(A, "avLst"))
     line = SubElement(sp_pr, _tag(A, "ln"), w="12700")
@@ -209,7 +239,9 @@ def _add_connector(
     SubElement(anchor, _tag(XDR, "clientData"))
 
 
-def _add_subgraph_frame(root: Element, frame_id: int, name: str, node_positions: list[Position]) -> None:
+def _add_subgraph_frame(
+    root: Element, frame_id: int, name: str, node_positions: list[Position]
+) -> None:
     """Draw a light editable frame around a parsed Mermaid subgraph."""
     if not node_positions:
         return
@@ -223,7 +255,9 @@ def _add_subgraph_frame(root: Element, frame_id: int, name: str, node_positions:
     _marker(anchor, "to", round(right / 64), round(bottom / 20))
     shape = SubElement(anchor, _tag(XDR, "sp"), macro="", textlink="")
     nv = SubElement(shape, _tag(XDR, "nvSpPr"))
-    c_nv_pr = SubElement(nv, _tag(XDR, "cNvPr"), id=str(frame_id), name=f"subgraph_{frame_id}")
+    c_nv_pr = SubElement(
+        nv, _tag(XDR, "cNvPr"), id=str(frame_id), name=f"subgraph_{frame_id}"
+    )
     _add_creation_id(c_nv_pr, frame_id)
     SubElement(nv, _tag(XDR, "cNvSpPr"))
     sp_pr = SubElement(shape, _tag(XDR, "spPr"))
@@ -243,7 +277,9 @@ def generate_drawing_xml(graph: Graph, positions: dict[str, Position]) -> str:
     index = 2
 
     for node_id, node in graph.nodes.items():
-        _add_shape(root, node_id, node.text, node.shape, positions[node_id], index, node.style)
+        _add_shape(
+            root, node_id, node.text, node.shape, positions[node_id], index, node.style
+        )
         index += 1
 
     shape_ids = {node_id: 2 + i for i, node_id in enumerate(graph.nodes)}
@@ -262,7 +298,9 @@ def generate_drawing_xml(graph: Graph, positions: dict[str, Position]) -> str:
         )
         index += 1
         if edge.label:
-            _add_edge_label(root, index, edge.label, positions[edge.source], positions[edge.target])
+            _add_edge_label(
+                root, index, edge.label, positions[edge.source], positions[edge.target]
+            )
             index += 1
 
     for name, node_ids in graph.subgraphs.items():
@@ -274,4 +312,6 @@ def generate_drawing_xml(graph: Graph, positions: dict[str, Position]) -> str:
         )
         index += 1
 
-    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' + tostring(root, encoding="unicode")
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' + tostring(
+        root, encoding="unicode"
+    )

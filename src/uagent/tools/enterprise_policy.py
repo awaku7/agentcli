@@ -177,7 +177,11 @@ def _split_endpoint(value: str) -> SplitResult | None:
     candidate = raw if "://" in raw else f"//{raw}"
     try:
         parsed = urlsplit(candidate)
-        if not parsed.hostname or parsed.username is not None or parsed.password is not None:
+        if (
+            not parsed.hostname
+            or parsed.username is not None
+            or parsed.password is not None
+        ):
             return None
         _ = parsed.port
         return parsed
@@ -194,7 +198,9 @@ def _effective_port(parsed: SplitResult) -> int | None:
 def _host_matches(pattern_host: str, target_host: str) -> bool:
     pattern = pattern_host.rstrip(".").lower()
     target = target_host.rstrip(".").lower()
-    return bool(pattern and target and (target == pattern or target.endswith("." + pattern)))
+    return bool(
+        pattern and target and (target == pattern or target.endswith("." + pattern))
+    )
 
 
 def _path_matches(pattern_path: str, target_path: str) -> bool:
@@ -224,7 +230,11 @@ def _endpoint_matches(pattern: str, target: str) -> bool:
         and actual_port not in {80, 443}
     ):
         return False
-    if expected.path and expected.path != "/" and not _path_matches(expected.path, actual.path):
+    if (
+        expected.path
+        and expected.path != "/"
+        and not _path_matches(expected.path, actual.path)
+    ):
         return False
     return True
 

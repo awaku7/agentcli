@@ -4,7 +4,9 @@ from dataclasses import replace
 from .model import Edge, Graph, Node
 
 _HEADER = re.compile(r"^\s*flowchart\s+(TD|TB|LR|RL)\s*$")
-_NODE = re.compile(r"(?P<id>[A-Za-z_][\w-]*)\s*(?P<open>\[|\{|\(\()(?P<text>.*?)(?P<close>\]|\}|\)\))")
+_NODE = re.compile(
+    r"(?P<id>[A-Za-z_][\w-]*)\s*(?P<open>\[|\{|\(\()(?P<text>.*?)(?P<close>\]|\}|\)\))"
+)
 _EDGE = re.compile(
     r"(?P<source>[A-Za-z_][\w-]*)(?:\s*(?:\[.*?\]|\{.*?\}|\(\(.*?\)\)))?"
     r"\s*-->(?:\|(?P<label>[^|]*)\|)?\s*"
@@ -80,7 +82,11 @@ def parse_mermaid(source: str) -> Graph:
         edge = _EDGE.search(line)
         if edge:
             graph.edges.append(
-                Edge(edge.group("source"), edge.group("target"), (edge.group("label") or "").strip())
+                Edge(
+                    edge.group("source"),
+                    edge.group("target"),
+                    (edge.group("label") or "").strip(),
+                )
             )
 
     for node_id, style_name in style_users.items():

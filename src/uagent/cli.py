@@ -287,7 +287,12 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         parts = after_auto.split()
                         last = parts[-1] if parts else ""
                         if not parts or after_auto.endswith(" "):
-                            candidates = ["off", "INFINITE", "--infinite", "--max-rounds"]
+                            candidates = [
+                                "off",
+                                "INFINITE",
+                                "--infinite",
+                                "--max-rounds",
+                            ]
                             for value in candidates:
                                 if value.startswith(last):
                                     yield Completion(value, start_position=-len(last))
@@ -296,7 +301,16 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 if value.startswith(last):
                                     yield Completion(value, start_position=-len(last))
                         elif len(parts) >= 2 and parts[-2] == "--max-rounds":
-                            for value in ("1", "5", "10", "20", "30", "50", "100", "INFINITE"):
+                            for value in (
+                                "1",
+                                "5",
+                                "10",
+                                "20",
+                                "30",
+                                "50",
+                                "100",
+                                "INFINITE",
+                            ):
                                 if value.startswith(last):
                                     yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":plugin "):
@@ -306,8 +320,16 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         last = parts[-1] if parts else ""
                         if len(parts) <= 1:
                             values = [
-                                "list", "install", "remove", "uninstall", "enable",
-                                "disable", "reload", "info", "init", "validate",
+                                "list",
+                                "install",
+                                "remove",
+                                "uninstall",
+                                "enable",
+                                "disable",
+                                "reload",
+                                "info",
+                                "init",
+                                "validate",
                                 "marketplace",
                             ]
                             for value in values:
@@ -319,16 +341,32 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 values = ["add", "remove", "list", "update"]
                                 for value in values:
                                     if value.startswith(last):
-                                        yield Completion(value, start_position=-len(last))
-                            elif sub == "install" and (last.startswith("--") or after_plugin.endswith(" ")):
-                                values = ["--scope", "--name", "user", "project", "local"]
+                                        yield Completion(
+                                            value, start_position=-len(last)
+                                        )
+                            elif sub == "install" and (
+                                last.startswith("--") or after_plugin.endswith(" ")
+                            ):
+                                values = [
+                                    "--scope",
+                                    "--name",
+                                    "user",
+                                    "project",
+                                    "local",
+                                ]
                                 for value in values:
                                     if value.startswith(last):
-                                        yield Completion(value, start_position=-len(last))
-                            elif sub == "list" and (last.startswith("--") or after_plugin.endswith(" ")):
+                                        yield Completion(
+                                            value, start_position=-len(last)
+                                        )
+                            elif sub == "list" and (
+                                last.startswith("--") or after_plugin.endswith(" ")
+                            ):
                                 for value in ("--enabled", "--verbose"):
                                     if value.startswith(last):
-                                        yield Completion(value, start_position=-len(last))
+                                        yield Completion(
+                                            value, start_position=-len(last)
+                                        )
                     elif stripped.startswith(":mem-del "):
                         # Memory indexes are numeric; offer common index values.
                         after_mem = stripped[len(":mem-del ") :]
@@ -338,13 +376,19 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":shared-mem-del "):
                         after_shared_mem = stripped[len(":shared-mem-del ") :]
-                        last = after_shared_mem.split()[-1] if after_shared_mem.split() else ""
+                        last = (
+                            after_shared_mem.split()[-1]
+                            if after_shared_mem.split()
+                            else ""
+                        )
                         for value in ("0", "1", "2", "3", "4", "5", "10"):
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":profile-fromlog "):
                         after_profile = stripped[len(":profile-fromlog ") :]
-                        last = after_profile.split()[-1] if after_profile.split() else ""
+                        last = (
+                            after_profile.split()[-1] if after_profile.split() else ""
+                        )
                         for value in ("0", "10", "50", "100", "500"):
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))
@@ -604,7 +648,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(val, start_position=-len(v_prefix))
                     elif stripped.startswith(":profile fromlog "):
                         after_profile = stripped[len(":profile fromlog ") :]
-                        last = after_profile.split()[-1] if after_profile.split() else ""
+                        last = (
+                            after_profile.split()[-1] if after_profile.split() else ""
+                        )
                         for value in ("0", "10", "50", "100", "500"):
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))

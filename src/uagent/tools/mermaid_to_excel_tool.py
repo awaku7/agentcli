@@ -69,9 +69,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         )
     if not output_path:
-        raise ValueError(
-            _("error.output_required", default="output_path is required")
-        )
+        raise ValueError(_("error.output_required", default="output_path is required"))
     if not output_path.lower().endswith(".xlsx"):
         raise ValueError(
             _(
