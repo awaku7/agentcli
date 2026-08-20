@@ -35,6 +35,7 @@ def _ensure_provider_dependency(provider: str) -> None:
     except Exception as exc:
         raise ImportError(f"Failed to prepare {package_name}: {exc}") from exc
 
+
 from threading import Lock
 
 _HTTPX_CLIENTS: list[Any] = []

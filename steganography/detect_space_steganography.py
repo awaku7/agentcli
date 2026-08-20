@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 NORMAL_SPACE = "\u0020"  # 0
-NO_BREAK_SPACE = "\u00A0"  # 1
+NO_BREAK_SPACE = "\u00a0"  # 1
 
 
 def extract_bits(text: str) -> str:
@@ -26,10 +26,7 @@ def bits_to_bytes(bits: str) -> bytes:
         raise ValueError("ビット数が8の倍数ではありません")
     if any(bit not in "01" for bit in bits):
         raise ValueError("ビット列には0と1だけを指定してください")
-    return bytes(
-        int(bits[index : index + 8], 2)
-        for index in range(0, len(bits), 8)
-    )
+    return bytes(int(bits[index : index + 8], 2) for index in range(0, len(bits), 8))
 
 
 def decode_repeated_bits(bits: str, byte_length: int) -> str:

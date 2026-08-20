@@ -127,9 +127,7 @@ def _is_org_backup_glob(s: str) -> bool:
         return False
     # Permit *.org, *.org* / *.org[0-9]*, and recursive variants.
     return (
-        len(parts) == 1
-        or parts[-2] == "**"
-        or not _has_glob_meta("/".join(parts[:-1]))
+        len(parts) == 1 or parts[-2] == "**" or not _has_glob_meta("/".join(parts[:-1]))
     )
 
 
@@ -144,7 +142,9 @@ def is_org_backup_request(args: dict[str, Any]) -> bool:
     if isinstance(raw_input, str):
         items = [raw_input.strip()] if raw_input.strip() else []
     elif isinstance(raw_input, list):
-        items = [item.strip() for item in raw_input if isinstance(item, str) and item.strip()]
+        items = [
+            item.strip() for item in raw_input if isinstance(item, str) and item.strip()
+        ]
     else:
         return False
     if not items or not all(_is_org_backup_glob(item) for item in items):

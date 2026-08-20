@@ -7,7 +7,6 @@ from typing import Any
 
 from ..env_utils import env_get
 
-
 _TRUE = {"1", "true", "yes", "on", "enable", "enabled"}
 _FALSE = {"0", "false", "no", "off", "disable", "disabled"}
 
@@ -32,7 +31,11 @@ def _structured_request(messages: list[dict[str, Any]]) -> dict[str, Any] | None
         marker = "\n\nresponse_schema:\n"
         if marker in content:
             raw = content.split(marker, 1)[1]
-            for end_marker in ("\n\nrequired_fields:", "\n\nstrict_output:", "\n\nevidence_required:"):
+            for end_marker in (
+                "\n\nrequired_fields:",
+                "\n\nstrict_output:",
+                "\n\nevidence_required:",
+            ):
                 raw = raw.split(end_marker, 1)[0]
             try:
                 schema = json.JSONDecoder().raw_decode(raw.lstrip())[0]
@@ -60,7 +63,10 @@ def apply_openai_chat_structured_output(
     chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]]
 ) -> None:
     """Apply OpenAI Chat Completions Structured Output when requested."""
-    if provider not in {"openai", "azure", "openrouter", "deepseek"} or "response_format" in chat_kwargs:
+    if (
+        provider not in {"openai", "azure", "openrouter", "deepseek"}
+        or "response_format" in chat_kwargs
+    ):
         return
     response_format = _structured_request(messages)
     if response_format is not None:

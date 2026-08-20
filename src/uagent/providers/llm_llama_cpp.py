@@ -37,7 +37,10 @@ def _llama_cpp_output_format(messages: list[dict[str, Any]] | None = None) -> An
 
 
 def apply_llama_cpp_extra_body(
-    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]] | None = None
+    chat_kwargs: dict[str, Any],
+    *,
+    provider: str,
+    messages: list[dict[str, Any]] | None = None,
 ) -> None:
     """Pass llama-server sampling options through OpenAI extra_body."""
     if provider != "llama_cpp":

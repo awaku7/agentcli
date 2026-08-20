@@ -90,13 +90,10 @@ def test_ollama_output_format_json_schema(monkeypatch):
     messages = [
         {
             "role": "system",
-            "content": (
-                '''response_mode: json
+            "content": ("""response_mode: json
 
 response_schema:
-'''
-                '{"type":"object","properties":{"answer":{"type":"string"}}}'
-            ),
+""" '{"type":"object","properties":{"answer":{"type":"string"}}}'),
         }
     ]
 

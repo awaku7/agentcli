@@ -10,9 +10,8 @@ from __future__ import annotations
 
 import sys
 
-
 NORMAL_SPACE = "\u0020"
-NO_BREAK_SPACE = "\u00A0"
+NO_BREAK_SPACE = "\u00a0"
 
 
 def text_to_bits(value: str) -> str:
@@ -27,10 +26,7 @@ def bits_to_text(bits: str) -> str:
     if any(bit not in "01" for bit in bits):
         raise ValueError("ビット列には0と1だけを指定してください")
 
-    data = bytes(
-        int(bits[index : index + 8], 2)
-        for index in range(0, len(bits), 8)
-    )
+    data = bytes(int(bits[index : index + 8], 2) for index in range(0, len(bits), 8))
     return data.decode("utf-8")
 
 
@@ -91,7 +87,9 @@ def embed_repeating_text(carrier: str, hidden_text: str) -> str:
     bit_index = 0
     for char in carrier:
         if char == NORMAL_SPACE:
-            result.append(NO_BREAK_SPACE if bits[bit_index % len(bits)] == "1" else NORMAL_SPACE)
+            result.append(
+                NO_BREAK_SPACE if bits[bit_index % len(bits)] == "1" else NORMAL_SPACE
+            )
             bit_index += 1
         else:
             result.append(char)

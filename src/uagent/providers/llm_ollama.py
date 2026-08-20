@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from ..env_utils import env_get
@@ -112,7 +111,10 @@ def _ollama_output_format(messages: list[dict[str, Any]] | None = None) -> Any:
 
 
 def apply_ollama_extra_body(
-    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]] | None = None
+    chat_kwargs: dict[str, Any],
+    *,
+    provider: str,
+    messages: list[dict[str, Any]] | None = None,
 ) -> None:
     """Apply Ollama-specific ChatCompletions request options via extra_body."""
 
