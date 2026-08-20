@@ -49,6 +49,28 @@ def _json_out(**payload: Any) -> str:
     return json.dumps(data, ensure_ascii=False, default=lambda x: str(x))
 
 
+def _error_out(message: Any, code: str = "MCP_ERROR") -> str:
+    return _json_out(ok=False, error={"code": code, "message": str(message)})
+
+
+def _finalize_output(value: Any) -> str:
+    """Return the public handle_mcp_v2 result as valid JSON text.
+
+    MCP servers are allowed to return plain text. Keep already-enveloped JSON
+    intact, parse other valid JSON values, and wrap non-JSON text in a stable
+    result object. This is deliberately the final step so output truncation
+    cannot leave callers with malformed JSON.
+    """
+    text = value if isinstance(value, str) else str(value)
+    try:
+        parsed = json.loads(text)
+    except (TypeError, json.JSONDecodeError):
+        return _json_out(ok=True, result={"text": text})
+    if isinstance(parsed, dict) and "ok" in parsed:
+        return json.dumps(parsed, ensure_ascii=False, default=lambda x: str(x))
+    return _json_out(ok=True, result=parsed)
+
+
 def mask_values(data: Any) -> Any:
     """Replace values in a dictionary or list with '*' (preserving structure)."""
     if isinstance(data, dict):
@@ -153,7 +175,7 @@ async def _call_mcp_stdio(
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:
-        return f"[Error] MCP stdio call failed: {exc}"
+        return _error_out(f"MCP stdio call failed: {exc}", "MCP_STDIO_CALL_FAILED")
 
 
 def _resolve_http_headers(raw: Any) -> dict[str, str]:
@@ -199,7 +221,7 @@ async def _call_mcp_http(
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:
-        return f"[Error] MCP http call failed: {exc}"
+        return _error_out(f"MCP http call failed: {exc}", "MCP_HTTP_CALL_FAILED")
 
 
 def _format_result(result: Any) -> str:
@@ -394,7 +416,10 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     if not name:
-        return _("err.tool_name_required", default="Error: tool_name is required.")
+        return _error_out(
+            _("err.tool_name_required", default="Error: tool_name is required."),
+            "TOOL_NAME_REQUIRED",
+        )
 
     masked_argv = mask_values(argv)
     print(f"[MCP Call] Tool: {name}", file=sys.stderr)
@@ -428,17 +453,23 @@ def run_tool(args: dict[str, Any]) -> str:
                             found = True
                             break
                     if not found and not url:
-                        return f"Error: Server with name '{server_name}' not found in {config_path}"
+                        return _error_out(
+                            f"Server with name '{server_name}' not found in {config_path}",
+                            "MCP_SERVER_NOT_FOUND",
+                        )
             except Exception as e:
-                return f"Error loading MCP config: {e}"
+                return _error_out(f"Error loading MCP config: {e}", "MCP_CONFIG_ERROR")
 
     if not url and not command:
         if server_name:
             pass
         else:
-            return (
-                "MCP server is not configured. Please add a server via mcp_servers (action=add) (or create a config via mcp_servers (action=init_template)) "
-                "and then specify server_name/url. (No operation performed)"
+            return _error_out(
+                "MCP server is not configured. Please add a server via mcp_servers "
+                "(action=add) (or create a config via mcp_servers "
+                "(action=init_template)) and then specify server_name/url. "
+                "(No operation performed)",
+                "MCP_SERVER_NOT_CONFIGURED",
             )
 
     try:
@@ -449,7 +480,10 @@ def run_tool(args: dict[str, Any]) -> str:
         elif url.startswith("stdio://"):
             parts = url[8:].strip().split()
             if not parts:
-                return _("err.stdio_url_invalid", default="Error: Invalid stdio url")
+                return _error_out(
+                    _("err.stdio_url_invalid", default="Error: Invalid stdio url"),
+                    "INVALID_STDIO_URL",
+                )
             result_text = asyncio.run(
                 _call_mcp_stdio(parts[0], parts[1:], {}, name, argv, protocol_mode)
             )
@@ -460,10 +494,14 @@ def run_tool(args: dict[str, Any]) -> str:
         trunc = getattr(cb, "truncate_output", None)
         if callable(trunc):
             try:
-                return trunc("handle_mcp_v2", result_text, 200_000)
+                truncated = trunc("handle_mcp_v2", result_text, 200_000)
             except TypeError:
-                return trunc("handle_mcp_v2", result_text, limit=200_000)
-        return result_text
+                truncated = trunc("handle_mcp_v2", result_text, limit=200_000)
+            return _finalize_output(truncated)
+        return _finalize_output(result_text)
 
     except Exception as e:
-        return f"Unexpected error in run_tool: {str(e)}"
+        return _error_out(
+            f"Unexpected error in run_tool: {str(e)}",
+            "MCP_UNEXPECTED_ERROR",
+        )

@@ -74,7 +74,11 @@ def test_handle_mcp_v2_uses_http_and_truncates(monkeypatch: pytest.MonkeyPatch) 
             "tool_arguments": {"a": 1},
         }
     )
-    assert out == "TRUNC(handle_mcp_v2)[HTTP_RESULT]"
+    payload = json.loads(out)
+    assert payload == {
+        "ok": True,
+        "result": {"text": "TRUNC(handle_mcp_v2)[HTTP_RESULT]"},
+    }
 
 
 def test_handle_mcp_v2_stdio_url_uses_stdio(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -101,7 +105,32 @@ def test_handle_mcp_v2_stdio_url_uses_stdio(monkeypatch: pytest.MonkeyPatch) -> 
     monkeypatch.setattr(m, "get_callbacks", lambda: cb)
 
     out = m.run_tool({"url": "stdio://mycmd --flag", "tool_name": "some_tool"})
-    assert out == "TRUNC(handle_mcp_v2)[STDIO_RESULT]"
+    payload = json.loads(out)
+    assert payload == {
+        "ok": True,
+        "result": {"text": "TRUNC(handle_mcp_v2)[STDIO_RESULT]"},
+    }
+
+
+def test_finalize_output_wraps_plain_text_and_preserves_json() -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    plain = json.loads(m._finalize_output("not json"))
+    assert plain == {"ok": True, "result": {"text": "not json"}}
+
+    structured = json.loads(m._finalize_output('{"value": 1}'))
+    assert structured == {"ok": True, "result": {"value": 1}}
+
+    error = json.loads(m._finalize_output('{"ok": false, "error": "bad"}'))
+    assert error == {"ok": False, "error": "bad"}
+
+
+def test_run_tool_validation_errors_are_json() -> None:
+    from uagent.tools.handle_mcp_v2_tool import run_tool
+
+    payload = json.loads(run_tool({}))
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "TOOL_NAME_REQUIRED"
 
 
 def test_format_result_saves_returned_file_payload(
