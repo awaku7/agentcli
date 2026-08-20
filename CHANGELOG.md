@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.4] - 2026-08-20
+
+### Added
+
+- feat: add unified structured output support across compatible providers
+- docs: add enterprise policy editing guidance
+
+### Changed
+
+- fix: map Gemini function responses to the supported `user` content role
+- fix: allow deletion of numeric `.org` backup files without an additional confirmation prompt
+- fix: normalize MCP tool results as JSON
+- style: apply Ruff and Black formatting across the project
+- test: add coverage for Ollama request compatibility
+
+
 ## [0.6.3] - 2026-08-19
 
 ### Added
