@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from ..env_utils import env_get
@@ -25,6 +26,28 @@ def _int(name: str, default: int) -> int | None:
         return None
 
 
+def _llama_cpp_output_format() -> Any:
+    """Read an optional JSON output format or JSON Schema from the env."""
+
+    raw = (env_get("UAGENT_LLAMA_CPP_FORMAT", "") or "").strip()
+    if not raw:
+        return None
+    if raw.lower() == "json":
+        return {"type": "json_object"}
+    try:
+        schema = json.loads(raw)
+    except (TypeError, ValueError):
+        return None
+    if not isinstance(schema, dict):
+        return None
+    if schema.get("type") == "json_schema" and "json_schema" in schema:
+        return schema
+    return {
+        "type": "json_schema",
+        "json_schema": {"name": "response", "schema": schema},
+    }
+
+
 def apply_llama_cpp_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
     """Pass llama-server sampling options through OpenAI extra_body."""
     if provider != "llama_cpp":
@@ -42,6 +65,14 @@ def apply_llama_cpp_extra_body(chat_kwargs: dict[str, Any], *, provider: str) ->
         options["min_p"] = min_p
     if repeat_penalty is not None and repeat_penalty > 0:
         options["repeat_penalty"] = repeat_penalty
-    if options:
+    output_format = _llama_cpp_output_format()
+    if output_format is not None and "response_format" not in extra:
+        extra["response_format"] = output_format
+
+    grammar = (env_get("UAGENT_LLAMA_CPP_GRAMMAR", "") or "").strip()
+    if grammar and "grammar" not in extra:
+        extra["grammar"] = grammar
+
+    if options or output_format is not None or grammar:
         extra.update(options)
         chat_kwargs["extra_body"] = extra

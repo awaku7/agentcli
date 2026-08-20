@@ -90,6 +90,8 @@ Required when `UAGENT_PROVIDER=llama_cpp`:
 - `UAGENT_LLAMA_CPP_TOP_K` (optional): Restricts sampling to the top K candidate tokens. Smaller values are more conservative; unset uses the llama-server default.
 - `UAGENT_LLAMA_CPP_MIN_P` (optional): Removes tokens whose probability is below this fraction of the most likely token. Higher values narrow the candidate set; unset uses the llama-server default.
 - `UAGENT_LLAMA_CPP_REPEAT_PENALTY` (optional): Penalizes tokens that have already appeared. `1.0` disables the penalty; higher values suppress repetition more strongly. Unset uses the llama-server default.
+- `UAGENT_LLAMA_CPP_FORMAT` (optional): set to `json` or a JSON Schema to request structured output through `response_format`.
+- `UAGENT_LLAMA_CPP_GRAMMAR` (optional): set a llama-server GBNF grammar string. If combined with `FORMAT`, server compatibility rules apply.
 
 These values are sent as llama-server `extra_body` sampling parameters. Invalid values and values less than or equal to zero are not sent.
 

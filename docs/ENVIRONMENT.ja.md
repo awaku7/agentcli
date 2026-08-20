@@ -90,6 +90,8 @@ set UAGENT_RESPONSES=0
 - `UAGENT_LLAMA_CPP_TOP_K`（省略可）: サンプリング候補を上位 K 個に制限します。小さいほど保守的になり、未設定時は llama-server の既定値を使用します。
 - `UAGENT_LLAMA_CPP_MIN_P`（省略可）: 最も確率の高いトークンに対する相対確率がこの値未満の候補を除外します。大きいほど候補が絞られ、未設定時は llama-server の既定値を使用します。
 - `UAGENT_LLAMA_CPP_REPEAT_PENALTY`（省略可）: 既出トークンにペナルティをかけます。`1.0` は無効で、値を大きくすると反復を強く抑制します。未設定時は llama-server の既定値を使用します。
+- `UAGENT_LLAMA_CPP_FORMAT`（省略可）: `json` または JSON Schema を指定すると、`response_format` による構造化出力を要求します。
+- `UAGENT_LLAMA_CPP_GRAMMAR`（省略可）: llama-server の GBNF grammar を指定します。`FORMAT` と併用した場合はサーバー側の互換性に従います。
 
 これらの値は llama-server の `extra_body` サンプリングパラメータとして送信されます。不正な値および 0 以下の値は送信されません。
 
