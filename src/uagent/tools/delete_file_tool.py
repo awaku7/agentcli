@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 from typing import Any
 
@@ -114,6 +115,27 @@ def _human_confirm(message: str) -> bool:
 def _has_glob_meta(s: str) -> bool:
     # Spec: treat as glob only when meta characters are present.
     return any(ch in s for ch in ("*", "?", "["))
+
+
+def _is_org_backup_glob(s: str) -> bool:
+    """Return whether *s* is an explicit ``*.org`` backup glob."""
+    pattern = str(s or "").strip().replace("\\", "/")
+    if not pattern or not _has_glob_meta(pattern):
+        return False
+    parts = [part for part in pattern.split("/") if part]
+    if not parts or parts[-1] not in ("*.org", "*.org*", "*.org[0-9]*"):
+        return False
+    # Permit *.org, *.org* / *.org[0-9]*, and recursive variants.
+    return (
+        len(parts) == 1
+        or parts[-2] == "**"
+        or not _has_glob_meta("/".join(parts[:-1]))
+    )
+
+
+def _is_numeric_org_backup(path: str) -> bool:
+    """Match backup names ending in .org or .org followed only by digits."""
+    return re.fullmatch(r".+\.org[0-9]*", os.path.basename(path)) is not None
 
 
 def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
@@ -252,7 +274,10 @@ def run_tool(args: dict[str, Any]) -> str:
         ),
     ).format(count=len(all_matches), paths=preview_list)
 
-    if not confirmed and not _human_confirm(msg):
+    org_backup_only = all(_is_org_backup_glob(item) for item in items) and all(
+        os.path.isfile(path) and _is_numeric_org_backup(path) for path in all_matches
+    )
+    if not confirmed and not org_backup_only and not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     deleted: list[str] = []

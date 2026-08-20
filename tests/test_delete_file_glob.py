@@ -101,3 +101,28 @@ def test_delete_file_globstar_recursive_dry_run_lists_matches(
     assert res["count"] == 2
     matches = sorted(Path(p).name for p in res["matches"])
     assert matches == ["one.org1", "top.org"]
+
+
+def test_delete_file_org_glob_skips_internal_confirmation(
+    monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path
+) -> None:
+    target = repo_tmp_path / "nested" / "backup.org12"
+    target.parent.mkdir()
+    target.write_text("x", encoding="utf-8")
+
+    def _boom(_message: str) -> bool:
+        raise AssertionError("internal confirmation should be skipped for *.org")
+
+    monkeypatch.setattr("uagent.tools.delete_file_tool._human_confirm", _boom)
+
+    res = _run_delete_file(
+        {
+            "filename": str(repo_tmp_path / "**" / "*.org*"),
+            "missing_ok": False,
+            "dry_run": False,
+        }
+    )
+
+    assert res["ok"] is True
+    assert res["deleted"] is True
+    assert not target.exists()

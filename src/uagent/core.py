@@ -2110,6 +2110,7 @@ SYSTEM_PROMPT_DANGEROUS_DELETE_FILE = _("""## Dangerous operation policy (delete
 - Always run delete_file with dry_run=true first to get the list of deletion candidates.
 - Show the candidates to the user and ask confirmation via human_ask exactly once.
 - Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.
+- Exception: when the user explicitly requests only backup globs such as `*.org`, `**/*.org`, or `**/*.org*` and every match ends in `.org` plus digits only, the delete_file tool may execute without invoking human_ask (it must still preview first).
 - If there are zero candidates, do not ask; just report that nothing will be deleted.
 """)
 
