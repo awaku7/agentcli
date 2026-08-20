@@ -694,13 +694,14 @@ def gemini_chat_with_tools(
             return None
 
     def _append(role: str, part: gemini_types.Part) -> None:
-        # google-genai SDK expects "model" for assistant and "tool" for tool responses.
-        # Map internal role names to Gemini API expected roles.
+        # Gemini generate_content accepts only user/model content roles.
+        # Function responses are represented by a function_response Part, but
+        # must be wrapped in a user Content (the SDK/API rejects role="tool").
         gemini_role = role
         if role == "assistant":
             gemini_role = "model"
         elif role == "tool":
-            gemini_role = "tool"
+            gemini_role = "user"
 
         if contents and getattr(contents[-1], "role", None) == gemini_role:
             try:
