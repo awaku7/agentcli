@@ -138,6 +138,29 @@ def _is_numeric_org_backup(path: str) -> bool:
     return re.fullmatch(r".+\.org[0-9]*", os.path.basename(path)) is not None
 
 
+def is_org_backup_request(args: dict[str, Any]) -> bool:
+    """Return whether delete_file args target only numeric .org backups."""
+    raw_input = args.get("filename", args.get("path"))
+    if isinstance(raw_input, str):
+        items = [raw_input.strip()] if raw_input.strip() else []
+    elif isinstance(raw_input, list):
+        items = [item.strip() for item in raw_input if isinstance(item, str) and item.strip()]
+    else:
+        return False
+    if not items or not all(_is_org_backup_glob(item) for item in items):
+        return False
+    try:
+        allow_dir = args.get("allow_dir", True)
+        matches = []
+        for item in items:
+            matches.extend(_resolve_matches(item, allow_dir=allow_dir))
+        return bool(matches) and all(
+            os.path.isfile(path) and _is_numeric_org_backup(path) for path in matches
+        )
+    except Exception:
+        return False
+
+
 def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
     """Resolve one path/glob input into concrete absolute paths under workdir."""
 
