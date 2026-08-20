@@ -24,6 +24,7 @@ from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
+from .structured_output import structured_output_request
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -272,6 +273,13 @@ def zai_chat_with_tools(
                 reasoning=_reasoning,
                 auto_user_text=_auto_user_text,
             )
+
+            output_format = structured_output_request(call_messages)
+            if output_format is not None:
+                # Z.AI Structured Output currently documents JSON mode via
+                # response_format={"type": "json_object"}; the schema is
+                # communicated in the system prompt, not as json_schema.
+                chat_kwargs["response_format"] = {"type": "json_object"}
 
             if effort_used:
                 label = (

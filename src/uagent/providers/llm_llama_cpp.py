@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from ..env_utils import env_get
@@ -26,29 +25,20 @@ def _int(name: str, default: int) -> int | None:
         return None
 
 
-def _llama_cpp_output_format() -> Any:
-    """Read an optional JSON output format or JSON Schema from the env."""
+def _llama_cpp_output_format(messages: list[dict[str, Any]] | None = None) -> Any:
+    """Build llama-server JSON output format from shared Structured Output."""
 
-    raw = (env_get("UAGENT_LLAMA_CPP_FORMAT", "") or "").strip()
-    if not raw:
-        return None
-    if raw.lower() == "json":
-        return {"type": "json_object"}
-    try:
-        schema = json.loads(raw)
-    except (TypeError, ValueError):
-        return None
-    if not isinstance(schema, dict):
-        return None
-    if schema.get("type") == "json_schema" and "json_schema" in schema:
-        return schema
-    return {
-        "type": "json_schema",
-        "json_schema": {"name": "response", "schema": schema},
-    }
+    from .structured_output import structured_output_request
+
+    output_format = structured_output_request(messages or [])
+    if output_format is not None:
+        return output_format
+    return None
 
 
-def apply_llama_cpp_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
+def apply_llama_cpp_extra_body(
+    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]] | None = None
+) -> None:
     """Pass llama-server sampling options through OpenAI extra_body."""
     if provider != "llama_cpp":
         return
@@ -65,7 +55,7 @@ def apply_llama_cpp_extra_body(chat_kwargs: dict[str, Any], *, provider: str) ->
         options["min_p"] = min_p
     if repeat_penalty is not None and repeat_penalty > 0:
         options["repeat_penalty"] = repeat_penalty
-    output_format = _llama_cpp_output_format()
+    output_format = _llama_cpp_output_format(messages)
     if output_format is not None and "response_format" not in extra:
         extra["response_format"] = output_format
 

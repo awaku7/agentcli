@@ -1001,6 +1001,18 @@ def gemini_chat_with_tools(
     if max_output_tokens is not None:
         cfg_kwargs["max_output_tokens"] = max_output_tokens
 
+    # Shared Structured Output configuration.
+    try:
+        from .structured_output import structured_output_request
+
+        output_format = structured_output_request(messages)
+        if output_format is not None:
+            cfg_kwargs["response_mime_type"] = "application/json"
+            if output_format.get("type") == "json_schema":
+                cfg_kwargs["response_schema"] = output_format["json_schema"]["schema"]
+    except Exception:
+        pass
+
     # Apply safety settings to prevent Gemini from silently blocking or muting responses.
     # Users can opt out or customize via environment variables if needed.
     safety_off_env = (env_get("UAGENT_GEMINI_SAFETY_OFF") or "1").strip().lower()

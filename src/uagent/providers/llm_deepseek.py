@@ -33,6 +33,7 @@ from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
+from .structured_output import structured_output_request
 from ..reasoning_display import show_reasoning
 from ..llm_helpers import (
     _choose_auto_effort,
@@ -649,6 +650,12 @@ def deepseek_chat_with_tools(
                 auto_user_text=_auto_user_text,
                 provider=provider,
             )
+
+            output_format = structured_output_request(call_messages)
+            if output_format is not None:
+                # DeepSeek documents JSON Output via json_object. The
+                # requested schema remains in the system prompt.
+                chat_kwargs["response_format"] = {"type": "json_object"}
 
             if effort_used:
                 label = (

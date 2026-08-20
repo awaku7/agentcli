@@ -39,6 +39,11 @@ from .providers.llm_openrouter import (
 from .providers.llm_openrouter_responses import apply_openrouter_responses_compat
 from .providers.llm_ollama import apply_ollama_extra_body
 from .providers.llm_llama_cpp import apply_llama_cpp_extra_body
+from .providers.structured_output import (
+    apply_openai_chat_structured_output,
+    apply_openai_responses_structured_output,
+    structured_output_request,
+)
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
 from .providers.llm_pfn import pfn_chat_with_tools
@@ -322,6 +327,20 @@ def _call_claude_round(
                 if _effort_used
                 else None
             )
+            _claude_structured = structured_output_request(call_messages)
+            if _claude_structured is not None:
+                if not isinstance(_claude_out_cfg, dict):
+                    _claude_out_cfg = {}
+                if _claude_structured.get("type") == "json_schema":
+                    _claude_out_cfg["format"] = {
+                        "type": "json_schema",
+                        "schema": _claude_structured["json_schema"]["schema"],
+                    }
+                else:
+                    _claude_out_cfg["format"] = {
+                        "type": "json_schema",
+                        "schema": {"type": "object"},
+                    }
             if _claude_out_cfg is not None:
                 try:
                     if _reasoning == "auto":
@@ -642,6 +661,10 @@ def _call_openai_azure_round(
                     resp_kwargs["tools"] = req_tools
                     resp_kwargs["tool_choice"] = "auto"
 
+                apply_openai_responses_structured_output(
+                    resp_kwargs, provider=provider, messages=call_messages
+                )
+
                 apply_openrouter_responses_compat(
                     resp_kwargs,
                     provider=provider,
@@ -932,14 +955,22 @@ def _call_openai_azure_round(
                         # _execute_tool_calls based on their safety policy.
                         chat_kwargs["parallel_tool_calls"] = True
 
+                apply_openai_chat_structured_output(
+                    chat_kwargs, provider=provider, messages=call_messages
+                )
+
                 # OpenRouter provider routing / extensions (optional)
                 apply_openrouter_extra_body(chat_kwargs, provider=provider)
 
                 # Ollama provider routing / extensions (optional)
-                apply_ollama_extra_body(chat_kwargs, provider=provider)
+                apply_ollama_extra_body(
+                    chat_kwargs, provider=provider, messages=call_messages
+                )
 
                 # llama-server sampling extensions (optional)
-                apply_llama_cpp_extra_body(chat_kwargs, provider=provider)
+                apply_llama_cpp_extra_body(
+                    chat_kwargs, provider=provider, messages=call_messages
+                )
 
                 # OpenRouter/Azure-proxy tool schema compatibility workarounds
                 apply_openrouter_tool_schema_compat(chat_kwargs, provider=provider)

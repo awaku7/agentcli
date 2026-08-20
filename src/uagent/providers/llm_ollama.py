@@ -98,22 +98,22 @@ def _ollama_extra_params() -> dict[str, Any]:
     return params
 
 
-def _ollama_output_format() -> Any:
-    """Return an optional Ollama native JSON output format."""
+def _ollama_output_format(messages: list[dict[str, Any]] | None = None) -> Any:
+    """Build Ollama's JSON/JSON Schema format from shared configuration."""
 
-    raw = (env_get("UAGENT_OLLAMA_FORMAT", "") or "").strip()
-    if not raw:
+    from .structured_output import structured_output_request
+
+    output_format = structured_output_request(messages or [])
+    if output_format is None:
         return None
-    if raw.lower() == "json":
-        return "json"
-    try:
-        parsed = json.loads(raw)
-    except (TypeError, ValueError):
-        return None
-    return parsed if isinstance(parsed, dict) else None
+    if output_format.get("type") == "json_schema":
+        return output_format["json_schema"]["schema"]
+    return "json"
 
 
-def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
+def apply_ollama_extra_body(
+    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]] | None = None
+) -> None:
     """Apply Ollama-specific ChatCompletions request options via extra_body."""
 
     if provider != "ollama":
@@ -125,7 +125,7 @@ def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> No
             extra_body = {}
         extra_body.update(_ollama_extra_params())
         if "format" not in extra_body:
-            output_format = _ollama_output_format()
+            output_format = _ollama_output_format(messages)
             if output_format is not None:
                 extra_body["format"] = output_format
         chat_kwargs["extra_body"] = extra_body

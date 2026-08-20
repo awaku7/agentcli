@@ -228,20 +228,18 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            response_format_env = (
-                (env_get("UAGENT_RESPONSE_FORMAT") or "").strip().lower()
-            )
-            if response_format_env:
-                if response_format_env == "json":
-                    try:
-                        from xai_sdk.proto import chat_pb2
+            from .providers.structured_output import structured_output_request
 
-                        create_kwargs["response_format"] = chat_pb2.ResponseFormat(
-                            format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
-                            json_schema={"type": "object"},
-                        )
-                    except Exception:
-                        create_kwargs["response_format"] = {"type": "json_object"}
+            if structured_output_request(call_messages) is not None:
+                try:
+                    from xai_sdk.proto import chat_pb2
+
+                    create_kwargs["response_format"] = chat_pb2.ResponseFormat(
+                        format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
+                        json_schema={"type": "object"},
+                    )
+                except Exception:
+                    create_kwargs["response_format"] = {"type": "json_object"}
 
             # Add instructions as system message already included in xai_msgs
 
