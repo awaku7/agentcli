@@ -24,16 +24,22 @@ ________________
 ______________________
 ## Mengapa uag?
 
-**Berhenti dari kunci masuk vendor.** Kebanyakan pembantu AI mengikat anda dengan pembekal atau perkhidmatan awan tertentu. uag berbeza.
+```bash
+pip install uag
+uag
+```
 
-- **Berjalan secara setempat** pada mesin anda. Data anda kekal bersama anda (kecuali API panggilan yang anda buat).
-- **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 pembekal, semuanya boleh diakses daripada satu antara muka. Bertukar antara mereka dengan mengkonfigurasi semula pembolehubah persekitaran — tiada pemasangan semula, tiada migrasi.
-- **222 alatan**: Fail I/O, carian web, penjanaan imej, Gmail, pengimbasan peranti BLE, penyepaduan pelayan MCP — **130 ditandakan secara statik selari-selamat** (sehingga 8 jalankan serentak melalui PAR\`UAD_GENTUR_OR). Apabila LLM melancarkan berbilang panggilan alat serentak, uag menyamakannya secara automatik.
-- **3 UI + A2A**: CLI, GUI, Web dan protokol Ejen-ke-Ejen. Enjin yang sama, mana-mana antara muka.
-- **IoT sedia**: SwitchBot, ECHONET Lite, Matter, UPnP — kawal peranti rumah anda melalui AI.
-- **Kemahiran Ejen**: Pasang kemahiran yang dibina komuniti daripada pasaran. Lanjutkan uag tanpa henti.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag ialah **pembantu AI anda mengikut syarat anda**. Tidak terikat dengan pembekal, tidak terikat pada antara muka, tidak terikat pada platform.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Permulaan Pantas
 
@@ -339,3 +345,19 @@ Dasar peringkat organisasi untuk alatan, pembekal, bukti kelayakan, MCP pelayan,
 ### Runtime pemulihan dan orkestra
 
 Lihat [RESTART_RECOVERY.md](docs/Y.REMSTART_d) [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) untuk pemulihan yang tahan lama, pelaksanaan sedar kebergantungan, orkestrasi berbilang ejen dan penggunaan A2A dari jauh. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) untuk penyelarasan pajakan ketua masa jalanan bersama.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

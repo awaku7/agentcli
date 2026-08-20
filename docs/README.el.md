@@ -33,184 +33,30 @@ uag είναι **ο βοηθός σας τεχνητής νοημοσύνης μ
 ## Γρήγορη εκκίνηση
 
 ```bash
-εγκατάσταση pip uag
+pip install uag
 uag
 ```
 
-Με την πρώτη εκκίνηση, ο οδηγός εγκατάστασης σάς καθοδηγεί στη διαμόρφωση του παρόχου.
-Δείτε [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) για όλες τις μεταβλητές περιβάλλοντος.
-
-Το ## Computer Use
-
-Computer Use είναι ενεργοποιημένο και υποστηρίζει τόσο έναν ορατό χρόνο εκτέλεσης του προγράμματος περιήγησης Playwright
-όσο και έναν χρόνο εκτέλεσης επιτραπέζιου υπολογιστή. Όταν είναι ενεργοποιημένο, δημιουργούνται και καταχωρούνται και οι δύο χρόνοι εκτέλεσης.
-
-````bat
-ρυθμίστε UAGENT_COMPUTER_USE=1
-`στην επιφάνεια εργασίας. αντί. Runtime πόροι 
-κλείνουν μαζί κατά την κανονική έξοδο, "Ctrl-C" και τερματισμό της διαδικασίας. Ορίστε 
-`UAGENT_COMPUTER_HEADLESS=1` για δοκιμές CI ή καπνού βάσει προγράμματος περιήγησης.## Φωνή σε πραγματικό χρόνο και AEC3
-
-Η λειτουργία φωνής σε πραγματικό χρόνο υποστηρίζει OpenAI σε πραγματικό χρόνο, Azure OpenAI GPT σε πραγματικό χρόνο, xAI Grok Voice API, Google Gemini Multimodal Live API και με το Amazon Bedrock Full-On speaker Nova S/Sonic. Το απαιτούμενο σύστημα υποστήριξης «pywebrtc-audio» AEC3 εγκαθίσταται αυτόματα και το προαιρετικό SDK αμφίδρομης ροής του Bedrock εγκαθίσταται αυτόματα μόνο όταν έχει επιλεγεί ο πάροχος του Bedrock:
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
 ```bash
-python scheck.py σε πραγματικό χρόνο
-````
-
-Πραγματικά λαμβάνει το σήμα της γραμμής ήχου AEC3. στο ηχείο («μακριά»), ώστε ο βοηθός να μπορεί να ακούει ενώ μιλάει. Ενεργοποιήστε τα διαγνωστικά μόνο κατά τη διερεύνηση προβλημάτων ήχου:
-
-```bat
-set UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py σε πραγματικό χρόνο
+pip install "uag[core,providers,tools,development,platform,web]"
 ```
 
-### OpenAI Κλήση συνάρτησης σε πραγματικό χρόνο Ο τρέχων προσαρμογέας πραγματικού χρόνου εκθέτει αυτόματα το "get_current_time" μόνο για ανάγνωση. Τα καταστροφικά εργαλεία και τα στοιχεία ελέγχου συσκευών δεν εκτίθενται χωρίς ρητή λίστα επιτρεπόμενων και ροή επιβεβαίωσης. Το Grok σε πραγματικό χρόνο χρησιμοποιεί ξεχωριστό προσαρμογέα και δεν χρησιμοποιεί αυτήν τη διαδρομή κλήσης συνάρτησης συγκεκριμένης OpenAI.
-
-.## Χαρακτηριστικά
-
-### 🧠 Αρχιτεκτονική πολλών παρόχων
-
-OpenAI / PFN (PLaMo) / Azure / Υπόβαθρο / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Grok / N //VIavit Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
-
-Όλα τα σύνολα εργαλείων μοιράζονται τις ίδιες διασυνδέσεις και παρόχους. Κάντε εναλλαγή ρυθμίζοντας το "UAGENT_PROVIDER" — χωρίς αλλαγές κώδικα, χωρίς ξεχωριστές εγκαταστάσεις.
-
-#### Οι Ollama και llama.cpp
-
-Ollama και llama.cpp είναι ξεχωριστοί πάροχοι. Το Ollama χρησιμοποιεί τη δική του υπηρεσία και διαχείριση μοντέλων, ενώ το `llama.cpp` συνδέεται με ένα τελικό σημείο συμβατό με `llama-server` OpenAI:
+For a repository checkout with the full development and test environment:
 
 ```bash
-# llama.cpp / llama-server
-UAGENT_PROVIDER=llama_cpp
-UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
-UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=dummy
+pip install -r requirements.txt
 ```
-
-:pluginlist # List installed plugins
-:plugin install <source> [--scope] # Install (dir/zip/git/http)
-
-> plugin from install@ginll marketplace
-> :plugin remove <name> # Uninstall
-> :plugin enable/disable <name> # Toggle
-> :plugin marketplace add/remove/list # Manage marketplaces
-> :plugin init <name> # Scaffold new plugin
-
-```
-
-Δείτε [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) για πλήρη τεκμηρίωση.
-
-### 🔄 Συνέχεια συνεδρίας
-
-- **Αλλαγή παρόχου στη μέση της περιόδου σύνδεσης** με το `UAGENT_PRO`Η επαναφόρτωση του ιστορικού** διατηρείται η επαναφόρτωση του ιστορικού της περιόδου σύνδεσης UAGENT_PRO*. `:load <index>` — συνεχίστε από εκεί που σταματήσατε.
-- **Η προσωρινή αποθήκευση αποτελεσμάτων εργαλείου** αποφεύγει την περιττή επανεκτέλεση όταν επαναλαμβάνεται η ίδια κλήση εργαλείου.
-
-### 🛠 229 Εργαλεία
-
-| Κατηγορία | Εργαλεία |
-|---|---|
-| **Λειτουργίες αρχείων** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (αρχεία .eml), `path_alias` |
-| **Web** | fetch_url, search_web, στιγμιότυπο οθόνης, browser_playwright, "url_alias", "public_transit_route" ([οδηγός](docs/PUBLIC_TRANSIT_ROUTE.md)) |
-| **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transcribe |
-| **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
-| **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία πλοκής, i18n |
-| **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — ανατρέξτε στο [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) και [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **API Cloud** | `aws_api`, `gcp_api`, `azure_api` — γενικές λειτουργίες AWS, Google Cloud και Azure API. Οι λειτουργίες εγγραφής απαιτούν ρητή επιβεβαίωση |
-| **Εργαλεία προγραμματιστών** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 πλοηγοί πηγαίου κώδικα (οικογένεια idx)** |
-| **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση — [OAuth / Οδηγός διακομιστή μεσολάβησης](docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| **A2A** | Επικοινωνία agent-to-agent (με άλλες περιπτώσεις uag ή διακομιστές συμβατούς με A2A) |
-| **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
-| **Πηγή Nav** | **29 εργαλεία idx** για Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — λάβετε ευρετήριο συνάρτησης/κλάσης ή συγκεκριμένο ορισμό χωρίς να διαβάσετε ολόκληρο το αρχείο | `workspace_status`: αναφορά του κλάδου Git του ενεργού χώρου εργασίας, των αλλαγών, της κατάστασης ανάντη συγχρονισμού, του χρόνου εκτέλεσης Python και των κοινών δεικτών έργου χωρίς τροποποίηση αρχείων.
-- `git_review`: συνοψίστε τις αλλαγές Git, τα επικίνδυνα αρχεία, τους υποψήφιους δοκιμών και τα μυστικά ευρήματα χωρίς να αποκαλύψετε μυστικές τιμές. αρχεία.
-- `coverage_report`: εκτέλεση και κανονικοποίηση της κάλυψης για Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift και Dart/Flutter.
-- Οι εξαρτήσεις κάλυψης που λείπουν ζητείται αυτόματα όταν μπορεί να εγκατασταθεί η εκτέλεση. Το "dry_run" δεν εγκαθιστά ποτέ πακέτα.
-
-Ανατρέξτε στο [Repository Analysis Tools](docs/REPOSITORY_TOOLS.md) για παραμέτρους, στοιχεία εξόδου και ασφάλειας.
-
-Ανατρέξτε στην ενότητα [Path and URL aliases](docs/PATHES.URLm_ALIAS σύντομες διαδρομές και αρχεία URL PATHES_URL_ALIAS ορίσματα.
-
-### 🖥 4 διεπαφές + Επέκταση κώδικα VS
-
-| Λειτουργία | Εντολή | Σκοπός |
-|---|---|---|
-| **CLI** | `uag` | Γρήγορη λειτουργία με βάση το τερματικό |
-| **GUI** | `uagg` | Διεπαφή επιφάνειας εργασίας μέσω tkinter |
-| **Web** | `uagw` | Πρόσβαση βάσει προγράμματος περιήγησης |
-| **A2A Διακομιστής** | `uaga` | Πρωτόκολλο Agent2Agent για επικοινωνία πολλαπλών πρακτόρων |
-| **Κωδικός VS** | — | [Επέκταση](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) με Πλαίσιο συνομιλίας, Εξήγηση, Αναμόρφωση, Διόρθωση σφάλματος και Προβολή δέντρου εργαλείων |
-
-Δείτε [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) για λεπτομέρειες σχετικά με την επέκταση κώδικα VS — εγκατάσταση, εντολές, πληκτρολογήσεις και διαμόρφωση.
-
-### 🏠 **Συσκευές IoT Device Control:BAC/net* (HVAC, φωτισμός, μετρητές ισχύος). Συνδρομή COV για ειδοποιήσεις push
-- **Modbus TCP**: Ανάγνωση/εγγραφή αναμονής/εισαγωγή καταχωρητών και πηνίων. Παρακολούθηση αλλαγών βάσει δημοσκοπήσεων
-- **OPC UA**: Περιήγηση στο χώρο διευθύνσεων, ανάγνωση/εγγραφή μεταβλητών, εγγραφή σε αλλαγές δεδομένων
-- **SwitchBot**: Έλεγχος παρτίδας στο Cloud & σάρωση/έλεγχος BLE. Συνδρομή βάσει δημοσκοπήσεων
-- **ECHONET Lite**: Ανακαλύψτε, ελέγξτε και εγγραφείτε σε ειδοποιήσεις INF από οικιακές συσκευές (AC, φώτα, θερμοσίφωνες κ.λπ.)
-- **Θέμα**: Έλεγχος ανάγνωσης/εγγραφής + συνδρομή χαρακτηριστικών για παρακολούθηση αλλαγής κατάστασης
-- **UPnP***: Ανακάλυψη θύρας συσκευής [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-
-### 🎯 Agent Skills Marketplace
-
-`:skills mp_search` για περιήγηση στο [Skils]MPs](http://mpskills) [ClawHub](https://clawhub.ai) για δεξιότητες κοινότητας.
-Εγκαταστήστε και επεκτείνετε τις δυνατότητες του uag εν κινήσει.
-
-### 🤖 Αυτόματος πιλότος (`:auto`)
-
-uag μπορεί να **__αυξήσει πολλαπλούς γύρους σε πολλούς γύρους. Ιδανικό για σύνθετες εργασίες πολλών βημάτων που χρειάζονται επαναληπτική βελτίωση.
-
-- **Πώς λειτουργεί**: Κάθε γύρος έχει ένα κύριο ερώτημα (Βήμα Α) ακολουθούμενο από μια κρίση αναθεωρητή (Βήμα Β) που αποφασίζει "ΟΛΟΚΛΗΡΩΣΗ ή ΣΥΝΕΧΕΙΑ;"
-- **Ίδιος πάροχος, ίδια API ο κωδικός χρησιμοποιεί την κύρια διαδρομή του αναθεωρητή** — συμπεριλαμβανομένης της υποστήριξης Responses API.
-- **Ξεχωριστός κριτής LLM** (προαιρετικό): Ρυθμίστε το "UAGENT_AP_PROVIDER" ώστε να χρησιμοποιεί διαφορετικό πάροχο/μοντέλο για τον αναθεωρητή (π.χ. χρησιμοποιήστε ένα φθηνότερο μοντέλο για την κρίση).
-- **Έξοδος ανά πάσα στιγμή.**: Πατήστε αμέσως το πλήκτρο "x" μίλια για να σταματήσετε. Εναλλακτικά, αφήστε τον αναθεωρητή να αποφασίσει πότε θα επιτευχθεί ο στόχος.
-- **Δυνατότητα ρύθμισης**: `--max-rounds N` για έλεγχο του προϋπολογισμού.
-
-Ανατρέξτε στο [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main.docs/README.#_AUTO πλήρης documentation. 🧩 Το Batch State Manager
-
-uag μπορεί να παρακολουθεί την πρόοδο σε μακροχρόνιες εργασίες πολλών αρχείων. Όταν το LLM επεξεργάζεται δεκάδες αρχεία, το "batch_state" παραμένει στη λίστα των εκκρεμών, ολοκληρωμένων και αποτυχημένων αρχείων στο δίσκο. Εάν η περίοδος σύνδεσης τελειώσει ή λήξει ένας γύρος, η επόμενη εκτέλεση συνεχίζεται από εκεί που σταμάτησε — τίποτα δεν χάνεται.
-
-### 🛡 Το Human-in-the-Loop
-
-`human_ask` αφήνει το LLM να σταματήσει και να ζητήσει την επιβεβαίωσή σας πριν εκτελέσετε καταστροφικές λειτουργίες (διαγραφή αρχείων, εντολές overwrit). Παραμένετε στον έλεγχο.
-
-### 🛑 Διακοπή (πλήκτρο c / κουμπί Διακοπή)
-
-Διακοπή της δημιουργίας απόκρισης LLM ανά πάσα στιγμή και εισαγωγή εντολής διακοπής πίσω στο LLM.
-
-| Διεπαφή | Τρόπος διακοπής |
-|---|---|
-| **CLI** | Πατήστε το πλήκτρο F12 κατά τη ροή LLM — η τρέχουσα απόκριση σταματά και το "Stop"` αποστέλλεται ως μήνυμα χρήστη, ώστε το LLM να ανταποκρίνεται ανάλογα |
-| **Διεπαφή χρήστη WEB** | Κάντε κλικ στο κόκκινο κουμπί **■ Διακοπή** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
-| **Επιτραπέζιος υπολογιστής GUI** | Κάντε κλικ στο κόκκινο κουμπί **■** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
-
-Η διακοπή λειτουργεί ως "prompt injection": αντί απλώς να ακυρωθεί, τροφοδοτεί το "Stop"" πίσω στο LLM ως μήνυμα χρήστη, επιτρέποντάς του να ολοκληρώσει με χάρη ή να αναγνωρίσει την αυτόματη διακοπή. (δείτε [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
-
-### 🕵️ Αυτοματισμός προγράμματος περιήγησης & Web Επιθεωρητής
-
-Δύο PH:-συμπληρωματικά εργαλεία **browser_playwright**: Αυτοματοποιήστε πραγματικές περιόδους λειτουργίας προγράμματος περιήγησης — πλοήγηση, κλικ, συμπλήρωση φορμών, εξαγωγή δεδομένων, διαχείριση ροών πολλών σελίδων. Λειτουργεί χωρίς κεφάλι ή με κεφάλι.
-- **playwright_inspector**: Καταγράψτε τις μεταβάσεις του προγράμματος περιήγησης, τραβήξτε στιγμιότυπα DOM και στιγμιότυπα οθόνης σε κάθε βήμα. Χρήσιμο για τον εντοπισμό σφαλμάτων αλληλεπιδράσεων ιστού ή τον έλεγχο αλλαγών σελίδων με την πάροδο του χρόνου.
-
-### 🔄 Το Dynamic Tool Loading
-
-`tool_catalog` και `tool_load` σάς επιτρέπουν να ανακαλύψετε και να ενεργοποιήσετε εργαλεία κατά την εκκίνηση.
-Δεν χρειάζεται να φορτώσετε τα πάντα κατά την εκκίνηση. Τα εγγενή εργαλεία
-
-`uuid_gen` και "slugify" υλοποιούνται στο Rust (μέσω PyO3) για απόδοση. "load_rust_pyd()" από το "uagent.tools.rust_helper" και
-οι χρήστες λαμβάνουν το εργαλείο χωρίς επιπλέον εξαρτήσεις. Βλ.繁體中文 / 한국어 / Español / Français / Русский / και άλλα. 
-Ρυθμίστε το "UAGENT_LANG" για εναλλαγή. Ανατρέξτε στο [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) για να προσθέσετε μια νέα τοπική ρύθμιση.
-
-Μεταφράσεις αυτού του README είναι διαθέσιμες στο [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
-
-### 🔒 Κρυπτογραφημένες μεταβλητές περιβάλλοντος. —. Αρχείο `.env`.
-Διαχείριση με το `uag_envsec`.
 
 ## Διαμόρφωση & Λεπτομέρειες
 
 - **Μεταβλητές περιβάλλοντος**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
-- **Μεταβλητές περιβάλλοντος``. **Κρυπτογραφημένο env**: `uag_envsec` — κρυπτογράφηση `.env` ως `.env.sec`
+- \*\*Μεταβλητές περιβάλλοντος\`\`. **Κρυπτογραφημένο env**: `uag_envsec` — κρυπτογράφηση `.env` ως `.env.sec`
 - **Απαντήσεις API**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία Απαντήσεων API (OpenAI/Azure/BedrockStudioAa/MaLmaPen ΑΙ). Ενεργοποιήθηκε αυτόματα για Sakana AI (Fugu).
 - **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Ροή εργαλείων**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — πώς αποστέλλονται τα εργαλεία σε LLM (μάσκα είδους, tool_catalog, GPT-5.4+ εγγενές εργαλείο_αναζήτησης)
-_*_S [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+  \_\*\_S [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Project Philosophy
 
@@ -224,12 +70,12 @@ uag φιλοδοξεί να είναι **το AI σας, στον υπολογι
 
 ### ✨ Δημιουργήστε τα δικά σας εργαλεία
 
-Η σύνταξη ενός νέου εργαλείου για uag είναι απλή — δημιουργήστε ένα μεμονωμένο αρχείο `.py` με το 
-`στο EC και το TOOL_n) `UAGENT_EXTERNAL_TOOLS_DIR` και 
- είναι άμεσα διαθέσιμο. Για προγραμματιστές Rust, στείλτε ένα προκατασκευασμένο «.pyd» με
+Η σύνταξη ενός νέου εργαλείου για uag είναι απλή — δημιουργήστε ένα μεμονωμένο αρχείο `.py` με το
+`στο EC και το TOOL_n) `UAGENT_EXTERNAL_TOOLS_DIR\` και
+είναι άμεσα διαθέσιμο. Για προγραμματιστές Rust, στείλτε ένα προκατασκευασμένο «.pyd» με
 μηδενικές επιπλέον εξαρτήσεις για τους χρήστες.
 
-Ανατρέξτε στο [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md
+Ανατρέξτε στο \[TOOL_CREATOR_GUIDE.md\](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md
 Οδηγός βήμα προς βήμα## Συνεισφορά
 
 Οι συνεισφορές είναι ευπρόσδεκτες! Αναφορές σφαλμάτων, προτάσεις δυνατοτήτων, βελτιώσεις τεκμηρίωσης, μεταφράσεις και αιτήματα έλξης — εκτιμώνται όλα.
@@ -243,20 +89,21 @@ uag φιλοδοξεί να είναι **το AI σας, στον υπολογι
 python -m μαύρο --ελέγξτε src tests
 python scripts/tool_json_i18n_batch.py status
 python -m pytest -q .
+
 ```
 
 Για πιο γρήγορη τοπική επανάληψη, εκτελέστε μόνο τις δοκιμές που επηρεάζονται:
 
 δοκιμές/\<επηρεασμένη_περιοχή>
 
-````
+```
 
 Πρόσθετοι έλεγχοι κατά περίπτωση:
 
 ```bash
 python -m py_compile src/uagent/
 mypy src/uagent
-````
+```
 
 scripts/compile_locales.py`και`python scripts/po_qc_summary.py\`.
 
@@ -273,3 +120,19 @@ Runtime πολιτική (λεπτομέρειες στην \[DEVELOP.md\](https
 ### Runtime ανάκτηση και ενορχήστρωση
 
 Δείτε \[RESTART_RECOVER. [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) για ανθεκτική ανάκτηση, εκτέλεση με επίγνωση της εξάρτησης, ενορχήστρωση πολλαπλών παραγόντων και απομακρυσμένη χρήση PH_3. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) για συντονισμό μίσθωσης ηγέτη σε κοινόχρηστο χρόνο.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

@@ -48,8 +48,10 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 
 - Python 3.11+ required. Check with `python --version`.
 - Node.js v24.18.0 required for locale tooling.
-- Install runtime deps with `pip install -e .`; install test-only deps with
-  `pip install -e ".[test]"`.
+- Runtime dependencies are declared as optional extras and are auto-installed when
+  missing. For a full development environment use:
+  `pip install -e ".[core,providers,tools,development,platform,web,test]"`.
+- `requirements.txt` is the convenience entry point for the full environment.
 - Work in the project root (`C:\KAIHATSU\agentcli` on the primary dev machine).
 - Use VSCode for editing. The workspace is at the project root.
 - Environment variables prefixed with `UAGENT_` configure behavior.
@@ -93,7 +95,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 - **Locale compile**: `python scripts/compile_locales.py` (after editing .po files).
 - **Locale QC**: `python scripts/po_qc_summary.py` (check translation quality).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
-- **CI-equivalent test run**: after `pip install -e ".[test]"`, run
+- **CI-equivalent test run**: after `pip install -r requirements.txt`, run
   `python -m pytest -q .` before pushing.
 - **Tool catalogs**: `python scripts/tool_json_i18n_batch.py status` and validate
   each `src/uagent/tools/*_tool.json` with `scripts/i18n_validate.py`.

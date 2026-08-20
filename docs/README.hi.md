@@ -26,13 +26,22 @@ ______________________________________________________________________
 
 ## क्यों uag?
 
-**विक्रेता लॉक-इन से मुक्त हो जाएं।** अधिकांश AI सहायक आपको एक विशिष्ट प्रदाता या क्लाउड सेवा से जोड़ते हैं। uag अलग है।
+```bash
+pip install uag
+uag
+```
 
-- **आपकी मशीन पर स्थानीय रूप से चलता है**। आपका डेटा आपके पास रहता है (आपके द्वारा किए गए API कॉल को छोड़कर)। पर्यावरण चर को पुन: कॉन्फ़िगर करके उनके बीच स्वैप करें - कोई पुनर्स्थापना नहीं, कोई माइग्रेशन नहीं।
-- **222 उपकरण**: फ़ाइल I/O, वेब खोज, छवि निर्माण, जीमेल, BLE डिवाइस स्कैनिंग, MCP सर्वर एकीकरण - **130 को स्थिर रूप से समानांतर-सुरक्षित रूप से चिह्नित किया गया है** (थ्रेड पूल के माध्यम से समवर्ती रूप से 8 तक निष्पादित, `UAGENT_PARALLEL_WORKERS` के माध्यम से कॉन्फ़िगर करने योग्य)। जब LLM एक साथ कई टूल कॉल सक्रिय करता है, तो uag स्वचालित रूप से उन्हें समानांतर कर देता है।
-- **3 UI + A2A**: CLI, GUI, Web, और एजेंट-टू-एजेंट प्रोटोकॉल। समान इंजन, कोई भी इंटरफ़ेस। uag को असीमित रूप से बढ़ाएँ।
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag **आपकी शर्तों पर आपका AI सहायक** है। किसी प्रदाता से बंधा नहीं, किसी इंटरफ़ेस से बंधा नहीं, किसी प्लेटफ़ॉर्म से बंधा नहीं।
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## त्वरित प्रारंभ
 
@@ -63,7 +72,7 @@ set UAGENT_COMPUTER_USE=1
 \`\`bash
 python scheck.py realtime
 
-```
+````
 
 AEC3 पाइपलाइन वास्तविक माइक्रोफोन सिग्नल (`नज़दीक`) प्राप्त करती है और ऑडियो वास्तव में स्पीकर (`दूर`) को सौंप दिया जाता है, इसलिए सहायक बोलते समय सुन सकते हैं. केवल ऑडियो समस्याओं की जांच करते समय डायग्नोस्टिक्स सक्षम करें:
 
@@ -76,7 +85,7 @@ UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
 UAGENT_LLAMA_CPP_API_KEY=dummy
-```
+````
 
 The llama.cpp प्रदाता चैट पूर्णता-संगत पथ का उपयोग करता है। `UAGENT_RESPONSES=0` को तब तक रखें जब तक कि एक संगत प्रॉक्सी कॉन्फ़िगर न हो जाए। `ThreadPoolExecutor` (डिफ़ॉल्ट रूप से 8 थ्रेड; बदलने के लिए `UAGENT_PARALLEL_WORKERS` सेट करें)। टूल मॉड्यूल पर आधारित जो `TOOL_SPEC` को परिभाषित करता है (वर्तमान में 222, `src/uagent/tools_rust/` में 2 रस्ट-समर्थित टूल सहित)। `http_request` विधि-संवेदनशील सुरक्षा का उपयोग करता है: `GET`/`HEAD`/`OPTIONS` कॉल समानांतर में चल सकती हैं, जबकि लिखने के तरीके क्रमबद्ध रहते हैं।
 
@@ -142,10 +151,11 @@ uagent एक **Claude कोड-संगत प्लगइन सिस्ट
 | मोड | आदेश | उद्देश्य |
 |---|---|---|
 | **CLI** | `uag` | तेज़ टर्मिनल-आधारित संचालन |
-| **GUI** | `उअग्ग` | टिंकर के माध्यम से डेस्कटॉप यूआई |
-| **Web** | `उगव` | ब्राउज़र-आधारित पहुंच |
-| **A2A सर्वर** | 'उगा' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
+| **GUI** | `uagg` | टिंकर के माध्यम से डेस्कटॉप यूआई |
+| **Web** | `uagw` | ब्राउज़र-आधारित पहुंच |
+| **A2A सर्वर** | 'uaga' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
 | **वीएस कोड** | — | [एक्सटेंशन] (https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चैट पैनल, एक्सप्लेन, रिफैक्टर, फिक्स एरर और टूल्स ट्री व्यू के साथ | कमांड, कीबाइंडिंग और कॉन्फ़िगरेशन। पुश नोटिफिकेशन के लिए COV सदस्यता
+
 - **मोडबस टीसीपी**: होल्डिंग/इनपुट रजिस्टर और कॉइल पढ़ें/लिखें। मतदान-आधारित परिवर्तन निगरानी
 - **ओपीसी यूए**: पता स्थान ब्राउज़ करें, चर पढ़ें/लिखें, डेटा परिवर्तनों की सदस्यता लें
 - **स्विचबॉट**: क्लाउड बैच नियंत्रण और बीएलई स्कैन/नियंत्रण। मतदान-आधारित सदस्यता
@@ -166,7 +176,7 @@ uag **स्वचालित रूप से कई LLM राउंड म�
 
 uag लंबे समय से चल रहे बहु-फ़ाइल कार्यों में प्रगति को ट्रैक कर सकता है। जब LLM दर्जनों फ़ाइलों को संसाधित करता है, तो `बैच_स्टेट` डिस्क पर लंबित, पूर्ण और विफल फ़ाइलों की सूची बनाए रखता है। यदि सत्र समाप्त हो जाता है या एक राउंड समाप्त हो जाता है, तो अगला रन वहीं से शुरू होता है जहां वह रुका था - कुछ भी नहीं खोता है। आप नियंत्रण में रहते हैं। इंटरफ़ेस | कैसे बाधित करें |
 |---|---|
-| **CLI** | LLM स्ट्रीमिंग के दौरान F12 कुंजी दबाएं - वर्तमान प्रतिक्रिया बंद हो जाती है, और ``स्टॉप'' उपयोगकर्ता संदेश के रूप में भेजा जाता है ताकि LLM तदनुसार प्रतिक्रिया दे सके |
+| **CLI** | LLM स्ट्रीमिंग के दौरान F12 कुंजी दबाएं - वर्तमान प्रतिक्रिया बंद हो जाती है, और \`\`स्टॉप'' उपयोगकर्ता संदेश के रूप में भेजा जाता है ताकि LLM तदनुसार प्रतिक्रिया दे सके |
 | **वेब यूआई** | लाल **■ स्टॉप** बटन पर क्लिक करें (LLM प्रसंस्करण के दौरान स्वचालित रूप से प्रकट होता है) |
 | **डेस्कटॉपGUI** | लाल **■** बटन पर क्लिक करें (LLM प्रसंस्करण के दौरान स्वचालित रूप से प्रकट होता है) |
 
@@ -184,7 +194,7 @@ uag लंबे समय से चल रहे बहु-फ़ाइल क
 `uuid_gen` और `slugify` को प्रदर्शन के लिए रस्ट (PyO3 के माध्यम से) में कार्यान्वित किया जाता है।
 वे सीधे पूर्व-निर्मित `.pyd` से लोड होते हैं - **कोई `पिप इंस्टॉल` आवश्यक नहीं**।
 
-बाहरी डेवलपर्स रस्ट-आधारित टूल भी शिप कर सकते हैं: 
+बाहरी डेवलपर्स रस्ट-आधारित टूल भी शिप कर सकते हैं:
 रैपर `.py` के बगल में `.pyd` रखें, उपयोग करें `uagent.tools.rust_helper` से `load_rust_pyd()`, और
 उपयोगकर्ताओं को बिना किसी अतिरिक्त निर्भरता के उपकरण मिलता है। देखें
 [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
@@ -200,12 +210,12 @@ uag लंबे समय से चल रहे बहु-फ़ाइल क
 स्टोर API कुंजी और रहस्य `.env.sec` में - एक एन्क्रिप्टेड `.env` फ़ाइल.
 `uag_envsec`.
 
- के साथ प्रबंधित करें## कॉन्फ़िगरेशन और विवरण
+के साथ प्रबंधित करें## कॉन्फ़िगरेशन और विवरण
 
 - **पर्यावरण चर**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **सेटअप विज़ार्ड**: `पायथन -m uagent.setup_cli`
 - **एन्क्रिप्टेड env**: `uag_envsec` - `.env` को `.env.sec`
- के रूप में एन्क्रिप्ट करें- **प्रतिक्रियाएं API**: प्रतिक्रियाओं के लिए API मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः-सक्षम। [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) - एलएलएम में टूल कैसे भेजे जाते हैं (शैली मास्क, टूल_कैटलॉग, GPT-5.4+ नेटिव टूल_सर्च)
+  के रूप में एन्क्रिप्ट करें- **प्रतिक्रियाएं API**: प्रतिक्रियाओं के लिए API मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः-सक्षम। [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) - एलएलएम में टूल कैसे भेजे जाते हैं (शैली मास्क, टूल_कैटलॉग, GPT-5.4+ नेटिव टूल_सर्च)
 - **छोटी LLM युक्तियाँ**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## प्रोजेक्ट फिलॉसफी
@@ -224,15 +234,17 @@ uag **आपका AI, आपकी मशीन पर, आपकी शर्�
 uag के लिए एक नया टूल लिखना सीधा है -
 `TOOL_SPEC` और `run_tool()` के साथ एक `.py` फ़ाइल बनाएं, इसे `UAGENT_EXTERNAL_TOOLS_DIR` में रखें, और
 यह तुरंत उपलब्ध है। रस्ट डेवलपर्स के लिए, उपयोगकर्ताओं के लिए शून्य अतिरिक्त निर्भरता के साथ एक पूर्व-निर्मित `.pyd` भेजें। चरण-दर-चरण मार्गदर्शिका के लिए [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
- देखें।## योगदान
+देखें।## योगदान
 
 योगदान का स्वागत है! बग रिपोर्ट, फीचर सुझाव, दस्तावेज़ीकरण सुधार, अनुवाद और पुल अनुरोध - सभी की सराहना की जाती है। विकास सेटअप और दिशानिर्देशों के लिए [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) देखें।
+
 - **अनुवाद**: README अनुवाद और स्थानीय परिवर्धन का स्वागत है। [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) देखें। पहले केवल परीक्षण निर्भरताएँ। उन्हें रनटाइम निर्भरता सूची से बाहर रखा गया है:
 
-``bash
+\`\`bash
 python -m pip install -e ".[test]"
 python -m pip install black ruff
-```
+
+````
 
 GitHub द्वारा उपयोग किए गए समान चेक चलाएँ पुश करने से पहले क्रियाएँ:
 
@@ -241,7 +253,7 @@ python -m ruff check src test
 python -m black --check src states
 python स्क्रिप्ट/tool_json_i18n_batch.py status
 python -m pytest -q .
-```
+````
 
 तेज स्थानीय पुनरावृत्ति के लिए, केवल प्रभावित परीक्षण चलाएँ:
 
@@ -270,4 +282,20 @@ Runtime नीति (विवरण [DEVELOP.md](https://github.com/awaku7/age
 टूल्स, प्रदाताओं, क्रेडेंशियल्स, MCP सर्वर, नेटवर्क, कौशल और प्लगइन्स के लिए संगठन-स्तरीय नीतियां समर्थित हैं। `UAGENT_POLICY_FILE` को JSON/YAML पॉलिसी फ़ाइल पर सेट करें; कॉन्फ़िगरेशन उदाहरणों, भूमिकाओं, पुष्टिकरण और अनुमति सूचियों के लिए [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) देखें। [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) टिकाऊ पुनर्प्राप्ति, निर्भरता-जागरूक निष्पादन, मल्टी-एजेंट ऑर्केस्ट्रेशन और दूरस्थ A2A उपयोग के लिए।
 
 देखें [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) साझा-रनटाइम लीडर लीज़ समन्वय के लिए।
+```
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
 ```

@@ -22,16 +22,22 @@ ______________________________________________________________________
 
 ## למה uag?
 
-**השתחרר מהנעילת הספק.** רוב עוזרי הבינה המלאכותית קושרים אותך לספק או לשירות ענן ספציפי. uag שונה.
+```bash
+pip install uag
+uag
+```
 
-- **פועל באופן מקומי** במחשב שלך. הנתונים שלך נשארים איתך (למעט API שיחות שאתה מבצע).
-- **חופש הספק**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 ספקים, כולם נגישים מממשק יחיד. החלפה ביניהם על ידי הגדרה מחדש של משתני סביבה - ללא התקנה מחדש, ללא העברה.
-- **222 כלים**: קלט/פלט של קבצים, חיפוש אינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרתים MCP - **130 מסומנים סטטית כבטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתן להגדרה באמצעות ALL_WENT_PAR). כאשר LLM מפעיל מספר שיחות כלים בו-זמנית, uag מקביל אותן באופן אוטומטי.
-- **3 ממשקי משתמש + A2A**: CLI, GUI, Web ופרוטוקול סוכן לסוכן. אותו מנוע, כל ממשק.
-- **מוכן ל-IoT**: SwitchBot, ECHONET Lite, Matter, UPnP - שלטו במכשירים הביתיים שלכם באמצעות AI.
-- **מיומנויות סוכן**: התקן מיומנויות שנבנו בקהילה מהשוק. הארך את uag ללא סוף.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag הוא **עוזר הבינה המלאכותית שלך בתנאים שלך**. לא קשור לספק, לא קשור לממשק, לא קשור לפלטפורמה.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## התחלה מהירה
 
@@ -303,3 +309,19 @@ Runtime מדיניות (פרטים ב-[DEVELOP.md](https://github.com/awaku7/age
 ראה [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) לשחזור עמיד, ביצוע מודע לתלות, תזמור מרובה סוכנים ושימוש מרחוק ב-A2A.
 
 ראה [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) לתיאום חכירה מוביל בזמן ריצה משותפת.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

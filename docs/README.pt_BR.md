@@ -43,6 +43,20 @@ pip install uag
 uag
 ```
 
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
+
 Na primeira inicialização, o assistente de configuração orienta você na configuração do provedor.
 Consulte [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) para todos os ambientes variáveis.
 

@@ -36,15 +36,27 @@ ______________________________________________________________________
 
 uag, **kendi koşullarınıza göre yapay zeka yardımcınızdır**. Bir sağlayıcıya bağlı değil, bir arayüze bağlı değil, bir platforma bağlı değil.
 
-## Hızlı Başlangıç
+## Hızlı başlangıç
 
 ```bash
-pip kurulumu uag
+pip install uag
 uag
 ```
 
-İlk başlatmada, kurulum sihirbazı sağlayıcı yapılandırmasında size yol gösterir.
-Tüm ortamlar için [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) adresine bakın değişkenler.
+Temel kurulum, sağlayıcı ve araç entegrasyonlarını isteğe bağlı tutar. Eksik paketler, seçilen sağlayıcı veya araç bunlara ihtiyaç duyduğunda otomatik olarak yüklenir. Ana özellikleri önceden yüklemek için:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Depo için eksiksiz geliştirme ve test ortamını yüklemek için:
+
+```bash
+pip install -r requirements.txt
+```
+
+İlk çalıştırmada kurulum sihirbazı sağlayıcı yapılandırmasında size yol gösterir.
+Tüm ortam değişkenleri için [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Bilgisayar Kullanımı
 
@@ -158,7 +170,7 @@ Tüm belgeler için [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) adres
 | **CLI** | `uag` | Hızlı terminal tabanlı operasyon |
 | **GUI** | 'uagg' | Tkinter aracılığıyla Masaüstü Kullanıcı Arayüzü |
 | **Web** | 'uagw' | Tarayıcı tabanlı erişim |
-| **A2A Sunucu** | 'uaga' | Çoklu aracı iletişimi için Agent2Agent protokolü |
+| **A2A Sunucu** | `uaga` | Çoklu aracı iletişimi için Agent2Agent protokolü |
 | **VS Kodu** | — | [Uzantı](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Sohbet Paneli, Açıklama, Yeniden Düzenleme, Hatayı Düzeltme ve Araç Ağacı Görünümü ile |
 VS Code uzantısı — kurulum, ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) adresine bakın. komutlar, tuş atamaları ve konfigürasyon.
 
@@ -329,3 +341,19 @@ Araçlar, sağlayıcılar, kimlik bilgileri, MCP sunucuları, ağlar, beceriler 
 Bkz. [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / Dayanıklı kurtarma, bağımlılığa duyarlı yürütme, çoklu aracı düzenleme ve uzaktan A2A kullanımı için [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md).
 
 Bkz. Paylaşılan çalışma zamanı lideri kiralama koordinasyonu için [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md).
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

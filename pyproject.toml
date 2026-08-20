@@ -16,11 +16,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-dependencies = [
-    "openai>=2.45.0",
-    "anthropic>=0.116.0",
-    "google-genai>=2.11.0",
-    "xai-sdk>=1.17.0",
+dependencies = []
+
+[project.optional-dependencies]
+core = [
     "requests>=2.33.1",
     "httpx>=0.28.1",
     "urllib3>=2.6.3",
@@ -37,8 +36,71 @@ dependencies = [
     "python-multipart>=0.0.22",
     "websockets>=16.0",
 ]
-
-[project.optional-dependencies]
+providers = [
+    "openai>=2.45.0",
+    "anthropic>=0.116.0",
+    "google-genai>=2.11.0",
+    "xai-sdk>=1.17.0",
+    "openrouter",
+    "zai-sdk",
+    "together",
+]
+tools = [
+    "asyncua",
+    "azure-identity",
+    "beautifulsoup4",
+    "bac0",
+    "bleak",
+    "boto3",
+    "catboost",
+    "chronos-forecasting",
+    "exstruct",
+    "google-api-python-client",
+    "google-cloud-texttospeech",
+    "holidays",
+    "janome",
+    "jieba",
+    "lightgbm",
+    "msoffcrypto-tool",
+    "paho-mqtt",
+    "pillow",
+    "playwright",
+    "prophet",
+    "psutil",
+    "pymodbus",
+    "pymupdf",
+    "pypdf",
+    "python-dali",
+    "python-dateutil",
+    "python-magic",
+    "pythainlp",
+    "qrcode",
+    "scikit-learn",
+    "statsforecast",
+    "striprtf",
+    "upnpy",
+]
+development = [
+    "coverage",
+    "ecdsa",
+    "mdformat",
+    "mdformat-frontmatter",
+    "mermaid-cli",
+    "oletools",
+    "packaging",
+    "tree-sitter",
+    "tree-sitter-language-pack",
+]
+platform = [
+    "ewmh",
+    "PySide6",
+    "pyobjc",
+    "pyobjc-framework-CoreLocation",
+    "winrt-Windows.Devices.Geolocation",
+]
+web = [
+    "pydantic",
+]
 test = [
     "pytest",
     "pdfplumber",

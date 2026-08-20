@@ -10,6 +10,31 @@ from ..auth.provider_credentials import get_provider_api_key
 from ..auth.credential_store import get_default_credential_store
 from .provider_caps import ALL_PROVIDERS
 
+
+def _ensure_provider_dependency(provider: str) -> None:
+    """Install a provider SDK only when that provider is actually selected."""
+    # These providers already perform their own provider-specific lazy
+    # installation/fallback handling in make_client(). Do not pre-install a
+    # second SDK here.
+    if provider in {"grok", "zai", "together", "openrouter"}:
+        return
+
+    packages = {
+        "claude": ("anthropic", "anthropic"),
+        "gemini": ("google-genai", "google.genai"),
+        "vertexai": ("google-genai", "google.genai"),
+    }
+    package_name, module_name = packages.get(provider, ("openai", "openai"))
+    try:
+        from .._pip_auto import install_with_status
+
+        if not install_with_status(package_name, module_name=module_name):
+            raise ImportError(f"{package_name} is unavailable")
+    except ImportError:
+        raise
+    except Exception as exc:
+        raise ImportError(f"Failed to prepare {package_name}: {exc}") from exc
+
 from threading import Lock
 
 _HTTPX_CLIENTS: list[Any] = []
@@ -461,6 +486,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
     provider = detect_provider()
+    _ensure_provider_dependency(provider)
     model_name = get_model_name()
 
     if provider == "azure":
@@ -614,7 +640,15 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             try:
                 from openrouter import OpenRouter as sdk_cls  # type: ignore
             except Exception:
-                sdk_cls = None
+                try:
+                    from .._pip_auto import install_with_status as _install_openrouter
+
+                    if _install_openrouter(
+                        "openrouter", "openrouter", display_name="OpenRouter SDK"
+                    ):
+                        from openrouter import OpenRouter as sdk_cls  # type: ignore
+                except Exception:
+                    sdk_cls = None
 
         api_key = _provider_api_key(core, "OPENROUTER") or "dummy"
         base_url = core.get_env_url(
@@ -686,6 +720,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         )
 
         if not _use_xai_sdk:
+            _ensure_provider_dependency("openai")
             from openai import OpenAI
 
             base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
@@ -708,6 +743,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
                 use_insecure_channel=is_ssl_verify_disabled(),
             )
         else:
+            _ensure_provider_dependency("openai")
             from openai import OpenAI
 
             base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
@@ -934,6 +970,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             ):
                 from together import Together as TogetherClient
             else:
+                _ensure_provider_dependency("openai")
                 from openai import OpenAI as TogetherClient
 
         api_key = _provider_api_key(core, "TOGETHER")

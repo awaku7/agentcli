@@ -36,12 +36,21 @@ uag on **AI-avustajasi ehdoillasi**. Ei sidottu palveluntarjoajaan, ei sidottu k
 ## Pika-aloitus
 
 ```bash
-pip-asennus uag
+pip install uag
 uag
 ```
 
-Ensimmäisen käynnistyksen yhteydessä ohjattu asennustoiminto opastaa sinua palveluntarjoajan määrittämisessä.
-Katso [docs/ENVIRONMENT.md](https://github.com/awaku7/agent/agentcliment/ENVIRONMENTCli/endocli.s) muuttujat.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Computer Use
 
@@ -308,3 +317,19 @@ Organisaatiotason käytäntöjä työkaluille, palveluntarjoajille, tunnistetied
 ### Runtime palautus ja organisointi
 
 Katso [RESTART_RECOVERY.md](docs/REY.mRE_d)COVERY.mRE_d) [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) kestävään palautukseen, riippuvuustietoiseen suoritukseen, usean agentin orkestrointiin ja A2A-etäkäyttöön. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) jaetun ajonaikaisen johtajan vuokrasopimuksen koordinointiin.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
-Lihat [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) untuk semua variabel lingkungan.
+Instalasi dasar menjadikan integrasi penyedia dan alat sebagai dependensi opsional. Paket yang belum tersedia akan dipasang otomatis saat dibutuhkan oleh penyedia atau alat yang dipilih. Untuk memasang fitur utama terlebih dahulu:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Untuk memasang lingkungan pengembangan dan pengujian lengkap repositori:
+
+```bash
+pip install -r requirements.txt
+```
+
+Saat pertama kali dijalankan, wizard penyiapan akan memandu konfigurasi penyedia.
+Lihat semua variabel lingkungan di [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 

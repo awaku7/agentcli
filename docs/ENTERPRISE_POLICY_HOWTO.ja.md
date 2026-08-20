@@ -26,12 +26,6 @@ Windowsでは通常、次の場所です。
 C:\Users\<ユーザー名>\.uag\enterprise-policy.yaml
 ```
 
-この環境での実際のパスは次のとおりです。
-
-```text
-C:\Users\ukawahrf\.uag\enterprise-policy.yaml
-```
-
 ファイルが存在しない場合、uagが起動時に作成します。初期内容は次のとおりです。
 
 ```yaml

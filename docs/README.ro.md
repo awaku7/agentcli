@@ -41,8 +41,20 @@ pip install uag
 uag
 ```
 
-La prima lansare, vrăjitorul de configurare vă ghidează prin configurarea furnizorului.
-Consultați \[docs/ENVIRONMENT.md\](https://github.com/awaku7/RO/maindoc. variabile de mediu.
+Instalarea de bază păstrează integrările furnizorilor și instrumentelor ca dependențe opționale. Pachetele lipsă sunt instalate automat atunci când furnizorul sau instrumentul selectat are nevoie de ele. Pentru a instala în avans funcțiile principale:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Pentru a instala mediul complet de dezvoltare și testare al depozitului:
+
+```bash
+pip install -r requirements.txt
+```
+
+La prima pornire, expertul de configurare vă ghidează prin configurarea furnizorului.
+Pentru toate variabilele de mediu, consultați [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Utilizarea computerului
 

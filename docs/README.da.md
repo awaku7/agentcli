@@ -41,8 +41,20 @@ pip install uag
 uag
 ```
 
-Ved den første lancering fører opsætningsguiden dig gennem udbyderkonfigurationen.
-Se \[docs/ENVIRONMENT.md\](https://github.com/awadockub7/agentincli/environment/environment/environment/ variabler.
+Basisinstallationen holder leverandør- og værktøjsintegrationer valgfrie. Manglende pakker installeres automatisk, når den valgte leverandør eller det valgte værktøj har brug for dem. Installér de vigtigste funktioner på forhånd:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Installér det komplette udviklings- og testmiljø for depotet:
+
+```bash
+pip install -r requirements.txt
+```
+
+Ved første start guider opsætningsguiden dig gennem leverandørkonfigurationen.
+Se alle miljøvariabler i [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 

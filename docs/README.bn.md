@@ -23,15 +23,22 @@ ______________________________________________________________________
 
 ## কেন uag?
 
-**বিক্রেতা লক-ইন থেকে বিরত থাকুন।** বেশিরভাগ AI সহকারী আপনাকে একটি নির্দিষ্ট প্রদানকারী বা ক্লাউড পরিষেবার সাথে সংযুক্ত করে। uag আলাদা।
+```bash
+pip install uag
+uag
+```
 
-- **স্থানীয়ভাবে চলে** আপনার মেশিনে। আপনার ডেটা আপনার সাথে থাকে (আপনি যে APIটি কল করেন তা ছাড়া)।
-- **প্রদানকারীর স্বাধীনতা**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 প্রদানকারী, সব একটি একক ইন্টারফেস থেকে অ্যাক্সেসযোগ্য। এনভায়রনমেন্ট ভেরিয়েবল পুনঃকনফিগার করে তাদের মধ্যে অদলবদল করুন — কোন রিইন্সটল, কোন মাইগ্রেশন নেই।
-- **222 টুল**: ফাইল I/O, ওয়েব সার্চ, ইমেজ জেনারেশন, Gmail, BLE ডিভাইস স্ক্যানিং, MCP সার্ভার ইন্টিগ্রেশন — \*\*130 স্ট্যাটিকভাবে সমান্তরাল-নিরাপদ \*\* চিহ্নিত করা হয়েছে `UAGENT_PARALLEL_WORKERS`)। যখন LLM একবারে একাধিক টুল কল ফায়ার করে, তখন uag স্বয়ংক্রিয়ভাবে সেগুলিকে সমান্তরাল করে। একই ইঞ্জিন, যেকোনো ইন্টারফেস।
-- **IoT প্রস্তুত**: SwitchBot, ECHONET Lite, Matter, UPnP — AI এর মাধ্যমে আপনার হোম ডিভাইসগুলি নিয়ন্ত্রণ করুন।
-- **এজেন্ট দক্ষতা**: মার্কেটপ্লেস থেকে কমিউনিটি-বিল্ট দক্ষতা ইনস্টল করুন। uagকে অবিরামভাবে প্রসারিত করুন।
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag হল **আপনার শর্তাবলীতে আপনার AI সহকারী**। একটি প্রদানকারীর সাথে আবদ্ধ নয়, একটি ইন্টারফেসের সাথে আবদ্ধ নয়, একটি প্ল্যাটফর্মের সাথে আবদ্ধ নয়৷
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## দ্রুত শুরু
 
@@ -222,4 +229,20 @@ Runtime নীতি (বিস্তারিত [DEVELOP.md](https://github.co
 
  সরঞ্জাম, প্রদানকারী, শংসাপত্র, MCP সার্ভার, নেটওয়ার্ক, দক্ষতা এবং প্লাগইনগুলির জন্য সংস্থা-স্তরের নীতিগুলি সমর্থিত৷ একটি JSON/YAML নীতি ফাইলে `UAGENT_POLICY_FILE` সেট করুন; কনফিগারেশন উদাহরণ, ভূমিকা, নিশ্চিতকরণ, এবং অনুমতি তালিকার জন্য [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) দেখুন। [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) টেকসই পুনরুদ্ধার, নির্ভরতা-সচেতন সম্পাদন, মাল্টি-এজেন্ট অর্কেস্ট্রেশন এবং দূরবর্তী ব্যবহারের জন্য __
  PH_3 [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) শেয়ার্ড-রানটাইম লিডার লিজ সমন্বয়ের জন্য।
+```
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
 ```

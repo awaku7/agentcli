@@ -42,13 +42,24 @@ uag 是**您的 AI 助手，随心所欲**。不依赖于提供商、不依赖�
 
 ## 快速入门
 
-\`\`bash
+```bash
 pip install uag
 uag
+```
 
-````
+基础安装会将提供商和工具集成设为可选依赖。当选定的提供商或工具需要某个缺失的软件包时，系统会自动安装。若要预先安装主要功能，请运行:
 
-首次启动时，设置向导将引导您完成提供程序配置。
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+若要为仓库安装完整的开发和测试环境，请运行:
+
+```bash
+pip install -r requirements.txt
+```
+
+首次启动时，设置向导会引导您完成提供商配置。
 有关所有环境变量，请参阅 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)。
 
 ## 计算机使用
@@ -58,7 +69,7 @@ uag
 
 ```bat
 set UAGENT_COMPUTER_USE=1
-````
+```
 
 使用 `desktop` 来选择操作系统桌面运行时。运行时资源在正常退出、“Ctrl-C”和进程关闭时一起关闭。设置
 `UAGENT_COMPUTER_HEADLESS=1`以进行基于浏览器的 CI 或冒烟测试。
@@ -172,7 +183,7 @@ uagent 实现了 **Claude 代码兼容的插件系统**。插件通过 `.claude-
 | **命令行** | `uag` |快捷的终端操作|
 | **图形用户界面** | `uagg` |通过 tkinter 的桌面 UI |
 | **网络** | `uagw` |基于浏览器的访问|
-| **A2A 服务器** | `瓦加` |用于多代理通信的 Agent2Agent 协议 |
+| **A2A 服务器** | `uaga` |用于多代理通信的 Agent2Agent 协议 |
 | **VS 代码** | — | [扩展](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) 带有聊天面板、解释、重构、修复错误和工具树视图 |
 有关 VS Code 扩展的详细信息，请参阅 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) — 安装、命令、键绑定和配置。
 
@@ -342,3 +353,19 @@ mypy src/uagent
 请参阅 [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) 用于持久恢复、依赖项感知执行、多代理编排和远程 A2A 使用。
 
 请参阅 [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) 了解共享运行时领导者租约协调。
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

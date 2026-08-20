@@ -36,12 +36,21 @@ uag **az Ön AI-asszisztense az Ön feltételei szerint**. Nincs szolgáltatóho
 ## Gyorsindítás
 
 ```bash
-pip telepítés uag
+pip install uag
 uag
 ```
 
-Az első indításkor a telepítővarázsló végigvezeti a szolgáltatói konfiguráción.
-Lásd: [docs/ENVIRONMENT.md](https://github.com/awakublo7/agent)ENVIVIMENT/docli/docli változók.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Computer Use
 
@@ -145,7 +154,7 @@ Lásd az [Elérési út és URL-aliasok](docs/PATH_URL_ALIASES.md) részt az
 | **CLI** | `uag` | Gyors terminál alapú működés |
 | **GUI** | "uagg" | Asztali felhasználói felület a tkinterrel |
 | **Web** | "uagw" | Böngésző alapú hozzáférés |
-| **A2A Szerver** | "uaga" | Agent2Agent protokoll többügynökös kommunikációhoz |
+| **A2A Szerver** | `uaga` | Agent2Agent protokoll többügynökös kommunikációhoz |
 | **VS kód** | — | [Bővítmény](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Csevegőpanellel, Magyarázattal, Refaktorral, Hibajavítással és Eszközök fanézettel |
 
 Lásd: [VSCODE.md](https://github.com/awaku7/agentc.main/agentc. VS Code kiterjesztés – telepítés, parancsok, billentyűkombinációk és konfiguráció.
@@ -304,3 +313,19 @@ Támogatja az eszközökre, szolgáltatókra, hitelesítő adatokra, MCP szerver
 ### Runtime helyreállítás és hangszerelés
 
 Lásd: [RESTART_RECOVERY.md](docs/REY.mRE_d)COVERY.mRE [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) a tartós helyreállításhoz, a függőség-tudatos végrehajtáshoz, a többügynökös hangszereléshez és a távoli A2A használathoz. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) a megosztott futásidejű vezetői bérlet koordinációjához.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

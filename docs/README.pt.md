@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-Na primeira inicialização, o assistente de configuração orienta você na configuração do provedor.
-Consulte [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) para todos os ambientes variáveis.
+A instalação básica mantém opcionais as integrações de provedores e ferramentas. Os pacotes ausentes são instalados automaticamente quando o provedor ou a ferramenta selecionada precisa deles. Para instalar antecipadamente os principais recursos:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Para instalar o ambiente completo de desenvolvimento e testes do repositório:
+
+```bash
+pip install -r requirements.txt
+```
+
+Na primeira inicialização, o assistente de configuração orienta você pela configuração do provedor.
+Consulte todas as variáveis de ambiente em [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Uso do computador
 

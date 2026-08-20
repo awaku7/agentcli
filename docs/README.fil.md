@@ -42,8 +42,20 @@ pip install uag
 uag
 ```
 
-Sa unang paglunsad, gagabayan ka ng setup wizard sa configuration ng provider.
-Tingnan ang [docs/ENVIRONMENT.md](https://github.com/awaku7/enRONclidoc.mblob/agentRONclidoc.mblo) mga variable.
+Ginagawang opsyonal ng batayang pag-install ang mga integration ng provider at tool. Awtomatikong ini-install ang mga nawawalang package kapag kailangan ng napiling provider o tool. Para paunang i-install ang mga pangunahing feature:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Para i-install ang buong development at test environment ng repository:
+
+```bash
+pip install -r requirements.txt
+```
+
+Sa unang paglunsad, gagabayan ka ng setup wizard sa pag-configure ng provider.
+Tingnan ang lahat ng environment variable sa [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 

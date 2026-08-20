@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-Bij de eerste start leidt de installatiewizard u door de providerconfiguratie.
-Zie [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) voor alle omgevingsvariabelen.
+De basisinstallatie houdt provider- en toolintegraties optioneel. Ontbrekende pakketten worden automatisch geïnstalleerd wanneer de geselecteerde provider of tool ze nodig heeft. Installeer de belangrijkste functies vooraf:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Installeer de volledige ontwikkel- en testomgeving voor de repository:
+
+```bash
+pip install -r requirements.txt
+```
+
+Bij de eerste start begeleidt de installatiewizard u bij het configureren van de provider.
+Bekijk alle omgevingsvariabelen in [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 

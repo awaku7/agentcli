@@ -24,16 +24,22 @@ a ·
 
 ## Яагаад uag гэж?
 
-**Үйлчилгээ үзүүлэгчийн түгжрэлээс сал.** Ихэнх хиймэл оюун ухааны туслахууд таныг тодорхой үйлчилгээ үзүүлэгч эсвэл үүлэн үйлчилгээтэй холбодог. uag өөр байна.
+```bash
+pip install uag
+uag
+```
 
-- Таны машин дээр **Дотоодоор ажилладаг**. Таны өгөгдөл тантай хамт үлдэнэ (таны хийсэн API дуудлагаас бусад).
-- **Үйлчилгээ үзүүлэгчийн эрх чөлөө**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 үйлчилгээ үзүүлэгч, бүгд нэг интерфейсээс хандах боломжтой. Орчны хувьсагчдыг дахин тохируулах замаар тэдгээрийн хооронд солигоорой — дахин суулгахгүй, шилжүүлэхгүй.
-- **222 хэрэгсэл**: Файл оруулах/гаралт, вэб хайлт, зураг үүсгэх, Gmail, BLE төхөөрөмж скан хийх, MCP серверийг нэгтгэх — **130 нь параллель-аюулгүй гэж статикаар тэмдэглэгдсэн** (пөөрлөөр дамжуулан 8 хүртэл удаа гүйцэтгэх боломжтой, нэгэн зэрэг тохируулах боломжтой. `UAGENT_PARALLEL_WORKERS`). LLM нь олон хэрэгслийн дуудлагыг нэгэн зэрэг хийх үед uag нь тэдгээрийг автоматаар зэрэгцүүлдэг.
-- **3 UI + A2A**: CLI, GUI, Web болон Agent-to-Agent протокол. Ижил хөдөлгүүр, дурын интерфейс.
-- **IoT-д бэлэн**: SwitchBot, ECHONET Lite, Matter, UPnP — AI-аар дамжуулан гэрийн төхөөрөмжүүдээ удирдаарай.
-- **Агентны ур чадвар**: Зах зээлээс нийгэмд бий болгосон ур чадварыг суулгаарай. uag-ийг эцэс төгсгөлгүй сунгаарай.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag бол **таны AI туслах болно**. Үйлчилгээ үзүүлэгчтэй холбоогүй, интерфейстэй холбоогүй, платформтой холбоогүй.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Түргэн эхлүүлэх
 
@@ -305,3 +311,19 @@ A2A амьдралын мөчлөг, I18N контекст, нэмэлт хам�
 
 \[RESTART_RECOVERYdoc/m.d/START_RECOVERYs. [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) нь удаан эдэлгээтэй сэргээх, хараат байдлыг мэддэг гүйцэтгэл, олон агентын зохион байгуулалт, алсаас ашиглах \_
 e. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) хамтран ажиллах цагийн ахлагч түрээсийн зохицуулалтад зориулагдсан.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

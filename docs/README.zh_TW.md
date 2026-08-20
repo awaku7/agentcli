@@ -41,21 +41,32 @@ uag 是**您的 AI 助手，隨心所欲**。不依賴提供者、不依賴介�
 
 ## 快速入門
 
-\`\`bash
+```bash
 pip install uag
 uag
+```
 
-````
+基本安裝會將提供者和工具整合設為選用相依套件。當選取的提供者或工具需要缺少的套件時，系統會自動安裝。若要預先安裝主要功能，請執行:
 
-首次啟動時，設定精靈將引導您完成提供者設定。 
-有關所有環境變量，請參閱 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)。 
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+若要為儲存庫安裝完整的開發與測試環境，請執行:
+
+```bash
+pip install -r requirements.txt
+```
+
+首次啟動時，設定精靈會引導您完成提供者設定。
+有關所有環境變數，請參閱 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)。
 
 ## 計算機使用
 
 計算機使用是可選的，並且支援可見的Playwright 瀏覽器運行時
 和桌面運行時。啟用後，將建立並註冊兩個執行時間；
 
-```bat
+````bat
 set UAGENT_COMPUTER_USE=1
 set UAGENT_COMPUTER_ENVIserMENT_COMPUTER_USE=1
 set UAGENT_COMPUTER_ENVIserMENT_COMPUTER_USE=1
@@ -153,7 +164,7 @@ UAGENT_LLAMA_CPP_API_KEY=dummy
 |---|---|---|
 | **指令行** | `uag` | 快速的終端操作|
 |基於瀏覽器的存取|
-| **A2A 伺服器** | `瓦加` |用於多代理通訊的 Agent2Agent 協定 |
+| **A2A 伺服器** | `uaga` |用於多代理通訊的 Agent2Agent 協定 |
 | **VS 程式碼** | — | [擴充](https://github.com/awaku7/agentcli/blob/main/docs/VVDE.md) 附面板、DE.md7/agentcli/blob/main/docs/V DE.md) 附面板、參考、重構錯誤、應用程式資訊、重構 18 月 18 月 48132 月2212 月22 月的新程式設計資訊 | [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) — 安裝、指令、鍵綁定與設定。
 
 ### 🏠 IoT裝置控制
@@ -321,3 +332,19 @@ script/po_qc_summary.py\`。
 請參閱 [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.) / \[MULNUL_RUNm/M用於持久恢復、依賴項感知執行、多代理編排和遠端 A2A 使用。
 
 請參閱 [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) 以了解共享運行時領導者租約協調。
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

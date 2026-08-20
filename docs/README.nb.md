@@ -21,16 +21,22 @@ ______________________________________________________________________
 
 ## Hvorfor uag?
 
-**Skriv deg fri fra leverandørlås.** De fleste AI-assistenter knytter deg til en bestemt leverandør eller skytjeneste. uag er annerledes.
+```bash
+pip install uag
+uag
+```
 
-- **Kjøres lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API anrop du foretar).
-- **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler — ingen ominstallering, ingen migrering.
-- **222 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP serverintegrasjon — **130 er statisk merket som parallell-sikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via ALL\_\`UAGENT_KERPAR). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
-- **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
-- **IoT-klar**: SwitchBot, ECHONET Lite, Matter, UPnP — kontroller hjemmeenhetene dine gjennom AI.
-- **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Forleng uag uendelig.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag er **din AI-assistent på dine premisser**. Ikke knyttet til en leverandør, ikke knyttet til et grensesnitt, ikke knyttet til en plattform.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Hurtigstart
 
@@ -299,3 +305,19 @@ Retningslinjer på organisasjonsnivå for verktøy, leverandører, legitimasjon,
 Se [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) for varig gjenoppretting, avhengighetsbevisst kjøring, orkestrering av flere agenter og ekstern A2A-bruk.
 
 Se [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) for koordinering av ledere med delt kjøretid.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

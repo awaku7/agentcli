@@ -29,12 +29,21 @@ uag **دستیار هوش مصنوعی شما طبق شرایط شماست**. ن
 ## شروع سریع
 
 ```bash
-نصب پیپ uag
+pip install uag
 uag
 ```
 
-در اولین راه‌اندازی، جادوگر راه‌اندازی شما را از طریق پیکربندی ارائه‌دهنده راهنمایی می‌کند.
-به آن مراجعه کنید. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) برای همه متغیرهای محیطی.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Computer Use
 
@@ -201,4 +210,20 @@ tests/\<afected_aa>
 ## Enterprise Policy Engine
 
  خط‌مشی‌های سطح سازمان برای ابزارها، ارائه‌دهندگان، اعتبارنامه‌ها، سرورهای MCP، شبکه‌ها، مهارت‌ها و افزونه‌ها پشتیبانی می‌شوند. «UAGENT_POLICY_FILE» را روی یک فایل خط مشی JSON/YAML تنظیم کنید. برای نمونه‌های پیکربندی، نقش‌ها، تأیید و فهرست‌های مجاز به [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) مراجعه کنید. [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) برای بازیابی بادوام، اجرای آگاه به وابستگی، ارکستراسیون چند عامله، و استفاده از راه دور.⎥PH_3. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) برای هماهنگی اجاره رهبر در زمان اجرا مشترک.
+```
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
 ```

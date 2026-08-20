@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-عند التشغيل لأول مرة، يرشدك معالج الإعداد خلال تكوين الموفر.
-راجع [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) لجميع البيئات المتغيرات.
+يحافظ التثبيت الأساسي على تكاملات المزوّدين والأدوات كاعتماديات اختيارية. تُثبّت الحزم الناقصة تلقائيًا عند حاجة المزوّد أو الأداة المحددة إليها. لتثبيت الميزات الرئيسية مسبقًا:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+لتثبيت بيئة التطوير والاختبار الكاملة للمستودع:
+
+```bash
+pip install -r requirements.txt
+```
+
+عند التشغيل الأول، يرشدك معالج الإعداد خلال تكوين المزوّد.
+لجميع متغيرات البيئة، راجع [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 
@@ -173,9 +185,9 @@ uagent ينفذ **Claude نظام مكون إضافي متوافق مع الكو
 | الوضع | الأمر | الغرض |
 |---|---|---|
 | **CLI** | `uag` | عملية سريعة تعتمد على المحطة |
-| **GUI** | `واغ` | واجهة سطح المكتب عبر tkinter |
-| **Web** | `واجو` | الوصول عبر المتصفح |
-| **A2A الخادم** | `واجا` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
+| **GUI** | `uagg` | واجهة سطح المكتب عبر tkinter |
+| **Web** | `uagw` | الوصول عبر المتصفح |
+| **A2A الخادم** | `uaga` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
 | **رمز VS** | — | [ملحق](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) مع لوحة الدردشة والشرح وإعادة البناء وإصلاح الخطأ وعرض شجرة الأدوات |
 
 راجع [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) للحصول على تفاصيل حول ملحق VS Code - التثبيت، الأوامر وربطات المفاتيح والتكوين.

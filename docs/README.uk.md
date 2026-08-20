@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-Після першого запуску майстер налаштування проведе вас через налаштування постачальника.
-Див. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) для всіх змінних середовища.
+Базове встановлення залишає інтеграції постачальників і інструментів необов’язковими. Відсутні пакети автоматично встановлюються, коли вони потрібні вибраному постачальнику або інструменту. Щоб заздалегідь встановити основні функції:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Щоб встановити повне середовище розробки й тестування репозиторію:
+
+```bash
+pip install -r requirements.txt
+```
+
+Під час першого запуску майстер налаштування допоможе налаштувати постачальника.
+Усі змінні середовища наведено в [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Використання комп’ютера
 

@@ -23,16 +23,22 @@ ______________________________________________________________________
 
 ## Proč uag?
 
-**Zbavte se vazby na dodavatele.** Většina asistentů umělé inteligence vás spojuje s konkrétním poskytovatelem nebo cloudovou službou. uag je jiný.
+```bash
+pip install uag
+uag
+```
 
-- **Běží místně** na vašem počítači. Vaše data zůstanou s vámi (kromě API hovorů, které provedete).
-- **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-  – **222 nástrojů**: File I/O, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **130 je staticky označeno jako paralelně bezpečné** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné přes `EL_UAGENT_`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
-- **3 UI + A2A**: CLI, GUI, Web a protokol Agent-to-Agent. Stejný engine, jakékoli rozhraní.
-- **Připraveno pro IoT**: SwitchBot, ECHONET Lite, Matter, UPnP – ovládejte svá domácí zařízení pomocí AI.
-- **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Rozšiřujte uag donekonečna.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag je **váš asistent AI podle vašich podmínek**. Není vázáno na poskytovatele, není vázáno na rozhraní, není vázáno na platformu.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Rychlý start
 
@@ -161,7 +167,7 @@ Viz [Cesta a aliasy URL](docs/PATH_URL_ALIASES.md) pro zkrácení opakovaných c
 | **CLI** | `uag` | Rychlý terminálový provoz |
 | **GUI** | "uagg" | Desktop UI přes tkinter |
 | **Web** | "uagw" | Přístup na základě prohlížeče |
-| **A2A Server** | "uaga" | Protokol Agent2Agent pro multiagentní komunikaci |
+| **A2A Server** | `uaga` | Protokol Agent2Agent pro multiagentní komunikaci |
 | **VS kód** | — | [Rozšíření](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) s panelem chatu, vysvětlením, refaktorem, opravou chyb a zobrazením stromu nástrojů |
 
 Viz \[VSCODE.md\](podrobnosti https://github.com/awaku7/agentcli on/VMD Code pro rozšíření Vmd/docs. instalace, příkazy, klávesové zkratky a konfigurace.
@@ -326,3 +332,19 @@ Viz [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md)RECOVERY [DAG_SCHEDULER.md](d
 
 Viz. [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) pro koordinaci pronájmu vedoucího ve sdíleném běhu.
 ````
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

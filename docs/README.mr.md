@@ -28,16 +28,22 @@ ______________________________________________________________________
 
 ## uag का?
 
-**विक्रेता लॉक-इनपासून मुक्त व्हा.** बहुतेक AI सहाय्यक तुम्हाला विशिष्ट प्रदाता किंवा क्लाउड सेवेशी जोडतात. uag वेगळे आहे.
+```bash
+pip install uag
+uag
+```
 
-- **स्थानिकरित्या चालते** तुमच्या मशीनवर. तुमचा डेटा तुमच्यासोबत राहतो (तुम्ही केलेले API कॉल वगळता).
-- **प्रदाता स्वातंत्र्य**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 प्रदाते, सर्व एकाच इंटरफेसवरून प्रवेशयोग्य. पर्यावरण व्हेरिएबल्स पुन्हा कॉन्फिगर करून त्यांच्यामध्ये अदलाबदल करा — कोणतेही पुनर्स्थापना, कोणतेही स्थलांतर नाही.
-- **२२२ साधने**: फाइल I/O, वेब शोध, इमेज जनरेशन, Gmail, BLE डिव्हाइस स्कॅनिंग, MCP सर्व्हर एकत्रीकरण — \*\*130 स्थिररित्या समांतर-सुरक्षित चिन्हांकित केले आहेत \*\* (कॉन्फिगरद्वारे 8 पर्यंत कॉन्फिगर वाचता येण्याजोगे, excurrentlyec. `UAGENT_PARALLEL_WORKERS`). जेव्हा LLM एकाच वेळी एकाधिक टूल कॉल्स फायर करते, तेव्हा uag त्यांना आपोआप समांतर करते.
-- **3 UI + A2A**: CLI, GUI, Web आणि एजंट-टू-एजंट प्रोटोकॉल. समान इंजिन, कोणताही इंटरफेस.
-- **IoT तयार**: SwitchBot, ECHONET Lite, Matter, UPnP — AI द्वारे तुमची घरगुती उपकरणे नियंत्रित करा.
-- **एजंट कौशल्य**: बाजारपेठेतून समुदाय-निर्मित कौशल्ये स्थापित करा. uag अविरतपणे वाढवा.
+The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
 
-uag **तुमच्या अटींवर तुमचा AI सहाय्यक** आहे. प्रदात्याशी बांधलेले नाही, इंटरफेसशी बांधलेले नाही, प्लॅटफॉर्मशी बांधलेले नाही.
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## क्विक स्टार्ट
 
@@ -135,7 +141,7 @@ stall> मध्ये. marketplace
 | **CLI** | `uag` | फास्ट टर्मिनल-आधारित ऑपरेशन |
 | **GUI** | `uagg` | tkinter द्वारे डेस्कटॉप UI |
 | **Web** | `uagw` | ब्राउझर-आधारित प्रवेश |
-| **A2A सर्व्हर** | `उगा` | मल्टी-एजंट संप्रेषणासाठी Agent2Agent प्रोटोकॉल |
+| **A2A सर्व्हर** | `uaga` | मल्टी-एजंट संप्रेषणासाठी Agent2Agent प्रोटोकॉल |
 | **VS कोड** | — | [विस्तार](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चॅट पॅनेलसह, स्पष्टीकरण, रिफॅक्टर, त्रुटी दूर करा आणि टूल्स ट्री व्ह्यू |
 
 पहा [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) व्हीएस कोड विस्ताराच्या तपशीलांसाठी — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशन. उपकरणे (HVAC, प्रकाश, वीज मीटर). पुश नोटिफिकेशन्ससाठी COV सबस्क्रिप्शन
@@ -279,3 +285,19 @@ Runtime धोरण (तपशील \[DEVELOP.md\](https://github.com/awaku7/a
 स्वीकारलेले इव्हेंट, स्वीकारलेले इव्हेंट आणि बंधने.## एंटरप्राइझ पॉलिसी इंजिन
 
 टूल्स, प्रदाता, क्रेडेन्शियल्स, MCP सर्व्हर, नेटवर्क, कौशल्ये आणि प्लगइनसाठी संस्था-स्तरीय धोरणे समर्थित आहेत. `UAGENT_POLICY_FILE` ला JSON/YAML धोरण फाइलवर सेट करा; कॉन्फिगरेशन उदाहरणे, भूमिका, पुष्टीकरण आणि अनुमत सूचीसाठी [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) पहा. [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) टिकाऊ पुनर्प्राप्ती, अवलंबित्व-जागरूक अंमलबजावणी, मल्टी-एजंट ऑर्केस्ट्रेशन आणि रिमोट वापरासाठी \_\_⏏S_PH3 [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) शेअर-रनटाइम लीडर लीज समन्वयासाठी.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

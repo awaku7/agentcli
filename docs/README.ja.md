@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-最初の起動時に、セットアップ ウィザードによってプロバイダーの構成が指示されます。
-すべての環境については [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) を参照してください。変数。
+基本インストールでは、プロバイダーとツールの依存関係はオプションです。選択したプロバイダーやツールで必要になった不足パッケージは、自動的にインストールされます。主な機能をあらかじめインストールする場合:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+リポジトリを開発・テストする場合:
+
+```bash
+pip install -r requirements.txt
+```
+
+初回起動時に、セットアップウィザードがプロバイダー設定を案内します。
+すべての環境変数については [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) を参照してください。
 
 ## Computer Use
 
@@ -166,9 +178,9 @@ uagent は、 **Claude コード互換のプラグイン システム**。プラ
 |モード |コマンド |目的 |
 |---|---|---|
 | **CLI** | `uag` |端末ベースの高速操作 |
-| **GUI** | `うあぐ` | tkinter 経由のデスクトップ UI |
-| **Web** | `うぐう` |ブラウザベースのアクセス |
-| **A2A サーバー** |うが |マルチエージェント通信用の Agent2Agent プロトコル |
+| **GUI** | `uagg` | tkinter 経由のデスクトップ UI |
+| **Web** | `uagw` | ブラウザベースのアクセス |
+| **A2A サーバー** | `uaga` |マルチエージェント通信用の Agent2Agent プロトコル |
 | **VS コード** | — | [拡張機能](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) チャット パネル、説明、リファクタリング、エラー修正、ツール ツリー ビュー付き |
 
 VS Code 拡張機能の詳細については、[VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) を参照してください — インストール、コマンド、

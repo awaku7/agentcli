@@ -46,8 +46,20 @@ pip install uag
 uag
 ```
 
-Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cách cấu hình nhà cung cấp.
-Xem [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) để biết tất cả các biến môi trường.
+Bản cài đặt cơ bản giữ các tích hợp nhà cung cấp và công cụ ở dạng tùy chọn. Các gói còn thiếu sẽ được tự động cài đặt khi nhà cung cấp hoặc công cụ đã chọn cần đến. Để cài đặt trước các tính năng chính:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Để cài đặt đầy đủ môi trường phát triển và kiểm thử của kho lưu trữ:
+
+```bash
+pip install -r requirements.txt
+```
+
+Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cấu hình nhà cung cấp.
+Xem tất cả biến môi trường tại [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Sử dụng máy tính
 
@@ -74,7 +86,7 @@ python scheck.py realtime
 
 Đường dẫn AEC3 nhận được tín hiệu micrô thực tế (`gần`) và âm thanh thực sự được truyền đến loa (`xa`) để trợ lý có thể nghe trong khi nói. Chỉ bật chẩn đoán khi điều tra sự cố âm thanh:
 
-```bat
+````bat
 set UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```bash
@@ -83,18 +95,24 @@ UAGENT_PROVIDER=llama_cpp
 UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
 UAGENT_LLAMA_CPP_DEPNAME=local-model
 UAGENT_LLAMA_CPP_API_KEY=dummy
-```
+````
+
 Nhà cung cấp llama.cpp sử dụng đường dẫn tương thích với Hoàn thành trò chuyện. Giữ `UAGENT_RESPONSES=0` trừ khi proxy tương thích được định cấu hình.
+
 ### ⚡ Thực thi công cụ song song
+
 Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song** chúng.
 130 công cụ được đánh dấu tĩnh `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` (8 luồng theo mặc định; được đặt `UAGENT_PARALLEL_WORKERS` để thay đổi).
 **Ví dụ**: Hỏi "Kiểm tra thời tiết ở các thủ đô Bắc Âu" → LLM kích hoạt `search_web` × 5 quốc gia → tất cả 5 tìm kiếm chạy song song → kết quả được thu thập trong một đợt.
 Số lượng hiện tại dựa trên các mô-đun công cụ xác định `TOOL_SPEC` (hiện tại là 222, bao gồm 2 công cụ được hỗ trợ bởi Rust trong `src/uagent/tools_rust/`). `http_request` sử dụng tính năng an toàn nhạy cảm với phương thức: lệnh gọi `GET`/`HEAD`/`OPTIONS` có thể chạy song song, trong khi phương thức ghi vẫn duy trì nối tiếp.
 Các công cụ chỉ đọc (tìm kiếm tệp, tính toán băm, danh sách thư mục, dịch thuật, truy vấn DB, v.v.) được song song hóa mạnh mẽ.
+
 ### 🧩 Hệ thống plugin (Claude Tương thích mã)
+
 uagent triển khai **Claude Hệ thống plugin tương thích với mã**. Các plugin kết hợp các kỹ năng, tác nhân, máy chủ MCP, hook và nhiều thứ khác vào các thư mục độc lập với tệp kê khai `.claude-plugin/plugin.json`.
 **Các thành phần được hỗ trợ**: Kỹ năng, Tác nhân phụ, máy chủ MCP, Hook (12 sự kiện trong vòng đời), Lệnh gạch chéo, Kiểu đầu ra, cấu hình người dùng, Phần phụ thuộc, Kênh, Thị trường
 **CLI lệnh**:
+
 ```
 
 :danh sách plugin # Liệt kê các plugin đã cài đặt
@@ -105,13 +123,18 @@ uagent triển khai **Claude Hệ thống plugin tương thích với mã**. Cá
 :plugin Marketplace thêm/xóa/danh sách # Quản lý Marketplace
 :plugin init <name> # Plugin mới của giàn giáo
 
-````
+```
+
 Xem [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) để có tài liệu đầy đủ.
+
 ### 🔄 Tính liên tục của phiên
+
 - **Chuyển đổi nhà cung cấp giữa phiên** với `UAGENT_PROVIDER` — lịch sử hội thoại được giữ nguyên.
 - **Tải lại các phiên trước** với `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
 - **Bộ nhớ đệm kết quả công cụ** tránh việc thực thi lại dư thừa khi lệnh gọi công cụ tương tự lặp lại.
+
 ### 🛠 229 Tools
+
 | Danh mục | Công cụ |
 |---|---|
 | **Thao tác tệp** | đọc/ghi/tạo/xóa/tìm kiếm/grep/hash/zip, file_type, parse_eml (tệp .eml), `path_alias` |
@@ -127,15 +150,19 @@ Xem [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) để có tài liệu
 | **A2A** | Giao tiếp giữa đại lý với đại lý (với các phiên bản uag khác hoặc máy chủ tương thích A2A) |
 | **Hệ thống** | env vars, thông số hệ thống, tính toán ngày, giờ, [số lượng](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
 | **Điều hướng nguồn** | **29 công cụ idx** cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |
+
 #### Đánh giá và bao quát kho lưu trữ
+
 - `workspace_status`: báo cáo nhánh Git của không gian làm việc đang hoạt động, các thay đổi, trạng thái đồng bộ ngược dòng, thời gian chạy Python và các dấu hiệu dự án phổ biến mà không cần sửa đổi tệp.
 - `git_review`: tóm tắt các thay đổi Git, tệp rủi ro, kiểm tra ứng viên và phát hiện bí mật mà không để lộ giá trị bí mật.
 - `security_scan`: quét các tệp kho lưu trữ để tìm bí mật có thể xảy ra và tệp cấu hình rủi ro.
 - `coverage_report`: chạy và chuẩn hóa phạm vi bảo hiểm cho Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift và Dart/Flutter.
 - Các phụ thuộc vùng phủ sóng bị thiếu có thể được cài đặt tự động khi yêu cầu thực thi; `dry_run` không bao giờ cài đặt gói.
-Xem [Công cụ phân tích kho lưu trữ](docs/REPOSITORY_TOOLS.md) để biết thông số, đầu ra và chi tiết an toàn.
-Xem [Bí danh đường dẫn và URL](docs/PATH_URL_ALIASES.md) để rút ngắn đường dẫn tệp và URL lặp lại trong đối số công cụ.
+  Xem [Công cụ phân tích kho lưu trữ](docs/REPOSITORY_TOOLS.md) để biết thông số, đầu ra và chi tiết an toàn.
+  Xem [Bí danh đường dẫn và URL](docs/PATH_URL_ALIASES.md) để rút ngắn đường dẫn tệp và URL lặp lại trong đối số công cụ.
+
 ### 🖥 4 Giao diện + Phần mở rộng mã VS
+
 | Chế độ | Lệnh | Mục đích |
 |---|---|---|
 | **CLI** | `uag` | Hoạt động dựa trên thiết bị đầu cuối nhanh |
@@ -144,7 +171,9 @@ Xem [Bí danh đường dẫn và URL](docs/PATH_URL_ALIASES.md) để rút ng�
 | **A2A Máy chủ** | `uaga` | Giao thức Agent2Agent cho giao tiếp đa tác nhân |
 | **Mã VS** | — | [Tiện ích mở rộng](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) với Bảng trò chuyện, Giải thích, Tái cấu trúc, Sửa lỗi và Chế độ xem dạng cây công cụ |
 Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
+
 ### 🏠 Điều khiển thiết bị IoT
+
 - **BACnet**: Đọc/ghi các thiết bị BACnet/IP (HVAC, hệ thống chiếu sáng, đồng hồ đo điện). Đăng ký COV để nhận thông báo đẩy
 - **Modbus TCP**: Đọc/ghi giữ/nhập các thanh ghi và cuộn dây. Giám sát thay đổi dựa trên thăm dò
 - **OPC UA**: Duyệt không gian địa chỉ, đọc/ghi các biến, đăng ký thay đổi dữ liệu
@@ -152,23 +181,34 @@ Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) đ�
 - **ECHONET Lite**: Khám phá, kiểm soát và đăng ký thông báo INF từ các thiết bị gia dụng (AC, đèn, máy nước nóng, v.v.)
 - **Vấn đề**: Kiểm soát đọc/ghi + đăng ký thuộc tính để giám sát thay đổi trạng thái
 - **UPnP**: Khám phá thiết bị & chuyển tiếp cổng IGD
-Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+  Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+
 ### 🎯 Chợ kỹ năng đại lý
+
 `:skills mp_search` để duyệt qua [SkillsMP](https://skillsmp.com) và [ClawHub](https://clawhub.ai) để biết các kỹ năng cộng đồng.
 Cài đặt và mở rộng Khả năng của uag một cách nhanh chóng.
+
 ### 🤖 Auto-Pilot (`:auto`)
+
 uag có thể **tự động theo đuổi mục tiêu trong nhiều LLM vòng**. Hoàn hảo cho các nhiệm vụ phức tạp, nhiều bước cần tinh chỉnh lặp đi lặp lại.
+
 - **Cách hoạt động**: Mỗi vòng có một truy vấn chính (Bước A), theo sau là phán đoán của người đánh giá (Bước B) quyết định "HOÀN THÀNH hay TIẾP TỤC?"
 - **Cùng một nhà cung cấp, giống API**: Phán quyết của người đánh giá sử dụng đường dẫn mã giống hệt như truy vấn chính — bao gồm Phản hồi API hỗ trợ.
 - **Thẩm phán riêng LLM** (tùy chọn): Đặt `UAGENT_AP_PROVIDER` để sử dụng một nhà cung cấp/mô hình khác cho người đánh giá (ví dụ: sử dụng mô hình rẻ hơn để đánh giá).
 - **Thoát bất cứ lúc nào**: Nhấn phím F11 để dừng ngay lập tức, kể cả khi đang phản hồi. Hoặc để người đánh giá quyết định khi nào đạt được mục tiêu.
 - **Có thể định cấu hình**: `--max-rounds N` để kiểm soát ngân sách.
-Xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) để có tài liệu đầy đủ.
+  Xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) để có tài liệu đầy đủ.
+
 ### 🧩 Batch State Manager
+
 uag có thể theo dõi tiến trình trong thời gian dài nhiệm vụ nhiều tập tin. Khi LLM xử lý hàng chục tệp, `batch_state` vẫn giữ nguyên danh sách các tệp đang chờ xử lý, đã hoàn thành và không thành công vào đĩa. Nếu phiên kết thúc hoặc hết thời gian, lần chạy tiếp theo sẽ tiếp tục từ nơi nó đã dừng — không có gì bị mất.
+
 ### 🛡 Human-in-the-Loop
+
 `human_ask` cho phép LLM tạm dừng và yêu cầu bạn xác nhận trước khi thực hiện các thao tác phá hoại (xóa tệp, ghi đè, lệnh shell). Bạn luôn nắm quyền kiểm soát.
+
 ### 🛑 Ngắt (phím c / Nút dừng)
+
 Dừng tạo phản hồi LLM bất cứ lúc nào và đưa lệnh dừng trở lại LLM.
 | Giao diện | Cách ngắt lời |
 |---|---|
@@ -177,27 +217,39 @@ Dừng tạo phản hồi LLM bất cứ lúc nào và đưa lệnh dừng trở
 | **Giao diện máy tính để bàn** | Nhấp vào nút **■** màu đỏ (tự động xuất hiện trong quá trình xử lý LLM) |
 Ngắt hoạt động như "nhắc nhở": thay vì chỉ hủy bỏ, nó sẽ đưa `"Dừng"` trở lại LLM dưới dạng thông báo người dùng, cho phép nó kết thúc hoặc xác nhận sự gián đoạn một cách duyên dáng.
 Nhấn phím F11 để thoát chế độ tự động điều khiển (xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
+
 ### 🕵️ Tự động hóa trình duyệt và Thanh tra web
+
 Hai công cụ bổ sung dựa trên Playwright:
+
 - **browser_playwright**: Tự động hóa các phiên trình duyệt thực — điều hướng, nhấp chuột, điền vào biểu mẫu, trích xuất dữ liệu, xử lý các luồng nhiều trang. Hoạt động không có đầu hoặc có đầu.
 - **playwright_inspector**: Ghi lại quá trình chuyển đổi trình duyệt, chụp ảnh chụp nhanh DOM và ảnh chụp màn hình ở mỗi bước. Hữu ích để gỡ lỗi các tương tác trên web hoặc kiểm tra các thay đổi của trang theo thời gian.
+
 ### 🔄 Tải công cụ động
+
 `tool_catalog` và `tool_load` cho phép bạn khám phá và kích hoạt các công cụ trong thời gian chạy.
 Không cần tải mọi thứ khi khởi động — chỉ kích hoạt những gì bạn cần, khi bạn cần.
+
 ### 🦀 Rust Native Tools
+
 `uuid_gen` và `slugify` được triển khai trong Rust (thông qua PyO3) cho hiệu suất.
 Chúng tải trực tiếp từ `.pyd` dựng sẵn — **không cần `pip install`**.
-Các nhà phát triển bên ngoài cũng có thể cung cấp các công cụ dựa trên Rust: đặt `.pyd` bên cạnh 
+Các nhà phát triển bên ngoài cũng có thể cung cấp các công cụ dựa trên Rust: đặt `.pyd` bên cạnh
 wrapper `.py`, sử dụng `load_rust_pyd()` từ `uagent.tools.rust_helper` và
 người dùng nhận được công cụ mà không cần bất kỳ sự phụ thuộc bổ sung nào. Xem
 [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
 ### 🌐 i18n / L10n
+
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / và hơn thế nữa.
 Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) để thêm ngôn ngữ mới.
 Bản dịch của README này có sẵn ở [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
 ### 🔒 Biến môi trường được mã hóa
+
 Lưu trữ API khóa và bí mật trong `.env.sec` — một tệp `.env` được mã hóa.
 Quản lý bằng `uag_envsec`.
+
 ## Cấu hình & Chi tiết
 
 - **Biến môi trường**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
@@ -246,7 +298,7 @@ danh sách phụ thuộc:
 ```bash
 python -m pip install -e ".[test]"
 python -m pip install black ruff
-````
+```
 
 Chạy các kiểm tra tương tự được sử dụng bởi GitHub Hành động trước khi đẩy:
 

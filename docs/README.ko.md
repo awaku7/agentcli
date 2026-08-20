@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-처음 시작하면 설정 마법사가 공급자 구성 과정을 안내합니다.
-모든 환경 변수는 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)를 참조하세요.
+기본 설치에서는 제공업체와 도구의 종속성이 선택 사항입니다. 선택한 제공업체나 도구에 필요한 패키지가 없으면 자동으로 설치됩니다. 주요 기능을 미리 설치하려면 다음을 실행하세요.
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+저장소 개발 및 테스트 환경을 설치하려면 다음을 실행하세요.
+
+```bash
+pip install -r requirements.txt
+```
+
+처음 실행하면 설정 마법사가 제공업체 구성을 안내합니다.
+모든 환경 변수는 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)에서 확인할 수 있습니다.
 
 ## Computer Use
 
@@ -173,7 +185,10 @@ uagent는 **Claude를 구현합니다. 코드 호환 플러그인 시스템**. �
 
 | 모드 | 명령 | 목적 |
 |---|---|---|
-| **CLI** | \`\`uag`| 빠른 터미널 기반 작업 | | **GUI** |`uagg`| tkinter를 통한 데스크탑 UI | | **Web** |`uagw`| 브라우저 기반 액세스 | | **A2A 서버** |`uaga\` | 다중 에이전트 통신을 위한 Agent2Agent 프로토콜 |
+| **CLI** | `uag` | 빠른 터미널 기반 작업 |
+| **GUI** | `uagg` | tkinter를 통한 데스크톱 UI |
+| **Web** | `uagw` | 브라우저 기반 액세스 |
+| **A2A 서버** | `uaga` | 다중 에이전트 통신을 위한 Agent2Agent 프로토콜 |
 | **VS 코드** | — | 채팅 패널, 설명, 리팩터링, 오류 수정 및 도구 트리 보기가 포함된 [확장](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 
 VS Code 확장(설치, 명령, 키 바인딩 및 구성.

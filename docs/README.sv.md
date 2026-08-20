@@ -36,12 +36,24 @@ uag är **din AI-assistent på dina villkor**. Inte bunden till en leverantör, 
 ## Snabbstart
 
 ```bash
-pip-installation uag
+pip install uag
 uag
 ```
 
-Vid den första lanseringen leder installationsguiden dig genom leverantörskonfigurationen.
-Se \[docs/ENVIRONMENT.md\](https://github.com/awadocku7/agentincli/environment/enviRONMENT/environment/environment/ variabler.
+Grundinstallationen håller leverantörs- och verktygsintegrationer valfria. Saknade paket installeras automatiskt när den valda leverantören eller det valda verktyget behöver dem. Installera huvudfunktionerna i förväg:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Installera den fullständiga utvecklings- och testmiljön för arkivet:
+
+```bash
+pip install -r requirements.txt
+```
+
+Vid första starten guidar installationsguiden dig genom leverantörskonfigurationen.
+Se alla miljövariabler i [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Datoranvändning
 
@@ -266,3 +278,19 @@ Policyer på organisationsnivå för verktyg, leverantörer, referenser, MCP-ser
 Se [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) för hållbar återställning, beroendemedveten körning, orkestrering av flera agenter och fjärranvändning av A2A.
 
 Se [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) för samordning av leasingavtal med delad körtid.
+
+## Installation and optional dependencies
+
+The base installation keeps provider and tool integrations optional. Missing
+packages are installed automatically when a selected provider or tool needs
+one. To install the main feature groups in advance:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development and test environment:
+
+```bash
+pip install -r requirements.txt
+```

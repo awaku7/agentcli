@@ -43,8 +43,20 @@ pip install uag
 uag
 ```
 
-Lors du premier lancement, l'assistant d'installation vous guide dans la configuration du fournisseur.
-Voir [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) pour toutes les variables d'environnement.
+L’installation de base considère les intégrations de fournisseurs et d’outils comme facultatives. Les paquets manquants sont installés automatiquement lorsqu’un fournisseur ou un outil sélectionné en a besoin. Pour installer à l’avance les principales fonctionnalités :
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Pour installer l’environnement complet de développement et de test du dépôt :
+
+```bash
+pip install -r requirements.txt
+```
+
+Au premier démarrage, l’assistant de configuration vous guide pour configurer le fournisseur.
+Pour connaître toutes les variables d’environnement, consultez [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Computer Use
 
@@ -176,7 +188,7 @@ Voir [Alias de chemin et d'URL](docs/PATH_URL_ALIASES.md) pour raccourcir les ch
 | **CLI** | `uag` | Fonctionnement rapide basé sur un terminal |
 | **GUI** | `uagg` | Interface utilisateur de bureau via tkinter |
 | **Web** | `uagw` | Accès par navigateur |
-| **A2A Serveur** | `ouaga` | Protocole Agent2Agent pour la communication multi-agents |
+| **A2A Serveur** | `uaga` | Protocole Agent2Agent pour la communication multi-agents |
 | **Code VS** | — | [Extension](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) avec panneau de discussion, explication, refactorisation, correction des erreurs et arborescence des outils |
 
 Voir [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pour plus de détails sur l'extension VS Code - installation, commandes, raccourcis clavier et configuration.

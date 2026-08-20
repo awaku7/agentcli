@@ -1,35 +1,9 @@
-# Core LLM & HTTP
-openai>=2.45.0
-anthropic>=0.116.0
-google-genai>=2.11.0
-httpx>=0.28.1
-requests>=2.33.1
-urllib3>=2.6.3
+# UAG full development/runtime environment.
+# Dependency definitions are centralized in pyproject.toml extras.
+-e .[core,providers,tools,development,platform,web,test,realtime,realtime-aec,location-macos,location-linux]
+
+# Type stubs and additional development tooling.
 types-requests>=2.33.0.20260327
-python-dotenv>=1.2.2
-tqdm>=4.67.3
-prompt-toolkit>=3.0.52
-certifi>=2026.2.25
-
-# Documents & Data
-llmcapa==0.5.4
-pyyaml>=6.0.3
-numpy>=2.4.4
-
-# Network & Browser
-
-# GUI
-
-# Windows / OS Specific
-pyreadline3>=3.5.4; platform_system == "Windows"
-pywin32>=311; platform_system == "Windows"
-
-# Dev Tools (Optional)
-mdformat>=1.0.0
-pylint>=4.0.5
-pytest>=9.0.2
-jinja2>=3.1.6
-python-multipart>=0.0.22
-websockets>=16.0
 types-PyYAML>=6.0.12.20250915
 types-python-dateutil>=2.9.0.20260323
+pylint>=4.0.5

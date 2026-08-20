@@ -66,6 +66,20 @@ Install `uag`:
 python -m pip install uag
 ```
 
+The base package keeps provider and tool dependencies optional. Missing runtime
+packages are installed automatically when the corresponding feature is first
+used. To install the main feature groups up front instead:
+
+```bat
+python -m pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+For a repository checkout with the full development/test environment:
+
+```bat
+python -m pip install -r requirements.txt
+```
+
 If you want to pin a version:
 
 ```bat

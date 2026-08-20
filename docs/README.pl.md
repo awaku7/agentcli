@@ -47,8 +47,20 @@ pip install uag
 uag
 ```
 
-Przy pierwszym uruchomieniu kreator instalacji przeprowadzi Cię przez konfigurację dostawcy.
-Zobacz [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) dla wszystkich środowisk zmienne.
+Instalacja podstawowa pozostawia integracje dostawców i narzędzi jako opcjonalne. Brakujące pakiety są instalowane automatycznie, gdy potrzebuje ich wybrany dostawca lub narzędzie. Aby zainstalować najważniejsze funkcje wcześniej:
+
+```bash
+pip install "uag[core,providers,tools,development,platform,web]"
+```
+
+Aby zainstalować pełne środowisko programistyczne i testowe repozytorium:
+
+```bash
+pip install -r requirements.txt
+```
+
+Przy pierwszym uruchomieniu kreator konfiguracji przeprowadzi Cię przez konfigurację dostawcy.
+Wszystkie zmienne środowiskowe opisano w [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Korzystanie z komputera
 
