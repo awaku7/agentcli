@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from ..env_utils import env_get
@@ -97,6 +98,21 @@ def _ollama_extra_params() -> dict[str, Any]:
     return params
 
 
+def _ollama_output_format() -> Any:
+    """Return an optional Ollama native JSON output format."""
+
+    raw = (env_get("UAGENT_OLLAMA_FORMAT", "") or "").strip()
+    if not raw:
+        return None
+    if raw.lower() == "json":
+        return "json"
+    try:
+        parsed = json.loads(raw)
+    except (TypeError, ValueError):
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
 def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
     """Apply Ollama-specific ChatCompletions request options via extra_body."""
 
@@ -108,6 +124,10 @@ def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> No
         if not isinstance(extra_body, dict):
             extra_body = {}
         extra_body.update(_ollama_extra_params())
+        if "format" not in extra_body:
+            output_format = _ollama_output_format()
+            if output_format is not None:
+                extra_body["format"] = output_format
         chat_kwargs["extra_body"] = extra_body
 
         # Ollama's OpenAI-compatible endpoint (/v1/chat/completions) ignores

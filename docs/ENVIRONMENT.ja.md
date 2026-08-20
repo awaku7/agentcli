@@ -77,6 +77,7 @@ set UAGENT_RESPONSES=0
 
 - `UAGENT_OLLAMA_DEPNAME`（必須）
 - `UAGENT_OLLAMA_BASE_URL`（省略可、既定: `http://localhost:11434/v1`）
+- `UAGENT_OLLAMA_FORMAT`（省略可）: `json` または JSON Schema を指定すると、ネイティブAPIの構造化出力を要求します。
 
 #### llama.cpp / llama-server
 

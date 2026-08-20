@@ -77,6 +77,7 @@ Required if `UAGENT_PROVIDER=ollama`:
 
 - `UAGENT_OLLAMA_DEPNAME` (required)
 - `UAGENT_OLLAMA_BASE_URL` (optional, default: `http://localhost:11434/v1`)
+- `UAGENT_OLLAMA_FORMAT` (optional): set to `json` or a JSON Schema to request Ollama native structured output.
 
 #### llama.cpp / llama-server
 

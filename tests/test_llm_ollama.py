@@ -74,6 +74,39 @@ def test_ollama_responses_compat_uses_responses_token_field(monkeypatch):
     assert "max_output_tokens" not in kwargs
 
 
+def test_ollama_output_format_json(monkeypatch):
+    monkeypatch.setenv("UAGENT_OLLAMA_FORMAT", "json")
+    kwargs = {}
+
+    apply_ollama_extra_body(kwargs, provider="ollama")
+
+    assert kwargs["extra_body"]["format"] == "json"
+
+
+def test_ollama_output_format_json_schema(monkeypatch):
+    monkeypatch.setenv(
+        "UAGENT_OLLAMA_FORMAT",
+        '{"type":"object","properties":{"answer":{"type":"string"}}}',
+    )
+    kwargs = {}
+
+    apply_ollama_extra_body(kwargs, provider="ollama")
+
+    assert kwargs["extra_body"]["format"] == {
+        "type": "object",
+        "properties": {"answer": {"type": "string"}},
+    }
+
+
+def test_ollama_output_format_invalid_is_ignored(monkeypatch):
+    monkeypatch.setenv("UAGENT_OLLAMA_FORMAT", "not-json")
+    kwargs = {}
+
+    apply_ollama_extra_body(kwargs, provider="ollama")
+
+    assert "format" not in kwargs["extra_body"]
+
+
 def test_ollama_responses_compat_is_provider_gated():
     kwargs = {}
 
