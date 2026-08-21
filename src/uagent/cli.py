@@ -772,6 +772,33 @@ def _prompt_toolkit_input(
         def _cancel(event: Any) -> None:
             raise KeyboardInterrupt()
 
+        @kb.add("up")
+        def _history_or_cursor_up(event: Any) -> None:
+            buffer = event.current_buffer
+            document = buffer.document
+            if document.cursor_position_row == 0:
+                before = buffer.text
+                buffer.history_backward()
+                # For recalled multiline entries, start editing at the first
+                # line. Keep prompt_toolkit's normal behavior for one-line
+                # history entries (cursor at the end).
+                if buffer.text != before and "\n" in buffer.text:
+                    buffer.cursor_position = 0
+            else:
+                buffer.cursor_up()
+
+        @kb.add("down")
+        def _history_or_cursor_down(event: Any) -> None:
+            buffer = event.current_buffer
+            document = buffer.document
+            if document.cursor_position_row == document.line_count - 1:
+                before = buffer.text
+                buffer.history_forward()
+                if buffer.text != before and "\n" in buffer.text:
+                    buffer.cursor_position = 0
+            else:
+                buffer.cursor_down()
+
     # A tool (most notably human_ask) can start while the normal prompt is
     # already inside prompt_toolkit's blocking prompt(). In that case the
     # stdin_loop cannot notice the state change until prompt() returns, while
