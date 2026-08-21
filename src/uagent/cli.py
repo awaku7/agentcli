@@ -750,6 +750,45 @@ def _reset_prompt_sessions() -> None:
     _PROMPT_REPLY_SESSION = None
 
 
+def _make_prompt_key_bindings() -> Any:
+    """Return prompt_toolkit bindings shared by normal and reply prompts."""
+    try:
+        from prompt_toolkit.key_binding import KeyBindings
+    except Exception:
+        return None
+    kb = KeyBindings()
+
+    @kb.add("escape", eager=True)
+    def _cancel(event: Any) -> None:
+        raise KeyboardInterrupt()
+
+    @kb.add("up", eager=True)
+    def _history_or_cursor_up(event: Any) -> None:
+        buffer = event.current_buffer
+        document = buffer.document
+        if document.cursor_position_row == 0:
+            before = buffer.text
+            buffer.history_backward()
+            if buffer.text != before and buffer.document.line_count > 1:
+                buffer.cursor_position = 0
+        else:
+            buffer.cursor_up()
+
+    @kb.add("down", eager=True)
+    def _history_or_cursor_down(event: Any) -> None:
+        buffer = event.current_buffer
+        document = buffer.document
+        if document.cursor_position_row == document.line_count - 1:
+            before = buffer.text
+            buffer.history_forward()
+            if buffer.text != before and buffer.document.line_count > 1:
+                buffer.cursor_position = 0
+        else:
+            buffer.cursor_down()
+
+    return kb
+
+
 def _prompt_toolkit_input(
     prompt: str, *, is_password: bool = False, reply: bool = False
 ) -> str | None:
@@ -1242,7 +1281,9 @@ def stdin_loop() -> None:
                                 pass
                             try:
                                 with patch_stdout():
-                                    line = prompt_session.prompt(prompt)
+                                    line = prompt_session.prompt(
+                                        prompt, key_bindings=_make_prompt_key_bindings()
+                                    )
                             finally:
                                 stop_prompt_watch.set()
                                 prompt_watcher.join(timeout=0.2)
