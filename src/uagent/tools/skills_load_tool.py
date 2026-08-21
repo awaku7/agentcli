@@ -71,6 +71,18 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     doc = load_skill_doc(skill_dir.strip())
+
+    # skills_load is also callable directly by the LLM (not only through the
+    # :skills command). Pin the tools declared by the loaded skill here so the
+    # round-loop auto-unloader cannot remove them before skill execution ends.
+    try:
+        from .skill_history import pin_skill_tools
+
+        pin_skill_tools(doc.frontmatter.get("allowed-tools"))
+    except Exception:
+        # Loading a skill must remain usable even if optional pinning fails.
+        pass
+
     out = {
         "path": doc.path,
         "frontmatter": doc.frontmatter,
