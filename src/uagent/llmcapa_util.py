@@ -49,6 +49,16 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
 }
 
 
+# Provider aliases that are safe for strict provider/model capability lookup.
+# In particular, an Azure deployment must never silently resolve to an OpenAI
+# catalog row with the same name.
+_STRICT_PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
+    "openai": ("openai",),
+    "azure": ("azure-openai", "azure-foundry"),
+    "openrouter": ("openrouter",),
+}
+
+
 def normalize_provider(provider: str | None) -> str:
     """Return a normalized uag provider key (lower/strip)."""
     return (provider or "").strip().lower()
@@ -96,7 +106,9 @@ def current_model(provider: str | None = None) -> str:
 
 
 @lru_cache(maxsize=256)
-def _get_capability_cached(model_id: str, provider_key: str) -> Any | None:
+def _get_capability_cached(
+    model_id: str, provider_key: str, scoped_only: bool = False
+) -> Any | None:
     """Cached llmcapa.get with provider/model candidate fallbacks."""
     try:
         import llmcapa
@@ -104,7 +116,14 @@ def _get_capability_cached(model_id: str, provider_key: str) -> Any | None:
         return None
 
     model_ids = model_id_candidates(model_id)
-    providers = provider_candidates(provider_key) if provider_key else [None]
+    if provider_key and scoped_only:
+        providers = list(
+            _STRICT_PROVIDER_CANDIDATES.get(
+                provider_key, tuple(provider_candidates(provider_key)[:1])
+            )
+        )
+    else:
+        providers = provider_candidates(provider_key) if provider_key else [None]
 
     # 1) Scoped lookups
     for prov in providers:
@@ -118,6 +137,9 @@ def _get_capability_cached(model_id: str, provider_key: str) -> Any | None:
                     return cap
             except Exception:
                 continue
+
+    if scoped_only:
+        return None
 
     # 2) Unscoped lookup (native/first-registered)
     if provider_key:
@@ -156,6 +178,7 @@ def get_capability(
     provider: str | None = None,
     *,
     use_env_defaults: bool = False,
+    scoped_only: bool = False,
 ) -> Any | None:
     """Resolve a llmcapa Capability or return None.
 
@@ -171,7 +194,7 @@ def get_capability(
             mid = current_model(prov)
     if not mid:
         return None
-    return _get_capability_cached(mid, prov)
+    return _get_capability_cached(mid, prov, scoped_only)
 
 
 def clear_capability_cache() -> None:
@@ -209,7 +232,11 @@ def _supports_structured_output_feature(
     provider: str | None = None,
 ) -> bool | None:
     """Return tri-state Structured Output support for one provider/model."""
-    cap = get_capability(model_id, provider)
+    try:
+        cap = get_capability(model_id, provider, scoped_only=True)
+    except TypeError:
+        # Compatibility with test doubles and older integrations.
+        cap = get_capability(model_id, provider)
     if cap is None:
         return None
     try:

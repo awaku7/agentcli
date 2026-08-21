@@ -50,6 +50,25 @@ def test_unknown_model_uses_prompt_fallback(monkeypatch):
     assert native_structured_output_request(messages({"type": "object"}), model_id="m", provider="p") is None
 
 
+def test_azure_deployment_does_not_fall_back_to_openai(monkeypatch):
+    import llmcapa
+    from uagent.llmcapa_util import clear_capability_cache, get_capability
+
+    calls = []
+
+    def fake_get(model_id, provider=None):
+        calls.append((model_id, provider))
+        return Cap(True, True) if provider == "openai" else None
+
+    monkeypatch.setattr(llmcapa, "get", fake_get)
+    clear_capability_cache()
+    try:
+        assert get_capability("deployment-name", "azure", scoped_only=True) is None
+        assert all(provider != "openai" for _, provider in calls)
+    finally:
+        clear_capability_cache()
+
+
 def test_structured_output_switch_wins(monkeypatch):
     monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "false")
     monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: Cap(True, True))
