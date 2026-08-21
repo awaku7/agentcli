@@ -96,6 +96,17 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> list[str]:
     if not os.path.isdir(root_dir):
         return out
 
+    # ``root_dir`` may itself be a skill directory. This is especially
+    # important for non-recursive scans: callers often pass the path selected
+    # from a previous skills listing and use ``recur=false``. The old code
+    # only inspected children in that mode, returned an empty list, and made
+    # small models retry the identical skills_list call instead of proceeding
+    # to skills_load.
+    if os.path.isfile(os.path.join(root_dir, "SKILL.md")):
+        out.append(root_dir)
+        if not recursive:
+            return out
+
     if recursive:
         for dirpath, dirnames, filenames in os.walk(root_dir):
             base = os.path.basename(dirpath)
@@ -103,7 +114,7 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> list[str]:
                 dirnames[:] = []
                 continue
 
-            if "SKILL.md" in filenames:
+            if "SKILL.md" in filenames and os.path.abspath(dirpath) != root_dir:
                 out.append(dirpath)
     else:
         for entry in os.scandir(root_dir):

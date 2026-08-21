@@ -166,3 +166,23 @@ def test_skills_list_non_recursive(repo_tmp_path: Path) -> None:
     names = {x["name"] for x in obj}
     assert "top-skill" in names
     assert "child-skill" not in names
+
+
+def test_skills_list_accepts_skill_directory_as_root(repo_tmp_path: Path) -> None:
+    """A direct, non-recursive scan must include root_dir itself."""
+    from uagent.tools.skills_list_tool import run_tool
+
+    skill_dir = repo_tmp_path / "direct-skill"
+    _write_skill(skill_dir)
+
+    out = run_tool(
+        {
+            "root_dir": str(skill_dir),
+            "recur": False,
+            "include_invalid": True,
+            "strict": False,
+        }
+    )
+    obj = _loads(out)
+    assert len(obj) == 1
+    assert obj[0]["name"] == "direct-skill"
