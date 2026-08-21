@@ -113,6 +113,31 @@ def run_tool(args: dict[str, Any]) -> str:
             indent=2,
         )
 
+    # This tool is for text references only. Reading Office/PDF/image archives
+    # as UTF-8 can expand binary bytes into a massive LLM payload and exhaust
+    # the context window. Use the format-specific index tool instead.
+    binary_extensions = {
+        ".7z", ".doc", ".docx", ".gif", ".jpeg", ".jpg", ".pdf", ".png",
+        ".ppt", ".pptx", ".rar", ".xls", ".xlsm", ".xlsx", ".zip",
+    }
+    extension = os.path.splitext(resolved)[1].lower()
+    try:
+        with open(resolved, "rb") as handle:
+            magic = handle.read(8)
+    except OSError:
+        magic = b""
+    if extension in binary_extensions or magic.startswith((b"PK\x03\x04", b"%PDF-")):
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "Binary/document file rejected by skills_read_file; use the format-specific index tool instead.",
+                "path": resolved,
+                "recommended_tool": "excel2idx for Excel, pdf2idx for PDF, ppt2idx for PowerPoint, or document_extract for Word/ODT",
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+
     content = _read_text_file(resolved, max_bytes=max_bytes)
     return json.dumps(
         {"ok": True, "path": resolved, "content": content}, ensure_ascii=False, indent=2
