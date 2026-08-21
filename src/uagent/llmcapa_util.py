@@ -191,7 +191,8 @@ def supports_feature(
     if cap is None:
         return default
     try:
-        return bool(cap.supports(feature))
+        value = cap.supports(feature)
+        return None if value is None else bool(value)
     except Exception:
         # Fall back to attribute-style flags when supports() is unavailable.
         attr = f"supports_{feature}" if not feature.startswith("supports_") else feature
@@ -199,6 +200,40 @@ def supports_feature(
         if val is None:
             return default
         return bool(val)
+
+
+
+def _supports_structured_output_feature(
+    feature: str,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> bool | None:
+    """Return tri-state Structured Output support for one provider/model."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return None
+    try:
+        value = cap.supports(feature)
+        if value is not None:
+            return bool(value)
+    except Exception:
+        pass
+    value = getattr(cap, f"supports_{feature}", None)
+    return None if value is None else bool(value)
+
+
+def supports_json_mode(
+    model_id: str | None = None, provider: str | None = None
+) -> bool | None:
+    """Return tri-state JSON Object mode support for provider + model."""
+    return _supports_structured_output_feature("json_mode", model_id, provider)
+
+
+def supports_json_schema(
+    model_id: str | None = None, provider: str | None = None
+) -> bool | None:
+    """Return tri-state JSON Schema support for provider + model."""
+    return _supports_structured_output_feature("json_schema", model_id, provider)
 
 
 def supports_vision(

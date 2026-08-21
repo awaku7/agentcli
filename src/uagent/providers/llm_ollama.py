@@ -97,12 +97,16 @@ def _ollama_extra_params() -> dict[str, Any]:
     return params
 
 
-def _ollama_output_format(messages: list[dict[str, Any]] | None = None) -> Any:
+def _ollama_output_format(
+    messages: list[dict[str, Any]] | None = None, model_id: str = ""
+) -> Any:
     """Build Ollama's JSON/JSON Schema format from shared configuration."""
 
-    from .structured_output import structured_output_request
+    from .structured_output import native_structured_output_request
 
-    output_format = structured_output_request(messages or [])
+    output_format = native_structured_output_request(
+        messages or [], model_id=model_id, provider="ollama"
+    )
     if output_format is None:
         return None
     if output_format.get("type") == "json_schema":
@@ -127,7 +131,9 @@ def apply_ollama_extra_body(
             extra_body = {}
         extra_body.update(_ollama_extra_params())
         if "format" not in extra_body:
-            output_format = _ollama_output_format(messages)
+            output_format = _ollama_output_format(
+                messages, model_id=str(chat_kwargs.get("model", ""))
+            )
             if output_format is not None:
                 extra_body["format"] = output_format
         chat_kwargs["extra_body"] = extra_body

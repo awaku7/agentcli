@@ -25,12 +25,16 @@ def _int(name: str, default: int) -> int | None:
         return None
 
 
-def _llama_cpp_output_format(messages: list[dict[str, Any]] | None = None) -> Any:
+def _llama_cpp_output_format(
+    messages: list[dict[str, Any]] | None = None, model_id: str = ""
+) -> Any:
     """Build llama-server JSON output format from shared Structured Output."""
 
-    from .structured_output import structured_output_request
+    from .structured_output import native_structured_output_request
 
-    output_format = structured_output_request(messages or [])
+    output_format = native_structured_output_request(
+        messages or [], model_id=model_id, provider="llama_cpp"
+    )
     if output_format is not None:
         return output_format
     return None
@@ -58,7 +62,9 @@ def apply_llama_cpp_extra_body(
         options["min_p"] = min_p
     if repeat_penalty is not None and repeat_penalty > 0:
         options["repeat_penalty"] = repeat_penalty
-    output_format = _llama_cpp_output_format(messages)
+    output_format = _llama_cpp_output_format(
+        messages, model_id=str(chat_kwargs.get("model", ""))
+    )
     if output_format is not None and "response_format" not in extra:
         extra["response_format"] = output_format
 

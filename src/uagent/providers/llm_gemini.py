@@ -1038,9 +1038,11 @@ def gemini_chat_with_tools(
 
     # Shared Structured Output configuration.
     try:
-        from .structured_output import structured_output_request
+        from .structured_output import native_structured_output_request
 
-        output_format = structured_output_request(messages)
+        output_format = native_structured_output_request(
+            messages, model_id=model_name, provider=provider
+        )
         if output_format is not None:
             cfg_kwargs["response_mime_type"] = "application/json"
             if output_format.get("type") == "json_schema":

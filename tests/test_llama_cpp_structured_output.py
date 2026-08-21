@@ -4,27 +4,37 @@ from uagent.providers.llm_llama_cpp import apply_llama_cpp_extra_body
 
 
 def test_llama_cpp_json_format(monkeypatch):
-    monkeypatch.setenv("UAGENT_LLAMA_CPP_FORMAT", "json")
-    kwargs = {}
+    monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "true")
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: False)
+    kwargs = {"model": "test-model"}
+    messages = [{"role": "system", "content": "response_mode: json"}]
 
-    apply_llama_cpp_extra_body(kwargs, provider="llama_cpp")
+    apply_llama_cpp_extra_body(kwargs, provider="llama_cpp", messages=messages)
 
     assert kwargs["extra_body"]["response_format"] == {"type": "json_object"}
 
 
 def test_llama_cpp_json_schema_format(monkeypatch):
-    monkeypatch.setenv(
-        "UAGENT_LLAMA_CPP_FORMAT",
-        '{"type":"object","properties":{"answer":{"type":"string"}}}',
-    )
-    kwargs = {}
+    monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "true")
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
+    kwargs = {"model": "test-model"}
+    messages = [
+        {
+            "role": "system",
+            "content": ("response_mode: json\n\nresponse_schema:\n"
+                + '{"type":"object","properties":{"answer":{"type":"string"}}}'),
+        }
+    ]
 
-    apply_llama_cpp_extra_body(kwargs, provider="llama_cpp")
+    apply_llama_cpp_extra_body(kwargs, provider="llama_cpp", messages=messages)
 
     assert kwargs["extra_body"]["response_format"] == {
         "type": "json_schema",
         "json_schema": {
             "name": "response",
+            "strict": True,
             "schema": {
                 "type": "object",
                 "properties": {"answer": {"type": "string"}},

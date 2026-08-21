@@ -329,6 +329,14 @@ def _call_claude_round(
             )
             _claude_structured = structured_output_request(call_messages)
             if _claude_structured is not None:
+                try:
+                    from .llmcapa_util import supports_json_schema
+
+                    if supports_json_schema(depname, provider) is not True:
+                        _claude_structured = None
+                except Exception:
+                    _claude_structured = None
+            if _claude_structured is not None:
                 if not isinstance(_claude_out_cfg, dict):
                     _claude_out_cfg = {}
                 if _claude_structured.get("type") == "json_schema":
@@ -662,7 +670,7 @@ def _call_openai_azure_round(
                     resp_kwargs["tool_choice"] = "auto"
 
                 apply_openai_responses_structured_output(
-                    resp_kwargs, provider=provider, messages=call_messages
+                    resp_kwargs, provider=provider, messages=call_messages, model_id=depname
                 )
 
                 apply_openrouter_responses_compat(
@@ -956,7 +964,7 @@ def _call_openai_azure_round(
                         chat_kwargs["parallel_tool_calls"] = True
 
                 apply_openai_chat_structured_output(
-                    chat_kwargs, provider=provider, messages=call_messages
+                    chat_kwargs, provider=provider, messages=call_messages, model_id=depname
                 )
 
                 # OpenRouter provider routing / extensions (optional)

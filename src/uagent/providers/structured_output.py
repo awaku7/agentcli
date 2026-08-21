@@ -59,8 +59,29 @@ def structured_output_request(messages: list[dict[str, Any]]) -> dict[str, Any] 
     return _structured_request(messages)
 
 
+def native_structured_output_request(
+    messages: list[dict[str, Any]], *, model_id: str = "", provider: str = ""
+) -> dict[str, Any] | None:
+    """Select a native format only when llmcapa confirms the exact model."""
+    requested = _structured_request(messages)
+    if requested is None:
+        return None
+    try:
+        from ..llmcapa_util import supports_json_mode, supports_json_schema
+
+        schema_ok = supports_json_schema(model_id, provider)
+        json_ok = supports_json_mode(model_id, provider)
+    except Exception:
+        schema_ok = json_ok = None
+    if requested.get("type") == "json_schema" and schema_ok is True:
+        return requested
+    if json_ok is True:
+        return {"type": "json_object"}
+    return None
+
+
 def apply_openai_chat_structured_output(
-    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]]
+    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]], model_id: str = ""
 ) -> None:
     """Apply OpenAI Chat Completions Structured Output when requested."""
     if (
@@ -68,18 +89,22 @@ def apply_openai_chat_structured_output(
         or "response_format" in chat_kwargs
     ):
         return
-    response_format = _structured_request(messages)
+    response_format = native_structured_output_request(
+        messages, model_id=model_id or str(chat_kwargs.get("model", "")), provider=provider
+    )
     if response_format is not None:
         chat_kwargs["response_format"] = response_format
 
 
 def apply_openai_responses_structured_output(
-    resp_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]]
+    resp_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]], model_id: str = ""
 ) -> None:
     """Apply OpenAI Responses API ``text.format`` when requested."""
     if provider not in {"openai", "azure", "openrouter", "deepseek"}:
         return
-    response_format = _structured_request(messages)
+    response_format = native_structured_output_request(
+        messages, model_id=model_id or str(resp_kwargs.get("model", "")), provider=provider
+    )
     if response_format is None:
         return
     if response_format.get("type") == "json_schema":

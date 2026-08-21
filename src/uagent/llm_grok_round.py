@@ -228,17 +228,23 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            from .providers.structured_output import structured_output_request
+            from .providers.structured_output import native_structured_output_request
 
-            if structured_output_request(call_messages) is not None:
-                try:
-                    from xai_sdk.proto import chat_pb2
+            output_format = native_structured_output_request(
+                call_messages, model_id=depname, provider="grok"
+            )
+            if output_format is not None:
+                if output_format.get("type") == "json_schema":
+                    try:
+                        from xai_sdk.proto import chat_pb2
 
-                    create_kwargs["response_format"] = chat_pb2.ResponseFormat(
-                        format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
-                        json_schema={"type": "object"},
-                    )
-                except Exception:
+                        create_kwargs["response_format"] = chat_pb2.ResponseFormat(
+                            format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
+                            json_schema=output_format["json_schema"]["schema"],
+                        )
+                    except Exception:
+                        create_kwargs["response_format"] = {"type": "json_object"}
+                else:
                     create_kwargs["response_format"] = {"type": "json_object"}
 
             # Add instructions as system message already included in xai_msgs

@@ -76,7 +76,9 @@ def test_ollama_responses_compat_uses_responses_token_field(monkeypatch):
 
 def test_ollama_output_format_json(monkeypatch):
     monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "true")
-    kwargs = {}
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: False)
+    kwargs = {"model": "test-model"}
     messages = [{"role": "system", "content": "response_mode: json"}]
 
     apply_ollama_extra_body(kwargs, provider="ollama", messages=messages)
@@ -86,7 +88,9 @@ def test_ollama_output_format_json(monkeypatch):
 
 def test_ollama_output_format_json_schema(monkeypatch):
     monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "true")
-    kwargs = {}
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
+    kwargs = {"model": "test-model"}
     messages = [
         {
             "role": "system",
