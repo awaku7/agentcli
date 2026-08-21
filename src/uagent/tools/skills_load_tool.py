@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from .i18n_helper import make_tool_translator
@@ -78,9 +79,24 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         from .skill_history import pin_skill_tools
 
-        pin_skill_tools(doc.frontmatter.get("allowed-tools"))
+        allowed_tools = doc.frontmatter.get("allowed-tools")
+        pin_skill_tools(allowed_tools)
+
+        # Load every tool explicitly declared by the skill.  This is needed
+        # for direct LLM calls to skills_load; the :skills command only
+        # preloads the core skill-management tools.
+        if isinstance(allowed_tools, str):
+            from ._genre_control_util import enable_single_tool
+
+            management_tools = {"tool_catalog", "tool_load", "unload_tool"}
+            for tool_name in re.split(r"[\s,]+", allowed_tools.strip()):
+                if tool_name and tool_name not in management_tools:
+                    try:
+                        enable_single_tool(tool_name)
+                    except Exception:
+                        pass
     except Exception:
-        # Loading a skill must remain usable even if optional pinning fails.
+        # Loading a skill must remain usable even if optional pinning/loading fails.
         pass
 
     out = {
