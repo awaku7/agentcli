@@ -107,10 +107,10 @@ outputConfig={
 ## 次回の作業候補
 
 1. `llmcapa`のモデル能力情報を確認し、Structured Output判定をモデル単位にする。
-2. `supports_json_mode` とJSON Schema対応を区別できる能力フィールドを追加・確認する。
-3. OpenAI互換プロバイダーについて、モデル単位で実際の `response_format` 対応を確認する。
-4. 完全なOpenAI互換が確認できたプロバイダーだけ、共通アダプターへ追加する。
-5. 優先候補は以下。
+1. `supports_json_mode` とJSON Schema対応を区別できる能力フィールドを追加・確認する。
+1. OpenAI互換プロバイダーについて、モデル単位で実際の `response_format` 対応を確認する。
+1. 完全なOpenAI互換が確認できたプロバイダーだけ、共通アダプターへ追加する。
+1. 優先候補は以下。
    - Alibaba
    - Moonshot
    - MiMo
@@ -121,7 +121,17 @@ outputConfig={
    - Vercel
    - NVIDIA
    - PFN
-6. Bedrockは最後にAWS SDK Converse API専用アダプターとして実装する。
+1. Bedrockは最後にAWS SDK Converse API専用アダプターとして実装する。
+
+## 今回の実装状況
+
+- `supports_json_mode()` / `supports_json_schema()` を追加し、`True` / `False` / `None` を区別
+- OpenAI互換、Gemini、Claude、DeepSeek、Z.AI、Grok、Ollama、llama.cppでモデル単位の判定を適用
+- Azure deploymentとOpenRouterの能力解決をproviderスコープに限定
+- `structured_output_provenance()` で出典メタデータを取得可能にした
+- 通常会話、Schema非対応、未知モデル、ツール併用の回帰テストを追加
+- `llmcapa`依存を `>=0.5.10` に更新
+- Bedrock Converse API対応は、専用アダプターが必要なため保留
 
 ## 検証状況
 
