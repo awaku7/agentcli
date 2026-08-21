@@ -772,7 +772,7 @@ def _prompt_toolkit_input(
         def _cancel(event: Any) -> None:
             raise KeyboardInterrupt()
 
-        @kb.add("up")
+        @kb.add("up", eager=True)
         def _history_or_cursor_up(event: Any) -> None:
             buffer = event.current_buffer
             document = buffer.document
@@ -787,7 +787,7 @@ def _prompt_toolkit_input(
             else:
                 buffer.cursor_up()
 
-        @kb.add("down")
+        @kb.add("down", eager=True)
         def _history_or_cursor_down(event: Any) -> None:
             buffer = event.current_buffer
             document = buffer.document
