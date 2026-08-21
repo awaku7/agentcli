@@ -73,6 +73,24 @@ def test_azure_deployment_does_not_fall_back_to_openai(monkeypatch):
         clear_capability_cache()
 
 
+def test_structured_output_provenance_is_exposed(monkeypatch):
+    from types import SimpleNamespace
+    from uagent.llmcapa_util import structured_output_provenance
+
+    cap = SimpleNamespace(
+        provider="openrouter",
+        model_id="openrouter/auto",
+        supports_json_mode=True,
+        supports_json_schema=True,
+        extra={"structured_output": {"source": "official", "checked_at": "2026-08-21"}},
+    )
+    cap.supports = lambda feature: getattr(cap, f"supports_{feature}", None)
+    monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: cap)
+    result = structured_output_provenance("openrouter/auto", "openrouter")
+    assert result["provider"] == "openrouter"
+    assert result["evidence"]["source"] == "official"
+
+
 def test_normal_conversation_does_not_get_output_format(monkeypatch):
     monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
     monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)

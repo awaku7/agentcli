@@ -263,6 +263,29 @@ def supports_json_schema(
     return _supports_structured_output_feature("json_schema", model_id, provider)
 
 
+def structured_output_provenance(
+    model_id: str | None = None, provider: str | None = None
+) -> dict[str, Any] | None:
+    """Return capability evidence recorded for the resolved provider/model."""
+    try:
+        cap = get_capability(model_id, provider, scoped_only=True)
+    except TypeError:
+        cap = get_capability(model_id, provider)
+    if cap is None:
+        return None
+    evidence = getattr(cap, "extra", None)
+    evidence = evidence.get("structured_output") if isinstance(evidence, dict) else None
+    result = {
+        "provider": getattr(cap, "provider", provider),
+        "model_id": getattr(cap, "model_id", model_id),
+        "json_mode": supports_json_mode(model_id, provider),
+        "json_schema": supports_json_schema(model_id, provider),
+    }
+    if isinstance(evidence, dict):
+        result["evidence"] = evidence
+    return result
+
+
 def supports_vision(
     model_id: str | None = None,
     provider: str | None = None,
