@@ -34,6 +34,48 @@ tr = _
 tr_ = _
 
 
+def _load_skill_tools() -> None:
+    """Make the tools used by Agent Skills visible to the next LLM round.
+
+    Skill tools belong to the ``basic`` genre and are therefore normally
+    omitted when genres are disabled at startup.  The ``:skills`` command is
+    an explicit request to work with skills, so it should not require the
+    user/model to issue a separate ``tool_load`` for every skill operation.
+    Only the core read/list/validate tools are preloaded here.  Installation,
+    marketplace search, uninstall, and ``finish_skill`` have separate
+    lifecycles and should remain opt-in.
+    """
+    try:
+        from .tools._genre_control_util import _find_tool_modules, enable_single_tool
+
+        skill_tool_names = {
+            "skills_list",
+            "skills_load",
+            "skills_validate",
+            "skills_read_file",
+        }
+        discovered_names: set[str] = set()
+        for _module_name, module in _find_tool_modules():
+            spec = getattr(module, "TOOL_SPEC", None)
+            function = spec.get("function", {}) if isinstance(spec, dict) else {}
+            name = function.get("name") if isinstance(function, dict) else None
+            if isinstance(name, str) and name in skill_tool_names:
+                discovered_names.add(name)
+
+        for name in sorted(discovered_names):
+            # A failed optional tool (for example, one with a missing
+            # dependency) must not make the :skills command unusable.
+            try:
+                enable_single_tool(name)
+            except Exception:
+                pass
+    except Exception:
+        # Skill listing/loading below has its own imports and error reporting.
+        # Keep this convenience preload best-effort so it cannot change the
+        # existing command behaviour when a tool module is unavailable.
+        pass
+
+
 def _handle_cmd_skills(
     arg: str,
     messages_ref: list[dict[str, Any]],
@@ -43,6 +85,9 @@ def _handle_cmd_skills(
     core: Any,
     tr: Any,
 ) -> CommandResult:
+    # ``:skills`` is the explicit opt-in point for the skill tool family.
+    _load_skill_tools()
+
     # Try dynamic subcommands (e.g., install, uninstall)
     res = tools.handle_dynamic_command(
         "skills",
