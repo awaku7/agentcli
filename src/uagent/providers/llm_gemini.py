@@ -444,6 +444,28 @@ def _model_uses_thinking_budget(model_name: str) -> bool:
     return "2.5" in mn
 
 
+def _llmcapa_reasoning_levels(model_name: str) -> set[str] | None:
+    """Return llmcapa-advertised reasoning levels for a Gemini model."""
+    try:
+        from uagent.llmcapa_util import get_capability, current_provider
+
+        cap = get_capability(model_name, current_provider() or "gemini")
+        if cap is None:
+            return None
+        values = getattr(cap, "reasoning_effort_values", None)
+        if values is None:
+            getter = getattr(cap, "get_reasoning_effort_values", None)
+            if callable(getter):
+                values = getter()
+        if values is None:
+            return (
+                set() if not bool(getattr(cap, "supports_reasoning", False)) else None
+            )
+        return {str(value).strip().lower() for value in values if str(value).strip()}
+    except Exception:
+        return None
+
+
 def _build_thinking_config(
     *,
     gemini_types: Any,
@@ -484,6 +506,18 @@ def _build_thinking_config(
 
     if rm == "xhigh":
         rm = "high"
+
+    # ``minimal`` is an agent-side convenience level. Use llmcapa's
+    # advertised values so unsupported values are never sent to Gemini.
+    advertised_levels = _llmcapa_reasoning_levels(model_name)
+    if advertised_levels is not None:
+        if not advertised_levels:
+            return None
+        if rm == "minimal" or rm not in advertised_levels:
+            rm = "low" if "low" in advertised_levels else sorted(advertised_levels)[0]
+    elif rm == "minimal":
+        # Unknown models must not receive the least portable Gemini value.
+        rm = "low"
 
     if use_budget:
         # NOTE: budget values are conservative defaults.

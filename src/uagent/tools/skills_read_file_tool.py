@@ -117,8 +117,21 @@ def run_tool(args: dict[str, Any]) -> str:
     # as UTF-8 can expand binary bytes into a massive LLM payload and exhaust
     # the context window. Use the format-specific index tool instead.
     binary_extensions = {
-        ".7z", ".doc", ".docx", ".gif", ".jpeg", ".jpg", ".pdf", ".png",
-        ".ppt", ".pptx", ".rar", ".xls", ".xlsm", ".xlsx", ".zip",
+        ".7z",
+        ".doc",
+        ".docx",
+        ".gif",
+        ".jpeg",
+        ".jpg",
+        ".pdf",
+        ".png",
+        ".ppt",
+        ".pptx",
+        ".rar",
+        ".xls",
+        ".xlsm",
+        ".xlsx",
+        ".zip",
     }
     extension = os.path.splitext(resolved)[1].lower()
     try:
