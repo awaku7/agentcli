@@ -1,12 +1,48 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any, Callable
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
+
+
+# Tools pinned while a skill is active. Auto-unload is performed by the round
+# loop independently of the LLM, so a SKILL.md instruction alone cannot keep
+# its tools loaded.
+_ACTIVE_SKILL_PINNED_TOOLS: set[str] = set()
+
+
+def pin_skill_tools(allowed_tools: object) -> list[str]:
+    """Pin tools declared by a skill until the skill is finished."""
+    if not isinstance(allowed_tools, str):
+        return []
+
+    from ._genre_control_util import pin_tool
+
+    names = [n for n in re.split(r"[\s,]+", allowed_tools.strip()) if n]
+    pinned: list[str] = []
+    for name in names:
+        if name in {"tool_catalog", "tool_load", "unload_tool"}:
+            continue
+        pin_tool(name, reason="active Agent Skill")
+        _ACTIVE_SKILL_PINNED_TOOLS.add(name)
+        pinned.append(name)
+    return pinned
+
+
+def unpin_skill_tools() -> list[str]:
+    """Release tool pins created for the active skill."""
+    from ._genre_control_util import unpin_tool
+
+    names = sorted(_ACTIVE_SKILL_PINNED_TOOLS)
+    for name in names:
+        unpin_tool(name)
+    _ACTIVE_SKILL_PINNED_TOOLS.clear()
+    return names
 
 
 def _skills_marker_prefix() -> str:
@@ -66,6 +102,7 @@ def make_finish_skill_handler(
             pass
 
         removed = _clear_skill_messages(messages_ref)
+        unpin_skill_tools()
         if removed > 0:
             _persist_messages_with_warn(messages_ref, core=core, label="finish_skill")
             return json.dumps(

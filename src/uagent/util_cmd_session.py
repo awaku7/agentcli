@@ -291,6 +291,22 @@ def _handle_cmd_skills(
         if not isinstance(doc, dict):
             raise ValueError("skills_load returned non-dict")
 
+        # Pin tools declared by the skill so the round-loop auto-unloader
+        # cannot remove them while the skill is active.
+        try:
+            from .tools.skill_history import pin_skill_tools
+
+            frontmatter = doc.get("frontmatter")
+            if not isinstance(frontmatter, dict):
+                frontmatter = {}
+            allowed_tools = frontmatter.get("allowed-tools")
+            if allowed_tools is None:
+                allowed_tools = skill.get("allowed_tools")
+            pin_skill_tools(allowed_tools)
+        except Exception:
+            # Skill execution should still work if optional pinning fails.
+            pass
+
         try:
             tool_specs = (
                 loaded_tools.get_tool_specs() if loaded_tools is not None else []
