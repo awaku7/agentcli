@@ -198,6 +198,19 @@ def run_tool(args: dict[str, Any]) -> str:
 
     max_lines: int | None
 
+    # Some llama.cpp/Llama tool templates fill every optional selector with
+    # the same positive default (for example head=500, tail=500, maxl=500).
+    # When the modern start_line/maxl pair is present, it is unambiguous and
+    # takes precedence over those materialized head/tail defaults.
+    if (
+        head_lines is not None
+        and tail_lines is not None
+        and maxl_value is not None
+        and "maxl" in args
+    ):
+        head_lines = None
+        tail_lines = None
+
     if head_lines is not None and tail_lines is not None:
         msg = _(
             "err.dual_lines",
