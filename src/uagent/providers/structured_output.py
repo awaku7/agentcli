@@ -81,7 +81,11 @@ def native_structured_output_request(
 
 
 def apply_openai_chat_structured_output(
-    chat_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]], model_id: str = ""
+    chat_kwargs: dict[str, Any],
+    *,
+    provider: str,
+    messages: list[dict[str, Any]],
+    model_id: str = "",
 ) -> None:
     """Apply OpenAI Chat Completions Structured Output when requested."""
     if (
@@ -90,20 +94,28 @@ def apply_openai_chat_structured_output(
     ):
         return
     response_format = native_structured_output_request(
-        messages, model_id=model_id or str(chat_kwargs.get("model", "")), provider=provider
+        messages,
+        model_id=model_id or str(chat_kwargs.get("model", "")),
+        provider=provider,
     )
     if response_format is not None:
         chat_kwargs["response_format"] = response_format
 
 
 def apply_openai_responses_structured_output(
-    resp_kwargs: dict[str, Any], *, provider: str, messages: list[dict[str, Any]], model_id: str = ""
+    resp_kwargs: dict[str, Any],
+    *,
+    provider: str,
+    messages: list[dict[str, Any]],
+    model_id: str = "",
 ) -> None:
     """Apply OpenAI Responses API ``text.format`` when requested."""
     if provider not in {"openai", "azure", "openrouter", "deepseek"}:
         return
     response_format = native_structured_output_request(
-        messages, model_id=model_id or str(resp_kwargs.get("model", "")), provider=provider
+        messages,
+        model_id=model_id or str(resp_kwargs.get("model", "")),
+        provider=provider,
     )
     if response_format is None:
         return

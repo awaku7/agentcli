@@ -670,7 +670,10 @@ def _call_openai_azure_round(
                     resp_kwargs["tool_choice"] = "auto"
 
                 apply_openai_responses_structured_output(
-                    resp_kwargs, provider=provider, messages=call_messages, model_id=depname
+                    resp_kwargs,
+                    provider=provider,
+                    messages=call_messages,
+                    model_id=depname,
                 )
 
                 apply_openrouter_responses_compat(
@@ -964,7 +967,10 @@ def _call_openai_azure_round(
                         chat_kwargs["parallel_tool_calls"] = True
 
                 apply_openai_chat_structured_output(
-                    chat_kwargs, provider=provider, messages=call_messages, model_id=depname
+                    chat_kwargs,
+                    provider=provider,
+                    messages=call_messages,
+                    model_id=depname,
                 )
 
                 # OpenRouter provider routing / extensions (optional)

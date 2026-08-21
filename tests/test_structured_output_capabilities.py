@@ -30,7 +30,10 @@ def test_capabilities_are_tri_state_and_model_scoped(monkeypatch):
         ("openai", "model-b"): Cap(True, False),
         ("other", "model-a"): Cap(False, None),
     }
-    monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda model, provider: caps.get((provider, model)))
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability",
+        lambda model, provider: caps.get((provider, model)),
+    )
     assert supports_json_schema("model-a", "openai") is True
     assert supports_json_schema("model-b", "openai") is False
     assert supports_json_mode("model-a", "other") is False
@@ -38,20 +41,33 @@ def test_capabilities_are_tri_state_and_model_scoped(monkeypatch):
 
 
 def test_schema_is_not_sent_to_json_mode_only_model(monkeypatch):
-    monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: Cap(True, False))
-    result = native_structured_output_request(messages({"type": "object"}), model_id="m", provider="p")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda *_: Cap(True, False)
+    )
+    result = native_structured_output_request(
+        messages({"type": "object"}), model_id="m", provider="p"
+    )
     assert result == {"type": "json_object"}
 
 
 def test_schema_is_sent_only_when_supported(monkeypatch):
-    monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: Cap(True, True))
-    result = native_structured_output_request(messages({"type": "object"}), model_id="m", provider="p")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda *_: Cap(True, True)
+    )
+    result = native_structured_output_request(
+        messages({"type": "object"}), model_id="m", provider="p"
+    )
     assert result["type"] == "json_schema"
 
 
 def test_unknown_model_uses_prompt_fallback(monkeypatch):
     monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: None)
-    assert native_structured_output_request(messages({"type": "object"}), model_id="m", provider="p") is None
+    assert (
+        native_structured_output_request(
+            messages({"type": "object"}), model_id="m", provider="p"
+        )
+        is None
+    )
 
 
 def test_azure_deployment_does_not_fall_back_to_openai(monkeypatch):
@@ -106,7 +122,9 @@ def test_chat_and_responses_adapters_use_schema_only_when_supported(monkeypatch)
     monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
     msgs = messages({"type": "object", "properties": {"answer": {"type": "string"}}})
     chat = {"model": "m"}
-    apply_openai_chat_structured_output(chat, provider="openai", messages=msgs, model_id="m")
+    apply_openai_chat_structured_output(
+        chat, provider="openai", messages=msgs, model_id="m"
+    )
     assert chat["response_format"]["type"] == "json_schema"
     responses = {"model": "m"}
     apply_openai_responses_structured_output(
@@ -147,5 +165,9 @@ def test_openrouter_does_not_fall_back_to_openai(monkeypatch):
 
 def test_structured_output_switch_wins(monkeypatch):
     monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "false")
-    monkeypatch.setattr("uagent.llmcapa_util.get_capability", lambda *_: Cap(True, True))
-    assert native_structured_output_request(messages(), model_id="m", provider="p") is None
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_capability", lambda *_: Cap(True, True)
+    )
+    assert (
+        native_structured_output_request(messages(), model_id="m", provider="p") is None
+    )

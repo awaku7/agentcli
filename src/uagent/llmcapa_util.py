@@ -225,7 +225,6 @@ def supports_feature(
         return bool(val)
 
 
-
 def _supports_structured_output_feature(
     feature: str,
     model_id: str | None = None,

@@ -23,8 +23,10 @@ def test_llama_cpp_json_schema_format(monkeypatch):
     messages = [
         {
             "role": "system",
-            "content": ("response_mode: json\n\nresponse_schema:\n"
-                + '{"type":"object","properties":{"answer":{"type":"string"}}}'),
+            "content": (
+                "response_mode: json\n\nresponse_schema:\n"
+                + '{"type":"object","properties":{"answer":{"type":"string"}}}'
+            ),
         }
     ]
 

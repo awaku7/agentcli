@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.5] - 2026-08-21
+
+### Added
+
+- feat: gate native Structured Output by provider and model capabilities
+- feat: expose Structured Output provenance metadata
+- test: cover Structured Output fallbacks, Azure scoping, and OpenRouter isolation
+
+### Changed
+
+- fix: apply model-specific Structured Output handling to Gemini, Claude, Grok, Ollama, and llama.cpp
+- fix: keep Azure and OpenRouter capability lookups provider-scoped
+- fix: position the cursor at the start of recalled multiline CLI history
+- chore: require `llmcapa>=0.5.10`
+- docs: record Structured Output implementation status and Bedrock Converse API deferral
+
 ## [0.6.4] - 2026-08-20
 
 ### Added
@@ -14,7 +30,6 @@
 - fix: normalize MCP tool results as JSON
 - style: apply Ruff and Black formatting across the project
 - test: add coverage for Ollama request compatibility
-
 
 ## [0.6.3] - 2026-08-19
 

@@ -1,5 +1,21 @@
 # 変更履歴
 
+## [0.6.5] - 2026-08-21
+
+### 追加
+
+- feat: プロバイダーとモデルの能力に基づくネイティブStructured Output判定を追加
+- feat: Structured Outputの出典メタデータ取得APIを追加
+- test: Structured Outputのフォールバック、Azureスコープ、OpenRouter分離のテストを追加
+
+### 変更
+
+- fix: Gemini、Claude、Grok、Ollama、llama.cppにモデル単位のStructured Output判定を適用
+- fix: AzureとOpenRouterの能力検索をプロバイダー単位に限定
+- fix: CLIで複数行履歴を呼び出した際、カーソルを先頭行の先頭へ移動
+- chore: `llmcapa>=0.5.10` を要求
+- docs: Structured Outputの実装状況を記録し、Bedrock Converse API対応を保留
+
 ## [0.6.4] - 2026-08-20
 
 ### 追加
@@ -14,7 +30,6 @@
 - fix: MCPツール結果をJSONとして正規化
 - style: プロジェクト全体にRuffとBlackの整形を適用
 - test: Ollamaリクエスト互換性のテストを追加
-
 
 ## [0.6.3] - 2026-08-19
 
