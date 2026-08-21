@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 from uagent.llmcapa_util import supports_json_mode, supports_json_schema
-from uagent.providers.structured_output import native_structured_output_request
+from uagent.providers.structured_output import (
+    apply_openai_chat_structured_output,
+    apply_openai_responses_structured_output,
+    native_structured_output_request,
+)
 
 
 class Cap:
@@ -67,6 +71,41 @@ def test_azure_deployment_does_not_fall_back_to_openai(monkeypatch):
         assert all(provider != "openai" for _, provider in calls)
     finally:
         clear_capability_cache()
+
+
+def test_normal_conversation_does_not_get_output_format(monkeypatch):
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
+    kwargs = {"model": "m", "messages": [{"role": "user", "content": "hello"}]}
+    apply_openai_chat_structured_output(
+        kwargs, provider="openai", messages=kwargs["messages"], model_id="m"
+    )
+    assert "response_format" not in kwargs
+
+
+def test_chat_and_responses_adapters_use_schema_only_when_supported(monkeypatch):
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
+    msgs = messages({"type": "object", "properties": {"answer": {"type": "string"}}})
+    chat = {"model": "m"}
+    apply_openai_chat_structured_output(chat, provider="openai", messages=msgs, model_id="m")
+    assert chat["response_format"]["type"] == "json_schema"
+    responses = {"model": "m"}
+    apply_openai_responses_structured_output(
+        responses, provider="openai", messages=msgs, model_id="m"
+    )
+    assert responses["text"]["format"]["type"] == "json_schema"
+
+
+def test_tool_messages_do_not_bypass_unknown_model_fallback(monkeypatch):
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: None)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: None)
+    msgs = messages({"type": "object"}) + [{"role": "tool", "content": "result"}]
+    kwargs = {"model": "unknown"}
+    apply_openai_chat_structured_output(
+        kwargs, provider="openai", messages=msgs, model_id="unknown"
+    )
+    assert "response_format" not in kwargs
 
 
 def test_structured_output_switch_wins(monkeypatch):
