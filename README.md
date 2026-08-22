@@ -311,7 +311,7 @@ python scheck.py realtime
 ```bash
 git clone https://github.com/awaku7/agentcli.git
 cd agentcli
-python -m pip install -e ".[core,test]"
+python -m pip install -e ".[core,providers,test]"
 ```
 
 Run the pre-PR checks:

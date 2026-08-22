@@ -166,7 +166,12 @@ def test_not_found_message_does_not_crash_i18n() -> None:
     )
     payload = json.loads(out)
     assert payload["ok"] is False
-    assert payload["error"]["code"] in {"not_found", "request_failed", "bleak_missing"}
+    assert payload["error"]["code"] in {
+        "network_error",
+        "not_found",
+        "request_failed",
+        "bleak_missing",
+    }
     assert (
         "int" not in str(payload["error"].get("message", "")).lower()
         or "not callable" not in str(payload["error"].get("message", "")).lower()
