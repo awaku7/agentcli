@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.6] - 2026-08-22
+
+### Added
+
+- feat: add rolling-origin validation, drift diagnostics, and conformal prediction intervals to forecasting
+- feat: add Responses API native tool execution for OpenAI and Azure sub-agents
+- feat: add session-scoped `all` approvals for side-effecting tools
+- feat: add Rust tool catalogs to the localization batch workflow
+
+### Changed
+
+- fix: support GPT-5 and o-series token parameters in chat-completion paths
+- fix: improve CLI completion navigation and add F11 auto-pilot termination
+- fix: preserve sub-agent confirmation context across localized interfaces
+- docs: expand the README with architecture, plugin, marketplace, and IoT guidance and refresh translations
+
+### Tests
+
+- test: cover completion-menu arrow navigation and delete-file confirmation behavior
+
 ## [0.6.5] - 2026-08-21
 
 ### Added
