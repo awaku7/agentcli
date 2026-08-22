@@ -92,11 +92,11 @@ development = [
     "tree-sitter-language-pack",
 ]
 platform = [
-    "ewmh",
+    "ewmh; sys_platform == 'linux'",
     "PySide6",
-    "pyobjc",
-    "pyobjc-framework-CoreLocation",
-    "winrt-Windows.Devices.Geolocation",
+    "pyobjc; sys_platform == 'darwin'",
+    "pyobjc-framework-CoreLocation; sys_platform == 'darwin'",
+    "winrt-Windows.Devices.Geolocation; sys_platform == 'win32'",
 ]
 web = [
     "pydantic",
