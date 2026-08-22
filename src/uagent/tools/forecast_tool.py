@@ -166,6 +166,41 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Outlier handling: none/iqr/zscore",
                     ),
                 },
+                "rolling_evaluation": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.rolling_evaluation.description",
+                        default="Evaluate forecasts with rolling-origin validation.",
+                    ),
+                    "default": True,
+                },
+                "rolling_folds": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 10,
+                    "description": _(
+                        "param.rolling_folds.description",
+                        default="Number of rolling-origin validation folds.",
+                    ),
+                    "default": 3,
+                },
+                "drift_window": {
+                    "type": "integer",
+                    "minimum": 3,
+                    "description": _(
+                        "param.drift_window.description",
+                        default="Recent observations used for distribution-drift diagnostics.",
+                    ),
+                    "default": 10,
+                },
+                "conformal": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.conformal.description",
+                        default="Calibrate prediction intervals from rolling residuals.",
+                    ),
+                    "default": True,
+                },
             },
             "required": ["data", "date_column", "value_column", "horizon"],
         },
@@ -325,6 +360,82 @@ def _calc_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     else:
         mape = 0.0
     return {"mae": round(mae, 4), "rmse": round(rmse, 4), "mape": round(mape, 4)}
+
+
+def _rolling_diagnostics(
+    df: pd.DataFrame,
+    date_col: str,
+    value_col: str,
+    freq: str,
+    model_name: str,
+    horizon: int,
+    folds: int,
+) -> tuple[dict[str, float], np.ndarray]:
+    """Evaluate a model family with chronological rolling origins."""
+    builder = dict(_get_available_models()).get(model_name)
+    if builder is None:
+        return {}, np.asarray([], dtype=float)
+    step = max(1, horizon)
+    min_train = max(_MIN_ROWS, step * 2)
+    origins = list(range(min_train, len(df) - step + 1, step))[-max(2, folds) :]
+    actuals: list[float] = []
+    predictions: list[float] = []
+    for origin in origins:
+        try:
+            model = builder().fit(df.iloc[:origin], date_col, value_col, freq)
+            pred = np.asarray(model.predict(step), dtype=float).reshape(-1)[:step]
+            if len(pred) < step:
+                pred = np.pad(pred, (0, step - len(pred)), mode="edge")
+            actual = df[value_col].to_numpy(dtype=float)[origin : origin + step]
+            actuals.extend(actual.tolist())
+            predictions.extend(pred.tolist())
+        except Exception:
+            _logger.debug("Rolling evaluation failed: %s", model_name, exc_info=True)
+    if not actuals:
+        return {}, np.asarray([], dtype=float)
+    y_true = np.asarray(actuals)
+    y_pred = np.asarray(predictions)
+    return _calc_metrics(y_true, y_pred), np.abs(y_true - y_pred)
+
+
+def _drift_diagnostics(values: np.ndarray, window: int) -> dict[str, Any]:
+    """Detect a level or scale shift without assuming a distribution."""
+    window = max(3, min(int(window), len(values) // 2))
+    if len(values) < window * 2:
+        return {"detected": False, "reason": "insufficient_window"}
+    recent = values[-window:]
+    reference = values[-2 * window : -window]
+    ref_mean = float(np.mean(reference))
+    ref_std = float(np.std(reference))
+    recent_mean = float(np.mean(recent))
+    recent_std = float(np.std(recent))
+    scale = max(ref_std, float(np.std(values)) * 0.01, 1e-12)
+    mean_shift = abs(recent_mean - ref_mean) / scale
+    std_ratio = recent_std / max(ref_std, 1e-12)
+    return {
+        "detected": bool(mean_shift >= 2.0 or std_ratio >= 2.0 or std_ratio <= 0.5),
+        "window": window,
+        "reference_mean": round(ref_mean, 6),
+        "recent_mean": round(recent_mean, 6),
+        "reference_std": round(ref_std, 6),
+        "recent_std": round(recent_std, 6),
+        "standardized_mean_shift": round(float(mean_shift), 6),
+        "std_ratio": round(float(std_ratio), 6),
+    }
+
+
+def _conformal_interval(
+    forecast: np.ndarray, residuals: np.ndarray, confidence: float
+) -> tuple[list[float], list[float]]:
+    """Calibrate a symmetric interval from held-out absolute residuals."""
+    if residuals.size == 0:
+        return [], []
+    alpha = max(0.0, min(1.0, 1.0 - confidence))
+    width = float(np.quantile(residuals, min(1.0, 1.0 - alpha)))
+    return (
+        [round(float(v - width), 4) for v in forecast],
+        [round(float(v + width), 4) for v in forecast],
+    )
 
 
 # ── Confidence Intervals (model-specific) ─────────────────────────────
@@ -1360,6 +1471,10 @@ def run_tool(args: dict[str, Any]) -> str:
         plot_flag = bool(args.get("plot", False))
         plot_output_dir = args.get("output_dir", None)
         outlier_method = args.get("outlier", "iqr")
+        rolling_enabled = bool(args.get("rolling_evaluation", True))
+        rolling_folds = max(2, min(int(args.get("rolling_folds", 3)), 10))
+        drift_window = max(3, int(args.get("drift_window", 10)))
+        conformal_enabled = bool(args.get("conformal", True))
 
         # 2. Load & preprocess
         df = load_data(data)
@@ -1444,6 +1559,26 @@ def run_tool(args: dict[str, Any]) -> str:
             confidence,
         )
 
+        rolling_metrics: dict[str, float] = {}
+        rolling_residuals = np.asarray([], dtype=float)
+        if rolling_enabled:
+            rolling_metrics, rolling_residuals = _rolling_diagnostics(
+                df,
+                date_col,
+                value_col,
+                freq,
+                model_used,
+                horizon,
+                rolling_folds,
+            )
+        if conformal_enabled and rolling_residuals.size:
+            conformal_lower, conformal_upper = _conformal_interval(
+                np.asarray(forecast_vals, dtype=float), rolling_residuals, confidence
+            )
+            if conformal_lower and conformal_upper:
+                ci_lower, ci_upper = conformal_lower, conformal_upper
+        drift = _drift_diagnostics(df[value_col].to_numpy(dtype=float), drift_window)
+
         # 7. Metrics (on training fit)
         last_n = min(len(df), horizon)
         if last_n > 1:
@@ -1519,6 +1654,40 @@ def run_tool(args: dict[str, Any]) -> str:
                 "upper": ci_upper,
             },
             "metrics": metrics,
+            "rolling_metrics": rolling_metrics,
+            "interval_diagnostics": {
+                "method": (
+                    "rolling_conformal" if rolling_residuals.size else "model_default"
+                ),
+                "calibration_residuals": int(rolling_residuals.size),
+                "nominal_confidence": confidence,
+                "mean_width": (
+                    round(
+                        float(np.mean(np.asarray(ci_upper) - np.asarray(ci_lower))), 4
+                    )
+                    if ci_upper and ci_lower
+                    else 0.0
+                ),
+                "empirical_calibration_coverage": (
+                    round(
+                        float(
+                            np.mean(
+                                rolling_residuals
+                                <= float(
+                                    np.mean(
+                                        np.asarray(ci_upper)
+                                        - np.asarray(forecast_vals, dtype=float)
+                                    )
+                                )
+                            )
+                        ),
+                        4,
+                    )
+                    if rolling_residuals.size and ci_upper
+                    else None
+                ),
+            },
+            "drift": drift,
         }
         if plot_path:
             result["plot"] = plot_path

@@ -1,316 +1,419 @@
 <p align="center">
- <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
 </p>
 
-<h1 align="center">uag"> Gateway</h1>
+<h1 align="center">uag</h1>
 
 <p align="center">
- <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Mediul tău, libertatea ta.
-</p>
-
-<p align="center">
- Operațiuni de fișiere / Căutare web / Control de imagini Excel / extracție / analiză I_oT / I_oT_1 integrare<br>
- 24 de furnizori / 3 interfețe de utilizare / Execuție paralelă a instrumentelor / Piața abilităților agentului
+  <strong>Universal AI Gateway</strong><br>
+  Un agent local. Orice model. Orice instrument. Mediul tău, regulile tale.
 </p>
 
 <p align="center">
- <a href="https://github.com/awaku7/agentcli">GitHub</a>
- ·
- <a href="https://pypi.org/project/uag/">PyPI</a>
- ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
 </p>
-________________________________
-___________________________## De ce uag?
 
-**Eliberați-vă de blocarea furnizorului.** Majoritatea asistenților AI vă leagă de un anumit furnizor sau serviciu cloud. uag este diferit.
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
+  <a href="https://pypi.org/project/uag/">PyPI</a> ·
+  <a href="https://github.com/awaku7/agentcli/discussions">Discussions</a> ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Traduceri</a>
+</p>
 
-- **Rulează local** pe computer. Datele dvs. rămân cu dvs. (cu excepția API apeluri pe care le efectuați).
-- **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 24 de furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu — fără reinstalare, fără migrare.
-- **222 de instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **130 sunt marcate static ca sigure în paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabil prin ENTOR_PAR\`ELUA, configurabil). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
-- **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol de la agent la agent. Același motor, orice interfață.
-- **Pregătit pentru IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controlați-vă dispozitivele de acasă prin AI.
-- **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
+______________________________________________________________________
 
-uag este **asistentul tău AI conform condițiilor tale**. Nu este legat de un furnizor, nu este legat de o interfață, nu este legat de o platformă.
+## De ce uag?
+
+uag este un agent AI local-first care conectează modelul preferat de instrumentele pe care le folosești efectiv.
+Îți oferă un singur runtime extensibil pentru fișiere, browsere, baze de cod, comunicare, API-uri cloud,
+dispozitive IoT, servere MCP și fluxuri de lucru cu mai mulți agenți.
+
+- **Libertatea furnizorului** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek și altele.
+- **Execuție local-first** — runtime-ul agentului și execuția instrumentelor rămân pe mașina ta; doar apelurile API pe care le alegi părăsesc mașina.
+- **Un singur nivel de instrumente** — aceleași instrumente funcționează din CLI, interfața grafică desktop, interfața web, VS Code și A2A.
+- **Paralelă prin proiectare** — operațiunile independente, doar pentru citire, pot rula simultan.
+- **Extensibil** — adaugă instrumente, pluginuri, Agent Skills, servere MCP și instrumente bazate pe Rust fără a modifica nucleul.
+- **Conștient de siguranță** — acțiunile distructive, acreditările, comenzile dispozitivelor și scrierile în rețea acceptă confirmare explicită și controale de politică.
+
+> **Pe scurt:** uag este planul de control dintre modelele tale AI și mediul tău real.
+
+## Locul lui uag
+
+uag se află între oameni și interfețe, pe de o parte, și modele, instrumente și sisteme din lumea reală, pe de altă parte.
+Coordonează conversația, selectează capabilitățile, aplică regulile de siguranță și menține fluxul de lucru reluabil.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag nu este un furnizor de modele și nu este doar o interfață de chat.** Este nivelul comun de execuție care face ca modelele,
+instrumentele, interfețele și politicile să funcționeze împreună.
+
+## Capabilități principale
+
+### 🧠 Un agent, orice model
+
+Folosește modele găzduite sau locale printr-o interfață consecventă pentru instrumente. Schimbă furnizorii cu
+`UAGENT_PROVIDER` — fără modificări de cod, migrare sau flux de lucru separat.
+
+### 🖥 Computer Use și automatizarea browserului
+
+Computer Use, activat opțional, combină un runtime de browser Playwright cu interacțiunea desktop. Automatizează
+navigarea, formularele, fluxurile cu mai multe pagini, descărcările, capturile de ecran și extragerea DOM. Browser
+Inspector înregistrează tranzițiile și starea paginii pentru depanare și audit.
+
+Vezi [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
+
+### ⚡ Execuția paralelă a instrumentelor
+
+Operațiunile independente, doar pentru citire, rulează simultan atunci când este sigur. Căutările web, inspectarea fișierelor,
+analiza depozitului și sarcinile similare se pot finaliza în paralel cu un pool configurabil de lucrători
+(`UAGENT_PARALLEL_WORKERS`). Operațiunile de scriere rămân serializate sau necesită confirmare.
+
+### 🧩 Conceput pentru extensie
+
+- **Peste 200 de instrumente** pentru fișiere, web, media, documente, cod, cloud, comunicare și IoT
+- **Descoperire și încărcare dinamică** — folosește `tool_catalog` pentru a găsi capabilități și `tool_load` pentru a le activa doar când este necesar
+- **Inteligență pentru cod** — `code_map`, navigatoare `idx` specifice limbajului, revizuire Git, execuția testelor, linting, compilare și acoperire
+- **Pluginuri compatibile cu Claude Code** cu skill-uri, agenți, servere MCP, hook-uri, comenzi și marketplace-uri
+- **Agent Skills** de la SkillsMP și ClawHub
+- **Instrumente Python personalizate** cu `TOOL_SPEC` și `run_tool()`
+- **Instrumente bazate pe Rust** pentru extensii native ușoare
+
+### 🔄 Lucru fiabil de lungă durată
+
+Continuitatea sesiunii, stocarea în cache a rezultatelor instrumentelor, starea loturilor, recuperarea după repornire,
+planificarea DAG și orchestrarea mai multor agenți fac ca lucrările complexe să poată fi reluate, nu să fie executate o singură dată.
+
+### 🎙 Voce în timp real
+
+Vocea full-duplex este disponibilă prin OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+și Bedrock Nova Sonic, cu anulare opțională a ecoului AEC3 și apelare de funcții în timp real limitată de siguranță.
+
+### 🌍 Privat, multilingv și conștient de politici
+
+Folosește uag în japoneză, engleză, chineză, coreeană, spaniolă, franceză, rusă și multe altele. Acreditările pot
+fi stocate în keychain-ul nativ al sistemului de operare sau într-un backend de fișier criptat. Politicile enterprise pot guverna instrumentele,
+furnizorii, rețelele, acreditările, pluginurile, skill-urile și serverele MCP.
+
+Vezi [Variabile de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[Politica enterprise](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) și
+[Ghidul creatorului de instrumente](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
 
 ## Pornire rapidă
 
+### Instalare
+
 ```bash
-pip install uag
+python -m pip install --upgrade uag
 uag
 ```
 
-Instalarea de bază păstrează integrările furnizorilor și instrumentelor ca dependențe opționale. Pachetele lipsă sunt instalate automat atunci când furnizorul sau instrumentul selectat are nevoie de ele. Pentru a instala în avans funcțiile principale:
+La prima pornire se deschide expertul de configurare. Acesta te ajută să configurezi un furnizor și stochează setările selectate
+în mediul tău local.
+
+Pentru grupurile uzuale de funcții:
 
 ```bash
-pip install "uag[core,providers,tools,development,platform,web]"
+python -m pip install "uag[core,providers,tools]"
 ```
 
-Pentru a instala mediul complet de dezvoltare și testare al depozitului:
+> Integrările de platformă sunt opționale. Instalează doar ceea ce necesită sistemul tău de operare; vezi
+> [Configurarea platformei](#platform-setup).
+
+### Alegerea unui furnizor
+
+Setează un furnizor și cheia API înainte de pornire sau configurează-le în expertul de configurare.
 
 ```bash
-pip install -r requirements.txt
+# OpenAI
+export UAGENT_PROVIDER=openai
+export OPENAI_API_KEY="your-api-key"
+
+# Anthropic
+export UAGENT_PROVIDER=anthropic
+export ANTHROPIC_API_KEY="your-api-key"
+
+# Local Ollama
+export UAGENT_PROVIDER=ollama
+export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
+export UAGENT_OLLAMA_DEPNAME=llama3.1
 ```
 
-La prima pornire, expertul de configurare vă ghidează prin configurarea furnizorului.
-Pentru toate variabilele de mediu, consultați [https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
+Windows PowerShell folosește `$env:NAME = "value"` în loc de `export NAME=value`.
+Vezi [Variabile de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) pentru matricea completă a furnizorilor.
 
-## Utilizarea computerului
+### Încearcă
 
-Utilizarea computerului este înscrisă și acceptă atât un timp de rulare vizibil al browserului Playwright
-, cât și un timp de rulare pentru desktop. Când sunt activate, ambele runtime sunt create și înregistrate;
-
-```bat
-set UAGENT_COMPUTER_USE=1
+```text
+> What files changed in this repository?
+> Search the web for today's AI news and summarize the top five stories.
+> :help
 ```
 
-`````
+## Interfețe
 
-
-
-
-```bat
-````
-
-```Use. Resursele de rulare sunt
-închise împreună la ieșirea normală, `Ctrl-C` și închiderea procesului. Setați
-`UAGENT_COMPUTER_HEADLESS=1` pentru CI bazate pe browser sau teste de fum.
-Consultați [docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)
-pentru detalii despre integrare și siguranță.
-
-## Voce în timp real și AEC3
-
-Modul vocal în timp real acceptă OpenAI În timp real, Azure OpenAI GPT În timp real, xAI Grok Voce API, Google Gemini Multimodal Live API și Sonic cu microfon Amazon Bed-Duplex I/Fullplex. Backend-ul AEC3 `pywebrtc-audio` necesar este instalat automat, iar SDK-ul opțional de streaming bidirecțional de la Bedrock este instalat automat numai atunci când este selectat furnizorul Bedrock:
-
-```bash
-python scheck.py realtime
-```
-
-Conducta AEC3 și primește semnalul audio de aproape de microfon) (`far`) astfel încât asistentul să poată asculta în timp ce vorbește. Activați diagnosticarea numai atunci când investigați problemele audio:
-
-```bat
-set UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
-```
-
-### OpenAI Funcție de apelare în timp real
-
-OpenAI Apeluri de siguranță-integrare în timp real suportate limitate. Actualul adaptor în timp real expune automat `get_current_time` numai în citire. Instrumentele distructive și controalele dispozitivului nu sunt expuse fără o listă de permise explicită și un flux de confirmare. Grok în timp real folosește un adaptor separat și nu utilizează această cale de apelare a funcției specifice OpenAI.
-
-## Caracteristici
-### 🧠 Arhitectură Multi-Provider
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / Z. AIZpuce / Deep) (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
-Toți furnizorii au același set de instrumente și interfață. Comutați setând `UAGENT_PROVIDER` — fără modificări de cod, fără instalări separate.
-#### Ollama și llama.cpp
-Ollama și llama.cpp sunt furnizori separați. Ollama folosește propriul serviciu și managementul modelului, în timp ce `llama.cpp` se conectează la un punct final compatibil OpenAI cu `llama-server`:
-```bash
-# llama.cpp / llama-server
-UAGENT_PROVIDER=llama_cpp
-UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
-UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=dummy
-```
-:listă de pluginuri # Listă pluginuri instalate
-:plugin install <source> [--scope] # Instalare (dir/zip/git/http)
-:plugin install <name>@<marketplace> # Instalare din marketplace
-:plugin remove <name> # Uninstall
-:disableplugin
-:plugin
-:plugin name add/remove/list # Manage marketplaces
-:plugin init <name> # Scaffold new plugin
-```
-Consultați [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) pentru documentația completă.
-### 🔄 Sesiune cu continuitate**-
--r** `UAGENT_PROVIDER` — istoricul conversațiilor este păstrat.
-- **Reîncărcați sesiunile anterioare** cu `:load <index>` — reluați de unde ați rămas.
-- **Memorizarea rezultatelor instrumentului** evită reexecuția redundantă atunci când același apel de instrument se repetă.
-### 🛠 229 Instrumente
-| Categoria | Instrumente |
-|---|---|
-| **Operațiuni cu fișiere** | citiți/scrieți/creați/ștergeți/căutarea/grep/hash/zip, tip_fișier, parse_eml (fișiere .eml), `path_alias` |
-| **Web** | fetch_url, search_web, screenshot, browser_playwright, `url_alias`, `public_transit_route` ([guide](docs/PUBLIC_TRANSIT_ROUTE.md)) |
-| **Media** | genera_imagine, analizează_imagine, img2img, audio_speech, audio_transcribe |
-| **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
-| **Prognoză** | Prognoza serii cronologice cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), selectare automată a modelului, generare plot, i18n |
-| **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) și [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **API-uri cloud** | `aws_api`, `gcp_api`, `azure_api` — operațiuni generice AWS, Google Cloud și Azure API; operațiunile de scriere necesită confirmare explicită |
-| **Instrumente de dezvoltare** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 navigatoare de cod sursă (familia idx)** |
-| **MCP** | Conectați-vă la servere externe MCP, listați instrumente, executați — [Ghid OAuth / Proxy](docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| **A2A** | Comunicare de la agent la agent (cu alte instanțe uag sau servere compatibile cu A2A) |
-| **Sistem** | vars env, specificații de sistem, ora, calculul datei, [cantități](docs/QUANTITIES.md), [distanța_geodezică](docs/DISTANTA_GEODEZIC.md), uuid_gen, slugify |
-| **Sursa Nav** | **29 de instrumente idx** pentru Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — obțineți un index de funcție/clasă sau o definiție specifică fără a citi întregul fișier |
-#### Revizuirea și acoperirea depozitului
-- `` raportarea spațiului de lucru, ramuri, spațiu de lucru activ starea de sincronizare în amonte, timpul de execuție Python și marcatorii obișnuiți ai proiectelor fără modificarea fișierelor.
-- `git_review`: rezumați modificările Git, fișierele riscante, candidații de testare și descoperirile secrete fără a expune valorile secrete.
-- `security_scan`: scanați fișierele de depozit pentru secrete probabile și fișiere de configurare riscante`: acoperire și raportare normalizare`: acoperire și raportare normalizare.
- TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift și Dart/Flutter.
-- Dependențele de acoperire lipsă pot fi instalate automat când se solicită execuția; `dry_run` nu instalează niciodată pachete.
-Consultați [Instrumente de analiză a depozitului](docs/REPOSITORY_TOOLS.md) pentru parametri, rezultate și detalii de siguranță.
-Consultați [Aliasuri de cale și URL](docs/PATH_URL_ALIASES.md) pentru scurtarea căilor de fișiere repetate și a URL-urilor. Interfețe + VS Code Extension
-| Modul | Comanda | Scop |
+| Interfață | Comandă | Potrivită pentru |
 |---|---|---|
-| **CLI** | `uag` | Operare rapidă bazată pe terminal |
-| **GUI** | `uagg` | Interfața de utilizare pentru desktop prin tkinter |
-| **Web** | `uagw` | Acces bazat pe browser |
-| **A2A Server** | `uaga` | Protocol Agent2Agent pentru comunicare multi-agent |
-| **Codul VS** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) cu Panoul de chat, Explain, Refactor, Fix Error și Tools Tree View |
-Vedeți [VSCODE.md](https://github.com/awaku7/agentcli/blob/blob/main/main/docs/VSCODE Cod de instalare, extensia codului VSCODE pe extensia thedVS) legături de taste și configurare.
-### 🏠 Controlul dispozitivelor IoT
-- **BACnet**: citire/scriere dispozitive BACnet/IP (HVAC, iluminat, contoare de putere). Abonament COV pentru notificări push
-- **Modbus TCP**: Citiți/scrieți registre și bobine de reținere/intrare. Monitorizarea modificărilor bazată pe sondaje
-- **OPC UA**: Răsfoiți spațiul de adrese, citiți/scrieți variabile, abonați-vă la modificările datelor
-- **SwitchBot**: Controlul loturilor în cloud și scanarea/controlul BLE. Abonament bazat pe sondaje
-- **ECHONET Lite**: Descoperiți, controlați și abonați-vă la notificările INF de la aparatele electrocasnice (AC, lumini, încălzitoare de apă etc.)
-- **Materia**: control citire/scriere + abonament atribut pentru monitorizarea schimbării stării
-- **UPnP**: Descoperire dispozitiv și redirecționare IGDSe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
-### 🎯 Agent Skills Marketplace
-`:skills mp_search` pentru a răsfoi [SkillsMP](https://skillsmp.com) și comunitatea [https://skillsmp.com)whub. abilități.
-Instalați și extindeți capacitățile lui uag din mers.
-### 🤖 Auto-Pilot (`:auto`)
-uag poate **să urmărească în mod autonom un obiectiv în mai multe LLM runde**. Perfect pentru sarcini complexe, cu mai mulți pași, care necesită o rafinare iterativă.
-- **Cum funcționează**: Fiecare rundă are o interogare principală (Pasul A) urmată de o judecată a recenzentului (Pasul B) care decide „COMPLETĂ sau CONTINUA?”
-- **Același furnizor, același API**: Judecata recenzentului folosește calea de cod identică ca interogarea principală — inclusiv răspunsurile .API suport .API**Separate .API** LLM** (opțional): setați `UAGENT_AP_PROVIDER` să folosească un alt furnizor/model pentru examinator (de exemplu, utilizați un model mai ieftin pentru evaluare).
-- **Ieșiți oricând**: apăsați tasta F11 pentru a opri imediat, chiar și la mijlocul răspunsului. Sau lăsați recenzentul să decidă când este îndeplinit obiectivul.
-- **Configurabil**: `--max-rounds N` pentru a controla bugetul.
-Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pentru documentația completă.
-⏩## Batch State Manager. poate urmări progresul în sarcinile cu mai multe fișiere de lungă durată. Când LLM procesează zeci de fișiere, `batch_state` persistă pe disc lista fișierelor în așteptare, finalizate și eșuate. Dacă sesiunea se termină sau expiră o rundă, următoarea rulare reia de unde s-a oprit — nimic nu se pierde.
-### 🛡 Human-in-the-Loop
-`human_ask` permite LLM să întrerupă și să solicite confirmarea înainte de a efectua operațiuni distructive (ștergerea fișierelor, suprascrieri, comenzi shell). Rămâneți sub control.
-### 🛑 Întrerupeți (tasta C / Butonul Stop)
-Opriți generarea răspunsului LLM în orice moment și injectați o comandă de oprire înapoi în LLM.
-| Interfață | Cum se întrerupe |
-|---|---|
-| **CLI** | Apăsați tasta F12 în timpul streamingului LLM — răspunsul curent se oprește și `"Stop"` este trimis ca mesaj de utilizator, astfel încât LLM să răspundă în consecință |
-| **Interfață de utilizare WEB** | Faceți clic pe butonul roșu **■ Stop** (apare automat în timpul procesării LLM) |
-| **Interfață grafică pentru desktop** | Faceți clic pe butonul roșu **■** (apare automat în timpul procesării LLM) |
-Întreruperea funcționează ca „injectare promptă”: în loc să se anuleze, transmite „Stop”” înapoi către LLM sub formă de mesaj de utilizator, permițându-i să încheie cu grație sau să recunoască întreruperea tastei.
-**F11** pentru a ieși din Auto-Pilot. **F12** oprește doar răspunsul LLM curent (consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
-### 🕵️ Browser Automation & Web Inspector
-Două instrumente complementare bazate pe Playwright:
-- ****browser-extras, automate sesiune de navigare: browser_play, automate sesiune de navigare, clic real-play** date, gestionează fluxuri cu mai multe pagini. Funcționează fără cap sau cu cap.
-- **playwright_inspector**: înregistrați tranzițiile browserului, capturați instantanee și capturi de ecran DOM la fiecare pas. Util pentru depanarea interacțiunilor web sau pentru auditarea modificărilor paginii de-a lungul timpului.
-### 🔄 Încărcarea dinamică a instrumentelor
-`tool_catalog` și `tool_load` vă permit să descoperiți și să activați instrumente în timpul execuției.
-Nu este nevoie să încărcați totul la pornire — activați doar ceea ce aveți nevoie, atunci când aveți nevoie.
-##gent și `slugify` sunt implementate în Rust (prin PyO3) pentru performanță.
-Se încarcă direct dintr-un `.pyd` pre-construit — **nu este necesară `pip install`**. `uagent.tools.rust_helper` și
-utilizatorii primesc instrumentul fără dependențe suplimentare. Vezi
-[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-### 🌐 i18n / L10n
-日本語 / English / 简佔 /中恖間 /中恖間 /中恖齔 /中恖齔 / 한국어 / Español / Français / Русский / și multe altele.
-Setați `UAGENT_LANG` pentru a comuta. Consultați [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) pentru a adăuga o nouă localitate.
-Traducerile acestui README sunt disponibile în [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
-### 🔒 Variabile de mediu criptate
-Pastrați cheile și secretele API în `.env.sec`` — un fișier criptat ..
-Managed. `uag_envsec`.
-## Configurație și detalii
+| **CLI** | `uag` | Lucru rapid, bazat pe tastatură |
+| **Interfață grafică desktop** | `uagg` | O experiență desktop nativă |
+| **Interfață web** | `uagw` | Acces din browser |
+| **Server A2A** | `uaga` | Comunicare agent-la-agent |
+| **VS Code** | Extension | Explicarea, refactorizarea, repararea și explorarea instrumentelor în editor |
 
-- **Variabile de mediu**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
-- **Asistent de configurare**: `python -m uagent.setup-_** **Encrypted-_cli: `uag_envsec` — criptați `.env` ca `.env.sec`
-- **Răspunsuri API**: Setați `UAGENT_RESPONSES=1` pentru modul Răspunsuri API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/Ollama Studio/Alibaba). Activat automat pentru Sakana AI (Fugu).
-- **Documente pentru dezvoltatori**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Flux de instrumente**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — cum sunt trimise instrumentele către LLM (mască de gen, catalog de instrumente, GPT-5.4+ căutare de instrumente native)
-- **Sfaturi mici: **PH_5 [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
+Toate interfețele folosesc aceeași configurare a furnizorului, același registru de instrumente, aceleași reguli de siguranță și aceleași date de sesiune.
 
-## Filosofia proiectului
+## Ce poate face
 
-uag aspiră să fie **AI-ul tău, pe mașina ta, în condițiile tale.**
+### Lucrează cu mediul tău
 
-- Fără dependență de SaaS — rulează local
-- Fără blocare a furnizorului — comută oricând
-- Fără blocare UI — CLI / GUI / Web / _-_PH_0 și instrument de extindere abilități
+- Citește, creează, editează, caută, calculează hash-uri, arhivează și inspectează fișiere
+- Revizuiește modificările Git, caută secrete, rulează teste, face linting, compilează și măsoară acoperirea
+- Navighează baze mari de cod Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA și alte limbaje
+- Automatizează browsere cu Playwright, inclusiv fluxuri cu mai multe pagini și descărcări
 
-O experiență gratuită de agent AI, fără blocarea furnizorului.
+### Folosește orice model
 
-### ✨ Creați-vă propriile instrumente
+Adaptoarele de furnizori acoperă runtime-uri găzduite și locale, inclusiv:
 
-Scrieți un nou instrument pentru uag este simplu - creați un singur fișier `.py` cu 
-`TOOL_SPEC` și `run_tool`, plasați-l în () `UAGENT_EXTERNAL_TOOLS_DIR` și
-este disponibil imediat. Pentru dezvoltatorii Rust, trimiteți un `.pyd` pre-construit cu
-zero dependențe suplimentare pentru utilizatori.
+**OpenAI · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
-Consultați [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
-pentru ghidul pas cu pas.
+Schimbă furnizorii cu `UAGENT_PROVIDER`; instrumentele și interfața rămân neschimbate.
 
+### Conectează servicii și dispozitive
 
-## Contribuție
+- **MCP** — conectează servere externe de instrumente, inclusiv servicii cu OAuth
+- **A2A** — coordonează-te cu alți agenți și servere compatibile
+- **Cloud** — acces la API-urile AWS, Google Cloud și Azure, cu confirmare pentru scrieri
+- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams și pybitchat
+- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA și UPnP
+- **Media** — generare/editare de imagini, transcriere/sinteză audio, captură de la cameră și coduri QR
+- **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL și analiză de jurnale
 
-Contribuțiile sunt binevenite! Rapoarte de erori, sugestii de funcții, îmbunătățiri ale documentației, traduceri și solicitări de extragere — toate sunt apreciate.
+### Pluginuri, Agent Skills și marketplace-uri
 
-- **Probleme**: deschideți o problemă GitHub pentru erori sau solicitări de funcții.
-- **Solicitări de extragere**: deblocați repo, faceți modificările și trimiteți un PR. Consultați [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) pentru configurarea și instrucțiunile de dezvoltare.
-- **Traduceri**: traducerile README și adăugările de localități sunt binevenite. Consultați [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
-- **Instrumente și abilități**: Noile pluginuri de instrumente și abilități de agent pot fi contribuite prin intermediul pieței.
+Transformă uag într-un agent specializat fără să separi nucleul:
 
+- Instalează **pluginuri compatibile cu Claude Code** dintr-un director, ZIP, depozit Git, sursă HTTP sau marketplace
+- Grupează skill-uri, sub-agenți, servere MCP, hook-uri, comenzi slash, stiluri de ieșire, dependențe și canale
+- Explorează capabilități ale comunității din [SkillsMP](https://skillsmp.com) și [ClawHub](https://clawhub.ai)
+- Adaugă local skill-uri și instrumente private ale organizației prin `UAGENT_EXTERNAL_TOOLS_DIR`
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- mai întâi dependențele de testare. Acestea sunt ținute în afara listei de dependențe
-de execuție:
-
-```bash
-python -m pip install -e ".[test]"
-python -m pip install black ruff
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+:plugin marketplace list
 ```
 
-Rulați aceleași verificări folosite de GitHub Acțiuni înainte de a apăsa:
-``ffbash -
-``
-m src tests
+Vezi [Ghidul de dezvoltare a pluginurilor](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+
+### IoT și controlul lumii fizice
+
+uag conectează fluxurile conversaționale la dispozitive reale, menținând operațiunile de scriere explicite și auditabile:
+
+- **SwitchBot** — descoperire în cloud și BLE, stare, control, grupare și abonamente
+- **ECHONET Lite** — descoperă și controlează aparate electrocasnice japoneze, inclusiv notificări INF
+- **Matter** — endpoint-uri, clustere, atribute, istoric de stare, abonamente și control
+- **BACnet / Modbus TCP / OPC UA** — citiri, scrieri, navigare și monitorizare pentru automatizări industriale și de clădiri
+- **UPnP** — descoperirea dispozitivelor, starea WAN și gestionarea mapării porturilor routerului
+
+Citește starea, monitorizează modificările sau efectuează o acțiune de control prin aceeași interfață a agentului. Scrierile sensibile către dispozitive
+rămân supuse regulilor configurate de confirmare și politicii enterprise.
+
+Vezi [Cazuri de utilizare IoT](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
+
+Runtime-ul include în prezent un catalog vast de instrumente. Descoperă instrumentele exacte disponibile în instalarea ta cu:
+
+```text
+:tools
+```
+
+## Configurarea platformei
+
+Pachetul de bază este multiplatformă. Dependențele specifice platformei trebuie instalate selectiv.
+
+### Windows
+
+```powershell
+python -m pip install PySide6 winrt-Windows.Devices.Geolocation
+```
+
+### macOS
+
+```bash
+python -m pip install PySide6 pyobjc-framework-CoreLocation
+```
+
+### Linux
+
+```bash
+python -m pip install PySide6 ewmh dbus-next
+```
+
+Unele integrări au cerințe de sistem suplimentare, precum binare de browser, permisiuni Bluetooth,
+acreditări cloud sau un server MQTT/OPC UA. Instrumentul relevant raportează ce lipsește atunci când rulează.
+
+## Sesiuni, automatizare și siguranță
+
+### Continuitatea sesiunii
+
+Reia conversațiile anterioare cu `:load <index>`. Rezultatele instrumentelor pot fi păstrate în cache, iar furnizorii pot fi schimbați
+fără a reconstrui aplicația.
+
+### Pilot automat
+
+Folosește `:auto` pentru lucrări în mai multe runde, cu un model revizor opțional. Setează limita rundelor cu `--max-rounds N`.
+Apasă **F11** pentru a opri pilotul automat sau **F12** pentru a opri răspunsul curent.
+
+Vezi [Pilot automat](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Confirmarea umană
+
+`human_ask` pune pe pauză execuția înaintea acțiunilor sensibile. Ștergerea fișierelor, suprascrierile, comenzile shell, comenzile dispozitivelor,
+operațiunile cu acreditări și scrierile în rețea pot fi guvernate de reguli de confirmare și politici.
+
+Controalele la nivelul întregii organizații sunt disponibile prin [Motorul de politici enterprise](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
+
+### Acreditări
+
+Folosește magazinul de acreditări în loc să plasezi secrete cu durată lungă de viață în prompturi:
+
+```text
+:credential set provider/openai api_key
+:credential get provider/openai
+:credential list
+```
+
+Magazinul poate folosi Windows Credential Manager, macOS Keychain, Linux Secret Service sau backend-ul de fișier criptat.
+Vezi [Magazinul de acreditări](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) pentru detalii de configurare.
+
+## Extensii
+
+### Agent Skills și pluginuri
+
+Instalează skill-uri comunitare din SkillsMP sau ClawHub ori instalează pluginuri compatibile cu Claude Code care conțin
+skill-uri, agenți, servere MCP, hook-uri, comenzi și stiluri de ieșire.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+Vezi [Dezvoltarea pluginurilor](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) și [Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+### Creează un instrument
+
+Un instrument poate fi un singur fișier Python cu `TOOL_SPEC` și `run_tool()`. Plasează-l în
+`UAGENT_EXTERNAL_TOOLS_DIR` și reîncarcă catalogul. Dezvoltatorii Rust pot livra un modul nativ precompilat
+cu un wrapper Python subțire.
+
+Vezi [Ghidul creatorului de instrumente](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+### Servere MCP
+
+Conectează-te la servere MCP externe din CLI sau din fișierul de configurare. Îndrumările pentru OAuth și proxy sunt disponibile
+în [Ghidul OAuth / Proxy MCP](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## Voce în timp real
+
+Integrările opționale de voce în timp real acceptă OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
+Google Gemini Live și Amazon Bedrock Nova Sonic. Instalează dependențele audio relevante și rulează:
+
+```bash
+python scheck.py realtime
+```
+
+Suportul AEC3 este disponibil pentru sunet full-duplex de la microfon și difuzor. Activează diagnosticarea doar în timpul
+remedierii problemelor:
+
+```bash
+export UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+## Configurare și documentație
+
+| Subiect | Documentație |
+|---|---|
+| Variabile de mediu | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
+| Arhitectură și invariabile | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
+| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
+| Instrumente ale depozitului | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
+| Cazuri de utilizare IoT | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
+| Instrumente de comunicare | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
+| Pilot automat | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
+| OAuth / Proxy MCP | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
+| Extensia VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
+| Ghidul dezvoltatorului | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
+| Fluxul instrumentelor | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+
+## Dezvoltare
+
+```bash
+git clone https://github.com/awaku7/agentcli.git
+cd agentcli
+python -m pip install -e ".[core,providers,test]"
+```
+
+Rulează verificările pre-PR:
+
+```bash
+python -m ruff check src tests
 python -m black --check src tests
-python scripts/tool_json_i18n_batch.py status
 python -m pytest -q .
 ```
 
-Pentru o iterație locală mai rapidă, rulați numai testele afectate:
-``testbatch -
-```
+Pentru fluxul complet de dezvoltare, vezi [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
- teste/<zona_afectată>
-```
+## Principiile proiectului
 
-Verificări suplimentare atunci când este relevant:
+- **Local-first** — runtime-ul îți aparține.
+- **Neutru față de furnizor** — modelele sunt infrastructură înlocuibilă.
+- **Compozabil** — instrumentele, skill-urile, pluginurile și serverele MCP sunt extensii de prim rang.
+- **Sigur în mod implicit** — operațiunile sensibile rămân vizibile și controlabile.
+- **Deschis contribuțiilor** — codul, instrumentele, skill-urile, traducerile și documentația sunt binevenite.
 
-```bash
-python -m py_compile src/uagent/
-mypy src/uagent
-```
+## Contribuții
 
-După editarea localizării (`on: . scripts/compile_locales.py` și `python scripts/po_qc_summary.py`.
+Rapoartele de erori, ideile de funcții, îmbunătățirile documentației, traducerile, instrumentele, skill-urile și pull request-urile sunt binevenite.
+Te rugăm să deschizi un issue sau o discuție înainte de modificări ample. Citește [Ghidul dezvoltatorului](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+și rulează verificările de mai sus înainte de a trimite un pull request.
 
-Politica de execuție (detalii în [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md):`s raise §ys instead of.md): gazda instrumentului transformă instrumentul `SystemExit`/`Exception` în șiruri de eroare, astfel încât un singur instrument nu poate ucide procesul. Ieșirile rapide de eșuare la pornire rămân intenționate.
+## Licență
 
-## Arhitectură și invariante operaționale
-
-Consultați [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pentru contractele durabile care acoperă ciclul de viață A2A, contexte I18N, instalarea opțională a dependenței, siguranța instrumentelor, capabilitățile furnizorului, limitele de încredere OAuth, evenimentele structurate și verificarea acceptării
-
-.## Enterprise Policy Engine
-
-Politicile la nivel de organizație pentru instrumente, furnizori, acreditări, servere MCP, rețele, competențe și pluginuri sunt acceptate. Setați `UAGENT_POLICY_FILE` la un fișier de politică JSON/YAML; consultați [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) pentru exemple de configurare, roluri, confirmare și liste de permisiuni.
-
-### Recuperare și orchestrare în timpul execuției
-
-Consultați [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) / [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) pentru recuperare durabilă, execuție în funcție de dependență, orchestrare cu mai mulți agenți și utilizare de la distanță A2A.
-
-
-
- [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) pentru coordonarea închirierii liderului în timp partajat.
-`````
+Licențiat sub [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

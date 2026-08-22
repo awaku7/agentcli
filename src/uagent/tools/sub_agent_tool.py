@@ -600,7 +600,25 @@ class SubAgentRunner:
             "For dangerous operations, obtain confirmation through human_ask first."
         )
 
-    def _execute_tool_calls(self, text: str, permission_level: str) -> List[str]:
+    def _annotate_human_ask(
+        self, tool_name: str, args: Dict[str, Any], agent_name: str
+    ) -> Dict[str, Any]:
+        """Identify confirmation prompts originating from a sub-agent."""
+        if tool_name != "human_ask" or not agent_name:
+            return args
+        out = dict(args)
+        message = str(out.get("message") or "")
+        prefix = _(
+            "subagent.human_ask_prefix",
+            default="[Sub-agent %(agent)s] Human confirmation request:\n",
+        ) % {"agent": agent_name}
+        if not message.startswith(prefix):
+            out["message"] = prefix + message
+        return out
+
+    def _execute_tool_calls(
+        self, text: str, permission_level: str, agent_name: str = ""
+    ) -> List[str]:
         """Parse tool call patterns and execute them, returning list of result strings."""
         if permission_level == "none":
             return []
@@ -634,6 +652,7 @@ class SubAgentRunner:
             try:
                 from . import _RUNNERS as tool_runners
 
+                args = self._annotate_human_ask(tool_name, args, agent_name)
                 runner = tool_runners.get(tool_name)
                 if runner:
                     result = runner(args)
@@ -644,12 +663,138 @@ class SubAgentRunner:
                 results.append(f"[tool:{tool_name} error: {exc}]")
         return results
 
-    def _parse_and_execute_tools(self, text: str, permission_level: str) -> str:
-        """Single-turn tool execution: append results to original text."""
-        results = self._execute_tool_calls(text, permission_level)
+    def _parse_and_execute_tools(
+        self, text: str, permission_level: str, agent_name: str = ""
+    ) -> str:
+        """Compatibility execution for providers without native tool calls."""
+        results = self._execute_tool_calls(text, permission_level, agent_name)
         if results:
             return text + "\n\n---\nTool execution result:\n" + "\n\n".join(results)
         return text
+
+    def _native_tool_specs(self, spec: AgentSpec) -> list[dict[str, Any]]:
+        """Return the live function schemas used by the parent tool loop."""
+        from . import get_tool_specs
+
+        specs = get_tool_specs()
+        allowed = {str(n) for n in (spec.allowed_tools or []) if n}
+        if not allowed:
+            return specs
+        management = {"tool_catalog", "tool_load", "unload_tool"}
+        return [
+            item
+            for item in specs
+            if str(item.get("function", {}).get("name", "")) in allowed | management
+        ]
+
+    def _call_responses_with_tools(
+        self,
+        client: Any,
+        model_name: str,
+        system_prompt: str,
+        messages: list[dict[str, Any]],
+        tool_specs: list[dict[str, Any]],
+        timeout: int,
+        provider: str,
+    ) -> tuple[str, list[dict[str, Any]], Dict[str, int]]:
+        """Call the OpenAI/Azure Responses API with native tools."""
+        from ..providers.llm_openai_responses import build_responses_request
+        from ..providers.responses_common import parse_responses_response
+
+        instructions, input_items, response_tools = build_responses_request(
+            [{"role": "system", "content": system_prompt}] + messages,
+            send_tools_this_round=True,
+            provider=provider,
+            tool_specs=tool_specs,
+        )
+        reasoning = str(os.environ.get("UAGENT_REASONING", "") or "").strip().lower()
+        kwargs: Dict[str, Any] = {
+            "model": model_name,
+            "instructions": instructions or system_prompt,
+            "input": input_items,
+            "tools": response_tools or [],
+        }
+        if reasoning in {"minimal", "low", "medium", "high", "xhigh", "max"}:
+            try:
+                from ..llmcapa_util import get_reasoning_effort_values
+
+                valid = get_reasoning_effort_values(model_name, provider) or []
+                if valid:
+                    order = ["minimal", "low", "medium", "high", "xhigh", "max"]
+                    requested_index = order.index(reasoning)
+                    effort = min(
+                        valid,
+                        key=lambda value: abs(
+                            order.index(str(value).lower())
+                            if str(value).lower() in order
+                            else requested_index - requested_index
+                        ),
+                    )
+                    kwargs["reasoning"] = {"effort": effort}
+            except Exception:
+                pass
+        if timeout > 0:
+            kwargs["timeout"] = timeout
+        response = client.responses.create(**kwargs)
+        text, _reasoning, calls, _response_id, _items = parse_responses_response(
+            response
+        )
+        usage_obj = getattr(response, "usage", None)
+        usage = {
+            "prompt_tokens": getattr(usage_obj, "input_tokens", 0) or 0,
+            "completion_tokens": getattr(usage_obj, "output_tokens", 0) or 0,
+            "total_tokens": getattr(usage_obj, "total_tokens", 0) or 0,
+        }
+        return text or "", calls, usage
+
+    def _call_openai_with_tools(
+        self,
+        client: Any,
+        model_name: str,
+        system_prompt: str,
+        messages: list[dict[str, Any]],
+        tool_specs: list[dict[str, Any]],
+        timeout: int,
+        provider: str = "",
+    ) -> tuple[str, list[dict[str, Any]], Dict[str, int]]:
+        """Make one OpenAI-compatible native function-calling request."""
+        kwargs: Dict[str, Any] = {
+            "model": model_name,
+            "messages": [{"role": "system", "content": system_prompt}] + messages,
+            "tools": tool_specs,
+            "tool_choice": "auto",
+        }
+        model_lower = str(model_name or "").lower()
+        modern = model_lower.startswith("gpt-5") or re.match(
+            r"^o[1-4](?:[-.]|$)", model_lower
+        )
+        kwargs["max_completion_tokens" if modern else "max_tokens"] = 4000
+        if not modern:
+            kwargs["temperature"] = 0.2
+        if timeout > 0:
+            kwargs["timeout"] = timeout
+        response = client.chat.completions.create(**kwargs)
+        message = response.choices[0].message
+        calls: list[dict[str, Any]] = []
+        for call in getattr(message, "tool_calls", None) or []:
+            fn = getattr(call, "function", None)
+            calls.append(
+                {
+                    "id": getattr(call, "id", ""),
+                    "type": "function",
+                    "function": {
+                        "name": getattr(fn, "name", ""),
+                        "arguments": getattr(fn, "arguments", "{}"),
+                    },
+                }
+            )
+        usage_obj = getattr(response, "usage", None)
+        usage = {
+            "prompt_tokens": getattr(usage_obj, "prompt_tokens", 0) or 0,
+            "completion_tokens": getattr(usage_obj, "completion_tokens", 0) or 0,
+            "total_tokens": getattr(usage_obj, "total_tokens", 0) or 0,
+        }
+        return getattr(message, "content", None) or "", calls, usage
 
     # ------------------------------------------------------------------
     # Prompt building
@@ -815,9 +960,23 @@ class SubAgentRunner:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt},
                 ],
-                temperature=0.2,
-                max_tokens=max_tokens,
             )
+            # OpenAI reasoning models (GPT-5/o-series) reject temperature.
+            model_lower = str(model_name or "").lower()
+            _modern_openai_model = provider in ("openai", "azure") and (
+                model_lower.startswith("gpt-5")
+                or re.match(r"^o[1-4](?:[-.]|$)", model_lower)
+            )
+            if not _modern_openai_model:
+                kwargs["temperature"] = 0.2
+            # New OpenAI reasoning models (GPT-5/o-series) reject the legacy
+            # ``max_tokens`` parameter and require ``max_completion_tokens``.
+            # Keep the legacy name for older chat-completions models and other
+            # OpenAI-compatible providers.
+            if _modern_openai_model:
+                kwargs["max_completion_tokens"] = max_tokens
+            else:
+                kwargs["max_tokens"] = max_tokens
             if timeout > 0:
                 kwargs["timeout"] = timeout
             response = client.chat.completions.create(**kwargs)
@@ -1094,7 +1253,7 @@ class SubAgentRunner:
                 pass
 
         # --- Multi-turn or single-turn ---
-        if max_turns > 1 and permission_level != "none":
+        if permission_level != "none":
             raw_output, total_retries, llm_usage = self._run_llm_multi_turn(
                 cb=cb,
                 provider=provider,
@@ -1106,7 +1265,9 @@ class SubAgentRunner:
                 max_retries=max_retries,
                 response_mode=response_mode or "",
                 permission_level=permission_level,
-                max_turns=max_turns,
+                max_turns=max(2, max_turns),
+                agent_spec=spec,
+                agent_name=agent_name,
             )
         else:
             raw_output, total_retries, llm_usage = self._call_with_retry(
@@ -1187,10 +1348,36 @@ class SubAgentRunner:
         response_mode: str,
         permission_level: str,
         max_turns: int,
+        agent_spec: Optional[AgentSpec] = None,
+        agent_name: str = "",
     ) -> tuple[str, int, Dict[str, int]]:
-        """Run a multi-turn LLM process, handling tool calls across multiple rounds."""
+        """Run a multi-turn LLM process, handling native tool calls."""
 
+        native_tools = permission_level != "none" and provider not in (
+            "gemini",
+            "vertexai",
+            "claude",
+            "grok",
+        )
+        tool_specs = (
+            self._native_tool_specs(agent_spec) if native_tools and agent_spec else []
+        )
+        reasoning_mode = (
+            str(os.environ.get("UAGENT_REASONING", "") or "").strip().lower()
+        )
+        responses_env = (
+            str(os.environ.get("UAGENT_RESPONSES", "") or "").strip().lower()
+        )
+        use_responses_tools = bool(
+            native_tools
+            and provider in ("openai", "azure")
+            and hasattr(client, "responses")
+            and (responses_env in {"1", "true", "yes", "on"} or reasoning_mode != "")
+        )
         conversation = user_prompt
+        conversation_messages: list[dict[str, Any]] = [
+            {"role": "user", "content": user_prompt}
+        ]
         total_retries = 0
         total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
@@ -1216,16 +1403,40 @@ class SubAgentRunner:
             # Skip JSON validation before the final turn (intermediate output may contain tool calls)
             current_response_mode = response_mode if is_last else ""
 
-            raw, retries, usage = self._call_with_retry(
-                provider,
-                client,
-                model_name,
-                system_prompt,
-                conversation,
-                timeout,
-                max_retries,
-                current_response_mode,
-            )
+            if use_responses_tools:
+                raw, native_calls, usage = self._call_responses_with_tools(
+                    client,
+                    model_name,
+                    system_prompt,
+                    conversation_messages,
+                    tool_specs,
+                    timeout,
+                    provider,
+                )
+                retries = 0
+            elif native_tools:
+                raw, native_calls, usage = self._call_openai_with_tools(
+                    client,
+                    model_name,
+                    system_prompt,
+                    conversation_messages,
+                    tool_specs,
+                    timeout,
+                    provider,
+                )
+                retries = 0
+            else:
+                raw, retries, usage = self._call_with_retry(
+                    provider,
+                    client,
+                    model_name,
+                    system_prompt,
+                    conversation,
+                    timeout,
+                    max_retries,
+                    current_response_mode,
+                )
+                native_calls = []
             total_retries += retries
             for k in total_usage:
                 total_usage[k] += usage.get(k, 0)
@@ -1236,11 +1447,42 @@ class SubAgentRunner:
             if is_last:
                 return raw, total_retries, total_usage
 
+            if native_tools and native_calls:
+                from . import run_tool
+
+                conversation_messages.append(
+                    {
+                        "role": "assistant",
+                        "content": raw or None,
+                        "tool_calls": native_calls,
+                    }
+                )
+                for call in native_calls:
+                    fn = call.get("function", {})
+                    try:
+                        args = json.loads(fn.get("arguments") or "{}")
+                    except (TypeError, json.JSONDecodeError):
+                        args = {}
+                    tool_name = str(fn.get("name") or "")
+                    args = self._annotate_human_ask(tool_name, args, agent_name)
+                    result = run_tool(tool_name, args)
+                    conversation_messages.append(
+                        {
+                            "role": "tool",
+                            "tool_call_id": call.get("id", ""),
+                            "content": str(result),
+                        }
+                    )
+                tool_specs = (
+                    self._native_tool_specs(agent_spec) if agent_spec else tool_specs
+                )
+                continue
+
             # Append to conversation history
             conversation += f"\n\n[Your Response Turn {turn + 1}]:\n{raw}\n"
 
             # Parse and execute tool calls
-            tool_results = self._execute_tool_calls(raw, permission_level)
+            tool_results = self._execute_tool_calls(raw, permission_level, agent_name)
             if tool_results:
                 for tr in tool_results:
                     conversation += f"\n{tr}\n"

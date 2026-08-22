@@ -165,6 +165,14 @@ def run_tool(args: dict[str, Any]) -> str:
             ),
             flush=True,
         )
+        if bool(args.get("confirmation", False)):
+            print(
+                _(
+                    "ui.all_yes",
+                    default="  - Type 'all' to allow this tool for the rest of the session\n",
+                ),
+                flush=True,
+            )
 
     if cb.human_ask_lock is None:
         return _error_result(

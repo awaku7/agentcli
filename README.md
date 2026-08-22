@@ -40,6 +40,48 @@ IoT devices, MCP servers, and multi-agent workflows.
 
 > **In short:** uag is the control plane between your AI models and your real environment.
 
+## Where uag fits
+
+uag sits between people and interfaces on one side, and models, tools, and real-world systems on the other.
+It coordinates the conversation, selects capabilities, applies safety rules, and keeps the workflow resumable.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
+```
+
+**uag is not a model provider and not just a chat UI.** It is the shared execution layer that makes models,
+tools, interfaces, and policies work together.
+
 ## Flagship capabilities
 
 ### 🧠 One agent, every model
@@ -64,7 +106,8 @@ pool (`UAGENT_PARALLEL_WORKERS`). Write operations remain serialized or require 
 ### 🧩 Built to extend
 
 - **200+ tools** for files, web, media, documents, code, cloud, communication, and IoT
-- **Dynamic loading** with `tool_catalog` and `tool_load`
+- **Dynamic discovery and loading** — use `tool_catalog` to find capabilities and `tool_load` to enable them only when needed
+- **Code intelligence** — `code_map`, language-specific `idx` navigators, Git review, test execution, linting, compilation, and coverage
 - **Claude Code-compatible plugins** with skills, agents, MCP servers, hooks, commands, and marketplaces
 - **Agent Skills** from SkillsMP and ClawHub
 - **Custom Python tools** with `TOOL_SPEC` and `run_tool()`
@@ -179,6 +222,39 @@ Switch providers with `UAGENT_PROVIDER`; your tools and interface do not change.
 - **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA, and UPnP
 - **Media** — image generation/editing, audio transcription/speech, camera capture, and QR codes
 - **Documents** — PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL, and log analysis
+
+### Plugins, Agent Skills, and marketplaces
+
+Turn uag into a specialized agent without forking the core:
+
+- Install **Claude Code-compatible plugins** from a directory, ZIP, Git repository, HTTP source, or marketplace
+- Bundle skills, sub-agents, MCP servers, hooks, slash commands, output styles, dependencies, and channels
+- Browse community capabilities from [SkillsMP](https://skillsmp.com) and [ClawHub](https://clawhub.ai)
+- Add private organization skills and tools locally through `UAGENT_EXTERNAL_TOOLS_DIR`
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+:plugin marketplace list
+```
+
+See the [Plugin Development Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+
+### IoT and physical-world control
+
+uag connects conversational workflows to real devices while keeping write operations explicit and auditable:
+
+- **SwitchBot** — Cloud and BLE discovery, status, control, batching, and subscriptions
+- **ECHONET Lite** — discover and control Japanese home appliances, including INF notifications
+- **Matter** — endpoints, clusters, attributes, state history, subscriptions, and control
+- **BACnet / Modbus TCP / OPC UA** — industrial and building automation reads, writes, browsing, and monitoring
+- **UPnP** — device discovery, WAN status, and router port-mapping management
+
+Read state, monitor changes, or perform a control action through the same agent interface. Sensitive device
+writes remain subject to the configured confirmation and enterprise policy rules.
+
+See the [IoT Use Cases](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
 
 The runtime currently includes a large catalog of tools. Discover the exact tools available in your installation with:
 

@@ -48,6 +48,7 @@ from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TOOLS_DIR = ROOT / "src" / "uagent" / "tools"
+DEFAULT_TOOL_DIRS = (DEFAULT_TOOLS_DIR, ROOT / "src" / "uagent" / "tools_rust")
 DEFAULT_TMP_DIR = ROOT / "tmp" / "tool_json_i18n"
 
 LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Za-z]{2})?$")
@@ -600,8 +601,19 @@ def merge_lang(
     return touched
 
 
+def _tool_files(args: argparse.Namespace) -> list[Path]:
+    if args.tools_dir:
+        directories = (Path(args.tools_dir),)
+    else:
+        directories = DEFAULT_TOOL_DIRS
+    files: list[Path] = []
+    for directory in directories:
+        files.extend(_iter_tool_json_files(directory, args.tools_set))
+    return sorted(files)
+
+
 def cmd_status(args: argparse.Namespace) -> int:
-    files = _iter_tool_json_files(Path(args.tools_dir), args.tools_set)
+    files = _tool_files(args)
     langs = args.langs_list
     units = collect_units(
         files,
@@ -622,7 +634,7 @@ def cmd_status(args: argparse.Namespace) -> int:
 
 
 def cmd_extract(args: argparse.Namespace) -> int:
-    files = _iter_tool_json_files(Path(args.tools_dir), args.tools_set)
+    files = _tool_files(args)
     units = collect_units(
         files,
         args.langs_list,
@@ -706,8 +718,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--tools-dir",
-        default=str(DEFAULT_TOOLS_DIR),
-        help="Directory containing *_tool.json",
+        default="",
+        help="Directory containing *_tool.json (default: tools and tools_rust)",
     )
     p.add_argument(
         "--tmp-dir",

@@ -1725,8 +1725,9 @@ def get_confirmation_callback():
 
 
 def configure_default_confirmation() -> None:
-    from .tool_policy import default_confirmation_callback
+    from .tool_policy import default_confirmation_callback, reset_confirmation_grants
 
+    reset_confirmation_grants()
     set_confirmation_callback(default_confirmation_callback)
 
 

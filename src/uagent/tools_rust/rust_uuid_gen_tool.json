@@ -1,212 +1,382 @@
 {
-    "en": {
-        "tool.description": "Generate one or more UUID v4 strings. Returns one per line.",
-        "x_search_terms": ["uuid", "uuid_gen", "generate uuid", "guid"],
-        "tool.count": "Number of UUIDs to generate (1-100, default 1)"
-    },
-    "ar": {
-        "tool.description": "قم بإنشاء سلسلة UUID v4 واحدة أو أكثر. إرجاع واحد لكل سطر.",
-        "x_search_terms": ["uuid", "uuid_gen", "إنشاء uuid", "guid"],
-        "tool.count": "عدد المعرفات الفريدة (UUID) المطلوب إنشاؤها (1-100، الافتراضي 1)"
-    },
-    "bg": {
-        "tool.description": "Генерирайте един или повече UUID v4 низове. Връща по един на ред.",
-        "x_search_terms": ["uuid", "uuid_gen", "генериране на uuid", "guid"],
-        "tool.count": "Брой UUID за генериране (1-100, по подразбиране 1)"
-    },
-    "bn": {
-        "tool.description": "এক বা একাধিক UUID v4 স্ট্রিং তৈরি করুন। প্রতি লাইনে একটি প্রদান করে।",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid তৈরি করুন", "গাইড"],
-        "tool.count": "তৈরি করা UUID-এর সংখ্যা (1-100, ডিফল্ট 1)"
-    },
-    "cs": {
-        "tool.description": "Vygenerujte jeden nebo více řetězců UUID v4. Vrátí jednu na řádek.",
-        "x_search_terms": ["uuid", "uuid_gen", "generovat uuid", "guid"],
-        "tool.count": "Počet UUID k vygenerování (1–100, výchozí 1)"
-    },
-    "da": {
-        "tool.description": "Generer en eller flere UUID v4-strenge. Returnerer én pr. linje.",
-        "x_search_terms": ["uuid", "uuid_gen", "generere uuid", "guide"],
-        "tool.count": "Antal UUID'er, der skal genereres (1-100, standard 1)"
-    },
-    "de": {
-        "tool.description": "Generieren Sie eine oder mehrere UUID v4-Zeichenfolgen. Gibt einen pro Zeile zurück.",
-        "x_search_terms": ["uuid", "uuid_gen", "generieren uuid", "guid"],
-        "tool.count": "Anzahl der zu generierenden UUIDs (1–100, Standard 1)"
-    },
-    "el": {
-        "tool.description": "Δημιουργήστε μία ή περισσότερες συμβολοσειρές UUID v4. Επιστρέφει ένα ανά γραμμή.",
-        "x_search_terms": ["uuid", "uuid_gen", "δημιουργία uuid", "οδηγός"],
-        "tool.count": "Αριθμός UUID προς δημιουργία (1-100, προεπιλογή 1)"
-    },
-    "es": {
-        "tool.description": "Genere una o más cadenas UUID v4. Devuelve uno por línea.",
-        "x_search_terms": ["uuid", "uuid_gen", "generar uuid", "guid"],
-        "tool.count": "Número de UUID a generar (1-100, predeterminado 1)"
-    },
-    "fa": {
-        "tool.description": "یک یا چند رشته UUID v4 ایجاد کنید. یک در هر خط برمی گرداند.",
-        "x_search_terms": ["uuid", "uuid_gen", "تولید uuid", "راهنما"],
-        "tool.count": "تعداد UUID برای ایجاد (1-100، پیش فرض 1)"
-    },
-    "fi": {
-        "tool.description": "Luo yksi tai useampi UUID v4 -merkkijono. Palauttaa yhden per rivi.",
-        "x_search_terms": ["uuid", "uuid_gen", "generoi uuid", "guid"],
-        "tool.count": "Luotavien UUID-tunnusten määrä (1–100, oletusarvo 1)"
-    },
-    "fr": {
-        "tool.description": "Générez une ou plusieurs chaînes UUID v4. Renvoie un par ligne.",
-        "x_search_terms": ["uuid", "uuid_gen", "générer uuid", "guid"],
-        "tool.count": "Nombre d'UUID à générer (1-100, par défaut 1)"
-    },
-    "he": {
-        "tool.description": "צור מחרוזת UUID v4 אחת או יותר. מחזיר אחד בכל שורה.",
-        "x_search_terms": ["uuid", "uuid_gen", "ליצור uuid", "guid"],
-        "tool.count": "מספר UUIDs להפקה (1-100, ברירת מחדל 1)"
-    },
-    "hi": {
-        "tool.description": "एक या अधिक UUID v4 स्ट्रिंग्स जेनरेट करें। प्रति पंक्ति एक लौटाता है।",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid जनरेट करें", "guid"],
-        "tool.count": "उत्पन्न करने के लिए यूयूआईडी की संख्या (1-100, डिफ़ॉल्ट 1)"
-    },
-    "hr": {
-        "tool.description": "Generirajte jedan ili više nizova UUID v4. Vraća jedan po retku.",
-        "x_search_terms": ["uuid", "uuid_gen", "generiraj uuid", "guid"],
-        "tool.count": "Broj UUID-ova za generiranje (1-100, zadano 1)"
-    },
-    "hu": {
-        "tool.description": "Egy vagy több UUID v4 karakterlánc létrehozása. Soronként egyet ad vissza.",
-        "x_search_terms": ["uuid", "uuid_gen", "generál uuid", "guid"],
-        "tool.count": "A létrehozandó UUID-k száma (1-100, alapértelmezett 1)"
-    },
-    "id": {
-        "tool.description": "Hasilkan satu atau lebih string UUID v4. Mengembalikan satu per baris.",
-        "x_search_terms": ["uuid", "uuid_gen", "menghasilkan uuid", "panduan"],
-        "tool.count": "Jumlah UUID yang akan dihasilkan (1-100, default 1)"
-    },
-    "it": {
-        "tool.description": "Genera una o più stringhe UUID v4. Restituisce uno per riga.",
-        "x_search_terms": ["uuid", "uuid_gen", "genera uuid", "guid"],
-        "tool.count": "Numero di UUID da generare (1-100, predefinito 1)"
-    },
-    "ja": {
-        "tool.description": "UUID v4を1つ以上生成します。1行に1つ出力されます。",
-        "x_search_terms": ["UUID", "uuid生成", "guid", "ユニークID"],
-        "tool.count": "生成するUUIDの数（1〜100、デフォルト1）"
-    },
-    "ko": {
-        "tool.description": "하나 이상의 UUID v4 문자열을 생성합니다. 한 줄에 하나씩 반환합니다.",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid 생성", "guid"],
-        "tool.count": "생성할 UUID 수(1~100, 기본값 1)"
-    },
-    "mn": {
-        "tool.description": "Нэг буюу хэд хэдэн UUID v4 мөр үүсгэх. Нэг мөрөнд нэгийг буцаана.",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid үүсгэх", "guid"],
-        "tool.count": "Үүсгэх UUID-н тоо (1-100, өгөгдмөл 1)"
-    },
-    "mr": {
-        "tool.description": "एक किंवा अधिक UUID v4 स्ट्रिंग व्युत्पन्न करा. प्रति ओळ एक मिळवते.",
-        "x_search_terms": ["uuid", "uuid_gen", "जनरेट uuid", "guid"],
-        "tool.count": "व्युत्पन्न करण्यासाठी UUID ची संख्या (1-100, डीफॉल्ट 1)"
-    },
-    "ms": {
-        "tool.description": "Hasilkan satu atau lebih rentetan UUID v4. Mengembalikan satu setiap baris.",
-        "x_search_terms": ["uuid", "uuid_gen", "jana uuid", "guid"],
-        "tool.count": "Bilangan UUID untuk dijana (1-100, lalai 1)"
-    },
-    "nb": {
-        "tool.description": "Generer én eller flere UUID v4-strenger. Returnerer én per linje.",
-        "x_search_terms": ["uuid", "uuid_gen", "generer uuid", "guide"],
-        "tool.count": "Antall UUID-er som skal genereres (1–100, standard 1)"
-    },
-    "ne": {
-        "tool.description": "एक वा धेरै UUID v4 स्ट्रिङहरू उत्पन्न गर्नुहोस्। प्रति लाइन एक फर्काउँछ।",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid उत्पन्न गर्नुहोस्", "गाइड"],
-        "tool.count": "उत्पन्न गर्न UUID को संख्या (1-100, पूर्वनिर्धारित 1)"
-    },
-    "nl": {
-        "tool.description": "Genereer een of meer UUID v4-tekenreeksen. Retourneert één per regel.",
-        "x_search_terms": ["uuid", "uuid_gen", "genereer uuid", "guid"],
-        "tool.count": "Aantal te genereren UUID's (1-100, standaard 1)"
-    },
-    "pl": {
-        "tool.description": "Wygeneruj jeden lub więcej ciągów UUID v4. Zwraca po jednym na linię.",
-        "x_search_terms": ["uuid", "uuid_gen", "wygeneruj uuid", "guid"],
-        "tool.count": "Liczba identyfikatorów UUID do wygenerowania (1–100, domyślnie 1)"
-    },
-    "pt": {
-        "tool.description": "Gere uma ou mais strings UUID v4. Retorna um por linha.",
-        "x_search_terms": ["uuid", "uuid_gen", "gerar uuid", "guid"],
-        "tool.count": "Número de UUIDs a serem gerados (1-100, padrão 1)"
-    },
-    "pt_BR": {
-        "tool.description": "Gere uma ou mais strings UUID v4. Retorna um por linha.",
-        "x_search_terms": ["uuid", "uuid_gen", "gerar uuid", "guid"],
-        "tool.count": "Número de UUIDs a serem gerados (1-100, padrão 1)"
-    },
-    "ro": {
-        "tool.description": "Generați unul sau mai multe șiruri UUID v4. Returnează unul pe linie.",
-        "x_search_terms": ["uuid", "uuid_gen", "genera uuid", "guid"],
-        "tool.count": "Numărul de UUID-uri de generat (1-100, implicit 1)"
-    },
-    "ru": {
-        "tool.description": "Создайте одну или несколько строк UUID v4. Возвращает по одному на строку.",
-        "x_search_terms": ["uuid", "uuid_gen", "сгенерировать uuid", "guid"],
-        "tool.count": "Количество UUID для генерации (1–100, по умолчанию 1)"
-    },
-    "sr": {
-        "tool.description": "Генеришите један или више низова УУИД в4. Враћа један по реду.",
-        "x_search_terms": ["uuid", "uuid_gen", "генерише ууид", "гуид"],
-        "tool.count": "Број УУИД-ова за генерисање (1-100, подразумевано 1)"
-    },
-    "sv": {
-        "tool.description": "Generera en eller flera UUID v4-strängar. Returnerar en per rad.",
-        "x_search_terms": ["uuid", "uuid_gen", "generera uuid", "guid"],
-        "tool.count": "Antal UUID att generera (1-100, standard 1)"
-    },
-    "sw": {
-        "tool.description": "Tengeneza mfuatano mmoja au zaidi wa UUID v4. Hurejesha moja kwa kila mstari.",
-        "x_search_terms": ["uuid", "uuid_gen", "kuzalisha uuid", "mwongozo"],
-        "tool.count": "Idadi ya UUID za kuzalisha (1-100, chaguomsingi 1)"
-    },
-    "ta": {
-        "tool.description": "ஒன்று அல்லது அதற்கு மேற்பட்ட UUID v4 சரங்களை உருவாக்கவும். ஒரு வரிக்கு ஒன்று திரும்பும்.",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid உருவாக்கு", "வழிகாட்டி"],
-        "tool.count": "உருவாக்க வேண்டிய UUIDகளின் எண்ணிக்கை (1-100, இயல்புநிலை 1)"
-    },
-    "th": {
-        "tool.description": "สร้างสตริง UUID v4 หนึ่งรายการขึ้นไป ส่งคืนหนึ่งรายการต่อบรรทัด",
-        "x_search_terms": ["uuid", "uuid_gen", "สร้าง uuid", "guid"],
-        "tool.count": "จำนวน UUID ที่จะสร้าง (1-100, ค่าเริ่มต้น 1)"
-    },
-    "tr": {
-        "tool.description": "Bir veya daha fazla UUID v4 dizesi oluşturun. Her satıra bir tane döndürür.",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid oluştur", "guid"],
-        "tool.count": "Oluşturulacak UUID sayısı (1-100, varsayılan 1)"
-    },
-    "uk": {
-        "tool.description": "Згенеруйте один або кілька рядків UUID v4. Повертає по одному на рядок.",
-        "x_search_terms": ["uuid", "uuid_gen", "генерувати uuid", "guid"],
-        "tool.count": "Кількість UUID для створення (1-100, за замовчуванням 1)"
-    },
-    "ur": {
-        "tool.description": "ایک یا زیادہ UUID v4 سٹرنگز بنائیں۔ فی لائن ایک لوٹاتا ہے۔",
-        "x_search_terms": ["uuid", "uuid_gen", "uuid پیدا کریں", "گائیڈ"],
-        "tool.count": "بنانے کے لیے UUIDs کی تعداد (1-100، ڈیفالٹ 1)"
-    },
-    "vi": {
-        "tool.description": "Tạo một hoặc nhiều chuỗi UUID v4. Trả về một trên mỗi dòng.",
-        "x_search_terms": ["uuid", "uuid_gen", "tạo uuid", "guid"],
-        "tool.count": "Số lượng UUID cần tạo (1-100, mặc định 1)"
-    },
-    "zh_CN": {
-        "tool.description": "生成一个或多个 UUID v4 字符串。每行返回一个。",
-        "x_search_terms": ["uuid", "uuid_gen", "生成uuid", "guid"],
-        "tool.count": "要生成的 UUID 数量（1-100，默认 1）"
-    },
-    "zh_TW": {
-        "tool.description": "產生一個或多個 UUID v4 字串。每行返回一個。",
-        "x_search_terms": ["uuid", "uuid_gen", "生成uuid", "guid"],
-        "tool.count": "要產生的 UUID 數量（1-100，預設 1）"
-    }
+  "en": {
+    "tool.description": "Generate one or more UUID v4 strings. Returns one per line.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generate uuid",
+      "guid"
+    ],
+    "tool.count": "Number of UUIDs to generate (1-100, default 1)"
+  },
+  "ar": {
+    "tool.description": "قم بإنشاء سلسلة UUID v4 واحدة أو أكثر. إرجاع واحد لكل سطر.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "إنشاء uuid",
+      "guid"
+    ],
+    "tool.count": "عدد المعرفات الفريدة (UUID) المطلوب إنشاؤها (1-100، الافتراضي 1)"
+  },
+  "bn": {
+    "tool.description": "এক বা একাধিক UUID v4 স্ট্রিং তৈরি করুন। প্রতি লাইনে একটি প্রদান করে।",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "uuid তৈরি করুন",
+      "গাইড"
+    ],
+    "tool.count": "তৈরি করা UUID-এর সংখ্যা (1-100, ডিফল্ট 1)"
+  },
+  "cs": {
+    "tool.description": "Vygenerujte jeden nebo více řetězců UUID v4. Vrátí jednu na řádek.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generovat uuid",
+      "guid"
+    ],
+    "tool.count": "Počet UUID k vygenerování (1–100, výchozí 1)"
+  },
+  "da": {
+    "tool.description": "Generer en eller flere UUID v4-strenge. Returnerer én pr. linje.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generere uuid",
+      "guide"
+    ],
+    "tool.count": "Antal UUID'er, der skal genereres (1-100, standard 1)"
+  },
+  "de": {
+    "tool.description": "Generieren Sie eine oder mehrere UUID v4-Zeichenfolgen. Gibt einen pro Zeile zurück.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generieren uuid",
+      "guid"
+    ],
+    "tool.count": "Anzahl der zu generierenden UUIDs (1–100, Standard 1)"
+  },
+  "el": {
+    "tool.description": "Δημιουργήστε μία ή περισσότερες συμβολοσειρές UUID v4. Επιστρέφει ένα ανά γραμμή.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "δημιουργία uuid",
+      "οδηγός"
+    ],
+    "tool.count": "Αριθμός UUID προς δημιουργία (1-100, προεπιλογή 1)"
+  },
+  "es": {
+    "tool.description": "Genere una o más cadenas UUID v4. Devuelve uno por línea.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generar uuid",
+      "guid"
+    ],
+    "tool.count": "Número de UUID a generar (1-100, predeterminado 1)"
+  },
+  "fa": {
+    "tool.description": "یک یا چند رشته UUID v4 ایجاد کنید. یک در هر خط برمی گرداند.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "تولید uuid",
+      "راهنما"
+    ],
+    "tool.count": "تعداد UUID برای ایجاد (1-100، پیش فرض 1)"
+  },
+  "fi": {
+    "tool.description": "Luo yksi tai useampi UUID v4 -merkkijono. Palauttaa yhden per rivi.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generoi uuid",
+      "guid"
+    ],
+    "tool.count": "Luotavien UUID-tunnusten määrä (1–100, oletusarvo 1)"
+  },
+  "fr": {
+    "tool.description": "Générez une ou plusieurs chaînes UUID v4. Renvoie un par ligne.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "générer uuid",
+      "guid"
+    ],
+    "tool.count": "Nombre d'UUID à générer (1-100, par défaut 1)"
+  },
+  "he": {
+    "tool.description": "צור מחרוזת UUID v4 אחת או יותר. מחזיר אחד בכל שורה.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "ליצור uuid",
+      "guid"
+    ],
+    "tool.count": "מספר UUIDs להפקה (1-100, ברירת מחדל 1)"
+  },
+  "hi": {
+    "tool.description": "एक या अधिक UUID v4 स्ट्रिंग्स जेनरेट करें। प्रति पंक्ति एक लौटाता है।",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "uuid जनरेट करें",
+      "guid"
+    ],
+    "tool.count": "उत्पन्न करने के लिए यूयूआईडी की संख्या (1-100, डिफ़ॉल्ट 1)"
+  },
+  "hu": {
+    "tool.description": "Egy vagy több UUID v4 karakterlánc létrehozása. Soronként egyet ad vissza.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generál uuid",
+      "guid"
+    ],
+    "tool.count": "A létrehozandó UUID-k száma (1-100, alapértelmezett 1)"
+  },
+  "id": {
+    "tool.description": "Hasilkan satu atau lebih string UUID v4. Mengembalikan satu per baris.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "menghasilkan uuid",
+      "panduan"
+    ],
+    "tool.count": "Jumlah UUID yang akan dihasilkan (1-100, default 1)"
+  },
+  "it": {
+    "tool.description": "Genera una o più stringhe UUID v4. Restituisce uno per riga.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "genera uuid",
+      "guid"
+    ],
+    "tool.count": "Numero di UUID da generare (1-100, predefinito 1)"
+  },
+  "ja": {
+    "tool.description": "UUID v4を1つ以上生成します。1行に1つ出力されます。",
+    "x_search_terms": [
+      "UUID",
+      "uuid生成",
+      "guid",
+      "ユニークID"
+    ],
+    "tool.count": "生成するUUIDの数（1〜100、デフォルト1）"
+  },
+  "ko": {
+    "tool.description": "하나 이상의 UUID v4 문자열을 생성합니다. 한 줄에 하나씩 반환합니다.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "uuid 생성",
+      "guid"
+    ],
+    "tool.count": "생성할 UUID 수(1~100, 기본값 1)"
+  },
+  "mn": {
+    "tool.description": "Нэг буюу хэд хэдэн UUID v4 мөр үүсгэх. Нэг мөрөнд нэгийг буцаана.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "uuid үүсгэх",
+      "guid"
+    ],
+    "tool.count": "Үүсгэх UUID-н тоо (1-100, өгөгдмөл 1)"
+  },
+  "mr": {
+    "tool.description": "एक किंवा अधिक UUID v4 स्ट्रिंग व्युत्पन्न करा. प्रति ओळ एक मिळवते.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "जनरेट uuid",
+      "guid"
+    ],
+    "tool.count": "व्युत्पन्न करण्यासाठी UUID ची संख्या (1-100, डीफॉल्ट 1)"
+  },
+  "ms": {
+    "tool.description": "Hasilkan satu atau lebih rentetan UUID v4. Mengembalikan satu setiap baris.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "jana uuid",
+      "guid"
+    ],
+    "tool.count": "Bilangan UUID untuk dijana (1-100, lalai 1)"
+  },
+  "nb": {
+    "tool.description": "Generer én eller flere UUID v4-strenger. Returnerer én per linje.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generer uuid",
+      "guide"
+    ],
+    "tool.count": "Antall UUID-er som skal genereres (1–100, standard 1)"
+  },
+  "nl": {
+    "tool.description": "Genereer een of meer UUID v4-tekenreeksen. Retourneert één per regel.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "genereer uuid",
+      "guid"
+    ],
+    "tool.count": "Aantal te genereren UUID's (1-100, standaard 1)"
+  },
+  "pl": {
+    "tool.description": "Wygeneruj jeden lub więcej ciągów UUID v4. Zwraca po jednym na linię.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "wygeneruj uuid",
+      "guid"
+    ],
+    "tool.count": "Liczba identyfikatorów UUID do wygenerowania (1–100, domyślnie 1)"
+  },
+  "pt": {
+    "tool.description": "Gere uma ou mais strings UUID v4. Retorna um por linha.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "gerar uuid",
+      "guid"
+    ],
+    "tool.count": "Número de UUIDs a serem gerados (1-100, padrão 1)"
+  },
+  "pt_BR": {
+    "tool.description": "Gere uma ou mais strings UUID v4. Retorna um por linha.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "gerar uuid",
+      "guid"
+    ],
+    "tool.count": "Número de UUIDs a serem gerados (1-100, padrão 1)"
+  },
+  "ro": {
+    "tool.description": "Generați unul sau mai multe șiruri UUID v4. Returnează unul pe linie.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "genera uuid",
+      "guid"
+    ],
+    "tool.count": "Numărul de UUID-uri de generat (1-100, implicit 1)"
+  },
+  "ru": {
+    "tool.description": "Создайте одну или несколько строк UUID v4. Возвращает по одному на строку.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "сгенерировать uuid",
+      "guid"
+    ],
+    "tool.count": "Количество UUID для генерации (1–100, по умолчанию 1)"
+  },
+  "sv": {
+    "tool.description": "Generera en eller flera UUID v4-strängar. Returnerar en per rad.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generera uuid",
+      "guid"
+    ],
+    "tool.count": "Antal UUID att generera (1-100, standard 1)"
+  },
+  "sw": {
+    "tool.description": "Tengeneza mfuatano mmoja au zaidi wa UUID v4. Hurejesha moja kwa kila mstari.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "kuzalisha uuid",
+      "mwongozo"
+    ],
+    "tool.count": "Idadi ya UUID za kuzalisha (1-100, chaguomsingi 1)"
+  },
+  "th": {
+    "tool.description": "สร้างสตริง UUID v4 หนึ่งรายการขึ้นไป ส่งคืนหนึ่งรายการต่อบรรทัด",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "สร้าง uuid",
+      "guid"
+    ],
+    "tool.count": "จำนวน UUID ที่จะสร้าง (1-100, ค่าเริ่มต้น 1)"
+  },
+  "tr": {
+    "tool.description": "Bir veya daha fazla UUID v4 dizesi oluşturun. Her satıra bir tane döndürür.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "uuid oluştur",
+      "guid"
+    ],
+    "tool.count": "Oluşturulacak UUID sayısı (1-100, varsayılan 1)"
+  },
+  "uk": {
+    "tool.description": "Згенеруйте один або кілька рядків UUID v4. Повертає по одному на рядок.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "генерувати uuid",
+      "guid"
+    ],
+    "tool.count": "Кількість UUID для створення (1-100, за замовчуванням 1)"
+  },
+  "vi": {
+    "tool.description": "Tạo một hoặc nhiều chuỗi UUID v4. Trả về một trên mỗi dòng.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "tạo uuid",
+      "guid"
+    ],
+    "tool.count": "Số lượng UUID cần tạo (1-100, mặc định 1)"
+  },
+  "zh_CN": {
+    "tool.description": "生成一个或多个 UUID v4 字符串。每行返回一个。",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "生成uuid",
+      "guid"
+    ],
+    "tool.count": "要生成的 UUID 数量（1-100，默认 1）"
+  },
+  "zh_TW": {
+    "tool.description": "產生一個或多個 UUID v4 字串。每行返回一個。",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "生成uuid",
+      "guid"
+    ],
+    "tool.count": "要產生的 UUID 數量（1-100，預設 1）"
+  },
+  "fil": {
+    "tool.description": "Bumuo ng isa o higit pang UUID v4 string. Nagbabalik ng tig-isa bawat linya.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "bumuo ng uuid",
+      "guid"
+    ],
+    "tool.count": "Bilang ng UUID na bubuuin (1-100, default 1)"
+  },
+  "nn": {
+    "tool.description": "Generer éin eller fleire UUID v4-strengar. Returnerer éin per linje.",
+    "x_search_terms": [
+      "uuid",
+      "uuid_gen",
+      "generer uuid",
+      "guid"
+    ],
+    "tool.count": "Tal på UUID-ar som skal genererast (1–100, standard 1)"
+  }
 }

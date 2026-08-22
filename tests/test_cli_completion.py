@@ -142,3 +142,42 @@ def test_get_dynamic_subcommands() -> None:
         assert get_dynamic_subcommands("unknown_cmd") == []
     finally:
         unregister_dynamic_commands_by_source("test_sub")
+
+
+def test_arrow_keys_navigate_completion_menu() -> None:
+    import uagent.cli as cli
+
+    kb = cli._make_prompt_key_bindings()
+    handlers = {tuple(binding.keys): binding.handler for binding in kb.bindings}
+
+    class Buffer:
+        complete_state = object()
+        document = type("Document", (), {"cursor_position_row": 0, "line_count": 1})()
+
+        def __init__(self) -> None:
+            self.calls: list[str] = []
+
+        def complete_previous(self) -> None:
+            self.calls.append("previous")
+
+        def complete_next(self) -> None:
+            self.calls.append("next")
+
+        def history_backward(self) -> None:
+            self.calls.append("history_backward")
+
+        def history_forward(self) -> None:
+            self.calls.append("history_forward")
+
+        def cursor_up(self) -> None:
+            self.calls.append("cursor_up")
+
+        def cursor_down(self) -> None:
+            self.calls.append("cursor_down")
+
+    buffer = Buffer()
+    event = type("Event", (), {"current_buffer": buffer})()
+    handlers[("up",)](event)
+    handlers[("down",)](event)
+
+    assert buffer.calls == ["previous", "next"]

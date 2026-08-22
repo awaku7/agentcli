@@ -1140,6 +1140,10 @@ def _translate_single_document(
 def run_tool(args: dict[str, Any]) -> str:
     raw_texts = args.get("texts")
     path = str(args.get("path") or "").strip() or None
+    # Tool callers often pass the schema default (texts=[]). Treat an empty
+    # list as omitted so file-mode translation can be used normally.
+    if raw_texts == []:
+        raw_texts = None
     output_path = str(args.get("output_path") or "").strip() or None
     target_lang = str(args.get("target_lang") or "").strip()
     source_lang = str(args.get("source_lang") or "").strip() or None

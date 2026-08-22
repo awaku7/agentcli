@@ -1840,12 +1840,20 @@ def compress_history_with_llm(
                     elif hasattr(client, "chat") and hasattr(
                         client.chat, "completions"
                     ):
-                        resp = client.chat.completions.create(
-                            model=depname,
-                            messages=summary_messages,
-                            max_tokens=_sum_max,
-                            temperature=0.0,
-                        )
+                        _summary_kwargs = {
+                            "model": depname,
+                            "messages": summary_messages,
+                            "temperature": 0.0,
+                        }
+                        _summary_model = str(depname or "").lower()
+                        if provider in ("openai", "azure") and (
+                            _summary_model.startswith("gpt-5")
+                            or _summary_model.startswith(("o1", "o2", "o3", "o4"))
+                        ):
+                            _summary_kwargs["max_completion_tokens"] = _sum_max
+                        else:
+                            _summary_kwargs["max_tokens"] = _sum_max
+                        resp = client.chat.completions.create(**_summary_kwargs)
                         summary_content = resp.choices[0].message.content or ""
                     else:
                         raise AttributeError(

@@ -1,327 +1,418 @@
 <p align="center">
- <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="680">
 </p>
 
-<h1 align="center">1__PHAI align="center">1uag align="center">
- <b>U</b>niversal <b>A</b>I <b>G</b>ateway — הסביבה שלך, החופש שלך.
+<h1 align="center">uag</h1>
+
+<p align="center">
+  <strong>שער AI אוניברסלי</strong><br>
+  סוכן מקומי אחד. כל מודל. כל כלי. הסביבה שלכם, הכללים שלכם.
 </p>
 
 <p align="center">
- פעולות קבצים / חיפוש Web / יצירה וניתוח של תמונות / חילוץ PDF ו-Excel / שליטה ב-IoT / 2 MCP רכיבי UI / < MCP ביצוע כלים מקביל / Agent Skills Marketplace
+  <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
 </p>
 
 <p align="center">
- <a href="https://github.com/awaku7/agentcli">GitHub</a>
- ·
- <a href="https://pypi.org/project/uag/">PyPI</a>
- ·
- <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
+  <a href="https://github.com/awaku7/agentcli">GitHub</a> ·
+  <a href="https://pypi.org/project/uag/">PyPI</a> ·
+  <a href="https://github.com/awaku7/agentcli/discussions">דיונים</a> ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">תרגומים</a>
 </p>
 
 ______________________________________________________________________
 
 ## למה uag?
 
-```bash
-pip install uag
-uag
+uag הוא סוכן AI בגישה מקומית-תחילה, שמחבר את המודל המועדף עליכם לכלים שבהם אתם באמת משתמשים.
+הוא מספק סביבת ריצה יחידה וניתנת להרחבה עבור קבצים, דפדפנים, בסיסי קוד, תקשורת, ממשקי ענן,
+מכשירי IoT, שרתי MCP ותהליכי עבודה מרובי-סוכנים.
+
+- **חופש בחירת ספק** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek ועוד.
+- **ביצוע מקומי-תחילה** — סביבת הריצה של הסוכן וביצוע הכלים נשארים במחשב שלכם; רק קריאות ה-API שתבחרו עוזבות אותו.
+- **שכבת כלים אחת** — אותם כלים פועלים דרך ה-CLI, ממשק שולחני, ממשק web, VS Code ו-A2A.
+- **מקביליות מתוכננת מראש** — פעולות בלתי תלויות לקריאה בלבד יכולות לפעול במקביל.
+- **ניתן להרחבה** — הוסיפו כלים, תוספים, Agent Skills, שרתי MCP וכלים מבוססי Rust בלי לשנות את הליבה.
+- **מודע לבטיחות** — פעולות הרסניות, פרטי גישה, בקרות מכשירים וכתיבות לרשת תומכים באישור מפורש ובבקרות מדיניות.
+
+> **בקיצור:** uag הוא מישור הבקרה שבין מודלי ה-AI שלכם לבין הסביבה האמיתית שלכם.
+
+## היכן uag משתלב
+
+uag נמצא בין אנשים וממשקים מצד אחד, לבין מודלים, כלים ומערכות בעולם האמיתי מצד שני.
+הוא מתאם את השיחה, בוחר יכולות, מחיל כללי בטיחות ושומר על אפשרות להמשיך את תהליך העבודה.
+
+```mermaid
+flowchart LR
+    U[User / Team]
+    I[CLI · GUI · Web · VS Code · A2A]
+    G[uag<br/>Agent runtime & control plane]
+    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    T[Tool layer<br/>Files · Web · Code · Media · Documents]
+    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
+    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
+    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
+    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+
+    U --> I
+    I --> G
+    G --> P
+    G --> L
+    G --> T
+    G --> E
+    G --> X
+    G --> D
+    G --> R
+    G --> S
+    E --> T
+    E --> X
+    S -. governs .-> P
+    S -. governs .-> T
+    S -. governs .-> E
+    S -. governs .-> X
+    S -. governs .-> D
+    S -. governs .-> R
 ```
 
-The base installation keeps provider and tool integrations optional. Missing packages are installed automatically when a selected provider or tool needs one.
+**uag אינו ספק מודלים ואינו רק ממשק צ'אט.** זוהי שכבת הביצוע המשותפת שמאפשרת למודלים,
+לכלים, לממשקים ולמדיניות לפעול יחד.
 
-```bash
-pip install "uag[core,providers,tools,development,platform,web]"
-```
+## יכולות מובילות
 
-For a repository checkout with the full development and test environment:
+### 🧠 סוכן אחד, כל מודל
 
-```bash
-pip install -r requirements.txt
-```
+השתמשו במודלים מתארחים או מקומיים דרך ממשק כלים אחיד. החליפו ספקים באמצעות
+`UAGENT_PROVIDER`—בלי שינויי קוד, הגירה או תהליך עבודה נפרד.
+
+### 🖥 Computer Use ואוטומציית דפדפן
+
+Computer Use אופציונלי משלב סביבת ריצה של דפדפן Playwright עם אינטראקציה בשולחן העבודה. בצעו אוטומציה של
+ניווט, טפסים, תהליכים מרובי-עמודים, הורדות, צילומי מסך וחילוץ DOM. Browser
+Inspector מתעד מעברים ומצב עמוד לצורכי ניפוי שגיאות וביקורת.
+
+ראו [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
+
+### ⚡ ביצוע מקבילי של כלים
+
+פעולות בלתי תלויות לקריאה בלבד פועלות במקביל כאשר הדבר בטוח. חיפושי web, בדיקת קבצים,
+ניתוח מאגרים ועומסי עבודה דומים יכולים להסתיים במקביל באמצעות מאגר עובדים שניתן להגדיר
+(`UAGENT_PARALLEL_WORKERS`). פעולות כתיבה נשארות סדרתיות או דורשות אישור.
+
+### 🧩 נבנה להרחבה
+
+- **יותר מ-200 כלים** לקבצים, web, מדיה, מסמכים, קוד, ענן, תקשורת ו-IoT
+- **גילוי וטעינה דינמיים** — השתמשו ב-`tool_catalog` כדי למצוא יכולות וב-`tool_load` כדי להפעיל אותן רק כשצריך
+- **מודיעין קוד** — `code_map`, נווטי `idx` ייעודיים לשפות, סקירת Git, הרצת בדיקות, linting, קומפילציה וכיסוי
+- **תוספים תואמי Claude Code** עם skills, agents, שרתי MCP, hooks, פקודות ו-marketplaces
+- **Agent Skills** מ-SkillsMP ומ-ClawHub
+- **כלי Python מותאמים אישית** עם `TOOL_SPEC` ו-`run_tool()`
+- **כלים מבוססי Rust** להרחבות native קלות-משקל
+
+### 🔄 עבודה אמינה וממושכת
+
+רציפות הפעלה, שמירת תוצאות כלים במטמון, מצב אצווה, התאוששות מהפעלה מחדש, תזמון DAG
+ותזמור רב-סוכנים הופכים עבודה מורכבת לניתנת להמשך במקום חד-פעמית.
+
+### 🎙 קול בזמן אמת
+
+קול דו-כיווני מלא זמין דרך OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live
+ו-Bedrock Nova Sonic, עם ביטול הד מובנה אופציונלי AEC3 וקריאות פונקציות בזמן אמת המוגבלות מטעמי בטיחות.
+
+### 🌍 פרטי, רב-לשוני ומודע למדיניות
+
+השתמשו ב-uag ביפנית, אנגלית, סינית, קוריאנית, ספרדית, צרפתית, רוסית ועוד. ניתן לאחסן פרטי גישה
+במחזיק המפתחות המקומי של מערכת ההפעלה או בקובץ מוצפן. מדיניות ארגונית יכולה להסדיר כלים,
+ספקים, רשתות, פרטי גישה, תוספים, skills ושרתי MCP.
+
+ראו [משתני סביבה](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+[מדיניות ארגונית](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) ו-[מדריך יוצרי כלים](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
 
 ## התחלה מהירה
 
+### התקנה
+
 ```bash
-pip התקנת uag
+python -m pip install --upgrade uag
 uag
 ```
 
-בהפעלה הראשונה, אשף ההגדרה ידריך אותך דרך תצורת הספק.
-עיין ב-[docs/ENVIRONMENT.md](https://github.com/awadocku7/agentincli/environment/environment/environment.html) משתנים.
+בהפעלה הראשונה נפתח אשף ההגדרה. הוא מסייע להגדיר ספק ושומר את ההגדרות שנבחרו
+בסביבה המקומית שלכם.
 
-## Computer Use
-
-Computer Use מצטרף ותומך הן בזמן ריצה גלוי של הדפדפן Playwright
-והן בזמן ריצה של שולחן העבודה. כאשר מופעל, שני זמני הריצה נוצרים ונרשמים;
-
-````bat
-set UAGENT_COMPUTER_USE=1
-`להשתמש בשולחן העבודה במקום הפעלה של שולחן העבודה. Runtime משאבים
-סגורים יחד ביציאה רגילה, `Ctrl-C` ובכיבוי התהליך. הגדר
-`UAGENT_COMPUTER_HEADLESS=1` עבור בדיקות CI או עשן מבוססי דפדפן.
-עיין ב-[docs/COMPUTER_USE_IMPLEMENTATION.md](docs/COMPUTER_USE_IMPLEMENTATION.md)
-לפרטי השילוב והבטיחות.
-
-## קול בזמן אמת ו-AEC3
-
-מצב הקול בזמן אמת תומך ב-OpenAI בזמן אמת, Azure OpenAI GPT בזמן אמת, xAI Grok קול API, Google Gemini Multimodal Live API ובמיקרופון אמזון Bedrock Nova Sonic ורמקול מלא דופלקס. הקצה האחורי 'pywebrtc-audio' AEC3 הנדרש מותקן אוטומטית, וה-SDK האופציונלי של Bedrock להזרמת סטרימינג דו-כיוונית מותקן אוטומטית רק כאשר נבחר ספק ה-Bedrock:
+עבור קבוצות היכולות הנפוצות:
 
 ```bash
-python scheck.py realtime
-````
-
-ה-AEC3 ה-AEC3\`\`מקבל את האות בפועל של מיקרופון השמע ל-AEC3` (`רחוק\`) כדי שהעוזר יוכל להקשיב תוך כדי דיבור. הפעל אבחון רק בעת חקירת בעיות אודיו:
-
-```bat
-set UAGENT_REALTIME_AUDIO_DEBUG=1
-python scheck.py realtime
+python -m pip install "uag[core,providers,tools]"
 ```
 
-### OpenAI פונקציית זמן אמת שיחות
+> שילובי פלטפורמה הם אופציונליים. התקינו רק את מה שמערכת ההפעלה שלכם צריכה; ראו
+> [הגדרת פלטפורמה](#platform-setup).
 
-OpenAI פונקציה בטיחות-זמן אמת אינטגרציה תומכת בשיחה. המתאם הנוכחי בזמן אמת חושף לקריאה בלבד את 'get_current_time' באופן אוטומטי. כלים הרסניים ובקרות מכשירים אינם נחשפים ללא רשימת היתרים וזרימת אישור מפורשת. Grok בזמן אמת משתמש במתאם נפרד ואינו משתמש בנתיב הקריאה לפונקציה הספציפית הזו ל-OpenAI.
+### בחירת ספק
 
-## מאפיינים
-
-### 🧠 ארכיטקטורת ספקים מרובים
-
-OpenAI / PFN (PLaMo) / Azure / Bedrock / OpenRouter / Ollama / llama.cpp / Gemini / Vertex AI / Claude / Claude / Grok / ZAIPU / ZAIPU /. AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / Sakana AI (Fugu) / SAKURA AI Engine / Together AI / Vercel AI Gateway
-
-כל הספקים חולקים את אותם כלים וממשק. החלף על ידי הגדרת 'UAGENT_PROVIDER' — ללא שינויי קוד, ללא התקנות נפרדות.
-
-#### Ollama ו-llama.cpp
-
-Ollama ו-llama.cpp הם ספקים נפרדים. אולמה משתמשת בניהול שירות ומודל משלה, בעוד ש-`llama.cpp` מתחבר לנקודת קצה תואמת `לאמה-שרת` OpenAI:
+הגדירו ספק ומפתח API שלו לפני ההפעלה, או הגדירו אותם באשף ההגדרה.
 
 ```bash
-# llama.cpp / llama-server
-UAGENT_PROVIDER=llama_cpp
-UAGENT_LLAMA_CPP_BASE_URL=http://localhost:8080/v1
-UAGENT_LLAMA_CPP_DEPNAME=local-model
-UAGENT_LLAMA_CPP_API_KEY=dummy
+# OpenAI
+export UAGENT_PROVIDER=openai
+export OPENAI_API_KEY="your-api-key"
+
+# Anthropic
+export UAGENT_PROVIDER=anthropic
+export ANTHROPIC_API_KEY="your-api-key"
+
+# Local Ollama
+export UAGENT_PROVIDER=ollama
+export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
+export UAGENT_OLLAMA_DEPNAME=llama3.1
 ```
 
-:plugin list # רשימת תוספים מותקנים
-:plugin install <source> [--scope] # Install (dir/zip/git/http)
-:plugin install <name>@<marketplace> # Install from market
+PowerShell ב-Windows משתמש ב-`$env:NAME = "value"` במקום `export NAME=value`.
+ראו [משתני סביבה](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) למטריצת הספקים המלאה.
 
-> : #plugin remove en Toggle
-> :plugin marketplace add/remove/list # Manage Marketplaces
-> :plugin init <name> # Scaffold new plugin
+### נסו זאת
 
-````
+```text
+> What files changed in this repository?
+> Search the web for today's AI news and summarize the top five stories.
+> :help
+```
 
-ראה [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) לתיעוד מלא 🔎# Session 🏄 המשכיות
+## ממשקים
 
-- **החלף ספק באמצע הסשן** עם `UAGENT_PROVIDER` — היסטוריית השיחות נשמרת.
-- **טען מחדש הפעלות קודמות** עם `:load <index>` — המשך מהמקום שהפסקת.
-- **שמירת תוצאות הכלי במטמון** מונעת ביצוע חוזר מיותרות ⎏ 9 כלים
-
-| קטגוריה | כלים |
-|---|---|
-| **פעולות קובץ** | read/write/create/delete/search/grep/hash/zip, file_type, parse_eml (קבצי.eml), `path_alias` |
-| **Web** | fetch_url, search_web, screenshot, browser_playwright, `url_alias`, `public_transit_route` ([מדריך](docs/PUBLIC_TRANSIT_ROUTE.md)) |
-| **מדיה** | gener_image, analys_image, img2img, audio_speech, audio_transcribe |
-| **מסמכים** | חילוץ PDF/PPTX/DOCX/RTF/ODT, חילוץ מובנה של Excel |
-| **תחזית** | חיזוי סדרות זמן עם 9 דגמים (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM וכו'), בחירת דגם אוטומטי, יצירת עלילה, i18n |
-| **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) - ראה [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ו [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **ממשק API של ענן** | `aws_api`, `gcp_api`, `azure_api` - פעולות כלליות של AWS, Google Cloud וAzure API; פעולות כתיבה דורשות אישור מפורש |
-| **כלי פיתוח** | workspace_status, git_ops, git_review, security_scan, coverage_report, python_compile, lint_format, run_tests, db_query, **29 קוד מקור נווט (משפחת idx)** |
-| **MCP** | התחבר לשרתים MCP חיצוניים, רשום כלים, בצע - [OAuth / Proxy guide](docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| **A2A** | תקשורת בין סוכן לסוכן (עם uag מופעים אחרים או שרתים תואמים A2A) |
-| **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך, [quantities](docs/QUANTITIES.md), [geodesic_distance](docs/GEODESIC_DISTANCE.md), uuid_gen, slugify |
-| **נוב מקור** | **29 כלים idx** עבור Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL, VBA, LotusScript, Makefile — קבל אינדקס פונקציה/מחלקה או הגדרה ספציפית בלי לקרוא את כל הקובץ |
-
-#####
-
-####
- דווח על כיסוי_מצב מאגר פעיל: ענף Git של סביבת העבודה, שינויים, מצב סנכרון במעלה הזרם, זמן ריצה Python וסמני פרוייקט נפוצים ללא שינוי קבצים.
-- `git_review`: סיכום שינויים ב-Git, קבצים מסוכנים, מועמדי בדיקה וממצאים סודיים מבלי לחשוף ערכים סודיים.
-- `security_scan`: סריקת קבצי מאגר וסיכון סבירים עבור קבצי קונפיגורציה וסיכון `coverage_report`: הפעל ונרמל את הכיסוי עבור Python, TypeScript/JavaScript, Rust, Go, Java/Kotlin, .NET, C/C++, Ruby, PHP, Swift ו-Dart/Flutter.
-- ניתן להתקין תלות כיסוי חסרות באופן אוטומטי כאשר מתבקשת ביצוע; `dry_run` אף פעם לא מתקין חבילות.
-
-עיין ב[כלי ניתוח מאגר](docs/REPOSITORY_TOOLS.md) לפרמטרים, פלט ופרטי בטיחות.
-
-ראה [כינויים של נתיב וכתובת URL](docs/PATH_URL_ALIASES.md) לקיצור נתיבי קבצים חוזרים ו-#
- נתיבי קבצים חוזרים. 🖥 4 ממשקים + הרחבת קוד VS
-
-| מצב | פקודה | מטרה |
+| ממשק | פקודה | מתאים במיוחד ל- |
 |---|---|---|
-| **CLI** | `uag` | פעולה מהירה מבוססת טרמינלים |
-| **GUI** | `uagg` | ממשק משתמש למחשב שולחני באמצעות tkinter |
-| **Web** | `uagw` | גישה מבוססת דפדפן |
-| **A2A שרת** | `uaga` | פרוטוקול Agent2Agent לתקשורת מרובת סוכנים |
-| **קוד VS** | — | [הרחבה](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) עם פאנל צ'אט, הסבר, Refactor, תיקון שגיאה ותצוגת עץ של כלים |
+| **CLI** | `uag` | עבודה מהירה, בראש ובראשונה דרך המקלדת |
+| **ממשק שולחני** | `uagg` | חוויית שולחן עבודה native |
+| **ממשק Web** | `uagw` | גישה מבוססת דפדפן |
+| **שרת A2A** | `uaga` | תקשורת בין סוכנים |
+| **VS Code** | Extension | הסבר, ארגון מחדש, תיקון ועיון בכלים בתוך העורך |
 
-עיין ב-[VSCODE.md](https://github.com/awaku7/agentcli/blob/VSCODE ב-VSdocODE/VSCODE לפרטים על ההתקנה - קוד VSdocODE/VSCODE. פקודות, חיבורי מקשים ותצורה.
+כל הממשקים חולקים את אותה תצורת ספק, רשימת כלים, כללי בטיחות ונתוני הפעלות.
 
-### 🏠 IoT Device Control
+## מה אפשר לעשות בו
 
-- **BACnet**: קריאה/כתיבה של התקני BACnet/IP (HVAC, תאורה, מדי כוח). מנוי COV להתראות דחיפה
-- **Modbus TCP**: קריאה/כתיבה של אוגרי החזקה/קלט וסלילים. ניטור שינויים מבוסס סקרים
-- **OPC UA**: דפדוף במרחב כתובות, קריאה/כתיבה משתנים, הירשם לשינויים בנתונים
-- **SwitchBot**: בקרת אצווה בענן וסריקה/בקרה BLE. מנוי מבוסס סקרים
-- **ECHONET Lite**: גלה, שלט והירשם להודעות INF ממכשירי חשמל ביתיים (AC, תאורה, מחממי מים וכו')
-- **עניין**: בקרת קריאה/כתיבה + מנוי לניטור שינוי מצב
-- **UPnP**:
-גילוי העברת מכשירים ו-IGD [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
+### עבודה עם הסביבה שלכם
 
-### 🎯 Agent Skills Marketplace
+- לקרוא, ליצור, לערוך, לחפש, לחשב hash, לאחסן בארכיון ולבדוק קבצים
+- לסקור שינויים ב-Git, לסרוק סודות, להריץ בדיקות, לבצע lint, לקמפל ולמדוד כיסוי
+- לנווט בבסיסי קוד גדולים של Python, TypeScript, JavaScript, Go, Rust, C/C++, Java, C#, COBOL, VBA ושפות נוספות
+- לבצע אוטומציה של דפדפנים באמצעות Playwright, כולל תהליכים מרובי-עמודים והורדות
 
-`:skills mp_search` כדי לדפדף ב-[SkillsMP].com].com](skillsmplaw) ו-https://skillsmplaw for community. מיומנויות.
-התקן והרחיב את היכולות של uag תוך כדי תנועה.
+### שימוש בכל מודל
 
-### 🤖 טייס אוטומטי (`:auto`)
+מתאמי ספקים מכסים סביבות ריצה מתארחות ומקומיות, ובכללן:
 
-uag יכול **לרדוף אחר מטרה באופן אוטונומי לאורך LLM סבבים מרובים**. מושלם למשימות מורכבות מרובות שלבים שצריכות חידוד איטרטיבי.
+**OpenAI · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
-- **איך זה עובד**: לכל סבב יש שאילתה ראשית (שלב א') ואחריה פסק דין של המבקר (שלב ב') שמחליט "השלמה או המשך?"
-- **אותו ספק, אותו ספק, אותו קוד הביקורת API** זהה: כולל תגובות API תמיכה.
-- **שופט נפרד LLM** (אופציונלי): הגדר את 'UAGENT_AP_PROVIDER' להשתמש בספק/דגם אחר עבור המבקר (למשל השתמש במודל זול יותר לשיפוט).
-- **צא בכל עת**: הקש על מקש 'x' כדי להפסיק מיד, אפילו באמצע התגובה. או תן למבקר להחליט מתי היעד מושג.
-- **ניתן להגדרה**: `--max-rounds N` כדי לשלוט בתקציב.
+החליפו ספקים באמצעות `UAGENT_PROVIDER`; הכלים והממשק שלכם אינם משתנים.
 
-עיין ב-[README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) לתיעוד מלא 🏎#
-ch מנהל
+### חיבור שירותים ומכשירים
 
-uag יכול לעקוב אחר התקדמות במשימות מרובות קבצים ארוכות. כאשר LLM מעבד עשרות קבצים, `batch_state` ממשיך את רשימת הקבצים הממתינים, שהושלמו ונכשלו לדיסק. אם ההפעלה מסתיימת או שהסבב נגמר, הריצה הבאה תתחדש מהמקום בו היא נעצרה - שום דבר לא הולך לאיבוד.
+- **MCP** — חיבור לשרתי כלים חיצוניים, כולל שירותים התומכים ב-OAuth
+- **A2A** — תיאום עם סוכנים אחרים ושרתים תואמים
+- **Cloud** — גישה לממשקי AWS, Google Cloud ו-Azure עם אישור לכתיבות
+- **Communication** — Gmail, Bluesky, Discord, Microsoft Teams ו-pybitchat
+- **IoT** — SwitchBot, ECHONET Lite, Matter, BACnet, Modbus TCP, OPC UA ו-UPnP
+- **Media** — יצירה ועריכה של תמונות, תמלול ודיבור אודיו, צילום ממצלמה וקודי QR
+- **Documents** — ניתוח PDF, PowerPoint, Word, Excel, CSV, JSON, YAML, SQL ולוגים
 
-### 🛡 Human-in-the-Loop
+### תוספים, Agent Skills ו-marketplaces
 
-`human_ask` מאפשר ל-LLM להשהות ולבקש את אישורך לפני ביצוע פעולות הרסניות (מחיקת קבצים, פקודות חלוף). אתה נשאר בשליטה.
+הפכו את uag לסוכן ייעודי בלי לפצל את ליבת הפרויקט:
 
-### 🛑 פסיק (מקש c / לחצן עצירה)
+- התקינו **תוספים תואמי Claude Code** מספרייה, ZIP, מאגר Git, מקור HTTP או marketplace
+- אגדו skills, sub-agents, שרתי MCP, hooks, פקודות slash, סגנונות פלט, תלויות וערוצים
+- עיינו ביכולות הקהילה דרך [SkillsMP](https://skillsmp.com) ו-[ClawHub](https://clawhub.ai)
+- הוסיפו skills וכלים פרטיים של הארגון מקומית באמצעות `UAGENT_EXTERNAL_TOOLS_DIR`
 
-עצור LLM יצירת תגובה בכל עת והזריק פקודת עצור בחזרה ל-LLM.
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+:plugin marketplace list
+```
 
-| ממשק | איך להפריע |
+ראו את [מדריך פיתוח התוספים](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md).
+
+### IoT ושליטה בעולם הפיזי
+
+uag מחבר תהליכי עבודה שיחתיים למכשירים אמיתיים, תוך שמירה על פעולות כתיבה מפורשות וניתנות לביקורת:
+
+- **SwitchBot** — גילוי בענן וב-BLE, מצב, שליטה, אצווה ומינויים
+- **ECHONET Lite** — גילוי ושליטה במכשירי חשמל ביתיים יפניים, כולל התראות INF
+- **Matter** — נקודות קצה, אשכולות, מאפיינים, היסטוריית מצב, מינויים ושליטה
+- **BACnet / Modbus TCP / OPC UA** — קריאה, כתיבה, עיון וניטור באוטומציית תעשייה ובניינים
+- **UPnP** — גילוי מכשירים, מצב WAN וניהול מיפוי יציאות בנתבים
+
+קראו מצב, נטרו שינויים או בצעו פעולת שליטה דרך אותו ממשק סוכן. כתיבות רגישות למכשירים
+כפופות לכללי האישור והמדיניות הארגונית שהוגדרו.
+
+ראו את [מקרי השימוש ב-IoT](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
+
+סביבת הריצה כוללת כיום קטלוג גדול של כלים. גלו את הכלים המדויקים הזמינים בהתקנה שלכם באמצעות:
+
+```text
+:tools
+```
+
+## הגדרת פלטפורמה
+
+חבילת הליבה חוצה-פלטפורמות. יש להתקין תלויות ייעודיות לפלטפורמה באופן סלקטיבי.
+
+### Windows
+
+```powershell
+python -m pip install PySide6 winrt-Windows.Devices.Geolocation
+```
+
+### macOS
+
+```bash
+python -m pip install PySide6 pyobjc-framework-CoreLocation
+```
+
+### Linux
+
+```bash
+python -m pip install PySide6 ewmh dbus-next
+```
+
+לשילובים מסוימים יש דרישות מערכת נוספות, כגון בינאריים של דפדפן, הרשאות Bluetooth,
+פרטי גישה לענן או שרת MQTT/OPC UA. הכלי הרלוונטי מדווח מה חסר בעת ההפעלה.
+
+## הפעלות, אוטומציה ובטיחות
+
+### רציפות הפעלה
+
+המשיכו שיחות קודמות באמצעות `:load <index>`. ניתן לשמור תוצאות כלים במטמון ולהחליף ספקים
+בלי לבנות מחדש את היישום.
+
+### טייס אוטומטי
+
+השתמשו ב-`:auto` לעבודה מרובת סבבים עם מודל סוקר אופציונלי. הגדירו מגבלת סבבים באמצעות `--max-rounds N`.
+לחצו על **F11** כדי לעצור את הטייס האוטומטי או על **F12** כדי לעצור את התגובה הנוכחית.
+
+ראו [טייס אוטומטי](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### אישור אנושי
+
+`human_ask` משהה את הפעולה לפני ביצוע פעולות רגישות. מחיקת קבצים, החלפות, פקודות shell, בקרות מכשירים,
+פעולות על פרטי גישה וכתיבות לרשת יכולות להיות כפופות לכללי אישור ומדיניות.
+
+בקרות כלל-ארגוניות זמינות דרך [מנוע המדיניות הארגונית](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md).
+
+### פרטי גישה
+
+השתמשו במאגר פרטי הגישה במקום להציב סודות ארוכי-טווח בפרומפטים:
+
+```text
+:credential set provider/openai api_key
+:credential get provider/openai
+:credential list
+```
+
+המאגר יכול להשתמש ב-Windows Credential Manager, macOS Keychain, Linux Secret Service או בקובץ המוצפן.
+ראו [מאגר פרטי גישה](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) לפרטי תצורה.
+
+## הרחבות
+
+### Agent Skills ותוספים
+
+התקינו skills קהילתיים מ-SkillsMP או ClawHub, או התקינו תוספים תואמי Claude Code המכילים
+skills, agents, שרתי MCP, hooks, פקודות וסגנונות פלט.
+
+```text
+:skills mp_search browser automation
+:plugin list
+:plugin install <source>
+```
+
+ראו [פיתוח תוספים](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_PLUGIN.md) ו-[Agent Skills](https://github.com/awaku7/agentcli/tree/main/skills).
+
+### יצירת כלי
+
+כלי יכול להיות קובץ Python יחיד עם `TOOL_SPEC` ו-`run_tool()`. שימו אותו ב-
+`UAGENT_EXTERNAL_TOOLS_DIR` וטענו מחדש את הקטלוג. מפתחי Rust יכולים לספק מודול native
+שנבנה מראש, עם מעטפת Python דקה.
+
+ראו [מדריך יוצרי כלים](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+
+### שרתי MCP
+
+התחברו לשרתי MCP חיצוניים מה-CLI או מקובץ תצורה. הנחיות OAuth ו-proxy זמינות
+ב-[מדריך OAuth / Proxy ל-MCP](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md).
+
+## קול בזמן אמת
+
+שילובי קול אופציונליים בזמן אמת תומכים ב-OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
+Google Gemini Live ו-Amazon Bedrock Nova Sonic. התקינו את תלויות האודיו הרלוונטיות והריצו:
+
+```bash
+python scheck.py realtime
+```
+
+תמיכת AEC3 זמינה עבור אודיו דו-כיווני מלא של מיקרופון ורמקול. הפעילו אבחון רק בעת
+פתרון בעיות:
+
+```bash
+export UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+## תצורה ותיעוד
+
+| נושא | תיעוד |
 |---|---|
-| **CLI** | הקש על מקש F12 במהלך הזרמת LLM - התגובה הנוכחית נעצרת, ו`"עצור"` נשלחת כהודעת משתמש כך שה-LLM מגיב בהתאם |
-| **ממשק WEB** | לחץ על הלחצן האדום **■ עצור** (מופיע אוטומטית במהלך עיבוד LLM) |
-| **מחשב שולחני GUI** | לחץ על הלחצן האדום **■** (מופיע אוטומטית במהלך עיבוד LLM) |
+| משתני סביבה | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
+| ארכיטקטורה ואינווריאנטים | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
+| Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
+| כלי המאגר | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
+| מקרי שימוש ב-IoT | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
+| כלי תקשורת | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
+| טייס אוטומטי | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
+| MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
+| תוסף VS Code | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
+| מדריך למפתחים | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
+| זרימת כלים | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-לחץ על **F11** כדי לצאת ממצב Auto-Pilot. **F12** עוצר רק את תשובת ה-LLM הנוכחית (ראו [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
-
-### 🕵️ אוטומציה של דפדפן ו-Web Inspector
-
-שניים משלימים Playwright⎎ דפדפן מבוססי דפדפן כלים אמיתיים:-** ** כלים למשחק אמיתי של דפדפן:⏏ לנווט, ללחוץ, למלא טפסים, לחלץ נתונים, לטפל בזרימות מרובות עמודים. עובד ללא ראש או עם ראש.
-- **מחזאי_מפקח**: הקלט מעברי דפדפן, צלם תמונות DOM וצילומי מסך בכל שלב. שימושי לאיתור באגים באינטראקציות באינטרנט או לביקורת שינויים בעמודים לאורך זמן.
-
-### 🔄 טעינת כלים דינמיים
-
-`כלים_קטלוג` ו-`כלים_טעינה` מאפשרים לך לגלות ולהפעיל כלים בזמן ריצה.
-אין צורך לטעון הכל בעת האתחול - הפעל רק את מה שאתה צריך, כאשר אתה צריך את זה.## Rustative כלים
-
-`uuid_gen` ו-`slugify` מיושמים ב-Rust (באמצעות PyO3) לביצועים.
-הם נטענים ישירות מ-`.pyd` בנוי מראש - **אין צורך בהתקנת pip**.
-
-מפתחים חיצוניים יכולים גם לשלוח כלים מבוססי-Rust: הצב `.pyd`, שימוש `._`py` ליד ה-`._`pyd`. מ-`uagent.tools.rust_helper`, ו
-משתמשים מקבלים את הכלי ללא תלות נוספת. ראה
-[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
-
-### 🌐 i18n / L10n
-
-日本丞 / אנגלית / 简一繁體中文 / 한국어 / Español / Français / Русский / ועוד.
-הגדר את 'UAGENT_LANG' כדי לעבור. ראה [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) כדי להוסיף מקום חדש.
-
-תרגומים של README זה זמינים ב- [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
-
-### 🔒 משתני סביבה מוצפנים
-
-אחסן API מפתחות וסודות בקובץ ``.env.` `uag_envsec`.
-
-## תצורה ופרטים
-
-- **משתני סביבה**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
-- **אשף ההתקנה**: `python -m __cli**'encrypted_PH_2. `uag_envsec` — הצפין `.env` בתור `.env.sec`
-- **תגובות API**: הגדר `UAGENT_RESPONSES=1` למצב תגובות API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibabana/LM Studio/). מופעל אוטומטית עבור Sakana AI (Fugu).
-- **מסמכי מפתח**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **זרימת כלים**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) - כיצד כלים נשלחים ל-LLMs (מסיכת ז'אנר, קטלוג_כלים, GPT-5.4+ כלי_חיפוש מקורי)
-- **טיפים קטנים**:__PH [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
-
-## פילוסופיית הפרויקט
-
-uag שואפת להיות **בינה מלאכותית שלך, במחשב שלך, בתנאים שלך.**
-
-- אין תלות ב-SaaS — פועל מקומית
-- אין נעילה של ספק — החלף בכל עת
-- אין נעילת ממשק משתמש — CLI / Web / A2A כלים - ללא נעילה - כלים - A2A ומיומנויות
-
-חוויית סוכן בינה מלאכותית חינמית, ללא נעילת ספקים.
-
-### ✨ צור כלים משלך
-
-כתיבת כלי חדש עבור uag היא פשוטה - צור קובץ `.py` יחיד עם 
-`TOOL_SPEC` ו-`run_tool()_ENT_TEXTER()_T, הכנס אותו ב ו
-זה זמין באופן מיידי. למפתחי Rust, שלח '.pyd' בנוי מראש עם
-אפס תלות נוספת למשתמשים.
-
-ראה [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
-למדריך שלב אחר שלב
-.## תרומה
-
-תרומות יתקבלו בברכה! דוחות באגים, הצעות לתכונה, שיפורים בתיעוד, תרגומים ובקשות משיכה - הכל מוערך.
-
-- **בעיות**: פתח בעיה של GitHub עבור באגים או בקשות תכונות.
-- **משוך בקשות**: עזוב את ה-repo, בצע את השינויים שלך ושלח יחסי ציבור. ראה [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) להגדרת פיתוח והנחיות.
-- **תרגומים**: README תרגומים ותוספות מקומיות יתקבלו בברכה. ראה [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
-- **כלים ומיומנויות**: ניתן לתרום תוספי כלים חדשים ומיומנויות סוכן דרך השוק. תלות תחילה. הם נשמרים מחוץ לרשימת התלות בזמן ריצה:
+## פיתוח
 
 ```bash
-python -m pip install -e ".[test]"
-python -m pip install black ruff
-````
+git clone https://github.com/awaku7/agentcli.git
+cd agentcli
+python -m pip install -e ".[core,providers,test]"
+```
 
-הרץ את אותן בדיקות שבהן השתמשו GitHub פעולות לפני דחיפה:
-\`bash
-s tests
+הריצו את הבדיקות שלפני PR:
+
+```bash
+python -m ruff check src tests
 python -m black --check src tests
-python scripts/tool_json_i18n_batch.py status
 python -m pytest -q .
-
 ```
 
-עבור איטרציה מקומית מהירה יותר, הפעל רק את הבדיקות המושפעות:
-`
-`` tests/<affected_area>
-```
+לתהליך הפיתוח המלא, ראו [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md).
 
-בדיקות נוספות כשרלוונטי:
+## עקרונות הפרויקט
 
-```bash
-python -m py_compile src/uagent/
-mypy src/uagent
-```
+- **מקומי-תחילה** — סביבת הריצה שייכת לכם.
+- **ניטרלי לספקים** — מודלים הם תשתית הניתנת להחלפה.
+- **ניתן להרכבה** — כלים, skills, תוספים ושרתי MCP הם הרחבות מהדרג הראשון.
+- **בטוח כברירת מחדל** — פעולות רגישות נשארות גלויות וניתנות לשליטה.
+- **פתוח לתרומות** — קוד, כלים, skills, תרגומים ותיעוד יתקבלו בברכה.
 
-.potehon. סקריפטים/compile_locales.py` ו-`python scripts/po_qc_summary.py\`.
+## תרומה
 
-Runtime מדיניות (פרטים ב-[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.): `mds/DEVELOP.`it helpers in plaas של `md. the tool host turns tool `SystemExit`/`Exception\` into error strings so a single tool cannot kill the process. Startup fail-fast exits remain intentional.
+דיווחי באגים, רעיונות לתכונות, שיפורי תיעוד, תרגומים, כלים, skills ובקשות pull יתקבלו בברכה.
+אנא פתחו issue או דיון לפני שינויים גדולים. קראו את [מדריך המפתחים](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+והריצו את הבדיקות שלעיל לפני שליחת pull request.
 
-## ארכיטקטורה ושינויים תפעוליים
+## רישיון
 
-עיין ב-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) עבור חוזים עמידים המכסים מחזור חיים של A2A, הקשרי I18N, התקנת תלות אופציונלית, בטיחות כלי, יכולות ספק, גבולות אמון OAuth,⎏ וקבלה, אימות מובנה של OAuth.## מנוע מדיניות ארגוני
-
-תמיכה במדיניות ברמת הארגון עבור כלים, ספקים, אישורים, שרתים MCP, רשתות, מיומנויות ותוספים. הגדר את 'UAGENT_POLICY_FILE' לקובץ מדיניות JSON/YAML; ראה [docs/ENTERPRISE_POLICY.md](docs/ENTERPRISE_POLICY.md) לדוגמאות תצורה, תפקידים, אישורים ורשימות היתרים.
-
-### Runtime שחזור ותזמור
-
-ראה [RESTART_RECOVERY.md](docs/RESTART_RECOVERY.md) [DAG_SCHEDULER.md](docs/DAG_SCHEDULER.md) / [MULTI_AGENT_RUNTIME.md](docs/MULTI_AGENT_RUNTIME.md) לשחזור עמיד, ביצוע מודע לתלות, תזמור מרובה סוכנים ושימוש מרחוק ב-A2A.
-
-ראה [DISTRIBUTED_COORDINATION.md](docs/DISTRIBUTED_COORDINATION.md) לתיאום חכירה מוביל בזמן ריצה משותפת.
-
-## Installation and optional dependencies
-
-The base installation keeps provider and tool integrations optional. Missing
-packages are installed automatically when a selected provider or tool needs
-one. To install the main feature groups in advance:
-
-```bash
-pip install "uag[core,providers,tools,development,platform,web]"
-```
-
-For a repository checkout with the full development and test environment:
-
-```bash
-pip install -r requirements.txt
-```
+מופץ בכפוף ל-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

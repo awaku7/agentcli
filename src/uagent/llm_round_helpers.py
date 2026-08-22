@@ -946,9 +946,17 @@ def _call_openai_azure_round(
                     try:
                         from .llmcapa_util import clamp_max_tokens
 
-                        chat_kwargs["max_tokens"] = clamp_max_tokens(
+                        _chat_token_limit = clamp_max_tokens(
                             int(max_tokens_env), depname, provider
                         )
+                        _model_lower = str(depname or "").lower()
+                        if provider in ("openai", "azure") and (
+                            _model_lower.startswith("gpt-5")
+                            or _model_lower.startswith(("o1", "o2", "o3", "o4"))
+                        ):
+                            chat_kwargs["max_completion_tokens"] = _chat_token_limit
+                        else:
+                            chat_kwargs["max_tokens"] = _chat_token_limit
                     except ValueError:
                         pass
                 top_p_env = (env_get("UAGENT_TOP_P") or "").strip()

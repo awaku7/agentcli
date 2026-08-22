@@ -758,6 +758,14 @@ def _make_prompt_key_bindings() -> Any:
         return None
     kb = KeyBindings()
 
+    @kb.add("f11", eager=True)
+    def _stop_auto_pilot(event: Any) -> None:
+        if not core.auto_pilot_active:
+            return
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+        event.app.exit(result=None)
+
     @kb.add("escape", eager=True)
     def _cancel(event: Any) -> None:
         raise KeyboardInterrupt()
@@ -765,6 +773,12 @@ def _make_prompt_key_bindings() -> Any:
     @kb.add("up", eager=True)
     def _history_or_cursor_up(event: Any) -> None:
         buffer = event.current_buffer
+        # When the completion menu is open, Up/Down belong to completion
+        # navigation.  This binding is eager, so delegate explicitly instead
+        # of accidentally replacing the completion selection with history.
+        if buffer.complete_state is not None:
+            buffer.complete_previous()
+            return
         document = buffer.document
         if document.cursor_position_row == 0:
             before = buffer.text
@@ -777,6 +791,9 @@ def _make_prompt_key_bindings() -> Any:
     @kb.add("down", eager=True)
     def _history_or_cursor_down(event: Any) -> None:
         buffer = event.current_buffer
+        if buffer.complete_state is not None:
+            buffer.complete_next()
+            return
         document = buffer.document
         if document.cursor_position_row == document.line_count - 1:
             before = buffer.text
@@ -814,6 +831,9 @@ def _prompt_toolkit_input(
         @kb.add("up", eager=True)
         def _history_or_cursor_up(event: Any) -> None:
             buffer = event.current_buffer
+            if buffer.complete_state is not None:
+                buffer.complete_previous()
+                return
             document = buffer.document
             if document.cursor_position_row == 0:
                 before = buffer.text
@@ -829,6 +849,9 @@ def _prompt_toolkit_input(
         @kb.add("down", eager=True)
         def _history_or_cursor_down(event: Any) -> None:
             buffer = event.current_buffer
+            if buffer.complete_state is not None:
+                buffer.complete_next()
+                return
             document = buffer.document
             if document.cursor_position_row == document.line_count - 1:
                 before = buffer.text

@@ -4,11 +4,16 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 
-from ..i18n import _
+from .i18n_helper import make_tool_translator
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any
+
+_tool_ = make_tool_translator(
+    os.path.join(os.path.dirname(__file__), "human_ask_tool.py")
+)
 
 
 class SideEffect(str, Enum):
@@ -65,6 +70,16 @@ _DESTRUCTIVE = {
     "rename_path",
     "binary_edit",
 }
+
+# Tool names explicitly approved with "all" are scoped to this process/session.
+_ALLOW_ALL_TOOLS: set[str] = set()
+_ALLOW_ALL_LOCK = threading.RLock()
+
+
+def reset_confirmation_grants() -> None:
+    """Clear per-tool "all approved" grants for a new host session."""
+    with _ALLOW_ALL_LOCK:
+        _ALLOW_ALL_TOOLS.clear()
 
 
 def _resource_key(tool_name: str, args: dict[str, Any]) -> str | None:
@@ -137,14 +152,9 @@ def default_confirmation_callback(
     tool_name: str, args: dict[str, Any], policy: ToolPolicy
 ) -> bool:
     """Ask the human for confirmation, with an environment override for automation."""
-    if tool_name == "delete_file":
-        try:
-            from .delete_file_tool import is_org_backup_request
-
-            if is_org_backup_request(args):
-                return True
-        except Exception:
-            pass
+    with _ALLOW_ALL_LOCK:
+        if tool_name in _ALLOW_ALL_TOOLS:
+            return True
 
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
     if value in {"1", "true", "yes", "on", "allow"}:
@@ -159,18 +169,35 @@ def default_confirmation_callback(
             run_tool(
                 {
                     "message": (
-                        _(
-                            "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel."
+                        _tool_(
+                            "confirm.side_effecting_tool",
+                            default=(
+                                "Allow the side-effecting tool '%(tool)s' to run? "
+                                "Reply yes to continue or no to cancel."
+                            ),
+                            tool=tool_name,
                         )
-                        % {"tool": tool_name}
                     ),
                     "is_password": False,
+                    "confirmation": True,
                 }
             )
         )
         if result.get("auto_pilot_skipped") or result.get("cancelled"):
             return False
-        return str(result.get("user_reply", "")).strip().lower() in {
+        reply = str(result.get("user_reply", "")).strip().lower()
+        if reply in {
+            "all",
+            "a",
+            "all yes",
+            "yes to all",
+            "\u3059\u3079\u3066\u306f\u3044",
+            "\u5168\u3066\u306f\u3044",
+        }:
+            with _ALLOW_ALL_LOCK:
+                _ALLOW_ALL_TOOLS.add(tool_name)
+            return True
+        return reply in {
             "y",
             "yes",
             "\u627f\u8a8d",

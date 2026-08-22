@@ -27,7 +27,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask skipped (auto-pilot mode). The model must decide autonomously.",
     "msg.empty_request": "(The request message from the model is empty. Please describe the required action/decision here.)",
     "param.is_password.description": "If true, hide input characters (mask). Use this when requesting passwords or tokens.",
-    "ui.howto": "How to answer:\n  - Type your answer and press Enter\n  - Type 'f' to enter multi-line mode\n  - Type 'c' or 'cancel' to cancel\n"
+    "ui.howto": "How to answer:\n  - Type your answer and press Enter\n  - Type 'f' to enter multi-line mode\n  - Type 'c' or 'cancel' to cancel\n",
+    "ui.all_yes": "  - Type 'all' to allow this tool for the rest of the session\n",
+    "confirm.side_effecting_tool": "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel."
   },
   "ja": {
     "err.active_uninitialized": "[human_ask error] human_ask_active コールバックが初期化されていません。",
@@ -57,7 +59,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask をスキップしました（自動実行モード）。モデルは自律的に判断する必要があります。",
     "msg.empty_request": "(モデルからのリクエストメッセージは空です。必要なアクション/決定をここに記述してください。)",
     "param.is_password.description": "true の場合、入力文字を非表示 (マスク) にします。パスワードまたはトークンを要求する場合にこれを使用します。",
-    "ui.howto": "答え方:\n- 答えを入力して Enter キーを押します\n- 複数行モードに入るには「f」と入力します。\n- キャンセルするには「c」または「cancel」を入力します"
+    "ui.howto": "答え方:\n- 答えを入力して Enter キーを押します\n- 複数行モードに入るには「f」と入力します。\n- キャンセルするには「c」または「cancel」を入力します",
+    "ui.all_yes": "- 「all」と入力すると、このセッション中はこのツールの確認を省略します。",
+    "confirm.side_effecting_tool": "副作用のあるツール「%(tool)s」の実行を許可しますか？続行するには「はい」、キャンセルするには「いいえ」と答えてください。"
   },
   "es": {
     "err.active_uninitialized": "[error human_ask] Las devoluciones de llamada human_ask_active no se inicializan.",
@@ -87,7 +91,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask omitido (modo auto-pilot). El modelo debe decidir autónomamente.",
     "msg.empty_request": "(El mensaje de solicitud del modelo está vacío. Describa aquí la acción/decisión requerida).",
     "param.is_password.description": "Si es verdadero, oculta los caracteres de entrada (máscara). Úselo cuando solicite contraseñas o tokens.",
-    "ui.howto": "Cómo responder:\n - Escriba su respuesta y presione Entrar\n - Escriba 'f' para ingresar al modo multilínea\n - Escriba 'c' o 'cancelar' para cancelar\n"
+    "ui.howto": "Cómo responder:\n - Escriba su respuesta y presione Entrar\n - Escriba 'f' para ingresar al modo multilínea\n - Escriba 'c' o 'cancelar' para cancelar\n",
+    "confirm.side_effecting_tool": "¿Permitir que se ejecute la herramienta con efectos secundarios '%(tool)s'? Responda sí para continuar o no para cancelar.",
+    "ui.all_yes": "- Escriba 'all' para permitir esta herramienta durante el resto de la sesión.\n"
   },
   "fr": {
     "err.active_uninitialized": "[erreur human_ask] Le rappel human_ask_active n'a pas été initialisé.",
@@ -117,7 +123,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask ignoré (mode auto-pilot). Le modèle doit décider de manière autonome.",
     "msg.empty_request": "(Le message de demande du modèle est vide. Veuillez décrire l'action/décision requise ici.)",
     "param.is_password.description": "Si c'est vrai, masquez les caractères saisis (masque). Utilisez-le lorsque vous demandez des mots de passe ou des jetons.",
-    "ui.howto": "Comment répondre :\n - Tapez votre réponse et appuyez sur Entrée\n - Tapez 'f' pour accéder au mode multiligne\n - Tapez 'c' ou 'cancel' pour annuler\n"
+    "ui.howto": "Comment répondre :\n - Tapez votre réponse et appuyez sur Entrée\n - Tapez 'f' pour accéder au mode multiligne\n - Tapez 'c' ou 'cancel' pour annuler\n",
+    "confirm.side_effecting_tool": "Autoriser l’exécution de l’outil à effets de bord « %(tool)s » ? Répondez oui pour continuer ou non pour annuler.",
+    "ui.all_yes": "- Tapez « all » pour autoriser cet outil pour le reste de la session.\n"
   },
   "ko": {
     "err.active_uninitialized": "[human_ask 오류] human_ask_active 콜백이 초기화되지 않았습니다.",
@@ -147,7 +155,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask가 건너뛰어졌습니다(자동 실행 모드). 모델은 자율적으로 판단해야 합니다.",
     "msg.empty_request": "(모델의 요청 메시지가 비어 있습니다. 여기에 필요한 조치/결정을 설명해주세요.)",
     "param.is_password.description": "true인 경우 입력 문자(마스크)를 숨깁니다. 비밀번호나 토큰을 요청할 때 사용하세요.",
-    "ui.howto": "답변 방법:\n - 답변을 입력하고 Enter를 누르세요\n - 'f'를 입력하여 여러 줄 모드로 들어갑니다\n - 'c' 또는 'cancel'을 입력하여 취소\n"
+    "ui.howto": "답변 방법:\n - 답변을 입력하고 Enter를 누르세요\n - 'f'를 입력하여 여러 줄 모드로 들어갑니다\n - 'c' 또는 'cancel'을 입력하여 취소\n",
+    "confirm.side_effecting_tool": "부작용이 있는 도구 '%(tool)s'의 실행을 허용하시겠습니까? 계속하려면 예, 취소하려면 아니요라고 답하세요.",
+    "ui.all_yes": "- 이 세션 동안 이 도구를 허용하려면 'all'을 입력하세요.\n"
   },
   "de": {
     "err.active_uninitialized": "[human_ask error] human_ask_active-Rückrufe werden nicht initialisiert.",
@@ -177,7 +187,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask übersprungen (Auto-Pilot-Modus). Das Modell muss autonom entscheiden.",
     "msg.empty_request": "(Die Anforderungsnachricht des Modells ist leer. Bitte beschreiben Sie hier die erforderliche Aktion/Entscheidung.)",
     "param.is_password.description": "Wenn wahr, werden Eingabezeichen (Maske) ausgeblendet. Verwenden Sie dies, wenn Sie Passwörter oder Token anfordern.",
-    "ui.howto": "So antworten Sie:\n – Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n – Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n – Geben Sie „c“ oder „Abbrechen“ ein, um abzubrechen\n"
+    "ui.howto": "So antworten Sie:\n – Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n – Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n – Geben Sie „c“ oder „Abbrechen“ ein, um abzubrechen\n",
+    "confirm.side_effecting_tool": "Soll das nebenwirkungsbehaftete Tool '%(tool)s' ausgeführt werden? Antworten Sie mit Ja zum Fortfahren oder Nein zum Abbrechen.",
+    "ui.all_yes": "- Geben Sie „all“ ein, um dieses Tool für den Rest der Sitzung zuzulassen.\n"
   },
   "it": {
     "err.active_uninitialized": "[errore human_ask] i callback human_ask_active non sono inizializzati.",
@@ -207,7 +219,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask saltato (modalità auto-pilot). Il modello deve decidere autonomamente.",
     "msg.empty_request": "(Il messaggio di richiesta del modello è vuoto. Descrivi qui l'azione/decisione richiesta.)",
     "param.is_password.description": "Se vero, nasconde i caratteri immessi (maschera). Utilizzalo quando richiedi password o token.",
-    "ui.howto": "Come rispondere:\n - Digita la risposta e premi Invio\n - Digita \"f\" per accedere alla modalità multilinea\n - Digita \"c\" o \"annulla\" per annullare\n"
+    "ui.howto": "Come rispondere:\n - Digita la risposta e premi Invio\n - Digita \"f\" per accedere alla modalità multilinea\n - Digita \"c\" o \"annulla\" per annullare\n",
+    "confirm.side_effecting_tool": "Consentire l’esecuzione dello strumento con effetti collaterali '%(tool)s'? Rispondi sì per continuare o no per annullare.",
+    "ui.all_yes": "- Digita 'all' per consentire questo strumento per il resto della sessione.\n"
   },
   "ru": {
     "err.active_uninitialized": "[ошибка human_ask] Обратные вызовы human_ask_active не инициализируются.",
@@ -237,7 +251,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask пропущен (режим автопилота). Модель должна принимать решения автономно.",
     "msg.empty_request": "(Сообщение-запрос от модели пустое. Опишите здесь необходимое действие/решение.)",
     "param.is_password.description": "Если true, скрыть вводимые символы (маска). Используйте это при запросе паролей или токенов.",
-    "ui.howto": "Как ответить:\n – Введите ответ и нажмите Enter\n – Введите «f», чтобы войти в многострочный режим\n – Введите «c» или «отмена», чтобы отменить\n"
+    "ui.howto": "Как ответить:\n – Введите ответ и нажмите Enter\n – Введите «f», чтобы войти в многострочный режим\n – Введите «c» или «отмена», чтобы отменить\n",
+    "confirm.side_effecting_tool": "Разрешить запуск инструмента с побочными эффектами «%(tool)s»? Ответьте «да», чтобы продолжить, или «нет», чтобы отменить.",
+    "ui.all_yes": "- Введите «all», чтобы разрешить этот инструмент до конца сеанса.\n"
   },
   "pt_BR": {
     "err.active_uninitialized": "[erro human_ask] o callback human_ask_active não foi inicializado.",
@@ -267,7 +283,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir de forma autônoma.",
     "msg.empty_request": "(A mensagem de solicitação do modelo está vazia. Descreva aqui a ação/decisão necessária.)",
     "param.is_password.description": "Se for verdade, oculta os caracteres de entrada (máscara). Use isto ao solicitar senhas ou tokens.",
-    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n"
+    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n",
+    "confirm.side_effecting_tool": "Permitir a execução da ferramenta com efeitos colaterais '%(tool)s'? Responda sim para continuar ou não para cancelar.",
+    "ui.all_yes": "- Digite 'all' para permitir esta ferramenta pelo restante da sessão.\n"
   },
   "pt": {
     "err.active_uninitialized": "[erro human_ask] retornos de chamada human_ask_active não são inicializados.",
@@ -297,7 +315,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir autonomamente.",
     "msg.empty_request": "(A mensagem de solicitação do modelo está vazia. Descreva aqui a ação/decisão necessária.)",
     "param.is_password.description": "Se for verdade, oculta os caracteres de entrada (máscara). Use isto ao solicitar senhas ou tokens.",
-    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n"
+    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n",
+    "confirm.side_effecting_tool": "Permitir a execução da ferramenta com efeitos secundários '%(tool)s'? Responda sim para continuar ou não para cancelar.",
+    "ui.all_yes": "- Digite 'all' para permitir esta ferramenta durante o resto da sessão.\n"
   },
   "id": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active belum diinisialisasi.",
@@ -327,7 +347,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask dilewati (mode auto-pilot). Model harus memutuskan secara mandiri.",
     "msg.empty_request": "(Pesan permintaan dari model kosong. Harap jelaskan tindakan/keputusan yang diperlukan di sini.)",
     "param.is_password.description": "Jika benar, sembunyikan karakter masukan (mask). Gunakan ini saat meminta kata sandi atau token.",
-    "ui.howto": "Cara menjawab:\n - Ketik jawaban Anda dan tekan Enter\n - Ketik 'f' untuk masuk ke mode multi-baris\n - Ketik 'c' atau 'cancel' untuk membatalkan\n"
+    "ui.howto": "Cara menjawab:\n - Ketik jawaban Anda dan tekan Enter\n - Ketik 'f' untuk masuk ke mode multi-baris\n - Ketik 'c' atau 'cancel' untuk membatalkan\n",
+    "confirm.side_effecting_tool": "Izinkan alat yang menimbulkan efek samping '%(tool)s' dijalankan? Jawab ya untuk melanjutkan atau tidak untuk membatalkan.",
+    "ui.all_yes": "- Ketik 'all' untuk mengizinkan alat ini selama sisa sesi.\n"
   },
   "vi": {
     "err.active_uninitialized": "[lỗi human_ask] lệnh gọi lại human_ask_active chưa được khởi tạo.",
@@ -357,7 +379,9 @@
     "ui.auto_pilot_skip": "[AUTO] Đã bỏ qua human_ask (chế độ auto-pilot). Mô hình phải tự quyết định.",
     "msg.empty_request": "(Thông báo yêu cầu từ mô hình trống. Vui lòng mô tả hành động/quyết định bắt buộc tại đây.)",
     "param.is_password.description": "Nếu đúng, hãy ẩn các ký tự đầu vào (mặt nạ). Sử dụng điều này khi yêu cầu mật khẩu hoặc mã thông báo.",
-    "ui.howto": "Cách trả lời:\n - Nhập câu trả lời của bạn và nhấn Enter\n - Gõ 'f' để vào chế độ nhiều dòng\n - Gõ 'c' hoặc 'cancel' để hủy\n"
+    "ui.howto": "Cách trả lời:\n - Nhập câu trả lời của bạn và nhấn Enter\n - Gõ 'f' để vào chế độ nhiều dòng\n - Gõ 'c' hoặc 'cancel' để hủy\n",
+    "confirm.side_effecting_tool": "Cho phép chạy công cụ có tác dụng phụ '%(tool)s'? Trả lời có để tiếp tục hoặc không để hủy.",
+    "ui.all_yes": "- Nhập 'all' để cho phép công cụ này trong phần còn lại của phiên.\n"
   },
   "pl": {
     "err.active_uninitialized": "[błąd human_ask] Wywołania zwrotne human_ask_active nie są inicjowane.",
@@ -387,7 +411,9 @@
     "ui.auto_pilot_skip": "[AUTO] Pominięto human_ask (tryb autopilota). Model musi decydować samodzielnie.",
     "msg.empty_request": "(Komunikat żądania od modelu jest pusty. Proszę opisać tutaj wymagane działanie/decyzję.)",
     "param.is_password.description": "Jeśli prawda, ukryj wprowadzone znaki (maskę). Użyj tego, żądając haseł lub tokenów.",
-    "ui.howto": "Jak odpowiedzieć:\n – Wpisz odpowiedź i naciśnij Enter\n – Wpisz „f”, aby przejść do trybu wielowierszowego\n – Wpisz „c” lub „anuluj”, aby anulować\n"
+    "ui.howto": "Jak odpowiedzieć:\n – Wpisz odpowiedź i naciśnij Enter\n – Wpisz „f”, aby przejść do trybu wielowierszowego\n – Wpisz „c” lub „anuluj”, aby anulować\n",
+    "confirm.side_effecting_tool": "Czy zezwolić na uruchomienie narzędzia wywołującego skutki uboczne „%(tool)s”? Odpowiedz tak, aby kontynuować, lub nie, aby anulować.",
+    "ui.all_yes": "- Wpisz „all”, aby zezwolić na to narzędzie do końca sesji.\n"
   },
   "hi": {
     "err.active_uninitialized": "[मानव_आस्क त्रुटि] मानव_आस्क_एक्टिव कॉलबैक प्रारंभ नहीं किया गया है।",
@@ -417,7 +443,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask को छोड़ दिया गया (ऑटो-पायलट मोड)। मॉडल को स्वायत्त रूप से निर्णय लेना होगा।",
     "msg.empty_request": "(मॉडल से अनुरोध संदेश खाली है। कृपया यहां आवश्यक कार्रवाई/निर्णय का वर्णन करें।)",
     "param.is_password.description": "यदि सत्य है, तो इनपुट वर्ण छिपाएँ (मुखौटा)। पासवर्ड या टोकन का अनुरोध करते समय इसका उपयोग करें।",
-    "ui.howto": "कैसे उत्तर दें:\n- अपना उत्तर टाइप करें और एंटर दबाएं\n- मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n- रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें\n"
+    "ui.howto": "कैसे उत्तर दें:\n- अपना उत्तर टाइप करें और एंटर दबाएं\n- मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n- रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें\n",
+    "confirm.side_effecting_tool": "साइड-इफ़ेक्ट वाले टूल '%(tool)s' को चलाने की अनुमति दें? जारी रखने के लिए हाँ या रद्द करने के लिए नहीं लिखें।",
+    "ui.all_yes": "- इस सत्र के शेष समय के लिए इस टूल को अनुमति देने हेतु 'all' लिखें।\n"
   },
   "ar": {
     "err.active_uninitialized": "[خطأ human_ask] لم تتم تهيئة رد الاتصال human_ask_active.",
@@ -447,7 +475,9 @@
     "ui.auto_pilot_skip": "[AUTO] تم تخطي human_ask (وضع الطيار الآلي). يجب على النموذج أن يقرر بشكل مستقل.",
     "msg.empty_request": "(رسالة الطلب من النموذج فارغة. يرجى وصف الإجراء/القرار المطلوب هنا.)",
     "param.is_password.description": "إذا كان صحيحًا، قم بإخفاء أحرف الإدخال (القناع). استخدم هذا عند طلب كلمات المرور أو الرموز المميزة.",
-    "ui.howto": "كيفية الإجابة: \n - اكتب إجابتك واضغط على Enter \n - اكتب \"f\" للدخول إلى وضع متعدد الأسطر \n - اكتب \"c\" أو \"إلغاء\" للإلغاء \n"
+    "ui.howto": "كيفية الإجابة: \n - اكتب إجابتك واضغط على Enter \n - اكتب \"f\" للدخول إلى وضع متعدد الأسطر \n - اكتب \"c\" أو \"إلغاء\" للإلغاء \n",
+    "confirm.side_effecting_tool": "السماح بتشغيل الأداة ذات الآثار الجانبية '%(tool)s'؟ أجب بنعم للمتابعة أو لا للإلغاء.",
+    "ui.all_yes": "- اكتب 'all' للسماح بهذه الأداة لبقية الجلسة.\n"
   },
   "sv": {
     "err.active_uninitialized": "[human_ask-fel] callbacken human_ask_active har inte initierats.",
@@ -477,7 +507,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask hoppades över (autopilotläge). Modellen måste fatta beslut självständigt.",
     "msg.empty_request": "(Begäranmeddelandet från modellen är tomt. Beskriv den nödvändiga åtgärden/beslutet här.)",
     "param.is_password.description": "Om sant, dölj inmatningstecken (mask). Använd detta när du begär lösenord eller tokens.",
-    "ui.howto": "Så här svarar:\n - Skriv ditt svar och tryck på Enter\n - Skriv 'f' för att gå till flerradsläge\n - Skriv 'c' eller 'avbryt' för att avbryta\n"
+    "ui.howto": "Så här svarar:\n - Skriv ditt svar och tryck på Enter\n - Skriv 'f' för att gå till flerradsläge\n - Skriv 'c' eller 'avbryt' för att avbryta\n",
+    "confirm.side_effecting_tool": "Tillåt att verktyget med sidoeffekter '%(tool)s' körs? Svara ja för att fortsätta eller nej för att avbryta.",
+    "ui.all_yes": "- Skriv 'all' för att tillåta verktyget under resten av sessionen.\n"
   },
   "sw": {
     "err.active_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_active haijaanzishwa.",
@@ -507,7 +539,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask imerukwa (hali ya auto-pilot). Modeli lazima aamue kwa uhuru.",
     "msg.empty_request": "(Ujumbe wa ombi kutoka kwa kielelezo ni tupu. Tafadhali eleza kitendo/uamuzi unaohitajika hapa.)",
     "param.is_password.description": "Ikiwa ni kweli, ficha herufi za kuingiza (mask). Tumia hii unapoomba nenosiri au ishara.",
-    "ui.howto": "Jinsi ya kujibu:\n - Andika jibu lako na ubonyeze Enter\n - Andika 'f' ili kuingiza hali ya mistari mingi\n - Andika 'c' au 'ghairi' ili kughairi\n"
+    "ui.howto": "Jinsi ya kujibu:\n - Andika jibu lako na ubonyeze Enter\n - Andika 'f' ili kuingiza hali ya mistari mingi\n - Andika 'c' au 'ghairi' ili kughairi\n",
+    "confirm.side_effecting_tool": "Ruhusu zana yenye athari za ziada '%(tool)s' iendeshe? Jibu ndiyo kuendelea au hapana kughairi.",
+    "ui.all_yes": "- Andika 'all' ili kuruhusu zana hii kwa kipindi kilichosalia.\n"
   },
   "nb": {
     "err.active_uninitialized": "[human_ask-feil] callbacken human_ask_active er ikke initialisert.",
@@ -537,7 +571,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilot-modus). Modellen må bestemme selvstendig.",
     "msg.empty_request": "(Forespørselsmeldingen fra modellen er tom. Beskriv den nødvendige handlingen/beslutningen her.)",
     "param.is_password.description": "Hvis sant, skjul inndatategn (maske). Bruk dette når du ber om passord eller tokens.",
-    "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n"
+    "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n",
+    "confirm.side_effecting_tool": "Tillat at verktøyet med bivirkninger «%(tool)s» kjører? Svar ja for å fortsette eller nei for å avbryte.",
+    "ui.all_yes": "- Skriv «all» for å tillate dette verktøyet resten av økten.\n"
   },
   "nl": {
     "err.active_uninitialized": "[human_ask fout] human_ask_active callback is niet geïnitialiseerd.",
@@ -567,7 +603,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask overgeslagen (auto-pilot modus). Het model moet autonoom beslissen.",
     "msg.empty_request": "(Het verzoekbericht van het model is leeg. Beschrijf hier de vereiste actie/beslissing.)",
     "param.is_password.description": "Indien waar, verberg de invoertekens (masker). Gebruik dit bij het opvragen van wachtwoorden of tokens.",
-    "ui.howto": "Zo antwoordt u:\n - Typ uw antwoord en druk op Enter\n - Typ 'f' om de modus met meerdere regels te openen\n - Typ 'c' of 'annuleren' om te annuleren\n"
+    "ui.howto": "Zo antwoordt u:\n - Typ uw antwoord en druk op Enter\n - Typ 'f' om de modus met meerdere regels te openen\n - Typ 'c' of 'annuleren' om te annuleren\n",
+    "confirm.side_effecting_tool": "Toestaan dat de tool met neveneffecten '%(tool)s' wordt uitgevoerd? Antwoord ja om door te gaan of nee om te annuleren.",
+    "ui.all_yes": "- Typ 'all' om deze tool de rest van de sessie toe te staan.\n"
   },
   "fi": {
     "err.active_uninitialized": "[human_ask-virhe] human_ask_active-callbackia ei ole alustettu.",
@@ -597,7 +635,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask ohitettu (autopilottitila). Mallin on päätettävä itsenäisesti.",
     "msg.empty_request": "(Mallin pyyntöviesti on tyhjä. Kuvaile vaadittu toimenpide/päätös tähän.)",
     "param.is_password.description": "Jos tosi, piilota syöttömerkit (maski). Käytä tätä, kun pyydät salasanoja tai tunnuksia.",
-    "ui.howto": "Kuinka vastata:\n - Kirjoita vastauksesi ja paina Enter\n - Kirjoita 'f' siirtyäksesi moniriviseen tilaan. - Kirjoita 'c' tai 'peruuta' peruuttaaksesi"
+    "ui.howto": "Kuinka vastata:\n - Kirjoita vastauksesi ja paina Enter\n - Kirjoita 'f' siirtyäksesi moniriviseen tilaan. - Kirjoita 'c' tai 'peruuta' peruuttaaksesi",
+    "confirm.side_effecting_tool": "Sallitaanko sivuvaikutuksia aiheuttavan työkalun '%(tool)s' suoritus? Vastaa kyllä jatkaaksesi tai ei peruuttaaksesi.",
+    "ui.all_yes": "- Kirjoita 'all', jos haluat sallia tämän työkalun loppuistunnon ajaksi.\n"
   },
   "cs": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active nebyl inicializován.",
@@ -627,7 +667,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask přeskočeno (režim autopilota). Model musí rozhodovat autonomně.",
     "msg.empty_request": "(Zpráva požadavku od modelu je prázdná. Zde prosím popište požadovanou akci/rozhodnutí.)",
     "param.is_password.description": "Pokud je pravda, skryjte vstupní znaky (masku). Použijte to, když požadujete hesla nebo tokeny.",
-    "ui.howto": "Jak odpovědět:\n – Napište svou odpověď a stiskněte Enter\n – Napište „f“ pro vstup do víceřádkového režimu\n – Napište „c“ nebo „zrušit“ pro zrušení\n"
+    "ui.howto": "Jak odpovědět:\n – Napište svou odpověď a stiskněte Enter\n – Napište „f“ pro vstup do víceřádkového režimu\n – Napište „c“ nebo „zrušit“ pro zrušení\n",
+    "confirm.side_effecting_tool": "Povolit spuštění nástroje s vedlejšími účinky „%(tool)s“? Odpovězte ano pro pokračování nebo ne pro zrušení.",
+    "ui.all_yes": "- Zadejte „all“, chcete-li tento nástroj povolit po zbytek relace.\n"
   },
   "uk": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active не було ініціалізовано.",
@@ -657,7 +699,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask пропущено (режим автопілота). Модель повинна приймати рішення автономно.",
     "msg.empty_request": "(Повідомлення запиту від моделі порожнє. Опишіть необхідну дію/рішення тут.)",
     "param.is_password.description": "Якщо істина, приховати введені символи (маска). Використовуйте це під час запиту паролів або маркерів.",
-    "ui.howto": "Як відповісти:\n - Введіть відповідь і натисніть Enter\n - Введіть «f», щоб увійти в багаторядковий режим\n - Введіть «c» або «скасувати», щоб скасувати\n"
+    "ui.howto": "Як відповісти:\n - Введіть відповідь і натисніть Enter\n - Введіть «f», щоб увійти в багаторядковий режим\n - Введіть «c» або «скасувати», щоб скасувати\n",
+    "confirm.side_effecting_tool": "Дозволити запуск інструмента з побічними ефектами «%(tool)s»? Відповідайте «так», щоб продовжити, або «ні», щоб скасувати.",
+    "ui.all_yes": "- Введіть «all», щоб дозволити цей інструмент до кінця сеансу.\n"
   },
   "tr": {
     "err.active_uninitialized": "[human_ask error] human_ask_active geri araması başlatılmadı.",
@@ -687,7 +731,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask atlandı (otomatik pilot modu). Model bağımsız olarak karar vermelidir.",
     "msg.empty_request": "(Modelin istek mesajı boş. Lütfen gerekli eylemi/kararı burada açıklayın.)",
     "param.is_password.description": "Doğruysa, giriş karakterlerini (maske) gizleyin. Parola veya belirteç isterken bunu kullanın.",
-    "ui.howto": "Nasıl cevap verilir:\n - Cevabınızı yazın ve Enter'a basın\n - Çok hatlı moda girmek için 'f' yazın\n - İptal etmek için 'c' veya 'iptal' yazın\n"
+    "ui.howto": "Nasıl cevap verilir:\n - Cevabınızı yazın ve Enter'a basın\n - Çok hatlı moda girmek için 'f' yazın\n - İptal etmek için 'c' veya 'iptal' yazın\n",
+    "confirm.side_effecting_tool": "Yan etkilere sahip '%(tool)s' aracının çalıştırılmasına izin verilsin mi? Devam etmek için evet, iptal etmek için hayır yanıtını verin.",
+    "ui.all_yes": "- Oturumun geri kalanında bu araca izin vermek için 'all' yazın.\n"
   },
   "th": {
     "err.active_uninitialized": "[ข้อผิดพลาด human_ask] ยังไม่ได้เริ่มต้น callback human_ask_active",
@@ -717,7 +763,9 @@
     "ui.auto_pilot_skip": "[AUTO] ข้าม human_ask (โหมด auto-pilot) โมเดลต้องตัดสินใจด้วยตนเอง",
     "msg.empty_request": "(ข้อความคำขอจากแบบจำลองว่างเปล่า โปรดอธิบายการดำเนินการ/การตัดสินใจที่จำเป็นที่นี่)",
     "param.is_password.description": "หากเป็นจริง ให้ซ่อนอักขระที่ป้อน (มาสก์) ใช้สิ่งนี้เมื่อขอรหัสผ่านหรือโทเค็น",
-    "ui.howto": "วิธีตอบ:\n - พิมพ์คำตอบของคุณแล้วกด Enter\n - พิมพ์ 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n - พิมพ์ 'c' หรือ 'cancel' เพื่อยกเลิก\n"
+    "ui.howto": "วิธีตอบ:\n - พิมพ์คำตอบของคุณแล้วกด Enter\n - พิมพ์ 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n - พิมพ์ 'c' หรือ 'cancel' เพื่อยกเลิก\n",
+    "confirm.side_effecting_tool": "อนุญาตให้เรียกใช้เครื่องมือที่มีผลข้างเคียง '%(tool)s' หรือไม่ ตอบใช่เพื่อดำเนินการต่อ หรือไม่เพื่อยกเลิก",
+    "ui.all_yes": "- พิมพ์ 'all' เพื่ออนุญาตเครื่องมือนี้ตลอดช่วงเวลาที่เหลือของเซสชัน\n"
   },
   "zh_CN": {
     "err.active_uninitialized": "[human_ask 错误] human_ask_active 回调尚未初始化。",
@@ -747,7 +795,9 @@
     "ui.auto_pilot_skip": "[AUTO] 已跳过 human_ask（自动执行模式）。模型必须自主决定。",
     "msg.empty_request": "（来自模型的请求消息为空。请在此处描述所需的操作/决策。）",
     "param.is_password.description": "如果为 true，则隐藏输入字符（掩码）。请求密码或令牌时使用此选项。",
-    "ui.howto": "如何回答：\n - 输入您的答案并按 Enter \n - 输入“f”进入多行模式\n - 输入“c”或“取消”取消\n"
+    "ui.howto": "如何回答：\n - 输入您的答案并按 Enter \n - 输入“f”进入多行模式\n - 输入“c”或“取消”取消\n",
+    "confirm.side_effecting_tool": "允许运行有副作用的工具“%(tool)s”吗？回复“是”继续，回复“否”取消。",
+    "ui.all_yes": "- 输入“all”，即可在本次会话剩余时间内允许此工具。\n"
   },
   "zh_TW": {
     "err.active_uninitialized": "[human_ask 錯誤] human_ask_active 回呼尚未初始化。",
@@ -777,7 +827,9 @@
     "ui.auto_pilot_skip": "[AUTO] 已跳過 human_ask（自動執行模式）。模型必須自主決定。",
     "msg.empty_request": "（來自模型的請求訊息為空。請在此處描述所需的操作/決策。）",
     "param.is_password.description": "如果為 true，則隱藏輸入字元（遮罩）。請求密碼或令牌時使用此選項。",
-    "ui.howto": "如何回答：\n - 輸入您的答案並按 Enter \n - 輸入“f”進入多行模式\n - 輸入“c”或“取消”取消\n"
+    "ui.howto": "如何回答：\n - 輸入您的答案並按 Enter \n - 輸入“f”進入多行模式\n - 輸入“c”或“取消”取消\n",
+    "confirm.side_effecting_tool": "允許執行具有副作用的工具「%(tool)s」嗎？回覆「是」以繼續，回覆「否」以取消。",
+    "ui.all_yes": "- 輸入「all」即可在本次工作階段剩餘時間允許此工具。\n"
   },
   "bn": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback শুরু করা হয়নি।",
@@ -807,7 +859,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask এড়িয়ে গেছেন (অটো-পাইলট মোড)। মডেলটিকে স্বায়ত্তশাসিতভাবে সিদ্ধান্ত নিতে হবে।",
     "msg.empty_request": "(মডেলের অনুরোধ বার্তাটি খালি। অনুগ্রহ করে প্রয়োজনীয় পদক্ষেপ/সিদ্ধান্ত এখানে বর্ণনা করুন।)",
     "param.is_password.description": "সত্য হলে, ইনপুট অক্ষর লুকান (মাস্ক)। পাসওয়ার্ড বা টোকেন অনুরোধ করার সময় এটি ব্যবহার করুন।",
-    "ui.howto": "কিভাবে উত্তর দিতে হবে:\n- আপনার উত্তর টাইপ করুন এবং এন্টার টিপুন\n- মাল্টি-লাইন মোডে প্রবেশ করতে 'f' টাইপ করুন\n- বাতিল করতে 'c' বা 'বাতিল' টাইপ করুন\n"
+    "ui.howto": "কিভাবে উত্তর দিতে হবে:\n- আপনার উত্তর টাইপ করুন এবং এন্টার টিপুন\n- মাল্টি-লাইন মোডে প্রবেশ করতে 'f' টাইপ করুন\n- বাতিল করতে 'c' বা 'বাতিল' টাইপ করুন\n",
+    "confirm.side_effecting_tool": "পার্শ্বপ্রতিক্রিয়াযুক্ত টুল '%(tool)s' চালানোর অনুমতি দেবেন? চালিয়ে যেতে হ্যাঁ, বাতিল করতে না উত্তর দিন।",
+    "ui.all_yes": "- বাকি সেশনের জন্য এই টুলের অনুমতি দিতে 'all' লিখুন।\n"
   },
   "fa": {
     "err.active_uninitialized": "[خطای_پرسش_انسان] پاسخ‌های پاسخ فعال human_ask_in اولیه نمی‌شوند.",
@@ -837,7 +891,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask رد شد (حالت خودکار). مدل باید به طور مستقل تصمیم بگیرد.",
     "msg.empty_request": "(پیام درخواست مدل خالی است. لطفاً اقدام/تصمیم مورد نیاز را در اینجا شرح دهید.)",
     "param.is_password.description": "اگر درست است، کاراکترهای ورودی (ماسک) را پنهان کنید. هنگام درخواست رمز عبور یا رمز از این مورد استفاده کنید.",
-    "ui.howto": "نحوه پاسخگویی:\n- پاسخ خود را تایپ کرده و Enter را فشار دهید\n- برای وارد شدن به حالت چند خطی 'f' را تایپ کنید\n- برای لغو عبارت \"c\" یا \"cancel\" را تایپ کنید\n"
+    "ui.howto": "نحوه پاسخگویی:\n- پاسخ خود را تایپ کرده و Enter را فشار دهید\n- برای وارد شدن به حالت چند خطی 'f' را تایپ کنید\n- برای لغو عبارت \"c\" یا \"cancel\" را تایپ کنید\n",
+    "confirm.side_effecting_tool": "آیا اجازه اجرای ابزار دارای عوارض جانبی «%(tool)s» را می‌دهید؟ برای ادامه بله و برای لغو خیر پاسخ دهید.",
+    "ui.all_yes": "- برای اجازه دادن به این ابزار تا پایان نشست، «all» را وارد کنید.\n"
   },
   "mn": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback эхлээгүй байна.",
@@ -867,7 +923,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask алгассан (авто-пилот горим). Загвар нь бие даан шийдвэр гаргах ёстой.",
     "msg.empty_request": "(Загвараас ирсэн хүсэлтийн зурвас хоосон байна. Шаардлагатай арга хэмжээ/шийдвэрийг энд тайлбарлана уу.)",
     "param.is_password.description": "Хэрэв үнэн бол оруулах тэмдэгтүүдийг (маск) нуу. Нууц үг эсвэл жетон хүсэх үед үүнийг ашиглана уу.",
-    "ui.howto": "Хэрхэн хариулах вэ:\n - Хариугаа бичээд Enter товч дарна\n - Олон мөрт горимд орохын тулд 'f' гэж бичнэ үү\n - Цуцлах бол 'c' эсвэл 'цуцлах' гэж бичнэ үү\n"
+    "ui.howto": "Хэрхэн хариулах вэ:\n - Хариугаа бичээд Enter товч дарна\n - Олон мөрт горимд орохын тулд 'f' гэж бичнэ үү\n - Цуцлах бол 'c' эсвэл 'цуцлах' гэж бичнэ үү\n",
+    "confirm.side_effecting_tool": "Гаж нөлөөтэй '%(tool)s' хэрэгслийг ажиллуулах уу? Үргэлжлүүлэх бол тийм, цуцлах бол үгүй гэж хариулна уу.",
+    "ui.all_yes": "- Сеанс дуустал энэ хэрэгслийг зөвшөөрөхийн тулд 'all' гэж бичнэ үү.\n"
   },
   "mr": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback initialize केलेला नाही.",
@@ -897,7 +955,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask वगळले (ऑटो-पायलट मोड). मॉडेलने स्वायत्तपणे निर्णय घेणे आवश्यक आहे.",
     "msg.empty_request": "(मॉडेलमधील विनंती संदेश रिक्त आहे. कृपया आवश्यक कृती/निर्णयाचे येथे वर्णन करा.)",
     "param.is_password.description": "खरे असल्यास, इनपुट वर्ण लपवा (मुखवटा). पासवर्ड किंवा टोकन्सची विनंती करताना याचा वापर करा.",
-    "ui.howto": "उत्तर कसे द्यावे:\n - तुमचे उत्तर टाइप करा आणि एंटर दाबा\n - मल्टी-लाइन मोडमध्ये प्रवेश करण्यासाठी 'f' टाइप करा\n - रद्द करण्यासाठी 'c' किंवा 'रद्द करा' टाइप करा\n"
+    "ui.howto": "उत्तर कसे द्यावे:\n - तुमचे उत्तर टाइप करा आणि एंटर दाबा\n - मल्टी-लाइन मोडमध्ये प्रवेश करण्यासाठी 'f' टाइप करा\n - रद्द करण्यासाठी 'c' किंवा 'रद्द करा' टाइप करा\n",
+    "confirm.side_effecting_tool": "दुष्परिणाम करणारे साधन '%(tool)s' चालवण्याची परवानगी द्यायची का? पुढे जाण्यासाठी होय किंवा रद्द करण्यासाठी नाही उत्तर द्या.",
+    "ui.all_yes": "- उर्वरित सत्रासाठी या साधनाला परवानगी देण्यासाठी 'all' टाइप करा.\n"
   },
   "el": {
     "err.active_uninitialized": "[human_ask error] Οι επιστροφές κλήσεων human_ask_active δεν αρχικοποιούνται.",
@@ -927,7 +987,9 @@
     "ui.auto_pilot_skip": "[AUTO] Παραλείφθηκε το human_ask (λειτουργία αυτόματου πιλότου). Το μοντέλο πρέπει να αποφασίζει αυτόνομα.",
     "msg.empty_request": "(Το μήνυμα αιτήματος από το μοντέλο είναι κενό. Περιγράψτε την απαιτούμενη ενέργεια/απόφαση εδώ.)",
     "param.is_password.description": "Εάν ισχύει, αποκρύψτε τους χαρακτήρες εισόδου (μάσκα). Χρησιμοποιήστε το όταν ζητάτε κωδικούς πρόσβασης ή διακριτικά.",
-    "ui.howto": "Πώς να απαντήσετε:\n - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n - Πληκτρολογήστε 'f' για να μπείτε σε λειτουργία πολλαπλών γραμμών\n - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση"
+    "ui.howto": "Πώς να απαντήσετε:\n - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n - Πληκτρολογήστε 'f' για να μπείτε σε λειτουργία πολλαπλών γραμμών\n - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
+    "confirm.side_effecting_tool": "Να επιτραπεί η εκτέλεση του εργαλείου με παρενέργειες «%(tool)s»; Απαντήστε ναι για συνέχεια ή όχι για ακύρωση.",
+    "ui.all_yes": "- Πληκτρολογήστε «all» για να επιτρέψετε αυτό το εργαλείο για το υπόλοιπο της συνεδρίας.\n"
   },
   "he": {
     "err.active_uninitialized": "[human_ask error] התקשרות חוזרת של human_ask_active אינן מאתחלות.",
@@ -957,7 +1019,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask דולג (מצב טיס אוטומטי). המודל חייב להחליט באופן עצמאי.",
     "msg.empty_request": "(הודעת הבקשה מהדגם ריקה. נא לתאר כאן את הפעולה/ההחלטה הנדרשת).",
     "param.is_password.description": "אם נכון, הסתר תווי קלט (מסכה). השתמש בזה בעת בקשת סיסמאות או אסימונים.",
-    "ui.howto": "איך לענות:\n - הקלד את תשובתך והקש Enter\n - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n - הקלד 'c' או 'ביטול' כדי לבטל\n"
+    "ui.howto": "איך לענות:\n - הקלד את תשובתך והקש Enter\n - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n - הקלד 'c' או 'ביטול' כדי לבטל\n",
+    "confirm.side_effecting_tool": "לאפשר להפעיל את הכלי בעל תופעות הלוואי '%(tool)s'? השב כן כדי להמשיך או לא כדי לבטל.",
+    "ui.all_yes": "- הקלד 'all' כדי לאפשר לכלי זה להמשך ההפעלה.\n"
   },
   "hu": {
     "err.active_uninitialized": "[human_ask error] A human_ask_active visszahívások nincsenek inicializálva.",
@@ -987,7 +1051,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask kihagyva (automatikus vezetési mód). A modellnek önállóan kell döntenie.",
     "msg.empty_request": "(A kérés üzenete a modelltől üres. Kérjük, írja le itt a szükséges műveletet/döntést.)",
     "param.is_password.description": "Ha igaz, rejtse el a bemeneti karaktereket (maszk). Jelszavak vagy tokenek kérésekor használja ezt.",
-    "ui.howto": "Hogyan válaszoljon:\n - Írja be a választ, és nyomja meg az Enter billentyűt. - Írja be az \"f\" billentyűt a többsoros módba való belépéshez"
+    "ui.howto": "Hogyan válaszoljon:\n - Írja be a választ, és nyomja meg az Enter billentyűt. - Írja be az \"f\" billentyűt a többsoros módba való belépéshez",
+    "confirm.side_effecting_tool": "Engedélyezi a mellékhatással járó „%(tool)s” eszköz futtatását? A folytatáshoz igennel, a megszakításhoz nemmel válaszoljon.",
+    "ui.all_yes": "- Írja be az „all” szót, hogy az eszközt a munkamenet hátralévő részére engedélyezze.\n"
   },
   "ro": {
     "err.active_uninitialized": "[human_ask error] apelurile human_ask_active nu sunt inițializate.",
@@ -1017,7 +1083,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask omis (modul auto-pilot). Modelul trebuie să decidă în mod autonom.",
     "msg.empty_request": "(Mesajul de solicitare de la model este gol. Vă rugăm să descrieți acțiunea/decizia necesară aici.)",
     "param.is_password.description": "Dacă este adevărat, ascundeți caracterele introduse (mască). Utilizați acest lucru atunci când solicitați parole sau jetoane.",
-    "ui.howto": "Cum să răspunzi:\n - Tastați răspunsul și apăsați Enter\n - Tastați „f” pentru a intra în modul cu mai multe linii\n - Tastați „c” sau „anulați” pentru a anula\n"
+    "ui.howto": "Cum să răspunzi:\n - Tastați răspunsul și apăsați Enter\n - Tastați „f” pentru a intra în modul cu mai multe linii\n - Tastați „c” sau „anulați” pentru a anula\n",
+    "confirm.side_effecting_tool": "Permiteți rularea instrumentului cu efecte secundare „%(tool)s”? Răspundeți da pentru a continua sau nu pentru a anula.",
+    "ui.all_yes": "- Tastați „all” pentru a permite acest instrument pentru restul sesiunii.\n"
   },
   "fil": {
     "err.active_uninitialized": "[human_ask error] ang mga callback ng tao_ask_active ay hindi sinisimulan.",
@@ -1047,7 +1115,9 @@
     "ui.auto_pilot_skip": "Nilaktawan ang [AUTO] human_ask (auto-pilot mode). Ang modelo ay dapat magpasya nang nakapag-iisa.",
     "msg.empty_request": "(Walang laman ang mensahe ng kahilingan mula sa modelo. Pakilarawan ang kinakailangang aksyon/desisyon dito.)",
     "param.is_password.description": "Kung totoo, itago ang mga input character (mask). Gamitin ito kapag humihiling ng mga password o token.",
-    "ui.howto": "Paano sasagot:\n - I-type ang iyong sagot at pindutin ang Enter\n - I-type ang 'f' para pumasok sa multi-line mode\n - I-type ang 'c' o 'kanselahin' para kanselahin\n"
+    "ui.howto": "Paano sasagot:\n - I-type ang iyong sagot at pindutin ang Enter\n - I-type ang 'f' para pumasok sa multi-line mode\n - I-type ang 'c' o 'kanselahin' para kanselahin\n",
+    "confirm.side_effecting_tool": "Payagan bang patakbuhin ang tool na may side effect na '%(tool)s'? Sumagot ng oo para magpatuloy o hindi para magkansela.",
+    "ui.all_yes": "- I-type ang 'all' upang payagan ang tool na ito sa natitirang bahagi ng session.\n"
   },
   "ms": {
     "err.active_uninitialized": "[human_ask error] panggil balik human_ask_active tidak dimulakan.",
@@ -1077,7 +1147,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask dilangkau (mod auto-pilot). Model mesti membuat keputusan secara autonomi.",
     "msg.empty_request": "(Mesej permintaan daripada model kosong. Sila terangkan tindakan/keputusan yang diperlukan di sini.)",
     "param.is_password.description": "Jika benar, sembunyikan aksara input (topeng). Gunakan ini apabila meminta kata laluan atau token.",
-    "ui.howto": "Cara menjawab:\n - Taip jawapan anda dan tekan Enter\n - Taip 'f' untuk memasuki mod berbilang talian\n - Taip 'c' atau 'batal' untuk membatalkan\n"
+    "ui.howto": "Cara menjawab:\n - Taip jawapan anda dan tekan Enter\n - Taip 'f' untuk memasuki mod berbilang talian\n - Taip 'c' atau 'batal' untuk membatalkan\n",
+    "confirm.side_effecting_tool": "Benarkan alat yang mempunyai kesan sampingan '%(tool)s' dijalankan? Jawab ya untuk meneruskan atau tidak untuk membatalkan.",
+    "ui.all_yes": "- Taip 'all' untuk membenarkan alat ini sepanjang baki sesi.\n"
   },
   "da": {
     "err.active_uninitialized": "[human_ask error] human_ask_active tilbagekald initialiseres ikke.",
@@ -1107,7 +1179,9 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask sprunget over (autopilottilstand). Modellen skal bestemme selvstændigt.",
     "msg.empty_request": "(Anmodningsmeddelelsen fra modellen er tom. Beskriv venligst den påkrævede handling/beslutning her.)",
     "param.is_password.description": "Hvis sandt, skjul inputtegn (maske). Brug dette, når du anmoder om adgangskoder eller tokens.",
-    "ui.howto": "Sådan svarer du:\n - Indtast dit svar, og tryk på Enter\n - Skriv 'f' for at gå ind i multi-line mode\n - Skriv 'c' eller 'cancel' for at annullere\n"
+    "ui.howto": "Sådan svarer du:\n - Indtast dit svar, og tryk på Enter\n - Skriv 'f' for at gå ind i multi-line mode\n - Skriv 'c' eller 'cancel' for at annullere\n",
+    "confirm.side_effecting_tool": "Tillad, at værktøjet med bivirkninger '%(tool)s' kører? Svar ja for at fortsætte eller nej for at annullere.",
+    "ui.all_yes": "- Skriv 'all' for at tillade dette værktøj resten af sessionen.\n"
   },
   "nn": {
     "err.active_uninitialized": "[human_ask error] human_ask_active tilbakeringinger initialiseres ikke.",
@@ -1137,6 +1211,8 @@
     "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilotmodus). Modellen må bestemme seg selv.",
     "msg.empty_request": "(Forespørselsmeldingen frå modellen er tom. Beskriv den naudsynte handlingen/beslutningen her.)",
     "param.is_password.description": "Hvis sant, skjul inndatategn (maske). Bruk dette når du ber om passord eller tokens.",
-    "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n"
+    "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n",
+    "confirm.side_effecting_tool": "Tillat at verktøyet med biverknader «%(tool)s» køyrer? Svar ja for å halde fram eller nei for å avbryte.",
+    "ui.all_yes": "- Skriv «all» for å tillate dette verktøyet resten av økta.\n"
   }
 }
