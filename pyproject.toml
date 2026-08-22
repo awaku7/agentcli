@@ -102,6 +102,10 @@ web = [
     "pydantic",
 ]
 test = [
+    # SDKs imported directly by provider and compatibility tests.
+    "httpx>=0.28.1",
+    "openai>=2.45.0",
+    "anthropic>=0.116.0",
     "pytest",
     "pdfplumber",
     "pint",
