@@ -499,6 +499,7 @@ IMAGE_ANALYSIS_PROVIDERS: list[tuple[str, str]] = [
     ("azure", "Azure OpenAI"),
     ("bedrock", "Bedrock OpenAI-compatible gateway"),
     ("openrouter", "OpenRouter"),
+    ("deepseek", "DeepSeek"),
 ]
 
 IMAGE_GENERATION_PROVIDERS: list[tuple[str, str]] = [

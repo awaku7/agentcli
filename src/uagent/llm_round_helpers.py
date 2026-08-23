@@ -45,7 +45,10 @@ from .providers.structured_output import (
     structured_output_request,
 )
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
-from .providers.llm_deepseek import deepseek_chat_with_tools
+from .providers.llm_deepseek import (
+    _normalize_chat_image_content,
+    deepseek_chat_with_tools,
+)
 from .providers.llm_pfn import pfn_chat_with_tools
 from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
 from .providers.llm_zai import zai_chat_with_tools
@@ -930,7 +933,7 @@ def _call_openai_azure_round(
 
                 chat_kwargs: dict[str, Any] = {
                     "model": depname,
-                    "messages": call_messages,
+                    "messages": _normalize_chat_image_content(call_messages),
                     "temperature": resolved_temp,
                 }
                 if provider == "llama_cpp":
@@ -1004,6 +1007,13 @@ def _call_openai_azure_round(
                 apply_openrouter_fallback_models(
                     chat_kwargs, provider=provider, depname=depname
                 )
+
+                # OpenAI/Azure Chat Completions require an explicit
+                # non-reasoning effort when function tools are used with
+                # models whose default reasoning mode is enabled.
+                if provider in ("openai", "azure") and send_tools_this_round:
+                    chat_kwargs.pop("reasoning", None)
+                    chat_kwargs["reasoning_effort"] = "none"
 
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)

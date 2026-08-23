@@ -217,7 +217,14 @@ def _image_generation_model_info() -> tuple[str, str] | None:
 
 def _image_analysis_model_info() -> tuple[str, str] | None:
     provider = _env_first(["UAGENT_IMG_ANALYSIS_PROVIDER", "UAGENT_PROVIDER"]).lower()
-    if provider not in {"openai", "azure", "gemini", "vertexai", "ollama"}:
+    if provider not in {
+        "openai",
+        "azure",
+        "gemini",
+        "vertexai",
+        "ollama",
+        "deepseek",
+    }:
         return None
 
     if provider == "ollama":
@@ -229,6 +236,8 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
     depname = _img_env(provider, "analysis", "depname", include_global=include_global)
     if provider in {"gemini", "vertexai"} and not depname:
         depname = "gemini-1.5-flash"
+    if provider == "deepseek" and not depname:
+        depname = "deepseek-v4-flash-vision-exp"
     if not depname:
         return None
 
@@ -241,6 +250,9 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
             return None
     elif provider == "openai":
         if not _img_env("openai", "analysis", "api_key", include_global=True):
+            return None
+    elif provider == "deepseek":
+        if not _img_env("deepseek", "analysis", "api_key"):
             return None
     elif provider == "gemini":
         if not (

@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import pytest
 
-from uagent.providers.llm_deepseek import _resolve_deepseek_effort
+from uagent.providers.llm_deepseek import (
+    _normalize_chat_image_content,
+    _resolve_deepseek_effort,
+)
 
 
 @pytest.mark.parametrize(
@@ -46,3 +49,23 @@ def test_resolve_deepseek_effort_maps(raw: str, expected: str) -> None:
 )
 def test_resolve_deepseek_effort_none(raw: str) -> None:
     assert _resolve_deepseek_effort(raw) is None
+
+
+def test_normalize_responses_image_for_chat_completions() -> None:
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "input_text", "text": "describe"},
+                {"type": "input_image", "image_url": "data:image/png;base64,abc"},
+            ],
+        }
+    ]
+
+    normalized = _normalize_chat_image_content(messages)
+
+    assert normalized[0]["content"][1] == {
+        "type": "image_url",
+        "image_url": {"url": "data:image/png;base64,abc"},
+    }
+    assert messages[0]["content"][1]["type"] == "input_image"

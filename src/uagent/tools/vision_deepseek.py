@@ -44,7 +44,7 @@ def _get_deepseek_client():
         )
 
     api_key = get_provider_api_key("deepseek") or get_provider_api_key("openai")
-    base_url = env_get("UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
+    base_url = env_get("UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com")
     if not api_key:
         raise RuntimeError(
             _(
@@ -58,7 +58,8 @@ def _get_deepseek_client():
 def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
     client = _get_deepseek_client()
     model = (
-        env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash") or "deepseek-v4-flash"
+        env_get("UAGENT_DEEPSEEK_IMG_ANALYSIS_DEPNAME", "deepseek-v4-flash-vision-exp")
+        or "deepseek-v4-flash-vision-exp"
     )
     text = (prompt or "").strip() or "Please describe this image in detail."
     data_url = _image_file_to_data_url(image_path)
@@ -80,21 +81,43 @@ def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
         except Exception:
             max_tokens = 1024
 
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": text},
-                        {"type": "image_url", "image_url": {"url": data_url}},
-                    ],
-                }
-            ],
-            max_tokens=max_tokens,
-            temperature=0.0,
+        use_responses = (env_get("UAGENT_RESPONSES") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
         )
-        content = resp.choices[0].message.content if resp.choices else ""
+        if use_responses:
+            resp = client.responses.create(
+                model=model,
+                input=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "input_text", "text": text},
+                            {"type": "input_image", "image_url": data_url},
+                        ],
+                    }
+                ],
+                max_output_tokens=max_tokens,
+            )
+            content = getattr(resp, "output_text", "") or ""
+        else:
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": text},
+                            {"type": "image_url", "image_url": {"url": data_url}},
+                        ],
+                    }
+                ],
+                max_tokens=max_tokens,
+                temperature=0.0,
+            )
+            content = resp.choices[0].message.content if resp.choices else ""
         return (content or "").strip() or _(
             "warn.empty", default="[WARN] empty response"
         )
@@ -108,7 +131,7 @@ def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
                         "The configured DeepSeek endpoint does not support image input. "
                         "To use DeepSeek vision, set UAGENT_DEEPSEEK_BASE_URL to a vision-capable endpoint "
                         "(e.g., a provider that supports vision models) and UAGENT_DEEPSEEK_DEPNAME to the model name. "
-                        "Current models available: deepseek-v4-flash, deepseek-v4-pro (text-only)."
+                        "The default vision model is deepseek-v4-flash-vision-exp."
                     ),
                 },
                 ensure_ascii=False,

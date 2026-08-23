@@ -119,6 +119,41 @@ def _provider_label(provider: str) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _normalize_chat_image_content(
+    messages: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Convert Responses-style input_image parts for Chat Completions.
+
+    The same local message can reach the Chat Completions fallback after it
+    was initially built for the Responses API. DeepSeek Chat Completions
+    accepts ``image_url`` parts, not ``input_image`` parts.
+    """
+    out: list[dict[str, Any]] = []
+    for message in messages:
+        if not isinstance(message, dict):
+            out.append(message)
+            continue
+        copied = dict(message)
+        content = copied.get("content")
+        if isinstance(content, list):
+            parts: list[Any] = []
+            for part in content:
+                if isinstance(part, dict) and part.get("type") == "input_image":
+                    image_url = part.get("image_url")
+                    if isinstance(image_url, str) and image_url:
+                        parts.append(
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": image_url},
+                            }
+                        )
+                        continue
+                parts.append(part)
+            copied["content"] = parts
+        out.append(copied)
+    return out
+
+
 def extract_reasoning_content(msg: Any) -> str:
     """Pull reasoning_content out of an OpenAI SDK message object or dict."""
     # SDK object attribute
@@ -183,7 +218,7 @@ def build_deepseek_chat_kwargs(
 
     chat_kwargs: dict[str, Any] = {
         "model": depname,
-        "messages": clean_messages,
+        "messages": _normalize_chat_image_content(clean_messages),
     }
 
     if send_tools and req_tools:
