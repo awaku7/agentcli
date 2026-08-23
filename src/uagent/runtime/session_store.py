@@ -29,7 +29,9 @@ class Session:
 
 
 _SECRET_PATTERNS = (
-    re.compile(r"(?i)(\b(?:token|password|passwd|api[_-]?key|secret)\s*[:=]\s*)([^\s,;]+)"),
+    re.compile(
+        r"(?i)(\b(?:token|password|passwd|api[_-]?key|secret)\s*[:=]\s*)([^\s,;]+)"
+    ),
     re.compile(r"(?i)(\bCookie\s*:\s*)([^\r\n]+)"),
     re.compile(r"\bsk-[A-Za-z0-9_-]+\b"),
 )
@@ -115,8 +117,7 @@ class SessionStore:
 
     def _initialize(self) -> None:
         try:
-            self._connection.executescript(
-                """
+            self._connection.executescript("""
                 CREATE TABLE IF NOT EXISTS sessions (
                     session_id TEXT PRIMARY KEY,
                     project TEXT,
@@ -149,8 +150,7 @@ class SessionStore:
                     summary TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
-                """
-            )
+                """)
             columns = {
                 row["name"]
                 for row in self._connection.execute("PRAGMA table_info(sessions)")
@@ -164,7 +164,9 @@ class SessionStore:
                     "ALTER TABLE sessions ADD COLUMN project_path TEXT"
                 )
         except sqlite3.Error as exc:
-            raise SessionStoreError(f"could not initialize session store: {exc}") from exc
+            raise SessionStoreError(
+                f"could not initialize session store: {exc}"
+            ) from exc
 
     def _execute(self, sql: str, parameters: tuple[Any, ...] = ()) -> sqlite3.Cursor:
         try:
@@ -188,7 +190,9 @@ class SessionStore:
     ) -> Session:
         session_id = uuid.uuid4().hex
         path_value = str(project_path) if project_path is not None else None
-        identity = os.path.normcase(os.path.abspath(path_value or project or "workspace"))
+        identity = os.path.normcase(
+            os.path.abspath(path_value or project or "workspace")
+        )
         project_key = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
         self._execute(
             "INSERT INTO sessions(session_id, project, project_key, project_path, entry_point) VALUES (?, ?, ?, ?, ?)",
@@ -297,7 +301,11 @@ class SessionStore:
         for row in rows:
             content = str(row["content"])
             marker = next(
-                (prefix for prefix in ("remember:", "記憶:") if content.lower().startswith(prefix)),
+                (
+                    prefix
+                    for prefix in ("remember:", "記憶:")
+                    if content.lower().startswith(prefix)
+                ),
                 None,
             )
             if marker:
@@ -306,7 +314,9 @@ class SessionStore:
                     candidates.append(value)
         return candidates
 
-    def search(self, query: str, *, project: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    def search(
+        self, query: str, *, project: str | None = None, limit: int = 20
+    ) -> list[dict[str, Any]]:
         if not query.strip():
             return []
         parameters: list[Any] = [query, max(1, limit)]

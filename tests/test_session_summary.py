@@ -10,7 +10,10 @@ def test_session_summary_is_persisted_and_reopened(tmp_path):
     store.save_session_summary(session.session_id, "Implemented session search.")
 
     reopened = SessionStore(db_path)
-    assert reopened.get_session_summary(session.session_id) == "Implemented session search."
+    assert (
+        reopened.get_session_summary(session.session_id)
+        == "Implemented session search."
+    )
 
 
 def test_memory_candidates_require_explicit_marker_and_are_not_saved(tmp_path):

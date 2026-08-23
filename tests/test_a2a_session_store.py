@@ -11,6 +11,7 @@ from uagent.runtime.session_store import (
 def test_detach_closes_store_and_restores_log_callback(monkeypatch, tmp_path):
     monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+
     def original(message):
         del message
 

@@ -17,9 +17,7 @@ class Permission(IntEnum):
     ADMIN = 4
 
     @classmethod
-    def assert_child_allowed(
-        cls, parent: "Permission", child: "Permission"
-    ) -> None:
+    def assert_child_allowed(cls, parent: "Permission", child: "Permission") -> None:
         if child > parent:
             raise ValueError(
                 f"child permission {child.name} exceeds parent {parent.name}"
@@ -68,7 +66,11 @@ class UnifiedPolicy:
             )
         runtime = evaluate_tool(tool_name, args, self.permission)
         if runtime is PolicyDecision.DENY or enterprise.requires_confirmation:
-            return PolicyDecision.DENY if runtime is PolicyDecision.DENY else PolicyDecision.CONFIRM
+            return (
+                PolicyDecision.DENY
+                if runtime is PolicyDecision.DENY
+                else PolicyDecision.CONFIRM
+            )
         return runtime
 
 
