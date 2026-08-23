@@ -1,5 +1,18 @@
 # 変更履歴
 
+## [0.6.7] - 2026-08-23
+
+### 追加
+
+- feat: 構造化履歴、検索、ツール監査、要約、確認済みメモ候補に対応するオプトインSQLite Session Storeを追加
+- feat: 実行権限レベルと企業YAMLルールを統合するUnifiedPolicyを追加
+- feat: CLI、GUI、Web、A2Aの各エントリーポイントへSession Storeを統合
+- docs: Session Store、統合Policy、多言語READMEの利用方法を文書化
+
+### 変更
+
+- refactor: エントリーポイント間のSession Store接続・クリーンアップを共通化
+
 ## [0.6.6] - 2026-08-22
 
 ### 追加

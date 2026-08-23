@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.7] - 2026-08-23
+
+### Added
+
+- feat: add opt-in SQLite Session Store for structured history, search, tool-call auditing, summaries, and reviewed memory candidates
+- feat: add UnifiedPolicy combining runtime permission levels with enterprise YAML policy rules
+- feat: integrate Session Store across CLI, GUI, Web, and A2A entry points
+- docs: document Session Store, unified policy, and multilingual README usage
+
+### Changed
+
+- refactor: centralize Session Store attachment and cleanup across entry points
+
 ## [0.6.6] - 2026-08-22
 
 ### Added
