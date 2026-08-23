@@ -415,3 +415,19 @@ Bug report, feature idea, documentation improvement, translation, tool, skill �
 ## License
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
+
+## সেশন স্টোর ও ইউনিফায়েড পলিসি
+
+ঐচ্ছিক Session Store বিদ্যমান JSONL লগ অক্ষুণ্ণ রেখে সেশন অনুসন্ধান ও টুল অডিটের জন্য কাঠামোবদ্ধ SQLite ইতিহাস যোগ করে। নিচের কমান্ড দিয়ে ইতিহাস অনুসন্ধান ও মেমরি প্রার্থী পর্যালোচনা করুন।
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

@@ -416,3 +416,19 @@ python -m pytest -q .
 ## ใบอนุญาต
 
 เผยแพร่ภายใต้ [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)
+
+## ที่เก็บเซสชันและนโยบายแบบรวม
+
+Session Store แบบเลือกใช้จะเพิ่มประวัติ SQLite ที่มีโครงสร้างสำหรับค้นหาเซสชันและตรวจสอบเครื่องมือ โดยยังคงบันทึก JSONL เดิมไว้ ใช้คำสั่งต่อไปนี้เพื่อค้นหาและตรวจสอบรายการหน่วยความจำที่เสนอ
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

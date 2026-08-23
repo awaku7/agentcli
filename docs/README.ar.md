@@ -416,3 +416,19 @@ python -m pytest -q .
 ## الترخيص
 
 مرخّص بموجب [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## تخزين الجلسات والسياسة الموحدة
+
+يضيف Session Store الاختياري سجلًا منظمًا بصيغة SQLite للبحث في الجلسات وتدقيق الأدوات، مع الحفاظ على سجلات JSONL الحالية. استخدم الأوامر التالية للبحث ومراجعة مرشحي الذاكرة.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

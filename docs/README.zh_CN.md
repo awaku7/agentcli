@@ -390,3 +390,19 @@ python -m pytest -q .
 ## 许可证
 
 基于 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) 授权。
+
+## 会话存储与统一策略
+
+可选的 Session Store 会在保留现有 JSONL 日志的同时，为会话搜索和工具审计添加结构化 SQLite 历史记录。使用以下命令搜索历史并查看记忆候选项。
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

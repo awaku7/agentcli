@@ -387,3 +387,19 @@ Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçla
 ## Lisans
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) kapsamında lisanslanmıştır.
+
+## Oturum deposu ve birleşik politika
+
+İsteğe bağlı Session Store, mevcut JSONL günlüklerini koruyarak oturum arama ve araç denetimi için yapılandırılmış SQLite geçmişi ekler. Arama yapmak ve bellek adaylarını incelemek için aşağıdaki komutları kullanın.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

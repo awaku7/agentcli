@@ -417,3 +417,19 @@ und führe die obigen Prüfungen aus, bevor du einen Pull Request einreichst.
 ## Lizenz
 
 Lizenziert unter der [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Session Store und einheitliche Richtlinie
+
+Der optionale Session Store ergänzt eine strukturierte SQLite-Historie für Sitzungssuche und Tool-Audits, während die vorhandenen JSONL-Protokolle erhalten bleiben. Verwenden Sie die folgenden Befehle zur Suche und Prüfung von Speicherkandidaten.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

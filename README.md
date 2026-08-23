@@ -118,6 +118,17 @@ pool (`UAGENT_PARALLEL_WORKERS`). Write operations remain serialized or require 
 Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling, and
 multi-agent orchestration make complex work resumable instead of one-shot.
 
+The opt-in Session Store adds structured SQLite history for session search and tool auditing while
+leaving the existing JSONL logs unchanged:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+```
+
+Use `:sessions search <query>` to search history, or `:sessions candidates` and
+`:sessions approve <number>` to review explicit memory candidates.
+
 ### 🎙 Realtime voice
 
 Full-duplex voice is available through OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live,

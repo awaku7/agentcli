@@ -417,3 +417,19 @@ python -m pytest -q .
 ## Ліцензія
 
 Ліцензовано за умовами [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Сховище сеансів і єдина політика
+
+Необов’язкове Session Store додає структуровану історію SQLite для пошуку сеансів і аудиту інструментів, зберігаючи наявні журнали JSONL. Використовуйте наведені команди для пошуку та перевірки кандидатів у пам’ять.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

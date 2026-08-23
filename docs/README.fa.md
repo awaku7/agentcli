@@ -414,3 +414,19 @@ python -m pytest -q .
 ## مجوز
 
 این پروژه تحت [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) منتشر می‌شود.
+
+## ذخیره‌ساز نشست و سیاست یکپارچه
+
+Session Store اختیاری، بدون حذف گزارش‌های JSONL موجود، تاریخچه ساختاریافته SQLite را برای جست‌وجوی نشست‌ها و ممیزی ابزارها اضافه می‌کند. برای جست‌وجو و بررسی نامزدهای حافظه از فرمان‌های زیر استفاده کنید.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

@@ -411,3 +411,19 @@ python -m pytest -q .
 ## 授權條款
 
 本專案採用 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) 授權。
+
+## 工作階段儲存與統一政策
+
+選用的 Session Store 會保留現有 JSONL 記錄，並為工作階段搜尋與工具稽核新增結構化 SQLite 歷史記錄。使用以下指令搜尋歷史並檢視記憶候選項。
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+```
+
+`:sessions search <query>`
+`:sessions candidates`
+`:sessions approve <number>`
+
+詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
