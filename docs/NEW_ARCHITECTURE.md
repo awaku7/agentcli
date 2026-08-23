@@ -10,10 +10,10 @@
 
 ```env
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 ```
 
-`UAGENT_SESSION_STORE` が未設定、または `0`/`false` の場合は無効である。保存先未指定時は `.uagent/sessions.sqlite3` を使用する。
+`UAGENT_SESSION_STORE` が未設定、または `0`/`false` の場合は無効である。保存先未指定時は `.uag/sessions.sqlite3` を使用する。
 
 1. 既存機能を統合する
 1. 権限と安全性を一貫させる

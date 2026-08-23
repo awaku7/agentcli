@@ -22,7 +22,7 @@ Session history can additionally be stored in SQLite for structured search and t
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 ```
 
 The CLI stores user, assistant, and tool messages, tool-call metadata, and session summaries. The project display name is the workspace directory name (for example, `F:\KAIHATSU\agentcli` becomes `agentcli`), while a hashed project key and original path distinguish same-named workspaces. Credentials, tokens, cookies, and common API-key formats are redacted before persistence.

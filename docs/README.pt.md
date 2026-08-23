@@ -424,7 +424,7 @@ O Session Store opcional adiciona um histórico SQLite estruturado para pesquisa
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 ```
 

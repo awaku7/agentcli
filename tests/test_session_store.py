@@ -31,6 +31,38 @@ def test_env_opt_in_uses_configured_path(monkeypatch, tmp_path):
     assert store.get_session(session.session_id)["session_id"] == session.session_id
 
 
+def test_legacy_default_store_is_moved_to_uag(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    legacy = SessionStore(tmp_path / ".uagent" / "sessions.sqlite3")
+    session = legacy.create_session(project="legacy", entry_point="test")
+    legacy.close()
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.delenv("UAGENT_SESSION_STORE_PATH", raising=False)
+
+    store = SessionStore.from_environment()
+    assert store is not None
+    assert (tmp_path / ".uag" / "sessions.sqlite3").exists()
+    assert not (tmp_path / ".uagent" / "sessions.sqlite3").exists()
+    assert store.get_session(session.session_id)["project"] == "legacy"
+    store.close()
+
+
+def test_current_default_store_wins_and_legacy_is_removed(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    legacy = SessionStore(tmp_path / ".uagent" / "sessions.sqlite3")
+    legacy.close()
+    current = SessionStore(tmp_path / ".uag" / "sessions.sqlite3")
+    current.close()
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.delenv("UAGENT_SESSION_STORE_PATH", raising=False)
+
+    store = SessionStore.from_environment()
+    assert store is not None
+    assert not (tmp_path / ".uagent" / "sessions.sqlite3").exists()
+    assert (tmp_path / ".uag" / "sessions.sqlite3").exists()
+    store.close()
+
+
 def test_project_id_uses_workspace_directory_name():
     assert project_id_from_path(r"F:\KAIHATSU\agentcli") == "agentcli"
     assert project_id_from_path("/work/demo") == "demo"

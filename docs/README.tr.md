@@ -394,7 +394,7 @@ Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçla
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 ```
 

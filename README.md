@@ -123,7 +123,7 @@ leaving the existing JSONL logs unchanged:
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 ```
 
 Use `:sessions search <query>` to search history, or `:sessions candidates` and

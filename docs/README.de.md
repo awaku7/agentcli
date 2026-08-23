@@ -424,7 +424,7 @@ Der optionale Session Store ergänzt eine strukturierte SQLite-Historie für Sit
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 ```
 

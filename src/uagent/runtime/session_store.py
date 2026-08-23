@@ -72,6 +72,43 @@ def redact_sensitive(text: str) -> str:
     return _SECRET_PATTERNS[2].sub("[REDACTED]", result)
 
 
+def _migrate_legacy_session_store(path: Path) -> None:
+    """Move the legacy default store to the current ``.uag`` location."""
+    current = Path(".uag/sessions.sqlite3").absolute()
+    if path.absolute() != current:
+        return
+
+    legacy = Path(".uagent/sessions.sqlite3")
+    if not legacy.exists():
+        _remove_empty_legacy_dir(legacy)
+        return
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        # The current database wins when both locations exist.
+        legacy.unlink()
+        for suffix in ("-wal", "-shm"):
+            legacy.with_name(legacy.name + suffix).unlink(missing_ok=True)
+        _remove_empty_legacy_dir(legacy)
+        return
+
+    os.replace(legacy, path)
+    # Keep SQLite sidecar files together with the database when present.
+    for suffix in ("-wal", "-shm"):
+        old_sidecar = legacy.with_name(legacy.name + suffix)
+        if old_sidecar.exists():
+            os.replace(old_sidecar, path.with_name(path.name + suffix))
+    _remove_empty_legacy_dir(legacy)
+
+
+def _remove_empty_legacy_dir(legacy: Path) -> None:
+    """Remove the legacy directory when migration left it empty."""
+    try:
+        legacy.parent.rmdir()
+    except OSError:
+        pass
+
+
 class SessionStore:
     """Small repository for durable session data.
 
@@ -100,11 +137,18 @@ class SessionStore:
         if enabled not in {"1", "true", "yes", "on"}:
             return None
         path = os.environ.get(
-            "UAGENT_SESSION_STORE_PATH", ".uagent/sessions.sqlite3"
+            "UAGENT_SESSION_STORE_PATH", ".uag/sessions.sqlite3"
         ).strip()
         if not path:
-            path = ".uagent/sessions.sqlite3"
-        return cls(path)
+            path = ".uag/sessions.sqlite3"
+        store_path = Path(path)
+        try:
+            _migrate_legacy_session_store(store_path)
+        except OSError as exc:
+            raise SessionStoreError(
+                f"could not migrate legacy session store: {exc}"
+            ) from exc
+        return cls(store_path)
 
     def close(self) -> None:
         self._connection.close()

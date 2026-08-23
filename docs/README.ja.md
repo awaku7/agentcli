@@ -296,7 +296,7 @@ Session Storeを有効にすると、従来のJSONLログを残したままSQLit
 
 ```env
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 ```
 
 検索とメモリ候補の承認は次で行います。
@@ -436,7 +436,7 @@ python -m pytest -q .
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 ```
 
