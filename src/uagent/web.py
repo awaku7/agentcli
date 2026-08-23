@@ -2679,6 +2679,16 @@ def main():
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
         _runtime_init.reload_dotenv_custom()
+        try:
+            from .runtime.session_store import attach_opt_in_session_store
+
+            attach_opt_in_session_store(
+                core,
+                project_path=decision.chosen_expanded,
+                entry_point="web",
+            )
+        except Exception as exc:
+            print("[WARN] Session store unavailable: " + str(exc), file=sys.stderr)
         if getattr(web_args, "computer_use", None) is not None:
             os.environ["UAGENT_COMPUTER_USE"] = "1" if web_args.computer_use else "0"
         # Fail-fast env validation (aggregate missing vars)
