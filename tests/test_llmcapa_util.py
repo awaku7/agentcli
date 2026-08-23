@@ -236,6 +236,25 @@ class TestProviderAllowsChatVision:
             is True
         )
 
+        # DeepSeek exposes vision through standard Chat Completions image_url
+        # blocks, but only its dedicated vision model accepts images.
+        assert (
+            provider_allows_chat_vision(
+                "deepseek",
+                model_id="deepseek-v4-flash-vision-exp",
+                use_responses_api=False,
+            )
+            is True
+        )
+        assert (
+            provider_allows_chat_vision(
+                "deepseek",
+                model_id="deepseek-v4-flash",
+                use_responses_api=False,
+            )
+            is False
+        )
+
 
 class TestResponsesAndFimGates:
     def test_openai_responses_provider_allowed(self) -> None:

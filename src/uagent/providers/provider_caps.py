@@ -62,6 +62,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
 # - grok: `build_xai_messages` (`input_image` / `image_url`)
 # - claude: Anthropic `image` base64 blocks from `image_url` data URLs
 # - gemini/vertexai: `attachments` → Gemini image Parts
+# - deepseek: DeepSeek Chat Completions `image_url` parts (vision model only)
 #
 # Responses-only providers (bedrock, alibaba, ollama, lmstudio, sakana, …)
 # remain gated by UAGENT_RESPONSES + RESPONSES_PROVIDERS at the call site.
@@ -73,6 +74,7 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
     "claude": "image_url",
     "gemini": "attachments",
     "vertexai": "attachments",
+    "deepseek": "image_url",
     "llama_cpp": "image_url",
 }
 
