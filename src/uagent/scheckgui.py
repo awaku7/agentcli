@@ -3054,6 +3054,16 @@ def main():
     )
     _runtime_init.apply_workdir(decision)
     _runtime_init.reload_dotenv_custom()
+    try:
+        from .runtime.session_store import attach_opt_in_session_store
+
+        attach_opt_in_session_store(
+            core,
+            project_path=decision.chosen_expanded,
+            entry_point="gui",
+        )
+    except Exception as exc:
+        print("[WARN] Session store unavailable: " + str(exc), file=sys.stderr)
     if getattr(args, "computer_use", None) is not None:
         os.environ["UAGENT_COMPUTER_USE"] = "1" if args.computer_use else "0"
 

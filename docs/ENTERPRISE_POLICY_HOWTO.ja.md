@@ -2,6 +2,15 @@
 
 ## 概要
 
+uagのポリシー設定は、実行権限と企業固有ルールを `UnifiedPolicy` が一つにまとめて判定します。通常は `UAGENT_POLICY_FILE` のYAMLだけを管理してください。`UAGENT_POLICY_LEVEL` は開発時の一時的な権限制限に使います。
+
+権限レベルの例:
+
+```text
+none / read_only / propose_only / write / admin
+```
+
+
 `enterprise-policy.yaml` は、uagで使用するツールやプロバイダーなどの動作を制御する設定ファイルです。
 
 ツールについて、次の動作を指定できます。

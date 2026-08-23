@@ -14,6 +14,8 @@ class CliStartupState:
     depname: str
     banner: str
     messages: list[dict[str, Any]]
+    session_store: Any = None
+    session_id: str | None = None
     should_exit: bool = False
 
 
@@ -118,6 +120,8 @@ def run_cli_startup(
     ).strip().lower() in {"1", "true", "yes", "on"}
     startup_timing_started = time.perf_counter()
     startup_timing_marks: dict[str, float] = {}
+    session_store = None
+    session_id = None
 
     def _startup_timing_mark(name: str) -> None:
         if startup_timing_enabled:
@@ -204,6 +208,26 @@ def run_cli_startup(
                 sys.exit(1)
 
             _startup_timing_mark("workdir")
+
+            # Session persistence is deliberately opt-in during rollout.
+            try:
+                from .runtime.session_store import attach_opt_in_session_store
+
+                session_store, session_id = attach_opt_in_session_store(
+                    core,
+                    project_path=decision.chosen_expanded,
+                    entry_point="cli",
+                )
+                if session_store is not None:
+                    print("[INFO] Session store enabled.")
+            except Exception as e:
+                session_store = None
+                session_id = None
+                print(
+                    "[WARN] Session store disabled after initialization failure: "
+                    + str(e),
+                    file=sys.stderr,
+                )
 
             try:
                 _timing_started = time.perf_counter()
@@ -452,6 +476,8 @@ def run_cli_startup(
             depname=depname,
             banner=banner,
             messages=messages,
+            session_store=session_store,
+            session_id=session_id,
             should_exit=True,
         )
 
@@ -463,5 +489,7 @@ def run_cli_startup(
         depname=depname,
         banner=banner,
         messages=messages,
+        session_store=session_store,
+        session_id=session_id,
         should_exit=False,
     )

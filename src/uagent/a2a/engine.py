@@ -28,8 +28,15 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
     from .. import util_providers as providers
     from .. import util_tools as tools_util
     from ..util_tools import build_initial_messages, image_file_to_data_url
+    from ..runtime.session_store import (
+        attach_opt_in_session_store,
+        detach_opt_in_session_store,
+    )
 
     provider, client, depname = providers.make_client(core)
+    attached_store, _session_id = attach_opt_in_session_store(
+        core, project_path=os.getcwd(), entry_point="a2a"
+    )
 
     messages = build_initial_messages(core=core)
     user_msg: dict[str, Any] = {"role": "user", "content": user_text}
@@ -42,16 +49,20 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
     start_idx = len(messages)
 
     # Execute one round (same as CLI/web usage)
-    llm_util.run_llm_rounds(
-        provider,
-        client,
-        depname,
-        messages,
-        core=core,
-        make_client_fn=providers.make_client,
-        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-    )
+    try:
+        llm_util.run_llm_rounds(
+            provider,
+            client,
+            depname,
+            messages,
+            core=core,
+            make_client_fn=providers.make_client,
+            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+        )
+    finally:
+        if attached_store is not None:
+            detach_opt_in_session_store(core)
 
     def _collect_attachments() -> list[dict[str, Any]]:
         attachments: list[dict[str, Any]] = []

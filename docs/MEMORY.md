@@ -16,6 +16,19 @@ ______________________________________________________________________
 
 ## 2. Long-term & Shared Memory
 
+### Session Store (opt-in)
+
+Session history can additionally be stored in SQLite for structured search and tool auditing. This is additive; the existing JSONL logs remain unchanged.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+```
+
+The CLI stores user, assistant, and tool messages, tool-call metadata, and session summaries. The project display name is the workspace directory name (for example, `F:\KAIHATSU\agentcli` becomes `agentcli`), while a hashed project key and original path distinguish same-named workspaces. Credentials, tokens, cookies, and common API-key formats are redacted before persistence.
+
+Session memory candidates are extracted only from explicit `remember:` or `記憶:` markers. They are not written to long-term memory unless explicitly approved.
+
 ### Mechanism
 
 - **Long-term Memory** is used to store stable, persistent facts (e.g., "The user prefers Python for scripting").

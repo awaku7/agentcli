@@ -2,6 +2,19 @@
 
 `uag` uses environment variables to manage LLM provider credentials and control agent behavior. These variables are typically stored in a `.env` file in your current working directory.
 
+## Session Store and unified policy
+
+The opt-in Session Store adds SQLite history for structured search and tool auditing; existing JSONL logs remain unchanged.
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+UAGENT_POLICY_LEVEL=read_only
+```
+
+Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
+
 ## Setup Wizard
 
 The easiest way to configure your environment is by running the interactive setup wizard:

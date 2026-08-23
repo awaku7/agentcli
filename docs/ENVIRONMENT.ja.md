@@ -2,6 +2,19 @@
 
 `uag` は環境変数を使用して、LLMプロバイダの認証情報やエージェントの動作を制御します。これらの変数は通常、カレントディレクトリの `.env` ファイルに保存されます。
 
+## Session Store / 統合Policy
+
+Session Storeは既存ログに追加する検索用SQLite履歴です。既定では無効です。
+
+```env
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
+UAGENT_POLICY_LEVEL=read_only
+```
+
+通常は `UAGENT_POLICY_FILE` の企業YAMLだけを設定します。`UAGENT_POLICY_LEVEL` は開発時の簡易制限です。
+
 ## セットアップウィザード
 
 最も簡単に設定を行うには、以下のコマンドを実行して対話型セットアップウィザードを起動してください：

@@ -1898,30 +1898,14 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     tool_call_id = str(uuid4())
     policy = get_tool_policy(name, args)
     try:
-        from .enterprise_policy import get_enterprise_policy
+        from ..runtime.policy_engine import PolicyDecision, UnifiedPolicy
 
-        enterprise = get_enterprise_policy().decide(name, args)
-        if enterprise.denied:
-            from ..runtime.logging_setup import log_event
-
-            log_event(
-                "policy.denied",
-                tool=name,
-                tool_call_id=tool_call_id,
-                reason=enterprise.reason,
-                status="denied",
-            )
-            return f"[tool policy] enterprise policy denied: {enterprise.reason}"
-        if enterprise.requires_confirmation:
-            from ..runtime.logging_setup import log_event
-
-            log_event(
-                "policy.confirmation_required",
-                tool=name,
-                tool_call_id=tool_call_id,
-                reason=enterprise.reason,
-                status="pending",
-            )
+        unified_decision = UnifiedPolicy.from_environment().decide(name, args)
+        if unified_decision is PolicyDecision.DENY:
+            return "[tool policy] denied by configured policy"
+        if unified_decision is PolicyDecision.CONFIRM:
+            if _CONFIRMATION_CALLBACK is None:
+                return "[tool policy] confirmation unavailable"
             policy = policy.__class__(
                 side_effect=policy.side_effect,
                 parallel_safe=policy.parallel_safe,
@@ -1929,7 +1913,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                 requires_confirmation=True,
             )
     except Exception as exc:
-        return f"[tool policy] enterprise policy error: {type(exc).__name__}: {exc}"
+        return f"[tool policy] unified policy error: {type(exc).__name__}: {exc}"
     try:
         from ..runtime.logging_setup import log_event
 

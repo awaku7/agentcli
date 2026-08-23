@@ -124,6 +124,7 @@ from .util_cmd_credentials import handle_credential_command
 from .util_cmd_responses import _handle_cmd_response
 from .util_cmd_session import (
     _handle_cmd_skills,
+    _handle_cmd_sessions,
     _default_clean_threshold,
     _count_user_turns,
     _parse_clean_threshold,
@@ -251,6 +252,9 @@ def handle_command(
 
     if cmd == "skills":
         return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
+
+    if cmd in {"sessions", "session"}:
+        return _handle_cmd_sessions(arg, core=core, tr=tr)
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)

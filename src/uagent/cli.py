@@ -1675,6 +1675,7 @@ def main() -> None:
     client = startup.client
     depname = startup.depname
     messages = startup.messages
+    session_store = startup.session_store
     _bootstrap_prompt_history(messages)
 
     if startup.should_exit:
@@ -1992,6 +1993,11 @@ def main() -> None:
             except Exception:
                 pass
 
+        if session_store is not None:
+            try:
+                session_store.close()
+            except Exception:
+                pass
         core.set_status(False, "")
         print(_("Exited uag."))
 

@@ -2,6 +2,16 @@
 
 uag can apply organization-level rules to tools, providers, credentials, MCP servers, networks, skills, and plugins.
 
+## Unified policy model
+
+The public policy entry point is `UnifiedPolicy`. It combines the process permission level, the existing side-effect policy, and the enterprise YAML rules. Operators normally need to configure only `UAGENT_POLICY_FILE`; `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
+
+```text
+UAGENT_POLICY_LEVEL=read_only
+```
+
+Available levels are `none`, `read_only`, `propose_only`, `write`, and `admin`. A stricter runtime permission cannot be relaxed by YAML. Enterprise `deny` rules always win, while `confirm` rules require the normal confirmation callback.
+
 ## Enable a policy
 
 Set `UAGENT_POLICY_FILE` to a JSON or YAML policy file:

@@ -292,6 +292,21 @@ python -m pip install PySide6 ewmh dbus-next
 
 `:load <index>`で以前の会話を再開できます。ツール結果はキャッシュでき、アプリケーションを再構築せずにプロバイダーを変更できます。
 
+Session Storeを有効にすると、従来のJSONLログを残したままSQLiteにも構造化保存できます。
+
+```env
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_STORE_PATH=.uagent/sessions.sqlite3
+```
+
+検索とメモリ候補の承認は次で行います。
+
+```text
+:sessions search <query>
+:sessions candidates
+:sessions approve <number>
+```
+
 ### オートパイロット
 
 任意のレビュアーモデルを使った複数ラウンドの作業には`:auto`を使用します。`--max-rounds N`でラウンド上限を設定できます。

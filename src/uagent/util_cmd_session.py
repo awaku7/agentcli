@@ -723,6 +723,72 @@ def _prepend_loaded_log_to_current(
         return
 
 
+def _handle_cmd_sessions(arg: str, *, core: Any, tr: Any) -> bool:
+    """Search opt-in SQLite session history from the CLI."""
+    parts = (arg or "").strip().split()
+    command = parts[0].lower() if parts else ""
+    store = getattr(core, "session_store", None)
+    session_id = getattr(core, "session_id", None)
+    if command == "candidates":
+        if store is None or not session_id:
+            print("[sessions] Session store is not enabled.")
+            return True
+        candidates = store.list_memory_candidates(session_id)
+        if not candidates:
+            print("[sessions] No memory candidates.")
+            return True
+        print("[sessions] Memory candidates:")
+        for index, candidate in enumerate(candidates, start=1):
+            print(f"[{index}] {candidate}")
+        return True
+    if command == "approve":
+        if store is None or not session_id:
+            print("[sessions] Session store is not enabled.")
+            return True
+        try:
+            index = int(parts[1]) - 1
+            candidate = store.list_memory_candidates(session_id)[index]
+        except (ValueError, IndexError):
+            print("[sessions] Usage: :sessions approve <number>")
+            return True
+        personal_long_memory.append_long_memory(candidate)
+        print("[sessions] Memory candidate approved.")
+        return True
+    if command != "search":
+        print(":sessions search <query> | candidates | approve <number>")
+        return True
+    query_parts = parts[1:]
+    project = None
+    if "--project" in query_parts:
+        index = query_parts.index("--project")
+        if index + 1 < len(query_parts):
+            project = query_parts[index + 1]
+            del query_parts[index : index + 2]
+    query = " ".join(query_parts).strip()
+    store = getattr(core, "session_store", None)
+    if store is None:
+        print("[sessions] Session store is not enabled.")
+        return True
+    if not query:
+        print(":sessions search <query>")
+        return True
+    try:
+        results = store.search(query, project=project)
+    except Exception as exc:
+        print("[sessions] Search failed: " + str(exc))
+        return True
+    if not results:
+        print("[sessions] No matching sessions.")
+        return True
+    print("[sessions] Matches: " + str(len(results)))
+    for row in results:
+        print(
+            f"{row['session_id']} | {row.get('project') or '-'} | "
+            f"{row['role']}: {row['content']}"
+        )
+    return True
+
+
 def _handle_cmd_load(
     arg: str,
     messages_ref: list[dict[str, Any]],
