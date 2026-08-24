@@ -4942,3 +4942,71 @@ msgid ""
 msgstr ""
 "Vil du la bivirkningsverktøyet '%(tool)s' kjøre? Svar ja for å fortsette "
 "eller nei for å avbryte."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Sesjonslageret er ikke aktivert."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Bruk: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep må være et ikke-negativt heltall."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Ryddingsplan: behold de nyeste %(keep)d, kandidater=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d meldinger"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Prøvekjøring; ingenting ble slettet. Legg til --yes for å slette "
+"disse øktene."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Kunne ikke slette %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM mislyktes: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Ryddet %(deleted)d av %(total)d økter."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Sesjonslageret eller LLM er ikke aktivert."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Oppsummerer %(count)d økt(er)..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  hoppet over"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  hoppet over (for kort)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  lagret"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  mislyktes: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Fullført: %(done)d oppsummert, %(skipped)d hoppet over, "
+"%(failed)d mislyktes"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Ingen minnekandidater."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Minnekandidater:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Bruk: :sessions approve <nummer>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Minnekandidat godkjent."
