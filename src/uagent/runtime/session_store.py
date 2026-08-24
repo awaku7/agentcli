@@ -418,6 +418,32 @@ class SessionStore:
         except sqlite3.Error as exc:
             raise SessionStoreError(f"could not vacuum session store: {exc}") from exc
 
+    def replace_messages(
+        self, session_id: str, messages: list[dict[str, Any]]
+    ) -> None:
+        """Replace a session's message history while preserving its identity."""
+        self._require_session(session_id)
+        try:
+            self._connection.execute("BEGIN")
+            self._execute("DELETE FROM message_search WHERE session_id = ?", (session_id,))
+            self._execute("DELETE FROM messages WHERE session_id = ?", (session_id,))
+            self._connection.execute("COMMIT")
+            for message in messages:
+                if not isinstance(message, dict):
+                    continue
+                role = str(message.get("role") or "")
+                if role not in {"system", "user", "assistant", "tool"}:
+                    continue
+                self.append_message(
+                    session_id, role, str(message.get("content") or ""), payload=message
+                )
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
+
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
         self._require_session(session_id)
         rows = self._execute(
@@ -597,7 +623,7 @@ def attach_opt_in_session_store(
         if jsonl_enabled:
             original_log_message(message)
         role = message.get("role") if isinstance(message, dict) else None
-        if role not in {"user", "assistant", "tool"}:
+        if role not in {"system", "user", "assistant", "tool"}:
             return
         content = str(message.get("content") or "")
         store.append_message(

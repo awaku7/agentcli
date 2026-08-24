@@ -821,7 +821,16 @@ def log_message(message: dict[str, Any]) -> None:
 
 
 def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
-    """Compatibility shim for runtime.history."""
+    """Rewrite the active JSONL log or SQLite session history."""
+    session_store = globals().get("session_store")
+    session_id = globals().get("session_id")
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and session_store is not None
+        and session_id
+    ):
+        session_store.replace_messages(session_id, messages)
+        return str(session_id)
     from .runtime.history import rewrite_jsonl_log
 
     return rewrite_jsonl_log(
