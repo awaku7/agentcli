@@ -16,13 +16,18 @@ ______________________________________________________________________
 
 ## 2. Long-term & Shared Memory
 
-### Session Store (opt-in)
+### Session Store (enabled by default)
 
-Session history can additionally be stored in SQLite for structured search and tool auditing. This is additive; the existing JSONL logs remain unchanged.
+Session history is stored in SQLite by default for structured search, tool auditing, and summaries. Set `UAGENT_SESSION_BACKEND=jsonl` to use JSONL only, or `dual` to write both formats.
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
 ```
 
 The CLI stores user, assistant, and tool messages, tool-call metadata, and session summaries. The project display name is the workspace directory name (for example, `F:\KAIHATSU\agentcli` becomes `agentcli`), while a hashed project key and original path distinguish same-named workspaces. Credentials, tokens, cookies, and common API-key formats are redacted before persistence.

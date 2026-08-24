@@ -4,11 +4,16 @@
 
 ## Session Store and unified policy
 
-The opt-in Session Store adds SQLite history for structured search and tool auditing; existing JSONL logs remain unchanged.
+The Session Store is enabled by default and stores structured SQLite history for session search, tool auditing, and summaries. New JSONL persistence is disabled by default.
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 UAGENT_POLICY_LEVEL=read_only
 ```

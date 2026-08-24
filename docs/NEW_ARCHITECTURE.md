@@ -6,14 +6,18 @@
 
 本設計の優先順位は次のとおり。
 
-初期導入は既存動作を変更しないため、Session Storeを環境変数によるオプトインとする。
+Session Storeは現在、SQLiteを既定として有効化する。従来動作が必要な場合は環境変数でJSONLまたはdualへ切り替える。
 
 ```env
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+UAGENT_MEMORY_DB=
 ```
 
-`UAGENT_SESSION_STORE` が未設定、または `0`/`false` の場合は無効である。保存先未指定時は `.uag/sessions.sqlite3` を使用する。
+`UAGENT_SESSION_STORE` は未設定時も有効で、`0`/`false` で無効化できる。`UAGENT_SESSION_BACKEND` の既定値は `sqlite`、保存先未指定時はユーザー状態ディレクトリ配下を使用する。
 
 1. 既存機能を統合する
 1. 権限と安全性を一貫させる

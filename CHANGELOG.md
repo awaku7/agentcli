@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased] - 2026-08-24
+
+### Added
+
+- Add persistent SQLite session summaries and `:sessions summarize`.
+- Add safe session retention with `:sessions prune --keep` and dry-run mode.
+
+### Changed
+
+- Enable SQLite session and memory stores by default.
+- Move default session/cache state from the workspace to the user state directory.
+- Add all-locale translations for new session and plugin-management messages.
+
+
 ## [0.6.7] - 2026-08-23
 
 ### Added

@@ -4,12 +4,16 @@
 
 ## Session Store / 統合Policy
 
-Session StoreはSQLiteベースのセッション履歴です。既定で有効です。無効にする場合は `UAGENT_SESSION_STORE=0` を指定します。
+Session StoreはSQLiteベースのセッション履歴です。現在は既定で有効です。無効にする場合は `UAGENT_SESSION_STORE=0` を指定します。
 
 ```env
 UAGENT_SESSION_STORE=1
 UAGENT_SESSION_BACKEND=sqlite
-UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
+# 未設定時: ユーザー状態ディレクトリ/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# 未設定時: ユーザー状態ディレクトリのmemory.sqlite3
+UAGENT_MEMORY_DB=
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 UAGENT_POLICY_LEVEL=read_only
 ```
@@ -25,6 +29,8 @@ SQLite-onlyでは `:logs`、`:load`、`:cont`、`:clean` もSQLiteセッショ�
 ```text
 :sessions list
 :sessions search <query>
+:sessions summarize [session_id] [--force]
+:sessions prune --keep <N> [--dry-run|--yes]
 :sessions load <session_id>
 :sessions import <jsonl_path-or-directory>
 :sessions delete <session_id> --yes
