@@ -19,13 +19,21 @@ def register_artifacts(
     enforces a workdir boundary. Callers should select a workdir-local output
     directory when artifact registration is required.
     """
+    from ..tools.context import get_callbacks
+
+    callbacks = get_callbacks()
     root = Path(workdir or os.environ.get("UAGENT_WORKDIR") or os.getcwd()).expanduser().resolve()
     manager = ArtifactManager(root)
+    session_id = getattr(callbacks, "session_id", None)
     try:
         result: list[dict[str, Any]] = []
         for path in paths:
             try:
-                item = manager.register(path, metadata=metadata or {})
+                item = manager.register(
+                    path,
+                    session_id=session_id,
+                    metadata=metadata or {},
+                )
             except ArtifactManagerError:
                 continue
             result.append(item.as_dict())

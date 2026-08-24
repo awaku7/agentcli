@@ -709,6 +709,7 @@ class ScheckWorker(QtCore.QObject):
             ),
             is_auto_pilot_active=(lambda: core.auto_pilot_active),
             event_queue=core.event_queue,
+            session_id=getattr(core, "session_id", None),
             cmd_encoding=core.CMD_ENCODING,
             cmd_exec_timeout_ms=core.CMD_EXEC_TIMEOUT_MS,
             python_exec_timeout_ms=core.PYTHON_EXEC_TIMEOUT_MS,
