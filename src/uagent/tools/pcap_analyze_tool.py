@@ -126,11 +126,12 @@ def _close_writer(writer: Any) -> None:
 
 def _pcap_cache_path(source: Path) -> Path:
     configured_root = os.environ.get("UAGENT_PCAP_CACHE_DIR")
-    root = (
-        Path(configured_root).expanduser()
-        if configured_root
-        else Path.home() / ".uag" / "cache" / "pcap"
-    )
+    if configured_root:
+        root = Path(configured_root).expanduser()
+    else:
+        from uagent.utils.paths import get_cache_dir
+
+        root = get_cache_dir() / "pcap"
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     return root / f"{digest}.sqlite"
 

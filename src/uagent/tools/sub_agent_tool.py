@@ -20,6 +20,7 @@ from .context import get_callbacks
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from ..providers.util_providers import make_client
+from ..utils.paths import get_state_dir
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -36,9 +37,9 @@ _SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
     "read_only": [],  # Empty means all tools are allowed
     "propose_only": [],  # Empty means all tools are allowed (treated the same as read_only)
 }
-_DEFAULT_CACHE_DIR = Path.home() / ".uag" / "subagent_cache"
-_SUB_AGENT_LOG_DIR = Path.home() / ".uag" / "subagent_logs"
-_SUB_AGENT_ROLES_DIR = Path.home() / ".uag" / "subagent_roles"
+_DEFAULT_CACHE_DIR = get_state_dir() / "subagent_cache"
+_SUB_AGENT_LOG_DIR = get_state_dir() / "subagent_logs"
+_SUB_AGENT_ROLES_DIR = get_state_dir() / "subagent_roles"
 
 # ---------------------------------------------------------------------------
 # Enums / Data classes

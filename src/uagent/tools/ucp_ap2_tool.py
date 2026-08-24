@@ -136,7 +136,9 @@ def _get_mandates_path() -> Path:
     global _MANDATES_PATH
     if _MANDATES_PATH is not None:
         return _MANDATES_PATH
-    _MANDATES_PATH = Path.home() / ".uag" / "ucp_mandates.json"
+    from uagent.utils.paths import get_state_dir
+
+    _MANDATES_PATH = get_state_dir() / "ucp_mandates.json"
     return _MANDATES_PATH
 
 

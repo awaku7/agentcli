@@ -202,7 +202,9 @@ def run_tool(args: dict[str, Any]) -> str:
     }
 
     try:
-        save_dir = Path.home() / ".uag"
+        from uagent.utils.paths import get_state_dir
+
+        save_dir = get_state_dir()
         save_dir.mkdir(parents=True, exist_ok=True)
         save_path = save_dir / "nominatim_reverse.json"
         save_path.write_text(

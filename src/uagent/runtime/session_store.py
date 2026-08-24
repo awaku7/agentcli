@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from ..utils.paths import get_state_dir
+
 
 class SessionStoreError(RuntimeError):
     """Raised when session persistence cannot complete safely."""
@@ -141,12 +143,19 @@ class SessionStore:
         enabled = os.environ.get("UAGENT_SESSION_STORE", "1").strip().lower()
         if enabled not in {"1", "true", "yes", "on"}:
             return None
-        path = os.environ.get(
-            "UAGENT_SESSION_STORE_PATH", ".uag/sessions.sqlite3"
-        ).strip()
-        if not path:
-            path = ".uag/sessions.sqlite3"
-        store_path = Path(path)
+        path = os.environ.get("UAGENT_SESSION_STORE_PATH", "").strip()
+        if path:
+            store_path = Path(path)
+        else:
+            # New installations use the global state directory. Only the
+            # older .uagent location gets compatibility migration; an
+            # existing .uag directory must not make the workdir stateful.
+            legacy_store = Path(".uagent/sessions.sqlite3")
+            store_path = (
+                Path(".uag/sessions.sqlite3")
+                if legacy_store.exists()
+                else get_state_dir() / "sessions" / "sessions.sqlite3"
+            )
         try:
             _migrate_legacy_session_store(store_path)
         except OSError as exc:

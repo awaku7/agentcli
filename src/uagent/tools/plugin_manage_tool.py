@@ -135,13 +135,13 @@ def _get_install_root(scope: str, *, cwd: str | None = None) -> str:
     """Return the install root directory for the given scope."""
     base = cwd or os.getcwd()
     if scope == "user":
-        return str(Path.home() / ".uag" / "plugins")
+        return str(get_state_dir() / "plugins")
     elif scope == "project":
         return str(Path(base) / ".uag" / "plugins")
     elif scope == "local":
         return str(Path(base) / ".uag" / "plugins.local")
     else:
-        return str(Path.home() / ".uag" / "plugins")
+        return str(get_state_dir() / "plugins")
 
 
 def _find_scanned_plugin(name: str, scan_dirs: list[str]) -> dict[str, Any] | None:

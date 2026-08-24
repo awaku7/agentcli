@@ -182,7 +182,9 @@ def _font_file(source: str) -> Path | None:
     source = next((p for p in candidates if p.exists()), None)
     if source is None:
         return None
-    out = Path.home() / ".uag" / "cache" / f"mermaid_{source.stem}.ttf"
+    from uagent.utils.paths import get_cache_dir
+
+    out = get_cache_dir() / f"mermaid_{source.stem}.ttf"
     out.parent.mkdir(parents=True, exist_ok=True)
     if not out.exists() or out.stat().st_mtime < source.stat().st_mtime:
         if source.suffix.lower() == ".ttc":
