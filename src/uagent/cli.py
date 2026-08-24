@@ -832,11 +832,6 @@ def _make_prompt_key_bindings() -> Any:
 
     @kb.add("escape", eager=True)
     def _cancel(event: Any) -> None:
-        if core.auto_pilot_active:
-            with core.auto_pilot_exit_lock:
-                core.auto_pilot_exit_requested = True
-            event.app.exit(result=None)
-            return
         raise KeyboardInterrupt()
 
     @kb.add("up", eager=True)
@@ -895,11 +890,6 @@ def _prompt_toolkit_input(
 
         @kb.add("escape", eager=True)
         def _cancel(event: Any) -> None:
-            if core.auto_pilot_active:
-                with core.auto_pilot_exit_lock:
-                    core.auto_pilot_exit_requested = True
-                event.app.exit(result=None)
-                return
             raise KeyboardInterrupt()
 
         @kb.add("up", eager=True)

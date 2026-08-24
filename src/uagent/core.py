@@ -313,7 +313,7 @@ def _check_key_win() -> None:
                     global interrupt_requested
                     interrupt_requested = True
             with auto_pilot_exit_lock:
-                if scan == b"\x85":  # F11
+                if scan in (b"\x85", b"\x86"):  # F11 (legacy) / F12
                     global auto_pilot_exit_requested
                     auto_pilot_exit_requested = True
     except Exception:
@@ -354,7 +354,7 @@ def _check_key_posix() -> None:
                 global interrupt_requested
                 interrupt_requested = True
         with auto_pilot_exit_lock:
-            if data == b"\x1b[23~":  # F11
+            if data in (b"\x1b[23~", b"\x1b[24~"):  # F11 (legacy) / F12
                 global auto_pilot_exit_requested
                 auto_pilot_exit_requested = True
     except Exception:
