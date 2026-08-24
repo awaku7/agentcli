@@ -1,0 +1,49 @@
+from __future__ import annotations
+
+from types import SimpleNamespace
+
+from uagent.runtime.session_store import SessionStore
+from uagent.util_cmd_files import _handle_cmd_logs
+from uagent.util_cmd_session import _handle_cmd_load
+
+
+def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    old = db.create_session(project="old", entry_point="cli")
+    db.append_message(old.session_id, "user", "old question")
+    db.append_message(old.session_id, "assistant", "old answer")
+    current = db.create_session(project="current", entry_point="cli")
+    core = SimpleNamespace(session_store=db, session_id=current.session_id)
+    messages: list[dict] = []
+
+    assert _handle_cmd_logs("all", core=core, tr=lambda text, **_: text)
+    assert old.session_id in capsys.readouterr().out
+
+    assert _handle_cmd_load(
+        old.session_id, messages, core=core, tr=lambda text, **_: text
+    )
+    assert [message["content"] for message in messages] == ["old question", "old answer"]
+    db.close()
+
+
+def test_sqlite_clean_preserves_active_session(monkeypatch, tmp_path, capsys):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    old = db.create_session(project="old", entry_point="cli")
+    db.append_message(old.session_id, "user", "short")
+    current = db.create_session(project="current", entry_point="cli")
+    core = SimpleNamespace(session_store=db, session_id=current.session_id)
+
+    # Decline the destructive confirmation.
+    monkeypatch.setattr(
+        "uagent.tools.human_ask_tool.run_tool",
+        lambda args: {"user_reply": "c"},
+    )
+    from uagent.util_cmd_session import _handle_cmd_clean
+
+    assert _handle_cmd_clean("", core=core, tr=lambda text, **_: text)
+    assert "Cancelled" in capsys.readouterr().out
+    assert db.get_session(old.session_id)["session_id"] == old.session_id
+    assert db.get_session(current.session_id)["session_id"] == current.session_id
+    db.close()
