@@ -4777,3 +4777,66 @@ msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
 msgstr "副作用のあるツール「%(tool)s」の実行を許可しますか?続行するには「はい」と応答し、キャンセルするには「いいえ」と応答します。"
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] セッションストアが有効ではありません。"
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] 使用法: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep には0以上の整数を指定してください。"
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] 削除計画: 新しい %(keep)d 件を保持、対象 %(count)d 件"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d 件のメッセージ"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr "[sessions] ドライランです。削除は実行されません。削除するには --yes を追加してください。"
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] %(id)s の削除に失敗しました: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM に失敗しました: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] %(deleted)d/%(total)d 件のセッションを削除しました。"
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] セッションストアまたはLLMが有効ではありません。"
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] %(count)d 件のセッションを要約しています..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  スキップ"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  スキップ（短すぎます）"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  保存済み"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  失敗: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr "[sessions] 完了: 要約 %(done)d 件、スキップ %(skipped)d 件、失敗 %(failed)d 件"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] メモリ候補はありません。"
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] メモリ候補:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] 使用法: :sessions approve <番号>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] メモリ候補を承認しました。"

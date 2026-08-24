@@ -59,7 +59,10 @@
     "param.confirmed.description": "有効化または廃止の操作には、ユーザーによる明示的な確認が必要です。",
     "err.name_required": "プラグイン名が必要です。",
     "err.review_validation_failed": "プラグインの検証に失敗しました。",
-    "err.lifecycle_review_required": "有効化する前にSkillのレビューが必要です。"
+    "err.lifecycle_review_required": "有効化する前にSkillのレビューが必要です。",
+    "err.plugin_not_found": "プラグイン '%(name)s' が %(root)s に見つかりません。",
+    "err.remove_failed": "プラグイン '%(name)s' の削除に失敗しました: %(error)s",
+    "msg.plugin_removed": "プラグイン '%(name)s' を削除しました。"
   },
   "es": {
     "tool.description": "Administre complementos de uagent: enumere, instale, elimine, habilite, deshabilite, valide u obtenga información sobre un complemento.",

@@ -828,9 +828,9 @@ def _handle_cmd_sessions(
         candidates = rows[keep:]
         if session_id:
             candidates = [r for r in candidates if r.get("session_id") != session_id]
-        print(_(f"[sessions] Prune plan: keep newest {keep}, candidates={len(candidates)}"))
+        print(_("[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d") % {"keep": keep, "count": len(candidates)})
         for row in candidates:
-            print(f"  {row['session_id']} | {row.get('created_at')} | {row.get('message_count', 0)} messages")
+            print(_("  %(id)s | %(created_at)s | %(count)d messages") % {"id": row["session_id"], "created_at": row.get("created_at"), "count": row.get("message_count", 0)})
         if not candidates:
             return True
         if dry_run:
@@ -842,12 +842,12 @@ def _handle_cmd_sessions(
                 store.delete_session(str(row["session_id"]))
                 deleted += 1
             except Exception as exc:
-                print(_(f"[sessions] Failed to delete {row['session_id']}: {exc}"))
+                print(_("[sessions] Failed to delete %(id)s: %(error)s") % {"id": row["session_id"], "error": exc})
         try:
             store.vacuum()
         except Exception as exc:
-            print(_(f"[sessions] VACUUM failed: {exc}"))
-        print(_(f"[sessions] Pruned {deleted}/{len(candidates)} session(s)."))
+            print(_("[sessions] VACUUM failed: %(error)s") % {"error": exc})
+        print(_("[sessions] Pruned %(deleted)d/%(total)d session(s).") % {"deleted": deleted, "total": len(candidates)})
         return True
     if command == "summarize":
         if store is None or client is None or not depname:
@@ -858,18 +858,18 @@ def _handle_cmd_sessions(
         rows = store.list_sessions()
         if target:
             rows = [r for r in rows if r.get("session_id") == target]
-        print(_(f"[sessions] Summarizing {len(rows)} session(s)..."))
+        print(_("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)})
         done = skipped = failed = 0
         for index, row in enumerate(rows, start=1):
             sid = str(row["session_id"])
             if not force and row.get("summary"):
-                print(f"[{index}/{len(rows)}] {sid}  skipped")
+                print(_("[%(index)d/%(total)d] %(id)s  skipped") % {"index": index, "total": len(rows), "id": sid})
                 skipped += 1
                 continue
             try:
                 stored = store.list_messages(sid)
                 if len(stored) < 2:
-                    print(f"[{index}/{len(rows)}] {sid}  skipped (too short)")
+                    print(_("[%(index)d/%(total)d] %(id)s  skipped (too short)") % {"index": index, "total": len(rows), "id": sid})
                     skipped += 1
                     continue
                 compressed = core.compress_history_with_llm(
@@ -894,12 +894,12 @@ def _handle_cmd_sessions(
                 if not summary:
                     raise RuntimeError("LLM returned no summary")
                 store.save_session_summary(sid, summary)
-                print(f"[{index}/{len(rows)}] {sid}  saved")
+                print(_("[%(index)d/%(total)d] %(id)s  saved") % {"index": index, "total": len(rows), "id": sid})
                 done += 1
             except Exception as exc:
-                print(f"[{index}/{len(rows)}] {sid}  failed: {exc}")
+                print(_("[%(index)d/%(total)d] %(id)s  failed: %(error)s") % {"index": index, "total": len(rows), "id": sid, "error": exc})
                 failed += 1
-        print(_(f"[sessions] Complete: {done} summarized, {skipped} skipped, {failed} failed"))
+        print(_("[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d failed") % {"done": done, "skipped": skipped, "failed": failed})
         return True
     if command == "candidates":
         if store is None or not session_id:
@@ -950,7 +950,7 @@ def _handle_cmd_sessions(
             for source_path in sources:
                 store.import_jsonl(source_path, project=project)
                 imported_count += 1
-            print(_(f"[sessions] JSONL imported: {imported_count}"))
+            print(_("[sessions] JSONL imported: %(count)d") % {"count": imported_count})
         except Exception as exc:
             print(_("[sessions] Import failed: " + str(exc)))
         return True
