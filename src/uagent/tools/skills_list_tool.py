@@ -180,6 +180,21 @@ def run_tool(args: dict[str, Any]) -> str:
             if item["ok"] or include_invalid:
                 results.append(item)
 
+    try:
+        from ..runtime.skill_lifecycle import SkillLifecycleManager
+
+        lifecycle = SkillLifecycleManager()
+        for item in results:
+            name = str(item.get("name") or "").strip()
+            if name:
+                try:
+                    item["lifecycle_state"] = lifecycle.get(name).state
+                except Exception:
+                    item["lifecycle_state"] = "draft"
+    except Exception:
+        for item in results:
+            item["lifecycle_state"] = "draft"
+
     results.sort(key=lambda x: (x.get("name") or "", x.get("path") or ""))
 
     return json.dumps(results, ensure_ascii=False, indent=2)

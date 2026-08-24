@@ -1,0 +1,344 @@
+{
+  "en": {
+    "err.name_required": "Plugin name is required.",
+    "err.review_validation_failed": "Plugin validation failed.",
+    "err.confirmation_required": "Explicit confirmation is required. Use --yes to enable the Skill.",
+    "out.reviewed": "Skill '{name}' is reviewed.",
+    "out.enabled": "Skill '{name}' is enabled.",
+    "help.review": "  :skills review <name>  Validate and review a Skill.",
+    "help.enable": "  :skills enable <name> --yes  Enable a reviewed Skill."
+  },
+  "ja": {
+    "err.name_required": "プラグイン名が必要です。",
+    "err.review_validation_failed": "プラグインの検証に失敗しました。",
+    "err.confirmation_required": "明示的な確認が必要です。Skillを有効化するには --yes を指定してください。",
+    "out.reviewed": "Skill '{name}' のレビューが完了しました。",
+    "out.enabled": "Skill '{name}' を有効化しました。",
+    "help.review": "  :skills review <name>  Skillを検証してレビューします。",
+    "help.enable": "  :skills enable <name> --yes  レビュー済みSkillを有効化します。"
+  },
+  "es": {
+    "err.name_required": "Se requiere el nombre del complemento.",
+    "err.review_validation_failed": "Error en la validación del complemento.",
+    "err.confirmation_required": "Se requiere confirmación explícita del usuario para habilitar o desaprobar acciones.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "fr": {
+    "err.name_required": "Le nom du plugin est requis.",
+    "err.review_validation_failed": "La validation du plugin a échoué.",
+    "err.confirmation_required": "Une confirmation explicite de l'utilisateur est requise pour les actions d'activation ou de désapprobation.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "de": {
+    "err.name_required": "Plugin-Name ist erforderlich.",
+    "err.review_validation_failed": "Plugin-Validierung fehlgeschlagen.",
+    "err.confirmation_required": "Für Aktivierungs- oder Deprecate-Aktionen ist eine explizite Benutzerbestätigung erforderlich.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "ko": {
+    "err.name_required": "플러그인 이름이 필요합니다.",
+    "err.review_validation_failed": "플러그인 검증에 실패했습니다.",
+    "err.confirmation_required": "활성화 또는 지원 중단 작업을 수행하려면 명시적인 사용자 확인이 필요합니다.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "zh_CN": {
+    "err.name_required": "需要插件名称。",
+    "err.review_validation_failed": "插件验证失败。",
+    "err.confirmation_required": "启用或弃用操作需要明确的用户确认。",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "zh_TW": {
+    "err.name_required": "需要插件名稱。",
+    "err.review_validation_failed": "外掛程式驗證失敗。",
+    "err.confirmation_required": "啟用或棄用操作需要明確的使用者確認。",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "pt_BR": {
+    "err.name_required": "O nome do plug-in é obrigatório.",
+    "err.review_validation_failed": "Falha na validação do plug-in.",
+    "err.confirmation_required": "A confirmação explícita do usuário é necessária para ações de ativação ou descontinuação.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "ru": {
+    "err.name_required": "Требуется имя подключаемого модуля.",
+    "err.review_validation_failed": "Проверка подключаемого модуля не удалась.",
+    "err.confirmation_required": "Для включения или прекращения поддержки действий требуется явное подтверждение пользователя.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "ar": {
+    "err.name_required": "اسم المكون الإضافي مطلوب.",
+    "err.review_validation_failed": "فشل التحقق من صحة المكون الإضافي.",
+    "err.confirmation_required": "مطلوب تأكيد صريح من المستخدم لتمكين أو إيقاف الإجراءات.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "bn": {
+    "err.name_required": "প্লাগইন নাম প্রয়োজন।",
+    "err.review_validation_failed": "প্লাগইন বৈধতা ব্যর্থ হয়েছে।",
+    "err.confirmation_required": "সুস্পষ্ট ব্যবহারকারী নিশ্চিতকরণ সক্রিয় বা অবমূল্যায়ন কর্মের জন্য প্রয়োজন।",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "cs": {
+    "err.name_required": "Je vyžadován název pluginu.",
+    "err.review_validation_failed": "Ověření pluginu se nezdařilo.",
+    "err.confirmation_required": "Pro akce povolení nebo ukončení podpory je vyžadováno výslovné potvrzení uživatele.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "el": {
+    "err.name_required": "Απαιτείται όνομα προσθήκης.",
+    "err.review_validation_failed": "Η επικύρωση της προσθήκης απέτυχε.",
+    "err.confirmation_required": "Απαιτείται ρητή επιβεβαίωση χρήστη για ενέργειες ενεργοποίησης ή κατάργησης.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "fa": {
+    "err.name_required": "نام افزونه مورد نیاز است.",
+    "err.review_validation_failed": "اعتبارسنجی افزونه ناموفق بود.",
+    "err.confirmation_required": "تأیید صریح کاربر برای فعال کردن یا منسوخ کردن اقدامات لازم است.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "fi": {
+    "err.name_required": "Laajennuksen nimi vaaditaan.",
+    "err.review_validation_failed": "Laajennuksen vahvistus epäonnistui.",
+    "err.confirmation_required": "Käyttöönotto- tai käytöstäpoistotoimintoihin tarvitaan nimenomainen käyttäjän vahvistus.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "he": {
+    "err.name_required": "נדרש שם הפלאגין.",
+    "err.review_validation_failed": "אימות הפלאגין נכשל.",
+    "err.confirmation_required": "נדרש אישור משתמש מפורש להפעלה או ביטול פעולות.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "hi": {
+    "err.name_required": "प्लगइन नाम आवश्यक है।",
+    "err.review_validation_failed": "प्लगइन सत्यापन विफल रहा।",
+    "err.confirmation_required": "कार्यों को सक्षम या अस्वीकृत करने के लिए स्पष्ट उपयोगकर्ता पुष्टि आवश्यक है।",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "hu": {
+    "err.name_required": "A beépülő modul neve szükséges.",
+    "err.review_validation_failed": "A beépülő modul ellenőrzése sikertelen.",
+    "err.confirmation_required": "A felhasználó kifejezett megerősítése szükséges az engedélyezési vagy megszüntetési műveletekhez.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "id": {
+    "err.name_required": "Nama plugin diperlukan.",
+    "err.review_validation_failed": "Validasi plugin gagal.",
+    "err.confirmation_required": "Konfirmasi pengguna secara eksplisit diperlukan untuk tindakan mengaktifkan atau menghentikan tindakan.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "it": {
+    "err.name_required": "Il nome del plugin è obbligatorio.",
+    "err.review_validation_failed": "Convalida del plugin non riuscita.",
+    "err.confirmation_required": "È richiesta la conferma esplicita dell'utente per abilitare o annullare le azioni.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "mn": {
+    "err.name_required": "Plugin нэр шаардлагатай.",
+    "err.review_validation_failed": "Plugin баталгаажуулалт амжилтгүй боллоо.",
+    "err.confirmation_required": "Идэвхжүүлэх эсвэл цуцлах үйлдлүүдэд хэрэглэгчийн тодорхой баталгаажуулалт шаардлагатай.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "mr": {
+    "err.name_required": "प्लगइन नाव आवश्यक आहे.",
+    "err.review_validation_failed": "प्लगइन प्रमाणीकरण अयशस्वी झाले.",
+    "err.confirmation_required": "क्रिया सक्षम किंवा नापसंत करण्यासाठी स्पष्ट वापरकर्ता पुष्टीकरण आवश्यक आहे.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "nb": {
+    "err.name_required": "Pluginnavn er påkrevd.",
+    "err.review_validation_failed": "Pluginvalidering mislyktes.",
+    "err.confirmation_required": "Eksplisitt brukerbekreftelse kreves for å aktivere eller avvikle handlinger.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "nl": {
+    "err.name_required": "Plug-innaam is vereist.",
+    "err.review_validation_failed": "Plug-invalidatie mislukt.",
+    "err.confirmation_required": "Expliciete gebruikersbevestiging is vereist voor inschakel- of beëindigingsacties.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "pl": {
+    "err.name_required": "Wymagana jest nazwa wtyczki.",
+    "err.review_validation_failed": "Sprawdzanie poprawności wtyczki nie powiodło się.",
+    "err.confirmation_required": "Aby włączyć lub wyłączyć działanie, wymagane jest wyraźne potwierdzenie użytkownika.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "pt": {
+    "err.name_required": "O nome do plug-in é obrigatório.",
+    "err.review_validation_failed": "Falha na validação do plug-in.",
+    "err.confirmation_required": "A confirmação explícita do usuário é necessária para ações de ativação ou descontinuação.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "ro": {
+    "err.name_required": "Numele pluginului este necesar.",
+    "err.review_validation_failed": "Validarea pluginului a eșuat.",
+    "err.confirmation_required": "Este necesară confirmarea explicită a utilizatorului pentru acțiunile de activare sau derogare.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "sv": {
+    "err.name_required": "Pluginnamn krävs.",
+    "err.review_validation_failed": "Pluginvalidering misslyckades.",
+    "err.confirmation_required": "Explicit användarbekräftelse krävs för att aktivera eller fasa ut åtgärder.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "sw": {
+    "err.name_required": "Jina la programu-jalizi linahitajika.",
+    "err.review_validation_failed": "Uthibitishaji wa programu-jalizi umeshindwa.",
+    "err.confirmation_required": "Uthibitishaji wa wazi wa mtumiaji unahitajika ili kuwezesha au kupunguza vitendo.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "th": {
+    "err.name_required": "จำเป็นต้องมีชื่อปลั๊กอิน",
+    "err.review_validation_failed": "การตรวจสอบความถูกต้องของปลั๊กอินล้มเหลว",
+    "err.confirmation_required": "จำเป็นต้องมีการยืนยันผู้ใช้อย่างชัดเจนสำหรับการเปิดใช้งานหรือเลิกใช้งานการดำเนินการ",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "tr": {
+    "err.name_required": "Eklenti adı gerekli.",
+    "err.review_validation_failed": "Eklenti doğrulaması başarısız oldu.",
+    "err.confirmation_required": "Etkinleştirme veya kullanımdan kaldırma eylemleri için açık kullanıcı onayı gerekiyor.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "uk": {
+    "err.name_required": "Потрібна назва плагіна.",
+    "err.review_validation_failed": "Не вдалося перевірити плагін.",
+    "err.confirmation_required": "Потрібне явне підтвердження користувача для ввімкнення або припинення дій.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "vi": {
+    "err.name_required": "Cần có tên plugin.",
+    "err.review_validation_failed": "Xác thực plugin không thành công.",
+    "err.confirmation_required": "Cần có xác nhận rõ ràng của người dùng để bật hoặc tắt các hành động.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "fil": {
+    "err.name_required": "Kinakailangan ang pangalan ng plugin.",
+    "err.review_validation_failed": "Nabigo ang pagpapatunay ng plugin.",
+    "err.confirmation_required": "Kinakailangan ang tahasang kumpirmasyon ng user para sa mga aksyon na paganahin o hindi na ginagamit.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "ms": {
+    "err.name_required": "Nama pemalam diperlukan.",
+    "err.review_validation_failed": "Pengesahan pemalam gagal.",
+    "err.confirmation_required": "Pengesahan pengguna eksplisit diperlukan untuk mendayakan atau menghentikan tindakan.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "da": {
+    "err.name_required": "Pluginnavn er påkrævet.",
+    "err.review_validation_failed": "Pluginvalidering mislykkedes.",
+    "err.confirmation_required": "Eksplicit brugerbekræftelse er påkrævet for at aktivere eller udfase handlinger.",
+    "out.reviewed": "  :plugin validate <name>  Validate a plugin's manifest. {name}",
+    "out.enabled": "  :plugin enable <name>  Enable a plugin. {name}",
+    "help.review": "  :plugin validate <name>  Validate a plugin's manifest.",
+    "help.enable": "  :plugin enable <name>  Enable a plugin."
+  },
+  "nn": {
+    "err.name_required": "Plugin-namn er påkravd.",
+    "err.review_validation_failed": "Validering av plugin mislyktes.",
+    "err.confirmation_required": "Eksplisitt brukarstadfesting er nødvendig for å aktivere eller avvikle handlingar.",
+    "out.reviewed": "  :plugin validate <name>  Valider manifestet til eit programtillegg. {name}",
+    "out.enabled": "  :plugin enable <name>  Slå på eit programtillegg. {name}",
+    "help.review": "  :plugin validate <name>  Valider manifestet til eit programtillegg.",
+    "help.enable": "  :plugin enable <name>  Slå på eit programtillegg."
+  }
+}

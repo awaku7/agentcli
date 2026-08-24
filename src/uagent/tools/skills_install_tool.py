@@ -14,6 +14,7 @@ from typing import Any
 
 from .i18n_helper import make_tool_translator
 from .agent_skills_shared import load_skill_frontmatter_only
+from ..runtime.skill_lifecycle import SkillLifecycleManager
 
 _ = make_tool_translator(__file__)
 
@@ -738,6 +739,7 @@ def run_tool(args: dict[str, Any]) -> str:
                             "ok": True,
                             "path": dest_dir,
                             "skill": name,
+                            "lifecycle": _register_lifecycle(name),
                             "message": _(
                                 "success.installed_selected",
                                 default="Successfully installed skill '{name}' from {source} to {path}",
@@ -748,6 +750,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     {
                         "ok": True,
                         "path": dest_dir,
+                        "lifecycle": _register_lifecycle(name),
                         "message": _(
                             "success.installed",
                             default="Successfully installed skill '{name}' to {path}",
@@ -757,11 +760,15 @@ def run_tool(args: dict[str, Any]) -> str:
 
             nested = _iter_candidate_skill_dirs(dest_dir, recursive=True)
             if nested:
+                lifecycle_records = [
+                    _register_lifecycle(Path(skill_dir).name) for skill_dir in nested
+                ]
                 return json.dumps(
                     {
                         "ok": True,
                         "path": dest_dir,
                         "skill_count": len(nested),
+                        "lifecycle": lifecycle_records,
                         "message": _(
                             "success.installed_marketplace",
                             default="Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
@@ -789,6 +796,15 @@ def run_tool(args: dict[str, Any]) -> str:
                 ).format(error=str(e)),
             }
         )
+
+
+def _register_lifecycle(name: str, *, version: str = "") -> dict[str, Any]:
+    """Register an installed Marketplace skill as unreviewed draft state."""
+    try:
+        record = SkillLifecycleManager().register(name, version=version)
+        return {"name": name, "state": record.state, "version": record.version}
+    except Exception as exc:
+        return {"name": name, "error": str(exc)}
 
 
 def handle_cmd_install(arg: str, **kwargs: Any) -> Any:
