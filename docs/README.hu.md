@@ -297,7 +297,7 @@ az alkalmazás újraépítése nélkül.
 ### Automata pilóta
 
 Használd a `:auto` parancsot többfordulós munkához, opcionális ellenőrző modellel. A fordulók számának korlátját a `--max-rounds N` kapcsolóval állítsd be.
-A **F11** billentyűvel leállíthatod az automata pilótát, a **F12** billentyűvel pedig az aktuális választ.
+A **F12** billentyűvel leállíthatod az automata pilótát, a **F12** billentyűvel pedig az aktuális választ.
 
 Lásd az [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) oldalt.
 

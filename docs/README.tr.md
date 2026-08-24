@@ -277,7 +277,7 @@ Bazı entegrasyonların tarayıcı ikili dosyaları, Bluetooth izinleri, bulut k
 
 ### Auto-pilot
 
-İsteğe bağlı bir inceleyici modeliyle çok turlu çalışma için `:auto` kullanın. `--max-rounds N` ile tur sınırı belirleyin. Auto-pilot'u durdurmak için **F11**'e, mevcut yanıtı durdurmak için **F12**'ye basın.
+İsteğe bağlı bir inceleyici modeliyle çok turlu çalışma için `:auto` kullanın. `--max-rounds N` ile tur sınırı belirleyin. Auto-pilot'u durdurmak için **F12**'e, mevcut yanıtı durdurmak için **F12**'ye basın.
 
 Bkz. [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

@@ -297,7 +297,7 @@ sem reconstruir a aplicação.
 ### Piloto automático
 
 Use `:auto` para trabalho com várias rondas e um modelo revisor opcional. Defina um limite de rondas com `--max-rounds N`.
-Prima **F11** para parar o piloto automático ou **F12** para parar a resposta atual.
+Prima **F12** para parar o piloto automático ou **F12** para parar a resposta atual.
 
 Consulte [Piloto automático](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

@@ -279,7 +279,7 @@ python -m pip install PySide6 ewmh dbus-next
 ### 自动驾驶
 
 使用 `:auto` 进行多轮工作，并可选用审查模型。使用 `--max-rounds N` 设置轮次上限。
-按 **F11** 停止自动驾驶，或按 **F12** 停止当前响应。
+按 **F12** 停止自动驾驶，或按 **F12** 停止当前响应。
 
 参见 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)。
 

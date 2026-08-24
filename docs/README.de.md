@@ -297,7 +297,7 @@ ohne die Anwendung neu aufzubauen.
 ### Autopilot
 
 Verwende `:auto` für mehrstufige Aufgaben mit einem optionalen Prüfmodell. Lege mit `--max-rounds N` ein Rundenlimit fest.
-Drücke **F11**, um den Autopiloten zu stoppen, oder **F12**, um die aktuelle Antwort zu stoppen.
+Drücke **F12**, um den Autopiloten zu stoppen, oder **F12**, um die aktuelle Antwort zu stoppen.
 
 Siehe [Autopilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

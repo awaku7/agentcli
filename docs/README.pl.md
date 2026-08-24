@@ -297,7 +297,7 @@ bez ponownego budowania aplikacji.
 ### Auto-pilot
 
 Użyj `:auto` do pracy wieloetapowej z opcjonalnym modelem recenzenta. Ustaw limit rund za pomocą `--max-rounds N`.
-Naciśnij **F11**, aby zatrzymać auto-pilot, lub **F12**, aby zatrzymać bieżącą odpowiedź.
+Naciśnij **F12**, aby zatrzymać auto-pilot, lub **F12**, aby zatrzymać bieżącą odpowiedź.
 
 Zobacz [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

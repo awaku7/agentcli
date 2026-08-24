@@ -297,7 +297,7 @@ utan å byggje programmet på nytt.
 ### Autopilot
 
 Bruk `:auto` for arbeid over fleire rundar med ein valfri vurderingsmodell. Set ei grense for rundane med `--max-rounds N`.
-Trykk **F11** for å stoppe autopiloten eller **F12** for å stoppe det gjeldande svaret.
+Trykk **F12** for å stoppe autopiloten eller **F12** for å stoppe det gjeldande svaret.
 
 Sjå [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

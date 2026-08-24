@@ -297,7 +297,7 @@ senza ricostruire l'applicazione.
 ### Pilota automatico
 
 Usa `:auto` per lavori a più cicli con un modello revisore opzionale. Imposta un limite di cicli con `--max-rounds N`.
-Premi **F11** per arrestare il pilota automatico o **F12** per arrestare la risposta corrente.
+Premi **F12** per arrestare il pilota automatico o **F12** per arrestare la risposta corrente.
 
 Vedi [Pilota automatico](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

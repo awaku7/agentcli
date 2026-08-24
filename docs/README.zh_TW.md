@@ -293,7 +293,7 @@ python -m pip install PySide6 ewmh dbus-next
 ### Auto-pilot
 
 使用 `:auto` 執行多輪工作，並可選擇審查者模型。使用 `--max-rounds N` 設定輪次上限。
-按下 **F11** 停止 auto-pilot，或按下 **F12** 停止目前回應。
+按下 **F12** 停止 auto-pilot，或按下 **F12** 停止目前回應。
 
 請參閱 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)。
 

@@ -298,7 +298,7 @@ application-ийг дахин бүтээлгүйгээр provider-ийг сол�
 ### Auto-pilot
 
 Сонголтот reviewer model-той олон үе шаттай ажилд `:auto` ашиглана. `--max-rounds N`-ээр үеийн хязгаар тогтооно.
-Auto-pilot-ийг зогсоохдоо **F11**, одоогийн хариуг зогсоохдоо **F12** дарна.
+Auto-pilot-ийг зогсоохдоо **F12**, одоогийн хариуг зогсоохдоо **F12** дарна.
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)-г үзнэ үү.
 

@@ -297,7 +297,7 @@ sovellusta uudelleen rakentamatta.
 ### Autopilotti
 
 Käytä monikierroksiseen työskentelyyn komentoa `:auto`, ja halutessasi arvioijamallia. Aseta kierrosraja valitsimella `--max-rounds N`.
-Paina **F11** pysäyttääksesi autopilotin tai **F12** pysäyttääksesi nykyisen vastauksen.
+Paina **F12** pysäyttääksesi autopilotin tai **F12** pysäyttääksesi nykyisen vastauksen.
 
 Katso [autopilotti](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

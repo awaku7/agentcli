@@ -297,7 +297,7 @@ cloud credentials หรือเซิร์ฟเวอร์ MQTT/OPC UA เ�
 ### Auto-pilot
 
 ใช้ `:auto` สำหรับงานหลายรอบพร้อมโมเดล reviewer เสริม กำหนดขีดจำกัดรอบด้วย `--max-rounds N`
-กด **F11** เพื่อหยุด auto-pilot หรือ **F12** เพื่อหยุดการตอบกลับปัจจุบัน
+กด **F12** เพื่อหยุด auto-pilot หรือ **F12** เพื่อหยุดการตอบกลับปัจจุบัน
 
 ดู [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)
 

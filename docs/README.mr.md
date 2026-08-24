@@ -289,7 +289,7 @@ python -m pip install PySide6 ewmh dbus-next
 ### Auto-pilot
 
 Optional reviewer model सह multi-round कामासाठी `:auto` वापरा. `--max-rounds N` ने round limit सेट करा.
-Auto-pilot थांबवण्यासाठी **F11** किंवा current response थांबवण्यासाठी **F12** दाबा.
+Auto-pilot थांबवण्यासाठी **F12** किंवा current response थांबवण्यासाठी **F12** दाबा.
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) पहा.
 

@@ -295,7 +295,7 @@ providers बदले जा सकते हैं।
 ### Auto-pilot
 
 Optional reviewer model के साथ multi-round work के लिए `:auto` का उपयोग करें। `--max-rounds N` से round limit सेट करें।
-Auto-pilot रोकने के लिए **F11** या current response रोकने के लिए **F12** दबाएँ।
+Auto-pilot रोकने के लिए **F12** या current response रोकने के लिए **F12** दबाएँ।
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) देखें।
 

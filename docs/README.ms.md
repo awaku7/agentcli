@@ -297,7 +297,7 @@ tanpa membina semula aplikasi.
 ### Auto-pilot
 
 Gunakan `:auto` untuk kerja berbilang pusingan dengan model penyemak pilihan. Tetapkan had pusingan dengan `--max-rounds N`.
-Tekan **F11** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons semasa.
+Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons semasa.
 
 Lihat [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

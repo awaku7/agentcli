@@ -297,7 +297,7 @@ uten å bygge applikasjonen på nytt.
 ### Autopilot
 
 Bruk `:auto` for arbeid over flere runder med en valgfri kontrollmodell. Angi en rundegrense med `--max-rounds N`.
-Trykk **F11** for å stoppe autopiloten eller **F12** for å stoppe det gjeldende svaret.
+Trykk **F12** for å stoppe autopiloten eller **F12** for å stoppe det gjeldende svaret.
 
 Se [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

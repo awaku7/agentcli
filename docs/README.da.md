@@ -297,7 +297,7 @@ uden at genopbygge applikationen.
 ### Autopilot
 
 Brug `:auto` til arbejde i flere runder med en valgfri reviewermodel. Angiv en rundegrænse med `--max-rounds N`.
-Tryk på **F11** for at stoppe autopiloten eller **F12** for at stoppe det aktuelle svar.
+Tryk på **F12** for at stoppe autopiloten eller **F12** for at stoppe det aktuelle svar.
 
 Se [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

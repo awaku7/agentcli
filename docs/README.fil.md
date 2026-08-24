@@ -297,7 +297,7 @@ nang hindi muling binubuo ang application.
 ### Auto-pilot
 
 Gamitin ang `:auto` para sa multi-round na gawain na may opsyonal na reviewer model. Magtakda ng limitasyon ng round gamit ang `--max-rounds N`.
-Pindutin ang **F11** upang ihinto ang auto-pilot o ang **F12** upang ihinto ang kasalukuyang response.
+Pindutin ang **F12** upang ihinto ang auto-pilot o ang **F12** upang ihinto ang kasalukuyang response.
 
 Tingnan ang [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

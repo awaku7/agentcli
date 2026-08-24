@@ -312,7 +312,7 @@ without rebuilding the application.
 ### Auto-pilot
 
 Use `:auto` for multi-round work with an optional reviewer model. Set a round limit with `--max-rounds N`.
-Press **F11** to stop auto-pilot or **F12** to stop the current response.
+Press **F12** to stop auto-pilot or **F12** to stop the current response.
 
 See [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

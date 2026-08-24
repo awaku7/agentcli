@@ -297,7 +297,7 @@ cloud credential অথবা MQTT/OPC UA server। চালানোর সম
 ### Auto-pilot
 
 ঐচ্ছিক reviewer model-সহ বহু-round কাজের জন্য `:auto` ব্যবহার করুন। `--max-rounds N` দিয়ে round limit সেট করুন।
-Auto-pilot থামাতে **F11**, অথবা বর্তমান response থামাতে **F12** চাপুন।
+Auto-pilot থামাতে **F12**, অথবা বর্তমান response থামাতে **F12** চাপুন।
 
 দেখুন [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)।
 

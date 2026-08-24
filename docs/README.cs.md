@@ -297,7 +297,7 @@ bez opětovného sestavení aplikace.
 ### Autopilot
 
 Pro vícekolovou práci s volitelným kontrolním modelem použijte `:auto`. Limit kol nastavte pomocí `--max-rounds N`.
-Stisknutím **F11** autopilota zastavíte, stisknutím **F12** zastavíte aktuální odpověď.
+Stisknutím **F12** autopilota zastavíte, stisknutím **F12** zastavíte aktuální odpověď.
 
 Viz [Autopilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

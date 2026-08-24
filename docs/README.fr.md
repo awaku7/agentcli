@@ -297,7 +297,7 @@ sans reconstruire l'application.
 ### Pilote automatique
 
 Utilisez `:auto` pour les tâches en plusieurs tours avec un modèle réviseur facultatif. Définissez une limite de tours avec `--max-rounds N`.
-Appuyez sur **F11** pour arrêter le pilote automatique ou sur **F12** pour arrêter la réponse en cours.
+Appuyez sur **F12** pour arrêter le pilote automatique ou sur **F12** pour arrêter la réponse en cours.
 
 Voir [Pilote automatique](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

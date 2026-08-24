@@ -72,11 +72,11 @@ The `--max-rounds N` counter applies to follow-up Step A LLM rounds. It is incre
 
 Auto-pilot also stops when:
 
-- the user presses F11 or runs `:auto off`;
+- the user presses F12 or runs `:auto off`; F12 also interrupts the current LLM round;
 - a controller clears the active flag (for example, the GUI stop button); or
 - an exception exits the loop. The active flag is cleared in `finally` so auto-pilot is not left latched.
 
-F12 stops the current LLM response but does not by itself request auto-pilot termination. There is currently no automatic stop based on unchanged output, successful tests, completed file changes, elapsed time, or tool completion; those outcomes must be reflected in the reviewer decision or bounded by `--max-rounds`.
+F12 stops the current LLM response and, when Auto-Pilot is active, requests Auto-Pilot termination as well. There is currently no automatic stop based on unchanged output, successful tests, completed file changes, elapsed time, or tool completion; those outcomes must be reflected in the reviewer decision or bounded by `--max-rounds`.
 
 ______________________________________________________________________
 

@@ -297,7 +297,7 @@ zonder de applicatie opnieuw op te bouwen.
 ### Autopiloot
 
 Gebruik `:auto` voor werk in meerdere rondes met een optioneel reviewermodel. Stel een rondelimiet in met `--max-rounds N`.
-Druk op **F11** om de autopiloot te stoppen of op **F12** om de huidige respons te stoppen.
+Druk op **F12** om de autopiloot te stoppen of op **F12** om de huidige respons te stoppen.
 
 Zie [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

@@ -297,7 +297,7 @@ fără a reconstrui aplicația.
 ### Pilot automat
 
 Folosește `:auto` pentru lucrări în mai multe runde, cu un model revizor opțional. Setează limita rundelor cu `--max-rounds N`.
-Apasă **F11** pentru a opri pilotul automat sau **F12** pentru a opri răspunsul curent.
+Apasă **F12** pentru a opri pilotul automat sau **F12** pentru a opri răspunsul curent.
 
 Vezi [Pilot automat](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

@@ -297,7 +297,7 @@ tanpa membangun ulang aplikasi.
 ### Auto-pilot
 
 Gunakan `:auto` untuk pekerjaan multi-putaran dengan model peninjau opsional. Tetapkan batas putaran dengan `--max-rounds N`.
-Tekan **F11** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons saat ini.
+Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons saat ini.
 
 Lihat [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

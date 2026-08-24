@@ -297,7 +297,7 @@ mà không cần xây dựng lại ứng dụng.
 ### Auto-pilot
 
 Dùng `:auto` cho công việc nhiều vòng với một mô hình reviewer tùy chọn. Đặt giới hạn vòng bằng `--max-rounds N`.
-Nhấn **F11** để dừng auto-pilot hoặc **F12** để dừng phản hồi hiện tại.
+Nhấn **F12** để dừng auto-pilot hoặc **F12** để dừng phản hồi hiện tại.
 
 Xem [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

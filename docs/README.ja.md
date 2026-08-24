@@ -317,7 +317,7 @@ UAGENT_MEMORY_DB=
 ### オートパイロット
 
 任意のレビュアーモデルを使った複数ラウンドの作業には`:auto`を使用します。`--max-rounds N`でラウンド上限を設定できます。
-オートパイロットを停止するには**F11**、現在の応答を停止するには**F12**を押します。
+オートパイロットを停止するには**F12**、現在の応答を停止するには**F12**を押します。
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)を参照してください。
 

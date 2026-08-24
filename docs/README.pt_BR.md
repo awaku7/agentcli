@@ -297,7 +297,7 @@ sem reconstruir o aplicativo.
 ### Piloto automático
 
 Use `:auto` para trabalhos com várias rodadas e um modelo revisor opcional. Defina um limite de rodadas com `--max-rounds N`.
-Pressione **F11** para interromper o piloto automático ou **F12** para interromper a resposta atual.
+Pressione **F12** para interromper o piloto automático ou **F12** para interromper a resposta atual.
 
 Consulte [Piloto automático](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 

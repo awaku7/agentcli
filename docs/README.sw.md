@@ -297,7 +297,7 @@ bila kujenga upya programu.
 ### Uendeshaji wa kiotomatiki
 
 Tumia `:auto` kwa kazi za raundi nyingi ukiwa na modeli ya mkaguzi ya hiari. Weka kikomo cha raundi kwa `--max-rounds N`.
-Bonyeza **F11** kusimamisha uendeshaji wa kiotomatiki au **F12** kusimamisha jibu la sasa.
+Bonyeza **F12** kusimamisha uendeshaji wa kiotomatiki au **F12** kusimamisha jibu la sasa.
 
 Tazama [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
