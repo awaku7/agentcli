@@ -1,5 +1,5 @@
-mod uuid_gen;
 mod slugify;
+mod uuid_gen;
 
 use pyo3::prelude::*;
 
