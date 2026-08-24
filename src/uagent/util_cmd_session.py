@@ -5,6 +5,7 @@ Moved from util_tools.py.
 
 from __future__ import annotations
 
+import glob
 import json
 import os
 import sys
@@ -599,10 +600,72 @@ def _sweep_short_session_logs(
     return deleted, failed
 
 
+def _handle_sqlite_clean(*, core: Any, threshold: int) -> bool:
+    """Clean short SQLite sessions while preserving the active session."""
+    store = getattr(core, "session_store", None)
+    if store is None:
+        return False
+    current_id = getattr(core, "session_id", None)
+    targets: list[tuple[str, int]] = []
+    try:
+        for row in store.list_sessions():
+            session_id = row["session_id"]
+            if session_id == current_id:
+                continue
+            count = sum(
+                1 for msg in store.list_messages(session_id) if msg.get("role") == "user"
+            )
+            if count <= threshold:
+                targets.append((session_id, count))
+    except Exception as exc:
+        print("[clean] SQLite session scan failed: " + str(exc))
+        return True
+    if not targets:
+        print(f"[clean] No SQLite sessions to delete (threshold={threshold}).")
+        return True
+    print(f"[clean] SQLite sessions to delete: {len(targets)}")
+    for session_id, count in targets:
+        print(f" - ({count} user turns) {session_id}")
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+        response = human_ask({
+            "message": (
+                f"Delete {len(targets)} SQLite session(s) with <= {threshold} user turns? "
+                "Enter y to run, or c to cancel."
+            )
+        })
+        parsed = response if isinstance(response, dict) else json.loads(response)
+        if str(parsed.get("user_reply") or "").strip().lower() not in {"y", "yes"}:
+            print("[clean] Cancelled.")
+            return True
+    except Exception as exc:
+        print("[clean] Confirmation failed: " + str(exc))
+        return True
+    deleted = 0
+    for session_id, _ in targets:
+        try:
+            store.delete_session(session_id)
+            deleted += 1
+        except Exception as exc:
+            print(f"[clean] Failed to delete {session_id}: {exc}")
+    try:
+        store.vacuum()
+    except Exception as exc:
+        print("[clean] SQLite vacuum failed: " + str(exc))
+    print(f"[clean] SQLite done: deleted={deleted}, failed={len(targets) - deleted}")
+    return True
+
+
 def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
     threshold = _parse_clean_threshold(arg, tr=tr)
     if threshold is None:
         return True
+
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        return _handle_sqlite_clean(core=core, threshold=threshold)
 
     ok, targets, counts = _collect_clean_targets(core=core, threshold=threshold, tr=tr)
     if not ok:
@@ -760,6 +823,32 @@ def _handle_cmd_sessions(
         personal_long_memory.append_long_memory(candidate)
         print("[sessions] Memory candidate approved.")
         return True
+    if command == "import":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        source = parts[1] if len(parts) > 1 else ""
+        project = parts[2] if len(parts) > 2 else None
+        if not source:
+            print("[sessions] Usage: :sessions import <jsonl_path> [project]")
+            return True
+        sources = (
+            sorted(glob.glob(os.path.join(source, "scheck_log_*.jsonl")))
+            if os.path.isdir(source)
+            else [source]
+        )
+        if not sources:
+            print("[sessions] No JSONL logs found.")
+            return True
+        imported_count = 0
+        try:
+            for source_path in sources:
+                store.import_jsonl(source_path, project=project)
+                imported_count += 1
+            print(f"[sessions] JSONL imported: {imported_count}")
+        except Exception as exc:
+            print("[sessions] Import failed: " + str(exc))
+        return True
     if command == "load":
         if store is None:
             print("[sessions] Session store is not enabled.")
@@ -851,7 +940,7 @@ def _handle_cmd_sessions(
             print("[sessions] Vacuum failed: " + str(exc))
         return True
     if command != "search":
-        print(":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf]")
+        print(":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>")
         return True
     query_parts = parts[1:]
     project = None
@@ -918,6 +1007,18 @@ def _handle_cmd_load(
                 return True
             messages_ref.clear()
             messages_ref.extend(loaded)
+            state = store.latest_response_state(target)
+            if state is not None:
+                response_state = getattr(core, "responses_state", None)
+                if isinstance(response_state, dict):
+                    response_state.update(
+                        {
+                            "provider": state["provider"],
+                            "model": state["model"],
+                            "previous_response_id": state["response_id"],
+                            "last_response_status": state["status"],
+                        }
+                    )
             print("[load] SQLite session loaded: " + target)
         except Exception as exc:
             print("[load error] Failed: " + str(exc))

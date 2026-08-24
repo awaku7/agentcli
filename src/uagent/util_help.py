@@ -211,7 +211,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             tr("Search and manage opt-in SQLite sessions"),
             usage=(":sessions list | load <session_id> | search <query> | candidates | "
                    "approve <number> | delete <session_id> --yes | vacuum | "
-                   "pdf <session_id> [output.pdf]"),
+                   "pdf <session_id> [output.pdf] | import <jsonl_path>"),
             detail=tr(
                 "Session persistence is opt-in via UAGENT_SESSION_STORE=1.\n"
                 ":sessions list             List stored sessions.\n"
@@ -219,7 +219,8 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
                 ":sessions search <query>  Search persisted messages.\n"
                 ":sessions delete <id> --yes  Delete one session.\n"
                 ":sessions vacuum           Reclaim unused SQLite pages.\n"
-                ":sessions pdf <id> [path]  Export a session with pdf_export."
+                ":sessions pdf <id> [path]  Export a session with pdf_export.\n"
+                ":sessions import <path>    Import a legacy JSONL log."
             ),
         ),
         "tools": e(

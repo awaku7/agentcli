@@ -200,6 +200,20 @@ class SessionStore:
                     summary TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS response_states (
+                    state_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    provider TEXT NOT NULL,
+                    model TEXT NOT NULL,
+                    response_id TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
+                CREATE TABLE IF NOT EXISTS legacy_imports (
+                    source_path TEXT PRIMARY KEY,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    imported_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
                 """)
             columns = {
                 row["name"]
@@ -312,6 +326,61 @@ class SessionStore:
                 pass
             raise
 
+    def import_jsonl(
+        self,
+        path: str | Path,
+        *,
+        project: str | None = None,
+        entry_point: str = "jsonl-import",
+    ) -> Session:
+        """Import one legacy JSONL log into a new SQLite session."""
+        source = Path(path)
+        if not source.is_file():
+            raise FileNotFoundError(str(source))
+        source_key = str(source.absolute())
+        existing = self._execute(
+            "SELECT session_id FROM legacy_imports WHERE source_path = ?",
+            (source_key,),
+        ).fetchone()
+        if existing is not None:
+            row = self.get_session(str(existing["session_id"]))
+            return Session(
+                row["session_id"], row.get("project"), row["entry_point"],
+                row.get("project_key", ""), row.get("project_path"),
+            )
+        session = self.create_session(
+            project=project or source.parent.name or "imported",
+            project_path=source.parent,
+            entry_point=entry_point,
+        )
+        try:
+            with source.open("r", encoding="utf-8", errors="replace") as handle:
+                for line in handle:
+                    try:
+                        message = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    if not isinstance(message, dict):
+                        continue
+                    role = message.get("role")
+                    if role not in {"user", "assistant", "tool"}:
+                        continue
+                    content = str(message.get("content") or "")
+                    self.append_message(
+                        session.session_id, str(role), content, payload=message
+                    )
+        except Exception:
+            try:
+                self.delete_session(session.session_id)
+            except Exception:
+                pass
+            raise
+        self._execute(
+            "INSERT INTO legacy_imports(source_path, session_id) VALUES (?, ?)",
+            (source_key, session.session_id),
+        )
+        return session
+
     def list_sessions(self, *, project: str | None = None) -> list[dict[str, Any]]:
         """List stored sessions, newest first."""
         if project is None:
@@ -371,6 +440,33 @@ class SessionStore:
                     continue
             messages.append({"role": item["role"], "content": item["content"]})
         return messages
+
+    def record_response_state(
+        self,
+        session_id: str,
+        *,
+        provider: str,
+        model: str,
+        response_id: str,
+        status: str,
+    ) -> None:
+        """Persist one completed Responses API state transition."""
+        self._require_session(session_id)
+        self._execute(
+            "INSERT INTO response_states(session_id, provider, model, response_id, status) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (session_id, provider, model, response_id, status),
+        )
+
+    def latest_response_state(self, session_id: str) -> dict[str, Any] | None:
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT provider, model, response_id, status, created_at "
+            "FROM response_states WHERE session_id = ? "
+            "ORDER BY state_id DESC LIMIT 1",
+            (session_id,),
+        ).fetchone()
+        return None if row is None else dict(row)
 
     def record_tool_call(
         self,

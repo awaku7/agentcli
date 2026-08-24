@@ -567,7 +567,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         parts = after_sessions.split()
                         last = parts[-1] if parts else ""
                         if len(parts) <= 1:
-                            for value in ("list", "load", "search", "candidates", "approve", "delete", "vacuum", "pdf"):
+                            for value in ("list", "load", "search", "candidates", "approve", "delete", "vacuum", "pdf", "import"):
                                 if value.startswith(last):
                                     yield Completion(value, start_position=-len(last))
                         elif parts[0] == "delete":

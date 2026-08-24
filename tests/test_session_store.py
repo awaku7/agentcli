@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 
 import pytest
@@ -223,3 +224,23 @@ def test_vacuum_reclaims_deleted_session_pages(tmp_path):
     store.append_message(session.session_id, "user", "x" * 10000)
     store.delete_session(session.session_id)
     store.vacuum()
+
+
+def test_import_jsonl_is_idempotent_and_preserves_payload(tmp_path):
+    source = tmp_path / "scheck_log_old.jsonl"
+    source.write_text(
+        json.dumps(
+            {"role": "assistant", "content": "answer", "response_id": "resp_1"},
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+
+    first = store.import_jsonl(source, project="demo")
+    second = store.import_jsonl(source, project="other")
+
+    assert first.session_id == second.session_id
+    assert store.list_sessions() and len(store.list_sessions()) == 1
+    assert store.list_messages(first.session_id)[0]["response_id"] == "resp_1"

@@ -600,6 +600,17 @@ def _append_responses_state_record() -> None:
     status = str(responses_state.get("last_response_status") or "").strip()
     if not rid.startswith("resp_") or status != "completed":
         return
+    session_store = globals().get("session_store")
+    session_id = globals().get("session_id")
+    if session_store is not None and session_id:
+        session_store.record_response_state(
+            session_id,
+            provider=provider,
+            model=model,
+            response_id=rid,
+            status=status,
+        )
+        return
     previous = latest_responses_state(LOG_FILE)
     if (
         isinstance(previous, dict)

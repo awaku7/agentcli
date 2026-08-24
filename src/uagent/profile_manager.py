@@ -736,22 +736,37 @@ def profile_from_logs(
     from uagent.utils.paths import get_log_dir
 
     log_dir = get_log_dir()
-    if not os.path.exists(log_dir):
-        return None
-
-    log_files = sorted(
-        [
-            f
-            for f in os.listdir(log_dir)
-            if f.startswith("scheck_log_") and f.endswith(".jsonl")
-        ]
+    sqlite_sources: list[tuple[str, list[dict[str, Any]]]] = []
+    use_sqlite = (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
     )
-    if not log_files:
-        return None
-
-    # Limit to most recent N files if max_log_files is set
-    if max_log_files is not None and max_log_files > 0:
-        log_files = log_files[-max_log_files:]
+    if use_sqlite:
+        store = core.session_store
+        for row in reversed(store.list_sessions()):
+            session_id = str(row["session_id"])
+            messages = store.list_messages(session_id)
+            if messages:
+                sqlite_sources.append((session_id, messages))
+        if max_log_files is not None and max_log_files > 0:
+            sqlite_sources = sqlite_sources[-max_log_files:]
+        if not sqlite_sources:
+            return None
+    else:
+        if not os.path.exists(log_dir):
+            return None
+        log_files = sorted(
+            [
+                f
+                for f in os.listdir(log_dir)
+                if f.startswith("scheck_log_") and f.endswith(".jsonl")
+            ]
+        )
+        if not log_files:
+            return None
+        # Limit to most recent N files if max_log_files is set
+        if max_log_files is not None and max_log_files > 0:
+            log_files = log_files[-max_log_files:]
 
     # 2) Initialize LLM Client
     from .providers import util_providers
@@ -761,7 +776,7 @@ def profile_from_logs(
         raise RuntimeError(_("Failed to initialize LLM client."))
 
     # 3) Process logs in chunks chronologically (oldest to newest)
-    total_files = len(log_files)
+    total_files = len(sqlite_sources) if use_sqlite else len(log_files)
     print(
         _("Found %(total_files)d log files. Starting incremental profiling...")
         % {"total_files": total_files}
@@ -836,20 +851,24 @@ def profile_from_logs(
         return None
 
     # Iterate through all files in chronological order
-    for idx, lf in enumerate(log_files):
-        p = os.path.join(log_dir, lf)
-        file_messages = []
-        try:
-            with open(p, "r", encoding="utf-8", errors="ignore") as f:
-                for line in f:
-                    try:
-                        data = json.loads(line)
-                        if "role" in data and "content" in data:
-                            file_messages.append(data)
-                    except Exception:
-                        pass
-        except Exception:
-            continue
+    sources = sqlite_sources if use_sqlite else [(lf, None) for lf in log_files]
+    for idx, (source_name, source_messages) in enumerate(sources):
+        if use_sqlite:
+            file_messages = source_messages or []
+        else:
+            p = os.path.join(log_dir, source_name)
+            file_messages = []
+            try:
+                with open(p, "r", encoding="utf-8", errors="ignore") as f:
+                    for line in f:
+                        try:
+                            data = json.loads(line)
+                            if "role" in data and "content" in data:
+                                file_messages.append(data)
+                        except Exception:
+                            pass
+            except Exception:
+                continue
 
         message_buffer.extend(file_messages)
 
