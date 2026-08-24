@@ -189,13 +189,21 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "skills": e(
             tr("Manage and apply Agent Skills"),
-            usage=(":skills [list|active|clear|install|uninstall|apm|mp_search] ..."),
+            usage=(
+                ":skills [list|find|active|clear|install|uninstall|review|enable|apm|mp_search] ..."
+            ),
             detail=tr(
-                "Built-in: list/active/clear (see runtime skills handlers).\n"
+                "Built-in: list/find/active/clear (status/show are aliases for active; "
+                "search/grep are aliases for find).\n"
                 ":skills list <keyword>  Filter skills by keyword (name/description).\n"
                 ":skills find <keyword>  Same as list with filter.\n"
-                "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
-                "Use :help skills install for a subcommand."
+                ":skills install <source> [name]  Install a skill.\n"
+                ":skills uninstall <name>  Uninstall an installed skill.\n"
+                ":skills review <name>  Validate and review a skill.\n"
+                ":skills enable <name> --yes  Enable a reviewed skill.\n"
+                ":skills apm list|use|dir  Manage APM skills.\n"
+                ":skills mp_search [query] [--page N] [--limit N] "
+                "[--sort recent|stars|name] [--source skillsmp|clawhub]."
             ),
         ),
         "tools": e(
