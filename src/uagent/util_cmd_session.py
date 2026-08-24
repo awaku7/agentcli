@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import tempfile
 import unicodedata
 from typing import Any
 
@@ -726,7 +727,9 @@ def _prepend_loaded_log_to_current(
         return
 
 
-def _handle_cmd_sessions(arg: str, *, core: Any, tr: Any) -> bool:
+def _handle_cmd_sessions(
+    arg: str, *, messages_ref: list[dict[str, Any]] | None = None, core: Any, tr: Any
+) -> bool:
     """Search opt-in SQLite session history from the CLI."""
     parts = (arg or "").strip().split()
     command = parts[0].lower() if parts else ""
@@ -757,8 +760,98 @@ def _handle_cmd_sessions(arg: str, *, core: Any, tr: Any) -> bool:
         personal_long_memory.append_long_memory(candidate)
         print("[sessions] Memory candidate approved.")
         return True
+    if command == "load":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        target = parts[1] if len(parts) > 1 else ""
+        if not target or messages_ref is None:
+            print("[sessions] Usage: :sessions load <session_id>")
+            return True
+        if target == session_id:
+            print("[sessions] Session is already active.")
+            return True
+        try:
+            loaded = store.list_messages(target)
+            if not loaded:
+                print("[sessions] Session has no messages.")
+                return True
+            messages_ref.clear()
+            messages_ref.extend(loaded)
+            print("[sessions] Session loaded: " + target)
+        except Exception as exc:
+            print("[sessions] Load failed: " + str(exc))
+        return True
+    if command == "pdf":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        target = parts[1] if len(parts) > 1 else ""
+        output_path = parts[2] if len(parts) > 2 else f"session-{target}.pdf"
+        if not target:
+            print("[sessions] Usage: :sessions pdf <session_id> [output.pdf]")
+            return True
+        temp_path = ""
+        try:
+            messages = store.list_messages(target)
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".jsonl", encoding="utf-8", delete=False
+            ) as temp:
+                temp_path = temp.name
+                for message in messages:
+                    temp.write(json.dumps(message, ensure_ascii=False) + "\n")
+            from uagent.tools.pdf_export_tool import run_tool as pdf_export_run
+            result = pdf_export_run({"log_path": temp_path, "output_path": output_path})
+            print(result)
+        except Exception as exc:
+            print("[sessions] PDF export failed: " + str(exc))
+        finally:
+            if temp_path:
+                try:
+                    os.remove(temp_path)
+                except OSError:
+                    pass
+        return True
+    if command == "list":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        for row in store.list_sessions():
+            print(
+                f"{row['session_id']} | {row.get('project') or '-'} | "
+                f"{row['entry_point']} | {row['created_at']}"
+            )
+        return True
+    if command == "delete":
+        if store is None or not session_id:
+            print("[sessions] Session store is not enabled.")
+            return True
+        target = parts[1] if len(parts) > 1 else ""
+        confirmed = "--yes" in parts[2:] or "-y" in parts[2:]
+        if not target or not confirmed:
+            print("[sessions] Usage: :sessions delete <session_id> --yes")
+            return True
+        if target == session_id:
+            print("[sessions] Cannot delete the active session.")
+            return True
+        try:
+            store.delete_session(target)
+            print("[sessions] Session deleted.")
+        except Exception as exc:
+            print("[sessions] Delete failed: " + str(exc))
+        return True
+    if command == "vacuum":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        try:
+            store.vacuum()
+            print("[sessions] Database vacuum completed.")
+        except Exception as exc:
+            print("[sessions] Vacuum failed: " + str(exc))
+        return True
     if command != "search":
-        print(":sessions search <query> | candidates | approve <number>")
+        print(":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf]")
         return True
     query_parts = parts[1:]
     project = None
@@ -799,6 +892,37 @@ def _handle_cmd_load(
     core: Any,
     tr: Any,
 ) -> bool:
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        store = core.session_store
+        sessions = [
+            row for row in store.list_sessions()
+            if row["session_id"] != getattr(core, "session_id", None)
+        ]
+        target = (arg or "").strip()
+        if not target:
+            print(_(":load <index|session_id>"))
+            return True
+        if target.isdigit():
+            index = int(target)
+            if index < 0 or index >= len(sessions):
+                print("[load] Session index out of range.")
+                return True
+            target = sessions[index]["session_id"]
+        try:
+            loaded = store.list_messages(target)
+            if not loaded:
+                print("[load] Session has no messages.")
+                return True
+            messages_ref.clear()
+            messages_ref.extend(loaded)
+            print("[load] SQLite session loaded: " + target)
+        except Exception as exc:
+            print("[load error] Failed: " + str(exc))
+        return True
+
     if not arg:
         print(_(":load <index|path>"))
         return True

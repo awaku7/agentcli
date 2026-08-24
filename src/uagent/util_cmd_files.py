@@ -212,6 +212,32 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
 
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
+    # In sqlite-only mode, :logs is backed by the session store. The legacy
+    # JSONL path remains available in dual/jsonl mode.
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        store = core.session_store
+        a = (arg or "").strip()
+        if a.lower().startswith("pdf"):
+            print("[logs] Use :sessions pdf <session_id> [output.pdf] in sqlite mode.")
+            return True
+        try:
+            limit = 10
+            if a and a.lower() not in {"all", "-a", "--all"}:
+                limit = max(1, int(a))
+            rows = store.list_sessions()[:limit]
+            for row in rows:
+                print(
+                    f"{row['session_id']} | {row.get('project') or '-'} | "
+                    f"{row['entry_point']} | {row['created_at']}"
+                )
+            return True
+        except Exception as exc:
+            print("[logs] SQLite session listing failed: " + str(exc))
+            return True
+
     show_all = False
     limit = 10
     export_pdf_index = None

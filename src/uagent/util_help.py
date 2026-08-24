@@ -41,6 +41,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :response ...          " + tr("Manage Responses API lifecycle"),
         "  :env ...              " + tr("Show/set/unset/save UAGENT_* env"),
         "  :skills ...           " + tr("List/apply/install skills"),
+        "  :sessions ...         " + tr("Search/manage opt-in SQLite sessions"),
         "  :tools ...            " + tr("List/load/on/off tools and genres"),
         "  :plugin ...           " + tr("Manage plugins"),
         "  :tool create ...      " + tr("Scaffold a new tool module"),
@@ -204,6 +205,21 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
                 ":skills apm list|use|dir  Manage APM skills.\n"
                 ":skills mp_search [query] [--page N] [--limit N] "
                 "[--sort recent|stars|name] [--source skillsmp|clawhub]."
+            ),
+        ),
+        "sessions": e(
+            tr("Search and manage opt-in SQLite sessions"),
+            usage=(":sessions list | load <session_id> | search <query> | candidates | "
+                   "approve <number> | delete <session_id> --yes | vacuum | "
+                   "pdf <session_id> [output.pdf]"),
+            detail=tr(
+                "Session persistence is opt-in via UAGENT_SESSION_STORE=1.\n"
+                ":sessions list             List stored sessions.\n"
+                ":sessions load <id>       Load a stored session.\n"
+                ":sessions search <query>  Search persisted messages.\n"
+                ":sessions delete <id> --yes  Delete one session.\n"
+                ":sessions vacuum           Reclaim unused SQLite pages.\n"
+                ":sessions pdf <id> [path]  Export a session with pdf_export."
             ),
         ),
         "tools": e(

@@ -180,6 +180,7 @@ class SessionStore:
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
                     role TEXT NOT NULL,
                     content TEXT NOT NULL,
+                    payload_json TEXT,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS tool_calls (
@@ -211,6 +212,14 @@ class SessionStore:
             if "project_path" not in columns:
                 self._connection.execute(
                     "ALTER TABLE sessions ADD COLUMN project_path TEXT"
+                )
+            message_columns = {
+                row["name"]
+                for row in self._connection.execute("PRAGMA table_info(messages)")
+            }
+            if "payload_json" not in message_columns:
+                self._connection.execute(
+                    "ALTER TABLE messages ADD COLUMN payload_json TEXT"
                 )
         except sqlite3.Error as exc:
             raise SessionStoreError(
@@ -258,16 +267,36 @@ class SessionStore:
             raise SessionStoreError(f"unknown session: {session_id}")
         return dict(row)
 
-    def append_message(self, session_id: str, role: str, content: str) -> int:
+    def append_message(
+        self,
+        session_id: str,
+        role: str,
+        content: str,
+        *,
+        payload: dict[str, Any] | None = None,
+    ) -> int:
         self._require_session(session_id)
         safe_content = redact_sensitive(content)
+        safe_payload = None
+        if payload is not None:
+            try:
+                safe_payload = json.dumps(
+                    {**payload, "content": safe_content},
+                    ensure_ascii=False,
+                    sort_keys=True,
+                )
+            except (TypeError, ValueError):
+                safe_payload = json.dumps(
+                    {"role": role, "content": safe_content}, ensure_ascii=False
+                )
         # Keep the source row and FTS index in one transaction. Otherwise a
         # lock/error between the two INSERTs could leave search inconsistent.
         try:
             self._connection.execute("BEGIN")
             cursor = self._execute(
-                "INSERT INTO messages(session_id, role, content) VALUES (?, ?, ?)",
-                (session_id, role, safe_content),
+                "INSERT INTO messages(session_id, role, content, payload_json) "
+                "VALUES (?, ?, ?, ?)",
+                (session_id, role, safe_content, safe_payload),
             )
             message_id = int(cursor.lastrowid)
             self._execute(
@@ -283,13 +312,65 @@ class SessionStore:
                 pass
             raise
 
+    def list_sessions(self, *, project: str | None = None) -> list[dict[str, Any]]:
+        """List stored sessions, newest first."""
+        if project is None:
+            rows = self._execute(
+                "SELECT session_id, project, project_path, entry_point, created_at "
+                "FROM sessions ORDER BY created_at DESC, rowid DESC"
+            ).fetchall()
+        else:
+            rows = self._execute(
+                "SELECT session_id, project, project_path, entry_point, created_at "
+                "FROM sessions WHERE project = ? ORDER BY created_at DESC, rowid DESC",
+                (project,),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    def delete_session(self, session_id: str) -> None:
+        """Delete one session and all of its persisted data."""
+        self._require_session(session_id)
+        try:
+            self._connection.execute("BEGIN")
+            self._execute("DELETE FROM message_search WHERE session_id = ?", (session_id,))
+            self._execute("DELETE FROM sessions WHERE session_id = ?", (session_id,))
+            self._connection.execute("COMMIT")
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
+
+    def vacuum(self) -> None:
+        """Reclaim unused database pages after deletions."""
+        try:
+            self._connection.execute("VACUUM")
+        except sqlite3.Error as exc:
+            raise SessionStoreError(f"could not vacuum session store: {exc}") from exc
+
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
         self._require_session(session_id)
         rows = self._execute(
-            "SELECT message_id, session_id, role, content, created_at FROM messages WHERE session_id = ? ORDER BY message_id",
+            "SELECT message_id, session_id, role, content, payload_json, created_at "
+            "FROM messages WHERE session_id = ? ORDER BY message_id",
             (session_id,),
         ).fetchall()
-        return [dict(row) for row in rows]
+        messages: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            payload_json = item.pop("payload_json", None)
+            if payload_json:
+                try:
+                    payload = json.loads(payload_json)
+                except (TypeError, ValueError):
+                    payload = None
+                if isinstance(payload, dict):
+                    payload.setdefault("role", item["role"])
+                    messages.append(payload)
+                    continue
+            messages.append({"role": item["role"], "content": item["content"]})
+        return messages
 
     def record_tool_call(
         self,
@@ -414,13 +495,19 @@ def attach_opt_in_session_store(
     core._session_store_original_log_message = original_log_message
     pending_tool_calls: dict[str, tuple[str, dict[str, Any]]] = {}
 
+    jsonl_enabled = os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() != "sqlite"
+
     def log_message(message: dict[str, Any]) -> None:
-        original_log_message(message)
+        if jsonl_enabled:
+            original_log_message(message)
         role = message.get("role") if isinstance(message, dict) else None
         if role not in {"user", "assistant", "tool"}:
             return
         content = str(message.get("content") or "")
-        store.append_message(session.session_id, str(role), content)
+        store.append_message(
+            session.session_id, str(role), content,
+            payload=message if isinstance(message, dict) else None,
+        )
         if role == "assistant":
             for call in message.get("tool_calls") or []:
                 if isinstance(call, dict):

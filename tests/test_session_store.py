@@ -202,3 +202,24 @@ def test_busy_database_is_reported_as_store_error(tmp_path):
     finally:
         lock.rollback()
         lock.close()
+
+
+def test_delete_session_removes_messages_and_search_rows(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store.append_message(session.session_id, "user", "removable text")
+
+    store.delete_session(session.session_id)
+
+    assert store.list_sessions() == []
+    assert store.search("removable") == []
+    with pytest.raises(SessionStoreError):
+        store.get_session(session.session_id)
+
+
+def test_vacuum_reclaims_deleted_session_pages(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store.append_message(session.session_id, "user", "x" * 10000)
+    store.delete_session(session.session_id)
+    store.vacuum()

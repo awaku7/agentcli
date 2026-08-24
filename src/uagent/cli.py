@@ -562,6 +562,19 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(
                                         g, start_position=-len(genre_prefix)
                                     )
+                    elif stripped.startswith(":sessions "):
+                        after_sessions = stripped[len(":sessions ") :]
+                        parts = after_sessions.split()
+                        last = parts[-1] if parts else ""
+                        if len(parts) <= 1:
+                            for value in ("list", "load", "search", "candidates", "approve", "delete", "vacuum", "pdf"):
+                                if value.startswith(last):
+                                    yield Completion(value, start_position=-len(last))
+                        elif parts[0] == "delete":
+                            if after_sessions.endswith(" "):
+                                yield Completion("--yes", start_position=0)
+                            elif last.startswith("--") and "--yes".startswith(last):
+                                yield Completion("--yes", start_position=-len(last))
                     elif stripped.startswith(":skills "):
                         # :skills subcommand and option completion. Keep the
                         # built-ins here as well as CMD_SPEC entries: the
@@ -742,6 +755,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "tool",
                             "tools",
                             "skills",
+                            "sessions",
                             "clean",
                             "auto",
                             "shrink",
