@@ -357,6 +357,39 @@ def _sort_registered_tools() -> None:
         _RUNNERS.update(ordered_runners)
 
 
+def _register_dynamic_commands(mod: Any) -> None:
+    """Register CMD_SPEC entries, including command-only modules."""
+    cmd_specs = getattr(mod, "CMD_SPECS", None)
+    if not isinstance(cmd_specs, list):
+        cmd_spec = getattr(mod, "CMD_SPEC", None)
+        cmd_specs = [cmd_spec] if isinstance(cmd_spec, dict) else []
+
+    changed = False
+    for cmd_spec in cmd_specs:
+        if not isinstance(cmd_spec, dict):
+            continue
+        cmd_name = cmd_spec.get("command")
+        subcmd_name = cmd_spec.get("subcommand", "")
+        handler = cmd_spec.get("handler")
+        if not cmd_name or not callable(handler):
+            continue
+        help_text = cmd_spec.get("help_text", "") or ""
+        help_detail = cmd_spec.get("help_detail", "") or ""
+        usage = cmd_spec.get("usage", "") or ""
+        if cmd_name not in _DYNAMIC_COMMANDS:
+            _DYNAMIC_COMMANDS[cmd_name] = {}
+        prev = _DYNAMIC_COMMANDS[cmd_name].get(subcmd_name) or {}
+        _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
+            "handler": handler,
+            "help_text": help_text or prev.get("help_text", ""),
+            "help_detail": help_detail or prev.get("help_detail", ""),
+            "usage": usage or prev.get("usage", ""),
+        }
+        changed = True
+    if changed:
+        _invalidate_dynamic_map_cache()
+
+
 def _register_tool_module(mod: Any, mod_name: str) -> bool:
     """Register a module as a tool."""
     global _TOOL_SPECS_DIRTY
@@ -364,7 +397,10 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     runner = getattr(mod, "run_tool", None)
 
     if not isinstance(spec, dict) or not callable(runner):
-        return False
+        # Some modules provide only CLI commands (for example skill lifecycle
+        # commands) and intentionally have no LLM-facing TOOL_SPEC.
+        _register_dynamic_commands(mod)
+        return bool(getattr(mod, "CMD_SPECS", None) or getattr(mod, "CMD_SPEC", None))
     _loadable_check = getattr(mod, "is_loadable", None)
     if callable(_loadable_check):
         try:
@@ -663,6 +699,9 @@ def _load_plugins() -> None:
                     isinstance(getattr(_existing_mod, "TOOL_SPEC", None), dict)
                     and callable(getattr(_existing_mod, "run_tool", None))
                 ):
+                    # Preserve CLI-only modules already imported as helpers;
+                    # they still may contribute CMD_SPEC/CMD_SPECS entries.
+                    _register_dynamic_commands(_existing_mod)
                     continue
                 mod = reload(_existing_mod)
             else:

@@ -181,3 +181,37 @@ def test_arrow_keys_navigate_completion_menu() -> None:
     handlers[("down",)](event)
 
     assert buffer.calls == ["previous", "next"]
+
+
+def test_skills_completion_covers_dynamic_options(monkeypatch: pytest.MonkeyPatch) -> None:
+    import uagent.cli as cli
+
+    class MockEvent:
+        pass
+
+    monkeypatch.setattr(cli, "_PROMPT_SESSION", None)
+
+    def mock_prompt_session(*args, **kwargs):
+        return kwargs["completer"]
+
+    monkeypatch.setattr("prompt_toolkit.PromptSession", mock_prompt_session)
+    completer = cli._get_prompt_session()
+
+    def completed(text: str) -> list[str]:
+        doc = Document(text=text, cursor_position=len(text))
+        return [c.text for c in completer.get_completions(doc, MockEvent())]
+
+    assert "review" in completed(":skills r")
+    assert "enable" in completed(":skills e")
+    assert "--yes" in completed(":skills enable my-skill --y")
+    assert "--sort" in completed(":skills mp_search query ")
+    assert "recent" in completed(":skills mp_search query --sort ")
+    assert "clawhub" in completed(":skills mp_search query --source ")
+
+
+def test_skills_dynamic_help_includes_lifecycle_commands() -> None:
+    from uagent import tools
+
+    detail = tools.get_dynamic_command_detail("skills") or ""
+    assert ":skills review" in detail
+    assert ":skills enable" in detail
