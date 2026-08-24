@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import stat
 from pathlib import Path
 
 import pytest
@@ -652,6 +653,33 @@ class TestPluginManageRunTool:
         names = [c.get("name") for c in settings.get("pluginConfigs", [])]
         assert "to-remove" not in names
         assert "keep-me" in names
+
+    def test_remove_plugin_with_readonly_file(
+        self, repo_tmp_path: Path, plugin_dir: Path
+    ) -> None:
+        """Uninstall also handles read-only files commonly found in .git."""
+        from uagent.tools.plugin_manage_tool import run_tool
+
+        dest_root = repo_tmp_path / "readonly-plugins"
+        target = dest_root / "to-remove"
+        shutil.copytree(plugin_dir, target)
+        readonly = target / ".git" / "objects" / "pack" / "pack.idx"
+        readonly.parent.mkdir(parents=True)
+        readonly.write_text("packed object index", encoding="utf-8")
+        readonly.chmod(stat.S_IREAD)
+
+        result = run_tool(
+            {
+                "action": "remove",
+                "name": "to-remove",
+                "_test_install_root": str(dest_root),
+                "_test_state_dir": str(repo_tmp_path / ".uag-readonly"),
+            }
+        )
+
+        parsed = json.loads(result)
+        assert parsed["ok"] is True
+        assert not target.exists()
 
     def test_enable_plugin(self, repo_tmp_path: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool

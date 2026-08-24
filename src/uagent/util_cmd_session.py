@@ -835,7 +835,9 @@ def _handle_cmd_sessions(
         if store is None:
             print("[sessions] Session store is not enabled.")
             return True
-        source = parts[1] if len(parts) > 1 else ""
+        # This command runs inside the CLI, not through a shell, so ``~`` is
+        # not expanded automatically.
+        source = os.path.expanduser(parts[1]) if len(parts) > 1 else ""
         project = parts[2] if len(parts) > 2 else None
         if not source:
             print("[sessions] Usage: :sessions import <jsonl_path> [project]")

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import stat
 import shutil
 from pathlib import Path
 from typing import Any
@@ -513,6 +514,24 @@ def _extract_plugin_zip(zip_path: str, dest_dir: str) -> None:
         shutil.copytree(src, dest_dir)
 
 
+def _remove_readonly_file(func: Any, path: str, _exc_info: Any) -> None:
+    """Retry a failed rmtree operation after clearing a read-only attribute.
+
+    Git checkouts may contain read-only files on Windows (for example packed
+    objects under ``.git``). ``shutil.rmtree`` otherwise raises
+    ``PermissionError`` during uninstall. ``func`` is the original unlink or
+    rmdir operation supplied by rmtree, so a second failure is still
+    propagated to the caller.
+    """
+    os.chmod(path, stat.S_IWRITE | stat.S_IREAD)
+    func(path)
+
+
+def _remove_tree(path: Path) -> None:
+    """Remove a tree, including read-only files produced by Git on Windows."""
+    shutil.rmtree(str(path), onerror=_remove_readonly_file)
+
+
 def _action_remove(
     name: str,
     install_root: str,
@@ -549,7 +568,15 @@ def _action_remove(
     settings_cleanup = clear_plugin_settings(name, state_dir=sd)
 
     # 3) delete install directory (skills live in-place under the plugin)
-    shutil.rmtree(str(target))
+    try:
+        _remove_tree(target)
+    except OSError as exc:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"Failed to remove plugin '{name}': {exc}",
+            }
+        )
 
     return json.dumps(
         {
