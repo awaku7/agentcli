@@ -4948,3 +4948,73 @@ msgid ""
 msgstr ""
 "পার্শ্ব-প্রতিক্রিয়াকারী টুল '%(tool)s' চালানোর অনুমতি দেবেন? চালিয়ে যেতে "
 "হ্যাঁ বা বাতিল করতে না উত্তর দিন।"
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] সেশন স্টোর সক্রিয় নেই।"
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] ব্যবহার: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep একটি অঋণাত্মক পূর্ণসংখ্যা হতে হবে।"
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] পরিষ্কার পরিকল্পনা: সর্বশেষ %(keep)dটি রাখুন, "
+"প্রার্থী=%(count)dটি"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)dটি বার্তা"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] পরীক্ষামূলক রান; কিছুই মুছে ফেলা হয়নি। সেশন মুছতে --yes যোগ "
+"করুন।"
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] %(id)s মুছতে ব্যর্থ: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM ব্যর্থ: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr ""
+"[sessions] মোট %(total)dটি সেশনের মধ্যে %(deleted)dটি পরিষ্কার করা হয়েছে।"
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] সেশন স্টোর বা LLM সক্রিয় নেই।"
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] %(count)dটি সেশনের সারাংশ তৈরি হচ্ছে..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  বাদ দেওয়া হয়েছে"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  বাদ (খুব ছোট)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  সংরক্ষিত"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  ব্যর্থ: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] সম্পন্ন: সারাংশ %(done)dটি, বাদ %(skipped)dটি, ব্যর্থ "
+"%(failed)dটি"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] কোনো মেমরি প্রার্থী নেই।"
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] মেমরি প্রার্থী:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] ব্যবহার: :sessions approve <নম্বর>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] মেমরি প্রার্থী অনুমোদিত হয়েছে।"
