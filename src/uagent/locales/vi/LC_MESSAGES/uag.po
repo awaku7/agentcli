@@ -4791,3 +4791,69 @@ msgid ""
 msgstr ""
 "Cho phép chạy công cụ tác dụng phụ '%(tool)s'? Trả lời có để tiếp tục hoặc "
 "không để hủy."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Kho phiên chưa được bật."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Cách dùng: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep phải là số nguyên không âm."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Kế hoạch dọn dẹp: giữ %(keep)d phiên mới nhất, ứng viên=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d tin nhắn"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr "[sessions] Chạy thử; chưa xóa gì. Thêm --yes để xóa các phiên này."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Không thể xóa %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM không thành công: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Đã dọn dẹp %(deleted)d/%(total)d phiên."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Kho phiên hoặc LLM chưa được bật."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Đang tóm tắt %(count)d phiên..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  đã bỏ qua"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  đã bỏ qua (quá ngắn)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  đã lưu"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  thất bại: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Hoàn tất: đã tóm tắt %(done)d, bỏ qua %(skipped)d, thất bại "
+"%(failed)d"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Không có ứng viên bộ nhớ."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Ứng viên bộ nhớ:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Cách dùng: :sessions approve <số>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Đã phê duyệt ứng viên bộ nhớ."
