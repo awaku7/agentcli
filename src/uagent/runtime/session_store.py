@@ -120,12 +120,17 @@ class SessionStore:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         try:
+            # Multiple CLI/Web/A2A processes may share one store. WAL lets
+            # readers proceed while a writer commits, and the longer busy
+            # timeout avoids failing on normal short-lived writer contention.
             self._connection = sqlite3.connect(
-                self.path, timeout=0.1, isolation_level=None
+                self.path, timeout=5.0, isolation_level=None
             )
             self._connection.row_factory = sqlite3.Row
             self._connection.execute("PRAGMA foreign_keys = ON")
-            self._connection.execute("PRAGMA busy_timeout = 100")
+            self._connection.execute("PRAGMA busy_timeout = 5000")
+            self._connection.execute("PRAGMA journal_mode = WAL")
+            self._connection.execute("PRAGMA synchronous = NORMAL")
             self._initialize()
         except sqlite3.Error as exc:
             raise SessionStoreError(f"could not open session store: {exc}") from exc
@@ -256,16 +261,27 @@ class SessionStore:
     def append_message(self, session_id: str, role: str, content: str) -> int:
         self._require_session(session_id)
         safe_content = redact_sensitive(content)
-        cursor = self._execute(
-            "INSERT INTO messages(session_id, role, content) VALUES (?, ?, ?)",
-            (session_id, role, safe_content),
-        )
-        message_id = int(cursor.lastrowid)
-        self._execute(
-            "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
-            (safe_content, session_id, message_id),
-        )
-        return message_id
+        # Keep the source row and FTS index in one transaction. Otherwise a
+        # lock/error between the two INSERTs could leave search inconsistent.
+        try:
+            self._connection.execute("BEGIN")
+            cursor = self._execute(
+                "INSERT INTO messages(session_id, role, content) VALUES (?, ?, ?)",
+                (session_id, role, safe_content),
+            )
+            message_id = int(cursor.lastrowid)
+            self._execute(
+                "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
+                (safe_content, session_id, message_id),
+            )
+            self._connection.execute("COMMIT")
+            return message_id
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
 
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
         self._require_session(session_id)
