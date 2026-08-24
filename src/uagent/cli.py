@@ -563,12 +563,21 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                         g, start_position=-len(genre_prefix)
                                     )
                     elif stripped.startswith(":skills "):
-                        # :skills subcommand completion
+                        # :skills subcommand and option completion. Keep the
+                        # built-ins here as well as CMD_SPEC entries: the
+                        # latter are loaded lazily, so completion should not
+                        # depend on a previous invocation of :skills.
                         after_skills = stripped[len(":skills ") :]
                         if " " not in after_skills:
                             skills_subcmds = sorted(
                                 set(dyn_map.get("skills", []))
-                                | {"list", "find", "active", "clear"}
+                                | {
+                                    "list", "find", "search", "grep",
+                                    "active", "status", "show", "clear",
+                                    "off", "unset", "reset", "install",
+                                    "uninstall", "review", "enable", "apm",
+                                    "mp_search",
+                                }
                             )
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
@@ -583,11 +592,52 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 if " " in after_skills
                                 else ""
                             )
-                            if cmd2 == "apm" and " " not in arg2:
-                                apm_subcmds = ["list", "use", "dir", "help"]
-                                for sc2 in apm_subcmds:
-                                    if sc2.startswith(arg2):
-                                        yield Completion(sc2, start_position=-len(arg2))
+                            if cmd2 == "apm":
+                                if " " not in arg2:
+                                    # ``path`` is accepted as an alias for
+                                    # ``dir`` by the handler.
+                                    apm_subcmds = ["list", "use", "dir", "path", "help"]
+                                    for sc2 in apm_subcmds:
+                                        if sc2.startswith(arg2):
+                                            yield Completion(sc2, start_position=-len(arg2))
+                                else:
+                                    apm_cmd, apm_arg = arg2.split(" ", 1)
+                                    if apm_cmd.lower() == "use" and not apm_arg.strip():
+                                        # The handler accepts a name or a
+                                        # 1-based list number. Avoid scanning
+                                        # the filesystem on every tab press.
+                                        for value in ("1", "2", "3", "4", "5"):
+                                            yield Completion(value, start_position=0)
+                            elif cmd2 == "enable":
+                                # The lifecycle command requires --yes.
+                                enable_last = arg2.split()[-1] if arg2.split() else ""
+                                if arg2.endswith(" "):
+                                    yield Completion("--yes", start_position=0)
+                                elif enable_last.startswith("--") and "--yes".startswith(enable_last):
+                                    yield Completion(
+                                        "--yes", start_position=-len(enable_last)
+                                    )
+                            elif cmd2 == "mp_search":
+                                mp_parts = arg2.split()
+                                last = mp_parts[-1] if mp_parts else ""
+                                previous = mp_parts[-1] if arg2.endswith(" ") and mp_parts else ""
+                                if arg2.endswith(" "):
+                                    last = ""
+                                if last.startswith("--") or arg2.endswith(" "):
+                                    for flag in ("--page", "--limit", "--sort", "--source"):
+                                        if flag not in mp_parts and flag.startswith(last):
+                                            yield Completion(flag, start_position=-len(last))
+                                value_for = previous if arg2.endswith(" ") else (
+                                    mp_parts[-2] if len(mp_parts) >= 2 else ""
+                                )
+                                if value_for == "--sort":
+                                    for value in ("recent", "stars", "name"):
+                                        if value.startswith(last):
+                                            yield Completion(value, start_position=-len(last))
+                                elif value_for == "--source":
+                                    for value in ("skillsmp", "clawhub"):
+                                        if value.startswith(last):
+                                            yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":response "):
                         # :response subcommand completion
                         after_response = stripped[len(":response ") :]
