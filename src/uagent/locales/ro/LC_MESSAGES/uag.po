@@ -5028,3 +5028,72 @@ msgid ""
 msgstr ""
 "Permiteți rularea instrumentului cu efecte secundare „%(tool)s”? Răspundeți "
 "da pentru a continua sau nu pentru a anula."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Stocarea sesiunilor nu este activată."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Utilizare: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep trebuie să fie un număr întreg nenegativ."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Plan de curățare: păstrează cele mai noi %(keep)d, "
+"candidați=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d mesaje"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Simulare; nu s-a șters nimic. Adăugați --yes pentru a șterge "
+"aceste sesiuni."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Ștergerea %(id)s a eșuat: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM a eșuat: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Au fost șterse %(deleted)d din %(total)d sesiuni."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Stocarea sesiunilor sau LLM nu este activată."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Se rezumă %(count)d sesiuni..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  omisă"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  omisă (prea scurtă)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  salvată"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  eșuată: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Finalizat: rezumate %(done)d, omise %(skipped)d, eșuate "
+"%(failed)d"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Nu există candidați pentru memorie."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Candidați pentru memorie:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Utilizare: :sessions approve <număr>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Candidatul pentru memorie a fost aprobat."
