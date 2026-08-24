@@ -552,7 +552,7 @@ def _action_remove(
     target = Path(install_root) / name
     if not target.exists():
         return json.dumps(
-            {"ok": False, "error": f"Plugin '{name}' not found at {install_root}."}
+            {"ok": False, "error": _("err.plugin_not_found", default="Plugin '%(name)s' not found at %(root)s.", name=name, root=install_root)}
         )
 
     # 1) disable-equivalent component teardown (MCP / agents / hooks)
@@ -574,14 +574,14 @@ def _action_remove(
         return json.dumps(
             {
                 "ok": False,
-                "error": f"Failed to remove plugin '{name}': {exc}",
+                "error": _("err.remove_failed", default="Failed to remove plugin '%(name)s': %(error)s", name=name, error=exc),
             }
         )
 
     return json.dumps(
         {
             "ok": True,
-            "message": f"Plugin '{name}' removed.",
+            "message": _("msg.plugin_removed", default="Plugin '%(name)s' removed.", name=name),
             "deactivation": deactivation,
             "settings_cleanup": settings_cleanup,
         }

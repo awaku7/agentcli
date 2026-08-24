@@ -808,11 +808,11 @@ def _handle_cmd_sessions(
     session_id = getattr(core, "session_id", None)
     if command == "prune":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         args = parts[1:]
         if "--keep" not in args:
-            print("[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]")
+            print(_("[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"))
             return True
         try:
             keep_index = args.index("--keep") + 1
@@ -820,7 +820,7 @@ def _handle_cmd_sessions(
             if keep < 0:
                 raise ValueError
         except (ValueError, IndexError):
-            print("[sessions] --keep must be a non-negative integer.")
+            print(_("[sessions] --keep must be a non-negative integer."))
             return True
         confirmed = "--yes" in args or "-y" in args
         dry_run = "--dry-run" in args or not confirmed
@@ -828,13 +828,13 @@ def _handle_cmd_sessions(
         candidates = rows[keep:]
         if session_id:
             candidates = [r for r in candidates if r.get("session_id") != session_id]
-        print(f"[sessions] Prune plan: keep newest {keep}, candidates={len(candidates)}")
+        print(_(f"[sessions] Prune plan: keep newest {keep}, candidates={len(candidates)}"))
         for row in candidates:
             print(f"  {row['session_id']} | {row.get('created_at')} | {row.get('message_count', 0)} messages")
         if not candidates:
             return True
         if dry_run:
-            print("[sessions] Dry run; nothing deleted. Add --yes to delete these sessions.")
+            print(_("[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."))
             return True
         deleted = 0
         for row in candidates:
@@ -842,23 +842,23 @@ def _handle_cmd_sessions(
                 store.delete_session(str(row["session_id"]))
                 deleted += 1
             except Exception as exc:
-                print(f"[sessions] Failed to delete {row['session_id']}: {exc}")
+                print(_(f"[sessions] Failed to delete {row['session_id']}: {exc}"))
         try:
             store.vacuum()
         except Exception as exc:
-            print(f"[sessions] VACUUM failed: {exc}")
-        print(f"[sessions] Pruned {deleted}/{len(candidates)} session(s).")
+            print(_(f"[sessions] VACUUM failed: {exc}"))
+        print(_(f"[sessions] Pruned {deleted}/{len(candidates)} session(s)."))
         return True
     if command == "summarize":
         if store is None or client is None or not depname:
-            print("[sessions] Session store or LLM is not enabled.")
+            print(_("[sessions] Session store or LLM is not enabled."))
             return True
         force = "--force" in parts[1:]
         target = next((p for p in parts[1:] if not p.startswith("--")), "")
         rows = store.list_sessions()
         if target:
             rows = [r for r in rows if r.get("session_id") == target]
-        print(f"[sessions] Summarizing {len(rows)} session(s)...")
+        print(_(f"[sessions] Summarizing {len(rows)} session(s)..."))
         done = skipped = failed = 0
         for index, row in enumerate(rows, start=1):
             sid = str(row["session_id"])
@@ -899,43 +899,43 @@ def _handle_cmd_sessions(
             except Exception as exc:
                 print(f"[{index}/{len(rows)}] {sid}  failed: {exc}")
                 failed += 1
-        print(f"[sessions] Complete: {done} summarized, {skipped} skipped, {failed} failed")
+        print(_(f"[sessions] Complete: {done} summarized, {skipped} skipped, {failed} failed"))
         return True
     if command == "candidates":
         if store is None or not session_id:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         candidates = store.list_memory_candidates(session_id)
         if not candidates:
-            print("[sessions] No memory candidates.")
+            print(_("[sessions] No memory candidates."))
             return True
-        print("[sessions] Memory candidates:")
+        print(_("[sessions] Memory candidates:"))
         for index, candidate in enumerate(candidates, start=1):
             print(f"[{index}] {candidate}")
         return True
     if command == "approve":
         if store is None or not session_id:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         try:
             index = int(parts[1]) - 1
             candidate = store.list_memory_candidates(session_id)[index]
         except (ValueError, IndexError):
-            print("[sessions] Usage: :sessions approve <number>")
+            print(_("[sessions] Usage: :sessions approve <number>"))
             return True
         personal_long_memory.append_long_memory(candidate)
-        print("[sessions] Memory candidate approved.")
+        print(_("[sessions] Memory candidate approved."))
         return True
     if command == "import":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         # This command runs inside the CLI, not through a shell, so ``~`` is
         # not expanded automatically.
         source = os.path.expanduser(parts[1]) if len(parts) > 1 else ""
         project = parts[2] if len(parts) > 2 else None
         if not source:
-            print("[sessions] Usage: :sessions import <jsonl_path> [project]")
+            print(_("[sessions] Usage: :sessions import <jsonl_path> [project]"))
             return True
         sources = (
             sorted(glob.glob(os.path.join(source, "scheck_log_*.jsonl")))
@@ -943,47 +943,47 @@ def _handle_cmd_sessions(
             else [source]
         )
         if not sources:
-            print("[sessions] No JSONL logs found.")
+            print(_("[sessions] No JSONL logs found."))
             return True
         imported_count = 0
         try:
             for source_path in sources:
                 store.import_jsonl(source_path, project=project)
                 imported_count += 1
-            print(f"[sessions] JSONL imported: {imported_count}")
+            print(_(f"[sessions] JSONL imported: {imported_count}"))
         except Exception as exc:
-            print("[sessions] Import failed: " + str(exc))
+            print(_("[sessions] Import failed: " + str(exc)))
         return True
     if command == "load":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         target = parts[1] if len(parts) > 1 else ""
         if not target or messages_ref is None:
-            print("[sessions] Usage: :sessions load <session_id>")
+            print(_("[sessions] Usage: :sessions load <session_id>"))
             return True
         if target == session_id:
-            print("[sessions] Session is already active.")
+            print(_("[sessions] Session is already active."))
             return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
-                print("[sessions] Session has no messages.")
+                print(_("[sessions] Session has no messages."))
                 return True
             messages_ref.clear()
             messages_ref.extend(loaded)
-            print("[sessions] Session loaded: " + target)
+            print(_("[sessions] Session loaded: " + target))
         except Exception as exc:
-            print("[sessions] Load failed: " + str(exc))
+            print(_("[sessions] Load failed: " + str(exc)))
         return True
     if command == "pdf":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         target = parts[1] if len(parts) > 1 else ""
         output_path = parts[2] if len(parts) > 2 else f"session-{target}.pdf"
         if not target:
-            print("[sessions] Usage: :sessions pdf <session_id> [output.pdf]")
+            print(_("[sessions] Usage: :sessions pdf <session_id> [output.pdf]"))
             return True
         temp_path = ""
         try:
@@ -998,7 +998,7 @@ def _handle_cmd_sessions(
             result = pdf_export_run({"log_path": temp_path, "output_path": output_path})
             print(result)
         except Exception as exc:
-            print("[sessions] PDF export failed: " + str(exc))
+            print(_("[sessions] PDF export failed: " + str(exc)))
         finally:
             if temp_path:
                 try:
@@ -1008,7 +1008,7 @@ def _handle_cmd_sessions(
         return True
     if command == "list":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         for index, row in enumerate(store.list_sessions()):
             first = _session_preview(row.get("first_message"))
@@ -1026,31 +1026,31 @@ def _handle_cmd_sessions(
         return True
     if command == "delete":
         if store is None or not session_id:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         target = parts[1] if len(parts) > 1 else ""
         confirmed = "--yes" in parts[2:] or "-y" in parts[2:]
         if not target or not confirmed:
-            print("[sessions] Usage: :sessions delete <session_id> --yes")
+            print(_("[sessions] Usage: :sessions delete <session_id> --yes"))
             return True
         if target == session_id:
-            print("[sessions] Cannot delete the active session.")
+            print(_("[sessions] Cannot delete the active session."))
             return True
         try:
             store.delete_session(target)
-            print("[sessions] Session deleted.")
+            print(_("[sessions] Session deleted."))
         except Exception as exc:
-            print("[sessions] Delete failed: " + str(exc))
+            print(_("[sessions] Delete failed: " + str(exc)))
         return True
     if command == "vacuum":
         if store is None:
-            print("[sessions] Session store is not enabled.")
+            print(_("[sessions] Session store is not enabled."))
             return True
         try:
             store.vacuum()
-            print("[sessions] Database vacuum completed.")
+            print(_("[sessions] Database vacuum completed."))
         except Exception as exc:
-            print("[sessions] Vacuum failed: " + str(exc))
+            print(_("[sessions] Vacuum failed: " + str(exc)))
         return True
     if command != "search":
         print(":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>")
@@ -1065,7 +1065,7 @@ def _handle_cmd_sessions(
     query = " ".join(query_parts).strip()
     store = getattr(core, "session_store", None)
     if store is None:
-        print("[sessions] Session store is not enabled.")
+        print(_("[sessions] Session store is not enabled."))
         return True
     if not query:
         print(":sessions search <query>")
@@ -1073,12 +1073,12 @@ def _handle_cmd_sessions(
     try:
         results = store.search(query, project=project)
     except Exception as exc:
-        print("[sessions] Search failed: " + str(exc))
+        print(_("[sessions] Search failed: " + str(exc)))
         return True
     if not results:
-        print("[sessions] No matching sessions.")
+        print(_("[sessions] No matching sessions."))
         return True
-    print("[sessions] Matches: " + str(len(results)))
+    print(_("[sessions] Matches: " + str(len(results))))
     for row in results:
         print(
             f"{row['session_id']} | {row.get('project') or '-'} | "
