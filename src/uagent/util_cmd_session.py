@@ -812,7 +812,7 @@ def _handle_cmd_sessions(
             return True
         args = parts[1:]
         if "--keep" not in args:
-            print("[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes] [--preserve-summarized]")
+            print("[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]")
             return True
         try:
             keep_index = args.index("--keep") + 1
@@ -822,15 +822,12 @@ def _handle_cmd_sessions(
         except (ValueError, IndexError):
             print("[sessions] --keep must be a non-negative integer.")
             return True
-        preserve_summarized = "--preserve-summarized" in args
         confirmed = "--yes" in args or "-y" in args
         dry_run = "--dry-run" in args or not confirmed
         rows = store.list_sessions()
         candidates = rows[keep:]
         if session_id:
             candidates = [r for r in candidates if r.get("session_id") != session_id]
-        if preserve_summarized:
-            candidates = [r for r in candidates if not r.get("summary")]
         print(f"[sessions] Prune plan: keep newest {keep}, candidates={len(candidates)}")
         for row in candidates:
             print(f"  {row['session_id']} | {row.get('created_at')} | {row.get('message_count', 0)} messages")
