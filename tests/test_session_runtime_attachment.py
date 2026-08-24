@@ -34,3 +34,21 @@ def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_
     assert store.list_messages(session_id)[0]["content"] == "hello"
     assert store.get_session(session_id)["project"] == "agentcli"
     store.close()
+
+
+def test_sqlite_backend_can_disable_jsonl_callback(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+    logged = []
+    core = SimpleNamespace(log_message=logged.append)
+
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="cli"
+    )
+    core.log_message({"role": "assistant", "content": "answer", "response_id": "resp_1"})
+
+    assert logged == []
+    assert store is not None
+    assert store.list_messages(session_id)[0]["response_id"] == "resp_1"
+    store.close()
