@@ -799,13 +799,56 @@ def _prepend_loaded_log_to_current(
 
 
 def _handle_cmd_sessions(
-    arg: str, *, messages_ref: list[dict[str, Any]] | None = None, core: Any, tr: Any
+    arg: str, *, messages_ref: list[dict[str, Any]] | None = None, client: Any = None, depname: str = "", core: Any, tr: Any
 ) -> bool:
     """Search opt-in SQLite session history from the CLI."""
     parts = (arg or "").strip().split()
     command = parts[0].lower() if parts else ""
     store = getattr(core, "session_store", None)
     session_id = getattr(core, "session_id", None)
+    if command == "summarize":
+        if store is None or client is None or not depname:
+            print("[sessions] Session store or LLM is not enabled.")
+            return True
+        force = "--force" in parts[1:]
+        target = next((p for p in parts[1:] if not p.startswith("--")), "")
+        rows = store.list_sessions()
+        if target:
+            rows = [r for r in rows if r.get("session_id") == target]
+        print(f"[sessions] Summarizing {len(rows)} session(s)...")
+        done = skipped = failed = 0
+        for index, row in enumerate(rows, start=1):
+            sid = str(row["session_id"])
+            if not force and row.get("summary"):
+                print(f"[{index}/{len(rows)}] {sid}  skipped")
+                skipped += 1
+                continue
+            try:
+                stored = store.list_messages(sid)
+                if len(stored) < 2:
+                    print(f"[{index}/{len(rows)}] {sid}  skipped (too short)")
+                    skipped += 1
+                    continue
+                compressed = core.compress_history_with_llm(
+                    client=client, depname=depname, messages=stored + [stored[-1]],
+                    keep_last=1, emit_log=False,
+                )
+                summary = next(
+                    (str(m.get("content", "")).split("\n", 1)[1].strip()
+                     for m in compressed if m.get("role") == "system"
+                     and "Summary of the conversation so far:" in str(m.get("content", ""))),
+                    "",
+                )
+                if not summary:
+                    raise RuntimeError("LLM returned no summary")
+                store.save_session_summary(sid, summary)
+                print(f"[{index}/{len(rows)}] {sid}  saved")
+                done += 1
+            except Exception as exc:
+                print(f"[{index}/{len(rows)}] {sid}  failed: {exc}")
+                failed += 1
+        print(f"[sessions] Complete: {done} summarized, {skipped} skipped, {failed} failed")
+        return True
     if command == "candidates":
         if store is None or not session_id:
             print("[sessions] Session store is not enabled.")

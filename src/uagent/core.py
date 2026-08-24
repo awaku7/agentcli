@@ -1650,6 +1650,7 @@ def compress_history_with_llm(
     messages: list[dict[str, Any]],
     keep_last: int = 20,
     use_responses_api: bool = False,
+    emit_log: bool = True,
 ) -> list[dict[str, Any]]:
     """
     Launch another LLM context to summarize old user/assistant/tool messages
@@ -2023,7 +2024,8 @@ def compress_history_with_llm(
             file=sys.stderr,
         )
 
-        log_message(summary_msg)
+        if emit_log:
+            log_message(summary_msg)
         return new_messages, None
 
     current_chunk_size = initial_chunk_size

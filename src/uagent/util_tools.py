@@ -254,7 +254,10 @@ def handle_command(
         return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
 
     if cmd in {"sessions", "session"}:
-        return _handle_cmd_sessions(arg, messages_ref=messages_ref, core=core, tr=tr)
+        return _handle_cmd_sessions(
+            arg, messages_ref=messages_ref, client=client, depname=depname,
+            core=core, tr=tr
+        )
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)
