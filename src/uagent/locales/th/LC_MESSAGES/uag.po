@@ -4916,3 +4916,70 @@ msgid ""
 msgstr ""
 "อนุญาตให้เครื่องมือผลข้างเคียง '%(tool)s' ทำงานหรือไม่ "
 "ตอบว่าใช่เพื่อดำเนินการต่อหรือไม่ใช่เพื่อยกเลิก"
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] ที่เก็บเซสชันยังไม่ได้เปิดใช้งาน"
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] วิธีใช้: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep ต้องเป็นจำนวนเต็มที่ไม่ติดลบ"
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] แผนการล้าง: เก็บ %(keep)d รายการล่าสุด, ผู้สมัคร=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d ข้อความ"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] การทำงานแบบทดลอง; ไม่มีสิ่งใดถูกลบ เพิ่ม --yes "
+"เพื่อลบเซสชันเหล่านี้"
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] ลบ %(id)s ไม่สำเร็จ: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM ไม่สำเร็จ: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] ล้างแล้ว %(deleted)d จาก %(total)d เซสชัน"
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] ที่เก็บเซสชันหรือ LLM ยังไม่ได้เปิดใช้งาน"
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] กำลังสรุป %(count)d เซสชัน..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  ข้ามแล้ว"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  ข้ามแล้ว (สั้นเกินไป)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  บันทึกแล้ว"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  ล้มเหลว: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] เสร็จสมบูรณ์: สรุป %(done)d รายการ, ข้าม %(skipped)d รายการ, "
+"ล้มเหลว %(failed)d รายการ"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] ไม่มีผู้สมัครหน่วยความจำ"
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] ผู้สมัครหน่วยความจำ:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] วิธีใช้: :sessions approve <หมายเลข>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] อนุมัติผู้สมัครหน่วยความจำแล้ว"
