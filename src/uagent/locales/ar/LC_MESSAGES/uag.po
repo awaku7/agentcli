@@ -4912,3 +4912,68 @@ msgid ""
 msgstr ""
 "هل تريد السماح بتشغيل أداة التأثير الجانبي '%(tool)s'؟ قم بالرد بنعم "
 "للمتابعة أو لا للإلغاء."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] مخزن الجلسات غير مفعّل."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] الاستخدام: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] يجب أن يكون --keep عددًا صحيحًا غير سالب."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] خطة الحذف: الاحتفاظ بأحدث %(keep)d، العناصر المستهدفة=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d رسالة"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr "[sessions] تشغيل تجريبي؛ لم يُحذف شيء. أضف --yes لحذف هذه الجلسات."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] تعذّر حذف %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] فشل VACUUM: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] حُذفت %(deleted)d من أصل %(total)d جلسة."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] مخزن الجلسات أو LLM غير مفعّل."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] جارٍ تلخيص %(count)d جلسة..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  تم التخطي"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  تم التخطي (قصيرة جدًا)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  تم الحفظ"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  فشل: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] اكتمل: تم تلخيص %(done)d، وتخطي %(skipped)d، وفشل %(failed)d"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] لا توجد مرشحات للذاكرة."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] مرشحات الذاكرة:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] الاستخدام: :sessions approve <الرقم>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] تمت الموافقة على مرشح الذاكرة."
