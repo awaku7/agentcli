@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased] - 2026-08-24
+## [Unreleased]
+
+## [0.6.9] - 2026-08-25
 
 ### Added
 
@@ -13,7 +15,13 @@
 - Enable SQLite session and memory stores by default.
 - Move default session/cache state from the workspace to the user state directory.
 - Add all-locale translations for new session and plugin-management messages.
+- Make the session store safe for worker threads.
 
+### Fixed
+
+- Preserve conversation history unchanged when LLM history compression fails or cannot reduce below the minimum chunk size.
+- Retry OpenAI module-deadlock errors during history compression.
+- Remove `reasoning_content` from Responses API input while retaining it in local history.
 
 ## [0.6.7] - 2026-08-23
 
