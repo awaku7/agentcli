@@ -806,6 +806,52 @@ def _handle_cmd_sessions(
     command = parts[0].lower() if parts else ""
     store = getattr(core, "session_store", None)
     session_id = getattr(core, "session_id", None)
+    if command == "prune":
+        if store is None:
+            print("[sessions] Session store is not enabled.")
+            return True
+        args = parts[1:]
+        if "--keep" not in args:
+            print("[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes] [--preserve-summarized]")
+            return True
+        try:
+            keep_index = args.index("--keep") + 1
+            keep = int(args[keep_index])
+            if keep < 0:
+                raise ValueError
+        except (ValueError, IndexError):
+            print("[sessions] --keep must be a non-negative integer.")
+            return True
+        preserve_summarized = "--preserve-summarized" in args
+        confirmed = "--yes" in args or "-y" in args
+        dry_run = "--dry-run" in args or not confirmed
+        rows = store.list_sessions()
+        candidates = rows[keep:]
+        if session_id:
+            candidates = [r for r in candidates if r.get("session_id") != session_id]
+        if preserve_summarized:
+            candidates = [r for r in candidates if not r.get("summary")]
+        print(f"[sessions] Prune plan: keep newest {keep}, candidates={len(candidates)}")
+        for row in candidates:
+            print(f"  {row['session_id']} | {row.get('created_at')} | {row.get('message_count', 0)} messages")
+        if not candidates:
+            return True
+        if dry_run:
+            print("[sessions] Dry run; nothing deleted. Add --yes to delete these sessions.")
+            return True
+        deleted = 0
+        for row in candidates:
+            try:
+                store.delete_session(str(row["session_id"]))
+                deleted += 1
+            except Exception as exc:
+                print(f"[sessions] Failed to delete {row['session_id']}: {exc}")
+        try:
+            store.vacuum()
+        except Exception as exc:
+            print(f"[sessions] VACUUM failed: {exc}")
+        print(f"[sessions] Pruned {deleted}/{len(candidates)} session(s).")
+        return True
     if command == "summarize":
         if store is None or client is None or not depname:
             print("[sessions] Session store or LLM is not enabled.")
