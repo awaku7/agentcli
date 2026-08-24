@@ -394,11 +394,18 @@ Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçla
 
 ```text
 UAGENT_SESSION_STORE=1
-UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 ```
 
-`:sessions search <query>`
+`:sessions search <query>
+:sessions summarize [session_id] [--force]
+:sessions prune --keep <N> [--dry-run|--yes]`
 `:sessions candidates`
 `:sessions approve <number>`
 
