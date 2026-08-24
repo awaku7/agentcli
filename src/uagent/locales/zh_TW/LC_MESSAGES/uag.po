@@ -4760,3 +4760,66 @@ msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
 msgstr "允許副作用工具「%(tool)s」運作嗎？回覆「是」繼續，或回覆「否」取消。"
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] 會話儲存未啟用。"
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] 用法：:sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep 必须是非负整数。"
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] 清理計畫：保留最新 %(keep)d 個，会刪除 %(count)d 個"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d 條訊息"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr "[sessions] 試運行；未刪除任何內容。新增 --yes 才会刪除这些會話。"
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] 刪除 %(id)s 失敗：%(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM 失敗：%(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] 已清理 %(deleted)d/%(total)d 個會話。"
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] 會話儲存或 LLM 未啟用。"
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] 正在摘要 %(count)d 個會話..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  已略過"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  已略過（内容过短）"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  已儲存"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  失敗：%(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr "[sessions] 完成：总结 %(done)d 個，略過 %(skipped)d 個，失敗 %(failed)d 個"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] 沒有記憶候選項。"
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] 記憶候選項："
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] 用法：:sessions approve <編號>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] 已核准記憶候選項。"
