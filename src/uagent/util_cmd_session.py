@@ -876,10 +876,19 @@ def _handle_cmd_sessions(
                     client=client, depname=depname, messages=stored + [stored[-1]],
                     keep_last=1, emit_log=False,
                 )
+                from .llm_message_helpers import (
+                    _is_history_summary_message,
+                    _strip_history_summary_prefix,
+                )
+                # The summary prefix is translated according to the active
+                # locale, so do not search for the English literal here.
+                # Use the same helper as history compression/loading.
                 summary = next(
-                    (str(m.get("content", "")).split("\n", 1)[1].strip()
-                     for m in compressed if m.get("role") == "system"
-                     and "Summary of the conversation so far:" in str(m.get("content", ""))),
+                    (
+                        _strip_history_summary_prefix(str(m.get("content", "")))
+                        for m in compressed
+                        if _is_history_summary_message(m)
+                    ),
                     "",
                 )
                 if not summary:

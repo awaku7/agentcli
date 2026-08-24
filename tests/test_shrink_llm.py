@@ -56,6 +56,26 @@ class _FakeClient:
         self.chat = _FakeChat(contents)
 
 
+class _RejectTemperatureCompletions(_FakeCompletions):
+    def create(self, **kwargs: Any) -> _FakeResp:
+        self.calls.append(kwargs)
+        if "temperature" in kwargs:
+            raise RuntimeError(
+                "Unsupported value: 'temperature' does not support 0.0; "
+                "only the default (1) value is supported."
+            )
+        if not self._contents:
+            raise AssertionError("unexpected extra LLM call")
+        return _FakeResp(self._contents.pop(0))
+
+
+class _RejectTemperatureClient:
+    def __init__(self, contents: list[str]) -> None:
+        self.chat = SimpleNamespace(
+            completions=_RejectTemperatureCompletions(contents)
+        )
+
+
 def _make_dialog(n_user: int = 6) -> list[dict[str, Any]]:
     msgs: list[dict[str, Any]] = [
         {"role": "system", "content": "SYSTEM_PROMPT"},
@@ -113,6 +133,25 @@ def test_compress_first_run_single_summary():
     assert lmh._is_history_summary_message(out[1])
     others = out[2:]
     assert len(others) == 4
+
+
+def test_compress_retries_without_unsupported_temperature():
+    msgs = _make_dialog(3)
+    client = _RejectTemperatureClient(["SUMMARY_WITH_DEFAULT_TEMPERATURE"])
+
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-5-test",
+        messages=msgs,
+        keep_last=2,
+        use_responses_api=False,
+    )
+
+    calls = client.chat.completions.calls
+    assert len(calls) == 2
+    assert calls[0]["temperature"] == 0.0
+    assert "temperature" not in calls[1]
+    assert any("SUMMARY_WITH_DEFAULT_TEMPERATURE" in m["content"] for m in out)
 
 
 def test_compress_second_run_merges_prior_summary_no_stack():

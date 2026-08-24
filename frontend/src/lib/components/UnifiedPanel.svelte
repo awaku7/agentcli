@@ -208,10 +208,10 @@
   onclick={(e) => { if (e.target === e.currentTarget) onClose?.(); }}
   role="dialog" tabindex="-1"
 >
+  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_noninteractive_element_interactions a11y_no_static_element_interactions -->
   <div
     class="rounded-2xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden"
     style="background:var(--bg-surface);border:1px solid var(--border-color);animation:uag-fadeIn 0.15s ease-out;max-height:85vh;display:flex;flex-direction:column;"
-    onclick={(e) => e.stopPropagation()}
   >
     <!-- Tabs -->
     <div class="flex border-b shrink-0 overflow-x-auto" style="border-color:var(--border-color);">
@@ -258,7 +258,7 @@
         </div>
         <div class="flex items-center justify-between pt-2 border-t" style="border-color:var(--border-color);">
           <span class="text-sm font-medium" style="color:var(--text-secondary);">{t('displayReasoning')}</span>
-          <button onclick={sendDisplayReasoningToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
+          <button aria-label={t('displayReasoning')} onclick={sendDisplayReasoningToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
             style="background:{modes.displayReasoning ? 'var(--accent)' : 'var(--border-color)'};border:1px solid {modes.displayReasoning ? 'var(--accent)' : 'var(--text-tertiary)'};"
           ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{modes.displayReasoning ? '#fff' : 'var(--text-primary)'};left:{modes.displayReasoning ? 'calc(100% - 22px)' : '2px'};outline:1px solid var(--border-color);outline-offset:-1px;\"></span></button>
         </div>
@@ -277,7 +277,7 @@
         </div>
         <div class="flex items-center justify-between pt-2 border-t" style="border-color:var(--border-color);">
           <span class="text-sm font-medium" style="color:var(--text-secondary);">{t('toolSending')}</span>
-          <button onclick={doToolsToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
+          <button aria-label={t('toolSending')} onclick={doToolsToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
             style="background:{toolsEnabled ? 'var(--accent)' : 'var(--border-color)'};border:1px solid {toolsEnabled ? 'var(--accent)' : 'var(--text-tertiary)'};"
           ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{toolsEnabled ? '#fff' : 'var(--text-primary)'};left:{toolsEnabled ? 'calc(100% - 22px)' : '2px'};outline:1px solid var(--border-color);outline-offset:-1px;"></span></button>
         </div>
@@ -323,6 +323,9 @@
                 style="background:var(--bg-surface-alt);color:var(--text-primary);border:1px solid var(--border-color);"
               >
                 <div class="font-medium truncate">{log.name}</div>
+                {#if log.summary}
+                  <div class="truncate mt-0.5" style="color:var(--text-secondary);">{log.summary}</div>
+                {/if}
                 <div class="flex gap-3 mt-0.5" style="color:var(--text-tertiary);">
                   <span>{formatSize(log.size)}</span>
                   <span>{log.mtime ? formatTime(log.mtime) : ''}</span>

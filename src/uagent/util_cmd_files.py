@@ -259,10 +259,11 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                 last = _session_preview(row.get("last_message"))
                 summary = _session_preview(row.get("summary"))
                 print(f"[{index}] {_session_display_time(row.get('created_at'))}  {row.get('message_count', 0)} messages")
-                print(f"    first: {first}")
-                print(f"    last:  {last}")
-                if summary and summary not in {first, last}:
+                if summary:
                     print(f"    summary: {summary}")
+                else:
+                    print(f"    first: {first}")
+                    print(f"    last:  {last}")
                 print(
                     f"    id: {row['session_id']} | {row.get('project') or '-'} | "
                     f"{row['entry_point']}"

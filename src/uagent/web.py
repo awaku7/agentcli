@@ -2076,6 +2076,7 @@ async def get_logs(page: int = 1, per_page: int = 15):
                     "name": row["session_id"],
                     "project": row.get("project"),
                     "entry_point": row.get("entry_point"),
+                    "summary": row.get("summary") or "",
                     "size": 0,
                     "mtime": row.get("created_at"),
                     "has_responses_state": state is not None,
@@ -2190,6 +2191,7 @@ async def get_log_preview(index: int):
         return {
             "ok": True, "index": index, "path": row["session_id"],
             "name": row["session_id"], "mtime": row.get("created_at"),
+            "summary": row.get("summary") or "",
             "total_user": sum(m.get("role") == "user" for m in messages),
             "total_assistant": sum(m.get("role") == "assistant" for m in messages),
             "total_tool": sum(m.get("role") == "tool" for m in messages),

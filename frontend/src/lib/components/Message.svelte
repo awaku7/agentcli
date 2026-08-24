@@ -51,13 +51,19 @@
             {@const path = att.saved_path || att.path || ''}
             {@const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '')}
             {#if src && (att.type?.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/i.test(path))}
-              <img
-                src={src}
-                alt={att.name || 'image'}
-                class="max-w-[200px] max-h-[140px] rounded-lg border cursor-pointer transition hover:opacity-90"
-                style="border-color:var(--border-color);"
+              <button
+                type="button"
+                class="p-0 border-0 bg-transparent cursor-pointer"
+                aria-label={att.name || 'Open image'}
                 onclick={() => window.open(src, '_blank')}
-              />
+              >
+                <img
+                  src={src}
+                  alt={att.name || 'image'}
+                  class="max-w-[200px] max-h-[140px] rounded-lg border transition hover:opacity-90"
+                  style="border-color:var(--border-color);"
+                />
+              </button>
             {:else if src && (att.type?.startsWith('audio/') || /\.(mp3|wav|ogg)$/i.test(path))}
               <audio controls preload="none" class="w-[200px]" src={src}></audio>
             {:else}

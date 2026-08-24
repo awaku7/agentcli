@@ -1774,6 +1774,24 @@ def compress_history_with_llm(
             or "input exceeds the context window" in s
         )
 
+    def _is_temperature_rejected(err: Exception) -> bool:
+        """Return whether the provider rejected the temperature parameter."""
+        s = f"{type(err).__name__}: {err}".lower()
+        if "temperature" not in s:
+            return False
+        return any(
+            marker in s
+            for marker in (
+                "unsupported value",
+                "unsupported parameter",
+                "does not support",
+                "not support",
+                "only the default",
+                "unknown parameter",
+                "unexpected keyword",
+            )
+        )
+
     def _summarize_with_llm(
         summary_messages: list[dict[str, Any]],
     ) -> tuple[str | None, Exception | None]:
@@ -1874,7 +1892,15 @@ def compress_history_with_llm(
                             _summary_kwargs["max_completion_tokens"] = _sum_max
                         else:
                             _summary_kwargs["max_tokens"] = _sum_max
-                        resp = client.chat.completions.create(**_summary_kwargs)
+                        try:
+                            resp = client.chat.completions.create(**_summary_kwargs)
+                        except Exception as temperature_error:
+                            if not _is_temperature_rejected(temperature_error):
+                                raise
+                            # Some reasoning models require their default
+                            # temperature and reject any explicit value.
+                            _summary_kwargs.pop("temperature", None)
+                            resp = client.chat.completions.create(**_summary_kwargs)
                         summary_content = resp.choices[0].message.content or ""
                     else:
                         raise AttributeError(

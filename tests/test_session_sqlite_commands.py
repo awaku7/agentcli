@@ -13,12 +13,17 @@ def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     old = db.create_session(project="old", entry_point="cli")
     db.append_message(old.session_id, "user", "old question")
     db.append_message(old.session_id, "assistant", "old answer")
+    db.save_session_summary(old.session_id, "Summary should be visible")
     current = db.create_session(project="current", entry_point="cli")
     core = SimpleNamespace(session_store=db, session_id=current.session_id)
     messages: list[dict] = []
 
     assert _handle_cmd_logs("all", core=core, tr=lambda text, **_: text)
-    assert old.session_id in capsys.readouterr().out
+    output = capsys.readouterr().out
+    assert old.session_id in output
+    assert "summary: Summary should be visible" in output
+    assert "first: old question" not in output
+    assert "last:  old answer" not in output
 
     assert _handle_cmd_load(
         old.session_id, messages, core=core, tr=lambda text, **_: text

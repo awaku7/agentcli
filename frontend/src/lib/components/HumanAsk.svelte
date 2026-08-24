@@ -30,11 +30,10 @@
   role="dialog"
   tabindex="-1"
 >
-  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_noninteractive_element_interactions -->
+  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_noninteractive_element_interactions a11y_no_static_element_interactions -->
   <div
     class="rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6"
     style="background:var(--bg-surface);border:1px solid var(--border-color);"
-    onclick={(e) => e.stopPropagation()}
     role="document"
   >
     <h2 class="text-lg font-bold mb-2" style="background:linear-gradient(135deg, var(--accent), #8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -48,7 +47,6 @@
       class="w-full p-3 border-0 rounded-xl mb-4 focus:outline-none transition font-medium"
       style="background:var(--bg-surface-alt);color:var(--text-primary);box-shadow:inset 0 2px 4px rgba(0,0,0,0.04), 0 0 0 1px var(--border-color);"
       placeholder={t('humanAskPlaceholder')}
-      autofocus
     />
     <div class="flex justify-end gap-2">
       <button
