@@ -4926,3 +4926,68 @@ msgid ""
 msgstr ""
 "साइड-इफेक्टिंग टूल '%(tool)s' ला चालवायची अनुमती द्यायची? सुरू ठेवण्यासाठी "
 "होय किंवा रद्द करण्यासाठी नाही असे उत्तर द्या."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] सत्र संचयन सक्षम केलेले नाही."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] वापर: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep हा ऋण नसलेला पूर्णांक असावा."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] साफसफाई योजना: नवीनतम %(keep)d ठेवा, उमेदवार=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d संदेश"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] चाचणी रन; काहीही हटवले नाही. ही सत्रे हटवण्यासाठी --yes जोडा."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] %(id)s हटवण्यात अयशस्वी: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM अयशस्वी: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] %(total)d पैकी %(deleted)d सत्रे साफ केली."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] सत्र संचयन किंवा LLM सक्षम केलेले नाही."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] %(count)d सत्रांचा सारांश तयार करत आहे..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  वगळले"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  वगळले (खूप लहान)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  जतन केले"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  अयशस्वी: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] पूर्ण: %(done)d सारांशित, %(skipped)d वगळले, %(failed)d अयशस्वी"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] स्मृती उमेदवार नाहीत."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] स्मृती उमेदवार:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] वापर: :sessions approve <क्रमांक>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] स्मृती उमेदवार मंजूर."
