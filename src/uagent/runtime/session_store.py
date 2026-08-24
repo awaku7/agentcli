@@ -214,6 +214,14 @@ class SessionStore:
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
                     imported_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE INDEX IF NOT EXISTS idx_sessions_created
+                    ON sessions(created_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_sessions_project_created
+                    ON sessions(project, created_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_messages_session_id
+                    ON messages(session_id, message_id);
+                CREATE INDEX IF NOT EXISTS idx_response_states_session_id
+                    ON response_states(session_id, state_id);
                 """)
             columns = {
                 row["name"]
@@ -381,27 +389,41 @@ class SessionStore:
         )
         return session
 
-    def list_sessions(self, *, project: str | None = None) -> list[dict[str, Any]]:
-        """List stored sessions, newest first."""
-        if project is None:
-            rows = self._execute(
-                "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
-                "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
-                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id ASC LIMIT 1) AS first_message, "
-                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id DESC LIMIT 1) AS last_message, "
-                "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
-                "FROM sessions s ORDER BY s.created_at DESC, s.rowid DESC"
-            ).fetchall()
-        else:
-            rows = self._execute(
-                "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
-                "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
-                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id ASC LIMIT 1) AS first_message, "
-                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id DESC LIMIT 1) AS last_message, "
-                "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
-                "FROM sessions s WHERE s.project = ? ORDER BY s.created_at DESC, s.rowid DESC",
-                (project,),
-            ).fetchall()
+    def list_sessions(
+        self,
+        *,
+        project: str | None = None,
+        limit: int | None = None,
+        exclude_session_id: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """List stored sessions, newest first.
+
+        ``limit`` is applied in SQL rather than after fetching every session.
+        This keeps the interactive ``:logs`` command fast on large histories.
+        """
+        clauses: list[str] = []
+        params: list[Any] = []
+        if project is not None:
+            clauses.append("s.project = ?")
+            params.append(project)
+        if exclude_session_id is not None:
+            clauses.append("s.session_id <> ?")
+            params.append(exclude_session_id)
+        where = (" WHERE " + " AND ".join(clauses)) if clauses else ""
+        limit_sql = ""
+        if limit is not None:
+            limit_sql = " LIMIT ?"
+            params.append(max(0, int(limit)))
+
+        rows = self._execute(
+            "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
+            "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
+            "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id ASC LIMIT 1) AS first_message, "
+            "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id DESC LIMIT 1) AS last_message, "
+            "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
+            "FROM sessions s" + where + " ORDER BY s.created_at DESC, s.rowid DESC" + limit_sql,
+            tuple(params),
+        ).fetchall()
         return [dict(row) for row in rows]
 
     def delete_session(self, session_id: str) -> None:

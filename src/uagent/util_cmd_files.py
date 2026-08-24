@@ -235,10 +235,10 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             limit = 10
             if a and a.lower() not in {"all", "-a", "--all"}:
                 limit = max(1, int(a))
-            rows = [
-                row for row in store.list_sessions()
-                if row["session_id"] != getattr(core, "session_id", None)
-            ][:limit]
+            rows = store.list_sessions(
+                limit=None if a.lower() in {"all", "-a", "--all"} else limit,
+                exclude_session_id=getattr(core, "session_id", None),
+            )
             for index, row in enumerate(rows):
                 first = _session_preview(row.get("first_message"))
                 last = _session_preview(row.get("last_message"))
