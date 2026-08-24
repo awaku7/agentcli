@@ -5034,3 +5034,72 @@ msgid ""
 msgstr ""
 "Consentire l'esecuzione dello strumento con effetti collaterali "
 "\"%(tool)s\"? Rispondi sì per continuare o no per annullare."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] L’archivio delle sessioni non è abilitato."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Uso: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep deve essere un intero non negativo."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Piano di pulizia: mantieni le %(keep)d più recenti, "
+"candidati=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d messaggi"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Simulazione; non è stato eliminato nulla. Aggiungi --yes per "
+"eliminare queste sessioni."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Impossibile eliminare %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM non riuscito: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Eliminate %(deleted)d sessioni su %(total)d."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] L’archivio delle sessioni o il LLM non è abilitato."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Riepilogo di %(count)d sessioni in corso..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  ignorata"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  ignorata (troppo breve)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  salvata"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  non riuscita: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Completato: %(done)d riepilogate, %(skipped)d ignorate, "
+"%(failed)d non riuscite"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Nessun candidato di memoria."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Candidati di memoria:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Uso: :sessions approve <numero>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Candidato di memoria approvato."
