@@ -39,7 +39,9 @@ def test_run_store_lists_newest_first_and_rejects_invalid_status(tmp_path):
         store.finish(first.run_id, status="unknown")
 
 
-def test_corrupt_store_is_recovered_as_empty(tmp_path):
+def test_corrupt_store_is_quarantined_and_recovered_as_empty(tmp_path):
     path = tmp_path / "runs.json"
     path.write_text("not json", encoding="utf-8")
     assert SchedulerRunStore(path).list() == []
+    assert not path.exists()
+    assert list(tmp_path.glob("runs.json.corrupt.*"))

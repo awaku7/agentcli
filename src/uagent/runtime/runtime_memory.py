@@ -92,8 +92,15 @@ def append_long_memory_system_messages(
     except Exception:
         pass
 
+    memory_manager = None
     try:
-        personal_records = personal_long_memory_mod.load_long_memory_records()
+        from .memory_manager import MemoryManager
+
+        memory_manager = MemoryManager(
+            personal=personal_long_memory_mod,
+            shared=shared_memory_mod,
+        )
+        personal_records = memory_manager.records_for_prompt(scope="personal")
         personal_msg = build_long_memory_system_message_fn(personal_records)
         if personal_msg:
             messages.append(personal_msg)
@@ -111,7 +118,10 @@ def append_long_memory_system_messages(
         return flags
 
     try:
-        shared_records = shared_memory_mod.load_shared_memory_records()
+        if memory_manager is not None:
+            shared_records = memory_manager.records_for_prompt(scope="shared")
+        else:
+            shared_records = shared_memory_mod.load_shared_memory_records()
         shared_msg = build_long_memory_system_message_fn(shared_records)
         if shared_msg:
             messages.append(shared_msg)

@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import threading
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional
@@ -81,6 +82,15 @@ class SchedulerRunStore:
             items = raw.get("runs", []) if isinstance(raw, dict) else raw
             return [SchedulerRun(**item).normalized() for item in items if isinstance(item, dict)]
         except Exception:
+            # Preserve the evidence instead of silently overwriting a corrupt
+            # history on the next create/update operation.
+            try:
+                quarantine = self.path.with_name(
+                    f"{self.path.name}.corrupt.{int(time.time())}"
+                )
+                os.replace(self.path, quarantine)
+            except OSError:
+                pass
             return []
 
     def _write(self, runs: list[SchedulerRun]) -> None:
@@ -150,16 +160,35 @@ class SchedulerRunStore:
                     return run
         raise KeyError(f"scheduler run not found: {run_id}")
 
+    def claim(self, run_id: str) -> SchedulerRun | None:
+        """Atomically claim a queued run within this process.
+
+        Returning ``None`` means another worker already claimed or completed it.
+        """
+        with _LOCK:
+            runs = self._read()
+            for run in runs:
+                if run.run_id != str(run_id):
+                    continue
+                if run.status != "queued":
+                    return None
+                run.status = "running"
+                run.attempt += 1
+                run.started_at = format_iso_datetime(utc_now())
+                run.normalized()
+                self._write(runs)
+                return run
+        raise KeyError(f"scheduler run not found: {run_id}")
+
     def start(self, run_id: str) -> SchedulerRun:
-        current = self.get(run_id)
-        if current is None:
-            raise KeyError(f"scheduler run not found: {run_id}")
-        return self.update(
-            run_id,
-            status="running",
-            attempt=current.attempt + 1,
-            started_at=format_iso_datetime(utc_now()),
-        )
+        """Start a run, retaining the legacy API for direct callers."""
+        claimed = self.claim(run_id)
+        if claimed is None:
+            current = self.get(run_id)
+            if current is None:
+                raise KeyError(f"scheduler run not found: {run_id}")
+            return current
+        return claimed
 
     def finish(self, run_id: str, *, result: Any = None, status: str = "success", error: str = "") -> SchedulerRun:
         if status not in {"success", "failed", "timeout", "cancelled"}:
