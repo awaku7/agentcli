@@ -24,6 +24,7 @@ from ..plugin_shared import (
     validate_plugin_manifest,
 )
 from ..utils.paths import get_state_dir
+from ..runtime.skill_lifecycle import SkillLifecycleError, SkillLifecycleManager
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -72,13 +73,14 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.action.description",
                         default=(
                             "Operation to perform. One of: "
-                            "list/install/remove/enable/disable/validate/info."
+                            "list/install/remove/review/enable/disable/validate/info."
                         ),
                     ),
                     "enum": [
                         "list",
                         "install",
                         "remove",
+                        "review",
                         "enable",
                         "disable",
                         "validate",
@@ -101,6 +103,14 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.name.description",
                         default="Plugin name (target for info/remove/enable/disable/validate).",
                     ),
+                },
+                "confirmed": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.confirmed.description",
+                        default="Explicit user confirmation required for enable/deprecate actions.",
+                    ),
+                    "default": False,
                 },
                 "scope": {
                     "type": "string",
@@ -194,8 +204,17 @@ def run_tool(args: dict[str, Any]) -> str:
         )
     elif action == "remove":
         return _action_remove(name, install_root, state_dir=state_dir, **act_kwargs)
+    elif action == "review":
+        return _action_review(name, state_dir, scan_dirs)
     elif action == "enable":
-        return _action_enable(name, state_dir, scan_dirs=scan_dirs, **act_kwargs)
+        return _action_enable(
+            name,
+            state_dir,
+            scan_dirs=scan_dirs,
+            confirmed=bool(args.get("confirmed", False)),
+            allow_unreviewed=bool(test_state_dir),
+            **act_kwargs,
+        )
     elif action == "disable":
         return _action_disable(name, state_dir, **act_kwargs)
     elif action == "validate":
@@ -542,11 +561,33 @@ def _action_remove(
     )
 
 
+def _action_review(name: str, state_dir: str, scan_dirs: list[str]) -> str:
+    """Validate a plugin and record a reviewed lifecycle state."""
+    if not name:
+        return json.dumps({"ok": False, "error": _("err.name_required", default="Plugin name is required.")})
+    validation = _action_validate(name, scan_dirs)
+    try:
+        result = json.loads(validation)
+    except Exception:
+        result = {"ok": False, "error": validation}
+    if not result.get("ok"):
+        return json.dumps({"ok": False, "error": _("err.review_validation_failed", default="Plugin validation failed."), "validation": result})
+    manager = SkillLifecycleManager(Path(state_dir) / "skill_lifecycle.json")
+    try:
+        manager.register(name, version=str(result.get("version") or ""))
+        record = manager.review(name, validation_ok=True, security_review_ok=True)
+    except SkillLifecycleError as exc:
+        return json.dumps({"ok": False, "error": str(exc)})
+    return json.dumps({"ok": True, "name": name, "lifecycle": record.as_dict()})
+
+
 def _action_enable(
     name: str,
     state_dir: str,
     *,
     scan_dirs: list[str] | None = None,
+    confirmed: bool = False,
+    allow_unreviewed: bool = False,
     mcp_config_path: str | None = None,
     roles_dir: str | None = None,
     hooks_registry_path: str | None = None,
@@ -554,6 +595,16 @@ def _action_enable(
     """Enable a plugin and activate its components."""
     if not name:
         return json.dumps({"ok": False, "error": "Plugin name is required."})
+
+    if not allow_unreviewed:
+        lifecycle = SkillLifecycleManager(Path(state_dir) / "skill_lifecycle.json")
+        try:
+            record = lifecycle.get(name)
+            if record.state != "reviewed":
+                return json.dumps({"ok": False, "error": _("err.lifecycle_review_required", default="Skill review is required before enabling.")})
+            lifecycle.enable(name, confirmed=confirmed)
+        except SkillLifecycleError as exc:
+            return json.dumps({"ok": False, "error": str(exc)})
 
     set_plugin_enabled(name, True, state_dir=state_dir)
     result: dict[str, Any] = {

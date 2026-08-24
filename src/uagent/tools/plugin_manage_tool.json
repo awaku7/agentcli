@@ -24,7 +24,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Explicit user confirmation is required for enable or deprecate actions.",
+    "err.name_required": "Plugin name is required.",
+    "err.review_validation_failed": "Plugin validation failed.",
+    "err.lifecycle_review_required": "Skill review is required before enabling."
   },
   "ja": {
     "tool.description": "uagent プラグインを管理します。プラグインの一覧表示、インストール、削除、有効化、無効化、検証、詳細情報の取得に対応します。",
@@ -51,7 +55,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "有効化または廃止の操作には、ユーザーによる明示的な確認が必要です。",
+    "err.name_required": "プラグイン名が必要です。",
+    "err.review_validation_failed": "プラグインの検証に失敗しました。",
+    "err.lifecycle_review_required": "有効化する前にSkillのレビューが必要です。"
   },
   "es": {
     "tool.description": "Administre complementos de uagent: enumere, instale, elimine, habilite, deshabilite, valide u obtenga información sobre un complemento.",
@@ -78,7 +86,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Se requiere confirmación explícita del usuario para habilitar o desaprobar acciones.",
+    "err.name_required": "Se requiere el nombre del complemento.",
+    "err.review_validation_failed": "Error en la validación del complemento.",
+    "err.lifecycle_review_required": "Se requiere revisión de habilidades antes de habilitarlo."
   },
   "fr": {
     "tool.description": "Gérer les plugins uagent : répertorier, installer, supprimer, activer, désactiver, valider ou obtenir des informations sur un plugin.",
@@ -105,7 +117,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Une confirmation explicite de l'utilisateur est requise pour les actions d'activation ou de désapprobation.",
+    "err.name_required": "Le nom du plugin est requis.",
+    "err.review_validation_failed": "La validation du plugin a échoué.",
+    "err.lifecycle_review_required": "Un examen des compétences est requis avant l'activation."
   },
   "de": {
     "tool.description": "Verwalten Sie uagent-Plugins: Auflisten, Installieren, Entfernen, Aktivieren, Deaktivieren, Validieren oder Abrufen von Informationen zu einem Plugin.",
@@ -132,7 +148,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Für Aktivierungs- oder Deprecate-Aktionen ist eine explizite Benutzerbestätigung erforderlich.",
+    "err.name_required": "Plugin-Name ist erforderlich.",
+    "err.review_validation_failed": "Plugin-Validierung fehlgeschlagen.",
+    "err.lifecycle_review_required": "Vor der Aktivierung ist eine Überprüfung der Fähigkeiten erforderlich."
   },
   "ko": {
     "tool.description": "uagent 플러그인 관리: 플러그인 나열, 설치, 제거, 활성화, 비활성화, 유효성 검사 또는 정보 가져오기.",
@@ -159,7 +179,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "활성화 또는 지원 중단 작업을 수행하려면 명시적인 사용자 확인이 필요합니다.",
+    "err.name_required": "플러그인 이름이 필요합니다.",
+    "err.review_validation_failed": "플러그인 검증에 실패했습니다.",
+    "err.lifecycle_review_required": "활성화하기 전에 기술 검토가 필요합니다."
   },
   "zh_CN": {
     "tool.description": "管理 uagent 插件：列出、安装、删除、启用、禁用、验证或获取有关插件的信息。",
@@ -186,7 +210,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "启用或弃用操作需要明确的用户确认。",
+    "err.name_required": "需要插件名称。",
+    "err.review_validation_failed": "插件验证失败。",
+    "err.lifecycle_review_required": "启用之前需要进行技能审查。"
   },
   "zh_TW": {
     "tool.description": "管理 uagent 外掛程式：列出、安裝、刪除、啟用、停用、驗證或取得有關外掛程式的資訊。",
@@ -213,7 +241,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "啟用或棄用操作需要明確的使用者確認。",
+    "err.name_required": "需要插件名稱。",
+    "err.review_validation_failed": "外掛程式驗證失敗。",
+    "err.lifecycle_review_required": "啟用之前需要進行技能審查。"
   },
   "pt_BR": {
     "tool.description": "Gerencie plug-ins do uagent: liste, instale, remova, habilite, desabilite, valide ou obtenha informações sobre um plug-in.",
@@ -240,7 +272,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "A confirmação explícita do usuário é necessária para ações de ativação ou descontinuação.",
+    "err.name_required": "O nome do plug-in é obrigatório.",
+    "err.review_validation_failed": "Falha na validação do plug-in.",
+    "err.lifecycle_review_required": "A revisão da habilidade é necessária antes da ativação."
   },
   "ru": {
     "tool.description": "Управляйте плагинами uagent: составляйте список, устанавливайте, удаляйте, включайте, отключайте, проверяйте или получайте информацию о плагине.",
@@ -267,7 +303,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Для включения или прекращения поддержки действий требуется явное подтверждение пользователя.",
+    "err.name_required": "Требуется имя подключаемого модуля.",
+    "err.review_validation_failed": "Проверка подключаемого модуля не удалась.",
+    "err.lifecycle_review_required": "Перед включением требуется проверка навыков."
   },
   "ar": {
     "tool.description": "إدارة المكونات الإضافية uagent: قم بإدراج المكونات الإضافية أو تثبيتها أو إزالتها أو تمكينها أو تعطيلها أو التحقق من صحتها أو الحصول على معلومات حولها.",
@@ -294,7 +334,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "مطلوب تأكيد صريح من المستخدم لتمكين أو إيقاف الإجراءات.",
+    "err.name_required": "اسم المكون الإضافي مطلوب.",
+    "err.review_validation_failed": "فشل التحقق من صحة المكون الإضافي.",
+    "err.lifecycle_review_required": "مراجعة المهارات مطلوبة قبل التمكين."
   },
   "bn": {
     "tool.description": "uagent প্লাগইনগুলি পরিচালনা করুন: একটি প্লাগইন সম্পর্কে তালিকা, ইনস্টল, অপসারণ, সক্ষম, নিষ্ক্রিয়, যাচাই বা তথ্য পান।",
@@ -321,7 +365,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "সুস্পষ্ট ব্যবহারকারী নিশ্চিতকরণ সক্রিয় বা অবমূল্যায়ন কর্মের জন্য প্রয়োজন।",
+    "err.name_required": "প্লাগইন নাম প্রয়োজন।",
+    "err.review_validation_failed": "প্লাগইন বৈধতা ব্যর্থ হয়েছে।",
+    "err.lifecycle_review_required": "সক্ষম করার আগে দক্ষতা পর্যালোচনা প্রয়োজন।"
   },
   "cs": {
     "tool.description": "Správa zásuvných modulů uagent: seznam, instalace, odstranění, povolení, zakázání, ověření nebo získání informací o zásuvném modulu.",
@@ -348,7 +396,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Pro akce povolení nebo ukončení podpory je vyžadováno výslovné potvrzení uživatele.",
+    "err.name_required": "Je vyžadován název pluginu.",
+    "err.review_validation_failed": "Ověření pluginu se nezdařilo.",
+    "err.lifecycle_review_required": "Před povolením je vyžadována kontrola dovedností."
   },
   "el": {
     "tool.description": "Διαχείριση προσθηκών uagent: λίστα, εγκατάσταση, κατάργηση, ενεργοποίηση, απενεργοποίηση, επικύρωση ή λήψη πληροφοριών σχετικά με μια προσθήκη.",
@@ -375,7 +427,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Απαιτείται ρητή επιβεβαίωση χρήστη για ενέργειες ενεργοποίησης ή κατάργησης.",
+    "err.name_required": "Απαιτείται όνομα προσθήκης.",
+    "err.review_validation_failed": "Η επικύρωση της προσθήκης απέτυχε.",
+    "err.lifecycle_review_required": "Απαιτείται έλεγχος δεξιοτήτων πριν από την ενεργοποίηση."
   },
   "fa": {
     "tool.description": "افزونه‌های uagent را مدیریت کنید: فهرست، نصب، حذف، فعال کردن، غیرفعال کردن، تأیید اعتبار یا دریافت اطلاعات درباره یک افزونه.",
@@ -402,7 +458,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "تأیید صریح کاربر برای فعال کردن یا منسوخ کردن اقدامات لازم است.",
+    "err.name_required": "نام افزونه مورد نیاز است.",
+    "err.review_validation_failed": "اعتبارسنجی افزونه ناموفق بود.",
+    "err.lifecycle_review_required": "قبل از فعال‌سازی، بررسی مهارت لازم است."
   },
   "fi": {
     "tool.description": "Hallinnoi uagent-laajennuksia: lue, asenna, poista, ota käyttöön, poista käytöstä, vahvista tai hanki tietoja laajennuksesta.",
@@ -429,7 +489,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Käyttöönotto- tai käytöstäpoistotoimintoihin tarvitaan nimenomainen käyttäjän vahvistus.",
+    "err.name_required": "Laajennuksen nimi vaaditaan.",
+    "err.review_validation_failed": "Laajennuksen vahvistus epäonnistui.",
+    "err.lifecycle_review_required": "Ammattitaito on tarkistettava ennen käyttöönottoa."
   },
   "he": {
     "tool.description": "נהל תוספים של uagent: רשום, התקן, הסר, הפעל, השבת, לאמת או קבל מידע על תוסף.",
@@ -456,7 +520,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "נדרש אישור משתמש מפורש להפעלה או ביטול פעולות.",
+    "err.name_required": "נדרש שם הפלאגין.",
+    "err.review_validation_failed": "אימות הפלאגין נכשל.",
+    "err.lifecycle_review_required": "נדרשת סקירת מיומנות לפני ההפעלה."
   },
   "hi": {
     "tool.description": "यूएजेंट प्लगइन्स को प्रबंधित करें: सूचीबद्ध करें, इंस्टॉल करें, हटाएं, सक्षम करें, अक्षम करें, मान्य करें, या प्लगइन के बारे में जानकारी प्राप्त करें।",
@@ -483,7 +551,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "कार्यों को सक्षम या अस्वीकृत करने के लिए स्पष्ट उपयोगकर्ता पुष्टि आवश्यक है।",
+    "err.name_required": "प्लगइन नाम आवश्यक है।",
+    "err.review_validation_failed": "प्लगइन सत्यापन विफल रहा।",
+    "err.lifecycle_review_required": "सक्षम करने से पहले कौशल समीक्षा आवश्यक है।"
   },
   "hu": {
     "tool.description": "Kezelje az uagent beépülő modulokat: listázzon, telepítsen, távolítson el, engedélyezzen, tiltson le, érvényesítsen, vagy információkat kérjen a beépülő modulokról.",
@@ -510,7 +582,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "A felhasználó kifejezett megerősítése szükséges az engedélyezési vagy megszüntetési műveletekhez.",
+    "err.name_required": "A beépülő modul neve szükséges.",
+    "err.review_validation_failed": "A beépülő modul ellenőrzése sikertelen.",
+    "err.lifecycle_review_required": "Az engedélyezés előtt szakképzettség ellenőrzésre van szükség."
   },
   "id": {
     "tool.description": "Kelola plugin uagent: daftar, instal, hapus, aktifkan, nonaktifkan, validasi, atau dapatkan info tentang plugin.",
@@ -537,7 +613,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Konfirmasi pengguna secara eksplisit diperlukan untuk tindakan mengaktifkan atau menghentikan tindakan.",
+    "err.name_required": "Nama plugin diperlukan.",
+    "err.review_validation_failed": "Validasi plugin gagal.",
+    "err.lifecycle_review_required": "Tinjauan keterampilan diperlukan sebelum mengaktifkan."
   },
   "it": {
     "tool.description": "Gestisci i plugin uagent: elenca, installa, rimuovi, abilita, disabilita, convalida o ottieni informazioni su un plugin.",
@@ -564,7 +644,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "È richiesta la conferma esplicita dell'utente per abilitare o annullare le azioni.",
+    "err.name_required": "Il nome del plugin è obbligatorio.",
+    "err.review_validation_failed": "Convalida del plugin non riuscita.",
+    "err.lifecycle_review_required": "È richiesta la revisione delle competenze prima dell'abilitazione."
   },
   "mn": {
     "tool.description": "Uagent залгаасуудыг удирдах: жагсаалт, суулгах, устгах, идэвхжүүлэх, идэвхгүй болгох, баталгаажуулах эсвэл залгаасын талаар мэдээлэл авах.",
@@ -591,7 +675,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Идэвхжүүлэх эсвэл цуцлах үйлдлүүдэд хэрэглэгчийн тодорхой баталгаажуулалт шаардлагатай.",
+    "err.name_required": "Plugin нэр шаардлагатай.",
+    "err.review_validation_failed": "Plugin баталгаажуулалт амжилтгүй боллоо.",
+    "err.lifecycle_review_required": "Идэвхжүүлэхийн өмнө ур чадварын шалгалт шаардлагатай."
   },
   "mr": {
     "tool.description": "uagent प्लगइन व्यवस्थापित करा: प्लगइनची यादी करा, स्थापित करा, काढा, सक्षम करा, अक्षम करा, प्रमाणित करा किंवा माहिती मिळवा.",
@@ -618,7 +706,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "क्रिया सक्षम किंवा नापसंत करण्यासाठी स्पष्ट वापरकर्ता पुष्टीकरण आवश्यक आहे.",
+    "err.name_required": "प्लगइन नाव आवश्यक आहे.",
+    "err.review_validation_failed": "प्लगइन प्रमाणीकरण अयशस्वी झाले.",
+    "err.lifecycle_review_required": "सक्षम करण्यापूर्वी कौशल्य पुनरावलोकन आवश्यक आहे."
   },
   "nb": {
     "tool.description": "Administrer uagent-plugins: liste opp, installer, fjern, aktiver, deaktiver, valider eller få informasjon om en plugin.",
@@ -645,7 +737,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Eksplisitt brukerbekreftelse kreves for å aktivere eller avvikle handlinger.",
+    "err.name_required": "Pluginnavn er påkrevd.",
+    "err.review_validation_failed": "Pluginvalidering mislyktes.",
+    "err.lifecycle_review_required": "Evaluering av ferdigheter er nødvendig før aktivering."
   },
   "nl": {
     "tool.description": "Beheer uagent-plug-ins: lijst, installeer, verwijder, schakel in, schakel uit, valideer of krijg informatie over een plug-in.",
@@ -672,7 +768,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Expliciete gebruikersbevestiging is vereist voor inschakel- of beëindigingsacties.",
+    "err.name_required": "Plug-innaam is vereist.",
+    "err.review_validation_failed": "Plug-invalidatie mislukt.",
+    "err.lifecycle_review_required": "Vaardigheidsbeoordeling is vereist voordat deze wordt ingeschakeld."
   },
   "pl": {
     "tool.description": "Zarządzaj wtyczkami uagent: wyświetlaj, instaluj, usuwaj, włączaj, wyłączaj, sprawdzaj poprawność lub uzyskaj informacje o wtyczce.",
@@ -699,7 +799,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Aby włączyć lub wyłączyć działanie, wymagane jest wyraźne potwierdzenie użytkownika.",
+    "err.name_required": "Wymagana jest nazwa wtyczki.",
+    "err.review_validation_failed": "Sprawdzanie poprawności wtyczki nie powiodło się.",
+    "err.lifecycle_review_required": "Przed włączeniem wymagana jest ocena umiejętności."
   },
   "pt": {
     "tool.description": "Gerencie plug-ins do uagent: liste, instale, remova, habilite, desabilite, valide ou obtenha informações sobre um plug-in.",
@@ -726,7 +830,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "A confirmação explícita do usuário é necessária para ações de ativação ou descontinuação.",
+    "err.name_required": "O nome do plug-in é obrigatório.",
+    "err.review_validation_failed": "Falha na validação do plug-in.",
+    "err.lifecycle_review_required": "A revisão da habilidade é necessária antes da ativação."
   },
   "ro": {
     "tool.description": "Gestionați pluginurile uagent: enumerați, instalați, eliminați, activați, dezactivați, validați sau obțineți informații despre un plugin.",
@@ -753,7 +861,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Este necesară confirmarea explicită a utilizatorului pentru acțiunile de activare sau derogare.",
+    "err.name_required": "Numele pluginului este necesar.",
+    "err.review_validation_failed": "Validarea pluginului a eșuat.",
+    "err.lifecycle_review_required": "Este necesară examinarea aptitudinilor înainte de activare."
   },
   "sv": {
     "tool.description": "Hantera uagent-plugins: lista, installera, ta bort, aktivera, inaktivera, validera eller få information om ett plugin.",
@@ -780,7 +892,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Explicit användarbekräftelse krävs för att aktivera eller fasa ut åtgärder.",
+    "err.name_required": "Pluginnamn krävs.",
+    "err.review_validation_failed": "Pluginvalidering misslyckades.",
+    "err.lifecycle_review_required": "Skicklighetsgranskning krävs innan aktivering."
   },
   "sw": {
     "tool.description": "Dhibiti programu-jalizi za uagent: orodhesha, sakinisha, ondoa, washa, zima, thibitisha, au upate maelezo kuhusu programu-jalizi.",
@@ -807,7 +923,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Uthibitishaji wa wazi wa mtumiaji unahitajika ili kuwezesha au kupunguza vitendo.",
+    "err.name_required": "Jina la programu-jalizi linahitajika.",
+    "err.review_validation_failed": "Uthibitishaji wa programu-jalizi umeshindwa.",
+    "err.lifecycle_review_required": "Uhakiki wa ujuzi unahitajika kabla ya kuwezesha."
   },
   "th": {
     "tool.description": "จัดการปลั๊กอิน uagent: แสดงรายการ ติดตั้ง ลบ เปิดใช้งาน ปิดใช้งาน ตรวจสอบ หรือรับข้อมูลเกี่ยวกับปลั๊กอิน",
@@ -834,7 +954,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "จำเป็นต้องมีการยืนยันผู้ใช้อย่างชัดเจนสำหรับการเปิดใช้งานหรือเลิกใช้งานการดำเนินการ",
+    "err.name_required": "จำเป็นต้องมีชื่อปลั๊กอิน",
+    "err.review_validation_failed": "การตรวจสอบความถูกต้องของปลั๊กอินล้มเหลว",
+    "err.lifecycle_review_required": "ต้องมีการตรวจสอบทักษะก่อนที่จะเปิดใช้งาน"
   },
   "tr": {
     "tool.description": "Ajan eklentilerini yönetin: bir eklentiyi listeleyin, yükleyin, kaldırın, etkinleştirin, devre dışı bırakın, doğrulayın veya eklenti hakkında bilgi alın.",
@@ -861,7 +985,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Etkinleştirme veya kullanımdan kaldırma eylemleri için açık kullanıcı onayı gerekiyor.",
+    "err.name_required": "Eklenti adı gerekli.",
+    "err.review_validation_failed": "Eklenti doğrulaması başarısız oldu.",
+    "err.lifecycle_review_required": "Etkinleştirmeden önce becerinin gözden geçirilmesi gerekiyor."
   },
   "uk": {
     "tool.description": "Керуйте плагінами uagent: перераховуйте, встановлюйте, видаляйте, увімкніть, вимикайте, перевіряйте або отримуйте інформацію про плагін.",
@@ -888,7 +1016,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Потрібне явне підтвердження користувача для ввімкнення або припинення дій.",
+    "err.name_required": "Потрібна назва плагіна.",
+    "err.review_validation_failed": "Не вдалося перевірити плагін.",
+    "err.lifecycle_review_required": "Перед увімкненням потрібна перевірка навичок."
   },
   "vi": {
     "tool.description": "Quản lý plugin uagent: liệt kê, cài đặt, xóa, bật, tắt, xác thực hoặc nhận thông tin về plugin.",
@@ -915,7 +1047,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Cần có xác nhận rõ ràng của người dùng để bật hoặc tắt các hành động.",
+    "err.name_required": "Cần có tên plugin.",
+    "err.review_validation_failed": "Xác thực plugin không thành công.",
+    "err.lifecycle_review_required": "Cần phải xem xét kỹ năng trước khi bật."
   },
   "fil": {
     "tool.description": "Pamahalaan ang uagent na mga plugin: ilista, i-install, alisin, paganahin, huwag paganahin, patunayan, o kumuha ng impormasyon tungkol sa isang plugin.",
@@ -942,7 +1078,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Kinakailangan ang tahasang kumpirmasyon ng user para sa mga aksyon na paganahin o hindi na ginagamit.",
+    "err.name_required": "Kinakailangan ang pangalan ng plugin.",
+    "err.review_validation_failed": "Nabigo ang pagpapatunay ng plugin.",
+    "err.lifecycle_review_required": "Kinakailangan ang pagsusuri sa kasanayan bago i-enable."
   },
   "ms": {
     "tool.description": "Urus uagent pemalam: senarai, pasang, alih keluar, dayakan, lumpuhkan, sahkan atau dapatkan maklumat tentang pemalam.",
@@ -969,7 +1109,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Pengesahan pengguna eksplisit diperlukan untuk mendayakan atau menghentikan tindakan.",
+    "err.name_required": "Nama pemalam diperlukan.",
+    "err.review_validation_failed": "Pengesahan pemalam gagal.",
+    "err.lifecycle_review_required": "Semakan kemahiran diperlukan sebelum mendayakan."
   },
   "da": {
     "tool.description": "Administrer uagent plugins: liste, installer, fjern, aktiver, deaktiver, valider eller få oplysninger om et plugin.",
@@ -996,7 +1140,11 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
     "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
+    "param.confirmed.description": "Eksplicit brugerbekræftelse er påkrævet for at aktivere eller udfase handlinger.",
+    "err.name_required": "Pluginnavn er påkrævet.",
+    "err.review_validation_failed": "Pluginvalidering mislykkedes.",
+    "err.lifecycle_review_required": "Færdighedsgennemgang er påkrævet før aktivering."
   },
   "nn": {
     "tool.description": "Administrer uagent plugins: liste opp, installer, fjern, aktiver, deaktiver, valider eller få informasjon om en plugin.",
@@ -1023,6 +1171,10 @@
     "cmd.help.plugin_info": "  :plugin info <name>  Vis detaljar om programtillegget.",
     "cmd.help.plugin_init": "  :plugin init <name>  Opprett grunnstruktur for ein ny programtilleggskatalog.",
     "cmd.help.plugin_validate": "  :plugin validate <name>  Valider manifestet til eit programtillegg.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Registrer ein marknadsplass\n  :plugin marketplace remove <name>  Fjern ein marknadsplass\n  :plugin marketplace list           List registrerte marknadsplassar\n  :plugin marketplace update <name>  Oppdater ein marknadsplasskatalog"
+    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Registrer ein marknadsplass\n  :plugin marketplace remove <name>  Fjern ein marknadsplass\n  :plugin marketplace list           List registrerte marknadsplassar\n  :plugin marketplace update <name>  Oppdater ein marknadsplasskatalog",
+    "param.confirmed.description": "Eksplisitt brukarstadfesting er nødvendig for å aktivere eller avvikle handlingar.",
+    "err.name_required": "Plugin-namn er påkravd.",
+    "err.review_validation_failed": "Validering av plugin mislyktes.",
+    "err.lifecycle_review_required": "Ferdigheitsgjennomgang er nødvendig før aktivering."
   }
 }
