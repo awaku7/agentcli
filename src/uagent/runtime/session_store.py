@@ -137,8 +137,8 @@ class SessionStore:
 
     @classmethod
     def from_environment(cls) -> "SessionStore | None":
-        """Create a store only when explicitly enabled by the environment."""
-        enabled = os.environ.get("UAGENT_SESSION_STORE", "").strip().lower()
+        """Create a store unless explicitly disabled by the environment."""
+        enabled = os.environ.get("UAGENT_SESSION_STORE", "1").strip().lower()
         if enabled not in {"1", "true", "yes", "on"}:
             return None
         path = os.environ.get(
@@ -385,13 +385,21 @@ class SessionStore:
         """List stored sessions, newest first."""
         if project is None:
             rows = self._execute(
-                "SELECT session_id, project, project_path, entry_point, created_at "
-                "FROM sessions ORDER BY created_at DESC, rowid DESC"
+                "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
+                "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
+                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id ASC LIMIT 1) AS first_message, "
+                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id DESC LIMIT 1) AS last_message, "
+                "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
+                "FROM sessions s ORDER BY s.created_at DESC, s.rowid DESC"
             ).fetchall()
         else:
             rows = self._execute(
-                "SELECT session_id, project, project_path, entry_point, created_at "
-                "FROM sessions WHERE project = ? ORDER BY created_at DESC, rowid DESC",
+                "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
+                "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
+                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id ASC LIMIT 1) AS first_message, "
+                "(SELECT content FROM messages m WHERE m.session_id = s.session_id ORDER BY message_id DESC LIMIT 1) AS last_message, "
+                "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
+                "FROM sessions s WHERE s.project = ? ORDER BY s.created_at DESC, s.rowid DESC",
                 (project,),
             ).fetchall()
         return [dict(row) for row in rows]
@@ -617,7 +625,7 @@ def attach_opt_in_session_store(
     core._session_store_original_log_message = original_log_message
     pending_tool_calls: dict[str, tuple[str, dict[str, Any]]] = {}
 
-    jsonl_enabled = os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() != "sqlite"
+    jsonl_enabled = os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() != "sqlite"
 
     def log_message(message: dict[str, Any]) -> None:
         if jsonl_enabled:

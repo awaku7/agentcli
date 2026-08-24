@@ -738,7 +738,7 @@ def profile_from_logs(
     log_dir = get_log_dir()
     sqlite_sources: list[tuple[str, list[dict[str, Any]]]] = []
     use_sqlite = (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     )
     if use_sqlite:

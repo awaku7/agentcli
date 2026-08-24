@@ -20,6 +20,14 @@ def _get_base_log_dir() -> str:
     return str(get_log_dir())
 
 
+def _use_sqlite() -> bool:
+    return (env_get("UAGENT_MEMORY_BACKEND") or "sqlite").strip().lower() == "sqlite"
+
+
+def _sqlite_path() -> str:
+    return env_get("UAGENT_MEMORY_DB") or os.path.join(_get_base_log_dir(), "memory.sqlite3")
+
+
 def get_memory_file_path() -> str:
     """Return the resolved path to the personal long-memory JSONL file."""
     base_log_dir = _get_base_log_dir()
@@ -33,7 +41,18 @@ def get_max_memory_bytes() -> int:
 
 
 def append_long_memory(note: str) -> None:
-    """Append one memory record to the JSONL file. Errors are ignored."""
+    """Append one personal memory record."""
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+            store = open_memory_store(_sqlite_path())
+            try:
+                store.append(note)
+            finally:
+                store.close()
+        except Exception:
+            pass
+        return
     memory_file = get_memory_file_path()
     try:
         dirpath = os.path.dirname(memory_file)
@@ -73,7 +92,20 @@ def load_long_memory_raw() -> str:
 
 
 def load_long_memory_records() -> list[dict[str, Any]]:
-    """Parse JSONL and return list of dicts. Broken lines are skipped."""
+    """Load personal memory records from the configured backend."""
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+            store = open_memory_store(_sqlite_path())
+            try:
+                return [
+                    {"ts": row["created_at"], "note": row["note"]}
+                    for row in store.records()
+                ]
+            finally:
+                store.close()
+        except Exception:
+            return []
     memory_file = get_memory_file_path()
     records: list[dict[str, Any]] = []
     try:
@@ -96,7 +128,22 @@ def load_long_memory_records() -> list[dict[str, Any]]:
 
 
 def update_long_memory_entry(index: int, note: str) -> bool:
-    """Update one record by index in-place. Preserves order. Returns True on success."""
+    """Update one record by index. Returns True on success."""
+    if _use_sqlite():
+        records = load_long_memory_records()
+        if index < 0 or index >= len(records):
+            return False
+        records[index] = {"ts": time.time(), "note": note}
+        try:
+            from ..runtime.memory_store import open_memory_store
+            store = open_memory_store(_sqlite_path())
+            try:
+                store.replace(records)
+            finally:
+                store.close()
+            return True
+        except Exception:
+            return False
     records = load_long_memory_records()
     if index < 0 or index >= len(records):
         return False
@@ -116,6 +163,16 @@ def update_long_memory_entry(index: int, note: str) -> bool:
 
 def delete_long_memory_entry(index: int) -> bool:
     """Delete one record by index. Returns True on success."""
+    if _use_sqlite():
+        try:
+            from ..runtime.memory_store import open_memory_store
+            store = open_memory_store(_sqlite_path())
+            try:
+                return store.delete(index)
+            finally:
+                store.close()
+        except Exception:
+            return False
     records = load_long_memory_records()
     if index < 0 or index >= len(records):
         return False

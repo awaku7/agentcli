@@ -211,11 +211,19 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
     return True
 
 
+def _session_preview(value: Any, limit: int = 100) -> str:
+    """Return a compact single-line preview for a stored session message."""
+    text = " ".join(str(value or "").split())
+    if not text:
+        return "-"
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     # In sqlite-only mode, :logs is backed by the session store. The legacy
     # JSONL path remains available in dual/jsonl mode.
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store
@@ -227,11 +235,22 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             limit = 10
             if a and a.lower() not in {"all", "-a", "--all"}:
                 limit = max(1, int(a))
-            rows = store.list_sessions()[:limit]
-            for row in rows:
+            rows = [
+                row for row in store.list_sessions()
+                if row["session_id"] != getattr(core, "session_id", None)
+            ][:limit]
+            for index, row in enumerate(rows):
+                first = _session_preview(row.get("first_message"))
+                last = _session_preview(row.get("last_message"))
+                summary = _session_preview(row.get("summary"))
+                print(f"[{index}] {row['created_at']}  {row.get('message_count', 0)} messages")
+                print(f"    first: {first}")
+                print(f"    last:  {last}")
+                if summary and summary not in {first, last}:
+                    print(f"    summary: {summary}")
                 print(
-                    f"{row['session_id']} | {row.get('project') or '-'} | "
-                    f"{row['entry_point']} | {row['created_at']}"
+                    f"    id: {row['session_id']} | {row.get('project') or '-'} | "
+                    f"{row['entry_point']}"
                 )
             return True
         except Exception as exc:

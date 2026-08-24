@@ -2061,7 +2061,7 @@ async def update_profile(req: Request):
 async def get_logs(page: int = 1, per_page: int = 15):
     """Return paginated JSONL logs or SQLite sessions."""
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store
@@ -2155,7 +2155,7 @@ async def get_log_preview_by_path(path: str = ""):
     if not path:
         return JSONResponse(status_code=400, content={"error": _("path is required")})
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         rows = [r for r in core.session_store.list_sessions()
@@ -2177,7 +2177,7 @@ async def get_log_preview_by_path(path: str = ""):
 async def get_log_preview(index: int):
     """Return first/last messages of a JSONL log or SQLite session."""
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store

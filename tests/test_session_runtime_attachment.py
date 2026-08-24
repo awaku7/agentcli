@@ -6,7 +6,7 @@ from uagent.runtime.session_store import attach_opt_in_session_store
 
 
 def test_attach_opt_in_session_store_is_noop_when_disabled(monkeypatch, tmp_path):
-    monkeypatch.delenv("UAGENT_SESSION_STORE", raising=False)
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "0")
     core = SimpleNamespace(log_message=lambda message: None)
 
     store, session_id = attach_opt_in_session_store(
@@ -19,6 +19,7 @@ def test_attach_opt_in_session_store_is_noop_when_disabled(monkeypatch, tmp_path
 
 def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_path):
     monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "dual")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
     logged = []
     core = SimpleNamespace(log_message=logged.append)

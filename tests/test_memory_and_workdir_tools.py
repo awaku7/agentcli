@@ -21,6 +21,7 @@ def test_add_get_long_memory_roundtrip(
 
     mem = repo_tmp_path / "mem.jsonl"
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(mem))
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
 
     out1 = add_long_memory({"note": "note-1"})
     assert "saved" in out1.lower()
@@ -37,6 +38,7 @@ def test_add_long_memory_rejects_empty_note(
 
     mem = repo_tmp_path / "mem.jsonl"
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(mem))
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
 
     out = add_long_memory({"note": "   "})
     assert any(token in out.lower() for token in ("error", "empty", "エラー", "空"))

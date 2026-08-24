@@ -49,3 +49,5 @@ _or_check.json
 
 # Local scratch (tool json i18n batches, etc.)
 tmp/
+# Local runtime state
+.uag/

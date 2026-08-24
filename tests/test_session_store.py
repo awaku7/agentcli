@@ -13,8 +13,8 @@ from uagent.runtime.session_store import (
 )
 
 
-def test_env_opt_in_is_disabled_by_default(monkeypatch, tmp_path):
-    monkeypatch.delenv("UAGENT_SESSION_STORE", raising=False)
+def test_env_opt_in_can_be_disabled_explicitly(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "0")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "ignored.sqlite3"))
 
     assert SessionStore.from_environment() is None

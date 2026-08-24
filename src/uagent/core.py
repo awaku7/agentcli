@@ -825,7 +825,7 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
     session_store = globals().get("session_store")
     session_id = globals().get("session_id")
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and session_store is not None
         and session_id
     ):

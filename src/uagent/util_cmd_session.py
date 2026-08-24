@@ -36,6 +36,14 @@ tr = _
 tr_ = _
 
 
+def _session_preview(value: Any, limit: int = 100) -> str:
+    """Return a compact single-line preview for a stored session message."""
+    text = " ".join(str(value or "").split())
+    if not text:
+        return "-"
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
 def _load_skill_tools() -> None:
     """Make the tools used by Agent Skills visible to the next LLM round.
 
@@ -662,7 +670,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
         return True
 
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         return _handle_sqlite_clean(core=core, threshold=threshold)
@@ -905,10 +913,18 @@ def _handle_cmd_sessions(
         if store is None:
             print("[sessions] Session store is not enabled.")
             return True
-        for row in store.list_sessions():
+        for index, row in enumerate(store.list_sessions()):
+            first = _session_preview(row.get("first_message"))
+            last = _session_preview(row.get("last_message"))
+            summary = _session_preview(row.get("summary"))
+            print(f"[{index}] {row['created_at']}  {row.get('message_count', 0)} messages")
+            print(f"    first: {first}")
+            print(f"    last:  {last}")
+            if summary and summary not in {first, last}:
+                print(f"    summary: {summary}")
             print(
-                f"{row['session_id']} | {row.get('project') or '-'} | "
-                f"{row['entry_point']} | {row['created_at']}"
+                f"    id: {row['session_id']} | {row.get('project') or '-'} | "
+                f"{row['entry_point']}"
             )
         return True
     if command == "delete":
@@ -982,7 +998,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if (
-        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store
