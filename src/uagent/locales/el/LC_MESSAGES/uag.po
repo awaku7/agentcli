@@ -5056,3 +5056,73 @@ msgid ""
 msgstr ""
 "Να επιτρέπεται η εκτέλεση του εργαλείου \"%(tool)s\" με παρενέργειες; "
 "Απαντήστε ναι για να συνεχίσετε ή όχι για ακύρωση."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Ο χώρος αποθήκευσης συνεδριών δεν είναι ενεργοποιημένος."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Χρήση: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] Το --keep πρέπει να είναι μη αρνητικός ακέραιος."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Σχέδιο εκκαθάρισης: διατήρηση των νεότερων %(keep)d, "
+"υποψήφιες=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d μηνύματα"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Δοκιμαστική εκτέλεση· δεν διαγράφηκε τίποτα. Προσθέστε --yes για "
+"να διαγράψετε αυτές τις συνεδρίες."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Αποτυχία διαγραφής του %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] Αποτυχία VACUUM: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Διαγράφηκαν %(deleted)d από %(total)d συνεδρίες."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr ""
+"[sessions] Ο χώρος αποθήκευσης συνεδριών ή το LLM δεν είναι ενεργοποιημένο."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Γίνεται σύνοψη %(count)d συνεδριών..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  παραλείφθηκε"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  παραλείφθηκε (πολύ σύντομο)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  αποθηκεύτηκε"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  απέτυχε: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Ολοκληρώθηκε: σύνοψη %(done)d, παράλειψη %(skipped)d, αποτυχίες "
+"%(failed)d"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Δεν υπάρχουν υποψήφιες μνήμες."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Υποψήφιες μνήμες:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Χρήση: :sessions approve <αριθμός>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Η υποψήφια μνήμη εγκρίθηκε."
