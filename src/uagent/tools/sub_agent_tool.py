@@ -547,10 +547,11 @@ class SubAgentRunner:
         log_dir = Path(log_dir_str) if log_dir_str else _SUB_AGENT_LOG_DIR
         try:
             log_dir.mkdir(parents=True, exist_ok=True)
-            today = datetime.date.today().strftime("%Y%m%d")
+            now_utc = datetime.datetime.now(datetime.timezone.utc)
+            today = now_utc.strftime("%Y%m%d")
             log_file = log_dir / f"subagent_{today}.jsonl"
             entry: Dict[str, Any] = {
-                "timestamp": datetime.datetime.now().isoformat(),
+                "timestamp": now_utc.isoformat(),
                 "agent_name": agent_name,
                 "status": status,
                 "retries": retries,
