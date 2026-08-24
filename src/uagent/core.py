@@ -1774,6 +1774,11 @@ def compress_history_with_llm(
             or "input exceeds the context window" in s
         )
 
+    def _is_openai_module_deadlock(err: Exception) -> bool:
+        """Return whether a lazy OpenAI resource import hit a module deadlock."""
+        text = f"{type(err).__name__}: {err}".lower()
+        return "_modulelock" in text and "openai.resources" in text
+
     def _is_temperature_rejected(err: Exception) -> bool:
         """Return whether the provider rejected the temperature parameter."""
         s = f"{type(err).__name__}: {err}".lower()
@@ -1798,6 +1803,7 @@ def compress_history_with_llm(
         nonlocal client
         summary_content = ""
         attempt_429 = 0
+        module_deadlock_retries = 0
         while True:
             try:
                 if provider in ("gemini", "vertexai") or "genai.Client" in str(
@@ -1908,6 +1914,10 @@ def compress_history_with_llm(
                         )
                 return summary_content, None
             except Exception as e:
+                if _is_openai_module_deadlock(e) and module_deadlock_retries < 3:
+                    module_deadlock_retries += 1
+                    time.sleep(0.25 * module_deadlock_retries)
+                    continue
                 if _is_context_length_exceeded(e):
                     return None, e
 
@@ -2068,21 +2078,21 @@ def compress_history_with_llm(
             if current_chunk_size <= 1:
                 print(
                     _(
-                        "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."
+                        "[WARN] history compression hit context length at the minimum chunk size; history was left unchanged."
                     ),
                     file=sys.stderr,
                 )
-                return shrink_messages(messages, keep_last=keep_last)
+                return list(messages)
 
             next_chunk_size = max(1, current_chunk_size // 2)
             if next_chunk_size == current_chunk_size:
                 print(
                     _(
-                        "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."
+                        "[WARN] history compression could not reduce the chunk size; history was left unchanged."
                     ),
                     file=sys.stderr,
                 )
-                return shrink_messages(messages, keep_last=keep_last)
+                return list(messages)
 
             print(
                 _(
@@ -2096,11 +2106,11 @@ def compress_history_with_llm(
 
         print(
             _t(
-                "[WARN] history compression failed due to LLM error; falling back to shrink_messages()."
+                "[WARN] history compression failed due to an LLM error; history was left unchanged."
             ),
             file=sys.stderr,
         )
-        return shrink_messages(messages, keep_last=keep_last)
+        return list(messages)
 
 
 def print_help(topic: str | None = None) -> None:

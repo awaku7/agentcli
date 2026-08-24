@@ -205,6 +205,13 @@ def build_responses_request(
         # it when forwarded as input[n].response_id.
         m_clean.pop("response_id", None)
 
+        # ``reasoning_content`` is a Chat Completions extension used by some
+        # reasoning providers (for example DeepSeek).  It is retained in
+        # local history, but is not a valid field on a Responses API input
+        # item; Azure OpenAI rejects it as an unknown parameter.  Responses
+        # reasoning is represented by typed output items instead.
+        m_clean.pop("reasoning_content", None)
+
         attachment_items: list[dict[str, Any]] = []
         if role == "user":
             raw_attachments = m_clean.get("attachments")

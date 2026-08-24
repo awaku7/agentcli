@@ -9,7 +9,6 @@ import ntpath
 import os
 import re
 import sqlite3
-import threading
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
@@ -122,18 +121,12 @@ class SessionStore:
     def __init__(self, path: str | Path):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        # The LLM response path may persist a shrink result from a worker
-        # thread. Serialize access while allowing this shared connection.
-        self._lock = threading.RLock()
         try:
             # Multiple CLI/Web/A2A processes may share one store. WAL lets
             # readers proceed while a writer commits, and the longer busy
             # timeout avoids failing on normal short-lived writer contention.
             self._connection = sqlite3.connect(
-                self.path,
-                timeout=5.0,
-                isolation_level=None,
-                check_same_thread=False,
+                self.path, timeout=5.0, isolation_level=None
             )
             self._connection.row_factory = sqlite3.Row
             self._connection.execute("PRAGMA foreign_keys = ON")
@@ -266,8 +259,7 @@ class SessionStore:
 
     def _execute(self, sql: str, parameters: tuple[Any, ...] = ()) -> sqlite3.Cursor:
         try:
-            with self._lock:
-                return self._connection.execute(sql, parameters)
+            return self._connection.execute(sql, parameters)
         except sqlite3.Error as exc:
             raise SessionStoreError(f"session store operation failed: {exc}") from exc
 

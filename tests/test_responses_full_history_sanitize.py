@@ -56,3 +56,25 @@ def test_full_history_skips_bare_function_call_items() -> None:
         for m in input_msgs
         if isinstance(m, dict)
     )
+
+
+def test_full_history_drops_chat_reasoning_extension() -> None:
+    messages = [
+        {"role": "system", "content": "sys"},
+        {
+            "role": "assistant",
+            "content": "回答",
+            "reasoning_content": "内部推論",
+        },
+        {"role": "user", "content": "続けて"},
+    ]
+
+    _instructions, input_msgs, _tools = build_responses_request(
+        messages,
+        send_tools_this_round=False,
+        provider="azure",
+        previous_response_id=None,
+    )
+
+    assert all("reasoning_content" not in m for m in input_msgs)
+    assert messages[1]["reasoning_content"] == "内部推論"
