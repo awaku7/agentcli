@@ -4820,3 +4820,72 @@ msgid ""
 msgstr ""
 "Izinkan alat yang memberikan efek samping '%(tool)s' berjalan? Jawab ya "
 "untuk melanjutkan atau tidak untuk membatalkan."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Penyimpanan sesi tidak diaktifkan."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Penggunaan: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep harus berupa bilangan bulat non-negatif."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Rencana pembersihan: pertahankan %(keep)d terbaru, "
+"kandidat=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d pesan"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Uji coba; tidak ada yang dihapus. Tambahkan --yes untuk menghapus"
+" sesi ini."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Gagal menghapus %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM gagal: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] %(deleted)d dari %(total)d sesi telah dibersihkan."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Penyimpanan sesi atau LLM tidak diaktifkan."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Merangkum %(count)d sesi..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  dilewati"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  dilewati (terlalu pendek)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  disimpan"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  gagal: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Selesai: %(done)d dirangkum, %(skipped)d dilewati, %(failed)d "
+"gagal"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Tidak ada kandidat memori."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Kandidat memori:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Penggunaan: :sessions approve <nomor>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Kandidat memori disetujui."
