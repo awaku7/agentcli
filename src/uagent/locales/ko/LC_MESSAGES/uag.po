@@ -4784,3 +4784,66 @@ msgid ""
 " to cancel."
 msgstr ""
 "부작용을 일으키는 도구 '%(tool)s'을(를) 실행하도록 허용하시겠습니까? 계속하려면 '예', 취소하려면 '아니요'라고 답하세요."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] 세션 저장소가 활성화되지 않았습니다."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] 사용법: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep에는 음이 아닌 정수를 지정해야 합니다."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] 정리 계획: 최신 %(keep)d개 유지, 대상=%(count)d개"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | 메시지 %(count)d개"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr "[sessions] 시험 실행입니다. 삭제하지 않았습니다. 세션을 삭제하려면 --yes를 추가하세요."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] %(id)s 삭제 실패: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM 실패: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] %(total)d개 중 %(deleted)d개의 세션을 정리했습니다."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] 세션 저장소 또는 LLM이 활성화되지 않았습니다."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] 세션 %(count)d개를 요약하는 중..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  건너뜀"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  건너뜀 (너무 짧음)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  저장됨"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  실패: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr "[sessions] 완료: 요약 %(done)d개, 건너뜀 %(skipped)d개, 실패 %(failed)d개"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] 메모리 후보가 없습니다."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] 메모리 후보:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] 사용법: :sessions approve <번호>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] 메모리 후보가 승인되었습니다."
