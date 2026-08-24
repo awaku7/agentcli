@@ -255,8 +255,12 @@ def handle_command(
 
     if cmd in {"sessions", "session"}:
         return _handle_cmd_sessions(
-            arg, messages_ref=messages_ref, client=client, depname=depname,
-            core=core, tr=tr
+            arg,
+            messages_ref=messages_ref,
+            client=client,
+            depname=depname,
+            core=core,
+            tr=tr,
         )
 
     if cmd == "clean":

@@ -18,7 +18,9 @@ def test_worker_retries_then_succeeds(tmp_path):
             raise ValueError("temporary")
         return {"ok": True}
 
-    assert SchedulerWorker(store).execute(run.run_id, execute, retry_limit=1) == {"ok": True}
+    assert SchedulerWorker(store).execute(run.run_id, execute, retry_limit=1) == {
+        "ok": True
+    }
     saved = store.get(run.run_id)
     assert saved.status == "success"
     assert saved.attempt == 2
@@ -29,7 +31,9 @@ def test_worker_records_terminal_failure(tmp_path):
     run = store.create("s1")
 
     with pytest.raises(RuntimeError, match="permanent"):
-        SchedulerWorker(store).execute(run.run_id, lambda _: (_ for _ in ()).throw(ValueError("permanent")))
+        SchedulerWorker(store).execute(
+            run.run_id, lambda _: (_ for _ in ()).throw(ValueError("permanent"))
+        )
 
     saved = store.get(run.run_id)
     assert saved.status == "failed"

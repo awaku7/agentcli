@@ -80,7 +80,11 @@ class SchedulerRunStore:
         try:
             raw = json.loads(self.path.read_text(encoding="utf-8"))
             items = raw.get("runs", []) if isinstance(raw, dict) else raw
-            return [SchedulerRun(**item).normalized() for item in items if isinstance(item, dict)]
+            return [
+                SchedulerRun(**item).normalized()
+                for item in items
+                if isinstance(item, dict)
+            ]
         except Exception:
             # Preserve the evidence instead of silently overwriting a corrupt
             # history on the next create/update operation.
@@ -95,12 +99,17 @@ class SchedulerRunStore:
 
     def _write(self, runs: list[SchedulerRun]) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        payload = json.dumps(
-            {"version": 1, "runs": [run.normalized().as_dict() for run in runs]},
-            ensure_ascii=False,
-            indent=2,
-        ) + "\n"
-        fd, name = tempfile.mkstemp(prefix=self.path.name + ".", suffix=".tmp", dir=str(self.path.parent))
+        payload = (
+            json.dumps(
+                {"version": 1, "runs": [run.normalized().as_dict() for run in runs]},
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n"
+        )
+        fd, name = tempfile.mkstemp(
+            prefix=self.path.name + ".", suffix=".tmp", dir=str(self.path.parent)
+        )
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as stream:
                 stream.write(payload)
@@ -190,7 +199,14 @@ class SchedulerRunStore:
             return current
         return claimed
 
-    def finish(self, run_id: str, *, result: Any = None, status: str = "success", error: str = "") -> SchedulerRun:
+    def finish(
+        self,
+        run_id: str,
+        *,
+        result: Any = None,
+        status: str = "success",
+        error: str = "",
+    ) -> SchedulerRun:
         if status not in {"success", "failed", "timeout", "cancelled"}:
             raise ValueError(f"invalid terminal status: {status}")
         return self.update(

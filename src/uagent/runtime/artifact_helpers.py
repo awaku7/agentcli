@@ -22,7 +22,11 @@ def register_artifacts(
     from ..tools.context import get_callbacks
 
     callbacks = get_callbacks()
-    root = Path(workdir or os.environ.get("UAGENT_WORKDIR") or os.getcwd()).expanduser().resolve()
+    root = (
+        Path(workdir or os.environ.get("UAGENT_WORKDIR") or os.getcwd())
+        .expanduser()
+        .resolve()
+    )
     manager = ArtifactManager(root)
     session_id = getattr(callbacks, "session_id", None)
     try:

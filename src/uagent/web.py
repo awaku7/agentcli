@@ -2081,7 +2081,9 @@ async def get_logs(page: int = 1, per_page: int = 15):
                     "mtime": row.get("created_at"),
                     "has_responses_state": state is not None,
                     "response_count": 1 if state else 0,
-                    "response_status": state.get("status", "unknown") if state else "none",
+                    "response_status": (
+                        state.get("status", "unknown") if state else "none"
+                    ),
                     "latest_response_id": state.get("response_id", "") if state else "",
                     "response_provider": state.get("provider", "") if state else "",
                     "response_model": state.get("model", "") if state else "",
@@ -2091,8 +2093,14 @@ async def get_logs(page: int = 1, per_page: int = 15):
         total_pages = max(1, (total + per_page - 1) // per_page)
         page = max(1, min(page, total_pages))
         start = (page - 1) * per_page
-        return {"ok": True, "logs": items[start : start + per_page], "total": total,
-                "page": page, "per_page": per_page, "total_pages": total_pages}
+        return {
+            "ok": True,
+            "logs": items[start : start + per_page],
+            "total": total,
+            "page": page,
+            "per_page": per_page,
+            "total_pages": total_pages,
+        }
 
     files = core.find_log_files(exclude_current=True)
     items = []
@@ -2159,8 +2167,11 @@ async def get_log_preview_by_path(path: str = ""):
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
     ):
-        rows = [r for r in core.session_store.list_sessions()
-                if r["session_id"] != getattr(core, "session_id", None)]
+        rows = [
+            r
+            for r in core.session_store.list_sessions()
+            if r["session_id"] != getattr(core, "session_id", None)
+        ]
         matches = [i for i, row in enumerate(rows) if row["session_id"] == path]
         if not matches:
             return JSONResponse(status_code=404, content={"error": _("File not found")})
@@ -2182,15 +2193,28 @@ async def get_log_preview(index: int):
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store
-        rows = [r for r in store.list_sessions() if r["session_id"] != getattr(core, "session_id", None)]
+        rows = [
+            r
+            for r in store.list_sessions()
+            if r["session_id"] != getattr(core, "session_id", None)
+        ]
         if index < 0 or index >= len(rows):
-            return JSONResponse(status_code=404, content={"error": _("Index out of range")})
+            return JSONResponse(
+                status_code=404, content={"error": _("Index out of range")}
+            )
         row = rows[index]
         messages = store.list_messages(row["session_id"])
-        users = [str(m.get("content") or "").strip() for m in messages if m.get("role") == "user"]
+        users = [
+            str(m.get("content") or "").strip()
+            for m in messages
+            if m.get("role") == "user"
+        ]
         return {
-            "ok": True, "index": index, "path": row["session_id"],
-            "name": row["session_id"], "mtime": row.get("created_at"),
+            "ok": True,
+            "index": index,
+            "path": row["session_id"],
+            "name": row["session_id"],
+            "mtime": row.get("created_at"),
             "summary": row.get("summary") or "",
             "total_user": sum(m.get("role") == "user" for m in messages),
             "total_assistant": sum(m.get("role") == "assistant" for m in messages),

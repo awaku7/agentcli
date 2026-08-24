@@ -258,7 +258,9 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                 first = _session_preview(row.get("first_message"))
                 last = _session_preview(row.get("last_message"))
                 summary = _session_preview(row.get("summary"))
-                print(f"[{index}] {_session_display_time(row.get('created_at'))}  {row.get('message_count', 0)} messages")
+                print(
+                    f"[{index}] {_session_display_time(row.get('created_at'))}  {row.get('message_count', 0)} messages"
+                )
                 if summary:
                     print(f"    summary: {summary}")
                 else:

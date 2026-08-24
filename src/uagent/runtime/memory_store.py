@@ -1,4 +1,5 @@
 """SQLite persistence for personal and shared long-term memory."""
+
 from __future__ import annotations
 
 import sqlite3
@@ -41,8 +42,11 @@ class MemoryStore:
         self.db.execute("DELETE FROM memories")
         self.db.executemany(
             "INSERT INTO memories(created_at, note) VALUES (?, ?)",
-            [(float(row.get("ts", time.time())), str(row.get("note", "")))
-             for row in records if str(row.get("note", ""))],
+            [
+                (float(row.get("ts", time.time())), str(row.get("note", "")))
+                for row in records
+                if str(row.get("note", ""))
+            ],
         )
         self.db.commit()
 

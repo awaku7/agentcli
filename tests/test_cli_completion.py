@@ -183,7 +183,9 @@ def test_arrow_keys_navigate_completion_menu() -> None:
     assert buffer.calls == ["previous", "next"]
 
 
-def test_skills_completion_covers_dynamic_options(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_skills_completion_covers_dynamic_options(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     import uagent.cli as cli
 
     class MockEvent:

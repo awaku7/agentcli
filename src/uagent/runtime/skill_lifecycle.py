@@ -75,12 +75,20 @@ class SkillLifecycleManager:
 
     def _write(self, records: dict[str, SkillRecord]) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        payload = json.dumps(
-            {"version": 1, "skills": {name: rec.as_dict() for name, rec in records.items()}},
-            ensure_ascii=False,
-            indent=2,
-        ) + "\n"
-        fd, temp = tempfile.mkstemp(prefix=self.path.name + ".", suffix=".tmp", dir=str(self.path.parent))
+        payload = (
+            json.dumps(
+                {
+                    "version": 1,
+                    "skills": {name: rec.as_dict() for name, rec in records.items()},
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n"
+        )
+        fd, temp = tempfile.mkstemp(
+            prefix=self.path.name + ".", suffix=".tmp", dir=str(self.path.parent)
+        )
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as stream:
                 stream.write(payload)
@@ -95,7 +103,9 @@ class SkillLifecycleManager:
             raise SkillLifecycleError("skill name is required")
         with _LOCK:
             records = self._read()
-            record = records.setdefault(name, SkillRecord(name=name, version=str(version or "")))
+            record = records.setdefault(
+                name, SkillRecord(name=name, version=str(version or ""))
+            )
             if version:
                 record.version = str(version)
             self._write(records)
@@ -108,16 +118,22 @@ class SkillLifecycleManager:
                 raise SkillLifecycleError(f"unknown skill: {name}")
             return record
 
-    def review(self, name: str, *, validation_ok: bool, security_review_ok: bool) -> SkillRecord:
+    def review(
+        self, name: str, *, validation_ok: bool, security_review_ok: bool
+    ) -> SkillRecord:
         with _LOCK:
             records = self._read()
             record = records.get(str(name or "").strip())
             if record is None:
                 raise SkillLifecycleError(f"unknown skill: {name}")
             if record.state != "draft":
-                raise SkillLifecycleError(f"skill is not in draft state: {record.state}")
+                raise SkillLifecycleError(
+                    f"skill is not in draft state: {record.state}"
+                )
             if not validation_ok or not security_review_ok:
-                raise SkillLifecycleError("skill validation and security review are required")
+                raise SkillLifecycleError(
+                    "skill validation and security review are required"
+                )
             record.validation_ok = True
             record.security_review_ok = True
             self._transition(record, "reviewed", "review")
@@ -133,7 +149,9 @@ class SkillLifecycleManager:
             if not confirmed:
                 raise SkillLifecycleError("explicit confirmation is required")
             if not record.validation_ok or not record.security_review_ok:
-                raise SkillLifecycleError("skill validation and security review are required")
+                raise SkillLifecycleError(
+                    "skill validation and security review are required"
+                )
             self._transition(record, "enabled", "enable")
             self._write(records)
             return record
@@ -151,7 +169,9 @@ class SkillLifecycleManager:
             self._write(records)
             return record
 
-    def deprecate(self, name: str, *, reason: str, confirmed: bool = False) -> SkillRecord:
+    def deprecate(
+        self, name: str, *, reason: str, confirmed: bool = False
+    ) -> SkillRecord:
         with _LOCK:
             records = self._read()
             record = records.get(str(name or "").strip())
@@ -166,10 +186,21 @@ class SkillLifecycleManager:
 
     @staticmethod
     def _transition(record: SkillRecord, target: str, action: str) -> None:
-        if target not in SKILL_STATES or target not in _ALLOWED.get(record.state, set()):
-            raise SkillLifecycleError(f"invalid skill transition: {record.state} -> {target}")
-        record.history.append({"from": record.state, "to": target, "action": action, "ts": time.time()})
+        if target not in SKILL_STATES or target not in _ALLOWED.get(
+            record.state, set()
+        ):
+            raise SkillLifecycleError(
+                f"invalid skill transition: {record.state} -> {target}"
+            )
+        record.history.append(
+            {"from": record.state, "to": target, "action": action, "ts": time.time()}
+        )
         record.state = target
 
 
-__all__ = ["SKILL_STATES", "SkillLifecycleError", "SkillLifecycleManager", "SkillRecord"]
+__all__ = [
+    "SKILL_STATES",
+    "SkillLifecycleError",
+    "SkillLifecycleManager",
+    "SkillRecord",
+]

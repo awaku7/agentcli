@@ -28,7 +28,10 @@ def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     assert _handle_cmd_load(
         old.session_id, messages, core=core, tr=lambda text, **_: text
     )
-    assert [message["content"] for message in messages] == ["old question", "old answer"]
+    assert [message["content"] for message in messages] == [
+        "old question",
+        "old answer",
+    ]
     db.close()
 
 

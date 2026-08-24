@@ -71,9 +71,7 @@ class _RejectTemperatureCompletions(_FakeCompletions):
 
 class _RejectTemperatureClient:
     def __init__(self, contents: list[str]) -> None:
-        self.chat = SimpleNamespace(
-            completions=_RejectTemperatureCompletions(contents)
-        )
+        self.chat = SimpleNamespace(completions=_RejectTemperatureCompletions(contents))
 
 
 def _make_dialog(n_user: int = 6) -> list[dict[str, Any]]:

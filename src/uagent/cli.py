@@ -567,7 +567,19 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         parts = after_sessions.split()
                         last = parts[-1] if parts else ""
                         if len(parts) <= 1:
-                            for value in ("list", "load", "search", "summarize", "prune", "candidates", "approve", "delete", "vacuum", "pdf", "import"):
+                            for value in (
+                                "list",
+                                "load",
+                                "search",
+                                "summarize",
+                                "prune",
+                                "candidates",
+                                "approve",
+                                "delete",
+                                "vacuum",
+                                "pdf",
+                                "import",
+                            ):
                                 if value.startswith(last):
                                     yield Completion(value, start_position=-len(last))
                         elif parts[0] == "delete":
@@ -585,10 +597,22 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             skills_subcmds = sorted(
                                 set(dyn_map.get("skills", []))
                                 | {
-                                    "list", "find", "search", "grep",
-                                    "active", "status", "show", "clear",
-                                    "off", "unset", "reset", "install",
-                                    "uninstall", "review", "enable", "apm",
+                                    "list",
+                                    "find",
+                                    "search",
+                                    "grep",
+                                    "active",
+                                    "status",
+                                    "show",
+                                    "clear",
+                                    "off",
+                                    "unset",
+                                    "reset",
+                                    "install",
+                                    "uninstall",
+                                    "review",
+                                    "enable",
+                                    "apm",
                                     "mp_search",
                                 }
                             )
@@ -612,7 +636,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     apm_subcmds = ["list", "use", "dir", "path", "help"]
                                     for sc2 in apm_subcmds:
                                         if sc2.startswith(arg2):
-                                            yield Completion(sc2, start_position=-len(arg2))
+                                            yield Completion(
+                                                sc2, start_position=-len(arg2)
+                                            )
                                 else:
                                     apm_cmd, apm_arg = arg2.split(" ", 1)
                                     if apm_cmd.lower() == "use" and not apm_arg.strip():
@@ -626,31 +652,52 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 enable_last = arg2.split()[-1] if arg2.split() else ""
                                 if arg2.endswith(" "):
                                     yield Completion("--yes", start_position=0)
-                                elif enable_last.startswith("--") and "--yes".startswith(enable_last):
+                                elif enable_last.startswith(
+                                    "--"
+                                ) and "--yes".startswith(enable_last):
                                     yield Completion(
                                         "--yes", start_position=-len(enable_last)
                                     )
                             elif cmd2 == "mp_search":
                                 mp_parts = arg2.split()
                                 last = mp_parts[-1] if mp_parts else ""
-                                previous = mp_parts[-1] if arg2.endswith(" ") and mp_parts else ""
+                                previous = (
+                                    mp_parts[-1]
+                                    if arg2.endswith(" ") and mp_parts
+                                    else ""
+                                )
                                 if arg2.endswith(" "):
                                     last = ""
                                 if last.startswith("--") or arg2.endswith(" "):
-                                    for flag in ("--page", "--limit", "--sort", "--source"):
-                                        if flag not in mp_parts and flag.startswith(last):
-                                            yield Completion(flag, start_position=-len(last))
-                                value_for = previous if arg2.endswith(" ") else (
-                                    mp_parts[-2] if len(mp_parts) >= 2 else ""
+                                    for flag in (
+                                        "--page",
+                                        "--limit",
+                                        "--sort",
+                                        "--source",
+                                    ):
+                                        if flag not in mp_parts and flag.startswith(
+                                            last
+                                        ):
+                                            yield Completion(
+                                                flag, start_position=-len(last)
+                                            )
+                                value_for = (
+                                    previous
+                                    if arg2.endswith(" ")
+                                    else (mp_parts[-2] if len(mp_parts) >= 2 else "")
                                 )
                                 if value_for == "--sort":
                                     for value in ("recent", "stars", "name"):
                                         if value.startswith(last):
-                                            yield Completion(value, start_position=-len(last))
+                                            yield Completion(
+                                                value, start_position=-len(last)
+                                            )
                                 elif value_for == "--source":
                                     for value in ("skillsmp", "clawhub"):
                                         if value.startswith(last):
-                                            yield Completion(value, start_position=-len(last))
+                                            yield Completion(
+                                                value, start_position=-len(last)
+                                            )
                     elif stripped.startswith(":response "):
                         # :response subcommand completion
                         after_response = stripped[len(":response ") :]
@@ -1820,6 +1867,7 @@ def main() -> None:
                 retry_limit=int(metadata.get("retry_limit") or 0),
                 retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
             )
+
         while running:
             ev = core.event_queue.get()
             kind = ev.get("kind")
@@ -1839,7 +1887,9 @@ def main() -> None:
                     core.log_message(user_msg)
                     with lifecycle_execution() as lifecycle:
                         try:
-                            _run_llm_event(ev, llm_util.run_llm_rounds,
+                            _run_llm_event(
+                                ev,
+                                llm_util.run_llm_rounds,
                                 provider,
                                 client,
                                 depname,
@@ -2009,7 +2059,9 @@ def main() -> None:
 
                 with lifecycle_execution() as lifecycle:
                     try:
-                        _run_llm_event(ev, llm_util.run_llm_rounds,
+                        _run_llm_event(
+                            ev,
+                            llm_util.run_llm_rounds,
                             provider,
                             client,
                             depname,

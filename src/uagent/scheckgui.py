@@ -845,7 +845,9 @@ class ScheckWorker(QtCore.QObject):
                     )
                 except Exception as exc:
                     try:
-                        scheduled_run_store.finish(run_id, status="failed", error=str(exc))
+                        scheduled_run_store.finish(
+                            run_id, status="failed", error=str(exc)
+                        )
                     except Exception:
                         pass
                     raise

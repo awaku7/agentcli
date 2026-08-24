@@ -621,7 +621,9 @@ def _handle_sqlite_clean(*, core: Any, threshold: int) -> bool:
             if session_id == current_id:
                 continue
             count = sum(
-                1 for msg in store.list_messages(session_id) if msg.get("role") == "user"
+                1
+                for msg in store.list_messages(session_id)
+                if msg.get("role") == "user"
             )
             if count <= threshold:
                 targets.append((session_id, count))
@@ -636,12 +638,15 @@ def _handle_sqlite_clean(*, core: Any, threshold: int) -> bool:
         print(f" - ({count} user turns) {session_id}")
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
-        response = human_ask({
-            "message": (
-                f"Delete {len(targets)} SQLite session(s) with <= {threshold} user turns? "
-                "Enter y to run, or c to cancel."
-            )
-        })
+
+        response = human_ask(
+            {
+                "message": (
+                    f"Delete {len(targets)} SQLite session(s) with <= {threshold} user turns? "
+                    "Enter y to run, or c to cancel."
+                )
+            }
+        )
         parsed = response if isinstance(response, dict) else json.loads(response)
         if str(parsed.get("user_reply") or "").strip().lower() not in {"y", "yes"}:
             print("[clean] Cancelled.")
@@ -650,7 +655,7 @@ def _handle_sqlite_clean(*, core: Any, threshold: int) -> bool:
         print("[clean] Confirmation failed: " + str(exc))
         return True
     deleted = 0
-    for session_id, _ in targets:
+    for session_id, _session_summary in targets:
         try:
             store.delete_session(session_id)
             deleted += 1
@@ -799,7 +804,13 @@ def _prepend_loaded_log_to_current(
 
 
 def _handle_cmd_sessions(
-    arg: str, *, messages_ref: list[dict[str, Any]] | None = None, client: Any = None, depname: str = "", core: Any, tr: Any
+    arg: str,
+    *,
+    messages_ref: list[dict[str, Any]] | None = None,
+    client: Any = None,
+    depname: str = "",
+    core: Any,
+    tr: Any,
 ) -> bool:
     """Search opt-in SQLite session history from the CLI."""
     parts = (arg or "").strip().split()
@@ -828,13 +839,27 @@ def _handle_cmd_sessions(
         candidates = rows[keep:]
         if session_id:
             candidates = [r for r in candidates if r.get("session_id") != session_id]
-        print(_("[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d") % {"keep": keep, "count": len(candidates)})
+        print(
+            _("[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d")
+            % {"keep": keep, "count": len(candidates)}
+        )
         for row in candidates:
-            print(_("  %(id)s | %(created_at)s | %(count)d messages") % {"id": row["session_id"], "created_at": row.get("created_at"), "count": row.get("message_count", 0)})
+            print(
+                _("  %(id)s | %(created_at)s | %(count)d messages")
+                % {
+                    "id": row["session_id"],
+                    "created_at": row.get("created_at"),
+                    "count": row.get("message_count", 0),
+                }
+            )
         if not candidates:
             return True
         if dry_run:
-            print(_("[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."))
+            print(
+                _(
+                    "[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+                )
+            )
             return True
         deleted = 0
         for row in candidates:
@@ -842,12 +867,18 @@ def _handle_cmd_sessions(
                 store.delete_session(str(row["session_id"]))
                 deleted += 1
             except Exception as exc:
-                print(_("[sessions] Failed to delete %(id)s: %(error)s") % {"id": row["session_id"], "error": exc})
+                print(
+                    _("[sessions] Failed to delete %(id)s: %(error)s")
+                    % {"id": row["session_id"], "error": exc}
+                )
         try:
             store.vacuum()
         except Exception as exc:
             print(_("[sessions] VACUUM failed: %(error)s") % {"error": exc})
-        print(_("[sessions] Pruned %(deleted)d/%(total)d session(s).") % {"deleted": deleted, "total": len(candidates)})
+        print(
+            _("[sessions] Pruned %(deleted)d/%(total)d session(s).")
+            % {"deleted": deleted, "total": len(candidates)}
+        )
         return True
     if command == "summarize":
         if store is None or client is None or not depname:
@@ -858,28 +889,40 @@ def _handle_cmd_sessions(
         rows = store.list_sessions()
         if target:
             rows = [r for r in rows if r.get("session_id") == target]
-        print(_("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)})
+        print(
+            _("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)}
+        )
         done = skipped = failed = 0
         for index, row in enumerate(rows, start=1):
             sid = str(row["session_id"])
             if not force and row.get("summary"):
-                print(_("[%(index)d/%(total)d] %(id)s  skipped") % {"index": index, "total": len(rows), "id": sid})
+                print(
+                    _("[%(index)d/%(total)d] %(id)s  skipped")
+                    % {"index": index, "total": len(rows), "id": sid}
+                )
                 skipped += 1
                 continue
             try:
                 stored = store.list_messages(sid)
                 if len(stored) < 2:
-                    print(_("[%(index)d/%(total)d] %(id)s  skipped (too short)") % {"index": index, "total": len(rows), "id": sid})
+                    print(
+                        _("[%(index)d/%(total)d] %(id)s  skipped (too short)")
+                        % {"index": index, "total": len(rows), "id": sid}
+                    )
                     skipped += 1
                     continue
                 compressed = core.compress_history_with_llm(
-                    client=client, depname=depname, messages=stored + [stored[-1]],
-                    keep_last=1, emit_log=False,
+                    client=client,
+                    depname=depname,
+                    messages=stored + [stored[-1]],
+                    keep_last=1,
+                    emit_log=False,
                 )
                 from .llm_message_helpers import (
                     _is_history_summary_message,
                     _strip_history_summary_prefix,
                 )
+
                 # The summary prefix is translated according to the active
                 # locale, so do not search for the English literal here.
                 # Use the same helper as history compression/loading.
@@ -894,12 +937,23 @@ def _handle_cmd_sessions(
                 if not summary:
                     raise RuntimeError("LLM returned no summary")
                 store.save_session_summary(sid, summary)
-                print(_("[%(index)d/%(total)d] %(id)s  saved") % {"index": index, "total": len(rows), "id": sid})
+                print(
+                    _("[%(index)d/%(total)d] %(id)s  saved")
+                    % {"index": index, "total": len(rows), "id": sid}
+                )
                 done += 1
             except Exception as exc:
-                print(_("[%(index)d/%(total)d] %(id)s  failed: %(error)s") % {"index": index, "total": len(rows), "id": sid, "error": exc})
+                print(
+                    _("[%(index)d/%(total)d] %(id)s  failed: %(error)s")
+                    % {"index": index, "total": len(rows), "id": sid, "error": exc}
+                )
                 failed += 1
-        print(_("[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d failed") % {"done": done, "skipped": skipped, "failed": failed})
+        print(
+            _(
+                "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d failed"
+            )
+            % {"done": done, "skipped": skipped, "failed": failed}
+        )
         return True
     if command == "candidates":
         if store is None or not session_id:
@@ -995,6 +1049,7 @@ def _handle_cmd_sessions(
                 for message in messages:
                     temp.write(json.dumps(message, ensure_ascii=False) + "\n")
             from uagent.tools.pdf_export_tool import run_tool as pdf_export_run
+
             result = pdf_export_run({"log_path": temp_path, "output_path": output_path})
             print(result)
         except Exception as exc:
@@ -1014,7 +1069,9 @@ def _handle_cmd_sessions(
             first = _session_preview(row.get("first_message"))
             last = _session_preview(row.get("last_message"))
             summary = _session_preview(row.get("summary"))
-            print(f"[{index}] {row['created_at']}  {row.get('message_count', 0)} messages")
+            print(
+                f"[{index}] {row['created_at']}  {row.get('message_count', 0)} messages"
+            )
             print(f"    first: {first}")
             print(f"    last:  {last}")
             if summary and summary not in {first, last}:
@@ -1053,7 +1110,9 @@ def _handle_cmd_sessions(
             print(_("[sessions] Vacuum failed: " + str(exc)))
         return True
     if command != "search":
-        print(":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>")
+        print(
+            ":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
+        )
         return True
     query_parts = parts[1:]
     project = None
@@ -1100,7 +1159,8 @@ def _handle_cmd_load(
     ):
         store = core.session_store
         sessions = [
-            row for row in store.list_sessions()
+            row
+            for row in store.list_sessions()
             if row["session_id"] != getattr(core, "session_id", None)
         ]
         target = (arg or "").strip()

@@ -25,7 +25,9 @@ def _use_sqlite() -> bool:
 
 
 def _sqlite_path() -> str:
-    return env_get("UAGENT_MEMORY_DB") or os.path.join(_get_base_log_dir(), "memory.sqlite3")
+    return env_get("UAGENT_MEMORY_DB") or os.path.join(
+        _get_base_log_dir(), "memory.sqlite3"
+    )
 
 
 def get_memory_file_path() -> str:
@@ -45,6 +47,7 @@ def append_long_memory(note: str) -> None:
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
+
             store = open_memory_store(_sqlite_path())
             try:
                 store.append(note)
@@ -96,6 +99,7 @@ def load_long_memory_records() -> list[dict[str, Any]]:
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
+
             store = open_memory_store(_sqlite_path())
             try:
                 return [
@@ -136,6 +140,7 @@ def update_long_memory_entry(index: int, note: str) -> bool:
         records[index] = {"ts": time.time(), "note": note}
         try:
             from ..runtime.memory_store import open_memory_store
+
             store = open_memory_store(_sqlite_path())
             try:
                 store.replace(records)
@@ -166,6 +171,7 @@ def delete_long_memory_entry(index: int) -> bool:
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
+
             store = open_memory_store(_sqlite_path())
             try:
                 return store.delete(index)

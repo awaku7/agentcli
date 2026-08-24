@@ -47,7 +47,9 @@ def test_sqlite_backend_can_disable_jsonl_callback(monkeypatch, tmp_path):
     store, session_id = attach_opt_in_session_store(
         core, project_path=tmp_path, entry_point="cli"
     )
-    core.log_message({"role": "assistant", "content": "answer", "response_id": "resp_1"})
+    core.log_message(
+        {"role": "assistant", "content": "answer", "response_id": "resp_1"}
+    )
 
     assert logged == []
     assert store is not None

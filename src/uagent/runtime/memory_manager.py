@@ -60,13 +60,21 @@ class MemoryManager:
             raise ValueError(f"unknown memory scope: {scope}")
         items: list[MemoryItem] = []
         if scope in (None, "personal"):
-            items.extend(MemoryItem("personal", str(r.get("note", "")), r.get("ts")) for r in self.personal.load_long_memory_records())
+            items.extend(
+                MemoryItem("personal", str(r.get("note", "")), r.get("ts"))
+                for r in self.personal.load_long_memory_records()
+            )
         if scope in (None, "shared"):
-            items.extend(MemoryItem("shared", str(r.get("note", "")), r.get("ts")) for r in self.shared.load_shared_memory_records())
+            items.extend(
+                MemoryItem("shared", str(r.get("note", "")), r.get("ts"))
+                for r in self.shared.load_shared_memory_records()
+            )
         if scope in (None, "profile"):
             snapshot = self.profile.load_profile()
             for key in ("preferences", "constraints"):
-                for note in snapshot.get(key, []) if isinstance(snapshot.get(key), list) else []:
+                for note in (
+                    snapshot.get(key, []) if isinstance(snapshot.get(key), list) else []
+                ):
                     items.append(MemoryItem("profile", str(note)))
         if scope in (None, "session"):
             if self.session_store is not None and self.session_id:
@@ -74,7 +82,9 @@ class MemoryManager:
                     items.append(MemoryItem("session", str(note)))
         return [item for item in items if item.note]
 
-    def records_for_prompt(self, *, scope: MemoryScope | None = None) -> list[dict[str, Any]]:
+    def records_for_prompt(
+        self, *, scope: MemoryScope | None = None
+    ) -> list[dict[str, Any]]:
         return [item.as_dict() for item in self.list(scope=scope)]
 
 

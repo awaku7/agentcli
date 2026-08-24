@@ -56,19 +56,26 @@ class ArtifactManager:
         if not self.workdir.is_dir():
             raise ArtifactManagerError(f"workdir is not a directory: {workdir}")
         self.workdir = self.workdir.resolve()
-        root = Path(artifact_root) if artifact_root is not None else self.workdir / ".uag" / "artifacts"
+        root = (
+            Path(artifact_root)
+            if artifact_root is not None
+            else self.workdir / ".uag" / "artifacts"
+        )
         self.artifact_root = root.expanduser().absolute().resolve()
         if not self._under(self.artifact_root, self.workdir):
             raise ArtifactManagerError("artifact_root must be inside workdir")
         self.artifact_root.mkdir(parents=True, exist_ok=True)
         self._store = store
         self._owns_connection = store is None
-        self._connection = store._connection if store is not None else sqlite3.connect(
-            self.artifact_root / "artifacts.sqlite3", isolation_level=None
+        self._connection = (
+            store._connection
+            if store is not None
+            else sqlite3.connect(
+                self.artifact_root / "artifacts.sqlite3", isolation_level=None
+            )
         )
         self._connection.row_factory = sqlite3.Row
-        self._connection.execute(
-            """CREATE TABLE IF NOT EXISTS artifacts (
+        self._connection.execute("""CREATE TABLE IF NOT EXISTS artifacts (
                 artifact_id TEXT PRIMARY KEY,
                 session_id TEXT,
                 name TEXT NOT NULL,
@@ -80,8 +87,7 @@ class ArtifactManager:
                 sha256 TEXT NOT NULL,
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 metadata_json TEXT NOT NULL
-            )"""
-        )
+            )""")
 
     @staticmethod
     def _under(path: Path, root: Path) -> bool:
@@ -121,7 +127,9 @@ class ArtifactManager:
         except OSError as exc:
             raise ArtifactManagerError(f"artifact does not exist: {path}") from exc
         if not self._under(resolved, self.workdir) or resolved.is_symlink():
-            raise ArtifactManagerError("artifact path must be a regular file inside workdir")
+            raise ArtifactManagerError(
+                "artifact path must be a regular file inside workdir"
+            )
         if not resolved.is_file():
             raise ArtifactManagerError("artifact path is not a file")
         return resolved
@@ -144,12 +152,16 @@ class ArtifactManager:
             try:
                 metadata_json = json.dumps(metadata, ensure_ascii=False, sort_keys=True)
             except (TypeError, ValueError) as exc:
-                raise ArtifactManagerError("metadata must be JSON serializable") from exc
+                raise ArtifactManagerError(
+                    "metadata must be JSON serializable"
+                ) from exc
         else:
             metadata = {}
             metadata_json = "{}"
         artifact_id = uuid.uuid4().hex
-        filename = name.strip() if isinstance(name, str) and name.strip() else source.name
+        filename = (
+            name.strip() if isinstance(name, str) and name.strip() else source.name
+        )
         safe_name = Path(filename).name
         if not safe_name or safe_name in {".", ".."}:
             raise ArtifactManagerError("invalid artifact name")
@@ -171,13 +183,28 @@ class ArtifactManager:
                 os.fsync(dst.fileno())
             rel = source.relative_to(self.workdir).as_posix()
             stored_rel = target.relative_to(self.workdir).as_posix()
-            media_type = mimetypes.guess_type(source.name)[0] or "application/octet-stream"
+            media_type = (
+                mimetypes.guess_type(source.name)[0] or "application/octet-stream"
+            )
             extension = source.suffix.lower()
-            created_at = self._connection.execute("SELECT CURRENT_TIMESTAMP").fetchone()[0]
+            created_at = self._connection.execute(
+                "SELECT CURRENT_TIMESTAMP"
+            ).fetchone()[0]
             self._connection.execute(
                 "INSERT INTO artifacts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (artifact_id, session_id, safe_name, rel, stored_rel, media_type, extension,
-                 size, digest.hexdigest(), str(created_at), metadata_json),
+                (
+                    artifact_id,
+                    session_id,
+                    safe_name,
+                    rel,
+                    stored_rel,
+                    media_type,
+                    extension,
+                    size,
+                    digest.hexdigest(),
+                    str(created_at),
+                    metadata_json,
+                ),
             )
         except (OSError, sqlite3.Error) as exc:
             shutil.rmtree(target_dir, ignore_errors=True)
@@ -200,8 +227,12 @@ class ArtifactManager:
         return path
 
     def list(
-        self, *, session_id: str | None = None, media_type: str | None = None,
-        limit: int = 100, offset: int = 0
+        self,
+        *,
+        session_id: str | None = None,
+        media_type: str | None = None,
+        limit: int = 100,
+        offset: int = 0,
     ) -> list[Artifact]:
         if not isinstance(limit, int) or not 1 <= limit <= 1000:
             raise ArtifactManagerError("limit must be between 1 and 1000")
@@ -210,9 +241,11 @@ class ArtifactManager:
         clauses: list[str] = []
         params: list[Any] = []
         if session_id is not None:
-            clauses.append("session_id = ?"); params.append(session_id)
+            clauses.append("session_id = ?")
+            params.append(session_id)
         if media_type is not None:
-            clauses.append("media_type = ?"); params.append(media_type)
+            clauses.append("media_type = ?")
+            params.append(media_type)
         where = " WHERE " + " AND ".join(clauses) if clauses else ""
         rows = self._connection.execute(
             f"SELECT * FROM artifacts{where} ORDER BY created_at, artifact_id LIMIT ? OFFSET ?",
@@ -236,11 +269,16 @@ class ArtifactManager:
     @staticmethod
     def _row(row: sqlite3.Row) -> Artifact:
         return Artifact(
-            artifact_id=str(row["artifact_id"]), session_id=row["session_id"],
-            name=str(row["name"]), relative_path=str(row["relative_path"]),
-            stored_path=str(row["stored_path"]), media_type=str(row["media_type"]),
-            extension=str(row["extension"]), size=int(row["size"]),
-            sha256=str(row["sha256"]), created_at=str(row["created_at"]),
+            artifact_id=str(row["artifact_id"]),
+            session_id=row["session_id"],
+            name=str(row["name"]),
+            relative_path=str(row["relative_path"]),
+            stored_path=str(row["stored_path"]),
+            media_type=str(row["media_type"]),
+            extension=str(row["extension"]),
+            size=int(row["size"]),
+            sha256=str(row["sha256"]),
+            created_at=str(row["created_at"]),
             metadata=json.loads(row["metadata_json"]),
         )
 

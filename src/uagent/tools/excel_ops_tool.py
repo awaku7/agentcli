@@ -315,7 +315,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
                 artifacts = register_artifacts(
                     [output_path],
-                    metadata={"kind": "excel_keep_only_sheets", "kept_sheets": keep_sheets},
+                    metadata={
+                        "kind": "excel_keep_only_sheets",
+                        "kept_sheets": keep_sheets,
+                    },
                 )
             except Exception:
                 artifacts = []

@@ -552,7 +552,15 @@ def _action_remove(
     target = Path(install_root) / name
     if not target.exists():
         return json.dumps(
-            {"ok": False, "error": _("err.plugin_not_found", default="Plugin '%(name)s' not found at %(root)s.", name=name, root=install_root)}
+            {
+                "ok": False,
+                "error": _(
+                    "err.plugin_not_found",
+                    default="Plugin '%(name)s' not found at %(root)s.",
+                    name=name,
+                    root=install_root,
+                ),
+            }
         )
 
     # 1) disable-equivalent component teardown (MCP / agents / hooks)
@@ -574,14 +582,21 @@ def _action_remove(
         return json.dumps(
             {
                 "ok": False,
-                "error": _("err.remove_failed", default="Failed to remove plugin '%(name)s': %(error)s", name=name, error=exc),
+                "error": _(
+                    "err.remove_failed",
+                    default="Failed to remove plugin '%(name)s': %(error)s",
+                    name=name,
+                    error=exc,
+                ),
             }
         )
 
     return json.dumps(
         {
             "ok": True,
-            "message": _("msg.plugin_removed", default="Plugin '%(name)s' removed.", name=name),
+            "message": _(
+                "msg.plugin_removed", default="Plugin '%(name)s' removed.", name=name
+            ),
             "deactivation": deactivation,
             "settings_cleanup": settings_cleanup,
         }
@@ -591,14 +606,27 @@ def _action_remove(
 def _action_review(name: str, state_dir: str, scan_dirs: list[str]) -> str:
     """Validate a plugin and record a reviewed lifecycle state."""
     if not name:
-        return json.dumps({"ok": False, "error": _("err.name_required", default="Plugin name is required.")})
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _("err.name_required", default="Plugin name is required."),
+            }
+        )
     validation = _action_validate(name, scan_dirs)
     try:
         result = json.loads(validation)
     except Exception:
         result = {"ok": False, "error": validation}
     if not result.get("ok"):
-        return json.dumps({"ok": False, "error": _("err.review_validation_failed", default="Plugin validation failed."), "validation": result})
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "err.review_validation_failed", default="Plugin validation failed."
+                ),
+                "validation": result,
+            }
+        )
     manager = SkillLifecycleManager(Path(state_dir) / "skill_lifecycle.json")
     try:
         manager.register(name, version=str(result.get("version") or ""))
@@ -628,7 +656,15 @@ def _action_enable(
         try:
             record = lifecycle.get(name)
             if record.state != "reviewed":
-                return json.dumps({"ok": False, "error": _("err.lifecycle_review_required", default="Skill review is required before enabling.")})
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": _(
+                            "err.lifecycle_review_required",
+                            default="Skill review is required before enabling.",
+                        ),
+                    }
+                )
             lifecycle.enable(name, confirmed=confirmed)
         except SkillLifecycleError as exc:
             return json.dumps({"ok": False, "error": str(exc)})

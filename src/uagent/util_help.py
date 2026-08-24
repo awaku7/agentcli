@@ -209,9 +209,11 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "sessions": e(
             tr("Search and manage opt-in SQLite sessions"),
-            usage=(":sessions list | load <session_id> | search <query> | candidates | "
-                   "approve <number> | delete <session_id> --yes | vacuum | "
-                   "pdf <session_id> [output.pdf] | import <jsonl_path>"),
+            usage=(
+                ":sessions list | load <session_id> | search <query> | candidates | "
+                "approve <number> | delete <session_id> --yes | vacuum | "
+                "pdf <session_id> [output.pdf] | import <jsonl_path>"
+            ),
             detail=tr(
                 "Session persistence is opt-in via UAGENT_SESSION_STORE=1.\n"
                 ":sessions list             List stored sessions.\n"

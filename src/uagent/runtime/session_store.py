@@ -362,8 +362,11 @@ class SessionStore:
         if existing is not None:
             row = self.get_session(str(existing["session_id"]))
             return Session(
-                row["session_id"], row.get("project"), row["entry_point"],
-                row.get("project_key", ""), row.get("project_path"),
+                row["session_id"],
+                row.get("project"),
+                row["entry_point"],
+                row.get("project_key", ""),
+                row.get("project_path"),
             )
         session = self.create_session(
             project=project or source.parent.name or "imported",
@@ -430,7 +433,10 @@ class SessionStore:
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id ASC LIMIT 1) AS first_message, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id DESC LIMIT 1) AS last_message, "
             "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
-            "FROM sessions s" + where + " ORDER BY s.created_at DESC, s.rowid DESC" + limit_sql,
+            "FROM sessions s"
+            + where
+            + " ORDER BY s.created_at DESC, s.rowid DESC"
+            + limit_sql,
             tuple(params),
         ).fetchall()
         return [dict(row) for row in rows]
@@ -440,7 +446,9 @@ class SessionStore:
         self._require_session(session_id)
         try:
             self._connection.execute("BEGIN")
-            self._execute("DELETE FROM message_search WHERE session_id = ?", (session_id,))
+            self._execute(
+                "DELETE FROM message_search WHERE session_id = ?", (session_id,)
+            )
             self._execute("DELETE FROM sessions WHERE session_id = ?", (session_id,))
             self._connection.execute("COMMIT")
         except Exception:
@@ -457,14 +465,14 @@ class SessionStore:
         except sqlite3.Error as exc:
             raise SessionStoreError(f"could not vacuum session store: {exc}") from exc
 
-    def replace_messages(
-        self, session_id: str, messages: list[dict[str, Any]]
-    ) -> None:
+    def replace_messages(self, session_id: str, messages: list[dict[str, Any]]) -> None:
         """Replace a session's message history while preserving its identity."""
         self._require_session(session_id)
         try:
             self._connection.execute("BEGIN")
-            self._execute("DELETE FROM message_search WHERE session_id = ?", (session_id,))
+            self._execute(
+                "DELETE FROM message_search WHERE session_id = ?", (session_id,)
+            )
             self._execute("DELETE FROM messages WHERE session_id = ?", (session_id,))
             self._connection.execute("COMMIT")
             for message in messages:
@@ -656,7 +664,9 @@ def attach_opt_in_session_store(
     core._session_store_original_log_message = original_log_message
     pending_tool_calls: dict[str, tuple[str, dict[str, Any]]] = {}
 
-    jsonl_enabled = os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() != "sqlite"
+    jsonl_enabled = (
+        os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() != "sqlite"
+    )
 
     def log_message(message: dict[str, Any]) -> None:
         if jsonl_enabled:
@@ -666,7 +676,9 @@ def attach_opt_in_session_store(
             return
         content = str(message.get("content") or "")
         store.append_message(
-            session.session_id, str(role), content,
+            session.session_id,
+            str(role),
+            content,
             payload=message if isinstance(message, dict) else None,
         )
         if role == "assistant":

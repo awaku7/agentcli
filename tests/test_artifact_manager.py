@@ -39,8 +39,12 @@ def test_session_filter_and_attach(tmp_path):
     with SessionStore(db) as store, ArtifactManager(tmp_path, store=store) as manager:
         first = store.create_session(project="p", entry_point="cli")
         second = store.create_session(project="p", entry_point="web")
-        item = manager.register(source, session_id=first.session_id, metadata={"kind": "result"})
-        assert [x.artifact_id for x in manager.list(session_id=first.session_id)] == [item.artifact_id]
+        item = manager.register(
+            source, session_id=first.session_id, metadata={"kind": "result"}
+        )
+        assert [x.artifact_id for x in manager.list(session_id=first.session_id)] == [
+            item.artifact_id
+        ]
         assert manager.list(session_id=second.session_id) == []
         manager.attach(item.artifact_id, second.session_id)
         assert manager.list(session_id=first.session_id) == []
@@ -52,7 +56,10 @@ def test_session_validation_and_duplicate_names_do_not_overwrite(tmp_path):
     two = tmp_path / "two.txt"
     one.write_text("one", encoding="utf-8")
     two.write_text("two", encoding="utf-8")
-    with SessionStore(tmp_path / "sessions.sqlite3") as store, ArtifactManager(tmp_path, store=store) as manager:
+    with (
+        SessionStore(tmp_path / "sessions.sqlite3") as store,
+        ArtifactManager(tmp_path, store=store) as manager,
+    ):
         a = manager.register(one, name="same.txt")
         b = manager.register(two, name="same.txt")
         assert a.artifact_id != b.artifact_id

@@ -36,7 +36,9 @@ def handle_cmd_review(arg: str, **kwargs: Any) -> CommandResult:
     try:
         manager.register(target)
         record = manager.review(target, validation_ok=True, security_review_ok=True)
-        print(_("out.reviewed", default="Skill '{name}' is reviewed.").format(name=target))
+        print(
+            _("out.reviewed", default="Skill '{name}' is reviewed.").format(name=target)
+        )
         print(json.dumps(record.as_dict(), ensure_ascii=False, indent=2))
     except SkillLifecycleError as exc:
         print(str(exc))
@@ -51,7 +53,12 @@ def handle_cmd_enable(arg: str, **kwargs: Any) -> CommandResult:
         print(_("err.name_required", default="Skill name is required."))
         return CommandResult()
     if not confirmed:
-        print(_("err.confirmation_required", default="Explicit confirmation is required. Use --yes to enable the Skill."))
+        print(
+            _(
+                "err.confirmation_required",
+                default="Explicit confirmation is required. Use --yes to enable the Skill.",
+            )
+        )
         return CommandResult()
     try:
         record = SkillLifecycleManager().enable(name, confirmed=True)
@@ -63,10 +70,24 @@ def handle_cmd_enable(arg: str, **kwargs: Any) -> CommandResult:
 
 
 CMD_SPECS = [
-    {"command": "skills", "subcommand": "review", "handler": handle_cmd_review,
-     "help_text": _("help.review", default="  :skills review <name>  Validate and review a Skill."),
-     "usage": ":skills review <name>"},
-    {"command": "skills", "subcommand": "enable", "handler": handle_cmd_enable,
-     "help_text": _("help.enable", default="  :skills enable <name> --yes  Enable a reviewed Skill."),
-     "usage": ":skills enable <name> --yes"},
+    {
+        "command": "skills",
+        "subcommand": "review",
+        "handler": handle_cmd_review,
+        "help_text": _(
+            "help.review",
+            default="  :skills review <name>  Validate and review a Skill.",
+        ),
+        "usage": ":skills review <name>",
+    },
+    {
+        "command": "skills",
+        "subcommand": "enable",
+        "handler": handle_cmd_enable,
+        "help_text": _(
+            "help.enable",
+            default="  :skills enable <name> --yes  Enable a reviewed Skill.",
+        ),
+        "usage": ":skills enable <name> --yes",
+    },
 ]
