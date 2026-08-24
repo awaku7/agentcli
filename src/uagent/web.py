@@ -2059,7 +2059,40 @@ async def update_profile(req: Request):
 # ---- Logs API ----
 @app.get("/api/logs")
 async def get_logs(page: int = 1, per_page: int = 15):
-    """Return paginated list of log files (excluding current session log)."""
+    """Return paginated JSONL logs or SQLite sessions."""
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        store = core.session_store
+        current_id = getattr(core, "session_id", None)
+        rows = [r for r in store.list_sessions() if r["session_id"] != current_id]
+        items = []
+        for row in rows:
+            state = store.latest_response_state(row["session_id"])
+            items.append(
+                {
+                    "path": row["session_id"],
+                    "name": row["session_id"],
+                    "project": row.get("project"),
+                    "entry_point": row.get("entry_point"),
+                    "size": 0,
+                    "mtime": row.get("created_at"),
+                    "has_responses_state": state is not None,
+                    "response_count": 1 if state else 0,
+                    "response_status": state.get("status", "unknown") if state else "none",
+                    "latest_response_id": state.get("response_id", "") if state else "",
+                    "response_provider": state.get("provider", "") if state else "",
+                    "response_model": state.get("model", "") if state else "",
+                }
+            )
+        total = len(items)
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        start = (page - 1) * per_page
+        return {"ok": True, "logs": items[start : start + per_page], "total": total,
+                "page": page, "per_page": per_page, "total_pages": total_pages}
+
     files = core.find_log_files(exclude_current=True)
     items = []
     for f in files:
@@ -2121,6 +2154,16 @@ async def get_log_preview_by_path(path: str = ""):
     """Return first/last messages of a log file by path."""
     if not path:
         return JSONResponse(status_code=400, content={"error": _("path is required")})
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        rows = [r for r in core.session_store.list_sessions()
+                if r["session_id"] != getattr(core, "session_id", None)]
+        matches = [i for i, row in enumerate(rows) if row["session_id"] == path]
+        if not matches:
+            return JSONResponse(status_code=404, content={"error": _("File not found")})
+        return await get_log_preview(matches[0])
     files = core.find_log_files(exclude_current=True)
     norm = os.path.normpath(path)
     matches = [i for i, f in enumerate(files) if os.path.normpath(f) == norm]
@@ -2132,7 +2175,30 @@ async def get_log_preview_by_path(path: str = ""):
 
 @app.get("/api/logs/{index}/preview")
 async def get_log_preview(index: int):
-    """Return first/last messages of a log file (like CLI :logs)."""
+    """Return first/last messages of a JSONL log or SQLite session."""
+    if (
+        os.environ.get("UAGENT_SESSION_BACKEND", "dual").strip().lower() == "sqlite"
+        and getattr(core, "session_store", None) is not None
+    ):
+        store = core.session_store
+        rows = [r for r in store.list_sessions() if r["session_id"] != getattr(core, "session_id", None)]
+        if index < 0 or index >= len(rows):
+            return JSONResponse(status_code=404, content={"error": _("Index out of range")})
+        row = rows[index]
+        messages = store.list_messages(row["session_id"])
+        users = [str(m.get("content") or "").strip() for m in messages if m.get("role") == "user"]
+        return {
+            "ok": True, "index": index, "path": row["session_id"],
+            "name": row["session_id"], "mtime": row.get("created_at"),
+            "total_user": sum(m.get("role") == "user" for m in messages),
+            "total_assistant": sum(m.get("role") == "assistant" for m in messages),
+            "total_tool": sum(m.get("role") == "tool" for m in messages),
+            "preserved_system": sum(m.get("role") == "system" for m in messages),
+            "total_messages": len(messages),
+            "first_user": users[0][:200] if users else "",
+            "last_user": users[-1][:200] if users else "",
+        }
+
     files = core.find_log_files(exclude_current=True)
     if index < 0 or index >= len(files):
         return JSONResponse(status_code=404, content={"error": _("Index out of range")})
