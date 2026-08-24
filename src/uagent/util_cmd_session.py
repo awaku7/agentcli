@@ -218,6 +218,9 @@ def _handle_cmd_skills(
                     _("[%(i)d] (%(ok)s) %(name)s: %(desc)s")
                     % {"i": i, "ok": ok_mark, "name": name, "desc": desc}
                 )
+                # Lifecycle state is a stable machine-readable value; keep it
+                # untranslated so it matches the JSON/API representation.
+                print(f"    lifecycle_state={it.get('lifecycle_state') or 'draft'}")
 
             sel_msg = _(
                 "Select a skill number to run. Enter c to cancel.\n"
