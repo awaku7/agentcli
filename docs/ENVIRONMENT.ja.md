@@ -4,14 +4,35 @@
 
 ## Session Store / 統合Policy
 
-Session Storeは既存ログに追加する検索用SQLite履歴です。既定では無効です。
+Session StoreはSQLiteベースのセッション履歴です。既定では無効です。
 
 ```env
 UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=dual
 UAGENT_SESSION_STORE_PATH=.uag/sessions.sqlite3
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 UAGENT_POLICY_LEVEL=read_only
 ```
+
+`UAGENT_SESSION_BACKEND` は次の値を指定できます。
+
+- `jsonl`: 従来のJSONLのみ
+- `dual`: JSONLとSQLiteの両方（移行中の推奨設定）
+- `sqlite`: SQLiteのみ。JSONLの新規保存を停止
+
+SQLite-onlyでは `:logs`、`:load`、`:cont`、`:clean` もSQLiteセッションを対象にします。セッションの管理には次を使用できます。
+
+```text
+:sessions list
+:sessions search <query>
+:sessions load <session_id>
+:sessions import <jsonl_path-or-directory>
+:sessions delete <session_id> --yes
+:sessions vacuum
+:sessions pdf <session_id> [output.pdf]
+```
+
+既存JSONLを移行する場合は、SQLite-onlyへ切り替える前に `:sessions import` を実行してください。
 
 通常は `UAGENT_POLICY_FILE` の企業YAMLだけを設定します。`UAGENT_POLICY_LEVEL` は開発時の簡易制限です。
 
