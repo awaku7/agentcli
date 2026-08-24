@@ -5025,3 +5025,71 @@ msgid ""
 msgstr ""
 "Дозволити запуск інструменту побічних ефектів \"%(tool)s\"? Дайте відповідь "
 "\"так\", щоб продовжити, або \"ні\", щоб скасувати."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Сховище сеансів не ввімкнено."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Використання: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep має бути невід’ємним цілим числом."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] План очищення: залишити найновіших %(keep)d, кандидатів=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d повідомлень"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Тестовий запуск; нічого не видалено. Додайте --yes, щоб видалити "
+"ці сеанси."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Не вдалося видалити %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] Помилка VACUUM: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Видалено сеансів: %(deleted)d із %(total)d."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Сховище сеансів або LLM не ввімкнено."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Узагальнення %(count)d сеансів..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  пропущено"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  пропущено (закоротке)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  збережено"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  помилка: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Завершено: підсумовано %(done)d, пропущено %(skipped)d, помилок "
+"%(failed)d"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Кандидатів пам’яті немає."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Кандидати пам’яті:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Використання: :sessions approve <номер>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Кандидата пам’яті схвалено."
