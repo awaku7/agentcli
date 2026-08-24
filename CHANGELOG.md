@@ -6,6 +6,7 @@
 
 - Add persistent SQLite session summaries and `:sessions summarize`.
 - Add safe session retention with `:sessions prune --keep` and dry-run mode.
+- Use F12 to interrupt the current LLM round and cancel Auto-Pilot together.
 
 ### Changed
 

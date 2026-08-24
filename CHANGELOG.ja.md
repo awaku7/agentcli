@@ -6,6 +6,7 @@
 
 - SQLiteへセッション要約を永続保存する機能と `:sessions summarize` を追加。
 - `:sessions prune --keep` による安全なセッション保持・削除機能を追加。
+- F12キーで現在のLLMラウンドとAuto-Pilotを同時にキャンセルできるよう変更。
 
 ### 変更
 
