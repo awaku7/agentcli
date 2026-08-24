@@ -4999,3 +4999,72 @@ msgid ""
 msgstr ""
 "Гаж нөлөө үзүүлэх '%(tool)s' хэрэгслийг ажиллуулахыг зөвшөөрөх үү? "
 "Үргэлжлүүлэхийн тулд тийм, цуцлахын тулд үгүй ​​гэж хариулна уу."
+
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Сессийн хадгалалт идэвхжээгүй байна."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Хэрэглээ: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep нь сөрөг бус бүхэл тоо байх ёстой."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr ""
+"[sessions] Цэвэрлэх төлөвлөгөө: хамгийн шинэ %(keep)d-г хадгална, нэр "
+"дэвшигч=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d зурвас"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
+msgstr ""
+"[sessions] Туршилтын ажил; юу ч устгаагүй. Эдгээр сессийг устгахын тулд "
+"--yes нэмнэ үү."
+
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] %(id)s-г устгаж чадсангүй: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM амжилтгүй боллоо: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Нийт %(total)d сессээс %(deleted)d-г цэвэрлэв."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Сессийн хадгалалт эсвэл LLM идэвхжээгүй байна."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] %(count)d сессийг хураангуйлж байна..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  алгасав"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  алгасав (хэт богино)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  хадгалсан"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  амжилтгүй: %(error)s"
+
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+"[sessions] Дууссан: %(done)d хураангуйлсан, %(skipped)d алгассан, %(failed)d"
+" амжилтгүй"
+
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] Санах ойн нэр дэвшигч алга."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Санах ойн нэр дэвшигчид:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Хэрэглээ: :sessions approve <дугаар>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Санах ойн нэр дэвшигчийг зөвшөөрөв."
