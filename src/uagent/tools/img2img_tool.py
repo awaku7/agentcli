@@ -618,8 +618,19 @@ def run_tool(args: dict[str, Any]) -> str:
         for path in saved
     ]
 
+    try:
+        from ..runtime.artifact_helpers import register_artifacts
+
+        artifacts = register_artifacts(
+            saved,
+            metadata={"provider": provider, "model": image_model, "prompt": prompt},
+        )
+    except Exception:
+        artifacts = []
+
     data: dict[str, Any] = {
         "provider": provider,
+        "artifacts": artifacts,
         "model": image_model,
         "img": str(src),
         "mask_path": str(mask) if mask is not None else None,

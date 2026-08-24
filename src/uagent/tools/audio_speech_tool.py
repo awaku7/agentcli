@@ -565,7 +565,27 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
     mime = _mime_for_format(response_format)
+    try:
+        from ..runtime.artifact_helpers import register_artifacts
+
+        artifacts = register_artifacts(
+            [safe_out],
+            metadata={
+                "kind": "audio_speech",
+                "provider": provider,
+                "model": model,
+                "voice": voice,
+                "language": language,
+                "response_format": response_format,
+                "speed": speed,
+                "instructions": instructions,
+            },
+        )
+    except Exception:
+        artifacts = []
+
     data = {
+        "artifacts": artifacts,
         "path": safe_out,
         "saved_path": safe_out,
         "saved_files": [safe_out],

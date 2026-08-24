@@ -203,8 +203,19 @@ def run_tool(args: dict[str, Any]) -> str:
         }
     ]
 
+    try:
+        from ..runtime.artifact_helpers import register_artifacts
+
+        artifacts = register_artifacts(
+            [safe_path],
+            metadata={"kind": "qr_code", "text": text, "ecc": error_correction_str},
+        )
+    except Exception:
+        artifacts = []
+
     data = {
         "text": text,
+        "artifacts": artifacts,
         "filename": filename,
         "saved_files": [safe_path],
         "attachments": attachments,

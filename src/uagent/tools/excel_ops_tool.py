@@ -310,11 +310,21 @@ def run_tool(args: dict[str, Any]) -> str:
             finally:
                 wb_out.close()
 
+            try:
+                from ..runtime.artifact_helpers import register_artifacts
+
+                artifacts = register_artifacts(
+                    [output_path],
+                    metadata={"kind": "excel_keep_only_sheets", "kept_sheets": keep_sheets},
+                )
+            except Exception:
+                artifacts = []
             return json.dumps(
                 {
                     "ok": True,
                     "file_path": file_path,
                     "output_path": output_path,
+                    "artifacts": artifacts,
                     "backup": backup,
                     "kept_sheets": keep_sheets,
                     "note": "Values-only copy. Call recalc_excel before this tool if you need updated formula results.",
@@ -363,6 +373,24 @@ def run_tool(args: dict[str, Any]) -> str:
 
         os.makedirs(os.path.dirname(file_path) or ".", exist_ok=True)
         wb.save(file_path)
-        return file_path
+        try:
+            from ..runtime.artifact_helpers import register_artifacts
+
+            artifacts = register_artifacts(
+                [file_path],
+                metadata={"kind": "excel_write", "sheet": target},
+            )
+        except Exception:
+            artifacts = []
+        return json.dumps(
+            {
+                "ok": True,
+                "operation": "write",
+                "file_path": file_path,
+                "artifacts": artifacts,
+                "sheet": target,
+            },
+            ensure_ascii=False,
+        )
     finally:
         wb.close()

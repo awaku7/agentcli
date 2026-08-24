@@ -263,7 +263,20 @@ def run_tool(args: dict[str, Any]) -> str:
         attachment["data_base64"] = base64.b64encode(output.read_bytes()).decode(
             "ascii"
         )
-    data = {"saved_files": [str(output)], "attachments": [attachment]}
+    try:
+        from ..runtime.artifact_helpers import register_artifacts
+
+        artifacts = register_artifacts(
+            [str(output)],
+            metadata={"kind": "mermaid_render", "format": suffix.lstrip(".")},
+        )
+    except Exception:
+        artifacts = []
+    data = {
+        "artifacts": artifacts,
+        "saved_files": [str(output)],
+        "attachments": [attachment],
+    }
     return make_response(
         True, _("ok.rendered", default="[OK] Mermaid rendered"), data=data
     )

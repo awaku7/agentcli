@@ -16,6 +16,8 @@ from .service import (
     stop_background_scheduler,
 )
 from .store import SchedulerStore
+from .run_store import SchedulerRun, SchedulerRunStore, VALID_RUN_STATUSES
+from .worker import SchedulerWorker
 
 __all__ = [
     "SCHEDULE_TYPE_ONCE",
@@ -23,6 +25,10 @@ __all__ = [
     "ScheduleItem",
     "SchedulerService",
     "SchedulerStore",
+    "SchedulerRun",
+    "SchedulerRunStore",
+    "VALID_RUN_STATUSES",
+    "SchedulerWorker",
     "advance_periodic_at",
     "format_iso_datetime",
     "parse_iso_datetime",

@@ -875,8 +875,16 @@ def run_tool(args: dict[str, Any]) -> str:
             att["url"] = url_list[idx]
             att["source_url"] = url_list[idx]
         attachments.append(att)
+    try:
+        from ..runtime.artifact_helpers import register_artifacts
+
+        artifacts = register_artifacts(saved, metadata=meta_payload)
+    except Exception:
+        artifacts = []
+
     data: dict[str, Any] = {
         "provider": provider,
+        "artifacts": artifacts,
         "model": image_model,
         "prompt": prompt,
         "size": size2,

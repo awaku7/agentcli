@@ -11,6 +11,7 @@ from .models import (
     utc_now,
 )
 from .store import SchedulerStore
+from .run_store import SchedulerRunStore
 
 _RUNTIME_LOCK = threading.RLock()
 _RUNTIME: Optional["SchedulerService"] = None
@@ -22,10 +23,12 @@ class SchedulerService:
         event_sink: Any,
         *,
         store: SchedulerStore | None = None,
+        run_store: SchedulerRunStore | None = None,
         poll_interval_s: float = 0.5,
     ) -> None:
         self._sink = event_sink
         self._store = store or SchedulerStore()
+        self._run_store = run_store or SchedulerRunStore()
         self._poll_interval_s = max(0.1, float(poll_interval_s or 0.5))
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
@@ -77,7 +80,7 @@ class SchedulerService:
         items = self._store.list_items()
         kept: list[ScheduleItem] = []
         changed = False
-        due: list[ScheduleItem] = []
+        due: list[tuple[ScheduleItem, str]] = []
 
         for item in items:
             if not item.enabled:
@@ -85,7 +88,7 @@ class SchedulerService:
                 continue
             try:
                 if item.next_fire_at <= now:
-                    due.append(item)
+                    due.append((item, item.at))
                     if item.type == SCHEDULE_TYPE_PERIODIC and item.interval_sec > 0:
                         item.at = advance_periodic_at(
                             item.at, item.interval_sec, now=now
@@ -108,13 +111,30 @@ class SchedulerService:
             except Exception:
                 pass
 
-        for item in due:
+        for item, due_at in due:
             notice = (item.message or "").strip()
             prompt = item.effective_prompt
+            try:
+                run = self._run_store.create(
+                    item.id,
+                    idempotency_key=f"{item.id}:{due_at}",
+                    metadata={
+                        "schedule_type": item.type,
+                        "message": item.message,
+                        "llm_prompt": item.llm_prompt,
+                        "retry_limit": item.retry_limit,
+                        "retry_backoff_sec": item.retry_backoff_sec,
+                        "timeout_sec": item.timeout_sec,
+                    },
+                )
+                run_id = run.run_id
+            except Exception:
+                run_id = ""
             base = {
                 "schedule_id": item.id,
                 "schedule_type": item.type,
-                "schedule_at": item.at,
+                "schedule_at": due_at,
+                "run_id": run_id,
             }
             if notice:
                 self._emit({"kind": "schedule_notice", "text": notice, **base})

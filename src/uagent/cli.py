@@ -1736,6 +1736,26 @@ def main() -> None:
 
     running = True
     try:
+        # Scheduler execution records are updated when scheduled events enter
+        # the interactive worker loop.  The store is durable and independent
+        # from the event queue, so a restart does not erase the run history.
+        from .scheduler import SchedulerRunStore, SchedulerWorker
+
+        scheduled_run_store = SchedulerRunStore()
+
+        def _run_llm_event(event, fn, *args, **kwargs):
+            run_id = str(event.get("run_id") or "").strip()
+            if not run_id:
+                return fn(*args, **kwargs)
+            run = scheduled_run_store.get(run_id)
+            metadata = dict((run.metadata if run else {}) or {})
+            return SchedulerWorker(scheduled_run_store).execute(
+                run_id,
+                lambda _payload: fn(*args, **kwargs),
+                timeout_sec=float(metadata.get("timeout_sec") or 0),
+                retry_limit=int(metadata.get("retry_limit") or 0),
+                retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
+            )
         while running:
             ev = core.event_queue.get()
             kind = ev.get("kind")
@@ -1755,7 +1775,7 @@ def main() -> None:
                     core.log_message(user_msg)
                     with lifecycle_execution() as lifecycle:
                         try:
-                            llm_util.run_llm_rounds(
+                            _run_llm_event(ev, llm_util.run_llm_rounds,
                                 provider,
                                 client,
                                 depname,
@@ -1925,7 +1945,7 @@ def main() -> None:
 
                 with lifecycle_execution() as lifecycle:
                     try:
-                        llm_util.run_llm_rounds(
+                        _run_llm_event(ev, llm_util.run_llm_rounds,
                             provider,
                             client,
                             depname,
@@ -1941,7 +1961,6 @@ def main() -> None:
                             "[bitchat] "
                             + _("LLM round interrupted: %(err)s") % {"err": exc}
                         )
-
                 # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                 if ev.get("src") == "bitchat":
                     reply = tools_util.extract_last_assistant_text(messages)

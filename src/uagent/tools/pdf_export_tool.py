@@ -299,10 +299,20 @@ def run_tool(args: dict[str, Any]) -> str:
 
         with open(output_path, "rb") as pdf_file:
             pdf_b64 = base64.b64encode(pdf_file.read()).decode("ascii")
+        try:
+            from ..runtime.artifact_helpers import register_artifacts
+
+            artifacts = register_artifacts(
+                [output_path],
+                metadata={"kind": "pdf_export", "source_log": str(log_path)},
+            )
+        except Exception:
+            artifacts = []
         return make_response(
             True,
             f"Successfully created PDF at '{output_path}' ({len(messages)} messages).",
             data={
+                "artifacts": artifacts,
                 "saved_files": [output_path],
                 "attachments": [
                     {

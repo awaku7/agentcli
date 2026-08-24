@@ -51,6 +51,9 @@ class ScheduleItem:
     message: str = ""
     llm_prompt: str = ""
     interval_sec: int = 0
+    retry_limit: int = 0
+    retry_backoff_sec: int = 0
+    timeout_sec: int = 0
     enabled: bool = True
     created_at: str = ""
     updated_at: str = ""
@@ -81,6 +84,9 @@ class ScheduleItem:
         self.message = str(self.message or "")
         self.llm_prompt = str(self.llm_prompt or "")
         self.interval_sec = max(0, _coerce_int(self.interval_sec, 0))
+        self.retry_limit = max(0, _coerce_int(self.retry_limit, 0))
+        self.retry_backoff_sec = max(0, _coerce_int(self.retry_backoff_sec, 0))
+        self.timeout_sec = max(0, _coerce_int(self.timeout_sec, 0))
         self.enabled = bool(self.enabled)
         now = format_iso_datetime(utc_now())
         if not self.created_at:
@@ -130,6 +136,9 @@ class ScheduleItem:
             "message": self.message,
             "llm_prompt": self.llm_prompt,
             "interval_sec": self.interval_sec,
+            "retry_limit": self.retry_limit,
+            "retry_backoff_sec": self.retry_backoff_sec,
+            "timeout_sec": self.timeout_sec,
             "enabled": self.enabled,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

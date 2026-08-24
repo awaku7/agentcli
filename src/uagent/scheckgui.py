@@ -824,6 +824,37 @@ class ScheckWorker(QtCore.QObject):
                     % {"err": e}
                 )
 
+            from .scheduler import SchedulerRunStore, SchedulerWorker
+
+            scheduled_run_store = SchedulerRunStore()
+
+            def _run_scheduled_lifecycle(event, *args, **kwargs):
+                run_id = str(event.get("run_id") or "").strip()
+                if not run_id:
+                    return _run_lifecycle(*args, **kwargs)
+                run = scheduled_run_store.get(run_id)
+                metadata = dict((run.metadata if run else {}) or {})
+                try:
+                    result = SchedulerWorker(scheduled_run_store).execute(
+                        run_id,
+                        lambda _payload: _run_lifecycle(*args, **kwargs),
+                        timeout_sec=float(metadata.get("timeout_sec") or 0),
+                        retry_limit=int(metadata.get("retry_limit") or 0),
+                        retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
+                    )
+                except Exception as exc:
+                    try:
+                        scheduled_run_store.finish(run_id, status="failed", error=str(exc))
+                    except Exception:
+                        pass
+                    raise
+                else:
+                    try:
+                        scheduled_run_store.finish(run_id)
+                    except Exception:
+                        pass
+                    return result
+
             while not self._stop.is_set():
                 try:
                     ev = core.event_queue.get(timeout=0.5)
@@ -851,7 +882,8 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            _run_lifecycle(
+                            _run_scheduled_lifecycle(
+                                ev,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
@@ -965,7 +997,8 @@ class ScheckWorker(QtCore.QObject):
                             self.messages.append(m)
                             core.log_message(m)
 
-                            _run_lifecycle(
+                            _run_scheduled_lifecycle(
+                                ev,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
@@ -1022,7 +1055,8 @@ class ScheckWorker(QtCore.QObject):
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
-                            _run_lifecycle(
+                            _run_scheduled_lifecycle(
+                                ev,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
