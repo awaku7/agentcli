@@ -2031,7 +2031,7 @@ def compress_history_with_llm(
             ]
 
             chunk_index += 1
-            if total_chunks > 1:
+            if emit_log and total_chunks > 1:
                 print(
                     _t("[shrink_llm] Summarizing chunk %(i)d/%(n)d...")
                     % {"i": chunk_index, "n": total_chunks},
@@ -2057,18 +2057,19 @@ def compress_history_with_llm(
 
         new_messages = system_msgs + [summary_msg] + tail_part
 
-        print(
-            _t(
-                "[INFO] shrink_llm: {old_n} -> {new_n} messages "
-                "(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
-            ).format(
-                old_n=len(messages),
-                new_n=len(new_messages),
-                old_part_n=len(old_part),
-                tail_n=len(tail_part),
-            ),
-            file=sys.stderr,
-        )
+        if emit_log:
+            print(
+                _t(
+                    "[INFO] shrink_llm: {old_n} -> {new_n} messages "
+                    "(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
+                ).format(
+                    old_n=len(messages),
+                    new_n=len(new_messages),
+                    old_part_n=len(old_part),
+                    tail_n=len(tail_part),
+                ),
+                file=sys.stderr,
+            )
 
         if emit_log:
             log_message(summary_msg)

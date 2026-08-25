@@ -137,6 +137,20 @@ def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
     assert len(others) == 4
 
 
+def test_compress_emit_log_false_is_quiet(capsys):
+    client = _FakeClient(["QUIET_SUMMARY"])
+    core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=_make_dialog(3),
+        keep_last=2,
+        emit_log=False,
+    )
+    captured = capsys.readouterr()
+    assert "shrink_llm" not in captured.out
+    assert "shrink_llm" not in captured.err
+
+
 def test_compress_retries_without_unsupported_temperature():
     msgs = _make_dialog(3)
     client = _RejectTemperatureClient(["SUMMARY_WITH_DEFAULT_TEMPERATURE"])
