@@ -1158,11 +1158,15 @@ def _handle_cmd_load(
         and getattr(core, "session_store", None) is not None
     ):
         store = core.session_store
-        sessions = [
-            row
-            for row in store.list_sessions()
-            if row["session_id"] != getattr(core, "session_id", None)
-        ]
+        try:
+            sessions = [
+                row
+                for row in store.list_sessions()
+                if row["session_id"] != getattr(core, "session_id", None)
+            ]
+        except Exception as exc:
+            print(_("[load error] SQLite session listing failed: %(error)s") % {"error": exc})
+            return True
         target = (arg or "").strip()
         if not target:
             if not sessions:
@@ -1199,6 +1203,11 @@ def _handle_cmd_load(
                 return True
             messages_ref.clear()
             messages_ref.extend(loaded)
+            # Keep subsequent messages and tool results in the loaded session,
+            # rather than silently appending them to the session created at
+            # startup.
+            core.session_id = target
+            core._session_store_active_id = target
             state = store.latest_response_state(target)
             if state is not None:
                 response_state = getattr(core, "responses_state", None)

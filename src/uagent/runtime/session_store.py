@@ -662,6 +662,10 @@ def attach_opt_in_session_store(
     )
     original_log_message = core.log_message
     core._session_store_original_log_message = original_log_message
+    # The CLI can switch the loaded conversation with :load. Keep the active
+    # persistence target on core so the callback does not permanently capture
+    # the session created at startup.
+    core._session_store_active_id = session.session_id
     pending_tool_calls: dict[str, tuple[str, dict[str, Any]]] = {}
 
     jsonl_enabled = (
@@ -675,8 +679,9 @@ def attach_opt_in_session_store(
         if role not in {"system", "user", "assistant", "tool"}:
             return
         content = str(message.get("content") or "")
+        active_session_id = getattr(core, "_session_store_active_id", session.session_id)
         store.append_message(
-            session.session_id,
+            active_session_id,
             str(role),
             content,
             payload=message if isinstance(message, dict) else None,
@@ -694,7 +699,7 @@ def attach_opt_in_session_store(
             )
             status = "failed" if "[tool runtime error]" in content else "success"
             store.record_tool_call(
-                session.session_id,
+                active_session_id,
                 tool_name=name,
                 args=args,
                 result=content,
@@ -722,6 +727,7 @@ def detach_opt_in_session_store(core: Any) -> None:
         for name in (
             "session_store",
             "session_id",
+            "_session_store_active_id",
             "_session_store_original_log_message",
         ):
             try:

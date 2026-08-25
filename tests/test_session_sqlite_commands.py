@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.runtime.session_store import SessionStore
+from uagent.runtime.session_store import (
+    SessionStore,
+    attach_opt_in_session_store,
+    detach_opt_in_session_store,
+)
 from uagent.util_cmd_files import _handle_cmd_logs
 from uagent.util_cmd_session import _handle_cmd_load
 
@@ -33,6 +37,30 @@ def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
         "old answer",
     ]
     db.close()
+
+
+def test_load_switches_sqlite_persistence_target(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+    logged: list[dict] = []
+    core = SimpleNamespace(log_message=logged.append)
+    store, current_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="cli"
+    )
+    assert store is not None
+    old = store.create_session(project="old", entry_point="cli")
+    store.append_message(old.session_id, "user", "old question")
+    messages: list[dict] = []
+
+    assert _handle_cmd_load(old.session_id, messages, core=core, tr=lambda text, **_: text)
+    assert core.session_id == old.session_id
+    core.log_message({"role": "user", "content": "follow-up"})
+
+    old_contents = [m["content"] for m in store.list_messages(old.session_id)]
+    current_contents = [m["content"] for m in store.list_messages(current_id)]
+    assert old_contents == ["old question", "follow-up"]
+    assert current_contents == []
+    detach_opt_in_session_store(core)
 
 
 def test_sqlite_clean_preserves_active_session(monkeypatch, tmp_path, capsys):
