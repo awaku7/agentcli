@@ -111,7 +111,7 @@ def test_history_summary_helpers_detect_and_strip():
 
 
 def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.setenv("UAGENT_LANG", "ja")
+    monkeypatch.setattr("uagent.i18n.get_locale", lambda: "ja")
     msgs = _make_dialog(6)
     client = _FakeClient(["FIRST_SUMMARY about user-0..5"])
 
