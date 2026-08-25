@@ -14,6 +14,8 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
+_GIT_COMMAND_TIMEOUT = 5
+_MAX_CHANGE_PREVIEW = 100
 
 
 TOOL_SPEC: dict[str, Any] = {
@@ -55,84 +57,117 @@ TOOL_SPEC: dict[str, Any] = {
 def _run(command: list[str], cwd: str) -> tuple[int, str, str]:
     """Run a fixed read-only command without invoking a shell."""
     try:
-        result = subprocess.run(
-            command,
-            cwd=cwd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=5,
-            check=False,
-        )
+        run_kwargs: dict[str, Any] = {
+            "cwd": cwd,
+            "capture_output": True,
+            "text": True,
+            "encoding": "utf-8",
+            "errors": "replace",
+            "timeout": _GIT_COMMAND_TIMEOUT,
+            "check": False,
+        }
+        if os.name == "nt":
+            run_kwargs["creationflags"] = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+        result = subprocess.run(command, **run_kwargs)
+    except FileNotFoundError:
+        return 127, "", "git_unavailable"
     except (OSError, subprocess.TimeoutExpired) as exc:
         return 1, "", str(exc)
     return result.returncode, result.stdout.strip(), result.stderr.strip()
 
 
-def _git_status(cwd: str) -> dict[str, Any]:
-    code, root, stderr = _run(["git", "rev-parse", "--show-toplevel"], cwd)
-    if code != 0:
-        err = stderr.lower()
-        if "not a git repository" in err:
-            reason = "not_a_repository"
-        elif "not found" in err or "not recognized" in err:
-            reason = "git_unavailable"
-        elif "timed out" in err:
-            reason = "timeout"
-        else:
-            reason = "git_error"
-        return {"is_repository": False, "reason": reason}
+def _parse_git_status(porcelain: str) -> dict[str, Any]:
+    branch: str | None = None
+    head: str | None = None
+    upstream: str | None = None
+    ahead: int | None = None
+    behind: int | None = None
+    changes: list[str] = []
 
-    _, branch, _ = _run(["git", "branch", "--show-current"], cwd)
-    head_code, head, _ = _run(["git", "rev-parse", "--short", "HEAD"], cwd)
-    _, porcelain, _ = _run(["git", "status", "--porcelain=v1"], cwd)
-    _, upstream, _ = _run(
-        ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
-        cwd,
-    )
-    _, counts, _ = _run(
-        ["git", "rev-list", "--left-right", "--count", "@{upstream}...HEAD"], cwd
-    )
+    for line in porcelain.splitlines():
+        if line.startswith("# branch.head "):
+            value = line.removeprefix("# branch.head ").strip()
+            branch = None if value in {"", "(detached)"} else value
+        elif line.startswith("# branch.oid "):
+            value = line.removeprefix("# branch.oid ").strip()
+            head = None if value in {"", "(initial)"} else value[:7]
+        elif line.startswith("# branch.upstream "):
+            value = line.removeprefix("# branch.upstream ").strip()
+            upstream = value or None
+        elif line.startswith("# branch.ab "):
+            values = line.removeprefix("# branch.ab ").split()
+            try:
+                if len(values) >= 2:
+                    ahead = int(values[0].lstrip("+"))
+                    behind = int(values[1].lstrip("-"))
+            except ValueError:
+                ahead = behind = None
+        elif line and not line.startswith("#"):
+            changes.append(line)
 
-    ahead = behind = None
-    if counts:
-        try:
-            behind, ahead = (int(value) for value in counts.split())
-        except ValueError:
-            pass
-    changes = porcelain.splitlines() if porcelain else []
-    staged_count = unstaged_count = untracked_count = conflict_count = 0
+    staged_count = 0
+    unstaged_count = 0
+    untracked_count = 0
+    conflict_count = 0
     for change in changes:
-        if change.startswith("??"):
+        if change.startswith("?"):
             untracked_count += 1
             continue
-        if len(change) >= 2:
-            index_status, worktree_status = change[0], change[1]
-            if index_status != " ":
-                staged_count += 1
-            if worktree_status != " ":
-                unstaged_count += 1
-            if index_status == "U" or worktree_status == "U":
-                conflict_count += 1
+        fields = change.split(" ", 2)
+        xy = fields[1] if len(fields) > 1 else ""
+        if xy.startswith("U") or len(xy) > 1 and xy[1] == "U":
+            conflict_count += 1
+        if xy and xy[0] != ".":
+            staged_count += 1
+        if len(xy) > 1 and xy[1] != ".":
+            unstaged_count += 1
+
     return {
-        "is_repository": True,
-        "root": root,
-        "branch": branch or None,
-        "head": head or None,
-        "has_commits": head_code == 0,
-        "upstream": upstream or None,
-        "tracking": bool(upstream),
+        "branch": branch,
+        "head": head,
+        "has_commits": head is not None,
+        "upstream": upstream,
+        "tracking": upstream is not None,
         "ahead": ahead,
         "behind": behind,
         "changed_file_count": len(changes),
+        "dirty": bool(changes),
         "staged_count": staged_count,
         "unstaged_count": unstaged_count,
         "untracked_count": untracked_count,
         "conflict_count": conflict_count,
         "has_conflicts": conflict_count > 0,
-        "changes": changes,
+        "changes": changes[:_MAX_CHANGE_PREVIEW],
+        "changes_truncated": len(changes) > _MAX_CHANGE_PREVIEW,
     }
+
+
+def _git_status(cwd: str) -> dict[str, Any]:
+    code, root, stderr = _run(["git", "rev-parse", "--show-toplevel"], cwd)
+    if code != 0:
+        reason = stderr if stderr == "git_unavailable" else "git_error"
+        if "not a git repository" in stderr.lower():
+            reason = "not_a_repository"
+        elif "timed out" in stderr.lower():
+            reason = "timeout"
+        return {"is_repository": False, "reason": reason}
+
+    status_code, porcelain, status_error = _run(
+        ["git", "--no-optional-locks", "status", "--porcelain=v2", "--branch"], cwd
+    )
+    if status_code != 0:
+        reason = "timeout" if "timed out" in status_error.lower() else "git_error"
+        return {"is_repository": True, "root": root, "reason": reason}
+
+    result = _parse_git_status(porcelain)
+    return {"is_repository": True, "root": root, **result}
+
+
+def _safe_exists(path: Path) -> bool:
+    try:
+        return path.exists()
+    except OSError:
+        return False
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -142,7 +177,7 @@ def run_tool(args: dict[str, Any]) -> str:
     git_info = _git_status(cwd)
     marker_root = Path(git_info.get("root") or cwd)
     markers = {
-        name: (marker_root / name).exists()
+        name: _safe_exists(marker_root / name)
         for name in ("AGENTS.md", "pyproject.toml", "package.json", "requirements.txt")
     }
     return json.dumps(
@@ -152,8 +187,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "runtime": {
                 "python_executable": sys.executable,
                 "python_version": sys.version.split()[0],
-                "virtual_environment": sys.prefix
-                != getattr(sys, "base_prefix", sys.prefix),
+                "virtual_environment": sys.prefix != sys.base_prefix,
             },
             "project_markers": markers,
         },
