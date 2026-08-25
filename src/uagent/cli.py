@@ -2156,6 +2156,29 @@ def main() -> None:
                 fire_event("SessionEnd", _hooks)
         except Exception:
             pass
+        # Keep the active SQLite session searchable after the CLI exits.  Use
+        # the existing command handler with an explicit session id so shutdown
+        # never summarizes every stored session (or a different session loaded
+        # during this run).
+        if session_store is not None and client is not None and depname:
+            active_session_id = getattr(core, "session_id", None)
+            if active_session_id:
+                try:
+                    from .util_cmd_session import _handle_cmd_sessions
+
+                    _handle_cmd_sessions(
+                        f"summarize {active_session_id}",
+                        messages_ref=messages,
+                        client=client,
+                        depname=depname,
+                        core=core,
+                        tr=_,
+                    )
+                except Exception as exc:
+                    print(
+                        _("[sessions] Shutdown summary failed: %(error)s")
+                        % {"error": exc}
+                    )
         # Clear cache on program exit
         if provider in ("gemini", "vertexai") and client:
             try:
