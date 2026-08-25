@@ -47,17 +47,17 @@ uag هو وكيل ذكاء اصطناعي محلي أولًا، يربط الن�
 
 ```mermaid
 flowchart LR
-    U[User / Team]
-    I[CLI · GUI · Web · VS Code · A2A]
-    G[uag<br/>Agent runtime & control plane]
-    P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
-    T[Tool layer<br/>Files · Web · Code · Media · Documents]
-    E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
-    X[Connected systems<br/>MCP · A2A · Cloud · Communication]
-    D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
-    R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    U[المستخدم / الفريق]
+    I[CLI · GUI · الويب · VS Code · A2A]
+    G[uag<br/>محرك الوكلاء ومنصة التحكم]
+    P[النماذج المستضافة<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
+    L[النماذج المحلية<br/>Ollama · llama.cpp · LM Studio]
+    T[طبقة الأدوات<br/>ملفات · الويب · الكود · الوسائط · المستندات]
+    E[طبقة التوسعة<br/>Plugins · Agent Skills · أدوات مخصصة]
+    X[الأنظمة المتصلة<br/>MCP · A2A · Cloud · Communication]
+    D[طبقة IoT<br/>SwitchBot · Matter · BACnet · OPC UA]
+    R[ذكاء الشفرة<br/>code_map · idx tools · Git · Tests]
+    S[الأمان والسياسات<br/>التأكيد · بيانات الاعتماد · التدقيق]
 
     U --> I
     I --> G
@@ -152,6 +152,9 @@ python -m pip install "uag[core,providers,tools]"
 
 > تكاملات المنصة اختيارية. ثبّت فقط ما يحتاجه نظام التشغيل لديك؛ راجع
 > [إعداد المنصة](#platform-setup).
+
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
 
 ### اختيار مزوّد
 
@@ -416,26 +419,3 @@ python -m pytest -q .
 ## الترخيص
 
 مرخّص بموجب [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## تخزين الجلسات والسياسة الموحدة
-
-يضيف Session Store الاختياري سجلًا منظمًا بصيغة SQLite للبحث في الجلسات وتدقيق الأدوات، مع الحفاظ على سجلات JSONL الحالية. استخدم الأوامر التالية للبحث ومراجعة مرشحي الذاكرة.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

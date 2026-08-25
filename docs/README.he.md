@@ -153,6 +153,9 @@ python -m pip install "uag[core,providers,tools]"
 > שילובי פלטפורמה הם אופציונליים. התקינו רק את מה שמערכת ההפעלה שלכם צריכה; ראו
 > [הגדרת פלטפורמה](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### בחירת ספק
 
 הגדירו ספק ומפתח API שלו לפני ההפעלה, או הגדירו אותם באשף ההגדרה.
@@ -416,26 +419,3 @@ python -m pytest -q .
 ## רישיון
 
 מופץ בכפוף ל-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## מאגר הפעלות ומדיניות מאוחדת
-
-Session Store האופציונלי מוסיף היסטוריית SQLite מובנית לחיפוש הפעלות ולביקורת כלים, תוך שמירה על יומני JSONL הקיימים. השתמשו בפקודות הבאות לחיפוש ולבדיקת מועמדי זיכרון.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

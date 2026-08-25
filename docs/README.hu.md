@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > A platformintegrációk opcionálisak. Csak azt telepítsd, amire az operációs rendszerednek szüksége van; lásd a
 > [Platform setup](#platform-setup) részt.
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Szolgáltató kiválasztása
 
 Indítás előtt állíts be egy szolgáltatót és a hozzá tartozó API-kulcsot, vagy konfiguráld őket a beállítási varázslóban.
@@ -416,26 +419,3 @@ Nagyobb módosítások előtt kérjük, nyiss egy issue-t vagy indíts egy vitá
 ## Licenc
 
 Az [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) licenc feltételei szerint érhető el.
-
-## Munkamenettár és egységes szabályzat
-
-Az opcionális Session Store strukturált SQLite-előzményeket biztosít a munkamenetek kereséséhez és az eszközök auditálásához, miközben megőrzi a meglévő JSONL-naplókat. A kereséshez és a memóriajelöltek áttekintéséhez használja az alábbi parancsokat.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

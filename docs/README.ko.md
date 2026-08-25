@@ -152,6 +152,9 @@ python -m pip install "uag[core,providers,tools]"
 
 > 플랫폼 통합 기능은 선택 사항입니다. 운영 체제에 필요한 항목만 설치하세요. [Platform setup](#platform-setup)을 참조하세요.
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### 프로바이더 선택
 
 실행하기 전에 프로바이더와 API 키를 설정하거나 설정 마법사에서 구성하세요.
@@ -410,29 +413,6 @@ python -m pytest -q .
 큰 변경을 하기 전에 이슈나 토론을 열어 주세요. [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)를 읽고,
 풀 리퀘스트를 제출하기 전에 위 검사를 실행하세요.
 
-## 라이선스
+## License
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)에 따라 라이선스가 부여됩니다.
-
-## 세션 스토어 및 통합 정책
-
-선택 사항인 Session Store는 기존 JSONL 로그를 유지하면서 세션 검색과 도구 감사를 위한 구조화된 SQLite 기록을 추가합니다. 다음 명령으로 기록을 검색하고 메모리 후보를 검토할 수 있습니다.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
+Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

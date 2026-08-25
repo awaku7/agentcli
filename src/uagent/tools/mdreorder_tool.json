@@ -1,0 +1,610 @@
+{
+  "en": {
+    "tool.description": "Reorder Markdown headings to match a reference outline and remove extra sections",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reorder Markdown headings to match a reference outline and remove extra sections",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Path to the Markdown file to reorder",
+    "param.reference_path": "Reference Markdown file used as the outline template",
+    "param.output_path": "Optional output path; if omitted, returns the reordered text",
+    "param.drop_extras": "Remove sections that do not exist in the reference outline",
+    "err.path_required": "Error: 'path' is required.",
+    "err.file_not_found": "Error: File not found: {path}",
+    "err.reference_not_found": "Error: Reference file not found: {reference_path}"
+  },
+  "ar": {
+    "tool.description": "أعد ترتيب عناوين Markdown لتتوافق مع المخطط التفصيلي المرجعي وأزل الأقسام الإضافية",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "أعد ترتيب عناوين Markdown لتتوافق مع المخطط التفصيلي المرجعي وأزل الأقسام الإضافية",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "المسار إلى ملف Markdown لإعادة الترتيب",
+    "param.reference_path": "مرجع الملف Markdown المستخدم كقالب المخطط التفصيلي",
+    "param.output_path": "مسار الإخراج الاختياري؛ إذا تم حذفه، فسيتم إرجاع النص المعاد ترتيبه",
+    "param.drop_extras": "قم بإزالة الأقسام غير الموجودة في المخطط التفصيلي المرجعي",
+    "err.path_required": "خطأ: \"المسار\" مطلوب.",
+    "err.file_not_found": "خطأ: لم يتم العثور على الملف: {path}",
+    "err.reference_not_found": "خطأ: لم يتم العثور على الملف المرجعي: {reference_path}"
+  },
+  "bn": {
+    "tool.description": "একটি রেফারেন্স আউটলাইন মেলে এবং অতিরিক্ত বিভাগগুলি সরাতে Markdown শিরোনামগুলি পুনরায় সাজান৷",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "একটি রেফারেন্স আউটলাইন মেলে এবং অতিরিক্ত বিভাগগুলি সরাতে Markdown শিরোনামগুলি পুনরায় সাজান৷",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "পুনরায় সাজানোর জন্য Markdown ফাইলের পাথ",
+    "param.reference_path": "রেফারেন্স Markdown ফাইলটি রূপরেখা টেমপ্লেট হিসাবে ব্যবহৃত হয়েছে",
+    "param.output_path": "ঐচ্ছিক আউটপুট পথ; যদি বাদ দেওয়া হয়, তাহলে পুনরায় সাজানো টেক্সট ফেরত দেয়",
+    "param.drop_extras": "রেফারেন্স আউটলাইনে বিদ্যমান নেই এমন বিভাগগুলি সরান",
+    "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
+    "err.file_not_found": "ত্রুটি: ফাইল পাওয়া যায়নি: {path}",
+    "err.reference_not_found": "ত্রুটি: রেফারেন্স ফাইল পাওয়া যায়নি: {reference_path}"
+  },
+  "cs": {
+    "tool.description": "Změňte pořadí nadpisů Markdown tak, aby odpovídaly referenčnímu obrysu, a odstraňte přebytečné části",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Změňte pořadí nadpisů Markdown tak, aby odpovídaly referenčnímu obrysu, a odstraňte přebytečné části",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Cesta k souboru Markdown ke změně pořadí",
+    "param.reference_path": "Referenční soubor Markdown použitý jako šablona osnovy",
+    "param.output_path": "Volitelná výstupní cesta; pokud je vynechán, vrátí změněný text",
+    "param.drop_extras": "Odeberte části, které v referenční osnově neexistují",
+    "err.path_required": "Chyba: je vyžadována cesta.",
+    "err.file_not_found": "Chyba: Soubor nenalezen: {path}",
+    "err.reference_not_found": "Chyba: Referenční soubor nebyl nalezen: {reference_path}"
+  },
+  "da": {
+    "tool.description": "Omarranger Markdown overskrifter for at matche en referenceoversigt, og fjern ekstra sektioner",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Omarranger Markdown overskrifter for at matche en referenceoversigt, og fjern ekstra sektioner",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Sti til filen Markdown for at omarrangere",
+    "param.reference_path": "Reference Markdown fil brugt som dispositionsskabelon",
+    "param.output_path": "Valgfri udgangssti; hvis den udelades, returnerer den omarrangerede tekst",
+    "param.drop_extras": "Fjern sektioner, der ikke findes i referenceoversigten",
+    "err.path_required": "Fejl: 'sti' er påkrævet.",
+    "err.file_not_found": "Fejl: Filen blev ikke fundet: {path}",
+    "err.reference_not_found": "Fejl: Referencefil blev ikke fundet: {reference_path}"
+  },
+  "de": {
+    "tool.description": "Ordnen Sie Markdown-Überschriften neu an, damit sie einer Referenzgliederung entsprechen, und entfernen Sie zusätzliche Abschnitte",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Ordnen Sie Markdown-Überschriften neu an, damit sie einer Referenzgliederung entsprechen, und entfernen Sie zusätzliche Abschnitte",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Pfad zur neu anzuordnenden Datei Markdown",
+    "param.reference_path": "Referenzdatei Markdown, die als Gliederungsvorlage verwendet wird",
+    "param.output_path": "Optionaler Ausgabepfad; Wenn es weggelassen wird, wird der neu angeordnete Text zurückgegeben",
+    "param.drop_extras": "Entfernen Sie Abschnitte, die in der Referenzgliederung nicht vorhanden sind",
+    "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
+    "err.file_not_found": "Fehler: Datei nicht gefunden: {path}",
+    "err.reference_not_found": "Fehler: Referenzdatei nicht gefunden: {reference_path}"
+  },
+  "el": {
+    "tool.description": "Αναδιάταξη Markdown επικεφαλίδων για να ταιριάζει με ένα περίγραμμα αναφοράς και καταργήστε επιπλέον ενότητες",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Αναδιάταξη Markdown επικεφαλίδων για να ταιριάζει με ένα περίγραμμα αναφοράς και καταργήστε επιπλέον ενότητες",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Διαδρομή προς το αρχείο Markdown για αναδιάταξη",
+    "param.reference_path": "Αναφορά αρχείου Markdown που χρησιμοποιείται ως πρότυπο περίγραμμα",
+    "param.output_path": "Προαιρετική διαδρομή εξόδου. εάν παραλειφθεί, επιστρέφει το αναδιατεταγμένο κείμενο",
+    "param.drop_extras": "Καταργήστε ενότητες που δεν υπάρχουν στο περίγραμμα αναφοράς",
+    "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
+    "err.file_not_found": "Σφάλμα: Το αρχείο δεν βρέθηκε: {path}",
+    "err.reference_not_found": "Σφάλμα: Το αρχείο αναφοράς δεν βρέθηκε: {reference_path}"
+  },
+  "es": {
+    "tool.description": "Reordene Markdown títulos para que coincidan con un esquema de referencia y elimine secciones adicionales",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reordene Markdown títulos para que coincidan con un esquema de referencia y elimine secciones adicionales",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Ruta al archivo Markdown para reordenar",
+    "param.reference_path": "Archivo de referencia Markdown utilizado como plantilla de esquema",
+    "param.output_path": "Ruta de salida opcional; si se omite, devuelve el texto reordenado",
+    "param.drop_extras": "Eliminar secciones que no existen en el esquema de referencia.",
+    "err.path_required": "Error: se requiere 'ruta'.",
+    "err.file_not_found": "Error: Archivo no encontrado: {path}",
+    "err.reference_not_found": "Error: Archivo de referencia no encontrado: {reference_path}"
+  },
+  "fa": {
+    "tool.description": "Markdown عنوان را دوباره ترتیب دهید تا با یک رئوس مطالب مرجع مطابقت داشته باشد و بخش‌های اضافی را حذف کنید",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Markdown عنوان را دوباره ترتیب دهید تا با یک رئوس مطالب مرجع مطابقت داشته باشد و بخش‌های اضافی را حذف کنید",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "مسیر فایل Markdown برای مرتب سازی مجدد",
+    "param.reference_path": "مرجع Markdown فایل به عنوان الگوی طرح کلی استفاده می شود",
+    "param.output_path": "مسیر خروجی اختیاری؛ اگر حذف شود، متن مرتب شده را برمی گرداند",
+    "param.drop_extras": "بخش هایی را که در طرح کلی مرجع وجود ندارند حذف کنید",
+    "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
+    "err.file_not_found": "خطا: فایل یافت نشد: {path}",
+    "err.reference_not_found": "خطا: فایل مرجع پیدا نشد: {reference_path}"
+  },
+  "fi": {
+    "tool.description": "Järjestä Markdown otsikkoa uudelleen vastaamaan viitteen ääriviivaa ja poista ylimääräiset osiot",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Järjestä Markdown otsikkoa uudelleen vastaamaan viitteen ääriviivaa ja poista ylimääräiset osiot",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Polku tiedostoon Markdown uudelleenjärjestämistä varten",
+    "param.reference_path": "Viitetiedosto Markdown, jota käytetään ääriviivamallina",
+    "param.output_path": "Valinnainen lähtöpolku; jos jätetään pois, palauttaa uudelleen järjestetyn tekstin",
+    "param.drop_extras": "Poista osat, joita ei ole viitekehyksessä",
+    "err.path_required": "Virhe: polku vaaditaan.",
+    "err.file_not_found": "Virhe: Tiedostoa ei löydy: {path}",
+    "err.reference_not_found": "Virhe: Viitetiedostoa ei löydy: {reference_path}"
+  },
+  "fil": {
+    "tool.description": "Muling ayusin ang Markdown na mga heading upang tumugma sa isang balangkas ng sanggunian at mag-alis ng mga karagdagang seksyon",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Muling ayusin ang Markdown na mga heading upang tumugma sa isang balangkas ng sanggunian at mag-alis ng mga karagdagang seksyon",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Path sa Markdown file upang muling ayusin",
+    "param.reference_path": "Reference Markdown file na ginamit bilang outline template",
+    "param.output_path": "Opsyonal na landas ng output; kung aalisin, ibinabalik ang naayos na teksto",
+    "param.drop_extras": "Alisin ang mga seksyon na wala sa balangkas ng sanggunian",
+    "err.path_required": "Error: 'path' ay kinakailangan.",
+    "err.file_not_found": "Error: Hindi nakita ang file: {path}",
+    "err.reference_not_found": "Error: Hindi nakita ang reference na file: {reference_path}"
+  },
+  "fr": {
+    "tool.description": "Réorganisez les titres Markdown pour qu'ils correspondent à un plan de référence et supprimez les sections supplémentaires",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Réorganisez les titres Markdown pour qu'ils correspondent à un plan de référence et supprimez les sections supplémentaires",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Chemin d'accès au fichier Markdown à réorganiser",
+    "param.reference_path": "Fichier de référence Markdown utilisé comme modèle de plan",
+    "param.output_path": "Chemin de sortie facultatif ; en cas d'omission, renvoie le texte réorganisé",
+    "param.drop_extras": "Supprimer les sections qui n'existent pas dans le plan de référence",
+    "err.path_required": "Erreur : « chemin » est requis.",
+    "err.file_not_found": "Erreur : Fichier introuvable : {path}",
+    "err.reference_not_found": "Erreur : Fichier de référence introuvable : {reference_path}"
+  },
+  "he": {
+    "tool.description": "סדר מחדש Markdown כותרות כדי להתאים למתווה הפניה והסר קטעים נוספים",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "סדר מחדש Markdown כותרות כדי להתאים למתווה הפניה והסר קטעים נוספים",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "נתיב לקובץ Markdown לסדר מחדש",
+    "param.reference_path": "קובץ הפניה Markdown משמש כתבנית המתאר",
+    "param.output_path": "נתיב פלט אופציונלי; אם מושמט, מחזיר את הטקסט שסודר מחדש",
+    "param.drop_extras": "הסר קטעים שאינם קיימים במתווה ההפניה",
+    "err.path_required": "שגיאה: נדרש 'נתיב'.",
+    "err.file_not_found": "שגיאה: הקובץ לא נמצא: {path}",
+    "err.reference_not_found": "שגיאה: קובץ עזר לא נמצא: {reference_path}"
+  },
+  "hi": {
+    "tool.description": "संदर्भ रूपरेखा से मिलान करने और अतिरिक्त अनुभागों को हटाने के लिए Markdown शीर्षकों को पुन: व्यवस्थित करें",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "संदर्भ रूपरेखा से मिलान करने और अतिरिक्त अनुभागों को हटाने के लिए Markdown शीर्षकों को पुन: व्यवस्थित करें",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "पुन: व्यवस्थित करने के लिए Markdown फ़ाइल का पथ",
+    "param.reference_path": "संदर्भ Markdown फ़ाइल का उपयोग रूपरेखा टेम्पलेट के रूप में किया जाता है",
+    "param.output_path": "वैकल्पिक आउटपुट पथ; यदि छोड़ा गया है, तो पुन: व्यवस्थित पाठ लौटाता है",
+    "param.drop_extras": "उन अनुभागों को हटा दें जो संदर्भ रूपरेखा में मौजूद नहीं हैं",
+    "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
+    "err.file_not_found": "त्रुटि: फ़ाइल नहीं मिली: {path}",
+    "err.reference_not_found": "त्रुटि: संदर्भ फ़ाइल नहीं मिली: {reference_path}"
+  },
+  "hu": {
+    "tool.description": "Rendezze át Markdown címsort, hogy megfeleljen a referencia vázlatának, és távolítsa el a további szakaszokat",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Rendezze át Markdown címsort, hogy megfeleljen a referencia vázlatának, és távolítsa el a további szakaszokat",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "A Markdown fájl elérési útja az átrendezéshez",
+    "param.reference_path": "Vázlatsablonként használt Markdown hivatkozási fájl",
+    "param.output_path": "Opcionális kimeneti útvonal; kihagyás esetén az átrendezett szöveget adja vissza",
+    "param.drop_extras": "Távolítsa el azokat a szakaszokat, amelyek nem léteznek a referenciavázlatban",
+    "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
+    "err.file_not_found": "Hiba: A fájl nem található: {path}",
+    "err.reference_not_found": "Hiba: A referenciafájl nem található: {reference_path}"
+  },
+  "id": {
+    "tool.description": "Susun ulang Markdown judul agar sesuai dengan kerangka referensi dan hapus bagian tambahan",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Susun ulang Markdown judul agar sesuai dengan kerangka referensi dan hapus bagian tambahan",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Jalur ke file Markdown untuk disusun ulang",
+    "param.reference_path": "Referensi file Markdown digunakan sebagai templat kerangka",
+    "param.output_path": "Jalur keluaran opsional; jika dihilangkan, mengembalikan teks yang disusun ulang",
+    "param.drop_extras": "Hapus bagian yang tidak ada dalam kerangka referensi",
+    "err.path_required": "Kesalahan: 'jalur' diperlukan.",
+    "err.file_not_found": "Kesalahan: File tidak ditemukan: {path}",
+    "err.reference_not_found": "Kesalahan: File referensi tidak ditemukan: {reference_path}"
+  },
+  "it": {
+    "tool.description": "Riordina le intestazioni Markdown in modo che corrispondano a uno schema di riferimento e rimuovi le sezioni extra",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Riordina le intestazioni Markdown in modo che corrispondano a uno schema di riferimento e rimuovi le sezioni extra",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Percorso del file Markdown da riordinare",
+    "param.reference_path": "File Markdown di riferimento utilizzato come modello di struttura",
+    "param.output_path": "Percorso di output opzionale; se omesso, restituisce il testo riordinato",
+    "param.drop_extras": "Rimuovere le sezioni che non esistono nella struttura di riferimento",
+    "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
+    "err.file_not_found": "Errore: file non trovato: {path}",
+    "err.reference_not_found": "Errore: file di riferimento non trovato: {reference_path}"
+  },
+  "ja": {
+    "tool.description": "Markdown 見出しを参照のアウトラインに一致するように並べ替え、余分なセクションを削除します",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Markdown 見出しを参照のアウトラインに一致するように並べ替え、余分なセクションを削除します",
+      "Markdown 見出し 並べ替え",
+      "章順序 調整"
+    ],
+    "param.path": "並べ替える Markdown ファイルへのパス",
+    "param.reference_path": "アウトラインテンプレートとして使用される参照Markdownファイル",
+    "param.output_path": "オプションの出力パス。省略した場合は、並べ替えられたテキストが返されます。",
+    "param.drop_extras": "参照アウトラインに存在しないセクションを削除します",
+    "err.path_required": "エラー: 「パス」が必要です。",
+    "err.file_not_found": "エラー: ファイルが見つかりません: {path}",
+    "err.reference_not_found": "エラー: 参照ファイルが見つかりません: {reference_path}"
+  },
+  "ko": {
+    "tool.description": "참조 개요와 일치하도록 Markdown 제목을 재정렬하고 추가 섹션을 제거합니다.",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "참조 개요와 일치하도록 Markdown 제목을 재정렬하고 추가 섹션을 제거합니다.",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "재정렬할 Markdown 파일의 경로",
+    "param.reference_path": "개요 템플릿으로 사용되는 참조 Markdown 파일",
+    "param.output_path": "선택적 출력 경로; 생략하면 재정렬된 텍스트를 반환합니다.",
+    "param.drop_extras": "참조 개요에 존재하지 않는 섹션을 제거합니다.",
+    "err.path_required": "오류: '경로'가 필요합니다.",
+    "err.file_not_found": "오류: 파일을 찾을 수 없습니다: {path}",
+    "err.reference_not_found": "오류: 참조 파일을 찾을 수 없습니다: {reference_path}"
+  },
+  "mn": {
+    "tool.description": "Лавлагааны тоймтой тааруулахын тулд Markdown гарчгийг дахин эрэмбэлж, нэмэлт хэсгүүдийг хасна уу",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Лавлагааны тоймтой тааруулахын тулд Markdown гарчгийг дахин эрэмбэлж, нэмэлт хэсгүүдийг хасна уу",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Дахин захиалах Markdown файлын зам",
+    "param.reference_path": "Лавлагааны Markdown файлыг тойм загвар болгон ашигласан",
+    "param.output_path": "Нэмэлт гаралтын зам; орхигдуулсан бол дахин эрэмбэлэгдсэн текстийг буцаана",
+    "param.drop_extras": "Лавлагааны тоймд байхгүй хэсгүүдийг устгана уу",
+    "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
+    "err.file_not_found": "Алдаа: Файл олдсонгүй: {path}",
+    "err.reference_not_found": "Алдаа: Лавлах файл олдсонгүй: {reference_path}"
+  },
+  "mr": {
+    "tool.description": "संदर्भ बाह्यरेखा जुळण्यासाठी आणि अतिरिक्त विभाग काढण्यासाठी Markdown मथळे पुनर्क्रमित करा",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "संदर्भ बाह्यरेखा जुळण्यासाठी आणि अतिरिक्त विभाग काढण्यासाठी Markdown मथळे पुनर्क्रमित करा",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "पुनर्क्रमित करण्यासाठी Markdown फाइलचा मार्ग",
+    "param.reference_path": "संदर्भ Markdown फाइल बाह्यरेखा टेम्पलेट म्हणून वापरली",
+    "param.output_path": "पर्यायी आउटपुट मार्ग; वगळल्यास, पुनर्क्रमित केलेला मजकूर परत करतो",
+    "param.drop_extras": "संदर्भ बाह्यरेखा मध्ये अस्तित्वात नसलेले विभाग काढा",
+    "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
+    "err.file_not_found": "त्रुटी: फाइल सापडली नाही: {path}",
+    "err.reference_not_found": "त्रुटी: संदर्भ फाइल सापडली नाही: {reference_path}"
+  },
+  "ms": {
+    "tool.description": "Susun semula Markdown tajuk untuk dipadankan dengan rangka rujukan dan alih keluar bahagian tambahan",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Susun semula Markdown tajuk untuk dipadankan dengan rangka rujukan dan alih keluar bahagian tambahan",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Laluan ke fail Markdown untuk menyusun semula",
+    "param.reference_path": "Rujukan Markdown fail digunakan sebagai templat garis besar",
+    "param.output_path": "Laluan keluaran pilihan; jika ditinggalkan, mengembalikan teks yang disusun semula",
+    "param.drop_extras": "Alih keluar bahagian yang tidak wujud dalam rangka rujukan",
+    "err.path_required": "Ralat: 'laluan' diperlukan.",
+    "err.file_not_found": "Ralat: Fail tidak ditemui: {path}",
+    "err.reference_not_found": "Ralat: Fail rujukan tidak ditemui: {reference_path}"
+  },
+  "nb": {
+    "tool.description": "Omorganiser Markdown overskrifter for å matche en referansedisposisjon og fjern ekstra seksjoner",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Omorganiser Markdown overskrifter for å matche en referansedisposisjon og fjern ekstra seksjoner",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Banen til Markdown-filen for å omorganisere",
+    "param.reference_path": "Referanse Markdown fil brukt som disposisjonsmal",
+    "param.output_path": "Valgfri utgangsbane; hvis utelatt, returnerer den omorganiserte teksten",
+    "param.drop_extras": "Fjern seksjoner som ikke finnes i referanseoversikten",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.reference_not_found": "Feil: Referansefilen ble ikke funnet: {reference_path}"
+  },
+  "nl": {
+    "tool.description": "Herschik Markdown koppen zodat ze overeenkomen met een referentieoverzicht en verwijder extra secties",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Herschik Markdown koppen zodat ze overeenkomen met een referentieoverzicht en verwijder extra secties",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Pad naar het Markdown-bestand dat u opnieuw wilt ordenen",
+    "param.reference_path": "Referentie Markdown-bestand gebruikt als overzichtssjabloon",
+    "param.output_path": "Optioneel uitvoerpad; indien weggelaten, wordt de opnieuw gerangschikte tekst geretourneerd",
+    "param.drop_extras": "Verwijder secties die niet voorkomen in de referentieomtrek",
+    "err.path_required": "Fout: 'pad' is vereist.",
+    "err.file_not_found": "Fout: Bestand niet gevonden: {path}",
+    "err.reference_not_found": "Fout: Referentiebestand niet gevonden: {reference_path}"
+  },
+  "nn": {
+    "tool.description": "Reorder Markdown overskrifter for å matche en referanse disposisjon og fjerne ekstra seksjoner",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reorder Markdown overskrifter for å matche en referanse disposisjon og fjerne ekstra seksjoner",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Sti til Markdown-filen for å bestille på nytt",
+    "param.reference_path": "Referanse Markdown-fil brukt som disposisjonsmal",
+    "param.output_path": "Valgfri utgangsbane; hvis utelatt, returnerer den omorganiserte teksten",
+    "param.drop_extras": "Fjern inndelingar som ikkje finst i referanseomgrepet",
+    "err.path_required": "Feil: 'PATH' er påkrevd.",
+    "err.file_not_found": "Feil: Finner ikke filen: {path}",
+    "err.reference_not_found": "Feil: Referansefil ikke funnet: {reference_path}"
+  },
+  "pl": {
+    "tool.description": "Zmień kolejność nagłówków Markdown, aby dopasować je do konspektu odniesienia i usuń dodatkowe sekcje",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Zmień kolejność nagłówków Markdown, aby dopasować je do konspektu odniesienia i usuń dodatkowe sekcje",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Ścieżka do pliku Markdown, w którym chcesz zmienić kolejność",
+    "param.reference_path": "Plik referencyjny Markdown używany jako szablon konspektu",
+    "param.output_path": "Opcjonalna ścieżka wyjściowa; jeśli zostanie pominięty, zwraca zmienioną kolejność tekstu",
+    "param.drop_extras": "Usuń sekcje, które nie istnieją w konspekcie odniesienia",
+    "err.path_required": "Błąd: wymagana jest ścieżka.",
+    "err.file_not_found": "Błąd: Nie znaleziono pliku: {path}",
+    "err.reference_not_found": "Błąd: nie znaleziono pliku referencyjnego: {reference_path}"
+  },
+  "pt": {
+    "tool.description": "Reordene os títulos Markdown para corresponder a um esboço de referência e remova seções extras",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reordene os títulos Markdown para corresponder a um esboço de referência e remova seções extras",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Caminho para o arquivo Markdown a ser reordenado",
+    "param.reference_path": "Arquivo de referência Markdown usado como modelo de estrutura de tópicos",
+    "param.output_path": "Caminho de saída opcional; se omitido, retorna o texto reordenado",
+    "param.drop_extras": "Remova seções que não existem no esboço de referência",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
+    "err.reference_not_found": "Erro: arquivo de referência não encontrado: {reference_path}"
+  },
+  "pt_BR": {
+    "tool.description": "Reordene os títulos Markdown para corresponder a um esboço de referência e remova seções extras",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reordene os títulos Markdown para corresponder a um esboço de referência e remova seções extras",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Caminho para o arquivo Markdown a ser reordenado",
+    "param.reference_path": "Arquivo de referência Markdown usado como modelo de estrutura de tópicos",
+    "param.output_path": "Caminho de saída opcional; se omitido, retorna o texto reordenado",
+    "param.drop_extras": "Remova seções que não existem no esboço de referência",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
+    "err.reference_not_found": "Erro: arquivo de referência não encontrado: {reference_path}"
+  },
+  "ro": {
+    "tool.description": "Reordonați Markdown titluri pentru a se potrivi cu o schiță de referință și eliminați secțiuni suplimentare",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Reordonați Markdown titluri pentru a se potrivi cu o schiță de referință și eliminați secțiuni suplimentare",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Calea către fișierul Markdown de reordonat",
+    "param.reference_path": "Fișierul de referință Markdown folosit ca șablon de schiță",
+    "param.output_path": "Calea de ieșire opțională; dacă este omis, returnează textul reordonat",
+    "param.drop_extras": "Eliminați secțiunile care nu există în schița de referință",
+    "err.path_required": "Eroare: este necesară „calea”.",
+    "err.file_not_found": "Eroare: fișierul nu a fost găsit: {path}",
+    "err.reference_not_found": "Eroare: fișierul de referință nu a fost găsit: {reference_path}"
+  },
+  "ru": {
+    "tool.description": "Измените порядок заголовков Markdown, чтобы они соответствовали схеме ссылки, и удалите лишние разделы.",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Измените порядок заголовков Markdown, чтобы они соответствовали схеме ссылки, и удалите лишние разделы.",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Путь к файлу Markdown для изменения порядка",
+    "param.reference_path": "Ссылка на файл Markdown, используемый в качестве шаблона структуры.",
+    "param.output_path": "Дополнительный путь вывода; если опущено, возвращает переупорядоченный текст",
+    "param.drop_extras": "Удалите разделы, которых нет в схеме ссылки.",
+    "err.path_required": "Ошибка: требуется «путь».",
+    "err.file_not_found": "Ошибка: Файл не найден: {path}",
+    "err.reference_not_found": "Ошибка: Справочный файл не найден: {reference_path}"
+  },
+  "sv": {
+    "tool.description": "Ordna om Markdown rubriker för att matcha en referenskontur och ta bort extra avsnitt",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Ordna om Markdown rubriker för att matcha en referenskontur och ta bort extra avsnitt",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Sökväg till filen Markdown för att ändra ordning",
+    "param.reference_path": "Referensfil Markdown används som dispositionsmall",
+    "param.output_path": "Valfri utgångsväg; om den utelämnas, returnerar den omordnade texten",
+    "param.drop_extras": "Ta bort avsnitt som inte finns i referenskonturen",
+    "err.path_required": "Fel: 'sökväg' krävs.",
+    "err.file_not_found": "Fel: Filen hittades inte: {path}",
+    "err.reference_not_found": "Fel: Referensfilen hittades inte: {reference_path}"
+  },
+  "sw": {
+    "tool.description": "Panga upya vichwa Markdown ili kuendana na muhtasari wa marejeleo na uondoe sehemu za ziada",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Panga upya vichwa Markdown ili kuendana na muhtasari wa marejeleo na uondoe sehemu za ziada",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Njia ya Markdown ya faili ili kupanga upya",
+    "param.reference_path": "Rejelea Markdown faili iliyotumika kama kiolezo cha muhtasari",
+    "param.output_path": "Njia ya pato la hiari; ikiwa imeachwa, hurejesha maandishi yaliyopangwa upya",
+    "param.drop_extras": "Ondoa sehemu ambazo hazipo katika muhtasari wa marejeleo",
+    "err.path_required": "Hitilafu: 'njia' inahitajika.",
+    "err.file_not_found": "Hitilafu: Faili haijapatikana: {path}",
+    "err.reference_not_found": "Hitilafu: Faili ya marejeleo haijapatikana: {reference_path}"
+  },
+  "th": {
+    "tool.description": "เรียงลำดับส่วนหัว Markdown ใหม่เพื่อให้ตรงกับโครงร่างอ้างอิงและลบส่วนที่เกินออก",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "เรียงลำดับส่วนหัว Markdown ใหม่เพื่อให้ตรงกับโครงร่างอ้างอิงและลบส่วนที่เกินออก",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "เส้นทางไปยังไฟล์ Markdown เพื่อเรียงลำดับใหม่",
+    "param.reference_path": "ไฟล์อ้างอิง Markdown ที่ใช้เป็นเทมเพลตโครงร่าง",
+    "param.output_path": "เส้นทางเอาต์พุตเสริม หากละเว้น จะส่งคืนข้อความที่เรียงลำดับใหม่",
+    "param.drop_extras": "ลบส่วนที่ไม่มีอยู่ในโครงร่างอ้างอิง",
+    "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
+    "err.file_not_found": "ข้อผิดพลาด: ไม่พบไฟล์: {path}",
+    "err.reference_not_found": "ข้อผิดพลาด: ไม่พบไฟล์อ้างอิง: {reference_path}"
+  },
+  "tr": {
+    "tool.description": "Markdown başlığı referans taslağına uyacak şekilde yeniden sıralayın ve fazladan bölümleri kaldırın",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Markdown başlığı referans taslağına uyacak şekilde yeniden sıralayın ve fazladan bölümleri kaldırın",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Yeniden sıralanacak Markdown dosyasının yolu",
+    "param.reference_path": "Anahat şablonu olarak kullanılan referans Markdown dosyası",
+    "param.output_path": "İsteğe bağlı çıkış yolu; atlanırsa yeniden sıralanan metni döndürür",
+    "param.drop_extras": "Referans taslağında bulunmayan bölümleri kaldırın",
+    "err.path_required": "Hata: 'yol' gerekli.",
+    "err.file_not_found": "Hata: Dosya bulunamadı: {path}",
+    "err.reference_not_found": "Hata: Referans dosyası bulunamadı: {reference_path}"
+  },
+  "uk": {
+    "tool.description": "Змініть порядок заголовків Markdown, щоб вони відповідали структурі посилання, і видаліть додаткові розділи",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Змініть порядок заголовків Markdown, щоб вони відповідали структурі посилання, і видаліть додаткові розділи",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Шлях до файлу Markdown для зміни порядку",
+    "param.reference_path": "Довідковий файл Markdown використовується як шаблон структури",
+    "param.output_path": "Додатковий вихідний шлях; якщо опущено, повертає переупорядкований текст",
+    "param.drop_extras": "Видаліть розділи, яких немає в опорному плані",
+    "err.path_required": "Помилка: потрібен \"шлях\".",
+    "err.file_not_found": "Помилка: файл не знайдено: {path}",
+    "err.reference_not_found": "Помилка: довідковий файл не знайдено: {reference_path}"
+  },
+  "vi": {
+    "tool.description": "Sắp xếp lại các tiêu đề Markdown để khớp với dàn ý tham chiếu và xóa các phần thừa",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "Sắp xếp lại các tiêu đề Markdown để khớp với dàn ý tham chiếu và xóa các phần thừa",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "Đường dẫn tới tệp Markdown để sắp xếp lại",
+    "param.reference_path": "Tệp Markdown tham chiếu được sử dụng làm mẫu phác thảo",
+    "param.output_path": "Đường dẫn đầu ra tùy chọn; nếu bị bỏ qua, trả về văn bản được sắp xếp lại",
+    "param.drop_extras": "Xóa các phần không tồn tại trong đề cương tham chiếu",
+    "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
+    "err.file_not_found": "Lỗi: Không tìm thấy tệp: {path}",
+    "err.reference_not_found": "Lỗi: Không tìm thấy tệp tham chiếu: {reference_path}"
+  },
+  "zh_CN": {
+    "tool.description": "重新排序 Markdown 标题以匹配参考大纲并删除多余的部分",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "重新排序 Markdown 标题以匹配参考大纲并删除多余的部分",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "要重新排序的 Markdown 文件的路径",
+    "param.reference_path": "参考 Markdown 文件用作大纲模板",
+    "param.output_path": "可选输出路径；如果省略，则返回重新排序的文本",
+    "param.drop_extras": "删除参考大纲中不存在的部分",
+    "err.path_required": "错误：“路径”是必需的。",
+    "err.file_not_found": "错误：找不到文件：{path}",
+    "err.reference_not_found": "错误：未找到参考文件：{reference_path}"
+  },
+  "zh_TW": {
+    "tool.description": "重新排序 Markdown 標題以符合參考大綱並刪除多餘的部分",
+    "x_search_terms": [
+      "mdreorder_tool",
+      "重新排序 Markdown 標題以符合參考大綱並刪除多餘的部分",
+      "markdown reorder",
+      "markdown sections"
+    ],
+    "param.path": "要重新排序的 Markdown 檔案的路徑",
+    "param.reference_path": "參考 Markdown 檔案用作大綱模板",
+    "param.output_path": "可選輸出路徑；如果省略，則返回重新排序的文字",
+    "param.drop_extras": "刪除參考大綱中不存在的部分",
+    "err.path_required": "錯誤：「路徑」是必需的。",
+    "err.file_not_found": "錯誤：找不到檔案：{path}",
+    "err.reference_not_found": "錯誤：未找到參考檔：{reference_path}"
+  }
+}

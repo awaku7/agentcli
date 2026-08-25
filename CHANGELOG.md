@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.6.10] - 2026-08-25
+
+### Added
+
+- Add `mdreorder_tool` for reordering Markdown headings to match a reference outline.
+
+### Changed
+
+- Mark a loaded session as most recently used when reloading it, so subsequent messages and tool results stay attached to the loaded session.
+
 ### Fixed
 
 - Re-summarize a session on `:exit`/`:sessions summarize` when its conversation continued after the previous summary; only fresh summaries are skipped (previously an existing summary was always skipped, leaving it stale).

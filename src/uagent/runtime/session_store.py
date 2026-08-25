@@ -316,6 +316,15 @@ class SessionStore:
         return dict(row)
 
     @_db_locked
+    def touch_session(self, session_id: str) -> None:
+        """Mark a session as most recently used."""
+        self._require_session(session_id)
+        self._execute(
+            "UPDATE sessions SET created_at = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE session_id = ?",
+            (session_id,),
+        )
+
+    @_db_locked
     def append_message(
         self,
         session_id: str,

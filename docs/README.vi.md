@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Các tích hợp nền tảng là tùy chọn. Chỉ cài đặt những gì hệ điều hành của bạn cần; xem
 > [Thiết lập nền tảng](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Chọn provider
 
 Đặt một provider và API key của provider đó trước khi khởi chạy, hoặc cấu hình chúng trong trình hướng dẫn thiết lập.
@@ -416,26 +419,3 @@ và chạy các kiểm tra ở trên trước khi gửi pull request.
 ## Giấy phép
 
 Được cấp phép theo [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Kho lưu trữ phiên và chính sách thống nhất
-
-Session Store tùy chọn bổ sung lịch sử SQLite có cấu trúc để tìm kiếm phiên và kiểm tra công cụ, đồng thời giữ nguyên nhật ký JSONL hiện có. Dùng các lệnh dưới đây để tìm kiếm và xem xét các ứng viên bộ nhớ.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

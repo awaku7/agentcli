@@ -152,6 +152,9 @@ python -m pip install "uag[core,providers,tools]"
 > 平台整合是選用項目。請只安裝作業系統所需的部分；請參閱
 > [平台設定](#platform-setup)。
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### 選擇提供者
 
 啟動前設定提供者及其 API 金鑰，或在設定精靈中進行設定。
@@ -411,26 +414,3 @@ python -m pytest -q .
 ## 授權條款
 
 本專案採用 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) 授權。
-
-## 工作階段儲存與統一政策
-
-選用的 Session Store 會保留現有 JSONL 記錄，並為工作階段搜尋與工具稽核新增結構化 SQLite 歷史記錄。使用以下指令搜尋歷史並檢視記憶候選項。
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

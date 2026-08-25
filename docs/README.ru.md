@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Интеграции с платформами являются необязательными. Устанавливайте только то, что нужно вашей операционной системе; см.
 > [Настройка платформы](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Выбор провайдера
 
 Укажите провайдера и его API-ключ перед запуском или настройте их в мастере.
@@ -414,29 +417,6 @@ python -m pytest -q .
 Перед крупными изменениями создайте issue или обсуждение. Ознакомьтесь с [Руководством разработчика](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 и выполните указанные выше проверки перед отправкой pull request.
 
-## Лицензия
+## License
 
-Распространяется по условиям [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Хранилище сессий и единая политика
-
-Необязательное Session Store добавляет структурированную историю SQLite для поиска сессий и аудита инструментов, сохраняя существующие журналы JSONL. Используйте следующие команды для поиска и проверки кандидатов в память.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
+Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

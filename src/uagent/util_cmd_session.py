@@ -1238,11 +1238,18 @@ def _handle_cmd_load(
                 return True
             messages_ref.clear()
             messages_ref.extend(loaded)
-            # Keep subsequent messages and tool results in the loaded session,
-            # rather than silently appending them to the session created at
-            # startup.
+            # Make the loaded session the active, most recently used session.
+            try:
+                store.touch_session(target)
+            except Exception as touch_exc:
+                print(
+                    _("[load warn] Failed to update SQLite session recency: %(error)s")
+                    % {"error": touch_exc},
+                    file=sys.stderr,
+                )
             core.session_id = target
             core._session_store_active_id = target
+            session_row = store.get_session(target)
             state = store.latest_response_state(target)
             if state is not None:
                 response_state = getattr(core, "responses_state", None)

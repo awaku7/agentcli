@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Alustaintegraatiot ovat valinnaisia. Asenna vain käyttöjärjestelmäsi tarvitsemat osat; katso
 > [alustan määritys](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Palveluntarjoajan valinta
 
 Aseta palveluntarjoaja ja sen API-avain ennen käynnistystä tai määritä ne ohjatussa asetusten määrityksessä.
@@ -417,26 +420,3 @@ ja suorita yllä olevat tarkistukset ennen pull requestin lähettämistä.
 ## Lisenssi
 
 Lisensoitu [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) -lisenssillä.
-
-## Istuntovarasto ja yhtenäinen käytäntö
-
-Valinnainen Session Store lisää rakenteisen SQLite-historian istuntojen hakuun ja työkalujen auditointiin säilyttäen nykyiset JSONL-lokit. Käytä alla olevia komentoja hakuun ja muistiehdokkaiden tarkistamiseen.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

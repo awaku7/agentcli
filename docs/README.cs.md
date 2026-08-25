@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Integrace platformy jsou volitelné. Nainstalujte pouze to, co váš operační systém potřebuje; viz
 > [Nastavení platformy](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Výběr poskytovatele
 
 Před spuštěním nastavte poskytovatele a jeho API klíč nebo je nakonfigurujte v průvodci nastavením.
@@ -417,26 +420,3 @@ a před odesláním pull requestu spusťte výše uvedené kontroly.
 ## Licence
 
 Licencováno pod [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Úložiště relací a sjednocená politika
-
-Volitelné Session Store přidává strukturovanou historii SQLite pro vyhledávání relací a audit nástrojů, přičemž zachovává stávající protokoly JSONL. Historii a kandidáty paměti můžete kontrolovat následujícími příkazy.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

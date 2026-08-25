@@ -149,6 +149,9 @@ python -m pip install "uag[core,providers,tools]"
 
 > Platform integrations पर्यायी आहेत. तुमच्या operating system ला आवश्यक तेवढेच install करा; [Platform setup](#platform-setup) पहा.
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Provider निवडा
 
 सुरू करण्यापूर्वी provider आणि त्याची API key सेट करा किंवा setup wizard मध्ये configure करा.
@@ -400,27 +403,4 @@ Bug reports, feature ideas, documentation improvements, translations, tools, ski
 
 ## License
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) अंतर्गत licensed.
-
-## सेशन स्टोअर आणि एकत्रित धोरण
-
-पर्यायी Session Store विद्यमान JSONL लॉग जतन करून सेशन शोध आणि टूल ऑडिटसाठी संरचित SQLite इतिहास जोडतो. शोध आणि मेमरी उमेदवार तपासण्यासाठी खालील कमांड वापरा.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
+Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

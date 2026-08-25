@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Plattformintegrasjoner er valgfrie. Installer bare det operativsystemet ditt trenger; se
 > [Platform setup](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Velg en leverandør
 
 Angi en leverandør og API-nøkkelen dens før oppstart, eller konfigurer dem i konfigurasjonsveiviseren.
@@ -417,26 +420,3 @@ og kjør kontrollene ovenfor før du sender inn en pull request.
 ## Lisens
 
 Lisensiert under [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Øktlager og samlet policy
-
-Det valgfrie Session Store legger til strukturert SQLite-historikk for øktsøk og verktøyrevisjon, samtidig som eksisterende JSONL-logger beholdes. Bruk kommandoene nedenfor til søk og gjennomgang av minnekandidater.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

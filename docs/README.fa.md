@@ -152,6 +152,9 @@ python -m pip install "uag[core,providers,tools]"
 > یکپارچه‌سازی‌های پلتفرم اختیاری هستند. فقط موارد موردنیاز سیستم‌عامل خود را نصب کنید؛ به
 > [راه‌اندازی پلتفرم](#platform-setup) مراجعه کنید.
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### انتخاب یک ارائه‌دهنده
 
 پیش از اجرا، یک ارائه‌دهنده و کلید API آن را تنظیم کنید یا آن‌ها را در جادوگر راه‌اندازی پیکربندی کنید.
@@ -414,26 +417,3 @@ python -m pytest -q .
 ## مجوز
 
 این پروژه تحت [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) منتشر می‌شود.
-
-## ذخیره‌ساز نشست و سیاست یکپارچه
-
-Session Store اختیاری، بدون حذف گزارش‌های JSONL موجود، تاریخچه ساختاریافته SQLite را برای جست‌وجوی نشست‌ها و ممیزی ابزارها اضافه می‌کند. برای جست‌وجو و بررسی نامزدهای حافظه از فرمان‌های زیر استفاده کنید.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

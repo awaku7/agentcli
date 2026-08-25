@@ -154,6 +154,9 @@ python -m pip install "uag[core,providers,tools]"
 > Miunganisho ya mifumo ni ya hiari. Sakinisha tu kile ambacho mfumo wako wa uendeshaji unahitaji; tazama
 > [Usanidi wa jukwaa](#platform-setup).
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Chagua mtoa huduma
 
 Weka mtoa huduma na ufunguo wake wa API kabla ya kuzindua, au visanidi kwenye mchawi wa usanidi.
@@ -417,26 +420,3 @@ na endesha ukaguzi ulio hapo juu kabla ya kutuma pull request.
 ## Leseni
 
 Imepewa leseni chini ya [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Hifadhi ya vipindi na sera iliyounganishwa
-
-Session Store ya hiari huongeza historia iliyopangwa ya SQLite kwa utafutaji wa vipindi na ukaguzi wa zana, huku ikihifadhi kumbukumbu za JSONL zilizopo. Tumia amri zilizo hapa chini kutafuta na kukagua mapendekezo ya kumbukumbu.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。

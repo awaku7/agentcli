@@ -155,6 +155,9 @@ python -m pip install "uag[core,providers,tools]"
 > Platform integration нь сонголттой. Таны үйлдлийн системд хэрэгтэйг нь л суулгана уу;
 > [Platform setup](#platform-setup)-г үзнэ үү.
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### Provider сонгох
 
 Асаахаасаа өмнө provider болон түүний API key-г тохируулах эсвэл setup wizard дотор тохируулна.
@@ -415,29 +418,6 @@ python -m pytest -q .
 Томоохон өөрчлөлт хийхийн өмнө issue эсвэл discussion нээнэ үү. [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)-г уншиж,
 pull request илгээхээсээ өмнө дээрх шалгалтуудыг ажиллуулна уу.
 
-## Лиценз
+## License
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-ийн дагуу лицензлэгдсэн.
-
-## Сешний хадгалалт ба нэгдсэн бодлого
-
-Сонголтот Session Store нь одоо байгаа JSONL бүртгэлийг хадгалж, сешн хайлт болон хэрэгслийн аудитад зориулсан бүтэцтэй SQLite түүхийг нэмнэ. Дараах тушаалаар хайж, санах ойн нэр дэвшигчдийг шалгана уу.
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
+Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).

@@ -13,7 +13,7 @@
   <a href="https://github.com/awaku7/agentcli/actions"><img src="https://img.shields.io/github/actions/workflow/status/awaku7/agentcli/ci.yml?style=flat-square&label=CI" alt="CI status"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/v/uag?style=flat-square" alt="PyPI version"></a>
   <a href="https://pypi.org/project/uag/"><img src="https://img.shields.io/pypi/pyversions/uag?style=flat-square" alt="Python versions"></a>
-  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="License"></a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/awaku7/agentcli?style=flat-square" alt="লাইসেন্স"></a>
 </p>
 
 <p align="center">
@@ -118,6 +118,9 @@ flowchart LR
 সেশন ধারাবাহিকতা, টুল-ফলাফল ক্যাশিং, batch state, পুনরায় চালু হওয়ার পুনরুদ্ধার, DAG scheduling এবং
 বহু-এজেন্ট orchestration জটিল কাজকে একবারে শেষ করার বদলে পুনরায় চালানোযোগ্য করে।
 
+# Unset: user state directory/sessions/sessions.sqlite3
+# Unset: user state directory/memory.sqlite3
+
 ### 🎙 রিয়েলটাইম ভয়েস
 
 OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live এবং Bedrock Nova Sonic-এর মাধ্যমে full-duplex
@@ -129,7 +132,7 @@ OpenAI Realtime, Azure OpenAI, xAI Grok Voice, Gemini Live এবং Bedrock Nov
 keychain বা encrypted file backend-এ সংরক্ষণ করা যায়। Enterprise policy টুল, প্রোভাইডার, নেটওয়ার্ক,
 শংসাপত্র, প্লাগইন, skill এবং MCP server নিয়ন্ত্রণ করতে পারে।
 
-দেখুন [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
+দেখুন [পরিবেশ চলক](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md),
 [Enterprise Policy](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md) এবং
 [Tool Creator Guide](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)।
 
@@ -152,7 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 ```
 
 > Platform integration ঐচ্ছিক। আপনার অপারেটিং সিস্টেমের প্রয়োজন অনুযায়ী কেবল সেগুলো ইনস্টল করুন; দেখুন
-> [Platform setup](#platform-setup)।
+> [প্ল্যাটফর্ম সেটআপ](#platform-setup)।
 
 ### একটি প্রোভাইডার বেছে নিন
 
@@ -174,7 +177,7 @@ export UAGENT_OLLAMA_DEPNAME=llama3.1
 ```
 
 Windows PowerShell-এ `export NAME=value`-এর পরিবর্তে `$env:NAME = "value"` ব্যবহার করা হয়।
-সম্পূর্ণ provider matrix-এর জন্য দেখুন [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)।
+সম্পূর্ণ provider matrix-এর জন্য দেখুন [পরিবেশ চলক](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)।
 
 ### চেষ্টা করে দেখুন
 
@@ -262,7 +265,7 @@ Provider adapter-গুলো hosted ও local runtime সমর্থন কর
 :tools
 ```
 
-## Platform setup
+## প্ল্যাটফর্ম সেটআপ
 
 মূল package cross-platform। Platform-specific dependency বেছে বেছে ইনস্টল করা উচিত।
 
@@ -287,19 +290,19 @@ python -m pip install PySide6 ewmh dbus-next
 কিছু integration-এর অতিরিক্ত system requirement থাকে, যেমন browser binary, Bluetooth permission,
 cloud credential অথবা MQTT/OPC UA server। চালানোর সময় সংশ্লিষ্ট tool কী অনুপস্থিত তা জানায়।
 
-## Session, automation এবং safety
+## সেশন, অটোমেশন ও নিরাপত্তা
 
-### Session continuity
+### সেশন ধারাবাহিকতা
 
 `:load <index>` দিয়ে আগের conversation পুনরায় চালু করুন। Tool result cache করা যায় এবং application পুনর্নির্মাণ
 না করেই provider বদলানো যায়।
 
-### Auto-pilot
+### অটো-পাইলট
 
 ঐচ্ছিক reviewer model-সহ বহু-round কাজের জন্য `:auto` ব্যবহার করুন। `--max-rounds N` দিয়ে round limit সেট করুন।
-Auto-pilot থামাতে **F12**, অথবা বর্তমান response থামাতে **F12** চাপুন।
+অটো-পাইলট থামাতে **F12**, অথবা বর্তমান response থামাতে **F12** চাপুন।
 
-দেখুন [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)।
+দেখুন [অটো-পাইলট](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)।
 
 ### মানবীয় অনুমোদন
 
@@ -308,9 +311,9 @@ credential operation এবং network write confirmation ও policy rule দ্
 
 সংগঠনব্যাপী নিয়ন্ত্রণ [Enterprise Policy Engine](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)-এর মাধ্যমে উপলভ্য।
 
-### Credential
+### শংসাপত্র
 
-Prompt-এ দীর্ঘমেয়াদি secret রাখার পরিবর্তে credential store ব্যবহার করুন:
+Prompt-এ দীর্ঘমেয়াদি secret রাখার পরিবর্তে শংসাপত্র সংরক্ষণাগার ব্যবহার করুন:
 
 ```text
 :credential set provider/openai api_key
@@ -319,9 +322,9 @@ Prompt-এ দীর্ঘমেয়াদি secret রাখার পরি
 ```
 
 Store-টি Windows Credential Manager, macOS Keychain, Linux Secret Service অথবা encrypted file backend ব্যবহার করতে পারে।
-Configuration-এর বিস্তারিত জানতে দেখুন [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)।
+কনফিগারেশন-এর বিস্তারিত জানতে দেখুন [Credential Store](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)।
 
-## Extension
+## এক্সটেনশন
 
 ### Agent Skills এবং plugin
 
@@ -348,7 +351,7 @@ Claude Code-compatible plugin ইনস্টল করুন।
 CLI বা configuration file থেকে বাহ্যিক MCP server-এ সংযোগ করুন। OAuth ও proxy নির্দেশিকা পাওয়া যাবে
 [MCP OAuth / Proxy Guide](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md)-এ।
 
-## Realtime voice
+## রিয়েলটাইম ভয়েস
 
 ঐচ্ছিক realtime voice integration OpenAI Realtime, Azure OpenAI GPT Realtime, xAI Grok Voice,
 Google Gemini Live এবং Amazon Bedrock Nova Sonic সমর্থন করে। প্রাসঙ্গিক audio dependency ইনস্টল করে চালান:
@@ -357,30 +360,30 @@ Google Gemini Live এবং Amazon Bedrock Nova Sonic সমর্থন কর
 python scheck.py realtime
 ```
 
-Full-duplex microphone ও speaker audio-এর জন্য AEC3 support উপলভ্য। Troubleshooting-এর সময়ই কেবল diagnostic সক্রিয় করুন:
+Full-duplex microphone ও speaker audio-এর জন্য AEC3 সমর্থন উপলভ্য। Troubleshooting-এর সময়ই কেবল diagnostic সক্রিয় করুন:
 
 ```bash
 export UAGENT_REALTIME_AUDIO_DEBUG=1
 python scheck.py realtime
 ```
 
-## Configuration এবং documentation
+## কনফিগারেশন ও ডকুমেন্টেশন
 
-| বিষয় | Documentation |
+| বিষয় | ডকুমেন্টেশন |
 |---|---|
-| Environment variables | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
+| পরিবেশ চলক | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
 | Architecture এবং invariants | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
 | Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
-| Repository tools | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
-| IoT use cases | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
-| Communication tools | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| Auto-pilot | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
+| রিপোজিটরি টুল | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |
+| IoT ব্যবহারের উদাহরণ | [docs/IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) |
+| যোগাযোগ টুল | [docs/COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
+| অটো-পাইলট | [docs/README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) |
 | MCP OAuth / Proxy | [docs/MCP_OAUTH_PROXY_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/docs/MCP_OAUTH_PROXY_GUIDE.md) |
-| VS Code extension | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
-| Developer guide | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
-| Tool flow | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
+| VS Code এক্সটেনশন | [docs/VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
+| ডেভেলপার গাইড | [src/uagent/docs/DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) |
+| টুল প্রবাহ | [src/uagent/docs/TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) |
 
-## Development
+## উন্নয়ন
 
 ```bash
 git clone https://github.com/awaku7/agentcli.git
@@ -398,7 +401,7 @@ python -m pytest -q .
 
 সম্পূর্ণ development workflow-এর জন্য দেখুন [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)।
 
-## Project principles
+## প্রকল্পের নীতিমালা
 
 - **Local-first** — রানটাইমের মালিক আপনি।
 - **Provider-neutral** — মডেলগুলো পরিবর্তনযোগ্য অবকাঠামো।
@@ -406,35 +409,13 @@ python -m pytest -q .
 - **Safe by default** — সংবেদনশীল কাজ দৃশ্যমান ও নিয়ন্ত্রণযোগ্য থাকে।
 - **Open to contribution** — code, tool, skill, translation এবং documentation স্বাগত।
 
-## Contributing
+## অবদান
 
 Bug report, feature idea, documentation improvement, translation, tool, skill এবং pull request স্বাগত।
 বড় পরিবর্তনের আগে একটি issue বা discussion খুলুন। [Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) পড়ুন
 এবং pull request জমা দেওয়ার আগে উপরের check-গুলো চালান।
 
-## License
+## লাইসেন্স
 
-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
+[Apache লাইসেন্স 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
 
-## সেশন স্টোর ও ইউনিফায়েড পলিসি
-
-ঐচ্ছিক Session Store বিদ্যমান JSONL লগ অক্ষুণ্ণ রেখে সেশন অনুসন্ধান ও টুল অডিটের জন্য কাঠামোবদ্ধ SQLite ইতিহাস যোগ করে। নিচের কমান্ড দিয়ে ইতিহাস অনুসন্ধান ও মেমরি প্রার্থী পর্যালোচনা করুন।
-
-```text
-UAGENT_SESSION_STORE=1
-UAGENT_SESSION_BACKEND=sqlite
-# Unset: user state directory/sessions/sessions.sqlite3
-UAGENT_SESSION_STORE_PATH=
-UAGENT_MEMORY_BACKEND=sqlite
-# Unset: user state directory/memory.sqlite3
-UAGENT_MEMORY_DB=
-UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
-```
-
-`:sessions search <query>
-:sessions summarize [session_id] [--force]
-:sessions prune --keep <N> [--dry-run|--yes]`
-`:sessions candidates`
-`:sessions approve <number>`
-
-詳しくは [Environment variables](ENVIRONMENT.md)、[Memory](MEMORY.md)、[Enterprise Policy](ENTERPRISE_POLICY.md) を参照してください。
