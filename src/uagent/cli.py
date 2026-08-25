@@ -888,7 +888,8 @@ def _make_prompt_key_bindings() -> Any:
         # Application future instead of raising from the key handler.  A
         # direct raise is reported by prompt_toolkit as "Unhandled exception
         # in event loop" before stdin_loop gets a chance to handle it.
-        event.app.exit(exception=KeyboardInterrupt())
+        # ESC cancels only the current prompt; KeyboardInterrupt is Ctrl-C.
+        event.app.exit(result=None)
 
     @kb.add("up", eager=True)
     def _history_or_cursor_up(event: Any) -> None:
@@ -949,7 +950,8 @@ def _prompt_toolkit_input(
             # Raising from a prompt_toolkit key handler makes the exception
             # look like an event-loop failure.  Let Application.run()
             # propagate it via its normal exception path instead.
-            event.app.exit(exception=KeyboardInterrupt())
+            # ESC cancels only the current prompt; KeyboardInterrupt is Ctrl-C.
+            event.app.exit(result=None)
 
         @kb.add("up", eager=True)
         def _history_or_cursor_up(event: Any) -> None:
