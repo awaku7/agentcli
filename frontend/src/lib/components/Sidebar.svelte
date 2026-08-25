@@ -55,7 +55,7 @@
   }
 
   function sessionTitle(session) {
-    return session.summary || session.first_message || session.project || `無題のセッション (${shortId(session.path)})`;
+    return session.summary || session.first_message || `要約なし (${shortId(session.path)})`;
   }
 
   onMount(loadSessions);
