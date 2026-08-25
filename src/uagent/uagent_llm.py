@@ -770,13 +770,16 @@ def _run_one_round(
         assistant_text = _translate_assistant_if_needed(
             assistant_text=assistant_text,
             tr_cfg=tr_cfg,
-            use_responses_api=False,
-            stream_responses=False,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
         )
 
         _ds_streaming = (
             env_get("UAGENT_STREAMING", "1") or ""
         ).strip().lower() not in ("0", "false", "no", "off")
+        _deepseek_output_already_printed = (use_responses_api and stream_responses) or (
+            not use_responses_api and _ds_streaming
+        )
 
         if _should_keep_assistant_message(assistant_text, tool_calls_list):
             deepseek_msg = build_assistant_message_with_reasoning(
@@ -820,12 +823,12 @@ def _run_one_round(
             if not judgment_mode:
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
-                    use_responses_api=False,
-                    stream_responses=False,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
                     reasoning_content=reasoning_content,
-                    skip_print=_ds_streaming,
+                    skip_print=_deepseek_output_already_printed,
                     core=core,
                     provider=provider,
                 )

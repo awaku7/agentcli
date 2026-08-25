@@ -2075,10 +2075,17 @@ def _log_first_user_message(path: str, limit: int = 120) -> str:
                     for key in ("summary", "session_summary", "title"):
                         value = record.get(key)
                         if isinstance(value, str) and value.strip():
-                            existing_summary = value.replace("\r", " ").replace("\n", " ").strip()
+                            existing_summary = (
+                                value.replace("\r", " ").replace("\n", " ").strip()
+                            )
                             break
                 if record.get("role") == "user" and not first_user:
-                    text = str(record.get("content") or "").replace("\r", " ").replace("\n", " ").strip()
+                    text = (
+                        str(record.get("content") or "")
+                        .replace("\r", " ")
+                        .replace("\n", " ")
+                        .strip()
+                    )
                     if text:
                         first_user = text
     except Exception:

@@ -140,10 +140,7 @@ class SessionStore:
             # readers proceed while a writer commits, and the longer busy
             # timeout avoids failing on normal short-lived writer contention.
             self._connection = sqlite3.connect(
-                self.path,
-                timeout=5.0,
-                isolation_level=None,
-                check_same_thread=False
+                self.path, timeout=5.0, isolation_level=None, check_same_thread=False
             )
             self._connection.row_factory = sqlite3.Row
             self._connection.execute("PRAGMA foreign_keys = ON")
@@ -714,7 +711,9 @@ def attach_opt_in_session_store(
         if role not in {"system", "user", "assistant", "tool"}:
             return
         content = str(message.get("content") or "")
-        active_session_id = getattr(core, "_session_store_active_id", session.session_id)
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
         store.append_message(
             active_session_id,
             str(role),

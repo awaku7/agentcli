@@ -1165,7 +1165,10 @@ def _handle_cmd_load(
                 if row["session_id"] != getattr(core, "session_id", None)
             ]
         except Exception as exc:
-            print(_("[load error] SQLite session listing failed: %(error)s") % {"error": exc})
+            print(
+                _("[load error] SQLite session listing failed: %(error)s")
+                % {"error": exc}
+            )
             return True
         target = (arg or "").strip()
         # The web UI quotes session IDs when sending :load. Remove only a

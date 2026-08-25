@@ -52,7 +52,9 @@ def test_load_switches_sqlite_persistence_target(monkeypatch, tmp_path):
     store.append_message(old.session_id, "user", "old question")
     messages: list[dict] = []
 
-    assert _handle_cmd_load(old.session_id, messages, core=core, tr=lambda text, **_: text)
+    assert _handle_cmd_load(
+        old.session_id, messages, core=core, tr=lambda text, **_: text
+    )
     assert core.session_id == old.session_id
     core.log_message({"role": "user", "content": "follow-up"})
 
