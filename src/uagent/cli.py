@@ -104,6 +104,11 @@ INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 _PROMPT_SESSION: Any = None
 _PROMPT_REPLY_SESSION: Any = None
 _PROMPT_HISTORY: list[str] = []
+# Set before the main thread leaves so the daemon stdin thread can get out of
+# prompt_toolkit/select/msvcrt waits before interpreter shutdown. Leaving that
+# thread alive can make Python 3.14 print a traceback from subprocess' internal
+# reader-thread cleanup while the process is exiting.
+_CLI_SHUTDOWN = threading.Event()
 
 
 def _append_prompt_history_entry(text: str) -> None:
@@ -986,6 +991,11 @@ def _prompt_toolkit_input(
         def _interrupt_when_busy() -> None:
             while not stop_watching.wait(0.05):
                 try:
+                    if _CLI_SHUTDOWN.is_set():
+                        app = prompt_app
+                        if app is not None:
+                            app.exit(result=None)
+                        return
                     with core.human_ask_lock:
                         interrupted = bool(core.human_ask_active)
                     interrupted = interrupted or bool(
@@ -1244,6 +1254,8 @@ def stdin_loop() -> None:
     _last_ha_reply_mono = 0.0
 
     while True:
+        if _CLI_SHUTDOWN.is_set():
+            return
         # Never carry the ownership marker across an abandoned prompt slot.
         core.input_prompt_active = False
         _skip = False
@@ -1387,6 +1399,11 @@ def stdin_loop() -> None:
 
                             def _watch_normal_prompt() -> None:
                                 while not stop_prompt_watch.wait(0.05):
+                                    if _CLI_SHUTDOWN.is_set():
+                                        app = getattr(prompt_session, "app", None)
+                                        if app is not None:
+                                            app.exit(result=None)
+                                        return
                                     with core.human_ask_lock:
                                         interrupted = bool(core.human_ask_active)
                                     interrupted = interrupted or bool(
@@ -1508,6 +1525,8 @@ def stdin_loop() -> None:
                                 import msvcrt  # type: ignore
 
                                 while True:
+                                    if _CLI_SHUTDOWN.is_set():
+                                        return
                                     with core.human_ask_lock:
                                         if core.human_ask_active:
                                             break
@@ -1558,6 +1577,8 @@ def stdin_loop() -> None:
                                 import select
 
                                 while True:
+                                    if _CLI_SHUTDOWN.is_set():
+                                        return
                                     with core.human_ask_lock:
                                         if core.human_ask_active:
                                             break
@@ -1759,6 +1780,7 @@ def stdin_loop() -> None:
 
 
 def main() -> None:
+    _CLI_SHUTDOWN.clear()
     from .runtime.logging_setup import bind_event_context
 
     bind_event_context(session_id="cli", correlation_id="cli")
@@ -2095,6 +2117,15 @@ def main() -> None:
                 + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev}
             )
     finally:
+        _CLI_SHUTDOWN.set()
+        # stdin_loop is intentionally a daemon while the CLI is running, but
+        # it should not still be inside prompt_toolkit when Python starts
+        # interpreter finalization. The prompt watcher above exits the
+        # blocking prompt; the manual input loops observe the same event.
+        try:
+            t.join(timeout=1.0)
+        except Exception:
+            pass
         try:
             stop_background_scheduler()
         except Exception:
