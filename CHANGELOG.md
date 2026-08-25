@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Re-summarize a session on `:exit`/`:sessions summarize` when its conversation continued after the previous summary; only fresh summaries are skipped (previously an existing summary was always skipped, leaving it stale).
+
 ## [0.6.9] - 2026-08-25
 
 ### Added

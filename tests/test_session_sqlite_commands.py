@@ -85,3 +85,56 @@ def test_sqlite_clean_preserves_active_session(monkeypatch, tmp_path, capsys):
     assert db.get_session(old.session_id)["session_id"] == old.session_id
     assert db.get_session(current.session_id)["session_id"] == current.session_id
     db.close()
+
+
+def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(session.session_id, "user", "first question")
+    db.append_message(session.session_id, "assistant", "first answer")
+    db.save_session_summary(session.session_id, "Fresh summary.")
+
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+    compress_calls: list[str] = []
+
+    def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
+        compress_calls.append("called")
+        return [
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:\nUpdated summary",
+            }
+        ]
+
+    core.compress_history_with_llm = fake_compress
+    from uagent.util_cmd_session import _handle_cmd_sessions
+
+    def run_summarize() -> None:
+        assert _handle_cmd_sessions(
+            f"summarize {session.session_id}",
+            messages_ref=[],
+            client=object(),
+            depname="test-model",
+            core=core,
+            tr=lambda text, **_: text,
+        )
+
+    # A summary that is still current is skipped without an LLM call.
+    run_summarize()
+    assert compress_calls == []
+    assert db.get_session_summary(session.session_id) == "Fresh summary."
+
+    # A conversation continued after the summary makes it stale: re-summarize
+    # (this is the :load + more turns + :exit shutdown path).
+    db.append_message(session.session_id, "user", "follow-up")
+    db._execute(
+        "UPDATE messages SET created_at = datetime('now', '+1 minute') "
+        "WHERE session_id = ? AND message_id = "
+        "(SELECT MAX(message_id) FROM messages WHERE session_id = ?)",
+        (session.session_id, session.session_id),
+    )
+    run_summarize()
+    assert compress_calls == ["called"]
+    assert db.get_session_summary(session.session_id) == "Updated summary"
+    db.close()

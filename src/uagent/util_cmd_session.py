@@ -896,12 +896,21 @@ def _handle_cmd_sessions(
         for index, row in enumerate(rows, start=1):
             sid = str(row["session_id"])
             if not force and row.get("summary"):
-                print(
-                    _("[%(index)d/%(total)d] %(id)s  skipped")
-                    % {"index": index, "total": len(rows), "id": sid}
-                )
-                skipped += 1
-                continue
+                # Only skip when the existing summary is still current: a
+                # session whose conversation continued after the summary was
+                # created (e.g. :load + more turns, then :exit) must be
+                # re-summarized, otherwise the stored summary goes stale.
+                try:
+                    summary_is_stale = store.summary_is_stale(sid)
+                except Exception:
+                    summary_is_stale = False
+                if not summary_is_stale:
+                    print(
+                        _("[%(index)d/%(total)d] %(id)s  skipped")
+                        % {"index": index, "total": len(rows), "id": sid}
+                    )
+                    skipped += 1
+                    continue
             try:
                 stored = store.list_messages(sid)
                 if len(stored) < 2:

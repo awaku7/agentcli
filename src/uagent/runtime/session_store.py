@@ -631,6 +631,29 @@ class SessionStore:
         return None if row is None else str(row["summary"])
 
     @_db_locked
+    def summary_is_stale(self, session_id: str) -> bool:
+        """Return True when the session gained messages after its summary.
+
+        A session that already has a summary still needs re-summarization
+        when the conversation continued after the summary was created (for
+        example after ``:load`` + more turns, or mid-session summarize).
+        """
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT "
+            "(SELECT MAX(created_at) FROM messages WHERE session_id = ?) AS last_message_at, "
+            "(SELECT created_at FROM session_summaries WHERE session_id = ?) AS summary_at",
+            (session_id, session_id),
+        ).fetchone()
+        if row is None:
+            return False
+        last_message_at = row["last_message_at"]
+        summary_at = row["summary_at"]
+        if not last_message_at or not summary_at:
+            return False
+        return str(last_message_at) > str(summary_at)
+
+    @_db_locked
     def list_memory_candidates(self, session_id: str) -> list[str]:
         """Return explicitly marked candidates without persisting them."""
         self._require_session(session_id)
