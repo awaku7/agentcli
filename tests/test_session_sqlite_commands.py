@@ -9,6 +9,7 @@ from uagent.runtime.session_store import (
 )
 from uagent.util_cmd_files import _handle_cmd_logs
 from uagent.util_cmd_session import _handle_cmd_load
+from uagent.util_cmd_session import _handle_cmd_sessions
 
 
 def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
@@ -137,4 +138,41 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     run_summarize()
     assert compress_calls == ["called"]
     assert db.get_session_summary(session.session_id) == "Updated summary"
+    db.close()
+
+
+def test_sessions_summarize_aborts_cleanly_on_keyboard_interrupt(
+    monkeypatch, tmp_path, capsys
+):
+    """Ctrl+C during a summarize LLM call must not raise a raw traceback."""
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(session.session_id, "user", "first question")
+    db.append_message(session.session_id, "assistant", "first answer")
+
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+
+    def raising_compress(client, depname, messages, keep_last=1, emit_log=True):
+        raise KeyboardInterrupt
+
+    core.compress_history_with_llm = raising_compress
+
+    # Should return normally (aborting the remaining sessions) instead of
+    # propagating the KeyboardInterrupt up to the CLI shutdown path.
+    assert _handle_cmd_sessions(
+        f"summarize {session.session_id}",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+    out = capsys.readouterr().out
+    # The message is translated per active locale; "Ctrl+C" and the session
+    # id are locale-independent markers of the interrupted path.
+    assert "Ctrl+C" in out
+    assert session.session_id in out
+    # The interrupted session must not have a summary stored.
+    assert db.get_session_summary(session.session_id) is None
     db.close()

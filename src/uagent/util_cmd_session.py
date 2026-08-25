@@ -893,6 +893,7 @@ def _handle_cmd_sessions(
             _("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)}
         )
         done = skipped = failed = 0
+        interrupted = False
         for index, row in enumerate(rows, start=1):
             sid = str(row["session_id"])
             if not force and row.get("summary"):
@@ -951,18 +952,36 @@ def _handle_cmd_sessions(
                     % {"index": index, "total": len(rows), "id": sid}
                 )
                 done += 1
+            except KeyboardInterrupt:
+                # Ctrl+C during a summarize LLM call should abort the
+                # remaining sessions and exit cleanly (KeyboardInterrupt is a
+                # BaseException, so `except Exception` would let it escape).
+                print(
+                    _("[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)")
+                    % {"index": index, "total": len(rows), "id": sid}
+                )
+                interrupted = True
+                break
             except Exception as exc:
                 print(
                     _("[%(index)d/%(total)d] %(id)s  failed: %(error)s")
                     % {"index": index, "total": len(rows), "id": sid, "error": exc}
                 )
                 failed += 1
-        print(
-            _(
-                "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d failed"
+        if interrupted:
+            print(
+                _(
+                    "[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d failed"
+                )
+                % {"done": done, "skipped": skipped, "failed": failed}
             )
-            % {"done": done, "skipped": skipped, "failed": failed}
-        )
+        else:
+            print(
+                _(
+                    "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d failed"
+                )
+                % {"done": done, "skipped": skipped, "failed": failed}
+            )
         return True
     if command == "candidates":
         if store is None or not session_id:

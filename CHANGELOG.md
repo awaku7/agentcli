@@ -5,6 +5,7 @@
 ### Fixed
 
 - Re-summarize a session on `:exit`/`:sessions summarize` when its conversation continued after the previous summary; only fresh summaries are skipped (previously an existing summary was always skipped, leaving it stale).
+- Ctrl+C during the shutdown-time `:sessions summarize` LLM call now aborts the remaining sessions and exits cleanly instead of dumping a raw `KeyboardInterrupt` traceback (`KeyboardInterrupt` is a `BaseException`, so `except Exception` handlers did not catch it).
 
 ## [0.6.9] - 2026-08-25
 

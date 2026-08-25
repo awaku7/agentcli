@@ -429,6 +429,10 @@ def main() -> None:
                         core=core,
                         tr=_,
                     )
+                except KeyboardInterrupt:
+                    # Ctrl+C during the shutdown summary should not abort the
+                    # CLI with a traceback; skip the summary and exit cleanly.
+                    print(_("[sessions] Shutdown summary interrupted; skipped."))
                 except Exception as exc:
                     print(
                         _("[sessions] Shutdown summary failed: %(error)s")

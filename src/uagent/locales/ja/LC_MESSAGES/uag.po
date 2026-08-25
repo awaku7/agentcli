@@ -4824,6 +4824,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  保存済み"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  失敗: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr "[%(index)d/%(total)d] %(id)s  中断 (Ctrl+C)"
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr "[sessions] 中断: 要約 %(done)d 件、スキップ %(skipped)d 件、失敗 %(failed)d 件"
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"

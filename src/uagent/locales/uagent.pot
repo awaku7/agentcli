@@ -4666,6 +4666,14 @@ msgstr ""
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr ""
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
