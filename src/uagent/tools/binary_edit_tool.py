@@ -464,30 +464,37 @@ def run_tool(args: dict[str, Any]) -> str:
         any_changed = any(r.changed for r in results)
         after_size = len(data)
 
-        # Confirm (always for non-dry-run)
+        # The centralized tool policy confirms binary_edit before execution.
+        # Keep the local prompt only for direct callers without that policy.
         if not dry_run:
-            # Stronger wording for resize operations
-            resized = after_size != before_size
-            ops_summary = (
-                "\n".join([f"- {r.op}: {r.detail}" for r in results]) or "(no ops)"
-            )
-            msg = (
-                "[binary_edit] This tool will modify a local file.\n\n"
-                f"Path: {os.path.abspath(str(p))}\n"
-                f"Mode: {mode}\n"
-                f"Dry-run: {dry_run}\n"
-                f"Before: size={before_size} sha256={before_sha}\n"
-                f"After : size={after_size} (predicted)\n\n"
-                "Operations:\n"
-                f"{ops_summary}\n\n"
-            )
-            if resized:
-                msg += "WARNING: This operation changes file size (insert/delete). This may corrupt executable/binary formats.\n"
-            msg += "Proceed? Reply with y to write, or n/cancel to abort."
-            if not _confirm_or_cancel(msg):
-                return json.dumps(
-                    {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
+            from . import get_confirmation_callback
+
+            if get_confirmation_callback() is None:
+                resized = after_size != before_size
+                ops_summary = (
+                    "\n".join([f"- {r.op}: {r.detail}" for r in results]) or "(no ops)"
                 )
+                msg = (
+                    "[binary_edit] This tool will modify a local file.\n\n"
+                    f"Path: {os.path.abspath(str(p))}\n"
+                    f"Mode: {mode}\n"
+                    f"Dry-run: {dry_run}\n"
+                    f"Before: size={before_size} sha256={before_sha}\n"
+                    f"After : size={after_size} (predicted)\n\n"
+                    "Operations:\n"
+                    f"{ops_summary}\n\n"
+                )
+                if resized:
+                    msg += (
+                        "WARNING: This operation changes file size (insert/delete). "
+                        "This may corrupt executable/binary formats.\n"
+                    )
+                msg += "Proceed? Reply with y to write, or n/cancel to abort."
+                if not _confirm_or_cancel(msg):
+                    return json.dumps(
+                        {"ok": False, "error": "cancelled by user"},
+                        ensure_ascii=False,
+                    )
 
         if dry_run:
             payload = {
