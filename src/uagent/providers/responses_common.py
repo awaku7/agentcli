@@ -54,10 +54,15 @@ def _parse_openrouter_attrs(attr_text: str) -> dict[str, str]:
     return out
 
 
-def recover_openrouter_invoke_tool_calls(
+def parse_assistant_text_tool_calls(
     text: str,
 ) -> tuple[str, list[dict[str, Any]]]:
-    """Recover legacy ``<invoke>`` tool-call markup from assistant text."""
+    """Parse assistant text and recover legacy ``<invoke>`` tool-call markup.
+
+    This is intentionally lightweight in the spirit of LangChain's
+    ``StrOutputParser``: preserve the text, but normalize any tool-call markup
+    that leaked into the visible response.
+    """
 
     if not isinstance(text, str) or "<invoke" not in text.lower():
         return text, []
@@ -66,8 +71,7 @@ def recover_openrouter_invoke_tool_calls(
     tool_calls: list[dict[str, Any]] = []
     last = 0
 
-    for idx, match in enumerate(_OPENROUTER_INVOKE_RE.finditer(text)):
-        del idx
+    for match in _OPENROUTER_INVOKE_RE.finditer(text):
         cleaned_parts.append(text[last : match.start()])
         last = match.end()
 
@@ -96,7 +100,7 @@ def recover_openrouter_invoke_tool_calls(
 
         tool_calls.append(
             {
-                "id": f"or_invoke_{uuid.uuid4().hex[:12]}",
+                "id": f"invoke_{uuid.uuid4().hex[:12]}",
                 "type": "function",
                 "function": {
                     "name": invoke_name,
@@ -110,6 +114,10 @@ def recover_openrouter_invoke_tool_calls(
 
     cleaned_parts.append(text[last:])
     return "".join(cleaned_parts), tool_calls
+
+
+# Backward-compatible alias.
+recover_openrouter_invoke_tool_calls = parse_assistant_text_tool_calls
 
 
 def responses_usage_to_dict(usage: Any) -> dict[str, Any]:
@@ -821,7 +829,7 @@ def parse_responses_response(
                 )
 
     if not tool_calls_list:
-        assistant_text, recovered_tool_calls = recover_openrouter_invoke_tool_calls(
+        assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
             assistant_text
         )
         if recovered_tool_calls:
@@ -1220,7 +1228,7 @@ def parse_responses_stream(
 
     reasoning_content = "".join(reasoning_parts)
     if not tool_calls_list:
-        assistant_text, recovered_tool_calls = recover_openrouter_invoke_tool_calls(
+        assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
             assistant_text
         )
         if recovered_tool_calls:
