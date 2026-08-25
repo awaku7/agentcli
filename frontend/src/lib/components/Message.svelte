@@ -3,7 +3,7 @@
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
   import { t } from '../../lib/i18n.svelte.js';
 
-  let { msg } = $props();
+  let { msg, roomId = '' } = $props();
   
   let role = $derived(String(msg.role || '').toLowerCase());
   let content = $derived(String(msg.content || ''));
@@ -15,6 +15,12 @@
   let artifactHtml = $derived(role === 'assistant' ? extractHtmlFromText(displayContent) : '');
 
   function openPreview() { if (artifactHtml) setArtifactHtml(artifactHtml); }
+
+  function localFileUrl(path) {
+    const params = new URLSearchParams({ path });
+    if (roomId) params.set('room_id', roomId);
+    return `/local-file?${params.toString()}`;
+  }
 </script>
 
 {#if role !== 'system' && (role !== 'assistant' || displayContent.trim())}
@@ -49,7 +55,7 @@
         <div class="mt-2 flex flex-wrap gap-2">
           {#each msg.attachments as att}
             {@const path = att.saved_path || att.path || ''}
-            {@const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '')}
+            {@const src = att.data_url || att.url || (path ? localFileUrl(path) : '')}
             {#if src && (att.type?.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/i.test(path))}
               <button
                 type="button"

@@ -1,11 +1,13 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage, getMessages } from '../../lib/stores.svelte.js';
+  import { onMessage, getMessages, getRoomId } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
   let messages = $state([]);
+  let roomId = $state('');
   $effect(() => { messages = getMessages(); });
+  $effect(() => { roomId = getRoomId(); });
   let chatBox = $state(null);
   let streamState = $state({ id: null, active: false, done: false, text: '', reasoning: '' });
 
@@ -75,7 +77,7 @@
   class="chat-container overflow-y-auto surface-card rounded-xl p-4 flex-grow flex flex-col gap-3"
 >
   {#each messages as msg, i (i)}
-    <Message {msg} />
+    <Message {msg} {roomId} />
   {/each}
   {#if (streamState.active || streamState.done) && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim" class:opacity-60={streamState.done}>
