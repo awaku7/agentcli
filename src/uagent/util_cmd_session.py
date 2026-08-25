@@ -1165,7 +1165,23 @@ def _handle_cmd_load(
         ]
         target = (arg or "").strip()
         if not target:
-            print(_(":load <index|session_id>"))
+            if not sessions:
+                print(_("[load] No SQLite sessions available."))
+                return True
+            print(_("[load] Select a session (newest first):"))
+            for index, row in enumerate(sessions):
+                summary = _session_preview(row.get("summary"))
+                preview = summary
+                if preview == "-":
+                    preview = _session_preview(row.get("first_message"))
+                print(
+                    f"  [{index}] {row.get('created_at') or '-'} | "
+                    f"{row.get('message_count', 0)} messages | "
+                    f"{row.get('project') or '-'}"
+                )
+                print(f"      {preview}")
+                print(f"      id: {row['session_id']}")
+            print(_("[load] Usage: :load <index|session_id>"))
             return True
         if target.isdigit():
             index = int(target)
@@ -1173,6 +1189,9 @@ def _handle_cmd_load(
                 print("[load] Session index out of range.")
                 return True
             target = sessions[index]["session_id"]
+        session_row = next(
+            (row for row in sessions if row.get("session_id") == target), None
+        )
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1192,7 +1211,23 @@ def _handle_cmd_load(
                             "last_response_status": state["status"],
                         }
                     )
-            print("[load] SQLite session loaded: " + target)
+            print(_("[load] SQLite session loaded"))
+            print(f"  id: {target}")
+            if session_row is not None:
+                print(f"  created: {session_row.get('created_at') or '-'}")
+                print(f"  project: {session_row.get('project') or '-'}")
+                print(f"  messages: {len(loaded)}")
+                summary = _session_preview(session_row.get("summary"))
+                if summary != "-":
+                    print(f"  summary: {summary}")
+                print(f"  first: {_session_preview(session_row.get('first_message'))}")
+                print(f"  last:  {_session_preview(session_row.get('last_message'))}")
+            print(
+                _(
+                    "[load] Conversation loaded into the current context; "
+                    "you can continue by entering a message."
+                )
+            )
         except Exception as exc:
             print("[load error] Failed: " + str(exc))
         return True
