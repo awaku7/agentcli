@@ -325,6 +325,7 @@ def safe_rename_path(
     dst: str,
     overwrite: bool = False,
     mkdirs: bool = False,
+    confirmation_already_granted: bool = False,
 ) -> None:
     """Safely rename/move a file or directory with confirmations."""
     if not src or not dst:
@@ -368,7 +369,7 @@ def safe_rename_path(
             ).format(dst=dst)
         )
 
-    if need_confirm:
+    if need_confirm and not confirmation_already_granted:
         detail = ", ".join(reasons) if reasons else "(no detail)"
         ok = _ask_user_confirm_rename(src, dst, detail)
         if not ok:

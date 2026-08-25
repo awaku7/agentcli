@@ -105,7 +105,20 @@ def run_tool(args: dict[str, Any]) -> str:
     mkdirs = mkdirs_raw
 
     try:
-        safe_rename_path(src=src, dst=dst, overwrite=overwrite, mkdirs=mkdirs)
+        # The tool policy already asks for confirmation for every rename_path
+        # call. Avoid a second prompt from the low-level path guard when the
+        # host has installed that policy callback. Direct callers without the
+        # host policy retain the low-level safety prompt.
+        from . import get_confirmation_callback
+
+        policy_confirmed = get_confirmation_callback() is not None
+        safe_rename_path(
+            src=src,
+            dst=dst,
+            overwrite=overwrite,
+            mkdirs=mkdirs,
+            confirmation_already_granted=policy_confirmed,
+        )
     except Exception as e:
         return f"[rename_path error] {type(e).__name__}: {e}"
 
