@@ -1,0 +1,1835 @@
+"""Main window for the uagent GUI (split from scheckgui.py)."""
+
+from __future__ import annotations
+
+import html
+import json
+import os
+import re
+import shutil
+import sys
+from pathlib import Path
+from typing import Any, Optional
+from urllib.parse import unquote
+from urllib.request import Request, urlopen
+
+from PySide6 import QtCore, QtGui, QtMultimedia, QtWidgets
+
+from ..i18n import _
+from .. import core
+from ..utils.paths import get_history_file_path, get_state_dir
+from ..util_tools import (
+    apply_reasoning_arg,
+    apply_verbosity_arg,
+    get_display_reasoning,
+    get_reasoning_mode,
+    get_verbosity_mode,
+    image_file_to_data_url,
+)
+from ..tools.pybitchat_shared import forward_to_mesh
+from ..attachment_utils import materialize_attachment
+from ..scheduler import stop_background_scheduler
+from ..welcome import get_welcome_message
+from . import state
+from .config import (
+    GuiConfig,
+    HistoryEntry,
+    _save_font_size_config,
+)
+from .icons import (
+    _make_attach_icon,
+    _make_close_icon,
+    _make_detail_icon,
+    _make_font_icon,
+    _make_genre_icon,
+    _make_help_icon,
+    _make_reasoning_icon,
+    _make_send_icon,
+    _make_stop_icon,
+)
+from .widgets import DropInput, DropOutput, DropThumbs, _gui_norm_path
+from .worker import ScheckWorker
+
+THUMB_SIZE_PX = 96
+IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
+AUDIO_EXTS = {
+    ".mp3",
+    ".wav",
+    ".m4a",
+    ".aac",
+    ".flac",
+    ".ogg",
+    ".opus",
+    ".wma",
+    ".mp4",
+    ".webm",
+}
+
+
+class MainWindow(QtWidgets.QMainWindow):
+    _output: QtWidgets.QTextBrowser
+    _input: QtWidgets.QPlainTextEdit
+    _pw_input: QtWidgets.QLineEdit
+    _status_label: QtWidgets.QLabel
+    _workdir_label: QtWidgets.QLabel
+    _provider_model_label: QtWidgets.QLabel
+    _mode_label: QtWidgets.QLabel
+    _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
+    _FONT_SIZE_ACTIONS: dict[int, QtGui.QAction] = {}
+
+    @staticmethod
+    def _escape_html(text: str) -> str:
+        return (
+            (text or "")
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#39;")
+        )
+
+    @classmethod
+    def _linkify_html(cls, text: str) -> str:
+        escaped = cls._escape_html(text or "")
+
+        def _repl(m: re.Match) -> str:
+            raw = m.group(0)
+            href = raw
+            if raw.lower().startswith("www."):
+                href = "https://" + raw
+            return f'<a href="{href}" style="color:#2563eb; text-decoration: underline;">{raw}</a>'
+
+        linked = cls._URL_RE.sub(_repl, escaped)
+        return linked.replace("\n", "<br>")
+
+    @staticmethod
+    def _ansi_color(code: int, *, background: bool = False) -> Optional[str]:
+        fg = {
+            30: "#000000",
+            31: "#dc2626",
+            32: "#16a34a",
+            33: "#ca8a04",
+            34: "#2563eb",
+            35: "#a855f7",
+            36: "#0891b2",
+            37: "#d1d5db",
+            90: "#6b7280",
+            91: "#f87171",
+            92: "#4ade80",
+            93: "#facc15",
+            94: "#60a5fa",
+            95: "#d8b4fe",
+            96: "#22d3ee",
+            97: "#ffffff",
+        }
+        bg = {
+            40: "#000000",
+            41: "#dc2626",
+            42: "#16a34a",
+            43: "#ca8a04",
+            44: "#2563eb",
+            45: "#a855f7",
+            46: "#0891b2",
+            47: "#d1d5db",
+            100: "#6b7280",
+            101: "#f87171",
+            102: "#4ade80",
+            103: "#facc15",
+            104: "#60a5fa",
+            105: "#d8b4fe",
+            106: "#22d3ee",
+            107: "#ffffff",
+        }
+        return (bg if background else fg).get(code)
+
+    @staticmethod
+    def _ansi_256_color(n: int) -> str:
+        n = max(0, min(255, int(n)))
+        base = [
+            "#000000",
+            "#800000",
+            "#008000",
+            "#808000",
+            "#000080",
+            "#800080",
+            "#008080",
+            "#c0c0c0",
+            "#808080",
+            "#ff0000",
+            "#00ff00",
+            "#ffff00",
+            "#0000ff",
+            "#ff00ff",
+            "#00ffff",
+            "#ffffff",
+        ]
+        if n < 16:
+            return base[n]
+        if n < 232:
+            n -= 16
+            r = n // 36
+            g = (n % 36) // 6
+            b = n % 6
+
+            def _c(v: int) -> int:
+                return 0 if v == 0 else 55 + 40 * v
+
+            return f"#{_c(r):02x}{_c(g):02x}{_c(b):02x}"
+        v = 8 + (n - 232) * 10
+        return f"#{v:02x}{v:02x}{v:02x}"
+
+    def _append_ansi_text(self, text: str) -> None:
+        """Append ANSI-colored text without using HTML. SGR underline is ignored."""
+        text = text or ""
+        cursor = self._output.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        self._output.setTextCursor(cursor)
+
+        state: dict[str, Any] = {"fg": None, "bg": None, "bold": False, "italic": False}
+
+        def _format() -> QtGui.QTextCharFormat:
+            fmt = QtGui.QTextCharFormat()
+            # Reset rich-text/link state that may remain after insertHtml() blocks.
+            # This prevents normal log text from inheriting anchor underline/href.
+            fmt.setAnchor(False)
+            fmt.setAnchorHref("")
+            fmt.setFontUnderline(False)
+            if state.get("fg"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor(str(state["fg"]))))
+            if state.get("bg"):
+                fmt.setBackground(QtGui.QBrush(QtGui.QColor(str(state["bg"]))))
+            if state.get("bold"):
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            else:
+                fmt.setFontWeight(QtGui.QFont.Normal)
+            fmt.setFontItalic(bool(state.get("italic")))
+            return fmt
+
+        def _plain_line_format(line: str) -> QtGui.QTextCharFormat:
+            fmt = QtGui.QTextCharFormat()
+            fmt.setAnchor(False)
+            fmt.setAnchorHref("")
+            fmt.setFontUnderline(False)
+            fmt.setFontWeight(QtGui.QFont.Normal)
+            s = (line or "").lstrip()
+            if s.startswith(("[ERROR]", "[FATAL]")):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#dc2626")))
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            elif s.startswith(("[WARN]", "[TOOL]")):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#ca8a04")))
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            elif s.startswith("[url]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#0891b2")))
+            elif s.startswith(("[INFO]", "[plugins]")):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
+            elif s.startswith(("[OK]", "[SUCCESS]")):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#16a34a")))
+            return fmt
+
+        def _insert_with_links(s: str, base_fmt: QtGui.QTextCharFormat) -> None:
+            cur = 0
+            for mm in self._URL_RE.finditer(s or ""):
+                if mm.start() > cur:
+                    cursor.insertText(s[cur : mm.start()], base_fmt)
+                raw = mm.group(0)
+                href = raw if not raw.lower().startswith("www.") else "https://" + raw
+                # Do not construct QTextCharFormat(base_fmt): PySide builds may reject it,
+                # which would fall back to plain text for the whole block.
+                link_fmt = QtGui.QTextCharFormat()
+                link_fmt.setAnchor(True)
+                link_fmt.setAnchorHref(href)
+                link_fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
+                link_fmt.setFontUnderline(True)
+                link_fmt.setFontWeight(base_fmt.fontWeight())
+                link_fmt.setFontItalic(base_fmt.fontItalic())
+                cursor.insertText(raw, link_fmt)
+                cur = mm.end()
+            if cur < len(s or ""):
+                cursor.insertText((s or "")[cur:], base_fmt)
+
+        def _insert_plain_semantic(s: str) -> None:
+            for line in (s or "").splitlines(keepends=True):
+                _insert_with_links(line, _plain_line_format(line))
+
+        def _apply(params: list[int]) -> None:
+            if not params:
+                params = [0]
+            i = 0
+            while i < len(params):
+                p = params[i]
+                if p == 0:
+                    state.update(
+                        {"fg": None, "bg": None, "bold": False, "italic": False}
+                    )
+                elif p == 1:
+                    state["bold"] = True
+                elif p == 3:
+                    state["italic"] = True
+                elif p == 22:
+                    state["bold"] = False
+                elif p == 23:
+                    state["italic"] = False
+                elif 30 <= p <= 37 or 90 <= p <= 97:
+                    state["fg"] = self._ansi_color(p)
+                elif p == 39:
+                    state["fg"] = None
+                elif 40 <= p <= 47 or 100 <= p <= 107:
+                    state["bg"] = self._ansi_color(p, background=True)
+                elif p == 49:
+                    state["bg"] = None
+                elif p == 38 and i + 2 < len(params) and params[i + 1] == 5:
+                    state["fg"] = self._ansi_256_color(params[i + 2])
+                    i += 2
+                elif p == 48 and i + 2 < len(params) and params[i + 1] == 5:
+                    state["bg"] = self._ansi_256_color(params[i + 2])
+                    i += 2
+                # SGR 4/24 underline is intentionally ignored.
+                i += 1
+
+        if not self._ansi_re.search(text):
+            _insert_plain_semantic(text)
+            self._output.setTextCursor(cursor)
+            self._output.ensureCursorVisible()
+            return
+
+        pos = 0
+        for m in self._ansi_re.finditer(text):
+            chunk = text[pos : m.start()]
+            if chunk:
+                cursor.insertText(chunk, _format())
+            raw = m.group(0)
+            params: list[int] = []
+            try:
+                inner = raw[2:-1]
+                if inner.startswith("?"):
+                    inner = inner[1:]
+                for part in inner.rstrip("m").split(";"):
+                    if part.strip():
+                        params.append(int(part))
+            except Exception:
+                params = []
+            _apply(params)
+            pos = m.end()
+        tail = text[pos:]
+        if tail:
+            cursor.insertText(tail, _format())
+        self._output.setTextCursor(cursor)
+        self._output.ensureCursorVisible()
+
+    def _set_welcome_text(self) -> None:
+        try:
+            msg = get_welcome_message(include_ascii=False)
+        except Exception:
+            msg = ""
+        if not msg:
+            return
+        logo = ""
+        try:
+            candidates = [
+                Path(__file__).resolve().parents[2] / "assets" / "uag-logo.svg",
+                Path(__file__).resolve().parent / "assets" / "uag-logo.svg",
+            ]
+            logo_path = next((p for p in candidates if p.is_file()), None)
+            if logo_path:
+                logo = (
+                    '<div style="text-align:center; margin-bottom:12px;">'
+                    f'<img src="{logo_path.as_uri()}" width="600" '
+                    'style="max-width:100%;" /></div>'
+                )
+        except Exception:
+            pass
+        html = (
+            '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre-wrap;">'
+            + logo
+            + self._escape_html(msg)
+            + "</div><br>"
+        )
+        try:
+            self._output.moveCursor(QtGui.QTextCursor.End)
+            self._output.insertHtml(html)
+            self._output.ensureCursorVisible()
+        except Exception:
+            pass
+
+    def _show_welcome_dialog(self) -> None:
+        try:
+            msg = get_welcome_message(include_ascii=False)
+        except Exception:
+            msg = ""
+        dlg = QtWidgets.QMessageBox(self)
+        dlg.setWindowTitle(_("Welcome / Quick Guide"))
+        dlg.setIcon(QtWidgets.QMessageBox.Information)
+        dlg.setText(msg or "")
+        dlg.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        dlg.exec()
+
+    def _apply_font_size(self, level: int) -> None:
+        """Apply font size level (0=small, 1=medium, 2=large) to UI and output."""
+        if level not in (0, 1, 2):
+            return
+        state._FONT_SIZE_LEVEL = level
+
+        _is_mac = sys.platform == "darwin"
+        ui_sizes = state._UI_FONT_SIZES_MAC if _is_mac else state._UI_FONT_SIZES
+        ui_size = ui_sizes[level]
+        mono_size = state._MONO_FONT_SIZES[level]
+
+        # Update UI font on the application
+        app = QtWidgets.QApplication.instance()
+        if app:
+            try:
+                _fd = QtGui.QFontDatabase()
+                if sys.platform == "win32":
+                    _fn = "Segoe UI Variable"
+                    if not _fd.hasFamily(_fn):
+                        _fn = "Segoe UI"
+                    _f = QtGui.QFont(_fn, ui_size)
+                elif _is_mac:
+                    _fn = "SF Pro" if _fd.hasFamily("SF Pro") else "Helvetica Neue"
+                    _f = QtGui.QFont(_fn, ui_size)
+                else:
+                    _fn = "Noto Sans" if _fd.hasFamily("Noto Sans") else "sans-serif"
+                    _f = QtGui.QFont(_fn, ui_size)
+                app.setFont(_f)
+            except Exception:
+                pass
+
+        # Update output monospace font
+        try:
+            _fd = QtGui.QFontDatabase()
+            for _f in (
+                "Cascadia Code",
+                "JetBrains Mono",
+                "Consolas",
+                "Menlo",
+                "Monaco",
+            ):
+                if _fd.hasFamily(_f):
+                    self._output.setFont(QtGui.QFont(_f, mono_size))
+                    break
+            else:
+                self._output.setFont(
+                    QtGui.QFont(
+                        QtGui.QFontDatabase.systemFont(
+                            QtGui.QFontDatabase.FixedFont
+                        ).family(),
+                        mono_size,
+                    )
+                )
+        except Exception:
+            pass
+
+        # Update input font
+        try:
+            _input_font = self._input.font()
+            _input_font.setPointSize(ui_size)
+            self._input.setFont(_input_font)
+        except Exception:
+            pass
+
+        # Update password input font
+        try:
+            _pw_font = self._pw_input.font()
+            _pw_font.setPointSize(ui_size)
+            self._pw_input.setFont(_pw_font)
+        except Exception:
+            pass
+
+        # Update status bar label font size hint via stylesheet
+        try:
+            _stamp = f"_fs_{level}"
+            if getattr(self, "_fs_stamp", "") != _stamp:
+                self._fs_stamp = _stamp
+                for w in (
+                    self._status_label,
+                    self._workdir_label,
+                    self._provider_model_label,
+                    self._mode_label,
+                ):
+                    _f = w.font()
+                    _f.setPointSize(max(8, ui_size - 2))
+                    w.setFont(_f)
+        except Exception:
+            pass
+
+        # Update menu text sizes via toolbar/menubar font
+        try:
+            _mb = self.menuBar()
+            if _mb:
+                _mb_font = _mb.font()
+                _mb_font.setPointSize(ui_size)
+                _mb.setFont(_mb_font)
+        except Exception:
+            pass
+
+        # Update check marks
+        for lv, act in self._FONT_SIZE_ACTIONS.items():
+            act.setChecked(lv == level)
+
+        _save_font_size_config(level)
+
+        level_name = state._FONT_SIZE_NAMES.get(level, "medium")
+        self.statusBar().showMessage(
+            _("Font size: %(name)s") % {"name": level_name}, 3000
+        )
+
+    def __init__(self, cfg: GuiConfig):
+        super().__init__()
+        self.setWindowTitle("uag GUI")
+        self.resize(1100, 850)
+        self._attached_images: list[str] = []
+        self._attached_files: list[str] = []
+        self._history: list[HistoryEntry] = []
+        self._hist_idx = -1
+        self._load_history_from_file()
+        self._log_pos = 0
+        self._known_image_paths: set[str] = set()
+        self._known_image_preview_paths: set[str] = set()
+        self._known_file_paths: set[str] = set()
+        self._attachment_seq = 0
+        self._sent_preview_seq = 0
+        self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
+        self._audio_output = QtMultimedia.QAudioOutput(self)
+        try:
+            self._audio_output.setVolume(0.8)
+        except Exception:
+            pass
+        self._audio_player = QtMultimedia.QMediaPlayer(self)
+        try:
+            self._audio_player.setAudioOutput(self._audio_output)
+        except Exception:
+            pass
+        self._audio_current_path = ""
+        self._fs_stamp = ""
+
+        # Pre-create painter-drawn icons for buttons
+        self._attach_icon = _make_attach_icon(22)
+        self._send_icon = _make_send_icon(22)
+
+        central = QtWidgets.QWidget()
+        self.setCentralWidget(central)
+        layout = QtWidgets.QVBoxLayout(central)
+        layout.setContentsMargins(8, 8, 8, 8)
+        layout.setSpacing(6)
+
+        self._output = DropOutput()
+        self._output.setReadOnly(True)
+        self._output.setOpenExternalLinks(False)
+        self._output.setOpenLinks(False)
+        self._output.anchorClicked.connect(self._handle_output_anchor)
+        # Use a modern monospace font with fallback chain
+        try:
+            _fd = QtGui.QFontDatabase()
+            for _f in (
+                "Cascadia Code",
+                "JetBrains Mono",
+                "Consolas",
+                "Menlo",
+                "Monaco",
+            ):
+                if _fd.hasFamily(_f):
+                    self._output.setFont(QtGui.QFont(_f, 10))
+                    break
+            else:
+                self._output.setFont(
+                    QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+                )
+        except Exception:
+            self._output.setFont(
+                QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+            )
+        layout.addWidget(self._output, 1)
+
+        self._thumbs = DropThumbs()
+        self._thumbs.sig_files_dropped.connect(self._on_files_dropped)
+        self._thumbs.setViewMode(QtWidgets.QListView.IconMode)
+        self._thumbs.setFixedHeight(120)
+        self._thumbs.setIconSize(QtCore.QSize(THUMB_SIZE_PX, THUMB_SIZE_PX))
+        self._thumbs.itemDoubleClicked.connect(
+            lambda it: self._open_image(it.toolTip())
+        )
+        self._thumbs.setVisible(True)
+        layout.addWidget(self._thumbs)
+
+        input_panel = QtWidgets.QWidget()
+        input_layout = QtWidgets.QVBoxLayout(input_panel)
+        input_layout.setContentsMargins(0, 0, 0, 0)
+        input_layout.setSpacing(4)
+
+        self._drop_label = QtWidgets.QLabel(_("↑ You can attach files by drag & drop"))
+        self._drop_label.setStyleSheet(
+            "font-size: 11px; color: #6b7280; font-weight: 600; padding: 2px 4px;"
+        )
+        input_layout.addWidget(self._drop_label)
+
+        self._input = DropInput()
+        self._input.setFixedHeight(120)
+        self._input.installEventFilter(self)
+        self._input.sig_files_dropped.connect(self._on_files_dropped)
+        self._output.sig_files_dropped.connect(self._on_files_dropped)
+        input_layout.addWidget(self._input)
+
+        pw_row = QtWidgets.QHBoxLayout()
+        pw_row.setContentsMargins(0, 0, 0, 0)
+        self._pw_input = QtWidgets.QLineEdit()
+        self._pw_input.setEchoMode(QtWidgets.QLineEdit.Password)
+        self._pw_input.setFixedHeight(36)
+        self._pw_input.setVisible(False)
+        self._pw_input.returnPressed.connect(self._on_send)
+        pw_row.addWidget(self._pw_input, 1)
+        pw_row.addStretch(1)
+
+        self._attach_btn = QtWidgets.QPushButton()
+        self._attach_btn.setIcon(self._attach_icon)
+        self._attach_btn.setIconSize(QtCore.QSize(22, 22))
+        self._attach_btn.setFixedWidth(40)
+        self._attach_btn.setFixedHeight(36)
+        self._attach_btn.setToolTip(_("Attach files"))
+        self._attach_btn.clicked.connect(self._on_choose_files)
+        pw_row.addWidget(self._attach_btn)
+
+        self._stop_btn = QtWidgets.QPushButton()
+        self._stop_btn.setIcon(_make_stop_icon(20))
+        self._stop_btn.setIconSize(QtCore.QSize(20, 20))
+        self._stop_btn.setFixedWidth(40)
+        self._stop_btn.setFixedHeight(36)
+        self._stop_btn.setToolTip(_("Stop generation"))
+        self._stop_btn.setStyleSheet(
+            "QPushButton { color: white; background-color: #ef4444; border-radius: 6px; font-weight: bold; font-size: 14px; }"
+            "QPushButton:hover { background-color: #dc2626; }"
+            "QPushButton:disabled { background-color: #9ca3af; color: #d1d5db; }"
+        )
+        self._stop_btn.hide()
+        self._stop_btn.clicked.connect(self._on_stop)
+        pw_row.addWidget(self._stop_btn)
+
+        self._btn = QtWidgets.QPushButton()
+        self._btn.setIcon(self._send_icon)
+        self._btn.setIconSize(QtCore.QSize(22, 22))
+        self._btn.setFixedWidth(40)
+        self._btn.setFixedHeight(36)
+        self._btn.setToolTip(_("Send"))
+        self._btn.clicked.connect(self._on_send)
+        pw_row.addWidget(self._btn)
+        input_layout.addLayout(pw_row)
+
+        layout.addWidget(input_panel)
+
+        self._status_label = QtWidgets.QLabel(" [STATE] IDLE")
+        self.statusBar().addPermanentWidget(self._status_label)
+
+        self._workdir_label = QtWidgets.QLabel("")
+        self.statusBar().addPermanentWidget(self._workdir_label)
+        self._last_workdir = ""
+
+        self._provider_model_label = QtWidgets.QLabel("")
+        self.statusBar().addPermanentWidget(self._provider_model_label)
+        self._provider_model_text = ""
+
+        self._mode_label = QtWidgets.QLabel("")
+        self.statusBar().addPermanentWidget(self._mode_label)
+        self._mode_text = ""
+
+        # Reasoning display toggle button
+        self._display_reasoning_btn = QtWidgets.QPushButton()
+        self._display_reasoning_btn.setFixedWidth(28)
+        self._display_reasoning_btn.setFixedHeight(22)
+        self._display_reasoning_btn.setToolTip(_("Toggle reasoning display"))
+        self._display_reasoning_btn.clicked.connect(self._toggle_display_reasoning)
+        self.statusBar().addPermanentWidget(self._display_reasoning_btn)
+        self._update_display_reasoning_btn()
+
+        # Auto-pilot stop button
+        self._auto_stop_btn = QtWidgets.QPushButton()
+        self._auto_stop_btn.setIcon(_make_close_icon(16))
+        self._auto_stop_btn.setIconSize(QtCore.QSize(16, 16))
+        self._auto_stop_btn.setFixedWidth(28)
+        self._auto_stop_btn.setFixedHeight(22)
+        self._auto_stop_btn.setToolTip(_("Stop auto-pilot"))
+        self._auto_stop_btn.setStyleSheet(
+            "QPushButton { color: white; background-color: #f97316; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+            "QPushButton:hover { background-color: #ea580c; }"
+        )
+        self._auto_stop_btn.hide()
+        self._auto_stop_btn.clicked.connect(self._on_auto_stop)
+        self.statusBar().addPermanentWidget(self._auto_stop_btn)
+
+        self._monitor_timer = QtCore.QTimer(self)
+        self._monitor_timer.timeout.connect(self._update_ui_from_log)
+        self._monitor_timer.start(200)
+
+        # initial mode label
+        self._update_mode_label()
+
+        self._thread = QtCore.QThread()
+        self._worker = ScheckWorker(cfg)
+        self._worker.moveToThread(self._thread)
+        self._worker.sig_finished.connect(self._thread.quit)
+        self._worker.sig_history_bootstrap.connect(self._on_history_bootstrap)
+        self._thread.started.connect(self._worker.run)
+        self._thread.start()
+
+        self._set_welcome_text()
+
+        try:
+            help_menu = self.menuBar().addMenu(_("Help"))
+            help_menu.menuAction().setIcon(_make_help_icon(22))
+            act = help_menu.addAction(_("Welcome / Quick Guide"))
+            act.setIcon(_make_help_icon(18))
+            act.triggered.connect(self._show_welcome_dialog)
+        except Exception:
+            pass
+
+        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
+            self._on_send
+        )
+        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(
+            self._on_send
+        )
+
+        # View menu (font size)
+        try:
+            view_menu = self.menuBar().addMenu(_("View"))
+            view_menu.menuAction().setIcon(_make_font_icon(22, 15))
+            font_group = QtGui.QActionGroup(self)
+            font_group.setExclusive(True)
+            for lv in (0, 1, 2):
+                name = state._FONT_SIZE_NAMES[lv]
+                act = view_menu.addAction(_("Font: %(name)s") % {"name": name})
+                act.setIcon(_make_font_icon(18, 9 + lv * 3))
+                act.setCheckable(True)
+                act.setChecked(lv == state._FONT_SIZE_LEVEL)
+                act.triggered.connect(
+                    lambda checked, _level=lv: (
+                        self._apply_font_size(_level) if checked else None
+                    )
+                )
+                font_group.addAction(act)
+                self._FONT_SIZE_ACTIONS[lv] = act
+        except Exception:
+            pass
+
+        # Mode menu
+        try:
+            mode_menu = self.menuBar().addMenu(_("Mode"))
+            mode_menu.menuAction().setIcon(_make_reasoning_icon(22))
+
+            act_r_off = mode_menu.addAction(_("Reasoning: off"))
+            act_r_off.setIcon(_make_reasoning_icon())
+            act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
+
+            act_r_auto = mode_menu.addAction(_("Reasoning: auto"))
+            act_r_auto.setIcon(_make_reasoning_icon())
+            act_r_auto.triggered.connect(lambda: self._set_reasoning("auto"))
+            act_r_min = mode_menu.addAction(_("Reasoning: minimal"))
+            act_r_min.setIcon(_make_reasoning_icon())
+            act_r_min.triggered.connect(lambda: self._set_reasoning("minimal"))
+            act_r_low = mode_menu.addAction(_("Reasoning: low"))
+            act_r_low.setIcon(_make_reasoning_icon())
+            act_r_low.triggered.connect(lambda: self._set_reasoning("1"))
+            act_r_mid = mode_menu.addAction(_("Reasoning: medium"))
+            act_r_mid.setIcon(_make_reasoning_icon())
+            act_r_mid.triggered.connect(lambda: self._set_reasoning("2"))
+            act_r_high = mode_menu.addAction(_("Reasoning: high"))
+            act_r_high.setIcon(_make_reasoning_icon())
+            act_r_high.triggered.connect(lambda: self._set_reasoning("3"))
+
+            act_r_xhigh = mode_menu.addAction(_("Reasoning: xhigh"))
+            act_r_xhigh.setIcon(_make_reasoning_icon())
+            act_r_xhigh.triggered.connect(lambda: self._set_reasoning("xhigh"))
+            act_r_max = mode_menu.addAction(_("Reasoning: max"))
+            act_r_max.setIcon(_make_reasoning_icon())
+            act_r_max.triggered.connect(lambda: self._set_reasoning("max"))
+
+            mode_menu.addSeparator()
+
+            act_v_off = mode_menu.addAction(_("Verbosity: off"))
+            act_v_off.setIcon(_make_detail_icon())
+            act_v_off.triggered.connect(lambda: self._set_verbosity("0"))
+            act_v_low = mode_menu.addAction(_("Verbosity: low"))
+            act_v_low.setIcon(_make_detail_icon())
+            act_v_low.triggered.connect(lambda: self._set_verbosity("1"))
+            act_v_mid = mode_menu.addAction(_("Verbosity: medium"))
+            act_v_mid.setIcon(_make_detail_icon())
+            act_v_mid.triggered.connect(lambda: self._set_verbosity("2"))
+            act_v_high = mode_menu.addAction(_("Verbosity: high"))
+            act_v_high.setIcon(_make_detail_icon())
+            act_v_high.triggered.connect(lambda: self._set_verbosity("3"))
+
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(
+                lambda: self._set_reasoning("auto")
+            )
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(
+                lambda: self._set_verbosity("2")
+            )
+        except Exception:
+            pass
+
+        # Tools menu (genre selection, only when idle)
+        try:
+            from ..tools.genre_control_tool import (
+                _set_basic_tools_enabled,
+                _set_comm_tools_enabled,
+                _set_devel_tools_enabled,
+                _set_exec_tools_enabled,
+                _set_external_tools_enabled,
+                _set_file_tools_enabled,
+                _set_index_tools_enabled,
+                _set_iot_tools_enabled,
+                _set_media_tools_enabled,
+                _set_office_tools_enabled,
+            )
+
+            tools_menu = self.menuBar().addMenu(_("Tools"))
+            tools_menu.menuAction().setIcon(_make_genre_icon(22))
+
+            genre_items = [
+                (
+                    "basic",
+                    _(
+                        "Basic (file, env, time, prompts, skills, memory, tools control)"
+                    ),
+                    _set_basic_tools_enabled,
+                ),
+                (
+                    "comm",
+                    _("Communication (Teams, Discord, Bluesky)"),
+                    _set_comm_tools_enabled,
+                ),
+                (
+                    "office",
+                    _("Office (Excel, Word, PDF, PPT, document extraction)"),
+                    _set_office_tools_enabled,
+                ),
+                (
+                    "devel",
+                    _(
+                        "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+                    ),
+                    _set_devel_tools_enabled,
+                ),
+                (
+                    "iot",
+                    _(
+                        "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+                    ),
+                    _set_iot_tools_enabled,
+                ),
+                (
+                    "exec",
+                    _("Execution (cmd, python, pwsh, bash, sub-agent)"),
+                    _set_exec_tools_enabled,
+                ),
+                (
+                    "external",
+                    _("External (A2A, MCP, fetch, search web)"),
+                    _set_external_tools_enabled,
+                ),
+                (
+                    "media",
+                    _("Media (image gen/edit/analyze, audio, QR code)"),
+                    _set_media_tools_enabled,
+                ),
+                (
+                    "file",
+                    _("File (read, write, search, delete, listing)"),
+                    _set_file_tools_enabled,
+                ),
+                (
+                    "index",
+                    _("Index (source code navigation: py2idx, ts2idx, etc.)"),
+                    _set_index_tools_enabled,
+                ),
+            ]
+
+            from ..tools._genre_control_util import _ENABLED_GENRES
+
+            self._genre_actions = {}
+            for key, label, setter in genre_items:
+                act = tools_menu.addAction(label)
+                act.setIcon(_make_genre_icon())
+                act.setCheckable(True)
+                act.setChecked(key in _ENABLED_GENRES)
+                act.triggered.connect(lambda checked, s=setter: s(checked))
+                self._genre_actions[key] = act
+
+            # Update enabled state periodically based on busy status
+            def _update_tools_menu_state():
+                is_busy = bool(getattr(core, "status_busy", False))
+                for act in self._genre_actions.values():
+                    act.setEnabled(not is_busy)
+
+            self._tools_menu_timer = QtCore.QTimer()
+            self._tools_menu_timer.timeout.connect(_update_tools_menu_state)
+            self._tools_menu_timer.start(500)  # check every 500ms
+        except Exception:
+            pass
+
+        # Apply saved font size after UI is built
+        try:
+            self._apply_font_size(state._FONT_SIZE_LEVEL)
+        except Exception:
+            pass
+
+    def _update_mode_label(self) -> None:
+        try:
+            r = get_reasoning_mode()
+            v = get_verbosity_mode()
+            txt = f"reasoning={r} verbosity={v}"
+        except Exception:
+            txt = ""
+
+        if txt and txt != getattr(self, "_mode_text", ""):
+            self._mode_text = txt
+            try:
+                self._mode_label.setText(" " + txt)
+            except Exception:
+                pass
+        self._update_display_reasoning_btn()
+
+    def _toggle_display_reasoning(self) -> None:
+        """Toggle the display-reasoning flag."""
+        try:
+            apply_reasoning_arg("")
+            self._update_display_reasoning_btn()
+            print(
+                _("[display_reasoning] %(state)s")
+                % {"state": "ON" if get_display_reasoning() else "OFF"}
+            )
+        except Exception as e:
+            print(_("[display_reasoning] error: %(err)s") % {"err": e})
+
+    def _update_display_reasoning_btn(self) -> None:
+        enabled = get_display_reasoning()
+        if enabled:
+            self._display_reasoning_btn.setText("🧠")
+            self._display_reasoning_btn.setStyleSheet(
+                "QPushButton { color: white; background-color: #2563eb; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+                "QPushButton:hover { background-color: #1d4ed8; }"
+            )
+        else:
+            self._display_reasoning_btn.setText("🧠")
+            self._display_reasoning_btn.setStyleSheet(
+                "QPushButton { color: #9ca3af; background-color: #374151; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+                "QPushButton:hover { background-color: #4b5563; }"
+            )
+
+    def _set_reasoning(self, arg: str) -> None:
+        try:
+            new_mode = apply_reasoning_arg(arg)
+            print(_("[mode] reasoning=%(mode)s") % {"mode": new_mode})
+        except Exception:
+            print(
+                _(
+                    ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+                )
+            )
+        self._update_mode_label()
+
+    def _set_verbosity(self, arg: str) -> None:
+        try:
+            new_mode = apply_verbosity_arg(arg)
+            print(_("[mode] verbosity=%(mode)s") % {"mode": new_mode})
+        except Exception:
+            print(_(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
+        self._update_mode_label()
+
+    def _update_ui_from_log(self):
+        try:
+            with state._log_lock:
+                state._log_buffer.seek(self._log_pos)
+                new_data = state._log_buffer.read()
+                self._log_pos = state._log_buffer.tell()
+
+            if new_data:
+                clean_text = self._ansi_re.sub("", new_data)
+
+                # keep mode label updated even when status doesn't change
+                self._update_mode_label()
+
+                if not hasattr(self, "_tty_partial_line"):
+                    self._tty_partial_line = ""  # type: ignore[attr-defined]
+
+                def _normalize_stream_chunk(chunk: str) -> str:
+                    out_parts: list[str] = []
+                    cur = self._tty_partial_line  # type: ignore[attr-defined]
+                    for ch in chunk:
+                        if ch == "\r":
+                            cur = ""
+                            continue
+                        if ch == "\n":
+                            out_parts.append(cur + "\n")
+                            cur = ""
+                            continue
+                        oc = ord(ch)
+                        if ch == "\t" or oc >= 0x20:
+                            cur += ch
+                    self._tty_partial_line = cur  # type: ignore[attr-defined]
+                    return "".join(out_parts)
+
+                clean_text = _normalize_stream_chunk(clean_text)
+
+                states = re.findall(r"\[STATE\]\s+(\w+)(?:\s+\[(.*?)\])?", clean_text)
+                if states:
+                    last_st, last_lb = states[-1]
+                    self._status_label.setText(
+                        f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else "")
+                    )
+                    # Show/hide stop button based on busy state
+                    is_busy = last_st.upper() == "BUSY"
+                    if is_busy:
+                        self._stop_btn.show()
+                    else:
+                        self._stop_btn.hide()
+
+                try:
+                    mprov = re.findall(
+                        r"^\[INFO\]\s+LLM provider\s*=\s*(.+)$",
+                        clean_text,
+                        flags=re.MULTILINE,
+                    )
+                    mdep = re.findall(
+                        r"^\[INFO\]\s+model\(deployment\)\s*=\s*(.+)$",
+                        clean_text,
+                        flags=re.MULTILINE,
+                    )
+                    if mprov:
+                        self._provider_model_text = f"provider={mprov[-1].strip()}"
+                    if mdep:
+                        ptxt = getattr(self, "_provider_model_text", "")
+                        mtxt = f"model={mdep[-1].strip()}"
+                        self._provider_model_text = (
+                            (ptxt + " " + mtxt).strip() if ptxt else mtxt
+                        )
+                    if getattr(self, "_provider_model_text", ""):
+                        self._provider_model_label.setText(
+                            " " + self._provider_model_text
+                        )
+                except Exception:
+                    pass
+
+                items = []
+                try:
+                    items = self._collect_generated_image_paths()
+                except Exception:
+                    pass
+
+                for p in items:
+                    if p and os.path.exists(p):
+                        self._append_image_preview(p, "GEN")
+
+                audio_items = []
+                try:
+                    audio_items = self._collect_generated_audio_paths()
+                except Exception:
+                    pass
+
+                for p in audio_items:
+                    if p and os.path.exists(p):
+                        self._append_audio_preview(p, "GENA")
+
+                display_lines = []
+                for line in new_data.splitlines(keepends=True):
+                    s = self._ansi_re.sub("", line).strip()
+                    if s.startswith("[STATE]"):
+                        continue
+                    if "multiline" in (s or "").lower():
+                        continue
+                    # Strip mid-line [STATE] injections that can appear when
+                    # status updates race with streaming assistant text.
+                    plain = self._ansi_re.sub("", line)
+                    if "[STATE]" in plain:
+                        line = re.sub(
+                            r"\[STATE\]\s+\w+(?:\s+\[[^\]]*\])?",
+                            "",
+                            plain,
+                        )
+                        if not line.strip():
+                            continue
+                    display_lines.append(line)
+                display_text = "".join(display_lines)
+
+                if display_text:
+                    try:
+                        self._append_ansi_text(display_text)
+                    except Exception:
+                        cursor = self._output.textCursor()
+                        cursor.movePosition(QtGui.QTextCursor.End)
+                        self._output.setTextCursor(cursor)
+                        self._output.insertPlainText(display_text)
+                        self._output.ensureCursorVisible()
+
+            # The GUI must not use the redirected [STATE] log as its source of
+            # truth. In GUI mode status lines can be coalesced with streamed
+            # output (and some paths intentionally suppress them), while
+            # core.set_status() has already updated the authoritative state.
+            # Reading the shared state here also covers tool/LLM transitions
+            # that happen without a corresponding complete log line.
+            try:
+                with core.status_lock:
+                    busy = bool(core.status_busy)
+                    label = str(core.status_label or ("BUSY" if busy else "IDLE"))
+                self._status_label.setText(f" [STATE] {label}")
+                if busy:
+                    self._stop_btn.show()
+                else:
+                    self._stop_btn.hide()
+            except Exception:
+                pass
+
+            with core.human_ask_lock:
+                active = core.human_ask_active
+                is_password = core.human_ask_is_password
+
+            is_pw_mode = bool(active and is_password)
+            if is_pw_mode != self._pw_input.isVisible():
+                self._pw_input.setVisible(is_pw_mode)
+                self._input.setVisible(not is_pw_mode)
+                if is_pw_mode:
+                    self._pw_input.setFocus()
+                else:
+                    self._input.setFocus()
+
+            if active:
+                msg = (
+                    _("Enter password...")
+                    if is_password
+                    else _("Enter response for human_ask...")
+                )
+                self._input.setPlaceholderText(msg)
+                self._pw_input.setPlaceholderText(msg)
+            else:
+                self._input.setPlaceholderText(_("Enter a message..."))
+
+            try:
+                cwd = os.getcwd()
+                if cwd != self._last_workdir:
+                    self._last_workdir = cwd
+                    self._workdir_label.setText(f" workdir: {cwd}")
+            except Exception:
+                pass
+
+            # Auto-pilot stop button visibility
+            try:
+                if core.auto_pilot_active:
+                    self._auto_stop_btn.show()
+                else:
+                    self._auto_stop_btn.hide()
+            except Exception:
+                pass
+
+        except Exception:
+            pass
+
+    def _on_choose_files(self):
+        try:
+            paths = QtWidgets.QFileDialog.getOpenFileNames(
+                self,
+                _("Attach files"),
+                os.getcwd(),
+                _("All Files (*)"),
+            )[0]
+            if paths:
+                self._on_files_dropped(paths)
+        except Exception:
+            pass
+
+    def _on_files_dropped(self, ps):
+        self._attachment_seq += 1
+        for i, p in enumerate(ps):
+            if os.path.splitext(p)[1].lower() in IMAGE_EXTS:
+                self._attached_images.append(p)
+                self._add_thumb(p, f"ATT:{self._attachment_seq}:{i}")
+            else:
+                self._attached_files.append(p)
+                self._add_file_item(p, f"ATT:{self._attachment_seq}:{i}")
+
+    def _collect_generated_image_paths(self) -> list[str]:
+        paths: list[str] = []
+        seen: set[str] = set()
+
+        def _add(candidate: Any) -> None:
+            p = _gui_norm_path(candidate)
+            if not p or p in seen:
+                return
+            seen.add(p)
+            paths.append(p)
+
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for msg in reversed(msgs[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                att = materialize_attachment(
+                    att, get_state_dir() / "remote_attachments"
+                )
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
+                    continue
+                _add(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
+
+            _add(msg.get("saved_path"))
+            for item in msg.get("saved_files") or []:
+                _add(item)
+
+        return paths
+
+    def _collect_generated_audio_paths(self) -> list[str]:
+        paths: list[str] = []
+        seen: set[str] = set()
+
+        def _add(candidate: Any) -> None:
+            p = _gui_norm_path(candidate)
+            if not p or p in seen:
+                return
+            seen.add(p)
+            paths.append(p)
+
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for msg in reversed(msgs[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in (
+                    "audio",
+                    "audio/mpeg",
+                    "audio/mp3",
+                    "audio/wav",
+                    "audio/x-wav",
+                    "audio/mp4",
+                    "audio/aac",
+                    "audio/flac",
+                    "audio/ogg",
+                    "audio/opus",
+                    "audio/webm",
+                ):
+                    continue
+                _add(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
+
+            p = _gui_norm_path(msg.get("saved_path"))
+            if p and os.path.splitext(p)[1].lower() in AUDIO_EXTS:
+                _add(p)
+
+            for item in msg.get("saved_files") or []:
+                if os.path.splitext(_gui_norm_path(item))[1].lower() in AUDIO_EXTS:
+                    _add(item)
+
+        return paths
+
+    def _collect_generated_image_entries(self):
+        entries = []
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for mi, msg in enumerate(reversed(msgs[-20:])):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            ai = 0
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
+                    continue
+                p = _gui_norm_path(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
+                if p:
+                    entries.append((f"m{mi}:a{ai}", p))
+                    ai += 1
+
+            p = _gui_norm_path(msg.get("saved_path"))
+            if p:
+                entries.append((f"m{mi}:s", p))
+
+            for si, item in enumerate(msg.get("saved_files") or []):
+                p = _gui_norm_path(item)
+                if p:
+                    entries.append((f"m{mi}:f{si}", p))
+
+        return entries
+
+    def _find_generated_image_url(self, path: str) -> str:
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+        target = (path or "").strip()
+        if not target:
+            return ""
+        for msg in reversed(msgs[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
+                    continue
+                att_path = _gui_norm_path(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                    or ""
+                )
+                if att_path != target:
+                    continue
+                return str(
+                    att.get("url")
+                    or att.get("source_url")
+                    or att.get("original_url")
+                    or ""
+                )
+        return ""
+
+    def _append_image_preview(self, path, prefix):
+        path = _gui_norm_path(path)
+        key = f"{prefix}:{path}"
+        if key in self._known_image_preview_paths:
+            return
+        self._known_image_preview_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_image_preview_paths.discard(key)
+                    return
+
+                try:
+                    src = image_file_to_data_url(path, max_bytes=8_000_000)
+                except Exception:
+                    src = Path(path).resolve().as_uri()
+
+                remote_url = self._find_generated_image_url(path)
+                download_href = (
+                    f"{remote_url}#download"
+                    if remote_url
+                    else Path(path).resolve().as_uri() + "#download"
+                )
+                html_block = (
+                    f'<a href="{html.escape(Path(path).resolve().as_uri(), quote=True)}">'
+                    f'<img src="{html.escape(src, quote=True)}" '
+                    'style="max-width:360px; max-height:280px; border:0; margin:0; padding:0; display:block;"/>'
+                    "</a>"
+                    f'<div style="font-size:11px; margin-top:2px;">'
+                    f'<a href="{html.escape(download_href, quote=True)}" style="color:#2563eb; text-decoration:underline;">Download</a>'
+                    "</div>"
+                )
+                self._output.moveCursor(QtGui.QTextCursor.End)
+                self._output.insertHtml(html_block)
+                self._output.insertHtml("<br/>")
+                self._output.ensureCursorVisible()
+            except Exception:
+                self._known_image_preview_paths.discard(key)
+
+        QtCore.QTimer.singleShot(1000, _load)
+
+    def _add_thumb(self, path, prefix):
+        path = _gui_norm_path(path)
+        key = f"{prefix}:{path}"
+        if key in self._known_image_paths:
+            return
+        self._known_image_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_image_paths.discard(key)
+                    return
+                reader = QtGui.QImageReader(path)
+                if not reader.canRead():
+                    try:
+                        print(
+                            "[GUI][add_thumb] "
+                            + _("cannot read image")
+                            + " "
+                            + json.dumps(
+                                {
+                                    "path": path,
+                                    "format": (
+                                        str(
+                                            reader.format()
+                                            .data()
+                                            .decode(errors="ignore")
+                                        )
+                                        if reader.format()
+                                        else ""
+                                    ),
+                                },
+                                ensure_ascii=False,
+                            )
+                        )
+                    except Exception:
+                        pass
+                    return
+                img = reader.read()
+                if img.isNull():
+                    return
+                pix = QtGui.QPixmap.fromImage(
+                    img.scaled(
+                        THUMB_SIZE_PX,
+                        THUMB_SIZE_PX,
+                        QtCore.Qt.KeepAspectRatio,
+                        QtCore.Qt.SmoothTransformation,
+                    )
+                )
+                it = QtWidgets.QListWidgetItem(
+                    QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}"
+                )
+                it.setToolTip(path)
+                self._thumbs.addItem(it)
+            except Exception:
+                pass
+
+        QtCore.QTimer.singleShot(1000, _load)
+
+    def _add_file_item(self, path, prefix):
+        path = _gui_norm_path(path)
+        key = f"{prefix}:{path}"
+        if key in self._known_file_paths:
+            return
+        self._known_file_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_file_paths.discard(key)
+                    return
+                file_info = QtCore.QFileInfo(path)
+                icon_provider = QtWidgets.QFileIconProvider()
+                icon = icon_provider.icon(file_info)
+                it = QtWidgets.QListWidgetItem(icon, os.path.basename(path))
+                it.setToolTip(path)
+                self._thumbs.addItem(it)
+            except Exception:
+                self._known_file_paths.discard(key)
+
+        QtCore.QTimer.singleShot(1000, _load)
+
+    def _open_image(self, p):
+        try:
+            p = _gui_norm_path(p)
+            if sys.platform == "win32":
+                os.startfile(p)
+            elif sys.platform == "darwin":
+                import subprocess
+
+                subprocess.Popen(["open", p])
+            else:
+                import subprocess
+
+                subprocess.Popen(["xdg-open", p])
+        except Exception:
+            pass
+
+    def _is_audio_path(self, p):
+        p = _gui_norm_path(p).lower()
+        return bool(p and os.path.splitext(p)[1] in AUDIO_EXTS)
+
+    def _append_audio_preview(self, path, prefix):
+        path = _gui_norm_path(path)
+        key = f"{prefix}:{path}"
+        if key in self._known_file_paths:
+            return
+        self._known_file_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_file_paths.discard(key)
+                    return
+                title = html.escape(os.path.basename(path), quote=True)
+                file_uri = Path(path).resolve().as_uri()
+                html_block = (
+                    '<div style="max-width:360px; border:1px solid #ddd; border-radius:6px; padding:6px; margin-top:4px;">'
+                    f'<div style="font-size:12px; margin-bottom:4px;">{title}</div>'
+                    '<div style="font-size:11px; line-height:1.6;">'
+                    f'<a href="audio-play:{html.escape(path, quote=True)}" style="color:#2563eb; text-decoration:underline;">Play</a>'
+                    " &nbsp;"
+                    f'<a href="audio-stop:" style="color:#2563eb; text-decoration:underline;">Stop</a>'
+                    " &nbsp;"
+                    f'<a href="{html.escape(file_uri, quote=True)}#download" style="color:#2563eb; text-decoration:underline;">Download</a>'
+                    "</div>"
+                    "</div>"
+                )
+                self._output.moveCursor(QtGui.QTextCursor.End)
+                self._output.insertHtml(html_block)
+                self._output.insertHtml("<br/>")
+                self._output.ensureCursorVisible()
+            except Exception:
+                self._known_file_paths.discard(key)
+
+        QtCore.QTimer.singleShot(1000, _load)
+
+    def _handle_output_anchor(self, url):
+        try:
+            scheme = (url.scheme() or "").lower()
+            if scheme == "file" and url.fragment() == "download":
+                src = Path(url.toLocalFile())
+                if not src.exists():
+                    return
+
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+
+                target = dest_dir / src.name
+                if target.exists():
+                    stem, suffix = src.stem, src.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+
+                shutil.copy2(str(src), str(target))
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme in ("http", "https") and url.fragment() == "download":
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+
+                base = Path(unquote(url.path())).name or "download.png"
+                if not os.path.splitext(base)[1]:
+                    base += ".png"
+                target = dest_dir / base
+                if target.exists():
+                    stem, suffix = target.stem, target.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+
+                req = Request(
+                    url.toString().split("#", 1)[0], headers={"User-Agent": "uag-gui"}
+                )
+                with urlopen(req) as resp:
+                    data = resp.read()
+                with open(target, "wb") as f:
+                    f.write(data)
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "uag-download":
+                raw = unquote(url.toString().split(":", 1)[1])
+                if raw.startswith("/") and re.match(r"^/[A-Za-z]:[\\/]", raw):
+                    raw = raw[1:]
+                src = Path(raw)
+                if not src.exists():
+                    return
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+                target = dest_dir / src.name
+                if target.exists():
+                    stem, suffix = src.stem, src.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+                shutil.copy2(str(src), str(target))
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "audio-play":
+                raw = unquote(url.toString().split(":", 1)[1])
+                if raw.startswith("/") and re.match(r"^/[A-Za-z]:[\\/]", raw):
+                    raw = raw[1:]
+                src = Path(raw)
+                if not src.exists():
+                    return
+                try:
+                    self._audio_current_path = str(src)
+                    self._audio_player.setSource(QtCore.QUrl.fromLocalFile(str(src)))
+                    self._audio_player.play()
+                    self.statusBar().showMessage(
+                        _("Playing") + f" {src.name}",
+                        3000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "audio-stop":
+                try:
+                    self._audio_player.stop()
+                    self.statusBar().showMessage(_("Stopped"), 2000)
+                except Exception:
+                    pass
+                return
+
+            if scheme in ("http", "https"):
+                QtGui.QDesktopServices.openUrl(url)
+                return
+
+            p = url.toLocalFile()
+            if p:
+                self._open_image(p)
+        except Exception:
+            pass
+
+    def _on_stop(self) -> None:
+        """Stop LLM generation. NOP if not busy."""
+        if not getattr(core, "status_busy", False):
+            self._stop_btn.hide()
+            return
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+        print("\n[INTERRUPT] " + _("Stop requested by user."))
+        self._stop_btn.hide()
+
+    def _on_auto_stop(self) -> None:
+        """Stop auto-pilot mode from the GUI stop button."""
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+        print("\n[AUTO] " + _("Stop requested by user (GUI stop button)."))
+        self._auto_stop_btn.hide()
+
+    def _on_send(self):
+        with core.human_ask_lock:
+            active, q, is_password = (
+                core.human_ask_active,
+                core.human_ask_queue,
+                core.human_ask_is_password,
+            )
+
+        if active and is_password and not self._pw_input.isVisible():
+            text = self._input.toPlainText()
+            self._input.clear()
+            self._pw_input.setText(text)
+            self._pw_input.setVisible(True)
+            self._input.setVisible(False)
+            self._pw_input.setFocus()
+            return
+
+        if self._pw_input.isVisible():
+            text = self._pw_input.text()
+            self._pw_input.clear()
+        else:
+            text = self._input.toPlainText()
+            self._input.clear()
+
+        if not text.strip() and not self._attached_images and not self._attached_files:
+            return
+
+        sent_images = list(self._attached_images)
+        sent_files = list(self._attached_files)
+        video_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".mpeg", ".mpg"}
+        sent_videos = [
+            p for p in sent_files if os.path.splitext(str(p))[1].lower() in video_exts
+        ]
+
+        if active and q:
+            is_pw = bool(is_password)
+            try:
+                display_log = "[SECRET]" if is_pw else text
+                print(_("[REPLY] > %(text)s") % {"text": display_log})
+            except Exception:
+                pass
+
+            q.put(text)
+        else:
+            try:
+                print(_("[USER] %(text)s") % {"text": text.strip()})
+            except Exception:
+                pass
+
+            if (
+                text.strip().startswith(":")
+                and not self._attached_images
+                and not self._attached_files
+            ):
+                core.event_queue.put({"kind": "command", "text": text.strip()})
+            else:
+                forward_to_mesh(text)
+                core.event_queue.put(
+                    {
+                        "kind": "gui_user",
+                        "text": text,
+                        "images": sent_images,
+                        "videos": sent_videos,
+                        "files": sent_files,
+                    }
+                )
+                if sent_images:
+                    self._sent_preview_seq += 1
+                    preview_prefix = f"USER:{self._sent_preview_seq}"
+                    for path in sent_images:
+                        self._append_image_preview(path, preview_prefix)
+            self._history.append(HistoryEntry(text, sent_images, sent_files))
+            self._save_history_to_file()
+
+        self._attached_images.clear()
+        self._attached_files.clear()
+        self._thumbs.clear()
+        self._hist_idx = -1
+
+    def eventFilter(self, obj, event):
+        if obj is self._input and event.type() == QtCore.QEvent.KeyPress:
+            if event.modifiers() & QtCore.Qt.ControlModifier:
+                if event.key() == QtCore.Qt.Key_Up and self._history:
+                    self._hist_idx = (
+                        (self._hist_idx - 1)
+                        if self._hist_idx != -1
+                        else (len(self._history) - 1)
+                    )
+                    self._restore_history()
+                    return True
+                elif event.key() == QtCore.Qt.Key_Down and self._hist_idx != -1:
+                    self._hist_idx = (
+                        (self._hist_idx + 1)
+                        if self._hist_idx < len(self._history) - 1
+                        else -1
+                    )
+                    self._restore_history()
+                    return True
+        return super().eventFilter(obj, event)
+
+    def _on_history_bootstrap(self, entries: list[str]) -> None:
+        for entry in entries:
+            if entry not in self._history:
+                self._history.append(HistoryEntry(entry, [], []))
+
+    def _load_history_from_file(self) -> None:
+        try:
+            p = get_history_file_path()
+            if p.exists():
+                for line in p.read_text(
+                    encoding="utf-8", errors="replace"
+                ).splitlines():
+                    line = line.strip()
+                    if line.startswith("+") and len(line) > 1:
+                        entry = line[1:]
+                        if entry and entry not in self._history:
+                            self._history.append(HistoryEntry(entry, [], []))
+        except Exception:
+            pass
+
+    def _save_history_to_file(self) -> None:
+        try:
+            p = get_history_file_path()
+            p.parent.mkdir(parents=True, exist_ok=True)
+            seen = set()
+            with open(p, "w", encoding="utf-8") as f:
+                for e in self._history:
+                    t = e.text.strip()
+                    if t and t not in seen:
+                        seen.add(t)
+                        f.write(f"+{t}\n")
+        except Exception:
+            pass
+
+    def _restore_history(self):
+        self._thumbs.clear()
+        self._known_image_paths.clear()
+        self._known_image_preview_paths.clear()
+        self._known_file_paths.clear()
+        if self._hist_idx == -1:
+            self._input.clear()
+            self._attached_images = []
+            self._attached_files = []
+        else:
+            ent = self._history[self._hist_idx]
+            self._input.setPlainText(ent.text)
+            self._attached_images = list(ent.images)
+            self._attached_files = list(ent.files)
+            for i, p in enumerate(ent.images):
+                if p and os.path.exists(p):
+                    self._add_thumb(p, f"HIST:{self._hist_idx}:{i}")
+            for i, p in enumerate(ent.files):
+                if p and os.path.exists(p):
+                    self._add_file_item(p, f"HIST:{self._hist_idx}:{i}")
+
+    def closeEvent(self, event):
+        self._worker.stop()
+        try:
+            stop_background_scheduler()
+        except Exception:
+            pass
+        self._thread.quit()
+        self._thread.wait(2000)
+        super().closeEvent(event)
