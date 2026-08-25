@@ -10,7 +10,7 @@
   let error = $state('');
   let query = $state('');
   let filteredSessions = $derived(sessions.filter((session) => {
-    const text = `${session.summary || ''} ${session.name || ''} ${session.path || ''}`.toLowerCase();
+    const text = `${session.summary || ''} ${session.first_message || ''} ${session.project || ''} ${session.name || ''} ${session.path || ''}`.toLowerCase();
     return !query.trim() || text.includes(query.trim().toLowerCase());
   }));
 
@@ -47,6 +47,15 @@
     const date = new Date(typeof ts === 'number' ? ts * 1000 : ts);
     if (Number.isNaN(date.getTime())) return '';
     return date.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function shortId(path) {
+    const value = String(path || '');
+    return value.length > 12 ? `${value.slice(0, 8)}…` : value;
+  }
+
+  function sessionTitle(session) {
+    return session.summary || session.first_message || session.project || `無題のセッション (${shortId(session.path)})`;
   }
 
   onMount(loadSessions);
@@ -86,8 +95,8 @@
         <button class="session-item" class:active={session.path?.includes(roomId)} onclick={() => openSession(session.path)} title={session.path || ''}>
           <span class="session-dot"></span>
           <span class="session-body">
-            <span class="session-name">{session.summary || session.name || '無題のセッション'}</span>
-            <span class="session-meta">{formatTime(session.mtime)}{session.size ? ` · ${Math.ceil(session.size / 1024)} KB` : ''}</span>
+            <span class="session-name">{sessionTitle(session)}</span>
+            <span class="session-meta">{session.project || 'プロジェクト未設定'}{formatTime(session.mtime) ? ` · ${formatTime(session.mtime)}` : ''}{session.summary ? '' : ' · 要約なし'}</span>
           </span>
         </button>
       {/each}

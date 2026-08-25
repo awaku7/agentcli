@@ -9,6 +9,7 @@ import ntpath
 import os
 import re
 import sqlite3
+import threading
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,6 +20,18 @@ from ..utils.paths import get_state_dir
 
 class SessionStoreError(RuntimeError):
     """Raised when session persistence cannot complete safely."""
+
+
+def _db_locked(method):
+    """Serialize access to the shared SQLite connection."""
+
+    def wrapper(self, *args, **kwargs):
+        with self._db_lock:
+            return method(self, *args, **kwargs)
+
+    wrapper.__name__ = method.__name__
+    wrapper.__doc__ = method.__doc__
+    return wrapper
 
 
 @dataclass(frozen=True)
@@ -121,12 +134,16 @@ class SessionStore:
     def __init__(self, path: str | Path):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        self._db_lock = threading.RLock()
         try:
             # Multiple CLI/Web/A2A processes may share one store. WAL lets
             # readers proceed while a writer commits, and the longer busy
             # timeout avoids failing on normal short-lived writer contention.
             self._connection = sqlite3.connect(
-                self.path, timeout=5.0, isolation_level=None
+                self.path,
+                timeout=5.0,
+                isolation_level=None,
+                check_same_thread=False
             )
             self._connection.row_factory = sqlite3.Row
             self._connection.execute("PRAGMA foreign_keys = ON")
@@ -165,7 +182,8 @@ class SessionStore:
         return cls(store_path)
 
     def close(self) -> None:
-        self._connection.close()
+        with self._db_lock:
+            self._connection.close()
 
     def __enter__(self) -> "SessionStore":
         return self
@@ -270,6 +288,7 @@ class SessionStore:
         if row is None:
             raise SessionStoreError(f"unknown session: {session_id}")
 
+    @_db_locked
     def create_session(
         self,
         *,
@@ -289,6 +308,7 @@ class SessionStore:
         )
         return Session(session_id, project, entry_point, project_key, path_value)
 
+    @_db_locked
     def get_session(self, session_id: str) -> dict[str, Any]:
         row = self._execute(
             "SELECT session_id, project, project_key, project_path, entry_point, created_at FROM sessions WHERE session_id = ?",
@@ -298,6 +318,7 @@ class SessionStore:
             raise SessionStoreError(f"unknown session: {session_id}")
         return dict(row)
 
+    @_db_locked
     def append_message(
         self,
         session_id: str,
@@ -343,6 +364,7 @@ class SessionStore:
                 pass
             raise
 
+    @_db_locked
     def import_jsonl(
         self,
         path: str | Path,
@@ -401,6 +423,7 @@ class SessionStore:
         )
         return session
 
+    @_db_locked
     def list_sessions(
         self,
         *,
@@ -441,6 +464,7 @@ class SessionStore:
         ).fetchall()
         return [dict(row) for row in rows]
 
+    @_db_locked
     def delete_session(self, session_id: str) -> None:
         """Delete one session and all of its persisted data."""
         self._require_session(session_id)
@@ -458,6 +482,7 @@ class SessionStore:
                 pass
             raise
 
+    @_db_locked
     def vacuum(self) -> None:
         """Reclaim unused database pages after deletions."""
         try:
@@ -465,6 +490,7 @@ class SessionStore:
         except sqlite3.Error as exc:
             raise SessionStoreError(f"could not vacuum session store: {exc}") from exc
 
+    @_db_locked
     def replace_messages(self, session_id: str, messages: list[dict[str, Any]]) -> None:
         """Replace a session's message history while preserving its identity."""
         self._require_session(session_id)
@@ -491,6 +517,7 @@ class SessionStore:
                 pass
             raise
 
+    @_db_locked
     def list_messages(self, session_id: str) -> list[dict[str, Any]]:
         self._require_session(session_id)
         rows = self._execute(
@@ -514,6 +541,7 @@ class SessionStore:
             messages.append({"role": item["role"], "content": item["content"]})
         return messages
 
+    @_db_locked
     def record_response_state(
         self,
         session_id: str,
@@ -531,6 +559,7 @@ class SessionStore:
             (session_id, provider, model, response_id, status),
         )
 
+    @_db_locked
     def latest_response_state(self, session_id: str) -> dict[str, Any] | None:
         self._require_session(session_id)
         row = self._execute(
@@ -541,6 +570,7 @@ class SessionStore:
         ).fetchone()
         return None if row is None else dict(row)
 
+    @_db_locked
     def record_tool_call(
         self,
         session_id: str,
@@ -568,6 +598,7 @@ class SessionStore:
         )
         return call_id
 
+    @_db_locked
     def list_tool_calls(self, session_id: str) -> list[dict[str, Any]]:
         self._require_session(session_id)
         rows = self._execute(
@@ -581,6 +612,7 @@ class SessionStore:
             output.append(item)
         return output
 
+    @_db_locked
     def save_session_summary(self, session_id: str, summary: str) -> None:
         self._require_session(session_id)
         summary = redact_sensitive(summary).strip()
@@ -592,6 +624,7 @@ class SessionStore:
             (session_id, summary),
         )
 
+    @_db_locked
     def get_session_summary(self, session_id: str) -> str | None:
         self._require_session(session_id)
         row = self._execute(
@@ -600,6 +633,7 @@ class SessionStore:
         ).fetchone()
         return None if row is None else str(row["summary"])
 
+    @_db_locked
     def list_memory_candidates(self, session_id: str) -> list[str]:
         """Return explicitly marked candidates without persisting them."""
         self._require_session(session_id)
@@ -624,6 +658,7 @@ class SessionStore:
                     candidates.append(value)
         return candidates
 
+    @_db_locked
     def search(
         self, query: str, *, project: str | None = None, limit: int = 20
     ) -> list[dict[str, Any]]:

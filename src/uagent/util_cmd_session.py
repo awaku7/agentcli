@@ -1168,6 +1168,10 @@ def _handle_cmd_load(
             print(_("[load error] SQLite session listing failed: %(error)s") % {"error": exc})
             return True
         target = (arg or "").strip()
+        # The web UI quotes session IDs when sending :load. Remove only a
+        # matching outer quote pair; SQLite session IDs themselves are bare.
+        if len(target) >= 2 and target[0] == target[-1] and target[0] in {'"', "'"}:
+            target = target[1:-1]
         if not target:
             if not sessions:
                 print(_("[load] No SQLite sessions available."))

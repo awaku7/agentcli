@@ -2107,6 +2107,8 @@ async def get_logs(page: int = 1, per_page: int = 15):
                     "project": row.get("project"),
                     "entry_point": row.get("entry_point"),
                     "summary": row.get("summary") or "",
+                    "first_message": row.get("first_message") or "",
+                    "last_message": row.get("last_message") or "",
                     "size": 0,
                     "mtime": row.get("created_at"),
                     "has_responses_state": state is not None,
