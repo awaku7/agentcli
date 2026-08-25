@@ -252,15 +252,8 @@ def run_tool(args: dict[str, Any]) -> str:
         ),
     ).format(count=len(all_matches), paths=preview_list)
 
-    if not confirmed:
-        from . import get_confirmation_callback
-
-        # tools.run_tool() already obtains the centralized confirmation for
-        # destructive tools. Direct callers without that policy still use the
-        # delete tool's own confirmation prompt.
-        policy_confirmed = get_confirmation_callback() is not None
-        if not policy_confirmed and not _human_confirm(msg):
-            return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
+    if not confirmed and not _human_confirm(msg):
+        return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     deleted: list[str] = []
     for p in all_matches:

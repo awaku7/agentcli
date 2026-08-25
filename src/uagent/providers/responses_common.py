@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import html
 import json
 import os
+import re
 import sys
 import time
+import uuid
 from typing import Any, Optional
 
 from ..env_utils import env_get
@@ -22,6 +25,91 @@ def as_str(x: Any) -> str:
     if x is None:
         return ""
     return str(x)
+
+
+_OPENROUTER_INVOKE_RE = re.compile(
+    r"<invoke\b(?P<attrs>[^>]*)>(?P<body>.*?)</invoke>", re.I | re.S
+)
+_OPENROUTER_PARAM_RE = re.compile(
+    r"<parameter\b(?P<attrs>[^>]*)>(?P<body>.*?)</parameter>", re.I | re.S
+)
+_OPENROUTER_ATTR_RE = re.compile(
+    r'(?P<key>[A-Za-z_:][A-Za-z0-9_.:-]*)\s*=\s*(?:"(?P<dq>.*?)"|\'(?P<sq>.*?)\'|(?P<bare>[^\s>]+))',
+    re.S,
+)
+
+
+def _parse_openrouter_attrs(attr_text: str) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for m in _OPENROUTER_ATTR_RE.finditer(attr_text or ""):
+        key = as_str(m.group("key") or "").strip()
+        if not key:
+            continue
+        value = m.group("dq")
+        if value is None:
+            value = m.group("sq")
+        if value is None:
+            value = m.group("bare")
+        out[key] = html.unescape(as_str(value or "").strip())
+    return out
+
+
+def recover_openrouter_invoke_tool_calls(
+    text: str,
+) -> tuple[str, list[dict[str, Any]]]:
+    """Recover legacy ``<invoke>`` tool-call markup from assistant text."""
+
+    if not isinstance(text, str) or "<invoke" not in text.lower():
+        return text, []
+
+    cleaned_parts: list[str] = []
+    tool_calls: list[dict[str, Any]] = []
+    last = 0
+
+    for idx, match in enumerate(_OPENROUTER_INVOKE_RE.finditer(text)):
+        del idx
+        cleaned_parts.append(text[last : match.start()])
+        last = match.end()
+
+        invoke_attrs = _parse_openrouter_attrs(match.group("attrs") or "")
+        invoke_name = as_str(invoke_attrs.get("name") or "").strip()
+        if not invoke_name:
+            cleaned_parts.append(match.group(0))
+            continue
+
+        params: dict[str, Any] = {}
+        body = match.group("body") or ""
+        for p_match in _OPENROUTER_PARAM_RE.finditer(body):
+            p_attrs = _parse_openrouter_attrs(p_match.group("attrs") or "")
+            p_name = as_str(p_attrs.get("name") or "").strip()
+            if not p_name:
+                continue
+            p_value = html.unescape((p_match.group("body") or "").strip())
+            if p_name in params and params[p_name] != p_value:
+                prev = params[p_name]
+                if isinstance(prev, list):
+                    prev.append(p_value)
+                else:
+                    params[p_name] = [prev, p_value]
+            else:
+                params[p_name] = p_value
+
+        tool_calls.append(
+            {
+                "id": f"or_invoke_{uuid.uuid4().hex[:12]}",
+                "type": "function",
+                "function": {
+                    "name": invoke_name,
+                    "arguments": json.dumps(params, ensure_ascii=False),
+                },
+            }
+        )
+
+    if not tool_calls:
+        return text, []
+
+    cleaned_parts.append(text[last:])
+    return "".join(cleaned_parts), tool_calls
 
 
 def responses_usage_to_dict(usage: Any) -> dict[str, Any]:
@@ -732,6 +820,13 @@ def parse_responses_response(
                     + _("Server-side compaction triggered (context compressed).")
                 )
 
+    if not tool_calls_list:
+        assistant_text, recovered_tool_calls = recover_openrouter_invoke_tool_calls(
+            assistant_text
+        )
+        if recovered_tool_calls:
+            tool_calls_list = recovered_tool_calls
+
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", output_items)
@@ -1124,6 +1219,12 @@ def parse_responses_stream(
             )
 
     reasoning_content = "".join(reasoning_parts)
+    if not tool_calls_list:
+        assistant_text, recovered_tool_calls = recover_openrouter_invoke_tool_calls(
+            assistant_text
+        )
+        if recovered_tool_calls:
+            tool_calls_list = recovered_tool_calls
     if core is not None:
         try:
             setattr(

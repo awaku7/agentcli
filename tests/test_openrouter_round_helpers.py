@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from uagent.providers.responses_common import recover_openrouter_invoke_tool_calls
 from uagent.uagent_llm import run_llm_rounds
 
 
@@ -109,3 +110,27 @@ def test_run_llm_rounds_openrouter_routes_to_expected_api(
         assert client.chat.completions.calls
         assert client.chat.completions.calls[0]["model"] == "gpt-5.3"
         assert not client.responses.calls
+
+
+def test_recover_openrouter_invoke_tool_calls_single_block() -> None:
+    text, calls = recover_openrouter_invoke_tool_calls(
+        'before <invoke name="read_file">\n'
+        '<parameter name="path">docs/README.ja.md</parameter>\n'
+        "</invoke> after"
+    )
+
+    assert text == "before  after"
+    assert len(calls) == 1
+    call = calls[0]
+    assert call["function"]["name"] == "read_file"
+    assert call["function"]["arguments"] == '{"path": "docs/README.ja.md"}'
+
+
+def test_recover_openrouter_invoke_tool_calls_multiple_blocks() -> None:
+    text, calls = recover_openrouter_invoke_tool_calls(
+        'x <invoke name="a"><parameter name="n">1</parameter></invoke> y '
+        '<invoke name="b"><parameter name="m">2</parameter></invoke> z'
+    )
+
+    assert text == "x  y  z"
+    assert [c["function"]["name"] for c in calls] == ["a", "b"]

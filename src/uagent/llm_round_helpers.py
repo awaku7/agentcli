@@ -23,7 +23,11 @@ from .providers.llm_claude import (
     build_claude_output_config_for_effort,
 )
 from .providers.llm_openai_responses import build_responses_request
-from .providers.responses_common import parse_responses_response, parse_responses_stream
+from .providers.responses_common import (
+    parse_responses_response,
+    parse_responses_stream,
+    recover_openrouter_invoke_tool_calls,
+)
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
 from .tools.llm_tool_narrowing import (
     _is_gpt54_tool_search_target,
@@ -1320,6 +1324,13 @@ def _call_openai_azure_round(
                     or (lambda s: print(s, end="", flush=True)),
                     core=core,
                 )
+
+            if provider == "openrouter" and not tool_calls_list:
+                assistant_text, recovered_tool_calls = (
+                    recover_openrouter_invoke_tool_calls(assistant_text)
+                )
+                if recovered_tool_calls:
+                    tool_calls_list = recovered_tool_calls
 
     except Exception as e:
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})
