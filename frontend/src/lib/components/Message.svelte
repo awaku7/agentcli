@@ -67,9 +67,16 @@
             {:else if src && (att.type?.startsWith('audio/') || /\.(mp3|wav|ogg)$/i.test(path))}
               <audio controls preload="none" class="w-[200px]" src={src}></audio>
             {:else}
-              <span class="text-xs px-2 py-1 rounded" style="color:var(--text-tertiary);background:var(--bg-surface-alt);">
-                {att.name || path.split('/').pop() || 'file'}
-              </span>
+              <a
+                href={src}
+                download={att.name || path.split(/[\\/]/).pop() || 'file'}
+                target="_blank"
+                rel="noreferrer"
+                class="text-xs px-2 py-1 rounded underline hover:brightness-110"
+                style="color:var(--accent);background:var(--bg-surface-alt);"
+              >
+                {att.name || path.split(/[\\/]/).pop() || 'file'} · {t('download', 'Download')}
+              </a>
             {/if}
           {/each}
         </div>
