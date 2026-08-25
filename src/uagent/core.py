@@ -1741,6 +1741,12 @@ def compress_history_with_llm(
     except Exception:
         provider = (env_get("UAGENT_PROVIDER") or "").strip().lower() or "openai"
     translator = globals().get("_")
+    try:
+        from .i18n import get_locale
+
+        active_locale = get_locale()
+    except Exception:
+        active_locale = "en"
 
     def _t(s: str) -> str:
         try:
@@ -1987,7 +1993,11 @@ def compress_history_with_llm(
 
             if not rolling_summary:
                 summary_system_prompt = (
-                    _t("- Summarize the conversation chunk in English.\n")
+                    _t(
+                        "- Write the summary in the same language as the user messages; "
+                        "prefer the active UI locale (%(locale)s).\n"
+                    )
+                    % {"locale": active_locale}
                     + _t(
                         "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
                     )

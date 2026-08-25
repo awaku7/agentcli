@@ -110,7 +110,8 @@ def test_history_summary_helpers_detect_and_strip():
     assert lmh._messages_have_history_summary(_make_dialog(1)) is False
 
 
-def test_compress_first_run_single_summary():
+def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("UAGENT_LANG", "ja")
     msgs = _make_dialog(6)
     client = _FakeClient(["FIRST_SUMMARY about user-0..5"])
 
@@ -123,6 +124,9 @@ def test_compress_first_run_single_summary():
     )
 
     assert client.chat.completions.calls, "LLM should be called once"
+    system_prompt = client.chat.completions.calls[0]["messages"][0]["content"]
+    assert "in English" not in system_prompt
+    assert "ja" in system_prompt
     summaries = [m for m in out if lmh._is_history_summary_message(m)]
     assert len(summaries) == 1
     assert "FIRST_SUMMARY" in summaries[0]["content"]
