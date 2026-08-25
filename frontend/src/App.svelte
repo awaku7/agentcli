@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Header from './lib/components/Header.svelte';
+  import Sidebar from './lib/components/Sidebar.svelte';
   import Chat from './lib/components/Chat.svelte';
   import InputArea from './lib/components/InputArea.svelte';
   import Attachments from './lib/components/Attachments.svelte';
@@ -17,6 +18,8 @@
   import { setLang, detectLang } from './lib/i18n.svelte.js';
 
   let panelOpen = $state(false);
+  let sidebarOpen = $state(false);
+  let panelTab = $state('settings');
 
   let humanAskState = $derived(getHumanAskState());
   let pendingAttachments = $derived(getPendingAttachments());
@@ -26,10 +29,17 @@
     connect();
     fetchGenres();
     function handleKey(e) {
-      if (e.key === 'Escape') panelOpen = false;
+      if (e.key === 'Escape') { panelOpen = false; sidebarOpen = false; }
+    }
+    function handleLoadSession(e) {
+      sendCommand(`:load "${e.detail.path}"`);
     }
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+    window.addEventListener('uag-load-session', handleLoadSession);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      window.removeEventListener('uag-load-session', handleLoadSession);
+    };
   });
 
   function handleSend(text, attachments) {
@@ -48,8 +58,12 @@
 </script>
 
 <div class="h-screen w-screen flex overflow-hidden">
+  {#if sidebarOpen}<div class="mobile-scrim" role="button" tabindex="0" aria-label="Close navigation" onclick={() => sidebarOpen = false} onkeydown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') sidebarOpen = false; }}></div>{/if}
+  <div class:sidebar-mobile-open={sidebarOpen} class="sidebar-wrap">
+    <Sidebar onClose={() => sidebarOpen = false} onOpenPanel={(tab) => { panelTab = tab; panelOpen = true; sidebarOpen = false; }} />
+  </div>
   <div id="chat-pane" class="flex-grow flex flex-col h-full p-4 gap-3 min-w-0" style="gap:0.75rem;">
-    <Header onTogglePanel={() => panelOpen = !panelOpen} {panelOpen} />
+    <Header onToggleSidebar={() => sidebarOpen = !sidebarOpen} onTogglePanel={() => { panelTab = 'settings'; panelOpen = !panelOpen; }} {panelOpen} />
 
     <Chat />
 
@@ -73,7 +87,7 @@
   <PreviewPanel />
 
   {#if panelOpen}
-    <UnifiedPanel onClose={() => panelOpen = false} />
+    <UnifiedPanel initialTab={panelTab} onClose={() => panelOpen = false} />
   {/if}
 
   {#if humanAskState.visible}
@@ -86,6 +100,14 @@
 </div>
 
 <style>
+  .sidebar-wrap { display: block; }
+  .mobile-scrim { display: none; }
+  @media (max-width: 768px) {
+    .sidebar-wrap { display: none; }
+    .sidebar-wrap.sidebar-mobile-open { display: block; }
+    .mobile-scrim { display: block; position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.35); backdrop-filter: blur(2px); }
+  }
+
   :global(.role-user) {
     background: var(--user-bubble) !important;
     color: var(--user-text) !important;

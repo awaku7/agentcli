@@ -2,8 +2,12 @@
   import { t } from '../../lib/i18n.svelte.js';
   import { getModes, getGenresEnabled, getStatus, sendSetModes, toggleGenre, sendCommand, sendDisplayReasoningToggle, fetchToolsEnabled, setToolsEnabled, fetchMemories, addMemory, updateMemory, deleteMemory, fetchLogs, fetchProfile, clearProfile, profileFromLogs, updateProfile } from '../../lib/stores.svelte.js';
 
-  let { onClose } = $props();
+  let { onClose, initialTab = 'settings' } = $props();
   let tab = $state('settings');
+
+  $effect(() => {
+    if (initialTab) tab = initialTab;
+  });
 
   // --- Settings tab ---
   let modes = $derived(getModes());

@@ -2057,6 +2057,36 @@ async def update_profile(req: Request):
 
 
 # ---- Logs API ----
+def _log_first_user_message(path: str, limit: int = 120) -> str:
+    """Return an existing log summary, falling back to the first user message."""
+    first_user = ""
+    existing_summary = ""
+    try:
+        with open(path, encoding="utf-8") as stream:
+            for line in stream:
+                try:
+                    record = json.loads(line)
+                except Exception:
+                    continue
+                if not isinstance(record, dict):
+                    continue
+                # Prefer metadata already present in the log.
+                if not existing_summary:
+                    for key in ("summary", "session_summary", "title"):
+                        value = record.get(key)
+                        if isinstance(value, str) and value.strip():
+                            existing_summary = value.replace("\r", " ").replace("\n", " ").strip()
+                            break
+                if record.get("role") == "user" and not first_user:
+                    text = str(record.get("content") or "").replace("\r", " ").replace("\n", " ").strip()
+                    if text:
+                        first_user = text
+    except Exception:
+        pass
+    title = existing_summary or first_user
+    return title[:limit] + ("…" if len(title) > limit else "") if title else ""
+
+
 @app.get("/api/logs")
 async def get_logs(page: int = 1, per_page: int = 15):
     """Return paginated JSONL logs or SQLite sessions."""
@@ -2111,6 +2141,7 @@ async def get_logs(page: int = 1, per_page: int = 15):
                 {
                     "path": f,
                     "name": os.path.basename(f),
+                    "summary": _log_first_user_message(f),
                     "size": st.st_size,
                     "mtime": st.st_mtime,
                 }
@@ -2449,6 +2480,37 @@ async def websocket_endpoint(websocket: WebSocket):
                         )
                     finally:
                         _sys.stdout = _old_stdout
+                    # :load replaces the server-side history. Refresh the
+                    # browser instead of appending a second copy to it.
+                    if _cmd_line.lstrip().lower().startswith(":load"):
+                        loaded_display = []
+                        for _message in room.history:
+                            if not isinstance(_message, dict):
+                                continue
+                            loaded_display.append(
+                                _enrich_message_attachments(
+                                    {
+                                        "role": _message.get("role"),
+                                        "content": _message.get("content", ""),
+                                        "name": _message.get("name"),
+                                        "tool_calls": _message.get("tool_calls"),
+                                        "attachments": _message.get("attachments"),
+                                        "saved_path": _message.get("saved_path"),
+                                        "saved_files": _message.get("saved_files"),
+                                        "timestamp": datetime.now().isoformat(),
+                                    }
+                                )
+                            )
+                        room.messages = loaded_display
+                        await room.broadcast(
+                            {
+                                "type": "init",
+                                "messages": loaded_display,
+                                "input_history": _load_input_history(),
+                                "status": room.status,
+                                "room_id": room.room_id,
+                            }
+                        )
                     _output = _capture.getvalue().strip()
                     if (
                         isinstance(_result, tools_util.CommandResult)
