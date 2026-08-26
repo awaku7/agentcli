@@ -45,6 +45,14 @@ mcp_servers:
   https://untrusted.example.com:
     action: deny
 
+# Per-function MCP gate: key is "server_name:tool_name" as dispatched by
+# handle_mcp_v2. Unlisted MCP functions stay allow.
+mcp_tools:
+  physical_vision:arm_sort:
+    action: confirm
+  physical_vision:erase:
+    action: deny
+
 network:
   default: deny
   allowlist:

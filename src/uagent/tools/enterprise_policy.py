@@ -35,6 +35,7 @@ class EnterprisePolicy:
     tools: dict[str, str] = field(default_factory=dict)
     providers: dict[str, str] = field(default_factory=dict)
     mcp_servers: dict[str, str] = field(default_factory=dict)
+    mcp_tools: dict[str, str] = field(default_factory=dict)
     network: dict[str, Any] = field(default_factory=dict)
     credentials: dict[str, str] = field(default_factory=dict)
     skills: dict[str, str] = field(default_factory=dict)
@@ -48,6 +49,7 @@ class EnterprisePolicy:
             tools=_actions(raw.get("tools")),
             providers=_actions(raw.get("providers")),
             mcp_servers=_actions(raw.get("mcp_servers")),
+            mcp_tools=_actions(raw.get("mcp_tools")),
             network=dict(raw.get("network") or {}),
             credentials=_actions(raw.get("credentials")),
             skills=_actions(raw.get("skills")),
@@ -151,6 +153,18 @@ class EnterprisePolicy:
         )
         if action != "allow":
             return PolicyDecision(action, f"tool:{tool_name}")
+
+        # MCP tool-level gate: handle_mcp_v2 dispatches to a specific function
+        # of a specific server, so the policy key is "server_name:tool_name"
+        # (e.g. physical_vision:arm_sort). Unlisted MCP functions stay allow.
+        if tool_name == "handle_mcp_v2":
+            server = str(args.get("server_name") or "").strip()
+            mcp_tool = str(args.get("tool_name") or "").strip()
+            if server and mcp_tool:
+                mcp_key = f"{server}:{mcp_tool}"
+                mcp_action = _normalize_action(self.mcp_tools.get(mcp_key, "allow"))
+                if mcp_action != "allow":
+                    return PolicyDecision(mcp_action, f"mcp_tool:{mcp_key}")
 
         provider = str(args.get("provider") or "").strip().lower()
         if provider and provider in self.providers:

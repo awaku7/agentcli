@@ -118,3 +118,52 @@ def test_replace_in_file_preview_and_write_are_not_destructive() -> None:
     assert preview.side_effect is SideEffect.READ_ONLY
     assert preview.requires_confirmation is False
     assert write.requires_confirmation is False
+
+
+def test_mcp_tool_level_gate_confirm() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "mcp_tools": {
+                "physical_vision:arm_sort": {"action": "confirm"},
+                "physical_vision:erase": {"action": "deny"},
+            }
+        }
+    )
+    # 指定機能は承認が必要
+    decision = policy.decide(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "arm_sort"},
+    )
+    assert decision.requires_confirmation
+    assert decision.reason == "mcp_tool:physical_vision:arm_sort"
+    # deny 指定は実行不可
+    assert policy.decide(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "erase"},
+    ).denied
+    # 未指定の機能は従来どおり許可
+    assert not policy.decide(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "scan_and_judge"},
+    ).denied
+    # server / tool が欠けている場合は判定しない
+    assert not policy.decide("handle_mcp_v2", {"tool_name": "arm_sort"}).denied
+    assert not policy.decide("handle_mcp_v2", {"server_name": "physical_vision"}).denied
+    # 他ツールには影響しない
+    assert not policy.decide("read_file", {"path": "x"}).denied
+
+
+def test_mcp_tool_gate_falls_back_to_tool_level() -> None:
+    # tools で handle_mcp_v2 を deny すれば mcp_tools の allow より優先(安全側)
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "tools": {"handle_mcp_v2": {"action": "deny"}},
+            "mcp_tools": {"physical_vision:arm_sort": {"action": "confirm"}},
+        }
+    )
+    decision = policy.decide(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "arm_sort"},
+    )
+    assert decision.denied
+    assert decision.reason == "tool:handle_mcp_v2"

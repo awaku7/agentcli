@@ -103,6 +103,18 @@ tools:
     action: allow
 ```
 
+### MCPの機能(ツール)単位で確認・拒否する
+
+`handle_mcp_v2` 経由で呼ばれる MCP サーバの個々の機能を、`server_name:tool_name` の形式で指定します。未指定の機能は従来どおり許可されます。
+
+```yaml
+mcp_tools:
+  physical_vision:arm_sort:
+    action: confirm   # 実機アームを動かす機能は人手承認が必要
+  physical_vision:erase:
+    action: deny      # この機能は常に拒否
+```
+
 ### 複数のルールを組み合わせる
 
 ```yaml
@@ -122,6 +134,7 @@ tools:
 - YAMLのインデントにはスペースを使用します。
 - `tools:` の配下は2スペースでインデントします。
 - ツール名は正確に指定します。
+- `mcp_tools:` のキーは `サーバ名:機能名`(例: `physical_vision:arm_sort`)で指定します。
 - `deny` は実行を拒否します。
 - `confirm` は通常の確認フローを要求します。
 - `allow` は明示的に許可します。
