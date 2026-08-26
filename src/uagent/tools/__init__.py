@@ -127,11 +127,20 @@ _ = make_tool_translator(__file__)
 # ── GPT-5.4 native tool_search helpers ──────────────────────────
 
 
+# Tool management tools excluded in embedded mode. They are not merely hidden
+# from the LLM: their modules are skipped entirely during registration so the
+# tools are neither present in TOOL_SPECS nor executable via _RUNNERS.
+_EMBEDDED_EXCLUDED_TOOLS: frozenset[str] = frozenset(
+    {"tool_catalog", "tool_load", "unload_tool"}
+)
+
+
 def _is_embedded_mode() -> bool:
     """Check if embedded mode is active (UAGENT_EMBEDDED=1).
 
-    Embedded mode hides tool management tools (tool_catalog, tool_load,
-    unload_tool) from the LLM and is normally enabled via --embedded.
+    Embedded mode skips tool management tools (tool_catalog, tool_load,
+    unload_tool) entirely and disables the session store; normally enabled
+    via --embedded.
     """
     raw = (env_get("UAGENT_EMBEDDED") or "").strip().lower()
     return raw in ("1", "true", "yes", "on")
@@ -419,6 +428,14 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         except Exception:
             return False
 
+    # Embedded mode: do not register tool management tools at all
+    # (not only hide them from the LLM; they must also be unloadable/absent).
+    if _is_embedded_mode():
+        _fn0 = spec.get("function", {})
+        _tn0 = _fn0.get("name", "") if isinstance(_fn0, dict) else ""
+        if _tn0 in _EMBEDDED_EXCLUDED_TOOLS:
+            return False
+
     # Optional tool level in TOOL_SPEC (default: 0; -1 if tool_genre is set)
     # - tool_level == -1: disabled (do not register/load as LLM tool, but allow dynamic commands)
     # - tool_level == 0 or missing: enabled
@@ -556,6 +573,10 @@ def _register_extra_spec(
 ) -> bool:
     """Register an additional tool spec from the same module (e.g. TOOL_SPEC_2)."""
     global _TOOL_SPECS_DIRTY
+    _fn2 = spec.get("function", {}) if isinstance(spec, dict) else {}
+    _tn2 = _fn2.get("name", "") if isinstance(_fn2, dict) else ""
+    if _is_embedded_mode() and _tn2 in _EMBEDDED_EXCLUDED_TOOLS:
+        return False
     try:
         default_level = 1 if spec.get("tool_genre") else 0
         tool_level = int(spec.get("tool_level", default_level))
