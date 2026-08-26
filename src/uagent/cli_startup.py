@@ -344,7 +344,6 @@ def run_cli_startup(
                 _apply_startup_tool_genre_mask(tool_genre_mask)
             if enable_tools:
                 from .tools._genre_control_util import enable_single_tool
-                from .tools import _EMBEDDED_EXCLUDED_TOOLS, _is_embedded_mode
 
                 # enable_single_tool() registers single-loaded tools newest-first
                 # (smallest x_single_load_seq sorts to the front), so iterate in
@@ -352,20 +351,7 @@ def run_cli_startup(
                 # given on the command line is presented to the LLM first.
                 for tname in reversed(enable_tools):
                     try:
-                        ok = enable_single_tool(tname)
-                        if (
-                            not ok
-                            and _is_embedded_mode()
-                            and tname in _EMBEDDED_EXCLUDED_TOOLS
-                        ):
-                            print(
-                                "[WARN] "
-                                + _(
-                                    "Tool '%(name)s' is unavailable in embedded mode and was not enabled."
-                                )
-                                % {"name": tname},
-                                file=sys.stderr,
-                            )
+                        enable_single_tool(tname)
                     except Exception as e:
                         print(
                             "[WARN] "

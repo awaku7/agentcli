@@ -127,20 +127,46 @@ _ = make_tool_translator(__file__)
 # ── GPT-5.4 native tool_search helpers ──────────────────────────
 
 
-# Tool management tools excluded in embedded mode. They are not merely hidden
-# from the LLM: their modules are skipped entirely during registration so the
-# tools are neither present in TOOL_SPECS nor executable via _RUNNERS.
+# Tool management tools excluded in embedded mode unless explicitly loaded
+# (--enable-tool / :tools load). The three tools come from one module
+# (catalog_tool: TOOL_SPEC / TOOL_SPEC_2 / TOOL_SPEC_3), so they are grouped:
+# explicitly loading any one of them (practically tool_catalog) enables the
+# whole group, keeping tool discovery and loading functional together.
 _EMBEDDED_EXCLUDED_TOOLS: frozenset[str] = frozenset(
     {"tool_catalog", "tool_load", "unload_tool"}
 )
+_EMBEDDED_EXCLUDED_TOOL_GROUPS: tuple[frozenset[str], ...] = (
+    frozenset({"tool_catalog", "tool_load", "unload_tool"}),
+)
+
+
+def _embedded_management_tool_allowed(tool_name: str) -> bool:
+    """Return True when a management tool may be used in embedded mode.
+
+    A management tool is allowed when any tool from its module group was
+    explicitly loaded (enable_single_tool registers it in _LOADED_SINGLE_TOOLS
+    before registration). Non-management tools are always allowed.
+    """
+    if not _is_embedded_mode():
+        return True
+    try:
+        from ._genre_control_util import _LOADED_SINGLE_TOOLS
+
+        loaded = set(_LOADED_SINGLE_TOOLS)
+    except Exception:
+        loaded = set()
+    for group in _EMBEDDED_EXCLUDED_TOOL_GROUPS:
+        if tool_name in group:
+            return bool(group & loaded)
+    return True
 
 
 def _is_embedded_mode() -> bool:
     """Check if embedded mode is active (UAGENT_EMBEDDED=1).
 
     Embedded mode skips tool management tools (tool_catalog, tool_load,
-    unload_tool) entirely and disables the session store; normally enabled
-    via --embedded.
+    unload_tool) unless explicitly loaded, and disables the session store;
+    normally enabled via --embedded.
     """
     raw = (env_get("UAGENT_EMBEDDED") or "").strip().lower()
     return raw in ("1", "true", "yes", "on")
@@ -428,12 +454,16 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         except Exception:
             return False
 
-    # Embedded mode: do not register tool management tools at all
-    # (not only hide them from the LLM; they must also be unloadable/absent).
+    # Embedded mode: skip tool management tools unless explicitly loaded
+    # via --enable-tool / :tools load. enable_single_tool() registers the
+    # name in _LOADED_SINGLE_TOOLS before calling this function, which acts
+    # as the explicit-load marker.
     if _is_embedded_mode():
         _fn0 = spec.get("function", {})
         _tn0 = _fn0.get("name", "") if isinstance(_fn0, dict) else ""
-        if _tn0 in _EMBEDDED_EXCLUDED_TOOLS:
+        if _tn0 in _EMBEDDED_EXCLUDED_TOOLS and not _embedded_management_tool_allowed(
+            _tn0
+        ):
             return False
 
     # Optional tool level in TOOL_SPEC (default: 0; -1 if tool_genre is set)
@@ -575,7 +605,7 @@ def _register_extra_spec(
     global _TOOL_SPECS_DIRTY
     _fn2 = spec.get("function", {}) if isinstance(spec, dict) else {}
     _tn2 = _fn2.get("name", "") if isinstance(_fn2, dict) else ""
-    if _is_embedded_mode() and _tn2 in _EMBEDDED_EXCLUDED_TOOLS:
+    if _tn2 in _EMBEDDED_EXCLUDED_TOOLS and not _embedded_management_tool_allowed(_tn2):
         return False
     try:
         default_level = 1 if spec.get("tool_genre") else 0
@@ -1214,8 +1244,27 @@ def get_tool_specs() -> list[dict[str, Any]]:
     # Native GPT-5.4 tool_search: exclude management tools (server handles all)
     # and hidden tools (disabled/private) that shouldn't reach the LLM.
     _native_exclusions: set[str] = set()
-    if _should_preload_lazy_specs() or _is_embedded_mode():
-        _native_exclusions = {"tool_catalog", "tool_load", "unload_tool"}
+    if _should_preload_lazy_specs():
+        _native_exclusions = set(_EMBEDDED_EXCLUDED_TOOLS)
+    elif _is_embedded_mode():
+        # Embedded mode: hide management tools from the LLM unless one tool
+        # from their module group was explicitly loaded (--enable-tool /
+        # :tools load). Loading tool_catalog therefore also surfaces
+        # tool_load / unload_tool so discovery keeps working.
+        try:
+            from ._genre_control_util import _LOADED_SINGLE_TOOLS
+
+            _loaded = set(_LOADED_SINGLE_TOOLS)
+            _native_exclusions = {
+                name
+                for name in _EMBEDDED_EXCLUDED_TOOLS
+                if not any(
+                    name in group and (group & _loaded)
+                    for group in _EMBEDDED_EXCLUDED_TOOL_GROUPS
+                )
+            }
+        except Exception:
+            _native_exclusions = set(_EMBEDDED_EXCLUDED_TOOLS)
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".
     #   The canonical form is: {"type":"function","function":{"name":..., ...}}

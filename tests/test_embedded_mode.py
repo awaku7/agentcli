@@ -24,6 +24,10 @@ def _reload_tools():
         T._RUNNERS.clear()
         T._TOOL_SPECS_CACHE = None
         T._TOOL_SPECS_DIRTY = True
+        from uagent.tools import _genre_control_util as G
+
+        G._LOADED_SINGLE_TOOLS.clear()
+        G._TOOL_DYNAMIC_THRESHOLDS.clear()
         T._load_plugins()
         T._INITIALIZED = True
 
@@ -97,17 +101,65 @@ def test_normal_session_store_enabled(monkeypatch):
 
 
 def test_embedded_no_stale_state_after_failed_load(monkeypatch):
-    """Failed single-load of a management tool must not leak state."""
+    """Failed single-load must not leak state (registration refused)."""
     monkeypatch.setenv("UAGENT_EMBEDDED", "1")
 
     _reload_tools()
+    from uagent import tools as T
     from uagent.tools import _genre_control_util as G
     from uagent.tools._genre_control_util import enable_single_tool
 
-    ok = enable_single_tool("tool_catalog")
+    orig = T._register_tool_module
+
+    def refused(*_a, **_k):
+        return False
+
+    monkeypatch.setattr(T, "_register_tool_module", refused)
+    ok = enable_single_tool("md2idx")
+    monkeypatch.setattr(T, "_register_tool_module", orig)
     assert ok is False
-    assert "tool_catalog" not in G._LOADED_SINGLE_TOOLS
-    assert "tool_catalog" not in G._TOOL_DYNAMIC_THRESHOLDS
+    assert "md2idx" not in G._LOADED_SINGLE_TOOLS
+    assert "md2idx" not in G._TOOL_DYNAMIC_THRESHOLDS
+
+
+def test_embedded_explicit_load_management_tool(monkeypatch):
+    """Explicitly requested management tools load even in embedded mode."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+
+    _reload_tools()
+    from uagent import tools as T
+    from uagent.tools._genre_control_util import enable_single_tool
+
+    assert enable_single_tool("tool_catalog") is True
+    names = [s.get("function", {}).get("name") for s in T.TOOL_SPECS]
+    # tool_catalog is the module primary spec; tool_load / unload_tool come
+    # from the same catalog_tool module (TOOL_SPEC_2 / TOOL_SPEC_3) and are
+    # loaded together with it.
+    assert MANAGEMENT_TOOLS <= set(names)
+    # The loaded management tools are visible to the LLM.
+    T._TOOL_SPECS_DIRTY = True
+    llm_names = [
+        s["function"]["name"]
+        for s in T.get_tool_specs()
+        if isinstance(s.get("function"), dict)
+    ]
+    assert MANAGEMENT_TOOLS <= set(llm_names)
+
+
+def test_embedded_explicit_load_management_tool_catalog(monkeypatch):
+    """Loaded management tools appear in the catalog with loaded=True."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+
+    _reload_tools()
+    from uagent import tools as T
+    from uagent.tools._genre_control_util import enable_single_tool
+
+    assert enable_single_tool("tool_catalog") is True
+    rows = T.get_tool_catalog(query="", all_items=True)
+    by_name = {row.get("name"): row for row in rows}
+    for name in MANAGEMENT_TOOLS:
+        assert name in by_name, name
+        assert by_name[name]["loaded"] is True, name
 
 
 def test_embedded_catalog_excludes_management_tools(monkeypatch):
