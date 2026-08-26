@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.6.11] - 2026-08-26
+
+### Added
+
+- Add per-tool and per-MCP-function `absconfirm` gates for auto-pilot and injected-message execution.
+- Document safe confirmation patterns for autonomous physical-device workflows.
+
+### Changed
+
+- Bound session summarization to the first ten sessions and make shutdown summarization opt-in.
+- Add command/test execution timeouts, detached Windows process handling, and non-interactive test execution safeguards.
+- Improve auto-pilot loop detection, injected-mode signaling, localized messages, and generated locale catalogs.
+
+### Fixed
+
+- Surface MCP HTTP 406 probe errors instead of incorrectly falling back to legacy initialization.
+
+
 ## [0.6.10] - 2026-08-25
 
 ### Added
