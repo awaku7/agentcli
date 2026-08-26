@@ -65,7 +65,7 @@ def main():
         type=int,
         default=None,
         help=_(
-            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips the interactive genre prompt when specified."
         ),
     )
     parser.add_argument(

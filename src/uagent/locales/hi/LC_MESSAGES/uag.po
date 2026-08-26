@@ -1652,16 +1652,11 @@ msgstr ""
 "कार्यशील निर्देशिका निर्दिष्ट करें. यदि छोड़ा गया है, तो UAGENT_WORKDIR "
 "पर्यावरण चर या वर्तमान निर्देशिका का उपयोग करें।"
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"टूल शैली "
-"बिटमास्क(1=बेसिक,2=कॉम,4=ऑफिस,8=डेवेल,16=आईओटी,32=एक्सईसी,64=एक्सटर्नल,128=मीडिया,256=फ़ाइल,512=इंडेक्स,1023=सभी)।निर्दिष्ट"
-" होने पर इंटरैक्टिव शैली संकेत छोड़ देता है।"
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4475,15 +4470,6 @@ msgstr "अज्ञात UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"टूल शैली बिटमास्क "
-"(1=कॉम,2=कार्यालय,4=डेवेल,8=आईओटी,16=कार्यकारी,32=बाहरी,64=मीडिया,127=सभी)। "
-"निर्दिष्ट होने पर इंटरैक्टिव शैली संकेत छोड़ देता है।"
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

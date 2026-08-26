@@ -1658,16 +1658,11 @@ msgstr ""
 "Zadejte pracovní adresář. Pokud je vynechán, použijte proměnnou prostředí "
 "UAGENT_WORKDIR nebo aktuální adresář."
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"Bitová maska ​​žánru "
-"nástroje(1=základní,2=comm,4=kancelář,8=vývoj,16=iot,32=exec,64=externí,128=média,256=soubor,512=index,1023=vše).Přeskočí"
-" výzvu k interaktivnímu žánru, když je zadán."
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4503,15 +4498,6 @@ msgstr "Neznámý UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"Bitová maska žánru nástroje "
-"(1=comm,2=kancelář,4=devel,8=iot,16=exec,32=externí,64=média,127=vše). "
-"Přeskočí výzvu k interaktivnímu žánru, když je zadán."
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

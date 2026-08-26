@@ -1672,16 +1672,11 @@ msgstr ""
 "Especifique o diretório de trabalho. Se omitido, use a variável de ambiente "
 "UAGENT_WORKDIR ou o diretório atual."
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"Máscara de bits de gênero de "
-"ferramenta(1=básico,2=comm,4=escritório,8=devel,16=iot,32=exec,64=externo,128=mídia,256=arquivo,512=índice,1023=todos).Ignora"
-" o prompt de gênero interativo quando especificado."
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4511,15 +4506,6 @@ msgstr "UAGENT_A2A_ENGINE desconhecido: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"Máscara de bits do gênero da ferramenta "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Ignora"
-" o prompt de gênero interativo quando especificado."
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

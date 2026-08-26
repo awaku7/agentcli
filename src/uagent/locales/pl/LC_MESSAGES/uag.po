@@ -1673,16 +1673,11 @@ msgstr ""
 "Określ katalog roboczy. W przypadku pominięcia użyj zmiennej środowiskowej "
 "UAGENT_WORKDIR lub bieżącego katalogu."
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"Gatunek narzędzia "
-"Bitmaska​​(1=podstawowa,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=plik,512=indeks,1023=wszystko).Pomija"
-" interaktywny monit o gatunek, jeśli jest określony."
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4543,15 +4538,6 @@ msgstr "Nieznana wartość UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"Maska bitowa gatunku narzędzia "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Pomija"
-" interaktywny monit o gatunek, jeśli jest określony."
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

@@ -1675,16 +1675,11 @@ msgstr ""
 "Specificați directorul de lucru. Dacă este omisă, utilizați variabila de "
 "mediu UAGENT_WORKDIR sau directorul curent."
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"Masca de biți pentru genul instrumentului (1=de "
-"bază,2=com,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=fișier,512=index,1023=toate).Omite"
-" promptul de gen interactiv atunci când este specificat."
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4550,15 +4545,6 @@ msgstr "UAGENT_A2A_ENGINE necunoscut: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"Masca de biți pentru genul instrumentului "
-"(1=com,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Omite "
-"promptul de gen interactiv atunci când este specificat."
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

@@ -34,7 +34,8 @@ def test_startup_tool_genre_prompt_uses_prompt_toolkit_when_tty(
         lambda **kwargs: _Dialog(),
     )
 
-    assert cli_startup._prompt_startup_tool_genre_mask() == 5
+    # comm=2, devel=8 (bits follow _GENRE_BITMAP); sum = 10.
+    assert cli_startup._prompt_startup_tool_genre_mask() == 10
     assert captured["run"] is True
 
 

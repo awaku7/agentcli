@@ -1579,14 +1579,12 @@ msgid ""
 "environment variable or the current directory."
 msgstr "作業ディレクトリを指定します。省略した場合は、UAGENT_WORKDIR 環境変数または現在のディレクトリを使用します。"
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"ツールジャンルのビットマスク(1=基本、2=通信、4=オフィス、8=開発、16=iot、32=実行、64=外部、128=メディア、256=ファイル、512=インデックス、1023=すべて)。指定されている場合、インタラクティブなジャンルプロンプトをスキップします。"
+"ツールジャンルのビットマスク(1=基本、2=通信、4=オフィス、8=開発、16=iot、32=実行、64=外部、128=メディア、256=ファイル、512=インデックス、1024=dev、2048=web、4096=utility、8191=すべて)。指定されている場合、インタラクティブなジャンルプロンプトをスキップします。"
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4320,15 +4318,6 @@ msgstr "不明な UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"ツールのジャンルのビットマスク "
-"(1=comm、2=office、4=devel、8=iot、16=exec、32=external、64=media、127=all)。指定されている場合、インタラクティブなジャンル"
-" プロンプトをスキップします。"
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"

@@ -28,17 +28,13 @@ def _prompt_startup_tool_genre_mask() -> int:
         try:
             from prompt_toolkit.shortcuts import checkboxlist_dialog
 
-            values = [
-                ("basic", "basic"),
-                ("comm", "comm"),
-                ("office", "office"),
-                ("devel", "devel"),
-            ]
+            from .tools._genre_control_util import _GENRE_BITMAP
+
+            values = [(genre, genre) for genre in _GENRE_BITMAP]
             selected = checkboxlist_dialog(
                 title="Tool genres", text="Select tool genres", values=values
             ).run()
-            bits = {"basic": 1, "comm": 1, "office": 2, "devel": 4}
-            return sum(bits.get(str(item), 0) for item in (selected or []))
+            return sum(_GENRE_BITMAP.get(str(item), 0) for item in (selected or []))
         except Exception:
             pass
     try:
@@ -52,43 +48,17 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         return
 
     from .i18n import _
-    from .tools.genre_control_tool import (
-        _set_basic_tools_enabled,
-        _set_comm_tools_enabled,
-        _set_devel_tools_enabled,
-        _set_exec_tools_enabled,
-        _set_external_tools_enabled,
-        _set_file_tools_enabled,
-        _set_index_tools_enabled,
-        _set_iot_tools_enabled,
-        _set_media_tools_enabled,
-        _set_office_tools_enabled,
-    )
+    from .tools._genre_control_util import _GENRE_BITMAP
+    from .tools.genre_control_tool import _set_genre_tools_enabled
 
-    enabled_specs = [
-        (1, _set_basic_tools_enabled),
-        (2, _set_comm_tools_enabled),
-        (4, _set_office_tools_enabled),
-        (8, _set_devel_tools_enabled),
-    ]
-    if _set_iot_tools_enabled is not None:
-        enabled_specs.append((16, _set_iot_tools_enabled))
-    if _set_exec_tools_enabled is not None:
-        enabled_specs.append((32, _set_exec_tools_enabled))
-    if _set_external_tools_enabled is not None:
-        enabled_specs.append((64, _set_external_tools_enabled))
-    if _set_media_tools_enabled is not None:
-        enabled_specs.append((128, _set_media_tools_enabled))
-    if _set_file_tools_enabled is not None:
-        enabled_specs.append((256, _set_file_tools_enabled))
-    if _set_index_tools_enabled is not None:
-        enabled_specs.append((512, _set_index_tools_enabled))
-
-    for bit, setter in enabled_specs:
+    # Apply every genre whose bit is set in the mask. The mapping is derived
+    # from _GENRE_BITMAP so it always matches the --tool-genre-mask help text
+    # (all genres, including dev/web/utility).
+    for genre, bit in _GENRE_BITMAP.items():
         if not (mask & bit):
             continue
         try:
-            msg = setter(True)
+            msg = _set_genre_tools_enabled(genre, True)
             if msg:
                 print(msg)
         except Exception as e:

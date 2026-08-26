@@ -1631,16 +1631,11 @@ msgstr ""
 "دایرکتوری کاری را مشخص کنید. اگر حذف شد، از متغیر محیطی UAGENT_WORKDIR یا "
 "دایرکتوری فعلی استفاده کنید."
 
-#: src/uagent/scheckgui.py:3002 src/uagent/util_common.py:169
-#: src/uagent/web.py:2582
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-" Skips the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
+"the interactive genre prompt when specified."
 msgstr ""
-"بیت ماسک ژانر ابزار (1 = اساسی، 2 = کام، 4 = آفیس، 8 = توسعه، 16 =iot، 32 = "
-"exec، 64 = خارجی، 128 = رسانه، 256 = فایل، 512 = فهرست، 1023= همه). در صورت "
-"مشخص شدن، از درخواست ژانر تعاملی رد می شود."
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
 #: src/uagent/util_common.py:177 src/uagent/web.py:2590
@@ -4431,15 +4426,6 @@ msgstr "UAGENT_A2A_ENGINE ناشناخته: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-#: src/uagent/a2a/server.py:442
-msgid ""
-"Tool genre bitmask "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips "
-"the interactive genre prompt when specified."
-msgstr ""
-"بیت ماسک ژانر ابزار "
-"(1=comm،2=office،4=devel،8=iot،16=exec،32=external،64=media،127=همه). در "
-"صورت مشخص شدن، از درخواست ژانر تعاملی رد می شود."
 
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
