@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 
+from uagent.i18n import set_thread_lang
 from uagent.uagent_llm import (
     _GENERAL_TOOL_LOOP_THRESHOLD,
     _TOOL_CALL_FINGERPRINTS,
@@ -22,6 +23,7 @@ def _tc(tool_name: str, **args) -> dict:
 
 
 def setup_function() -> None:
+    set_thread_lang("en")
     _TOOL_CALL_FINGERPRINTS.clear()
     clear_consecutive_tool_call_streak()
 
