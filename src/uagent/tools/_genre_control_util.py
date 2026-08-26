@@ -296,7 +296,18 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
         _LOADED_SINGLE_TOOLS[tool_name] = _loaded_round
         _TOOL_DYNAMIC_THRESHOLDS[tool_name] = (initial_threshold, 0, 1)
         mod_name = f"uagent.tools.{mname}"
-        _register_tool_module(mod, mod_name)
+        try:
+            registered = _register_tool_module(mod, mod_name)
+        except Exception:
+            registered = False
+        if not registered:
+            # Registration was refused (e.g. embedded mode excludes management
+            # tools such as tool_catalog). Do not leave stale single-load
+            # state behind: a later normal-mode reload would otherwise treat
+            # the tool as individually loaded and register it.
+            _LOADED_SINGLE_TOOLS.pop(tool_name, None)
+            _TOOL_DYNAMIC_THRESHOLDS.pop(tool_name, None)
+            return False
 
         # tool_load must only report success when the tool is actually visible
         # to the LLM on the next request.

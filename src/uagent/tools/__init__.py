@@ -1560,6 +1560,8 @@ def get_tool_catalog(
                 name = str(fn.get("name") or "").strip()
                 if not name or name in loaded_names:
                     continue
+                if _is_embedded_mode() and name in _EMBEDDED_EXCLUDED_TOOLS:
+                    continue
                 description = str(fn.get("description") or "").strip()
                 parameters = fn.get("parameters") or {}
                 properties = parameters.get("properties") or {}
@@ -1625,6 +1627,8 @@ def get_tool_catalog(
                 continue
             name = str(fn.get("name") or "").strip()
             if not name or name in loaded_names or name in _cataloged_names:
+                continue
+            if _is_embedded_mode() and name in _EMBEDDED_EXCLUDED_TOOLS:
                 continue
             # Use locale-aware description if available
             _i18n = spec.get("i18n", {}) if isinstance(spec, dict) else {}

@@ -94,3 +94,36 @@ def test_normal_session_store_enabled(monkeypatch):
     store = SessionStore.from_environment()
     assert store is not None
     store.close()
+
+
+def test_embedded_no_stale_state_after_failed_load(monkeypatch):
+    """Failed single-load of a management tool must not leak state."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+
+    _reload_tools()
+    from uagent.tools import _genre_control_util as G
+    from uagent.tools._genre_control_util import enable_single_tool
+
+    ok = enable_single_tool("tool_catalog")
+    assert ok is False
+    assert "tool_catalog" not in G._LOADED_SINGLE_TOOLS
+    assert "tool_catalog" not in G._TOOL_DYNAMIC_THRESHOLDS
+
+
+def test_embedded_catalog_excludes_management_tools(monkeypatch):
+    """get_tool_catalog() must not surface management tools in embedded mode."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    from uagent import tools as T
+
+    _reload_tools()
+    names = {row.get("name") for row in T.get_tool_catalog(query="", all_items=True)}
+    assert not (MANAGEMENT_TOOLS & names)
+
+
+def test_normal_catalog_includes_management_tools(monkeypatch):
+    monkeypatch.delenv("UAGENT_EMBEDDED", raising=False)
+    from uagent import tools as T
+
+    _reload_tools()
+    names = {row.get("name") for row in T.get_tool_catalog(query="", all_items=True)}
+    assert MANAGEMENT_TOOLS <= names
