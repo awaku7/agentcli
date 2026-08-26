@@ -4959,3 +4959,15 @@ msgstr "[sessions] نامزد حافظه تأیید شد."
 
 msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
+
+msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgstr ""
+
+msgid "Dev (lint_js_ts, mdformat_check)"
+msgstr ""
+
+msgid "Web (UCP commerce, public transit route)"
+msgstr ""
+
+msgid "Utility (geodesic distance, pdf export, quantities)"
+msgstr ""

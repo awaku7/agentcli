@@ -205,6 +205,9 @@ TOOL_SPECS: list[dict[str, Any]] = []
 _TOOL_SPECS_CACHE: list[dict[str, Any]] | None = None
 _TOOL_SPECS_DIRTY: bool = True
 _ANALYZE_IMAGE_HIDDEN: bool | None = None
+# Embedded-mode state at cache build time. The cache must be invalidated when
+# UAGENT_EMBEDDED changes (management tools appear/disappear).
+_TOOL_SPECS_CACHE_EMBEDDED: bool | None = None
 
 # Pre-built dict: tool_name -> emit_trace flag (avoids linear scan in run_tool).
 _TOOL_TRACE_FLAGS: dict[str, bool] = {}
@@ -1233,11 +1236,14 @@ def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
     global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY, _ANALYZE_IMAGE_HIDDEN
+    global _TOOL_SPECS_CACHE_EMBEDDED
     hide_analyze_image = _hide_analyze_image_for_chat_vision()
+    _embedded_now = _is_embedded_mode()
     if (
         not _TOOL_SPECS_DIRTY
         and _TOOL_SPECS_CACHE is not None
         and _ANALYZE_IMAGE_HIDDEN == hide_analyze_image
+        and _TOOL_SPECS_CACHE_EMBEDDED == _embedded_now
     ):
         return _TOOL_SPECS_CACHE
 
@@ -1325,6 +1331,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         clean_specs.append(spec_copy)
     _TOOL_SPECS_CACHE = clean_specs
     _TOOL_SPECS_DIRTY = False
+    _TOOL_SPECS_CACHE_EMBEDDED = _embedded_now
     _ANALYZE_IMAGE_HIDDEN = hide_analyze_image
     return clean_specs
 

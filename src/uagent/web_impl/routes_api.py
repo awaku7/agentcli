@@ -22,62 +22,47 @@ from .rooms import _handle_mode_command, web_manager
 _genre_enabled: dict[str, bool] = {}
 
 
+def _web_genre_labels() -> dict[str, str]:
+    """Human-readable labels for every genre, kept in sync with _GENRE_BITMAP."""
+    return {
+        "basic": _("Basic (env, time, prompts, skills, memory, tools control)"),
+        "file": _(
+            "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+        ),
+        "comm": _("Communication (Teams, Discord, Bluesky)"),
+        "office": _("Office (Excel, Word, PDF, PPT, document extraction)"),
+        "devel": _(
+            "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+        ),
+        "iot": _(
+            "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+        ),
+        "exec": _("Execution (cmd, python, pwsh, bash, sub-agent)"),
+        "external": _("External (A2A, MCP, fetch, search web)"),
+        "media": _("Media (image gen/edit/analyze, audio, QR code)"),
+        "index": _(
+            "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+        ),
+        "dev": _("Dev (lint_js_ts, mdformat_check)"),
+        "web": _("Web (UCP commerce, public transit route)"),
+        "utility": _("Utility (geodesic distance, pdf export, quantities)"),
+    }
+
+
 @app.get("/api/tool-genres")
 async def get_tool_genres():
     """Return list of available genres and their current enabled state."""
+    from ..tools._genre_control_util import _GENRE_BITMAP
+
+    labels = _web_genre_labels()
     return {
         "genres": [
             {
-                "key": "basic",
-                "label": _("Basic (env, time, prompts, skills, memory, tools control)"),
-                "enabled": _genre_enabled.get("basic", False),
-            },
-            {
-                "key": "file",
-                "label": _(
-                    "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
-                ),
-                "enabled": _genre_enabled.get("file", False),
-            },
-            {
-                "key": "comm",
-                "label": _("Communication (Teams, Discord, Bluesky)"),
-                "enabled": _genre_enabled.get("comm", False),
-            },
-            {
-                "key": "office",
-                "label": _("Office (Excel, Word, PDF, PPT, document extraction)"),
-                "enabled": _genre_enabled.get("office", False),
-            },
-            {
-                "key": "devel",
-                "label": _(
-                    "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
-                ),
-                "enabled": _genre_enabled.get("devel", False),
-            },
-            {
-                "key": "iot",
-                "label": _(
-                    "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
-                ),
-                "enabled": _genre_enabled.get("iot", False),
-            },
-            {
-                "key": "exec",
-                "label": _("Execution (cmd, python, pwsh, bash, sub-agent)"),
-                "enabled": _genre_enabled.get("exec", False),
-            },
-            {
-                "key": "external",
-                "label": _("External (A2A, MCP, fetch, search web)"),
-                "enabled": _genre_enabled.get("external", False),
-            },
-            {
-                "key": "media",
-                "label": _("Media (image gen/edit/analyze, audio, QR code)"),
-                "enabled": _genre_enabled.get("media", False),
-            },
+                "key": genre,
+                "label": labels.get(genre, genre),
+                "enabled": _genre_enabled.get(genre, False),
+            }
+            for genre in _GENRE_BITMAP
         ],
         "busy": (
             web_manager.status.get("busy", False)
@@ -90,18 +75,8 @@ async def get_tool_genres():
 @app.post("/api/tool-genres")
 async def set_tool_genre(req: Request):
     """Toggle a tool genre on/off. Only allowed when idle."""
-    from ..tools.genre_control_tool import (
-        _set_basic_tools_enabled,
-        _set_comm_tools_enabled,
-        _set_devel_tools_enabled,
-        _set_exec_tools_enabled,
-        _set_external_tools_enabled,
-        _set_file_tools_enabled,
-        _set_index_tools_enabled,
-        _set_iot_tools_enabled,
-        _set_media_tools_enabled,
-        _set_office_tools_enabled,
-    )
+    from ..tools._genre_control_util import _GENRE_BITMAP
+    from ..tools.genre_control_tool import _set_genre_tools_enabled
 
     body = await req.json()
     genre = str(body.get("genre", "")).strip().lower()
@@ -117,27 +92,13 @@ async def set_tool_genre(req: Request):
             },
         )
 
-    setters = {
-        "basic": _set_basic_tools_enabled,
-        "comm": _set_comm_tools_enabled,
-        "office": _set_office_tools_enabled,
-        "devel": _set_devel_tools_enabled,
-        "iot": _set_iot_tools_enabled,
-        "exec": _set_exec_tools_enabled,
-        "external": _set_external_tools_enabled,
-        "media": _set_media_tools_enabled,
-        "file": _set_file_tools_enabled,
-        "index": _set_index_tools_enabled,
-    }
-
-    setter = setters.get(genre)
-    if not setter:
+    if genre not in _GENRE_BITMAP:
         return JSONResponse(
             status_code=400, content={"error": f"Unknown genre: {genre}"}
         )
 
     try:
-        msg = setter(enabled)
+        msg = _set_genre_tools_enabled(genre, enabled)
         _genre_enabled[genre] = enabled
         return {"ok": True, "genre": genre, "enabled": enabled, "message": msg}
     except Exception as e:

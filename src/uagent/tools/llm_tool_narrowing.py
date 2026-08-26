@@ -151,7 +151,16 @@ def should_emit_catalog_steering(
     Under native tool_search the server narrows tools; catalog-before-answer
     steering in system / tools-system prompts must not be emitted.
     Keep steering for nano / legacy / off / non-target providers.
+
+    Also returns False in embedded mode: tool management tools (tool_catalog,
+    tool_load, unload_tool) do not exist there, so steering the model to call
+    them would be wrong.
     """
+    from . import _is_embedded_mode
+
+    if _is_embedded_mode():
+        return False
+
     if _get_gpt54_tool_search_mode() != "native":
         return True
 
@@ -210,6 +219,8 @@ def _select_tool_specs_legacy(
     except Exception:
         human_ask_tool_spec = None
 
+    from . import _EMBEDDED_EXCLUDED_TOOLS, _is_embedded_mode
+
     helper_specs: list[dict[str, Any]] = []
     helper_names: set[str] = set()
     for helper_spec in (
@@ -223,6 +234,10 @@ def _select_tool_specs_legacy(
             if isinstance(fn, dict):
                 helper_name = str(fn.get("name") or "").strip()
                 if helper_name and helper_name not in helper_names:
+                    # Embedded mode: management tools are fully absent, even
+                    # from the narrowed helper set sent to the LLM.
+                    if _is_embedded_mode() and helper_name in _EMBEDDED_EXCLUDED_TOOLS:
+                        continue
                     helper_names.add(helper_name)
                     helper_specs.append(helper_spec)
 

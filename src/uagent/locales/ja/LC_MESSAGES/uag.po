@@ -4840,3 +4840,15 @@ msgstr "[sessions] メモリ候補を承認しました。"
 
 msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr "組み込みモード: セッションストアを無効にし(UAGENT_SESSION_STORE=0)、ツール管理ツール(tool_catalog、tool_load、unload_tool)を非表示にします。"
+
+msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgstr "Index (ソース/ドキュメントパーサー: py2idx、md2idx、excel2idx、csv2idx、...)"
+
+msgid "Dev (lint_js_ts, mdformat_check)"
+msgstr "Dev (lint_js_ts、mdformat_check)"
+
+msgid "Web (UCP commerce, public transit route)"
+msgstr "Web (UCP コマース、公共交通経路)"
+
+msgid "Utility (geodesic distance, pdf export, quantities)"
+msgstr "Utility (測地距離、PDF エクスポート、quantities)"

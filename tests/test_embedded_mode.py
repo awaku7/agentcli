@@ -179,3 +179,40 @@ def test_normal_catalog_includes_management_tools(monkeypatch):
     _reload_tools()
     names = {row.get("name") for row in T.get_tool_catalog(query="", all_items=True)}
     assert MANAGEMENT_TOOLS <= names
+
+
+def test_embedded_disables_catalog_steering(monkeypatch):
+    """Catalog steering must not be emitted when management tools are absent."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
+
+    assert should_emit_catalog_steering() is False
+    assert (
+        should_emit_catalog_steering(
+            provider="openai", depname="gpt-5.6", use_responses_api=True
+        )
+        is False
+    )
+
+
+def test_normal_mode_keeps_catalog_steering(monkeypatch):
+    monkeypatch.delenv("UAGENT_EMBEDDED", raising=False)
+    from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
+
+    assert should_emit_catalog_steering() is True
+
+
+def test_embedded_legacy_narrowing_excludes_management_tools(monkeypatch):
+    """GPT-5.4 legacy narrowing must not leak management tools in embedded mode."""
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    from uagent.tools.llm_tool_narrowing import _select_tool_specs_legacy
+
+    calls = [{"role": "user", "content": "markdownのファイルを並べ替えたい"}]
+    specs = _select_tool_specs_legacy(calls)
+    names = {
+        s.get("function", {}).get("name")
+        for s in specs
+        if isinstance(s.get("function"), dict)
+    }
+    assert not (MANAGEMENT_TOOLS & names)
+    assert "human_ask" in names
