@@ -3546,7 +3546,7 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 msgstr ""
 "Ota tietty työkalu käyttöön nimellä käynnistettäessä. Voidaanmäärittää "
 "useita kertoja."

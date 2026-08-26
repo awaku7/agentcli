@@ -3404,7 +3404,7 @@ msgstr "시작 시 LLM에 메시지를 삽입하고 완료 후 종료합니다. 
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 msgstr "시작 시 이름으로 특정 도구를 활성화합니다. 여러 번 지정할 수 있습니다."
 
 #: src/uagent/util_common.py:223

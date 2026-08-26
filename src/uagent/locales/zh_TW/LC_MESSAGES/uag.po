@@ -3390,7 +3390,7 @@ msgstr "在啟動時向 LLM 注入一條訊息，並在完成後退出。意味�
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 msgstr "啟動時按名稱啟用特定工具。可以指定多次。"
 
 #: src/uagent/util_common.py:223

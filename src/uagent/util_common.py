@@ -213,7 +213,8 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         action="append",
         default=None,
         help=_(
-            "Enable a specific tool by name at startup. Can be specified multiple times."
+            "Enable a specific tool by name at startup. "
+            "Can be specified multiple times or as a comma-separated list."
         ),
     )
     parser.add_argument(
@@ -224,6 +225,16 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         help=_("Load a plugin from a directory (can be specified multiple times)."),
     )
     args, unknown = parser.parse_known_args(argv)
+    if args.enable_tools:
+        # Support comma-separated values in addition to repeated flags:
+        # --enable-tool a,b --enable-tool c  ->  [a, b, c] (order preserved)
+        flat: list[str] = []
+        for item in args.enable_tools:
+            for part in str(item).split(","):
+                part = part.strip()
+                if part:
+                    flat.append(part)
+        args.enable_tools = flat
     parsed = vars(args)
     parsed["realtime"] = realtime
     return parsed, unknown

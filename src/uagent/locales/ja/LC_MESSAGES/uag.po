@@ -3394,8 +3394,8 @@ msgstr "起動時に LLM にメッセージを挿入し、完了後に終了し�
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
-msgstr "起動時に名前で特定のツールを有効にします。複数指定可能です。"
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+msgstr "起動時に名前で特定のツールを有効にします。複数回の指定、またはカンマ区切りのリストで指定できます。"
 
 #: src/uagent/util_common.py:223
 msgid "Load a plugin from a directory (can be specified multiple times)."

@@ -3518,7 +3518,7 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 msgstr ""
 "স্টার্টআপে নাম অনুসারে একটি নির্দিষ্ট টুল সক্রিয় করুন। একাধিকবারনির্দিষ্ট "
 "করা যেতে পারে।"

@@ -345,7 +345,11 @@ def run_cli_startup(
             if enable_tools:
                 from .tools._genre_control_util import enable_single_tool
 
-                for tname in enable_tools:
+                # enable_single_tool() registers single-loaded tools newest-first
+                # (smallest x_single_load_seq sorts to the front), so iterate in
+                # reverse to preserve the user-specified order: the first tool
+                # given on the command line is presented to the LLM first.
+                for tname in reversed(enable_tools):
                     try:
                         enable_single_tool(tname)
                     except Exception as e:

@@ -1850,9 +1850,9 @@ msgstr ""
 "--non-interactive."
 
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 msgstr ""
-"Enable a specific tool by name at startup. Can be specified multiple times."
+"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
 
 msgid "Load a plugin from a directory (can be specified multiple times)."
 msgstr "Load a plugin from a directory (can be specified multiple times)."
