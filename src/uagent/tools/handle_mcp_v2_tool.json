@@ -3,7 +3,7 @@
     "param.server_name.description": "Server name defined in mcp_servers.json. If specified, it takes priority over url.",
     "param.tool_name.description": "The name of the tool to execute.",
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
-    "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
+    "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in args.",
     "x_search_terms": [
       "mcp",
       "mcp tool",
@@ -25,7 +25,7 @@
     "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
     "param.tool_name.description": "実行するツール名。",
     "param.url.description": "MCP サーバーのエンドポイント URL（http://... または stdio://command...）。",
-    "tool.description": "MCPサーバーのツールを呼び出す。tool_argumentsに引数を辞書で指定。",
+    "tool.description": "MCPサーバーのツールを呼び出す。argsに引数を辞書で指定。",
     "x_search_terms": [
       "mcp",
       "mcp ツール",

@@ -89,7 +89,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "handle_mcp_v2",
         "description": _(
             "tool.description",
-            default="Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
+            default="Call a tool from an MCP server. Provide tool arguments as a dictionary in args.",
         ),
         "x_search_terms": _(
             "x_search_terms",
