@@ -113,3 +113,70 @@ def test_mcp_client_rejects_stateless_stdio() -> None:
         assert exc_info.value.code == "MCP_STATELESS_HTTP_REQUIRED"
 
     asyncio.run(scenario())
+
+
+def test_mcp_stateless_request_sends_sse_accept_header() -> None:
+    """Auto probe must advertise streamable-http compatible Accept header."""
+
+    async def scenario() -> None:
+        requests: list[httpx.Request] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(request)
+            return httpx.Response(
+                200,
+                json={"jsonrpc": "2.0", "id": 1, "result": {"tools": []}},
+            )
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            async with MCPClient(
+                url="https://example.test",
+                protocol_mode="stateless",
+                http_client=http_client,
+            ) as client:
+                await client.list_tools()
+
+        assert requests
+        accept = requests[0].headers.get("accept", "")
+        assert "application/json" in accept
+        assert "text/event-stream" in accept
+
+    asyncio.run(scenario())
+
+
+def test_mcp_auto_probe_406_falls_back_to_sdk_initialize() -> None:
+    """406 during the stateless probe must trigger the legacy fallback path."""
+
+    async def scenario() -> None:
+        calls: list[str] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            body = request.read()
+            if b'"server/discover"' in body:
+                calls.append("probe")
+                return httpx.Response(406)
+            calls.append("other")
+            return httpx.Response(
+                200,
+                json={"jsonrpc": "2.0", "id": 1, "result": {"tools": []}},
+            )
+
+        transport = httpx.MockTransport(handler)
+        async with httpx.AsyncClient(transport=transport) as http_client:
+            try:
+                async with MCPClient(
+                    url="https://example.test",
+                    protocol_mode="auto",
+                    http_client=http_client,
+                ) as client:
+                    # 406 is treated as a probe rejection; the client must not
+                    # raise MCP_HTTP_STATUS_ERROR during connect.
+                    assert client is not None
+            except MCPTransportError as exc:
+                # Acceptable only if it is not the probe's 406 error.
+                assert exc.code != "MCP_HTTP_STATUS_ERROR"
+
+        assert calls and calls[0] == "probe"
+
+    asyncio.run(scenario())

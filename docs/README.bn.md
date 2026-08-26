@@ -119,6 +119,7 @@ flowchart LR
 বহু-এজেন্ট orchestration জটিল কাজকে একবারে শেষ করার বদলে পুনরায় চালানোযোগ্য করে।
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### 🎙 রিয়েলটাইম ভয়েস
@@ -304,6 +305,13 @@ cloud credential অথবা MQTT/OPC UA server। চালানোর সম
 
 দেখুন [অটো-পাইলট](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)।
 
+### এমবেডেড মোড
+
+সীমিত স্থানীয় ডিপ্লয়মেন্টের জন্য `--embedded` ব্যবহার করুন এবং অ্যাপ্লিকেশনের প্রয়োজনীয় টুলগুলোই স্পষ্টভাবে লোড করুন।
+এমবেডেড মোডে `--tool-genre-mask` উপেক্ষা করা হয়; একাধিক `--enable-tool` অপশন দিলে নির্ধারিত টুলের ক্রম বজায় থাকে।
+
+[CLI ব্যবহারের রেফারেন্স](USAGE.bn.md) দেখুন।
+
 ### মানবীয় অনুমোদন
 
 সংবেদনশীল কাজের আগে `human_ask` বিরতি দেয়। File deletion, overwrite, shell command, device control,
@@ -418,4 +426,3 @@ Bug report, feature idea, documentation improvement, translation, tool, skill �
 ## লাইসেন্স
 
 [Apache লাইসেন্স 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
-

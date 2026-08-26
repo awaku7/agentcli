@@ -156,6 +156,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Platform setup](#platform-setup)-г үзнэ үү.
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Provider сонгох
@@ -304,6 +305,13 @@ application-ийг дахин бүтээлгүйгээр provider-ийг сол�
 Auto-pilot-ийг зогсоохдоо **F12**, одоогийн хариуг зогсоохдоо **F12** дарна.
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)-г үзнэ үү.
+
+### Embedded горим
+
+Хязгаарлагдмал локал байршуулалтад `--embedded` ашиглаж, зөвхөн аппликейшнд хэрэгтэй хэрэгслүүдийг тодорхой зааж ачаална уу.
+Embedded горимд `--tool-genre-mask` үл тооцогдоно; давтан өгсөн `--enable-tool` сонголтууд хэрэгслийн заасан дарааллыг хадгална.
+
+[CLI ашиглалтын лавлагаа](USAGE.mn.md)-г үзнэ үү.
 
 ### Хүний баталгаажуулалт
 

@@ -45,6 +45,7 @@ _env_workdir = env_get("UAGENT_WORKDIR")
 
 UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
+UAGENT_INJECT_MESSAGE_AUTO = _startup_args.get("inject_message_auto")
 if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
 # Non-interactive runs must never wait for a person or load project

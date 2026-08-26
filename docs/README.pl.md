@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [konfigurację platformy](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Wybór dostawcy
@@ -303,6 +304,13 @@ Użyj `:auto` do pracy wieloetapowej z opcjonalnym modelem recenzenta. Ustaw lim
 Naciśnij **F12**, aby zatrzymać auto-pilot, lub **F12**, aby zatrzymać bieżącą odpowiedź.
 
 Zobacz [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Tryb osadzony
+
+W przypadku ograniczonych wdrożeń lokalnych użyj `--embedded` i jawnie załaduj tylko narzędzia potrzebne aplikacji.
+W trybie osadzonym `--tool-genre-mask` jest ignorowany, a powtarzane opcje `--enable-tool` zachowują podaną kolejność narzędzi.
+
+Zobacz [dokumentację użycia CLI](USAGE.pl.md).
 
 ### Potwierdzenie użytkownika
 

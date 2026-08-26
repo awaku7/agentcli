@@ -55,9 +55,44 @@ Enable or disable sending tool definitions to the LLM. Overrides the `UAGENT_USE
 
 When disabled, the LLM receives no tool definitions and cannot call any tool.
 
+### `--embedded`
+
+Embedded mode for constrained or reproducibility-sensitive deployments.
+
+- Disables the session store.
+- Hides tool-management tools (`tool_catalog`, `tool_load`, `unload_tool`) unless explicitly enabled.
+- Ignores `--tool-genre-mask`; use `--enable-tool` for explicit tool loading.
+
+### `--enable-tool <name>`
+
+Explicitly load a tool at startup. The option can be repeated, and comma-separated names are also accepted.
+
+```
+uag --embedded --enable-tool handle_mcp_v2 --enable-tool human_ask
+uag --embedded --enable-tool handle_mcp_v2,human_ask
+```
+
+The specified order is preserved and is reflected in the tool order presented to the LLM. Explicitly enabled tools are pinned against automatic unloading.
+
 ______________________________________________________________________
 
 ## CLI-only options
+
+### `--inject-message-auto <goal-options>`
+
+Start auto-pilot from a non-interactive injected goal. The value uses the same options as `:auto`; quote the complete value when it contains options.
+
+```
+uag --embedded --enable-tool handle_mcp_v2 --inject-message-auto "Sort the items --max-rounds 10"
+uag --embedded --enable-tool handle_mcp_v2 --inject-message-auto "Sort the items --infinite"
+```
+
+The normal mode uses the reviewer judgment path. Set `UAGENT_AUTO_SENTINEL=1` to opt into single-LLM sentinel mode. In that mode, the target LLM must end each response with exactly one of:
+
+- `<AUTO_CONTINUE>` — run another round
+- `<AUTO_COMPLETE>` — finish successfully
+
+Missing or invalid markers stop auto-pilot safely. This still runs the target LLM; it only avoids the additional reviewer LLM call.
 
 ### `--non-interactive`
 
@@ -114,6 +149,8 @@ ______________________________________________________________________
 | `UAGENT_WORKDIR` | Default working directory |
 | `UAGENT_WEB_HOST` | Web server bind address (default: `127.0.0.1`) |
 | `UAGENT_USE_TOOL` | Disable tools when set to `0`, `false`, `no`, or `off` |
+| `UAGENT_AUTO_SENTINEL` | Opt into single-LLM auto-pilot sentinel mode when set to `1` |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximum consecutive fresh tool calls (default: `32`) |
 | `UAGENT_SHRINK_CNT` | Auto-shrink threshold in messages (default: `100`, `0` = off) |
 | `UAGENT_SHRINK_KEEP_LAST` | Messages to retain after shrink (default: `20`) |
 | `UAGENT_LANG` | Interface language (`ja`, `en`, etc.) |

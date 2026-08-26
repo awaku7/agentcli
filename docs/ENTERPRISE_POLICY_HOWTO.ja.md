@@ -10,7 +10,6 @@ uagのポリシー設定は、実行権限と企業固有ルールを `UnifiedPo
 none / read_only / propose_only / write / admin
 ```
 
-
 `enterprise-policy.yaml` は、uagで使用するツールやプロバイダーなどの動作を制御する設定ファイルです。
 
 ツールについて、次の動作を指定できます。
@@ -139,20 +138,28 @@ tools:
 - `confirm` は通常の確認フローを要求します。
 - `allow` は明示的に許可します。
 - `{}` に戻すとルールなしの状態になります。
-- Policyは主にツールの実行・呼び出しを制御します。起動時に有効化するジャンルは、別途 `--tool-genre-mask` で指定します。
+- Policyは主にツールの実行・呼び出しを制御します。
+- 通常モードでジャンルを有効化する場合は、`--tool-genre-mask` を使用します。
+- `--embedded` ではgenre maskは無視されるため、必要なツールを `--enable-tool` で個別に指定します。
 
 ## 起動時のツール有効化との併用
 
-起動時にジャンルを有効化しない場合:
+embeddedモードで必要なツールだけ個別に有効化する場合:
 
 ```cmd
-uag --tool-genre-mask 0
+uag --embedded --enable-tool handle_mcp_v2 --enable-tool human_ask
 ```
 
-必要なツールだけ個別に有効化する場合:
+`--enable-tool` は複数回指定でき、指定順が保持されます。カンマ区切りも使用できます。
 
 ```cmd
-uag --tool-genre-mask 0 --enable-tool get_current_location --enable-tool get_weather_wttr
+uag --embedded --enable-tool handle_mcp_v2,human_ask
+```
+
+通常モードでジャンルを有効化する場合:
+
+```cmd
+uag --tool-genre-mask 1
 ```
 
 Policyで拒否したツールは、起動時に有効化しても実行できません。

@@ -48,6 +48,17 @@ def test_genre_mask_parse_ok(monkeypatch):
     assert args["tool_genre_mask"] == 8191
 
 
+def test_embedded_ignores_genre_mask(monkeypatch):
+    from uagent.tools import _genre_control_util as G
+
+    G._ENABLED_GENRES.clear()
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    from uagent.cli_startup import _apply_startup_tool_genre_mask
+
+    _apply_startup_tool_genre_mask(sum(G._GENRE_BITMAP.values()))
+    assert G._ENABLED_GENRES == set()
+
+
 def test_apply_full_mask_enables_all_genres():
     from uagent.tools._genre_control_util import _GENRE_BITMAP
 

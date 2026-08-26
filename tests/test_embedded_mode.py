@@ -64,6 +64,15 @@ def test_embedded_flag_with_other_options(monkeypatch):
     assert args["enable_tools"] == ["md2idx"]
 
 
+def test_inject_message_auto_parses_as_non_interactive(monkeypatch):
+    args = _parse(
+        monkeypatch,
+        ["--inject-message-auto", "sort items --max-rounds 5"],
+    )
+    assert args["inject_message_auto"] == "sort items --max-rounds 5"
+    assert args["non_interactive"] is True
+
+
 def test_embedded_hides_management_tools(monkeypatch):
     monkeypatch.setenv("UAGENT_EMBEDDED", "1")
     names = _tool_names()
@@ -197,6 +206,9 @@ def test_embedded_disables_catalog_steering(monkeypatch):
 
 def test_normal_mode_keeps_catalog_steering(monkeypatch):
     monkeypatch.delenv("UAGENT_EMBEDDED", raising=False)
+    # Keep this test independent of the host's OpenAI/GPT-5.4 native search
+    # environment; it verifies legacy catalog steering in normal mode.
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "legacy")
     from uagent.tools.llm_tool_narrowing import should_emit_catalog_steering
 
     assert should_emit_catalog_steering() is True

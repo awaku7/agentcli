@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Thiết lập nền tảng](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Chọn provider
@@ -303,6 +304,13 @@ Dùng `:auto` cho công việc nhiều vòng với một mô hình reviewer tùy
 Nhấn **F12** để dừng auto-pilot hoặc **F12** để dừng phản hồi hiện tại.
 
 Xem [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Chế độ nhúng
+
+Đối với các triển khai cục bộ bị giới hạn, hãy dùng `--embedded` và chỉ tải rõ ràng những công cụ mà ứng dụng cần.
+Trong chế độ nhúng, `--tool-genre-mask` bị bỏ qua; các tùy chọn `--enable-tool` lặp lại vẫn giữ nguyên thứ tự công cụ đã chỉ định.
+
+Xem [tài liệu tham khảo sử dụng CLI](USAGE.vi.md).
 
 ### Xác nhận của con người
 

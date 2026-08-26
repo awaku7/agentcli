@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Persediaan platform](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Pilih penyedia
@@ -303,6 +304,13 @@ Gunakan `:auto` untuk kerja berbilang pusingan dengan model penyemak pilihan. Te
 Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons semasa.
 
 Lihat [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Mod terbenam
+
+Untuk penggunaan tempatan yang terhad, gunakan `--embedded` dan muatkan secara jelas hanya alat yang diperlukan oleh aplikasi.
+Dalam mod terbenam, `--tool-genre-mask` diabaikan; pilihan `--enable-tool` yang diulang mengekalkan susunan alat yang ditetapkan.
+
+Lihat [rujukan penggunaan CLI](USAGE.ms.md).
 
 ### Pengesahan manusia
 

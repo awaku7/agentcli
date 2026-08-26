@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Penyiapan platform](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Pilih provider
@@ -303,6 +304,13 @@ Gunakan `:auto` untuk pekerjaan multi-putaran dengan model peninjau opsional. Te
 Tekan **F12** untuk menghentikan auto-pilot atau **F12** untuk menghentikan respons saat ini.
 
 Lihat [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Mode tertanam
+
+Untuk deployment lokal dengan sumber daya terbatas, gunakan `--embedded` dan muat secara eksplisit hanya alat yang diperlukan aplikasi.
+Dalam mode tertanam, `--tool-genre-mask` diabaikan; opsi `--enable-tool` yang diulang mempertahankan urutan alat yang ditentukan.
+
+Lihat [referensi penggunaan CLI](USAGE.id.md).
 
 ### Konfirmasi manusia
 

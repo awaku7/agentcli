@@ -154,6 +154,7 @@ python -m pip install "uag[core,providers,tools]"
 > [הגדרת פלטפורמה](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### בחירת ספק
@@ -302,6 +303,13 @@ python -m pip install PySide6 ewmh dbus-next
 לחצו על **F12** כדי לעצור את הטייס האוטומטי או על **F12** כדי לעצור את התגובה הנוכחית.
 
 ראו [טייס אוטומטי](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### מצב משובץ
+
+לפריסות מקומיות מוגבלות, השתמשו ב־`--embedded` וטענו במפורש רק את הכלים הדרושים ליישום.
+במצב משובץ, `--tool-genre-mask` מתעלם; אפשרויות `--enable-tool` חוזרות שומרות על סדר הכלים שצוין.
+
+ראו את [מדריך השימוש ב־CLI](USAGE.he.md).
 
 ### אישור אנושי
 

@@ -321,6 +321,13 @@ UAGENT_MEMORY_DB=
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)を参照してください。
 
+### Embeddedモード
+
+制約のあるローカル環境では、`--embedded`を使用し、アプリケーションに必要なツールだけを明示的にロードしてください。
+Embeddedモードでは`--tool-genre-mask`は無視され、`--enable-tool`を複数指定した場合は指定順が保持されます。
+
+[CLI使用リファレンス](USAGE.ja.md)を参照してください。
+
 ### 人間による確認
 
 `human_ask`は機密性の高い操作の前に一時停止します。ファイルの削除、上書き、シェルコマンド、デバイス制御、

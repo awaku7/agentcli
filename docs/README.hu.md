@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Platform setup](#platform-setup) részt.
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Szolgáltató kiválasztása
@@ -303,6 +304,13 @@ Használd a `:auto` parancsot többfordulós munkához, opcionális ellenőrző 
 A **F12** billentyűvel leállíthatod az automata pilótát, a **F12** billentyűvel pedig az aktuális választ.
 
 Lásd az [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) oldalt.
+
+### Beágyazott mód
+
+Korlátozott helyi telepítésekhez használja a `--embedded` módot, és csak az alkalmazás által igényelt eszközöket töltse be explicit módon.
+Beágyazott módban a `--tool-genre-mask` figyelmen kívül marad; az ismételt `--enable-tool` kapcsolók megőrzik a megadott eszközsorrendet.
+
+Lásd a [CLI használati referenciát](USAGE.hu.md).
 
 ### Emberi megerősítés
 

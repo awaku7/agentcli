@@ -154,6 +154,7 @@ python -m pip install "uag[core,providers,tools]"
 > [إعداد المنصة](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### اختيار مزوّد
@@ -302,6 +303,13 @@ python -m pip install PySide6 ewmh dbus-next
 اضغط **F12** لإيقاف القيادة الآلية أو **F12** لإيقاف الاستجابة الحالية.
 
 راجع [القيادة الآلية](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### الوضع المضمّن
+
+لعمليات النشر المحلية ذات الموارد المحدودة، استخدم `--embedded` وحمّل صراحةً الأدوات التي يتطلبها التطبيق فقط.
+في الوضع المضمّن، يتم تجاهل `--tool-genre-mask`، بينما يحافظ تكرار خيارات `--enable-tool` على ترتيب الأدوات المحدد.
+
+راجع [مرجع استخدام CLI](USAGE.ar.md).
 
 ### تأكيد بشري
 

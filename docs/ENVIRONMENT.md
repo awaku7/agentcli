@@ -283,6 +283,8 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
 - `UAGENT_PARALLEL_WORKERS`: Number of threads for parallel tool execution (default: `8`). Increase for more concurrency on I/O-bound tasks.
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: Automatically unload tools that haven't been used for this many LLM rounds (default: `10`). Set to `0` to disable auto-unload.
+- `UAGENT_AUTO_SENTINEL`: Set to `1` to use single-LLM auto-pilot sentinel mode. `<AUTO_CONTINUE>` continues and `<AUTO_COMPLETE>` finishes; a missing marker stops safely.
+- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum number of consecutive fresh tool calls across all tool names and arguments (default: `32`).
 
 #### LLM Parameters (OpenAI-compatible)
 

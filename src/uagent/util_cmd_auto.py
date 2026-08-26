@@ -16,6 +16,43 @@ from .util_image import try_open_images_from_text
 tr = _
 tr_ = _
 
+_SENTINEL_INSTRUCTION = (
+    "\n\nAuto-pilot protocol: finish your response with exactly one line: "
+    "<AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. "
+    "If neither marker is present, auto-pilot stops safely."
+)
+
+
+def _sentinel_mode_enabled() -> bool:
+    raw = (env_get("UAGENT_AUTO_SENTINEL", "0") or "0").strip().lower()
+    return raw in {"1", "true", "yes", "on"}
+
+
+def _with_sentinel_instruction(prompt: str) -> str:
+    return str(prompt) + _SENTINEL_INSTRUCTION
+
+
+def _sentinel_judgment(messages: list[dict[str, Any]]) -> str | None:
+    """Read an exact sentinel from the latest assistant response."""
+    for message in reversed(messages or []):
+        if not isinstance(message, dict) or message.get("role") != "assistant":
+            continue
+        content = message.get("content", "")
+        if isinstance(content, list):
+            content = " ".join(
+                str(item.get("text", "")) if isinstance(item, dict) else str(item)
+                for item in content
+            )
+        lines = [line.strip() for line in str(content).splitlines() if line.strip()]
+        if not lines:
+            return None
+        if lines[-1] == "<AUTO_COMPLETE>":
+            return "COMPLETE"
+        if lines[-1] == "<AUTO_CONTINUE>":
+            return "CONTINUE"
+        return None
+    return None
+
 
 def _get_followup_prompt(goal: str, feedback: str = "") -> str:
     """Generate continuation prompt for the main query (i18n)."""
@@ -215,16 +252,28 @@ def _run_auto_pilot_loop(
                     return
 
             # === Step B first: Reviewer judgment ===
-            # On the first iteration this judges the initial goal execution.
-            # On subsequent iterations this judges the followup from Step A.
-            judgment, feedback = _ask_reviewer_judgment(
-                _judge_provider,
-                _judge_client,
-                _judge_depname,
-                messages,
-                core,
-                make_client_fn=make_client_fn,
-            )
+            # Sentinel mode is an opt-in single-LLM path: the target model's
+            # exact final marker replaces the extra reviewer LLM call.
+            if _sentinel_mode_enabled():
+                judgment = _sentinel_judgment(messages)
+                feedback = ""
+                if judgment is None:
+                    print(
+                        "[AUTO] Missing or invalid auto sentinel; stopping safely."
+                    )
+                    return
+                print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})
+            else:
+                # On the first iteration this judges the initial goal execution.
+                # On subsequent iterations this judges the followup from Step A.
+                judgment, feedback = _ask_reviewer_judgment(
+                    _judge_provider,
+                    _judge_client,
+                    _judge_depname,
+                    messages,
+                    core,
+                    make_client_fn=make_client_fn,
+                )
 
             if judgment == "COMPLETE":
                 core.auto_pilot_active = False
@@ -244,6 +293,8 @@ def _run_auto_pilot_loop(
 
             # === Step A: Main query (refinement followup) ===
             next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
+            if _sentinel_mode_enabled():
+                next_prompt = _with_sentinel_instruction(next_prompt)
 
             core.set_status(True, "AUTO")
             if core.auto_pilot_max_rounds is None:
@@ -371,5 +422,7 @@ def _handle_cmd_auto(
     else:
         print(_("[AUTO] Max rounds: %(max)d") % {"max": max_rounds})
 
-    # Return CommandResult with run_llm=True to trigger the first LLM call
-    return CommandResult(run_llm=True, prompt=goal)
+    # Return CommandResult with run_llm=True to trigger the first LLM call.
+    # In opt-in sentinel mode, the target model itself supplies continuation.
+    prompt = _with_sentinel_instruction(goal) if _sentinel_mode_enabled() else goal
+    return CommandResult(run_llm=True, prompt=prompt)

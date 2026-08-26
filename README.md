@@ -316,6 +316,17 @@ Press **F12** to stop auto-pilot or **F12** to stop the current response.
 
 See [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
+### Embedded mode
+
+For constrained local deployments, use `--embedded` and explicitly load only the tools required by the application.
+In embedded mode, `--tool-genre-mask` is ignored, while repeated `--enable-tool` options preserve the specified tool order.
+
+```bash
+uag --embedded --enable-tool handle_mcp_v2 --enable-tool human_ask
+```
+
+See the [CLI usage reference](https://github.com/awaku7/agentcli/blob/main/docs/USAGE.md#embedded).
+
 ### Human confirmation
 
 `human_ask` pauses before sensitive actions. File deletion, overwrites, shell commands, device controls,

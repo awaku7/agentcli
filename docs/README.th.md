@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Platform setup](#platform-setup)
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### เลือก provider
@@ -303,6 +304,13 @@ cloud credentials หรือเซิร์ฟเวอร์ MQTT/OPC UA เ�
 กด **F12** เพื่อหยุด auto-pilot หรือ **F12** เพื่อหยุดการตอบกลับปัจจุบัน
 
 ดู [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)
+
+### โหมดฝังตัว
+
+สำหรับการติดตั้งภายในเครื่องที่มีข้อจำกัด ให้ใช้ `--embedded` และโหลดเฉพาะเครื่องมือที่แอปพลิเคชันต้องการอย่างชัดเจน
+ในโหมดฝังตัว ระบบจะไม่สนใจ `--tool-genre-mask` และตัวเลือก `--enable-tool` ที่ระบุซ้ำจะรักษาลำดับเครื่องมือที่กำหนดไว้
+
+ดู [เอกสารอ้างอิงการใช้งาน CLI](USAGE.th.md)
 
 ### การยืนยันโดยมนุษย์
 

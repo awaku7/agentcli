@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Usanidi wa jukwaa](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Chagua mtoa huduma
@@ -303,6 +304,13 @@ Tumia `:auto` kwa kazi za raundi nyingi ukiwa na modeli ya mkaguzi ya hiari. Wek
 Bonyeza **F12** kusimamisha uendeshaji wa kiotomatiki au **F12** kusimamisha jibu la sasa.
 
 Tazama [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Hali iliyopachikwa
+
+Kwa usakinishaji wa ndani wenye rasilimali chache, tumia `--embedded` na upakie wazi zana zinazohitajika na programu pekee.
+Katika hali iliyopachikwa, `--tool-genre-mask` hupuuzwa; chaguo zinazorudiwa za `--enable-tool` hudumisha mpangilio uliobainishwa wa zana.
+
+Tazama [marejeleo ya matumizi ya CLI](USAGE.sw.md).
 
 ### Uthibitisho wa binadamu
 

@@ -148,6 +148,9 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 # unload_tool(target) clears that target's tool_load counter so a later
 # intentional reload is not counted as a continuation of the prior streak.
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
+# Count freshly executed tool calls across consecutive rounds, independently
+# of tool name and arguments. This is a second, broader runaway guard.
+_CONSECUTIVE_TOOL_CALL_COUNT = 0
 _MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
@@ -244,6 +247,40 @@ def clear_general_tool_loop_streaks() -> None:
     for key in list(_TOOL_CALL_FINGERPRINTS.keys()):
         if str(key).startswith("tool:"):
             _TOOL_CALL_FINGERPRINTS.pop(key, None)
+
+
+def clear_consecutive_tool_call_streak() -> None:
+    """Clear the cross-tool consecutive-call counter."""
+    global _CONSECUTIVE_TOOL_CALL_COUNT
+    _CONSECUTIVE_TOOL_CALL_COUNT = 0
+
+
+def check_consecutive_tool_calls(
+    tool_calls_list: list[dict[str, Any]],
+    *,
+    record: bool = True,
+    threshold: int | None = None,
+) -> tuple[bool, str, int]:
+    """Detect too many consecutive freshly executed tool calls.
+
+    This deliberately ignores both tool names and arguments. Only a round
+    with no fresh tool calls resets the streak.
+    """
+    global _CONSECUTIVE_TOOL_CALL_COUNT
+    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "32")
+    try:
+        default_limit = max(1, int(raw_limit))
+    except (TypeError, ValueError):
+        default_limit = 32
+    limit = default_limit if threshold is None else max(1, int(threshold))
+    if not tool_calls_list:
+        if record:
+            _CONSECUTIVE_TOOL_CALL_COUNT = 0
+        return False, "", 0
+    total = _CONSECUTIVE_TOOL_CALL_COUNT + len(tool_calls_list)
+    if record:
+        _CONSECUTIVE_TOOL_CALL_COUNT = total
+    return total >= limit, "consecutive tool calls", total
 
 
 def _tool_calls_include_name(tool_calls_list: list[dict[str, Any]], name: str) -> bool:
@@ -1460,8 +1497,24 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
-        # Count only freshly executed general tools. Cache-reuse replies
-        # ("Already called...") must not inflate the loop counter.
+        # Count all freshly executed calls, regardless of tool name or args.
+        # Cache-reuse replies ("Already called...") must not inflate the guard.
+        blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
+            fresh_tool_calls
+        )
+        if blocked:
+            print(
+                "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+                % {"n": blocked_count}
+            )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+        # The narrower detector catches repeated calls with identical args.
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             print(
@@ -1787,6 +1840,7 @@ def run_llm_rounds(
 
     # Reset management tool call loop detection for this session
     _TOOL_CALL_FINGERPRINTS.clear()
+    clear_consecutive_tool_call_streak()
 
     if judgment_mode:
         cache_mgr, gemini_cache_name = None, None

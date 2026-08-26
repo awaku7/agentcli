@@ -69,7 +69,10 @@ class StatelessHTTPClient:
                 protocol_version=self.protocol_version,
             )
         )
-        request_headers.setdefault("Accept", "application/json")
+        # streamable-http servers require both JSON and SSE in Accept
+        # (mcp SDK >= 1.28 returns 406 otherwise). User-supplied headers
+        # still take precedence via setdefault.
+        request_headers.setdefault("Accept", "application/json, text/event-stream")
         request_headers.setdefault("Content-Type", "application/json")
 
         if self.authorization_provider is not None:

@@ -4,15 +4,15 @@
 
 - リポジトリ: `C:\KAIHATSU\agentcli`
 - 生成元: `code_map`（JSON）
-- 解析ファイル数: **768**
-- ファイル間リレーション数: **2,416**
+- 解析ファイル数: **854**
+- ファイル間リレーション数: **2,746**
 - 解析内容: シンボル定義、プロジェクト依存関係、ファイル間の import / require 関係
 
 ## 検出された言語
 
 | 言語 | ファイル数 |
 |---|---:|
-| Python | 740 |
+| Python | 826 |
 | JavaScript | 7 |
 | TypeScript | 6 |
 | Rust | 4 |
@@ -47,7 +47,7 @@
 
 ## 生成ファイル
 
-- 詳細なJSONコードマップ: `outputs/code_map/code_map_20260819_102200_965208.json`
+- 詳細なJSONコードマップ: `outputs/code_map/code_map_20260826_133645_796045.json`
 - `include_symbols=true`
 - `include_relations=true`
 - `project_only=false`

@@ -140,6 +140,7 @@ python -m pip install "uag[core,providers,tools]"
 > Platform entegrasyonları isteğe bağlıdır. Yalnızca işletim sisteminizin ihtiyaç duyduklarını kurun; bkz. [Platform setup](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Sağlayıcı seçme
@@ -283,6 +284,13 @@ Bazı entegrasyonların tarayıcı ikili dosyaları, Bluetooth izinleri, bulut k
 İsteğe bağlı bir inceleyici modeliyle çok turlu çalışma için `:auto` kullanın. `--max-rounds N` ile tur sınırı belirleyin. Auto-pilot'u durdurmak için **F12**'e, mevcut yanıtı durdurmak için **F12**'ye basın.
 
 Bkz. [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Gömülü mod
+
+Kısıtlı yerel dağıtımlar için `--embedded` kullanın ve yalnızca uygulamanın gerektirdiği araçları açıkça yükleyin.
+Gömülü modda `--tool-genre-mask` yok sayılır; yinelenen `--enable-tool` seçenekleri belirtilen araç sırasını korur.
+
+[CLI kullanım başvurusuna](USAGE.tr.md) bakın.
 
 ### İnsan onayı
 

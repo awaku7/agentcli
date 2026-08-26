@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import time
@@ -16,6 +17,7 @@ class CliStartupState:
     messages: list[dict[str, Any]]
     session_store: Any = None
     session_id: str | None = None
+    inject_message_auto: str | None = None
     should_exit: bool = False
 
 
@@ -44,6 +46,15 @@ def _prompt_startup_tool_genre_mask() -> int:
 
 
 def _apply_startup_tool_genre_mask(mask: int) -> None:
+    # Embedded mode intentionally ignores genre masks. Tools must be selected
+    # explicitly with --enable-tool so a broad mask cannot reintroduce distractors.
+    if os.environ.get("UAGENT_EMBEDDED", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        return
     if mask <= 0:
         return
 
@@ -77,6 +88,7 @@ def run_cli_startup(
     non_interactive: bool,
     tool_genre_mask: int | None = None,
     inject_message: str | None = None,
+    inject_message_auto: str | None = None,
     enable_tools: list[str] | None = None,
 ) -> CliStartupState:
     import io
@@ -448,7 +460,7 @@ def run_cli_startup(
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
 
-    if non_interactive:
+    if non_interactive and not inject_message_auto:
         core.set_status(False, "")
         print(
             "[INFO] "
@@ -464,6 +476,7 @@ def run_cli_startup(
             messages=messages,
             session_store=session_store,
             session_id=session_id,
+            inject_message_auto=inject_message_auto,
             should_exit=True,
         )
 
@@ -477,5 +490,6 @@ def run_cli_startup(
         messages=messages,
         session_store=session_store,
         session_id=session_id,
+        inject_message_auto=inject_message_auto,
         should_exit=False,
     )

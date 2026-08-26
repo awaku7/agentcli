@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Plattformsinstallation](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Välj leverantör
@@ -303,6 +304,13 @@ Använd `:auto` för arbete i flera omgångar med en valfri granskningsmodell. A
 Tryck på **F12** för att stoppa autopiloten eller **F12** för att stoppa det aktuella svaret.
 
 Se [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Inbäddat läge
+
+För begränsade lokala installationer använder du `--embedded` och läser uttryckligen bara in de verktyg som programmet behöver.
+I inbäddat läge ignoreras `--tool-genre-mask`, medan upprepade `--enable-tool`-alternativ behåller den angivna verktygsordningen.
+
+Se [referensen för CLI-användning](USAGE.sv.md).
 
 ### Bekräftelse av människa
 

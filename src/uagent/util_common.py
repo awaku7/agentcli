@@ -208,6 +208,14 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         ),
     )
     parser.add_argument(
+        "--inject-message-auto",
+        dest="inject_message_auto",
+        default=None,
+        help=_(
+            "Start auto-pilot with an injected goal. Include --max-rounds N or --infinite in the value."
+        ),
+    )
+    parser.add_argument(
         "--enable-tool",
         dest="enable_tools",
         action="append",
@@ -235,6 +243,8 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         help=_("Load a plugin from a directory (can be specified multiple times)."),
     )
     args, unknown = parser.parse_known_args(argv)
+    if args.inject_message_auto is not None:
+        args.non_interactive = True
     if args.enable_tools:
         # Support comma-separated values in addition to repeated flags:
         # --enable-tool a,b --enable-tool c  ->  [a, b, c] (order preserved)

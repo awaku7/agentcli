@@ -153,6 +153,7 @@ python -m pip install "uag[core,providers,tools]"
 > 플랫폼 통합 기능은 선택 사항입니다. 운영 체제에 필요한 항목만 설치하세요. [Platform setup](#platform-setup)을 참조하세요.
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### 프로바이더 선택
@@ -300,6 +301,13 @@ MQTT/OPC UA 서버와 같은 추가 시스템 요구 사항이 있습니다. 관
 자동 조종을 중지하려면 **F12**, 현재 응답을 중지하려면 **F12**를 누르세요.
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)을 참조하세요.
+
+### Embedded 모드
+
+제한된 로컬 배포에서는 `--embedded`를 사용하고 애플리케이션에 필요한 도구만 명시적으로 로드하세요.
+Embedded 모드에서는 `--tool-genre-mask`가 무시되며, 여러 번 지정한 `--enable-tool` 옵션의 도구 순서가 유지됩니다.
+
+[CLI 사용 참고서](USAGE.ko.md)를 참조하세요.
 
 ### 사용자 확인
 

@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Ρύθμιση πλατφόρμας](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Επιλογή παρόχου
@@ -303,6 +304,13 @@ python -m pip install PySide6 ewmh dbus-next
 Πατήστε **F12** για να σταματήσετε τον αυτόματο πιλότο ή **F12** για να σταματήσετε την τρέχουσα απάντηση.
 
 Δείτε τον [Αυτόματο πιλότο](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Ενσωματωμένη λειτουργία
+
+Για περιορισμένες τοπικές εγκαταστάσεις, χρησιμοποιήστε `--embedded` και φορτώστε ρητά μόνο τα εργαλεία που χρειάζεται η εφαρμογή.
+Στην ενσωματωμένη λειτουργία, το `--tool-genre-mask` αγνοείται, ενώ οι επαναλαμβανόμενες επιλογές `--enable-tool` διατηρούν την καθορισμένη σειρά εργαλείων.
+
+Δείτε την [αναφορά χρήσης του CLI](USAGE.el.md).
 
 ### Επιβεβαίωση από άνθρωπο
 

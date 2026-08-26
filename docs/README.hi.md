@@ -153,6 +153,7 @@ python -m pip install "uag[core,providers,tools]"
 > Platform integrations optional हैं। केवल अपने operating system के लिए आवश्यक चीज़ें install करें; [Platform setup](#platform-setup) देखें।
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Provider चुनें
@@ -301,6 +302,13 @@ Optional reviewer model के साथ multi-round work के लिए `:aut
 Auto-pilot रोकने के लिए **F12** या current response रोकने के लिए **F12** दबाएँ।
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) देखें।
+
+### एम्बेडेड मोड
+
+सीमित स्थानीय परिनियोजन के लिए `--embedded` का उपयोग करें और एप्लिकेशन के लिए आवश्यक टूल ही स्पष्ट रूप से लोड करें।
+एम्बेडेड मोड में `--tool-genre-mask` को अनदेखा किया जाता है; बार-बार दिए गए `--enable-tool` विकल्प टूल का निर्धारित क्रम बनाए रखते हैं।
+
+[CLI उपयोग संदर्भ](USAGE.hi.md) देखें।
 
 ### Human confirmation
 

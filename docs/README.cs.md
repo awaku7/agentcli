@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Nastavení platformy](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Výběr poskytovatele
@@ -303,6 +304,13 @@ Pro vícekolovou práci s volitelným kontrolním modelem použijte `:auto`. Lim
 Stisknutím **F12** autopilota zastavíte, stisknutím **F12** zastavíte aktuální odpověď.
 
 Viz [Autopilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Vestavěný režim
+
+Pro omezená lokální nasazení použijte `--embedded` a explicitně načtěte pouze nástroje, které aplikace potřebuje.
+Ve vestavěném režimu se `--tool-genre-mask` ignoruje; opakované volby `--enable-tool` zachovají zadané pořadí nástrojů.
+
+Viz [referenční příručka CLI](USAGE.cs.md).
 
 ### Potvrzení člověkem
 

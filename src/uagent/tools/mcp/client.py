@@ -44,7 +44,10 @@ def _is_legacy_probe_rejection(exc: Exception) -> bool:
         if exc.code != "MCP_HTTP_STATUS_ERROR":
             return False
         status = exc.details.get("status_code")
-        return status in {400, 404, 405}
+        # 406: streamable-http servers require Accept: text/event-stream for
+        # the stateless probe; treat it as a probe rejection so the SDK
+        # initialize path remains the compatibility fallback.
+        return status in {400, 404, 405, 406}
     if isinstance(exc, MCPProtocolError):
         if exc.code != "MCP_JSONRPC_ERROR":
             return False

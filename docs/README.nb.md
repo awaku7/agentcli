@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Platform setup](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Velg en leverandør
@@ -303,6 +304,13 @@ Bruk `:auto` for arbeid over flere runder med en valgfri kontrollmodell. Angi en
 Trykk **F12** for å stoppe autopiloten eller **F12** for å stoppe det gjeldende svaret.
 
 Se [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Innebygd modus
+
+For begrensede lokale distribusjoner bruker du `--embedded` og laster eksplisitt bare verktøyene programmet trenger.
+I innebygd modus ignoreres `--tool-genre-mask`, mens gjentatte `--enable-tool`-valg bevarer den angitte rekkefølgen på verktøyene.
+
+Se [referansen for CLI-bruk](USAGE.nb.md).
 
 ### Bekreftelse fra mennesker
 

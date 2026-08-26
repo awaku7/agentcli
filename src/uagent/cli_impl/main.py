@@ -31,6 +31,7 @@ from .startup import (
     INITIAL_FILE_ARG,
     UAGENT_ENABLE_TOOLS,
     UAGENT_INJECT_MESSAGE,
+    UAGENT_INJECT_MESSAGE_AUTO,
     UAGENT_NON_INTERACTIVE,
     UAGENT_REALTIME,
     UAGENT_TOOL_GENRE_MASK,
@@ -63,6 +64,7 @@ def main() -> None:
         non_interactive=UAGENT_NON_INTERACTIVE,
         tool_genre_mask=UAGENT_TOOL_GENRE_MASK,
         inject_message=UAGENT_INJECT_MESSAGE,
+        inject_message_auto=UAGENT_INJECT_MESSAGE_AUTO,
         enable_tools=UAGENT_ENABLE_TOOLS,
     )
 
@@ -152,6 +154,11 @@ def main() -> None:
                 retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
             )
 
+        if startup.inject_message_auto:
+            core.event_queue.put(
+                {"kind": "command", "text": f":auto {startup.inject_message_auto}"}
+            )
+
         while running:
             ev = core.event_queue.get()
             kind = ev.get("kind")
@@ -207,6 +214,9 @@ def main() -> None:
                                 + _("Auto-pilot interrupted: %(err)s") % {"err": exc}
                             )
                         core.set_status(False, "")
+                    if UAGENT_INJECT_MESSAGE_AUTO:
+                        running = False
+                        break
                 continue
 
             if kind == "schedule_notice":
@@ -418,8 +428,18 @@ def main() -> None:
         if session_store is not None and client is not None and depname:
             active_session_id = getattr(core, "session_id", None)
             if active_session_id:
+                # Shutdown summarization is synchronous and should not start
+                # the separate profile-extraction LLM job by default. Opt in
+                # with UAGENT_PROFILE_ON_EXIT=1.
+                profile_on_exit = (
+                    os.environ.get("UAGENT_PROFILE_ON_EXIT", "0") or "0"
+                ).strip().lower() in {"1", "true", "yes", "on"}
+                previous_profiling = os.environ.get("UAGENT_ENABLE_PROFILING")
                 try:
                     from ..util_cmd_session import _handle_cmd_sessions
+
+                    if not profile_on_exit:
+                        os.environ["UAGENT_ENABLE_PROFILING"] = "0"
 
                     _handle_cmd_sessions(
                         f"summarize {active_session_id}",
@@ -438,6 +458,11 @@ def main() -> None:
                         _("[sessions] Shutdown summary failed: %(error)s")
                         % {"error": exc}
                     )
+                finally:
+                    if previous_profiling is None:
+                        os.environ.pop("UAGENT_ENABLE_PROFILING", None)
+                    else:
+                        os.environ["UAGENT_ENABLE_PROFILING"] = previous_profiling
         # Clear cache on program exit
         if provider in ("gemini", "vertexai") and client:
             try:

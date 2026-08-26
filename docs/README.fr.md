@@ -155,6 +155,7 @@ python -m pip install "uag[core,providers,tools]"
 > [Configuration de la plateforme](#platform-setup).
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### Choisir un fournisseur
@@ -303,6 +304,13 @@ Utilisez `:auto` pour les tâches en plusieurs tours avec un modèle réviseur f
 Appuyez sur **F12** pour arrêter le pilote automatique ou sur **F12** pour arrêter la réponse en cours.
 
 Voir [Pilote automatique](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
+
+### Mode intégré
+
+Pour les déploiements locaux contraints, utilisez `--embedded` et chargez explicitement uniquement les outils nécessaires à l’application.
+En mode intégré, `--tool-genre-mask` est ignoré ; les options `--enable-tool` répétées conservent l’ordre spécifié des outils.
+
+Consultez la [référence d’utilisation de la CLI](USAGE.fr.md).
 
 ### Confirmation humaine
 

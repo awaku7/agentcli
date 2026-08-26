@@ -5,6 +5,8 @@ import json
 from uagent.uagent_llm import (
     _GENERAL_TOOL_LOOP_THRESHOLD,
     _TOOL_CALL_FINGERPRINTS,
+    check_consecutive_tool_calls,
+    clear_consecutive_tool_call_streak,
     check_general_tool_loop,
     check_mgmt_tool_loop,
 )
@@ -21,6 +23,34 @@ def _tc(tool_name: str, **args) -> dict:
 
 def setup_function() -> None:
     _TOOL_CALL_FINGERPRINTS.clear()
+    clear_consecutive_tool_call_streak()
+
+
+def test_consecutive_tool_calls_ignore_tool_name_and_arguments() -> None:
+    for i in range(3):
+        blocked, name, count = check_consecutive_tool_calls(
+            [_tc("add_long_memory", note=f"note-{i}")], threshold=4
+        )
+        assert blocked is False
+        assert name == "consecutive tool calls"
+        assert count == i + 1
+
+    blocked, name, count = check_consecutive_tool_calls(
+        [_tc("search_web", q="different")], threshold=4
+    )
+    assert blocked is True
+    assert name == "consecutive tool calls"
+    assert count == 4
+
+
+def test_empty_round_resets_consecutive_tool_calls() -> None:
+    check_consecutive_tool_calls([_tc("add_long_memory", note="one")], threshold=2)
+    check_consecutive_tool_calls([])
+    blocked, _, count = check_consecutive_tool_calls(
+        [_tc("add_long_memory", note="two")], threshold=2
+    )
+    assert blocked is False
+    assert count == 1
 
 
 def test_general_tool_same_args_blocked_at_threshold() -> None:

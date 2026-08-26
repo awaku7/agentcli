@@ -153,6 +153,7 @@ python -m pip install "uag[core,providers,tools]"
 > [راه‌اندازی پلتفرم](#platform-setup) مراجعه کنید.
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### انتخاب یک ارائه‌دهنده
@@ -301,6 +302,13 @@ python -m pip install PySide6 ewmh dbus-next
 برای توقف خلبان خودکار **F12** یا برای توقف پاسخ فعلی **F12** را فشار دهید.
 
 [خلبان خودکار](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) را ببینید.
+
+### حالت تعبیه‌شده
+
+برای استقرارهای محلی محدود، از `--embedded` استفاده کنید و فقط ابزارهای موردنیاز برنامه را به‌صورت صریح بارگذاری کنید.
+در حالت تعبیه‌شده، `--tool-genre-mask` نادیده گرفته می‌شود و گزینه‌های تکرارشوندهٔ `--enable-tool` ترتیب تعیین‌شدهٔ ابزارها را حفظ می‌کنند.
+
+به [مرجع استفاده از CLI](USAGE.fa.md) مراجعه کنید.
 
 ### تأیید انسانی
 

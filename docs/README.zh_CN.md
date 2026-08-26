@@ -140,6 +140,7 @@ python -m pip install "uag[core,providers,tools]"
 > 平台集成是可选的。只安装操作系统所需的部分；参见 [Platform setup](#platform-setup)。
 
 # Unset: user state directory/sessions/sessions.sqlite3
+
 # Unset: user state directory/memory.sqlite3
 
 ### 选择提供商
@@ -285,6 +286,13 @@ python -m pip install PySide6 ewmh dbus-next
 按 **F12** 停止自动驾驶，或按 **F12** 停止当前响应。
 
 参见 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)。
+
+### 嵌入式模式
+
+对于受限的本地部署，请使用`--embedded`，并仅显式加载应用所需的工具。
+在嵌入式模式下会忽略`--tool-genre-mask`；重复指定`--enable-tool`时会保留指定的工具顺序。
+
+请参阅[CLI使用参考](USAGE.zh_CN.md)。
 
 ### 人工确认
 
