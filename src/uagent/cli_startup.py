@@ -313,15 +313,27 @@ def run_cli_startup(
             if tool_genre_mask is not None:
                 _apply_startup_tool_genre_mask(tool_genre_mask)
             if enable_tools:
-                from .tools._genre_control_util import enable_single_tool
+                from .tools._genre_control_util import (
+                    enable_single_tool,
+                    pin_tool,
+                )
 
                 # enable_single_tool() registers single-loaded tools newest-first
                 # (smallest x_single_load_seq sorts to the front), so iterate in
                 # reverse to preserve the user-specified order: the first tool
                 # given on the command line is presented to the LLM first.
+                #
+                # Explicitly requested tools are pinned so they are never
+                # auto-unloaded mid-session: the user asked for exactly these
+                # tools and a silent removal would break the workflow (e.g. a
+                # long-running physical demo).
                 for tname in reversed(enable_tools):
                     try:
-                        enable_single_tool(tname)
+                        ok = enable_single_tool(tname)
+                        if ok:
+                            pin_tool(
+                                tname, reason="enabled via --enable-tool at startup"
+                            )
                     except Exception as e:
                         print(
                             "[WARN] "
