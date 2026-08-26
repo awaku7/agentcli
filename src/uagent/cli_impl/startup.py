@@ -54,6 +54,13 @@ if UAGENT_NON_INTERACTIVE:
 UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
+UAGENT_EMBEDDED = bool(_startup_args.get("embedded"))
+
+# Embedded mode: no persistent session store, and tool management tools
+# (tool_catalog / tool_load / unload_tool) are hidden from the LLM.
+if UAGENT_EMBEDDED:
+    os.environ["UAGENT_SESSION_STORE"] = "0"
+    os.environ["UAGENT_EMBEDDED"] = "1"
 
 # Initialize the shared Computer Use policy override before startup config is used.
 _computer_use_arg = _startup_args.get("computer_use")

@@ -201,7 +201,20 @@ def main():
             "Run in API-only mode without frontend (no HTML templates or static files)."
         ),
     )
+    parser.add_argument(
+        "--embedded",
+        dest="embedded",
+        action="store_true",
+        default=False,
+        help=_(
+            "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) "
+            "and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+        ),
+    )
     web_args, _web_unknown = parser.parse_known_args()
+    if getattr(web_args, "embedded", False):
+        os.environ["UAGENT_SESSION_STORE"] = "0"
+        os.environ["UAGENT_EMBEDDED"] = "1"
 
     # readme/quickstart first-run display removed (files no longer bundled)
     ensure_mcp_config_template()

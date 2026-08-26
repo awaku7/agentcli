@@ -13,6 +13,7 @@ import uagent.runtime.runtime_init  # noqa: F401
 from .cli_impl.startup import (
     INITIAL_FILE_ARG,
     OpenAI,
+    UAGENT_EMBEDDED,
     UAGENT_ENABLE_TOOLS,
     UAGENT_INJECT_MESSAGE,
     UAGENT_NON_INTERACTIVE,
@@ -53,6 +54,7 @@ from .cli_impl.stdin_loop import stdin_loop
 __all__ = [
     "INITIAL_FILE_ARG",
     "OpenAI",
+    "UAGENT_EMBEDDED",
     "UAGENT_ENABLE_TOOLS",
     "UAGENT_INJECT_MESSAGE",
     "UAGENT_NON_INTERACTIVE",

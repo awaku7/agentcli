@@ -96,7 +96,20 @@ def main():
         default=None,
         help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
     )
+    parser.add_argument(
+        "--embedded",
+        dest="embedded",
+        action="store_true",
+        default=False,
+        help=_(
+            "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) "
+            "and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+        ),
+    )
     args, unknown = parser.parse_known_args()
+    if getattr(args, "embedded", False):
+        os.environ["UAGENT_SESSION_STORE"] = "0"
+        os.environ["UAGENT_EMBEDDED"] = "1"
 
     decision = _runtime_init.decide_workdir(
         cli_workdir=getattr(args, "workdir", None),

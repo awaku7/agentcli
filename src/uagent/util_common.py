@@ -218,6 +218,16 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         ),
     )
     parser.add_argument(
+        "--embedded",
+        dest="embedded",
+        action="store_true",
+        default=False,
+        help=_(
+            "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) "
+            "and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+        ),
+    )
+    parser.add_argument(
         "--plugin-dir",
         dest="plugin_dirs",
         action="append",

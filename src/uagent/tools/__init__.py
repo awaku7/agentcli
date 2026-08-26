@@ -127,6 +127,16 @@ _ = make_tool_translator(__file__)
 # ── GPT-5.4 native tool_search helpers ──────────────────────────
 
 
+def _is_embedded_mode() -> bool:
+    """Check if embedded mode is active (UAGENT_EMBEDDED=1).
+
+    Embedded mode hides tool management tools (tool_catalog, tool_load,
+    unload_tool) from the LLM and is normally enabled via --embedded.
+    """
+    raw = (env_get("UAGENT_EMBEDDED") or "").strip().lower()
+    return raw in ("1", "true", "yes", "on")
+
+
 def _should_preload_lazy_specs() -> bool:
     """Check if lazy tool specs should be pre-registered for server-side narrowing.
 
@@ -1183,7 +1193,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
     # Native GPT-5.4 tool_search: exclude management tools (server handles all)
     # and hidden tools (disabled/private) that shouldn't reach the LLM.
     _native_exclusions: set[str] = set()
-    if _should_preload_lazy_specs():
+    if _should_preload_lazy_specs() or _is_embedded_mode():
         _native_exclusions = {"tool_catalog", "tool_load", "unload_tool"}
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".

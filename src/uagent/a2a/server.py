@@ -470,6 +470,16 @@ def main(argv: Optional[list[str]] = None) -> None:
         default=None,
         help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
     )
+    parser.add_argument(
+        "--embedded",
+        dest="embedded",
+        action="store_true",
+        default=False,
+        help=_(
+            "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) "
+            "and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+        ),
+    )
 
     args = parser.parse_args(argv)
 
@@ -481,6 +491,10 @@ def main(argv: Optional[list[str]] = None) -> None:
         os.environ["UAGENT_A2A_PORT"] = str(args.port)
     except Exception:
         pass
+
+    if getattr(args, "embedded", False):
+        os.environ["UAGENT_SESSION_STORE"] = "0"
+        os.environ["UAGENT_EMBEDDED"] = "1"
 
     reload_dotenv_custom()
     if getattr(args, "computer_use", None) is not None:
