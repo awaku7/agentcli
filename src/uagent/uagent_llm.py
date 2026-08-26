@@ -148,9 +148,10 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 # unload_tool(target) clears that target's tool_load counter so a later
 # intentional reload is not counted as a continuation of the prior streak.
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
-# Count freshly executed tool calls across consecutive rounds, independently
-# of tool name and arguments. This is a second, broader runaway guard.
+# Count freshly executed calls of the same tool across consecutive rounds.
+# This is a second, broader runaway guard than the same-args detector.
 _CONSECUTIVE_TOOL_CALL_COUNT = 0
+_CONSECUTIVE_TOOL_CALL_NAME = ""
 _MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
@@ -250,9 +251,10 @@ def clear_general_tool_loop_streaks() -> None:
 
 
 def clear_consecutive_tool_call_streak() -> None:
-    """Clear the cross-tool consecutive-call counter."""
-    global _CONSECUTIVE_TOOL_CALL_COUNT
+    """Clear the consecutive same-tool call counter."""
+    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
     _CONSECUTIVE_TOOL_CALL_COUNT = 0
+    _CONSECUTIVE_TOOL_CALL_NAME = ""
 
 
 def check_consecutive_tool_calls(
@@ -261,12 +263,12 @@ def check_consecutive_tool_calls(
     record: bool = True,
     threshold: int | None = None,
 ) -> tuple[bool, str, int]:
-    """Detect too many consecutive freshly executed tool calls.
+    """Detect too many consecutive calls of the same tool.
 
-    This deliberately ignores both tool names and arguments. Only a round
-    with no fresh tool calls resets the streak.
+    A different tool starts a new streak. Arguments are intentionally ignored,
+    so calls of the same tool with different arguments still count together.
     """
-    global _CONSECUTIVE_TOOL_CALL_COUNT
+    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
     raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "32")
     try:
         default_limit = max(1, int(raw_limit))
@@ -275,12 +277,28 @@ def check_consecutive_tool_calls(
     limit = default_limit if threshold is None else max(1, int(threshold))
     if not tool_calls_list:
         if record:
-            _CONSECUTIVE_TOOL_CALL_COUNT = 0
+            clear_consecutive_tool_call_streak()
         return False, "", 0
-    total = _CONSECUTIVE_TOOL_CALL_COUNT + len(tool_calls_list)
+
+    count = _CONSECUTIVE_TOOL_CALL_COUNT
+    name = _CONSECUTIVE_TOOL_CALL_NAME
+    for tool_call in tool_calls_list:
+        function = tool_call.get("function", {}) if isinstance(tool_call, dict) else {}
+        current_name = (
+            str(function.get("name", "")).strip() if isinstance(function, dict) else ""
+        )
+        if not current_name:
+            continue
+        if current_name == name:
+            count += 1
+        else:
+            name = current_name
+            count = 1
+
     if record:
-        _CONSECUTIVE_TOOL_CALL_COUNT = total
-    return total >= limit, "consecutive tool calls", total
+        _CONSECUTIVE_TOOL_CALL_NAME = name
+        _CONSECUTIVE_TOOL_CALL_COUNT = count
+    return count >= limit, _("consecutive tool calls"), count
 
 
 def _tool_calls_include_name(tool_calls_list: list[dict[str, Any]], name: str) -> bool:
@@ -1504,7 +1522,9 @@ def _run_one_round(
         )
         if blocked:
             print(
-                "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+                _(
+                    "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+                )
                 % {"n": blocked_count}
             )
             return (

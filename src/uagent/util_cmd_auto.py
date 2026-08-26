@@ -16,7 +16,7 @@ from .util_image import try_open_images_from_text
 tr = _
 tr_ = _
 
-_SENTINEL_INSTRUCTION = (
+_SENTINEL_INSTRUCTION = _(
     "\n\nAuto-pilot protocol: finish your response with exactly one line: "
     "<AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. "
     "If neither marker is present, auto-pilot stops safely."
@@ -259,7 +259,7 @@ def _run_auto_pilot_loop(
                 feedback = ""
                 if judgment is None:
                     print(
-                        "[AUTO] Missing or invalid auto sentinel; stopping safely."
+                        _("[AUTO] Missing or invalid auto sentinel; stopping safely.")
                     )
                     return
                 print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})

@@ -889,6 +889,10 @@ def _handle_cmd_sessions(
         rows = store.list_sessions()
         if target:
             rows = [r for r in rows if r.get("session_id") == target]
+        # Keep the bulk summarize operation bounded. list_sessions() is
+        # ordered for display, so this means the first ten records shown to
+        # the user (while an explicit target still works as expected).
+        rows = rows[:10]
         print(
             _("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)}
         )

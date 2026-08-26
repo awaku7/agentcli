@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "%(label)s 已停用自動安裝（策略：%(mode)s）。"
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "現在安裝 %(package)s 嗎？ [是/否]"
 
@@ -141,6 +143,7 @@ msgstr "[FATAL] 無法設定工作目錄：%(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] 無法啟動 uag_setup：%(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -221,6 +224,7 @@ msgstr "(修改時間未知)"
 msgid "(no user message)"
 msgstr "(沒有使用者訊息)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -385,6 +389,7 @@ msgstr ""
 "- 如果您需要的功能不在目前載入的工具中，或者您不確定哪個工具適合，請在回答或猜測之前致電 tool_catalog。使用其查詢來描述所需的能力；然後 tool_load 任何您需要的卸載工具。 \n"
 "- 執行工具時，將盡可能少的決策委託給使用者。 \n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1056,6 +1061,7 @@ msgstr "    顯示名稱：%(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    上下文視窗：%(value)s 令牌"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    上下文來源：%(value)s"
 
@@ -1583,8 +1589,8 @@ msgstr "指定工作目錄。如果省略，則使用 UAGENT_WORKDIR 環境變�
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1798,15 +1804,19 @@ msgstr "Ollama num_ctx（預設：8192）"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict（預設：llmcapa max_output_tokens）"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "llama.cpp 伺服器基本 URL（例如 http://localhost:8080/v1）"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API key（可選，預設：虛擬）"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp 模型名稱（可選，預設：local-model）"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp 請求逾時（以秒為單位）（預設值：120）"
 
@@ -2491,6 +2501,7 @@ msgstr "[AUTO] 審查/分析已完成。"
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] 已達最大回合數 (%(max)d)。停止。"
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[自動] 回合 %(round)d/INFINITE"
 
@@ -2525,6 +2536,7 @@ msgstr "目標不能為空。"
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 開始。目標：%(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[自動] 最大輪數：無限"
 
@@ -2533,36 +2545,47 @@ msgstr "[自動] 最大輪數：無限"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 最大回合：%(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "用法： :credential [get|set|remove|list] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set 接受 NAME 之後的可選類型（預設值：api_key）。"
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "目前的憑證後端無法枚舉名稱。"
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "用法: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "未找到憑證：%(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "輸入憑證秘密："
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "憑證更新已取消。"
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "已儲存憑證：%(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr "刪除憑證 %(name)s？輸入 y 繼續，或輸入 c 取消。"
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "憑證刪除已取消。"
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "已刪除憑證：%(name)s"
 
@@ -2619,6 +2642,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s（%(size)d 位元組）-> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s（%(size)d 位元組）"
 
@@ -2881,6 +2905,7 @@ msgid ""
 "[Responses API] Management commands currently support OpenAI/Azure only."
 msgstr "[Responses API] 管理指令目前僅支援 OpenAI/Azure。"
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3387,7 +3412,8 @@ msgstr "在啟動時向 LLM 注入一條訊息，並在完成後退出。意味�
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr "啟動時按名稱啟用特定工具。可以指定多次。"
 
 #: src/uagent/util_common.py:223
@@ -3574,6 +3600,7 @@ msgstr "載入最新的日誌(:load 0)"
 msgid "Delete short conversation logs"
 msgstr "刪除簡短的對話日誌"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4304,7 +4331,6 @@ msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "Computer Use 功能不適用於 %(provider)s/%(model)s"
@@ -4317,15 +4343,19 @@ msgstr "%(provider)s/%(model)s 不支援 Computer Use"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use 請求操作「%(action)s」的權限"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " 在 %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " 帶鍵“%(key)s”"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " （文字長度 %(length)d）"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4341,12 +4371,15 @@ msgstr "透過受保護的 Computer Use 運行時控製本機桌面。"
 msgid "computer use is disabled"
 msgstr "電腦使用已被禁用"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "不允許的環境：%(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "不允許執行的操作：%(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "不允許的域：%(domain)s"
 
@@ -4746,6 +4779,7 @@ msgstr "%(n)d 已啟用：%(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的 workdir 路徑是一個檔案：%(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4797,6 +4831,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  已儲存"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  失敗：%(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4814,10 +4856,13 @@ msgstr "[sessions] 用法：:sessions approve <編號>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] 已核准記憶候選項。"
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4828,3 +4873,27 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr "使用注入的目標啟動自動駕駛。值中請包含 --max-rounds N 或 --infinite。"
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"自動駕駛協定：請在回覆結尾單獨輸出一行：若仍有工作，輸出 <AUTO_CONTINUE>；若目標已完成，輸出 <AUTO_COMPLETE>。若沒有任何標記，自動駕駛將安全停止。"
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] 自動駕駛標記遺失或無效；已安全停止。"
+
+msgid "consecutive tool calls"
+msgstr "連續工具呼叫"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr "[警告] 工具連續呼叫 %(n)d 次；為防止失控執行而中止。"

@@ -141,6 +141,48 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     db.close()
 
 
+def test_sessions_summarize_only_processes_first_ten_records(
+    monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    for index in range(12):
+        session = db.create_session(project=f"project-{index}", entry_point="cli")
+        db.append_message(session.session_id, "user", f"question-{index}")
+        db.append_message(session.session_id, "assistant", f"answer-{index}")
+
+    expected = [
+        db.list_messages(row["session_id"])[0]["content"]
+        for row in db.list_sessions()[:10]
+    ]
+    summarized: list[str] = []
+    core = SimpleNamespace(session_store=db, session_id=None)
+
+    def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
+        summarized.append(messages[0]["content"])
+        return [
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:" + chr(10) + "Summary",
+            }
+        ]
+
+    core.compress_history_with_llm = fake_compress
+    assert _handle_cmd_sessions(
+        "summarize",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+
+    assert len(summarized) == 10
+    assert sorted(summarized) == sorted(expected)
+    assert "[10/10]" in capsys.readouterr().out
+    db.close()
+
+
 def test_sessions_summarize_aborts_cleanly_on_keyboard_interrupt(
     monkeypatch, tmp_path, capsys
 ):

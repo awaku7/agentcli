@@ -26,7 +26,7 @@ def setup_function() -> None:
     clear_consecutive_tool_call_streak()
 
 
-def test_consecutive_tool_calls_ignore_tool_name_and_arguments() -> None:
+def test_consecutive_tool_calls_reset_when_tool_name_changes() -> None:
     for i in range(3):
         blocked, name, count = check_consecutive_tool_calls(
             [_tc("add_long_memory", note=f"note-{i}")], threshold=4
@@ -38,9 +38,9 @@ def test_consecutive_tool_calls_ignore_tool_name_and_arguments() -> None:
     blocked, name, count = check_consecutive_tool_calls(
         [_tc("search_web", q="different")], threshold=4
     )
-    assert blocked is True
+    assert blocked is False
     assert name == "consecutive tool calls"
-    assert count == 4
+    assert count == 1
 
 
 def test_empty_round_resets_consecutive_tool_calls() -> None:

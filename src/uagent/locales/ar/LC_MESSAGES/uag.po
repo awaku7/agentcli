@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "تم تعطيل التثبيت التلقائي لـ %(label)s (السياسة: %(mode)s)."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "هل تريد تثبيت %(package)s الآن؟ [ص/ن] "
 
@@ -140,6 +142,7 @@ msgstr "[فادح] فشل في تعيين دليل العمل: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[فادح] فشل تشغيل uag_setup: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -220,6 +223,7 @@ msgstr "(وقت التعديل غير معروف)"
 msgid "(no user message)"
 msgstr "(لا توجد رسالة من المستخدم)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -395,6 +399,7 @@ msgstr ""
 "- إذا كانت الإمكانية التي تحتاجها ليست من بين الأدوات المحملة حاليًا، أو لم تكن متأكدًا من الأداة المناسبة، فاتصل بـ tool_catalog قبل الإجابة أو التخمين. استخدم الاستعلام الخاص به لوصف القدرة المطلوبة؛ ثم tool_load أي أداة غير محملة تحتاجها.\n"
 "- عند تنفيذ الأدوات، قم بتفويض المستخدم بأقل قدر ممكن من عملية اتخاذ القرار.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1089,6 +1094,7 @@ msgstr "    اسم العرض: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    نافذة السياق: %(value)s الرموز المميزة"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    مصدر السياق: %(value)s"
 
@@ -1629,8 +1635,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1849,17 +1855,21 @@ msgstr "Ollama num_ctx (الافتراضي: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (الافتراضي: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr ""
 "عنوان URL الأساسي لخادم llama.cpp (على سبيل المثال، "
 "http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "مفتاح llama.cpp API (اختياري، الافتراضي: وهمي)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "اسم نموذج llama.cpp (اختياري، الافتراضي: نموذج محلي)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "مهلة طلب llama.cpp بالثواني (الافتراضي: 120)"
 
@@ -2572,6 +2582,7 @@ msgstr "[تلقائي] اكتملت المراجعة/التحليل."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[تلقائي] تم الوصول إلى الحد الأقصى للجولات (%(max)d).وقف."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[تلقائي] الجولة %(round)d/INFINITE"
 
@@ -2606,6 +2617,7 @@ msgstr "لا يمكن أن يكون الهدف فارغًا."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] بدأت. الهدف: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[تلقائي] الحد الأقصى للجولات: لانهائي"
 
@@ -2614,37 +2626,48 @@ msgstr "[تلقائي] الحد الأقصى للجولات: لانهائي"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] الحد الأقصى للجولات: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "الاستخدام: :بيانات الاعتماد [الحصول على|تعيين|إزالة|قائمة] الاسم"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "تقبل المجموعة نوعًا اختياريًا بعد NAME (الافتراضي: api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "لا يمكن للواجهة الخلفية لبيانات الاعتماد الحالية تعداد الأسماء."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "الاستخدام:: الحصول على بيانات الاعتماد|تعيين|إزالة الاسم"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "لم يتم العثور على بيانات الاعتماد: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "أدخل سر بيانات الاعتماد:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "تم إلغاء تحديث بيانات الاعتماد."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "تم حفظ بيانات الاعتماد: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "هل تريد إزالة بيانات الاعتماد %(name)s؟ أدخل y للمتابعة، أو c للإلغاء."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "تم إلغاء إزالة بيانات الاعتماد."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "تمت إزالة بيانات الاعتماد: %(name)s"
 
@@ -2701,6 +2724,7 @@ msgstr "  [د] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d بايت) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d بايت)"
 
@@ -2965,6 +2989,7 @@ msgid ""
 "[Responses API] Management commands currently support OpenAI/Azure only."
 msgstr "[Responses API] تدعم أوامر الإدارة حاليًا OpenAI/Azure فقط."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3488,7 +3513,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr "تمكين أداة محددة بالاسم عند بدء التشغيل. يمكن تحديدها عدة مرات."
 
 #: src/uagent/util_common.py:223
@@ -3678,6 +3704,7 @@ msgstr "تحميل أحدث سجل (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "حذف سجلات المحادثات القصيرة"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4439,7 +4466,6 @@ msgstr "محرك UAGENT_A2A_ENGINE غير معروف: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "إمكانية Computer Use غير متاحة لـ %(provider)s/%(model)s"
@@ -4452,15 +4478,19 @@ msgstr "Computer Use غير مدعوم لـ %(provider)s/%(model)s"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use يطلب الإذن لتنفيذ الإجراء \"%(action)s\""
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " عند %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " بالمفتاح \"%(key)s\""
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr "(طول النص %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4476,12 +4506,15 @@ msgstr "التحكم في سطح المكتب المحلي من خلال وقت 
 msgid "computer use is disabled"
 msgstr "تم تعطيل استخدام الكمبيوتر"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "البيئة غير مسموح بها: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "الإجراء غير مسموح به: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "النطاق غير مسموح به: %(domain)s"
 
@@ -4892,6 +4925,7 @@ msgstr "%(n)d ممكّن: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسار دليل العمل المحدد هو ملف: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4946,6 +4980,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  تم الحفظ"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  فشل: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4964,10 +5006,13 @@ msgstr "[sessions] الاستخدام: :sessions approve <الرقم>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] تمت الموافقة على مرشح الذاكرة."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4978,3 +5023,31 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"ابدأ التشغيل التلقائي بهدف مُدرج. أدرج --max-rounds N أو --infinite في "
+"القيمة."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"بروتوكول التشغيل التلقائي: أنهِ ردك بسطر واحد فقط مطابق تمامًا: <AUTO_CONTINUE> إذا بقي عمل، أو <AUTO_COMPLETE> إذا اكتمل الهدف. إذا لم يوجد أي مؤشر، فسيتوقف التشغيل التلقائي بأمان."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] مؤشر التشغيل التلقائي مفقود أو غير صالح؛ جارٍ الإيقاف بأمان."
+
+msgid "consecutive tool calls"
+msgstr "استدعاءات الأدوات المتتالية"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[تحذير] حدثت %(n)d استدعاءات متتالية للأدوات؛ تم الإيقاف لمنع تنفيذ غير "
+"منضبط."

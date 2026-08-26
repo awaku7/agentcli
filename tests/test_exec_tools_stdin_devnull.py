@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import subprocess
 
 
@@ -66,6 +67,54 @@ def test_cmd_exec_json_uses_devnull_stdin(monkeypatch):
     out = mod.run_tool({"command": "echo ok"})
     assert captured.get("stdin") is subprocess.DEVNULL
     assert "ok" in out
+
+
+def test_cmd_exec_json_converts_timeout_to_result(monkeypatch):
+    from uagent.tools import cmd_exec_json_tool as mod
+    from uagent.tools.context import ToolCallbacks, init_callbacks
+
+    init_callbacks(ToolCallbacks(cmd_exec_timeout_ms=10, cmd_encoding="utf-8"))
+
+    def fake_run(*a, **k):
+        raise subprocess.TimeoutExpired(
+            k.get("args", "command"), k["timeout"], output=b"partial", stderr=b"err"
+        )
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(
+        mod,
+        "decide_cmd_exec",
+        lambda *a, **k: type(
+            "D", (), {"allowed": True, "require_confirm": False, "reason": ""}
+        )(),
+    )
+    monkeypatch.setattr(mod, "confirm_if_needed", lambda d: None)
+
+    result = json.loads(mod.run_tool({"command": "sleep 1"}))
+    assert result["timeout"] is True
+    assert result["returncode"] == 124
+    assert result["stdout"] == "partial"
+
+
+def test_cmd_exec_json_converts_keyboard_interrupt_to_result(monkeypatch):
+    from uagent.tools import cmd_exec_json_tool as mod
+
+    def fake_run(*a, **k):
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(
+        mod,
+        "decide_cmd_exec",
+        lambda *a, **k: type(
+            "D", (), {"allowed": True, "require_confirm": False, "reason": ""}
+        )(),
+    )
+    monkeypatch.setattr(mod, "confirm_if_needed", lambda d: None)
+
+    result = json.loads(mod.run_tool({"command": "echo ok"}))
+    assert result["interrupted"] is True
+    assert result["returncode"] == 130
 
 
 def test_python_exec_uses_devnull_stdin(monkeypatch):

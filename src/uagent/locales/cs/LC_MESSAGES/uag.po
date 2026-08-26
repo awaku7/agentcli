@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "Automatická instalace je pro %(label)s zakázána (zásady: %(mode)s)."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "Nainstalovat %(package)s nyní? [y/N] "
 
@@ -144,6 +146,7 @@ msgstr "[FATÁLNÍ] Nepodařilo se nastavit pracovní adresář: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Nepodařilo se spustit uag_setup: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -225,6 +228,7 @@ msgstr "(čas změny neznámý)"
 msgid "(no user message)"
 msgstr "(bez zprávy uživatele)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -404,6 +408,7 @@ msgstr ""
 "– Pokud funkce, kterou potřebujete, není mezi aktuálně načtenými nástroji nebo si nejste jisti, který nástroj se hodí, zavolejte na tool_catalog, než odpovíte nebo budete hádat. Použijte jeho dotaz k popisu potřebné schopnosti; pak tool_load libovolný uvolněný nástroj, který potřebujete.\n"
 "- Při spouštění nástrojů delegujte co nejméně rozhodování na uživatele.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1116,6 +1121,7 @@ msgstr "    Zobrazovaný název: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    Kontextové okno: %(value)s tokenů"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    Zdroj kontextu: %(value)s"
 
@@ -1660,8 +1666,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1882,15 +1888,19 @@ msgstr "Ollama num_ctx (výchozí: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (výchozí: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "Základní adresa URL serveru lama.cpp (např. http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "Klíč lama.cpp API (volitelný, výchozí: figurína)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp název modelu (volitelné, výchozí: local-model)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "Časový limit požadavku llama.cpp v sekundách (výchozí: 120)"
 
@@ -2596,6 +2606,7 @@ msgstr "[AUTO] Kontrola/analýza dokončena."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Bylo dosaženo maximálního počtu kol (%(max)d).Zastavení."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[AUTO] Kolo %(round)d/INFINITE"
 
@@ -2630,6 +2641,7 @@ msgstr "Cíl nemůže být prázdný."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Spuštěno. Cíl: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[AUTO] Max. počet nábojů: NEKONEČNO"
 
@@ -2638,38 +2650,49 @@ msgstr "[AUTO] Max. počet nábojů: NEKONEČNO"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Max. počet kol: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "Použití: :credential [get|set|remove|list] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set přijímá volitelný druh po NAME (výchozí: api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "Aktuální backend pověření nemůže vyjmenovat jména."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "Použití: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "Pověření nenalezeno: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "Zadejte tajné přihlašovací údaje:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "Aktualizace pověření byla zrušena."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "Pověření uloženo: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "Odebrat přihlašovací údaje %(name)s? Zadejte y pro pokračování nebo c pro "
 "zrušení."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "Odebrání pověření bylo zrušeno."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "Odebráno pověření: %(name)s"
 
@@ -2726,6 +2749,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d bajtů) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d bajtů)"
 
@@ -2991,6 +3015,7 @@ msgid ""
 msgstr ""
 "[Responses API] Příkazy pro správu aktuálně podporují pouze OpenAI/Azure."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3539,7 +3564,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr ""
 "Povolit konkrétní nástroj podle názvu při spuštění. Lze zadatvícekrát."
 
@@ -3733,6 +3759,7 @@ msgstr "Načíst nejnovější protokol (:načíst 0)"
 msgid "Delete short conversation logs"
 msgstr "Odstraňte krátké protokoly konverzace"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4498,7 +4525,6 @@ msgstr "Neznámý UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "Funkce Computer Use není pro %(provider)s/%(model)s k dispozici"
@@ -4511,15 +4537,19 @@ msgstr "Computer Use není podporováno pro %(provider)s/%(model)s"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use žádá o povolení k akci „%(action)s“"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " na %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " s klíčem '%(key)s'"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (délka textu %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4537,12 +4567,15 @@ msgstr ""
 msgid "computer use is disabled"
 msgstr "používání počítače je zakázáno"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "prostředí není povoleno: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "akce není povolena: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "doména není povolena: %(domain)s"
 
@@ -4960,6 +4993,7 @@ msgstr "%(n)d povoleno: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -5016,6 +5050,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  uloženo"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  selhalo: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -5035,10 +5077,13 @@ msgstr "[sessions] Použití: :sessions approve <číslo>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] Kandidát do paměti schválen."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -5049,3 +5094,33 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"Spusťte automatického pilota s vloženým cílem. Hodnota musí obsahovat --max-"
+"rounds N nebo --infinite."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"Protokol automatického pilota: odpověď zakončete přesně jedním řádkem: <AUTO_CONTINUE>, pokud zbývá práce, nebo <AUTO_COMPLETE>, pokud je cíl dokončen. Pokud není přítomna žádná značka, automatický pilot se bezpečně zastaví."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+"[AUTO] Značka automatického pilota chybí nebo je neplatná; bezpečné "
+"zastavení."
+
+msgid "consecutive tool calls"
+msgstr "po sobě jdoucí volání nástrojů"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[VAROVÁNÍ] %(n)d po sobě jdoucích volání nástrojů; přerušeno, aby se "
+"zabránilo nekontrolovanému spuštění."

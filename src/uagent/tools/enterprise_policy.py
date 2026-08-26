@@ -41,6 +41,10 @@ class EnterprisePolicy:
     skills: dict[str, str] = field(default_factory=dict)
     plugins: dict[str, str] = field(default_factory=dict)
     roles: dict[str, dict[str, str]] = field(default_factory=dict)
+    auto_pilot_tools: dict[str, str] = field(default_factory=dict)
+    auto_pilot_mcp_tools: dict[str, str] = field(default_factory=dict)
+    inject_tools: dict[str, str] = field(default_factory=dict)
+    inject_mcp_tools: dict[str, str] = field(default_factory=dict)
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any] | None) -> "EnterprisePolicy":
@@ -59,6 +63,14 @@ class EnterprisePolicy:
                 for role, value in (raw.get("roles") or {}).items()
                 if isinstance(value, Mapping)
             },
+            auto_pilot_tools=_auto_pilot_actions(raw.get("auto_pilot"), "tools"),
+            auto_pilot_mcp_tools=_auto_pilot_actions(
+                raw.get("auto_pilot"), "mcp_tools"
+            ),
+            inject_tools=_auto_pilot_actions(raw.get("inject_message"), "tools"),
+            inject_mcp_tools=_auto_pilot_actions(
+                raw.get("inject_message"), "mcp_tools"
+            ),
         )
 
     @classmethod
@@ -183,6 +195,33 @@ class EnterprisePolicy:
 
         return PolicyDecision("allow")
 
+    def auto_pilot_requires_confirmation(
+        self, tool_name: str, args: Mapping[str, Any] | None = None
+    ) -> bool:
+        args = args or {}
+        if tool_name == "handle_mcp_v2":
+            mcp_key = str(args.get("_auto_pilot_mcp_key") or "").strip()
+            if not mcp_key:
+                server = str(args.get("server_name") or "").strip()
+                mcp_tool = str(args.get("tool_name") or "").strip()
+                if server and mcp_tool:
+                    mcp_key = f"{server}:{mcp_tool}"
+            if mcp_key in self.auto_pilot_mcp_tools:
+                return self.auto_pilot_mcp_tools[mcp_key] == "absconfirm"
+        return self.auto_pilot_tools.get(str(tool_name), "") == "absconfirm"
+
+    def inject_requires_confirmation(
+        self, tool_name: str, args: Mapping[str, Any] | None = None
+    ) -> bool:
+        args = args or {}
+        if tool_name == "handle_mcp_v2":
+            server = str(args.get("server_name") or "").strip()
+            mcp_tool = str(args.get("tool_name") or "").strip()
+            key = f"{server}:{mcp_tool}" if server and mcp_tool else ""
+            if key in self.inject_mcp_tools:
+                return self.inject_mcp_tools[key] == "absconfirm"
+        return self.inject_tools.get(str(tool_name), "") == "absconfirm"
+
 
 def _split_endpoint(value: str) -> SplitResult | None:
     raw = str(value or "").strip()
@@ -261,6 +300,26 @@ def _actions(value: Any) -> dict[str, str]:
         if isinstance(item, Mapping):
             item = item.get("action", "allow")
         result[str(key)] = _normalize_action(item)
+    return result
+
+
+def _auto_pilot_actions(value: Any, section: str = "tools") -> dict[str, str]:
+    if not isinstance(value, Mapping):
+        return {}
+    if section in value:
+        tools = value.get(section)
+    elif section == "tools":
+        tools = value
+    else:
+        return {}
+    if not isinstance(tools, Mapping):
+        return {}
+    result: dict[str, str] = {}
+    for key, item in tools.items():
+        action = item.get("action", "") if isinstance(item, Mapping) else item
+        normalized = str(action or "").strip().lower()
+        if normalized in {"absconfirm", "allow", "deny", "skip"}:
+            result[str(key)] = normalized
     return result
 
 

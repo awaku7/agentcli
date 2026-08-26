@@ -16,6 +16,10 @@ UAGENT_MEMORY_BACKEND=sqlite
 UAGENT_MEMORY_DB=
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 UAGENT_POLICY_LEVEL=read_only
+# CLI終了時のLLMセッション要約。1で有効（デフォルト: 0）。
+UAGENT_SUMMARY_ON_EXIT=0
+# 要約時のプロフィール抽出。1で有効。
+UAGENT_PROFILE_ON_EXIT=0
 ```
 
 `UAGENT_SESSION_BACKEND` は次の値を指定できます。

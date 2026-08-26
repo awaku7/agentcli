@@ -12,11 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr ""
 "Automaattinen asennus on poistettu käytöstä verkkotunnuksessa %(label)s "
 "(käytäntö: %(mode)s)."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "Asennetaanko %(package)s nyt? [y/N] "
 
@@ -145,6 +147,7 @@ msgstr "[FATAL] Työhakemiston asettaminen epäonnistui: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup:n käynnistäminen epäonnistui: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -228,6 +231,7 @@ msgstr "(muokkausaika tuntematon)"
 msgid "(no user message)"
 msgstr "(ei käyttäjän viestiä)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -407,6 +411,7 @@ msgstr ""
 "- Jos tarvitsemasi ominaisuus ei ole tällä hetkellä ladattujen työkalujen joukossa tai et ole varma, mikä työkalu sopii, soita numeroon tool_catalog ennen vastaamista tai arvailua. Käytä sen kyselyä kuvailemaan tarvittavaa kykyä; sitten tool_load mikä tahansa tarvitsemasi lataamaton työkalu.\n"
 "- Kun suoritat työkaluja, delegoi mahdollisimman vähän päätöksentekoa käyttäjälle.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1122,6 +1127,7 @@ msgstr "    Näyttönimi: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    Kontekstiikkuna: %(value)s merkkiä"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    Kontekstilähde: %(value)s"
 
@@ -1665,8 +1671,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1886,16 +1892,20 @@ msgstr "Ollaman num_ctx (oletus: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollaman num_predict (oletus: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr ""
 "llama.cpp-palvelimen perus-URL-osoite (esim. http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API-avain (valinnainen, oletus: vale)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp-mallin nimi (valinnainen, oletus: paikallinen malli)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp-pyynnön aikakatkaisu sekunneissa (oletus: 120)"
 
@@ -2603,6 +2613,7 @@ msgstr "[AUTO] Tarkastus/analyysi valmis."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Kierrosten enimmäismäärä (%(max)d) saavutettu.Pysähtyminen."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[AUTO] Kierros %(round)d/INFINITE"
 
@@ -2637,6 +2648,7 @@ msgstr "Tavoite ei voi olla tyhjä."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Aloitettu. Tavoite: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[AUTO] Enimmäiskierrokset: INFINITE"
 
@@ -2645,39 +2657,50 @@ msgstr "[AUTO] Enimmäiskierrokset: INFINITE"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Enimmäiskierrokset: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "Käyttö: :credential [get|set|remove|list] NIMI"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr ""
 "set hyväksyy valinnaisen lajin nimen NAME jälkeen (oletus: api_avain)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "Nykyinen tunnistetietojen taustaohjelma ei voi luetella nimiä."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "Käyttö: :credential get|set|poista NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "Tunnuksia ei löydy: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "Anna valtuustietojen salaisuus:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "Tunnistetietojen päivitys peruutettu."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "Tunnistetiedot tallennettu: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "Poistetaanko kirjautumistiedot %(name)s? Syötä y jatkaaksesi tai c "
 "peruuttaaksesi."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "Tunnistetietojen poisto peruttu."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "Kirjautumistiedot poistettu: %(name)s"
 
@@ -2734,6 +2757,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d tavua) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d tavua)"
 
@@ -2999,6 +3023,7 @@ msgid ""
 msgstr ""
 "[Responses API] Hallintakomennot tukevat tällä hetkellä vain OpenAI/Azure."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3541,7 +3566,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr ""
 "Ota tietty työkalu käyttöön nimellä käynnistettäessä. Voidaanmäärittää "
 "useita kertoja."
@@ -3734,6 +3760,7 @@ msgstr "Lataa uusin loki (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "Poista lyhyet keskustelulokit"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4503,7 +4530,6 @@ msgstr "Tuntematon UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr ""
@@ -4518,15 +4544,19 @@ msgstr "Computer Use ei tue %(provider)s/%(model)s"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use pyytää lupaa toimintoon '%(action)s'"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " klo %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " avaimella '%(key)s'"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (tekstin pituus %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4542,12 +4572,15 @@ msgstr "Hallitse paikallista työpöytää suojatun Computer Use-ajoajan kautta.
 msgid "computer use is disabled"
 msgstr "tietokoneen käyttö on estetty"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "ympäristö ei ole sallittu: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "toiminto ei ole sallittu: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "verkkotunnus ei ole sallittu: %(domain)s"
 
@@ -4962,6 +4995,7 @@ msgstr "%(n)d käytössä: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -5019,6 +5053,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  tallennettu"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  epäonnistui: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -5038,10 +5080,13 @@ msgstr "[sessions] Käyttö: :sessions approve <numero>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] Muistiehdokas hyväksytty."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -5052,3 +5097,33 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"Käynnistä automaattiohjaus annetulla tavoitteella. Arvon tulee sisältää "
+"--max-rounds N tai --infinite."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"Automaattiohjauksen protokolla: päätä vastauksesi täsmälleen yhdelle riville: <AUTO_CONTINUE>, jos työtä on jäljellä, tai <AUTO_COMPLETE>, jos tavoite on valmis. Jos kumpaakaan merkkiä ei ole, automaattiohjaus pysähtyy turvallisesti."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+"[AUTO] Automaattiohjauksen merkki puuttuu tai on virheellinen; pysäytetään "
+"turvallisesti."
+
+msgid "consecutive tool calls"
+msgstr "peräkkäiset työkalukutsut"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[VAROITUS] %(n)d peräkkäistä työkalukutsua; keskeytetään hallitsemattoman "
+"suorituksen estämiseksi."

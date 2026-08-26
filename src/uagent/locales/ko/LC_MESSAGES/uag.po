@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "%(label)s(정책: %(mode)s)에 대한 자동 설치가 비활성화되었습니다."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "지금 %(package)s을(를) 설치하시겠습니까? [예/아니요] "
 
@@ -141,6 +143,7 @@ msgstr "[FATAL] workdir를 설정하지 못했습니다: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup를 시작하지 못했습니다: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -221,6 +224,7 @@ msgstr "(수정 시간 알 수 없음)"
 msgid "(no user message)"
 msgstr "(사용자 메시지 없음)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -387,6 +391,7 @@ msgstr ""
 "- 필요한 기능이 현재 로드된 도구에 없거나 어떤 도구가 적합한지 확실하지 않은 경우 응답하거나 추측하기 전에 tool_catalog에 전화하세요. 해당 쿼리를 사용하여 필요한 기능을 설명합니다. 그런 다음 언로드된 필요한 도구를 tool_load합니다.\n"
 "- 도구를 실행할 때 사용자에게 의사결정 권한을 최대한 적게 위임하세요.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1063,6 +1068,7 @@ msgstr "    표시 이름: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    컨텍스트 창: %(value)s 토큰"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    컨텍스트 소스: %(value)s"
 
@@ -1591,8 +1597,8 @@ msgstr "작업 디렉터리를 지정합니다. 생략하는 경우 UAGENT_WORKD
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1806,15 +1812,19 @@ msgstr "Ollama 문맥 길이(num_ctx) (기본값: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama 예측 수(num_predict) (기본값: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "llama.cpp 서버 기본 URL(예: http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API 키(선택 사항, 기본값: 더미)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp 모델 이름(선택 사항, 기본값: local-model)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp 요청 시간 제한(초)(기본값: 120)"
 
@@ -2503,6 +2513,7 @@ msgstr "[AUTO] 검토/분석이 완료되었습니다."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[자동] 최대 라운드(%(max)d)에 도달했습니다.멎는."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[자동] 라운드 %(round)d/INFINITE"
 
@@ -2537,6 +2548,7 @@ msgstr "목표는 비워둘 수 없습니다."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 시작되었습니다. 목표: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[자동] 최대 라운드: INFINITE"
 
@@ -2545,36 +2557,47 @@ msgstr "[자동] 최대 라운드: INFINITE"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 최대 라운드 수: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "사용법: :credential [get|set|remove|list] 이름"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set은 NAME 뒤에 선택적 종류를 허용합니다(기본값: api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "현재 자격 증명 백엔드는 이름을 열거할 수 없습니다."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "사용법: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "자격증명을 찾을 수 없습니다: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "자격 증명 비밀을 입력하세요:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "자격 증명 업데이트가 취소되었습니다."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "저장된 자격증명: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr "자격증명 %(name)s을(를) 삭제하시겠습니까? 계속하려면 y를 입력하고 취소하려면 c를 입력합니다."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "자격증명 제거가 취소되었습니다."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "사용자 인증 정보가 삭제됨: %(name)s"
 
@@ -2631,6 +2654,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s(%(size)d바이트) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s(%(size)d바이트)"
 
@@ -2893,6 +2917,7 @@ msgid ""
 "[Responses API] Management commands currently support OpenAI/Azure only."
 msgstr "[Responses API] 관리 명령은 현재 OpenAI/Azure만 지원합니다."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr "사용법: :response [상태|취소|토큰|압축|항목|삭제] [response_id]"
@@ -3399,7 +3424,8 @@ msgstr "시작 시 LLM에 메시지를 삽입하고 완료 후 종료합니다. 
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr "시작 시 이름으로 특정 도구를 활성화합니다. 여러 번 지정할 수 있습니다."
 
 #: src/uagent/util_common.py:223
@@ -3586,6 +3612,7 @@ msgstr "최신 로그 로드(:load 0)"
 msgid "Delete short conversation logs"
 msgstr "짧은 대화 기록 삭제"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4321,7 +4348,6 @@ msgstr "알 수 없는 UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "%(provider)s/%(model)s에는 Computer Use 기능을 사용할 수 없습니다."
@@ -4334,15 +4360,19 @@ msgstr "Computer Use은 %(provider)s/%(model)s에 대해 지원되지 않습니�
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use이(가) '%(action)s' 작업에 대한 권한을 요청합니다."
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr "%(coordinate)s에"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " 키 '%(key)s' 사용"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (텍스트 길이 %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4358,12 +4388,15 @@ msgstr "보호된 Computer Use 런타임을 통해 로컬 데스크톱을 제어
 msgid "computer use is disabled"
 msgstr "컴퓨터 사용이 비활성화되었습니다"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "환경은 허용되지 않습니다: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "작업이 허용되지 않습니다: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "도메인은 허용되지 않습니다: %(domain)s"
 
@@ -4765,6 +4798,7 @@ msgstr "%(n)d 활성화됨: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4817,6 +4851,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  저장됨"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  실패: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4834,10 +4876,13 @@ msgstr "[sessions] 사용법: :sessions approve <번호>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] 메모리 후보가 승인되었습니다."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4848,3 +4893,27 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr "주입된 목표로 자동 조종을 시작합니다. 값에 --max-rounds N 또는 --infinite를 포함하세요."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"자동 조종 프로토콜: 응답을 정확히 한 줄로 끝내세요. 작업이 남아 있으면 <AUTO_CONTINUE>, 목표가 완료되었으면 <AUTO_COMPLETE>를 사용합니다. 어느 마커도 없으면 자동 조종이 안전하게 중지됩니다."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] 자동 조종 마커가 없거나 올바르지 않습니다. 안전하게 중지합니다."
+
+msgid "consecutive tool calls"
+msgstr "연속 도구 호출"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr "[경고] 도구를 %(n)d회 연속 호출하여 폭주 실행을 방지하기 위해 중단합니다."

@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "%(label)s では自動インストールが無効になっています (ポリシー: %(mode)s)。"
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "今すぐ%(package)sをインストールしますか? [y/N] "
 
@@ -141,6 +143,7 @@ msgstr "[FATAL] workdir の設定に失敗しました: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup の起動に失敗しました: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -221,6 +224,7 @@ msgstr "(更新時刻不明)"
 msgid "(no user message)"
 msgstr "(ユーザーメッセージなし)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -387,6 +391,7 @@ msgstr ""
 "- 必要な能力が現在ロード済みのツールに無い、またはどれが合うか確信が無い場合は、回答や推測の前に tool_catalog を呼ぶこと。query で必要な能力を説明し、未ロードのツールは tool_load すること。\n"
 "- ツール実行時は、ユーザーに委ねる意思決定をできるだけ少なくすること。\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1065,6 +1070,7 @@ msgstr "    表示名:        %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    コンテキスト窓: %(value)s トークン"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    コンテキスト ソース: %(value)s"
 
@@ -1581,8 +1587,8 @@ msgstr "作業ディレクトリを指定します。省略した場合は、UAG
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 "ツールジャンルのビットマスク(1=基本、2=通信、4=オフィス、8=開発、16=iot、32=実行、64=外部、128=メディア、256=ファイル、512=インデックス、1024=dev、2048=web、4096=utility、8191=すべて)。指定されている場合、インタラクティブなジャンルプロンプトをスキップします。"
 
@@ -1797,15 +1803,19 @@ msgstr "Ollama num_ctx（既定: 8192）"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict（既定: llmcapa の max_output_tokens）"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "llama.cpp サーバーのベース URL (例: http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API キー (オプション、デフォルト: ダミー)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp モデル名 (オプション、デフォルト: local-model)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp リクエストのタイムアウト (秒単位) (デフォルト: 120)"
 
@@ -2495,6 +2505,7 @@ msgstr "[AUTO] レビュー/分析が完了しました。"
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] 最大ラウンド (%(max)d) に達しました。停止します。"
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[自動] ラウンド %(round)d/INFINITE"
 
@@ -2529,6 +2540,7 @@ msgstr "ゴールを空にできません。"
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 開始しました。目的: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[オート] 最大ラウンド数: 無限"
 
@@ -2537,36 +2549,47 @@ msgstr "[オート] 最大ラウンド数: 無限"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 最大ラウンド数: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "使用法: :credential [get|set|remove|list] 名前"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set は、NAME の後にオプションの種類を受け入れます (デフォルト: api_key)。"
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "現在の資格情報バックエンドは名前を列挙できません。"
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "使用法: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "認証情報が見つかりません: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "資格情報のシークレットを入力してください:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "認証情報の更新がキャンセルされました。"
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "認証情報が保存されました: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr "認証情報 %(name)s を削除しますか?続行するには y を入力し、キャンセルするには c を入力します。"
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "資格情報の削除がキャンセルされました。"
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "認証情報が削除されました: %(name)s"
 
@@ -2623,6 +2646,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d バイト) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d バイト)"
 
@@ -2885,6 +2909,7 @@ msgid ""
 "[Responses API] Management commands currently support OpenAI/Azure only."
 msgstr "[Responses API] 管理コマンドは現在、OpenAI/Azure のみをサポートしています。"
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr "使用法: :response [ステータス|キャンセル|トークン|コンパクト|アイテム|削除] [response_id]"
@@ -3392,7 +3417,8 @@ msgstr "起動時に LLM にメッセージを挿入し、完了後に終了し�
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr "起動時に名前で特定のツールを有効にします。複数回の指定、またはカンマ区切りのリストで指定できます。"
 
 #: src/uagent/util_common.py:223
@@ -3579,6 +3605,7 @@ msgstr "最新のログをロード (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "短い会話ログを削除する"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4318,7 +4345,6 @@ msgstr "不明な UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "Computer Use 機能は %(provider)s/%(model)s では使用できません"
@@ -4331,15 +4357,19 @@ msgstr "Computer Use は %(provider)s/%(model)s ではサポートされてい�
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use はアクション「%(action)s」に対する権限をリクエストします"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " %(coordinate)sに"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr "キー「%(key)s」を使用"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (テキストの長さ %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4355,12 +4385,15 @@ msgstr "保護された Computer Use ランタイムを通じてローカル デ
 msgid "computer use is disabled"
 msgstr "コンピューターの使用は無効になっています"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "環境は許可されていません: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "アクションは許可されていません: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "ドメインは許可されていません: %(domain)s"
 
@@ -4762,6 +4795,7 @@ msgstr "%(n)d 有効: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4817,8 +4851,8 @@ msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
 msgstr "[%(index)d/%(total)d] %(id)s  中断 (Ctrl+C)"
 
 msgid ""
-"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d "
-"failed"
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
 msgstr "[sessions] 中断: 要約 %(done)d 件、スキップ %(skipped)d 件、失敗 %(failed)d 件"
 
 msgid ""
@@ -4838,10 +4872,15 @@ msgstr "[sessions] 使用法: :sessions approve <番号>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] メモリ候補を承認しました。"
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
-msgstr "組み込みモード: セッションストアを無効にし(UAGENT_SESSION_STORE=0)、ツール管理ツール(tool_catalog、tool_load、unload_tool)を非表示にします。"
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
+msgstr ""
+"組み込みモード: "
+"セッションストアを無効にし(UAGENT_SESSION_STORE=0)、ツール管理ツール(tool_catalog、tool_load、unload_tool)を非表示にします。"
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr "Index (ソース/ドキュメントパーサー: py2idx、md2idx、excel2idx、csv2idx、...)"
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4852,3 +4891,27 @@ msgstr "Web (UCP コマース、公共交通経路)"
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr "Utility (測地距離、PDF エクスポート、quantities)"
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"注入した目標で自動操縦を開始します。値には --max-rounds N または --infinite を含めてください。"
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"自動操縦プロトコル：応答の最後に、必ず1行だけ記述してください。作業が残っている場合は <AUTO_CONTINUE>、目標が完了した場合は <AUTO_COMPLETE> とします。どちらのマーカーもない場合、自動操縦は安全に停止します。"
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] 自動操縦マーカーがないか無効です。安全のため停止します。"
+
+msgid "consecutive tool calls"
+msgstr "ツール連続呼び出し"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[警告] ツール呼び出しが %(n)d 回連続したため、暴走防止のため中止します。"

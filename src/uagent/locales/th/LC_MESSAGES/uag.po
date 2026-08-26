@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "การติดตั้งอัตโนมัติถูกปิดใช้งานสำหรับ %(label)s (นโยบาย: %(mode)s)"
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "ติดตั้ง %(package)s ตอนนี้หรือไม่ [มี/ไม่มี] "
 
@@ -141,6 +143,7 @@ msgstr "[ข้อผิดพลาดร้ายแรง] ตั้งค่
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[ข้อผิดพลาดร้ายแรง] เริ่ม uag_setup ไม่สำเร็จ: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -222,6 +225,7 @@ msgstr "(ไม่ทราบเวลาที่แก้ไข)"
 msgid "(no user message)"
 msgstr "(ไม่มีข้อความจากผู้ใช้)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -401,6 +405,7 @@ msgstr ""
 "- หากความสามารถที่คุณต้องการไม่อยู่ในเครื่องมือที่โหลดในปัจจุบัน หรือคุณไม่แน่ใจว่าเครื่องมือใดเหมาะกับ ให้โทร tool_catalog ก่อนที่จะตอบหรือคาดเดา ใช้แบบสอบถามเพื่ออธิบายความสามารถที่จำเป็น จากนั้น tool_load เครื่องมือที่ไม่ได้โหลดใดๆ ที่คุณต้องการ\n"
 "- เมื่อใช้งานเครื่องมือ ให้มอบหมายการตัดสินใจให้กับผู้ใช้ให้น้อยที่สุดเท่าที่จะทำได้\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1109,6 +1114,7 @@ msgstr "    ชื่อที่แสดง: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    หน้าต่างบริบท: โทเค็น %(value)s"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    แหล่งที่มาของบริบท: %(value)s"
 
@@ -1648,8 +1654,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1868,15 +1874,19 @@ msgstr "ค่า num_ctx ของ Ollama (ค่าเริ่มต้น: 8
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "ค่า num_predict ของ Ollama (ค่าเริ่มต้น: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "URL ฐานเซิร์ฟเวอร์ llama.cpp (เช่น http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp คีย์ API (ไม่บังคับ ค่าเริ่มต้น: จำลอง)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "ชื่อรุ่น llama.cpp (ไม่บังคับ ค่าเริ่มต้น: รุ่นท้องถิ่น)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "การหมดเวลาคำขอ llama.cpp เป็นวินาที (ค่าเริ่มต้น: 120)"
 
@@ -2577,6 +2587,7 @@ msgstr "[อัตโนมัติ] การตรวจสอบ/การ�
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[อัตโนมัติ] ถึงรอบสูงสุด (%(max)d) แล้วกำลังหยุด"
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[อัตโนมัติ] รอบ %(round)d/INFINITE"
 
@@ -2611,6 +2622,7 @@ msgstr "เป้าหมายไม่สามารถเว้นว่า
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] เริ่มแล้ว เป้าหมาย: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[อัตโนมัติ] รอบสูงสุด: อนันต์"
 
@@ -2619,37 +2631,48 @@ msgstr "[อัตโนมัติ] รอบสูงสุด: อนัน�
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] รอบสูงสุด: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "การใช้งาน: :credential [get|set|remove|list] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set ยอมรับประเภททางเลือกหลัง NAME (ค่าเริ่มต้น: api_key)"
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "แบ็กเอนด์ข้อมูลรับรองปัจจุบันไม่สามารถระบุชื่อได้"
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "การใช้งาน: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "ไม่พบข้อมูลประจำตัว: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "ป้อนข้อมูลลับประจำตัว:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "การอัปเดตข้อมูลประจำตัวถูกยกเลิก"
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "บันทึกข้อมูลประจำตัวแล้ว: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "ลบข้อมูลรับรอง %(name)s หรือไม่ ป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "ยกเลิกการลบข้อมูลรับรองแล้ว"
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "ข้อมูลรับรองถูกลบ: %(name)s"
 
@@ -2706,6 +2729,7 @@ msgstr "  [ง] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d ไบต์) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d ไบต์)"
 
@@ -2970,6 +2994,7 @@ msgid ""
 "[Responses API] Management commands currently support OpenAI/Azure only."
 msgstr "[Responses API] ขณะนี้คำสั่งการจัดการรองรับ OpenAI/Azure เท่านั้น"
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3503,7 +3528,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr "เปิดใช้งานเครื่องมือเฉพาะตามชื่อเมื่อเริ่มต้น สามารถระบุได้หลายครั้ง"
 
 #: src/uagent/util_common.py:223
@@ -3692,6 +3718,7 @@ msgstr "โหลดบันทึกใหม่ล่าสุด (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "ลบบันทึกการสนทนาสั้นๆ"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4442,7 +4469,6 @@ msgstr "ไม่รู้จัก UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "ความสามารถ Computer Use ไม่พร้อมใช้งานสำหรับ %(provider)s/%(model)s"
@@ -4455,15 +4481,19 @@ msgstr "Computer Use ไม่รองรับ %(provider)s/%(model)s"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use ขออนุญาตดำเนินการ '%(action)s'"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " เวลา %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " ด้วยคีย์ '%(key)s'"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr "(ความยาวของข้อความ %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4479,12 +4509,15 @@ msgstr "ควบคุมเดสก์ท็อปในเครื่อง
 msgid "computer use is disabled"
 msgstr "การใช้คอมพิวเตอร์ถูกปิดใช้งาน"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "ไม่อนุญาตให้ใช้สภาพแวดล้อม: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "ไม่อนุญาตให้ดำเนินการ: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "โดเมนไม่ได้รับอนุญาต: %(domain)s"
 
@@ -4898,6 +4931,7 @@ msgstr "%(n)d เปิดใช้งาน: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4953,6 +4987,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  บันทึกแล้ว"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  ล้มเหลว: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4972,10 +5014,13 @@ msgstr "[sessions] วิธีใช้: :sessions approve <หมายเล�
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] อนุมัติผู้สมัครหน่วยความจำแล้ว"
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4986,3 +5031,32 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"เริ่มระบบอัตโนมัติด้วยเป้าหมายที่แทรกไว้ ให้ค่า包含 --max-rounds N หรือ "
+"--infinite"
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"โปรโตคอลระบบอัตโนมัติ: จบคำตอบด้วยหนึ่งบรรทัดที่ตรงกันเท่านั้น: <AUTO_CONTINUE> หากยังมีงานเหลือ หรือ <AUTO_COMPLETE> หากเป้าหมายเสร็จสมบูรณ์ หากไม่มีเครื่องหมาย ระบบอัตโนมัติจะหยุดอย่างปลอดภัย"
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+"[AUTO] ไม่มีเครื่องหมายระบบอัตโนมัติหรือไม่ถูกต้อง กำลังหยุดอย่างปลอดภัย"
+
+msgid "consecutive tool calls"
+msgstr "การเรียกใช้เครื่องมือต่อเนื่อง"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[คำเตือน] เรียกใช้เครื่องมือต่อเนื่อง %(n)d ครั้ง "
+"ยกเลิกเพื่อป้องกันการทำงานที่ควบคุมไม่ได้"

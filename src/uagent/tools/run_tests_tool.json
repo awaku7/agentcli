@@ -12,6 +12,7 @@
     "param.pythonpath.description": "Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed to the test command.",
     "param.report.description": "Output format.",
     "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
+    "param.timeout_sec.description": "Maximum test execution time in seconds.",
     "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
     "x_search_terms": [
       "run tests",
@@ -40,6 +41,7 @@
     "param.pythonpath.description": "追加の PYTHONPATH（例: 'src'）。指定した場合はテストコマンドの前に付与します。",
     "param.report.description": "出力形式。",
     "param.target.description": "対象（pytest のパス、unittest の開始ディレクトリ、npm script など）。null の場合は既定値を使います。",
+    "param.timeout_sec.description": "テスト実行の最大時間（秒）。",
     "tool.description": "テストを実行します（pytest/unittest/npm を自動判定）。extra_args にシェルのメタ文字が含まれる場合は拒否します。",
     "x_search_terms": [
       "テストの実行",

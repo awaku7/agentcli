@@ -12,11 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr ""
 "Ang awtomatikong pag-install ay hindi pinagana para sa %(label)s (patakaran:"
 " %(mode)s)."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "I-install ang %(package)s ngayon? [y/N] "
 
@@ -138,6 +140,7 @@ msgstr "[FATAL] Nabigong itakda ang workdir: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Nabigong ilunsad ang uag_setup: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -213,6 +216,7 @@ msgstr "(hindi alam ang oras)"
 msgid "(no user message)"
 msgstr "(walang mensahe ng user)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -388,6 +392,7 @@ msgstr ""
 "- Kung ang kakayahan na kailangan mo ay wala sa kasalukuyang naka-load na mga tool, o hindi ka sigurado kung aling tool ang akma, tumawag sa tool_catalog bago sumagot o hulaan. Gamitin ang query nito upang ilarawan ang kinakailangang kakayahan; pagkatapos ay tool_load anumang na-unload na tool na kailangan mo.\n"
 "- Kapag nagsasagawa ng mga tool, italaga ang kaunting pagpapasya hangga't maaari sa user.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1080,6 +1085,7 @@ msgstr "    Display Name: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    Context Window: %(value)s na mga token"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    Pinagmulan ng Konteksto: %(value)s"
 
@@ -1593,8 +1599,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1816,15 +1822,19 @@ msgstr "Ollama num_ctx (default: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (default: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "llama.cpp server base URL (hal. http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API key (opsyonal, default: dummy)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "pangalan ng modelo ng llama.cpp (opsyonal, default: local-model)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr ""
 "Pag-timeout ng kahilingan sa llama.cpp sa loob ng ilang segundo (default: "
@@ -2506,6 +2516,7 @@ msgstr "[AUTO] Nakumpleto ang pagsusuri/pagsusuri."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Naabot na ang max na round (%(max)d). Huminto."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[AUTO] Round %(round)d/INFINITE"
 
@@ -2537,6 +2548,7 @@ msgstr "Hindi maaaring walang laman ang layunin."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Nagsimula. Layunin: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[AUTO] Max rounds: INFINITE"
 
@@ -2544,42 +2556,53 @@ msgstr "[AUTO] Max rounds: INFINITE"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Mga max na round: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "Paggamit: :credential [kumuha|itakda|alisin|listahan] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr ""
 "tumatanggap ang set ng opsyonal na uri pagkatapos ng NAME (default: "
 "api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr ""
 "Ang kasalukuyang kredensyal na backend ay hindi maaaring magbilang ng mga "
 "pangalan."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "Paggamit: :credential get|set|alis NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "Hindi nakita ang kredensyal: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "Ipasok ang lihim ng kredensyal:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "Kinansela ang pag-update ng kredensyal."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "Na-save ang kredensyal: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "Alisin ang kredensyal %(name)s? Ilagay ang y upang magpatuloy, o c upang "
 "kanselahin."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "Kinansela ang pag-aalis ng kredensyal."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "Inalis ang kredensyal: %(name)s"
 
@@ -2627,6 +2650,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d byte) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d byte)"
 
@@ -2861,6 +2885,7 @@ msgstr ""
 "[Responses API] Kasalukuyang sinusuportahan ng mga command ng pamamahala ang"
 " OpenAI/Azure lamang."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3343,7 +3368,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr ""
 "Paganahin ang isang partikular na tool ayon sa pangalan sa pagsisimula. "
 "Maaaring tukuyin ng maraming beses."
@@ -3540,6 +3566,7 @@ msgstr "I-load ang pinakabagong log (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "Tanggalin ang maikling tala ng pag-uusap"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4286,7 +4313,6 @@ msgstr "Hindi kilalang UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr ""
@@ -4301,15 +4327,19 @@ msgid "Computer Use requests permission for action '%(action)s'"
 msgstr ""
 "Computer Use ay humihiling ng pahintulot para sa pagkilos '%(action)s'"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " sa %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " may susi na '%(key)s'"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (haba ng teksto %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4327,12 +4357,15 @@ msgstr ""
 msgid "computer use is disabled"
 msgstr "hindi pinagana ang paggamit ng computer"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "hindi pinapayagan ang kapaligiran: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "hindi pinapayagan ang pagkilos: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "hindi pinapayagan ang domain: %(domain)s"
 
@@ -4731,6 +4764,7 @@ msgstr "Pinagana ang %(n)d: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Ang tinukoy na workdir path ay isang file: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4788,6 +4822,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  nai-save"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  nabigo: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4807,10 +4849,13 @@ msgstr "[sessions] Paggamit: :sessions approve <number>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] Naaprubahan ang memory candidate."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4821,3 +4866,32 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"Simulan ang auto-pilot gamit ang ini-inject na layunin. Isama ang --max-"
+"rounds N o --infinite sa value."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"Protokol ng auto-pilot: tapusin ang iyong tugon sa eksaktong isang linya: <AUTO_CONTINUE> kung may natitirang gawain, o <AUTO_COMPLETE> kung tapos na ang layunin. Kung walang marker, ligtas na hihinto ang auto-pilot."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+"[AUTO] Nawawala o hindi wasto ang auto-pilot marker; ligtas na humihinto."
+
+msgid "consecutive tool calls"
+msgstr "magkakasunod na tool call"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[BABALA] %(n)d magkakasunod na tool call; kinansela upang maiwasan ang hindi"
+" makontrol na pagpapatupad."

@@ -48,6 +48,8 @@ UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
 UAGENT_INJECT_MESSAGE_AUTO = _startup_args.get("inject_message_auto")
 if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
+if UAGENT_INJECT_MESSAGE is not None or UAGENT_INJECT_MESSAGE_AUTO is not None:
+    os.environ["UAGENT_INJECT_MODE"] = "1"
 # Non-interactive runs must never wait for a person or load project
 # instruction files intended for an interactive session.
 if UAGENT_NON_INTERACTIVE:

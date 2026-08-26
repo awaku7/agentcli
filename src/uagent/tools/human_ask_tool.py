@@ -110,7 +110,21 @@ def run_tool(args: dict[str, Any]) -> str:
         "yes",
         "on",
     )
-    if non_interactive:
+    inject_absconfirm = False
+    if non_interactive and os.environ.get("UAGENT_INJECT_MODE") == "1":
+        try:
+            from .enterprise_policy import get_enterprise_policy
+
+            inject_absconfirm = get_enterprise_policy().inject_requires_confirmation(
+                str(args.get("_auto_pilot_tool") or "human_ask"),
+                {
+                    "server_name": args.get("_server_name", ""),
+                    "tool_name": args.get("_mcp_tool", ""),
+                },
+            )
+        except Exception:
+            inject_absconfirm = False
+    if non_interactive and not inject_absconfirm:
         print(
             _(
                 "ui.non_interactive_skip",
@@ -128,8 +142,28 @@ def run_tool(args: dict[str, Any]) -> str:
         }
         return json.dumps(payload, ensure_ascii=False)
 
-    # Auto-pilot mode: skip user interaction, tell the LLM to decide autonomously
+    # Auto-pilot normally skips interaction.  A tool can opt into an
+    # absolute confirmation via enterprise-policy.yaml.
+    auto_pilot_absconfirm = False
     if cb.is_auto_pilot_active and cb.is_auto_pilot_active():
+        try:
+            from .enterprise_policy import get_enterprise_policy
+
+            auto_tool = str(args.get("_auto_pilot_tool") or "human_ask")
+            auto_pilot_absconfirm = (
+                get_enterprise_policy().auto_pilot_requires_confirmation(
+                    auto_tool,
+                    {"_auto_pilot_mcp_key": args.get("_auto_pilot_mcp_key", "")},
+                )
+            )
+        except Exception:
+            auto_pilot_absconfirm = False
+    if (
+        cb.is_auto_pilot_active
+        and cb.is_auto_pilot_active()
+        and not auto_pilot_absconfirm
+        and not inject_absconfirm
+    ):
         print(
             _(
                 "ui.auto_pilot_skip",
@@ -260,8 +294,32 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         keepalive_thread.start()
         try:
-            # stdin_loop/GUI sends the user input to local_q
-            user_reply = local_q.get() or ""
+            # stdin_loop/GUI sends the user input to local_q.  Never wait
+            # forever: an unanswered confirmation must fail closed.
+            try:
+                timeout_sec = float(
+                    os.environ.get("UAGENT_HUMAN_ASK_TIMEOUT_SEC", "300")
+                )
+            except (TypeError, ValueError):
+                timeout_sec = 300.0
+            if timeout_sec <= 0:
+                timeout_sec = 300.0
+            try:
+                user_reply = local_q.get(timeout=timeout_sec) or ""
+            except queue.Empty:
+                with cb.human_ask_lock:
+                    cb.human_ask_set_active(False)
+                return json.dumps(
+                    {
+                        "tool": "human_ask",
+                        "message": message,
+                        "user_reply": "",
+                        "display_reply": "[confirmation timeout]",
+                        "cancelled": True,
+                        "timed_out": True,
+                    },
+                    ensure_ascii=False,
+                )
             # The answer has been received. Release stdin ownership before
             # post-processing the reply so the CLI cannot spin waiting for
             # human_ask to finish its JSON cleanup.

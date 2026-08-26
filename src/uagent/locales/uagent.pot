@@ -4697,3 +4697,19 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+# Auto-pilot and runaway tool-call messages
+msgid "Start auto-pilot with an injected goal. Include --max-rounds N or --infinite in the value."
+msgstr ""
+
+msgid "\n\nAuto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+
+msgid "consecutive tool calls"
+msgstr ""
+
+msgid "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""

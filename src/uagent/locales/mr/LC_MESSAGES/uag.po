@@ -12,9 +12,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr "%(label)s (धोरण: %(mode)s) साठी स्वयंचलित स्थापना अक्षम केली आहे."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "आता %(package)s स्थापित करायचे? [y/N] "
 
@@ -142,6 +144,7 @@ msgstr "[FATAL] कार्यरत निर्देशिका सेट �
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup सुरू करण्यात अयशस्वी: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -224,6 +227,7 @@ msgstr "(बदलण्याची वेळ अज्ञात)"
 msgid "(no user message)"
 msgstr "(वापरकर्ता संदेश नाही)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -401,6 +405,7 @@ msgstr ""
 "- उपलब्ध साधनांचा सल्ला घ्या आणि सर्वात योग्य निवडा. आवश्यक क्षमतेचे वर्णन करण्यासाठी त्याची क्वेरी वापरा; नंतर तुम्हाला आवश्यक असलेले कोणतेही अनलोड केलेले साधन tool_load.\n"
 "- साधने कार्यान्वित करताना, वापरकर्त्याला शक्य तितके कमी निर्णय सोपवा."
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1108,6 +1113,7 @@ msgstr "    डिस्प्ले नाव: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    संदर्भ विंडो: %(value)s टोकन"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    संदर्भ स्रोत: %(value)s"
 
@@ -1648,8 +1654,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1868,15 +1874,19 @@ msgstr "Ollama num_ctx (डिफॉल्ट: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (डिफॉल्ट: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "llama.cpp सर्व्हर बेस URL (उदा. http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API की (पर्यायी, डीफॉल्ट: डमी)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp मॉडेल नाव (पर्यायी, डीफॉल्ट: स्थानिक-मॉडेल)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp विनंती कालबाह्य सेकंदात (डिफॉल्ट: 120)"
 
@@ -2567,6 +2577,7 @@ msgstr "[ऑटो] पुनरावलोकन/विश्लेषण प�
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] कमाल फेऱ्या (%(max)d) गाठल्या.थांबत आहे."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[ऑटो] फेरी %(round)d/INFINITE"
 
@@ -2601,6 +2612,7 @@ msgstr "ध्येय रिक्त असू शकत नाही."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] सुरू केले. ध्येय: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[ऑटो] कमाल फेऱ्या: INFINITE"
 
@@ -2609,38 +2621,49 @@ msgstr "[ऑटो] कमाल फेऱ्या: INFINITE"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] कमाल फेऱ्या: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "वापर: :क्रेडेन्शियल [मिळवा|सेट|काढून टाका|सूची] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "सेट NAME नंतर पर्यायी प्रकार स्वीकारतो (डीफॉल्ट: api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "वर्तमान क्रेडेंशियल बॅकएंड नावांची गणना करू शकत नाही."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "वापर: :credential get|set|NAME काढून टाका"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "क्रेडेंशियल आढळले नाही: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "क्रेडेन्शियल गुपित प्रविष्ट करा:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "क्रेडेंशियल अपडेट रद्द केले."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "क्रेडेन्शियल सेव्ह केले: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "क्रेडेंशियल %(name)s काढायचे? पुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द "
 "करण्यासाठी c प्रविष्ट करा."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "क्रेडेन्शियल काढणे रद्द केले."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "क्रेडेन्शियल काढले: %(name)s"
 
@@ -2697,6 +2720,7 @@ msgstr "  [डी] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d बाइट) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d बाइट)"
 
@@ -2962,6 +2986,7 @@ msgid ""
 msgstr ""
 "[Responses API] व्यवस्थापन आदेश सध्या फक्त OpenAI/Azure ला समर्थन देतात."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3498,7 +3523,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr ""
 "स्टार्टअपवर नावाने विशिष्ट साधन सक्षम करा. अनेक वेळा निर्दिष्ट केलेजाऊ शकते."
 
@@ -3689,6 +3715,7 @@ msgstr "नवीनतम लॉग लोड करा (:लोड 0)"
 msgid "Delete short conversation logs"
 msgstr "लहान संभाषण लॉग हटवा"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4449,7 +4476,6 @@ msgstr "अज्ञात UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr "%(provider)s/%(model)s साठी Computer Use क्षमता अनुपलब्ध आहे"
@@ -4462,15 +4488,19 @@ msgstr "Computer Use %(provider)s/%(model)s साठी समर्थित �
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use '%(action)s' क्रियेसाठी परवानगीची विनंती करतो"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " %(coordinate)s वाजता"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " '%(key)s' की सह"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (मजकूर लांबी %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4486,12 +4516,15 @@ msgstr "संरक्षित Computer Use रनटाइमद्वार�
 msgid "computer use is disabled"
 msgstr "संगणक वापर अक्षम आहे"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "पर्यावरणाला परवानगी नाही: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "क्रियेला अनुमती नाही: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "डोमेनला अनुमती नाही: %(domain)s"
 
@@ -4906,6 +4939,7 @@ msgstr "%(n)d सक्षम: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट workdir मार्ग फाइल आहे: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -4960,6 +4994,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  जतन केले"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  अयशस्वी: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -4978,10 +5020,13 @@ msgstr "[sessions] वापर: :sessions approve <क्रमांक>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] स्मृती उमेदवार मंजूर."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -4992,3 +5037,30 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"इंजेक्ट केलेल्या उद्दिष्टासह ऑटो-पायलट सुरू करा. मूल्यामध्ये --max-rounds N "
+"किंवा --infinite समाविष्ट करा."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"ऑटो-पायलट प्रोटोकॉल: उत्तराचा शेवट नेमक्या एका ओळीने करा: काम शिल्लक असल्यास <AUTO_CONTINUE>, किंवा उद्दिष्ट पूर्ण झाल्यास <AUTO_COMPLETE>. कोणताही मार्कर नसल्यास ऑटो-पायलट सुरक्षितपणे थांबतो."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] ऑटो-पायलट मार्कर गहाळ किंवा अवैध आहे; सुरक्षितपणे थांबवत आहे."
+
+msgid "consecutive tool calls"
+msgstr "सलग टूल कॉल"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[इशारा] %(n)d सलग टूल कॉल; अनियंत्रित अंमलबजावणी टाळण्यासाठी थांबवत आहे."

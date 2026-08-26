@@ -114,6 +114,14 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.report.description", default="Output format."
                     ),
                 },
+                "timeout_sec": {
+                    "type": "number",
+                    "default": 120,
+                    "description": _(
+                        "param.timeout_sec.description",
+                        default="Maximum test execution time in seconds.",
+                    ),
+                },
             },
         },
     },
@@ -166,12 +174,18 @@ def _quote_cmd_parts(parts: list[str]) -> str:
 
 
 def _cmd_exec_json(
-    command: str, cwd: Optional[str]
+    command: str, cwd: Optional[str], timeout_sec: float
 ) -> tuple[str, str, int, Optional[str]]:
     try:
         from .cmd_exec_json_tool import run_tool as cmd_exec_json
 
-        out = cmd_exec_json({"command": command, "cwd": cwd})
+        out = cmd_exec_json(
+            {
+                "command": command,
+                "cwd": cwd,
+                "_timeout_ms": int(timeout_sec * 1000),
+            }
+        )
         obj = json.loads(out)
         if obj.get("blocked"):
             return "", "", 1, str(obj.get("reason") or "blocked")
@@ -212,6 +226,19 @@ def run_tool(args: dict[str, Any]) -> str:
     cwd = args.get("cwd", None)
     pythonpath = args.get("pythonpath", None)
     report = str(args.get("report") or "json")
+    try:
+        timeout_sec = float(args.get("timeout_sec", 120) or 120)
+    except (TypeError, ValueError):
+        return json.dumps(
+            {"ok": False, "error": "timeout_sec must be a number"},
+            ensure_ascii=False,
+        )
+    if timeout_sec <= 0:
+        return json.dumps(
+            {"ok": False, "error": "timeout_sec must be greater than zero"},
+            ensure_ascii=False,
+        )
+    timeout_sec = min(timeout_sec, 3600.0)
 
     if framework not in ("auto", "pytest", "unittest", "npm"):
         return json.dumps(
@@ -322,7 +349,16 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception as e:
         return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
 
-    stdout, stderr, code, err_tag = _cmd_exec_json(cmd_str, cwd=run_cwd)
+    if os.name == "nt":
+        cmd_str = (
+            'set "UAGENT_NON_INTERACTIVE=1" && '
+            'set "UAGENT_CONFIRM_TOOLS=0" && ' + cmd_str
+        )
+    else:
+        cmd_str = "UAGENT_NON_INTERACTIVE=1 UAGENT_CONFIRM_TOOLS=0 " + cmd_str
+    stdout, stderr, code, err_tag = _cmd_exec_json(
+        cmd_str, cwd=run_cwd, timeout_sec=timeout_sec
+    )
 
     stdout_t = _truncate("run_tests stdout", stdout)
     stderr_t = _truncate("run_tests stderr", stderr)

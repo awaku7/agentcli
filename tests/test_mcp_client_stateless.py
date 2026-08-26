@@ -145,8 +145,8 @@ def test_mcp_stateless_request_sends_sse_accept_header() -> None:
     asyncio.run(scenario())
 
 
-def test_mcp_auto_probe_406_falls_back_to_sdk_initialize() -> None:
-    """406 during the stateless probe must trigger the legacy fallback path."""
+def test_mcp_auto_probe_406_is_not_treated_as_legacy_fallback() -> None:
+    """A 406 probe response must be surfaced instead of triggering fallback."""
 
     async def scenario() -> None:
         calls: list[str] = []
@@ -164,18 +164,16 @@ def test_mcp_auto_probe_406_falls_back_to_sdk_initialize() -> None:
 
         transport = httpx.MockTransport(handler)
         async with httpx.AsyncClient(transport=transport) as http_client:
-            try:
+            with pytest.raises(MCPTransportError) as raised:
                 async with MCPClient(
                     url="https://example.test",
                     protocol_mode="auto",
                     http_client=http_client,
                 ) as client:
-                    # 406 is treated as a probe rejection; the client must not
-                    # raise MCP_HTTP_STATUS_ERROR during connect.
                     assert client is not None
-            except MCPTransportError as exc:
-                # Acceptable only if it is not the probe's 406 error.
-                assert exc.code != "MCP_HTTP_STATUS_ERROR"
+
+            assert raised.value.code == "MCP_HTTP_STATUS_ERROR"
+            assert raised.value.details.get("status_code") == 406
 
         assert calls and calls[0] == "probe"
 

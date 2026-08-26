@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-29 10:52+0900\n"
+"POT-Creation-Date: 2026-08-17 18:08+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,6 +11,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
+
+msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
+msgstr "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
+
+msgid "Install %(package)s now? [y/N] "
+msgstr "Install %(package)s now? [y/N] "
 
 msgid "Installing %(label)s..."
 msgstr "Installing %(label)s..."
@@ -56,6 +62,12 @@ msgstr "Cancelled."
 msgid "Received multiline reply."
 msgstr "Received multiline reply."
 
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLM round interrupted: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "Auto-pilot interrupted: %(err)s"
+
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -91,6 +103,9 @@ msgstr "[FATAL] Failed to set workdir: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
 
+msgid "%(err)s"
+msgstr "%(err)s"
+
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "provider = %(provider)s; model = %(model)s"
 
@@ -123,21 +138,6 @@ msgstr "Startup file provided: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive was specified; exiting without waiting for stdin."
 
-msgid "[Responses API] A previous session was found. Continue it?"
-msgstr "[Responses API] A previous session was found. Continue it?"
-
-msgid "  (y) Yes - reuse previous context (saves tokens)"
-msgstr "  (y) Yes - reuse previous context (saves tokens)"
-
-msgid "  (n) No  - start fresh, discard saved state"
-msgstr "  (n) No  - start fresh, discard saved state"
-
-msgid "[Responses API] Continuing previous session."
-msgstr "[Responses API] Continuing previous session."
-
-msgid "[Responses API] Starting fresh session."
-msgstr "[Responses API] Starting fresh session."
-
 msgid "Environment variable %(name)s is not set."
 msgstr "Environment variable %(name)s is not set."
 
@@ -161,10 +161,10 @@ msgstr "(no user message)"
 
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
+"%(last_user)s%(response_summary)s"
 msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
+"%(last_user)s%(response_summary)s"
 
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -309,6 +309,7 @@ msgid ""
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
 "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- For Computer Use browser tasks, keep using the currently visible browser session. When the user asks to search, enter only the new search query in the page's search field; do not prepend or concatenate the current URL. Use the address bar only when the user explicitly asks to open a URL.\n"
 "- When handling relative date expressions, call get_current_time to reference the current time.\n"
 "- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
@@ -321,6 +322,7 @@ msgstr ""
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
 "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- For Computer Use browser tasks, keep using the currently visible browser session. When the user asks to search, enter only the new search query in the page's search field; do not prepend or concatenate the current URL. Use the address bar only when the user explicitly asks to open a URL.\n"
 "- When handling relative date expressions, call get_current_time to reference the current time.\n"
 "- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
@@ -474,10 +476,10 @@ msgstr "open with OS"
 
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -499,6 +501,9 @@ msgstr "Azure OpenAI API version (e.g., 2024-xx-xx)."
 
 msgid "OpenAI API key."
 msgstr "OpenAI API key."
+
+msgid "PLaMo API key."
+msgstr "PLaMo API key."
 
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
@@ -663,17 +668,6 @@ msgstr ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
-
-msgid ""
-"[INFO] Already called this tool with the same arguments earlier. Reusing the"
-" previous result. Do NOT call this tool again with the same arguments. If "
-"more work is needed, call a different tool or answer with what you already "
-"have.\n"
-msgstr ""
-"[INFO] Already called this tool with the same arguments earlier. Reusing the"
-" previous result. Do NOT call this tool again with the same arguments. If "
-"more work is needed, call a different tool or answer with what you already "
-"have.\n"
 
 msgid ""
 "The previous model turn ended with an empty reply after tool use. Continue "
@@ -847,6 +841,9 @@ msgstr "    Display Name:  %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    Context Window: %(value)s tokens"
 
+msgid "    Context Source: %(value)s"
+msgstr "    Context Source: %(value)s"
+
 msgid "    Max Output:    %(value)s tokens"
 msgstr "    Max Output:    %(value)s tokens"
 
@@ -885,6 +882,12 @@ msgstr "    Reasoning Efforts: %(value)s"
 
 msgid "    Thinking Budgets: %(value)s"
 msgstr "    Thinking Budgets: %(value)s"
+
+msgid "profile.summary_only"
+msgstr "profile.summary_only"
+
+msgid "profile.cleaned_json_only"
+msgstr "profile.cleaned_json_only"
 
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
@@ -1071,17 +1074,11 @@ msgstr "Welcome / Quick Guide"
 msgid "Font size: %(name)s"
 msgstr "Font size: %(name)s"
 
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI (Extreme Stability)"
-
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ You can attach files by drag & drop"
 
 msgid "Attach files"
 msgstr "Attach files"
-
-msgid "■"
-msgstr "■"
 
 msgid "Stop generation"
 msgstr "Stop generation"
@@ -1128,10 +1125,8 @@ msgstr "Reasoning: high"
 msgid "Reasoning: xhigh"
 msgstr "Reasoning: xhigh"
 
-#: src/uagent/scheckgui.py:1666
 msgid "Reasoning: max"
 msgstr "Reasoning: max"
-
 
 msgid "Verbosity: off"
 msgstr "Verbosity: off"
@@ -1192,7 +1187,9 @@ msgstr "[mode] reasoning=%(mode)s"
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
-msgstr ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
 
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mode] verbosity=%(mode)s"
@@ -1202,6 +1199,9 @@ msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
 msgid "Enter password..."
 msgstr "Enter password..."
+
+msgid "Enter response for human_ask..."
+msgstr "Enter response for human_ask..."
 
 msgid "Enter a message..."
 msgstr "Enter a message..."
@@ -1242,18 +1242,24 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+
+msgid "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Enable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+
+msgid "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
+msgstr "Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."
 
 msgid "OpenAI API key"
 msgstr "OpenAI API key"
@@ -1263,6 +1269,20 @@ msgstr "OpenAI base URL (optional)"
 
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI model/deployment name (optional)"
+
+msgid "OpenAI Fast mode (1/true to enable)"
+msgstr "OpenAI Fast mode (1/true to enable)"
+
+msgid "PLaMo API key"
+msgstr "PLaMo API key"
+
+msgid ""
+"PLaMo base URL (optional, default: https://api.platform.preferredai.jp/v1)"
+msgstr ""
+"PLaMo base URL (optional, default: https://api.platform.preferredai.jp/v1)"
+
+msgid "PLaMo model name (optional, default: plamo-3.0-prime)"
+msgstr "PLaMo model name (optional, default: plamo-3.0-prime)"
 
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
@@ -1377,6 +1397,18 @@ msgstr "Ollama num_ctx (default: 8192)"
 
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (default: llmcapa max_output_tokens)"
+
+msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
+msgstr "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
+
+msgid "llama.cpp API key (optional, default: dummy)"
+msgstr "llama.cpp API key (optional, default: dummy)"
+
+msgid "llama.cpp model name (optional, default: local-model)"
+msgstr "llama.cpp model name (optional, default: local-model)"
+
+msgid "llama.cpp request timeout in seconds (default: 120)"
+msgstr "llama.cpp request timeout in seconds (default: 120)"
 
 msgid "DeepSeek API key"
 msgstr "DeepSeek API key"
@@ -1660,14 +1692,20 @@ msgstr "Vertex AI speech model name (optional)"
 msgid "Vertex AI transcription model name (optional)"
 msgstr "Vertex AI transcription model name (optional)"
 
-msgid "Configure optional image / embedding / audio settings?"
-msgstr "Configure optional image / embedding / audio settings?"
+msgid "Configure Realtime voice settings?"
+msgstr "Configure Realtime voice settings?"
 
 msgid "No"
 msgstr "No"
 
 msgid "Yes"
 msgstr "Yes"
+
+msgid "Select Realtime voice provider"
+msgstr "Select Realtime voice provider"
+
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Configure optional image / embedding / audio settings?"
 
 msgid "Configure image analysis settings?"
 msgstr "Configure image analysis settings?"
@@ -1707,6 +1745,9 @@ msgstr "Optional: Responses API (Azure/OpenAI/Bedrock)"
 
 msgid "Optional runtime"
 msgstr "Optional runtime"
+
+msgid "Optional Realtime voice settings"
+msgstr "Optional Realtime voice settings"
 
 msgid "Optional image / embedding / audio settings"
 msgstr "Optional image / embedding / audio settings"
@@ -1804,6 +1845,9 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
+msgid "translate.engine_system_prompt"
+msgstr "translate.engine_system_prompt"
+
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Stopped by user. Sending stop command to LLM..."
 
@@ -1819,52 +1863,99 @@ msgstr "%(name)s (never used for %(n)d LLM rounds since load)"
 msgid "%(name)s (idle for %(n)d LLM rounds)"
 msgstr "%(name)s (idle for %(n)d LLM rounds)"
 
-msgid "image file not found: %(path)s"
-msgstr "image file not found: %(path)s"
+msgid "Continue. Goal: %(goal)s"
+msgstr "Continue. Goal: %(goal)s"
 
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "image file too large: %(size)d bytes (limit=%(max)d)"
+msgid "Reviewer notes: %(feedback)s"
+msgstr "Reviewer notes: %(feedback)s"
 
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgid "auto.review_judgment_system_prompt"
+msgstr "auto.review_judgment_system_prompt"
 
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
+msgid "[AUTO] Judgment call failed: %(etype)s: %(error)s"
+msgstr "[AUTO] Judgment call failed: %(etype)s: %(error)s"
 
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
+"\n"
+"[AUTO:judge] %(judgment)s"
 msgstr ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
+"\n"
+"[AUTO:judge] %(judgment)s"
 
-msgid ""
-"Inject a message into the LLM at startup and exit after completion. Implies "
-"--non-interactive."
-msgstr ""
-"Inject a message into the LLM at startup and exit after completion. Implies "
-"--non-interactive."
+msgid "  feedback: %(feedback)s"
+msgstr "  feedback: %(feedback)s"
 
-msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
-msgstr ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Exited by user (x key)."
 
-msgid "Load a plugin from a directory (can be specified multiple times)."
-msgstr "Load a plugin from a directory (can be specified multiple times)."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Review/analysis completed."
 
-msgid "invalid reasoning"
-msgstr "invalid reasoning"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Max rounds (%(max)d) reached. Stopping."
 
-msgid "[display] reasoning display=%(mode)s"
-msgstr "[display] reasoning display=%(mode)s"
+msgid "[AUTO] Round %(round)d/INFINITE"
+msgstr "[AUTO] Round %(round)d/INFINITE"
 
-msgid "invalid verbosity"
-msgstr "invalid verbosity"
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Round %(round)d/%(max)d"
+
+msgid "[AUTO] Auto-pilot turned off."
+msgstr "[AUTO] Auto-pilot turned off."
+
+msgid "Usage: :auto <goal> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
+
+msgid "       :auto off"
+msgstr "       :auto off"
+
+msgid "Invalid value for --max-rounds: %(val)s"
+msgstr "Invalid value for --max-rounds: %(val)s"
+
+msgid "Goal cannot be empty."
+msgstr "Goal cannot be empty."
+
+msgid "[AUTO] Started. Goal: %(goal)s"
+msgstr "[AUTO] Started. Goal: %(goal)s"
+
+msgid "[AUTO] Max rounds: INFINITE"
+msgstr "[AUTO] Max rounds: INFINITE"
+
+msgid "[AUTO] Max rounds: %(max)d"
+msgstr "[AUTO] Max rounds: %(max)d"
+
+msgid "Usage: :credential [get|set|remove|list] NAME"
+msgstr "Usage: :credential [get|set|remove|list] NAME"
+
+msgid "set accepts an optional kind after NAME (default: api_key)."
+msgstr "set accepts an optional kind after NAME (default: api_key)."
+
+msgid "The current credential backend cannot enumerate names."
+msgstr "The current credential backend cannot enumerate names."
+
+msgid "Usage: :credential get|set|remove NAME"
+msgstr "Usage: :credential get|set|remove NAME"
+
+msgid "Credential not found: %(name)s"
+msgstr "Credential not found: %(name)s"
+
+msgid "Enter credential secret:"
+msgstr "Enter credential secret:"
+
+msgid "Credential update cancelled."
+msgstr "Credential update cancelled."
+
+msgid "Credential saved: %(name)s"
+msgstr "Credential saved: %(name)s"
+
+msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
+msgstr "Remove credential %(name)s? Enter y to proceed, or c to cancel."
+
+msgid "Credential removal cancelled."
+msgstr "Credential removal cancelled."
+
+msgid "Credential removed: %(name)s"
+msgstr "Credential removed: %(name)s"
 
 msgid ":cd <path>"
 msgstr ":cd <path>"
@@ -1898,6 +1989,9 @@ msgstr "  [D] %(name)s -> %(path)s"
 
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+
+msgid "[ls] [F] %(path)s (%(size)d bytes)"
+msgstr "[ls] [F] %(path)s (%(size)d bytes)"
 
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Directory does not exist: %(src)s -> %(dst)s"
@@ -2020,19 +2114,100 @@ msgstr "[tail] Invalid line count: %(n)r"
 msgid "[tail] Empty."
 msgstr "[tail] Empty."
 
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
+msgid ":rm <path|glob> [path|glob]"
+msgstr ":rm <path|glob> [path|glob]"
 
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "When finished, always call `finish_skill` if available.\n"
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm error] Failed to parse arguments: %(err)s"
+
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Unexpected delete_file preview response."
+
+msgid "[rm] Preview failed."
+msgstr "[rm] Preview failed."
+
+msgid "[rm] No matching paths."
+msgstr "[rm] No matching paths."
+
+msgid "[rm] Missing:"
+msgstr "[rm] Missing:"
+
+msgid "[rm] Candidates:"
+msgstr "[rm] Candidates:"
+
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+
+msgid "[rm] Cancelled."
+msgstr "[rm] Cancelled."
+
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Unexpected delete_file response."
+
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] Deleted %(count)d path(s)."
+
+msgid "[rm] Failed."
+msgstr "[rm] Failed."
+
+msgid "[rm error] %(etype)s: %(err)s"
+msgstr "[rm error] %(etype)s: %(err)s"
+
+msgid ""
+"[Responses API] Management commands currently support OpenAI/Azure only."
+msgstr ""
+"[Responses API] Management commands currently support OpenAI/Azure only."
+
+msgid ""
+"Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
+msgstr ""
+"Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
+
+msgid "[Responses API] Retrieve failed: %(error)s"
+msgstr "[Responses API] Retrieve failed: %(error)s"
+
+msgid "[Responses API] No response ID is available."
+msgstr "[Responses API] No response ID is available."
+
+msgid "[Responses API] response_id is required."
+msgstr "[Responses API] response_id is required."
+
+msgid "[Responses API] Cancel failed: %(error)s"
+msgstr "[Responses API] Cancel failed: %(error)s"
+
+msgid "[Responses API] Cancelled %(response)s."
+msgstr "[Responses API] Cancelled %(response)s."
+
+msgid "active response"
+msgstr "active response"
+
+msgid "[Responses API] No cancellable active response is available."
+msgstr "[Responses API] No cancellable active response is available."
+
+msgid "[Responses API] Token count failed: %(error)s"
+msgstr "[Responses API] Token count failed: %(error)s"
+
+msgid "[Responses API] Compact failed: %(error)s"
+msgstr "[Responses API] Compact failed: %(error)s"
+
+msgid "[Responses API] Input item listing failed: %(error)s"
+msgstr "[Responses API] Input item listing failed: %(error)s"
+
+msgid "[Responses API] Usage: :response delete <response_id>"
+msgstr "[Responses API] Usage: :response delete <response_id>"
+
+msgid "[Responses API] Delete failed: %(error)s"
+msgstr "[Responses API] Delete failed: %(error)s"
 
 msgid "[skills] No active skill messages to clear."
 msgstr "[skills] No active skill messages to clear."
@@ -2221,55 +2396,6 @@ msgstr "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load error] Failed: %(etype)s: %(err)s"
 
-msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <path|glob> [path|glob]"
-
-msgid "[rm error] Failed to parse arguments: %(err)s"
-msgstr "[rm error] Failed to parse arguments: %(err)s"
-
-msgid "[rm] Unexpected delete_file preview response."
-msgstr "[rm] Unexpected delete_file preview response."
-
-msgid "[rm] Preview failed."
-msgstr "[rm] Preview failed."
-
-msgid "[rm] No matching paths."
-msgstr "[rm] No matching paths."
-
-msgid "[rm] Missing:"
-msgstr "[rm] Missing:"
-
-msgid "[rm] Candidates:"
-msgstr "[rm] Candidates:"
-
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-
-msgid "[rm] Cancelled."
-msgstr "[rm] Cancelled."
-
-msgid "[rm] Unexpected delete_file response."
-msgstr "[rm] Unexpected delete_file response."
-
-msgid "[rm] Deleted %(count)d path(s)."
-msgstr "[rm] Deleted %(count)d path(s)."
-
-msgid "[rm] Failed."
-msgstr "[rm] Failed."
-
-msgid "[rm error] %(etype)s: %(err)s"
-msgstr "[rm error] %(etype)s: %(err)s"
-
 msgid ":load <index|path>"
 msgstr ":load <index|path>"
 
@@ -2393,6 +2519,37 @@ msgstr "[shared-mem-del error] %(etype)s: %(err)s"
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Deleted shared long-term memory entry [%(idx)d]."
 
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+
+msgid ""
+"Inject a message into the LLM at startup and exit after completion. Implies "
+"--non-interactive."
+msgstr ""
+"Inject a message into the LLM at startup and exit after completion. Implies "
+"--non-interactive."
+
+msgid ""
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
+msgstr ""
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
+
+msgid "Load a plugin from a directory (can be specified multiple times)."
+msgstr "Load a plugin from a directory (can be specified multiple times)."
+
 msgid "Available commands:"
 msgstr "Available commands:"
 
@@ -2428,6 +2585,9 @@ msgstr "LLM-summarize older history"
 
 msgid "Show approx. conversation tokens"
 msgstr "Show approx. conversation tokens"
+
+msgid "Manage Responses API lifecycle"
+msgstr "Manage Responses API lifecycle"
 
 msgid "Show/set/unset/save UAGENT_* env"
 msgstr "Show/set/unset/save UAGENT_* env"
@@ -2489,9 +2649,6 @@ msgstr "(in multiline) restart input from the beginning"
 msgid "Show command help"
 msgstr "Show command help"
 
-msgid ":help [command [subcommand]]"
-msgstr ":help [command [subcommand]]"
-
 msgid ""
 "Without args: short list of all commands.\n"
 "With a command: detailed usage (static + dynamic CMD_SPEC).\n"
@@ -2510,23 +2667,14 @@ msgstr "Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"
 msgid "List directory entries"
 msgstr "List directory entries"
 
-msgid ":ls [path]"
-msgstr ":ls [path]"
-
 msgid "Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"
 msgstr "Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"
 
 msgid "Show conversation log file list"
 msgstr "Show conversation log file list"
 
-msgid ":logs"
-msgstr ":logs"
-
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Load a past log (overwrites current conversation history)"
-
-msgid ":load <idx|path>"
-msgstr ":load <idx|path>"
 
 msgid ""
 "idx is from :logs. After load you may be asked to prepend into the current "
@@ -2538,40 +2686,26 @@ msgstr ""
 msgid "Load the newest log (:load 0)"
 msgstr "Load the newest log (:load 0)"
 
-msgid ":cont"
-msgstr ":cont"
-
 msgid "Delete short conversation logs"
 msgstr "Delete short conversation logs"
 
-msgid ":clean [N]"
-msgstr ":clean [N]"
-
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
-"5, or UAGENT_CLEAN_THRESHOLD). On :exit/:quit/Ctrl-C, the current session "
-"log is discarded under the same rule. A silent startup sweep also removes "
-"leftover short logs from prior sessions."
+"5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
+"currently disabled; use :clean explicitly."
 msgstr ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
-"5, or UAGENT_CLEAN_THRESHOLD). On :exit/:quit/Ctrl-C, the current session "
-"log is discarded under the same rule. A silent startup sweep also removes "
-"leftover short logs from prior sessions."
+"5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
+"currently disabled; use :clean explicitly."
 
 msgid "Shrink conversation history"
 msgstr "Shrink conversation history"
-
-msgid ":shrink [N]"
-msgstr ":shrink [N]"
 
 msgid "Keep last N non-system messages (default 40)."
 msgstr "Keep last N non-system messages (default 40)."
 
 msgid "Shrink history via LLM summarization"
 msgstr "Shrink history via LLM summarization"
-
-msgid ":shrink_llm [N]"
-msgstr ":shrink_llm [N]"
 
 msgid ""
 "Summarize older history into one system message; keep last N raw (default "
@@ -2583,14 +2717,17 @@ msgstr ""
 msgid "Show approximate token count of the conversation"
 msgstr "Show approximate token count of the conversation"
 
-msgid ":tokens"
-msgstr ":tokens"
+msgid ""
+"Manage the current Responses API response. status retrieves the current "
+"response; cancel stops it; tokens counts input tokens; compact compacts "
+"context; items lists input items; delete removes a response."
+msgstr ""
+"Manage the current Responses API response. status retrieves the current "
+"response; cancel stops it; tokens counts input tokens; compact compacts "
+"context; items lists input items; delete removes a response."
 
 msgid "Manage UAGENT_* environment variables"
 msgstr "Manage UAGENT_* environment variables"
-
-msgid ":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save"
-msgstr ":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save"
 
 msgid ""
 "Sensitive KEY names are masked on show. save writes encrypted .env.sec when "
@@ -2601,9 +2738,6 @@ msgstr ""
 
 msgid "Manage and apply Agent Skills"
 msgstr "Manage and apply Agent Skills"
-
-msgid ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
-msgstr ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
@@ -2621,31 +2755,23 @@ msgstr ""
 msgid "Control tool sending, genres, and loaded tools"
 msgstr "Control tool sending, genres, and loaded tools"
 
-msgid ":tools [list|load|on|off|reload|output|create] ..."
-msgstr ":tools [list|load|on|off|reload|output|create] ..."
-
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
-":tools output           Toggle showing tool results in UI\n"
-":tools create ...       Scaffold a new tool (alias of :tool create)"
+":tools output           Toggle showing tool results in UI"
 msgstr ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
 ":tools list [query]     List loaded tools\n"
 ":tools load <name>      Load one tool by name\n"
 ":tools reload           Reload tool modules from disk\n"
-":tools output           Toggle showing tool results in UI\n"
-":tools create ...       Scaffold a new tool (alias of :tool create)"
+":tools output           Toggle showing tool results in UI"
 
 msgid "Tool authoring helpers"
 msgstr "Tool authoring helpers"
-
-msgid ":tool create <name> [--lang python|rust] [--description '...']"
-msgstr ":tool create <name> [--lang python|rust] [--description '...']"
 
 msgid "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
 msgstr "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
@@ -2653,20 +2779,11 @@ msgstr "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
 msgid "Install and manage plugins"
 msgstr "Install and manage plugins"
 
-msgid ""
-":plugin "
-"<list|install|remove|enable|disable|reload|info|init|validate|marketplace> "
-"..."
-msgstr ":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ..."
-
 msgid "See :help plugin <subcommand> for each action."
 msgstr "See :help plugin <subcommand> for each action."
 
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
 msgstr "Auto-pilot: repeatedly pursue a goal until done or stopped"
-
-msgid ":auto <goal> [--max-rounds N] | :auto off"
-msgstr ":auto <goal> [--max-rounds N] | :auto off"
 
 msgid "Press x in CLI to request immediate exit from auto-pilot."
 msgstr "Press x in CLI to request immediate exit from auto-pilot."
@@ -2674,17 +2791,11 @@ msgstr "Press x in CLI to request immediate exit from auto-pilot."
 msgid "Show detailed model configuration"
 msgstr "Show detailed model configuration"
 
-msgid ":model"
-msgstr ":model"
-
 msgid "Chat, image, audio, translation, embedding as configured."
 msgstr "Chat, image, audio, translation, embedding as configured."
 
 msgid "Set reasoning effort"
 msgstr "Set reasoning effort"
-
-msgid ":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]"
-msgstr ":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]"
 
 msgid "0=off, 1=low, 2=medium, 3=high. Provider support varies."
 msgstr "0=off, 1=low, 2=medium, 3=high. Provider support varies."
@@ -2692,17 +2803,11 @@ msgstr "0=off, 1=low, 2=medium, 3=high. Provider support varies."
 msgid "Set verbosity"
 msgstr "Set verbosity"
 
-msgid ":v [0|1|2|3]"
-msgstr ":v [0|1|2|3]"
-
 msgid "0=off .. 3=high. No arg keeps current."
 msgstr "0=off .. 3=high. No arg keeps current."
 
 msgid "List long-term memory notes"
 msgstr "List long-term memory notes"
-
-msgid ":mem-list"
-msgstr ":mem-list"
 
 msgid "Delete a long-term memory note by index"
 msgstr "Delete a long-term memory note by index"
@@ -2713,26 +2818,17 @@ msgstr "Index from :mem-list."
 msgid "Show or generate the learned user profile"
 msgstr "Show or generate the learned user profile"
 
-msgid ":profile | :profile fromlog [N]"
-msgstr ":profile | :profile fromlog [N]"
-
 msgid "fromlog N uses the most recent N log files."
 msgstr "fromlog N uses the most recent N log files."
 
 msgid "Generate user profile from past logs"
 msgstr "Generate user profile from past logs"
 
-msgid ":profile-fromlog [N]"
-msgstr ":profile-fromlog [N]"
-
 msgid "Default N=100; 0=all."
 msgstr "Default N=100; 0=all."
 
 msgid "Clear learned user profile data"
 msgstr "Clear learned user profile data"
-
-msgid ":profile-clear"
-msgstr ":profile-clear"
 
 msgid "Copy file or directory"
 msgstr "Copy file or directory"
@@ -2742,9 +2838,6 @@ msgstr "Move file or directory"
 
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Delete file(s)/directory(ies) with preview + confirm"
-
-msgid ":rm <path|glob>"
-msgstr ":rm <path|glob>"
 
 msgid "Show the first n lines of a file"
 msgstr "Show the first n lines of a file"
@@ -2758,17 +2851,8 @@ msgstr "Show the last n lines of a file"
 msgid "Reload runtime configuration / modules"
 msgstr "Reload runtime configuration / modules"
 
-msgid ":reload [target]"
-msgstr ":reload [target]"
-
 msgid "Exit the interactive session"
 msgstr "Exit the interactive session"
-
-msgid ":exit"
-msgstr ":exit"
-
-msgid ":quit"
-msgstr ":quit"
 
 msgid "Dynamic / plugin subcommands:"
 msgstr "Dynamic / plugin subcommands:"
@@ -2787,6 +2871,45 @@ msgstr "No dynamic subcommand help for '%(sub)s'."
 
 msgid "Tip: :help for overview, :help <cmd> <sub> for one subcommand."
 msgstr "Tip: :help for overview, :help <cmd> <sub> for one subcommand."
+
+msgid "image file not found: %(path)s"
+msgstr "image file not found: %(path)s"
+
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "image file too large: %(size)d bytes (limit=%(max)d)"
+
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "When finished, always call `finish_skill` if available.\n"
+
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+
+msgid "invalid reasoning"
+msgstr "invalid reasoning"
+
+msgid "[display] reasoning display=%(mode)s"
+msgstr "[display] reasoning display=%(mode)s"
+
+msgid "invalid verbosity"
+msgstr "invalid verbosity"
 
 msgid "[env error] %(etype)s: %(err)s"
 msgstr "[env error] %(etype)s: %(err)s"
@@ -2814,58 +2937,6 @@ msgstr "[env] Saved .env.sec: %(path)s"
 
 msgid ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
 msgstr ":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"
-
-msgid "Continue. Goal: %(goal)s"
-msgstr "Continue. Goal: %(goal)s"
-
-msgid "Reviewer notes: %(feedback)s"
-msgstr "Reviewer notes: %(feedback)s"
-
-msgid "[AUTO] Judgment call failed: %(etype)s: %(error)s"
-msgstr "[AUTO] Judgment call failed: %(etype)s: %(error)s"
-
-msgid ""
-"\n"
-"[AUTO:judge] %(judgment)s"
-msgstr ""
-"\n"
-"[AUTO:judge] %(judgment)s"
-
-msgid "  feedback: %(feedback)s"
-msgstr "  feedback: %(feedback)s"
-
-msgid "[AUTO] Exited by user (x key)."
-msgstr "[AUTO] Exited by user (x key)."
-
-msgid "[AUTO] Review/analysis completed."
-msgstr "[AUTO] Review/analysis completed."
-
-msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr "[AUTO] Max rounds (%(max)d) reached. Stopping."
-
-msgid "[AUTO] Round %(round)d/%(max)d"
-msgstr "[AUTO] Round %(round)d/%(max)d"
-
-msgid "[AUTO] Auto-pilot turned off."
-msgstr "[AUTO] Auto-pilot turned off."
-
-msgid "Usage: :auto <goal> [--max-rounds N]"
-msgstr "Usage: :auto <goal> [--max-rounds N]"
-
-msgid "       :auto off"
-msgstr "       :auto off"
-
-msgid "Invalid value for --max-rounds: %(val)s"
-msgstr "Invalid value for --max-rounds: %(val)s"
-
-msgid "Goal cannot be empty."
-msgstr "Goal cannot be empty."
-
-msgid "[AUTO] Started. Goal: %(goal)s"
-msgstr "[AUTO] Started. Goal: %(goal)s"
-
-msgid "[AUTO] Max rounds: %(max)d"
-msgstr "[AUTO] Max rounds: %(max)d"
 
 msgid "  (fallback: %(key)s)"
 msgstr "  (fallback: %(key)s)"
@@ -2932,13 +3003,6 @@ msgstr "Usage: :tools [list|on|off|output] [args...]"
 
 msgid "Exiting."
 msgstr "Exiting."
-
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
-msgstr ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
 
 msgid "[cd] workdir changed: %(old)s -> %(new)s"
 msgstr "[cd] workdir changed: %(old)s -> %(new)s"
@@ -3200,6 +3264,54 @@ msgstr "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
+msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
+msgstr "Computer Use capability is unavailable for %(provider)s/%(model)s"
+
+msgid "Computer Use is not supported for %(provider)s/%(model)s"
+msgstr "Computer Use is not supported for %(provider)s/%(model)s"
+
+msgid "Computer Use requests permission for action '%(action)s'"
+msgstr "Computer Use requests permission for action '%(action)s'"
+
+msgid " at %(coordinate)s"
+msgstr " at %(coordinate)s"
+
+msgid " with key '%(key)s'"
+msgstr " with key '%(key)s'"
+
+msgid " (text length %(length)d)"
+msgstr " (text length %(length)d)"
+
+msgid ""
+".\n"
+"Allow this action? Enter y/yes to allow, or c to deny."
+msgstr ""
+".\n"
+"Allow this action? Enter y/yes to allow, or c to deny."
+
+msgid "Control the local desktop through the guarded Computer Use runtime."
+msgstr "Control the local desktop through the guarded Computer Use runtime."
+
+msgid "computer use is disabled"
+msgstr "computer use is disabled"
+
+msgid "environment is not allowed: %(environment)s"
+msgstr "environment is not allowed: %(environment)s"
+
+msgid "action is not allowed: %(action)s"
+msgstr "action is not allowed: %(action)s"
+
+msgid "domain is not allowed: %(domain)s"
+msgstr "domain is not allowed: %(domain)s"
+
+msgid "user confirmation is required"
+msgstr "user confirmation is required"
+
+msgid "user confirmation was not granted"
+msgstr "user confirmation was not granted"
+
+msgid "runtime returned a mismatched action_id"
+msgstr "runtime returned a mismatched action_id"
 
 msgid "invalid cache meta"
 msgstr "invalid cache meta"
@@ -3280,6 +3392,9 @@ msgstr ""
 "        - Do not use web search for local or stable information.\n"
 "        - Prefer answering without web search when the answer is already sufficient.\n"
 "        "
+
+msgid "pfn.catalog_steering"
+msgstr "pfn.catalog_steering"
 
 msgid "Response body: %(body)s"
 msgstr "Response body: %(body)s"
@@ -3453,75 +3568,100 @@ msgstr "%(n)d enabled: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
 
-msgid "Configure Realtime voice settings?"
-msgstr "Configure Realtime voice settings?"
-
-msgid "Select Realtime voice provider"
-msgstr "Select Realtime voice provider"
-
-msgid "Azure Realtime base URL"
-msgstr "Azure Realtime base URL"
-
-msgid "Azure Realtime API key"
-msgstr "Azure Realtime API key"
-
-msgid "Azure Realtime API version"
-msgstr "Azure Realtime API version"
-
-msgid "Azure Realtime deployment name"
-msgstr "Azure Realtime deployment name"
-
-msgid "AWS region"
-msgstr "AWS region"
-
-msgid "Bedrock Nova Sonic model ID"
-msgstr "Bedrock Nova Sonic model ID"
-
-msgid "Bedrock voice ID"
-msgstr "Bedrock voice ID"
-
-msgid "Realtime model/deployment name"
-msgstr "Realtime model/deployment name"
-
-msgid "Optional Realtime voice settings"
-msgstr "Optional Realtime voice settings"
-
-
-# Added for localized system prompts.
-msgid "auto.review_judgment_system_prompt"
+msgid ""
+"Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
+" to cancel."
 msgstr ""
-"You are a reviewer. Evaluate the conversation below and determine whether the goal \"%(goal)s\" has been achieved.\n"
-"Achieved    → COMPLETE\n"
-"More needed → CONTINUE\n"
-"Reply with COMPLETE or CONTINUE.\n"
-"If CONTINUE, briefly state what is still missing.\n"
-"Format: CONTINUE: <reason>"
+"Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
+" to cancel."
 
-# Added for localized system prompts.
-msgid "profile.summary_only"
+msgid "[sessions] Session store is not enabled."
+msgstr "[sessions] Session store is not enabled."
+
+msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+
+msgid "[sessions] --keep must be a non-negative integer."
+msgstr "[sessions] --keep must be a non-negative integer."
+
+msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+
+msgid "  %(id)s | %(created_at)s | %(count)d messages"
+msgstr "  %(id)s | %(created_at)s | %(count)d messages"
+
+msgid ""
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
 msgstr ""
-"Return only the summary text."
+"[sessions] Dry run; nothing deleted. Add --yes to delete these sessions."
 
-# Added for localized system prompts.
-msgid "profile.cleaned_json_only"
+msgid "[sessions] Failed to delete %(id)s: %(error)s"
+msgstr "[sessions] Failed to delete %(id)s: %(error)s"
+
+msgid "[sessions] VACUUM failed: %(error)s"
+msgstr "[sessions] VACUUM failed: %(error)s"
+
+msgid "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+msgstr "[sessions] Pruned %(deleted)d/%(total)d session(s)."
+
+msgid "[sessions] Session store or LLM is not enabled."
+msgstr "[sessions] Session store or LLM is not enabled."
+
+msgid "[sessions] Summarizing %(count)d session(s)..."
+msgstr "[sessions] Summarizing %(count)d session(s)..."
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped"
+msgstr "[%(index)d/%(total)d] %(id)s  skipped"
+
+msgid "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+msgstr "[%(index)d/%(total)d] %(id)s  skipped (too short)"
+
+msgid "[%(index)d/%(total)d] %(id)s  saved"
+msgstr "[%(index)d/%(total)d] %(id)s  saved"
+
+msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+msgstr "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
+
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
 msgstr ""
-"Return only the cleaned JSON object."
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
 
-# Added for localized system prompts.
-msgid "translate.engine_system_prompt"
+msgid ""
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
 msgstr ""
-"You are a translation engine. Translate the user's text faithfully. Do not add explanations. Preserve code blocks, inline code, JSON, file paths, and URLs verbatim."
+"[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
+"failed"
 
-# Added for localized system prompts.
-msgid "pfn.catalog_steering"
+msgid "[sessions] No memory candidates."
+msgstr "[sessions] No memory candidates."
+
+msgid "[sessions] Memory candidates:"
+msgstr "[sessions] Memory candidates:"
+
+msgid "[sessions] Usage: :sessions approve <number>"
+msgstr "[sessions] Usage: :sessions approve <number>"
+
+msgid "[sessions] Memory candidate approved."
+msgstr "[sessions] Memory candidate approved."
+
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
-"When a user request may require an external tool, do not claim that the tool is unavailable. First call tool_catalog with a concise query to find the required tool, then call tool_load if needed, and only then answer the user. Use the available tool functions rather than printing a JSON example."
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
-msgstr "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
-
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
-msgstr "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgstr ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 
 msgid "Dev (lint_js_ts, mdformat_check)"
 msgstr "Dev (lint_js_ts, mdformat_check)"
@@ -3531,3 +3671,30 @@ msgstr "Web (UCP commerce, public transit route)"
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr "Utility (geodesic distance, pdf export, quantities)"
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr "[AUTO] Missing or invalid auto sentinel; stopping safely."
+
+msgid "consecutive tool calls"
+msgstr "consecutive tool calls"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."

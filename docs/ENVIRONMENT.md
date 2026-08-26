@@ -16,6 +16,10 @@ UAGENT_MEMORY_BACKEND=sqlite
 UAGENT_MEMORY_DB=
 UAGENT_POLICY_FILE=~/.uag/enterprise-policy.yaml
 UAGENT_POLICY_LEVEL=read_only
+# Set to 1 to run an LLM session summary during CLI shutdown (default: 0).
+UAGENT_SUMMARY_ON_EXIT=0
+# Set to 1 to enable the separate profile extraction during that summary.
+UAGENT_PROFILE_ON_EXIT=0
 ```
 
 Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.

@@ -12,11 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
+#: src/uagent/_pip_auto.py:54
 msgid "Automatic installation is disabled for %(label)s (policy: %(mode)s)."
 msgstr ""
 "Die automatische Installation ist für %(label)s deaktiviert (Richtlinie: "
 "%(mode)s)."
 
+#: src/uagent/_pip_auto.py:67
 msgid "Install %(package)s now? [y/N] "
 msgstr "%(package)s jetzt installieren? [J/N] "
 
@@ -147,6 +149,7 @@ msgstr "[FATAL] Arbeitsverzeichnis konnte nicht gesetzt werden: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup konnte nicht gestartet werden: %(err)s"
 
+#: src/uagent/cli_startup.py:287
 msgid "%(err)s"
 msgstr "%(err)s"
 
@@ -229,6 +232,7 @@ msgstr "(Änderungszeit unbekannt)"
 msgid "(no user message)"
 msgstr "(keine Benutzernachricht)"
 
+#: src/uagent/core.py:1250
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
@@ -412,6 +416,7 @@ msgstr ""
 "- Wenn die von Ihnen benötigte Funktion nicht zu den aktuell geladenen Tools gehört oder Sie nicht sicher sind, welches Tool passt, rufen Sie tool_catalog an, bevor Sie antworten oder raten. Verwenden Sie die Abfrage, um die benötigte Fähigkeit zu beschreiben. dann tool_load jedes entladene Werkzeug, das Sie benötigen.\n"
 "- Delegieren Sie beim Ausführen von Werkzeugen so wenig Entscheidungsfindung wie möglich an den Benutzer.\n"
 
+#: src/uagent/core.py:2096
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1138,6 +1143,7 @@ msgstr "    Anzeigename: %(value)s"
 msgid "    Context Window: %(value)s tokens"
 msgstr "    Kontextfenster: %(value)s Token"
 
+#: src/uagent/llmcapa_util.py:831
 msgid "    Context Source: %(value)s"
 msgstr "    Kontextquelle: %(value)s"
 
@@ -1690,8 +1696,8 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips "
-"the interactive genre prompt when specified."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all)."
+" Skips the interactive genre prompt when specified."
 msgstr ""
 
 #: src/uagent/a2a/server.py:450 src/uagent/scheckgui.py:3010
@@ -1914,15 +1920,19 @@ msgstr "Ollama num_ctx (Standard: 8192)"
 msgid "Ollama num_predict (default: llmcapa max_output_tokens)"
 msgstr "Ollama num_predict (Standard: llmcapa max_output_tokens)"
 
+#: src/uagent/setup_cli.py:233
 msgid "llama.cpp server base URL (e.g. http://localhost:8080/v1)"
 msgstr "Basis-URL des llama.cpp-Servers (z. B. http://localhost:8080/v1)"
 
+#: src/uagent/setup_cli.py:238
 msgid "llama.cpp API key (optional, default: dummy)"
 msgstr "llama.cpp API-Schlüssel (optional, Standard: Dummy)"
 
+#: src/uagent/setup_cli.py:243
 msgid "llama.cpp model name (optional, default: local-model)"
 msgstr "llama.cpp-Modellname (optional, Standard: local-model)"
 
+#: src/uagent/setup_cli.py:248
 msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp-Anfrage-Timeout in Sekunden (Standard: 120)"
 
@@ -2621,6 +2631,7 @@ msgstr "[AUTO] Überprüfung/Analyse abgeschlossen."
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Max. Runden (%(max)d) erreicht.Anhalten."
 
+#: src/uagent/util_cmd_auto.py:243
 msgid "[AUTO] Round %(round)d/INFINITE"
 msgstr "[AUTO] Runde %(round)d/INFINITE"
 
@@ -2655,6 +2666,7 @@ msgstr "Das Ziel darf nicht leer sein."
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Gestartet. Ziel: %(goal)s"
 
+#: src/uagent/util_cmd_auto.py:354
 msgid "[AUTO] Max rounds: INFINITE"
 msgstr "[AUTO] Max. Runden: UNENDLICH"
 
@@ -2663,38 +2675,49 @@ msgstr "[AUTO] Max. Runden: UNENDLICH"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Max. Runden: %(max)d"
 
+#: src/uagent/util_cmd_credentials.py:37 src/uagent/util_cmd_credentials.py:92
 msgid "Usage: :credential [get|set|remove|list] NAME"
 msgstr "Verwendung: :credential [get|set|remove|list] NAME"
 
+#: src/uagent/util_cmd_credentials.py:38
 msgid "set accepts an optional kind after NAME (default: api_key)."
 msgstr "set akzeptiert eine optionale Art nach NAME (Standard: api_key)."
 
+#: src/uagent/util_cmd_credentials.py:44
 msgid "The current credential backend cannot enumerate names."
 msgstr "Das aktuelle Anmeldeinformations-Backend kann keine Namen aufzählen."
 
+#: src/uagent/util_cmd_credentials.py:51
 msgid "Usage: :credential get|set|remove NAME"
 msgstr "Verwendung: :credential get|set|remove NAME"
 
+#: src/uagent/util_cmd_credentials.py:58 src/uagent/util_cmd_credentials.py:88
 msgid "Credential not found: %(name)s"
 msgstr "Anmeldeinformationen nicht gefunden: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:68
 msgid "Enter credential secret:"
 msgstr "Anmeldegeheimnis eingeben:"
 
+#: src/uagent/util_cmd_credentials.py:70
 msgid "Credential update cancelled."
 msgstr "Aktualisierung der Anmeldeinformationen abgebrochen."
 
+#: src/uagent/util_cmd_credentials.py:73
 msgid "Credential saved: %(name)s"
 msgstr "Anmeldedaten gespeichert: %(name)s"
 
+#: src/uagent/util_cmd_credentials.py:79
 msgid "Remove credential %(name)s? Enter y to proceed, or c to cancel."
 msgstr ""
 "Anmeldedaten %(name)s entfernen? Geben Sie y ein, um fortzufahren, oder c, "
 "um abzubrechen."
 
+#: src/uagent/util_cmd_credentials.py:83
 msgid "Credential removal cancelled."
 msgstr "Das Entfernen der Anmeldedaten wurde abgebrochen."
 
+#: src/uagent/util_cmd_credentials.py:86
 msgid "Credential removed: %(name)s"
 msgstr "Anmeldeinformationen entfernt: %(name)s"
 
@@ -2751,6 +2774,7 @@ msgstr "  [D] %(name)s -> %(path)s"
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 msgstr "  [F] %(name)s (%(size)d Bytes) -> %(path)s"
 
+#: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
 msgstr "[ls] [F] %(path)s (%(size)d Bytes)"
 
@@ -3016,6 +3040,7 @@ msgid ""
 msgstr ""
 "[Responses API] Verwaltungsbefehle unterstützen derzeit nur OpenAI/Azure."
 
+#: src/uagent/util_cmd_responses.py:94 src/uagent/util_cmd_responses.py:207
 msgid ""
 "Usage: :response [status|cancel|tokens|compact|items|delete] [response_id]"
 msgstr ""
@@ -3569,7 +3594,8 @@ msgstr ""
 
 #: src/uagent/util_common.py:215
 msgid ""
-"Enable a specific tool by name at startup. Can be specified multiple times or as a comma-separated list."
+"Enable a specific tool by name at startup. Can be specified multiple times "
+"or as a comma-separated list."
 msgstr ""
 "Aktivieren Sie beim Start ein bestimmtes Tool anhand seines Namens.Kann "
 "mehrfach angegeben werden."
@@ -3767,6 +3793,7 @@ msgstr "Laden Sie das neueste Protokoll (:load 0)"
 msgid "Delete short conversation logs"
 msgstr "Löschen Sie kurze Gesprächsprotokolle"
 
+#: src/uagent/util_help.py:150
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). Automatic deletion at startup and exit is "
@@ -4551,7 +4578,6 @@ msgstr "Unbekannte UAGENT_A2A_ENGINE: %(mode)s"
 msgid "uagent A2A"
 msgstr "uagent A2A"
 
-
 #: src/uagent/computer_use/capability.py:29
 msgid "Computer Use capability is unavailable for %(provider)s/%(model)s"
 msgstr ""
@@ -4565,15 +4591,19 @@ msgstr "Computer Use wird für %(provider)s/%(model)s nicht unterstützt"
 msgid "Computer Use requests permission for action '%(action)s'"
 msgstr "Computer Use fordert Erlaubnis für Aktion „%(action)s“ an"
 
+#: src/uagent/computer_use/integration.py:69
 msgid " at %(coordinate)s"
 msgstr " bei %(coordinate)s"
 
+#: src/uagent/computer_use/integration.py:71
 msgid " with key '%(key)s'"
 msgstr " mit Schlüssel '%(key)s'"
 
+#: src/uagent/computer_use/integration.py:73
 msgid " (text length %(length)d)"
 msgstr " (Textlänge %(length)d)"
 
+#: src/uagent/computer_use/integration.py:74
 msgid ""
 ".\n"
 "Allow this action? Enter y/yes to allow, or c to deny."
@@ -4590,12 +4620,15 @@ msgstr ""
 msgid "computer use is disabled"
 msgstr "Die Computernutzung ist deaktiviert"
 
+#: src/uagent/computer_use/policy.py:47
 msgid "environment is not allowed: %(environment)s"
 msgstr "Umgebung ist nicht zulässig: %(environment)s"
 
+#: src/uagent/computer_use/policy.py:52
 msgid "action is not allowed: %(action)s"
 msgstr "Aktion ist nicht erlaubt: %(action)s"
 
+#: src/uagent/computer_use/policy.py:62
 msgid "domain is not allowed: %(domain)s"
 msgstr "Domain ist nicht erlaubt: %(domain)s"
 
@@ -5023,6 +5056,7 @@ msgstr "%(n)d aktiviert: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Der angegebene Arbeitsverzeichnispfad ist eine Datei: %(path)s"
 
+#: src/uagent/tools/tool_policy.py:154
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
@@ -5080,6 +5114,14 @@ msgstr "[%(index)d/%(total)d] %(id)s  gespeichert"
 msgid "[%(index)d/%(total)d] %(id)s  failed: %(error)s"
 msgstr "[%(index)d/%(total)d] %(id)s  fehlgeschlagen: %(error)s"
 
+msgid "[%(index)d/%(total)d] %(id)s  interrupted (Ctrl+C)"
+msgstr ""
+
+msgid ""
+"[sessions] Interrupted: %(done)d summarized, %(skipped)d skipped, %(failed)d"
+" failed"
+msgstr ""
+
 msgid ""
 "[sessions] Complete: %(done)d summarized, %(skipped)d skipped, %(failed)d "
 "failed"
@@ -5099,10 +5141,13 @@ msgstr "[sessions] Verwendung: :sessions approve <Nummer>"
 msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] Speicherkandidat genehmigt."
 
-msgid "Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides tool management tools (tool_catalog, tool_load, unload_tool)."
+msgid ""
+"Embedded mode: disables the session store (UAGENT_SESSION_STORE=0) and hides"
+" tool management tools (tool_catalog, tool_load, unload_tool)."
 msgstr ""
 
-msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgid ""
+"Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
 msgstr ""
 
 msgid "Dev (lint_js_ts, mdformat_check)"
@@ -5113,3 +5158,32 @@ msgstr ""
 
 msgid "Utility (geodesic distance, pdf export, quantities)"
 msgstr ""
+
+msgid ""
+"Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
+" in the value."
+msgstr ""
+"Autopilot mit einem eingefügten Ziel starten. Der Wert muss --max-rounds N "
+"oder --infinite enthalten."
+
+msgid ""
+"\n"
+"\n"
+"Auto-pilot protocol: finish your response with exactly one line: <AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. If neither marker is present, auto-pilot stops safely."
+msgstr ""
+"\n"
+"\n"
+"Autopilot-Protokoll: Beende deine Antwort mit genau einer Zeile: <AUTO_CONTINUE>, wenn noch Arbeit übrig ist, oder <AUTO_COMPLETE>, wenn das Ziel erreicht ist. Ohne Marker wird der Autopilot sicher beendet."
+
+msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
+msgstr ""
+"[AUTO] Der Autopilot-Marker fehlt oder ist ungültig; sicherer Abbruch."
+
+msgid "consecutive tool calls"
+msgstr "aufeinanderfolgende Tool-Aufrufe"
+
+msgid ""
+"[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
+msgstr ""
+"[WARNUNG] %(n)d aufeinanderfolgende Tool-Aufrufe; Abbruch zum Schutz vor "
+"unkontrollierter Ausführung."

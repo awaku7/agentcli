@@ -180,6 +180,16 @@ def default_confirmation_callback(
                     ),
                     "is_password": False,
                     "confirmation": True,
+                    "_auto_pilot_tool": tool_name,
+                    "_server_name": args.get("server_name", ""),
+                    "_mcp_tool": args.get("tool_name", ""),
+                    "_auto_pilot_mcp_key": (
+                        f"{args.get('server_name')}:{args.get('tool_name')}"
+                        if tool_name == "handle_mcp_v2"
+                        and args.get("server_name")
+                        and args.get("tool_name")
+                        else ""
+                    ),
                 }
             )
         )

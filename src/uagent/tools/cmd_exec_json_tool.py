@@ -81,41 +81,46 @@ def _blocked_result(reason: str) -> dict[str, Any]:
     }
 
 
-def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
+def _run(
+    command: str, cwd: Optional[str], timeout_ms: Optional[int] = None
+) -> dict[str, Any]:
     try:
+        from .context import get_callbacks
+
+        cb = get_callbacks()
+        timeout_ms = timeout_ms or getattr(cb, "cmd_exec_timeout_ms", 60_000)
+        timeout_sec = max(0.001, float(timeout_ms) / 1000.0)
+        run_kwargs: dict[str, Any] = {
+            "stdin": subprocess.DEVNULL,
+            "capture_output": True,
+            "text": True,
+            "encoding": getattr(cb, "cmd_encoding", "utf-8"),
+            "errors": "replace",
+            "cwd": cwd,
+            "timeout": timeout_sec,
+        }
+
         if os.name == "nt":
+            create_new_process_group = getattr(
+                subprocess, "CREATE_NEW_PROCESS_GROUP", 0
+            )
+            create_no_window = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+            creationflags = create_new_process_group | create_no_window
+            if creationflags:
+                run_kwargs["creationflags"] = creationflags
+
             if command.startswith(("python -c ", "python3 -c ")):
                 parts = shlex.split(command)
-                p = subprocess.run(
-                    parts,
-                    shell=False,
-                    stdin=subprocess.DEVNULL,
-                    capture_output=True,
-                    text=True,
-                    encoding="utf-8",
-                    errors="replace",
-                    cwd=cwd,
-                )
+                run_kwargs["args"] = parts
+                run_kwargs["shell"] = False
+                p = subprocess.run(**run_kwargs)
             else:
-                p = subprocess.run(
-                    f"chcp 65001 >nul & {command}",
-                    shell=True,
-                    stdin=subprocess.DEVNULL,
-                    capture_output=True,
-                    text=True,
-                    encoding="utf-8",
-                    errors="replace",
-                    cwd=cwd,
-                )
+                run_kwargs["args"] = f"chcp 65001 >nul & {command}"
+                run_kwargs["shell"] = True
+                p = subprocess.run(**run_kwargs)
         else:
-            cmd = ["sh", "-lc", command]
-            p = subprocess.run(
-                cmd,
-                stdin=subprocess.DEVNULL,
-                capture_output=True,
-                text=True,
-                cwd=cwd,
-            )
+            run_kwargs["args"] = ["sh", "-lc", command]
+            p = subprocess.run(**run_kwargs)
 
         result: dict[str, Any] = {
             "ok": p.returncode == 0,
@@ -128,6 +133,38 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
                 "error.exit_code", default="command exited with code %(returncode)s"
             ) % {"returncode": p.returncode}
         return result
+    except subprocess.TimeoutExpired as e:
+        stdout = e.stdout or ""
+        stderr = e.stderr or ""
+        encoding = getattr(get_callbacks(), "cmd_encoding", "utf-8")
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode(encoding, errors="replace")
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode(encoding, errors="replace")
+        return {
+            "ok": False,
+            "timeout": True,
+            "returncode": 124,
+            "stdout": stdout,
+            "stderr": stderr,
+            "error": _(
+                "error.timeout",
+                default="command did not finish within %(seconds)s seconds",
+            )
+            % {"seconds": e.timeout},
+        }
+    except KeyboardInterrupt:
+        return {
+            "ok": False,
+            "interrupted": True,
+            "returncode": 130,
+            "stdout": "",
+            "stderr": "",
+            "error": _(
+                "error.interrupted",
+                default="command execution was interrupted",
+            ),
+        }
     except OSError as e:
         return {
             "ok": False,
@@ -177,5 +214,11 @@ def run_tool(args: dict[str, Any]) -> str:
     else:
         cwd = ensure_within_workdir(cwd_raw)
 
-    out = _run(command, cwd)
+    timeout_override = args.get("_timeout_ms")
+    if timeout_override is not None:
+        try:
+            timeout_override = max(1, int(timeout_override))
+        except (TypeError, ValueError):
+            raise ValueError("_timeout_ms must be an integer")
+    out = _run(command, cwd, timeout_ms=timeout_override)
     return json.dumps(out, ensure_ascii=False)

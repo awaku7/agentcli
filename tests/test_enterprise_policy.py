@@ -153,6 +153,30 @@ def test_mcp_tool_level_gate_confirm() -> None:
     assert not policy.decide("read_file", {"path": "x"}).denied
 
 
+def test_auto_pilot_absconfirm_supports_mcp_tool_level() -> None:
+    policy = EnterprisePolicy.from_mapping(
+        {
+            "auto_pilot": {
+                "mcp_tools": {
+                    "physical_vision:arm_sort": "absconfirm",
+                },
+            }
+        }
+    )
+    assert policy.auto_pilot_requires_confirmation(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "arm_sort"},
+    )
+    assert not policy.auto_pilot_requires_confirmation(
+        "handle_mcp_v2",
+        {"server_name": "other", "tool_name": "read"},
+    )
+    assert not policy.auto_pilot_requires_confirmation(
+        "handle_mcp_v2",
+        {"server_name": "physical_vision", "tool_name": "scan_and_judge"},
+    )
+
+
 def test_mcp_tool_gate_falls_back_to_tool_level() -> None:
     # tools で handle_mcp_v2 を deny すれば mcp_tools の allow より優先(安全側)
     policy = EnterprisePolicy.from_mapping(

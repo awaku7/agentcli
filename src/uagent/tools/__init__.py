@@ -2028,6 +2028,25 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     tool_call_id = str(uuid4())
     policy = get_tool_policy(name, args)
     try:
+        from .enterprise_policy import get_enterprise_policy
+        from .. import core as _core
+
+        if (
+            getattr(_core, "auto_pilot_active", False)
+            and get_enterprise_policy().auto_pilot_requires_confirmation(name, args)
+        ) or (
+            os.environ.get("UAGENT_INJECT_MODE") == "1"
+            and get_enterprise_policy().inject_requires_confirmation(name, args)
+        ):
+            policy = policy.__class__(
+                side_effect=policy.side_effect,
+                parallel_safe=policy.parallel_safe,
+                resource_key=policy.resource_key,
+                requires_confirmation=True,
+            )
+    except Exception:
+        pass
+    try:
         from ..runtime.policy_engine import PolicyDecision, UnifiedPolicy
 
         unified_decision = UnifiedPolicy.from_environment().decide(name, args)
