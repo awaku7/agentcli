@@ -8,6 +8,8 @@ This package is intentionally small and can be reused outside uagent.
 from .secret_core import (
     DEFAULT_KEY_FILENAME,
     DEFAULT_SEC_SUFFIX,
+    KEYRING_SERVICE,
+    KEYRING_USERNAME,
     decrypt_text,
     encrypt_text,
     ensure_key_file,
@@ -18,6 +20,8 @@ from .secret_core import (
 __all__ = [
     "DEFAULT_KEY_FILENAME",
     "DEFAULT_SEC_SUFFIX",
+    "KEYRING_SERVICE",
+    "KEYRING_USERNAME",
     "decrypt_text",
     "encrypt_text",
     "ensure_key_file",

@@ -15,6 +15,8 @@ MASTER_KEY_BYTES: Final[int] = 32
 NONCE_BYTES: Final[int] = 12
 DEFAULT_KEY_FILENAME: Final[str] = "uag_envsec_key"
 DEFAULT_SEC_SUFFIX: Final[str] = ".sec"
+KEYRING_SERVICE: Final[str] = "uag-envsec"
+KEYRING_USERNAME: Final[str] = "master-key"
 
 
 def _home_dir() -> Path:
@@ -25,12 +27,80 @@ def default_key_path() -> Path:
     return _home_dir() / ".uag" / DEFAULT_KEY_FILENAME
 
 
+def _keyring_module():
+    try:
+        import keyring
+    except ImportError:
+        return None
+    return keyring
+
+
+def _key_backend() -> str:
+    backend = os.getenv("UAGENT_ENVSEC_KEY_BACKEND", "auto") or "auto"
+    backend = backend.strip().lower()
+    if backend not in {"auto", "file", "keyring", "os"}:
+        raise ValueError(
+            "UAGENT_ENVSEC_KEY_BACKEND must be one of: auto, file, keyring"
+        )
+    return "keyring" if backend == "os" else backend
+
+
+def _decode_key(raw: str) -> bytes:
+    try:
+        key = base64.b64decode(raw, validate=True)
+    except Exception as exc:
+        raise ValueError("Invalid keyring key encoding") from exc
+    if len(key) != MASTER_KEY_BYTES:
+        raise ValueError(f"Invalid key length: {len(key)}")
+    return key
+
+
+def _load_keyring_key() -> bytes | None:
+    keyring = _keyring_module()
+    if keyring is None:
+        return None
+    try:
+        raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+    except Exception:
+        return None
+    return _decode_key(raw) if raw else None
+
+
+def _save_keyring_key(key: bytes) -> str:
+    keyring = _keyring_module()
+    if keyring is None:
+        raise RuntimeError(
+            "python-keyring is not installed; install it or use file backend"
+        )
+    keyring.set_password(
+        KEYRING_SERVICE,
+        KEYRING_USERNAME,
+        base64.b64encode(key).decode("ascii"),
+    )
+    return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
+
+
 def ensure_parent(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
 
 def save_key(path: str | Path | None = None, *, overwrite: bool = False) -> str:
+    backend = _key_backend() if path is None else "file"
+    if backend == "keyring":
+        existing = _load_keyring_key()
+        if existing is not None and not overwrite:
+            return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
+        return _save_keyring_key(os.urandom(MASTER_KEY_BYTES))
+
     p = Path(path) if path is not None else default_key_path()
+    if path is None and backend == "auto" and not p.exists():
+        if _load_keyring_key() is not None and not overwrite:
+            return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
+        if _keyring_module() is not None:
+            try:
+                return _save_keyring_key(os.urandom(MASTER_KEY_BYTES))
+            except Exception:
+                pass
     ensure_parent(p)
     if p.exists() and not overwrite:
         return str(p)
@@ -47,7 +117,19 @@ def save_key(path: str | Path | None = None, *, overwrite: bool = False) -> str:
 
 
 def load_key(path: str | Path | None = None) -> bytes:
-    p = Path(path) if path is not None else default_key_path()
+    if path is None:
+        backend = _key_backend()
+        p = default_key_path()
+        if backend == "keyring" or (backend == "auto" and not p.exists()):
+            key = _load_keyring_key()
+            if key is not None:
+                return key
+            if backend == "keyring":
+                raise FileNotFoundError(
+                    f"No envsec key in OS keyring ({KEYRING_SERVICE}/{KEYRING_USERNAME})"
+                )
+    else:
+        p = Path(path)
     key = p.read_bytes()
     if len(key) != MASTER_KEY_BYTES:
         raise ValueError(f"Invalid key length: {len(key)}")
@@ -55,6 +137,14 @@ def load_key(path: str | Path | None = None) -> bytes:
 
 
 def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) -> str:
+    if path is None and _key_backend() in {"auto", "keyring"}:
+        if _key_backend() == "keyring":
+            return save_key(None, overwrite=overwrite)
+        p = default_key_path()
+        if not p.exists() and _load_keyring_key() is not None:
+            return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
+        if not p.exists() and _keyring_module() is not None:
+            return save_key(None, overwrite=overwrite)
     p = Path(path) if path is not None else default_key_path()
     if p.exists() and not overwrite:
         return str(p)

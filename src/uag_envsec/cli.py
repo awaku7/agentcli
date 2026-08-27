@@ -174,7 +174,7 @@ def _run_encrypt(args: argparse.Namespace) -> int:
         print(f"Output file already exists: {out_path} (use --force)", file=sys.stderr)
         return 1
 
-    key_file = _resolve_key_file(args.key_file)
+    key_file = _resolve_key_file(args.key_file) if args.key_file else None
     ensure_key_file(key_file)
     encrypted = encrypt_text(src_path.read_text(encoding="utf-8"), key_path=key_file)
     _write_text_atomic(out_path, encrypted)
@@ -197,8 +197,8 @@ def _run_add(args: argparse.Namespace) -> int:
         print(f"Output file already exists: {out_path} (use --force)", file=sys.stderr)
         return 1
 
-    key_file = _resolve_key_file(args.key_file)
-    if not key_file.exists():
+    key_file = _resolve_key_file(args.key_file) if args.key_file else None
+    if key_file is not None and not key_file.exists():
         print(f"Key file not found: {key_file}", file=sys.stderr)
         return 1
 

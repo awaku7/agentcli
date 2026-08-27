@@ -324,3 +324,15 @@ Configuration settings for built-in web search (grounding) features provided dir
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: API key for Gemini Realtime.
 - `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtime model deployment name (default `gemini-2.0-flash-exp`).
 - `UAGENT_GEMINI_REALTIME_VOICE` / `UAGENT_GOOGLE_REALTIME_VOICE`: Prebuilt voice name (default `Puck`).
+
+## envsec key storage
+
+Encrypted `.env.sec` files use a 32-byte master key. By default, envsec uses the OS keyring when `python-keyring` is installed, and falls back to `~/.uag/uag_envsec_key` when no usable keyring is available. Existing key files remain authoritative for backward compatibility.
+
+Set `UAGENT_ENVSEC_KEY_BACKEND` to control the backend:
+
+- `auto` (default): use an existing key file, otherwise OS keyring, otherwise create a key file.
+- `keyring` (or `os`): require the OS keyring; fail if `python-keyring` or a usable backend is unavailable.
+- `file`: always use the key file.
+
+An explicit `uag_envsec --key-file PATH` continues to use that file regardless of the backend setting.
