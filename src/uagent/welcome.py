@@ -80,9 +80,6 @@ def get_welcome_message(*, include_ascii: bool = True):
         _(
             "- Interrupt: press `c` key to stop the current LLM response (injected as 'Stop')."
         ),
-        _(
-            "- Auto-pilot: `:auto <goal>` repeatedly runs a task; press F11 to stop auto-pilot (F12 stops the current LLM response)."
-        ),
         "",
         _("[Examples]"),
         _('- "Analyze the source code in this folder and create a README.md."'),

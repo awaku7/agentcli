@@ -12,6 +12,8 @@ from cryptography.hazmat.primitives import hashes, hmac
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
+from uagent.i18n import _
+
 MASTER_KEY_BYTES: Final[int] = 32
 NONCE_BYTES: Final[int] = 12
 DEFAULT_KEY_FILENAME: Final[str] = "uag_envsec_key"
@@ -32,7 +34,16 @@ def _keyring_module():
     try:
         import keyring
     except ImportError:
-        return None
+        # keyring is optional; install it only when envsec needs the OS
+        # keyring backend. The shared policy honors UAGENT_AUTO_INSTALL.
+        try:
+            from uagent._pip_auto import install_with_status
+
+            if not install_with_status("keyring", "keyring", version_spec=">=25.0.0"):
+                return None
+            import keyring
+        except Exception:
+            return None
     return keyring
 
 
@@ -167,7 +178,7 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
         if p.exists():
             if _migrate_file_key_to_keyring(p):
                 print(
-                    "[INFO] Migrated envsec key to OS keyring; legacy key file retained.",
+                    _("[INFO] Migrated envsec key to OS keyring; legacy key file retained."),
                     file=sys.stderr,
                 )
             if not overwrite:

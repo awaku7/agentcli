@@ -34,8 +34,10 @@ core = [
     "pywin32>=311; sys_platform == 'win32'",
     "jinja2>=3.1.6",
     "python-multipart>=0.0.22",
-    "keyring>=25.0.0",
     "websockets>=16.0",
+]
+keyring = [
+    "keyring>=25.0.0",
 ]
 providers = [
     "openai>=2.45.0",

@@ -159,7 +159,21 @@ class OSCredentialStore:
             try:
                 import keyring as keyring_module
             except ImportError as exc:
-                raise RuntimeError("python-keyring is not installed") from exc
+                # keyring is intentionally optional. Install it lazily only
+                # when the OS-backed store is actually requested.
+                try:
+                    from .._pip_auto import install_with_status
+
+                    if install_with_status(
+                        "keyring", "keyring", version_spec=">=25.0.0"
+                    ):
+                        import keyring as keyring_module
+                    else:
+                        raise RuntimeError("python-keyring is not installed") from exc
+                except Exception as install_exc:
+                    raise RuntimeError(
+                        "python-keyring is not installed and could not be auto-installed"
+                    ) from install_exc
         self._keyring = keyring_module
 
     def get(self, name: str) -> Credential | None:

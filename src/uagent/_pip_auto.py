@@ -15,6 +15,7 @@ _ALLOWED_PACKAGES = {
     "anthropic",
     "google-genai",
     "xai-sdk",
+    "keyring",
     "openrouter",
     "llmcapa",
     "python-dotenv",
