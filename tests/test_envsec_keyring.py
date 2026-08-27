@@ -32,7 +32,9 @@ def test_keyring_backend_round_trip(monkeypatch, tmp_path: Path) -> None:
     assert secret_core.decrypt_text(encrypted) == "UAGENT_TEST=value"
 
 
-def test_auto_migrates_existing_file_key(monkeypatch, tmp_path: Path) -> None:
+def test_auto_migrates_existing_file_key(
+    monkeypatch, tmp_path: Path, capsys
+) -> None:
     fake = FakeKeyring()
     monkeypatch.setattr(secret_core, "_keyring_module", lambda: fake)
     monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
@@ -43,6 +45,7 @@ def test_auto_migrates_existing_file_key(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "auto")
 
     secret_core.ensure_key_file()
+    assert "Migrated envsec key to OS keyring" in capsys.readouterr().err
     stored = fake.get_password(
         secret_core.KEYRING_SERVICE, secret_core.KEYRING_USERNAME
     )

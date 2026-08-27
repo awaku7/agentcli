@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import os
+import sys
 from pathlib import Path
 from typing import Final
 
@@ -90,7 +91,7 @@ def _migrate_file_key_to_keyring(path: Path) -> bool:
             return False
         raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
         if raw:
-            return _decode_key(raw) == key
+            return False
         keyring.set_password(
             KEYRING_SERVICE,
             KEYRING_USERNAME,
@@ -164,7 +165,11 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
             return save_key(None, overwrite=overwrite)
         p = default_key_path()
         if p.exists():
-            _migrate_file_key_to_keyring(p)
+            if _migrate_file_key_to_keyring(p):
+                print(
+                    "[INFO] Migrated envsec key to OS keyring; legacy key file retained.",
+                    file=sys.stderr,
+                )
             if not overwrite:
                 return str(p)
         if not p.exists() and _load_keyring_key() is not None:
