@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.6.12] - 2026-08-27
+
+### Added
+
+- Add OS keyring migration for the envsec master key and document per-tool context storage.
+
+### Changed
+
+- Prefer the envsec keyring and remove the legacy key file after successful migration, including conflict resolution using the valid file key.
+- Preserve existing tool warmup behavior by making `UAGENT_TOOLS_WARMUP=0` an opt-out.
+- Make post-tool garbage collection opt-in with `UAGENT_GC_AFTER_TOOL=1`.
+- Suppress transient IDLE status updates from tools while a centralized tool call is active.
+- Require `llmcapa>=0.5.12`.
+
+### Fixed
+
+- Prevent transient IDLE prompts from accepting input while a tool call is still followed by an LLM response.
+
 ## [0.6.11] - 2026-08-26
 
 ### Added
@@ -18,7 +36,6 @@
 ### Fixed
 
 - Surface MCP HTTP 406 probe errors instead of incorrectly falling back to legacy initialization.
-
 
 ## [0.6.10] - 2026-08-25
 
