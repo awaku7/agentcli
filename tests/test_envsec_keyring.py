@@ -32,6 +32,25 @@ def test_keyring_backend_round_trip(monkeypatch, tmp_path: Path) -> None:
     assert secret_core.decrypt_text(encrypted) == "UAGENT_TEST=value"
 
 
+def test_auto_migrates_existing_file_key(monkeypatch, tmp_path: Path) -> None:
+    fake = FakeKeyring()
+    monkeypatch.setattr(secret_core, "_keyring_module", lambda: fake)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
+    monkeypatch.setattr(secret_core, "_home_dir", lambda: tmp_path)
+
+    secret_core.ensure_key_file()
+    old_key = (tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME).read_bytes()
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "auto")
+
+    secret_core.ensure_key_file()
+    stored = fake.get_password(
+        secret_core.KEYRING_SERVICE, secret_core.KEYRING_USERNAME
+    )
+    assert stored is not None
+    assert secret_core._decode_key(stored) == old_key
+    assert (tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME).exists()
+
+
 def test_file_key_path_overrides_keyring(monkeypatch, tmp_path: Path) -> None:
     fake = FakeKeyring()
     monkeypatch.setattr(secret_core, "_keyring_module", lambda: fake)

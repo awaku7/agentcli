@@ -201,6 +201,7 @@ def _run_add(args: argparse.Namespace) -> int:
     if key_file is not None and not key_file.exists():
         print(f"Key file not found: {key_file}", file=sys.stderr)
         return 1
+    ensure_key_file(key_file)
 
     key, value = _read_key_value_from_args(args)
     if not key:

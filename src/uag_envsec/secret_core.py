@@ -80,6 +80,28 @@ def _save_keyring_key(key: bytes) -> str:
     return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
 
 
+def _migrate_file_key_to_keyring(path: Path) -> bool:
+    keyring = _keyring_module()
+    if keyring is None:
+        return False
+    try:
+        key = path.read_bytes()
+        if len(key) != MASTER_KEY_BYTES:
+            return False
+        raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+        if raw:
+            return _decode_key(raw) == key
+        keyring.set_password(
+            KEYRING_SERVICE,
+            KEYRING_USERNAME,
+            base64.b64encode(key).decode("ascii"),
+        )
+        return True
+    except Exception:
+        # Auto migration must never prevent startup; the file remains usable.
+        return False
+
+
 def ensure_parent(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -141,6 +163,10 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
         if _key_backend() == "keyring":
             return save_key(None, overwrite=overwrite)
         p = default_key_path()
+        if p.exists():
+            _migrate_file_key_to_keyring(p)
+            if not overwrite:
+                return str(p)
         if not p.exists() and _load_keyring_key() is not None:
             return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
         if not p.exists() and _keyring_module() is not None:

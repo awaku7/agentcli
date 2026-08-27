@@ -327,7 +327,7 @@ Configuration settings for built-in web search (grounding) features provided dir
 
 ## envsec key storage
 
-Encrypted `.env.sec` files use a 32-byte master key. By default, envsec uses the OS keyring when `python-keyring` is installed, and falls back to `~/.uag/uag_envsec_key` when no usable keyring is available. Existing key files remain authoritative for backward compatibility.
+Encrypted `.env.sec` files use a 32-byte master key. By default, envsec uses the OS keyring when `python-keyring` is installed, and falls back to `~/.uag/uag_envsec_key` when no usable keyring is available. Existing key files remain authoritative for backward compatibility; in `auto`, a usable keyring receives a copy of the existing key at startup, while the file is retained as a rollback copy.
 
 Set `UAGENT_ENVSEC_KEY_BACKEND` to control the backend:
 
