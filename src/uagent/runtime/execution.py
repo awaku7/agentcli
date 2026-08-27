@@ -18,6 +18,23 @@ _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
 _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = ContextVar(
     "uagent_current_lifecycle_callback", default=None
 )
+_TOOL_RUNNER_ACTIVE: ContextVar[bool] = ContextVar(
+    "uagent_tool_runner_active", default=False
+)
+
+
+def tool_runner_active() -> bool:
+    """Whether execution is currently inside a centralized tool runner."""
+    return _TOOL_RUNNER_ACTIVE.get()
+
+
+def set_tool_runner_active(active: bool):
+    """Set tool-runner status and return a token for reset()."""
+    return _TOOL_RUNNER_ACTIVE.set(active)
+
+
+def reset_tool_runner_active(token) -> None:
+    _TOOL_RUNNER_ACTIVE.reset(token)
 
 _LIFECYCLE_EVENTS = {
     "CREATED": "agent.created",

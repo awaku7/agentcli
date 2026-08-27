@@ -14,6 +14,7 @@ from .secret_core import (
     encrypt_text,
     ensure_key_file,
     load_key,
+    migrate_key_file_to_keyring,
     save_key,
 )
 
@@ -26,5 +27,6 @@ __all__ = [
     "encrypt_text",
     "ensure_key_file",
     "load_key",
+    "migrate_key_file_to_keyring",
     "save_key",
 ]

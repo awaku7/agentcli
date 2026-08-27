@@ -34,6 +34,18 @@ def set_status(busy: bool, label: str = "") -> None:
     Update the Busy/Idle state and draw the status line if there are changes.
     """
 
+    # Tool implementations historically clear their own status in finally
+    # blocks. During a centralized tool call, suppress that transient IDLE
+    # transition so the input prompt cannot appear before the LLM resumes.
+    if not busy and not getattr(_core, "human_ask_active", False):
+        try:
+            from ..runtime.execution import tool_runner_active
+
+            if tool_runner_active():
+                return
+        except Exception:
+            pass
+
     # Keep CLI, GUI, and Web status labels consistent.
     label = normalize_status_label(busy, label)
 

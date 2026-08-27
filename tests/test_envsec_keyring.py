@@ -51,7 +51,7 @@ def test_auto_migrates_existing_file_key(
     )
     assert stored is not None
     assert secret_core._decode_key(stored) == old_key
-    assert (tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME).exists()
+    assert not (tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME).exists()
 
 
 def test_file_key_path_overrides_keyring(monkeypatch, tmp_path: Path) -> None:
@@ -71,3 +71,50 @@ def test_keyring_backend_requires_keyring(monkeypatch) -> None:
 
     with pytest.raises(RuntimeError, match="python-keyring is not installed"):
         secret_core.ensure_key_file()
+
+
+def test_auto_removes_duplicate_file_key_when_keyring_matches(
+    monkeypatch, tmp_path: Path
+) -> None:
+    fake = FakeKeyring()
+    monkeypatch.setattr(secret_core, "_keyring_module", lambda: fake)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
+    monkeypatch.setattr(secret_core, "_home_dir", lambda: tmp_path)
+
+    secret_core.ensure_key_file()
+    key_path = tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME
+    key = key_path.read_bytes()
+    fake.set_password(
+        secret_core.KEYRING_SERVICE,
+        secret_core.KEYRING_USERNAME,
+        secret_core.base64.b64encode(key).decode("ascii"),
+    )
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "auto")
+
+    assert secret_core.ensure_key_file() == "keyring://uag-envsec/master-key"
+    assert not key_path.exists()
+
+
+def test_auto_replaces_different_keyring_key_with_file_key(
+    monkeypatch, tmp_path: Path
+) -> None:
+    fake = FakeKeyring()
+    monkeypatch.setattr(secret_core, "_keyring_module", lambda: fake)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "file")
+    monkeypatch.setattr(secret_core, "_home_dir", lambda: tmp_path)
+
+    secret_core.ensure_key_file()
+    key_path = tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME
+    file_key = key_path.read_bytes()
+    fake.set_password(
+        secret_core.KEYRING_SERVICE,
+        secret_core.KEYRING_USERNAME,
+        secret_core.base64.b64encode(b"x" * secret_core.MASTER_KEY_BYTES).decode("ascii"),
+    )
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "auto")
+
+    assert secret_core.ensure_key_file() == "keyring://uag-envsec/master-key"
+    assert not key_path.exists()
+    stored = fake.get_password(secret_core.KEYRING_SERVICE, secret_core.KEYRING_USERNAME)
+    assert stored is not None
+    assert secret_core._decode_key(stored) == file_key

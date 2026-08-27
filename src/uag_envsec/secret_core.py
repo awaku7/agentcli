@@ -102,16 +102,43 @@ def _migrate_file_key_to_keyring(path: Path) -> bool:
             return False
         raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
         if raw:
-            return False
+            try:
+                if _decode_key(raw) == key:
+                    path.unlink()
+                    return True
+            except ValueError:
+                # Replace an invalid keyring entry with the valid file key.
+                pass
+        # The file key is the key that protects the existing .env.sec data.
+        # Make it authoritative during migration, then remove the duplicate.
         keyring.set_password(
             KEYRING_SERVICE,
             KEYRING_USERNAME,
             base64.b64encode(key).decode("ascii"),
         )
+        stored = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+        if _decode_key(stored or "") != key:
+            return False
+        path.unlink()
         return True
+
     except Exception:
         # Auto migration must never prevent startup; the file remains usable.
         return False
+
+
+def migrate_key_file_to_keyring() -> bool:
+    """Migrate the default envsec key file when the automatic backend allows it.
+
+    This is intentionally a no-op when the user selected the file backend or
+    when no legacy key file exists.
+    """
+    if _key_backend() != "auto":
+        return False
+    path = default_key_path()
+    if not path.exists():
+        return False
+    return _migrate_file_key_to_keyring(path)
 
 
 def ensure_parent(path: Path) -> None:
@@ -154,7 +181,9 @@ def load_key(path: str | Path | None = None) -> bytes:
     if path is None:
         backend = _key_backend()
         p = default_key_path()
-        if backend == "keyring" or (backend == "auto" and not p.exists()):
+        # In automatic mode the OS keyring is authoritative whenever it has
+        # a key, even if a legacy file is still present.
+        if backend in {"keyring", "auto"}:
             key = _load_keyring_key()
             if key is not None:
                 return key
@@ -178,9 +207,12 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
         if p.exists():
             if _migrate_file_key_to_keyring(p):
                 print(
-                    _("[INFO] Migrated envsec key to OS keyring; legacy key file retained."),
+                    _("[INFO] Migrated envsec key to OS keyring; legacy key file removed."),
                     file=sys.stderr,
                 )
+                return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
+            if _load_keyring_key() is not None:
+                return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
             if not overwrite:
                 return str(p)
         if not p.exists() and _load_keyring_key() is not None:

@@ -62,6 +62,21 @@ def load_dotenv_custom() -> None:
     """
 
     try:
+        from uag_envsec.secret_core import migrate_key_file_to_keyring
+
+        if migrate_key_file_to_keyring():
+            print(
+                _("[INFO] Migrated envsec key to OS keyring; legacy key file removed."),
+                file=sys.stderr,
+            )
+    except Exception as e:
+        # Key migration is best effort and must not block startup.
+        print(
+            _("[WARN] Failed to migrate envsec key to OS keyring: %(err)s", err=e),
+            file=sys.stderr,
+        )
+
+    try:
         from dotenv import dotenv_values, load_dotenv
     except ImportError:
         # python-dotenv is not installed.

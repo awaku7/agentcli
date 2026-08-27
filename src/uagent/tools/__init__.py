@@ -1930,10 +1930,18 @@ def _call_tool_runner(
     import time
 
     started = time.perf_counter()
+    tool_active_token = None
+    reset_tool_runner_active = None
     try:
-        from ..runtime.execution import mark_tool_running, mark_tool_waiting
+        from ..runtime.execution import (
+            mark_tool_running,
+            mark_tool_waiting,
+            reset_tool_runner_active,
+            set_tool_runner_active,
+        )
 
         mark_tool_waiting()
+        tool_active_token = set_tool_runner_active(True)
     except Exception:
         mark_tool_running = None
         mark_tool_waiting = None
@@ -1973,6 +1981,22 @@ def _call_tool_runner(
     finally:
         if callable(mark_tool_running):
             mark_tool_running()
+        if tool_active_token is not None and callable(reset_tool_runner_active):
+            reset_tool_runner_active(tool_active_token)
+        # Opt in to the extra GC pass after each tool. Normal execution keeps
+        # Python's default reference counting / generational GC behavior.
+        if (os.getenv("UAGENT_GC_AFTER_TOOL", "0") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        ):
+            try:
+                import gc
+
+                gc.collect()
+            except Exception:
+                pass
 
     try:
         from ..runtime.logging_setup import log_event
@@ -2132,12 +2156,19 @@ _WARMUP_LOCK = RLock()
 
 
 def start_tools_warmup(*, quiet: bool = True) -> None:
-    """Preload tool plugins in a background thread.
+    """Preload tool plugins in a background thread unless explicitly disabled.
 
-    Speeds up the first ':' command / completion by overlapping plugin import
-    with idle time after CLI/GUI/web startup.
-    Safe to call multiple times; only the first call starts a worker.
+    Set ``UAGENT_TOOLS_WARMUP=0`` to opt out and reduce resident RAM at the
+    cost of slower first-use latency.
     """
+    if (os.getenv("UAGENT_TOOLS_WARMUP", "1") or "").strip().lower() in (
+        "0",
+        "false",
+        "no",
+        "off",
+    ):
+        return
+
     global _WARMUP_STARTED
     with _WARMUP_LOCK:
         if _INITIALIZED or _WARMUP_STARTED:
