@@ -2,6 +2,13 @@
 
 This guide explains how to use remote MCP servers (Streamable HTTP) with OAuth and corporate proxies.
 
+## Protocol mode
+
+When configuring an MCP client, use `stateless` only with a stateless server.
+For a session-required Streamable HTTP server, use `auto` (recommended) or
+`legacy`; `stateless` may be rejected with HTTP 400. If omitted, the mode
+defaults to `auto` and can fall back to the legacy SDK transport.
+
 ## Scope
 
 OAuth is intended for remote HTTP MCP servers. stdio MCP servers normally use OS permissions, environment variables, or server-specific API keys instead.

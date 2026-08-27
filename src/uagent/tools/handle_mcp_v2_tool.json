@@ -19,7 +19,7 @@
     "param.args.description": "Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
     "err.tool_name_required": "Error: tool_name is required.",
     "err.stdio_url_invalid": "Error: Invalid stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ja": {
     "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
@@ -41,7 +41,7 @@
     "param.args.description": "MCP ツールに渡すツール引数。JSON オブジェクト (推奨) または JSON 文字列のいずれかを指定します。",
     "err.tool_name_required": "エラー:tool_name は必須です。",
     "err.stdio_url_invalid": "エラー: 無効な標準出力 URL",
-    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy（状態を持つSDK）、またはstateless HTTP。"
+    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy（状態を持つSDK）、またはstateless HTTP。ステートレスサーバーではstateless、セッション必須のStreamable HTTPサーバーではautoまたはlegacyを使用します。"
   },
   "es": {
     "param.server_name.description": "Nombre del servidor definido en mcp_servers.json.",
@@ -63,7 +63,7 @@
     "param.args.description": "Argumentos que se pasarán a la herramienta MCP.",
     "err.tool_name_required": "Error: se requiere nombre_herramienta.",
     "err.stdio_url_invalid": "Error: URL estándar no válida",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "fr": {
     "param.server_name.description": "Nom du serveur défini dans mcp_servers.json.",
@@ -85,7 +85,7 @@
     "param.args.description": "Arguments à transmettre à l'outil MCP.Fournissez soit un objet JSON (recommandé), soit une chaîne JSON.",
     "err.tool_name_required": "Erreur : nom_outil est requis.",
     "err.stdio_url_invalid": "Erreur : URL stdio invalide",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ko": {
     "param.server_name.description": "mcp_servers.json에 정의된 서버 이름입니다. 지정하면 url보다 우선합니다.",
@@ -107,7 +107,7 @@
     "param.args.description": "MCP 도구에 전달할 인수. JSON 객체(권장) 또는 JSON 문자열.",
     "err.tool_name_required": "오류: tool_name이 필요합니다.",
     "err.stdio_url_invalid": "오류: 잘못된 stdio URL",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "de": {
     "param.server_name.description": "In mcp_servers.json definierter Servername. Falls angegeben, hat er Vorrang vor url.",
@@ -129,7 +129,7 @@
     "param.args.description": "An MCP weiterzugebende Werkzeugargumente.",
     "err.tool_name_required": "Fehler: Werkzeugname ist erforderlich.",
     "err.stdio_url_invalid": "Fehler: Ungültige stdio-URL",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "it": {
     "param.server_name.description": "Nome del server definito in mcp_servers.json. Se specificato, ha priorità su url.",
@@ -151,7 +151,7 @@
     "param.args.description": "Argomenti da passare allo strumento MCP.Fornire un oggetto JSON (consigliato) o una stringa JSON.",
     "err.tool_name_required": "Errore: tool_name è obbligatorio.",
     "err.stdio_url_invalid": "Errore: URL stdio non valido",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ru": {
     "param.server_name.description": "Имя сервера, определённое в mcp_servers.json. Если указано, оно имеет приоритет над url.",
@@ -173,7 +173,7 @@
     "param.args.description": "Аргументы, которые нужно передать инструменту MCP.",
     "err.tool_name_required": "Ошибка: необходимо указать имя_инструмента.",
     "err.stdio_url_invalid": "Ошибка: неверный URL-адрес stdio.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "pt_BR": {
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, tem prioridade sobre url.",
@@ -195,7 +195,7 @@
     "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON.",
     "err.tool_name_required": "Erro: tool_name é obrigatório.",
     "err.stdio_url_invalid": "Erro: URL stdio inválido",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "pt": {
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json.",
@@ -217,7 +217,7 @@
     "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON.",
     "err.tool_name_required": "Erro: tool_name é obrigatório.",
     "err.stdio_url_invalid": "Erro: URL stdio inválido",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "id": {
     "param.server_name.description": "Nama server yang didefinisikan di mcp_servers.json.",
@@ -239,7 +239,7 @@
     "param.args.description": "Argumen untuk alat MCP.Berikan JSON object (disarankan) atau string JSON.",
     "err.tool_name_required": "Kesalahan: nama_alat diperlukan.",
     "err.stdio_url_invalid": "Kesalahan: Url stdio tidak valid",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "vi": {
     "param.server_name.description": "Tên máy chủ được xác định trong mcp_servers.json.",
@@ -261,7 +261,7 @@
     "param.args.description": "Các đối số cần chuyển tới công cụ MCP.Cung cấp đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON.",
     "err.tool_name_required": "Lỗi: cần có tên_công cụ.",
     "err.stdio_url_invalid": "Lỗi: Url stdio không hợp lệ",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "pl": {
     "param.server_name.description": "Nazwa serwera zdefiniowana w pliku mcp_servers.json.",
@@ -283,7 +283,7 @@
     "param.args.description": "Argumenty do przekazania do narzędzia MCP.Podaj obiekt JSON (zalecane) lub ciąg JSON.",
     "err.tool_name_required": "Błąd: wymagana jest nazwa_narzędzia.",
     "err.stdio_url_invalid": "Błąd: nieprawidłowy adres URL stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "hi": {
     "param.server_name.description": "सर्वर नाम mcp_servers.",
@@ -305,7 +305,7 @@
     "param.args.description": "एमसीपी टूल से गुजरने के लिए टूल तर्क। या तो एक JSON ऑब्जेक्ट (अनुशंसित) या एक JSON स्ट्रिंग प्रदान करें।",
     "err.tool_name_required": "त्रुटि: टूल_नाम आवश्यक है.",
     "err.stdio_url_invalid": "त्रुटि: अमान्य stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ar": {
     "param.server_name.description": "اسم الخادم المحدد في mcp_servers.json. إذا تم تحديده، فإنه يأخذ الأولوية على عنوان url.",
@@ -327,7 +327,7 @@
     "param.args.description": "الوسائط التي سيتم تمريرها إلى أداة MCP.قدّم إما كائن JSON (موصى به) أو سلسلة JSON.",
     "err.tool_name_required": "خطأ: اسم_الأداة مطلوب.",
     "err.stdio_url_invalid": "خطأ: عنوان URL الخاص بـ stdio غير صالح",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "sv": {
     "param.server_name.description": "Servernamn från konfigurationsfilen. Om det anges prioriteras det framför url.",
@@ -349,7 +349,7 @@
     "param.args.description": "Argument som ska skickas till MCP-verktyget.",
     "err.tool_name_required": "Fel: verktygsnamn krävs.",
     "err.stdio_url_invalid": "Fel: Ogiltig standardadress",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "sw": {
     "param.server_name.description": "Jina la seva limefafanuliwa katika mcp_servers.json. Ikibainishwa, inachukua kipaumbele zaidi ya url.",
@@ -371,7 +371,7 @@
     "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string.",
     "err.tool_name_required": "Hitilafu: tool_name inahitajika.",
     "err.stdio_url_invalid": "Hitilafu: url batili ya stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "nb": {
     "param.server_name.description": "Servernavn fra konfigurasjonsfilen. Hvis angitt, har det prioritet over url.",
@@ -393,7 +393,7 @@
     "param.args.description": "Argumenter som skal sendes til MCP-verktøyet.Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng.",
     "err.tool_name_required": "Feil: verktøynavn kreves.",
     "err.stdio_url_invalid": "Feil: Ugyldig standard nettadresse",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "nl": {
     "param.server_name.description": "Servernaam die gebruikt moet worden.",
@@ -415,7 +415,7 @@
     "param.args.description": "Argumenten voor de MCP-tool.Geef een JSON-object (aanbevolen) of een JSON-string door.",
     "err.tool_name_required": "Fout: toolnaam is vereist.",
     "err.stdio_url_invalid": "Fout: ongeldige stdio-URL",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "fi": {
     "param.server_name.description": "Käytettävä palvelimen nimi.",
@@ -437,7 +437,7 @@
     "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string.",
     "err.tool_name_required": "Virhe: työkalun_nimi vaaditaan.",
     "err.stdio_url_invalid": "Virhe: Virheellinen stdio-url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "cs": {
     "param.server_name.description": "Název serveru definovaný v mcp_servers.json. Pokud je uveden, má přednost před url.",
@@ -459,7 +459,7 @@
     "param.args.description": "Argumenty předávané nástroji MCP.Zadejte buď JSON objekt (doporučeno), nebo JSON řetězec.",
     "err.tool_name_required": "Chyba: název_nástroje je povinný.",
     "err.stdio_url_invalid": "Chyba: Neplatná adresa URL stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "uk": {
     "param.server_name.description": "Назва сервера, визначена у mcp_servers.json. Якщо вказано, має пріоритет над url.",
@@ -481,7 +481,7 @@
     "param.args.description": "Аргументи, що передаються інструменту MCP.Вкажіть або JSON-об’єкт (рекомендовано), або JSON-рядок.",
     "err.tool_name_required": "Помилка: потрібна назва інструмента.",
     "err.stdio_url_invalid": "Помилка: недійсна URL-адреса stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "tr": {
     "param.server_name.description": "Mcp_servers.json'da tanımlanan sunucu adı. Belirtilmişse URL'ye göre önceliklidir.",
@@ -503,7 +503,7 @@
     "param.args.description": "MCP aracına aktarılacak argümanlar.Bir JSON nesnesi (önerilen) veya bir JSON dizesi sağlayın.",
     "err.tool_name_required": "Hata: araç_adı gerekli.",
     "err.stdio_url_invalid": "Hata: Geçersiz stdio URL'si",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "th": {
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json หากระบุ จะมีลำดับความสำคัญเหนือ url",
@@ -525,7 +525,7 @@
     "param.args.description": "อาร์กิวเมนต์ของเครื่องมือที่จะส่งผ่านไปยังเครื่องมือ MCP ระบุออบเจ็กต์ JSON (แนะนำ) หรือสตริง JSON",
     "err.tool_name_required": "ข้อผิดพลาด: จำเป็นต้องมี tool_name",
     "err.stdio_url_invalid": "ข้อผิดพลาด: URL stdio ไม่ถูกต้อง",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "zh_CN": {
     "param.server_name.description": "mcp_servers.json 中定义的服务器名称。指定后优先于 url。",
@@ -547,7 +547,7 @@
     "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。",
     "err.tool_name_required": "错误：tool_name 是必需的。",
     "err.stdio_url_invalid": "错误：stdio url 无效",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "zh_TW": {
     "param.server_name.description": "mcp_servers.json 中定義的伺服器名稱。指定時會優先於 url。",
@@ -569,7 +569,7 @@
     "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。",
     "err.tool_name_required": "錯誤：tool_name 是必需的。",
     "err.stdio_url_invalid": "錯誤：stdio url 無效",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "bn": {
     "param.server_name.description": "mcp_servers.json-এ নির্ধারিত সার্ভারের নাম। উল্লেখ করা হলে url-এর ওপর অগ্রাধিকার পাবে।",
@@ -591,7 +591,7 @@
     "param.args.description": "টুল আর্গুমেন্টগুলি MCP টুলে যাওয়ার জন্য। একটি JSON অবজেক্ট (প্রস্তাবিত) অথবা একটি JSON স্ট্রিং প্রদান করুন।",
     "err.tool_name_required": "ত্রুটি: টুল_নাম প্রয়োজন।",
     "err.stdio_url_invalid": "ত্রুটি: অবৈধ stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "fa": {
     "param.server_name.description": "نام سرور تعریف‌شده در mcp_servers.json. اگر مشخص شود، بر url اولویت دارد.",
@@ -613,7 +613,7 @@
     "param.args.description": "آرگومان‌هایی که به ابزار MCP داده می‌شود.یک شیء JSON (پیشنهادی) یا یک رشته JSON ارائه کنید.",
     "err.tool_name_required": "خطا: tool_name مورد نیاز است.",
     "err.stdio_url_invalid": "خطا: آدرس اینترنتی stdio نامعتبر است",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "mn": {
     "param.server_name.description": "mcp_servers.json-д тодорхойлсон серверийн нэр. Заасан бол url-ээс давуу хэрэглэгдэнэ.",
@@ -635,7 +635,7 @@
     "param.args.description": "MCP хэрэгсэл рүү дамжуулах аргументууд.JSON object (зөвлөмжтэй) эсвэл JSON string өгнө.",
     "err.tool_name_required": "Алдаа: tool_name шаардлагатай.",
     "err.stdio_url_invalid": "Алдаа: stdio url буруу байна",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "mr": {
     "param.server_name.description": "mcp_servers.json मध्ये परिभाषित केलेले सर्व्हर नाव.",
@@ -657,7 +657,7 @@
     "param.args.description": "MCP साधनाला पाठवायचे arguments.JSON object (शिफारसीय) किंवा JSON string द्या.",
     "err.tool_name_required": "त्रुटी: tool_name आवश्यक आहे.",
     "err.stdio_url_invalid": "त्रुटी: अवैध stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "el": {
     "param.server_name.description": "Όνομα διακομιστή ορίστηκε στο mcp_servers.json. Εάν ορίζεται, έχει προτεραιότητα έναντι του url.",
@@ -679,7 +679,7 @@
     "param.args.description": "Ορίσματα εργαλείου για διαβίβαση στο εργαλείο MCP. Δώστε είτε ένα αντικείμενο JSON (συνιστάται) είτε μια συμβολοσειρά JSON.",
     "err.tool_name_required": "Σφάλμα: απαιτείται tool_name.",
     "err.stdio_url_invalid": "Σφάλμα: Μη έγκυρη διεύθυνση url stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "he": {
     "param.server_name.description": "שם השרת מוגדר ב-mcp_servers.json. אם צוין, הוא מקבל עדיפות על פני כתובת האתר.",
@@ -701,7 +701,7 @@
     "param.args.description": "ארגומנטים של כלי להעביר לכלי MCP. ספק אובייקט JSON (מומלץ) או מחרוזת JSON.",
     "err.tool_name_required": "שגיאה: נדרש tool_name.",
     "err.stdio_url_invalid": "שגיאה: כתובת URL לא חוקית של stdio",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "hu": {
     "param.server_name.description": "A kiszolgáló neve az mcp_servers.json fájlban van megadva. Ha meg van adva, akkor elsőbbséget élvez az URL-lel szemben.",
@@ -723,7 +723,7 @@
     "param.args.description": "Eszközargumentumok az MCP-eszközhöz. Adjon meg egy JSON-objektumot (ajánlott), vagy egy JSON-karakterláncot.",
     "err.tool_name_required": "Hiba: az eszköz_neve kötelező.",
     "err.stdio_url_invalid": "Hiba: Érvénytelen stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ro": {
     "param.server_name.description": "Înlocuiți valorile din dicționare și liste cu „*” (păstrarea structurii).",
@@ -745,7 +745,7 @@
     "param.args.description": "Argumente ale instrumentului de transmis instrumentului MCP. Furnizați fie un obiect JSON (recomandat), fie un șir JSON.",
     "err.tool_name_required": "Eroare: tool_name este obligatoriu.",
     "err.stdio_url_invalid": "Eroare: URL stdio nevalid",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "fil": {
     "param.server_name.description": "Tinukoy ang pangalan ng server sa mcp_servers.json. Kung tinukoy, ito ay nangangailangan ng priyoridad kaysa sa url.",
@@ -767,7 +767,7 @@
     "param.args.description": "Mga argumento ng tool na ipapasa sa tool na MCP. Magbigay ng alinman sa JSON object (inirerekomenda) o isang JSON string.",
     "err.tool_name_required": "Error: kailangan ang tool_name.",
     "err.stdio_url_invalid": "Error: Di-wastong stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "ms": {
     "param.server_name.description": "Nama pelayan ditakrifkan dalam mcp_servers.json. Jika dinyatakan, ia mengambil keutamaan berbanding url.",
@@ -789,7 +789,7 @@
     "param.args.description": "Argumen alat untuk dihantar ke alat MCP. Sediakan sama ada objek JSON (disyorkan) atau rentetan JSON.",
     "err.tool_name_required": "Ralat: nama_alat diperlukan.",
     "err.stdio_url_invalid": "Ralat: Url stdio tidak sah",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "da": {
     "param.server_name.description": "Servernavn defineret i mcp_servers.json. Hvis det er angivet, har det prioritet over url.",
@@ -811,7 +811,7 @@
     "param.args.description": "Værktøjsargumenter, der skal overføres til værktøjet MCP. Angiv enten et JSON-objekt (anbefales) eller en JSON-streng.",
     "err.tool_name_required": "Fejl: værktøjsnavn er påkrævet.",
     "err.stdio_url_invalid": "Fejl: Ugyldig stdio-url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
   },
   "nn": {
     "param.server_name.description": "Servernavn definert i mcp_servers.json. Hvis det er spesifisert, prioriteres det over url.",

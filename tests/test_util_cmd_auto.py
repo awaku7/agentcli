@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.util_cmd_auto import _handle_cmd_auto
+from uagent.util_cmd_auto import _handle_cmd_auto, _sentinel_judgment
 
 
 def _core() -> SimpleNamespace:
@@ -113,3 +113,14 @@ def test_auto_off_stops_infinite_mode() -> None:
     assert result.run_llm is False
     assert core.auto_pilot_active is False
     assert core.auto_pilot_exit_requested is False
+
+
+def test_sentinel_judgment_accepts_case_and_optional_brackets() -> None:
+    assert _sentinel_judgment([{"role": "assistant", "content": " Auto_complete "}]) == "COMPLETE"
+    assert _sentinel_judgment([{"role": "assistant", "content": "AUTO_CONTINUE"}]) == "CONTINUE"
+
+
+def test_sentinel_judgment_rejects_extra_text() -> None:
+    assert _sentinel_judgment(
+        [{"role": "assistant", "content": "AUTO_COMPLETE now"}]
+    ) is None

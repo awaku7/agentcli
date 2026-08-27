@@ -139,7 +139,11 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["auto", "legacy", "stateless"],
                     "description": _(
                         "param.protocol_mode.description",
-                        default="MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP.",
+                        default=(
+                            "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. "
+                            "Use stateless for stateless servers; use auto or legacy for "
+                            "session-required Streamable HTTP servers."
+                        ),
                     ),
                 },
                 "args": {

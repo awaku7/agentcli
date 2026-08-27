@@ -33,7 +33,12 @@ def _with_sentinel_instruction(prompt: str) -> str:
 
 
 def _sentinel_judgment(messages: list[dict[str, Any]]) -> str | None:
-    """Read an exact sentinel from the latest assistant response."""
+    """Read a normalized sentinel from the latest assistant response.
+
+    Models occasionally vary capitalization or omit the angle brackets. Keep
+    the protocol conservative by accepting only a sentinel-shaped final line,
+    while tolerating those harmless formatting differences.
+    """
     for message in reversed(messages or []):
         if not isinstance(message, dict) or message.get("role") != "assistant":
             continue
@@ -46,9 +51,10 @@ def _sentinel_judgment(messages: list[dict[str, Any]]) -> str | None:
         lines = [line.strip() for line in str(content).splitlines() if line.strip()]
         if not lines:
             return None
-        if lines[-1] == "<AUTO_COMPLETE>":
+        marker = lines[-1].strip().upper()
+        if re.fullmatch(r"(?:<AUTO_COMPLETE>|AUTO_COMPLETE)", marker):
             return "COMPLETE"
-        if lines[-1] == "<AUTO_CONTINUE>":
+        if re.fullmatch(r"(?:<AUTO_CONTINUE>|AUTO_CONTINUE)", marker):
             return "CONTINUE"
         return None
     return None

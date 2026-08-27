@@ -68,6 +68,11 @@ A reviewer result is interpreted as follows:
 - Missing or unrecognized decision text is treated conservatively as `CONTINUE`.
 - Reviewer-call errors also fall back to `CONTINUE`.
 
+When `UAGENT_AUTO_SENTINEL=1` is enabled, the final sentinel line is matched
+case-insensitively with surrounding whitespace ignored. The angle brackets are
+optional (`<AUTO_COMPLETE>` and `Auto_complete` are both accepted), but extra
+text is not; a missing or malformed marker still stops safely.
+
 The `--max-rounds N` counter applies to follow-up Step A LLM rounds. It is incremented after a reviewer returns `CONTINUE` and checked before the follow-up runs. With the default `N=10`, the initial execution is followed by at most 10 additional Step A rounds, each followed by reviewer judgment. `--infinite` or `--max-rounds INFINITE` removes this limit; reviewer completion or an explicit stop is still required.
 
 Auto-pilot also stops when:
