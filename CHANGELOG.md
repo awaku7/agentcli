@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [0.6.13] - 2026-08-28
+
+### Added
+
+- Add SQLite-backed batch task history with resumable task metadata and event logging.
+- Extend code-map ontology output with semantic call/inheritance relations, vocabulary declarations, and stable identifiers.
+- Add Tree-sitter symbol extraction support for R, Objective-C, and COBOL.
+
+### Changed
+
+- Improve code-map path handling and import relation stability, including external files and inverse-friendly definitions.
+- Expand batch-state localization and developer documentation for the SQLite task-history workflow.
+- Improve generated locale coverage for active history-compression messages.
+
+### Fixed
+
+- Preserve distinct same-named symbols and avoid relation identifier collisions in ontology output.
+
+
 ## [0.6.12] - 2026-08-27
 
 ### Added
