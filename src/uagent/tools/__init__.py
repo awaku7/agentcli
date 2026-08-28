@@ -251,8 +251,12 @@ from ..utils.secret_mask import (  # noqa: E402
 
 
 def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
-    """Print a one-line tool trace before execution."""
+    """Print masked arguments for a side-effecting tool before execution."""
     try:
+        from .tool_policy import SideEffect, policy_for
+
+        if policy_for(name, args).side_effect is SideEffect.READ_ONLY:
+            return
         masked = _mask_args(args or {})
         try:
             arg_str = json.dumps(
@@ -2087,6 +2091,14 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             )
     except Exception as exc:
         return f"[tool policy] unified policy error: {type(exc).__name__}: {exc}"
+
+    # Display the final, masked arguments before confirmation or execution so
+    # the user can see what a side-effecting call is about to do. Keeping this
+    # in the common dispatcher also covers serial and parallel execution.
+    emit_trace = _TOOL_TRACE_FLAGS.get(name, True)
+    if emit_trace:
+        _emit_tool_trace(name, args)
+
     try:
         from ..runtime.logging_setup import log_event
 
@@ -2105,12 +2117,6 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                 return "[tool policy] confirmation denied"
         except Exception as exc:
             return f"[tool policy] confirmation failed: {type(exc).__name__}"
-
-    # ---- trace (pre) ----
-    # Use pre-built flag to avoid linear scan of TOOL_SPECS.
-    emit_trace = _TOOL_TRACE_FLAGS.get(name, True)
-    if emit_trace:
-        _emit_tool_trace(name, args)
 
     # During human_ask, Busy should be turned off (it will wait for input).
     # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.

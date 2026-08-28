@@ -114,6 +114,27 @@ def mask_value(v: Any) -> Any:
     return SECRET_MASK
 
 
+_INLINE_SECRET_RE = re.compile(
+    r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"access[_-]?key|private[_-]?key|authorization|bearer|credential|"
+    r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",
+)
+_BEARER_RE = re.compile(
+    r"(?i)(\bbearer\s+)([A-Za-z0-9._~+/-]+=*)",
+)
+_URL_PASSWORD_RE = re.compile(
+    r"(://[^/@\s:]+:)([^/@\s]+)(@)",
+)
+
+
+def _mask_inline_secrets(text: str) -> str:
+    """Mask secret-looking values embedded in otherwise generic strings."""
+    text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
+    text = _BEARER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _URL_PASSWORD_RE.sub(r"\1" + SECRET_MASK + r"\3", text)
+    return text
+
+
 def _mask_browser_action(action: dict[str, Any]) -> dict[str, Any]:
     """Mask secret-bearing fields inside a single browser action dict."""
     out = dict(action)
@@ -167,8 +188,10 @@ def mask_args(args: Any) -> Any:
         return out
     if isinstance(args, list):
         return [mask_args(item) for item in args]
-    if isinstance(args, str) and len(args) > 300:
-        return args[:20] + "...(truncated)..." + args[-20:]
+    if isinstance(args, str):
+        args = _mask_inline_secrets(args)
+        if len(args) > 300:
+            return args[:20] + "...(truncated)..." + args[-20:]
     return args
 
 

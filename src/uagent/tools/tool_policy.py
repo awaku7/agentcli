@@ -76,26 +76,13 @@ _ALLOW_ALL_TOOLS: set[str] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
 
 
-_SENSITIVE_ARG_PARTS = (
-    "password",
-    "token",
-    "secret",
-    "api_key",
-    "apikey",
-    "nsec",
-    "private_key",
-)
-
-
 def _confirmation_args(args: dict[str, Any]) -> str:
     """Render tool arguments for confirmation without exposing credentials."""
-    safe: dict[str, Any] = {}
-    for key, value in args.items():
-        key_text = str(key).lower()
-        if any(part in key_text for part in _SENSITIVE_ARG_PARTS):
-            safe[str(key)] = "<redacted>"
-        else:
-            safe[str(key)] = value
+    # Share the recursive masker used by tool traces and logs. The old local
+    # implementation only inspected top-level keys.
+    from ..utils.secret_mask import mask_args
+
+    safe = mask_args(args)
     try:
         rendered = json.dumps(safe, ensure_ascii=False, sort_keys=True, default=str)
     except Exception:

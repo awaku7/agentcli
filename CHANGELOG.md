@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.6.14] - 2026-08-28
+
+### Added
+
+- Add SVG-to-raster image conversion for PNG, JPEG, and WebP.
+- Add Mermaid Markdown to SVG conversion.
+- Add CairoSVG as an optional tools dependency.
+
+### Changed
+
+- Centralize side-effecting tool argument display before confirmation and execution.
+- Unify recursive secret masking across tool traces and confirmation prompts.
+- Mask quoted `passwd` fields and inline authentication values in tool arguments.
+
+
 ## [0.6.13] - 2026-08-28
 
 ### Added

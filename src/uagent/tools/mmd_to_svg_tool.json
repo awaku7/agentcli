@@ -1,0 +1,724 @@
+{
+  "en": {
+    "tool.description": "Convert a Mermaid Markdown (.mmd) file to an SVG diagram locally. Japanese and other supported scripts are handled when suitable fonts are available.",
+    "x_search_terms": [
+      "mmd to svg",
+      "Mermaid Markdown to SVG",
+      "Mermaid file converter",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Path to the input Mermaid Markdown (.mmd) file.",
+    "param.output_path.description": "Output SVG path. It must end in .svg.",
+    "param.theme.description": "Mermaid theme.",
+    "param.include_base64.description": "Include base64 SVG data for remote clients. Default: true.",
+    "error.mmd_required": "mmd is required",
+    "error.output_required": "output_path is required",
+    "error.input_not_found": "Mermaid Markdown file was not found: %(path)s",
+    "error.input_extension": "The input file must have a .mmd or .mermaid extension.",
+    "error.output_extension": "output_path must end in .svg."
+  },
+  "ja": {
+    "tool.description": "Mermaid Markdown (.mmd) ファイルをローカルで SVG 図に変換します。適切なフォントが利用可能な場合、日本語およびその他のサポートされているスクリプトが処理されます。",
+    "x_search_terms": [
+      "mmd から svg",
+      "Mermaid Markdown から SVG",
+      "Mermaid ファイルコンバーター",
+      "Mermaid SVG",
+      ".mmd を変換"
+    ],
+    "param.mmd.description": "入力 Mermaid Markdown (.mmd) ファイルへのパス。",
+    "param.output_path.description": "出力SVGパス。 .svg で終わる必要があります。",
+    "param.theme.description": "人魚のテーマ。",
+    "param.include_base64.description": "リモート クライアント用の Base64 SVG データを含めます。デフォルト: true。",
+    "error.mmd_required": "mmdは必須です",
+    "error.output_required": "output_pathは必須です",
+    "error.input_not_found": "Mermaid Markdown ファイルが見つかりませんでした: %(path)s",
+    "error.input_extension": "入力ファイルには .mmd または .mermaid 拡張子が必要です。",
+    "error.output_extension": "output_path は .svg で終わる必要があります。"
+  },
+  "ar": {
+    "tool.description": "قم بتحويل ملف Mermaid Markdown (.mmd) إلى رسم تخطيطي SVG محليًا. تتم معالجة البرامج النصية المدعومة اليابانية وغيرها عند توفر الخطوط المناسبة.",
+    "x_search_terms": [
+      "mmd إلى svg",
+      "Mermaid Markdown إلى SVG",
+      "محول ملفات حورية البحر",
+      "Mermaid SVG",
+      "تحويل .mmd"
+    ],
+    "param.mmd.description": "المسار إلى ملف الإدخال Mermaid Markdown (.mmd).",
+    "param.output_path.description": "مسار إخراج SVG. يجب أن ينتهي بـ .svg.",
+    "param.theme.description": "موضوع حورية البحر.",
+    "param.include_base64.description": "قم بتضمين بيانات base64 SVG للعملاء البعيدين. الافتراضي: صحيح.",
+    "error.mmd_required": "مطلوب mmd",
+    "error.output_required": "output_path مطلوب",
+    "error.input_not_found": "لم يتم العثور على ملف Mermaid Markdown: %(path)s",
+    "error.input_extension": "يجب أن يكون لملف الإدخال ملحق .mmd أو .mermaid.",
+    "error.output_extension": "يجب أن ينتهي output_path بـ .svg."
+  },
+  "bn": {
+    "tool.description": "একটি মারমেইড মার্কডাউন (.mmd) ফাইলকে স্থানীয়ভাবে একটি SVG ডায়াগ্রামে রূপান্তর করুন৷ উপযুক্ত ফন্ট উপলব্ধ হলে জাপানি এবং অন্যান্য সমর্থিত স্ক্রিপ্টগুলি পরিচালনা করা হয়।",
+    "x_search_terms": [
+      "mmd to svg",
+      "Mermaid Markdown to SVG",
+      "Mermaid file converter",
+      "Mermaid SVG",
+      " রূপান্তর .mmd"
+    ],
+    "param.mmd.description": "ইনপুট মারমেইড মার্কডাউন (.mmd) ফাইলের পথ।",
+    "param.output_path.description": "আউটপুট SVG পাথ। এটা অবশ্যই .svg-এ শেষ হবে।",
+    "param.theme.description": "মারমেইড থিম।",
+    "param.include_base64.description": "দূরবর্তী ক্লায়েন্টদের জন্য base64 SVG ডেটা অন্তর্ভুক্ত করুন। ডিফল্ট: সত্য।",
+    "error.mmd_required": "mmd প্রয়োজন",
+    "error.output_required": "output_path প্রয়োজন",
+    "error.input_not_found": "মারমেইড মার্কডাউন ফাইল পাওয়া যায়নি: %(path)s",
+    "error.input_extension": "ইনপুট ফাইলে অবশ্যই একটি .mmd বা .mermaid এক্সটেনশন থাকতে হবে৷",
+    "error.output_extension": "output_path অবশ্যই .svg-এ শেষ হতে হবে।"
+  },
+  "cs": {
+    "tool.description": "Převeďte lokálně soubor Mermaid Markdown (.mmd) na diagram SVG. Japonské a další podporované skripty se zpracují, když jsou k dispozici vhodná písma.",
+    "x_search_terms": [
+      "mmd do svg",
+      "Mermaid Markdown do SVG",
+      "Převodník souborů Mermaid",
+      "Mermaid SVG",
+      "převést .mmd"
+    ],
+    "param.mmd.description": "Cesta ke vstupnímu souboru Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Výstupní cesta SVG. Musí končit .svg.",
+    "param.theme.description": "Téma mořské panny.",
+    "param.include_base64.description": "Zahrnout data base64 SVG pro vzdálené klienty. Výchozí: true.",
+    "error.mmd_required": "mmd je vyžadováno",
+    "error.output_required": "Je vyžadováno output_path",
+    "error.input_not_found": "Soubor Mermaid Markdown nebyl nalezen: %(path)s",
+    "error.input_extension": "Vstupní soubor musí mít příponu .mmd nebo .mermaid.",
+    "error.output_extension": "output_path musí končit příponou .svg."
+  },
+  "da": {
+    "tool.description": "Konverter en Mermaid Markdown-fil (.mmd) til et SVG-diagram lokalt. Japanske og andre understøttede scripts håndteres, når passende skrifttyper er tilgængelige.",
+    "x_search_terms": [
+      "mmd til svg",
+      "Mermaid Markdown til SVG",
+      "Mermaid-filkonverter",
+      "Mermaid SVG",
+      "konverter .mmd"
+    ],
+    "param.mmd.description": "Sti til input-Mermaid Markdown-filen (.mmd).",
+    "param.output_path.description": "Output SVG-sti. Det skal ende på .svg.",
+    "param.theme.description": "Havfrue tema.",
+    "param.include_base64.description": "Inkluder base64 SVG-data til fjernklienter. Standard: sand.",
+    "error.mmd_required": "mmd er påkrævet",
+    "error.output_required": "output_path er påkrævet",
+    "error.input_not_found": "Mermaid Markdown-fil blev ikke fundet: %(path)s",
+    "error.input_extension": "Inputfilen skal have filtypenavnet .mmd eller .mermaid.",
+    "error.output_extension": "output_path skal ende på .svg."
+  },
+  "de": {
+    "tool.description": "Konvertieren Sie eine Mermaid Markdown-Datei (.mmd) lokal in ein SVG-Diagramm. Japanische und andere unterstützte Skripte werden verarbeitet, wenn geeignete Schriftarten verfügbar sind.",
+    "x_search_terms": [
+      "mmd zu SVG",
+      "Mermaid Markdown zu SVG",
+      "Mermaid-Dateikonverter",
+      "Mermaid SVG",
+      "konvertieren .mmd"
+    ],
+    "param.mmd.description": "Pfad zur Eingabedatei „Mermaid Markdown“ (.mmd).",
+    "param.output_path.description": "SVG-Ausgabepfad. Es muss mit .svg enden.",
+    "param.theme.description": "Meerjungfrau-Thema.",
+    "param.include_base64.description": "Beziehen Sie Base64-SVG-Daten für Remote-Clients ein. Standard: true.",
+    "error.mmd_required": "mmd ist erforderlich",
+    "error.output_required": "output_path ist erforderlich",
+    "error.input_not_found": "Mermaid Markdown-Datei wurde nicht gefunden: %(path)s",
+    "error.input_extension": "Die Eingabedatei muss die Erweiterung .mmd oder .mermaid haben.",
+    "error.output_extension": "output_path muss mit .svg enden."
+  },
+  "el": {
+    "tool.description": "Μετατρέψτε ένα αρχείο Mermaid Markdown (.mmd) σε διάγραμμα SVG τοπικά. Ο χειρισμός των ιαπωνικών και άλλων υποστηριζόμενων σεναρίων γίνεται όταν υπάρχουν διαθέσιμες κατάλληλες γραμματοσειρές.",
+    "x_search_terms": [
+      "mmd σε svg",
+      "Mermaid Markdown σε SVG",
+      "Μετατροπέας αρχείων Mermaid",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Διαδρομή προς το αρχείο εισόδου Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Διαδρομή εξόδου SVG. Πρέπει να τελειώνει σε .svg.",
+    "param.theme.description": "Θέμα γοργόνα.",
+    "param.include_base64.description": "Συμπεριλάβετε δεδομένα SVG base64 για απομακρυσμένους πελάτες. Προεπιλογή: αληθές.",
+    "error.mmd_required": "mmd απαιτείται",
+    "error.output_required": "Απαιτείται output_path",
+    "error.input_not_found": "Το αρχείο Mermaid Markdown δεν βρέθηκε: %(path)s",
+    "error.input_extension": "Το αρχείο εισόδου πρέπει να έχει επέκταση .mmd ή .mermaid.",
+    "error.output_extension": "Το output_path πρέπει να τελειώνει σε .svg."
+  },
+  "es": {
+    "tool.description": "Convierta un archivo Mermaid Markdown (.mmd) en un diagrama SVG localmente. El japonés y otras escrituras compatibles se manejan cuando hay fuentes adecuadas disponibles.",
+    "x_search_terms": [
+      "mmd a svg",
+      "Mermaid Markdown a SVG",
+      "Convertidor de archivos de sirena",
+      "Mermaid SVG",
+      "convertir .mmd"
+    ],
+    "param.mmd.description": "Ruta al archivo de entrada Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Ruta SVG de salida. Debe terminar en .svg.",
+    "param.theme.description": "Tema de sirena.",
+    "param.include_base64.description": "Incluya datos SVG base64 para clientes remotos. Valor predeterminado: verdadero.",
+    "error.mmd_required": "se requiere mmd",
+    "error.output_required": "Se requiere output_path",
+    "error.input_not_found": "No se encontró el archivo Mermaid Markdown: %(path)s",
+    "error.input_extension": "El archivo de entrada debe tener una extensión .mmd o .mermaid.",
+    "error.output_extension": "output_path debe terminar en .svg."
+  },
+  "fa": {
+    "tool.description": "یک فایل Mermaid Markdown (mmd.) را به یک نمودار SVG به صورت محلی تبدیل کنید. اسکریپت‌های ژاپنی و دیگر پشتیبانی‌شده زمانی که فونت‌های مناسب در دسترس باشد، مدیریت می‌شوند.",
+    "x_search_terms": [
+      "mmd به svg",
+      " Mermaid Markdown به SVG",
+      "Mermaid تبدیل فایل",
+      " Mermaid SVG",
+      "تبدیل .mmd"
+    ],
+    "param.mmd.description": "مسیر فایل ورودی Mermaid Markdown (.mmd).",
+    "param.output_path.description": "خروجی مسیر SVG باید به .svg ختم شود.",
+    "param.theme.description": "تم پری دریایی.",
+    "param.include_base64.description": "شامل داده های SVG base64 برای کلاینت های راه دور. پیش فرض: درست است.",
+    "error.mmd_required": "mmd مورد نیاز است",
+    "error.output_required": "output_path مورد نیاز است",
+    "error.input_not_found": "فایل Mermaid Markdown پیدا نشد: %(path)s",
+    "error.input_extension": "فایل ورودی باید دارای پسوند mmd. یا .mermaid باشد.",
+    "error.output_extension": "output_path باید به .svg ختم شود."
+  },
+  "fi": {
+    "tool.description": "Muunna Mermaid Markdown (.mmd) -tiedosto SVG-kaavioksi paikallisesti. Japanin ja muut tuetut skriptit käsitellään, kun sopivia fontteja on saatavilla.",
+    "x_search_terms": [
+      "mmd svg:ksi",
+      "Mermaid Markdown SVG:ksi",
+      "Mermaid-tiedostomuunnin",
+      "Mermaid SVG",
+      "muunna .mmd"
+    ],
+    "param.mmd.description": "Polku syötetyn Mermaid Markdown (.mmd) -tiedostoon.",
+    "param.output_path.description": "Lähtö SVG-polku. Sen tulee päättyä .svg-muotoon.",
+    "param.theme.description": "Merenneito teema.",
+    "param.include_base64.description": "Sisällytä base64 SVG -tiedot etäasiakkaille. Oletus: tosi.",
+    "error.mmd_required": "mmd vaaditaan",
+    "error.output_required": "output_path vaaditaan",
+    "error.input_not_found": "Mermaid Markdown -tiedostoa ei löytynyt: %(path)s",
+    "error.input_extension": "Syöttötiedoston tunnisteen on oltava .mmd tai .mermaid.",
+    "error.output_extension": "output_path päättyy .svg:hen."
+  },
+  "fil": {
+    "tool.description": "I-convert ang isang Mermaid Markdown (.mmd) file sa isang SVG diagram nang lokal. Hinahawakan ang Japanese at iba pang sinusuportahang script kapag available ang mga angkop na font.",
+    "x_search_terms": [
+      "mmd sa svg",
+      "Mermaid Markdown sa SVG",
+      "Tagapagpalit ng Mermaid file",
+      "Mermaid SVG",
+      "i-convert ang .mmd"
+    ],
+    "param.mmd.description": "Path sa input Mermaid Markdown (.mmd) file.",
+    "param.output_path.description": "Output SVG path. Dapat itong magtapos sa .svg.",
+    "param.theme.description": "Tema ng sirena.",
+    "param.include_base64.description": "Isama ang base64 SVG data para sa mga malalayong kliyente. Default: totoo.",
+    "error.mmd_required": "kailangan ang mmd",
+    "error.output_required": "Kinakailangan ang output_path",
+    "error.input_not_found": "Hindi nakita ang file ng Mermaid Markdown: %(path)s",
+    "error.input_extension": "Ang input file ay dapat may .mmd o .mermaid extension.",
+    "error.output_extension": "Dapat magtapos ang output_path sa .svg."
+  },
+  "fr": {
+    "tool.description": "Convertissez localement un fichier Mermaid Markdown (.mmd) en diagramme SVG. Les scripts japonais et autres scripts pris en charge sont gérés lorsque des polices appropriées sont disponibles.",
+    "x_search_terms": [
+      "mmd en svg",
+      "Mermaid Markdown en SVG",
+      "Convertisseur de fichiers Sirène",
+      "Sirène SVG",
+      "convertir .mmd"
+    ],
+    "param.mmd.description": "Chemin d’accès au fichier d’entrée Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Chemin SVG de sortie. Il doit se terminer par .svg.",
+    "param.theme.description": "Thème sirène.",
+    "param.include_base64.description": "Incluez les données SVG base64 pour les clients distants. Par défaut : vrai.",
+    "error.mmd_required": "mmd est requis",
+    "error.output_required": "output_path est requis",
+    "error.input_not_found": "Le fichier Mermaid Markdown est introuvable : %(path)s",
+    "error.input_extension": "Le fichier d'entrée doit avoir une extension .mmd ou .mermaid.",
+    "error.output_extension": "output_path doit se terminer par .svg."
+  },
+  "he": {
+    "tool.description": "המר קובץ Marmaid Markdown (.mmd) לתרשים SVG באופן מקומי. סקריפטים יפניים ושאר הנתמכים מטופלים כאשר גופנים מתאימים זמינים.",
+    "x_search_terms": [
+      "mmd ל-svg",
+      "Mermaid Markdown ל-SVG",
+      "ממיר קבצי Mermaid",
+      "Mermaid SVG",
+      "המרת .mmd"
+    ],
+    "param.mmd.description": "נתיב לקובץ הקלט Mermaid Markdown (.mmd).",
+    "param.output_path.description": "פלט נתיב SVG. זה חייב להסתיים ב-svg.",
+    "param.theme.description": "נושא בת ים.",
+    "param.include_base64.description": "כלול נתוני base64 SVG עבור לקוחות מרוחקים. ברירת מחדל: נכון.",
+    "error.mmd_required": "נדרש mmd",
+    "error.output_required": "output_path נדרש",
+    "error.input_not_found": "קובץ Marmaid Markdown לא נמצא: %(path)s",
+    "error.input_extension": "לקובץ הקלט חייב להיות סיומת .mmd או .mermaid.",
+    "error.output_extension": "output_path חייב להסתיים ב-.svg."
+  },
+  "hi": {
+    "tool.description": "मरमेड मार्कडाउन (.mmd) फ़ाइल को स्थानीय रूप से SVG आरेख में कनवर्ट करें। उपयुक्त फ़ॉन्ट उपलब्ध होने पर जापानी और अन्य समर्थित स्क्रिप्ट को संभाला जाता है।",
+    "x_search_terms": [
+      "एमएमडी से एसवीजी",
+      "मरमेड मार्कडाउन से एसवीजी",
+      "मरमेड फ़ाइल कनवर्टर",
+      "मरमेड एसवीजी",
+      "कन्वर्ट .mmd"
+    ],
+    "param.mmd.description": "इनपुट मरमेड मार्कडाउन (.mmd) फ़ाइल का पथ।",
+    "param.output_path.description": "आउटपुट एसवीजी पथ। इसे .svg में समाप्त होना चाहिए.",
+    "param.theme.description": "जलपरी थीम.",
+    "param.include_base64.description": "दूरस्थ ग्राहकों के लिए बेस64 एसवीजी डेटा शामिल करें। डिफ़ॉल्ट: सत्य.",
+    "error.mmd_required": "एमएमडी आवश्यक है",
+    "error.output_required": "output_path आवश्यक है",
+    "error.input_not_found": "मरमेड मार्कडाउन फ़ाइल नहीं मिली: %(path)s",
+    "error.input_extension": "इनपुट फ़ाइल में .mmd या .mermaid एक्सटेंशन होना चाहिए।",
+    "error.output_extension": "output_path का अंत .svg होना चाहिए।"
+  },
+  "hu": {
+    "tool.description": "Konvertálja a Mermaid Markdown (.mmd) fájlt SVG diagrammá helyileg. A japán és más támogatott szkripteket akkor kezeljük, ha megfelelő betűtípusok állnak rendelkezésre.",
+    "x_search_terms": [
+      "mmd svg-re",
+      "Mermaid Markdown SVG-re",
+      "Mermaid fájlkonvertáló",
+      "Mermaid SVG",
+      ".mmd konvertálása"
+    ],
+    "param.mmd.description": "A bemeneti Mermaid Markdown (.mmd) fájl elérési útja.",
+    "param.output_path.description": "Kimeneti SVG elérési út. .svg-re kell végződnie.",
+    "param.theme.description": "Sellő téma.",
+    "param.include_base64.description": "Tartalmazzon base64 SVG adatokat a távoli ügyfelek számára. Alapértelmezett: igaz.",
+    "error.mmd_required": "mmd szükséges",
+    "error.output_required": "output_path szükséges",
+    "error.input_not_found": "A Mermaid Markdown fájl nem található: %(path)s",
+    "error.input_extension": "A bemeneti fájlnak .mmd vagy .mermaid kiterjesztéssel kell rendelkeznie.",
+    "error.output_extension": "A output_path-nak .svg-re kell végződnie."
+  },
+  "id": {
+    "tool.description": "Konversikan file Mermaid Markdown (.mmd) menjadi diagram SVG secara lokal. Skrip Jepang dan skrip lain yang didukung ditangani ketika font yang sesuai tersedia.",
+    "x_search_terms": [
+      "mmd ke svg",
+      "Mermaid Markdown ke SVG",
+      "Pengonversi file Mermaid",
+      "Mermaid SVG",
+      "konversi .mmd"
+    ],
+    "param.mmd.description": "Jalur ke file masukan Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Keluaran jalur SVG. Itu harus diakhiri dengan .svg.",
+    "param.theme.description": "Tema putri duyung.",
+    "param.include_base64.description": "Sertakan data SVG base64 untuk klien jarak jauh. Bawaan: benar.",
+    "error.mmd_required": "mmd diperlukan",
+    "error.output_required": "output_path diperlukan",
+    "error.input_not_found": "File Mermaid Markdown tidak ditemukan: %(path)s",
+    "error.input_extension": "File masukan harus memiliki ekstensi .mmd atau .mermaid.",
+    "error.output_extension": "output_path harus diakhiri dengan .svg."
+  },
+  "it": {
+    "tool.description": "Converti localmente un file Sirena Markdown (.mmd) in un diagramma SVG. Il giapponese e altri script supportati vengono gestiti quando sono disponibili i caratteri adatti.",
+    "x_search_terms": [
+      "mmd in SVG",
+      "Mermaid Markdown in SVG",
+      "Convertitore di file Sirena",
+      "Mermaid SVG",
+      "converti .mmd"
+    ],
+    "param.mmd.description": "Percorso del file di input Sirena Markdown (.mmd).",
+    "param.output_path.description": "Percorso SVG di output. Deve terminare con .svg.",
+    "param.theme.description": "Tema della sirena.",
+    "param.include_base64.description": "Include dati SVG base64 per client remoti. Predefinito: vero.",
+    "error.mmd_required": "mmd è obbligatorio",
+    "error.output_required": "output_path è obbligatorio",
+    "error.input_not_found": "Il file Markdown della sirena non è stato trovato: %(path)s",
+    "error.input_extension": "Il file di input deve avere un'estensione .mmd o .mermaid.",
+    "error.output_extension": "output_path deve terminare con .svg."
+  },
+  "ko": {
+    "tool.description": "Mermaid Markdown(.mmd) 파일을 로컬에서 SVG 다이어그램으로 변환합니다. 적절한 글꼴을 사용할 수 있는 경우 일본어 및 기타 지원되는 스크립트가 처리됩니다.",
+    "x_search_terms": [
+      "mmd에서 svg",
+      "Mermaid Markdown에서 SVG",
+      "Mermaid 파일 변환기",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "입력 Mermaid Markdown(.mmd) 파일의 경로입니다.",
+    "param.output_path.description": "SVG 경로를 출력합니다. .svg로 끝나야 합니다.",
+    "param.theme.description": "인어 테마.",
+    "param.include_base64.description": "원격 클라이언트에 대한 base64 SVG 데이터를 포함합니다. 기본값: 참.",
+    "error.mmd_required": "mmd가 필요합니다",
+    "error.output_required": "output_path이 필요합니다",
+    "error.input_not_found": "Mermaid Markdown 파일을 찾을 수 없습니다: %(path)s",
+    "error.input_extension": "입력 파일의 확장자는 .mmd 또는 .mermaid여야 합니다.",
+    "error.output_extension": "output_path은 .svg로 끝나야 합니다."
+  },
+  "mn": {
+    "tool.description": "Mermaid Markdown (.mmd) файлыг SVG диаграмм болгон хөрвүүлэх. Тохиромжтой фонтууд байгаа үед япон хэл болон бусад дэмжигдсэн скриптүүдийг зохицуулдаг.",
+    "x_search_terms": [
+      "mmd-аас svg",
+      "Лусын дагина руу тэмдэглэгээг SVG рүү",
+      "Лусын дагина файл хөрвүүлэгч",
+      "Лусын дагина SVG",
+      ".mmd руу хөрвүүлэх"
+    ],
+    "param.mmd.description": "Оролтын Mermaid Markdown (.mmd) файлын зам.",
+    "param.output_path.description": "Гаралтын SVG зам. Энэ нь .svg-ээр төгсөх ёстой.",
+    "param.theme.description": "Лусын дагина сэдэв.",
+    "param.include_base64.description": "Алсын үйлчлүүлэгчдэд зориулсан base64 SVG өгөгдлийг оруулах. Өгөгдмөл: үнэн.",
+    "error.mmd_required": "mmd шаардлагатай",
+    "error.output_required": "output_path шаардлагатай",
+    "error.input_not_found": "Mermaid Markdown файл олдсонгүй: %(path)s",
+    "error.input_extension": "Оролтын файл нь .mmd эсвэл .mermaid өргөтгөлтэй байх ёстой.",
+    "error.output_extension": "output_path нь .svg-р төгсөх ёстой."
+  },
+  "mr": {
+    "tool.description": "मरमेड मार्कडाउन (.mmd) फाईल स्थानिक पातळीवर SVG आकृतीमध्ये रूपांतरित करा. योग्य फॉन्ट उपलब्ध असताना जपानी आणि इतर समर्थित स्क्रिप्ट हाताळल्या जातात.",
+    "x_search_terms": [
+      "mmd ते svg",
+      "Mermaid Markdown to SVG",
+      "Mermaid फाइल कनवर्टर",
+      "Mermaid SVG",
+      " रूपांतरित करा .mmd"
+    ],
+    "param.mmd.description": "इनपुट मरमेड मार्कडाउन (.mmd) फाइलचा मार्ग.",
+    "param.output_path.description": "आउटपुट SVG मार्ग. ते .svg मध्ये संपले पाहिजे.",
+    "param.theme.description": "मरमेड थीम.",
+    "param.include_base64.description": "रिमोट क्लायंटसाठी बेस64 SVG डेटा समाविष्ट करा. डीफॉल्ट: खरे.",
+    "error.mmd_required": "mmd आवश्यक आहे",
+    "error.output_required": "output_path आवश्यक आहे",
+    "error.input_not_found": "मरमेड मार्कडाउन फाइल आढळली नाही: %(path)s",
+    "error.input_extension": "इनपुट फाइलमध्ये .mmd किंवा .mermaid विस्तार असणे आवश्यक आहे.",
+    "error.output_extension": "output_path .svg मध्ये समाप्त होणे आवश्यक आहे."
+  },
+  "ms": {
+    "tool.description": "Tukar fail Mermaid Markdown (.mmd) kepada gambar rajah SVG secara setempat. Skrip Jepun dan lain-lain yang disokong dikendalikan apabila fon yang sesuai tersedia.",
+    "x_search_terms": [
+      "mmd ke svg",
+      "Mermaid Markdown ke SVG",
+      "Penukar fail Mermaid",
+      "Mermaid SVG",
+      "tukar .mmd"
+    ],
+    "param.mmd.description": "Laluan ke fail input Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Laluan SVG keluaran. Ia mesti berakhir dengan .svg.",
+    "param.theme.description": "Tema ikan duyung.",
+    "param.include_base64.description": "Sertakan data SVG base64 untuk pelanggan jauh. Lalai: benar.",
+    "error.mmd_required": "mmd diperlukan",
+    "error.output_required": "output_path diperlukan",
+    "error.input_not_found": "Fail Mermaid Markdown tidak ditemui: %(path)s",
+    "error.input_extension": "Fail input mesti mempunyai sambungan .mmd atau .mermaid.",
+    "error.output_extension": "output_path mesti berakhir dengan .svg."
+  },
+  "nb": {
+    "tool.description": "Konverter en Mermaid Markdown-fil (.mmd) til et SVG-diagram lokalt. Japanske og andre støttede skript håndteres når passende fonter er tilgjengelige.",
+    "x_search_terms": [
+      "mmd til svg",
+      "Mermaid Markdown til SVG",
+      "Mermaid-filkonverterer",
+      "Mermaid SVG",
+      "konverter .mmd"
+    ],
+    "param.mmd.description": "Sti til inndatafilen Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Utdata SVG-bane. Den må ende på .svg.",
+    "param.theme.description": "Havfrue tema.",
+    "param.include_base64.description": "Inkluder base64 SVG-data for eksterne klienter. Standard: sant.",
+    "error.mmd_required": "mmd kreves",
+    "error.output_required": "output_path kreves",
+    "error.input_not_found": "Mermaid Markdown-fil ble ikke funnet: %(path)s",
+    "error.input_extension": "Inndatafilen må ha filtypen .mmd eller .mermaid.",
+    "error.output_extension": "output_path må ende på .svg."
+  },
+  "nl": {
+    "tool.description": "Converteer een Mermaid Markdown-bestand (.mmd) lokaal naar een SVG-diagram. Japanse en andere ondersteunde scripts worden verwerkt als geschikte lettertypen beschikbaar zijn.",
+    "x_search_terms": [
+      "mmd naar SVG",
+      "Zeemeermin Markdown naar SVG",
+      "Zeemeermin bestandsconverter",
+      "Zeemeermin SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Pad naar het invoerbestand Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Uitvoer SVG-pad. Het moet eindigen op .svg.",
+    "param.theme.description": "Zeemeermin thema.",
+    "param.include_base64.description": "Voeg base64 SVG-gegevens toe voor externe clients. Standaard: waar.",
+    "error.mmd_required": "mmd is vereist",
+    "error.output_required": "output_path is vereist",
+    "error.input_not_found": "Zeemeermin Markdown-bestand is niet gevonden: %(path)s",
+    "error.input_extension": "Het invoerbestand moet de extensie .mmd of .mermaid hebben.",
+    "error.output_extension": "output_path moet eindigen op .svg."
+  },
+  "nn": {
+    "tool.description": "Konverter en Mermaid Markdown (.mmd) -fil til et SVG-diagram lokalt. Japanske og andre støttede skript blir handsama når passande skrifttypar er tilgjengelege.",
+    "x_search_terms": [
+      "mmd til svgMermaid Markdown til SVGMermaid file converterMermaid SVGconverter .mmd",
+      "Mermaid Markdown to SVG",
+      "Mermaid file converter",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Fullstendig sti til fila.",
+    "param.output_path.description": "Utgang SVG-bane. Det må ende på .svg.",
+    "param.theme.description": "Havfrue tema.",
+    "param.include_base64.description": "Inkluder base64 SVG-data for eksterne klienter. Standard: true.",
+    "error.mmd_required": "Er nødvendig",
+    "error.output_required": "output_path er påkrevd",
+    "error.input_not_found": "Mermaid Markdown-filen ble ikke funnet: %(path)s",
+    "error.input_extension": "Inndatafilen må ha filtypen .mmd eller .mermaid.",
+    "error.output_extension": "Slutt om:"
+  },
+  "pl": {
+    "tool.description": "Lokalnie przekonwertuj plik Mermaid Markdown (.mmd) na diagram SVG. Japońskie i inne obsługiwane skrypty są obsługiwane, jeśli dostępne są odpowiednie czcionki.",
+    "x_search_terms": [
+      "mmd do svg",
+      "Mermaid Markdown do SVG",
+      "Konwerter plików syrenki",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Ścieżka do wejściowego pliku Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Wyjściowa ścieżka SVG. Musi kończyć się na .svg.",
+    "param.theme.description": "Motyw syreny.",
+    "param.include_base64.description": "Dołącz dane SVG base64 dla klientów zdalnych. Wartość domyślna: prawda.",
+    "error.mmd_required": "mmd jest wymagane",
+    "error.output_required": "Wymagany jest output_path",
+    "error.input_not_found": "Nie znaleziono pliku Mermaid Markdown: %(path)s",
+    "error.input_extension": "Plik wejściowy musi mieć rozszerzenie .mmd lub .mermaid.",
+    "error.output_extension": "output_path musi kończyć się na .svg."
+  },
+  "pt": {
+    "tool.description": "Converta um arquivo Mermaid Markdown (.mmd) em um diagrama SVG localmente. Os scripts japoneses e outros scripts suportados são tratados quando fontes adequadas estão disponíveis.",
+    "x_search_terms": [
+      "mmd para svg",
+      "Mermaid Markdown para SVG",
+      "Mermaid file converter",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Caminho para o arquivo Mermaid Markdown (.mmd) de entrada.",
+    "param.output_path.description": "Caminho SVG de saída. Deve terminar em .svg.",
+    "param.theme.description": "Tema sereia.",
+    "param.include_base64.description": "Inclui dados SVG base64 para clientes remotos. Padrão: verdadeiro.",
+    "error.mmd_required": "mmd é obrigatório",
+    "error.output_required": "output_path é obrigatório",
+    "error.input_not_found": "O arquivo Mermaid Markdown não foi encontrado: %(path)s",
+    "error.input_extension": "O arquivo de entrada deve ter uma extensão .mmd ou .mermaid.",
+    "error.output_extension": "output_path deve terminar em .svg."
+  },
+  "pt_BR": {
+    "tool.description": "Converta um arquivo Mermaid Markdown (.mmd) em um diagrama SVG localmente. Os scripts japoneses e outros scripts suportados são tratados quando fontes adequadas estão disponíveis.",
+    "x_search_terms": [
+      "mmd para svg",
+      "Mermaid Markdown para SVG",
+      "Mermaid file converter",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Caminho para o arquivo Mermaid Markdown (.mmd) de entrada.",
+    "param.output_path.description": "Caminho SVG de saída. Deve terminar em .svg.",
+    "param.theme.description": "Tema sereia.",
+    "param.include_base64.description": "Inclui dados SVG base64 para clientes remotos. Padrão: verdadeiro.",
+    "error.mmd_required": "mmd é obrigatório",
+    "error.output_required": "output_path é obrigatório",
+    "error.input_not_found": "O arquivo Mermaid Markdown não foi encontrado: %(path)s",
+    "error.input_extension": "O arquivo de entrada deve ter uma extensão .mmd ou .mermaid.",
+    "error.output_extension": "output_path deve terminar em .svg."
+  },
+  "ro": {
+    "tool.description": "Convertiți un fișier Mermaid Markdown (.mmd) într-o diagramă SVG la nivel local. Scripturile japoneze și alte scripturi acceptate sunt gestionate atunci când sunt disponibile fonturi adecvate.",
+    "x_search_terms": [
+      "mmd în svg",
+      "Mermaid Markdown în SVG",
+      "Convertor de fișiere Mermaid",
+      "Mermaid SVG",
+      "convertire .mmd"
+    ],
+    "param.mmd.description": "Calea către fișierul de intrare Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Calea SVG de ieșire. Trebuie să se termine în .svg.",
+    "param.theme.description": "Tema sirenelor.",
+    "param.include_base64.description": "Includeți date SVG base64 pentru clienții la distanță. Implicit: adevărat.",
+    "error.mmd_required": "mmd este necesar",
+    "error.output_required": "output_path este necesar",
+    "error.input_not_found": "Fișierul Mermaid Markdown nu a fost găsit: %(path)s",
+    "error.input_extension": "Fișierul de intrare trebuie să aibă extensia .mmd sau .mermaid.",
+    "error.output_extension": "output_path trebuie să se termine în .svg."
+  },
+  "ru": {
+    "tool.description": "Преобразуйте файл Mermaid Markdown (.mmd) в диаграмму SVG локально. Японские и другие поддерживаемые сценарии обрабатываются при наличии подходящих шрифтов.",
+    "x_search_terms": [
+      "mmd в svg",
+      "Mermaid Markdown в SVG",
+      "Конвертер файлов Mermaid",
+      "Mermaid SVG",
+      "конвертировать .mmd"
+    ],
+    "param.mmd.description": "Путь к входному файлу Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Выходной путь SVG. Он должен заканчиваться на .svg.",
+    "param.theme.description": "Русалочная тема.",
+    "param.include_base64.description": "Включите данные SVG в формате Base64 для удаленных клиентов. По умолчанию: правда.",
+    "error.mmd_required": "ммд требуется",
+    "error.output_required": "output_path требуется",
+    "error.input_not_found": "Файл Mermaid Markdown не найден: %(path)s",
+    "error.input_extension": "Входной файл должен иметь расширение .mmd или .mermaid.",
+    "error.output_extension": "output_path должен заканчиваться на .svg."
+  },
+  "sv": {
+    "tool.description": "Konvertera en Mermaid Markdown-fil (.mmd) till ett SVG-diagram lokalt. Japanska och andra skript som stöds hanteras när lämpliga typsnitt finns tillgängliga.",
+    "x_search_terms": [
+      "mmd till svg",
+      "Mermaid Markdown till SVG",
+      "Mermaid filkonverterare",
+      "Mermaid SVG",
+      "konvertera .mmd"
+    ],
+    "param.mmd.description": "Sökväg till indatafilen Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Utdata SVG-sökväg. Det måste sluta på .svg.",
+    "param.theme.description": "Sjöjungfru tema.",
+    "param.include_base64.description": "Inkludera base64 SVG-data för fjärrklienter. Standard: sant.",
+    "error.mmd_required": "mmd krävs",
+    "error.output_required": "output_path krävs",
+    "error.input_not_found": "Mermaid Markdown-fil hittades inte: %(path)s",
+    "error.input_extension": "Indatafilen måste ha filtillägget .mmd eller .mermaid.",
+    "error.output_extension": "output_path måste sluta med .svg."
+  },
+  "sw": {
+    "tool.description": "Badilisha faili ya Mermaid Markdown (.mmd) kuwa mchoro wa SVG ndani ya nchi. Hati za Kijapani na zingine zinazotumika hushughulikiwa wakati fonti zinazofaa zinapatikana.",
+    "x_search_terms": [
+      "mmd hadi svg",
+      "Mermaid Markdown hadi SVG",
+      "Kigeuzi faili cha Mermaid",
+      "Mermaid SVG",
+      "badilisha .mmd"
+    ],
+    "param.mmd.description": "Njia ya kuingiza faili ya Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Pato SVG njia. Ni lazima imalizie kwa .svg.",
+    "param.theme.description": "Mandhari ya Mermaid.",
+    "param.include_base64.description": "Jumuisha data ya base64 SVG kwa wateja wa mbali. Chaguomsingi: kweli.",
+    "error.mmd_required": "mmd inahitajika",
+    "error.output_required": "output_path inahitajika",
+    "error.input_not_found": "Faili ya Mermaid Markdown haikupatikana: %(path)s",
+    "error.input_extension": "Faili ya ingizo lazima iwe na kiendelezi cha .mmd au .mermaid.",
+    "error.output_extension": "output_path lazima imalizike kwa .svg."
+  },
+  "th": {
+    "tool.description": "แปลงไฟล์ Mermaid Markdown (.mmd) เป็นไดอะแกรม SVG ในเครื่อง สคริปต์ภาษาญี่ปุ่นและสคริปต์ที่รองรับอื่นๆ จะได้รับการจัดการเมื่อมีแบบอักษรที่เหมาะสม",
+    "x_search_terms": [
+      "mmd เป็น svg",
+      "Mermaid Markdown เป็น SVG",
+      "ตัวแปลงไฟล์ Mermaid",
+      "Mermaid SVG",
+      "แปลง .mmd"
+    ],
+    "param.mmd.description": "พาธไปยังไฟล์อินพุต Mermaid Markdown (.mmd)",
+    "param.output_path.description": "เส้นทาง SVG เอาต์พุต มันจะต้องลงท้ายด้วย .svg",
+    "param.theme.description": "ธีมนางเงือก",
+    "param.include_base64.description": "รวมข้อมูล SVG base64 สำหรับไคลเอ็นต์ระยะไกล ค่าเริ่มต้น: จริง",
+    "error.mmd_required": "จำเป็นต้องมี mmd",
+    "error.output_required": "output_path จำเป็น",
+    "error.input_not_found": "ไม่พบไฟล์ Mermaid Markdown: %(path)s",
+    "error.input_extension": "ไฟล์อินพุตต้องมีนามสกุล .mmd หรือ .mermaid",
+    "error.output_extension": "output_path ต้องลงท้ายด้วย .svg"
+  },
+  "tr": {
+    "tool.description": "Denizkızı Markdown (.mmd) dosyasını yerel olarak SVG diyagramına dönüştürün. Uygun yazı tipleri mevcut olduğunda Japonca ve diğer desteklenen komut dosyaları işlenir.",
+    "x_search_terms": [
+      "mmd'den svg'ye",
+      "Mermaid Markdown'dan SVG'ye",
+      "Mermaid dosya dönüştürücüsü",
+      "Mermaid SVG",
+      "convert .mmd"
+    ],
+    "param.mmd.description": "Giriş Denizkızı Markdown (.mmd) dosyasının yolu.",
+    "param.output_path.description": "Çıkış SVG yolu. .svg ile bitmelidir.",
+    "param.theme.description": "Deniz kızı teması.",
+    "param.include_base64.description": "Uzak istemciler için base64 SVG verilerini ekleyin. Varsayılan: doğru.",
+    "error.mmd_required": "mmd gereklidir",
+    "error.output_required": "output_path gerekli",
+    "error.input_not_found": "Deniz Kızı Markdown dosyası bulunamadı: %(path)s",
+    "error.input_extension": "Giriş dosyasının .mmd veya .mermaid uzantısı olması gerekir.",
+    "error.output_extension": "output_path .svg ile bitmelidir."
+  },
+  "uk": {
+    "tool.description": "Перетворіть файл Mermaid Markdown (.mmd) на діаграму SVG локально. Японські та інші підтримувані шрифти обробляються, якщо доступні відповідні шрифти.",
+    "x_search_terms": [
+      "mmd у svg",
+      "Mermaid Markdown у SVG",
+      "Конвертер файлів Mermaid",
+      "Mermaid SVG",
+      "конвертувати .mmd"
+    ],
+    "param.mmd.description": "Шлях до вхідного файлу Mermaid Markdown (.mmd).",
+    "param.output_path.description": "Вихідний шлях SVG. Він має закінчуватися на .svg.",
+    "param.theme.description": "Тема русалки.",
+    "param.include_base64.description": "Включіть дані base64 SVG для віддалених клієнтів. Типове значення: true.",
+    "error.mmd_required": "ммд є обов’язковим",
+    "error.output_required": "Потрібен output_path",
+    "error.input_not_found": "Файл Mermaid Markdown не знайдено: %(path)s",
+    "error.input_extension": "Вхідний файл повинен мати розширення .mmd або .mermaid.",
+    "error.output_extension": "output_path має закінчуватися на .svg."
+  },
+  "vi": {
+    "tool.description": "Chuyển đổi tệp Nàng tiên cá (.mmd) thành sơ đồ SVG cục bộ. Các tập lệnh tiếng Nhật và các tập lệnh được hỗ trợ khác sẽ được xử lý khi có sẵn phông chữ phù hợp.",
+    "x_search_terms": [
+      "mmd sang svg",
+      "Đánh dấu nàng tiên cá xuống SVG",
+      "Trình chuyển đổi tập tin nàng tiên cá",
+      "SVG nàng tiên cá",
+      "chuyển đổi .mmd"
+    ],
+    "param.mmd.description": "Đường dẫn đến tệp đầu vào của Nàng tiên cá (.mmd).",
+    "param.output_path.description": "Đường dẫn SVG đầu ra. Nó phải kết thúc bằng .svg.",
+    "param.theme.description": "Chủ đề nàng tiên cá.",
+    "param.include_base64.description": "Bao gồm dữ liệu SVG base64 cho khách hàng từ xa. Mặc định: đúng.",
+    "error.mmd_required": "mmd là bắt buộc",
+    "error.output_required": "output_path là bắt buộc",
+    "error.input_not_found": "Không tìm thấy tệp Markdown của Nàng tiên cá: %(path)s",
+    "error.input_extension": "Tệp đầu vào phải có phần mở rộng .mmd hoặc .mermaid.",
+    "error.output_extension": "output_path phải kết thúc bằng .svg."
+  },
+  "zh_CN": {
+    "tool.description": "将 Mermaid Markdown (.mmd) 文件在本地转换为 SVG 图表。当有合适的字体可用时，可以处理日语和其他受支持的脚本。",
+    "x_search_terms": [
+      "mmd 到 svg",
+      "Mermaid Markdown 到 SVG",
+      "Mermaid 文件转换器",
+      "Mermaid SVG",
+      "转换 .mmd"
+    ],
+    "param.mmd.description": "输入 Mermaid Markdown (.mmd) 文件的路径。",
+    "param.output_path.description": "输出 SVG 路径。它必须以 .svg 结尾。",
+    "param.theme.description": "美人鱼主题。",
+    "param.include_base64.description": "包括远程客户端的 base64 SVG 数据。默认值：true。",
+    "error.mmd_required": "需要mmd",
+    "error.output_required": "output_path 为必填项",
+    "error.input_not_found": "未找到 Mermaid Markdown 文件：%(path)s",
+    "error.input_extension": "输入文件必须具有 .mmd 或 .mermaid 扩展名。",
+    "error.output_extension": "output_path 必须以 .svg 结尾。"
+  },
+  "zh_TW": {
+    "tool.description": "將 Mermaid Markdown (.mmd) 檔案在本地轉換為 SVG 圖表。當有合適的字體可用時，可以處理日語和其他受支援的腳本。",
+    "x_search_terms": [
+      "mmd 到 svg",
+      "Mermaid Markdown 到 SVG",
+      "Mermaid 檔案轉換器",
+      "Mermaid SVG",
+      "轉換 .mmd"
+    ],
+    "param.mmd.description": "輸入 Mermaid Markdown (.mmd) 檔案的路徑。",
+    "param.output_path.description": "輸出 SVG 路徑。它必須以 .svg 結尾。",
+    "param.theme.description": "美人魚主題。",
+    "param.include_base64.description": "包括遠端客戶端的 base64 SVG 資料。預設值：true。",
+    "error.mmd_required": "需要mmd",
+    "error.output_required": "output_path 為必填項",
+    "error.input_not_found": "未找到 Mermaid Markdown 文件：%(path)s",
+    "error.input_extension": "輸入檔必須具有 .mmd 或 .mermaid 副檔名。",
+    "error.output_extension": "output_path 必須以 .svg 結尾。"
+  }
+}
