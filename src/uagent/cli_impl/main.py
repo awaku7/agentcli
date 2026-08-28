@@ -424,12 +424,13 @@ def main() -> None:
         # Keep the active SQLite session searchable after the CLI exits.  Use
         # the existing command handler with an explicit session id so shutdown
         # never summarizes every stored session (or a different session loaded
-        # during this run). Shutdown summarization is opt-in because it invokes
-        # another LLM operation while the process is exiting.
+        # during this run). Shutdown summarization runs by default; set
+        # UAGENT_SUMMARY_ON_EXIT=0 to opt out because it invokes another LLM
+        # operation while the process is exiting.
         if session_store is not None and client is not None and depname:
             active_session_id = getattr(core, "session_id", None)
             summary_on_exit = (
-                os.environ.get("UAGENT_SUMMARY_ON_EXIT", "0") or "0"
+                os.environ.get("UAGENT_SUMMARY_ON_EXIT", "1") or "1"
             ).strip().lower() in {"1", "true", "yes", "on"}
             if active_session_id and summary_on_exit:
                 # Shutdown summarization is synchronous and should not start
