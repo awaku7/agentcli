@@ -206,11 +206,11 @@ See `TOOL_FLOW.md` for full details.
 
 ### 3.8 Batch state helper
 
-- `src/uagent/tools/batch_state_tool.py` provides persisted state for multi-file tasks.
-- Default storage: `~/.uag/batches/`
-- Override with `UAGENT_BATCHES_DIR`
-- `load` can resume an existing batch and restore `task_description`, `instructions`, `target_files`, `done_files`, `pending_files`, and related progress fields.
-- Supported actions: `init`, `load`, `update`, `append_log`, `finalize`, `list`, `delete`
+- `src/uagent/tools/batch_state_tool.py` provides SQLite-backed state and event history for multi-file tasks. The database defaults to `~/.uag/batches/task_history.sqlite3` (override with `UAGENT_BATCHES_DIR`), uses WAL and transactions, stores `conversation_id` and `instructions`, and does not create JSON state files.
+- Default database: `~/.uag/batches/task_history.sqlite3`
+- Override the database directory with `UAGENT_BATCHES_DIR`
+- `load` can resume an existing task and restore `task_description`, `instructions`, `conversation_id`, target files, progress fields, and event-backed state.
+- Supported actions: `init`, `load`, `status`, `current`, `complete_file`, `skip_file`, `error_file`, `reset`, `finalize`, `list`
 
 ### 3.9 OS-level scheduling (set_timer with os_persist=True)
 

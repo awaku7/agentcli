@@ -5177,3 +5177,18 @@ msgstr "指定された workdir がファイルです: %(path)s"
 #~ msgid "Utility (geodesic distance, pdf export, quantities)"
 #~ msgstr "Utility (測地距離、PDF エクスポート、quantities)"
 
+
+# Active shrink_llm messages
+#: src/uagent/core_impl/history.py
+#, python-format
+msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
+msgstr "[shrink_llm] チャンク %(i)d/%(n)d を要約しています..."
+
+#: src/uagent/core_impl/history.py
+msgid "Summary of the conversation so far:\n"
+msgstr "これまでの会話の要約:\n"
+
+#: src/uagent/core_impl/history.py
+#, python-brace-format
+msgid "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} メッセージ（{old_part_n} 件の古いメッセージを1つの要約に圧縮、{tail_n} 件を末尾に保持）"

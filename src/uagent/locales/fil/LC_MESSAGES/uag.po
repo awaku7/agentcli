@@ -308,7 +308,7 @@ msgstr "I-update ang buod habang pinananatiling buo ang naunang konteksto."
 
 #: src/uagent/core.py:1963
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
-msgstr "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
+msgstr "[shrink_llm] Binubuod ang tipak %(i)d/%(n)d..."
 
 #: src/uagent/core.py:1982
 msgid "Summary of the conversation so far:\n"

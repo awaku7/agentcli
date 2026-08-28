@@ -273,7 +273,7 @@ ______________________________________________________________________
 
 ### 3.8 Batch state
 
-`batch_state_tool.py` は複数ファイル作業の進捗を `~/.uag/batches/` に保存する。`UAGENT_BATCHES_DIR` で保存先を変更でき、`init`、`load`、`update`、`append_log`、`finalize`、`list`、`delete` を提供する。
+`batch_state_tool.py` は複数ファイル作業の状態と経過をSQLite（`~/.uag/batches/task_history.sqlite3`）に保存する。`UAGENT_BATCHES_DIR` で保存先を変更できる。`conversation_id` と `instructions` も保存され、`init`、`load`、`status`、`current`、`complete_file`、`skip_file`、`error_file`、`reset`、`finalize`、`list` を提供する。WALとトランザクションを使用し、`task_events` に更新履歴を記録する。JSON状態ファイルは使用しない。
 
 ### 3.9 OSスケジューラ付きタイマー
 

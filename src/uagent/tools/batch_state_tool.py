@@ -10,6 +10,7 @@ from uuid import uuid4
 
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
+from .task_history import list_tasks, load_task, save_task
 
 _ = make_tool_translator(__file__)
 
@@ -40,7 +41,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "batch_state",
         "description": _(
             "tool.description",
-            default="Manage batch state for multi-file tasks under ~/.uag/batches/.",
+            default="Manage batch state for multi-file tasks in the SQLite store ~/.uag/batches/task_history.sqlite3.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -100,6 +101,13 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.instructions.description",
                         default="Detailed instructions for the batch task. Keep the user's original language; do not translate.",
+                    ),
+                },
+                "conversation_id": {
+                    "type": "string",
+                    "description": _(
+                        "param.conversation_id.description",
+                        default="Conversation log ID used to resume this task safely.",
                     ),
                 },
                 "targets": {
@@ -185,7 +193,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.overwrite.description",
-                        default="If true, init overwrites an existing batch file.",
+                        default="If true, init overwrites an existing task in SQLite.",
                     ),
                 },
             },
@@ -230,9 +238,8 @@ def _validate_batch_id(batch_id: str) -> str:
     return batch_id
 
 
-def _path_for_batch_id(batch_id: str) -> Path:
-    root = _ensure_dir()
-    return root / f"{batch_id}.json"
+def _history_db_path() -> Path:
+    return _ensure_dir() / "task_history.sqlite3"
 
 
 def _normalize_text(value: Any) -> str:
@@ -439,6 +446,7 @@ def _collect_state_patch(args: dict[str, Any]) -> dict[str, Any]:
     for key in (
         "task_description",
         "instructions",
+        "conversation_id",
         "targets",
         "current_target",
         "workdir",
@@ -470,6 +478,7 @@ def _normalize_persisted_state(state: dict[str, Any]) -> dict[str, Any]:
     for key in (
         "task_description",
         "instructions",
+        "conversation_id",
         "workdir",
         "created_at",
         "updated_at",
@@ -515,34 +524,33 @@ def _normalize_persisted_state(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def _load_state(batch_id: str) -> dict[str, Any]:
-    path = _path_for_batch_id(batch_id)
-    if not path.exists():
+    state = load_task(_history_db_path(), batch_id)
+    if state is None:
         raise FileNotFoundError(f"batch not found: {batch_id}")
-    with path.open("r", encoding="utf-8") as f:
-        state = json.load(f)
-    if not isinstance(state, dict):
-        raise ValueError("batch state must be a JSON object")
     state.setdefault("batch_id", batch_id)
     return _normalize_persisted_state(state)
 
 
 def _save_state(batch_id: str, state: dict[str, Any]) -> Path:
-    path = _path_for_batch_id(batch_id)
     normalized = _normalize_persisted_state(state)
     normalized["batch_id"] = batch_id
     now = _now_iso()
     normalized["updated_at"] = now
     normalized["last_updated"] = now
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(normalized, f, ensure_ascii=False, indent=2, sort_keys=True)
-        f.write("\n")
-    return path
+    save_task(
+        _history_db_path(),
+        normalized,
+        event_type="state_saved",
+        message=normalized.get("task_description", ""),
+    )
+    return _history_db_path()
 
 
 def _list_item(state: dict[str, Any]) -> dict[str, Any]:
     snapshot = _state_with_progress_view(state)
     return {
         "batch_id": snapshot.get("batch_id", ""),
+        "conversation_id": snapshot.get("conversation_id", ""),
         "status": snapshot.get("status", ""),
         "task_description": snapshot.get("task_description", ""),
         "file": snapshot.get("file", ""),
@@ -669,6 +677,7 @@ def _batch_overview(state: dict[str, Any]) -> dict[str, Any]:
     target_views = snapshot.get("target_views", [])
     return {
         "batch_id": snapshot.get("batch_id", ""),
+        "conversation_id": snapshot.get("conversation_id", ""),
         "status": snapshot.get("status", ""),
         "task_description": snapshot.get("task_description", ""),
         "instructions": snapshot.get("instructions", ""),
@@ -706,6 +715,7 @@ def _default_state(batch_id: str) -> dict[str, Any]:
         "status": "active",
         "task_description": "",
         "instructions": "",
+        "conversation_id": "",
         "workdir": str(Path.cwd()),
         "targets": [],
         "current_target": 0,
@@ -747,8 +757,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 or f"batch-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid4().hex[:8]}"
             )
             batch_id = _validate_batch_id(batch_id)
-            path = _path_for_batch_id(batch_id)
-            if path.exists() and not bool(args.get("overwrite", False)):
+            path = _history_db_path()
+            if load_task(path, batch_id) is not None and not bool(
+                args.get("overwrite", False)
+            ):
                 return _result(
                     False,
                     error=_(
@@ -756,7 +768,6 @@ def run_tool(args: dict[str, Any]) -> str:
                         default=f"[batch_state error] batch already exists: {batch_id}",
                     ),
                     batch_id=batch_id,
-                    path=str(path),
                 )
 
             state = _default_state(batch_id)
@@ -769,22 +780,16 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action="init",
                 batch_id=batch_id,
-                path=str(path),
                 state=_batch_overview(state),
             )
 
         if action == "list":
             root = _ensure_dir()
-            items: list[dict[str, Any]] = []
-            for path in sorted(root.glob("*.json")):
-                try:
-                    with path.open("r", encoding="utf-8") as f:
-                        state = json.load(f)
-                    if not isinstance(state, dict):
-                        continue
-                    items.append(_list_item(state))
-                except Exception:
-                    continue
+            items = [
+                _list_item(_normalize_persisted_state(state))
+                for state in list_tasks(_history_db_path())
+            ]
+            items.sort(key=lambda item: item.get("updated_at", ""), reverse=True)
 
             summary = {
                 "batch_count": len(items),
@@ -835,7 +840,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action="reset",
                 batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(reset_state),
             )
 
@@ -845,7 +849,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action=action,
                 batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
             )
 
@@ -856,7 +859,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action=action,
                 batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
                 file=overview.get("file", ""),
                 current_target=overview.get("current_target", 0),
                 current_target_dir=overview.get("current_target_dir", ""),
@@ -893,7 +895,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action=action,
                 batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
             )
 
@@ -925,7 +926,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 True,
                 action="finalize",
                 batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
             )
         return _result(

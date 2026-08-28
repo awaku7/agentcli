@@ -13,13 +13,13 @@ version: 1.1.0
 
 ## 強制ルール
 
-1. 毎ターン最初に `batch_state(load)` を確認する。
-1. 判断は `batch_state` の内容だけで行う。
+1. 毎ターン最初に `batch_state(load)` を確認する。SQLite（`~/.uag/batches/task_history.sqlite3`）の状態と`task_events`の経過を正とする。
+1. 判断は `batch_state` の内容だけで行う。会話履歴が失われても、保存済みの`instructions`と`conversation_id`で再開する。
 1. 1ターンで処理するのは原則 1 件だけ。
 1. 次の対象は `targets[current_target]` の `files[next_index]` とする。
-1. 1 件を終えたら必ず `batch_state(update)` を行う。
-1. 途中経過は必ず `batch_state(append_log)` に残す。
-1. `targets` が空、または全 `next_index` が終わったら `batch_state(finalize)` する。
+1. 1件を終えたら必ず`batch_state(complete_file)`、`skip_file`、または`error_file`を行う。
+1. 途中経過は`message`または`reason`として状態に残す。
+1. `pending_files`が空になったら`batch_state(finalize)`する。
 1. 記憶や推測で対象を増やさない。
 1. `current_target` や `next_index` が曖昧なら、処理を止めて再 `load` する。
 
@@ -27,9 +27,9 @@ version: 1.1.0
 
 1. `load`
 1. `targets[current_target].files[next_index]` を 1 件だけ処理
-1. `update`
-1. `append_log`
-1. 次のターンで再 `load`
+1. `complete_file`、`skip_file`、または`error_file`
+1. 必要に応じて`message`/`reason`を保存
+1. 次のターンで再`load`
 
 ## 進め方の基準
 

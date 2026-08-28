@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Manage batch state for multi-file tasks under ~/.uag/batches/.",
+    "tool.description": "Manage batch state for multi-file tasks in the SQLite store ~/.uag/batches/task_history.sqlite3.",
     "x_search_terms": [
       "batch_state",
       "batch state",
@@ -17,8 +17,9 @@
     "param.batch_id.description": "Batch ID.",
     "param.task_description.description": "Short description of the batch task.",
     "param.instructions.description": "Detailed instructions for the batch task.",
+    "param.conversation_id.description": "Conversation log ID used to resume this task safely.",
     "param.message.description": "Log message to append.",
-    "param.overwrite.description": "If true, init overwrites an existing batch file.",
+    "param.overwrite.description": "If true, init overwrites an existing task in SQLite.",
     "err.invalid_patch": "[batch_state error] patch must be an object",
     "param.current_target.description": "Index of the current target group.",
     "param.file.description": "Target file for complete_file/skip_file/error_file. If omitted, current file is used.",
@@ -32,7 +33,7 @@
     "param.targets.description": "Target groups. Each entry contains dir, files (dir-relative), and index."
   },
   "ja": {
-    "tool.description": "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します。",
+    "tool.description": "複数ファイルの作業状態をSQLite（~/.uag/batches/task_history.sqlite3）で管理します。",
     "x_search_terms": [
       "batch_state",
       "バッチ状態",
@@ -49,8 +50,9 @@
     "param.batch_id.description": "バッチID。",
     "param.task_description.description": "バッチ作業の概要。",
     "param.instructions.description": "バッチ作業の詳細な指示。",
+    "param.conversation_id.description": "安全に作業を再開するための会話ログID。",
     "param.message.description": "追加するログメッセージ。",
-    "param.overwrite.description": "true の場合、既存のバッチファイルを上書きします。",
+    "param.overwrite.description": "true の場合、SQLite上の既存タスクを上書きします。",
     "err.invalid_patch": "[batch_state error] patchはオブジェクトである必要があります",
     "param.current_target.description": "現在のターゲットグループのインデックス。",
     "param.file.description": "complete_file/skip_file/error_file の対象ファイル。省略時は current file が使われます。",
@@ -93,7 +95,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Actualización parcial para fusionarse al estado por lotes. Prefiere patch.targets y patch.current_target.",
-    "param.targets.description": "Grupos objetivo. Cada entrada contiene directorio, archivos (relativos al directorio) e índice."
+    "param.targets.description": "Grupos objetivo. Cada entrada contiene directorio, archivos (relativos al directorio) e índice.",
+    "param.conversation_id.description": "ID del registro de conversación utilizado para reanudar esta tarea de forma segura."
   },
   "fr": {
     "tool.description": "Gère l’état du lot pour les tâches multi-fichiers dans ~/.",
@@ -125,7 +128,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Mise à jour partielle pour fusionner dans l'état batch. Préférez patch.targets et patch.current_target.",
-    "param.targets.description": "Groupes cibles. Chaque entrée contient un répertoire, des fichiers (relatifs au répertoire) et un index."
+    "param.targets.description": "Groupes cibles. Chaque entrée contient un répertoire, des fichiers (relatifs au répertoire) et un index.",
+    "param.conversation_id.description": "ID du journal de conversation utilisé pour reprendre cette tâche en toute sécurité."
   },
   "ko": {
     "tool.description": "여러 파일 작업의 배치 상태를 ~/.uag/batches/ 아래에서 관리합니다.",
@@ -157,7 +161,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "배치 상태로 병합하기 위한 부분 업데이트입니다. patch.targets 및 patch.current_target을 선호하세요.",
-    "param.targets.description": "대상 그룹. 각 항목에는 dir, 파일(dir 상대) 및 인덱스가 포함됩니다."
+    "param.targets.description": "대상 그룹. 각 항목에는 dir, 파일(dir 상대) 및 인덱스가 포함됩니다.",
+    "param.conversation_id.description": "이 작업을 안전하게 재개하는 데 사용되는 대화 로그 ID입니다."
   },
   "de": {
     "tool.description": "Verwalten Sie den Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
@@ -189,7 +194,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Teilweise Aktualisierung zum Zusammenführen in den Batch-Status. Bevorzugen Sie patch.targets und patch.current_target.",
-    "param.targets.description": "Zielgruppen. Jeder Eintrag enthält Verzeichnis, Dateien (verzeichnisrelativ) und Index."
+    "param.targets.description": "Zielgruppen. Jeder Eintrag enthält Verzeichnis, Dateien (verzeichnisrelativ) und Index.",
+    "param.conversation_id.description": "ID des Gesprächsprotokolls zum sicheren Fortsetzen dieser Aufgabe."
   },
   "it": {
     "tool.description": "Gestisce lo stato del batch per attività con più file in ~/.",
@@ -221,7 +227,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Aggiornamento parziale per l'unione allo stato batch. Preferisco patch.targets e patch.current_target.",
-    "param.targets.description": "Gruppi target. Ogni voce contiene dir, file (dir-relativo) e indice."
+    "param.targets.description": "Gruppi target. Ogni voce contiene dir, file (dir-relativo) e indice.",
+    "param.conversation_id.description": "ID del registro della conversazione utilizzato per riprendere questa attività in sicurezza."
   },
   "ru": {
     "tool.description": "Управляет состоянием пакета для многофайловых задач в ~/.",
@@ -253,7 +260,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Частичное обновление для слияния в пакетное состояние. Предпочитайте patch.targets и patch.current_target.",
-    "param.targets.description": "Целевые группы. Каждая запись содержит каталог, файлы (относительно каталога) и индекс."
+    "param.targets.description": "Целевые группы. Каждая запись содержит каталог, файлы (относительно каталога) и индекс.",
+    "param.conversation_id.description": "Идентификатор журнала диалога для безопасного возобновления этой задачи."
   },
   "pt_BR": {
     "tool.description": "Gerencie o estado do lote para tarefas de vários arquivos em ~/.uag/batches/.",
@@ -285,7 +293,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Atualização parcial para mesclar no estado em lote. Prefira patch.targets e patch.current_target.",
-    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice."
+    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice.",
+    "param.conversation_id.description": "ID do registro da conversa usado para retomar esta tarefa com segurança."
   },
   "pt": {
     "tool.description": "Gere o estado do lote para tarefas com vários ficheiros em ~/.",
@@ -317,7 +326,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Atualização parcial para mesclar no estado em lote. Prefira patch.targets e patch.current_target.",
-    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice."
+    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice.",
+    "param.conversation_id.description": "ID do registo da conversa utilizado para retomar esta tarefa em segurança."
   },
   "id": {
     "tool.description": "Mengelola status batch untuk tugas multi-file di ~/.uag/batches/.",
@@ -349,7 +359,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Pembaruan sebagian untuk digabungkan ke dalam status batch. Lebih suka patch.targets dan patch.current_target.",
-    "param.targets.description": "Kelompok sasaran. Setiap entri berisi dir, file (dir-relatif), dan indeks."
+    "param.targets.description": "Kelompok sasaran. Setiap entri berisi dir, file (dir-relatif), dan indeks.",
+    "param.conversation_id.description": "ID log percakapan yang digunakan untuk melanjutkan tugas ini dengan aman."
   },
   "bn": {
     "tool.description": "একাধিক ফাইলের কাজের জন্য ~/.",
@@ -381,7 +392,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "ব্যাচ স্টেটে মার্জ করার জন্য আংশিক আপডেট। patch.targets এবং patch.current_target পছন্দ করুন।",
-    "param.targets.description": "টার্গেট গ্রুপ. প্রতিটি এন্ট্রিতে ডির, ফাইল (ডির-রিলেটিভ) এবং ইনডেক্স থাকে।"
+    "param.targets.description": "টার্গেট গ্রুপ. প্রতিটি এন্ট্রিতে ডির, ফাইল (ডির-রিলেটিভ) এবং ইনডেক্স থাকে।",
+    "param.conversation_id.description": "এই কাজটি নিরাপদে পুনরায় শুরু করতে ব্যবহৃত কথোপকথন লগ আইডি।"
   },
   "fa": {
     "tool.description": "وضعیت دسته را برای کارهای چندفایلی در ~/.uag/batches/ مدیریت می‌کند.",
@@ -413,7 +425,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "به روز رسانی جزئی برای ادغام در حالت دسته ای. patch.targets و patch.current_target را ترجیح دهید.",
-    "param.targets.description": "گروه های هدف هر ورودی حاوی dir، فایل‌ها (dir-relative) و فهرست است."
+    "param.targets.description": "گروه های هدف هر ورودی حاوی dir، فایل‌ها (dir-relative) و فهرست است.",
+    "param.conversation_id.description": "شناسه گزارش گفتگو برای ازسرگیری امن این کار."
   },
   "mn": {
     "tool.description": "Олон файлтай ажлуудын багц төлөвийг ~/.uag/batches/ дотор удирдана.",
@@ -445,7 +458,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Багцын төлөвт нэгтгэхийн тулд хэсэгчилсэн шинэчлэлт. patch.targets болон patch.current_target-ийг илүүд үз.",
-    "param.targets.description": "Зорилтот бүлгүүд. Оруулга бүр нь dir, файлууд (дир-харьцангуй) болон индексийг агуулна."
+    "param.targets.description": "Зорилтот бүлгүүд. Оруулга бүр нь dir, файлууд (дир-харьцангуй) болон индексийг агуулна.",
+    "param.conversation_id.description": "Энэ даалгаврыг аюулгүй үргэлжлүүлэхэд ашиглах харилцан ярианы бүртгэлийн ID."
   },
   "mr": {
     "tool.description": "अनेक फायलींच्या कामांसाठी ~/.",
@@ -477,7 +491,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "बॅच स्थितीत विलीन होण्यासाठी आंशिक अपडेट. patch.targets आणि patch.current_target ला प्राधान्य द्या.",
-    "param.targets.description": "लक्ष्य गट. प्रत्येक एंट्रीमध्ये dir, फाइल्स (dir-relative) आणि इंडेक्स असतात."
+    "param.targets.description": "लक्ष्य गट. प्रत्येक एंट्रीमध्ये dir, फाइल्स (dir-relative) आणि इंडेक्स असतात.",
+    "param.conversation_id.description": "हे कार्य सुरक्षितपणे पुन्हा सुरू करण्यासाठी वापरला जाणारा संभाषण लॉग आयडी."
   },
   "el": {
     "tool.description": "Διαχειριστείτε την κατάσταση παρτίδας για εργασίες πολλών αρχείων στο ~/.uag/batches/.",
@@ -509,7 +524,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Μερική ενημέρωση για συγχώνευση στην κατάσταση παρτίδας. Προτιμήστε patch.targets και patch.current_target.",
-    "param.targets.description": "Ομάδες-στόχοι. Κάθε καταχώρηση περιέχει dir, αρχεία (dir-relative) και ευρετήριο."
+    "param.targets.description": "Ομάδες-στόχοι. Κάθε καταχώρηση περιέχει dir, αρχεία (dir-relative) και ευρετήριο.",
+    "param.conversation_id.description": "Αναγνωριστικό αρχείου καταγραφής συνομιλίας για την ασφαλή συνέχιση αυτής της εργασίας."
   },
   "he": {
     "tool.description": "נהל מצב אצווה עבור משימות מרובות קבצים תחת ~/.uag/batches/.",
@@ -541,7 +557,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "עדכון חלקי למיזוג למצב אצווה. העדיפו patch.targets ו-patch.current_target.",
-    "param.targets.description": "קבוצות יעד. כל ערך מכיל dir, קבצים (יחסי dir) ואינדקס."
+    "param.targets.description": "קבוצות יעד. כל ערך מכיל dir, קבצים (יחסי dir) ואינדקס.",
+    "param.conversation_id.description": "מזהה יומן השיחה המשמש לחידוש בטוח של משימה זו."
   },
   "hu": {
     "tool.description": "A többfájlos feladatok kötegelt állapotának kezelése a ~/.uag/batches/ alatt.",
@@ -573,7 +590,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Részleges frissítés a kötegelt állapotba való egyesítéshez. Inkább a patch.targets és a patch.current_target.",
-    "param.targets.description": "Célcsoportok. Minden bejegyzés tartalmaz könyvtárat, fájlokat (dir-relative) és indexet."
+    "param.targets.description": "Célcsoportok. Minden bejegyzés tartalmaz könyvtárat, fájlokat (dir-relative) és indexet.",
+    "param.conversation_id.description": "A feladat biztonságos folytatásához használt beszélgetési naplóazonosító."
   },
   "ro": {
     "tool.description": "Gestionați starea lotului pentru sarcinile cu mai multe fișiere sub ~/.uag/batches/.",
@@ -605,7 +623,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Actualizare parțială pentru îmbinare în starea lotului. Preferă patch.targets și patch.current_target.",
-    "param.targets.description": "Grupuri țintă. Fiecare intrare conține director, fișiere (relativ cu dir) și index."
+    "param.targets.description": "Grupuri țintă. Fiecare intrare conține director, fișiere (relativ cu dir) și index.",
+    "param.conversation_id.description": "ID-ul jurnalului conversației folosit pentru reluarea în siguranță a acestei sarcini."
   },
   "vi": {
     "tool.description": "Quản lý trạng thái hàng loạt cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
@@ -637,7 +656,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Cập nhật một phần để hợp nhất vào trạng thái hàng loạt. Thích patch.targets và patch.current_target.",
-    "param.targets.description": "Các nhóm mục tiêu. Mỗi mục chứa thư mục, tệp (thư mục tương đối) và chỉ mục."
+    "param.targets.description": "Các nhóm mục tiêu. Mỗi mục chứa thư mục, tệp (thư mục tương đối) và chỉ mục.",
+    "param.conversation_id.description": "ID nhật ký cuộc trò chuyện dùng để tiếp tục tác vụ này một cách an toàn."
   },
   "pl": {
     "tool.description": "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.",
@@ -669,7 +689,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Częściowa aktualizacja w celu połączenia ze stanem wsadowym. Preferuj patch.targets i patch.current_target.",
-    "param.targets.description": "Grupy docelowe. Każdy wpis zawiera katalog, pliki (względne w stosunku do katalogu) i indeks."
+    "param.targets.description": "Grupy docelowe. Każdy wpis zawiera katalog, pliki (względne w stosunku do katalogu) i indeks.",
+    "param.conversation_id.description": "Identyfikator dziennika rozmowy używany do bezpiecznego wznowienia tego zadania."
   },
   "hi": {
     "tool.description": "~/.",
@@ -701,7 +722,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "बैच स्थिति में विलय के लिए आंशिक अद्यतन। पैच.लक्ष्य और पैच.वर्तमान_लक्ष्य को प्राथमिकता दें।",
-    "param.targets.description": "लक्ष्य समूह. प्रत्येक प्रविष्टि में dir, फ़ाइलें (dir-सापेक्ष), और अनुक्रमणिका शामिल हैं।"
+    "param.targets.description": "लक्ष्य समूह. प्रत्येक प्रविष्टि में dir, फ़ाइलें (dir-सापेक्ष), और अनुक्रमणिका शामिल हैं।",
+    "param.conversation_id.description": "इस कार्य को सुरक्षित रूप से फिर से शुरू करने के लिए उपयोग की जाने वाली वार्तालाप लॉग आईडी।"
   },
   "ar": {
     "tool.description": "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.",
@@ -733,7 +755,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "تحديث جزئي للدمج في الحالة الدفعية. تفضل patch.targets و patch.current_target.",
-    "param.targets.description": "المجموعات المستهدفة. يحتوي كل إدخال على dir، وملفات (نسبية لـ dir)، وindex."
+    "param.targets.description": "المجموعات المستهدفة. يحتوي كل إدخال على dir، وملفات (نسبية لـ dir)، وindex.",
+    "param.conversation_id.description": "معرّف سجل المحادثة المستخدم لاستئناف هذه المهمة بأمان."
   },
   "sv": {
     "tool.description": "Hantera batchstatus för uppgifter med flera filer under ~/.",
@@ -765,7 +788,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Partiell uppdatering för att slås samman till batchtillståndet. Föredrar patch.targets och patch.current_target.",
-    "param.targets.description": "Målgrupper. Varje post innehåller dir, filer (dir-relativ) och index."
+    "param.targets.description": "Målgrupper. Varje post innehåller dir, filer (dir-relativ) och index.",
+    "param.conversation_id.description": "Samtalslogg-ID som används för att återuppta denna uppgift på ett säkert sätt."
   },
   "sw": {
     "tool.description": "Dhibiti hali ya batch kwa kazi zenye faili nyingi ndani ya ~/.",
@@ -797,7 +821,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Sasisho kidogo ili kuunganishwa katika hali ya kundi. Pendelea patch.targets na patch.current_target.",
-    "param.targets.description": "Vikundi lengwa. Kila ingizo lina dir, faili (dir-relative), na index."
+    "param.targets.description": "Vikundi lengwa. Kila ingizo lina dir, faili (dir-relative), na index.",
+    "param.conversation_id.description": "Kitambulisho cha kumbukumbu ya mazungumzo kinachotumika kuendelea na kazi hii kwa usalama."
   },
   "nb": {
     "tool.description": "Administrer batchstatus for oppgaver med flere filer under ~/.",
@@ -829,7 +854,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Delvis oppdatering for å slå sammen til batch-tilstanden. Foretrekk patch.targets og patch.current_target.",
-    "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks."
+    "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks.",
+    "param.conversation_id.description": "Samtalelogg-ID som brukes til å gjenoppta denne oppgaven på en sikker måte."
   },
   "nl": {
     "tool.description": "Beheer de batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/.",
@@ -861,7 +887,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Gedeeltelijke update om samen te voegen met de batchstatus. Geef de voorkeur aan patch.targets en patch.current_target.",
-    "param.targets.description": "Doelgroepen. Elk item bevat dir, bestanden (dir-relatief) en index."
+    "param.targets.description": "Doelgroepen. Elk item bevat dir, bestanden (dir-relatief) en index.",
+    "param.conversation_id.description": "ID van het gesprekslogboek dat wordt gebruikt om deze taak veilig te hervatten."
   },
   "fi": {
     "tool.description": "Hallitse erätilaa monitiedostoisille tehtäville polun ~/.",
@@ -893,7 +920,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Osittainen päivitys yhdistääksesi erätilaan. Valitse mieluummin patch.targets ja patch.current_target.",
-    "param.targets.description": "Kohderyhmät. Jokainen merkintä sisältää dir, tiedostot (dir-relative) ja indeksin."
+    "param.targets.description": "Kohderyhmät. Jokainen merkintä sisältää dir, tiedostot (dir-relative) ja indeksin.",
+    "param.conversation_id.description": "Keskustelulokin tunnus, jota käytetään tämän tehtävän turvalliseen jatkamiseen."
   },
   "cs": {
     "tool.description": "Spravuje stav dávky pro úlohy s více soubory v ~/.uag/batches/.",
@@ -925,7 +953,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Částečná aktualizace pro sloučení do stavu dávky. Preferujte patch.targets a patch.current_target.",
-    "param.targets.description": "Cílové skupiny. Každý záznam obsahuje adresář, soubory (relativní adresář) a index."
+    "param.targets.description": "Cílové skupiny. Každý záznam obsahuje adresář, soubory (relativní adresář) a index.",
+    "param.conversation_id.description": "ID protokolu konverzace používané k bezpečnému obnovení této úlohy."
   },
   "uk": {
     "tool.description": "Керує станом пакета для багатофайлових завдань у ~/.uag/batches/.",
@@ -957,7 +986,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Часткове оновлення для злиття в пакетний стан. Віддавайте перевагу patch.targets і patch.current_target.",
-    "param.targets.description": "Цільові групи. Кожен запис містить dir, файли (dir-relative) та індекс."
+    "param.targets.description": "Цільові групи. Кожен запис містить dir, файли (dir-relative) та індекс.",
+    "param.conversation_id.description": "Ідентифікатор журналу розмови для безпечного відновлення цього завдання."
   },
   "tr": {
     "tool.description": "~/.",
@@ -989,7 +1019,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Toplu durumla birleştirmek için kısmi güncelleme. patch.targets ve patch.current_target'ı tercih edin.",
-    "param.targets.description": "Hedef gruplar. Her giriş; dizin, dosyalar (dizine bağlı) ve dizin içerir."
+    "param.targets.description": "Hedef gruplar. Her giriş; dizin, dosyalar (dizine bağlı) ve dizin içerir.",
+    "param.conversation_id.description": "Bu görevi güvenli şekilde sürdürmek için kullanılan konuşma günlüğü kimliği."
   },
   "th": {
     "tool.description": "จัดการสถานะงานแบบแบตช์สำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/.",
@@ -1021,7 +1052,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "การอัปเดตบางส่วนเพื่อรวมเข้ากับสถานะแบตช์ ต้องการ patch.targets และ patch.current_target",
-    "param.targets.description": "กลุ่มเป้าหมาย. แต่ละรายการประกอบด้วย dir, ไฟล์ (dir-relative) และดัชนี"
+    "param.targets.description": "กลุ่มเป้าหมาย. แต่ละรายการประกอบด้วย dir, ไฟล์ (dir-relative) และดัชนี",
+    "param.conversation_id.description": "รหัสบันทึกการสนทนาที่ใช้ดำเนินงานนี้ต่ออย่างปลอดภัย"
   },
   "zh_CN": {
     "tool.description": "管理 ~/.uag/batches/ 下多文件任务的批处理状态。",
@@ -1053,7 +1085,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "部分更新合并到批处理状态。更喜欢 patch.targets 和 patch.current_target。",
-    "param.targets.description": "目标群体。每个条目包含目录、文件（相对目录）和索引。"
+    "param.targets.description": "目标群体。每个条目包含目录、文件（相对目录）和索引。",
+    "param.conversation_id.description": "用于安全恢复此任务的会话日志 ID。"
   },
   "zh_TW": {
     "tool.description": "管理 ~/.uag/batches/ 下多檔案任務的批次狀態。",
@@ -1085,7 +1118,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "部分更新合併到批次狀態。更喜歡 patch.targets 和 patch.current_target。",
-    "param.targets.description": "目標群體。每個條目包含目錄、檔案（相對目錄）和索引。"
+    "param.targets.description": "目標群體。每個條目包含目錄、檔案（相對目錄）和索引。",
+    "param.conversation_id.description": "用於安全恢復此任務的對話記錄 ID。"
   },
   "fil": {
     "tool.description": "Pamahalaan ang batch state para sa mga multi-file na gawain sa ilalim ng ~/.uag/batches/.",
@@ -1117,7 +1151,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Bahagyang pag-update upang sumanib sa estado ng batch. Mas gusto ang patch.targets at patch.current_target.",
-    "param.targets.description": "Mga target na grupo. Ang bawat entry ay naglalaman ng dir, mga file (dir-relative), at index."
+    "param.targets.description": "Mga target na grupo. Ang bawat entry ay naglalaman ng dir, mga file (dir-relative), at index.",
+    "param.conversation_id.description": "ID ng log ng pag-uusap na ginagamit upang ligtas na ipagpatuloy ang gawaing ito."
   },
   "ms": {
     "tool.description": "Urus keadaan kelompok untuk tugas berbilang fail di bawah ~/.uag/batch/.",
@@ -1149,7 +1184,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Kemas kini separa untuk bergabung ke dalam keadaan kelompok. Lebih suka patch.targets dan patch.current_target.",
-    "param.targets.description": "Kumpulan sasaran. Setiap entri mengandungi dir, fail (rel-relatif) dan indeks."
+    "param.targets.description": "Kumpulan sasaran. Setiap entri mengandungi dir, fail (rel-relatif) dan indeks.",
+    "param.conversation_id.description": "ID log perbualan yang digunakan untuk menyambung semula tugasan ini dengan selamat."
   },
   "da": {
     "tool.description": "Administrer batchtilstand for opgaver med flere filer under ~/.uag/batches/.",
@@ -1181,7 +1217,8 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Delvis opdatering for at flette ind i batchtilstanden. Foretrækker patch.targets og patch.current_target.",
-    "param.targets.description": "Målgrupper. Hver post indeholder dir, filer (dir-relative) og indeks."
+    "param.targets.description": "Målgrupper. Hver post indeholder dir, filer (dir-relative) og indeks.",
+    "param.conversation_id.description": "Samtalelog-id, der bruges til at genoptage denne opgave sikkert."
   },
   "nn": {
     "tool.description": "Administrer batchstatus for oppgaver med flere filer under ~/.uag/batches/.",
@@ -1213,6 +1250,7 @@
     "err.exception": "",
     "err.unknown_action": "",
     "param.patch.description": "Delvis oppdatering for å slå saman til batch-tilstanden. Foretrekk patch.targets og patch.current_target.",
-    "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks."
+    "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks.",
+    "param.conversation_id.description": "Samtalelogg-ID som brukes til å gjenoppta denne oppgaven på en sikker måte."
   }
 }
