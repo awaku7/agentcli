@@ -76,6 +76,33 @@ _ALLOW_ALL_TOOLS: set[str] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
 
 
+_SENSITIVE_ARG_PARTS = (
+    "password",
+    "token",
+    "secret",
+    "api_key",
+    "apikey",
+    "nsec",
+    "private_key",
+)
+
+
+def _confirmation_args(args: dict[str, Any]) -> str:
+    """Render tool arguments for confirmation without exposing credentials."""
+    safe: dict[str, Any] = {}
+    for key, value in args.items():
+        key_text = str(key).lower()
+        if any(part in key_text for part in _SENSITIVE_ARG_PARTS):
+            safe[str(key)] = "<redacted>"
+        else:
+            safe[str(key)] = value
+    try:
+        rendered = json.dumps(safe, ensure_ascii=False, sort_keys=True, default=str)
+    except Exception:
+        rendered = repr(safe)
+    return rendered if len(rendered) <= 8000 else rendered[:7997] + "..."
+
+
 def reset_confirmation_grants() -> None:
     """Clear per-tool "all approved" grants for a new host session."""
     with _ALLOW_ALL_LOCK:
@@ -173,9 +200,11 @@ def default_confirmation_callback(
                             "confirm.side_effecting_tool",
                             default=(
                                 "Allow the side-effecting tool '%(tool)s' to run? "
+                                " [Arguments: %(args)s]"
                                 "Reply yes to continue or no to cancel."
                             ),
                             tool=tool_name,
+                            args=_confirmation_args(args),
                         )
                     ),
                     "is_password": False,
