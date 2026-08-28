@@ -405,6 +405,32 @@ def _maybe_auto_shrink_messages(
         messages.clear()
         messages.extend(new_messages)
 
+        # Keep the SQLite session in sync with the in-memory auto-compression.
+        # The normal log rewrite callback is JSONL-oriented and does not update
+        # the session store attached to the core.
+        try:
+            store = getattr(core, "session_store", None)
+            session_id = getattr(core, "_session_store_active_id", None) or getattr(
+                core, "session_id", None
+            )
+            if store is not None and session_id:
+                store.replace_messages(str(session_id), messages)
+                summary = next(
+                    (
+                        _strip_history_summary_prefix(str(m.get("content", "")))
+                        for m in messages
+                        if _is_history_summary_message(m)
+                    ),
+                    "",
+                )
+                if summary:
+                    store.save_session_summary(str(session_id), summary)
+        except Exception as exc:
+            print(
+                _("[WARN] Auto shrink SQLite persistence failed: %(err)s")
+                % {"err": f"{type(exc).__name__}: {exc}"}
+            )
+
         # Persist into current session log
         try:
             cb = get_callbacks()
