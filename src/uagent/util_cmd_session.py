@@ -917,7 +917,11 @@ def _handle_cmd_sessions(
                     skipped += 1
                     continue
             try:
-                stored = store.list_messages(sid)
+                # Keep the interactive summary operation bounded: summarize
+                # only the first ten stored messages for each session. The
+                # duplicated tail item below is intentional; the compressor
+                # preserves it while summarizing the preceding ten items.
+                stored = store.list_messages(sid)[:10]
                 if len(stored) < 2:
                     print(
                         _("[%(index)d/%(total)d] %(id)s  skipped (too short)")
@@ -1240,6 +1244,19 @@ def _handle_cmd_load(
             if not loaded:
                 print("[load] Session has no messages.")
                 return True
+            # Sessions imported from legacy JSONL intentionally contain only
+            # conversation roles, so they do not have the system prompt that
+            # a freshly started CLI session has. Loading such a session would
+            # otherwise replace the context with user/assistant messages only.
+            # Mirror the file-log loader and restore the current prompt when
+            # the stored session has no system message.
+            if not any(
+                isinstance(message, dict) and message.get("role") == "system"
+                for message in loaded
+            ):
+                system_prompt = getattr(core, "SYSTEM_PROMPT", None)
+                if isinstance(system_prompt, str) and system_prompt:
+                    loaded.insert(0, {"role": "system", "content": system_prompt})
             messages_ref.clear()
             messages_ref.extend(loaded)
             # Make the loaded session the active, most recently used session.

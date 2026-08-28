@@ -218,3 +218,23 @@ def test_sessions_summarize_aborts_cleanly_on_keyboard_interrupt(
     # The interrupted session must not have a summary stored.
     assert db.get_session_summary(session.session_id) is None
     db.close()
+
+
+def test_load_imported_sqlite_session_restores_system_prompt(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="imported", entry_point="jsonl-import")
+    db.append_message(session.session_id, "user", "old question")
+    core = SimpleNamespace(
+        session_store=db,
+        session_id="current",
+        SYSTEM_PROMPT="current system prompt",
+    )
+    messages: list[dict] = []
+
+    assert _handle_cmd_load(
+        session.session_id, messages, core=core, tr=lambda text, **_: text
+    )
+    assert messages[0] == {"role": "system", "content": "current system prompt"}
+    assert messages[1] == {"role": "user", "content": "old question"}
+    db.close()
