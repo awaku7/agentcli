@@ -36,6 +36,7 @@ def set_tool_runner_active(active: bool):
 def reset_tool_runner_active(token) -> None:
     _TOOL_RUNNER_ACTIVE.reset(token)
 
+
 _LIFECYCLE_EVENTS = {
     "CREATED": "agent.created",
     "RUNNING": "agent.started",

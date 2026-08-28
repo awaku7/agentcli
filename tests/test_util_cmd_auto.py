@@ -116,11 +116,18 @@ def test_auto_off_stops_infinite_mode() -> None:
 
 
 def test_sentinel_judgment_accepts_case_and_optional_brackets() -> None:
-    assert _sentinel_judgment([{"role": "assistant", "content": " Auto_complete "}]) == "COMPLETE"
-    assert _sentinel_judgment([{"role": "assistant", "content": "AUTO_CONTINUE"}]) == "CONTINUE"
+    assert (
+        _sentinel_judgment([{"role": "assistant", "content": " Auto_complete "}])
+        == "COMPLETE"
+    )
+    assert (
+        _sentinel_judgment([{"role": "assistant", "content": "AUTO_CONTINUE"}])
+        == "CONTINUE"
+    )
 
 
 def test_sentinel_judgment_rejects_extra_text() -> None:
-    assert _sentinel_judgment(
-        [{"role": "assistant", "content": "AUTO_COMPLETE now"}]
-    ) is None
+    assert (
+        _sentinel_judgment([{"role": "assistant", "content": "AUTO_COMPLETE now"}])
+        is None
+    )

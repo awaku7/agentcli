@@ -40,6 +40,10 @@ TREE_SITTER_LANGUAGE_BY_SOURCE: dict[str, str] = {
     "Scala": "scala",
     "Dart": "dart",
     "Lua": "lua",
+    "R": "r",
+    "Objective-C": "objc",
+    "COBOL": "cobol",
+    "COBOL Copybook": "cobol",
 }
 
 _FUNCTION_NODE_TYPES = {
@@ -57,6 +61,7 @@ _FUNCTION_NODE_TYPES = {
     "method",
     "singleton_method",
     "init_declaration",
+    "paragraph_header",
 }
 
 _CLASS_NODE_TYPES = {
@@ -96,6 +101,7 @@ _MODULE_NODE_TYPES = {
     "object_definition",
     "trait_definition",
     "mixin_declaration",
+    "program_name",
 }
 
 _ALIAS_NODE_TYPES = {
@@ -280,7 +286,7 @@ def extract_tree_sitter_symbols(
         return []
 
     symbols: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    seen: set[tuple[str, int, str]] = set()
 
     def visit(node: Any) -> None:
         node_type = _node_type(node)
@@ -289,30 +295,28 @@ def extract_tree_sitter_symbols(
             name_node = _find_name_node(node)
             if name_node is not None:
                 name = _node_text(name_node, source).strip()
-                if (
-                    name
-                    and name not in seen
-                    and name
-                    not in {
-                        "if",
-                        "else",
-                        "for",
-                        "while",
-                        "switch",
-                        "return",
-                        "import",
-                        "from",
-                    }
-                ):
+                if name and name not in {
+                    "if",
+                    "else",
+                    "for",
+                    "while",
+                    "switch",
+                    "return",
+                    "import",
+                    "from",
+                }:
                     start_point = getattr(node, "start_point", (0, 0))
+                    end_point = getattr(node, "end_point", start_point)
+                    line = int(start_point[0]) + 1
                     symbols.append(
                         {
                             "name": name,
-                            "line": int(start_point[0]) + 1,
+                            "line": line,
+                            "end_line": int(end_point[0]) + 1,
                             "type": symbol_type,
                         }
                     )
-                    seen.add(name)
+                    seen.add((name, line, symbol_type))
         for child in _node_children(node):
             visit(child)
 

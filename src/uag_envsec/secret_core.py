@@ -207,7 +207,9 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
         if p.exists():
             if _migrate_file_key_to_keyring(p):
                 print(
-                    _("[INFO] Migrated envsec key to OS keyring; legacy key file removed."),
+                    _(
+                        "[INFO] Migrated envsec key to OS keyring; legacy key file removed."
+                    ),
                     file=sys.stderr,
                 )
                 return f"keyring://{KEYRING_SERVICE}/{KEYRING_USERNAME}"
