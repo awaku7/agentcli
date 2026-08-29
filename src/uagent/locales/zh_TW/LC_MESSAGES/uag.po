@@ -4901,3 +4901,7 @@ msgstr "[警告] 工具連續呼叫 %(n)d 次；為防止失控執行而中止�
 #: src/uagent/setup_cli.py:352
 msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
 msgstr "LM Studio 傳輸方式：sdk、chat 或 responses（選用，預設：responses）"
+
+#: src/uagent/runtime/runtime_banner.py
+msgid "LM Studio Python SDK (ChatCompletions)"
+msgstr "LM Studio Python SDK (ChatCompletions)"

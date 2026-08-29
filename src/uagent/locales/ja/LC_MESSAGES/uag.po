@@ -5196,3 +5196,7 @@ msgstr "[INFO] shrink_llm: {old_n} -> {new_n} メッセージ（{old_part_n} 件
 #: src/uagent/setup_cli.py:352
 msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
 msgstr "LM Studio トランスポート: sdk、chat、responses（省略可、既定: responses）"
+
+#: src/uagent/runtime/runtime_banner.py
+msgid "LM Studio Python SDK (ChatCompletions)"
+msgstr "LM Studio Python SDK (ChatCompletions)"

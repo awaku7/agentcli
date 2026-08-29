@@ -5176,3 +5176,7 @@ msgstr ""
 #: src/uagent/setup_cli.py:352
 msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
 msgstr "Transport LM Studio: sdk, chat sau responses (opțional, implicit: responses)"
+
+#: src/uagent/runtime/runtime_banner.py
+msgid "LM Studio Python SDK (ChatCompletions)"
+msgstr "LM Studio Python SDK (ChatCompletions)"
