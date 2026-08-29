@@ -19,11 +19,18 @@ def _ensure_provider_dependency(provider: str) -> None:
     if provider in {"grok", "zai", "together", "openrouter"}:
         return
 
-    packages = {
-        "claude": ("anthropic", "anthropic"),
-        "gemini": ("google-genai", "google.genai"),
-        "vertexai": ("google-genai", "google.genai"),
-    }
+    if provider == "lmstudio":
+        transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
+        if transport == "sdk":
+            packages = {"lmstudio": ("lmstudio", "lmstudio")}
+        else:
+            packages = {"lmstudio": ("openai", "openai")}
+    else:
+        packages = {
+            "claude": ("anthropic", "anthropic"),
+            "gemini": ("google-genai", "google.genai"),
+            "vertexai": ("google-genai", "google.genai"),
+        }
     package_name, module_name = packages.get(provider, ("openai", "openai"))
     try:
         from .._pip_auto import install_with_status

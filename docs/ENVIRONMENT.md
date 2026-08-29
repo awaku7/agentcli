@@ -199,7 +199,7 @@ Required if `UAGENT_PROVIDER=mimo`:
 
 Required if `UAGENT_PROVIDER=lmstudio`:
 
-- `UAGENT_LMSTUDIO_TRANSPORT` (optional: `chat` or `responses`; default: `responses`; overrides `UAGENT_RESPONSES`)
+- `UAGENT_LMSTUDIO_TRANSPORT` (optional: `sdk`, `chat`, or `responses`; default: `responses`; overrides `UAGENT_RESPONSES`)
 - `UAGENT_LMSTUDIO_BASE_URL` (optional, default: `http://localhost:1234/v1`)
 - `UAGENT_LMSTUDIO_DEPNAME` (optional, default: `local-model`)
 

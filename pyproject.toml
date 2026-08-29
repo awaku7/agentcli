@@ -41,6 +41,7 @@ keyring = [
 ]
 providers = [
     "openai>=2.45.0",
+    "lmstudio>=1.5.0",
     "anthropic>=0.116.0",
     "google-genai>=2.11.0",
     "xai-sdk>=1.17.0",

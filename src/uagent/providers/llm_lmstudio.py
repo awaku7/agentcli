@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from .llm_lmstudio_chat import make_client
+from ..env_utils import env_get
+from .llm_lmstudio_chat import make_client as make_openai_client
 from .llm_lmstudio_chat import prepare_kwargs as prepare_chat_kwargs
 from .llm_lmstudio_responses import endpoint_available
 from .llm_lmstudio_responses import prepare_kwargs as prepare_responses_kwargs
@@ -17,7 +18,12 @@ from .llm_lmstudio_responses import prepare_kwargs as prepare_responses_kwargs
 
 def make_lmstudio_client(core: Any) -> Any:
     """Backward-compatible alias for the LM Studio client factory."""
-    return make_client(core)
+    transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
+    if transport == "sdk":
+        from .llm_lmstudio_sdk import make_client
+
+        return make_client(core)
+    return make_openai_client(core)
 
 
 def responses_endpoint_available(core: Any = None, *, timeout: float = 2.0) -> bool:

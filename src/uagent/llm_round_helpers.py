@@ -145,7 +145,13 @@ def _resolve_round_runtime_flags(
     lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").lower().strip()
     )
-    if provider == "lmstudio" and lmstudio_transport in {"chat", "chat_completions"}:
+    if provider == "lmstudio" and lmstudio_transport in {
+        "sdk",
+        "chat",
+        "chat_completions",
+    }:
+        # The LM Studio Python SDK exposes native chat prediction, not the
+        # OpenAI Responses client surface.
         responses_env = "0"
     elif provider == "lmstudio" and lmstudio_transport in {"responses", "response"}:
         responses_env = "1"

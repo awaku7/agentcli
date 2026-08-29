@@ -221,7 +221,7 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 
 `UAGENT_PROVIDER=lmstudio` の場合に必要：
 
-- `UAGENT_LMSTUDIO_TRANSPORT`（省略可: `chat` または `responses`。既定: `responses`。`UAGENT_RESPONSES` より優先）
+- `UAGENT_LMSTUDIO_TRANSPORT`（省略可: `sdk`、`chat` または `responses`。既定: `responses`。`UAGENT_RESPONSES` より優先）
 - `UAGENT_LMSTUDIO_BASE_URL`（省略可、既定: `http://localhost:1234/v1`）
 - `UAGENT_LMSTUDIO_DEPNAME`（省略可、既定: `local-model`）
 

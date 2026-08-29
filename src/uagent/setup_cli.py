@@ -349,7 +349,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_LMSTUDIO_TRANSPORT",
             False,
-            _("LM Studio transport: chat or responses (optional, default: responses)"),
+            _("LM Studio transport: sdk, chat, or responses (optional, default: responses)"),
         ),
         (
             "UAGENT_LMSTUDIO_BASE_URL",
