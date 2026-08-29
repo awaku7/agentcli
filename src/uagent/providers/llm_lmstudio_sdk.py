@@ -1,19 +1,96 @@
-"""Optional LM Studio Python SDK transport.
+"""Opt-in LM Studio Python SDK transport.
 
-The SDK is intentionally opt-in because it has a different API surface from
-OpenAI-compatible Chat Completions/Responses.
+This module is deliberately isolated from the OpenAI-compatible transports.
+The SDK owns the tool-call loop through ``LLM.act``; the adapter only converts
+uag tool specifications and exposes the small client surface used by uagent.
 """
 
 from __future__ import annotations
 
+import re
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, Callable
 
 from ..env_utils import env_get
 
+_SYNTHETIC_REASONING = re.compile(
+    r"__LM_STUDIO_INTERNAL_LSEP_SYNTHETIC_REASONING_END_[A-Za-z0-9_]+__"
+)
+
+
+def _text(value: Any) -> str:
+    value = getattr(value, "content", value)
+    return _SYNTHETIC_REASONING.sub("", str(value or "")).strip()
+
+
+def _prompt(messages: list[dict[str, Any]] | None) -> str:
+    parts: list[str] = []
+    for message in messages or []:
+        if not isinstance(message, dict):
+            continue
+        role = str(message.get("role") or "user")
+        content = message.get("content", "")
+        if isinstance(content, list):
+            content = " ".join(
+                str(item.get("text", ""))
+                for item in content
+                if isinstance(item, dict) and item.get("text")
+            )
+        parts.append(f"{role}: {content}")
+    return "\n".join(parts)
+
+
+def _python_type(schema: dict[str, Any]) -> type[Any]:
+    kind = str(schema.get("type") or "string").lower()
+    return {
+        "integer": int,
+        "number": float,
+        "boolean": bool,
+        "array": list,
+        "object": dict,
+    }.get(kind, str)
+
+
+def _sdk_tools(specs: Any) -> list[Any]:
+    """Convert OpenAI-shaped tool specs into SDK ToolFunctionDef objects."""
+    if not isinstance(specs, list):
+        return []
+    import lmstudio as lms
+    from .. import tools as uagent_tools
+
+    result: list[Any] = []
+    for spec in specs:
+        fn = spec.get("function", {}) if isinstance(spec, dict) else {}
+        if not isinstance(fn, dict) or not fn.get("name"):
+            continue
+        name = str(fn["name"])
+        parameters_schema = fn.get("parameters") or {}
+        properties = (
+            parameters_schema.get("properties", {})
+            if isinstance(parameters_schema, dict)
+            else {}
+        )
+        parameters = {
+            str(key): _python_type(value if isinstance(value, dict) else {})
+            for key, value in properties.items()
+        }
+
+        def implementation(_name: str = name, **arguments: Any) -> Any:
+            return uagent_tools.run_tool(_name, arguments)
+
+        result.append(
+            lms.ToolFunctionDef(
+                name=name,
+                description=str(fn.get("description") or name),
+                parameters=parameters,
+                implementation=implementation,
+            )
+        )
+    return result
+
 
 class LMStudioSDKClient:
-    """Small OpenAI-shaped adapter for the SDK's text chat API."""
+    """OpenAI-shaped adapter backed by LM Studio's native Python SDK."""
 
     def __init__(self, model_name: str) -> None:
         import lmstudio as lms
@@ -27,18 +104,27 @@ class LMStudioSDKClient:
         model: str = "",
         messages: list[dict[str, Any]] | None = None,
         stream: bool = False,
+        tools: Any = None,
         **kwargs: Any,
     ) -> Any:
         del model, kwargs
-        prompt = "\n".join(
-            f"{m.get('role', 'user')}: {m.get('content', '')}"
-            for m in (messages or [])
-            if isinstance(m, dict)
-        )
+        prompt = _prompt(messages)
+        sdk_tools = _sdk_tools(tools)
+        if sdk_tools:
+            # act() executes the SDK tool loop and returns the final response.
+            result = self._model.act(prompt, sdk_tools)
+            text = _text(result)
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(content=text), finish_reason="stop"
+                    )
+                ]
+            )
         if stream:
             return self._stream(prompt)
         result = self._model.respond(prompt)
-        text = str(getattr(result, "content", result) or "")
+        text = _text(result)
         return SimpleNamespace(
             choices=[
                 SimpleNamespace(
@@ -49,7 +135,7 @@ class LMStudioSDKClient:
 
     def _stream(self, prompt: str):
         for fragment in self._model.respond_stream(prompt):
-            text = str(getattr(fragment, "content", fragment) or "")
+            text = _text(fragment)
             if text:
                 yield SimpleNamespace(
                     choices=[SimpleNamespace(delta=SimpleNamespace(content=text))]
@@ -57,9 +143,9 @@ class LMStudioSDKClient:
 
 
 def make_client(core: Any) -> LMStudioSDKClient:
-    getter = getattr(core, "get_env", None)
+    getter: Callable[[str], Any] | None = getattr(core, "get_env", None)
     if callable(getter):
         model = getter("UAGENT_LMSTUDIO_DEPNAME") or "local-model"
     else:
         model = env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
-    return LMStudioSDKClient(model)
+    return LMStudioSDKClient(str(model))
