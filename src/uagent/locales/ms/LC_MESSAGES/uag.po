@@ -4834,3 +4834,7 @@ msgid ""
 msgstr ""
 "[AMARAN] %(n)d panggilan alat berturut-turut; dibatalkan untuk mengelakkan "
 "pelaksanaan tidak terkawal."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Pengangkutan LM Studio: sdk, chat atau responses (pilihan, lalai: responses)"

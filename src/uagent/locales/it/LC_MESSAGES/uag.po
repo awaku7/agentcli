@@ -5179,3 +5179,7 @@ msgid ""
 msgstr ""
 "[AVVISO] %(n)d chiamate consecutive agli strumenti; interruzione per evitare"
 " un’esecuzione incontrollata."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Trasporto LM Studio: sdk, chat o responses (facoltativo, predefinito: responses)"

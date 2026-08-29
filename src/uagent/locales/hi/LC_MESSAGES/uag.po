@@ -5091,3 +5091,7 @@ msgid ""
 msgstr ""
 "[चेतावनी] %(n)d लगातार टूल कॉल हुईं; अनियंत्रित निष्पादन रोकने के लिए रद्द "
 "किया जा रहा है।"
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio ट्रांसपोर्ट: sdk, chat या responses (वैकल्पिक, डिफ़ॉल्ट: responses)"

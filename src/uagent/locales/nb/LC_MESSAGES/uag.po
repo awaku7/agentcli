@@ -5084,3 +5084,7 @@ msgid ""
 msgstr ""
 "[ADVARSEL] %(n)d påfølgende verktøykall; avbryter for å hindre ukontrollert "
 "kjøring."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio-transport: sdk, chat eller responses (valgfritt, standard: responses)"

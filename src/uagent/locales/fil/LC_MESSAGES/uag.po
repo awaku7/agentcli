@@ -4895,3 +4895,7 @@ msgid ""
 msgstr ""
 "[BABALA] %(n)d magkakasunod na tool call; kinansela upang maiwasan ang hindi"
 " makontrol na pagpapatupad."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transport ng LM Studio: sdk, chat, o responses (opsyonal, default: responses)"

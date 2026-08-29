@@ -5051,3 +5051,7 @@ msgid ""
 msgstr ""
 "[تحذير] حدثت %(n)d استدعاءات متتالية للأدوات؛ تم الإيقاف لمنع تنفيذ غير "
 "منضبط."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "نقل LM Studio: sdk أو chat أو responses (اختياري، الافتراضي: responses)"

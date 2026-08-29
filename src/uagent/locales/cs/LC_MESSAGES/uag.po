@@ -5124,3 +5124,7 @@ msgid ""
 msgstr ""
 "[VAROVÁNÍ] %(n)d po sobě jdoucích volání nástrojů; přerušeno, aby se "
 "zabránilo nekontrolovanému spuštění."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transport LM Studio: sdk, chat nebo responses (volitelné, výchozí: responses)"

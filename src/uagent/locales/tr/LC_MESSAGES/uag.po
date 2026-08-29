@@ -5129,3 +5129,7 @@ msgid ""
 msgstr ""
 "[UYARI] %(n)d ardışık araç çağrısı; kontrolsüz çalışmayı önlemek için "
 "durduruluyor."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio aktarımı: sdk, chat veya responses (isteğe bağlı, varsayılan: responses)"

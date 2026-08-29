@@ -203,6 +203,14 @@ Required if `UAGENT_PROVIDER=lmstudio`:
 - `UAGENT_LMSTUDIO_BASE_URL` (optional, default: `http://localhost:1234/v1`)
 - `UAGENT_LMSTUDIO_DEPNAME` (optional, default: `local-model`)
 
+`UAGENT_LMSTUDIO_TRANSPORT` options:
+
+- `responses`: OpenAI-compatible `POST /v1/responses` (default; requires LM Studio 0.3.29 or newer)
+- `chat`: OpenAI-compatible `POST /v1/chat/completions`
+- `sdk`: LM Studio Python SDK (`lmstudio`, chat/prediction path only). The package is installed automatically only when this option is selected.
+
+The LM Studio SDK transport does not use `UAGENT_RESPONSES` or `previous_response_id`; use `chat` or `responses` when those OpenAI-compatible features are required. LM Studio does not require an API key.
+
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
 #### Google Cloud Settings

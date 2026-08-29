@@ -5144,3 +5144,7 @@ msgid ""
 msgstr ""
 "[АНХААРУУЛГА] %(n)d дараалсан хэрэгслийн дуудлага; хяналтгүй гүйцэтгэлээс "
 "сэргийлж зогсоолоо."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio дамжуулалт: sdk, chat эсвэл responses (заавал биш, өгөгдмөл: responses)"

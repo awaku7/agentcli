@@ -5187,3 +5187,7 @@ msgid ""
 msgstr ""
 "[AVERTISSEMENT] %(n)d appels d'outils consécutifs ; abandon pour éviter une "
 "exécution incontrôlée."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transport LM Studio : sdk, chat ou responses (facultatif, par défaut : responses)"

@@ -5091,3 +5091,7 @@ msgid ""
 msgstr ""
 "[VARNING] %(n)d konsekutiva verktygsanrop; avbryter för att förhindra "
 "okontrollerad körning."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio-transport: sdk, chat eller responses (valfritt, standard: responses)"

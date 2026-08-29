@@ -5064,3 +5064,7 @@ msgid ""
 "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
 msgstr ""
 "[इशारा] %(n)d सलग टूल कॉल; अनियंत्रित अंमलबजावणी टाळण्यासाठी थांबवत आहे."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio ट्रान्सपोर्ट: sdk, chat किंवा responses (पर्यायी, डीफॉल्ट: responses)"

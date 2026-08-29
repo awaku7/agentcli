@@ -5202,3 +5202,7 @@ msgid ""
 msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] %(n)d διαδοχικές κλήσεις εργαλείων· διακοπή για αποφυγή "
 "ανεξέλεγκτης εκτέλεσης."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Μεταφορά LM Studio: sdk, chat ή responses (προαιρετικό, προεπιλογή: responses)"

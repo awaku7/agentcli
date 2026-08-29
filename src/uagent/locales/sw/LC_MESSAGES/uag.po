@@ -5001,3 +5001,7 @@ msgid ""
 msgstr ""
 "[ONYO] Miito ya zana %(n)d mfululizo; inasitishwa kuzuia utekelezaji "
 "usiodhibitiwa."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Usafirishaji wa LM Studio: sdk, chat au responses (si lazima, chaguo-msingi: responses)"

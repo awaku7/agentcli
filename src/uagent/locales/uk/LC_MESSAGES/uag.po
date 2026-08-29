@@ -5167,3 +5167,7 @@ msgid ""
 msgstr ""
 "[ПОПЕРЕДЖЕННЯ] %(n)d послідовних викликів інструментів; зупинено, щоб "
 "запобігти неконтрольованому виконанню."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Транспорт LM Studio: sdk, chat або responses (необов’язково, типово: responses)"

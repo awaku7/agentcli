@@ -4917,3 +4917,7 @@ msgstr "연속 도구 호출"
 msgid ""
 "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
 msgstr "[경고] 도구를 %(n)d회 연속 호출하여 폭주 실행을 방지하기 위해 중단합니다."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio 전송 방식: sdk, chat 또는 responses (선택 사항, 기본값: responses)"

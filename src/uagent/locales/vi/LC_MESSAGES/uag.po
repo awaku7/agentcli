@@ -4932,3 +4932,7 @@ msgid ""
 msgstr ""
 "[CẢNH BÁO] Có %(n)d lệnh gọi công cụ liên tiếp; đã hủy để tránh thực thi mất"
 " kiểm soát."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Kết nối LM Studio: sdk, chat hoặc responses (tùy chọn, mặc định: responses)"

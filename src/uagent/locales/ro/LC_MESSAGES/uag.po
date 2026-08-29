@@ -5172,3 +5172,7 @@ msgid ""
 msgstr ""
 "[AVERTISMENT] %(n)d apeluri consecutive ale instrumentelor; se întrerupe "
 "pentru a preveni execuția necontrolată."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transport LM Studio: sdk, chat sau responses (opțional, implicit: responses)"

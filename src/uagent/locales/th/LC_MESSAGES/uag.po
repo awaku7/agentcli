@@ -5060,3 +5060,7 @@ msgid ""
 msgstr ""
 "[คำเตือน] เรียกใช้เครื่องมือต่อเนื่อง %(n)d ครั้ง "
 "ยกเลิกเพื่อป้องกันการทำงานที่ควบคุมไม่ได้"
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "การขนส่ง LM Studio: sdk, chat หรือ responses (ไม่บังคับ ค่าเริ่มต้น: responses)"

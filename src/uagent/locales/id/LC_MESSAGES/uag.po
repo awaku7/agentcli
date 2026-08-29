@@ -4964,3 +4964,7 @@ msgid ""
 msgstr ""
 "[PERINGATAN] %(n)d panggilan alat berturut-turut; dibatalkan untuk mencegah "
 "eksekusi yang tidak terkendali."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transport LM Studio: sdk, chat, atau responses (opsional, default: responses)"

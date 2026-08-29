@@ -5133,3 +5133,7 @@ msgid ""
 msgstr ""
 "[WAARSCHUWING] %(n)d opeenvolgende tool-aanroepen; afgebroken om "
 "ongecontroleerde uitvoering te voorkomen."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio-transport: sdk, chat of responses (optioneel, standaard: responses)"

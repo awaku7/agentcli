@@ -5192,3 +5192,7 @@ msgstr "これまでの会話の要約:\n"
 #, python-brace-format
 msgid "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} メッセージ（{old_part_n} 件の古いメッセージを1つの要約に圧縮、{tail_n} 件を末尾に保持）"
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio トランスポート: sdk、chat、responses（省略可、既定: responses）"

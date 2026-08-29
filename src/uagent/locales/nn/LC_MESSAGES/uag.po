@@ -4819,3 +4819,7 @@ msgid ""
 msgstr ""
 "[ÅTVARING] %(n)d påfølgjande verktøykall; avbryt for å hindre ukontrollert "
 "køyring."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio-transport: sdk, chat eller responses (valfritt, standard: responses)"

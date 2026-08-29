@@ -5092,3 +5092,7 @@ msgid ""
 msgstr ""
 "[সতর্কতা] %(n)dটি পরপর টুল কল হয়েছে; অনিয়ন্ত্রিত চলা রোধ করতে বাতিল করা "
 "হচ্ছে।"
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio পরিবহন: sdk, chat অথবা responses (ঐচ্ছিক, ডিফল্ট: responses)"

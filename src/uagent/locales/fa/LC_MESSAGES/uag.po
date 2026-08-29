@@ -5045,3 +5045,7 @@ msgid ""
 msgstr ""
 "[هشدار] %(n)d فراخوانی پی‌درپی ابزار انجام شد؛ برای جلوگیری از اجرای "
 "کنترل‌نشده متوقف می‌شود."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "انتقال LM Studio: sdk، chat یا responses (اختیاری، پیش‌فرض: responses)"

@@ -5190,3 +5190,7 @@ msgid ""
 msgstr ""
 "[ADVERTENCIA] Se realizaron %(n)d llamadas consecutivas a herramientas; se "
 "cancela para evitar una ejecución descontrolada."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "Transporte de LM Studio: sdk, chat o responses (opcional, predeterminado: responses)"

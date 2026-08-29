@@ -225,6 +225,14 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 - `UAGENT_LMSTUDIO_BASE_URL`（省略可、既定: `http://localhost:1234/v1`）
 - `UAGENT_LMSTUDIO_DEPNAME`（省略可、既定: `local-model`）
 
+`UAGENT_LMSTUDIO_TRANSPORT` の選択肢：
+
+- `responses`: OpenAI互換の `POST /v1/responses`（既定。LM Studio 0.3.29以降が必要）
+- `chat`: OpenAI互換の `POST /v1/chat/completions`
+- `sdk`: LM Studio Python SDK（`lmstudio`。チャット／推論専用）。この値を選択した場合のみパッケージを自動インストールします。
+
+SDK transportでは `UAGENT_RESPONSES` と `previous_response_id` は使用しません。これらのOpenAI互換機能が必要な場合は `chat` または `responses` を使用してください。LM StudioにAPIキーは不要です。
+
 > \* **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。
 
 #### Google Cloud 設定

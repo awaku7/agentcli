@@ -5187,3 +5187,7 @@ msgid ""
 msgstr ""
 "[WARNUNG] %(n)d aufeinanderfolgende Tool-Aufrufe; Abbruch zum Schutz vor "
 "unkontrollierter Ausführung."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM-Studio-Transport: sdk, chat oder responses (optional, Standard: responses)"

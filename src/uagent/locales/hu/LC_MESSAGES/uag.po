@@ -5156,3 +5156,7 @@ msgid ""
 msgstr ""
 "[FIGYELMEZTETÉS] %(n)d egymást követő eszközhívás; megszakítás az "
 "ellenőrizetlen végrehajtás megelőzésére."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio-átvitel: sdk, chat vagy responses (opcionális, alapértelmezett: responses)"

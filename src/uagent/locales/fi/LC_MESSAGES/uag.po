@@ -5127,3 +5127,7 @@ msgid ""
 msgstr ""
 "[VAROITUS] %(n)d peräkkäistä työkalukutsua; keskeytetään hallitsemattoman "
 "suorituksen estämiseksi."
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio -siirtotapa: sdk, chat tai responses (valinnainen, oletus: responses)"

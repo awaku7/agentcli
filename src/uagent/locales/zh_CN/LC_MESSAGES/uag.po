@@ -4899,3 +4899,7 @@ msgstr "连续工具调用"
 msgid ""
 "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
 msgstr "[警告] 工具连续调用 %(n)d 次；为防止失控执行而中止。"
+
+#: src/uagent/setup_cli.py:352
+msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr "LM Studio 传输方式：sdk、chat 或 responses（可选，默认：responses）"
