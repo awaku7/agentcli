@@ -1176,7 +1176,8 @@ def _handle_cmd_sessions(
     print(_("[sessions] Matches: " + str(len(results))))
     for row in results:
         print(
-            f"{row['session_id']} | {row.get('project') or '-'} | "
+            f"{row['session_id']} | {row.get('created_at') or '-'} | "
+            f"{row.get('project') or '-'} | {row.get('entry_point') or '-'} | "
             f"{row['role']}: {row['content']}"
         )
     return True
@@ -1243,6 +1244,17 @@ def _handle_cmd_load(
             loaded = store.list_messages(target)
             if not loaded:
                 print("[load] Session has no messages.")
+                return True
+            # A session may have been persisted while a tool-call turn was
+            # interrupted. Do the same boundary cleanup as the JSONL loader
+            # before putting the messages back into the active context;
+            # otherwise the next provider request can contain orphan tool
+            # results or an assistant tool call without all of its results.
+            sanitize = getattr(core, "sanitize_messages_for_tools", None)
+            if callable(sanitize):
+                loaded = sanitize(loaded)
+            if not loaded:
+                print("[load] Session has no loadable messages.")
                 return True
             # Sessions imported from legacy JSONL intentionally contain only
             # conversation roles, so they do not have the system prompt that

@@ -251,12 +251,8 @@ from ..utils.secret_mask import (  # noqa: E402
 
 
 def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
-    """Print masked arguments for a side-effecting tool before execution."""
+    """Print masked tool name and arguments before execution."""
     try:
-        from .tool_policy import SideEffect, policy_for
-
-        if policy_for(name, args).side_effect is SideEffect.READ_ONLY:
-            return
         masked = _mask_args(args or {})
         try:
             arg_str = json.dumps(

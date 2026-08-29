@@ -238,3 +238,20 @@ def test_load_imported_sqlite_session_restores_system_prompt(monkeypatch, tmp_pa
     assert messages[0] == {"role": "system", "content": "current system prompt"}
     assert messages[1] == {"role": "user", "content": "old question"}
     db.close()
+
+
+def test_sessions_search_matches_tool_payload_and_metadata(tmp_path, monkeypatch):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(
+        session.session_id,
+        "tool",
+        "command completed",
+        payload={"role": "tool", "name": "get_env", "tool_call_id": "call-1"},
+    )
+
+    results = db.search("get_env")
+    assert results and results[0]["session_id"] == session.session_id
+    assert results[0]["role"] == "tool"
+    db.close()

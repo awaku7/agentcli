@@ -556,7 +556,9 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     except Exception:
         _responses_supported = provider in RESPONSES_PROVIDERS
 
-    _lmstudio_transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
+    _lmstudio_transport = (
+        (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
+    )
     if provider == "lmstudio" and _lmstudio_transport == "sdk":
         _mode_msg = _("LM Studio Python SDK (ChatCompletions)")
         lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})

@@ -693,7 +693,8 @@ class SessionStore:
     ) -> list[dict[str, Any]]:
         if not query.strip():
             return []
-        parameters: list[Any] = [query, max(1, limit)]
+        query_like = f"%{query}%"
+        parameters: list[Any] = [query, query_like, query_like, max(1, limit)]
         project_clause = ""
         if project is not None:
             project_clause = " AND s.project = ?"
@@ -702,10 +703,13 @@ class SessionStore:
             """
             SELECT m.session_id, s.project, s.entry_point, m.message_id,
                    m.role, m.content, m.created_at
-            FROM message_search f
-            JOIN messages m ON m.message_id = f.message_id
-            JOIN sessions s ON s.session_id = f.session_id
-            WHERE message_search MATCH ?
+            FROM messages m
+            JOIN sessions s ON s.session_id = m.session_id
+            WHERE (
+                m.message_id IN (
+                    SELECT message_id FROM message_search WHERE message_search MATCH ?
+                ) OR m.content LIKE ? OR m.payload_json LIKE ?
+            )
             """ + project_clause + " ORDER BY m.message_id LIMIT ?",
             tuple(parameters),
         ).fetchall()
