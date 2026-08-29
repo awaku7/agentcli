@@ -12,6 +12,7 @@ import os
 _ALLOWED_PACKAGES = {
     # Core/provider packages that may be installed on first use.
     "openai",
+    "lmstudio",
     "anthropic",
     "google-genai",
     "xai-sdk",
