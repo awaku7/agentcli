@@ -144,14 +144,26 @@ def _resolve_round_runtime_flags(
 ) -> Any:
     responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
     if responses_env in ("1", "true"):
-        use_responses_api = True
+        if provider == "lmstudio":
+            from .providers.llm_lmstudio import responses_endpoint_available
+
+            use_responses_api = responses_endpoint_available(core)
+        else:
+            use_responses_api = True
     elif responses_env in ("0", "false", "no", "off"):
         use_responses_api = False
     else:
-        # Auto-enable when provider/model can use Responses API
-        from .llmcapa_util import provider_allows_responses_api
+        # LM Studio defaults to Responses, but only when the running server
+        # actually exposes the endpoint (added in LM Studio v0.3.29).
+        if provider == "lmstudio":
+            from .providers.llm_lmstudio import responses_endpoint_available
 
-        use_responses_api = provider_allows_responses_api(provider, depname or None)
+            use_responses_api = responses_endpoint_available(core)
+        else:
+            # Auto-enable when provider/model can use Responses API
+            from .llmcapa_util import provider_allows_responses_api
+
+            use_responses_api = provider_allows_responses_api(provider, depname or None)
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 
@@ -457,7 +469,7 @@ def _call_openai_azure_round(
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", None)
-            if use_responses_api and provider in ("openai", "azure"):
+            if use_responses_api and provider in ("openai", "azure", "lmstudio"):
                 setattr(core, "_responses_client", client)
                 setattr(core, "_responses_provider", provider)
                 setattr(core, "_responses_model", depname)
@@ -708,6 +720,11 @@ def _call_openai_azure_round(
                 # again is redundant and some providers (e.g. xAI) reject it.
                 if _prev_rid is not None:
                     resp_kwargs.pop("instructions", None)
+
+                if provider == "lmstudio":
+                    from .providers.llm_lmstudio import apply_lmstudio_transport
+
+                    apply_lmstudio_transport(resp_kwargs, responses=True)
 
                 if stream_responses:
                     _stream_result = call_maybe_thread_fn(
@@ -1018,6 +1035,11 @@ def _call_openai_azure_round(
                 if provider in ("openai", "azure") and send_tools_this_round:
                     chat_kwargs.pop("reasoning", None)
                     chat_kwargs["reasoning_effort"] = "none"
+
+                if provider == "lmstudio":
+                    from .providers.llm_lmstudio import apply_lmstudio_transport
+
+                    apply_lmstudio_transport(chat_kwargs, responses=False)
 
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)

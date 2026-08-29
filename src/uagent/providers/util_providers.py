@@ -856,21 +856,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "lmstudio":
-        from openai import OpenAI  # lazy
+        from .llm_lmstudio import make_lmstudio_client
 
-        api_key = _provider_api_key(core, "LMSTUDIO") or "dummy"
-        base_url = core.get_env_url(
-            "UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1"
-        )
-
-        http_client = make_httpx_client()
-
-        try:
-            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
-        except TypeError:
-            client = OpenAI(api_key=api_key, base_url=base_url)
-
-        return provider, client, model_name
+        return provider, make_lmstudio_client(core), model_name
 
     if provider == "minimax":
         from openai import OpenAI  # lazy

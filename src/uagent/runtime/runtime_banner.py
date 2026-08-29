@@ -542,7 +542,14 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         )
 
         _banner_model = current_model(provider)
-        _responses_supported = provider_allows_responses_api(provider, _banner_model)
+        if provider == "lmstudio":
+            from ..providers.llm_lmstudio import responses_endpoint_available
+
+            _responses_supported = responses_endpoint_available(core)
+        else:
+            _responses_supported = provider_allows_responses_api(
+                provider, _banner_model
+            )
         _dep_warn = deprecated_model_warning(_banner_model, provider)
         if _dep_warn:
             lines.append("[WARN] " + _dep_warn)

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """vision_runtime.py
 
-Image analysis backend for OpenAI/Azure/Bedrock/OpenRouter Responses API.
+Image analysis backend for OpenAI-compatible Responses API providers.
 
 This module is used by tools/analyze_image_tool.py when UAGENT_RESPONSES=1.
 
 Notes:
-- Responses API support is limited to provider=azure/openai/bedrock/openrouter in this project.
+- Responses API support includes the local LM Studio endpoint when it is
+  configured with a vision-capable model.
 - The CLI can also send images directly as user content items; this module exists
   mainly to avoid missing-import crashes if the analyze_image tool is invoked.
 """
@@ -62,13 +63,14 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
         "bedrock",
         "openrouter",
         "ollama",
+        "lmstudio",
         "deepseek",
     ):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
                 default=(
-                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama "
+                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama/lmstudio "
                     "(got provider={provider!r})"
                 ),
             ).format(provider=provider)
@@ -139,6 +141,13 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
                         ),
                     )
                 )
+            client = OpenAI(api_key=api_key, base_url=base_url)
+        elif provider == "lmstudio":
+            # LM Studio is OpenAI-compatible and does not require a real key,
+            # but the SDK requires a non-empty value.
+            api_key = get_provider_api_key("LMSTUDIO") or "dummy"
+            base_url = env_get("UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
+            model = env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
             client = OpenAI(api_key=api_key, base_url=base_url)
         else:
             api_key = get_provider_api_key("OPENAI")
