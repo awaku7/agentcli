@@ -7,7 +7,9 @@ uag tool specifications and exposes the small client surface used by uagent.
 
 from __future__ import annotations
 
+import queue
 import re
+import threading
 from types import SimpleNamespace
 from typing import Any, Callable
 
@@ -21,6 +23,12 @@ _SYNTHETIC_REASONING = re.compile(
 def _text(value: Any) -> str:
     value = getattr(value, "content", value)
     return _SYNTHETIC_REASONING.sub("", str(value or "")).strip()
+
+
+def _fragment_text(value: Any) -> str:
+    """Extract a streaming fragment without discarding meaningful spaces."""
+    value = getattr(value, "content", value)
+    return _SYNTHETIC_REASONING.sub("", str(value or ""))
 
 
 def _prompt(messages: list[dict[str, Any]] | None) -> str:
@@ -140,6 +148,8 @@ class LMStudioSDKClient:
         prompt = _prompt(messages)
         sdk_tools = _sdk_tools(tools, self._core)
         if sdk_tools:
+            if stream:
+                return self._act_stream(prompt, sdk_tools)
             # act() executes the SDK tool loop and returns the final response.
             result = self._model.act(prompt, sdk_tools)
             text = _text(result)
@@ -162,9 +172,54 @@ class LMStudioSDKClient:
             ]
         )
 
+    def _act_stream(self, prompt: str, sdk_tools: list[Any]):
+        """Bridge SDK act() callbacks to the OpenAI-style delta iterator."""
+        events: queue.Queue[tuple[str, Any]] = queue.Queue()
+        done = object()
+
+        def on_fragment(fragment: Any, _index: int) -> None:
+            text = _fragment_text(fragment)
+            if text:
+                events.put(("delta", text))
+
+        def run() -> None:
+            try:
+                result = self._model.act(
+                    prompt,
+                    sdk_tools,
+                    on_prediction_fragment=on_fragment,
+                )
+                events.put(("result", _text(result)))
+            except BaseException as exc:
+                events.put(("error", exc))
+            finally:
+                events.put(("done", done))
+
+        worker = threading.Thread(target=run, name="lmstudio-sdk-act", daemon=True)
+        worker.start()
+        emitted = False
+        while True:
+            kind, value = events.get()
+            if kind == "delta":
+                emitted = True
+                yield SimpleNamespace(
+                    choices=[SimpleNamespace(delta=SimpleNamespace(content=value))]
+                )
+            elif kind == "result":
+                # Some SDK versions only report the completed text. Do not
+                # duplicate it when prediction fragments were already emitted.
+                if value and not emitted:
+                    yield SimpleNamespace(
+                        choices=[SimpleNamespace(delta=SimpleNamespace(content=value))]
+                    )
+            elif kind == "error":
+                raise value
+            elif kind == "done":
+                break
+
     def _stream(self, prompt: str):
         for fragment in self._model.respond_stream(prompt):
-            text = _text(fragment)
+            text = _fragment_text(fragment)
             if text:
                 yield SimpleNamespace(
                     choices=[SimpleNamespace(delta=SimpleNamespace(content=text))]
