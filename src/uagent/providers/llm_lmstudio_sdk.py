@@ -51,7 +51,7 @@ def _python_type(schema: dict[str, Any]) -> type[Any]:
     }.get(kind, str)
 
 
-def _sdk_tools(specs: Any) -> list[Any]:
+def _sdk_tools(specs: Any, core: Any = None) -> list[Any]:
     """Convert OpenAI-shaped tool specs into SDK ToolFunctionDef objects."""
     if not isinstance(specs, list):
         return []
@@ -76,6 +76,34 @@ def _sdk_tools(specs: Any) -> list[Any]:
         }
 
         def implementation(_name: str = name, **arguments: Any) -> Any:
+            # Reuse uag's normal executor so hooks, computer handling, output
+            # normalization, and session messages remain consistent with the
+            # OpenAI-compatible transports.
+            if core is not None:
+                from uuid import uuid4
+                from ..llm_flow_helpers import _execute_tool_calls
+
+                tool_call = {
+                    "id": f"call_sdk_{uuid4().hex}",
+                    "type": "function",
+                    "function": {
+                        "name": _name,
+                        "arguments": __import__("json").dumps(
+                            arguments, ensure_ascii=False
+                        ),
+                    },
+                }
+                messages = getattr(core, "_lmstudio_sdk_messages", None)
+                cache_mgr = getattr(core, "_lmstudio_sdk_cache_mgr", None)
+                if isinstance(messages, list):
+                    _execute_tool_calls(
+                        tool_calls_list=[tool_call],
+                        messages=messages,
+                        core=core,
+                        cache_mgr=cache_mgr,
+                    )
+                    if messages and isinstance(messages[-1], dict):
+                        return messages[-1].get("content", "")
             return uagent_tools.run_tool(_name, arguments)
 
         result.append(
@@ -96,6 +124,7 @@ class LMStudioSDKClient:
         import lmstudio as lms
 
         self._model = lms.llm(model_name or None)
+        self._core: Any = None
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self.create))
 
     def create(
@@ -109,7 +138,7 @@ class LMStudioSDKClient:
     ) -> Any:
         del model, kwargs
         prompt = _prompt(messages)
-        sdk_tools = _sdk_tools(tools)
+        sdk_tools = _sdk_tools(tools, self._core)
         if sdk_tools:
             # act() executes the SDK tool loop and returns the final response.
             result = self._model.act(prompt, sdk_tools)
@@ -148,4 +177,6 @@ def make_client(core: Any) -> LMStudioSDKClient:
         model = getter("UAGENT_LMSTUDIO_DEPNAME") or "local-model"
     else:
         model = env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
-    return LMStudioSDKClient(str(model))
+    client = LMStudioSDKClient(str(model))
+    client._core = core
+    return client

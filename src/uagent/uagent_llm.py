@@ -542,6 +542,13 @@ def _run_one_round(
         )
 
     send_tools_this_round = getattr(_core_module, "tools_enabled", True)
+    # The isolated LM Studio SDK adapter can reuse the normal uagent tool
+    # executor without importing this module at provider-import time.
+    try:
+        core._lmstudio_sdk_messages = messages
+        core._lmstudio_sdk_cache_mgr = cache_mgr
+    except Exception:
+        pass
     if judgment_mode:
         send_tools_this_round = False
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))

@@ -182,6 +182,16 @@ def _resolve_round_runtime_flags(
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 
+    # LM Studio SDK's ``act()`` owns the tool-call loop and returns a completed
+    # result rather than an OpenAI-compatible delta iterator. Avoid passing a
+    # completed SDK result through the outer streaming parser when tools are on.
+    if (
+        provider == "lmstudio"
+        and lmstudio_transport == "sdk"
+        and bool(getattr(core, "tools_enabled", False))
+    ):
+        stream_responses = False
+
     # If translation is enabled, disable streaming to avoid mismatched partial outputs.
     # (We translate per-call, not per-delta.)
     if tr_cfg is not None and (
