@@ -180,9 +180,7 @@ class LMStudioSDKClient:
         if sdk_tools:
             if stream:
                 return self._act_stream(prompt, sdk_tools)
-            # act() executes the SDK tool loop and returns the final response.
-            result = self._model.act(prompt, sdk_tools)
-            text = _text(result)
+            text = self._act_text(prompt, sdk_tools)
             return SimpleNamespace(
                 choices=[
                     SimpleNamespace(
@@ -202,15 +200,54 @@ class LMStudioSDKClient:
             ]
         )
 
+    def _act_text(self, prompt: Any, sdk_tools: list[Any]) -> str:
+        """Run SDK act() and collect visible prediction fragments."""
+        parts: list[str] = []
+        pending = ""
+        marker_seen = False
+
+        def on_fragment(fragment: Any, _index: int) -> None:
+            nonlocal marker_seen, pending
+            raw = str(getattr(fragment, "content", fragment) or "")
+            if marker_seen:
+                parts.append(raw)
+                return
+            pending += raw
+            match = _SYNTHETIC_REASONING.search(pending)
+            if match is not None:
+                marker_seen = True
+                parts.clear()
+                parts.append(pending[match.end() :])
+                pending = ""
+
+        self._model.act(prompt, sdk_tools, on_prediction_fragment=on_fragment)
+        if not marker_seen:
+            parts.append(pending)
+        return "".join(parts).strip()
+
     def _act_stream(self, prompt: str, sdk_tools: list[Any]):
         """Bridge SDK act() callbacks to the OpenAI-style delta iterator."""
         events: queue.Queue[tuple[str, Any]] = queue.Queue()
         done = object()
 
+        marker_seen = False
+        pending = ""
+
         def on_fragment(fragment: Any, _index: int) -> None:
-            text = _fragment_text(fragment)
-            if text:
-                events.put(("delta", text))
+            nonlocal marker_seen, pending
+            raw = str(getattr(fragment, "content", fragment) or "")
+            if marker_seen:
+                if raw:
+                    events.put(("delta", raw))
+                return
+            pending += raw
+            match = _SYNTHETIC_REASONING.search(pending)
+            if match is not None:
+                marker_seen = True
+                visible = pending[match.end() :]
+                pending = ""
+                if visible:
+                    events.put(("delta", visible))
 
         def run() -> None:
             try:
@@ -219,6 +256,8 @@ class LMStudioSDKClient:
                     sdk_tools,
                     on_prediction_fragment=on_fragment,
                 )
+                if not marker_seen and pending:
+                    events.put(("delta", pending))
                 events.put(("result", _text(result)))
             except BaseException as exc:
                 events.put(("error", exc))
