@@ -142,7 +142,16 @@ def _translate_call_messages(
 def _resolve_round_runtime_flags(
     *, tr_cfg: Any, core: Any, provider: str = "", depname: str = ""
 ) -> Any:
-    responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
+    lmstudio_transport = (
+        (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").lower().strip()
+    )
+    if provider == "lmstudio" and lmstudio_transport in {"chat", "chat_completions"}:
+        responses_env = "0"
+    elif provider == "lmstudio" and lmstudio_transport in {"responses", "response"}:
+        responses_env = "1"
+    else:
+        responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
+
     if responses_env in ("1", "true"):
         if provider == "lmstudio":
             from .providers.llm_lmstudio import responses_endpoint_available
