@@ -31,6 +31,29 @@ def _fragment_text(value: Any) -> str:
     return _SYNTHETIC_REASONING.sub("", str(value or ""))
 
 
+def _chat_input(messages: list[dict[str, Any]] | None) -> Any:
+    """Build the SDK Chat object while retaining role boundaries."""
+    import lmstudio as lms
+
+    normalized: list[dict[str, Any]] = []
+    for message in messages or []:
+        if not isinstance(message, dict):
+            continue
+        role = str(message.get("role") or "user")
+        content = message.get("content", "")
+        if isinstance(content, list):
+            content = " ".join(
+                str(item.get("text", ""))
+                for item in content
+                if isinstance(item, dict) and item.get("text")
+            )
+        normalized.append({"role": role, "content": str(content or "")})
+    try:
+        return lms.Chat.from_history({"messages": normalized})
+    except Exception:
+        return _prompt(messages)
+
+
 def _prompt(messages: list[dict[str, Any]] | None) -> str:
     parts: list[str] = []
     for message in messages or []:
@@ -104,6 +127,13 @@ def _sdk_tools(specs: Any, core: Any = None) -> list[Any]:
                 messages = getattr(core, "_lmstudio_sdk_messages", None)
                 cache_mgr = getattr(core, "_lmstudio_sdk_cache_mgr", None)
                 if isinstance(messages, list):
+                    messages.append(
+                        {
+                            "role": "assistant",
+                            "content": "",
+                            "tool_calls": [tool_call],
+                        }
+                    )
                     _execute_tool_calls(
                         tool_calls_list=[tool_call],
                         messages=messages,
@@ -145,7 +175,7 @@ class LMStudioSDKClient:
         **kwargs: Any,
     ) -> Any:
         del model, kwargs
-        prompt = _prompt(messages)
+        prompt = _chat_input(messages)
         sdk_tools = _sdk_tools(tools, self._core)
         if sdk_tools:
             if stream:
