@@ -84,6 +84,10 @@ tools = [
     "striprtf",
     "upnpy",
 ]
+sbom = [
+    "cyclonedx-python-lib>=8.0.0",
+    "spdx-tools>=0.8.0",
+]
 development = [
     "coverage",
     "ecdsa",

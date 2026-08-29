@@ -1,0 +1,536 @@
+{
+  "en": {
+    "tool.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "x_search_terms": [
+      "SBOM",
+      "CycloneDX",
+      "SPDX",
+      "software bill of materials"
+    ],
+    "param.root.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "param.output_dir.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "param.project_name.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "param.max_files.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "param.overwrite.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
+    "param.auto_install.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files."
+  },
+  "ja": {
+    "tool.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "x_search_terms": [
+      "SBOM",
+      "CycloneDX",
+      "SPDX",
+      "ソフトウェア部品表"
+    ],
+    "param.root.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "param.output_dir.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "param.project_name.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "param.max_files.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "param.overwrite.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
+    "param.auto_install.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。"
+  },
+  "zh_CN": {
+    "tool.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "x_search_terms": [
+      "软件物料清单",
+      "依赖清单",
+      "SBOM"
+    ],
+    "param.root.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "param.output_dir.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "param.project_name.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "param.max_files.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "param.overwrite.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。",
+    "param.auto_install.description": "检查项目目录并生成 CycloneDX 和 SPDX 两种 SBOM JSON 文件。"
+  },
+  "zh_TW": {
+    "tool.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "x_search_terms": [
+      "軟體物料清單",
+      "依賴清單",
+      "SBOM"
+    ],
+    "param.root.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "param.output_dir.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "param.project_name.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "param.max_files.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "param.overwrite.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。",
+    "param.auto_install.description": "檢查專案目錄並產生 CycloneDX 與 SPDX 兩種 SBOM JSON 檔案。"
+  },
+  "ko": {
+    "tool.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "x_search_terms": [
+      "소프트웨어 구성 목록",
+      "의존성 목록",
+      "SBOM"
+    ],
+    "param.root.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "param.output_dir.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "param.project_name.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "param.max_files.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "param.overwrite.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다.",
+    "param.auto_install.description": "프로젝트 디렉터리를 검사하고 CycloneDX 및 SPDX SBOM JSON 파일을 모두 생성합니다."
+  },
+  "es": {
+    "tool.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "x_search_terms": [
+      "lista de materiales de software",
+      "dependencias",
+      "SBOM"
+    ],
+    "param.root.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "param.output_dir.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "param.project_name.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "param.max_files.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "param.overwrite.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX.",
+    "param.auto_install.description": "Inspecciona un directorio de proyecto y genera archivos JSON SBOM de CycloneDX y SPDX."
+  },
+  "fr": {
+    "tool.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "x_search_terms": [
+      "nomenclature logicielle",
+      "dépendances",
+      "SBOM"
+    ],
+    "param.root.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "param.output_dir.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "param.project_name.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "param.max_files.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "param.overwrite.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX.",
+    "param.auto_install.description": "Inspecte un répertoire de projet et génère les fichiers JSON SBOM CycloneDX et SPDX."
+  },
+  "de": {
+    "tool.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "x_search_terms": [
+      "Software-Stückliste",
+      "Abhängigkeiten",
+      "SBOM"
+    ],
+    "param.root.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "param.output_dir.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "param.project_name.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "param.max_files.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "param.overwrite.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien.",
+    "param.auto_install.description": "Untersucht ein Projektverzeichnis und erzeugt sowohl CycloneDX- als auch SPDX-SBOM-JSON-Dateien."
+  },
+  "it": {
+    "tool.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "x_search_terms": [
+      "distinta software",
+      "dipendenze",
+      "SBOM"
+    ],
+    "param.root.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "param.output_dir.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "param.project_name.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "param.max_files.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "param.overwrite.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX.",
+    "param.auto_install.description": "Ispeziona una directory di progetto e genera file JSON SBOM CycloneDX e SPDX."
+  },
+  "pt": {
+    "tool.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "x_search_terms": [
+      "lista de materiais de software",
+      "dependências",
+      "SBOM"
+    ],
+    "param.root.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.output_dir.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.project_name.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.max_files.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.overwrite.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.auto_install.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX."
+  },
+  "pt_BR": {
+    "tool.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "x_search_terms": [
+      "inventário de software",
+      "dependências",
+      "SBOM"
+    ],
+    "param.root.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.output_dir.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.project_name.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.max_files.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.overwrite.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX.",
+    "param.auto_install.description": "Inspeciona um diretório de projeto e gera arquivos JSON SBOM CycloneDX e SPDX."
+  },
+  "ru": {
+    "tool.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "x_search_terms": [
+      "состав программного обеспечения",
+      "зависимости",
+      "SBOM"
+    ],
+    "param.root.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "param.output_dir.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "param.project_name.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "param.max_files.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "param.overwrite.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX.",
+    "param.auto_install.description": "Проверяет каталог проекта и создаёт JSON-файлы SBOM CycloneDX и SPDX."
+  },
+  "uk": {
+    "tool.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "x_search_terms": [
+      "склад програмного забезпечення",
+      "залежності",
+      "SBOM"
+    ],
+    "param.root.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "param.output_dir.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "param.project_name.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "param.max_files.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "param.overwrite.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX.",
+    "param.auto_install.description": "Перевіряє каталог проєкту та створює JSON-файли SBOM CycloneDX і SPDX."
+  },
+  "pl": {
+    "tool.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "x_search_terms": [
+      "zestawienie oprogramowania",
+      "zależności",
+      "SBOM"
+    ],
+    "param.root.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "param.output_dir.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "param.project_name.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "param.max_files.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "param.overwrite.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX.",
+    "param.auto_install.description": "Skanuje katalog projektu i tworzy pliki JSON SBOM CycloneDX oraz SPDX."
+  },
+  "cs": {
+    "tool.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "x_search_terms": [
+      "seznam softwaru",
+      "závislosti",
+      "SBOM"
+    ],
+    "param.root.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "param.output_dir.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "param.project_name.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "param.max_files.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "param.overwrite.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX.",
+    "param.auto_install.description": "Prohlédne adresář projektu a vytvoří soubory JSON SBOM CycloneDX i SPDX."
+  },
+  "nl": {
+    "tool.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "x_search_terms": [
+      "software-onderdelenlijst",
+      "afhankelijkheden",
+      "SBOM"
+    ],
+    "param.root.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "param.output_dir.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "param.project_name.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "param.max_files.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "param.overwrite.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden.",
+    "param.auto_install.description": "Inspecteert een projectmap en genereert zowel CycloneDX- als SPDX-SBOM-JSON-bestanden."
+  },
+  "sv": {
+    "tool.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "x_search_terms": [
+      "programvaruförteckning",
+      "beroenden",
+      "SBOM"
+    ],
+    "param.root.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "param.output_dir.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "param.project_name.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "param.max_files.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "param.overwrite.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer.",
+    "param.auto_install.description": "Inspekterar en projektmapp och skapar både CycloneDX- och SPDX-SBOM-JSON-filer."
+  },
+  "da": {
+    "tool.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "x_search_terms": [
+      "softwarestykliste",
+      "afhængigheder",
+      "SBOM"
+    ],
+    "param.root.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.output_dir.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.project_name.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.max_files.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.overwrite.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.auto_install.description": "Inspicerer en projektmappe og genererer både CycloneDX- og SPDX-SBOM-JSON-filer."
+  },
+  "nb": {
+    "tool.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "x_search_terms": [
+      "programvareliste",
+      "avhengigheter",
+      "SBOM"
+    ],
+    "param.root.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.output_dir.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.project_name.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.max_files.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.overwrite.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.auto_install.description": "Undersøker en prosjektmappe og lager både CycloneDX- og SPDX-SBOM-JSON-filer."
+  },
+  "nn": {
+    "tool.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "x_search_terms": [
+      "programvareliste",
+      "avhengigheiter",
+      "SBOM"
+    ],
+    "param.root.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.output_dir.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.project_name.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.max_files.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.overwrite.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer.",
+    "param.auto_install.description": "Undersøkjer ei prosjektmappe og lagar både CycloneDX- og SPDX-SBOM-JSON-filer."
+  },
+  "fi": {
+    "tool.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "x_search_terms": [
+      "ohjelmistoluettelo",
+      "riippuvuudet",
+      "SBOM"
+    ],
+    "param.root.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "param.output_dir.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "param.project_name.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "param.max_files.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "param.overwrite.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot.",
+    "param.auto_install.description": "Tutkii projektihakemiston ja luo sekä CycloneDX- että SPDX-SBOM-JSON-tiedostot."
+  },
+  "hu": {
+    "tool.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "x_search_terms": [
+      "szoftverjegyzék",
+      "függőségek",
+      "SBOM"
+    ],
+    "param.root.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "param.output_dir.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "param.project_name.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "param.max_files.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "param.overwrite.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre.",
+    "param.auto_install.description": "Átvizsgálja a projektkönyvtárat, és CycloneDX- és SPDX-SBOM JSON-fájlokat hoz létre."
+  },
+  "ro": {
+    "tool.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "x_search_terms": [
+      "inventar software",
+      "dependențe",
+      "SBOM"
+    ],
+    "param.root.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "param.output_dir.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "param.project_name.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "param.max_files.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "param.overwrite.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX.",
+    "param.auto_install.description": "Inspectează un director de proiect și generează fișiere JSON SBOM CycloneDX și SPDX."
+  },
+  "el": {
+    "tool.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "x_search_terms": [
+      "κατάλογος λογισμικού",
+      "εξαρτήσεις",
+      "SBOM"
+    ],
+    "param.root.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "param.output_dir.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "param.project_name.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "param.max_files.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "param.overwrite.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX.",
+    "param.auto_install.description": "Ελέγχει έναν κατάλογο έργου και δημιουργεί αρχεία JSON SBOM CycloneDX και SPDX."
+  },
+  "tr": {
+    "tool.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "x_search_terms": [
+      "yazılım listesi",
+      "bağımlılıklar",
+      "SBOM"
+    ],
+    "param.root.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "param.output_dir.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "param.project_name.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "param.max_files.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "param.overwrite.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur.",
+    "param.auto_install.description": "Bir proje dizinini inceler ve hem CycloneDX hem de SPDX SBOM JSON dosyaları oluşturur."
+  },
+  "ar": {
+    "tool.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "x_search_terms": [
+      "قائمة مكونات البرمجيات",
+      "التبعيات",
+      "SBOM"
+    ],
+    "param.root.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "param.output_dir.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "param.project_name.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "param.max_files.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "param.overwrite.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX.",
+    "param.auto_install.description": "يفحص دليل المشروع وينشئ ملفات JSON لـ SBOM بتنسيقي CycloneDX وSPDX."
+  },
+  "fa": {
+    "tool.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "x_search_terms": [
+      "فهرست نرم‌افزار",
+      "وابستگی‌ها",
+      "SBOM"
+    ],
+    "param.root.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "param.output_dir.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "param.project_name.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "param.max_files.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "param.overwrite.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد.",
+    "param.auto_install.description": "پوشه پروژه را بررسی می‌کند و فایل‌های JSON مربوط به SBOM در قالب‌های CycloneDX و SPDX می‌سازد."
+  },
+  "he": {
+    "tool.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "x_search_terms": [
+      "רשימת רכיבי תוכנה",
+      "תלויות",
+      "SBOM"
+    ],
+    "param.root.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "param.output_dir.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "param.project_name.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "param.max_files.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "param.overwrite.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX.",
+    "param.auto_install.description": "סורק תיקיית פרויקט ויוצר קובצי JSON של SBOM בפורמטי CycloneDX ו-SPDX."
+  },
+  "hi": {
+    "tool.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "x_search_terms": [
+      "सॉफ्टवेयर सामग्री सूची",
+      "निर्भरताएँ",
+      "SBOM"
+    ],
+    "param.root.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "param.output_dir.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "param.project_name.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "param.max_files.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "param.overwrite.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।",
+    "param.auto_install.description": "प्रोजेक्ट निर्देशिका की जाँच करके CycloneDX और SPDX दोनों SBOM JSON फ़ाइलें बनाता है।"
+  },
+  "bn": {
+    "tool.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "x_search_terms": [
+      "সফটওয়্যার তালিকা",
+      "নির্ভরতা",
+      "SBOM"
+    ],
+    "param.root.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "param.output_dir.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "param.project_name.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "param.max_files.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "param.overwrite.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।",
+    "param.auto_install.description": "প্রকল্প ডিরেক্টরি পরীক্ষা করে CycloneDX এবং SPDX উভয় SBOM JSON ফাইল তৈরি করে।"
+  },
+  "mr": {
+    "tool.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "x_search_terms": [
+      "सॉफ्टवेअर यादी",
+      "अवलंबित्वे",
+      "SBOM"
+    ],
+    "param.root.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "param.output_dir.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "param.project_name.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "param.max_files.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "param.overwrite.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते.",
+    "param.auto_install.description": "प्रकल्प निर्देशिका तपासून CycloneDX आणि SPDX दोन्ही SBOM JSON फाइल तयार करते."
+  },
+  "mn": {
+    "tool.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "x_search_terms": [
+      "програм хангамжийн жагсаалт",
+      "хамаарал",
+      "SBOM"
+    ],
+    "param.root.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "param.output_dir.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "param.project_name.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "param.max_files.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "param.overwrite.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ.",
+    "param.auto_install.description": "Төслийн хавтсыг шалгаж CycloneDX болон SPDX SBOM JSON файлуудыг үүсгэнэ."
+  },
+  "id": {
+    "tool.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "x_search_terms": [
+      "daftar komponen perangkat lunak",
+      "dependensi",
+      "SBOM"
+    ],
+    "param.root.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "param.output_dir.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "param.project_name.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "param.max_files.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "param.overwrite.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX.",
+    "param.auto_install.description": "Memeriksa direktori proyek dan menghasilkan file JSON SBOM CycloneDX serta SPDX."
+  },
+  "ms": {
+    "tool.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "x_search_terms": [
+      "senarai perisian",
+      "kebergantungan",
+      "SBOM"
+    ],
+    "param.root.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "param.output_dir.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "param.project_name.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "param.max_files.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "param.overwrite.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX.",
+    "param.auto_install.description": "Memeriksa direktori projek dan menjana fail JSON SBOM CycloneDX serta SPDX."
+  },
+  "fil": {
+    "tool.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "x_search_terms": [
+      "listahan ng software",
+      "dependency",
+      "SBOM"
+    ],
+    "param.root.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "param.output_dir.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "param.project_name.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "param.max_files.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "param.overwrite.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file.",
+    "param.auto_install.description": "Sinusuri ang direktoryo ng proyekto at lumikha ng parehong CycloneDX at SPDX SBOM JSON file."
+  },
+  "vi": {
+    "tool.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "x_search_terms": [
+      "bảng kê phần mềm",
+      "phụ thuộc",
+      "SBOM"
+    ],
+    "param.root.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "param.output_dir.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "param.project_name.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "param.max_files.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "param.overwrite.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX.",
+    "param.auto_install.description": "Kiểm tra thư mục dự án và tạo cả tệp JSON SBOM CycloneDX và SPDX."
+  },
+  "th": {
+    "tool.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "x_search_terms": [
+      "รายการซอฟต์แวร์",
+      "การพึ่งพา",
+      "SBOM"
+    ],
+    "param.root.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "param.output_dir.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "param.project_name.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "param.max_files.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "param.overwrite.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX",
+    "param.auto_install.description": "ตรวจสอบไดเรกทอรีโครงการและสร้างไฟล์ JSON SBOM ทั้ง CycloneDX และ SPDX"
+  },
+  "sw": {
+    "tool.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "x_search_terms": [
+      "orodha ya programu",
+      "vitegemezi",
+      "SBOM"
+    ],
+    "param.root.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "param.output_dir.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "param.project_name.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "param.max_files.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "param.overwrite.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX.",
+    "param.auto_install.description": "Kagua saraka ya mradi na utengeneze faili za JSON za SBOM za CycloneDX na SPDX."
+  }
+}
