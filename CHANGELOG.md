@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [0.6.15] - 2026-08-30
+
+### Added
+
+- Add LM Studio provider support for Chat Completions, Responses, and SDK transports.
+- Add LM Studio SDK tool execution and streaming support.
+- Add SQLite session search coverage for tool names and arguments.
+
+### Changed
+
+- Restore visible tool traces, including read-only tool names and masked arguments.
+- Preserve LM Studio SDK tool-call history and extract visible SDK result text.
+- Improve session search result context with timestamp, project, and entry point.
+
+### Fixed
+
+- Restore interrupted SQLite tool-call history safely when loading a session.
+- Enable automatic installation of the LM Studio SDK provider dependency.
+
 ## [0.6.14] - 2026-08-28
 
 ### Added
