@@ -107,3 +107,12 @@ def test_unknown_provider_has_no_management_capabilities() -> None:
     assert capabilities.create is False
     assert capabilities.retrieve is False
     assert capabilities.cancel is False
+
+
+def test_lmstudio_supports_previous_response_id() -> None:
+    capabilities = get_responses_capabilities("lmstudio")
+
+    assert capabilities.create is True
+    assert capabilities.streaming is True
+    assert capabilities.previous_response_id is True
+    assert capabilities.retrieve is False

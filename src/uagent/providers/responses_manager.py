@@ -36,8 +36,9 @@ class ResponsesCapabilities:
     previous_response_id: bool = False
 
 
-# Conservative defaults: only OpenAI/Azure management operations are enabled
-# until another provider has been verified against the live endpoint.
+# Keep management operations conservative unless the provider documents them.
+# LM Studio's OpenAI-compatible Responses endpoint documents stateful
+# continuation via previous_response_id, so that capability is enabled here.
 _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "openai": ResponsesCapabilities(
         create=True,
@@ -66,7 +67,11 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "bedrock": ResponsesCapabilities(create=True, streaming=True),
     "ollama": ResponsesCapabilities(create=True, streaming=True),
     "alibaba": ResponsesCapabilities(create=True, streaming=True),
-    "lmstudio": ResponsesCapabilities(create=True, streaming=True),
+    "lmstudio": ResponsesCapabilities(
+        create=True,
+        streaming=True,
+        previous_response_id=True,
+    ),
     "sakana": ResponsesCapabilities(create=True, streaming=True),
 }
 
