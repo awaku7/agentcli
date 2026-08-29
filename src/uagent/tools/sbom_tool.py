@@ -4,6 +4,7 @@ The scanner is intentionally dependency-free.  It reads common manifest files an
 emits standards-shaped JSON, making it useful even when external SBOM generators
 are not installed.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -36,23 +37,90 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
         ),
-        "x_search_terms": ["SBOM", "CycloneDX", "SPDX", "software bill of materials", "依存関係一覧", "脆弱性管理"],
-        "x_search_terms_en": ["SBOM", "CycloneDX", "SPDX", "dependency inventory", "software composition analysis"],
+        "x_search_terms": [
+            "SBOM",
+            "CycloneDX",
+            "SPDX",
+            "software bill of materials",
+            "依存関係一覧",
+            "脆弱性管理",
+        ],
+        "x_search_terms_en": [
+            "SBOM",
+            "CycloneDX",
+            "SPDX",
+            "dependency inventory",
+            "software composition analysis",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
-                "root": {"type": "string", "default": ".", "description": _("param.root.description", default="Project directory to inspect (inside the current workdir).")},
-                "output_dir": {"type": "string", "default": "outputs/sbom", "description": _("param.output_dir.description", default="Directory for the two generated JSON files.")},
-                "project_name": {"type": "string", "description": _("param.project_name.description", default="Optional project name; otherwise inferred from the directory name.")},
-                "max_files": {"type": "integer", "default": 10000, "minimum": 1, "maximum": 100000, "description": _("param.max_files.description", default="Maximum files to inspect for metadata.")},
-                "overwrite": {"type": "boolean", "default": True, "description": _("param.overwrite.description", default="Overwrite existing CycloneDX/SPDX files.")},
-                "auto_install": {"type": "boolean", "default": False, "description": _("param.auto_install.description", default="Install optional CycloneDX/SPDX Python libraries when missing; generation still falls back to the built-in serializer.")},
+                "root": {
+                    "type": "string",
+                    "default": ".",
+                    "description": _(
+                        "param.root.description",
+                        default="Project directory to inspect (inside the current workdir).",
+                    ),
+                },
+                "output_dir": {
+                    "type": "string",
+                    "default": "outputs/sbom",
+                    "description": _(
+                        "param.output_dir.description",
+                        default="Directory for the two generated JSON files.",
+                    ),
+                },
+                "project_name": {
+                    "type": "string",
+                    "description": _(
+                        "param.project_name.description",
+                        default="Optional project name; otherwise inferred from the directory name.",
+                    ),
+                },
+                "max_files": {
+                    "type": "integer",
+                    "default": 10000,
+                    "minimum": 1,
+                    "maximum": 100000,
+                    "description": _(
+                        "param.max_files.description",
+                        default="Maximum files to inspect for metadata.",
+                    ),
+                },
+                "overwrite": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.overwrite.description",
+                        default="Overwrite existing CycloneDX/SPDX files.",
+                    ),
+                },
+                "auto_install": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.auto_install.description",
+                        default="Install optional CycloneDX/SPDX Python libraries when missing; generation still falls back to the built-in serializer.",
+                    ),
+                },
             },
         },
     },
 }
 
-_SKIP_DIRS = {".git", ".hg", ".svn", "node_modules", ".venv", "venv", "dist", "build", "__pycache__", ".tox"}
+_SKIP_DIRS = {
+    ".git",
+    ".hg",
+    ".svn",
+    "node_modules",
+    ".venv",
+    "venv",
+    "dist",
+    "build",
+    "__pycache__",
+    ".tox",
+}
 
 
 def _inside(path: str | Path, workdir: Path) -> Path:
@@ -94,7 +162,16 @@ def _component(name: str, version: Any, kind: str, source: str) -> dict[str, Any
     else:
         purl = f"pkg:generic/{name}@{safe_ver}"
         ctype = "generic"
-    return {"name": name, "version": ver, "type": "library", "scope": "required", "purl": purl, "bom-ref": purl, "_source": source, "_type": ctype}
+    return {
+        "name": name,
+        "version": ver,
+        "type": "library",
+        "scope": "required",
+        "purl": purl,
+        "bom-ref": purl,
+        "_source": source,
+        "_type": ctype,
+    }
 
 
 def _requirements(text: str, source: str) -> list[dict[str, Any]]:
@@ -103,7 +180,10 @@ def _requirements(text: str, source: str) -> list[dict[str, Any]]:
         line = line.split(" #", 1)[0].strip()
         if not line or line.startswith(("#", "-r", "--")):
             continue
-        match = re.match(r"([A-Za-z0-9_.-]+)\s*(?:\[.*?\])?\s*(?:==|~=|>=|<=|!=|>|<)\s*([^;\s]+)", line)
+        match = re.match(
+            r"([A-Za-z0-9_.-]+)\s*(?:\[.*?\])?\s*(?:==|~=|>=|<=|!=|>|<)\s*([^;\s]+)",
+            line,
+        )
         if match:
             result.append(_component(match.group(1), match.group(2), "pypi", source))
         else:
@@ -122,14 +202,31 @@ def _manifest_components(path: Path) -> list[dict[str, Any]]:
         deps = data.get("dependencies", {})
         if isinstance(deps, dict):
             for dep, val in deps.items():
-                out.append(_component(dep, val.get("version", "*") if isinstance(val, dict) else val, "npm", source))
+                out.append(
+                    _component(
+                        dep,
+                        val.get("version", "*") if isinstance(val, dict) else val,
+                        "npm",
+                        source,
+                    )
+                )
         return out
     if name == "composer.json" and data:
         deps = data.get("require", {})
-        return [_component(k, v, "generic", source) for k, v in deps.items() if k != "php" and isinstance(k, str)] if isinstance(deps, dict) else []
+        return (
+            [
+                _component(k, v, "generic", source)
+                for k, v in deps.items()
+                if k != "php" and isinstance(k, str)
+            ]
+            if isinstance(deps, dict)
+            else []
+        )
     if name in {"requirements.txt", "requirements-dev.txt", "Pipfile.lock"}:
         try:
-            return _requirements(path.read_text(encoding="utf-8", errors="ignore"), source)
+            return _requirements(
+                path.read_text(encoding="utf-8", errors="ignore"), source
+            )
         except OSError:
             return []
     if name == "pyproject.toml" and tomllib:
@@ -143,13 +240,24 @@ def _manifest_components(path: Path) -> list[dict[str, Any]]:
         try:
             raw = tomllib.loads(path.read_text(encoding="utf-8"))
             deps = raw.get("dependencies", {})
-            return [_component(k, v.get("version", "*") if isinstance(v, dict) else v, "cargo", source) for k, v in deps.items()]
+            return [
+                _component(
+                    k,
+                    v.get("version", "*") if isinstance(v, dict) else v,
+                    "cargo",
+                    source,
+                )
+                for k, v in deps.items()
+            ]
         except (OSError, ValueError, TypeError):
             return []
     if name == "go.mod":
         try:
             text = path.read_text(encoding="utf-8", errors="ignore")
-            return [_component(m.group(1), m.group(2), "generic", source) for m in re.finditer(r"^\s*([\w./-]+)\s+(v[0-9][^\s]+)", text, re.M)]
+            return [
+                _component(m.group(1), m.group(2), "generic", source)
+                for m in re.finditer(r"^\s*([\w./-]+)\s+(v[0-9][^\s]+)", text, re.M)
+            ]
         except OSError:
             return []
     return []
@@ -159,9 +267,22 @@ def _scan(root: Path, limit: int) -> tuple[list[dict[str, Any]], int, bool]:
     components: list[dict[str, Any]] = []
     files = 0
     truncated = False
-    manifests = {"package.json", "package-lock.json", "requirements.txt", "requirements-dev.txt", "pyproject.toml", "Cargo.toml", "go.mod", "composer.json"}
+    manifests = {
+        "package.json",
+        "package-lock.json",
+        "requirements.txt",
+        "requirements-dev.txt",
+        "pyproject.toml",
+        "Cargo.toml",
+        "go.mod",
+        "composer.json",
+    }
     for path in sorted(root.rglob("*"), key=lambda p: p.as_posix()):
-        if path.is_symlink() or not path.is_file() or any(part in _SKIP_DIRS for part in path.relative_to(root).parts):
+        if (
+            path.is_symlink()
+            or not path.is_file()
+            or any(part in _SKIP_DIRS for part in path.relative_to(root).parts)
+        ):
             continue
         files += 1
         if files > limit:
@@ -183,7 +304,9 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         workdir = Path.cwd().resolve()
         root = _inside(str(args.get("root", ".") or "."), workdir)
-        outdir = _inside(str(args.get("output_dir", "outputs/sbom") or "outputs/sbom"), workdir)
+        outdir = _inside(
+            str(args.get("output_dir", "outputs/sbom") or "outputs/sbom"), workdir
+        )
         if not root.is_dir():
             raise ValueError("root must be an existing directory")
         limit = int(args.get("max_files", 10000))
@@ -202,18 +325,82 @@ def run_tool(args: dict[str, Any]) -> str:
         components, scanned, truncated = _scan(root, limit)
         clean = [_clean(c) for c in components]
         serial = str(uuid.uuid5(uuid.NAMESPACE_URL, f"{root}:{project}"))
-        cdx = {"bomFormat": "CycloneDX", "specVersion": "1.5", "serialNumber": f"urn:uuid:{serial}", "version": 1, "metadata": {"component": {"type": "application", "name": project, "bom-ref": f"root:{project}"}}, "components": clean}
+        cdx = {
+            "bomFormat": "CycloneDX",
+            "specVersion": "1.5",
+            "serialNumber": f"urn:uuid:{serial}",
+            "version": 1,
+            "metadata": {
+                "component": {
+                    "type": "application",
+                    "name": project,
+                    "bom-ref": f"root:{project}",
+                }
+            },
+            "components": clean,
+        }
         spdx_id = f"SPDXRef-DOCUMENT-{serial}"
         spdx_components = []
         for c in clean:
-            spdx_components.append({"SPDXID": "SPDXRef-" + hashlib.sha1(c["bom-ref"].encode()).hexdigest()[:16], "name": c["name"], "versionInfo": c["version"], "downloadLocation": c["purl"], "filesAnalyzed": False, "licenseConcluded": "NOASSERTION", "licenseDeclared": "NOASSERTION", "copyrightText": "NOASSERTION"})
-        spdx = {"spdxVersion": "SPDX-2.3", "dataLicense": "CC0-1.0", "SPDXID": spdx_id, "name": project, "documentNamespace": f"https://spdx.org/spdxdocs/{serial}", "creationInfo": {"creators": ["Tool: uagent sbom_generate"]}, "packages": spdx_components, "relationships": [{"spdxElementId": spdx_id, "relationshipType": "DESCRIBES", "relatedSpdxElement": p["SPDXID"]} for p in spdx_components]}
+            spdx_components.append(
+                {
+                    "SPDXID": "SPDXRef-"
+                    + hashlib.sha1(c["bom-ref"].encode()).hexdigest()[:16],
+                    "name": c["name"],
+                    "versionInfo": c["version"],
+                    "downloadLocation": c["purl"],
+                    "filesAnalyzed": False,
+                    "licenseConcluded": "NOASSERTION",
+                    "licenseDeclared": "NOASSERTION",
+                    "copyrightText": "NOASSERTION",
+                }
+            )
+        spdx = {
+            "spdxVersion": "SPDX-2.3",
+            "dataLicense": "CC0-1.0",
+            "SPDXID": spdx_id,
+            "name": project,
+            "documentNamespace": f"https://spdx.org/spdxdocs/{serial}",
+            "creationInfo": {"creators": ["Tool: uagent sbom_generate"]},
+            "packages": spdx_components,
+            "relationships": [
+                {
+                    "spdxElementId": spdx_id,
+                    "relationshipType": "DESCRIBES",
+                    "relatedSpdxElement": p["SPDXID"],
+                }
+                for p in spdx_components
+            ],
+        }
         outdir.mkdir(parents=True, exist_ok=True)
-        paths = {"cyclonedx": outdir / "bom.cyclonedx.json", "spdx": outdir / "bom.spdx.json"}
+        paths = {
+            "cyclonedx": outdir / "bom.cyclonedx.json",
+            "spdx": outdir / "bom.spdx.json",
+        }
         if not overwrite and any(p.exists() for p in paths.values()):
-            raise FileExistsError("SBOM output exists; set overwrite=true to replace it")
-        paths["cyclonedx"].write_text(json.dumps(cdx, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        paths["spdx"].write_text(json.dumps(spdx, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        return json.dumps({"ok": True, "root": root.as_posix(), "scanned_files": scanned, "truncated": truncated, "component_count": len(clean), "optional_dependencies": optional_status, "cyclonedx_path": paths["cyclonedx"].as_posix(), "spdx_path": paths["spdx"].as_posix(), "cyclonedx": cdx, "spdx": spdx}, ensure_ascii=False)
+            raise FileExistsError(
+                "SBOM output exists; set overwrite=true to replace it"
+            )
+        paths["cyclonedx"].write_text(
+            json.dumps(cdx, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        paths["spdx"].write_text(
+            json.dumps(spdx, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        return json.dumps(
+            {
+                "ok": True,
+                "root": root.as_posix(),
+                "scanned_files": scanned,
+                "truncated": truncated,
+                "component_count": len(clean),
+                "optional_dependencies": optional_status,
+                "cyclonedx_path": paths["cyclonedx"].as_posix(),
+                "spdx_path": paths["spdx"].as_posix(),
+                "cyclonedx": cdx,
+                "spdx": spdx,
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
         return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
