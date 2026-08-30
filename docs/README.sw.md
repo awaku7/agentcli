@@ -310,7 +310,7 @@ Tazama [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUT
 Kwa usakinishaji wa ndani wenye rasilimali chache, tumia `--embedded` na upakie wazi zana zinazohitajika na programu pekee.
 Katika hali iliyopachikwa, `--tool-genre-mask` hupuuzwa; chaguo zinazorudiwa za `--enable-tool` hudumisha mpangilio uliobainishwa wa zana.
 
-Tazama [marejeleo ya matumizi ya CLI](USAGE.sw.md).
+Tazama [marejeleo ya matumizi ya CLI](USAGE.md).
 
 ### Uthibitisho wa binadamu
 
@@ -428,3 +428,11 @@ na endesha ukaguzi ulio hapo juu kabla ya kutuma pull request.
 ## Leseni
 
 Imepewa leseni chini ya [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Uwezo wa hivi karibuni
+
+- `translate_text` inaunga mkono Google Translate na mteja rasmi wa DeepL Python kupitia `provider=auto`, `provider=deepl`, au `provider=google`.
+- Ufafanuzi wa zana unapatikana katika lugha 37 pamoja na Kiingereza (jumla 38), huku nafasi za kuweka maandishi na vitambulisho vya kiufundi vikihifadhiwa.
+- `set_timer` inaunga mkono utekelezaji wa LLM uliopangwa na unaoendelea, ulinzi wa zana zinazohitajika, utekelezaji wa moja kwa moja wa zana moja iliyokubaliwa, jaribio tena, na muda wa kuchelewa.
+
+Tazama [Vigezo vya mazingira](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Mbinu ya tafsiri](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), na [nyaraka za `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

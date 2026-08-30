@@ -2,6 +2,11 @@
 
 > A README in your language — because AI should speak yours.
 
+All 37 localized README files now include the current DeepL/Google translation
+provider options, the 38-locale tool-definition coverage, and the latest
+`set_timer` scheduling capabilities. Technical names, provider identifiers, and
+links remain unchanged across translations.
+
 ### East Asian
 
 | Language | File |

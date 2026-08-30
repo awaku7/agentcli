@@ -227,9 +227,18 @@ class ScheckWorker(QtCore.QObject):
                 run = scheduled_run_store.get(run_id)
                 metadata = dict((run.metadata if run else {}) or {})
                 try:
+                    from ..scheduler import required_tools_guard
+
+                    def _execute_scheduled(_payload):
+                        with required_tools_guard(
+                            metadata.get("required_tools") or [],
+                            reason=f"scheduled run:{run_id}",
+                        ):
+                            return _run_lifecycle(*args, **kwargs)
+
                     result = SchedulerWorker(scheduled_run_store).execute(
                         run_id,
-                        lambda _payload: _run_lifecycle(*args, **kwargs),
+                        _execute_scheduled,
                         timeout_sec=float(metadata.get("timeout_sec") or 0),
                         retry_limit=int(metadata.get("retry_limit") or 0),
                         retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
@@ -248,6 +257,36 @@ class ScheckWorker(QtCore.QObject):
                     except Exception:
                         pass
                     return result
+
+            def _run_direct_event(event):
+                run_id = str(event.get("run_id") or "").strip()
+                if not run_id:
+                    raise RuntimeError("direct scheduled event has no run_id")
+                run = scheduled_run_store.get(run_id)
+                metadata = dict((run.metadata if run else {}) or {})
+                target_tool = str(metadata.get("target_tool") or "").strip()
+                target_args = metadata.get("target_args") or {}
+                required = list(metadata.get("required_tools") or [])
+                if target_tool and target_tool not in required:
+                    required.append(target_tool)
+                from ..scheduler import execute_direct_tool, required_tools_guard
+
+                def _execute_scheduled(_payload):
+                    with required_tools_guard(
+                        required,
+                        reason=f"scheduled direct run:{run_id}",
+                    ):
+                        return execute_direct_tool(target_tool, target_args)
+
+                result = SchedulerWorker(scheduled_run_store).execute(
+                    run_id,
+                    _execute_scheduled,
+                    timeout_sec=float(metadata.get("timeout_sec") or 0),
+                    retry_limit=int(metadata.get("retry_limit") or 0),
+                    retry_backoff_sec=int(metadata.get("retry_backoff_sec") or 0),
+                )
+                print(f"[SCHEDULE] direct tool {target_tool} completed: {result}")
+                return result
 
             while not self._stop.is_set():
                 try:
@@ -305,6 +344,12 @@ class ScheckWorker(QtCore.QObject):
                         notice = (ev.get("text", "") or "").strip()
                         if notice:
                             print("[INFO] " + notice)
+                        continue
+                    elif kind == "scheduled_direct":
+                        try:
+                            _run_direct_event(ev)
+                        except Exception as exc:
+                            print(f"[SCHEDULE] direct tool failed: {exc}")
                         continue
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")

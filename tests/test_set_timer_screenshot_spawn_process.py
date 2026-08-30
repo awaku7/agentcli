@@ -51,7 +51,12 @@ def test_set_timer_creates_persistent_schedule_with_prompt(
     monkeypatch.setattr(set_timer_tool, "utc_now", lambda: fixed_now)
 
     out = set_timer_tool.run_tool(
-        {"seconds": 1, "message": "done", "on_timeout_prompt": "auto"}
+        {
+            "seconds": 1,
+            "message": "done",
+            "on_timeout_prompt": "auto",
+            "required_tools": ["excel_ops"],
+        }
     )
 
     item = captured["item"]
@@ -61,6 +66,7 @@ def test_set_timer_creates_persistent_schedule_with_prompt(
     assert item.llm_prompt == "auto"
     assert item.enabled is True
     assert item.interval_sec == 0
+    assert item.required_tools == ["excel_ops"]
     assert item.type == set_timer_tool.SCHEDULE_TYPE_ONCE
     assert item.at == set_timer_tool.format_iso_datetime(
         fixed_now + timedelta(seconds=1)
@@ -89,6 +95,47 @@ def test_set_timer_defaults_message_and_prompt(monkeypatch: pytest.MonkeyPatch) 
     assert item.message == "Timer finished"
     assert item.llm_prompt == ""
     assert item.at == set_timer_tool.format_iso_datetime(fixed_now)
+
+
+def test_set_timer_creates_direct_tool_schedule(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    set_timer_tool = _set_timer_module(monkeypatch)
+    captured: dict[str, object] = {}
+
+    class DummyStore:
+        def add_item(self, item):
+            captured["item"] = item
+            return item
+
+    monkeypatch.setattr(set_timer_tool, "SchedulerStore", lambda: DummyStore())
+    out = set_timer_tool.run_tool(
+        {
+            "seconds": 10,
+            "execution_mode": "direct",
+            "target_tool": "calculator",
+            "target_args": {"expression": "2+2"},
+        }
+    )
+
+    item = captured["item"]
+    assert out.startswith("[set_timer]")
+    assert item.execution_mode == "direct"
+    assert item.target_tool == "calculator"
+    assert item.target_args == {"expression": "2+2"}
+
+
+def test_set_timer_rejects_direct_os_schedule(monkeypatch: pytest.MonkeyPatch) -> None:
+    set_timer_tool = _set_timer_module(monkeypatch)
+    out = set_timer_tool.run_tool(
+        {
+            "seconds": 10,
+            "os_persist": True,
+            "execution_mode": "direct",
+            "target_tool": "calculator",
+        }
+    )
+    assert "not supported" in out
 
 
 def test_screenshot_errors_when_pyautogui_missing(

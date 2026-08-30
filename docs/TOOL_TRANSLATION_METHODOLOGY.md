@@ -23,12 +23,14 @@ Each tool JSON has the following structure (per language):
 }
 ```
 
-## Supported Languages (33)
+## Supported Languages (37 locales, 38 including English)
 
 | Language | Code |
 |-------------------|---------|
 | Arabic | ar |
 | Bengali | bn |
+| Danish | da |
+| Filipino (Tagalog) | fil |
 | Czech | cs |
 | German | de |
 | Greek | el |
@@ -45,7 +47,9 @@ Each tool JSON has the following structure (per language):
 | Korean | ko |
 | Mongolian | mn |
 | Marathi | mr |
+| Malay | ms |
 | Norwegian Bokmål | nb |
+| Norwegian Nynorsk | nn |
 | Dutch | nl |
 | Polish | pl |
 | Portuguese | pt |
@@ -61,6 +65,25 @@ Each tool JSON has the following structure (per language):
 | Chinese (Simpl.) | zh_CN |
 | Chinese (Trad.) | zh_TW |
 
+## Provider and locale routing
+
+`translate_text` accepts `provider=auto`, `provider=deepl`, or `provider=google`.
+`auto` selects DeepL when the authentication key and target locale are available;
+otherwise it uses Google Translate. DeepL mappings follow the official API codes,
+including `fil` → `TL`, `zh_CN` → `ZH-HANS`, and `zh_TW` → `ZH-HANT`.
+Regional English and Portuguese source codes are normalized before sending a
+request.
+
+For large batches, use `scripts/tool_json_i18n_batch.py` with a deliberate
+provider and a non-zero `--sleep` interval. The script preserves JSON structure,
+protects placeholders, writes QC metadata, and supports resumable extract,
+translate, and merge stages:
+
+```text
+python scripts/tool_json_i18n_batch.py run --tools set_timer \
+  --langs ja,de,fr --provider deepl --sleep 2 --apply
+```
+
 ## Data Flow
 
 ```
@@ -70,7 +93,7 @@ Source of truth (English)
        │
        ├──→ x_search_terms_en → Python .py file (for catalog search)
        │
-       └──→ translate_text API → 33 languages → tool JSON (each lang)
+       └──→ translate_text API → provider-selected 37 locales → tool JSON (each lang)
 ```
 
 ### 1. English x_search_terms (JSON)

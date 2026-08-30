@@ -310,7 +310,7 @@ Vezi [Pilot automat](https://github.com/awaku7/agentcli/blob/main/docs/README_AU
 Pentru implementări locale restricționate, utilizați `--embedded` și încărcați explicit doar instrumentele necesare aplicației.
 În modul încorporat, `--tool-genre-mask` este ignorat, iar opțiunile repetate `--enable-tool` păstrează ordinea specificată a instrumentelor.
 
-Consultați [referința de utilizare a CLI](USAGE.ro.md).
+Consultați [referința de utilizare a CLI](USAGE.md).
 
 ### Confirmarea umană
 
@@ -428,3 +428,11 @@ Te rugăm să deschizi un issue sau o discuție înainte de modificări ample. C
 ## Licență
 
 Licențiat sub [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Funcționalități recente
+
+- `translate_text` acceptă Google Translate și clientul oficial DeepL pentru Python prin intermediul `provider=auto`, `provider=deepl` sau `provider=google`.
+- Definițiile instrumentelor sunt disponibile în 37 de seturi de localizare plus engleză (38 în total), cu păstrarea substituenților și a identificatorilor tehnici.
+- `set_timer` acceptă rulări programate persistente ale instrumentelor LLM, protecția instrumentelor obligatorii, executarea directă a unui instrument aprobat, încercări repetate și limite de timp.
+
+Consultați [Variabilele de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia de traducere](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) și [documentația `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

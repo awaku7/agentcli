@@ -213,6 +213,24 @@ The LM Studio SDK transport does not use `UAGENT_RESPONSES` or `previous_respons
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
+#### DeepL translation
+
+Used by `translate_text` when `provider=deepl`, or automatically when `provider=auto` and a DeepL key is configured. The `deepl` Python package is installed on demand or can be installed through the `tools` optional dependency.
+
+- `UAGENT_DEEPL_AUTH_KEY` (optional): DeepL API authentication key.
+- `DEEPL_AUTH_KEY` / `DEEPL_API_KEY` (optional aliases): accepted for compatibility.
+
+Provider selection for `translate_text`:
+
+- `auto`: use DeepL when a key and a supported target are available; otherwise use Google Translate.
+- `deepl`: require DeepL and fail clearly for unsupported targets.
+- `google`: force Google Translate.
+
+DeepL locale mappings include `fil` → `TL` (Tagalog), `zh_CN` → `ZH-HANS`,
+`zh_TW` → `ZH-HANT`, and regional English/Portuguese source codes are normalized
+for source-language requests. See the official language list:
+<https://developers.deepl.com/docs/getting-started/supported-languages>
+
 #### Google Cloud Settings
 
 Used by Gemini / Vertex AI features that need Google Cloud access.

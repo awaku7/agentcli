@@ -310,7 +310,7 @@ Zobacz [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUT
 W przypadku ograniczonych wdrożeń lokalnych użyj `--embedded` i jawnie załaduj tylko narzędzia potrzebne aplikacji.
 W trybie osadzonym `--tool-genre-mask` jest ignorowany, a powtarzane opcje `--enable-tool` zachowują podaną kolejność narzędzi.
 
-Zobacz [dokumentację użycia CLI](USAGE.pl.md).
+Zobacz [dokumentację użycia CLI](USAGE.md).
 
 ### Potwierdzenie użytkownika
 
@@ -428,3 +428,11 @@ i uruchom powyższe kontrole przed wysłaniem pull requesta.
 ## Licencja
 
 Na licencji [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Najnowsze funkcje
+
+- `translate_text` obsługuje Google Translate oraz oficjalny klient DeepL dla języka Python poprzez ustawienia `provider=auto`, `provider=deepl` lub `provider=google`.
+- Definicje narzędzi są dostępne w 37 lokalizacjach oraz w języku angielskim (łącznie 38), z zachowaniem symboli zastępczych i identyfikatorów technicznych.
+- `set_timer` obsługuje trwałe, zaplanowane uruchomienia LLM, ochronę wymaganych narzędzi, bezpośrednie uruchamianie jednego zatwierdzonego narzędzia, ponowne próby oraz limity czasu.
+
+Zobacz [Zmienne środowiskowe](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia tłumaczenia](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) oraz [dokumentację `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

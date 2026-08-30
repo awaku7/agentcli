@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from datetime import timedelta
 from typing import Any
 from uuid import uuid4
@@ -100,7 +101,44 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.job_name.description",
-                        default="Job name (required for action=delete, auto-generated for action=create).",
+                        default="Job name (required for OS action=delete, auto-generated for OS action=create).",
+                    ),
+                },
+                "schedule_id": {
+                    "type": "string",
+                    "description": _(
+                        "param.schedule_id.description",
+                        default="Internal schedule ID (required to delete an in-process timer).",
+                    ),
+                },
+                "required_tools": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.required_tools.description",
+                        default="Tool names that must be loaded and protected while this timer's LLM run executes.",
+                    ),
+                },
+                "execution_mode": {
+                    "type": "string",
+                    "enum": ["llm", "direct"],
+                    "description": _(
+                        "param.execution_mode.description",
+                        default="Run through the LLM (llm) or execute one explicit tool directly (direct).",
+                    ),
+                },
+                "target_tool": {
+                    "type": "string",
+                    "description": _(
+                        "param.target_tool.description",
+                        default="Tool name for execution_mode=direct, for example 'excel_ops'.",
+                    ),
+                },
+                "target_args": {
+                    "type": "object",
+                    "description": _(
+                        "param.target_args.description",
+                        default="Arguments passed to target_tool for execution_mode=direct.",
                     ),
                 },
             },
@@ -146,16 +184,75 @@ def _run_create(args: dict[str, Any]) -> str:
     )
     on_timeout_prompt = args.get("on_timeout_prompt")
     llm_prompt = "" if on_timeout_prompt is None else str(on_timeout_prompt)
+    raw_required_tools = args.get("required_tools") or []
+    if isinstance(raw_required_tools, str):
+        required_tools = (
+            [raw_required_tools.strip()] if raw_required_tools.strip() else []
+        )
+    elif isinstance(raw_required_tools, (list, tuple, set, frozenset)):
+        required_tools = [
+            str(name).strip() for name in raw_required_tools if str(name).strip()
+        ]
+    else:
+        required_tools = []
+
+    execution_mode = str(args.get("execution_mode") or "llm").strip().lower()
+    if execution_mode not in {"llm", "direct"}:
+        return _(
+            "err.execution_mode_invalid",
+            default="[set_timer error] execution_mode must be 'llm' or 'direct'",
+        )
+    target_tool = str(args.get("target_tool") or "").strip()
+    target_args = args.get("target_args") or {}
+    if isinstance(target_args, str):
+        try:
+            target_args = json.loads(target_args)
+        except (TypeError, ValueError):
+            return _(
+                "err.target_args_json",
+                default="[set_timer error] target_args must be a JSON object",
+            )
+    if not isinstance(target_args, dict):
+        return _(
+            "err.target_args_type",
+            default="[set_timer error] target_args must be an object",
+        )
+    if execution_mode == "direct" and not target_tool:
+        return _(
+            "err.target_tool_required",
+            default="[set_timer error] target_tool is required for execution_mode=direct",
+        )
 
     os_persist = bool(args.get("os_persist", False))
 
     if os_persist:
+        if execution_mode == "direct":
+            return _(
+                "err.direct_os_persist",
+                default="[set_timer error] direct execution is not supported with os_persist=True",
+            )
         return _run_create_os(seconds, message, llm_prompt)
-    else:
-        return _run_create_internal(seconds, message, llm_prompt)
+    return _run_create_internal(
+        seconds,
+        message,
+        llm_prompt,
+        required_tools,
+        execution_mode=execution_mode,
+        target_tool=target_tool,
+        target_args=target_args,
+    )
 
 
-def _run_create_internal(seconds: int, message: str, llm_prompt: str) -> str:
+def _run_create_internal(
+    seconds: int,
+    message: str,
+    llm_prompt: str,
+    required_tools: list[str],
+    *,
+    execution_mode: str = "llm",
+    target_tool: str = "",
+    target_args: dict[str, Any] | None = None,
+) -> str:
     schedule = ScheduleItem(
         id=str(uuid4()),
         type=SCHEDULE_TYPE_ONCE,
@@ -163,14 +260,23 @@ def _run_create_internal(seconds: int, message: str, llm_prompt: str) -> str:
         message=message,
         llm_prompt=llm_prompt,
         interval_sec=0,
+        required_tools=required_tools,
+        execution_mode=execution_mode,
+        target_tool=target_tool,
+        target_args=dict(target_args or {}),
         enabled=True,
     )
     SchedulerStore().add_item(schedule)
 
     return _(
-        "out.ok",
-        default="[set_timer] Timer set for {seconds} seconds: {message} (on_timeout_prompt={prompt})",
-    ).format(seconds=seconds, message=message, prompt=repr(llm_prompt or None))
+        "out.ok_internal",
+        default="[set_timer] Timer set for {seconds} seconds: {message} (schedule_id={schedule_id}, on_timeout_prompt={prompt})",
+    ).format(
+        seconds=seconds,
+        message=message,
+        schedule_id=schedule.id,
+        prompt=repr(llm_prompt or None),
+    )
 
 
 def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
@@ -214,6 +320,19 @@ def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
 
 
 def _run_delete(args: dict[str, Any]) -> str:
+    schedule_id = str(args.get("schedule_id") or "").strip()
+    if schedule_id:
+        deleted = SchedulerStore().delete_item(schedule_id)
+        if deleted:
+            return _(
+                "out.internal_delete_ok",
+                default="[set_timer] Internal schedule deleted: {schedule_id}",
+            ).format(schedule_id=schedule_id)
+        return _(
+            "err.internal_delete_not_found",
+            default="[set_timer error] Internal schedule not found: {schedule_id}",
+        ).format(schedule_id=schedule_id)
+
     job_name = str(args.get("job_name") or "").strip()
     if not job_name:
         return _(
@@ -236,14 +355,27 @@ def _run_delete(args: dict[str, Any]) -> str:
 
 
 def _run_list() -> str:
-    schedules = list_os_schedules()
-    if not schedules:
+    internal = SchedulerStore().list_items()
+    os_schedules = list_os_schedules()
+    if not internal and not os_schedules:
         return _(
             "out.list_empty",
-            default="[set_timer] No OS schedules found.",
+            default="[set_timer] No schedules found.",
         )
 
-    lines: list[str] = [_("out.list_header", default="[set_timer] OS schedules:")]
-    for s in schedules:
-        lines.append(f"  - {s.get('job_name', '?')}")
+    lines: list[str] = [_("out.list_header", default="[set_timer] Schedules:")]
+    for item in internal:
+        lines.append(
+            _(
+                "out.list_internal_item",
+                default="  - internal: {schedule_id} at {at} ({mode})",
+            ).format(schedule_id=item.id, at=item.at, mode=item.execution_mode)
+        )
+    for schedule in os_schedules:
+        lines.append(
+            _(
+                "out.list_os_item",
+                default="  - OS: {job_name}",
+            ).format(job_name=schedule.get("job_name", "?"))
+        )
     return "\n".join(lines)

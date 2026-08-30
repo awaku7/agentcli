@@ -310,7 +310,7 @@ Tingnan ang [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/READM
 Para sa limitadong lokal na deployment, gamitin ang `--embedded` at tahasang i-load lamang ang mga tool na kailangan ng application.
 Sa naka-embed na mode, binabalewala ang `--tool-genre-mask`; pinananatili ng paulit-ulit na `--enable-tool` ang itinakdang pagkakasunod-sunod ng mga tool.
 
-Tingnan ang [reference sa paggamit ng CLI](USAGE.fil.md).
+Tingnan ang [reference sa paggamit ng CLI](USAGE.md).
 
 ### Kumpirmasyon ng tao
 
@@ -428,3 +428,11 @@ at patakbuhin ang mga pagsusuri sa itaas bago magsumite ng pull request.
 ## Lisensya
 
 Lisensyado sa ilalim ng [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Mga kamakailang kakayahan
+
+- Sinusuportahan ng `translate_text` ang Google Translate at ang opisyal na DeepL Python client sa pamamagitan ng `provider=auto`, `provider=deepl`, o `provider=google`.
+- Magagamit ang mga kahulugan ng tool sa 37 na lokalidad at Ingles (38 kabuuan), na pinananatili ang mga placeholder at teknikal na identifier.
+- Sinusuportahan ng `set_timer` ang tuloy-tuloy na naka-iskedyul na pagpapatakbo ng LLM, proteksyon para sa kinakailangang tool, direktang pagpapatakbo ng isang aprubadong tool, muling pagtatangka, at mga timeout.
+
+Tingnan ang [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Translation methodology](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), at [dokumentasyon ng `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

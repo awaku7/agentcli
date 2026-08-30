@@ -302,7 +302,7 @@ Auto-pilot थांबवण्यासाठी **F12** किंवा curre
 मर्यादित स्थानिक उपयोजनांसाठी `--embedded` वापरा आणि अनुप्रयोगाला आवश्यक असलेलीच साधने स्पष्टपणे लोड करा.
 एम्बेडेड मोडमध्ये `--tool-genre-mask` दुर्लक्षित केला जातो; वारंवार दिलेले `--enable-tool` पर्याय साधनांचा निर्दिष्ट क्रम कायम ठेवतात.
 
-[CLI वापर संदर्भ](USAGE.mr.md) पहा.
+[CLI वापर संदर्भ](USAGE.md) पहा.
 
 ### Human confirmation
 
@@ -412,3 +412,11 @@ Bug reports, feature ideas, documentation improvements, translations, tools, ski
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## अलीकडील क्षमता
+
+- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
+- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
+- `set_timer` कायमस्वरूपी नियोजित LLM धावांना, आवश्यक-साधन संरक्षणाला, एका मंजूर साधनाची थेट अंमलबजावणी, पुन्हा प्रयत्न आणि टाइमआउट्सना समर्थन देते.
+
+[पर्यावरण चल](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) आणि [अनुवाद पद्धत](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), आणि [`set_timer` दस्तऐवजीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

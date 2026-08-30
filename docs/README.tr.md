@@ -290,7 +290,7 @@ Bkz. [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.
 Kısıtlı yerel dağıtımlar için `--embedded` kullanın ve yalnızca uygulamanın gerektirdiği araçları açıkça yükleyin.
 Gömülü modda `--tool-genre-mask` yok sayılır; yinelenen `--enable-tool` seçenekleri belirtilen araç sırasını korur.
 
-[CLI kullanım başvurusuna](USAGE.tr.md) bakın.
+[CLI kullanım başvurusuna](USAGE.md) bakın.
 
 ### İnsan onayı
 
@@ -398,3 +398,11 @@ Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçla
 ## Lisans
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) kapsamında lisanslanmıştır.
+
+## Son özellikler
+
+- `translate_text`, `provider=auto`, `provider=deepl` veya `provider=google` seçenekleri aracılığıyla Google Translate’ı ve resmi DeepL Python istemcisini destekler.
+- Araç tanımları, yer tutucular ve teknik tanımlayıcılar korunmuş olarak 37 dilde ve İngilizce’de (toplam 38) mevcuttur.
+- `set_timer`, kalıcı zamanlanmış LLM çalıştırmalarını, gerekli araç korumasını, onaylanmış bir aracın doğrudan çalıştırılmasını, yeniden denemeleri ve zaman aşımlarını destekler.
+
+Bkz. [Ortam değişkenleri](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Çeviri metodolojisi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) ve [`set_timer` belgelerine](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) bakın.

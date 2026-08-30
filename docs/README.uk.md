@@ -310,7 +310,7 @@ python -m pip install PySide6 ewmh dbus-next
 Для обмежених локальних розгортань використовуйте `--embedded` і явно завантажуйте лише інструменти, потрібні застосунку.
 У вбудованому режимі `--tool-genre-mask` ігнорується, а повторювані параметри `--enable-tool` зберігають заданий порядок інструментів.
 
-Див. [довідник використання CLI](USAGE.uk.md).
+Див. [довідник використання CLI](USAGE.md).
 
 ### Підтвердження людиною
 
@@ -428,3 +428,11 @@ python -m pytest -q .
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Останні можливості
+
+- `translate_text` підтримує Google Translate та офіційний Python-клієнт DeepL за допомогою параметрів `provider=auto`, `provider=deepl` або `provider=google`.
+- Визначення інструментів доступні в 37 локалях плюс англійська (всього 38), із збереженням заповнювачів та технічних ідентифікаторів.
+- `set_timer` підтримує постійні заплановані запуски LLM, захист обов’язкових інструментів, безпосереднє виконання одного затвердженого інструменту, повторні спроби та ліміти часу.
+
+Див. [Змінні середовища](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Методологію перекладу](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) та [документацію щодо `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

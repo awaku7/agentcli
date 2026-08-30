@@ -310,7 +310,7 @@ python -m pip install PySide6 ewmh dbus-next
 Για περιορισμένες τοπικές εγκαταστάσεις, χρησιμοποιήστε `--embedded` και φορτώστε ρητά μόνο τα εργαλεία που χρειάζεται η εφαρμογή.
 Στην ενσωματωμένη λειτουργία, το `--tool-genre-mask` αγνοείται, ενώ οι επαναλαμβανόμενες επιλογές `--enable-tool` διατηρούν την καθορισμένη σειρά εργαλείων.
 
-Δείτε την [αναφορά χρήσης του CLI](USAGE.el.md).
+Δείτε την [αναφορά χρήσης του CLI](USAGE.md).
 
 ### Επιβεβαίωση από άνθρωπο
 
@@ -428,3 +428,11 @@ python -m pytest -q .
 ## Άδεια χρήσης
 
 Διατίθεται με την [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Πρόσφατες δυνατότητες
+
+- Το `translate_text` υποστηρίζει το Google Translate και τον επίσημο πελάτη DeepL για Python μέσω των ρυθμίσεων `provider=auto`, `provider=deepl` ή `provider=google`.
+- Οι ορισμοί των εργαλείων είναι διαθέσιμοι σε 37 γλώσσες συν τα Αγγλικά (38 συνολικά), με τη διατήρηση των placeholders και των τεχνικών αναγνωριστικών.
+- Το `set_timer` υποστηρίζει μόνιμες προγραμματισμένες εκτελέσεις του LLM, προστασία απαιτούμενων εργαλείων, άμεση εκτέλεση ενός εγκεκριμένου εργαλείου, επαναλήψεις και χρονικά όρια.
+
+Δείτε τις [Μεταβλητές περιβάλλοντος](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), τη [Μεθοδολογία μετάφρασης](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) και την [τεκμηρίωση του `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

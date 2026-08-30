@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Universal AI Gateway</strong><br>
-  One local agent. Any model. Any tool. Your environment, your rules.
+  Yksi paikallinen agentti. Mikä tahansa malli. Mikä tahansa työkalu. Sinun ympäristösi, sinun sääntösi.
 </p>
 
 <p align="center">
@@ -310,7 +310,7 @@ Katso [autopilotti](https://github.com/awaku7/agentcli/blob/main/docs/README_AUT
 Käytä rajoitetuissa paikallisissa asennuksissa asetusta `--embedded` ja lataa erikseen vain sovelluksen tarvitsemat työkalut.
 Sulautetussa tilassa `--tool-genre-mask` ohitetaan, ja toistuvat `--enable-tool`-asetukset säilyttävät määritetyn työkalujärjestyksen.
 
-Katso [CLI:n käyttöohje](USAGE.fi.md).
+Katso [CLI:n käyttöohje](USAGE.md).
 
 ### Ihmisen vahvistus
 
@@ -428,3 +428,11 @@ ja suorita yllä olevat tarkistukset ennen pull requestin lähettämistä.
 ## Lisenssi
 
 Lisensoitu [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) -lisenssillä.
+
+## Uusimmat ominaisuudet
+
+- `translate_text` tukee Google Translate:aa ja virallista DeepL-Python-asiakasohjelmaa asetuksilla `provider=auto`, `provider=deepl` tai `provider=google`.
+- Työkalumääritelmät ovat saatavilla 37 kieliversiossa sekä englanniksi (yhteensä 38), ja paikkamerkit sekä tekniset tunnisteet säilytetään.
+- `set_timer` tukee pysyviä, aikataulutettuja LLM-ajokertoja, pakollisten työkalujen suojausta, yhden hyväksytyn työkalun suoraa suorittamista, uudelleenkokeiluja ja aikakatkaisuja.
+
+Katso [Ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Käännösmenetelmä](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sekä [`set_timer`-dokumentaatio](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

@@ -125,11 +125,25 @@ class SchedulerService:
                         "retry_limit": item.retry_limit,
                         "retry_backoff_sec": item.retry_backoff_sec,
                         "timeout_sec": item.timeout_sec,
+                        "required_tools": list(item.required_tools),
+                        "execution_mode": item.execution_mode,
+                        "target_tool": item.target_tool,
+                        "target_args": dict(item.target_args),
                     },
                 )
                 run_id = run.run_id
             except Exception:
                 run_id = ""
+                # The due item was already removed/advanced above. Restore its
+                # due timestamp so a transient run-store failure does not drop
+                # the scheduled execution permanently.
+                try:
+                    item.at = due_at
+                    item.touch()
+                    self._store.add_item(item)
+                except Exception:
+                    pass
+                continue
             base = {
                 "schedule_id": item.id,
                 "schedule_type": item.type,
@@ -138,7 +152,9 @@ class SchedulerService:
             }
             if notice:
                 self._emit({"kind": "schedule_notice", "text": notice, **base})
-            if prompt:
+            if item.execution_mode == "direct":
+                self._emit({"kind": "scheduled_direct", **base})
+            elif prompt:
                 self._emit({"kind": "user", "text": prompt, **base})
 
 

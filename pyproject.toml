@@ -57,6 +57,7 @@ tools = [
     "bleak",
     "boto3",
     "catboost",
+    "deepl",
     "CairoSVG",
     "chronos-forecasting",
     "exstruct",

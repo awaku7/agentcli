@@ -326,7 +326,7 @@ UAGENT_MEMORY_DB=
 制約のあるローカル環境では、`--embedded`を使用し、アプリケーションに必要なツールだけを明示的にロードしてください。
 Embeddedモードでは`--tool-genre-mask`は無視され、`--enable-tool`を複数指定した場合は指定順が保持されます。
 
-[CLI使用リファレンス](USAGE.ja.md)を参照してください。
+[CLI使用リファレンス](USAGE.md)を参照してください。
 
 ### 人間による確認
 
@@ -443,3 +443,11 @@ python -m pytest -q .
 ## ライセンス
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)の下でライセンスされています。
+
+## 最新の機能
+
+- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定することで、Google Translate および公式の DeepL Python クライアントをサポートします。
+- ツールの定義は、英語以外の37ロケールに加えて英語でも利用可能であり、合計38言語に対応しています。プレースホルダーや技術的な識別子は保持されます。
+- `set_timer` では、永続的なスケジュールされた LLM 実行、必須ツールの保護、承認済みツールの直接実行、再試行、およびタイムアウトがサポートされています。
+
+[環境変数](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻訳方法論](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)、および [`set_timer` ドキュメント](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)を参照してください。

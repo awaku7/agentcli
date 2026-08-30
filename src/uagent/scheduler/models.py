@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import uuid4
@@ -54,6 +54,10 @@ class ScheduleItem:
     retry_limit: int = 0
     retry_backoff_sec: int = 0
     timeout_sec: int = 0
+    required_tools: list[str] = field(default_factory=list)
+    execution_mode: str = "llm"
+    target_tool: str = ""
+    target_args: dict[str, Any] = field(default_factory=dict)
     enabled: bool = True
     created_at: str = ""
     updated_at: str = ""
@@ -68,6 +72,13 @@ class ScheduleItem:
             message=str(raw.get("message") or ""),
             llm_prompt=str(raw.get("llm_prompt") or raw.get("on_timeout_prompt") or ""),
             interval_sec=_coerce_int(raw.get("interval_sec"), 0),
+            retry_limit=_coerce_int(raw.get("retry_limit"), 0),
+            retry_backoff_sec=_coerce_int(raw.get("retry_backoff_sec"), 0),
+            timeout_sec=_coerce_int(raw.get("timeout_sec"), 0),
+            required_tools=raw.get("required_tools") or [],
+            execution_mode=str(raw.get("execution_mode") or "llm").strip().lower(),
+            target_tool=str(raw.get("target_tool") or "").strip(),
+            target_args=raw.get("target_args") or {},
             enabled=bool(raw.get("enabled", True)),
             created_at=str(raw.get("created_at") or "").strip(),
             updated_at=str(raw.get("updated_at") or "").strip(),
@@ -87,6 +98,25 @@ class ScheduleItem:
         self.retry_limit = max(0, _coerce_int(self.retry_limit, 0))
         self.retry_backoff_sec = max(0, _coerce_int(self.retry_backoff_sec, 0))
         self.timeout_sec = max(0, _coerce_int(self.timeout_sec, 0))
+        if isinstance(self.required_tools, str):
+            self.required_tools = [self.required_tools]
+        if not isinstance(self.required_tools, (list, tuple, set, frozenset)):
+            self.required_tools = []
+        self.required_tools = list(
+            dict.fromkeys(
+                str(name or "").strip()
+                for name in self.required_tools
+                if str(name or "").strip()
+            )
+        )
+        self.execution_mode = str(self.execution_mode or "llm").strip().lower()
+        if self.execution_mode not in {"llm", "direct"}:
+            self.execution_mode = "llm"
+        self.target_tool = str(self.target_tool or "").strip()
+        if not isinstance(self.target_args, dict):
+            self.target_args = {}
+        if self.execution_mode == "direct" and not self.target_tool:
+            raise ValueError("direct schedule requires target_tool")
         self.enabled = bool(self.enabled)
         now = format_iso_datetime(utc_now())
         if not self.created_at:
@@ -139,6 +169,10 @@ class ScheduleItem:
             "retry_limit": self.retry_limit,
             "retry_backoff_sec": self.retry_backoff_sec,
             "timeout_sec": self.timeout_sec,
+            "required_tools": list(self.required_tools),
+            "execution_mode": self.execution_mode,
+            "target_tool": self.target_tool,
+            "target_args": dict(self.target_args),
             "enabled": self.enabled,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

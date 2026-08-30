@@ -235,6 +235,25 @@ SDK transportでは `UAGENT_RESPONSES` と `previous_response_id` は使用し�
 
 > \* **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。
 
+#### DeepL 翻訳
+
+`translate_text`で`provider=deepl`を指定した場合、または`provider=auto`でDeepLのキーが設定されている場合に使用します。`deepl` Pythonパッケージは必要時に自動インストールされるか、`tools`オプション依存関係からインストールできます。
+
+- `UAGENT_DEEPL_AUTH_KEY`（任意）: DeepL API認証キー
+- `DEEPL_AUTH_KEY` / `DEEPL_API_KEY`（任意の別名）: 互換性のため利用可能
+
+`translate_text` のプロバイダー選択：
+
+- `auto`: キーがあり対象言語がDeepL対応ならDeepLを優先し、それ以外はGoogle Translateを使用します。
+- `deepl`: DeepLを強制し、非対応言語は明確なエラーにします。
+- `google`: Google Translateを強制します。
+
+DeepLの主なロケール変換は、`fil` → `TL`（タガログ語）、
+`zh_CN` → `ZH-HANS`、`zh_TW` → `ZH-HANT`です。英語・ポルトガル語の
+地域別ソースコードも、DeepLの入力仕様に合わせて正規化されます。
+対応言語の最新情報は公式ドキュメントを参照してください：
+<https://developers.deepl.com/docs/getting-started/supported-languages>
+
 #### Google Cloud 設定
 
 Gemini / Vertex AI で Google Cloud アクセスが必要な機能で使用します。

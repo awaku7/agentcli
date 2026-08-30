@@ -310,7 +310,7 @@ Lásd az [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_A
 Korlátozott helyi telepítésekhez használja a `--embedded` módot, és csak az alkalmazás által igényelt eszközöket töltse be explicit módon.
 Beágyazott módban a `--tool-genre-mask` figyelmen kívül marad; az ismételt `--enable-tool` kapcsolók megőrzik a megadott eszközsorrendet.
 
-Lásd a [CLI használati referenciát](USAGE.hu.md).
+Lásd a [CLI használati referenciát](USAGE.md).
 
 ### Emberi megerősítés
 
@@ -427,3 +427,11 @@ Nagyobb módosítások előtt kérjük, nyiss egy issue-t vagy indíts egy vitá
 ## Licenc
 
 Az [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) licenc feltételei szerint érhető el.
+
+## Legújabb funkciók
+
+- A `translate_text` támogatja a Google Translate-t és a hivatalos DeepL Python-klienst a `provider=auto`, `provider=deepl` vagy `provider=google` beállításokkal.
+- Az eszközdefiníciók 37 nyelvi változatban és angolul (összesen 38) érhetők el, a helyőrzők és a technikai azonosítók megőrzésével.
+- A `set_timer` támogatja a tartósan ütemezett LLM futtatásokat, a kötelező eszközök védelmét, egy jóváhagyott eszköz közvetlen végrehajtását, az újrapróbálkozásokat és az időkorlátokat.
+
+Lásd: [Környezeti változók](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Fordítási módszertan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) és a [`set_timer` dokumentáció](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) című dokumentumokat.

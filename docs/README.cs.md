@@ -310,7 +310,7 @@ Viz [Autopilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md
 Pro omezená lokální nasazení použijte `--embedded` a explicitně načtěte pouze nástroje, které aplikace potřebuje.
 Ve vestavěném režimu se `--tool-genre-mask` ignoruje; opakované volby `--enable-tool` zachovají zadané pořadí nástrojů.
 
-Viz [referenční příručka CLI](USAGE.cs.md).
+Viz [referenční příručka CLI](USAGE.md).
 
 ### Potvrzení člověkem
 
@@ -428,3 +428,11 @@ a před odesláním pull requestu spusťte výše uvedené kontroly.
 ## Licence
 
 Licencováno pod [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Nejnovější funkce
+
+- `translate_text` podporuje Google Translate a oficiálního klienta DeepL pro Python prostřednictvím `provider=auto`, `provider=deepl` nebo `provider=google`.
+- Definice nástrojů jsou k dispozici v 37 jazykových verzích plus angličtině (celkem 38), přičemž jsou zachovány zástupné symboly a technické identifikátory.
+- `set_timer` podporuje trvalé plánované spouštění LLM, ochranu pomocí povinných nástrojů, přímé spuštění jednoho schváleného nástroje, opakované pokusy a časové limity.
+
+Viz [Proměnné prostředí](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodika překladu](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) a [dokumentaci k `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

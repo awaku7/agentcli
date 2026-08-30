@@ -310,7 +310,7 @@ cloud credentials หรือเซิร์ฟเวอร์ MQTT/OPC UA เ�
 สำหรับการติดตั้งภายในเครื่องที่มีข้อจำกัด ให้ใช้ `--embedded` และโหลดเฉพาะเครื่องมือที่แอปพลิเคชันต้องการอย่างชัดเจน
 ในโหมดฝังตัว ระบบจะไม่สนใจ `--tool-genre-mask` และตัวเลือก `--enable-tool` ที่ระบุซ้ำจะรักษาลำดับเครื่องมือที่กำหนดไว้
 
-ดู [เอกสารอ้างอิงการใช้งาน CLI](USAGE.th.md)
+ดู [เอกสารอ้างอิงการใช้งาน CLI](USAGE.md)
 
 ### การยืนยันโดยมนุษย์
 
@@ -427,3 +427,11 @@ python -m pytest -q .
 ## ใบอนุญาต
 
 เผยแพร่ภายใต้ [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)
+
+## คุณสมบัติล่าสุด
+
+- `translate_text` รองรับ Google Translate และไคลเอนต์ DeepL Python อย่างเป็นทางการผ่าน `provider=auto`, `provider=deepl`, หรือ `provider=google`.
+- การกำหนดเครื่องมือมีพร้อมใน 37 ภาษาท้องถิ่นบวกกับภาษาอังกฤษ (รวม 38 ภาษา) โดยรักษาตัวแทนและตัวระบุทางเทคนิคไว้
+- `set_timer` รองรับการรัน LLM ตามกำหนดการที่คงที่ การป้องกันเครื่องมือที่จำเป็น การดำเนินการโดยตรงของเครื่องมือที่ได้รับการอนุมัติหนึ่งตัว การลองใหม่ และเวลาหมดอายุ
+
+ดู [ตัวแปรสภาพแวดล้อม](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [วิธีการแปล](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) และ [เอกสาร `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

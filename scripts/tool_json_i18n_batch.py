@@ -339,6 +339,7 @@ def translate_lang(
     tmp_dir: Path,
     *,
     source_lang: str,
+    provider: str,
     max_chars: int,
     max_items: int,
     sleep_s: float,
@@ -396,6 +397,7 @@ def translate_lang(
             "texts": batch_texts,
             "target_lang": lang,
             "source_lang": source_lang,
+            "provider": provider,
             "protect_placeholders": True,
             "protect_terms": True,
             "extra_protect_terms": extra_terms,
@@ -412,7 +414,7 @@ def translate_lang(
         return res
 
     def _translate_with_fallback(
-        batch_texts: list[str], *, depth: int = 0
+        batch_texts: list[str], *, depth: int = 0, rate_retries: int = 0
     ) -> list[str]:
         """Translate a batch; on line-count mismatch, split or fall back to singles."""
         if not batch_texts:
@@ -428,6 +430,17 @@ def translate_lang(
             )
         except Exception as e:
             msg = str(e)
+            if "429" in msg:
+                if rate_retries < 3:
+                    delay = max(float(sleep_s or 0), 10.0) * (2**rate_retries)
+                    print(f"    [rate-limit] sleeping {delay:.1f}s before retry")
+                    time.sleep(delay)
+                    return _translate_with_fallback(
+                        batch_texts, depth=depth, rate_retries=rate_retries + 1
+                    )
+                raise RuntimeError(
+                    f"translation rate limit persisted after {rate_retries} retries: {msg}"
+                ) from e
             # Single item: last resort, return original to avoid aborting whole lang.
             if len(batch_texts) == 1:
                 print(f"    [warn] single-item failed, keeping EN: {msg[:160]}")
@@ -654,15 +667,19 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
 def cmd_translate(args: argparse.Namespace) -> int:
     tmp_dir = Path(args.tmp_dir)
-    for lang in args.langs_list:
+    for index, lang in enumerate(args.langs_list):
         translate_lang(
             lang,
             tmp_dir,
             source_lang=args.source_lang,
+            provider=args.provider,
             max_chars=args.batch_chars,
             max_items=args.batch_items,
             sleep_s=args.sleep,
         )
+        if args.sleep > 0 and index < len(args.langs_list) - 1:
+            print(f"[translate] sleeping {args.sleep:.1f}s before next language")
+            time.sleep(args.sleep)
     return 0
 
 
@@ -743,6 +760,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional comma-separated translation keys (e.g. x_search_terms)",
     )
     p.add_argument("--source-lang", default="en", help="Source language (default en)")
+    p.add_argument(
+        "--provider",
+        choices=["auto", "google", "deepl"],
+        default="auto",
+        help="Translation provider (default: auto)",
+    )
     p.add_argument(
         "--force",
         action="store_true",

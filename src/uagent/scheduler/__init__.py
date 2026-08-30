@@ -18,6 +18,8 @@ from .service import (
 from .store import SchedulerStore
 from .run_store import SchedulerRun, SchedulerRunStore, VALID_RUN_STATUSES
 from .worker import SchedulerWorker
+from .tool_guard import required_tools_guard
+from .direct import execute_direct_tool
 
 __all__ = [
     "SCHEDULE_TYPE_ONCE",
@@ -29,6 +31,8 @@ __all__ = [
     "SchedulerRunStore",
     "VALID_RUN_STATUSES",
     "SchedulerWorker",
+    "required_tools_guard",
+    "execute_direct_tool",
     "advance_periodic_at",
     "format_iso_datetime",
     "parse_iso_datetime",

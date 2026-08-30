@@ -310,7 +310,7 @@ cloud credential অথবা MQTT/OPC UA server। চালানোর সম
 সীমিত স্থানীয় ডিপ্লয়মেন্টের জন্য `--embedded` ব্যবহার করুন এবং অ্যাপ্লিকেশনের প্রয়োজনীয় টুলগুলোই স্পষ্টভাবে লোড করুন।
 এমবেডেড মোডে `--tool-genre-mask` উপেক্ষা করা হয়; একাধিক `--enable-tool` অপশন দিলে নির্ধারিত টুলের ক্রম বজায় থাকে।
 
-[CLI ব্যবহারের রেফারেন্স](USAGE.bn.md) দেখুন।
+[CLI ব্যবহারের রেফারেন্স](USAGE.md) দেখুন।
 
 ### মানবীয় অনুমোদন
 
@@ -426,3 +426,11 @@ Bug report, feature idea, documentation improvement, translation, tool, skill �
 ## লাইসেন্স
 
 [Apache লাইসেন্স 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
+
+## সাম্প্রতিক ক্ষমতা
+
+- `translate_text` `Google Translate` এবং অফিসিয়াল DeepL Python ক্লায়েন্টকে `provider=auto`, `provider=deepl`, অথবা `provider=google` এর মাধ্যমে সমর্থন করে।
+- টুল সংজ্ঞা ৩৭টি লোকেলের পাশাপাশি ইংরেজি (মোট ৩৮টি) ভাষায় উপলব্ধ, প্লেসহোল্ডার এবং প্রযুক্তিগত আইডেন্টিফায়ার সংরক্ষিত রয়েছে।
+- `set_timer` স্থায়ী নির্ধারিত LLM রান, প্রয়োজনীয়-টুল সুরক্ষা, একটি অনুমোদিত টুলের সরাসরি সম্পাদন, পুনরায় চেষ্টা এবং টাইমআউট সমর্থন করে।
+
+ দেখুন [এনভায়রনমেন্ট ভেরিয়েবলস](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [ট্রান্সলেশন মেথডোলজি](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), এবং [`set_timer` ডকুমেন্টেশন](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

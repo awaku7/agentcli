@@ -307,7 +307,7 @@ MQTT/OPC UA 서버와 같은 추가 시스템 요구 사항이 있습니다. 관
 제한된 로컬 배포에서는 `--embedded`를 사용하고 애플리케이션에 필요한 도구만 명시적으로 로드하세요.
 Embedded 모드에서는 `--tool-genre-mask`가 무시되며, 여러 번 지정한 `--enable-tool` 옵션의 도구 순서가 유지됩니다.
 
-[CLI 사용 참고서](USAGE.ko.md)를 참조하세요.
+[CLI 사용 참고서](USAGE.md)를 참조하세요.
 
 ### 사용자 확인
 
@@ -424,3 +424,11 @@ python -m pytest -q .
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## 최근 기능
+
+- `translate_text`은 `provider=auto`, `provider=deepl` 또는 `provider=google`을 통해 Google Translate 및 공식 DeepL Python 클라이언트를 지원합니다.
+- 도구 정의는 영어를 포함한 37개 로케일(총 38개)에서 사용할 수 있으며, 자리 표시자와 기술 식별자가 그대로 유지됩니다.
+- `set_timer`는 지속적 예약 실행, 필수 도구 보호, 승인된 도구 1개의 직접 실행, 재시도 및 타임아웃을 지원합니다.
+
+[환경 변수](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [번역 방법론](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), [`set_timer` 문서](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)를 참조하십시오.

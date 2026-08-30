@@ -118,6 +118,18 @@ pool (`UAGENT_PARALLEL_WORKERS`). Write operations remain serialized or require 
 Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling, and
 multi-agent orchestration make complex work resumable instead of one-shot.
 
+Scheduled LLM runs can retain required tools for their execution window, and `set_timer`
+can also execute one explicitly approved tool directly without an LLM round. Retries,
+timeouts, and terminal run states are persisted by the scheduler.
+
+### 🌍 Multilingual translation
+
+The `translate_text` tool supports Google Translate and the official DeepL Python client.
+Use `provider=auto` to prefer DeepL when configured, or select `provider=deepl` / `google`
+explicitly. Tool JSON resources cover 37 locales plus English (38 total).
+See [Translation methodology](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)
+and [DeepL configuration](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
+
 The Session Store is enabled by default and adds structured SQLite history for session search, tool auditing, and summaries. New JSONL persistence is disabled by default:
 
 ```text
@@ -397,6 +409,8 @@ python scheck.py realtime
 | Topic | Documentation |
 |---|---|
 | Environment variables | [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) |
+| Translation and i18n | [docs/TOOL_TRANSLATION_METHODOLOGY.md](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) |
+| Timers and scheduled execution | [docs/SET_TIMER.md](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) |
 | Architecture and invariants | [docs/ARCHITECTURE.md](https://github.com/awaku7/agentcli/blob/main/docs/ARCHITECTURE.md) |
 | Computer Use | [docs/COMPUTER_USE_IMPLEMENTATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) |
 | Repository tools | [docs/REPOSITORY_TOOLS.md](https://github.com/awaku7/agentcli/blob/main/docs/REPOSITORY_TOOLS.md) |

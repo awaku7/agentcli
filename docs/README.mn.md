@@ -311,7 +311,7 @@ Auto-pilot-ийг зогсоохдоо **F12**, одоогийн хариуг з
 Хязгаарлагдмал локал байршуулалтад `--embedded` ашиглаж, зөвхөн аппликейшнд хэрэгтэй хэрэгслүүдийг тодорхой зааж ачаална уу.
 Embedded горимд `--tool-genre-mask` үл тооцогдоно; давтан өгсөн `--enable-tool` сонголтууд хэрэгслийн заасан дарааллыг хадгална.
 
-[CLI ашиглалтын лавлагаа](USAGE.mn.md)-г үзнэ үү.
+[CLI ашиглалтын лавлагаа](USAGE.md)-г үзнэ үү.
 
 ### Хүний баталгаажуулалт
 
@@ -429,3 +429,11 @@ pull request илгээхээсээ өмнө дээрх шалгалтуудыг
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
+
+## Сүүлийн үеийн боломжууд
+
+- `translate_text` нь `Google Translate` болон албан ёсны DeepL Python клиентийг `provider=auto`, `provider=deepl`, эсвэл `provider=google` ашиглан дэмждэг.
+- Хэрэгслийн тодорхойлолтууд 37 орчуулгын хувилбар болон англи хэл дээр (нийт 38) ашиглах боломжтой бөгөөд орлуулагч болон техникийн таних тэмдэглэгээг хадгалсан.
+- `set_timer` нь тогтмол хуваарьт LLM гүйцэтгэлүүдийг, шаардлагатай хэрэгслийн хамгаалалтыг, нэг батлагдсан хэрэгслийг шууд ажиллуулах, дахин оролдлого хийх болон хугацааны хязгаарлалтыг дэмждэг.
+
+[Орчны хувьсагчид](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Орчуулгын аргачлал](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), болон [`set_timer` баримт бичиг](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

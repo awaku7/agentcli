@@ -14,6 +14,7 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from .._pip_auto import install_with_status as _auto_install
 from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
 
@@ -85,6 +86,58 @@ _LAST_REQUEST_TIME: float = 0
 _RATE_LOCK = threading.Lock()
 _MYMEMORY_LAST_REQUEST_TIME: float = 0
 _MYMEMORY_RATE_LOCK = threading.Lock()
+_DEEPL_RATE_LOCK = threading.Lock()
+_DEEPL_LAST_REQUEST_TIME: float = 0
+_DEEPL_CLIENT: Any = None
+_DEEPL_CLIENT_KEY: str = ""
+
+_LOCALE_TO_DEEPL: dict[str, str] = {
+    "ar": "AR",
+    "bn": "BN",
+    "bg": "BG",
+    "cs": "CS",
+    "da": "DA",
+    "de": "DE",
+    "el": "EL",
+    "en": "EN-US",
+    "es": "ES",
+    "et": "ET",
+    "fi": "FI",
+    "fil": "TL",
+    "fr": "FR",
+    "fa": "FA",
+    "hu": "HU",
+    "he": "HE",
+    "hi": "HI",
+    "id": "ID",
+    "it": "IT",
+    "ja": "JA",
+    "ko": "KO",
+    "mn": "MN",
+    "mr": "MR",
+    "ms": "MS",
+    "lt": "LT",
+    "lv": "LV",
+    "nb": "NB",
+    "nl": "NL",
+    "pl": "PL",
+    "pt": "PT-PT",
+    "pt_br": "PT-BR",
+    "ro": "RO",
+    "ru": "RU",
+    "sk": "SK",
+    "sl": "SL",
+    "sv": "SV",
+    "sw": "SW",
+    "th": "TH",
+    "tl": "TL",
+    "tr": "TR",
+    "uk": "UK",
+    "vi": "VI",
+    "zh": "ZH",
+    "zh_cn": "ZH-HANS",
+    "zh_tw": "ZH-HANT",
+}
 
 # ---------------------------------------------------------------------------
 # Placeholder protection
@@ -671,9 +724,98 @@ def _write_output_file(
 # ---------------------------------------------------------------------------
 
 
-def _translate(
+def _deepl_auth_key() -> str:
+    return (
+        os.environ.get("UAGENT_DEEPL_AUTH_KEY")
+        or os.environ.get("DEEPL_AUTH_KEY")
+        or os.environ.get("DEEPL_API_KEY")
+        or ""
+    ).strip()
+
+
+def _resolve_deepl_lang(lang: str | None) -> str | None:
+    if not lang:
+        return None
+    norm = lang.strip().lower().replace("-", "_")
+    mapped = _LOCALE_TO_DEEPL.get(norm)
+    if mapped:
+        return mapped
+    # DeepL accepts language codes such as DE/JA directly. Preserve an
+    # explicitly supplied code only when it is already in that form.
+    upper = lang.strip().upper()
+    return upper if upper in set(_LOCALE_TO_DEEPL.values()) else None
+
+
+def _deepl_client() -> Any:
+    global _DEEPL_CLIENT, _DEEPL_CLIENT_KEY
+    key = _deepl_auth_key()
+    if not key:
+        raise RuntimeError(
+            "DeepL auth key is not configured; set UAGENT_DEEPL_AUTH_KEY or DEEPL_AUTH_KEY"
+        )
+    if _DEEPL_CLIENT is not None and _DEEPL_CLIENT_KEY == key:
+        return _DEEPL_CLIENT
+    if not _auto_install("deepl", version_spec=">=1.18.0"):
+        raise RuntimeError("DeepL Python package is unavailable")
+    try:
+        import deepl
+
+        _DEEPL_CLIENT = deepl.Translator(key)
+        _DEEPL_CLIENT_KEY = key
+        return _DEEPL_CLIENT
+    except Exception as exc:
+        raise RuntimeError(f"DeepL client initialization failed: {exc}") from exc
+
+
+def _translate_deepl(
     text: str, target_lang: str, source_lang: str | None = None
 ) -> tuple[str, str | None]:
+    target = _resolve_deepl_lang(target_lang)
+    if not target:
+        raise RuntimeError(f"DeepL does not support target language: {target_lang}")
+    source = _resolve_deepl_lang(source_lang)
+    # DeepL's source language uses EN rather than an English regional target.
+    if source in {"EN-US", "EN-GB"}:
+        source = "EN"
+    # DeepL uses the generic Portuguese source code for both variants.
+    if source in {"PT-BR", "PT-PT"}:
+        source = "PT"
+    kwargs: dict[str, Any] = {"target_lang": target}
+    if source:
+        kwargs["source_lang"] = source
+    global _DEEPL_LAST_REQUEST_TIME
+    for attempt in range(3):
+        with _DEEPL_RATE_LOCK:
+            now = time.time()
+            since_last = now - _DEEPL_LAST_REQUEST_TIME
+            if since_last < 0.5:
+                time.sleep(0.5 - since_last)
+            _DEEPL_LAST_REQUEST_TIME = time.time()
+        try:
+            result = _deepl_client().translate_text(text, **kwargs)
+            translated = getattr(result, "text", None)
+            if not isinstance(translated, str):
+                raise RuntimeError("DeepL returned no translated text")
+            detected = getattr(result, "detected_source_lang", None)
+            return translated, str(detected).lower() if detected else None
+        except Exception as exc:
+            message = str(exc)
+            if attempt < 2 and ("429" in message or "too many" in message.lower()):
+                time.sleep(2**attempt)
+                continue
+            raise RuntimeError(f"DeepL translation request failed: {exc}") from exc
+    raise RuntimeError("DeepL translation request failed")
+
+
+def _translate(
+    text: str,
+    target_lang: str,
+    source_lang: str | None = None,
+    *,
+    provider: str = "google",
+) -> tuple[str, str | None]:
+    if provider == "deepl":
+        return _translate_deepl(text, target_lang, source_lang)
     # Google Translate exposes Norwegian Bokmal (`no`/`nb`) but not
     # Norwegian Nynorsk (`nn`). Route Nynorsk through MyMemory, which has
     # exact `nn-NO` translation-memory entries and a free public endpoint.
@@ -835,20 +977,24 @@ def _is_mymemory_target(target_lang: str) -> bool:
 
 
 def _translate_long(
-    text: str, target_lang: str, source_lang: str | None = None
+    text: str,
+    target_lang: str,
+    source_lang: str | None = None,
+    *,
+    provider: str = "google",
 ) -> tuple[str, str | None]:
     # MyMemory's public endpoint accepts at most 500 query characters.
     max_len = 450 if _is_mymemory_target(target_lang) else MAX_TEXT_LENGTH
     chunks = _chunk_text(text, max_len)
     if len(chunks) == 1:
-        return _translate(chunks[0], target_lang, source_lang)
+        return _translate(chunks[0], target_lang, source_lang, provider=provider)
     out_parts: list[str] = []
     detected: str | None = None
     for chunk in chunks:
         if not chunk:
             out_parts.append("")
             continue
-        translated, det = _translate(chunk, target_lang, source_lang)
+        translated, det = _translate(chunk, target_lang, source_lang, provider=provider)
         if detected is None and det:
             detected = det
         out_parts.append(translated)
@@ -863,6 +1009,24 @@ def _resolve_google_lang(lang: str | None) -> str | None:
     return mapped if mapped is not None else lang
 
 
+def _resolve_translation_provider(requested: object, target_lang: str) -> str:
+    value = str(requested or "auto").strip().lower()
+    if value not in {"auto", "google", "deepl"}:
+        raise ValueError("provider must be one of: auto, google, deepl")
+    deepl_target = _resolve_deepl_lang(target_lang)
+    if value == "deepl":
+        if not _deepl_auth_key():
+            raise RuntimeError(
+                "DeepL provider requires UAGENT_DEEPL_AUTH_KEY, DEEPL_AUTH_KEY, or DEEPL_API_KEY"
+            )
+        if not deepl_target:
+            raise RuntimeError(f"DeepL does not support target language: {target_lang}")
+        return "deepl"
+    if value == "auto" and _deepl_auth_key() and deepl_target:
+        return "deepl"
+    return "google"
+
+
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "tool_genre": "devel",
@@ -873,7 +1037,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Translate one or more texts using Google Translate. Supports 30+ languages. "
+                "Translate one or more texts using Google Translate or DeepL. Supports 30+ languages. "
                 "Multiple texts are joined and translated as a single block to preserve context. "
                 "Max 10000 characters per element for texts[]; longer file content is auto-chunked. "
                 "Do NOT truncate text before sending. When protect_placeholders is enabled (default), "
@@ -887,6 +1051,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "translate",
                 "translation",
                 "google translate",
+                "deepl",
+                "deepL",
                 "language",
                 "file translate",
             ],
@@ -895,6 +1061,8 @@ TOOL_SPEC: dict[str, Any] = {
             "translate",
             "translation",
             "google translate",
+            "deepl",
+            "deepL",
             "language",
             "i18n",
             "localization",
@@ -933,6 +1101,17 @@ TOOL_SPEC: dict[str, Any] = {
                         default=(
                             "Output file path for translated content. If omitted in file mode, "
                             "translated text is returned in JSON only (no write)."
+                        ),
+                    ),
+                },
+                "provider": {
+                    "type": "string",
+                    "enum": ["auto", "google", "deepl"],
+                    "description": _(
+                        "param.provider.description",
+                        default=(
+                            "Translation provider: auto (use DeepL when configured, otherwise Google), "
+                            "google, or deepl."
                         ),
                     ),
                 },
@@ -1024,6 +1203,7 @@ def _translate_texts_batch(
     *,
     google_target: str,
     google_source: str | None,
+    provider: str = "google",
     protect: bool,
     path_hint: str | None = None,
     protect_terms_list: list[str] | None = None,
@@ -1067,7 +1247,10 @@ def _translate_texts_batch(
                 results.append("")
                 continue
             translated, _detected = _translate_long(
-                protected_text, google_target, google_source
+                protected_text,
+                google_target,
+                google_source,
+                provider=provider,
             )
             line = translated.replace(_BR_TAG, "\n")
             if ph_mapping:
@@ -1076,7 +1259,9 @@ def _translate_texts_batch(
         return results, "nn", placeholders_count
 
     joined = "\n".join(protected_parts)
-    translated, detected = _translate_long(joined, google_target, google_source)
+    translated, detected = _translate_long(
+        joined, google_target, google_source, provider=provider
+    )
     translated_lines = translated.split("\n")
     if len(translated_lines) != len(raw_texts):
         raise RuntimeError(
@@ -1097,6 +1282,7 @@ def _translate_single_document(
     *,
     google_target: str,
     google_source: str | None,
+    provider: str = "google",
     protect: bool,
     path_hint: str | None = None,
     protect_terms_list: list[str] | None = None,
@@ -1125,7 +1311,9 @@ def _translate_single_document(
         # For multi-chunk docs we translate chunk-by-chunk (not joined), so BR is optional
         # but still helps preserve blank lines.
         payload = chunk.replace("\n", _BR_TAG)
-        translated, det = _translate(payload, google_target, google_source)
+        translated, det = _translate(
+            payload, google_target, google_source, provider=provider
+        )
         if detected is None and det:
             detected = det
         restored = translated.replace(_BR_TAG, "\n")
@@ -1147,6 +1335,7 @@ def run_tool(args: dict[str, Any]) -> str:
     output_path = str(args.get("output_path") or "").strip() or None
     target_lang = str(args.get("target_lang") or "").strip()
     source_lang = str(args.get("source_lang") or "").strip() or None
+    requested_provider = args.get("provider", "auto")
     protect = args.get("protect_placeholders")
     protect_terms_arg = args.get("protect_terms")
     extra_terms = _iter_extra_terms(args.get("extra_protect_terms"))
@@ -1191,8 +1380,17 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         )
 
-    google_target = _resolve_google_lang(target_lang) or target_lang
-    google_source = _resolve_google_lang(source_lang)
+    try:
+        provider = _resolve_translation_provider(requested_provider, target_lang)
+    except Exception as exc:
+        return _error_json(str(exc))
+    if provider == "deepl":
+        # Keep the original locale (notably pt_BR vs pt) for DeepL's mapping.
+        google_target = target_lang
+        google_source = source_lang
+    else:
+        google_target = _resolve_google_lang(target_lang) or target_lang
+        google_source = _resolve_google_lang(source_lang)
     do_protect = True if protect is None else bool(protect)
     do_protect_terms = True if protect_terms_arg is None else bool(protect_terms_arg)
     terms_list = _merge_protect_terms(
@@ -1209,6 +1407,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 text,
                 google_target=google_target,
                 google_source=google_source,
+                provider=provider,
                 protect=do_protect,
                 path_hint=source_abs,
                 protect_terms_list=terms_list or None,
@@ -1227,6 +1426,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "newline": out_newline,
                 "placeholders_protected": ph_count,
                 "terms_protected": len(terms_list),
+                "provider": provider,
             }
             if detected:
                 result["detected_source_lang"] = detected
@@ -1249,6 +1449,7 @@ def run_tool(args: dict[str, Any]) -> str:
             raw_texts,
             google_target=google_target,
             google_source=google_source,
+            provider=provider,
             protect=do_protect,
             path_hint=None,
             protect_terms_list=terms_list or None,
@@ -1258,6 +1459,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "translated": results,
             "placeholders_protected": ph_count,
             "terms_protected": len(terms_list),
+            "provider": provider,
         }
         if detected:
             result["detected_source_lang"] = detected

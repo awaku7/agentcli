@@ -26,6 +26,7 @@ def test_due_event_can_be_completed_by_worker(tmp_path):
         llm_prompt="run integration",
         retry_limit=1,
         timeout_sec=2,
+        required_tools=["excel_ops"],
     )
     schedules.add_item(item)
 
@@ -38,6 +39,7 @@ def test_due_event_can_be_completed_by_worker(tmp_path):
     run = runs.get(event["run_id"])
     assert run.status == "queued"
     assert run.metadata["llm_prompt"] == "run integration"
+    assert run.metadata["required_tools"] == ["excel_ops"]
 
     SchedulerWorker(runs).execute(
         run.run_id,
