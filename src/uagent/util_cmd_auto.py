@@ -160,6 +160,7 @@ def _ask_reviewer_judgment(
             try_open_images_from_text_fn=try_open_images_from_text,
             judgment_mode=True,
             judgment_messages=judgment_msgs,
+            preserve_tool_loop_state=True,
         )
     except Exception as e:
         warnings.warn(
@@ -334,6 +335,7 @@ def _run_auto_pilot_loop(
                 make_client_fn=make_client_fn,
                 append_result_to_outfile_fn=append_result_to_outfile_fn,
                 try_open_images_from_text_fn=try_open_images_from_text_fn,
+                preserve_tool_loop_state=True,
             )
 
             core.set_status(True, "AUTO")

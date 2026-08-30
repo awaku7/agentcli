@@ -60,6 +60,25 @@ def test_same_round_same_target_four_times_blocked() -> None:
     assert count == _MGMT_LOOP_THRESHOLD
 
 
+def test_tool_load_already_visible_does_not_reload(monkeypatch) -> None:
+    from uagent.tools import catalog_tool
+    from uagent.tools import _genre_control_util as gcu
+
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs",
+        lambda: [{"function": {"name": "get_current_location"}}],
+    )
+    monkeypatch.setattr(
+        gcu,
+        "enable_single_tool",
+        lambda name: (_ for _ in ()).throw(AssertionError("must not reload")),
+    )
+
+    result = json.loads(catalog_tool.run_tool({"name": "get_current_location"}))
+    assert result["ok"] is True
+    assert result["already_loaded"] is True
+
+
 def test_tool_catalog_different_queries_not_shared() -> None:
     blocked = False
     for _ in range(_MGMT_LOOP_THRESHOLD):

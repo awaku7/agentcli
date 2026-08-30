@@ -1709,6 +1709,7 @@ def run_llm_rounds(
     try_open_images_from_text_fn: Any,
     judgment_mode: bool = False,
     judgment_messages: list[dict[str, Any]] | None = None,
+    preserve_tool_loop_state: bool = False,
 ) -> str | None:
     global _TOTAL_ROUNDS, _PRODUCTIVE_ROUNDS, _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
     # Judgment mode: swap messages so all side effects go to judgment_messages
@@ -1865,9 +1866,12 @@ def run_llm_rounds(
 
     use_llm_thread = _env_default_on("UAGENT_LLM_IN_THREAD")
 
-    # Reset management tool call loop detection for this session
-    _TOOL_CALL_FINGERPRINTS.clear()
-    clear_consecutive_tool_call_streak()
+    # Reset loop detection for a new user operation. Auto-Pilot invokes this
+    # function once for each follow-up round, so those calls must preserve the
+    # counters or a repeated tool_load can evade the runaway guard forever.
+    if not preserve_tool_loop_state:
+        _TOOL_CALL_FINGERPRINTS.clear()
+        clear_consecutive_tool_call_streak()
 
     if judgment_mode:
         cache_mgr, gemini_cache_name = None, None

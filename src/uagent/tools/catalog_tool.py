@@ -303,7 +303,32 @@ def _run_tool_load(args: dict[str, Any]) -> str:
         )
 
     try:
-        from ._genre_control_util import enable_single_tool
+        from ._genre_control_util import _LOADED_SINGLE_TOOLS, enable_single_tool
+        from . import get_tool_specs
+
+        # ``tool_load`` may be called for a tool that is already visible,
+        # e.g. one enabled by genre or the CLI. Avoid reloading it: repeated
+        # reloads create needless churn and can form an LLM management loop.
+        already_visible = any(
+            isinstance(spec, dict)
+            and isinstance(spec.get("function"), dict)
+            and spec["function"].get("name") == name
+            for spec in (get_tool_specs() or [])
+        )
+        if already_visible or name in _LOADED_SINGLE_TOOLS:
+            return json.dumps(
+                {
+                    "ok": True,
+                    "name": name,
+                    "loaded": True,
+                    "already_loaded": True,
+                    "message": _(
+                        "msg.load.already_loaded",
+                        default="Tool '{name}' is already loaded and available for use.",
+                        name=name,
+                    ),
+                }
+            )
 
         ok = enable_single_tool(name)
         if ok:
