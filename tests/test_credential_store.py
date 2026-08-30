@@ -152,6 +152,21 @@ def test_persistent_credential_store_round_trip(tmp_path) -> None:
     assert credential.metadata == {"source": "test"}
 
 
+def test_os_credential_store_rejects_fail_backend() -> None:
+    from uagent.auth import OSCredentialStore
+
+    class NoBackend:
+        @staticmethod
+        def get_keyring():
+            class Backend:
+                priority = 0
+
+            return Backend()
+
+    with pytest.raises(RuntimeError, match="No usable OS keyring backend"):
+        OSCredentialStore(keyring_module=NoBackend)
+
+
 def test_os_credential_store_round_trip() -> None:
     from uagent.auth import OSCredentialStore
 

@@ -174,6 +174,23 @@ class OSCredentialStore:
                     raise RuntimeError(
                         "python-keyring is not installed and could not be auto-installed"
                     ) from install_exc
+
+        # Importing ``keyring`` succeeds even when its fail backend is the
+        # active backend (common on headless CI runners). Probe the selected
+        # backend here so the automatic store selector can fall back to the
+        # encrypted file store before the first get/set call raises
+        # ``NoKeyringError``.
+        get_keyring = getattr(keyring_module, "get_keyring", None)
+        if callable(get_keyring):
+            try:
+                backend = get_keyring()
+                priority = getattr(backend, "priority", None)
+                if priority is not None and priority <= 0:
+                    raise RuntimeError("No usable OS keyring backend")
+            except RuntimeError:
+                raise
+            except Exception as exc:
+                raise RuntimeError("No usable OS keyring backend") from exc
         self._keyring = keyring_module
 
     def get(self, name: str) -> Credential | None:
