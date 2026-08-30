@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.6.16] - 2026-08-30
+
+### Added
+
+- Add direct scheduler execution with tool guards and persistent task history support.
+- Add DeepL translation provider support and related documentation/tests.
+
+### Changed
+
+- Improve timer scheduling, translation handling, and localized tool documentation across supported locales.
+
+
 ## [0.6.15] - 2026-08-30
 
 ### Added
