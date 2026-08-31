@@ -80,6 +80,14 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 
 
 # Providers that support Fill-in-the-Middle (FIM) code completion.
+LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
+    {"ollama", "llama_cpp", "lmstudio"}
+)
+
+CLOUD_CREDENTIAL_PROVIDERS: frozenset[str] = frozenset({"bedrock", "vertexai"})
+
+
+# Providers that support Fill-in-the-Middle (FIM) code completion.
 FIM_SUPPORTED_PROVIDERS: frozenset[str] = frozenset(
     {
         "ollama",
@@ -100,6 +108,7 @@ class ProviderSpec:
     cost_hint: str | None = None
     context_limit: int | None = None
     routing_policy: str = "default"
+    auth_requirement: str = "api_key"
 
 
 class ProviderRegistry(Protocol):
@@ -120,8 +129,15 @@ class StaticProviderRegistry:
                 supports_tools=False,
                 supports_streaming=False,
                 supports_vision=False,
+                auth_requirement="unknown",
             )
         capabilities = {"chat", "streaming"}
+        if name in LOCAL_ENDPOINT_PROVIDERS:
+            auth_requirement = "local_endpoint"
+        elif name in CLOUD_CREDENTIAL_PROVIDERS:
+            auth_requirement = "cloud_credentials"
+        else:
+            auth_requirement = "api_key"
         if name in RESPONSES_PROVIDERS:
             capabilities.add("responses")
         chat_vision_format = _CHAT_VISION_FORMATS.get(name)
@@ -139,6 +155,7 @@ class StaticProviderRegistry:
             supports_vision="vision" in capabilities,
             chat_vision_format=chat_vision_format,
             credential_sources=("credential_store", "environment"),
+            auth_requirement=auth_requirement,
         )
 
     def list(self) -> tuple[ProviderSpec, ...]:

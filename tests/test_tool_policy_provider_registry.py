@@ -27,6 +27,29 @@ def test_provider_registry_distinguishes_unknown_capability() -> None:
     assert not unknown.supports_tools
 
 
+def test_provider_registry_classifies_auth_requirements() -> None:
+    assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("ollama").auth_requirement == "local_endpoint"
+    )
+    assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("llama_cpp").auth_requirement
+        == "local_endpoint"
+    )
+    assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("lmstudio").auth_requirement
+        == "local_endpoint"
+    )
+    assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("bedrock").auth_requirement
+        == "cloud_credentials"
+    )
+    assert DEFAULT_PROVIDER_REGISTRY.resolve("openai").auth_requirement == "api_key"
+    assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("future-provider").auth_requirement
+        == "unknown"
+    )
+
+
 def test_provider_registry_exposes_deterministic_metadata() -> None:
     specs = DEFAULT_PROVIDER_REGISTRY.list()
     assert [spec.name for spec in specs] == sorted(spec.name for spec in specs)
