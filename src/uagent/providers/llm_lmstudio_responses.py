@@ -9,6 +9,14 @@ from urllib.request import Request, urlopen
 from ..env_utils import env_get
 
 
+def normalize_base_url(value: str) -> str:
+    """Normalize an LM Studio host URL to the OpenAI-compatible ``/v1`` base."""
+    base = str(value or "").strip().rstrip("/")
+    if base and base.rsplit("/", 1)[-1].lower() != "v1":
+        base += "/v1"
+    return base
+
+
 def endpoint_available(core: Any = None, *, timeout: float = 2.0) -> bool:
     """Check whether the LM Studio server exposes ``/v1/responses``.
 

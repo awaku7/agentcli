@@ -6,6 +6,7 @@ from typing import Any
 
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
+from .llm_lmstudio_responses import normalize_base_url
 
 
 def make_client(core: Any) -> Any:
@@ -19,7 +20,9 @@ def make_client(core: Any) -> Any:
             return str(getter(name) or default)
         return str(env_get(name, default) or default)
 
-    base_url = get("UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
+    base_url = normalize_base_url(
+        get("UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
+    )
     api_key = (
         get_provider_api_key(
             "LMSTUDIO",
