@@ -9,6 +9,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from .._pip_auto import install_with_status
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -62,10 +63,15 @@ def _macro_analysis(source: str) -> dict[str, Any]:
 
 
 def _extract_vba(path: Path) -> tuple[list[dict[str, Any]], list[str]]:
-    try:
-        from oletools.olevba import VBA_Parser
-    except ImportError as exc:
-        raise RuntimeError("oletools is required for VBA analysis") from exc
+    # oletools is an optional, analysis-only dependency. Install it lazily so
+    # XLSM analysis works without adding it to the base installation.
+    if not install_with_status(
+        "oletools", "oletools", verify_submodule="oletools.olevba"
+    ):
+        raise RuntimeError(
+            "VBA extraction requires oletools; automatic installation failed"
+        )
+    from oletools.olevba import VBA_Parser
     modules: list[dict[str, Any]] = []
     warnings: list[str] = []
     parser = VBA_Parser(str(path))
