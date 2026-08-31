@@ -664,7 +664,9 @@ class SessionStore:
             safe_args = mask_args(args)
             args_json = json.dumps(safe_args, ensure_ascii=False, sort_keys=True)
         except (TypeError, ValueError) as exc:
-            raise SessionStoreError("tool-call arguments are not JSON serializable") from exc
+            raise SessionStoreError(
+                "tool-call arguments are not JSON serializable"
+            ) from exc
         safe_result = redact_sensitive(result)
         existing = self._execute(
             "SELECT call_id FROM tool_calls WHERE call_id = ?", (call_id,)

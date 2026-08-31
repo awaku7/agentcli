@@ -1156,10 +1156,16 @@ def _handle_cmd_sessions(
     if "--sort" in query_parts:
         sort_index = query_parts.index("--sort")
         if sort_index + 1 >= len(query_parts):
-            print(_("[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"))
+            print(
+                _(
+                    "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
+                )
+            )
             return True
         requested_sort = query_parts[sort_index + 1].split(",")
-        if not requested_sort or any(key not in {"date", "matches"} for key in requested_sort):
+        if not requested_sort or any(
+            key not in {"date", "matches"} for key in requested_sort
+        ):
             print(_("[sessions] --sort must contain date and/or matches."))
             return True
         sort_keys = list(dict.fromkeys(requested_sort))

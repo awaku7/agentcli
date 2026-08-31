@@ -2029,6 +2029,7 @@ def _record_policy_audit(
     """Best-effort persistence of policy decisions for the active session."""
     try:
         from .. import core as _core
+
         store = getattr(_core, "session_store", None)
         session_id = getattr(_core, "session_id", None)
         if store is not None and session_id:
