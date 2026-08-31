@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent.runtime.session_store import SessionStore
+from uagent.i18n import set_thread_lang
 from uagent.util_cmd_session import _handle_cmd_load, _handle_cmd_sessions
 
 
@@ -40,6 +41,9 @@ def test_sessions_search_prints_one_row_per_session(tmp_path, capsys):
 
 
 def test_sessions_candidates_can_be_approved(tmp_path, capsys, monkeypatch):
+    # Pin the gettext locale so the assertion is independent of the host.
+    monkeypatch.setenv("UAGENT_LANG", "en")
+    set_thread_lang("en")
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")
     store.append_message(session.session_id, "user", "remember: use pytest first")
@@ -55,7 +59,10 @@ def test_sessions_candidates_can_be_approved(tmp_path, capsys, monkeypatch):
     assert "approved" in capsys.readouterr().out.lower()
 
 
-def test_sessions_search_is_unavailable_without_opt_in(capsys):
+def test_sessions_search_is_unavailable_without_opt_in(capsys, monkeypatch):
+    # Pin the gettext locale so the assertion is independent of the host.
+    monkeypatch.setenv("UAGENT_LANG", "en")
+    set_thread_lang("en")
     core = SimpleNamespace(session_store=None)
 
     assert _handle_cmd_sessions("search anything", core=core, tr=lambda text, **_: text)
