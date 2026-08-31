@@ -57,7 +57,9 @@ def test_converts_xlsx(repo_tmp_path: Path) -> None:
     wb.close()
 
     output = repo_tmp_path / "converted.md"
-    result = load_result(run_tool({"input_path": str(path), "output_path": str(output)}))
+    result = load_result(
+        run_tool({"input_path": str(path), "output_path": str(output)})
+    )
     assert result["ok"] is True
     assert output.read_text(encoding="utf-8").startswith("# sample")
     assert "## Data" in output.read_text(encoding="utf-8")

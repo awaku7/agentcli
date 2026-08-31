@@ -19,17 +19,69 @@ TOOL_SPEC: dict[str, Any] = {
     "x_parallel_safe": True,
     "function": {
         "name": "office_to_markdown",
-        "description": _("tool.description", default="Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved."),
-        "x_search_terms": _("x_search_terms", default=["office to markdown", "pptx to markdown", "xlsx to markdown", "docx to markdown", "convert office file"]),
+        "description": _(
+            "tool.description",
+            default="Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved.",
+        ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "office to markdown",
+                "pptx to markdown",
+                "xlsx to markdown",
+                "docx to markdown",
+                "convert office file",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {
-                "input_path": {"type": "string", "description": _("param.input_path.description", default="Input .pptx, .xlsx/.xlsm, or .docx path.")},
-                "password": {"type": "string", "description": _("param.password.description", default="Password for an encrypted Office file (optional).")},
-                "output_path": {"type": "string", "description": _("param.output_path.description", default="Optional output .md path.")},
-                "format": {"type": "string", "enum": ["auto", "pptx", "xlsx", "docx"], "default": "auto", "description": _("param.format.description", default="Input format, normally auto-detected from the extension.")},
-                "include_notes": {"type": "boolean", "default": True, "description": _("param.include_notes.description", default="For PPTX, include speaker notes.")},
-                "overwrite": {"type": "boolean", "default": False, "description": _("param.overwrite.description", default="Allow replacing an existing output file.")},
+                "input_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.input_path.description",
+                        default="Input .pptx, .xlsx/.xlsm, or .docx path.",
+                    ),
+                },
+                "password": {
+                    "type": "string",
+                    "description": _(
+                        "param.password.description",
+                        default="Password for an encrypted Office file (optional).",
+                    ),
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_path.description",
+                        default="Optional output .md path.",
+                    ),
+                },
+                "format": {
+                    "type": "string",
+                    "enum": ["auto", "pptx", "xlsx", "docx"],
+                    "default": "auto",
+                    "description": _(
+                        "param.format.description",
+                        default="Input format, normally auto-detected from the extension.",
+                    ),
+                },
+                "include_notes": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.include_notes.description",
+                        default="For PPTX, include speaker notes.",
+                    ),
+                },
+                "overwrite": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.overwrite.description",
+                        default="Allow replacing an existing output file.",
+                    ),
+                },
             },
             "required": ["input_path"],
             "additionalProperties": False,
@@ -39,7 +91,13 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 def _cell(value: Any) -> str:
-    return ("" if value is None else str(value)).replace("\r", "").replace("\n", "<br>").replace("|", "\\|").strip()
+    return (
+        ("" if value is None else str(value))
+        .replace("\r", "")
+        .replace("\n", "<br>")
+        .replace("|", "\\|")
+        .strip()
+    )
 
 
 def _table(rows: list[list[Any]]) -> str:
@@ -49,7 +107,10 @@ def _table(rows: list[list[Any]]) -> str:
         return ""
     width = max(len(row) for row in rows)
     rows = [row + [""] * (width - len(row)) for row in rows]
-    lines = ["| " + " | ".join(rows[0]) + " |", "| " + " | ".join(["---"] * width) + " |"]
+    lines = [
+        "| " + " | ".join(rows[0]) + " |",
+        "| " + " | ".join(["---"] * width) + " |",
+    ]
     lines.extend("| " + " | ".join(row) + " |" for row in rows[1:])
     return "\n".join(lines)
 
@@ -57,6 +118,7 @@ def _table(rows: list[list[Any]]) -> str:
 def _resolve_encrypted(path: Path, password: str | None) -> tuple[Path, Path | None]:
     try:
         from .._pip_auto import install_with_status
+
         if not install_with_status("msoffcrypto-tool", "msoffcrypto"):
             return path, None
         import msoffcrypto
@@ -84,6 +146,7 @@ def _resolve_encrypted(path: Path, password: str | None) -> tuple[Path, Path | N
 def _convert_xlsx(path: Path) -> str:
     try:
         from .exstruct_tool import _import_exstruct
+
         exstruct = _import_exstruct()
     except Exception as exc:
         raise RuntimeError(f"exstruct could not be loaded: {exc}") from exc
@@ -104,12 +167,19 @@ def _convert_xlsx(path: Path) -> str:
         for row in sheet.get("rows", []) if isinstance(sheet, dict) else []:
             cells = row.get("c", {}) if isinstance(row, dict) else {}
             if isinstance(cells, dict):
-                keys = sorted(cells, key=lambda value: int(value) if str(value).isdigit() else str(value))
+                keys = sorted(
+                    cells,
+                    key=lambda value: (
+                        int(value) if str(value).isdigit() else str(value)
+                    ),
+                )
                 rows.append([cells[key] for key in keys])
         table = _table(rows)
         parts.append(f"## {name}\n\n{table or '_（データなし）_'}")
         if isinstance(sheet, dict) and sheet.get("merged_ranges"):
-            parts.append(f"Merged ranges: {', '.join(map(str, sheet['merged_ranges']))}")
+            parts.append(
+                f"Merged ranges: {', '.join(map(str, sheet['merged_ranges']))}"
+            )
         if isinstance(sheet, dict) and sheet.get("formulas_map"):
             parts.append(f"Formulas: {len(sheet['formulas_map'])}")
     return "\n\n".join(parts).rstrip() + "\n"
@@ -130,7 +200,9 @@ def _convert_docx(path: Path) -> str:
     for element in doc.element.body.iterchildren():
         if element in tables:
             table_index += 1
-            rendered = _table([[cell.text for cell in row.cells] for row in tables[element].rows])
+            rendered = _table(
+                [[cell.text for cell in row.cells] for row in tables[element].rows]
+            )
             if rendered:
                 parts.append(f"### Table {table_index}\n\n{rendered}")
             continue
@@ -145,7 +217,11 @@ def _convert_docx(path: Path) -> str:
         for prefix in ("heading", "見出し"):
             if style_id.startswith(prefix) or style.startswith(prefix + " "):
                 try:
-                    level = int((style_id if style_id.startswith(prefix) else style).split()[-1].replace(prefix, ""))
+                    level = int(
+                        (style_id if style_id.startswith(prefix) else style)
+                        .split()[-1]
+                        .replace(prefix, "")
+                    )
                 except ValueError:
                     level = 2
                 break
@@ -174,7 +250,9 @@ def _convert_pptx(path: Path, include_notes: bool = True) -> str:
 
     def visit(shape: Any, texts: list[str]) -> None:
         if getattr(shape, "has_table", False):
-            rendered = _table([[cell.text for cell in row.cells] for row in shape.table.rows])
+            rendered = _table(
+                [[cell.text for cell in row.cells] for row in shape.table.rows]
+            )
             if rendered:
                 texts.append(rendered)
         elif getattr(shape, "has_text_frame", False):
@@ -205,22 +283,49 @@ def run_tool(args: dict[str, Any]) -> str:
     args = args or {}
     input_path = str(args.get("input_path") or "").strip()
     if not input_path:
-        return json.dumps({"ok": False, "error": _("err.input_path_required", default="input_path is required")}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _("err.input_path_required", default="input_path is required"),
+            },
+            ensure_ascii=False,
+        )
     path = Path(input_path)
     if not path.is_file():
-        return json.dumps({"ok": False, "error": _("err.file_not_found", default="file not found: {path}").format(path=input_path)}, ensure_ascii=False)
-    detected = {".pptx": "pptx", ".xlsx": "xlsx", ".xlsm": "xlsx", ".docx": "docx"}.get(path.suffix.lower())
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "err.file_not_found", default="file not found: {path}"
+                ).format(path=input_path),
+            },
+            ensure_ascii=False,
+        )
+    detected = {".pptx": "pptx", ".xlsx": "xlsx", ".xlsm": "xlsx", ".docx": "docx"}.get(
+        path.suffix.lower()
+    )
     fmt = str(args.get("format") or "auto").lower()
     if fmt == "auto":
         fmt = detected or ""
     if detected != fmt:
-        return json.dumps({"ok": False, "error": _("err.format_mismatch", default="unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx")}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "err.format_mismatch",
+                    default="unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
+                ),
+            },
+            ensure_ascii=False,
+        )
     temporary: Path | None = None
     try:
         password = str(args.get("password") or "").strip() or None
         readable_path, temporary = _resolve_encrypted(path, password)
         if fmt == "pptx":
-            markdown = _convert_pptx(readable_path, args.get("include_notes", True) is not False)
+            markdown = _convert_pptx(
+                readable_path, args.get("include_notes", True) is not False
+            )
         elif fmt == "xlsx":
             markdown = _convert_xlsx(readable_path)
         else:
@@ -229,12 +334,31 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_path:
             out = Path(output_path)
             if out.resolve() == path.resolve():
-                raise ValueError(_("err.input_output_same", default="output_path must not be the input file"))
+                raise ValueError(
+                    _(
+                        "err.input_output_same",
+                        default="output_path must not be the input file",
+                    )
+                )
             if out.exists() and not args.get("overwrite", False):
-                raise FileExistsError(_("err.output_exists", default="output file already exists: {path}; set overwrite=true to replace it").format(path=output_path))
+                raise FileExistsError(
+                    _(
+                        "err.output_exists",
+                        default="output file already exists: {path}; set overwrite=true to replace it",
+                    ).format(path=output_path)
+                )
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(markdown, encoding="utf-8")
-        return json.dumps({"ok": True, "format": fmt, "input_path": str(path), "output_path": output_path or None, "markdown": markdown}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": True,
+                "format": fmt,
+                "input_path": str(path),
+                "output_path": output_path or None,
+                "markdown": markdown,
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
         return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
     finally:
