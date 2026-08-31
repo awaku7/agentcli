@@ -854,6 +854,14 @@ def attach_opt_in_session_store(
 
     core.log_message = log_message
     core.session_store = store
+    try:
+        from ..tools.context import get_callbacks
+
+        callbacks = get_callbacks()
+        callbacks.session_store = store
+        callbacks.session_id = session.session_id
+    except Exception:
+        pass
     atexit.register(detach_opt_in_session_store, core)
     core.session_id = session.session_id
     return store, session.session_id

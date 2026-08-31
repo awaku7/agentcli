@@ -27,7 +27,8 @@ def register_artifacts(
         .expanduser()
         .resolve()
     )
-    manager = ArtifactManager(root)
+    session_store = getattr(callbacks, "session_store", None)
+    manager = ArtifactManager(root, store=session_store)
     session_id = getattr(callbacks, "session_id", None)
     try:
         result: list[dict[str, Any]] = []

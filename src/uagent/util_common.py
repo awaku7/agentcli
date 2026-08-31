@@ -126,6 +126,7 @@ def init_tools_callbacks(core: Any) -> None:
         ),
         event_queue=getattr(core, "event_queue", None),
         session_id=getattr(core, "session_id", None),
+        session_store=getattr(core, "session_store", None),
         cmd_encoding=getattr(core, "CMD_ENCODING", "utf-8"),
         cmd_exec_timeout_ms=getattr(core, "CMD_EXEC_TIMEOUT_MS", 60_000),
         python_exec_timeout_ms=getattr(core, "PYTHON_EXEC_TIMEOUT_MS", 60_000),

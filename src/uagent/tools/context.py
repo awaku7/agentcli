@@ -51,6 +51,7 @@ class ToolCallbacks:
     # Event injection (e.g., timers)
     event_queue: Any = None
     session_id: str | None = None
+    session_store: Any = None
 
     # Display environment
     is_gui: bool = False
