@@ -175,6 +175,29 @@ def test_sensitive_values_are_redacted_before_storage(tmp_path):
     assert "[REDACTED]" in content
 
 
+def test_tool_call_arguments_are_redacted_before_storage(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+
+    store.record_tool_call(
+        session.session_id,
+        tool_name="http_request",
+        args={
+            "headers": {"Authorization": "Bearer secret-token"},
+            "password": "hunter2",
+            "nested": [{"api_key": "sk-secret-value"}],
+        },
+        result="ok",
+        status="success",
+    )
+
+    args = store.list_tool_calls(session.session_id)[0]["args"]
+    assert "secret-token" not in str(args)
+    assert "hunter2" not in str(args)
+    assert "sk-secret-value" not in str(args)
+    assert "********" in str(args)
+
+
 def test_unknown_session_and_invalid_tool_status_raise(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
 
