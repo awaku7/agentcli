@@ -283,6 +283,20 @@ def _model_value_note(
     return ""
 
 
+def _auth_requirement_text(provider: str) -> str:
+    """Return a localized, non-secret authentication requirement label."""
+    from .providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
+
+    requirement = DEFAULT_PROVIDER_REGISTRY.resolve(provider).auth_requirement
+    labels = {
+        "api_key": _("API key"),
+        "cloud_credentials": _("cloud credentials"),
+        "local_endpoint": _("local endpoint (API key not required)"),
+        "unknown": _("unknown"),
+    }
+    return labels.get(requirement, labels["unknown"])
+
+
 def _append_resolved_model_section(
     lines: list[str],
     *,
@@ -313,6 +327,10 @@ def _append_resolved_model_section(
     )
     lines.append(
         _("    Model:    %(model)s%(note)s") % {"model": model, "note": model_note}
+    )
+    lines.append(
+        _("    Auth:     %(requirement)s")
+        % {"requirement": _auth_requirement_text(provider)}
     )
     if extra_lines:
         lines.extend(extra_lines)
