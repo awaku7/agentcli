@@ -4826,12 +4826,16 @@ msgstr ""
 "ukontrolleret kørsel."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio-transport: sdk, chat eller responses (valgfrit, standard: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio-transport: sdk, chat eller responses (valgfrit, standard: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4867,3 +4871,22 @@ msgstr "  første: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  sidste: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Godkendelse: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API nøgle"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "cloud legitimationsoplysninger"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "lokalt slutpunkt (API nøgle ikke påkrævet)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "ukendt"

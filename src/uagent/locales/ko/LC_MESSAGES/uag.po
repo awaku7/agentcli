@@ -4919,12 +4919,14 @@ msgid ""
 msgstr "[경고] 도구를 %(n)d회 연속 호출하여 폭주 실행을 방지하기 위해 중단합니다."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
 msgstr "LM Studio 전송 방식: sdk, chat 또는 responses (선택 사항, 기본값: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4960,3 +4962,22 @@ msgstr "  첫 번째: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  마지막: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "인증: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API 키"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "클라우드 자격 증명"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "로컬 엔드포인트(API 키가 필요하지 않음)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "알 수 없음"

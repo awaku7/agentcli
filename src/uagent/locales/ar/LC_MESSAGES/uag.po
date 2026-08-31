@@ -5053,12 +5053,15 @@ msgstr ""
 "منضبط."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "نقل LM Studio: sdk أو chat أو responses (اختياري، الافتراضي: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"نقل LM Studio: sdk أو chat أو responses (اختياري، الافتراضي: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5094,3 +5097,22 @@ msgstr "  الأول: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  الأخير: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "المصادقة: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API مفتاح"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "بيانات اعتماد السحابة"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "نقطة نهاية محلية (مفتاح API غير مطلوب)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "غير معروف"

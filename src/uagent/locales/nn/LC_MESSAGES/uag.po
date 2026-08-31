@@ -4821,12 +4821,16 @@ msgstr ""
 "køyring."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio-transport: sdk, chat eller responses (valfritt, standard: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio-transport: sdk, chat eller responses (valfritt, standard: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4862,3 +4866,22 @@ msgstr "  første: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  siste:  %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Autentisering: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API-nøkkel"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "skylegitimasjon"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "lokalt endepunkt (API-nøkkel er ikkje nødvendig)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "ukjent"

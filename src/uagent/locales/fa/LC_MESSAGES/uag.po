@@ -5047,12 +5047,15 @@ msgstr ""
 "کنترل‌نشده متوقف می‌شود."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "انتقال LM Studio: sdk، chat یا responses (اختیاری، پیش‌فرض: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"انتقال LM Studio: sdk، chat یا responses (اختیاری، پیش‌فرض: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5088,3 +5091,22 @@ msgstr "  اول: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  آخرین: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Auth: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API کلید"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "اطلاعات ابری"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "نقطه پایانی محلی (API کلید لازم نیست)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "ناشناخته"

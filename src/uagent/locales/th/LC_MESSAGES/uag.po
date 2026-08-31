@@ -5062,12 +5062,16 @@ msgstr ""
 "ยกเลิกเพื่อป้องกันการทำงานที่ควบคุมไม่ได้"
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "การขนส่ง LM Studio: sdk, chat หรือ responses (ไม่บังคับ ค่าเริ่มต้น: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"การขนส่ง LM Studio: sdk, chat หรือ responses (ไม่บังคับ ค่าเริ่มต้น: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5103,3 +5107,22 @@ msgstr "  แรก: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  สุดท้าย: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "การตรวจสอบสิทธิ์: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API คีย์"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "ข้อมูลรับรองคลาวด์"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "ปลายทางในเครื่อง (ไม่จำเป็นต้องใช้คีย์ API)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "ไม่ทราบ"

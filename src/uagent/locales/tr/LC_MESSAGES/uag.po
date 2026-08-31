@@ -5131,12 +5131,16 @@ msgstr ""
 "durduruluyor."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio aktarımı: sdk, chat veya responses (isteğe bağlı, varsayılan: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio aktarımı: sdk, chat veya responses (isteğe bağlı, varsayılan: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5172,3 +5176,22 @@ msgstr "  ilk: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  son: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Kimlik Doğrulama: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API anahtar"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "bulut kimlik bilgileri"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "yerel uç nokta (API anahtar gerekli değildir)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "bilinmiyor"

@@ -4897,12 +4897,16 @@ msgstr ""
 " makontrol na pagpapatupad."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Transport ng LM Studio: sdk, chat, o responses (opsyonal, default: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Transport ng LM Studio: sdk, chat, o responses (opsyonal, default: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4938,3 +4942,22 @@ msgstr "  una: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  huli: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Awth: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API key"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "cloud na kredensyal"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "lokal na endpoint (API key ang hindi kailangan)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "hindi alam"

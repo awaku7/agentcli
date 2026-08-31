@@ -5146,12 +5146,16 @@ msgstr ""
 "сэргийлж зогсоолоо."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio дамжуулалт: sdk, chat эсвэл responses (заавал биш, өгөгдмөл: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio дамжуулалт: sdk, chat эсвэл responses (заавал биш, өгөгдмөл: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5187,3 +5191,22 @@ msgstr "  эхний: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  сүүлчийн: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Баталгаажуулалт: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API түлхүүр"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "үүлэн итгэмжлэл"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "локал төгсгөлийн цэг (API түлхүүр шаардлагагүй)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "тодорхойгүй"

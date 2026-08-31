@@ -4423,3 +4423,24 @@ msgstr ""
 #, python-format
 msgid "  last:  %(last)s"
 msgstr ""
+
+#: src/uagent/util_model.py
+#, python-format
+msgid "Auth:     %(requirement)s"
+msgstr ""
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr ""
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr ""
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr ""
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr ""

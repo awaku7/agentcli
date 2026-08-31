@@ -5003,12 +5003,16 @@ msgstr ""
 "usiodhibitiwa."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Usafirishaji wa LM Studio: sdk, chat au responses (si lazima, chaguo-msingi: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Usafirishaji wa LM Studio: sdk, chat au responses (si lazima, chaguo-msingi:"
+" responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5044,3 +5048,22 @@ msgstr "  kwanza: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  mwisho: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Auth: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API ufunguo"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "wingu vitambulisho"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "eneo la mwisho la eneo (API ufunguo hauhitajiki)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "haijulikani"

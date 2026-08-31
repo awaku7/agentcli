@@ -4836,12 +4836,15 @@ msgstr ""
 "pelaksanaan tidak terkawal."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Pengangkutan LM Studio: sdk, chat atau responses (pilihan, lalai: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Pengangkutan LM Studio: sdk, chat atau responses (pilihan, lalai: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4877,3 +4880,22 @@ msgstr "  pertama: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  terakhir: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Pengesahan: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API kunci"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "bukti kelayakan awan"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "titik akhir setempat (API kunci tidak diperlukan)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "tidak diketahui"

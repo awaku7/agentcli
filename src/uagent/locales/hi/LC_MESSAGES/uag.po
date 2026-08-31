@@ -5093,12 +5093,16 @@ msgstr ""
 "किया जा रहा है।"
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio ट्रांसपोर्ट: sdk, chat या responses (वैकल्पिक, डिफ़ॉल्ट: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio ट्रांसपोर्ट: sdk, chat या responses (वैकल्पिक, डिफ़ॉल्ट: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5134,3 +5138,22 @@ msgstr "  पहला: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  अंतिम: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "प्रामाणिक: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API कुंजी"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "क्लाउड क्रेडेंशियल"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "स्थानीय समापन बिंदु (API कुंजी आवश्यक नहीं)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "अज्ञात"

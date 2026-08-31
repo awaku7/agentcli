@@ -5066,12 +5066,16 @@ msgstr ""
 "[इशारा] %(n)d सलग टूल कॉल; अनियंत्रित अंमलबजावणी टाळण्यासाठी थांबवत आहे."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio ट्रान्सपोर्ट: sdk, chat किंवा responses (पर्यायी, डीफॉल्ट: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio ट्रान्सपोर्ट: sdk, chat किंवा responses (पर्यायी, डीफॉल्ट: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5107,3 +5111,22 @@ msgstr "  प्रथम: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  शेवटचा: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "प्रमाणीकरण: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API की"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "क्लाउड क्रेडेन्शियल्स"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "स्थानिक एंडपॉइंट (API की आवश्यक नाही)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "अज्ञात"

@@ -4899,12 +4899,14 @@ msgid ""
 msgstr "[警告] 工具連續呼叫 %(n)d 次；為防止失控執行而中止。"
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
 msgstr "LM Studio 傳輸方式：sdk、chat 或 responses（選用，預設：responses）"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4940,3 +4942,22 @@ msgstr "  第一個：%(first)s"
 msgid "  last:  %(last)s"
 msgstr "  最後一個：%(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "驗證：%(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API 金鑰"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "雲端憑證"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "本機端點（不需要 API 金鑰）"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "未知"

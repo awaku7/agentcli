@@ -5189,12 +5189,16 @@ msgstr ""
 "unkontrollierter Ausführung."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM-Studio-Transport: sdk, chat oder responses (optional, Standard: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM-Studio-Transport: sdk, chat oder responses (optional, Standard: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5230,3 +5234,22 @@ msgstr "  zuerst: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  zuletzt: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Auth: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API-Schlüssel"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "Cloud-Anmeldeinformationen"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "lokaler Endpunkt (API-Schlüssel nicht erforderlich)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "unbekannt"

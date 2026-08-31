@@ -5169,12 +5169,16 @@ msgstr ""
 "запобігти неконтрольованому виконанню."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Транспорт LM Studio: sdk, chat або responses (необов’язково, типово: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Транспорт LM Studio: sdk, chat або responses (необов’язково, типово: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5210,3 +5214,22 @@ msgstr "  перший: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  останній: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Авторизація: ключ %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "облікові дані хмари"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "локальна кінцева точка (ключ API не потрібен)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "невідомо"

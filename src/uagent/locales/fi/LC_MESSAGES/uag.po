@@ -5129,12 +5129,16 @@ msgstr ""
 "suorituksen estämiseksi."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio -siirtotapa: sdk, chat tai responses (valinnainen, oletus: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio -siirtotapa: sdk, chat tai responses (valinnainen, oletus: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5170,3 +5174,22 @@ msgstr "  ensimmäinen: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  viimeinen: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Todennus: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API-avain"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "pilven käyttöoikeustiedot"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "paikallinen päätepiste (API-avainta ei vaadita)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "tuntematon"

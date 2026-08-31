@@ -5174,12 +5174,15 @@ msgstr ""
 "pentru a preveni execuția necontrolată."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Transport LM Studio: sdk, chat sau responses (opțional, implicit: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Transport LM Studio: sdk, chat sau responses (opțional, implicit: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5215,3 +5218,22 @@ msgstr "  primul: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  ultimul: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Autentificare: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API cheie"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "acreditări cloud"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "punct final local (cheia API nu este necesară)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "necunoscut"

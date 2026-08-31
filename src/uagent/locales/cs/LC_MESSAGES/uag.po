@@ -5126,12 +5126,16 @@ msgstr ""
 "zabránilo nekontrolovanému spuštění."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Transport LM Studio: sdk, chat nebo responses (volitelné, výchozí: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Transport LM Studio: sdk, chat nebo responses (volitelné, výchozí: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5167,3 +5171,22 @@ msgstr "  první: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  poslední: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Ověření: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API klíč"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "cloudové přihlašovací údaje"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "místní koncový bod (klíč API není vyžadován)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "neznámý"

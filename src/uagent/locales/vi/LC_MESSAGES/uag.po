@@ -4934,12 +4934,15 @@ msgstr ""
 " kiểm soát."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "Kết nối LM Studio: sdk, chat hoặc responses (tùy chọn, mặc định: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"Kết nối LM Studio: sdk, chat hoặc responses (tùy chọn, mặc định: responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -4975,3 +4978,22 @@ msgstr "  đầu tiên: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  cuối cùng: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Xác thực: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API khóa"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "thông tin đăng nhập trên đám mây"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "điểm cuối cục bộ (không cần khóa API)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "không xác định"

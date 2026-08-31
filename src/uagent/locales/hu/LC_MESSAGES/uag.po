@@ -5158,12 +5158,16 @@ msgstr ""
 "ellenőrizetlen végrehajtás megelőzésére."
 
 #: src/uagent/setup_cli.py:352
-msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"
-msgstr "LM Studio-átvitel: sdk, chat vagy responses (opcionális, alapértelmezett: responses)"
+msgid ""
+"LM Studio transport: sdk, chat, or responses (optional, default: responses)"
+msgstr ""
+"LM Studio-átvitel: sdk, chat vagy responses (opcionális, alapértelmezett: "
+"responses)"
 
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+
 #: src/uagent/util_cmd_session.py
 #, python-format
 msgid "  id: %(id)s"
@@ -5199,3 +5203,22 @@ msgstr "  első: %(first)s"
 msgid "  last:  %(last)s"
 msgstr "  utolsó: %(last)s"
 
+#: src/uagent/util_model.py
+msgid "Auth:     %(requirement)s"
+msgstr "Hitelesítés: %(requirement)s"
+
+#: src/uagent/util_model.py
+msgid "API key"
+msgstr "API kulcs"
+
+#: src/uagent/util_model.py
+msgid "cloud credentials"
+msgstr "felhő hitelesítési adatok"
+
+#: src/uagent/util_model.py
+msgid "local endpoint (API key not required)"
+msgstr "helyi végpont (API kulcs nem szükséges)"
+
+#: src/uagent/util_model.py
+msgid "unknown"
+msgstr "ismeretlen"
