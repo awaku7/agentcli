@@ -25,6 +25,19 @@ def test_provider_credential_prefers_store(monkeypatch) -> None:
     assert credential.secret == "stored-key"
 
 
+def test_provider_credential_source_distinguishes_explicit_and_generic_environment(
+    monkeypatch,
+) -> None:
+    from uagent.auth.provider_credentials import get_provider_credential_source
+
+    monkeypatch.setenv("UAGENT_GROK_API_KEY", "explicit")
+    assert get_provider_credential_source("grok") == "explicit_environment"
+
+    monkeypatch.delenv("UAGENT_GROK_API_KEY")
+    monkeypatch.setenv("XAI_API_KEY", "generic")
+    assert get_provider_credential_source("grok") == "environment"
+
+
 def test_provider_credential_falls_back_to_environment(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_GROK_API_KEY", "env-key")
 

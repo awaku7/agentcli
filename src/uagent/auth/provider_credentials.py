@@ -75,6 +75,50 @@ def get_provider_credential(
     return None
 
 
+def get_provider_credential_source(
+    provider: str,
+    *,
+    store: CredentialStore | None = None,
+    environ: Mapping[str, str] | None = None,
+) -> str:
+    """Return the non-secret source of a provider credential.
+
+    ``credential_store`` is preferred over environment variables. UAGENT_*
+    variables are treated as explicitly configured; generic provider
+    variables are reported separately so callers do not silently auto-select
+    them for routing or billing decisions.
+    """
+    normalized = str(provider or "").strip().lower()
+    if not normalized:
+        return "none"
+    name = f"provider/{normalized}"
+    if store is not None:
+        try:
+            credential = store.get(name)
+        except Exception:
+            credential = None
+        if (
+            credential is not None
+            and credential.kind is CredentialKind.API_KEY
+            and credential.secret
+        ):
+            return "credential_store"
+
+    env = environ if environ is not None else os.environ
+    names = _PROVIDER_ENV_NAMES.get(
+        normalized,
+        (f"UAGENT_{normalized.upper()}_API_KEY",),
+    )
+    for env_name in names:
+        if str(env.get(env_name, "") or "").strip():
+            return (
+                "explicit_environment"
+                if env_name.startswith("UAGENT_")
+                else "environment"
+            )
+    return "none"
+
+
 def get_provider_api_key(
     provider: str,
     *,
