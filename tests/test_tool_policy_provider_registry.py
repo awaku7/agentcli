@@ -27,6 +27,16 @@ def test_provider_registry_distinguishes_unknown_capability() -> None:
     assert not unknown.supports_tools
 
 
+def test_provider_registry_exposes_deterministic_metadata() -> None:
+    specs = DEFAULT_PROVIDER_REGISTRY.list()
+    assert [spec.name for spec in specs] == sorted(spec.name for spec in specs)
+    openai = DEFAULT_PROVIDER_REGISTRY.resolve("openai")
+    assert openai.credential_sources == ("credential_store", "environment")
+    assert openai.routing_policy == "default"
+    assert openai.cost_hint is None
+    assert openai.context_limit is None
+
+
 def test_default_confirmation_uses_human_ask(monkeypatch) -> None:
     monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
     monkeypatch.setattr(

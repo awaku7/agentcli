@@ -96,10 +96,16 @@ class ProviderSpec:
     supports_streaming: bool
     supports_vision: bool
     chat_vision_format: str | None = None
+    credential_sources: tuple[str, ...] = ()
+    cost_hint: str | None = None
+    context_limit: int | None = None
+    routing_policy: str = "default"
 
 
 class ProviderRegistry(Protocol):
     def resolve(self, provider: str, model: str | None = None) -> ProviderSpec: ...
+
+    def list(self) -> tuple[ProviderSpec, ...]: ...
 
 
 class StaticProviderRegistry:
@@ -132,7 +138,12 @@ class StaticProviderRegistry:
             supports_streaming=True,
             supports_vision="vision" in capabilities,
             chat_vision_format=chat_vision_format,
+            credential_sources=("credential_store", "environment"),
         )
+
+    def list(self) -> tuple[ProviderSpec, ...]:
+        """Return all known provider specifications in deterministic order."""
+        return tuple(self.resolve(name) for name in sorted(ALL_PROVIDERS))
 
 
 DEFAULT_PROVIDER_REGISTRY = StaticProviderRegistry()
