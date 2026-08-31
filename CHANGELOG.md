@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.6.17] - 2026-08-31
+
+### Added
+
+- Add Office and XLSM analysis tools for worksheets, formulas, dependencies, and VBA.
+
+### Changed
+
+- Improve LM Studio URL and context-limit handling.
+- Improve provider authentication labels and prompt status rendering.
+- Format Office analysis tools with Black.
+- Derive the GitHub repository from the local `origin` remote instead of `GITHUB_REPO`.
+
+### Fixed
+
+- Allow LM Studio startup without an API key.
+- Enable automatic `oletools` installation for XLSM VBA analysis.
+
 ## [0.6.16] - 2026-08-30
 
 ### Added

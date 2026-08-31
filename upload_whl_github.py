@@ -25,7 +25,6 @@ Release notes behavior
 - You can pin the base tag by passing --base-tag.
 
 Required environment variables:
-  GITHUB_REPO    GitHub repository in the form "owner/repo". Example: awaku7/agentcli
   GITHUB_TOKEN   GitHub token with appropriate permissions.
                 - For local execution: a PAT with "repo" scope (classic) is simplest.
                 - For GitHub Actions: use the provided token (usually in env GITHUB_TOKEN) with
@@ -56,6 +55,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Optional
@@ -77,6 +77,27 @@ def _require_env(name: str) -> str:
             f"  Windows PS : $env:{name}=...\n"
         )
     return v
+
+
+def _repo_from_origin() -> str:
+    """Return the GitHub ``owner/repo`` path from the local origin remote."""
+    try:
+        result = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise SystemExit(
+            "Could not read GitHub repository from git remote origin"
+        ) from exc
+
+    remote = result.stdout.strip()
+    match = re.search(r"github\.com[/:]([^/]+)/([^/#]+?)(?:\.git)?$", remote)
+    if not match:
+        raise SystemExit(f"origin is not a GitHub repository: {remote}")
+    return f"{match.group(1)}/{match.group(2)}"
 
 
 def _pick_latest_whl(dist_dir: Path) -> Path:
@@ -557,7 +578,7 @@ def main(argv: list[str]) -> int:
     if whl_path.suffix.lower() != ".whl":
         raise SystemExit(f"Not a .whl file: {whl_path}")
 
-    repo_full = _require_env("GITHUB_REPO")
+    repo_full = _repo_from_origin()
     token = _require_env("GITHUB_TOKEN")
     owner, repo = _parse_repo(repo_full)
 
