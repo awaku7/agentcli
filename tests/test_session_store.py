@@ -198,6 +198,25 @@ def test_tool_call_arguments_are_redacted_before_storage(tmp_path):
     assert "********" in str(args)
 
 
+def test_policy_decisions_can_be_recorded_without_secrets(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+
+    store.record_policy_decision(
+        session.session_id,
+        tool_name="http_request",
+        decision="deny",
+        args={"token": "secret-token"},
+        reason="configured policy",
+        tool_call_id="call-1",
+    )
+
+    rows = store.list_policy_decisions(session.session_id)
+    assert rows[0]["decision"] == "deny"
+    assert rows[0]["reason"] == "configured policy"
+    assert "secret-token" not in str(rows[0]["args"])
+
+
 def test_unknown_session_and_invalid_tool_status_raise(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
 

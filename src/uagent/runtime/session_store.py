@@ -234,6 +234,16 @@ class SessionStore:
                     status TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS policy_decisions (
+                    decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    tool_call_id TEXT,
+                    tool_name TEXT NOT NULL,
+                    decision TEXT NOT NULL,
+                    args_json TEXT NOT NULL,
+                    reason TEXT,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
                 CREATE TABLE IF NOT EXISTS legacy_imports (
                     source_path TEXT PRIMARY KEY,
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -576,6 +586,64 @@ class SessionStore:
             (session_id,),
         ).fetchone()
         return None if row is None else dict(row)
+
+    @_db_locked
+    def record_policy_decision(
+        self,
+        session_id: str,
+        *,
+        tool_name: str,
+        decision: str,
+        args: dict[str, Any] | None = None,
+        reason: str = "",
+        tool_call_id: str | None = None,
+    ) -> int:
+        """Persist a redacted authorization decision for one tool call."""
+        if decision not in {"allow", "confirm", "deny"}:
+            raise ValueError(f"invalid policy decision: {decision}")
+        self._require_session(session_id)
+        try:
+            safe_args_json = json.dumps(
+                mask_args(args or {}), ensure_ascii=False, sort_keys=True
+            )
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError(
+                "policy decision arguments are not JSON serializable"
+            ) from exc
+        cursor = self._execute(
+            "INSERT INTO policy_decisions "
+            "(session_id, tool_call_id, tool_name, decision, args_json, reason) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            (
+                session_id,
+                tool_call_id,
+                str(tool_name),
+                decision,
+                safe_args_json,
+                redact_sensitive(str(reason or "")),
+            ),
+        )
+        return int(cursor.lastrowid)
+
+    @_db_locked
+    def list_policy_decisions(self, session_id: str) -> list[dict[str, Any]]:
+        self._require_session(session_id)
+        rows = self._execute(
+            "SELECT decision_id, session_id, tool_call_id, tool_name, decision, "
+            "args_json, reason, created_at FROM policy_decisions "
+            "WHERE session_id = ? ORDER BY decision_id",
+            (session_id,),
+        ).fetchall()
+        output: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            try:
+                item["args"] = json.loads(item.pop("args_json"))
+            except (TypeError, ValueError):
+                item["args"] = {}
+                item.pop("args_json", None)
+            output.append(item)
+        return output
 
     @_db_locked
     def record_tool_call(

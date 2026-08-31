@@ -2018,6 +2018,33 @@ def _call_tool_runner(
         return str(result)
 
 
+def _record_policy_audit(
+    *,
+    tool_name: str,
+    args: dict[str, Any],
+    decision: str,
+    reason: str = "",
+    tool_call_id: str | None = None,
+) -> None:
+    """Best-effort persistence of policy decisions for the active session."""
+    try:
+        from .. import core as _core
+        store = getattr(_core, "session_store", None)
+        session_id = getattr(_core, "session_id", None)
+        if store is not None and session_id:
+            store.record_policy_decision(
+                session_id,
+                tool_name=tool_name,
+                decision=decision,
+                args=args,
+                reason=reason,
+                tool_call_id=tool_call_id,
+            )
+    except Exception:
+        # Auditing must not make an otherwise valid tool call fail.
+        pass
+
+
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
     _ensure_loaded()
@@ -2075,9 +2102,23 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
 
         unified_decision = UnifiedPolicy.from_environment().decide(name, args)
         if unified_decision is PolicyDecision.DENY:
+            _record_policy_audit(
+                tool_name=name,
+                args=args,
+                decision="deny",
+                reason="configured policy",
+                tool_call_id=tool_call_id,
+            )
             return "[tool policy] denied by configured policy"
         if unified_decision is PolicyDecision.CONFIRM:
             if _CONFIRMATION_CALLBACK is None:
+                _record_policy_audit(
+                    tool_name=name,
+                    args=args,
+                    decision="confirm",
+                    reason="confirmation unavailable",
+                    tool_call_id=tool_call_id,
+                )
                 return "[tool policy] confirmation unavailable"
             policy = policy.__class__(
                 side_effect=policy.side_effect,
@@ -2087,6 +2128,14 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             )
     except Exception as exc:
         return f"[tool policy] unified policy error: {type(exc).__name__}: {exc}"
+
+    _record_policy_audit(
+        tool_name=name,
+        args=args,
+        decision="confirm" if policy.requires_confirmation else "allow",
+        reason="tool policy",
+        tool_call_id=tool_call_id,
+    )
 
     # Display the final, masked arguments before confirmation or execution so
     # the user can see what a side-effecting call is about to do. Keeping this
@@ -2110,6 +2159,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if policy.requires_confirmation and _CONFIRMATION_CALLBACK is not None:
         try:
             if not bool(_CONFIRMATION_CALLBACK(name, args, policy)):
+                _record_policy_audit(
+                    tool_name=name,
+                    args=args,
+                    decision="deny",
+                    reason="confirmation denied",
+                    tool_call_id=tool_call_id,
+                )
                 return "[tool policy] confirmation denied"
         except Exception as exc:
             return f"[tool policy] confirmation failed: {type(exc).__name__}"
