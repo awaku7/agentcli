@@ -218,7 +218,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
                 "Session persistence is opt-in via UAGENT_SESSION_STORE=1.\n"
                 ":sessions list             List stored sessions.\n"
                 ":sessions load <id>       Load a stored session.\n"
-                ":sessions search <query>  Search persisted messages.\n"
+                ":sessions search <query>  Search persisted messages (default: newest, then match count; use --sort date|matches|date,matches).\n"
                 ":sessions delete <id> --yes  Delete one session.\n"
                 ":sessions vacuum           Reclaim unused SQLite pages.\n"
                 ":sessions pdf <id> [path]  Export a session with pdf_export.\n"

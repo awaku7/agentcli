@@ -1152,6 +1152,18 @@ def _handle_cmd_sessions(
         return True
     query_parts = parts[1:]
     project = None
+    sort_keys = ["date", "matches"]
+    if "--sort" in query_parts:
+        sort_index = query_parts.index("--sort")
+        if sort_index + 1 >= len(query_parts):
+            print(_("[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"))
+            return True
+        requested_sort = query_parts[sort_index + 1].split(",")
+        if not requested_sort or any(key not in {"date", "matches"} for key in requested_sort):
+            print(_("[sessions] --sort must contain date and/or matches."))
+            return True
+        sort_keys = list(dict.fromkeys(requested_sort))
+        del query_parts[sort_index : sort_index + 2]
     if "--project" in query_parts:
         index = query_parts.index("--project")
         if index + 1 < len(query_parts):
@@ -1173,12 +1185,45 @@ def _handle_cmd_sessions(
     if not results:
         print(_("[sessions] No matching sessions."))
         return True
-    print(_("[sessions] Matches: " + str(len(results))))
+    # ``search`` returns matching messages, so one session can occur more
+    # than once when several messages match. Collapse those hits for the
+    # CLI: the search result is a session-oriented view and must stay one
+    # line per session.
+    session_rows: dict[str, dict[str, Any]] = {}
+    session_match_counts: dict[str, int] = {}
+    session_latest_dates: dict[str, str] = {}
     for row in results:
+        session_id = row["session_id"]
+        session_rows.setdefault(session_id, row)
+        session_match_counts[session_id] = session_match_counts.get(session_id, 0) + 1
+        created_at = row.get("created_at") or ""
+        if created_at > session_latest_dates.get(session_id, ""):
+            session_latest_dates[session_id] = created_at
+    search_sessions = list(session_rows.values())
+    search_sessions.sort(
+        key=lambda row: tuple(
+            (
+                session_latest_dates.get(row["session_id"], "")
+                if key == "date"
+                else session_match_counts[row["session_id"]]
+            )
+            for key in sort_keys
+        ),
+        reverse=True,
+    )
+    # Keep the numbered search result available to :load. Search result
+    # numbers are intentionally zero-based, matching :load's normal index.
+    core._session_search_results = {
+        index: row["session_id"] for index, row in enumerate(search_sessions)
+    }
+    print(_("[sessions] Matches: " + str(len(search_sessions))))
+    for index, row in enumerate(search_sessions):
+        session_id = row["session_id"]
         print(
-            f"{row['session_id']} | {row.get('created_at') or '-'} | "
+            f"[{index}] {session_id} | {session_latest_dates.get(session_id) or '-'} | "
             f"{row.get('project') or '-'} | {row.get('entry_point') or '-'} | "
-            f"{row['role']}: {row['content']}"
+            f"{row['role']}: {_session_preview(row.get('content'))} | "
+            f"matches: {session_match_counts[session_id]}"
         )
     return True
 
@@ -1233,10 +1278,14 @@ def _handle_cmd_load(
             return True
         if target.isdigit():
             index = int(target)
-            if index < 0 or index >= len(sessions):
-                print("[load] Session index out of range.")
-                return True
-            target = sessions[index]["session_id"]
+            search_results = getattr(core, "_session_search_results", {})
+            if index in search_results:
+                target = search_results[index]
+            else:
+                if index < 0 or index >= len(sessions):
+                    print("[load] Session index out of range.")
+                    return True
+                target = sessions[index]["session_id"]
         session_row = next(
             (row for row in sessions if row.get("session_id") == target), None
         )
