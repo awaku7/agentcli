@@ -210,6 +210,13 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ),
         )
 
+    elif provider == "lmstudio":
+        # LM Studio exposes a local OpenAI-compatible endpoint. The OpenAI
+        # client requires a non-empty api_key argument, but LM Studio does
+        # not require an actual API key; the transport supplies a dummy
+        # value when one is not configured.
+        pass
+
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()
     if embedding_provider:
         embedding_allowed = (

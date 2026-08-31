@@ -87,6 +87,13 @@ def print_status_line() -> None:
         busy = _core.status_busy
         label = _core.status_label
 
+    # An idle prompt is already the user's visual indication that the CLI is
+    # ready. Do not tear it down just to print a redundant IDLE line: the
+    # prompt can be redrawn a moment later and produce `agentcli> [STATE] IDLE`
+    # on terminals with prompt wrappers.
+    if not busy and _core._prompt_line_open:
+        return
+
     # Status has priority over a stale prompt. If a prompt is still marked
     # open, close it below and emit the state on its own line; the input loop
     # will redraw the prompt afterward. This also applies to non-TTY prompt
