@@ -436,6 +436,20 @@ def _get_lmstudio_v1_context(model_id: str | None) -> int | None:
             }
             if model not in identifiers:
                 continue
+            # LM Studio exposes the model's advertised maximum separately from
+            # the context length of the currently loaded instance. The latter
+            # is the effective limit for requests sent to the running server.
+            loaded_instances = item.get("loaded_instances") or []
+            if isinstance(loaded_instances, list):
+                for instance in loaded_instances:
+                    if not isinstance(instance, dict):
+                        continue
+                    config = instance.get("config") or {}
+                    if not isinstance(config, dict):
+                        continue
+                    context = int(config.get("context_length") or 0)
+                    if context > 0:
+                        return context
             for key in ("max_context_length", "context_length"):
                 context = int(item.get(key) or 0)
                 if context > 0:
