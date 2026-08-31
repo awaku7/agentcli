@@ -11,7 +11,7 @@ ______________________________________________________________________
 
 ## XLSM静的解析
 
-`xlsm_analyze` は `.xlsm` ブックを読み取り専用で解析します。ワークシート構造には `openpyxl`、埋め込みVBAの抽出には `oletools` を使用し、マクロは実行しません。シート、数式、結合範囲、VBAのプロシージャ・呼び出し関係、および注意が必要な処理をJSONまたはMarkdownで出力します。翻訳リソースは `src/uagent/tools/xlsm_analyze_tool.json` にあります。
+`spreadsheet_analyze` は `.xlsm` ブックを読み取り専用で解析します。ワークシート構造には `openpyxl`、埋め込みVBAの抽出には `oletools` を使用し、マクロは実行しません。シート、数式、結合範囲、VBAのプロシージャ・呼び出し関係、および注意が必要な処理をJSONまたはMarkdownで出力します。翻訳リソースは `src/uagent/tools/spreadsheet_analyze_tool.json` にあります。
 
 ## 0. 動作環境
 
