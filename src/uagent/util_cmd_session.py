@@ -1337,6 +1337,14 @@ def _handle_cmd_load(
                 )
             core.session_id = target
             core._session_store_active_id = target
+            try:
+                from .tools.context import get_callbacks
+
+                callbacks = get_callbacks()
+                callbacks.session_id = target
+                callbacks.session_store = store
+            except Exception:
+                pass
             session_row = store.get_session(target)
             state = store.latest_response_state(target)
             if state is not None:
