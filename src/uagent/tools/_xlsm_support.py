@@ -141,7 +141,10 @@ def _extract_vba(path: Path) -> tuple[list[dict[str, Any]], list[str]]:
         "oletools", "oletools", verify_submodule="oletools.olevba"
     ):
         raise RuntimeError(
-            "VBA extraction requires oletools; automatic installation failed"
+            _(
+                "err.vba_dependency",
+                default="VBA extraction requires oletools; automatic installation failed",
+            )
         )
     from oletools.olevba import VBA_Parser
 
@@ -173,13 +176,23 @@ def _extract_sheets(path: Path) -> list[dict[str, Any]]:
     try:
         import openpyxl
     except ImportError as exc:
-        raise RuntimeError("openpyxl is required for worksheet analysis") from exc
+        raise RuntimeError(
+            _(
+                "err.openpyxl_dependency",
+                default="openpyxl is required for worksheet analysis",
+            )
+        ) from exc
     try:
         workbook = openpyxl.load_workbook(
             path, read_only=True, data_only=False, keep_links=True
         )
     except Exception as exc:
-        raise RuntimeError(f"could not open workbook: {exc}") from exc
+        raise RuntimeError(
+            _(
+                "err.workbook_open",
+                default="could not open workbook: {error}",
+            ).format(error=exc)
+        ) from exc
     result = []
     try:
         for sheet in workbook.worksheets:
@@ -213,7 +226,7 @@ def _markdown(report: dict[str, Any]) -> str:
     lines = [f"# {report['workbook']['name']}", "", "## Worksheets", ""]
     for sheet in report["workbook"]["sheets"]:
         lines.append(
-            f"- **{sheet['name']}**: {sheet['rows']} rows × {sheet['columns']} columns; {sheet['nonempty_cells']} non-empty cells; {sheet['formula_count']} formulas"
+            f"- **{sheet['name']}**: {sheet['rows']} rows x {sheet['columns']} columns; {sheet['nonempty_cells']} non-empty cells; {sheet['formula_count']} formulas"
         )
     lines += ["", "## VBA modules", ""]
     if not report["vba"]["modules"]:
@@ -251,7 +264,12 @@ def _resolve_encrypted(path: Path, password: str | None) -> tuple[Path, Path | N
             return path, None
         import msoffcrypto
     except Exception as exc:
-        raise RuntimeError(f"msoffcrypto could not be loaded: {exc}") from exc
+        raise RuntimeError(
+            _(
+                "err.msoffcrypto_load",
+                default="msoffcrypto could not be loaded: {error}",
+            ).format(error=exc)
+        ) from exc
     with path.open("rb") as source:
         office = msoffcrypto.OfficeFile(source)
         try:
@@ -261,7 +279,12 @@ def _resolve_encrypted(path: Path, password: str | None) -> tuple[Path, Path | N
         if not encrypted:
             return path, None
         if not password:
-            raise ValueError("password is required for encrypted XLSM files")
+            raise ValueError(
+                _(
+                    "err.password_required",
+                    default="password is required for encrypted XLSM files",
+                )
+            )
         office.load_key(password=password)
         fd, temp_name = tempfile.mkstemp(suffix=".xlsm")
         os.close(fd)
@@ -320,7 +343,12 @@ def run_tool(args: dict[str, Any]) -> str:
         }
         fmt = str(args.get("output_format") or "json").lower()
         if fmt not in {"json", "markdown"}:
-            raise ValueError("output_format must be json or markdown")
+            raise ValueError(
+                _(
+                    "err.output_format",
+                    default="output_format must be json or markdown",
+                )
+            )
         content = (
             _markdown(report)
             if fmt == "markdown"

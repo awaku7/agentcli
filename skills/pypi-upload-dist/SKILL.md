@@ -1,6 +1,6 @@
 ---
 name: pypi-upload-dist
-description: dist 配下の配布物（wheel / sdist）を PYPI_TOKEN で PyPI へアップロードするための手順を規定化したスキル。
+description: dist 配下の配布物（wheel / sdist）を UAG_TOKEN で PyPI へアップロードするための手順を規定化したスキル。
 license: Apache-2.0
 ---
 
@@ -13,7 +13,7 @@ license: Apache-2.0
 
 必須:
 
-- `PYPI_TOKEN`
+- `UAG_TOKEN`
 
 任意:
 
@@ -36,7 +36,7 @@ license: Apache-2.0
 
 - `dist/` の成果物を PyPI にアップロードします
 - 既存の同一バージョンは上書きできません
-- `PYPI_TOKEN` を使って公開します
+- `UAG_TOKEN` を使って公開します
 
 # 実行フロー（固定）
 
@@ -50,7 +50,7 @@ Windows では進捗表示の文字化け回避のため、次を使う。
 
 ```powershell
 $env:TWINE_USERNAME='__token__'
-$env:TWINE_PASSWORD=$env:PYPI_TOKEN
+$env:TWINE_PASSWORD=$env:UAG_TOKEN
 python -m twine upload --non-interactive --disable-progress-bar dist\*.whl dist\*.tar.gz
 ```
 
@@ -61,7 +61,7 @@ python -m twine upload --non-interactive --disable-progress-bar dist\*.whl dist\
 
 # 失敗時のよくある原因
 
-- `PYPI_TOKEN` 未設定、または期限切れ
+- `UAG_TOKEN` 未設定、または期限切れ
 - 同一バージョンの再アップロード
 - `dist/` に成果物がない
 - `twine` の表示が Windows コンソールと合わない
