@@ -3706,3 +3706,38 @@ msgstr "LM Studio transport: sdk, chat, or responses (optional, default: respons
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  id: %(id)s"
+msgstr "  id: %(id)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  created: %(created)s"
+msgstr "  created: %(created)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  project: %(project)s"
+msgstr "  project: %(project)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  messages: %(count)d"
+msgstr "  messages: %(count)d"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  summary: %(summary)s"
+msgstr "  summary: %(summary)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  first: %(first)s"
+msgstr "  first: %(first)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  last:  %(last)s"
+msgstr "  last:  %(last)s"
+

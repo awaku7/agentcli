@@ -4925,3 +4925,38 @@ msgstr "LM Studio 전송 방식: sdk, chat 또는 responses (선택 사항, 기�
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  id: %(id)s"
+msgstr "  ID: %(id)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  created: %(created)s"
+msgstr "  생성됨: %(created)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  project: %(project)s"
+msgstr "  프로젝트: %(project)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  messages: %(count)d"
+msgstr "  메시지: %(count)d"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  summary: %(summary)s"
+msgstr "  요약: %(summary)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  first: %(first)s"
+msgstr "  첫 번째: %(first)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  last:  %(last)s"
+msgstr "  마지막: %(last)s"
+

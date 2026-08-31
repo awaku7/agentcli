@@ -5009,3 +5009,38 @@ msgstr "Usafirishaji wa LM Studio: sdk, chat au responses (si lazima, chaguo-msi
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  id: %(id)s"
+msgstr "  kitambulisho: %(id)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  created: %(created)s"
+msgstr "  kimeundwa: %(created)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  project: %(project)s"
+msgstr "  mradi: %(project)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  messages: %(count)d"
+msgstr "  ujumbe: %(count)d"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  summary: %(summary)s"
+msgstr "  muhtasari: %(summary)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  first: %(first)s"
+msgstr "  kwanza: %(first)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  last:  %(last)s"
+msgstr "  mwisho: %(last)s"
+

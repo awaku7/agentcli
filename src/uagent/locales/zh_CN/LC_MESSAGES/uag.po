@@ -4907,3 +4907,38 @@ msgstr "LM Studio 传输方式：sdk、chat 或 responses（可选，默认：re
 #: src/uagent/runtime/runtime_banner.py
 msgid "LM Studio Python SDK (ChatCompletions)"
 msgstr "LM Studio Python SDK (ChatCompletions)"
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  id: %(id)s"
+msgstr "  ID：%(id)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  created: %(created)s"
+msgstr "  创建：%(created)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  project: %(project)s"
+msgstr "  项目：%(project)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  messages: %(count)d"
+msgstr "  消息：%(count)d"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  summary: %(summary)s"
+msgstr "  摘要：%(summary)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  first: %(first)s"
+msgstr "  第一个：%(first)s"
+
+#: src/uagent/util_cmd_session.py
+#, python-format
+msgid "  last:  %(last)s"
+msgstr "  最后一个：%(last)s"
+

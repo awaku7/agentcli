@@ -1359,16 +1359,28 @@ def _handle_cmd_load(
                         }
                     )
             print(_("[load] SQLite session loaded"))
-            print(f"  id: {target}")
+            print(_("  id: %(id)s") % {"id": target})
             if session_row is not None:
-                print(f"  created: {session_row.get('created_at') or '-'}")
-                print(f"  project: {session_row.get('project') or '-'}")
-                print(f"  messages: {len(loaded)}")
+                print(
+                    _("  created: %(created)s")
+                    % {"created": session_row.get("created_at") or "-"}
+                )
+                print(
+                    _("  project: %(project)s")
+                    % {"project": session_row.get("project") or "-"}
+                )
+                print(_("  messages: %(count)d") % {"count": len(loaded)})
                 summary = _session_preview(session_row.get("summary"))
                 if summary != "-":
-                    print(f"  summary: {summary}")
-                print(f"  first: {_session_preview(session_row.get('first_message'))}")
-                print(f"  last:  {_session_preview(session_row.get('last_message'))}")
+                    print(_("  summary: %(summary)s") % {"summary": summary})
+                print(
+                    _("  first: %(first)s")
+                    % {"first": _session_preview(session_row.get("first_message"))}
+                )
+                print(
+                    _("  last:  %(last)s")
+                    % {"last": _session_preview(session_row.get("last_message"))}
+                )
             print(
                 _(
                     "[load] Conversation loaded into the current context; "
