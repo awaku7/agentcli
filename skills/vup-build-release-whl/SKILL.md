@@ -23,6 +23,8 @@ license: Apache-2.0
 
 ## 共通
 
+このスキルでは `http_request` ツールを使用しない。外部API操作は配布スクリプト（`upload_whl_github.py` / `upload_whl_http.py`）経由で行う。
+
 必要ツール:
 
 - git
@@ -46,8 +48,10 @@ license: Apache-2.0
 
 必須環境変数:
 
-- `GITHUB_REPO`（例: `awaku7/agentcli`）
 - `GITHUB_TOKEN`
+
+リポジトリ名は `git remote get-url origin` から自動取得する。
+`GITHUB_REPO` は使用しない。
 
 # 危険操作（必ず事前に確認する）
 
