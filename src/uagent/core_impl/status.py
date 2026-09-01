@@ -81,7 +81,13 @@ def set_status(busy: bool, label: str = "") -> None:
         _core.status_label = label
 
     if busy != prev_busy or label != prev_label:
-        print_status_line()
+        # In the interactive CLI, the next input prompt is the idle indicator.
+        # Avoid emitting a redundant IDLE line after the assistant response;
+        # that line can race with prompt redraw and appear as
+        # `agentcli> [STATE] IDLE`. GUI/Web frontends retain their own status.
+        is_web = bool(getattr(_core, "_is_web", False))
+        if busy or bool(getattr(_core, "IS_GUI", False)) or is_web:
+            print_status_line()
 
 
 def get_prompt() -> str:
