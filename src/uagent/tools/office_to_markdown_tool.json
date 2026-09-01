@@ -1,7 +1,7 @@
 {
   "en": {
-    "tool.description": "Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved.",
-    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file",
+    "tool.description": "Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved.Preserves Excel number/date formats and optionally adds Mermaid flowcharts for recognizable process or dependency tables.",
+    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, or .docx path.",
     "param.output_path.description": "Optional output .md path.",
     "param.format.description": "Input format, normally auto-detected from the extension.",
@@ -21,17 +21,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "For Excel files, recalculate formulas with Microsoft Excel before conversion when available.",
+    "param.include_hidden.description": "For Excel files, include hidden rows and columns.",
+    "param.include_mermaid.description": "For Excel sheets with recognizable process or dependency columns, include a Mermaid flowchart."
   },
   "ja": {
-    "tool.description": "PPTX、XLSX/XLSM、DOCXをMarkdownへ変換します。スライド、ワークシート、見出し、段落、表を保持します。",
-    "x_search_terms": [
-      "Office Markdown変換",
-      "PPTX Markdown変換",
-      "XLSX Markdown変換",
-      "DOCX Markdown変換",
-      "Officeファイル変換"
-    ],
+    "tool.description": "PPTX、XLSX/XLSM、DOCXをMarkdownへ変換します。スライド、ワークシート、見出し、段落、表を保持します。.Excelの数値・日付書式を保持し、認識可能なプロセス／依存関係の表にはMermaidフローチャートを追加できます。",
+    "x_search_terms": "['Office Markdown変換', 'PPTX Markdown変換', 'XLSX Markdown変換', 'DOCX Markdown変換', 'Officeファイル変換'] | excel formatting | mermaid flowchart",
     "param.input_path.description": "入力するPPTX、XLSX/XLSM、またはDOCXのパス。",
     "param.output_path.description": "任意のMarkdown出力先パス。",
     "param.format.description": "入力形式。通常は拡張子から自動判定します。",
@@ -51,11 +48,14 @@
     "label.table": "表",
     "label.merged_ranges": "結合範囲",
     "label.formulas": "数式",
-    "param.password.description": "暗号化されたOfficeファイルのパスワード（任意）。"
+    "param.password.description": "暗号化されたOfficeファイルのパスワード（任意）。",
+    "param.recalculate.description": "Excelファイルを変換する前に、利用可能な場合はMicrosoft Excelで数式を再計算します。",
+    "param.include_hidden.description": "Excelの非表示行と非表示列を含めます。",
+    "param.include_mermaid.description": "プロセス列または依存関係列を認識できるExcelシートにMermaidフローチャートを含めます。"
   },
   "es": {
-    "tool.description": "Convertir archivos PPTX, XLSX/XLSM o DOCX a Markdown. Se conservan diapositivas, hojas de trabajo, encabezados, párrafos y tablas.",
-    "x_search_terms": "office to markdown | pptx a rebajas | xlsx a rebajas | docx para rebajar | convertir archivo de Office",
+    "tool.description": "Convertir archivos PPTX, XLSX/XLSM o DOCX a Markdown. Se conservan diapositivas, hojas de trabajo, encabezados, párrafos y tablas.Conserva los formatos numéricos y de fecha de Excel y permite añadir diagramas de flujo Mermaid para tablas reconocibles de procesos o dependencias.",
+    "x_search_terms": "office to markdown | pptx a rebajas | xlsx a rebajas | docx para rebajar | convertir archivo de Office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Ruta de entrada .pptx, .xlsx/.xlsm o .docx.",
     "param.output_path.description": "Ruta de salida .md opcional.",
     "param.format.description": "Formato de entrada, normalmente detectado automáticamente desde la extensión.",
@@ -75,11 +75,14 @@
     "label.table": "Tabla",
     "label.merged_ranges": "Rangos combinados",
     "label.formulas": "Fórmulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Recalcula las fórmulas con Microsoft Excel antes de convertir los archivos de Excel cuando esté disponible.",
+    "param.include_hidden.description": "Incluye las filas y columnas ocultas de Excel.",
+    "param.include_mermaid.description": "Incluye un diagrama de flujo Mermaid en las hojas de Excel con columnas reconocibles de procesos o dependencias."
   },
   "fr": {
-    "tool.description": "Convertir les fichiers PPTX, XLSX/XLSM ou DOCX en Markdown. Les diapositives, les feuilles de calcul, les titres, les paragraphes et les tableaux sont conservés.",
-    "x_search_terms": "office à démarquer | pptx à démarquer | xlsx en démarque | docx en démarque | convertir un fichier Office",
+    "tool.description": "Convertir les fichiers PPTX, XLSX/XLSM ou DOCX en Markdown. Les diapositives, les feuilles de calcul, les titres, les paragraphes et les tableaux sont conservés.Préserve les formats numériques et de date d’Excel et peut ajouter des organigrammes Mermaid aux tableaux de processus ou de dépendances reconnaissables.",
+    "x_search_terms": "office à démarquer | pptx à démarquer | xlsx en démarque | docx en démarque | convertir un fichier Office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Entrée .pptx, .xlsx/.xlsm ou .docx path.",
     "param.output_path.description": "Sortie facultative .md path.",
     "param.format.description": "Format d'entrée, normalement détecté automatiquement à partir de l'extension.",
@@ -99,11 +102,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Plages fusionnées",
     "label.formulas": "Formules",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Recalcule les formules avec Microsoft Excel avant la conversion des fichiers Excel lorsqu’il est disponible.",
+    "param.include_hidden.description": "Inclut les lignes et colonnes masquées d’Excel.",
+    "param.include_mermaid.description": "Inclut un organigramme Mermaid dans les feuilles Excel comportant des colonnes de processus ou de dépendances reconnaissables."
   },
   "ko": {
-    "tool.description": "PPTX, XLSX/XLSM 또는 DOCX 파일을 Markdown으로 변환합니다. 슬라이드, 워크시트, 제목, 단락 및 표는 보존됩니다.",
-    "x_search_terms": "office to markdown | pptx를 마크다운으로 | xlsx를 마크다운으로 | docx를 마크다운으로 | 사무실 파일 변환",
+    "tool.description": "PPTX, XLSX/XLSM 또는 DOCX 파일을 Markdown으로 변환합니다. 슬라이드, 워크시트, 제목, 단락 및 표는 보존됩니다.Excel 숫자/날짜 형식을 보존하며, 인식 가능한 프로세스 또는 종속성 표에 Mermaid 순서도를 선택적으로 추가합니다.",
+    "x_search_terms": "office to markdown | pptx를 마크다운으로 | xlsx를 마크다운으로 | docx를 마크다운으로 | 사무실 파일 변환 | excel formatting | mermaid flowchart",
     "param.input_path.description": ".pptx, .xlsx/.xlsm 또는 .docx 경로를 입력하십시오.",
     "param.output_path.description": "선택적 출력 .md 경로.",
     "param.format.description": "입력 형식, 일반적으로 확장 프로그램에서 자동 감지됩니다.",
@@ -123,11 +129,14 @@
     "label.table": "테이블",
     "label.merged_ranges": "병합된 범위",
     "label.formulas": "수식",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "가능한 경우 Excel 파일을 변환하기 전에 Microsoft Excel로 수식을 다시 계산합니다.",
+    "param.include_hidden.description": "Excel의 숨겨진 행과 열을 포함합니다.",
+    "param.include_mermaid.description": "프로세스 또는 종속성 열을 인식할 수 있는 Excel 시트에 Mermaid 순서도를 포함합니다."
   },
   "de": {
-    "tool.description": "Konvertieren Sie PPTX-, XLSX/XLSM- oder DOCX-Dateien in Markdown. Folien, Arbeitsblätter, Überschriften, Absätze und Tabellen bleiben erhalten.",
-    "x_search_terms": "Office zum Markdown | pptx zum Markdown | xlsx zum Markdown | docx zum Markdown | Office-Datei konvertieren",
+    "tool.description": "Konvertieren Sie PPTX-, XLSX/XLSM- oder DOCX-Dateien in Markdown. Folien, Arbeitsblätter, Überschriften, Absätze und Tabellen bleiben erhalten.Bewahrt Excel-Zahlen- und Datumsformate und kann für erkennbare Prozess- oder Abhängigkeitstabellen Mermaid-Flussdiagramme hinzufügen.",
+    "x_search_terms": "Office zum Markdown | pptx zum Markdown | xlsx zum Markdown | docx zum Markdown | Office-Datei konvertieren | excel formatting | mermaid flowchart",
     "param.input_path.description": "Eingabepfad .pptx, .xlsx/.xlsm oder .docx.",
     "param.output_path.description": "Optionaler Ausgabepfad .md.",
     "param.format.description": "Eingabeformat, normalerweise automatisch anhand der Erweiterung erkannt.",
@@ -147,11 +156,14 @@
     "label.table": "Tabelle",
     "label.merged_ranges": "Zusammengeführte Bereiche",
     "label.formulas": "Formeln",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Berechnet Formeln vor der Konvertierung von Excel-Dateien mit Microsoft Excel neu, sofern verfügbar.",
+    "param.include_hidden.description": "Bezieht ausgeblendete Excel-Zeilen und -Spalten ein.",
+    "param.include_mermaid.description": "Fügt in Excel-Arbeitsblättern mit erkennbaren Prozess- oder Abhängigkeitsspalten ein Mermaid-Flussdiagramm ein."
   },
   "it": {
-    "tool.description": "Converti file PPTX, XLSX/XLSM o DOCX in Markdown. Diapositive, fogli di lavoro, intestazioni, paragrafi e tabelle vengono conservati.",
-    "x_search_terms": "ufficio da ridurre | pptx per ridurre | xlsx al ribasso | docx per ridurre | converti file Office",
+    "tool.description": "Converti file PPTX, XLSX/XLSM o DOCX in Markdown. Diapositive, fogli di lavoro, intestazioni, paragrafi e tabelle vengono conservati.Mantiene i formati numerici e di data di Excel e può aggiungere diagrammi di flusso Mermaid alle tabelle riconoscibili di processi o dipendenze.",
+    "x_search_terms": "ufficio da ridurre | pptx per ridurre | xlsx al ribasso | docx per ridurre | converti file Office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Percorso di input .pptx, .xlsx/.xlsm o .docx.",
     "param.output_path.description": "Percorso .md di output opzionale.",
     "param.format.description": "Formato di input, normalmente rilevato automaticamente dall'estensione.",
@@ -171,11 +183,14 @@
     "label.table": "Tabella",
     "label.merged_ranges": "Intervalli uniti",
     "label.formulas": "Formule",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Ricalcola le formule con Microsoft Excel prima della conversione dei file Excel, quando disponibile.",
+    "param.include_hidden.description": "Include righe e colonne nascoste di Excel.",
+    "param.include_mermaid.description": "Include un diagramma di flusso Mermaid nei fogli Excel con colonne riconoscibili di processo o dipendenza."
   },
   "ru": {
-    "tool.description": "Преобразуйте файлы PPTX, XLSX/XLSM или DOCX в Markdown. Слайды, листы, заголовки, абзацы и таблицы сохраняются.",
-    "x_search_terms": "office для уценки | pptx в уценку | xlsx в уценку | docx в уценку | конвертировать офисный файл",
+    "tool.description": "Преобразуйте файлы PPTX, XLSX/XLSM или DOCX в Markdown. Слайды, листы, заголовки, абзацы и таблицы сохраняются.Сохраняет числовые форматы и форматы дат Excel и при необходимости добавляет диаграммы Mermaid для распознаваемых таблиц процессов или зависимостей.",
+    "x_search_terms": "office для уценки | pptx в уценку | xlsx в уценку | docx в уценку | конвертировать офисный файл | excel formatting | mermaid flowchart",
     "param.input_path.description": "Входной путь .pptx, .xlsx/.xlsm или .docx.",
     "param.output_path.description": "Необязательный выходной путь .md.",
     "param.format.description": "Входной формат, обычно автоматически определяется из расширения.",
@@ -195,11 +210,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Объединенные диапазоны",
     "label.formulas": "Формулы",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Перед преобразованием файлов Excel пересчитывает формулы с помощью Microsoft Excel, если он доступен.",
+    "param.include_hidden.description": "Включает скрытые строки и столбцы Excel.",
+    "param.include_mermaid.description": "Добавляет диаграмму Mermaid на листы Excel с распознаваемыми столбцами процессов или зависимостей."
   },
   "pt_BR": {
-    "tool.description": "Converta arquivos PPTX, XLSX/XLSM ou DOCX em Markdown. Slides, planilhas, títulos, parágrafos e tabelas são preservados.",
-    "x_search_terms": "office para redução | pptx para redução | xlsx para redução | docx para redução | converter arquivo office",
+    "tool.description": "Converta arquivos PPTX, XLSX/XLSM ou DOCX em Markdown. Slides, planilhas, títulos, parágrafos e tabelas são preservados.Preserva formatos numéricos e de data do Excel e pode adicionar fluxogramas Mermaid a tabelas reconhecíveis de processos ou dependências.",
+    "x_search_terms": "office para redução | pptx para redução | xlsx para redução | docx para redução | converter arquivo office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Entrada .pptx, .xlsx/.xlsm ou .docx path.",
     "param.output_path.description": "Saída opcional .md path.",
     "param.format.description": "Formato de entrada, normalmente detectado automaticamente a partir da extensão.",
@@ -219,11 +237,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Intervalos mesclados",
     "label.formulas": "Fórmulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Recalcula as fórmulas com o Microsoft Excel antes da conversão dos arquivos Excel, quando disponível.",
+    "param.include_hidden.description": "Inclui linhas e colunas ocultas do Excel.",
+    "param.include_mermaid.description": "Inclui um fluxograma Mermaid em planilhas do Excel com colunas reconhecíveis de processos ou dependências."
   },
   "pt": {
-    "tool.description": "Converta arquivos PPTX, XLSX/XLSM ou DOCX em Markdown. Slides, planilhas, títulos, parágrafos e tabelas são preservados.",
-    "x_search_terms": "office para redução | pptx para redução | xlsx para redução | docx para redução | converter arquivo office",
+    "tool.description": "Converta arquivos PPTX, XLSX/XLSM ou DOCX em Markdown. Slides, planilhas, títulos, parágrafos e tabelas são preservados.Preserva formatos numéricos e de data do Excel e pode adicionar fluxogramas Mermaid a tabelas reconhecíveis de processos ou dependências.",
+    "x_search_terms": "office para redução | pptx para redução | xlsx para redução | docx para redução | converter arquivo office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Entrada .pptx, .xlsx/.xlsm ou .docx path.",
     "param.output_path.description": "Saída opcional .md path.",
     "param.format.description": "Formato de entrada, normalmente detectado automaticamente a partir da extensão.",
@@ -243,11 +264,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Intervalos mesclados",
     "label.formulas": "Fórmulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Recalcula as fórmulas com o Microsoft Excel antes da conversão dos ficheiros Excel, quando disponível.",
+    "param.include_hidden.description": "Inclui linhas e colunas ocultas do Excel.",
+    "param.include_mermaid.description": "Inclui um fluxograma Mermaid em folhas Excel com colunas reconhecíveis de processos ou dependências."
   },
   "id": {
-    "tool.description": "Konversi file PPTX, XLSX/XLSM, atau DOCX menjadi Markdown. Slide, lembar kerja, judul, paragraf, dan tabel dipertahankan.",
-    "x_search_terms": "kantor untuk penurunan harga | pptx ke penurunan harga | xlsx ke penurunan harga | docx untuk penurunan harga | konversi file kantor",
+    "tool.description": "Konversi file PPTX, XLSX/XLSM, atau DOCX menjadi Markdown. Slide, lembar kerja, judul, paragraf, dan tabel dipertahankan.Mempertahankan format angka/tanggal Excel dan dapat menambahkan diagram alir Mermaid untuk tabel proses atau dependensi yang dikenali.",
+    "x_search_terms": "kantor untuk penurunan harga | pptx ke penurunan harga | xlsx ke penurunan harga | docx untuk penurunan harga | konversi file kantor | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, atau .docx path.",
     "param.output_path.description": "Output opsional .md path.",
     "param.format.description": "Format input, biasanya terdeteksi otomatis dari ekstensi.",
@@ -267,11 +291,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Rentang yang digabungkan",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Menghitung ulang rumus dengan Microsoft Excel sebelum mengonversi file Excel jika tersedia.",
+    "param.include_hidden.description": "Sertakan baris dan kolom Excel yang tersembunyi.",
+    "param.include_mermaid.description": "Sertakan diagram alir Mermaid pada lembar Excel dengan kolom proses atau dependensi yang dapat dikenali."
   },
   "vi": {
-    "tool.description": "Chuyển đổi các tệp PPTX, XLSX/XLSM hoặc DOCX thành Markdown. Các trang trình bày, trang tính, tiêu đề, đoạn văn và bảng được giữ nguyên.",
-    "x_search_terms": "office to markdown | pptx để đánh dấu | xlsx để đánh dấu | docx để đánh dấu | chuyển đổi tập tin văn phòng",
+    "tool.description": "Chuyển đổi các tệp PPTX, XLSX/XLSM hoặc DOCX thành Markdown. Các trang trình bày, trang tính, tiêu đề, đoạn văn và bảng được giữ nguyên.Giữ nguyên định dạng số/ngày của Excel và có thể thêm lưu đồ Mermaid cho các bảng quy trình hoặc phụ thuộc có thể nhận diện.",
+    "x_search_terms": "office to markdown | pptx để đánh dấu | xlsx để đánh dấu | docx để đánh dấu | chuyển đổi tập tin văn phòng | excel formatting | mermaid flowchart",
     "param.input_path.description": "Đầu vào .pptx, .xlsx/.xlsm, hoặc đường dẫn .docx.",
     "param.output_path.description": "Đầu ra tùy chọn .md path.",
     "param.format.description": "Định dạng đầu vào, thường được tự động phát hiện từ phần mở rộng.",
@@ -291,11 +318,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Phạm vi đã hợp nhất",
     "label.formulas": "Công thức",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Tính toán lại công thức bằng Microsoft Excel trước khi chuyển đổi tệp Excel nếu có thể.",
+    "param.include_hidden.description": "Bao gồm các hàng và cột Excel bị ẩn.",
+    "param.include_mermaid.description": "Bao gồm lưu đồ Mermaid trong các trang tính Excel có cột quy trình hoặc phụ thuộc có thể nhận diện."
   },
   "pl": {
     "Tool.description": "Konwertuj pliki PPTX, XLSX/XLSM lub DOCX do Markdown. Slajdy, arkusze, nagłówki, akapity i tabele zostaną zachowane.",
-    "x_search_terms": "biuro do przeceny | pptx do przeceny | xlsx do przeceny | docx do przeceny | konwertuj plik pakietu Office",
+    "x_search_terms": "biuro do przeceny | pptx do przeceny | xlsx do przeceny | docx do przeceny | konwertuj plik pakietu Office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Ścieżka wejściowa .pptx, .xlsx/.xlsm lub .docx.",
     "param.output_path.description": "Opcjonalna ścieżka wyjściowa .md.",
     "param.format.description": "Format wejściowy, zwykle wykrywany automatycznie z rozszerzenia.",
@@ -315,12 +345,15 @@
     "label.table": "Table",
     "label.merged_ranges": "Scalone zakresy",
     "label.formulas": "Formuły",
-    "tool.description": "Konwertuj pliki PPTX, XLSX/XLSM lub DOCX na Markdown. Slajdy, arkusze, nagłówki, akapity i tabele zostają zachowane.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "tool.description": "Konwertuj pliki PPTX, XLSX/XLSM lub DOCX na Markdown. Slajdy, arkusze, nagłówki, akapity i tabele zostają zachowane.Zachowuje formaty liczb i dat programu Excel oraz opcjonalnie dodaje diagramy Mermaid do rozpoznawalnych tabel procesów lub zależności.",
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Przelicza formuły za pomocą programu Microsoft Excel przed konwersją plików Excel, jeśli jest dostępny.",
+    "param.include_hidden.description": "Uwzględnia ukryte wiersze i kolumny programu Excel.",
+    "param.include_mermaid.description": "Dodaje diagram Mermaid do arkuszy Excela z rozpoznawalnymi kolumnami procesów lub zależności."
   },
   "hi": {
-    "tool.description": "PPTX, XLSX/XLSM, या DOCX फ़ाइलों को Markdown में कनवर्ट करें। स्लाइड, वर्कशीट, शीर्षक, पैराग्राफ और तालिकाएँ संरक्षित हैं।",
-    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file",
+    "tool.description": "PPTX, XLSX/XLSM, या DOCX फ़ाइलों को Markdown में कनवर्ट करें। स्लाइड, वर्कशीट, शीर्षक, पैराग्राफ और तालिकाएँ संरक्षित हैं।.Excel के संख्या/दिनांक प्रारूप सुरक्षित रखता है और पहचानी जा सकने वाली प्रक्रिया या निर्भरता तालिकाओं के लिए Mermaid फ्लोचार्ट जोड़ सकता है।",
+    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, or .docx path.",
     "param.output_path.description": "Optional output .md path.",
     "param.format.description": "Input format, normally auto-detected from the extension.",
@@ -340,11 +373,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "उपलब्ध होने पर Excel फ़ाइलों को बदलने से पहले Microsoft Excel से सूत्रों की पुनर्गणना करता है।",
+    "param.include_hidden.description": "Excel की छिपी हुई पंक्तियाँ और स्तंभ शामिल करें।",
+    "param.include_mermaid.description": "पहचाने जा सकने वाले प्रक्रिया या निर्भरता स्तंभों वाली Excel शीट में Mermaid फ्लोचार्ट शामिल करें।"
   },
   "ar": {
-    "tool.description": "تحويل ملفات PPTX أو XLSX/XLSM أو DOCX إلى Markdown. يتم الاحتفاظ بالشرائح وأوراق العمل والعناوين والفقرات والجداول. ",
-    "x_search_terms": "office to markdown | pptx إلى تخفيض السعر | xlsx إلى تخفيض السعر | دوكإكس إلى تخفيض السعر | تحويل ملف المكتب",
+    "tool.description": "تحويل ملفات PPTX أو XLSX/XLSM أو DOCX إلى Markdown. يتم الاحتفاظ بالشرائح وأوراق العمل والعناوين والفقرات والجداول. .يحافظ على تنسيقات الأرقام والتواريخ في Excel، ويمكنه اختيارياً إضافة مخططات Mermaid لجداول العمليات أو التبعيات القابلة للتعرّف.",
+    "x_search_terms": "office to markdown | pptx إلى تخفيض السعر | xlsx إلى تخفيض السعر | دوكإكس إلى تخفيض السعر | تحويل ملف المكتب | excel formatting | mermaid flowchart",
     "param.input_path.description": "الإدخال .pptx، .xlsx/.xlsm، أو .docx path.",
     "param.output_path.description": "إخراج اختياري .md path.",
     "param.format.description": "تنسيق الإدخال، يتم اكتشافه تلقائيًا عادةً من الامتداد.",
@@ -364,11 +400,14 @@
     "label.table": "Table",
     "label.merged_ranges": "النطاقات المدمجة",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "يعيد حساب الصيغ باستخدام Microsoft Excel قبل تحويل ملفات Excel عند توفره.",
+    "param.include_hidden.description": "يتضمن الصفوف والأعمدة المخفية في Excel.",
+    "param.include_mermaid.description": "يتضمن مخطط Mermaid في أوراق Excel التي تحتوي على أعمدة عمليات أو تبعيات قابلة للتعرّف."
   },
   "sv": {
-    "tool.description": "Konvertera PPTX, XLSX/XLSM eller DOCX filer till Markdown. Presentationer, kalkylblad, rubriker, stycken och tabeller bevaras.",
-    "x_search_terms": "office to markdown | pptx till markdown | xlsx till markdown | docx till markdown | convert office file",
+    "tool.description": "Konvertera PPTX, XLSX/XLSM eller DOCX filer till Markdown. Presentationer, kalkylblad, rubriker, stycken och tabeller bevaras.Bevarar Excels tal- och datumformat och kan valfritt lägga till Mermaid-flödesscheman för identifierbara process- eller beroendetabeller.",
+    "x_search_terms": "office to markdown | pptx till markdown | xlsx till markdown | docx till markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Inmatning av .pptx, .xlsx/.xlsm eller .docx sökväg.",
     "param.output_path.description": "Valfri utdata .md sökväg.",
     "param.format.description": "Indataformat, detekteras normalt automatiskt från tillägget._PH_notesm include speaker notes.",
@@ -388,11 +427,14 @@
     "label.merged_ranges": "Sammanslagna intervall",
     "label.formulas": "Formler",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Beräknar om formler med Microsoft Excel före konvertering av Excel-filer när det är tillgängligt.",
+    "param.include_hidden.description": "Inkluderar dolda rader och kolumner i Excel.",
+    "param.include_mermaid.description": "Inkluderar ett Mermaid-flödesschema i Excel-ark med identifierbara process- eller beroendekolumner."
   },
   "sw": {
-    "tool.description": "Geuza PPTX, XLSX/XLSM, au faili DOCX ziwe Markdown. Slaidi, laha za kazi, vichwa, aya na majedwali yamehifadhiwa.",
-    "x_search_terms": "ofisi hadi alama | pptx kwa alama | xlsx kwa alama | docx kuweka alama | badilisha faili ya ofisi",
+    "tool.description": "Geuza PPTX, XLSX/XLSM, au faili DOCX ziwe Markdown. Slaidi, laha za kazi, vichwa, aya na majedwali yamehifadhiwa.Huhifadhi miundo ya nambari/tarehe ya Excel na inaweza kuongeza chati za mtiririko za Mermaid kwa jedwali zinazotambulika za michakato au utegemezi.",
+    "x_search_terms": "ofisi hadi alama | pptx kwa alama | xlsx kwa alama | docx kuweka alama | badilisha faili ya ofisi | excel formatting | mermaid flowchart",
     "param.input_path.description": "Ingiza .pptx, .xlsx/.xlsm, au .docx path.",
     "param.output_path.description": "Chaguo la kutoa .md path.",
     "param.format.description": "Muundo wa kuingiza, kwa kawaida-imetambulishwa otomatiki=kwa kiendelezi. PPTX, jumuisha madokezo ya mzungumzaji.",
@@ -412,11 +454,14 @@
     "param.include_notes.description": "For PPTX, include speaker notes.",
     "err.format_mismatch": "unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Hukokotoa upya fomula kwa Microsoft Excel kabla ya kubadilisha faili za Excel inapopatikana.",
+    "param.include_hidden.description": "Jumuisha safu na safu wima zilizofichwa za Excel.",
+    "param.include_mermaid.description": "Jumuisha chati ya mtiririko ya Mermaid kwenye laha za Excel zenye safu za mchakato au utegemezi zinazotambulika."
   },
   "nb": {
-    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX filer til Markdown. Lysbilder, regneark, overskrifter, avsnitt og tabeller er bevart.",
-    "x_search_terms": "office to markdown | pptx til markdown | xlsx til markdown | docx til markdown | convert office file",
+    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX filer til Markdown. Lysbilder, regneark, overskrifter, avsnitt og tabeller er bevart.Bevarer Excel-formater for tall og datoer, og kan valgfritt legge til Mermaid-flytskjemaer for gjenkjennelige prosess- eller avhengighetstabeller.",
+    "x_search_terms": "office to markdown | pptx til markdown | xlsx til markdown | docx til markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm eller .docx path.",
     "param.output_path.description": "Valgfri utdata .md path.",
     "param.format.description": "Inndataformat, oppdages normalt automatisk fra utvidelsen._PH_notesm, include .__9 speaker notes.",
@@ -436,11 +481,14 @@
     "label.merged_ranges": "Slømte områder",
     "label.formulas": "Formler",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Beregner formler på nytt med Microsoft Excel før konvertering av Excel-filer når det er tilgjengelig.",
+    "param.include_hidden.description": "Ta med skjulte rader og kolonner i Excel.",
+    "param.include_mermaid.description": "Ta med et Mermaid-flytskjema i Excel-ark med gjenkjennelige prosess- eller avhengighetskolonner."
   },
   "nl": {
-    "tool.description": "Converteer PPTX, XLSX/XLSM of DOCX bestanden naar Markdown. Dia's, werkbladen, koppen, alinea's en tabellen blijven behouden.",
-    "x_search_terms": "office naar prijsverlaging | pptx naar afwaardering | xlsx naar korting | docx naar afwaardering | convert office file",
+    "tool.description": "Converteer PPTX, XLSX/XLSM of DOCX bestanden naar Markdown. Dia's, werkbladen, koppen, alinea's en tabellen blijven behouden.Behoudt Excel-getal- en datumopmaak en kan optioneel Mermaid-stroomdiagrammen toevoegen voor herkenbare proces- of afhankelijkheidstabellen.",
+    "x_search_terms": "office naar prijsverlaging | pptx naar afwaardering | xlsx naar korting | docx naar afwaardering | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Invoer .pptx, .xlsx/.xlsm of .docx path.",
     "param.output_path.description": "Optionele uitvoer .md path.",
     "param.format.description": "Invoerformaat, normaal gesproken automatisch gedetecteerd door de extensie.",
@@ -460,11 +508,14 @@
     "label.table": "Tabel",
     "label.merged_ranges": "Samengevoegde bereiken",
     "label.formulas": "Formules",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Berekent formules opnieuw met Microsoft Excel vóór conversie van Excel-bestanden als dit beschikbaar is.",
+    "param.include_hidden.description": "Neem verborgen Excel-rijen en -kolommen op.",
+    "param.include_mermaid.description": "Neem een Mermaid-stroomdiagram op in Excel-werkbladen met herkenbare proces- of afhankelijkheidskolommen."
   },
   "fi": {
-    "tool.description": "Muunna PPTX, XLSX/XLSM tai DOCX tiedostot muotoon Markdown. Diat, laskentataulukot, otsikot, kappaleet ja taulukot säilytetään.",
-    "x_search_terms": "office to markdown | pptx markdowniin | xlsx to markdown | docx to markdown | muunna Office-tiedosto",
+    "tool.description": "Muunna PPTX, XLSX/XLSM tai DOCX tiedostot muotoon Markdown. Diat, laskentataulukot, otsikot, kappaleet ja taulukot säilytetään.Säilyttää Excelin luku- ja päivämäärämuodot ja voi lisätä Mermaid-vuokaavioita tunnistettaviin prosessi- tai riippuvuustaulukoihin.",
+    "x_search_terms": "office to markdown | pptx markdowniin | xlsx to markdown | docx to markdown | muunna Office-tiedosto | excel formatting | mermaid flowchart",
     "param.input_path.description": "Syöte .pptx, .xlsx/.xlsm tai .docx polku.",
     "param.output_path.description": "Valinnainen tuloste .md polku.",
     "param.format.description": "Syötemuoto, tavallisesti tunnistettu automaattisesti laajennus.",
@@ -484,11 +535,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Laskee kaavat uudelleen Microsoft Excelillä ennen Excel-tiedostojen muuntamista, jos se on käytettävissä.",
+    "param.include_hidden.description": "Sisällytä Excelin piilotetut rivit ja sarakkeet.",
+    "param.include_mermaid.description": "Sisällytä Mermaid-vuokaavio Excel-taulukoihin, joissa on tunnistettavat prosessi- tai riippuvuussarakkeet."
   },
   "cs": {
-    "tool.description": "Převést soubory PPTX, XLSX/XLSM nebo DOCX na Markdown. Snímky, pracovní listy, nadpisy, odstavce a tabulky jsou zachovány.",
-    "x_search_terms": "kancelář k označení | pptx do markdown | xlsx do markdown | docx do markdown | convert office file",
+    "tool.description": "Převést soubory PPTX, XLSX/XLSM nebo DOCX na Markdown. Snímky, pracovní listy, nadpisy, odstavce a tabulky jsou zachovány.Zachovává číselné a datové formáty Excelu a může volitelně přidat diagramy Mermaid pro rozpoznatelné tabulky procesů nebo závislostí.",
+    "x_search_terms": "kancelář k označení | pptx do markdown | xlsx do markdown | docx do markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Zadejte .pptx, .xlsx/.xlsm nebo cestu .docx.",
     "param.output_path.description": "Volitelný výstup .md cesta.",
     "param.format.description": "Vstupní formát, který je normálně automaticky detekován z přípony_poznámky.. PPTX, zahrňte poznámky řečníka.",
@@ -509,11 +563,14 @@
     "param.include_notes.description": "For PPTX, include speaker notes.",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Před převodem souborů Excel přepočítá vzorce pomocí Microsoft Excelu, pokud je k dispozici.",
+    "param.include_hidden.description": "Zahrnout skryté řádky a sloupce Excelu.",
+    "param.include_mermaid.description": "Zahrnout diagram Mermaid do listů Excelu s rozpoznatelnými sloupci procesů nebo závislostí."
   },
   "uk": {
-    "tool.description": "Конвертуйте PPTX, XLSX/XLSM або DOCX файлів у Markdown. Слайди, аркуші, заголовки, абзаци та таблиці зберігаються.",
-    "x_search_terms": "office to markdown | pptx до уцінки | xlsx до уцінки | docx до уцінки | конвертувати офісний файл",
+    "tool.description": "Конвертуйте PPTX, XLSX/XLSM або DOCX файлів у Markdown. Слайди, аркуші, заголовки, абзаци та таблиці зберігаються.Зберігає числові формати й формати дат Excel та може додатково додавати діаграми Mermaid для розпізнаваних таблиць процесів або залежностей.",
+    "x_search_terms": "office to markdown | pptx до уцінки | xlsx до уцінки | docx до уцінки | конвертувати офісний файл | excel formatting | mermaid flowchart",
     "param.input_path.description": "Вхідний шлях .pptx, .xlsx/.xlsm або .docx.",
     "param.output_path.description": "Додатковий вихідний шлях .md.",
     "param.format.description": "Формат введення, зазвичай автоматично визначається з extension.",
@@ -533,11 +590,14 @@
     "label.table": "Таблиця",
     "label.merged_ranges": "Об’єднані діапазони",
     "label.formulas": "Формули",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Перераховує формули за допомогою Microsoft Excel перед перетворенням файлів Excel, якщо він доступний.",
+    "param.include_hidden.description": "Включати приховані рядки та стовпці Excel.",
+    "param.include_mermaid.description": "Включати діаграму Mermaid на аркушах Excel із розпізнаваними стовпцями процесів або залежностей."
   },
   "tr": {
-    "tool.description": "PPTX, XLSX/XLSM veya DOCX dosyalarını Markdown'ya dönüştürün. Slaytlar, çalışma sayfaları, başlıklar, paragraflar ve tablolar korunur.",
-    "x_search_terms": "işaretlenecek ofis | pptx'ten işaretlemeye | xlsx'ten işaretlemeye | docx'ten işaretlemeye | Convert Office File",
+    "tool.description": "PPTX, XLSX/XLSM veya DOCX dosyalarını Markdown'ya dönüştürün. Slaytlar, çalışma sayfaları, başlıklar, paragraflar ve tablolar korunur.Excel sayı/tarih biçimlerini korur ve tanınabilir süreç veya bağımlılık tablolarına isteğe bağlı Mermaid akış şemaları ekler.",
+    "x_search_terms": "işaretlenecek ofis | pptx'ten işaretlemeye | xlsx'ten işaretlemeye | docx'ten işaretlemeye | Convert Office File | excel formatting | mermaid flowchart",
     "param.input_path.description": "Giriş .pptx, .xlsx/.xlsm veya .docx yolu.",
     "param.output_path.description": "İsteğe bağlı çıkış .md yolu.",
     "param.format.description": "Giriş formatı, normalde uzantıdan otomatik olarak algılanır.",
@@ -557,11 +617,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Birleştirilmiş aralıklar",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Varsa Excel dosyalarını dönüştürmeden önce formülleri Microsoft Excel ile yeniden hesaplar.",
+    "param.include_hidden.description": "Gizli Excel satır ve sütunlarını dahil et.",
+    "param.include_mermaid.description": "Tanınabilir süreç veya bağımlılık sütunları içeren Excel sayfalarına Mermaid akış şeması ekle."
   },
   "th": {
-    "tool.description": "แปลงไฟล์ PPTX, XLSX/XLSM หรือ DOCX เป็น Markdown สไลด์ แผ่นงาน ส่วนหัว ย่อหน้า และตารางจะยังคงอยู่",
-    "x_search_terms": "office to markdown | pptx เพื่อทำเครื่องหมายลง | xlsx ถึง markdown | docx เพื่อทำเครื่องหมายลง | แปลงไฟล์ office",
+    "tool.description": "แปลงไฟล์ PPTX, XLSX/XLSM หรือ DOCX เป็น Markdown สไลด์ แผ่นงาน ส่วนหัว ย่อหน้า และตารางจะยังคงอยู่.รักษารูปแบบตัวเลข/วันที่ของ Excel และสามารถเพิ่มผังงาน Mermaid สำหรับตารางกระบวนการหรือการพึ่งพาที่ระบุได้",
+    "x_search_terms": "office to markdown | pptx เพื่อทำเครื่องหมายลง | xlsx ถึง markdown | docx เพื่อทำเครื่องหมายลง | แปลงไฟล์ office | excel formatting | mermaid flowchart",
     "param.input_path.description": "อินพุต .pptx, .xlsx/.xlsm หรือ .docx path.",
     "param.output_path.description": "เอาต์พุตเสริม .md path.",
     "param.format.description": "รูปแบบอินพุต ซึ่งปกติจะตรวจพบอัตโนมัติจากส่วนขยาย",
@@ -581,11 +644,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "คำนวณสูตรใหม่ด้วย Microsoft Excel ก่อนแปลงไฟล์ Excel เมื่อมีโปรแกรมดังกล่าว",
+    "param.include_hidden.description": "รวมแถวและคอลัมน์ที่ซ่อนอยู่ของ Excel",
+    "param.include_mermaid.description": "รวมผังงาน Mermaid ในชีต Excel ที่มีคอลัมน์กระบวนการหรือการพึ่งพาที่ระบุได้"
   },
   "zh_CN": {
-    "tool.description": "将 PPTX、XLSX/XLSM 或 DOCX 文件转换为 Markdown。幻灯片、工作表、标题、段落和表格均被保留。",
-    "x_search_terms": "office 到 markdown | pptx 转 markdown | xlsx 到 markdown | docx 到 markdown |转换office文件",
+    "tool.description": "将 PPTX、XLSX/XLSM 或 DOCX 文件转换为 Markdown。幻灯片、工作表、标题、段落和表格均被保留。.保留Excel的数字和日期格式，并可选择为可识别的流程或依赖关系表添加Mermaid流程图。",
+    "x_search_terms": "office 到 markdown | pptx 转 markdown | xlsx 到 markdown | docx 到 markdown |转换office文件 | excel formatting | mermaid flowchart",
     "param.input_path.description": "输入.pptx、.xlsx/.xlsm或.docx路径。",
     "param.output_path.description": "可选输出.md路径。",
     "param.format.description": "输入格式，通常从扩展名自动检测。",
@@ -605,11 +671,14 @@
     "label.table": "表格",
     "label.merged_ranges": "合并范围",
     "label.formulas": "公式",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "如果可用，在转换Excel文件前使用Microsoft Excel重新计算公式。",
+    "param.include_hidden.description": "包含Excel中的隐藏行和列。",
+    "param.include_mermaid.description": "在包含可识别流程或依赖关系列的Excel工作表中加入Mermaid流程图。"
   },
   "zh_TW": {
-    "tool.description": "將 PPTX、XLSX/XLSM 或 DOCX 檔案轉換為 Markdown。投影片、工作表、標題、段落和表格均保留。 ",
-    "x_search_terms": "office 到 markdown | pptx 轉 markdown | xlsx 到 markdown | docx 到 markdown |轉換office檔案",
+    "tool.description": "將 PPTX、XLSX/XLSM 或 DOCX 檔案轉換為 Markdown。投影片、工作表、標題、段落和表格均保留。 .保留Excel的數字與日期格式，並可選擇為可辨識的流程或相依關係表格加入Mermaid流程圖。",
+    "x_search_terms": "office 到 markdown | pptx 轉 markdown | xlsx 到 markdown | docx 到 markdown |轉換office檔案 | excel formatting | mermaid flowchart",
     "param.input_path.description": "輸入.pptx、.xlsx/.xlsm或.docx路徑。 ",
     "param.output_path.description": "可選輸出.md路徑。 ",
     "param.format.description": "輸入格式，通常從副檔名自動偵測。 ",
@@ -629,11 +698,14 @@
     "label.formulas": "公式",
     "err.exstruct_load": "exstruct could not be loaded: {error}",
     "err.exstruct_required": "exstruct is required for Excel conversion",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "若可用，在轉換Excel檔案前使用Microsoft Excel重新計算公式。",
+    "param.include_hidden.description": "包含Excel中的隱藏列與欄。",
+    "param.include_mermaid.description": "在包含可辨識流程或相依關係欄位的Excel工作表中加入Mermaid流程圖。"
   },
   "bn": {
-    "tool.description": "PPTX, XLSX/XLSM, বা DOCX ফাইলকে Markdown এ রূপান্তর করুন। স্লাইড, ওয়ার্কশীট, শিরোনাম, অনুচ্ছেদ এবং টেবিল সংরক্ষিত আছে।",
-    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file",
+    "tool.description": "PPTX, XLSX/XLSM, বা DOCX ফাইলকে Markdown এ রূপান্তর করুন। স্লাইড, ওয়ার্কশীট, শিরোনাম, অনুচ্ছেদ এবং টেবিল সংরক্ষিত আছে।.Excel-এর সংখ্যা/তারিখের বিন্যাস সংরক্ষণ করে এবং শনাক্তযোগ্য প্রক্রিয়া বা নির্ভরতা টেবিলে Mermaid ফ্লোচার্ট যোগ করতে পারে।",
+    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, or .docx path.",
     "param.output_path.description": "Optional output .md path.",
     "param.format.description": "Input format, normally auto-detected from the extension.",
@@ -653,11 +725,14 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "উপলভ্য থাকলে Excel ফাইল রূপান্তরের আগে Microsoft Excel দিয়ে সূত্র পুনরায় গণনা করে।",
+    "param.include_hidden.description": "Excel-এর লুকানো সারি ও কলাম অন্তর্ভুক্ত করুন।",
+    "param.include_mermaid.description": "শনাক্তযোগ্য প্রক্রিয়া বা নির্ভরতা কলামযুক্ত Excel শিটে Mermaid ফ্লোচার্ট অন্তর্ভুক্ত করুন।"
   },
   "fa": {
-    "tool.description": "فایل های PPTX، XLSX/XLSM، یا DOCX را به Markdown تبدیل کنید. اسلایدها، کاربرگ ها، سرفصل ها، پاراگراف ها و جداول حفظ می شوند.",
-    "x_search_terms": "office to markdown | pptx به علامت گذاری | xlsx به علامت گذاری | docx به علامت گذاری | تبدیل فایل آفیس",
+    "tool.description": "فایل های PPTX، XLSX/XLSM، یا DOCX را به Markdown تبدیل کنید. اسلایدها، کاربرگ ها، سرفصل ها، پاراگراف ها و جداول حفظ می شوند.قالب‌های عدد و تاریخ Excel را حفظ می‌کند و می‌تواند برای جدول‌های قابل‌شناساییِ فرایند یا وابستگی، نمودار جریان Mermaid اضافه کند.",
+    "x_search_terms": "office to markdown | pptx به علامت گذاری | xlsx به علامت گذاری | docx به علامت گذاری | تبدیل فایل آفیس | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input.pptx, .xlsx/.xlsm یا مسیر .docx. PPTX، شامل یادداشت‌های بلندگو باشد.",
     "param.overwrite.description": "اجازه جایگزینی فایل خروجی موجود. استفاده از .pptx، .xlsx/.xlsm، یا .docx",
     "err.exstruct_load": "exstruct بارگیری نشد: {error}",
@@ -677,11 +752,14 @@
     "err.file_not_found": "file not found: {path}",
     "err.format_mismatch": "unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "در صورت دسترسی، پیش از تبدیل فایل‌های Excel فرمول‌ها را با Microsoft Excel دوباره محاسبه می‌کند.",
+    "param.include_hidden.description": "سطرها و ستون‌های پنهان Excel را شامل کن.",
+    "param.include_mermaid.description": "در برگه‌های Excel دارای ستون‌های قابل‌شناساییِ فرایند یا وابستگی، نمودار جریان Mermaid را شامل کن."
   },
   "mn": {
-    "tool.description": "PPTX, XLSX/XLSM, эсвэл DOCX файлуудыг Markdown болгон хөрвүүлэх. Слайд, ажлын хуудас, гарчиг, догол мөр, хүснэгтүүд хадгалагдсан.",
-    "x_search_terms": "тэмдэглэгээ хийх оффис | pptx -ийг тэмдэглэнэ xlsx -ийг тэмдэглэнэ docx -ийг тэмдэглэнэ оффисын файлыг хөрвүүлэх",
+    "tool.description": "PPTX, XLSX/XLSM, эсвэл DOCX файлуудыг Markdown болгон хөрвүүлэх. Слайд, ажлын хуудас, гарчиг, догол мөр, хүснэгтүүд хадгалагдсан.Excel-ийн тоо/огнооны форматыг хадгалж, танигдах процесс эсвэл хамаарлын хүснэгтэд Mermaid урсгалын диаграм нэмэх боломжтой.",
+    "x_search_terms": "тэмдэглэгээ хийх оффис | pptx -ийг тэмдэглэнэ xlsx -ийг тэмдэглэнэ docx -ийг тэмдэглэнэ оффисын файлыг хөрвүүлэх | excel formatting | mermaid flowchart",
     "param.input_path.description": "Оролтын .pptx, .xlsx/.xlsm, эсвэл .docx зам.",
     "param.output_path.description": "Нэмэлт гаралт .md зам.",
     "param.format.description": "Оролтын формат, ихэвчлэн тодорхойлолтоос автоматаар илрүүлдэг.",
@@ -701,11 +779,14 @@
     "label.formulas": "Formula",
     "param.include_notes.description": "For PPTX, include speaker notes.",
     "err.format_mismatch": "unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Боломжтой бол Excel файлыг хөрвүүлэхийн өмнө Microsoft Excel ашиглан томьёог дахин тооцоолно.",
+    "param.include_hidden.description": "Excel-ийн нуусан мөр, баганыг оруулна.",
+    "param.include_mermaid.description": "Танигдах процесс эсвэл хамаарлын баганатай Excel хуудсанд Mermaid урсгалын диаграм оруулна."
   },
   "mr": {
-    "tool.description": " PPTX, XLSX/XLSM, किंवा DOCX फाइल्स Markdown मध्ये रूपांतरित करा. स्लाइड्स, वर्कशीट्स, हेडिंग, परिच्छेद आणि तक्ते जतन केले आहेत.",
-    "x_search_terms": "ऑफिस टू मार्कडाउन | pptx ते मार्कडाउन | xlsx ते मार्कडाउन | docx to markdown | ऑफिस फाइल ",
+    "tool.description": " PPTX, XLSX/XLSM, किंवा DOCX फाइल्स Markdown मध्ये रूपांतरित करा. स्लाइड्स, वर्कशीट्स, हेडिंग, परिच्छेद आणि तक्ते जतन केले आहेत.Excel चे संख्या/दिनांक स्वरूप जतन करते आणि ओळखता येणाऱ्या प्रक्रिया किंवा अवलंबित्व सारण्यांसाठी Mermaid फ्लोचार्ट जोडू शकते.",
+    "x_search_terms": "ऑफिस टू मार्कडाउन | pptx ते मार्कडाउन | xlsx ते मार्कडाउन | docx to markdown | ऑफिस फाइल  | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, किंवा .docx पाथ.",
     "param.output_path.description": "पर्यायी आउटपुट .md पथ.",
     "param.format.description": "इनपुट फॉरमॅट, सामान्यत: ऑटो-डिटेक्टेड मधून रुपांतरित करा extension.",
@@ -725,11 +806,14 @@
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "ormu",
     "err.file_not_found": "file not found: {path}",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "उपलब्ध असल्यास Excel फाइल रूपांतरित करण्यापूर्वी Microsoft Excel वापरून सूत्रे पुन्हा मोजते.",
+    "param.include_hidden.description": "Excel मधील लपवलेल्या ओळी आणि स्तंभ समाविष्ट करा.",
+    "param.include_mermaid.description": "ओळखता येणारे प्रक्रिया किंवा अवलंबित्व स्तंभ असलेल्या Excel शीटमध्ये Mermaid फ्लोचार्ट समाविष्ट करा."
   },
   "el": {
-    "tool.description": "Μετατροπή αρχείων PPTX, XLSX/XLSM ή DOCX σε Markdown. Οι διαφάνειες, τα φύλλα εργασίας, οι επικεφαλίδες, οι παράγραφοι και οι πίνακες διατηρούνται.",
-    "x_search_terms": "office to markdown | pptx στη σήμανση | xlsx στη σήμανση | docx to markdown | μετατροπή αρχείου γραφείου",
+    "tool.description": "Μετατροπή αρχείων PPTX, XLSX/XLSM ή DOCX σε Markdown. Οι διαφάνειες, τα φύλλα εργασίας, οι επικεφαλίδες, οι παράγραφοι και οι πίνακες διατηρούνται.Διατηρεί τις μορφές αριθμών/ημερομηνιών του Excel και μπορεί προαιρετικά να προσθέσει διαγράμματα ροής Mermaid σε αναγνωρίσιμους πίνακες διαδικασιών ή εξαρτήσεων.",
+    "x_search_terms": "office to markdown | pptx στη σήμανση | xlsx στη σήμανση | docx to markdown | μετατροπή αρχείου γραφείου | excel formatting | mermaid flowchart",
     "param.input_path.description": "Είσοδος .pptx, .xlsx/.xlsm ή διαδρομή .docx.",
     "param.output_path.description": "Προαιρετική έξοδος .md path.",
     "param.format.description": "Input.input format, συνήθως η επέκταση. PPTX, συμπεριλάβετε σημειώσεις ομιλητή. χρήση .pptx, .xlsx/.xlsm ή .docx",
@@ -749,11 +833,14 @@
     "err.file_not_found": "file not found: {path}",
     "err.format_mismatch": "unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Επανυπολογίζει τους τύπους με το Microsoft Excel πριν από τη μετατροπή αρχείων Excel, όταν είναι διαθέσιμο.",
+    "param.include_hidden.description": "Να περιλαμβάνονται οι κρυφές γραμμές και στήλες του Excel.",
+    "param.include_mermaid.description": "Να περιλαμβάνεται διάγραμμα ροής Mermaid σε φύλλα Excel με αναγνωρίσιμες στήλες διαδικασιών ή εξαρτήσεων."
   },
   "he": {
-    "tool.description": "המר קבצים PPTX, XLSX/XLSM או DOCX ל-Markdown. שקופיות, דפי עבודה, כותרות, פסקאות וטבלאות נשמרות.",
-    "x_search_terms": "משרד לסימון | pptx ל-markdown | xlsx ל-markdown | docx ל-markdown | convert office file",
+    "tool.description": "המר קבצים PPTX, XLSX/XLSM או DOCX ל-Markdown. שקופיות, דפי עבודה, כותרות, פסקאות וטבלאות נשמרות.משמר עיצובי מספרים ותאריכים של Excel, ויכול להוסיף תרשימי זרימה של Mermaid לטבלאות תהליך או תלות שניתן לזהות.",
+    "x_search_terms": "משרד לסימון | pptx ל-markdown | xlsx ל-markdown | docx ל-markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "קלט .pptx, .xlsx/.xlsm או .docx path.",
     "param.output_path.description": "פלט אופציונלי .md path.",
     "param.format.description": "פורמט קלט, בדרך כלל מזוהה אוטומטית מהסיומת.__PH_notes include.__PH_notes notes speaker.",
@@ -773,11 +860,14 @@
     "label.merged_ranges": "טווחים ממוזגים",
     "label.formulas": "נוסחאות",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "מחשב מחדש נוסחאות באמצעות Microsoft Excel לפני המרת קובצי Excel, כאשר הוא זמין.",
+    "param.include_hidden.description": "כלול שורות ועמודות מוסתרות ב-Excel.",
+    "param.include_mermaid.description": "כלול תרשים זרימה של Mermaid בגיליונות Excel עם עמודות תהליך או תלות שניתן לזהות."
   },
   "hu": {
-    "tool.description": "A PPTX, XLSX/XLSM vagy DOCX fájl konvertálása Markdown fájlra. A diák, a munkalapok, a címsorok, a bekezdések és a táblázatok megmaradnak.",
-    "x_search_terms": "office to markdown | pptx a markdown | xlsx to markdown | docx to markdown | convert office file",
+    "tool.description": "A PPTX, XLSX/XLSM vagy DOCX fájl konvertálása Markdown fájlra. A diák, a munkalapok, a címsorok, a bekezdések és a táblázatok megmaradnak.Megőrzi az Excel szám- és dátumformátumait, és felismerhető folyamat- vagy függőségi táblákhoz opcionálisan Mermaid-folyamatábrát ad.",
+    "x_search_terms": "office to markdown | pptx a markdown | xlsx to markdown | docx to markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Bemeneti .pptx, .xlsx/.xlsm vagy .docx elérési út.",
     "param.output_path.description": "Opcionális kimeneti .md elérési út.",
     "param.format.description": "Bemeneti formátum, általában az automatikus felismerésből kiterjesztés.",
@@ -797,11 +887,14 @@
     "label.table": "Tábla",
     "label.merged_ranges": "Egyesített tartományok",
     "label.formulas": "Formulas.formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Az Excel-fájlok átalakítása előtt újraszámolja a képleteket a Microsoft Excellel, ha elérhető.",
+    "param.include_hidden.description": "Tartalmazza az Excel rejtett sorait és oszlopait.",
+    "param.include_mermaid.description": "Tartalmazzon Mermaid-folyamatábrát a felismerhető folyamat- vagy függőségi oszlopokat tartalmazó Excel-munkalapokon."
   },
   "ro": {
-    "tool.description": "Convertiți fișierele PPTX, XLSX/XLSM sau DOCX în Markdown. Diapozitivele, foile de lucru, titlurile, paragrafele și tabelele sunt păstrate.",
-    "x_search_terms": "office to markdown | pptx la markdown | xlsx la reducere | docx la markdown | convert office file",
+    "tool.description": "Convertiți fișierele PPTX, XLSX/XLSM sau DOCX în Markdown. Diapozitivele, foile de lucru, titlurile, paragrafele și tabelele sunt păstrate.Păstrează formatele numerice și de dată Excel și poate adăuga opțional diagrame Mermaid pentru tabele de procese sau dependențe recunoscibile.",
+    "x_search_terms": "office to markdown | pptx la markdown | xlsx la reducere | docx la markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Introduceți calea .pptx, .xlsx/.xlsm sau .docx.",
     "param.output_path.description": "Ieșire opțională .md path.",
     "param.format.description": "Format de intrare, în mod normal, detectat automat din extensia.description.",
@@ -821,11 +914,14 @@
     "label.merged_ranges": "Intervalele îmbinate",
     "label.formulas": "Formule",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Recalculează formulele cu Microsoft Excel înainte de conversia fișierelor Excel, dacă este disponibil.",
+    "param.include_hidden.description": "Include rândurile și coloanele ascunse din Excel.",
+    "param.include_mermaid.description": "Include o diagramă Mermaid în foile Excel cu coloane recunoscibile de procese sau dependențe."
   },
   "fil": {
-    "tool.description": "I-convert ang PPTX, XLSX/XLSM, o DOCX file sa Markdown. Ang mga slide, worksheet, heading, talata, at talahanayan ay pinapanatili.",
-    "x_search_terms": "office to markdown | pptx sa markdown | xlsx sa markdown | docx sa markdown | convert office file",
+    "tool.description": "I-convert ang PPTX, XLSX/XLSM, o DOCX file sa Markdown. Ang mga slide, worksheet, heading, talata, at talahanayan ay pinapanatili.Pinapanatili ang mga format ng numero at petsa ng Excel at maaaring magdagdag ng Mermaid flowchart para sa nakikilalang mga talahanayan ng proseso o dependency.",
+    "x_search_terms": "office to markdown | pptx sa markdown | xlsx sa markdown | docx sa markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, o .docx path.",
     "param.output_path.description": "Opsyonal na output .md path.",
     "param.format.description": "Input format, karaniwang awtomatikong nakikita mula sa extension.PH. isama ang mga tala ng tagapagsalita.",
@@ -845,11 +941,14 @@
     "label.merged_ranges": "Pinagsamang saklaw",
     "label.formulas": "Formula",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Muling kinakalkula ang mga formula gamit ang Microsoft Excel bago i-convert ang mga Excel file kapag available.",
+    "param.include_hidden.description": "Isama ang mga nakatagong row at column ng Excel.",
+    "param.include_mermaid.description": "Isama ang Mermaid flowchart sa mga Excel sheet na may nakikilalang column ng proseso o dependency."
   },
   "ms": {
-    "tool.description": "Tukar fail PPTX, XLSX/XLSM atau DOCX kepada Markdown. Slaid, lembaran kerja, tajuk, perenggan dan jadual dikekalkan.",
-    "x_search_terms": "pejabat untuk menurunkan tanda | pptx kepada penurunan harga | xlsx untuk menurunkan markah | docx kepada penurunan harga | tukar fail pejabat",
+    "tool.description": "Tukar fail PPTX, XLSX/XLSM atau DOCX kepada Markdown. Slaid, lembaran kerja, tajuk, perenggan dan jadual dikekalkan.Mengekalkan format nombor/tarikh Excel dan boleh menambah carta alir Mermaid untuk jadual proses atau kebergantungan yang boleh dikenal pasti.",
+    "x_search_terms": "pejabat untuk menurunkan tanda | pptx kepada penurunan harga | xlsx untuk menurunkan markah | docx kepada penurunan harga | tukar fail pejabat | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, atau .docx path.",
     "param.output_path.description": "Output pilihan .md path.",
     "param.format.description": "Format input, biasanya dikesan secara automatik daripada sambungan.",
@@ -869,11 +968,14 @@
     "label.merged_ranges": "Julat gabungan",
     "label.formulas": "Formula",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Kira semula formula menggunakan Microsoft Excel sebelum menukar fail Excel jika tersedia.",
+    "param.include_hidden.description": "Sertakan baris dan lajur Excel yang tersembunyi.",
+    "param.include_mermaid.description": "Sertakan carta alir Mermaid dalam helaian Excel dengan lajur proses atau kebergantungan yang boleh dikenal pasti."
   },
   "da": {
-    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX filer til Markdown. Slides, regneark, overskrifter, afsnit og tabeller bevares.",
-    "x_search_terms": "office to markdown | pptx til markdown | xlsx til markdown | docx til markdown | convert office file",
+    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX filer til Markdown. Slides, regneark, overskrifter, afsnit og tabeller bevares.Bevarer Excels tal- og datoformater og kan valgfrit tilføje Mermaid-flowdiagrammer til genkendelige proces- eller afhængighedstabeller.",
+    "x_search_terms": "office to markdown | pptx til markdown | xlsx til markdown | docx til markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm eller .docx path.",
     "param.output_path.description": "Valgfrit output .md-sti.",
     "param.format.description": "Inputformat, som normalt registreres automatisk fra udvidelsen. PH_notesm, include.__ speaker notes.",
@@ -893,11 +995,14 @@
     "label.merged_ranges": "Flettede områder",
     "label.formulas": "Formler",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Genberegner formler med Microsoft Excel før konvertering af Excel-filer, når det er tilgængeligt.",
+    "param.include_hidden.description": "Medtag skjulte rækker og kolonner i Excel.",
+    "param.include_mermaid.description": "Medtag et Mermaid-flowdiagram i Excel-ark med genkendelige proces- eller afhængighedskolonner."
   },
   "nn": {
-    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX-filer til Markdown. Lysbilder, regneark, overskrifter, avsnitt og tabeller er bevart.",
-    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file",
+    "tool.description": "Konverter PPTX, XLSX/XLSM eller DOCX-filer til Markdown. Lysbilder, regneark, overskrifter, avsnitt og tabeller er bevart.Bevarer Excel-format for tal og datoer, og kan valfritt leggje til Mermaid-flytskjema for attkjennelege prosess- eller avhengigheitstabellar.",
+    "x_search_terms": "office to markdown | pptx to markdown | xlsx to markdown | docx to markdown | convert office file | excel formatting | mermaid flowchart",
     "param.input_path.description": "Input .pptx, .xlsx/.xlsm, or .docx path.",
     "param.output_path.description": "Optional output .md path.",
     "param.format.description": "Input format, normally auto-detected from the extension.",
@@ -917,6 +1022,9 @@
     "label.table": "Table",
     "label.merged_ranges": "Merged ranges",
     "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional)."
+    "param.password.description": "Password for an encrypted Office file (optional).",
+    "param.recalculate.description": "Reknar ut formlar på nytt med Microsoft Excel før konvertering av Excel-filer når det er tilgjengeleg.",
+    "param.include_hidden.description": "Ta med gøymde rader og kolonnar i Excel.",
+    "param.include_mermaid.description": "Ta med eit Mermaid-flytskjema i Excel-ark med attkjennelege prosess- eller avhengigheitskolonnar."
   }
 }

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -21,7 +22,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "office_to_markdown",
         "description": _(
             "tool.description",
-            default="Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved.",
+            default="Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Excel number/date formats and basic emphasis are preserved; optionally add Mermaid flowcharts for recognizable process/dependency tables.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -31,6 +32,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "xlsx to markdown",
                 "docx to markdown",
                 "convert office file",
+                "excel formatting",
+                "mermaid flowchart",
             ],
         ),
         "parameters": {
@@ -80,6 +83,30 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.overwrite.description",
                         default="Allow replacing an existing output file.",
+                    ),
+                },
+                "recalculate": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.recalculate.description",
+                        default="For Excel files, recalculate formulas with Microsoft Excel before conversion when available.",
+                    ),
+                },
+                "include_hidden": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.include_hidden.description",
+                        default="For Excel files, include hidden rows and columns.",
+                    ),
+                },
+                "include_mermaid": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.include_mermaid.description",
+                        default="For Excel sheets with recognizable process or dependency columns, include a Mermaid flowchart.",
                     ),
                 },
             },
@@ -143,7 +170,153 @@ def _resolve_encrypted(path: Path, password: str | None) -> tuple[Path, Path | N
         return temporary, temporary
 
 
-def _convert_xlsx(path: Path) -> str:
+def _recalculate_xlsx(path: Path, password: str | None = None) -> dict[str, Any]:
+    """Refresh Excel's cached formula values before extracting the workbook."""
+    if os.name != "nt":
+        return {
+            "requested": True,
+            "performed": False,
+            "reason": "Microsoft Excel COM automation is available only on Windows",
+        }
+
+    try:
+        import pythoncom  # type: ignore
+        import win32com.client as win32  # type: ignore
+    except Exception as exc:
+        return {
+            "requested": True,
+            "performed": False,
+            "reason": f"pywin32 or Microsoft Excel is unavailable: {exc}",
+        }
+
+    pythoncom.CoInitialize()
+    excel = None
+    workbook = None
+    try:
+        excel = win32.DispatchEx("Excel.Application")
+        excel.Visible = False
+        excel.DisplayAlerts = False
+        try:
+            excel.AskToUpdateLinks = False
+        except Exception:
+            pass
+        if password:
+            workbook = excel.Workbooks.Open(
+                str(path), UpdateLinks=0, ReadOnly=False, Password=password
+            )
+        else:
+            workbook = excel.Workbooks.Open(str(path), UpdateLinks=0, ReadOnly=False)
+        excel.CalculateFullRebuild()
+        try:
+            excel.CalculateUntilAsyncQueriesDone()
+        except Exception:
+            pass
+        workbook.Save()
+        return {"requested": True, "performed": True}
+    except Exception as exc:
+        return {
+            "requested": True,
+            "performed": False,
+            "reason": f"Excel recalculation failed: {type(exc).__name__}: {exc}",
+        }
+    finally:
+        if workbook is not None:
+            try:
+                workbook.Close(SaveChanges=True)
+            except Exception:
+                pass
+        if excel is not None:
+            try:
+                excel.Quit()
+            except Exception:
+                pass
+        pythoncom.CoUninitialize()
+
+
+def _format_excel_value(value: Any, number_format: str) -> str:
+    """Render common Excel number/date formats as users see them in Excel."""
+    if value is None:
+        return ""
+    if hasattr(value, "strftime"):
+        fmt = number_format or "yyyy-mm-dd"
+        # Handle the most common Excel date tokens while retaining separators.
+        result = fmt
+        result = result.replace("yyyy", "%Y").replace("yy", "%y")
+        result = result.replace("mm", "%m").replace("dd", "%d")
+        result = result.replace("hh", "%H").replace("ss", "%S")
+        result = result.replace("AM/PM", "%p")
+        try:
+            return value.strftime(result)
+        except (TypeError, ValueError):
+            return str(value)
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        fmt = number_format or "General"
+        if fmt.lower() == "general":
+            return str(value)
+        percent = "%" in fmt
+        number = value * 100 if percent else value
+        # Count displayed decimal places, ignoring quoted literals.
+        section = fmt.split(";")[0]
+        decimals = (
+            len(section.split(".", 1)[1].replace("%", "")) if "." in section else 0
+        )
+        grouping = "," in section.split(".", 1)[0]
+        rendered = f"{number:{',' if grouping else ''}.{decimals}f}"
+        if percent:
+            rendered += "%"
+        # Preserve common currency/accounting symbols from the format.
+        for symbol in ("$", "€", "£", "¥", "￥"):
+            if symbol in fmt:
+                rendered = symbol + rendered
+                break
+        return rendered
+    return str(value)
+
+
+def _mermaid_flowchart(rows: list[list[Any]]) -> str:
+    """Build a conservative flowchart from obvious source/target columns."""
+    if len(rows) < 2 or not rows[0]:
+        return ""
+    headers = [str(value).strip().lower() for value in rows[0]]
+    source_names = {"source", "from", "start", "parent", "親", "前工程", "前処理"}
+    target_names = {"target", "to", "next", "child", "子", "次工程", "次処理", "依存先"}
+    source_index = next((i for i, h in enumerate(headers) if h in source_names), None)
+    target_index = next((i for i, h in enumerate(headers) if h in target_names), None)
+    if source_index is None or target_index is None or source_index == target_index:
+        return ""
+
+    def clean(value: Any) -> str:
+        text = str(value or "").strip().replace("\n", " ")
+        return text.replace('"', "'").replace("[", "(").replace("]", ")")
+
+    edges: list[tuple[str, str]] = []
+    for row in rows[1:]:
+        if max(source_index, target_index) >= len(row):
+            continue
+        source, target = clean(row[source_index]), clean(row[target_index])
+        if source and target:
+            edges.append((source, target))
+    if not edges:
+        return ""
+    lines = ["```mermaid", "flowchart TD"]
+    node_ids: dict[str, str] = {}
+    for index, (source, target) in enumerate(edges):
+        for label in (source, target):
+            if label not in node_ids:
+                node_ids[label] = f"N{len(node_ids) + 1}"
+        lines.append(
+            f'    {node_ids[source]}["{source}"] --> {node_ids[target]}["{target}"]'
+        )
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def _convert_xlsx(
+    path: Path,
+    include_hidden: bool = True,
+    title: str | None = None,
+    include_mermaid: bool = False,
+) -> str:
     try:
         from .exstruct_tool import _import_exstruct
 
@@ -160,10 +333,25 @@ def _convert_xlsx(path: Path) -> str:
             data = data.dict()
     except Exception as exc:
         raise RuntimeError(f"could not extract workbook with exstruct: {exc}") from exc
-    parts = [f"# {path.stem}"]
+    parts = [f"# {title or path.stem}"]
     sheets = data.get("sheets", {}) if isinstance(data, dict) else {}
+    # exstruct supplies values and formulas, while openpyxl supplies the
+    # workbook's display formats (number format and basic emphasis styles).
+    formatted_book = None
+    try:
+        from openpyxl import load_workbook
+
+        formatted_book = load_workbook(str(path), data_only=True, read_only=True)
+    except Exception:
+        # Formatting is best-effort; conversion should still work with exstruct.
+        formatted_book = None
     for name, sheet in sheets.items():
         rows = []
+        worksheet = (
+            formatted_book[name]
+            if formatted_book is not None and name in formatted_book.sheetnames
+            else None
+        )
         for row in sheet.get("rows", []) if isinstance(sheet, dict) else []:
             cells = row.get("c", {}) if isinstance(row, dict) else {}
             if isinstance(cells, dict):
@@ -173,9 +361,47 @@ def _convert_xlsx(path: Path) -> str:
                         int(value) if str(value).isdigit() else str(value)
                     ),
                 )
-                rows.append([cells[key] for key in keys])
+                row_number = int(row.get("r", 0) or 0) if isinstance(row, dict) else 0
+                if (
+                    worksheet is not None
+                    and not include_hidden
+                    and row_number
+                    and worksheet.row_dimensions[row_number].hidden
+                ):
+                    continue
+                rendered = []
+                for key in keys:
+                    value = cells[key]
+                    column_number = int(key) + 1 if str(key).isdigit() else 0
+                    if (
+                        worksheet is not None
+                        and not include_hidden
+                        and column_number
+                        and worksheet.cell(row_number, column_number).column_letter
+                        in worksheet.column_dimensions
+                        and worksheet.column_dimensions[
+                            worksheet.cell(row_number, column_number).column_letter
+                        ].hidden
+                    ):
+                        continue
+                    if worksheet is not None and row_number and column_number:
+                        excel_cell = worksheet.cell(row_number, column_number)
+                        if excel_cell.value is not None:
+                            value = _format_excel_value(
+                                excel_cell.value, excel_cell.number_format
+                            )
+                            if excel_cell.font.bold:
+                                value = f"**{value}**"
+                            if excel_cell.font.italic:
+                                value = f"*{value}*"
+                    rendered.append(value)
+                rows.append(rendered)
         table = _table(rows)
         parts.append(f"## {name}\n\n{table or '_（データなし）_'}")
+        if include_mermaid:
+            flowchart = _mermaid_flowchart(rows)
+            if flowchart:
+                parts.append(f"### {name} flowchart\n\n{flowchart}")
         if isinstance(sheet, dict) and sheet.get("merged_ranges"):
             parts.append(
                 f"Merged ranges: {', '.join(map(str, sheet['merged_ranges']))}"
@@ -319,6 +545,8 @@ def run_tool(args: dict[str, Any]) -> str:
             ensure_ascii=False,
         )
     temporary: Path | None = None
+    recalc_temporary: Path | None = None
+    recalculation: dict[str, Any] | None = None
     try:
         password = str(args.get("password") or "").strip() or None
         readable_path, temporary = _resolve_encrypted(path, password)
@@ -327,7 +555,22 @@ def run_tool(args: dict[str, Any]) -> str:
                 readable_path, args.get("include_notes", True) is not False
             )
         elif fmt == "xlsx":
-            markdown = _convert_xlsx(readable_path)
+            conversion_path = readable_path
+            if args.get("recalculate", True) is not False:
+                fd, recalc_name = tempfile.mkstemp(suffix=readable_path.suffix)
+                os.close(fd)
+                recalc_temporary = Path(recalc_name)
+                shutil.copy2(readable_path, recalc_temporary)
+                recalculation = _recalculate_xlsx(
+                    recalc_temporary, None if temporary is not None else password
+                )
+                conversion_path = recalc_temporary
+            markdown = _convert_xlsx(
+                conversion_path,
+                args.get("include_hidden", True) is not False,
+                title=path.stem,
+                include_mermaid=args.get("include_mermaid", False) is True,
+            )
         else:
             markdown = _convert_docx(readable_path)
         output_path = str(args.get("output_path") or "").strip()
@@ -349,18 +592,23 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(markdown, encoding="utf-8")
-        return json.dumps(
-            {
-                "ok": True,
-                "format": fmt,
-                "input_path": str(path),
-                "output_path": output_path or None,
-                "markdown": markdown,
-            },
-            ensure_ascii=False,
-        )
+        result: dict[str, Any] = {
+            "ok": True,
+            "format": fmt,
+            "input_path": str(path),
+            "output_path": output_path or None,
+            "markdown": markdown,
+        }
+        if recalculation is not None:
+            result["recalculation"] = recalculation
+        return json.dumps(result, ensure_ascii=False)
     except Exception as exc:
         return json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
     finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+        for temporary_path in (recalc_temporary, temporary):
+            if temporary_path is not None:
+                try:
+                    temporary_path.unlink(missing_ok=True)
+                except OSError:
+                    # A third-party extractor may briefly retain a file handle.
+                    pass
