@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.6.18] - 2026-09-01
+
+### Added
+
+- Add Brain memory design documentation and suppress redundant idle status updates.
+- Improve Excel-to-Markdown conversion and project badges.
+- Document PyPI token handling and improve XLSM internationalization compliance.
+
+### Fixed
+
+- Update the `llmcapa` dependency requirement to `>=0.5.13`.
+
+
 ## [0.6.17] - 2026-08-31
 
 ### Added
