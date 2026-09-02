@@ -484,7 +484,9 @@ def _convert_pptx(path: Path, include_notes: bool = True) -> str:
         try:
             from pptx import Presentation
         except ImportError as exc:
-            raise RuntimeError("python-pptx is required for PowerPoint conversion") from exc
+            raise RuntimeError(
+                "python-pptx is required for PowerPoint conversion"
+            ) from exc
     presentation = Presentation(str(path))
     parts = [f"# {path.stem}"]
 
@@ -562,8 +564,8 @@ def run_tool(args: dict[str, Any]) -> str:
     recalc_temporary: Path | None = None
     recalculation: dict[str, Any] | None = None
     try:
-        password = str(args.get("password") or "").strip() or None
-        readable_path, temporary = _resolve_encrypted(path, password)
+        office_password = str(args.get("password") or "").strip() or None
+        readable_path, temporary = _resolve_encrypted(path, office_password)
         if fmt == "pptx":
             markdown = _convert_pptx(
                 readable_path, args.get("include_notes", True) is not False
@@ -576,7 +578,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 recalc_temporary = Path(recalc_name)
                 shutil.copy2(readable_path, recalc_temporary)
                 recalculation = _recalculate_xlsx(
-                    recalc_temporary, None if temporary is not None else password
+                    recalc_temporary,
+                    None if temporary is not None else office_password,
                 )
                 conversion_path = recalc_temporary
             markdown = _convert_xlsx(
