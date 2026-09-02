@@ -551,6 +551,11 @@ def compress_history_with_llm(
                             model_name=depname,
                             messages=summary_messages,
                             core=sys.modules[__name__],
+                            # Preserve the active provider during history
+                            # compression. Otherwise this helper defaults to
+                            # "gemini" and sends the Developer API-only
+                            # server-side tool flag to Vertex AI.
+                            provider=provider,
                         )
                     )
                 elif provider == "claude":
