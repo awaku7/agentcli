@@ -55,6 +55,7 @@ _ALLOWED_PACKAGES = {
     "qrcode",
     "beautifulsoup4",
     "python-magic",
+    "python-magic-bin",
     # Computer/network/automation packages.
     "playwright",
     "pyautogui",
