@@ -256,6 +256,15 @@ def install_with_status(
     label = display_name or package_name
     target = module_name or package_name
 
+    def _ensure_pytest_companion() -> bool:
+        if package_name.lower() != "pytest":
+            return True
+        try:
+            import pygments  # noqa: F401
+            return True
+        except ImportError:
+            return install_with_status("pygments", "pygments", display_name="pygments")
+
     def _run_pip(*args: str) -> bool:
         full_pkg = package_name
         if version_spec:
@@ -333,9 +342,9 @@ def install_with_status(
                 return False
         return True
 
-    # Already works
+    # Already works; also repair pytest's display dependency if needed.
     if _verify():
-        return True
+        return _ensure_pytest_companion()
 
     if not _may_install(label):
         return False
@@ -347,7 +356,7 @@ def install_with_status(
         print(
             _("%(label)s installed successfully.") % {"label": label}, file=sys.stderr
         )
-        return True
+        return _ensure_pytest_companion()
 
     # One more try with --force-reinstall (e.g. stale/corrupted installation)
     print(_("Retrying with --force-reinstall..."), file=sys.stderr)
@@ -356,7 +365,7 @@ def install_with_status(
         print(
             _("%(label)s installed successfully.") % {"label": label}, file=sys.stderr
         )
-        return True
+        return _ensure_pytest_companion()
 
     print(_("Failed to install %(label)s.") % {"label": label}, file=sys.stderr)
     return False
