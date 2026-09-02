@@ -26,6 +26,7 @@ def _ensure_xai_chat() -> None:
         tool_result as _tool_result,
         tool as _xai_tool,
     )
+
     user, system, tool_result, xai_tool = _user, _system, _tool_result, _xai_tool
 
 

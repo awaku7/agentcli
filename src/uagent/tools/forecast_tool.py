@@ -1652,7 +1652,9 @@ def _select_best_model(
                     elapsed = time.time() - t0
                     return rmse_val, elapsed, name, model
 
-                rmse_val, elapsed, _model_name, model = _run_with_timeout(_eval, _TIMEOUT_SEC)
+                rmse_val, elapsed, _model_name, model = _run_with_timeout(
+                    _eval, _TIMEOUT_SEC
+                )
                 tier_results.append((rmse_val, elapsed, name, model))
             except Exception:
                 _logger.debug(

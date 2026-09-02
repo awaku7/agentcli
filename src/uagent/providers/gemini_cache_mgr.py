@@ -370,7 +370,9 @@ class GeminiCacheManager:
 
         if contents and getattr(contents[-1], "role", None) == "model":
             contents.append(
-                gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
+                gemini_types.Content(
+                    role="user", parts=[gemini_types.Part(text="Continue.")]
+                )
             )
 
         # Gemini cache API は contents 必須。system_instruction だけでは作れないので、

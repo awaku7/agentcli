@@ -282,6 +282,7 @@ def _can_use_textarea() -> bool:
     try:
         from prompt_toolkit.widgets import TextArea  # noqa: F401
         from prompt_toolkit.application import Application  # noqa: F401
+
         return True
     except ImportError:
         # prompt-toolkit is an allow-listed optional dependency.  Use the
@@ -293,6 +294,7 @@ def _can_use_textarea() -> bool:
                 return False
             from prompt_toolkit.widgets import TextArea  # noqa: F401
             from prompt_toolkit.application import Application  # noqa: F401
+
             return True
         except Exception:
             return False

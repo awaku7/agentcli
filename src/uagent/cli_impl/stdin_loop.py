@@ -497,7 +497,10 @@ def stdin_loop() -> None:
                     with core.human_ask_lock:
                         core.human_ask_lines.clear()
                         core.human_ask_multiline_active = True
-                    print("[REPLY] " + _("Multiline mode: enter lines; submit with an empty line."))
+                    print(
+                        "[REPLY] "
+                        + _("Multiline mode: enter lines; submit with an empty line.")
+                    )
 
                 else:
                     core.set_status(True, "replying")
@@ -576,7 +579,10 @@ def stdin_loop() -> None:
                 # Fallback for environments without prompt_toolkit.
                 user_multiline_active = True
                 user_lines.clear()
-                print("[MULTILINE] " + _("Enter lines; submit with an empty line, or type c to cancel."))
+                print(
+                    "[MULTILINE] "
+                    + _("Enter lines; submit with an empty line, or type c to cancel.")
+                )
                 continue
 
             if not line.strip():

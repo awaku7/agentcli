@@ -26,5 +26,7 @@ def test_case_insensitive_package_allowed(monkeypatch) -> None:
     called = []
     monkeypatch.setattr(_pip_auto.subprocess, "run", lambda *a, **k: called.append(a))
 
-    assert not _pip_auto.auto_install("winrt-Windows.Devices.Geolocation", "missing_module")
+    assert not _pip_auto.auto_install(
+        "winrt-Windows.Devices.Geolocation", "missing_module"
+    )
     assert len(called) == 1

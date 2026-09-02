@@ -17,9 +17,13 @@ from typing import Any
 
 from ..lazy_import import lazy_module
 
-ed25519 = lazy_module("cryptography", "cryptography.hazmat.primitives.asymmetric.ed25519")
+ed25519 = lazy_module(
+    "cryptography", "cryptography.hazmat.primitives.asymmetric.ed25519"
+)
 x25519 = lazy_module("cryptography", "cryptography.hazmat.primitives.asymmetric.x25519")
-serialization = lazy_module("cryptography", "cryptography.hazmat.primitives.serialization")
+serialization = lazy_module(
+    "cryptography", "cryptography.hazmat.primitives.serialization"
+)
 
 from .i18n_helper import make_tool_translator
 

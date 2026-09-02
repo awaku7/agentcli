@@ -37,7 +37,10 @@ def _ensure_cryptography() -> None:
         import cryptography  # noqa: F401
     except ImportError as exc:
         raise RuntimeError(
-            _("error.cryptography_required", default="cryptography is required for AP2 signing; install cryptography")
+            _(
+                "error.cryptography_required",
+                default="cryptography is required for AP2 signing; install cryptography",
+            )
         ) from exc
 
 

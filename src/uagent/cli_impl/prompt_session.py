@@ -11,6 +11,7 @@ def _ensure_prompt_toolkit() -> bool:
     """Load prompt_toolkit, installing the allow-listed package on demand."""
     try:
         from prompt_toolkit import PromptSession  # noqa: F401
+
         return True
     except ImportError:
         # Do not install merely because a non-interactive invocation imported
@@ -23,6 +24,7 @@ def _ensure_prompt_toolkit() -> bool:
             return auto_install("prompt-toolkit", "prompt_toolkit")
         except Exception:
             return False
+
 
 from . import state
 from .. import tools

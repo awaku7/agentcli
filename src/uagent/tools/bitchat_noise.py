@@ -13,7 +13,9 @@ from typing import Any
 
 from ..lazy_import import lazy_module
 
-serialization = lazy_module("cryptography", "cryptography.hazmat.primitives.serialization")
+serialization = lazy_module(
+    "cryptography", "cryptography.hazmat.primitives.serialization"
+)
 x25519 = lazy_module("cryptography", "cryptography.hazmat.primitives.asymmetric.x25519")
 aead = lazy_module("cryptography", "cryptography.hazmat.primitives.ciphers.aead")
 
