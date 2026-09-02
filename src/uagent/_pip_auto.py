@@ -77,6 +77,7 @@ _ALLOWED_PACKAGES = {
     "dbus-next",
     # Developer/analysis packages.
     "pytest",
+    "pygments",
     "coverage",
     "tree-sitter",
     "tree-sitter-language-pack",
