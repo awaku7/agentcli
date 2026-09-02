@@ -34,6 +34,7 @@ _AP2_PUBLIC_KEY: Any = None
 def _load_ap2_keys():
     """Load or generate AP2 signing keys."""
     global _AP2_PRIVATE_KEY, _AP2_PUBLIC_KEY
+    _ensure_cryptography()
     if _AP2_PRIVATE_KEY is not None:
         return
 

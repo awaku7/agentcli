@@ -228,6 +228,7 @@ def ensure_key_file(path: str | Path | None = None, *, overwrite: bool = False) 
 
 
 def _derive_subkey(master_key: bytes, *, purpose: str, length: int) -> bytes:
+    _ensure_cryptography()
     hkdf = HKDF(
         algorithm=hashes.SHA256(),
         length=length,
