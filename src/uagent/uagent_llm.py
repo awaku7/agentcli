@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
+import sys
 from urllib.parse import urlparse
 
 from .env_utils import env_get
@@ -157,8 +159,25 @@ _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
 # Keep this close to the management threshold so runaway tool spam stops early.
 _GENERAL_TOOL_LOOP_THRESHOLD = 4
+
+
 # Tools that may legitimately be called repeatedly with identical args in one
 # session (polling/monitors). These stay on the management-only detector.
+def _debug_tool_loop(event: str, **fields: Any) -> None:
+    """Emit privacy-conscious tool-loop diagnostics when explicitly enabled."""
+    enabled = (env_get("UAGENT_DEBUG_TOOL_LOOP") or "").strip().lower()
+    if enabled not in {"1", "true", "yes", "on"}:
+        return
+    parts = [f"[TOOL_LOOP] {event}"]
+    for key, value in fields.items():
+        text = str(value)
+        if key in {"arguments", "result"}:
+            digest = hashlib.sha256(text.encode("utf-8", "replace")).hexdigest()[:12]
+            text = f"sha256:{digest}/len:{len(text)}"
+        parts.append(f"{key}={text}")
+    print(" ".join(parts), file=sys.stderr, flush=True)
+
+
 _GENERAL_LOOP_EXEMPT_TOOLS = frozenset(
     {
         "human_ask",
@@ -571,6 +590,7 @@ def _run_one_round(
             client=client,
             depname=depname,
             call_messages=call_messages,
+            history_messages=messages,
             gemini_cache_name=gemini_cache_name,
             core=core,
             make_client_fn=make_client_fn,
@@ -1462,11 +1482,39 @@ def _run_one_round(
             assistant_text,
         )
 
+    _debug_tool_loop(
+        "received",
+        provider=provider,
+        count=len(tool_calls_list),
+        calls=[
+            {
+                "id": tc.get("id"),
+                "name": (tc.get("function") or {}).get("name"),
+                "args_sha256": hashlib.sha256(
+                    str((tc.get("function") or {}).get("arguments", "")).encode(
+                        "utf-8", "replace"
+                    )
+                ).hexdigest()[:12],
+            }
+            for tc in tool_calls_list
+            if isinstance(tc, dict)
+        ],
+    )
     executed_new_tool, fresh_tool_calls = _execute_tool_calls(
         tool_calls_list=tool_calls_list,
         messages=messages,
         core=core,
         cache_mgr=cache_mgr,
+    )
+    _debug_tool_loop(
+        "executed",
+        fresh_count=len(fresh_tool_calls),
+        executed_new_tool=executed_new_tool,
+        fresh_names=[
+            (tc.get("function") or {}).get("name")
+            for tc in fresh_tool_calls
+            if isinstance(tc, dict)
+        ],
     )
 
     if any(
@@ -1511,6 +1559,7 @@ def _run_one_round(
 
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
+            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             print(
                 "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
                 % {"name": blocked_name, "n": blocked_count}
@@ -1528,6 +1577,7 @@ def _run_one_round(
             fresh_tool_calls
         )
         if blocked:
+            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             print(
                 _(
                     "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
@@ -1544,6 +1594,7 @@ def _run_one_round(
         # The narrower detector catches repeated calls with identical args.
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
+            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             print(
                 "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
                 "arguments; aborting to prevent loop."
@@ -1842,9 +1893,9 @@ def run_llm_rounds(
     # Keep the safety cap conservative, while allowing explicit override for
     # genuinely long workflows.
     try:
-        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "20")))
+        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "200")))
     except (TypeError, ValueError):
-        max_tool_rounds = 20
+        max_tool_rounds = 200
     round_count = 0
 
     empty_no_tool_rounds = 0
