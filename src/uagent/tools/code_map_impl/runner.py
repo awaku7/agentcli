@@ -1,4 +1,4 @@
-# src/uagent/tools/code_map_tool.py
+# src/uagent/tools/code_map_impl/runner.py
 from __future__ import annotations
 
 import datetime
@@ -30,6 +30,7 @@ from .renderers import (
     tree_to_mermaid,
     render_mermaid_to_image,
 )
+from .graph_renderer import generate_ontology_html
 from .excel_vba import (
     extract_vba_modules,
     supported_office_script,
@@ -142,17 +143,18 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.format.description",
-                        default="Output format: 'json' for structured data, 'mermaid' for visual diagram, 'ontology' for JSON-LD knowledge graph with file relations.",
+                        default="Output format: 'json' for structured data, 'mermaid' for visual diagram, 'ontology' for JSON-LD knowledge graph with file relations, 'html' for interactive visual graph.",
                     ),
-                    "enum": ["json", "mermaid", "ontology"],
+                    "enum": ["json", "mermaid", "ontology", "html"],
                     "default": "json",
                 },
                 "output_dir": {
                     "type": "string",
                     "description": _(
                         "param.output_dir.description",
-                        default="Directory to save the output file instead of returning it. For mermaid format with render_image=true, saves as PNG. Uses naming convention: code_map_<timestamp>.<ext>.",
+                        default="Directory to save the output file. Results are always saved; defaults to outputs/code_map. For mermaid format with render_image=true, also saves a PNG. Uses naming convention: code_map_<timestamp>.<ext>.",
                     ),
+                    "default": "outputs/code_map",
                 },
                 "render_image": {
                     "type": "boolean",
@@ -166,7 +168,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.include_relations.description",
-                        default="Extract import/require relations between files. When format='ontology', defaults to True. Supported languages: Python, TypeScript, JavaScript, Go, Rust.",
+                        default="Extract import/require relations between files. When format='ontology' or 'html', defaults to True. Supported languages: Python, TypeScript, JavaScript, Go, Rust.",
                     ),
                 },
             },
@@ -253,99 +255,122 @@ SYMBOL_PATTERNS: dict[str, list[str]] = {
         r"(?:export\s+)?const\s+(\w+)\s*[=:]",
     ],
     "Go": [
-        r"^func\s+(?:\([^)]+\)\s+)?(\w+)",
-        r"^type\s+(\w+)\s+struct",
-        r"^type\s+(\w+)\s+interface",
+        r"^func\s+(?:\([^)]+\)\s+)?(\w+)\(",
+        r"^type\s+(\w+)\s+struct\b",
+        r"^type\s+(\w+)\s+interface\b",
     ],
     "Rust": [
-        r"^fn\s+(\w+)",
-        r"^pub\s+fn\s+(\w+)",
-        r"^struct\s+(\w+)",
-        r"^enum\s+(\w+)",
-        r"^trait\s+(\w+)",
-        r"^impl(?:\s*<[^>]+>)?\s+(\w+)",
-        r"^mod\s+(\w+)",
-        r"^type\s+(\w+)",
-    ],
-    "C": [
-        r"^struct\s+(\w+)",
-        r"^enum\s+(\w+)",
-        r"^#define\s+(\w+)",
-        r"^(?:static\s+)?(?:inline\s+)?(?:\w+\s+)+\*?\w+\s*\([^)]*\)\s*\{",
-        r"^(?:void|int|char|long|float|double|size_t|uint\d+_t|int\d+_t)\s+\*?(\w+)\s*\(",
-    ],
-    "C++": [
-        r"^class\s+(\w+)",
-        r"^struct\s+(\w+)",
-        r"^enum\s+(\w+)",
-        r"^namespace\s+(\w+)",
-        r"^template\s*<",
-        r"^(?:virtual\s+)?(?:void|int|char|long|float|double|bool|std::\w+|\w+)\s+\*?(\w+)\s*\(",
+        r"^(?:pub\s+)?(?:async\s+)?fn\s+(\w+)",
+        r"^(?:pub\s+)?struct\s+(\w+)",
+        r"^(?:pub\s+)?enum\s+(\w+)",
+        r"^(?:pub\s+)?trait\s+(\w+)",
     ],
     "C#": [
-        r"^(?:\s*(?:public|private|protected|internal|static|virtual|override|abstract|sealed|partial|readonly)\s+)*(?:class|interface|struct|enum|record)\s+(\w+)",
-        r"^(?:\s*(?:public|private|protected|internal|static|virtual|override|abstract|sealed|partial|async|readonly)\s+)*(?:void|int|string|bool|long|double|float|decimal|char|byte|short|Task|ValueTask|IEnumerable|IActionResult|ActionResult|IActionResult|JsonResult|Task<[^>]+>|Task<(?:IEnumerable<[^>]+>|List<[^>]+>|ActionResult<[^>]+>|[A-Z]\w+))>\s+(\w+)\s*\(",
+        r"(?:public|private|protected|internal|static|\s)+class\s+(\w+)",
+        r"(?:public|private|protected|internal|static|\s)+interface\s+(\w+)",
+        r"(?:public|private|protected|internal|static|\s)+struct\s+(\w+)",
+        r"(?:public|private|protected|internal|static|\s)+enum\s+(\w+)",
+        r"(?:public|private|protected|internal|static|\s)+void\s+(\w+)\s*\(",
+        r"(?:public|private|protected|internal|static|\s)+(?:async\s+)?Task(?:\<[\w\<\>,\s]+\>)?\s+(\w+)\s*\(",
+        r"(?:public|private|protected|internal|static|\s)+(?:string|int|bool|double|float|var|\w+)\s+(\w+)\s*\(",
+    ],
+    "C": [
+        r"^(?:static\s+|inline\s+)*(?:void|int|char|long|short|float|double|unsigned|signed|struct\s+\w+|\w+_t)\s*\*?\s*(\w+)\s*\(",
+        r"^struct\s+(\w+)\s*\{",
+        r"^enum\s+(\w+)\s*\{",
+        r"^union\s+(\w+)\s*\{",
+        r"^typedef\s+struct\s*(?:\w+\s*)?\{[^}]*\}\s*(\w+);",
+    ],
+    "C++": [
+        r"^(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+(\w+)",
+        r"^(?:virtual\s+|static\s+|inline\s+|constexpr\s+)*(?:void|int|char|long|float|double|bool|auto|\w+::\w+|\w+)\s*\*?\s*(\w+)\s*\(",
+        r"^enum\s+(?:class\s+)?(\w+)",
+        r"^namespace\s+(\w+)",
     ],
     "Java": [
-        r"^(?:\s*(?:public|private|protected|static|final|abstract|synchronized)\s+)*(?:class|interface|enum|@interface|record)\s+(\w+)",
-        r"@(\w+)",
-        r"^(?:\s*(?:public|private|protected|static|final|abstract|synchronized)\s+)*(?:void|[A-Z]\w*|int|long|double|float|boolean|char|byte|short|String|List|Map|Set|Optional|Stream)\s*(?:<[^>]+>)?\s+(\w+)\s*\(",
+        r"(?:public|private|protected|static|final|abstract|\s)+class\s+(\w+)",
+        r"(?:public|private|protected|static|final|abstract|\s)+interface\s+(\w+)",
+        r"(?:public|private|protected|static|final|\s)+enum\s+(\w+)",
+        r"(?:public|private|protected|static|final|\s)+record\s+(\w+)",
+        r"(?:public|private|protected|static|final|abstract|synchronized|\s)+(?:void|[\w<>\[\],\s]+)\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+[\w,\s]+)?\s*\{",
     ],
     "Kotlin": [
-        r"^(?:\s*(?:public|private|protected|internal|open|data|sealed|abstract|override)\s+)*(?:class|data class|sealed class|abstract class|open class|inner class)\s+(\w+)",
-        r"^(?:\s*(?:public|private|protected|internal|open|abstract|override)\s+)*interface\s+(\w+)",
-        r"^(?:\s*(?:public|private|protected|internal)\s+)*object\s+(\w+)",
-        r"^(?:\s*(?:public|private|protected|internal)\s+)*fun\s+(\w+)",
-        r"^(?:\s*(?:public|private|protected|internal)\s+)*enum class\s+(\w+)",
+        r"(?:open\s+|data\s+|sealed\s+|abstract\s+|inner\s+)*class\s+(\w+)",
+        r"interface\s+(\w+)",
+        r"object\s+(\w+)",
+        r"enum\s+class\s+(\w+)",
+        r"fun\s+(?:<[^>]+>\s+)?(?:\w+\.)?(\w+)\s*\(",
+        r"(?:val|var)\s+(\w+)",
     ],
-    "Swift": [
-        r"^(?:\s*(?:public|private|internal|fileprivate|open)\s+)*(?:class|struct|enum|protocol|extension)\s+(\w+)",
-        r"^(?:\s*(?:public|private|internal|fileprivate|open)\s+)*func\s+(\w+)",
-        r"^(?:\s*(?:public|private|internal|fileprivate|open)\s+)*var\s+(\w+)",
+    "COBOL": [
+        r"^\s*PROGRAM-ID\.\s+([\w-]+)",
+        r"^\s*SECTION\s+([\w-]+)",
+        r"^\s*DIVISION\s+([\w-]+)",
+    ],
+    "PHP": [
+        r"(?:final\s+|abstract\s+|readonly\s+)*class\s+(\w+)",
+        r"interface\s+(\w+)",
+        r"trait\s+(\w+)",
+        r"enum\s+(\w+)",
+        r"(?:public\s+|protected\s+|private\s+|static\s+)*function\s+(\w+)\s*\(",
     ],
     "Ruby": [
         r"^\s*class\s+(\w+)",
         r"^\s*module\s+(\w+)",
-        r"^\s*def\s+(?:self\.)?(\w+)",
-    ],
-    "PHP": [
-        r"^\s*(?:abstract\s+|final\s+)?class\s+(\w+)",
-        r"^\s*interface\s+(\w+)",
-        r"^\s*trait\s+(\w+)",
-        r"^\s*(?:public|private|protected|static)\s+function\s+(\w+)",
-    ],
-    "Scala": [
-        r"^\s*(?:case\s+)?class\s+(\w+)",
-        r"^\s*object\s+(\w+)",
-        r"^\s*trait\s+(\w+)",
         r"^\s*def\s+(\w+)",
     ],
+    "Swift": [
+        r"(?:public\s+|private\s+|fileprivate\s+|internal\s+|open\s+|final\s+)*class\s+(\w+)",
+        r"(?:public\s+|private\s+|fileprivate\s+|internal\s+)*struct\s+(\w+)",
+        r"(?:public\s+|private\s+|fileprivate\s+|internal\s+)*enum\s+(\w+)",
+        r"(?:public\s+|private\s+|fileprivate\s+|internal\s+)*protocol\s+(\w+)",
+        r"(?:public\s+|private\s+|fileprivate\s+|internal\s+|static\s+|class\s+)*func\s+(\w+)",
+        r"extension\s+(\w+)",
+    ],
     "Dart": [
-        r"^\s*class\s+(\w+)",
-        r"^\s*(?:Future|Stream|void|int|String|bool|double|List|Map|Set)\s*<?[^>]*>?\s+(\w+)\s*\(",
+        r"(?:abstract\s+)?class\s+(\w+)",
+        r"mixin\s+(\w+)",
+        r"enum\s+(\w+)",
+        r"extension\s+(\w+)",
+        r"(?:[\w<>\[\]]+\s+)?(\w+)\s*\([^)]*\)\s*(?:async\s*)?\{",
+    ],
+    "Scala": [
+        r"(?:case\s+)?class\s+(\w+)",
+        r"trait\s+(\w+)",
+        r"object\s+(\w+)",
+        r"def\s+(\w+)",
+        r"val\s+(\w+)",
     ],
     "Lua": [
-        r"^\s*function\s+(\w+)",
-        r"^\s*local\s+function\s+(\w+)",
+        r"function\s+(?:(\w+)[:.]\w+|\w+)\s*\(",
+        r"local\s+function\s+(\w+)\s*\(",
+        r"(\w+)\s*=\s*function\s*\(",
     ],
-    "Objective-C": [
-        r"^\s*@interface\s+(\w+)",
-        r"^\s*@protocol\s+(\w+)",
-        r"^\s*@implementation\s+(\w+)",
-        r"^\s*-\s*\([^)]*\)\s*(\w+)",
-        r"^\s*\+\s*\([^)]*\)\s*(\w+)",
+    "R": [
+        r"(\w+)\s*(?:<-|=)\s*function\s*\(",
+        r"setClass\s*\(\s*[\"'](\w+)[\"']",
+        r"setGeneric\s*\(\s*[\"'](\w+)[\"']",
+        r"setMethod\s*\(\s*[\"'](\w+)[\"']",
     ],
-    "Objective-C++": [
-        r"^\s*@interface\s+(\w+)",
-        r"^\s*@protocol\s+(\w+)",
-        r"^\s*@implementation\s+(\w+)",
-        r"^\s*class\s+(\w+)",
-        r"^\s*namespace\s+(\w+)",
+    "VBA": [
+        r"^\s*(?:Public\s+|Private\s+|Friend\s+)?(?:Static\s+)?Sub\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+|Friend\s+)?(?:Static\s+)?Function\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+|Friend\s+)?Property\s+(?:Get|Let|Set)\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?Type\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?Enum\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?Event\s+(\w+)",
+    ],
+    "LotusScript": [
+        r"^\s*(?:Public\s+|Private\s+)?Class\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?(?:Static\s+)?Sub\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?(?:Static\s+)?Function\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?Property\s+(?:Get|Set)\s+(\w+)",
+        r"^\s*(?:Public\s+|Private\s+)?Type\s+(\w+)",
     ],
 }
 
 # ---------------------------------------------------------------------------
-# Project file patterns
+# Project file detection helpers
 # ---------------------------------------------------------------------------
 
 
@@ -602,31 +627,6 @@ def _find_project_files(root: str) -> dict[str, Any]:
     }
 
 
-# ---------------------------------------------------------------------------
-# Symbol extraction
-# ---------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------
-# JSON-LD ontology builder
-# ---------------------------------------------------------------------------
-
-
-def _make_uri(path: str, root: str) -> str:
-    """Create a URI-safe identifier from a file path."""
-    root_path = Path(root).resolve()
-    try:
-        rel = Path(path).resolve().relative_to(root_path)
-    except ValueError:
-        rel = Path(path).name
-    return f"uag:file/{rel.as_posix()}"
-
-
-def _make_symbol_uri(symbol_name: str, file_uri: str) -> str:
-    """Create a URI for a symbol."""
-    return f"{file_uri}#{symbol_name}"
-
-
 def run_tool(args: dict[str, Any]) -> str:
     base_path = args.get("path", ".").strip()
     if not base_path:
@@ -635,9 +635,11 @@ def run_tool(args: dict[str, Any]) -> str:
     include_symbols = bool(args.get("include_symbols", True))
     project_only = bool(args.get("project_only", False))
     output_format = args.get("format", "json")
-    output_dir = args.get("output_dir", "").strip() or None
+    output_dir = args.get("output_dir", "").strip() or os.path.join(
+        "outputs", "code_map"
+    )
     render_image = bool(args.get("render_image", False))
-    if output_format not in {"json", "mermaid", "ontology"}:
+    if output_format not in {"json", "mermaid", "ontology", "html"}:
         return json.dumps(
             {"ok": False, "error": "Unsupported format"}, ensure_ascii=False
         )
@@ -646,10 +648,10 @@ def run_tool(args: dict[str, Any]) -> str:
             {"ok": False, "error": "depth must be >= 0"}, ensure_ascii=False
         )
 
-    # include_relations: default True when format=ontology
+    # include_relations: default True when format=ontology or html
     include_relations_raw = args.get("include_relations")
     if include_relations_raw is None:
-        include_relations = output_format == "ontology"
+        include_relations = output_format in {"ontology", "html"}
     else:
         include_relations = bool(include_relations_raw)
 
@@ -668,9 +670,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
             workbook_source = str(input_path)
         elif supported_office_script(input_path):
-            # Office Scripts are exported TypeScript/JavaScript files. Copy the
-            # single file into an isolated scan root so sibling files are not
-            # accidentally included in a direct-file scan.
             import shutil
             import tempfile
 
@@ -824,6 +823,25 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
         return json_output
+
+    # Interactive HTML output
+    if output_format == "html":
+        ontology = build_ontology(result, relations)
+        html_output = generate_ontology_html(
+            ontology, title=f"Codebase Ontology - {root.name or str(root)}"
+        )
+        if output_dir:
+            html_path = _save_file(html_output, "html")
+            return json.dumps(
+                {
+                    "ok": True,
+                    "saved_files": [html_path],
+                    "message": f"Saved interactive ontology HTML to {html_path}",
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        return html_output
 
     # JSON output (standard)
     if include_relations and relations:

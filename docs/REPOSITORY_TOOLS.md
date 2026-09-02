@@ -1,6 +1,23 @@
 # Repository Analysis Tools
 
-This repository includes three tools for reviewing and validating source trees.
+This repository includes four tools for reviewing, validating, and mapping source trees.
+
+## `code_map`
+
+Analyzes source trees, symbol definitions, import relationships, and manifests, outputting tree representations, JSON metadata, Mermaid diagrams, JSON-LD knowledge graphs (ontology), or interactive visual HTML reports (`graphify`).
+
+Key options:
+
+- `path`: target directory to analyze (default: current directory)
+- `depth`: directory traversal depth (default: 3)
+- `format`: output format (`json`, `mermaid`, `ontology`, `tree`, `graphify`, `all`)
+- `include_symbols`: extract AST symbols (classes, functions, methods)
+- `include_relations`: extract import and reference relations
+- `project_only`: filter to project-internal dependencies
+- `render_image`: render Mermaid diagrams as SVG/PNG
+- `output_dir`: output directory for generated artifacts
+
+The result includes language statistics, dependency edges, ontology structures, and optional interactive visualization graphs (`docs/repository-ontology.html`).
 
 ## `git_review`
 
@@ -63,4 +80,4 @@ The tool returns the selected adapter, command, execution status, output, and co
 
 ## Safety
 
-All three tools restrict paths to the current working directory, avoid returning secret values, and enforce bounded output or execution limits.
+All tools restrict paths to the current working directory, avoid returning secret values, and enforce bounded output or execution limits.

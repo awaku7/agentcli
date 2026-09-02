@@ -420,13 +420,6 @@ def build_ontology(
         },
         "@graph": graph,
     }
-    return {
-        "@context": {
-            "schema": "https://schema.org/",
-            "uag": "https://uagent.local/ontology/",
-        },
-        "@graph": graph,
-    }
 
 
 def _symbol_type_to_ontology(symbol_type: str) -> str:
@@ -540,7 +533,6 @@ def render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
-    mermaid_cli_hint = "Install mermaid-cli: pip install mermaid-cli"
     from .._pip_auto import install_with_status
 
     # Try mermaid-cli Python package first (local playwright rendering)
@@ -577,13 +569,6 @@ def render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
                 with open(output_path, "wb") as f:
                     f.write(png_bytes)
                 return None
-            return "Mermaid.ink returned no data"
-    except Exception:
-        pass
-
-    return f"Render failed (try: {mermaid_cli_hint})"
-
-
-# ---------------------------------------------------------------------------
-# Main logic
-# ---------------------------------------------------------------------------
+        return "Failed to get image data"
+    except Exception as exc:
+        return f"Image render failed: {exc}"

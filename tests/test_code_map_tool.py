@@ -6,8 +6,11 @@ from pathlib import Path
 from uagent.tools.code_map_tool import _tree_to_mermaid, run_tool
 
 
-def _json_result(raw: str) -> dict:
-    return json.loads(raw)
+def _json_result(raw: str, *, load_saved: bool = True) -> dict:
+    result = json.loads(raw)
+    if load_saved and result.get("saved_files"):
+        return json.loads(Path(result["saved_files"][0]).read_text(encoding="utf-8"))
+    return result
 
 
 def test_python_relative_imports_and_source_lines(repo_tmp_path: Path) -> None:
@@ -130,10 +133,10 @@ def test_output_files_do_not_overwrite(repo_tmp_path: Path) -> None:
     project.mkdir()
     (project / "main.py").write_text("def main():\n    pass\n", encoding="utf-8")
 
-    first = _json_result(
+    first = json.loads(
         run_tool({"path": str(project), "format": "json", "output_dir": str(output)})
     )
-    second = _json_result(
+    second = json.loads(
         run_tool({"path": str(project), "format": "json", "output_dir": str(output)})
     )
     first_path = Path(first["saved_files"][0])
