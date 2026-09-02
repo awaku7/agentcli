@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Centralize runtime and development dependency definitions in `pyproject.toml` extras and simplify `requirements.txt`.
+- Update the `llmcapa` minimum version requirement to `>=0.5.14`.
+
 ## [0.6.18] - 2026-09-01
 
 ### Added
