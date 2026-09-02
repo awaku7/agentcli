@@ -316,6 +316,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: Automatically unload tools that haven't been used for this many LLM rounds (default: `10`). Set to `0` to disable auto-unload.
 - `UAGENT_AUTO_SENTINEL`: Set to `1` to use single-LLM auto-pilot sentinel mode. `<AUTO_CONTINUE>` continues and `<AUTO_COMPLETE>` finishes; capitalization, surrounding whitespace, and optional angle brackets are accepted. A missing or malformed marker still stops safely.
 - `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum number of consecutive fresh tool calls across all tool names and arguments (default: `100`).
+- `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `20`). Set higher only for workflows that require it.
 
 #### LLM Parameters (OpenAI-compatible)
 

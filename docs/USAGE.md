@@ -151,6 +151,7 @@ ______________________________________________________________________
 | `UAGENT_USE_TOOL` | Disable tools when set to `0`, `false`, `no`, or `off` |
 | `UAGENT_AUTO_SENTINEL` | Opt into single-LLM auto-pilot sentinel mode when set to `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximum consecutive fresh tool calls (default: `100`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Maximum LLM/tool rounds per user operation (default: `20`) |
 | `UAGENT_SHRINK_CNT` | Auto-shrink threshold in messages (default: `100`, `0` = off) |
 | `UAGENT_SHRINK_KEEP_LAST` | Messages to retain after shrink (default: `20`) |
 | `UAGENT_LANG` | Interface language (`ja`, `en`, etc.) |
