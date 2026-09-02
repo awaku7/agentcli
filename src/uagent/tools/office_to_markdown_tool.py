@@ -414,8 +414,15 @@ def _convert_xlsx(
 def _convert_docx(path: Path) -> str:
     try:
         from docx import Document
-    except ImportError as exc:
-        raise RuntimeError("python-docx is required for Word conversion") from exc
+    except ImportError:
+        from .._pip_auto import install_with_status
+
+        if not install_with_status("python-docx", "docx", display_name="python-docx"):
+            raise RuntimeError("python-docx is required for Word conversion")
+        try:
+            from docx import Document
+        except ImportError as exc:
+            raise RuntimeError("python-docx is required for Word conversion") from exc
     doc = Document(str(path))
     parts = [f"# {path.stem}"]
     tables = {table._element: table for table in doc.tables}
@@ -469,8 +476,15 @@ def _convert_docx(path: Path) -> str:
 def _convert_pptx(path: Path, include_notes: bool = True) -> str:
     try:
         from pptx import Presentation
-    except ImportError as exc:
-        raise RuntimeError("python-pptx is required for PowerPoint conversion") from exc
+    except ImportError:
+        from .._pip_auto import install_with_status
+
+        if not install_with_status("python-pptx", "pptx", display_name="python-pptx"):
+            raise RuntimeError("python-pptx is required for PowerPoint conversion")
+        try:
+            from pptx import Presentation
+        except ImportError as exc:
+            raise RuntimeError("python-pptx is required for PowerPoint conversion") from exc
     presentation = Presentation(str(path))
     parts = [f"# {path.stem}"]
 

@@ -737,7 +737,9 @@ def gemini_chat_with_tools(
         elif role == "tool":
             gemini_role = "user"
 
-        if contents and getattr(contents[-1], "role", None) == gemini_role:
+        last_role = getattr(contents[-1], "role", None) if contents else None
+        last_role = getattr(last_role, "value", last_role)
+        if contents and str(last_role).lower() == gemini_role.lower():
             try:
                 contents[-1].parts.append(part)
                 return
@@ -988,12 +990,15 @@ def gemini_chat_with_tools(
         contents = [
             gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
         ]
-    elif contents and getattr(contents[-1], "role", None) == "model":
-        # Gemini / Vertex AI API rejects requests ending with a model turn.
-        # Append a continuation prompt from the user to satisfy the API turn-taking rule.
-        contents.append(
-            gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
-        )
+    else:
+        last_role = getattr(contents[-1], "role", None) if contents else None
+        last_role = getattr(last_role, "value", last_role)
+        if contents and str(last_role).lower() == "model":
+            # Gemini / Vertex AI API rejects requests ending with a model turn.
+            # Append a continuation prompt from the user to satisfy the API turn-taking rule.
+            contents.append(
+                gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
+            )
 
     cfg_kwargs: dict[str, Any] = {}
 

@@ -3,7 +3,26 @@
 from __future__ import annotations
 
 import os
+import sys
 from typing import Any
+
+
+def _ensure_prompt_toolkit() -> bool:
+    """Load prompt_toolkit, installing the allow-listed package on demand."""
+    try:
+        from prompt_toolkit import PromptSession  # noqa: F401
+        return True
+    except ImportError:
+        # Do not install merely because a non-interactive invocation imported
+        # the CLI module.  The package is only needed for a TTY prompt.
+        if not getattr(sys.stdin, "isatty", lambda: False)():
+            return False
+        try:
+            from .._pip_auto import auto_install
+
+            return auto_install("prompt-toolkit", "prompt_toolkit")
+        except Exception:
+            return False
 
 from . import state
 from .. import tools
@@ -13,6 +32,13 @@ from ..utils.paths import get_history_file_path
 
 
 def _get_prompt_session(*, reply: bool = False) -> Any:
+    if not _ensure_prompt_toolkit():
+        if reply:
+            state._PROMPT_REPLY_SESSION = False
+        else:
+            state._PROMPT_SESSION = False
+        return None
+
     if reply:
         if state._PROMPT_REPLY_SESSION is False:
             return None

@@ -1838,7 +1838,13 @@ def run_llm_rounds(
             return f"ブラウザーを開けませんでした: {diagnostic}"
         return "ブラウザーを開きました。"
 
-    max_tool_rounds = 200
+    # A runaway model can otherwise spend a very long time issuing tool calls.
+    # Keep the safety cap conservative, while allowing explicit override for
+    # genuinely long workflows.
+    try:
+        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "20")))
+    except (TypeError, ValueError):
+        max_tool_rounds = 20
     round_count = 0
 
     empty_no_tool_rounds = 0

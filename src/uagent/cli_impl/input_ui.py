@@ -275,14 +275,27 @@ def _flush_stdin_input_buffer() -> None:
 
 
 def _can_use_textarea() -> bool:
-    """Check if prompt_toolkit TextArea can be used for multiline editing."""
+    """Check whether the multiline editor is available, installing it if needed."""
+    if not sys.stdin.isatty():
+        return False
+
     try:
         from prompt_toolkit.widgets import TextArea  # noqa: F401
         from prompt_toolkit.application import Application  # noqa: F401
-
-        return sys.stdin.isatty()
+        return True
     except ImportError:
-        return False
+        # prompt-toolkit is an allow-listed optional dependency.  Use the
+        # shared installer rather than silently disabling the `f` shortcut.
+        try:
+            from .._pip_auto import auto_install
+
+            if not auto_install("prompt-toolkit", "prompt_toolkit"):
+                return False
+            from prompt_toolkit.widgets import TextArea  # noqa: F401
+            from prompt_toolkit.application import Application  # noqa: F401
+            return True
+        except Exception:
+            return False
 
 
 def _multiline_editor(initial_text: str = "") -> str | None:

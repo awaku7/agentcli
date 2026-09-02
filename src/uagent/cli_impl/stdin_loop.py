@@ -141,6 +141,17 @@ def stdin_loop() -> None:
                 if is_reply:
                     line = _prompt_toolkit_input("[REPLY] > ", reply=True)
                     if line is None:
+                        # readline() does not render a prompt by itself.
+                        try:
+                            reply_out = (
+                                sys.stderr
+                                if getattr(sys.stderr, "isatty", lambda: False)()
+                                else sys.stdout
+                            )
+                            reply_out.write("[REPLY] > ")
+                            reply_out.flush()
+                        except Exception:
+                            print("[REPLY] > ", end="", flush=True)
                         line = sys.stdin.readline()
                         if line == "":
                             raise EOFError
@@ -481,6 +492,13 @@ def stdin_loop() -> None:
                         print("[REPLY] " + _("Received multiline reply."))
                         should_wait_completion = True
 
+                elif line == "f" and not is_ha_password:
+                    # Keep `f` usable when prompt_toolkit is not installed.
+                    with core.human_ask_lock:
+                        core.human_ask_lines.clear()
+                        core.human_ask_multiline_active = True
+                    print("[REPLY] " + _("Multiline mode: enter lines; submit with an empty line."))
+
                 else:
                     core.set_status(True, "replying")
                     with core.human_ask_lock:
@@ -511,8 +529,18 @@ def stdin_loop() -> None:
                     print("[REPLY] " + _("Cancelled."))
                     should_wait_completion = True
                 else:
-                    with core.human_ask_lock:
-                        core.human_ask_lines.append(line)
+                    if not line.strip():
+                        with core.human_ask_lock:
+                            text = chr(10).join(core.human_ask_lines).strip()
+                            core.human_ask_lines.clear()
+                            core.human_ask_multiline_active = False
+                            if core.human_ask_queue:
+                                core.human_ask_queue.put(text)
+                        core.set_status(True, "replying_multi")
+                        print("[REPLY] " + _("Received multiline reply."))
+                    else:
+                        with core.human_ask_lock:
+                            core.human_ask_lines.append(line)
 
             # Return to the main loop without waiting for completion (to suppress next input while status_busy is True).
             # Removed because waiting here could cause a deadlock when multiple human_asks are consecutive.
@@ -544,6 +572,13 @@ def stdin_loop() -> None:
                 core.event_queue.put({"kind": "user", "text": text})
                 continue
 
+            if line == "f":
+                # Fallback for environments without prompt_toolkit.
+                user_multiline_active = True
+                user_lines.clear()
+                print("[MULTILINE] " + _("Enter lines; submit with an empty line, or type c to cancel."))
+                continue
+
             if not line.strip():
                 if os.name != "nt":
                     print()
@@ -558,4 +593,23 @@ def stdin_loop() -> None:
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
+            if line.strip().lower() in ("c", "cancel"):
+                user_lines.clear()
+                user_multiline_active = False
+                print("[MULTILINE] " + _("Cancelled."))
+                continue
+            if not line.strip():
+                text = chr(10).join(user_lines).strip()
+                user_lines.clear()
+                user_multiline_active = False
+                if not text:
+                    continue
+                _append_prompt_history_entry(text)
+                forward_to_mesh(text)
+                if is_chat_mode() == "on":
+                    core.set_status(False, "")
+                    continue
+                core.set_status(True, "user_pending_multi")
+                core.event_queue.put({"kind": "user", "text": text})
+                continue
             user_lines.append(line)

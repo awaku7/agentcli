@@ -93,8 +93,15 @@ _CELL_REF = re.compile(r"(?:(?:'([^']+)'|([A-Za-z_][\w ]*))!)?\$?([A-Z]{1,3})\$?
 def _sheet_data(path: Path) -> tuple[list[dict[str, Any]], dict[str, list[str]]]:
     try:
         import openpyxl
-    except ImportError as exc:
-        raise RuntimeError("openpyxl is required for worksheet analysis") from exc
+    except ImportError:
+        from .._pip_auto import install_with_status
+
+        if not install_with_status("openpyxl", "openpyxl", display_name="openpyxl"):
+            raise RuntimeError("openpyxl is required for worksheet analysis")
+        try:
+            import openpyxl
+        except ImportError as exc:
+            raise RuntimeError("openpyxl is required for worksheet analysis") from exc
     workbook = openpyxl.load_workbook(
         path, read_only=True, data_only=False, keep_links=True
     )
