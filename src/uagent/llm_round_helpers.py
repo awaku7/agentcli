@@ -29,6 +29,62 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
+
+
+def _is_context_overflow_error(exc: BaseException) -> bool:
+    text = str(exc).lower()
+    return (
+        "input token count exceeds" in text
+        or "maximum number of tokens allowed" in text
+        or "context window" in text
+        and ("exceed" in text or "maximum" in text)
+    )
+
+
+def _rollback_largest_recent_history(
+    messages: list[dict[str, Any]], *, lookback: int = 10
+) -> dict[str, Any] | None:
+    """Remove the largest recent message and everything after it."""
+    if not isinstance(messages, list) or not messages:
+        return None
+    start = max(0, len(messages) - max(1, lookback))
+    sizes: list[tuple[int, int]] = []
+    for index in range(start, len(messages)):
+        try:
+            size = len(
+                json.dumps(messages[index], ensure_ascii=False, default=str).encode(
+                    "utf-8"
+                )
+            )
+        except Exception:
+            size = 0
+        sizes.append((size, index))
+    if not sizes:
+        return None
+    size, index = max(sizes)
+    removed = len(messages) - index
+    del messages[index:]
+    messages.append(
+        {
+            "role": "system",
+            "content": _(
+                "context.rollback_notice",
+                default=(
+                    "The context limit was exceeded. The largest message among the last "
+                    "%(lookback)d messages and all following messages were removed "
+                    "(%(removed)d message(s), largest size %(size)d bytes). "
+                    "Re-plan any removed tool operation; do not assume it completed."
+                ),
+                lookback=lookback,
+                removed=removed,
+                size=size,
+            ),
+            "_uagent_internal": True,
+        }
+    )
+    return {"index": index, "size": size, "removed": removed}
+
+
 from .tools.llm_tool_narrowing import (
     _is_gpt54_tool_search_target,
     _is_legacy_mode,
@@ -236,6 +292,7 @@ def _call_gemini_round(
     client: Any,
     depname: str,
     call_messages: list[dict[str, Any]],
+    history_messages: list[dict[str, Any]] | None = None,
     gemini_cache_name: Any,
     core: Any,
     make_client_fn: Any,
@@ -274,6 +331,23 @@ def _call_gemini_round(
             # common stop-prompt/RS_BREAK handling.
             return True, client, "", [], {}
         except Exception as e:
+            if _is_context_overflow_error(e) and history_messages is not None:
+                rollback = _rollback_largest_recent_history(history_messages)
+                if rollback is not None:
+                    print(
+                        _(
+                            "context.rollback_user_notice",
+                            default=(
+                                "[INFO] Context limit exceeded; rolled back from the "
+                                "largest message in the last %(lookback)d messages "
+                                "(%(removed)d message(s) removed)."
+                            ),
+                            lookback=10,
+                            removed=rollback["removed"],
+                        ),
+                        flush=True,
+                    )
+                    return False, client, "", [], {}
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
                 provider=provider,

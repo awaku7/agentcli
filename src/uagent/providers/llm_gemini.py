@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import sys
+import time
 from typing import Any
 
 from ..env_utils import env_get
@@ -9,6 +11,15 @@ from ..i18n import _
 
 from .. import tools
 from ..reasoning_display import show_reasoning
+
+
+def _vertex_debug(event: str, **fields: Any) -> None:
+    """Emit opt-in timing diagnostics for Gemini/Vertex requests."""
+    value = (env_get("UAGENT_DEBUG_VERTEXAI") or "").strip().lower()
+    if value not in {"1", "true", "yes", "on"}:
+        return
+    details = " ".join(f"{key}={val}" for key, val in fields.items())
+    print(f"[VERTEX_DEBUG] {event} {details}".rstrip(), file=sys.stderr, flush=True)
 
 
 # -----------------------------
@@ -997,7 +1008,9 @@ def gemini_chat_with_tools(
             # Gemini / Vertex AI API rejects requests ending with a model turn.
             # Append a continuation prompt from the user to satisfy the API turn-taking rule.
             contents.append(
-                gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
+                gemini_types.Content(
+                    role="user", parts=[gemini_types.Part(text="Continue.")]
+                )
             )
 
     cfg_kwargs: dict[str, Any] = {}
@@ -1234,6 +1247,15 @@ def gemini_chat_with_tools(
         return "".join(chunk_texts), chunk_tool_calls, gemini_content_dump, text_so_far
 
     if stream:
+        _request_started = time.monotonic()
+        _vertex_debug(
+            "request_start",
+            provider=provider,
+            model=model_name,
+            server_search=bool(use_google_search),
+            tools=len(tool_specs),
+        )
+        _first_chunk = True
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
                 lm = getattr(core, "log_message", None)
@@ -1246,6 +1268,12 @@ def gemini_chat_with_tools(
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
             for response in stream_iter:
+                if _first_chunk:
+                    _first_chunk = False
+                    _vertex_debug(
+                        "first_chunk",
+                        elapsed=f"{time.monotonic() - _request_started:.3f}s",
+                    )
                 # Stop consuming Gemini chunks once the F12 interrupt is set.
                 # The outer round handles the common stop-prompt path.
                 try:
@@ -1271,7 +1299,23 @@ def gemini_chat_with_tools(
                     tool_calls_list.extend(chunk_tool_calls)
                 if chunk_dump:
                     gemini_content_dump = chunk_dump
+            _vertex_debug(
+                "request_end",
+                elapsed=f"{time.monotonic() - _request_started:.3f}s",
+                text_len=sum(len(part) for part in assistant_text_parts),
+                tool_calls=len(tool_calls_list),
+            )
         except Exception as e:
+            if (
+                "input token count exceeds" in str(e).lower()
+                or "maximum number of tokens allowed" in str(e).lower()
+            ):
+                raise
+            _vertex_debug(
+                "request_error",
+                elapsed=f"{time.monotonic() - _request_started:.3f}s",
+                error=type(e).__name__,
+            )
             from uagent.llm_errors import _is_rate_limit_error
 
             if _is_rate_limit_error(e):
@@ -1324,7 +1368,28 @@ def gemini_chat_with_tools(
 
         return assistant_content, tool_calls_list, gemini_content_dump
 
-    response = client.models.generate_content(**gen_kwargs)
+    _request_started = time.monotonic()
+    _vertex_debug(
+        "request_start",
+        provider=provider,
+        model=model_name,
+        server_search=bool(use_google_search),
+        tools=len(tool_specs),
+        stream=False,
+    )
+    try:
+        response = client.models.generate_content(**gen_kwargs)
+    except Exception as e:
+        _vertex_debug(
+            "request_error",
+            elapsed=f"{time.monotonic() - _request_started:.3f}s",
+            error=type(e).__name__,
+        )
+        raise
+    _vertex_debug(
+        "request_end",
+        elapsed=f"{time.monotonic() - _request_started:.3f}s",
+    )
     assistant_content, tool_calls_list, gemini_content_dump, response_meta = (
         _collect_from_response_obj(
             response,
