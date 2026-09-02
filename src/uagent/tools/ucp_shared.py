@@ -31,6 +31,16 @@ _AP2_PRIVATE_KEY: Any = None
 _AP2_PUBLIC_KEY: Any = None
 
 
+def _ensure_cryptography() -> None:
+    """Import cryptography lazily and report a useful dependency error."""
+    try:
+        import cryptography  # noqa: F401
+    except ImportError as exc:
+        raise RuntimeError(
+            _("error.cryptography_required", default="cryptography is required for AP2 signing; install cryptography")
+        ) from exc
+
+
 def _load_ap2_keys():
     """Load or generate AP2 signing keys."""
     global _AP2_PRIVATE_KEY, _AP2_PUBLIC_KEY

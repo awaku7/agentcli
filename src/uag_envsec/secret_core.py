@@ -22,6 +22,15 @@ KEYRING_SERVICE: Final[str] = "uag-envsec"
 KEYRING_USERNAME: Final[str] = "master-key"
 
 
+def _ensure_cryptography() -> None:
+    """Confirm the crypto dependency at explicit crypto call sites.
+
+    This module imports the primitives eagerly, so reaching this helper means
+    the dependency has already been imported successfully.
+    """
+    return None
+
+
 def _home_dir() -> Path:
     return Path.home()
 

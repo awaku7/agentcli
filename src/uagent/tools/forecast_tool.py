@@ -20,12 +20,15 @@ _logger = logging.getLogger(__name__)
 
 def _ensure_forecast_dependencies() -> None:
     """Load forecasting data dependencies only when the tool is executed."""
+    global np, pd
+    if "np" in globals() and "pd" in globals():
+        return
+
     if not _auto_install_pkg("numpy", "numpy"):
         raise ModuleNotFoundError("No module named 'numpy'")
     if not _auto_install_pkg("pandas", "pandas"):
         raise ModuleNotFoundError("No module named 'pandas'")
 
-    global np, pd
     import numpy as np
     import pandas as pd
 
@@ -274,6 +277,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 def _read_csv(path: str) -> pd.DataFrame:
     """Read CSV with auto-detection of encoding and separator."""
+    _ensure_forecast_dependencies()
     for enc in ("utf-8-sig", "cp932", "latin-1"):
         try:
             for sep in (",", "\t"):
@@ -310,6 +314,7 @@ def load_data(data: str) -> pd.DataFrame:
 
 def _parse_date_column(df: pd.DataFrame, col: str) -> pd.DataFrame:
     """Convert date column to datetime."""
+    _ensure_forecast_dependencies()
     if pd.api.types.is_datetime64_any_dtype(df[col]):
         return df
     try:
@@ -324,6 +329,7 @@ def _parse_date_column(df: pd.DataFrame, col: str) -> pd.DataFrame:
 
 def _infer_frequency(index: pd.DatetimeIndex) -> str:
     """Infer frequency from DatetimeIndex."""
+    _ensure_forecast_dependencies()
     # Method 1: pandas infer_freq
     try:
         freq = pd.infer_freq(index)
@@ -1606,6 +1612,7 @@ def _select_best_model(
     Within each priority tier, the model with lowest RMSE is selected.
     Higher-priority tiers are tried first; falls to next tier only if all fail.
     Each model evaluation is guarded by _TIMEOUT_SEC."""
+    _ensure_forecast_dependencies()
     candidates = _get_available_models()
     # Group models by priority tier
     tiers = [
@@ -1645,7 +1652,7 @@ def _select_best_model(
                     elapsed = time.time() - t0
                     return rmse_val, elapsed, name, model
 
-                rmse_val, elapsed, _, model = _run_with_timeout(_eval, _TIMEOUT_SEC)
+                rmse_val, elapsed, _model_name, model = _run_with_timeout(_eval, _TIMEOUT_SEC)
                 tier_results.append((rmse_val, elapsed, name, model))
             except Exception:
                 _logger.debug(
