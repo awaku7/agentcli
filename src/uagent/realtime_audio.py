@@ -10,7 +10,9 @@ from __future__ import annotations
 import importlib
 import threading
 
-import numpy as np
+from .lazy_import import lazy_module
+
+np = lazy_module("numpy")
 
 FRAME_BYTES = 480  # 10 ms of mono PCM16 at 24 kHz
 _INTERNAL_RATE = 48_000

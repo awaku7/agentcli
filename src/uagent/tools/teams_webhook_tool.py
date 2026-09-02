@@ -3,7 +3,9 @@ from __future__ import annotations
 import json
 from typing import Any
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from ..env_utils import env_get
 from .arg_util import get_str

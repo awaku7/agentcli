@@ -10,15 +10,51 @@ import time
 from datetime import datetime
 from typing import Any, Callable
 
-import numpy as np
-import pandas as pd
-
 from .i18n_helper import make_tool_translator
 from .context import get_callbacks
 from .._pip_auto import install_with_status as _auto_install_pkg
 
 _ = make_tool_translator(__file__)
 _logger = logging.getLogger(__name__)
+
+
+def _ensure_forecast_dependencies() -> None:
+    """Load forecasting data dependencies only when the tool is executed."""
+    if not _auto_install_pkg("numpy", "numpy"):
+        raise ModuleNotFoundError("No module named 'numpy'")
+    if not _auto_install_pkg("pandas", "pandas"):
+        raise ModuleNotFoundError("No module named 'pandas'")
+
+    global np, pd
+    import numpy as np
+    import pandas as pd
+
+
+def _disable_huggingface_ssl_verification() -> None:
+    """Use an insecure HF client for an explicitly requested model download.
+
+    This is intentionally opt-in because it disables certificate validation for
+    Hugging Face traffic in the current process.
+    """
+    import httpx
+    from huggingface_hub.utils._http import hf_request_event_hook, set_client_factory
+
+    set_client_factory(
+        lambda: httpx.Client(
+            event_hooks={"request": [hf_request_event_hook]},
+            follow_redirects=True,
+            timeout=None,
+            verify=False,
+        )
+    )
+
+
+def _restore_huggingface_ssl_verification() -> None:
+    """Restore Hugging Face's default verified HTTP client."""
+    from huggingface_hub.utils._http import default_client_factory, set_client_factory
+
+    set_client_factory(default_client_factory)
+
 
 # ── Custom exceptions ──────────────────────────────────────────────────
 
@@ -34,6 +70,14 @@ class MissingRateHighError(ValueError):
     def __init__(self, rate: float):
         self.rate = rate
         super().__init__(f"missing rate {rate:.1%}")
+
+
+class ModelUnavailableError(ValueError):
+    def __init__(self, model_name: str):
+        self.model_name = model_name
+        super().__init__(
+            f"{model_name} is unavailable; install the current timesfm[torch] package"
+        )
 
 
 # ── Constants ──────────────────────────────────────────────────────────
@@ -74,6 +118,14 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Target column name for forecasting",
                     ),
                 },
+                "target_columns": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.target_columns.description",
+                        default="Optional additional target columns for TimesFM-3 native multivariate forecasting. The primary value_column is included automatically.",
+                    ),
+                },
                 "horizon": {
                     "type": "integer",
                     "minimum": 1,
@@ -98,12 +150,21 @@ TOOL_SPEC: dict[str, Any] = {
                         "Ridge",
                         "Lasso",
                         "TimesFM",
+                        "TimesFM-3",
                         "Chronos",
                     ],
                     "description": _(
                         "param.model.description",
-                        default="Forecast model. auto = automatic selection from available models; LinearRegression/Ridge/Lasso use explanatory variables and future_data for multiple regression.",
+                        default="Forecast model. TimesFM-3 uses the TimesFM 3.0 checkpoint (google/timesfm-3.0-pytorch). auto = automatic selection from available models; LinearRegression/Ridge/Lasso use explanatory variables and future_data for multiple regression.",
                     ),
+                },
+                "insecure_ssl": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.insecure_ssl.description",
+                        default="Disable TLS certificate verification for the TimesFM-3 Hugging Face download (unsafe; opt-in only).",
+                    ),
+                    "default": False,
                 },
                 "frequency": {
                     "type": "string",
@@ -516,6 +577,33 @@ def _get_ci_quantile(
         return [], []
 
 
+def _get_ci_timesfm3(
+    model, forecast_horizon: int, confidence: float
+) -> tuple[list[float], list[float]]:
+    """Approximate requested bounds from TimesFM-3's q10..q90 output."""
+    quantiles = getattr(model, "last_quantiles", None)
+    if quantiles is None:
+        return [], []
+    arr = np.asarray(quantiles, dtype=float)
+    if arr.ndim == 3:
+        arr = arr[0]
+    if arr.ndim != 2 or arr.shape[0] < forecast_horizon or arr.shape[1] < 9:
+        return [], []
+    median = arr[:forecast_horizon, 4]
+    low_width = median - arr[:forecast_horizon, 0]
+    high_width = arr[:forecast_horizon, 8] - median
+    # TimesFM-3 exposes q10..q90. Extrapolate symmetrically when a wider
+    # interval (for example 95%) is requested.
+    tail = max(0.0, (1.0 - confidence) / 2.0)
+    scale = (0.5 - tail) / 0.4 if tail < 0.5 else 1.0
+    lower = median - low_width * scale
+    upper = median + high_width * scale
+    return (
+        [round(float(v), 4) for v in lower],
+        [round(float(v), 4) for v in upper],
+    )
+
+
 def _get_ci_sampling(
     model, forecast_horizon: int, num_samples: int = 20
 ) -> tuple[list[float], list[float]]:
@@ -558,6 +646,10 @@ def _compute_ci(
             return lo, hi
     if model_name in ("LightGBM", "CatBoost"):
         lo, hi = _get_ci_quantile(df, value_col, forecast_horizon)
+        if lo:
+            return lo, hi
+    if model_name == "TimesFM-3":
+        lo, hi = _get_ci_timesfm3(model, forecast_horizon, confidence)
         if lo:
             return lo, hi
     if model_name in ("TimesFM", "Chronos"):
@@ -699,7 +791,9 @@ def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
 # ── Model Selection ────────────────────────────────────────────────────
 
 
-def _get_available_models() -> list[tuple[str, Callable]]:
+def _get_available_models(
+    requested_model: str | None = None,
+) -> list[tuple[str, Callable]]:
     """Return list of (model_name, builder_function) tuples.
 
     Models that cannot be imported are silently skipped.
@@ -793,7 +887,13 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("StatsForecast", _make_sf))
     except ImportError:
         # Auto-install statsforecast
-        if _auto_install_pkg("statsforecast"):
+        if requested_model in {
+            "StatsForecast",
+            "AutoARIMA",
+            "AutoETS",
+            "Theta",
+            "MSTL",
+        } and _auto_install_pkg("statsforecast"):
             try:
                 from statsforecast import StatsForecast
                 from statsforecast.models import (
@@ -903,7 +1003,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("Prophet", lambda: _ProphetWrapper()))
     except ImportError:
         # Auto-install prophet
-        if _auto_install_pkg("prophet"):
+        if requested_model == "Prophet" and _auto_install_pkg("prophet"):
             try:
                 from prophet import Prophet as _Prophet
 
@@ -1022,7 +1122,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("LightGBM", lambda: _LightGBMWrapper()))
     except ImportError:
         # Auto-install lightgbm
-        if _auto_install_pkg("lightgbm"):
+        if requested_model == "LightGBM" and _auto_install_pkg("lightgbm"):
             try:
                 import lightgbm as lgb
 
@@ -1184,7 +1284,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("CatBoost", lambda: _CatBoostWrapper()))
     except ImportError:
         # Auto-install catboost
-        if _auto_install_pkg("catboost"):
+        if requested_model == "CatBoost" and _auto_install_pkg("catboost"):
             try:
                 from catboost import CatBoostRegressor
 
@@ -1266,30 +1366,61 @@ def _get_available_models() -> list[tuple[str, Callable]]:
             except ImportError:
                 pass
 
-    # TimesFM (foundation model, priority 4)
+    # TimesFM 2.5 (legacy univariate foundation model)
     try:
         from timesfm import TimesFM_2p5_200M_torch as _TFMCls
+
+        try:
+            from timesfm import ForecastConfig as _TFMForecastConfig
+        except ImportError:
+            _TFMForecastConfig = None
 
         class _TimesFMWrapper:
             def fit(self, df, date_col, value_col, freq):
                 self.value_col = value_col
                 self.freq = freq
-                vals = df[value_col].values.astype(np.float64)
-                self.vals = vals
+                self.vals = df[value_col].values.astype(np.float32)
                 try:
-                    self.model = _TFMCls.from_pretrained()
+                    self.model = _TFMCls.from_pretrained(
+                        "google/timesfm-2.5-200m-pytorch"
+                    )
+                    self._compiled_max_horizon = 0
                 except Exception:
                     self.model = None
                 return self
 
+            def _compile(self, horizon: int) -> None:
+                if self.model is None or _TFMForecastConfig is None:
+                    return
+                if horizon <= self._compiled_max_horizon:
+                    return
+                self.model.compile(
+                    _TFMForecastConfig(
+                        max_context=len(self.vals),
+                        max_horizon=horizon,
+                        per_core_batch_size=1,
+                    )
+                )
+                self._compiled_max_horizon = horizon
+
             def predict(self, horizon_or_valid):
-                if isinstance(horizon_or_valid, int):
-                    h = horizon_or_valid
-                else:
-                    h = len(horizon_or_valid)
+                h = (
+                    horizon_or_valid
+                    if isinstance(horizon_or_valid, int)
+                    else len(horizon_or_valid)
+                )
                 if self.model is None:
                     return np.full(h, float(self.vals[-1]))
                 try:
+                    # Current timesfm distributions use this newer API;
+                    # retain the older API for older timesfm installations.
+                    if _TFMForecastConfig is not None:
+                        self._compile(h)
+                        point_forecast, _ = self.model.forecast(
+                            horizon=h,
+                            inputs=[self.vals],
+                        )
+                        return np.asarray(point_forecast).reshape(-1)[:h]
                     fcst = self.model.forecast(
                         input_context=self.vals,
                         freq=self.freq,
@@ -1302,6 +1433,90 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         models.append(("TimesFM", lambda: _TimesFMWrapper()))
     except Exception:
         pass
+
+    # TimesFM 3.0 (native univariate/multivariate foundation model)
+    # The current timesfm distribution exposes this implementation as the
+    # separate ``timesfm3`` module while keeping the package distribution name.
+    try:
+        from timesfm3 import ModelConfig as _TFM3Config
+        from timesfm3 import TimesFM3Evaluator as _TFM3Evaluator
+    except ImportError:
+        _TFM3Config = None
+        _TFM3Evaluator = None
+    except Exception:
+        _TFM3Config = None
+        _TFM3Evaluator = None
+
+    if _TFM3Config is not None and _TFM3Evaluator is not None:
+
+        class _TimesFM3Wrapper:
+            def fit(
+                self,
+                df,
+                date_col,
+                value_col,
+                freq,
+                target_columns: list[str] | None = None,
+            ):
+                self.value_col = value_col
+                self.freq = freq
+                self.target_columns = target_columns or [value_col]
+                self.vals = np.stack(
+                    [
+                        df[column].values.astype(np.float32)
+                        for column in self.target_columns
+                    ]
+                )
+                if len(self.target_columns) == 1:
+                    self.vals = self.vals[0]
+                self.last_multivariate_forecast = None
+                self.last_quantiles = None
+                try:
+                    import torch
+
+                    device = "cuda" if torch.cuda.is_available() else "cpu"
+                except Exception:
+                    device = "cpu"
+                config = _TFM3Config(
+                    checkpoint_path="google/timesfm-3.0-pytorch",
+                    per_core_batch_size=1,
+                    device=device,
+                )
+                self.model = _TFM3Evaluator(config)
+                return self
+
+            def predict(self, horizon_or_valid):
+                h = (
+                    horizon_or_valid
+                    if isinstance(horizon_or_valid, int)
+                    else len(horizon_or_valid)
+                )
+                outputs = list(
+                    self.model.predict_batch(
+                        [self.vals],
+                        horizon=h,
+                        return_quantiles=True,
+                        use_symmetric_averaging=False,
+                    )
+                )
+                if not outputs:
+                    raise RuntimeError("TimesFM-3 returned no forecast")
+                forecast = getattr(outputs[0], "forecast", outputs[0])
+                self.last_quantiles = getattr(outputs[0], "quantiles", None)
+                if isinstance(forecast, dict):
+                    forecast = forecast.get("mean", forecast)
+                forecast_array = np.asarray(forecast, dtype=float)
+                if len(self.target_columns) == 1:
+                    self.last_multivariate_forecast = None
+                    return forecast_array.reshape(-1)[:h]
+                if forecast_array.ndim != 2:
+                    raise RuntimeError(
+                        "TimesFM-3 returned an invalid multivariate shape"
+                    )
+                self.last_multivariate_forecast = forecast_array[..., :h]
+                return forecast_array[0, :h]
+
+        models.append(("TimesFM-3", lambda: _TimesFM3Wrapper()))
 
     # Chronos
     try:
@@ -1336,7 +1551,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         # Auto-install chronos
         # The correct package is chronos-forecasting; the unrelated `chronos`
         # package does not provide ChronosPipeline.
-        if _auto_install_pkg("chronos-forecasting"):
+        if requested_model == "Chronos" and _auto_install_pkg("chronos-forecasting"):
             try:
                 import torch
                 from chronos import ChronosPipeline
@@ -1457,7 +1672,13 @@ def _select_best_model(
 
 def run_tool(args: dict[str, Any]) -> str:
     """Execute forecast based on provided arguments."""
+    _ensure_forecast_dependencies()
     cb = get_callbacks()
+    insecure_ssl_requested = args.get("model", "auto") == "TimesFM-3" and (
+        args.get("insecure_ssl") is True
+        or os.getenv("UAGENT_TIMESFM_INSECURE_SSL", "").lower()
+        in {"1", "true", "yes", "on"}
+    )
 
     def _execute() -> str:
         nonlocal cb
@@ -1466,6 +1687,23 @@ def run_tool(args: dict[str, Any]) -> str:
         value_col = args["value_column"]
         horizon = int(args["horizon"])
         model_name = args.get("model", "auto")
+        requested_targets = args.get("target_columns") or []
+        if not isinstance(requested_targets, list) or any(
+            not isinstance(column, str) or not column.strip()
+            for column in requested_targets
+        ):
+            raise ValueError("target_columns must be a list of column names")
+        target_columns = [value_col]
+        for column in requested_targets:
+            if column not in target_columns:
+                target_columns.append(column)
+        if model_name != "TimesFM-3":
+            target_columns = [value_col]
+        insecure_ssl = args.get("insecure_ssl") is True or os.getenv(
+            "UAGENT_TIMESFM_INSECURE_SSL", ""
+        ).lower() in {"1", "true", "yes", "on"}
+        if model_name == "TimesFM-3" and insecure_ssl:
+            _disable_huggingface_ssl_verification()
         freq_arg = args.get("frequency", "auto")
         confidence = float(args.get("confidence", 0.95))
         plot_flag = bool(args.get("plot", False))
@@ -1480,12 +1718,36 @@ def run_tool(args: dict[str, Any]) -> str:
         df = load_data(data)
         df = preprocess(df, date_col, value_col)
         df = _handle_outliers(df, value_col, outlier_method)
+        if len(target_columns) > 1:
+            missing_columns = [column for column in target_columns if column not in df]
+            if missing_columns:
+                raise ValueError(
+                    "TimesFM-3 target columns not found: " + ", ".join(missing_columns)
+                )
+            for column in target_columns[1:]:
+                if not pd.api.types.is_numeric_dtype(df[column]):
+                    raise ValueError(
+                        f"TimesFM-3 target column is not numeric: {column}"
+                    )
+                df = _handle_missing(df, column)
+                df = _handle_outliers(df, column, outlier_method)
 
         # 3. Frequency
         if freq_arg == "auto":
             freq = _infer_frequency(pd.DatetimeIndex(df[date_col]))
         else:
             freq = freq_arg
+
+        def _fit_selected_model(builder):
+            if model_name == "TimesFM-3" and len(target_columns) > 1:
+                return builder().fit(
+                    df,
+                    date_col,
+                    value_col,
+                    freq,
+                    target_columns=target_columns,
+                )
+            return builder().fit(df, date_col, value_col, freq)
 
         # 4. Explicit regression with future explanatory variables
         if model_name in {"LinearRegression", "Ridge", "Lasso"}:
@@ -1524,15 +1786,32 @@ def run_tool(args: dict[str, Any]) -> str:
             best_model = best_model.fit(df, date_col, value_col, freq)
             model_used = best_name
         else:
-            candidates = _get_available_models()
+            candidates = _get_available_models(
+                model_name if model_name != "auto" else None
+            )
             found = False
             for name, builder in candidates:
                 if name == model_name:
-                    best_model = builder().fit(df, date_col, value_col, freq)
+                    best_model = _fit_selected_model(builder)
                     model_used = name
                     found = True
                     break
+            if not found and model_name == "TimesFM-3":
+                if _auto_install_pkg(
+                    "timesfm[torch]",
+                    module_name="timesfm3",
+                    display_name="TimesFM 3",
+                ):
+                    candidates = _get_available_models(model_name)
+                    for name, builder in candidates:
+                        if name == model_name:
+                            best_model = _fit_selected_model(builder)
+                            model_used = name
+                            found = True
+                            break
             if not found:
+                if model_name == "TimesFM-3":
+                    raise ModelUnavailableError(model_name)
                 # Fallback to dummy
                 for name, builder in candidates:
                     if name == "Dummy":
@@ -1547,6 +1826,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 forecast_vals, (0, horizon - len(forecast_vals)), mode="edge"
             )
         forecast_vals = forecast_vals[:horizon]
+        multivariate_forecast = getattr(best_model, "last_multivariate_forecast", None)
+        if multivariate_forecast is not None:
+            multivariate_forecast = np.asarray(
+                multivariate_forecast, dtype=float
+            ).copy()
 
         # 6. Confidence intervals (model-specific dispatch)
         ci_lower, ci_upper = _compute_ci(
@@ -1689,6 +1973,11 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "drift": drift,
         }
+        if multivariate_forecast is not None:
+            result["multivariate_forecast"] = {
+                column: [round(float(value), 4) for value in values]
+                for column, values in zip(target_columns, multivariate_forecast)
+            }
         if plot_path:
             result["plot"] = plot_path
             if os.path.isfile(plot_path):
@@ -1733,6 +2022,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
             }
         )
+    except ModelUnavailableError as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
     except TimeoutError:
         return json.dumps(
             {
@@ -1753,3 +2044,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
             }
         )
+    finally:
+        if insecure_ssl_requested:
+            try:
+                _restore_huggingface_ssl_verification()
+            except Exception:
+                _logger.debug(
+                    "Could not restore Hugging Face SSL verification", exc_info=True
+                )

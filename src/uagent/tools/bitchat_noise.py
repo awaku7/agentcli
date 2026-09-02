@@ -11,21 +11,20 @@ import threading
 import time
 from typing import Any
 
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric.x25519 import (
-    X25519PrivateKey,
-    X25519PublicKey,
-)
-from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+from ..lazy_import import lazy_module
+
+serialization = lazy_module("cryptography", "cryptography.hazmat.primitives.serialization")
+x25519 = lazy_module("cryptography", "cryptography.hazmat.primitives.asymmetric.x25519")
+aead = lazy_module("cryptography", "cryptography.hazmat.primitives.ciphers.aead")
 
 
-def _raw_public_key(key: X25519PrivateKey) -> bytes:
+def _raw_public_key(key: x25519.X25519PrivateKey) -> bytes:
     return key.public_key().public_bytes(
         serialization.Encoding.Raw, serialization.PublicFormat.Raw
     )
 
 
-def _raw_private_key(key: X25519PrivateKey) -> bytes:
+def _raw_private_key(key: x25519.X25519PrivateKey) -> bytes:
     return key.private_bytes(
         serialization.Encoding.Raw,
         serialization.PrivateFormat.Raw,
@@ -85,7 +84,7 @@ class NoiseCipherState:
     """A single cipher state (ChaCha20-Poly1305 with a nonce counter)."""
 
     def __init__(self, key: bytes):
-        self._cipher = ChaCha20Poly1305(key)
+        self._cipher = aead.ChaCha20Poly1305(key)
         self._n = 0
         self._msg_count = 0
         self._max_msgs = 1_000_000_000
@@ -151,7 +150,7 @@ class NoiseCipherState:
         """Rekey by encrypting zeros with current key (first 32 bytes)."""
         raw = self._cipher.encrypt(b"\x00" * 12, b"\x00" * 32, b"")
         new_key = raw[:32]
-        self._cipher = ChaCha20Poly1305(new_key)
+        self._cipher = aead.ChaCha20Poly1305(new_key)
         self._msg_count = 0
 
     def nonce(self) -> int:
@@ -171,7 +170,7 @@ class NoiseHandshakeState:
     def __init__(
         self,
         initiator: bool,
-        s: X25519PrivateKey,  # local static key
+        s: x25519.X25519PrivateKey,  # local static key
         rs_pub: bytes | None = None,  # remote static public key (from announce)
     ):
         self.initiator = initiator
@@ -186,7 +185,7 @@ class NoiseHandshakeState:
         # prologue. Southern Storm's implementation therefore hashes h once
         # before message 1; omitting this makes Android msg2 fail authentication.
         self._mix_hash(_ZEROLEN)
-        self.e: X25519PrivateKey | None = None  # local ephemeral
+        self.e: x25519.X25519PrivateKey | None = None  # local ephemeral
         self.re: bytes | None = None  # remote ephemeral pubkey
         self._cipher: Any = None  # current cipher state for encrypt/decrypt
         self._finished = False
@@ -204,7 +203,7 @@ class NoiseHandshakeState:
         outputs = _hkdf(self.ck, dh_result, 2)
         self.ck = outputs[0]
         temp_k = outputs[1]
-        self._cipher = ChaCha20Poly1305(temp_k)
+        self._cipher = aead.ChaCha20Poly1305(temp_k)
 
     def _encrypt_and_hash(self, plaintext: bytes) -> bytes:
         """Encrypt with current cipher and MixHash the ciphertext."""
@@ -222,7 +221,7 @@ class NoiseHandshakeState:
 
     def build_message_1(self) -> bytes:
         """Initiator builds handshake message 1: -> e"""
-        self.e = X25519PrivateKey.generate()
+        self.e = x25519.X25519PrivateKey.generate()
         e_pub = _raw_public_key(self.e)
         self._mix_hash(e_pub)
         # In Noise XX, the message payload after tokens is empty
@@ -235,14 +234,14 @@ class NoiseHandshakeState:
         Assumes re (remote ephemeral from msg1) is already set via process_message_1().
         """
         # Generate ephemeral
-        self.e = X25519PrivateKey.generate()
+        self.e = x25519.X25519PrivateKey.generate()
         e_pub = _raw_public_key(self.e)
 
         # e token: MixHash(e_pub) FIRST (Noise XX: -> e, ee, s, es)
         self._mix_hash(e_pub)
 
         # ee token: DH(re, e) -> MixKey
-        re_key = X25519PublicKey.from_public_bytes(self.re)
+        re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
         ee = self.e.exchange(re_key)
         self._mix_key(ee)
 
@@ -266,7 +265,7 @@ class NoiseHandshakeState:
         encrypted_s = self._encrypt_and_hash(self.s_pub)
 
         # se token: DH(own static, remote ephemeral) AFTER encrypting s
-        re_key = X25519PublicKey.from_public_bytes(self.re)
+        re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
         se = self.s.exchange(re_key)
         self._mix_key(se)
 
@@ -324,8 +323,8 @@ class NoiseHandshakeState:
         self._mix_hash(e_pub)
 
         # ee = DH(e, re)
-        e_key = X25519PrivateKey.from_private_bytes(_raw_private_key(self.e))
-        re_key = X25519PublicKey.from_public_bytes(self.re)
+        e_key = x25519.X25519PrivateKey.from_private_bytes(_raw_private_key(self.e))
+        re_key = x25519.X25519PublicKey.from_public_bytes(self.re)
         ee = e_key.exchange(re_key)
         self._mix_key(ee)
 
@@ -343,7 +342,7 @@ class NoiseHandshakeState:
         if self.rs is None:
             _dbg("[bitchat] [debug] HS: msg2 rs is None")
             return False
-        rs_key = X25519PublicKey.from_public_bytes(self.rs)
+        rs_key = x25519.X25519PublicKey.from_public_bytes(self.rs)
         es = e_key.exchange(rs_key)
         self._mix_key(es)
         try:
@@ -381,7 +380,7 @@ class NoiseHandshakeState:
         # se = DH(e, rs) AFTER decrypting s
         if self.rs is None:
             return False
-        rs_key = X25519PublicKey.from_public_bytes(self.rs)
+        rs_key = x25519.X25519PublicKey.from_public_bytes(self.rs)
         se = self.e.exchange(rs_key)
         self._mix_key(se)
         try:
@@ -419,7 +418,7 @@ def _purge_expired_locked(now: float | None = None) -> None:
 def get_or_create_session(
     peer_id: str,
     initiator: bool,
-    our_static: X25519PrivateKey,
+    our_static: x25519.X25519PrivateKey,
     their_static_pub: bytes | None,
     *,
     force_new: bool = False,

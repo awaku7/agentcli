@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import requests
-import warnings
-from urllib3.exceptions import InsecureRequestWarning
+from ..lazy_import import lazy_module
 
-# Suppress warnings caused by disabling SSL verification
-warnings.simplefilter("ignore", InsecureRequestWarning)
+requests = lazy_module("requests")
+import warnings
 
 from .i18n_helper import make_tool_translator
 
@@ -207,6 +205,11 @@ def _format_openmeteo(data: dict, display_city: str) -> str:
 
 
 def run_tool(args):
+    from ..lazy_import import lazy_module
+
+    urllib3 = lazy_module("urllib3")
+    # Suppress SSL warnings only when this weather tool is executed.
+    warnings.simplefilter("ignore", urllib3.exceptions.InsecureRequestWarning)
     lat = args.get("lat")
     lon = args.get("lon")
     city = (args.get("city") or "").strip()

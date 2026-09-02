@@ -11,7 +11,9 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from ..auth.provider_credentials import get_provider_api_key
 from .arg_util import get_int, get_list, get_str

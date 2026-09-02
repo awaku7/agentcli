@@ -4,7 +4,9 @@ import base64
 from pathlib import Path
 from typing import Any
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from .._pip_auto import install_with_status as _auto_install
 from ..auth.provider_credentials import get_provider_api_key

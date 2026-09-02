@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get

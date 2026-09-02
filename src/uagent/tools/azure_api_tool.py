@@ -4,7 +4,9 @@ import json
 import os
 from typing import Any
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from uagent.tools.i18n_helper import make_tool_translator
 

@@ -6,7 +6,9 @@ import asyncio
 import time
 from typing import Any, AsyncGenerator, Awaitable, Callable
 
-import httpx
+from ...lazy_import import lazy_module
+
+httpx = lazy_module("httpx")
 
 from ...auth.credential_store import (
     Credential,

@@ -34,7 +34,9 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
-import yaml
+from ..lazy_import import lazy_module
+
+yaml = lazy_module("pyyaml", "yaml")
 
 # ------------------------------
 # Constants

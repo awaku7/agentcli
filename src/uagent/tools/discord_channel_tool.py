@@ -4,7 +4,9 @@ import json
 import time
 from typing import Any, Optional
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from ..env_utils import env_get
 from .arg_util import get_bool, get_int, get_str

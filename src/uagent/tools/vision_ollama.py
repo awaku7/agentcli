@@ -17,7 +17,9 @@ import base64
 from pathlib import Path
 from typing import Any
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from ..env_utils import env_get
 from ..providers.llm_ollama import _ollama_extra_params

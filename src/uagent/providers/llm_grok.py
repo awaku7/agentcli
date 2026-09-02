@@ -9,15 +9,24 @@ import json
 import uuid
 from typing import Any, Optional
 
-from xai_sdk.chat import (
-    user,
-    system,
-    tool_result,
-    tool as xai_tool,
-)
 
 from ..env_utils import env_get
 from ..reasoning_display import show_reasoning
+
+
+def _ensure_xai_chat() -> None:
+    from .._pip_auto import install_with_status
+
+    if not install_with_status("xai-sdk", module_name="xai_sdk"):
+        raise ModuleNotFoundError("No module named 'xai_sdk'")
+    global user, system, tool_result, xai_tool
+    from xai_sdk.chat import (
+        user as _user,
+        system as _system,
+        tool_result as _tool_result,
+        tool as _xai_tool,
+    )
+    user, system, tool_result, xai_tool = _user, _system, _tool_result, _xai_tool
 
 
 def _as_str(x: Any) -> str:
@@ -54,6 +63,7 @@ def build_xai_messages(
     is the concatenated system prompts (for 'instructions' field).
     """
 
+    _ensure_xai_chat()
     instructions_list: list[str] = []
     xai_msgs: list[Any] = []
 
@@ -162,6 +172,7 @@ def build_xai_tools(
     """Build xai_sdk Tool list: management tools + tools loaded via tool_load."""
     if not send_tools_this_round:
         return None
+    _ensure_xai_chat()
 
     # Always include management tools
     try:

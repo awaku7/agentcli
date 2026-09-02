@@ -3,7 +3,9 @@ from __future__ import annotations
 import os
 from typing import Any, List, Dict
 
-import yaml
+from ..lazy_import import lazy_module
+
+yaml = lazy_module("pyyaml", "yaml")
 
 from .i18n_helper import make_tool_translator
 from .index_tool_helpers import read_index_source, resolve_index_path

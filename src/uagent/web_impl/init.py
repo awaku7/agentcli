@@ -22,6 +22,10 @@ except ImportError:
         pass  # type: ignore
 
 
+from .._pip_auto import install_with_status as _install_web_dependency
+
+_install_web_dependency("fastapi", "fastapi")
+_install_web_dependency("uvicorn", "uvicorn")
 import uvicorn
 
 from .app import app

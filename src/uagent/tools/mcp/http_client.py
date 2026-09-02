@@ -7,7 +7,9 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-import httpx
+from ...lazy_import import lazy_module
+
+httpx = lazy_module("httpx")
 
 
 @dataclass(frozen=True)

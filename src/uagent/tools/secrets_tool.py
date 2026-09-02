@@ -8,9 +8,6 @@ import os
 from pathlib import Path
 from typing import Any
 
-from cryptography.hazmat.primitives import hashes, hmac
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 from ..utils.paths import get_state_dir
 from .arg_util import get_bool, get_list, get_path, get_str
@@ -21,6 +18,18 @@ _ = make_tool_translator(__file__)
 
 MASTER_KEY_BYTES = 32  # 256-bit
 NONCE_BYTES = 12  # AES-GCM recommended
+
+
+def _ensure_crypto() -> None:
+    """Load cryptography only when a secrets operation is executed."""
+    from .._pip_auto import install_with_status
+
+    if not install_with_status("cryptography"):
+        raise ModuleNotFoundError("No module named 'cryptography'")
+    global AESGCM, HKDF, hashes, hmac
+    from cryptography.hazmat.primitives import hashes, hmac
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 
 def _key_path() -> Path:
@@ -302,6 +311,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _ensure_crypto()
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, "tool:secrets")

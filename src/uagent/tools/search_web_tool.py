@@ -11,7 +11,9 @@ import traceback
 from typing import Any, Optional
 from urllib.parse import parse_qs, unquote, urlparse
 
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 
 from .i18n_helper import make_tool_translator
 from .context import get_callbacks

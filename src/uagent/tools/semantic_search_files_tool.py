@@ -12,7 +12,9 @@ import sqlite3
 import math
 import threading
 import hashlib
-import requests
+from ..lazy_import import lazy_module
+
+requests = lazy_module("requests")
 from typing import Any
 
 from .._pip_auto import install_with_status
