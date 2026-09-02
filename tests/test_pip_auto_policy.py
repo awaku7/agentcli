@@ -19,3 +19,12 @@ def test_unknown_packages_are_not_installed(monkeypatch) -> None:
 
     assert not _pip_auto.auto_install("untrusted-package", "missing_module")
     assert called == []
+
+
+def test_case_insensitive_package_allowed(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_AUTO_INSTALL", "allow")
+    called = []
+    monkeypatch.setattr(_pip_auto.subprocess, "run", lambda *a, **k: called.append(a))
+
+    assert not _pip_auto.auto_install("winrt-Windows.Devices.Geolocation", "missing_module")
+    assert len(called) == 1

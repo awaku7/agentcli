@@ -10,7 +10,9 @@ import sys
 import os
 
 _ALLOWED_PACKAGES = {
-    # Core/provider packages that may be installed on first use.
+    pkg.lower()
+    for pkg in {
+        # Core/provider packages that may be installed on first use.
     "openai",
     "lmstudio",
     "anthropic",
@@ -133,6 +135,7 @@ _ALLOWED_PACKAGES = {
     "tree-sitter-language-pack",
     "httpx",
     "requests",
+    }
 }
 
 
