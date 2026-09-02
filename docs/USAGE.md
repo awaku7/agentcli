@@ -150,7 +150,7 @@ ______________________________________________________________________
 | `UAGENT_WEB_HOST` | Web server bind address (default: `127.0.0.1`) |
 | `UAGENT_USE_TOOL` | Disable tools when set to `0`, `false`, `no`, or `off` |
 | `UAGENT_AUTO_SENTINEL` | Opt into single-LLM auto-pilot sentinel mode when set to `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximum consecutive fresh tool calls (default: `32`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximum consecutive fresh tool calls (default: `100`) |
 | `UAGENT_SHRINK_CNT` | Auto-shrink threshold in messages (default: `100`, `0` = off) |
 | `UAGENT_SHRINK_KEEP_LAST` | Messages to retain after shrink (default: `20`) |
 | `UAGENT_LANG` | Interface language (`ja`, `en`, etc.) |

@@ -269,11 +269,11 @@ def check_consecutive_tool_calls(
     so calls of the same tool with different arguments still count together.
     """
     global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
-    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "32")
+    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "100")
     try:
         default_limit = max(1, int(raw_limit))
     except (TypeError, ValueError):
-        default_limit = 32
+        default_limit = 100
     limit = default_limit if threshold is None else max(1, int(threshold))
     if not tool_calls_list:
         if record:

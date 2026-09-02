@@ -21,4 +21,4 @@ uag --embedded --enable-tool handle_mcp_v2 --inject-message-auto "Sort the items
 ## 関連環境変数
 
 - `UAGENT_AUTO_SENTINEL=1`: reviewer用の追加LLMを使わないsentinel方式を有効化します。
-- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT=32`: 連続fresh tool callの上限です。
+- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT=100`: 連続fresh tool callの上限です。

@@ -368,6 +368,11 @@ class GeminiCacheManager:
             except Exception:
                 pass  # print(f"[Gemini Cache] ファイル読み込み失敗: {path} {e}") # ログ抑制
 
+        if contents and getattr(contents[-1], "role", None) == "model":
+            contents.append(
+                gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
+            )
+
         # Gemini cache API は contents 必須。system_instruction だけでは作れないので、
         # 履歴が空ならキャッシュを作成せず、そのまま無効扱いにする。
         if not contents:

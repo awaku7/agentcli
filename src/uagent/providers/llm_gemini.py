@@ -988,6 +988,12 @@ def gemini_chat_with_tools(
         contents = [
             gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
         ]
+    elif contents and getattr(contents[-1], "role", None) == "model":
+        # Gemini / Vertex AI API rejects requests ending with a model turn.
+        # Append a continuation prompt from the user to satisfy the API turn-taking rule.
+        contents.append(
+            gemini_types.Content(role="user", parts=[gemini_types.Part(text="Continue.")])
+        )
 
     cfg_kwargs: dict[str, Any] = {}
 
