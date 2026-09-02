@@ -55,7 +55,6 @@ from .providers.llm_deepseek import (
 )
 from .providers.llm_pfn import pfn_chat_with_tools
 from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
-from .providers.llm_zai import zai_chat_with_tools
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
@@ -1429,6 +1428,8 @@ def _call_zai_round(
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
+    from .providers.llm_zai import zai_chat_with_tools
+
     stream = _env_default_true("UAGENT_STREAMING", default=True)
     return zai_chat_with_tools(
         client,

@@ -185,24 +185,33 @@ def build_zai_chat_kwargs(
 # zai-sdk error wrappers
 # ---------------------------------------------------------------------------
 
-_ZAI_SDK_AVAILABLE = False
+_ZAI_SDK_AVAILABLE: bool | None = None
 _ZaiAPIConnectionError: type[Exception] | None = None
 _ZaiAPIStatusError: type[Exception] | None = None
 _ZaiAPIReachLimitError: type[Exception] | None = None
 
-try:
-    from zai.core import (
-        APIConnectionError as _ZaiAPIConnectionError,
-        APIStatusError as _ZaiAPIStatusError,
-    )
 
-    _ZAI_SDK_AVAILABLE = True
-except Exception:
-    pass
+def _ensure_zai_sdk() -> bool:
+    global _ZAI_SDK_AVAILABLE, _ZaiAPIConnectionError, _ZaiAPIStatusError
+    if _ZAI_SDK_AVAILABLE is not None:
+        return _ZAI_SDK_AVAILABLE
+    try:
+        from zai.core import (
+            APIConnectionError as _conn_err,
+            APIStatusError as _status_err,
+        )
+
+        _ZaiAPIConnectionError = _conn_err
+        _ZaiAPIStatusError = _status_err
+        _ZAI_SDK_AVAILABLE = True
+    except Exception:
+        _ZAI_SDK_AVAILABLE = False
+    return _ZAI_SDK_AVAILABLE
 
 
 def _get_zai_client_error_info(e: Exception) -> tuple[int | None, str | None]:
     """Extract (status_code, error_text) from a zai-sdk exception."""
+    _ensure_zai_sdk()
     status: int | None = None
     body_str: str | None = None
 
