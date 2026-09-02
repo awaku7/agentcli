@@ -56,6 +56,7 @@ _ALLOWED_PACKAGES = {
     "beautifulsoup4",
     "python-magic",
     "python-magic-bin",
+    "CairoSVG",
     # Computer/network/automation packages.
     "playwright",
     "pyautogui",
