@@ -526,7 +526,11 @@ def _run_one_round(
         depname=depname,
     )
     # Responses API is only supported when provider/model allow it.
-    if use_responses_api and not provider_allows_responses_api(provider, depname):
+    if (
+        provider != "meta"
+        and use_responses_api
+        and not provider_allows_responses_api(provider, depname)
+    ):
         use_responses_api = False
 
     def _call_maybe_thread_fn(fn: Any) -> Any:
@@ -1517,7 +1521,7 @@ def _run_one_round(
         ],
     )
 
-    if any(
+    if provider != "meta" and any(
         isinstance(tc, dict)
         and (tc.get("function") or {}).get("name") == "generate_image"
         for tc in tool_calls_list

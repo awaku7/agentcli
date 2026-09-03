@@ -24,6 +24,19 @@ UAGENT_PROFILE_ON_EXIT=0
 
 Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
 
+## Image generation diagnostics
+
+Internal image-generation diagnostics are disabled by default. Enable them explicitly only when troubleshooting the Meta Model API image workflow.
+
+```env
+# Image-generation diagnostics (default: 0)
+UAGENT_IMG_GENERATE_DEBUG=1
+# Save image-response metadata (default: 0)
+UAGENT_IMG_GENERATE_SAVE_META=1
+```
+
+With `UAGENT_IMG_GENERATE_DEBUG=1`, Meta image generation and `img2img` continuation diagnostics—including whether the `response_id` continuation was used—are emitted. Leave this unset or set it to `0` during normal operation.
+
 ## Setup Wizard
 
 The easiest way to configure your environment is by running the interactive setup wizard:

@@ -13,6 +13,7 @@ def rewrite_jsonl_log(
     messages: list[dict[str, Any]],
     response_records: list[dict[str, Any]],
     mask_fn: Callable[[dict[str, Any]], dict[str, Any]],
+    tool_context_records: list[dict[str, Any]] | None = None,
 ) -> str:
     """Rewrite a masked conversation log with preserved metadata."""
     log_dir = os.path.dirname(log_path) or "."
@@ -30,6 +31,13 @@ def rewrite_jsonl_log(
         for item in messages:
             try:
                 stream.write(json.dumps(mask_fn(item), ensure_ascii=False) + "\n")
+            except Exception:
+                continue
+        for record in tool_context_records or []:
+            try:
+                stream.write(
+                    json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
+                )
             except Exception:
                 continue
         for record in response_records:

@@ -7,6 +7,7 @@ from .credential_store import Credential, CredentialKind, CredentialStore
 
 _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     "openai": ("UAGENT_OPENAI_API_KEY", "OPENAI_API_KEY"),
+    "meta": ("UAGENT_META_API_KEY", "META_API_KEY"),
     "azure": ("UAGENT_AZURE_API_KEY", "AZURE_OPENAI_API_KEY"),
     "grok": ("UAGENT_GROK_API_KEY", "UAGENT_XAI_API_KEY", "XAI_API_KEY"),
     "xai": ("UAGENT_XAI_API_KEY", "UAGENT_GROK_API_KEY", "XAI_API_KEY"),

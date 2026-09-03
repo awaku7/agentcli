@@ -88,6 +88,62 @@ def redact_sensitive(text: str) -> str:
     return _SECRET_PATTERNS[2].sub("[REDACTED]", result)
 
 
+def _sanitize_text(value: Any) -> Any:
+    """Return a SQLite-safe string (fold surrogate pairs, drop lone surrogates).
+
+    Windows console/clipboard input and broken UTF-16 decodes can produce
+    lone surrogates (U+D800..U+DFFF). CPython's sqlite3 driver encodes
+    parameters as UTF-8 with strict errors, so such strings raise
+    ``UnicodeEncodeError: surrogates not allowed`` and crash the CLI
+    (see ``append_message`` INSERT). Folding via UTF-16 keeps valid pairs
+    (e.g. emoji split into two surrogates) intact and replaces lone
+    surrogates with U+FFFD.
+    """
+    if not isinstance(value, str):
+        return value
+    if not value:
+        return value
+    # Fast path: no surrogates present.
+    has_surrogate = False
+    for ch in value:
+        code = ord(ch)
+        if 0xD800 <= code <= 0xDFFF:
+            has_surrogate = True
+            break
+    if not has_surrogate:
+        return value
+    try:
+        return value.encode("utf-16", "surrogatepass").decode("utf-16", "replace")
+    except Exception:
+        return "".join("\ufffd" if 0xD800 <= ord(ch) <= 0xDFFF else ch for ch in value)
+
+
+def _sanitize_value(value: Any) -> Any:
+    """Recursively sanitize str keys/values so JSON dumps stay UTF-8 safe."""
+    if isinstance(value, str):
+        return _sanitize_text(value)
+    if isinstance(value, dict):
+        return {
+            _sanitize_value(key) if isinstance(key, str) else key: _sanitize_value(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, (list, tuple)):
+        cleaned = [_sanitize_value(item) for item in value]
+        return type(value)(cleaned) if isinstance(value, tuple) else cleaned
+    return value
+
+
+def _safe_json_dumps(obj: Any, **kwargs: Any) -> str:
+    """json.dumps with surrogate sanitization (input and output)."""
+    kwargs.setdefault("ensure_ascii", False)
+    kwargs.setdefault("sort_keys", True)
+    try:
+        text = json.dumps(_sanitize_value(obj), **kwargs)
+    except (TypeError, ValueError):
+        raise
+    return _sanitize_text(text)
+
+
 def _migrate_legacy_session_store(path: Path) -> None:
     """Move the legacy default store to the current ``.uag`` location."""
     current = Path(".uag/sessions.sqlite3").absolute()
@@ -234,6 +290,13 @@ class SessionStore:
                     status TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS tool_context_states (
+                    context_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    tool_name TEXT NOT NULL,
+                    context_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
                 CREATE TABLE IF NOT EXISTS policy_decisions (
                     decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -257,6 +320,8 @@ class SessionStore:
                     ON messages(session_id, message_id);
                 CREATE INDEX IF NOT EXISTS idx_response_states_session_id
                     ON response_states(session_id, state_id);
+                CREATE INDEX IF NOT EXISTS idx_tool_context_states_session_id
+                    ON tool_context_states(session_id, context_id);
                 """)
             columns = {
                 row["name"]
@@ -285,6 +350,14 @@ class SessionStore:
 
     def _execute(self, sql: str, parameters: tuple[Any, ...] = ()) -> sqlite3.Cursor:
         try:
+            # Safety net: lone surrogates (Windows console/clipboard, broken
+            # UTF-16) crash sqlite3 with UnicodeEncodeError since it encodes
+            # parameters as strict UTF-8. Sanitize here so every current and
+            # future caller is protected even if it forgets to sanitize.
+            if parameters:
+                parameters = tuple(
+                    _sanitize_text(p) if isinstance(p, str) else p for p in parameters
+                )
             return self._connection.execute(sql, parameters)
         except sqlite3.Error as exc:
             raise SessionStoreError(f"session store operation failed: {exc}") from exc
@@ -345,17 +418,23 @@ class SessionStore:
         payload: dict[str, Any] | None = None,
     ) -> int:
         self._require_session(session_id)
-        safe_content = redact_sensitive(content)
+        # Sanitize first: lone surrogates from console/clipboard would
+        # otherwise crash sqlite3 (UnicodeEncodeError: surrogates not allowed).
+        content = _sanitize_text(
+            content if isinstance(content, str) else str(content or "")
+        )
+        role = _sanitize_text(str(role or ""))
+        safe_content = _sanitize_text(redact_sensitive(content))
         safe_payload = None
         if payload is not None:
             try:
-                safe_payload = json.dumps(
-                    {**payload, "content": safe_content},
+                safe_payload = _safe_json_dumps(
+                    {**_sanitize_value(payload), "content": safe_content},
                     ensure_ascii=False,
                     sort_keys=True,
                 )
             except (TypeError, ValueError):
-                safe_payload = json.dumps(
+                safe_payload = _safe_json_dumps(
                     {"role": role, "content": safe_content}, ensure_ascii=False
                 )
         # Keep the source row and FTS index in one transaction. Otherwise a
@@ -588,6 +667,41 @@ class SessionStore:
         return None if row is None else dict(row)
 
     @_db_locked
+    def record_tool_context(
+        self, session_id: str, *, tool_name: str, context: dict[str, Any]
+    ) -> None:
+        """Persist opaque, JSON-safe context owned by one tool."""
+        self._require_session(session_id)
+        try:
+            context_json = _safe_json_dumps(context, ensure_ascii=False, sort_keys=True)
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("tool context is not JSON serializable") from exc
+        self._execute(
+            "INSERT INTO tool_context_states(session_id, tool_name, context_json) "
+            "VALUES (?, ?, ?)",
+            (session_id, str(tool_name), context_json),
+        )
+
+    @_db_locked
+    def latest_tool_context(self, session_id: str) -> dict[str, dict[str, Any]]:
+        """Return the newest opaque context for each tool in a session."""
+        self._require_session(session_id)
+        rows = self._execute(
+            "SELECT tool_name, context_json FROM tool_context_states "
+            "WHERE session_id = ? ORDER BY context_id",
+            (session_id,),
+        ).fetchall()
+        result: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            try:
+                context = json.loads(row["context_json"])
+            except (TypeError, ValueError):
+                continue
+            if isinstance(context, dict):
+                result[str(row["tool_name"])] = context
+        return result
+
+    @_db_locked
     def record_policy_decision(
         self,
         session_id: str,
@@ -603,8 +717,10 @@ class SessionStore:
             raise ValueError(f"invalid policy decision: {decision}")
         self._require_session(session_id)
         try:
-            safe_args_json = json.dumps(
-                mask_args(args or {}), ensure_ascii=False, sort_keys=True
+            safe_args_json = _safe_json_dumps(
+                mask_args(_sanitize_value(args or {})),
+                ensure_ascii=False,
+                sort_keys=True,
             )
         except (TypeError, ValueError) as exc:
             raise SessionStoreError(
@@ -620,7 +736,7 @@ class SessionStore:
                 str(tool_name),
                 decision,
                 safe_args_json,
-                redact_sensitive(str(reason or "")),
+                _sanitize_text(redact_sensitive(_sanitize_text(str(reason or "")))),
             ),
         )
         return int(cursor.lastrowid)
@@ -661,13 +777,17 @@ class SessionStore:
         self._require_session(session_id)
         call_id = call_id or uuid.uuid4().hex
         try:
-            safe_args = mask_args(args)
-            args_json = json.dumps(safe_args, ensure_ascii=False, sort_keys=True)
+            safe_args = mask_args(_sanitize_value(args))
+            args_json = _safe_json_dumps(safe_args, ensure_ascii=False, sort_keys=True)
         except (TypeError, ValueError) as exc:
             raise SessionStoreError(
                 "tool-call arguments are not JSON serializable"
             ) from exc
-        safe_result = redact_sensitive(result)
+        safe_result = _sanitize_text(
+            redact_sensitive(
+                _sanitize_text(result if isinstance(result, str) else str(result or ""))
+            )
+        )
         existing = self._execute(
             "SELECT call_id FROM tool_calls WHERE call_id = ?", (call_id,)
         ).fetchone()
@@ -696,7 +816,13 @@ class SessionStore:
     @_db_locked
     def save_session_summary(self, session_id: str, summary: str) -> None:
         self._require_session(session_id)
-        summary = redact_sensitive(summary).strip()
+        summary = _sanitize_text(
+            redact_sensitive(
+                _sanitize_text(
+                    summary if isinstance(summary, str) else str(summary or "")
+                )
+            )
+        ).strip()
         if not summary:
             raise ValueError("summary is empty")
         self._execute(
@@ -898,4 +1024,7 @@ __all__ = [
     "normalize_tool_call",
     "project_id_from_path",
     "redact_sensitive",
+    "_sanitize_text",
+    "_sanitize_value",
+    "_safe_json_dumps",
 ]

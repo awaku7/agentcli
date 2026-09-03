@@ -214,7 +214,7 @@ Kaikki käyttöliittymät jakavat saman palveluntarjoajan määrityksen, työkal
 
 Palveluntarjoajasovittimet kattavat isännöidyt ja paikalliset ajonaikaiset ympäristöt, mukaan lukien:
 
-**OpenAI · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
 Vaihda palveluntarjoajaa asetuksella `UAGENT_PROVIDER`; työkalusi ja käyttöliittymäsi eivät muutu.
 

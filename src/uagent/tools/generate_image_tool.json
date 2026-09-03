@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
+    "tool.description": "Generates a new image from a text prompt, saves it as a PNG, and returns the file path. For modifying a previously generated image, use img2img instead. Opening is handled by the caller (CLI/GUI/Web).",
     "x_search_terms": [
       "generate image",
       "image creation",
@@ -29,7 +29,7 @@
     "param.include_base64.description": "Include base64 image data for remote clients."
   },
   "ja": {
-    "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
+    "tool.description": "テキストプロンプトから新しい画像を生成し、PNGとして保存してファイルパスを返します。既存画像の変更にはimg2imgを使用してください。開く処理は呼び出し元が行います。",
     "x_search_terms": [
       "画像生成",
       "画像作成",

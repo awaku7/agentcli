@@ -21,8 +21,10 @@ def log_message(message: dict[str, Any]) -> None:
 
 def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
     """Rewrite the active JSONL log or SQLite session history."""
-    session_store = globals().get("session_store")
-    session_id = globals().get("session_id")
+    session_store = getattr(_core, "session_store", None)
+    session_id = getattr(_core, "_session_store_active_id", None) or getattr(
+        _core, "session_id", None
+    )
     if (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and session_store is not None
@@ -37,6 +39,7 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
         messages,
         read_responses_state_records(_core.LOG_FILE),
         _mask_message,
+        read_tool_context_records(_core.LOG_FILE),
     )
 
 
@@ -74,6 +77,36 @@ def latest_responses_state(path: str) -> dict[str, Any] | None:
     """Return the newest Responses API metadata record in a JSONL log."""
     records = read_responses_state_records(path)
     return records[-1] if records else None
+
+
+def read_tool_context_records(path: str) -> list[dict[str, Any]]:
+    """Read opaque per-tool context records from a conversation log."""
+    records: list[dict[str, Any]] = []
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if (
+                    isinstance(obj, dict)
+                    and obj.get("type") == "tool_context"
+                    and isinstance(obj.get("tool"), str)
+                    and isinstance(obj.get("context"), dict)
+                ):
+                    records.append(obj)
+    except (OSError, TypeError):
+        pass
+    return records
+
+
+def latest_tool_context(path: str) -> dict[str, dict[str, Any]]:
+    """Return the latest context for each tool."""
+    result: dict[str, dict[str, Any]] = {}
+    for record in read_tool_context_records(path):
+        result[record["tool"]] = record["context"]
+    return result
 
 
 def guess_topics_from_content(content: str) -> set[str]:

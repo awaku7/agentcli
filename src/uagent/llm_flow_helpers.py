@@ -23,6 +23,27 @@ def _is_external_data_tool(name: str) -> bool:
     return name in tools.get_external_data_tools()
 
 
+def _strip_inline_binary_payloads(value: Any) -> Any:
+    """Return a tool result copy without inline binary payloads.
+
+    Tool results may keep Base64 data in attachment metadata for the UI or a
+    remote client. The same data must not be sent as the textual function
+    result to the next LLM turn: generated images and audio can make a
+    Responses request invalid or exceed the provider's request limits.
+    """
+    if isinstance(value, dict):
+        out: dict[str, Any] = {}
+        for key, item in value.items():
+            if "base64" in str(key).lower():
+                out[key] = "[binary payload omitted from LLM context]"
+            else:
+                out[key] = _strip_inline_binary_payloads(item)
+        return out
+    if isinstance(value, list):
+        return [_strip_inline_binary_payloads(item) for item in value]
+    return value
+
+
 def _append_assistant_message(
     *,
     messages: list[dict[str, Any]],
@@ -661,6 +682,21 @@ def _execute_tool_calls(
         except Exception:
             parsed_tool_result = None
         if isinstance(parsed_tool_result, dict):
+            # Keep binary data in attachments for the UI/remote client, but
+            # never put inline Base64 into the textual tool result sent to the
+            # next LLM turn. Meta rejects the resulting oversized/invalid
+            # Responses request after image generation in particular.
+            safe_tool_result = _strip_inline_binary_payloads(parsed_tool_result)
+            if safe_tool_result != parsed_tool_result:
+                safe_content = json.dumps(safe_tool_result, ensure_ascii=False)
+                if _is_external_data_tool(name):
+                    safe_content = (
+                        "---BEGIN_UAGENT_EXTERNAL_CONTENT---\n"
+                        + safe_content
+                        + "\n---END_UAGENT_EXTERNAL_CONTENT---"
+                    )
+                tool_msg["content"] = safe_content
+
             # Responses API can re-capture the current Computer Use screen
             # from the bound runtime. Do not accumulate large base64 screenshots
             # in the conversation history for OpenAI/Azure continuations.

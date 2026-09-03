@@ -14,6 +14,7 @@ except Exception:
     BadRequestError = None
 
 from . import tools
+from .util_common import strip_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .reasoning_display import show_reasoning
 from .llm_message_helpers import _get_shrink_max_tokens
@@ -39,6 +40,22 @@ def _is_context_overflow_error(exc: BaseException) -> bool:
         or "context window" in text
         and ("exceed" in text or "maximum" in text)
     )
+
+
+def _normalize_surrogates(value: Any) -> Any:
+    """Normalize text recursively before provider JSON serialization."""
+    if isinstance(value, str):
+        return strip_surrogates(value)
+    if isinstance(value, list):
+        return [_normalize_surrogates(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            (
+                _normalize_surrogates(key) if isinstance(key, str) else key
+            ): _normalize_surrogates(item)
+            for key, item in value.items()
+        }
+    return value
 
 
 def _rollback_largest_recent_history(
@@ -130,6 +147,13 @@ from .llm_helpers import _env_default_true
 from .translate import translate_text
 
 
+def _provider_error_label(provider: str) -> str:
+    """Return a user-facing error label for the active provider."""
+    if (provider or "").strip().lower() == "meta":
+        return "Meta"
+    return "Azure/OpenAI"
+
+
 def _openai_fast_mode_enabled() -> bool:
     """Return whether OpenAI Fast mode should be requested.
 
@@ -212,6 +236,11 @@ def _resolve_round_runtime_flags(
         responses_env = "1"
     else:
         responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
+
+    # Meta Model API exposes the Responses API as its supported agent surface.
+    # Do not allow a global Chat Completions override to route Meta elsewhere.
+    if provider == "meta":
+        responses_env = "1"
 
     if responses_env in ("1", "true"):
         if provider == "lmstudio":
@@ -533,6 +562,11 @@ def _call_openai_azure_round(
     messages: list[dict[str, Any]] = None,
     responses_state: Optional[dict] = None,
 ) -> Any:
+    error_prefix = f"[{_provider_error_label(provider)} Error] "
+    # Final boundary guard: the SDK serializes the complete request after
+    # prompt() has returned. Remove any surrogate that escaped the UI layer.
+    call_messages = _normalize_surrogates(call_messages)
+
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
     # isolated from the generic OpenAI/Azure implementation.
@@ -557,7 +591,12 @@ def _call_openai_azure_round(
     if core is not None:
         try:
             setattr(core, "_last_responses_output_items", None)
-            if use_responses_api and provider in ("openai", "azure", "lmstudio"):
+            if use_responses_api and provider in (
+                "openai",
+                "azure",
+                "lmstudio",
+                "meta",
+            ):
                 setattr(core, "_responses_client", client)
                 setattr(core, "_responses_provider", provider)
                 setattr(core, "_responses_model", depname)
@@ -1158,7 +1197,7 @@ def _call_openai_azure_round(
                 "context window" in str(e).lower()
                 or "exceeds the context" in str(e).lower()
             ):
-                print("[Azure/OpenAI Error] " + _t("Input exceeds the context window."))
+                print(error_prefix + _t("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
@@ -1192,7 +1231,7 @@ def _call_openai_azure_round(
                 nonlocal _stale_rid_retried
                 if _stale_rid_retried:
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _(
                             "The Responses API rejected the full-history "
                             "retry; starting a new session is required."
@@ -1217,7 +1256,7 @@ def _call_openai_azure_round(
                 _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
                 if _used_rid:
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _(
                             "Stale previous_response_id. "
                             "Retrying with full history..."
@@ -1225,7 +1264,7 @@ def _call_openai_azure_round(
                     )
                 else:
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _(
                             "Responses tool chain rejected. "
                             "Retrying with sanitized full history..."
@@ -1243,7 +1282,7 @@ def _call_openai_azure_round(
                 err_text = _err_text_of(e)
                 if _is_bad_request and "does not support tools" in err_text:
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _(
                             "Model does not support tools. "
                             "Auto-disabling tools and retrying..."
@@ -1256,7 +1295,7 @@ def _call_openai_azure_round(
                     continue
                 if _is_bad_request and "does not support thinking" in err_text:
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _(
                             "Model does not support thinking. "
                             "Disabling thinking and retrying..."
@@ -1274,9 +1313,9 @@ def _call_openai_azure_round(
                     if _retry_without_previous_response_id(e):
                         continue
                     return False, client, "", "", []
-                print("[Azure/OpenAI Error] " + _("400 BadRequest"))
+                print(error_prefix + _("400 BadRequest"))
                 print(
-                    "[Azure/OpenAI Error] "
+                    error_prefix
                     + _("Error code: %(code)s - %(err)s")
                     % {"code": getattr(e, "status_code", 400) or 400, "err": e}
                 )
@@ -1289,7 +1328,7 @@ def _call_openai_azure_round(
 
                 if is_ssl_cert_error(e):
                     print(
-                        "[Azure/OpenAI Error] "
+                        error_prefix
                         + _t(
                             "SSL certificate verification failed. Auto-disabling SSL verify and retrying..."
                         )
@@ -1300,7 +1339,7 @@ def _call_openai_azure_round(
                     if new_client is not None:
                         client = new_client
                     continue
-                print("[Azure/OpenAI Error] " + _t("Connection error"))
+                print(error_prefix + _t("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
@@ -1325,7 +1364,7 @@ def _call_openai_azure_round(
                 continue
             if action == "give_up":
                 print(
-                    "[Azure/OpenAI Error] "
+                    error_prefix
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )

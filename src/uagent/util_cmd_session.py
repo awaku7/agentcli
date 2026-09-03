@@ -1346,6 +1346,14 @@ def _handle_cmd_load(
             except Exception:
                 pass
             session_row = store.get_session(target)
+            if hasattr(core, "tool_context"):
+                core.tool_context.clear()
+                try:
+                    loaded_tool_context = store.latest_tool_context(target)
+                except Exception:
+                    loaded_tool_context = {}
+                if isinstance(loaded_tool_context, dict):
+                    core.tool_context.update(loaded_tool_context)
             state = store.latest_response_state(target)
             if state is not None:
                 response_state = getattr(core, "responses_state", None)
@@ -1504,6 +1512,13 @@ def _handle_cmd_load(
 
         if hasattr(core, "responses_state"):
             core.responses_state.clear()
+        if hasattr(core, "tool_context"):
+            core.tool_context.clear()
+        read_tool_ctx = getattr(core, "latest_tool_context", None)
+        if callable(read_tool_ctx):
+            for tool_name, context in read_tool_ctx(target_path).items():
+                if isinstance(tool_name, str) and isinstance(context, dict):
+                    core.tool_context[tool_name] = context
 
         if isinstance(loaded_state, dict):
             rid = str(loaded_state.get("response_id") or "").strip()

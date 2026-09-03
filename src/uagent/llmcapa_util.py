@@ -21,6 +21,7 @@ from .i18n import _
 # an explicit list so lookups stay stable across llmcapa versions.
 _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "openai": ("openai", "azure-openai", "openrouter"),
+    "meta": ("meta", "openrouter"),
     "azure": ("azure-openai", "azure-foundry", "openai"),
     "bedrock": ("amazon", "bedrock"),
     "openrouter": ("openrouter", "openai"),

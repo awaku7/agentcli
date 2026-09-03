@@ -194,7 +194,7 @@ def _provider() -> str:
     provider = provider.strip().lower()
     if provider in ("xai",):
         provider = "grok"
-    if provider not in ("openai", "azure", "gemini", "vertexai", "grok"):
+    if provider not in ("openai", "azure", "gemini", "vertexai", "grok", "meta"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -219,6 +219,11 @@ def _model(provider: str) -> str:
         return _env_first(
             ["UAGENT_GROK_TRANSCRIBE_DEPNAME", "UAGENT_GROK_STT_MODEL"],
             default="grok-stt-batch",
+        )
+    if provider == "meta":
+        return _env_first(
+            ["UAGENT_META_TRANSCRIBE_DEPNAME"],
+            default="muse-voice-transcribe-1.0",
         )
     return _env_first(
         ["UAGENT_OPENAI_TRANSCRIBE_DEPNAME"],
@@ -428,6 +433,59 @@ def _grok_stt(
     return payload
 
 
+def _meta_transcribe(*, path: str, model: str, language: str = "") -> dict[str, Any]:
+    """Transcribe a recording using Meta Model API /v1/asr/transcribe."""
+    api_key = _env_first(["UAGENT_META_API_KEY", "META_API_KEY"], required=True)
+    base_url = _env_first(
+        ["UAGENT_META_BASE_URL"], default="https://api.meta.ai/v1"
+    ).rstrip("/")
+    suffix = Path(path).suffix.lower().lstrip(".") or "WAV"
+    encoding = suffix.upper()
+    mime_map = {
+        "WAV": "audio/wav",
+        "MP3": "audio/mpeg",
+        "M4A": "audio/mp4",
+        "MP4": "audio/mp4",
+        "OGG": "audio/ogg",
+        "FLAC": "audio/flac",
+        "WEBM": "audio/webm",
+    }
+    with open(path, "rb") as audio:
+        response = requests.post(
+            f"{base_url}/asr/transcribe",
+            headers={"Authorization": f"Bearer {api_key}"},
+            data={
+                "model": model,
+                "audioEncoding": encoding,
+                "mode": "PUSH_TO_TALK",
+                **({"language": language} if language else {}),
+            },
+            files={
+                "audio": (
+                    Path(path).name,
+                    audio,
+                    mime_map.get(encoding, "application/octet-stream"),
+                )
+            },
+            timeout=300,
+            verify=_ssl_verify_enabled(),
+        )
+    if response.status_code >= 400:
+        raise RuntimeError(
+            f"Meta ASR HTTP {response.status_code}: {(response.text or '')[:500]}"
+        )
+    payload = response.json()
+    if not isinstance(payload, dict):
+        return {"text": str(payload)}
+    text = (
+        payload.get("text")
+        or payload.get("transcript")
+        or payload.get("transcription")
+        or ""
+    )
+    return {**payload, "text": str(text).strip()}
+
+
 def run_tool(args: dict[str, Any]) -> str:
     raw_path = get_path(args, "path", "")
     remote_url = get_str(args, "url", "")
@@ -533,6 +591,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 if isinstance(ch, dict) and ch.get("text"):
                     parts.append(str(ch.get("text")).strip())
             text = "\n".join(p for p in parts if p)
+
+    elif provider == "meta":
+        if not safe_path:
+            return make_response(False, _("err.path_empty", default="path is required"))
+        try:
+            payload = _meta_transcribe(path=safe_path, model=model, language=language)
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.transcribe_failed",
+                    default="Audio transcription failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_path, "provider": provider, "model": model},
+            )
+        text = str(payload.get("text") or "").strip()
+        resp_language = str(payload.get("language") or language or "").strip()
+        duration = payload.get("duration")
 
     elif provider in ("gemini", "vertexai"):
         if not safe_path:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime
 import json
 import os
+from typing import Any
 
 from .. import core as _core
 from .logs import latest_responses_state
@@ -34,8 +35,10 @@ def _append_responses_state_record() -> None:
     status = str(_core.responses_state.get("last_response_status") or "").strip()
     if not rid.startswith("resp_") or status != "completed":
         return
-    session_store = globals().get("session_store")
-    session_id = globals().get("session_id")
+    session_store = getattr(_core, "session_store", None)
+    session_id = getattr(_core, "_session_store_active_id", None) or getattr(
+        _core, "session_id", None
+    )
     if session_store is not None and session_id:
         session_store.record_response_state(
             session_id,
@@ -71,6 +74,54 @@ def _append_responses_state_record() -> None:
             )
     except Exception:
         pass
+
+
+def set_tool_context(tool_name: str, context: dict) -> None:
+    """Store small JSON-safe context owned by a tool and persist it."""
+    name = str(tool_name or "").strip()
+    if not name or not isinstance(context, dict):
+        return
+    try:
+        safe = json.loads(json.dumps(context, ensure_ascii=False))
+    except (TypeError, ValueError):
+        return
+    if not isinstance(safe, dict):
+        return
+    _core.tool_context[name] = safe
+    session_store = getattr(_core, "session_store", None)
+    session_id = getattr(_core, "_session_store_active_id", None) or getattr(
+        _core, "session_id", None
+    )
+    if session_store is not None and session_id:
+        try:
+            session_store.record_tool_context(session_id, tool_name=name, context=safe)
+            return
+        except Exception:
+            pass
+    record = {
+        "type": "tool_context",
+        "schema_version": 1,
+        "tool": name,
+        "context": safe,
+        "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    }
+    try:
+        os.makedirs(os.path.dirname(_core.LOG_FILE) or ".", exist_ok=True)
+        with open(_core.LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(
+                json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n"
+            )
+    except Exception:
+        pass
+
+
+def register_tool_context_names(tool_names: Any) -> None:
+    """Ensure known tool names have empty opaque context slots."""
+    names = tool_names if isinstance(tool_names, (list, tuple, set, frozenset)) else []
+    for tool_name in names:
+        name = str(tool_name or "").strip()
+        if name:
+            _core.tool_context.setdefault(name, {})
 
 
 def set_active_response(response_id: str, *, status: str = "in_progress") -> None:

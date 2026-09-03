@@ -365,6 +365,7 @@ def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
         "vertexai": "default imagen-4.0-generate-001",
         "zai": "default glm-image",
         "grok": "default grok-imagine-image",
+        "meta": "default muse-image-1.0",
     }
     return keys, defaults.get(provider, "default")
 
@@ -388,6 +389,10 @@ def _audio_model_keys(provider: str, mode: str) -> tuple[list[str], str]:
             ["UAGENT_GROK_TRANSCRIBE_DEPNAME", "UAGENT_GROK_STT_MODEL"],
             "default grok-stt-batch",
         )
+    if provider == "meta":
+        if mode == "speech":
+            return ["UAGENT_META_SPEECH_DEPNAME"], "unsupported by Meta Model API"
+        return ["UAGENT_META_TRANSCRIBE_DEPNAME"], "default muse-voice-transcribe-1.0"
     default = "gpt-4o-mini-tts" if mode == "speech" else "gpt-4o-mini-transcribe"
     return [f"UAGENT_OPENAI_{m}_DEPNAME"], f"default {default}"
 

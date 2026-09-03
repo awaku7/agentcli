@@ -212,7 +212,7 @@ Windows PowerShell में `export NAME=value` के बजाय `$env:NAME 
 
 Provider adapters hosted और local runtimes को support करते हैं, जिनमें शामिल हैं:
 
-**OpenAI · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
 `UAGENT_PROVIDER` से providers बदलें; आपके tools और interface नहीं बदलते।
 
@@ -432,4 +432,4 @@ Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/
 - टूल परिभाषाएँ 37 लोकल और अंग्रेज़ी (कुल 38) में उपलब्ध हैं, जिसमें प्लेसहोल्डर और तकनीकी पहचानकर्ता संरक्षित हैं।
 - `set_timer` स्थायी निर्धारित LLM रन, आवश्यक-टूल सुरक्षा, एक स्वीकृत टूल का सीधा निष्पादन, पुनः प्रयास और टाइमआउट का समर्थन करता है।
 
-[पर्यावरण चर](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [अनुवाद पद्धति](https://github.com/ देखेंawaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), और [`set_timer` दस्तावेज़ीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)।
+[पर्यावरण चर](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), \[अनुवाद पद्धति\](https://github.com/ देखेंawaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), और [`set_timer` दस्तावेज़ीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)।

@@ -91,8 +91,16 @@ def _audio_model_info(mode: str) -> tuple[str, str] | None:
     if provider == "xai":
         provider = "grok"
 
-    if provider not in {"openai", "azure", "gemini", "vertexai", "grok"}:
+    # Meta Model API currently exposes speech-to-text, but not text-to-speech.
+    if provider not in {"openai", "azure", "gemini", "vertexai", "grok", "meta"}:
         return None
+
+    if provider == "meta":
+        if mode == "speech" or not _env("UAGENT_META_API_KEY"):
+            return None
+        return provider, _env(
+            "UAGENT_META_TRANSCRIBE_DEPNAME", "muse-voice-transcribe-1.0"
+        )
 
     if provider == "azure":
         depname = _env(f"UAGENT_AZURE_{mode.upper()}_DEPNAME")
@@ -167,6 +175,8 @@ def _image_generation_depname(provider: str) -> str:
         return "glm-image"
     if provider == "grok":
         return "grok-imagine-image"
+    if provider == "meta":
+        return "muse-image-1.0"
     return ""
 
 
@@ -184,6 +194,7 @@ def _image_generation_model_info() -> tuple[str, str] | None:
         "vertexai",
         "zai",
         "grok",
+        "meta",
     }:
         return None
 
@@ -204,7 +215,7 @@ def _image_generation_model_info() -> tuple[str, str] | None:
             and _img_env("bedrock", "generate", "api_key")
         ):
             return None
-    elif provider in {"openai", "openrouter", "gemini", "nvidia", "zai"}:
+    elif provider in {"openai", "openrouter", "gemini", "nvidia", "zai", "meta"}:
         if not _img_env(provider, "generate", "api_key"):
             return None
     elif provider == "grok":
@@ -314,8 +325,11 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             _("[INFO] api_version = %(api_version)s")
             % {"api_version": env_get("UAGENT_AZURE_API_VERSION", "(not set)")}
         )
-    elif provider == "openai":
-        val = env_get("UAGENT_OPENAI_BASE_URL") or "https://api.openai.com/v1"
+    elif provider in {"openai", "meta"}:
+        if provider == "meta":
+            val = env_get("UAGENT_META_BASE_URL") or "https://api.meta.ai/v1"
+        else:
+            val = env_get("UAGENT_OPENAI_BASE_URL") or "https://api.openai.com/v1"
         lines.append(
             _("[INFO] base_url = %(base_url)s")
             % {"base_url": _normalize_url(core, val)}
@@ -526,9 +540,8 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             % {"label": label, "provider": opt_provider, "model": model}
         )
 
-    _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
-        "1",
-        "true",
+    _use_responses_flag = provider == "meta" or (
+        (env_get("UAGENT_RESPONSES", "") or "").lower() in ("1", "true")
     )
     _streaming_flag = (env_get("UAGENT_STREAMING", "") or "").lower() in (
         "1",

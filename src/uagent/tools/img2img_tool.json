@@ -21,7 +21,7 @@
     "param.img.description": "Path to the source image to edit.",
     "param.mask_path.description": "Optional path to a mask image. Transparent areas are treated as editable in many APIs.",
     "param.output_dir.description": "Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
-    "tool.description": "Edit an input image using a text prompt, save the result as a PNG, and return the saved path."
+    "tool.description": "Edit an existing image using a text prompt, save the result as a PNG, and return the saved path. Use this for follow-up changes to a previously generated image; do not call generate_image for a requested modification. With Meta, the tool continues the prior image response using its response_id."
   },
   "ja": {
     "x_search_terms": [
@@ -45,7 +45,7 @@
     "param.img.description": "編集する元画像のパス。",
     "param.mask_path.description": "マスク画像へのオプションのパス。透明な領域は、多くの API で編集可能として扱われます。",
     "param.output_dir.description": "画像（相対または絶対）を保存するディレクトリ。省略した場合のデフォルトは、outputs/image_generations です。",
-    "tool.description": "テキスト プロンプトを使用して入力画像を編集し、結果を PNG として保存し、保存されたパスを返します。"
+    "tool.description": "既存の画像をテキスト プロンプトで編集し、結果を PNG として保存してパスを返します。以前生成した画像への変更依頼には必ずこのツールを使用し、generate_image は使用しないでください。Metaでは前回画像のresponse_idを使って続行します。"
   },
   "es": {
     "x_search_terms": [

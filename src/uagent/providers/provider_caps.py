@@ -14,6 +14,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
     {
         "azure",
         "openai",
+        "meta",
         "bedrock",
         "openrouter",
         "ollama",
@@ -44,6 +45,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
 RESPONSES_PROVIDERS: frozenset[str] = frozenset(
     {
         "openai",
+        "meta",
         "azure",
         "bedrock",
         "openrouter",

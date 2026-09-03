@@ -63,6 +63,9 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         previous_response_id=True,
     ),
     "openrouter": ResponsesCapabilities(create=True, streaming=True),
+    "meta": ResponsesCapabilities(
+        create=True, streaming=True, previous_response_id=True
+    ),
     "deepseek": ResponsesCapabilities(create=True, streaming=True),
     "bedrock": ResponsesCapabilities(create=True, streaming=True),
     "ollama": ResponsesCapabilities(create=True, streaming=True),

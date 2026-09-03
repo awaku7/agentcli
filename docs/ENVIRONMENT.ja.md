@@ -46,6 +46,19 @@ SQLite-onlyでは `:logs`、`:load`、`:cont`、`:clean` もSQLiteセッショ�
 
 通常は `UAGENT_POLICY_FILE` の企業YAMLだけを設定します。`UAGENT_POLICY_LEVEL` は開発時の簡易制限です。
 
+## 画像生成のデバッグ設定
+
+画像生成の内部診断ログは既定では出力されません。Meta Model APIの画像生成・画像編集経路を調査する場合だけ、明示的に有効化します。
+
+```env
+# 画像生成の診断ログ（既定: 0）
+UAGENT_IMG_GENERATE_DEBUG=1
+# 画像生成のレスポンスメタデータを保存（既定: 0）
+UAGENT_IMG_GENERATE_SAVE_META=1
+```
+
+`UAGENT_IMG_GENERATE_DEBUG=1` を設定すると、MetaのResponses APIによる画像生成や `img2img` の継続経路（`response_id` の有無・利用結果）も記録されます。通常運用では `0` または未設定にしてください。
+
 ## セットアップウィザード
 
 最も簡単に設定を行うには、以下のコマンドを実行して対話型セットアップウィザードを起動してください：

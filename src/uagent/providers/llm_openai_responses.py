@@ -276,7 +276,13 @@ def build_responses_request(
             continue
 
         _responses_items = m_clean.pop("_responses_output_items", None)
-        if isinstance(_responses_items, list) and _responses_items:
+        # Meta does not accept prior Responses output objects as input items.
+        # Rebuild its fallback from the normalized assistant/tool text below.
+        if (
+            isinstance(_responses_items, list)
+            and _responses_items
+            and provider != "meta"
+        ):
             # Full-history fallback must not replay bare function_call items:
             # without matching function_call_output the Responses API rejects
             # the request ("no tool output found"). Keep only non-tool items

@@ -81,6 +81,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ["UAGENT_OPENAI_API_KEY"],
             reason=_("OpenAI API key.", default="OpenAI API key."),
         )
+    elif provider == "meta":
+        missing += _require(
+            ["UAGENT_META_API_KEY"],
+            reason=_("Meta Model API key.", default="Meta Model API key."),
+        )
     elif provider == "pfn":
         missing += _require(
             ["UAGENT_PFN_API_KEY"],

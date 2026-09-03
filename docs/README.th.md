@@ -214,7 +214,7 @@ Windows PowerShell ใช้ `$env:NAME = "value"` แทน `export NAME=value`
 
 อะแดปเตอร์ provider รองรับ runtime แบบ hosted และ local รวมถึง:
 
-**OpenAI · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
+**OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
 เปลี่ยน provider ด้วย `UAGENT_PROVIDER` โดยเครื่องมือและอินเทอร์เฟซของคุณไม่เปลี่ยนแปลง
 

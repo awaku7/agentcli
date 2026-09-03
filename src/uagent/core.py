@@ -74,6 +74,8 @@ auto_pilot_round = 0
 auto_pilot_max_rounds: int | None = 10
 auto_pilot_goal: str = ""
 responses_state: dict = {}
+# Opaque per-tool context. The core transports it; tools own its schema.
+tool_context: dict[str, dict] = {}
 _PENDING_RESPONSES_STATE = None
 SYSTEM_PROMPT_FULL_MISSION = _("""## Mission
 - You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.
@@ -180,11 +182,14 @@ from .core_impl.responses_state import (
     clear_responses_continuation,
     finish_active_response,
     set_active_response,
+    set_tool_context,
+    register_tool_context_names,
 )
 from .core_impl.logs import (
     find_log_files,
     guess_topics_from_content,
     latest_responses_state,
+    latest_tool_context,
     list_logs,
     log_message,
     read_responses_state_records,
@@ -300,6 +305,7 @@ __all__ = [
     "interrupt_requested",
     "last_reasoning_label",
     "latest_responses_state",
+    "latest_tool_context",
     "list_logs",
     "load_conversation_from_log",
     "log_message",
@@ -315,6 +321,9 @@ __all__ = [
     "read_responses_state_records",
     "refresh_system_prompt",
     "responses_state",
+    "set_tool_context",
+    "register_tool_context_names",
+    "tool_context",
     "rewrite_current_log_from_messages",
     "sanitize_messages_for_tools",
     "set_active_response",

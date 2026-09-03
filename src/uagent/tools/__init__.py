@@ -1234,9 +1234,24 @@ def _hide_analyze_image_for_chat_vision() -> bool:
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
-    _ensure_loaded()
     global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY, _ANALYZE_IMAGE_HIDDEN
     global _TOOL_SPECS_CACHE_EMBEDDED
+    _ensure_loaded()
+    # Discovery owns the names; core only transports opaque per-tool slots.
+    try:
+        from .. import core as _core
+
+        register = getattr(_core, "register_tool_context_names", None)
+        if callable(register):
+            register(
+                [
+                    spec.get("function", {}).get("name")
+                    for spec in TOOL_SPECS
+                    if isinstance(spec, dict) and isinstance(spec.get("function"), dict)
+                ]
+            )
+    except Exception:
+        pass
     hide_analyze_image = _hide_analyze_image_for_chat_vision()
     _embedded_now = _is_embedded_mode()
     if (

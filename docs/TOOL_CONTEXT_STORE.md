@@ -182,6 +182,15 @@ _CONTEXT = {}
 
 ホットリロード、複数セッション、並列実行で状態の所有範囲が不明確になるため、新しい実装では使用しない。
 
+## 実装済み補足
+
+現在の画像ツール連携では、Meta Model APIのResponses APIで取得した `response_id` を `generate_image` のツールコンテキストへ保存する。後続の `img2img` は通常のツール引数へIDを注入せず、同コンテキストからIDを取得して `previous_response_id` として利用する。
+
+- 画像本体やBase64データはコンテキストへ保存しない
+- `response_id` はセッションストアへ永続化できる
+- `system_reload` 後も本体側のコンテキストを維持する
+- Metaの経路診断ログは `UAGENT_IMG_GENERATE_DEBUG=1` の場合のみ出力する
+
 ## まとめ
 
 本方式では、本体が次の辞書を管理する。

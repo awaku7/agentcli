@@ -33,6 +33,29 @@ from ..uagent_env_keys import get_known_uagent_env_keys
 from ..utils.paths import get_history_file_path
 
 
+def _create_prompt_output() -> Any:
+    """Prefer prompt_toolkit's VT output on Windows.
+
+    Win32Output can render BMP text but may turn supplementary-plane emoji
+    such as U+1F5FB (🗻) into question marks.  The VT backend writes UTF-8
+    through the terminal, matching ordinary ``print()`` output.
+    """
+    if sys.platform != "win32":
+        return None
+    try:
+        from .. import core as _core
+
+        _core._enable_windows_vt_mode()
+        # Do not let create_output() silently select Win32Output again when
+        # VT detection is conservative.  Windows10_Output uses the same UTF-8
+        # VT path as ordinary print() and supports supplementary-plane emoji.
+        from prompt_toolkit.output.windows10 import Windows10_Output
+
+        return Windows10_Output(sys.stdout)
+    except Exception:
+        return None
+
+
 def _get_prompt_session(*, reply: bool = False) -> Any:
     if not _ensure_prompt_toolkit():
         if reply:
@@ -53,7 +76,11 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                 return None
 
             try:
-                session = PromptSession(history=InMemoryHistory())
+                output = _create_prompt_output()
+                session_kwargs = {"history": InMemoryHistory()}
+                if output is not None:
+                    session_kwargs["output"] = output
+                session = PromptSession(**session_kwargs)
                 for entry in state._PROMPT_HISTORY:
                     try:
                         session.history.append_string(entry)
@@ -705,7 +732,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             if c.startswith(word):
                                 yield Completion(":" + c, start_position=-len(text))
 
+            output = _create_prompt_output()
             session = PromptSession(
+                output=output,
                 history=_SafeFileHistory(str(get_history_file_path())),
                 completer=_CommandCompleter(),
             )

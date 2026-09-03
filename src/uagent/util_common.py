@@ -23,38 +23,20 @@ tr_ = _
 
 
 def strip_surrogates(text: str) -> str:
-    """Replace lone surrogate code points (U+D800..U+DFFF) with U+FFFD.
+    """Normalize UTF-16 surrogates for prompt_toolkit/UTF-8 output.
 
-    Windows console clipboard can contain lone surrogates (e.g. when pasting
-    terminal output into the CLI). Feeding them to a subprocess stdin with
-    text=True, or writing them to a prompt_toolkit FileHistory, raises
-    UnicodeEncodeError ('utf-8' codec ... surrogates not allowed). Valid
-    surrogate pairs (emoji) are preserved.
+    A valid high+low surrogate pair is folded into the actual Unicode scalar
+    value so prompt_toolkit can render it as an emoji. A lone surrogate has
+    no valid display character and is replaced with U+FFFD.
     """
-    if not isinstance(text, str):
+    if not isinstance(text, str) or not text:
         return text
-    out: list[str] = []
-    changed = False
-    i = 0
-    n = len(text)
-    while i < n:
-        code = ord(text[i])
-        if 0xD800 <= code <= 0xDBFF:  # high surrogate
-            if i + 1 < n and 0xDC00 <= ord(text[i + 1]) <= 0xDFFF:
-                # Valid pair: keep both code points as-is.
-                out.append(text[i])
-                out.append(text[i + 1])
-                i += 2
-                continue
-            out.append("\ufffd")
-            changed = True
-        elif 0xDC00 <= code <= 0xDFFF:  # lone low surrogate
-            out.append("\ufffd")
-            changed = True
-        else:
-            out.append(text[i])
-        i += 1
-    return "".join(out) if changed else text
+    if not any(0xD800 <= ord(ch) <= 0xDFFF for ch in text):
+        return text
+    try:
+        return text.encode("utf-16", "surrogatepass").decode("utf-16", "replace")
+    except Exception:
+        return "".join("�" if 0xD800 <= ord(ch) <= 0xDFFF else ch for ch in text)
 
 
 @dataclass

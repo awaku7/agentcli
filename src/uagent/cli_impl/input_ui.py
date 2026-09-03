@@ -11,7 +11,11 @@ from typing import Any
 from ..i18n import _
 from .. import core
 from .. import util_tools as tools_util
-from .prompt_session import _get_prompt_session, _reset_prompt_sessions
+from .prompt_session import (
+    _create_prompt_output,
+    _get_prompt_session,
+    _reset_prompt_sessions,
+)
 from .state import _CLI_SHUTDOWN
 
 
@@ -19,6 +23,7 @@ def _make_prompt_key_bindings() -> Any:
     """Return prompt_toolkit bindings shared by normal and reply prompts."""
     try:
         from prompt_toolkit.key_binding import KeyBindings
+        from prompt_toolkit.keys import Keys
     except Exception:
         return None
     kb = KeyBindings()
@@ -73,6 +78,26 @@ def _make_prompt_key_bindings() -> Any:
         else:
             buffer.cursor_down()
 
+    @kb.add(Keys.BracketedPaste)
+    def _safe_paste(event: Any) -> None:
+        event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
+
+    pending_high = ""
+
+    @kb.add("<any>")
+    def _safe_insert(event: Any) -> None:
+        # Some Windows input paths deliver a surrogate pair in two key events.
+        # Keep a high surrogate until the low surrogate arrives; replacing it
+        # immediately would turn a valid emoji into a question mark.
+        nonlocal pending_high
+        data = pending_high + event.data
+        pending_high = ""
+        if data and 0xD800 <= ord(data[-1]) <= 0xDBFF:
+            pending_high = data[-1]
+            data = data[:-1]
+        if data:
+            event.current_buffer.insert_text(tools_util.strip_surrogates(data))
+
     return kb
 
 
@@ -86,6 +111,7 @@ def _prompt_toolkit_input(
     try:
         from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.patch_stdout import patch_stdout
+        from prompt_toolkit.keys import Keys
     except Exception:
         KeyBindings = None  # type: ignore[assignment]
         patch_stdout = None  # type: ignore
@@ -134,6 +160,24 @@ def _prompt_toolkit_input(
                     buffer.cursor_position = 0
             else:
                 buffer.cursor_down()
+
+        @kb.add(Keys.BracketedPaste)
+        def _safe_paste(event: Any) -> None:
+            event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
+
+        pending_high = ""
+
+        @kb.add("<any>")
+        def _safe_insert(event: Any) -> None:
+            # Windows may deliver a valid surrogate pair in two key events.
+            nonlocal pending_high
+            data = pending_high + event.data
+            pending_high = ""
+            if data and 0xD800 <= ord(data[-1]) <= 0xDBFF:
+                pending_high = data[-1]
+                data = data[:-1]
+            if data:
+                event.current_buffer.insert_text(tools_util.strip_surrogates(data))
 
     # A tool (most notably human_ask) can start while the normal prompt is
     # already inside prompt_toolkit's blocking prompt(). In that case the
@@ -307,11 +351,16 @@ def _multiline_editor(initial_text: str = "") -> str | None:
     """
     from prompt_toolkit import Application
     from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.keys import Keys
     from prompt_toolkit.layout import HSplit, Layout, Window, WindowAlign
     from prompt_toolkit.layout.controls import FormattedTextControl
     from prompt_toolkit.widgets import TextArea as TA
 
     kb = KeyBindings()
+
+    @kb.add(Keys.BracketedPaste)
+    def _safe_paste(event: Any) -> None:
+        event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
 
     def _submit(event: Any) -> None:
         event.app.exit(result=textarea.text)
@@ -343,6 +392,7 @@ def _multiline_editor(initial_text: str = "") -> str | None:
     app = Application(
         layout=layout,
         key_bindings=kb,
+        output=_create_prompt_output(),
         full_screen=False,
         mouse_support=True,
     )

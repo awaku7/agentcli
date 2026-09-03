@@ -67,6 +67,7 @@ HEADER_BAT = "\n".join(
 
 PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI-compatible"),
+    ("meta", "Meta Model API"),
     ("pfn", "PFN (Preferred Networks / PLaMo)"),
     ("azure", "Azure OpenAI"),
     ("bedrock", "Bedrock OpenAI-compatible gateway"),
@@ -97,6 +98,15 @@ PROVIDERS: list[tuple[str, str]] = [
 # ALL_PROVIDERS in src/uagent/providers/provider_caps.py
 # key, required, label
 PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
+    "meta": [
+        ("UAGENT_META_API_KEY", True, _("Meta Model API key")),
+        ("UAGENT_META_BASE_URL", False, _("Meta Model API base URL (optional)")),
+        (
+            "UAGENT_META_DEPNAME",
+            False,
+            _("Meta model name (optional, default: muse-spark-1.3)"),
+        ),
+    ],
     "openai": [
         ("UAGENT_OPENAI_API_KEY", True, _("OpenAI API key")),
         ("UAGENT_OPENAI_BASE_URL", False, _("OpenAI base URL (optional)")),

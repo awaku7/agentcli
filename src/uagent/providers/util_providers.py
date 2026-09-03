@@ -344,6 +344,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openai":
         return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+    if provider == "meta":
+        return env_get("UAGENT_META_DEPNAME", "muse-spark-1.3") or "muse-spark-1.3"
     if provider == "pfn":
         return env_get("UAGENT_PFN_DEPNAME", "plamo-3.0-prime") or "plamo-3.0-prime"
     if provider == "bedrock":
@@ -522,12 +524,18 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         return provider, client, model_name
 
-    if provider == "openai":
+    if provider in {"openai", "meta"}:
         from openai import OpenAI  # lazy
 
-        api_key = _provider_api_key(core, "OPENAI")
+        credential_provider = "META" if provider == "meta" else "OPENAI"
+        api_key = _provider_api_key(core, credential_provider)
         base_url = core.get_env_url(
-            "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
+            "UAGENT_META_BASE_URL" if provider == "meta" else "UAGENT_OPENAI_BASE_URL",
+            (
+                "https://api.meta.ai/v1"
+                if provider == "meta"
+                else "https://api.openai.com/v1"
+            ),
         )
 
         def _hook(resp: Any) -> None:

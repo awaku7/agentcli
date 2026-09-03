@@ -18,6 +18,7 @@ Note:
 from __future__ import annotations
 
 import base64
+import io
 import json
 import os
 import ssl
@@ -130,7 +131,9 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.include_base64.description",
                         default="Include base64 image data for remote clients.",
                     ),
-                    "default": True,
+                    # Keep large image bytes out of the LLM tool loop by default.
+                    # Remote callers can opt in explicitly with true.
+                    "default": False,
                 },
                 "prefix": {
                     "type": "string",
@@ -191,6 +194,7 @@ def _get_provider() -> str:
         "vertexai",
         "zai",
         "grok",
+        "meta",
     ):
         raise RuntimeError(
             _msg(
@@ -264,6 +268,8 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
         return v
     if provider == "openai":
         return "gpt-image-1"
+    if provider == "meta":
+        return "muse-image-1.0"
     if provider in ("gemini", "vertexai"):
         return "imagen-4.0-generate-001"
     if provider == "zai":
@@ -286,12 +292,32 @@ def _ensure_dir(p: str) -> str:
 
 
 def _write_png_bytes(raw: bytes, out_path: str) -> None:
+    # Meta Muse Image currently returns WebP bytes in ``result``. Convert by
+    # content so the promised .png output is a real PNG file.
+    output = raw
+    try:
+        from PIL import Image
+
+        with Image.open(io.BytesIO(raw)) as image:
+            if (image.format or "").upper() != "PNG":
+                if image.mode not in ("RGB", "RGBA"):
+                    image = image.convert("RGBA" if "A" in image.getbands() else "RGB")
+                buf = io.BytesIO()
+                image.save(buf, format="PNG")
+                output = buf.getvalue()
+    except Exception:
+        # Preserve the old behavior for formats Pillow cannot decode.
+        pass
     with open(out_path, "wb") as f:
-        f.write(raw)
+        f.write(output)
 
 
 def _write_png_from_b64(b64_data: str, out_path: str) -> None:
-    raw = base64.b64decode(b64_data)
+    # Accept raw base64 and data URIs returned by compatible gateways.
+    value = str(b64_data or "").strip()
+    if value.startswith("data:") and "," in value:
+        value = value.split(",", 1)[1]
+    raw = base64.b64decode(value, validate=False)
     _write_png_bytes(raw, out_path)
 
 
@@ -320,6 +346,135 @@ def _download_to_png(url: str, out_path: str) -> None:
     with urlopen(req, **_urlopen_kwargs()) as resp:
         raw = resp.read()
     _write_png_bytes(raw, out_path)
+
+
+def _meta_debug_log(*args: Any, **kwargs: Any) -> None:
+    """Emit Meta image diagnostics only when explicitly enabled."""
+    if _env_bool("UAGENT_IMG_GENERATE_DEBUG", False):
+        print(*args, **kwargs)
+
+
+def _image_debug_log(provider: str, *args: Any, **kwargs: Any) -> None:
+    """Emit image diagnostics, gating Meta output behind the debug opt-in."""
+    if provider == "meta":
+        _meta_debug_log(*args, **kwargs)
+    else:
+        print(*args, **kwargs)
+
+
+def _run_meta_images(*, image_model: str, prompt: str, n: int) -> dict[str, Any]:
+    """Generate images through Meta's Responses API image-generation tool."""
+    try:
+        from openai import OpenAI
+    except Exception as exc:
+        raise RuntimeError(
+            _msg(
+                "err.openai_import",
+                "Failed to import openai package: {err}",
+                err=repr(exc),
+            )
+        )
+    api_key = _env_first(["UAGENT_META_API_KEY", "META_API_KEY"], required=True)
+    base_url = _env_first(
+        ["UAGENT_META_BASE_URL"], required=False, default="https://api.meta.ai/v1"
+    ).rstrip("/")
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    b64_list: list[str] = []
+    items: list[dict[str, Any]] = []
+    response_ids: list[str] = []
+    _meta_debug_log(
+        f"[generate_image] Meta request model={image_model} base_url={base_url} n={n}",
+        file=sys.stderr,
+        flush=True,
+    )
+    for idx in range(max(1, n)):
+        response = client.responses.create(
+            model=image_model,
+            input=prompt,
+        )
+        response_id = str(getattr(response, "id", "") or "").strip()
+        if response_id.startswith("resp_"):
+            response_ids.append(response_id)
+        output = getattr(response, "output", None) or []
+        if isinstance(output, dict):
+            output = [output]
+        _meta_debug_log(
+            "[generate_image] Meta response "
+            f"type={type(response).__name__} "
+            f"id={getattr(response, 'id', None)!r} "
+            f"status={getattr(response, 'status', None)!r} "
+            f"output_count={len(output) if isinstance(output, (list, tuple)) else 'n/a'}",
+            file=sys.stderr,
+            flush=True,
+        )
+        found = None
+        for item in output:
+            if isinstance(item, dict):
+                item_type = str(item.get("type", "") or "")
+                item_result = item.get("result") or item.get("b64_json")
+            else:
+                item_type = str(getattr(item, "type", "") or "")
+                item_result = getattr(item, "result", None) or getattr(
+                    item, "b64_json", None
+                )
+            _meta_debug_log(
+                f"[generate_image] Meta output type={item_type!r} "
+                f"result_present={bool(item_result)} "
+                f"result_length={len(item_result) if isinstance(item_result, str) else 0}",
+                file=sys.stderr,
+                flush=True,
+            )
+            if item_type not in ("image_generation_call", "image_generation"):
+                continue
+            found = item_result
+            if found:
+                break
+        if not found:
+            # Be tolerant of SDK versions returning plain dictionaries.
+            payload = response.model_dump() if hasattr(response, "model_dump") else {}
+            if not payload and isinstance(response, dict):
+                payload = response
+            for item in payload.get("output", []) if isinstance(payload, dict) else []:
+                if isinstance(item, dict) and item.get("type") in (
+                    "image_generation_call",
+                    "image_generation",
+                ):
+                    found = item.get("result") or item.get("b64_json")
+                    if found:
+                        break
+        if not found:
+            raise RuntimeError("Meta Responses API returned no image data")
+        _meta_debug_log(
+            f"[generate_image] Meta image data found index={idx + 1} "
+            f"length={len(found) if isinstance(found, str) else 0}",
+            file=sys.stderr,
+            flush=True,
+        )
+        b64_list.append(str(found))
+        items.append({"index": idx + 1, "has_b64_json": True})
+    return {
+        "b64_list": b64_list,
+        "url_list": [],
+        "items": items,
+        "response_id": response_ids[-1] if response_ids else "",
+    }
+
+
+def _remember_meta_image_response(response_id: str, image_path: str = "") -> None:
+    """Keep the latest Meta image response separate from chat continuation."""
+    if not response_id.startswith("resp_"):
+        return
+    try:
+        from .. import core as _core
+
+        setter = getattr(_core, "set_tool_context", None)
+        if callable(setter):
+            context = {"response_id": response_id, "status": "completed"}
+            if image_path:
+                context["image_path"] = os.path.abspath(image_path)
+            setter("generate_image", context)
+    except Exception:
+        pass
 
 
 def _run_openai_images(
@@ -712,7 +867,19 @@ def run_tool(args: dict[str, Any]) -> str:
             spinner.start()
         size2 = _sanitize_size_for_provider(size)
         meta_payload["size"] = size2
-        if provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
+        if provider == "meta":
+            res = _run_meta_images(image_model=image_model, prompt=prompt, n=n)
+            b64_list = res.get("b64_list") or []
+            meta_payload["items"] = res.get("items") or []
+            meta_response_id = str(res.get("response_id") or "")
+            if meta_response_id:
+                _remember_meta_image_response(meta_response_id)
+                meta_payload["response_id"] = meta_response_id
+            if b64_list:
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+            if meta_response_id and saved:
+                _remember_meta_image_response(meta_response_id, saved[-1])
+        elif provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
             res = _run_openai_images(
                 provider=provider,
                 image_model=image_model,
@@ -823,6 +990,13 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
     except Exception as e:
+        # Keep failures visible in CLI even when the model emits an empty
+        # post-tool assistant message.
+        print(
+            f"[generate_image] provider={provider} model={image_model} error={type(e).__name__}: {e}",
+            file=sys.stderr,
+            flush=True,
+        )
         return _msg(
             "err.gen_fail",
             "[generate_image] Image generation failed.\nprovider={provider} model={model} size={size} n={n}\n{err}",
@@ -849,7 +1023,21 @@ def run_tool(args: dict[str, Any]) -> str:
         except Exception:
             pass
 
+    if saved:
+        _image_debug_log(
+            provider,
+            f"[generate_image] saved provider={provider} model={image_model} files={saved!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+
     if not saved:
+        _image_debug_log(
+            provider,
+            f"[generate_image] provider={provider} model={image_model} error=no image data",
+            file=sys.stderr,
+            flush=True,
+        )
         return _(
             "err.no_saved",
             default="[generate_image] Image data was empty",
@@ -863,7 +1051,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "name": os.path.basename(path),
             "path": path,
         }
-        if bool(args.get("include_base64", True)):
+        if bool(args.get("include_base64", False)):
             try:
                 with open(path, "rb") as image_file:
                     att["data_base64"] = base64.b64encode(image_file.read()).decode(
