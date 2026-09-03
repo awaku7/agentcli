@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 import pytest
@@ -16,6 +17,13 @@ class FakeKeyring:
 
     def set_password(self, service: str, username: str, password: str) -> None:
         self.values[(service, username)] = password
+
+
+def test_linux_defaults_to_file_backend(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_ENVSEC_KEY_BACKEND", raising=False)
+    monkeypatch.setattr(secret_core.sys, "platform", "linux")
+
+    assert secret_core._key_backend() == "file"
 
 
 def test_keyring_backend_round_trip(monkeypatch, tmp_path: Path) -> None:
@@ -120,3 +128,28 @@ def test_auto_replaces_different_keyring_key_with_file_key(
     )
     assert stored is not None
     assert secret_core._decode_key(stored) == file_key
+
+
+def test_auto_falls_back_when_keyring_call_times_out(
+    monkeypatch, tmp_path: Path
+) -> None:
+    class HangingKeyring:
+        def get_password(self, service: str, username: str) -> None:
+            time.sleep(1)
+            return None
+
+        def set_password(self, service: str, username: str, password: str) -> None:
+            raise AssertionError("set_password must not be called after timeout")
+
+    monkeypatch.setattr(secret_core, "_keyring_module", lambda: HangingKeyring())
+    monkeypatch.setattr(secret_core, "_home_dir", lambda: tmp_path)
+    monkeypatch.setattr(secret_core, "_KEYRING_TIMED_OUT", False)
+    monkeypatch.setenv("UAGENT_ENVSEC_KEY_BACKEND", "auto")
+    monkeypatch.setenv("UAGENT_KEYRING_TIMEOUT", "0.1")
+
+    started = time.monotonic()
+    location = secret_core.ensure_key_file()
+
+    assert time.monotonic() - started < 0.8
+    assert location == str(tmp_path / ".uag" / secret_core.DEFAULT_KEY_FILENAME)
+    assert Path(location).exists()

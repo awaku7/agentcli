@@ -19,6 +19,11 @@ from .prompt_session import (
 from .state import _CLI_SHUTDOWN
 
 
+def _normalize_pasted_text(value: str) -> str:
+    """Normalize CRLF/CR delivered by terminals into prompt newlines."""
+    return value.replace("\r\n", "\n").replace("\r", "\n")
+
+
 def _make_prompt_key_bindings() -> Any:
     """Return prompt_toolkit bindings shared by normal and reply prompts."""
     try:
@@ -80,7 +85,8 @@ def _make_prompt_key_bindings() -> Any:
 
     @kb.add(Keys.BracketedPaste)
     def _safe_paste(event: Any) -> None:
-        event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
+        data = _normalize_pasted_text(event.data)
+        event.current_buffer.insert_text(tools_util.strip_surrogates(data))
 
     pending_high = ""
 
@@ -163,7 +169,8 @@ def _prompt_toolkit_input(
 
         @kb.add(Keys.BracketedPaste)
         def _safe_paste(event: Any) -> None:
-            event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
+            data = _normalize_pasted_text(event.data)
+            event.current_buffer.insert_text(tools_util.strip_surrogates(data))
 
         pending_high = ""
 

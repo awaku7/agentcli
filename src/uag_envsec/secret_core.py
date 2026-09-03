@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 import os
 import sys
+import threading
 from pathlib import Path
 from typing import Final
 
@@ -20,6 +21,8 @@ DEFAULT_KEY_FILENAME: Final[str] = "uag_envsec_key"
 DEFAULT_SEC_SUFFIX: Final[str] = ".sec"
 KEYRING_SERVICE: Final[str] = "uag-envsec"
 KEYRING_USERNAME: Final[str] = "master-key"
+KEYRING_TIMEOUT_SECONDS: Final[float] = 3.0
+_KEYRING_TIMED_OUT = False
 
 
 def _ensure_cryptography() -> None:
@@ -56,8 +59,57 @@ def _keyring_module():
     return keyring
 
 
+def _keyring_timeout() -> float:
+    """Return the maximum time allowed for one blocking keyring operation."""
+    raw = os.getenv("UAGENT_KEYRING_TIMEOUT", "")
+    try:
+        value = float(raw) if raw.strip() else KEYRING_TIMEOUT_SECONDS
+    except ValueError:
+        value = KEYRING_TIMEOUT_SECONDS
+    return min(max(value, 0.1), 30.0)
+
+
+def _call_keyring(method, *args):
+    """Call a keyring method without allowing Secret Service to block startup.
+
+    ``secretstorage`` may wait for a D-Bus prompt forever when no desktop
+    secret-service agent is running (a common situation over SSH or on a
+    headless Raspberry Pi). The keyring API is synchronous, so run the call
+    in a daemon thread and abandon it after a short, configurable timeout.
+    """
+    global _KEYRING_TIMED_OUT
+    if _KEYRING_TIMED_OUT:
+        raise TimeoutError("OS keyring is unavailable after a previous timeout")
+    result: dict[str, object] = {}
+    completed = threading.Event()
+
+    def invoke() -> None:
+        try:
+            result["value"] = method(*args)
+        except BaseException as exc:
+            result["error"] = exc
+        finally:
+            completed.set()
+
+    worker = threading.Thread(target=invoke, name="uag-keyring", daemon=True)
+    worker.start()
+    if not completed.wait(_keyring_timeout()):
+        _KEYRING_TIMED_OUT = True
+        raise TimeoutError(
+            "OS keyring operation timed out; using the file backend instead"
+        )
+    error = result.get("error")
+    if error is not None:
+        raise error  # type: ignore[misc]
+    return result.get("value")
+
+
 def _key_backend() -> str:
-    backend = os.getenv("UAGENT_ENVSEC_KEY_BACKEND", "auto") or "auto"
+    # Secret Service commonly requires a desktop D-Bus agent, which is not
+    # normally available on headless Linux/SSH/Raspberry Pi installations.
+    # Keep keyring opt-in there for now; other platforms retain auto-detect.
+    default_backend = "file" if sys.platform.startswith("linux") else "auto"
+    backend = os.getenv("UAGENT_ENVSEC_KEY_BACKEND", default_backend) or default_backend
     backend = backend.strip().lower()
     if backend not in {"auto", "file", "keyring", "os"}:
         raise ValueError(
@@ -81,7 +133,7 @@ def _load_keyring_key() -> bytes | None:
     if keyring is None:
         return None
     try:
-        raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+        raw = _call_keyring(keyring.get_password, KEYRING_SERVICE, KEYRING_USERNAME)
     except Exception:
         return None
     return _decode_key(raw) if raw else None
@@ -93,7 +145,10 @@ def _save_keyring_key(key: bytes) -> str:
         raise RuntimeError(
             "python-keyring is not installed; install it or use file backend"
         )
-    keyring.set_password(
+    if _KEYRING_TIMED_OUT:
+        raise TimeoutError("OS keyring is unavailable after a previous timeout")
+    _call_keyring(
+        keyring.set_password,
         KEYRING_SERVICE,
         KEYRING_USERNAME,
         base64.b64encode(key).decode("ascii"),
@@ -109,7 +164,7 @@ def _migrate_file_key_to_keyring(path: Path) -> bool:
         key = path.read_bytes()
         if len(key) != MASTER_KEY_BYTES:
             return False
-        raw = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+        raw = _call_keyring(keyring.get_password, KEYRING_SERVICE, KEYRING_USERNAME)
         if raw:
             try:
                 if _decode_key(raw) == key:
@@ -120,12 +175,13 @@ def _migrate_file_key_to_keyring(path: Path) -> bool:
                 pass
         # The file key is the key that protects the existing .env.sec data.
         # Make it authoritative during migration, then remove the duplicate.
-        keyring.set_password(
+        _call_keyring(
+            keyring.set_password,
             KEYRING_SERVICE,
             KEYRING_USERNAME,
             base64.b64encode(key).decode("ascii"),
         )
-        stored = keyring.get_password(KEYRING_SERVICE, KEYRING_USERNAME)
+        stored = _call_keyring(keyring.get_password, KEYRING_SERVICE, KEYRING_USERNAME)
         if _decode_key(stored or "") != key:
             return False
         path.unlink()
