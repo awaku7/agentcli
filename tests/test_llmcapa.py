@@ -52,7 +52,7 @@ class TestLlmcapaModelSpecs:
         ("gpt-4.1", "openai", 1000000, 16384, True, True),
         ("gpt-4.1-mini", "openai", 1000000, 16384, True, True),
         ("o1", "openai", 100000, 100000, True, True),
-        ("openai/o3-mini", "openai", 100000, 100000, False, True),
+        ("o3-mini", "openai", 100000, 100000, False, True),
         ("claude-sonnet-4", "anthropic", 200000, 32000, True, True),
         ("claude-haiku-4-5", "anthropic", 200000, 64000, True, True),
         ("gemini-2.0-flash", "google", 1000000, 8192, True, True),
@@ -64,8 +64,8 @@ class TestLlmcapaModelSpecs:
         ("Llama-4-Scout-17B-16E", "meta", 1000000, 4096, True, None),
         ("Mistral-Large-3", "mistral", 128000, 4096, True, True),
         ("Ministral-3B", "mistral", 131072, 4096, False, True),
-        ("amazon/nova-2-lite-v1", "amazon", 1000000, 65535, True, True),
-        ("amazon/nova-pro-v1", "amazon", 300000, 5120, True, True),
+        ("nova-2-lite-v1", "amazon", 1000000, 65535, True, True),
+        ("nova-pro-v1", "amazon", 300000, 5120, True, True),
         ("cohere-command-a", "cohere", 131072, 4096, False, False),
     ]
 

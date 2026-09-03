@@ -27,6 +27,22 @@ def as_str(x: Any) -> str:
     return str(x)
 
 
+def _emit_compaction_notice(core: Any = None) -> None:
+    """Print compaction notices through the stream-aware console writer."""
+    message = (
+        chr(10)
+        + "[Responses API] "
+        + _("Server-side compaction triggered (context compressed).")
+        + chr(10)
+    )
+    target = core or sys.modules.get("uagent.core")
+    stream_writer = getattr(target, "print_stream_delta", None)
+    if callable(stream_writer):
+        stream_writer(message)
+    else:
+        print(message, end="", flush=True)
+
+
 _OPENROUTER_INVOKE_RE = re.compile(
     r"<invoke\b(?P<attrs>[^>]*)>(?P<body>.*?)</invoke>", re.I | re.S
 )
@@ -823,10 +839,7 @@ def parse_responses_response(
                     emit_web_search_event(core, "update", **info)
 
             elif item_type == "compaction":
-                print(
-                    "[Responses API] "
-                    + _("Server-side compaction triggered (context compressed).")
-                )
+                _emit_compaction_notice(core)
 
     if not tool_calls_list:
         assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
@@ -1049,10 +1062,7 @@ def parse_responses_stream(
             iid_candidate = getattr(ev, "item_id", None)
 
             if ev_type == "response.compaction.done":
-                print(
-                    "[Responses API] "
-                    + _("Server-side compaction triggered (context compressed).")
-                )
+                _emit_compaction_notice(core)
 
             if ev_type in ("response.output_item.added", "response.output_item.delta"):
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
@@ -1135,10 +1145,7 @@ def parse_responses_stream(
                         output_items.append(item_dict)
                         _seen_output_item_keys.add(_item_key)
                 if item is not None and getattr(item, "type", None) == "compaction":
-                    print(
-                        "[Responses API] "
-                        + _("Server-side compaction triggered (context compressed).")
-                    )
+                    _emit_compaction_notice(core)
                 if (
                     item is not None
                     and "web_search_call" in as_str(getattr(item, "type", "")).lower()

@@ -2,10 +2,24 @@
 
 ## [Unreleased]
 
+## [0.6.20] - 2026-09-03
+
+### Added
+
+- Add Meta image workflows using the Responses API, including Unicode-safe image handling.
+- Add tool-context storage for sharing non-payload state across related tool calls.
+
 ### Changed
 
 - Centralize runtime and development dependency definitions in `pyproject.toml` extras and simplify `requirements.txt`.
-- Update the `llmcapa` minimum version requirement to `>=0.5.14`.
+- Update the `llmcapa` minimum version requirement to `>=0.5.15`.
+- Use the file-backed secret and credential stores by default on Linux.
+- Normalize CRLF/CR line endings in pasted CLI text.
+
+### Fixed
+
+- Prevent OS keyring and Secret Service calls from blocking startup indefinitely.
+- Keep Responses API compaction notices synchronized with streaming console output.
 
 ## [0.6.18] - 2026-09-01
 
