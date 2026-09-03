@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import Enum
@@ -261,8 +262,14 @@ def get_default_credential_store() -> CredentialStore:
     """Return the process-wide encrypted store shared by local adapters."""
     global _DEFAULT_CREDENTIAL_STORE
     if _DEFAULT_CREDENTIAL_STORE is None:
+        # Secret Service usually needs an interactive desktop D-Bus agent,
+        # which is not normally available on headless Linux/Raspberry Pi.
+        # Keep the OS keyring opt-in on Linux; other platforms retain the
+        # automatic keyring detection behavior.
+        default_backend = "file" if sys.platform.startswith("linux") else "auto"
         backend = (
-            os.getenv("UAGENT_CREDENTIAL_STORE_BACKEND", "auto") or "auto"
+            os.getenv("UAGENT_CREDENTIAL_STORE_BACKEND", default_backend)
+            or default_backend
         ).lower()
         if backend in {"auto", "os", "keyring"}:
             try:
