@@ -56,6 +56,7 @@ from .llm_round_helpers import (
 )
 from .llm_grok_round import _call_grok_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
+from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
     _append_assistant_message,
     _emit_final_answer_if_any,
@@ -1521,7 +1522,7 @@ def _run_one_round(
         ],
     )
 
-    if provider != "meta" and any(
+    if not supports_generate_image_continuation(provider) and any(
         isinstance(tc, dict)
         and (tc.get("function") or {}).get("name") == "generate_image"
         for tc in tool_calls_list

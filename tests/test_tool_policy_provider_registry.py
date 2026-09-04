@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from uagent.providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
+from uagent.providers.provider_caps import (
+    DEFAULT_PROVIDER_REGISTRY,
+    supports_generate_image_continuation,
+)
 from uagent.tools.tool_policy import (
     SideEffect,
     default_confirmation_callback,
@@ -25,6 +28,12 @@ def test_provider_registry_distinguishes_unknown_capability() -> None:
     assert "unknown" not in openai.capabilities
     assert unknown.capabilities == frozenset({"unknown"})
     assert not unknown.supports_tools
+
+
+def test_generate_image_continuation_is_provider_capability() -> None:
+    assert supports_generate_image_continuation("meta")
+    assert not supports_generate_image_continuation("openai")
+    assert not supports_generate_image_continuation("future-provider")
 
 
 def test_provider_registry_classifies_auth_requirements() -> None:

@@ -63,6 +63,16 @@ def supports_responses_output_item_replay(provider: str) -> bool:
     return (provider or "").strip().lower() != "meta"
 
 
+# Meta keeps the Responses session alive after image generation so that a
+# follow-up turn can be sent. Other providers finish the round after the tool.
+_GENERATE_IMAGE_CONTINUATION_PROVIDERS: frozenset[str] = frozenset({"meta"})
+
+
+def supports_generate_image_continuation(provider: str) -> bool:
+    """Return whether image generation may be followed by another LLM turn."""
+    return (provider or "").strip().lower() in _GENERATE_IMAGE_CONTINUATION_PROVIDERS
+
+
 # Provider-specific sampling overrides are metadata, not orchestration logic.
 # Keep the environment-variable mapping here so the round runner does not
 # need a provider-name if/elif chain.
