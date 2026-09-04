@@ -1,0 +1,38 @@
+classDiagram
+    direction TB
+    class Project {
+    }
+    class SourceFile {
+        +Text language
+        +Text relative_path
+    }
+    class Function {
+    }
+    class Class {
+    }
+    class Interface {
+    }
+    class Struct {
+    }
+    class Enum {
+    }
+    class Symbol {
+        +Integer line
+        +Integer end_line
+        +Text name
+    }
+    class ImportRelation {
+        +Text module
+        +Integer source_line
+    }
+    class CallRelation {
+    }
+    class InheritanceRelation {
+    }
+    class ScanStats {
+    }
+    Symbol --> SourceFile : file
+    CallRelation --> Function : calls
+    InheritanceRelation --> Class : inherits
+    SourceFile --> Symbol : defines
+    SourceFile --> SourceFile : imports
