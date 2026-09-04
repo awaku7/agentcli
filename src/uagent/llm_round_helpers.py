@@ -136,7 +136,6 @@ from .providers.llm_deepseek_responses import (
     apply_deepseek_responses_compat,
     normalize_deepseek_responses_effort,
 )
-from .providers.llm_meta_responses import apply_meta_responses_compat
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
@@ -839,14 +838,6 @@ def _call_openai_azure_round(
                     from .providers.llm_lmstudio import apply_lmstudio_transport
 
                     apply_lmstudio_transport(resp_kwargs, responses=True)
-
-                # Apply provider compatibility after all request options have
-                # been assembled, immediately before the API call.
-                apply_meta_responses_compat(
-                    resp_kwargs,
-                    provider=provider,
-                    depname=depname,
-                )
 
                 if stream_responses:
                     _stream_result = call_maybe_thread_fn(
