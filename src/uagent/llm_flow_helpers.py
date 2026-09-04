@@ -11,6 +11,7 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
 from .reasoning_display import show_reasoning
+from .runtime.history import truncate_history_tool_result
 
 
 @lru_cache(maxsize=None)
@@ -649,7 +650,7 @@ def _execute_tool_calls(
                     )
                 fresh_tool_calls.append(tc)
             if getattr(core, "show_tool_output", False):
-                _display = (
+                _display = truncate_history_tool_result(
                     tool_result
                     if isinstance(tool_result, str)
                     else json.dumps(tool_result, ensure_ascii=False)
@@ -746,6 +747,11 @@ def _execute_tool_calls(
                     tool_msg["saved_files"] = parsed_tool_result.get("saved_files")
                 if parsed_tool_result.get("saved_path"):
                     tool_msg["saved_path"] = parsed_tool_result.get("saved_path")
+
+        # Keep the full tool result out of the conversation and session
+        # history when it exceeds the configured context budget. Attachments
+        # and saved paths have already been extracted above.
+        tool_msg["content"] = truncate_history_tool_result(tool_msg["content"])
 
         auto_user_msg = _build_auto_user_message_from_next_action(
             parsed_tool_result=(

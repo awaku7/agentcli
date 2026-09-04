@@ -17,12 +17,12 @@ from .responses_common import (
     as_str,
     attachment_to_content_item,
     normalize_content_items,
-    truncate_history_tool_result,
 )
 from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
     openai_web_search_tool_for_provider,
 )
+from ..runtime.history import truncate_history_tool_result
 from .provider_caps import supports_responses_output_item_replay
 
 # Module-level constants (reused across calls, avoids re-allocation).

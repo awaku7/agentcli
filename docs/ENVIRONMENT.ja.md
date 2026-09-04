@@ -350,7 +350,8 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時にエンドポイントとモデル情報を出力します。
 - `UAGENT_PARALLEL_WORKERS`: 並列ツール実行のスレッド数（既定: `8`）。I/O バウンドなタスクが多い場合は増やしてください。
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
-- `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Responses APIで履歴を再送する際、各tool結果を保持する最大文字数（既定: `12000`）。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
+- `UAGENT_TOOL_RESULT_MAX_CHARS`: LLMへ渡す各tool結果の最大文字数（既定: `12000`）。通常会話中およびResponses APIで履歴を再送する際に適用されます。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
+- `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: 旧設定名。`UAGENT_TOOL_RESULT_MAX_CHARS` が未設定の場合のみ使用されます。
 
 #### LLM パラメータ（OpenAI 互換）
 

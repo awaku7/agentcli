@@ -330,7 +330,8 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_AUTO_SENTINEL`: Set to `1` to use single-LLM auto-pilot sentinel mode. `<AUTO_CONTINUE>` continues and `<AUTO_COMPLETE>` finishes; capitalization, surrounding whitespace, and optional angle brackets are accepted. A missing or malformed marker still stops safely.
 - `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum number of consecutive fresh tool calls across all tool names and arguments (default: `100`).
 - `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `200`). Set higher only for workflows that require it.
-- `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Maximum characters retained for each tool result when replaying history to the Responses API (default: `12000`). Oversized results keep their beginning and end. Set to `0` to disable truncation.
+- `UAGENT_TOOL_RESULT_MAX_CHARS`: Maximum characters retained for each tool result passed to an LLM (default: `12000`). Applies during normal conversations and when replaying history to the Responses API. Oversized results keep their beginning and end. Set to `0` to disable truncation.
+- `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Legacy setting name. Used only when `UAGENT_TOOL_RESULT_MAX_CHARS` is not set.
 
 #### LLM Parameters (OpenAI-compatible)
 

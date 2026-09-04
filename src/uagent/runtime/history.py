@@ -7,6 +7,44 @@ import json
 import os
 from typing import Any, Callable
 
+from ..env_utils import env_get
+
+
+_DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS = 12_000
+
+
+def truncate_history_tool_result(text: Any) -> str:
+    """Limit a tool result before it is retained in an LLM conversation.
+
+    ``UAGENT_TOOL_RESULT_MAX_CHARS=0`` disables this limit. The legacy
+    ``UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`` name is accepted as a fallback.
+    Invalid or negative values use the safe default. Both the beginning and
+    end are kept
+    because command output often contains a summary at the end.
+    """
+    value = "" if text is None else str(text)
+    raw_limit = env_get("UAGENT_TOOL_RESULT_MAX_CHARS")
+    if raw_limit is None or str(raw_limit).strip() == "":
+        raw_limit = env_get("UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS")
+    if raw_limit is None or str(raw_limit).strip() == "":
+        limit = _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS
+    else:
+        try:
+            limit = int(str(raw_limit).strip())
+        except (TypeError, ValueError):
+            limit = _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS
+    if limit == 0 or len(value) <= limit:
+        return value
+    if limit < 0:
+        limit = _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS
+    marker = f"\n[tool output truncated: original length={len(value)}]\n"
+    if limit <= len(marker):
+        return marker[:limit]
+    remaining = limit - len(marker)
+    head_len = (remaining + 1) // 2
+    tail_len = remaining - head_len
+    return value[:head_len] + marker + (value[-tail_len:] if tail_len else "")
+
 
 def rewrite_jsonl_log(
     log_path: str,
