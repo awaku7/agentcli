@@ -117,6 +117,31 @@ ______________________________________________________________________
 ツール側で `x_scheck.emit_tool_trace=false` を指定すると抑制できます。
 `human_ask` は、ユーザー入力の生値がログに出ないよう抑制しています。
 
+### 3.5.1 大きな Tool Result の Artifact 化
+
+`UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`（既定: `100000`）を超える
+テキスト形式の Tool Result は `<state-dir>/artifacts/`（通常は
+`~/.uag/artifacts/`）以下へ保存されます。
+LLM には全体ではなく、サイズを制限したプレビューと
+`artifact://...` 形式の参照だけを渡します。
+
+保存時には、利用可能であれば現在の SessionStore を使用し、一般的な
+認証情報らしき値をマスクします。詳細が必要な場合は、読み取り専用の
+`artifact_read` ツールで Artifact ID または参照を指定し、必要な行範囲
+だけを取得します。現在のセッションに属さない Artifact は取得できません。
+
+この処理はプロバイダ変換より前に行うため、Meta など特定プロバイダ専用の
+メタデータを Tool Message に追加せず、全プロバイダで共通に利用できます。
+
+SessionStore と Artifact の SQLite 接続は WAL モード、
+`synchronous=NORMAL`、busy timeout を使用します。該当する接続では外部キー
+も有効にし、Artifact 書き込みは一時ファイルへのコピー後にアトミック rename
+します。共有 SessionStore 接続は直列化され、メッセージ置換と JSONL import は
+単一トランザクションで実行します。セッション単位のメッセージ、Tool Call、
+Policy Decision、Artifact の検索用インデックスも初期化時に作成します。
+セッションを削除すると、新形式のグローバル Artifact のレコードとディレクトリも
+削除します。旧形式の workdir 内 Artifact は意図的に変更しません。
+
 ### 3.6 ツールレベルとツールジャンル
 
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。

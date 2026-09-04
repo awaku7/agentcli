@@ -11,6 +11,12 @@ TOOLS_DIR = REPO_ROOT / "src" / "uagent" / "tools"
 TEST_TMP_ROOT = REPO_ROOT / "tests" / "_tmp"
 
 
+@pytest.fixture(autouse=True)
+def isolate_uagent_state(monkeypatch, tmp_path):
+    """Keep tests from writing artifacts and databases into the real user state."""
+    monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / ".uag-state"))
+
+
 def iter_tool_module_paths() -> Iterable[Path]:
     # Only python files directly under tools/ (not subpackages)
     for p in sorted(TOOLS_DIR.glob("*.py")):

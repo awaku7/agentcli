@@ -42,8 +42,13 @@ def test_converts_docx(repo_tmp_path: Path) -> None:
     assert "| A | B |" in result["markdown"]
 
 
-def test_converts_xlsx(repo_tmp_path: Path) -> None:
+def test_converts_xlsx(repo_tmp_path: Path, monkeypatch) -> None:
     pytest.importorskip("exstruct")
+    # exstruct's standard mode tries Excel COM on Windows. This test only
+    # needs the openpyxl-backed conversion and must not start Excel, because
+    # an unavailable/busy Excel instance can emit an RPC fatal-exception dump
+    # even though the conversion falls back successfully.
+    monkeypatch.setenv("SKIP_COM_TESTS", "1")
     pytest.importorskip("openpyxl")
     from openpyxl import Workbook
 

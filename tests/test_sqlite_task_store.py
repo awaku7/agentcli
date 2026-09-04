@@ -57,7 +57,25 @@ def test_sqlite_task_store_update_does_not_overwrite_status(tmp_path) -> None:
     store.create(TaskRecord(id="update"))
 
     assert store.update("update", status=TaskStatus.SUCCEEDED.value) is None
+    updated = store.update("update", error={"code": "E1"})
+    assert updated is not None
+    assert updated.error == {"code": "E1"}
     assert store.get("update").status == TaskStatus.IN_PROGRESS.value
+
+
+def test_sqlite_task_store_uses_wal_and_query_indexes(tmp_path) -> None:
+    store = SQLiteTaskStore(tmp_path / "tasks.sqlite3")
+    with store._connect() as conn:
+        assert conn.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
+        assert conn.execute("PRAGMA synchronous").fetchone()[0] == 1
+        assert conn.execute("PRAGMA busy_timeout").fetchone()[0] == 10000
+        indexes = {
+            row["name"]
+            for row in conn.execute(
+                "SELECT name FROM sqlite_master WHERE type = 'index'"
+            )
+        }
+    assert {"idx_tasks_created_id", "idx_tasks_status_updated"} <= indexes
 
 
 def test_sqlite_task_store_recovers_incomplete_tasks_after_restart(tmp_path) -> None:

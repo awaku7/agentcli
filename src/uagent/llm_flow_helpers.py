@@ -11,7 +11,10 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
 from .reasoning_display import show_reasoning
-from .runtime.history import truncate_history_tool_result
+from .runtime.history import (
+    materialize_large_tool_result,
+    truncate_history_tool_result,
+)
 
 
 @lru_cache(maxsize=None)
@@ -751,7 +754,9 @@ def _execute_tool_calls(
         # Keep the full tool result out of the conversation and session
         # history when it exceeds the configured context budget. Attachments
         # and saved paths have already been extracted above.
-        tool_msg["content"] = truncate_history_tool_result(tool_msg["content"])
+        tool_msg["content"] = materialize_large_tool_result(
+            tool_msg["content"], tool_name=name
+        )
 
         auto_user_msg = _build_auto_user_message_from_next_action(
             parsed_tool_result=(

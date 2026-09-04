@@ -30,10 +30,7 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
-from .providers.provider_caps import (
-    supports_responses_output_item_replay,
-    temperature_env_name,
-)
+from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 
 

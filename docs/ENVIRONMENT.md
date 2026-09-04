@@ -4,7 +4,7 @@
 
 ## Session Store and unified policy
 
-The Session Store is enabled by default and stores structured SQLite history for session search, tool auditing, and summaries. New JSONL persistence is disabled by default.
+The Session Store is enabled by default and stores structured SQLite history for session search, tool auditing, and summaries. New JSONL persistence is disabled by default. Artifact payloads are stored under `<state-dir>/artifacts/` (normally `~/.uag/artifacts/`) so they remain addressable when a stored session is opened from another workdir.
 
 ```text
 UAGENT_SESSION_STORE=1
@@ -332,6 +332,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `200`). Set higher only for workflows that require it.
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: Maximum characters retained for each tool result passed to an LLM (default: `12000`). Applies during normal conversations and when replaying history to the Responses API. Oversized results keep their beginning and end. Set to `0` to disable truncation.
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Legacy setting name. Used only when `UAGENT_TOOL_RESULT_MAX_CHARS` is not set.
+- `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: Promote a textual tool result larger than this many characters to a workdir-local artifact and pass only a preview plus reference to the LLM (default: `100000`). Set to `0` to disable artifact promotion; the normal result-size limit still applies.
 
 #### LLM Parameters (OpenAI-compatible)
 

@@ -108,6 +108,58 @@ def test_create_session_has_unique_id_and_can_be_reopened(tmp_path):
     assert reopened.get_session(first.session_id)["entry_point"] == "cli"
 
 
+def test_sqlite_runtime_pragmas_and_indexes_are_configured(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+
+    assert store._connection.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
+    assert store._connection.execute("PRAGMA synchronous").fetchone()[0] == 1
+    assert store._connection.execute("PRAGMA busy_timeout").fetchone()[0] == 5000
+    assert store._connection.execute("PRAGMA foreign_keys").fetchone()[0] == 1
+    indexes = {
+        row["name"]
+        for row in store._connection.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'index'"
+        )
+    }
+    assert {
+        "idx_messages_session_role_id",
+        "idx_tool_calls_session_created",
+        "idx_policy_decisions_session_id",
+    } <= indexes
+
+
+def test_replace_messages_is_atomic_on_mid_batch_failure(tmp_path, monkeypatch):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    store.append_message(session.session_id, "user", "original")
+
+    original = store._append_message_unlocked
+    calls = 0
+
+    def fail_on_second(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise RuntimeError("injected replace failure")
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(store, "_append_message_unlocked", fail_on_second)
+    with pytest.raises(RuntimeError, match="injected replace failure"):
+        store.replace_messages(
+            session.session_id,
+            [
+                {"role": "user", "content": "new-one"},
+                {"role": "assistant", "content": "new-two"},
+            ],
+        )
+
+    assert store.list_messages(session.session_id) == [
+        {"role": "user", "content": "original"}
+    ]
+    assert store.search("original")
+    assert store.search("new-one") == []
+
+
 def test_messages_are_returned_in_sequence(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")

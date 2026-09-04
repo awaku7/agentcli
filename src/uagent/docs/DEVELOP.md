@@ -163,6 +163,29 @@ A tool may suppress the trace using the extended flag:
 
 `human_ask` uses this to avoid logging the raw user reply.
 
+### 3.5.1 Large tool-result artifacts
+
+Textual tool results above `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`
+(default: `100000`) are stored below `<state-dir>/artifacts/` (normally
+`~/.uag/artifacts/`). The LLM receives a
+bounded preview and an `artifact://...` reference instead of the full result.
+Artifact storage uses the active session store when available and redacts
+common credential values before writing the text artifact.
+
+The read-only `artifact_read` tool accepts an artifact ID or reference and
+returns a bounded line range. It permits access only to the active session's
+artifacts. This keeps artifact retrieval provider-neutral and prevents a
+provider adapter from receiving an unknown metadata field.
+
+Session and artifact SQLite connections use WAL mode, `synchronous=NORMAL`,
+foreign-key enforcement where applicable, and a busy timeout. Artifact writes
+use a temporary payload followed by an atomic rename, and shared SessionStore
+access is serialized. Message replacement and JSONL import are single
+transactions; query indexes cover session-scoped messages, tool calls, policy
+decisions, and artifacts. Deleting a session removes its new global Artifact
+records and directories; legacy workdir-local Artifact paths are deliberately
+left untouched.
+
 ### 3.6 Tool levels and genres
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).

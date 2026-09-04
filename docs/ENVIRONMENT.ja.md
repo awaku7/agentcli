@@ -4,7 +4,7 @@
 
 ## Session Store / 統合Policy
 
-Session StoreはSQLiteベースのセッション履歴です。現在は既定で有効です。無効にする場合は `UAGENT_SESSION_STORE=0` を指定します。
+Session StoreはSQLiteベースのセッション履歴です。現在は既定で有効です。無効にする場合は `UAGENT_SESSION_STORE=0` を指定します。Artifact 本体は `<state-dir>/artifacts/`（通常は `~/.uag/artifacts/`）に保存されるため、別の workdir から保存済みセッションを開いても参照できます。
 
 ```env
 UAGENT_SESSION_STORE=1
@@ -352,6 +352,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: LLMへ渡す各tool結果の最大文字数（既定: `12000`）。通常会話中およびResponses APIで履歴を再送する際に適用されます。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: 旧設定名。`UAGENT_TOOL_RESULT_MAX_CHARS` が未設定の場合のみ使用されます。
+- `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: この文字数を超えるテキスト形式のtool結果をworkdirローカルのartifactへ保存し、LLMにはプレビューと参照だけを渡します（既定: `100000`）。`0` でartifact化を無効にできます。その場合も通常の結果サイズ上限は適用されます。
 
 #### LLM パラメータ（OpenAI 互換）
 

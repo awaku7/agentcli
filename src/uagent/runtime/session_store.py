@@ -8,6 +8,7 @@ import json
 import ntpath
 import os
 import re
+import shutil
 import sqlite3
 import threading
 import uuid
@@ -181,6 +182,31 @@ def _remove_empty_legacy_dir(legacy: Path) -> None:
         pass
 
 
+def _remove_global_artifact_dirs(stored_paths: list[str]) -> None:
+    """Best-effort cleanup for new global artifacts after session deletion.
+
+    Only the current global artifact layout (``<id>/<name>``) is eligible.
+    Legacy workdir-relative paths and absolute paths are intentionally left
+    untouched because this module cannot safely determine their owner root.
+    """
+    root = (get_state_dir() / "artifacts").expanduser().absolute().resolve()
+    for stored_path in stored_paths:
+        path = Path(str(stored_path))
+        if path.is_absolute() or len(path.parts) < 2:
+            continue
+        artifact_id = path.parts[0]
+        if re.fullmatch(r"[0-9a-f]{32}", artifact_id) is None:
+            continue
+        artifact_dir = (root / artifact_id).resolve()
+        try:
+            artifact_dir.relative_to(root)
+        except ValueError:
+            continue
+        if artifact_dir == root or not artifact_dir.is_dir():
+            continue
+        shutil.rmtree(artifact_dir, ignore_errors=True)
+
+
 class SessionStore:
     """Small repository for durable session data.
 
@@ -236,6 +262,18 @@ class SessionStore:
         return cls(store_path)
 
     def close(self) -> None:
+        # ToolCallbacks is process-wide, so a direct close (not only the
+        # entry-point detach path) must not leave a closed store available to
+        # later tool calls.
+        try:
+            from ..tools.context import get_callbacks
+
+            callbacks = get_callbacks()
+            if getattr(callbacks, "session_store", None) is self:
+                callbacks.session_store = None
+                callbacks.session_id = None
+        except Exception:
+            pass
         with self._db_lock:
             self._connection.close()
 
@@ -322,6 +360,12 @@ class SessionStore:
                     ON response_states(session_id, state_id);
                 CREATE INDEX IF NOT EXISTS idx_tool_context_states_session_id
                     ON tool_context_states(session_id, context_id);
+                CREATE INDEX IF NOT EXISTS idx_messages_session_role_id
+                    ON messages(session_id, role, message_id);
+                CREATE INDEX IF NOT EXISTS idx_tool_calls_session_created
+                    ON tool_calls(session_id, created_at);
+                CREATE INDEX IF NOT EXISTS idx_policy_decisions_session_id
+                    ON policy_decisions(session_id, decision_id);
                 """)
             columns = {
                 row["name"]
@@ -408,8 +452,7 @@ class SessionStore:
             (session_id,),
         )
 
-    @_db_locked
-    def append_message(
+    def _append_message_unlocked(
         self,
         session_id: str,
         role: str,
@@ -437,19 +480,33 @@ class SessionStore:
                 safe_payload = _safe_json_dumps(
                     {"role": role, "content": safe_content}, ensure_ascii=False
                 )
+        cursor = self._execute(
+            "INSERT INTO messages(session_id, role, content, payload_json) "
+            "VALUES (?, ?, ?, ?)",
+            (session_id, role, safe_content, safe_payload),
+        )
+        message_id = int(cursor.lastrowid)
+        self._execute(
+            "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
+            (safe_content, session_id, message_id),
+        )
+        return message_id
+
+    @_db_locked
+    def append_message(
+        self,
+        session_id: str,
+        role: str,
+        content: str,
+        *,
+        payload: dict[str, Any] | None = None,
+    ) -> int:
         # Keep the source row and FTS index in one transaction. Otherwise a
         # lock/error between the two INSERTs could leave search inconsistent.
         try:
             self._connection.execute("BEGIN")
-            cursor = self._execute(
-                "INSERT INTO messages(session_id, role, content, payload_json) "
-                "VALUES (?, ?, ?, ?)",
-                (session_id, role, safe_content, safe_payload),
-            )
-            message_id = int(cursor.lastrowid)
-            self._execute(
-                "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
-                (safe_content, session_id, message_id),
+            message_id = self._append_message_unlocked(
+                session_id, role, content, payload=payload
             )
             self._connection.execute("COMMIT")
             return message_id
@@ -492,6 +549,11 @@ class SessionStore:
             entry_point=entry_point,
         )
         try:
+            # Importing one message per autocommit transaction is extremely
+            # expensive for large JSONL logs and exposes a partially imported
+            # session to other readers. Keep the whole import atomic while the
+            # shared connection lock prevents same-process interference.
+            self._connection.execute("BEGIN")
             with source.open("r", encoding="utf-8", errors="replace") as handle:
                 for line in handle:
                     try:
@@ -504,19 +566,24 @@ class SessionStore:
                     if role not in {"user", "assistant", "tool"}:
                         continue
                     content = str(message.get("content") or "")
-                    self.append_message(
+                    self._append_message_unlocked(
                         session.session_id, str(role), content, payload=message
                     )
+            self._execute(
+                "INSERT INTO legacy_imports(source_path, session_id) VALUES (?, ?)",
+                (source_key, session.session_id),
+            )
+            self._connection.execute("COMMIT")
         except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
             try:
                 self.delete_session(session.session_id)
             except Exception:
                 pass
             raise
-        self._execute(
-            "INSERT INTO legacy_imports(source_path, session_id) VALUES (?, ?)",
-            (source_key, session.session_id),
-        )
         return session
 
     @_db_locked
@@ -564,8 +631,26 @@ class SessionStore:
     def delete_session(self, session_id: str) -> None:
         """Delete one session and all of its persisted data."""
         self._require_session(session_id)
+        artifact_paths: list[str] = []
         try:
             self._connection.execute("BEGIN")
+            has_artifacts = (
+                self._connection.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'artifacts'"
+                ).fetchone()
+                is not None
+            )
+            if has_artifacts:
+                artifact_paths = [
+                    str(row["stored_path"])
+                    for row in self._connection.execute(
+                        "SELECT stored_path FROM artifacts WHERE session_id = ?",
+                        (session_id,),
+                    ).fetchall()
+                ]
+                self._execute(
+                    "DELETE FROM artifacts WHERE session_id = ?", (session_id,)
+                )
             self._execute(
                 "DELETE FROM message_search WHERE session_id = ?", (session_id,)
             )
@@ -577,6 +662,7 @@ class SessionStore:
             except sqlite3.Error:
                 pass
             raise
+        _remove_global_artifact_dirs(artifact_paths)
 
     @_db_locked
     def vacuum(self) -> None:
@@ -596,16 +682,19 @@ class SessionStore:
                 "DELETE FROM message_search WHERE session_id = ?", (session_id,)
             )
             self._execute("DELETE FROM messages WHERE session_id = ?", (session_id,))
-            self._connection.execute("COMMIT")
             for message in messages:
                 if not isinstance(message, dict):
                     continue
                 role = str(message.get("role") or "")
                 if role not in {"system", "user", "assistant", "tool"}:
                     continue
-                self.append_message(
-                    session_id, role, str(message.get("content") or ""), payload=message
+                self._append_message_unlocked(
+                    session_id,
+                    role,
+                    str(message.get("content") or ""),
+                    payload=message,
                 )
+            self._connection.execute("COMMIT")
         except Exception:
             try:
                 self._connection.execute("ROLLBACK")
@@ -895,7 +984,11 @@ class SessionStore:
         if not query.strip():
             return []
         query_like = f"%{query}%"
-        parameters: list[Any] = [query, query_like, query_like, max(1, limit)]
+        # MATCH accepts a query language. Quote user input so punctuation
+        # (for example ``new-1``) cannot become an FTS operator or column
+        # reference and turn an ordinary search into an OperationalError.
+        fts_query = '"' + query.replace('"', '""') + '"'
+        parameters: list[Any] = [fts_query, query_like, query_like, max(1, limit)]
         project_clause = ""
         if project is not None:
             project_clause = " AND s.project = ?"
@@ -1003,6 +1096,18 @@ def detach_opt_in_session_store(core: Any) -> None:
         original = getattr(core, "_session_store_original_log_message", None)
         if original is not None:
             core.log_message = original
+        # Attach mutates the process-wide tool callback object. Clear only the
+        # state belonging to this store so a later entry point cannot retain a
+        # closed SQLite connection or stale session ID.
+        try:
+            from ..tools.context import get_callbacks
+
+            callbacks = get_callbacks()
+            if getattr(callbacks, "session_store", None) is store:
+                callbacks.session_store = None
+                callbacks.session_id = None
+        except Exception:
+            pass
         for name in (
             "session_store",
             "session_id",

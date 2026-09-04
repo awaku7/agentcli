@@ -204,10 +204,24 @@ class SQLiteTaskStore:
             columns = {row[1] for row in conn.execute("PRAGMA table_info(tasks)")}
             if "checkpoint" not in columns:
                 conn.execute("ALTER TABLE tasks ADD COLUMN checkpoint TEXT")
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_tasks_created_id "
+                "ON tasks(created_at, id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_tasks_status_updated "
+                "ON tasks(status, updated_at)"
+            )
 
     def _connect(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.path, timeout=10.0)
+        conn = sqlite3.connect(
+            self.path, timeout=10.0, isolation_level=None, check_same_thread=False
+        )
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON")
+        conn.execute("PRAGMA busy_timeout = 10000")
+        conn.execute("PRAGMA journal_mode = WAL")
+        conn.execute("PRAGMA synchronous = NORMAL")
         return conn
 
     @staticmethod
@@ -304,7 +318,13 @@ class SQLiteTaskStore:
             conn.execute(
                 f"UPDATE tasks SET {', '.join(assignments)} WHERE id = ?", values
             )
-            return self.get(task_id)
+            # Read from the same transaction connection. Calling self.get()
+            # here would open another connection before this context commits,
+            # so it could observe the old row under SQLite's snapshot rules.
+            updated = conn.execute(
+                "SELECT * FROM tasks WHERE id = ?", (task_id,)
+            ).fetchone()
+            return self._record(updated) if updated is not None else None
 
     def register_runtime(self, task_id: str, runtime: TaskRuntime) -> bool:
         with self._lock:

@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent.runtime.session_store import attach_opt_in_session_store
+from uagent.tools.context import get_callbacks
 
 
 def test_attach_opt_in_session_store_is_noop_when_disabled(monkeypatch, tmp_path):
@@ -35,6 +36,8 @@ def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_
     assert store.list_messages(session_id)[0]["content"] == "hello"
     assert store.get_session(session_id)["project"] == "agentcli"
     store.close()
+    assert get_callbacks().session_store is None
+    assert get_callbacks().session_id is None
 
 
 def test_sqlite_backend_can_disable_jsonl_callback(monkeypatch, tmp_path):
