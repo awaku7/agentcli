@@ -58,6 +58,15 @@ def normalize_openai_builtin_tool(t: dict[str, Any]) -> Optional[dict[str, Any]]
     return out
 
 
+def openai_web_search_tool_for_provider(
+    provider: str,
+) -> Optional[dict[str, Any]]:
+    """Build hosted web search only for providers that expose this tool."""
+    if (provider or "").strip().lower() not in {"openai", "azure"}:
+        return None
+    return openai_web_search_tool_from_env()
+
+
 def openai_web_search_tool_from_env() -> Optional[dict[str, Any]]:
     """Build an optional OpenAI hosted web_search tool from env settings.
 

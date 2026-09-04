@@ -20,7 +20,7 @@ from .responses_common import (
 )
 from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
-    openai_web_search_tool_from_env,
+    openai_web_search_tool_for_provider,
 )
 from .provider_caps import supports_responses_output_item_replay
 
@@ -404,11 +404,9 @@ def build_responses_request(
         raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
         flat_tools: list[dict[str, Any]] = []
 
-        env_web_search_tool = None
-        if provider in ("openai", "azure"):
-            env_web_search_tool = openai_web_search_tool_from_env()
-            if env_web_search_tool is not None:
-                flat_tools.append(env_web_search_tool)
+        env_web_search_tool = openai_web_search_tool_for_provider(provider)
+        if env_web_search_tool is not None:
+            flat_tools.append(env_web_search_tool)
 
         _excluded_local: set[str] = set()
         if env_web_search_tool is not None:
