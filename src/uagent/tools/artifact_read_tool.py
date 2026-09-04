@@ -123,18 +123,38 @@ def run_tool(args: dict[str, Any]) -> str:
         reference = reference[len("artifact://") :]
     if not _ARTIFACT_ID.fullmatch(reference):
         return _error(
-            "artifact_id must be a valid artifact ID or artifact:// reference"
+            _(
+                "error.invalid_artifact_id",
+                default="artifact_id must be a valid artifact ID or artifact:// reference",
+            )
         )
 
     start_line = _positive_int(args, "start_line", 1)
     max_lines = _positive_int(args, "max_lines", 100)
     max_chars = _positive_int(args, "max_chars", _DEFAULT_MAX_CHARS)
     if start_line is None or max_lines is None or max_chars is None:
-        return _error("start_line, max_lines, and max_chars must be positive integers")
+        return _error(
+            _(
+                "error.positive_integers",
+                default="start_line, max_lines, and max_chars must be positive integers",
+            )
+        )
     if max_lines > _MAX_LINES:
-        return _error(f"max_lines must be at most {_MAX_LINES}")
+        return _error(
+            _(
+                "error.max_lines",
+                default="max_lines must be at most {limit}",
+                limit=_MAX_LINES,
+            )
+        )
     if max_chars > _MAX_CHARS:
-        return _error(f"max_chars must be at most {_MAX_CHARS}")
+        return _error(
+            _(
+                "error.max_chars",
+                default="max_chars must be at most {limit}",
+                limit=_MAX_CHARS,
+            )
+        )
 
     callbacks = get_callbacks()
     workdir = (
@@ -149,7 +169,12 @@ def run_tool(args: dict[str, Any]) -> str:
         item = manager.get(reference)
         active_session_id = getattr(callbacks, "session_id", None)
         if item.session_id != active_session_id:
-            return _error("artifact does not belong to the active session")
+            return _error(
+                _(
+                    "error.not_active_session",
+                    default="artifact does not belong to the active session",
+                )
+            )
 
         path = manager.open(reference)
         lines: list[str] = []

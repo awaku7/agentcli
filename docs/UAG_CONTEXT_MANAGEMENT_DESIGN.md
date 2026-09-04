@@ -1299,3 +1299,175 @@ Runtimeでサイズ・種類・重要度を判定
 > **「Tool Resultを一発目からSummaryだけにする」のではなく、「一発目のResultをContext Managerが分類し、必要な場合だけSummary化する」**
 
 ことをUAGの標準動作とする。
+
+---
+
+# 32. 現在の実装状況と未実装項目
+
+本設計書と現在のコードとの差分を明示する。以下の「未実装」は、既存機能を
+否定するものではなく、本設計書の最終Architectureに対して未到達であることを
+示す。
+
+## 32.1 実装済みまたは基盤が存在する項目
+
+- Tool Resultの文字数による切り詰め
+- 巨大なTool ResultのArtifact化と`artifact://` Reference
+- Artifactのグローバル保存（通常は`~/.uag/artifacts/`）
+- `artifact_read`による行範囲・文字数を制限した再取得
+- SQLiteとJSONLの履歴保存前のinline binary除去
+- UI/リモート向けattachmentと履歴保存データの分離
+- SessionStoreのSQLite永続化、FTS5検索、WAL、busy timeout
+- ArtifactおよびSessionStoreの一部インデックスとトランザクション
+- 既存の履歴compact・auto-shrink
+- A2A TaskStoreのcheckpoint基盤
+- Provider Native Tool Searchおよび一部Provider capability判定
+
+## 32.2 部分実装
+
+### Tool Result処理
+
+現在は主に文字数で判定する。
+
+```text
+小さい       → 原文
+中程度       → 切り詰め
+巨大         → Artifact + Preview + Reference
+```
+
+設計書が要求するStructured / Large / Hugeの明示的な分類、種類・重要度・
+再利用性を考慮した判定は未統合である。
+
+### HistoryとLLM Contextの分離
+
+LLMへ送る本文のbounded化、バイナリ除去、SQLite/JSONL保存時のサニタイズは
+実装済みである。一方、Persistent Historyへ完全なRaw Resultを保持し、LLM Context
+だけをSummary/Referenceへ置き換える設計には未到達である。
+
+### Artifact化
+
+主要な画像・音声・PDF系ToolはArtifact登録を行う。しかし、全Tool Resultを
+共通Result Managerで処理しているわけではない。Tool固有のBase64、blob、
+`screenshot_data`などを、必ずArtifact Referenceへ変換する保証は未実装である。
+
+### Retrieval
+
+`artifact_read`とSQLite FTS5による手動取得は存在する。Queryに応じたRelevant
+Tool Resultの自動検索、必要部分だけのContextへの自動再注入は未実装である。
+
+### Provider統合
+
+OpenAI Tool Search、compaction、各Providerの変換処理は存在するが、Context
+Managerから一貫したPolicyで制御する統合層は未実装である。
+
+## 32.3 未実装項目
+
+### 1. ContextManager統合層
+
+以下を統合する`ContextManager`が存在しない。
+
+- `ContextManager`
+- `ContextPolicy`
+- `ContextBudget`
+- `ContextResultManager`
+- `ContextCompaction`
+- `ContextEviction`
+- `AgentState`
+
+現在は`llm_flow_helpers.py`、`runtime/history.py`、`SessionStore`、Provider
+adapterに処理が分散している。
+
+### 2. ToolResultRecord
+
+設計書の次の情報を一つのResult recordとして管理していない。
+
+- `result_id`
+- `session_id`
+- `task_id`
+- `tool_name`
+- `summary`
+- `artifact_ref`
+- `size_bytes`
+- `importance`
+- `created_at`
+- `evictable`
+
+現行Artifact metadataおよび`messages`/`tool_calls`は一部の情報を保持するが、
+Result単位の統一レコードではない。
+
+### 3. Summary生成パイプライン
+
+以下の段階的なSummary処理は未実装である。
+
+1. Tool固有の構造化Result
+2. Pythonによる軽量抽出
+3. truncation / extraction
+4. 小型モデル
+5. メインLLM
+
+現状の巨大Resultは、意味的Summaryではなく固定長Previewを使用する。
+
+### 4. 重要度・evictable判定
+
+Resultごとの重要度、保持期限、再取得可能性、evictable判定がない。
+
+### 5. Context Budgetの一元管理
+
+Provider/Model別の以下の予算配分と閾値を、Context全体で一元管理していない。
+
+- System
+- Tool Definitions
+- Agent State
+- Recent History
+- Tool Results
+- Reserved Budget
+- warning / compaction / emergency threshold
+
+### 6. Agent Stateの生成・更新・復旧
+
+Goal、current step、progressなどのStructured Agent State、checkpointからの
+再構築、Process Restart後のAgent Loop復旧は未統合である。
+
+### 7. Agent LoopへのResult Manager組み込み
+
+現在はTool実行後の一部処理を`llm_flow_helpers.py`が担う。設計書の次の明示的な
+境界は未実装である。
+
+```text
+Tool Execution
+    ↓
+Result Manager
+    ├── Direct
+    ├── Summary
+    ├── Artifact
+    └── Reference
+    ↓
+ContextManager
+    ↓
+LLM
+```
+
+### 8. 自動RetrievalとContext再注入
+
+Agentが必要な`result_id`や`artifact_ref`を判定し、Relevantな部分だけを自動的に
+Contextへ戻す仕組みは未実装である。
+
+### 9. 全バイナリ出力の共通Artifact化
+
+画像・音声・PDF・グラフ・QR・スクリーンショット・MCP blobを、Toolごとの実装に
+依存せず共通処理でArtifact化する仕組みは未実装である。
+
+### 10. Result単位の削除・保持ポリシー
+
+Session削除時の新形式Artifact cleanupは存在するが、Result単位の保持期限、
+参照カウント、孤児Result回収、Artifact quota管理は未実装である。
+
+## 32.4 次の実装優先順位
+
+1. `ContextResultManager`と`ToolResultRecord`を追加する
+2. UI / LLM / Persistent Historyの3系統のResult projectionを統一する
+3. 全バイナリ出力をArtifact Referenceへ変換する
+4. Structured Resultと軽量Summaryを追加する
+5. Context Budgetとeviction policyを追加する
+6. Relevant RetrievalとContext再注入を追加する
+7. Agent State、checkpoint、restart recoveryを統合する
+8. Provider Native機能をContextPolicyから制御する

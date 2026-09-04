@@ -1,0 +1,724 @@
+{
+  "en": {
+    "tool.description": "Read a bounded portion of a previously stored tool-result artifact.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "tool result artifact",
+      "artifact reference",
+      "read artifact"
+    ],
+    "param.artifact_id.description": "Artifact ID or artifact:// reference from an earlier tool result.",
+    "param.start_line.description": "1-based line number to start reading from.",
+    "param.max_lines.description": "Maximum number of lines to return.",
+    "param.max_chars.description": "Maximum number of UTF-8 characters to return.",
+    "error.invalid_artifact_id": "artifact_id must be a valid artifact ID or artifact:// reference",
+    "error.positive_integers": "start_line, max_lines, and max_chars must be positive integers",
+    "error.max_lines": "max_lines must be at most {limit}",
+    "error.max_chars": "max_chars must be at most {limit}",
+    "error.not_active_session": "artifact does not belong to the active session"
+  },
+  "ja": {
+    "tool.description": "以前保存した Tool Result Artifact の一部を、範囲を制限して読み取ります。",
+    "x_search_terms": [
+      "artifact_read",
+      "Artifact",
+      "Tool Result Artifact",
+      "Artifact参照",
+      "Artifactを読む"
+    ],
+    "param.artifact_id.description": "以前の Tool Result にある Artifact ID または artifact:// 参照。",
+    "param.start_line.description": "読み取り開始行（1始まり）。",
+    "param.max_lines.description": "返す最大行数。",
+    "param.max_chars.description": "返す UTF-8 文字数の上限。",
+    "error.invalid_artifact_id": "artifact ID または artifact:// 参照が正しくありません。",
+    "error.positive_integers": "start_line、max_lines、max_chars は正の整数で指定してください。",
+    "error.max_lines": "max_lines は {limit} 以下で指定してください。",
+    "error.max_chars": "max_chars は {limit} 以下で指定してください。",
+    "error.not_active_session": "現在のセッションに属する Artifact ではありません。"
+  },
+  "es": {
+    "tool.description": "Lee una parte delimitada de un artefacto de resultado de herramienta almacenado previamente.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefacto",
+      "artefacto de resultado de herramienta",
+      "referencia de artefacto",
+      "leer artefacto"
+    ],
+    "param.artifact_id.description": "ID del artefacto o referencia artifact:// de un resultado de herramienta anterior.",
+    "param.start_line.description": "Número de línea (a partir de 1) desde la que comenzar la lectura.",
+    "param.max_lines.description": "Número máximo de líneas que se van a devolver.",
+    "param.max_chars.description": "Número máximo de caracteres UTF-8 que se van a devolver.",
+    "error.invalid_artifact_id": "artifact_id debe ser un identificador de artefacto válido o una referencia artifact://",
+    "error.positive_integers": "start_line, max_lines y max_chars deben ser números enteros positivos",
+    "error.max_lines": "max_lines debe ser como máximo {limit}",
+    "error.max_chars": "max_chars debe ser como máximo {limit}",
+    "error.not_active_session": "El artefacto no pertenece a la sesión activa"
+  },
+  "fr": {
+    "tool.description": "Lire une partie délimitée d'un artefact de résultat d'outil précédemment enregistré.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefact",
+      "artefact de résultat d'outil",
+      "référence d'artefact",
+      "lire l'artefact"
+    ],
+    "param.artifact_id.description": "Identifiant de l'artefact ou référence « artifact:// » provenant d'un résultat d'outil antérieur.",
+    "param.start_line.description": "Numéro de ligne (à partir de 1) à partir duquel commencer la lecture.",
+    "param.max_lines.description": "Nombre maximal de lignes à renvoyer.",
+    "param.max_chars.description": "Nombre maximal de caractères UTF-8 à renvoyer.",
+    "error.invalid_artifact_id": "artifact_id doit être un identifiant d'artefact valide ou une référence artifact://",
+    "error.positive_integers": "start_line, max_lines et max_chars doivent être des entiers positifs",
+    "error.max_lines": "max_lines doit être au plus égal à {limit}",
+    "error.max_chars": "max_chars doit être au plus égal à {limit}",
+    "error.not_active_session": "L'artefact n'appartient pas à la session active"
+  },
+  "ko": {
+    "tool.description": "이전에 저장된 툴 결과 아티팩트의 지정된 부분을 읽습니다.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "툴 결과 아티팩트",
+      "아티팩트 참조",
+      "아티팩트 읽기"
+    ],
+    "param.artifact_id.description": "이전 툴 결과의 아티팩트 ID 또는 artifact:// 참조.",
+    "param.start_line.description": "읽기를 시작할 1을 기준으로 한 줄 번호.",
+    "param.max_lines.description": "반환할 최대 줄 수.",
+    "param.max_chars.description": "반환할 최대 UTF-8 문자 수.",
+    "error.invalid_artifact_id": "artifact_id는 유효한 아티팩트 ID 또는 artifact:// 참조여야 합니다.",
+    "error.positive_integers": "start_line, max_lines 및 max_chars는 양의 정수여야 합니다.",
+    "error.max_lines": "max_lines는 최대 {limit}이어야 합니다.",
+    "error.max_chars": "max_chars는 최대 {limit}이어야 합니다.",
+    "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다."
+  },
+  "de": {
+    "tool.description": "Liest einen begrenzten Ausschnitt eines zuvor gespeicherten Tool-Ergebnis-Artefakts.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "Tool-Ergebnis-Artefakt",
+      "Artefakt-Referenz",
+      "Artefakt lesen"
+    ],
+    "param.artifact_id.description": "Artefakt-ID oder „artifact://“-Referenz aus einem früheren Tool-Ergebnis.",
+    "param.start_line.description": "1-basierte Zeilennummer, ab der das Lesen beginnen soll.",
+    "param.max_lines.description": "Maximale Anzahl der zurückzugebenden Zeilen.",
+    "param.max_chars.description": "Maximale Anzahl von UTF-8 Zeichen, die zurückgegeben werden sollen.",
+    "error.invalid_artifact_id": "artifact_id muss eine gültige Artefakt-ID oder eine artifact://-Referenz sein",
+    "error.positive_integers": "start_line, max_lines und max_chars müssen positive Ganzzahlen sein",
+    "error.max_lines": "max_lines darf höchstens {limit} betragen",
+    "error.max_chars": "max_chars darf höchstens {limit} betragen",
+    "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung"
+  },
+  "it": {
+    "tool.description": "Legge una porzione delimitata di un artefatto relativo al risultato di uno strumento precedentemente memorizzato.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artefatto relativo al risultato di uno strumento",
+      "riferimento all'artefatto",
+      "leggere artefatto"
+    ],
+    "param.artifact_id.description": "ID dell'artefatto o riferimento artifact:// proveniente da un risultato di uno strumento precedente.",
+    "param.start_line.description": "Numero di riga (a partire da 1) da cui iniziare la lettura.",
+    "param.max_lines.description": "Numero massimo di righe da restituire.",
+    "param.max_chars.description": "Numero massimo di caratteri UTF-8 da restituire.",
+    "error.invalid_artifact_id": "artifact_id deve essere un ID artefatto valido o un riferimento artifact://",
+    "error.positive_integers": "start_line, max_lines e max_chars devono essere numeri interi positivi",
+    "error.max_lines": "max_lines deve essere al massimo {limit}",
+    "error.max_chars": "max_chars deve essere al massimo {limit}",
+    "error.not_active_session": "l'artefatto non appartiene alla sessione attiva"
+  },
+  "ru": {
+    "tool.description": "Чтение ограниченного фрагмента ранее сохраненного артефакта результатов работы инструмента.",
+    "x_search_terms": [
+      "artifact_read",
+      "артефакт",
+      "артефакт результатов работы инструмента",
+      "ссылка на артефакт",
+      "чтение артефакта"
+    ],
+    "param.artifact_id.description": "Идентификатор артефакта или ссылка artifact:// из предыдущего результата работы инструмента.",
+    "param.start_line.description": "Номер строки (начиная с 1), с которой следует начать чтение.",
+    "param.max_lines.description": "Максимальное количество строк для возврата.",
+    "param.max_chars.description": "Максимальное количество символов UTF-8 для возврата.",
+    "error.invalid_artifact_id": "artifact_id должен быть действительным идентификатором артефакта или ссылкой artifact://",
+    "error.positive_integers": "start_line, max_lines и max_chars должны быть положительными целыми числами",
+    "error.max_lines": "max_lines не должен превышать {limit}",
+    "error.max_chars": "max_chars не должен превышать {limit}",
+    "error.not_active_session": "артефакт не принадлежит активной сессии"
+  },
+  "pt_BR": {
+    "tool.description": "Ler uma parte delimitada de um artefato de resultado de ferramenta armazenado anteriormente.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefato",
+      "artefato de resultado de ferramenta",
+      "referência de artefato",
+      "ler artefato"
+    ],
+    "param.artifact_id.description": "ID do artefato ou referência artifact:// de um resultado de ferramenta anterior.",
+    "param.start_line.description": "Número da linha (a partir de 1) a partir da qual iniciar a leitura.",
+    "param.max_lines.description": "Número máximo de linhas a serem retornadas.",
+    "param.max_chars.description": "Número máximo de caracteres UTF-8 a serem retornados.",
+    "error.invalid_artifact_id": "artifact_id deve ser um ID de artefato válido ou uma referência artifact://",
+    "error.positive_integers": "start_line, max_lines e max_chars devem ser números inteiros positivos",
+    "error.max_lines": "max_lines deve ser no máximo {limit}",
+    "error.max_chars": "max_chars deve ser no máximo {limit}",
+    "error.not_active_session": "o artefato não pertence à sessão ativa"
+  },
+  "pt": {
+    "tool.description": "Ler uma parte delimitada de um artefacto de resultado de ferramenta previamente armazenado.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefacto",
+      "artefacto de resultado de ferramenta",
+      "referência de artefacto",
+      "ler artefacto"
+    ],
+    "param.artifact_id.description": "ID do artefacto ou referência artifact:// de um resultado de ferramenta anterior.",
+    "param.start_line.description": "Número de linha (a partir de 1) a partir do qual iniciar a leitura.",
+    "param.max_lines.description": "Número máximo de linhas a devolver.",
+    "param.max_chars.description": "Número máximo de caracteres UTF-8 a devolver.",
+    "error.invalid_artifact_id": "artifact_id deve ser um ID de artefacto válido ou uma referência artifact://",
+    "error.positive_integers": "start_line, max_lines e max_chars devem ser números inteiros positivos",
+    "error.max_lines": "max_lines deve ser, no máximo, {limit}",
+    "error.max_chars": "max_chars deve ser, no máximo, {limit}",
+    "error.not_active_session": "O artefacto não pertence à sessão ativa"
+  },
+  "id": {
+    "tool.description": "Membaca bagian terbatas dari artefak hasil alat yang telah disimpan sebelumnya.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefak",
+      "artefak hasil alat",
+      "referensi artefak",
+      "membaca artefak"
+    ],
+    "param.artifact_id.description": "ID artefak atau referensi artifact:// dari hasil alat sebelumnya.",
+    "param.start_line.description": "Nomor baris berbasis 1 sebagai titik awal pembacaan.",
+    "param.max_lines.description": "Jumlah baris maksimum yang akan dikembalikan.",
+    "param.max_chars.description": "Jumlah karakter UTF-8 maksimum yang akan dikembalikan.",
+    "error.invalid_artifact_id": "artifact_id harus berupa ID artefak yang valid atau referensi artifact://",
+    "error.positive_integers": "start_line, max_lines, dan max_chars harus berupa bilangan bulat positif",
+    "error.max_lines": "max_lines harus paling banyak {limit}",
+    "error.max_chars": "max_chars harus paling banyak {limit}",
+    "error.not_active_session": "artefak tidak termasuk dalam sesi aktif"
+  },
+  "vi": {
+    "tool.description": "Đọc một phần có giới hạn của một đối tượng kết quả công cụ đã được lưu trữ trước đó.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "đối tượng kết quả công cụ",
+      "tham chiếu đối tượng",
+      "đọc đối tượng"
+    ],
+    "param.artifact_id.description": "ID đối tượng hoặc tham chiếu artifact:// từ một kết quả công cụ trước đó.",
+    "param.start_line.description": "Số dòng bắt đầu từ 1 để bắt đầu đọc.",
+    "param.max_lines.description": "Số dòng tối đa cần trả về.",
+    "param.max_chars.description": "Số ký tự UTF-8 tối đa cần trả về.",
+    "error.invalid_artifact_id": "artifact_id phải là ID tài liệu hợp lệ hoặc tham chiếu artifact://",
+    "error.positive_integers": "start_line, max_lines và max_chars phải là các số nguyên dương",
+    "error.max_lines": "max_lines phải nhỏ hơn hoặc bằng {limit}",
+    "error.max_chars": "max_chars phải nhỏ hơn hoặc bằng {limit}",
+    "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại"
+  },
+  "pl": {
+    "tool.description": "Odczytanie ograniczonego fragmentu wcześniej zapisanego artefaktu wyników działania narzędzia.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefakt",
+      "artefakt wyników działania narzędzia",
+      "odwołanie do artefaktu",
+      "odczyt artefaktu"
+    ],
+    "param.artifact_id.description": "Identyfikator artefaktu lub odwołanie typu „artifact://” z wcześniejszych wyników działania narzędzia.",
+    "param.start_line.description": "Numer linii (zaczynający się od 1), od której ma rozpocząć się odczyt.",
+    "param.max_lines.description": "Maksymalna liczba linii do zwrócenia.",
+    "param.max_chars.description": "Maksymalna liczba znaków UTF-8 do zwrócenia.",
+    "error.invalid_artifact_id": "artifact_id musi być prawidłowym identyfikatorem artefaktu lub odwołaniem typu artifact://",
+    "error.positive_integers": "start_line, max_lines i max_chars muszą być dodatnimi liczbami całkowitymi",
+    "error.max_lines": "max_lines musi wynosić co najwyżej {limit}",
+    "error.max_chars": "max_chars musi wynosić co najwyżej {limit}",
+    "error.not_active_session": "artefakt nie należy do aktywnej sesji"
+  },
+  "hi": {
+    "tool.description": "पहले से संग्रहीत टूल-परिणाम आर्टिफैक्ट का एक सीमित भाग पढ़ें।",
+    "x_search_terms": [
+      "artifact_read",
+      "आर्टिफैक्ट",
+      "टूल परिणाम आर्टिफैक्ट",
+      "आर्टिफैक्ट संदर्भ",
+      "आर्टिफैक्ट पढ़ें"
+    ],
+    "param.artifact_id.description": "आर्टिफैक्ट आईडी या किसी पिछले टूल परिणाम से artifact:// संदर्भ।",
+    "param.start_line.description": "पढ़ना शुरू करने के लिए 1-आधारित लाइन नंबर।",
+    "param.max_lines.description": "वापस करने के लिए लाइनों की अधिकतम संख्या।",
+    "param.max_chars.description": "वापस करने के लिए UTF-8 वर्णों की अधिकतम संख्या।",
+    "error.invalid_artifact_id": "artifact_id एक मान्य artifact ID या artifact:// संदर्भ होना चाहिए",
+    "error.positive_integers": "start_line, max_lines, और max_chars सकारात्मक पूर्णांक होने चाहिए",
+    "error.max_lines": "max_lines अधिकतम {limit} होना चाहिए",
+    "error.max_chars": "max_chars अधिकतम {limit} होना चाहिए",
+    "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है"
+  },
+  "ar": {
+    "tool.description": "قراءة جزء محدد من أثر نتيجة أداة تم تخزينه مسبقًا.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "أثر نتيجة أداة",
+      "مرجع الأثر",
+      "قراءة الأثر"
+    ],
+    "param.artifact_id.description": "معرّف الأثر أو مرجع artifact:// من نتيجة أداة سابقة.",
+    "param.start_line.description": "رقم السطر الذي تبدأ القراءة منه، مع اعتبار 1 نقطة البداية.",
+    "param.max_lines.description": "الحد الأقصى لعدد الأسطر المطلوب إرجاعها.",
+    "param.max_chars.description": "الحد الأقصى لعدد أحرف UTF-8 المطلوب إرجاعها.",
+    "error.invalid_artifact_id": "يجب أن يكون artifact_id معرّف ملف صالحًا أو مرجع artifact://",
+    "error.positive_integers": "يجب أن تكون start_line وmax_lines وmax_chars أعدادًا صحيحة موجبة",
+    "error.max_lines": "يجب ألا يتجاوز max_lines {limit}",
+    "error.max_chars": "يجب ألا يتجاوز max_chars {limit}",
+    "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة"
+  },
+  "sv": {
+    "tool.description": "Läs en avgränsad del av en tidigare lagrad artefakt med verktygsresultat.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artefakt med verktygsresultat",
+      "artefaktreferens",
+      "läs artefakt"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact://-referens från ett tidigare verktygsresultat.",
+    "param.start_line.description": "Radnummer (börjar på 1) där läsningen ska börja.",
+    "param.max_lines.description": "Maximalt antal rader som ska returneras.",
+    "param.max_chars.description": "Maximalt antal UTF-8 tecken som ska returneras.",
+    "error.invalid_artifact_id": "artifact_id måste vara ett giltigt artefakt-ID eller en artifact://-referens",
+    "error.positive_integers": "start_line, max_lines och max_chars måste vara positiva heltal",
+    "error.max_lines": "max_lines måste vara högst {limit}",
+    "error.max_chars": "max_chars måste vara högst {limit}",
+    "error.not_active_session": "artefakten tillhör inte den aktiva sessionen"
+  },
+  "sw": {
+    "tool.description": "Soma sehemu yenye ukomo ya artifact ya matokeo ya zana iliyohifadhiwa awali.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artifact ya matokeo ya zana",
+      "rejeleo la artifact",
+      "soma artifact"
+    ],
+    "param.artifact_id.description": "ID ya Artifact au rejeleo la artifact:// kutoka kwa matokeo ya zana ya awali.",
+    "param.start_line.description": "Nambari ya mstari kuanzia 1 kuanza kusoma.",
+    "param.max_lines.description": "Idadi kubwa zaidi ya mistari ya kurejesha.",
+    "param.max_chars.description": "Idadi kubwa zaidi ya herufi za UTF-8 za kurejesha.",
+    "error.invalid_artifact_id": "artifact_id lazima iwe ID halali ya artifact au rejeleo la artifact://",
+    "error.positive_integers": "start_line, max_lines, na max_chars lazima ziwe nambari chanya",
+    "error.max_lines": "max_lines lazima iwe {limit} au chini",
+    "error.max_chars": "max_chars lazima iwe {limit} au chini",
+    "error.not_active_session": "artifact haihusiani na kikao kinachoendelea"
+  },
+  "nb": {
+    "tool.description": "Leser en avgrenset del av et tidligere lagret verktøyresultat.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "verktøyresultat",
+      "artifact-referanse",
+      "les artifact"
+    ],
+    "param.artifact_id.description": "Artifact-ID eller artifact://-referanse fra et tidligere verktøyresultat.",
+    "param.start_line.description": "Linjenummer (1-basert) som lesingen skal starte fra.",
+    "param.max_lines.description": "Maksimalt antall linjer som skal returneres.",
+    "param.max_chars.description": "Maksimalt antall UTF-8 tegn som skal returneres.",
+    "error.invalid_artifact_id": "artifact_id må være en gyldig artefakt-ID eller artifact://-referanse",
+    "error.positive_integers": "start_line, max_lines og max_chars må være positive heltall",
+    "error.max_lines": "max_lines må være høyst {limit}",
+    "error.max_chars": "max_chars må være høyst {limit}",
+    "error.not_active_session": "artefaktet tilhører ikke den aktive økten"
+  },
+  "nl": {
+    "tool.description": "Lees een afgebakend gedeelte van een eerder opgeslagen toolresultaat-artefact.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefact",
+      "toolresultaat-artefact",
+      "artefactverwijzing",
+      "artefact lezen"
+    ],
+    "param.artifact_id.description": "Artefact-ID of artifact://-verwijzing uit een eerder toolresultaat.",
+    "param.start_line.description": "Lijnnummer (vanaf 1) waar het lezen moet beginnen.",
+    "param.max_lines.description": "Maximaal aantal terug te geven regels.",
+    "param.max_chars.description": "Maximaal aantal UTF-8 tekens dat moet worden teruggegeven.",
+    "error.invalid_artifact_id": "artifact_id moet een geldige artefact-ID of artifact://-referentie zijn",
+    "error.positive_integers": "start_line, max_lines en max_chars moeten positieve gehele getallen zijn",
+    "error.max_lines": "max_lines mag maximaal {limit} zijn",
+    "error.max_chars": "max_chars mag maximaal {limit} zijn",
+    "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
+  },
+  "fi": {
+    "tool.description": "Lue rajattu osa aiemmin tallennetusta työkalun tulosartefaktista.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefakti",
+      "työkalun tulosartefakti",
+      "artefaktiviite",
+      "lue artefakti"
+    ],
+    "param.artifact_id.description": "Artefaktin tunniste tai artifact://-viite aiemmasta työkalun tuloksesta.",
+    "param.start_line.description": "1:stä alkava rivinumero, josta lukeminen aloitetaan.",
+    "param.max_lines.description": "Palautettavien rivien enimmäismäärä.",
+    "param.max_chars.description": "Palautettavien UTF-8-merkkien enimmäismäärä.",
+    "error.invalid_artifact_id": "artifact_id:n on oltava kelvollinen artefaktin tunniste tai artifact://-viite",
+    "error.positive_integers": "start_line, max_lines ja max_chars:n on oltava positiivisia kokonaislukuja",
+    "error.max_lines": "max_lines:n on oltava enintään {limit}",
+    "error.max_chars": "max_chars:n on oltava enintään {limit}",
+    "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon"
+  },
+  "cs": {
+    "tool.description": "Načíst ohraničenou část dříve uloženého artefaktu s výsledky nástroje.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefakt",
+      "artefakt s výsledky nástroje",
+      "odkaz na artefakt",
+      "načíst artefakt"
+    ],
+    "param.artifact_id.description": "ID artefaktu nebo odkaz artifact:// z dřívějších výsledků nástroje.",
+    "param.start_line.description": "Číslo řádku (počínaje 1), od kterého se má začít číst.",
+    "param.max_lines.description": "Maximální počet řádků, které se mají vrátit.",
+    "param.max_chars.description": "Maximální počet znaků UTF-8, které se mají vrátit.",
+    "error.invalid_artifact_id": "artifact_id musí být platné ID artefaktu nebo odkaz artifact://",
+    "error.positive_integers": "start_line, max_lines a max_chars musí být kladná celá čísla",
+    "error.max_lines": "max_lines musí být nejvýše {limit}",
+    "error.max_chars": "max_chars musí být nejvýše {limit}",
+    "error.not_active_session": "artefakt nepatří k aktivní relaci"
+  },
+  "uk": {
+    "tool.description": "Зчитувати обмежену частину раніше збереженого артефакту результату роботи інструменту.",
+    "x_search_terms": [
+      "artifact_read",
+      "артефакт",
+      "артефакт результату роботи інструменту",
+      "посилання на артефакт",
+      "зчитування артефакту"
+    ],
+    "param.artifact_id.description": "Ідентифікатор артефакту або посилання artifact:// із попереднього результату роботи інструменту.",
+    "param.start_line.description": "Номер рядка (починаючи з 1), з якого слід розпочати читання.",
+    "param.max_lines.description": "Максимальна кількість рядків, які слід повернути.",
+    "param.max_chars.description": "Максимальна кількість символів UTF-8, які слід повернути.",
+    "error.invalid_artifact_id": "artifact_id має бути дійсним ідентифікатором артефакту або посиланням artifact://",
+    "error.positive_integers": "start_line, max_lines та max_chars мають бути додатними цілими числами",
+    "error.max_lines": "max_lines має бути не більше {limit}",
+    "error.max_chars": "max_chars має бути не більше {limit}",
+    "error.not_active_session": "артефакт не належить до активної сесії"
+  },
+  "tr": {
+    "tool.description": "Önceden kaydedilmiş bir araç sonucu artefaktının sınırlı bir bölümünü okur.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefakt",
+      "araç sonucu artefaktı",
+      "artefakt referansı",
+      "artefakt okuma"
+    ],
+    "param.artifact_id.description": "Bir önceki araç sonucuna ait artefakt kimliği veya artifact:// referansı.",
+    "param.start_line.description": "Okumaya başlanacak 1 tabanlı satır numarası.",
+    "param.max_lines.description": "Döndürülecek maksimum satır sayısı.",
+    "param.max_chars.description": "Döndürülecek maksimum UTF-8 karakter sayısı.",
+    "error.invalid_artifact_id": "artifact_id, geçerli bir artefakt kimliği veya artifact:// referansı olmalıdır",
+    "error.positive_integers": "start_line, max_lines ve max_chars, pozitif tamsayılar olmalıdır",
+    "error.max_lines": "max_lines, en fazla {limit} olmalıdır",
+    "error.max_chars": "max_chars, en fazla {limit} olmalıdır",
+    "error.not_active_session": "artifact, etkin oturuma ait değildir"
+  },
+  "th": {
+    "tool.description": "อ่านส่วนที่มีขอบเขตของอาร์ติแฟกต์ผลลัพธ์เครื่องมือที่เก็บไว้ก่อนหน้านี้",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "อาร์ติแฟกต์ผลลัพธ์เครื่องมือ",
+      "การอ้างอิงอาร์ติแฟกต์",
+      "อ่านอาร์ติแฟกต์"
+    ],
+    "param.artifact_id.description": "ID ของอาร์ติแฟกต์ หรือการอ้างอิง artifact:// จากผลลัพธ์เครื่องมือก่อนหน้านี้",
+    "param.start_line.description": "หมายเลขบรรทัดที่เริ่มต้นการอ่าน (นับจาก 1)",
+    "param.max_lines.description": "จำนวนบรรทัดสูงสุดที่จะส่งคืน",
+    "param.max_chars.description": "จำนวนตัวอักษร UTF-8 สูงสุดที่จะส่งคืน",
+    "error.invalid_artifact_id": "artifact_id ต้องเป็น ID ของอาร์ติแฟกต์ที่ถูกต้อง หรือการอ้างอิง artifact://",
+    "error.positive_integers": "start_line, max_lines และ max_chars ต้องเป็นตัวเลขเต็มบวก",
+    "error.max_lines": "max_lines ต้องไม่เกิน {limit}",
+    "error.max_chars": "max_chars ต้องไม่เกิน {limit}",
+    "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่"
+  },
+  "zh_CN": {
+    "tool.description": "读取先前存储的工具结果工件中的限定部分。",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "工具结果工件",
+      "工件引用",
+      "读取工件"
+    ],
+    "param.artifact_id.description": "工件 ID 或来自先前工具结果的 artifact:// 引用。",
+    "param.start_line.description": "从第 1 行开始读取。",
+    "param.max_lines.description": "要返回的行数上限。",
+    "param.max_chars.description": "要返回的 UTF-8 字符数上限。",
+    "error.invalid_artifact_id": "artifact_id 必须是有效的工件 ID 或 artifact:// 引用",
+    "error.positive_integers": "start_line、max_lines 和 max_chars 必须是正整数",
+    "error.max_lines": "max_lines 不得超过 {limit}",
+    "error.max_chars": "max_chars 不得超过 {limit}",
+    "error.not_active_session": "artifact 不属于当前会话"
+  },
+  "zh_TW": {
+    "tool.description": "讀取先前儲存之工具結果 artefact 的限定範圍內容。",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "工具結果 artefact",
+      "artefact 參考",
+      "讀取 artefact"
+    ],
+    "param.artifact_id.description": "來自先前工具結果的 artefact ID 或 artifact:// 參考。",
+    "param.start_line.description": "從第 1 行開始讀取的行號。",
+    "param.max_lines.description": "要回傳的最大行數。",
+    "param.max_chars.description": "要回傳的 UTF-8 字元最大數量。",
+    "error.invalid_artifact_id": "artifact_id 必須是有效的工件 ID 或 artifact:// 參考",
+    "error.positive_integers": "start_line、max_lines 及 max_chars 必須為正整數",
+    "error.max_lines": "max_lines 最多為 {limit}",
+    "error.max_chars": "max_chars 最多為 {limit}",
+    "error.not_active_session": "artifact 不屬於當前工作階段"
+  },
+  "bn": {
+    "tool.description": "আগে সংরক্ষিত একটি টুল-ফলাফল আর্টিফ্যাক্টের একটি সীমাবদ্ধ অংশ পড়ুন।",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "টুল ফলাফল আর্টিফ্যাক্ট",
+      "আর্টিফ্যাক্ট রেফারেন্স",
+      "আর্টিফ্যাক্ট পড়ুন"
+    ],
+    "param.artifact_id.description": "আর্টিফ্যাক্ট আইডি বা পূর্ববর্তী টুল ফলাফলের artifact:// রেফারেন্স।",
+    "param.start_line.description": "লাইন নম্বর 1-ভিত্তিক, যেখানে থেকে পড়া শুরু হবে।",
+    "param.max_lines.description": "ফেরাানোর লাইনের সর্বোচ্চ সংখ্যা।",
+    "param.max_chars.description": "ফেরাানোর UTF-8 অক্ষরের সর্বোচ্চ সংখ্যা।",
+    "error.invalid_artifact_id": "artifact_id অবশ্যই একটি বৈধ আর্টিফ্যাক্ট আইডি বা artifact:// রেফারেন্স হতে হবে",
+    "error.positive_integers": "start_line, max_lines, এবং max_chars অবশ্যই ধনাত্মক পূর্ণসংখ্যা হতে হবে",
+    "error.max_lines": "max_lines সর্বোচ্চ {limit} হতে হবে",
+    "error.max_chars": "max_chars সর্বোচ্চ {limit} হতে হবে",
+    "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়"
+  },
+  "fa": {
+    "tool.description": "خواندن بخشی محدود از یک آرتفکت نتیجه-ابزار که قبلاً ذخیره شده است.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "آرتفکت نتیجه-ابزار",
+      "مرجع آرتفکت",
+      "خواندن آرتفکت"
+    ],
+    "param.artifact_id.description": "شناسه آرتفکت یا مرجع artifact:// از یک نتیجه ابزار قبلی.",
+    "param.start_line.description": "شماره خط مبتنی بر ۱ برای شروع خواندن.",
+    "param.max_lines.description": "حداکثر تعداد خطوط برای بازگشت.",
+    "param.max_chars.description": "حداکثر تعداد کاراکترهای UTF-8 برای بازگشت.",
+    "error.invalid_artifact_id": "artifact_id باید یک شناسه آرتفکت معتبر یا مرجع artifact:// باشد.",
+    "error.positive_integers": "start_line، max_lines و max_chars باید اعداد صحیح مثبت باشند.",
+    "error.max_lines": "max_lines باید حداکثر {limit} باشد.",
+    "error.max_chars": "max_chars باید حداکثر {limit} باشد.",
+    "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد."
+  },
+  "mn": {
+    "tool.description": "Өмнө хадгалагдсан хэрэгслийн үр дүнгийн артфактын хязгаарлагдмал хэсгийг унших.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "хэрэгслийн үр дүнгийн артфакт",
+      "артфактын лавлагаа",
+      "артфактыг унших"
+    ],
+    "param.artifact_id.description": "Артфактын ID эсвэл өмнөх хэрэгслийн үр дүнгээс авсан artifact:// лавлагаа.",
+    "param.start_line.description": "Унших эхлэх мөрний дугаар (1-ээс эхлэн тоологдоно).",
+    "param.max_lines.description": "Буцаах мөрийн дээд тоо.",
+    "param.max_chars.description": "Буцаах UTF-8 тэмдэгтийн дээд тоо.",
+    "error.invalid_artifact_id": "artifact_id нь хүчин төгөлдөр artifact ID эсвэл artifact:// лавлагаа байх ёстой",
+    "error.positive_integers": "start_line, max_lines, max_chars нь эерэг бүхэл тоо байх ёстой",
+    "error.max_lines": "max_lines нь ихдээ {limit} байх ёстой",
+    "error.max_chars": "max_chars нь ихдээ {limit} байх ёстой",
+    "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй"
+  },
+  "mr": {
+    "tool.description": "पूर्वी संग्रहित केलेल्या टूल-परिणाम आर्टिफॅक्टचा एक मर्यादित भाग वाचा.",
+    "x_search_terms": [
+      "artifact_read",
+      "आर्टिफॅक्ट",
+      "टूल परिणाम आर्टिफॅक्ट",
+      "आर्टिफॅक्ट संदर्भ",
+      "आर्टिफॅक्ट वाचा"
+    ],
+    "param.artifact_id.description": "आर्टिफॅक्ट आयडी किंवा पूर्वीच्या टूल परिणामापासूनचा artifact:// संदर्भ.",
+    "param.start_line.description": "वाचन सुरू करण्यासाठी 1-आधारित ओळीचा क्रमांक.",
+    "param.max_lines.description": "परत करण्यासाठी ओळींची कमाल संख्या.",
+    "param.max_chars.description": "परत करण्यासाठी UTF-8 वर्णांची कमाल संख्या.",
+    "error.invalid_artifact_id": "artifact_id वैध artifact ID किंवा artifact:// संदर्भ असावा",
+    "error.positive_integers": "start_line, max_lines, आणि max_chars सकारात्मक पूर्णांक असावेत",
+    "error.max_lines": "max_lines कमाल {limit} असावे",
+    "error.max_chars": "max_chars कमाल {limit} असावे",
+    "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही"
+  },
+  "el": {
+    "tool.description": "Ανάγνωση ενός οριοθετημένου τμήματος ενός αρχείου αποτελεσμάτων εργαλείου που έχει αποθηκευτεί προηγουμένως.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "αρχείο αποτελεσμάτων εργαλείου",
+      "αναφορά αρχείου",
+      "ανάγνωση αρχείου"
+    ],
+    "param.artifact_id.description": "Αναγνωριστικό αρχείου ή αναφορά artifact:// από προηγούμενο αποτέλεσμα εργαλείου.",
+    "param.start_line.description": "Αριθμός γραμμής με βάση το 1 από την οποία θα ξεκινήσει η ανάγνωση.",
+    "param.max_lines.description": "Μέγιστος αριθμός γραμμών προς επιστροφή.",
+    "param.max_chars.description": "Μέγιστος αριθμός χαρακτήρων UTF-8 προς επιστροφή.",
+    "error.invalid_artifact_id": "Το artifact_id πρέπει να είναι έγκυρο αναγνωριστικό αντικειμένου ή αναφορά artifact://",
+    "error.positive_integers": "Τα start_line, max_lines και max_chars πρέπει να είναι θετικοί ακέραιοι αριθμοί",
+    "error.max_lines": "Το max_lines πρέπει να είναι το πολύ {limit}",
+    "error.max_chars": "Το max_chars πρέπει να είναι το πολύ {limit}",
+    "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία"
+  },
+  "he": {
+    "tool.description": "קריאת חלק מוגבל של ארטפקט תוצאת כלי שנשמר בעבר.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artifact תוצאת כלי",
+      "artifact reference",
+      "קריאת ארטפקט"
+    ],
+    "param.artifact_id.description": "מזהה ארטפקט או הפניה מסוג artifact:// מתוצאת כלי קודמת.",
+    "param.start_line.description": "מספר שורה (החל מ-1) שממנו יש להתחיל בקריאה.",
+    "param.max_lines.description": "מספר השורות המרבי שיש להחזיר.",
+    "param.max_chars.description": "מספר התווים המרבי של UTF-8 שיש להחזיר.",
+    "error.invalid_artifact_id": "artifact_id חייב להיות מזהה ארטפקט תקף או הפניה artifact://",
+    "error.positive_integers": "start_line, max_lines ו-max_chars חייבים להיות מספרים שלמים חיוביים",
+    "error.max_lines": "max_lines חייב להיות לכל היותר {limit}",
+    "error.max_chars": "max_chars חייב להיות לכל היותר {limit}",
+    "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל"
+  },
+  "hu": {
+    "tool.description": "Egy korábban tárolt eszköz-eredmény artefaktum korlátozott részének beolvasása.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "eszköz-eredmény artefaktum",
+      "artefaktum-hivatkozás",
+      "artefaktum beolvasása"
+    ],
+    "param.artifact_id.description": "Artefaktum-azonosító vagy artifact:// hivatkozás egy korábbi eszköz-eredményből.",
+    "param.start_line.description": "1-től kezdődő sorszám, ahonnan az olvasás kezdődik.",
+    "param.max_lines.description": "A visszaadandó sorok maximális száma.",
+    "param.max_chars.description": "A visszaadandó UTF-8 karakterek maximális száma.",
+    "error.invalid_artifact_id": "az artifact_id-nek érvényes artefakt-azonosítónak vagy artifact:// hivatkozásnak kell lennie",
+    "error.positive_integers": "a start_line, max_lines és max_chars értékeknek pozitív egész számoknak kell lenniük",
+    "error.max_lines": "a max_lines érték legfeljebb {limit} lehet",
+    "error.max_chars": "a max_chars érték legfeljebb {limit} lehet",
+    "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez"
+  },
+  "ro": {
+    "tool.description": "Citește o porțiune delimitată dintr-un artefact cu rezultatul unui instrument stocat anterior.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artefact cu rezultatul unui instrument",
+      "referință la artefact",
+      "citire artefact"
+    ],
+    "param.artifact_id.description": "ID-ul artefactului sau referința artifact:// dintr-un rezultat anterior al unui instrument.",
+    "param.start_line.description": "Numărul de linie (începând de la 1) de la care să înceapă citirea.",
+    "param.max_lines.description": "Numărul maxim de linii de returnat.",
+    "param.max_chars.description": "Numărul maxim de caractere UTF-8 de returnat.",
+    "error.invalid_artifact_id": "artifact_id trebuie să fie un ID de artefact valid sau o referință artifact://",
+    "error.positive_integers": "start_line, max_lines și max_chars trebuie să fie numere întregi pozitive",
+    "error.max_lines": "max_lines trebuie să fie cel mult {limit}",
+    "error.max_chars": "max_chars trebuie să fie cel mult {limit}",
+    "error.not_active_session": "artefactul nu aparține sesiunii active"
+  },
+  "fil": {
+    "tool.description": "Basahin ang isang bahaging may hangganan ng isang naunang naiimbak na tool-result artifact.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "tool result artifact",
+      "artifact reference",
+      "basahin ang artifact"
+    ],
+    "param.artifact_id.description": "Artifact ID o sangguniang artifact:// mula sa naunang resulta ng tool.",
+    "param.start_line.description": "Numero ng linya na nakabase sa 1 kung saan sisimulan ang pagbabasa.",
+    "param.max_lines.description": "Pinakamataas na bilang ng mga linya na ibabalik.",
+    "param.max_chars.description": "Pinakamataas na bilang ng mga karakter na UTF-8 na ibabalik.",
+    "error.invalid_artifact_id": "Ang artifact_id ay dapat isang wastong artifact ID o artifact:// reference",
+    "error.positive_integers": "Ang start_line, max_lines, at max_chars ay dapat positibong integer",
+    "error.max_lines": "Ang max_lines ay dapat hindi hihigit sa {limit}",
+    "error.max_chars": "Ang max_chars ay dapat hindi hihigit sa {limit}",
+    "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon"
+  },
+  "ms": {
+    "tool.description": "Membaca sebahagian terhad artifak keputusan alat yang telah disimpan sebelum ini.",
+    "x_search_terms": [
+      "artifact_read",
+      "artifact",
+      "artifak keputusan alat",
+      "rujukan artifak",
+      "baca artifak"
+    ],
+    "param.artifact_id.description": "ID Artifak atau rujukan artifact:// daripada keputusan alat sebelum ini.",
+    "param.start_line.description": "Nombor baris berasaskan 1 untuk mula membaca.",
+    "param.max_lines.description": "Bilangan maksimum baris untuk dikembalikan.",
+    "param.max_chars.description": "Bilangan maksimum aksara UTF-8 untuk dikembalikan.",
+    "error.invalid_artifact_id": "artifact_id mesti merupakan ID artifak yang sah atau rujukan artifact://",
+    "error.positive_integers": "start_line, max_lines, dan max_chars mesti merupakan integer positif",
+    "error.max_lines": "max_lines mesti tidak melebihi {limit}",
+    "error.max_chars": "max_chars mesti tidak melebihi {limit}",
+    "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
+  },
+  "da": {
+    "tool.description": "Læs en afgrænset del af et tidligere gemt værktøjsresultat-artefakt.",
+    "x_search_terms": [
+      "artifact_read",
+      "artefakt",
+      "værktøjsresultat-artefakt",
+      "artefaktreference",
+      "læs artefakt"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact://-reference fra et tidligere værktøjsresultat.",
+    "param.start_line.description": "Linjenummer (startende fra 1), hvor læsningen skal begynde.",
+    "param.max_lines.description": "Maksimalt antal linjer, der skal returneres.",
+    "param.max_chars.description": "Maksimalt antal UTF-8 tegn, der skal returneres.",
+    "error.invalid_artifact_id": "artifact_id skal være et gyldigt artefakt-ID eller en artifact://-reference",
+    "error.positive_integers": "start_line, max_lines og max_chars skal være positive heltal",
+    "error.max_lines": "max_lines må højst være {limit}",
+    "error.max_chars": "max_chars må højst være {limit}",
+    "error.not_active_session": "artefaktet hører ikke til den aktive session"
+  },
+  "nn": {
+    "tool.description": "Les av en avgrenset del av en tidligere lagret verktøy-resultat-artefakt.",
+    "x_search_terms": [
+      "artefakt_lesartefakt_verktøyresultat artefakt_artefaktreferanse_les artefakt",
+      "artifact",
+      "tool result artifact",
+      "artifact reference",
+      "read artifact"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact:// referanse fra et tidligere verktøyresultat.",
+    "param.start_line.description": "1-basert linjenummer for å begynne å lese fra.",
+    "param.max_lines.description": "Maksimalt antall linjer å returnere.",
+    "param.max_chars.description": "Maksimalt antall UTF-8 tegn som skal returneres.",
+    "error.invalid_artifact_id": "artefakt_id må være en gyldig artefakt-ID eller artifact:// reference",
+    "error.positive_integers": "start_line, max_lines og max_chars må være positive heltall",
+    "error.max_lines": "max_lines må være på det meste {limit}",
+    "error.max_chars": "max_chars må være på det meste {limit}",
+    "error.not_active_session": "artefakt høyrer ikkje til den aktive økta"
+  }
+}

@@ -10,6 +10,7 @@ from uagent.tools.context import ToolCallbacks
 
 @pytest.fixture(autouse=True)
 def _isolated_artifact_state(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_LANG", "en")
     monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / "state"))
 
 
