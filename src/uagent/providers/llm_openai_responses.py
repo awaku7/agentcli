@@ -17,6 +17,7 @@ from .responses_common import (
     as_str,
     attachment_to_content_item,
     normalize_content_items,
+    truncate_history_tool_result,
 )
 from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
@@ -352,14 +353,18 @@ def build_responses_request(
                     pass
             from .llm_deepseek_responses import tool_turn_item
 
+            _tool_message_for_responses = dict(m)
+            _tool_message_for_responses["content"] = truncate_history_tool_result(
+                m.get("content", "")
+            )
             _deepseek_handled, _deepseek_output = tool_turn_item(
-                m, provider=provider
+                _tool_message_for_responses, provider=provider
             )
             if _deepseek_handled:
                 if _deepseek_output is not None:
                     input_msgs.append(_deepseek_output)
                 continue
-            original_content = m_clean.get("content")
+            original_content = truncate_history_tool_result(m_clean.get("content", ""))
             prefix = f"[System: Tool '{tool_name}' returned result]\n"
             merged = prefix + as_str(original_content).lstrip("\r\n")
             m_clean["role"] = "user"
