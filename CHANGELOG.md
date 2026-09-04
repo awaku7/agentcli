@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-04
+
+### Added
+
+- Add session-owned artifact storage, bounded artifact reading, metadata inspection, and binary-safe export.
+- Add context-boundary documentation and harden tool-result persistence and SQLite session handling.
+
+### Changed
+
+- Keep CLI command syntax stable across translations while translating descriptions.
+- Make non-management tools lazy-loaded by default; keep `tool_catalog`, `tool_load`, and `unload_tool` as the initial management surface.
+- Update the minimum `llmcapa` dependency to `>=0.5.17`.
+
+### Fixed
+
+- Normalize CRLF/CR paste handling in the multiline editor and `human_ask` fallback path.
+- Prevent duplicate Ollama reasoning output.
+- Display SQLite session timestamps in the local timezone.
+
+
 ## [0.6.20] - 2026-09-03
 
 ### Added
