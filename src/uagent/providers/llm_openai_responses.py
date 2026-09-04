@@ -265,16 +265,18 @@ def build_responses_request(
                 except Exception:
                     pass
 
-        if provider == "deepseek" and role == "assistant" and m_clean.get("tool_calls"):
-            from .llm_deepseek_responses import function_call_items
+        if role == "assistant" and m_clean.get("tool_calls"):
+            from .llm_deepseek_responses import assistant_tool_turn_items
 
-            m_clean.pop("tool_calls", None)
-            m_clean["content"] = normalize_content_items(
-                m_clean.get("content"), role="assistant"
-            )
-            input_msgs.append(m_clean)
-            input_msgs.extend(function_call_items(m))
-            continue
+            _deepseek_items = assistant_tool_turn_items(m, provider=provider)
+            if _deepseek_items is not None:
+                m_clean.pop("tool_calls", None)
+                m_clean["content"] = normalize_content_items(
+                    m_clean.get("content"), role="assistant"
+                )
+                input_msgs.append(m_clean)
+                input_msgs.extend(_deepseek_items)
+                continue
 
         _responses_items = m_clean.pop("_responses_output_items", None)
         # Meta does not accept prior Responses output objects as input items.
@@ -348,12 +350,14 @@ def build_responses_request(
                     del m_clean["tool_call_id"]
                 except Exception:
                     pass
-            if provider == "deepseek":
-                from .llm_deepseek_responses import function_call_output_item
+            from .llm_deepseek_responses import tool_turn_item
 
-                output_item = function_call_output_item(m)
-                if output_item is not None:
-                    input_msgs.append(output_item)
+            _deepseek_handled, _deepseek_output = tool_turn_item(
+                m, provider=provider
+            )
+            if _deepseek_handled:
+                if _deepseek_output is not None:
+                    input_msgs.append(_deepseek_output)
                 continue
             original_content = m_clean.get("content")
             prefix = f"[System: Tool '{tool_name}' returned result]\n"

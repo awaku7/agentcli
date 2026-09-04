@@ -40,6 +40,24 @@ def normalize_deepseek_responses_effort(
     return effort
 
 
+def assistant_tool_turn_items(
+    message: dict[str, Any], *, provider: str
+) -> list[dict[str, Any]] | None:
+    """Return DeepSeek-specific assistant tool items, or ``None`` otherwise."""
+    if provider != "deepseek":
+        return None
+    return function_call_items(message)
+
+
+def tool_turn_item(
+    message: dict[str, Any], *, provider: str
+) -> tuple[bool, dict[str, Any] | None]:
+    """Return whether the tool turn is DeepSeek-specific and its output item."""
+    if provider != "deepseek":
+        return False, None
+    return True, function_call_output_item(message)
+
+
 def function_call_items(message: dict[str, Any]) -> list[dict[str, Any]]:
     """Convert a Chat-Completions assistant tool turn to Responses items."""
     result: list[dict[str, Any]] = []
