@@ -58,6 +58,11 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
 )
 
 
+def supports_responses_output_item_replay(provider: str) -> bool:
+    """Return whether prior Responses output items may be replayed."""
+    return (provider or "").strip().lower() != "meta"
+
+
 # Provider-specific sampling overrides are metadata, not orchestration logic.
 # Keep the environment-variable mapping here so the round runner does not
 # need a provider-name if/elif chain.

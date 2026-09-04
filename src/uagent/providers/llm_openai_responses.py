@@ -22,6 +22,7 @@ from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
     openai_web_search_tool_from_env,
 )
+from .provider_caps import supports_responses_output_item_replay
 
 # Module-level constants (reused across calls, avoids re-allocation).
 _TOOL_CALLING_RULES: str = _("""[Tool calling rules]
@@ -281,7 +282,7 @@ def build_responses_request(
         if (
             isinstance(_responses_items, list)
             and _responses_items
-            and provider != "meta"
+            and supports_responses_output_item_replay(provider)
         ):
             # Full-history fallback must not replay bare function_call items:
             # without matching function_call_output the Responses API rejects
