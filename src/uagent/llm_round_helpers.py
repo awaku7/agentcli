@@ -128,6 +128,7 @@ from .providers.llm_deepseek import (
 )
 from .providers.llm_pfn import pfn_chat_with_tools
 from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
+from .providers.llm_meta_responses import apply_meta_responses_compat
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
@@ -733,6 +734,12 @@ def _call_openai_azure_round(
                 resp_kwargs["context_management"] = [
                     {"type": "compaction", "compact_threshold": _compact_threshold}
                 ]
+
+                apply_meta_responses_compat(
+                    resp_kwargs,
+                    provider=provider,
+                    depname=depname,
+                )
 
                 # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                 # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
