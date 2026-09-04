@@ -1421,14 +1421,6 @@ def _call_openai_azure_round(
                 _rc = getattr(msg, "reasoning", None)
             if isinstance(_rc, str) and _rc:
                 reasoning_content = _rc
-                show_reasoning(
-                    _rc,
-                    provider=provider.capitalize(),
-                    is_first=True,
-                    print_fn=getattr(core, "print_stream_delta", None)
-                    or (lambda s: print(s, end="", flush=True)),
-                    core=core,
-                )
 
             if not tool_calls_list:
                 assistant_text, recovered_tool_calls = parse_assistant_text_tool_calls(
@@ -1436,6 +1428,19 @@ def _call_openai_azure_round(
                 )
                 if recovered_tool_calls:
                     tool_calls_list = recovered_tool_calls
+
+            # For a normal non-streaming answer, the common final-answer path
+            # displays reasoning_content. Display it here only for a tool-call
+            # turn, which does not go through that final-answer path.
+            if reasoning_content and tool_calls_list:
+                show_reasoning(
+                    reasoning_content,
+                    provider=provider.capitalize(),
+                    is_first=True,
+                    print_fn=getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True)),
+                    core=core,
+                )
 
     except Exception as e:
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})

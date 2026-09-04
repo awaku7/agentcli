@@ -41,6 +41,9 @@ dispozitive IoT, servere MCP și fluxuri de lucru cu mai mulți agenți.
 
 > **Pe scurt:** uag este planul de control dintre modelele tale AI și mediul tău real.
 
+> **🧠 Rezultate ale instrumentelor adaptate la context** — Rezultatele voluminoase ale instrumentelor sunt excluse din contextul modelului activ, atunci când este posibil. uag le stochează ca artefacte și transmite modelului o previzualizare limitată cu o referință stabilă Artifact. Acest lucru poate reduce substanțial numărul de tokenuri de intrare necesare pentru rundele următoare atunci când un instrument produce un rezultat voluminos.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ro.md) を参照してください。
+
 ## Locul lui uag
 
 uag se află între oameni și interfețe, pe de o parte, și modele, instrumente și sisteme din lumea reală, pe de altă parte.
@@ -118,6 +121,37 @@ analiza depozitului și sarcinile similare se pot finaliza în paralel cu un poo
 
 Continuitatea sesiunii, stocarea în cache a rezultatelor instrumentelor, starea loturilor, recuperarea după repornire,
 planificarea DAG și orchestrarea mai multor agenți fac ca lucrările complexe să poată fi reluate, nu să fie executate o singură dată.
+
+- `set_timer` acceptă rulări programate persistente ale instrumentelor LLM, protecția instrumentelor obligatorii, executarea directă a unui instrument aprobat, încercări repetate și limite de timp.
+
+### 🧠 Rezultate ale instrumentelor adaptate la context
+
+Rezultatele voluminoase ale instrumentelor sunt excluse din contextul modelului activ, atunci când este posibil. uag le stochează ca artefacte și transmite modelului o previzualizare limitată cu o referință stabilă Artifact. Acest lucru poate reduce substanțial numărul de tokenuri de intrare necesare pentru rundele următoare atunci când un instrument produce un rezultat voluminos.
+
+Utilizați `artifact_read` pentru a prelua doar rândurile necesare sau intervalul de caractere:
+
+```text
+> Citește artifact://<artifact-id> rândurile 100-140
+```
+
+Noile artefacte sunt stocate sub:
+
+```text
+~/.uag/artifacts/
+```
+
+Contextul activ este delimitat de `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` și `UAGENT_TOOL_RESULT_MAX_CHARS`. Încărcăturile binare, cum ar fi imaginile, fișierele audio și datele Base64 încorporate, sunt excluse din istoricul stocat, în timp ce interfața utilizatorului și clienții la distanță pot continua să primească atașamentele lor din memorie.
+
+Căile Artifact existente rămân citibile din motive de compatibilitate. Consultați [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) pentru limitele de stocare, comportamentul de persistență și starea actuală a implementării.
+
+[Compresia contextului și contextul de model delimitat](CONTEXT_COMPRESSION.ro.md)
+
+### 🌍 Traducere multilingvă
+
+- `translate_text` acceptă Google Translate și clientul oficial DeepL pentru Python prin intermediul `provider=auto`, `provider=deepl` sau `provider=google`.
+- Definițiile instrumentelor sunt disponibile în 37 de seturi de localizare plus engleză (38 în total), cu păstrarea substituenților și a identificatorilor tehnici.
+
+Consultați [Variabilele de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia de traducere](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) și [documentația `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Voce în timp real
 
@@ -299,6 +333,18 @@ acreditări cloud sau un server MQTT/OPC UA. Instrumentul relevant raportează c
 Reia conversațiile anterioare cu `:load <index>`. Rezultatele instrumentelor pot fi păstrate în cache, iar furnizorii pot fi schimbați
 fără a reconstrui aplicația.
 
+Setări Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Pilot automat
 
 Folosește `:auto` pentru lucrări în mai multe runde, cu un model revizor opțional. Setează limita rundelor cu `--max-rounds N`.
@@ -429,11 +475,3 @@ Te rugăm să deschizi un issue sau o discuție înainte de modificări ample. C
 ## Licență
 
 Licențiat sub [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Funcționalități recente
-
-- `translate_text` acceptă Google Translate și clientul oficial DeepL pentru Python prin intermediul `provider=auto`, `provider=deepl` sau `provider=google`.
-- Definițiile instrumentelor sunt disponibile în 37 de seturi de localizare plus engleză (38 în total), cu păstrarea substituenților și a identificatorilor tehnici.
-- `set_timer` acceptă rulări programate persistente ale instrumentelor LLM, protecția instrumentelor obligatorii, executarea directă a unui instrument aprobat, încercări repetate și limite de timp.
-
-Consultați [Variabilele de mediu](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia de traducere](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) și [documentația `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

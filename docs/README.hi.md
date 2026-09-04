@@ -40,6 +40,9 @@ uag एक local-first AI एजेंट है, जो आपके पसं�
 
 > **संक्षेप में:** uag आपके AI models और वास्तविक environment के बीच control plane है।
 
+> **🧠 संदर्भ-जागरूक टूल परिणाम** — जब संभव हो, बड़े टूल परिणाम सक्रिय मॉडल संदर्भ से बाहर रखे जाते हैं। uag इन्हें आर्टिफैक्ट्स के रूप में संग्रहीत करता है और मॉडल को एक स्थिर Artifact संदर्भ के साथ एक सीमित पूर्वावलोकन भेजता है। जब कोई टूल बड़ा परिणाम उत्पन्न करता है, तो इससे फॉलो-अप टर्न के लिए आवश्यक इनपुट टोकन की संख्या काफी कम हो सकती है।
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.hi.md) を参照してください。
+
 ## uag कहाँ काम आता है
 
 uag एक ओर लोगों और interfaces के बीच तथा दूसरी ओर models, tools और real-world systems के बीच स्थित है।
@@ -117,6 +120,37 @@ Write operations serialized रहती हैं या confirmation आवश
 
 Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling और
 multi-agent orchestration जटिल कार्यों को one-shot के बजाय फिर से शुरू करने योग्य बनाते हैं।
+
+- `set_timer` स्थायी निर्धारित LLM रन, आवश्यक-टूल सुरक्षा, एक स्वीकृत टूल का सीधा निष्पादन, पुनः प्रयास और टाइमआउट का समर्थन करता है।
+
+### 🧠 संदर्भ-जागरूक टूल परिणाम
+
+जब संभव हो, बड़े टूल परिणाम सक्रिय मॉडल संदर्भ से बाहर रखे जाते हैं। uag इन्हें आर्टिफैक्ट्स के रूप में संग्रहीत करता है और मॉडल को एक स्थिर Artifact संदर्भ के साथ एक सीमित पूर्वावलोकन भेजता है। जब कोई टूल बड़ा परिणाम उत्पन्न करता है, तो इससे फॉलो-अप टर्न के लिए आवश्यक इनपुट टोकन की संख्या काफी कम हो सकती है।
+
+केवल आवश्यक पंक्तियों या वर्ण सीमा प्राप्त करने के लिए `artifact_read` का उपयोग करें:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+नए आर्टिफैक्ट्स को के अंतर्गत संग्रहीत किया जाता है:
+
+```text
+~/.uag/artifacts/
+```
+
+सक्रिय संदर्भ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` और `UAGENT_TOOL_RESULT_MAX_CHARS` द्वारा सीमित है। छवियाँ, ऑडियो और एम्बेडेड Base64 डेटा जैसे बाइनरी पेलोड को स्थायी इतिहास से बाहर रखा जाता है, जबकि UI और रिमोट क्लाइंट अपने इन-मेमोरी अटैचमेंट प्राप्त करना जारी रख सकते हैं।
+
+अनुरूपता के लिए मौजूदा लेगेसी Artifact पथ पठनीय बने रहते हैं। संग्रहण सीमाओं, स्थायी व्यवहार और वर्तमान कार्यान्वयन स्थिति के लिए [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) देखें।
+
+[संदर्भ संपीड़न और सीमित मॉडल संदर्भ](CONTEXT_COMPRESSION.hi.md)
+
+### 🌍 बहुभाषी अनुवाद
+
+- `translate_text` `provider=auto`, `provider=deepl`, या `provider=google` के माध्यम से Google Translate और आधिकारिक DeepL Python क्लाइंट का समर्थन करता है।
+- टूल परिभाषाएँ 37 लोकल और अंग्रेज़ी (कुल 38) में उपलब्ध हैं, जिसमें प्लेसहोल्डर और तकनीकी पहचानकर्ता संरक्षित हैं।
+
+[पर्यावरण चर](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), \[अनुवाद पद्धति\](https://github.com/ देखेंawaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), और [`set_timer` दस्तावेज़ीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)।
 
 ### 🎙 Realtime voice
 
@@ -297,6 +331,18 @@ cloud credentials या MQTT/OPC UA server। संबंधित tool run �
 `:load <index>` से पिछली conversations resume करें। Tool results cache किए जा सकते हैं और application को rebuild किए बिना
 providers बदले जा सकते हैं।
 
+Session Store सेटिंग्स:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Optional reviewer model के साथ multi-round work के लिए `:auto` का उपयोग करें। `--max-rounds N` से round limit सेट करें।
@@ -425,11 +471,3 @@ Bug reports, feature ideas, documentation improvements, translations, tools, ski
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## हाल की क्षमताएँ
-
-- `translate_text` `provider=auto`, `provider=deepl`, या `provider=google` के माध्यम से Google Translate और आधिकारिक DeepL Python क्लाइंट का समर्थन करता है।
-- टूल परिभाषाएँ 37 लोकल और अंग्रेज़ी (कुल 38) में उपलब्ध हैं, जिसमें प्लेसहोल्डर और तकनीकी पहचानकर्ता संरक्षित हैं।
-- `set_timer` स्थायी निर्धारित LLM रन, आवश्यक-टूल सुरक्षा, एक स्वीकृत टूल का सीधा निष्पादन, पुनः प्रयास और टाइमआउट का समर्थन करता है।
-
-[पर्यावरण चर](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), \[अनुवाद पद्धति\](https://github.com/ देखेंawaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), और [`set_timer` दस्तावेज़ीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)।

@@ -40,6 +40,9 @@ Dosyalar, tarayıcılar, kod tabanları, iletişim, bulut API'leri, IoT cihazlar
 
 > **Kısacası:** uag, AI modelleriniz ile gerçek ortamınız arasındaki kontrol düzlemidir.
 
+> **🧠 Bağlam duyarlı araç sonuçları** — Mümkün olduğunda, büyük boyutlu araç sonuçları aktif model bağlamının dışında tutulur. uag bunları Artifact olarak depolar ve bunun yerine modele kararlı bir Artifact referansı içeren sınırlı bir önizleme iletir. Bu, bir araç büyük bir sonuç ürettiğinde takip eden turlar için gereken girdi token sayısını önemli ölçüde azaltabilir.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.tr.md) を参照してください。
+
 ## uag nereye oturur?
 
 uag bir tarafta insanlar ve arayüzler, diğer tarafta modeller, araçlar ve gerçek dünya sistemleri arasında yer alır.
@@ -110,6 +113,37 @@ Bağımsız, yalnızca okuma yapan işlemler güvenli olduğunda eşzamanlı yü
 ### 🔄 Güvenilir uzun süren işler
 
 Oturum sürekliliği, araç sonucu önbelleğe alma, toplu işlem durumu, yeniden başlatma kurtarma, DAG zamanlama ve çoklu ajan orkestrasyonu; karmaşık işleri tek seferlik olmaktan çıkarıp sürdürülebilir hale getirir.
+
+- `set_timer`, kalıcı zamanlanmış LLM çalıştırmalarını, gerekli araç korumasını, onaylanmış bir aracın doğrudan çalıştırılmasını, yeniden denemeleri ve zaman aşımlarını destekler.
+
+### 🧠 Bağlam duyarlı araç sonuçları
+
+Mümkün olduğunda, büyük boyutlu araç sonuçları aktif model bağlamının dışında tutulur. uag bunları Artifact olarak depolar ve bunun yerine modele kararlı bir Artifact referansı içeren sınırlı bir önizleme iletir. Bu, bir araç büyük bir sonuç ürettiğinde takip eden turlar için gereken girdi token sayısını önemli ölçüde azaltabilir.
+
+Yalnızca gerekli satırları veya karakter aralığını almak için `artifact_read` kullanın:
+
+```text
+> artifact://<artifact-id>'nin 100-140. satırlarını oku
+```
+
+Yeni Artifact'lar şu konumda saklanır:
+
+```text
+~/.uag/artifacts/
+```
+
+Etkin bağlam, `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` ve `UAGENT_TOOL_RESULT_MAX_CHARS` ile sınırlandırılır. Görüntüler, sesler ve gömülü Base64 verileri gibi ikili yükler kalıcı geçmişin dışında tutulurken, kullanıcı arayüzü ve uzak istemciler bellek içi eklerini almaya devam edebilir.
+
+Mevcut eski Artifact yolları, uyumluluk amacıyla okunabilir durumda kalır. Depolama sınırları, kalıcılık davranışı ve mevcut uygulama durumu hakkında bilgi için [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) adresine bakın.
+
+[Bağlam sıkıştırması ve sınırlı model bağlamı](CONTEXT_COMPRESSION.tr.md)
+
+### 🌍 Çok dilli çeviri
+
+- `translate_text`, `provider=auto`, `provider=deepl` veya `provider=google` seçenekleri aracılığıyla Google Translate’ı ve resmi DeepL Python istemcisini destekler.
+- Araç tanımları, yer tutucular ve teknik tanımlayıcılar korunmuş olarak 37 dilde ve İngilizce’de (toplam 38) mevcuttur.
+
+Bkz. [Ortam değişkenleri](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Çeviri metodolojisi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) ve [`set_timer` belgelerine](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) bakın.
 
 ### 🎙 Gerçek zamanlı ses
 
@@ -280,6 +314,18 @@ Bazı entegrasyonların tarayıcı ikili dosyaları, Bluetooth izinleri, bulut k
 
 `:load <index>` ile önceki konuşmaları sürdürün. Araç sonuçları önbelleğe alınabilir ve uygulamayı yeniden oluşturmadan sağlayıcılar değiştirilebilir.
 
+Session Store ayarları:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 İsteğe bağlı bir inceleyici modeliyle çok turlu çalışma için `:auto` kullanın. `--max-rounds N` ile tur sınırı belirleyin. Auto-pilot'u durdurmak için **F12**'e, mevcut yanıtı durdurmak için **F12**'ye basın.
@@ -399,11 +445,3 @@ Hata raporları, özellik fikirleri, belge iyileştirmeleri, çeviriler, araçla
 ## Lisans
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) kapsamında lisanslanmıştır.
-
-## Son özellikler
-
-- `translate_text`, `provider=auto`, `provider=deepl` veya `provider=google` seçenekleri aracılığıyla Google Translate’ı ve resmi DeepL Python istemcisini destekler.
-- Araç tanımları, yer tutucular ve teknik tanımlayıcılar korunmuş olarak 37 dilde ve İngilizce’de (toplam 38) mevcuttur.
-- `set_timer`, kalıcı zamanlanmış LLM çalıştırmalarını, gerekli araç korumasını, onaylanmış bir aracın doğrudan çalıştırılmasını, yeniden denemeleri ve zaman aşımlarını destekler.
-
-Bkz. [Ortam değişkenleri](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Çeviri metodolojisi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) ve [`set_timer` belgelerine](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) bakın.

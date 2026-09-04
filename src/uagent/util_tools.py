@@ -142,6 +142,7 @@ from .util_cmd_session import (
     _handle_cmd_tokens,
     _handle_cmd_mem_list,
     _handle_cmd_mem_del,
+    _handle_cmd_mem_vacuum,
     _handle_cmd_shared_mem_list,
     _handle_cmd_profile_show,
     _handle_cmd_profile_clear,
@@ -241,7 +242,8 @@ def handle_command(
                 if type(res).__name__ == "CommandResult":
                     return res
                 return CommandResult()
-        print(_("Usage: :tools [list|on|off|output] [args...]"))
+        # Keep command names and argument syntax stable across translations.
+        print(_("Usage:") + " :tools [list|on|off|output] [args...]")
         return CommandResult()
 
     if cmd == "env":
@@ -291,6 +293,9 @@ def handle_command(
 
     if cmd == "mem-del":
         return _handle_cmd_mem_del(arg, tr=tr)
+
+    if cmd == "mem-vacuum":
+        return _handle_cmd_mem_vacuum(arg, tr=tr)
 
     if cmd in ("profile", "profile-show"):
         return _handle_cmd_profile_show(arg, core=core, tr=tr)

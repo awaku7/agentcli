@@ -41,6 +41,9 @@ IoT zařízení, MCP servery a pracovní postupy s více agenty.
 
 > **Stručně:** uag je řídicí rovina mezi vašimi AI modely a skutečným prostředím.
 
+> **🧠 Výsledky nástrojů s ohledem na kontext** — Rozsáhlé výsledky nástrojů se pokud možno neukládají do kontextu aktivního modelu. uag je ukládá jako artefakty a modelu místo toho předává ohraničený náhled se stabilním odkazem na Artifact. To může podstatně snížit počet vstupních tokenů potřebných pro následující tahy, když nástroj vygeneruje rozsáhlý výsledek.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.cs.md) を参照してください。
+
 ## Kam uag zapadá
 
 uag stojí mezi lidmi a rozhraními na jedné straně a modely, nástroji a systémy reálného světa na straně druhé.
@@ -118,6 +121,37 @@ analýza repozitáře a podobná zatížení mohou být dokončena paralelně po
 
 Kontinuita relací, ukládání výsledků nástrojů do mezipaměti, stav dávek, obnova po restartu, plánování DAG a
 koordinace více agentů umožňují obnovit složitou práci namísto jednorázového provedení.
+
+- `set_timer` podporuje trvalé plánované spouštění LLM, ochranu pomocí povinných nástrojů, přímé spuštění jednoho schváleného nástroje, opakované pokusy a časové limity.
+
+### 🧠 Výsledky nástrojů s ohledem na kontext
+
+Rozsáhlé výsledky nástrojů se pokud možno neukládají do kontextu aktivního modelu. uag je ukládá jako artefakty a modelu místo toho předává ohraničený náhled se stabilním odkazem na Artifact. To může podstatně snížit počet vstupních tokenů potřebných pro následující tahy, když nástroj vygeneruje rozsáhlý výsledek.
+
+Pomocí `artifact_read` lze načíst pouze potřebné řádky nebo rozsah znaků:
+
+```text
+> Přečti artifact://<artifact-id> řádky 100–140
+```
+
+Nové artefakty se ukládají pod:
+
+```text
+~/.uag/artifacts/
+```
+
+Aktivní kontext je ohraničen `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` a `UAGENT_TOOL_RESULT_MAX_CHARS`. Binární data, jako jsou obrázky, zvuk a vložená data Base64, se do trvalé historie neukládají, zatímco uživatelské rozhraní a vzdálení klienti mohou i nadále přijímat jejich přílohy uložené v paměti.
+
+Stávající starší cesty Artifact zůstávají z důvodu kompatibility nadále čitelné. Informace o hranicích úložiště, chování při trvalém ukládání a aktuálním stavu implementace najdete v [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md).
+
+[Komprese kontextu a ohraničený kontext modelu](CONTEXT_COMPRESSION.cs.md)
+
+### 🌍 Vícejazyčný překlad
+
+- `translate_text` podporuje Google Translate a oficiálního klienta DeepL pro Python prostřednictvím `provider=auto`, `provider=deepl` nebo `provider=google`.
+- Definice nástrojů jsou k dispozici v 37 jazykových verzích plus angličtině (celkem 38), přičemž jsou zachovány zástupné symboly a technické identifikátory.
+
+Viz [Proměnné prostředí](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodika překladu](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) a [dokumentaci k `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Hlas v reálném čase
 
@@ -299,6 +333,18 @@ cloudové přihlašovací údaje nebo server MQTT/OPC UA. Příslušný nástroj
 Předchozí konverzace obnovíte pomocí `:load <index>`. Výsledky nástrojů lze ukládat do mezipaměti a poskytovatele lze měnit
 bez opětovného sestavení aplikace.
 
+Nastavení Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Autopilot
 
 Pro vícekolovou práci s volitelným kontrolním modelem použijte `:auto`. Limit kol nastavte pomocí `--max-rounds N`.
@@ -429,11 +475,3 @@ a před odesláním pull requestu spusťte výše uvedené kontroly.
 ## Licence
 
 Licencováno pod [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Nejnovější funkce
-
-- `translate_text` podporuje Google Translate a oficiálního klienta DeepL pro Python prostřednictvím `provider=auto`, `provider=deepl` nebo `provider=google`.
-- Definice nástrojů jsou k dispozici v 37 jazykových verzích plus angličtině (celkem 38), přičemž jsou zachovány zástupné symboly a technické identifikátory.
-- `set_timer` podporuje trvalé plánované spouštění LLM, ochranu pomocí povinných nástrojů, přímé spuštění jednoho schváleného nástroje, opakované pokusy a časové limity.
-
-Viz [Proměnné prostředí](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodika překladu](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) a [dokumentaci k `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

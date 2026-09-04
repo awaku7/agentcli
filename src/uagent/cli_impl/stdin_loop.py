@@ -21,6 +21,7 @@ from .input_ui import (
     _getpass_fallback,
     _make_prompt_key_bindings,
     _multiline_editor,
+    _normalize_multiline_text,
     _prompt_toolkit_input,
 )
 from .prompt_session import _get_prompt_session
@@ -472,6 +473,10 @@ def stdin_loop() -> None:
                 is_ha_password = core.human_ask_is_password
 
         if handled_human_ask:
+            # Normalize CRLF/CR in the fallback line-by-line path as well as
+            # in the prompt_toolkit editor. This keeps human_ask replies
+            # consistent when a terminal paste supplies carriage returns.
+            line = _normalize_multiline_text(line)
             should_wait_completion = False
             if not is_ha_multiline:
                 # Do not treat 'f' as a command to switch to multiline mode when entering a password

@@ -41,6 +41,9 @@ uag একটি স্থানীয়-অগ্রাধিকার AI এ�
 
 > **সংক্ষেপে:** uag হলো আপনার AI মডেল এবং বাস্তব পরিবেশের মধ্যকার নিয়ন্ত্রণ স্তর।
 
+> **🧠 প্রসঙ্গ-সচেতন টুল ফলাফল** — বড় টুল ফলাফলগুলো সম্ভব হলে সক্রিয় মডেলের প্রসঙ্গ থেকে বাদ রাখা হয়। uag এগুলো আর্টিফ্যাক্ট হিসেবে সংরক্ষণ করে এবং মডেলের কাছে স্থিতিশীল Artifact রেফারেন্সসহ একটি সীমাবদ্ধ প্রিভিউ পাঠায়। যখন কোনো টুল বড় ফলাফল তৈরি করে, তখন এটি পরবর্তী পালাগুলির জন্য প্রয়োজনীয় ইনপুট টোকেনের সংখ্যা উল্লেখযোগ্যভাবে কমিয়ে দিতে পারে।
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.bn.md) を参照してください。
+
 ## uag কোথায় কাজ করে
 
 একদিকে মানুষ ও ইন্টারফেস, অন্যদিকে মডেল, টুল এবং বাস্তব জগতের সিস্টেম—uag এই দুইয়ের মাঝখানে অবস্থান করে।
@@ -122,6 +125,37 @@ flowchart LR
 # Unset: user state directory/sessions/sessions.sqlite3
 
 # Unset: user state directory/memory.sqlite3
+
+- `set_timer` স্থায়ী নির্ধারিত LLM রান, প্রয়োজনীয়-টুল সুরক্ষা, একটি অনুমোদিত টুলের সরাসরি সম্পাদন, পুনরায় চেষ্টা এবং টাইমআউট সমর্থন করে।
+
+### 🧠 প্রসঙ্গ-সচেতন টুল ফলাফল
+
+বড় টুল ফলাফলগুলো সম্ভব হলে সক্রিয় মডেলের প্রসঙ্গ থেকে বাদ রাখা হয়। uag এগুলো আর্টিফ্যাক্ট হিসেবে সংরক্ষণ করে এবং মডেলের কাছে স্থিতিশীল Artifact রেফারেন্সসহ একটি সীমাবদ্ধ প্রিভিউ পাঠায়। যখন কোনো টুল বড় ফলাফল তৈরি করে, তখন এটি পরবর্তী পালাগুলির জন্য প্রয়োজনীয় ইনপুট টোকেনের সংখ্যা উল্লেখযোগ্যভাবে কমিয়ে দিতে পারে।
+
+প্রয়োজনীয় লাইন বা অক্ষরের পরিসর পুনরুদ্ধার করতে `artifact_read` ব্যবহার করুন:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+নতুন আর্টিফ্যাক্টগুলো সংরক্ষিত হয়:
+
+```text
+~/.uag/artifacts/
+```
+
+সক্রিয় প্রসঙ্গ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` এবং `UAGENT_TOOL_RESULT_MAX_CHARS` দ্বারা সীমাবদ্ধ। ইমেজ, অডিও এবং এমবেডেড Base64 ডেটার মতো বাইনারি পেলোডগুলো পার্সিস্টেড ইতিহাসের বাইরে রাখা হয়, তবে UI এবং রিমোট ক্লায়েন্টরা তাদের ইন-মেমরি সংযুক্তিগুলো গ্রহণ করতে পারে।
+
+বিদ্যমান লিগ্যাসি Artifact পথগুলো সামঞ্জস্যতার জন্য পড়ার যোগ্যই থাকবে। স্টোরেজ সীমা, স্থায়িত্ব আচরণ এবং বর্তমান বাস্তবায়ন অবস্থা জানতে [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) দেখুন।
+
+[প্রসঙ্গ সংকোচন এবং সীমাবদ্ধ মডেল প্রসঙ্গ](CONTEXT_COMPRESSION.bn.md)
+
+### 🌍 বহুভাষিক অনুবাদ
+
+- `translate_text` `Google Translate` এবং অফিসিয়াল DeepL Python ক্লায়েন্টকে `provider=auto`, `provider=deepl`, অথবা `provider=google` এর মাধ্যমে সমর্থন করে।
+- টুল সংজ্ঞা ৩৭টি লোকেলের পাশাপাশি ইংরেজি (মোট ৩৮টি) ভাষায় উপলব্ধ, প্লেসহোল্ডার এবং প্রযুক্তিগত আইডেন্টিফায়ার সংরক্ষিত রয়েছে।
+
+দেখুন [এনভায়রনমেন্ট ভেরিয়েবলস](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [ট্রান্সলেশন মেথডোলজি](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), এবং [`set_timer` ডকুমেন্টেশন](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 রিয়েলটাইম ভয়েস
 
@@ -299,6 +333,18 @@ cloud credential অথবা MQTT/OPC UA server। চালানোর সম
 `:load <index>` দিয়ে আগের conversation পুনরায় চালু করুন। Tool result cache করা যায় এবং application পুনর্নির্মাণ
 না করেই provider বদলানো যায়।
 
+সেশন স্টোর সেটিংস:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### অটো-পাইলট
 
 ঐচ্ছিক reviewer model-সহ বহু-round কাজের জন্য `:auto` ব্যবহার করুন। `--max-rounds N` দিয়ে round limit সেট করুন।
@@ -427,11 +473,3 @@ Bug report, feature idea, documentation improvement, translation, tool, skill �
 ## লাইসেন্স
 
 [Apache লাইসেন্স 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)-এর অধীনে লাইসেন্সপ্রাপ্ত।
-
-## সাম্প্রতিক ক্ষমতা
-
-- `translate_text` `Google Translate` এবং অফিসিয়াল DeepL Python ক্লায়েন্টকে `provider=auto`, `provider=deepl`, অথবা `provider=google` এর মাধ্যমে সমর্থন করে।
-- টুল সংজ্ঞা ৩৭টি লোকেলের পাশাপাশি ইংরেজি (মোট ৩৮টি) ভাষায় উপলব্ধ, প্লেসহোল্ডার এবং প্রযুক্তিগত আইডেন্টিফায়ার সংরক্ষিত রয়েছে।
-- `set_timer` স্থায়ী নির্ধারিত LLM রান, প্রয়োজনীয়-টুল সুরক্ষা, একটি অনুমোদিত টুলের সরাসরি সম্পাদন, পুনরায় চেষ্টা এবং টাইমআউট সমর্থন করে।
-
-দেখুন [এনভায়রনমেন্ট ভেরিয়েবলস](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [ট্রান্সলেশন মেথডোলজি](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), এবং [`set_timer` ডকুমেন্টেশন](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

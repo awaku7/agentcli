@@ -41,6 +41,9 @@ uag הוא סוכן AI בגישה מקומית-תחילה, שמחבר את המ�
 
 > **בקיצור:** uag הוא מישור הבקרה שבין מודלי ה-AI שלכם לבין הסביבה האמיתית שלכם.
 
+> **🧠 תוצאות כלי המותאמות להקשר** — תוצאות כלי גדולות מוחזקות מחוץ להקשר המודל הפעיל, ככל שהדבר אפשרי. uag מאחסן אותן כ-Artifacts ומעביר למודל תצוגה מקדימה מוגבלת עם הפניה יציבה ל-Artifact במקום זאת. הדבר יכול להפחית באופן משמעותי את מספר האסימונים הנדרשים בתורות הבאות כאשר כלי מייצר תוצאה גדולה.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.he.md) を参照してください。
+
 ## היכן uag משתלב
 
 uag נמצא בין אנשים וממשקים מצד אחד, לבין מודלים, כלים ומערכות בעולם האמיתי מצד שני.
@@ -118,6 +121,37 @@ Inspector מתעד מעברים ומצב עמוד לצורכי ניפוי שגי
 
 רציפות הפעלה, שמירת תוצאות כלים במטמון, מצב אצווה, התאוששות מהפעלה מחדש, תזמון DAG
 ותזמור רב-סוכנים הופכים עבודה מורכבת לניתנת להמשך במקום חד-פעמית.
+
+- `set_timer` תומך בהרצות מתוזמנות קבועות של LLM, הגנה על כלים נדרשים, ביצוע ישיר של כלי מאושר אחד, ניסיונות חוזרים ומגבלות זמן.
+
+### 🧠 תוצאות כלי המותאמות להקשר
+
+תוצאות כלי גדולות מוחזקות מחוץ להקשר המודל הפעיל, ככל שהדבר אפשרי. uag מאחסן אותן כ-Artifacts ומעביר למודל תצוגה מקדימה מוגבלת עם הפניה יציבה ל-Artifact במקום זאת. הדבר יכול להפחית באופן משמעותי את מספר האסימונים הנדרשים בתורות הבאות כאשר כלי מייצר תוצאה גדולה.
+
+השתמש ב-`artifact_read` כדי לאחזר רק את השורות או טווח התווים הדרושים:
+
+```text
+> קרא artifact://<artifact-id> שורות 100-140
+```
+
+ארכיונים חדשים מאוחסנים תחת:
+
+```text
+~/.uag/artifacts/
+```
+
+ההקשר הפעיל מוגבל על ידי `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` ו-`UAGENT_TOOL_RESULT_MAX_CHARS`. נתונים בינאריים כגון תמונות, אודיו ונתוני Base64 משובצים אינם נשמרים בהיסטוריה המתמשכת, בעוד שממשק המשתמש ולקוחות מרוחקים יכולים להמשיך לקבל את הקבצים המצורפים שלהם הנמצאים בזיכרון.
+
+נתיבי Artifact ישנים קיימים נשארים קריאים מטעמי תאימות. ראו [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) לקבלת מידע על גבולות האחסון, התנהגות השמירה והסטטוס הנוכחי של היישום.
+
+[דחיסת הקשר והקשר מודל מוגבל](CONTEXT_COMPRESSION.he.md)
+
+### 🌍 תרגום רב-לשוני
+
+- `translate_text` תומך ב-Google Translate ובקליינט ה-Python הרשמי של DeepL באמצעות `provider=auto`, `provider=deepl` או `provider=google`.
+- הגדרות הכלים זמינות ב-37 שפות מקומיות בנוסף לאנגלית (38 בסך הכל), תוך שמירה על סימני מילוי ומזהים טכניים.
+
+ראו [משתני סביבה](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [מתודולוגיית תרגום](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) ו-[תיעוד `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 קול בזמן אמת
 
@@ -298,6 +332,18 @@ python -m pip install PySide6 ewmh dbus-next
 המשיכו שיחות קודמות באמצעות `:load <index>`. ניתן לשמור תוצאות כלים במטמון ולהחליף ספקים
 בלי לבנות מחדש את היישום.
 
+הגדרות Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### טייס אוטומטי
 
 השתמשו ב-`:auto` לעבודה מרובת סבבים עם מודל סוקר אופציונלי. הגדירו מגבלת סבבים באמצעות `--max-rounds N`.
@@ -428,11 +474,3 @@ python -m pytest -q .
 ## רישיון
 
 מופץ בכפוף ל-[Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## יכולות עדכניות
-
-- `translate_text` תומך ב-Google Translate ובקליינט ה-Python הרשמי של DeepL באמצעות `provider=auto`, `provider=deepl` או `provider=google`.
-- הגדרות הכלים זמינות ב-37 שפות מקומיות בנוסף לאנגלית (38 בסך הכל), תוך שמירה על סימני מילוי ומזהים טכניים.
-- `set_timer` תומך בהרצות מתוזמנות קבועות של LLM, הגנה על כלים נדרשים, ביצוע ישיר של כלי מאושר אחד, ניסיונות חוזרים ומגבלות זמן.
-
-ראו [משתני סביבה](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [מתודולוגיית תרגום](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) ו-[תיעוד `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

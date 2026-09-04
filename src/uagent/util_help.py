@@ -48,7 +48,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :auto <goal>|off      " + tr("Auto-pilot loop / stop"),
         "  :model                " + tr("Show model configuration"),
         "  :r / :v               " + tr("Reasoning / verbosity"),
-        "  :mem-list / :mem-del  " + tr("Long-term memory"),
+        "  :mem-list / :mem-del / :mem-vacuum  " + tr("Long-term memory"),
         "  :profile ...          " + tr("User profile show/generate/clear"),
         "  :cp / :mv / :rm       " + tr("Copy, move, delete paths"),
         "  :head / :tail         " + tr("Show file head/tail"),
@@ -278,6 +278,13 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             tr("Delete a long-term memory note by index"),
             usage=(":mem-del <index>"),
             detail=tr("Index from :mem-list."),
+        ),
+        "mem-vacuum": e(
+            tr("Reclaim unused SQLite pages for personal memory"),
+            usage=(":mem-vacuum"),
+            detail=tr(
+                "Manual maintenance command; it has no effect for the JSONL backend."
+            ),
         ),
         "profile": e(
             tr("Show or generate the learned user profile"),

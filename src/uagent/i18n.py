@@ -21,6 +21,7 @@ from __future__ import annotations
 import gettext
 import locale
 import os
+import re
 
 from .env_utils import env_get
 from functools import lru_cache
@@ -424,6 +425,74 @@ def _get_translation(lang: str) -> gettext.NullTranslations:
         return gettext.NullTranslations()
 
 
+_COMMAND_NAME_RE = re.compile(r"(?<![A-Za-z0-9_]):[A-Za-z][A-Za-z0-9_-]*")
+
+
+def _preserve_command_syntax(msgid: str, translated: str) -> str:
+    """Keep CLI command tokens unchanged inside translated help text.
+
+    Command names and subcommands are executable syntax, not prose. Translation
+    catalogs sometimes translate tokens such as ``output`` or ``list`` when
+    they appear inside a help sentence, which makes the displayed example
+    impossible to paste back into the CLI. Restore the syntax prefix on lines
+    where the source contains a colon-prefixed command.
+    """
+    if not msgid or not translated or msgid == translated:
+        return translated
+
+    source_lines = msgid.splitlines()
+    translated_lines = translated.splitlines()
+    if len(source_lines) != len(translated_lines):
+        return translated
+
+    restored: list[str] = []
+    for source_line, translated_line in zip(source_lines, translated_lines):
+        source_leading = source_line.lstrip()
+        command_at_start = source_leading.startswith(":") or bool(
+            re.match(r"(?:Usage|Example|Examples):\s*:", source_leading)
+        )
+        if not command_at_start:
+            restored.append(translated_line)
+            continue
+        source_match = _COMMAND_NAME_RE.search(source_line)
+        if source_match is None:
+            restored.append(translated_line)
+            continue
+
+        # The syntax normally ends before the aligned two-space separator.
+        # For a Usage line without a separator, the remainder is syntax.
+        source_prefix_end = re.search(r"\s{2,}", source_line[source_match.end() :])
+        if source_prefix_end is None:
+            source_prefix = source_line[source_match.start() :].rstrip()
+        else:
+            source_prefix = source_line[
+                source_match.start() : source_match.end() + source_prefix_end.start()
+            ].rstrip()
+        source_token_count = len(source_prefix.split())
+        if source_token_count <= 0:
+            restored.append(translated_line)
+            continue
+
+        translated_match = _COMMAND_NAME_RE.search(translated_line)
+        if translated_match is None:
+            restored.append(translated_line)
+            continue
+        translated_tail = translated_line[translated_match.start() :]
+        translated_tokens = translated_tail.split()
+        if len(translated_tokens) < source_token_count:
+            restored.append(translated_line)
+            continue
+        translated_prefix = " ".join(translated_tokens[:source_token_count])
+        translated_prefix_end = translated_match.start() + len(translated_prefix)
+        restored.append(
+            translated_line[: translated_match.start()]
+            + source_prefix
+            + translated_line[translated_prefix_end:]
+        )
+
+    return "\n".join(restored)
+
+
 def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
     """Translate msgid (user-facing string).
 
@@ -439,6 +508,8 @@ def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
 
     if text == msgid and default is not None:
         text = default
+
+    text = _preserve_command_syntax(msgid, text)
 
     if kwargs:
         candidates = [text]

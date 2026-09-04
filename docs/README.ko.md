@@ -41,6 +41,9 @@ uag는 선호하는 모델을 실제로 사용하는 도구에 연결하는 로�
 
 > **요약하면:** uag는 AI 모델과 실제 환경 사이의 제어 플레인입니다.
 
+> **🧠 문맥을 고려한 도구 결과** — 가능한 경우, 대용량 도구 결과는 활성 모델 문맥에서 제외됩니다. uag은 이를 아티팩트로 저장하고, 대신 안정적인 Artifact 참조를 포함한 제한된 미리보기를 모델에 전달합니다. 이는 도구가 방대한 결과를 생성할 때 후속 턴에 필요한 입력 토큰 수를 상당히 줄일 수 있습니다.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ko.md) を参照してください。
+
 ## uag의 위치
 
 한쪽의 사람과 인터페이스, 다른 쪽의 모델·도구·현실 세계 시스템 사이에 uag가 위치합니다.
@@ -118,6 +121,37 @@ Inspector는 디버깅과 감사에 필요한 전환 및 페이지 상태를 기
 
 세션 연속성, 도구 결과 캐싱, 배치 상태, 재시작 복구, DAG 스케줄링,
 멀티 에이전트 오케스트레이션을 통해 복잡한 작업을 일회성 작업이 아닌 재개 가능한 작업으로 만듭니다.
+
+- `set_timer`는 지속적 예약 실행, 필수 도구 보호, 승인된 도구 1개의 직접 실행, 재시도 및 타임아웃을 지원합니다.
+
+### 🧠 문맥을 고려한 도구 결과
+
+가능한 경우, 대용량 도구 결과는 활성 모델 문맥에서 제외됩니다. uag은 이를 아티팩트로 저장하고, 대신 안정적인 Artifact 참조를 포함한 제한된 미리보기를 모델에 전달합니다. 이는 도구가 방대한 결과를 생성할 때 후속 턴에 필요한 입력 토큰 수를 상당히 줄일 수 있습니다.
+
+`artifact_read`를 사용하여 필요한 줄이나 문자 범위만 가져오세요:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+새로운 아티팩트는 다음 경로에 저장됩니다:
+
+```text
+~/.uag/artifacts/
+```
+
+활성 컨텍스트는 `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`과 `UAGENT_TOOL_RESULT_MAX_CHARS`로 경계가 정해집니다. 이미지, 오디오, 내장된 Base64 데이터와 같은 바이너리 페이로드는 영구 저장된 기록에서 제외되지만, UI 및 원격 클라이언트는 메모리 내 첨부 파일을 계속 수신할 수 있습니다.
+
+호환성을 위해 기존의 레거시 Artifact 경로는 계속 읽을 수 있습니다. 저장소 경계, 영구 저장 동작 및 현재 구현 상태에 대해서는 [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md)를 참조하십시오.
+
+[컨텍스트 압축 및 제한된 모델 컨텍스트](CONTEXT_COMPRESSION.ko.md)
+
+### 🌍 다국어 번역
+
+- `translate_text`은 `provider=auto`, `provider=deepl` 또는 `provider=google`을 통해 Google Translate 및 공식 DeepL Python 클라이언트를 지원합니다.
+- 도구 정의는 영어를 포함한 37개 로케일(총 38개)에서 사용할 수 있으며, 자리 표시자와 기술 식별자가 그대로 유지됩니다.
+
+[환경 변수](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [번역 방법론](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), [`set_timer` 문서](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)를 참조하십시오.
 
 ### 🎙 실시간 음성
 
@@ -296,6 +330,18 @@ MQTT/OPC UA 서버와 같은 추가 시스템 요구 사항이 있습니다. 관
 
 `:load <index>`로 이전 대화를 재개하세요. 도구 결과를 캐시할 수 있으며 애플리케이션을 다시 빌드하지 않고도 프로바이더를 변경할 수 있습니다.
 
+Session Store 설정:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### 자동 조종
 
 선택적 검토자 모델과 함께 여러 라운드의 작업을 수행하려면 `:auto`를 사용하세요. `--max-rounds N`으로 라운드 한도를 설정합니다.
@@ -425,11 +471,3 @@ python -m pytest -q .
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## 최근 기능
-
-- `translate_text`은 `provider=auto`, `provider=deepl` 또는 `provider=google`을 통해 Google Translate 및 공식 DeepL Python 클라이언트를 지원합니다.
-- 도구 정의는 영어를 포함한 37개 로케일(총 38개)에서 사용할 수 있으며, 자리 표시자와 기술 식별자가 그대로 유지됩니다.
-- `set_timer`는 지속적 예약 실행, 필수 도구 보호, 승인된 도구 1개의 직접 실행, 재시도 및 타임아웃을 지원합니다.
-
-[환경 변수](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [번역 방법론](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), [`set_timer` 문서](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)를 참조하십시오.

@@ -40,6 +40,9 @@ uag 是一个本地优先的 AI 代理，可将你偏好的模型连接到你实
 
 > **简而言之：** uag 是你的 AI 模型与真实环境之间的控制平面。
 
+> **🧠 基于上下文的工具结果** — 在可能的情况下，大型工具结果不会被纳入当前模型上下文。 uag 将其存储为“工件”，并向模型传递一个带有稳定 Artifact 引用且范围受限的预览。当工具生成大量结果时，这可以大幅减少后续轮次所需的输入令牌数量。
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.zh_CN.md) を参照してください。
+
 ## uag 的定位
 
 一侧是人员和界面，另一侧是模型、工具和现实世界系统，uag 位于两者之间。
@@ -110,6 +113,37 @@ flowchart LR
 ### 🔄 可靠的长时运行工作
 
 会话连续性、工具结果缓存、批处理状态、重启恢复、DAG 调度和多代理编排，让复杂工作可以恢复，而不是只能一次性完成。
+
+- `set_timer` 支持持久的定时 LLM 运行、必需工具保护、直接执行一个已批准的工具、重试和超时。
+
+### 🧠 基于上下文的工具结果
+
+在可能的情况下，大型工具结果不会被纳入当前模型上下文。 uag 将其存储为“工件”，并向模型传递一个带有稳定 Artifact 引用且范围受限的预览。当工具生成大量结果时，这可以大幅减少后续轮次所需的输入令牌数量。
+
+使用 `artifact_read` 仅检索所需的行或字符范围：
+
+```text
+> 读取 artifact://<artifact-id> 的第 100-140 行
+```
+
+新生成内容存储在：
+
+```text
+~/.uag/artifacts/
+```
+
+活动上下文由 `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` 和 `UAGENT_TOOL_RESULT_MAX_CHARS` 界定。 图像、音频和嵌入式 Base64 数据等二进制有效载荷不会被纳入持久化历史记录，但用户界面和远程客户端仍可继续接收其内存中的附件。
+
+出于兼容性考虑，现有的旧版 Artifact 路径仍可读取。 有关存储边界、持久化行为和当前实现状态，请参阅 [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md)。
+
+[上下文压缩与有界模型上下文](CONTEXT_COMPRESSION.zh_CN.md)
+
+### 🌍 多语言翻译
+
+- `translate_text` 支持通过 `provider=auto`、`provider=deepl` 或 `provider=google` 调用 `Google Translate` 以及官方 DeepL Python 客户端。
+- 工具定义支持 37 种语言环境以及英语（共计 38 种），同时保留了占位符和技术标识符。
+
+参见 [环境变量](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻译方法论](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) 以及 [`set_timer` 文档](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)。
 
 ### 🎙 实时语音
 
@@ -281,6 +315,18 @@ python -m pip install PySide6 ewmh dbus-next
 
 使用 `:load <index>` 恢复之前的对话。工具结果可以缓存，也可以更换提供商而无需重新构建应用程序。
 
+Session Store 设置：
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### 自动驾驶
 
 使用 `:auto` 进行多轮工作，并可选用审查模型。使用 `--max-rounds N` 设置轮次上限。
@@ -402,11 +448,3 @@ python -m pytest -q .
 ## 许可证
 
 基于 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) 授权。
-
-## 最新功能
-
-- `translate_text` 支持通过 `provider=auto`、`provider=deepl` 或 `provider=google` 调用 `Google Translate` 以及官方 DeepL Python 客户端。
-- 工具定义支持 37 种语言环境以及英语（共计 38 种），同时保留了占位符和技术标识符。
-- `set_timer` 支持持久的定时 LLM 运行、必需工具保护、直接执行一个已批准的工具、重试和超时。
-
-参见 [环境变量](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻译方法论](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) 以及 [`set_timer` 文档](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)。

@@ -41,6 +41,9 @@ dispositivos IoT, servidores MCP e fluxos de trabalho multiagente.
 
 > **Em resumo:** o uag é o plano de controle entre seus modelos de IA e seu ambiente real.
 
+> **🧠 Resultados de ferramentas sensíveis ao contexto** — Resultados extensos de ferramentas são mantidos fora do contexto ativo do modelo, sempre que possível. O `uag` os armazena como Artefatos e, em vez disso, passa ao modelo uma pré-visualização limitada com uma referência estável ao `Artifact`. Isso pode reduzir substancialmente o número de tokens de entrada necessários para as rodadas seguintes quando uma ferramenta produz um resultado extenso.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.pt_BR.md) を参照してください。
+
 ## Onde o uag se encaixa
 
 O uag fica entre pessoas e interfaces, de um lado, e modelos, ferramentas e sistemas do mundo real, do outro.
@@ -118,6 +121,37 @@ configurável (`UAGENT_PARALLEL_WORKERS`). Operações de escrita permanecem ser
 
 Continuidade de sessões, cache de resultados de ferramentas, estado em lote, recuperação após reinicialização, agendamento de DAG
 e orquestração multiagente tornam trabalhos complexos retomáveis em vez de limitados a uma única execução.
+
+- `set_timer` oferece suporte a execuções agendadas e persistentes de LLM, proteção de ferramentas obrigatórias, execução direta de uma ferramenta aprovada, novas tentativas e tempos limite.
+
+### 🧠 Resultados de ferramentas sensíveis ao contexto
+
+Resultados extensos de ferramentas são mantidos fora do contexto ativo do modelo, sempre que possível. O `uag` os armazena como Artefatos e, em vez disso, passa ao modelo uma pré-visualização limitada com uma referência estável ao `Artifact`. Isso pode reduzir substancialmente o número de tokens de entrada necessários para as rodadas seguintes quando uma ferramenta produz um resultado extenso.
+
+Use `artifact_read` para recuperar apenas as linhas necessárias ou o intervalo de caracteres:
+
+```text
+> Ler artifact://<artifact-id> linhas 100-140
+```
+
+Novos artefatos são armazenados em:
+
+```text
+~/.uag/artifacts/
+```
+
+O contexto ativo é delimitado por `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` e `UAGENT_TOOL_RESULT_MAX_CHARS`. Cargas binárias, como imagens, áudio e dados Base64 incorporados, são mantidas fora do histórico persistido, enquanto a interface do usuário e os clientes remotos podem continuar a receber seus anexos na memória.
+
+Os caminhos legados existentes de Artifact permanecem legíveis por motivos de compatibilidade. Consulte [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) para obter informações sobre limites de armazenamento, comportamento de persistência e status atual da implementação.
+
+[Compressão de contexto e contexto de modelo delimitado](CONTEXT_COMPRESSION.pt_BR.md)
+
+### 🌍 Tradução multilíngue
+
+- `translate_text` é compatível com Google Translate e com o cliente oficial do DeepL para Python por meio de `provider=auto`, `provider=deepl` ou `provider=google`.
+- As definições das ferramentas estão disponíveis em 37 idiomas, além do inglês (38 no total), com os espaços reservados e os identificadores técnicos preservados.
+
+Consulte [Variáveis de ambiente](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia de tradução](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) e [documentação do `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Voz em tempo real
 
@@ -299,6 +333,18 @@ credenciais de nuvem ou um servidor MQTT/OPC UA. A ferramenta relevante informa 
 Retome conversas anteriores com `:load <index>`. Os resultados das ferramentas podem ser armazenados em cache, e os provedores podem ser alterados
 sem reconstruir o aplicativo.
 
+Configurações do Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Piloto automático
 
 Use `:auto` para trabalhos com várias rodadas e um modelo revisor opcional. Defina um limite de rodadas com `--max-rounds N`.
@@ -429,11 +475,3 @@ e execute as verificações acima antes de enviar um pull request.
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Recursos recentes
-
-- `translate_text` é compatível com Google Translate e com o cliente oficial do DeepL para Python por meio de `provider=auto`, `provider=deepl` ou `provider=google`.
-- As definições das ferramentas estão disponíveis em 37 idiomas, além do inglês (38 no total), com os espaços reservados e os identificadores técnicos preservados.
-- `set_timer` oferece suporte a execuções agendadas e persistentes de LLM, proteção de ferramentas obrigatórias, execução direta de uma ferramenta aprovada, novas tentativas e tempos limite.
-
-Consulte [Variáveis de ambiente](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologia de tradução](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) e [documentação do `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

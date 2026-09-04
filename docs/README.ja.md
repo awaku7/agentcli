@@ -41,6 +41,9 @@ uagは、好みのモデルを実際に使うツールへ接続する、ロー�
 
 > **要するに:** uagは、AIモデルと現実の環境の間に位置するコントロールプレーンです。
 
+> **🧠 コンテキストに応じたツールの結果** — 大規模なツールの結果は、可能な限りアクティブなモデルのコンテキストから除外されます。 uag はそれらをアーティファクトとして保存し、代わりに安定した Artifact 参照を含む範囲を限定したプレビューをモデルに渡します。これにより、ツールが大量の生成結果を生成した場合でも、その後のターンに必要な入力トークンの数を大幅に削減できます。
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ja.md) を参照してください。
+
 ## uagの位置づけ
 
 uagは、一方では人やインターフェースと、もう一方ではモデル、ツール、現実世界のシステムとの間に位置します。
@@ -118,6 +121,37 @@ Browser Inspectorは、デバッグと監査のために遷移とページ状態
 
 セッションの継続、ツール結果のキャッシュ、バッチ状態、再起動からの復旧、DAGスケジューリング、
 マルチエージェントオーケストレーションにより、複雑な作業を一度きりではなく再開可能にします。
+
+- `set_timer` では、永続的なスケジュールされた LLM 実行、必須ツールの保護、承認済みツールの直接実行、再試行、およびタイムアウトがサポートされています。
+
+### 🧠 コンテキストに応じたツールの結果
+
+大規模なツールの結果は、可能な限りアクティブなモデルのコンテキストから除外されます。 uag はそれらをアーティファクトとして保存し、代わりに安定した Artifact 参照を含む範囲を限定したプレビューをモデルに渡します。これにより、ツールが大量の生成結果を生成した場合でも、その後のターンに必要な入力トークンの数を大幅に削減できます。
+
+`artifact_read` を使用すると、必要な行または文字範囲のみを取得できます：
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+新しいアーティファクトは以下に保存されます：
+
+```text
+~/.uag/artifacts/
+```
+
+アクティブなコンテキストは `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` と `UAGENT_TOOL_RESULT_MAX_CHARS` で境界が定義されます。 画像、音声、埋め込みされた Base64 データなどのバイナリペイロードは、永続化された履歴からは除外されますが、UI やリモートクライアントは引き続きメモリ内の添付データを受信できます。
+
+互換性のため、既存のレガシー Artifact パスは読み取り可能です。 ストレージの境界、永続化の挙動、および現在の実装状況については、[Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md)を参照してください。
+
+[コンテキスト圧縮と境界付きモデルコンテキスト](CONTEXT_COMPRESSION.ja.md)
+
+### 🌍 多言語翻訳
+
+- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定することで、Google Translate および公式の DeepL Python クライアントをサポートします。
+- ツールの定義は、英語以外の37ロケールに加えて英語でも利用可能であり、合計38言語に対応しています。プレースホルダーや技術的な識別子は保持されます。
+
+[環境変数](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻訳方法論](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)、および [`set_timer` ドキュメント](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)を参照してください。
 
 ### 🎙 リアルタイム音声
 
@@ -444,11 +478,3 @@ python -m pytest -q .
 ## ライセンス
 
 [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)の下でライセンスされています。
-
-## 最新の機能
-
-- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定することで、Google Translate および公式の DeepL Python クライアントをサポートします。
-- ツールの定義は、英語以外の37ロケールに加えて英語でも利用可能であり、合計38言語に対応しています。プレースホルダーや技術的な識別子は保持されます。
-- `set_timer` では、永続的なスケジュールされた LLM 実行、必須ツールの保護、承認済みツールの直接実行、再試行、およびタイムアウトがサポートされています。
-
-[環境変数](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻訳方法論](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)、および [`set_timer` ドキュメント](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)を参照してください。

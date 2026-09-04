@@ -41,6 +41,9 @@ thiết bị IoT, máy chủ MCP và các quy trình làm việc đa agent.
 
 > **Tóm lại:** uag là mặt phẳng điều khiển nằm giữa các mô hình AI và môi trường thực tế của bạn.
 
+> **🧠 Kết quả của công cụ dựa trên ngữ cảnh** — Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.vi.md) を参照してください。
+
 ## Vị trí của uag
 
 Một phía, uag nằm giữa con người và các giao diện; phía kia là các mô hình, công cụ và hệ thống thế giới thực.
@@ -118,6 +121,37 @@ phân tích repository và các tác vụ tương tự có thể hoàn tất son
 
 Tính liên tục của phiên, bộ nhớ đệm kết quả công cụ, trạng thái theo lô, khôi phục sau khởi động lại, lập lịch DAG và
 điều phối đa agent giúp các công việc phức tạp có thể tiếp tục thay vì chỉ chạy một lần.
+
+- `set_timer` hỗ trợ các tác vụ LLM được lên lịch và duy trì liên tục, bảo vệ công cụ bắt buộc, thực thi trực tiếp một công cụ được phê duyệt, thử lại và thời gian chờ.
+
+### 🧠 Kết quả của công cụ dựa trên ngữ cảnh
+
+Khi có thể, các kết quả có dung lượng lớn của công cụ sẽ được loại trừ khỏi ngữ cảnh mô hình đang hoạt động. uag lưu trữ chúng dưới dạng Artifacts và thay vào đó, truyền cho mô hình một bản xem trước có giới hạn kèm theo tham chiếu Artifact ổn định. Điều này có thể giảm đáng kể số lượng token đầu vào cần thiết cho các lượt tiếp theo khi công cụ tạo ra kết quả có dung lượng lớn.
+
+Sử dụng `artifact_read` để chỉ truy xuất các dòng hoặc phạm vi ký tự cần thiết:
+
+```text
+> Đọc artifact://<artifact-id> các dòng 100-140
+```
+
+Các Artifact mới được lưu trữ tại:
+
+```text
+~/.uag/artifacts/
+```
+
+Bối cảnh hoạt động được giới hạn bởi `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` và `UAGENT_TOOL_RESULT_MAX_CHARS`. Các tải trọng nhị phân như hình ảnh, âm thanh và dữ liệu nhúng Base64 không được lưu trữ trong lịch sử lưu trữ, trong khi giao diện người dùng (UI) và các khách hàng từ xa vẫn có thể tiếp tục nhận các tệp đính kèm trong bộ nhớ.
+
+Các đường dẫn Artifact cũ vẫn có thể đọc được để đảm bảo tương thích. Xem [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) để biết về giới hạn lưu trữ, hành vi lưu trữ lâu dài và tình trạng triển khai hiện tại.
+
+[Nén bối cảnh và bối cảnh mô hình có giới hạn](CONTEXT_COMPRESSION.vi.md)
+
+### 🌍 Bản dịch đa ngôn ngữ
+
+- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
+- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
+
+Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Phương pháp dịch thuật](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) và [Tài liệu hướng dẫn về `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Thoại thời gian thực
 
@@ -299,6 +333,18 @@ thông tin xác thực đám mây hoặc máy chủ MQTT/OPC UA. Công cụ liê
 Tiếp tục các cuộc hội thoại trước bằng `:load <index>`. Kết quả công cụ có thể được lưu vào bộ nhớ đệm và provider có thể được thay đổi
 mà không cần xây dựng lại ứng dụng.
 
+Cài đặt Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Dùng `:auto` cho công việc nhiều vòng với một mô hình reviewer tùy chọn. Đặt giới hạn vòng bằng `--max-rounds N`.
@@ -428,11 +474,3 @@ và chạy các kiểm tra ở trên trước khi gửi pull request.
 ## Giấy phép
 
 Được cấp phép theo [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Các tính năng mới nhất
-
-- `translate_text` hỗ trợ Google Translate và ứng dụng khách Python chính thức của DeepL thông qua các tùy chọn `provider=auto`, `provider=deepl` hoặc `provider=google`.
-- Các định nghĩa công cụ có sẵn trong 37 ngôn ngữ địa phương cùng với tiếng Anh (tổng cộng 38), trong đó các ký hiệu giữ chỗ và mã định danh kỹ thuật được giữ nguyên.
-- `set_timer` hỗ trợ các tác vụ LLM được lên lịch và duy trì liên tục, bảo vệ công cụ bắt buộc, thực thi trực tiếp một công cụ được phê duyệt, thử lại và thời gian chờ.
-
-Xem [Biến môi trường](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Phương pháp dịch thuật](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) và [Tài liệu hướng dẫn về `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

@@ -5,6 +5,7 @@ Moved from util_tools.py.
 
 from __future__ import annotations
 
+import datetime as _datetime
 import glob
 import json
 import os
@@ -34,6 +35,21 @@ from .util_message import (
 # Default translation function used when core.tr is not provided.
 tr = _
 tr_ = _
+
+
+def _format_session_timestamp(value: Any) -> str:
+    """Render SQLite UTC timestamps in the user's local timezone."""
+    raw = str(value or "").strip()
+    if not raw:
+        return "-"
+    try:
+        parsed = _datetime.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            # SQLite strftime('now') stores UTC without an offset.
+            parsed = parsed.replace(tzinfo=_datetime.timezone.utc)
+        return parsed.astimezone().strftime("%Y-%m-%d %H:%M:%S")
+    except (TypeError, ValueError, OverflowError):
+        return raw
 
 
 def _session_preview(value: Any, limit: int = 100) -> str:
@@ -848,7 +864,7 @@ def _handle_cmd_sessions(
                 _("  %(id)s | %(created_at)s | %(count)d messages")
                 % {
                     "id": row["session_id"],
-                    "created_at": row.get("created_at"),
+                    "created_at": _format_session_timestamp(row.get("created_at")),
                     "count": row.get("message_count", 0),
                 }
             )
@@ -1106,7 +1122,7 @@ def _handle_cmd_sessions(
             last = _session_preview(row.get("last_message"))
             summary = _session_preview(row.get("summary"))
             print(
-                f"[{index}] {row['created_at']}  {row.get('message_count', 0)} messages"
+                f"[{index}] {_format_session_timestamp(row.get('created_at'))}  {row.get('message_count', 0)} messages"
             )
             print(f"    first: {first}")
             print(f"    last:  {last}")
@@ -1274,7 +1290,7 @@ def _handle_cmd_load(
                 if preview == "-":
                     preview = _session_preview(row.get("first_message"))
                 print(
-                    f"  [{index}] {row.get('created_at') or '-'} | "
+                    f"  [{index}] {_format_session_timestamp(row.get('created_at'))} | "
                     f"{row.get('message_count', 0)} messages | "
                     f"{row.get('project') or '-'}"
                 )
@@ -1371,7 +1387,11 @@ def _handle_cmd_load(
             if session_row is not None:
                 print(
                     _("  created: %(created)s")
-                    % {"created": session_row.get("created_at") or "-"}
+                    % {
+                        "created": _format_session_timestamp(
+                            session_row.get("created_at")
+                        )
+                    }
                 )
                 print(
                     _("  project: %(project)s")
@@ -1776,6 +1796,20 @@ def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
         print(_("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
     else:
         print(_("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+    return True
+
+
+def _handle_cmd_mem_vacuum(arg: str, *, tr: Any) -> bool:
+    if arg.strip():
+        print(_(":mem-vacuum takes no arguments."))
+        return True
+    if not personal_long_memory.is_sqlite_backend():
+        print(_("Personal memory uses JSONL; SQLite VACUUM is not applicable."))
+        return True
+    if personal_long_memory.vacuum_long_memory():
+        print(_("Personal memory database vacuum completed."))
+    else:
+        print(_("[mem-vacuum] Failed to vacuum the personal memory database."))
     return True
 
 

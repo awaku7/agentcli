@@ -41,6 +41,9 @@ peranti IoT, pelayan MCP dan aliran kerja berbilang ejen.
 
 > **Ringkasnya:** uag ialah satah kawalan antara model AI anda dengan persekitaran sebenar anda.
 
+> **🧠 Hasil alat yang peka konteks** — Hasil alat yang besar disimpan di luar konteks model aktif apabila boleh. uag menyimpannya sebagai Artifacts dan sebaliknya menghantar pratonton terhad dengan rujukan Artifact yang stabil kepada model. Ini boleh mengurangkan jumlah token input yang diperlukan untuk giliran susulan dengan ketara apabila alat menghasilkan hasil yang besar.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ms.md) を参照してください。
+
 ## Kedudukan uag
 
 uag berada di antara manusia dan antara muka di satu pihak, serta model, alat dan sistem dunia sebenar di pihak yang lain.
@@ -118,6 +121,37 @@ yang boleh dikonfigurasi (`UAGENT_PARALLEL_WORKERS`). Operasi tulis kekal bersir
 
 Kesinambungan sesi, caching hasil alat, keadaan kelompok, pemulihan selepas mula semula, penjadualan DAG dan
 orkestrasi berbilang ejen menjadikan kerja kompleks boleh disambung semula dan bukan sekali jalan.
+
+- `set_timer` menyokong pelaksanaan LLM yang dijadualkan secara berterusan, perlindungan alat diperlukan, pelaksanaan langsung satu alat yang diluluskan, percubaan semula, dan had masa.
+
+### 🧠 Hasil alat yang peka konteks
+
+Hasil alat yang besar disimpan di luar konteks model aktif apabila boleh. uag menyimpannya sebagai Artifacts dan sebaliknya menghantar pratonton terhad dengan rujukan Artifact yang stabil kepada model. Ini boleh mengurangkan jumlah token input yang diperlukan untuk giliran susulan dengan ketara apabila alat menghasilkan hasil yang besar.
+
+Gunakan `artifact_read` untuk mendapatkan hanya baris atau julat aksara yang diperlukan:
+
+```text
+> Baca artifact://<artifact-id> baris 100-140
+```
+
+Artifact baharu disimpan di bawah:
+
+```text
+~/.uag/artifacts/
+```
+
+Konteks aktif dihadkan oleh `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` dan `UAGENT_TOOL_RESULT_MAX_CHARS`. Muatan binari seperti imej, audio dan data Base64 terbenam tidak disimpan dalam sejarah berterusan, manakala UI dan klien jauh masih boleh menerima lampiran dalam memori mereka.
+
+Laluan Artifact legasi yang sedia ada kekal boleh dibaca demi keserasian. Lihat [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) untuk sempadan storan, tingkah laku ketekalan dan status pelaksanaan semasa.
+
+[Pemampatan konteks dan konteks model terhad](CONTEXT_COMPRESSION.ms.md)
+
+### 🌍 Terjemahan berbilang bahasa
+
+- `translate_text` menyokong Google Translate dan klien DeepL Python rasmi melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
+- Definisi alat tersedia dalam 37 lokalisasi ditambah Bahasa Inggeris (jumlah 38), dengan penanda tempat dan pengecam teknikal dikekalkan.
+
+Lihat [Pembolehubah persekitaran](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologi terjemahan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), dan [dokumentasi `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Suara masa nyata
 
@@ -299,6 +333,18 @@ kelayakan awan atau pelayan MQTT/OPC UA. Alat berkaitan melaporkan perkara yang 
 Sambung semula perbualan terdahulu dengan `:load <index>`. Hasil alat boleh dicache dan penyedia boleh ditukar
 tanpa membina semula aplikasi.
 
+Tetapan Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Gunakan `:auto` untuk kerja berbilang pusingan dengan model penyemak pilihan. Tetapkan had pusingan dengan `--max-rounds N`.
@@ -429,11 +475,3 @@ dan jalankan pemeriksaan di atas sebelum menghantar pull request.
 ## Lesen
 
 Dilesenkan di bawah [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Keupayaan terkini
-
-- `translate_text` menyokong Google Translate dan klien DeepL Python rasmi melalui `provider=auto`, `provider=deepl`, atau `provider=google`.
-- Definisi alat tersedia dalam 37 lokalisasi ditambah Bahasa Inggeris (jumlah 38), dengan penanda tempat dan pengecam teknikal dikekalkan.
-- `set_timer` menyokong pelaksanaan LLM yang dijadualkan secara berterusan, perlindungan alat diperlukan, pelaksanaan langsung satu alat yang diluluskan, percubaan semula, dan had masa.
-
-Lihat [Pembolehubah persekitaran](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Metodologi terjemahan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), dan [dokumentasi `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

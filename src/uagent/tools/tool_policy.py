@@ -50,6 +50,7 @@ _READ_ONLY = {
     "get_current_time",
     "get_weather_wttr",
     "zipcode_check",
+    "artifact_info",
     "code_map",
     "coverage_report",
     "security_scan",
@@ -129,6 +130,12 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
                 parallel_safe=True,
                 resource_key=_resource_key(tool_name, args),
             )
+    if tool_name == "artifact_export" and bool(args.get("overwrite", False)):
+        return ToolPolicy(
+            SideEffect.DESTRUCTIVE,
+            resource_key=_resource_key(tool_name, args),
+            requires_confirmation=True,
+        )
     if tool_name in _READ_ONLY:
         if tool_name == "http_request":
             method = str(args.get("method") or "GET").upper()

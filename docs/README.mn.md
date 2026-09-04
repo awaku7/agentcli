@@ -41,6 +41,9 @@ uag нь таны илүүд үздэг загварыг бодитоор аши
 
 > **Товчхондоо:** uag бол таны AI загварууд болон бодит орчны хоорондох удирдлагын давхарга юм.
 
+> **🧠 Контекст мэдрэмжтэй хэрэгслийн үр дүн** — Боломжтой үед том хэмжээний хэрэгслийн үр дүнг идэвхтэй загварын контекстээс гадуур хадгалдаг. uag нь тэдгээрийг Artifacts хэлбэрээр хадгалдаг ба тогтвортой Artifact лавлагаа бүхий хязгаарлагдмал урьдчилсан харагчаар загварт дамжуулдаг. Ингэснээр хэрэгсэл их хэмжээний үр дүн гаргасан тохиолдолд дараагийн ээлжийн оролтын тэмдэгтийн тоог ихээхэн бууруулж болно.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.mn.md) を参照してください。
+
 ## uag хаана байрладаг вэ?
 
 Нэг талд нь хүмүүс ба интерфейсүүд, нөгөө талд нь загвар, хэрэгсэл болон бодит ертөнцийн системүүд байрлах
@@ -119,6 +122,37 @@ Inspector нь дибаг хийх, аудит хийхэд зориулан ш�
 
 Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling болон
 multi-agent orchestration нь нарийн төвөгтэй ажлыг нэг удаагийн бус, үргэлжлүүлэн сэргээх боломжтой болгоно.
+
+- `set_timer` нь тогтмол хуваарьт LLM гүйцэтгэлүүдийг, шаардлагатай хэрэгслийн хамгаалалтыг, нэг батлагдсан хэрэгслийг шууд ажиллуулах, дахин оролдлого хийх болон хугацааны хязгаарлалтыг дэмждэг.
+
+### 🧠 Контекст мэдрэмжтэй хэрэгслийн үр дүн
+
+Боломжтой үед том хэмжээний хэрэгслийн үр дүнг идэвхтэй загварын контекстээс гадуур хадгалдаг. uag нь тэдгээрийг Artifacts хэлбэрээр хадгалдаг ба тогтвортой Artifact лавлагаа бүхий хязгаарлагдмал урьдчилсан харагчаар загварт дамжуулдаг. Ингэснээр хэрэгсэл их хэмжээний үр дүн гаргасан тохиолдолд дараагийн ээлжийн оролтын тэмдэгтийн тоог ихээхэн бууруулж болно.
+
+Шаардлагатай мөр эсвэл тэмдэгтийн хүрээг авахын тулд `artifact_read` ашиглана:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+Шинэ бүтээгдэхүүнүүд дараах байршилд хадгалагддаг:
+
+```text
+~/.uag/artifacts/
+```
+
+Актив контекст нь `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` болон `UAGENT_TOOL_RESULT_MAX_CHARS`-ээр хязгаарлагддаг. Зураг, аудио болон суулгасан Base64 өгөгдөл зэрэг хоёртын ачаа тээш нь хадгалагдсан түүхэнд орохгүй, харин UI болон алсын үйлчлүүлэгчид санах ой доторх хавсралтуудыг хүлээн авах боломжтой хэвээр байна.
+
+Одоогийн хуучин Artifact замууд нийцтэй байдлыг хангах үүднээс уншигддаг хэвээр байна. Хадгалах хязгаар, тогтвортой байдлын зан үйл болон одоогийн хэрэгжилтийн байдлын талаарх мэдээллийг [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) хаягаар үзнэ үү.
+
+[Контекст шахалт ба хязгаарлагдмал загварын контекст](CONTEXT_COMPRESSION.mn.md)
+
+### 🌍 Олон хэлний орчуулга
+
+- `translate_text` нь `Google Translate` болон албан ёсны DeepL Python клиентийг `provider=auto`, `provider=deepl`, эсвэл `provider=google` ашиглан дэмждэг.
+- Хэрэгслийн тодорхойлолтууд 37 орчуулгын хувилбар болон англи хэл дээр (нийт 38) ашиглах боломжтой бөгөөд орлуулагч болон техникийн таних тэмдэглэгээг хадгалсан.
+
+[Орчны хувьсагчид](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Орчуулгын аргачлал](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), болон [`set_timer` баримт бичиг](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Бодит цагийн дуу хоолой
 
@@ -300,6 +334,18 @@ python -m pip install PySide6 ewmh dbus-next
 `:load <index>` ашиглан өмнөх харилцан яриаг үргэлжлүүлнэ. Хэрэгслийн үр дүнг cache хийж болох бөгөөд
 application-ийг дахин бүтээлгүйгээр provider-ийг сольж болно.
 
+Session Store тохиргоо:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Сонголтот reviewer model-той олон үе шаттай ажилд `:auto` ашиглана. `--max-rounds N`-ээр үеийн хязгаар тогтооно.
@@ -430,11 +476,3 @@ pull request илгээхээсээ өмнө дээрх шалгалтуудыг
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Сүүлийн үеийн боломжууд
-
-- `translate_text` нь `Google Translate` болон албан ёсны DeepL Python клиентийг `provider=auto`, `provider=deepl`, эсвэл `provider=google` ашиглан дэмждэг.
-- Хэрэгслийн тодорхойлолтууд 37 орчуулгын хувилбар болон англи хэл дээр (нийт 38) ашиглах боломжтой бөгөөд орлуулагч болон техникийн таних тэмдэглэгээг хадгалсан.
-- `set_timer` нь тогтмол хуваарьт LLM гүйцэтгэлүүдийг, шаардлагатай хэрэгслийн хамгаалалтыг, нэг батлагдсан хэрэгслийг шууд ажиллуулах, дахин оролдлого хийх болон хугацааны хязгаарлалтыг дэмждэг.
-
-[Орчны хувьсагчид](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Орчуулгын аргачлал](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), болон [`set_timer` баримт бичиг](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

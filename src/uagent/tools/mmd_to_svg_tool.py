@@ -14,7 +14,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "media",
-    "tool_level": 0,
+    "tool_level": 1,
     "x_parallel_safe": False,
     "function": {
         "name": "mmd_to_svg",

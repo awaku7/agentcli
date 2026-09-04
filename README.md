@@ -41,6 +41,9 @@ IoT devices, MCP servers, and multi-agent workflows.
 
 > **In short:** uag is the control plane between your AI models and your real environment.
 
+> **Context efficiency:** Large tool results are stored as Artifacts and kept out of the active model context when possible,
+> so follow-up turns can use substantially fewer input tokens. See the [Context compression guide](docs/CONTEXT_COMPRESSION.md).
+
 ## Where uag fits
 
 uag sits between people and interfaces on one side, and models, tools, and real-world systems on the other.
@@ -122,6 +125,26 @@ multi-agent orchestration make complex work resumable instead of one-shot.
 Scheduled LLM runs can retain required tools for their execution window, and `set_timer`
 can also execute one explicitly approved tool directly without an LLM round. Retries,
 timeouts, and terminal run states are persisted by the scheduler.
+
+### 🧠 Context-aware tool results
+
+Large tool results are kept out of the active model context when possible. uag stores them as Artifacts and passes the model a bounded preview with a stable Artifact reference instead. This can substantially reduce the number of input tokens required for follow-up turns when a tool produces a large result.
+
+Use `artifact_read` to retrieve only the needed lines or character range:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+New Artifacts are stored under:
+
+```text
+~/.uag/artifacts/
+```
+
+The active context is bounded by `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` and `UAGENT_TOOL_RESULT_MAX_CHARS`. Binary payloads such as images, audio, and embedded Base64 data are kept out of persisted history, while UI and remote clients can continue to receive their in-memory attachments.
+
+Existing legacy Artifact paths remain readable for compatibility. See the [Context compression guide](docs/CONTEXT_COMPRESSION.md) for the complete list of compression layers, and [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) for storage boundaries, persistence behavior, and current implementation status.
 
 ### 🌍 Multilingual translation
 

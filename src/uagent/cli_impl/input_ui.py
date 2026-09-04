@@ -351,6 +351,11 @@ def _can_use_textarea() -> bool:
             return False
 
 
+def _normalize_multiline_text(text: str) -> str:
+    """Normalize pasted CRLF/CR line endings for the multiline editor."""
+    return str(text).replace("\r\n", "\n").replace("\r", "\n")
+
+
 def _multiline_editor(initial_text: str = "") -> str | None:
     """Open a prompt_toolkit TextArea for multiline editing (non-fullscreen).
 
@@ -367,10 +372,11 @@ def _multiline_editor(initial_text: str = "") -> str | None:
 
     @kb.add(Keys.BracketedPaste)
     def _safe_paste(event: Any) -> None:
-        event.current_buffer.insert_text(tools_util.strip_surrogates(event.data))
+        pasted = _normalize_multiline_text(tools_util.strip_surrogates(event.data))
+        event.current_buffer.insert_text(pasted)
 
     def _submit(event: Any) -> None:
-        event.app.exit(result=textarea.text)
+        event.app.exit(result=_normalize_multiline_text(textarea.text))
 
     # Ctrl+X to submit (Alt+Enter removed; Ctrl+Enter is indistinguishable from Enter on most terminals)
     kb.add("c-x")(_submit)
@@ -380,7 +386,7 @@ def _multiline_editor(initial_text: str = "") -> str | None:
         event.app.exit(result=None)
 
     textarea = TA(
-        text=initial_text,
+        text=_normalize_multiline_text(initial_text),
         multiline=True,
         focusable=True,
         style="bg:#222222 #ffffff",

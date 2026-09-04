@@ -41,6 +41,9 @@ IoT device, MCP server, at mga workflow na may maraming agent.
 
 > **Sa madaling sabi:** ang uag ang control plane sa pagitan ng iyong mga AI model at ng iyong aktuwal na environment.
 
+> **🧠 Mga resulta ng tool na may kamalayan sa konteksto** — Ang malalaking resulta ng tool ay hindi isinasama sa konteksto ng aktibong modelo kapag posible. Ina-store ng uag ang mga ito bilang Artifacts at ipinapasa sa modelo ang isang may hangganang preview na may matatag na Artifact reference. Maaari nitong lubos na mabawasan ang bilang ng mga input token na kailangan para sa mga kasunod na turn kapag gumawa ang tool ng malaking resulta.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.fil.md) を参照してください。
+
 ## Saan nababagay ang uag
 
 Nasa pagitan ang uag ng mga tao at interface sa isang panig, at ng mga model, tool, at sistema sa totoong mundo sa kabilang panig.
@@ -118,6 +121,37 @@ pagsusuri ng repository, at katulad na workload gamit ang worker pool na nako-co
 
 Ginagawang maipagpapatuloy ang kumplikadong gawain sa halip na one-shot ng continuity ng session, pag-cache ng resulta ng tool,
 batch state, recovery pagkatapos ng restart, DAG scheduling, at orchestration ng maraming agent.
+
+- Sinusuportahan ng `set_timer` ang tuloy-tuloy na naka-iskedyul na pagpapatakbo ng LLM, proteksyon para sa kinakailangang tool, direktang pagpapatakbo ng isang aprubadong tool, muling pagtatangka, at mga timeout.
+
+### 🧠 Mga resulta ng tool na may kamalayan sa konteksto
+
+Ang malalaking resulta ng tool ay hindi isinasama sa konteksto ng aktibong modelo kapag posible. Ina-store ng uag ang mga ito bilang Artifacts at ipinapasa sa modelo ang isang may hangganang preview na may matatag na Artifact reference. Maaari nitong lubos na mabawasan ang bilang ng mga input token na kailangan para sa mga kasunod na turn kapag gumawa ang tool ng malaking resulta.
+
+Gamitin ang `artifact_read` upang kunin lamang ang mga kinakailangang linya o saklaw ng karakter:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+Ang mga bagong Artifacts ay iniimbak sa ilalim ng:
+
+```text
+~/.uag/artifacts/
+```
+
+Ang aktibong konteksto ay nililimitahan ng `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` at `UAGENT_TOOL_RESULT_MAX_CHARS`. Ang mga binary payload gaya ng mga larawan, audio, at naka-embed na Base64 na datos ay hindi isinasama sa naitatag na kasaysayan, habang ang UI at mga remote client ay patuloy na makakatanggap ng kanilang mga in-memory attachment.
+
+Ang mga umiiral na legacy na Artifact na landas ay nananatiling mababasa para sa pagiging tugma. Tingnan ang [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) para sa mga hangganan ng imbakan, pag-uugali ng pagpapanatili, at kasalukuyang katayuan ng implementasyon.
+
+[Pagkukompres ng konteksto at limitadong konteksto ng modelo](CONTEXT_COMPRESSION.fil.md)
+
+### 🌍 Multilingual na pagsasalin
+
+- Sinusuportahan ng `translate_text` ang Google Translate at ang opisyal na DeepL Python client sa pamamagitan ng `provider=auto`, `provider=deepl`, o `provider=google`.
+- Magagamit ang mga kahulugan ng tool sa 37 na lokalidad at Ingles (38 kabuuan), na pinananatili ang mga placeholder at teknikal na identifier.
+
+Tingnan ang [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Translation methodology](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), at [dokumentasyon ng `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Realtime na boses
 
@@ -299,6 +333,18 @@ cloud credential, o MQTT/OPC UA server. Iniuulat ng kaugnay na tool ang nawawala
 Ipagpatuloy ang mga nakaraang pag-uusap gamit ang `:load <index>`. Maaaring i-cache ang mga resulta ng tool, at maaaring magpalit ng provider
 nang hindi muling binubuo ang application.
 
+Mga setting ng Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Gamitin ang `:auto` para sa multi-round na gawain na may opsyonal na reviewer model. Magtakda ng limitasyon ng round gamit ang `--max-rounds N`.
@@ -429,11 +475,3 @@ at patakbuhin ang mga pagsusuri sa itaas bago magsumite ng pull request.
 ## Lisensya
 
 Lisensyado sa ilalim ng [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Mga kamakailang kakayahan
-
-- Sinusuportahan ng `translate_text` ang Google Translate at ang opisyal na DeepL Python client sa pamamagitan ng `provider=auto`, `provider=deepl`, o `provider=google`.
-- Magagamit ang mga kahulugan ng tool sa 37 na lokalidad at Ingles (38 kabuuan), na pinananatili ang mga placeholder at teknikal na identifier.
-- Sinusuportahan ng `set_timer` ang tuloy-tuloy na naka-iskedyul na pagpapatakbo ng LLM, proteksyon para sa kinakailangang tool, direktang pagpapatakbo ng isang aprubadong tool, muling pagtatangka, at mga timeout.
-
-Tingnan ang [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Translation methodology](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), at [dokumentasyon ng `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

@@ -41,6 +41,9 @@ IoT-enheder, MCP-servere og arbejdsgange med flere agenter.
 
 > **Kort sagt:** uag er kontrolplanet mellem dine AI-modeller og dit virkelige miljø.
 
+> **🧠 Kontekstbevidste værktøjsresultater** — Store værktøjsresultater holdes så vidt muligt uden for den aktive modelkontekst. uag gemmer dem som artefakter og sender i stedet en afgrænset forhåndsvisning med en stabil Artifact-reference til modellen. Dette kan reducere antallet af input-tokens, der kræves til opfølgende runder, betydeligt, når et værktøj genererer et stort resultat.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.da.md) を参照してください。
+
 ## Hvor passer uag ind?
 
 uag befinder sig mellem mennesker og grænseflader på den ene side og modeller, værktøjer og systemer i den virkelige verden på den anden.
@@ -118,6 +121,37 @@ pool (`UAGENT_PARALLEL_WORKERS`). Skriveoperationer forbliver serialiserede elle
 
 Sessionskontinuitet, caching af værktøjsresultater, batchtilstand, genstartsgendannelse, DAG-planlægning og
 orkestrering af flere agenter gør komplekst arbejde genoptageligt i stedet for engangsbaseret.
+
+- `set_timer` understøtter vedvarende planlagte kørsler af `LLM`, beskyttelse af påkrævede værktøjer, direkte udførelse af ét godkendt værktøj, gentagelser og timeouts.
+
+### 🧠 Kontekstbevidste værktøjsresultater
+
+Store værktøjsresultater holdes så vidt muligt uden for den aktive modelkontekst. uag gemmer dem som artefakter og sender i stedet en afgrænset forhåndsvisning med en stabil Artifact-reference til modellen. Dette kan reducere antallet af input-tokens, der kræves til opfølgende runder, betydeligt, når et værktøj genererer et stort resultat.
+
+Brug `artifact_read` til kun at hente de nødvendige linjer eller det nødvendige tegninterval:
+
+```text
+> Læs artifact://<artifact-id> linjer 100-140
+```
+
+Nye artefakter gemmes under:
+
+```text
+~/.uag/artifacts/
+```
+
+Den aktive kontekst afgrænses af `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` og `UAGENT_TOOL_RESULT_MAX_CHARS`. Binære data såsom billeder, lyd og indlejrede Base64-data opbevares ikke i den permanente historik, mens brugergrænsefladen og fjernklienter fortsat kan modtage deres vedhæftede filer i hukommelsen.
+
+Eksisterende ældre Artifact-stier forbliver læsbare af hensyn til kompatibilitet. Se [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) for opbevaringsgrænser, lagringsadfærd og den aktuelle implementeringsstatus.
+
+[Kontekstkomprimering og afgrænset modelkontekst](CONTEXT_COMPRESSION.da.md)
+
+### 🌍 Flersproget oversættelse
+
+- `translate_text` understøtter Google Translate og den officielle DeepL Python-klient via `provider=auto`, `provider=deepl` eller `provider=google`.
+- Værktøjsdefinitioner er tilgængelige på 37 sprog samt engelsk (i alt 38), hvor pladsholdere og tekniske identifikatorer bevares.
+
+Se [Miljøvariabler](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Oversættelsesmetodologi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) samt [`set_timer`-dokumentation](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Realtidsstemme
 
@@ -299,6 +333,18 @@ cloud-legitimationsoplysninger eller en MQTT/OPC UA-server. Det relevante værkt
 Genoptag tidligere samtaler med `:load <index>`. Værktøjsresultater kan caches, og udbydere kan ændres
 uden at genopbygge applikationen.
 
+Indstillinger for Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Autopilot
 
 Brug `:auto` til arbejde i flere runder med en valgfri reviewermodel. Angiv en rundegrænse med `--max-rounds N`.
@@ -429,11 +475,3 @@ og kør kontrollerne ovenfor, før du indsender en pull request.
 ## Licens
 
 Licenseret under [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Nye funktioner
-
-- `translate_text` understøtter Google Translate og den officielle DeepL Python-klient via `provider=auto`, `provider=deepl` eller `provider=google`.
-- Værktøjsdefinitioner er tilgængelige på 37 sprog samt engelsk (i alt 38), hvor pladsholdere og tekniske identifikatorer bevares.
-- `set_timer` understøtter vedvarende planlagte kørsler af `LLM`, beskyttelse af påkrævede værktøjer, direkte udførelse af ét godkendt værktøj, gentagelser og timeouts.
-
-Se [Miljøvariabler](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Oversættelsesmetodologi](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) samt [`set_timer`-dokumentation](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

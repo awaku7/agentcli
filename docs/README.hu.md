@@ -41,6 +41,9 @@ IoT-eszközökhöz, MCP-szerverekhez és többügynökös munkafolyamatokhoz.
 
 > **Röviden:** az uag a vezérlési sík az AI-modelljeid és a valós környezeted között.
 
+> **🧠 Kontextustudatos eszköz-eredmények** — A nagy méretű eszköz-eredményeket – amennyiben lehetséges – kizárják az aktív modell kontextusából. A uag ezeket Artifactként tárolja, és helyette egy korlátozott előnézetet ad át a modellnek, stabil Artifact hivatkozással. Ez jelentősen csökkentheti a következő körökhöz szükséges bemeneti tokenek számát, amikor egy eszköz nagy eredményt produkál.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.hu.md) を参照してください。
+
 ## Hol helyezkedik el az uag?
 
 Az uag az egyik oldalon az emberek és a felületek, a másikon pedig a modellek, az eszközök és a valós rendszerek között helyezkedik el.
@@ -118,6 +121,37 @@ a repository elemzése és a hasonló terhelések párhuzamosan fejeződhetnek b
 
 A munkamenet-folytonosság, az eszközeredmények gyorsítótárazása, a kötegállapot, az újraindítás utáni helyreállítás,
 a DAG-ütemezés és a többügynökös koordináció folytathatóvá teszi az összetett munkát az egyszeri futtatás helyett.
+
+- A `set_timer` támogatja a tartósan ütemezett LLM futtatásokat, a kötelező eszközök védelmét, egy jóváhagyott eszköz közvetlen végrehajtását, az újrapróbálkozásokat és az időkorlátokat.
+
+### 🧠 Kontextustudatos eszköz-eredmények
+
+A nagy méretű eszköz-eredményeket – amennyiben lehetséges – kizárják az aktív modell kontextusából. A uag ezeket Artifactként tárolja, és helyette egy korlátozott előnézetet ad át a modellnek, stabil Artifact hivatkozással. Ez jelentősen csökkentheti a következő körökhöz szükséges bemeneti tokenek számát, amikor egy eszköz nagy eredményt produkál.
+
+Használja a `artifact_read` parancsot a szükséges sorok vagy karaktertartomány lekéréséhez:
+
+```text
+> Olvassa be a artifact://<artifact-id> 100–140. sorokat
+```
+
+Az új artefaktok a következő helyen kerülnek tárolásra:
+
+```text
+~/.uag/artifacts/
+```
+
+Az aktív kontextust a `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` és a `UAGENT_TOOL_RESULT_MAX_CHARS` határolja. A bináris hasznos adatok, például a képek, hangfájlok és beágyazott Base64 adatok nem kerülnek be a tartósan tárolt előzményekbe, míg a felhasználói felület és a távoli kliensek továbbra is fogadhatják a memóriában tárolt mellékleteket.
+
+A kompatibilitás érdekében a meglévő, régebbi Artifact útvonalak továbbra is olvashatók maradnak. A tárolási határokról, a perzisztencia viselkedéséről és a jelenlegi megvalósítási állapotról lásd [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md).
+
+[Kontextustömörítés és korlátozott modellkontextus](CONTEXT_COMPRESSION.hu.md)
+
+### 🌍 Többnyelvű fordítás
+
+- A `translate_text` támogatja a Google Translate-t és a hivatalos DeepL Python-klienst a `provider=auto`, `provider=deepl` vagy `provider=google` beállításokkal.
+- Az eszközdefiníciók 37 nyelvi változatban és angolul (összesen 38) érhetők el, a helyőrzők és a technikai azonosítók megőrzésével.
+
+Lásd: [Környezeti változók](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Fordítási módszertan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) és a [`set_timer` dokumentáció](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) című dokumentumokat.
 
 ### 🎙 Valós idejű hang
 
@@ -299,6 +333,18 @@ felhőhitelesítő adatok vagy MQTT-/OPC UA-szerver. Az érintett eszköz futtat
 Folytasd a korábbi beszélgetéseket a `:load <index>` paranccsal. Az eszközeredmények gyorsítótárazhatók, a szolgáltatók pedig módosíthatók
 az alkalmazás újraépítése nélkül.
 
+A munkamenettároló beállításai:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Automata pilóta
 
 Használd a `:auto` parancsot többfordulós munkához, opcionális ellenőrző modellel. A fordulók számának korlátját a `--max-rounds N` kapcsolóval állítsd be.
@@ -428,11 +474,3 @@ Nagyobb módosítások előtt kérjük, nyiss egy issue-t vagy indíts egy vitá
 ## Licenc
 
 Az [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) licenc feltételei szerint érhető el.
-
-## Legújabb funkciók
-
-- A `translate_text` támogatja a Google Translate-t és a hivatalos DeepL Python-klienst a `provider=auto`, `provider=deepl` vagy `provider=google` beállításokkal.
-- Az eszközdefiníciók 37 nyelvi változatban és angolul (összesen 38) érhetők el, a helyőrzők és a technikai azonosítók megőrzésével.
-- A `set_timer` támogatja a tartósan ütemezett LLM futtatásokat, a kötelező eszközök védelmét, egy jóváhagyott eszköz közvetlen végrehajtását, az újrapróbálkozásokat és az időkorlátokat.
-
-Lásd: [Környezeti változók](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Fordítási módszertan](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) és a [`set_timer` dokumentáció](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md) című dokumentumokat.

@@ -270,10 +270,23 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                             value, start_position=-len(last)
                                         )
                     elif stripped.startswith(":mem-del "):
-                        # Memory indexes are numeric; offer common index values.
+                        # Complete only indexes that currently exist.  This keeps
+                        # TAB completion aligned with :mem-list and avoids the old
+                        # hard-coded guesses (0, 1, 2, 3, 5, 10).
                         after_mem = stripped[len(":mem-del ") :]
                         last = after_mem.split()[-1] if after_mem.split() else ""
-                        for value in ("0", "1", "2", "3", "4", "5", "10"):
+                        try:
+                            from ..tools import long_memory
+
+                            values = [
+                                str(index)
+                                for index in range(
+                                    len(long_memory.load_long_memory_records())
+                                )
+                            ]
+                        except Exception:
+                            values = []
+                        for value in values:
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":shared-mem-del "):
@@ -283,7 +296,18 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             if after_shared_mem.split()
                             else ""
                         )
-                        for value in ("0", "1", "2", "3", "4", "5", "10"):
+                        try:
+                            from ..tools import shared_memory
+
+                            values = [
+                                str(index)
+                                for index in range(
+                                    len(shared_memory.load_shared_memory_records())
+                                )
+                            ]
+                        except Exception:
+                            values = []
+                        for value in values:
                             if value.startswith(last):
                                 yield Completion(value, start_position=-len(last))
                     elif stripped.startswith(":profile-fromlog "):
@@ -372,6 +396,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 "verbosity",
                                 "mem-list",
                                 "mem-del",
+                                "mem-vacuum",
                                 "profile",
                                 "profile-fromlog",
                                 "profile-clear",
@@ -717,6 +742,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "verbosity",
                             "mem-list",
                             "mem-del",
+                            "mem-vacuum",
                             "profile",
                             "profile-fromlog",
                             "profile-clear",

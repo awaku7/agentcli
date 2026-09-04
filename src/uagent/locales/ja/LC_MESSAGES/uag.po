@@ -3547,7 +3547,7 @@ msgstr ""
 ":tools list [query] ロードされたツールをリストする\n"
 ":tools load <name> 名前で 1 つのツールをロードする\n"
 ":tools reload ディスクからツール モジュールを再ロードする\n"
-":tools 出力 UI でのツール結果の表示を切り替えます"
+":tools output UI でのツール結果の表示を切り替えます"
 
 #: src/uagent/util_help.py:241
 msgid "Tool authoring helpers"
@@ -5118,3 +5118,491 @@ msgstr "不明"
 
 #~ msgid "Utility (geodesic distance, pdf export, quantities)"
 #~ msgstr "Utility (測地距離、PDF エクスポート、quantities)"
+
+# Entries synchronized from the English catalog and translated for Japanese.
+
+msgid "getch() fallback to input()"
+msgstr "getch()をinput()にフォールバックしました"
+
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+Cを受信しました。終了処理を開始します..."
+
+msgid "Received multiline reply."
+msgstr "複数行の回答を受信しました。"
+
+msgid "LLM round interrupted: %(err)s"
+msgstr "LLMラウンドを中断しました: %(err)s"
+
+msgid "Auto-pilot interrupted: %(err)s"
+msgstr "自動操縦を中断しました: %(err)s"
+
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "送信するにはy、送信をスキップするにはn（またはc/cancel）で返信してください。"
+
+msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "不明なイベント種別 %(kind)r: %(ev)r"
+
+msgid "Exited uag."
+msgstr "uagを終了しました。"
+
+msgid "Environment variable %(name)s is not set."
+msgstr "環境変数 %(name)s が設定されていません。"
+
+msgid "No log files found."
+msgstr "ログファイルが見つかりません。"
+
+msgid "(unknown time)"
+msgstr "（時刻不明）"
+
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "ログ: %(shown)d/%(total)d件を表示（dir=%(dir)s）"
+
+msgid "Log files:"
+msgstr "ログファイル:"
+
+msgid "(mtime unknown)"
+msgstr "（更新時刻不明）"
+
+msgid "(no user message)"
+msgstr "（ユーザーメッセージなし）"
+
+msgid "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: %(last_user)s%(response_summary)s"
+msgstr "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: %(last_user)s%(response_summary)s"
+
+msgid "[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr "[INFO] There were %(count)d messages to compress, so nothing was changed."
+
+msgid "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)"
+msgstr "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)"
+
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr "履歴圧縮中に429の再試行上限（%(max_retries)s）に達しました。"
+
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "履歴圧縮でLLMを呼び出し中にエラーが発生しました: %(err)r"
+
+msgid ""
+"- Summarize the conversation chunk in English.\n"
+msgstr ""
+"- 会話チャンクを英語で要約してください。\n"
+
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+msgstr ""
+"- 要約は簡潔にしつつ、重要な決定・制約・保留事項を含めてください。\n"
+
+msgid "- Output should be directly usable as a system message."
+msgstr "- 出力はそのままシステムメッセージとして使用できる形式にしてください。"
+
+msgid ""
+"Conversation chunk:\n"
+msgstr ""
+"会話チャンク:\n"
+
+msgid "Write a concise summary of this chunk."
+msgstr "このチャンクの簡潔な要約を書いてください。"
+
+msgid ""
+"- You are updating an existing conversation summary.\n"
+msgstr ""
+"- 既存の会話要約を更新しています。\n"
+
+msgid ""
+"- Preserve important facts from the previous summary.\n"
+msgstr ""
+"- 以前の要約にある重要な事実を保持してください。\n"
+
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+msgstr ""
+"- 制約・決定・保留事項を失わずに新しいチャンクを統合してください。\n"
+
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- 結果は簡潔にし、システムメッセージとして使える内容にしてください。"
+
+msgid ""
+"Previous summary:\n"
+msgstr ""
+"以前の要約:\n"
+
+msgid ""
+"New chunk:\n"
+msgstr ""
+"新しいチャンク:\n"
+
+msgid "Update the summary while keeping the prior context intact."
+msgstr "以前のコンテキストを維持したまま要約を更新してください。"
+
+msgid "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."
+msgstr "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."
+
+msgid "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."
+msgstr "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."
+
+msgid "[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d"
+msgstr "[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d"
+
+msgid "[WARN] history compression failed due to LLM error; falling back to shrink_messages()."
+msgstr "[WARN] history compression failed due to LLM error; falling back to shrink_messages()."
+
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help（ヘルプを利用できません: %(err)s）"
+
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## 危険な操作ポリシー（delete_file）\n"
+"- delete_fileで削除する場合、プレビュー前に確認を求めないでください。\n"
+"- 最初に必ずdry_run=trueでdelete_fileを実行し、削除候補を取得してください。\n"
+"- 候補を表示し、human_askで一度だけ確認してください。\n"
+"- ユーザーが明示的に「y」または「yes」（同等の明示的な承認を含む）と返信した場合のみ、同じパラメータでdry_run=false、confirmed=trueとして再実行してください。\n"
+"- 候補が0件の場合は質問せず、削除対象がないことだけを報告してください。\n"
+
+msgid "The following tools are currently loaded in this session. Choose the most appropriate tool for the task. If none of these tools can do the job, or you are unsure which capability exists, call tool_catalog before answering or guessing; describe what you need in query, then tool_load any unloaded tool you need."
+msgstr "The following tools are currently loaded in this session. Choose the most appropriate tool for the task. If none of these tools can do the job, or you are unsure which capability exists, call tool_catalog before answering or guessing; describe what you need in query, then tool_load any unloaded tool you need."
+
+msgid "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."
+msgstr "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."
+
+msgid "Drop files/images here"
+msgstr "ここにファイル/画像をドロップ"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "Plugin load failed: %(err)s"
+msgstr "プラグインの読み込みに失敗しました: %(err)s"
+
+msgid "Failed to initialize LLM client: %(err)s"
+msgstr "LLMクライアントの初期化に失敗しました: %(err)s"
+
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "共有長期メモリの読み込み中に例外が発生しました: %(err)s"
+
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[添付ファイル] %(name)s（%(path)s）"
+
+msgid "[Attached Image] %(path)s"
+msgstr "[添付画像] %(path)s"
+
+msgid "[Image Path] %(path)s"
+msgstr "[画像パス] %(path)s"
+
+msgid ""
+"[ERROR] Worker exception:\n"
+msgstr ""
+"[エラー] ワーカー例外:\n"
+
+msgid "Welcome / Quick Guide"
+msgstr "ようこそ / クイックガイド"
+
+msgid "Font size: %(name)s"
+msgstr "フォントサイズ: %(name)s"
+
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ You can attach files by drag & drop"
+
+msgid "Attach files"
+msgstr "ファイルを添付"
+
+msgid "Stop generation"
+msgstr "生成を停止"
+
+msgid "Send"
+msgstr "送信"
+
+msgid "Toggle reasoning display"
+msgstr "推論表示を切り替え"
+
+msgid "Stop auto-pilot"
+msgstr "自動操縦を停止"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "View"
+msgstr "表示"
+
+msgid "Font: %(name)s"
+msgstr "フォント: %(name)s"
+
+msgid "Mode"
+msgstr "モード"
+
+msgid "Reasoning: off"
+msgstr "推論: off"
+
+msgid "Reasoning: auto"
+msgstr "推論: auto"
+
+msgid "Reasoning: minimal"
+msgstr "推論: minimal"
+
+msgid "Reasoning: low"
+msgstr "推論: low"
+
+msgid "Reasoning: medium"
+msgstr "推論: medium"
+
+msgid "Reasoning: high"
+msgstr "推論: high"
+
+msgid "Reasoning: xhigh"
+msgstr "推論: xhigh"
+
+msgid "Reasoning: max"
+msgstr "推論: max"
+
+msgid "Verbosity: off"
+msgstr "詳細度: off"
+
+msgid "Verbosity: low"
+msgstr "詳細度: low"
+
+msgid "Verbosity: medium"
+msgstr "詳細度: medium"
+
+msgid "Verbosity: high"
+msgstr "詳細度: high"
+
+msgid "Tools"
+msgstr "ツール"
+
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr "基本（ファイル、環境変数、時刻、プロンプト、スキル、メモリ、ツール制御）"
+
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "通信（Teams、Discord、Bluesky）"
+
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office（Excel、Word、PDF、PPT、文書抽出）"
+
+msgid "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr "開発（lint、テスト、Git、DB、スクリーンショット、ブラウザー、バイナリ、コンパイル）"
+
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT（Bluetooth/BLE、ECHONET、Matter、SwitchBot、UPnP、カメラ、geo-IP）"
+
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "実行（cmd、Python、pwsh、bash、サブエージェント）"
+
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "外部（A2A、MCP、fetch、Web検索）"
+
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "メディア（画像生成/編集/解析、音声、QRコード）"
+
+msgid "File (read, write, search, delete, listing)"
+msgstr "ファイル（読み取り、書き込み、検索、削除、一覧）"
+
+msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
+msgstr "インデックス（ソースコード移動: py2idx、ts2idxなど）"
+
+msgid "[display_reasoning] %(state)s"
+msgstr "[display_reasoning] %(state)s"
+
+msgid "[display_reasoning] error: %(err)s"
+msgstr "[display_reasoning] エラー: %(err)s"
+
+msgid "Enter password..."
+msgstr "パスワードを入力..."
+
+msgid "Enter response for human_ask..."
+msgstr "human_askへの回答を入力..."
+
+msgid "Enter a message..."
+msgstr "メッセージを入力..."
+
+msgid "All Files (*)"
+msgstr "すべてのファイル (*)"
+
+msgid "cannot read image"
+msgstr "画像を読み取れません"
+
+msgid "Downloaded to"
+msgstr "ダウンロード先"
+
+msgid "Playing"
+msgstr "再生中"
+
+msgid "Stopped"
+msgstr "停止しました"
+
+msgid "Stop requested by user."
+msgstr "ユーザーが停止を要求しました。"
+
+msgid "Stop requested by user (x key)."
+msgstr "ユーザーが停止を要求しました（xキー）。"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[返信] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[ユーザー] %(text)s"
+
+msgid "Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory."
+msgstr "作業ディレクトリを指定してください。省略時はUAGENT_WORKDIR環境変数または現在のディレクトリを使用します。"
+
+msgid "OpenAI Fast mode (1/true to enable)"
+msgstr "OpenAI Fastモード（有効化: 1/true）"
+
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] ユーザーが終了しました（xキー）。"
+
+msgid ""
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
+msgstr ""
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
+
+msgid "Press x in CLI to request immediate exit from auto-pilot."
+msgstr "自動操縦をすぐ終了するにはCLIでxを押してください。"
+
+msgid "[cd] workdir changed: %(old)s -> %(new)s"
+msgstr "[cd] workdirを変更しました: %(old)s -> %(new)s"
+
+msgid "(room: %(id)s)"
+msgstr "（ルーム: %(id)s）"
+
+msgid "[INFO] Loaded long-term memory."
+msgstr "[情報] 長期メモリを読み込みました。"
+
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[情報] 共有長期メモリを読み込みました。"
+
+msgid "[WARN] Another task is already running in this room. Please retry after it completes."
+msgstr "[警告] このルームでは別のタスクが実行中です。完了後に再試行してください。"
+
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[致命的] 環境変数UAGENT_PROVIDERが設定されていません。\n"
+"Webサーバー起動時の環境変数を確認してください。"
+
+msgid "[Attached Image] %(name)s"
+msgstr "[添付画像] %(name)s"
+
+msgid "[Attached File] %(name)s"
+msgstr "[添付ファイル] %(name)s"
+
+msgid "[File Path] %(path)s"
+msgstr "[ファイルパス] %(path)s"
+
+msgid ""
+"\n"
+"\n"
+"    ## Generative UI (Artifacts) Instructions\n"
+"    When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"    1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"    2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"    3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"    4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    "
+msgstr ""
+"\n"
+"\n"
+"    ## Generative UI (Artifacts) Instructions\n"
+"    When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"    1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"    2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"    3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"    4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    "
+
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[致命的] Webワーカーエラー。\n"
+"%(err)s"
+
+msgid "missing path"
+msgstr "パスがありません"
+
+msgid "path outside workdir"
+msgstr "パスがworkdirの外にあります"
+
+msgid "Basic (env, time, prompts, skills, memory, tools control)"
+msgstr "基本（環境変数、時刻、プロンプト、スキル、メモリ、ツール制御）"
+
+msgid "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+msgstr "ファイル（作成、削除、読み取り、書き込み、検索、zip、名前変更、ハッシュ、grep、ディレクトリ一覧）"
+
+msgid "path is required"
+msgstr "パスは必須です"
+
+msgid "File not found"
+msgstr "ファイルが見つかりません"
+
+msgid "Index out of range"
+msgstr "インデックスが範囲外です"
+
+msgid "Invalid JSON body"
+msgstr "JSON本文が正しくありません"
+
+msgid "room_id and command are required"
+msgstr "room_idとcommandは必須です"
+
+msgid "[Error] :cd failed: %(err)s"
+msgstr "[エラー] :cdに失敗しました: %(err)s"
+
+msgid "[Command Error] %(err)s"
+msgstr "[コマンドエラー] %(err)s"
+
+msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
+msgstr "バインドアドレス（デフォルト: 127.0.0.1）。UAGENT_WEB_HOST環境変数より優先されます。"
+
+msgid "Run in API-only mode without frontend (no HTML templates or static files)."
+msgstr "フロントエンドなしのAPI専用モードで実行します（HTMLテンプレートや静的ファイルなし）。"
+
+msgid "Starting in API-only mode (no frontend)."
+msgstr "API専用モードで起動します（フロントエンドなし）。"
+
+msgid "Starting server on"
+msgstr "サーバーを起動しています:"
+
+msgid "External URL:"
+msgstr "外部URL:"
+
+msgid "- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit immediately."
+msgstr "- 自動操縦: `:auto <goal>` でタスクを繰り返し実行します。すぐ終了するには `x` を押してください。"
+
+msgid "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no to cancel."
+msgstr "副作用のあるツール '%(tool)s' の実行を許可しますか？続行するには yes、キャンセルするには no と返信してください。"
+
+msgid "Index (source/document parsers: py2idx, md2idx, excel2idx, csv2idx, ...)"
+msgstr "インデックス（ソース/文書パーサー: py2idx、md2idx、excel2idx、csv2idxなど）"
+
+msgid "Dev (lint_js_ts, mdformat_check)"
+msgstr "開発（lint_js_ts、mdformat_check）"
+
+msgid "Web (UCP commerce, public transit route)"
+msgstr "Web（UCPコマース、公共交通ルート）"
+
+msgid "Utility (geodesic distance, pdf export, quantities)"
+msgstr "ユーティリティ（測地線距離、PDF出力、数量）"

@@ -16,7 +16,8 @@
     "error.positive_integers": "start_line, max_lines, and max_chars must be positive integers",
     "error.max_lines": "max_lines must be at most {limit}",
     "error.max_chars": "max_chars must be at most {limit}",
-    "error.not_active_session": "artifact does not belong to the active session"
+    "error.not_active_session": "artifact does not belong to the active session",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ja": {
     "tool.description": "以前保存した Tool Result Artifact の一部を、範囲を制限して読み取ります。",
@@ -35,7 +36,8 @@
     "error.positive_integers": "start_line、max_lines、max_chars は正の整数で指定してください。",
     "error.max_lines": "max_lines は {limit} 以下で指定してください。",
     "error.max_chars": "max_chars は {limit} 以下で指定してください。",
-    "error.not_active_session": "現在のセッションに属する Artifact ではありません。"
+    "error.not_active_session": "現在のセッションに属する Artifact ではありません。",
+    "error.binary_artifact": "バイナリArtifactです。artifact_readではなくartifact_infoまたはartifact_exportを使用してください。"
   },
   "es": {
     "tool.description": "Lee una parte delimitada de un artefacto de resultado de herramienta almacenado previamente.",
@@ -54,7 +56,8 @@
     "error.positive_integers": "start_line, max_lines y max_chars deben ser números enteros positivos",
     "error.max_lines": "max_lines debe ser como máximo {limit}",
     "error.max_chars": "max_chars debe ser como máximo {limit}",
-    "error.not_active_session": "El artefacto no pertenece a la sesión activa"
+    "error.not_active_session": "El artefacto no pertenece a la sesión activa",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "fr": {
     "tool.description": "Lire une partie délimitée d'un artefact de résultat d'outil précédemment enregistré.",
@@ -73,7 +76,8 @@
     "error.positive_integers": "start_line, max_lines et max_chars doivent être des entiers positifs",
     "error.max_lines": "max_lines doit être au plus égal à {limit}",
     "error.max_chars": "max_chars doit être au plus égal à {limit}",
-    "error.not_active_session": "L'artefact n'appartient pas à la session active"
+    "error.not_active_session": "L'artefact n'appartient pas à la session active",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ko": {
     "tool.description": "이전에 저장된 툴 결과 아티팩트의 지정된 부분을 읽습니다.",
@@ -92,7 +96,8 @@
     "error.positive_integers": "start_line, max_lines 및 max_chars는 양의 정수여야 합니다.",
     "error.max_lines": "max_lines는 최대 {limit}이어야 합니다.",
     "error.max_chars": "max_chars는 최대 {limit}이어야 합니다.",
-    "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다."
+    "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다.",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "de": {
     "tool.description": "Liest einen begrenzten Ausschnitt eines zuvor gespeicherten Tool-Ergebnis-Artefakts.",
@@ -111,7 +116,8 @@
     "error.positive_integers": "start_line, max_lines und max_chars müssen positive Ganzzahlen sein",
     "error.max_lines": "max_lines darf höchstens {limit} betragen",
     "error.max_chars": "max_chars darf höchstens {limit} betragen",
-    "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung"
+    "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "it": {
     "tool.description": "Legge una porzione delimitata di un artefatto relativo al risultato di uno strumento precedentemente memorizzato.",
@@ -130,7 +136,8 @@
     "error.positive_integers": "start_line, max_lines e max_chars devono essere numeri interi positivi",
     "error.max_lines": "max_lines deve essere al massimo {limit}",
     "error.max_chars": "max_chars deve essere al massimo {limit}",
-    "error.not_active_session": "l'artefatto non appartiene alla sessione attiva"
+    "error.not_active_session": "l'artefatto non appartiene alla sessione attiva",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ru": {
     "tool.description": "Чтение ограниченного фрагмента ранее сохраненного артефакта результатов работы инструмента.",
@@ -149,7 +156,8 @@
     "error.positive_integers": "start_line, max_lines и max_chars должны быть положительными целыми числами",
     "error.max_lines": "max_lines не должен превышать {limit}",
     "error.max_chars": "max_chars не должен превышать {limit}",
-    "error.not_active_session": "артефакт не принадлежит активной сессии"
+    "error.not_active_session": "артефакт не принадлежит активной сессии",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "pt_BR": {
     "tool.description": "Ler uma parte delimitada de um artefato de resultado de ferramenta armazenado anteriormente.",
@@ -168,7 +176,8 @@
     "error.positive_integers": "start_line, max_lines e max_chars devem ser números inteiros positivos",
     "error.max_lines": "max_lines deve ser no máximo {limit}",
     "error.max_chars": "max_chars deve ser no máximo {limit}",
-    "error.not_active_session": "o artefato não pertence à sessão ativa"
+    "error.not_active_session": "o artefato não pertence à sessão ativa",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "pt": {
     "tool.description": "Ler uma parte delimitada de um artefacto de resultado de ferramenta previamente armazenado.",
@@ -187,7 +196,8 @@
     "error.positive_integers": "start_line, max_lines e max_chars devem ser números inteiros positivos",
     "error.max_lines": "max_lines deve ser, no máximo, {limit}",
     "error.max_chars": "max_chars deve ser, no máximo, {limit}",
-    "error.not_active_session": "O artefacto não pertence à sessão ativa"
+    "error.not_active_session": "O artefacto não pertence à sessão ativa",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "id": {
     "tool.description": "Membaca bagian terbatas dari artefak hasil alat yang telah disimpan sebelumnya.",
@@ -206,7 +216,8 @@
     "error.positive_integers": "start_line, max_lines, dan max_chars harus berupa bilangan bulat positif",
     "error.max_lines": "max_lines harus paling banyak {limit}",
     "error.max_chars": "max_chars harus paling banyak {limit}",
-    "error.not_active_session": "artefak tidak termasuk dalam sesi aktif"
+    "error.not_active_session": "artefak tidak termasuk dalam sesi aktif",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "vi": {
     "tool.description": "Đọc một phần có giới hạn của một đối tượng kết quả công cụ đã được lưu trữ trước đó.",
@@ -225,7 +236,8 @@
     "error.positive_integers": "start_line, max_lines và max_chars phải là các số nguyên dương",
     "error.max_lines": "max_lines phải nhỏ hơn hoặc bằng {limit}",
     "error.max_chars": "max_chars phải nhỏ hơn hoặc bằng {limit}",
-    "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại"
+    "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "pl": {
     "tool.description": "Odczytanie ograniczonego fragmentu wcześniej zapisanego artefaktu wyników działania narzędzia.",
@@ -244,7 +256,8 @@
     "error.positive_integers": "start_line, max_lines i max_chars muszą być dodatnimi liczbami całkowitymi",
     "error.max_lines": "max_lines musi wynosić co najwyżej {limit}",
     "error.max_chars": "max_chars musi wynosić co najwyżej {limit}",
-    "error.not_active_session": "artefakt nie należy do aktywnej sesji"
+    "error.not_active_session": "artefakt nie należy do aktywnej sesji",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "hi": {
     "tool.description": "पहले से संग्रहीत टूल-परिणाम आर्टिफैक्ट का एक सीमित भाग पढ़ें।",
@@ -263,7 +276,8 @@
     "error.positive_integers": "start_line, max_lines, और max_chars सकारात्मक पूर्णांक होने चाहिए",
     "error.max_lines": "max_lines अधिकतम {limit} होना चाहिए",
     "error.max_chars": "max_chars अधिकतम {limit} होना चाहिए",
-    "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है"
+    "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ar": {
     "tool.description": "قراءة جزء محدد من أثر نتيجة أداة تم تخزينه مسبقًا.",
@@ -282,7 +296,8 @@
     "error.positive_integers": "يجب أن تكون start_line وmax_lines وmax_chars أعدادًا صحيحة موجبة",
     "error.max_lines": "يجب ألا يتجاوز max_lines {limit}",
     "error.max_chars": "يجب ألا يتجاوز max_chars {limit}",
-    "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة"
+    "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "sv": {
     "tool.description": "Läs en avgränsad del av en tidigare lagrad artefakt med verktygsresultat.",
@@ -301,7 +316,8 @@
     "error.positive_integers": "start_line, max_lines och max_chars måste vara positiva heltal",
     "error.max_lines": "max_lines måste vara högst {limit}",
     "error.max_chars": "max_chars måste vara högst {limit}",
-    "error.not_active_session": "artefakten tillhör inte den aktiva sessionen"
+    "error.not_active_session": "artefakten tillhör inte den aktiva sessionen",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "sw": {
     "tool.description": "Soma sehemu yenye ukomo ya artifact ya matokeo ya zana iliyohifadhiwa awali.",
@@ -320,7 +336,8 @@
     "error.positive_integers": "start_line, max_lines, na max_chars lazima ziwe nambari chanya",
     "error.max_lines": "max_lines lazima iwe {limit} au chini",
     "error.max_chars": "max_chars lazima iwe {limit} au chini",
-    "error.not_active_session": "artifact haihusiani na kikao kinachoendelea"
+    "error.not_active_session": "artifact haihusiani na kikao kinachoendelea",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "nb": {
     "tool.description": "Leser en avgrenset del av et tidligere lagret verktøyresultat.",
@@ -339,7 +356,8 @@
     "error.positive_integers": "start_line, max_lines og max_chars må være positive heltall",
     "error.max_lines": "max_lines må være høyst {limit}",
     "error.max_chars": "max_chars må være høyst {limit}",
-    "error.not_active_session": "artefaktet tilhører ikke den aktive økten"
+    "error.not_active_session": "artefaktet tilhører ikke den aktive økten",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "nl": {
     "tool.description": "Lees een afgebakend gedeelte van een eerder opgeslagen toolresultaat-artefact.",
@@ -358,7 +376,8 @@
     "error.positive_integers": "start_line, max_lines en max_chars moeten positieve gehele getallen zijn",
     "error.max_lines": "max_lines mag maximaal {limit} zijn",
     "error.max_chars": "max_chars mag maximaal {limit} zijn",
-    "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
+    "error.not_active_session": "het artefact behoort niet tot de actieve sessie",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "fi": {
     "tool.description": "Lue rajattu osa aiemmin tallennetusta työkalun tulosartefaktista.",
@@ -377,7 +396,8 @@
     "error.positive_integers": "start_line, max_lines ja max_chars:n on oltava positiivisia kokonaislukuja",
     "error.max_lines": "max_lines:n on oltava enintään {limit}",
     "error.max_chars": "max_chars:n on oltava enintään {limit}",
-    "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon"
+    "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "cs": {
     "tool.description": "Načíst ohraničenou část dříve uloženého artefaktu s výsledky nástroje.",
@@ -396,7 +416,8 @@
     "error.positive_integers": "start_line, max_lines a max_chars musí být kladná celá čísla",
     "error.max_lines": "max_lines musí být nejvýše {limit}",
     "error.max_chars": "max_chars musí být nejvýše {limit}",
-    "error.not_active_session": "artefakt nepatří k aktivní relaci"
+    "error.not_active_session": "artefakt nepatří k aktivní relaci",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "uk": {
     "tool.description": "Зчитувати обмежену частину раніше збереженого артефакту результату роботи інструменту.",
@@ -415,7 +436,8 @@
     "error.positive_integers": "start_line, max_lines та max_chars мають бути додатними цілими числами",
     "error.max_lines": "max_lines має бути не більше {limit}",
     "error.max_chars": "max_chars має бути не більше {limit}",
-    "error.not_active_session": "артефакт не належить до активної сесії"
+    "error.not_active_session": "артефакт не належить до активної сесії",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "tr": {
     "tool.description": "Önceden kaydedilmiş bir araç sonucu artefaktının sınırlı bir bölümünü okur.",
@@ -434,7 +456,8 @@
     "error.positive_integers": "start_line, max_lines ve max_chars, pozitif tamsayılar olmalıdır",
     "error.max_lines": "max_lines, en fazla {limit} olmalıdır",
     "error.max_chars": "max_chars, en fazla {limit} olmalıdır",
-    "error.not_active_session": "artifact, etkin oturuma ait değildir"
+    "error.not_active_session": "artifact, etkin oturuma ait değildir",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "th": {
     "tool.description": "อ่านส่วนที่มีขอบเขตของอาร์ติแฟกต์ผลลัพธ์เครื่องมือที่เก็บไว้ก่อนหน้านี้",
@@ -453,7 +476,8 @@
     "error.positive_integers": "start_line, max_lines และ max_chars ต้องเป็นตัวเลขเต็มบวก",
     "error.max_lines": "max_lines ต้องไม่เกิน {limit}",
     "error.max_chars": "max_chars ต้องไม่เกิน {limit}",
-    "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่"
+    "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "zh_CN": {
     "tool.description": "读取先前存储的工具结果工件中的限定部分。",
@@ -472,7 +496,8 @@
     "error.positive_integers": "start_line、max_lines 和 max_chars 必须是正整数",
     "error.max_lines": "max_lines 不得超过 {limit}",
     "error.max_chars": "max_chars 不得超过 {limit}",
-    "error.not_active_session": "artifact 不属于当前会话"
+    "error.not_active_session": "artifact 不属于当前会话",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "zh_TW": {
     "tool.description": "讀取先前儲存之工具結果 artefact 的限定範圍內容。",
@@ -491,7 +516,8 @@
     "error.positive_integers": "start_line、max_lines 及 max_chars 必須為正整數",
     "error.max_lines": "max_lines 最多為 {limit}",
     "error.max_chars": "max_chars 最多為 {limit}",
-    "error.not_active_session": "artifact 不屬於當前工作階段"
+    "error.not_active_session": "artifact 不屬於當前工作階段",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "bn": {
     "tool.description": "আগে সংরক্ষিত একটি টুল-ফলাফল আর্টিফ্যাক্টের একটি সীমাবদ্ধ অংশ পড়ুন।",
@@ -510,7 +536,8 @@
     "error.positive_integers": "start_line, max_lines, এবং max_chars অবশ্যই ধনাত্মক পূর্ণসংখ্যা হতে হবে",
     "error.max_lines": "max_lines সর্বোচ্চ {limit} হতে হবে",
     "error.max_chars": "max_chars সর্বোচ্চ {limit} হতে হবে",
-    "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়"
+    "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "fa": {
     "tool.description": "خواندن بخشی محدود از یک آرتفکت نتیجه-ابزار که قبلاً ذخیره شده است.",
@@ -529,7 +556,8 @@
     "error.positive_integers": "start_line، max_lines و max_chars باید اعداد صحیح مثبت باشند.",
     "error.max_lines": "max_lines باید حداکثر {limit} باشد.",
     "error.max_chars": "max_chars باید حداکثر {limit} باشد.",
-    "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد."
+    "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد.",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "mn": {
     "tool.description": "Өмнө хадгалагдсан хэрэгслийн үр дүнгийн артфактын хязгаарлагдмал хэсгийг унших.",
@@ -548,7 +576,8 @@
     "error.positive_integers": "start_line, max_lines, max_chars нь эерэг бүхэл тоо байх ёстой",
     "error.max_lines": "max_lines нь ихдээ {limit} байх ёстой",
     "error.max_chars": "max_chars нь ихдээ {limit} байх ёстой",
-    "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй"
+    "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "mr": {
     "tool.description": "पूर्वी संग्रहित केलेल्या टूल-परिणाम आर्टिफॅक्टचा एक मर्यादित भाग वाचा.",
@@ -567,7 +596,8 @@
     "error.positive_integers": "start_line, max_lines, आणि max_chars सकारात्मक पूर्णांक असावेत",
     "error.max_lines": "max_lines कमाल {limit} असावे",
     "error.max_chars": "max_chars कमाल {limit} असावे",
-    "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही"
+    "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "el": {
     "tool.description": "Ανάγνωση ενός οριοθετημένου τμήματος ενός αρχείου αποτελεσμάτων εργαλείου που έχει αποθηκευτεί προηγουμένως.",
@@ -586,7 +616,8 @@
     "error.positive_integers": "Τα start_line, max_lines και max_chars πρέπει να είναι θετικοί ακέραιοι αριθμοί",
     "error.max_lines": "Το max_lines πρέπει να είναι το πολύ {limit}",
     "error.max_chars": "Το max_chars πρέπει να είναι το πολύ {limit}",
-    "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία"
+    "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "he": {
     "tool.description": "קריאת חלק מוגבל של ארטפקט תוצאת כלי שנשמר בעבר.",
@@ -605,7 +636,8 @@
     "error.positive_integers": "start_line, max_lines ו-max_chars חייבים להיות מספרים שלמים חיוביים",
     "error.max_lines": "max_lines חייב להיות לכל היותר {limit}",
     "error.max_chars": "max_chars חייב להיות לכל היותר {limit}",
-    "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל"
+    "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "hu": {
     "tool.description": "Egy korábban tárolt eszköz-eredmény artefaktum korlátozott részének beolvasása.",
@@ -624,7 +656,8 @@
     "error.positive_integers": "a start_line, max_lines és max_chars értékeknek pozitív egész számoknak kell lenniük",
     "error.max_lines": "a max_lines érték legfeljebb {limit} lehet",
     "error.max_chars": "a max_chars érték legfeljebb {limit} lehet",
-    "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez"
+    "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ro": {
     "tool.description": "Citește o porțiune delimitată dintr-un artefact cu rezultatul unui instrument stocat anterior.",
@@ -643,7 +676,8 @@
     "error.positive_integers": "start_line, max_lines și max_chars trebuie să fie numere întregi pozitive",
     "error.max_lines": "max_lines trebuie să fie cel mult {limit}",
     "error.max_chars": "max_chars trebuie să fie cel mult {limit}",
-    "error.not_active_session": "artefactul nu aparține sesiunii active"
+    "error.not_active_session": "artefactul nu aparține sesiunii active",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "fil": {
     "tool.description": "Basahin ang isang bahaging may hangganan ng isang naunang naiimbak na tool-result artifact.",
@@ -662,7 +696,8 @@
     "error.positive_integers": "Ang start_line, max_lines, at max_chars ay dapat positibong integer",
     "error.max_lines": "Ang max_lines ay dapat hindi hihigit sa {limit}",
     "error.max_chars": "Ang max_chars ay dapat hindi hihigit sa {limit}",
-    "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon"
+    "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "ms": {
     "tool.description": "Membaca sebahagian terhad artifak keputusan alat yang telah disimpan sebelum ini.",
@@ -681,7 +716,8 @@
     "error.positive_integers": "start_line, max_lines, dan max_chars mesti merupakan integer positif",
     "error.max_lines": "max_lines mesti tidak melebihi {limit}",
     "error.max_chars": "max_chars mesti tidak melebihi {limit}",
-    "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
+    "error.not_active_session": "artifak tidak tergolong kepada sesi aktif",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "da": {
     "tool.description": "Læs en afgrænset del af et tidligere gemt værktøjsresultat-artefakt.",
@@ -700,7 +736,8 @@
     "error.positive_integers": "start_line, max_lines og max_chars skal være positive heltal",
     "error.max_lines": "max_lines må højst være {limit}",
     "error.max_chars": "max_chars må højst være {limit}",
-    "error.not_active_session": "artefaktet hører ikke til den aktive session"
+    "error.not_active_session": "artefaktet hører ikke til den aktive session",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   },
   "nn": {
     "tool.description": "Les av en avgrenset del av en tidligere lagret verktøy-resultat-artefakt.",
@@ -719,6 +756,7 @@
     "error.positive_integers": "start_line, max_lines og max_chars må være positive heltall",
     "error.max_lines": "max_lines må være på det meste {limit}",
     "error.max_chars": "max_chars må være på det meste {limit}",
-    "error.not_active_session": "artefakt høyrer ikkje til den aktive økta"
+    "error.not_active_session": "artefakt høyrer ikkje til den aktive økta",
+    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
   }
 }

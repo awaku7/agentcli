@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .artifact_access import is_textual_artifact
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 from ..runtime.artifact_manager import ArtifactManager, ArtifactManagerError
@@ -31,9 +32,9 @@ def _error(message: str, **extra: Any) -> str:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    # Infrastructure tool: keep it available like tool_catalog/tool_load/
-    # unload_tool, regardless of the selected tool genre.
-    "tool_level": 0,
+    # Artifact access is available through tool_catalog/tool_load, but is not
+    # loaded into the default LLM tool set.
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {
@@ -174,6 +175,16 @@ def run_tool(args: dict[str, Any]) -> str:
                     "error.not_active_session",
                     default="artifact does not belong to the active session",
                 )
+            )
+        if not is_textual_artifact(item):
+            return _error(
+                _(
+                    "error.binary_artifact",
+                    default="artifact is binary; use artifact_info or artifact_export instead of artifact_read",
+                ),
+                artifact_id=reference,
+                media_type=item.media_type,
+                size=item.size,
             )
 
         path = manager.open(reference)

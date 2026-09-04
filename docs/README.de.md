@@ -41,6 +41,9 @@ IoT-Geräte, MCP-Server und Multi-Agenten-Workflows.
 
 > **Kurz gesagt:** uag ist die Steuerungsebene zwischen deinen KI-Modellen und deiner realen Umgebung.
 
+> **🧠 Kontextbezogene Tool-Ergebnisse** — Umfangreiche Tool-Ergebnisse werden nach Möglichkeit aus dem aktiven Modellkontext herausgehalten. uag speichert sie als Artefakte und übergibt dem Modell stattdessen eine begrenzte Vorschau mit einer stabilen Artifact-Referenz. Dies kann die Anzahl der für nachfolgende Runden erforderlichen Eingabetoken erheblich reduzieren, wenn ein Tool ein umfangreiches Ergebnis liefert.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.de.md) を参照してください。
+
 ## Wo uag eingesetzt wird
 
 uag liegt auf der einen Seite zwischen Menschen und Schnittstellen und auf der anderen Seite zwischen Modellen, Tools und realen Systemen.
@@ -118,6 +121,37 @@ Repository-Analyse und ähnliche Aufgaben können mit einem konfigurierbaren Wor
 
 Sitzungskontinuität, Caching von Tool-Ergebnissen, Batch-Status, Wiederherstellung nach Neustarts, DAG-Planung und
 Multi-Agenten-Orchestrierung machen komplexe Aufgaben fortsetzbar statt einmalig.
+
+- `set_timer` unterstützt dauerhafte, geplante LLM-Läufe, den Schutz durch erforderliche Tools, die direkte Ausführung eines zugelassenen Tools, Wiederholungsversuche und Zeitüberschreitungen.
+
+### 🧠 Kontextbezogene Tool-Ergebnisse
+
+Umfangreiche Tool-Ergebnisse werden nach Möglichkeit aus dem aktiven Modellkontext herausgehalten. uag speichert sie als Artefakte und übergibt dem Modell stattdessen eine begrenzte Vorschau mit einer stabilen Artifact-Referenz. Dies kann die Anzahl der für nachfolgende Runden erforderlichen Eingabetoken erheblich reduzieren, wenn ein Tool ein umfangreiches Ergebnis liefert.
+
+Verwenden Sie `artifact_read`, um nur die benötigten Zeilen oder den Zeichenbereich abzurufen:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+Neue Artefakte werden unter folgendem Pfad gespeichert:
+
+```text
+~/.uag/artifacts/
+```
+
+Der aktive Kontext wird durch `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` und `UAGENT_TOOL_RESULT_MAX_CHARS` begrenzt. Binäre Nutzdaten wie Bilder, Audio und eingebettete Base64-Daten werden nicht im persistenten Verlauf gespeichert, während die Benutzeroberfläche und Remote-Clients weiterhin ihre im Arbeitsspeicher befindlichen Anhänge empfangen können.
+
+Bestehende ältere Artifact-Pfade bleiben aus Kompatibilitätsgründen lesbar. Informationen zu Speichergrenzen, Persistenzverhalten und dem aktuellen Implementierungsstatus finden Sie unter [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md).
+
+[Kontextkomprimierung und begrenzter Modellkontext](CONTEXT_COMPRESSION.de.md)
+
+### 🌍 Mehrsprachige Übersetzung
+
+- `translate_text` unterstützt Google Translate und den offiziellen DeepL-Python-Client über `provider=auto`, `provider=deepl` oder `provider=google`.
+- Tool-Definitionen sind in 37 Sprachversionen plus Englisch (insgesamt 38) verfügbar, wobei Platzhalter und technische Bezeichner beibehalten werden.
+
+Siehe [Umgebungsvariablen](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Übersetzungsmethodik](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sowie die [Dokumentation zu `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Echtzeit-Sprache
 
@@ -299,6 +333,18 @@ Cloud-Zugangsdaten oder einen MQTT-/OPC-UA-Server. Das jeweilige Tool meldet bei
 Setze frühere Unterhaltungen mit `:load <index>` fort. Tool-Ergebnisse können zwischengespeichert und Anbieter geändert werden,
 ohne die Anwendung neu aufzubauen.
 
+Session-Store-Einstellungen:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Autopilot
 
 Verwende `:auto` für mehrstufige Aufgaben mit einem optionalen Prüfmodell. Lege mit `--max-rounds N` ein Rundenlimit fest.
@@ -429,11 +475,3 @@ und führe die obigen Prüfungen aus, bevor du einen Pull Request einreichst.
 ## Lizenz
 
 Lizenziert unter der [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Aktuelle Funktionen
-
-- `translate_text` unterstützt Google Translate und den offiziellen DeepL-Python-Client über `provider=auto`, `provider=deepl` oder `provider=google`.
-- Tool-Definitionen sind in 37 Sprachversionen plus Englisch (insgesamt 38) verfügbar, wobei Platzhalter und technische Bezeichner beibehalten werden.
-- `set_timer` unterstützt dauerhafte, geplante LLM-Läufe, den Schutz durch erforderliche Tools, die direkte Ausführung eines zugelassenen Tools, Wiederholungsversuche und Zeitüberschreitungen.
-
-Siehe [Umgebungsvariablen](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Übersetzungsmethodik](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sowie die [Dokumentation zu `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

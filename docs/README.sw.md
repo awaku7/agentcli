@@ -41,6 +41,9 @@ vifaa vya IoT, seva za MCP, na mtiririko wa kazi wa mawakala wengi.
 
 > **Kwa kifupi:** uag ni ndege ya udhibiti kati ya miundo yako ya AI na mazingira yako halisi.
 
+> **🧠 Matokeo ya zana yanayozingatia muktadha** — Matokeo makubwa ya zana huhifadhiwa nje ya muktadha wa modeli inayotumika inapowezekana. uag huzihifadhi kama Artifacts na kumpa mfano muonekano mdogo uliopimwa wenye rejea thabiti ya Artifact badala yake. Hii inaweza kupunguza kwa kiasi kikubwa idadi ya tokeni za ingizo zinazohitajika kwa zamu zinazofuata wakati zana inapotengeneza matokeo makubwa.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.sw.md) を参照してください。
+
 ## Nafasi ya uag
 
 uag iko kati ya watu na miingiliano upande mmoja, na miundo, zana, pamoja na mifumo ya ulimwengu halisi upande mwingine.
@@ -118,6 +121,37 @@ kusanidiwa (`UAGENT_PARALLEL_WORKERS`). Operesheni za kuandika hubaki za mfululi
 
 Muendelezo wa vikao, uhifadhi wa matokeo ya zana, hali ya batch, urejeshaji baada ya kuanzisha upya, upangaji wa DAG, na
 uratibu wa mawakala wengi hufanya kazi changamano ziweze kuendelea badala ya kuwa za mara moja.
+
+- `set_timer` inaunga mkono utekelezaji wa LLM uliopangwa na unaoendelea, ulinzi wa zana zinazohitajika, utekelezaji wa moja kwa moja wa zana moja iliyokubaliwa, jaribio tena, na muda wa kuchelewa.
+
+### 🧠 Matokeo ya zana yanayozingatia muktadha
+
+Matokeo makubwa ya zana huhifadhiwa nje ya muktadha wa modeli inayotumika inapowezekana. uag huzihifadhi kama Artifacts na kumpa mfano muonekano mdogo uliopimwa wenye rejea thabiti ya Artifact badala yake. Hii inaweza kupunguza kwa kiasi kikubwa idadi ya tokeni za ingizo zinazohitajika kwa zamu zinazofuata wakati zana inapotengeneza matokeo makubwa.
+
+Tumia `artifact_read` kupata mistari au wigo wa herufi zinazohitajika pekee:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+Vipengele vipya huhifadhiwa chini ya:
+
+```text
+~/.uag/artifacts/
+```
+
+Muktadha unaotumika una mipaka iliyowekwa na `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` na `UAGENT_TOOL_RESULT_MAX_CHARS`. Mizigo ya binary kama picha, sauti, na data iliyojengewa ndani ya Base64 huhifadhiwa nje ya historia iliyohifadhiwa, wakati UI na wateja wa mbali wanaweza kuendelea kupokea viambatisho vyao vilivyomo kwenye kumbukumbu.
+
+Njia za urithi zilizopo za Artifact zinaendelea kusomeka kwa ajili ya muafaka. Tazama [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) kwa mipaka ya uhifadhi, tabia ya kudumu, na hali ya sasa ya utekelezaji.
+
+[Ukomazaji wa muktadha na muktadha wa mfano wenye mipaka](CONTEXT_COMPRESSION.sw.md)
+
+### 🌍 Tafsiri ya lugha nyingi
+
+- `translate_text` inaunga mkono Google Translate na mteja rasmi wa DeepL Python kupitia `provider=auto`, `provider=deepl`, au `provider=google`.
+- Ufafanuzi wa zana unapatikana katika lugha 37 pamoja na Kiingereza (jumla 38), huku nafasi za kuweka maandishi na vitambulisho vya kiufundi vikihifadhiwa.
+
+Tazama [Vigezo vya mazingira](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Mbinu ya tafsiri](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), na [nyaraka za `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Sauti ya wakati halisi
 
@@ -299,6 +333,18 @@ vitambulisho vya wingu, au seva ya MQTT/OPC UA. Zana husika huripoti kinachokose
 Endeleza mazungumzo yaliyotangulia kwa `:load <index>`. Matokeo ya zana yanaweza kuhifadhiwa, na watoa huduma wanaweza kubadilishwa
 bila kujenga upya programu.
 
+Mipangilio ya Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Uendeshaji wa kiotomatiki
 
 Tumia `:auto` kwa kazi za raundi nyingi ukiwa na modeli ya mkaguzi ya hiari. Weka kikomo cha raundi kwa `--max-rounds N`.
@@ -429,11 +475,3 @@ na endesha ukaguzi ulio hapo juu kabla ya kutuma pull request.
 ## Leseni
 
 Imepewa leseni chini ya [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## Uwezo wa hivi karibuni
-
-- `translate_text` inaunga mkono Google Translate na mteja rasmi wa DeepL Python kupitia `provider=auto`, `provider=deepl`, au `provider=google`.
-- Ufafanuzi wa zana unapatikana katika lugha 37 pamoja na Kiingereza (jumla 38), huku nafasi za kuweka maandishi na vitambulisho vya kiufundi vikihifadhiwa.
-- `set_timer` inaunga mkono utekelezaji wa LLM uliopangwa na unaoendelea, ulinzi wa zana zinazohitajika, utekelezaji wa moja kwa moja wa zana moja iliyokubaliwa, jaribio tena, na muda wa kuchelewa.
-
-Tazama [Vigezo vya mazingira](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Mbinu ya tafsiri](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), na [nyaraka za `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

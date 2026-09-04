@@ -41,6 +41,9 @@ pilvi-API:en, IoT-laitteiden, MCP-palvelimien ja moniagenttisten työnkulkujen k
 
 > **Lyhyesti:** uag on ohjaustaso tekoälymalliesi ja todellisen ympäristösi välillä.
 
+> **🧠 Kontekstia huomioivat työkalun tulokset** — Suuria työkalun tuloksia pidetään mahdollisuuksien mukaan pois aktiivisesta mallikontekstista. uag tallentaa ne artefakteiksi ja välittää mallille sen sijaan rajatun esikatselun, jossa on vakaa Artifact-viite. Tämä voi vähentää huomattavasti seuraavissa vuoroissa tarvittavien syöttötunnusten määrää, kun työkalu tuottaa laajan tuloksen.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.fi.md) を参照してください。
+
 ## Mihin uag sijoittuu?
 
 uag toimii ihmisten ja käyttöliittymien toisella puolella sekä mallien, työkalujen ja reaalimaailman järjestelmien toisella puolella.
@@ -118,6 +121,37 @@ repositoryn analyysi ja vastaavat työkuormat voidaan suorittaa rinnakkain mää
 
 Istunnon jatkuvuus, työkalutulosten välimuisti, erätila, uudelleenkäynnistyksen palautuminen, DAG-ajastus ja
 moniagenttinen orkestrointi tekevät monimutkaisesta työstä jatkettavaa kertaluonteisen sijaan.
+
+- `set_timer` tukee pysyviä, aikataulutettuja LLM-ajokertoja, pakollisten työkalujen suojausta, yhden hyväksytyn työkalun suoraa suorittamista, uudelleenkokeiluja ja aikakatkaisuja.
+
+### 🧠 Kontekstia huomioivat työkalun tulokset
+
+Suuria työkalun tuloksia pidetään mahdollisuuksien mukaan pois aktiivisesta mallikontekstista. uag tallentaa ne artefakteiksi ja välittää mallille sen sijaan rajatun esikatselun, jossa on vakaa Artifact-viite. Tämä voi vähentää huomattavasti seuraavissa vuoroissa tarvittavien syöttötunnusten määrää, kun työkalu tuottaa laajan tuloksen.
+
+Käytä `artifact_read`:ää hakeaksesi vain tarvittavat rivit tai merkkialueen:
+
+```text
+> Lue artifact://<artifact-id> rivit 100–140
+```
+
+Uudet artefaktit tallennetaan seuraavaan kohtaan:
+
+```text
+~/.uag/artifacts/
+```
+
+Aktiivinen konteksti rajoittuu `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`:n ja `UAGENT_TOOL_RESULT_MAX_CHARS`:n välille. Binääriset hyötykuormat, kuten kuvat, ääni ja upotetut Base64-tiedot, jätetään pois pysyvästä historiasta, kun taas käyttöliittymä ja etäasiakkaat voivat edelleen vastaanottaa niiden muistissa olevia liitteitä.
+
+Olemassa olevat vanhat Artifact-polut pysyvät luettavina yhteensopivuuden vuoksi. Katso [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) tallennusrajoista, pysyvyyden toiminnasta ja nykyisestä toteutustilanteesta.
+
+[Kontekstin pakkaus ja rajattu mallikonteksti](CONTEXT_COMPRESSION.fi.md)
+
+### 🌍 Monikielinen käännös
+
+- `translate_text` tukee Google Translate:aa ja virallista DeepL-Python-asiakasohjelmaa asetuksilla `provider=auto`, `provider=deepl` tai `provider=google`.
+- Työkalumääritelmät ovat saatavilla 37 kieliversiossa sekä englanniksi (yhteensä 38), ja paikkamerkit sekä tekniset tunnisteet säilytetään.
+
+Katso [Ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Käännösmenetelmä](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sekä [`set_timer`-dokumentaatio](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Reaaliaikainen ääni
 
@@ -299,6 +333,18 @@ pilvitunnistetietoja tai MQTT/OPC UA -palvelimen. Asiaankuuluva työkalu ilmoitt
 Jatka aiempia keskusteluja komennolla `:load <index>`. Työkalutuloksia voidaan tallentaa välimuistiin ja palveluntarjoajia voidaan vaihtaa
 sovellusta uudelleen rakentamatta.
 
+Session Storen asetukset:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Autopilotti
 
 Käytä monikierroksiseen työskentelyyn komentoa `:auto`, ja halutessasi arvioijamallia. Aseta kierrosraja valitsimella `--max-rounds N`.
@@ -429,11 +475,3 @@ ja suorita yllä olevat tarkistukset ennen pull requestin lähettämistä.
 ## Lisenssi
 
 Lisensoitu [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE) -lisenssillä.
-
-## Uusimmat ominaisuudet
-
-- `translate_text` tukee Google Translate:aa ja virallista DeepL-Python-asiakasohjelmaa asetuksilla `provider=auto`, `provider=deepl` tai `provider=google`.
-- Työkalumääritelmät ovat saatavilla 37 kieliversiossa sekä englanniksi (yhteensä 38), ja paikkamerkit sekä tekniset tunnisteet säilytetään.
-- `set_timer` tukee pysyviä, aikataulutettuja LLM-ajokertoja, pakollisten työkalujen suojausta, yhden hyväksytyn työkalun suoraa suorittamista, uudelleenkokeiluja ja aikakatkaisuja.
-
-Katso [Ympäristömuuttujat](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [Käännösmenetelmä](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) sekä [`set_timer`-dokumentaatio](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

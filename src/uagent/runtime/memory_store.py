@@ -58,6 +58,10 @@ class MemoryStore:
         self.db.commit()
         return True
 
+    def vacuum(self) -> None:
+        """Reclaim unused SQLite pages after memory deletions."""
+        self.db.execute("VACUUM")
+
 
 def open_memory_store(path: str | Path) -> MemoryStore:
     return MemoryStore(path)

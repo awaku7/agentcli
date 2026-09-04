@@ -41,6 +41,9 @@ uag คือเอเจนต์ AI แบบ local-first ที่เชื�
 
 > **กล่าวโดยสรุป:** uag คือ control plane ระหว่างโมเดล AI กับสภาพแวดล้อมจริงของคุณ
 
+> **🧠 ผลลัพธ์ของเครื่องมือที่คำนึงถึงบริบท** — ผลลัพธ์ของเครื่องมือขนาดใหญ่จะถูกเก็บไว้นอกบริบทของโมเดลที่กำลังทำงานอยู่ เมื่อเป็นไปได้ uag เก็บผลลัพธ์เหล่านั้นไว้ในรูปแบบ Artifacts และส่งตัวอย่างที่จำกัดพร้อมการอ้างอิง Artifact ที่เสถียรไปยังโมเดลแทน วิธีนี้สามารถลดจำนวนโทเค็นอินพุตที่จำเป็นสำหรับรอบการสนทนาถัดไปได้อย่างมีนัยสำคัญ เมื่อเครื่องมือสร้างผลลัพธ์ที่มีขนาดใหญ่
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.th.md) を参照してください。
+
 ## ตำแหน่งของ uag
 
 uag อยู่ระหว่างผู้คนและอินเทอร์เฟซด้านหนึ่ง กับโมเดล เครื่องมือ และระบบในโลกจริงอีกด้านหนึ่ง
@@ -118,6 +121,37 @@ Inspector จะบันทึกการเปลี่ยนแปลงแ�
 
 ความต่อเนื่องของเซสชัน การแคชผลลัพธ์เครื่องมือ สถานะ batch การกู้คืนหลังเริ่มระบบใหม่ การจัดตาราง DAG และ
 การประสานงานหลายเอเจนต์ทำให้งานซับซ้อนกลับมาทำต่อได้แทนที่จะทำได้เพียงครั้งเดียว
+
+- `set_timer` รองรับการรัน LLM ตามกำหนดการที่คงที่ การป้องกันเครื่องมือที่จำเป็น การดำเนินการโดยตรงของเครื่องมือที่ได้รับการอนุมัติหนึ่งตัว การลองใหม่ และเวลาหมดอายุ
+
+### 🧠 ผลลัพธ์ของเครื่องมือที่คำนึงถึงบริบท
+
+ผลลัพธ์ของเครื่องมือขนาดใหญ่จะถูกเก็บไว้นอกบริบทของโมเดลที่กำลังทำงานอยู่ เมื่อเป็นไปได้ uag เก็บผลลัพธ์เหล่านั้นไว้ในรูปแบบ Artifacts และส่งตัวอย่างที่จำกัดพร้อมการอ้างอิง Artifact ที่เสถียรไปยังโมเดลแทน วิธีนี้สามารถลดจำนวนโทเค็นอินพุตที่จำเป็นสำหรับรอบการสนทนาถัดไปได้อย่างมีนัยสำคัญ เมื่อเครื่องมือสร้างผลลัพธ์ที่มีขนาดใหญ่
+
+ใช้ `artifact_read` เพื่อดึงเฉพาะบรรทัดหรือช่วงตัวอักษรที่จำเป็น:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+อาร์ติแฟกต์ใหม่จะถูกเก็บไว้ภายใต้:
+
+```text
+~/.uag/artifacts/
+```
+
+บริบทที่กำลังใช้งานอยู่ถูกจำกัดโดย `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` และ `UAGENT_TOOL_RESULT_MAX_CHARS` ข้อมูลไบนารี เช่น ภาพ เสียง และข้อมูล Base64 ที่ฝังอยู่ จะไม่ถูกเก็บไว้ในประวัติที่คงอยู่ ในขณะที่ UI และไคลเอนต์ระยะไกลสามารถรับไฟล์แนบในหน่วยความจำได้ต่อไป
+
+เส้นทาง Artifact แบบเก่าที่มีอยู่ยังคงอ่านได้เพื่อความเข้ากันได้ ดู [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) เพื่อทราบขอบเขตการเก็บข้อมูล พฤติกรรมการเก็บข้อมูลแบบถาวร และสถานะการดำเนินการปัจจุบัน
+
+[การบีบอัดบริบทและบริบทโมเดลที่มีขอบเขต](CONTEXT_COMPRESSION.th.md)
+
+### 🌍 การแปลหลายภาษา
+
+- `translate_text` รองรับ Google Translate และไคลเอนต์ DeepL Python อย่างเป็นทางการผ่าน `provider=auto`, `provider=deepl`, หรือ `provider=google`.
+- การกำหนดเครื่องมือมีพร้อมใน 37 ภาษาท้องถิ่นบวกกับภาษาอังกฤษ (รวม 38 ภาษา) โดยรักษาตัวแทนและตัวระบุทางเทคนิคไว้
+
+ดู [ตัวแปรสภาพแวดล้อม](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [วิธีการแปล](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) และ [เอกสาร `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 เสียงแบบเรียลไทม์
 
@@ -299,6 +333,18 @@ cloud credentials หรือเซิร์ฟเวอร์ MQTT/OPC UA เ�
 กลับไปสนทนาต่อจากครั้งก่อนด้วย `:load <index>` ผลลัพธ์เครื่องมือสามารถแคชได้ และสามารถเปลี่ยน provider ได้
 โดยไม่ต้องสร้างแอปพลิเคชันใหม่
 
+การตั้งค่า Session Store:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 ใช้ `:auto` สำหรับงานหลายรอบพร้อมโมเดล reviewer เสริม กำหนดขีดจำกัดรอบด้วย `--max-rounds N`
@@ -428,11 +474,3 @@ python -m pytest -q .
 ## ใบอนุญาต
 
 เผยแพร่ภายใต้ [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE)
-
-## คุณสมบัติล่าสุด
-
-- `translate_text` รองรับ Google Translate และไคลเอนต์ DeepL Python อย่างเป็นทางการผ่าน `provider=auto`, `provider=deepl`, หรือ `provider=google`.
-- การกำหนดเครื่องมือมีพร้อมใน 37 ภาษาท้องถิ่นบวกกับภาษาอังกฤษ (รวม 38 ภาษา) โดยรักษาตัวแทนและตัวระบุทางเทคนิคไว้
-- `set_timer` รองรับการรัน LLM ตามกำหนดการที่คงที่ การป้องกันเครื่องมือที่จำเป็น การดำเนินการโดยตรงของเครื่องมือที่ได้รับการอนุมัติหนึ่งตัว การลองใหม่ และเวลาหมดอายุ
-
-ดู [ตัวแปรสภาพแวดล้อม](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), [วิธีการแปล](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md) และ [เอกสาร `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

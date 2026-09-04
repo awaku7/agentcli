@@ -15,7 +15,7 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## Common options (all entry points)
+## CLI startup options (`uag`)
 
 ### `--workdir` / `-C <path>`
 
@@ -30,20 +30,25 @@ Tool genre bitmask. When provided, the interactive genre selection prompt is ski
 |-----|-------|-------------|
 | 1 | basic | Essential file/chat tools |
 | 2 | comm | Communication tools (Bluesky, Teams) |
-| 4 | office| Office suite tools (Excel, PDF, PPTX) |
+| 4 | office | Office suite tools (Excel, PDF, PPTX) |
 | 8 | devel | Development tools (git, lint, compile) |
 | 16 | iot | IoT device tools (SwitchBot, ECHONET, Matter, UPnP) |
 | 32 | exec | Command execution tools |
 | 64 | external | External plugin tools |
 | 128 | media | Image/audio generation and analysis |
-| 255 | all | All tools |
+| 256 | file | File-management tools |
+| 512 | index | Source/index navigation tools |
+| 1024 | dev | Developer and repository tools |
+| 2048 | web | Web and browser tools |
+| 4096 | utility | Utility and support tools |
+| 8191 | all | All tools |
 
 Examples:
 
 ```
 uag --tool-genre-mask 1       # basic only
 uag --tool-genre-mask 9       # basic + devel (1 + 8)
-uag --tool-genre-mask 255     # all tools
+uag --tool-genre-mask 8191    # all tools
 ```
 
 ### `--use-tool` / `--no-use-tool`
@@ -54,6 +59,14 @@ Enable or disable sending tool definitions to the LLM. Overrides the `UAGENT_USE
 - `--no-use-tool` forces tool sending off.
 
 When disabled, the LLM receives no tool definitions and cannot call any tool.
+
+### `--computer-use` / `--no-computer-use`
+
+Enable or disable Computer Use. Overrides the `UAGENT_COMPUTER_USE` environment variable.
+
+### `--inject-message` / `-M <message>`
+
+Inject a message into the LLM at startup and exit after completion. This implies `--non-interactive`.
 
 ### `--embedded`
 
@@ -73,6 +86,10 @@ uag --embedded --enable-tool handle_mcp_v2,human_ask
 ```
 
 The specified order is preserved and is reflected in the tool order presented to the LLM. Explicitly enabled tools are pinned against automatic unloading.
+
+### `--plugin-dir <path>`
+
+Load plugins from the specified directory. The option can be repeated.
 
 ______________________________________________________________________
 
@@ -105,7 +122,7 @@ uag --non-interactive --workdir /tmp/project
 
 ______________________________________________________________________
 
-## Web-only options (`uagw`)
+## Web server options (`uagw`)
 
 ### `--host <address>`
 
@@ -118,9 +135,29 @@ uagw --host 0.0.0.0
 uagw --host 192.168.1.10
 ```
 
+### `--tool-genre-mask <int>`
+
+Select tool genres using the same bitmask described above. When specified, the interactive genre prompt is skipped.
+
+### `--use-tool` / `--no-use-tool`
+
+Enable or disable sending tool definitions to the LLM. Overrides `UAGENT_USE_TOOL`.
+
+### `--computer-use` / `--no-computer-use`
+
+Enable or disable Computer Use. Overrides `UAGENT_COMPUTER_USE`.
+
+### `--no-frontend`
+
+Run API-only without HTML templates or static frontend files.
+
+### `--embedded`
+
+Disable the session store and hide tool-management tools (`tool_catalog`, `tool_load`, `unload_tool`).
+
 ______________________________________________________________________
 
-## A2A-only options
+## A2A server options (`uaga`)
 
 ### `--host <address>`
 
@@ -138,6 +175,22 @@ Enable hot reload on code changes (default: off, overridable by `UAGENT_A2A_RELO
 uaga --host 127.0.0.1 --port 8080 --reload
 ```
 
+### `--tool-genre-mask <int>`
+
+Select tool genres using the bitmask described above. When specified, the interactive genre prompt is skipped.
+
+### `--use-tool` / `--no-use-tool`
+
+Enable or disable sending tool definitions to the LLM. Overrides `UAGENT_USE_TOOL`.
+
+### `--computer-use` / `--no-computer-use`
+
+Enable or disable Computer Use. Overrides `UAGENT_COMPUTER_USE`.
+
+### `--embedded`
+
+Disable the session store and hide tool-management tools (`tool_catalog`, `tool_load`, `unload_tool`).
+
 ______________________________________________________________________
 
 ## Related environment variables
@@ -148,11 +201,17 @@ ______________________________________________________________________
 | `UAGENT_*_API_KEY` | API key for the selected provider |
 | `UAGENT_WORKDIR` | Default working directory |
 | `UAGENT_WEB_HOST` | Web server bind address (default: `127.0.0.1`) |
+| `UAGENT_A2A_HOST` | A2A server bind address (default: `0.0.0.0`) |
+| `UAGENT_A2A_PORT` | A2A server port (default: `8765`) |
+| `UAGENT_A2A_RELOAD` | Enable A2A hot reload by default |
 | `UAGENT_USE_TOOL` | Disable tools when set to `0`, `false`, `no`, or `off` |
+| `UAGENT_COMPUTER_USE` | Enable or disable Computer Use by default |
+| `UAGENT_SESSION_STORE` | Enable or disable the session store; Embedded mode forces `0` |
+| `UAGENT_PLUGIN_DIRS` | Additional plugin search directories |
 | `UAGENT_AUTO_SENTINEL` | Opt into single-LLM auto-pilot sentinel mode when set to `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximum consecutive fresh tool calls (default: `100`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maximum LLM/tool rounds per user operation (default: `200`) |
-| `UAGENT_SHRINK_CNT` | Auto-shrink threshold in messages (default: `100`, `0` = off) |
+| `UAGENT_SHRINK_CNT` | Optional auto-shrink threshold in messages (`0`/unset = disabled) |
 | `UAGENT_SHRINK_KEEP_LAST` | Messages to retain after shrink (default: `20`) |
 | `UAGENT_LANG` | Interface language (`ja`, `en`, etc.) |
 

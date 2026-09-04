@@ -24,6 +24,11 @@ def _use_sqlite() -> bool:
     return (env_get("UAGENT_MEMORY_BACKEND") or "sqlite").strip().lower() == "sqlite"
 
 
+def is_sqlite_backend() -> bool:
+    """Return whether personal memory is configured to use SQLite."""
+    return _use_sqlite()
+
+
 def _sqlite_path() -> str:
     return env_get("UAGENT_MEMORY_DB") or os.path.join(
         _get_base_log_dir(), "memory.sqlite3"
@@ -69,13 +74,20 @@ def append_long_memory(note: str) -> None:
 
 
 def load_long_memory_raw() -> str:
-    """Load the JSONL content as raw text (truncated)."""
-    memory_file = get_memory_file_path()
+    """Load the configured personal-memory backend as bounded JSONL text."""
     max_bytes = get_max_memory_bytes()
-
     try:
-        with open(memory_file, encoding="utf-8") as f:
-            data = f.read(max_bytes + 1)
+        if _use_sqlite():
+            records = load_long_memory_records()
+            if not records:
+                return _("msg.no_memory", default="(no long-term memory yet)")
+            data = "".join(
+                json.dumps(record, ensure_ascii=False) + "\n" for record in records
+            )
+        else:
+            memory_file = get_memory_file_path()
+            with open(memory_file, encoding="utf-8") as f:
+                data = f.read(max_bytes + 1)
     except FileNotFoundError:
         return _("msg.no_memory", default="(no long-term memory yet)")
     except Exception as e:
@@ -194,3 +206,20 @@ def delete_long_memory_entry(index: int) -> bool:
     except Exception:
         return False
     return True
+
+
+def vacuum_long_memory() -> bool:
+    """Reclaim unused pages in the SQLite personal-memory database."""
+    if not _use_sqlite():
+        return False
+    try:
+        from ..runtime.memory_store import open_memory_store
+
+        store = open_memory_store(_sqlite_path())
+        try:
+            store.vacuum()
+        finally:
+            store.close()
+        return True
+    except Exception:
+        return False

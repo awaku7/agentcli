@@ -647,6 +647,7 @@ RESERVED_COLON_COMMANDS: frozenset[str] = frozenset(
         "response",
         "mem-list",
         "mem-del",
+        "mem-vacuum",
         "profile",
         "profile-show",
         "profile-fromlog",

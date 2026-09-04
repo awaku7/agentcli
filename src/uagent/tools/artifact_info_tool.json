@@ -1,0 +1,458 @@
+{
+  "ar": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "معرّف الأثر أو مرجع artifact:// من نتيجة أداة سابقة.",
+    "error.invalid_artifact_id": "يجب أن يكون artifact_id معرّف ملف صالحًا أو مرجع artifact://",
+    "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة"
+  },
+  "bn": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "আর্টিফ্যাক্ট আইডি বা পূর্ববর্তী টুল ফলাফলের artifact:// রেফারেন্স।",
+    "error.invalid_artifact_id": "artifact_id অবশ্যই একটি বৈধ আর্টিফ্যাক্ট আইডি বা artifact:// রেফারেন্স হতে হবে",
+    "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়"
+  },
+  "cs": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID artefaktu nebo odkaz artifact:// z dřívějších výsledků nástroje.",
+    "error.invalid_artifact_id": "artifact_id musí být platné ID artefaktu nebo odkaz artifact://",
+    "error.not_active_session": "artefakt nepatří k aktivní relaci"
+  },
+  "da": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact://-reference fra et tidligere værktøjsresultat.",
+    "error.invalid_artifact_id": "artifact_id skal være et gyldigt artefakt-ID eller en artifact://-reference",
+    "error.not_active_session": "artefaktet hører ikke til den aktive session"
+  },
+  "de": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefakt-ID oder „artifact://“-Referenz aus einem früheren Tool-Ergebnis.",
+    "error.invalid_artifact_id": "artifact_id muss eine gültige Artefakt-ID oder eine artifact://-Referenz sein",
+    "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung"
+  },
+  "el": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Αναγνωριστικό αρχείου ή αναφορά artifact:// από προηγούμενο αποτέλεσμα εργαλείου.",
+    "error.invalid_artifact_id": "Το artifact_id πρέπει να είναι έγκυρο αναγνωριστικό αντικειμένου ή αναφορά artifact://",
+    "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία"
+  },
+  "en": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artifact ID or artifact:// reference from an earlier tool result.",
+    "error.invalid_artifact_id": "artifact_id must be a valid artifact ID or artifact:// reference",
+    "error.not_active_session": "artifact does not belong to the active session"
+  },
+  "es": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID del artefacto o referencia artifact:// de un resultado de herramienta anterior.",
+    "error.invalid_artifact_id": "artifact_id debe ser un identificador de artefacto válido o una referencia artifact://",
+    "error.not_active_session": "El artefacto no pertenece a la sesión activa"
+  },
+  "fa": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "شناسه آرتفکت یا مرجع artifact:// از یک نتیجه ابزار قبلی.",
+    "error.invalid_artifact_id": "artifact_id باید یک شناسه آرتفکت معتبر یا مرجع artifact:// باشد.",
+    "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد."
+  },
+  "fi": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefaktin tunniste tai artifact://-viite aiemmasta työkalun tuloksesta.",
+    "error.invalid_artifact_id": "artifact_id:n on oltava kelvollinen artefaktin tunniste tai artifact://-viite",
+    "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon"
+  },
+  "fil": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artifact ID o sangguniang artifact:// mula sa naunang resulta ng tool.",
+    "error.invalid_artifact_id": "Ang artifact_id ay dapat isang wastong artifact ID o artifact:// reference",
+    "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon"
+  },
+  "fr": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Identifiant de l'artefact ou référence « artifact:// » provenant d'un résultat d'outil antérieur.",
+    "error.invalid_artifact_id": "artifact_id doit être un identifiant d'artefact valide ou une référence artifact://",
+    "error.not_active_session": "L'artefact n'appartient pas à la session active"
+  },
+  "he": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "מזהה ארטפקט או הפניה מסוג artifact:// מתוצאת כלי קודמת.",
+    "error.invalid_artifact_id": "artifact_id חייב להיות מזהה ארטפקט תקף או הפניה artifact://",
+    "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל"
+  },
+  "hi": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "आर्टिफैक्ट आईडी या किसी पिछले टूल परिणाम से artifact:// संदर्भ।",
+    "error.invalid_artifact_id": "artifact_id एक मान्य artifact ID या artifact:// संदर्भ होना चाहिए",
+    "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है"
+  },
+  "hu": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefaktum-azonosító vagy artifact:// hivatkozás egy korábbi eszköz-eredményből.",
+    "error.invalid_artifact_id": "az artifact_id-nek érvényes artefakt-azonosítónak vagy artifact:// hivatkozásnak kell lennie",
+    "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez"
+  },
+  "id": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID artefak atau referensi artifact:// dari hasil alat sebelumnya.",
+    "error.invalid_artifact_id": "artifact_id harus berupa ID artefak yang valid atau referensi artifact://",
+    "error.not_active_session": "artefak tidak termasuk dalam sesi aktif"
+  },
+  "it": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID dell'artefatto o riferimento artifact:// proveniente da un risultato di uno strumento precedente.",
+    "error.invalid_artifact_id": "artifact_id deve essere un ID artefatto valido o un riferimento artifact://",
+    "error.not_active_session": "l'artefatto non appartiene alla sessione attiva"
+  },
+  "ja": {
+    "tool.description": "以前保存したセッション所有Artifactのメタデータを、ペイロードを読み込まずに返します。",
+    "x_search_terms": [
+      "artifact_info",
+      "Artifactメタデータ",
+      "Artifactの種類",
+      "Artifactのサイズ"
+    ],
+    "param.artifact_id.description": "以前のツール結果にあるArtifact IDまたはartifact://参照。",
+    "error.invalid_artifact_id": "artifact IDまたはartifact://参照が正しくありません。",
+    "error.not_active_session": "現在のセッションに属するArtifactではありません。"
+  },
+  "ko": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "이전 툴 결과의 아티팩트 ID 또는 artifact:// 참조.",
+    "error.invalid_artifact_id": "artifact_id는 유효한 아티팩트 ID 또는 artifact:// 참조여야 합니다.",
+    "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다."
+  },
+  "mn": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Артфактын ID эсвэл өмнөх хэрэгслийн үр дүнгээс авсан artifact:// лавлагаа.",
+    "error.invalid_artifact_id": "artifact_id нь хүчин төгөлдөр artifact ID эсвэл artifact:// лавлагаа байх ёстой",
+    "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй"
+  },
+  "mr": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "आर्टिफॅक्ट आयडी किंवा पूर्वीच्या टूल परिणामापासूनचा artifact:// संदर्भ.",
+    "error.invalid_artifact_id": "artifact_id वैध artifact ID किंवा artifact:// संदर्भ असावा",
+    "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही"
+  },
+  "ms": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID Artifak atau rujukan artifact:// daripada keputusan alat sebelum ini.",
+    "error.invalid_artifact_id": "artifact_id mesti merupakan ID artifak yang sah atau rujukan artifact://",
+    "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
+  },
+  "nb": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artifact-ID eller artifact://-referanse fra et tidligere verktøyresultat.",
+    "error.invalid_artifact_id": "artifact_id må være en gyldig artefakt-ID eller artifact://-referanse",
+    "error.not_active_session": "artefaktet tilhører ikke den aktive økten"
+  },
+  "nl": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefact-ID of artifact://-verwijzing uit een eerder toolresultaat.",
+    "error.invalid_artifact_id": "artifact_id moet een geldige artefact-ID of artifact://-referentie zijn",
+    "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
+  },
+  "nn": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact:// referanse fra et tidligere verktøyresultat.",
+    "error.invalid_artifact_id": "artefakt_id må være en gyldig artefakt-ID eller artifact:// reference",
+    "error.not_active_session": "artefakt høyrer ikkje til den aktive økta"
+  },
+  "pl": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Identyfikator artefaktu lub odwołanie typu „artifact://” z wcześniejszych wyników działania narzędzia.",
+    "error.invalid_artifact_id": "artifact_id musi być prawidłowym identyfikatorem artefaktu lub odwołaniem typu artifact://",
+    "error.not_active_session": "artefakt nie należy do aktywnej sesji"
+  },
+  "pt": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID do artefacto ou referência artifact:// de um resultado de ferramenta anterior.",
+    "error.invalid_artifact_id": "artifact_id deve ser um ID de artefacto válido ou uma referência artifact://",
+    "error.not_active_session": "O artefacto não pertence à sessão ativa"
+  },
+  "pt_BR": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID do artefato ou referência artifact:// de um resultado de ferramenta anterior.",
+    "error.invalid_artifact_id": "artifact_id deve ser um ID de artefato válido ou uma referência artifact://",
+    "error.not_active_session": "o artefato não pertence à sessão ativa"
+  },
+  "ro": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID-ul artefactului sau referința artifact:// dintr-un rezultat anterior al unui instrument.",
+    "error.invalid_artifact_id": "artifact_id trebuie să fie un ID de artefact valid sau o referință artifact://",
+    "error.not_active_session": "artefactul nu aparține sesiunii active"
+  },
+  "ru": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Идентификатор артефакта или ссылка artifact:// из предыдущего результата работы инструмента.",
+    "error.invalid_artifact_id": "artifact_id должен быть действительным идентификатором артефакта или ссылкой artifact://",
+    "error.not_active_session": "артефакт не принадлежит активной сессии"
+  },
+  "sv": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Artefakt-ID eller artifact://-referens från ett tidigare verktygsresultat.",
+    "error.invalid_artifact_id": "artifact_id måste vara ett giltigt artefakt-ID eller en artifact://-referens",
+    "error.not_active_session": "artefakten tillhör inte den aktiva sessionen"
+  },
+  "sw": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID ya Artifact au rejeleo la artifact:// kutoka kwa matokeo ya zana ya awali.",
+    "error.invalid_artifact_id": "artifact_id lazima iwe ID halali ya artifact au rejeleo la artifact://",
+    "error.not_active_session": "artifact haihusiani na kikao kinachoendelea"
+  },
+  "th": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID ของอาร์ติแฟกต์ หรือการอ้างอิง artifact:// จากผลลัพธ์เครื่องมือก่อนหน้านี้",
+    "error.invalid_artifact_id": "artifact_id ต้องเป็น ID ของอาร์ติแฟกต์ที่ถูกต้อง หรือการอ้างอิง artifact://",
+    "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่"
+  },
+  "tr": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Bir önceki araç sonucuna ait artefakt kimliği veya artifact:// referansı.",
+    "error.invalid_artifact_id": "artifact_id, geçerli bir artefakt kimliği veya artifact:// referansı olmalıdır",
+    "error.not_active_session": "artifact, etkin oturuma ait değildir"
+  },
+  "uk": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "Ідентифікатор артефакту або посилання artifact:// із попереднього результату роботи інструменту.",
+    "error.invalid_artifact_id": "artifact_id має бути дійсним ідентифікатором артефакту або посиланням artifact://",
+    "error.not_active_session": "артефакт не належить до активної сесії"
+  },
+  "vi": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "ID đối tượng hoặc tham chiếu artifact:// từ một kết quả công cụ trước đó.",
+    "error.invalid_artifact_id": "artifact_id phải là ID tài liệu hợp lệ hoặc tham chiếu artifact://",
+    "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại"
+  },
+  "zh_CN": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "工件 ID 或来自先前工具结果的 artifact:// 引用。",
+    "error.invalid_artifact_id": "artifact_id 必须是有效的工件 ID 或 artifact:// 引用",
+    "error.not_active_session": "artifact 不属于当前会话"
+  },
+  "zh_TW": {
+    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "x_search_terms": [
+      "artifact_info",
+      "artifact metadata",
+      "artifact type",
+      "artifact size"
+    ],
+    "param.artifact_id.description": "來自先前工具結果的 artefact ID 或 artifact:// 參考。",
+    "error.invalid_artifact_id": "artifact_id 必須是有效的工件 ID 或 artifact:// 參考",
+    "error.not_active_session": "artifact 不屬於當前工作階段"
+  }
+}

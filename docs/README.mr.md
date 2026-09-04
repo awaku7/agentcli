@@ -41,6 +41,9 @@ uag हा स्थानिकतेला प्राधान्य दे�
 
 > **थोडक्यात:** uag हा तुमच्या AI models आणि प्रत्यक्ष वातावरणामधील control plane आहे.
 
+> **🧠 संदर्भ-जागरूक साधन निकाल** — मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.mr.md) を参照してください。
+
 ## uag कुठे बसतो
 
 एका बाजूला लोक आणि interfaces, तर दुसऱ्या बाजूला models, tools आणि वास्तविक-जगातील systems यांच्या मध्ये uag काम करतो.
@@ -116,6 +119,37 @@ configurable worker pool (`UAGENT_PARALLEL_WORKERS`) वापरून सम�
 
 Session continuity, tool-result caching, batch state, restart recovery, DAG scheduling आणि multi-agent orchestration यांमुळे
 कठीण कामे one-shot न राहता पुन्हा सुरू करता येतात.
+
+- `set_timer` कायमस्वरूपी नियोजित LLM धावांना, आवश्यक-साधन संरक्षणाला, एका मंजूर साधनाची थेट अंमलबजावणी, पुन्हा प्रयत्न आणि टाइमआउट्सना समर्थन देते.
+
+### 🧠 संदर्भ-जागरूक साधन निकाल
+
+मोठ्या साधन निकालांना शक्यतो सक्रिय मॉडेलच्या संदर्भाबाहेर ठेवले जाते. uag त्यांना आर्टिफॅक्ट्स म्हणून संग्रहित करते आणि मॉडेलला स्थिर Artifact संदर्भासह मर्यादित पूर्वावलोकन पाठवते. जेव्हा एखादे साधन मोठा परिणाम तयार करते, तेव्हा पुढील फेरींसाठी आवश्यक इनपुट टोकनची संख्या यामुळे लक्षणीयरीत्या कमी होऊ शकते.
+
+फक्त आवश्यक ओळी किंवा अक्षरांची श्रेणी मिळविण्यासाठी `artifact_read` वापरा:
+
+```text
+> Read artifact://<artifact-id> lines 100-140
+```
+
+नवीन आर्टिफॅक्ट्स खाली संग्रहित केले जातात:
+
+```text
+~/.uag/artifacts/
+```
+
+सक्रिय संदर्भ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` आणि `UAGENT_TOOL_RESULT_MAX_CHARS` द्वारे मर्यादित आहे. प्रतिमा, ऑडिओ आणि एम्बेडेड Base64 डेटा यांसारख्या बायनरी पेलोड्सना कायमस्वरूपी इतिहासातून वगळले जाते, तर UI आणि रिमोट क्लायंट्स त्यांच्या मेमरीतील अटॅचमेंट्स प्राप्त करत राहू शकतात.
+
+विद्यमान लेगसी Artifact पाथ्स सुसंगततेसाठी वाचनीय राहतात. संग्रहण सीमा, टिकाऊपणा वर्तन आणि वर्तमान अंमलबजावणी स्थितीसाठी [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) पहा.
+
+[संदर्भ संकुचन आणि मर्यादित मॉडेल संदर्भ](CONTEXT_COMPRESSION.mr.md)
+
+### 🌍 बहुभाषिक भाषांतर
+
+- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
+- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
+
+[पर्यावरण चल](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) आणि [अनुवाद पद्धत](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), आणि [`set_timer` दस्तऐवजीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 Realtime voice
 
@@ -291,6 +325,18 @@ python -m pip install PySide6 ewmh dbus-next
 
 `:load <index>` ने आधीचे conversations पुन्हा सुरू करा. Tool results cache करता येतात आणि application rebuild न करता providers बदलता येतात.
 
+Session Store सेटिंग्ज:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### Auto-pilot
 
 Optional reviewer model सह multi-round कामासाठी `:auto` वापरा. `--max-rounds N` ने round limit सेट करा.
@@ -413,11 +459,3 @@ Bug reports, feature ideas, documentation improvements, translations, tools, ski
 ## License
 
 Licensed under the [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## अलीकडील क्षमता
-
-- `translate_text` Google Translate आणि अधिकृत DeepL Python क्लायंटला `provider=auto`, `provider=deepl`, किंवा `provider=google` द्वारे समर्थन करते.
-- साधन परिभाषा 37 स्थानिकीकरणात आणि इंग्रजीमध्ये (एकूण 38) उपलब्ध आहेत, प्लेसहोल्डर्स आणि तांत्रिक ओळखपत्रे जतन केली आहेत.
-- `set_timer` कायमस्वरूपी नियोजित LLM धावांना, आवश्यक-साधन संरक्षणाला, एका मंजूर साधनाची थेट अंमलबजावणी, पुन्हा प्रयत्न आणि टाइमआउट्सना समर्थन देते.
-
-[पर्यावरण चल](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) आणि [अनुवाद पद्धत](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md), आणि [`set_timer` दस्तऐवजीकरण](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).

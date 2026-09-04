@@ -41,6 +41,9 @@ uag هو وكيل ذكاء اصطناعي محلي أولًا، يربط الن�
 
 > **باختصار:** ‏uag هو مستوى التحكم بين نماذج الذكاء الاصطناعي وبيئتك الحقيقية.
 
+> **🧠 نتائج الأدوات المراعية للسياق** — يتم استبعاد نتائج الأدوات الكبيرة من سياق النموذج النشط كلما أمكن ذلك. يخزن uag هذه النتائج كـ Artifacts ويمرر للنموذج معاينة محدودة مع مرجع Artifact ثابت بدلاً من ذلك. يمكن أن يقلل هذا بشكل كبير من عدد الرموز المطلوبة للدورات التالية عندما تنتج الأداة نتيجة كبيرة الحجم.
+> [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ar.md) を参照してください。
+
 ## موضع uag
 
 يقع uag بين الأشخاص والواجهات من جهة، والنماذج والأدوات والأنظمة الواقعية من جهة أخرى.
@@ -118,6 +121,37 @@ Browser Inspector الانتقالات وحالة الصفحة لأغراض تص
 
 تجعل استمرارية الجلسة وتخزين نتائج الأدوات مؤقتًا وحالة الدُفعات واستعادة التشغيل وجدولة DAG
 وتنسيق الوكلاء المتعددين العمل المعقد قابلًا للاستئناف بدلًا من كونه تنفيذًا لمرة واحدة.
+
+- يدعم `set_timer` عمليات تشغيل LLM المجدولة الدائمة، وحماية الأدوات المطلوبة، والتنفيذ المباشر لأداة واحدة معتمدة، وإعادة المحاولة، ومهلات الانتظار.
+
+### 🧠 نتائج الأدوات المراعية للسياق
+
+يتم استبعاد نتائج الأدوات الكبيرة من سياق النموذج النشط كلما أمكن ذلك. يخزن uag هذه النتائج كـ Artifacts ويمرر للنموذج معاينة محدودة مع مرجع Artifact ثابت بدلاً من ذلك. يمكن أن يقلل هذا بشكل كبير من عدد الرموز المطلوبة للدورات التالية عندما تنتج الأداة نتيجة كبيرة الحجم.
+
+استخدم `artifact_read` لاسترداد الأسطر أو نطاق الأحرف المطلوب فقط:
+
+```text
+> قراءة artifact://<artifact-id> الأسطر 100-140
+```
+
+يتم تخزين العناصر الجديدة تحت:
+
+```text
+~/.uag/artifacts/
+```
+
+يتم تحديد السياق النشط بـ `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` و `UAGENT_TOOL_RESULT_MAX_CHARS`. يتم استبعاد الحمولات الثنائية مثل الصور والصوت وبيانات Base64 المضمنة من السجل الدائم، بينما يمكن لواجهة المستخدم والعملاء عن بُعد الاستمرار في تلقي مرفقاتهم الموجودة في الذاكرة.
+
+تظل مسارات Artifact القديمة الموجودة قابلة للقراءة من أجل التوافق. انظر [Context management design](https://github.com/awaku7/agentcli/blob/main/docs/UAG_CONTEXT_MANAGEMENT_DESIGN.md) لمعرفة حدود التخزين وسلوك الاستمرار وحالة التنفيذ الحالية.
+
+[ضغط السياق وسياق النموذج المحدود](CONTEXT_COMPRESSION.ar.md)
+
+### 🌍 الترجمة متعددة اللغات
+
+- يدعم `translate_text` Google Translate وعميل DeepL الرسمي للغة Python من خلال `provider=auto` أو `provider=deepl` أو `provider=google`.
+- تتوفر تعريفات الأدوات في 37 لغة بالإضافة إلى الإنجليزية (38 لغة إجمالًا)، مع الحفاظ على العناصر النائبة والمعرفات الفنية.
+
+انظر [متغيرات البيئة](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)، و[منهجية الترجمة](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)، و[وثائق `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
 
 ### 🎙 صوت لحظي
 
@@ -298,6 +332,18 @@ python -m pip install PySide6 ewmh dbus-next
 استأنف المحادثات السابقة باستخدام `:load <index>`. ويمكن تخزين نتائج الأدوات مؤقتًا، كما يمكن تغيير المزوّدين
 من دون إعادة بناء التطبيق.
 
+إعدادات مخزن الجلسات:
+
+```text
+UAGENT_SESSION_STORE=1
+UAGENT_SESSION_BACKEND=sqlite
+# Unset: user state directory/sessions/sessions.sqlite3
+UAGENT_SESSION_STORE_PATH=
+UAGENT_MEMORY_BACKEND=sqlite
+# Unset: user state directory/memory.sqlite3
+UAGENT_MEMORY_DB=
+```
+
 ### القيادة الآلية
 
 استخدم `:auto` للعمل متعدد الجولات مع نموذج مراجِع اختياري. عيّن حدًا للجولات باستخدام `--max-rounds N`.
@@ -428,11 +474,3 @@ python -m pytest -q .
 ## الترخيص
 
 مرخّص بموجب [Apache License 2.0](https://github.com/awaku7/agentcli/blob/main/LICENSE).
-
-## الميزات الحديثة
-
-- يدعم `translate_text` Google Translate وعميل DeepL الرسمي للغة Python من خلال `provider=auto` أو `provider=deepl` أو `provider=google`.
-- تتوفر تعريفات الأدوات في 37 لغة بالإضافة إلى الإنجليزية (38 لغة إجمالًا)، مع الحفاظ على العناصر النائبة والمعرفات الفنية.
-- يدعم `set_timer` عمليات تشغيل LLM المجدولة الدائمة، وحماية الأدوات المطلوبة، والتنفيذ المباشر لأداة واحدة معتمدة، وإعادة المحاولة، ومهلات الانتظار.
-
-انظر [متغيرات البيئة](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)، و[منهجية الترجمة](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)، و[وثائق `set_timer`](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md).
