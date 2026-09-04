@@ -184,7 +184,10 @@ access is serialized. Message replacement and JSONL import are single
 transactions; query indexes cover session-scoped messages, tool calls, policy
 decisions, and artifacts. Deleting a session removes its new global Artifact
 records and directories; legacy workdir-local Artifact paths are deliberately
-left untouched.
+left untouched. Before SQLite or JSONL persistence, tool-message copies are
+also sanitized so inline image, audio, PDF, screenshot, and MCP binary fields
+are replaced by bounded markers; the in-memory UI/remote attachment copy is not
+modified.
 
 ### 3.6 Tool levels and genres
 

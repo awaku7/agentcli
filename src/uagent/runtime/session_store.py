@@ -18,6 +18,7 @@ from typing import Any
 
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import mask_args
+from .tool_result_persistence import sanitize_message_for_history
 
 
 class SessionStoreError(RuntimeError):
@@ -471,8 +472,14 @@ class SessionStore:
         safe_payload = None
         if payload is not None:
             try:
+                raw_payload_value = _sanitize_value(payload)
+                if not isinstance(raw_payload_value, dict):
+                    raise TypeError("message payload is not an object")
+                safe_payload_value = sanitize_message_for_history(
+                    {**raw_payload_value, "role": role}
+                )
                 safe_payload = _safe_json_dumps(
-                    {**_sanitize_value(payload), "content": safe_content},
+                    {**safe_payload_value, "content": safe_content},
                     ensure_ascii=False,
                     sort_keys=True,
                 )

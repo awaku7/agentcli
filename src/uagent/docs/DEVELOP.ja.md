@@ -141,6 +141,9 @@ SessionStore と Artifact の SQLite 接続は WAL モード、
 Policy Decision、Artifact の検索用インデックスも初期化時に作成します。
 セッションを削除すると、新形式のグローバル Artifact のレコードとディレクトリも
 削除します。旧形式の workdir 内 Artifact は意図的に変更しません。
+SQLite または JSONL へ保存する前に、Tool Message のコピーから画像・音声・
+PDF・スクリーンショット・MCP バイナリのインラインデータを bounded marker
+へ置換します。メモリ上の UI / リモート向け attachment は変更しません。
 
 ### 3.6 ツールレベルとツールジャンル
 

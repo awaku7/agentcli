@@ -8,6 +8,7 @@ import os
 from typing import Any, Callable
 
 from ..env_utils import env_get
+from .tool_result_persistence import sanitize_message_for_history
 
 _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS = 12_000
 
@@ -123,7 +124,12 @@ def rewrite_jsonl_log(
     with open(tmp_path, "w", encoding="utf-8") as stream:
         for item in messages:
             try:
-                stream.write(json.dumps(mask_fn(item), ensure_ascii=False) + "\n")
+                stream.write(
+                    json.dumps(
+                        sanitize_message_for_history(mask_fn(item)), ensure_ascii=False
+                    )
+                    + "\n"
+                )
             except Exception:
                 continue
         for record in tool_context_records or []:

@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 from typing import Any, Iterator
 from uuid import uuid4
 
+from .tool_result_persistence import sanitize_message_for_history
+
 _LOGGER = logging.getLogger("uagent.events")
 _SECRET_KEYS = {
     "token",
@@ -101,7 +103,7 @@ def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) 
     import os
 
     try:
-        masked = mask_fn(message)
+        masked = sanitize_message_for_history(mask_fn(message))
         directory = os.path.dirname(log_file)
         if directory:
             os.makedirs(directory, exist_ok=True)
