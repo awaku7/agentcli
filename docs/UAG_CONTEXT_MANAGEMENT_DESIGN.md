@@ -1471,3 +1471,98 @@ Session削除時の新形式Artifact cleanupは存在するが、Result単位の
 6. Relevant RetrievalとContext再注入を追加する
 7. Agent State、checkpoint、restart recoveryを統合する
 8. Provider Native機能をContextPolicyから制御する
+
+---
+
+# 33. Provider非依存実装の境界
+
+Context Managementの中核処理は、LLM SDK、特定Provider、外部APIの応答形式に
+依存しないRuntime処理として実装する。
+
+## 33.1 Provider非依存の中核
+
+以下はProvider adapterより前に実行する。
+
+- Tool Resultのサイズ・種類・重要度の計測
+- Structured / Large / Hugeの分類
+- inline binaryの検出
+- Artifactへの保存と`artifact://` Reference生成
+- LLM Context用のbounded projection
+- Persistent History用のサニタイズ済みprojection
+- UI / リモート向けattachment projection
+- SQLite / JSONLへの保存
+- Context Budget判定とeviction候補の管理
+- ArtifactおよびSessionStoreからの再取得
+
+これらは、OpenAI、Azure、Gemini、Claude、Bedrock、Grok、DeepSeek、ローカルLLM
+などのいずれを使用しても同じ結果になることを基本とする。
+
+## 33.2 Resultの3系統projection
+
+Toolの生結果を一つの共有辞書のまま各層へ渡さない。Runtimeは用途ごとにコピーを
+生成する。
+
+```text
+Raw Tool Result
+       │
+       ▼
+Provider-neutral Result Manager
+       ├── LLM Context
+       │     └── bounded text / Summary / Reference
+       ├── UI / Remote
+       │     └── attachment / path / optional binary data
+       └── Persistent History
+             └── redacted text / metadata / Artifact Reference
+```
+
+UI / リモート向けのBase64を保持しても、LLM ContextまたはSQLite/JSONLへ同じ値を
+再利用してはならない。
+
+## 33.3 バイナリ保存方針
+
+画像、音声、PDF、グラフ、QR、スクリーンショット、SVG、MCP `blob`などのRaw
+binaryは、可能な限りArtifactへ保存する。SQLiteおよびJSONLにはRaw Base64を
+保存せず、次のような参照情報だけを残す。
+
+- `artifact_id`
+- `artifact_ref`
+- `path`または`saved_path`
+- MIME type
+- サイズ
+- ファイル名
+
+認証、署名、暗号化payload、OAuth、NostrなどのProtocol用Base64は、バイナリ添付
+として識別できない限り、無差別に除去しない。
+
+## 33.4 Provider adapterの責務
+
+Provider adapterは、次の最終変換だけを担当する。
+
+- Provider固有のTool schema
+- attachment / multimodal input形式への変換
+- Provider固有のtoken・request制限
+- Native Tool Search
+- Native compaction
+- `previous_response_id`などのProvider状態
+
+Result分類、Artifact保存、履歴サニタイズをProvider adapterへ実装してはならない。
+
+## 33.5 Summaryの初期方針
+
+Tool Result受信ごとにLLMを呼び出してSummaryを生成しない。次の順序で軽量処理を
+優先する。
+
+1. Tool固有のStructured Result
+2. Pythonによる抽出・集約
+3. truncation / extraction
+4. 必要な場合のみ小型モデルまたはメインLLM
+
+LLM Summaryを導入する場合も、Provider-neutralなResult Managerからオプションの
+Summary Generatorとして呼び出し、失敗時はArtifact Referenceまたはbounded
+projectionへ安全にフォールバックする。
+
+## 33.6 互換性と移行
+
+既存のworkdir内Artifactおよび既存履歴は自動移行しない。新規Artifactは通常
+`~/.uag/artifacts/`へ保存し、旧形式のArtifactは読み取り互換だけを維持する。
+新しい保存処理の変更が既存履歴の読み取りを壊さないことをテストで保証する。
