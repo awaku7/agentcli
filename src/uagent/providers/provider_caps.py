@@ -58,6 +58,34 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
 )
 
 
+# Provider-specific sampling overrides are metadata, not orchestration logic.
+# Keep the environment-variable mapping here so the round runner does not
+# need a provider-name if/elif chain.
+_TEMPERATURE_ENV_NAMES: dict[str, str] = {
+    name: f"UAGENT_{name.upper()}_TEMPERATURE"
+    for name in (
+        "openai",
+        "pfn",
+        "azure",
+        "openrouter",
+        "bedrock",
+        "nvidia",
+        "grok",
+        "zai",
+        "sakana",
+        "sakura",
+        "novita",
+        "together",
+        "vercel",
+    )
+}
+
+
+def temperature_env_name(provider: str) -> str | None:
+    """Return the provider-specific temperature environment variable."""
+    return _TEMPERATURE_ENV_NAMES.get((provider or "").strip().lower())
+
+
 # Providers that can accept image inputs on the main chat path without
 # requiring the OpenAI Responses API.  Each has provider-layer conversion:
 # - openai/azure/openrouter: Chat Completions `image_url` parts

@@ -30,6 +30,8 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
+from .providers.provider_caps import temperature_env_name
+from .providers.responses_manager import get_responses_capabilities
 
 
 def _is_context_overflow_error(exc: BaseException) -> bool:
@@ -127,7 +129,10 @@ from .providers.llm_deepseek import (
     deepseek_chat_with_tools,
 )
 from .providers.llm_pfn import pfn_chat_with_tools
-from .providers.llm_deepseek_responses import apply_deepseek_responses_compat
+from .providers.llm_deepseek_responses import (
+    apply_deepseek_responses_compat,
+    normalize_deepseek_responses_effort,
+)
 from .providers.llm_meta_responses import apply_meta_responses_compat
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
@@ -632,11 +637,9 @@ def _call_openai_azure_round(
                 # Extract previous_response_id from shared state (if any)
                 _prev_rid: Optional[str] = None
                 if isinstance(responses_state, dict):
-                    # xAI (Grok) Responses API does not reliably support
-                    # previous_response_id with tools; disable it.
-                    # OpenRouter Responses schema expects previous_response_id=null.
-                    # DeepSeek Responses API is stateless (previous_response_id not supported).
-                    if provider in ("grok", "openrouter", "deepseek"):
+                    # Provider capability metadata decides whether a server-side
+                    # Responses continuation is safe for this provider.
+                    if not get_responses_capabilities(provider).previous_response_id:
                         responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
                     # Empty / non-resp ids are invalid for continuation.
@@ -760,31 +763,11 @@ def _call_openai_azure_round(
                         # Model rejected thinking; skip reasoning params.
                         _effort_used = None
                     else:
-                        # DeepSeek Responses API only accepts effort
-                        # high/max (minimal/low/medium -> high, xhigh -> max).
-                        if provider == "deepseek":
-                            try:
-                                from .providers.llm_deepseek import (
-                                    _get_valid_deepseek_efforts,
-                                    _resolve_deepseek_effort,
-                                )
-
-                                _mapped = _resolve_deepseek_effort(_effort_used)
-                                if _mapped:
-                                    # Validate against llmcapa model capability
-                                    # (reasoning_effort_values). If the mapped
-                                    # value is not accepted by the model, fall
-                                    # back to the lowest valid effort.
-                                    _valid = _get_valid_deepseek_efforts(depname)
-                                    if _valid and _mapped not in _valid:
-                                        _mapped = (
-                                            "high"
-                                            if "high" in _valid
-                                            else sorted(_valid)[0]
-                                        )
-                                    _effort_used = _mapped
-                            except Exception:
-                                pass
+                        _effort_used = normalize_deepseek_responses_effort(
+                            _effort_used,
+                            provider=provider,
+                            depname=depname,
+                        )
                         # Send the requested effort as-is. If the backend rejects
                         # minimal/xhigh for a specific model, retry once with a
                         # fallback value below.
@@ -1045,37 +1028,10 @@ def _call_openai_azure_round(
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
-                # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
+                # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning).
                 default_temp = 0.2
-                # Allow provider-specific overrides or a global fallback
-                temp_env = ""
-                if provider == "openai":
-                    temp_env = env_get("UAGENT_OPENAI_TEMPERATURE") or ""
-                elif provider == "pfn":
-                    temp_env = env_get("UAGENT_PFN_TEMPERATURE") or ""
-                elif provider == "azure":
-                    temp_env = env_get("UAGENT_AZURE_TEMPERATURE") or ""
-                elif provider == "openrouter":
-                    temp_env = env_get("UAGENT_OPENROUTER_TEMPERATURE") or ""
-                elif provider == "bedrock":
-                    temp_env = env_get("UAGENT_BEDROCK_TEMPERATURE") or ""
-                elif provider == "nvidia":
-                    temp_env = env_get("UAGENT_NVIDIA_TEMPERATURE") or ""
-                elif provider == "grok":
-                    temp_env = env_get("UAGENT_GROK_TEMPERATURE") or ""
-                elif provider == "zai":
-                    temp_env = env_get("UAGENT_ZAI_TEMPERATURE") or ""
-                elif provider == "sakana":
-                    temp_env = env_get("UAGENT_SAKANA_TEMPERATURE") or ""
-                elif provider == "sakura":
-                    temp_env = env_get("UAGENT_SAKURA_TEMPERATURE") or ""
-                elif provider == "novita":
-                    temp_env = env_get("UAGENT_NOVITA_TEMPERATURE") or ""
-                elif provider == "together":
-                    temp_env = env_get("UAGENT_TOGETHER_TEMPERATURE") or ""
-                elif provider == "vercel":
-                    temp_env = env_get("UAGENT_VERCEL_TEMPERATURE") or ""
-
+                temp_env_name = temperature_env_name(provider)
+                temp_env = env_get(temp_env_name) if temp_env_name else ""
                 if not temp_env:
                     temp_env = env_get("UAGENT_TEMPERATURE") or ""
 

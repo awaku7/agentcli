@@ -20,6 +20,26 @@ def apply_deepseek_responses_compat(
             resp_kwargs.pop("text", None)
 
 
+def normalize_deepseek_responses_effort(
+    effort: str, *, provider: str, depname: str
+) -> str:
+    """Map a generic reasoning effort to DeepSeek's Responses values."""
+    if provider != "deepseek":
+        return effort
+    try:
+        from .llm_deepseek import _get_valid_deepseek_efforts, _resolve_deepseek_effort
+
+        mapped = _resolve_deepseek_effort(effort)
+        if mapped:
+            valid = _get_valid_deepseek_efforts(depname)
+            if valid and mapped not in valid:
+                mapped = "high" if "high" in valid else sorted(valid)[0]
+            return mapped
+    except Exception:
+        pass
+    return effort
+
+
 def function_call_items(message: dict[str, Any]) -> list[dict[str, Any]]:
     """Convert a Chat-Completions assistant tool turn to Responses items."""
     result: list[dict[str, Any]] = []

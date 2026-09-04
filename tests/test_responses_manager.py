@@ -109,6 +109,15 @@ def test_unknown_provider_has_no_management_capabilities() -> None:
     assert capabilities.cancel is False
 
 
+def test_previous_response_id_capability_is_provider_specific() -> None:
+    assert get_responses_capabilities("openai").previous_response_id is True
+    assert get_responses_capabilities("azure").previous_response_id is True
+    assert get_responses_capabilities("meta").previous_response_id is True
+    assert get_responses_capabilities("lmstudio").previous_response_id is True
+    assert get_responses_capabilities("openrouter").previous_response_id is False
+    assert get_responses_capabilities("deepseek").previous_response_id is False
+
+
 def test_lmstudio_supports_previous_response_id() -> None:
     capabilities = get_responses_capabilities("lmstudio")
 
