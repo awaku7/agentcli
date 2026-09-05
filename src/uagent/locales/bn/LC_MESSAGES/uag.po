@@ -5157,3 +5157,87 @@ msgstr "স্থানীয় শেষ বিন্দু (API কী প্
 #: src/uagent/util_model.py
 msgid "unknown"
 msgstr "অজানা"
+
+#: src/uagent/util_cmd_session.py:1269
+msgid "[sessions] No sessions available."
+msgstr "[sessions] কোনো সেশন উপলব্ধ নেই।"
+
+#: src/uagent/util_cmd_session.py:1271
+msgid "[sessions] Select a session (newest first):"
+msgstr "[sessions] একটি সেশন নির্বাচন করুন (নতুনতম প্রথমে):"
+
+#: src/uagent/util_cmd_session.py:1287
+msgid "[sessions] Session index out of range."
+msgstr "[sessions] সেশন ইনডেক্স সীমার বাইরে।"
+
+#: src/uagent/util_cmd_session.py:1298
+msgid "[sessions] Session has no loadable messages."
+msgstr "[sessions] সেশনে লোডযোগ্য কোনো বার্তা নেই।"
+
+#: src/uagent/util_cmd_session.py:1302
+msgid "[sessions] Session loaded"
+msgstr "[sessions] সেশন লোড হয়েছে"
+
+#: src/uagent/util_cmd_session.py:1310
+msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgstr "[sessions] কথোপকথন বর্তমান কনটেক্সটে লোড হয়েছে; একটি বার্তা লিখে আপনি চালিয়ে যেতে পারেন।"
+
+#: src/uagent/util_cmd_session.py:1396
+msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
+msgstr "[sessions] ব্যবহার: :sessions search <query> [--sort date|matches|date,matches]"
+
+#: src/uagent/util_cmd_session.py:1405
+msgid "[sessions] --sort must contain date and/or matches."
+msgstr "[sessions] --sort-এ date এবং/অথবা matches থাকতে হবে।"
+
+#: src/uagent/util_cmd_session.py:1250
+#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1489
+msgid "[sessions] Usage: :sessions load [<index|session_id>]"
+msgstr "[sessions] ব্যবহার: :sessions load [<index|session_id>]"
+
+#: src/uagent/util_cmd_session.py:154
+#, python-format
+msgid "%(prefix)s  created: %(created)s"
+msgstr "%(prefix)s  তৈরি: %(created)s"
+
+#: src/uagent/util_cmd_session.py:158
+#, python-format
+msgid "%(prefix)s  project: %(project)s"
+msgstr "%(prefix)s  প্রকল্প: %(project)s"
+
+#: src/uagent/util_cmd_session.py:162
+#, python-format
+msgid "%(prefix)s  messages: %(count)d"
+msgstr "%(prefix)s  বার্তা: %(count)d"
+
+#: src/uagent/util_cmd_session.py:166
+#, python-format
+msgid "%(prefix)s  summary: %(summary)s"
+msgstr "%(prefix)s  সারসংক্ষেপ: %(summary)s"
+
+#: src/uagent/util_cmd_session.py:168
+#, python-format
+msgid "%(prefix)s  first: %(first)s"
+msgstr "%(prefix)s  প্রথম: %(first)s"
+
+#: src/uagent/util_cmd_session.py:172
+#, python-format
+msgid "%(prefix)s  last:  %(last)s"
+msgstr "%(prefix)s  শেষ:  %(last)s"
+
+#: src/uagent/util_cmd_session.py:1955
+msgid ":mem-vacuum takes no arguments."
+msgstr ":mem-vacuum কোনো আর্গুমেন্ট নেয় না।"
+
+#: src/uagent/util_cmd_session.py:1958
+msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
+msgstr "ব্যক্তিগত মেমরি JSONL ব্যবহার করে; SQLite VACUUM প্রযোজ্য নয়।"
+
+#: src/uagent/util_cmd_session.py:1961
+msgid "Personal memory database vacuum completed."
+msgstr "ব্যক্তিগত মেমরি ডাটাবেস vacuum সম্পন্ন হয়েছে।"
+
+#: src/uagent/util_cmd_session.py:1963
+msgid "[mem-vacuum] Failed to vacuum the personal memory database."
+msgstr "[mem-vacuum] ব্যক্তিগত মেমরি ডাটাবেস vacuum করতে ব্যর্থ হয়েছে।"

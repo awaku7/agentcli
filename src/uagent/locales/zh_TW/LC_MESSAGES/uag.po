@@ -4961,3 +4961,87 @@ msgstr "本機端點（不需要 API 金鑰）"
 #: src/uagent/util_model.py
 msgid "unknown"
 msgstr "未知"
+
+#: src/uagent/util_cmd_session.py:1269
+msgid "[sessions] No sessions available."
+msgstr "[sessions] 沒有可用的工作階段。"
+
+#: src/uagent/util_cmd_session.py:1271
+msgid "[sessions] Select a session (newest first):"
+msgstr "[sessions] 請選取工作階段（最新在前）："
+
+#: src/uagent/util_cmd_session.py:1287
+msgid "[sessions] Session index out of range."
+msgstr "[sessions] 工作階段索引超出範圍。"
+
+#: src/uagent/util_cmd_session.py:1298
+msgid "[sessions] Session has no loadable messages."
+msgstr "[sessions] 此工作階段沒有可載入的訊息。"
+
+#: src/uagent/util_cmd_session.py:1302
+msgid "[sessions] Session loaded"
+msgstr "[sessions] 已載入工作階段"
+
+#: src/uagent/util_cmd_session.py:1310
+msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgstr "[sessions] 已將對話載入至目前的上下文中；輸入訊息即可繼續。"
+
+#: src/uagent/util_cmd_session.py:1396
+msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
+msgstr "[sessions] 用法：:sessions search <query> [--sort date|matches|date,matches]"
+
+#: src/uagent/util_cmd_session.py:1405
+msgid "[sessions] --sort must contain date and/or matches."
+msgstr "[sessions] --sort 必須包含 date 及／或 matches。"
+
+#: src/uagent/util_cmd_session.py:1250
+#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1489
+msgid "[sessions] Usage: :sessions load [<index|session_id>]"
+msgstr "[sessions] 用法：:sessions load [<index|session_id>]"
+
+#: src/uagent/util_cmd_session.py:154
+#, python-format
+msgid "%(prefix)s  created: %(created)s"
+msgstr "%(prefix)s  建立時間：%(created)s"
+
+#: src/uagent/util_cmd_session.py:158
+#, python-format
+msgid "%(prefix)s  project: %(project)s"
+msgstr "%(prefix)s  專案：%(project)s"
+
+#: src/uagent/util_cmd_session.py:162
+#, python-format
+msgid "%(prefix)s  messages: %(count)d"
+msgstr "%(prefix)s  訊息數量：%(count)d"
+
+#: src/uagent/util_cmd_session.py:166
+#, python-format
+msgid "%(prefix)s  summary: %(summary)s"
+msgstr "%(prefix)s  摘要：%(summary)s"
+
+#: src/uagent/util_cmd_session.py:168
+#, python-format
+msgid "%(prefix)s  first: %(first)s"
+msgstr "%(prefix)s  首則：%(first)s"
+
+#: src/uagent/util_cmd_session.py:172
+#, python-format
+msgid "%(prefix)s  last:  %(last)s"
+msgstr "%(prefix)s  末則：  %(last)s"
+
+#: src/uagent/util_cmd_session.py:1955
+msgid ":mem-vacuum takes no arguments."
+msgstr ":mem-vacuum 不接受任何引數。"
+
+#: src/uagent/util_cmd_session.py:1958
+msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
+msgstr "個人記憶使用 JSONL；SQLite VACUUM 不適用。"
+
+#: src/uagent/util_cmd_session.py:1961
+msgid "Personal memory database vacuum completed."
+msgstr "個人記憶資料庫 vacuum 已完成。"
+
+#: src/uagent/util_cmd_session.py:1963
+msgid "[mem-vacuum] Failed to vacuum the personal memory database."
+msgstr "[mem-vacuum] 個人記憶資料庫 vacuum 失敗。"

@@ -47,7 +47,7 @@ from .cli_impl.input_ui import (
     _multiline_editor,
     _prompt_toolkit_input,
 )
-from .cli_impl.main import main
+from .cli_impl.main import main as _cli_impl_main
 from .cli_impl.prompt_session import _get_prompt_session, _reset_prompt_sessions
 from .cli_impl.stdin_loop import stdin_loop
 
@@ -86,6 +86,17 @@ __all__ = [
     "main",
     "stdin_loop",
 ]
+
+
+def main():
+    # Top-level Ctrl+C guard: stray KeyboardInterrupt becomes one line.
+    # Covers the uag console-script entry point.
+    try:
+        _cli_impl_main()
+    except KeyboardInterrupt:
+        print()
+        print("[INFO] Interrupted. Exiting...")
+        raise SystemExit(130)
 
 
 if __name__ == "__main__":

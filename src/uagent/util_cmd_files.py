@@ -5,7 +5,6 @@ Moved from util_tools.py.
 
 from __future__ import annotations
 
-import datetime as dt
 import glob
 import json
 import os
@@ -212,28 +211,6 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
     return True
 
 
-def _session_preview(value: Any, limit: int = 100) -> str:
-    """Return a compact single-line preview for a stored session message."""
-    text = " ".join(str(value or "").split())
-    if not text:
-        return "-"
-    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
-
-
-def _session_display_time(value: Any) -> str:
-    """Format the UTC timestamp stored by SQLite in local time."""
-    raw = str(value or "").strip()
-    if not raw:
-        return "-"
-    try:
-        timestamp = dt.datetime.fromisoformat(raw.replace("Z", "+00:00"))
-        if timestamp.tzinfo is None:
-            timestamp = timestamp.replace(tzinfo=dt.timezone.utc)
-        return timestamp.astimezone().strftime("%Y-%m-%d %H:%M")
-    except (TypeError, ValueError, OverflowError):
-        return raw
-
-
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     # In sqlite-only mode, :logs is backed by the session store. The legacy
     # JSONL path remains available in dual/jsonl mode.
@@ -254,22 +231,10 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                 limit=None if a.lower() in {"all", "-a", "--all"} else limit,
                 exclude_session_id=getattr(core, "session_id", None),
             )
+            from .util_cmd_session import _print_session_list_row as _print_row
+
             for index, row in enumerate(rows):
-                first = _session_preview(row.get("first_message"))
-                last = _session_preview(row.get("last_message"))
-                summary = _session_preview(row.get("summary"))
-                print(
-                    f"[{index}] {_session_display_time(row.get('created_at'))}  {row.get('message_count', 0)} messages"
-                )
-                if summary:
-                    print(f"    summary: {summary}")
-                else:
-                    print(f"    first: {first}")
-                    print(f"    last:  {last}")
-                print(
-                    f"    id: {row['session_id']} | {row.get('project') or '-'} | "
-                    f"{row['entry_point']}"
-                )
+                _print_row(index, row)
             return True
         except Exception as exc:
             print("[logs] SQLite session listing failed: " + str(exc))

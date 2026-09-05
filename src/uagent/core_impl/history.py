@@ -10,6 +10,7 @@ from typing import Any, Optional
 from ..env_utils import env_get
 from ..i18n import _
 from .. import core as _core
+from ..runtime.spinner import stop_quietly as _stop_spinner_quietly
 from .logs import log_message
 
 
@@ -251,6 +252,7 @@ def shrink_messages(
             others.append(m)
 
     if len(others) <= keep_last:
+        _stop_spinner_quietly()
         print(
             _(
                 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -262,6 +264,7 @@ def shrink_messages(
 
     trimmed_others = others[-keep_last:]
     trimmed_others = _fix_tool_call_boundaries(trimmed_others)
+    _stop_spinner_quietly()
     print(
         _(
             "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)"
@@ -677,6 +680,7 @@ def compress_history_with_llm(
                     continue
 
                 if action == "give_up":
+                    _stop_spinner_quietly()
                     print(
                         "[WARN] "
                         + _t(
@@ -688,6 +692,7 @@ def compress_history_with_llm(
                     print(repr(e), file=sys.stderr)
                     return None, e
 
+                _stop_spinner_quietly()
                 print(
                     "[WARN] "
                     + _t("Error while calling LLM for history compression: %(err)r")
@@ -765,6 +770,7 @@ def compress_history_with_llm(
 
             chunk_index += 1
             if emit_log and total_chunks > 1:
+                _stop_spinner_quietly()
                 print(
                     _t("[shrink_llm] Summarizing chunk %(i)d/%(n)d...")
                     % {"i": chunk_index, "n": total_chunks},
@@ -791,6 +797,7 @@ def compress_history_with_llm(
         new_messages = system_msgs + [summary_msg] + tail_part
 
         if emit_log:
+            _stop_spinner_quietly()
             print(
                 _t(
                     "[INFO] shrink_llm: {old_n} -> {new_n} messages "
@@ -820,6 +827,7 @@ def compress_history_with_llm(
 
         if _is_context_length_exceeded(error):
             if current_chunk_size <= 1:
+                _stop_spinner_quietly()
                 print(
                     _(
                         "[WARN] history compression hit context length at the minimum chunk size; history was left unchanged."
@@ -830,6 +838,7 @@ def compress_history_with_llm(
 
             next_chunk_size = max(1, current_chunk_size // 2)
             if next_chunk_size == current_chunk_size:
+                _stop_spinner_quietly()
                 print(
                     _(
                         "[WARN] history compression could not reduce the chunk size; history was left unchanged."
@@ -838,6 +847,7 @@ def compress_history_with_llm(
                 )
                 return list(messages)
 
+            _stop_spinner_quietly()
             print(
                 _(
                     "[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d"
@@ -848,6 +858,7 @@ def compress_history_with_llm(
             current_chunk_size = next_chunk_size
             continue
 
+        _stop_spinner_quietly()
         print(
             _t(
                 "[WARN] history compression failed due to an LLM error; history was left unchanged."

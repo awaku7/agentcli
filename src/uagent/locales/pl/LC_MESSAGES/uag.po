@@ -5235,3 +5235,87 @@ msgstr "lokalny punkt końcowy (klucz API nie jest wymagany)"
 #: src/uagent/util_model.py
 msgid "unknown"
 msgstr "nieznany"
+
+#: src/uagent/util_cmd_session.py:1269
+msgid "[sessions] No sessions available."
+msgstr "[sessions] Brak dostępnych sesji."
+
+#: src/uagent/util_cmd_session.py:1271
+msgid "[sessions] Select a session (newest first):"
+msgstr "[sessions] Wybierz sesję (od najnowszej):"
+
+#: src/uagent/util_cmd_session.py:1287
+msgid "[sessions] Session index out of range."
+msgstr "[sessions] Indeks sesji poza zakresem."
+
+#: src/uagent/util_cmd_session.py:1298
+msgid "[sessions] Session has no loadable messages."
+msgstr "[sessions] Sesja nie zawiera wiadomości do wczytania."
+
+#: src/uagent/util_cmd_session.py:1302
+msgid "[sessions] Session loaded"
+msgstr "[sessions] Sesja wczytana"
+
+#: src/uagent/util_cmd_session.py:1310
+msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgstr "[sessions] Konwersacja wczytana do bieżącego kontekstu; możesz kontynuować, wpisując wiadomość."
+
+#: src/uagent/util_cmd_session.py:1396
+msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
+msgstr "[sessions] Użycie: :sessions search <query> [--sort date|matches|date,matches]"
+
+#: src/uagent/util_cmd_session.py:1405
+msgid "[sessions] --sort must contain date and/or matches."
+msgstr "[sessions] --sort musi zawierać date i/lub matches."
+
+#: src/uagent/util_cmd_session.py:1250
+#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1489
+msgid "[sessions] Usage: :sessions load [<index|session_id>]"
+msgstr "[sessions] Użycie: :sessions load [<index|session_id>]"
+
+#: src/uagent/util_cmd_session.py:154
+#, python-format
+msgid "%(prefix)s  created: %(created)s"
+msgstr "%(prefix)s  utworzono: %(created)s"
+
+#: src/uagent/util_cmd_session.py:158
+#, python-format
+msgid "%(prefix)s  project: %(project)s"
+msgstr "%(prefix)s  projekt: %(project)s"
+
+#: src/uagent/util_cmd_session.py:162
+#, python-format
+msgid "%(prefix)s  messages: %(count)d"
+msgstr "%(prefix)s  wiadomości: %(count)d"
+
+#: src/uagent/util_cmd_session.py:166
+#, python-format
+msgid "%(prefix)s  summary: %(summary)s"
+msgstr "%(prefix)s  podsumowanie: %(summary)s"
+
+#: src/uagent/util_cmd_session.py:168
+#, python-format
+msgid "%(prefix)s  first: %(first)s"
+msgstr "%(prefix)s  pierwsza: %(first)s"
+
+#: src/uagent/util_cmd_session.py:172
+#, python-format
+msgid "%(prefix)s  last:  %(last)s"
+msgstr "%(prefix)s  ostatnia:  %(last)s"
+
+#: src/uagent/util_cmd_session.py:1955
+msgid ":mem-vacuum takes no arguments."
+msgstr ":mem-vacuum nie przyjmuje argumentów."
+
+#: src/uagent/util_cmd_session.py:1958
+msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
+msgstr "Pamięć osobista używa formatu JSONL; SQLite VACUUM nie ma zastosowania."
+
+#: src/uagent/util_cmd_session.py:1961
+msgid "Personal memory database vacuum completed."
+msgstr "Operacja vacuum bazy danych pamięci osobistej została ukończona."
+
+#: src/uagent/util_cmd_session.py:1963
+msgid "[mem-vacuum] Failed to vacuum the personal memory database."
+msgstr "[mem-vacuum] Nie udało się wykonać operacji vacuum na bazie danych pamięci osobistej."

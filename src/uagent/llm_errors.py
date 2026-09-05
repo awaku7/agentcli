@@ -117,6 +117,27 @@ def _is_rate_limit_error(e: Exception) -> bool:
     if "resource exhausted" in s:
         return True
 
+    # 5xx (transient server error) is retryable with the same backoff.
+    # e.g. `InternalServerError("Error code: 500 - ... internal server error")`.
+    if status is not None:
+        try:
+            if 500 <= int(status) <= 599:
+                return True
+        except Exception:
+            pass
+    try:
+        rstatus = getattr(getattr(e, "response", None), "status_code", None) or getattr(
+            getattr(e, "response", None), "status", None
+        )
+        if rstatus is not None and 500 <= int(rstatus) <= 599:
+            return True
+    except Exception:
+        pass
+    if "internal server error" in s or "http 500" in s or "error code: 500" in s:
+        return True
+    if "bad gateway" in s or "service unavailable" in s or "gateway timeout" in s:
+        return True
+
     return False
 
 

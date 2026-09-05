@@ -15,6 +15,7 @@ from .runtime.history import (
     materialize_large_tool_result,
     truncate_history_tool_result,
 )
+from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 
 
 @lru_cache(maxsize=None)
@@ -102,6 +103,8 @@ def _emit_final_answer_if_any(
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
         if not skip_print and not (use_responses_api and stream_responses):
+            # Clear the spinner line first (no-op when disabled).
+            _spinner_stop_quietly()
             if reasoning_content:
                 show_reasoning(
                     reasoning_content,

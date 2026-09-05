@@ -7,6 +7,20 @@ import time
 
 from ..env_utils import env_get
 from .. import core as _core
+from ..runtime.spinner import stop_quietly as _stop_spinner_quietly
+
+
+def _sync_spinner_to_status(busy: bool) -> None:
+    """Start/stop the spinner. No-op when disabled (UAGENT_SPINNER=0)."""
+    try:
+        from ..runtime import spinner as _spinner
+
+        if busy:
+            _spinner.start()
+        else:
+            _spinner.stop()
+    except Exception:
+        pass
 
 
 def print_stream_delta(s: str) -> None:
@@ -18,6 +32,9 @@ def print_stream_delta(s: str) -> None:
     """
     if not s:
         return
+    # First token arrived: stop the spinner (ollama-style).
+    # No-op when the spinner is disabled.
+    _stop_spinner_quietly()
     with _core.print_lock:
         if _core._reasoning_stream_open:
             if s != chr(10):
@@ -32,6 +49,7 @@ def print_reasoning_delta(s: str) -> None:
     """Print reasoning output while marking the current line as reasoning."""
     if not s:
         return
+    _stop_spinner_quietly()
     with _core.print_lock:
         print(s, end="", flush=True)
         _core._stream_line_open = not s.endswith(chr(10))
@@ -75,23 +93,30 @@ def print_status_line() -> None:
     # Suppress status display while human_ask is active to avoid disrupting the prompt display
     with _core.human_ask_lock:
         if _core.human_ask_active:
+            _stop_spinner_quietly()
             return
 
     # Web UI already receives status via web_set_status -> room.set_status.
     # Avoid also writing [STATE] to stderr (which becomes type=log and can
     # interleave with assistant stream text).
     if bool(getattr(sys.modules[__name__], "_is_web", False)):
+        _stop_spinner_quietly()
         return
 
     with _core.status_lock:
         busy = _core.status_busy
         label = _core.status_label
 
+    # Braille spinner (ollama-like, default ON). status.py also calls this via
+    # set_status(); this covers direct print_status_line() callers too.
+    _sync_spinner_to_status(bool(busy))
+
     # An idle prompt is already the user's visual indication that the CLI is
     # ready. Do not tear it down just to print a redundant IDLE line: the
     # prompt can be redrawn a moment later and produce `agentcli> [STATE] IDLE`
     # on terminals with prompt wrappers.
     if not busy and _core._prompt_line_open:
+        _stop_spinner_quietly()
         return
 
     # Status has priority over a stale prompt. If a prompt is still marked
@@ -167,6 +192,23 @@ def print_status_line() -> None:
                 # The post-turn IDLE write is the path that can be mangled by
                 # prompt/terminal wrappers; keep IDLE plain while retaining
                 # color for BUSY status updates.
+                # Spinner takes over the BUSY indicator (ollama-like, default ON):
+                # skip the legacy [STATE] BUSY line so the two do not fight
+                # over the same stderr line (that race leaves a stale line
+                # that looks like the spinner "won't disappear").
+                # Stream/prompt closing above is still done, so the spinner
+                # gets a clean line. IDLE follows the legacy path unchanged.
+                if busy:
+                    try:
+                        from ..runtime.spinner import (
+                            spinner_enabled as _spinner_enabled,
+                        )
+
+                        if _spinner_enabled():
+                            _sync_spinner_to_status(True)
+                            return
+                    except Exception:
+                        pass
                 use_color = want_color
                 _write_status_line(
                     f"[STATE] {state}{label_part}",

@@ -23,6 +23,7 @@ except ImportError:
     _install_bs4("beautifulsoup4", "bs4")
     from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
+from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -473,6 +474,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not isinstance(verify_ssl, bool):
         verify_ssl = str(verify_ssl).lower() in ("true", "1", "yes")
 
+    _spinner_stop_quietly()
     print("[url] " + url, file=sys.stderr)
 
     req = Request(url, headers={"User-Agent": ua})

@@ -60,6 +60,188 @@ def _session_preview(value: Any, limit: int = 100) -> str:
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
 
+def _print_session_list_row(
+    index: int,
+    row: dict[str, Any],
+    *,
+    indent: str = "",
+    matches: int | None = None,
+    hit: str | None = None,
+) -> None:
+    """Print one session in the shared list-view format.
+
+    ``:sessions list``, ``:load`` (no args), ``:sessions load`` (no args),
+    ``:logs`` (sqlite) and ``:sessions search`` all share this so the
+    overview stays consistent: header + summary/first/last + id. ``search``
+    adds ``matches`` to the header and one ``hit`` line before the id line.
+    """
+    header = (
+        f"{indent}[{index}] {_format_session_timestamp(row.get('created_at'))} | "
+    )
+    if matches is not None:
+        header += f"matches: {matches} | "
+    message_count = row.get("message_count")
+    if message_count is None:
+        header += f"{row.get('project') or '-'}"
+    else:
+        header += f"{message_count} messages | {row.get('project') or '-'}"
+    print(header)
+    print(f"{indent}    summary: {_session_preview(row.get('summary'))}")
+    print(f"{indent}    first: {_session_preview(row.get('first_message'))}")
+    print(f"{indent}    last:  {_session_preview(row.get('last_message'))}")
+    if hit is not None:
+        print(f"{indent}    hit: {hit}")
+    entry_point = str(row.get("entry_point") or "").strip()
+    if entry_point:
+        print(f"{indent}    id: {row['session_id']} | {entry_point}")
+    else:
+        print(f"{indent}    id: {row['session_id']}")
+
+
+def _tr(text: str) -> str:
+    """Translate ``text`` but never return an empty string.
+
+    Some catalogs contain ``msgstr ""`` entries (e.g. ``[load] SQLite session
+    loaded`` in ja). gettext then returns ``""`` and the header line silently
+    disappears, so fall back to the source text in that case.
+    """
+    try:
+        translated = _(text)
+    except Exception:
+        return text
+    if isinstance(translated, str) and translated:
+        return translated
+    return text
+
+
+def _session_detail_row(store: Any, session_id: str) -> dict[str, Any] | None:
+    """Return the list-view row for a session (summary/first/last included).
+
+    ``store.get_session()`` only returns the raw ``sessions`` row, so loaded
+    detail blocks would print ``-`` for summary/first/last. ``list_sessions()``
+    carries those joined fields, so prefer it and fall back to ``get_session()``.
+    """
+    try:
+        for row in store.list_sessions():
+            try:
+                if str(row.get("session_id")) == str(session_id):
+                    return row
+            except Exception:
+                continue
+    except Exception:
+        pass
+    try:
+        row = store.get_session(session_id)
+        return dict(row) if isinstance(row, dict) else None
+    except Exception:
+        return None
+
+
+def _print_session_loaded_detail(
+    session_row: dict[str, Any] | None,
+    loaded_count: int,
+    *,
+    prefix: str,
+) -> None:
+    """Print the shared loaded-session detail block.
+
+    ``prefix`` is ``[load]`` or ``[sessions]`` so each command keeps its
+    own tag while the item layout stays identical.
+    """
+    if session_row is None:
+        return
+    print(
+        _("%(prefix)s  created: %(created)s")
+        % {"prefix": prefix, "created": _format_session_timestamp(session_row.get("created_at"))}
+    )
+    print(
+        _("%(prefix)s  project: %(project)s")
+        % {"prefix": prefix, "project": session_row.get("project") or "-"}
+    )
+    print(
+        _("%(prefix)s  messages: %(count)d") % {"prefix": prefix, "count": loaded_count}
+    )
+    summary = _session_preview(session_row.get("summary"))
+    if summary != "-":
+        print(_("%(prefix)s  summary: %(summary)s") % {"prefix": prefix, "summary": summary})
+    print(
+        _("%(prefix)s  first: %(first)s")
+        % {"prefix": prefix, "first": _session_preview(session_row.get("first_message"))}
+    )
+    print(
+        _("%(prefix)s  last:  %(last)s")
+        % {"prefix": prefix, "last": _session_preview(session_row.get("last_message"))}
+    )
+
+
+def _restore_sqlite_session_context(
+    target: str, loaded: list[dict[str, Any]], *, core: Any, store: Any
+) -> list[dict[str, Any]] | None:
+    """Share the post-load context switch between :load and :sessions load.
+
+    Applies tool-call boundary cleanup, restores the current system prompt
+    when the stored session has none, marks the session most-recently-used,
+    and restores tool context / Responses state. Returns the message list
+    to put into the active context, or ``None`` when nothing loadable
+    remains.
+    """
+    sanitize = getattr(core, "sanitize_messages_for_tools", None)
+    if callable(sanitize):
+        loaded = sanitize(loaded)
+    if not loaded:
+        return None
+    if not any(
+        isinstance(message, dict) and message.get("role") == "system"
+        for message in loaded
+    ):
+        system_prompt = getattr(core, "SYSTEM_PROMPT", None)
+        if isinstance(system_prompt, str) and system_prompt:
+            loaded.insert(0, {"role": "system", "content": system_prompt})
+    try:
+        store.touch_session(target)
+    except Exception as touch_exc:
+        print(
+            _("[load warn] Failed to update SQLite session recency: %(error)s")
+            % {"error": touch_exc},
+            file=sys.stderr,
+        )
+    core.session_id = target
+    core._session_store_active_id = target
+    try:
+        from .tools.context import get_callbacks
+
+        callbacks = get_callbacks()
+        callbacks.session_id = target
+        callbacks.session_store = store
+    except Exception:
+        pass
+    if hasattr(core, "tool_context"):
+        core.tool_context.clear()
+        try:
+            loaded_tool_context = store.latest_tool_context(target)
+        except Exception:
+            loaded_tool_context = {}
+        if isinstance(loaded_tool_context, dict):
+            core.tool_context.update(loaded_tool_context)
+    state = None
+    try:
+        state = store.latest_response_state(target)
+    except Exception:
+        state = None
+    if state is not None:
+        response_state = getattr(core, "responses_state", None)
+        if isinstance(response_state, dict):
+            response_state.update(
+                {
+                    "provider": state["provider"],
+                    "model": state["model"],
+                    "previous_response_id": state["response_id"],
+                    "last_response_status": state["status"],
+                }
+            )
+    return loaded
+
+
 def _load_skill_tools() -> None:
     """Make the tools used by Agent Skills visible to the next LLM round.
 
@@ -1064,21 +1246,72 @@ def _handle_cmd_sessions(
         if store is None:
             print(_("[sessions] Session store is not enabled."))
             return True
+        if messages_ref is None:
+            print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
+            return True
+        # Share the selection + restore flow with :load so both commands
+        # behave the same. Quoted IDs from the web UI are unwrapped the
+        # same way.
         target = parts[1] if len(parts) > 1 else ""
-        if not target or messages_ref is None:
-            print(_("[sessions] Usage: :sessions load <session_id>"))
+        if len(target) >= 2 and target[0] == target[-1] and target[0] in {'"', "'"}:
+            target = target[1:-1]
+        try:
+            sessions = [
+                row
+                for row in store.list_sessions()
+                if row["session_id"] != session_id
+            ]
+        except Exception as exc:
+            print(_("[sessions] Load failed: " + str(exc)))
+            return True
+        if not target:
+            if not sessions:
+                print(_("[sessions] No sessions available."))
+                return True
+            print(_("[sessions] Select a session (newest first):"))
+            for index, row in enumerate(sessions):
+                _print_session_list_row(index, row)
+            print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
             return True
         if target == session_id:
             print(_("[sessions] Session is already active."))
             return True
+        if target.isdigit():
+            index = int(target)
+            search_results = getattr(core, "_session_search_results", {})
+            if index in search_results:
+                target = search_results[index]
+            elif 0 <= index < len(sessions):
+                target = sessions[index]["session_id"]
+            else:
+                print(_("[sessions] Session index out of range."))
+                return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
                 print(_("[sessions] Session has no messages."))
                 return True
+            restored = _restore_sqlite_session_context(
+                target, loaded, core=core, store=store
+            )
+            if not restored:
+                print(_("[sessions] Session has no loadable messages."))
+                return True
             messages_ref.clear()
-            messages_ref.extend(loaded)
-            print(_("[sessions] Session loaded: " + target))
+            messages_ref.extend(restored)
+            print(_tr("[sessions] Session loaded"))
+            print(_tr("  id: %(id)s") % {"id": target})
+            try:
+                session_row = _session_detail_row(store, target)
+            except Exception:
+                session_row = None
+            _print_session_loaded_detail(session_row, len(restored), prefix="[sessions]")
+            print(
+                _(
+                    "[sessions] Conversation loaded into the current context; "
+                    "you can continue by entering a message."
+                )
+            )
         except Exception as exc:
             print(_("[sessions] Load failed: " + str(exc)))
         return True
@@ -1118,20 +1351,7 @@ def _handle_cmd_sessions(
             print(_("[sessions] Session store is not enabled."))
             return True
         for index, row in enumerate(store.list_sessions()):
-            first = _session_preview(row.get("first_message"))
-            last = _session_preview(row.get("last_message"))
-            summary = _session_preview(row.get("summary"))
-            print(
-                f"[{index}] {_format_session_timestamp(row.get('created_at'))}  {row.get('message_count', 0)} messages"
-            )
-            print(f"    first: {first}")
-            print(f"    last:  {last}")
-            if summary and summary not in {first, last}:
-                print(f"    summary: {summary}")
-            print(
-                f"    id: {row['session_id']} | {row.get('project') or '-'} | "
-                f"{row['entry_point']}"
-            )
+            _print_session_list_row(index, row)
         return True
     if command == "delete":
         if store is None or not session_id:
@@ -1163,7 +1383,7 @@ def _handle_cmd_sessions(
         return True
     if command != "search":
         print(
-            ":sessions list | load <session_id> | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
+            ":sessions list | load [<index|session_id>] | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
         )
         return True
     query_parts = parts[1:]
@@ -1239,14 +1459,34 @@ def _handle_cmd_sessions(
         index: row["session_id"] for index, row in enumerate(search_sessions)
     }
     print(_("[sessions] Matches: " + str(len(search_sessions))))
+    # Enrich hits with the shared list-view fields (summary/first/last).
+    # ``store.search()`` returns message rows without them, so look up the
+    # same rows ``:sessions list`` / ``:load`` already display.
+    session_details: dict[str, dict[str, Any]] = {}
+    try:
+        for detail_row in store.list_sessions():
+            try:
+                session_details[str(detail_row.get("session_id"))] = detail_row
+            except Exception:
+                continue
+    except Exception:
+        session_details = {}
     for index, row in enumerate(search_sessions):
         session_id = row["session_id"]
-        print(
-            f"[{index}] {session_id} | {session_latest_dates.get(session_id) or '-'} | "
-            f"{row.get('project') or '-'} | {row.get('entry_point') or '-'} | "
-            f"{row['role']}: {_session_preview(row.get('content'))} | "
-            f"matches: {session_match_counts[session_id]}"
+        detail = dict(session_details.get(session_id, row))
+        # The list view shows the newest hit time; the lookup row may hold
+        # an older session timestamp.
+        detail["created_at"] = session_latest_dates.get(session_id) or detail.get(
+            "created_at"
         )
+        hit = f"{row['role']}: {_session_preview(row.get('content'))}"
+        _print_session_list_row(
+            index,
+            detail,
+            matches=session_match_counts[session_id],
+            hit=hit,
+        )
+    print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
     return True
 
 
@@ -1285,17 +1525,7 @@ def _handle_cmd_load(
                 return True
             print(_("[load] Select a session (newest first):"))
             for index, row in enumerate(sessions):
-                summary = _session_preview(row.get("summary"))
-                preview = summary
-                if preview == "-":
-                    preview = _session_preview(row.get("first_message"))
-                print(
-                    f"  [{index}] {_format_session_timestamp(row.get('created_at'))} | "
-                    f"{row.get('message_count', 0)} messages | "
-                    f"{row.get('project') or '-'}"
-                )
-                print(f"      {preview}")
-                print(f"      id: {row['session_id']}")
+                _print_session_list_row(index, row, indent="  ")
             print(_("[load] Usage: :load <index|session_id>"))
             return True
         if target.isdigit():
@@ -1308,107 +1538,28 @@ def _handle_cmd_load(
                     print("[load] Session index out of range.")
                     return True
                 target = sessions[index]["session_id"]
-        session_row = next(
-            (row for row in sessions if row.get("session_id") == target), None
-        )
         try:
             loaded = store.list_messages(target)
             if not loaded:
                 print("[load] Session has no messages.")
                 return True
-            # A session may have been persisted while a tool-call turn was
-            # interrupted. Do the same boundary cleanup as the JSONL loader
-            # before putting the messages back into the active context;
-            # otherwise the next provider request can contain orphan tool
-            # results or an assistant tool call without all of its results.
-            sanitize = getattr(core, "sanitize_messages_for_tools", None)
-            if callable(sanitize):
-                loaded = sanitize(loaded)
-            if not loaded:
+            # Shared with :sessions load: tool-call boundary cleanup, system
+            # prompt restore, recency update, and tool/Responses restore.
+            restored = _restore_sqlite_session_context(
+                target, loaded, core=core, store=store
+            )
+            if not restored:
                 print("[load] Session has no loadable messages.")
                 return True
-            # Sessions imported from legacy JSONL intentionally contain only
-            # conversation roles, so they do not have the system prompt that
-            # a freshly started CLI session has. Loading such a session would
-            # otherwise replace the context with user/assistant messages only.
-            # Mirror the file-log loader and restore the current prompt when
-            # the stored session has no system message.
-            if not any(
-                isinstance(message, dict) and message.get("role") == "system"
-                for message in loaded
-            ):
-                system_prompt = getattr(core, "SYSTEM_PROMPT", None)
-                if isinstance(system_prompt, str) and system_prompt:
-                    loaded.insert(0, {"role": "system", "content": system_prompt})
             messages_ref.clear()
-            messages_ref.extend(loaded)
-            # Make the loaded session the active, most recently used session.
+            messages_ref.extend(restored)
+            print(_tr("[load] SQLite session loaded"))
+            print(_tr("  id: %(id)s") % {"id": target})
             try:
-                store.touch_session(target)
-            except Exception as touch_exc:
-                print(
-                    _("[load warn] Failed to update SQLite session recency: %(error)s")
-                    % {"error": touch_exc},
-                    file=sys.stderr,
-                )
-            core.session_id = target
-            core._session_store_active_id = target
-            try:
-                from .tools.context import get_callbacks
-
-                callbacks = get_callbacks()
-                callbacks.session_id = target
-                callbacks.session_store = store
+                session_row = _session_detail_row(store, target)
             except Exception:
-                pass
-            session_row = store.get_session(target)
-            if hasattr(core, "tool_context"):
-                core.tool_context.clear()
-                try:
-                    loaded_tool_context = store.latest_tool_context(target)
-                except Exception:
-                    loaded_tool_context = {}
-                if isinstance(loaded_tool_context, dict):
-                    core.tool_context.update(loaded_tool_context)
-            state = store.latest_response_state(target)
-            if state is not None:
-                response_state = getattr(core, "responses_state", None)
-                if isinstance(response_state, dict):
-                    response_state.update(
-                        {
-                            "provider": state["provider"],
-                            "model": state["model"],
-                            "previous_response_id": state["response_id"],
-                            "last_response_status": state["status"],
-                        }
-                    )
-            print(_("[load] SQLite session loaded"))
-            print(_("  id: %(id)s") % {"id": target})
-            if session_row is not None:
-                print(
-                    _("  created: %(created)s")
-                    % {
-                        "created": _format_session_timestamp(
-                            session_row.get("created_at")
-                        )
-                    }
-                )
-                print(
-                    _("  project: %(project)s")
-                    % {"project": session_row.get("project") or "-"}
-                )
-                print(_("  messages: %(count)d") % {"count": len(loaded)})
-                summary = _session_preview(session_row.get("summary"))
-                if summary != "-":
-                    print(_("  summary: %(summary)s") % {"summary": summary})
-                print(
-                    _("  first: %(first)s")
-                    % {"first": _session_preview(session_row.get("first_message"))}
-                )
-                print(
-                    _("  last:  %(last)s")
-                    % {"last": _session_preview(session_row.get("last_message"))}
-                )
+                session_row = None
+            _print_session_loaded_detail(session_row, len(restored), prefix="[load]")
             print(
                 _(
                     "[load] Conversation loaded into the current context; "

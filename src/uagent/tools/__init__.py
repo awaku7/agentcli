@@ -18,6 +18,7 @@ import threading
 from threading import Lock, RLock
 
 from .._pip_auto import install_with_status as _auto_install
+from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .path_alias_shared import resolve_tool_args
 
 JanomeTokenizer = None
@@ -266,6 +267,8 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
 
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with _TRACE_LOCK:
+            # Clear the spinner line first (no-op when disabled).
+            _spinner_stop_quietly()
             # Windows console color attributes are process-global. Serialize
             # tool traces with status output so [TOOL] cannot inherit the
             # [STATE] color.

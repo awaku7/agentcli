@@ -70,66 +70,190 @@ def _parse_openrouter_attrs(attr_text: str) -> dict[str, str]:
     return out
 
 
+_TOOL_CALLS_MARKER_RE = re.compile(r"\[TOOL_CALLS\]", re.I)
+_TOOL_CALLS_NAME_RE = re.compile(r"\s*(?P<name>[A-Za-z0-9_\-\.]+)", re.S)
+
+
+def _parse_balanced_json_object(s: str, start: int) -> tuple[str | None, int]:
+    """Return (json_substring, end_index) starting at s[start]=='{', or (None, start)."""
+    if start >= len(s) or s[start] != "{":
+        return None, start
+    depth = 0
+    in_str = False
+    esc = False
+    quote = ""
+    for i in range(start, len(s)):
+        c = s[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif c == chr(92):
+                esc = True
+            elif c == quote:
+                in_str = False
+        else:
+            if c == '"' or c == "'":
+                in_str = True
+                quote = c
+            elif c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    return s[start : i + 1], i + 1
+    return None, start
+
+
+def _extract_bracket_tool_calls(
+    text: str,
+) -> tuple[str, list[dict[str, Any]]]:
+    """Recover ``[TOOL_CALLS]name{json}`` markers leaked into visible text.
+
+    Small/weak models sometimes emit the textual ``[TOOL_CALLS]`` protocol
+    instead of native function calls, e.g.
+    ``[TOOL_CALLS]tool_catalog{"query":"weather"}``.  Strip the markers from
+    the visible text and return OpenAI-compatible tool_calls.  Never raises.
+    """
+    tool_calls: list[dict[str, Any]] = []
+    cleaned_parts: list[str] = []
+    last = 0
+    try:
+        for m in _TOOL_CALLS_MARKER_RE.finditer(text):
+            start = m.start()
+            pos = m.end()
+            nm = _TOOL_CALLS_NAME_RE.match(text, pos)
+            if not nm:
+                # Bare marker with no tool name: drop the marker itself.
+                cleaned_parts.append(text[last:start])
+                last = pos
+                continue
+            name = (nm.group("name") or "").strip()
+            pos = nm.end()
+            # Skip whitespace between name and args.
+            while pos < len(text) and text[pos] in (" ", chr(9), chr(10), chr(13)):
+                pos += 1
+            args_str = "{}"
+            end = pos
+            if pos < len(text) and text[pos] == "{":
+                raw, nxt = _parse_balanced_json_object(text, pos)
+                if raw is not None:
+                    end = nxt
+                    try:
+                        obj = json.loads(raw)
+                        if not isinstance(obj, dict):
+                            obj = {}
+                        args_str = json.dumps(obj, ensure_ascii=False)
+                    except Exception:
+                        # Keep raw so the executor can report the error.
+                        args_str = raw
+                else:
+                    # Unbalanced brace: treat as no args.
+                    end = pos
+            else:
+                # No JSON args after the name.
+                end = pos
+            if not name:
+                cleaned_parts.append(text[last:end])
+                last = end
+                continue
+            cleaned_parts.append(text[last:start])
+            last = end
+            tool_calls.append(
+                {
+                    "id": f"toolcalls_{uuid.uuid4().hex[:12]}",
+                    "type": "function",
+                    "function": {"name": name, "arguments": args_str},
+                }
+            )
+    except Exception:
+        return text, []
+    if not tool_calls:
+        return text, []
+    cleaned_parts.append(text[last:])
+    return "".join(cleaned_parts), tool_calls
+
+
 def parse_assistant_text_tool_calls(
     text: str,
 ) -> tuple[str, list[dict[str, Any]]]:
-    """Parse assistant text and recover legacy ``<invoke>`` tool-call markup.
+    """Parse assistant text and recover legacy tool-call markup.
 
+    Handles ``<invoke>`` markup and textual ``[TOOL_CALLS]`` markers.
     This is intentionally lightweight in the spirit of LangChain's
     ``StrOutputParser``: preserve the text, but normalize any tool-call markup
     that leaked into the visible response.
     """
 
-    if not isinstance(text, str) or "<invoke" not in text.lower():
+    if not isinstance(text, str):
+        return text, []
+    has_invoke = "<invoke" in text.lower()
+    has_bracket = "[tool_calls]" in text.lower()
+    if not has_invoke and not has_bracket:
         return text, []
 
-    cleaned_parts: list[str] = []
     tool_calls: list[dict[str, Any]] = []
-    last = 0
+    working = text
 
-    for match in _OPENROUTER_INVOKE_RE.finditer(text):
-        cleaned_parts.append(text[last : match.start()])
-        last = match.end()
+    # 1) Legacy <invoke> markup.
+    if has_invoke:
+        cleaned_parts: list[str] = []
+        last = 0
+        for match in _OPENROUTER_INVOKE_RE.finditer(working):
+            cleaned_parts.append(working[last : match.start()])
+            last = match.end()
 
-        invoke_attrs = _parse_openrouter_attrs(match.group("attrs") or "")
-        invoke_name = as_str(invoke_attrs.get("name") or "").strip()
-        if not invoke_name:
-            cleaned_parts.append(match.group(0))
-            continue
-
-        params: dict[str, Any] = {}
-        body = match.group("body") or ""
-        for p_match in _OPENROUTER_PARAM_RE.finditer(body):
-            p_attrs = _parse_openrouter_attrs(p_match.group("attrs") or "")
-            p_name = as_str(p_attrs.get("name") or "").strip()
-            if not p_name:
+            invoke_attrs = _parse_openrouter_attrs(match.group("attrs") or "")
+            invoke_name = as_str(invoke_attrs.get("name") or "").strip()
+            if not invoke_name:
+                cleaned_parts.append(match.group(0))
                 continue
-            p_value = html.unescape((p_match.group("body") or "").strip())
-            if p_name in params and params[p_name] != p_value:
-                prev = params[p_name]
-                if isinstance(prev, list):
-                    prev.append(p_value)
-                else:
-                    params[p_name] = [prev, p_value]
-            else:
-                params[p_name] = p_value
 
-        tool_calls.append(
-            {
-                "id": f"invoke_{uuid.uuid4().hex[:12]}",
-                "type": "function",
-                "function": {
-                    "name": invoke_name,
-                    "arguments": json.dumps(params, ensure_ascii=False),
-                },
-            }
-        )
+            params: dict[str, Any] = {}
+            body = match.group("body") or ""
+            for p_match in _OPENROUTER_PARAM_RE.finditer(body):
+                p_attrs = _parse_openrouter_attrs(p_match.group("attrs") or "")
+                p_name = as_str(p_attrs.get("name") or "").strip()
+                if not p_name:
+                    continue
+                p_value = html.unescape((p_match.group("body") or "").strip())
+                if p_name in params and params[p_name] != p_value:
+                    prev = params[p_name]
+                    if isinstance(prev, list):
+                        prev.append(p_value)
+                    else:
+                        params[p_name] = [prev, p_value]
+                else:
+                    params[p_name] = p_value
+
+            tool_calls.append(
+                {
+                    "id": f"invoke_{uuid.uuid4().hex[:12]}",
+                    "type": "function",
+                    "function": {
+                        "name": invoke_name,
+                        "arguments": json.dumps(params, ensure_ascii=False),
+                    },
+                }
+            )
+
+        if tool_calls:
+            cleaned_parts.append(working[last:])
+            working = "".join(cleaned_parts)
+
+    # 2) Textual [TOOL_CALLS] markers (same rescue point as <invoke>).
+    if has_bracket:
+        try:
+            cleaned_bracket, bracket_calls = _extract_bracket_tool_calls(working)
+        except Exception:
+            cleaned_bracket, bracket_calls = working, []
+        if bracket_calls:
+            working = cleaned_bracket
+            tool_calls.extend(bracket_calls)
 
     if not tool_calls:
         return text, []
 
-    cleaned_parts.append(text[last:])
-    return "".join(cleaned_parts), tool_calls
+    return working, tool_calls
 
 
 # Backward-compatible alias.

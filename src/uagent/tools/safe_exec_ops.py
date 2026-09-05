@@ -200,6 +200,10 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         time.sleep(poll_interval_sec)
 
     try:
+        # Stop + erase the spinner first so no frame sticks to the title.
+        from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
+
+        _spinner_stop_quietly()
         print(
             "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
             flush=True,

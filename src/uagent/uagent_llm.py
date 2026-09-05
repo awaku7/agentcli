@@ -76,6 +76,7 @@ from .tools._genre_control_util import (
 )
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools import _should_preload_lazy_specs
+from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools.llm_tool_narrowing import (
@@ -553,6 +554,7 @@ def _run_one_round(
         )
 
     if round_count > max_tool_rounds:
+        _spinner_stop_quietly()
         print(
             _("[WARN] Tool rounds exceeded %(max)d; aborting.")
             % {"max": max_tool_rounds}
@@ -1565,6 +1567,7 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _spinner_stop_quietly()
             print(
                 "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
                 % {"name": blocked_name, "n": blocked_count}
@@ -1583,6 +1586,7 @@ def _run_one_round(
         )
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _spinner_stop_quietly()
             print(
                 _(
                     "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
@@ -1600,6 +1604,7 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _spinner_stop_quietly()
             print(
                 "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
                 "arguments; aborting to prevent loop."
@@ -2090,6 +2095,7 @@ def run_llm_rounds(
                             # Never used since load: grace starts at load round.
                             age = _productive_age(_LOADED_SINGLE_TOOLS.get(tname))
                             if age is not None and age >= threshold:
+                                _spinner_stop_quietly()
                                 print(
                                     "[TOOLS auto-unload] "
                                     + _(
@@ -2102,6 +2108,7 @@ def run_llm_rounds(
                         else:
                             age = _productive_age(last)
                             if age is not None and age >= threshold:
+                                _spinner_stop_quietly()
                                 print(
                                     "[TOOLS auto-unload] "
                                     + _("%(name)s (idle for %(n)d LLM rounds)")

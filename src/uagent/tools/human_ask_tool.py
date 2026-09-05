@@ -181,6 +181,12 @@ def run_tool(args: dict[str, Any]) -> str:
         }
         return json.dumps(payload, ensure_ascii=False)
 
+    # Stop + erase the spinner first, otherwise the title sticks
+    # to the spinner frame like "⠧ [LLM:auto] ...=== Human request ===".
+    from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
+
+    _spinner_stop_quietly()
+
     print(_("ui.title", default="=== Human request (human_ask) ==="), flush=True)
     print(message, flush=True)
     print(_("ui.footer", default="=== /human_ask ==="), flush=True)

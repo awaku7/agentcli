@@ -27,8 +27,9 @@ def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     output = capsys.readouterr().out
     assert old.session_id in output
     assert "summary: Summary should be visible" in output
-    assert "first: old question" not in output
-    assert "last:  old answer" not in output
+    assert "first: old question" in output
+    # list_sessions() tracks user turns, so last is the latest user message.
+    assert "last:  old question" in output
 
     assert _handle_cmd_load(
         old.session_id, messages, core=core, tr=lambda text, **_: text

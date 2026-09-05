@@ -199,7 +199,13 @@ def main() -> None:
             )
 
         while running:
-            ev = core.event_queue.get()
+            try:
+                ev = core.event_queue.get()
+            except KeyboardInterrupt:
+                # Idle wait interrupted (ollama-like: no traceback, clean exit).
+                print()
+                print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
+                break
             kind = ev.get("kind")
 
             if kind == "command":
@@ -229,6 +235,34 @@ def main() -> None:
                                 append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                                 try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                             )
+                        except KeyboardInterrupt:
+                            # Ctrl+C during generation: stop and return to the
+                            # prompt like ollama (no traceback). The `with`
+                            # block did not see the exception (caught here), so
+                            # mark cancel explicitly. Never fail() here: a user
+                            # stop is not a failure.
+                            try:
+                                lifecycle.cancel()
+                            except Exception:
+                                pass
+                            try:
+                                core.set_status(False, "")
+                            except Exception:
+                                pass
+                            try:
+                                core.input_prompt_active = False
+                                core.prompt_needs_redraw = True
+                            except Exception:
+                                pass
+                            try:
+                                with core.interrupt_lock:
+                                    core.interrupt_requested = False
+                            except Exception:
+                                pass
+                            print()
+                            print("[INTERRUPT] " + _("Stopped by user."))
+                            print(_("Returning to prompt..."))
+                            continue
                         except Exception as exc:
                             lifecycle.fail()
                             print(_("LLM round interrupted: %(err)s") % {"err": exc})
@@ -247,6 +281,14 @@ def main() -> None:
                                     append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                                 )
+                        except KeyboardInterrupt:
+                            # Auto-pilot aborted by the user: no traceback.
+                            try:
+                                core.set_status(False, "")
+                            except Exception:
+                                pass
+                            print()
+                            print("[INTERRUPT] " + _("Auto-pilot stopped by user."))
                         except Exception as exc:
                             print(
                                 "[AUTO] "
@@ -267,6 +309,9 @@ def main() -> None:
             if kind == "scheduled_direct":
                 try:
                     _run_direct_event(ev)
+                except KeyboardInterrupt:
+                    print()
+                    print("[INFO] " + _("Scheduled task interrupted; skipped."))
                 except Exception as exc:
                     print(_("Scheduled direct tool failed: %(err)s") % {"err": exc})
                 continue
@@ -411,6 +456,30 @@ def main() -> None:
                             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                         )
+                    except KeyboardInterrupt:
+                        # Ctrl+C during a user/timer LLM round: clean cancel.
+                        try:
+                            lifecycle.cancel()
+                        except Exception:
+                            pass
+                        try:
+                            core.set_status(False, "")
+                        except Exception:
+                            pass
+                        try:
+                            core.input_prompt_active = False
+                            core.prompt_needs_redraw = True
+                        except Exception:
+                            pass
+                        try:
+                            with core.interrupt_lock:
+                                core.interrupt_requested = False
+                        except Exception:
+                            pass
+                        print()
+                        print("[INTERRUPT] " + _("Stopped by user."))
+                        print(_("Returning to prompt..."))
+                        continue
                     except Exception as exc:
                         lifecycle.fail()
                         print(
@@ -434,6 +503,11 @@ def main() -> None:
                 "[WARN] "
                 + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev}
             )
+    except KeyboardInterrupt:
+        # Final safety net for strays outside the per-site handlers.
+        # Cleanup in `finally` still runs.
+        print()
+        print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
     finally:
         _CLI_SHUTDOWN.set()
         # stdin_loop is intentionally a daemon while the CLI is running, but
@@ -452,6 +526,10 @@ def main() -> None:
             core.stop_interrupt_monitor()
         except Exception:
             pass
+        # Spinner must never survive shutdown (no-op when disabled).
+        from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
+
+        _spinner_stop_quietly()
         # Fire Stop and SessionEnd hooks
         try:
             from ..hooks_engine import (
@@ -478,7 +556,19 @@ def main() -> None:
             summary_on_exit = (
                 os.environ.get("UAGENT_SUMMARY_ON_EXIT", "1") or "1"
             ).strip().lower() in {"1", "true", "yes", "on"}
-            if active_session_id and summary_on_exit:
+            try:
+                has_conversation = any(
+                    isinstance(_m, dict)
+                    and _m.get("role") in ("user", "assistant")
+                    and str(_m.get("content") or "").strip()
+                    for _m in (messages or [])
+                )
+            except Exception:
+                has_conversation = True
+            # No user/assistant turns (e.g. immediate Ctrl+C after startup):
+            # skip the shutdown summarize LLM call. Summarizing system-only
+            # history only yields "LLM returned no summary" noise + a billed call.
+            if active_session_id and summary_on_exit and has_conversation:
                 # Shutdown summarization is synchronous and should not start
                 # the separate profile-extraction LLM job by default. Opt in
                 # with UAGENT_PROFILE_ON_EXIT=1.

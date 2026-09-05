@@ -80,6 +80,16 @@ def set_status(busy: bool, label: str = "") -> None:
         _core.status_busy = busy
         _core.status_label = label
 
+    # Ollama-like spinner (default ON, UAGENT_SPINNER=0 to disable).
+    # Sync on every status change so IDLE always erases the spinner line,
+    # even when print_status_line() is skipped for the CLI idle prompt.
+    try:
+        from .display import _sync_spinner_to_status as _sync_spinner
+
+        _sync_spinner(bool(busy))
+    except Exception:
+        pass
+
     if busy != prev_busy or label != prev_label:
         # In the interactive CLI, the next input prompt is the idle indicator.
         # Avoid emitting a redundant IDLE line after the assistant response;
