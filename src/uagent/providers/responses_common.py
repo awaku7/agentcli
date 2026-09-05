@@ -906,9 +906,11 @@ def parse_responses_response(
             # Meta may expose reasoning only as summary_text blocks on a
             # reasoning output item. Preserve those summaries for display.
             elif item_type == "reasoning":
-                parts = getattr(item, "summary", None) or getattr(
-                    item, "content", None
-                ) or []
+                parts = (
+                    getattr(item, "summary", None)
+                    or getattr(item, "content", None)
+                    or []
+                )
                 if not isinstance(parts, (list, tuple)):
                     parts = [parts]
                 for part in parts:

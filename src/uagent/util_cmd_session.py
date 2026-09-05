@@ -75,9 +75,7 @@ def _print_session_list_row(
     overview stays consistent: header + summary/first/last + id. ``search``
     adds ``matches`` to the header and one ``hit`` line before the id line.
     """
-    header = (
-        f"{indent}[{index}] {_format_session_timestamp(row.get('created_at'))} | "
-    )
+    header = f"{indent}[{index}] {_format_session_timestamp(row.get('created_at'))} | "
     if matches is not None:
         header += f"matches: {matches} | "
     message_count = row.get("message_count")
@@ -152,7 +150,10 @@ def _print_session_loaded_detail(
         return
     print(
         _("%(prefix)s  created: %(created)s")
-        % {"prefix": prefix, "created": _format_session_timestamp(session_row.get("created_at"))}
+        % {
+            "prefix": prefix,
+            "created": _format_session_timestamp(session_row.get("created_at")),
+        }
     )
     print(
         _("%(prefix)s  project: %(project)s")
@@ -163,10 +164,16 @@ def _print_session_loaded_detail(
     )
     summary = _session_preview(session_row.get("summary"))
     if summary != "-":
-        print(_("%(prefix)s  summary: %(summary)s") % {"prefix": prefix, "summary": summary})
+        print(
+            _("%(prefix)s  summary: %(summary)s")
+            % {"prefix": prefix, "summary": summary}
+        )
     print(
         _("%(prefix)s  first: %(first)s")
-        % {"prefix": prefix, "first": _session_preview(session_row.get("first_message"))}
+        % {
+            "prefix": prefix,
+            "first": _session_preview(session_row.get("first_message")),
+        }
     )
     print(
         _("%(prefix)s  last:  %(last)s")
@@ -1257,9 +1264,7 @@ def _handle_cmd_sessions(
             target = target[1:-1]
         try:
             sessions = [
-                row
-                for row in store.list_sessions()
-                if row["session_id"] != session_id
+                row for row in store.list_sessions() if row["session_id"] != session_id
             ]
         except Exception as exc:
             print(_("[sessions] Load failed: " + str(exc)))
@@ -1305,7 +1310,9 @@ def _handle_cmd_sessions(
                 session_row = _session_detail_row(store, target)
             except Exception:
                 session_row = None
-            _print_session_loaded_detail(session_row, len(restored), prefix="[sessions]")
+            _print_session_loaded_detail(
+                session_row, len(restored), prefix="[sessions]"
+            )
             print(
                 _(
                     "[sessions] Conversation loaded into the current context; "

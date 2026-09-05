@@ -58,7 +58,9 @@ def spinner_enabled() -> bool:
     # Hard OFF switches (any one disables).
     if _env_flag("UAGENT_SPINNER_OFF", default=False):
         return False
-    if _env_flag("NO_COLOR", default=False) or _env_flag("UAGENT_NO_COLOR", default=False):
+    if _env_flag("NO_COLOR", default=False) or _env_flag(
+        "UAGENT_NO_COLOR", default=False
+    ):
         # NO_COLOR historically means "no decoration"; keep legacy [STATE] only.
         return False
     # Dumb terminals cannot handle CR rewrite; keep legacy [STATE] only.
@@ -80,7 +82,11 @@ def spinner_enabled() -> bool:
     try:
         import sys as _sys
 
-        if bool(getattr(_sys.modules.get("uagent.core_impl.display", None), "_is_web", False)):
+        if bool(
+            getattr(
+                _sys.modules.get("uagent.core_impl.display", None), "_is_web", False
+            )
+        ):
             return False
     except Exception:
         pass
@@ -108,8 +114,9 @@ def _spinner_use_color() -> bool:
     """Mirror the [STATE] BUSY color policy so the spinner stays visible."""
     try:
         from ..env_utils import env_get as _env_get
+
         no_color = bool(_env_get("NO_COLOR") or _env_get("UAGENT_NO_COLOR"))
-        status_color_env = ((_env_get("UAGENT_STATUS_COLOR") or "").strip().lower())
+        status_color_env = (_env_get("UAGENT_STATUS_COLOR") or "").strip().lower()
     except Exception:
         no_color = False
         status_color_env = ""
@@ -119,6 +126,7 @@ def _spinner_use_color() -> bool:
         return False
     try:
         from .. import core as _core
+
         if bool(getattr(_core, "IS_GUI", False)):
             return False
     except Exception:
@@ -144,16 +152,29 @@ def _write_spinner_frame(text: str, pad: int) -> None:
         try:
             import ctypes
             from ctypes import wintypes
+
             kernel32 = ctypes.windll.kernel32
             handle = kernel32.GetStdHandle(wintypes.DWORD(-12).value)
             invalid = wintypes.HANDLE(-1).value
             if handle and handle != invalid:
+
                 class COORD(ctypes.Structure):
                     _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
+
                 class SMALL_RECT(ctypes.Structure):
-                    _fields_ = [(n, wintypes.SHORT) for n in ("Left", "Top", "Right", "Bottom")]
+                    _fields_ = [
+                        (n, wintypes.SHORT) for n in ("Left", "Top", "Right", "Bottom")
+                    ]
+
                 class CSBI(ctypes.Structure):
-                    _fields_ = [("dwSize", COORD), ("dwCursorPosition", COORD), ("wAttributes", wintypes.WORD), ("srWindow", SMALL_RECT), ("dwMaximumWindowSize", COORD)]
+                    _fields_ = [
+                        ("dwSize", COORD),
+                        ("dwCursorPosition", COORD),
+                        ("wAttributes", wintypes.WORD),
+                        ("srWindow", SMALL_RECT),
+                        ("dwMaximumWindowSize", COORD),
+                    ]
+
                 info = CSBI()
                 if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(info)):
                     old_attr = int(info.wAttributes)
@@ -161,7 +182,9 @@ def _write_spinner_frame(text: str, pad: int) -> None:
                     try:
                         data = cr + text + tail
                         written = wintypes.DWORD(0)
-                        if not kernel32.WriteConsoleW(handle, data, len(data), ctypes.byref(written), None):
+                        if not kernel32.WriteConsoleW(
+                            handle, data, len(data), ctypes.byref(written), None
+                        ):
                             sys.stderr.write(data)
                             sys.stderr.flush()
                     finally:
@@ -261,10 +284,10 @@ def _done_line_kept() -> bool:
     try:
         from ..env_utils import env_get as _env_get
 
-        raw = ((_env_get("UAGENT_SPINNER_DONE") or "").strip().lower())
+        raw = (_env_get("UAGENT_SPINNER_DONE") or "").strip().lower()
     except Exception:
         try:
-            raw = ((os.environ.get("UAGENT_SPINNER_DONE") or "").strip().lower())
+            raw = (os.environ.get("UAGENT_SPINNER_DONE") or "").strip().lower()
         except Exception:
             raw = ""
     # Default: keep "done" line ("off"/"0"/"false"/"no"/"clear" to erase).
@@ -304,10 +327,18 @@ def _write_done_line(label: str, elapsed: float | None) -> None:
                     _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
 
                 class _R(ctypes.Structure):
-                    _fields_ = [(n, wintypes.SHORT) for n in ("Left", "Top", "Right", "Bottom")]
+                    _fields_ = [
+                        (n, wintypes.SHORT) for n in ("Left", "Top", "Right", "Bottom")
+                    ]
 
                 class _B(ctypes.Structure):
-                    _fields_ = [("dwSize", _C), ("dwCursorPosition", _C), ("wAttributes", wintypes.WORD), ("srWindow", _R), ("dwMaximumWindowSize", _C)]
+                    _fields_ = [
+                        ("dwSize", _C),
+                        ("dwCursorPosition", _C),
+                        ("wAttributes", wintypes.WORD),
+                        ("srWindow", _R),
+                        ("dwMaximumWindowSize", _C),
+                    ]
 
                 info = _B()
                 if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(info)):
@@ -316,7 +347,9 @@ def _write_done_line(label: str, elapsed: float | None) -> None:
                     try:
                         data = line + nl
                         written = wintypes.DWORD(0)
-                        if not kernel32.WriteConsoleW(handle, data, len(data), ctypes.byref(written), None):
+                        if not kernel32.WriteConsoleW(
+                            handle, data, len(data), ctypes.byref(written), None
+                        ):
                             sys.stderr.write(data)
                             sys.stderr.flush()
                     finally:
