@@ -83,6 +83,7 @@ def _run_deepseek(
     responses_env: str,
     reasoning: str | None = None,
 ) -> _DummyFullClient:
+    monkeypatch.setenv("UAGENT_PROVIDER", "deepseek")
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     monkeypatch.setenv("UAGENT_RESPONSES", responses_env)
     if reasoning is not None:

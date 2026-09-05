@@ -31,7 +31,12 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     # Ollama's catalog when llmcapa has no llama.cpp row for the model.
     "llama_cpp": ("llama.cpp", "llama_cpp", "ollama"),
     "gemini": ("google", "gemini"),
-    "vertexai": ("google", "vertexai"),
+    # NOTE: vertexai must not include "google": the Developer API catalog
+    # and the Vertex AI catalog differ per model. Mixing them merges
+    # google(76 rows) + vertex-ai(4956 rows) in list_models() and risks
+    # wrong thinking/budget decisions. Unscoped get() still falls back to
+    # the native row when no vertex-ai row exists.
+    "vertexai": ("vertex-ai", "vertexai"),
     "grok": ("xai", "grok"),
     "claude": ("anthropic", "claude"),
     "nvidia": ("nvidia",),
@@ -885,16 +890,6 @@ def deprecated_model_warning(
     if cap is None or not getattr(cap, "deprecated", False):
         return None
     mid = getattr(cap, "model_id", model_id) or model_id or "?"
-    repl = None
-    try:
-        repl = cap.can_be_replaced_by()
-    except Exception:
-        repl = None
-    if repl:
-        return _("Model '%(model_id)s' is deprecated; consider '%(replacement)s'.") % {
-            "model_id": mid,
-            "replacement": repl,
-        }
     return _("Model '%(model_id)s' is deprecated.") % {"model_id": mid}
 
 
@@ -945,18 +940,6 @@ def format_capability_lines(
             _("    Deprecated:    %(value)s")
             % {"value": getattr(cap, "deprecated", False)}
         )
-        repl = None
-        try:
-            repl = cap.can_be_replaced_by()
-        except Exception:
-            repl = getattr(cap, "can_be_replaced_by", None)
-            if callable(repl):
-                try:
-                    repl = repl()
-                except Exception:
-                    repl = None
-        if repl:
-            lines.append(_("    Replaced By:   %(value)s") % {"value": repl})
         in_mods = getattr(cap, "input_modalities", None) or []
         out_mods = getattr(cap, "output_modalities", None) or []
         if in_mods:
@@ -1048,6 +1031,275 @@ def format_capability_lines(
                 _("    Thinking Budgets: %(value)s")
                 % {"value": ", ".join(str(v) for v in budgets)}
             )
+        levels = None
+        try:
+            levels = cap.get_thinking_level_values()
+        except Exception:
+            levels = getattr(cap, "thinking_level_values", None)
+        if levels:
+            lines.append(
+                _("    Thinking Levels: %(value)s")
+                % {"value": ", ".join(str(v) for v in levels)}
+            )
+        control = None
+        try:
+            control = cap.get_thinking_control()
+        except Exception:
+            control = getattr(cap, "thinking_control", None)
+        if isinstance(control, dict) and control:
+            kind = str(control.get("kind") or "?")
+            param = str(control.get("parameter") or "?")
+            desc = f"{kind} ({param})"
+            for key in ("min", "max", "type"):
+                if control.get(key) is not None:
+                    desc += f" {key}={control.get(key)}"
+            lines.append(_("    Thinking Control: %(value)s") % {"value": desc})
+        try:
+            realtime = cap.supports("realtime")
+        except Exception:
+            realtime = getattr(cap, "supports_realtime", None)
+        if realtime is True:
+            lines.append(_("    Realtime:        supported"))
+        elif realtime is False:
+            lines.append(_("    Realtime:        not supported"))
     except Exception:
         return lines
     return lines
+
+
+def list_provider_names() -> list[str]:
+    """Return sorted llmcapa provider/catalog names, or empty on failure."""
+    try:
+        import llmcapa
+
+        names = llmcapa.providers()
+        return sorted({str(name) for name in (names or []) if str(name)})
+    except Exception:
+        return []
+
+
+def list_models(
+    provider: str | None = None,
+    *,
+    include_deprecated: bool = True,
+) -> list[Any]:
+    """List llmcapa capabilities, provider-scoped when possible.
+
+    Falls back across :func:`provider_candidates` so uag keys such as
+    ``gemini``/``grok`` resolve to their canonical catalogs.
+    """
+    try:
+        import llmcapa
+    except Exception:
+        return []
+    prov = normalize_provider(provider)
+    if not prov:
+        try:
+            return list(llmcapa.list_models(include_deprecated=include_deprecated))
+        except Exception:
+            return []
+    seen: set[tuple[str, str]] = set()
+    out: list[Any] = []
+    for cand in provider_candidates(prov):
+        try:
+            rows = llmcapa.list_models(
+                provider=cand, include_deprecated=include_deprecated
+            )
+        except Exception:
+            continue
+        for cap in rows or []:
+            key = (
+                str(getattr(cap, "provider", cand)),
+                str(getattr(cap, "model_id", "")),
+            )
+            if key not in seen:
+                seen.add(key)
+                out.append(cap)
+    return sorted(
+        out,
+        key=lambda c: (
+            str(getattr(c, "provider", "")),
+            str(getattr(c, "model_id", "")),
+        ),
+    )
+
+
+def search_models(
+    prefix: str,
+    provider: str | None = None,
+    *,
+    include_deprecated: bool = False,
+    limit: int | None = None,
+) -> list[Any]:
+    """Prefix-search llmcapa models (model_id/display_name/aliases)."""
+    needle = (prefix or "").strip()
+    if not needle:
+        return []
+    try:
+        import llmcapa
+    except Exception:
+        return []
+    prov = normalize_provider(provider)
+    cands = provider_candidates(prov) if prov else [None]
+    out: list[Any] = []
+    for cand in cands:
+        try:
+            if cand is None:
+                hits = llmcapa.search(
+                    needle, include_deprecated=include_deprecated, limit=limit
+                )
+            else:
+                hits = llmcapa.search(
+                    needle,
+                    provider=cand,
+                    include_deprecated=include_deprecated,
+                    limit=limit,
+                )
+        except Exception:
+            continue
+        if hits:
+            out.extend(hits)
+            break
+    if limit is not None and limit >= 0:
+        return list(out)[: int(limit)]
+    return list(out)
+
+
+def find_models(**conditions: Any) -> list[Any]:
+    """Filter llmcapa models via ``llmcapa.find`` (vision/context/etc.)."""
+    try:
+        import llmcapa
+
+        rows = llmcapa.find(**conditions)
+        return list(rows or [])
+    except Exception:
+        return []
+
+
+def find_model_across_providers(model_id: str) -> list[tuple[str, Any]]:
+    """Return every ``(provider, Capability)`` matching a model id."""
+    mid = (model_id or "").strip()
+    if not mid:
+        return []
+    try:
+        import llmcapa
+
+        rows = llmcapa.find_model(mid)
+        out: list[tuple[str, Any]] = []
+        for item in rows or []:
+            try:
+                prov, cap = item
+                out.append((str(prov), cap))
+            except Exception:
+                continue
+        return out
+    except Exception:
+        return []
+
+
+def count_text_tokens(
+    text: str,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> int | None:
+    """Count tokens for a single text via llmcapa, or None if unavailable."""
+    mid = resolve_model_id_for_tokenizer(model_id, provider)
+    if not mid:
+        return None
+    try:
+        import llmcapa
+
+        return int(llmcapa.count_tokens(str(text or ""), mid))
+    except Exception:
+        raw = (model_id or "").strip()
+        if raw and raw != mid:
+            try:
+                import llmcapa
+
+                return int(llmcapa.count_tokens(str(text or ""), raw))
+            except Exception:
+                return None
+        return None
+
+
+def get_thinking_control(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> dict[str, Any] | None:
+    """Return normalized thinking control (kind/budget/level/toggle)."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return None
+    try:
+        control = cap.get_thinking_control()
+        return dict(control) if isinstance(control, dict) else None
+    except Exception:
+        control = getattr(cap, "thinking_control", None)
+        return dict(control) if isinstance(control, dict) else None
+
+
+def get_thinking_level_values(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> list[str] | None:
+    """Return discrete thinking levels (e.g. Gemini) when present."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return None
+    try:
+        vals = cap.get_thinking_level_values()
+        return list(vals) if vals else None
+    except Exception:
+        vals = getattr(cap, "thinking_level_values", None)
+        return list(vals) if vals else None
+
+
+def supports_thinking_level(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Discrete thinking-level support, or ``default`` when unknown."""
+    return supports_feature("thinking_level", model_id, provider, default=default)
+
+
+def supports_realtime(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Realtime API support, or ``default`` when unknown."""
+    return supports_feature("realtime", model_id, provider, default=default)
+
+
+def get_llm_computer_use_capability(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> Any | None:
+    """Return llmcapa Computer Use capability object, or None if unsupported."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return None
+    return getattr(cap, "computer_use", None)
+
+
+def supports_computer_use(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Computer Use support for a model, or ``default`` when unknown."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return default
+    computer_use = getattr(cap, "computer_use", None)
+    if computer_use is None:
+        return default
+    try:
+        return bool(getattr(computer_use, "supported", False))
+    except Exception:
+        return default
+

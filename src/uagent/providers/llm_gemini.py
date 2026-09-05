@@ -443,6 +443,23 @@ def _choose_auto_thinking_level(user_text: str) -> str:
 
 
 def _model_uses_thinking_budget(model_name: str) -> bool:
+    # llmcapa 0.5.25 (google-genai spec): thinking_control.kind takes
+    # precedence over the legacy supports_thinking_budget flag.
+    try:
+        from uagent.llmcapa_util import current_provider, get_thinking_control
+
+        control = get_thinking_control(
+            model_name, current_provider() or "gemini"
+        )
+        if isinstance(control, dict) and control:
+            kind = str(control.get("kind") or "").strip().lower()
+            param = str(control.get("parameter") or "").strip().lower()
+            if kind == "budget" or param == "thinking_budget":
+                return True
+            if kind or param:
+                return False
+    except Exception:
+        pass
     try:
         from uagent.llmcapa_util import get_capability, current_provider
 
@@ -456,23 +473,44 @@ def _model_uses_thinking_budget(model_name: str) -> bool:
 
 
 def _llmcapa_reasoning_levels(model_name: str) -> set[str] | None:
-    """Return llmcapa-advertised reasoning levels for a Gemini model."""
-    try:
-        from uagent.llmcapa_util import get_capability, current_provider
+    """Return llmcapa-advertised reasoning levels for a Gemini model.
 
-        cap = get_capability(model_name, current_provider() or "gemini")
+    llmcapa 0.5.25 (google-genai spec) advertises discrete levels via
+    ``thinking_level_values`` (e.g. Gemini 3) instead of
+    ``reasoning_effort_values``. Prefer the new field, fall back to the
+    legacy one, and finally to the ``supports_reasoning`` flag.
+    """
+    try:
+        from uagent.llmcapa_util import (
+            current_provider,
+            get_capability,
+            get_reasoning_effort_values,
+            get_thinking_level_values,
+        )
+
+        prov = current_provider() or "gemini"
+        try:
+            levels = get_thinking_level_values(model_name, prov)
+        except Exception:
+            levels = None
+        values = levels if levels else get_reasoning_effort_values(model_name, prov)
+        if values is not None:
+            cleaned = {
+                str(value).strip().lower()
+                for value in values
+                if str(value).strip()
+                and str(value).strip().lower() not in ("none", "off")
+            }
+            if cleaned:
+                return cleaned
+            # Advertised but no usable level: treat as non-reasoning.
+            return set()
+        cap = get_capability(model_name, prov)
         if cap is None:
             return None
-        values = getattr(cap, "reasoning_effort_values", None)
-        if values is None:
-            getter = getattr(cap, "get_reasoning_effort_values", None)
-            if callable(getter):
-                values = getter()
-        if values is None:
-            return (
-                set() if not bool(getattr(cap, "supports_reasoning", False)) else None
-            )
-        return {str(value).strip().lower() for value in values if str(value).strip()}
+        return (
+            set() if not bool(getattr(cap, "supports_reasoning", False)) else None
+        )
     except Exception:
         return None
 
@@ -525,7 +563,17 @@ def _build_thinking_config(
         if not advertised_levels:
             return None
         if rm == "minimal" or rm not in advertised_levels:
-            rm = "low" if "low" in advertised_levels else sorted(advertised_levels)[0]
+            # NOTE: sorted()[0] is alphabetical (high < low < medium), so
+            # pick the weakest known level in strength order when "low"
+            # is absent instead of accidentally picking "high".
+            _level_order = ("minimal", "low", "medium", "high", "max", "xhigh")
+            if "low" in advertised_levels:
+                rm = "low"
+            else:
+                rm = next(
+                    (lv for lv in _level_order if lv in advertised_levels),
+                    sorted(advertised_levels)[0],
+                )
     elif rm == "minimal":
         # Unknown models must not receive the least portable Gemini value.
         rm = "low"

@@ -60,6 +60,75 @@ def test_same_round_same_target_four_times_blocked() -> None:
     assert count == _MGMT_LOOP_THRESHOLD
 
 
+def test_batch_load_fans_out_per_target() -> None:
+    blocked, name, count = check_mgmt_tool_loop(
+        [_tc("tool_load", names=["file_grep", "human_ask"])]
+    )
+    assert blocked is False
+    assert name == ""
+    assert count == 0
+    assert _TOOL_CALL_FINGERPRINTS["tool_load:file_grep"] == 1
+    assert _TOOL_CALL_FINGERPRINTS["tool_load:human_ask"] == 1
+
+
+def test_batch_load_same_target_repeated_is_blocked() -> None:
+    for _ in range(_MGMT_LOOP_THRESHOLD - 1):
+        blocked, _, _ = check_mgmt_tool_loop(
+            [_tc("tool_load", names=["file_grep", "human_ask"])]
+        )
+        assert blocked is False
+    blocked, name, count = check_mgmt_tool_loop(
+        [_tc("tool_load", names=["file_grep", "human_ask"])]
+    )
+    assert blocked is True
+    assert count == _MGMT_LOOP_THRESHOLD
+    assert name in ("tool_load(file_grep)", "tool_load(human_ask)")
+
+
+def test_tool_load_single_shape_is_unchanged(monkeypatch) -> None:
+    from uagent.tools import catalog_tool
+    from uagent.tools import _genre_control_util as gcu
+
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs",
+        lambda: [{"function": {"name": "get_current_location"}}],
+    )
+    monkeypatch.setattr(
+        gcu,
+        "enable_single_tool",
+        lambda name: (_ for _ in ()).throw(AssertionError("must not reload")),
+    )
+
+    single = json.loads(catalog_tool.run_tool({"name": "get_current_location"}))
+    assert single["ok"] is True
+    assert single["name"] == "get_current_location"
+    assert single["already_loaded"] is True
+    assert "names" not in single
+    assert "results" not in single
+
+    names_only = json.loads(catalog_tool.run_tool({"names": ["get_current_location"]}))
+    assert names_only["ok"] is True
+    assert names_only["name"] == "get_current_location"
+    assert "names" not in names_only
+
+
+def test_tool_load_batch_shape_and_missing_name() -> None:
+    import uagent.tools.catalog_tool as catalog_tool_mod
+
+    assert catalog_tool_mod._parse_tool_name_list({}) == []
+    assert catalog_tool_mod._parse_tool_name_list({"name": "a, b;c d"}) == [
+        "a",
+        "b",
+        "c",
+        "d",
+    ]
+    # Empty dict stays a catalog call (tool_load requires a target).
+    empty = json.loads(catalog_tool_mod.run_tool({}))
+    assert empty["ok"] is True
+    assert "tools" in empty
+    missing = json.loads(catalog_tool_mod.run_tool({"name": "  "}))
+    assert missing["ok"] is False
+
 def test_tool_load_already_visible_does_not_reload(monkeypatch) -> None:
     from uagent.tools import catalog_tool
     from uagent.tools import _genre_control_util as gcu

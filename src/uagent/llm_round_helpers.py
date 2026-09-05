@@ -134,6 +134,7 @@ from .providers.llm_deepseek_responses import (
     apply_deepseek_responses_compat,
     normalize_deepseek_responses_effort,
 )
+from .providers.llm_meta_responses import apply_meta_responses_reasoning_summary
 from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
@@ -766,6 +767,10 @@ def _call_openai_azure_round(
                         # minimal/xhigh for a specific model, retry once with a
                         # fallback value below.
                         resp_kwargs["reasoning"] = {"effort": _effort_used}
+                        apply_meta_responses_reasoning_summary(
+                            resp_kwargs,
+                            provider=provider,
+                        )
                     try:
                         if _reasoning == "auto":
                             core.set_status(True, f"LLM:auto->{_effort_used}")
@@ -910,19 +915,26 @@ def _call_openai_azure_round(
                                 effort = resp_kwargs["reasoning"].get("effort")
 
                             # Only fall back for effort-related rejections.
+                            # Keep reasoning.summary if present (e.g. Meta).
                             if effort == "minimal" and (
                                 "reasoning.effort" in err_text
                                 or "invalid value" in err_text
                                 or "unsupported" in err_text
                             ):
-                                resp_kwargs["reasoning"] = {"effort": "low"}
+                                _rk = resp_kwargs.get("reasoning")
+                                _rk = dict(_rk) if isinstance(_rk, dict) else {}
+                                _rk["effort"] = "low"
+                                resp_kwargs["reasoning"] = _rk
                                 return client.responses.create(**resp_kwargs)
                             if effort == "xhigh" and (
                                 "reasoning.effort" in err_text
                                 or "invalid value" in err_text
                                 or "unsupported" in err_text
                             ):
-                                resp_kwargs["reasoning"] = {"effort": "high"}
+                                _rk = resp_kwargs.get("reasoning")
+                                _rk = dict(_rk) if isinstance(_rk, dict) else {}
+                                _rk["effort"] = "high"
+                                resp_kwargs["reasoning"] = _rk
                                 return client.responses.create(**resp_kwargs)
                             raise
 
@@ -978,7 +990,10 @@ def _call_openai_azure_round(
                                 core.set_status(True, f"LLM:auto->{_next_effort}")
                             except Exception:
                                 pass
-                            resp_kwargs["reasoning"] = {"effort": _next_effort}
+                            _rk2 = resp_kwargs.get("reasoning")
+                            _rk2 = dict(_rk2) if isinstance(_rk2, dict) else {}
+                            _rk2["effort"] = _next_effort
+                            resp_kwargs["reasoning"] = _rk2
                             resp = call_maybe_thread_fn(
                                 lambda: client.responses.create(**resp_kwargs)
                             )

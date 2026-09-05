@@ -84,8 +84,15 @@ def test_run_llm_rounds_openrouter_routes_to_expected_api(
     responses_env: str,
     expected_path: str,
 ) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER", "openrouter")
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     monkeypatch.setenv("UAGENT_RESPONSES", responses_env)
+    # llmcapa 0.5.24 marks all openrouter rows responses_api=False
+    # (e.g. gpt-5.3 -> openai/gpt-5.2). This test checks routing, not the
+    # catalog, so allow Responses explicitly.
+    import uagent.uagent_llm as _uagent_llm
+
+    monkeypatch.setattr(_uagent_llm, "provider_allows_responses_api", lambda *a, **k: True)
 
     client = _DummyFullClient()
     core = _DummyCore()

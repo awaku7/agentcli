@@ -200,11 +200,42 @@ def _parse_mgmt_tool_args(args_raw: Any) -> Any:
         return {"_raw": args_raw}
 
 
+def _mgmt_tool_targets(name: str, args: Any) -> list[str]:
+    """Return target tool names for load/unload (batch-aware)."""
+    if name not in ("tool_load", "unload_tool") or not isinstance(args, dict):
+        return []
+    import re as _re
+
+    def _split(value: Any) -> list[str]:
+        if value is None:
+            return []
+        if isinstance(value, list):
+            out: list[str] = []
+            for item in value:
+                out.extend(_split(item))
+            return out
+        text = str(value).strip()
+        if not text:
+            return []
+        return [p for p in _re.split(r"[,\s;]+", text) if p]
+
+    collected: list[str] = []
+    collected.extend(_split(args.get("names")))
+    collected.extend(_split(args.get("name")))
+    collected.extend(_split(args.get("tool")))
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for entry in collected:
+        if entry not in seen:
+            seen.add(entry)
+            ordered.append(entry)
+    return ordered
+
+
 def _mgmt_tool_target(name: str, args: Any) -> str:
     """Return the target tool name for load/unload, else empty."""
-    if name not in ("tool_load", "unload_tool") or not isinstance(args, dict):
-        return ""
-    return str(args.get("name") or args.get("tool") or "")
+    targets = _mgmt_tool_targets(name, args)
+    return targets[0] if targets else ""
 
 
 def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
@@ -238,9 +269,11 @@ def _general_tool_fingerprint(name: str, args: Any) -> str:
 
 def _mgmt_tool_display(name: str, args: Any) -> str:
     if name in ("tool_load", "unload_tool") and isinstance(args, dict):
-        target = _mgmt_tool_target(name, args)
-        if target:
-            return f"{name}({target})"
+        targets = _mgmt_tool_targets(name, args)
+        if targets:
+            if len(targets) == 1:
+                return f"{name}({targets[0]})"
+            return f"{name}({','.join(targets)})"
     return name
 
 
@@ -365,10 +398,17 @@ def check_mgmt_tool_loop(
             continue
         args = _parse_mgmt_tool_args(fn.get("arguments", "{}"))
         if name == "unload_tool":
-            target = _mgmt_tool_target(name, args)
-            if target:
+            for target in _mgmt_tool_targets(name, args):
                 unload_targets.add(target)
             # unload itself is not loop-counted; it only resets load streaks
+            continue
+        if name == "tool_load":
+            # Batch loads fan out per target so reloads of one tool do not
+            # inherit the counter of an unrelated batch.
+            for target in _mgmt_tool_targets(name, args) or [""]:
+                fp = f"tool_load:{target}"
+                round_counts[fp] = round_counts.get(fp, 0) + 1
+                display.setdefault(fp, f"tool_load({target})" if target else name)
             continue
         fp = _mgmt_tool_fingerprint(name, args)
         round_counts[fp] = round_counts.get(fp, 0) + 1

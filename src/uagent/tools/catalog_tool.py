@@ -66,6 +66,47 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
     }
 
 
+def _parse_tool_name_list(args: dict[str, Any]) -> list[str]:
+    """Collect target tool names from ``name``/``names``/``tool`` args.
+
+    ``names`` may be a list or a comma-separated string. ``name`` (and the
+    legacy ``tool`` alias) may hold a single name or a comma/whitespace
+    separated list. Order is preserved; duplicates are removed.
+    """
+    import re
+
+    def _split(value: Any) -> list[str]:
+        if value is None:
+            return []
+        if isinstance(value, list):
+            out: list[str] = []
+            for item in value:
+                if item is None:
+                    continue
+                out.extend(_split(item))
+            return out
+        text = str(value).strip()
+        if not text:
+            return []
+        return [p for p in re.split(r"[,\s;]+", text) if p]
+
+    collected: list[str] = []
+    if isinstance(args, dict):
+        if "names" in args:
+            collected.extend(_split(args.get("names")))
+        if "name" in args:
+            collected.extend(_split(args.get("name")))
+        if "tool" in args:
+            collected.extend(_split(args.get("tool")))
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for entry in collected:
+        if entry not in seen:
+            seen.add(entry)
+            ordered.append(entry)
+    return ordered
+
+
 def _build_tool_load_spec() -> dict[str, Any]:
     return {
         "tool_level": 0,
@@ -76,7 +117,7 @@ def _build_tool_load_spec() -> dict[str, Any]:
             "name": "tool_load",
             "description": _(
                 "tool_load.description",
-                default="Load a tool by name so it becomes available for use. Use this after tool_catalog returns a tool with loaded=false. Returns the loaded tool info or an error if not found.",
+                default="Load one or more tools by name so they become available for use. Use this after tool_catalog returns tools with loaded=false. Pass a single 'name' or a 'names' array (e.g. ['read_file', 'file_grep']) to load multiple tools in one call. Returns per-tool results (loaded/failed) or an error if not found.",
             ),
             "x_search_terms": _(
                 "x_search_terms",
@@ -100,11 +141,19 @@ def _build_tool_load_spec() -> dict[str, Any]:
                         "type": "string",
                         "description": _(
                             "param.name.description",
-                            default="Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
+                            default="Name of the tool to load (e.g. 'generate_image', 'excel_ops'). A comma/whitespace separated list is also accepted.",
+                        ),
+                    },
+                    "names": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": _(
+                            "param.names.description",
+                            default="Names of tools to load (e.g. ['read_file', 'file_grep']). Combined with 'name' when both are given.",
                         ),
                     },
                 },
-                "required": ["name"],
+                "required": [],
             },
         },
     }
@@ -290,9 +339,73 @@ def _lookup_tool_spec(tool_name: str) -> dict[str, Any] | None:
     return None
 
 
+def _load_single_tool_by_name(name: str) -> dict[str, Any]:
+    """Load one tool; return a per-tool result dict."""
+    from ._genre_control_util import _LOADED_SINGLE_TOOLS, enable_single_tool
+    from . import get_tool_specs
+
+    # ``tool_load`` may be called for a tool that is already visible,
+    # e.g. one enabled by genre or the CLI. Avoid reloading it: repeated
+    # reloads create needless churn and can form an LLM management loop.
+    try:
+        visible = any(
+            isinstance(spec, dict)
+            and isinstance(spec.get("function"), dict)
+            and spec["function"].get("name") == name
+            for spec in (get_tool_specs() or [])
+        )
+    except Exception:
+        visible = False
+    if visible or name in _LOADED_SINGLE_TOOLS:
+        return {
+            "ok": True,
+            "name": name,
+            "loaded": True,
+            "already_loaded": True,
+            "message": _(
+                "msg.load.already_loaded",
+                default="Tool '{name}' is already loaded and available for use.",
+                name=name,
+            ),
+        }
+    try:
+        ok = enable_single_tool(name)
+    except Exception as e:
+        return {
+            "ok": False,
+            "name": name,
+            "loaded": False,
+            "error": f"{type(e).__name__}: {e}",
+        }
+    if ok:
+        return {
+            "ok": True,
+            "name": name,
+            "loaded": True,
+            "message": _(
+                "msg.load.ok",
+                default="Tool '{name}' is now loaded and available for use.",
+                name=name,
+            ),
+        }
+    return {
+        "ok": False,
+        "name": name,
+        "loaded": False,
+        "error": _(
+            "msg.load.not_found_or_not_visible",
+            default=(
+                "Tool '{name}' was not found, or it failed to become "
+                "visible to the LLM after load."
+            ),
+            name=name,
+        ),
+    }
+
+
 def _run_tool_load(args: dict[str, Any]) -> str:
-    name = str(args.get("name") or "").strip()
-    if not name:
+    names = _parse_tool_name_list(args if isinstance(args, dict) else {})
+    if not names:
         return json.dumps(
             {
                 "ok": False,
@@ -303,70 +416,48 @@ def _run_tool_load(args: dict[str, Any]) -> str:
         )
 
     try:
-        from ._genre_control_util import _LOADED_SINGLE_TOOLS, enable_single_tool
-        from . import get_tool_specs
-
-        # ``tool_load`` may be called for a tool that is already visible,
-        # e.g. one enabled by genre or the CLI. Avoid reloading it: repeated
-        # reloads create needless churn and can form an LLM management loop.
-        already_visible = any(
-            isinstance(spec, dict)
-            and isinstance(spec.get("function"), dict)
-            and spec["function"].get("name") == name
-            for spec in (get_tool_specs() or [])
-        )
-        if already_visible or name in _LOADED_SINGLE_TOOLS:
-            return json.dumps(
-                {
-                    "ok": True,
-                    "name": name,
-                    "loaded": True,
-                    "already_loaded": True,
-                    "message": _(
-                        "msg.load.already_loaded",
-                        default="Tool '{name}' is already loaded and available for use.",
-                        name=name,
-                    ),
-                }
-            )
-
-        ok = enable_single_tool(name)
-        if ok:
-            return json.dumps(
-                {
-                    "ok": True,
-                    "name": name,
-                    "loaded": True,
-                    "message": _(
-                        "msg.load.ok",
-                        default="Tool '{name}' is now loaded and available for use.",
-                        name=name,
-                    ),
-                }
-            )
-        else:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "name": name,
-                    "loaded": False,
-                    "error": _(
-                        "msg.load.not_found_or_not_visible",
-                        default=(
-                            "Tool '{name}' was not found, or it failed to become "
-                            "visible to the LLM after load."
-                        ),
-                        name=name,
-                    ),
-                }
-            )
+        results = [_load_single_tool_by_name(name) for name in names]
     except Exception as e:
         return json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"})
+    if len(results) == 1:
+        single = results[0]
+        if single.get("ok"):
+            return json.dumps(single, ensure_ascii=False)
+        return json.dumps(single, ensure_ascii=False)
+    loaded = [r["name"] for r in results if r.get("ok")]
+    failed = [r for r in results if not r.get("ok")]
+    already = [r["name"] for r in results if r.get("already_loaded")]
+    message = _(
+        "msg.load.batch_ok",
+        default="Loaded {count} tool(s): {names}.",
+        count=len(loaded),
+        names=", ".join(loaded) if loaded else "-",
+    )
+    return json.dumps(
+        {
+            "ok": not failed,
+            "names": names,
+            "loaded": loaded,
+            "already_loaded": already,
+            "failed": failed,
+            "results": results,
+            "message": message,
+        },
+        ensure_ascii=False,
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
     # Default dispatcher for TOOL_SPEC (tool_catalog) and TOOL_SPEC_2 (tool_load)
     # TOOL_SPEC_3 (unload_tool) has its own runner via TOOL_SPEC_3_RUNNER
-    if "name" in args and "query" not in args:
+    # NOTE: tool_load requires name/names/tool; an empty {} is a catalog call.
+    if isinstance(args, dict) and "query" in args:
+        return _run_tool_catalog(args)
+    if isinstance(args, dict) and (
+        "names" in args or "tool" in args or str(args.get("name") or "").strip()
+    ):
+        return _run_tool_load(args)
+    if isinstance(args, dict) and "name" in args:
+        # Explicit but empty name -> load error (missing name), not catalog.
         return _run_tool_load(args)
     return _run_tool_catalog(args)

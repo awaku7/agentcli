@@ -15,8 +15,8 @@
       "auto-load tool"
     ],
     "param.query.description": "Natural-language query describing the needed capability. Tip: decompose your goal into sub-steps (e.g., 'geoip location + weather forecast') to improve matching.",
-    "tool_load.description": "Load a tool by name so it becomes available for use. Use this after tool_catalog returns a tool with loaded=false. Returns the loaded tool info or an error if not found.",
-    "param.name.description": "Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Load one or more tools by name so they become available for use. Use this after tool_catalog returns tools with loaded=false. Pass a single 'name' or a 'names' array (e.g. ['read_file', 'file_grep']) to load multiple tools in one call. Returns per-tool results (loaded/failed) or an error if not found.",
+    "param.name.description": "Name of the tool to load (e.g. 'generate_image', 'excel_ops'). A comma/whitespace separated list is also accepted.",
     "msg.load.missing_name": "Missing 'name' parameter.",
     "msg.load.ok": "Tool '{name}' has been loaded and is now available",
     "msg.load.not_found": "Tool '{name}' not found.",
@@ -25,7 +25,12 @@
     "msg.unload.not_found": "Tool '{name}' not found or not loaded.",
     "msg.unload.ok": "Tool '{name}' has been unloaded.",
     "unload_tool.description": "Unload a tool by name so it is no longer available for use. Use this to remove a previously loaded tool from the session.",
-    "tool.description": "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled. When a 'query' is provided, the top-ranked unloaded tool is automatically loaded (indicated by 'auto_loaded' in the response)."
+    "tool.description": "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled. When a 'query' is provided, the top-ranked unloaded tool is automatically loaded (indicated by 'auto_loaded' in the response).",
+    "param.names.description": "Names of tools to load (e.g. ['read_file', 'file_grep']). Combined with 'name' when both are given.",
+    "msg.load.already_loaded": "Tool '{name}' is already loaded and available for use.",
+    "msg.load.not_found_or_not_visible": "Tool '{name}' was not found, or it failed to become visible to the LLM after load.",
+    "msg.load.batch_ok": "Loaded {count} tool(s): {names}.",
+    "msg.unload.pinned": "Tool '{name}' is pinned against unload. Unpin it first or force-close its sessions."
   },
   "ja": {
     "x_search_terms": [
@@ -43,8 +48,8 @@
       "自動ロードツール"
     ],
     "param.query.description": "必要な機能を説明する自然言語のクエリ。ヒント: 目的を細かい作業ステップに分解してクエリに含めると（例: 'geoip 位置情報 + 天気予報'）、マッチ精度が向上します。",
-    "tool_load.description": "ツールを名前で読み込み、使用可能にします。tool_catalog が loaded=false のツールを返した後に使用します。読み込まれたツールの情報、またはエラーを返します。",
-    "param.name.description": "読み込むツールの名前（例: 'generate_image', 'excel_ops'）。",
+    "tool_load.description": "ツールを名前で1つまたは複数読み込み、使用可能にします。tool_catalog が loaded=false のツールを返した後に使用します。単一の 'name' または 'names' 配列（例: ['read_file', 'file_grep']）を渡すと、1回の呼び出しで複数のツールを読み込めます。ツールごとの結果（loaded/failed）またはエラーを返します。",
+    "param.name.description": "読み込むツールの名前（例: 'generate_image', 'excel_ops'）。カンマ/空白区切りのリストも使用できます。",
     "msg.load.missing_name": "'name' パラメータが指定されていません。",
     "msg.load.ok": "ツール '{name}' を読み込みました",
     "msg.load.not_found": "ツール '{name}' が見つかりません。",
@@ -53,7 +58,12 @@
     "msg.unload.not_found": "ツール「{name}」が見つからないか、ロードされていません。",
     "msg.unload.ok": "ツール「{name}」はアンロードされました。",
     "unload_tool.description": "ツールを名前でアンロードすると、使用できなくなります。これを使用して、以前にロードされたツールをセッションから削除します。",
-    "tool.description": "ok、query、count、tools フィールドを含む利用可能なツールの JSON カタログを返すため、モデルは完全なツール定義を要求する前に関連ツールを検出できます。結果には、ツールが現在有効かどうかを示す「ロード済み」フィールドが含まれます。 「クエリ」が指定されると、アンロードされた最上位のツールが自動的にロードされます (応答の「auto_loaded」で示されます)。"
+    "tool.description": "ok、query、count、tools フィールドを含む利用可能なツールの JSON カタログを返すため、モデルは完全なツール定義を要求する前に関連ツールを検出できます。結果には、ツールが現在有効かどうかを示す「ロード済み」フィールドが含まれます。 「クエリ」が指定されると、アンロードされた最上位のツールが自動的にロードされます (応答の「auto_loaded」で示されます)。",
+    "param.names.description": "読み込むツール名の一覧（例: ['read_file', 'file_grep']）。'name' と併用した場合は両方を合わせます。",
+    "msg.load.already_loaded": "ツール '{name}' は既に読み込まれており、使用可能です。",
+    "msg.load.not_found_or_not_visible": "ツール '{name}' が見つからないか、読み込み後にLLMから参照可能になりませんでした。",
+    "msg.load.batch_ok": "{count} 件のツールを読み込みました: {names}。",
+    "msg.unload.pinned": "ツール '{name}' はアンロード禁止に固定されています。先に固定を解除するか、関連セッションを強制終了してください。"
   },
   "es": {
     "x_search_terms": [
@@ -71,8 +81,8 @@
       "herramienta de carga automática"
     ],
     "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria. Consejo: descomponga su objetivo en pasos (ej. 'geoip ubicación + pronóstico del tiempo') para mejorar la coincidencia.",
-    "tool_load.description": "Carga una herramienta por nombre para que esté disponible. Use esto después de que tool_catalog devuelva una herramienta con loaded=false. Devuelve la información de la herramienta cargada o un error si no se encuentra.",
-    "param.name.description": "Nombre de la herramienta a cargar (p. ej., 'generate_image', 'excel_ops').",
+    "tool_load.description": "Carga una o varias herramientas por nombre para que estén disponibles. Úsalo después de que tool_catalog devuelva herramientas con loaded=false. Pasa un único 'name' o un arreglo 'names' (p. ej. ['read_file', 'file_grep']) para cargar varias herramientas en una llamada. Devuelve resultados por herramienta (loaded/failed) o un error si no se encuentra.",
+    "param.name.description": "Nombre de la herramienta a cargar (p. ej., 'generate_image', 'excel_ops'). También se acepta una lista separada por comas o espacios.",
     "msg.load.missing_name": "Falta el parámetro 'name'.",
     "msg.load.ok": "La herramienta '{name}' se ha cargado y ahora está disponible",
     "msg.load.not_found": "Herramienta '{name}' no encontrada.",
@@ -81,7 +91,12 @@
     "msg.unload.not_found": "Herramienta '{name}' no encontrada o no cargada.",
     "msg.unload.ok": "Se ha descargado la herramienta '{name}'.",
     "unload_tool.description": "Descargue una herramienta por nombre para que ya no esté disponible para su uso. Utilícelo para eliminar una herramienta previamente cargada de la sesión.",
-    "tool.description": "Devuelva un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas. Los resultados incluyen un campo \"cargado\" que indica si la herramienta está actualmente habilitada. Cuando se proporciona una 'consulta', la herramienta descargada mejor clasificada se carga automáticamente (indicada por 'auto_loaded' en la respuesta)."
+    "tool.description": "Devuelva un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas. Los resultados incluyen un campo \"cargado\" que indica si la herramienta está actualmente habilitada. Cuando se proporciona una 'consulta', la herramienta descargada mejor clasificada se carga automáticamente (indicada por 'auto_loaded' en la respuesta).",
+    "param.names.description": "Nombres de las herramientas a cargar (p. ej., ['read_file', 'file_grep']). Se combina con 'name' cuando se indican ambos.",
+    "msg.load.already_loaded": "La herramienta '{name}' ya está cargada y disponible para su uso.",
+    "msg.load.not_found_or_not_visible": "La herramienta '{name}' no se encontró o no quedó visible para el LLM después de la carga.",
+    "msg.load.batch_ok": "Se cargaron {count} herramienta(s): {names}.",
+    "msg.unload.pinned": "La herramienta '{name}' está fijada contra la descarga. Libérala primero o cierra sus sesiones a la fuerza."
   },
   "fr": {
     "x_search_terms": [
@@ -99,8 +114,8 @@
       "outil de chargement automatique"
     ],
     "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire. Astuce: décomposez votre objectif en sous-étapes (ex. 'geoip localisation + prévisions météo') pour améliorer la pertinence.",
-    "tool_load.description": "Charge un outil par son nom pour le rendre disponible. Utilisez ceci après que tool_catalog retourne un outil avec loaded=false. Retourne les informations de l'outil chargé ou une erreur s'il n'est pas trouvé.",
-    "param.name.description": "Nom de l'outil à charger (ex. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Charge un ou plusieurs outils par nom pour les rendre disponibles. Utilisez ceci après que tool_catalog retourne des outils avec loaded=false. Passez un unique 'name' ou un tableau 'names' (p. ex. ['read_file', 'file_grep']) pour charger plusieurs outils en un appel. Retourne des résultats par outil (loaded/failed) ou une erreur si introuvable.",
+    "param.name.description": "Nom de l'outil à charger (ex. 'generate_image', 'excel_ops'). Une liste séparée par virgules/espaces est aussi acceptée.",
     "msg.load.missing_name": "Paramètre 'name' manquant.",
     "msg.load.ok": "L'outil '{name}' a été chargé et est maintenant disponible",
     "msg.load.not_found": "Outil '{name}' introuvable.",
@@ -109,7 +124,12 @@
     "msg.unload.not_found": "L'outil '{name}' est introuvable ou n'est pas chargé.",
     "msg.unload.ok": "L'outil '{name}' a été déchargé.",
     "unload_tool.description": "Déchargez un outil par son nom afin qu'il ne soit plus disponible. Utilisez-le pour supprimer un outil précédemment chargé de la session.",
-    "tool.description": "Renvoyez un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander des définitions complètes d'outils. Les résultats incluent un champ « chargé » indiquant si l'outil est actuellement activé. Lorsqu'une « requête » est fournie, l'outil déchargé le mieux classé est automatiquement chargé (indiqué par « auto_loaded » dans la réponse)."
+    "tool.description": "Renvoyez un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander des définitions complètes d'outils. Les résultats incluent un champ « chargé » indiquant si l'outil est actuellement activé. Lorsqu'une « requête » est fournie, l'outil déchargé le mieux classé est automatiquement chargé (indiqué par « auto_loaded » dans la réponse).",
+    "param.names.description": "Noms des outils à charger (ex. ['read_file', 'file_grep']). Combiné avec 'name' quand les deux sont fournis.",
+    "msg.load.already_loaded": "L'outil '{name}' est déjà chargé et disponible.",
+    "msg.load.not_found_or_not_visible": "Outil '{name}' introuvable, ou non visible par le LLM après le chargement.",
+    "msg.load.batch_ok": "{count} outil(s) chargé(s) : {names}.",
+    "msg.unload.pinned": "L'outil '{name}' est épinglé contre le déchargement. Détachez-le d'abord ou fermez ses sessions de force."
   },
   "ko": {
     "x_search_terms": [
@@ -127,8 +147,8 @@
       "자동 로드 도구"
     ],
     "param.query.description": "필요한 기능을 설명하는 자연어 질의. 팁: 목표를 세부 단계로 나누어 쿼리에 포함하면(예: 'geoip 위치 + 날씨 예보') 매칭이 향상됩니다.",
-    "tool_load.description": "도구를 이름으로 로드하여 사용 가능하게 합니다. tool_catalog가 loaded=false인 도구를 반환한 후에 사용하십시오. 로드된 도구 정보를 반환하거나 찾을 수 없으면 오류를 반환합니다.",
-    "param.name.description": "로드할 도구의 이름 (예: 'generate_image', 'excel_ops').",
+    "tool_load.description": "도구를 이름으로 하나 이상 로드하여 사용 가능하게 합니다. tool_catalog가 loaded=false인 도구를 반환한 후에 사용하십시오. 단일 'name' 또는 'names' 배열(예: ['read_file', 'file_grep'])을 전달하면 한 번의 호출로 여러 도구를 로드합니다. 도구별 결과(loaded/failed) 또는 오류를 반환합니다.",
+    "param.name.description": "로드할 도구의 이름(예: 'generate_image', 'excel_ops'). 쉼표/공백으로 구분된 목록도 사용할 수 있습니다.",
     "msg.load.missing_name": "'name' 매개변수가 누락되었습니다.",
     "msg.load.ok": "도구 '{name}'이(가) 로드되었습니다 이제 사용 가능합니다",
     "msg.load.not_found": "도구 '{name}'을(를) 찾을 수 없습니다.",
@@ -137,7 +157,12 @@
     "msg.unload.not_found": "도구 '{name}'을 찾을 수 없거나 로드되지 않았습니다.",
     "msg.unload.ok": "도구 '{name}'이(가) 언로드되었습니다.",
     "unload_tool.description": "더 이상 사용할 수 없도록 도구를 이름별로 언로드합니다. 세션에서 이전에 로드한 도구를 제거하려면 이를 사용합니다.",
-    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 ok, query, count 및 tools 필드가 포함된 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되어 있는지 여부를 나타내는 '로드된' 필드가 포함됩니다. '쿼리'가 제공되면 최상위 언로드 도구가 자동으로 로드됩니다(응답에 'auto_loaded'로 표시됨)."
+    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 ok, query, count 및 tools 필드가 포함된 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되어 있는지 여부를 나타내는 '로드된' 필드가 포함됩니다. '쿼리'가 제공되면 최상위 언로드 도구가 자동으로 로드됩니다(응답에 'auto_loaded'로 표시됨).",
+    "param.names.description": "로드할 도구 이름 목록(예: ['read_file', 'file_grep']). 'name'과 함께 지정하면 둘을 합칩니다.",
+    "msg.load.already_loaded": "도구 '{name}'이(가) 이미 로드되어 사용 가능합니다.",
+    "msg.load.not_found_or_not_visible": "도구 '{name}'을(를) 찾을 수 없거나 로드 후 LLM에 표시되지 않았습니다.",
+    "msg.load.batch_ok": "{count}개의 도구를 로드했습니다: {names}.",
+    "msg.unload.pinned": "도구 '{name}'은(는) 언로드 금지로 고정되어 있습니다. 먼저 고정을 해제하거나 관련 세션을 강제 종료하세요."
   },
   "de": {
     "x_search_terms": [
@@ -155,8 +180,8 @@
       "Werkzeug automatisch laden"
     ],
     "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt. Tipp: Zerlegen Sie Ihr Ziel in Unterschritte (z.B. 'geoip Standort + Wettervorhersage') um die Treffer zu verbessern.",
-    "tool_load.description": "Lädt ein Werkzeug mit seinem Namen, sodass es zur Verwendung verfügbar wird. Verwenden Sie dies, nachdem tool_catalog ein Werkzeug mit loaded=false zurückgegeben hat. Gibt die geladenen Werkzeuginformationen oder einen Fehler zurück, wenn nicht gefunden.",
-    "param.name.description": "Name des zu ladenden Werkzeugs (z.B. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Lädt ein oder mehrere Werkzeuge per Namen, sodass sie verfügbar werden. Verwenden Sie dies, nachdem tool_catalog Werkzeuge mit loaded=false zurückgegeben hat. Übergeben Sie ein einzelnes 'name' oder ein 'names'-Array (z. B. ['read_file', 'file_grep']), um mehrere Werkzeuge in einem Aufruf zu laden. Gibt Ergebnisse pro Werkzeug (loaded/failed) oder einen Fehler zurück, wenn nicht gefunden.",
+    "param.name.description": "Name des zu ladenden Werkzeugs (z. B. 'generate_image', 'excel_ops'). Eine durch Kommas/Leerzeichen getrennte Liste wird ebenfalls akzeptiert.",
     "msg.load.missing_name": "Fehlender Parameter 'name'.",
     "msg.load.ok": "Werkzeug '{name}' wurde geladen und ist jetzt verfügbar",
     "msg.load.not_found": "Werkzeug '{name}' nicht gefunden.",
@@ -165,7 +190,12 @@
     "msg.unload.not_found": "Tool „{name}“ nicht gefunden oder nicht geladen.",
     "msg.unload.ok": "Tool „{name}“ wurde entladen.",
     "unload_tool.description": "Entladen Sie ein Werkzeug namentlich, damit es nicht mehr verwendet werden kann. Verwenden Sie diese Option, um ein zuvor geladenes Tool aus der Sitzung zu entfernen.",
-    "tool.description": "Geben Sie einen JSON-Katalog der verfügbaren Tools mit den Feldern „OK“, „Abfrage“, „Anzahl“ und „Tools“ zurück, damit das Modell relevante Tools erkennen kann, bevor vollständige Tooldefinitionen angefordert werden. Die Ergebnisse enthalten ein „geladenes“ Feld, das angibt, ob das Tool derzeit aktiviert ist. Wenn eine „Abfrage“ bereitgestellt wird, wird das entladene Tool mit dem höchsten Rang automatisch geladen (angezeigt durch „auto_loaded“ in der Antwort)."
+    "tool.description": "Geben Sie einen JSON-Katalog der verfügbaren Tools mit den Feldern „OK“, „Abfrage“, „Anzahl“ und „Tools“ zurück, damit das Modell relevante Tools erkennen kann, bevor vollständige Tooldefinitionen angefordert werden. Die Ergebnisse enthalten ein „geladenes“ Feld, das angibt, ob das Tool derzeit aktiviert ist. Wenn eine „Abfrage“ bereitgestellt wird, wird das entladene Tool mit dem höchsten Rang automatisch geladen (angezeigt durch „auto_loaded“ in der Antwort).",
+    "param.names.description": "Namen der zu ladenden Werkzeuge (z. B. ['read_file', 'file_grep']). Wird mit 'name' kombiniert, wenn beides angegeben ist.",
+    "msg.load.already_loaded": "Werkzeug '{name}' ist bereits geladen und verfügbar.",
+    "msg.load.not_found_or_not_visible": "Werkzeug '{name}' wurde nicht gefunden oder ist nach dem Laden für das LLM nicht sichtbar.",
+    "msg.load.batch_ok": "{count} Werkzeug(e) geladen: {names}.",
+    "msg.unload.pinned": "Werkzeug '{name}' ist gegen Entladen fixiert. Heben Sie zuerst die Fixierung auf oder schließen Sie seine Sitzungen zwangsweise."
   },
   "it": {
     "x_search_terms": [
@@ -183,8 +213,8 @@
       "strumento di caricamento automatico"
     ],
     "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria. Suggerimento: scomponi il tuo obiettivo in sotto-passaggi (es. 'geoip posizione + previsioni meteo') per migliorare la corrispondenza.",
-    "tool_load.description": "Carica uno strumento per nome in modo che diventi disponibile per l'uso. Usa questo dopo che tool_catalog restituisce uno strumento con loaded=false. Restituisce le informazioni dello strumento caricato o un errore se non trovato.",
-    "param.name.description": "Nome dello strumento da caricare (es. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Carica uno o più strumenti per nome in modo che diventino disponibili. Usa questo dopo che tool_catalog restituisce strumenti con loaded=false. Passa un singolo 'name' o un array 'names' (es. ['read_file', 'file_grep']) per caricare più strumenti in una chiamata. Restituisce risultati per strumento (loaded/failed) o un errore se non trovato.",
+    "param.name.description": "Nome dello strumento da caricare (es. 'generate_image', 'excel_ops'). È accettato anche un elenco separato da virgole/spazi.",
     "msg.load.missing_name": "Parametro 'name' mancante.",
     "msg.load.ok": "Strumento '{name}' è stato caricato ed è ora disponibile",
     "msg.load.not_found": "Strumento '{name}' non trovato.",
@@ -193,7 +223,12 @@
     "msg.unload.not_found": "Strumento '{name}' non trovato o non caricato.",
     "msg.unload.ok": "Lo strumento \"{name}\" è stato scaricato.",
     "unload_tool.description": "Scarica uno strumento per nome in modo che non sia più disponibile per l'uso. Utilizzarlo per rimuovere uno strumento caricato in precedenza dalla sessione.",
-    "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete degli strumenti. I risultati includono un campo \"caricato\" che indica se lo strumento è attualmente abilitato. Quando viene fornita una \"query\", lo strumento scaricato in cima alla classifica viene caricato automaticamente (indicato da \"auto_loaded\" nella risposta)."
+    "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete degli strumenti. I risultati includono un campo \"caricato\" che indica se lo strumento è attualmente abilitato. Quando viene fornita una \"query\", lo strumento scaricato in cima alla classifica viene caricato automaticamente (indicato da \"auto_loaded\" nella risposta).",
+    "param.names.description": "Nomi degli strumenti da caricare (es. ['read_file', 'file_grep']). Combinato con 'name' quando entrambi sono forniti.",
+    "msg.load.already_loaded": "Lo strumento '{name}' è già caricato e disponibile per l'uso.",
+    "msg.load.not_found_or_not_visible": "Strumento '{name}' non trovato, oppure non visibile al LLM dopo il caricamento.",
+    "msg.load.batch_ok": "Caricati {count} strumento(i): {names}.",
+    "msg.unload.pinned": "Lo strumento '{name}' è bloccato contro lo scaricamento. Sbloccalo prima o chiudi forzatamente le sue sessioni."
   },
   "ru": {
     "x_search_terms": [
@@ -211,8 +246,8 @@
       "автозагрузка инструмента"
     ],
     "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность. Совет: разбейте цель на подшаги (например, 'geoip местоположение + прогноз погоды') для улучшения соответствия.",
-    "tool_load.description": "Загружает инструмент по имени, чтобы он стал доступен для использования. Используйте это после того, как tool_catalog вернет инструмент с loaded=false. Возвращает информацию о загруженном инструменте или ошибку, если не найдено.",
-    "param.name.description": "Имя загружаемого инструмента (например, 'generate_image', 'excel_ops').",
+    "tool_load.description": "Загружает один или несколько инструментов по имени, чтобы они стали доступны. Используйте после того, как tool_catalog вернул инструменты с loaded=false. Передайте одиночное 'name' или массив 'names' (напр. ['read_file', 'file_grep']), чтобы загрузить несколько инструментов за один вызов. Возвращает результаты по каждому инструменту (loaded/failed) или ошибку, если не найден.",
+    "param.name.description": "Имя загружаемого инструмента (напр. 'generate_image', 'excel_ops'). Также принимается список через запятую/пробелы.",
     "msg.load.missing_name": "Отсутствует параметр 'name'.",
     "msg.load.ok": "Инструмент '{name}' загружен и теперь доступен",
     "msg.load.not_found": "Инструмент '{name}' не найден.",
@@ -221,7 +256,12 @@
     "msg.unload.not_found": "Инструмент «{name}» не найден или не загружен.",
     "msg.unload.ok": "Инструмент «{name}» выгружен.",
     "unload_tool.description": "Выгрузите инструмент по имени, чтобы он больше не был доступен для использования. Используйте это, чтобы удалить ранее загруженный инструмент из сеанса.",
-    "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ОК, Запрос, Количество и Инструменты, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений инструментов. Результаты включают в себя «загруженное» поле, указывающее, включен ли инструмент в данный момент. При предоставлении «запроса» автоматически загружается выгруженный инструмент с самым высоким рейтингом (обозначается «auto_loaded» в ответе)."
+    "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ОК, Запрос, Количество и Инструменты, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений инструментов. Результаты включают в себя «загруженное» поле, указывающее, включен ли инструмент в данный момент. При предоставлении «запроса» автоматически загружается выгруженный инструмент с самым высоким рейтингом (обозначается «auto_loaded» в ответе).",
+    "param.names.description": "Имена загружаемых инструментов (напр. ['read_file', 'file_grep']). Объединяется с 'name', если указаны оба.",
+    "msg.load.already_loaded": "Инструмент '{name}' уже загружен и доступен для использования.",
+    "msg.load.not_found_or_not_visible": "Инструмент '{name}' не найден или не стал виден для LLM после загрузки.",
+    "msg.load.batch_ok": "Загружено инструментов: {count}: {names}.",
+    "msg.unload.pinned": "Инструмент '{name}' закреплён от выгрузки. Сначала снимите закрепление или принудительно закройте его сессии."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -239,8 +279,8 @@
       "ferramenta de carregamento automático"
     ],
     "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
-    "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
-    "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
+    "tool_load.description": "Carrega uma ou mais ferramentas pelo nome para disponibilizá-las. Use após tool_catalog retornar ferramentas com loaded=false. Passe um único 'name' ou um array 'names' (ex. ['read_file', 'file_grep']) para carregar várias ferramentas em uma chamada. Retorna resultados por ferramenta (loaded/failed) ou um erro se não encontrada.",
+    "param.name.description": "Nome da ferramenta a carregar (ex. 'generate_image', 'excel_ops'). Também se aceita uma lista separada por vírgulas/espaços.",
     "msg.load.missing_name": "Parâmetro 'name' ausente.",
     "msg.load.ok": "Ferramenta '{name}' foi carregada e agora está disponível",
     "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
@@ -249,7 +289,12 @@
     "msg.unload.not_found": "Ferramenta '{name}' não encontrada ou não carregada.",
     "msg.unload.ok": "A ferramenta '{name}' foi descarregada.",
     "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão.",
-    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta)."
+    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta).",
+    "param.names.description": "Nomes das ferramentas a carregar (ex. ['read_file', 'file_grep']). Combinado com 'name' quando ambos são fornecidos.",
+    "msg.load.already_loaded": "A ferramenta '{name}' já está carregada e disponível para uso.",
+    "msg.load.not_found_or_not_visible": "Ferramenta '{name}' não encontrada, ou não ficou visível para o LLM após o carregamento.",
+    "msg.load.batch_ok": "{count} ferramenta(s) carregada(s): {names}.",
+    "msg.unload.pinned": "A ferramenta '{name}' está fixada contra descarregamento. Desafixe-a primeiro ou encerre suas sessões à força."
   },
   "pt": {
     "x_search_terms": [
@@ -267,8 +312,8 @@
       "ferramenta de carregamento automático"
     ],
     "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
-    "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
-    "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
+    "tool_load.description": "Carrega uma ou mais ferramentas pelo nome para disponibilizá-las. Use após tool_catalog retornar ferramentas com loaded=false. Passe um único 'name' ou um array 'names' (ex. ['read_file', 'file_grep']) para carregar várias ferramentas em uma chamada. Retorna resultados por ferramenta (loaded/failed) ou um erro se não encontrada.",
+    "param.name.description": "Nome da ferramenta a carregar (ex. 'generate_image', 'excel_ops'). Também se aceita uma lista separada por vírgulas/espaços.",
     "msg.load.missing_name": "Parâmetro 'name' ausente.",
     "msg.load.ok": "Ferramenta '{name}' foi carregada e agora está disponível",
     "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
@@ -277,7 +322,12 @@
     "msg.unload.not_found": "Ferramenta '{name}' não encontrada ou não carregada.",
     "msg.unload.ok": "A ferramenta '{name}' foi descarregada.",
     "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão.",
-    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta)."
+    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta).",
+    "param.names.description": "Nomes das ferramentas a carregar (ex. ['read_file', 'file_grep']). Combinado com 'name' quando ambos são fornecidos.",
+    "msg.load.already_loaded": "A ferramenta '{name}' já está carregada e disponível para uso.",
+    "msg.load.not_found_or_not_visible": "Ferramenta '{name}' não encontrada, ou não ficou visível para o LLM após o carregamento.",
+    "msg.load.batch_ok": "{count} ferramenta(s) carregada(s): {names}.",
+    "msg.unload.pinned": "A ferramenta '{name}' está fixada contra descarregamento. Desafixe-a primeiro ou encerre suas sessões à força."
   },
   "id": {
     "x_search_terms": [
@@ -295,8 +345,8 @@
       "alat muat otomatis"
     ],
     "param.query.description": "Kueri bahasa alami yang menjelaskan kemampuan yang diperlukan. Tips: uraikan tujuan Anda menjadi langkah-langkah kecil (mis. 'geoip lokasi + ramalan cuaca') untuk meningkatkan kecocokan.",
-    "tool_load.description": "Memuat alat berdasarkan nama sehingga tersedia untuk digunakan. Gunakan ini setelah tool_catalog mengembalikan alat dengan loaded=false. Mengembalikan info alat yang dimuat atau kesalahan jika tidak ditemukan.",
-    "param.name.description": "Nama alat yang akan dimuat (mis. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Memuat satu atau beberapa alat berdasarkan nama agar tersedia untuk digunakan. Gunakan setelah tool_catalog mengembalikan alat dengan loaded=false. Teruskan satu 'name' atau array 'names' (mis. ['read_file', 'file_grep']) untuk memuat beberapa alat dalam satu panggilan. Mengembalikan hasil per alat (loaded/failed) atau kesalahan jika tidak ditemukan.",
+    "param.name.description": "Nama alat yang akan dimuat (mis. 'generate_image', 'excel_ops'). Daftar yang dipisahkan koma/spasi juga diterima.",
     "msg.load.missing_name": "Parameter 'name' hilang.",
     "msg.load.ok": "Alat '{name}' telah dimuat dan sekarang tersedia",
     "msg.load.not_found": "Alat '{name}' tidak ditemukan.",
@@ -305,7 +355,12 @@
     "msg.unload.not_found": "Alat '{name}' tidak ditemukan atau tidak dimuat.",
     "msg.unload.ok": "Alat '{name}' telah dibongkar.",
     "unload_tool.description": "Bongkar alat berdasarkan namanya sehingga tidak lagi tersedia untuk digunakan. Gunakan ini untuk menghapus alat yang dimuat sebelumnya dari sesi.",
-    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan bidang ok, kueri, hitungan, dan alat sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasil mencakup bidang 'dimuat' yang menunjukkan apakah alat tersebut saat ini diaktifkan. Ketika 'kueri' disediakan, alat yang dibongkar dengan peringkat teratas dimuat secara otomatis (ditunjukkan dengan 'auto_loaded' dalam respons)."
+    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan bidang ok, kueri, hitungan, dan alat sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasil mencakup bidang 'dimuat' yang menunjukkan apakah alat tersebut saat ini diaktifkan. Ketika 'kueri' disediakan, alat yang dibongkar dengan peringkat teratas dimuat secara otomatis (ditunjukkan dengan 'auto_loaded' dalam respons).",
+    "param.names.description": "Nama-nama alat yang akan dimuat (mis. ['read_file', 'file_grep']). Digabungkan dengan 'name' bila keduanya diberikan.",
+    "msg.load.already_loaded": "Alat '{name}' sudah dimuat dan tersedia untuk digunakan.",
+    "msg.load.not_found_or_not_visible": "Alat '{name}' tidak ditemukan, atau tidak terlihat oleh LLM setelah dimuat.",
+    "msg.load.batch_ok": "Memuat {count} alat: {names}.",
+    "msg.unload.pinned": "Alat '{name}' disematkan agar tidak dibongkar. Lepaskan sematan terlebih dahulu atau tutup paksa sesinya."
   },
   "vi": {
     "x_search_terms": [
@@ -323,8 +378,8 @@
       "công cụ tự động tải"
     ],
     "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết. Mẹo: phân chia mục tiêu thành các bước nhỏ (ví dụ: 'geoip vị trí + dự báo thời tiết') để cải thiện độ khớp.",
-    "tool_load.description": "Tải một công cụ theo tên để nó có sẵn để sử dụng. Sử dụng điều này sau khi tool_catalog trả về công cụ với loaded=false. Trả về thông tin công cụ đã tải hoặc lỗi nếu không tìm thấy.",
-    "param.name.description": "Tên của công cụ cần tải (ví dụ: 'generate_image', 'excel_ops').",
+    "tool_load.description": "Tải một hoặc nhiều công cụ theo tên để đưa vào sử dụng. Dùng sau khi tool_catalog trả về công cụ có loaded=false. Truyền một 'name' duy nhất hoặc mảng 'names' (ví dụ ['read_file', 'file_grep']) để tải nhiều công cụ trong một lần gọi. Trả về kết quả từng công cụ (loaded/failed) hoặc lỗi nếu không tìm thấy.",
+    "param.name.description": "Tên công cụ cần tải (ví dụ 'generate_image', 'excel_ops'). Danh sách phân tách bằng dấu phẩy/khoảng trắng cũng được chấp nhận.",
     "msg.load.missing_name": "Thiếu tham số 'name'.",
     "msg.load.ok": "Công cụ '{name}' đã được tải và hiện đã sẵn sàng",
     "msg.load.not_found": "Không tìm thấy công cụ '{name}'.",
@@ -333,7 +388,12 @@
     "msg.unload.not_found": "Không tìm thấy hoặc không tải được công cụ '{name}'.",
     "msg.unload.ok": "Công cụ '{name}' đã được dỡ tải.",
     "unload_tool.description": "Hủy bỏ một công cụ theo tên để nó không còn có thể sử dụng được nữa. Sử dụng công cụ này để xóa công cụ đã tải trước đó khỏi phiên.",
-    "tool.description": "Trả về danh mục JSON gồm các công cụ có sẵn với các trường ok, truy vấn, đếm và công cụ để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ. Kết quả bao gồm trường 'đã tải' cho biết công cụ này hiện có được bật hay không. Khi một 'truy vấn' được cung cấp, công cụ chưa tải được xếp hạng cao nhất sẽ tự động được tải (được biểu thị bằng 'auto_loaded' trong phản hồi)."
+    "tool.description": "Trả về danh mục JSON gồm các công cụ có sẵn với các trường ok, truy vấn, đếm và công cụ để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ. Kết quả bao gồm trường 'đã tải' cho biết công cụ này hiện có được bật hay không. Khi một 'truy vấn' được cung cấp, công cụ chưa tải được xếp hạng cao nhất sẽ tự động được tải (được biểu thị bằng 'auto_loaded' trong phản hồi).",
+    "param.names.description": "Tên các công cụ cần tải (ví dụ ['read_file', 'file_grep']). Kết hợp với 'name' khi cả hai được cung cấp.",
+    "msg.load.already_loaded": "Công cụ '{name}' đã được tải và sẵn sàng sử dụng.",
+    "msg.load.not_found_or_not_visible": "Không tìm thấy công cụ '{name}' hoặc công cụ không hiển thị với LLM sau khi tải.",
+    "msg.load.batch_ok": "Đã tải {count} công cụ: {names}.",
+    "msg.unload.pinned": "Công cụ '{name}' đang được ghim chống gỡ. Hãy bỏ ghim trước hoặc buộc đóng các phiên của nó."
   },
   "pl": {
     "x_search_terms": [
@@ -351,8 +411,8 @@
       "automatyczne ładowanie narzędzia"
     ],
     "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebną funkcjonalność. Wskazówka: rozbij cel na podetapy (np. 'geoip lokalizacja + prognoza pogody') aby poprawić dopasowanie.",
-    "tool_load.description": "Ładuje narzędzie po nazwie, aby stało się dostępne. Użyj tego, gdy tool_catalog zwróci narzędzie z loaded=false. Zwraca informacje o załadowanym narzędziu lub błąd, jeśli nie znaleziono.",
-    "param.name.description": "Nazwa narzędzia do załadowania (np. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Wczytuje jedno lub więcej narzędzi po nazwie, aby stały się dostępne. Użyj po tym, jak tool_catalog zwróci narzędzia z loaded=false. Przekaż pojedyncze 'name' lub tablicę 'names' (np. ['read_file', 'file_grep']), aby wczytać wiele narzędzi w jednym wywołaniu. Zwraca wyniki dla każdego narzędzia (loaded/failed) lub błąd, jeśli nie znaleziono.",
+    "param.name.description": "Nazwa narzędzia do wczytania (np. 'generate_image', 'excel_ops'). Akceptowana jest też lista rozdzielana przecinkami/spacjami.",
     "msg.load.missing_name": "Brakujący parametr 'name'.",
     "msg.load.ok": "Narzędzie '{name}' zostało załadowane i jest teraz dostępne",
     "msg.load.not_found": "Nie znaleziono narzędzia '{name}'.",
@@ -361,7 +421,12 @@
     "msg.unload.not_found": "Nie znaleziono lub nie załadowano narzędzia „{name}”.",
     "msg.unload.ok": "Narzędzie „{name}” zostało rozładowane.",
     "unload_tool.description": "Wyładuj narzędzie według nazwy, aby nie było już dostępne do użycia. Użyj tej opcji, aby usunąć wcześniej załadowane narzędzie z sesji.",
-    "tool.description": "Zwróć katalog JSON dostępnych narzędzi z polami ok, zapytanie, liczba i narzędzia, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi. Wyniki obejmują „załadowane” pole wskazujące, czy narzędzie jest obecnie włączone. Po przesłaniu „zapytania” automatycznie ładowane jest najwyżej ocenione niezaładowane narzędzie (co jest wskazane w odpowiedzi jako „auto_loaded”)."
+    "tool.description": "Zwróć katalog JSON dostępnych narzędzi z polami ok, zapytanie, liczba i narzędzia, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi. Wyniki obejmują „załadowane” pole wskazujące, czy narzędzie jest obecnie włączone. Po przesłaniu „zapytania” automatycznie ładowane jest najwyżej ocenione niezaładowane narzędzie (co jest wskazane w odpowiedzi jako „auto_loaded”).",
+    "param.names.description": "Nazwy narzędzi do wczytania (np. ['read_file', 'file_grep']). Łączone z 'name', gdy podano oba.",
+    "msg.load.already_loaded": "Narzędzie '{name}' jest już wczytane i dostępne do użycia.",
+    "msg.load.not_found_or_not_visible": "Nie znaleziono narzędzia '{name}' lub nie stało się ono widoczne dla LLM po wczytaniu.",
+    "msg.load.batch_ok": "Wczytano {count} narzędzi: {names}.",
+    "msg.unload.pinned": "Narzędzie '{name}' jest przypięte przeciwko wyładowaniu. Najpierw je odepnij lub wymuś zamknięcie jego sesji."
   },
   "hi": {
     "x_search_terms": [
@@ -379,8 +444,8 @@
       "ऑटो-लोड टूल"
     ],
     "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक भाषा क्वेरी। टिप: अपने लक्ष्य को उप-चरणों में विभाजित करें (जैसे 'geoip स्थान + मौसम पूर्वानुमान') मिलान बेहतर बनाने के लिए।",
-    "tool_load.description": "एक उपकरण को नाम से लोड करें ताकि वह उपयोग के लिए उपलब्ध हो जाए। tool_catalog द्वारा loaded=false वाला उपकरण लौटाने के बाद इसका उपयोग करें। लोड किए गए उपकरण की जानकारी या न मिलने पर त्रुटि लौटाता है।",
-    "param.name.description": "लोड करने के लिए उपकरण का नाम (जैसे 'generate_image', 'excel_ops').",
+    "tool_load.description": "नाम से एक या अधिक टूल लोड करके उन्हें उपयोग हेतु उपलब्ध कराता है। tool_catalog द्वारा loaded=false वाले टूल लौटाने के बाद इसका उपयोग करें। एक ही कॉल में कई टूल लोड करने के लिए एक 'name' या 'names' ऐरे (जैसे ['read_file', 'file_grep']) पास करें। प्रति-टूल परिणाम (loaded/failed) या न मिलने पर त्रुटि लौटाता है।",
+    "param.name.description": "लोड किए जाने वाले टूल का नाम (जैसे 'generate_image', 'excel_ops')। अल्पविराम/रिक्त स्थान से अलग सूची भी स्वीकार की जाती है।",
     "msg.load.missing_name": "'name' पैरामीटर गायब है।",
     "msg.load.ok": "उपकरण '{name}' लोड हो गया है और अब उपलब्ध है।",
     "msg.load.not_found": "उपकरण '{name}' नहीं मिला।",
@@ -389,7 +454,12 @@
     "msg.unload.not_found": "टूल '{name}' नहीं मिला या लोड नहीं हुआ।",
     "msg.unload.ok": "टूल '{name}' अनलोड कर दिया गया है।",
     "unload_tool.description": "किसी टूल को नाम से अनलोड करें ताकि वह अब उपयोग के लिए उपलब्ध न हो। सत्र से पहले से लोड किए गए टूल को हटाने के लिए इसका उपयोग करें।",
-    "tool.description": "ओके, क्वेरी, काउंट और टूल फ़ील्ड के साथ उपलब्ध टूल का JSON कैटलॉग लौटाएं ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके। परिणामों में एक 'लोडेड' फ़ील्ड शामिल है जो यह दर्शाता है कि उपकरण वर्तमान में सक्षम है या नहीं। जब एक 'क्वेरी' प्रदान की जाती है, तो शीर्ष-रैंक वाला अनलोडेड टूल स्वचालित रूप से लोड हो जाता है (प्रतिक्रिया में 'auto_loaded' द्वारा दर्शाया गया है)।"
+    "tool.description": "ओके, क्वेरी, काउंट और टूल फ़ील्ड के साथ उपलब्ध टूल का JSON कैटलॉग लौटाएं ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके। परिणामों में एक 'लोडेड' फ़ील्ड शामिल है जो यह दर्शाता है कि उपकरण वर्तमान में सक्षम है या नहीं। जब एक 'क्वेरी' प्रदान की जाती है, तो शीर्ष-रैंक वाला अनलोडेड टूल स्वचालित रूप से लोड हो जाता है (प्रतिक्रिया में 'auto_loaded' द्वारा दर्शाया गया है)।",
+    "param.names.description": "लोड किए जाने वाले टूलों के नाम (जैसे ['read_file', 'file_grep'])। दोनों दिए जाने पर 'name' के साथ जोड़ा जाता है।",
+    "msg.load.already_loaded": "टूल '{name}' पहले से लोड है और उपयोग हेतु उपलब्ध है।",
+    "msg.load.not_found_or_not_visible": "टूल '{name}' नहीं मिला, या लोड के बाद LLM के लिए दृश्य नहीं हुआ।",
+    "msg.load.batch_ok": "{count} टूल लोड किए गए: {names}।",
+    "msg.unload.pinned": "टूल '{name}' अनलोड के विरुद्ध पिन किया गया है। पहले अनपिन करें या इसके सत्र बलपूर्वक बंद करें।"
   },
   "ar": {
     "x_search_terms": [
@@ -407,8 +477,8 @@
       " أداة التحميل التلقائي"
     ],
     "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة. نصيحة: قم بتفكيك هدفك إلى خطوات فرعية (مثل 'geoip موقع + توقعات الطقس') لتحسين المطابقة.",
-    "tool_load.description": "تحميل أداة بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أداة مع loaded=false. يعيد معلومات الأداة المحملة أو خطأ إذا لم يتم العثور عليها.",
-    "param.name.description": "اسم الأداة المراد تحميلها (مثل 'generate_image', 'excel_ops').",
+    "tool_load.description": "حمّل أداة واحدة أو أكثر بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أدوات ذات loaded=false. مرّر 'name' واحدًا أو مصفوفة 'names' (مثل ['read_file', 'file_grep']) لتحميل عدة أدوات في استدعاء واحد. يعيد نتائج لكل أداة (loaded/failed) أو خطأ إذا لم يتم العثور عليها.",
+    "param.name.description": "اسم الأداة المطلوب تحميلها (مثل 'generate_image'، 'excel_ops'). تُقبل أيضًا قائمة مفصولة بفواصل/مسافات.",
     "msg.load.missing_name": "مفقود معامل 'name'.",
     "msg.load.ok": "تم تحميل الأداة '{name}' وهي الآن متاحة",
     "msg.load.not_found": "الأداة '{name}' غير موجودة.",
@@ -417,7 +487,12 @@
     "msg.unload.not_found": "لم يتم العثور على الأداة '{name}' أو لم يتم تحميلها.",
     "msg.unload.ok": "تم إلغاء تحميل الأداة '{name}'.",
     "unload_tool.description": "قم بإلغاء تحميل الأداة بالاسم حتى لا تكون متاحة للاستخدام. استخدم هذا لإزالة أداة تم تحميلها مسبقًا من الجلسة.",
-    "tool.description": "قم بإرجاع كتالوج JSON للأدوات المتاحة مع حقول موافق والاستعلام والعدد والأدوات حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات الأداة الكاملة. تتضمن النتائج حقلاً \"محملاً\" يشير إلى ما إذا كانت الأداة ممكّنة حاليًا. عند توفير \"استعلام\"، يتم تحميل الأداة غير المحملة ذات التصنيف الأعلى تلقائيًا (يشار إليها بـ \"auto_loaded\" في الاستجابة)."
+    "tool.description": "قم بإرجاع كتالوج JSON للأدوات المتاحة مع حقول موافق والاستعلام والعدد والأدوات حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات الأداة الكاملة. تتضمن النتائج حقلاً \"محملاً\" يشير إلى ما إذا كانت الأداة ممكّنة حاليًا. عند توفير \"استعلام\"، يتم تحميل الأداة غير المحملة ذات التصنيف الأعلى تلقائيًا (يشار إليها بـ \"auto_loaded\" في الاستجابة).",
+    "param.names.description": "أسماء الأدوات المطلوب تحميلها (مثل ['read_file', 'file_grep']). تُدمج مع 'name' عند تقديم الاثنين معًا.",
+    "msg.load.already_loaded": "الأداة '{name}' محمّلة بالفعل ومتاحة للاستخدام.",
+    "msg.load.not_found_or_not_visible": "تعذّر العثور على الأداة '{name}' أو لم تصبح مرئية لنموذج LLM بعد التحميل.",
+    "msg.load.batch_ok": "تم تحميل {count} من الأدوات: {names}.",
+    "msg.unload.pinned": "الأداة '{name}' مثبّتة ضد التفريغ. ألغِ التثبيت أولًا أو أغلق جلساتها قسرًا."
   },
   "sv": {
     "x_search_terms": [
@@ -435,8 +510,8 @@
       "automatiskt ladda verktyg"
     ],
     "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten. Tips: dela upp ditt mål i delsteg (t.ex. 'geoip plats + väderprognos') för att förbättra matchningen.",
-    "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",
-    "param.name.description": "Namnet på verktyget att ladda (t.ex. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Läs in ett eller flera verktyg efter namn så att de blir tillgängliga. Använd detta efter att tool_catalog returnerat verktyg med loaded=false. Skicka ett enskilt 'name' eller en 'names'-array (t.ex. ['read_file', 'file_grep']) för att läsa in flera verktyg i ett anrop. Returnerar resultat per verktyg (loaded/failed) eller ett fel om det inte hittas.",
+    "param.name.description": "Namnet på verktyget som ska läsas in (t.ex. 'generate_image', 'excel_ops'). En komma-/blankstegsseparerad lista accepteras också.",
     "msg.load.missing_name": "Saknat parameter 'name'.",
     "msg.load.ok": "Verktyg '{name}' har laddats och är nu tillgängligt",
     "msg.load.not_found": "Verktyg '{name}' hittades inte.",
@@ -445,7 +520,12 @@
     "msg.unload.not_found": "Verktyget '{name}' hittades inte eller laddades inte.",
     "msg.unload.ok": "Verktyget '{name}' har laddats ur.",
     "unload_tool.description": "Ladda ur ett verktyg efter namn så att det inte längre är tillgängligt för användning. Använd detta för att ta bort ett tidigare laddat verktyg från sessionen.",
-    "tool.description": "Returnera en JSON-katalog med tillgängliga verktyg med ok, fråga, antal och verktygsfält så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten inkluderar ett \"laddat\" fält som anger om verktyget för närvarande är aktiverat. När en \"fråga\" tillhandahålls, laddas det högst rankade avlastade verktyget automatiskt (indikeras av \"auto_loaded\" i svaret)."
+    "tool.description": "Returnera en JSON-katalog med tillgängliga verktyg med ok, fråga, antal och verktygsfält så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten inkluderar ett \"laddat\" fält som anger om verktyget för närvarande är aktiverat. När en \"fråga\" tillhandahålls, laddas det högst rankade avlastade verktyget automatiskt (indikeras av \"auto_loaded\" i svaret).",
+    "param.names.description": "Namnen på verktygen som ska läsas in (t.ex. ['read_file', 'file_grep']). Kombineras med 'name' när båda anges.",
+    "msg.load.already_loaded": "Verktyget '{name}' är redan inläst och tillgängligt för användning.",
+    "msg.load.not_found_or_not_visible": "Verktyget '{name}' hittades inte eller blev inte synligt för LLM efter inläsning.",
+    "msg.load.batch_ok": "Läste in {count} verktyg: {names}.",
+    "msg.unload.pinned": "Verktyget '{name}' är fäst mot avlastning. Lossa det först eller tvinga avslut på dess sessioner."
   },
   "sw": {
     "x_search_terms": [
@@ -463,8 +543,8 @@
       "zana ya kupakia kiotomatiki"
     ],
     "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika. Kidokezo: tenga lengo lako katika hatua ndogo (mfano 'geoip eneo + utabiri wa hali ya hewa') ili kuboresha ulinganifu.",
-    "tool_load.description": "Pakia zana kwa jina ili iweze kutumika. Tumia hii baada ya tool_catalog kurudisha zana yenye loaded=false. Inarudisha maelezo ya zana iliyopakiwa au hitilafu ikiwa haipatikani.",
-    "param.name.description": "Jina la zana ya kupakia (mfano 'generate_image', 'excel_ops').",
+    "tool_load.description": "Hupakia zana moja au zaidi kwa jina ili ziweze kutumika. Tumia hii baada ya tool_catalog kurejesha zana zenye loaded=false. Pitisha 'name' moja au safu ya 'names' (k.m. ['read_file', 'file_grep']) ili kupakia zana nyingi kwa simu moja. Hurejesha matokeo kwa kila zana (loaded/failed) au hitilafu isipopatikana.",
+    "param.name.description": "Jina la zana ya kupakia (k.m. 'generate_image', 'excel_ops'). Orodha iliyotenganishwa kwa koma/nafasi pia inakubalika.",
     "msg.load.missing_name": "Kigezo cha 'name' hakipo.",
     "msg.load.ok": "Zana '{name}' imepakiwa na sasa inapatikana",
     "msg.load.not_found": "Zana '{name}' haijapatikana.",
@@ -473,7 +553,12 @@
     "msg.unload.not_found": "Zana '{name}' haijapatikana au haijapakiwa.",
     "msg.unload.ok": "Zana '{name}' imepakuliwa.",
     "unload_tool.description": "Pakua zana kwa jina ili isipatikane tena kwa matumizi. Tumia hii ili kuondoa zana iliyopakiwa hapo awali kwenye kipindi.",
-    "tool.description": "Rejesha katalogi ya JSON ya zana zinazopatikana zilizo na sehemu za ok, hoja, hesabu na zana ili muundo uweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili wa zana. Matokeo ni pamoja na sehemu 'iliyopakiwa' inayoonyesha kama zana imewashwa kwa sasa. 'Swali' linapotolewa, zana iliyo katika nafasi ya juu inayopakuliwa hupakiwa kiotomatiki (inaonyeshwa kwa 'kupakiwa_otomatiki' katika jibu)."
+    "tool.description": "Rejesha katalogi ya JSON ya zana zinazopatikana zilizo na sehemu za ok, hoja, hesabu na zana ili muundo uweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili wa zana. Matokeo ni pamoja na sehemu 'iliyopakiwa' inayoonyesha kama zana imewashwa kwa sasa. 'Swali' linapotolewa, zana iliyo katika nafasi ya juu inayopakuliwa hupakiwa kiotomatiki (inaonyeshwa kwa 'kupakiwa_otomatiki' katika jibu).",
+    "param.names.description": "Majina ya zana za kupakia (k.m. ['read_file', 'file_grep']). Huunganishwa na 'name' zote zikitolewa.",
+    "msg.load.already_loaded": "Zana '{name}' tayari imepakiwa na inapatikana kutumika.",
+    "msg.load.not_found_or_not_visible": "Zana '{name}' haikupatikana, au haikuonekana kwa LLM baada ya kupakiwa.",
+    "msg.load.batch_ok": "Zana {count} zimepakiwa: {names}.",
+    "msg.unload.pinned": "Zana '{name}' imebandikwa dhidi ya kupakua. Ondoa bandiko kwanza au lazishia kufunga vipindi vyake."
   },
   "nb": {
     "x_search_terms": [
@@ -491,8 +576,8 @@
       "verktøy for automatisk lasting"
     ],
     "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten. Tips: del opp målet ditt i delsteg (f.eks. 'geoip plassering + værmelding') for å forbedre treff.",
-    "tool_load.description": "Laster et verktøy ved navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den lastede verktøyinformasjonen eller en feil hvis ikke funnet.",
-    "param.name.description": "Navnet på verktøyet som skal lastes (f.eks. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Last inn ett eller flere verktøy etter navn slik at de blir tilgjengelige. Bruk dette etter at tool_catalog returnerer verktøy med loaded=false. Send ett enkelt 'name' eller en 'names'-matrise (f.eks. ['read_file', 'file_grep']) for å laste flere verktøy i ett kall. Returnerer resultater per verktøy (loaded/failed) eller en feil hvis ikke funnet.",
+    "param.name.description": "Navnet på verktøyet som skal lastes (f.eks. 'generate_image', 'excel_ops'). En komma-/mellomromseparert liste godtas også.",
     "msg.load.missing_name": "Manglende parameter 'name'.",
     "msg.load.ok": "Verktøy '{name}' er lastet og er nå tilgjengelig",
     "msg.load.not_found": "Verktøy '{name}' ikke funnet.",
@@ -501,7 +586,12 @@
     "msg.unload.not_found": "Verktøyet '{name}' ikke funnet eller ikke lastet.",
     "msg.unload.ok": "Verktøyet '{name}' har blitt lastet ut.",
     "unload_tool.description": "Last ned et verktøy ved navn, slik at det ikke lenger er tilgjengelig for bruk. Bruk dette til å fjerne et tidligere lastet verktøy fra økten.",
-    "tool.description": "Returner en JSON-katalog med tilgjengelige verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" er oppgitt, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret)."
+    "tool.description": "Returner en JSON-katalog med tilgjengelige verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" er oppgitt, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret).",
+    "param.names.description": "Navnene på verktøyene som skal lastes (f.eks. ['read_file', 'file_grep']). Kombineres med 'name' når begge er oppgitt.",
+    "msg.load.already_loaded": "Verktøyet '{name}' er allerede lastet inn og tilgjengelig for bruk.",
+    "msg.load.not_found_or_not_visible": "Verktøyet '{name}' ble ikke funnet eller ble ikke synlig for LLM etter innlasting.",
+    "msg.load.batch_ok": "Lastet inn {count} verktøy: {names}.",
+    "msg.unload.pinned": "Verktøyet '{name}' er festet mot utlasting. Løsne det først eller tving avslutt på øktene."
   },
   "nl": {
     "x_search_terms": [
@@ -519,8 +609,8 @@
       "hulpmiddel automatisch laden"
     ],
     "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft. Tip: splits je doel op in substappen (bijv. 'geoip locatie + weersverwachting') om de matching te verbeteren.",
-    "tool_load.description": "Laadt een tool op naam zodat deze beschikbaar wordt voor gebruik. Gebruik dit nadat tool_catalog een tool retourneert met loaded=false. Retourneert de geladen toolinfo of een foutmelding als niet gevonden.",
-    "param.name.description": "Naam van de te laden tool (bijv. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Laad één of meer tools op naam zodat ze beschikbaar worden. Gebruik dit nadat tool_catalog tools met loaded=false heeft geretourneerd. Geef één 'name' of een 'names'-array (bijv. ['read_file', 'file_grep']) door om meerdere tools in één aanroep te laden. Retourneert resultaten per tool (loaded/failed) of een fout als niet gevonden.",
+    "param.name.description": "Naam van de te laden tool (bijv. 'generate_image', 'excel_ops'). Een door komma's/spaties gescheiden lijst wordt ook geaccepteerd.",
     "msg.load.missing_name": "Ontbrekende parameter 'name'.",
     "msg.load.ok": "Tool '{name}' is geladen en is nu beschikbaar",
     "msg.load.not_found": "Tool '{name}' niet gevonden.",
@@ -529,7 +619,12 @@
     "msg.unload.not_found": "Gereedschap '{name}' niet gevonden of niet geladen.",
     "msg.unload.ok": "Gereedschap '{name}' is verwijderd.",
     "unload_tool.description": "Ontlaad een tool op naam, zodat deze niet langer beschikbaar is voor gebruik. Gebruik dit om een ​​eerder geladen tool uit de sessie te verwijderen.",
-    "tool.description": "Retourneer een JSON-catalogus met beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat volledige tooldefinities worden aangevraagd. De resultaten omvatten een 'geladen' veld dat aangeeft of de tool momenteel is ingeschakeld. Wanneer een 'query' wordt opgegeven, wordt het hoogst gerangschikte, ongeladen hulpmiddel automatisch geladen (aangegeven door 'auto_loaded' in het antwoord)."
+    "tool.description": "Retourneer een JSON-catalogus met beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat volledige tooldefinities worden aangevraagd. De resultaten omvatten een 'geladen' veld dat aangeeft of de tool momenteel is ingeschakeld. Wanneer een 'query' wordt opgegeven, wordt het hoogst gerangschikte, ongeladen hulpmiddel automatisch geladen (aangegeven door 'auto_loaded' in het antwoord).",
+    "param.names.description": "Namen van de te laden tools (bijv. ['read_file', 'file_grep']). Gecombineerd met 'name' wanneer beide zijn opgegeven.",
+    "msg.load.already_loaded": "Tool '{name}' is al geladen en beschikbaar voor gebruik.",
+    "msg.load.not_found_or_not_visible": "Tool '{name}' is niet gevonden of is na het laden niet zichtbaar voor het LLM.",
+    "msg.load.batch_ok": "{count} tool(s) geladen: {names}.",
+    "msg.unload.pinned": "Tool '{name}' is vastgezet tegen ontladen. Maak eerst de pin los of sluit de sessies geforceerd."
   },
   "fi": {
     "x_search_terms": [
@@ -547,8 +642,8 @@
       "automaattinen lataustyökalu"
     ],
     "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavaa kyvykkyyttä. Vinkki: jaa tavoitteesi alavaiheisiin (esim. 'geoip sijainti + sääennuste') parantaaksesi osumia.",
-    "tool_load.description": "Lataa työkalu nimellä, jotta se tulee käytettäväksi. Käytä tätä, kun tool_catalog palauttaa työkalun, jolla on loaded=false. Palauttaa ladatun työkalun tiedot tai virheen, jos sitä ei löydy.",
-    "param.name.description": "Ladattavan työkalun nimi (esim. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Lataa yksi tai useampi työkalu nimellä, jotta ne tulevat käyttöön. Käytä tätä sen jälkeen, kun tool_catalog palauttaa työkaluja, joiden loaded=false. Anna yksi 'name' tai 'names'-taulukko (esim. ['read_file', 'file_grep']) ladataksesi useita työkaluja yhdellä kutsulla. Palauttaa tulokset työkaluittain (loaded/failed) tai virheen, jos ei löydy.",
+    "param.name.description": "Ladattavan työkalun nimi (esim. 'generate_image', 'excel_ops'). Myös pilkulla/välilyönnillä erotettu luettelo hyväksytään.",
     "msg.load.missing_name": "Puuttuva 'name'-parametri.",
     "msg.load.ok": "Työkalu '{name}' on ladattu ja on nyt käytettävissä",
     "msg.load.not_found": "Työkalua '{name}' ei löytynyt.",
@@ -557,7 +652,12 @@
     "msg.unload.not_found": "Työkalua '{name}' ei löydy tai sitä ei ole ladattu.",
     "msg.unload.ok": "Työkalu '{name}' on poistettu.",
     "unload_tool.description": "Pura työkalu nimellä, jotta se ei ole enää käytettävissä. Käytä tätä poistaaksesi aiemmin ladatun työkalun istunnosta.",
-    "tool.description": "Palauta käytettävissä olevien työkalujen JSON-luettelo ok-, kysely-, laskenta- ja työkalukentillä, jotta malli voi löytää asiaankuuluvat työkalut ennen täydellisten työkalumääritelmien pyytämistä. Tuloksissa on ladattu kenttä, joka osoittaa, onko työkalu tällä hetkellä käytössä. Kun \"kysely\" annetaan, parhaimmillaan oleva lataamaton työkalu ladataan automaattisesti (vastauksessa ilmaistaan ​​\"auto_loaded\")."
+    "tool.description": "Palauta käytettävissä olevien työkalujen JSON-luettelo ok-, kysely-, laskenta- ja työkalukentillä, jotta malli voi löytää asiaankuuluvat työkalut ennen täydellisten työkalumääritelmien pyytämistä. Tuloksissa on ladattu kenttä, joka osoittaa, onko työkalu tällä hetkellä käytössä. Kun \"kysely\" annetaan, parhaimmillaan oleva lataamaton työkalu ladataan automaattisesti (vastauksessa ilmaistaan ​​\"auto_loaded\").",
+    "param.names.description": "Ladattavien työkalujen nimet (esim. ['read_file', 'file_grep']). Yhdistetään 'name'-arvoon, kun molemmat on annettu.",
+    "msg.load.already_loaded": "Työkalu '{name}' on jo ladattu ja käytettävissä.",
+    "msg.load.not_found_or_not_visible": "Työkalua '{name}' ei löytynyt tai se ei tullut näkyviin LLM:lle latauksen jälkeen.",
+    "msg.load.batch_ok": "Ladattiin {count} työkalua: {names}.",
+    "msg.unload.pinned": "Työkalu '{name}' on kiinnitetty purkua vastaan. Poista kiinnitys ensin tai sulje sen istunnot pakotetusti."
   },
   "cs": {
     "x_search_terms": [
@@ -575,8 +675,8 @@
       "nástroj pro automatické načítání"
     ],
     "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost. Tip: rozdělte svůj cíl na dílčí kroky (např. 'geoip poloha + předpověď počasí') pro lepší shodu.",
-    "tool_load.description": "Načte nástroj podle názvu, aby byl k dispozici pro použití. Použijte to poté, co tool_catalog vrátí nástroj s loaded=false. Vrací informace o načteném nástroji nebo chybu, pokud není nalezen.",
-    "param.name.description": "Název nástroje k načtení (např. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Načte jeden nebo více nástrojů podle názvu, aby byly k dispozici. Použijte poté, co tool_catalog vrátí nástroje s loaded=false. Předejte jediné 'name' nebo pole 'names' (např. ['read_file', 'file_grep']) pro načtení více nástrojů jedním voláním. Vrací výsledky pro každý nástroj (loaded/failed) nebo chybu, pokud nebyl nalezen.",
+    "param.name.description": "Název nástroje k načtení (např. 'generate_image', 'excel_ops'). Přijímá se i seznam oddělený čárkami/mezerami.",
     "msg.load.missing_name": "Chybějící parametr 'name'.",
     "msg.load.ok": "Nástroj '{name}' byl načten a je nyní k dispozici",
     "msg.load.not_found": "Nástroj '{name}' nenalezen.",
@@ -585,7 +685,12 @@
     "msg.unload.not_found": "Nástroj {name} nebyl nalezen nebo nebyl načten.",
     "msg.unload.ok": "Nástroj {name} byl uvolněn.",
     "unload_tool.description": "Uvolněte nástroj podle názvu, aby jej již nebylo možné používat. Použijte toto k odstranění dříve načteného nástroje z relace.",
-    "tool.description": "Vraťte katalog JSON s dostupnými nástroji s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje, než si vyžádá úplné definice nástrojů. Výsledky obsahují pole „načteno“ označující, zda je nástroj aktuálně povolen. Když je zadán 'dotaz', automaticky se načte nejvýše hodnocený unloaded nástroj (v odpovědi označen 'auto_loaded')."
+    "tool.description": "Vraťte katalog JSON s dostupnými nástroji s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje, než si vyžádá úplné definice nástrojů. Výsledky obsahují pole „načteno“ označující, zda je nástroj aktuálně povolen. Když je zadán 'dotaz', automaticky se načte nejvýše hodnocený unloaded nástroj (v odpovědi označen 'auto_loaded').",
+    "param.names.description": "Názvy nástrojů k načtení (např. ['read_file', 'file_grep']). Kombinuje se s 'name', pokud jsou zadány oba.",
+    "msg.load.already_loaded": "Nástroj '{name}' je již načten a je k dispozici k použití.",
+    "msg.load.not_found_or_not_visible": "Nástroj '{name}' nebyl nalezen, nebo se po načtení nezobrazil pro LLM.",
+    "msg.load.batch_ok": "Načteno nástrojů: {count}: {names}.",
+    "msg.unload.pinned": "Nástroj '{name}' je připnut proti uvolnění. Nejprve jej odepnout nebo vynutit zavření jeho relací."
   },
   "uk": {
     "x_search_terms": [
@@ -603,8 +708,8 @@
       "інструмент автоматичного завантаження"
     ],
     "param.query.description": "Запит природною мовою, що описує необхідну можливість. Порада: розбийте мету на підкроки (наприклад, 'geoip місцезнаходження + прогноз погоди') для покращення відповідності.",
-    "tool_load.description": "Завантажує інструмент за назвою, щоб він став доступним для використання. Використовуйте це після того, як tool_catalog поверне інструмент із loaded=false. Повертає інформацію про завантажений інструмент або помилку, якщо не знайдено.",
-    "param.name.description": "Назва інструменту для завантаження (наприклад, 'generate_image', 'excel_ops').",
+    "tool_load.description": "Завантажує один або кілька інструментів за іменем, щоб вони стали доступними. Використовуйте після того, як tool_catalog повернув інструменти з loaded=false. Передайте одиночне 'name' або масив 'names' (напр. ['read_file', 'file_grep']), щоб завантажити кілька інструментів за один виклик. Повертає результати для кожного інструмента (loaded/failed) або помилку, якщо не знайдено.",
+    "param.name.description": "Ім'я інструмента для завантаження (напр. 'generate_image', 'excel_ops'). Також приймається список через кому/пробіли.",
     "msg.load.missing_name": "Відсутній параметр 'name'.",
     "msg.load.ok": "Інструмент '{name}' завантажено і тепер доступний",
     "msg.load.not_found": "Інструмент '{name}' не знайдено.",
@@ -613,7 +718,12 @@
     "msg.unload.not_found": "Інструмент \"{name}\" не знайдено або не завантажено.",
     "msg.unload.ok": "Інструмент \"{name}\" вивантажено.",
     "unload_tool.description": "Вивантажте інструмент за назвою, щоб він більше не був доступним для використання. Використовуйте це, щоб видалити попередньо завантажений інструмент із сеансу.",
-    "tool.description": "Поверніть JSON-каталог доступних інструментів із полями ok, query, count та tools, щоб модель могла знайти відповідні інструменти, перш ніж запитувати повні визначення інструментів. Результати включають «завантажене» поле, яке вказує, чи наразі інструмент увімкнено. Коли надається «запит», автоматично завантажується незавантажений інструмент із найвищим рейтингом (позначається «auto_loaded» у відповіді)."
+    "tool.description": "Поверніть JSON-каталог доступних інструментів із полями ok, query, count та tools, щоб модель могла знайти відповідні інструменти, перш ніж запитувати повні визначення інструментів. Результати включають «завантажене» поле, яке вказує, чи наразі інструмент увімкнено. Коли надається «запит», автоматично завантажується незавантажений інструмент із найвищим рейтингом (позначається «auto_loaded» у відповіді).",
+    "param.names.description": "Імена інструментів для завантаження (напр. ['read_file', 'file_grep']). Об'єднується з 'name', якщо вказано обидва.",
+    "msg.load.already_loaded": "Інструмент '{name}' уже завантажено та доступний для використання.",
+    "msg.load.not_found_or_not_visible": "Інструмент '{name}' не знайдено або він не став видимим для LLM після завантаження.",
+    "msg.load.batch_ok": "Завантажено інструментів: {count}: {names}.",
+    "msg.unload.pinned": "Інструмент '{name}' закріплено від вивантаження. Спочатку зніміть закріплення або примусово закрийте його сесії."
   },
   "tr": {
     "x_search_terms": [
@@ -631,8 +741,8 @@
       "otomatik yükleme aracı"
     ],
     "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu. İpucu: hedefinizi alt adımlara ayırın (örn. 'geoip konum + hava durumu tahmini') eşleşmeyi iyileştirmek için.",
-    "tool_load.description": "Bir aracı ada göre yükleyerek kullanıma hazır hale getirir. tool_catalog'un loaded=false ile bir araç döndürmesinden sonra bunu kullanın. Yüklenen araç bilgisini veya bulunamazsa bir hata döndürür.",
-    "param.name.description": "Yüklenecek aracın adı (örn. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Araçları adla tek tek veya topluca yükleyerek kullanılabilir hale getirir. tool_catalog loaded=false olan araçlar döndürdükten sonra kullanın. Tek bir 'name' veya 'names' dizisi (örn. ['read_file', 'file_grep']) ileterek tek çağrıda birden çok araç yükleyin. Araç başına sonuç (loaded/failed) veya bulunamazsa hata döndürür.",
+    "param.name.description": "Yüklenecek aracın adı (örn. 'generate_image', 'excel_ops'). Virgül/boşlukla ayrılmış liste de kabul edilir.",
     "msg.load.missing_name": "Eksik 'name' parametresi.",
     "msg.load.ok": "Araç '{name}' yüklendi ve artık kullanılabilir",
     "msg.load.not_found": "Araç '{name}' bulunamadı.",
@@ -641,7 +751,12 @@
     "msg.unload.not_found": "'{name}' aracı bulunamadı veya yüklenmedi.",
     "msg.unload.ok": "'{name}' aracı kaldırıldı.",
     "unload_tool.description": "Bir aracı artık kullanılamayacak şekilde adıyla kaldırın. Daha önce yüklenmiş bir aracı oturumdan kaldırmak için bunu kullanın.",
-    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için tamam, sorgu, sayım ve araçlar alanlarını içeren mevcut araçların bir JSON kataloğunu döndürün. Sonuçlar, aracın o anda etkin olup olmadığını belirten bir 'yüklü' alanı içerir. Bir 'sorgu' sağlandığında, en üst sıradaki yüklenmemiş araç otomatik olarak yüklenir (yanıtta 'auto_loaded' ile gösterilir)."
+    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için tamam, sorgu, sayım ve araçlar alanlarını içeren mevcut araçların bir JSON kataloğunu döndürün. Sonuçlar, aracın o anda etkin olup olmadığını belirten bir 'yüklü' alanı içerir. Bir 'sorgu' sağlandığında, en üst sıradaki yüklenmemiş araç otomatik olarak yüklenir (yanıtta 'auto_loaded' ile gösterilir).",
+    "param.names.description": "Yüklenecek araçların adları (örn. ['read_file', 'file_grep']). İkisi birden verilirse 'name' ile birleştirilir.",
+    "msg.load.already_loaded": "'{name}' aracı zaten yüklü ve kullanıma hazır.",
+    "msg.load.not_found_or_not_visible": "'{name}' aracı bulunamadı veya yükleme sonrası LLM tarafından görülemez oldu.",
+    "msg.load.batch_ok": "{count} araç yüklendi: {names}.",
+    "msg.unload.pinned": "'{name}' aracı kaldırmaya karşı sabitlendi. Önce sabitlemeyi kaldırın veya oturumlarını zorla kapatın."
   },
   "th": {
     "x_search_terms": [
@@ -659,8 +774,8 @@
       "เครื่องมือโหลดอัตโนมัติ"
     ],
     "param.query.description": "ข้อความค้นหาภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ เคล็ดลับ: แบ่งเป้าหมายของคุณเป็นขั้นตอนย่อย (เช่น 'geoip ตำแหน่ง + พยากรณ์อากาศ') เพื่อปรับปรุงการจับคู่",
-    "tool_load.description": "โหลดเครื่องมือตามชื่อเพื่อให้พร้อมใช้งาน ใช้สิ่งนี้หลังจาก tool_catalog ส่งคืนเครื่องมือที่มี loaded=false ส่งคืนข้อมูลเครื่องมือที่โหลดหรือข้อผิดพลาดหากไม่พบ",
-    "param.name.description": "ชื่อของเครื่องมือที่จะโหลด (เช่น 'generate_image', 'excel_ops')",
+    "tool_load.description": "โหลดเครื่องมือหนึ่งรายการหรือหลายรายการตามชื่อเพื่อให้พร้อมใช้งาน ใช้หลังจาก tool_catalog ส่งคืนเครื่องมือที่มี loaded=false ส่ง 'name' เดียวหรืออาร์เรย์ 'names' (เช่น ['read_file', 'file_grep']) เพื่อโหลดหลายเครื่องมือในครั้งเดียว ส่งคืนผลลัพธ์รายเครื่องมือ (loaded/failed) หรือข้อผิดพลาดหากไม่พบ",
+    "param.name.description": "ชื่อของเครื่องมือที่จะโหลด (เช่น 'generate_image', 'excel_ops') ยอมรับรายการที่คั่นด้วยจุลภาค/ช่องว่างด้วย",
     "msg.load.missing_name": "ขาดพารามิเตอร์ 'name'",
     "msg.load.ok": "โหลดเครื่องมือ '{name}' แล้ว และพร้อมใช้งานแล้ว",
     "msg.load.not_found": "ไม่พบเครื่องมือ '{name}'",
@@ -669,7 +784,12 @@
     "msg.unload.not_found": "ไม่พบเครื่องมือ '{name}' หรือไม่ได้โหลด",
     "msg.unload.ok": "ยกเลิกการโหลดเครื่องมือ '{name}' แล้ว",
     "unload_tool.description": "ยกเลิกการโหลดเครื่องมือตามชื่อเพื่อไม่ให้สามารถใช้งานได้อีกต่อไป ใช้สิ่งนี้เพื่อลบเครื่องมือที่โหลดไว้ก่อนหน้านี้ออกจากเซสชัน",
-    "tool.description": "ส่งคืนแค็ตตาล็อก JSON ของเครื่องมือที่มีอยู่พร้อมช่อง ok, แบบสอบถาม, จำนวน และเครื่องมือ เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือแบบเต็ม ผลลัพธ์จะมีฟิลด์ 'โหลดแล้ว' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่หรือไม่ เมื่อมีการระบุ 'คำค้นหา' เครื่องมือยกเลิกการโหลดอันดับสูงสุดจะถูกโหลดโดยอัตโนมัติ (ระบุโดย 'auto_loaded' ในการตอบกลับ)"
+    "tool.description": "ส่งคืนแค็ตตาล็อก JSON ของเครื่องมือที่มีอยู่พร้อมช่อง ok, แบบสอบถาม, จำนวน และเครื่องมือ เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือแบบเต็ม ผลลัพธ์จะมีฟิลด์ 'โหลดแล้ว' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่หรือไม่ เมื่อมีการระบุ 'คำค้นหา' เครื่องมือยกเลิกการโหลดอันดับสูงสุดจะถูกโหลดโดยอัตโนมัติ (ระบุโดย 'auto_loaded' ในการตอบกลับ)",
+    "param.names.description": "ชื่อเครื่องมือที่จะโหลด (เช่น ['read_file', 'file_grep']) จะรวมกับ 'name' เมื่อระบุทั้งสองอย่าง",
+    "msg.load.already_loaded": "เครื่องมือ '{name}' ถูกโหลดแล้วและพร้อมใช้งาน",
+    "msg.load.not_found_or_not_visible": "ไม่พบเครื่องมือ '{name}' หรือเครื่องมือไม่ปรากฏต่อ LLM หลังการโหลด",
+    "msg.load.batch_ok": "โหลดเครื่องมือแล้ว {count} รายการ: {names}",
+    "msg.unload.pinned": "เครื่องมือ '{name}' ถูกปักหมุดห้ามยกเลิกการโหลด กรุณาปลดหมุดก่อนหรือบังคับปิดเซสชันของเครื่องมือนั้น"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -687,8 +807,8 @@
       "自动加载工具"
     ],
     "param.query.description": "描述所需功能的自然语言查询。提示：将目标分解为子步骤（例如 'geoip 位置 + 天气预报'）以改进匹配。",
-    "tool_load.description": "按名称加载工具，使其可用于使用。在 tool_catalog 返回 loaded=false 的工具后使用此功能。返回加载的工具信息，如果未找到则返回错误。",
-    "param.name.description": "要加载的工具名称（例如 'generate_image'、'excel_ops'）。",
+    "tool_load.description": "按名称加载一个或多个工具，使其可供使用。在 tool_catalog 返回 loaded=false 的工具后使用。传递单个 'name' 或 'names' 数组（例如 ['read_file', 'file_grep']），即可在一次调用中加载多个工具。返回每个工具的结果（loaded/failed），未找到则返回错误。",
+    "param.name.description": "要加载的工具名称（例如 'generate_image'、'excel_ops'）。也接受以逗号/空白分隔的列表。",
     "msg.load.missing_name": "缺少 'name' 参数。",
     "msg.load.ok": "工具 '{name}' 已加载，现在可用",
     "msg.load.not_found": "未找到工具 '{name}'。",
@@ -697,7 +817,12 @@
     "msg.unload.not_found": "未找到或未加载工具“{name}”。",
     "msg.unload.ok": "工具“{name}”已卸载。",
     "unload_tool.description": "按名称卸载工具，使其不再可用。使用它可以从会话中删除以前加载的工具。",
-    "tool.description": "返回包含 ok、query、count 和 tools 字段的可用工具的 JSON 目录，以便模型可以在请求完整工具定义之前发现相关工具。结果包括一个“已加载”字段，指示该工具当前是否已启用。当提供“查询”时，排名最高的卸载工具将自动加载（由响应中的“auto_loaded”指示）。"
+    "tool.description": "返回包含 ok、query、count 和 tools 字段的可用工具的 JSON 目录，以便模型可以在请求完整工具定义之前发现相关工具。结果包括一个“已加载”字段，指示该工具当前是否已启用。当提供“查询”时，排名最高的卸载工具将自动加载（由响应中的“auto_loaded”指示）。",
+    "param.names.description": "要加载的工具名称列表（例如 ['read_file', 'file_grep']）。同时提供 'name' 时会合并两者。",
+    "msg.load.already_loaded": "工具“{name}”已加载，现在可用。",
+    "msg.load.not_found_or_not_visible": "未找到工具“{name}”，或加载后 LLM 无法看到该工具。",
+    "msg.load.batch_ok": "已加载 {count} 个工具：{names}。",
+    "msg.unload.pinned": "工具“{name}”已固定，禁止卸载。请先取消固定，或强制关闭其会话。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -715,8 +840,8 @@
       "自動載入工具"
     ],
     "param.query.description": "描述所需功能的自然語言查詢。提示：將目標分解為子步驟（例如 'geoip 位置 + 天氣預報'）以改進匹配。",
-    "tool_load.description": "按名稱載入工具，使其可用於使用。在 tool_catalog 返回 loaded=false 的工具後使用此功能。返回載入的工具資訊，如果未找到則返回錯誤。",
-    "param.name.description": "要載入的工具名稱（例如 'generate_image'、'excel_ops'）。",
+    "tool_load.description": "依名稱載入一或多個工具，使其可供使用。在 tool_catalog 傳回 loaded=false 的工具後使用。傳遞單一 'name' 或 'names' 陣列（例如 ['read_file', 'file_grep']），即可在一次呼叫中載入多個工具。傳回各工具的結果（loaded/failed），若找不到則傳回錯誤。",
+    "param.name.description": "要載入的工具名稱（例如 'generate_image'、'excel_ops'）。亦接受以逗號/空白分隔的清單。",
     "msg.load.missing_name": "缺少 'name' 參數。",
     "msg.load.ok": "工具 '{name}' 已載入，現在可用",
     "msg.load.not_found": "未找到工具 '{name}'。",
@@ -725,7 +850,12 @@
     "msg.unload.not_found": "未找到或未載入工具“{name}”。",
     "msg.unload.ok": "工具“{name}”已卸載。",
     "unload_tool.description": "按名稱卸載工具，使其不再可用。使用它可以從會話中刪除先前載入的工具。",
-    "tool.description": "傳回包含 ok、query、count 和 tools 欄位的可用工具的 JSON 目錄，以便模型可以在請求完整工具定義之前發現相關工具。結果包括一個「已載入」字段，指示該工具目前是否已啟用。當提供「查詢」時，排名最高的卸載工具將自動載入（由回應中的「auto_loaded」指示）。"
+    "tool.description": "傳回包含 ok、query、count 和 tools 欄位的可用工具的 JSON 目錄，以便模型可以在請求完整工具定義之前發現相關工具。結果包括一個「已載入」字段，指示該工具目前是否已啟用。當提供「查詢」時，排名最高的卸載工具將自動載入（由回應中的「auto_loaded」指示）。",
+    "param.names.description": "要載入的工具名稱清單（例如 ['read_file', 'file_grep']）。同時提供 'name' 時會合併兩者。",
+    "msg.load.already_loaded": "工具「{name}」已載入，現在可供使用。",
+    "msg.load.not_found_or_not_visible": "找不到工具「{name}」，或載入後 LLM 無法看到該工具。",
+    "msg.load.batch_ok": "已載入 {count} 個工具：{names}。",
+    "msg.unload.pinned": "工具「{name}」已固定，禁止卸載。請先取消固定，或強制關閉其工作階段。"
   },
   "bn": {
     "x_search_terms": [
@@ -743,8 +873,8 @@
       "অটো-লোড টুল"
     ],
     "param.query.description": "প্রয়োজনীয় ক্ষমতা বর্ণনা করে প্রাকৃতিক ভাষার প্রশ্ন। টিপ: আপনার লক্ষ্যকে উপ-ধাপে বিভক্ত করুন (যেমন 'geoip অবস্থান + আবহাওয়ার পূর্বাভাস') মিল উন্নত করতে।",
-    "tool_load.description": "একটি টুল নাম দিয়ে লোড করুন যাতে এটি ব্যবহারের জন্য উপলব্ধ হয়। tool_catalog loaded=false সহ একটি টুল ফেরত দেওয়ার পরে এটি ব্যবহার করুন। লোড করা টুল তথ্য বা না পাওয়া গেলে একটি ত্রুটি ফেরত দেয়।",
-    "param.name.description": "লোড করার জন্য টুলের নাম (যেমন 'generate_image', 'excel_ops')।",
+    "tool_load.description": "নাম দিয়ে এক বা একাধিক টুল লোড করে ব্যবহারযোগ্য করে। tool_catalog loaded=false সহ টুল ফেরত দেওয়ার পরে এটি ব্যবহার করুন। এক কলেই একাধিক টুল লোড করতে একটি 'name' বা 'names' অ্যারে (যেমন ['read_file', 'file_grep']) পাঠান। প্রতি-টুল ফলাফল (loaded/failed) বা না পাওয়া গেলে ত্রুটি ফেরত দেয়।",
+    "param.name.description": "লোড করার টুলের নাম (যেমন 'generate_image', 'excel_ops')। কমা/হোয়াইটস্পেস দিয়ে আলাদা তালিকাও গ্রহণযোগ্য।",
     "msg.load.missing_name": "'name' প্যারামিটার অনুপস্থিত।",
     "msg.load.ok": "টুল '{name}' লোড হয়েছে এবং এখন উপলব্ধ।",
     "msg.load.not_found": "টুল '{name}' পাওয়া যায়নি।",
@@ -753,7 +883,12 @@
     "msg.unload.not_found": "টুল '{name}' পাওয়া যায়নি বা লোড হয়নি।",
     "msg.unload.ok": "টুল '{name}' আনলোড করা হয়েছে৷",
     "unload_tool.description": "নাম অনুসারে একটি টুল আনলোড করুন তাই এটি আর ব্যবহারের জন্য উপলব্ধ নয়। সেশন থেকে একটি পূর্বে লোড করা টুল সরাতে এটি ব্যবহার করুন।",
-    "tool.description": "ঠিক আছে, ক্যোয়ারী, গণনা এবং টুল ক্ষেত্র সহ উপলব্ধ সরঞ্জামগুলির একটি JSON ক্যাটালগ ফেরত দিন যাতে মডেলটি সম্পূর্ণ টুল সংজ্ঞার অনুরোধ করার আগে প্রাসঙ্গিক সরঞ্জামগুলি আবিষ্কার করতে পারে৷ ফলাফলের মধ্যে একটি 'লোড করা' ক্ষেত্র রয়েছে যা নির্দেশ করে যে টুলটি বর্তমানে সক্ষম আছে কিনা। যখন একটি 'কোয়েরি' প্রদান করা হয়, তখন শীর্ষস্থানীয় আনলোড করা টুলটি স্বয়ংক্রিয়ভাবে লোড হয় (প্রতিক্রিয়ায় 'অটো_লোডেড' দ্বারা নির্দেশিত)।"
+    "tool.description": "ঠিক আছে, ক্যোয়ারী, গণনা এবং টুল ক্ষেত্র সহ উপলব্ধ সরঞ্জামগুলির একটি JSON ক্যাটালগ ফেরত দিন যাতে মডেলটি সম্পূর্ণ টুল সংজ্ঞার অনুরোধ করার আগে প্রাসঙ্গিক সরঞ্জামগুলি আবিষ্কার করতে পারে৷ ফলাফলের মধ্যে একটি 'লোড করা' ক্ষেত্র রয়েছে যা নির্দেশ করে যে টুলটি বর্তমানে সক্ষম আছে কিনা। যখন একটি 'কোয়েরি' প্রদান করা হয়, তখন শীর্ষস্থানীয় আনলোড করা টুলটি স্বয়ংক্রিয়ভাবে লোড হয় (প্রতিক্রিয়ায় 'অটো_লোডেড' দ্বারা নির্দেশিত)।",
+    "param.names.description": "লোড করার টুলগুলোর নাম (যেমন ['read_file', 'file_grep'])। দুটোই দিলে 'name'-এর সঙ্গে একত্রিত হয়।",
+    "msg.load.already_loaded": "টুল '{name}' ইতিমধ্যে লোড করা আছে এবং ব্যবহারের জন্য উপলব্ধ।",
+    "msg.load.not_found_or_not_visible": "টুল '{name}' পাওয়া যায়নি, অথবা লোডের পরে LLM-এর কাছে দৃশ্যমান হয়নি।",
+    "msg.load.batch_ok": "{count}টি টুল লোড হয়েছে: {names}।",
+    "msg.unload.pinned": "টুল '{name}' আনলোডের বিরুদ্ধে পিন করা আছে। প্রথমে আনপিন করুন বা এর সেশন জোর করে বন্ধ করুন।"
   },
   "fa": {
     "x_search_terms": [
@@ -771,8 +906,8 @@
       "ابزار بارگیری خودکار"
     ],
     "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند. نکته: هدف خود را به مراحل فرعی تقسیم کنید (مثلاً 'geoip موقعیت + پیش‌بینی آب و هوا') برای بهبود تطابق.",
-    "tool_load.description": "یک ابزار را با نام بارگذاری کنید تا برای استفاده در دسترس باشد. پس از اینکه tool_catalog ابزاری با loaded=false برگرداند، از این استفاده کنید. اطلاعات ابزار بارگذاری شده یا در صورت یافتن نشدن خطا برمی‌گرداند.",
-    "param.name.description": "نام ابزار برای بارگذاری (به عنوان مثال 'generate_image', 'excel_ops').",
+    "tool_load.description": "یک یا چند ابزار را با نام بارگذاری می‌کند تا قابل استفاده شوند. پس از اینکه tool_catalog ابزارهایی با loaded=false برگرداند از این استفاده کنید. یک 'name' تکی یا آرایه 'names' (مثل ['read_file', 'file_grep']) بدهید تا چند ابزار را در یک فراخوانی بارگذاری کنید. نتایج هر ابزار (loaded/failed) یا خطا در صورت پیدا نشدن برمی‌گرداند.",
+    "param.name.description": "نام ابزار برای بارگذاری (مثل 'generate_image'، 'excel_ops'). فهرست جداشده با ویرگول/فاصله هم پذیرفته می‌شود.",
     "msg.load.missing_name": "پارامتر 'name' وجود ندارد.",
     "msg.load.ok": "ابزار '{name}' بارگذاری شده است و اکنون در دسترس است",
     "msg.load.not_found": "ابزار '{name}' یافت نشد.",
@@ -781,7 +916,12 @@
     "msg.unload.not_found": "ابزار \"{name}\" یافت نشد یا بارگیری نشد.",
     "msg.unload.ok": "ابزار \"{name}\" بارگیری شده است.",
     "unload_tool.description": "ابزار را با نام بارگیری کنید تا دیگر برای استفاده در دسترس نباشد. از این برای حذف ابزاری که قبلاً بارگذاری شده است از جلسه استفاده کنید.",
-    "tool.description": "یک کاتالوگ JSON از ابزارهای موجود را با فیلدهای ok، query، count و tools برگردانید تا مدل بتواند قبل از درخواست تعاریف کامل ابزار، ابزارهای مرتبط را پیدا کند. نتایج شامل یک فیلد \"بارگذاری شده\" است که نشان می دهد آیا ابزار در حال حاضر فعال است یا خیر. هنگامی که یک \"پرس و جو\" ارائه می شود، ابزار بارگیری شده با رتبه برتر به طور خودکار بارگیری می شود (که با \"auto_loaded\" در پاسخ مشخص می شود)."
+    "tool.description": "یک کاتالوگ JSON از ابزارهای موجود را با فیلدهای ok، query، count و tools برگردانید تا مدل بتواند قبل از درخواست تعاریف کامل ابزار، ابزارهای مرتبط را پیدا کند. نتایج شامل یک فیلد \"بارگذاری شده\" است که نشان می دهد آیا ابزار در حال حاضر فعال است یا خیر. هنگامی که یک \"پرس و جو\" ارائه می شود، ابزار بارگیری شده با رتبه برتر به طور خودکار بارگیری می شود (که با \"auto_loaded\" در پاسخ مشخص می شود).",
+    "param.names.description": "نام ابزارها برای بارگذاری (مثل ['read_file', 'file_grep']). وقتی هر دو داده شوند با 'name' ترکیب می‌شود.",
+    "msg.load.already_loaded": "ابزار '{name}' قبلاً بارگذاری شده و برای استفاده در دسترس است.",
+    "msg.load.not_found_or_not_visible": "ابزار '{name}' پیدا نشد یا پس از بارگذاری برای LLM قابل مشاهده نشد.",
+    "msg.load.batch_ok": "{count} ابزار بارگذاری شد: {names}.",
+    "msg.unload.pinned": "ابزار '{name}' در برابر تخلیه سنجاق شده است. ابتدا آن را از سنجاق خارج کنید یا نشست‌های آن را به‌زور ببندید."
   },
   "mn": {
     "x_search_terms": [
@@ -799,8 +939,8 @@
       "автоматаар ачаалах хэрэгсэл"
     ],
     "param.query.description": "Шаардлагатай чадварыг тодорхойлсон байгалийн хэлний асуулт. Зөвлөгөө: зорилгоо дэд алхам болгон задал (жишээ нь 'geoip байршил + цаг агаарын урьдчилсан мэдээ') тохирохыг сайжруулах.",
-    "tool_load.description": "Хэрэгслийг нэрээр нь ачаалж, ашиглах боломжтой болгоно. tool_catalog нь loaded=false-тэй хэрэгсэл буцаасны дараа үүнийг ашиглана уу. Ачаалагдсан хэрэгслийн мэдээллийг эсвэл олдохгүй бол алдааг буцаана.",
-    "param.name.description": "Ачаалах хэрэгслийн нэр (жишээ нь 'generate_image', 'excel_ops').",
+    "tool_load.description": "Нэрээр нь нэг буюу хэд хэдэн хэрэгслийг ачаалж ашиглах боломжтой болгоно. tool_catalog loaded=false хэрэгслүүд буцаасны дараа хэрэглэнэ. Нэг дуудлагаар олон хэрэгсэл ачаалахын тулд ганц 'name' эсвэл 'names' массив (ж.нь ['read_file', 'file_grep']) дамжуулна. Хэрэгсэл бүрийн үр дүн (loaded/failed) эсвэл олдсонгүй алдааг буцаана.",
+    "param.name.description": "Ачаалах хэрэгслийн нэр (ж.нь 'generate_image', 'excel_ops'). Таслал/зайгаар тусгаарласан жагсаалт ч хүлээнэ.",
     "msg.load.missing_name": "'name' параметр дутуу байна.",
     "msg.load.ok": "Хэрэгсэл '{name}' ачаалагдсан бөгөөд одоо бэлэн байна",
     "msg.load.not_found": "Хэрэгсэл '{name}' олдсонгүй.",
@@ -809,7 +949,12 @@
     "msg.unload.not_found": "'{name}' хэрэгсэл олдсонгүй эсвэл ачаалагдаагүй байна.",
     "msg.unload.ok": "'{name}' хэрэгслийг буулгасан.",
     "unload_tool.description": "Хэрэгслийг нэрээр нь буулгаж, ашиглах боломжгүй болно. Өмнө нь ачаалагдсан хэрэгслийг сешнээс хасахын тулд үүнийг ашиглана уу.",
-    "tool.description": "Загварт хэрэглүүрийн бүрэн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олох боломжтой болохын тулд ok, query, count, tool талбар бүхий JSON каталогийг буцаана уу. Үр дүн нь уг хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан \"ачагдсан\" талбарыг агуулна. \"Асуулга\" өгөх үед дээд зэрэглэлийн буулгасан хэрэгсэл автоматаар ачаалагдана (хариултанд 'auto_loaded' гэж тэмдэглэгдсэн)."
+    "tool.description": "Загварт хэрэглүүрийн бүрэн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олох боломжтой болохын тулд ok, query, count, tool талбар бүхий JSON каталогийг буцаана уу. Үр дүн нь уг хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан \"ачагдсан\" талбарыг агуулна. \"Асуулга\" өгөх үед дээд зэрэглэлийн буулгасан хэрэгсэл автоматаар ачаалагдана (хариултанд 'auto_loaded' гэж тэмдэглэгдсэн).",
+    "param.names.description": "Ачаалах хэрэгслүүдийн нэрс (ж.нь ['read_file', 'file_grep']). Хоёулаа өгөгдсөн үед 'name'-тэй нийлүүлнэ.",
+    "msg.load.already_loaded": "'{name}' хэрэгсэл аль хэдийн ачаалагдсан, ашиглахад бэлэн.",
+    "msg.load.not_found_or_not_visible": "'{name}' хэрэгсэл олдсонгүй, эсвэл ачаалсны дараа LLM-д харагдахгүй байв.",
+    "msg.load.batch_ok": "{count} хэрэгсэл ачааллаа: {names}.",
+    "msg.unload.pinned": "'{name}' хэрэгсэл буулгалтаас хамгаалан хатгагдсан. Эхлээд хатгалтыг тайл эсвэл сессүүдийг нь албадан хаа."
   },
   "mr": {
     "x_search_terms": [
@@ -827,8 +972,8 @@
       "ऑटो-लोड साधन"
     ],
     "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी. टिप: तुमचे ध्येय उप-चरणांमध्ये विभाजित करा (उदा. 'geoip स्थान + हवामान अंदाज') जुळणी सुधारण्यासाठी.",
-    "tool_load.description": "एखादे साधन नावाने लोड करा जेणेकरून ते वापरासाठी उपलब्ध होईल. tool_catalog ने loaded=false सह साधन परत केल्यानंतर हे वापरा. लोड केलेले साधन माहिती किंवा सापडले नाही तर त्रुटी परत करते.",
-    "param.name.description": "लोड करण्यासाठी साधनाचे नाव (उदा. 'generate_image', 'excel_ops').",
+    "tool_load.description": "नावाने एक किंवा अधिक टूल्स लोड करून वापरण्यायोग्य करते. tool_catalog ने loaded=false असलेले टूल्स परत केल्यानंतर हे वापरा. एकाच कॉलमध्ये अनेक टूल्स लोड करण्यासाठी एक 'name' किंवा 'names' ॲरे (उदा. ['read_file', 'file_grep']) पाठवा. प्रत्येक टूलचे निकाल (loaded/failed) किंवा न सापडल्यास त्रुटी परत करते.",
+    "param.name.description": "लोड करायच्या टूलचे नाव (उदा. 'generate_image', 'excel_ops'). स्वल्पविराम/रिक्त स्थानाने विभक्त यादीही स्वीकारली जाते.",
     "msg.load.missing_name": "'name' पॅरामीटर गहाळ आहे.",
     "msg.load.ok": "साधन '{name}' लोड केले गेले आहे आणि आता उपलब्ध आहे",
     "msg.load.not_found": "साधन '{name}' सापडले नाही.",
@@ -837,7 +982,12 @@
     "msg.unload.not_found": "साधन '{name}' सापडले नाही किंवा लोड केलेले नाही.",
     "msg.unload.ok": "साधन '{name}' अनलोड केले गेले आहे.",
     "unload_tool.description": "नावाने साधन अनलोड करा जेणेकरून ते यापुढे वापरासाठी उपलब्ध नसेल. सत्रातून पूर्वी लोड केलेले साधन काढण्यासाठी याचा वापर करा.",
-    "tool.description": "ओके, क्वेरी, काउंट आणि टूल्स फील्डसह उपलब्ध टूल्सचा JSON कॅटलॉग परत करा जेणेकरून संपूर्ण टूल व्याख्यांची विनंती करण्यापूर्वी मॉडेल संबंधित टूल्स शोधू शकेल. परिणामांमध्ये 'लोड केलेले' फील्ड समाविष्ट आहे जे साधन सध्या सक्षम आहे की नाही हे दर्शविते. जेव्हा 'क्वेरी' प्रदान केली जाते, तेव्हा टॉप-रँक केलेले अनलोड केलेले साधन स्वयंचलितपणे लोड होते (प्रतिसादामध्ये 'ऑटो_लोडेड' द्वारे सूचित केले जाते)."
+    "tool.description": "ओके, क्वेरी, काउंट आणि टूल्स फील्डसह उपलब्ध टूल्सचा JSON कॅटलॉग परत करा जेणेकरून संपूर्ण टूल व्याख्यांची विनंती करण्यापूर्वी मॉडेल संबंधित टूल्स शोधू शकेल. परिणामांमध्ये 'लोड केलेले' फील्ड समाविष्ट आहे जे साधन सध्या सक्षम आहे की नाही हे दर्शविते. जेव्हा 'क्वेरी' प्रदान केली जाते, तेव्हा टॉप-रँक केलेले अनलोड केलेले साधन स्वयंचलितपणे लोड होते (प्रतिसादामध्ये 'ऑटो_लोडेड' द्वारे सूचित केले जाते).",
+    "param.names.description": "लोड करायच्या टूल्सची नावे (उदा. ['read_file', 'file_grep']). दोन्ही दिल्यास 'name' सोबत एकत्र केले जाते.",
+    "msg.load.already_loaded": "टूल '{name}' आधीच लोड केलेले आहे आणि वापरण्यासाठी उपलब्ध आहे.",
+    "msg.load.not_found_or_not_visible": "टूल '{name}' सापडले नाही, किंवा लोडनंतर LLM ला दिसले नाही.",
+    "msg.load.batch_ok": "{count} टूल्स लोड केली: {names}.",
+    "msg.unload.pinned": "टूल '{name}' अनलोडविरुद्ध पिन केले आहे. आधी अनपिन करा किंवा त्याची सत्रे सक्तीने बंद करा."
   },
   "el": {
     "x_search_terms": [
@@ -855,8 +1005,8 @@
       "εργαλείο αυτόματης φόρτωσης"
     ],
     "param.query.description": "Ερώτημα φυσικής γλώσσας που περιγράφει την απαιτούμενη ικανότητα. Συμβουλή: αναλύστε τον στόχο σας σε επιμέρους βήματα (π.χ. \"τοποθεσία geoip + πρόγνωση καιρού\") για να βελτιώσετε την αντιστοίχιση.",
-    "tool_load.description": "Φορτώστε ένα εργαλείο με το όνομα, ώστε να είναι διαθέσιμο για χρήση. Χρησιμοποιήστε το αφού το tool_catalog επιστρέψει ένα εργαλείο με loaded=false. Επιστρέφει τις φορτωμένες πληροφορίες εργαλείου ή ένα σφάλμα εάν δεν βρεθεί.",
-    "param.name.description": "Όνομα του εργαλείου προς φόρτωση (π.χ. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Φορτώνει ένα ή περισσότερα εργαλεία με βάση το όνομα ώστε να γίνουν διαθέσιμα. Χρησιμοποιήστε το αφού το tool_catalog επιστρέψει εργαλεία με loaded=false. Περάστε ένα μόνο 'name' ή έναν πίνακα 'names' (π.χ. ['read_file', 'file_grep']) για να φορτώσετε πολλά εργαλεία σε μία κλήση. Επιστρέφει αποτελέσματα ανά εργαλείο (loaded/failed) ή σφάλμα αν δεν βρεθεί.",
+    "param.name.description": "Το όνομα του εργαλείου προς φόρτωση (π.χ. 'generate_image', 'excel_ops'). Γίνεται δεκτή και λίστα διαχωρισμένη με κόμμα/κενά.",
     "msg.load.missing_name": "Λείπει η παράμετρος \"όνομα\".",
     "msg.load.ok": "Το εργαλείο '{name}' έχει φορτωθεί και είναι πλέον διαθέσιμο",
     "msg.load.not_found": "Το εργαλείο \"{name}\" δεν βρέθηκε.",
@@ -865,7 +1015,12 @@
     "msg.unload.not_found": "Το εργαλείο '{name}' δεν βρέθηκε ή δεν φορτώθηκε.",
     "msg.unload.ok": "Το εργαλείο '{name}' έχει ξεφορτωθεί.",
     "unload_tool.description": "Ξεφορτώστε ένα εργαλείο με το όνομα, ώστε να μην είναι πλέον διαθέσιμο για χρήση. Χρησιμοποιήστε το για να αφαιρέσετε ένα εργαλείο που είχε φορτωθεί προηγουμένως από την περίοδο λειτουργίας.",
-    "tool.description": "Επιστρέψτε έναν κατάλογο JSON διαθέσιμων εργαλείων με πεδία ok, ερώτημα, μέτρηση και εργαλεία, ώστε το μοντέλο να μπορεί να ανακαλύψει σχετικά εργαλεία πριν ζητήσει πλήρεις ορισμούς εργαλείων. Τα αποτελέσματα περιλαμβάνουν ένα πεδίο \"φορτωμένο\" που υποδεικνύει εάν το εργαλείο είναι ενεργοποιημένο αυτήν τη στιγμή. Όταν παρέχεται ένα «ερώτημα», το εργαλείο που δεν έχει φορτωθεί στην κορυφή φορτώνεται αυτόματα (υποδεικνύεται με «auto_loaded» στην απάντηση)."
+    "tool.description": "Επιστρέψτε έναν κατάλογο JSON διαθέσιμων εργαλείων με πεδία ok, ερώτημα, μέτρηση και εργαλεία, ώστε το μοντέλο να μπορεί να ανακαλύψει σχετικά εργαλεία πριν ζητήσει πλήρεις ορισμούς εργαλείων. Τα αποτελέσματα περιλαμβάνουν ένα πεδίο \"φορτωμένο\" που υποδεικνύει εάν το εργαλείο είναι ενεργοποιημένο αυτήν τη στιγμή. Όταν παρέχεται ένα «ερώτημα», το εργαλείο που δεν έχει φορτωθεί στην κορυφή φορτώνεται αυτόματα (υποδεικνύεται με «auto_loaded» στην απάντηση).",
+    "param.names.description": "Τα ονόματα των εργαλείων προς φόρτωση (π.χ. ['read_file', 'file_grep']). Συνδυάζεται με το 'name' όταν δίνονται και τα δύο.",
+    "msg.load.already_loaded": "Το εργαλείο '{name}' είναι ήδη φορτωμένο και διαθέσιμο για χρήση.",
+    "msg.load.not_found_or_not_visible": "Το εργαλείο '{name}' δεν βρέθηκε ή δεν έγινε ορατό στο LLM μετά τη φόρτωση.",
+    "msg.load.batch_ok": "Φορτώθηκαν {count} εργαλεία: {names}.",
+    "msg.unload.pinned": "Το εργαλείο '{name}' είναι καρφιτσωμένο κατά της εκφόρτωσης. Ξεκαρφιτσώστε το πρώτα ή κλείστε αναγκαστικά τις συνεδρίες του."
   },
   "he": {
     "x_search_terms": [
@@ -883,8 +1038,8 @@
       "כלי טעינה אוטומטית"
     ],
     "param.query.description": "שאילתה בשפה טבעית המתארת ​​את היכולת הדרושה. טיפ: פרק את המטרה שלך לשלבי משנה (למשל, 'מיקום גיאוגרפי + תחזית מזג אוויר') כדי לשפר את ההתאמה.",
-    "tool_load.description": "טען כלי לפי שם כך שהוא יהפוך זמין לשימוש. השתמש בזה לאחר tool_catalog מחזיר כלי עם loaded=false. מחזיר את פרטי הכלי שנטען או שגיאה אם ​​לא נמצא.",
-    "param.name.description": "שם הכלי לטעינה (למשל 'generate_image', 'excel_ops').",
+    "tool_load.description": "טוען כלי אחד או יותר לפי שם כדי שיהיו זמינים לשימוש. השתמש בזה אחרי ש-tool_catalog מחזיר כלים עם loaded=false. העבר 'name' יחיד או מערך 'names' (למשל ['read_file', 'file_grep']) כדי לטעון כמה כלים בקריאה אחת. מחזיר תוצאות לכל כלי (loaded/failed) או שגיאה אם לא נמצא.",
+    "param.name.description": "שם הכלי לטעינה (למשל 'generate_image', 'excel_ops'). מתקבלת גם רשימה מופרדת בפסיקים/רווחים.",
     "msg.load.missing_name": "חסר פרמטר 'שם'.",
     "msg.load.ok": "הכלי '{name}' נטען וזמין כעת",
     "msg.load.not_found": "הכלי '{name}' לא נמצא.",
@@ -893,7 +1048,12 @@
     "msg.unload.not_found": "הכלי '{name}' לא נמצא או לא נטען.",
     "msg.unload.ok": "הכלי '{name}' נפרק.",
     "unload_tool.description": "פרק כלי לפי שם כך שהוא לא זמין יותר לשימוש. השתמש בזה כדי להסיר כלי שנטען בעבר מההפעלה.",
-    "tool.description": "החזר קטלוג JSON של כלים זמינים עם שדות OK, שאילתה, ספירה וכלים כדי שהמודל יוכל לגלות כלים רלוונטיים לפני שיבקש הגדרות כלים מלאות. התוצאות כוללות שדה 'טעון' המציין אם הכלי מופעל כעת. כאשר מסופקת 'שאילתה', הכלי שנפרק בדירוג העליון נטען אוטומטית (מסומן ב-'auto_loaded' בתגובה)."
+    "tool.description": "החזר קטלוג JSON של כלים זמינים עם שדות OK, שאילתה, ספירה וכלים כדי שהמודל יוכל לגלות כלים רלוונטיים לפני שיבקש הגדרות כלים מלאות. התוצאות כוללות שדה 'טעון' המציין אם הכלי מופעל כעת. כאשר מסופקת 'שאילתה', הכלי שנפרק בדירוג העליון נטען אוטומטית (מסומן ב-'auto_loaded' בתגובה).",
+    "param.names.description": "שמות הכלים לטעינה (למשל ['read_file', 'file_grep']). משולב עם 'name' כאשר שניהם ניתנים.",
+    "msg.load.already_loaded": "הכלי '{name}' כבר טעון וזמין לשימוש.",
+    "msg.load.not_found_or_not_visible": "הכלי '{name}' לא נמצא, או שלא הפך לגלוי ל-LLM לאחר הטעינה.",
+    "msg.load.batch_ok": "נטענו {count} כלים: {names}.",
+    "msg.unload.pinned": "הכלי '{name}' נעוץ נגד פריקה. בטל את הנעיצה קודם או סגור בכוח את ההפעלות שלו."
   },
   "hu": {
     "x_search_terms": [
@@ -911,8 +1071,8 @@
       "automatikus betöltő eszköz"
     ],
     "param.query.description": "Természetes nyelvű lekérdezés, amely leírja a szükséges képességet. Tipp: bontsa a célt részlépésekre (pl. „geoip hely + időjárás előrejelzés”) az egyezés javítása érdekében.",
-    "tool_load.description": "Töltsön be egy eszközt név szerint, hogy használható legyen. Használja ezt, miután a tool_catalog egy loaded=false értékkel tér vissza. Visszaadja a betöltött szerszámadatokat, vagy hibát jelez, ha nem található.",
-    "param.name.description": "A betöltendő eszköz neve (pl. „generate_image”, „excel_ops”).",
+    "tool_load.description": "Egy vagy több eszközt tölt be név alapján, hogy használhatóvá váljanak. Akkor használd, miután a tool_catalog loaded=false eszközöket adott vissza. Adj át egyetlen 'name' értéket vagy egy 'names' tömböt (pl. ['read_file', 'file_grep']) több eszköz egy hívással történő betöltéséhez. Eszközönkénti eredményeket (loaded/failed) ad vissza, vagy hibát, ha nem található.",
+    "param.name.description": "A betöltendő eszköz neve (pl. 'generate_image', 'excel_ops'). Vesszővel/szóközzel elválasztott lista is elfogadott.",
     "msg.load.missing_name": "Hiányzik a \"name\" paraméter.",
     "msg.load.ok": "A(z) \"{name}\" eszköz betöltődött, és már elérhető",
     "msg.load.not_found": "A(z) „{name}” eszköz nem található.",
@@ -921,7 +1081,12 @@
     "msg.unload.not_found": "A '{name}' eszköz nem található vagy nincs betöltve.",
     "msg.unload.ok": "A(z) '{name}' eszköz betöltve.",
     "unload_tool.description": "Töltse ki az eszközt név szerint, hogy többé ne legyen használható. Ezzel eltávolíthat egy korábban betöltött eszközt a munkamenetből.",
-    "tool.description": "Az elérhető eszközök JSON-katalógusának visszaküldése az OK, query, count és Tools mezőkkel, hogy a modell felfedezhesse a releváns eszközöket, mielőtt teljes eszközdefiníciót kérne. Az eredmények között szerepel egy „töltött” mező, amely jelzi, hogy az eszköz jelenleg engedélyezve van-e. Amikor egy „lekérdezés” van megadva, a legfelső rangú betöltetlen eszköz automatikusan betöltődik (ezt az „auto_loaded” jelzi a válaszban)."
+    "tool.description": "Az elérhető eszközök JSON-katalógusának visszaküldése az OK, query, count és Tools mezőkkel, hogy a modell felfedezhesse a releváns eszközöket, mielőtt teljes eszközdefiníciót kérne. Az eredmények között szerepel egy „töltött” mező, amely jelzi, hogy az eszköz jelenleg engedélyezve van-e. Amikor egy „lekérdezés” van megadva, a legfelső rangú betöltetlen eszköz automatikusan betöltődik (ezt az „auto_loaded” jelzi a válaszban).",
+    "param.names.description": "A betöltendő eszközök nevei (pl. ['read_file', 'file_grep']). A 'name' értékkel kombinálva, ha mindkettő meg van adva.",
+    "msg.load.already_loaded": "A(z) '{name}' eszköz már be van töltve és használható.",
+    "msg.load.not_found_or_not_visible": "A(z) '{name}' eszköz nem található, vagy a betöltés után nem vált láthatóvá az LLM számára.",
+    "msg.load.batch_ok": "Betöltve {count} eszköz: {names}.",
+    "msg.unload.pinned": "A(z) '{name}' eszköz kiürítés ellen rögzítve van. Először oldja fel a rögzítést, vagy kényszerítse a munkamenetei bezárását."
   },
   "ro": {
     "x_search_terms": [
@@ -939,8 +1104,8 @@
       "instrument de încărcare automată"
     ],
     "param.query.description": "Interogare în limbaj natural care descrie capacitatea necesară. Sfat: descompuneți obiectivul în subpași (de exemplu, „Locație geografică + prognoză meteo”) pentru a îmbunătăți potrivirea.",
-    "tool_load.description": "Încărcați un instrument după nume, astfel încât să devină disponibil pentru utilizare. Utilizați acest lucru după ce tool_catalog returnează o unealtă cu loaded=false. Returnează informațiile despre instrumentul încărcat sau o eroare dacă nu este găsită.",
-    "param.name.description": "Numele instrumentului de încărcat (de exemplu, „generate_image”, „excel_ops”).",
+    "tool_load.description": "Încarcă unul sau mai multe instrumente după nume pentru a le face disponibile. Folosește după ce tool_catalog returnează instrumente cu loaded=false. Transmite un singur 'name' sau un tablou 'names' (ex. ['read_file', 'file_grep']) pentru a încărca mai multe instrumente într-un singur apel. Returnează rezultate per instrument (loaded/failed) sau o eroare dacă nu e găsit.",
+    "param.name.description": "Numele instrumentului de încărcat (ex. 'generate_image', 'excel_ops'). Se acceptă și o listă separată prin virgule/spații.",
     "msg.load.missing_name": "Lipsește parametrul „nume”.",
     "msg.load.ok": "Instrumentul „{name}” a fost încărcat și este acum disponibil",
     "msg.load.not_found": "Instrumentul „{name}” nu a fost găsit.",
@@ -949,7 +1114,12 @@
     "msg.unload.not_found": "Instrumentul „{name}” nu a fost găsit sau nu a fost încărcat.",
     "msg.unload.ok": "Instrumentul „{name}” a fost descărcat.",
     "unload_tool.description": "Descărcați un instrument după nume, astfel încât să nu mai fie disponibil pentru utilizare. Utilizați aceasta pentru a elimina din sesiune un instrument încărcat anterior.",
-    "tool.description": "Returnați un catalog JSON de instrumente disponibile cu câmpuri ok, interogare, numărare și instrumente, astfel încât modelul să poată descoperi instrumente relevante înainte de a solicita definiții complete ale instrumentului. Rezultatele includ un câmp „încărcat” care indică dacă instrumentul este activat în prezent. Când este furnizată o „interogare”, instrumentul descărcat cel mai bine clasat este încărcat automat (indicat de „auto_loaded” în răspuns)."
+    "tool.description": "Returnați un catalog JSON de instrumente disponibile cu câmpuri ok, interogare, numărare și instrumente, astfel încât modelul să poată descoperi instrumente relevante înainte de a solicita definiții complete ale instrumentului. Rezultatele includ un câmp „încărcat” care indică dacă instrumentul este activat în prezent. Când este furnizată o „interogare”, instrumentul descărcat cel mai bine clasat este încărcat automat (indicat de „auto_loaded” în răspuns).",
+    "param.names.description": "Numele instrumentelor de încărcat (ex. ['read_file', 'file_grep']). Combinat cu 'name' când ambele sunt furnizate.",
+    "msg.load.already_loaded": "Instrumentul '{name}' este deja încărcat și disponibil pentru utilizare.",
+    "msg.load.not_found_or_not_visible": "Instrumentul '{name}' nu a fost găsit sau nu a devenit vizibil pentru LLM după încărcare.",
+    "msg.load.batch_ok": "Încărcate {count} instrumente: {names}.",
+    "msg.unload.pinned": "Instrumentul '{name}' este fixat împotriva descărcării. Mai întâi eliberează-l sau închide forțat sesiunile sale."
   },
   "fil": {
     "x_search_terms": [
@@ -967,8 +1137,8 @@
       "auto-load na tool"
     ],
     "param.query.description": "Natural-language query na naglalarawan ng kinakailangang kakayahan. Tip: i-decompose ang iyong layunin sa mga sub-step (hal., 'geoip location + weather forecast') upang mapabuti ang pagtutugma.",
-    "tool_load.description": "Mag-load ng tool ayon sa pangalan para maging available ito para magamit. Gamitin ito pagkatapos ibalik ng tool_catalog ang isang tool na may loaded=false. Ibinabalik ang na-load na impormasyon ng tool o isang error kung hindi natagpuan.",
-    "param.name.description": "Pangalan ng tool na ilo-load (hal. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Naglo-load ng isa o higit pang tool ayon sa pangalan para maging magagamit. Gamitin ito pagkatapos magbalik ang tool_catalog ng mga tool na may loaded=false. Magpasa ng iisang 'name' o 'names' array (hal. ['read_file', 'file_grep']) para mag-load ng maraming tool sa isang tawag. Nagbabalik ng resulta bawat tool (loaded/failed) o error kung hindi nahanap.",
+    "param.name.description": "Pangalan ng tool na ilo-load (hal. 'generate_image', 'excel_ops'). Tumatanggap din ng listahang pinaghihiwalay ng kuwit/puwang.",
     "msg.load.missing_name": "Nawawala ang parameter ng 'pangalan'.",
     "msg.load.ok": "Na-load na ang tool na '{name}' at available na ngayon",
     "msg.load.not_found": "Hindi nahanap ang tool na '{name}'.",
@@ -977,7 +1147,12 @@
     "msg.unload.not_found": "Hindi nahanap o hindi na-load ang tool na '{name}'.",
     "msg.unload.ok": "Na-disload na ang tool na '{name}'.",
     "unload_tool.description": "I-unload ang isang tool ayon sa pangalan para hindi na ito magagamit. Gamitin ito upang alisin ang isang dating na-load na tool mula sa session.",
-    "tool.description": "Magbalik ng JSON catalog ng mga available na tool na may mga field na ok, query, count, at mga tool upang matuklasan ng modelo ang mga nauugnay na tool bago humiling ng buong kahulugan ng tool. Kasama sa mga resulta ang field na 'na-load' na nagsasaad kung kasalukuyang pinagana ang tool. Kapag may ibinigay na 'query', awtomatikong nilo-load ang top-ranked unloaded tool (ipinahiwatig ng 'auto_loaded' sa tugon)."
+    "tool.description": "Magbalik ng JSON catalog ng mga available na tool na may mga field na ok, query, count, at mga tool upang matuklasan ng modelo ang mga nauugnay na tool bago humiling ng buong kahulugan ng tool. Kasama sa mga resulta ang field na 'na-load' na nagsasaad kung kasalukuyang pinagana ang tool. Kapag may ibinigay na 'query', awtomatikong nilo-load ang top-ranked unloaded tool (ipinahiwatig ng 'auto_loaded' sa tugon).",
+    "param.names.description": "Mga pangalan ng mga tool na ilo-load (hal. ['read_file', 'file_grep']). Pinagsasama sa 'name' kapag parehong ibinigay.",
+    "msg.load.already_loaded": "Ang tool na '{name}' ay naka-load na at magagamit na.",
+    "msg.load.not_found_or_not_visible": "Hindi nahanap ang tool na '{name}', o hindi ito nakita ng LLM pagkatapos mag-load.",
+    "msg.load.batch_ok": "Na-load ang {count} tool(s): {names}.",
+    "msg.unload.pinned": "Ang tool na '{name}' ay naka-pin laban sa unload. I-unpin muna o piliting isara ang mga session nito."
   },
   "ms": {
     "x_search_terms": [
@@ -995,8 +1170,8 @@
       "alat muat automatik"
     ],
     "param.query.description": "Pertanyaan bahasa semula jadi yang menerangkan keupayaan yang diperlukan. Petua: pecahkan matlamat anda kepada sub-langkah (cth., 'lokasi geoip + ramalan cuaca') untuk memperbaik padanan.",
-    "tool_load.description": "Muatkan alat mengikut nama supaya ia tersedia untuk digunakan. Gunakan ini selepas tool_catalog mengembalikan alat dengan loaded=false. Mengembalikan maklumat alat yang dimuatkan atau ralat jika tidak ditemui.",
-    "param.name.description": "Nama alat untuk dimuatkan (cth. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Muatkan satu atau beberapa alat mengikut nama supaya tersedia untuk digunakan. Gunakan selepas tool_catalog mengembalikan alat dengan loaded=false. Berikan satu 'name' atau tatasusunan 'names' (cth. ['read_file', 'file_grep']) untuk memuatkan beberapa alat dalam satu panggilan. Mengembalikan hasil setiap alat (loaded/failed) atau ralat jika tidak ditemui.",
+    "param.name.description": "Nama alat yang hendak dimuatkan (cth. 'generate_image', 'excel_ops'). Senarai yang dipisahkan dengan koma/ruang juga diterima.",
     "msg.load.missing_name": "Parameter 'nama' tiada.",
     "msg.load.ok": "Alat '{name}' telah dimuatkan dan kini tersedia",
     "msg.load.not_found": "Alat '{name}' tidak ditemui.",
@@ -1005,7 +1180,12 @@
     "msg.unload.not_found": "Alat '{name}' tidak ditemui atau tidak dimuatkan.",
     "msg.unload.ok": "Alat '{name}' telah dipunggah.",
     "unload_tool.description": "Putuskan alat mengikut nama supaya ia tidak lagi tersedia untuk digunakan. Gunakan ini untuk mengalih keluar alat yang dimuatkan sebelum ini daripada sesi.",
-    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan medan ok, pertanyaan, kiraan dan alatan supaya model boleh menemui alatan yang berkaitan sebelum meminta definisi alat penuh. Keputusan termasuk medan 'dimuatkan' yang menunjukkan jika alat itu didayakan pada masa ini. Apabila 'pertanyaan' disediakan, alat yang dipunggah kedudukan teratas dimuatkan secara automatik (ditandakan oleh 'auto_loaded' dalam respons)."
+    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan medan ok, pertanyaan, kiraan dan alatan supaya model boleh menemui alatan yang berkaitan sebelum meminta definisi alat penuh. Keputusan termasuk medan 'dimuatkan' yang menunjukkan jika alat itu didayakan pada masa ini. Apabila 'pertanyaan' disediakan, alat yang dipunggah kedudukan teratas dimuatkan secara automatik (ditandakan oleh 'auto_loaded' dalam respons).",
+    "param.names.description": "Nama alat yang hendak dimuatkan (cth. ['read_file', 'file_grep']). Digabungkan dengan 'name' apabila kedua-duanya diberikan.",
+    "msg.load.already_loaded": "Alat '{name}' telah dimuatkan dan tersedia untuk digunakan.",
+    "msg.load.not_found_or_not_visible": "Alat '{name}' tidak ditemui, atau tidak kelihatan oleh LLM selepas dimuatkan.",
+    "msg.load.batch_ok": "Memuatkan {count} alat: {names}.",
+    "msg.unload.pinned": "Alat '{name}' dipinkan daripada dinyahmuat. Nyahpin dahulu atau tutup paksa sesinya."
   },
   "da": {
     "x_search_terms": [
@@ -1023,8 +1203,8 @@
       "auto-load værktøj"
     ],
     "param.query.description": "Forespørgsel på naturligt sprog, der beskriver den nødvendige kapacitet. Tip: opdel dit mål i undertrin (f.eks. 'geoip-placering + vejrudsigt') for at forbedre matchningen.",
-    "tool_load.description": "Indlæs et værktøj ved navn, så det bliver tilgængeligt til brug. Brug dette efter tool_catalog returnerer et værktøj med loaded=false. Returnerer den indlæste værktøjsinformation eller en fejl, hvis den ikke findes.",
-    "param.name.description": "Navn på det værktøj, der skal indlæses (f.eks. 'generate_image', 'excel_ops').",
+    "tool_load.description": "Indlæs ét eller flere værktøjer ved navn, så de bliver tilgængelige. Brug dette efter tool_catalog returnerer værktøjer med loaded=false. Send ét enkelt 'name' eller et 'names'-array (f.eks. ['read_file', 'file_grep']) for at indlæse flere værktøjer i ét kald. Returnerer resultater pr. værktøj (loaded/failed) eller en fejl, hvis ikke fundet.",
+    "param.name.description": "Navnet på værktøjet der skal indlæses (f.eks. 'generate_image', 'excel_ops'). En komma-/mellemrumssepareret liste accepteres også.",
     "msg.load.missing_name": "Manglende 'navn'-parameter.",
     "msg.load.ok": "Værktøjet '{name}' er blevet indlæst og er nu tilgængeligt",
     "msg.load.not_found": "Værktøjet '{name}' blev ikke fundet.",
@@ -1033,7 +1213,12 @@
     "msg.unload.not_found": "Værktøjet '{name}' blev ikke fundet eller ikke indlæst.",
     "msg.unload.ok": "Værktøjet '{name}' er blevet aflæst.",
     "unload_tool.description": "Aflæs et værktøj ved navn, så det ikke længere er tilgængeligt til brug. Brug dette til at fjerne et tidligere indlæst værktøj fra sessionen.",
-    "tool.description": "Returner et JSON katalog over tilgængelige værktøjer med felterne ok, forespørgsel, antal og værktøjer, så modellen kan finde relevante værktøjer, før den anmoder om fuldstændige værktøjsdefinitioner. Resultaterne inkluderer et 'indlæst' felt, der angiver, om værktøjet i øjeblikket er aktiveret. Når en 'forespørgsel' er angivet, indlæses det toprangerede aflastede værktøj automatisk (angivet med 'auto_loaded' i svaret)."
+    "tool.description": "Returner et JSON katalog over tilgængelige værktøjer med felterne ok, forespørgsel, antal og værktøjer, så modellen kan finde relevante værktøjer, før den anmoder om fuldstændige værktøjsdefinitioner. Resultaterne inkluderer et 'indlæst' felt, der angiver, om værktøjet i øjeblikket er aktiveret. Når en 'forespørgsel' er angivet, indlæses det toprangerede aflastede værktøj automatisk (angivet med 'auto_loaded' i svaret).",
+    "param.names.description": "Navnene på værktøjerne der skal indlæses (f.eks. ['read_file', 'file_grep']). Kombineres med 'name', når begge er angivet.",
+    "msg.load.already_loaded": "Værktøjet '{name}' er allerede indlæst og tilgængeligt til brug.",
+    "msg.load.not_found_or_not_visible": "Værktøjet '{name}' blev ikke fundet eller blev ikke synligt for LLM efter indlæsning.",
+    "msg.load.batch_ok": "Indlæste {count} værktøj(er): {names}.",
+    "msg.unload.pinned": "Værktøjet '{name}' er fastgjort mod aflæsning. Frigør det først, eller tving sessionerne lukket."
   },
   "nn": {
     "x_search_terms": [
@@ -1051,8 +1236,8 @@
       "verktøy for automatisk lasting"
     ],
     "param.query.description": "Spørring på naturlig språk som beskriver naudsynt kapasitet. Tips: dekomponer målet ditt i undertrinn (f.eks. 'geoip plassering + værmelding') for å forbedre samsvar.",
-    "tool_load.description": "Last inn et verktøy etter namn slik at det blir tilgjengeleg for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den innlastede verktøyinformasjonen eller en feil hvis den ikke blir funnet.",
-    "param.name.description": "Namn på verktøyet som skal lastes (f.eks. 'generere_bilde', 'excel_ops').",
+    "tool_load.description": "Last inn eitt eller fleire verktøy etter namn slik at dei blir tilgjengelege. Bruk dette etter at tool_catalog returnerer verktøy med loaded=false. Send eitt enkelt 'name' eller ei 'names'-matrise (f.eks. ['read_file', 'file_grep']) for å laste fleire verktøy i eitt kall. Returnerer resultat per verktøy (loaded/failed) eller ein feil om det ikkje finst.",
+    "param.name.description": "Namnet på verktøyet som skal lastast (f.eks. 'generate_image', 'excel_ops'). Ei komma-/mellomromsseparert liste blir òg godteken.",
     "msg.load.missing_name": "Mangler 'namn'-parameter.",
     "msg.load.ok": "Verktøyet '{name}' er lastet inn og er no tilgjengeleg",
     "msg.load.not_found": "Verktøyet '{name}' ikkje funnen.",
@@ -1061,6 +1246,11 @@
     "msg.unload.not_found": "Verktøyet '{name}' ikkje funnen eller ikke lastet.",
     "msg.unload.ok": "Verktøyet '{name}' har blitt lastet ut.",
     "unload_tool.description": "Last ned et verktøy ved namn, slik at det ikke lenger er tilgjengeleg for bruk. Bruk dette til å fjerne et tidligere lastet verktøy frå økten.",
-    "tool.description": "Returner en JSON-katalog med tilgjengelege verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" oppgis, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret)."
+    "tool.description": "Returner en JSON-katalog med tilgjengelege verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" oppgis, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret).",
+    "param.names.description": "Namna på verktøya som skal lastast (f.eks. ['read_file', 'file_grep']). Kombinert med 'name' når begge er oppgitte.",
+    "msg.load.already_loaded": "Verktøyet '{name}' er allereie lasta inn og tilgjengeleg for bruk.",
+    "msg.load.not_found_or_not_visible": "Verktøyet '{name}' vart ikkje funne eller vart ikkje synleg for LLM etter innlasting.",
+    "msg.load.batch_ok": "Lasta inn {count} verktøy: {names}.",
+    "msg.unload.pinned": "Verktøyet '{name}' er festa mot utlasting. Løys det først eller tving avslutt på øktene."
   }
 }
