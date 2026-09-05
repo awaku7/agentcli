@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-09-06
+
+### Added
+
+- Add Meta Responses reasoning support and improve Responses API handling.
+- Add safeguards against management-tool loading loops.
+- Add spinner/runtime support for improved interactive output.
+
+### Changed
+
+- Unify session list/load/search views and localize the new messages.
+- Expand Gemini/Vertex catalog handling and refresh translations.
+
+### Fixed
+
+- Improve response expiry compatibility, session display, and related formatting.
+
+
 ## [0.7.0] - 2026-09-04
 
 ### Added
