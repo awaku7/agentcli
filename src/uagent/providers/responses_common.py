@@ -779,6 +779,25 @@ def parse_responses_response(
                         citations=citations,
                     )
 
+            # Meta may expose reasoning only as summary_text blocks on a
+            # reasoning output item. Preserve those summaries for display.
+            elif item_type == "reasoning":
+                parts = getattr(item, "summary", None) or getattr(
+                    item, "content", None
+                ) or []
+                if not isinstance(parts, (list, tuple)):
+                    parts = [parts]
+                for part in parts:
+                    part_type = as_str(getattr(part, "type", "")).lower()
+                    if part_type in {"summary_text", "text", "reasoning"}:
+                        text = as_str(
+                            getattr(part, "text", None)
+                            or getattr(part, "summary_text", None)
+                            or ""
+                        )
+                        if text:
+                            reasoning_content += text
+
             elif getattr(item, "type", None) == "computer_call":
                 cid = (
                     getattr(item, "call_id", None)
@@ -1023,7 +1042,11 @@ def parse_responses_stream(
                     _print_delta(delta_text)
 
             # Reasoning text deltas (stream immediately; do not break on '.')
-            if ev_type == "response.reasoning_text.delta":
+            if ev_type in {
+                "response.reasoning_text.delta",
+                # Meta may emit the Responses reasoning summary event.
+                "response.reasoning_summary_text.delta",
+            }:
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)

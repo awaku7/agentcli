@@ -1179,6 +1179,10 @@ def _call_openai_azure_round(
                     "previous_response_id",
                     "invalid_prompt",
                     "expected null, received string",
+                    # Meta may report an expired Responses continuation without
+                    # naming previous_response_id explicitly.
+                    "referenced response not found",
+                    "response not found or expired",
                 )
                 return any(m in err_text for m in markers)
 
