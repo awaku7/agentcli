@@ -683,7 +683,14 @@ class SubAgentRunner:
                 args = self._annotate_human_ask(tool_name, args, agent_name)
                 runner = tool_runners.get(tool_name)
                 if runner:
-                    result = runner(args)
+                    cb = get_callbacks()
+                    if cb and getattr(cb, "set_status", None):
+                        cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
+                    try:
+                        result = runner(args)
+                    finally:
+                        if cb and getattr(cb, "set_status", None):
+                            cb.set_status(True, f"Sub-Agent ({agent_name})")
                     results.append(f"[tool:{tool_name}]\n{result}")
                 else:
                     results.append(f"[tool:{tool_name} error: runner not found]")
@@ -1515,7 +1522,14 @@ class SubAgentRunner:
                         args = {}
                     tool_name = str(fn.get("name") or "")
                     args = self._annotate_human_ask(tool_name, args, agent_name)
-                    result = run_tool(tool_name, args)
+                    cb = get_callbacks()
+                    if cb and getattr(cb, "set_status", None):
+                        cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
+                    try:
+                        result = run_tool(tool_name, args)
+                    finally:
+                        if cb and getattr(cb, "set_status", None):
+                            cb.set_status(True, f"Sub-Agent ({agent_name})")
                     conversation_messages.append(
                         {
                             "role": "tool",
