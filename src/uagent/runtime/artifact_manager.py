@@ -407,6 +407,46 @@ class ArtifactManager:
             "missing": missing,
         }
 
+    def cleanup(
+        self,
+        *,
+        policy: Any = None,
+        referenced_ids: set[str] | None = None,
+        session_id: str | None = None,
+        execute: bool = False,
+    ) -> dict[str, Any]:
+        """Report or execute safe cleanup; execution is opt-in and guarded."""
+        if policy is None:
+            from .artifact_retention import ArtifactRetentionPolicy
+
+            policy = ArtifactRetentionPolicy.from_environment()
+        report = self.cleanup_report(
+            policy=policy,
+            referenced_ids=referenced_ids,
+            session_id=session_id,
+        )
+        report["executed"] = False
+        if not execute or not policy.auto_delete or policy.dry_run:
+            return report
+        deleted: list[str] = []
+        errors: list[dict[str, str]] = []
+        for candidate in report["candidates"]:
+            artifact_id = str(candidate.get("artifact_id") or "")
+            try:
+                path = self.open(artifact_id)
+                path.unlink(missing_ok=True)
+                with self._db_lock:
+                    self._connection.execute(
+                        "DELETE FROM artifacts WHERE artifact_id = ?", (artifact_id,)
+                    )
+                deleted.append(artifact_id)
+            except Exception as exc:
+                errors.append({"artifact_id": artifact_id, "error": str(exc)})
+        report["executed"] = True
+        report["deleted"] = deleted
+        report["errors"] = errors
+        return report
+
     def attach(self, artifact_id: str, session_id: str) -> Artifact:
         if self._store is not None:
             try:
