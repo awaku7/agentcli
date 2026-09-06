@@ -1423,6 +1423,29 @@ def attach_opt_in_session_store(
         )
         return store.get_tool_result(active_session_id, result_id)
 
+    def artifact_cleanup_report() -> dict[str, Any]:
+        """Return a dry-run cleanup report for the active Session."""
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        from .artifact_manager import ArtifactManager
+
+        workdir = Path(os.environ.get("UAGENT_WORKDIR") or os.getcwd())
+        manager = ArtifactManager(workdir, store=store)
+        try:
+            records = store.list_tool_results(active_session_id, limit=10_000)
+            referenced = {
+                str(record.get("artifact_ref") or "").removeprefix("artifact://")
+                for record in records
+                if record.get("artifact_ref")
+            }
+            return manager.cleanup_report(
+                referenced_ids={item for item in referenced if item},
+                session_id=active_session_id,
+            )
+        finally:
+            manager.close()
+
     def read_artifact_preview(reference: str, max_chars: int = 4000) -> str:
         """Read a bounded textual Artifact preview owned by the active session."""
         active_session_id = getattr(
@@ -1481,6 +1504,7 @@ def attach_opt_in_session_store(
     core.complete_agent_step = complete_agent_step
     core.get_agent_state = get_agent_state
     core.get_tool_result = get_tool_result
+    core.artifact_cleanup_report = artifact_cleanup_report
     core.read_artifact_preview = read_artifact_preview
     core.search_tool_results = search_tool_results
     core.retrieve_tool_context = retrieve_tool_context
@@ -1531,6 +1555,7 @@ def detach_opt_in_session_store(core: Any) -> None:
             "complete_agent_step",
             "get_agent_state",
             "get_tool_result",
+            "artifact_cleanup_report",
             "read_artifact_preview",
             "search_tool_results",
             "retrieve_tool_context",
