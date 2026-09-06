@@ -182,7 +182,7 @@ def build_app(
                     with lifecycle_execution(runtime.lifecycle):
                         ctx = copy_context()
                         assistant_msg, err = await asyncio.to_thread(
-                            ctx.run, run_once, user_text=user_text
+                            ctx.run, run_once, user_text=user_text, task_id=task_id
                         )
                 except asyncio.CancelledError:
                     _lifecycle_transition(runtime, "cancel")

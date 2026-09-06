@@ -19,7 +19,9 @@ def _engine_mode() -> str:
     return _norm(env_get("UAGENT_A2A_ENGINE", "uag")) or "uag"
 
 
-def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
+def run_once_uag(
+    *, user_text: str, task_id: str = ""
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Run one uagent round-trip and return (assistant_message, error)."""
 
     # Local imports to avoid import-time side effects unless A2A server is used.
@@ -37,6 +39,7 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
     attached_store, _session_id = attach_opt_in_session_store(
         core, project_path=os.getcwd(), entry_point="a2a"
     )
+    core.task_id = str(task_id or "")
 
     messages = build_initial_messages(core=core)
     user_msg: dict[str, Any] = {"role": "user", "content": user_text}
@@ -63,6 +66,10 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
     finally:
         if attached_store is not None:
             detach_opt_in_session_store(core)
+        try:
+            delattr(core, "task_id")
+        except AttributeError:
+            pass
 
     def _collect_attachments() -> list[dict[str, Any]]:
         attachments: list[dict[str, Any]] = []
@@ -156,7 +163,9 @@ def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | No
     return last_assistant, None
 
 
-def run_once(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
+def run_once(
+    *, user_text: str, task_id: str = ""
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
     mode = _engine_mode()
 
     if mode == "echo":
@@ -171,7 +180,7 @@ def run_once(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
 
     if mode in ("uag", "uagent"):
         try:
-            return run_once_uag(user_text=user_text)
+            return run_once_uag(user_text=user_text, task_id=task_id)
         except (SystemExit, ValueError, RuntimeError) as e:
             return (
                 {"role": "assistant", "content": ""},
