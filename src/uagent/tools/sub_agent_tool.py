@@ -203,6 +203,20 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
                     ),
                 },
+                "provider": {
+                    "type": "string",
+                    "description": _(
+                        "param.provider.description",
+                        default="Optional LLM provider override for this sub-agent (for example: openai, claude, gemini, deepseek).",
+                    ),
+                },
+                "model": {
+                    "type": "string",
+                    "description": _(
+                        "param.model.description",
+                        default="Optional model/deployment override for this sub-agent provider.",
+                    ),
+                },
                 "task": {
                     "type": "string",
                     "description": _(
@@ -1000,6 +1014,8 @@ class SubAgentRunner:
         self,
         agent_name: str,
         task_text: str,
+        provider: Optional[str] = None,
+        model_name: Optional[str] = None,
         current_file: Optional[str] = None,
         response_mode: Optional[str] = None,
         response_schema: Optional[Dict[str, Any]] = None,
@@ -1099,6 +1115,8 @@ class SubAgentRunner:
                 spec=spec,
                 task=task,
                 pack=pack,
+                provider=provider,
+                model_name=model_name,
                 response_mode=response_mode,
                 response_schema=response_schema,
                 required_fields=required_fields,
@@ -1126,6 +1144,8 @@ class SubAgentRunner:
         spec: AgentSpec,
         task: SubAgentTask,
         pack: ContextPack,
+        provider: Optional[str],
+        model_name: Optional[str],
         response_mode: Optional[str],
         response_schema: Optional[Dict[str, Any]],
         required_fields: Optional[List[str]],
@@ -1143,7 +1163,8 @@ class SubAgentRunner:
         agent_upper = agent_name.upper()
         sub_provider = (
             (
-                env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
+                provider
+                or env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
                 or env_get("UAGENT_SUB_AGENT_PROVIDER")
                 or ""
             )
@@ -1151,7 +1172,8 @@ class SubAgentRunner:
             .lower()
         )
         sub_depname = (
-            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
+            model_name
+            or env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
@@ -1565,6 +1587,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
     agent_name = args["agent_name"]
     task = args["task"]
+    provider = args.get("provider")
+    model_name = args.get("model")
     current_file = args.get("current_file")
     response_mode = args.get("response_mode")
     response_schema = args.get("response_schema")
@@ -1602,7 +1626,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         result = _runner.run(
             agent_name,
             task,
-            current_file,
+            provider=provider,
+            model_name=model_name,
+            current_file=current_file,
             response_mode=response_mode,
             response_schema=response_schema,
             required_fields=required_fields,
