@@ -2,6 +2,9 @@
   "ar": {
     "subagent.human_ask_prefix": "طلب تأكيد من الوكيل الفرعي %(agent)s:" ,
     "param.agent_name.description": "اسم الوكيل الفرعي المراد تشغيله. المدمج: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. يمكن تحميل أدوار مخصصة من UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "موفر LLM اختياري لهذا الوكيل الفرعي (مثل openai أو claude أو gemini أو deepseek).",
+    "param.model.description": "النموذج أو اسم النشر الاختياري المستخدم مع موفر LLM المحدد.",
+    "param.reasoning.description": "مستوى reasoning موحد اختياري؛ تتم مواءمته داخليًا مع معاملات الموفر والنموذج.",
     "param.current_file.description": "(اختياري) قصر نطاق تفكير الوكيل الفرعي على هذا الملف المحدد.",
     "param.evidence_min_items.description": "الحد الأدنى لعدد عناصر الأدلة المطلوبة.",
     "param.evidence_required.description": "تتطلب أدلة.",
@@ -48,6 +51,9 @@
   "bn": {
     "subagent.human_ask_prefix": "সাব-এজেন্ট %(agent)s-এর মানব নিশ্চিতকরণ অনুরোধ:" ,
     "param.agent_name.description": "চালানোর জন্য সাব-এজেন্টের নাম। বিল্ট-ইন: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। কাস্টম রোল UAGENT_SUB_AGENT_ROLES_DIR থেকে লোড করা যায়।",
+    "param.provider.description": "এই সাব-এজেন্টের জন্য ঐচ্ছিক LLM প্রদানকারী (যেমন openai, claude, gemini, deepseek)।",
+    "param.model.description": "নির্বাচিত LLM প্রদানকারীর জন্য ঐচ্ছিক মডেল বা ডিপ্লয়মেন্ট নাম।",
+    "param.reasoning.description": "ঐচ্ছিক একীভূত reasoning স্তর; প্রদানকারী ও মডেলভিত্তিক প্যারামিটারে অভ্যন্তরীণভাবে রূপান্তরিত হয়।",
     "param.current_file.description": "(ঐচ্ছিক) সাব-এজেন্টের যুক্তির পরিধি এই নির্দিষ্ট ফাইলে সীমাবদ্ধ করুন।",
     "param.evidence_min_items.description": "প্রয়োজনীয় প্রমাণের উপাদানের ন্যূনতম সংখ্যা।",
     "param.evidence_required.description": "অসিঙ্ক্রোনাসভাবে একটি বহিরাগত GUI বা ব্রাউজার প্রক্রিয়া শুরু করতে হবে।",
@@ -94,6 +100,9 @@
   "cs": {
     "subagent.human_ask_prefix": "Požadavek na potvrzení od subagenta %(agent)s:" ,
     "param.agent_name.description": "Název sub-agenta, který se má spustit. Vestavěné: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vlastní role lze načíst z UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Volitelný poskytovatel LLM pro tohoto sub-agenta (například openai, claude, gemini nebo deepseek).",
+    "param.model.description": "Volitelný název modelu nebo nasazení pro vybraného poskytovatele LLM.",
+    "param.reasoning.description": "Volitelná jednotná úroveň reasoning; interně se normalizuje na parametry poskytovatele a modelu.",
     "param.current_file.description": "(Volitelné) Omezit rozsah uvažování sub-agenta na tento konkrétní soubor.",
     "param.evidence_min_items.description": "Minimální požadovaný počet položek důkazů.",
     "param.evidence_required.description": "Vyžadovat důkazy.",
@@ -140,6 +149,9 @@
   "de": {
     "subagent.human_ask_prefix": "Bestätigungsanfrage des Sub-Agenten %(agent)s:" ,
     "param.agent_name.description": "Name des auszuführenden Subagenten. Eingebaut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Benutzerdefinierte Rollen können aus UAGENT_SUB_AGENT_ROLES_DIR geladen werden.",
+    "param.provider.description": "Optionaler LLM-Anbieter für diesen Sub-Agenten (z. B. openai, claude, gemini oder deepseek).",
+    "param.model.description": "Optionaler Modell- oder Deployment-Name für den ausgewählten LLM-Anbieter.",
+    "param.reasoning.description": "Optionale einheitliche Reasoning-Stufe; wird intern auf Anbieter- und Modellsparameter normalisiert.",
     "param.current_file.description": "(Optional) Beschränken Sie den Begründungsbereich des Subagenten auf diese bestimmte Datei.",
     "param.evidence_min_items.description": "Mindestanzahl der erforderlichen Belege.",
     "param.evidence_required.description": "Beweise erforderlich.",
@@ -186,6 +198,9 @@
   "en": {
     "subagent.human_ask_prefix": "[Sub-agent %(agent)s] Human confirmation request:\n",
     "param.agent_name.description": "The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Optional) Limit the sub-agent's reasoning scope to this specific file.",
     "param.evidence_min_items.description": "Minimum number of evidence items required.",
     "param.evidence_required.description": "Require evidence.",
@@ -232,6 +247,9 @@
   "es": {
     "subagent.human_ask_prefix": "Solicitud de confirmación del subagente %(agent)s:" ,
     "param.agent_name.description": "Nombre del subagente a ejecutar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Los roles personalizados se pueden cargar desde UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Proveedor LLM opcional para este subagente (por ejemplo, openai, claude, gemini o deepseek).",
+    "param.model.description": "Nombre opcional del modelo o despliegue para el proveedor LLM seleccionado.",
+    "param.reasoning.description": "Nivel de reasoning unificado opcional; se normaliza internamente a los parámetros del proveedor y modelo.",
     "param.current_file.description": "(Opcional) Limite el alcance de razonamiento del subagente a este archivo específico.",
     "param.evidence_min_items.description": "Número mínimo de elementos de evidencia requeridos.",
     "param.evidence_required.description": "Requerir evidencia.",
@@ -278,6 +296,9 @@
   "fa": {
     "subagent.human_ask_prefix": "درخواست تأیید انسانی از عامل فرعی %(agent)s:" ,
     "param.agent_name.description": "نام عامل فرعی برای اجرا. داخلی: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. نقش‌های سفارشی را می‌توان از UAGENT_SUB_AGENT_ROLES_DIR بارگذاری کرد.",
+    "param.provider.description": "ارائه‌دهنده اختیاری LLM برای این عامل فرعی (برای مثال openai، claude، gemini یا deepseek).",
+    "param.model.description": "نام اختیاری مدل یا استقرار برای ارائه‌دهنده LLM انتخاب‌شده.",
+    "param.reasoning.description": "سطح reasoning یکپارچه اختیاری؛ پارامترهای مخصوص ارائه‌دهنده و مدل در داخل نرمال‌سازی می‌شوند.",
     "param.current_file.description": "(اختیاری) محدود کردن دامنه استدلال عامل فرعی به این فایل خاص.",
     "param.evidence_min_items.description": "حداقل تعداد موارد شواهد مورد نیاز.",
     "param.evidence_required.description": "نیاز به شواهد.",
@@ -324,6 +345,9 @@
   "fi": {
     "subagent.human_ask_prefix": "Aliagentin %(agent)s vahvistuspyyntö:" ,
     "param.agent_name.description": "Suoritettavan ala-agentin nimi. Sisäänrakennetut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Mukautettuja rooleja voidaan ladata UAGENT_SUB_AGENT_ROLES_DIR:stä.",
+    "param.provider.description": "Valinnainen LLM-palveluntarjoaja tälle aliagentille (esimerkiksi openai, claude, gemini tai deepseek).",
+    "param.model.description": "Valinnainen malli- tai käyttöönottonimi valitulle LLM-palveluntarjoajalle.",
+    "param.reasoning.description": "Valinnainen yhtenäinen reasoning-taso; se normalisoidaan sisäisesti palveluntarjoajan ja mallin parametreiksi.",
     "param.current_file.description": "(Valinnainen) Rajaa alitoimijan päättelyalue tähän tiettyyn tiedostoon.",
     "param.evidence_min_items.description": "Todisteiden vähimmäismäärä.",
     "param.evidence_required.description": "Vaadi todisteita.",
@@ -370,6 +394,9 @@
   "fr": {
     "subagent.human_ask_prefix": "Demande de confirmation de l’agent secondaire %(agent)s :" ,
     "param.agent_name.description": "Nom du sous-agent à exécuter. Intégrés : planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Les rôles personnalisés peuvent être chargés depuis UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Fournisseur LLM facultatif pour ce sous-agent (par exemple openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nom facultatif du modèle ou du déploiement pour le fournisseur LLM choisi.",
+    "param.reasoning.description": "Niveau de reasoning unifié facultatif, normalisé en interne selon le fournisseur et le modèle.",
     "param.current_file.description": "(Facultatif) Limitez la portée de raisonnement du sous-agent à ce fichier spécifique.",
     "param.evidence_min_items.description": "Nombre minimal d'éléments de preuve requis.",
     "param.evidence_required.description": "Exiger des preuves.",
@@ -416,6 +443,9 @@
   "hi": {
     "subagent.human_ask_prefix": "सब-एजेंट %(agent)s का मानव पुष्टि अनुरोध:" ,
     "param.agent_name.description": "चलाने के लिए उप-एजेंट का नाम। बिल्ट-इन: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। कस्टम भूमिकाएँ UAGENT_SUB_AGENT_ROLES_DIR से लोड की जा सकती हैं।",
+    "param.provider.description": "इस सब-एजेंट के लिए वैकल्पिक LLM प्रदाता (जैसे openai, claude, gemini, deepseek)।",
+    "param.model.description": "चयनित LLM प्रदाता के लिए वैकल्पिक मॉडल या डिप्लॉयमेंट नाम।",
+    "param.reasoning.description": "वैकल्पिक एकीकृत reasoning स्तर; प्रदाता और मॉडल-विशिष्ट पैरामीटर में आंतरिक रूप से सामान्यीकृत।",
     "param.current_file.description": "(वैकल्पिक) उप-एजेंट के तर्क कार्यक्षेत्र को इस विशिष्ट फ़ाइल तक सीमित करें।",
     "param.evidence_min_items.description": "आवश्यक साक्ष्य वस्तुओं की न्यूनतम संख्या।",
     "param.evidence_required.description": "एक ही अनुरोध के लिए बार-बार उत्पन्न होने से बचें।",
@@ -462,6 +492,9 @@
   "id": {
     "subagent.human_ask_prefix": "Permintaan konfirmasi manusia dari sub-agen %(agent)s:" ,
     "param.agent_name.description": "Nama sub-agen yang akan dijalankan. Bawaan: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Peran kustom dapat dimuat dari UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Penyedia LLM opsional untuk sub-agen ini (misalnya openai, claude, gemini, deepseek).",
+    "param.model.description": "Nama model atau deployment opsional untuk penyedia LLM yang dipilih.",
+    "param.reasoning.description": "Tingkat reasoning terpadu opsional; dinormalisasi secara internal ke parameter penyedia dan model.",
     "param.current_file.description": "(Opsional) Batasi cakupan penalaran sub-agen ke file spesifik ini.",
     "param.evidence_min_items.description": "Jumlah minimum item bukti yang diperlukan.",
     "param.evidence_required.description": "Membutuhkan bukti.",
@@ -508,6 +541,9 @@
   "it": {
     "subagent.human_ask_prefix": "Richiesta di conferma dell’agente secondario %(agent)s:" ,
     "param.agent_name.description": "Nome del sotto-agente da eseguire. Integrati: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. I ruoli personalizzati possono essere caricati da UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Provider LLM opzionale per questo sub-agent (ad esempio openai, claude, gemini o deepseek).",
+    "param.model.description": "Nome opzionale del modello o deployment per il provider LLM selezionato.",
+    "param.reasoning.description": "Livello di reasoning unificato opzionale, normalizzato internamente in base al provider e al modello.",
     "param.current_file.description": "(Facoltativo) Limita l'ambito del ragionamento del sub-agente a questo file specifico.",
     "param.evidence_min_items.description": "Numero minimo di elementi di prova richiesti.",
     "param.evidence_required.description": "Richiedi prove.",
@@ -603,6 +639,9 @@
   "ko": {
     "subagent.human_ask_prefix": "【하위 에이전트 %(agent)s】사용자 확인 요청:" ,
     "param.agent_name.description": "실행할 서브 에이전트의 이름. 내장: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. 사용자 정의 역할은 UAGENT_SUB_AGENT_ROLES_DIR에서 로드할 수 있습니다.",
+    "param.provider.description": "이 하위 에이전트에 사용할 선택적 LLM 제공자(예: openai, claude, gemini, deepseek).",
+    "param.model.description": "선택한 LLM 제공자의 선택적 모델 또는 배포 이름.",
+    "param.reasoning.description": "선택적 통합 reasoning 수준이며 제공자와 모델별 매개변수로 내부 정규화됩니다.",
     "param.current_file.description": "(선택 사항) 서브 에이전트의 추론 범위를 이 특정 파일로 제한합니다.",
     "param.evidence_min_items.description": "필요한 최소 증거 항목 수.",
     "param.evidence_required.description": "응답에 증거 항목 필수 포함.",
@@ -649,6 +688,9 @@
   "mn": {
     "subagent.human_ask_prefix": "Дэд агент %(agent)s-ийн хүний баталгаажуулах хүсэлт:" ,
     "param.agent_name.description": "Ажиллуулах дэд агентийн нэр. Суурилуулсан: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Тусгай үүргүүдийг UAGENT_SUB_AGENT_ROLES_DIR-ээс ачаалж болно.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Нэмэлт) Дэд агентийн ажиллах хүрээг энэхүү тодорхой файлаар хязгаарлах.",
     "param.evidence_min_items.description": "Шаардлагатай нотлох баримтын хамгийн бага тоо.",
     "param.evidence_required.description": "Нотлох баримт шаардана.",
@@ -695,6 +737,9 @@
   "mr": {
     "subagent.human_ask_prefix": "सब-एजंट %(agent)s कडून मानवी पुष्टी विनंती:" ,
     "param.agent_name.description": "चालवण्यासाठी उप-एजंटचे नाव. अंगभूत: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. सानुकूल भूमिका UAGENT_SUB_AGENT_ROLES_DIR मधून लोड करता येतात.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(पर्यायी) उप-एजंटची विचार करण्याची मर्यादा या विशिष्ट फाईलपर्यंत मर्यादित करा.",
     "param.evidence_min_items.description": "आवश्यक पुराव्यांच्या घटकांची किमान संख्या.",
     "param.evidence_required.description": "पुरावा आवश्यक आहे.",
@@ -741,6 +786,9 @@
   "el": {
     "subagent.human_ask_prefix": "Αίτημα επιβεβαίωσης από τον υποπράκτορα %(agent)s:" ,
     "param.agent_name.description": "Το όνομα του υπο-πράκτορα που θα εκτελεστεί. Ενσωματωμένοι: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Προσαρμοσμένοι ρόλοι μπορούν να φορτωθούν από UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Προαιρετικό) Περιορίστε το εύρος συλλογιστικής του δευτερεύοντος πράκτορα σε αυτό το συγκεκριμένο αρχείο.",
     "param.evidence_min_items.description": "Απαιτείται ελάχιστος αριθμός αποδεικτικών στοιχείων.",
     "param.evidence_required.description": "Απαιτούνται αποδεικτικά στοιχεία.",
@@ -787,6 +835,9 @@
   "he": {
     "subagent.human_ask_prefix": "בקשת אישור משתמש מסוכן המשנה %(agent)s:" ,
     "param.agent_name.description": "שם תת-הסוכן להרצה. מובנים: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. ניתן לטעון תפקידים מותאמים מ-UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(אופציונלי) הגבל את היקף ההנמקה של סוכן המשנה לקובץ הספציפי הזה.",
     "param.evidence_min_items.description": "נדרש מספר מינימלי של פריטי ראיות.",
     "param.evidence_required.description": "רשימת שדות חובה בתגובת JSON.",
@@ -833,6 +884,9 @@
   "hu": {
     "subagent.human_ask_prefix": "A(z) %(agent)s alügynök megerősítési kérése:" ,
     "param.agent_name.description": "A futtatandó al-ágens neve. Beépített: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egyéni szerepkörök az UAGENT_SUB_AGENT_ROLES_DIR-ből tölthetők be.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Opcionális) Korlátozza az alügynök érvelési hatókörét erre a fájlra.",
     "param.evidence_min_items.description": "Bizonyítékot kér.",
     "param.evidence_required.description": "A kötelező mezők listája a JSON-válaszban.",
@@ -879,6 +933,9 @@
   "ro": {
     "subagent.human_ask_prefix": "Solicitare de confirmare a subagentului %(agent)s:" ,
     "param.agent_name.description": "Numele sub-agentului de rulat. Integrate: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Rolurile personalizate pot fi încărcate din UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Opțional) Limitați sfera raționamentului agentului secundar la acest fișier specific.",
     "param.evidence_min_items.description": "Numărul minim de dovezi necesare.",
     "param.evidence_required.description": "Solicită dovezi.",
@@ -925,6 +982,9 @@
   "nb": {
     "subagent.human_ask_prefix": "Bekreftelsesforespørsel fra underagenten %(agent)s:" ,
     "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egendefinerte roller kan lastes fra UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Valgfritt) Begrens subagentens resonnementomfang til denne spesifikke filen.",
     "param.evidence_min_items.description": "Minimum antall påkrevde beviselementer.",
     "param.evidence_required.description": "Krev bevis.",
@@ -971,6 +1031,9 @@
   "nl": {
     "subagent.human_ask_prefix": "Bevestigingsverzoek van subagent %(agent)s:" ,
     "param.agent_name.description": "Naam van de uit te voeren subagent. Ingebouwd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Aangepaste rollen kunnen worden geladen vanuit UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de subagent tot dit specifieke bestand.",
     "param.evidence_min_items.description": "Minimaal aantal vereiste bewijsstukken.",
     "param.evidence_required.description": "Bewijs nodig.",
@@ -1017,6 +1080,9 @@
   "pl": {
     "subagent.human_ask_prefix": "Prośba o potwierdzenie od subagenta %(agent)s:" ,
     "param.agent_name.description": "Nazwa podagenta do uruchomienia. Wbudowane: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Role niestandardowe można wczytać z UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Opcjonalnie) Ogranicz zakres rozumowania podagenta do tego konkretnego pliku.",
     "param.evidence_min_items.description": "Minimalna wymagana liczba elementów dowodowych.",
     "param.evidence_required.description": "Wymagaj dowodów.",
@@ -1063,6 +1129,9 @@
   "pt": {
     "subagent.human_ask_prefix": "Pedido de confirmação do subagente %(agent)s:" ,
     "param.agent_name.description": "Nome do subagente a executar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Provedor LLM opcional para este subagente (por exemplo, openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nome opcional do modelo ou implantação para o provedor LLM selecionado.",
+    "param.reasoning.description": "Nível de reasoning unificado opcional, normalizado internamente para o provedor e o modelo.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.evidence_min_items.description": "Número mínimo de itens de prova necessários.",
     "param.evidence_required.description": "Exigir provas.",
@@ -1109,6 +1178,9 @@
   "pt_BR": {
     "subagent.human_ask_prefix": "Solicitação de confirmação do subagente %(agent)s:" ,
     "param.agent_name.description": "Nome do subagente a ser executado. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Provedor LLM opcional para este subagente (por exemplo, openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nome opcional do modelo ou implantação para o provedor LLM selecionado.",
+    "param.reasoning.description": "Nível de reasoning unificado opcional, normalizado internamente para o provedor e o modelo.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.evidence_min_items.description": "Número mínimo de itens de evidência necessários.",
     "param.evidence_required.description": "Exigir provas.",
@@ -1155,6 +1227,9 @@
   "ru": {
     "subagent.human_ask_prefix": "Запрос подтверждения от субагента %(agent)s:" ,
     "param.agent_name.description": "Имя суб-агента для запуска. Встроенные: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Пользовательские роли можно загрузить из UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Необязательный провайдер LLM для этого субагента (например, openai, claude, gemini или deepseek).",
+    "param.model.description": "Необязательное имя модели или развертывания выбранного провайдера LLM.",
+    "param.reasoning.description": "Необязательный единый уровень reasoning; внутри преобразуется в параметры провайдера и модели.",
     "param.current_file.description": "(Необязательно) Ограничьте область рассуждений субагента этим конкретным файлом.",
     "param.evidence_min_items.description": "Минимальное необходимое количество доказательств.",
     "param.evidence_required.description": "Требуйте доказательства.",
@@ -1201,6 +1276,9 @@
   "sv": {
     "subagent.human_ask_prefix": "Bekräftelseförfrågan från underagenten %(agent)s:" ,
     "param.agent_name.description": "Namnet på underagenten som ska köras. Inbyggda: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Anpassade roller kan laddas från UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Valfritt) Begränsa underagentens resonemang till denna specifika fil.",
     "param.evidence_min_items.description": "Minsta antal bevisobjekt som krävs.",
     "param.evidence_required.description": "Kräv bevis.",
@@ -1247,6 +1325,9 @@
   "sw": {
     "subagent.human_ask_prefix": "Ombi la uthibitisho wa wakala mdogo %(agent)s:" ,
     "param.agent_name.description": "Jina la ejenti msaidizi wa kumendesha. Iliyojengwa ndani: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Majukumu maalum yanaweza kupakiwa kutoka UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Hiari) Punguza wigo wa kufikiri wa ejenti msaidizi kwenye faili hii maalum.",
     "param.evidence_min_items.description": "Idadi ya chini kabisa ya vipengee vya ushahidi vinavyohitajika.",
     "param.evidence_required.description": "Inahitaji ushahidi.",
@@ -1293,6 +1374,9 @@
   "th": {
     "subagent.human_ask_prefix": "คำขอยืนยันจากเอเจนต์ย่อย %(agent)s:" ,
     "param.agent_name.description": "ชื่อของซับเอเจนต์ที่จะรัน ที่มีมาให้: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general บทบาทที่กำหนดเองสามารถโหลดจาก UAGENT_SUB_AGENT_ROLES_DIR",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(ไม่บังคับ) จำกัดขอบเขตการคิดของซับเอเจนต์ไว้ที่ไฟล์เฉพาะนี้",
     "param.evidence_min_items.description": "จำนวนขั้นต่ำของรายการหลักฐานที่ต้องการ",
     "param.evidence_required.description": "ต้องมีหลักฐาน",
@@ -1339,6 +1423,9 @@
   "tr": {
     "subagent.human_ask_prefix": "Alt ajan %(agent)s tarafından insan onayı isteği:" ,
     "param.agent_name.description": "Çalıştırılacak alt aracının adı. Yerleşik: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Özel roller UAGENT_SUB_AGENT_ROLES_DIR konumundan yüklenebilir.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(İsteğe bağlı) Alt aracının muhakeme kapsamını bu belirli dosyayla sınırlayın.",
     "param.evidence_min_items.description": "Gerekli minimum kanıt öğesi sayısı.",
     "param.evidence_required.description": "Kanıt iste.",
@@ -1385,6 +1472,9 @@
   "uk": {
     "subagent.human_ask_prefix": "Запит підтвердження від субагента %(agent)s:" ,
     "param.agent_name.description": "Ім'я суб-агента для запуску. Вбудовані: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Користувацькі ролі можна завантажити з UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Необов'язково) Обмежити область міркувань суб-агента цим конкретним файлом.",
     "param.evidence_min_items.description": "Мінімальна кількість необхідних доказів.",
     "param.evidence_required.description": "Вимагати доказів.",
@@ -1431,6 +1521,9 @@
   "vi": {
     "subagent.human_ask_prefix": "Yêu cầu xác nhận của tác nhân phụ %(agent)s:" ,
     "param.agent_name.description": "Tên sub-agent cần chạy. Tích hợp sẵn: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vai trò tùy chỉnh có thể tải từ UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Tùy chọn) Giới hạn phạm vi lập luận của sub-agent trong tệp cụ thể này.",
     "param.evidence_min_items.description": "Cần có số lượng mục bằng chứng tối thiểu.",
     "param.evidence_required.description": "Yêu cầu bằng chứng.",
@@ -1477,6 +1570,9 @@
   "zh_CN": {
     "subagent.human_ask_prefix": "【子代理 %(agent)s】用户确认请求：" ,
     "param.agent_name.description": "要运行的子智能体名称。内置：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自定义角色可从 UAGENT_SUB_AGENT_ROLES_DIR 加载。",
+    "param.provider.description": "此子代理可选的 LLM 提供商（例如 openai、claude、gemini、deepseek）。",
+    "param.model.description": "所选 LLM 提供商的可选模型或部署名称。",
+    "param.reasoning.description": "可选的统一 reasoning 级别；内部会根据提供商和模型参数进行标准化。",
     "param.current_file.description": "（可选）将子智能体的推理范围限制在此特定文件。",
     "param.evidence_min_items.description": "所需证据项的最小数量。",
     "param.evidence_required.description": "要求在响应中包含证据项。",
@@ -1523,6 +1619,9 @@
   "zh_TW": {
     "subagent.human_ask_prefix": "【子代理 %(agent)s】使用者確認請求：" ,
     "param.agent_name.description": "要執行的子代理名稱。內建：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自訂角色可從 UAGENT_SUB_AGENT_ROLES_DIR 載入。",
+    "param.provider.description": "此子代理可選的 LLM 提供者（例如 openai、claude、gemini、deepseek）。",
+    "param.model.description": "所選 LLM 提供者的可選模型或部署名稱。",
+    "param.reasoning.description": "可選的統一 reasoning 層級；內部會依提供者與模型參數進行正規化。",
     "param.current_file.description": "（選填）將子代理的推理範圍限制在此特定檔案。",
     "param.evidence_min_items.description": "所需證據項目的最少數量。",
     "param.evidence_required.description": "要求在回應中包含證據項目。",
@@ -1569,6 +1668,9 @@
   "fil": {
     "subagent.human_ask_prefix": "Kahilingan ng kumpirmasyon ng sub-agent na %(agent)s:" ,
     "param.agent_name.description": "Ang pangalan ng sub-agent na tatakbo. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Maaaring i-load ang mga custom na tungkulin mula sa UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Opsyonal) Limitahan ang saklaw ng pangangatwiran ng sub-agent sa partikular na file na ito.",
     "param.evidence_min_items.description": "Minimum na bilang ng mga item ng ebidensya na kinakailangan.",
     "param.evidence_required.description": "Mangangailangan ng ebidensya.",
@@ -1615,6 +1717,9 @@
   "ms": {
     "subagent.human_ask_prefix": "Permintaan pengesahan manusia daripada sub-ejen %(agent)s:" ,
     "param.agent_name.description": "Nama sub-agen untuk dijalankan. Terbina dalam: perancang, penyemak, ringkasan, patch_designer, error_analyst, penterjemah, umum. Peranan tersuai boleh dimuatkan daripada UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Pilihan) Hadkan skop penaakulan sub-ejen kepada fail khusus ini.",
     "param.evidence_min_items.description": "Bilangan minimum item bukti yang diperlukan.",
     "param.evidence_required.description": "Memerlukan bukti.",
@@ -1661,6 +1766,9 @@
   "da": {
     "subagent.human_ask_prefix": "Bekræftelsesanmodning fra underagenten %(agent)s:" ,
     "param.agent_name.description": "Navnet på den underagent, der skal køres. Indbygget: planlægger, anmelder, summarizer, patch_designer, fejlanalytiker, oversætter, generelt. Tilpassede roller kan indlæses fra UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Optional LLM provider for this sub-agent (for example: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optional model/deployment override for this sub-agent provider.",
+    "param.reasoning.description": "Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
     "param.current_file.description": "(Valgfrit) Begræns underagentens ræsonnementsområde til denne specifikke fil.",
     "param.evidence_min_items.description": "Minimum antal krævede beviselementer.",
     "param.evidence_required.description": "Kræv beviser.",
@@ -1707,6 +1815,9 @@
   "nn": {
     "subagent.human_ask_prefix": "Stadfestingsførespurnad frå underagenten %(agent)s:" ,
     "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planlegger, anmelder, summarizer, patch_designer, error_analyst, oversetter, generelt. Egendefinerte roller kan lastes inn frå UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.provider.description": "Valfri LLM-leverandør for denne underagenten (for eksempel openai, claude, gemini eller deepseek).",
+    "param.model.description": "Valfritt modell- eller distribusjonsnamn for den valde LLM-leverandøren.",
+    "param.reasoning.description": "Valfritt samla reasoning-nivå; vert internt normalisert til leverandør- og modellspesifikke parameter.",
     "param.current_file.description": "(Valgfritt) Begrens underagentens resonnementomfang til denne spesifikke filen.",
     "param.evidence_min_items.description": "Minimum antall beviselementer som kreves.",
     "param.evidence_required.description": "Krev bevis.",
