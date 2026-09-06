@@ -504,6 +504,8 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 "approve",
                                 "delete",
                                 "vacuum",
+                                "artifact-cleanup",
+                                "artifacts",
                                 "pdf",
                                 "import",
                             ):
@@ -514,6 +516,16 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 yield Completion("--yes", start_position=0)
                             elif last.startswith("--") and "--yes".startswith(last):
                                 yield Completion("--yes", start_position=-len(last))
+                        elif parts[0] in {"artifact-cleanup", "artifacts"}:
+                            if after_sessions.endswith(" "):
+                                yield Completion("--yes", start_position=0)
+                                yield Completion("-y", start_position=0)
+                            elif last.startswith("-"):
+                                for flag in ("--yes", "-y"):
+                                    if flag.startswith(last):
+                                        yield Completion(
+                                            flag, start_position=-len(last)
+                                        )
                     elif stripped.startswith(":skills "):
                         # :skills subcommand and option completion. Keep the
                         # built-ins here as well as CMD_SPEC entries: the

@@ -1359,7 +1359,7 @@ def _handle_cmd_sessions(
         if not callable(report_fn):
             print(_("[sessions] Session store is not enabled."))
             return True
-        execute = "--yes" in parts[1:] or "-y" in parts[1:]
+        execute = any(flag in parts[1:] for flag in ("--yes", "-y", "-yes"))
         try:
             report = (
                 cleanup_fn(execute=True)
