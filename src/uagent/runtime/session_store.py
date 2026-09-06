@@ -13,16 +13,24 @@ import sqlite3
 import threading
 import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import mask_args
-from .tool_result_persistence import sanitize_message_for_history
+from .tool_result_persistence import (
+    sanitize_binary_payload,
+    sanitize_message_for_history,
+)
 
 
 class SessionStoreError(RuntimeError):
     """Raised when session persistence cannot complete safely."""
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _db_locked(method):
@@ -336,6 +344,26 @@ class SessionStore:
                     context_json TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS tool_results (
+                    result_id TEXT PRIMARY KEY,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    task_id TEXT,
+                    tool_name TEXT NOT NULL,
+                    result_class TEXT NOT NULL,
+                    size_bytes INTEGER NOT NULL,
+                    summary TEXT NOT NULL,
+                    artifact_ref TEXT,
+                    importance TEXT NOT NULL,
+                    evictable INTEGER NOT NULL,
+                    metadata_json TEXT NOT NULL,
+                    persistent_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS agent_states (
+                    session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    state_json TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS policy_decisions (
                     decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -361,6 +389,8 @@ class SessionStore:
                     ON response_states(session_id, state_id);
                 CREATE INDEX IF NOT EXISTS idx_tool_context_states_session_id
                     ON tool_context_states(session_id, context_id);
+                CREATE INDEX IF NOT EXISTS idx_tool_results_session_created
+                    ON tool_results(session_id, created_at);
                 CREATE INDEX IF NOT EXISTS idx_messages_session_role_id
                     ON messages(session_id, role, message_id);
                 CREATE INDEX IF NOT EXISTS idx_tool_calls_session_created
@@ -387,6 +417,14 @@ class SessionStore:
             if "payload_json" not in message_columns:
                 self._connection.execute(
                     "ALTER TABLE messages ADD COLUMN payload_json TEXT"
+                )
+            tool_result_columns = {
+                row["name"]
+                for row in self._connection.execute("PRAGMA table_info(tool_results)")
+            }
+            if "metadata_json" not in tool_result_columns:
+                self._connection.execute(
+                    "ALTER TABLE tool_results ADD COLUMN metadata_json TEXT NOT NULL DEFAULT '{}'"
                 )
         except sqlite3.Error as exc:
             raise SessionStoreError(
@@ -798,6 +836,230 @@ class SessionStore:
         return result
 
     @_db_locked
+    def record_tool_result(
+        self,
+        session_id: str,
+        record: dict[str, Any],
+        persistent_history: Any,
+    ) -> None:
+        """Persist one provider-neutral ToolResultRecord and its history view."""
+        self._require_session(session_id)
+        try:
+            metadata_json = _safe_json_dumps(
+                _sanitize_value(record.get("metadata") or {}),
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+            persistent_json = _safe_json_dumps(
+                _sanitize_value(sanitize_binary_payload(persistent_history)),
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("tool result is not JSON serializable") from exc
+        result_id = str(record.get("result_id") or uuid.uuid4().hex)
+        created_at = str(record.get("created_at") or _utc_now())
+        self._execute(
+            "INSERT OR REPLACE INTO tool_results("
+            "result_id, session_id, task_id, tool_name, result_class, size_bytes, "
+            "summary, artifact_ref, importance, evictable, metadata_json, "
+            "persistent_json, created_at"
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                result_id,
+                session_id,
+                str(record.get("task_id") or ""),
+                str(record.get("tool_name") or "tool"),
+                str(record.get("result_class") or "small"),
+                int(record.get("size_bytes") or 0),
+                _sanitize_text(str(record.get("summary") or "")),
+                _sanitize_text(str(record.get("artifact_ref") or "")),
+                str(record.get("importance") or "normal"),
+                1 if bool(record.get("evictable", True)) else 0,
+                metadata_json,
+                persistent_json,
+                created_at,
+            ),
+        )
+
+    @_db_locked
+    def list_tool_results(
+        self, session_id: str, *, limit: int = 100
+    ) -> list[dict[str, Any]]:
+        """Return recent ToolResultRecords with decoded history projections."""
+        self._require_session(session_id)
+        safe_limit = max(1, min(int(limit), 10_000))
+        rows = self._execute(
+            "SELECT result_id, session_id, task_id, tool_name, result_class, "
+            "size_bytes, summary, artifact_ref, importance, evictable, metadata_json, "
+            "persistent_json, created_at FROM tool_results "
+            "WHERE session_id = ? ORDER BY created_at DESC LIMIT ?",
+            (session_id, safe_limit),
+        ).fetchall()
+        results: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            try:
+                item["metadata"] = json.loads(item.pop("metadata_json"))
+            except (TypeError, ValueError):
+                item["metadata"] = {}
+            try:
+                item["persistent_history"] = json.loads(item.pop("persistent_json"))
+            except (TypeError, ValueError):
+                item["persistent_history"] = None
+            item["evictable"] = bool(item["evictable"])
+            results.append(item)
+        return results
+
+    @_db_locked
+    def prune_tool_results(
+        self,
+        session_id: str,
+        *,
+        max_rows: int = 500,
+        evictable_only: bool = True,
+    ) -> int:
+        """Delete oldest retained Tool Results within a session.
+
+        By default only records marked ``evictable`` are removed. Artifact
+        files are intentionally left untouched; their lifecycle is managed by
+        the ArtifactManager cleanup policy.
+        """
+        self._require_session(session_id)
+        safe_max_rows = max(0, min(int(max_rows), 100_000))
+        if safe_max_rows == 0:
+            return 0
+        condition = "AND evictable = 1" if evictable_only else ""
+        rows = self._execute(
+            "SELECT result_id FROM tool_results WHERE session_id = ? "
+            f"{condition} ORDER BY created_at DESC LIMIT -1 OFFSET ?",
+            (session_id, safe_max_rows),
+        ).fetchall()
+        if not rows:
+            return 0
+        ids = [str(row["result_id"]) for row in rows]
+        placeholders = ",".join("?" for _ in ids)
+        self._execute(
+            f"DELETE FROM tool_results WHERE result_id IN ({placeholders})",
+            tuple(ids),
+        )
+        return len(ids)
+
+    @_db_locked
+    def save_agent_state(self, session_id: str, state: dict[str, Any]) -> None:
+        """Persist the latest structured Agent State for a session."""
+        self._require_session(session_id)
+        try:
+            state_json = _safe_json_dumps(
+                _sanitize_value(state), ensure_ascii=False, sort_keys=True
+            )
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("agent state is not JSON serializable") from exc
+        updated_at = str(state.get("updated_at") or _utc_now())
+        self._execute(
+            "INSERT INTO agent_states(session_id, state_json, updated_at) VALUES (?, ?, ?) "
+            "ON CONFLICT(session_id) DO UPDATE SET state_json=excluded.state_json, "
+            "updated_at=excluded.updated_at",
+            (session_id, state_json, updated_at),
+        )
+
+    @_db_locked
+    def get_agent_state(self, session_id: str) -> dict[str, Any] | None:
+        """Load the latest structured Agent State for a session."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT state_json FROM agent_states WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        try:
+            state = json.loads(row["state_json"])
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("stored agent state is invalid JSON") from exc
+        return state if isinstance(state, dict) else None
+
+    @_db_locked
+    def get_tool_result(self, session_id: str, result_id: str) -> dict[str, Any] | None:
+        """Return one persisted Tool Result by its stable result ID."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT result_id, session_id, task_id, tool_name, result_class, "
+            "size_bytes, summary, artifact_ref, importance, evictable, "
+            "metadata_json, persistent_json, created_at FROM tool_results "
+            "WHERE session_id = ? AND result_id = ?",
+            (session_id, str(result_id)),
+        ).fetchone()
+        if row is None:
+            return None
+        item = dict(row)
+        for column, output in (
+            ("metadata_json", "metadata"),
+            ("persistent_json", "persistent_history"),
+        ):
+            try:
+                item[output] = json.loads(item.pop(column))
+            except (TypeError, ValueError):
+                item[output] = {} if output == "metadata" else None
+        item["evictable"] = bool(item["evictable"])
+        return item
+
+    @_db_locked
+    def search_tool_results(
+        self, session_id: str, query: str, *, limit: int = 10
+    ) -> list[dict[str, Any]]:
+        """Find persisted Tool Results relevant to a query."""
+        self._require_session(session_id)
+        query = str(query or "").strip()
+        if not query:
+            return []
+        safe_limit = max(1, min(int(limit), 100))
+        tokens = [token.casefold() for token in re.findall(r"[\w-]+", query)]
+        if not tokens:
+            return []
+        rows = self._execute(
+            "SELECT result_id, session_id, task_id, tool_name, result_class, "
+            "size_bytes, summary, artifact_ref, importance, evictable, "
+            "metadata_json, persistent_json, created_at FROM tool_results "
+            "WHERE session_id = ? ORDER BY created_at DESC LIMIT 1000",
+            (session_id,),
+        ).fetchall()
+        ranked: list[tuple[int, str, dict[str, Any]]] = []
+        for row in rows:
+            item = dict(row)
+            for column, output in (
+                ("metadata_json", "metadata"),
+                ("persistent_json", "persistent_history"),
+            ):
+                try:
+                    item[output] = json.loads(item.pop(column))
+                except (TypeError, ValueError):
+                    item[output] = {} if output == "metadata" else None
+            item["evictable"] = bool(item["evictable"])
+            fields = {
+                "summary": str(item.get("summary") or "").casefold(),
+                "tool_name": str(item.get("tool_name") or "").casefold(),
+                "artifact_ref": str(item.get("artifact_ref") or "").casefold(),
+                "content": json.dumps(
+                    item.get("persistent_history"), ensure_ascii=False
+                ).casefold(),
+            }
+            score = 0
+            for token in tokens:
+                if token in fields["summary"]:
+                    score += 8
+                if token in fields["tool_name"]:
+                    score += 5
+                if token in fields["artifact_ref"]:
+                    score += 3
+                if token in fields["content"]:
+                    score += 1
+            if score:
+                ranked.append((score, str(item.get("created_at") or ""), item))
+        ranked.sort(key=lambda entry: (entry[0], entry[1]), reverse=True)
+        return [item for _, _, item in ranked[:safe_limit]]
+
+    @_db_locked
     def record_policy_decision(
         self,
         session_id: str,
@@ -1035,6 +1297,14 @@ def attach_opt_in_session_store(
     # persistence target on core so the callback does not permanently capture
     # the session created at startup.
     core._session_store_active_id = session.session_id
+    from .agent_state import AgentState, AgentStateManager
+
+    persisted_agent_state = store.get_agent_state(session.session_id)
+    agent_state_manager = AgentStateManager(
+        AgentState.from_dict(persisted_agent_state)
+        if persisted_agent_state
+        else AgentState()
+    )
     pending_tool_calls: dict[str, tuple[str, dict[str, Any]]] = {}
 
     jsonl_enabled = (
@@ -1078,7 +1348,108 @@ def attach_opt_in_session_store(
                 call_id=call_id,
             )
 
+    def record_tool_result(record: dict[str, Any], persistent_history: Any) -> None:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        store.record_tool_result(
+            active_session_id,
+            record,
+            persistent_history,
+        )
+        raw_max_rows = os.environ.get("UAGENT_TOOL_RESULT_MAX_ROWS", "500")
+        try:
+            max_rows = int(raw_max_rows)
+        except (TypeError, ValueError):
+            max_rows = 500
+        if max_rows > 0:
+            store.prune_tool_results(active_session_id, max_rows=max_rows)
+
+    def prune_tool_results(max_rows: int = 500, evictable_only: bool = True) -> int:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        return store.prune_tool_results(
+            active_session_id,
+            max_rows=max_rows,
+            evictable_only=evictable_only,
+        )
+
+    def save_agent_state(state: dict[str, Any]) -> None:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        store.save_agent_state(active_session_id, state)
+
+    def complete_agent_step(step: str, next_action: str = "") -> dict[str, Any]:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        persisted = store.get_agent_state(active_session_id)
+        manager = AgentStateManager(
+            AgentState.from_dict(persisted) if persisted else AgentState()
+        )
+        state = manager.mark_step_complete(step, next_action=next_action)
+        core.agent_state_manager = manager
+        store.save_agent_state(active_session_id, state.to_dict())
+        return state.to_dict()
+
+    def update_agent_state(**changes: Any) -> dict[str, Any]:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        persisted = store.get_agent_state(active_session_id)
+        manager = AgentStateManager(
+            AgentState.from_dict(persisted) if persisted else AgentState()
+        )
+        state = manager.update(**changes)
+        core.agent_state_manager = manager
+        store.save_agent_state(active_session_id, state.to_dict())
+        return state.to_dict()
+
+    def get_agent_state() -> dict[str, Any] | None:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        state = store.get_agent_state(active_session_id)
+        core.agent_state_manager = AgentStateManager(
+            AgentState.from_dict(state) if state else AgentState()
+        )
+        return state
+
+    def get_tool_result(result_id: str) -> dict[str, Any] | None:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        return store.get_tool_result(active_session_id, result_id)
+
+    def search_tool_results(query: str, limit: int = 10) -> list[dict[str, Any]]:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        return store.search_tool_results(active_session_id, query, limit=limit)
+
+    def retrieve_tool_context(
+        query: str, limit: int = 10, max_chars: int = 12_000
+    ) -> str:
+        from .tool_result_manager import ContextResultManager
+
+        records = search_tool_results(query, limit=limit)
+        return ContextResultManager().format_retrieved_context(
+            records, max_chars=max_chars
+        )
+
     core.log_message = log_message
+    core.record_tool_result = record_tool_result
+    core.prune_tool_results = prune_tool_results
+    core.agent_state_manager = agent_state_manager
+    core.save_agent_state = save_agent_state
+    core.update_agent_state = update_agent_state
+    core.complete_agent_step = complete_agent_step
+    core.get_agent_state = get_agent_state
+    core.get_tool_result = get_tool_result
+    core.search_tool_results = search_tool_results
+    core.retrieve_tool_context = retrieve_tool_context
     core.session_store = store
     try:
         from ..tools.context import get_callbacks
@@ -1118,6 +1489,16 @@ def detach_opt_in_session_store(core: Any) -> None:
         for name in (
             "session_store",
             "session_id",
+            "record_tool_result",
+            "prune_tool_results",
+            "agent_state_manager",
+            "save_agent_state",
+            "update_agent_state",
+            "complete_agent_step",
+            "get_agent_state",
+            "get_tool_result",
+            "search_tool_results",
+            "retrieve_tool_context",
             "_session_store_active_id",
             "_session_store_original_log_message",
         ):

@@ -36,6 +36,9 @@ from .llm_message_helpers import (
     _init_gemini_cache,
     _maybe_auto_shrink_messages,
 )
+from .runtime.context_budget import ContextBudget
+from .runtime.context_manager import ContextManager
+from .runtime.context_policy import ContextPolicy
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
@@ -1797,6 +1800,175 @@ def _maybe_navigate_computer_runtime(
     return True
 
 
+def _apply_context_budget(messages: list[dict[str, Any]], core: Any) -> bool:
+    """Bound older tool-result messages without breaking tool-call pairing."""
+    policy = getattr(core, "context_policy", ContextPolicy.from_environment())
+    if not policy.budget_enabled:
+        return False
+    try:
+        total_limit = max(1, int(policy.budget_chars))
+    except (TypeError, ValueError):
+        total_limit = 100_000
+    budget = ContextBudget(total_chars=total_limit)
+    total = sum(len(str(message.get("content") or "")) for message in messages)
+    if total <= budget.total_chars:
+        return False
+    tool_records: list[dict[str, Any]] = []
+    for index, message in enumerate(messages):
+        if message.get("role") != "tool":
+            continue
+        content = str(message.get("content") or "")
+        tool_records.append(
+            {
+                "message_index": index,
+                "size_bytes": len(content),
+                "importance": "normal",
+                "evictable": True,
+                "created_at": str(index),
+            }
+        )
+    if not tool_records:
+        return False
+    # Keep the newest tool output intact so the active continuation remains
+    # useful; older outputs can be restored from their artifact references.
+    newest_index = max(item["message_index"] for item in tool_records)
+    for item in tool_records:
+        if item["message_index"] == newest_index:
+            item["evictable"] = False
+    non_tool_total = total - sum(item["size_bytes"] for item in tool_records)
+    target_tool_chars = max(0, budget.total_chars - non_tool_total)
+    selected = budget.select_evictable(tool_records, target_chars=target_tool_chars)
+    changed = False
+    for item in selected:
+        message = messages[item["message_index"]]
+        content = str(message.get("content") or "")
+        artifact_ref = next(
+            (
+                line.partition(":")[2].strip()
+                for line in content.splitlines()
+                if line.startswith("artifact_ref:")
+            ),
+            "",
+        )
+        suffix = f"\nartifact_ref: {artifact_ref}" if artifact_ref else ""
+        message["content"] = "[tool result evicted by ContextBudget]" + suffix
+        changed = True
+    return changed
+
+
+def _inject_agent_state_context(messages: list[dict[str, Any]], core: Any) -> bool:
+    """Inject recovered structured state into the current user turn."""
+    policy = getattr(core, "context_policy", ContextPolicy.from_environment())
+    if not policy.auto_state:
+        return False
+    get_state = getattr(core, "get_agent_state", None)
+    if not callable(get_state):
+        return False
+    user_index = next(
+        (
+            index
+            for index in range(len(messages) - 1, -1, -1)
+            if isinstance(messages[index], dict)
+            and messages[index].get("role") == "user"
+        ),
+        None,
+    )
+    if user_index is None:
+        return False
+    user_message = messages[user_index]
+    content = user_message.get("content")
+    if not isinstance(content, str) or not content.strip():
+        return False
+    if "[agent state]" in content:
+        return False
+    try:
+        state = get_state()
+    except Exception:
+        return False
+    if not isinstance(state, dict) or not any(state.values()):
+        return False
+    completed = state.get("completed_steps") or []
+    if not isinstance(completed, list):
+        completed = list(completed) if isinstance(completed, tuple) else []
+    lines = [
+        "[agent state]",
+        f"goal: {str(state.get('goal') or '')[-1000:]}",
+        f"current_step: {str(state.get('current_step') or '')[-500:]}",
+        f"completed_steps: {', '.join(str(item) for item in completed[-20:])}",
+        f"next_action: {str(state.get('next_action') or '')[-1000:]}",
+    ]
+    messages[user_index] = {
+        **user_message,
+        "content": "\n".join(lines) + "\n\n" + content,
+    }
+    return True
+
+
+def _update_agent_state_for_turn(messages: list[dict[str, Any]], core: Any) -> bool:
+    """Persist the current user goal and active LLM step when available."""
+    update = getattr(core, "update_agent_state", None)
+    if not callable(update):
+        return False
+    user_message = next(
+        (
+            message
+            for message in reversed(messages)
+            if isinstance(message, dict) and message.get("role") == "user"
+        ),
+        None,
+    )
+    content = user_message.get("content") if user_message else ""
+    if not isinstance(content, str) or not content.strip():
+        return False
+    try:
+        current = getattr(core, "get_agent_state", lambda: None)() or {}
+        changes: dict[str, Any] = {"current_step": "llm_round"}
+        if not current.get("goal"):
+            changes["goal"] = content[-4000:]
+        update(**changes)
+        return True
+    except Exception:
+        return False
+
+
+def _inject_retrieved_tool_context(messages: list[dict[str, Any]], core: Any) -> bool:
+    """Inject relevant persisted Tool Results into the current user turn."""
+    policy = getattr(core, "context_policy", ContextPolicy.from_environment())
+    if not policy.auto_retrieve:
+        return False
+    retrieve = getattr(core, "retrieve_tool_context", None)
+    if not callable(retrieve):
+        return False
+    user_index = next(
+        (
+            index
+            for index in range(len(messages) - 1, -1, -1)
+            if isinstance(messages[index], dict)
+            and messages[index].get("role") == "user"
+        ),
+        None,
+    )
+    if user_index is None:
+        return False
+    user_message = messages[user_index]
+    content = user_message.get("content")
+    if not isinstance(content, str) or not content.strip():
+        return False
+    if "[retrieved tool results]" in content:
+        return False
+    try:
+        context = retrieve(content[-4000:], limit=5, max_chars=8000)
+    except Exception:
+        return False
+    if not isinstance(context, str) or not context.strip():
+        return False
+    messages[user_index] = {
+        **user_message,
+        "content": f"{context}\n\n{content}",
+    }
+    return True
+
+
 @_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
@@ -1818,6 +1990,19 @@ def run_llm_rounds(
         if not judgment_messages:
             return ""
         messages = judgment_messages
+
+    if not judgment_mode:
+        core.context_policy = ContextPolicy.from_environment(
+            provider=provider, model=depname
+        )
+        core.context_manager = ContextManager(policy=core.context_policy)
+        try:
+            _apply_context_budget(messages, core)
+            _inject_agent_state_context(messages, core)
+            _inject_retrieved_tool_context(messages, core)
+            _update_agent_state_for_turn(messages, core)
+        except Exception:
+            pass
 
     # Provider/model must be set before first LLM round (for save to file)
     if not judgment_mode:

@@ -15,6 +15,7 @@ from .runtime.history import (
     materialize_large_tool_result,
     truncate_history_tool_result,
 )
+from .runtime.context_manager import ContextManager
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 
 
@@ -492,6 +493,9 @@ def _execute_tool_calls(
     executed_new_tool = False
     fresh_tool_calls: list[dict[str, Any]] = []
     pending_auto_user_msgs: list[dict[str, Any]] = []
+    context_manager = getattr(
+        core, "context_manager", ContextManager.from_environment()
+    )
 
     # ---- Phase 1: pre-execute parallel-safe tools ----
     # Collect parallel-safe tool calls, run them concurrently, and store results.
@@ -757,9 +761,39 @@ def _execute_tool_calls(
         # Keep the full tool result out of the conversation and session
         # history when it exceeds the configured context budget. Attachments
         # and saved paths have already been extracted above.
-        tool_msg["content"] = materialize_large_tool_result(
-            tool_msg["content"], tool_name=name
+        raw_context_result = tool_msg["content"]
+        materialized_result = materialize_large_tool_result(
+            raw_context_result, tool_name=name
         )
+        artifact_ref = ""
+        for line in materialized_result.splitlines():
+            if line.startswith("artifact_ref:"):
+                artifact_ref = line.partition(":")[2].strip()
+                break
+        record_value = (
+            parsed_tool_result
+            if isinstance(parsed_tool_result, dict)
+            else raw_context_result
+        )
+        result_record, projections = context_manager.process_result(
+            record_value,
+            tool_name=name,
+            session_id=str(
+                getattr(
+                    core,
+                    "_session_store_active_id",
+                    getattr(core, "session_id", ""),
+                )
+                or ""
+            ),
+            task_id=str(getattr(core, "task_id", "") or ""),
+            artifact_ref=artifact_ref,
+            metadata={"tool_call_id": str(tc.get("id") or "")},
+        )
+        record_result = getattr(core, "record_tool_result", None)
+        if callable(record_result):
+            record_result(result_record.to_dict(), projections.persistent_history)
+        tool_msg["content"] = materialized_result
 
         auto_user_msg = _build_auto_user_message_from_next_action(
             parsed_tool_result=(
@@ -767,6 +801,21 @@ def _execute_tool_calls(
             ),
             tool_msg=tool_msg,
         )
+        update_agent_state = getattr(core, "update_agent_state", None)
+        if callable(update_agent_state):
+            state_changes: dict[str, Any] = {"current_step": f"tool:{name}"}
+            if auto_user_msg is not None:
+                state_changes["next_action"] = str(auto_user_msg.get("content") or "")
+            try:
+                update_agent_state(**state_changes)
+                complete_agent_step = getattr(core, "complete_agent_step", None)
+                if callable(complete_agent_step):
+                    complete_agent_step(
+                        f"tool:{name}",
+                        state_changes.get("next_action", ""),
+                    )
+            except Exception:
+                pass
 
         messages.append(tool_msg)
         core.log_message(tool_msg)
