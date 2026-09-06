@@ -22,6 +22,45 @@ from .rooms import _handle_mode_command, web_manager
 _genre_enabled: dict[str, bool] = {}
 
 
+@app.get("/api/artifacts/cleanup/report")
+async def artifact_cleanup_report():
+    """Return a dry-run Artifact cleanup report for the active web session."""
+    report_fn = getattr(core, "artifact_cleanup_report", None)
+    if not callable(report_fn):
+        return JSONResponse(
+            status_code=409,
+            content={"error": "Session store is not enabled."},
+        )
+    try:
+        return report_fn()
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"error": str(exc)})
+
+
+@app.post("/api/artifacts/cleanup")
+async def artifact_cleanup(req: Request):
+    """Return or execute guarded Artifact cleanup for the active web session."""
+    body = await req.json()
+    execute = bool(body.get("execute", False))
+    if execute and body.get("confirm") != "DELETE":
+        return JSONResponse(
+            status_code=400,
+            content={"error": "Set confirm to DELETE to execute cleanup."},
+        )
+    cleanup_fn = getattr(core, "artifact_cleanup", None)
+    report_fn = getattr(core, "artifact_cleanup_report", None)
+    fn = cleanup_fn if execute else report_fn
+    if not callable(fn):
+        return JSONResponse(
+            status_code=409,
+            content={"error": "Session store is not enabled."},
+        )
+    try:
+        return fn(execute=True) if execute else fn()
+    except Exception as exc:
+        return JSONResponse(status_code=500, content={"error": str(exc)})
+
+
 def _web_genre_labels() -> dict[str, str]:
     """Human-readable labels for every genre, kept in sync with _GENRE_BITMAP."""
     return {
