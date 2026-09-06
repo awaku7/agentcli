@@ -1005,6 +1005,18 @@ class SessionStore:
         return item
 
     @_db_locked
+    def find_sessions_by_task_id(self, task_id: str) -> list[str]:
+        """Return sessions that persisted results for one A2A Task ID."""
+        value = str(task_id or "").strip()
+        if not value:
+            return []
+        rows = self._execute(
+            "SELECT DISTINCT session_id FROM tool_results WHERE task_id = ?",
+            (value,),
+        ).fetchall()
+        return [str(row["session_id"]) for row in rows]
+
+    @_db_locked
     def search_tool_results(
         self, session_id: str, query: str, *, limit: int = 10
     ) -> list[dict[str, Any]]:

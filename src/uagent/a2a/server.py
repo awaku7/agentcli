@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 import argparse
 import asyncio
 import json
@@ -316,6 +318,101 @@ def build_app(
                 status_code=404, code="NOT_FOUND", message="Task not found"
             )
         return {"task_id": task_id, "checkpoint": store.load_checkpoint(task_id)}
+
+    @app.get("/tasks/{task_id}/artifacts/cleanup/report")
+    async def artifact_cleanup_report(
+        task_id: str, _auth: Any = Depends(require_bearer_auth)
+    ):
+        if not store.get(task_id):
+            raise A2AHttpError(
+                status_code=404, code="NOT_FOUND", message="Task not found"
+            )
+        from ..runtime.artifact_manager import ArtifactManager
+        from ..runtime.session_store import SessionStore
+
+        session_store = SessionStore.from_environment()
+        if session_store is None:
+            raise A2AHttpError(
+                status_code=409,
+                code="SESSION_STORE_DISABLED",
+                message="Session store is not enabled",
+            )
+        try:
+            session_ids = session_store.find_sessions_by_task_id(task_id)
+            if len(session_ids) != 1:
+                raise A2AHttpError(
+                    status_code=409,
+                    code="TASK_SESSION_UNRESOLVED",
+                    message="Task does not map to exactly one session",
+                )
+            manager = ArtifactManager(os.getcwd(), store=session_store)
+            try:
+                records = session_store.list_tool_results(session_ids[0], limit=10_000)
+                referenced = {
+                    str(item.get("artifact_ref") or "").removeprefix("artifact://")
+                    for item in records
+                    if item.get("artifact_ref")
+                }
+                return manager.cleanup_report(
+                    referenced_ids={item for item in referenced if item},
+                    session_id=session_ids[0],
+                )
+            finally:
+                manager.close()
+        finally:
+            session_store.close()
+
+    @app.post("/tasks/{task_id}/artifacts/cleanup")
+    async def artifact_cleanup(
+        task_id: str,
+        body: dict[str, Any],
+        _auth: Any = Depends(require_bearer_auth),
+    ):
+        if not store.get(task_id):
+            raise A2AHttpError(
+                status_code=404, code="NOT_FOUND", message="Task not found"
+            )
+        if bool(body.get("execute")) and body.get("confirm") != "DELETE":
+            raise A2AHttpError(
+                status_code=400,
+                code="INVALID_ARGUMENT",
+                message="Set confirm to DELETE to execute cleanup",
+            )
+        from ..runtime.artifact_manager import ArtifactManager
+        from ..runtime.session_store import SessionStore
+
+        session_store = SessionStore.from_environment()
+        if session_store is None:
+            raise A2AHttpError(
+                status_code=409,
+                code="SESSION_STORE_DISABLED",
+                message="Session store is not enabled",
+            )
+        try:
+            session_ids = session_store.find_sessions_by_task_id(task_id)
+            if len(session_ids) != 1:
+                raise A2AHttpError(
+                    status_code=409,
+                    code="TASK_SESSION_UNRESOLVED",
+                    message="Task does not map to exactly one session",
+                )
+            manager = ArtifactManager(os.getcwd(), store=session_store)
+            try:
+                records = session_store.list_tool_results(session_ids[0], limit=10_000)
+                referenced = {
+                    str(item.get("artifact_ref") or "").removeprefix("artifact://")
+                    for item in records
+                    if item.get("artifact_ref")
+                }
+                return manager.cleanup(
+                    referenced_ids={item for item in referenced if item},
+                    session_id=session_ids[0],
+                    execute=bool(body.get("execute")),
+                )
+            finally:
+                manager.close()
+        finally:
+            session_store.close()
 
     @app.post("/tasks/{task_id}/checkpoint")
     async def save_checkpoint(
