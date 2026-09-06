@@ -1,5 +1,22 @@
 # 変更履歴
 
+## [0.7.2] - 2026-09-06
+
+### 追加
+
+- Tool Result Projection、Context Budget、Retrieval、Artifact保持、Agent State永続化を統合したContext管理を追加。
+- Sub-AgentのProvider、Model、reasoningレベル指定を追加。
+- CLI、GUI、Web、A2AからArtifact cleanupレポートとガード付き実行を利用可能に。
+- ステータス色、Sub-Agent Tool trace、Provider Context Projectionを追加。
+
+### 変更
+
+- Session復旧、Tool Resultのランキング検索、Artifact Preview、Context再注入を改善。
+
+### 修正
+
+- GUI起動、Session／Task State分離、Sub-Agentパラメータのローカライズを修正。
+
 ## [未リリース]
 
 ## [0.7.1] - 2026-09-06

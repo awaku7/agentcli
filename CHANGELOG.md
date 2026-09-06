@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.2] - 2026-09-06
+
+### Added
+
+- Add unified context management with Tool Result projections, Context Budget, Retrieval, Artifact retention, and Agent State persistence.
+- Add provider-aware Sub-Agent overrides for provider, model, and reasoning level.
+- Add CLI, GUI, Web, and A2A Artifact cleanup reporting with guarded execution.
+- Add configurable status colors, Sub-Agent tool tracing, and provider context projection.
+
+### Changed
+
+- Improve session recovery, ranked Tool Result search, Artifact previews, and context reinjection.
+
+### Fixed
+
+- Fix GUI module startup, Session/Task state isolation, and localized Sub-Agent parameters.
+
 ## [Unreleased]
 
 ## [0.7.1] - 2026-09-06
