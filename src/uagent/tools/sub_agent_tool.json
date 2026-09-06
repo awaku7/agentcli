@@ -554,6 +554,9 @@
   "ja": {
     "subagent.human_ask_prefix": "【サブエージェント %(agent)s】ユーザー確認リクエスト：\n",
     "param.agent_name.description": "実行するサブエージェントの名前。組み込み: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。カスタムロールは UAGENT_SUB_AGENT_ROLES_DIR から読み込めます。",
+    "param.provider.description": "このサブエージェントで使用する任意のLLMプロバイダ（例: openai、claude、gemini、deepseek）。",
+    "param.model.description": "選択したLLMプロバイダで使用する任意のモデルまたはデプロイメント名。",
+    "param.reasoning.description": "任意の統一reasoningレベル。プロバイダやモデル固有のパラメータへ内部で正規化されます。",
     "param.current_file.description": "（任意）サブエージェントの推論対象をこの特定のファイルに制限します。",
     "param.evidence_min_items.description": "必要なエビデンス項目の最小数。",
     "param.evidence_required.description": "エビデンス必須。",
