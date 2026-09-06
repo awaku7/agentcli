@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
+from contextvars import ContextVar
 from threading import Lock
 from typing import Any, Dict, List, Optional
 
@@ -217,6 +218,14 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Optional model/deployment override for this sub-agent provider.",
                     ),
                 },
+                "reasoning": {
+                    "type": "string",
+                    "enum": ["minimal", "low", "medium", "high", "xhigh", "max"],
+                    "description": _(
+                        "param.reasoning.description",
+                        default="Optional unified reasoning level. Provider/model-specific parameters are normalized internally.",
+                    ),
+                },
                 "task": {
                     "type": "string",
                     "description": _(
@@ -347,6 +356,9 @@ TOOL_SPEC: Dict[str, Any] = {
 
 # Thread lock for parallel-safe os.environ manipulation in sub-agent
 _SUB_AGENT_ENV_LOCK = Lock()
+_SUB_AGENT_REASONING_OVERRIDE: ContextVar[str | None] = ContextVar(
+    "sub_agent_reasoning_override", default=None
+)
 
 
 # ---------------------------------------------------------------------------
@@ -723,7 +735,15 @@ class SubAgentRunner:
             provider=provider,
             tool_specs=tool_specs,
         )
-        reasoning = str(os.environ.get("UAGENT_REASONING", "") or "").strip().lower()
+        reasoning = (
+            str(
+                _SUB_AGENT_REASONING_OVERRIDE.get()
+                or os.environ.get("UAGENT_REASONING", "")
+                or ""
+            )
+            .strip()
+            .lower()
+        )
         kwargs: Dict[str, Any] = {
             "model": model_name,
             "instructions": instructions or system_prompt,
@@ -1387,7 +1407,13 @@ class SubAgentRunner:
             self._native_tool_specs(agent_spec) if native_tools and agent_spec else []
         )
         reasoning_mode = (
-            str(os.environ.get("UAGENT_REASONING", "") or "").strip().lower()
+            str(
+                _SUB_AGENT_REASONING_OVERRIDE.get()
+                or os.environ.get("UAGENT_REASONING", "")
+                or ""
+            )
+            .strip()
+            .lower()
         )
         responses_env = (
             str(os.environ.get("UAGENT_RESPONSES", "") or "").strip().lower()
@@ -1589,6 +1615,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     task = args["task"]
     provider = args.get("provider")
     model_name = args.get("model")
+    reasoning = args.get("reasoning")
+    reasoning_token = _SUB_AGENT_REASONING_OVERRIDE.set(reasoning)
     current_file = args.get("current_file")
     response_mode = args.get("response_mode")
     response_schema = args.get("response_schema")
@@ -1645,6 +1673,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             max_turns=max_turns,
         )
     finally:
+        _SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
         if cb and hasattr(cb, "set_status") and cb.set_status:
             cb.set_status(False, "")
             cb.set_status(False, "")
