@@ -54,8 +54,8 @@ def test_make_client_openrouter_uses_sdk_and_exposes_compat_methods(
     assert provider == "openrouter"
     assert model_name == "test-model"
     assert calls["ctor"]["api_key"] == "test-key"
-    assert calls["ctor"]["http_referer"] == "https://localhost/agent"
-    assert calls["ctor"]["x_open_router_title"] == "scheck-openrouter"
+    assert calls["ctor"]["http_referer"] == "https://github.com/awaku7/agentcli"
+    assert calls["ctor"]["x_open_router_title"] == "UAG"
 
     chat_result = client.chat.completions.create(
         model="m",

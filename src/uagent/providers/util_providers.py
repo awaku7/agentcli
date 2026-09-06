@@ -53,6 +53,13 @@ _HTTPX_CLIENTS_REGISTERED = False
 # Runtime import is attempted lazily inside make_client when still None.
 _OpenRouterSDK: Any = None
 
+# OpenRouter app attribution. These headers are intentionally scoped to the
+# OpenRouter provider below; they must not be sent to unrelated OpenAI-
+# compatible endpoints.
+_OPENROUTER_HTTP_REFERER = "https://github.com/awaku7/agentcli"
+_OPENROUTER_APP_TITLE = "UAG"
+_OPENROUTER_USER_AGENT = "uag"
+
 # ---------------------------------------------------------------------------
 # SSL certificate verification auto-fallback
 # ---------------------------------------------------------------------------
@@ -672,13 +679,18 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         )
 
         http_client = make_httpx_client()
+        if http_client is not None:
+            try:
+                http_client.headers["User-Agent"] = _OPENROUTER_USER_AGENT
+            except Exception:
+                pass
 
         if sdk_cls is not None:
             try:
                 raw_client = sdk_cls(
                     api_key=api_key,
-                    http_referer="https://localhost/agent",
-                    x_open_router_title="scheck-openrouter",
+                    http_referer=_OPENROUTER_HTTP_REFERER,
+                    x_open_router_title=_OPENROUTER_APP_TITLE,
                     server_url=base_url,
                     client=http_client,
                 )
@@ -686,8 +698,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
                 try:
                     raw_client = sdk_cls(
                         api_key=api_key,
-                        http_referer="https://localhost/agent",
-                        x_open_router_title="scheck-openrouter",
+                        http_referer=_OPENROUTER_HTTP_REFERER,
+                        x_open_router_title=_OPENROUTER_APP_TITLE,
                         server_url=base_url,
                     )
                 except TypeError:
@@ -698,8 +710,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         # Fallback for environments without the official OpenRouter SDK.
         default_headers = {
-            "HTTP-Referer": "https://localhost/agent",
-            "X-Title": "scheck-openrouter",
+            "HTTP-Referer": _OPENROUTER_HTTP_REFERER,
+            "X-OpenRouter-Title": _OPENROUTER_APP_TITLE,
+            "User-Agent": _OPENROUTER_USER_AGENT,
         }
 
         try:

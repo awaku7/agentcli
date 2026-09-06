@@ -17,9 +17,21 @@ TOOL_SPEC = {
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["gps", "location", "current location"],
+            default=[
+                "gps",
+                "geoip",
+                "ip geolocation",
+                "location",
+                "current location",
+            ],
         ),
-        "x_search_terms_en": ["gps", "location", "current location"],
+        "x_search_terms_en": [
+            "gps",
+            "geoip",
+            "ip geolocation",
+            "location",
+            "current location",
+        ],
         "parameters": {"type": "object", "properties": {}},
     },
 }

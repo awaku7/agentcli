@@ -20,6 +20,7 @@
     "output.timestamp": "- **Timestamp**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "location",
       "current location",
       "geolocation",
@@ -52,6 +53,8 @@
     "output.timestamp": "- **タイムスタンプ**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
+      "IP位置情報",
       "場所",
       "GPS位置情報",
       "GPS座標",
@@ -83,6 +86,7 @@
     "output.timestamp": "- **Marca de tiempo**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "ventanas gps",
       "ubicación",
       "ubicación gps",
@@ -115,6 +119,7 @@
     "output.timestamp": "- **Horodatage** : {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "emplacement",
       "localisation GPS",
@@ -147,6 +152,7 @@
     "output.timestamp": "- **타임스탬프**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "위치",
       "GPS 위치",
       "GPS 좌표",
@@ -178,6 +184,7 @@
     "output.timestamp": "- **Zeitstempel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "Standort",
       "GPS-Standort",
       "GPS-Koordinaten",
@@ -209,6 +216,7 @@
     "output.timestamp": "- **Data e ora**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "posizione",
       "posizione gps",
       "coordinate gps",
@@ -240,6 +248,7 @@
     "output.timestamp": "- **Временная метка**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "расположение",
       "местоположение GPS",
@@ -272,6 +281,7 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "janelas gps",
       "localizao",
       "localizao GPS",
@@ -304,6 +314,7 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "janelas gps",
       "localização",
       "localização GPS",
@@ -336,6 +347,7 @@
     "output.timestamp": "- **Stempel Waktu**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "jendela gps",
       "lokasi",
       "lokasi gps",
@@ -368,6 +380,7 @@
     "output.timestamp": "- **Dấu thời gian**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "cửa sổ gps",
       "vị trí",
       "vị trí gps",
@@ -400,6 +413,7 @@
     "output.timestamp": "- **Znacznik czasu**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "lokalizacja",
       "lokalizacja GPS",
       "współrzędne GPS",
@@ -493,6 +507,7 @@
     "output.timestamp": "- **Tidsstämpel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "plats",
       "gps plats",
@@ -525,6 +540,7 @@
     "output.timestamp": "- **Muhuri wa saa**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "eneo",
       "eneo la gps",
@@ -557,6 +573,7 @@
     "output.timestamp": "- **Tidsstempel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "plassering",
       "gps plassering",
@@ -589,6 +606,7 @@
     "output.timestamp": "- **Tijdstempel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "locatie",
       "gps-locatie",
       "gps-coördinaat",
@@ -620,6 +638,7 @@
     "output.timestamp": "- **Aikaleima**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "sijainti",
       "gps-sijainti",
@@ -652,6 +671,7 @@
     "output.timestamp": "- **Časové razítko**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "umístění",
       "GPS umístění",
@@ -684,6 +704,7 @@
     "output.timestamp": "- **Мітка часу**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "розташування",
       "розташування GPS",
@@ -716,6 +737,7 @@
     "output.timestamp": "- **Zaman damgası**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "konum",
       "gps konumu",
@@ -748,6 +770,7 @@
     "output.timestamp": "- **ประทับเวลา**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "วินโดวส์ จีพีเอส",
       "ที่ตั้ง",
       "ตำแหน่ง GPS",
@@ -780,6 +803,7 @@
     "output.timestamp": "- **时间戳**：{ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "视窗全球定位系统",
       "地点",
       "GPS定位",
@@ -844,6 +868,7 @@
     "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "উইন্ডোজ জিপিএস",
       "অবস্থান",
       "জিপিএস অবস্থান",
@@ -876,6 +901,7 @@
     "output.timestamp": "- **مهر زمان**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "ویندوز جی پی اس",
       "مکان",
       "مکان GPS",
@@ -908,6 +934,7 @@
     "output.timestamp": "- **Цагийн тэмдэг**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "байршил",
       "gps байршил",
@@ -940,6 +967,7 @@
     "output.timestamp": "- **टाइमस्टॅम्प**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "स्थान",
       "gps स्थान",
@@ -972,6 +1000,7 @@
     "output.timestamp": "- **Χρονική σήμανση**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "τοποθεσία",
       "τοποθεσία gps",
@@ -1004,6 +1033,7 @@
     "output.timestamp": "- **חותמת זמן**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "מיקום",
       "מיקום gps",
@@ -1036,6 +1066,7 @@
     "output.timestamp": "- **Időbélyeg**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "hely",
       "gps hely",
@@ -1068,6 +1099,7 @@
     "output.timestamp": "- **Marca temporală**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "current location",
       "locație",
       "locatie GPS",
@@ -1100,6 +1132,7 @@
     "output.timestamp": "- **Timestamp**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "lokasyon",
       "current location",
       "geolocation",
@@ -1132,6 +1165,7 @@
     "output.timestamp": "- **Cap masa**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "lokasi",
       "gps tingkap",
       "geolokasi",
@@ -1164,6 +1198,7 @@
     "output.timestamp": "- **Tidsstempel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "placering",
       "current location",
       "geolocation",
@@ -1196,6 +1231,7 @@
     "output.timestamp": "- **Tidsstempel**: {ts}",
     "x_search_terms": [
       "gps",
+      "geoip",
       "posisjon",
       "current location",
       "geolocation",
