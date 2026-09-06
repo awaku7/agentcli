@@ -356,6 +356,24 @@ class ArtifactManager:
             ).fetchall()
         return [self._row(row) for row in rows]
 
+    def plan_cleanup(
+        self,
+        *,
+        policy: Any = None,
+        referenced_ids: set[str] | None = None,
+        session_id: str | None = None,
+    ) -> list[Artifact]:
+        """Return safe cleanup candidates without deleting artifacts."""
+        if policy is None:
+            from .artifact_retention import ArtifactRetentionPolicy
+
+            policy = ArtifactRetentionPolicy.from_environment()
+        artifacts = self.list(session_id=session_id, limit=1000)
+        rows = [item.as_dict() for item in artifacts]
+        candidates = policy.plan(rows, referenced_ids=referenced_ids)
+        candidate_ids = {str(item.get("artifact_id")) for item in candidates}
+        return [item for item in artifacts if item.artifact_id in candidate_ids]
+
     def attach(self, artifact_id: str, session_id: str) -> Artifact:
         if self._store is not None:
             try:
