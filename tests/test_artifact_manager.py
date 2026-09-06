@@ -2,6 +2,7 @@ import hashlib
 
 import pytest
 
+from uagent.runtime.artifact_retention import ArtifactRetentionPolicy
 from uagent.runtime.artifact_manager import (
     ArtifactManager,
     ArtifactManagerError,
@@ -25,6 +26,18 @@ def test_register_get_and_open_persists_metadata(tmp_path):
         assert item.extension == ".txt"
         assert manager.open(item.artifact_id).read_text() == "hello"
         assert manager.get(item.artifact_id) == item
+
+
+def test_cleanup_report_lists_candidates_and_missing_files(tmp_path):
+    source = tmp_path / "report.txt"
+    source.write_text("hello", encoding="utf-8")
+    with ArtifactManager(tmp_path) as manager:
+        item = manager.register(source)
+        report = manager.cleanup_report(policy=ArtifactRetentionPolicy(max_age_days=0))
+
+    assert report["candidate_count"] == 1
+    assert report["candidates"][0]["artifact_id"] == item.artifact_id
+    assert report["missing_count"] == 0
 
 
 def test_register_rejects_external_and_directory(tmp_path):

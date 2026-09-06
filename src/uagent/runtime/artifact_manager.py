@@ -374,6 +374,39 @@ class ArtifactManager:
         candidate_ids = {str(item.get("artifact_id")) for item in candidates}
         return [item for item in artifacts if item.artifact_id in candidate_ids]
 
+    def cleanup_report(
+        self,
+        *,
+        policy: Any = None,
+        referenced_ids: set[str] | None = None,
+        session_id: str | None = None,
+    ) -> dict[str, Any]:
+        """Return cleanup candidates and missing-file diagnostics."""
+        candidates = self.plan_cleanup(
+            policy=policy,
+            referenced_ids=referenced_ids,
+            session_id=session_id,
+        )
+        artifacts = self.list(session_id=session_id, limit=1000)
+        missing: list[dict[str, Any]] = []
+        for item in artifacts:
+            try:
+                self.open(item.artifact_id)
+            except ArtifactManagerError as exc:
+                missing.append(
+                    {
+                        "artifact_id": item.artifact_id,
+                        "stored_path": item.stored_path,
+                        "error": str(exc),
+                    }
+                )
+        return {
+            "candidate_count": len(candidates),
+            "candidates": [item.as_dict() for item in candidates],
+            "missing_count": len(missing),
+            "missing": missing,
+        }
+
     def attach(self, artifact_id: str, session_id: str) -> Artifact:
         if self._store is not None:
             try:
