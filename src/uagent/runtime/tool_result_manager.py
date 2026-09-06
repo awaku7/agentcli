@@ -171,7 +171,10 @@ class ContextResultManager:
                 item += f" summary={summary}"
             if artifact_ref:
                 item += f" artifact_ref={artifact_ref}"
+            preview = str(record.get("artifact_preview") or "").strip()
             lines.append(item)
+            if preview:
+                lines.append(f"artifact_preview: {preview[:2000]}")
             if sum(len(line) + 1 for line in lines) >= max_chars:
                 break
         return _bounded_preview("\n".join(lines), max_chars)

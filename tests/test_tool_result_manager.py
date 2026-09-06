@@ -83,6 +83,11 @@ def test_retrieved_context_is_bounded_and_references_results() -> None:
 
     assert "result-1" in context
     assert "configuration source" in context
+    assert "artifact_preview" not in context
+    preview_context = manager.format_retrieved_context(
+        [{"artifact_preview": "text from artifact"}], max_chars=200
+    )
+    assert "text from artifact" in preview_context
     assert len(context) <= 200
     assert (
         len(manager.format_retrieved_context([{"summary": "x" * 500}], max_chars=50))

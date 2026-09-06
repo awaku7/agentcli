@@ -1423,6 +1423,33 @@ def attach_opt_in_session_store(
         )
         return store.get_tool_result(active_session_id, result_id)
 
+    def read_artifact_preview(reference: str, max_chars: int = 4000) -> str:
+        """Read a bounded textual Artifact preview owned by the active session."""
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        artifact_id = str(reference or "").strip().removeprefix("artifact://")
+        if not re.fullmatch(r"[0-9a-f]{32}", artifact_id):
+            return ""
+        from .artifact_manager import ArtifactManager
+
+        workdir = Path(os.environ.get("UAGENT_WORKDIR") or os.getcwd())
+        manager = ArtifactManager(workdir, store=store)
+        try:
+            item = manager.get(artifact_id)
+            if item.session_id != active_session_id:
+                return ""
+            media_type = (item.media_type or "").lower()
+            if not (media_type.startswith("text/") or "json" in media_type):
+                return ""
+            return manager.open(artifact_id).read_text(
+                encoding="utf-8", errors="replace"
+            )[: max(0, int(max_chars))]
+        except Exception:
+            return ""
+        finally:
+            manager.close()
+
     def search_tool_results(query: str, limit: int = 10) -> list[dict[str, Any]]:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
@@ -1435,6 +1462,12 @@ def attach_opt_in_session_store(
         from .tool_result_manager import ContextResultManager
 
         records = search_tool_results(query, limit=limit)
+        for record in records:
+            artifact_ref = str(record.get("artifact_ref") or "")
+            if artifact_ref:
+                preview = read_artifact_preview(artifact_ref, max_chars=2000)
+                if preview:
+                    record["artifact_preview"] = preview
         return ContextResultManager().format_retrieved_context(
             records, max_chars=max_chars
         )
@@ -1448,6 +1481,7 @@ def attach_opt_in_session_store(
     core.complete_agent_step = complete_agent_step
     core.get_agent_state = get_agent_state
     core.get_tool_result = get_tool_result
+    core.read_artifact_preview = read_artifact_preview
     core.search_tool_results = search_tool_results
     core.retrieve_tool_context = retrieve_tool_context
     core.session_store = store
@@ -1497,6 +1531,7 @@ def detach_opt_in_session_store(core: Any) -> None:
             "complete_agent_step",
             "get_agent_state",
             "get_tool_result",
+            "read_artifact_preview",
             "search_tool_results",
             "retrieve_tool_context",
             "_session_store_active_id",
