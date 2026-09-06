@@ -39,6 +39,7 @@ from .llm_message_helpers import (
 from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
 from .runtime.context_policy import ContextPolicy
+from .runtime.provider_context import project_messages_for_provider
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
@@ -561,6 +562,9 @@ def _run_one_round(
         core=core,
         depname=depname,
         gemini_cache_name=gemini_cache_name,
+    )
+    call_messages = project_messages_for_provider(
+        call_messages, provider=provider, model=depname
     )
     call_messages = _translate_call_messages(call_messages, tr_cfg)
 
