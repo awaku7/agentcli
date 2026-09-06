@@ -680,6 +680,15 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
+        # Artifact maintenance menu. Cleanup is dry-run by default and the
+        # execution path still requires the retention policy to opt in.
+        try:
+            maintenance_menu = self.menuBar().addMenu(_("Maintenance"))
+            cleanup_act = maintenance_menu.addAction(_("Artifact cleanup report"))
+            cleanup_act.triggered.connect(self._show_artifact_cleanup_report)
+        except Exception:
+            pass
+
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
             self._on_send
         )
@@ -870,6 +879,28 @@ class MainWindow(QtWidgets.QMainWindow):
             self._apply_font_size(state._FONT_SIZE_LEVEL)
         except Exception:
             pass
+
+    def _show_artifact_cleanup_report(self) -> None:
+        """Show the active-session Artifact cleanup report without deleting."""
+        try:
+            report_fn = getattr(core, "artifact_cleanup_report", None)
+            if not callable(report_fn):
+                QtWidgets.QMessageBox.information(
+                    self, _("Artifact cleanup"), _("Session storage is not enabled.")
+                )
+                return
+            report = report_fn()
+            candidates = report.get("candidate_count", 0)
+            missing = report.get("missing_count", 0)
+            message = _(
+                "Cleanup candidates: %(candidates)s\nMissing files: %(missing)s\n\n"
+                "No files were deleted."
+            ) % {"candidates": candidates, "missing": missing}
+            QtWidgets.QMessageBox.information(
+                self, _("Artifact cleanup report"), message
+            )
+        except Exception as exc:
+            QtWidgets.QMessageBox.warning(self, _("Artifact cleanup"), str(exc))
 
     def _update_mode_label(self) -> None:
         try:
