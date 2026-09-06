@@ -30,6 +30,8 @@ license: Apache-2.0
 - git
 - python
 - `python -m build`
+- `python -m ruff`
+- `python -m black`
 
 ## GitLab へ配布する場合
 
@@ -89,7 +91,17 @@ git remote origin の URL から配布先を自動判定する（「入力」欄
 
 必要に応じて、判定後に該当する環境変数がすべて設定されているか確認する（設定漏れはこの時点でエラー）。
 
-## 0-B) CHANGELOGの自動作成/更新
+## 0-B) Ruff/Black による自動修正
+
+- バージョン更新・CHANGELOG作成より前に、全 Python コードを自動修正する。
+- `python -m ruff check src tests --fix`
+- `python -m black src tests`
+- 自動修正後に、次のコマンドで問題がないことを確認する。
+  - `python -m ruff check src tests`
+  - `python -m black --check src tests`
+- フォーマッタが変更したファイルも、今回のリリースコミットに含める。
+
+## 0-C) CHANGELOGの自動作成/更新
 
 - 最新のコミット履歴（`git log`）および今回の追加機能（差分）に基づき、`CHANGELOG.md`（英語）および `CHANGELOG.ja.md`（日本語）の双方に変更内容（バージョンアップに含む全変更点）を自動で作成または追記する。
 
@@ -100,7 +112,7 @@ git remote origin の URL から配布先を自動判定する（「入力」欄
 
 ## 2) commit
 
-- `git add -- pyproject.toml CHANGELOG.md CHANGELOG.ja.md`
+- `git add -- pyproject.toml CHANGELOG.md CHANGELOG.ja.md src tests`（Ruff/Blackの修正を含む）
 - `git commit -m "Bump version to X.Y.Z and update CHANGELOG"`
 
 ## 3) push

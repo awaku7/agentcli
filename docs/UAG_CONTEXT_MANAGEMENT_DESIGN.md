@@ -1321,8 +1321,17 @@ Runtimeでサイズ・種類・重要度を判定
 - 既存の履歴compact・auto-shrink
 - A2A TaskStoreのcheckpoint基盤
 - Provider Native Tool Searchおよび一部Provider capability判定
+- `ContextResultManager`によるTool Resultのsmall / large / huge分類
+- `ToolResultRecord`とLLM / UI・Remote / Persistent Historyの3系統Projection
+- Tool ResultのSessionStore永続化、検索、bounded Contextへの自動再注入
+- `ContextBudget`による警告・compact・emergency判定とTool Result eviction
+- `ContextPolicy`によるContext機能の環境設定一元化
+- `AgentState` / `AgentStateManager`のSessionStore永続化・復元
+- Tool実行時のAgent State更新、Step完了記録、Context再注入
+- Tool Resultのevictable保持上限と自動prune
+- 構造化Resultからの軽量Summary生成
 
-## 32.2 部分実装
+## 32.2 部分実装と残存課題
 
 ### Tool Result処理
 
@@ -1351,15 +1360,16 @@ LLMへ送る本文のbounded化、バイナリ除去、SQLite/JSONL保存時の�
 
 ### Retrieval
 
-`artifact_read`とSQLite FTS5による手動取得は存在する。Queryに応じたRelevant
-Tool Resultの自動検索、必要部分だけのContextへの自動再注入は未実装である。
+`artifact_read`とSQLite FTS5による手動取得に加え、SessionStoreのTool Result検索、
+boundedなRelevant Context生成、最新ユーザー入力への自動再注入を実装済みである。
+Embedding検索、意味検索、Artifact本文の自動再取得は未実装である。
 
 ### Provider統合
 
 OpenAI Tool Search、compaction、各Providerの変換処理は存在するが、Context
 Managerから一貫したPolicyで制御する統合層は未実装である。
 
-## 32.3 未実装項目
+## 32.3 残存未実装項目
 
 ### 1. ContextManager統合層
 
