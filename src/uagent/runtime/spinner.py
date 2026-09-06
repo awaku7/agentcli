@@ -139,10 +139,32 @@ def _spinner_use_color() -> bool:
     return True
 
 
+def _spinner_color() -> tuple[int, int]:
+    """Return (ANSI foreground code, Windows console attribute) for the spinner."""
+    try:
+        from ..env_utils import env_get as _env_get
+
+        name = (_env_get("UAGENT_SPINNER_COLOR") or "yellow").strip().lower()
+    except Exception:
+        name = "yellow"
+    colors = {
+        "black": (30, 0),
+        "red": (31, 4),
+        "green": (32, 2),
+        "yellow": (33, 6),
+        "blue": (34, 1),
+        "magenta": (35, 5),
+        "cyan": (36, 3),
+        "white": (37, 7),
+    }
+    return colors.get(name, colors["yellow"])
+
+
 def _write_spinner_frame(text: str, pad: int) -> None:
-    """Write one spinner frame in BUSY yellow when color is allowed."""
+    """Write one spinner frame using UAGENT_SPINNER_COLOR when enabled."""
     cr = chr(13)
     esc = chr(27)
+    ansi_color, windows_color = _spinner_color()
     tail = (" " * pad) if pad > 0 else ""
     if not _spinner_use_color():
         sys.stderr.write(cr + text + tail)
@@ -178,7 +200,9 @@ def _write_spinner_frame(text: str, pad: int) -> None:
                 info = CSBI()
                 if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(info)):
                     old_attr = int(info.wAttributes)
-                    kernel32.SetConsoleTextAttribute(handle, (old_attr & 0xF0) | 0x0E)
+                    kernel32.SetConsoleTextAttribute(
+                        handle, (old_attr & 0xF0) | (windows_color | 0x08)
+                    )
                     try:
                         data = cr + text + tail
                         written = wintypes.DWORD(0)
@@ -195,7 +219,7 @@ def _write_spinner_frame(text: str, pad: int) -> None:
         sys.stderr.write(cr + text + tail)
         sys.stderr.flush()
         return
-    sys.stderr.write(cr + esc + "[33m" + text + esc + "[0m" + tail)
+    sys.stderr.write(cr + esc + f"[{ansi_color}m" + text + esc + "[0m" + tail)
     sys.stderr.flush()
 
 

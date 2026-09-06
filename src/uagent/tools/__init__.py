@@ -266,6 +266,15 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
             arg_str = str(masked)
 
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            from .context import get_active_sub_agent
+
+            active_sub_agent = get_active_sub_agent()
+        except Exception:
+            active_sub_agent = None
+        trace_prefix = (
+            f"[SUB-AGENT: {active_sub_agent}] " if active_sub_agent else "[TOOL] "
+        )
         with _TRACE_LOCK:
             # Clear the spinner line first (no-op when disabled).
             _spinner_stop_quietly()
@@ -276,9 +285,9 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
                 from .. import core as _core
 
                 with _core.print_lock:
-                    print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
+                    print(f"{trace_prefix}{ts} name={name} args={arg_str}", flush=True)
             except Exception:
-                print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
+                print(f"{trace_prefix}{ts} name={name} args={arg_str}", flush=True)
     except Exception:
         return
 

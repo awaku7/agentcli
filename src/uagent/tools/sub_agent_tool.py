@@ -17,7 +17,11 @@ from contextvars import ContextVar
 from threading import Lock
 from typing import Any, Dict, List, Optional
 
-from .context import get_callbacks
+from .context import (
+    get_callbacks,
+    reset_active_sub_agent,
+    set_active_sub_agent,
+)
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from ..providers.util_providers import make_client
@@ -1631,6 +1635,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     model_name = args.get("model")
     reasoning = args.get("reasoning")
     reasoning_token = _SUB_AGENT_REASONING_OVERRIDE.set(reasoning)
+    sub_agent_token = set_active_sub_agent(agent_name)
     current_file = args.get("current_file")
     response_mode = args.get("response_mode")
     response_schema = args.get("response_schema")
@@ -1687,6 +1692,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             max_turns=max_turns,
         )
     finally:
+        reset_active_sub_agent(sub_agent_token)
         _SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
         if cb and hasattr(cb, "set_status") and cb.set_status:
             cb.set_status(False, "")

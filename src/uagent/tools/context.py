@@ -10,6 +10,7 @@ This module acts as a common gateway for all tools under the tools/ directory.
 
 from __future__ import annotations
 
+from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, Callable, Optional
 
@@ -63,6 +64,23 @@ class ToolCallbacks:
     url_fetch_timeout_ms: int = 60_000
     url_fetch_max_bytes: int = 1_000_000
     read_file_max_bytes: int = 1_000_000
+
+
+_ACTIVE_SUB_AGENT: ContextVar[str | None] = ContextVar(
+    "uagent_active_sub_agent", default=None
+)
+
+
+def set_active_sub_agent(name: str | None):
+    return _ACTIVE_SUB_AGENT.set(str(name) if name else None)
+
+
+def reset_active_sub_agent(token: Any) -> None:
+    _ACTIVE_SUB_AGENT.reset(token)
+
+
+def get_active_sub_agent() -> str | None:
+    return _ACTIVE_SUB_AGENT.get()
 
 
 # Preserve injected host callbacks across hot-reloads.  ``system_reload`` reloads
