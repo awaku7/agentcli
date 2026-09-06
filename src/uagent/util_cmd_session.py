@@ -1353,6 +1353,24 @@ def _handle_cmd_sessions(
                 except OSError:
                     pass
         return True
+    if command in {"artifact-cleanup", "artifacts"}:
+        report_fn = getattr(core, "artifact_cleanup_report", None)
+        cleanup_fn = getattr(core, "artifact_cleanup", None)
+        if not callable(report_fn):
+            print(_("[sessions] Session store is not enabled."))
+            return True
+        execute = "--yes" in parts[1:] or "-y" in parts[1:]
+        try:
+            report = (
+                cleanup_fn(execute=True)
+                if execute and callable(cleanup_fn)
+                else report_fn()
+            )
+            print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
+        except Exception as exc:
+            print(_("[sessions] Artifact cleanup failed: %(err)s") % {"err": exc})
+        return True
+
     if command == "list":
         if store is None:
             print(_("[sessions] Session store is not enabled."))
