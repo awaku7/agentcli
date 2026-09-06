@@ -1302,4 +1302,3 @@ def supports_computer_use(
         return bool(getattr(computer_use, "supported", False))
     except Exception:
         return default
-

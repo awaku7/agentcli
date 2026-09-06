@@ -129,6 +129,7 @@ def test_tool_load_batch_shape_and_missing_name() -> None:
     missing = json.loads(catalog_tool_mod.run_tool({"name": "  "}))
     assert missing["ok"] is False
 
+
 def test_tool_load_already_visible_does_not_reload(monkeypatch) -> None:
     from uagent.tools import catalog_tool
     from uagent.tools import _genre_control_util as gcu

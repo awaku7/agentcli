@@ -92,7 +92,9 @@ def test_run_llm_rounds_openrouter_routes_to_expected_api(
     # catalog, so allow Responses explicitly.
     import uagent.uagent_llm as _uagent_llm
 
-    monkeypatch.setattr(_uagent_llm, "provider_allows_responses_api", lambda *a, **k: True)
+    monkeypatch.setattr(
+        _uagent_llm, "provider_allows_responses_api", lambda *a, **k: True
+    )
 
     client = _DummyFullClient()
     core = _DummyCore()

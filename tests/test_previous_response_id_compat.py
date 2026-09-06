@@ -158,7 +158,9 @@ def test_openrouter_never_sends_previous_response_id(monkeypatch) -> None:
     # This test checks previous_response_id stripping, not the catalog.
     import uagent.uagent_llm as _uagent_llm
 
-    monkeypatch.setattr(_uagent_llm, "provider_allows_responses_api", lambda *a, **k: True)
+    monkeypatch.setattr(
+        _uagent_llm, "provider_allows_responses_api", lambda *a, **k: True
+    )
 
     class _OkResponses:
         def __init__(self) -> None:

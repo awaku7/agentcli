@@ -448,9 +448,7 @@ def _model_uses_thinking_budget(model_name: str) -> bool:
     try:
         from uagent.llmcapa_util import current_provider, get_thinking_control
 
-        control = get_thinking_control(
-            model_name, current_provider() or "gemini"
-        )
+        control = get_thinking_control(model_name, current_provider() or "gemini")
         if isinstance(control, dict) and control:
             kind = str(control.get("kind") or "").strip().lower()
             param = str(control.get("parameter") or "").strip().lower()
@@ -508,9 +506,7 @@ def _llmcapa_reasoning_levels(model_name: str) -> set[str] | None:
         cap = get_capability(model_name, prov)
         if cap is None:
             return None
-        return (
-            set() if not bool(getattr(cap, "supports_reasoning", False)) else None
-        )
+        return set() if not bool(getattr(cap, "supports_reasoning", False)) else None
     except Exception:
         return None
 
