@@ -34,6 +34,19 @@ def test_tool_result_record_is_persisted_and_decoded(tmp_path) -> None:
     assert results[0]["metadata"]["tool_call_id"] == "call-1"
 
 
+def test_tool_result_session_lookup_by_task_id(tmp_path) -> None:
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="a2a")
+        store.record_tool_result(
+            session.session_id,
+            {"result_id": "task-result", "task_id": "task-1", "tool_name": "example"},
+            "result",
+        )
+
+        assert store.find_sessions_by_task_id("task-1") == [session.session_id]
+        assert store.find_sessions_by_task_id("missing") == []
+
+
 def test_tool_result_can_be_retrieved_by_id(tmp_path) -> None:
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session = store.create_session(project="demo", entry_point="test")
