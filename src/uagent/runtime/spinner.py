@@ -165,6 +165,14 @@ def _spinner_color() -> tuple[int, int]:
         "magenta": (35, 5),
         "cyan": (36, 3),
         "white": (37, 7),
+        "bright_black": (90, 0),
+        "bright_red": (91, 4),
+        "bright_green": (92, 2),
+        "bright_yellow": (93, 6),
+        "bright_blue": (94, 1),
+        "bright_magenta": (95, 5),
+        "bright_cyan": (96, 3),
+        "bright_white": (97, 7),
     }
     return colors.get(name, colors["yellow"])
 
