@@ -144,9 +144,18 @@ def _spinner_color() -> tuple[int, int]:
     try:
         from ..env_utils import env_get as _env_get
 
-        name = (_env_get("UAGENT_SPINNER_COLOR") or "yellow").strip().lower()
+        configured = (_env_get("UAGENT_SPINNER_COLOR") or "").strip().lower()
     except Exception:
-        name = "yellow"
+        configured = ""
+    if configured:
+        name = configured
+    else:
+        label = _current_label("").lower()
+        name = (
+            "magenta"
+            if label.startswith("sub-agent:")
+            else ("cyan" if label.startswith("tool:") else "yellow")
+        )
     colors = {
         "black": (30, 0),
         "red": (31, 4),

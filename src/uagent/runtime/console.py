@@ -5,8 +5,43 @@ from __future__ import annotations
 import os
 import sys
 
+_COLOR_CODES = {
+    "black": (30, 0),
+    "red": (31, 4),
+    "green": (32, 2),
+    "yellow": (33, 6),
+    "blue": (34, 1),
+    "magenta": (35, 5),
+    "cyan": (36, 3),
+    "white": (37, 7),
+}
 
-def write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
+
+def _status_color(label: str, busy: bool) -> tuple[int, int]:
+    normalized = (label or "").strip().lower()
+    if normalized.startswith("sub-agent:"):
+        key = "UAGENT_STATUS_COLOR_SUB_AGENT"
+        default = "magenta"
+    elif normalized.startswith("tool:"):
+        key = "UAGENT_STATUS_COLOR_TOOL"
+        default = "cyan"
+    elif busy:
+        key = "UAGENT_STATUS_COLOR_BUSY"
+        default = "yellow"
+    else:
+        key = "UAGENT_STATUS_COLOR_IDLE"
+        default = "green"
+    value = (
+        (os.environ.get(key) or os.environ.get("UAGENT_STATUS_COLOR") or default)
+        .strip()
+        .lower()
+    )
+    return _COLOR_CODES.get(value, _COLOR_CODES[default])
+
+
+def write_status_line(
+    text: str, *, busy: bool, use_color: bool, label: str = ""
+) -> None:
     """Write one status line without leaking ANSI on Windows consoles."""
     nl = (chr(13) + chr(10)) if os.name == "nt" else chr(10)
     if not use_color:
@@ -44,8 +79,9 @@ def write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
                 info = CSBI()
                 if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(info)):
                     old_attr = int(info.wAttributes)
+                    _, windows_color = _status_color(label, busy)
                     kernel32.SetConsoleTextAttribute(
-                        handle, (old_attr & 0xF0) | (0x0E if busy else 0x0A)
+                        handle, (old_attr & 0xF0) | (windows_color | 0x08)
                     )
                     try:
                         data = text + nl
@@ -64,6 +100,6 @@ def write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
         sys.stderr.flush()
         return
     esc = chr(27)
-    color = (esc + "[33m") if busy else (esc + "[32m")
-    sys.stderr.write(f"{color}{text}{esc}[0m" + nl)
+    ansi_color, _ = _status_color(label, busy)
+    sys.stderr.write(f"{esc}[{ansi_color}m{text}{esc}[0m" + nl)
     sys.stderr.flush()

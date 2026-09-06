@@ -56,11 +56,13 @@ def print_reasoning_delta(s: str) -> None:
         _core._reasoning_stream_open = _core._stream_line_open
 
 
-def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
+def _write_status_line(
+    text: str, *, busy: bool, use_color: bool, label: str = ""
+) -> None:
     """Compatibility shim for runtime.console."""
     from ..runtime.console import write_status_line
 
-    write_status_line(text, busy=busy, use_color=use_color)
+    write_status_line(text, busy=busy, use_color=use_color, label=label)
 
 
 def _is_idle_shell() -> bool:
@@ -214,6 +216,7 @@ def print_status_line() -> None:
                     f"[STATE] {state}{label_part}",
                     busy=busy,
                     use_color=use_color,
+                    label=label,
                 )
                 return
         time.sleep(0.005)
