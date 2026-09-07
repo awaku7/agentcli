@@ -2045,10 +2045,29 @@ def run_llm_rounds(
                 for message in messages
                 if isinstance(message, dict)
             )
-            _apply_context_budget(messages, core)
             _inject_agent_state_context(messages, core)
             _inject_retrieved_tool_context(messages, core)
             _update_agent_state_for_turn(messages, core)
+            # Apply the budget after state/retrieval injection so recovered
+            # context is governed by the same policy as the conversation.
+            _apply_context_budget(messages, core)
+            # Keep a provider-neutral snapshot as the single context
+            # hand-off, without compacting a second time or changing tool
+            # metadata/call pairing.
+            active_context = core.context_manager.build_message_context(
+                messages,
+                budget=ContextBudget(
+                    total_chars=max(
+                        1,
+                        sum(
+                            len(str(message.get("content") or ""))
+                            for message in messages
+                            if isinstance(message, dict)
+                        ),
+                    )
+                ),
+            )
+            core.active_context = active_context
             _record_context_telemetry(messages, core, raw_context_chars)
         except Exception:
             pass

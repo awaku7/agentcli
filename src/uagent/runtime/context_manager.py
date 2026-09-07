@@ -74,11 +74,14 @@ class ContextManager:
         return self.budget.usage(**sections)
 
     def build_message_context(
-        self, messages: Sequence[dict[str, Any]]
+        self,
+        messages: Sequence[dict[str, Any]],
+        *,
+        budget: ContextBudget | None = None,
     ) -> ActiveContext:
         """Build a provider-neutral context while preserving message order."""
         return self.active_context_builder.build_message_context(
-            messages, budget=self.budget
+            messages, budget=budget or self.budget
         )
 
     def build_active_context(

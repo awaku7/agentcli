@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+from uagent.runtime.context_budget import ContextBudget
+from uagent.runtime.context_manager import ContextManager
 from uagent.uagent_llm import _apply_context_budget, _record_context_telemetry
 
 
@@ -28,6 +30,24 @@ def test_context_budget_can_be_disabled(monkeypatch) -> None:
 
     assert _apply_context_budget(messages, core=None) is False
     assert messages[1]["content"].startswith("old result")
+
+
+def test_context_manager_accepts_call_budget_for_active_snapshot() -> None:
+    manager = ContextManager(budget=ContextBudget(total_chars=1_000))
+    messages = [
+        {"role": "user", "content": "request"},
+        {"role": "tool", "content": "tool output"},
+    ]
+
+    active = manager.build_message_context(
+        messages,
+        budget=ContextBudget(total_chars=10),
+    )
+
+    assert active.messages[0]["role"] == "user"
+    assert active.messages[1]["role"] == "tool"
+    assert active.report.active_chars <= 10
+    assert messages[1]["content"] == "tool output"
 
 
 def test_context_telemetry_records_message_preserving_projection() -> None:
