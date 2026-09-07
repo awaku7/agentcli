@@ -563,6 +563,13 @@ def _run_one_round(
         depname=depname,
         gemini_cache_name=gemini_cache_name,
     )
+    if not judgment_mode:
+        context_manager = getattr(core, "context_manager", None)
+        build_message_context = getattr(context_manager, "build_message_context", None)
+        if callable(build_message_context):
+            active_context = build_message_context(call_messages)
+            core.active_context = active_context
+            call_messages = active_context.messages
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
     )

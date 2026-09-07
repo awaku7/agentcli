@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import copy
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Literal, Sequence
 
 from .context_budget import ContextBudget
@@ -47,6 +48,7 @@ class ContextReport:
 
     raw_chars: int
     active_chars: int
+    saved_chars: int
     raw_tokens: int | None
     active_tokens: int | None
     saved_tokens: int | None
@@ -61,6 +63,7 @@ class ActiveContext:
     sections: dict[str, list[str]]
     report: ContextReport
     decisions: list[ContextDecision]
+    messages: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _to_text(value: Any) -> str:
@@ -162,6 +165,7 @@ class ActiveContextBuilder:
         report = ContextReport(
             raw_chars=raw_chars,
             active_chars=active_chars,
+            saved_chars=raw_chars - active_chars,
             raw_tokens=None,
             active_tokens=None,
             saved_tokens=None,
@@ -172,6 +176,43 @@ class ActiveContextBuilder:
             sections=sections,
             report=report,
             decisions=list(decisions),
+        )
+
+    def build_message_context(
+        self,
+        messages: Sequence[dict[str, Any]],
+        *,
+        budget: ContextBudget | None = None,
+    ) -> ActiveContext:
+        """Capture ordered messages without losing tool-call structure."""
+        del budget  # Message-aware eviction remains the caller's responsibility.
+        projected = [
+            copy.deepcopy(message) for message in messages if isinstance(message, dict)
+        ]
+        sections: dict[str, dict[str, int]] = {}
+        active_chars = 0
+        for message in projected:
+            role = str(message.get("role") or "unknown")
+            chars = len(str(message.get("content") or ""))
+            active_chars += chars
+            stats = sections.setdefault(role, {"message_count": 0, "active_chars": 0})
+            stats["message_count"] += 1
+            stats["active_chars"] += chars
+        report = ContextReport(
+            raw_chars=active_chars,
+            active_chars=active_chars,
+            saved_chars=0,
+            raw_tokens=None,
+            active_tokens=None,
+            saved_tokens=None,
+            saved_ratio=0.0,
+            sections=sections,
+        )
+        return ActiveContext(
+            sections={},
+            report=report,
+            decisions=[],
+            messages=projected,
         )
 
 

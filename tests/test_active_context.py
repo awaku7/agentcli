@@ -43,6 +43,21 @@ def test_active_context_builder_applies_actions_and_budget() -> None:
     assert context.report.raw_chars > context.report.active_chars
 
 
+def test_message_context_preserves_order_and_tool_shape() -> None:
+    messages = [
+        {"role": "user", "content": "request"},
+        {"role": "assistant", "tool_calls": [{"id": "call-1"}]},
+        {"role": "tool", "tool_call_id": "call-1", "content": {"ok": True}},
+    ]
+
+    context = ActiveContextBuilder().build_message_context(messages)
+
+    assert context.messages == messages
+    assert context.messages is not messages
+    assert context.report.sections["tool"]["message_count"] == 1
+    assert context.report.active_chars == len("request") + len(str({"ok": True}))
+
+
 def test_active_context_builder_defaults_missing_decision_to_keep() -> None:
     context = ActiveContextBuilder(
         budget=ContextBudget(total_chars=100),
