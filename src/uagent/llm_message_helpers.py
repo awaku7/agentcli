@@ -22,6 +22,7 @@ def _init_gemini_cache(
     client: Any,
     depname: str,
     messages: list[dict[str, Any]],
+    core: Any = None,
 ) -> Any:
     from .providers.gemini_cache_mgr import GeminiCacheManager
 
@@ -47,7 +48,12 @@ def _init_gemini_cache(
             system_instruction = "\n".join(
                 [_message_content_text(m) for m in messages if m["role"] == "system"]
             )
-            tool_specs = tools.get_tool_specs() or []
+            context_tool_specs = getattr(core, "context_tool_specs", None)
+            tool_specs = list(
+                context_tool_specs
+                if context_tool_specs is not None
+                else (tools.get_tool_specs() or [])
+            )
 
             if cache_mgr.is_cache_valid(system_instruction, tool_specs):
                 gemini_cache_name = cache_mgr.get_cache_name()

@@ -1045,17 +1045,24 @@ def gemini_chat_with_tools(
             continue
     contents = valid_contents
 
-    if not contents and not cached_content:
-        # キャッシュもコンテンツもない場合のみ、最低1つのPartを持つUserメッセージを追加する。
+    if not contents:
+        # Vertex/Gemini requires a current user turn even when the system
+        # instruction is supplied through cached_content.  This also covers
+        # interrupted tool loops that leave no user message in the projection.
         contents = [
             gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
         ]
     else:
-        last_role = getattr(contents[-1], "role", None) if contents else None
+        last_role = getattr(contents[-1], "role", None)
         last_role = getattr(last_role, "value", last_role)
-        if contents and str(last_role).lower() == "model":
-            # Gemini / Vertex AI API rejects requests ending with a model turn.
-            # Append a continuation prompt from the user to satisfy the API turn-taking rule.
+        role_text = str(last_role or "").strip().lower()
+        # SDK enum string forms vary (e.g. ``Role.MODEL``), so compare the
+        # normalized suffix rather than only the literal value "model".
+        is_user_turn = role_text == "user" or role_text.endswith(".user")
+        if not is_user_turn:
+            # Gemini / Vertex AI rejects requests ending with a model turn.
+            # Appending a user continuation is safe for model/tool/unknown
+            # terminal roles and repairs Control-C/approval continuations.
             contents.append(
                 gemini_types.Content(
                     role="user", parts=[gemini_types.Part(text="Continue.")]

@@ -2335,6 +2335,7 @@ def run_llm_rounds(
             client=client,
             depname=depname,
             messages=messages,
+            core=core,
         )
 
     # Clear any stale interrupt flag from a previous session
