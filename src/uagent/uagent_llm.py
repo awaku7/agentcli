@@ -2553,31 +2553,22 @@ def run_llm_rounds(
                             continue
                         last = _TOOL_LAST_ROUND.get(tname)
                         if last is None:
-                            # Never used since load: grace starts at load round.
-                            age = _productive_age(_LOADED_SINGLE_TOOLS.get(tname))
-                            if age is not None and age >= threshold:
-                                _spinner_stop_quietly()
-                                print(
-                                    "[TOOLS auto-unload] "
-                                    + _(
-                                        "%(name)s (never used for %(n)d LLM rounds since load)"
-                                    )
-                                    % {"name": tname, "n": threshold},
-                                    flush=True,
-                                )
-                                _disable_single_tool(tname)
-                        else:
-                            age = _productive_age(last)
-                            if age is not None and age >= threshold:
-                                _spinner_stop_quietly()
-                                print(
-                                    "[TOOLS auto-unload] "
-                                    + _("%(name)s (idle for %(n)d LLM rounds)")
-                                    % {"name": tname, "n": threshold},
-                                    flush=True,
-                                )
-                                _TOOL_LAST_ROUND.pop(tname, None)
-                                _disable_single_tool(tname)
+                            # An explicitly loaded tool is retained until it is
+                            # used or explicitly unloaded. Unloading a tool
+                            # that was never called makes tool_load appear to
+                            # succeed while the next round silently removes it.
+                            continue
+                        age = _productive_age(last)
+                        if age is not None and age >= threshold:
+                            _spinner_stop_quietly()
+                            print(
+                                "[TOOLS auto-unload] "
+                                + _("%(name)s (idle for %(n)d LLM rounds)")
+                                % {"name": tname, "n": threshold},
+                                flush=True,
+                            )
+                            _TOOL_LAST_ROUND.pop(tname, None)
+                            _disable_single_tool(tname)
             # --- end auto-unload ---
 
             # Judgment mode: one round only
