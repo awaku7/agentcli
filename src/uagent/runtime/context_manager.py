@@ -11,6 +11,7 @@ from .active_context import (
     ContextDecision,
 )
 from .context_budget import ContextBudget
+from .context_decision import ContextDecisionEngine
 from .context_policy import ContextPolicy
 from .tool_result_manager import (
     ContextResultManager,
@@ -33,6 +34,7 @@ class ContextManager:
         self.budget = budget or ContextBudget(total_chars=self.policy.budget_chars)
         self.results = result_manager or ContextResultManager()
         self.active_context_builder = ActiveContextBuilder(budget=self.budget)
+        self.decision_engine = ContextDecisionEngine()
 
     @classmethod
     def from_environment(
@@ -81,6 +83,12 @@ class ContextManager:
             candidates=candidates,
             decisions=decisions,
         )
+
+    def decide_context(
+        self, candidates: Sequence[ContextCandidate]
+    ) -> list[ContextDecision]:
+        """Score and budget candidates before building the active context."""
+        return self.decision_engine.decide(candidates, budget=self.budget)
 
 
 __all__ = ["ContextManager"]
