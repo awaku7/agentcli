@@ -94,9 +94,7 @@ def test_context_budget_allocates_reserve_by_deficit_then_priority() -> None:
         memory_chars=10,
     )
 
-    allocations = budget.effective_section_allocations(
-        {"history": 80, "memory": 75}
-    )
+    allocations = budget.effective_section_allocations({"history": 80, "memory": 75})
 
     assert allocations["history"] == 40
     assert allocations["memory"] == 10

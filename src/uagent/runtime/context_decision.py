@@ -119,7 +119,10 @@ class ContextDecisionEngine:
                 original = candidate.original_chars
                 if original is None:
                     original = len(str(candidate.content))
-                if self.score(candidate, policy=self.policy) >= self.policy.exclude_score:
+                if (
+                    self.score(candidate, policy=self.policy)
+                    >= self.policy.exclude_score
+                ):
                     required[section] = required.get(section, 0) + max(0, original)
             section_remaining = budget.effective_section_allocations(required)
         decisions: dict[str, ContextDecision] = {}

@@ -1182,7 +1182,9 @@ class SessionStore:
                     importance,
                     decision.get("original_chars"),
                     decision.get("projected_chars"),
-                    _sanitize_text(redact_sensitive(str(decision.get("reference") or "")))
+                    _sanitize_text(
+                        redact_sensitive(str(decision.get("reference") or ""))
+                    )
                     or None,
                 ),
             )

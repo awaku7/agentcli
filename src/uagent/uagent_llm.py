@@ -2406,9 +2406,8 @@ def run_llm_rounds(
                 # the provider tool surface before every request so a newly
                 # loaded tool is available on the very next round.
                 _refresh_context_tool_specs(messages, core)
-                if (
-                    provider in ("gemini", "vertexai")
-                    and getattr(core, "_gemini_cache_needs_refresh", False)
+                if provider in ("gemini", "vertexai") and getattr(
+                    core, "_gemini_cache_needs_refresh", False
                 ):
                     try:
                         if cache_mgr is not None:

@@ -23,14 +23,18 @@ class ContextBenchmarkCase:
     success: bool | None = None
 
 
-def _case_from_value(value: ContextBenchmarkCase | Mapping[str, Any], index: int) -> ContextBenchmarkCase:
+def _case_from_value(
+    value: ContextBenchmarkCase | Mapping[str, Any], index: int
+) -> ContextBenchmarkCase:
     if isinstance(value, ContextBenchmarkCase):
         return value
     raw_candidates = value.get("candidates") or []
     candidates = [
-        candidate
-        if isinstance(candidate, ContextCandidate)
-        else ContextCandidate.from_record(candidate, index=item_index)
+        (
+            candidate
+            if isinstance(candidate, ContextCandidate)
+            else ContextCandidate.from_record(candidate, index=item_index)
+        )
         for item_index, candidate in enumerate(raw_candidates)
         if isinstance(candidate, (ContextCandidate, dict))
     ]
@@ -54,7 +58,9 @@ def run_context_benchmark(
     samples: list[dict[str, Any]] = []
     for index, raw_case in enumerate(cases):
         case = _case_from_value(raw_case, index)
-        raw_parts = [case.task] + [str(candidate.content or "") for candidate in case.candidates]
+        raw_parts = [case.task] + [
+            str(candidate.content or "") for candidate in case.candidates
+        ]
         raw_chars = sum(len(part) for part in raw_parts)
         raw_tokens = sum(estimate_tokens(part) for part in raw_parts)
 
@@ -86,7 +92,8 @@ def run_context_benchmark(
                     "saved_ratio": active.report.saved_ratio,
                     "latency_ms": round(elapsed_ms, 3),
                     "tool_calls": sum(
-                        candidate.source == "tool_result" for candidate in case.candidates
+                        candidate.source == "tool_result"
+                        for candidate in case.candidates
                     ),
                     "compaction_count": compaction_count,
                 },
@@ -95,7 +102,9 @@ def run_context_benchmark(
             }
         )
 
-    success_values = [sample["success"] for sample in samples if sample["success"] is not None]
+    success_values = [
+        sample["success"] for sample in samples if sample["success"] is not None
+    ]
     return {
         "sample_count": len(samples),
         "samples": samples,
