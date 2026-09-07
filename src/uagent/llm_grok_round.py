@@ -149,7 +149,7 @@ def _call_grok_round(
             # --- Build messages and tools ---
             instructions_str, xai_msgs = build_xai_messages(call_messages)
             req_tools = build_xai_tools(
-                send_tools_this_round, call_messages=call_messages
+                send_tools_this_round, call_messages=call_messages, core=core
             )
 
             # --- Resolve temperature ---

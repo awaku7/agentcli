@@ -19,7 +19,7 @@ from ..llm_helpers import _maybe_print_certifi_where
 from ..i18n import _
 
 
-def _pfn_tool_specs() -> list[dict[str, Any]]:
+def _pfn_tool_specs(core: Any = None) -> list[dict[str, Any]]:
     """Return tool specs accepted by the live PLaMo API.
 
     The public schema page describes ``parameters`` as a string, but the
@@ -27,7 +27,12 @@ def _pfn_tool_specs() -> list[dict[str, Any]]:
     native OpenAI-style object and treat live API validation as the source of
     truth.
     """
-    return _tools.get_tool_specs()
+    context_tool_specs = getattr(core, "context_tool_specs", None)
+    return list(
+        context_tool_specs
+        if context_tool_specs is not None
+        else _tools.get_tool_specs()
+    )
 
 
 def _pfn_messages(
@@ -219,7 +224,7 @@ def pfn_chat_with_tools(
         kwargs["temperature"] = 0.2
 
     if send_tools_this_round:
-        specs = _pfn_tool_specs()
+        specs = _pfn_tool_specs(core)
         if specs:
             kwargs["tools"] = specs
             kwargs["tool_choice"] = "auto"

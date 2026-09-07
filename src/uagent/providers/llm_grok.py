@@ -169,6 +169,7 @@ def build_xai_messages(
 def build_xai_tools(
     send_tools_this_round: bool,
     call_messages: Optional[list[dict[str, Any]]] = None,
+    core: Any = None,
 ) -> Optional[list[Any]]:
     """Build xai_sdk Tool list: management tools + tools loaded via tool_load."""
     if not send_tools_this_round:
@@ -252,7 +253,25 @@ def build_xai_tools(
         try:
             from .. import tools as _tools
 
-            all_specs = _tools.get_tool_specs()
+            context_tool_specs = getattr(core, "context_tool_specs", None)
+            all_specs = (
+                list(context_tool_specs)
+                if context_tool_specs is not None
+                else _tools.get_tool_specs()
+            )
+            if context_tool_specs is not None:
+                # Explicitly loaded tools remain available even when lexical
+                # task selection would otherwise omit them.
+                for _spec in _tools.get_tool_specs() or []:
+                    _fn = _spec.get("function") or {}
+                    if isinstance(_fn, dict) and _fn.get("name") in loaded_names:
+                        if not any(
+                            isinstance(_existing.get("function"), dict)
+                            and _existing["function"].get("name") == _fn.get("name")
+                            for _existing in all_specs
+                            if isinstance(_existing, dict)
+                        ):
+                            all_specs.append(_spec)
         except Exception:
             all_specs = None
 
