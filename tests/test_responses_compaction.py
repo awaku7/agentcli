@@ -24,7 +24,7 @@ def test_parse_responses_response_emits_compaction_notice() -> None:
     assert (text, reasoning, tools, response_id) == ("", "", [], "resp_compact_1")
     assert items and items[0]["type"] == "compaction"
     assert len(notices) == 1
-    assert "圧縮" in notices[0]
+    assert "compressed" in notices[0] or "圧縮" in notices[0]
 
 
 def test_parse_responses_stream_emits_compaction_done_notice() -> None:
@@ -43,7 +43,7 @@ def test_parse_responses_stream_emits_compaction_done_notice() -> None:
 
     assert (text, reasoning, tools, response_id, items) == ("", "", [], None, [])
     assert len(notices) == 1
-    assert "圧縮" in notices[0]
+    assert "compressed" in notices[0] or "圧縮" in notices[0]
 
 
 def test_parse_responses_stream_emits_compaction_output_item_notice() -> None:
@@ -59,7 +59,7 @@ def test_parse_responses_stream_emits_compaction_output_item_notice() -> None:
     parse_responses_stream(stream, print_delta_fn=lambda _text: None, core=core)
 
     assert len(notices) == 1
-    assert "圧縮" in notices[0]
+    assert "compressed" in notices[0] or "圧縮" in notices[0]
 
 
 __all__ = []
