@@ -72,7 +72,9 @@ def retrieve_candidates(
             recency_score = max(0.0, min(1.0, float(recency)))
         except (TypeError, ValueError):
             recency_score = 0.5
-        score = (relevance_score * 0.7) + (importance_score * 0.3)
+        # Query relevance leads ranking, while importance and recency provide
+        # deterministic tie-break quality for records with similar matches.
+        score = relevance_score * 0.50 + importance_score * 0.30 + recency_score * 0.20
         candidate = replace(
             ContextCandidate.from_record(record, index=index),
             importance=importance_score,

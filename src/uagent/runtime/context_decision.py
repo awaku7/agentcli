@@ -11,11 +11,16 @@ from .context_budget import ContextBudget
 
 @dataclass(frozen=True)
 class DecisionPolicy:
-    """Thresholds used by :class:`ContextDecisionEngine`."""
+    """Thresholds and signal weights used by the decision engine."""
 
     exclude_score: float = 0.25
     compact_score: float = 0.50
     compact_min_chars: int = 64
+    # Relevance is the strongest signal for task-specific context.  Weights
+    # are renormalized over signals that are actually present on a candidate.
+    relevance_weight: float = 0.50
+    importance_weight: float = 0.30
+    recency_weight: float = 0.20
 
 
 class ContextDecisionEngine:
@@ -25,21 +30,38 @@ class ContextDecisionEngine:
         self.policy = policy or DecisionPolicy()
 
     @staticmethod
-    def score(candidate: ContextCandidate) -> float:
-        """Return a normalized score from available importance signals."""
-        values = [
-            normalized
-            for value in (
-                candidate.importance,
-                candidate.relevance,
-                candidate.recency,
-            )
-            if (normalized := ContextDecisionEngine._normalize_signal(value))
+    def score(
+        candidate: ContextCandidate,
+        *,
+        policy: DecisionPolicy | None = None,
+    ) -> float:
+        """Return a weighted, normalized score from available signals.
+
+        Missing signals do not dilute a candidate's score: configured weights
+        are renormalized over values that can actually be evaluated.  This
+        keeps legacy records (which often contain only ``importance``) useful
+        while allowing task relevance and recency to guide newer records.
+        """
+        active_policy = policy or DecisionPolicy()
+        signals = (
+            (candidate.relevance, active_policy.relevance_weight),
+            (candidate.importance, active_policy.importance_weight),
+            (candidate.recency, active_policy.recency_weight),
+        )
+        weighted = [
+            (normalized, weight)
+            for value, weight in signals
+            if weight > 0
+            and (normalized := ContextDecisionEngine._normalize_signal(value))
             is not None
         ]
-        if not values:
+        if not weighted:
             return 0.5
-        return max(0.0, min(1.0, sum(values) / len(values)))
+        weight_total = sum(weight for _, weight in weighted)
+        return max(
+            0.0,
+            min(1.0, sum(value * weight for value, weight in weighted) / weight_total),
+        )
 
     @staticmethod
     def _normalize_signal(value: Any) -> float | None:
@@ -78,7 +100,11 @@ class ContextDecisionEngine:
 
         ranked = sorted(
             enumerate(candidates),
-            key=lambda pair: (-self.score(pair[1]), pair[1].item_id, pair[0]),
+            key=lambda pair: (
+                -self.score(pair[1], policy=self.policy),
+                pair[1].item_id,
+                pair[0],
+            ),
         )
         # Do not let an unlimited budget fall back to the nominal default
         # total. ``None`` means that all candidates may be retained.
@@ -93,7 +119,7 @@ class ContextDecisionEngine:
         decisions: dict[str, ContextDecision] = {}
 
         for _, candidate in ranked:
-            score = self.score(candidate)
+            score = self.score(candidate, policy=self.policy)
             original_chars = candidate.original_chars
             if original_chars is None:
                 original_chars = len(str(candidate.content))

@@ -1,6 +1,6 @@
 from uagent.runtime.active_context import ContextCandidate
 from uagent.runtime.context_budget import ContextBudget
-from uagent.runtime.context_decision import ContextDecisionEngine
+from uagent.runtime.context_decision import ContextDecisionEngine, DecisionPolicy
 
 
 def test_decision_engine_prioritizes_high_score_and_preserves_input_order():
@@ -112,3 +112,29 @@ def test_decision_engine_ignores_unknown_signal_values():
     )
 
     assert ContextDecisionEngine.score(candidate) == 0.5
+
+
+def test_decision_engine_weights_relevance_over_recency_when_configured():
+    candidate = ContextCandidate(
+        item_id="weighted",
+        source="result",
+        section="tool_results",
+        content="result",
+        relevance=1.0,
+        importance=0.0,
+        recency=0.0,
+    )
+
+    engine = ContextDecisionEngine()
+    assert engine.score(candidate) == 0.5
+    assert (
+        engine.score(
+            candidate,
+            policy=DecisionPolicy(
+                relevance_weight=0.8,
+                importance_weight=0.1,
+                recency_weight=0.1,
+            ),
+        )
+        == 0.8
+    )
