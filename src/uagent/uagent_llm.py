@@ -1907,6 +1907,46 @@ def _record_context_telemetry(
     return report
 
 
+def _format_agent_state_context(
+    state: dict[str, Any], *, max_chars: int | None = None
+) -> str:
+    """Render agent state with stable priorities and optional section budget."""
+    completed = state.get("completed_steps") or []
+    if not isinstance(completed, list):
+        completed = list(completed) if isinstance(completed, tuple) else []
+    lines = [
+        "[agent state]",
+        f"goal: {str(state.get('goal') or '')[-1000:]}",
+        f"current_step: {str(state.get('current_step') or '')[-500:]}",
+        f"completed_steps: {', '.join(str(item) for item in completed[-20:])}",
+        f"next_action: {str(state.get('next_action') or '')[-1000:]}",
+    ]
+    # Preserve structured state fields when a state store provides them. The
+    # core execution fields above remain first so compaction keeps the task
+    # identity and next step readable.
+    for key in (
+        "known_facts",
+        "pending_tasks",
+        "decisions",
+        "constraints",
+        "errors",
+        "dependencies",
+    ):
+        value = state.get(key)
+        if value:
+            rendered = (
+                value
+                if isinstance(value, str)
+                else ", ".join(str(item) for item in value)
+            )
+            lines.append(f"{key}: {rendered}")
+    text = chr(10).join(lines)
+    if max_chars is not None and len(text) > max_chars:
+        suffix = chr(10) + "[agent state compacted]"
+        text = text[: max(0, max_chars - len(suffix))] + suffix
+    return text
+
+
 def _inject_agent_state_context(messages: list[dict[str, Any]], core: Any) -> bool:
     """Inject recovered structured state into the current user turn."""
     policy = getattr(core, "context_policy", ContextPolicy.from_environment())
@@ -1938,19 +1978,17 @@ def _inject_agent_state_context(messages: list[dict[str, Any]], core: Any) -> bo
         return False
     if not isinstance(state, dict) or not any(state.values()):
         return False
-    completed = state.get("completed_steps") or []
-    if not isinstance(completed, list):
-        completed = list(completed) if isinstance(completed, tuple) else []
-    lines = [
-        "[agent state]",
-        f"goal: {str(state.get('goal') or '')[-1000:]}",
-        f"current_step: {str(state.get('current_step') or '')[-500:]}",
-        f"completed_steps: {', '.join(str(item) for item in completed[-20:])}",
-        f"next_action: {str(state.get('next_action') or '')[-1000:]}",
-    ]
+    rendered_state = _format_agent_state_context(
+        state,
+        max_chars=(
+            None
+            if getattr(policy, "budget_unlimited", True)
+            else min(10_000, int(getattr(policy, "budget_chars", 10_000)))
+        ),
+    )
     messages[user_index] = {
         **user_message,
-        "content": "\n".join(lines) + "\n\n" + content,
+        "content": rendered_state + chr(10) + chr(10) + content,
     }
     return True
 
