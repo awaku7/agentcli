@@ -111,3 +111,26 @@ def test_decision_engine_reports_when_additional_retrieval_is_needed():
     )
 
     assert manager.decision_engine.needs_additional_retrieval(active.decisions)
+
+
+def test_context_debug_snapshot_exposes_telemetry_and_decision_log():
+    manager = ContextManager(policy=ContextPolicy(budget_chars=1000))
+    manager.build_active_context(
+        task="task",
+        candidates=[
+            ContextCandidate(
+                "result",
+                "tool_result",
+                "tool_results",
+                "value",
+                relevance=0.9,
+            )
+        ],
+        budget=ContextBudget(total_chars=1000),
+    )
+
+    snapshot = manager.debug_snapshot()
+    assert snapshot["raw_context"]["chars"] == 9
+    assert snapshot["active_context"]["chars"] == 9
+    assert snapshot["decision_log"][0]["item_id"] == "result"
+    assert snapshot["decision_log"][0]["action"] == "KEEP"

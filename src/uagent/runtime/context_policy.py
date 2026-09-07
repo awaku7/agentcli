@@ -23,6 +23,16 @@ def _env_int(name: str, default: int, minimum: int = 0) -> int:
         return default
 
 
+def _env_optional_int(name: str) -> int | None:
+    value = os.environ.get(name)
+    if value is None or not value.strip():
+        return None
+    try:
+        return max(0, int(value))
+    except (TypeError, ValueError):
+        return None
+
+
 @dataclass(frozen=True)
 class ContextPolicy:
     """Single source of truth for context-management feature switches."""
@@ -36,6 +46,7 @@ class ContextPolicy:
     auto_retrieve: bool = True
     auto_state: bool = True
     tool_result_max_rows: int = 500
+    budget_tokens: int | None = None
 
     @classmethod
     def from_environment(
@@ -62,6 +73,7 @@ class ContextPolicy:
             auto_retrieve=_env_bool("UAGENT_AUTO_RETRIEVE_TOOL_RESULTS", True),
             auto_state=_env_bool("UAGENT_AUTO_INJECT_AGENT_STATE", True),
             tool_result_max_rows=_env_int("UAGENT_TOOL_RESULT_MAX_ROWS", 500),
+            budget_tokens=_env_optional_int("UAGENT_CONTEXT_BUDGET_TOKENS"),
         )
 
 

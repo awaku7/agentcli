@@ -14,6 +14,7 @@ from .context_budget import ContextBudget
 from .context_decision import ContextDecisionEngine
 from .context_retrieval import retrieve_candidates
 from .context_policy import ContextPolicy
+from .context_tools import ToolDefinitionSelection, select_tool_definitions
 from .tool_result_manager import (
     ContextResultManager,
     ToolResultProjections,
@@ -39,15 +40,24 @@ class ContextManager:
                 or (
                     self.policy.budget_unlimited
                     and self.policy.budget_chars == ContextPolicy().budget_chars
+                    and self.policy.budget_tokens is None
                 )
             )
-            else ContextBudget(total_chars=self.policy.budget_chars)
+            else ContextBudget(
+                total_chars=self.policy.budget_chars,
+                total_tokens=self.policy.budget_tokens,
+            )
         )
         self.results = result_manager or ContextResultManager(
             max_preview_rows=self.policy.tool_result_max_rows
         )
-        self.active_context_builder = ActiveContextBuilder(budget=self.budget)
+        self.active_context_builder = ActiveContextBuilder(
+            budget=self.budget,
+            provider=self.policy.provider,
+            model=self.policy.model,
+        )
         self.decision_engine = ContextDecisionEngine()
+        self.last_active_context: ActiveContext | None = None
 
     @classmethod
     def from_environment(
@@ -92,8 +102,28 @@ class ContextManager:
         budget: ContextBudget | None = None,
     ) -> ActiveContext:
         """Build a provider-neutral context while preserving message order."""
-        return self.active_context_builder.build_message_context(
+        active = self.active_context_builder.build_message_context(
             messages, budget=budget or self.budget
+        )
+        self.last_active_context = active
+        return active
+
+    def optimize_tool_definitions(
+        self,
+        tool_specs: Sequence[dict[str, Any]] | None,
+        *,
+        task: str = "",
+        max_tools: int | None = None,
+        budget: ContextBudget | None = None,
+    ) -> ToolDefinitionSelection:
+        """Select whole, relevant tool schemas within the context budget."""
+        return select_tool_definitions(
+            tool_specs,
+            task=task,
+            budget=budget or self.budget,
+            provider=self.policy.provider,
+            model=self.policy.model,
+            max_tools=max_tools,
         )
 
     def build_active_context(
@@ -111,12 +141,20 @@ class ContextManager:
             if decisions is not None
             else self.decision_engine.decide(candidates, budget=active_budget)
         )
-        return self.active_context_builder.build_active_context(
+        active = self.active_context_builder.build_active_context(
             task=task,
             candidates=candidates,
             decisions=selected,
             budget=active_budget,
         )
+        self.last_active_context = active
+        return active
+
+    def debug_snapshot(self) -> dict[str, Any]:
+        """Return the latest context telemetry and decision log."""
+        if self.last_active_context is None:
+            return {}
+        return self.last_active_context.debug_snapshot()
 
     def build_active_context_from_records(
         self,

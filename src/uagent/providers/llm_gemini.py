@@ -690,7 +690,12 @@ def gemini_chat_with_tools(
         tools_list.append(native_tool)
 
     if send_tools:
-        tool_specs = tools.get_tool_specs() or []
+        context_tool_specs = getattr(core, "context_tool_specs", None)
+        tool_specs = list(
+            context_tool_specs
+            if context_tool_specs is not None
+            else (tools.get_tool_specs() or [])
+        )
     else:
         tool_specs = []
     if core is not None and getattr(core, "computer_use_runtime", None) is not None:

@@ -10,6 +10,7 @@ def test_context_policy_reads_environment(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_AUTO_RETRIEVE_TOOL_RESULTS", "0")
     monkeypatch.setenv("UAGENT_AUTO_INJECT_AGENT_STATE", "0")
     monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_ROWS", "9")
+    monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_TOKENS", "321")
 
     policy = ContextPolicy.from_environment(provider="openai", model="gpt-test")
 
@@ -20,6 +21,7 @@ def test_context_policy_reads_environment(monkeypatch) -> None:
     assert policy.auto_retrieve is False
     assert policy.auto_state is False
     assert policy.tool_result_max_rows == 9
+    assert policy.budget_tokens == 321
 
 
 def test_context_policy_supports_unlimited_budget(monkeypatch) -> None:

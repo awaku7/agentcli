@@ -62,3 +62,42 @@ def test_budget_rejects_negative_values() -> None:
 
     with pytest.raises(ValueError):
         ContextBudget().select_evictable([], target_chars=-1)
+
+
+def test_context_budget_supports_artifacts_and_memory_sections() -> None:
+    budget = ContextBudget(
+        total_chars=100,
+        system_chars=10,
+        tool_definition_chars=10,
+        agent_state_chars=10,
+        history_chars=10,
+        tool_result_chars=10,
+        artifact_chars=10,
+        memory_chars=10,
+    )
+
+    assert budget.base_section_budget == 70
+    assert budget.reserve_chars == 30
+    assert budget.limit_for_section("artifact") == 10
+    assert budget.limit_for_section("memory") == 10
+
+
+def test_context_budget_allocates_reserve_by_deficit_then_priority() -> None:
+    budget = ContextBudget(
+        total_chars=100,
+        system_chars=10,
+        tool_definition_chars=10,
+        agent_state_chars=10,
+        history_chars=10,
+        tool_result_chars=10,
+        artifact_chars=10,
+        memory_chars=10,
+    )
+
+    allocations = budget.effective_section_allocations(
+        {"history": 80, "memory": 75}
+    )
+
+    assert allocations["history"] == 40
+    assert allocations["memory"] == 10
+    assert sum(allocations.values()) <= budget.total_chars

@@ -370,7 +370,12 @@ def claude_chat_with_tools(
 
     anthropic_tools = []
     if send_tools:
-        _tool_specs_iter = list(tools.get_tool_specs() or [])
+        context_tool_specs = getattr(core, "context_tool_specs", None)
+        _tool_specs_iter = list(
+            context_tool_specs
+            if context_tool_specs is not None
+            else (tools.get_tool_specs() or [])
+        )
         if core is not None and getattr(core, "computer_use_runtime", None) is not None:
             from ..computer_use.native import local_computer_tool_spec
 

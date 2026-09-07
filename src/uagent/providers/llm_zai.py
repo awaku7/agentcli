@@ -270,7 +270,12 @@ def zai_chat_with_tools(
         _extract_latest_user_text(call_messages) if _reasoning == "auto" else ""
     )
 
-    req_tools = _tools.get_tool_specs() if send_tools_this_round else None
+    context_tool_specs = getattr(core, "context_tool_specs", None)
+    req_tools = (
+        context_tool_specs
+        if send_tools_this_round and context_tool_specs is not None
+        else (_tools.get_tool_specs() if send_tools_this_round else None)
+    )
 
     while True:
         try:

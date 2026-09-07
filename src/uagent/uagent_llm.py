@@ -2115,6 +2115,31 @@ def run_llm_rounds(
             )
             core.active_context = active_context
             _record_context_telemetry(messages, core, raw_context_chars)
+            if core.context_manager is not None:
+                try:
+                    from . import tools as _tools
+
+                    task_text = next(
+                        (
+                            str(message.get("content") or "")
+                            for message in reversed(messages)
+                            if isinstance(message, dict)
+                            and message.get("role") == "user"
+                        ),
+                        "",
+                    )
+                    tool_selection = core.context_manager.optimize_tool_definitions(
+                        _TOOL_SPECS or _tools.get_tool_specs(),
+                        task=task_text,
+                    )
+                    core.context_tool_specs = tool_selection.specs
+                    core.context_tool_decisions = tool_selection.decisions
+                    core.context_tool_report = {
+                        "raw_chars": tool_selection.raw_chars,
+                        "active_chars": tool_selection.active_chars,
+                    }
+                except Exception:
+                    core.context_tool_specs = None
         except Exception:
             pass
 

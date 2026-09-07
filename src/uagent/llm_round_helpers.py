@@ -693,8 +693,9 @@ def _call_openai_azure_round(
                         _all_tools = tools.get_tool_specs()
                     responses_tool_specs = _all_tools
                 else:
-                    # Standard Responses API path (non-GPT-5.4): genre-filtered + tool_catalog
-                    responses_tool_specs = None
+                    # Standard Responses API path (non-GPT-5.4): use the
+                    # context-budgeted surface when the runtime prepared one.
+                    responses_tool_specs = getattr(core, "context_tool_specs", None)
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,
@@ -1035,7 +1036,12 @@ def _call_openai_azure_round(
                     # means the stale marker is no longer needed.
                     _clear_stale_rid_after_success()
             else:
-                req_tools = tools.get_tool_specs() if send_tools_this_round else None
+                context_tool_specs = getattr(core, "context_tool_specs", None)
+                req_tools = (
+                    context_tool_specs
+                    if send_tools_this_round and context_tool_specs is not None
+                    else (tools.get_tool_specs() if send_tools_this_round else None)
+                )
 
                 # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning).
                 default_temp = 0.2

@@ -389,7 +389,12 @@ def together_chat_with_tools(
     """
     attempt_429 = 0
 
-    req_tools = _tools.get_tool_specs() if send_tools_this_round else None
+    context_tool_specs = getattr(core, "context_tool_specs", None)
+    req_tools = (
+        context_tool_specs
+        if send_tools_this_round and context_tool_specs is not None
+        else (_tools.get_tool_specs() if send_tools_this_round else None)
+    )
 
     _reasoning_raw = (env_get("UAGENT_REASONING") or "").strip().lower()
     _auto_user_text = (

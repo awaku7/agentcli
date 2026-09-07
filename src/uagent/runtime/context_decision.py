@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Sequence
 
 from .active_context import ContextAction, ContextCandidate, ContextDecision
-from .context_budget import ContextBudget
+from .context_budget import ContextBudget, normalize_section
 
 
 @dataclass(frozen=True)
@@ -110,12 +110,18 @@ class ContextDecisionEngine:
         # total. ``None`` means that all candidates may be retained.
         remaining: int | None = None if budget.unlimited else budget.total_chars
         section_remaining: dict[str, int] = {}
-        if not budget.unlimited:
+        if not budget.unlimited and not getattr(budget, "_scaled_sections", False):
+            required: dict[str, int] = {}
             for candidate in candidates:
-                limit = budget.limit_for_section(candidate.section)
-                if limit is not None:
-                    section_remaining.setdefault(candidate.section, limit)
-        reserve = 0 if budget.unlimited else budget.reserve_chars
+                section = normalize_section(candidate.section)
+                if section not in budget.section_allocations():
+                    continue
+                original = candidate.original_chars
+                if original is None:
+                    original = len(str(candidate.content))
+                if self.score(candidate, policy=self.policy) >= self.policy.exclude_score:
+                    required[section] = required.get(section, 0) + max(0, original)
+            section_remaining = budget.effective_section_allocations(required)
         decisions: dict[str, ContextDecision] = {}
 
         for _, candidate in ranked:
@@ -130,10 +136,11 @@ class ContextDecisionEngine:
                 projected_chars = 0
                 reason = "score below exclusion threshold"
             else:
-                section_left = section_remaining.get(candidate.section)
+                section_name = normalize_section(candidate.section)
+                section_left = section_remaining.get(section_name)
                 available = remaining
                 if available is not None and section_left is not None:
-                    available = min(available, section_left + reserve)
+                    available = min(available, section_left)
                 if available is None or original_chars <= available:
                     action = "KEEP"
                     projected_chars = original_chars
@@ -162,8 +169,7 @@ class ContextDecisionEngine:
                 remaining -= projected_chars
                 if section_left is not None:
                     section_used = min(projected_chars, section_left)
-                    section_remaining[candidate.section] = section_left - section_used
-                    reserve -= max(0, projected_chars - section_used)
+                    section_remaining[section_name] = section_left - section_used
 
         return [decisions[candidate.item_id] for candidate in candidates]
 
