@@ -24,7 +24,13 @@ def retrieve_candidates(
     if max_candidates < 0:
         raise ValueError("max_candidates must be non-negative")
     query_tokens = _tokens(query)
-    importance = {"low": 0.25, "normal": 0.5, "high": 0.75, "critical": 1.0}
+    importance = {
+        "low": 0.25,
+        "normal": 0.5,
+        "medium": 0.5,
+        "high": 0.75,
+        "critical": 1.0,
+    }
     ranked: list[tuple[float, int, ContextCandidate]] = []
     for index, record in enumerate(records):
         summary = str(record.get("summary") or "").strip()
