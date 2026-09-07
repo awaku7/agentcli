@@ -103,6 +103,25 @@ class ContextManager:
             budget=active_budget,
         )
 
+    def build_active_context_from_records(
+        self,
+        *,
+        task: str,
+        records: Sequence[dict[str, Any]],
+        query: str = "",
+        max_candidates: int = 20,
+        budget: ContextBudget | None = None,
+    ) -> ActiveContext:
+        """Run retrieval, scoring, decision, and projection as one pipeline."""
+        candidates = self.retrieve_candidates(
+            records, query=query or task, max_candidates=max_candidates
+        )
+        return self.build_active_context(
+            task=task,
+            candidates=candidates,
+            budget=budget,
+        )
+
     def decide_context(
         self, candidates: Sequence[ContextCandidate]
     ) -> list[ContextDecision]:
