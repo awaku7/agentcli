@@ -42,6 +42,7 @@ _ALLOWED_PACKAGES = {
         # Data/document/media packages.
         "numpy",
         "pandas",
+        "scipy",
         "pint",
         "openpyxl",
         "python-docx",

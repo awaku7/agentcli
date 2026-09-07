@@ -30,6 +30,20 @@ def test_decision_engine_prioritizes_high_score_and_preserves_input_order():
     assert decisions[1].action == "KEEP"
 
 
+def test_decision_engine_keeps_all_candidates_for_unlimited_budget():
+    candidates = [
+        ContextCandidate("first", "result", "tool_results", "x" * 100_001),
+        ContextCandidate("second", "result", "tool_results", "y" * 100_001),
+    ]
+
+    decisions = ContextDecisionEngine().decide(
+        candidates, budget=ContextBudget.without_limit()
+    )
+
+    assert [decision.action for decision in decisions] == ["KEEP", "KEEP"]
+    assert [decision.projected_chars for decision in decisions] == [100_001, 100_001]
+
+
 def test_decision_engine_compacts_when_remaining_budget_is_smaller():
     candidate = ContextCandidate(
         item_id="large",

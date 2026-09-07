@@ -54,7 +54,9 @@ class ContextDecisionEngine:
             enumerate(candidates),
             key=lambda pair: (-self.score(pair[1]), pair[1].item_id, pair[0]),
         )
-        remaining = budget.total_chars
+        # Do not let an unlimited budget fall back to the nominal default
+        # total. ``None`` means that all candidates may be retained.
+        remaining: int | None = None if budget.unlimited else budget.total_chars
         decisions: dict[str, ContextDecision] = {}
 
         for _, candidate in ranked:
@@ -68,7 +70,7 @@ class ContextDecisionEngine:
                 action: ContextAction = "EXCLUDE"
                 projected_chars = 0
                 reason = "score below exclusion threshold"
-            elif original_chars <= remaining:
+            elif remaining is None or original_chars <= remaining:
                 action = "KEEP"
                 projected_chars = original_chars
                 reason = "fits remaining character budget"
@@ -92,7 +94,7 @@ class ContextDecisionEngine:
                 projected_chars=projected_chars,
                 reference=candidate.reference,
             )
-            if action in ("KEEP", "COMPACT"):
+            if action in ("KEEP", "COMPACT") and remaining is not None:
                 remaining -= projected_chars
 
         return [decisions[candidate.item_id] for candidate in candidates]
