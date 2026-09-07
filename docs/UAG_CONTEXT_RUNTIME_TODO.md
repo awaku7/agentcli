@@ -1186,3 +1186,21 @@ Active Context
 P0ではCharacter Budgetを使用し、P2でProvider / Model-specific Token Estimatorを導入してToken-aware Budgetへ移行する。
 
 これがUAG Context Runtimeの基本設計とする。
+
+
+## 13. 実装状況
+
+以下は実装済みです。
+
+- [x] ActiveContextBuilder / Decision Engineの最小Pipeline
+- [x] 7セクションBudgetとReserveの動的配分
+- [x] Candidate Retrieval / Scoring / Additional Retrieval
+- [x] Tool Result / History / Agent Stateの最適化
+- [x] Token-aware BudgetとProvider/Model別推定器
+- [x] Tool Definition Optimizationと主要LLMプロバイダへの接続
+- [x] Context Decision LogのSessionStore永続化
+- [x] Context Debug Snapshot
+- [x] Context Benchmark基盤
+- [x] Gemini / Vertexの中断・承認継続時のUserターン補正
+
+残作業は、Vertex AI実環境でのControl-C・承認継続・tool_load連続実行の回帰確認、および必要に応じたProvider固有Projectionの追加調整です。
