@@ -151,9 +151,17 @@ class ContextManager:
                 candidates=candidates,
                 budget=budget,
             )
-            if any(
-                decision.action in ("KEEP", "COMPACT") for decision in active.decisions
-            ) or len(candidates) >= len(records):
+            if not self.decision_engine.needs_additional_retrieval(active.decisions):
+                return active
+            # Duplicate persisted IDs are removed by retrieval, so compare
+            # against the number of unique records before requesting another
+            # round. This keeps replayed tool results from causing pointless
+            # retrieval rounds.
+            unique_record_ids = {
+                str(record.get("result_id") or record.get("item_id") or f"record-{i}")
+                for i, record in enumerate(records)
+            }
+            if len(candidates) >= len(unique_record_ids):
                 return active
             limit = max(1, limit * 2)
 

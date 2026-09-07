@@ -167,5 +167,18 @@ class ContextDecisionEngine:
 
         return [decisions[candidate.item_id] for candidate in candidates]
 
+    @staticmethod
+    def needs_additional_retrieval(
+        decisions: Sequence[ContextDecision],
+    ) -> bool:
+        """Return whether the current candidates yielded usable context.
+
+        Additional retrieval is only appropriate when every candidate was
+        excluded (or when no candidates were returned). Keeping this rule in
+        the decision layer prevents the retrieval loop from bypassing scoring
+        and projection decisions.
+        """
+        return not any(decision.action in ("KEEP", "COMPACT") for decision in decisions)
+
 
 __all__ = ["ContextDecisionEngine", "DecisionPolicy"]
