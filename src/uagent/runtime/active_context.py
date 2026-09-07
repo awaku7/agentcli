@@ -184,12 +184,28 @@ class ActiveContextBuilder:
         *,
         budget: ContextBudget | None = None,
     ) -> ActiveContext:
-        """Capture ordered messages without losing tool-call structure."""
-        del budget  # Message-aware eviction remains the caller's responsibility.
+        """Capture ordered messages while applying a conservative char budget.
+
+        Message metadata and ordering are preserved. If the budget is
+        exceeded, only textual content fields are compacted.
+        """
         projected = [
             copy.deepcopy(message) for message in messages if isinstance(message, dict)
         ]
+        active_budget = budget or self.budget
         sections: dict[str, dict[str, int]] = {}
+        raw_chars = sum(len(str(message.get("content") or "")) for message in projected)
+        excess = max(0, raw_chars - active_budget.total_chars)
+        for message in projected:
+            if excess <= 0:
+                break
+            content = message.get("content")
+            if not isinstance(content, str) or not content:
+                continue
+            reduction = min(len(content), excess)
+            message["content"] = _truncate(content, len(content) - reduction)
+            excess -= reduction
+
         active_chars = 0
         for message in projected:
             role = str(message.get("role") or "unknown")
@@ -199,13 +215,13 @@ class ActiveContextBuilder:
             stats["message_count"] += 1
             stats["active_chars"] += chars
         report = ContextReport(
-            raw_chars=active_chars,
+            raw_chars=raw_chars,
             active_chars=active_chars,
-            saved_chars=0,
+            saved_chars=raw_chars - active_chars,
             raw_tokens=None,
             active_tokens=None,
             saved_tokens=None,
-            saved_ratio=0.0,
+            saved_ratio=(raw_chars - active_chars) / raw_chars if raw_chars else 0.0,
             sections=sections,
         )
         return ActiveContext(
