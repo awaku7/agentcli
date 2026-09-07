@@ -73,6 +73,35 @@ def test_decision_engine_normalizes_persisted_importance_labels():
     assert ContextDecisionEngine.score(candidate) == 0.75
 
 
+def test_section_budget_limits_candidates_before_shared_total():
+    candidates = [
+        ContextCandidate("result", "result", "tool_results", "x" * 60, relevance=0.9),
+        ContextCandidate("history", "history", "history", "y" * 60, relevance=0.8),
+    ]
+    budget = ContextBudget(
+        total_chars=100,
+        system_chars=0,
+        tool_definition_chars=0,
+        agent_state_chars=0,
+        history_chars=60,
+        tool_result_chars=40,
+    )
+
+    decisions = ContextDecisionEngine().decide(candidates, budget=budget)
+
+    assert decisions[0].projected_chars == 40
+    assert decisions[0].action == "COMPACT"
+    assert decisions[1].projected_chars == 60
+    assert decisions[1].action == "KEEP"
+
+
+def test_section_budget_aliases_and_unlimited_mode():
+    budget = ContextBudget(tool_result_chars=123)
+    assert budget.limit_for_section("tool-results") == 123
+    assert budget.limit_for_section("unknown") is None
+    assert ContextBudget.without_limit().limit_for_section("tool_results") is None
+
+
 def test_decision_engine_ignores_unknown_signal_values():
     candidate = ContextCandidate(
         item_id="unknown",

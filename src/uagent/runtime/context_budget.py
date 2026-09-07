@@ -36,6 +36,7 @@ class ContextBudget:
             raise ValueError("context budgets must be non-negative")
         if self.unlimited:
             return
+        object.__setattr__(self, "_scaled_sections", False)
         default_sections = (20_000, 20_000, 10_000, 30_000, 20_000)
         sections = (
             self.system_chars,
@@ -58,6 +59,7 @@ class ContextBudget:
                 scaled,
             ):
                 object.__setattr__(self, name, value)
+            object.__setattr__(self, "_scaled_sections", True)
         if self.reserved_chars > self.total_chars:
             raise ValueError("section budgets must not exceed total context budget")
 
@@ -76,6 +78,31 @@ class ContextBudget:
     def reserve_chars(self) -> int:
         """Return the unallocated portion of the total budget."""
         return self.total_chars - self.reserved_chars
+
+    def limit_for_section(self, section: str) -> int | None:
+        """Return the explicit budget for a context section."""
+        if self.unlimited or getattr(self, "_scaled_sections", False):
+            return None
+        normalized = str(section or "").strip().casefold().replace("-", "_")
+        aliases = {
+            "system": "system_chars",
+            "instructions": "system_chars",
+            "tool": "tool_definition_chars",
+            "tools": "tool_definition_chars",
+            "tool_definition": "tool_definition_chars",
+            "tool_definitions": "tool_definition_chars",
+            "agent": "agent_state_chars",
+            "state": "agent_state_chars",
+            "agent_state": "agent_state_chars",
+            "history": "history_chars",
+            "conversation": "history_chars",
+            "result": "tool_result_chars",
+            "results": "tool_result_chars",
+            "tool_result": "tool_result_chars",
+            "tool_results": "tool_result_chars",
+        }
+        field_name = aliases.get(normalized)
+        return getattr(self, field_name) if field_name else None
 
     def usage(self, **sections: int) -> dict[str, Any]:
         """Return section totals and warning/compaction decisions."""
