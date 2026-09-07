@@ -37,7 +37,9 @@ class ContextManager:
             if not self.policy.budget_enabled or self.policy.budget_unlimited
             else ContextBudget(total_chars=self.policy.budget_chars)
         )
-        self.results = result_manager or ContextResultManager()
+        self.results = result_manager or ContextResultManager(
+            max_preview_rows=self.policy.tool_result_max_rows
+        )
         self.active_context_builder = ActiveContextBuilder(budget=self.budget)
         self.decision_engine = ContextDecisionEngine()
 

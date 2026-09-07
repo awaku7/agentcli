@@ -99,11 +99,15 @@ class ContextResultManager:
         *,
         inline_limit_chars: int = 12_000,
         large_limit_chars: int = 100_000,
+        max_preview_rows: int = 500,
     ) -> None:
         if inline_limit_chars < 0 or large_limit_chars < inline_limit_chars:
             raise ValueError("result limits must be non-negative and ordered")
+        if max_preview_rows < 0:
+            raise ValueError("max_preview_rows must be non-negative")
         self.inline_limit_chars = inline_limit_chars
         self.large_limit_chars = large_limit_chars
+        self.max_preview_rows = max_preview_rows
 
     def process(
         self,
@@ -143,7 +147,7 @@ class ContextResultManager:
             evictable=evictable,
             metadata=dict(metadata or {}),
         )
-        llm_context = self._llm_projection(text, record)
+        llm_context = self._llm_projection(text, record, value)
         history_value = sanitize_binary_payload(value)
         projections = ToolResultProjections(
             llm_context=llm_context,
@@ -186,10 +190,41 @@ class ContextResultManager:
             return "large"
         return "huge"
 
-    def _llm_projection(self, text: str, record: ToolResultRecord) -> str:
+    def _structured_preview(self, value: Any, text: str) -> str:
+        """Preserve the shape of oversized tabular results before char clipping."""
+        if self.max_preview_rows == 0 or not isinstance(value, (list, dict)):
+            return _bounded_preview(text, self.inline_limit_chars)
+
+        if isinstance(value, list):
+            total = len(value)
+            if total <= self.max_preview_rows:
+                selected = value
+            else:
+                head = (self.max_preview_rows + 1) // 2
+                tail = self.max_preview_rows - head
+                selected = value[:head] + [
+                    f"... {total - head - tail} rows omitted ..."
+                ]
+                if tail:
+                    selected.extend(value[-tail:])
+        else:
+            keys = list(value)
+            total = len(keys)
+            if total <= self.max_preview_rows:
+                selected = value
+            else:
+                head = (self.max_preview_rows + 1) // 2
+                tail = self.max_preview_rows - head
+                selected = {key: value[key] for key in keys[:head]}
+                selected["... omitted keys ..."] = total - head - tail
+                selected.update({key: value[key] for key in keys[-tail:]})
+        return _bounded_preview(_stringify(selected), self.inline_limit_chars)
+
+    def _llm_projection(self, text: str, record: ToolResultRecord, value: Any) -> str:
         if record.result_class == "small":
             return text
-        preview = _bounded_preview(text, self.inline_limit_chars)
+        preview = self._structured_preview(value, text)
+
         lines = [
             "[tool result projected by ContextResultManager]",
             f"result_id: {record.result_id}",

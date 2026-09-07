@@ -95,6 +95,38 @@ def test_retrieved_context_is_bounded_and_references_results() -> None:
     )
 
 
+def test_structured_large_results_keep_head_tail_rows() -> None:
+    manager = ContextResultManager(
+        inline_limit_chars=100,
+        large_limit_chars=200,
+        max_preview_rows=3,
+    )
+
+    record, projections = manager.process(
+        [{"row": index} for index in range(10)], tool_name="table"
+    )
+
+    assert record.result_class == "large"
+    assert '"row": 0' in projections.llm_context
+    assert '"row": 9' in projections.llm_context
+    assert "rows omitted" in projections.llm_context
+    assert len(projections.llm_context) > 0
+
+
+def test_context_manager_applies_policy_row_limit(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_ROWS", "2")
+    from uagent.runtime.context_manager import ContextManager
+
+    manager = ContextManager.from_environment()
+    _, projections = manager.process_result(
+        [{"row": index} for index in range(2000)], tool_name="table"
+    )
+
+    assert '"row": 0' in projections.llm_context
+    assert '"row": 1999' in projections.llm_context
+    assert "rows omitted" in projections.llm_context
+
+
 def test_invalid_limits_are_rejected() -> None:
     try:
         ContextResultManager(inline_limit_chars=10, large_limit_chars=5)
