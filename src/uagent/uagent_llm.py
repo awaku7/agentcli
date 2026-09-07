@@ -569,6 +569,7 @@ def _run_one_round(
         if callable(build_message_context):
             active_context = build_message_context(call_messages)
             core.active_context = active_context
+            _persist_context_decision_log(active_context, core)
             call_messages = active_context.messages
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
@@ -1905,6 +1906,28 @@ def _record_context_telemetry(
     except Exception:
         pass
     return report
+
+
+def _persist_context_decision_log(active_context: Any, core: Any) -> bool:
+    """Persist one active-context decision log when session storage is active."""
+    store = getattr(core, "session_store", None)
+    session_id = getattr(core, "_session_store_active_id", None) or getattr(
+        core, "session_id", None
+    )
+    recorder = getattr(store, "record_context_decisions", None)
+    decisions = getattr(active_context, "decision_log", None)
+    if not decisions:
+        decisions = getattr(core, "context_tool_decisions", None)
+    if not callable(recorder) or not session_id or not decisions:
+        return False
+    normalized_decisions = [
+        item.to_dict() if hasattr(item, "to_dict") else item for item in decisions
+    ]
+    try:
+        recorder(str(session_id), normalized_decisions)
+        return True
+    except Exception:
+        return False
 
 
 def _format_agent_state_context(

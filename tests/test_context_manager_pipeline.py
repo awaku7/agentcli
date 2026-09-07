@@ -2,6 +2,7 @@ from uagent.runtime.active_context import ContextCandidate
 from uagent.runtime.context_budget import ContextBudget
 from uagent.runtime.context_manager import ContextManager
 from uagent.runtime.context_policy import ContextPolicy
+from uagent.uagent_llm import _persist_context_decision_log
 
 
 def test_build_active_context_runs_decision_engine_when_decisions_omitted():
@@ -134,3 +135,23 @@ def test_context_debug_snapshot_exposes_telemetry_and_decision_log():
     assert snapshot["active_context"]["chars"] == 9
     assert snapshot["decision_log"][0]["item_id"] == "result"
     assert snapshot["decision_log"][0]["action"] == "KEEP"
+
+
+def test_context_decision_log_is_forwarded_to_session_store():
+    captured = []
+
+    class Store:
+        def record_context_decisions(self, session_id, decisions):
+            captured.append((session_id, decisions))
+
+    manager = ContextManager(policy=ContextPolicy(budget_chars=1000))
+    active = manager.build_active_context(
+        task="task",
+        candidates=[ContextCandidate("result", "tool", "tool_results", "value")],
+        budget=ContextBudget(total_chars=1000),
+    )
+    core = type("Core", (), {"session_store": Store(), "session_id": "session-1"})()
+
+    assert _persist_context_decision_log(active, core) is True
+    assert captured[0][0] == "session-1"
+    assert captured[0][1][0]["item_id"] == "result"

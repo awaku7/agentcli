@@ -374,6 +374,20 @@ class SessionStore:
                     reason TEXT,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS context_decisions (
+                    decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    item_id TEXT NOT NULL,
+                    source TEXT NOT NULL,
+                    section TEXT NOT NULL,
+                    action TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    importance REAL,
+                    original_chars INTEGER,
+                    projected_chars INTEGER,
+                    reference TEXT,
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
                 CREATE TABLE IF NOT EXISTS legacy_imports (
                     source_path TEXT PRIMARY KEY,
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -397,6 +411,8 @@ class SessionStore:
                     ON tool_calls(session_id, created_at);
                 CREATE INDEX IF NOT EXISTS idx_policy_decisions_session_id
                     ON policy_decisions(session_id, decision_id);
+                CREATE INDEX IF NOT EXISTS idx_context_decisions_session_id
+                    ON context_decisions(session_id, decision_id);
                 """)
             columns = {
                 row["name"]
@@ -1130,6 +1146,64 @@ class SessionStore:
                 item.pop("args_json", None)
             output.append(item)
         return output
+
+    @_db_locked
+    def record_context_decisions(
+        self,
+        session_id: str,
+        decisions: list[dict[str, Any]],
+    ) -> int:
+        """Persist redacted Active Context decisions for one LLM turn."""
+        self._require_session(session_id)
+        count = 0
+        for decision in decisions:
+            if not isinstance(decision, dict):
+                continue
+            try:
+                importance = (
+                    float(decision["importance"])
+                    if decision.get("importance") is not None
+                    else None
+                )
+            except (TypeError, ValueError):
+                importance = None
+            self._execute(
+                "INSERT INTO context_decisions "
+                "(session_id, item_id, source, section, action, reason, importance, "
+                "original_chars, projected_chars, reference) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    session_id,
+                    _sanitize_text(str(decision.get("item_id") or "")),
+                    _sanitize_text(str(decision.get("source") or "")),
+                    _sanitize_text(str(decision.get("section") or "")),
+                    _sanitize_text(str(decision.get("action") or "")),
+                    _sanitize_text(redact_sensitive(str(decision.get("reason") or ""))),
+                    importance,
+                    decision.get("original_chars"),
+                    decision.get("projected_chars"),
+                    _sanitize_text(redact_sensitive(str(decision.get("reference") or "")))
+                    or None,
+                ),
+            )
+            count += 1
+        return count
+
+    @_db_locked
+    def list_context_decisions(
+        self, session_id: str, *, limit: int = 1000
+    ) -> list[dict[str, Any]]:
+        """Return persisted Active Context decisions, oldest first."""
+        self._require_session(session_id)
+        safe_limit = max(0, min(int(limit), 10_000))
+        rows = self._execute(
+            "SELECT decision_id, session_id, item_id, source, section, action, "
+            "reason, importance, original_chars, projected_chars, reference, "
+            "created_at FROM context_decisions "
+            "WHERE session_id = ? ORDER BY decision_id LIMIT ?",
+            (session_id, safe_limit),
+        ).fetchall()
+        return [dict(row) for row in rows]
 
     @_db_locked
     def record_tool_call(

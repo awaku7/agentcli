@@ -125,6 +125,7 @@ def test_sqlite_runtime_pragmas_and_indexes_are_configured(tmp_path):
         "idx_messages_session_role_id",
         "idx_tool_calls_session_created",
         "idx_policy_decisions_session_id",
+        "idx_context_decisions_session_id",
     } <= indexes
 
 
@@ -267,6 +268,36 @@ def test_policy_decisions_can_be_recorded_without_secrets(tmp_path):
     assert rows[0]["decision"] == "deny"
     assert rows[0]["reason"] == "configured policy"
     assert "secret-token" not in str(rows[0]["args"])
+
+
+def test_context_decisions_can_be_persisted_and_listed_without_secrets(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+
+    count = store.record_context_decisions(
+        session.session_id,
+        [
+            {
+                "item_id": "result-1",
+                "source": "tool_result",
+                "section": "tool_results",
+                "action": "COMPACT",
+                "reason": "contains token=secret-value",
+                "importance": 0.75,
+                "original_chars": 100,
+                "projected_chars": 40,
+                "reference": "artifact://result-1",
+            }
+        ],
+    )
+
+    assert count == 1
+    row = store.list_context_decisions(session.session_id)[0]
+    assert row["item_id"] == "result-1"
+    assert row["action"] == "COMPACT"
+    assert row["importance"] == 0.75
+    assert row["original_chars"] == 100
+    assert "secret-value" not in str(row)
 
 
 def test_unknown_session_and_invalid_tool_status_raise(tmp_path):
