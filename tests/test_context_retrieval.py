@@ -1,3 +1,4 @@
+from uagent.runtime.active_context import ContextCandidate
 from uagent.runtime.context_retrieval import retrieve_candidates
 
 
@@ -30,6 +31,22 @@ def test_retrieve_candidates_respects_limit():
     records = [{"result_id": str(index), "summary": "item"} for index in range(3)]
 
     assert len(retrieve_candidates(records, max_candidates=2)) == 2
+
+
+def test_context_candidate_from_record_normalizes_persisted_shape():
+    candidate = ContextCandidate.from_record(
+        {
+            "result_id": "artifact-1",
+            "summary": "summary",
+            "artifact_ref": "artifacts/a.txt",
+            "section": "artifacts",
+        }
+    )
+
+    assert candidate.item_id == "artifact-1"
+    assert candidate.section == "artifacts"
+    assert candidate.content == "summary"
+    assert candidate.reference == "artifacts/a.txt"
 
 
 def test_retrieve_candidates_uses_tool_name_and_artifact_preview_for_matching():

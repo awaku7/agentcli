@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import replace
 from typing import Any, Sequence
 
 from .active_context import ContextCandidate
@@ -72,19 +73,12 @@ def retrieve_candidates(
         except (TypeError, ValueError):
             recency_score = 0.5
         score = (relevance_score * 0.7) + (importance_score * 0.3)
-        candidate = ContextCandidate(
-            item_id=str(
-                record.get("result_id") or record.get("item_id") or f"record-{index}"
-            ),
-            source=str(record.get("source") or "tool_result"),
-            section=str(record.get("section") or "tool_results"),
-            content=content,
+        candidate = replace(
+            ContextCandidate.from_record(record, index=index),
             importance=importance_score,
             relevance=relevance_score,
             recency=recency_score,
             original_chars=len(content),
-            reference=str(record.get("artifact_ref") or record.get("reference") or "")
-            or None,
         )
         ranked.append((score, index, candidate))
 

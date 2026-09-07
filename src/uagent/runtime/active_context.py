@@ -26,6 +26,33 @@ class ContextCandidate:
     original_chars: int | None = None
     reference: str | None = None
 
+    @classmethod
+    def from_record(
+        cls,
+        record: dict[str, Any],
+        *,
+        index: int = 0,
+        default_section: str = "tool_results",
+    ) -> "ContextCandidate":
+        """Create a provider-neutral candidate from a persisted record."""
+        content = record.get("content")
+        if content in (None, ""):
+            content = record.get("artifact_preview") or record.get("summary") or ""
+        return cls(
+            item_id=str(
+                record.get("result_id") or record.get("item_id") or f"record-{index}"
+            ),
+            source=str(record.get("source") or "tool_result"),
+            section=str(record.get("section") or default_section),
+            content=content,
+            importance=record.get("importance"),
+            relevance=record.get("relevance"),
+            recency=record.get("recency"),
+            original_chars=record.get("original_chars"),
+            reference=str(record.get("artifact_ref") or record.get("reference") or "")
+            or None,
+        )
+
 
 @dataclass(frozen=True)
 class ContextDecision:
