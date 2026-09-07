@@ -332,6 +332,8 @@ Active Contextには**総Character Budget**と**Section別Character Budget**を�
 
 P0では現行実装との互換性を優先し、**Character Budgetを正式なBudget単位**とする。
 
+運用上、予算制限を明示的に外すモードも提供する。`UAGENT_CONTEXT_BUDGET_MODE=unlimited`（または `UAGENT_CONTEXT_BUDGET_UNLIMITED=1`）を指定すると、使用量のTelemetryは維持したまま、Budgetによる切り詰め・Tool Resultの退避を行わない。通常の無効化 (`UAGENT_CONTEXT_BUDGET_ENABLED=0`) と同じく、これはProviderの実コンテキスト上限を拡張するものではない。
+
 Token-aware BudgetはP2で導入する。
 
 ```python

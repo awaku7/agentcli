@@ -32,7 +32,11 @@ class ContextManager:
         result_manager: ContextResultManager | None = None,
     ) -> None:
         self.policy = policy or ContextPolicy.from_environment()
-        self.budget = budget or ContextBudget(total_chars=self.policy.budget_chars)
+        self.budget = budget or (
+            ContextBudget.without_limit()
+            if self.policy.budget_unlimited
+            else ContextBudget(total_chars=self.policy.budget_chars)
+        )
         self.results = result_manager or ContextResultManager()
         self.active_context_builder = ActiveContextBuilder(budget=self.budget)
         self.decision_engine = ContextDecisionEngine()

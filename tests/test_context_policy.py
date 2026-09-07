@@ -20,3 +20,11 @@ def test_context_policy_reads_environment(monkeypatch) -> None:
     assert policy.auto_retrieve is False
     assert policy.auto_state is False
     assert policy.tool_result_max_rows == 9
+
+
+def test_context_policy_supports_unlimited_budget(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_MODE", "unlimited")
+
+    policy = ContextPolicy.from_environment()
+
+    assert policy.budget_unlimited is True

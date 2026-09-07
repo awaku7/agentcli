@@ -106,7 +106,11 @@ class ActiveContextBuilder:
         section_stats: dict[str, dict[str, int | None]] = {}
         raw_chars = len(task or "")
         active_chars = len(task or "")
-        remaining = active_budget.total_chars - active_chars
+        remaining = (
+            None
+            if active_budget.unlimited
+            else active_budget.total_chars - active_chars
+        )
 
         if task:
             sections["task"] = [task]
@@ -140,8 +144,8 @@ class ActiveContextBuilder:
             elif projected < raw_size and decision is not None:
                 text = _truncate(text, max(0, projected))
 
-            allowed = max(0, remaining)
-            if len(text) > allowed:
+            allowed = None if remaining is None else max(0, remaining)
+            if allowed is not None and len(text) > allowed:
                 text = _truncate(text, allowed)
             if not text and raw_size:
                 section_stats.setdefault(
@@ -153,7 +157,8 @@ class ActiveContextBuilder:
                 continue
 
             sections.setdefault(candidate.section, []).append(text)
-            remaining -= len(text)
+            if remaining is not None:
+                remaining -= len(text)
             active_chars += len(text)
             stats = section_stats.setdefault(
                 candidate.section, {"raw_chars": 0, "active_chars": 0}
@@ -195,7 +200,11 @@ class ActiveContextBuilder:
         active_budget = budget or self.budget
         sections: dict[str, dict[str, int]] = {}
         raw_chars = sum(len(str(message.get("content") or "")) for message in projected)
-        excess = max(0, raw_chars - active_budget.total_chars)
+        excess = (
+            0
+            if active_budget.unlimited
+            else max(0, raw_chars - active_budget.total_chars)
+        )
         for message in projected:
             if excess <= 0:
                 break

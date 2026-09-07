@@ -31,6 +31,7 @@ class ContextPolicy:
     model: str = ""
     budget_enabled: bool = True
     budget_chars: int = 100_000
+    budget_unlimited: bool = False
     auto_retrieve: bool = True
     auto_state: bool = True
     tool_result_max_rows: int = 500
@@ -45,6 +46,10 @@ class ContextPolicy:
             f"UAGENT_CONTEXT_BUDGET_CHARS_{provider_key}" if provider_key else ""
         )
         budget_name = provider_budget_name or "UAGENT_CONTEXT_BUDGET_CHARS"
+        mode = os.environ.get("UAGENT_CONTEXT_BUDGET_MODE", "").strip().lower()
+        budget_unlimited = mode in {"unlimited", "none", "off"} or _env_bool(
+            "UAGENT_CONTEXT_BUDGET_UNLIMITED", False
+        )
         return cls(
             provider=provider_name,
             model=str(model or "").strip(),
@@ -54,6 +59,7 @@ class ContextPolicy:
                 _env_int("UAGENT_CONTEXT_BUDGET_CHARS", 100_000, 1),
                 1,
             ),
+            budget_unlimited=budget_unlimited,
             auto_retrieve=_env_bool("UAGENT_AUTO_RETRIEVE_TOOL_RESULTS", True),
             auto_state=_env_bool("UAGENT_AUTO_INJECT_AGENT_STATE", True),
             tool_result_max_rows=_env_int("UAGENT_TOOL_RESULT_MAX_ROWS", 500),

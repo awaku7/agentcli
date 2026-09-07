@@ -16,6 +16,12 @@ class ContextBudget:
     agent_state_chars: int = 10_000
     history_chars: int = 30_000
     tool_result_chars: int = 20_000
+    unlimited: bool = False
+
+    @classmethod
+    def without_limit(cls) -> "ContextBudget":
+        """Return a budget that records usage but never truncates context."""
+        return cls(unlimited=True)
 
     def __post_init__(self) -> None:
         values = (
@@ -28,6 +34,8 @@ class ContextBudget:
         )
         if any(value < 0 for value in values):
             raise ValueError("context budgets must be non-negative")
+        if self.unlimited:
+            return
         default_sections = (20_000, 20_000, 10_000, 30_000, 20_000)
         sections = (
             self.system_chars,
@@ -73,6 +81,18 @@ class ContextBudget:
         """Return section totals and warning/compaction decisions."""
         normalized = {name: max(0, int(value)) for name, value in sections.items()}
         used = sum(normalized.values())
+        if self.unlimited:
+            return {
+                "sections": normalized,
+                "used_chars": used,
+                "total_chars": None,
+                "remaining_chars": None,
+                "ratio": 0.0,
+                "warning": False,
+                "compact": False,
+                "emergency": False,
+                "unlimited": True,
+            }
         threshold = max(1, self.total_chars)
         ratio = used / threshold
         return {
@@ -92,6 +112,8 @@ class ContextBudget:
         """Select low-value, evictable records until under a target budget."""
         if target_chars < 0:
             raise ValueError("target_chars must be non-negative")
+        if self.unlimited:
+            return []
         total = sum(max(0, int(item.get("size_bytes") or 0)) for item in records)
         if total <= target_chars:
             return []

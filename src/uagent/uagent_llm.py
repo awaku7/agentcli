@@ -1814,7 +1814,7 @@ def _maybe_navigate_computer_runtime(
 def _apply_context_budget(messages: list[dict[str, Any]], core: Any) -> bool:
     """Bound older tool-result messages without breaking tool-call pairing."""
     policy = getattr(core, "context_policy", ContextPolicy.from_environment())
-    if not policy.budget_enabled:
+    if not policy.budget_enabled or policy.budget_unlimited:
         return False
     try:
         total_limit = max(1, int(policy.budget_chars))

@@ -32,6 +32,27 @@ def test_context_budget_can_be_disabled(monkeypatch) -> None:
     assert messages[1]["content"].startswith("old result")
 
 
+def test_context_budget_supports_explicit_unlimited_mode(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_MODE", "unlimited")
+    messages = [
+        {"role": "user", "content": "request"},
+        {"role": "tool", "content": "old result " * 100},
+    ]
+
+    assert _apply_context_budget(messages, core=None) is False
+    assert messages[1]["content"].startswith("old result")
+
+
+def test_unlimited_budget_preserves_active_context() -> None:
+    manager = ContextManager(budget=ContextBudget.without_limit())
+    messages = [{"role": "user", "content": "x" * 100_001}]
+
+    active = manager.build_message_context(messages)
+
+    assert active.messages[0]["content"] == messages[0]["content"]
+    assert active.report.active_chars == 100_001
+
+
 def test_context_manager_accepts_call_budget_for_active_snapshot() -> None:
     manager = ContextManager(budget=ContextBudget(total_chars=1_000))
     messages = [
