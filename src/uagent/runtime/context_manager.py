@@ -34,7 +34,13 @@ class ContextManager:
         self.policy = policy or ContextPolicy.from_environment()
         self.budget = budget or (
             ContextBudget.without_limit()
-            if not self.policy.budget_enabled or self.policy.budget_unlimited
+            if (
+                not self.policy.budget_enabled
+                or (
+                    self.policy.budget_unlimited
+                    and self.policy.budget_chars == ContextPolicy().budget_chars
+                )
+            )
             else ContextBudget(total_chars=self.policy.budget_chars)
         )
         self.results = result_manager or ContextResultManager(
