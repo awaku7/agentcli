@@ -28,6 +28,26 @@ def test_build_active_context_runs_decision_engine_when_decisions_omitted():
     assert active.decisions[0].action == "KEEP"
 
 
+def test_disabled_budget_uses_unlimited_context_even_with_configured_limit():
+    manager = ContextManager(
+        policy=ContextPolicy(budget_enabled=False, budget_chars=10),
+    )
+    active = manager.build_active_context(
+        task="",
+        candidates=[
+            ContextCandidate(
+                item_id="large",
+                source="tool_result",
+                section="tool_results",
+                content="x" * 100,
+            )
+        ],
+    )
+
+    assert manager.budget.unlimited is True
+    assert active.sections["tool_results"] == ["x" * 100]
+
+
 def test_build_active_context_from_records_runs_retrieval_and_decision():
     manager = ContextManager(policy=ContextPolicy(budget_chars=1000))
     active = manager.build_active_context_from_records(
