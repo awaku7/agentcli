@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from typing import Any, Literal, Sequence
 
 from .context_budget import ContextBudget
+from .context_tokens import estimate_tokens
 
 ContextAction = Literal["KEEP", "COMPACT", "EXCLUDE", "RETRIEVE_MORE"]
 
@@ -116,8 +117,24 @@ def _truncate(value: str, limit: int) -> str:
 class ActiveContextBuilder:
     """Build a deterministic, bounded active context from candidates."""
 
-    def __init__(self, *, budget: ContextBudget | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        budget: ContextBudget | None = None,
+        provider: str = "",
+        model: str = "",
+    ) -> None:
         self.budget = budget or ContextBudget()
+        self.provider = provider
+        self.model = model
+
+    def _token_count(self, value: Any) -> int:
+        return estimate_tokens(value, provider=self.provider, model=self.model)
+
+    def _token_count_chars(self, chars: int) -> int:
+        # Character totals are retained for compatibility; use the same
+        # dependency-free estimator for telemetry when only totals remain.
+        return self._token_count("x" * max(0, chars))
 
     def build_active_context(
         self,
@@ -198,9 +215,13 @@ class ActiveContextBuilder:
             raw_chars=raw_chars,
             active_chars=active_chars,
             saved_chars=raw_chars - active_chars,
-            raw_tokens=None,
-            active_tokens=None,
-            saved_tokens=None,
+            raw_tokens=self._token_count_chars(raw_chars),
+            active_tokens=self._token_count_chars(active_chars),
+            saved_tokens=max(
+                0,
+                self._token_count_chars(raw_chars)
+                - self._token_count_chars(active_chars),
+            ),
             saved_ratio=(raw_chars - active_chars) / raw_chars if raw_chars else 0.0,
             sections=section_stats,
         )
@@ -274,9 +295,13 @@ class ActiveContextBuilder:
             raw_chars=raw_chars,
             active_chars=active_chars,
             saved_chars=raw_chars - active_chars,
-            raw_tokens=None,
-            active_tokens=None,
-            saved_tokens=None,
+            raw_tokens=self._token_count_chars(raw_chars),
+            active_tokens=self._token_count_chars(active_chars),
+            saved_tokens=max(
+                0,
+                self._token_count_chars(raw_chars)
+                - self._token_count_chars(active_chars),
+            ),
             saved_ratio=(raw_chars - active_chars) / raw_chars if raw_chars else 0.0,
             sections=sections,
         )
