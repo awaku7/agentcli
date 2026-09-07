@@ -75,13 +75,21 @@ class ContextManager:
         *,
         task: str,
         candidates: Sequence[ContextCandidate],
-        decisions: Sequence[ContextDecision],
+        decisions: Sequence[ContextDecision] | None = None,
+        budget: ContextBudget | None = None,
     ) -> ActiveContext:
-        """Build the provider-neutral context for one LLM call."""
+        """Run decisions and build the provider-neutral context for one call."""
+        active_budget = budget or self.budget
+        selected = (
+            list(decisions)
+            if decisions is not None
+            else self.decision_engine.decide(candidates, budget=active_budget)
+        )
         return self.active_context_builder.build_active_context(
             task=task,
             candidates=candidates,
-            decisions=decisions,
+            decisions=selected,
+            budget=active_budget,
         )
 
     def decide_context(
