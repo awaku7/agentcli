@@ -14,6 +14,25 @@ def test_usage_reports_warning_compaction_and_emergency_thresholds() -> None:
     assert budget.usage(history=100)["emergency"] is True
 
 
+def test_context_budget_exposes_unallocated_reserve() -> None:
+    budget = ContextBudget(
+        total_chars=100,
+        system_chars=10,
+        tool_definition_chars=10,
+        agent_state_chars=10,
+        history_chars=20,
+        tool_result_chars=10,
+    )
+
+    assert budget.reserved_chars == 60
+    assert budget.reserve_chars == 40
+
+
+def test_context_budget_rejects_section_allocations_over_total() -> None:
+    with pytest.raises(ValueError, match="must not exceed total"):
+        ContextBudget(total_chars=10, history_chars=11)
+
+
 def test_select_evictable_prefers_low_importance_records() -> None:
     budget = ContextBudget()
     records = [

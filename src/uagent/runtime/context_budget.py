@@ -28,9 +28,34 @@ class ContextBudget:
         )
         if any(value < 0 for value in values):
             raise ValueError("context budgets must be non-negative")
+        default_sections = (20_000, 20_000, 10_000, 30_000, 20_000)
+        sections = (
+            self.system_chars,
+            self.tool_definition_chars,
+            self.agent_state_chars,
+            self.history_chars,
+            self.tool_result_chars,
+        )
+        if self.total_chars != 100_000 and sections == default_sections:
+            scaled = [self.total_chars * value // 100_000 for value in default_sections]
+            scaled[-1] += self.total_chars - sum(scaled)
+            for name, value in zip(
+                (
+                    "system_chars",
+                    "tool_definition_chars",
+                    "agent_state_chars",
+                    "history_chars",
+                    "tool_result_chars",
+                ),
+                scaled,
+            ):
+                object.__setattr__(self, name, value)
+        if self.reserved_chars > self.total_chars:
+            raise ValueError("section budgets must not exceed total context budget")
 
     @property
     def reserved_chars(self) -> int:
+        """Return the sum of explicitly allocated section budgets."""
         return (
             self.system_chars
             + self.tool_definition_chars
@@ -38,6 +63,11 @@ class ContextBudget:
             + self.history_chars
             + self.tool_result_chars
         )
+
+    @property
+    def reserve_chars(self) -> int:
+        """Return the unallocated portion of the total budget."""
+        return self.total_chars - self.reserved_chars
 
     def usage(self, **sections: int) -> dict[str, Any]:
         """Return section totals and warning/compaction decisions."""
