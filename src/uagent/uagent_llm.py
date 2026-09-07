@@ -1568,6 +1568,16 @@ def _run_one_round(
         core=core,
         cache_mgr=cache_mgr,
     )
+    # Record actual execution, not only the assistant message shape. Some
+    # providers normalize tool calls differently, which previously caused a
+    # genuinely used tool to look idle to the auto-unloader.
+    next_productive_round = _PRODUCTIVE_ROUNDS + 1
+    for _tc in fresh_tool_calls:
+        if not isinstance(_tc, dict):
+            continue
+        _name = str((_tc.get("function") or {}).get("name") or "").strip()
+        if _name:
+            _TOOL_LAST_ROUND[_name] = next_productive_round
     _debug_tool_loop(
         "executed",
         fresh_count=len(fresh_tool_calls),
@@ -2081,6 +2091,48 @@ def _inject_retrieved_tool_context(messages: list[dict[str, Any]], core: Any) ->
     return True
 
 
+def _refresh_context_tool_specs(messages: list[dict[str, Any]], core: Any) -> None:
+    """Refresh budgeted tool definitions after tool_load/unload operations."""
+    context_manager = getattr(core, "context_manager", None)
+    if context_manager is None:
+        return
+    try:
+        from . import tools as _tools
+
+        task_text = next(
+            (
+                str(message.get("content") or "")
+                for message in reversed(messages)
+                if isinstance(message, dict) and message.get("role") == "user"
+            ),
+            "",
+        )
+        tool_selection = context_manager.optimize_tool_definitions(
+            _tools.get_tool_specs(),
+            task=task_text,
+        )
+        core.context_tool_specs = tool_selection.specs
+        core.context_tool_decisions = tool_selection.decisions
+        core.context_tool_report = {
+            "raw_chars": tool_selection.raw_chars,
+            "active_chars": tool_selection.active_chars,
+        }
+        signature = hashlib.sha256(
+            json.dumps(
+                tool_selection.specs,
+                ensure_ascii=False,
+                sort_keys=True,
+                default=str,
+            ).encode("utf-8")
+        ).hexdigest()
+        previous_signature = getattr(core, "_context_tool_specs_signature", None)
+        if previous_signature and previous_signature != signature:
+            core._gemini_cache_needs_refresh = True
+        core._context_tool_specs_signature = signature
+    except Exception:
+        core.context_tool_specs = None
+
+
 @_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
@@ -2350,6 +2402,27 @@ def run_llm_rounds(
             _TOTAL_ROUNDS += 1
             if not judgment_mode:
                 core.computer_use_turn_id = str(round_count)
+                # Tool loading/unloading changes the active registry. Refresh
+                # the provider tool surface before every request so a newly
+                # loaded tool is available on the very next round.
+                _refresh_context_tool_specs(messages, core)
+                if (
+                    provider in ("gemini", "vertexai")
+                    and getattr(core, "_gemini_cache_needs_refresh", False)
+                ):
+                    try:
+                        if cache_mgr is not None:
+                            cache_mgr.clear_cache(client)
+                    except Exception:
+                        pass
+                    cache_mgr, gemini_cache_name = _init_gemini_cache(
+                        provider=provider,
+                        client=client,
+                        depname=depname,
+                        messages=messages,
+                        core=core,
+                    )
+                    core._gemini_cache_needs_refresh = False
 
             (
                 round_status,

@@ -1,8 +1,13 @@
+from types import SimpleNamespace
+
 from uagent.runtime.active_context import ContextCandidate
 from uagent.runtime.context_budget import ContextBudget
 from uagent.runtime.context_manager import ContextManager
 from uagent.runtime.context_policy import ContextPolicy
-from uagent.uagent_llm import _persist_context_decision_log
+from uagent.uagent_llm import (
+    _persist_context_decision_log,
+    _refresh_context_tool_specs,
+)
 
 
 def test_build_active_context_runs_decision_engine_when_decisions_omitted():
@@ -155,3 +160,31 @@ def test_context_decision_log_is_forwarded_to_session_store():
     assert _persist_context_decision_log(active, core) is True
     assert captured[0][0] == "session-1"
     assert captured[0][1][0]["item_id"] == "result"
+
+
+def test_context_tool_specs_refresh_after_tool_registry_changes(monkeypatch):
+    selected = SimpleNamespace(
+        specs=[{"function": {"name": "git_ops"}}],
+        decisions=["decision"],
+        raw_chars=10,
+        active_chars=10,
+    )
+
+    class Manager:
+        def optimize_tool_definitions(self, specs, *, task):
+            assert specs == [{"function": {"name": "git_ops"}}]
+            assert task == "use git"
+            return selected
+
+    core = SimpleNamespace(context_manager=Manager())
+    monkeypatch.setattr(
+        "uagent.tools.get_tool_specs",
+        lambda: [{"function": {"name": "git_ops"}}],
+    )
+    _refresh_context_tool_specs(
+        [{"role": "user", "content": "use git"}],
+        core,
+    )
+
+    assert core.context_tool_specs == selected.specs
+    assert core.context_tool_report["active_chars"] == 10
