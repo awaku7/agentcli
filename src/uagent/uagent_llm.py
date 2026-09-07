@@ -1860,6 +1860,38 @@ def _apply_context_budget(messages: list[dict[str, Any]], core: Any) -> bool:
     return changed
 
 
+def _record_context_telemetry(
+    messages: list[dict[str, Any]], core: Any, raw_chars: int
+) -> dict[str, Any]:
+    """Record message-preserving active-context projection metrics."""
+    sections: dict[str, dict[str, int]] = {}
+    active_chars = 0
+    for message in messages:
+        if not isinstance(message, dict):
+            continue
+        role = str(message.get("role") or "unknown")
+        chars = len(str(message.get("content") or ""))
+        active_chars += chars
+        stats = sections.setdefault(role, {"message_count": 0, "active_chars": 0})
+        stats["message_count"] += 1
+        stats["active_chars"] += chars
+
+    raw_chars = max(0, int(raw_chars))
+    saved_chars = raw_chars - active_chars
+    report: dict[str, Any] = {
+        "raw_chars": raw_chars,
+        "active_chars": active_chars,
+        "saved_chars": saved_chars,
+        "saved_ratio": saved_chars / raw_chars if raw_chars else 0.0,
+        "sections": sections,
+    }
+    try:
+        core.context_report = report
+    except Exception:
+        pass
+    return report
+
+
 def _inject_agent_state_context(messages: list[dict[str, Any]], core: Any) -> bool:
     """Inject recovered structured state into the current user turn."""
     policy = getattr(core, "context_policy", ContextPolicy.from_environment())
@@ -2001,10 +2033,16 @@ def run_llm_rounds(
         )
         core.context_manager = ContextManager(policy=core.context_policy)
         try:
+            raw_context_chars = sum(
+                len(str(message.get("content") or ""))
+                for message in messages
+                if isinstance(message, dict)
+            )
             _apply_context_budget(messages, core)
             _inject_agent_state_context(messages, core)
             _inject_retrieved_tool_context(messages, core)
             _update_agent_state_for_turn(messages, core)
+            _record_context_telemetry(messages, core, raw_context_chars)
         except Exception:
             pass
 

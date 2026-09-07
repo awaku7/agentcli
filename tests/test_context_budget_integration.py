@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from uagent.uagent_llm import _apply_context_budget
+from types import SimpleNamespace
+
+from uagent.uagent_llm import _apply_context_budget, _record_context_telemetry
 
 
 def test_context_budget_evicts_old_tool_results(monkeypatch) -> None:
@@ -26,3 +28,20 @@ def test_context_budget_can_be_disabled(monkeypatch) -> None:
 
     assert _apply_context_budget(messages, core=None) is False
     assert messages[1]["content"].startswith("old result")
+
+
+def test_context_telemetry_records_message_preserving_projection() -> None:
+    core = SimpleNamespace()
+    messages = [
+        {"role": "system", "content": "rules"},
+        {"role": "user", "content": "question"},
+        {"role": "tool", "content": "result"},
+    ]
+
+    report = _record_context_telemetry(messages, core, raw_chars=30)
+
+    assert core.context_report is report
+    assert report["raw_chars"] == 30
+    assert report["active_chars"] == 19
+    assert report["saved_chars"] == 11
+    assert report["sections"]["tool"] == {"message_count": 1, "active_chars": 6}
