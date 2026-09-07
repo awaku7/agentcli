@@ -2,8 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Sequence
 
+from .active_context import (
+    ActiveContext,
+    ActiveContextBuilder,
+    ContextCandidate,
+    ContextDecision,
+)
 from .context_budget import ContextBudget
 from .context_policy import ContextPolicy
 from .tool_result_manager import (
@@ -26,6 +32,7 @@ class ContextManager:
         self.policy = policy or ContextPolicy.from_environment()
         self.budget = budget or ContextBudget(total_chars=self.policy.budget_chars)
         self.results = result_manager or ContextResultManager()
+        self.active_context_builder = ActiveContextBuilder(budget=self.budget)
 
     @classmethod
     def from_environment(
@@ -52,6 +59,20 @@ class ContextManager:
 
     def usage(self, **sections: int) -> dict[str, Any]:
         return self.budget.usage(**sections)
+
+    def build_active_context(
+        self,
+        *,
+        task: str,
+        candidates: Sequence[ContextCandidate],
+        decisions: Sequence[ContextDecision],
+    ) -> ActiveContext:
+        """Build the provider-neutral context for one LLM call."""
+        return self.active_context_builder.build_active_context(
+            task=task,
+            candidates=candidates,
+            decisions=decisions,
+        )
 
 
 __all__ = ["ContextManager"]
