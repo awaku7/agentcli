@@ -8,6 +8,7 @@ from uagent.uagent_llm import _apply_context_budget, _record_context_telemetry
 
 
 def test_context_budget_evicts_old_tool_results(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_MODE", "bounded")
     monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_CHARS", "100")
     messages = [
         {"role": "user", "content": "request"},
@@ -72,7 +73,9 @@ def test_context_manager_accepts_call_budget_for_active_snapshot() -> None:
 
 
 def test_context_telemetry_records_message_preserving_projection() -> None:
-    core = SimpleNamespace()
+    core = SimpleNamespace(
+        context_manager=SimpleNamespace(budget=ContextBudget.without_limit())
+    )
     messages = [
         {"role": "system", "content": "rules"},
         {"role": "user", "content": "question"},
@@ -86,3 +89,22 @@ def test_context_telemetry_records_message_preserving_projection() -> None:
     assert report["active_chars"] == 19
     assert report["saved_chars"] == 11
     assert report["sections"]["tool"] == {"message_count": 1, "active_chars": 6}
+    assert report["budget"]["unlimited"] is True
+    assert report["budget"]["used_chars"] == 19
+
+
+def test_context_telemetry_reports_bounded_budget_status() -> None:
+    core = SimpleNamespace(
+        context_manager=SimpleNamespace(budget=ContextBudget(total_chars=10))
+    )
+    messages = [
+        {"role": "user", "content": "question"},
+        {"role": "tool", "content": "result"},
+    ]
+
+    report = _record_context_telemetry(messages, core, raw_chars=20)
+
+    assert report["budget"]["unlimited"] is False
+    assert report["budget"]["total_chars"] == 10
+    assert report["budget"]["used_chars"] == len("question") + len("result")
+    assert report["budget"]["emergency"] is True

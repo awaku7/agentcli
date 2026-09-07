@@ -104,6 +104,7 @@ class ContextBudget:
             "warning": ratio >= 0.80,
             "compact": ratio >= 0.90,
             "emergency": ratio >= 1.0,
+            "unlimited": False,
         }
 
     def select_evictable(

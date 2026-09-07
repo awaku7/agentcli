@@ -28,3 +28,19 @@ def test_context_policy_supports_unlimited_budget(monkeypatch) -> None:
     policy = ContextPolicy.from_environment()
 
     assert policy.budget_unlimited is True
+
+
+def test_context_policy_is_unlimited_by_default(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_CONTEXT_BUDGET_MODE", raising=False)
+
+    policy = ContextPolicy.from_environment()
+
+    assert policy.budget_unlimited is True
+
+
+def test_context_policy_supports_explicit_bounded_budget(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_CONTEXT_BUDGET_MODE", "bounded")
+
+    policy = ContextPolicy.from_environment()
+
+    assert policy.budget_unlimited is False

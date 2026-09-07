@@ -1885,6 +1885,7 @@ def _record_context_telemetry(
 
     raw_chars = max(0, int(raw_chars))
     saved_chars = raw_chars - active_chars
+    budget = getattr(getattr(core, "context_manager", None), "budget", None)
     report: dict[str, Any] = {
         "raw_chars": raw_chars,
         "active_chars": active_chars,
@@ -1892,6 +1893,13 @@ def _record_context_telemetry(
         "saved_ratio": saved_chars / raw_chars if raw_chars else 0.0,
         "sections": sections,
     }
+    if isinstance(budget, ContextBudget):
+        report["budget"] = budget.usage(
+            system=sections.get("system", {}).get("active_chars", 0),
+            user=sections.get("user", {}).get("active_chars", 0),
+            assistant=sections.get("assistant", {}).get("active_chars", 0),
+            tool=sections.get("tool", {}).get("active_chars", 0),
+        )
     try:
         core.context_report = report
     except Exception:

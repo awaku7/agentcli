@@ -31,7 +31,8 @@ class ContextPolicy:
     model: str = ""
     budget_enabled: bool = True
     budget_chars: int = 100_000
-    budget_unlimited: bool = False
+    # The default is intentionally uncapped; bounded mode is opt-in.
+    budget_unlimited: bool = True
     auto_retrieve: bool = True
     auto_state: bool = True
     tool_result_max_rows: int = 500
@@ -46,10 +47,8 @@ class ContextPolicy:
             f"UAGENT_CONTEXT_BUDGET_CHARS_{provider_key}" if provider_key else ""
         )
         budget_name = provider_budget_name or "UAGENT_CONTEXT_BUDGET_CHARS"
-        mode = os.environ.get("UAGENT_CONTEXT_BUDGET_MODE", "").strip().lower()
-        budget_unlimited = mode in {"unlimited", "none", "off"} or _env_bool(
-            "UAGENT_CONTEXT_BUDGET_UNLIMITED", False
-        )
+        mode = os.environ.get("UAGENT_CONTEXT_BUDGET_MODE", "unlimited").strip().lower()
+        budget_unlimited = mode in {"unlimited", "none", "off", ""}
         return cls(
             provider=provider_name,
             model=str(model or "").strip(),
