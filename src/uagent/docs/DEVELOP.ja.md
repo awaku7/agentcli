@@ -277,6 +277,22 @@ ______________________________________________________________________
 
 回帰: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`。
 
+## コードオントロジーとプロジェクト構造
+
+`code_map`で生成した、現在のプロジェクト全体のコードオントロジーです。
+
+- [code_map_20260907_211403_767100.jsonld](code_map_20260907_211403_767100.jsonld)（JSON-LD形式、`project_only=true`、約5.4MB）
+
+生成コマンド:
+
+```text
+code_map(path=".", format="ontology", project_only=true, include_symbols=true, include_relations=true)
+```
+
+Mermaid形式のプロジェクト構造図:
+
+- [code_map_20260907_211419_276367.mmd](code_map_20260907_211419_276367.mmd)
+
 ## リアルタイム音声アーキテクチャ
 
 - OpenAI Realtime、xAI Grok Voice API、および Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`) をサポート。

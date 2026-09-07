@@ -630,49 +630,21 @@ batch_state, image_session, index_files, semantic_search_files
 
 code_map の `format="ontology"` で生成したプロジェクト全体のオントロジー:
 
-- [code_map_20260707_140601.jsonld](code_map_20260707_140601.jsonld) (JSON-LD 形式, 約 700KB)
+- [code_map_20260907_211403_767100.jsonld](code_map_20260907_211403_767100.jsonld) (JSON-LD形式, project_only=true, 約 5.4MB)
 
 生成コマンド:
 
 ```
-code_map(path=".", format="ontology", include_symbols=true)
+code_map(path=".", format="ontology", project_only=true, include_symbols=true, include_relations=true)
 ```
 
 ノードタイプ: SourceFile / Function / Class / Interface / Struct / Enum / Symbol / ImportRelation / Project / ScanStats
 
-#### 依存関係図 (Mermaid)
+#### プロジェクト構造図 (Mermaid)
 
-code_map の ontology データから生成した実測の import 依存関係:
+code_mapの `format="mermaid"` で生成した現在のプロジェクト構造図:
 
-```mermaid
-graph TD
-    classDef py fill:#f0f8ff,stroke:#2196f3;
-    classDef ts fill:#e1f5fe,stroke:#0288d1;
-
-    subgraph VSCode["VSCode Extension (import関係: ontology実測)"]
-        v0["extension.ts"]:::ts
-        v1["panel.ts"]:::ts
-        v2["editorIntegration.ts"]:::ts
-        v3["treeProvider.ts"]:::ts
-        v4["wsClient.ts"]:::ts
-        v0 -->|"./wsClient"| v4
-        v0 -->|"./panel"| v1
-        v0 -->|"./treeProvider"| v3
-        v0 -->|"./editorIntegration"| v2
-        v1 -->|"./wsClient"| v4
-        v2 -->|"./wsClient"| v4
-        v2 -->|"./panel"| v1
-        v3 -->|"./wsClient"| v4
-    end
-
-    subgraph PythonEdges["Python import関係 (ontology実測)"]
-        gui["src/uagent/gui.py"]:::py
-        sc["scheckgui.py"]:::py
-        gui -->|"import scheckgui"| sc
-    end
-```
-
-- MMD ファイル: [code_map_20260707_dep.mmd](code_map_20260707_dep.mmd)
+- MMD ファイル: [code_map_20260907_211419_276367.mmd](code_map_20260907_211419_276367.mmd)
 
 ## Realtime Voice Architecture
 

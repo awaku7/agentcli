@@ -106,7 +106,7 @@ Anthropicなど、APIがスキーマレスなComputer Toolを提供する方式�
 
 ## 4. 正規化データモデル
 
-agentcli側では、llmcapa 0.5.7以降が提供する `ComputerUseCapability` を正規情報源として利用する。llmcapaはComputer Use機能に必須の依存関係とし、Computer Useを有効にする構成では必ずインストールする。UAG側にモデル情報のコピーや独自レジストリは持たせない。llmcapaが利用できない環境では、Computer Useを対応不可として明示的に停止する。
+agentcli側では、現在の依存下限であるllmcapa 0.5.26以降が提供する `ComputerUseCapability` を正規情報源として利用する。llmcapaはComputer Use機能に必須の依存関係とし、Computer Useを有効にする構成では必ずインストールする。UAG側にモデル情報のコピーや独自レジストリは持たせない。llmcapaが利用できない環境では、Computer Useを対応不可として明示的に停止する。
 
 ```python
 @dataclass(frozen=True)
@@ -585,7 +585,7 @@ LLMから生成されたアクションをRuntimeへ直接渡さない。必ず 
 
 ### 17.2 llmcapaとの責務分離
 
-`llmcapa 0.5.7` をComputer Use capabilityの正規情報源とする。UAG側で同じモデル情報を独自管理しない。
+`llmcapa 0.5.26` をComputer Use capabilityの正規情報源とする。UAG側で同じモデル情報を独自管理しない。
 
 ```text
 UAG → llmcapa → ComputerUseCapability

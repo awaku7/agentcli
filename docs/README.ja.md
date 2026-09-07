@@ -28,20 +28,20 @@ ______________________________________________________________________
 
 ## uagを選ぶ理由
 
-uagは、好みのモデルを実際に使うツールへ接続する、ローカルファーストのAIエージェントです。
+uagは、好みのモデルを実際のツールにつなぐ、ローカルファーストのAIエージェントです。
 ファイル、ブラウザー、コードベース、コミュニケーション、クラウドAPI、IoTデバイス、MCPサーバー、
-マルチエージェントワークフローのための、単一で拡張可能なランタイムを提供します。
+マルチエージェントワークフローを扱う、単一の拡張可能なランタイムを提供します。
 
 - **プロバイダーの自由** — OpenAI、Anthropic、Gemini、Azure、Bedrock、Ollama、llama.cpp、Grok、DeepSeekなど。
-- **ローカルファースト実行** — エージェントのランタイムとツールの実行はあなたのマシン上にとどまり、選択したAPI呼び出しだけが外部へ送られます。
-- **1つのツールレイヤー** — CLI、デスクトップGUI、Web UI、VS Code、A2Aのどこからでも同じツールを利用できます。
-- **並列実行を前提に設計** — 独立した読み取り専用操作を同時に実行できます。
+- **ローカルファースト実行** — エージェントのランタイムとツールは手元のマシン上で動作し、選択したAPI呼び出しだけが外部へ送られます。
+- **統一されたツールレイヤー** — CLI、デスクトップGUI、Web UI、VS Code、A2Aのどこからでも同じツールを利用できます。
+- **並列実行を前提とした設計** — 独立した読み取り専用操作を同時に実行できます。
 - **拡張可能** — コアを変更せずに、ツール、プラグイン、Agent Skills、MCPサーバー、Rust実装のツールを追加できます。
-- **安全性を考慮** — 破壊的操作、認証情報、デバイス制御、ネットワークへの書き込みは、明示的な確認とポリシー制御に対応します。
+- **安全性を重視** — 破壊的操作、認証情報、デバイス制御、ネットワークへの書き込みは、明示的な確認とポリシー制御に対応します。
 
 > **要するに:** uagは、AIモデルと現実の環境の間に位置するコントロールプレーンです。
 
-> **🧠 コンテキストに応じたツールの結果** — 大規模なツールの結果は、可能な限りアクティブなモデルのコンテキストから除外されます。 uag はそれらをアーティファクトとして保存し、代わりに安定した Artifact 参照を含む範囲を限定したプレビューをモデルに渡します。これにより、ツールが大量の生成結果を生成した場合でも、その後のターンに必要な入力トークンの数を大幅に削減できます。
+> **🧠 コンテキストに応じたツールの結果** — 大規模なツール結果は、現在のモデルに渡すコンテキストから可能な限り除外します。uagは結果をアーティファクトとして保存し、代わりに安定したArtifact参照を含む必要な範囲だけのプレビューをモデルに渡します。これにより、ツールが大量の結果を生成しても、後続ターンに必要な入力トークン数を大幅に削減できます。
 > [詳細なコンテキスト圧縮ガイド](CONTEXT_COMPRESSION.ja.md) を参照してください。
 
 ## uagの位置づけ
@@ -95,7 +95,7 @@ flowchart LR
 
 ### 🖥 Computer Useとブラウザー自動化
 
-オプトインのComputer Useは、Playwrightのブラウザーランタイムとデスクトップ操作を組み合わせます。
+オプトイン方式のComputer Useは、Playwrightのブラウザーランタイムとデスクトップ操作を組み合わせます。
 ナビゲーション、フォーム、複数ページのフロー、ダウンロード、スクリーンショット、DOM抽出を自動化できます。
 Browser Inspectorは、デバッグと監査のために遷移とページ状態を記録します。
 
@@ -104,12 +104,12 @@ Browser Inspectorは、デバッグと監査のために遷移とページ状態
 ### ⚡ 並列ツール実行
 
 独立した読み取り専用操作は、安全な場合に並行して実行されます。Web検索、ファイル検査、リポジトリ分析などの
-処理は、設定可能なワーカープール（`UAGENT_PARALLEL_WORKERS`）によって並列に完了できます。書き込み操作は
-直列化されるか、確認が必要です。
+処理を、設定可能なワーカープール（`UAGENT_PARALLEL_WORKERS`）で並列に実行できます。書き込み操作は
+直列化するか、確認を求めます。
 
 ### 🧩 拡張を前提に構築
 
-- **200以上のツール** — ファイル、Web、メディア、ドキュメント、コード、クラウド、コミュニケーション、IoT向け
+- **200以上のツール** — ファイル、Web、メディア、ドキュメント、コード、クラウド、コミュニケーション、IoTに対応
 - **動的な検出と読み込み** — `tool_catalog`で機能を探し、必要なときだけ`tool_load`で有効化
 - **コードインテリジェンス** — `code_map`、言語別の`idx`ナビゲーター、Gitレビュー、テスト実行、Lint、コンパイル、カバレッジ
 - **Claude Code互換プラグイン** — スキル、エージェント、MCPサーバー、フック、コマンド、マーケットプレイスに対応
@@ -126,7 +126,7 @@ Browser Inspectorは、デバッグと監査のために遷移とページ状態
 
 ### 🧠 コンテキストに応じたツールの結果
 
-大規模なツールの結果は、可能な限りアクティブなモデルのコンテキストから除外されます。 uag はそれらをアーティファクトとして保存し、代わりに安定した Artifact 参照を含む範囲を限定したプレビューをモデルに渡します。これにより、ツールが大量の生成結果を生成した場合でも、その後のターンに必要な入力トークンの数を大幅に削減できます。
+大規模なツール結果は、現在のモデルに渡すコンテキストから可能な限り除外します。uagは結果をアーティファクトとして保存し、代わりに安定したArtifact参照を含む必要な範囲だけのプレビューをモデルに渡します。これにより、ツールが大量の結果を生成しても、後続ターンに必要な入力トークン数を大幅に削減できます。
 
 `artifact_read` を使用すると、必要な行または文字範囲のみを取得できます：
 
@@ -148,8 +148,8 @@ Browser Inspectorは、デバッグと監査のために遷移とページ状態
 
 ### 🌍 多言語翻訳
 
-- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定することで、Google Translate および公式の DeepL Python クライアントをサポートします。
-- ツールの定義は、英語以外の37ロケールに加えて英語でも利用可能であり、合計38言語に対応しています。プレースホルダーや技術的な識別子は保持されます。
+- `translate_text` は、`provider=auto`、`provider=deepl`、または `provider=google` を指定して、Google Translateまたは公式のDeepL Pythonクライアントを利用できます。
+- ツール定義は英語を含む38言語で利用できます。プレースホルダーや技術的な識別子は保持されます。
 
 [環境変数](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)、[翻訳方法論](https://github.com/awaku7/agentcli/blob/main/docs/TOOL_TRANSLATION_METHODOLOGY.md)、および [`set_timer` ドキュメント](https://github.com/awaku7/agentcli/blob/main/docs/SET_TIMER.md)を参照してください。
 
@@ -241,7 +241,7 @@ Windows PowerShellでは、`export NAME=value`の代わりに`$env:NAME = "value
 
 ### 任意のモデルを利用
 
-プロバイダーアダプターは、次のようなホスト型およびローカルランタイムをカバーします:
+プロバイダーアダプターは、次のようなホスト型・ローカルの各種ランタイムに対応しています。
 
 **OpenAI · Meta Model API · Anthropic · Google Gemini · Vertex AI · Azure OpenAI · Amazon Bedrock · OpenRouter · Ollama · llama.cpp · Grok · DeepSeek · NVIDIA · Hugging Face · Alibaba Cloud · Moonshot · Xiaomi MiMo · LM Studio · MiniMax · Sakana AI · SAKURA AI Engine · Together AI · Vercel AI Gateway · PFN/PLaMo · Z.AI · Novita**
 
@@ -277,7 +277,7 @@ Windows PowerShellでは、`export NAME=value`の代わりに`$env:NAME = "value
 
 ### IoTと物理世界の制御
 
-uagは、書き込み操作を明示的かつ監査可能に保ちながら、会話型ワークフローを実デバイスに接続します:
+uagは、書き込み操作を明示的かつ監査可能に保ちながら、会話型ワークフローを実デバイスにつなぎます。
 
 - **SwitchBot** — クラウドとBLEによる検出、状態取得、制御、バッチ処理、サブスクリプション
 - **ECHONET Lite** — INF通知を含む、日本の家電の検出と制御
@@ -290,15 +290,15 @@ uagは、書き込み操作を明示的かつ監査可能に保ちながら、�
 
 [IoT Use Cases](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)を参照してください。
 
-ランタイムには現在、多数のツールカタログが含まれています。インストール環境で利用可能な正確なツールは、次で確認できます:
+ランタイムには多数のツールカタログが含まれています。現在の環境で利用できるツールは、次のコマンドで確認できます。
 
 ```text
 :tools
 ```
 
-## プラットフォームのセットアップ
+## プラットフォーム別セットアップ
 
-コアパッケージはクロスプラットフォームです。プラットフォーム固有の依存関係は、必要なものだけを選択してインストールしてください。
+コアパッケージはクロスプラットフォームです。必要なプラットフォーム固有の依存関係だけを選んでインストールしてください。
 
 ### Windows
 
@@ -319,7 +319,7 @@ python -m pip install PySide6 ewmh dbus-next
 ```
 
 ブラウザーバイナリ、Bluetooth権限、クラウド認証情報、MQTT/OPC UAサーバーなど、一部の連携には追加のシステム要件があります。
-該当するツールの実行時に、不足しているものが報告されます。
+不足しているものは、該当するツールの実行時に報告されます。
 
 ## セッション、自動化、安全性
 
@@ -327,7 +327,7 @@ python -m pip install PySide6 ewmh dbus-next
 
 `:load <index>`で以前の会話を再開できます。ツール結果はキャッシュでき、アプリケーションを再構築せずにプロバイダーを変更できます。
 
-Session Storeを有効にすると、従来のJSONLログを残したままSQLiteにも構造化保存できます。
+セッションストアを有効にすると、従来のJSONLログを残したまま、SQLiteにも構造化して保存できます。
 
 ```env
 UAGENT_SESSION_STORE=1
@@ -339,7 +339,7 @@ UAGENT_MEMORY_BACKEND=sqlite
 UAGENT_MEMORY_DB=
 ```
 
-検索とメモリ候補の承認は次で行います。
+検索やメモリ候補の承認には、次のコマンドを使います。
 
 ```text
 :sessions search <query>
@@ -351,28 +351,28 @@ UAGENT_MEMORY_DB=
 
 ### オートパイロット
 
-任意のレビュアーモデルを使った複数ラウンドの作業には`:auto`を使用します。`--max-rounds N`でラウンド上限を設定できます。
-オートパイロットを停止するには**F12**、現在の応答を停止するには**F12**を押します。
+レビューモデルを使う複数ラウンドの作業には、`:auto`を使用します。`--max-rounds N`でラウンド上限を設定できます。
+オートパイロットまたは現在の応答を停止するには、**F12**を押します。
 
 [Auto-pilot](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)を参照してください。
 
 ### Embeddedモード
 
-制約のあるローカル環境では、`--embedded`を使用し、アプリケーションに必要なツールだけを明示的にロードしてください。
-Embeddedモードでは`--tool-genre-mask`は無視され、`--enable-tool`を複数指定した場合は指定順が保持されます。
+リソースが限られたローカル環境では、`--embedded`を使用し、アプリケーションに必要なツールだけを明示的にロードしてください。
+Embeddedモードでは`--tool-genre-mask`は無視され、`--enable-tool`を複数指定した場合は指定順が維持されます。
 
 [CLI使用リファレンス](USAGE.md)を参照してください。
 
 ### 人間による確認
 
-`human_ask`は機密性の高い操作の前に一時停止します。ファイルの削除、上書き、シェルコマンド、デバイス制御、
+`human_ask`は機密性の高い操作の前に処理を一時停止します。ファイルの削除、上書き、シェルコマンド、デバイス制御、
 認証情報の操作、ネットワークへの書き込みは、確認およびポリシールールによって管理できます。
 
 組織全体に適用する制御は、[Enterprise Policy Engine](https://github.com/awaku7/agentcli/blob/main/docs/ENTERPRISE_POLICY.md)で利用できます。
 
 ### 認証情報
 
-長期間有効なシークレットをプロンプトに置く代わりに、認証情報ストアを使用してください:
+長期間有効なシークレットをプロンプトへ直接書く代わりに、認証情報ストアを使用してください。
 
 ```text
 :credential set provider/openai api_key
@@ -414,13 +414,13 @@ CLIまたは設定ファイルから外部MCPサーバーに接続できます�
 ## リアルタイム音声
 
 オプションのリアルタイム音声連携は、OpenAI Realtime、Azure OpenAI GPT Realtime、xAI Grok Voice、
-Google Gemini Live、Amazon Bedrock Nova Sonicに対応します。必要な音声依存関係をインストールして、次を実行します:
+Google Gemini Live、Amazon Bedrock Nova Sonicに対応します。必要な音声依存関係をインストールして、次を実行してください。
 
 ```bash
 python scheck.py realtime
 ```
 
-AEC3は、全二重のマイクおよびスピーカー音声に対応しています。診断機能は、トラブルシューティング中だけ有効にしてください:
+AEC3は、マイクとスピーカーの全二重音声に対応しています。診断機能は、トラブルシューティング時だけ有効にしてください。
 
 ```bash
 export UAGENT_REALTIME_AUDIO_DEBUG=1
@@ -451,7 +451,7 @@ cd agentcli
 python -m pip install -e ".[core,providers,test]"
 ```
 
-PR前のチェックを実行します:
+PRを出す前に、次のチェックを実行します。
 
 ```bash
 python -m ruff check src tests
@@ -472,7 +472,7 @@ python -m pytest -q .
 ## コントリビュート
 
 バグ報告、機能のアイデア、ドキュメントの改善、翻訳、ツール、スキル、プルリクエストを歓迎します。
-大きな変更を行う前に、issueまたはdiscussionを開いてください。[Developer Guide](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を読み、
+大きな変更を加える前に、issueまたはdiscussionを開いてください。[開発者ガイド](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)を読み、
 プルリクエストを送る前に上記のチェックを実行してください。
 
 ## ライセンス
