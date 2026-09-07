@@ -113,6 +113,28 @@ def test_structured_large_results_keep_head_tail_rows() -> None:
     assert len(projections.llm_context) > 0
 
 
+def test_structured_mapping_preview_respects_single_key_limit() -> None:
+    manager = ContextResultManager(
+        inline_limit_chars=150,
+        large_limit_chars=400,
+        max_preview_rows=1,
+    )
+
+    _, projections = manager.process(
+        {
+            "first": "a" * 80,
+            "middle": "b" * 80,
+            "last": "c" * 80,
+        },
+        tool_name="mapping",
+    )
+
+    assert '"first":' in projections.llm_context
+    assert '"middle":' not in projections.llm_context
+    assert '"last":' not in projections.llm_context
+    assert '"... omitted keys ...": 2' in projections.llm_context
+
+
 def test_context_manager_applies_policy_row_limit(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_ROWS", "2")
     from uagent.runtime.context_manager import ContextManager

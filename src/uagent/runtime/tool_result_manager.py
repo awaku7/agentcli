@@ -217,7 +217,8 @@ class ContextResultManager:
                 tail = self.max_preview_rows - head
                 selected = {key: value[key] for key in keys[:head]}
                 selected["... omitted keys ..."] = total - head - tail
-                selected.update({key: value[key] for key in keys[-tail:]})
+                if tail:
+                    selected.update({key: value[key] for key in keys[-tail:]})
         return _bounded_preview(_stringify(selected), self.inline_limit_chars)
 
     def _llm_projection(self, text: str, record: ToolResultRecord, value: Any) -> str:
