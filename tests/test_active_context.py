@@ -99,6 +99,27 @@ def test_message_context_preserves_recent_turns_during_history_compaction():
     )
 
 
+def test_history_compaction_prefers_low_value_tool_output() -> None:
+    messages = [
+        {"role": "user", "content": "ordinary old context " * 8},
+        {"role": "tool", "content": "low value output " * 8},
+        {"role": "user", "content": "requirement: preserve this constraint " * 8},
+        {"role": "assistant", "content": "recent answer"},
+    ]
+
+    context = ActiveContextBuilder().build_message_context(
+        messages,
+        budget=ContextBudget(
+            total_chars=len("requirement: preserve this constraint " * 8)
+            + len("recent answer")
+        ),
+    )
+
+    assert context.messages[2]["content"]
+    assert context.messages[3]["content"] == "recent answer"
+    assert context.messages[1]["content"] == ""
+
+
 def test_active_context_builder_defaults_missing_decision_to_keep() -> None:
     context = ActiveContextBuilder(
         budget=ContextBudget(total_chars=100),

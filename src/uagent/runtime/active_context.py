@@ -114,6 +114,41 @@ def _truncate(value: str, limit: int) -> str:
     return value[: max(0, limit - len(marker))] + marker
 
 
+def _history_priority(
+    message: dict[str, Any], index: int, total: int
+) -> tuple[int, int, int]:
+    """Return a deterministic eviction priority for one history message.
+
+    Lower values are compacted first. Recent turns and task-significant
+    messages therefore survive longer than old tool output, while system
+    instructions remain the final fallback for compaction.
+    """
+    role = str(message.get("role") or "")
+    content = str(message.get("content") or "").casefold()
+    recent = 1 if index >= max(0, total - 2) else 0
+    if role == "system":
+        importance = 3
+    elif role == "tool":
+        importance = 0
+    elif any(
+        marker in content
+        for marker in (
+            "requirement",
+            "constraint",
+            "decision",
+            "dependency",
+            "error",
+            "current task",
+            "known fact",
+            "pending",
+        )
+    ):
+        importance = 2
+    else:
+        importance = 1
+    return (1 if role == "system" else 0, recent, importance, index)
+
+
 class ActiveContextBuilder:
     """Build a deterministic, bounded active context from candidates."""
 
@@ -253,24 +288,14 @@ class ActiveContextBuilder:
             if active_budget.unlimited
             else max(0, raw_chars - active_budget.total_chars)
         )
-        # Optimize conversation history without dropping message metadata. Older
-        # non-system messages are the cheapest context to compact; recent turns
-        # and system instructions remain readable for as long as possible.
-        recent_start = max(0, len(projected) - 2)
-        compaction_order = [
-            index
-            for index, message in enumerate(projected)
-            if index < recent_start and str(message.get("role") or "") != "system"
-        ]
-        compaction_order.extend(
-            index
-            for index, message in enumerate(projected)
-            if index >= recent_start and str(message.get("role") or "") != "system"
-        )
-        compaction_order.extend(
-            index
-            for index, message in enumerate(projected)
-            if str(message.get("role") or "") == "system"
+        # Optimize history by semantic importance, recency, and role rather
+        # than FIFO alone. Tool output is cheapest to compact; requirements,
+        # decisions, errors, and dependencies survive longer.
+        compaction_order = sorted(
+            range(len(projected)),
+            key=lambda index: _history_priority(
+                projected[index], index, len(projected)
+            ),
         )
         for index in compaction_order:
             if excess <= 0:
