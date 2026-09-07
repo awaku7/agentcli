@@ -1588,6 +1588,24 @@ def get_tool_catalog(
             s += 25
         if search_hit:
             s += 1000
+        # ``file_grep`` is a low-level line/pattern searcher. Keep it below
+        # filename-oriented tools for broad queries such as "search files";
+        # promote it only when the request explicitly mentions grep, regex,
+        # patterns, lines, or content matching.
+        if name == "file_grep":
+            grep_intent = {
+                "grep",
+                "regex",
+                "regexp",
+                "pattern",
+                "patterns",
+                "line",
+                "lines",
+                "content",
+                "literal",
+            }
+            if not any(token in grep_intent for token in tokens):
+                s -= 2000
         return s
 
     # 1. Process loaded tools
