@@ -12,6 +12,7 @@ from .active_context import (
 )
 from .context_budget import ContextBudget
 from .context_decision import ContextDecisionEngine
+from .context_retrieval import retrieve_candidates
 from .context_policy import ContextPolicy
 from .tool_result_manager import (
     ContextResultManager,
@@ -58,6 +59,16 @@ class ContextManager:
     ) -> str:
         """Format retrieved records for bounded LLM injection."""
         return self.results.format_retrieved_context(records, max_chars=max_chars)
+
+    def retrieve_candidates(
+        self,
+        records: Sequence[dict[str, Any]],
+        *,
+        query: str = "",
+        max_candidates: int = 20,
+    ) -> list[ContextCandidate]:
+        """Retrieve ranked provider-neutral candidates from persisted records."""
+        return retrieve_candidates(records, query=query, max_candidates=max_candidates)
 
     def usage(self, **sections: int) -> dict[str, Any]:
         return self.budget.usage(**sections)
