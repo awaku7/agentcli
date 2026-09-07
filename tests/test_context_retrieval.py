@@ -112,3 +112,22 @@ def test_retrieve_candidates_preserves_non_tool_context_metadata():
     assert candidates[0].relevance == 0.8
     assert candidates[0].recency == 0.9
     assert candidates[0].reference == "memory://deployment"
+
+
+def test_retrieve_candidates_deduplicates_persisted_item_ids_before_limiting():
+    candidates = retrieve_candidates(
+        [
+            {"result_id": "same", "summary": "unrelated"},
+            {
+                "result_id": "same",
+                "summary": "database migration",
+                "importance": "high",
+            },
+            {"result_id": "other", "summary": "other result"},
+        ],
+        query="database migration",
+        max_candidates=2,
+    )
+
+    assert [candidate.item_id for candidate in candidates] == ["same", "other"]
+    assert candidates[0].content == "database migration"

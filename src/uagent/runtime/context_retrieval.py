@@ -85,7 +85,15 @@ def retrieve_candidates(
         ranked.append((score, index, candidate))
 
     ranked.sort(key=lambda item: (-item[0], item[2].item_id, item[1]))
-    return [candidate for _, _, candidate in ranked[:max_candidates]]
+
+    # Persistence layers may expose the same record more than once (for
+    # example, after a replay or when a tool result is also indexed as an
+    # artifact). Context decisions are keyed by item_id, so duplicate IDs
+    # must be removed before the candidate limit is applied.
+    unique: dict[str, ContextCandidate] = {}
+    for _, _, candidate in ranked:
+        unique.setdefault(candidate.item_id, candidate)
+    return list(unique.values())[:max_candidates]
 
 
 __all__ = ["retrieve_candidates"]
