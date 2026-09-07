@@ -59,3 +59,27 @@ def test_decision_engine_compacts_when_remaining_budget_is_smaller():
 
     assert decision.action == "COMPACT"
     assert decision.projected_chars == 30
+
+
+def test_decision_engine_normalizes_persisted_importance_labels():
+    candidate = ContextCandidate(
+        item_id="important",
+        source="result",
+        section="tool_results",
+        content="important result",
+        importance="high",  # type: ignore[arg-type]
+    )
+
+    assert ContextDecisionEngine.score(candidate) == 0.75
+
+
+def test_decision_engine_ignores_unknown_signal_values():
+    candidate = ContextCandidate(
+        item_id="unknown",
+        source="result",
+        section="tool_results",
+        content="result",
+        importance="not-a-level",  # type: ignore[arg-type]
+    )
+
+    assert ContextDecisionEngine.score(candidate) == 0.5

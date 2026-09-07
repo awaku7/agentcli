@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Any, Sequence
 
 from .active_context import ContextAction, ContextCandidate, ContextDecision
 from .context_budget import ContextBudget
@@ -28,17 +28,43 @@ class ContextDecisionEngine:
     def score(candidate: ContextCandidate) -> float:
         """Return a normalized score from available importance signals."""
         values = [
-            value
+            normalized
             for value in (
                 candidate.importance,
                 candidate.relevance,
                 candidate.recency,
             )
-            if value is not None
+            if (normalized := ContextDecisionEngine._normalize_signal(value))
+            is not None
         ]
         if not values:
             return 0.5
         return max(0.0, min(1.0, sum(values) / len(values)))
+
+    @staticmethod
+    def _normalize_signal(value: Any) -> float | None:
+        """Normalize numeric and persisted importance labels to ``0..1``."""
+        if value is None:
+            return None
+        if isinstance(value, str):
+            label = value.strip().casefold()
+            labels = {
+                "low": 0.25,
+                "normal": 0.5,
+                "medium": 0.5,
+                "high": 0.75,
+                "critical": 1.0,
+            }
+            if label in labels:
+                return labels[label]
+            try:
+                value = float(label)
+            except ValueError:
+                return None
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return None
 
     def decide(
         self,
