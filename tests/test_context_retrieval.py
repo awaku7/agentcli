@@ -68,3 +68,30 @@ def test_retrieve_candidates_rejects_negative_limit():
         assert "max_candidates" in str(exc)
     else:
         raise AssertionError("negative max_candidates must be rejected")
+
+
+def test_retrieve_candidates_preserves_non_tool_context_metadata():
+    candidates = retrieve_candidates(
+        [
+            {
+                "item_id": "memory-1",
+                "source": "memory",
+                "section": "memory",
+                "title": "deployment decision",
+                "content": "use the blue deployment",
+                "importance": "high",
+                "relevance": 0.8,
+                "recency": 0.9,
+                "reference": "memory://deployment",
+            }
+        ],
+        query="deployment",
+    )
+
+    assert candidates[0].item_id == "memory-1"
+    assert candidates[0].source == "memory"
+    assert candidates[0].section == "memory"
+    assert candidates[0].content == "use the blue deployment"
+    assert candidates[0].relevance == 0.8
+    assert candidates[0].recency == 0.9
+    assert candidates[0].reference == "memory://deployment"

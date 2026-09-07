@@ -20,7 +20,13 @@ def retrieve_candidates(
     query: str = "",
     max_candidates: int = 20,
 ) -> list[ContextCandidate]:
-    """Rank persisted records by query overlap and return context candidates."""
+    """Rank persisted records and return provider-neutral candidates.
+
+    Records may come from tool results, memory, artifacts, or history.  The
+    optional ``source``, ``section``, ``content``, ``relevance`` and
+    ``recency`` fields are preserved when present; tool-result records retain
+    their legacy ``summary``/``artifact_preview`` behavior.
+    """
     if max_candidates < 0:
         raise ValueError("max_candidates must be non-negative")
     query_tokens = _tokens(query)
@@ -35,16 +41,18 @@ def retrieve_candidates(
     for index, record in enumerate(records):
         summary = str(record.get("summary") or "").strip()
         preview = str(record.get("artifact_preview") or "").strip()
-        content = preview or summary
-        record_tokens = _tokens(
-            " ".join(
-                (
-                    record.get("tool_name", ""),
-                    summary,
-                    preview,
-                )
+        content = str(record.get("content") or "").strip() or preview or summary
+        searchable = " ".join(
+            str(record.get(field) or "")
+            for field in (
+                "tool_name",
+                "title",
+                "summary",
+                "content",
+                "artifact_preview",
             )
         )
+        record_tokens = _tokens(searchable)
         overlap = (
             len(query_tokens & record_tokens) / len(query_tokens)
             if query_tokens
@@ -53,17 +61,30 @@ def retrieve_candidates(
         importance_score = importance.get(
             str(record.get("importance") or "normal").casefold(), 0.5
         )
-        score = (overlap * 0.7) + (importance_score * 0.3)
+        relevance = record.get("relevance")
+        try:
+            relevance_score = max(0.0, min(1.0, float(relevance)))
+        except (TypeError, ValueError):
+            relevance_score = overlap
+        recency = record.get("recency", 0.5)
+        try:
+            recency_score = max(0.0, min(1.0, float(recency)))
+        except (TypeError, ValueError):
+            recency_score = 0.5
+        score = (relevance_score * 0.7) + (importance_score * 0.3)
         candidate = ContextCandidate(
-            item_id=str(record.get("result_id") or f"record-{index}"),
-            source="tool_result",
-            section="tool_results",
+            item_id=str(
+                record.get("result_id") or record.get("item_id") or f"record-{index}"
+            ),
+            source=str(record.get("source") or "tool_result"),
+            section=str(record.get("section") or "tool_results"),
             content=content,
             importance=importance_score,
-            relevance=overlap,
-            recency=0.5,
+            relevance=relevance_score,
+            recency=recency_score,
             original_chars=len(content),
-            reference=str(record.get("artifact_ref") or "") or None,
+            reference=str(record.get("artifact_ref") or record.get("reference") or "")
+            or None,
         )
         ranked.append((score, index, candidate))
 
