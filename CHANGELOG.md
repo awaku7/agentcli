@@ -19,6 +19,14 @@
 
 ## [Unreleased]
 
+## [0.7.3] - 2026-09-07
+
+### Changed
+
+- Update the `llmcapa` minimum version to `>=0.5.26`.
+- Refresh the Computer Use design documentation and Japanese developer guides.
+- Regenerate the project code-map ontology and Mermaid structure diagram.
+
 ## [0.7.1] - 2026-09-06
 
 ### Added
