@@ -345,6 +345,7 @@ def _call_gemini_round(
     gemini_content_dump: dict[str, Any] = {}
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
+    turn_repair_attempted = False
 
     while True:
         try:
@@ -367,6 +368,29 @@ def _call_gemini_round(
             # common stop-prompt/RS_BREAK handling.
             return True, client, "", [], {}
         except Exception as e:
+            error_text = str(e)
+            if (
+                not turn_repair_attempted
+                and "requests ending with a model turn" in error_text.lower()
+            ):
+                # A cancelled/approved tool loop can leave a stale cached
+                # Gemini turn even though the provider projection appends a
+                # user continuation. Retry once with the full history and no
+                # cached content, then rebuild the cache for the next round.
+                turn_repair_attempted = True
+                if history_messages:
+                    call_messages[:] = [
+                        dict(message)
+                        for message in history_messages
+                        if isinstance(message, dict)
+                    ]
+                call_messages.append({"role": "user", "content": "Continue."})
+                gemini_cache_name = None
+                try:
+                    core._gemini_cache_needs_refresh = True
+                except Exception:
+                    pass
+                continue
             if _is_context_overflow_error(e) and history_messages is not None:
                 rollback = _rollback_largest_recent_history(history_messages)
                 if rollback is not None:
