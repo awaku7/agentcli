@@ -46,3 +46,16 @@ def test_build_active_context_from_records_runs_retrieval_and_decision():
     assert active.sections["tool_results"] == ["database migration completed"]
     assert active.decisions[0].item_id == "migration"
     assert active.decisions[0].action == "KEEP"
+
+
+def test_build_active_context_from_records_retrieves_more_when_initial_batch_is_empty():
+    manager = ContextManager(policy=ContextPolicy(budget_chars=1000))
+
+    active = manager.build_active_context_from_records(
+        task="database migration",
+        records=[{"result_id": "migration", "summary": "database migration completed"}],
+        max_candidates=0,
+    )
+
+    assert active.sections["tool_results"] == ["database migration completed"]
+    assert active.decisions[0].item_id == "migration"

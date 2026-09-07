@@ -110,17 +110,40 @@ class ContextManager:
         records: Sequence[dict[str, Any]],
         query: str = "",
         max_candidates: int = 20,
+        max_retrieval_rounds: int = 3,
         budget: ContextBudget | None = None,
     ) -> ActiveContext:
-        """Run retrieval, scoring, decision, and projection as one pipeline."""
-        candidates = self.retrieve_candidates(
-            records, query=query or task, max_candidates=max_candidates
-        )
-        return self.build_active_context(
-            task=task,
-            candidates=candidates,
-            budget=budget,
-        )
+        """Run retrieval, scoring, decision, and projection as one pipeline.
+
+        When the initial retrieval produces no usable context, bounded rounds
+        of broader retrieval are attempted. This keeps ``RETRIEVE_MORE`` a
+        bounded runtime behavior without making persistence responsible for
+        active-context selection.
+        """
+        if max_candidates < 0:
+            raise ValueError("max_candidates must be non-negative")
+        if max_retrieval_rounds < 1:
+            raise ValueError("max_retrieval_rounds must be positive")
+
+        limit = max_candidates
+        active: ActiveContext | None = None
+        for _ in range(max_retrieval_rounds):
+            candidates = self.retrieve_candidates(
+                records, query=query or task, max_candidates=limit
+            )
+            active = self.build_active_context(
+                task=task,
+                candidates=candidates,
+                budget=budget,
+            )
+            if any(
+                decision.action in ("KEEP", "COMPACT") for decision in active.decisions
+            ) or len(candidates) >= len(records):
+                return active
+            limit = max(1, limit * 2)
+
+        assert active is not None
+        return active
 
     def decide_context(
         self, candidates: Sequence[ContextCandidate]
