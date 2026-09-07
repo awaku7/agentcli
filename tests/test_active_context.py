@@ -77,6 +77,28 @@ def test_message_context_compacts_oldest_text_when_budget_is_exceeded():
     assert context.messages[2]["tool_call_id"] == "call-1"
 
 
+def test_message_context_preserves_recent_turns_during_history_compaction():
+    messages = [
+        {"role": "user", "content": "old " * 10},
+        {"role": "assistant", "content": "recent assistant"},
+        {"role": "tool", "content": "recent tool output"},
+    ]
+
+    context = ActiveContextBuilder().build_message_context(
+        messages,
+        budget=ContextBudget(
+            total_chars=len("recent assistant") + len("recent tool output")
+        ),
+    )
+
+    assert context.messages[1]["content"] == "recent assistant"
+    assert context.messages[2]["content"] == "recent tool output"
+    assert context.messages[0]["content"] == ""
+    assert context.report.active_chars <= len("recent assistant") + len(
+        "recent tool output"
+    )
+
+
 def test_active_context_builder_defaults_missing_decision_to_keep() -> None:
     context = ActiveContextBuilder(
         budget=ContextBudget(total_chars=100),

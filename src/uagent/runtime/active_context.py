@@ -205,9 +205,29 @@ class ActiveContextBuilder:
             if active_budget.unlimited
             else max(0, raw_chars - active_budget.total_chars)
         )
-        for message in projected:
+        # Optimize conversation history without dropping message metadata. Older
+        # non-system messages are the cheapest context to compact; recent turns
+        # and system instructions remain readable for as long as possible.
+        recent_start = max(0, len(projected) - 2)
+        compaction_order = [
+            index
+            for index, message in enumerate(projected)
+            if index < recent_start and str(message.get("role") or "") != "system"
+        ]
+        compaction_order.extend(
+            index
+            for index, message in enumerate(projected)
+            if index >= recent_start and str(message.get("role") or "") != "system"
+        )
+        compaction_order.extend(
+            index
+            for index, message in enumerate(projected)
+            if str(message.get("role") or "") == "system"
+        )
+        for index in compaction_order:
             if excess <= 0:
                 break
+            message = projected[index]
             content = message.get("content")
             if not isinstance(content, str) or not content:
                 continue
