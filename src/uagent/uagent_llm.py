@@ -616,6 +616,14 @@ def _run_one_round(
         )
 
     if round_count > max_tool_rounds:
+        # A hard tool-round stop can leave the provider cache paired with the
+        # last assistant tool turn. Rebuild Gemini/Vertex cache state before a
+        # later user continuation rather than reusing that stale turn.
+        if provider in ("gemini", "vertexai"):
+            try:
+                core._gemini_cache_needs_refresh = True
+            except Exception:
+                pass
         _spinner_stop_quietly()
         print(
             _("[WARN] Tool rounds exceeded %(max)d; aborting.")
