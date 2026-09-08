@@ -150,3 +150,33 @@ def test_gemini_turn_repair_hard_resets_after_replay_still_fails(monkeypatch):
     assert text == "continued"
     assert calls[2][-1] == {"role": "user", "content": "Continue."}
     assert all(message.get("role") != "assistant" for message in calls[2])
+
+
+def test_gemini_content_preflight_repairs_adjacent_and_terminal_model_turns():
+    from uagent.providers.llm_gemini import _normalize_gemini_content_turns
+
+    class FakePart:
+        def __init__(self, **kwargs):
+            self.kwargs = kwargs
+
+    class FakeContent:
+        def __init__(self, role, parts):
+            self.role = role
+            self.parts = list(parts)
+
+    class FakeTypes:
+        Content = FakeContent
+        Part = FakePart
+
+    normalized, repaired = _normalize_gemini_content_turns(
+        [
+            FakeContent("user", [FakePart(text="request")]),
+            FakeContent("model", [FakePart(text="part-1")]),
+            FakeContent("model", [FakePart(text="part-2")]),
+        ],
+        FakeTypes,
+    )
+
+    assert repaired is True
+    assert [content.role for content in normalized] == ["user", "model", "user"]
+    assert len(normalized[1].parts) == 2

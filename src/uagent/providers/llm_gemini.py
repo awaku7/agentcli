@@ -282,6 +282,68 @@ def _message_content_text(message: dict[str, Any]) -> str:
     return str(c)
 
 
+def _normalize_gemini_content_turns(
+    contents: list[Any], gemini_types: Any
+) -> tuple[list[Any], bool]:
+    """Normalize provider contents before sending them to Gemini/Vertex.
+
+    The API requires user/model turns and rejects a request ending in a model
+    turn. Reconstructing history from tool calls can also create adjacent model
+    turns, so repair those locally instead of waiting for a 400 response.
+    """
+    normalized: list[Any] = []
+    repaired = False
+
+    def role_name(content: Any) -> str:
+        role = getattr(content, "role", None)
+        role = getattr(role, "value", role)
+        text = str(role or "").strip().lower()
+        if text == "user" or text.endswith(".user"):
+            return "user"
+        if text == "model" or text.endswith(".model"):
+            return "model"
+        return ""
+
+    for content in contents:
+        parts = getattr(content, "parts", None)
+        role = role_name(content)
+        if not isinstance(parts, list) or not parts or role not in {"user", "model"}:
+            repaired = True
+            continue
+        parts = [part for part in parts if part is not None]
+        if not parts:
+            repaired = True
+            continue
+        try:
+            content.parts = parts
+        except Exception:
+            pass
+        if normalized and role_name(normalized[-1]) == role:
+            try:
+                normalized[-1].parts.extend(parts)
+                repaired = True
+                continue
+            except Exception:
+                repaired = True
+        normalized.append(content)
+
+    # A model turn cannot start a standalone GenerateContent request. This
+    # situation indicates stale/incomplete history, so discard the prefix.
+    while normalized and role_name(normalized[0]) == "model":
+        normalized.pop(0)
+        repaired = True
+
+    if not normalized or role_name(normalized[-1]) != "user":
+        normalized.append(
+            gemini_types.Content(
+                role="user", parts=[gemini_types.Part(text="Continue.")]
+            )
+        )
+        repaired = True
+
+    return normalized, repaired
+
+
 def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
     """Convert an attachment dict to a Gemini image Part when possible."""
 
@@ -1025,49 +1087,15 @@ def gemini_chat_with_tools(
     system_instruction = (
         "\n\n".join(system_instruction_parts) if system_instruction_parts else None
     )
-    valid_contents: list[gemini_types.Content] = []
-    for c in contents:
+    contents, content_repaired = _normalize_gemini_content_turns(contents, gemini_types)
+    if content_repaired and cached_content:
+        # A repaired request must not be combined with a potentially stale
+        # cached turn. The next outer round will rebuild the cache as well.
+        cached_content = None
         try:
-            parts = getattr(c, "parts", None)
-            if parts is None:
-                continue
-            if not isinstance(parts, list) or not parts:
-                continue
-            valid_parts = [p for p in parts if p is not None]
-            if not valid_parts:
-                continue
-            try:
-                c.parts = valid_parts
-            except Exception:
-                pass
-            valid_contents.append(c)
+            core._gemini_cache_needs_refresh = True
         except Exception:
-            continue
-    contents = valid_contents
-
-    if not contents:
-        # Vertex/Gemini requires a current user turn even when the system
-        # instruction is supplied through cached_content.  This also covers
-        # interrupted tool loops that leave no user message in the projection.
-        contents = [
-            gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
-        ]
-    else:
-        last_role = getattr(contents[-1], "role", None)
-        last_role = getattr(last_role, "value", last_role)
-        role_text = str(last_role or "").strip().lower()
-        # SDK enum string forms vary (e.g. ``Role.MODEL``), so compare the
-        # normalized suffix rather than only the literal value "model".
-        is_user_turn = role_text == "user" or role_text.endswith(".user")
-        if not is_user_turn:
-            # Gemini / Vertex AI rejects requests ending with a model turn.
-            # Appending a user continuation is safe for model/tool/unknown
-            # terminal roles and repairs Control-C/approval continuations.
-            contents.append(
-                gemini_types.Content(
-                    role="user", parts=[gemini_types.Part(text="Continue.")]
-                )
-            )
+            pass
 
     cfg_kwargs: dict[str, Any] = {}
 
