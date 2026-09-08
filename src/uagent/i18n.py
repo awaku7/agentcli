@@ -447,13 +447,6 @@ def _preserve_command_syntax(msgid: str, translated: str) -> str:
 
     restored: list[str] = []
     for source_line, translated_line in zip(source_lines, translated_lines):
-        source_leading = source_line.lstrip()
-        command_at_start = source_leading.startswith(":") or bool(
-            re.match(r"(?:Usage|Example|Examples):\s*:", source_leading)
-        )
-        if not command_at_start:
-            restored.append(translated_line)
-            continue
         source_match = _COMMAND_NAME_RE.search(source_line)
         if source_match is None:
             restored.append(translated_line)
@@ -480,7 +473,18 @@ def _preserve_command_syntax(msgid: str, translated: str) -> str:
         translated_tail = translated_line[translated_match.start() :]
         translated_tokens = translated_tail.split()
         if len(translated_tokens) < source_token_count:
-            restored.append(translated_line)
+            # Some scripts omit whitespace before punctuation, e.g.
+            # ``:skills清除（...）``. Keep the source command prefix and
+            # preserve the translated prose after the opening parenthesis.
+            translated_boundary = re.search(r"\s*(?=[\(（])", translated_tail)
+            if translated_boundary is None:
+                restored.append(translated_line)
+                continue
+            restored.append(
+                translated_line[: translated_match.start()]
+                + source_prefix
+                + translated_tail[translated_boundary.start() :]
+            )
             continue
         translated_prefix = " ".join(translated_tokens[:source_token_count])
         translated_prefix_end = translated_match.start() + len(translated_prefix)

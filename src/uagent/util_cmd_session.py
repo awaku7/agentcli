@@ -40,7 +40,7 @@ tr_ = _
 
 def _restore_skill_command_hint(text: str) -> str:
     """Keep the executable ``:skills clear`` command untranslated."""
-    return re.sub(r":skills\s+\S+(?=\s*[\(（])", ":skills clear", text)
+    return re.sub(r":skills\s*\S+(?=\s*[\(（])", ":skills clear", text)
 
 
 def _format_session_timestamp(value: Any) -> str:
