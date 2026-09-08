@@ -247,49 +247,16 @@ def _normalize_verbosity_env(value: str | None) -> str:
     return "off"
 
 
-_CONTINUATION_PROMPTS = frozenset(
-    {
-        "continue",
-        "keep going",
-        "go on",
-        "proceed",
-        "carry on",
-        "resume",
-        "retry",
-        "try again",
-        "続けて",
-        "続行",
-        "再開",
-        "進めて",
-        "そのまま続けて",
-        "続きをお願いします",
-    }
-)
-
-
-def _is_continuation_prompt(text: str) -> bool:
-    normalized = " ".join((text or "").casefold().strip().split())
-    normalized = normalized.rstrip(".!?。！？、…")
-    return normalized in _CONTINUATION_PROMPTS
-
-
 def _extract_latest_user_text(messages: list[dict[str, Any]]) -> str:
-    fallback = ""
     for m in reversed(messages or []):
         if not isinstance(m, dict):
             continue
         if m.get("role") != "user":
             continue
         c = _message_content_text(m)
-        if not c.strip():
-            continue
-        if not fallback:
-            fallback = c
-        # A one-word continuation should not reset auto reasoning to
-        # ``minimal`` after a complex task or a tool-round recovery.
-        if not _is_continuation_prompt(c):
+        if c.strip():
             return c
-    return fallback
+    return ""
 
 
 def _message_content_text(message: dict[str, Any]) -> str:
@@ -458,20 +425,6 @@ def _choose_auto_thinking_level(user_text: str) -> str:
         "implementation",
         "fix",
         "improvement",
-        # Japanese task cues used by the CLI.
-        "分析",
-        "比較",
-        "設計",
-        "計画",
-        "戦略",
-        "デバッグ",
-        "原因",
-        "調査",
-        "実装",
-        "修正",
-        "改善",
-        "最適化",
-        "リファクタ",
     )
 
     if any(k in tl for k in keywords):

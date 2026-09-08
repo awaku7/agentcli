@@ -52,19 +52,3 @@ def test_unknown_model_does_not_send_minimal(monkeypatch):
     assert cfg.kwargs["thinking_level"] == "low"
     assert cfg.kwargs["thinking_level"] != "minimal"
 
-
-def test_auto_reasoning_ignores_short_continuation_prompt():
-    from uagent.providers.llm_gemini import _extract_latest_user_text
-
-    messages = [
-        {"role": "user", "content": "デバッグして原因を分析してください。"},
-        {"role": "user", "content": "続けて"},
-    ]
-
-    assert _extract_latest_user_text(messages) == messages[0]["content"]
-
-
-def test_auto_reasoning_recognizes_japanese_analysis_task():
-    from uagent.providers.llm_gemini import _choose_auto_thinking_level
-
-    assert _choose_auto_thinking_level("原因を分析して修正してください") == "low"
