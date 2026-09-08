@@ -35,7 +35,6 @@ from .llm_message_helpers import (
     _build_call_messages,
     _build_auto_shrink_projection,
     _init_gemini_cache,
-    _maybe_auto_shrink_messages,
 )
 from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
@@ -601,10 +600,12 @@ def _run_one_round(
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
-    # Skip auto-shrink when using previous_response_id (server manages context)
+    # Build an optional LLM-summary projection without mutating persistent
+    # conversation history. The provider receives the projection only for
+    # this request; the full history remains available for later retrieval.
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     if not judgment_mode and not _using_prev_rid:
-        gemini_cache_name = _maybe_auto_shrink_messages(
+        projected_cache, projected_messages = _build_auto_shrink_projection(
             provider=provider,
             client=client,
             depname=depname,
@@ -615,6 +616,28 @@ def _run_one_round(
             call_maybe_thread_fn=_call_maybe_thread_fn,
             use_responses_api=use_responses_api,
         )
+        if projected_messages != messages:
+            gemini_cache_name = projected_cache
+            call_messages = _build_call_messages(
+                provider=provider,
+                messages=projected_messages,
+                core=core,
+                depname=depname,
+                gemini_cache_name=gemini_cache_name,
+            )
+            context_manager = getattr(core, "context_manager", None)
+            build_message_context = getattr(
+                context_manager, "build_message_context", None
+            )
+            if callable(build_message_context):
+                active_context = build_message_context(call_messages)
+                core.active_context = active_context
+                _persist_context_decision_log(active_context, core)
+                call_messages = active_context.messages
+            call_messages = project_messages_for_provider(
+                call_messages, provider=provider, model=depname
+            )
+            call_messages = _translate_call_messages(call_messages, tr_cfg)
 
     if round_count > max_tool_rounds:
         # A hard tool-round stop can leave the provider cache paired with the
@@ -1619,20 +1642,6 @@ def _run_one_round(
         )
 
     # Re-check before the next LLM call.
-    # Skip auto-shrink when using previous_response_id (server manages context)
-    _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
-    if not judgment_mode and not _using_prev_rid:
-        gemini_cache_name = _maybe_auto_shrink_messages(
-            provider=provider,
-            client=client,
-            depname=depname,
-            messages=messages,
-            core=core,
-            cache_mgr=cache_mgr,
-            gemini_cache_name=gemini_cache_name,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            use_responses_api=use_responses_api,
-        )
 
     core.set_status(True, "LLM")
 
