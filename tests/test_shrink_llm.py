@@ -442,3 +442,39 @@ def test_auto_shrink_projection_does_not_mutate_persistent_messages(
     assert msgs == original
     assert projected != msgs
     assert lmh._messages_have_history_summary(projected)
+
+
+def test_compress_preserves_complete_latest_tool_block():
+    messages = [
+        {"role": "system", "content": "SYSTEM_PROMPT"},
+        {"role": "user", "content": "old request"},
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {"name": "cmd_exec_json", "arguments": "{}"},
+                }
+            ],
+        },
+        {
+            "role": "tool",
+            "tool_call_id": "call-1",
+            "name": "cmd_exec_json",
+            "content": "result",
+        },
+        {"role": "user", "content": "latest request"},
+    ]
+    client = _FakeClient(["SUMMARY"])
+
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=messages,
+        keep_last=2,
+        use_responses_api=False,
+    )
+
+    assert [message["role"] for message in out[-3:]] == ["assistant", "tool", "user"]

@@ -375,6 +375,37 @@ def _fix_tool_call_boundaries(
     return result
 
 
+def _tool_aware_tail_start(messages: list[dict[str, Any]], start: int) -> int:
+    """Move a compression boundary back to the start of a tool-call block."""
+    if start <= 0 or start >= len(messages):
+        return max(0, start)
+    candidate = messages[start]
+    if not isinstance(candidate, dict):
+        return start
+
+    candidate_role = candidate.get("role")
+    if candidate_role == "assistant" and candidate.get("tool_calls"):
+        return start
+    if candidate_role != "tool":
+        return start
+
+    tool_call_id = candidate.get("tool_call_id")
+    for index in range(start - 1, -1, -1):
+        message = messages[index]
+        if not isinstance(message, dict):
+            continue
+        if message.get("role") != "assistant":
+            continue
+        tool_calls = message.get("tool_calls") or []
+        if not isinstance(tool_calls, list):
+            return start
+        ids = {
+            tc.get("id") for tc in tool_calls if isinstance(tc, dict) and tc.get("id")
+        }
+        return index if tool_call_id in ids else start
+    return start
+
+
 def compress_history_with_llm(
     client: Any,
     depname: str,
@@ -431,8 +462,10 @@ def compress_history_with_llm(
             hit_non_system = True
             others.append(m)
 
-    old_part = others[:-keep_last]
-    tail_part = others[-keep_last:]
+    tail_start = max(0, len(others) - keep_last)
+    tail_start = _tool_aware_tail_start(others, tail_start)
+    old_part = others[:tail_start]
+    tail_part = others[tail_start:]
 
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
