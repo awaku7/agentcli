@@ -40,6 +40,7 @@ from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
 from .runtime.context_policy import ContextPolicy
 from .runtime.provider_context import project_messages_for_provider
+from .runtime.provider_cache import plan_provider_cache
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
@@ -604,6 +605,7 @@ def _run_one_round(
     # conversation history. The provider receives the projection only for
     # this request; the full history remains available for later retrieval.
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
+    projection_changed = False
     if not judgment_mode and not _using_prev_rid:
         projected_cache, projected_messages = _build_auto_shrink_projection(
             provider=provider,
@@ -617,6 +619,7 @@ def _run_one_round(
             use_responses_api=use_responses_api,
         )
         if projected_messages != messages:
+            projection_changed = True
             gemini_cache_name = projected_cache
             call_messages = _build_call_messages(
                 provider=provider,
@@ -638,6 +641,17 @@ def _run_one_round(
                 call_messages, provider=provider, model=depname
             )
             call_messages = _translate_call_messages(call_messages, tr_cfg)
+
+    cache_plan = plan_provider_cache(
+        provider=provider,
+        model=depname,
+        projection_changed=projection_changed,
+        previous_response_id=_using_prev_rid,
+    )
+    try:
+        core.provider_cache_plan = cache_plan.to_dict()
+    except Exception:
+        pass
 
     if round_count > max_tool_rounds:
         # A hard tool-round stop can leave the provider cache paired with the
