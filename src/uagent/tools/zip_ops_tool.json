@@ -39,36 +39,45 @@
       "file compression",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel."
+    "confirm.extract_overwrite": "zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel.",
+    "error.target_file_required": "target_file is required for view action",
+    "error.file_not_found_in_archive": "file not found in archive: {target_file}",
+    "error.zip_view_failed": "zip view failed: {etype}: {error}",
+    "param.format.description": "Archive format (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Defaults to auto.",
+    "param.extract_files.description": "Selective extraction: list of file names or glob patterns to extract.",
+    "param.relative_to.description": "Base directory to compute relative paths inside archive during create.",
+    "param.strip_components.description": "Number of leading directory components to strip on extract.",
+    "param.target_file.description": "Relative path of file inside archive to preview for view action.",
+    "param.max_bytes.description": "Maximum bytes to read for view action (default 100KB)."
   },
   "ja": {
-    "error.cancelled_by_user": "ユーザーによりキャンセルされました",
-    "error.dangerous_dest_dir_rejected": "危険な dest_dir を拒否しました: {dest_dir}",
+    "error.cancelled_by_user": "cancelled by user",
+    "error.dangerous_dest_dir_rejected": "危険な dest_dir が拒否されました: {dest_dir}",
     "error.dangerous_source_rejected": "危険なソースが拒否されました: {source}",
     "error.dangerous_zip_entries_rejected": "危険な zip エントリは拒否されました",
     "error.dangerous_zip_path_rejected": "危険な zip_path が拒否されました: {zip_path}",
-    "error.dest_dir_not_allowed": "dest_dir は許可されていません: {error}",
-    "error.invalid_action": "不正な action です: {action}",
-    "error.source_not_allowed": "sourceが許可されていません: {error}",
-    "error.sources_required_for_create": "action=create では sources が必要です",
-    "error.too_many_files_in_zip": "zip 内のファイル数が多すぎます: {count} > {max_files}",
+    "error.dest_dir_not_allowed": "dest_dir は許可されません: {error}",
+    "error.invalid_action": "invalid action: {action}",
+    "error.source_not_allowed": "ソースは許可されていません: {error}",
+    "error.sources_required_for_create": "作成にはソースが必要です",
+    "error.too_many_files_in_zip": "zip 内のファイルが多すぎます: {count} > {max_files}",
     "error.zip_create_failed": "zip の作成に失敗しました: {error}",
-    "error.zip_extract_failed": "zip の展開に失敗しました: {error}",
-    "error.zip_list_failed": "zip の一覧取得に失敗しました: {error}",
-    "error.zip_not_found": "zipが見つかりません: {zip_path}",
+    "error.zip_extract_failed": "zip 抽出に失敗しました: {error}",
+    "error.zip_list_failed": "zip リストが失敗しました: {error}",
+    "error.zip_not_found": "zip not found: {zip_path}",
     "error.zip_path_not_allowed": "zip_path は許可されていません: {error}",
-    "error.zip_path_required": "zip_path は必須です",
-    "error.zip_too_large_to_extract": "zip が大きすぎて展開できません: {total} > {limit}",
-    "param.action.description": "操作種別。",
-    "param.dest_dir.description": "展開先ディレクトリ。",
-    "param.dry_run.description": "extract の場合、実際には展開せず検証のみ行います。",
-    "param.exclude_globs.description": "create 時の除外指定（簡易: ベース名一致）。",
-    "param.max_files.description": "extract 時に許可する最大ファイル数（zip bomb 対策）。",
-    "param.max_total_uncompressed_bytes.description": "extract 時に許可する最大展開後合計サイズ（zip bomb 対策）。",
-    "param.overwrite.description": "extract 時に既存ファイルを上書きするかどうか（要確認）。",
-    "param.sources.description": "create の入力元（ファイル/ディレクトリ）。",
-    "param.zip_path.description": "zip ファイルのパス。",
-    "tool.description": "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）。",
+    "error.zip_path_required": "zip_path is required",
+    "error.zip_too_large_to_extract": "zip が大きすぎて抽出できません: {total} > {limit}",
+    "param.action.description": "Operation type.",
+    "param.dest_dir.description": "抽出先のディレクトリ。",
+    "param.dry_run.description": "抽出の場合: 抽出せずに検証のみを行います。",
+    "param.exclude_globs.description": "作成の除外 (単純: ベース名の一致)。",
+    "param.max_files.description": "抽出時に許可されるファイルの最大数 (zip 爆弾保護)。",
+    "param.max_total_uncompressed_bytes.description": "抽出で許可される非圧縮バイトの最大合計数 (zip 爆弾保護)。",
+    "param.overwrite.description": "抽出時に既存のファイルを上書きするかどうか (確認が必要)。",
+    "param.sources.description": "作成用の入力 (ファイル/ディレクトリ)。",
+    "param.zip_path.description": "zip ファイルへのパス。",
+    "tool.description": "ZIP ファイルを作成/抽出/リストします (Zip Slip/Zip Bomb 保護付き)。",
     "x_search_terms": [
       "zip",
       "圧縮",
@@ -81,7 +90,16 @@
       "ファイル圧縮",
       "解凍"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
+    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
+    "error.target_file_required": "表示アクションには target_file が必要です",
+    "error.file_not_found_in_archive": "ファイルがアーカイブ内に見つかりません: {target_file}",
+    "error.zip_view_failed": "zip ビューが失敗しました: {etype}: {error}",
+    "param.format.description": "アーカイブ形式 (auto、zip、tar、tar.gz、tar.bz2、tar.xz)。デフォルトは自動です。",
+    "param.extract_files.description": "選択的抽出: 抽出するファイル名またはグロブ パターンのリスト。",
+    "param.relative_to.description": "作成時にアーカイブ内の相対パスを計算するためのベース ディレクトリ。",
+    "param.strip_components.description": "抽出時に除去する主要ディレクトリコンポーネントの数。",
+    "param.target_file.description": "表示アクションのプレビューへのアーカイブ内のファイルの相対パス。",
+    "param.max_bytes.description": "表示アクションで読み取る最大バイト数 (デフォルトは 100KB)。"
   },
   "es": {
     "error.cancelled_by_user": "cancelada por el usuario",
@@ -123,7 +141,16 @@
       "comprimir archivos",
       "descomprimir"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) puede sobrescribir archivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nIngrese y para continuar o c para cancelar."
+    "confirm.extract_overwrite": "zip_ops(extract) puede sobrescribir archivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nIngrese y para continuar o c para cancelar.",
+    "error.target_file_required": "target_file es necesario para ver la acción",
+    "error.file_not_found_in_archive": "archivo no encontrado en el archivo: {target_file}",
+    "error.zip_view_failed": "Error en la vista zip: {etype}: {error}",
+    "param.format.description": "Formato de archivo (auto, zip, tar, tar.gz, tar.bz2, tar.xz). El valor predeterminado es automático.",
+    "param.extract_files.description": "Extracción selectiva: lista de nombres de archivos o patrones globales para extraer.",
+    "param.relative_to.description": "Directorio base para calcular rutas relativas dentro del archivo durante la creación.",
+    "param.strip_components.description": "Número de componentes principales del directorio que se eliminarán al extraer.",
+    "param.target_file.description": "Ruta relativa del archivo dentro del archivo para obtener una vista previa de la acción de visualización.",
+    "param.max_bytes.description": "Máximo de bytes a leer para ver la acción (predeterminado 100 KB)."
   },
   "fr": {
     "error.cancelled_by_user": "annulé par l'utilisateur",
@@ -165,7 +192,16 @@
       "compression de fichier",
       "décompresser"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) peut écraser les fichiers existants.\nzip : {zip_path}\ndest : {dest_dir}\nentries : {entries}\n\nEntrez y pour continuer ou c pour annuler."
+    "confirm.extract_overwrite": "zip_ops(extract) peut écraser les fichiers existants.\nzip : {zip_path}\ndest : {dest_dir}\nentries : {entries}\n\nEntrez y pour continuer ou c pour annuler.",
+    "error.target_file_required": "target_file est requis pour l'action d'affichage",
+    "error.file_not_found_in_archive": "fichier introuvable dans l'archive : {target_file}",
+    "error.zip_view_failed": "Échec de l'affichage zip : {etype} : {error}",
+    "param.format.description": "Format d'archive (auto, zip, tar, tar.gz, tar.bz2, tar.xz). La valeur par défaut est automatique.",
+    "param.extract_files.description": "Extraction sélective : liste de noms de fichiers ou de modèles globaux à extraire.",
+    "param.relative_to.description": "Répertoire de base pour calculer les chemins relatifs à l’intérieur de l’archive lors de la création.",
+    "param.strip_components.description": "Nombre de composants de répertoire principaux à supprimer lors de l'extraction.",
+    "param.target_file.description": "Chemin relatif du fichier dans l'archive à prévisualiser pour l'action d'affichage.",
+    "param.max_bytes.description": "Nombre maximal d'octets à lire pour l'action d'affichage (100 Ko par défaut)."
   },
   "ko": {
     "error.cancelled_by_user": "사용자에 의해 취소됨",
@@ -207,7 +243,16 @@
       "파일 압축",
       "압축해제"
     ],
-    "confirm.extract_overwrite": "zip_ops(추출)는 기존 파일을 덮어쓸 수 있습니다.\nzip: {zip_path}\ndest: {dest_dir}\n항목: {entries}\n\n계속하려면 y를 입력하고 취소하려면 c를 입력합니다."
+    "confirm.extract_overwrite": "zip_ops(추출)는 기존 파일을 덮어쓸 수 있습니다.\nzip: {zip_path}\ndest: {dest_dir}\n항목: {entries}\n\n계속하려면 y를 입력하고 취소하려면 c를 입력합니다.",
+    "error.target_file_required": "보기 작업에는 target_file이 필요합니다.",
+    "error.file_not_found_in_archive": "아카이브에서 파일을 찾을 수 없습니다: {target_file}",
+    "error.zip_view_failed": "zip 보기 실패: {etype}: {error}",
+    "param.format.description": "아카이브 형식(auto, zip, tar, tar.gz, tar.bz2, tar.xz). 기본값은 자동입니다.",
+    "param.extract_files.description": "선택적 추출: 추출할 파일 이름 또는 glob 패턴 목록입니다.",
+    "param.relative_to.description": "생성 중에 아카이브 내부의 상대 경로를 계산하기 위한 기본 디렉터리입니다.",
+    "param.strip_components.description": "추출 시 제거할 주요 디렉터리 구성 요소 수입니다.",
+    "param.target_file.description": "보기 작업을 미리 볼 아카이브 내부 파일의 상대 경로입니다.",
+    "param.max_bytes.description": "보기 작업을 위해 읽을 수 있는 최대 바이트입니다(기본값 100KB)."
   },
   "de": {
     "error.cancelled_by_user": "vom Benutzer abgebrochen",
@@ -249,7 +294,16 @@
       "Dateikomprimierung",
       "dekomprimieren"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) überschreibt möglicherweise vorhandene Dateien.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen."
+    "confirm.extract_overwrite": "zip_ops(extract) überschreibt möglicherweise vorhandene Dateien.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
+    "error.target_file_required": "target_file ist für die Ansichtsaktion erforderlich",
+    "error.file_not_found_in_archive": "Datei nicht im Archiv gefunden: {target_file}",
+    "error.zip_view_failed": "Zip-Ansicht fehlgeschlagen: {etype}: {error}",
+    "param.format.description": "Archivformat (Auto, Zip, Tar, Tar.gz, Tar.bz2, Tar.xz). Standardmäßig ist „Automatisch“ eingestellt.",
+    "param.extract_files.description": "Selektive Extraktion: Liste der zu extrahierenden Dateinamen oder Glob-Muster.",
+    "param.relative_to.description": "Basisverzeichnis zur Berechnung der relativen Pfade innerhalb des Archivs während der Erstellung.",
+    "param.strip_components.description": "Anzahl der führenden Verzeichniskomponenten, die beim Extrahieren entfernt werden sollen.",
+    "param.target_file.description": "Relativer Pfad der Datei im Archiv zur Vorschau für die Ansichtsaktion.",
+    "param.max_bytes.description": "Maximal zu lesende Bytes für die Ansichtsaktion (Standard 100 KB)."
   },
   "it": {
     "error.cancelled_by_user": "annullato dall'utente",
@@ -291,7 +345,16 @@
       "compressione file",
       "decomprime"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) potrebbe sovrascrivere i file esistenti.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nInserisci y per procedere o c per annullare."
+    "confirm.extract_overwrite": "zip_ops(extract) potrebbe sovrascrivere i file esistenti.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nInserisci y per procedere o c per annullare.",
+    "error.target_file_required": "target_file è obbligatorio per l'azione di visualizzazione",
+    "error.file_not_found_in_archive": "file non trovato nell'archivio: {target_file}",
+    "error.zip_view_failed": "visualizzazione zip non riuscita: {etype}: {error}",
+    "param.format.description": "Formato di archivio (auto, zip, tar, tar.gz, tar.bz2, tar.xz). L'impostazione predefinita è automatica.",
+    "param.extract_files.description": "Estrazione selettiva: elenco di nomi di file o modelli glob da estrarre.",
+    "param.relative_to.description": "Directory di base per calcolare i percorsi relativi all'interno dell'archivio durante la creazione.",
+    "param.strip_components.description": "Numero di componenti principali della directory da eliminare durante l'estrazione.",
+    "param.target_file.description": "Percorso relativo del file all'interno dell'archivio da visualizzare in anteprima per l'azione di visualizzazione.",
+    "param.max_bytes.description": "Numero massimo di byte da leggere per l'azione di visualizzazione (impostazione predefinita 100 KB)."
   },
   "ru": {
     "error.cancelled_by_user": "отменен пользователем",
@@ -333,7 +396,16 @@
       "сжать файл",
       "распаковать"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) может перезаписать существующие файлы.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведите y, чтобы продолжить, или c, чтобы отменить."
+    "confirm.extract_overwrite": "zip_ops(extract) может перезаписать существующие файлы.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведите y, чтобы продолжить, или c, чтобы отменить.",
+    "error.target_file_required": "target_file необходим для действия просмотра",
+    "error.file_not_found_in_archive": "файл не найден в архиве: {target_file}",
+    "error.zip_view_failed": "Не удалось просмотреть zip-архив: {etype}: {error}",
+    "param.format.description": "Формат архива (auto, zip, tar, tar.gz, tar.bz2, tar.xz). По умолчанию установлено авто.",
+    "param.extract_files.description": "Выборочное извлечение: список имен файлов или шаблонов символов для извлечения.",
+    "param.relative_to.description": "Базовый каталог для вычисления относительных путей внутри архива во время создания.",
+    "param.strip_components.description": "Количество ведущих компонентов каталога, которые необходимо удалить при извлечении.",
+    "param.target_file.description": "Относительный путь к файлу внутри архива для предварительного просмотра для действия просмотра.",
+    "param.max_bytes.description": "Максимальное количество байтов для чтения для действия просмотра (по умолчанию 100 КБ)."
   },
   "pt_BR": {
     "error.cancelled_by_user": "cancelado pelo usuário",
@@ -375,7 +447,16 @@
       "compactação de arquivo",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar."
+    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar.",
+    "error.target_file_required": "target_file é necessário para a ação de visualização",
+    "error.file_not_found_in_archive": "arquivo não encontrado no arquivo: {target_file}",
+    "error.zip_view_failed": "falha na visualização zip: {etype}: {error}",
+    "param.format.description": "Formato de arquivo (auto, zip, tar, tar.gz, tar.bz2, tar.xz). O padrão é automático.",
+    "param.extract_files.description": "Extração seletiva: lista de nomes de arquivos ou padrões globais a serem extraídos.",
+    "param.relative_to.description": "Diretório base para calcular caminhos relativos dentro do arquivo durante a criação.",
+    "param.strip_components.description": "Número de componentes principais do diretório a serem removidos na extração.",
+    "param.target_file.description": "Caminho relativo do arquivo dentro do arquivo para visualização da ação de visualização.",
+    "param.max_bytes.description": "Máximo de bytes a serem lidos para ação de visualização (padrão 100 KB)."
   },
   "pt": {
     "error.cancelled_by_user": "cancelado pelo usuário",
@@ -417,7 +498,16 @@
       "compactação de arquivos",
       "descompactar"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar."
+    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar.",
+    "error.target_file_required": "target_file é necessário para a ação de visualização",
+    "error.file_not_found_in_archive": "arquivo não encontrado no arquivo: {target_file}",
+    "error.zip_view_failed": "falha na visualização zip: {etype}: {error}",
+    "param.format.description": "Formato de arquivo (auto, zip, tar, tar.gz, tar.bz2, tar.xz). O padrão é automático.",
+    "param.extract_files.description": "Extração seletiva: lista de nomes de arquivos ou padrões globais a serem extraídos.",
+    "param.relative_to.description": "Diretório base para calcular caminhos relativos dentro do arquivo durante a criação.",
+    "param.strip_components.description": "Número de componentes principais do diretório a serem removidos na extração.",
+    "param.target_file.description": "Caminho relativo do arquivo dentro do arquivo para visualização da ação de visualização.",
+    "param.max_bytes.description": "Máximo de bytes a serem lidos para ação de visualização (padrão 100 KB)."
   },
   "id": {
     "error.cancelled_by_user": "dibatalkan oleh pengguna",
@@ -459,7 +549,16 @@
       "kompresi file",
       "dekompresi"
     ],
-    "confirm.extract_overwrite": "zip_ops(ekstrak) dapat menimpa file yang sudah ada.\nzip: {zip_path}\ntujuan: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan."
+    "confirm.extract_overwrite": "zip_ops(ekstrak) dapat menimpa file yang sudah ada.\nzip: {zip_path}\ntujuan: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan.",
+    "error.target_file_required": "target_file diperlukan untuk tindakan tampilan",
+    "error.file_not_found_in_archive": "file tidak ditemukan dalam arsip: {target_file}",
+    "error.zip_view_failed": "tampilan zip gagal: {etype}: {error}",
+    "param.format.description": "Format arsip (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Defaultnya adalah otomatis.",
+    "param.extract_files.description": "Ekstraksi selektif: daftar nama file atau pola gumpalan yang akan diekstraksi.",
+    "param.relative_to.description": "Direktori dasar untuk menghitung jalur relatif di dalam arsip selama pembuatan.",
+    "param.strip_components.description": "Jumlah komponen direktori utama yang akan diekstraksi.",
+    "param.target_file.description": "Jalur relatif file di dalam arsip untuk melihat pratinjau tindakan tampilan.",
+    "param.max_bytes.description": "Byte maksimum yang perlu dibaca untuk tindakan tampilan (default 100KB)."
   },
   "vi": {
     "error.cancelled_by_user": "bị người dùng hủy",
@@ -501,7 +600,16 @@
       "nén tập tin",
       "giải nén"
     ],
-    "confirm.extract_overwrite": "zip_ops(giải nén) có thể ghi đè lên các tệp hiện có.\nzip: {zip_path}\ndest: {dest_dir}\nmục nhập: {entries}\n\nNhập y để tiếp tục hoặc c để hủy."
+    "confirm.extract_overwrite": "zip_ops(giải nén) có thể ghi đè lên các tệp hiện có.\nzip: {zip_path}\ndest: {dest_dir}\nmục nhập: {entries}\n\nNhập y để tiếp tục hoặc c để hủy.",
+    "error.target_file_required": "target_file là cần thiết cho hành động xem",
+    "error.file_not_found_in_archive": "không tìm thấy tệp trong kho lưu trữ: {target_file}",
+    "error.zip_view_failed": "chế độ xem zip không thành công: {etype}: {error}",
+    "param.format.description": "Định dạng lưu trữ (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Mặc định là tự động.",
+    "param.extract_files.description": "Trích xuất có chọn lọc: danh sách tên tệp hoặc mẫu toàn cầu cần trích xuất.",
+    "param.relative_to.description": "Thư mục cơ sở để tính toán các đường dẫn tương đối bên trong kho lưu trữ trong quá trình tạo.",
+    "param.strip_components.description": "Số thành phần thư mục hàng đầu cần loại bỏ khi giải nén.",
+    "param.target_file.description": "Đường dẫn tương đối của tệp trong kho lưu trữ để xem trước hành động xem.",
+    "param.max_bytes.description": "Số byte tối đa cần đọc cho hành động xem (mặc định là 100KB)."
   },
   "pl": {
     "error.cancelled_by_user": "anulowane przez użytkownika",
@@ -543,7 +651,16 @@
       "kompresja plików",
       "dekompresuj"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) może zastąpić istniejące pliki.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nWprowadź y, aby kontynuować, lub c, aby anulować."
+    "confirm.extract_overwrite": "zip_ops(extract) może zastąpić istniejące pliki.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nWprowadź y, aby kontynuować, lub c, aby anulować.",
+    "error.target_file_required": "plik_docelowy jest wymagany do działania widoku",
+    "error.file_not_found_in_archive": "nie znaleziono pliku w archiwum: {target_file}",
+    "error.zip_view_failed": "Wyświetlenie zip nie powiodło się: {etype}: {error}",
+    "param.format.description": "Format archiwum (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Domyślnie jest to automatyczne.",
+    "param.extract_files.description": "Ekstrakcja selektywna: lista nazw plików lub wzorców globalnych do wyodrębnienia.",
+    "param.relative_to.description": "Katalog podstawowy do obliczania względnych ścieżek wewnątrz archiwum podczas tworzenia.",
+    "param.strip_components.description": "Liczba wiodących komponentów katalogu do usunięcia z ekstraktu.",
+    "param.target_file.description": "Ścieżka względna pliku wewnątrz archiwum do podglądu w celu wyświetlenia akcji.",
+    "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania w ramach akcji przeglądania (domyślnie 100 KB)."
   },
   "hi": {
     "error.cancelled_by_user": "उपयोगकर्ता द्वारा रद्द",
@@ -585,7 +702,16 @@
       "फ़ाइल संपीड़न",
       "डीकंप्रेस"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) मौजूदा फ़ाइलों को अधिलेखित कर सकता है।\nज़िप: {zip_path}\nगंतव्य: {dest_dir}\nप्रविष्टियाँ: {entries}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।"
+    "confirm.extract_overwrite": "zip_ops(extract) मौजूदा फ़ाइलों को अधिलेखित कर सकता है।\nज़िप: {zip_path}\nगंतव्य: {dest_dir}\nप्रविष्टियाँ: {entries}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।",
+    "error.target_file_required": "कार्रवाई देखने के लिए target_file आवश्यक है",
+    "error.file_not_found_in_archive": "फ़ाइल संग्रह में नहीं मिली: {target_file}",
+    "error.zip_view_failed": "ज़िप दृश्य विफल: {etype}: {error}",
+    "param.format.description": "पुरालेख प्रारूप (ऑटो, ज़िप, टार, tar.gz, tar.bz2, tar.xz)। डिफ़ॉल्ट स्वतः.",
+    "param.extract_files.description": "चयनात्मक निष्कर्षण: निकालने के लिए फ़ाइल नाम या ग्लोब पैटर्न की सूची।",
+    "param.relative_to.description": "निर्माण के दौरान संग्रह के अंदर सापेक्ष पथों की गणना करने के लिए आधार निर्देशिका।",
+    "param.strip_components.description": "निकालने पर स्ट्रिप करने के लिए अग्रणी निर्देशिका घटकों की संख्या।",
+    "param.target_file.description": "दृश्य कार्रवाई के लिए पूर्वावलोकन हेतु संग्रह के अंदर फ़ाइल का सापेक्ष पथ।",
+    "param.max_bytes.description": "दृश्य क्रिया के लिए पढ़ने के लिए अधिकतम बाइट्स (डिफ़ॉल्ट 100KB)।"
   },
   "ar": {
     "error.cancelled_by_user": "تم إلغاؤه بواسطة المستخدم",
@@ -627,7 +753,16 @@
       " فك الضغط",
       "فك الضغط"
     ],
-    "confirm.extract_overwrite": "قد يقوم zip_ops(extract) بالكتابة فوق الملفات الموجودة. \nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\n أدخل y للمتابعة، أو c للإلغاء."
+    "confirm.extract_overwrite": "قد يقوم zip_ops(extract) بالكتابة فوق الملفات الموجودة. \nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\n أدخل y للمتابعة، أو c للإلغاء.",
+    "error.target_file_required": "مطلوب target_file لعرض الإجراء",
+    "error.file_not_found_in_archive": "الملف غير موجود في الأرشيف: {target_file}",
+    "error.zip_view_failed": "فشل عرض الرمز البريدي: {etype}: {error}",
+    "param.format.description": "تنسيق الأرشيف (auto، zip، tar، tar.gz، tar.bz2، tar.xz). الإعدادات الافتراضية التلقائية.",
+    "param.extract_files.description": "الاستخراج الانتقائي: قائمة بأسماء الملفات أو أنماط الكرة الأرضية المراد استخراجها.",
+    "param.relative_to.description": "الدليل الأساسي لحساب المسارات النسبية داخل الأرشيف أثناء الإنشاء.",
+    "param.strip_components.description": "عدد مكونات الدليل الرائدة التي سيتم تجريدها عند الاستخراج.",
+    "param.target_file.description": "المسار النسبي للملف داخل الأرشيف للمعاينة لإجراء العرض.",
+    "param.max_bytes.description": "الحد الأقصى لوحدات البايت التي يمكن قراءتها لإجراء العرض (الافتراضي 100 كيلو بايت)."
   },
   "sv": {
     "error.cancelled_by_user": "avbruten av användaren",
@@ -669,7 +804,16 @@
       "filkomprimering",
       "dekomprimera"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) kan skriva över befintliga filer.\nzip: {zip_path}\ndest: {dest_dir}\nposter: {entries}\n\nAnge y för att fortsätta, eller c för att avbryta."
+    "confirm.extract_overwrite": "zip_ops(extract) kan skriva över befintliga filer.\nzip: {zip_path}\ndest: {dest_dir}\nposter: {entries}\n\nAnge y för att fortsätta, eller c för att avbryta.",
+    "error.target_file_required": "target_file krävs för visningsåtgärd",
+    "error.file_not_found_in_archive": "filen hittades inte i arkivet: {target_file}",
+    "error.zip_view_failed": "zip-vy misslyckades: {etype}: {error}",
+    "param.format.description": "Arkivformat (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Standard är auto.",
+    "param.extract_files.description": "Selektiv extrahering: lista över filnamn eller globmönster som ska extraheras.",
+    "param.relative_to.description": "Baskatalog för att beräkna relativa sökvägar i arkivet under skapande.",
+    "param.strip_components.description": "Antal ledande katalogkomponenter som ska tas bort vid utdrag.",
+    "param.target_file.description": "Relativ sökväg till filen i arkivet för att förhandsgranska för visningsåtgärd.",
+    "param.max_bytes.description": "Maximalt antal byte att läsa för visningsåtgärd (standard 100KB)."
   },
   "sw": {
     "error.cancelled_by_user": "imeghairiwa na mtumiaji",
@@ -711,7 +855,16 @@
       "finyaji ya faili",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(dondoo) zinaweza kubatilisha faili zilizopo.\nzip: {zip_path}\ndest: {dest_dir}\nmaingizo: {entries}\n\nIngiza y ili kuendelea, au c ili kughairi."
+    "confirm.extract_overwrite": "zip_ops(dondoo) zinaweza kubatilisha faili zilizopo.\nzip: {zip_path}\ndest: {dest_dir}\nmaingizo: {entries}\n\nIngiza y ili kuendelea, au c ili kughairi.",
+    "error.target_file_required": "target_file inahitajika kwa kitendo cha kutazama",
+    "error.file_not_found_in_archive": "faili haipatikani kwenye kumbukumbu: {target_file}",
+    "error.zip_view_failed": "mwonekano wa zip haukufaulu: {etype}: {error}",
+    "param.format.description": "Umbizo la kumbukumbu (otomatiki, zip, tar, tar.gz, tar.bz2, tar.xz). Chaguo-msingi kwa otomatiki.",
+    "param.extract_files.description": "Uchimbaji wa kuchagua: orodha ya majina ya faili au ruwaza za globu za kutoa.",
+    "param.relative_to.description": "Saraka ya msingi ili kukokotoa njia za jamaa ndani ya kumbukumbu wakati wa kuunda.",
+    "param.strip_components.description": "Idadi ya vipengee vya saraka vinavyoongoza kukatwa kwenye dondoo.",
+    "param.target_file.description": "Njia inayohusiana ya faili iliyo ndani ya kumbukumbu ili kuhakiki kwa kitendo cha kutazamwa.",
+    "param.max_bytes.description": "Upeo wa baiti za kusoma kwa kitendo cha kutazamwa (chaguo-msingi 100KB)."
   },
   "nb": {
     "error.cancelled_by_user": "avbrutt av bruker",
@@ -753,7 +906,16 @@
       "filkomprimering",
       "dekomprimere"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte."
+    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
+    "error.target_file_required": "target_file kreves for visningshandling",
+    "error.file_not_found_in_archive": "fil ikke funnet i arkivet: {target_file}",
+    "error.zip_view_failed": "zip-visning mislyktes: {etype}: {error}",
+    "param.format.description": "Arkivformat (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Standard er auto.",
+    "param.extract_files.description": "Selektiv utvinning: liste over filnavn eller glob-mønstre som skal trekkes ut.",
+    "param.relative_to.description": "Basiskatalog for å beregne relative stier i arkivet under opprettelsen.",
+    "param.strip_components.description": "Antall ledende katalogkomponenter som skal fjernes ved uttrekk.",
+    "param.target_file.description": "Relativ filbane i arkivet for forhåndsvisning for visningshandling.",
+    "param.max_bytes.description": "Maksimal byte å lese for visningshandling (standard 100KB)."
   },
   "nl": {
     "error.cancelled_by_user": "geannuleerd door gebruiker",
@@ -795,7 +957,16 @@
       "bestandscompressie",
       "decomprimeren"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) kan bestaande bestanden overschrijven.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nVoer y in om door te gaan, of c om te annuleren."
+    "confirm.extract_overwrite": "zip_ops(extract) kan bestaande bestanden overschrijven.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nVoer y in om door te gaan, of c om te annuleren.",
+    "error.target_file_required": "target_file is vereist voor weergaveactie",
+    "error.file_not_found_in_archive": "bestand niet gevonden in archief: {target_file}",
+    "error.zip_view_failed": "zip-weergave mislukt: {etype}: {error}",
+    "param.format.description": "Archiefformaat (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Standaard ingesteld op automatisch.",
+    "param.extract_files.description": "Selectieve extractie: lijst met bestandsnamen of globpatronen die moeten worden geëxtraheerd.",
+    "param.relative_to.description": "Basismap om relatieve paden binnen het archief te berekenen tijdens het maken.",
+    "param.strip_components.description": "Aantal leidende mapcomponenten die bij extractie moeten worden verwijderd.",
+    "param.target_file.description": "Relatief pad van bestand in archief naar voorbeeld voor weergaveactie.",
+    "param.max_bytes.description": "Maximaal aantal bytes dat moet worden gelezen voor weergaveactie (standaard 100 KB)."
   },
   "fi": {
     "error.cancelled_by_user": "käyttäjä peruutti",
@@ -837,7 +1008,16 @@
       "tiedostojen pakkaus",
       "purkaa"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) voi korvata olemassa olevat tiedostot.\nzip: {zip_path}\ndest: {dest_dir}\nmerkinnät: {entries}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi."
+    "confirm.extract_overwrite": "zip_ops(extract) voi korvata olemassa olevat tiedostot.\nzip: {zip_path}\ndest: {dest_dir}\nmerkinnät: {entries}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi.",
+    "error.target_file_required": "kohde_tiedosto vaaditaan näkymätoimintoon",
+    "error.file_not_found_in_archive": "tiedostoa ei löydy arkistosta: {target_file}",
+    "error.zip_view_failed": "zip-näkymä epäonnistui: {etype}: {error}",
+    "param.format.description": "Arkistomuoto (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Oletuksena auto.",
+    "param.extract_files.description": "Valikoiva purkaminen: luettelo tiedostojen nimistä tai glob-kuvioista, jotka puretaan.",
+    "param.relative_to.description": "Perushakemisto, jolla lasketaan suhteelliset polut arkiston sisällä luonnin aikana.",
+    "param.strip_components.description": "Poimittaessa poistettavien hakemistokomponenttien määrä.",
+    "param.target_file.description": "Arkiston sisällä olevan tiedoston suhteellinen polku katselutoiminnon esikatseluun.",
+    "param.max_bytes.description": "Katselutoimintoa varten luettavien tavujen enimmäismäärä (oletus 100 kt)."
   },
   "cs": {
     "error.cancelled_by_user": "zrušeno uživatelem",
@@ -879,7 +1059,16 @@
       "komprese souboru",
       "dekomprimovat"
     ],
-    "confirm.extract_overwrite": "zip_ops (extract) může přepsat existující soubory.\nzip: {zip_path}\ncíl: {dest_dir}\npoložky: {entries}\n\nPro pokračování zadejte y, pro zrušení zadejte c."
+    "confirm.extract_overwrite": "zip_ops (extract) může přepsat existující soubory.\nzip: {zip_path}\ncíl: {dest_dir}\npoložky: {entries}\n\nPro pokračování zadejte y, pro zrušení zadejte c.",
+    "error.target_file_required": "pro akci zobrazení je vyžadován cílový_soubor",
+    "error.file_not_found_in_archive": "soubor nebyl nalezen v archivu: {target_file}",
+    "error.zip_view_failed": "zobrazení zip se nezdařilo: {etype}: {error}",
+    "param.format.description": "Formát archivu (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Výchozí nastavení je auto.",
+    "param.extract_files.description": "Selektivní extrakce: seznam názvů souborů nebo vzorů glob k extrahování.",
+    "param.relative_to.description": "Základní adresář pro výpočet relativních cest uvnitř archivu během vytváření.",
+    "param.strip_components.description": "Počet hlavních složek adresáře, které se mají odstranit při extrahování.",
+    "param.target_file.description": "Relativní cesta souboru v archivu k náhledu pro akci zobrazení.",
+    "param.max_bytes.description": "Maximální počet bajtů ke čtení pro akci zobrazení (výchozí 100 kB)."
   },
   "uk": {
     "error.cancelled_by_user": "скасовано користувачем",
@@ -921,7 +1110,16 @@
       "стиснути файл",
       "розпакувати"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) може перезаписати існуючі файли.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведіть y, щоб продовжити, або c, щоб скасувати."
+    "confirm.extract_overwrite": "zip_ops(extract) може перезаписати існуючі файли.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
+    "error.target_file_required": "target_file необхідний для дії перегляду",
+    "error.file_not_found_in_archive": "файл не знайдено в архіві: {target_file}",
+    "error.zip_view_failed": "не вдалося переглянути zip: {etype}: {error}",
+    "param.format.description": "Формат архіву (auto, zip, tar, tar.gz, tar.bz2, tar.xz). За замовчуванням автоматично.",
+    "param.extract_files.description": "Вибіркове вилучення: список імен файлів або глобусів для вилучення.",
+    "param.relative_to.description": "Базовий каталог для обчислення відносних шляхів всередині архіву під час створення.",
+    "param.strip_components.description": "Кількість провідних компонентів каталогу для видалення при витягуванні.",
+    "param.target_file.description": "Відносний шлях файлу всередині архіву для попереднього перегляду для перегляду.",
+    "param.max_bytes.description": "Максимальна кількість байтів для перегляду (за замовчуванням 100 КБ)."
   },
   "tr": {
     "error.cancelled_by_user": "kullanıcı tarafından iptal edildi",
@@ -963,7 +1161,16 @@
       "dosya sıkıştırma",
       "sıkıştırmayı aç"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) mevcut dosyaların üzerine yazabilir.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDevam etmek için y veya iptal etmek için c girin."
+    "confirm.extract_overwrite": "zip_ops(extract) mevcut dosyaların üzerine yazabilir.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDevam etmek için y veya iptal etmek için c girin.",
+    "error.target_file_required": "görüntüleme eylemi için hedef_dosyası gereklidir",
+    "error.file_not_found_in_archive": "dosya arşivde bulunamadı: {target_file}",
+    "error.zip_view_failed": "zip görünümü başarısız oldu: {etype}: {error}",
+    "param.format.description": "Arşiv formatı (otomatik, zip, tar, tar.gz, tar.bz2, tar.xz). Varsayılan olarak otomatiktir.",
+    "param.extract_files.description": "Seçmeli çıkarma: çıkarılacak dosya adlarının veya glob desenlerinin listesi.",
+    "param.relative_to.description": "Oluşturma sırasında arşiv içindeki göreceli yolları hesaplamak için temel dizin.",
+    "param.strip_components.description": "Ayıklamada çıkarılacak önde gelen dizin bileşenlerinin sayısı.",
+    "param.target_file.description": "Görüntüleme eyleminin önizlemesi için arşiv içindeki dosyanın göreli yolu.",
+    "param.max_bytes.description": "Görüntüleme işlemi için okunacak maksimum bayt sayısı (varsayılan 100 KB)."
   },
   "th": {
     "error.cancelled_by_user": "ยกเลิกโดยผู้ใช้",
@@ -1005,7 +1212,16 @@
       "การบีบอัดไฟล์",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) อาจเขียนทับไฟล์ที่มีอยู่\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
+    "confirm.extract_overwrite": "zip_ops(extract) อาจเขียนทับไฟล์ที่มีอยู่\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "error.target_file_required": "จำเป็นต้องมี target_file สำหรับการดำเนินการดู",
+    "error.file_not_found_in_archive": "ไม่พบไฟล์ในไฟล์เก็บถาวร: {target_file}",
+    "error.zip_view_failed": "การดู zip ล้มเหลว: {etype}: {error}",
+    "param.format.description": "รูปแบบไฟล์เก็บถาวร (auto, zip, tar, tar.gz, tar.bz2, tar.xz) ค่าเริ่มต้นเป็นอัตโนมัติ",
+    "param.extract_files.description": "การแยกแบบเลือก: รายชื่อไฟล์หรือรูปแบบ glob ที่จะแยก",
+    "param.relative_to.description": "ไดเร็กทอรีฐานเพื่อคำนวณเส้นทางสัมพันธ์ภายในไฟล์เก็บถาวรระหว่างการสร้าง",
+    "param.strip_components.description": "จำนวนคอมโพเนนต์ไดเร็กทอรีชั้นนำที่จะแยกออก",
+    "param.target_file.description": "เส้นทางสัมพัทธ์ของไฟล์ภายในไฟล์เก็บถาวรเพื่อดูตัวอย่างการดำเนินการดู",
+    "param.max_bytes.description": "ไบต์สูงสุดในการอ่านเพื่อดูการดำเนินการ (ค่าเริ่มต้น 100KB)"
   },
   "zh_CN": {
     "error.cancelled_by_user": "被用户取消",
@@ -1047,7 +1263,16 @@
       "文件压缩",
       "解压缩"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) 可能会覆盖现有文件。\nzip: {zip_path}\ndest: {dest_dir}\n条目: {entries}\n输入 y 继续，或 c 取消。"
+    "confirm.extract_overwrite": "zip_ops(extract) 可能会覆盖现有文件。\nzip: {zip_path}\ndest: {dest_dir}\n条目: {entries}\n输入 y 继续，或 c 取消。",
+    "error.target_file_required": "查看操作需要 target_file",
+    "error.file_not_found_in_archive": "在存档中找不到文件：{target_file}",
+    "error.zip_view_failed": "zip 查看失败：{etype}：{error}",
+    "param.format.description": "存档格式（auto、zip、tar、tar.gz、tar.bz2、tar.xz）。默认为自动。",
+    "param.extract_files.description": "选择性提取：要提取的文件名或全局模式列表。",
+    "param.relative_to.description": "在创建期间计算存档内的相对路径的基目录。",
+    "param.strip_components.description": "提取时要剥离的主目录组件的数量。",
+    "param.target_file.description": "存档内文件的相对路径，用于预览视图操作。",
+    "param.max_bytes.description": "查看操作读取的最大字节数（默认 100KB）。"
   },
   "zh_TW": {
     "error.cancelled_by_user": "被用戶取消",
@@ -1089,7 +1314,16 @@
       "檔案壓縮",
       "解壓縮"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) 可能會覆寫現有檔案。 \nzip: {zip_path}\ndest: {dest_dir}\n條目: {entries}\n輸入 y 繼續，或 c 取消。"
+    "confirm.extract_overwrite": "zip_ops(extract) 可能會覆寫現有檔案。 \nzip: {zip_path}\ndest: {dest_dir}\n條目: {entries}\n輸入 y 繼續，或 c 取消。",
+    "error.target_file_required": "查看操作需要 target_file",
+    "error.file_not_found_in_archive": "在存檔中找不到檔案：{target_file}",
+    "error.zip_view_failed": "zip 檢視失敗：{etype}：{error}",
+    "param.format.description": "檔案格式（auto、zip、tar、tar.gz、tar.bz2、tar.xz）。預設為自動。",
+    "param.extract_files.description": "選擇性提取：要提取的檔案名稱或全域模式清單。",
+    "param.relative_to.description": "在建立期間計算存檔內的相對路徑的基底目錄。",
+    "param.strip_components.description": "提取時要剝離的主目錄組件的數量。",
+    "param.target_file.description": "存檔內文件的相對路徑，用於預覽視圖操作。",
+    "param.max_bytes.description": "查看操作讀取的最大位元組數（預設 100KB）。"
   },
   "bn": {
     "error.cancelled_by_user": "ব্যবহারকারী দ্বারা বাতিল",
@@ -1131,7 +1365,16 @@
       "ফাইল কম্প্রেশন",
       "ডিকম্প্রেস"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) বিদ্যমান ফাইল ওভাররাইট করতে পারে।\nজিপ: {zip_path}\nগন্তব্য: {dest_dir}\nএন্ট্রি: {entries}\n\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।"
+    "confirm.extract_overwrite": "zip_ops(extract) বিদ্যমান ফাইল ওভাররাইট করতে পারে।\nজিপ: {zip_path}\nগন্তব্য: {dest_dir}\nএন্ট্রি: {entries}\n\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।",
+    "error.target_file_required": "টার্গেট_ফাইল ভিউ অ্যাকশনের জন্য প্রয়োজন",
+    "error.file_not_found_in_archive": "ফাইলটি সংরক্ষণাগারে পাওয়া যায়নি: {target_file}",
+    "error.zip_view_failed": "জিপ দর্শন ব্যর্থ হয়েছে: {etype}: {error}",
+    "param.format.description": "সংরক্ষণাগার বিন্যাস (অটো, জিপ, টার, tar.gz, tar.bz2, tar.xz)। অটোতে ডিফল্ট।",
+    "param.extract_files.description": "নির্বাচনী নিষ্কাশন: নিষ্কাশন করার জন্য ফাইলের নাম বা গ্লোব প্যাটার্নের তালিকা।",
+    "param.relative_to.description": "তৈরি করার সময় আর্কাইভের ভিতরে আপেক্ষিক পাথ গণনা করার জন্য বেস ডিরেক্টরি।",
+    "param.strip_components.description": "এক্সট্রাক্টে স্ট্রীপ করার জন্য নেতৃস্থানীয় ডিরেক্টরি উপাদানের সংখ্যা।",
+    "param.target_file.description": "ভিউ অ্যাকশনের পূর্বরূপ দেখতে আর্কাইভের ভিতরে ফাইলের আপেক্ষিক পথ।",
+    "param.max_bytes.description": "ভিউ অ্যাকশনের জন্য পড়ার জন্য সর্বাধিক বাইট (ডিফল্ট 100KB)।"
   },
   "fa": {
     "error.cancelled_by_user": "توسط کاربر لغو شد",
@@ -1173,7 +1416,16 @@
       "فشرده سازی فایل",
       "از حالت فشرده خارج کردن"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) ممکن است فایل های موجود را بازنویسی کند.\nزیپ: {zip_path}\nمقصد: {dest_dir}\nورودی ها: {entries}\n\nبرای ادامه y یا برای لغو c را وارد کنید."
+    "confirm.extract_overwrite": "zip_ops(extract) ممکن است فایل های موجود را بازنویسی کند.\nزیپ: {zip_path}\nمقصد: {dest_dir}\nورودی ها: {entries}\n\nبرای ادامه y یا برای لغو c را وارد کنید.",
+    "error.target_file_required": "target_file برای عمل مشاهده مورد نیاز است",
+    "error.file_not_found_in_archive": "فایل در بایگانی یافت نشد: {target_file}",
+    "error.zip_view_failed": "نمایش zip ناموفق بود: {etype}: {error}",
+    "param.format.description": "فرمت آرشیو (خودکار، zip، tar، tar.gz، tar.bz2، tar.xz). به طور پیش فرض به صورت خودکار.",
+    "param.extract_files.description": "استخراج انتخابی: لیستی از نام فایل ها یا الگوهای گلوب برای استخراج.",
+    "param.relative_to.description": "دایرکتوری پایه برای محاسبه مسیرهای نسبی داخل بایگانی در حین ایجاد.",
+    "param.strip_components.description": "تعداد مؤلفه‌های دایرکتوری پیشرو برای حذف بر روی استخراج.",
+    "param.target_file.description": "مسیر نسبی فایل در داخل بایگانی برای پیش نمایش برای عملکرد مشاهده.",
+    "param.max_bytes.description": "حداکثر بایت برای خواندن برای عملکرد نمایش (پیش‌فرض 100 کیلوبایت)."
   },
   "mn": {
     "error.cancelled_by_user": "Хэрэглэгч цуцалсан",
@@ -1215,7 +1467,16 @@
       "файлыг шахах",
       " задлах"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) нь одоо байгаа файлуудыг дарж бичиж болно.\nzip: {zip_path}\ndest: {dest_dir}\nnot: {entries}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу."
+    "confirm.extract_overwrite": "zip_ops(extract) нь одоо байгаа файлуудыг дарж бичиж болно.\nzip: {zip_path}\ndest: {dest_dir}\nnot: {entries}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу.",
+    "error.target_file_required": "target_file нь харах үйлдэлд шаардлагатай",
+    "error.file_not_found_in_archive": "архиваас файл олдсонгүй: {target_file}",
+    "error.zip_view_failed": "зип харах амжилтгүй болсон: {etype}: {error}",
+    "param.format.description": "Архивын формат (авто, зип, tar, tar.gz, tar.bz2, tar.xz). Өгөгдмөл нь автомат.",
+    "param.extract_files.description": "Сонгомол олборлолт: задлах файлын нэр эсвэл бөмбөрцгийн хэв маягийн жагсаалт.",
+    "param.relative_to.description": "Үүсгэх явцад архив доторх харьцангуй замыг тооцоолох үндсэн лавлах.",
+    "param.strip_components.description": "Хандлах тэргүүлэх лавлах бүрэлдэхүүн хэсгүүдийн тоо.",
+    "param.target_file.description": "Архив доторх файлын харьцангуй зам нь харах үйлдлийг урьдчилан харах боломжтой.",
+    "param.max_bytes.description": "Үзэх үйлдэлд унших хамгийн их байт (өгөгдмөл 100KB)."
   },
   "mr": {
     "error.cancelled_by_user": "वापरकर्त्याने रद्द केले",
@@ -1257,7 +1518,16 @@
       "फाइल कॉम्प्रेशन",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(अर्क) विद्यमान फायली ओव्हरराइट करू शकतात. \nzip: {zip_path}\ndest: {dest_dir}\n प्रविष्ट्या: {entries}\n\n पुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा."
+    "confirm.extract_overwrite": "zip_ops(अर्क) विद्यमान फायली ओव्हरराइट करू शकतात. \nzip: {zip_path}\ndest: {dest_dir}\n प्रविष्ट्या: {entries}\n\n पुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा.",
+    "error.target_file_required": "टारगेट_फाइल पाहण्याच्या क्रियेसाठी आवश्यक आहे",
+    "error.file_not_found_in_archive": "संग्रहणात फाइल आढळली नाही: {target_file}",
+    "error.zip_view_failed": "झिप दृश्य अयशस्वी: {etype}: {error}",
+    "param.format.description": "संग्रहण स्वरूप (auto, zip, tar, tar.gz, tar.bz2, tar.xz). स्वयंवर डीफॉल्ट.",
+    "param.extract_files.description": "निवडक एक्सट्रॅक्शन: काढण्यासाठी फाइल नावांची किंवा ग्लोब पॅटर्नची सूची.",
+    "param.relative_to.description": "तयार करताना संग्रहणातील सापेक्ष पथांची गणना करण्यासाठी बेस निर्देशिका.",
+    "param.strip_components.description": "अर्क वर स्ट्रिप करण्यासाठी अग्रगण्य निर्देशिका घटकांची संख्या.",
+    "param.target_file.description": "दृश्य क्रियेसाठी पूर्वावलोकन करण्यासाठी संग्रहणाच्या आत फाइलचा सापेक्ष मार्ग.",
+    "param.max_bytes.description": "दृश्य क्रियेसाठी वाचण्यासाठी कमाल बाइट्स (डिफॉल्ट 100KB)."
   },
   "el": {
     "error.cancelled_by_user": "ακυρώθηκε από τον χρήστη",
@@ -1299,7 +1569,16 @@
       "συμπίεση αρχείου",
       "αποσυμπίεση"
     ],
-    "confirm.extract_overwrite": "Το zip_ops(extract) μπορεί να αντικαταστήσει υπάρχοντα αρχεία.\nzip: {zip_path}\ndest: {dest_dir}\nεγγραφές: {entries}\n\nΕισαγάγετε y για να συνεχίσετε ή c για ακύρωση."
+    "confirm.extract_overwrite": "Το zip_ops(extract) μπορεί να αντικαταστήσει υπάρχοντα αρχεία.\nzip: {zip_path}\ndest: {dest_dir}\nεγγραφές: {entries}\n\nΕισαγάγετε y για να συνεχίσετε ή c για ακύρωση.",
+    "error.target_file_required": "Το target_file απαιτείται για την ενέργεια προβολής",
+    "error.file_not_found_in_archive": "το αρχείο δεν βρέθηκε στο αρχείο: {target_file}",
+    "error.zip_view_failed": "Η προβολή zip απέτυχε: {etype}: {error}",
+    "param.format.description": "Μορφή αρχείου (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Οι προεπιλογές είναι αυτόματη.",
+    "param.extract_files.description": "Επιλεκτική εξαγωγή: λίστα ονομάτων αρχείων ή μοτίβων σφαιρών προς εξαγωγή.",
+    "param.relative_to.description": "Βάση καταλόγου για τον υπολογισμό σχετικών διαδρομών μέσα στο αρχείο κατά τη δημιουργία.",
+    "param.strip_components.description": "Αριθμός βασικών στοιχείων καταλόγου προς απογύμνωση σε εξαγωγή.",
+    "param.target_file.description": "Σχετική διαδρομή του αρχείου μέσα στο αρχείο για προεπισκόπηση για δράση προβολής.",
+    "param.max_bytes.description": "Μέγιστα byte προς ανάγνωση για ενέργεια προβολής (προεπιλογή 100 KB)."
   },
   "he": {
     "error.cancelled_by_user": "בוטל על ידי המשתמש",
@@ -1341,7 +1620,16 @@
       "דחיסת קובץ",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) עשוי להחליף קבצים קיימים.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל."
+    "confirm.extract_overwrite": "zip_ops(extract) עשוי להחליף קבצים קיימים.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל.",
+    "error.target_file_required": "target_file נדרש לפעולת התצוגה",
+    "error.file_not_found_in_archive": "הקובץ לא נמצא בארכיון: {target_file}",
+    "error.zip_view_failed": "תצוגת zip נכשלה: {etype}: {error}",
+    "param.format.description": "פורמט ארכיון (אוטומטי, zip, tar, tar.gz, tar.bz2, tar.xz). ברירת המחדל היא אוטומטית.",
+    "param.extract_files.description": "חילוץ סלקטיבי: רשימה של שמות קבצים או דפוסי גלוב לחילוץ.",
+    "param.relative_to.description": "ספריית בסיס לחישוב נתיבים יחסיים בתוך הארכיון במהלך היצירה.",
+    "param.strip_components.description": "מספר רכיבי הספרייה המובילים שיש להסיר בחילוץ.",
+    "param.target_file.description": "נתיב יחסי של הקובץ בתוך הארכיון לתצוגה מקדימה לפעולת תצוגה.",
+    "param.max_bytes.description": "מקסימום בתים לקריאה עבור פעולת תצוגה (ברירת מחדל 100KB)."
   },
   "hu": {
     "error.cancelled_by_user": "felhasználó törölte",
@@ -1383,7 +1671,16 @@
       "fájltömörítés",
       "kicsomagolás"
     ],
-    "confirm.extract_overwrite": "A zip_ops(extract) felülírhatja a meglévő fájlokat.\nzip: {zip_path}\ndest: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig c."
+    "confirm.extract_overwrite": "A zip_ops(extract) felülírhatja a meglévő fájlokat.\nzip: {zip_path}\ndest: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig c.",
+    "error.target_file_required": "cél_fájl szükséges a megtekintési művelethez",
+    "error.file_not_found_in_archive": "a fájl nem található az archívumban: {target_file}",
+    "error.zip_view_failed": "zip nézet nem sikerült: {etype}: {error}",
+    "param.format.description": "Archív formátum (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Alapértelmezés szerint auto.",
+    "param.extract_files.description": "Szelektív kibontás: a kibontandó fájlnevek vagy glob-minták listája.",
+    "param.relative_to.description": "Alapkönyvtár az archívum relatív elérési útjainak kiszámításához a létrehozás során.",
+    "param.strip_components.description": "A kivonatkor eltávolítandó vezető címtár-összetevők száma.",
+    "param.target_file.description": "Az archívumban lévő fájl relatív elérési útja a megtekintési művelet előnézetéhez.",
+    "param.max_bytes.description": "A megtekintési művelethez beolvasható maximális bájtok (alapértelmezett 100 KB)."
   },
   "ro": {
     "error.cancelled_by_user": "anulat de utilizator",
@@ -1425,7 +1722,16 @@
       "comprimare fișiere",
       "decomprimare"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) poate suprascrie fișierele existente.\nzip: {zip_path}\ndest: {dest_dir}\nentry: {entries}\n\nIntroduceți y pentru a continua sau c pentru a anula."
+    "confirm.extract_overwrite": "zip_ops(extract) poate suprascrie fișierele existente.\nzip: {zip_path}\ndest: {dest_dir}\nentry: {entries}\n\nIntroduceți y pentru a continua sau c pentru a anula.",
+    "error.target_file_required": "target_file este necesar pentru acțiunea de vizualizare",
+    "error.file_not_found_in_archive": "fișierul nu a fost găsit în arhivă: {target_file}",
+    "error.zip_view_failed": "vizualizarea zip a eșuat: {etype}: {error}",
+    "param.format.description": "Format de arhivă (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Setarea implicită este automată.",
+    "param.extract_files.description": "Extracție selectivă: listă de nume de fișiere sau modele glob de extras.",
+    "param.relative_to.description": "Director de bază pentru a calcula căile relative în interiorul arhivei în timpul creării.",
+    "param.strip_components.description": "Numărul de componente principale ale directorului de care trebuie eliminate extragerea.",
+    "param.target_file.description": "Calea relativă a fișierului din arhivă pentru previzualizare pentru acțiunea de vizualizare.",
+    "param.max_bytes.description": "Numărul maxim de octeți de citire pentru acțiunea de vizualizare (implicit 100 KB)."
   },
   "fil": {
     "error.cancelled_by_user": "kinansela ng user",
@@ -1467,7 +1773,16 @@
       "pag-compress ng file",
       "decompress"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) ay maaaring i-overwrite ang mga kasalukuyang file.\nzip: {zip_path}\ndest: {dest_dir}\nmga entry: {entries}\n\nIlagay ang y upang magpatuloy, o c upang kanselahin."
+    "confirm.extract_overwrite": "zip_ops(extract) ay maaaring i-overwrite ang mga kasalukuyang file.\nzip: {zip_path}\ndest: {dest_dir}\nmga entry: {entries}\n\nIlagay ang y upang magpatuloy, o c upang kanselahin.",
+    "error.target_file_required": "target_file ay kinakailangan para sa view ng pagkilos",
+    "error.file_not_found_in_archive": "hindi nakita ang file sa archive: {target_file}",
+    "error.zip_view_failed": "nabigo ang zip view: {etype}: {error}",
+    "param.format.description": "Format ng archive (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Default sa auto.",
+    "param.extract_files.description": "Selective extraction: listahan ng mga pangalan ng file o mga pattern ng glob na kukunin.",
+    "param.relative_to.description": "Base na direktoryo upang makalkula ang mga kamag-anak na landas sa loob ng archive sa panahon ng paggawa.",
+    "param.strip_components.description": "Bilang ng mga nangungunang bahagi ng direktoryo na aalisin sa extract.",
+    "param.target_file.description": "Relatibong landas ng file sa loob ng archive upang i-preview para sa pagkilos na tingnan.",
+    "param.max_bytes.description": "Pinakamataas na byte na babasahin para sa pagkilos na tingnan (default 100KB)."
   },
   "ms": {
     "error.cancelled_by_user": "dibatalkan oleh pengguna",
@@ -1509,7 +1824,16 @@
       "mampatan fail",
       "nyahmampat"
     ],
-    "confirm.extract_overwrite": "zip_ops(ekstrak) boleh menimpa fail sedia ada.\nzip: {zip_path}\ndest: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk meneruskan atau c untuk membatalkan."
+    "confirm.extract_overwrite": "zip_ops(ekstrak) boleh menimpa fail sedia ada.\nzip: {zip_path}\ndest: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk meneruskan atau c untuk membatalkan.",
+    "error.target_file_required": "target_file diperlukan untuk melihat tindakan",
+    "error.file_not_found_in_archive": "fail tidak ditemui dalam arkib: {target_file}",
+    "error.zip_view_failed": "paparan zip gagal: {etype}: {error}",
+    "param.format.description": "Format arkib (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Lalai kepada auto.",
+    "param.extract_files.description": "Pengekstrakan terpilih: senarai nama fail atau corak glob untuk diekstrak.",
+    "param.relative_to.description": "Direktori asas untuk mengira laluan relatif di dalam arkib semasa mencipta.",
+    "param.strip_components.description": "Bilangan komponen direktori utama untuk dilucutkan pada ekstrak.",
+    "param.target_file.description": "Laluan relatif fail di dalam arkib untuk pratonton untuk melihat tindakan.",
+    "param.max_bytes.description": "Bait maksimum untuk dibaca untuk melihat tindakan (lalai 100KB)."
   },
   "da": {
     "error.cancelled_by_user": "annulleret af brugeren",
@@ -1551,7 +1875,16 @@
       "filkomprimering",
       "dekomprimere"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\nindgange: {entries}\n\nIndtast y for at fortsætte, eller c for at annullere."
+    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\nindgange: {entries}\n\nIndtast y for at fortsætte, eller c for at annullere.",
+    "error.target_file_required": "target_file er påkrævet for visningshandling",
+    "error.file_not_found_in_archive": "fil ikke fundet i arkivet: {target_file}",
+    "error.zip_view_failed": "zip-visning mislykkedes: {etype}: {error}",
+    "param.format.description": "Arkivformat (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Standard til auto.",
+    "param.extract_files.description": "Selektiv ekstraktion: liste over filnavne eller glob-mønstre, der skal udpakkes.",
+    "param.relative_to.description": "Basismappe til at beregne relative stier i arkivet under oprettelse.",
+    "param.strip_components.description": "Antal førende mappekomponenter, der skal fjernes ved udtræk.",
+    "param.target_file.description": "Relativ sti til fil inde i arkivet til forhåndsvisning for visningshandling.",
+    "param.max_bytes.description": "Maksimalt antal bytes at læse for visningshandling (standard 100KB)."
   },
   "nn": {
     "error.cancelled_by_user": "kansellert av brukeren",
@@ -1593,6 +1926,15 @@
       "filkomprimering",
       "dekomprimere"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte."
+    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
+    "error.target_file_required": "target_file er påkrevd for visningshandling",
+    "error.file_not_found_in_archive": "fil ikke funnet i arkivet: {target_file}",
+    "error.zip_view_failed": "zip-visning mislyktes: {etype}: {error}",
+    "param.format.description": "Arkivformat (auto, zip, tar, tar.gz, tar.bz2, tar.xz). Standard er auto.",
+    "param.extract_files.description": "Selektiv utvinning: liste over filnavn eller glob mønstre for å trekke ut.",
+    "param.relative_to.description": "Basiskatalog for å beregne relative baner i arkivet under oppretting.",
+    "param.strip_components.description": "Antall ledende katalogkomponenter som skal strippes på ekstrakt.",
+    "param.target_file.description": "Relativ bane til fil inne i arkivet for å forhåndsvise for visningshandling.",
+    "param.max_bytes.description": "Maksimum byte å lese for visning handling (standard 100KB)."
   }
 }
