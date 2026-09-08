@@ -405,3 +405,40 @@ def test_manual_cmd_shrink_llm_uses_compress(monkeypatch: pytest.MonkeyPatch):
     assert captured.get("keep_last") == 3
     assert lmh._messages_have_history_summary(msgs)
     assert msgs[-1]["content"] == "tail"
+
+
+def test_auto_shrink_projection_does_not_mutate_persistent_messages(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    msgs = _make_dialog(5)
+    original = [dict(message) for message in msgs]
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "8")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+
+    def _fake_compress(**kwargs):
+        return [
+            {"role": "system", "content": "SYSTEM_PROMPT"},
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:\nS",
+            },
+            {"role": "user", "content": "tail"},
+        ]
+
+    projected_cache, projected = lmh._build_auto_shrink_projection(
+        provider="openai",
+        client=object(),
+        depname="gpt-test",
+        messages=msgs,
+        core=SimpleNamespace(compress_history_with_llm=_fake_compress),
+        cache_mgr=SimpleNamespace(clear_cache=lambda c: None),
+        gemini_cache_name=None,
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=False,
+    )
+
+    assert projected_cache is None
+    assert msgs == original
+    assert projected != msgs
+    assert lmh._messages_have_history_summary(projected)
