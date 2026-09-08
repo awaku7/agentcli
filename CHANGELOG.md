@@ -19,6 +19,13 @@
 
 ## [Unreleased]
 
+## [0.7.4] - 2026-09-08
+
+### Fixed
+
+- Preserve CLI command syntax when translating localized descriptions.
+- Preserve `skills` command syntax in translated hints.
+
 ## [0.7.3] - 2026-09-07
 
 ### Changed
