@@ -18,7 +18,7 @@ from .util_common import strip_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .reasoning_display import show_reasoning
-from .llm_message_helpers import _get_shrink_max_tokens
+from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
 from .providers.llm_claude import (
     claude_chat_with_tools,
@@ -379,11 +379,19 @@ def _call_gemini_round(
                 # cached content, then rebuild the cache for the next round.
                 turn_repair_attempted = True
                 if history_messages:
-                    call_messages[:] = [
-                        dict(message)
-                        for message in history_messages
-                        if isinstance(message, dict)
-                    ]
+                    # Do not copy raw history directly here. An interrupted
+                    # tool loop can leave an assistant function-call block
+                    # without all of its tool results; sending that block
+                    # followed by ``Continue.`` violates Vertex's turn
+                    # protocol. Re-run the normal Gemini history sanitizer
+                    # so incomplete tool blocks are removed first.
+                    call_messages[:] = _build_call_messages(
+                        provider=provider,
+                        messages=history_messages,
+                        core=core,
+                        depname=depname,
+                        gemini_cache_name=None,
+                    )
                 call_messages.append({"role": "user", "content": "Continue."})
                 gemini_cache_name = None
                 try:

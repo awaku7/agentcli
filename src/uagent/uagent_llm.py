@@ -117,6 +117,13 @@ def _inject_stop_prompt(
     except Exception:
         pass
     print("\n[INTERRUPT] " + _("Stopped by user. Sending stop command to LLM..."))
+    # An interrupt can leave a Gemini/Vertex cache associated with an
+    # incomplete assistant tool turn. Force the next round to rebuild it
+    # instead of combining the stale cache with a new user message.
+    try:
+        core._gemini_cache_needs_refresh = True
+    except Exception:
+        pass
     user_msg = {"role": "user", "content": _("Stop")}
     messages.append(user_msg)
     core.log_message(user_msg)

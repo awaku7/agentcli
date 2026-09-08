@@ -16,7 +16,9 @@ from typing import Any
 
 from uagent.utils.paths import get_log_dir
 
-PYTHON_EXEC_TIMEOUT_MS = 2000_000
+# Keep Python tool calls bounded so a child process cannot block an agent
+# session for tens of minutes, while still allowing normal data-processing jobs.
+PYTHON_EXEC_TIMEOUT_MS = 300_000
 CMD_EXEC_TIMEOUT_MS = 2000_000
 MAX_TOOL_OUTPUT_CHARS = 400_000
 READ_FILE_MAX_BYTES = 20_000_000
