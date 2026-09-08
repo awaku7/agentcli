@@ -70,6 +70,7 @@
     "param.pythonpath.description": "PYTHONPATH adicional (por ejemplo, 'src').",
     "param.report.description": "Formato de salida.",
     "param.target.description": "Destino (ruta de pytest, directorio inicial de unittest, script npm, etc.).",
+    "param.timeout_sec.description": "Tiempo máximo de ejecución de la prueba en segundos.",
     "tool.description": "Ejecuta pruebas (detección automática de pytest/unittest/npm).",
     "x_search_terms": [
       "ejecutar pruebas",
@@ -98,6 +99,7 @@
     "param.pythonpath.description": "PYTHONPATH supplémentaire (par exemple 'src').",
     "param.report.description": "Format de sortie.",
     "param.target.description": "Cible (chemin pytest, répertoire de départ unittest, script npm, etc.).",
+    "param.timeout_sec.description": "Temps maximum d'exécution du test en secondes.",
     "tool.description": "Exécute les tests (détection automatique de pytest/unittest/npm).",
     "x_search_terms": [
       "exécuter des tests",
@@ -126,6 +128,7 @@
     "param.pythonpath.description": "추가 PYTHONPATH(예: 'src'). 제공되면 테스트 명령 앞에 붙습니다.",
     "param.report.description": "출력 형식.",
     "param.target.description": "대상(pytest 경로, unittest 시작 디렉터리, npm 스크립트 등). null이면 기본값을 사용합니다.",
+    "param.timeout_sec.description": "최대 테스트 실행 시간(초)입니다.",
     "tool.description": "테스트를 실행합니다(pytest/unittest/npm 자동 감지). extra_args의 셸 메타문자를 거부합니다.",
     "x_search_terms": [
       "테스트 실행",
@@ -154,6 +157,7 @@
     "param.pythonpath.description": "Zusätzliches PYTHONPATH (z. B. 'src'). Wenn angegeben, wird es dem Testbefehl vorangestellt.",
     "param.report.description": "Ausgabeformat.",
     "param.target.description": "Ziel (pytest-Pfad, unittest-Startverzeichnis, npm-Skript usw.).",
+    "param.timeout_sec.description": "Maximale Testausführungszeit in Sekunden.",
     "tool.description": "Tests ausführen (pytest/unittest/npm automatisch erkennen).",
     "x_search_terms": [
       "Tests ausführen",
@@ -182,6 +186,7 @@
     "param.pythonpath.description": "PYTHONPATH aggiuntivo (ad es. 'src'). Se fornito, viene anteposto al comando di test.",
     "param.report.description": "Formato di output",
     "param.target.description": "Destinazione (percorso pytest, directory iniziale di unittest, script npm, ecc.).",
+    "param.timeout_sec.description": "Tempo massimo di esecuzione del test in secondi.",
     "tool.description": "Esegue i test (rilevamento automatico di pytest/unittest/npm).",
     "x_search_terms": [
       "esegui test",
@@ -210,6 +215,7 @@
     "param.pythonpath.description": "Дополнительный PYTHONPATH (например, 'src'). Если задан, он добавляется перед командой теста.",
     "param.report.description": "Формат вывода.",
     "param.target.description": "Цель (путь pytest, каталог запуска unittest, npm-скрипт и т.д.).",
+    "param.timeout_sec.description": "Максимальное время выполнения теста в секундах.",
     "tool.description": "Запускает тесты (автоопределение pytest/unittest/npm).",
     "x_search_terms": [
       "запускать тесты",
@@ -238,6 +244,7 @@
     "param.pythonpath.description": "PYTHONPATH adicional (por exemplo, 'src'). Se fornecido, ele é prefixado ao comando de teste.",
     "param.report.description": "Formato de saída.",
     "param.target.description": "Destino (caminho pytest, diretório inicial do unittest, script npm, etc.).",
+    "param.timeout_sec.description": "Tempo máximo de execução do teste em segundos.",
     "tool.description": "Executa testes (detecção automática de pytest/unittest/npm).",
     "x_search_terms": [
       "executar testes",
@@ -266,6 +273,7 @@
     "param.pythonpath.description": "PYTHONPATH adicional (por exemplo, 'src'). Se fornecido, será prefixado ao comando de teste.",
     "param.report.description": "Formato de saída.",
     "param.target.description": "Destino (caminho pytest, diretório inicial unittest, script npm, etc.).",
+    "param.timeout_sec.description": "Tempo máximo de execução do teste em segundos.",
     "tool.description": "Execute testes (detecção automática de pytest/unittest/npm).",
     "x_search_terms": [
       "executar testes",
@@ -294,6 +302,7 @@
     "param.pythonpath.description": "PYTHONPATH tambahan (mis. 'src'). Jika diberikan, akan diprefix ke perintah tes.",
     "param.report.description": "Format keluaran.",
     "param.target.description": "Target (path pytest, direktori awal unittest, script npm, dll.). Jika null, gunakan default.",
+    "param.timeout_sec.description": "Waktu pelaksanaan tes maksimum dalam hitungan detik.",
     "tool.description": "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args.",
     "x_search_terms": [
       "jalankan pengujian",
@@ -322,6 +331,7 @@
     "param.pythonpath.description": "PYTHONPATH bổ sung (ví dụ: 'src'). Nếu được cung cấp, nó sẽ được đặt trước lệnh kiểm tra.",
     "param.report.description": "Định dạng đầu ra.",
     "param.target.description": "Mục tiêu (đường dẫn pytest, thư mục bắt đầu nhỏ nhất, tập lệnh npm, v.v.).",
+    "param.timeout_sec.description": "Thời gian thực hiện kiểm tra tối đa tính bằng giây.",
     "tool.description": "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm).",
     "x_search_terms": [
       "chạy thử nghiệm",
@@ -350,6 +360,7 @@
     "param.pythonpath.description": "Dodatkowy PYTHONPATH (np. „src”). Jeśli jest podany, jest poprzedzany poleceniem testowym.",
     "param.report.description": "Format wyjściowy",
     "param.target.description": "Cel (ścieżka pytest, katalog startowy unittest, skrypt npm itp.).",
+    "param.timeout_sec.description": "Maksymalny czas wykonania testu w sekundach.",
     "tool.description": "Uruchom testy (automatyczne wykrywanie pytest/unittest/npm).",
     "x_search_terms": [
       "uruchom testy",
@@ -378,6 +389,7 @@
     "param.pythonpath.description": "अतिरिक्त PythonPATH (उदा.'src').",
     "param.report.description": "आउटपुट स्वरूप.",
     "param.target.description": "लक्ष्य (पाइटेस्ट पथ, यूनिटटेस्ट प्रारंभ निर्देशिका, एनपीएम स्क्रिप्ट, आदि)। यदि शून्य है, तो डिफ़ॉल्ट का उपयोग किया जाता है।",
+    "param.timeout_sec.description": "अधिकतम परीक्षण निष्पादन समय सेकंड में.",
     "tool.description": "लक्ष्य (पाइटेस्ट पथ, यूनिटेस्ट प्रारंभ निर्देशिका, एनपीएम स्क्रिप्ट, आदि)। यदि शून्य है, तो डिफ़ॉल्ट का उपयोग किया जाता है अतिरिक्त_args.",
     "x_search_terms": [
       "परीक्षण चलाएँ",
@@ -406,6 +418,7 @@
     "param.pythonpath.description": "PYTHONPATH إضافي (مثل 'src'). إذا تم توفيره، يُضاف قبل أمر الاختبار.",
     "param.report.description": "تنسيق الإخراج.",
     "param.target.description": "الهدف (مسار pytest، دليل بدء unittest، script npm، إلخ). إذا كان null، تُستخدم القيم الافتراضية.",
+    "param.timeout_sec.description": "الحد الأقصى لوقت تنفيذ الاختبار بالثواني.",
     "tool.description": "شغّل الاختبارات (اكتشاف تلقائي لـ pytest/unittest/npm). ارفض أحرف shell الخاصة في extra_args.",
     "x_search_terms": [
       "تشغيل الاختبارات",
@@ -434,6 +447,7 @@
     "param.pythonpath.description": "Ytterligare PYTHONPATH (t.ex. 'src'). Om det anges läggs det framför testkommandot.",
     "param.report.description": "Utdataformat.",
     "param.target.description": "Mål (pytest-sökväg, unittest-startkatalog, npm-skript osv.). Om null används standardvärden.",
+    "param.timeout_sec.description": "Maximal testkörningstid i sekunder.",
     "tool.description": "Kör tester (auto-detektera pytest/unittest/npm). Avvisa shell-metatecken i extra_args.",
     "x_search_terms": [
       "kör tester",
@@ -462,6 +476,7 @@
     "param.pythonpath.description": "PYTHONPATH ya ziada (kwa mfano 'src'). Ikitolewa, huwekwa mbele ya amri ya majaribio.",
     "param.report.description": "Umbizo la towe.",
     "param.target.description": "Lengo (njia ya pytest, saraka ya kuanzia ya unittest, script ya npm, n.k.).",
+    "param.timeout_sec.description": "Muda wa juu zaidi wa utekelezaji wa jaribio kwa sekunde.",
     "tool.description": "Endesha majaribio (gundua pytest/unittest/npm kiotomatiki).",
     "x_search_terms": [
       "fanya majaribio",
@@ -490,6 +505,7 @@
     "param.pythonpath.description": "Ekstra PYTHONPATH (f.eks. 'src'). Hvis angitt, prefikseres det testkommandoen.",
     "param.report.description": "Utdataformat.",
     "param.target.description": "Mål (pytest-sti, unittest-startkatalog, npm-script osv.). Hvis null brukes standardverdier.",
+    "param.timeout_sec.description": "Maksimal testgjennomføringstid i sekunder.",
     "tool.description": "Kjør tester (auto-detektér pytest/unittest/npm). Avvis skallmetategn i extra_args.",
     "x_search_terms": [
       "kjør tester",
@@ -518,6 +534,7 @@
     "param.pythonpath.description": "Extra PYTHONPATH (bijv. 'src'). Indien opgegeven, wordt dit voor de testopdracht geplaatst.",
     "param.report.description": "Uitvoerformaat.",
     "param.target.description": "Doel (pytest-pad, unittest-startmap, npm-script, enz.). Als null, worden standaardwaarden gebruikt.",
+    "param.timeout_sec.description": "Maximale testuitvoeringstijd in seconden.",
     "tool.description": "Tests uitvoeren (pytest/unittest/npm automatisch detecteren).",
     "x_search_terms": [
       "voer tests uit",
@@ -546,6 +563,7 @@
     "param.pythonpath.description": "Lisä-PYTHONPATH (esim. 'src'). Jos annetaan, se lisätään testikomennon eteen.",
     "param.report.description": "Tulostusmuoto.",
     "param.target.description": "Kohde (pytest-polku, unittestin aloitushakemisto, npm-skripti jne.). Jos null, käytetään oletuksia.",
+    "param.timeout_sec.description": "Testin enimmäissuoritusaika sekunneissa.",
     "tool.description": "Aja testit (pytest/unittest/npm automaattitunnistuksella).",
     "x_search_terms": [
       "suorita testejä",
@@ -574,6 +592,7 @@
     "param.pythonpath.description": "Dodatečný PYTHONPATH (např. 'src'). Je-li zadán, přidá se před testovací příkaz.",
     "param.report.description": "Formát výstupu.",
     "param.target.description": "Cíl (cesta pro pytest, startovní adresář unittest, skript npm atd.).",
+    "param.timeout_sec.description": "Maximální doba provedení testu v sekundách.",
     "tool.description": "Spouští testy (automatická detekce pytest/unittest/npm). Odmítá shell metaznaky v extra_args.",
     "x_search_terms": [
       "spustit testy",
@@ -602,6 +621,7 @@
     "param.pythonpath.description": "Додатковий PYTHONPATH (наприклад, 'src'). Якщо задано, додається перед тестовою командою.",
     "param.report.description": "Формат виводу.",
     "param.target.description": "Ціль (шлях pytest, початковий каталог unittest, сценарій npm тощо).",
+    "param.timeout_sec.description": "Максимальний час виконання тесту в секундах.",
     "tool.description": "Запускає тести (автовизначення pytest/unittest/npm). Відхиляє метасимволи shell у extra_args.",
     "x_search_terms": [
       "запустити tests",
@@ -630,6 +650,7 @@
     "param.pythonpath.description": "Ek PYTHONPATH (ör. 'src'). Sağlanmışsa, test komutunun önüne eklenir.",
     "param.report.description": "Çıkış formatı.",
     "param.target.description": "Hedef (pytest yolu, birim test başlangıç ​​dizini, npm betiği vb.). Boşsa, varsayılanlar kullanılır.",
+    "param.timeout_sec.description": "Saniye cinsinden maksimum test yürütme süresi.",
     "tool.description": "Testleri çalıştırın (pytest/unittest/npm'yi otomatik olarak algıla).",
     "x_search_terms": [
       "testleri çalıştır",
@@ -658,6 +679,7 @@
     "param.pythonpath.description": "PYTHONPATH เพิ่มเติม (เช่น 'src') หากระบุ จะวางนำหน้าคำสั่งทดสอบ",
     "param.report.description": "รูปแบบเอาต์พุต",
     "param.target.description": "เป้าหมาย (พาธ pytest, ไดเร็กทอรีเริ่มต้น unittest, สคริปต์ npm ฯลฯ) หากเป็น null จะใช้ค่าเริ่มต้น",
+    "param.timeout_sec.description": "เวลาดำเนินการทดสอบสูงสุดในหน่วยวินาที",
     "tool.description": "รันการทดสอบ (ตรวจจับ pytest/unittest/npm อัตโนมัติ) ปฏิเสธเมตาอักขระของเชลล์ใน extra_args",
     "x_search_terms": [
       "รันการทดสอบ",
@@ -686,6 +708,7 @@
     "param.pythonpath.description": "附加 PYTHONPATH（例如 'src'）。如果提供，会加在测试命令前。",
     "param.report.description": "输出格式。",
     "param.target.description": "目标（pytest 路径、unittest 起始目录、npm 脚本等）。如果为 null，则使用默认值。",
+    "param.timeout_sec.description": "最大测试执行时间（以秒为单位）。",
     "tool.description": "运行测试（自动检测 pytest/unittest/npm）。拒绝 extra_args 中的 shell 元字符。",
     "x_search_terms": [
       "运行测试",
@@ -714,6 +737,7 @@
     "param.pythonpath.description": "附加 PYTHONPATH（例如 'src'）。如果提供，會加在測試命令前。",
     "param.report.description": "輸出格式。",
     "param.target.description": "目標（pytest 路徑、unittest 起始目錄、npm 腳本等）。如果為 null，則使用預設值。",
+    "param.timeout_sec.description": "最大測試執行時間（以秒為單位）。",
     "tool.description": "執行測試（自動偵測 pytest/unittest/npm）。拒絕 extra_args 中的 shell 元字元。",
     "x_search_terms": [
       "運行測試",
@@ -742,6 +766,7 @@
     "param.pythonpath.description": "অতিরিক্ত PYTHONPATH (যেমন 'src'). দিলে তা test command-এর আগে যোগ হয়।",
     "param.report.description": "আউটপুট ফরম্যাট।",
     "param.target.description": "টার্গেট (pytest path, unittest start directory, npm script, ইত্যাদি)। null হলে ডিফল্ট ব্যবহার হবে।",
+    "param.timeout_sec.description": "সেকেন্ডে সর্বোচ্চ পরীক্ষা কার্যকর করার সময়।",
     "tool.description": "পরীক্ষা চালান (স্বয়ংক্রিয়ভাবে সনাক্ত করুন pytest/unittest/npm)। অতিরিক্ত_আর্গে শেল মেটাক্যারেক্টার প্রত্যাখ্যান করুন।",
     "x_search_terms": [
       "পরীক্ষা চালান",
@@ -770,6 +795,7 @@
     "param.pythonpath.description": "PYTHONPATH اضافی (مثلاً 'src'). اگر ارائه شود، به ابتدای فرمان تست افزوده می‌شود.",
     "param.report.description": "قالب خروجی.",
     "param.target.description": "هدف (مسیر pytest، دایرکتوری شروع unittest، اسکریپت npm، و غیره).",
+    "param.timeout_sec.description": "حداکثر زمان اجرای تست بر حسب ثانیه",
     "tool.description": "تست‌ها را اجرا کنید (pytest/unittest/npm را خودکار تشخیص می‌دهد).",
     "x_search_terms": [
       "اجرای تست‌ها",
@@ -798,6 +824,7 @@
     "param.pythonpath.description": "Нэмэлт PYTHONPATH (жишээ нь 'src'). Өгвөл тестийн командыг өмнө нь залгана.",
     "param.report.description": "Хэрэглэгчийн_8 тэмдэгтийн дээд хэмжээ (код тайлсны дараа хэрэглэгдэх болно).",
     "param.target.description": "Зорилт (pytest path, unittest эхлэх directory, npm script, гэх мэт).",
+    "param.timeout_sec.description": "Туршилтын гүйцэтгэлийн хамгийн их хугацаа секундээр.",
     "tool.description": "Тест ажиллуулна (pytest/unittest/npm-ийг автоматаар танина).",
     "x_search_terms": [
       "tests ажиллуулах",
@@ -826,6 +853,7 @@
     "param.pythonpath.description": "अतिरिक्त PYTHONPATH (उदा. 'src'). दिल्यास ते test command च्या आधी जोडले जाते.",
     "param.report.description": "आउटपुट स्वरूप.",
     "param.target.description": "लक्ष्य (pytest path, unittest start directory, npm script, इ.). null असल्यास default वापरा.",
+    "param.timeout_sec.description": "सेकंदांमध्ये कमाल चाचणी अंमलबजावणी वेळ.",
     "tool.description": "चाचण्या चालवा (pytest/unittest/npm आपोआप ओळखते). extra_args मधील shell metacharacter नाकारते.",
     "x_search_terms": [
       "चाचण्या चालवा",
@@ -854,6 +882,7 @@
     "param.pythonpath.description": "Εκτέλεση δοκιμών (αυτόματος εντοπισμός pytest/unittest/npm). Απόρριψη μεταχαρακτήρες κελύφους στο extra_args.",
     "param.report.description": "Μορφή εξόδου.",
     "param.target.description": "Στόχος (διαδρομή pytest, κατάλογος έναρξης δοκιμής μονάδας, σενάριο npm, κ.λπ.). Εάν είναι null, χρησιμοποιούνται προεπιλογές.",
+    "param.timeout_sec.description": "Μέγιστος χρόνος εκτέλεσης δοκιμής σε δευτερόλεπτα.",
     "tool.description": "Εκτελέστε δοκιμές (αυτόματος εντοπισμός pytest/unittest/npm). Απόρριψη μεταχαρακτήρες κελύφους στο extra_args.",
     "x_search_terms": [
       "εκτέλεση δοκιμών",
@@ -882,6 +911,7 @@
     "param.pythonpath.description": "יעד (נתיב pytest, ספריית התחלה של unittest, סקריפט npm וכו'). אם null, נעשה שימוש בברירות המחדל.",
     "param.report.description": "פורמט פלט.",
     "param.target.description": "הפעל בדיקות (זיהוי אוטומטי של pytest/unittest/npm). דחה מטא-תווים של מעטפת ב-extra_args.",
+    "param.timeout_sec.description": "זמן ביצוע בדיקה מרבי בשניות.",
     "tool.description": "הפעל בדיקות (זיהוי אוטומטי של pytest/unittest/npm). דחה מטא-תווים של מעטפת ב-extra_args.",
     "x_search_terms": [
       "הרץ בדיקות",
@@ -910,6 +940,7 @@
     "param.pythonpath.description": "Tesztek futtatása (pytest/unittest/npm automatikus észlelése). A shell metakaraktereinek elutasítása az extra_args-ban.",
     "param.report.description": "Kimeneti formátum.",
     "param.target.description": "Cél (pytest elérési út, unittest kezdőkönyvtár, npm szkript stb.). Ha null, akkor az alapértelmezett értékeket használják.",
+    "param.timeout_sec.description": "A teszt végrehajtásának maximális ideje másodpercben.",
     "tool.description": "Futtasson teszteket (auto-detect pytest/unittest/npm). A shell metakaraktereinek elutasítása az extra_args-ban.",
     "x_search_terms": [
       "tesztek futtatása",
@@ -938,6 +969,7 @@
     "param.pythonpath.description": "PYTHONPATH suplimentar (de exemplu, „src”). Dacă este furnizat, este prefixat la comanda de testare.",
     "param.report.description": "Format de ieșire.",
     "param.target.description": "Țintă (cale pytest, director de pornire unittest, script npm etc.). Dacă nul, se folosesc valorile implicite.",
+    "param.timeout_sec.description": "Timp maxim de executare a testului în secunde.",
     "tool.description": "Rulați teste (detectează automat pytest/unittest/npm). Respinge metacaracterele shell în extra_args.",
     "x_search_terms": [
       "rulați teste",
@@ -966,6 +998,7 @@
     "param.pythonpath.description": "Karagdagang PYTHONPATH (hal. 'src'). Kung ibinigay, ito ay prefix sa test command.",
     "param.report.description": "Output format.",
     "param.target.description": "Target (pytest path, unittest start directory, npm script, atbp.). Kung null, ang mga default ay ginagamit.",
+    "param.timeout_sec.description": "Pinakamataas na oras ng pagpapatupad ng pagsubok sa mga segundo.",
     "tool.description": "Magpatakbo ng mga pagsubok (auto-detect pytest/unittest/npm). Tanggihan ang mga metacharacter ng shell sa extra_args.",
     "x_search_terms": [
       "magpatakbo ng mga pagsubok",
@@ -994,6 +1027,7 @@
     "param.pythonpath.description": "PYTHONPATH tambahan (cth. 'src'). Jika disediakan, ia diberi awalan pada arahan ujian.",
     "param.report.description": "Format output.",
     "param.target.description": "Sasaran (laluan pytest, direktori permulaan unittest, skrip npm, dll.). Jika batal, lalai digunakan.",
+    "param.timeout_sec.description": "Masa pelaksanaan ujian maksimum dalam beberapa saat.",
     "tool.description": "Jalankan ujian (auto-kesan pytest/unittest/npm). Tolak metakarakter shell dalam extra_args.",
     "x_search_terms": [
       "jalankan ujian",
@@ -1022,6 +1056,7 @@
     "param.pythonpath.description": "Yderligere PYTHONPATH (f.eks. 'src'). Hvis det er angivet, er det præfikset til testkommandoen.",
     "param.report.description": "Outputformat.",
     "param.target.description": "Target (pytest-sti, unittest-startmappe, npm-script osv.). Hvis null, bruges standardindstillinger.",
+    "param.timeout_sec.description": "Maksimal testudførelsestid i sekunder.",
     "tool.description": "Kør test (auto-detekter pytest/unittest/npm). Afvis shell-metategn i extra_args.",
     "x_search_terms": [
       "kør tests",
@@ -1050,6 +1085,7 @@
     "param.pythonpath.description": "Ytterligere PYTHONPATH (f.eks. 'src'). Hvis det er gitt, er det prefikset til testkommandoen.",
     "param.report.description": "Utdataformat.",
     "param.target.description": "Mål (pytest-bane, unittest-startkatalog, npm-skript, etc.). Hvis null, vert brukt standardverdier.",
+    "param.timeout_sec.description": "Maksimal test-eksekveringstid i sekunder.",
     "tool.description": "Kjør tester (auto-detect pytest/unittest/npm). Avvis skall-metategn i extra_args.",
     "x_search_terms": [
       "kjør tester",

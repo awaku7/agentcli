@@ -1,0 +1,268 @@
+{
+  "ar": {
+    "tool.description": "ابدأ أو أوقف خادم UCP MCP الذي يغلف REST API الخاص بتاجر UCP كأدوات MCP. استخدم الوضع = \"البدء\" لتشغيل الخادم، والوضع = \"إيقاف\" لإيقاف تشغيله، والوضع = \"الحالة\" للتحقق.",
+    "param.mode.description": "\"بدء\" للإطلاق، و\"إيقاف\" لإيقاف التشغيل، و\"الحالة\" للتحقق.",
+    "param.business_url.description": "عنوان URL للنشاط التجاري للوكيل (مطلوب للوضع='start').",
+    "param.port.description": "منفذ لخادم MCP (الافتراضي 8100).",
+    "param.transport.description": "MCP النقل: 'sse' (HTTP) أو 'stdio' (stdin/stdout)."
+  },
+  "bn": {
+    "tool.description": "একটি UCP MCP সার্ভার শুরু বা বন্ধ করুন যা একটি UCP বণিকের REST API কে MCP সরঞ্জাম হিসাবে মোড়ানো হয়৷ সার্ভার চালু করতে mode='start' ব্যবহার করুন, এটি বন্ধ করতে mode='stop', check করার জন্য mode='status' ব্যবহার করুন।",
+    "param.mode.description": "চালু করতে 'স্টার্ট', বন্ধ করতে 'স্টপ', চেক করতে 'স্ট্যাটাস'।",
+    "param.business_url.description": "প্রক্সিতে ব্যবসার URL (মোড='শুরু'র জন্য প্রয়োজনীয়)।",
+    "param.port.description": "MCP সার্ভারের জন্য পোর্ট (ডিফল্ট 8100)।",
+    "param.transport.description": "MCP পরিবহন: 'sse' (HTTP) বা 'stdio' (stdin/stdout)।"
+  },
+  "cs": {
+    "tool.description": "Spuštění nebo zastavení serveru UCP MCP, který obaluje REST API obchodníka UCP jako nástroje MCP. Použijte mode='start' pro spuštění serveru, mode='stop' pro jeho vypnutí, mode='status' pro kontrolu.",
+    "param.mode.description": "'start' pro spuštění, 'stop' pro vypnutí, 'status' pro kontrolu.",
+    "param.business_url.description": "Firemní adresa URL k serveru proxy (vyžadováno pro mode='start').",
+    "param.port.description": "Port pro server MCP (výchozí 8100).",
+    "param.transport.description": "Transport MCP: 'sse' (HTTP) nebo 'stdio' (stdin/stdout)."
+  },
+  "da": {
+    "tool.description": "Start eller stop en UCP MCP-server, der omslutter en UCP-forhandlers REST API som MCP-værktøjer. Brug mode='start' for at starte serveren, mode='stop' for at lukke den ned, mode='status' for at kontrollere.",
+    "param.mode.description": "'start' for at starte, 'stop' for at lukke ned, 'status' for at kontrollere.",
+    "param.business_url.description": "Virksomheds-URL til proxy (påkrævet for mode='start').",
+    "param.port.description": "Port til MCP-serveren (standard 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) eller 'stdio' (stdin/stdout)."
+  },
+  "de": {
+    "tool.description": "Starten oder stoppen Sie einen UCP-MCP-Server, der die REST-API eines UCP-Händlers als MCP-Tools umschließt. Verwenden Sie mode='start', um den Server zu starten, mode='stop', um ihn herunterzufahren, mode='status', um ihn zu überprüfen.",
+    "param.mode.description": "„Start“ zum Starten, „Stop“ zum Herunterfahren, „Status“ zum Überprüfen.",
+    "param.business_url.description": "Geschäfts-URL zum Proxy (erforderlich für mode='start').",
+    "param.port.description": "Port für den MCP-Server (Standard 8100).",
+    "param.transport.description": "MCP Transport: 'sse' (HTTP) oder 'stdio' (stdin/stdout)."
+  },
+  "el": {
+    "tool.description": "Ξεκινήστε ή σταματήστε έναν διακομιστή UCP MCP που αναδιπλώνει το REST API ενός εμπόρου UCP ως MCP εργαλεία. Χρησιμοποιήστε mode='start' για εκκίνηση του διακομιστή, mode='stop' για να τον τερματίσετε, mode='status' για έλεγχο.",
+    "param.mode.description": "'start' για εκκίνηση, 'stop' για κλείσιμο, 'status' για έλεγχο.",
+    "param.business_url.description": "Διεύθυνση URL επιχείρησης προς διακομιστή μεσολάβησης (απαιτείται για λειτουργία='start').",
+    "param.port.description": "Θύρα για τον διακομιστή MCP (προεπιλογή 8100).",
+    "param.transport.description": "MCP μεταφορά: 'sse' (HTTP) ή 'stdio' (stdin/stdout)."
+  },
+  "en": {
+    "tool.description": "Start or stop a UCP MCP Server that wraps a UCP merchant's REST API as MCP tools. Use mode='start' to launch the server, mode='stop' to shut it down, mode='status' to check.",
+    "param.mode.description": "'start' to launch, 'stop' to shut down, 'status' to check.",
+    "param.business_url.description": "Business URL to proxy (required for mode='start').",
+    "param.port.description": "Port for the MCP server (default 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) or 'stdio' (stdin/stdout)."
+  },
+  "es": {
+    "tool.description": "Iniciar o detener un servidor UCP MCP que incluye el REST API de un comerciante UCP como herramientas MCP. Utilice mode='start' para iniciar el servidor, mode='stop' para apagarlo, mode='status' para comprobarlo.",
+    "param.mode.description": "'iniciar' para iniciar, 'detener' para cerrar, 'estado' para comprobar.",
+    "param.business_url.description": "URL empresarial al proxy (obligatoria para mode='start').",
+    "param.port.description": "Puerto para el servidor MCP (8100 predeterminado).",
+    "param.transport.description": "Transporte MCP: 'sse' (HTTP) o 'stdio' (stdin/stdout)."
+  },
+  "fa": {
+    "tool.description": "یک سرور UCP MCP را راه اندازی یا متوقف کنید که REST API تاجر UCP را به عنوان ابزار MCP می پیچد. از mode='start' برای راه اندازی سرور، mode='stop' برای خاموش کردن آن، mode='status' برای بررسی استفاده کنید.",
+    "param.mode.description": "راه‌اندازی «شروع»، برای خاموش کردن «توقف»، برای بررسی «وضعیت».",
+    "param.business_url.description": "URL کسب و کار به پروکسی (برای حالت = 'شروع' لازم است).",
+    "param.port.description": "پورت برای سرور MCP (پیش‌فرض 8100).",
+    "param.transport.description": "MCP حمل و نقل: 'sse' (HTTP) یا 'stdio' (stdin/stdout)."
+  },
+  "fi": {
+    "tool.description": "Käynnistä tai pysäytä UCP MCP -palvelin, joka kääri UCP-kauppiaan REST API MCP -työkaluiksi. Käytä mode='start' käynnistääksesi palvelimen, mode='stop' sammuttaaksesi sen, mode='status' tarkistaaksesi.",
+    "param.mode.description": "\"start\" käynnistää, \"stop\" sammuttaa, \"status\" tarkistaa.",
+    "param.business_url.description": "Yrityksen URL-osoite välityspalvelimelle (pakollinen mode='start').",
+    "param.port.description": "Portti palvelimelle MCP (oletus 8100).",
+    "param.transport.description": "MCP siirto: 'sse' (HTTP) tai 'stdio' (stdin/stdout)."
+  },
+  "fil": {
+    "tool.description": "Magsimula o huminto sa isang UCP MCP Server na bumabalot sa REST API ng isang UCP merchant bilang MCP na mga tool. Gamitin ang mode='start' upang ilunsad ang server, mode='stop' upang isara ito, mode='status' upang suriin.",
+    "param.mode.description": "'start' to launch, 'stop' to shut down, 'status' to check.",
+    "param.business_url.description": "URL ng negosyo sa proxy (kinakailangan para sa mode='start').",
+    "param.port.description": "Port para sa MCP server (default 8100).",
+    "param.transport.description": "MCP transportasyon: 'sse' (HTTP) o 'stdio' (stdin/stdout)."
+  },
+  "fr": {
+    "tool.description": "Démarrez ou arrêtez un serveur UCP MCP qui encapsule le REST API d'un commerçant UCP en tant qu'outils MCP. Utilisez mode='start' pour lancer le serveur, mode='stop' pour l'arrêter, mode='status' pour vérifier.",
+    "param.mode.description": "« démarrer » pour lancer, « arrêter » pour arrêter, « statut » pour vérifier.",
+    "param.business_url.description": "URL professionnelle vers le proxy (obligatoire pour mode='start').",
+    "param.port.description": "Port pour le serveur MCP (par défaut 8100).",
+    "param.transport.description": "Transport MCP : 'sse' (HTTP) ou 'stdio' (stdin/stdout)."
+  },
+  "he": {
+    "tool.description": "הפעל או עצור שרת UCP MCP שעוטף את REST API של סוחר UCP ככלי MCP. השתמש ב-mode='start' כדי להפעיל את השרת, mode='stop' כדי לכבות אותו, mode='status' כדי לבדוק.",
+    "param.mode.description": "'התחל' כדי להפעיל, 'עצור' כדי לכבות, 'סטטוס' כדי לבדוק.",
+    "param.business_url.description": "כתובת האתר של העסק לשרת proxy (נדרש עבור mode='start').",
+    "param.port.description": "יציאה עבור שרת MCP (ברירת מחדל 8100).",
+    "param.transport.description": "MCP תחבורה: 'sse' (HTTP) או 'stdio' (stdin/stdout)."
+  },
+  "hi": {
+    "tool.description": "एक UCP MCP सर्वर प्रारंभ या बंद करें जो UCP व्यापारी के REST API को MCP टूल के रूप में लपेटता है। सर्वर लॉन्च करने के लिए mode='start', इसे बंद करने के लिए mode='stop', जांचने के लिए mode='status' का उपयोग करें।",
+    "param.mode.description": "लॉन्च करने के लिए 'प्रारंभ करें', बंद करने के लिए 'रोकें', जांचने के लिए 'स्थिति'।",
+    "param.business_url.description": "प्रॉक्सी के लिए व्यावसायिक URL (मोड='प्रारंभ' के लिए आवश्यक)।",
+    "param.port.description": "MCP सर्वर के लिए पोर्ट (डिफ़ॉल्ट 8100)।",
+    "param.transport.description": "MCP परिवहन: 'sse' (HTTP) या 'stdio' (stdin/stdout)।"
+  },
+  "hu": {
+    "tool.description": "Indítson el vagy állítson le egy UCP MCP szervert, amely egy UCP-kereskedő REST API-ját MCP-eszközként csomagolja. A mode='start' használatával indítsa el a szervert, a mode='stop' használatával leállítja, a mode='status'-t pedig ellenőrizze.",
+    "param.mode.description": "'start' az indításhoz, 'stop' a leállításhoz, 'állapot' az ellenőrzéshez.",
+    "param.business_url.description": "Üzleti URL a proxyhoz (szükséges a mode='start' esetén).",
+    "param.port.description": "Port a MCP szerverhez (alapértelmezett 8100).",
+    "param.transport.description": "MCP szállítás: 'sse' (HTTP) vagy 'stdio' (stdin/stdout)."
+  },
+  "id": {
+    "tool.description": "Memulai atau menghentikan Server UCP MCP yang menggabungkan REST API pedagang UCP sebagai alat MCP. Gunakan mode='start' untuk meluncurkan server, mode='stop' untuk mematikannya, mode='status' untuk memeriksa.",
+    "param.mode.description": "'mulai' untuk meluncurkan, 'berhenti' untuk mematikan, 'status' untuk memeriksa.",
+    "param.business_url.description": "URL bisnis untuk diproksi (diperlukan untuk mode='mulai').",
+    "param.port.description": "Port untuk server MCP (default 8100).",
+    "param.transport.description": "MCP transportasi: 'sse' (HTTP) atau 'stdio' (stdin/stdout)."
+  },
+  "it": {
+    "tool.description": "Avvia o arresta un server UCP MCP che racchiude il REST API di un commerciante UCP come strumenti MCP. Utilizzare mode='start' per avviare il server, mode='stop' per spegnerlo, mode='status' per verificare.",
+    "param.mode.description": "'start' per avviare, 'stop' per spegnere, 'status' per controllare.",
+    "param.business_url.description": "URL dell'azienda al proxy (richiesto per mode='start').",
+    "param.port.description": "Porta per il server MCP (predefinita 8100).",
+    "param.transport.description": "MCP trasporto: 'sse' (HTTP) o 'stdio' (stdin/stdout)."
+  },
+  "ja": {
+    "tool.description": "UCP マーチャントの REST API を MCP ツールとしてラップする UCP MCP サーバーを起動または停止します。サーバーを起動するにはmode='start'を使用し、サーバーをシャットダウンするにはmode='stop'を、確認するにはmode='status'を使用します。",
+    "param.mode.description": "「start」で起動、「stop」でシャットダウン、「status」で確認。",
+    "param.business_url.description": "プロキシへのビジネス URL (mode='start' の場合は必須)。",
+    "param.port.description": "MCP サーバーのポート (デフォルトは 8100)。",
+    "param.transport.description": "MCP トランスポート: 'sse' (HTTP) または 'stdio' (stdin/stdout)。"
+  },
+  "ko": {
+    "tool.description": "UCP 판매자의 REST API을 MCP 도구로 래핑하는 UCP MCP 서버를 시작하거나 중지합니다. 서버를 시작하려면 mode='start'를 사용하고, 서버를 종료하려면 mode='stop'을 사용하고, 확인하려면 mode='status'를 사용하세요.",
+    "param.mode.description": "시작하려면 '시작', 종료하려면 '중지', 확인하려면 '상태'를 선택하세요.",
+    "param.business_url.description": "프록시에 대한 비즈니스 URL(mode='start'에 필요)",
+    "param.port.description": "MCP 서버용 포트(기본값 8100)",
+    "param.transport.description": "MCP 전송: 'sse'(HTTP) 또는 'stdio'(stdin/stdout)."
+  },
+  "mn": {
+    "tool.description": "UCP худалдагчийн REST API-г MCP хэрэгслээр ороосон UCP MCP серверийг эхлүүлэх эсвэл зогсоох. Серверийг эхлүүлэхийн тулд mode='start', унтраахын тулд mode='stop', шалгахын тулд mode='status'-г ашиглана.",
+    "param.mode.description": "эхлүүлэхийн тулд 'эхлэх', унтрахын тулд 'зогсоох', шалгахын тулд 'статус'.",
+    "param.business_url.description": "Бизнесийн URL хаягийг прокси руу оруулах (горим='эхлэх'-д шаардлагатай).",
+    "param.port.description": "MCP серверийн порт (өгөгдмөл 8100).",
+    "param.transport.description": "MCP тээвэрлэлт: 'sse' (HTTP) эсвэл 'stdio' (stdin/stdout)."
+  },
+  "mr": {
+    "tool.description": "UCP MCP सर्व्हर सुरू करा किंवा थांबवा जो UCP व्यापाऱ्याच्या REST API ला MCP टूल्स म्हणून गुंडाळतो. सर्व्हर लाँच करण्यासाठी mode='start', तो बंद करण्यासाठी mode='stop', तपासण्यासाठी mode='status' वापरा.",
+    "param.mode.description": "लॉन्च करण्यासाठी 'स्टार्ट', बंद करण्यासाठी 'स्टॉप', तपासण्यासाठी 'स्टेटस'.",
+    "param.business_url.description": "प्रॉक्सीसाठी व्यवसाय URL (mode='start' साठी आवश्यक).",
+    "param.port.description": "MCP सर्व्हरसाठी पोर्ट (डिफॉल्ट 8100).",
+    "param.transport.description": "MCP वाहतूक: 'sse' (HTTP) किंवा 'stdio' (stdin/stdout)."
+  },
+  "ms": {
+    "tool.description": "Mulakan atau hentikan Pelayan MCP UCP yang membungkus REST API pedagang UCP sebagai alat MCP. Gunakan mode='start' untuk melancarkan pelayan, mode='stop' untuk menutupnya, mode='status' untuk menyemak.",
+    "param.mode.description": "'mula' untuk melancarkan, 'berhenti' untuk menutup, 'status' untuk menyemak.",
+    "param.business_url.description": "URL perniagaan kepada proksi (diperlukan untuk mod='mula').",
+    "param.port.description": "Port untuk pelayan MCP (lalai 8100).",
+    "param.transport.description": "MCP pengangkutan: 'sse' (HTTP) atau 'stdio' (stdin/stdout)."
+  },
+  "nb": {
+    "tool.description": "Start eller stopp en UCP MCP-server som omslutter en UCP-forhandlers REST API som MCP-verktøy. Bruk mode='start' for å starte serveren, mode='stop' for å slå den av, mode='status' for å sjekke.",
+    "param.mode.description": "'start' for å starte, 'stopp' for å slå av, 'status' for å sjekke.",
+    "param.business_url.description": "Virksomhets-URL til proxy (påkrevd for mode='start').",
+    "param.port.description": "Port for MCP-serveren (standard 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) eller 'stdio' (stdin/stdout)."
+  },
+  "nl": {
+    "tool.description": "Start of stop een UCP MCP-server die de REST API van een UCP-verkoper verpakt als MCP tools. Gebruik mode='start' om de server te starten, mode='stop' om deze af te sluiten, mode='status' om te controleren.",
+    "param.mode.description": "'start' om te starten, 'stop' om af te sluiten, 'status' om te controleren.",
+    "param.business_url.description": "Bedrijfs-URL naar proxy (vereist voor mode='start').",
+    "param.port.description": "Poort voor de MCP-server (standaard 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) of 'stdio' (stdin/stdout)."
+  },
+  "nn": {
+    "tool.description": "Start eller stopp en UCP MCP-server som omslutter en UCP-handlers REST API som MCP-verktøy. Bruk mode='start' for å starte serveren, mode='stop' for å slå den av, mode='status' for å sjekke.",
+    "param.mode.description": "'start' for å starte, 'stopp' for å slå av, 'status' for å sjekke.",
+    "param.business_url.description": "Forretningsadresse til proxy (kreves for mode='start').",
+    "param.port.description": "Port for MCP-serveren (standard 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) eller 'stdio' (stdin/stdout)."
+  },
+  "pl": {
+    "tool.description": "Uruchom lub zatrzymaj serwer UCP MCP, który otacza REST sprzedawcy UCP API jako narzędzia MCP. Użyj mode='start', aby uruchomić serwer, mode='stop', aby go wyłączyć, mode='status, aby sprawdzić.",
+    "param.mode.description": "„start”, aby uruchomić, „stop”, aby wyłączyć, „status”, aby sprawdzić.",
+    "param.business_url.description": "Adres URL firmy do serwera proxy (wymagany dla mode='start').",
+    "param.port.description": "Port dla serwera MCP (domyślnie 8100).",
+    "param.transport.description": "Transport MCP: 'sse' (HTTP) lub 'stdio' (stdin/stdout)."
+  },
+  "pt": {
+    "tool.description": "Inicie ou pare um servidor UCP MCP que envolva o REST API de um comerciante UCP como ferramentas MCP. Use mode='start' para iniciar o servidor, mode='stop' para desligá-lo, mode='status' para verificar.",
+    "param.mode.description": "'start' para iniciar, 'stop' para desligar, 'status' para verificar.",
+    "param.business_url.description": "URL comercial para proxy (obrigatório para mode='start').",
+    "param.port.description": "Porta para o servidor MCP (padrão 8100).",
+    "param.transport.description": "Transporte MCP: 'sse' (HTTP) ou 'stdio' (stdin/stdout)."
+  },
+  "pt_BR": {
+    "tool.description": "Inicie ou pare um servidor UCP MCP que envolva o REST API de um comerciante UCP como ferramentas MCP. Use mode='start' para iniciar o servidor, mode='stop' para desligá-lo, mode='status' para verificar.",
+    "param.mode.description": "'start' para iniciar, 'stop' para desligar, 'status' para verificar.",
+    "param.business_url.description": "URL comercial para proxy (obrigatório para mode='start').",
+    "param.port.description": "Porta para o servidor MCP (padrão 8100).",
+    "param.transport.description": "Transporte MCP: 'sse' (HTTP) ou 'stdio' (stdin/stdout)."
+  },
+  "ro": {
+    "tool.description": "Porniți sau opriți un server UCP MCP care include REST API al unui comerciant UCP ca instrumente MCP. Utilizați mode='start' pentru a lansa serverul, mode='stop' pentru a-l închide, mode='status' pentru a verifica.",
+    "param.mode.description": "„start” pentru a lansa, „stop” pentru a opri, „starea” pentru a verifica.",
+    "param.business_url.description": "Adresa URL a companiei către proxy (necesar pentru mode='start').",
+    "param.port.description": "Port pentru serverul MCP (implicit 8100).",
+    "param.transport.description": "MCP transport: „sse” (HTTP) sau „stdio” (stdin/stdout)."
+  },
+  "ru": {
+    "tool.description": "Запустите или остановите сервер UCP MCP, который оборачивает REST API продавца UCP в инструменты MCP. Используйте mode='start' для запуска сервера, mode='stop' для его выключения и mode='status' для проверки.",
+    "param.mode.description": "«старт» для запуска, «стоп» для выключения, «статус» для проверки.",
+    "param.business_url.description": "Бизнес-URL-адрес для прокси-сервера (обязательно для mode='start').",
+    "param.port.description": "Порт для сервера MCP (по умолчанию 8100).",
+    "param.transport.description": "Транспорт MCP: «sse» (HTTP) или «stdio» (stdin/stdout)."
+  },
+  "sv": {
+    "tool.description": "Starta eller stoppa en UCP MCP-server som omsluter en UCP-handlares REST API som MCP-verktyg. Använd mode='start' för att starta servern, mode='stop' för att stänga av den, mode='status' för att kontrollera.",
+    "param.mode.description": "'start' för att starta, 'stopp' för att stänga av, 'status' för att kontrollera.",
+    "param.business_url.description": "Företags-URL till proxy (krävs för mode='start').",
+    "param.port.description": "Port för MCP-servern (standard 8100).",
+    "param.transport.description": "MCP transport: 'sse' (HTTP) eller 'stdio' (stdin/stdout)."
+  },
+  "sw": {
+    "tool.description": "Anzisha au usimamishe Seva ya UCP MCP inayojumuisha REST API ya muuzaji wa UCP kama zana MCP. Tumia modi='anza' kuzindua seva, modi='simama' ili kuifunga, modi='status' kukagua.",
+    "param.mode.description": "'anza' kuzindua, 'simamisha' kuzima, 'hadhi' ili kuangalia.",
+    "param.business_url.description": "URL ya biashara kwa seva mbadala (inahitajika kwa modi='anza').",
+    "param.port.description": "Lango la seva ya MCP (chaguo-msingi 8100).",
+    "param.transport.description": "MCP usafiri: 'sse' (HTTP) au 'stdio' (stdin/stdout)."
+  },
+  "th": {
+    "tool.description": "เริ่มหรือหยุดเซิร์ฟเวอร์ UCP MCP ที่รวม REST API ของผู้ขาย UCP ไว้เป็นเครื่องมือ MCP ใช้ mode='start' เพื่อเปิดเซิร์ฟเวอร์, mode='stop' เพื่อปิดระบบ, mode='status' เพื่อตรวจสอบ",
+    "param.mode.description": "'เริ่ม' เพื่อเปิดใช้งาน 'หยุด' เพื่อปิดเครื่อง 'สถานะ' เพื่อตรวจสอบ",
+    "param.business_url.description": "URL ธุรกิจไปยังพร็อกซี (จำเป็นสำหรับ mode='start')",
+    "param.port.description": "พอร์ตสำหรับเซิร์ฟเวอร์ MCP (ค่าเริ่มต้น 8100)",
+    "param.transport.description": "MCP การขนส่ง: 'sse' (HTTP) หรือ 'stdio' (stdin/stdout)"
+  },
+  "tr": {
+    "tool.description": "Bir UCP satıcısının REST API'ını MCP araçları olarak saran bir UCP MCP Sunucusunu başlatın veya durdurun. Sunucuyu başlatmak için mode='start', kapatmak için mode='stop', kontrol etmek için mode='status' kullanın.",
+    "param.mode.description": "Başlatmak için 'başlat', kapatmak için 'durdur', kontrol etmek için 'durum'.",
+    "param.business_url.description": "Proxy'ye iş URL'si (mode='start' için gereklidir).",
+    "param.port.description": "MCP sunucusunun bağlantı noktası (varsayılan 8100).",
+    "param.transport.description": "MCP taşıma: 'sse' (HTTP) veya 'stdio' (stdin/stdout)."
+  },
+  "uk": {
+    "tool.description": "Запустіть або зупиніть сервер UCP MCP, який обгортає REST API продавця UCP як інструменти MCP. Використовуйте mode='start', щоб запустити сервер, mode='stop', щоб вимкнути його, mode='status', щоб перевірити.",
+    "param.mode.description": "«старт» для запуску, «стоп» для вимкнення, «статус» для перевірки.",
+    "param.business_url.description": "Бізнес-URL до проксі-сервера (потрібно для mode='start').",
+    "param.port.description": "Порт для сервера MCP (за замовчуванням 8100).",
+    "param.transport.description": "Транспорт MCP: 'sse' (HTTP) або 'stdio' (stdin/stdout)."
+  },
+  "vi": {
+    "tool.description": "Bắt đầu hoặc dừng Máy chủ UCP MCP bao bọc REST API của người bán UCP dưới dạng công cụ MCP. Sử dụng mode='start' để khởi chạy máy chủ, mode='stop' để tắt nó, mode='status' để kiểm tra.",
+    "param.mode.description": "'bắt đầu' để khởi chạy, 'dừng' để tắt, 'trạng thái' để kiểm tra.",
+    "param.business_url.description": "URL doanh nghiệp tới proxy (bắt buộc đối với mode='start').",
+    "param.port.description": "Cổng dành cho máy chủ MCP (mặc định 8100).",
+    "param.transport.description": "MCP truyền tải: 'sse' (HTTP) hoặc 'stdio' (stdin/stdout)."
+  },
+  "zh_CN": {
+    "tool.description": "启动或停止将 UCP 商家的 REST API 包装为 MCP 工具的 UCP MCP 服务器。使用 mode='start' 启动服务器，使用 mode='stop' 关闭服务器，使用 mode='status' 进行检查。",
+    "param.mode.description": "“开始”启动，“停止”关闭，“状态”检查。",
+    "param.business_url.description": "代理的企业 URL（mode='start' 需要）。",
+    "param.port.description": "MCP 服务器的端口（默认为 8100）。",
+    "param.transport.description": "MCP 传输：“sse”(HTTP) 或“stdio”（标准输入/标准输出）。"
+  },
+  "zh_TW": {
+    "tool.description": "啟動或停止將 UCP 商家的 REST API 包裝為 MCP 工具的 UCP MCP 伺服器。使用 mode='start' 啟動伺服器，使用 mode='stop' 關閉伺服器，使用 mode='status' 進行檢查。",
+    "param.mode.description": "“開始”啟動，“停止”關閉，“狀態”檢查。",
+    "param.business_url.description": "代理程式的企業 URL（mode='start' 需要）。",
+    "param.port.description": "MCP 伺服器的連接埠（預設為 8100）。",
+    "param.transport.description": "MCP 傳輸：「sse」(HTTP) 或「stdio」（標準輸入/標準輸出）。"
+  }
+}

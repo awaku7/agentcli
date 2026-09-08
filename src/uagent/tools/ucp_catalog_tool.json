@@ -1,0 +1,306 @@
+{
+  "ar": {
+    "tool.description": "ابحث عن المنتجات أو ابحث عنها في كتالوج الأعمال الذي يدعم UCP. استخدم mode='search' للبحث عن الكلمات الرئيسية أو mode='lookup' لجلب تفاصيل المنتج حسب معرفات العناصر.",
+    "param.mode.description": "\"بحث\" للبحث عن الكلمات الرئيسية، و\"بحث\" عن تفاصيل المنتج حسب المعرف.",
+    "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري (على سبيل المثال \"https://example.shop\").",
+    "param.query.description": "سلسلة استعلام البحث (مطلوبة للوضع='بحث').",
+    "param.item_ids.description": "قائمة بمعرفات العناصر المطلوب البحث عنها (مطلوبة للوضع='البحث').",
+    "param.currency.description": "رمز العملة ISO 4217 (على سبيل المثال، \"USD\"، \"JPY\"). خياري."
+  },
+  "bn": {
+    "tool.description": "একটি UCP-সক্ষম ব্যবসার ক্যাটালগে পণ্য অনুসন্ধান করুন বা সন্ধান করুন। কীওয়ার্ড অনুসন্ধানের জন্য মোড='অনুসন্ধান' বা আইটেম আইডি দ্বারা পণ্যের বিবরণ আনার জন্য মোড='লুকআপ' ব্যবহার করুন।",
+    "param.mode.description": "কীওয়ার্ড অনুসন্ধানের জন্য 'অনুসন্ধান', আইডি দ্বারা পণ্যের বিবরণের জন্য 'লুকআপ'।",
+    "param.business_url.description": "ব্যবসার মূল URL (যেমন 'https://example.shop')।",
+    "param.query.description": "অনুসন্ধান ক্যোয়ারী স্ট্রিং (মোড='সার্চ' এর জন্য প্রয়োজনীয়)।",
+    "param.item_ids.description": "খোঁজার জন্য আইটেম আইডিগুলির তালিকা (মোড='লুকআপ'-এর জন্য প্রয়োজনীয়)।",
+    "param.currency.description": "ISO 4217 মুদ্রা কোড (যেমন 'USD', 'JPY')। ঐচ্ছিক।"
+  },
+  "cs": {
+    "tool.description": "Vyhledávejte nebo vyhledávejte produkty v obchodním katalogu s podporou UCP. Použijte mode='search' pro vyhledávání podle klíčových slov nebo mode='lookup' pro načtení podrobností o produktu podle ID položek.",
+    "param.mode.description": "'search' pro vyhledávání podle klíčových slov, 'lookup' pro detail produktu podle ID.",
+    "param.business_url.description": "Základní adresa URL firmy (např. „https://example.shop“).",
+    "param.query.description": "Řetězec vyhledávacího dotazu (vyžadováno pro mode='search').",
+    "param.item_ids.description": "Seznam ID položek k vyhledání (vyžadováno pro mode='lookup').",
+    "param.currency.description": "Kód měny ISO 4217 (např. „USD“, „JPY“). Volitelný."
+  },
+  "da": {
+    "tool.description": "Søg eller find produkter i et UCP-aktiveret virksomhedskatalog. Brug mode='search' til søgeordssøgning eller mode='lookup' til at hente produktdetaljer efter vare-id'er.",
+    "param.mode.description": "'søg' for søgeordssøgning, 'opslag' for produktdetaljer efter ID.",
+    "param.business_url.description": "Virksomhedens basiswebadresse (f.eks. \"https://example.shop\").",
+    "param.query.description": "Søgeforespørgselsstreng (påkrævet for mode='search').",
+    "param.item_ids.description": "Liste over vare-id'er, der skal slås op (påkrævet for mode='lookup').",
+    "param.currency.description": "ISO 4217 valutakode (f.eks. 'USD', 'JPY'). Valgfri."
+  },
+  "de": {
+    "tool.description": "Suchen oder suchen Sie nach Produkten in einem UCP-fähigen Unternehmenskatalog. Verwenden Sie mode='search' für die Stichwortsuche oder mode='lookup' zum Abrufen von Produktdetails anhand der Artikel-IDs.",
+    "param.mode.description": "„Suchen“ für die Stichwortsuche, „Suchen“ für Produktdetails nach ID.",
+    "param.business_url.description": "Basis-URL des Unternehmens (z. B. „https://example.shop“).",
+    "param.query.description": "Suchabfragezeichenfolge (erforderlich für mode='search').",
+    "param.item_ids.description": "Liste der nachzuschlagenden Element-IDs (erforderlich für mode='lookup').",
+    "param.currency.description": "ISO 4217-Währungscode (z. B. „USD“, „JPY“). Optional."
+  },
+  "el": {
+    "tool.description": "Αναζητήστε ή αναζητήστε προϊόντα σε έναν επιχειρηματικό κατάλογο με δυνατότητα UCP. Χρησιμοποιήστε mode='search' για αναζήτηση λέξεων-κλειδιών ή mode='lookup' για ανάκτηση λεπτομερειών προϊόντων ανά αναγνωριστικά στοιχείων.",
+    "param.mode.description": "'αναζήτηση' για αναζήτηση λέξεων-κλειδιών, 'αναζήτηση' για λεπτομέρειες προϊόντος κατά αναγνωριστικό.",
+    "param.business_url.description": "URL βάσης της επιχείρησης (π.χ. 'https://example.shop').",
+    "param.query.description": "Συμβολοσειρά ερωτήματος αναζήτησης (απαιτείται για λειτουργία='αναζήτηση').",
+    "param.item_ids.description": "Λίστα αναγνωριστικών στοιχείων προς αναζήτηση (απαιτείται για mode='lookup').",
+    "param.currency.description": "Κωδικός νομίσματος ISO 4217 (π.χ. «USD», «JPY»). Προαιρετικός."
+  },
+  "en": {
+    "tool.description": "Search or lookup products in a UCP-enabled business catalog. Use mode='search' for keyword search or mode='lookup' for fetching product details by item IDs.",
+    "param.mode.description": "'search' for keyword search, 'lookup' for product detail by ID.",
+    "param.business_url.description": "Base URL of the business (e.g. 'https://example.shop').",
+    "param.query.description": "Search query string (required for mode='search').",
+    "param.item_ids.description": "List of item IDs to look up (required for mode='lookup').",
+    "param.currency.description": "ISO 4217 currency code (e.g. 'USD', 'JPY'). Optional."
+  },
+  "es": {
+    "tool.description": "Busque o busque productos en un catálogo empresarial habilitado para UCP. Utilice mode='search' para buscar palabras clave o mode='lookup' para obtener detalles del producto por ID de artículo.",
+    "param.mode.description": "'buscar' para búsqueda de palabras clave, 'búsqueda' para detalles del producto por ID.",
+    "param.business_url.description": "URL base de la empresa (por ejemplo, 'https://example.shop').",
+    "param.query.description": "Cadena de consulta de búsqueda (obligatoria para mode='search').",
+    "param.item_ids.description": "Lista de ID de elementos para buscar (obligatorio para mode='lookup').",
+    "param.currency.description": "Código de moneda ISO 4217 (por ejemplo, 'USD', 'JPY'). Opcional."
+  },
+  "fa": {
+    "tool.description": "جستجو یا جستجوی محصولات در یک کاتالوگ تجاری دارای UCP. از mode='search' برای جستجوی کلیدواژه یا mode='lookup' برای واکشی جزئیات محصول بر اساس شناسه مورد استفاده کنید.",
+    "param.mode.description": "\"جستجو\" برای جستجوی کلمه کلیدی، \"جستجو\" برای جزئیات محصول بر اساس شناسه.",
+    "param.business_url.description": "نشانی وب پایه کسب و کار (به عنوان مثال «https://example.shop»).",
+    "param.query.description": "رشته درخواست جستجو (الزامی برای mode='search').",
+    "param.item_ids.description": "فهرست شناسه‌های مورد برای جستجو (برای حالت = 'lookup' لازم است).",
+    "param.currency.description": "کد ارز ISO 4217 (به عنوان مثال «USD»، «JPY»). اختیاری."
+  },
+  "fi": {
+    "tool.description": "Hae tai etsi tuotteita UCP-yhteensopivasta yritysluettelosta. Käytä mode='search' avainsanahakuun tai mode='lookup' tuotetietojen hakemiseen tuotetunnuksilla.",
+    "param.mode.description": "\"haku\" avainsanahaulle, \"haku\" tuotetietojen tunnuksella.",
+    "param.business_url.description": "Yrityksen perus-URL-osoite (esim. \"https://example.shop\").",
+    "param.query.description": "Hakukyselymerkkijono (pakollinen mode='search').",
+    "param.item_ids.description": "Luettelo etsittävistä nimikkeistä (pakollinen mode='lookup').",
+    "param.currency.description": "ISO 4217 -valuuttakoodi (esim. 'USD', 'JPY'). Valinnainen."
+  },
+  "fil": {
+    "tool.description": "Maghanap o maghanap ng mga produkto sa isang catalog ng negosyo na pinagana ng UCP. Gamitin ang mode='search' para sa paghahanap ng keyword o mode='lookup' para sa pagkuha ng mga detalye ng produkto ayon sa mga ID ng item.",
+    "param.mode.description": "'search' para sa paghahanap ng keyword, 'lookup' para sa detalye ng produkto ayon sa ID.",
+    "param.business_url.description": "Base URL ng negosyo (hal. 'https://example.shop').",
+    "param.query.description": "Search query string (kinakailangan para sa mode='search').",
+    "param.item_ids.description": "Listahan ng mga item ID na hahanapin (kinakailangan para sa mode='lookup').",
+    "param.currency.description": "ISO 4217 currency code (hal. 'USD', 'JPY'). Opsyonal."
+  },
+  "fr": {
+    "tool.description": "Recherchez des produits dans un catalogue professionnel compatible UCP. Utilisez mode='search' pour la recherche par mot clé ou mode='lookup' pour récupérer les détails du produit par ID d'article.",
+    "param.mode.description": "« recherche » pour la recherche par mot-clé, « recherche » pour les détails du produit par ID.",
+    "param.business_url.description": "URL de base de l'entreprise (par exemple « https://example.shop »).",
+    "param.query.description": "Chaîne de requête de recherche (obligatoire pour mode='search').",
+    "param.item_ids.description": "Liste des ID d'éléments à rechercher (obligatoire pour mode='lookup').",
+    "param.currency.description": "Code de devise ISO 4217 (par exemple « USD », « JPY »). Facultatif."
+  },
+  "he": {
+    "tool.description": "חפש או חפש מוצרים בקטלוג עסקי התומך ב-UCP. השתמש ב-mode='search' לחיפוש מילות מפתח או ב-mode='lookup' לאחזור פרטי מוצר לפי מזהי פריט.",
+    "param.mode.description": "'חיפוש' עבור חיפוש מילות מפתח, 'חיפוש' עבור פרטי מוצר לפי מזהה.",
+    "param.business_url.description": "כתובת האתר הבסיסית של העסק (למשל, 'https://example.shop').",
+    "param.query.description": "מחרוזת שאילתת חיפוש (נדרש עבור mode='search').",
+    "param.item_ids.description": "רשימת מזהי פריטים שיש לחפש (נדרש עבור mode='lookup').",
+    "param.currency.description": "קוד מטבע ISO 4217 (למשל 'USD', 'JPY'). אופציונלי."
+  },
+  "hi": {
+    "tool.description": "यूसीपी-सक्षम व्यवसाय कैटलॉग में उत्पाद खोजें या खोजें। कीवर्ड खोज के लिए mode='search' या आइटम आईडी द्वारा उत्पाद विवरण प्राप्त करने के लिए mode='lookup' का उपयोग करें।",
+    "param.mode.description": "कीवर्ड खोज के लिए 'खोज', आईडी द्वारा उत्पाद विवरण के लिए 'लुकअप'।",
+    "param.business_url.description": "व्यवसाय का आधार URL (जैसे 'https://example.shop')।",
+    "param.query.description": "खोज क्वेरी स्ट्रिंग (मोड='खोज' के लिए आवश्यक)।",
+    "param.item_ids.description": "देखने के लिए आइटम आईडी की सूची (मोड='लुकअप' के लिए आवश्यक)।",
+    "param.currency.description": "ISO 4217 मुद्रा कोड (जैसे 'USD', 'JPY')। वैकल्पिक।"
+  },
+  "hu": {
+    "tool.description": "Keressen vagy keressen termékeket egy UCP-kompatibilis üzleti katalógusban. Használja a mode='search'-t a kulcsszókereséshez, vagy a mode='lookup'-t a termékadatok cikkazonosítók szerinti lekéréséhez.",
+    "param.mode.description": "\"Keresés\" a kulcsszavas kereséshez, \"keresés\" a termékrészletekhez azonosító alapján.",
+    "param.business_url.description": "A vállalkozás alap URL-je (pl. „https://example.shop”).",
+    "param.query.description": "Keresési lekérdezési karakterlánc (szükséges a mode='search' esetén).",
+    "param.item_ids.description": "A megkeresendő elemazonosítók listája (szükséges a mode='lookup' esetén).",
+    "param.currency.description": "ISO 4217 pénznemkód (pl. „USD”, „JPY”). Választható."
+  },
+  "id": {
+    "tool.description": "Cari atau cari produk di katalog bisnis yang mendukung UCP. Gunakan mode='search' untuk pencarian kata kunci atau mode='lookup' untuk mengambil detail produk berdasarkan ID item.",
+    "param.mode.description": "'pencarian' untuk pencarian kata kunci, 'pencarian' untuk detail produk berdasarkan ID.",
+    "param.business_url.description": "URL dasar bisnis (misalnya 'https://example.shop').",
+    "param.query.description": "String kueri penelusuran (wajib untuk mode='penelusuran').",
+    "param.item_ids.description": "Daftar ID item yang akan dicari (diperlukan untuk mode='pencarian').",
+    "param.currency.description": "Kode mata uang ISO 4217 (misalnya 'USD', 'JPY'). Opsional."
+  },
+  "it": {
+    "tool.description": "Cerca o cerca prodotti in un catalogo aziendale abilitato per UCP. Utilizza mode='search' per la ricerca per parole chiave o mode='lookup' per recuperare i dettagli del prodotto in base agli ID articolo.",
+    "param.mode.description": "\"cerca\" per la ricerca per parole chiave, \"ricerca\" per i dettagli del prodotto in base all'ID.",
+    "param.business_url.description": "URL di base dell'attività (ad esempio \"https://example.shop\").",
+    "param.query.description": "Stringa di query di ricerca (richiesto per mode='search').",
+    "param.item_ids.description": "Elenco degli ID elemento da cercare (richiesto per mode='lookup').",
+    "param.currency.description": "Codice valuta ISO 4217 (ad esempio \"USD\", \"JPY\"). Opzionale."
+  },
+  "ja": {
+    "tool.description": "UCP 対応のビジネス カタログ内の製品を検索または検索します。キーワード検索には mode='search' を使用し、アイテム ID で製品の詳細を取得するには mode='lookup' を使用します。",
+    "param.mode.description": "「検索」でキーワード検索、「検索」でIDによる商品詳細を確認できます。",
+    "param.business_url.description": "ビジネスのベース URL (例: 「https://example.shop」)。",
+    "param.query.description": "検索クエリ文字列 (mode='search' の場合は必須)。",
+    "param.item_ids.description": "検索する項目 ID のリスト (mode='lookup' の場合に必要)。",
+    "param.currency.description": "ISO 4217 通貨コード (例: 「USD」、「JPY」)。オプション。"
+  },
+  "ko": {
+    "tool.description": "UCP 지원 비즈니스 카탈로그에서 제품을 검색하거나 조회합니다. 키워드 검색에는 mode='search'를 사용하고 항목 ID별로 제품 세부정보를 가져오려면 mode='lookup'을 사용하세요.",
+    "param.mode.description": "키워드 검색은 '검색', ID별 상품상세정보는 '조회' 입니다.",
+    "param.business_url.description": "비즈니스의 기본 URL(예: 'https://example.shop')",
+    "param.query.description": "검색 쿼리 문자열(mode='search'에 필요)",
+    "param.item_ids.description": "조회할 항목 ID 목록(mode='lookup'에 필요)",
+    "param.currency.description": "ISO 4217 통화 코드(예: 'USD', 'JPY') 선택 과목."
+  },
+  "mn": {
+    "tool.description": "UCP-ийг идэвхжүүлсэн бизнесийн каталогоос бүтээгдэхүүн хайх эсвэл хайх. Түлхүүр үг хайхдаа mode='search' эсвэл бүтээгдэхүүний мэдээллийг ID-аар татахын тулд mode='lookup'-г ашиглана уу.",
+    "param.mode.description": "Түлхүүр үг хайлтыг 'хайх', ID-аар бүтээгдэхүүний дэлгэрэнгүйг 'хайх'.",
+    "param.business_url.description": "Бизнесийн үндсэн URL (жишээ нь: 'https://example.shop').",
+    "param.query.description": "Хайлтын хайлтын мөр (mod='хайлт'-д шаардлагатай).",
+    "param.item_ids.description": "Хайх зүйлийн ID-н жагсаалт (горим='хайлт'-д шаардлагатай).",
+    "param.currency.description": "ISO 4217 валютын код (жишээ нь 'USD', 'JPY'). Сонголттой."
+  },
+  "mr": {
+    "tool.description": "UCP-सक्षम व्यवसाय कॅटलॉगमध्ये उत्पादने शोधा किंवा शोधा. कीवर्ड शोधासाठी mode='search' वापरा किंवा आयटम ID द्वारे उत्पादन तपशील आणण्यासाठी mode='lookup' वापरा.",
+    "param.mode.description": "कीवर्ड शोधासाठी 'शोध', ID द्वारे उत्पादन तपशीलासाठी 'लुकअप'.",
+    "param.business_url.description": "व्यवसायाची मूळ URL (उदा. 'https://example.shop').",
+    "param.query.description": "शोध क्वेरी स्ट्रिंग (मोड='शोध' साठी आवश्यक).",
+    "param.item_ids.description": "शोधण्यासाठी आयटम आयडींची सूची (मोड='लूकअप'साठी आवश्यक).",
+    "param.currency.description": "ISO 4217 चलन कोड (उदा. 'USD', 'JPY'). ऐच्छिक."
+  },
+  "ms": {
+    "tool.description": "Cari atau cari produk dalam katalog perniagaan yang didayakan UCP. Gunakan mode='search' untuk carian kata kunci atau mode='lookup' untuk mengambil butiran produk mengikut ID item.",
+    "param.mode.description": "'cari' untuk carian kata kunci, 'cari' untuk butiran produk mengikut ID.",
+    "param.business_url.description": "URL asas perniagaan (cth. 'https://example.shop').",
+    "param.query.description": "Rentetan pertanyaan carian (diperlukan untuk mod='search').",
+    "param.item_ids.description": "Senarai ID item untuk dicari (diperlukan untuk mod='lookup').",
+    "param.currency.description": "Kod mata wang ISO 4217 (cth. 'USD', 'JPY'). Pilihan."
+  },
+  "nb": {
+    "tool.description": "Søk eller søk etter produkter i en UCP-aktivert bedriftskatalog. Bruk mode='search' for søkeordsøk eller mode='lookup' for å hente produktdetaljer etter vare-ID-er.",
+    "param.mode.description": "'søk' for søkeordsøk, 'oppslag' for produktdetaljer etter ID.",
+    "param.business_url.description": "Grunnadressen til bedriften (f.eks. «https://example.shop»).",
+    "param.query.description": "Søkestreng (påkrevd for mode='search').",
+    "param.item_ids.description": "Liste over vare-ID-er som skal slås opp (påkrevd for mode='lookup').",
+    "param.currency.description": "ISO 4217 valutakode (f.eks. 'USD', 'JPY'). Valgfri."
+  },
+  "nl": {
+    "tool.description": "Zoek of zoek producten op in een bedrijfscatalogus met UCP. Gebruik mode='search' voor zoeken op trefwoord of mode='lookup' voor het ophalen van productdetails op item-ID's.",
+    "param.mode.description": "'zoeken' voor zoeken op trefwoord, 'zoeken' voor productdetails op ID.",
+    "param.business_url.description": "Basis-URL van het bedrijf (bijvoorbeeld 'https://example.shop').",
+    "param.query.description": "Zoekquerytekenreeks (vereist voor mode='search').",
+    "param.item_ids.description": "Lijst met item-ID's die u moet opzoeken (vereist voor mode='lookup').",
+    "param.currency.description": "ISO 4217-valutacode (bijvoorbeeld 'USD', 'JPY'). Optioneel."
+  },
+  "nn": {
+    "tool.description": "Søk etter eller slå opp produkter i en UCP-aktivert bedriftskatalog. Bruk mode='search' for søkeordssøk eller mode='lookup' for å hente produktdetaljer etter vare-ID-er.",
+    "param.mode.description": "'search' for keyword search, 'lookup' for product detail by ID.",
+    "param.business_url.description": "Basis-URL for virksomheten (f.eks. 'https://example.shop').",
+    "param.query.description": "Søkestreng (påkrevd for mode='search').",
+    "param.item_ids.description": "Liste over element-ID-er som skal slå opp (kreves for modus='oppslag').",
+    "param.currency.description": "ISO 4217-valutakode (f.eks. 'USD', 'JPY'). Valgfritt."
+  },
+  "pl": {
+    "tool.description": "Wyszukuj lub przeglądaj produkty w katalogu biznesowym obsługującym UCP. Użyj mode='search' do wyszukiwania słów kluczowych lub mode='lookup' do pobierania szczegółów produktu według identyfikatorów pozycji.",
+    "param.mode.description": "„szukaj” w przypadku wyszukiwania według słów kluczowych, „wyszukiwania” w celu uzyskania szczegółów produktu według identyfikatora.",
+    "param.business_url.description": "Podstawowy adres URL firmy (np. „https://example.shop”).",
+    "param.query.description": "Wyszukaj ciąg zapytania (wymagany dla mode='search').",
+    "param.item_ids.description": "Lista identyfikatorów elementów do wyszukania (wymagana dla mode='lookup').",
+    "param.currency.description": "Kod waluty ISO 4217 (np. „USD”, „JPY”). Fakultatywny."
+  },
+  "pt": {
+    "tool.description": "Pesquise ou pesquise produtos em um catálogo comercial habilitado para UCP. Use mode='search' para pesquisa por palavra-chave ou mode='lookup' para buscar detalhes do produto por IDs de item.",
+    "param.mode.description": "'pesquisa' para pesquisa por palavra-chave, 'pesquisa' para detalhes do produto por ID.",
+    "param.business_url.description": "URL base da empresa (por exemplo, 'https://example.shop').",
+    "param.query.description": "String de consulta de pesquisa (obrigatória para mode='search').",
+    "param.item_ids.description": "Lista de IDs de itens a serem pesquisados ​​(obrigatório para mode='lookup').",
+    "param.currency.description": "Código de moeda ISO 4217 (por exemplo, 'USD', 'JPY'). Opcional."
+  },
+  "pt_BR": {
+    "tool.description": "Pesquise ou pesquise produtos em um catálogo comercial habilitado para UCP. Use mode='search' para pesquisa por palavra-chave ou mode='lookup' para buscar detalhes do produto por IDs de item.",
+    "param.mode.description": "'pesquisa' para pesquisa por palavra-chave, 'pesquisa' para detalhes do produto por ID.",
+    "param.business_url.description": "URL base da empresa (por exemplo, 'https://example.shop').",
+    "param.query.description": "String de consulta de pesquisa (obrigatória para mode='search').",
+    "param.item_ids.description": "Lista de IDs de itens a serem pesquisados ​​(obrigatório para mode='lookup').",
+    "param.currency.description": "Código de moeda ISO 4217 (por exemplo, 'USD', 'JPY'). Opcional."
+  },
+  "ro": {
+    "tool.description": "Căutați sau căutați produse într-un catalog de afaceri compatibil cu UCP. Utilizați mode='căutare' pentru căutarea prin cuvinte cheie sau mode='lookup' pentru a obține detalii despre produse după ID-urile articolului.",
+    "param.mode.description": "„căutare” pentru căutarea prin cuvinte cheie, „căutare” pentru detalii despre produs după ID.",
+    "param.business_url.description": "Adresa URL de bază a companiei (de exemplu, „https://example.shop”).",
+    "param.query.description": "Șir de interogare de căutare (necesar pentru mode='search').",
+    "param.item_ids.description": "Lista de ID-uri de articole de căutat (obligatoriu pentru mode='lookup').",
+    "param.currency.description": "Codul monedei ISO 4217 (de exemplu, „USD”, „JPY”). Opțional."
+  },
+  "ru": {
+    "tool.description": "Выполняйте поиск продуктов в бизнес-каталоге с поддержкой UCP. Используйте mode='search' для поиска по ключевым словам или mode='lookup' для получения сведений о продукте по его идентификаторам.",
+    "param.mode.description": "«поиск» для поиска по ключевым словам, «поиск» деталей продукта по идентификатору.",
+    "param.business_url.description": "Базовый URL компании (например, https://example.shop).",
+    "param.query.description": "Строка поискового запроса (обязательно для mode='search').",
+    "param.item_ids.description": "Список идентификаторов элементов для поиска (требуется для mode='lookup').",
+    "param.currency.description": "Код валюты ISO 4217 (например, «USD», «JPY»). Необязательный."
+  },
+  "sv": {
+    "tool.description": "Sök eller slå upp produkter i en UCP-aktiverad företagskatalog. Använd mode='search' för nyckelordssökning eller mode='lookup' för att hämta produktinformation efter artikel-ID.",
+    "param.mode.description": "'sök' för nyckelordssökning, 'sök' för produktdetaljer efter ID.",
+    "param.business_url.description": "Företagets basadress (t.ex. \"https://example.shop\").",
+    "param.query.description": "Sökfrågesträng (krävs för mode='search').",
+    "param.item_ids.description": "Lista över artikel-ID att slå upp (krävs för mode='lookup').",
+    "param.currency.description": "ISO 4217 valutakod (t.ex. 'USD', 'JPY'). Frivillig."
+  },
+  "sw": {
+    "tool.description": "Tafuta au tafuta bidhaa katika katalogi ya biashara inayowezeshwa na UCP. Tumia modi='tafuta' kutafuta neno kuu au modi='kutafuta' kwa kuleta maelezo ya bidhaa kwa vitambulisho vya bidhaa.",
+    "param.mode.description": "'tafuta' utafutaji wa neno kuu, 'tafuta' maelezo ya bidhaa kwa kitambulisho.",
+    "param.business_url.description": "URL ya msingi ya biashara (k.m. 'https://example.shop').",
+    "param.query.description": "Tafuta kamba ya hoja (inahitajika kwa modi='tafuta').",
+    "param.item_ids.description": "Orodha ya vitambulisho vya vitu vya kutafuta (inahitajika kwa modi='kutafuta').",
+    "param.currency.description": "Msimbo wa sarafu wa ISO 4217 (k.m. 'USD', 'JPY'). Hiari."
+  },
+  "th": {
+    "tool.description": "ค้นหาหรือค้นหาผลิตภัณฑ์ในแค็ตตาล็อกธุรกิจที่เปิดใช้งาน UCP ใช้ mode='search' สำหรับการค้นหาคำสำคัญ หรือ mode='lookup' เพื่อดึงรายละเอียดสินค้าตามรหัสรายการ",
+    "param.mode.description": "'ค้นหา' สำหรับการค้นหาคำหลัก 'ค้นหา' เพื่อดูรายละเอียดผลิตภัณฑ์ตามรหัส",
+    "param.business_url.description": "URL พื้นฐานของธุรกิจ (เช่น \"https://example.shop\")",
+    "param.query.description": "สตริงคำค้นหา (จำเป็นสำหรับ mode='search')",
+    "param.item_ids.description": "รายการ ID รายการที่จะค้นหา (จำเป็นสำหรับ mode='lookup')",
+    "param.currency.description": "รหัสสกุลเงิน ISO 4217 (เช่น 'USD', 'JPY') ไม่จำเป็น."
+  },
+  "tr": {
+    "tool.description": "UCP'nin etkin olduğu bir işletme kataloğunda ürünleri arayın veya arayın. Anahtar kelime araması için mode='search' veya ürün ayrıntılarını öğe kimliklerine göre getirmek için mode='lookup' seçeneğini kullanın.",
+    "param.mode.description": "Anahtar kelime araması için 'arama', kimliğe göre ürün ayrıntıları için 'arama'.",
+    "param.business_url.description": "İşletmenin temel URL'si (ör. 'https://example.shop').",
+    "param.query.description": "Arama sorgusu dizesi (mode='search' için gereklidir).",
+    "param.item_ids.description": "Aranacak öğe kimliklerinin listesi (mod='arama' için gereklidir).",
+    "param.currency.description": "ISO 4217 para birimi kodu (ör. 'USD', 'JPY'). İsteğe bağlı."
+  },
+  "uk": {
+    "tool.description": "Шукайте або шукайте продукти в бізнес-каталозі з підтримкою UCP. Використовуйте mode='search' для пошуку за ключовими словами або mode='lookup' для отримання інформації про продукт за ідентифікаторами товарів.",
+    "param.mode.description": "«пошук» для пошуку за ключовими словами, «пошук» для детальної інформації про продукт за ідентифікатором.",
+    "param.business_url.description": "Основна URL-адреса компанії (наприклад, \"https://example.shop\").",
+    "param.query.description": "Рядок пошукового запиту (необхідний для mode='search').",
+    "param.item_ids.description": "Список ідентифікаторів елементів, які потрібно шукати (потрібно для mode='lookup').",
+    "param.currency.description": "Код валюти ISO 4217 (наприклад, \"USD\", \"JPY\"). Додатково."
+  },
+  "vi": {
+    "tool.description": "Tìm kiếm hoặc tra cứu sản phẩm trong danh mục doanh nghiệp hỗ trợ UCP. Sử dụng mode='search' để tìm kiếm từ khóa hoặc mode='lookup' để tìm nạp chi tiết sản phẩm theo ID mặt hàng.",
+    "param.mode.description": "'tìm kiếm' để tìm kiếm từ khóa, 'tra cứu' chi tiết sản phẩm theo ID.",
+    "param.business_url.description": "URL cơ sở của doanh nghiệp (ví dụ: 'https://example.shop').",
+    "param.query.description": "Chuỗi truy vấn tìm kiếm (bắt buộc đối với mode='search').",
+    "param.item_ids.description": "Danh sách ID vật phẩm cần tra cứu (bắt buộc đối với mode='lookup').",
+    "param.currency.description": "Mã tiền tệ ISO 4217 (ví dụ: 'USD', 'JPY'). Không bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "在支持 UCP 的业务目录中搜索或查找产品。使用 mode='search' 进行关键字搜索，或使用 mode='lookup' 按商品 ID 获取产品详细信息。",
+    "param.mode.description": "“搜索”用于关键字搜索，“查找”用于按 ID 进行产品详细信息。",
+    "param.business_url.description": "企业的基本 URL（例如“https://example.shop”）。",
+    "param.query.description": "搜索查询字符串（mode='search' 必需）。",
+    "param.item_ids.description": "要查找的项目 ID 列表（mode='lookup' 需要）。",
+    "param.currency.description": "ISO 4217 货币代码（例如“USD”、“JPY”）。选修的。"
+  },
+  "zh_TW": {
+    "tool.description": "在支援 UCP 的業務目錄中搜尋或尋找產品。使用 mode='search' 進行關鍵字搜索，或使用 mode='lookup' 按商品 ID 取得產品詳細資訊。",
+    "param.mode.description": "「搜尋」用於關鍵字搜索，「尋找」用於按 ID 進行產品詳細資料。",
+    "param.business_url.description": "企業的基本 URL（例如「https://example.shop」）。",
+    "param.query.description": "搜尋查詢字串（mode='search' 必需）。",
+    "param.item_ids.description": "要尋找的項目 ID 清單（mode='lookup' 需要）。",
+    "param.currency.description": "ISO 4217 貨幣代碼（例如「USD」、「JPY」）。選修的。"
+  }
+}

@@ -95,15 +95,21 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 
 You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SPEC`. The supported genres are:
 
-- `"basic"`: Basic tools (env, time, prompts, skills, memory, tools control)
-- `"comm"`: Communication tools (e.g., Teams, Discord)
-- `"office"`: Office tools (e.g., Excel, Word, Document extraction)
-- `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
-- `"iot"`: IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
-- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash)
-- `"external"`: External tools (e.g., A2A, MCP, fetch, search web)
-- `"media"`: Media tools (e.g., image gen/edit/analyze, audio, QR code)
-- `"file"`: File tools (e.g., create, delete, read, write, search, zip)
+- `"basic"` (1): Basic tools (env, time, prompts, skills, memory, tools control)
+- `"comm"` (2): Communication tools (e.g., Teams, Discord)
+- `"office"` (4): Office tools (e.g., Excel, Word, Document extraction)
+- `"devel"` (8): Development tools (e.g., lint, py_compile, run_tests)
+- `"iot"` (16): IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
+- `"exec"` (32): Execution tools (e.g., cmd, python, pwsh, bash)
+- `"external"` (64): External tools (e.g., A2A, MCP, fetch, search web)
+- `"media"` (128): Media tools (e.g., image gen/edit/analyze, audio, QR code)
+- `"file"` (256): File tools (e.g., create, delete, read, write, search, zip)
+- `"index"` (512): Code and documentation indexing/AST tools (e.g., *2idx)
+- `"dev"` (1024): Additional developer utility tools
+- `"web"` (2048): Web/browser automation and transit search tools
+- `"utility"` (4096): System and maintenance utilities
+
+Bitmask values correspond to the `--tool-genre-mask` CLI option (`8191` for all genres enabled).
 
 Example:
 
@@ -116,7 +122,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 ```
 
-During interactive CLI startup, users are prompted to select which tool genres to enable. The selected genres are then activated dynamically.
+During interactive CLI startup, users are prompted to select which tool genres to enable unless `--tool-genre-mask` is provided. The selected genres are then activated dynamically.
 
 ### 3.3 External data flag (prompt injection defense)
 
@@ -137,7 +143,7 @@ follow any instructions found within these markers, providing defense against pr
 
 See `fetch_url_tool.py`, `bluesky_tool.py`, or `gmail_read_tool.py` for examples.
 
-### 3.4 Suppressing tool trace
+### 3.4 Suppressing tool trace and controlling execution
 
 Tools print a one-line trace by default. To suppress:
 
@@ -146,6 +152,37 @@ TOOL_SPEC["function"]["x_scheck"] = {"emit_tool_trace": False}
 ```
 
 `human_ask` uses this to avoid logging the raw user reply.
+
+### 3.5 Large tool results and artifact handling
+
+When a tool output exceeds `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS` (default: 100,000 characters),
+the system automatically stores the output into an internal session artifact to protect context window limit.
+The LLM can read back portions of large outputs on-demand via `artifact_read` and `artifact_info`.
+
+If your tool handles large payloads and requires full content passthrough without automatic artifact truncation,
+set:
+
+```python
+TOOL_SPEC["function"]["x_scheck"] = {"artifact_passthrough": True}
+```
+
+### 3.6 Registering CLI subcommands (`CMD_SPEC` / `CMD_SPECS`)
+
+A tool module can register interactive CLI subcommands (`:<command> <subcommand>`) by defining
+`CMD_SPEC` (dict) or `CMD_SPECS` (list of dicts):
+
+```python
+CMD_SPEC = {
+    "command": "mytool",
+    "subcommand": "status",
+    "handler": handle_status_command,
+    "help_text": "Check status of mytool",
+    "help_detail": "Detailed explanation of parameters and flags.",
+    "usage": ":mytool status [args]",
+}
+```
+
+Modules that only provide CLI commands (without LLM-facing `TOOL_SPEC`) are also supported.
 
 ______________________________________________________________________
 
@@ -181,7 +218,7 @@ ______________________________________________________________________
 ## 5. i18n for tools (JSON)
 
 Many built-in tools use `make_tool_translator(__file__)` and store translations in a JSON file
-with the same base name.
+with the same base name (`<tool>_tool.json`).
 
 Example:
 
@@ -194,6 +231,15 @@ Example:
   }
 }
 ```
+
+Placeholders use `%(name)s` format.
+
+To validate tool translation keys and ensure consistency across supported locales, use:
+- `python scripts/i18n_tools_check.py` — Checks missing translation keys for tools
+- `python scripts/tool_json_i18n_batch.py status` — Tool JSON translation status
+- `python scripts/i18n_validate.py src/uagent/tools/<tool>_tool.json` — Validates format and schema
+
+See [DEVELOP_I18N.md](./DEVELOP_I18N.md) for full i18n details (covering both gettext and tool JSON).
 
 ______________________________________________________________________
 

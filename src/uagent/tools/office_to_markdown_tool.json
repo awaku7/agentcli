@@ -324,7 +324,6 @@
     "param.include_mermaid.description": "Bao gồm lưu đồ Mermaid trong các trang tính Excel có cột quy trình hoặc phụ thuộc có thể nhận diện."
   },
   "pl": {
-    "Tool.description": "Konwertuj pliki PPTX, XLSX/XLSM lub DOCX do Markdown. Slajdy, arkusze, nagłówki, akapity i tabele zostaną zachowane.",
     "x_search_terms": "biuro do przeceny | pptx do przeceny | xlsx do przeceny | docx do przeceny | konwertuj plik pakietu Office | excel formatting | mermaid flowchart",
     "param.input_path.description": "Ścieżka wejściowa .pptx, .xlsx/.xlsm lub .docx.",
     "param.output_path.description": "Opcjonalna ścieżka wyjściowa .md.",
@@ -559,9 +558,8 @@
     "label.slide": "Snímek",
     "label.notes": "Poznámky",
     "label.table": "Tabulka",
-    "štítek.merged_ranges": "Sloučené rozsahy",
     "param.include_notes.description": "For PPTX, include speaker notes.",
-    "label.merged_ranges": "Merged ranges",
+    "label.merged_ranges": "Sloučené rozsahy",
     "label.formulas": "Formulas",
     "param.password.description": "Password for an encrypted Office file (optional).",
     "param.recalculate.description": "Před převodem souborů Excel přepočítá vzorce pomocí Microsoft Excelu, pokud je k dispozici.",

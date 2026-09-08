@@ -1,0 +1,306 @@
+{
+  "ar": {
+    "tool.description": "إنشاء أو استرداد أو تحديث عربة التسوق عبر UCP. استخدم الوضع = \"إنشاء\" لإنشاء عربة جديدة، أو الوضع = \"الحصول على\" للاسترداد، أو الوضع = \"التحديث\" لتعديل العناصر.",
+    "param.mode.description": "\"إنشاء\" لإنشاء عربة التسوق، و\"الحصول على\" للاسترداد، و\"تحديث\" للتعديل.",
+    "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري.",
+    "param.cart_id.description": "معرف سلة التسوق (مطلوب للوضع='get' والوضع='update').",
+    "param.line_items.description": "عناصر السطر لسلة التسوق. يحتوي كل عنصر على item_id (str) والكمية (int). مطلوب للوضع = \"إنشاء\" والوضع = \"التحديث\".",
+    "param.currency.description": "رمز العملة ISO 4217 (على سبيل المثال، \"USD\"، \"JPY\"). خياري."
+  },
+  "bn": {
+    "tool.description": "UCP এর মাধ্যমে একটি শপিং কার্ট তৈরি করুন, পুনরুদ্ধার করুন বা আপডেট করুন। একটি নতুন কার্ট তৈরি করতে mode='create', পুনরুদ্ধার করতে mode='get', অথবা লাইন আইটেমগুলি সংশোধন করতে mode='update' ব্যবহার করুন।",
+    "param.mode.description": "কার্ট তৈরি করতে 'তৈরি করুন', পুনরুদ্ধার করতে 'গেট', পরিবর্তন করতে 'আপডেট' করুন।",
+    "param.business_url.description": "ব্যবসার মূল URL।",
+    "param.cart_id.description": "কার্ট আইডি (মোড='গেট' এবং মোড='আপডেট'-এর জন্য প্রয়োজনীয়)।",
+    "param.line_items.description": "কার্টের জন্য লাইন আইটেম. প্রতিটি আইটেমে item_id (str) এবং পরিমাণ (int) আছে। মোড='তৈরি' এবং মোড='আপডেট'-এর জন্য প্রয়োজনীয়।",
+    "param.currency.description": "ISO 4217 মুদ্রা কোড (যেমন 'USD', 'JPY')। ঐচ্ছিক।"
+  },
+  "cs": {
+    "tool.description": "Vytvořte, načtěte nebo aktualizujte nákupní košík prostřednictvím UCP. Použijte mode='create' k vytvoření nového košíku, mode='get' k načtení nebo mode='update' k úpravě řádkových položek.",
+    "param.mode.description": "'create' pro vytvoření košíku, 'get' pro načtení, 'update' pro úpravu.",
+    "param.business_url.description": "Základní adresa URL firmy.",
+    "param.cart_id.description": "ID košíku (vyžadováno pro mode='get' a mode='update').",
+    "param.line_items.description": "Řádkové položky pro košík. Každá položka má item_id (str) a množství (int). Vyžadováno pro mode='create' a mode='update'.",
+    "param.currency.description": "Kód měny ISO 4217 (např. „USD“, „JPY“). Volitelný."
+  },
+  "da": {
+    "tool.description": "Opret, hent eller opdater en indkøbskurv via UCP. Brug mode='create' til at oprette en ny indkøbskurv, mode='get' for at hente, eller mode='update' til at ændre linjeposter.",
+    "param.mode.description": "'opret' for at oprette indkøbskurv, 'hent' for at hente, 'opdater' for at ændre.",
+    "param.business_url.description": "Virksomhedens basis-URL.",
+    "param.cart_id.description": "Indkøbskurv-id (påkrævet for mode='get' og mode='update').",
+    "param.line_items.description": "Linjeposter til indkøbskurven. Hver vare har item_id (str) og kvantitet (int). Påkrævet for mode='create' og mode='update'.",
+    "param.currency.description": "ISO 4217 valutakode (f.eks. 'USD', 'JPY'). Valgfri."
+  },
+  "de": {
+    "tool.description": "Erstellen, Abrufen oder Aktualisieren eines Warenkorbs über UCP. Verwenden Sie mode='create', um einen neuen Warenkorb zu erstellen, mode='get' zum Abrufen oder mode='update', um Einzelposten zu ändern.",
+    "param.mode.description": "„create“ zum Erstellen eines Warenkorbs, „get“ zum Abrufen, „update“ zum Ändern.",
+    "param.business_url.description": "Basis-URL des Unternehmens.",
+    "param.cart_id.description": "Warenkorb-ID (erforderlich für mode='get' und mode='update').",
+    "param.line_items.description": "Einzelposten für den Warenkorb. Jeder Artikel hat item_id (str) und Menge (int). Erforderlich für mode='create' und mode='update'.",
+    "param.currency.description": "ISO 4217-Währungscode (z. B. „USD“, „JPY“). Optional."
+  },
+  "el": {
+    "tool.description": "Δημιουργήστε, ανακτήστε ή ενημερώστε ένα καλάθι αγορών μέσω UCP. Χρησιμοποιήστε mode='create' για να δημιουργήσετε ένα νέο καλάθι, mode='get' για ανάκτηση ή mode='update' για να τροποποιήσετε στοιχεία γραμμής.",
+    "param.mode.description": "'δημιουργία' για δημιουργία καλαθιού, 'λήψη' για ανάκτηση, 'ενημέρωση' για τροποποίηση.",
+    "param.business_url.description": "Βασική διεύθυνση URL της επιχείρησης.",
+    "param.cart_id.description": "Αναγνωριστικό καλαθιού (απαιτείται για mode='get' and mode='update').",
+    "param.line_items.description": "Στοιχεία γραμμής για το καλάθι. Κάθε είδος έχει item_id (str) και quantity (int). Απαιτείται για mode='create' και mode='update'.",
+    "param.currency.description": "Κωδικός νομίσματος ISO 4217 (π.χ. «USD», «JPY»). Προαιρετικός."
+  },
+  "en": {
+    "tool.description": "Create, retrieve, or update a shopping cart via UCP. Use mode='create' to create a new cart, mode='get' to retrieve, or mode='update' to modify line items.",
+    "param.mode.description": "'create' to create cart, 'get' to retrieve, 'update' to modify.",
+    "param.business_url.description": "Base URL of the business.",
+    "param.cart_id.description": "Cart ID (required for mode='get' and mode='update').",
+    "param.line_items.description": "Line items for the cart. Each item has item_id (str) and quantity (int). Required for mode='create' and mode='update'.",
+    "param.currency.description": "ISO 4217 currency code (e.g. 'USD', 'JPY'). Optional."
+  },
+  "es": {
+    "tool.description": "Cree, recupere o actualice un carrito de compras a través de UCP. Utilice mode='create' para crear un nuevo carrito, mode='get' para recuperarlo o mode='update' para modificar líneas de pedido.",
+    "param.mode.description": "'crear' para crear carrito, 'obtener' para recuperar, 'actualizar' para modificar.",
+    "param.business_url.description": "URL base del negocio.",
+    "param.cart_id.description": "ID del carrito (obligatorio para mode='get' y mode='update').",
+    "param.line_items.description": "Artículos de línea para el carrito. Cada artículo tiene item_id (str) y cantidad (int). Requerido para mode='create' y mode='update'.",
+    "param.currency.description": "Código de moneda ISO 4217 (por ejemplo, 'USD', 'JPY'). Opcional."
+  },
+  "fa": {
+    "tool.description": "یک سبد خرید از طریق UCP ایجاد، بازیابی یا به روز کنید. از mode='create' برای ایجاد یک سبد خرید جدید، mode='get' برای بازیابی، یا mode='update' برای اصلاح موارد خط استفاده کنید.",
+    "param.mode.description": "\"ایجاد\" برای ایجاد سبد خرید، \"دریافت\" برای بازیابی، \"به روز رسانی\" برای اصلاح.",
+    "param.business_url.description": "URL پایه کسب و کار.",
+    "param.cart_id.description": "شناسه سبد خرید (برای mode='get' and mode='update' مورد نیاز است).",
+    "param.line_items.description": "اقلام خطی برای سبد خرید. هر مورد دارای item_id (str) و مقدار (int) است. برای mode='create' و mode='update مورد نیاز است.",
+    "param.currency.description": "کد ارز ISO 4217 (به عنوان مثال «USD»، «JPY»). اختیاری."
+  },
+  "fi": {
+    "tool.description": "Luo, nouda tai päivitä ostoskori UCP:n kautta. Käytä mode='create' uuden ostoskorin luomiseen, mode='get' noutamiseen tai mode='update' rivikohtien muokkaamiseen.",
+    "param.mode.description": "\"luo\" luodaksesi ostoskorin, \"get\" noutaaksesi, \"päivitä\" muokataksesi.",
+    "param.business_url.description": "Yrityksen perus-URL-osoite.",
+    "param.cart_id.description": "Ostoskorin tunnus (pakollinen mode='get' ja mode='update').",
+    "param.line_items.description": "Ostoskorin rivikohdat. Jokaisella tuotteella on item_id (str) ja määrä (int). Vaaditaan mode='create' ja mode='update'.",
+    "param.currency.description": "ISO 4217 -valuuttakoodi (esim. 'USD', 'JPY'). Valinnainen."
+  },
+  "fil": {
+    "tool.description": "Gumawa, kumuha, o mag-update ng shopping cart sa pamamagitan ng UCP. Gamitin ang mode='create' para gumawa ng bagong cart, mode='get' to retrieve, o mode='update' para baguhin ang line item.",
+    "param.mode.description": "'lumikha' para gumawa ng cart, 'kumuha' para kunin, 'i-update' para baguhin.",
+    "param.business_url.description": "Base URL ng negosyo.",
+    "param.cart_id.description": "Cart ID (kinakailangan para sa mode='get' at mode='update').",
+    "param.line_items.description": "Mga line item para sa cart. Ang bawat item ay may item_id (str) at dami (int). Kinakailangan para sa mode='create' at mode='update'.",
+    "param.currency.description": "ISO 4217 currency code (hal. 'USD', 'JPY'). Opsyonal."
+  },
+  "fr": {
+    "tool.description": "Créez, récupérez ou mettez à jour un panier via UCP. Utilisez mode='create' pour créer un nouveau panier, mode='get' pour le récupérer ou mode='update' pour modifier les éléments de campagne.",
+    "param.mode.description": "« créer » pour créer un panier, « obtenir » pour récupérer, « mettre à jour » pour modifier.",
+    "param.business_url.description": "URL de base de l'entreprise.",
+    "param.cart_id.description": "ID du panier (obligatoire pour mode='get' et mode='update').",
+    "param.line_items.description": "Éléments de campagne pour le panier. Chaque article a item_id (str) et quantité (int). Requis pour mode='create' et mode='update'.",
+    "param.currency.description": "Code de devise ISO 4217 (par exemple « USD », « JPY »). Facultatif."
+  },
+  "he": {
+    "tool.description": "צור, אחזר או עדכן עגלת קניות באמצעות UCP. השתמש ב-mode='create' כדי ליצור עגלה חדשה, ב-mode='get' כדי לאחזר, או ב-mode='update' כדי לשנות פריטים.",
+    "param.mode.description": "'צור' כדי ליצור עגלה, 'קבל' כדי לאחזר, 'עדכן' כדי לשנות.",
+    "param.business_url.description": "כתובת האתר הבסיסית של העסק.",
+    "param.cart_id.description": "מזהה עגלה (נדרש עבור mode='get' ו-mode='update').",
+    "param.line_items.description": "פריטים לעגלה. לכל פריט יש item_id (str) וכמות (int). נדרש עבור mode='create' ו-mode='update'.",
+    "param.currency.description": "קוד מטבע ISO 4217 (למשל 'USD', 'JPY'). אופציונלי."
+  },
+  "hi": {
+    "tool.description": "यूसीपी के माध्यम से शॉपिंग कार्ट बनाएं, पुनः प्राप्त करें या अपडेट करें। नया कार्ट बनाने के लिए mode='create', पुनर्प्राप्त करने के लिए mode='get', या पंक्ति वस्तुओं को संशोधित करने के लिए mode='update' का उपयोग करें।",
+    "param.mode.description": "कार्ट बनाने के लिए 'बनाएं', पुनर्प्राप्त करने के लिए 'प्राप्त करें', संशोधित करने के लिए 'अपडेट' करें।",
+    "param.business_url.description": "व्यवसाय का आधार URL.",
+    "param.cart_id.description": "कार्ट आईडी (मोड='प्राप्त' और मोड='अपडेट' के लिए आवश्यक)।",
+    "param.line_items.description": "कार्ट के लिए लाइन आइटम. प्रत्येक आइटम में आइटम_आईडी (str) और मात्रा (int) होती है। mode='create' और mode='update' के लिए आवश्यक है।",
+    "param.currency.description": "ISO 4217 मुद्रा कोड (जैसे 'USD', 'JPY')। वैकल्पिक।"
+  },
+  "hu": {
+    "tool.description": "Bevásárlókosár létrehozása, visszakeresése vagy frissítése UCP-n keresztül. A mode='create' használatával új kosarat hozhat létre, a mode='get'-et lekérheti, vagy a mode='update'-t a sorok módosításához.",
+    "param.mode.description": "'létrehoz' kosár létrehozásához, 'get' lekéréshez, 'frissítés' a módosításhoz.",
+    "param.business_url.description": "A vállalkozás alap URL-je.",
+    "param.cart_id.description": "Kosárazonosító (szükséges a mode='get' és mode='update' esetén).",
+    "param.line_items.description": "A kosár sorai. Minden cikk rendelkezik item_id (str) és mennyiség (int). Kötelező a mode='create' és mode='update' esetén.",
+    "param.currency.description": "ISO 4217 pénznemkód (pl. „USD”, „JPY”). Választható."
+  },
+  "id": {
+    "tool.description": "Membuat, mengambil, atau memperbarui keranjang belanja melalui UCP. Gunakan mode='buat' untuk membuat keranjang baru, mode='dapatkan' untuk mengambil, atau mode='perbarui' untuk mengubah item baris.",
+    "param.mode.description": "'buat' untuk membuat keranjang, 'dapatkan' untuk mengambil, 'perbarui' untuk memodifikasi.",
+    "param.business_url.description": "URL Dasar bisnis.",
+    "param.cart_id.description": "ID Keranjang (diperlukan untuk mode='dapatkan' dan mode='perbarui').",
+    "param.line_items.description": "Item baris untuk keranjang. Setiap item memiliki item_id (str) dan kuantitas (int). Diperlukan untuk mode='buat' dan mode='perbarui'.",
+    "param.currency.description": "Kode mata uang ISO 4217 (misalnya 'USD', 'JPY'). Opsional."
+  },
+  "it": {
+    "tool.description": "Crea, recupera o aggiorna un carrello degli acquisti tramite UCP. Utilizza mode='create' per creare un nuovo carrello, mode='get' per recuperare o mode='update' per modificare gli elementi pubblicitari.",
+    "param.mode.description": "'crea' per creare il carrello, 'get' per recuperare, 'aggiorna' per modificare.",
+    "param.business_url.description": "URL di base dell'attività.",
+    "param.cart_id.description": "ID carrello (richiesto per mode='get' e mode='update').",
+    "param.line_items.description": "Elementi pubblicitari per il carrello. Ogni articolo ha item_id (str) e quantità (int). Obbligatorio per mode='create' e mode='update'.",
+    "param.currency.description": "Codice valuta ISO 4217 (ad esempio \"USD\", \"JPY\"). Opzionale."
+  },
+  "ja": {
+    "tool.description": "UCP 経由でショッピング カートを作成、取得、または更新します。新しいカートを作成するには mode='create' を使用し、取得するには mode='get' を、品目を変更するには mode='update' を使用します。",
+    "param.mode.description": "カートを作成するには「create」、取得には「get」、変更には「update」を使用します。",
+    "param.business_url.description": "ビジネスのベース URL。",
+    "param.cart_id.description": "カート ID (mode='get' および mode='update' に必要)。",
+    "param.line_items.description": "カートの項目。各アイテムには item_id (str) と数量 (int) があります。 mode='create' および mode='update' には必須です。",
+    "param.currency.description": "ISO 4217 通貨コード (例: 「USD」、「JPY」)。オプション。"
+  },
+  "ko": {
+    "tool.description": "UCP를 통해 장바구니를 생성, 검색 또는 업데이트합니다. 새 장바구니를 만들려면 mode='create'를 사용하고, 검색하려면 mode='get'을 사용하고, 광고 항목을 수정하려면 mode='update'를 사용하세요.",
+    "param.mode.description": "장바구니를 생성하려면 'create', 검색하려면 'get', 수정하려면 'update'를 사용하세요.",
+    "param.business_url.description": "비즈니스의 기본 URL입니다.",
+    "param.cart_id.description": "카트 ID(mode='get' 및 mode='update'에 필요).",
+    "param.line_items.description": "카트의 품목입니다. 각 항목에는 item_id(str)와 수량(int)이 있습니다. 모드='만들기' 및 모드='업데이트'에 필요합니다.",
+    "param.currency.description": "ISO 4217 통화 코드(예: 'USD', 'JPY') 선택 과목."
+  },
+  "mn": {
+    "tool.description": "UCP-ээр дамжуулан сагс үүсгэх, татах, шинэчлэх боломжтой. Шинэ тэрэг үүсгэхийн тулд mode='create', авахын тулд mode='get', мөрийн зүйлийг өөрчлөхийн тулд mode='update'-г ашиглана уу.",
+    "param.mode.description": "сагсанд үүсгэхийн тулд 'create', авахын тулд 'get', өөрчлөхийн тулд 'update'.",
+    "param.business_url.description": "Бизнесийн үндсэн URL.",
+    "param.cart_id.description": "Сагсны ID (горим='авах' ба горим='шинэчлэлтэд шаардлагатай).",
+    "param.line_items.description": "Сагсанд зориулсан мөрийн зүйлүүд. Зүйл бүр item_id (str) болон тоо хэмжээ (int) байна. Mode='create' болон mode='update'-д шаардлагатай.",
+    "param.currency.description": "ISO 4217 валютын код (жишээ нь 'USD', 'JPY'). Сонголттой."
+  },
+  "mr": {
+    "tool.description": "UCP द्वारे शॉपिंग कार्ट तयार करा, पुनर्प्राप्त करा किंवा अपडेट करा. नवीन कार्ट तयार करण्यासाठी mode='create' वापरा, retrieve करण्यासाठी mode='get' किंवा line आयटम सुधारण्यासाठी mode='update' वापरा.",
+    "param.mode.description": "कार्ट तयार करण्यासाठी 'तयार करा', पुनर्प्राप्त करण्यासाठी 'मिळवा', सुधारण्यासाठी 'अपडेट' करा.",
+    "param.business_url.description": "व्यवसायाची मूळ URL.",
+    "param.cart_id.description": "कार्ट आयडी (mode='get' आणि mode='update' साठी आवश्यक).",
+    "param.line_items.description": "कार्टसाठी लाइन आयटम. प्रत्येक आयटममध्ये item_id (str) आणि quantity (int) असते. मोड='तयार करा' आणि मोड='अपडेट' साठी आवश्यक.",
+    "param.currency.description": "ISO 4217 चलन कोड (उदा. 'USD', 'JPY'). ऐच्छिक."
+  },
+  "ms": {
+    "tool.description": "Buat, dapatkan semula atau kemas kini troli beli-belah melalui UCP. Gunakan mod='create' untuk membuat troli baharu, mod='get' untuk mendapatkan semula atau mod='kemas kini' untuk mengubah suai item baris.",
+    "param.mode.description": "'buat' untuk mencipta troli, 'dapat' untuk mendapatkan semula, 'kemas kini' untuk mengubah suai.",
+    "param.business_url.description": "URL asas perniagaan.",
+    "param.cart_id.description": "ID Troli (diperlukan untuk mod='dapat' dan mod='kemas kini').",
+    "param.line_items.description": "Item baris untuk troli. Setiap item mempunyai item_id (str) dan kuantiti (int). Diperlukan untuk mod='create' dan mode='update'.",
+    "param.currency.description": "Kod mata wang ISO 4217 (cth. 'USD', 'JPY'). Pilihan."
+  },
+  "nb": {
+    "tool.description": "Opprett, hent eller oppdater en handlekurv via UCP. Bruk mode='create' for å opprette en ny handlekurv, mode='get' for å hente, eller mode='update' for å endre ordrelinjer.",
+    "param.mode.description": "'opprett' for å lage handlekurven, 'hent' for å hente, 'oppdater' for å endre.",
+    "param.business_url.description": "Grunnadressen til bedriften.",
+    "param.cart_id.description": "Handlevogn-ID (påkrevd for mode='get' og mode='update').",
+    "param.line_items.description": "Artikler for handlekurven. Hver vare har item_id (str) og mengde (int). Nødvendig for mode='create' og mode='update'.",
+    "param.currency.description": "ISO 4217 valutakode (f.eks. 'USD', 'JPY'). Valgfri."
+  },
+  "nl": {
+    "tool.description": "Maak, haal of update een winkelwagentje via UCP. Gebruik mode='create' om een ​​nieuw winkelwagentje te maken, mode='get' om op te halen, of mode='update' om regelitems te wijzigen.",
+    "param.mode.description": "'creëren' om winkelwagen aan te maken, 'get' om op te halen, 'update' om te wijzigen.",
+    "param.business_url.description": "Basis-URL van het bedrijf.",
+    "param.cart_id.description": "Winkelwagen-ID (vereist voor mode='get' en mode='update').",
+    "param.line_items.description": "Regelitems voor de winkelwagen. Elk item heeft item_id (str) en hoeveelheid (int). Vereist voor mode='create' en mode='update'.",
+    "param.currency.description": "ISO 4217-valutacode (bijvoorbeeld 'USD', 'JPY'). Optioneel."
+  },
+  "nn": {
+    "tool.description": "Opprett, hent eller oppdater en handlekurv via UCP. Bruk mode='create' for å lage en ny handlekurv, mode='get' for å hente, eller mode='update' for å endre linjeelementer.",
+    "param.mode.description": "'create' for å lage handlekurv, 'get' for å hente, 'update' for å endre.",
+    "param.business_url.description": "Basis-URL for virksomheten.",
+    "param.cart_id.description": "Handlekurv-ID (kreves for mode='get' og mode='update').",
+    "param.line_items.description": "Linje elementer for handlekurven. Hver artikkel har item_id (str) og quantity (int). Påkrevd for mode='create' og mode='update'.",
+    "param.currency.description": "ISO 4217-valutakode (f.eks. 'USD', 'JPY'). Valgfritt."
+  },
+  "pl": {
+    "tool.description": "Utwórz, pobierz lub zaktualizuj koszyk za pośrednictwem UCP. Użyj mode='create', aby utworzyć nowy koszyk, mode='get', aby pobrać, lub mode='update, aby zmodyfikować elementy zamówienia.",
+    "param.mode.description": "„utwórz”, aby utworzyć koszyk, „pobierz”, aby pobrać, „aktualizuj”, aby zmodyfikować.",
+    "param.business_url.description": "Podstawowy adres URL firmy.",
+    "param.cart_id.description": "Identyfikator koszyka (wymagany dla mode='get' i mode='update').",
+    "param.line_items.description": "Elementy zamówienia w koszyku. Każdy element ma identyfikator_przedmiotu (str) i ilość (int). Wymagane dla mode='create' i mode='update'.",
+    "param.currency.description": "Kod waluty ISO 4217 (np. „USD”, „JPY”). Fakultatywny."
+  },
+  "pt": {
+    "tool.description": "Crie, recupere ou atualize um carrinho de compras via UCP. Use mode='create' para criar um novo carrinho, mode='get' para recuperar ou mode='update' para modificar itens de linha.",
+    "param.mode.description": "'criar' para criar carrinho, 'obter' para recuperar, 'atualizar' para modificar.",
+    "param.business_url.description": "URL base da empresa.",
+    "param.cart_id.description": "ID do carrinho (obrigatório para mode='get' e mode='update').",
+    "param.line_items.description": "Itens de linha para o carrinho. Cada item possui item_id (str) e quantidade (int). Obrigatório para mode='create' e mode='update'.",
+    "param.currency.description": "Código de moeda ISO 4217 (por exemplo, 'USD', 'JPY'). Opcional."
+  },
+  "pt_BR": {
+    "tool.description": "Crie, recupere ou atualize um carrinho de compras via UCP. Use mode='create' para criar um novo carrinho, mode='get' para recuperar ou mode='update' para modificar itens de linha.",
+    "param.mode.description": "'criar' para criar carrinho, 'obter' para recuperar, 'atualizar' para modificar.",
+    "param.business_url.description": "URL base da empresa.",
+    "param.cart_id.description": "ID do carrinho (obrigatório para mode='get' e mode='update').",
+    "param.line_items.description": "Itens de linha para o carrinho. Cada item possui item_id (str) e quantidade (int). Obrigatório para mode='create' e mode='update'.",
+    "param.currency.description": "Código de moeda ISO 4217 (por exemplo, 'USD', 'JPY'). Opcional."
+  },
+  "ro": {
+    "tool.description": "Creați, preluați sau actualizați un coș de cumpărături prin UCP. Utilizați mode='create' pentru a crea un coș nou, mode='get' pentru a prelua sau mode='update' pentru a modifica elementele rând.",
+    "param.mode.description": "„creați” pentru a crea coșul de cumpărături, „obține” pentru a prelua, „actualizați” pentru a modifica.",
+    "param.business_url.description": "Adresa URL de bază a companiei.",
+    "param.cart_id.description": "ID-ul coșului (necesar pentru mode='get' și mode='update').",
+    "param.line_items.description": "Articole rând pentru coș. Fiecare articol are item_id (str) și cantitate (int). Necesar pentru mode='create' și mode='update'.",
+    "param.currency.description": "Codul monedei ISO 4217 (de exemplu, „USD”, „JPY”). Opțional."
+  },
+  "ru": {
+    "tool.description": "Создайте, получите или обновите корзину покупок через UCP. Используйте mode='create' для создания новой корзины, mode='get' для получения или mode='update' для изменения позиций.",
+    "param.mode.description": "«Создать» для создания корзины, «Получить» для получения, «Обновить» для изменения.",
+    "param.business_url.description": "Базовый URL компании.",
+    "param.cart_id.description": "Идентификатор корзины (требуется для mode='get' и mode='update').",
+    "param.line_items.description": "Позиции для корзины. Каждый товар имеет item_id (str) и количество (int). Требуется для mode='create' и mode='update'.",
+    "param.currency.description": "Код валюты ISO 4217 (например, «USD», «JPY»). Необязательный."
+  },
+  "sv": {
+    "tool.description": "Skapa, hämta eller uppdatera en kundvagn via UCP. Använd mode='create' för att skapa en ny kundvagn, mode='get' för att hämta eller mode='update' för att ändra rader.",
+    "param.mode.description": "'skapa' för att skapa varukorg, 'få' för att hämta, 'uppdatera' för att ändra.",
+    "param.business_url.description": "Företagets basadress.",
+    "param.cart_id.description": "Kundvagns-ID (krävs för mode='get' och mode='update').",
+    "param.line_items.description": "Rader för varukorgen. Varje artikel har item_id (str) och kvantitet (int). Krävs för mode='create' och mode='update'.",
+    "param.currency.description": "ISO 4217 valutakod (t.ex. 'USD', 'JPY'). Frivillig."
+  },
+  "sw": {
+    "tool.description": "Unda, rudisha, au usasishe rukwama ya ununuzi kupitia UCP. Tumia modi='unda' kuunda rukwama mpya, modi='pata' kupata, au modi='sasisha' ili kurekebisha vipengee vya laini.",
+    "param.mode.description": "'unda' ili kuunda rukwama, 'pata' kurejesha, 'sasisha' ili kurekebisha.",
+    "param.business_url.description": "URL ya msingi ya biashara.",
+    "param.cart_id.description": "Kitambulisho cha rukwama (inahitajika kwa modi='pata' na hali='sasisha').",
+    "param.line_items.description": "Vipengee vya mstari kwa gari. Kila kipengee kina item_id (str) na wingi (int). Inahitajika kwa modi='unda' na modi='sasisha'.",
+    "param.currency.description": "Msimbo wa sarafu wa ISO 4217 (k.m. 'USD', 'JPY'). Hiari."
+  },
+  "th": {
+    "tool.description": "สร้าง ดึงข้อมูล หรืออัปเดตตะกร้าสินค้าผ่าน UCP ใช้ mode='create' เพื่อสร้างรถเข็นใหม่ mode='get' เพื่อดึงข้อมูล หรือใช้ mode='update' เพื่อแก้ไขรายการสินค้า",
+    "param.mode.description": "'สร้าง' เพื่อสร้างรถเข็น 'รับ' เพื่อดึงข้อมูล 'อัปเดต' เพื่อแก้ไข",
+    "param.business_url.description": "URL พื้นฐานของธุรกิจ",
+    "param.cart_id.description": "รหัสรถเข็น (จำเป็นสำหรับ mode='get' และ mode='update')",
+    "param.line_items.description": "รายการสินค้าสำหรับรถเข็น แต่ละรายการมี item_id (str) และจำนวน (int) จำเป็นสำหรับ mode='create' และ mode='update'",
+    "param.currency.description": "รหัสสกุลเงิน ISO 4217 (เช่น 'USD', 'JPY') ไม่จำเป็น."
+  },
+  "tr": {
+    "tool.description": "UCP aracılığıyla bir alışveriş sepeti oluşturun, alın veya güncelleyin. Yeni bir sepet oluşturmak için mode='create', almak için mode='get' veya satır öğelerini değiştirmek için mode='update' kullanın.",
+    "param.mode.description": "Sepet oluşturmak için 'oluştur', almak için 'al', değiştirmek için 'güncelle'.",
+    "param.business_url.description": "İşletmenin temel URL'si.",
+    "param.cart_id.description": "Sepet Kimliği (mode='get' ve mode='update' için gereklidir).",
+    "param.line_items.description": "Sepete ilişkin satır öğeleri. Her öğenin item_id (str) ve miktarı (int) vardır. mode='create' ve mode='update' için gereklidir.",
+    "param.currency.description": "ISO 4217 para birimi kodu (ör. 'USD', 'JPY'). İsteğe bağlı."
+  },
+  "uk": {
+    "tool.description": "Створіть, отримайте або оновіть кошик для покупок через UCP. Використовуйте mode='create', щоб створити новий кошик, mode='get', щоб отримати, або mode='update', щоб змінити рядки-позиції.",
+    "param.mode.description": "'create', щоб створити кошик, 'get', щоб отримати, 'update', щоб змінити.",
+    "param.business_url.description": "Основна URL-адреса компанії.",
+    "param.cart_id.description": "Ідентифікатор кошика (необхідний для mode='get' і mode='update').",
+    "param.line_items.description": "Позиції для кошика. Кожен товар має item_id (str) і кількість (int). Необхідний для mode='create' і mode='update'.",
+    "param.currency.description": "Код валюти ISO 4217 (наприклад, \"USD\", \"JPY\"). Додатково."
+  },
+  "vi": {
+    "tool.description": "Tạo, truy xuất hoặc cập nhật giỏ hàng qua UCP. Sử dụng mode='create' để tạo giỏ hàng mới, mode='get' để truy xuất hoặc mode='update' để sửa đổi chi tiết đơn hàng.",
+    "param.mode.description": "'tạo' để tạo giỏ hàng, 'nhận' để truy xuất, 'cập nhật' để sửa đổi.",
+    "param.business_url.description": "URL cơ sở của doanh nghiệp.",
+    "param.cart_id.description": "ID giỏ hàng (bắt buộc đối với mode='get' và mode='update').",
+    "param.line_items.description": "Chi tiết đơn hàng cho giỏ hàng. Mỗi mục có item_id (str) và số lượng (int). Bắt buộc đối với mode='tạo' và mode='cập nhật'.",
+    "param.currency.description": "Mã tiền tệ ISO 4217 (ví dụ: 'USD', 'JPY'). Không bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "通过 UCP 创建、检索或更新购物车。使用 mode='create' 创建新购物车，使用 mode='get' 进行检索，或使用 mode='update' 修改订单项。",
+    "param.mode.description": "“创建”用于创建购物车，“获取”用于检索，“更新”用于修改。",
+    "param.business_url.description": "企业的基本 URL。",
+    "param.cart_id.description": "购物车 ID（mode='get' 和 mode='update' 时需要）。",
+    "param.line_items.description": "购物车的订单项。每个项目都有 item_id (str) 和数量 (int)。 mode='create' 和 mode='update' 是必需的。",
+    "param.currency.description": "ISO 4217 货币代码（例如“USD”、“JPY”）。选修的。"
+  },
+  "zh_TW": {
+    "tool.description": "透過 UCP 建立、檢索或更新購物車。使用 mode='create' 建立新購物車，使用 mode='get' 進行檢索，或使用 mode='update' 修改訂單項目。",
+    "param.mode.description": "「建立」用於建立購物車，「取得」用於檢索，「更新」用於修改。",
+    "param.business_url.description": "企業的基本 URL。",
+    "param.cart_id.description": "購物車 ID（mode='get' 和 mode='update' 時需要）。",
+    "param.line_items.description": "購物車的訂單項目。每個項目都有 item_id (str) 和數量 (int)。 mode='create' 和 mode='update' 是必需的。",
+    "param.currency.description": "ISO 4217 貨幣代碼（例如「USD」、「JPY」）。選修的。"
+  }
+}

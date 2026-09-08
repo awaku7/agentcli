@@ -1,0 +1,192 @@
+{
+  "ar": {
+    "tool.description": "اكتشف قدرات UCP (بروتوكول التجارة العالمي) الخاصة بالشركة. جلب ملف التعريف /.well-known/ucp وإرجاع الخدمات المدعومة ووسائل النقل والإمكانات وطرق المصادقة.",
+    "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري (على سبيل المثال \"https://example.shop\").",
+    "err.missing_business_url": "خطأ: Business_url مطلوب."
+  },
+  "bn": {
+    "tool.description": "একটি ব্যবসার UCP (ইউনিভার্সাল কমার্স প্রোটোকল) ক্ষমতা আবিষ্কার করুন। /.well-known/ucp প্রোফাইল নিয়ে আসে এবং সমর্থিত পরিষেবা, পরিবহন, ক্ষমতা এবং প্রমাণীকরণ পদ্ধতি ফেরত দেয়।",
+    "param.business_url.description": "ব্যবসার মূল URL (যেমন 'https://example.shop')।",
+    "err.missing_business_url": "ত্রুটি: business_url আবশ্যক।"
+  },
+  "cs": {
+    "tool.description": "Objevte podnikové funkce UCP (Universal Commerce Protocol). Načte profil /.well-known/ucp a vrátí podporované služby, přenosy, schopnosti a metody ověřování.",
+    "param.business_url.description": "Základní adresa URL firmy (např. „https://example.shop“).",
+    "err.missing_business_url": "Chyba: business_url je povinný údaj."
+  },
+  "da": {
+    "tool.description": "Opdag en virksomheds UCP-funktioner (Universal Commerce Protocol). Henter /.well-known/ucp-profilen og returnerer understøttede tjenester, transporter, kapaciteter og godkendelsesmetoder.",
+    "param.business_url.description": "Virksomhedens basiswebadresse (f.eks. \"https://example.shop\").",
+    "err.missing_business_url": "Fejl: business_url er påkrævet."
+  },
+  "de": {
+    "tool.description": "Entdecken Sie die UCP-Funktionen (Universal Commerce Protocol) eines Unternehmens. Ruft das /.well-known/ucp-Profil ab und gibt unterstützte Dienste, Transporte, Funktionen und Authentifizierungsmethoden zurück.",
+    "param.business_url.description": "Basis-URL des Unternehmens (z. B. „https://example.shop“).",
+    "err.missing_business_url": "Fehler: business_url ist erforderlich."
+  },
+  "el": {
+    "tool.description": "Ανακαλύψτε τις δυνατότητες UCP (Universal Commerce Protocol) μιας επιχείρησης. Ανακτά το προφίλ /.well-known/ucp και επιστρέφει υποστηριζόμενες υπηρεσίες, μεταφορές, δυνατότητες και μεθόδους ελέγχου ταυτότητας.",
+    "param.business_url.description": "URL βάσης της επιχείρησης (π.χ. 'https://example.shop').",
+    "err.missing_business_url": "Σφάλμα: απαιτείται business_url."
+  },
+  "en": {
+    "tool.description": "Discover a business's UCP (Universal Commerce Protocol) capabilities. Fetches the /.well-known/ucp profile and returns supported services, transports, capabilities, and authentication methods.",
+    "param.business_url.description": "Base URL of the business (e.g. 'https://example.shop').",
+    "err.missing_business_url": "Error: business_url is required."
+  },
+  "es": {
+    "tool.description": "Descubra las capacidades UCP (Protocolo de comercio universal) de una empresa. Obtiene el perfil /.well-known/ucp y devuelve servicios, transportes, capacidades y métodos de autenticación compatibles.",
+    "param.business_url.description": "URL base de la empresa (por ejemplo, 'https://example.shop').",
+    "err.missing_business_url": "Error: se requiere business_url."
+  },
+  "fa": {
+    "tool.description": "قابلیت های UCP (پروتکل تجارت جهانی) یک کسب و کار را کشف کنید. نمایه /.well-known/ucp را واکشی می کند و خدمات پشتیبانی شده، حمل و نقل، قابلیت ها و روش های احراز هویت را برمی گرداند.",
+    "param.business_url.description": "نشانی وب پایه کسب و کار (به عنوان مثال 'https://example.shop').",
+    "err.missing_business_url": "خطا: business_url مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Tutustu yrityksen UCP (Universal Commerce Protocol) -ominaisuuksiin. Hakee /.well-known/ucp-profiilin ja palauttaa tuetut palvelut, siirrot, ominaisuudet ja todennusmenetelmät.",
+    "param.business_url.description": "Yrityksen perus-URL-osoite (esim. \"https://example.shop\").",
+    "err.missing_business_url": "Virhe: business_url vaaditaan."
+  },
+  "fil": {
+    "tool.description": "Tuklasin ang mga kakayahan ng UCP (Universal Commerce Protocol) ng isang negosyo. Kinukuha ang /.well-known/ucp profile at ibinabalik ang mga sinusuportahang serbisyo, transportasyon, kakayahan, at paraan ng pagpapatunay.",
+    "param.business_url.description": "Base URL ng negosyo (hal. 'https://example.shop').",
+    "err.missing_business_url": "Error: kailangan ang business_url."
+  },
+  "fr": {
+    "tool.description": "Découvrez les capacités UCP (Universal Commerce Protocol) d'une entreprise. Récupère le profil /.well-known/ucp et renvoie les services, transports, capacités et méthodes d'authentification pris en charge.",
+    "param.business_url.description": "URL de base de l'entreprise (par exemple « https://example.shop »).",
+    "err.missing_business_url": "Erreur : business_url est requis."
+  },
+  "he": {
+    "tool.description": "גלה את יכולות ה-UCP (Universal Commerce Protocol) של עסק. מביא את הפרופיל /.well-known/ucp ומחזיר שירותים נתמכים, הובלות, יכולות ושיטות אימות.",
+    "param.business_url.description": "כתובת האתר הבסיסית של העסק (למשל, 'https://example.shop').",
+    "err.missing_business_url": "שגיאה: יש צורך ב-business_url."
+  },
+  "hi": {
+    "tool.description": "किसी व्यवसाय की यूसीपी (यूनिवर्सल कॉमर्स प्रोटोकॉल) क्षमताओं की खोज करें। /.well-known/ucp प्रोफ़ाइल प्राप्त करता है और समर्थित सेवाएँ, परिवहन, क्षमताएँ और प्रमाणीकरण विधियाँ लौटाता है।",
+    "param.business_url.description": "व्यवसाय का आधार URL (जैसे 'https://example.shop')।",
+    "err.missing_business_url": "त्रुटि: Business_url आवश्यक है."
+  },
+  "hu": {
+    "tool.description": "Fedezze fel a vállalkozás UCP (Universal Commerce Protocol) képességeit. Lekéri a /.well-known/ucp profilt, és visszaadja a támogatott szolgáltatásokat, átviteleket, képességeket és hitelesítési módszereket.",
+    "param.business_url.description": "A vállalkozás alap URL-je (pl. „https://example.shop”).",
+    "err.missing_business_url": "Hiba: a business_url megadása kötelező."
+  },
+  "id": {
+    "tool.description": "Temukan kemampuan UCP (Universal Commerce Protocol) suatu bisnis. Mengambil profil /.well-known/ucp dan mengembalikan layanan, transportasi, kemampuan, dan metode otentikasi yang didukung.",
+    "param.business_url.description": "URL dasar bisnis (misalnya 'https://example.shop').",
+    "err.missing_business_url": "Kesalahan: business_url diperlukan."
+  },
+  "it": {
+    "tool.description": "Scopri le funzionalità UCP (Universal Commerce Protocol) di un'azienda. Recupera il profilo /.well-known/ucp e restituisce servizi, trasporti, funzionalità e metodi di autenticazione supportati.",
+    "param.business_url.description": "URL di base dell'attività (ad esempio \"https://example.shop\").",
+    "err.missing_business_url": "Errore: business_url è obbligatorio."
+  },
+  "ja": {
+    "tool.description": "ビジネスの UCP (Universal Commerce Protocol) 機能を発見します。 /.well-known/ucp プロファイルを取得し、サポートされているサービス、トランスポート、機能、および認証方法を返します。",
+    "param.business_url.description": "ビジネスのベース URL (例: 「https://example.shop」)。",
+    "err.missing_business_url": "エラー: business_url は必須です。"
+  },
+  "ko": {
+    "tool.description": "기업의 UCP(Universal Commerce Protocol) 기능을 알아보세요. /.well-known/ucp 프로필을 가져오고 지원되는 서비스, 전송, 기능 및 인증 방법을 반환합니다.",
+    "param.business_url.description": "비즈니스의 기본 URL(예: 'https://example.shop')",
+    "err.missing_business_url": "오류: business_url이 필요합니다."
+  },
+  "mn": {
+    "tool.description": "Бизнесийн UCP (Universal Commerce Protocol) чадавхийг олж мэдээрэй. /.well-known/ucp профайлыг татаж, дэмжигдсэн үйлчилгээ, тээвэрлэлт, чадвар, баталгаажуулалтын аргуудыг буцаана.",
+    "param.business_url.description": "Бизнесийн үндсэн URL (жишээ нь: 'https://example.shop').",
+    "err.missing_business_url": "Алдаа: business_url шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "व्यवसायाची UCP (युनिव्हर्सल कॉमर्स प्रोटोकॉल) क्षमता शोधा. /.well-known/ucp प्रोफाइल आणते आणि समर्थित सेवा, वाहतूक, क्षमता आणि प्रमाणीकरण पद्धती परत करते.",
+    "param.business_url.description": "व्यवसायाची मूळ URL (उदा. 'https://example.shop').",
+    "err.missing_business_url": "त्रुटी: business_url आवश्यक आहे."
+  },
+  "ms": {
+    "tool.description": "Temui keupayaan UCP (Universal Commerce Protocol) perniagaan. Mengambil profil /.well-known/ucp dan mengembalikan perkhidmatan, pengangkutan, keupayaan dan kaedah pengesahan yang disokong.",
+    "param.business_url.description": "URL asas perniagaan (cth. 'https://example.shop').",
+    "err.missing_business_url": "Ralat: business_url diperlukan."
+  },
+  "nb": {
+    "tool.description": "Oppdag en bedrifts UCP-funksjoner (Universal Commerce Protocol). Henter /.well-known/ucp-profilen og returnerer støttede tjenester, transporter, muligheter og autentiseringsmetoder.",
+    "param.business_url.description": "Grunnadressen til bedriften (f.eks. «https://example.shop»).",
+    "err.missing_business_url": "Feil: business_url er påkrevd."
+  },
+  "nl": {
+    "tool.description": "Ontdek de UCP-mogelijkheden (Universal Commerce Protocol) van een bedrijf. Haalt het /.well-known/ucp-profiel op en retourneert ondersteunde services, transporten, mogelijkheden en authenticatiemethoden.",
+    "param.business_url.description": "Basis-URL van het bedrijf (bijvoorbeeld 'https://example.shop').",
+    "err.missing_business_url": "Fout: business_url is vereist."
+  },
+  "nn": {
+    "tool.description": "Oppdag bedriftens UCP-funksjoner (Universal Commerce Protocol). Henter/.well-known/ucp-profilen og returnerer støttede tjenester, overføringer, funksjoner og godkjenningsmetoder.",
+    "param.business_url.description": "Basis-URL for virksomheten (f.eks. 'https://example.shop').",
+    "err.missing_business_url": "Feil: business_url er påkrevd."
+  },
+  "pl": {
+    "tool.description": "Odkryj możliwości biznesowe UCP (Universal Commerce Protocol). Pobiera profil /.well-known/ucp i zwraca obsługiwane usługi, transporty, możliwości i metody uwierzytelniania.",
+    "param.business_url.description": "Podstawowy adres URL firmy (np. „https://example.shop”).",
+    "err.missing_business_url": "Błąd: wymagany jest adres URL firmy."
+  },
+  "pt": {
+    "tool.description": "Descubra os recursos UCP (Protocolo de Comércio Universal) de uma empresa. Busca o perfil /.well-known/ucp e retorna serviços, transportes, recursos e métodos de autenticação suportados.",
+    "param.business_url.description": "URL base da empresa (por exemplo, 'https://example.shop').",
+    "err.missing_business_url": "Erro: business_url é obrigatório."
+  },
+  "pt_BR": {
+    "tool.description": "Descubra os recursos UCP (Protocolo de Comércio Universal) de uma empresa. Busca o perfil /.well-known/ucp e retorna serviços, transportes, recursos e métodos de autenticação suportados.",
+    "param.business_url.description": "URL base da empresa (por exemplo, 'https://example.shop').",
+    "err.missing_business_url": "Erro: business_url é obrigatório."
+  },
+  "ro": {
+    "tool.description": "Descoperiți capabilitățile UCP (Universal Commerce Protocol) ale unei companii. Preia profilul /.well-known/ucp și returnează serviciile, transporturile, capabilitățile și metodele de autentificare acceptate.",
+    "param.business_url.description": "Adresa URL de bază a companiei (de exemplu, „https://example.shop”).",
+    "err.missing_business_url": "Eroare: business_url este obligatorie."
+  },
+  "ru": {
+    "tool.description": "Откройте для себя возможности UCP (Universal Commerce Protocol) компании. Извлекает профиль /.well-known/ucp и возвращает поддерживаемые службы, транспорты, возможности и методы аутентификации.",
+    "param.business_url.description": "Базовый URL компании (например, https://example.shop).",
+    "err.missing_business_url": "Ошибка: требуется business_url."
+  },
+  "sv": {
+    "tool.description": "Upptäck ett företags UCP-funktioner (Universal Commerce Protocol). Hämtar den /.välkända/ucp-profilen och returnerar stödda tjänster, transporter, funktioner och autentiseringsmetoder.",
+    "param.business_url.description": "Företagets basadress (t.ex. \"https://example.shop\").",
+    "err.missing_business_url": "Fel: business_url krävs."
+  },
+  "sw": {
+    "tool.description": "Gundua uwezo wa biashara wa UCP (Universal Commerce Protocol). Huleta wasifu /.well-known/ucp na kurejesha huduma zinazotumika, usafirishaji, uwezo na mbinu za uthibitishaji.",
+    "param.business_url.description": "URL ya msingi ya biashara (k.m. 'https://example.shop').",
+    "err.missing_business_url": "Hitilafu: business_url inahitajika."
+  },
+  "th": {
+    "tool.description": "ค้นพบความสามารถของ UCP (Universal Commerce Protocol) ของธุรกิจ ดึงข้อมูลโปรไฟล์ /.well-known/ucp และส่งคืนบริการ การขนส่ง ความสามารถ และวิธีการรับรองความถูกต้องที่รองรับ",
+    "param.business_url.description": "URL พื้นฐานของธุรกิจ (เช่น \"https://example.shop\")",
+    "err.missing_business_url": "ข้อผิดพลาด: จำเป็นต้องมี business_url"
+  },
+  "tr": {
+    "tool.description": "Bir işletmenin UCP (Evrensel Ticaret Protokolü) yeteneklerini keşfedin. /.well-known/ucp profilini getirir ve desteklenen hizmetleri, aktarımları, yetenekleri ve kimlik doğrulama yöntemlerini döndürür.",
+    "param.business_url.description": "İşletmenin temel URL'si (ör. 'https://example.shop').",
+    "err.missing_business_url": "Hata: business_url gerekli."
+  },
+  "uk": {
+    "tool.description": "Відкрийте для себе можливості UCP (універсального торговельного протоколу). Отримує профіль /.well-known/ucp і повертає підтримувані служби, транспорти, можливості та методи автентифікації.",
+    "param.business_url.description": "Основна URL-адреса компанії (наприклад, \"https://example.shop\").",
+    "err.missing_business_url": "Помилка: потрібен business_url."
+  },
+  "vi": {
+    "tool.description": "Khám phá khả năng UCP (Giao thức thương mại toàn cầu) của doanh nghiệp. Tìm nạp hồ sơ /.well-known/ucp và trả về các dịch vụ, phương thức vận chuyển, khả năng và phương thức xác thực được hỗ trợ.",
+    "param.business_url.description": "URL cơ sở của doanh nghiệp (ví dụ: 'https://example.shop').",
+    "err.missing_business_url": "Lỗi: business_url là bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "发现企业的 UCP（通用商务协议）功能。获取 /.well-known/ucp 配置文件并返回支持的服务、传输、功能和身份验证方法。",
+    "param.business_url.description": "企业的基本 URL（例如“https://example.shop”）。",
+    "err.missing_business_url": "错误：business_url 是必需的。"
+  },
+  "zh_TW": {
+    "tool.description": "發現企業的 UCP（通用商務協議）功能。取得 /.well-known/ucp 設定檔並傳回支援的服務、傳輸、功能和身份驗證方法。",
+    "param.business_url.description": "企業的基本 URL（例如「https://example.shop」）。",
+    "err.missing_business_url": "錯誤：business_url 是必要的。"
+  }
+}
