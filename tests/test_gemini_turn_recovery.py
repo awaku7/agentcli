@@ -97,3 +97,56 @@ def test_gemini_turn_repair_drops_incomplete_tool_call_block(monkeypatch):
         {"role": "user", "content": "find it"},
         {"role": "user", "content": "Continue."},
     ]
+
+
+def test_gemini_turn_repair_hard_resets_after_replay_still_fails(monkeypatch):
+    calls = []
+
+    def fake_gemini_chat_with_tools(client, model, messages, **kwargs):
+        calls.append(list(messages))
+        if len(calls) < 3:
+            raise RuntimeError(
+                "400 INVALID_ARGUMENT: Requests ending with a model turn are not supported."
+            )
+        return "continued", [], {}
+
+    monkeypatch.setattr(
+        llm_round_helpers, "gemini_chat_with_tools", fake_gemini_chat_with_tools
+    )
+    core = SimpleNamespace(_gemini_cache_needs_refresh=False)
+    history = [
+        {"role": "system", "content": "rules"},
+        {"role": "user", "content": "original task"},
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call-1",
+                    "function": {"name": "cmd_exec_json", "arguments": "{}"},
+                }
+            ],
+        },
+        {"role": "user", "content": "続けて"},
+    ]
+
+    ok, _client, text, _calls_out, _dump = llm_round_helpers._call_gemini_round(
+        client=object(),
+        depname="vertex-model",
+        call_messages=[history[-1]],
+        history_messages=history,
+        gemini_cache_name="cached-content",
+        core=core,
+        make_client_fn=lambda _core: (None, object()),
+        call_maybe_thread_fn=lambda fn: fn(),
+        max_retries_429=0,
+        retry_base=0,
+        retry_cap=0,
+        stream_responses=False,
+        provider="vertexai",
+    )
+
+    assert ok is True
+    assert text == "continued"
+    assert calls[2][-1] == {"role": "user", "content": "Continue."}
+    assert all(message.get("role") != "assistant" for message in calls[2])

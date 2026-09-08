@@ -346,6 +346,7 @@ def _call_gemini_round(
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
     turn_repair_attempted = False
+    turn_hard_reset_attempted = False
 
     while True:
         try:
@@ -392,6 +393,42 @@ def _call_gemini_round(
                         depname=depname,
                         gemini_cache_name=None,
                     )
+                call_messages.append({"role": "user", "content": "Continue."})
+                gemini_cache_name = None
+                try:
+                    core._gemini_cache_needs_refresh = True
+                except Exception:
+                    pass
+                continue
+            if (
+                not turn_hard_reset_attempted
+                and "requests ending with a model turn" in error_text.lower()
+            ):
+                # If the sanitized full replay still fails, discard all
+                # assistant/tool turns for one final provider-safe retry.
+                # This preserves system instructions and the latest user
+                # message, avoiding an endless retry while allowing the user
+                # to continue after a hard tool-round stop.
+                turn_hard_reset_attempted = True
+                safe_messages: list[dict[str, Any]] = []
+                source_messages = history_messages or call_messages
+                for message in source_messages:
+                    if not isinstance(message, dict):
+                        continue
+                    if message.get("role") == "system":
+                        safe_messages.append(dict(message))
+                latest_user = next(
+                    (
+                        dict(message)
+                        for message in reversed(source_messages)
+                        if isinstance(message, dict)
+                        and message.get("role") == "user"
+                        and str(message.get("content") or "").strip()
+                    ),
+                    {"role": "user", "content": "Continue."},
+                )
+                safe_messages.append(latest_user)
+                call_messages[:] = safe_messages
                 call_messages.append({"role": "user", "content": "Continue."})
                 gemini_cache_name = None
                 try:
