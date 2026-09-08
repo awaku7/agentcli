@@ -51,4 +51,3 @@ def test_unknown_model_does_not_send_minimal(monkeypatch):
 
     assert cfg.kwargs["thinking_level"] == "low"
     assert cfg.kwargs["thinking_level"] != "minimal"
-
