@@ -9,6 +9,7 @@ import datetime as _datetime
 import glob
 import json
 import os
+import re
 import sys
 import tempfile
 import unicodedata
@@ -35,6 +36,11 @@ from .util_message import (
 # Default translation function used when core.tr is not provided.
 tr = _
 tr_ = _
+
+
+def _restore_skill_command_hint(text: str) -> str:
+    """Keep the executable ``:skills clear`` command untranslated."""
+    return re.sub(r":skills\s+\S+(?=\s*[\(（])", ":skills clear", text)
 
 
 def _format_session_timestamp(value: Any) -> str:
@@ -442,6 +448,8 @@ def _handle_cmd_skills(
                 "Tip: :skills clear  (remove applied skills)\n"
                 "Enter number:"
             )
+
+            sel_msg = _restore_skill_command_hint(sel_msg)
 
             while selected_idx is None:
                 sel_json = human_ask({"message": sel_msg})
