@@ -33,6 +33,7 @@ except Exception:
 
 from .llm_message_helpers import (
     _build_call_messages,
+    _build_auto_shrink_projection,
     _init_gemini_cache,
     _maybe_auto_shrink_messages,
 )

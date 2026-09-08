@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 from typing import Any
 
@@ -326,6 +327,7 @@ def _maybe_auto_shrink_messages(
     gemini_cache_name: Any,
     call_maybe_thread_fn: Any,
     use_responses_api: bool = False,
+    persist: bool = True,
 ) -> Any:
 
     # Auto shrink_llm (optional)
@@ -390,14 +392,20 @@ def _maybe_auto_shrink_messages(
         return gemini_cache_name
 
     try:
-        # If Gemini cache is enabled, clear it on auto shrink_llm
-        # to avoid mismatched cached system instructions.
+        # A projection may differ from the provider cache. Do not reuse the
+        # cache for that request; persistent-mode callers also delete it so
+        # the next round can rebuild it from the updated history.
         if provider in ("gemini", "vertexai"):
+            if persist:
+                try:
+                    cache_mgr.clear_cache(client)
+                except Exception:
+                    pass
+            gemini_cache_name = None
             try:
-                cache_mgr.clear_cache(client)
+                core._gemini_cache_needs_refresh = True
             except Exception:
                 pass
-            gemini_cache_name = None
 
         new_messages = call_maybe_thread_fn(
             lambda: core.compress_history_with_llm(
@@ -410,6 +418,9 @@ def _maybe_auto_shrink_messages(
         )
         messages.clear()
         messages.extend(new_messages)
+
+        if not persist:
+            return gemini_cache_name
 
         # Keep the SQLite session in sync with the in-memory auto-compression.
         # The normal log rewrite callback is JSONL-oriented and does not update
@@ -455,6 +466,35 @@ def _maybe_auto_shrink_messages(
         )
 
     return gemini_cache_name
+
+
+def _build_auto_shrink_projection(
+    *,
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    core: Any,
+    cache_mgr: Any,
+    gemini_cache_name: Any,
+    call_maybe_thread_fn: Any,
+    use_responses_api: bool = False,
+) -> tuple[Any, list[dict[str, Any]]]:
+    """Build a shrink projection without changing persistent conversation state."""
+    projected = copy.deepcopy(messages)
+    projected_cache = _maybe_auto_shrink_messages(
+        provider=provider,
+        client=client,
+        depname=depname,
+        messages=projected,
+        core=core,
+        cache_mgr=cache_mgr,
+        gemini_cache_name=gemini_cache_name,
+        call_maybe_thread_fn=call_maybe_thread_fn,
+        use_responses_api=use_responses_api,
+        persist=False,
+    )
+    return projected_cache, projected
 
 
 def _build_call_messages(
