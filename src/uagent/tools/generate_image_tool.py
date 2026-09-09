@@ -558,35 +558,41 @@ def _run_responses_images(
         ("background", background),
         ("output_format", output_format),
         ("output_compression", output_compression),
-        ("n", n),
     ):
         if value not in (None, ""):
             tool[key] = value
-    response = client.responses.create(model=mainline_model, input=prompt, tools=[tool])
     b64_list: list[str] = []
     items: list[dict[str, Any]] = []
-    output = getattr(response, "output", None) or []
-    if isinstance(output, dict):
-        output = [output]
-    if not output and isinstance(response, dict):
-        output = response.get("output") or []
+    # The Responses image_generation tool does not accept tools[0].n.
+    # Request multiple outputs as separate Responses calls instead.
+    for _ in range(max(1, n)):
+        response = client.responses.create(
+            model=mainline_model,
+            input=prompt,
+            tools=[tool],
+        )
+        output = getattr(response, "output", None) or []
         if isinstance(output, dict):
             output = [output]
-    for item in output:
-        item_type = (
-            item.get("type", "")
-            if isinstance(item, dict)
-            else getattr(item, "type", "")
-        )
-        if item_type not in ("image_generation_call", "image_generation"):
-            continue
-        if isinstance(item, dict):
-            result = item.get("result") or item.get("b64_json")
-        else:
-            result = getattr(item, "result", None) or getattr(item, "b64_json", None)
-        if result:
-            b64_list.append(str(result))
-            items.append({"index": len(b64_list), "responses_image_tool": True})
+        if not output and isinstance(response, dict):
+            output = response.get("output") or []
+            if isinstance(output, dict):
+                output = [output]
+        for item in output:
+            item_type = (
+                item.get("type", "")
+                if isinstance(item, dict)
+                else getattr(item, "type", "")
+            )
+            if item_type not in ("image_generation_call", "image_generation"):
+                continue
+            if isinstance(item, dict):
+                result = item.get("result") or item.get("b64_json")
+            else:
+                result = getattr(item, "result", None) or getattr(item, "b64_json", None)
+            if result:
+                b64_list.append(str(result))
+                items.append({"index": len(b64_list), "responses_image_tool": True})
     if not b64_list:
         raise RuntimeError("Responses API returned no image data")
     return {"b64_list": b64_list, "url_list": [], "items": items}
