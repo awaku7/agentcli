@@ -801,6 +801,17 @@ def check_image_size(
     return None
 
 
+def responses_image_mainline_required(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> bool | None:
+    """Return whether Responses image generation needs a mainline model."""
+    image = get_image_capability(model_id, provider)
+    endpoints = getattr(image, "endpoints", None) if image is not None else None
+    value = getattr(endpoints, "responses_mainline_model_required", None)
+    return value if value is None else bool(value)
+
+
 def supports_responses_image_tool(
     model_id: str | None = None,
     provider: str | None = None,

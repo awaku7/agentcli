@@ -1135,16 +1135,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 _remember_meta_image_response(meta_response_id, saved[-1])
         elif provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
             try:
-                from uagent.llmcapa_util import supports_responses_image_tool
+                from uagent.llmcapa_util import (
+                    responses_image_mainline_required,
+                    supports_responses_image_tool,
+                )
 
                 mainline_model = (
                     env_get("UAGENT_OPENAI_DEPNAME")
                     or env_get("UAGENT_DEPNAME")
                     or ""
                 ).strip()
+                mainline_supported = (
+                    responses_image_mainline_required(image_model, provider) is not True
+                    or supports_responses_image_tool(mainline_model, provider) is True
+                )
                 responses_image_tool = (
                     provider == "openai"
                     and bool(mainline_model)
+                    and mainline_supported
                     and not stream
                     and supports_responses_image_tool(image_model, provider) is True
                 )
