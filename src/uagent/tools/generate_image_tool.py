@@ -1255,12 +1255,18 @@ def run_tool(args: dict[str, Any]) -> str:
         from ..runtime.artifact_helpers import register_artifacts
 
         artifacts = register_artifacts(saved, metadata=meta_payload)
+        partial_artifacts = register_artifacts(
+            partial_saved,
+            metadata={**meta_payload, "partial": True},
+        ) if partial_saved else []
     except Exception:
         artifacts = []
+        partial_artifacts = []
 
     data: dict[str, Any] = {
         "provider": provider,
         "artifacts": artifacts,
+        "partial_artifacts": partial_artifacts,
         "model": image_model,
         "prompt": prompt,
         "size": size2,
