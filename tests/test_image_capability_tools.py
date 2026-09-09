@@ -52,6 +52,28 @@ def test_image_capability_helpers_keep_unknown_models_permissive(monkeypatch):
     )
 
 
+def test_image_output_format_helpers_match_extensions_and_mime_types():
+    from uagent.tools.generate_image_tool import (
+        _image_extension as generate_extension,
+        _image_mime as generate_mime,
+    )
+    from uagent.tools.img2img_tool import (
+        _image_extension as edit_extension,
+        _image_mime as edit_mime,
+    )
+
+    for extension, mime in (
+        (generate_extension, generate_mime),
+        (edit_extension, edit_mime),
+    ):
+        assert extension("png") == "png"
+        assert extension("jpeg") == "jpg"
+        assert extension("webp") == "webp"
+        assert mime("png") == "image/png"
+        assert mime("jpeg") == "image/jpeg"
+        assert mime("webp") == "image/webp"
+
+
 def test_image_tool_schemas_expose_extended_image_limits():
     from uagent.tools.generate_image_tool import TOOL_SPEC as generate_spec
     from uagent.tools.img2img_tool import TOOL_SPEC as edit_spec
