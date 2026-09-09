@@ -816,11 +816,13 @@ def run_tool(args: dict[str, Any]) -> str:
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     saved: list[str] = []
     url_list: list[str] = []
+    api_mode = "legacy"
 
     try:
         spinner.start()
 
         if provider == "meta":
+            api_mode = "responses"
             if mask is not None:
                 return _msg(
                     "err.mask_unsupported",
@@ -835,6 +837,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
             saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
         elif provider in ("gemini", "vertexai"):
+            api_mode = "gemini"
             if mask is not None:
                 return _msg(
                     "err.mask_unsupported",
@@ -843,6 +846,7 @@ def run_tool(args: dict[str, Any]) -> str:
             b64_list = _run_gemini_img2img(provider, image_model, src, prompt, n)
             saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
         else:
+            api_mode = "images"
             client = _make_client(provider)
             gen_kwargs: dict[str, Any] = {
                 "model": image_model,
@@ -927,6 +931,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
         attachments.append(attachment)
 
+    print(
+        f"[img2img] saved provider={provider} model={image_model} api={api_mode} files={saved!r}",
+        file=sys.stderr,
+        flush=True,
+    )
+
     try:
         from ..runtime.artifact_helpers import register_artifacts
 
@@ -939,6 +949,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     data: dict[str, Any] = {
         "provider": provider,
+        "api_mode": api_mode,
         "artifacts": artifacts,
         "model": image_model,
         "img": str(src),
