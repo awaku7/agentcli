@@ -108,7 +108,7 @@
   {#if imageStreamState.visible}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm image-stream-bubble" class:opacity-60={imageStreamState.partial}>
       <strong>{imageStreamState.partial ? 'IMAGE PREVIEW:' : 'IMAGE:'}</strong>
-      <img src={imageStreamState.src} alt="Generated image preview" class="image-stream-preview" />
+      <img src={imageStreamState.src} alt="Generated preview" class="image-stream-preview" />
     </div>
   {/if}
 </div>
