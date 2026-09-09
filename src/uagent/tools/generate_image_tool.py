@@ -175,6 +175,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": "png",
                 },
+                "output_compression": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "description": _(
+                        "param.output_compression.description",
+                        default="Output compression level (0-100). Only valid for jpeg/webp.",
+                    ),
+                },
             },
             "required": ["prompt"],
         },
@@ -521,6 +530,7 @@ def _run_openai_images(
     quality: str = "",
     background: str = "",
     output_format: str = "png",
+    output_compression: int | None = None,
 ) -> dict[str, Any]:
     try:
         from openai import AzureOpenAI, OpenAI
@@ -613,7 +623,9 @@ def _run_openai_images(
     if moderation:
         gen_kwargs["moderation"] = moderation
     if _is_gpt_image_model(image_model):
-        gen_kwargs["output_format"] = "png"
+        gen_kwargs["output_format"] = output_format
+        if output_compression is not None:
+            gen_kwargs["output_compression"] = output_compression
         # GPT image models accept: auto, low, medium, high
         # Reject DALL-E-only values (standard, hd) to avoid API error
         if quality:
@@ -886,6 +898,17 @@ def run_tool(args: dict[str, Any]) -> str:
         args.get("output_format") or env_get("UAGENT_IMG_GENERATE_OUTPUT_FORMAT") or "png"
     )
     save_format = output_format if _is_gpt_image_model(image_model) else "png"
+    compression_raw = args.get("output_compression")
+    output_compression = None
+    if compression_raw not in (None, ""):
+        try:
+            output_compression = int(compression_raw)
+        except (TypeError, ValueError):
+            return "[generate_image] output_compression must be an integer from 0 to 100"
+        if not 0 <= output_compression <= 100:
+            return "[generate_image] output_compression must be between 0 and 100"
+        if output_format == "png":
+            return "[generate_image] output_compression is only supported for jpeg/webp"
     try:
         from uagent.llmcapa_util import (
             check_image_capability_value,
@@ -927,6 +950,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "quality": quality or None,
         "background": background or None,
         "output_format": output_format,
+        "output_compression": output_compression,
     }
     try:
         if debug:
@@ -956,6 +980,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 quality=quality,
                 background=background,
                 output_format=output_format,
+                output_compression=output_compression,
             )
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []

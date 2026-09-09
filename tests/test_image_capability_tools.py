@@ -62,3 +62,5 @@ def test_image_tool_schemas_expose_extended_image_limits():
         assert "xhigh" in properties["quality"]["enum"]
         assert "max" in properties["quality"]["enum"]
         assert properties["output_format"]["enum"] == ["png", "jpeg", "webp"]
+        assert properties["output_compression"]["minimum"] == 0
+        assert properties["output_compression"]["maximum"] == 100
