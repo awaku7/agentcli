@@ -547,6 +547,8 @@ def _run_openai_images(
     background: str = "",
     output_format: str = "png",
     output_compression: int | None = None,
+    stream: bool = False,
+    partial_images: int | None = None,
 ) -> dict[str, Any]:
     try:
         from openai import AzureOpenAI, OpenAI
@@ -656,6 +658,10 @@ def _run_openai_images(
             gen_kwargs["background"] = bg
     else:
         gen_kwargs["response_format"] = "b64_json"
+    if stream:
+        gen_kwargs["stream"] = True
+        if partial_images is not None:
+            gen_kwargs["partial_images"] = partial_images
 
     try:
         resp = client.images.generate(**gen_kwargs)
@@ -676,6 +682,26 @@ def _run_openai_images(
     b64_list: list[str] = []
     url_list: list[str] = []
     items: list[dict[str, Any]] = []
+
+    if stream:
+        for event in resp:
+            payload = event if isinstance(event, dict) else {}
+            if not payload and hasattr(event, "model_dump"):
+                payload = event.model_dump()
+            candidate = payload.get("b64_json") if isinstance(payload, dict) else None
+            if not candidate and isinstance(payload, dict):
+                data = payload.get("data")
+                if isinstance(data, dict):
+                    candidate = data.get("b64_json")
+                elif isinstance(data, list):
+                    candidate = next(
+                        (item.get("b64_json") for item in data if isinstance(item, dict)),
+                        None,
+                    )
+            if candidate:
+                b64_list.append(str(candidate))
+                items.append({"index": len(b64_list), "stream": True})
+        return {"b64_list": b64_list, "url_list": [], "items": items}
 
     data_list = getattr(resp, "data", None) or []
     for idx, item in enumerate(data_list, start=1):
@@ -1030,6 +1056,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 background=background,
                 output_format=output_format,
                 output_compression=output_compression,
+                stream=stream,
+                partial_images=partial_images,
             )
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
