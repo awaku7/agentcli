@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased]
+
+## [0.7.5] - 2026-09-09
+
+### Added
+
+- Add capability-aware Meta Responses support through `llmcapa`.
+- Report the selected API mode for image generation and image-to-image routes.
+
+### Changed
+
+- Share image output format handling across image tools.
+- Raise the minimum supported `llmcapa` version to `>=0.5.29`.
+
+### Fixed
+
+- Correctly gate image routes and mainline model selection on Responses API capability.
+- Improve Responses image option handling, continuation resets, and result-shape compatibility.
+- Prevent prompt watcher shutdown races from producing noisy tracebacks.
+
 ## [0.7.2] - 2026-09-06
 
 ### Added
