@@ -100,6 +100,26 @@ def _read_raw_log_messages(path: str) -> list[dict[str, Any]]:
     return raw
 
 
+def _read_session_metadata(path: str) -> dict[str, Any]:
+    """Read the latest reserved session-metadata record from a JSONL log."""
+    metadata: dict[str, Any] = {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    record = json.loads(line)
+                except Exception:
+                    continue
+                if (
+                    isinstance(record, dict)
+                    and record.get("type") == "session_metadata"
+                ):
+                    metadata = record
+    except Exception:
+        pass
+    return metadata
+
+
 def _skills_marker_prefix() -> str:
     # Used to detect/remove skill injections in message history.
     return "[SKILL] "
@@ -246,6 +266,21 @@ def build_initial_messages(
         }
         _insert_cwd_system_message(messages, cwd_msg)
         core.log_message(cwd_msg)
+    except Exception:
+        pass
+
+    # Keep lightweight session metadata in JSONL logs as a reserved record.
+    # Readers that expect conversation messages ignore records without role.
+    try:
+        core.log_message(
+            {
+                "type": "session_metadata",
+                "schema_version": 1,
+                "project_path": os.getcwd(),
+                "session_id": getattr(core, "_session_store_active_id", None),
+                "created_at": time.time(),
+            }
+        )
     except Exception:
         pass
 

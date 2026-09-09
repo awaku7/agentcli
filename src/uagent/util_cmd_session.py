@@ -28,6 +28,7 @@ from .util_message import (
     _format_cwd_system_content,
     _format_skill_system_content,
     _insert_cwd_system_message,
+    _read_session_metadata,
     _read_raw_log_messages,
     _skills_marker_prefix,
     insert_tools_system_message,
@@ -1799,9 +1800,11 @@ def _handle_cmd_load(
     # Note: extract from the RAW log lines because load_conversation_from_log
     # strips non-[SKILL]/[HOOK] system messages (including [CWD] markers).
     try:
-        target_cwd = _extract_last_cwd_from_messages(
-            _read_raw_log_messages(target_path)
-        )
+        raw_log_messages = _read_raw_log_messages(target_path)
+        target_cwd = _extract_last_cwd_from_messages(raw_log_messages)
+        if not target_cwd:
+            metadata = _read_session_metadata(target_path)
+            target_cwd = metadata.get("project_path")
         if (
             isinstance(target_cwd, str)
             and target_cwd.strip()
