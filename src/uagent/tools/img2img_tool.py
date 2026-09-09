@@ -169,6 +169,22 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Output compression level (0-100). Only valid for jpeg/webp.",
                     ),
                 },
+                "stream": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.stream.description",
+                        default="Request streaming image generation when supported by the model.",
+                    ),
+                    "default": False,
+                },
+                "partial_images": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": _(
+                        "param.partial_images.description",
+                        default="Number of partial images for streaming.",
+                    ),
+                },
             },
             "required": ["img", "prompt"],
         },

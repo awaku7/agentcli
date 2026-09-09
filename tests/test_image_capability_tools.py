@@ -94,3 +94,5 @@ def test_image_tool_schemas_expose_extended_image_limits():
         assert properties["output_format"]["enum"] == ["png", "jpeg", "webp"]
         assert properties["output_compression"]["minimum"] == 0
         assert properties["output_compression"]["maximum"] == 100
+        assert properties["stream"]["default"] is False
+        assert properties["partial_images"]["minimum"] == 1
