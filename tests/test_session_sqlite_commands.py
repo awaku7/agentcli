@@ -57,9 +57,7 @@ def test_sessions_list_is_compact_by_default(monkeypatch, tmp_path, capsys):
     assert "summary:" not in compact
     assert compact.count("\n") == 1
 
-    assert _handle_cmd_sessions(
-        "list --verbose", core=core, tr=lambda text, **_: text
-    )
+    assert _handle_cmd_sessions("list --verbose", core=core, tr=lambda text, **_: text)
     verbose = capsys.readouterr().out
     assert "summary: a useful summary" in verbose
     assert "first: a question" in verbose
@@ -97,9 +95,7 @@ def test_load_restores_sqlite_session_workdir(monkeypatch, tmp_path):
     db = SessionStore(tmp_path / "sessions.sqlite3")
     target_dir = tmp_path / "session-workdir"
     target_dir.mkdir()
-    old = db.create_session(
-        project="old", entry_point="cli", project_path=target_dir
-    )
+    old = db.create_session(project="old", entry_point="cli", project_path=target_dir)
     db.append_message(old.session_id, "user", "old question")
     core = SimpleNamespace(
         session_store=db, session_id=None, log_message=lambda _: None
@@ -112,8 +108,7 @@ def test_load_restores_sqlite_session_workdir(monkeypatch, tmp_path):
         )
         assert os.path.normcase(os.getcwd()) == os.path.normcase(str(target_dir))
         assert any(
-            str(message.get("content", "")).startswith("[CWD]")
-            for message in messages
+            str(message.get("content", "")).startswith("[CWD]") for message in messages
         )
     finally:
         os.chdir(previous)

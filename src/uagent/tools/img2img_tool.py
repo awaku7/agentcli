@@ -143,7 +143,16 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "quality": {
                     "type": "string",
-                    "enum": ["auto", "low", "medium", "high", "xhigh", "max", "standard", "hd"],
+                    "enum": [
+                        "auto",
+                        "low",
+                        "medium",
+                        "high",
+                        "xhigh",
+                        "max",
+                        "standard",
+                        "hd",
+                    ],
                     "description": _(
                         "param.quality.description",
                         default="Image quality. GPT: auto/low/medium/high, DALL-E: standard/hd.",
@@ -305,7 +314,11 @@ def _save_many(
     saved: list[str] = []
     ext = _image_extension(output_format)
     for i, b64 in enumerate(b64_list):
-        fn = f"{prefix}_{ts}_{i + 1}.{ext}" if len(b64_list) > 1 else f"{prefix}_{ts}.{ext}"
+        fn = (
+            f"{prefix}_{ts}_{i + 1}.{ext}"
+            if len(b64_list) > 1
+            else f"{prefix}_{ts}.{ext}"
+        )
         out_path = os.path.join(outdir, fn)
         raw = base64.b64decode(b64)
         output = raw
@@ -722,6 +735,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         from uagent.llmcapa_util import check_image_size
+
         size_err = check_image_size(size, image_model, provider)
         if size_err:
             return f"[img2img] {size_err}"
@@ -742,6 +756,7 @@ def run_tool(args: dict[str, Any]) -> str:
         partial_images = None
     try:
         from uagent.llmcapa_util import check_image_streaming
+
         stream_err = check_image_streaming(
             stream, partial_images, image_model, provider
         )

@@ -349,7 +349,11 @@ def _session_tool_names(messages: list[dict[str, Any]]) -> set[str]:
             except (TypeError, json.JSONDecodeError):
                 return
         if isinstance(arguments, dict):
-            add(arguments.get("name") or arguments.get("tool_name") or arguments.get("target"))
+            add(
+                arguments.get("name")
+                or arguments.get("tool_name")
+                or arguments.get("target")
+            )
 
     for message in messages or []:
         if not isinstance(message, dict):

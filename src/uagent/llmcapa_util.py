@@ -781,7 +781,10 @@ def check_image_size(
         ("max_height", height, "height"),
     ):
         limit = getattr(image, attr, None)
-        if limit is not None and ((attr.startswith("min_") and actual < limit) or (attr.startswith("max_") and actual > limit)):
+        if limit is not None and (
+            (attr.startswith("min_") and actual < limit)
+            or (attr.startswith("max_") and actual > limit)
+        ):
             return f"Image {label} {actual} violates capability limit {attr}={limit}"
     divisible = getattr(image, "size_divisible_by", None)
     if divisible and (width % int(divisible) or height % int(divisible)):
@@ -799,7 +802,6 @@ def check_image_size(
         if limit is not None and violates(limit):
             return f"Image size '{size}' violates capability limit {attr}={limit}"
     return None
-
 
 
 def responses_image_mainline_required(

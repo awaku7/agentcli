@@ -158,7 +158,16 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "quality": {
                     "type": "string",
-                    "enum": ["auto", "low", "medium", "high", "xhigh", "max", "standard", "hd"],
+                    "enum": [
+                        "auto",
+                        "low",
+                        "medium",
+                        "high",
+                        "xhigh",
+                        "max",
+                        "standard",
+                        "hd",
+                    ],
                     "description": _(
                         "param.quality.description",
                         default="Image quality. GPT: auto/low/medium/high, DALL-E: standard/hd.",
@@ -335,7 +344,9 @@ def _write_png_bytes(raw: bytes, out_path: str) -> None:
             with Image.open(io.BytesIO(raw)) as image:
                 if (image.format or "").upper() != "PNG":
                     if image.mode not in ("RGB", "RGBA"):
-                        image = image.convert("RGBA" if "A" in image.getbands() else "RGB")
+                        image = image.convert(
+                            "RGBA" if "A" in image.getbands() else "RGB"
+                        )
                     buf = io.BytesIO()
                     image.save(buf, format="PNG")
                     output = buf.getvalue()
@@ -373,7 +384,11 @@ def _save_many(
     saved: list[str] = []
     ext = _image_extension(output_format)
     for i, b64 in enumerate(b64_list):
-        fn = f"{prefix}_{ts}_{i + 1}.{ext}" if len(b64_list) > 1 else f"{prefix}_{ts}.{ext}"
+        fn = (
+            f"{prefix}_{ts}_{i + 1}.{ext}"
+            if len(b64_list) > 1
+            else f"{prefix}_{ts}.{ext}"
+        )
         out_path = os.path.join(outdir, fn)
         _write_png_from_b64(b64, out_path)
         saved.append(out_path)
@@ -534,10 +549,20 @@ def _run_responses_images(
     try:
         from openai import OpenAI
     except Exception as exc:
-        raise RuntimeError(_msg("err.openai_import", "Failed to import openai package: {err}", err=repr(exc)))
+        raise RuntimeError(
+            _msg(
+                "err.openai_import",
+                "Failed to import openai package: {err}",
+                err=repr(exc),
+            )
+        )
     api_key = _img_env("openai", "generate", "api_key", required=True)
     base_url = _img_env(
-        "openai", "generate", "base_url", required=False, default="https://api.openai.com/v1"
+        "openai",
+        "generate",
+        "base_url",
+        required=False,
+        default="https://api.openai.com/v1",
     ).rstrip("/")
     client = OpenAI(api_key=api_key, base_url=base_url)
     tool: dict[str, Any] = {"type": "image_generation", "model": image_model}
@@ -578,7 +603,9 @@ def _run_responses_images(
             if isinstance(item, dict):
                 result = item.get("result") or item.get("b64_json")
             else:
-                result = getattr(item, "result", None) or getattr(item, "b64_json", None)
+                result = getattr(item, "result", None) or getattr(
+                    item, "b64_json", None
+                )
             if result:
                 b64_list.append(str(result))
                 items.append({"index": len(b64_list), "responses_image_tool": True})
@@ -748,29 +775,45 @@ def _run_openai_images(
                     candidate = data.get("b64_json")
                 elif isinstance(data, list):
                     candidate = next(
-                        (item.get("b64_json") for item in data if isinstance(item, dict)),
+                        (
+                            item.get("b64_json")
+                            for item in data
+                            if isinstance(item, dict)
+                        ),
                         None,
                     )
             if candidate:
-                event_type = str(payload.get("type", "")).lower() if isinstance(payload, dict) else ""
+                event_type = (
+                    str(payload.get("type", "")).lower()
+                    if isinstance(payload, dict)
+                    else ""
+                )
                 target = partial_b64_list if "partial" in event_type else b64_list
                 is_partial = "partial" in event_type
                 target.append(str(candidate))
-                items.append({
-                    "index": len(target),
-                    "stream": True,
-                    "partial": is_partial,
-                })
+                items.append(
+                    {
+                        "index": len(target),
+                        "stream": True,
+                        "partial": is_partial,
+                    }
+                )
                 image_event = getattr(get_callbacks(), "image_event", None)
                 if image_event is not None:
                     try:
-                        image_event({
-                            "event": "image_generation.partial_image" if is_partial else "image_generation.completed",
-                            "index": len(target),
-                            "mime": _image_mime(output_format),
-                            "data_base64": str(candidate),
-                            "is_final": not is_partial,
-                        })
+                        image_event(
+                            {
+                                "event": (
+                                    "image_generation.partial_image"
+                                    if is_partial
+                                    else "image_generation.completed"
+                                ),
+                                "index": len(target),
+                                "mime": _image_mime(output_format),
+                                "data_base64": str(candidate),
+                                "is_final": not is_partial,
+                            }
+                        )
                     except Exception:
                         pass
         return {
@@ -999,6 +1042,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         from uagent.llmcapa_util import check_image_size
+
         size_err = check_image_size(size, image_model, provider)
         if size_err:
             return f"[generate_image] {size_err}"
@@ -1019,6 +1063,7 @@ def run_tool(args: dict[str, Any]) -> str:
         partial_images = None
     try:
         from uagent.llmcapa_util import check_image_streaming
+
         stream_err = check_image_streaming(
             stream, partial_images, image_model, provider
         )
@@ -1057,7 +1102,9 @@ def run_tool(args: dict[str, Any]) -> str:
         args.get("background") or env_get("UAGENT_IMG_GENERATE_BACKGROUND") or ""
     ).strip()
     output_format = _normalize_output_format(
-        args.get("output_format") or env_get("UAGENT_IMG_GENERATE_OUTPUT_FORMAT") or "png"
+        args.get("output_format")
+        or env_get("UAGENT_IMG_GENERATE_OUTPUT_FORMAT")
+        or "png"
     )
     save_format = output_format if _is_gpt_image_model(image_model) else "png"
     compression_raw = args.get("output_compression")
@@ -1066,7 +1113,9 @@ def run_tool(args: dict[str, Any]) -> str:
         try:
             output_compression = int(compression_raw)
         except (TypeError, ValueError):
-            return "[generate_image] output_compression must be an integer from 0 to 100"
+            return (
+                "[generate_image] output_compression must be an integer from 0 to 100"
+            )
         if not 0 <= output_compression <= 100:
             return "[generate_image] output_compression must be between 0 and 100"
         if output_format == "png":
@@ -1150,9 +1199,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
 
                 mainline_model = (
-                    env_get("UAGENT_OPENAI_DEPNAME")
-                    or env_get("UAGENT_DEPNAME")
-                    or ""
+                    env_get("UAGENT_OPENAI_DEPNAME") or env_get("UAGENT_DEPNAME") or ""
                 ).strip()
                 mainline_supported = (
                     responses_image_mainline_required(image_model, provider) is not True
@@ -1203,7 +1250,13 @@ def run_tool(args: dict[str, Any]) -> str:
             if partial_b64_list:
                 partial_dir = _ensure_dir(os.path.join(outdir, "partials"))
                 partial_saved.extend(
-                    _save_many(partial_dir, f"{file_prefix}_partial", ts, partial_b64_list, save_format)
+                    _save_many(
+                        partial_dir,
+                        f"{file_prefix}_partial",
+                        ts,
+                        partial_b64_list,
+                        save_format,
+                    )
                 )
             if b64_list:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
@@ -1380,10 +1433,14 @@ def run_tool(args: dict[str, Any]) -> str:
         from ..runtime.artifact_helpers import register_artifacts
 
         artifacts = register_artifacts(saved, metadata=meta_payload)
-        partial_artifacts = register_artifacts(
-            partial_saved,
-            metadata={**meta_payload, "partial": True},
-        ) if partial_saved else []
+        partial_artifacts = (
+            register_artifacts(
+                partial_saved,
+                metadata={**meta_payload, "partial": True},
+            )
+            if partial_saved
+            else []
+        )
     except Exception:
         artifacts = []
         partial_artifacts = []
@@ -1401,7 +1458,6 @@ def run_tool(args: dict[str, Any]) -> str:
         "saved_files": saved,
         "partial_files": partial_saved,
         "attachments": attachments,
-
     }
     if save_meta:
         data["meta_path"] = meta_path

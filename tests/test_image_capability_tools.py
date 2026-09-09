@@ -19,15 +19,14 @@ def test_image_capability_helpers_read_structured_metadata(monkeypatch):
     assert llmcapa_util.image_capability_values(
         "quality_values", "gpt-image-2.5-flare", "openai"
     ) == ("auto", "high", "xhigh", "max")
-    assert llmcapa_util.image_capability_max_outputs(
-        "gpt-image-2.5-flare", "openai"
-    ) == 10
-    assert llmcapa_util.check_image_size(
-        "1024x1024", "gpt-image-2.5-flare", "openai"
-    ) is None
-    assert llmcapa_util.check_image_size(
-        "800x600", "gpt-image-2.5-flare", "openai"
+    assert (
+        llmcapa_util.image_capability_max_outputs("gpt-image-2.5-flare", "openai") == 10
     )
+    assert (
+        llmcapa_util.check_image_size("1024x1024", "gpt-image-2.5-flare", "openai")
+        is None
+    )
+    assert llmcapa_util.check_image_size("800x600", "gpt-image-2.5-flare", "openai")
     assert (
         llmcapa_util.check_image_capability_value(
             "quality_values", "xhigh", "gpt-image-2.5-flare", "openai"
@@ -46,12 +45,11 @@ def test_image_capability_helpers_keep_unknown_models_permissive(monkeypatch):
         lambda model_id, provider: SimpleNamespace(image=None),
     )
 
-    assert llmcapa_util.image_capability_values(
-        "quality_values", "custom-image", "openai"
-    ) == ()
-    assert llmcapa_util.image_capability_max_outputs(
-        "custom-image", "openai"
-    ) == 4
+    assert (
+        llmcapa_util.image_capability_values("quality_values", "custom-image", "openai")
+        == ()
+    )
+    assert llmcapa_util.image_capability_max_outputs("custom-image", "openai") == 4
     assert (
         llmcapa_util.check_image_capability_value(
             "quality_values", "vendor-specific", "custom-image", "openai"
