@@ -23,6 +23,7 @@ from .input_ui import (
     _multiline_editor,
     _normalize_multiline_text,
     _prompt_toolkit_input,
+    _exit_prompt_application,
 )
 from .prompt_session import _get_prompt_session
 from .state import _CLI_SHUTDOWN
@@ -195,8 +196,7 @@ def stdin_loop() -> None:
                                 while not stop_prompt_watch.wait(0.05):
                                     if _CLI_SHUTDOWN.is_set():
                                         app = getattr(prompt_session, "app", None)
-                                        if app is not None:
-                                            app.exit(result=None)
+                                        _exit_prompt_application(app)
                                         return
                                     with core.human_ask_lock:
                                         interrupted = bool(core.human_ask_active)
@@ -206,8 +206,7 @@ def stdin_loop() -> None:
                                     if not interrupted:
                                         continue
                                     app = getattr(prompt_session, "app", None)
-                                    if app is not None:
-                                        app.exit(result=None)
+                                    _exit_prompt_application(app)
                                     return
 
                             prompt_watcher = threading.Thread(

@@ -19,6 +19,28 @@ from .prompt_session import (
 from .state import _CLI_SHUTDOWN
 
 
+def _exit_prompt_application(app: Any) -> None:
+    """Best-effort exit for a prompt_toolkit application.
+
+    The normal prompt watcher runs in a separate thread.  The prompt can
+    finish between checking its state and calling ``Application.exit``; in
+    that race prompt_toolkit raises ``Application is not running`` (or
+    ``Return value already set``).  Neither condition is actionable for the
+    watcher, and allowing the exception to escape only produces a noisy
+    traceback from the daemon thread.
+    """
+    if app is None:
+        return
+    try:
+        if not getattr(app, "is_running", False):
+            return
+        app.exit(result=None)
+    except Exception:
+        # This is a best-effort cross-thread cancellation path.  The prompt
+        # has already stopped (or is stopping) when this happens.
+        return
+
+
 def _normalize_pasted_text(value: str) -> str:
     """Normalize CRLF/CR delivered by terminals into prompt newlines."""
     return value.replace("\r\n", "\n").replace("\r", "\n")
@@ -202,8 +224,7 @@ def _prompt_toolkit_input(
                 try:
                     if _CLI_SHUTDOWN.is_set():
                         app = prompt_app
-                        if app is not None:
-                            app.exit(result=None)
+                        _exit_prompt_application(app)
                         return
                     with core.human_ask_lock:
                         interrupted = bool(core.human_ask_active)
@@ -216,7 +237,7 @@ def _prompt_toolkit_input(
                     if app is not None:
                         # None tells stdin_loop to discard the stale normal
                         # prompt and render the current tool/reply prompt.
-                        app.exit(result=None)
+                        _exit_prompt_application(app)
                     return
                 except Exception:
                     return
