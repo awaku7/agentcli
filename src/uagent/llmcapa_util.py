@@ -801,15 +801,6 @@ def check_image_size(
     return None
 
 
-def supports_responses_api(
-    model_id: str | None = None,
-    provider: str | None = None,
-) -> bool | None:
-    """Return whether a model supports the Responses API itself."""
-    cap = get_capability(model_id, provider)
-    value = getattr(cap, "supports_responses_api", None) if cap is not None else None
-    return value if value is None else bool(value)
-
 
 def responses_image_mainline_required(
     model_id: str | None = None,
