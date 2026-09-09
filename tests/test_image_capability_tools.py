@@ -7,6 +7,8 @@ def test_image_capability_helpers_read_structured_metadata(monkeypatch):
     image = SimpleNamespace(
         quality_values=("auto", "high", "xhigh", "max"),
         max_outputs=10,
+        supported_sizes=("1024x1024", "1536x1024"),
+        size_divisible_by=8,
     )
     monkeypatch.setattr(
         llmcapa_util,
@@ -20,6 +22,12 @@ def test_image_capability_helpers_read_structured_metadata(monkeypatch):
     assert llmcapa_util.image_capability_max_outputs(
         "gpt-image-2.5-flare", "openai"
     ) == 10
+    assert llmcapa_util.check_image_size(
+        "1024x1024", "gpt-image-2.5-flare", "openai"
+    ) is None
+    assert llmcapa_util.check_image_size(
+        "800x600", "gpt-image-2.5-flare", "openai"
+    )
     assert (
         llmcapa_util.check_image_capability_value(
             "quality_values", "xhigh", "gpt-image-2.5-flare", "openai"

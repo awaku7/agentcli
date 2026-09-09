@@ -753,6 +753,54 @@ def check_image_capability_value(
     return None
 
 
+def check_image_size(
+    size: str,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Validate a WxH image size against known image capability limits."""
+    value = str(size or "").strip().lower()
+    if value == "auto":
+        return None
+    import re
+
+    match = re.fullmatch(r"(\d+)x(\d+)", value)
+    if not match:
+        return f"Invalid image size '{size}'; expected WIDTHxHEIGHT"
+    width, height = (int(part) for part in match.groups())
+    image = get_image_capability(model_id, provider)
+    if image is None:
+        return None
+    supported = image_capability_values("supported_sizes", model_id, provider)
+    if supported and value not in {item.lower() for item in supported}:
+        return f"Image size '{size}' is not supported for model '{model_id or '?'}'"
+    for attr, actual, label in (
+        ("min_width", width, "width"),
+        ("max_width", width, "width"),
+        ("min_height", height, "height"),
+        ("max_height", height, "height"),
+    ):
+        limit = getattr(image, attr, None)
+        if limit is not None and ((attr.startswith("min_") and actual < limit) or (attr.startswith("max_") and actual > limit)):
+            return f"Image {label} {actual} violates capability limit {attr}={limit}"
+    divisible = getattr(image, "size_divisible_by", None)
+    if divisible and (width % int(divisible) or height % int(divisible)):
+        return f"Image size '{size}' must be divisible by {divisible}"
+    pixels = width * height
+    max_pixels = getattr(image, "max_input_pixels", None)
+    if max_pixels and pixels > int(max_pixels):
+        return f"Image size '{size}' exceeds max pixels {max_pixels}"
+    ratio = width / height
+    for attr, violates in (
+        ("min_aspect_ratio", lambda limit: ratio < float(limit)),
+        ("max_aspect_ratio", lambda limit: ratio > float(limit)),
+    ):
+        limit = getattr(image, attr, None)
+        if limit is not None and violates(limit):
+            return f"Image size '{size}' violates capability limit {attr}={limit}"
+    return None
+
+
 def supports_embedding(
     model_id: str | None = None,
     provider: str | None = None,
