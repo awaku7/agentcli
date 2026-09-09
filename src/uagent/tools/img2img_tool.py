@@ -757,6 +757,13 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if format_err:
             return f"[img2img] {format_err}"
+        background_err = check_image_capability_value(
+            "background_values", background, image_model, provider
+        )
+        if background_err:
+            return f"[img2img] {background_err}"
+        if background == "transparent" and output_format == "jpeg":
+            return "[img2img] transparent background requires png or webp"
     except Exception:
         n = min(n, 4)
 

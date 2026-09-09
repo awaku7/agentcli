@@ -933,6 +933,13 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if format_err:
             return f"[generate_image] {format_err}"
+        background_err = check_image_capability_value(
+            "background_values", background, image_model, provider
+        )
+        if background_err:
+            return f"[generate_image] {background_err}"
+        if background == "transparent" and output_format == "jpeg":
+            return "[generate_image] transparent background requires png or webp"
     except Exception:
         # Capability metadata is advisory; unknown/older llmcapa versions keep
         # the previous permissive behavior.
