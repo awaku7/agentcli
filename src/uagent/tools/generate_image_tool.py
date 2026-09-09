@@ -702,12 +702,25 @@ def _run_openai_images(
             if candidate:
                 event_type = str(payload.get("type", "")).lower() if isinstance(payload, dict) else ""
                 target = partial_b64_list if "partial" in event_type else b64_list
+                is_partial = "partial" in event_type
                 target.append(str(candidate))
                 items.append({
                     "index": len(target),
                     "stream": True,
-                    "partial": "partial" in event_type,
+                    "partial": is_partial,
                 })
+                image_event = getattr(get_callbacks(), "image_event", None)
+                if image_event is not None:
+                    try:
+                        image_event({
+                            "event": "image_generation.partial_image" if is_partial else "image_generation.completed",
+                            "index": len(target),
+                            "mime": _image_mime(output_format),
+                            "data_base64": str(candidate),
+                            "is_final": not is_partial,
+                        })
+                    except Exception:
+                        pass
         return {
             "b64_list": b64_list,
             "partial_b64_list": partial_b64_list,
