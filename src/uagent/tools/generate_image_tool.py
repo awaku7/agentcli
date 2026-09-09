@@ -566,11 +566,24 @@ def _run_responses_images(
     b64_list: list[str] = []
     items: list[dict[str, Any]] = []
     output = getattr(response, "output", None) or []
+    if isinstance(output, dict):
+        output = [output]
+    if not output and isinstance(response, dict):
+        output = response.get("output") or []
+        if isinstance(output, dict):
+            output = [output]
     for item in output:
-        item_type = item.get("type", "") if isinstance(item, dict) else getattr(item, "type", "")
+        item_type = (
+            item.get("type", "")
+            if isinstance(item, dict)
+            else getattr(item, "type", "")
+        )
         if item_type not in ("image_generation_call", "image_generation"):
             continue
-        result = item.get("result") if isinstance(item, dict) else getattr(item, "result", None)
+        if isinstance(item, dict):
+            result = item.get("result") or item.get("b64_json")
+        else:
+            result = getattr(item, "result", None) or getattr(item, "b64_json", None)
         if result:
             b64_list.append(str(result))
             items.append({"index": len(b64_list), "responses_image_tool": True})
