@@ -1139,6 +1139,7 @@ def run_tool(args: dict[str, Any]) -> str:
             try:
                 from uagent.llmcapa_util import (
                     responses_image_mainline_required,
+                    supports_responses_api,
                     supports_responses_image_tool,
                 )
 
@@ -1149,7 +1150,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 ).strip()
                 mainline_supported = (
                     responses_image_mainline_required(image_model, provider) is not True
-                    or supports_responses_image_tool(mainline_model, provider) is True
+                    or supports_responses_api(mainline_model, provider) is True
                 )
                 responses_image_tool = (
                     provider == "openai"
