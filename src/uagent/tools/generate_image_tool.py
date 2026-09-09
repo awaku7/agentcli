@@ -166,6 +166,15 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Image background: auto/transparent/opaque.",
                     ),
                 },
+                "output_format": {
+                    "type": "string",
+                    "enum": ["png", "jpeg", "webp"],
+                    "description": _(
+                        "param.output_format.description",
+                        default="Output image format: png, jpeg, or webp.",
+                    ),
+                    "default": "png",
+                },
             },
             "required": ["prompt"],
         },
@@ -292,22 +301,23 @@ def _ensure_dir(p: str) -> str:
 
 
 def _write_png_bytes(raw: bytes, out_path: str) -> None:
-    # Meta Muse Image currently returns WebP bytes in ``result``. Convert by
-    # content so the promised .png output is a real PNG file.
+    # Preserve the requested encoded format. Legacy PNG callers still get a
+    # real PNG when a provider returns WebP bytes (notably Meta Muse).
     output = raw
-    try:
-        from PIL import Image
+    if str(out_path).lower().endswith(".png"):
+        try:
+            from PIL import Image
 
-        with Image.open(io.BytesIO(raw)) as image:
-            if (image.format or "").upper() != "PNG":
-                if image.mode not in ("RGB", "RGBA"):
-                    image = image.convert("RGBA" if "A" in image.getbands() else "RGB")
-                buf = io.BytesIO()
-                image.save(buf, format="PNG")
-                output = buf.getvalue()
-    except Exception:
-        # Preserve the old behavior for formats Pillow cannot decode.
-        pass
+            with Image.open(io.BytesIO(raw)) as image:
+                if (image.format or "").upper() != "PNG":
+                    if image.mode not in ("RGB", "RGBA"):
+                        image = image.convert("RGBA" if "A" in image.getbands() else "RGB")
+                    buf = io.BytesIO()
+                    image.save(buf, format="PNG")
+                    output = buf.getvalue()
+        except Exception:
+            # Preserve the old behavior for formats Pillow cannot decode.
+            pass
     with open(out_path, "wb") as f:
         f.write(output)
 
@@ -329,10 +339,33 @@ def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
 
 
-def _save_many(outdir: str, prefix: str, ts: str, b64_list: list[str]) -> list[str]:
+_IMAGE_FORMATS = {"png", "jpeg", "webp"}
+
+
+def _normalize_output_format(value: Any) -> str:
+    value = str(value or "png").strip().lower()
+    return value if value in _IMAGE_FORMATS else "png"
+
+
+def _image_extension(output_format: str) -> str:
+    return "jpg" if output_format == "jpeg" else output_format
+
+
+def _image_mime(output_format: str) -> str:
+    return "image/jpeg" if output_format == "jpeg" else f"image/{output_format}"
+
+
+def _save_many(
+    outdir: str,
+    prefix: str,
+    ts: str,
+    b64_list: list[str],
+    output_format: str = "png",
+) -> list[str]:
     saved: list[str] = []
+    ext = _image_extension(output_format)
     for i, b64 in enumerate(b64_list):
-        fn = f"{prefix}_{ts}_{i + 1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
+        fn = f"{prefix}_{ts}_{i + 1}.{ext}" if len(b64_list) > 1 else f"{prefix}_{ts}.{ext}"
         out_path = os.path.join(outdir, fn)
         _write_png_from_b64(b64, out_path)
         saved.append(out_path)
@@ -487,6 +520,7 @@ def _run_openai_images(
     moderation: str = "",
     quality: str = "",
     background: str = "",
+    output_format: str = "png",
 ) -> dict[str, Any]:
     try:
         from openai import AzureOpenAI, OpenAI
@@ -848,6 +882,10 @@ def run_tool(args: dict[str, Any]) -> str:
     background = str(
         args.get("background") or env_get("UAGENT_IMG_GENERATE_BACKGROUND") or ""
     ).strip()
+    output_format = _normalize_output_format(
+        args.get("output_format") or env_get("UAGENT_IMG_GENERATE_OUTPUT_FORMAT") or "png"
+    )
+    save_format = output_format if _is_gpt_image_model(image_model) else "png"
     try:
         from uagent.llmcapa_util import (
             check_image_capability_value,
@@ -867,6 +905,11 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if quality_err:
             return f"[generate_image] {quality_err}"
+        format_err = check_image_capability_value(
+            "output_formats", output_format, image_model, provider
+        )
+        if format_err:
+            return f"[generate_image] {format_err}"
     except Exception:
         # Capability metadata is advisory; unknown/older llmcapa versions keep
         # the previous permissive behavior.
@@ -883,6 +926,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "moderation": moderation or None,
         "quality": quality or None,
         "background": background or None,
+        "output_format": output_format,
     }
     try:
         if debug:
@@ -898,7 +942,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 _remember_meta_image_response(meta_response_id)
                 meta_payload["response_id"] = meta_response_id
             if b64_list:
-                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
             if meta_response_id and saved:
                 _remember_meta_image_response(meta_response_id, saved[-1])
         elif provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
@@ -911,12 +955,13 @@ def run_tool(args: dict[str, Any]) -> str:
                 moderation=moderation,
                 quality=quality,
                 background=background,
+                output_format=output_format,
             )
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
             meta_payload["items"] = res.get("items") or []
             if b64_list:
-                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
             if url_list:
                 meta_payload["downloaded_urls"] = []
                 for i, url in enumerate(url_list):
@@ -938,7 +983,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 size=size2,
                 n=n,
             )
-            saved = _save_many(outdir, file_prefix, ts, b64_list)
+            saved = _save_many(outdir, file_prefix, ts, b64_list, save_format)
             meta_payload["items"] = [
                 {"index": i + 1, "has_b64_json": True} for i in range(len(b64_list))
             ]
@@ -986,7 +1031,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if res.get("resolution"):
                 meta_payload["resolution"] = res.get("resolution")
             if b64_list:
-                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
             if url_list:
                 meta_payload["downloaded_urls"] = []
                 for i, url in enumerate(url_list):
@@ -1069,7 +1114,7 @@ def run_tool(args: dict[str, Any]) -> str:
     for idx, path in enumerate(saved):
         att = {
             "type": "image",
-            "mime": "image/png",
+            "mime": _image_mime(save_format),
             "name": os.path.basename(path),
             "path": path,
         }

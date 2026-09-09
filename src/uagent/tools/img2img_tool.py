@@ -151,6 +151,15 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Image background: auto/transparent/opaque.",
                     ),
                 },
+                "output_format": {
+                    "type": "string",
+                    "enum": ["png", "jpeg", "webp"],
+                    "description": _(
+                        "param.output_format.description",
+                        default="Output image format: png, jpeg, or webp.",
+                    ),
+                    "default": "png",
+                },
             },
             "required": ["img", "prompt"],
         },
@@ -255,27 +264,51 @@ def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
 
 
-def _save_many(outdir: str, prefix: str, ts: str, b64_list: list[str]) -> list[str]:
+_IMAGE_FORMATS = {"png", "jpeg", "webp"}
+
+
+def _normalize_output_format(value: Any) -> str:
+    value = str(value or "png").strip().lower()
+    return value if value in _IMAGE_FORMATS else "png"
+
+
+def _image_extension(output_format: str) -> str:
+    return "jpg" if output_format == "jpeg" else output_format
+
+
+def _image_mime(output_format: str) -> str:
+    return "image/jpeg" if output_format == "jpeg" else f"image/{output_format}"
+
+
+def _save_many(
+    outdir: str,
+    prefix: str,
+    ts: str,
+    b64_list: list[str],
+    output_format: str = "png",
+) -> list[str]:
     saved: list[str] = []
+    ext = _image_extension(output_format)
     for i, b64 in enumerate(b64_list):
-        fn = f"{prefix}_{ts}_{i + 1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
+        fn = f"{prefix}_{ts}_{i + 1}.{ext}" if len(b64_list) > 1 else f"{prefix}_{ts}.{ext}"
         out_path = os.path.join(outdir, fn)
         raw = base64.b64decode(b64)
         output = raw
-        try:
-            from PIL import Image
+        if out_path.lower().endswith(".png"):
+            try:
+                from PIL import Image
 
-            with Image.open(io.BytesIO(raw)) as image:
-                if (image.format or "").upper() != "PNG":
-                    if image.mode not in ("RGB", "RGBA"):
-                        image = image.convert(
-                            "RGBA" if "A" in image.getbands() else "RGB"
-                        )
-                    buf = io.BytesIO()
-                    image.save(buf, format="PNG")
-                    output = buf.getvalue()
-        except Exception:
-            pass
+                with Image.open(io.BytesIO(raw)) as image:
+                    if (image.format or "").upper() != "PNG":
+                        if image.mode not in ("RGB", "RGBA"):
+                            image = image.convert(
+                                "RGBA" if "A" in image.getbands() else "RGB"
+                            )
+                        buf = io.BytesIO()
+                        image.save(buf, format="PNG")
+                        output = buf.getvalue()
+            except Exception:
+                pass
         with open(out_path, "wb") as f:
             f.write(output)
         saved.append(out_path)
@@ -678,6 +711,10 @@ def run_tool(args: dict[str, Any]) -> str:
     background = str(
         args.get("background") or env_get("UAGENT_IMG_EDIT_BACKGROUND") or ""
     ).strip()
+    output_format = _normalize_output_format(
+        args.get("output_format") or env_get("UAGENT_IMG_EDIT_OUTPUT_FORMAT") or "png"
+    )
+    save_format = output_format if _is_gpt_image_model(image_model) else "png"
     try:
         from uagent.llmcapa_util import (
             check_image_capability_value,
@@ -695,6 +732,11 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if quality_err:
             return f"[img2img] {quality_err}"
+        format_err = check_image_capability_value(
+            "output_formats", output_format, image_model, provider
+        )
+        if format_err:
+            return f"[img2img] {format_err}"
     except Exception:
         n = min(n, 4)
 
@@ -719,7 +761,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 n=n,
                 size=size,
             )
-            saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+            saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
         elif provider in ("gemini", "vertexai"):
             if mask is not None:
                 return _msg(
@@ -727,7 +769,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     "[img2img] mask_path is not supported for Gemini/Vertex AI in this tool.",
                 )
             b64_list = _run_gemini_img2img(provider, image_model, src, prompt, n)
-            saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+            saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
         else:
             client = _make_client(provider)
             gen_kwargs: dict[str, Any] = {
@@ -738,7 +780,7 @@ def run_tool(args: dict[str, Any]) -> str:
             }
 
             if _is_gpt_image_model(image_model):
-                gen_kwargs["output_format"] = "png"
+                gen_kwargs["output_format"] = output_format
                 # GPT image models accept: auto, low, medium, high
                 # Reject DALL-E-only values (standard, hd) to avoid API error
                 if quality:
@@ -765,7 +807,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
             b64_list, url_list, _items = _extract_image_items(resp)
             if b64_list:
-                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
             if url_list:
                 for i, url in enumerate(url_list):
                     fn = (
@@ -800,7 +842,7 @@ def run_tool(args: dict[str, Any]) -> str:
     for path in saved:
         attachment: dict[str, Any] = {
             "type": "image",
-            "mime": "image/png",
+            "mime": _image_mime(save_format),
             "name": os.path.basename(path),
             "path": path,
         }
