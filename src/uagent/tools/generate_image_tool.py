@@ -1293,18 +1293,6 @@ def run_tool(args: dict[str, Any]) -> str:
     if save_meta:
         data["meta_path"] = meta_path
 
-    # Image generation is a separate API operation. Do not reuse the chat
-    # Responses continuation for the next user turn; the tool result is not a
-    # valid function_call_output continuation for that previous response.
-    try:
-        from .. import core as _core
-
-        clear_continuation = getattr(_core, "clear_responses_continuation", None)
-        if callable(clear_continuation):
-            clear_continuation()
-    except Exception:
-        pass
-
     open_flag = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
     should_open = not bool(getattr(cb, "is_gui", False)) and open_flag not in (
         "0",
