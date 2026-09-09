@@ -116,7 +116,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": 1,
                     "minimum": 1,
-                    "maximum": 4,
+                    "maximum": 10,
                 },
                 "output_dir": {
                     "type": "string",
@@ -137,7 +137,7 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "quality": {
                     "type": "string",
-                    "enum": ["auto", "low", "medium", "high", "standard", "hd"],
+                    "enum": ["auto", "low", "medium", "high", "xhigh", "max", "standard", "hd"],
                     "description": _(
                         "param.quality.description",
                         default="Image quality. GPT: auto/low/medium/high, DALL-E: standard/hd.",
@@ -640,7 +640,7 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     size = str(args.get("size") or "1024x1024")
-    n = max(1, min(4, int(args.get("n") or 1)))
+    n = max(1, int(args.get("n") or 1))
 
     from uagent.utils.paths import get_image_generations_dir
 
@@ -678,6 +678,25 @@ def run_tool(args: dict[str, Any]) -> str:
     background = str(
         args.get("background") or env_get("UAGENT_IMG_EDIT_BACKGROUND") or ""
     ).strip()
+    try:
+        from uagent.llmcapa_util import (
+            check_image_capability_value,
+            image_capability_max_outputs,
+        )
+
+        n = min(n, image_capability_max_outputs(image_model, provider, default=4))
+        if image_model.strip().lower().startswith("gpt-image-") and quality in (
+            "standard",
+            "hd",
+        ):
+            quality = "auto"
+        quality_err = check_image_capability_value(
+            "quality_values", quality, image_model, provider
+        )
+        if quality_err:
+            return f"[img2img] {quality_err}"
+    except Exception:
+        n = min(n, 4)
 
     ts = time.strftime("%Y%m%d_%H%M%S")
     spinner = _StatusSpinner(cb, STATUS_LABEL)

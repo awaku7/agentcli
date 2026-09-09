@@ -685,6 +685,74 @@ def check_image_output_support(
     return None
 
 
+def get_image_capability(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> Any | None:
+    """Return the structured image capability when llmcapa provides it.
+
+    This helper intentionally uses ``getattr`` so UAG remains compatible with
+    older llmcapa releases that only expose the generic image modality flags.
+    """
+    cap = get_capability(model_id, provider)
+    return getattr(cap, "image", None) if cap is not None else None
+
+
+def image_capability_values(
+    field: str,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> tuple[str, ...]:
+    """Return a normalized image capability enum, or empty if unknown."""
+    image = get_image_capability(model_id, provider)
+    values = getattr(image, field, None) if image is not None else None
+    if not values or isinstance(values, (str, bytes)):
+        return ()
+    try:
+        return tuple(str(value) for value in values if str(value))
+    except TypeError:
+        return ()
+
+
+def image_capability_max_outputs(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: int = 4,
+) -> int:
+    """Return the model-specific image output limit with a safe fallback."""
+    image = get_image_capability(model_id, provider)
+    value = getattr(image, "max_outputs", None) if image is not None else None
+    try:
+        limit = int(value)
+    except (TypeError, ValueError):
+        limit = int(default)
+    return max(1, limit)
+
+
+def check_image_capability_value(
+    field: str,
+    value: str | None,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Return an error when a known image enum does not contain *value*.
+
+    Unknown capabilities are allowed for backward compatibility and provider
+    extensions; only an explicitly known non-empty enum is enforced.
+    """
+    candidate = str(value or "").strip()
+    if not candidate:
+        return None
+    allowed = image_capability_values(field, model_id, provider)
+    if allowed and candidate not in allowed:
+        return (
+            f"Image capability '{field}' does not support '{candidate}' for "
+            f"model '{model_id or '?'}' (provider={normalize_provider(provider) or '?'})"
+        )
+    return None
+
+
 def supports_embedding(
     model_id: str | None = None,
     provider: str | None = None,
