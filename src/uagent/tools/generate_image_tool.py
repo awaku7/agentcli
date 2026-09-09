@@ -532,6 +532,7 @@ def _remember_meta_image_response(response_id: str, image_path: str = "") -> Non
 def _run_responses_images(
     *,
     image_model: str,
+    mainline_model: str,
     prompt: str,
     size: str,
     n: int,
@@ -550,7 +551,7 @@ def _run_responses_images(
         "openai", "generate", "base_url", required=False, default="https://api.openai.com/v1"
     ).rstrip("/")
     client = OpenAI(api_key=api_key, base_url=base_url)
-    tool: dict[str, Any] = {"type": "image_generation"}
+    tool: dict[str, Any] = {"type": "image_generation", "model": image_model}
     for key, value in (
         ("size", size),
         ("quality", quality),
@@ -561,7 +562,7 @@ def _run_responses_images(
     ):
         if value not in (None, ""):
             tool[key] = value
-    response = client.responses.create(model=image_model, input=prompt, tools=[tool])
+    response = client.responses.create(model=mainline_model, input=prompt, tools=[tool])
     b64_list: list[str] = []
     items: list[dict[str, Any]] = []
     output = getattr(response, "output", None) or []
@@ -1123,8 +1124,14 @@ def run_tool(args: dict[str, Any]) -> str:
             try:
                 from uagent.llmcapa_util import supports_responses_image_tool
 
+                mainline_model = (
+                    env_get("UAGENT_OPENAI_DEPNAME")
+                    or env_get("UAGENT_DEPNAME")
+                    or ""
+                ).strip()
                 responses_image_tool = (
                     provider == "openai"
+                    and bool(mainline_model)
                     and not stream
                     and supports_responses_image_tool(image_model, provider) is True
                 )
@@ -1133,6 +1140,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if responses_image_tool:
                 res = _run_responses_images(
                     image_model=image_model,
+                    mainline_model=mainline_model,
                     prompt=prompt,
                     size=size2,
                     n=n,
