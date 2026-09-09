@@ -440,7 +440,7 @@ def _get_model(provider: str) -> str:
     if p_low in ("gemini", "vertexai"):
         return "imagen-3.0-capability-001"
     if p_low == "openai":
-        return "gpt-image-1"
+        return "gpt-image-2.5-flare"
     if p_low == "meta":
         return "muse-image-1.0"
 

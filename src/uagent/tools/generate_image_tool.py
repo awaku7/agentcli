@@ -301,7 +301,7 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
     if v:
         return v
     if provider == "openai":
-        return "gpt-image-1"
+        return "gpt-image-2.5-flare"
     if provider == "meta":
         return "muse-image-1.0"
     if provider in ("gemini", "vertexai"):
