@@ -944,6 +944,10 @@ def run_tool(args: dict[str, Any]) -> str:
             partial_images = int(partial_raw)
         except (TypeError, ValueError):
             return "[generate_image] partial_images must be an integer"
+    if not stream:
+        # Models may emit partial_images even for a non-streaming request.
+        # It has no effect unless stream=true.
+        partial_images = None
     try:
         from uagent.llmcapa_util import check_image_streaming
         stream_err = check_image_streaming(
@@ -996,10 +1000,9 @@ def run_tool(args: dict[str, Any]) -> str:
         if not 0 <= output_compression <= 100:
             return "[generate_image] output_compression must be between 0 and 100"
         if output_format == "png":
-            if output_compression == 0:
-                output_compression = None
-            else:
-                return "[generate_image] output_compression is only supported for jpeg/webp"
+            # PNG does not support this parameter. Ignore model-generated
+            # values rather than failing a valid image request.
+            output_compression = None
     try:
         from uagent.llmcapa_util import (
             check_image_capability_value,
