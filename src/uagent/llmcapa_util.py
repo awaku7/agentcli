@@ -801,6 +801,17 @@ def check_image_size(
     return None
 
 
+def supports_responses_image_tool(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> bool | None:
+    """Return whether the model exposes image generation through Responses."""
+    image = get_image_capability(model_id, provider)
+    endpoints = getattr(image, "endpoints", None) if image is not None else None
+    value = getattr(endpoints, "responses_image_tool", None)
+    return value if value is None else bool(value)
+
+
 def check_image_streaming(
     stream: bool,
     partial_images: int | None,

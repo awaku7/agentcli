@@ -529,6 +529,55 @@ def _remember_meta_image_response(response_id: str, image_path: str = "") -> Non
         pass
 
 
+def _run_responses_images(
+    *,
+    image_model: str,
+    prompt: str,
+    size: str,
+    n: int,
+    quality: str = "",
+    background: str = "",
+    output_format: str = "png",
+    output_compression: int | None = None,
+) -> dict[str, Any]:
+    """Generate images through the OpenAI Responses image-generation tool."""
+    try:
+        from openai import OpenAI
+    except Exception as exc:
+        raise RuntimeError(_msg("err.openai_import", "Failed to import openai package: {err}", err=repr(exc)))
+    api_key = _img_env("openai", "generate", "api_key", required=True)
+    base_url = _img_env(
+        "openai", "generate", "base_url", required=False, default="https://api.openai.com/v1"
+    ).rstrip("/")
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    tool: dict[str, Any] = {"type": "image_generation"}
+    for key, value in (
+        ("size", size),
+        ("quality", quality),
+        ("background", background),
+        ("output_format", output_format),
+        ("output_compression", output_compression),
+        ("n", n),
+    ):
+        if value not in (None, ""):
+            tool[key] = value
+    response = client.responses.create(model=image_model, input=prompt, tools=[tool])
+    b64_list: list[str] = []
+    items: list[dict[str, Any]] = []
+    output = getattr(response, "output", None) or []
+    for item in output:
+        item_type = item.get("type", "") if isinstance(item, dict) else getattr(item, "type", "")
+        if item_type not in ("image_generation_call", "image_generation"):
+            continue
+        result = item.get("result") if isinstance(item, dict) else getattr(item, "result", None)
+        if result:
+            b64_list.append(str(result))
+            items.append({"index": len(b64_list), "responses_image_tool": True})
+    if not b64_list:
+        raise RuntimeError("Responses API returned no image data")
+    return {"b64_list": b64_list, "url_list": [], "items": items}
+
+
 def _run_openai_images(
     provider: str,
     image_model: str,
@@ -1071,20 +1120,42 @@ def run_tool(args: dict[str, Any]) -> str:
             if meta_response_id and saved:
                 _remember_meta_image_response(meta_response_id, saved[-1])
         elif provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
-            res = _run_openai_images(
-                provider=provider,
-                image_model=image_model,
-                prompt=prompt,
-                size=size2,
-                n=n,
-                moderation=moderation,
-                quality=quality,
-                background=background,
-                output_format=output_format,
-                output_compression=output_compression,
-                stream=stream,
-                partial_images=partial_images,
-            )
+            try:
+                from uagent.llmcapa_util import supports_responses_image_tool
+
+                responses_image_tool = (
+                    provider == "openai"
+                    and not stream
+                    and supports_responses_image_tool(image_model, provider) is True
+                )
+            except Exception:
+                responses_image_tool = False
+            if responses_image_tool:
+                res = _run_responses_images(
+                    image_model=image_model,
+                    prompt=prompt,
+                    size=size2,
+                    n=n,
+                    quality=quality,
+                    background=background,
+                    output_format=output_format,
+                    output_compression=output_compression,
+                )
+            else:
+                res = _run_openai_images(
+                    provider=provider,
+                    image_model=image_model,
+                    prompt=prompt,
+                    size=size2,
+                    n=n,
+                    moderation=moderation,
+                    quality=quality,
+                    background=background,
+                    output_format=output_format,
+                    output_compression=output_compression,
+                    stream=stream,
+                    partial_images=partial_images,
+                )
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
             meta_payload["items"] = res.get("items") or []
