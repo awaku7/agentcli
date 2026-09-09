@@ -1647,6 +1647,17 @@ def _run_one_round(
         and (tc.get("function") or {}).get("name") == "generate_image"
         for tc in tool_calls_list
     ):
+        # This path intentionally terminates the Responses tool continuation:
+        # the provider cannot safely continue after generate_image. Clear the
+        # server-side response id here, at the orchestration boundary, so the
+        # next user turn starts from the local history instead of reusing an
+        # incomplete response chain.
+        try:
+            clear_continuation = getattr(core, "clear_responses_continuation", None)
+            if callable(clear_continuation):
+                clear_continuation()
+        except Exception:
+            pass
         return (
             _RS_BREAK,
             client,
