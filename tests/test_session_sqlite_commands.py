@@ -41,6 +41,30 @@ def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     db.close()
 
 
+def test_sessions_list_is_compact_by_default(monkeypatch, tmp_path, capsys):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="demo", entry_point="cli")
+    db.append_message(session.session_id, "user", "a question")
+    db.save_session_summary(session.session_id, "a useful summary")
+    core = SimpleNamespace(session_store=db, session_id=None)
+
+    assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
+    compact = capsys.readouterr().out
+    assert session.session_id in compact
+    assert "a useful summary" in compact
+    assert "summary:" not in compact
+    assert compact.count("\n") == 1
+
+    assert _handle_cmd_sessions(
+        "list --verbose", core=core, tr=lambda text, **_: text
+    )
+    verbose = capsys.readouterr().out
+    assert "summary: a useful summary" in verbose
+    assert "first: a question" in verbose
+    db.close()
+
+
 def test_load_switches_sqlite_persistence_target(monkeypatch, tmp_path):
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))

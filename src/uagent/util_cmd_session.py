@@ -102,6 +102,30 @@ def _print_session_list_row(
         print(f"{indent}    id: {row['session_id']}")
 
 
+def _print_session_compact_row(
+    index: int,
+    row: dict[str, Any],
+    *,
+    indent: str = "",
+) -> None:
+    """Print the one-line overview used by ``:sessions list``.
+
+    The full row is useful when selecting/loading a session, but is too noisy
+    for a plain inventory. Keep the index, timestamp, project, and a short
+    description so the compact view remains useful without expanding every
+    session into several lines.
+    """
+    message_count = row.get("message_count")
+    count = f"{message_count} messages" if message_count is not None else "-"
+    description = row.get("summary") or row.get("first_message")
+    description = _session_preview(description, limit=80)
+    project = row.get("project") or "-"
+    print(
+        f"{indent}[{index}] {_format_session_timestamp(row.get('created_at'))} | "
+        f"{count} | {project} | {description} | id: {row['session_id']}"
+    )
+
+
 def _tr(text: str) -> str:
     """Translate ``text`` but never return an empty string.
 
@@ -1383,8 +1407,12 @@ def _handle_cmd_sessions(
         if store is None:
             print(_("[sessions] Session store is not enabled."))
             return True
+        verbose = any(flag in parts[1:] for flag in ("--verbose", "-v"))
         for index, row in enumerate(store.list_sessions()):
-            _print_session_list_row(index, row)
+            if verbose:
+                _print_session_list_row(index, row)
+            else:
+                _print_session_compact_row(index, row)
         return True
     if command == "delete":
         if store is None or not session_id:
@@ -1416,7 +1444,7 @@ def _handle_cmd_sessions(
         return True
     if command != "search":
         print(
-            ":sessions list | load [<index|session_id>] | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
+            ":sessions list [--verbose] | load [<index|session_id>] | search <query> | candidates | approve <number> | delete <session_id> --yes | vacuum | pdf <session_id> [output.pdf] | import <jsonl_path>"
         )
         return True
     query_parts = parts[1:]
