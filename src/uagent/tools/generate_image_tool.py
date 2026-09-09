@@ -1034,6 +1034,7 @@ def run_tool(args: dict[str, Any]) -> str:
     saved: list[str] = []
     partial_saved: list[str] = []
     url_list: list[str] = []
+    api_mode = "legacy"
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
@@ -1115,6 +1116,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "background": background or None,
         "output_format": output_format,
         "output_compression": output_compression,
+        "api_mode": api_mode,
     }
     try:
         if debug:
@@ -1159,6 +1161,7 @@ def run_tool(args: dict[str, Any]) -> str:
             except Exception:
                 responses_image_tool = False
             if responses_image_tool:
+                api_mode = "responses"
                 res = _run_responses_images(
                     image_model=image_model,
                     mainline_model=mainline_model,
@@ -1171,6 +1174,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     output_compression=output_compression,
                 )
             else:
+                api_mode = "images"
                 res = _run_openai_images(
                     provider=provider,
                     image_model=image_model,
@@ -1314,6 +1318,7 @@ def run_tool(args: dict[str, Any]) -> str:
             except Exception:
                 pass
 
+    meta_payload["api_mode"] = api_mode
     if save_meta:
         meta_payload["saved_files"] = saved
         meta_path = os.path.abspath(os.path.join(outdir, f"{file_prefix}_{ts}.json"))
@@ -1327,7 +1332,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if saved:
         _image_debug_log(
             provider,
-            f"[generate_image] saved provider={provider} model={image_model} files={saved!r}",
+            f"[generate_image] saved provider={provider} model={image_model} api={api_mode} files={saved!r}",
             file=sys.stderr,
             flush=True,
         )
@@ -1378,6 +1383,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     data: dict[str, Any] = {
         "provider": provider,
+        "api_mode": api_mode,
         "artifacts": artifacts,
         "partial_artifacts": partial_artifacts,
         "model": image_model,
