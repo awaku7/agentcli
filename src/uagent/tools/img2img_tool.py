@@ -773,7 +773,10 @@ def run_tool(args: dict[str, Any]) -> str:
         if not 0 <= output_compression <= 100:
             return "[img2img] output_compression must be between 0 and 100"
         if output_format == "png":
-            return "[img2img] output_compression is only supported for jpeg/webp"
+            if output_compression == 0:
+                output_compression = None
+            else:
+                return "[img2img] output_compression is only supported for jpeg/webp"
     try:
         from uagent.llmcapa_util import (
             check_image_capability_value,
