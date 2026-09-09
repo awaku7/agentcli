@@ -891,6 +891,24 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception:
         pass
 
+    stream = bool(args.get("stream", False))
+    partial_raw = args.get("partial_images")
+    partial_images = None
+    if partial_raw not in (None, ""):
+        try:
+            partial_images = int(partial_raw)
+        except (TypeError, ValueError):
+            return "[generate_image] partial_images must be an integer"
+    try:
+        from uagent.llmcapa_util import check_image_streaming
+        stream_err = check_image_streaming(
+            stream, partial_images, image_model, provider
+        )
+        if stream_err:
+            return f"[generate_image] {stream_err}"
+    except Exception:
+        pass
+
     try:
         outdir = os.path.abspath(_ensure_dir(output_dir))
     except Exception as e:

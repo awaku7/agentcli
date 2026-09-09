@@ -60,6 +60,23 @@ def test_image_capability_helpers_keep_unknown_models_permissive(monkeypatch):
     )
 
 
+def test_image_streaming_capability_validation(monkeypatch):
+    image = SimpleNamespace(
+        supports_streaming=True,
+        partial_images_min=1,
+        partial_images_max=4,
+    )
+    monkeypatch.setattr(
+        llmcapa_util,
+        "get_capability",
+        lambda model_id, provider: SimpleNamespace(image=image),
+    )
+
+    assert llmcapa_util.check_image_streaming(True, 2, "image", "openai") is None
+    assert llmcapa_util.check_image_streaming(False, 2, "image", "openai")
+    assert llmcapa_util.check_image_streaming(True, 5, "image", "openai")
+
+
 def test_image_output_format_helpers_match_extensions_and_mime_types():
     from uagent.tools.generate_image_tool import (
         _image_extension as generate_extension,

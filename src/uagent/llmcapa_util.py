@@ -801,6 +801,31 @@ def check_image_size(
     return None
 
 
+def check_image_streaming(
+    stream: bool,
+    partial_images: int | None,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Validate streaming parameters against known image capabilities."""
+    if partial_images is not None and not stream:
+        return "partial_images requires stream=true"
+    image = get_image_capability(model_id, provider)
+    if image is None:
+        return None
+    supported = getattr(image, "supports_streaming", None)
+    if stream and supported is False:
+        return f"Model '{model_id or '?'}' does not support image streaming"
+    if partial_images is not None:
+        minimum = getattr(image, "partial_images_min", None)
+        maximum = getattr(image, "partial_images_max", None)
+        if minimum is not None and partial_images < int(minimum):
+            return f"partial_images must be at least {minimum}"
+        if maximum is not None and partial_images > int(maximum):
+            return f"partial_images must be at most {maximum}"
+    return None
+
+
 def supports_embedding(
     model_id: str | None = None,
     provider: str | None = None,
