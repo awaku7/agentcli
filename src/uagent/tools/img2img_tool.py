@@ -712,12 +712,21 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     try:
-        from uagent.llmcapa_util import check_image_output_support
+        from uagent.llmcapa_util import (
+            check_image_output_support,
+            supports_responses_image_tool,
+        )
 
         img_err = check_image_output_support(image_model, provider)
         if img_err:
             return f"[img2img] {img_err}"
+        if provider == "meta" and supports_responses_image_tool(image_model, provider) is False:
+            return (
+                f"[img2img] Model '{image_model}' does not expose the "
+                "required Meta Responses image capability."
+            )
     except Exception:
+        # Unknown/older Capability metadata keeps the legacy Meta route.
         pass
 
     try:
