@@ -83,6 +83,7 @@ class ScheckWorker(QtCore.QObject):
                 core, "rewrite_current_log_from_messages", None
             ),
             log_message=getattr(core, "log_message", None),
+            image_event=getattr(core, "image_event", None),
             get_env=core.get_env,
             truncate_output=core.truncate_output,
             human_ask_lock=core.human_ask_lock,
