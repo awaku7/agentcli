@@ -253,6 +253,7 @@ def _restore_sqlite_session_context(
         callbacks.session_store = store
     except Exception:
         pass
+    _restore_session_workdir(target, loaded, core=core, store=store)
     if hasattr(core, "tool_context"):
         core.tool_context.clear()
         try:
@@ -278,6 +279,56 @@ def _restore_sqlite_session_context(
                 }
             )
     return loaded
+
+
+def _restore_session_workdir(
+    target: str,
+    messages: list[dict[str, Any]],
+    *,
+    core: Any,
+    store: Any,
+) -> str | None:
+    """Restore the last workdir recorded by a SQLite session, if available."""
+    target_cwd = _extract_last_cwd_from_messages(messages)
+    if not target_cwd:
+        try:
+            session_row = store.get_session(target)
+            target_cwd = session_row.get("project_path") if session_row else None
+        except Exception:
+            target_cwd = None
+    if not isinstance(target_cwd, str) or not target_cwd.strip():
+        return None
+    target_cwd = os.path.abspath(os.path.expanduser(target_cwd.strip()))
+    if not os.path.isdir(target_cwd):
+        return None
+    try:
+        previous = os.getcwd()
+        if os.path.normcase(previous) == os.path.normcase(target_cwd):
+            return previous
+        os.chdir(target_cwd)
+        current = os.getcwd()
+        marker = {
+            "role": "system",
+            "content": _format_cwd_system_content(
+                event="load",
+                path=current,
+                extra={"prev": previous, "session_id": target},
+            ),
+        }
+        _insert_cwd_system_message(messages, marker)
+        try:
+            core.log_message(marker)
+        except Exception:
+            pass
+        print(_("[load] workdir = %(path)s") % {"path": current})
+        return current
+    except Exception as exc:
+        print(
+            _("[load warn] Failed to chdir from loaded session: %(etype)s: %(err)s")
+            % {"etype": type(exc).__name__, "err": exc},
+            file=sys.stderr,
+        )
+        return None
 
 
 def _session_tool_names(messages: list[dict[str, Any]]) -> set[str]:

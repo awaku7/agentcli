@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from types import SimpleNamespace
 
 from uagent.runtime.session_store import (
@@ -89,6 +90,34 @@ def test_load_switches_sqlite_persistence_target(monkeypatch, tmp_path):
     assert old_contents == ["old question", "follow-up"]
     assert current_contents == []
     detach_opt_in_session_store(core)
+
+
+def test_load_restores_sqlite_session_workdir(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    target_dir = tmp_path / "session-workdir"
+    target_dir.mkdir()
+    old = db.create_session(
+        project="old", entry_point="cli", project_path=target_dir
+    )
+    db.append_message(old.session_id, "user", "old question")
+    core = SimpleNamespace(
+        session_store=db, session_id=None, log_message=lambda _: None
+    )
+    messages: list[dict] = []
+    previous = os.getcwd()
+    try:
+        assert _handle_cmd_load(
+            old.session_id, messages, core=core, tr=lambda text, **_: text
+        )
+        assert os.path.normcase(os.getcwd()) == os.path.normcase(str(target_dir))
+        assert any(
+            str(message.get("content", "")).startswith("[CWD]")
+            for message in messages
+        )
+    finally:
+        os.chdir(previous)
+        db.close()
 
 
 def test_sqlite_clean_preserves_active_session(monkeypatch, tmp_path, capsys):
