@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import base64
 import html
 import json
 import os
 import re
 import shutil
 import sys
+import uuid
 from pathlib import Path
 from typing import Any, Optional
 from urllib.parse import unquote
@@ -666,6 +668,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._worker.moveToThread(self._thread)
         self._worker.sig_finished.connect(self._thread.quit)
         self._worker.sig_history_bootstrap.connect(self._on_history_bootstrap)
+        self._worker.sig_image_event.connect(self._on_image_event)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
 
@@ -1799,6 +1802,31 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._restore_history()
                     return True
         return super().eventFilter(obj, event)
+
+    @QtCore.Slot(dict)
+    def _on_image_event(self, event: dict[str, Any]) -> None:
+        """Materialize streamed image events and show them in the preview strip."""
+        data = str(event.get("data_base64") or "")
+        if not data:
+            return
+        if data.startswith("data:") and "," in data:
+            header, data = data.split(",", 1)
+            mime = header[5:].split(";", 1)[0] or event.get("mime") or "image/png"
+        else:
+            mime = event.get("mime") or "image/png"
+        try:
+            raw = base64.b64decode(data, validate=False)
+            ext = {
+                "image/jpeg": "jpg",
+                "image/webp": "webp",
+            }.get(str(mime), "png")
+            directory = get_state_dir() / "gui_stream_previews"
+            directory.mkdir(parents=True, exist_ok=True)
+            path = directory / f"{uuid.uuid4().hex}.{ext}"
+            path.write_bytes(raw)
+            self._append_image_preview(str(path), "STREAM")
+        except Exception:
+            return
 
     def _on_history_bootstrap(self, entries: list[str]) -> None:
         for entry in entries:

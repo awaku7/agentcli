@@ -60,6 +60,7 @@ class ScheckWorker(QtCore.QObject):
 
     sig_finished = QtCore.Signal()
     sig_history_bootstrap = QtCore.Signal(list)
+    sig_image_event = QtCore.Signal(dict)
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
@@ -83,7 +84,7 @@ class ScheckWorker(QtCore.QObject):
                 core, "rewrite_current_log_from_messages", None
             ),
             log_message=getattr(core, "log_message", None),
-            image_event=getattr(core, "image_event", None),
+            image_event=self.sig_image_event.emit,
             get_env=core.get_env,
             truncate_output=core.truncate_output,
             human_ask_lock=core.human_ask_lock,
