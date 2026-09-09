@@ -168,7 +168,7 @@ def _image_generation_depname(provider: str) -> str:
     if depname:
         return depname
     if provider == "openai":
-        return "gpt-image-1"
+        return "gpt-image-2.5-flare"
     if provider in {"gemini", "vertexai"}:
         return "imagen-4.0-generate-001"
     if provider == "zai":

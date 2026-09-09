@@ -360,7 +360,7 @@ def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
     p = provider.upper()
     keys = [f"UAGENT_{p}_IMG_GENERATE_DEPNAME", "UAGENT_IMG_GENERATE_DEPNAME"]
     defaults = {
-        "openai": "default gpt-image-1",
+        "openai": "default gpt-image-2.5-flare",
         "gemini": "default imagen-4.0-generate-001",
         "vertexai": "default imagen-4.0-generate-001",
         "zai": "default glm-image",
