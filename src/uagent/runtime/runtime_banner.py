@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from ..env_utils import env_get
+from ..image_defaults import default_image_model
 from ..i18n import _
 from ..providers.provider_caps import RESPONSES_PROVIDERS
 
@@ -167,17 +168,7 @@ def _image_generation_depname(provider: str) -> str:
     depname = _env(f"UAGENT_{p}_IMG_GENERATE_DEPNAME")
     if depname:
         return depname
-    if provider == "openai":
-        return "gpt-image-2.5-flare"
-    if provider in {"gemini", "vertexai"}:
-        return "imagen-4.0-generate-001"
-    if provider == "zai":
-        return "glm-image"
-    if provider == "grok":
-        return "grok-imagine-image"
-    if provider == "meta":
-        return "muse-image-1.0"
-    return ""
+    return default_image_model(provider) or ""
 
 
 def _image_generation_model_info() -> tuple[str, str] | None:

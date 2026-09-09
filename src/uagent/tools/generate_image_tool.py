@@ -28,6 +28,7 @@ import traceback
 from typing import Any
 
 from ..env_utils import env_get
+from ..image_defaults import default_image_model
 from .openers import open_image_with_default_app
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -300,16 +301,9 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
     v = (env_get(key) or "").strip()
     if v:
         return v
-    if provider == "openai":
-        return "gpt-image-2.5-flare"
-    if provider == "meta":
-        return "muse-image-1.0"
-    if provider in ("gemini", "vertexai"):
-        return "imagen-4.0-generate-001"
-    if provider == "zai":
-        return "glm-image"
-    if provider == "grok":
-        return "grok-imagine-image"
+    default = default_image_model(provider)
+    if default:
+        return default
     raise RuntimeError(
         _msg(
             "err.required_env_vars_missing",

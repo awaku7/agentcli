@@ -29,6 +29,7 @@ from typing import Any
 from urllib.request import Request, urlopen
 
 from ..env_utils import env_get
+from ..image_defaults import default_image_model
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 from .openers import open_image_with_default_app
@@ -436,13 +437,9 @@ def _get_model(provider: str) -> str:
         return v
 
     # 2. Return provider-specific defaults
-    p_low = provider.lower()
-    if p_low in ("gemini", "vertexai"):
-        return "imagen-3.0-capability-001"
-    if p_low == "openai":
-        return "gpt-image-2.5-flare"
-    if p_low == "meta":
-        return "muse-image-1.0"
+    default = default_image_model(provider)
+    if default:
+        return default
 
     # 3. Fallback to error
     raise RuntimeError(f"No default image model for provider: {provider}")

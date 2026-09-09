@@ -7,6 +7,7 @@ import shlex
 from typing import Any
 
 from .env_utils import env_get
+from .image_defaults import default_image_model
 from .i18n import _
 from .util_common import CommandResult
 from .uagent_env_keys import _is_placeholder_uagent_key, get_known_uagent_env_keys
@@ -360,7 +361,7 @@ def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
     p = provider.upper()
     keys = [f"UAGENT_{p}_IMG_GENERATE_DEPNAME", "UAGENT_IMG_GENERATE_DEPNAME"]
     defaults = {
-        "openai": "default gpt-image-2.5-flare",
+        "openai": f"default {default_image_model('openai')}",
         "gemini": "default imagen-4.0-generate-001",
         "vertexai": "default imagen-4.0-generate-001",
         "zai": "default glm-image",
