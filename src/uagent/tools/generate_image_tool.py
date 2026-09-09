@@ -684,6 +684,7 @@ def _run_openai_images(
     items: list[dict[str, Any]] = []
 
     if stream:
+        partial_b64_list: list[str] = []
         for event in resp:
             payload = event if isinstance(event, dict) else {}
             if not payload and hasattr(event, "model_dump"):
@@ -699,9 +700,20 @@ def _run_openai_images(
                         None,
                     )
             if candidate:
-                b64_list.append(str(candidate))
-                items.append({"index": len(b64_list), "stream": True})
-        return {"b64_list": b64_list, "url_list": [], "items": items}
+                event_type = str(payload.get("type", "")).lower() if isinstance(payload, dict) else ""
+                target = partial_b64_list if "partial" in event_type else b64_list
+                target.append(str(candidate))
+                items.append({
+                    "index": len(target),
+                    "stream": True,
+                    "partial": "partial" in event_type,
+                })
+        return {
+            "b64_list": b64_list,
+            "partial_b64_list": partial_b64_list,
+            "url_list": [],
+            "items": items,
+        }
 
     data_list = getattr(resp, "data", None) or []
     for idx, item in enumerate(data_list, start=1):
@@ -946,6 +958,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     ts = time.strftime("%Y%m%d_%H%M%S")
     saved: list[str] = []
+    partial_saved: list[str] = []
     url_list: list[str] = []
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
@@ -1062,6 +1075,12 @@ def run_tool(args: dict[str, Any]) -> str:
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
             meta_payload["items"] = res.get("items") or []
+            partial_b64_list = res.get("partial_b64_list") or []
+            if partial_b64_list:
+                partial_dir = _ensure_dir(os.path.join(outdir, "partials"))
+                partial_saved.extend(
+                    _save_many(partial_dir, f"{file_prefix}_partial", ts, partial_b64_list, save_format)
+                )
             if b64_list:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list, save_format))
             if url_list:
@@ -1248,7 +1267,9 @@ def run_tool(args: dict[str, Any]) -> str:
         "n": n,
         "output_dir": outdir,
         "saved_files": saved,
+        "partial_files": partial_saved,
         "attachments": attachments,
+
     }
     if save_meta:
         data["meta_path"] = meta_path
