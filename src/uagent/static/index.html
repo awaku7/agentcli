@@ -49,7 +49,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
     /* === Theme (Light) === */
-
     :root {
       --bg-primary: #f0f2f5;
       --bg-surface: #ffffff;
@@ -81,7 +80,6 @@
     }
 
     /* === Theme (Dark) === */
-
     .dark {
       --bg-primary: #0b1120;
       --bg-surface: #131c31;
@@ -107,7 +105,6 @@
     }
 
     /* === High Contrast Mode === */
-
     @media (prefers-contrast: high) {
       :root {
         --border-color: #64748b;
@@ -127,7 +124,6 @@
     }
 
     /* === Reduced Motion === */
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -136,9 +132,7 @@
     }
 
     /* === Base === */
-
     html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-
     body {
       background: var(--bg-primary);
       color: var(--text-primary);
@@ -149,41 +143,31 @@
       -moz-osx-font-smoothing: grayscale;
       transition: background var(--transition), color var(--transition);
     }
-
     * { box-sizing: border-box; }
 
     /* === Scrollbar === */
-
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-
     ::-webkit-scrollbar-track { background: transparent; }
-
     ::-webkit-scrollbar-thumb {
       background: var(--text-tertiary);
       border-radius: 3px;
     }
-
     ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
     /* === Global Animations === */
-
     @keyframes uag-blink { to { visibility: hidden; } }
-
     @keyframes uag-msgIn {
       from { opacity: 0; transform: translateY(8px) scale(0.98); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
-
     @keyframes uag-fadeIn {
       from { opacity: 0; transform: translateY(-4px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes uag-slideIn {
       from { opacity: 0; transform: translateX(12px); }
       to { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes uag-pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
