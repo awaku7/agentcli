@@ -998,9 +998,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 meta_payload["downloaded_urls"] = []
                 for i, url in enumerate(url_list):
                     fn = (
-                        f"{file_prefix}_{ts}_url_{i + 1}.png"
+                        f"{file_prefix}_{ts}_url_{i + 1}.{_image_extension(save_format)}"
                         if len(url_list) > 1
-                        else f"{file_prefix}_{ts}_url.png"
+                        else f"{file_prefix}_{ts}_url.{_image_extension(save_format)}"
                     )
                     out_path = os.path.join(outdir, fn)
                     _download_to_png(url, out_path)
@@ -1035,9 +1035,9 @@ def run_tool(args: dict[str, Any]) -> str:
             meta_payload["downloaded_urls"] = []
             for i, url in enumerate(url_list):
                 fn = (
-                    f"{file_prefix}_{ts}_url_{i + 1}.png"
+                    f"{file_prefix}_{ts}_url_{i + 1}.{_image_extension(save_format)}"
                     if len(url_list) > 1
-                    else f"{file_prefix}_{ts}_url.png"
+                    else f"{file_prefix}_{ts}_url.{_image_extension(save_format)}"
                 )
                 out_path = os.path.join(outdir, fn)
                 _download_to_png(url, out_path)
@@ -1072,9 +1072,9 @@ def run_tool(args: dict[str, Any]) -> str:
                         meta_payload["downloaded_urls"].append(url)
                         continue
                     fn = (
-                        f"{file_prefix}_{ts}_url_{i + 1}.png"
+                        f"{file_prefix}_{ts}_url_{i + 1}.{_image_extension(save_format)}"
                         if len(url_list) > 1
-                        else f"{file_prefix}_{ts}_url.png"
+                        else f"{file_prefix}_{ts}_url.{_image_extension(save_format)}"
                     )
                     out_path = os.path.join(outdir, fn)
                     _download_to_png(url, out_path)
