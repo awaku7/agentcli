@@ -227,6 +227,7 @@ def _restore_sqlite_session_context(
         loaded = sanitize(loaded)
     if not loaded:
         return None
+    _restore_session_tools(loaded)
     if not any(
         isinstance(message, dict) and message.get("role") == "system"
         for message in loaded
@@ -277,6 +278,75 @@ def _restore_sqlite_session_context(
                 }
             )
     return loaded
+
+
+def _session_tool_names(messages: list[dict[str, Any]]) -> set[str]:
+    """Collect tool names referenced by a saved conversation."""
+    names: set[str] = set()
+
+    def add(value: Any) -> None:
+        if isinstance(value, str) and value.strip():
+            names.add(value.strip())
+
+    def add_load_target(call_name: Any, arguments: Any) -> None:
+        if str(call_name or "") not in {"tool_load", "load_tool"}:
+            return
+        if isinstance(arguments, str):
+            try:
+                arguments = json.loads(arguments)
+            except (TypeError, json.JSONDecodeError):
+                return
+        if isinstance(arguments, dict):
+            add(arguments.get("name") or arguments.get("tool_name") or arguments.get("target"))
+
+    for message in messages or []:
+        if not isinstance(message, dict):
+            continue
+        if str(message.get("role") or "").lower() == "tool":
+            add(message.get("name"))
+        for call in message.get("tool_calls") or []:
+            if not isinstance(call, dict):
+                continue
+            function = call.get("function")
+            if isinstance(function, dict):
+                add(function.get("name"))
+                add_load_target(function.get("name"), function.get("arguments"))
+            add(call.get("name"))
+            add_load_target(call.get("name"), call.get("arguments"))
+        # Responses API function-call items are commonly stored without role.
+        if message.get("type") in {"function_call", "tool_call"}:
+            add(message.get("name"))
+    return names
+
+
+def _restore_session_tools(messages: list[dict[str, Any]]) -> list[str]:
+    """Best-effort re-enable tools referenced by a loaded session."""
+    try:
+        from .tools._genre_control_util import enable_single_tool
+    except Exception:
+        return []
+    try:
+        from . import tools as _tools
+
+        visible_names = {
+            str(spec.get("function", {}).get("name"))
+            for spec in (_tools.get_tool_specs() or [])
+            if isinstance(spec, dict) and isinstance(spec.get("function"), dict)
+        }
+    except Exception:
+        visible_names = set()
+    restored: list[str] = []
+    for name in sorted(_session_tool_names(messages)):
+        if name in visible_names:
+            continue
+        try:
+            if enable_single_tool(name):
+                restored.append(name)
+        except Exception:
+            # A removed tool or unavailable optional dependency must not make
+            # the rest of the session unloadable.
+            continue
+    return restored
 
 
 def _load_skill_tools() -> None:
@@ -1656,6 +1726,7 @@ def _handle_cmd_load(
         )
         return True
 
+    _restore_session_tools(new_messages)
     new_messages = insert_tools_system_message(new_messages, core=core)
     messages_ref.clear()
     messages_ref.extend(new_messages)
