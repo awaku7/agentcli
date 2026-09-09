@@ -156,6 +156,9 @@ function handleWsMessage(data) {
     case 'assistant_stream_interrupted':
       if (messageHandlers.streamEnd) messageHandlers.streamEnd(data.id);
       break;
+    case 'image_event':
+      if (messageHandlers.imageEvent) messageHandlers.imageEvent(data);
+      break;
   }
 }
 

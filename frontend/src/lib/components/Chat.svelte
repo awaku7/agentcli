@@ -10,6 +10,7 @@
   $effect(() => { roomId = getRoomId(); });
   let chatBox = $state(null);
   let streamState = $state({ id: null, active: false, done: false, text: '', reasoning: '' });
+  let imageStreamState = $state({ src: '', mime: '', partial: false, visible: false });
 
   function scrollToBottom() {
     if (chatBox) requestAnimationFrame(() => {
@@ -60,6 +61,20 @@
         streamState = { ...streamState, reasoning: streamState.reasoning + content };
       }
     });
+    const unsubImage = onMessage('imageEvent', (data) => {
+      if (!data?.data_base64) return;
+      const mime = data.mime || 'image/png';
+      const value = data.data_base64.startsWith('data:')
+        ? data.data_base64
+        : `data:${mime};base64,${data.data_base64}`;
+      imageStreamState = {
+        src: value,
+        mime,
+        partial: !data.is_final,
+        visible: true,
+      };
+      scrollToBottom();
+    });
     const unsubEnd = onMessage('streamEnd', (id) => {
       if (streamState.id === id) {
         const html = extractHtmlFromText(streamState.text);
@@ -68,7 +83,7 @@
         streamState = { ...streamState, active: false, done: true };
       }
     });
-    return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubEnd(); };
+    return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubImage(); unsubEnd(); };
   });
 </script>
 
@@ -90,6 +105,12 @@
       {/if}
     </div>
   {/if}
+  {#if imageStreamState.visible}
+    <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm image-stream-bubble" class:opacity-60={imageStreamState.partial}>
+      <strong>{imageStreamState.partial ? 'IMAGE PREVIEW:' : 'IMAGE:'}</strong>
+      <img src={imageStreamState.src} alt="Generated image preview" class="image-stream-preview" />
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -98,4 +119,6 @@
   .chat-container::-webkit-scrollbar-track { background: transparent; }
   .chat-container::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
   .opacity-60 { opacity: 0.6; }
+  .image-stream-bubble { background: var(--surface); }
+  .image-stream-preview { display: block; max-width: min(100%, 640px); max-height: 60vh; margin-top: 0.5rem; border-radius: 0.5rem; object-fit: contain; }
 </style>
