@@ -29,6 +29,11 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..image_defaults import default_image_model
+from ..image_output import (
+    image_extension as _image_extension,
+    image_mime as _image_mime,
+    normalize_output_format as _normalize_output_format,
+)
 from .openers import open_image_with_default_app
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -356,22 +361,6 @@ def _sanitize_size_for_provider(size: str) -> str:
 
 def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
-
-
-_IMAGE_FORMATS = {"png", "jpeg", "webp"}
-
-
-def _normalize_output_format(value: Any) -> str:
-    value = str(value or "png").strip().lower()
-    return value if value in _IMAGE_FORMATS else "png"
-
-
-def _image_extension(output_format: str) -> str:
-    return "jpg" if output_format == "jpeg" else output_format
-
-
-def _image_mime(output_format: str) -> str:
-    return "image/jpeg" if output_format == "jpeg" else f"image/{output_format}"
 
 
 def _save_many(
