@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import sys
+from typing import Any
 
 from .. import core
 from ..env_utils import env_get
@@ -46,6 +48,23 @@ def init_web():
     web_manager.original_set_status = core.set_status
     web_manager.original_log_message = core.log_message
 
+    def _web_image_event(event: dict[str, Any]) -> None:
+        room = getattr(_thread_ctx, "room", None)
+        if room is None:
+            try:
+                with web_manager.active_room_lock:
+                    room = web_manager.active_room
+            except Exception:
+                room = None
+        if room is None or not getattr(room, "loop", None):
+            return
+        payload = {"type": "image_event", **dict(event)}
+        try:
+            asyncio.run_coroutine_threadsafe(room.broadcast(payload), room.loop)
+        except Exception:
+            pass
+
+    core.image_event = _web_image_event
     core.set_status = web_set_status
 
     # Web mode: UI message forwarding is handled per-room; keep core.log_message intact.
