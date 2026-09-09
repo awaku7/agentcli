@@ -26,7 +26,11 @@
     "param.quality.description": "Image quality.",
     "param.background.description": "Image background.",
     "err.depname_missing": "[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Output image format: png, jpeg, or webp.",
+    "param.output_compression.description": "Output compression level (0-100). Only valid for jpeg/webp.",
+    "param.stream.description": "Request streaming image generation when supported by the model.",
+    "param.partial_images.description": "Number of partial images for streaming."
   },
   "ja": {
     "tool.description": "テキストプロンプトから新しい画像を生成し、PNGとして保存してファイルパスを返します。既存画像の変更にはimg2imgを使用してください。開く処理は呼び出し元が行います。",
@@ -55,7 +59,11 @@
     "param.quality.description": "画質。",
     "param.background.description": "画像の背景。",
     "err.depname_missing": "[generate_image] イメージモデル(デプロイ名)が設定されていません。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。",
-    "param.include_base64.description": "リモートクライアント向けに画像のBase64データを含めます。"
+    "param.include_base64.description": "リモートクライアント向けに画像のBase64データを含めます。",
+    "param.output_format.description": "出力画像形式: png、jpeg、webp。",
+    "param.output_compression.description": "出力圧縮率（0〜100）。jpeg/webpでのみ使用できます。",
+    "param.stream.description": "モデルが対応している場合に画像生成をストリーミングします。",
+    "param.partial_images.description": "ストリーミング中に生成する部分画像の数。"
   },
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo.",
