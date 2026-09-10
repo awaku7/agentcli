@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import html
 import json
+import re
 import traceback
 import uuid
 from urllib.error import URLError
@@ -159,6 +161,39 @@ def _provider_error_label(provider: str) -> str:
     if (provider or "").strip().lower() == "meta":
         return "Meta"
     return "Azure/OpenAI"
+
+
+def _exception_text(exc: BaseException) -> str:
+    """Return a short, single-line exception summary for the user interface."""
+    text = str(exc).replace("\r", " ").replace("\n", " ")
+    lowered = text.lower()
+    if "zscaler" in lowered or "website blocked" in lowered:
+        urls = re.findall(r"https?://[^\s<>\"']+", text)
+        target = urls[-1] if urls else "the requested URL"
+        return f"Zscaler blocked access to {target}"
+    if "<!doctype html" in lowered or "<html" in lowered:
+        text = html.unescape(re.sub(r"<[^>]*>", " ", text))
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:500] + ("..." if len(text) > 500 else "")
+
+
+def _is_zscaler_responses_block(exc: BaseException) -> bool:
+    """Detect the corporate Zscaler page returned for the Responses endpoint."""
+    parts = [str(exc)]
+    body = getattr(exc, "body", None)
+    if body is not None:
+        parts.append(str(body))
+    response = getattr(exc, "response", None)
+    if response is not None:
+        try:
+            parts.append(str(getattr(response, "text", "") or ""))
+        except Exception:
+            pass
+    text = " ".join(parts).lower()
+    return (
+        "/v1/responses" in text
+        and ("zscaler" in text or "website blocked" in text)
+    )
 
 
 def _openai_fast_mode_enabled() -> bool:
@@ -691,6 +726,8 @@ def _call_openai_azure_round(
     _thinking_disabled = False
     # Track whether previous_response_id caused a stale error; if so, stop using it
     _stale_rid_retried = False
+    # A proxy may transiently return a block page for /v1/responses.
+    _responses_proxy_retried = False
 
     def _clear_stale_rid_after_success() -> None:
         """Allow Responses API continuation again after a successful retry."""
@@ -1329,6 +1366,19 @@ def _call_openai_azure_round(
             _is_bad_request = BadRequestError is not None and isinstance(
                 e, BadRequestError
             )
+            if (
+                use_responses_api
+                and not _responses_proxy_retried
+                and _is_zscaler_responses_block(e)
+            ):
+                _responses_proxy_retried = True
+                _spinner_stop_quietly()
+                print(
+                    error_prefix
+                    + "Responses API request was blocked by the proxy; "
+                    + "retrying once..."
+                )
+                continue
             _is_resp_validation = APIResponseValidationError is not None and isinstance(
                 e, APIResponseValidationError
             )
@@ -1430,9 +1480,13 @@ def _call_openai_azure_round(
                 print(repr(e))
                 return False, client, "", "", []
             _spinner_stop_quietly()
-            print("[LLM Error] " + _t("Unexpected exception."))
+            print(
+                "[LLM Error] "
+                + _t("Unexpected exception.")
+                + " "
+                + _exception_text(e)
+            )
             _maybe_print_certifi_where(e)
-            print(repr(e))
             return False, client, "", "", []
 
     try:
