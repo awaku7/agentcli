@@ -1620,6 +1620,7 @@ def _run_one_round(
         messages=messages,
         core=core,
         cache_mgr=cache_mgr,
+        responses_api_continuation=use_responses_api,
     )
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a

@@ -483,6 +483,7 @@ def _execute_tool_calls(
     messages: list[dict[str, Any]],
     core: Any,
     cache_mgr: Any,
+    responses_api_continuation: bool = False,
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Execute tool calls.
 
@@ -820,7 +821,12 @@ def _execute_tool_calls(
         messages.append(tool_msg)
         core.log_message(tool_msg)
 
-        if auto_user_msg is not None:
+        # Responses API continuations must place function outputs directly
+        # after the assistant tool call. Tools such as screenshot expose a
+        # ``next_action`` prompt for Chat Completions, but inserting that
+        # synthetic user message makes OpenAI/Azure reject the stored
+        # previous_response_id as stale.
+        if auto_user_msg is not None and not responses_api_continuation:
             pending_auto_user_msgs.append(auto_user_msg)
 
     for auto_user_msg in pending_auto_user_msgs:

@@ -44,3 +44,46 @@ def test_computer_tool_calls_use_core_handler(monkeypatch):
     assert fresh == tool_calls
     assert calls[0]["action"]["action"] == "screenshot"
     assert messages[-1]["content"] == json.dumps({"ok": True})
+
+
+def test_responses_continuation_does_not_append_next_action_user_message(monkeypatch):
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *args: False
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool",
+        lambda name, args: json.dumps(
+            {
+                "ok": True,
+                "data": {
+                    "next_action": {
+                        "type": "user_message",
+                        "content": "Please analyze this screenshot.",
+                    }
+                },
+            }
+        ),
+    )
+    core = SimpleNamespace(
+        show_tool_output=False,
+        set_status=lambda *args: None,
+        log_message=lambda *args: None,
+    )
+    tool_calls = [
+        {
+            "id": "screenshot-1",
+            "type": "function",
+            "function": {"name": "screenshot", "arguments": "{}"},
+        }
+    ]
+
+    messages = []
+    _execute_tool_calls(
+        tool_calls_list=tool_calls,
+        messages=messages,
+        core=core,
+        cache_mgr=Cache(),
+        responses_api_continuation=True,
+    )
+
+    assert [message["role"] for message in messages] == ["tool"]
