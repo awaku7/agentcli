@@ -259,7 +259,7 @@ class TestProviderAllowsChatVision:
         )
 
         # DeepSeek exposes vision through standard Chat Completions image_url
-        # blocks, but only its dedicated vision model accepts images.
+        # blocks. The v4 Flash model now accepts image input as well.
         assert (
             provider_allows_chat_vision(
                 "deepseek",
@@ -272,6 +272,14 @@ class TestProviderAllowsChatVision:
             provider_allows_chat_vision(
                 "deepseek",
                 model_id="deepseek-v4-flash",
+                use_responses_api=False,
+            )
+            is True
+        )
+        assert (
+            provider_allows_chat_vision(
+                "deepseek",
+                model_id="deepseek-v3.2",
                 use_responses_api=False,
             )
             is False
