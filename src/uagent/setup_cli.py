@@ -91,6 +91,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("sakura", "SAKURA AI Engine"),
     ("novita", "Novita AI"),
     ("together", "Together AI"),
+    ("inception", "Inception Labs / Mercury"),
     ("vercel", "Vercel AI Gateway"),
 ]
 
@@ -471,6 +472,31 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_TOGETHER_TEMPERATURE",
             False,
             _("Together AI temperature (optional)"),
+        ),
+    ],
+    "inception": [
+        ("UAGENT_INCEPTION_API_KEY", True, _("Inception Labs API key")),
+        (
+            "UAGENT_INCEPTION_BASE_URL",
+            False,
+            _(
+                "Inception Labs base URL (optional, default: https://api.inceptionlabs.ai/v1)"
+            ),
+        ),
+        (
+            "UAGENT_INCEPTION_DEPNAME",
+            False,
+            _("Inception model name (optional, default: mercury-2.5)"),
+        ),
+        (
+            "UAGENT_INCEPTION_TEMPERATURE",
+            False,
+            _("Inception temperature (optional)"),
+        ),
+        (
+            "UAGENT_INCEPTION_DIFFUSING",
+            False,
+            _("Inception diffusion display (optional: 0/1, default: 1)"),
         ),
     ],
     "novita": [

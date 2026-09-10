@@ -78,7 +78,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
+  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -127,6 +127,18 @@ set UAGENT_RESPONSES=0
 
 - `UAGENT_OPENROUTER_API_KEY`（必須）
 - `UAGENT_OPENROUTER_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
+
+#### Inception Labs / Mercury
+
+`UAGENT_PROVIDER=inception` の場合に必要：
+
+- `UAGENT_INCEPTION_API_KEY` または `INCEPTION_API_KEY`（必須）
+- `UAGENT_INCEPTION_BASE_URL`（省略可、既定: `https://api.inceptionlabs.ai/v1`）
+- `UAGENT_INCEPTION_DEPNAME`（省略可、既定: `mercury-2.5`）
+- `UAGENT_INCEPTION_TEMPERATURE`（省略可、`0.5..1.0`に補正）
+- `UAGENT_INCEPTION_DIFFUSING`（省略可、既定値`1`で拡散表示を有効化）
+
+InceptionはOpenAI互換のChat Completions APIを使用します。reasoningの有効値は`low`、`medium`、`high`で、ストリーミングに対応しています。
 
 #### Ollama
 

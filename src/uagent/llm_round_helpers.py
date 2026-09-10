@@ -33,6 +33,7 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
+from .providers.llm_inception import parse_inception_stream
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 
@@ -190,10 +191,7 @@ def _is_zscaler_responses_block(exc: BaseException) -> bool:
         except Exception:
             pass
     text = " ".join(parts).lower()
-    return (
-        "/v1/responses" in text
-        and ("zscaler" in text or "website blocked" in text)
-    )
+    return "/v1/responses" in text and ("zscaler" in text or "website blocked" in text)
 
 
 def _openai_fast_mode_enabled() -> bool:
@@ -306,7 +304,25 @@ def _resolve_round_runtime_flags(
 
             use_responses_api = provider_allows_responses_api(provider, depname or None)
 
+    # Mercury exposes Chat Completions only; do not let an explicit global
+    # UAGENT_RESPONSES=1 route this provider to an unsupported client surface.
+    if provider == "inception":
+        use_responses_api = False
+
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
+    if provider == "inception":
+        # Use the model catalog when available; Mercury models currently
+        # advertise Chat Completions streaming through llmcapa.
+        try:
+            from .llmcapa_util import supports_feature
+
+            if (
+                supports_feature("streaming", depname or None, provider, default=True)
+                is False
+            ):
+                stream_responses = False
+        except Exception:
+            pass
 
     # If translation is enabled, disable streaming to avoid mismatched partial outputs.
     # (We translate per-call, not per-delta.)
@@ -509,7 +525,7 @@ def _call_gemini_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", [], {}
             msg = str(e)
             if force_thinking_level is None and (
@@ -531,7 +547,7 @@ def _call_gemini_round(
                 continue
             print(_("[Gemini Error] An error occurred while generating a response."))
             _maybe_print_certifi_where(e)
-            print(repr(e))
+            print(_exception_text(e))
             return False, client, "", [], {}
 
     return True, client, assistant_text, tool_calls_list, gemini_content_dump
@@ -645,11 +661,11 @@ def _call_claude_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", []
             print(_("[Claude Error] An error occurred while generating a response."))
             _maybe_print_certifi_where(e)
-            print(repr(e))
+            print(_exception_text(e))
             return False, client, "", []
 
     return True, client, assistant_text, tool_calls_list
@@ -1149,8 +1165,9 @@ def _call_openai_azure_round(
                     else (tools.get_tool_specs() if send_tools_this_round else None)
                 )
 
-                # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning).
-                default_temp = 0.2
+                # Resolve temperature (Inception requires 0.5..1.0; use its
+                # documented default rather than the generic tool-use default).
+                default_temp = 0.75 if provider == "inception" else 0.2
                 temp_env_name = temperature_env_name(provider)
                 temp_env = env_get(temp_env_name) if temp_env_name else ""
                 if not temp_env:
@@ -1162,12 +1179,59 @@ def _call_openai_azure_round(
                         resolved_temp = float(temp_env.strip())
                     except ValueError:
                         pass
+                if provider == "inception":
+                    # Mercury accepts temperatures in the inclusive range
+                    # 0.5..1.0.
+                    resolved_temp = min(1.0, max(0.5, resolved_temp))
 
                 chat_kwargs: dict[str, Any] = {
                     "model": depname,
                     "messages": _normalize_chat_image_content(call_messages),
                     "temperature": resolved_temp,
                 }
+                if provider == "inception":
+                    # Mercury exposes reasoning control through the
+                    # Chat Completions `reasoning_effort` field. Prefer the
+                    # model-specific values published by llmcapa.
+                    _reasoning = (
+                        (env_get("UAGENT_REASONING", "medium") or "medium")
+                        .strip()
+                        .lower()
+                    )
+                    _valid_efforts: list[str] = []
+                    try:
+                        from .llmcapa_util import get_capability
+
+                        _cap = get_capability(depname, provider)
+                        if _cap is not None and getattr(
+                            _cap, "supports_reasoning_effort", False
+                        ):
+                            _valid_efforts = [
+                                str(v).lower()
+                                for v in (_cap.get_reasoning_effort_values() or [])
+                                if str(v).strip()
+                            ]
+                    except Exception:
+                        pass
+                    if not _valid_efforts:
+                        _valid_efforts = ["low", "medium", "high"]
+                    _requested_effort = {
+                        "minimal": "low",
+                        "off": "low",
+                        "auto": "medium",
+                    }.get(_reasoning, _reasoning)
+                    if _requested_effort in _valid_efforts:
+                        _inception_effort = _requested_effort
+                    elif "medium" in _valid_efforts:
+                        _inception_effort = "medium"
+                    else:
+                        _inception_effort = _valid_efforts[0]
+                    chat_kwargs["reasoning_effort"] = _inception_effort
+                    _diffusing = stream_responses and (
+                        env_get("UAGENT_INCEPTION_DIFFUSING", "1") or ""
+                    ).strip().lower() in ("1", "true", "yes", "on")
+                    if _diffusing:
+                        chat_kwargs["extra_body"] = {"diffusing": True}
                 if provider == "llama_cpp":
                     _apply_llama_cpp_reasoning_kwargs(chat_kwargs)
                 # OpenAI Fast mode is intentionally not applied to Azure or
@@ -1185,9 +1249,12 @@ def _call_openai_azure_round(
                             int(max_tokens_env), depname, provider
                         )
                         _model_lower = str(depname or "").lower()
-                        if provider in ("openai", "azure") and (
-                            _model_lower.startswith("gpt-5")
-                            or _model_lower.startswith(("o1", "o2", "o3", "o4"))
+                        if provider == "inception" or (
+                            provider in ("openai", "azure")
+                            and (
+                                _model_lower.startswith("gpt-5")
+                                or _model_lower.startswith(("o1", "o2", "o3", "o4"))
+                            )
                         ):
                             chat_kwargs["max_completion_tokens"] = _chat_token_limit
                         else:
@@ -1252,9 +1319,40 @@ def _call_openai_azure_round(
 
                     apply_lmstudio_transport(chat_kwargs, responses=False)
 
-                resp = call_maybe_thread_fn(
-                    lambda: client.chat.completions.create(**chat_kwargs)
-                )
+                if provider == "inception" and stream_responses:
+                    # Inception exposes streaming on Chat Completions rather
+                    # than the Responses API. Reuse the OpenAI-compatible
+                    # tool/reasoning delta parser.
+                    assistant_text, reasoning_content, tool_calls_list = (
+                        call_maybe_thread_fn(
+                            lambda: parse_inception_stream(
+                                client.chat.completions.create(
+                                    **chat_kwargs, stream=True
+                                ),
+                                diffusing=_diffusing,
+                                print_delta_fn=(
+                                    None
+                                    if bool(getattr(core, "_is_web", False))
+                                    else (
+                                        getattr(core, "print_stream_delta", None)
+                                        or (
+                                            lambda s: (
+                                                print(s, end="", flush=True)
+                                                if s
+                                                else None
+                                            )
+                                        )
+                                    )
+                                ),
+                                core=core,
+                            )
+                        )
+                    )
+                    resp = None
+                else:
+                    resp = call_maybe_thread_fn(
+                        lambda: client.chat.completions.create(**chat_kwargs)
+                    )
             break
         except Exception as e:
             # Clear previous_response_id on any error (may be stale)
@@ -1283,7 +1381,7 @@ def _call_openai_azure_round(
             ):
                 print(error_prefix + _t("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", "", []
 
             def _err_text_of(exc: BaseException) -> str:
@@ -1423,7 +1521,10 @@ def _call_openai_azure_round(
                 print(
                     error_prefix
                     + _("Error code: %(code)s - %(err)s")
-                    % {"code": getattr(e, "status_code", 400) or 400, "err": e}
+                    % {
+                        "code": getattr(e, "status_code", 400) or 400,
+                        "err": _exception_text(e),
+                    }
                 )
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
@@ -1448,13 +1549,13 @@ def _call_openai_azure_round(
                 _spinner_stop_quietly()
                 print(error_prefix + _t("Connection error"))
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", "", []
             if isinstance(e, URLError):
                 _spinner_stop_quietly()
                 print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", "", []
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
@@ -1477,14 +1578,11 @@ def _call_openai_azure_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(repr(e))
+                print(_exception_text(e))
                 return False, client, "", "", []
             _spinner_stop_quietly()
             print(
-                "[LLM Error] "
-                + _t("Unexpected exception.")
-                + " "
-                + _exception_text(e)
+                "[LLM Error] " + _t("Unexpected exception.") + " " + _exception_text(e)
             )
             _maybe_print_certifi_where(e)
             return False, client, "", "", []
@@ -1496,6 +1594,8 @@ def _call_openai_azure_round(
             # - non-streaming: parse_responses_response(resp, core=core)
             pass
         else:
+            if provider == "inception" and stream_responses and resp is None:
+                return True, client, assistant_text, reasoning_content, tool_calls_list
             if resp is None:
                 print("[ERROR] " + _("Response error: resp is None."))
                 return False, client, "", "", []

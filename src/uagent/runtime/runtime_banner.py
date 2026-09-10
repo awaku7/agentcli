@@ -498,6 +498,19 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "inception":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_INCEPTION_BASE_URL",
+                        "https://api.inceptionlabs.ai/v1",
+                    ),
+                )
+            }
+        )
     elif provider == "vercel":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

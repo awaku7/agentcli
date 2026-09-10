@@ -37,6 +37,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "novita",
         "together",
         "vercel",
+        "inception",
         "pfn",
     }
 )
@@ -92,6 +93,7 @@ _TEMPERATURE_ENV_NAMES: dict[str, str] = {
         "novita",
         "together",
         "vercel",
+        "inception",
     )
 }
 

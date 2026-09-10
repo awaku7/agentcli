@@ -31,6 +31,7 @@ _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     # Ollama is local and the key is optional; keep the explicit name for
     # credential lookup while the client falls back to a dummy value.
     "ollama": ("UAGENT_OLLAMA_API_KEY",),
+    "inception": ("UAGENT_INCEPTION_API_KEY", "INCEPTION_API_KEY"),
 }
 
 

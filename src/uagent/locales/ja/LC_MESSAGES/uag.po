@@ -4001,7 +4001,7 @@ msgstr "- \"最新ニュースを検索して、特定のトピックを要約�
 msgid ""
 "- \"Scan this project with code_map so the LLM understands the codebase "
 "faster.\""
-msgstr "- 「LLM がコードベースをより速く理解できるように、code_map を使用してこのプロジェクトをスキャンします。」"
+msgstr "- \"LLM がコードベースをより速く理解できるように、code_map を使用してこのプロジェクトをスキャンします。\""
 
 #: src/uagent/welcome.py:201
 msgid "-- More -- (Enter: next) "

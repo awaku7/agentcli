@@ -180,6 +180,27 @@ class MainWindow(QtWidgets.QMainWindow):
         v = 8 + (n - 232) * 10
         return f"#{v:02x}{v:02x}{v:02x}"
 
+    @QtCore.Slot(object)
+    def _on_inception_diffusion(self, text: object) -> None:
+        """Replace the active GUI diffusion snapshot in-place."""
+        if text is None:
+            self._inception_diffusion_anchor = None
+            return
+        try:
+            cursor = self._output.textCursor()
+            anchor = getattr(self, "_inception_diffusion_anchor", None)
+            if anchor is None:
+                cursor.movePosition(QtGui.QTextCursor.End)
+                anchor = cursor.position()
+            cursor.setPosition(int(anchor))
+            cursor.movePosition(QtGui.QTextCursor.End, QtGui.QTextCursor.KeepAnchor)
+            cursor.insertText(str(text))
+            self._inception_diffusion_anchor = cursor.position()
+            self._output.setTextCursor(cursor)
+            self._output.ensureCursorVisible()
+        except Exception:
+            pass
+
     def _append_ansi_text(self, text: str) -> None:
         """Append ANSI-colored text without using HTML. SGR underline is ignored."""
         text = text or ""
@@ -669,6 +690,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._worker.sig_finished.connect(self._thread.quit)
         self._worker.sig_history_bootstrap.connect(self._on_history_bootstrap)
         self._worker.sig_image_event.connect(self._on_image_event)
+        self._worker.sig_inception_diffusion.connect(self._on_inception_diffusion)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
 

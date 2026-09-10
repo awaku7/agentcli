@@ -146,6 +146,17 @@ def run_agent_worker(
                     }
                 )
 
+        def _stream_replace(content: str) -> None:
+            if not stream_state.get("active"):
+                _stream_start()
+            _web_stream_send(
+                {
+                    "type": "assistant_stream_replace",
+                    "id": stream_state.get("id"),
+                    "content": content,
+                }
+            )
+
         def _stream_end() -> None:
             if stream_state.get("active"):
                 _web_stream_send(
@@ -170,6 +181,12 @@ def run_agent_worker(
                     and msg.get("type") == "assistant_stream_delta"
                 ):
                     _stream_delta(str(msg.get("delta") or ""))
+                    return
+                if (
+                    isinstance(msg, dict)
+                    and msg.get("type") == "assistant_stream_replace"
+                ):
+                    _stream_replace(str(msg.get("content") or ""))
                     return
                 if isinstance(msg, dict) and msg.get("type") == "assistant_stream_end":
                     _stream_end()

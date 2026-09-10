@@ -40,8 +40,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
-                default="Required to select the LLM provider (azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel).",
             ),
         )
         return provider, missing, warnings
@@ -111,6 +111,17 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ["UAGENT_OPENROUTER_API_KEY"],
             reason=_("OpenRouter API key.", default="OpenRouter API key."),
         )
+    elif provider == "inception":
+        if not (_get("UAGENT_INCEPTION_API_KEY") or _get("INCEPTION_API_KEY")):
+            missing.append(
+                MissingEnv(
+                    name="UAGENT_INCEPTION_API_KEY",
+                    reason=_(
+                        "Inception Labs API key (UAGENT_INCEPTION_API_KEY or INCEPTION_API_KEY).",
+                        default="Inception Labs API key (UAGENT_INCEPTION_API_KEY or INCEPTION_API_KEY).",
+                    ),
+                )
+            )
     elif provider == "grok":
         missing += _require(
             ["UAGENT_GROK_API_KEY"],

@@ -4507,8 +4507,8 @@ msgid ""
 "- \"Scan this project with code_map so the LLM understands the codebase "
 "faster.\""
 msgstr ""
-"- „Scanați acest proiect cu code_map, astfel încât LLM să înțeleagă mai "
-"repede baza de cod.”"
+"- \"Scanați acest proiect cu code_map, astfel încât LLM să înțeleagă mai "
+"repede baza de cod.\""
 
 #: src/uagent/welcome.py:204
 msgid "-- More -- (Enter: next) "

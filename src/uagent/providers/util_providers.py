@@ -359,6 +359,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openrouter":
         return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
+    if provider == "inception":
+        return env_get("UAGENT_INCEPTION_DEPNAME", "mercury-2.5") or "mercury-2.5"
     if provider == "grok":
         return (
             env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
@@ -733,6 +735,21 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             except TypeError:
                 client = OpenAI(api_key=api_key, base_url=base_url)
 
+        return provider, client, model_name
+
+    if provider == "inception":
+        # Inception's Mercury API is OpenAI Chat Completions compatible.
+        from openai import OpenAI  # lazy
+
+        api_key = _provider_api_key(core, "INCEPTION")
+        base_url = core.get_env_url(
+            "UAGENT_INCEPTION_BASE_URL", "https://api.inceptionlabs.ai/v1"
+        )
+        http_client = make_httpx_client()
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
         return provider, client, model_name
 
     if provider == "grok":

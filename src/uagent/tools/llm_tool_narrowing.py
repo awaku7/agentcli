@@ -91,6 +91,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
     "bedrock": ("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano"),
     "openrouter": ("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano"),
+    "inception": ("UAGENT_INCEPTION_DEPNAME", "mercury-2.5"),
     "grok": ("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning"),
     "gemini": ("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash"),
     "vertexai": ("UAGENT_VERTEXAI_DEPNAME", "gemini-2.5-flash"),

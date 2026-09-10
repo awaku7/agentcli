@@ -56,7 +56,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
+  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -105,6 +105,18 @@ Required if `UAGENT_PROVIDER=openrouter`:
 
 - `UAGENT_OPENROUTER_API_KEY` (required)
 - `UAGENT_OPENROUTER_DEPNAME` (optional, default: `gpt-5.4-nano`)
+
+#### Inception Labs / Mercury
+
+Required if `UAGENT_PROVIDER=inception`:
+
+- `UAGENT_INCEPTION_API_KEY` or `INCEPTION_API_KEY` (required)
+- `UAGENT_INCEPTION_BASE_URL` (optional, default: `https://api.inceptionlabs.ai/v1`)
+- `UAGENT_INCEPTION_DEPNAME` (optional, default: `mercury-2.5`)
+- `UAGENT_INCEPTION_TEMPERATURE` (optional, clamped to `0.5..1.0`)
+- `UAGENT_INCEPTION_DIFFUSING` (optional: `1` enables diffusion snapshots; default: `1` for Inception)
+
+Inception uses the OpenAI-compatible Chat Completions API. The model-specific reasoning levels are `low`, `medium`, and `high`; streaming is supported.
 
 #### Ollama
 

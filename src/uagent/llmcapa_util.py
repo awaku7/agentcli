@@ -52,6 +52,7 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "sakura": ("sakura",),
     "pfn": ("pfn",),
     "novita": ("novita",),
+    "inception": ("inception",),
 }
 
 

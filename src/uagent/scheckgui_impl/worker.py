@@ -61,6 +61,7 @@ class ScheckWorker(QtCore.QObject):
     sig_finished = QtCore.Signal()
     sig_history_bootstrap = QtCore.Signal(list)
     sig_image_event = QtCore.Signal(dict)
+    sig_inception_diffusion = QtCore.Signal(object)
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
@@ -118,6 +119,14 @@ class ScheckWorker(QtCore.QObject):
         prev_finish_skill = None
         try:
             self._init_callbacks()
+            try:
+                setattr(
+                    core,
+                    "_inception_diffusion_callback",
+                    self.sig_inception_diffusion.emit,
+                )
+            except Exception:
+                pass
             start_background_scheduler(core.event_queue)
             # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
             set_llm_event_queue(core.event_queue)
@@ -539,6 +548,10 @@ class ScheckWorker(QtCore.QObject):
                         pass
                     continue
         finally:
+            try:
+                delattr(core, "_inception_diffusion_callback")
+            except Exception:
+                pass
             if prev_finish_skill is not None:
                 get_callbacks().finish_skill = prev_finish_skill
             self.sig_finished.emit()

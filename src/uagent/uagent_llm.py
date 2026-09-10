@@ -1571,7 +1571,8 @@ def _run_one_round(
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
                     skip_print=bool(
-                        provider == "grok" and stream_responses and _is_xai_grpc
+                        (provider == "grok" and stream_responses and _is_xai_grpc)
+                        or (provider == "inception" and stream_responses)
                     ),
                     core=core,
                     provider=provider,
