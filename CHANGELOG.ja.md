@@ -1,6 +1,10 @@
 # 変更履歴
 
-## [未リリース]
+## [Unreleased]
+
+### 変更
+
+- 対応する`llmcapa`の最低バージョンを`>=0.5.30`に更新。
 
 ## [0.7.5] - 2026-09-09
 
@@ -20,6 +24,21 @@
 - Responses画像オプション、継続状態のリセット、結果形状の互換性を改善。
 - プロンプト監視スレッドの終了競合による不要なトレースバックを抑制。
 
+## [0.7.4] - 2026-09-08
+
+### 修正
+
+- ローカライズされた説明文の翻訳時にCLIコマンド構文を保持。
+- 翻訳されたヒント内の `skills` コマンド構文を保持。
+
+## [0.7.3] - 2026-09-07
+
+### 変更
+
+- `llmcapa`の最低バージョン要件を`>=0.5.26`に更新。
+- Computer Use設計書と日本語開発者ガイドを現行実装に合わせて更新。
+- プロジェクトのコードマップ（Ontology/Mermaid）を再生成。
+
 ## [0.7.2] - 2026-09-06
 
 ### 追加
@@ -37,23 +56,6 @@
 
 - GUI起動、Session／Task State分離、Sub-Agentパラメータのローカライズを修正。
 
-## [未リリース]
-
-## [0.7.4] - 2026-09-08
-
-### 修正
-
-- ローカライズされた説明文の翻訳時にCLIコマンド構文を保持。
-- 翻訳されたヒント内の `skills` コマンド構文を保持。
-
-## [0.7.3] - 2026-09-07
-
-### 変更
-
-- `llmcapa`の最低バージョン要件を`>=0.5.26`に更新。
-- Computer Use設計書と日本語開発者ガイドを現行実装に合わせて更新。
-- プロジェクトのコードマップ（Ontology/Mermaid）を再生成。
-
 ## [0.7.1] - 2026-09-06
 
 ### 追加
@@ -70,7 +72,6 @@
 ### 修正
 
 - レスポンス期限切れの互換性、セッション表示、および関連する整形を改善。
-
 
 ## [0.7.0] - 2026-09-04
 
@@ -90,7 +91,6 @@
 - 複数行エディタと `human_ask` フォールバックでCRLF/CR貼り付けを正規化。
 - Ollamaの推論内容が二重表示される問題を修正。
 - SQLiteセッションの時刻表示をローカルタイムゾーンに修正。
-
 
 ## [0.6.20] - 2026-09-03
 
@@ -123,7 +123,6 @@
 
 - `llmcapa` の依存要件を `>=0.5.13` に更新。
 
-
 ## [0.6.17] - 2026-08-31
 
 ### 追加
@@ -152,7 +151,6 @@
 ### 変更
 
 - タイマーのスケジューリング、翻訳処理、対応ロケールのツールドキュメントを改善。
-
 
 ## [0.6.15] - 2026-08-30
 
@@ -187,7 +185,6 @@
 - ツールトレースと確認プロンプトで再帰的な秘密情報マスク処理を統一。
 - 引用符付きの`passwd`フィールドと、引数内に埋め込まれた認証情報をマスク。
 
-
 ## [0.6.13] - 2026-08-28
 
 ### 追加
@@ -205,7 +202,6 @@
 ### 修正
 
 - オントロジー出力で同名シンボルを区別し、関係識別子の衝突を回避。
-
 
 ## [0.6.12] - 2026-08-27
 
@@ -530,11 +526,6 @@
 - test: `:bitchat start` / `:bitchat stop` ハンドラとCMD_SPECS登録のTDDテストを追加
 - i18n: ノード開始・停止コマンドのen/jaメッセージを追加
 
-### パフォーマンス
-
-- perf(cli): dynamic_commandのタブ補完を高速化 — 補完リクエストごとにコマンドマップを1回だけ取得し、初回プラグインimportでブロックしない（バックグラウンドwarmupが継続し、部分結果で補完）
-- perf(tools): `get_dynamic_commands_map()` の結果をキャッシュ（register/unregister時に無効化）。`get_dynamic_subcommands()` と非ブロック `block=False` モードを追加（マップ参照が約80倍高速化）
-
 ### 修正
 
 - fix(cli): CLI で連続する素早い human_ask 返信を保持 — 直前の human_ask 返信直後の stdin typeahead flush をスキップ（例: :skills の番号選択後の y 確認）し、素早い返信が破棄されないように修正。パスワードは常に flush
@@ -555,6 +546,11 @@
 - feat(web): `/api/logs/{index}/preview` の total_messages を CLI `:logs`/`:load` と同じ意味に統一し、`total_tool` / `preserved_system` フィールドを追加
 - test: `tests/test_logs_load_count_consistency.py` を追加（CLI `:logs` 件数 == `:load` 件数、`[CWD]` ボーナス、生行からの cwd 抽出を検証）
 - fix(i18n): ツールJSONの欠落キー727件を32言語に補充（ユニーク文字列の重複排除 + translate_text。bacnet/modbus/opcua の timeout 説明、browser_playwright の新パラメータ、csv2idx/echonet_scan/json2idx/lint_format/log2idx/tools_control のキー）。cl2idx/dds2idx/excel2idx/ppt2idx/rpg2idx の fa `msg.index_output` に `{total}` プレースホルダを復元。en から削除済みの孤児 extra キー1183件を削除（bluesky/switchbot_batch/upnp_igd_control/usb_camera/vision_deepseek/vision_ollama/echonet_cache/forecast）— `scripts/i18n_tools_check.py` がエラー0で通過
+
+### パフォーマンス
+
+- perf(cli): dynamic_commandのタブ補完を高速化 — 補完リクエストごとにコマンドマップを1回だけ取得し、初回プラグインimportでブロックしない（バックグラウンドwarmupが継続し、部分結果で補完）
+- perf(tools): `get_dynamic_commands_map()` の結果をキャッシュ（register/unregister時に無効化）。`get_dynamic_subcommands()` と非ブロック `block=False` モードを追加（マップ参照が約80倍高速化）
 
 ## [0.5.61] - 2026-07-30
 
@@ -589,14 +585,14 @@
 - feat: 読み取り専用のget_current_timeに対応したOpenAI Realtime Function Calling
 - docs: 全言語版READMEにRealtime/AEC3とFunction Callingの説明を追加
 
+### 変更
+
+- chore: 全コードをBlackで整形し、Ruffの指摘を解消
+
 ### 修正
 
 - fix: AEC3のfar参照を実際のスピーカー再生と同期
 - fix: Realtime音声診断ログを追加、READMEの重複セクションを削除
-
-### 変更
-
-- chore: 全コードをBlackで整形し、Ruffの指摘を解消
 
 ## [0.5.58] - 2026-07-27
 
@@ -607,16 +603,16 @@
 - feat: get_current_time 出力に OS レベル NTP 同期情報を追加
 - docs: docs/BITCHAT.md 追加、COMMUNICATION ドキュメント拡充
 
+### 変更
+
+- chore: src 全体の ruff/black クリーンアップ（未使用 import、E731 lambda→def、フォーマット）
+
 ### 修正
 
 - fix: human_ask 応答後の古い [REPLY] プロンプト競合を回避
 - fix: instruction files プロンプト前の余分な空行を削除
 - fix(pybitchat): geo join の TypeError — is_running はメソッドではなく property
 - fix: PacketFlag.HAS_RECIPIENT 未定義、CommandResult の TYPE_CHECKING import
-
-### 変更
-
-- chore: src 全体の ruff/black クリーンアップ（未使用 import、E731 lambda→def、フォーマット）
 
 ## [0.5.57] - 2026-07-26
 
@@ -625,16 +621,16 @@
 - feat: :skills list KEYWORD / :skills find KEYWORD — スキルを名前/説明でフィルタリング
 - feat: Together AI / Vercel AI Gateway プロバイダ追加、llm_novita reasoning_effort 対応
 
-### 修正
-
-- fix: 29言語 README 内 Forecast カテゴリ重複行を削除
-
 ### 変更
 
 - docs: 全34言語 README 更新 — ツール数 170→183、Forecast カテゴリ追加
 - docs: docs/README.ja.md と DEVELOP.md のプロバイダ一覧更新、ファイル数更新
 - i18n: Together AI / Vercel AI Gateway を 32 翻訳ファイルのプロバイダ一覧に追加
 - chore: test/ ディレクトリ（test_apply_patch.py）削除
+
+### 修正
+
+- fix: 29言語 README 内 Forecast カテゴリ重複行を削除
 
 ## [0.5.56] - 2026-07-26
 
@@ -643,18 +639,18 @@
 - Forecast ツール: LLM ベース時系列予測。依存関係自動インストール、i18n、CI 統合、プロット表示、TDD テスト完備。モデル: StatsForecast, AutoARIMA, AutoETS, Theta, MSTL, Prophet, LightGBM, CatBoost, TimesFM, Chronos。
 - `:skills list KEYWORD` / `:skills find KEYWORD`: インストール済みスキルを名前または説明でフィルタリング。
 
+### 変更
+
+- README および33言語翻訳: ツール数を 170→183 に更新、Forecast カテゴリを追加。
+- i18n: forecast_tool.json を全34言語に翻訳（tool_json_i18n_batch 使用）。
+- test/ ディレクトリ（test_apply_patch.py）を削除 — 未使用テストファイルの整理。
+
 ### 修正
 
 - Prophet ラッパー: `predict(int)` が forecast horizon のみ返すよう修正、`predict(DataFrame)` のカラム名リネーム修正、yearly_seasonality を無効化（四半期データへの適合改善）。
 - LightGBM/CatBoost: 訓練時と予測時の特徴数不一致を修正、Prophet predict バグ修正、forecast_modules 優先順位リストに基づく auto-select 階層を再構成。
 - StatsForecast v2.x API 互換性（forecast に df 引数必須）対応、TimesFM を TimesFM_2p5_200M_torch に更新、LightGBM/CatBoost last_feats バグ修正。全9モデルの End-to-End 検証済み。
 - 29言語 README 内の Forecast カテゴリ重複行を削除。
-
-### 変更
-
-- README および33言語翻訳: ツール数を 170→183 に更新、Forecast カテゴリを追加。
-- i18n: forecast_tool.json を全34言語に翻訳（tool_json_i18n_batch 使用）。
-- test/ ディレクトリ（test_apply_patch.py）を削除 — 未使用テストファイルの整理。
 
 ## [0.5.55] - 2026-07-24
 
@@ -788,16 +784,16 @@
 - `switchbot-ble`: 公式 BLE API に沿った複数デバイス広告ステータスのデコード対応。
 - browser_playwright セッション拡張および scale tool の設計メモを追加。
 
+### 変更
+
+- ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
+
 ### 修正
 
 - `shrink_llm`: 履歴要約 system メッセージの積み上げを防止し、既存要約を1件の rolling summary に統合。
 - `shrink_llm`: 圧縮直後の再トリガーを抑えるヒステリシスを追加。
 - Grok: history compress / profile の LLM 経路で simple_xai_chat を使用。
 - Grok: ストリーム応答の二重表示を防止。
-
-### 変更
-
-- ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
 
 ## [0.5.48] - 2026-07-13
 
@@ -825,18 +821,18 @@
 - WEB UI: コマンド実行結果（`:tools list`、`:help` など）がチャットに表示されるよう改善。
 - `git_ops`: `rm` コマンドをサポート。
 
+### 変更
+
+- `scheck.py` ランチャーを統合: 全モードのエントリポイント（cli, gui, web, a2a, ws, setup）を1つのスクリプトに集約。
+- UnifiedPanel.svelte: 一貫した border-radius、余白、ボタンスタイルに整理。
+- `create-tool` スキルディレクトリ名を frontmatter 名に合わせて変更。
+
 ### 修正
 
 - ハイコントラストモード: トグルノブに輪郭線を追加して視認性を改善。
 - `catalog_tool.py`: 欠落していた `run_tool()` 関数を復元（開発モードで管理ツールがロード失敗する問題を修正）。
 - デスクトップ GUI: フォントサイズメニューのチェックマークが現在のサイズを正しく反映するよう修正。
 - `read_file_tool.py`: 末尾改行なしでの切り詰め処理を修正。
-
-### 変更
-
-- `scheck.py` ランチャーを統合: 全モードのエントリポイント（cli, gui, web, a2a, ws, setup）を1つのスクリプトに集約。
-- UnifiedPanel.svelte: 一貫した border-radius、余白、ボタンスタイルに整理。
-- `create-tool` スキルディレクトリ名を frontmatter 名に合わせて変更。
 
 ## [0.5.46] - 2026-07-13
 
@@ -847,33 +843,15 @@
 - llmcapa 統合: Claude/DeepSeek/ZAI/OpenRouter プロバイダ向け `reasoning_effort_values` 検証。
 - i18n: 8個の新規パラメータの翻訳を34言語に追加、`sub_agent_chain_tool.json` を34言語で作成。
 
-### 修正
-
-- `apply_patch`、`cmd_exec_json`、`replace_in_file`、`list_windows_titles` のクロスプラットフォーム対応とバグ修正。
-
 ### 変更
 
 - llmcapa 依存を >=0.3.3 に更新。
 - reasoning: `ultra` レベルを削除（`xhigh` と `max` のみ維持）。OpenRouter の effort 値を正しく渡すよう修正。
 - リポジトリから未使用ファイルを削除。
 
-# 変更履歴
+### 修正
 
-## [0.6.0] - 2026-08-15
-
-### 追加
-
-- feat: 分散リーダーリース調整と永続タスクチェックポイントを追加
-- feat: リモートエージェントタスク制御、チェックポイント復旧、A2Aタスクイベントのストリーミングを追加
-- feat: 依存関係対応DAGスケジューラーと永続タスクストアを追加
-- feat: 認証情報、MCP、スキル、プラグイン全体にエンタープライズポリシー適用を追加
-- feat: 共有認証情報ストレージとランタイム間のライフサイクル/可観測性連携を追加
-
-### 変更
-
-- fix(deps): インストール済みの0.5.4リリースに合わせて `llmcapa` の固定バージョンを更新
-- ci: 対応プラットフォームのテスト依存関係を分離・整備
-- docs: 改善ロードマップ、ローカルCIチェック、アーキテクチャ、ポリシー案内を更新
+- `apply_patch`、`cmd_exec_json`、`replace_in_file`、`list_windows_titles` のクロスプラットフォーム対応とバグ修正。
 
 ## [0.5.45] - 2026-07-12
 
@@ -882,15 +860,15 @@
 - 新ツール: `diff_files`（2ファイルの行比較）と `apply_patch`（unified diff パッチ適用）、全34言語 i18n 対応。
 - ツールジャンル: `dev`、`web`、`utility` をジャンルビットマップとジャンル制御システムに追加。
 
-### 修正
-
-- `tests/test_llmcapa.py`: `Llama-3.2-90B-Vision-Instruct` と `Llama-4-Scout-17B-16E` の `expect_vision` フラグを修正（両モデルは vision 対応）。
-
 ### 変更
 
 - llmcapa 依存を >=0.3.1 に更新。
 - README と33言語翻訳: ツール数170、並列セーフ111に更新。
 - AGENTS.md: ツールジャンル一覧に `dev`、`web`、`utility` を追加。
+
+### 修正
+
+- `tests/test_llmcapa.py`: `Llama-3.2-90B-Vision-Instruct` と `Llama-4-Scout-17B-16E` の `expect_vision` フラグを修正（両モデルは vision 対応）。
 
 ## [0.5.44] - 2026-07-11
 
@@ -901,12 +879,6 @@
 - ドキュメント: `docs/llmcapa_improvements.md`（llmcapa への改善要望）。
 - ドキュメント: i18n ワークフローに `translate_text` ツールの使用方法を追記。
 
-### 修正
-
-- `cmd_exec_json_tool`: subprocess.run の例外捕捉、戻り値 error キーの統一、cwd 空文字列ガード。
-- `pwsh_exec_tool`: 全エラーメッセージを i18n 対応、脆弱な confirm 置換削除、タイムアウトプレースホルダ修正。
-- `bash_exec_tool`: subprocess.run の例外捕捉、全エラーメッセージを i18n 対応。
-
 ### 変更
 
 - i18n ドキュメント統合: `DEVELOP_I18N.md` がホスト側(gettext)・ツール側(JSON)の両方式を1ファイルでカバー。
@@ -915,23 +887,11 @@
 - スタブ文書 `DEVELOP_TOOL_I18N.md` と `ADD_LOCALE.md` を削除（統合ガイドにマージ）。
 - llmcapa 依存を >=0.3.0 に更新。
 
-# 変更履歴
+### 修正
 
-## [0.6.0] - 2026-08-15
-
-### 追加
-
-- feat: 分散リーダーリース調整と永続タスクチェックポイントを追加
-- feat: リモートエージェントタスク制御、チェックポイント復旧、A2Aタスクイベントのストリーミングを追加
-- feat: 依存関係対応DAGスケジューラーと永続タスクストアを追加
-- feat: 認証情報、MCP、スキル、プラグイン全体にエンタープライズポリシー適用を追加
-- feat: 共有認証情報ストレージとランタイム間のライフサイクル/可観測性連携を追加
-
-### 変更
-
-- fix(deps): インストール済みの0.5.4リリースに合わせて `llmcapa` の固定バージョンを更新
-- ci: 対応プラットフォームのテスト依存関係を分離・整備
-- docs: 改善ロードマップ、ローカルCIチェック、アーキテクチャ、ポリシー案内を更新
+- `cmd_exec_json_tool`: subprocess.run の例外捕捉、戻り値 error キーの統一、cwd 空文字列ガード。
+- `pwsh_exec_tool`: 全エラーメッセージを i18n 対応、脆弱な confirm 置換削除、タイムアウトプレースホルダ修正。
+- `bash_exec_tool`: subprocess.run の例外捕捉、全エラーメッセージを i18n 対応。
 
 ## [0.5.43] - 2026-07-10
 
@@ -939,17 +899,17 @@
 
 - 2idx ツール: jv2idx, kt2idx, php2idx, rs2idx, ts2idx にプリプロセス、デコレータ/アノテーションスキップ、関数深度検出、複数行結合を追加。
 
-### 修正
-
-- ruff の無効な構文エラー44件を修正（`except X,Y` → `except (X,Y)`）。
-- ruff の警告8件を修正。
-- `compress_history_with_llm` から不要な `core=` パラメータを削除。
-
 ### 変更
 
 - `cmd_exec_tool` を削除（`cmd_exec_json_tool` に統合）。
 - Black フォーマットを49ファイルに適用。
 - 2idx ツールの JSON スキーマを新機能に合わせて更新。
+
+### 修正
+
+- ruff の無効な構文エラー44件を修正（`except X,Y` → `except (X,Y)`）。
+- ruff の警告8件を修正。
+- `compress_history_with_llm` から不要な `core=` パラメータを削除。
 
 ## [0.5.42] - 2026-07-10
 
@@ -965,6 +925,11 @@
 - tool_catalog: クエリ時に最適なツールを自動読み込み。
 - ドキュメント: TOOL_TRANSLATION_METHODOLOGY.md 追加（デリミタ戦略セクション含む）。
 
+### 変更
+
+- プロバイダ機能を provider_caps に集約。
+- デバッグ用一時ファイル削除、.gitignore 更新。
+
 ### 修正
 
 - OpenAI Responses API: 2ラウンド目以降の content 正規化、previous_response_id 対応。
@@ -972,11 +937,6 @@
 - Web UI: 画像添付の描画とツールメッセージ表示の修正。
 - デバッグ出力: sys.__stdout__/sys.__stderr__ へのリダイレクトで診断改善。
 - 各種: デバッグログ、一時ファイル、CONFIG デバッグログの削除。
-
-### 変更
-
-- プロバイダ機能を provider_caps に集約。
-- デバッグ用一時ファイル削除、.gitignore 更新。
 
 ## [0.5.41] - 2026-07-08
 
@@ -989,6 +949,13 @@
 - Web UI: reasoning_content 表示（ストリーミング/非ストリーミング）、ツールオーバーレイ、favicon。
 - CLI: Responses API で reasoning_content を灰色表示（非ストリーミング時）。
 
+### 変更
+
+- フロントエンド再ビルド（固定アセットファイル名、SVG favicon）。
+- プロバイダ一覧を `provider_caps.ALL_PROVIDERS` に集約。
+- バックアップファイル（*.org*）、node_modules を削除、.gitignore 更新。
+- mdformat/mdformat-frontmatter をコア依存からオンデマンド自動インストールに変更。
+
 ### 修正
 
 - 画像生成: GPT image models のキーワード `fmt` → `output_format` に修正。
@@ -998,13 +965,6 @@
 - mypy: echonet_control、responses parser、uagent_llm、web.py の型エラーを修正。
 - ruff: reasoning_content の `dir()` → `locals().get()` で置換。
 - OpenAI Responses API: gpt-5.x モデルはストリーミング時に reasoning_text.delta を送信しないことを注記。
-
-### 変更
-
-- フロントエンド再ビルド（固定アセットファイル名、SVG favicon）。
-- プロバイダ一覧を `provider_caps.ALL_PROVIDERS` に集約。
-- バックアップファイル（*.org*）、node_modules を削除、.gitignore 更新。
-- mdformat/mdformat-frontmatter をコア依存からオンデマンド自動インストールに変更。
 
 ## [0.5.40] - 2026-07-07
 
@@ -1016,15 +976,15 @@
 - GUI/Web/A2A/VSCode: `.env.sec` ファイルの自動生成。
 - `translate_text`: 対応言語の拡大。
 
-### 修正
-
-- Responses リトライ状態とツールユーティリティのエッジケース。
-- `browser_playwright_run` と `run_tool` エイリアスの復元。
-- i18n: `:tools reload` メッセージの34言語翻訳。
-
 ### 変更
 
 - GPT-5.4+ ツールリスト表示の調整。
 - ドキュメント: ツール数 171（うち87並列セーフ）に更新、IoTテーブルに reverse_geocode 追加。
 - ドキュメント: DEVELOP.md に JSON-LD オントロジーと Mermaid 依存関係グラフを追加。
 - 未使用の skills/servicenow-open/ ディレクトリを削除。
+
+### 修正
+
+- Responses リトライ状態とツールユーティリティのエッジケース。
+- `browser_playwright_run` と `run_tool` エイリアスの復元。
+- i18n: `:tools reload` メッセージの34言語翻訳。

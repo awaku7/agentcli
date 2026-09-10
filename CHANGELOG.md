@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Raise the minimum supported `llmcapa` version to `>=0.5.30`.
+
 ## [0.7.5] - 2026-09-09
 
 ### Added
@@ -20,6 +24,21 @@
 - Improve Responses image option handling, continuation resets, and result-shape compatibility.
 - Prevent prompt watcher shutdown races from producing noisy tracebacks.
 
+## [0.7.4] - 2026-09-08
+
+### Fixed
+
+- Preserve CLI command syntax when translating localized descriptions.
+- Preserve `skills` command syntax in translated hints.
+
+## [0.7.3] - 2026-09-07
+
+### Changed
+
+- Update the `llmcapa` minimum version to `>=0.5.26`.
+- Refresh the Computer Use design documentation and Japanese developer guides.
+- Regenerate the project code-map ontology and Mermaid structure diagram.
+
 ## [0.7.2] - 2026-09-06
 
 ### Added
@@ -37,23 +56,6 @@
 
 - Fix GUI module startup, Session/Task state isolation, and localized Sub-Agent parameters.
 
-## [Unreleased]
-
-## [0.7.4] - 2026-09-08
-
-### Fixed
-
-- Preserve CLI command syntax when translating localized descriptions.
-- Preserve `skills` command syntax in translated hints.
-
-## [0.7.3] - 2026-09-07
-
-### Changed
-
-- Update the `llmcapa` minimum version to `>=0.5.26`.
-- Refresh the Computer Use design documentation and Japanese developer guides.
-- Regenerate the project code-map ontology and Mermaid structure diagram.
-
 ## [0.7.1] - 2026-09-06
 
 ### Added
@@ -70,7 +72,6 @@
 ### Fixed
 
 - Improve response expiry compatibility, session display, and related formatting.
-
 
 ## [0.7.0] - 2026-09-04
 
@@ -90,7 +91,6 @@
 - Normalize CRLF/CR paste handling in the multiline editor and `human_ask` fallback path.
 - Prevent duplicate Ollama reasoning output.
 - Display SQLite session timestamps in the local timezone.
-
 
 ## [0.6.20] - 2026-09-03
 
@@ -123,7 +123,6 @@
 
 - Update the `llmcapa` dependency requirement to `>=0.5.13`.
 
-
 ## [0.6.17] - 2026-08-31
 
 ### Added
@@ -152,7 +151,6 @@
 ### Changed
 
 - Improve timer scheduling, translation handling, and localized tool documentation across supported locales.
-
 
 ## [0.6.15] - 2026-08-30
 
@@ -187,7 +185,6 @@
 - Unify recursive secret masking across tool traces and confirmation prompts.
 - Mask quoted `passwd` fields and inline authentication values in tool arguments.
 
-
 ## [0.6.13] - 2026-08-28
 
 ### Added
@@ -205,7 +202,6 @@
 ### Fixed
 
 - Preserve distinct same-named symbols and avoid relation identifier collisions in ontology output.
-
 
 ## [0.6.12] - 2026-08-27
 
@@ -531,11 +527,6 @@
 - test: add TDD tests for `:bitchat start` / `:bitchat stop` handlers and CMD_SPECS registration
 - i18n: add en/ja messages for the node start/stop commands
 
-### Performance
-
-- perf(cli): speed up dynamic-command tab completion — snapshot the command map once per completion request and never block on first-time plugin import (background warmup keeps loading; partial results are fine)
-- perf(tools): cache `get_dynamic_commands_map()` results (invalidated on register/unregister); add `get_dynamic_subcommands()` helper and `block=False` non-blocking mode (~80x faster map lookups)
-
 ### Fixed
 
 - fix(cli): preserve fast consecutive human_ask replies in CLI — skip the stdin typeahead flush right after a previous human_ask reply (e.g. :skills number selection then y confirmation) so quick replies are not discarded; passwords always flush
@@ -556,6 +547,11 @@
 - feat(web): `/api/logs/{index}/preview` uses the same total_messages semantics as CLI `:logs`/`:load` and adds `total_tool` / `preserved_system` fields
 - test: add `tests/test_logs_load_count_consistency.py` (CLI `:logs` count == `:load` count, incl. `[CWD]` bonus and raw-line cwd extraction)
 - fix(i18n): fill 727 missing tool-JSON keys across 32 langs via unique-string dedup + translate_text (timeout descriptions for bacnet/modbus/opcua, new browser_playwright params, csv2idx/echonet_scan/json2idx/lint_format/log2idx/tools_control keys); restore `{total}` placeholder in fa `msg.index_output` for cl2idx/dds2idx/excel2idx/ppt2idx/rpg2idx; drop 1183 orphaned extra keys (en-removed) from bluesky/switchbot_batch/upnp_igd_control/usb_camera/vision_deepseek/vision_ollama/echonet_cache/forecast — `scripts/i18n_tools_check.py` now passes with 0 errors
+
+### Performance
+
+- perf(cli): speed up dynamic-command tab completion — snapshot the command map once per completion request and never block on first-time plugin import (background warmup keeps loading; partial results are fine)
+- perf(tools): cache `get_dynamic_commands_map()` results (invalidated on register/unregister); add `get_dynamic_subcommands()` helper and `block=False` non-blocking mode (~80x faster map lookups)
 
 ## [0.5.61] - 2026-07-30
 
@@ -590,14 +586,14 @@
 - feat: OpenAI Realtime Function Calling for the read-only get_current_time tool
 - docs: update all localized README files with Realtime/AEC3 and Function Calling guidance
 
+### Changed
+
+- chore: apply Black formatting and resolve all Ruff findings
+
 ### Fixed
 
 - fix: synchronize AEC3 far-end reference with actual speaker playback
 - fix: add optional Realtime audio diagnostics and remove duplicate README sections
-
-### Changed
-
-- chore: apply Black formatting and resolve all Ruff findings
 
 ## [0.5.58] - 2026-07-27
 
@@ -608,16 +604,16 @@
 - feat: add OS-level NTP sync info to get_current_time output
 - docs: add docs/BITCHAT.md and expand COMMUNICATION docs
 
+### Changed
+
+- chore: ruff/black cleanup across src (unused imports, E731 lambda→def, formatting)
+
 ### Fixed
 
 - fix: avoid stale [REPLY] prompt after human_ask reply due to race condition
 - fix: remove spurious blank line before instruction files prompt
 - fix(pybitchat): TypeError in geo join - is_running is property not method
 - fix: PacketFlag.HAS_RECIPIENT undefined name; CommandResult TYPE_CHECKING import
-
-### Changed
-
-- chore: ruff/black cleanup across src (unused imports, E731 lambda→def, formatting)
 
 ## [0.5.57] - 2026-07-26
 
@@ -626,16 +622,16 @@
 - feat: :skills list KEYWORD / :skills find KEYWORD for filtering skills by name or description
 - feat: add Together AI and Vercel AI Gateway providers, llm_novita reasoning_effort
 
-### Fixed
-
-- fix: remove duplicate Forecast rows in 29 language READMEs
-
 ### Changed
 
 - docs: update all 34 language READMEs - 170→183 tools, add Forecast category in each language
 - docs: update provider lists in docs/README.ja.md and DEVELOP.md file count
 - i18n: add Together AI / Vercel AI Gateway to 32 translation provider lists
 - chore: remove test/ directory (test_apply_patch.py)
+
+### Fixed
+
+- fix: remove duplicate Forecast rows in 29 language READMEs
 
 ## [0.5.56] - 2026-07-26
 
@@ -644,18 +640,18 @@
 - Forecast tool: LLM-based time series forecasting with auto-install of dependencies, i18n, CI integration, plot support, and TDD tests. Models: StatsForecast, AutoARIMA, AutoETS, Theta, MSTL, Prophet, LightGBM, CatBoost, TimesFM, Chronos.
 - `:skills list KEYWORD` / `:skills find KEYWORD` for filtering installed skills by name or description.
 
+### Changed
+
+- README and 33 language translations: tool count updated from 170 to 183, add Forecast category.
+- i18n: forecast_tool.json translated to all 34 languages (via tool_json_i18n_batch).
+- Remove test/ directory (test_apply_patch.py) - unused test file cleanup.
+
 ### Fixed
 
 - Prophet wrapper: `predict(int)` returns only forecast horizon, `predict(DataFrame)` column rename fix, disable yearly_seasonality for better quarterly fit.
 - LightGBM/CatBoost: feature count mismatch between train and predict; Prophet predict bugs; reorder auto-select tiers per forecast_modules priority list.
 - StatsForecast v2.x API compatibility (forecast needs df argument); update TimesFM to TimesFM_2p5_200M_torch; LightGBM/CatBoost last_feats bug. All 9 models verified end-to-end.
 - Remove duplicate Forecast category rows in 29 language READMEs.
-
-### Changed
-
-- README and 33 language translations: tool count updated from 170 to 183, add Forecast category.
-- i18n: forecast_tool.json translated to all 34 languages (via tool_json_i18n_batch).
-- Remove test/ directory (test_apply_patch.py) - unused test file cleanup.
 
 ## [0.5.55] - 2026-07-24
 
@@ -793,16 +789,16 @@
 - `switchbot-ble`: multi-device advertisement status decoding per official BLE API.
 - Design notes for browser_playwright session extension and scale tool.
 
+### Changed
+
+- Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
+
 ### Fixed
 
 - `shrink_llm`: stop stacking multiple history-summary system messages; merge prior summaries into one rolling summary.
 - `shrink_llm`: add hysteresis so auto-compression does not re-trigger immediately after a successful shrink.
 - Grok: use simple_xai_chat for history compress/profile LLM paths.
 - Grok: prevent double-printing streamed assistant replies.
-
-### Changed
-
-- Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
 
 ## [0.5.48] - 2026-07-13
 
@@ -830,18 +826,18 @@
 - WEB UI: Command results (`:tools list`, `:help`, etc.) now displayed in chat.
 - `git_ops`: `rm` command support.
 
+### Changed
+
+- Unified `scheck.py` launcher: merged all mode entry points (cli, gui, web, a2a, ws, setup) into single script.
+- UnifiedPanel.svelte: cleaner styling with consistent border-radius, spacing, and button styles.
+- Renamed `create-tool` skill directory to match frontmatter name.
+
 ### Fixed
 
 - High-contrast mode: toggle knob now has outline for visibility.
 - `catalog_tool.py`: restored missing `run_tool()` function (caused all management tools to fail loading in dev mode).
 - Desktop GUI: font size menu check marks now correctly reflect current size.
 - `read_file_tool.py`: fixed truncation without trailing newline.
-
-### Changed
-
-- Unified `scheck.py` launcher: merged all mode entry points (cli, gui, web, a2a, ws, setup) into single script.
-- UnifiedPanel.svelte: cleaner styling with consistent border-radius, spacing, and button styles.
-- Renamed `create-tool` skill directory to match frontmatter name.
 
 ## [0.5.46] - 2026-07-13
 
@@ -852,15 +848,15 @@
 - llmcapa integration: `reasoning_effort_values` validation for Claude/DeepSeek/ZAI/OpenRouter providers.
 - i18n: translations for 8 new parameters across 34 languages, `sub_agent_chain_tool.json` created for 34 languages.
 
-### Fixed
-
-- Cross-platform fixes for `apply_patch`, `cmd_exec_json`, `replace_in_file`, `list_windows_titles` (bug fixes and platform compatibility).
-
 ### Changed
 
 - llmcapa dependency bumped to >=0.3.3.
 - reasoning: removed `ultra` level (kept `xhigh` and `max` only). OpenRouter effort values now properly passed.
 - Cleaned up unused files from repository.
+
+### Fixed
+
+- Cross-platform fixes for `apply_patch`, `cmd_exec_json`, `replace_in_file`, `list_windows_titles` (bug fixes and platform compatibility).
 
 ## [0.5.45] - 2026-07-12
 
@@ -869,28 +865,16 @@
 - New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
 - Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
 
-### Fixed
-
-- `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
-
 ### Changed
 
 - 2026-07-12
-
-### Added
-
-- New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
-- Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
+- llmcapa dependency bumped to >=0.3.1.
+- README and 33 translations: tool count updated to 170, parallel-safe to 111.
+- AGENTS.md: tool genre list updated to include `dev`, `web`, `utility`.
 
 ### Fixed
 
 - `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
-
-### Changed
-
-- llmcapa dependency bumped to >=0.3.1.
-- README and 33 translations: tool count updated to 170, parallel-safe to 111.
-- AGENTS.md: tool genre list updated to include `dev`, `web`, `utility`.
 
 ## [0.5.44] - 2026-07-11
 
@@ -901,12 +885,6 @@
 - Documentation: `docs/llmcapa_improvements.md` with improvement requests for llmcapa.
 - Documentation: `translate_text` tool usage documented in i18n workflow sections.
 
-### Fixed
-
-- `cmd_exec_json_tool`: exception handling for subprocess.run, unified `error` key in return value, empty string cwd guard.
-- `pwsh_exec_tool`: all error messages now i18n'd, fragile `confirm_if_needed` replace removed, timeout placeholder fixed.
-- `bash_exec_tool`: exception handling for subprocess.run, all error messages now i18n'd.
-
 ### Changed
 
 - i18n documentation consolidated: `DEVELOP_I18N.md` now covers both host-side (gettext) and tool-side (JSON) i18n in one file.
@@ -915,7 +893,11 @@
 - Removed stub docs `DEVELOP_TOOL_I18N.md` and `ADD_LOCALE.md` (merged into unified guide).
 - llmcapa dependency bumped to >=0.3.0.
 
-# Changelog
+### Fixed
+
+- `cmd_exec_json_tool`: exception handling for subprocess.run, unified `error` key in return value, empty string cwd guard.
+- `pwsh_exec_tool`: all error messages now i18n'd, fragile `confirm_if_needed` replace removed, timeout placeholder fixed.
+- `bash_exec_tool`: exception handling for subprocess.run, all error messages now i18n'd.
 
 ## [0.5.43] - 2026-07-10
 
@@ -923,17 +905,17 @@
 
 - 2idx tools: preprocess, decorator/annotation skip, function depth detection, multi-line join for jv2idx, kt2idx, php2idx, rs2idx, ts2idx.
 
-### Fixed
-
-- Fixed 44 ruff invalid-syntax errors (`except X,Y` → `except (X,Y)`).
-- Fixed 8 ruff warnings across the codebase.
-- Removed unnecessary `core=` parameter from `compress_history_with_llm`.
-
 ### Changed
 
 - Removed `cmd_exec_tool` (superseded by `cmd_exec_json_tool`).
 - Applied Black formatting to 49 files.
 - Updated 2idx tool JSON schemas to match new capabilities.
+
+### Fixed
+
+- Fixed 44 ruff invalid-syntax errors (`except X,Y` → `except (X,Y)`).
+- Fixed 8 ruff warnings across the codebase.
+- Removed unnecessary `core=` parameter from `compress_history_with_llm`.
 
 ## [0.5.42] - 2026-07-10
 
@@ -949,6 +931,11 @@
 - tool_catalog: auto-load top result on query.
 - Documentation: TOOL_TRANSLATION_METHODOLOGY.md with delimiter strategy sections.
 
+### Changed
+
+- Provider capabilities centralized in provider_caps.
+- Removed debug temp files; updated .gitignore.
+
 ### Fixed
 
 - OpenAI Responses API: content normalization for 2nd+ rounds and previous_response_id.
@@ -956,11 +943,6 @@
 - Web UI: image attachment rendering and tool message display.
 - Debug output: redirect to sys.__stdout__/sys.__stderr__ for proper diagnosis.
 - Various: cleanup of debug logs, temp files, and CONFIG debug log.
-
-### Changed
-
-- Provider capabilities centralized in provider_caps.
-- Removed debug temp files; updated .gitignore.
 
 ## [0.5.41] - 2026-07-08
 
@@ -973,6 +955,13 @@
 - Web UI: reasoning_content display (streaming + non-streaming), tool overlay, favicon.
 - CLI: reasoning_content shown in gray for Responses API (non-streaming).
 
+### Changed
+
+- Frontend rebuilt with fixed asset filenames, SVG favicon.
+- Provider list centralized in `provider_caps.ALL_PROVIDERS`.
+- Removed backup files (*.org*), node_modules; updated .gitignore.
+- mdformat/mdformat-frontmatter moved from core dependencies to auto-install on demand.
+
 ### Fixed
 
 - Image generation: `fmt` → `output_format` keyword for GPT image models.
@@ -982,13 +971,6 @@
 - mypy: fixed type errors in echonet_control, responses parser, uagent_llm, web.py.
 - ruff: replaced `dir()` with `locals().get()` for reasoning_content.
 - OpenAI Responses API: note that gpt-5.x models don't send reasoning_text.delta during streaming.
-
-### Changed
-
-- Frontend rebuilt with fixed asset filenames, SVG favicon.
-- Provider list centralized in `provider_caps.ALL_PROVIDERS`.
-- Removed backup files (*.org*), node_modules; updated .gitignore.
-- mdformat/mdformat-frontmatter moved from core dependencies to auto-install on demand.
 
 ## [0.5.40] - 2026-07-07
 
@@ -1000,15 +982,15 @@
 - GUI/Web/A2A/VSCode: `.env.sec` files are now automatically created/overwritten when missing.
 - `translate_text`: extended supported languages for broader coverage.
 
-### Fixed
-
-- Responses retry state and tool utility edge cases.
-- `browser_playwright_run` and `run_tool` alias restored.
-- i18n: `:tools reload` message now translated for all 34 locales.
-
 ### Changed
 
 - GPT-5.4+ tool list display adjusted.
 - Docs: tool counts updated to 171 tools (87 parallel-safe), reverse_geocode added to IoT table.
 - Docs: JSON-LD ontology and Mermaid dependency graph added to DEVELOP.md.
 - Remove unused skills/servicenow-open/ directory.
+
+### Fixed
+
+- Responses retry state and tool utility edge cases.
+- `browser_playwright_run` and `run_tool` alias restored.
+- i18n: `:tools reload` message now translated for all 34 locales.
