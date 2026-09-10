@@ -80,6 +80,23 @@ def set_status(busy: bool, label: str = "") -> None:
         _core.status_busy = busy
         _core.status_label = label
 
+    # GUI and Web have their own status surfaces. Do not run the CLI
+    # renderer here: it starts the terminal spinner and writes [STATE] lines
+    # to stdout/stderr. This is especially important for Web, where the
+    # original CLI setter is retained as a state-update callback by
+    # web_set_status(). The state above is still updated so interrupt guards
+    # and the GUI/Web status widgets continue to work.
+    if bool(getattr(_core, "IS_GUI", False)) or bool(
+        getattr(_core, "_is_web", False)
+    ):
+        try:
+            from .display import _stop_spinner_quietly
+
+            _stop_spinner_quietly()
+        except Exception:
+            pass
+        return
+
     # Ollama-like spinner (default ON, UAGENT_SPINNER=0 to disable).
     # Sync on every status change so IDLE always erases the spinner line,
     # even when print_status_line() is skipped for the CLI idle prompt.

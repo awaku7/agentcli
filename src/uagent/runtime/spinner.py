@@ -75,7 +75,9 @@ def spinner_enabled() -> bool:
     try:
         from .. import core as _core
 
-        if bool(getattr(_core, "IS_GUI", False)):
+        if bool(getattr(_core, "IS_GUI", False)) or bool(
+            getattr(_core, "_is_web", False)
+        ):
             return False
     except Exception:
         pass

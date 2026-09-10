@@ -101,7 +101,7 @@ def print_status_line() -> None:
     # Web UI already receives status via web_set_status -> room.set_status.
     # Avoid also writing [STATE] to stderr (which becomes type=log and can
     # interleave with assistant stream text).
-    if bool(getattr(sys.modules[__name__], "_is_web", False)):
+    if bool(getattr(_core, "_is_web", False)):
         _stop_spinner_quietly()
         return
 
