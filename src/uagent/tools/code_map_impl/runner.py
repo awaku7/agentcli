@@ -48,7 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "code_map",
         "description": _(
             "tool.description",
-            default="Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Uses Tree-sitter parsing with automatic optional installation and falls back to regex extraction when unavailable. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, COBOL, PHP, Ruby, Swift, Dart, Scala, Lua, R, VBA, LotusScript, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
+            default="Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Uses Tree-sitter parsing with automatic optional installation and falls back to regex extraction when unavailable. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, COBOL, PHP, Ruby, Swift, Dart, Scala, Lua, R, VBA, LotusScript, and more. Reads .sln/.slnx/.csproj/.vcxproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -135,7 +135,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.project_only.description",
-                        default="Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
+                        default="Only scan files referenced by project files (.sln, .slnx, .csproj, .vcxproj, build.gradle.kts, etc.).",
                     ),
                     "default": False,
                 },
@@ -398,6 +398,206 @@ def _collect_source_files(root: Path) -> list[str]:
     return _deduplicate_paths(files)
 
 
+_MSBUILD_PROJECT_EXTENSIONS = {
+    ".csproj",
+    ".fsproj",
+    ".vbproj",
+    ".vcxproj",
+    ".props",
+    ".targets",
+    ".sqlproj",
+    ".wixproj",
+    ".shproj",
+    ".esproj",
+}
+_DOTNET_PROJECT_EXTENSIONS = {
+    ".csproj",
+    ".fsproj",
+    ".vbproj",
+    ".sqlproj",
+    ".wixproj",
+    ".shproj",
+    ".esproj",
+}
+_NATIVE_PROJECT_EXTENSIONS = {".vcxproj"}
+_PROJECT_FILE_EXTENSIONS = _DOTNET_PROJECT_EXTENSIONS | _NATIVE_PROJECT_EXTENSIONS
+
+
+def _walk_project_files(root: Path, extensions: set[str]) -> list[Path]:
+    """Find project files without descending into generated or hidden trees."""
+    found: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(str(root)):
+        dirnames[:] = [
+            name
+            for name in dirnames
+            if name not in SKIP_DIRS and not name.startswith(".")
+        ]
+        for filename in filenames:
+            if Path(filename).suffix.lower() in extensions:
+                found.append(Path(dirpath) / filename)
+    return sorted(found, key=lambda value: os.path.normcase(str(value)))
+
+
+def _normalise_project_relative_path(project_dir: Path, value: str) -> Path:
+    """Resolve an MSBuild/Solution path on both Windows and POSIX hosts."""
+    candidate = Path(value.strip().strip('"').replace("\\", "/"))
+    if not candidate.is_absolute():
+        candidate = project_dir / candidate
+    return candidate.resolve()
+
+
+def _solution_project_paths(solution: Path) -> list[Path]:
+    """Return MSBuild projects referenced by a .sln or .slnx file."""
+    try:
+        content = solution.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return []
+    if "<!DOCTYPE" in content.upper() or "<!ENTITY" in content.upper():
+        return []
+
+    values: list[str] = []
+    if solution.suffix.lower() == ".slnx":
+        try:
+            solution_root = ET.fromstring(content)
+        except ET.ParseError:
+            return []
+        for node in solution_root.iter():
+            if node.tag.rsplit("}", 1)[-1].lower() == "project":
+                attrs = {key.lower(): value for key, value in node.attrib.items()}
+                value = attrs.get("path") or attrs.get("file")
+                if value:
+                    values.append(value)
+    else:
+        pattern = re.compile(
+            r'^Project\("[^"]+"\)\s*=\s*"[^"]*"\s*,\s*"([^"]+)"\s*,',
+            re.IGNORECASE,
+        )
+        for line in content.splitlines():
+            match = pattern.match(line.strip())
+            if match:
+                values.append(match.group(1))
+
+    candidates = []
+    for value in values:
+        candidate = _normalise_project_relative_path(solution.parent, value)
+        if (
+            candidate.suffix.lower() in _MSBUILD_PROJECT_EXTENSIONS
+            and candidate.is_file()
+        ):
+            candidates.append(candidate)
+    return [Path(value) for value in _deduplicate_paths([str(x) for x in candidates])]
+
+
+def _split_msbuild_paths(value: str) -> list[str]:
+    return [part.strip() for part in value.split(";") if part.strip()]
+
+
+def _expand_msbuild_path(project_dir: Path, value: str) -> list[Path]:
+    """Expand common MSBuild Include/Remove values without evaluating properties."""
+    value = value.strip().strip('"').replace("\\", "/")
+    # Unresolved properties/items are unsafe to guess at statically.
+    if not value or "$(" in value or "%(" in value:
+        return []
+    candidate = Path(value)
+    if candidate.is_absolute():
+        matches = (
+            list(candidate.parent.glob(candidate.name))
+            if any(marker in value for marker in "*?[")
+            else [candidate]
+        )
+    elif any(marker in value for marker in "*?["):
+        matches = list(project_dir.glob(value))
+    else:
+        matches = [project_dir / candidate]
+    return [path.resolve() for path in matches if path.is_file()]
+
+
+def _project_source_suffixes(project: Path) -> set[str]:
+    suffix = project.suffix.lower()
+    if suffix in _NATIVE_PROJECT_EXTENSIONS:
+        return {".c", ".cc", ".cpp", ".cxx", ".h", ".hh", ".hpp", ".inl"}
+    if suffix == ".csproj":
+        return {".cs"}
+    if suffix == ".fsproj":
+        return {".fs", ".fsi", ".fsx"}
+    if suffix == ".vbproj":
+        return {".vb"}
+    return set(EXTENSION_MAP)
+
+
+def _fallback_project_sources(project: Path, suffixes: set[str]) -> list[Path]:
+    """Approximate SDK/default MSBuild items while excluding nested projects."""
+    result: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(str(project.parent)):
+        current = Path(dirpath)
+        dirnames[:] = [
+            name
+            for name in dirnames
+            if name not in SKIP_DIRS and not name.startswith(".")
+        ]
+        if current != project.parent:
+            try:
+                nested = any(
+                    child.is_file() and child.suffix.lower() in _PROJECT_FILE_EXTENSIONS
+                    for child in current.iterdir()
+                )
+            except OSError:
+                nested = False
+            if nested:
+                dirnames[:] = []
+                continue
+        result.extend(
+            Path(dirpath) / filename
+            for filename in filenames
+            if Path(filename).suffix.lower() in suffixes
+        )
+    return result
+
+
+def _collect_msbuild_sources(project: Path) -> list[str]:
+    """Collect source-like MSBuild items using static Include/Exclude handling."""
+    try:
+        content = project.read_text(encoding="utf-8", errors="replace")
+        if "<!DOCTYPE" in content.upper() or "<!ENTITY" in content.upper():
+            return []
+        xml_root = ET.fromstring(content)
+    except (OSError, ET.ParseError):
+        return []
+
+    suffixes = _project_source_suffixes(project)
+    includes: list[Path] = []
+    excludes: list[Path] = []
+    has_source_include = False
+    for node in xml_root.iter():
+        include = node.get("Include")
+        if include:
+            matches = [
+                match
+                for value in _split_msbuild_paths(include)
+                for match in _expand_msbuild_path(project.parent, value)
+                if match.suffix.lower() in suffixes
+                and match.suffix.lower() in EXTENSION_MAP
+            ]
+            if matches:
+                has_source_include = True
+                includes.extend(matches)
+            for value in _split_msbuild_paths(node.get("Exclude", "")):
+                excludes.extend(_expand_msbuild_path(project.parent, value))
+        for value in _split_msbuild_paths(node.get("Remove", "")):
+            excludes.extend(_expand_msbuild_path(project.parent, value))
+
+    if not has_source_include:
+        includes = _fallback_project_sources(project, suffixes)
+    excluded = {os.path.normcase(str(path.resolve())) for path in excludes}
+    return _deduplicate_paths(
+        [
+            str(path)
+            for path in includes
+            if os.path.normcase(str(path.resolve())) not in excluded
+        ]
+    )
+
+
 def _resolve_project_dependencies(
     dependencies: list[dict[str, Any]], root: Path
 ) -> list[dict[str, Any]]:
@@ -430,43 +630,37 @@ def _resolve_project_dependencies(
 
 
 def _find_project_files(root: str) -> dict[str, Any]:
-    """Detect all supported project files and merge their source references."""
+    """Detect Visual Studio/MSBuild and other supported project files."""
     root_path = Path(root).resolve()
-    projects: list[str] = []
+    solution_files = _walk_project_files(root_path, {".sln", ".slnx"})
+    all_msbuild = _walk_project_files(root_path, _PROJECT_FILE_EXTENSIONS)
+
+    referenced_projects: list[Path] = []
+    for solution in solution_files:
+        referenced_projects.extend(_solution_project_paths(solution))
+    project_files = [
+        Path(value)
+        for value in _deduplicate_paths(
+            [str(path) for path in referenced_projects + all_msbuild]
+        )
+    ]
+
+    projects = [str(path.resolve()) for path in solution_files]
+    projects.extend(str(path.resolve()) for path in project_files)
     sources: list[str] = []
+    for project in project_files:
+        sources.extend(_collect_msbuild_sources(project))
+
     types: list[str] = []
-
-    sln_files = list(root_path.rglob("*.sln"))
-    csproj_files: list[Path] = []
-    for sln in sln_files:
-        try:
-            content = sln.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            content = ""
-        for match in re.finditer(r'"([^"\r\n]+\.csproj)"', content):
-            candidate = (sln.parent / match.group(1)).resolve()
-            if candidate.is_file():
-                csproj_files.append(candidate)
-    csproj_files.extend(f for f in root_path.rglob("*.csproj") if f not in csproj_files)
-    if sln_files or csproj_files:
+    if any(path.suffix.lower() in _DOTNET_PROJECT_EXTENSIONS for path in project_files):
         types.append("dotnet")
-        projects.extend(str(f.resolve()) for f in sln_files)
-        for csproj in csproj_files:
-            projects.append(str(csproj))
-            try:
-                xml_root = ET.parse(csproj).getroot()
-                explicit = []
-                for item in xml_root.iter():
-                    if item.tag.rsplit("}", 1)[-1] == "Compile" and item.get("Include"):
-                        explicit.append(
-                            str(csproj.parent / item.get("Include").replace("\\", "/"))
-                        )
-                sources.extend(
-                    explicit or [str(f) for f in csproj.parent.rglob("*.cs")]
-                )
-            except (OSError, ET.ParseError):
-                sources.extend(str(f) for f in csproj.parent.rglob("*.cs"))
+    if any(path.suffix.lower() in _NATIVE_PROJECT_EXTENSIONS for path in project_files):
+        types.append("visual-cpp")
+    if solution_files and not types:
+        types.append("visual-studio")
 
+    # The rest of the project-aware discovery is intentionally unchanged for
+    # non-Visual-Studio ecosystems.
     gradle_files = list(root_path.rglob("build.gradle.kts")) + list(
         root_path.rglob("build.gradle")
     )
@@ -529,22 +723,6 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 for filename in re.findall(r"[\w./]+\.\w+", match.group(1)):
                     sources.append(str(makefile.parent / filename))
 
-    for cmake in cmake_files:
-        try:
-            cmake_text = cmake.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            cmake_text = ""
-        for m in re.finditer(
-            r"\bfind_package\s*\(\s*([A-Za-z0-9_+.-]+)", cmake_text, re.IGNORECASE
-        ):
-            projects.append(str(cmake.resolve()))
-        for m in re.finditer(
-            r"\btarget_link_libraries\s*\(\s*[^\s)]+\s+([^)]*)\)",
-            cmake_text,
-            re.IGNORECASE | re.DOTALL,
-        ):
-            projects.append(str(cmake.resolve()))
-
     package_files = list(root_path.rglob("package.json"))
     if package_files:
         types.append("node")
@@ -569,10 +747,10 @@ def _find_project_files(root: str) -> dict[str, Any]:
                 base = pyproject.parent / dirname
                 sources.extend(str(f) for f in base.rglob("*.py") if base.is_dir())
 
-    target_frameworks = []
-    for csproj in csproj_files:
+    target_frameworks: list[str] = []
+    for project in project_files:
         try:
-            xml_root = ET.parse(csproj).getroot()
+            xml_root = ET.parse(project).getroot()
             for node in xml_root.iter():
                 if (
                     node.tag.rsplit("}", 1)[-1]
@@ -580,11 +758,11 @@ def _find_project_files(root: str) -> dict[str, Any]:
                     and node.text
                 ):
                     target_frameworks.extend(
-                        x.strip() for x in node.text.split(";") if x.strip()
+                        value.strip() for value in node.text.split(";") if value.strip()
                     )
         except (ET.ParseError, OSError):
             pass
-    project_paths = [Path(x) for x in _deduplicate_paths(projects)]
+
     manifest_candidates = (
         list(root_path.rglob("pom.xml"))
         + list(root_path.rglob("composer.json"))
@@ -595,9 +773,9 @@ def _find_project_files(root: str) -> dict[str, Any]:
         + list(root_path.rglob("DESCRIPTION"))
         + list(root_path.rglob("*.rockspec"))
     )
-    project_paths.extend(manifest_candidates)
     project_paths = [
-        Path(x) for x in _deduplicate_paths([str(x) for x in project_paths])
+        Path(x)
+        for x in _deduplicate_paths(projects + [str(x) for x in manifest_candidates])
     ]
     declared_dependencies = extract_project_dependencies(root_path, project_paths)
     lock_dependencies = extract_lock_dependencies(root_path)
@@ -622,7 +800,7 @@ def _find_project_files(root: str) -> dict[str, Any]:
         "dependency_edges": dependency_edges,
         "sources": _deduplicate_paths(sources),
         "project_type": types[0] if types else None,
-        "project_types": types,
+        "project_types": list(dict.fromkeys(types)),
         "target_frameworks": sorted(set(target_frameworks)),
     }
 

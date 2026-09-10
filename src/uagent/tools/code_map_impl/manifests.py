@@ -11,6 +11,19 @@ from typing import Any
 
 from .cmake import cmake_active_source
 
+_MSBUILD_PROJECT_EXTENSIONS = {
+    ".csproj",
+    ".fsproj",
+    ".vbproj",
+    ".vcxproj",
+    ".props",
+    ".targets",
+    ".sqlproj",
+    ".wixproj",
+    ".shproj",
+    ".esproj",
+}
+
 
 def extract_project_dependencies(
     root: Path, project_files: list[Path]
@@ -40,32 +53,46 @@ def extract_project_dependencies(
             )
 
     for project in project_files:
-        suffix = project.name.lower()
+        suffix = project.suffix.lower()
+        filename = project.name.lower()
         try:
             text = project.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        if suffix.endswith(".csproj"):
+        if suffix in _MSBUILD_PROJECT_EXTENSIONS:
             try:
                 root_xml = ET.parse(project).getroot()
                 for node in root_xml.iter():
                     tag = node.tag.rsplit("}", 1)[-1]
-                    if tag in ("PackageReference", "ProjectReference") and node.get(
-                        "Include"
-                    ):
-                        add(
-                            project,
+                    if tag not in (
+                        "PackageReference",
+                        "ProjectReference",
+                    ) or not node.get("Include"):
+                        continue
+                    version = node.get("Version", "")
+                    if not version:
+                        version_node = next(
                             (
-                                "NuGet"
-                                if tag == "PackageReference"
-                                else "ProjectReference"
+                                child
+                                for child in node
+                                if child.tag.rsplit("}", 1)[-1] == "Version"
                             ),
-                            node.get("Include", ""),
-                            node.get("Version", ""),
+                            None,
                         )
+                        version = (
+                            (version_node.text or "").strip()
+                            if version_node is not None
+                            else ""
+                        )
+                    add(
+                        project,
+                        "NuGet" if tag == "PackageReference" else "ProjectReference",
+                        node.get("Include", ""),
+                        version,
+                    )
             except (ET.ParseError, OSError):
                 pass
-        elif suffix == "pom.xml":
+        elif filename == "pom.xml":
             try:
                 root_xml = ET.fromstring(text)
                 for node in root_xml.iter():
@@ -99,7 +126,7 @@ def extract_project_dependencies(
                         )
             except ET.ParseError:
                 pass
-        elif suffix in ("build.gradle", "build.gradle.kts"):
+        elif filename in ("build.gradle", "build.gradle.kts"):
             for m in re.finditer(
                 r"\b(?:implementation|api|compileOnly|runtimeOnly|testImplementation|kapt|classpath)\s*[( ]\s*[\"']([^\"']+)",
                 text,
@@ -107,7 +134,7 @@ def extract_project_dependencies(
                 add(project, "Gradle", m.group(1))
             for m in re.finditer(r"\bproject\s*\(\s*[\"']([^\"']+)[\"']\s*\)", text):
                 add(project, "GradleProject", m.group(1))
-        elif suffix == "cargo.toml":
+        elif filename == "cargo.toml":
             in_deps = False
             for line in text.splitlines():
                 stripped = line.strip()
@@ -120,7 +147,7 @@ def extract_project_dependencies(
                 elif in_deps and "=" in stripped and not stripped.startswith("#"):
                     name, val = stripped.split("=", 1)
                     add(project, "Cargo", name.strip(), val.strip().strip('"'))
-        elif suffix == "cmakelists.txt":
+        elif filename == "cmakelists.txt":
             text = cmake_active_source(text)
             for m in re.finditer(
                 r"\b(?:set|list)\s*\(\s*(CMAKE_TOOLCHAIN_FILE|CMAKE_MODULE_PATH)\s+([^)]*)\)",
@@ -140,7 +167,7 @@ def extract_project_dependencies(
             ):
                 for lib in re.findall(r"[A-Za-z0-9_+.-]+", m.group(1)):
                     add(project, "CMakeLink", lib)
-        elif suffix == "libs.versions.toml":
+        elif filename == "libs.versions.toml":
             section = ""
             versions = {}
             for line in text.splitlines():
@@ -155,7 +182,7 @@ def extract_project_dependencies(
                         versions[key] = val
                     elif section in ("libraries", "plugins"):
                         add(project, "GradleCatalog", key, val)
-        elif suffix == "package.json":
+        elif filename == "package.json":
             try:
                 obj = json.loads(text)
                 for section in (
@@ -168,7 +195,7 @@ def extract_project_dependencies(
                         add(project, "npm", name, str(ver))
             except Exception:
                 pass
-        elif suffix == "composer.json":
+        elif filename == "composer.json":
             try:
                 obj = json.loads(text)
                 for section in ("require", "require-dev"):
@@ -176,15 +203,15 @@ def extract_project_dependencies(
                         add(project, "Composer", name, str(ver))
             except Exception:
                 pass
-        elif suffix == "gemfile":
+        elif filename == "gemfile":
             for m in re.finditer(r"\bgem\s+['\"]([^'\"]+)", text):
                 add(project, "RubyGems", m.group(1))
-        elif suffix in ("package.swift",):
+        elif filename in ("package.swift",):
             for m in re.finditer(
                 r'\.package\s*\([^\n]*?(?:url|path)\s*:\s*"([^"]+)', text
             ):
                 add(project, "SwiftPM", m.group(1))
-        elif suffix == "pubspec.yaml":
+        elif filename == "pubspec.yaml":
             in_deps = False
             for line in text.splitlines():
                 if line.strip() in ("dependencies:", "dev_dependencies:"):
@@ -196,14 +223,14 @@ def extract_project_dependencies(
                     m = re.match(r"\s{2}([A-Za-z0-9_-]+)\s*:\s*(.*)", line)
                     if m:
                         add(project, "DartPub", m.group(1), m.group(2).strip())
-        elif suffix == "build.sbt":
+        elif filename == "build.sbt":
             for m in re.finditer(
                 r"[\"']([^\"']+)[\"']\s*(%%?|%)\s*[\"']([^\"']+)[\"']\s*%\s*[\"']([^\"']+)[\"']",
                 text,
             ):
                 org, op, artifact, ver = m.groups()
                 add(project, "SBT", org + ":" + artifact, ver)
-        elif suffix == "cmakecache.txt":
+        elif filename == "cmakecache.txt":
             for line in text.splitlines():
                 m = re.match(r"([^:#]+):[^=]*=(.*)", line)
                 if m and m.group(1) in (
@@ -214,12 +241,12 @@ def extract_project_dependencies(
                     "CMAKE_C_COMPILER",
                 ):
                     add(project, "CMakeCache", m.group(1), m.group(2).strip())
-        elif suffix == "description":
+        elif filename == "description":
             for line in text.splitlines():
                 if re.match(r"^(Imports|Depends):", line):
                     for name in line.split(":", 1)[1].split(","):
                         add(project, "R", name)
-        elif suffix.endswith(".rockspec"):
+        elif filename.endswith(".rockspec"):
             m = re.search(r"dependencies\s*=\s*\{(.*?)\}", text, re.S)
             if m:
                 for name in re.findall(r"['\"]([^'\"]+)['\"]", m.group(1)):

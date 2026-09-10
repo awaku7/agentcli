@@ -103,6 +103,81 @@ def test_mixed_project_types_are_combined(repo_tmp_path: Path) -> None:
     assert "js/src/module.js" in paths
 
 
+def test_vcxproj_project_only_collects_native_sources_and_references(
+    repo_tmp_path: Path,
+) -> None:
+    project = repo_tmp_path / "native"
+    (project / "src").mkdir(parents=True)
+    (project / "include").mkdir()
+    (project / "src" / "main.cpp").write_text(
+        '#include "../include/main.h"\nint main() { return 0; }\n', encoding="utf-8"
+    )
+    (project / "include" / "main.h").write_text("int main();\n", encoding="utf-8")
+    (project / "unrelated.cs").write_text("class Unrelated {}\n", encoding="utf-8")
+    (project / "Native.vcxproj").write_text(
+        '<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">\n'
+        "  <ItemGroup>\n"
+        '    <ClCompile Include="src\\main.cpp" />\n'
+        '    <ClInclude Include="include\\main.h" />\n'
+        "  </ItemGroup>\n"
+        "  <PropertyGroup><PlatformToolset>v143</PlatformToolset></PropertyGroup>\n"
+        "</Project>\n",
+        encoding="utf-8",
+    )
+
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    paths = {entry["relative_path"].replace("\\", "/") for entry in result["files"]}
+    assert result["project"]["type"] == "visual-cpp"
+    assert any(
+        Path(value).name == "Native.vcxproj" for value in result["project"]["files"]
+    )
+    assert {"src/main.cpp", "include/main.h"}.issubset(paths)
+    assert "unrelated.cs" not in paths
+
+
+def test_solution_discovers_vcxproj_and_slnx_projects(repo_tmp_path: Path) -> None:
+    project = repo_tmp_path / "solution"
+    (project / "cpp").mkdir(parents=True)
+    (project / "cpp" / "app.cpp").write_text(
+        "int app() { return 0; }\n", encoding="utf-8"
+    )
+    (project / "cpp" / "app.vcxproj").write_text(
+        '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">'
+        '<ItemGroup><ClCompile Include="app.cpp" /></ItemGroup></Project>',
+        encoding="utf-8",
+    )
+    (project / "app.sln").write_text(
+        "Microsoft Visual Studio Solution File, Format Version 12.00\n"
+        'Project("{TYPE}") = "App", "cpp\\app.vcxproj", "{APP}"\n'
+        "EndProject\n",
+        encoding="utf-8",
+    )
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    assert any(value.endswith("app.vcxproj") for value in result["project"]["files"])
+    assert any(
+        entry["relative_path"].replace("\\", "/") == "cpp/app.cpp"
+        for entry in result["files"]
+    )
+
+    (project / "app.sln").unlink()
+    (project / "app.slnx").write_text(
+        '<Solution><Project Path="cpp\\app.vcxproj" Name="App" /></Solution>',
+        encoding="utf-8",
+    )
+    result = _json_result(
+        run_tool({"path": str(project), "format": "json", "project_only": True})
+    )
+    assert any(value.endswith("app.slnx") for value in result["project"]["files"])
+    assert any(
+        entry["relative_path"].replace("\\", "/") == "cpp/app.cpp"
+        for entry in result["files"]
+    )
+
+
 def test_go_module_relation_and_line_number(repo_tmp_path: Path) -> None:
     project = repo_tmp_path / "project"
     (project / "cmd").mkdir(parents=True)
