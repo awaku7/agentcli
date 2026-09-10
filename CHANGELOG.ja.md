@@ -2,9 +2,23 @@
 
 ## [Unreleased]
 
+## [0.7.6] - 2026-09-10
+
+### 追加
+
+- Inception Mercuryプロバイダーを追加。
+- code-map分析でVisual Studio C++プロジェクトに対応。
+
 ### 変更
 
+- Responsesの継続処理と再試行動作を改善し、previous responseの状態ドキュメントを追加。
 - 対応する`llmcapa`の最低バージョンを`>=0.5.30`に更新。
+- GUIおよびWebモードでCLIステータス表示を抑制。
+
+### 修正
+
+- スクリーンショット後のResponsesツール継続処理を維持。
+- status実装をBlackで整形。
 
 ## [0.7.5] - 2026-09-09
 

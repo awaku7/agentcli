@@ -2,9 +2,23 @@
 
 ## [Unreleased]
 
+## [0.7.6] - 2026-09-10
+
+### Added
+
+- Add the Inception Mercury provider.
+- Add Visual Studio C++ project support to code-map analysis.
+
 ### Changed
 
+- Improve Responses continuation handling, retry behavior, and previous-response status documentation.
 - Raise the minimum supported `llmcapa` version to `>=0.5.30`.
+- Suppress CLI status rendering in GUI and web modes.
+
+### Fixed
+
+- Preserve Responses tool continuations after screenshots.
+- Apply Black formatting to the status implementation.
 
 ## [0.7.5] - 2026-09-09
 
