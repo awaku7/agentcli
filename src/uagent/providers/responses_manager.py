@@ -37,8 +37,31 @@ class ResponsesCapabilities:
 
 
 # Keep management operations conservative unless the provider documents them.
-# LM Studio's OpenAI-compatible Responses endpoint documents stateful
-# continuation via previous_response_id, so that capability is enabled here.
+#
+# ``previous_response_id`` is the only capability driven by documented provider
+# behaviour rather than by the OpenAI SDK surface.  Verification status:
+#   - openai / azure : stateful (OpenAI Responses API reference; Azure guide)
+#   - lmstudio       : stateful; stateful chats documented at
+#                      https://lmstudio.ai/docs/developer/rest/stateful-chats
+#   - meta           : enabled here; vendor documentation yet to be located
+#   - deepseek       : stateless.  "previous_response_id: Not supported
+#                      (stateless API)" —
+#                      https://api-docs.deepseek.com/guides/responses_api/
+#   - openrouter     : stateless.  A non-null previous_response_id is rejected
+#                      with HTTP 400 —
+#                      https://openrouter.ai/docs/api_reference/responses/overview
+#   - ollama         : "Only the non-stateful flavor is supported" —
+#                      https://docs.ollama.com/api/openai-compatibility
+#   - bedrock        : the vendor does support stateful chats (store defaults to
+#                      true, stored responses live 30 days), but uag flattens
+#                      ``input`` into a single transcript string, so continuation
+#                      stays disabled —
+#                      https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html
+#   - alibaba        : the vendor documents previous_response_id with a 7-day
+#                      TTL, but this integration has not been verified against
+#                      /compatible-mode/v1/responses
+#   - sakana         : the Responses API is supported, but previous_response_id
+#                      support is not confirmed by vendor documentation
 _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "openai": ResponsesCapabilities(
         create=True,
