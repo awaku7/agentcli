@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+import uag_envsec.cli as envsec_cli
 import uag_envsec.secret_core as secret_core
 
 
@@ -38,6 +39,38 @@ def test_keyring_backend_round_trip(monkeypatch, tmp_path: Path) -> None:
 
     encrypted = secret_core.encrypt_text("UAGENT_TEST=value")
     assert secret_core.decrypt_text(encrypted) == "UAGENT_TEST=value"
+
+
+def test_cli_delete_removes_variable(tmp_path: Path) -> None:
+    key_path = tmp_path / "envsec.key"
+    envsec_path = tmp_path / ".env.sec"
+    secret_core.ensure_key_file(key_path)
+    encrypted = secret_core.encrypt_text(
+        "UAGENT_KEEP=ok\nUAGENT_REMOVE=gone\n",
+        key_path=key_path,
+    )
+    envsec_path.write_text(encrypted, encoding="utf-8")
+
+    assert (
+        envsec_cli.main(
+            [
+                "delete",
+                "--file",
+                str(envsec_path),
+                "--key-file",
+                str(key_path),
+                "--key",
+                "UAGENT_REMOVE",
+            ]
+        )
+        == 0
+    )
+
+    plaintext = secret_core.decrypt_text(
+        envsec_path.read_text(encoding="utf-8"),
+        key_path=key_path,
+    )
+    assert plaintext == "UAGENT_KEEP=ok\n"
 
 
 def test_auto_migrates_existing_file_key(monkeypatch, tmp_path: Path, capsys) -> None:

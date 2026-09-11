@@ -88,6 +88,39 @@ def _build_add_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _build_delete_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="uag_envsec delete",
+        description="Delete a variable from an encrypted .env.sec file.",
+    )
+    parser.add_argument(
+        "--file",
+        default=".env.sec",
+        help="Path to the encrypted .env.sec file (default: .env.sec)",
+    )
+    parser.add_argument(
+        "--output",
+        default=None,
+        help="Output path (default: overwrite the input file)",
+    )
+    parser.add_argument(
+        "--key-file",
+        default=None,
+        help="Key file path (default: ~/.uag/uag_envsec_key)",
+    )
+    parser.add_argument(
+        "--key",
+        required=True,
+        help="Environment variable name to delete",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite the output file if it already exists",
+    )
+    return parser
+
+
 def _format_env_value(value: str) -> str:
     if value == "":
         return '""'
@@ -225,11 +258,67 @@ def _run_add(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_delete(args: argparse.Namespace) -> int:
+    enc_path = Path(args.file)
+    if not enc_path.exists():
+        print(f"Encrypted file not found: {enc_path}", file=sys.stderr)
+        return 1
+
+    out_path = Path(args.output) if args.output else enc_path
+    if (
+        out_path.exists()
+        and out_path.resolve() != enc_path.resolve()
+        and not args.force
+    ):
+        print(f"Output file already exists: {out_path} (use --force)", file=sys.stderr)
+        return 1
+
+    key = args.key.strip()
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", key):
+        print(f"Invalid environment variable name: {key}", file=sys.stderr)
+        return 1
+
+    key_file = _resolve_key_file(args.key_file) if args.key_file else None
+    if key_file is not None and not key_file.exists():
+        print(f"Key file not found: {key_file}", file=sys.stderr)
+        return 1
+    ensure_key_file(key_file)
+
+    try:
+        plaintext = decrypt_text(
+            enc_path.read_text(encoding="utf-8").strip(), key_path=key_file
+        )
+    except Exception as exc:
+        print(f"Failed to decrypt {enc_path}: {exc}", file=sys.stderr)
+        return 1
+
+    pattern = re.compile(
+        rf"^[ \t]*(?:export[ \t]+)?{re.escape(key)}[ \t]*=[^\r\n]*(?:\r\n|\n|\r|$)",
+        re.MULTILINE,
+    )
+    updated, count = pattern.subn("", plaintext)
+    if count == 0:
+        print(f"Environment variable not found: {key}", file=sys.stderr)
+        return 1
+
+    try:
+        _write_text_atomic(out_path, encrypt_text(updated, key_path=key_file))
+    except Exception as exc:
+        print(f"Failed to encrypt {out_path}: {exc}", file=sys.stderr)
+        return 1
+
+    print(str(out_path))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
     if args and args[0] == "add":
         parsed = _build_add_parser().parse_args(args[1:])
         return _run_add(parsed)
+    if args and args[0] == "delete":
+        parsed = _build_delete_parser().parse_args(args[1:])
+        return _run_delete(parsed)
     if args and args[0] == "encrypt":
         parsed = _build_encrypt_parser().parse_args(args[1:])
         return _run_encrypt(parsed)
