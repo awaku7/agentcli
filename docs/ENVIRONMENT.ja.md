@@ -400,3 +400,21 @@ LLM バックエンドが直接提供する組み込み Web 検索（グラウ�
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: Gemini Realtime用APIキー。
 - `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtimeモデル名（既定: `gemini-2.0-flash-exp`）。
 - `UAGENT_GEMINI_REALTIME_VOICE` / `UAGENT_GOOGLE_REALTIME_VOICE`: プリセットボイス名（既定: `Puck`）。
+
+## 暗号化環境ファイルの編集
+
+`.env.sec` は暗号化されているため、直接編集せず `uag_envsec` を使用してください。変更内容は uag の再起動時に読み込まれます。
+
+環境変数の追加・更新:
+
+```text
+uag_envsec add --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME --value gpt-image-2.5-flare
+```
+
+環境変数の完全削除:
+
+```text
+uag_envsec delete --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME
+```
+
+暗号鍵が既定の場所にない場合は `--key-file PATH` を指定してください。変更後は uag を再起動してください。

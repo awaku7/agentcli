@@ -392,3 +392,21 @@ Set `UAGENT_ENVSEC_KEY_BACKEND` to control the backend:
 - `file`: always use the key file.
 
 An explicit `uag_envsec --key-file PATH` continues to use that file regardless of the backend setting.
+
+## Managing encrypted environment files
+
+Use `uag_envsec` instead of editing `.env.sec` directly. The file is encrypted and is loaded at startup.
+
+Add or update a variable:
+
+```text
+uag_envsec add --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME --value gpt-image-2.5-flare
+```
+
+Delete a variable completely:
+
+```text
+uag_envsec delete --file .env.sec --key UAGENT_OPENAI_IMG_GENERATE_DEPNAME
+```
+
+Use `--key-file PATH` when the encryption key is stored at a non-default path. Restart uag after changing `.env.sec` so the updated environment is loaded.
