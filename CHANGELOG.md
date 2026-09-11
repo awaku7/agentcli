@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.7.7] - 2026-09-11
+
+### Added
+
+- Add `uag_envsec delete` to remove variables from encrypted `.env.sec` files.
+
+### Changed
+
+- Document encrypted environment variable management in English and Japanese guides.
+
 ## [0.7.6] - 2026-09-10
 
 ### Added
