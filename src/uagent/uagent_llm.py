@@ -109,6 +109,10 @@ def _inject_stop_prompt(
     # Interrupt leaves Responses API chains incomplete (especially mid-tool).
     # Drop previous_response_id so the next turn does not reuse a stale rid.
     try:
+        runtime = getattr(core, "responses_runtime", None)
+        interrupt = getattr(runtime, "interrupt", None)
+        if callable(interrupt):
+            interrupt()
         clear_fn = getattr(_core_module, "clear_responses_continuation", None)
         if callable(clear_fn):
             clear_fn()
@@ -562,6 +566,63 @@ def _apply_semantic_message_transforms(
         return call_messages
 
 
+def _begin_responses_runtime(
+    *, core: Any, provider: str, model: str, enabled: bool
+) -> Any | None:
+    """Synchronize the new continuation state machine with legacy state.
+
+    This is deliberately a compatibility bridge: ``responses_state`` remains
+    the persisted source until the round orchestrator owns session restore.
+    A bridge failure must never change the established request path.
+    """
+    if not enabled:
+        return None
+    try:
+        from .providers.responses_runtime import ResponsesRuntime
+
+        runtime = getattr(core, "responses_runtime", None)
+        if not isinstance(runtime, ResponsesRuntime):
+            runtime = ResponsesRuntime(provider=provider, model=model)
+            setattr(core, "responses_runtime", runtime)
+        else:
+            runtime.switch_provider(provider, model)
+
+        state = getattr(core, "responses_state", {})
+        previous_id = state.get("previous_response_id") if isinstance(state, dict) else None
+        if isinstance(previous_id, str) and previous_id.startswith("resp_"):
+            if runtime.previous_response_id != previous_id:
+                runtime.restore_continuation(
+                    previous_id,
+                    session_generation=runtime.session_generation,
+                    provider=provider,
+                    model=model,
+                )
+            runtime.begin_request(previous_response_id=previous_id)
+        else:
+            runtime.begin_request()
+        return runtime
+    except Exception:
+        return None
+
+
+def _record_responses_runtime_response(
+    *, core: Any, enabled: bool, tool_calls: list[dict[str, Any]]
+) -> None:
+    """Record the completed Responses result for tool-output invariants."""
+    if not enabled:
+        return
+    runtime = getattr(core, "responses_runtime", None)
+    state = getattr(core, "responses_state", {})
+    response_id = state.get("previous_response_id") if isinstance(state, dict) else None
+    if runtime is None or not isinstance(response_id, str) or not response_id:
+        return
+    try:
+        runtime.record_response(response_id, tool_calls=tool_calls)
+    except Exception:
+        # The legacy path retains its error/retry behaviour during migration.
+        pass
+
+
 def _run_one_round(
     provider: str,
     client: Any,
@@ -649,6 +710,12 @@ def _run_one_round(
         and not provider_allows_responses_api(provider, depname)
     ):
         use_responses_api = False
+    _begin_responses_runtime(
+        core=core,
+        provider=provider,
+        model=depname,
+        enabled=use_responses_api and not judgment_mode,
+    )
 
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
@@ -1668,12 +1735,18 @@ def _run_one_round(
             if isinstance(tc, dict)
         ],
     )
+    _record_responses_runtime_response(
+        core=core,
+        enabled=use_responses_api,
+        tool_calls=tool_calls_list,
+    )
     executed_new_tool, fresh_tool_calls = _execute_tool_calls(
         tool_calls_list=tool_calls_list,
         messages=messages,
         core=core,
         cache_mgr=cache_mgr,
         responses_api_continuation=use_responses_api,
+        responses_runtime=getattr(core, "responses_runtime", None),
     )
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a

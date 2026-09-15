@@ -484,6 +484,7 @@ def _execute_tool_calls(
     core: Any,
     cache_mgr: Any,
     responses_api_continuation: bool = False,
+    responses_runtime: Any = None,
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Execute tool calls.
 
@@ -680,6 +681,19 @@ def _execute_tool_calls(
             "name": name,
             "content": tool_result,
         }
+        # Mirror accepted output into the continuation state machine. The
+        # provider still receives the legacy tool message below; this merely
+        # enforces correlation while migration is in progress.
+        if responses_api_continuation and responses_runtime is not None:
+            try:
+                responses_runtime.accept_tool_output(
+                    str(getattr(responses_runtime, "active_response_id", "") or ""),
+                    str(tc.get("id") or ""),
+                    tool_result,
+                )
+            except Exception:
+                # Preserve the established tool-loop fallback during rollout.
+                pass
 
         # --- Prompt injection defense: wrap external content ---
         if _is_external_data_tool(name):
