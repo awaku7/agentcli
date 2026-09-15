@@ -97,6 +97,59 @@ def test_chat_runtime_projects_and_normalizes_events() -> None:
     assert client.chat.completions.calls[0]["model"] == "gpt-test"
 
 
+def test_chat_runtime_normalizes_tool_call_fragments() -> None:
+    first = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                delta=SimpleNamespace(
+                    content=None,
+                    tool_calls=[
+                        SimpleNamespace(
+                            index=0,
+                            id="call-1",
+                            function=SimpleNamespace(name="read_file", arguments='{"p'),
+                        )
+                    ],
+                )
+            )
+        ]
+    )
+    second = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                delta=SimpleNamespace(
+                    content=None,
+                    tool_calls=[
+                        SimpleNamespace(
+                            index=0,
+                            id=None,
+                            function=SimpleNamespace(name="", arguments='ath":"a"}'),
+                        )
+                    ],
+                )
+            )
+        ]
+    )
+    client = _Client(chunks=[first, second])
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+    )
+    plan = _plan()
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+    normalized = list(runtime.run(request, _Cancellation()))
+
+    validate_stream_events(normalized)
+    assert normalized[-2].type == "ToolCallCompleted"
+    assert normalized[-2].data["tool_call_id"] == "call-1"
+    assert normalized[-2].data["validated_arguments"] == {"path": "a"}
+
+
 def test_responses_runtime_normalizes_text_and_completion() -> None:
     events = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
