@@ -219,6 +219,43 @@ def test_responses_runtime_recovers_text_from_completed_response() -> None:
     assert normalized[1].data["text"] == "hello"
 
 
+def test_responses_runtime_debug_is_opt_in_and_metadata_only(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setenv("UAGENT_DEBUG_OPENAI_RUNTIME", "1")
+    events = [
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_1", output_text="secret answer"),
+        )
+    ]
+    client = _Client(events=events)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    debug_output = capsys.readouterr().err
+    assert "[OPENAI_RUNTIME] request" in debug_output
+    assert "[OPENAI_RUNTIME] event" in debug_output
+    assert "[OPENAI_RUNTIME] completed" in debug_output
+    assert "secret answer" not in debug_output
+    assert "resp_1" not in debug_output
+
+
 def test_responses_runtime_completes_tool_call_from_output_item_done() -> None:
     events = [
         SimpleNamespace(

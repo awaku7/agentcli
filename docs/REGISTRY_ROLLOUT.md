@@ -6,6 +6,11 @@ Responses, tool calls, structured output, and multimodal inputs. Inception
 uses its dedicated event adapter for Chat Completions streaming and is enabled
 by default independently of the OpenAI/Azure route.
 
+For a failed or empty OpenAI/Azure Responses reply, set
+`UAGENT_DEBUG_OPENAI_RUNTIME=1` to emit metadata-only diagnostics to stderr.
+The diagnostics include event types and text lengths, never prompt or response
+content.
+
 The registry also projects the existing OpenAI/Azure generation options:
 
 - reasoning effort, including one budgeted quality retry for

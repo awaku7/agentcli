@@ -37,6 +37,10 @@ Set any switch to `0` or `off` to use the established legacy path.
 Other providers are deliberately still legacy-only. Do not broaden the default
 provider set without a dedicated adapter and parity tests.
 
+For a failed or empty OpenAI/Azure Responses reply, set
+`UAGENT_DEBUG_OPENAI_RUNTIME=1` to capture metadata-only stream diagnostics on
+stderr. Prompt and response content are not logged.
+
 ## Completed implementation slices
 
 | Area | Main files | Evidence |

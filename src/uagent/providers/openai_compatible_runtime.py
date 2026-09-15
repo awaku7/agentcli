@@ -8,8 +8,11 @@ outside this module.
 from __future__ import annotations
 
 import json
+import sys
 import time
 from typing import Any, Iterator, Mapping
+
+from ..env_utils import env_get
 
 from ..runtime.provider_context import project_messages_for_provider
 from ..runtime.round_contracts import (
@@ -21,6 +24,19 @@ from ..runtime.round_contracts import (
     StreamEvent,
 )
 from ..runtime.round_identity import canonical_json
+
+
+def _debug_enabled() -> bool:
+    value = (env_get("UAGENT_DEBUG_OPENAI_RUNTIME", "") or "").strip().lower()
+    return value in {"1", "true", "yes", "on"}
+
+
+def _debug_runtime(event: str, **fields: Any) -> None:
+    """Emit opt-in, metadata-only diagnostics for provider stream debugging."""
+    if not _debug_enabled():
+        return
+    rendered = " ".join(f"{key}={value!r}" for key, value in fields.items())
+    print(f"[OPENAI_RUNTIME] {event} {rendered}".rstrip(), file=sys.stderr)
 
 
 def _mapping_value(value: Any, key: str) -> Any:
@@ -126,6 +142,16 @@ class OpenAICompatibleRuntime:
     def run(
         self, request: SerializedRequest, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
+        _debug_runtime(
+            "request",
+            provider=self._provider,
+            transport=self._transport,
+            streaming=self._streaming,
+            message_count=len(
+                request.payload.get("messages", request.payload.get("input", ())) or ()
+            ),
+            has_tools=bool(request.payload.get("tools")),
+        )
         yield self._event("ResponseStarted", {"stream_mode": "delta"})
         stream: Any = None
         try:
@@ -161,6 +187,7 @@ class OpenAICompatibleRuntime:
         except TimeoutError:
             yield self._event("ResponseTimedOut", {"reason": "timeout"})
         except Exception as exc:
+            _debug_runtime("error", error_type=type(exc).__name__)
             yield self._event(
                 "ResponseFailed",
                 {"error_type": type(exc).__name__, "message": str(exc)},
@@ -354,6 +381,15 @@ class OpenAICompatibleRuntime:
                 yield self._event("ResponseCancelled", {"reason": "cancelled"})
                 return
             event_type = str(getattr(event, "type", "") or "")
+            _debug_runtime(
+                "event",
+                event_type=event_type,
+                has_response=getattr(event, "response", None) is not None,
+                delta_len=len(str(getattr(event, "delta", "") or "")),
+                item_type=str(
+                    _mapping_value(getattr(event, "item", None), "type") or ""
+                ),
+            )
             if event_type == "response.output_text.delta":
                 delta = str(getattr(event, "delta", "") or "")
                 if delta:
@@ -430,11 +466,26 @@ class OpenAICompatibleRuntime:
                     ensure_call(call_id)["arguments"] = arguments
             elif event_type == "response.completed":
                 response = getattr(event, "response", None)
+                fallback_text = ""
                 if not text_delta_seen and response is not None:
-                    text = _extract_response_text(response)
-                    if text:
+                    fallback_text = _extract_response_text(response)
+                    if fallback_text:
                         text_delta_seen = True
-                        yield self._event("TextDelta", {"text": text})
+                        yield self._event("TextDelta", {"text": fallback_text})
+                _debug_runtime(
+                    "completed",
+                    fallback_text_len=len(fallback_text),
+                    output_count=(
+                        len(_mapping_value(response, "output") or ())
+                        if response is not None
+                        else 0
+                    ),
+                    has_output_text=(
+                        bool(_mapping_value(response, "output_text"))
+                        if response is not None
+                        else False
+                    ),
+                )
                 yield from self._complete_tools(tool_calls)
                 response_id = getattr(response, "id", None) if response else None
                 data = {"response_id": str(response_id)} if response_id else {}
