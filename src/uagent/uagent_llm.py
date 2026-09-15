@@ -620,6 +620,36 @@ def _record_responses_runtime_response(
         pass
 
 
+def _apply_remote_recovery_update(core: Any, update: Any) -> bool:
+    """Synchronize a provider-owned recovery result without mutating history."""
+    state = getattr(core, "responses_state", None)
+    if not isinstance(state, dict):
+        return False
+    if getattr(update, "remote_mutation_status", "") != "applied" or not getattr(
+        update, "continuation_allowed", False
+    ):
+        state.pop("previous_response_id", None)
+        return False
+    response_id = getattr(update, "compacted_response_id", None)
+    if not isinstance(response_id, str) or not response_id:
+        return False
+    state["previous_response_id"] = response_id
+    state["session_generation"] = int(getattr(update, "session_generation", 0))
+    runtime = getattr(core, "responses_runtime", None)
+    if runtime is not None:
+        try:
+            runtime.restore_continuation(
+                response_id,
+                session_generation=state["session_generation"],
+                provider=state.get("provider"),
+                model=state.get("model"),
+            )
+        except Exception:
+            state.pop("previous_response_id", None)
+            return False
+    return True
+
+
 def _try_registry_simple_chat_round(
     *,
     provider: str,

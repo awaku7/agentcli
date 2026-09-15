@@ -14,6 +14,7 @@ from uagent.providers.responses_recovery_port import ResponsesRecoveryPort
 from uagent.runtime.context_recovery import ContextRecoveryManager, RecoveryPlan
 from uagent.runtime.round_contracts import ContextPlan
 from uagent.runtime.round_runtime import RetryRequest, RoundAttemptBudget
+from uagent.uagent_llm import _apply_remote_recovery_update
 
 
 def _context_plan() -> ContextPlan:
@@ -131,3 +132,32 @@ def test_remote_compaction_is_idempotent_for_one_recovery_id() -> None:
     assert first.remote_mutation_status == "applied"
     assert first.session_generation == 8
     assert manager.calls == ["response-1"]
+
+
+def test_remote_update_only_adopts_a_valid_compacted_continuation() -> None:
+    core = type("Core", (), {"responses_state": {"provider": "openai", "model": "m"}})()
+    applied = type(
+        "Update",
+        (),
+        {
+            "remote_mutation_status": "applied",
+            "continuation_allowed": True,
+            "compacted_response_id": "resp_compacted",
+            "session_generation": 2,
+        },
+    )()
+    rejected = type(
+        "Update",
+        (),
+        {
+            "remote_mutation_status": "stale",
+            "continuation_allowed": False,
+            "compacted_response_id": None,
+            "session_generation": 2,
+        },
+    )()
+
+    assert _apply_remote_recovery_update(core, applied)
+    assert core.responses_state["previous_response_id"] == "resp_compacted"
+    assert not _apply_remote_recovery_update(core, rejected)
+    assert "previous_response_id" not in core.responses_state
