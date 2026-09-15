@@ -61,6 +61,69 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
     assert result == (True, "registry-ok", "", [])
 
 
+def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(
+                                    content=None,
+                                    tool_calls=[
+                                        SimpleNamespace(
+                                            index=0,
+                                            id="call-1",
+                                            function=SimpleNamespace(
+                                                name="read_file",
+                                                arguments='{"path":"a"}',
+                                            ),
+                                        )
+                                    ],
+                                )
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    chat = Chat()
+    client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        context_tool_specs=({"type": "function", "function": {"name": "read_file"}},),
+        response_format=None,
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=client,
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "read a"}],
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+    )
+
+    assert result is not None
+    assert result[3][0]["tool_call_id"] == "call-1"
+    assert chat.calls[0]["tools"] == list(core.context_tool_specs)
+
+
 def test_registry_rollout_falls_back_for_multimodal_and_structured_content(
     monkeypatch, tmp_path
 ) -> None:
