@@ -150,6 +150,46 @@ def test_chat_runtime_normalizes_tool_call_fragments() -> None:
     assert normalized[-2].data["validated_arguments"] == {"path": "a"}
 
 
+def test_responses_runtime_flattens_chat_tool_specs() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[{"role": "user", "content": "read a file"}],
+        tool_specs=(
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a file",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ),
+        policy={"provider": "openai", "model": "gpt-test"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["tools"] == [
+        {
+            "type": "function",
+            "name": "read_file",
+            "description": "Read a file",
+            "parameters": {"type": "object", "properties": {}},
+        }
+    ]
+
+
 def test_responses_runtime_normalizes_text_and_completion() -> None:
     events = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),

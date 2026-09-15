@@ -45,6 +45,25 @@ def _mapping_value(value: Any, key: str) -> Any:
     return getattr(value, key, None)
 
 
+def _responses_tool_specs(
+    tool_specs: tuple[Mapping[str, Any], ...],
+) -> list[dict[str, Any]]:
+    """Convert Chat tool envelopes to the flattened Responses shape."""
+    normalized: list[dict[str, Any]] = []
+    for spec in tool_specs:
+        item = dict(spec)
+        function = item.get("function")
+        if item.get("type") == "function" and isinstance(function, Mapping):
+            item.pop("function", None)
+            item["name"] = function.get("name", "")
+            item["description"] = function.get("description", "")
+            item["parameters"] = function.get(
+                "parameters", {"type": "object", "properties": {}}
+            )
+        normalized.append(item)
+    return normalized
+
+
 def _extract_response_text(response: Any) -> str:
     """Recover final text when a provider omits output-text delta events."""
     direct = _mapping_value(response, "output_text")
@@ -129,7 +148,12 @@ class OpenAICompatibleRuntime:
             **projection.options,
         }
         if projection.tool_specs:
-            payload.setdefault("tools", list(projection.tool_specs))
+            tools = (
+                _responses_tool_specs(projection.tool_specs)
+                if projection.transport == "responses"
+                else list(projection.tool_specs)
+            )
+            payload.setdefault("tools", tools)
         return SerializedRequest(
             identifiers=self._identifiers,
             plan_id=projection.plan_id,
