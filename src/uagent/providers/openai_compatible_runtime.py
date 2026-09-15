@@ -79,9 +79,10 @@ class OpenAICompatibleRuntime:
         )
 
     def serialize(self, projection: ProviderProjection) -> SerializedRequest:
+        input_key = "input" if projection.transport == "responses" else "messages"
         payload = {
             "model": projection.model,
-            "messages": list(projection.messages),
+            input_key: list(projection.messages),
             **projection.options,
         }
         if projection.tool_specs:

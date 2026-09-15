@@ -124,6 +124,8 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
         "ResponseCompleted",
     ]
     assert client.responses.calls[0]["model"] == "gpt-test"
+    assert "input" in client.responses.calls[0]
+    assert "messages" not in client.responses.calls[0]
 
 
 def test_runtime_cancellation_is_terminal() -> None:
