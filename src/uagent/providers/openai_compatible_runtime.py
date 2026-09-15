@@ -113,6 +113,22 @@ class OpenAICompatibleRuntime:
             provider=self._provider,
             model=self._model,
         )
+        tool_specs = plan.tool_specs
+        options = dict(self._options)
+        if self._transport == "responses":
+            from .llm_openai_responses import build_responses_request
+
+            instructions, messages, response_tools = build_responses_request(
+                messages,
+                send_tools_this_round=bool(tool_specs),
+                provider=self._provider,
+                tool_specs=list(tool_specs),
+                previous_response_id=options.get("previous_response_id"),
+                core=session.get("core"),
+            )
+            tool_specs = tuple(response_tools or ())
+            if instructions:
+                options.setdefault("instructions", instructions)
         identity_factory = session.get("identity_factory")
         make_projection_id = getattr(identity_factory, "projection_id", None)
         if not callable(make_projection_id):
@@ -125,7 +141,8 @@ class OpenAICompatibleRuntime:
                     "model": self._model,
                     "transport": self._transport,
                     "messages": messages,
-                    "options": self._options,
+                    "options": options,
+                    "tool_specs": tool_specs,
                 }
             )
         )
@@ -136,8 +153,8 @@ class OpenAICompatibleRuntime:
             model=self._model,
             transport=self._transport,
             messages=tuple(messages),
-            tool_specs=plan.tool_specs,
-            options=dict(self._options),
+            tool_specs=tool_specs,
+            options=options,
         )
 
     def serialize(self, projection: ProviderProjection) -> SerializedRequest:

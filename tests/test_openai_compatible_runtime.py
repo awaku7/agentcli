@@ -190,6 +190,57 @@ def test_responses_runtime_flattens_chat_tool_specs() -> None:
     ]
 
 
+def test_responses_runtime_uses_provider_input_for_tool_continuation() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[
+            {"role": "user", "content": "read a file"},
+            {
+                "role": "assistant",
+                "content": "",
+                "response_id": "resp_1",
+                "tool_calls": [
+                    {
+                        "id": "call_1",
+                        "type": "function",
+                        "function": {
+                            "name": "read_file",
+                            "arguments": '{"path":"a"}',
+                        },
+                    }
+                ],
+            },
+            {
+                "role": "tool",
+                "tool_call_id": "call_1",
+                "name": "read_file",
+                "content": "ok",
+            },
+        ],
+        policy={"provider": "openai", "model": "gpt-test"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={"previous_response_id": "resp_1"},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert not any("tool_calls" in item for item in request.payload["input"])
+    assert not any("response_id" in item for item in request.payload["input"])
+    assert any(
+        item.get("type") == "function_call_output" for item in request.payload["input"]
+    )
+
+
 def test_responses_runtime_normalizes_text_and_completion() -> None:
     events = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
