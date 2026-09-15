@@ -194,6 +194,11 @@ class OpenAICompatibleRuntime:
         except Exception as exc:
             body = getattr(exc, "body", None)
             error_body = body.get("error") if isinstance(body, Mapping) else None
+            if not isinstance(error_body, Mapping) and isinstance(body, Mapping):
+                error_body = body
+            error_message = _mapping_value(error_body, "message")
+            if isinstance(error_message, str):
+                error_message = " ".join(error_message.split())[:300]
             _debug_runtime(
                 "error",
                 error_class=type(exc).__name__,
@@ -201,6 +206,7 @@ class OpenAICompatibleRuntime:
                 error_type=_mapping_value(error_body, "type"),
                 error_code=_mapping_value(error_body, "code"),
                 error_param=_mapping_value(error_body, "param"),
+                error_message=error_message,
                 body_keys=sorted(body) if isinstance(body, Mapping) else (),
             )
             yield self._event(
