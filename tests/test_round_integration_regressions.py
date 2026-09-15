@@ -61,6 +61,44 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
     assert result == (True, "registry-ok", "", [])
 
 
+def test_registry_rollout_falls_back_for_multimodal_and_structured_content(
+    monkeypatch, tmp_path
+) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    core = SimpleNamespace(workdir=str(tmp_path), response_format=None)
+
+    assert (
+        _try_registry_simple_chat_round(
+            provider="openai",
+            client=SimpleNamespace(),
+            depname="gpt-test",
+            call_messages=[{"role": "user", "content": [{"type": "input_image"}]}],
+            core=core,
+            use_responses_api=False,
+            stream_responses=True,
+            send_tools_this_round=False,
+            round_count=1,
+        )
+        is None
+    )
+
+    core.response_format = {"type": "json_schema"}
+    assert (
+        _try_registry_simple_chat_round(
+            provider="openai",
+            client=SimpleNamespace(),
+            depname="gpt-test",
+            call_messages=[{"role": "user", "content": "hello"}],
+            core=core,
+            use_responses_api=False,
+            stream_responses=True,
+            send_tools_this_round=False,
+            round_count=1,
+        )
+        is None
+    )
+
+
 def test_registry_responses_round_updates_legacy_response_state(
     monkeypatch, tmp_path
 ) -> None:

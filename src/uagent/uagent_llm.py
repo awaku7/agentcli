@@ -654,6 +654,15 @@ def _try_registry_simple_chat_round(
     tools_opt_in = (env_get("UAGENT_PROVIDER_REGISTRY_TOOLS", "") or "").strip().lower()
     if send_tools_this_round and tools_opt_in not in {"1", "true", "yes", "on"}:
         return None
+    # The first registry rollout is text-only. Multimodal or structured
+    # content remains on the compatibility path until its parity contract is
+    # explicitly covered.
+    if any(not isinstance(message.get("content"), str) for message in call_messages):
+        return None
+    if getattr(core, "structured_output", None) or getattr(
+        core, "response_format", None
+    ):
+        return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
         from .runtime.context_plan_builder import build_context_plan
