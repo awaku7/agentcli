@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from urllib.parse import urlparse
@@ -38,6 +39,7 @@ from .llm_message_helpers import (
 )
 from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
+from .runtime.context_plan_builder import build_context_plan
 from .runtime.context_policy import ContextPolicy
 from .runtime.provider_context import project_messages_for_provider
 from .runtime.provider_cache import plan_provider_cache
@@ -514,6 +516,33 @@ _RS_CONTINUE = "continue"  # skip postamble, continue loop
 _RS_OK = "ok"  # execute postamble then continue loop
 
 
+def _record_round_context_plan(
+    *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
+) -> None:
+    """Build an opt-in provider-neutral plan without changing the send path."""
+    if (env_get("UAGENT_ROUND_CONTRACTS") or "").strip().lower() not in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        return
+    workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
+    tool_specs = getattr(core, "context_tool_specs", None) or ()
+    try:
+        core.context_plan = build_context_plan(
+            workspace_id=workspace_id,
+            messages=call_messages,
+            tool_specs=tool_specs,
+            policy={"provider": provider, "model": depname},
+            telemetry={"round_contracts": True},
+        )
+    except Exception:
+        # The feature flag is observational until the new orchestration path
+        # owns dispatch, so a plan failure must not alter existing execution.
+        core.context_plan = None
+
+
 def _run_one_round(
     provider: str,
     client: Any,
@@ -579,6 +608,10 @@ def _run_one_round(
             core.active_context = active_context
             _persist_context_decision_log(active_context, core)
             call_messages = active_context.messages
+    if not judgment_mode:
+        _record_round_context_plan(
+            provider=provider, depname=depname, call_messages=call_messages, core=core
+        )
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
     )
