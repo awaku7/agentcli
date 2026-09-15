@@ -10,7 +10,9 @@ The OpenAI and Azure registry route is **default enabled** and can be rolled
 back without code changes. It covers both Chat Completions and Responses,
 streaming and non-streaming responses, tool calls, structured output,
 multimodal inputs, continuation state, local/remote overflow recovery, and
-common generation options.
+common generation options. The Inception event adapter is also enabled by
+default for its own Chat Completions route and can be rolled back with
+`UAGENT_PROVIDER_REGISTRY_INCEPTION`.
 
 ```text
 ContextPlan → ProviderProjection → SerializedRequest
@@ -30,6 +32,7 @@ Set any switch to `0` or `off` to use the established legacy path.
 | `UAGENT_PROVIDER_REGISTRY` | Entire OpenAI/Azure registry route |
 | `UAGENT_PROVIDER_REGISTRY_RESPONSES` | Responses route only |
 | `UAGENT_PROVIDER_REGISTRY_TOOLS` | Tool-call route only |
+| `UAGENT_PROVIDER_REGISTRY_INCEPTION` | Inception adapter route only |
 
 Other providers are deliberately still legacy-only. Do not broaden the default
 provider set without a dedicated adapter and parity tests.
@@ -40,6 +43,7 @@ provider set without a dedicated adapter and parity tests.
 |---|---|---|
 | Contract, projection, registry | `runtime/round_contracts.py`, `runtime/round_orchestrator.py`, `providers/runtime_registry.py` | `tests/test_round_contracts.py`, `tests/test_round_orchestrator.py` |
 | OpenAI/Azure event adapter | `providers/openai_compatible_runtime.py` | `tests/test_openai_compatible_runtime.py` |
+| Inception event adapter | `providers/inception_runtime.py`, `llm_round_helpers.py` | `tests/test_inception_runtime.py`, `tests/test_round_integration_regressions.py` |
 | Responses continuation and terminal state | `providers/responses_runtime.py`, `uagent_llm.py` | `tests/test_responses_runtime.py`, `tests/test_round_integration_regressions.py` |
 | Recovery | `runtime/context_recovery.py`, `providers/responses_recovery_port.py` | `tests/test_context_recovery_integration.py` |
 | Output parity | `llm_round_helpers.py`, `llm_flow_helpers.py`, `uagent_llm.py` | `tests/test_registry_output_parity.py` |
@@ -78,19 +82,13 @@ d3789f51 feat(registry): support multimodal round inputs
 
 ## Remaining recommended work
 
-1. Add provider-level Azure live/mock coverage for structured output,
-   compaction, and tool continuation, then compare payloads with the legacy
-   request builder.
-2. Move remaining OpenAI/Azure request assembly from `uagent_llm.py` into a
-   dedicated projection policy so the adapter receives typed policy data rather
-   than an expanding options dictionary.
-3. Migrate another provider only behind a new adapter and a separate opt-out
-   switch. Inception is already an event-adapter reference; do not route other
-   OpenAI-compatible gateways through the OpenAI/Azure default path.
-4. Run the I18N audit in CI in non-strict reporting mode until the existing
+1. Evaluate migrating an additional provider only behind a dedicated adapter
+   and separate opt-out switch. Do not route other OpenAI-compatible gateways
+   through the OpenAI/Azure default path.
+1. Run the I18N audit in CI in non-strict reporting mode until the existing
    host/tool catalog coverage gaps are resolved. Keep structural validation and
    translation-quality review separate.
-5. Before a release, run the full regression suite and manually verify an
+1. Before a release, run the full regression suite and manually verify an
    authenticated OpenAI and Azure Responses tool continuation. Unit tests do
    not exercise provider credentials or remote compaction behavior.
 

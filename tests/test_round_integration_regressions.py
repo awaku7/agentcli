@@ -16,6 +16,7 @@ from uagent.uagent_llm import (
     _record_round_context_plan,
 )
 from uagent.llm_helpers import _env_default_on
+from uagent.llm_round_helpers import _inception_registry_enabled
 
 
 def test_registry_simple_chat_round_is_default_on_and_parity_safe(
@@ -409,6 +410,19 @@ def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
     monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "off")
     assert _env_default_on("UAGENT_ROUND_CONTRACTS") is False
     assert _env_default_on("UAGENT_ROUND_ORCHESTRATOR") is False
+
+
+def test_inception_registry_has_independent_opt_out(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_ROUND_ORCHESTRATOR", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_INCEPTION", raising=False)
+    assert _inception_registry_enabled() is True
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_INCEPTION", "off")
+    assert _inception_registry_enabled() is False
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_INCEPTION", "1")
+    monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "0")
+    assert _inception_registry_enabled() is False
 
 
 def test_registry_response_terminal_clears_persisted_continuation() -> None:

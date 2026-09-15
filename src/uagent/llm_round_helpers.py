@@ -668,6 +668,13 @@ def _call_claude_round(
     return True, client, assistant_text, tool_calls_list
 
 
+def _inception_registry_enabled() -> bool:
+    """Return whether the Inception adapter path is enabled."""
+    return _env_default_on("UAGENT_ROUND_ORCHESTRATOR") and _env_default_on(
+        "UAGENT_PROVIDER_REGISTRY_INCEPTION"
+    )
+
+
 def _call_openai_azure_round(
     *,
     provider: str,
@@ -1358,7 +1365,11 @@ def _call_openai_azure_round(
                             core=core,
                         )
 
-                    use_orchestrator = _env_default_on("UAGENT_ROUND_ORCHESTRATOR")
+                    use_orchestrator = (
+                        _inception_registry_enabled()
+                        if provider == "inception"
+                        else _env_default_on("UAGENT_ROUND_ORCHESTRATOR")
+                    )
                     if use_orchestrator:
                         try:
                             from .providers.llm_inception import (

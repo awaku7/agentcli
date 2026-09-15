@@ -2,7 +2,9 @@
 
 The provider runtime registry is enabled by default for the migrated OpenAI
 and Azure round paths. It covers streaming and non-streaming Chat Completions,
-Responses, tool calls, structured output, and multimodal inputs.
+Responses, tool calls, structured output, and multimodal inputs. Inception
+uses its dedicated event adapter for Chat Completions streaming and is enabled
+by default independently of the OpenAI/Azure route.
 
 The registry also projects the existing OpenAI/Azure generation options:
 
@@ -20,6 +22,7 @@ Use these opt-out switches to return a specific path to the legacy executor:
 | `UAGENT_PROVIDER_REGISTRY` | All registry routing for OpenAI and Azure |
 | `UAGENT_PROVIDER_REGISTRY_RESPONSES` | Responses API registry routing only |
 | `UAGENT_PROVIDER_REGISTRY_TOOLS` | Tool-call registry routing only |
+| `UAGENT_PROVIDER_REGISTRY_INCEPTION` | Inception event-adapter routing only |
 
 Providers that do not yet have a registered runtime continue to use their
 legacy path. `UAGENT_REASONING=auto` is handled by the registry with one
