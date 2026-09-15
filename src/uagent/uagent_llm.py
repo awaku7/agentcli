@@ -801,6 +801,7 @@ def _try_registry_simple_chat_round(
                 session={
                     "identity_factory": identity_factory,
                     "responses_runtime": getattr(core, "responses_runtime", None),
+                    "recovery_hint": getattr(core, "last_recovery_update", None),
                 },
                 cancellation=cancellation,
             )
