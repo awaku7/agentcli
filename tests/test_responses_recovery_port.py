@@ -35,7 +35,9 @@ def _plan(recovery_id: str = "recovery-1") -> RecoveryPlan:
     )
 
 
-def test_compact_applies_generation_and_journal_update_without_history_mutation() -> None:
+def test_compact_applies_generation_and_journal_update_without_history_mutation() -> (
+    None
+):
     manager = _Manager()
     journal = InMemoryRecoveryJournal()
     port = ResponsesRecoveryPort(manager, journal=journal)

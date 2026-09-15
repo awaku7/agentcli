@@ -21,7 +21,9 @@ def test_selection_preserves_management_tools_but_not_permissions() -> None:
 
 
 def test_zero_hit_selection_fails_open_for_legacy_catalog_path() -> None:
-    selection = ToolSelectionPolicy().select((_tool("read_file"), _tool("list_dir")), {"missing"})
+    selection = ToolSelectionPolicy().select(
+        (_tool("read_file"), _tool("list_dir")), {"missing"}
+    )
 
     assert selection.used_fallback
     assert [item.name for item in selection.selected] == ["read_file", "list_dir"]

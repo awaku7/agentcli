@@ -553,10 +553,10 @@ def _apply_semantic_message_transforms(
     """Apply provider-neutral transforms before provider message projection."""
     translator = None
     if tr_cfg is not None:
+
         def translator(text: str) -> str:
-            return translate_text(
-                text, direction="to_llm", src_lang="", cfg=tr_cfg
-            )[0]
+            return translate_text(text, direction="to_llm", src_lang="", cfg=tr_cfg)[0]
+
     try:
         result = MessageTransformPipeline().apply(call_messages, translator=translator)
         return [dict(message) for message in result.messages]
@@ -588,7 +588,9 @@ def _begin_responses_runtime(
             runtime.switch_provider(provider, model)
 
         state = getattr(core, "responses_state", {})
-        previous_id = state.get("previous_response_id") if isinstance(state, dict) else None
+        previous_id = (
+            state.get("previous_response_id") if isinstance(state, dict) else None
+        )
         if isinstance(previous_id, str) and previous_id.startswith("resp_"):
             if runtime.previous_response_id != previous_id:
                 runtime.restore_continuation(

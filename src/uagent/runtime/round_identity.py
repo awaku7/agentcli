@@ -58,9 +58,7 @@ def canonical_json(value: Any) -> bytes:
             # Float policy/version must be carried by the caller's payload.
             return json.dumps(item, ensure_ascii=False, allow_nan=False)
         if isinstance(item, str):
-            return json.dumps(
-                unicodedata.normalize("NFC", item), ensure_ascii=False
-            )
+            return json.dumps(unicodedata.normalize("NFC", item), ensure_ascii=False)
         if isinstance(item, Mapping):
             pairs: list[tuple[str, Any]] = []
             normalized_keys: set[str] = set()
@@ -75,9 +73,11 @@ def canonical_json(value: Any) -> bytes:
                 normalized_keys.add(normalized_key)
                 pairs.append((normalized_key, child))
             pairs.sort(key=lambda pair: pair[0].encode("utf-16-be"))
-            return "{" + ",".join(
-                f"{encode(key)}:{encode(child)}" for key, child in pairs
-            ) + "}"
+            return (
+                "{"
+                + ",".join(f"{encode(key)}:{encode(child)}" for key, child in pairs)
+                + "}"
+            )
         if isinstance(item, Sequence) and not isinstance(item, (str, bytes)):
             return "[" + ",".join(encode(child) for child in item) + "]"
         raise CanonicalJsonError(f"unsupported identity value: {type(item).__name__}")
@@ -158,7 +158,9 @@ class RoundIdentityFactory:
             raise TypeError("canonical_payload must be bytes")
         key = self.key_provider.get_key(self.workspace_id)
         if not isinstance(key, bytes) or len(key) < 32:
-            raise WorkspaceKeyUnavailable("workspace key must contain at least 32 bytes")
+            raise WorkspaceKeyUnavailable(
+                "workspace key must contain at least 32 bytes"
+            )
         message = b"uag/round-identity/" + self.version.encode("ascii")
         message += b"/" + namespace.encode("ascii") + b"\0" + canonical_payload
         return hmac.new(key, message, hashlib.sha256).hexdigest()

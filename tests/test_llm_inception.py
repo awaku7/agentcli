@@ -163,7 +163,6 @@ def test_inception_adapter_emits_cancel_terminal_event() -> None:
     ]
 
 
-
 def test_inception_adapter_closes_provider_stream_on_consumer_close() -> None:
     stream = _ClosableStream()
     events = inception_stream_events(stream, identifiers=_identifiers())

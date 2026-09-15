@@ -110,7 +110,10 @@ class ToolDeliveryStrategy:
             )
         mode = (
             ToolDeliveryMode.MANAGEMENT_TOOLS
-            if all(item.name in {"tool_catalog", "tool_load", "unload_tool"} for item in candidates)
+            if all(
+                item.name in {"tool_catalog", "tool_load", "unload_tool"}
+                for item in candidates
+            )
             else ToolDeliveryMode.LOADED_SPECS
         )
         return ToolDelivery(

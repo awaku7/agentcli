@@ -73,9 +73,7 @@ def test_unknown_or_wrong_generation_tool_output_cannot_continue() -> None:
     runtime.record_response("resp_1", tool_calls=[{"id": "call-1"}])
 
     with pytest.raises(UnknownToolOutput):
-        runtime.accept_tool_output(
-            "resp_1", "call-unknown", {}, session_generation=4
-        )
+        runtime.accept_tool_output("resp_1", "call-unknown", {}, session_generation=4)
     assert runtime.state == "Failed"
     assert runtime.accept_retry(
         RetryRequest(reason="feature_fallback", detail="new turn"),
@@ -85,9 +83,7 @@ def test_unknown_or_wrong_generation_tool_output_cannot_continue() -> None:
     runtime.begin_request()
     runtime.record_response("resp_2", tool_calls=[{"id": "call-2"}])
     with pytest.raises(UnknownToolOutput):
-        runtime.accept_tool_output(
-            "resp_2", "call-2", {}, session_generation=99
-        )
+        runtime.accept_tool_output("resp_2", "call-2", {}, session_generation=99)
     assert runtime.state == "Failed"
 
 

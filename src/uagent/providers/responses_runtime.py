@@ -12,7 +12,6 @@ from typing import Any, Literal, Mapping
 from .responses_manager import ResponsesCapabilities, get_responses_capabilities
 from ..runtime.round_runtime import RetryRequest
 
-
 ContinuationState = Literal[
     "Fresh",
     "Restored",

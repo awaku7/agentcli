@@ -15,7 +15,9 @@ from uagent.uagent_llm import (
 )
 
 
-def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(monkeypatch) -> None:
+def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(
+    monkeypatch,
+) -> None:
     monkeypatch.setenv("UAGENT_ROUND_CONTRACTS", "0")
     core = SimpleNamespace(
         context_plan="legacy-sentinel",
@@ -30,9 +32,12 @@ def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(monkeypatch
     )
 
     assert core.context_plan == "legacy-sentinel"
-    assert _begin_responses_runtime(
-        core=core, provider="openai", model="gpt-test", enabled=False
-    ) is None
+    assert (
+        _begin_responses_runtime(
+            core=core, provider="openai", model="gpt-test", enabled=False
+        )
+        is None
+    )
     assert not hasattr(core, "responses_runtime")
 
 

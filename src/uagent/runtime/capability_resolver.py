@@ -120,7 +120,9 @@ class CapabilityResolver:
             tools=self._static(spec.supports_tools, "provider_registry"),
             vision=self._static(spec.supports_vision, "provider_registry"),
             responses_create=self._model_feature(
-                "responses_api", spec.name, normalized_model,
+                "responses_api",
+                spec.name,
+                normalized_model,
                 implemented=responses_implemented and responses.create,
                 source="responses_manager",
             ),
@@ -135,7 +137,9 @@ class CapabilityResolver:
                 responses_implemented and responses.compact, "responses_manager"
             ),
             structured_output=self._model_feature(
-                "json_schema", spec.name, normalized_model,
+                "json_schema",
+                spec.name,
+                normalized_model,
                 implemented=True,
                 source="llmcapa",
             ),

@@ -76,9 +76,7 @@ class Finding:
 
 
 def _placeholders(value: str) -> list[str]:
-    names = {
-        match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)
-    }
+    names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)}
     names.update(match.group("name") for match in BRACE_PLACEHOLDER_RE.finditer(value))
     return sorted(names)
 

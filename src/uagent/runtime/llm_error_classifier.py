@@ -70,7 +70,9 @@ class LLMErrorClassifier:
         value = getattr(error, "status_code", None) or getattr(error, "status", None)
         if value is None:
             response = getattr(error, "response", None)
-            value = getattr(response, "status_code", None) or getattr(response, "status", None)
+            value = getattr(response, "status_code", None) or getattr(
+                response, "status", None
+            )
         try:
             return int(value) if value is not None else None
         except (TypeError, ValueError):
@@ -79,7 +81,10 @@ class LLMErrorClassifier:
     @staticmethod
     def _headers(error: BaseException) -> dict[str, str]:
         result: dict[str, str] = {}
-        for source in (getattr(error, "headers", None), getattr(getattr(error, "response", None), "headers", None)):
+        for source in (
+            getattr(error, "headers", None),
+            getattr(getattr(error, "response", None), "headers", None),
+        ):
             if not source:
                 continue
             try:

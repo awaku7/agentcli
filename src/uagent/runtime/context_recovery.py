@@ -9,7 +9,6 @@ from typing import Any, Literal, Mapping, Protocol
 
 from .round_contracts import ContextPlan
 
-
 RecoveryClassification = Literal[
     "context_overflow",
     "stale_continuation",

@@ -7,7 +7,6 @@ from typing import Literal, Mapping
 
 from .round_contracts import StreamEvent
 
-
 RetryReason = Literal[
     "stale_continuation",
     "context_overflow",
@@ -90,7 +89,10 @@ class StreamEventValidator:
             raise StreamContractError("validator accepts one stream_id only")
         if self._terminal:
             raise StreamContractError("event received after terminal event")
-        if self._last_sequence is not None and event.sequence_number <= self._last_sequence:
+        if (
+            self._last_sequence is not None
+            and event.sequence_number <= self._last_sequence
+        ):
             raise StreamContractError("stream sequence_number must increase")
         self._last_sequence = event.sequence_number
 

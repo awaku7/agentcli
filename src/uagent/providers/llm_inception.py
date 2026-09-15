@@ -126,9 +126,7 @@ def inception_stream_events(
                 acc["id"] = call_id
                 fn_delta = getattr(tool_delta, "function", None)
                 name = getattr(fn_delta, "name", None) if fn_delta else None
-                arguments = (
-                    getattr(fn_delta, "arguments", None) if fn_delta else None
-                )
+                arguments = getattr(fn_delta, "arguments", None) if fn_delta else None
                 name_fragment = name if isinstance(name, str) else ""
                 arguments_fragment = arguments if isinstance(arguments, str) else ""
                 acc["name"] += name_fragment

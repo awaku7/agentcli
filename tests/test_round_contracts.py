@@ -205,12 +205,19 @@ def test_plan_id_changes_when_key_or_policy_changes() -> None:
     other_key_factory = _factory(b"uagent-round-identity-other-key-v1")
 
     assert factory.plan_id_for(payload) != other_key_factory.plan_id_for(payload)
-    assert factory.plan_id_for(payload) != factory.plan_id_for({**payload, "policy": "v2"})
+    assert factory.plan_id_for(payload) != factory.plan_id_for(
+        {**payload, "policy": "v2"}
+    )
 
 
 def test_projection_id_changes_with_projection_policy() -> None:
     factory = _factory()
-    base = {"plan_id": "plan-1", "provider": "openai", "model": "model", "transport": "responses"}
+    base = {
+        "plan_id": "plan-1",
+        "provider": "openai",
+        "model": "model",
+        "transport": "responses",
+    }
 
     assert factory.projection_id_for(base) != factory.projection_id_for(
         {**base, "reasoning_policy": "high"}
@@ -250,7 +257,9 @@ def test_stream_validator_accepts_one_terminal_event() -> None:
         ],
     ],
 )
-def test_stream_validator_rejects_invalid_terminal_or_sequence(events: list[StreamEvent]) -> None:
+def test_stream_validator_rejects_invalid_terminal_or_sequence(
+    events: list[StreamEvent],
+) -> None:
     validator = getattr(round_contracts, "validate_stream_events", None)
     if validator is None:
         pytest.skip("StreamEvent validator is supplied by the primary workstream")
