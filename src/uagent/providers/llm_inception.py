@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 import time
+import uuid
 from typing import Any, Iterator
 
 from ..runtime.round_contracts import RoundIdentifiers, StreamEvent
@@ -185,69 +186,89 @@ def parse_inception_stream(
     each content delta is the complete refined snapshot and must replace the
     previous display instead of being concatenated.
     """
+    stream_id = "inception-" + uuid.uuid4().hex
+    identifiers = RoundIdentifiers(
+        turn_id="compat-" + stream_id,
+        round_id="compat-" + stream_id,
+        attempt_id="compat-" + stream_id,
+        request_id="compat-" + stream_id,
+        stream_id=stream_id,
+        session_generation=int(getattr(core, "session_generation", 0) or 0),
+    )
+    events = inception_stream_events(
+        stream,
+        identifiers=identifiers,
+        diffusing=diffusing,
+        cancellation=getattr(core, "cancellation_token", None),
+    )
+    return collect_inception_stream_events(
+        events,
+        diffusing=diffusing,
+        print_delta_fn=print_delta_fn,
+        core=core,
+    )
+
+
+def collect_inception_stream_events(
+    events: Iterator[StreamEvent],
+    *,
+    diffusing: bool = False,
+    print_delta_fn: Any = None,
+    core: Any = None,
+) -> tuple[str, str, list[dict[str, Any]]]:
+    """Render and collect normalized events for the compatibility API.
+
+    Rendering is intentionally downstream of :func:`inception_stream_events`.
+    CLI, GUI, and Web can replace this collector independently while the
+    provider adapter continues to expose the same event contract.
+    """
     text_parts: list[str] = []
     latest_text = ""
-    tool_calls_acc: dict[int, dict[str, Any]] = {}
+    tool_calls: list[dict[str, Any]] = []
     displayed_lines = 0
-
-    try:
-        for chunk in stream:
-            choices = getattr(chunk, "choices", None) or []
-            if not choices:
+    terminal = ""
+    for event in events:
+        if event.type in {"TextDelta", "TextSnapshot"}:
+            text = event.data.get("text")
+            if not isinstance(text, str) or not text:
                 continue
-            delta = getattr(choices[0], "delta", None)
-            if delta is None:
-                continue
-
-            content_delta = getattr(delta, "content", None)
-            if isinstance(content_delta, str) and content_delta:
-                if diffusing:
-                    latest_text = content_delta
-                    displayed_lines = _emit_snapshot(
-                        latest_text,
-                        print_delta_fn=print_delta_fn,
-                        core=core,
-                        previous_lines=displayed_lines,
-                    )
-                else:
-                    text_parts.append(content_delta)
-                    if print_delta_fn and not bool(getattr(core, "_is_web", False)):
-                        print_delta_fn(content_delta)
-                    elif bool(getattr(core, "_is_web", False)) and core is not None:
-                        log_message = getattr(core, "log_message", None)
-                        if callable(log_message):
-                            log_message(
-                                {
-                                    "type": "assistant_stream_delta",
-                                    "delta": content_delta,
-                                }
-                            )
-
-            tool_deltas = getattr(delta, "tool_calls", None) or []
-            for tool_delta in tool_deltas:
-                index = getattr(tool_delta, "index", 0) or 0
-                acc = tool_calls_acc.setdefault(
-                    index,
-                    {
-                        "id": "",
-                        "type": "function",
-                        "function": {"name": "", "arguments": ""},
-                    },
+            if event.type == "TextSnapshot":
+                latest_text = text
+                displayed_lines = _emit_snapshot(
+                    latest_text,
+                    print_delta_fn=print_delta_fn,
+                    core=core,
+                    previous_lines=displayed_lines,
                 )
-                tool_id = getattr(tool_delta, "id", None)
-                if isinstance(tool_id, str) and tool_id:
-                    acc["id"] = tool_id
-                fn_delta = getattr(tool_delta, "function", None)
-                if fn_delta is not None:
-                    name = getattr(fn_delta, "name", None)
-                    arguments = getattr(fn_delta, "arguments", None)
-                    if isinstance(name, str):
-                        acc["function"]["name"] += name
-                    if isinstance(arguments, str):
-                        acc["function"]["arguments"] += arguments
-    except Exception:
-        # Match the tolerant behavior of the other provider stream parsers.
-        pass
+            else:
+                text_parts.append(text)
+                if print_delta_fn and not bool(getattr(core, "_is_web", False)):
+                    print_delta_fn(text)
+                elif bool(getattr(core, "_is_web", False)) and core is not None:
+                    log_message = getattr(core, "log_message", None)
+                    if callable(log_message):
+                        log_message({"type": "assistant_stream_delta", "delta": text})
+        elif event.type == "ToolCallCompleted":
+            name = event.data.get("name")
+            if isinstance(name, str) and name:
+                tool_calls.append(
+                    {
+                        "id": str(event.data.get("tool_call_id") or ""),
+                        "type": "function",
+                        "function": {
+                            "name": name,
+                            "arguments": str(event.data.get("arguments") or ""),
+                        },
+                    }
+                )
+        elif event.type in {
+            "ResponseCompleted",
+            "ResponseFailed",
+            "ResponseCancelled",
+            "ResponseTimedOut",
+            "ResponseInterrupted",
+        }:
+            terminal = event.type
 
     result_text = latest_text if diffusing else "".join(text_parts)
     gui_callback = getattr(core, "_inception_diffusion_callback", None)
@@ -272,7 +293,9 @@ def parse_inception_stream(
         if callable(log_message):
             log_message({"type": "assistant_stream_end"})
 
-    tool_calls = [
-        item for _, item in sorted(tool_calls_acc.items()) if item["function"]["name"]
-    ]
+    if core is not None:
+        try:
+            core._last_inception_stream_terminal = terminal
+        except Exception:
+            pass
     return result_text, "", tool_calls

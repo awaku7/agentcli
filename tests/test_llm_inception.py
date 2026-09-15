@@ -42,6 +42,14 @@ def test_normal_stream_concatenates_deltas() -> None:
     assert result[0] == "Hello"
 
 
+def test_compatibility_collector_records_normalized_terminal_event() -> None:
+    core = types.SimpleNamespace(_is_web=False)
+
+    parse_inception_stream([_Chunk("ok")], core=core)
+
+    assert core._last_inception_stream_terminal == "ResponseCompleted"
+
+
 class _ClosableStream:
     def __init__(self) -> None:
         self.closed = False
