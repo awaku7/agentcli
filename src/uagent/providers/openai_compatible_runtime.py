@@ -24,7 +24,7 @@ from ..runtime.round_identity import canonical_json
 
 
 class OpenAICompatibleRuntime:
-    """Adapt Chat Completions or Responses streaming for registry execution."""
+    """Adapt Chat Completions or Responses requests for registry execution."""
 
     def __init__(
         self,
@@ -34,6 +34,7 @@ class OpenAICompatibleRuntime:
         model: str,
         identifiers: RoundIdentifiers,
         transport: str = "chat_completions",
+        streaming: bool = True,
         options: Mapping[str, Any] | None = None,
     ) -> None:
         self._client = client
@@ -41,6 +42,7 @@ class OpenAICompatibleRuntime:
         self._model = model
         self._identifiers = identifiers
         self._transport = transport
+        self._streaming = streaming
         self._options = dict(options or {})
 
     def project(
@@ -112,9 +114,12 @@ class OpenAICompatibleRuntime:
                         for key, value in request.payload.items()
                         if key != "transport"
                     },
-                    stream=True,
+                    stream=self._streaming,
                 )
-                yield from self._responses_events(stream, cancellation)
+                if self._streaming:
+                    yield from self._responses_events(stream, cancellation)
+                else:
+                    yield from self._responses_response_events(stream, cancellation)
             else:
                 stream = self._client.chat.completions.create(
                     **{
@@ -122,9 +127,12 @@ class OpenAICompatibleRuntime:
                         for key, value in request.payload.items()
                         if key != "transport"
                     },
-                    stream=True,
+                    stream=self._streaming,
                 )
-                yield from self._chat_events(stream, cancellation)
+                if self._streaming:
+                    yield from self._chat_events(stream, cancellation)
+                else:
+                    yield from self._chat_response_events(stream, cancellation)
         except TimeoutError:
             yield self._event("ResponseTimedOut", {"reason": "timeout"})
         except Exception as exc:
@@ -136,6 +144,76 @@ class OpenAICompatibleRuntime:
             close = getattr(stream, "close", None)
             if callable(close):
                 close()
+
+    def _chat_response_events(
+        self, response: Any, cancellation: CancellationToken
+    ) -> Iterator[StreamEvent]:
+        if cancellation.is_cancelled():
+            yield self._event("ResponseCancelled", {"reason": "cancelled"})
+            return
+        choices = getattr(response, "choices", None) or []
+        message = getattr(choices[0], "message", None) if choices else None
+        content = getattr(message, "content", None) if message is not None else None
+        if isinstance(content, str) and content:
+            yield self._event("TextDelta", {"text": content})
+        tool_calls: dict[int, dict[str, str]] = {}
+        for index, item in enumerate(getattr(message, "tool_calls", None) or []):
+            function = getattr(item, "function", None)
+            call_id = str(getattr(item, "id", "") or f"openai-tool-{index}")
+            name = str(getattr(function, "name", "") or "")
+            arguments = str(getattr(function, "arguments", "") or "")
+            tool_calls[index] = {"id": call_id, "name": name, "arguments": arguments}
+            yield self._event(
+                "ToolCallDelta",
+                {
+                    "index": index,
+                    "tool_call_id": call_id,
+                    "name_fragment": name,
+                    "arguments_fragment": arguments,
+                },
+            )
+        yield from self._complete_tools(tool_calls)
+        yield self._event("ResponseCompleted", {})
+
+    def _responses_response_events(
+        self, response: Any, cancellation: CancellationToken
+    ) -> Iterator[StreamEvent]:
+        if cancellation.is_cancelled():
+            yield self._event("ResponseCancelled", {"reason": "cancelled"})
+            return
+        text = getattr(response, "output_text", None)
+        if isinstance(text, str) and text:
+            yield self._event("TextDelta", {"text": text})
+        tool_calls: dict[str, dict[str, str]] = {}
+        for index, item in enumerate(getattr(response, "output", None) or []):
+            if str(getattr(item, "type", "") or "") != "function_call":
+                continue
+            call_id = str(getattr(item, "call_id", "") or getattr(item, "id", "") or "")
+            if not call_id:
+                continue
+            name = str(getattr(item, "name", "") or "")
+            arguments = getattr(item, "arguments", "")
+            if isinstance(arguments, dict):
+                arguments = json.dumps(arguments, ensure_ascii=False)
+            arguments = str(arguments or "")
+            tool_calls[call_id] = {
+                "id": call_id,
+                "name": name,
+                "arguments": arguments,
+            }
+            yield self._event(
+                "ToolCallDelta",
+                {
+                    "index": index,
+                    "tool_call_id": call_id,
+                    "name_fragment": name,
+                    "arguments_fragment": arguments,
+                },
+            )
+        yield from self._complete_tools(tool_calls)
+        response_id = getattr(response, "id", None)
+        data = {"response_id": str(response_id)} if response_id else {}
+        yield self._event("ResponseCompleted", data)
 
     def _event(self, event_type: str, data: Mapping[str, Any]) -> StreamEvent:
         sequence = getattr(self, "_sequence", 0)

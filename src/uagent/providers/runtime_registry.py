@@ -21,6 +21,7 @@ def build_provider_runtime_registry(
     model: str,
     identifiers: RoundIdentifiers,
     transport: str = "chat_completions",
+    streaming: bool = True,
     options: Mapping[str, Any] | None = None,
 ) -> ProviderRuntimeRegistry:
     """Build a registry for one migrated provider family.
@@ -49,6 +50,7 @@ def build_provider_runtime_registry(
             model=model,
             identifiers=identifiers,
             transport=transport,
+            streaming=streaming,
             options=options,
         )
 

@@ -26,7 +26,7 @@ class _Chat:
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
-        return iter(self.chunks)
+        return iter(self.chunks) if kwargs.get("stream") else self.chunks
 
 
 class _Responses:
@@ -36,7 +36,7 @@ class _Responses:
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
-        return iter(self.events)
+        return iter(self.events) if kwargs.get("stream") else self.events
 
 
 class _Client:
@@ -230,6 +230,94 @@ def test_responses_runtime_completes_tool_call_from_output_item_done() -> None:
     assert completed.data["tool_call_id"] == "call_1"
     assert completed.data["name"] == "read_file"
     assert completed.data["validated_arguments"] == {"path": "a"}
+
+
+def test_chat_runtime_normalizes_non_streaming_completion() -> None:
+    completion = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    content="complete",
+                    tool_calls=[
+                        SimpleNamespace(
+                            id="call_1",
+                            function=SimpleNamespace(
+                                name="read_file", arguments='{"path":"a"}'
+                            ),
+                        )
+                    ],
+                )
+            )
+        ]
+    )
+    client = _Client(chunks=completion)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        streaming=False,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ToolCallDelta",
+        "ToolCallCompleted",
+        "ResponseCompleted",
+    ]
+    assert client.chat.completions.calls[0]["stream"] is False
+
+
+def test_responses_runtime_normalizes_non_streaming_completion() -> None:
+    response = SimpleNamespace(
+        id="resp_1",
+        output_text="complete",
+        output=[
+            SimpleNamespace(
+                type="function_call",
+                id="fc_1",
+                call_id="call_1",
+                name="read_file",
+                arguments={"path": "a"},
+            )
+        ],
+    )
+    client = _Client(events=response)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        streaming=False,
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    events = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert events[-1].data["response_id"] == "resp_1"
+    assert events[-2].data["validated_arguments"] == {"path": "a"}
+    assert client.responses.calls[0]["stream"] is False
 
 
 def test_chat_serialization_preserves_advanced_generation_options() -> None:

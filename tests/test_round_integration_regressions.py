@@ -63,6 +63,44 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
     assert result == (True, "registry-ok", "", [])
 
 
+def test_registry_chat_round_supports_non_streaming_mode(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(content="registry-ok", tool_calls=[])
+                    )
+                ]
+            )
+
+    chat = Chat()
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=chat)),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=SimpleNamespace(workdir=str(tmp_path), cancellation_token=None),
+        use_responses_api=False,
+        stream_responses=False,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "registry-ok", "", [])
+    assert chat.calls[0]["stream"] is False
+
+
 def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None:
     class Chat:
         def __init__(self) -> None:

@@ -734,8 +734,6 @@ def _try_registry_simple_chat_round(
     ).strip().lower() in {"1", "true", "yes", "on"}
     if use_responses_api and not responses_opt_in:
         return None
-    if not use_responses_api and not stream_responses:
-        return None
     tools_opt_in = (env_get("UAGENT_PROVIDER_REGISTRY_TOOLS", "") or "").strip().lower()
     if send_tools_this_round and tools_opt_in not in {"1", "true", "yes", "on"}:
         return None
@@ -813,6 +811,7 @@ def _try_registry_simple_chat_round(
             model=depname,
             identifiers=identifiers,
             transport=transport,
+            streaming=stream_responses,
             options=options,
         )
         cancellation = getattr(core, "cancellation_token", None)
