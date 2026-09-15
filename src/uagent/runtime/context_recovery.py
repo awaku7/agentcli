@@ -22,7 +22,13 @@ RecoveryStrategy = Literal[
     "client_projection",
     "bounded_rollback",
 ]
-RemoteMutationStatus = Literal["not_attempted", "applied", "rejected", "stale"]
+RemoteMutationStatus = Literal[
+    "not_attempted",
+    "applied",
+    "rejected",
+    "stale",
+    "unknown",
+]
 
 
 @dataclass(frozen=True)
