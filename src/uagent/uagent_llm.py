@@ -670,6 +670,13 @@ def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -
             state,
             expected_session_generation=generation,
         )
+        core.last_recovery_update = {
+            "recovery_id": recovery_plan.recovery_id,
+            "strategy": recovery_plan.strategy,
+            "status": update.remote_mutation_status,
+            "session_generation": update.session_generation,
+            "journal_entry_id": update.journal_entry_id,
+        }
         return _apply_remote_recovery_update(core, update)
     except Exception:
         return False
