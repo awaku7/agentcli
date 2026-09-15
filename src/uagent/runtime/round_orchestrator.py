@@ -79,19 +79,28 @@ class RoundOrchestrator:
             response_id = terminal.data.get("response_id")
             if response_id:
                 continuation_update["response_id"] = str(response_id)
+        result = RoundResult(
+            identifiers=request.identifiers,
+            plan_id=plan.plan_id,
+            projection_id=projection.projection_id,
+            status=status,  # type: ignore[arg-type]
+            assistant_text=snapshot or "".join(text_parts),
+            partial_text="".join(text_parts),
+            reasoning_text="".join(reasoning_parts),
+            tool_calls=tuple(tool_calls),
+            continuation_update=continuation_update,
+            error=dict(terminal.data) if status == "failed" else None,
+        )
+        if continuation_update:
+            responses_runtime = session.get("responses_runtime")
+            sync_completed = getattr(responses_runtime, "sync_completed_response", None)
+            if callable(sync_completed):
+                sync_completed(
+                    continuation_update["response_id"],
+                    tool_calls=tool_calls,
+                )
         return OrchestratedRound(
             request=request,
             events=tuple(events),
-            result=RoundResult(
-                identifiers=request.identifiers,
-                plan_id=plan.plan_id,
-                projection_id=projection.projection_id,
-                status=status,  # type: ignore[arg-type]
-                assistant_text=snapshot or "".join(text_parts),
-                partial_text="".join(text_parts),
-                reasoning_text="".join(reasoning_parts),
-                tool_calls=tuple(tool_calls),
-                continuation_update=continuation_update,
-                error=dict(terminal.data) if status == "failed" else None,
-            ),
+            result=result,
         )

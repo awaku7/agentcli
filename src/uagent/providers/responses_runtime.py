@@ -160,6 +160,20 @@ class ResponsesRuntime:
         if not self._pending:
             self.state = "Continuing"
 
+    def sync_completed_response(
+        self,
+        response_id: str,
+        *,
+        tool_calls: list[Mapping[str, Any]] | tuple[Mapping[str, Any], ...] = (),
+    ) -> None:
+        """Synchronize a completed adapter result into continuation state."""
+        if not self.capabilities.previous_response_id:
+            self.clear_continuation("unsupported_continuation")
+            return
+        if self.state not in {"Active", "Continuing"}:
+            self.state = "Active"
+        self.record_response(response_id, tool_calls=tool_calls)
+
     def request_stale_retry(self, detail: str = "stale continuation") -> RetryRequest:
         """Return a retry request and invalidate the stale continuation."""
         self._clear_ids()

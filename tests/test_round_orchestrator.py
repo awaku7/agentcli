@@ -42,6 +42,14 @@ class _Runtime:
         )
 
 
+class _ResponsesRuntime:
+    def __init__(self) -> None:
+        self.calls = []
+
+    def sync_completed_response(self, response_id, *, tool_calls=()):
+        self.calls.append((response_id, tuple(tool_calls)))
+
+
 class _Cancellation:
     def is_cancelled(self):
         return False
@@ -49,18 +57,20 @@ class _Cancellation:
 
 def test_orchestrator_runs_three_stage_contract() -> None:
     registry = ProviderRuntimeRegistry()
+    responses_runtime = _ResponsesRuntime()
     registry.register("fake", _Runtime())
 
     round_ = RoundOrchestrator(registry).run(
         ContextPlan("plan", ({"role": "user", "content": "hi"},)),
         provider="fake",
-        session={},
+        session={"responses_runtime": responses_runtime},
         cancellation=_Cancellation(),
     )
 
     assert round_.result.status == "completed"
     assert round_.result.assistant_text == "hello"
     assert round_.result.continuation_update == {"response_id": "resp_1"}
+    assert responses_runtime.calls == [("resp_1", ())]
     assert [event.type for event in round_.events] == [
         "ResponseStarted",
         "TextDelta",
