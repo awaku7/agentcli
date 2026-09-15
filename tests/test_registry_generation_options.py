@@ -67,6 +67,172 @@ def test_registry_projects_chat_generation_options(monkeypatch, tmp_path) -> Non
     assert payload["reasoning_effort"] == "none"
 
 
+def test_registry_projects_azure_chat_structured_output(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(content="{}", tool_calls=[])
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    chat = Chat()
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "1")
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *args: True)
+    core = SimpleNamespace(workdir=str(tmp_path), cancellation_token=None)
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "response_mode: json\n\nresponse_schema:\n"
+                '{"type":"object","properties":{"ok":{"type":"boolean"}}}'
+            ),
+        },
+        {"role": "user", "content": "return JSON"},
+    ]
+
+    result = _try_registry_simple_chat_round(
+        provider="azure",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=chat)),
+        depname="gpt-test",
+        call_messages=messages,
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "{}", "", [])
+    assert chat.calls[0]["response_format"]["type"] == "json_schema"
+
+
+def test_registry_projects_azure_responses_structured_output(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(type="response.output_text.delta", delta="{}"),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_structured"),
+                    ),
+                ]
+            )
+
+    responses = Responses()
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_STRUCTURED_OUTPUT", "1")
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *args: True)
+    core = SimpleNamespace(
+        workdir=str(tmp_path), cancellation_token=None, responses_state={}
+    )
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "response_mode: json\n\nresponse_schema:\n"
+                '{"type":"object","properties":{"ok":{"type":"boolean"}}}'
+            ),
+        },
+        {"role": "user", "content": "return JSON"},
+    ]
+
+    result = _try_registry_simple_chat_round(
+        provider="azure",
+        client=SimpleNamespace(responses=responses),
+        depname="gpt-test",
+        call_messages=messages,
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "{}", "", [])
+    assert responses.calls[0]["text"]["format"]["type"] == "json_schema"
+
+
+def test_registry_azure_responses_tool_continuation_preserves_call_id(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(
+                        type="response.output_item.added",
+                        item=SimpleNamespace(
+                            type="function_call",
+                            id="item-1",
+                            call_id="call-1",
+                            name="read_file",
+                        ),
+                    ),
+                    SimpleNamespace(
+                        type="response.function_call_arguments.delta",
+                        item_id="item-1",
+                        delta='{"path":"a"}',
+                    ),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_next"),
+                    ),
+                ]
+            )
+
+    responses = Responses()
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state={"previous_response_id": "resp_prev"},
+        context_tool_specs=({"type": "function", "function": {"name": "read_file"}},),
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="azure",
+        client=SimpleNamespace(responses=responses),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "read a"}],
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+    )
+
+    assert result is not None
+    assert result[3][0]["tool_call_id"] == "call-1"
+    assert responses.calls[0]["previous_response_id"] == "resp_prev"
+    assert core.responses_state["previous_response_id"] == "resp_next"
+
+
 def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -> None:
     class Responses:
         def __init__(self) -> None:
