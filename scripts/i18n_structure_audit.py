@@ -59,9 +59,10 @@ SHIPPED_LOCALES = (
     "zh_CN",
     "zh_TW",
 )
-PLACEHOLDER_RE = re.compile(
+PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
+BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 
 
 @dataclass(frozen=True)
@@ -75,7 +76,11 @@ class Finding:
 
 
 def _placeholders(value: str) -> list[str]:
-    return sorted(match.group("name") for match in PLACEHOLDER_RE.finditer(value))
+    names = {
+        match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)
+    }
+    names.update(match.group("name") for match in BRACE_PLACEHOLDER_RE.finditer(value))
+    return sorted(names)
 
 
 def _po_unquote(value: str) -> str:

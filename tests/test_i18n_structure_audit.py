@@ -48,8 +48,8 @@ def test_tool_audit_detects_nested_structure_and_placeholders(tmp_path: Path) ->
     (tools / "example_tool.json").write_text(
         json.dumps(
             {
-                "en": {"nested": {"message": "Hello %(name)s"}},
-                "ja": {"nested": {"message": "こんにちは %(user)s"}, "extra": "x"},
+                "en": {"nested": {"message": "Hello {name}"}},
+                "ja": {"nested": {"message": "こんにちは {user}"}, "extra": "x"},
             }
         ),
         encoding="utf-8",
