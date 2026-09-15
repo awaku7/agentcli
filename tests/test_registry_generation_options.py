@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+from uagent.providers.openai_projection_policy import build_openai_projection
 from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
 from uagent.uagent_llm import _try_registry_simple_chat_round
 
@@ -281,3 +282,29 @@ def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -
         {"type": "compaction", "compact_threshold": 654}
     ]
     assert "service_tier" not in payload
+
+
+def test_projection_policy_is_pure_and_keeps_transport_shapes(monkeypatch) -> None:
+    messages = [{"role": "user", "content": "hello"}]
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    monkeypatch.setenv("UAGENT_MAX_TOKENS", "999")
+    monkeypatch.setenv("UAGENT_TOP_P", "0.3")
+    monkeypatch.setattr("uagent.llmcapa_util.clamp_max_tokens", lambda *args: 321)
+
+    projection = build_openai_projection(
+        provider="openai",
+        model="gpt-test",
+        transport="chat_completions",
+        messages=messages,
+        send_tools=False,
+        compaction_threshold=654,
+    )
+
+    assert messages == [{"role": "user", "content": "hello"}]
+    assert projection.reasoning == "high"
+    assert projection.effort_used == "high"
+    assert projection.options == {
+        "reasoning_effort": "high",
+        "max_tokens": 321,
+        "top_p": 0.3,
+    }

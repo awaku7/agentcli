@@ -48,9 +48,6 @@ from .runtime.provider_cache import plan_provider_cache
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
-    _extract_latest_user_text,
-    _is_thinking_task,
-    _choose_auto_effort,
     _auto_low_quality,
     _bump_effort,
     LLMWaitInterrupted,
@@ -772,89 +769,20 @@ def _try_registry_simple_chat_round(
             key_provider=key_provider,
         )
         transport = "responses" if use_responses_api else "chat_completions"
-        options: dict[str, Any] = {}
-        reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
-        auto_user_text = ""
-        effort_used: str | None = None
-        if reasoning == "auto":
-            auto_user_text = _extract_latest_user_text(call_messages)
-            if _is_thinking_task(auto_user_text):
-                effort_used = _choose_auto_effort(auto_user_text)
-        elif reasoning and reasoning not in {"off", "false", "none"}:
-            effort_used = reasoning
-        if effort_used:
-            # The Responses API nests the setting under ``reasoning`` while
-            # Chat Completions accepts the legacy top-level field.
-            if use_responses_api:
-                options["reasoning"] = {"effort": effort_used}
-            else:
-                options["reasoning_effort"] = effort_used
-        from .providers.structured_output import native_structured_output_request
+        from .providers.openai_projection_policy import build_openai_projection
 
-        response_format = native_structured_output_request(
-            call_messages, model_id=depname, provider=provider
+        projection = build_openai_projection(
+            provider=provider,
+            model=depname,
+            transport=transport,
+            messages=call_messages,
+            send_tools=send_tools_this_round,
+            compaction_threshold=_get_shrink_max_tokens(depname),
         )
-        if response_format is not None:
-            if use_responses_api:
-                if response_format.get("type") == "json_schema":
-                    schema = response_format["json_schema"]
-                    options["text"] = {
-                        "format": {
-                            "type": "json_schema",
-                            "name": schema["name"],
-                            "strict": schema["strict"],
-                            "schema": schema["schema"],
-                        }
-                    }
-                else:
-                    options["text"] = {"format": {"type": "json_object"}}
-            else:
-                options["response_format"] = response_format
-        verbosity = (env_get("UAGENT_VERBOSITY", "") or "").strip().lower()
-        if use_responses_api and verbosity in {"low", "medium", "high"}:
-            text = options.get("text")
-            text = dict(text) if isinstance(text, dict) else {}
-            text["verbosity"] = verbosity
-            options["text"] = text
-        max_tokens = (env_get("UAGENT_MAX_TOKENS", "") or "").strip()
-        if max_tokens:
-            try:
-                from .llmcapa_util import clamp_max_tokens
-
-                limit = clamp_max_tokens(int(max_tokens), depname, provider)
-                if use_responses_api:
-                    options["max_output_tokens"] = limit
-                elif (
-                    str(depname or "")
-                    .lower()
-                    .startswith(("gpt-5", "o1", "o2", "o3", "o4"))
-                ):
-                    options["max_completion_tokens"] = limit
-                else:
-                    options["max_tokens"] = limit
-            except ValueError:
-                pass
-        top_p = (env_get("UAGENT_TOP_P", "") or "").strip()
-        if not use_responses_api and top_p:
-            try:
-                options["top_p"] = float(top_p)
-            except ValueError:
-                pass
-        if provider == "openai" and (
-            env_get("UAGENT_OPENAI_FAST_MODE", "") or ""
-        ).strip().lower() in {"1", "true", "yes", "on", "fast"}:
-            options["service_tier"] = "fast"
-        if use_responses_api:
-            options["context_management"] = [
-                {
-                    "type": "compaction",
-                    "compact_threshold": _get_shrink_max_tokens(depname),
-                }
-            ]
-        if send_tools_this_round:
-            options["tool_choice"] = "auto"
-            if not use_responses_api:
-                options["reasoning_effort"] = "none"
+        options = projection.options
+        reasoning = projection.reasoning
+        auto_user_text = projection.auto_user_text
+        effort_used = projection.effort_used
         if use_responses_api:
             state = getattr(core, "responses_state", {})
             previous_id = (
