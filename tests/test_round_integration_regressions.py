@@ -18,7 +18,7 @@ from uagent.uagent_llm import (
 from uagent.llm_helpers import _env_default_on
 
 
-def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
+def test_registry_simple_chat_round_is_default_on_and_parity_safe(
     monkeypatch, tmp_path
 ) -> None:
     class Chat:
@@ -41,7 +41,9 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
         def __init__(self) -> None:
             self.chat = SimpleNamespace(completions=Chat())
 
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_TOOLS", raising=False)
     monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
@@ -61,6 +63,22 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
     )
 
     assert result == (True, "registry-ok", "", [])
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "off")
+    assert (
+        _try_registry_simple_chat_round(
+            provider="openai",
+            client=Client(),
+            depname="gpt-test",
+            call_messages=[{"role": "user", "content": "hello"}],
+            core=core,
+            use_responses_api=False,
+            stream_responses=True,
+            send_tools_this_round=False,
+            round_count=2,
+        )
+        is None
+    )
 
 
 def test_registry_chat_round_supports_non_streaming_mode(monkeypatch, tmp_path) -> None:
@@ -101,7 +119,7 @@ def test_registry_chat_round_supports_non_streaming_mode(monkeypatch, tmp_path) 
     assert chat.calls[0]["stream"] is False
 
 
-def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None:
+def test_registry_tool_round_is_default_on(monkeypatch, tmp_path) -> None:
     class Chat:
         def __init__(self) -> None:
             self.calls = []
@@ -134,9 +152,9 @@ def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None
 
     chat = Chat()
     client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
     monkeypatch.setenv("UAGENT_REASONING", "off")
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_TOOLS", raising=False)
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
         lambda: DeterministicTestWorkspaceKeyProvider(),
@@ -251,9 +269,9 @@ def test_registry_responses_round_updates_legacy_response_state(
             self.responses = responses
 
     responses = Responses()
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
     monkeypatch.setenv("UAGENT_REASONING", "low")
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", raising=False)
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
         lambda: DeterministicTestWorkspaceKeyProvider(),
@@ -324,9 +342,9 @@ def test_registry_responses_tool_round_continues_after_output(
 
     responses = Responses()
     client = SimpleNamespace(responses=responses)
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
-    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", raising=False)
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY_TOOLS", raising=False)
     monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",

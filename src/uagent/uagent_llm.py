@@ -718,28 +718,26 @@ def _try_registry_simple_chat_round(
     send_tools_this_round: bool,
     round_count: int,
 ) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
-    """Run the opt-in registry path for OpenAI-compatible streaming rounds.
+    """Run the default-on registry path for OpenAI-compatible rounds.
 
-    Responses and tool calls each require their dedicated explicit opt-in;
-    unsupported provider or message shapes fall back to the legacy path.
+    Explicit ``off`` values restore the legacy path. Unsupported providers and
+    intentionally deferred modes also retain their established fallback.
     """
     enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
     enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
     if provider not in {"openai", "azure"}:
         return None
-    if provider not in enabled_providers and "all" not in enabled_providers:
+    if enabled in {"0", "false", "no", "off"}:
+        return None
+    if enabled and provider not in enabled_providers and "all" not in enabled_providers:
         return None
     # ``auto`` relies on the legacy non-streaming quality retry policy.  Keep
     # that policy authoritative until it is represented by RoundAttemptBudget.
     if (env_get("UAGENT_REASONING", "") or "").strip().lower() == "auto":
         return None
-    responses_opt_in = (
-        env_get("UAGENT_PROVIDER_REGISTRY_RESPONSES", "") or ""
-    ).strip().lower() in {"1", "true", "yes", "on"}
-    if use_responses_api and not responses_opt_in:
+    if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
         return None
-    tools_opt_in = (env_get("UAGENT_PROVIDER_REGISTRY_TOOLS", "") or "").strip().lower()
-    if send_tools_this_round and tools_opt_in not in {"1", "true", "yes", "on"}:
+    if send_tools_this_round and not _env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"):
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
