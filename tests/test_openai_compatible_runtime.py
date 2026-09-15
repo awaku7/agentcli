@@ -153,7 +153,9 @@ def test_chat_runtime_normalizes_tool_call_fragments() -> None:
 def test_responses_runtime_normalizes_text_and_completion() -> None:
     events = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
-        SimpleNamespace(type="response.completed"),
+        SimpleNamespace(
+            type="response.completed", response=SimpleNamespace(id="resp_1")
+        ),
     ]
     client = _Client(events=events)
     runtime = OpenAICompatibleRuntime(
@@ -179,6 +181,7 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
     assert client.responses.calls[0]["model"] == "gpt-test"
     assert "input" in client.responses.calls[0]
     assert "messages" not in client.responses.calls[0]
+    assert normalized[-1].data["response_id"] == "resp_1"
 
 
 def test_runtime_cancellation_is_terminal() -> None:

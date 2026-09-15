@@ -251,7 +251,10 @@ class OpenAICompatibleRuntime:
                     )
             elif event_type == "response.completed":
                 yield from self._complete_tools(tool_calls)
-                yield self._event("ResponseCompleted", {})
+                response = getattr(event, "response", None)
+                response_id = getattr(response, "id", None) if response else None
+                data = {"response_id": str(response_id)} if response_id else {}
+                yield self._event("ResponseCompleted", data)
                 return
             elif event_type == "response.failed":
                 yield self._event(
