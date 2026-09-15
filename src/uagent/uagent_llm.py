@@ -663,6 +663,20 @@ def _try_registry_simple_chat_round(
         core, "response_format", None
     ):
         return None
+    if (env_get("UAGENT_REASONING", "") or "").strip().lower() not in {
+        "",
+        "none",
+        "off",
+        "false",
+    }:
+        return None
+    try:
+        from .providers.structured_output import structured_output_request
+
+        if structured_output_request(call_messages) is not None:
+            return None
+    except Exception:
+        return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
         from .runtime.context_plan_builder import build_context_plan

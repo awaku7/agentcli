@@ -41,6 +41,7 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
             self.chat = SimpleNamespace(completions=Chat())
 
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
         lambda: DeterministicTestWorkspaceKeyProvider(),
@@ -95,6 +96,7 @@ def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None
     chat = Chat()
     client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
@@ -182,6 +184,7 @@ def test_registry_responses_round_updates_legacy_response_state(
             self.responses = Responses()
 
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
