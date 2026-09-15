@@ -284,6 +284,60 @@ def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -
     assert "service_tier" not in payload
 
 
+def test_chat_gpt54_bootstrap_sends_management_tools_only(
+    monkeypatch, tmp_path
+) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(content="ok", tool_calls=[])
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    chat = Chat()
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.delenv("UAGENT_GPT54_TOOL_SEARCH", raising=False)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        context_tool_specs=(
+            {"type": "function", "function": {"name": "tool_catalog"}},
+            {"type": "function", "function": {"name": "tool_load"}},
+            {"type": "function", "function": {"name": "unload_tool"}},
+            {"type": "function", "function": {"name": "read_file"}},
+        ),
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=chat)),
+        depname="gpt-5.6-luna",
+        call_messages=[{"role": "user", "content": "weather"}],
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+    )
+
+    assert result == (True, "ok", "", [])
+    names = [item["function"]["name"] for item in chat.calls[0]["tools"]]
+    assert names == ["tool_catalog", "tool_load", "unload_tool"]
+
+
 def test_projection_policy_is_pure_and_keeps_transport_shapes(monkeypatch) -> None:
     messages = [{"role": "user", "content": "hello"}]
     monkeypatch.setenv("UAGENT_REASONING", "high")

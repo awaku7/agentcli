@@ -761,6 +761,26 @@ def _try_registry_simple_chat_round(
         key_provider = CredentialStoreWorkspaceKeyProvider()
         identity_factory = RoundIdentityFactory(workspace_id, key_provider)
         tool_specs = getattr(core, "context_tool_specs", None) or ()
+        if send_tools_this_round and not use_responses_api and round_count <= 1:
+            from .tools.llm_tool_narrowing import (
+                _is_gpt54_tool_search_target,
+                _is_legacy_mode,
+            )
+
+            if (
+                _is_gpt54_tool_search_target(
+                    provider=provider,
+                    depname=depname,
+                    use_responses_api=True,
+                )
+                and not _is_legacy_mode()
+            ):
+                tool_specs = tuple(
+                    spec
+                    for spec in tool_specs
+                    if isinstance(spec, dict)
+                    and (spec.get("function") or {}).get("name") in _MGMT_TOOLS
+                )
         plan = build_context_plan(
             workspace_id=workspace_id,
             messages=call_messages,
