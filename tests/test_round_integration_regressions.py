@@ -10,10 +10,55 @@ from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
 from uagent.runtime.round_runtime import RoundAttemptBudget
 from uagent.uagent_llm import (
     _begin_responses_runtime,
+    _try_registry_simple_chat_round,
     _record_responses_runtime_response,
     _record_round_context_plan,
 )
 from uagent.llm_helpers import _env_default_on
+
+
+def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
+    monkeypatch, tmp_path
+) -> None:
+    class Chat:
+        def create(self, **kwargs):
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(
+                                    content="registry-ok", tool_calls=[]
+                                )
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    class Client:
+        def __init__(self) -> None:
+            self.chat = SimpleNamespace(completions=Chat())
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    core = SimpleNamespace(workdir=str(tmp_path), cancellation_token=None)
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=Client(),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "registry-ok", "")
 
 
 def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(

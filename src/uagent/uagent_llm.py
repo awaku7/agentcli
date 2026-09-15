@@ -620,6 +620,92 @@ def _record_responses_runtime_response(
         pass
 
 
+def _try_registry_simple_chat_round(
+    *,
+    provider: str,
+    client: Any,
+    depname: str,
+    call_messages: list[dict[str, Any]],
+    core: Any,
+    use_responses_api: bool,
+    stream_responses: bool,
+    send_tools_this_round: bool,
+    round_count: int,
+) -> tuple[bool, str, str] | None:
+    """Run the opt-in registry path for simple text-only Chat rounds.
+
+    This deliberately excludes Responses, tools, and judgment mode. Returning
+    ``None`` preserves the legacy path for every unsupported or failed case.
+    """
+    enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
+    enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
+    if provider not in {"openai", "azure"}:
+        return None
+    if provider not in enabled_providers and "all" not in enabled_providers:
+        return None
+    if use_responses_api or not stream_responses or send_tools_this_round:
+        return None
+    try:
+        from .providers.runtime_registry import build_provider_runtime_registry
+        from .runtime.context_plan_builder import build_context_plan
+        from .runtime.round_contracts import RoundIdentifiers
+        from .runtime.round_identity import (
+            CredentialStoreWorkspaceKeyProvider,
+            RoundIdentityFactory,
+        )
+        from .runtime.round_orchestrator import RoundOrchestrator
+
+        marker = f"registry-{provider}-{round_count}-{id(core)}"
+        identifiers = RoundIdentifiers(
+            turn_id=marker,
+            round_id=marker,
+            attempt_id=marker,
+            request_id=marker,
+            stream_id=marker,
+            session_generation=0,
+        )
+        workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
+        key_provider = CredentialStoreWorkspaceKeyProvider()
+        identity_factory = RoundIdentityFactory(workspace_id, key_provider)
+        plan = build_context_plan(
+            workspace_id=workspace_id,
+            messages=call_messages,
+            policy={"provider": provider, "model": depname},
+            key_provider=key_provider,
+        )
+        registry = build_provider_runtime_registry(
+            provider=provider,
+            client=client,
+            model=depname,
+            identifiers=identifiers,
+            options={},
+        )
+        cancellation = getattr(core, "cancellation_token", None)
+        if cancellation is None:
+            cancellation = type(
+                "NoCancellation",
+                (),
+                {"is_cancelled": lambda self: False},
+            )()
+        result = (
+            RoundOrchestrator(registry)
+            .run(
+                plan,
+                provider=provider,
+                session={"identity_factory": identity_factory},
+                cancellation=cancellation,
+            )
+            .result
+        )
+        return (
+            result.status == "completed",
+            result.assistant_text,
+            result.reasoning_text,
+        )
+    except Exception:
+        return None
+
+
 def _run_one_round(
     provider: str,
     client: Any,
@@ -807,6 +893,49 @@ def _run_one_round(
 
     tool_calls_list: list[dict[str, Any]] = []
     assistant_text: str = ""
+
+    registry_simple_result = None
+    if not judgment_mode:
+        registry_simple_result = _try_registry_simple_chat_round(
+            provider=provider,
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+            send_tools_this_round=bool(send_tools_this_round),
+            round_count=round_count,
+        )
+    if registry_simple_result is not None:
+        ok, assistant_text, reasoning_content = registry_simple_result
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+        if not judgment_mode:
+            _emit_final_answer_if_any(
+                assistant_text=assistant_text,
+                use_responses_api=False,
+                stream_responses=stream_responses,
+                append_result_to_outfile_fn=append_result_to_outfile_fn,
+                try_open_images_from_text_fn=try_open_images_from_text_fn,
+                reasoning_content=reasoning_content,
+                skip_print=False,
+                core=core,
+                provider=provider,
+            )
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
 
     # ── Provider dispatch ─────────────────────────────────────────
 
