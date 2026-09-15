@@ -929,6 +929,16 @@ def _try_registry_simple_chat_round(
                         )
                         .result
                     )
+        # A completed registry response without text or tool calls is not a
+        # usable assistant turn. Let the established provider path retry it
+        # rather than treating an empty response as a successful final answer.
+        if (
+            result.status == "completed"
+            and not result.assistant_text
+            and not result.tool_calls
+            and not result.continuation_update
+        ):
+            return None
         if result.continuation_update and isinstance(
             getattr(core, "responses_state", None), dict
         ):

@@ -53,6 +53,37 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
+def test_registry_empty_completed_response_falls_back(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def create(self, **kwargs):
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(message=SimpleNamespace(content="", tool_calls=[]))
+                ]
+            )
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=Chat())),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=SimpleNamespace(workdir=str(tmp_path), cancellation_token=None),
+        use_responses_api=False,
+        stream_responses=False,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result is None
+
+
 def test_registry_retries_low_quality_auto_reasoning_once(
     monkeypatch, tmp_path
 ) -> None:
