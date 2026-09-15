@@ -152,10 +152,21 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             "azure": "UAGENT_AZURE_DEPNAME",
         }.get(provider)
         depname = (env_get(depname_env, "") if depname_env else "") or ""
+        responses_value = (env_get("UAGENT_RESPONSES", "") or "").strip().lower()
+        if responses_value in {"0", "false", "no", "off"}:
+            use_responses_api = False
+        elif responses_value in {"1", "true", "yes", "on"}:
+            use_responses_api = True
+        elif provider == "meta":
+            use_responses_api = True
+        else:
+            from ..llmcapa_util import provider_allows_responses_api
+
+            use_responses_api = provider_allows_responses_api(provider, depname or None)
         native_tool_search = _is_gpt54_tool_search_target(
             provider=provider,
             depname=depname,
-            use_responses_api=True,
+            use_responses_api=use_responses_api,
         )
     except Exception:
         native_tool_search = False

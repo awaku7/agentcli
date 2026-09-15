@@ -6,6 +6,7 @@ from types import SimpleNamespace
 
 from uagent import tools
 from uagent.providers.llm_openai_responses import build_responses_request
+from uagent.tools.tools_control_tool import handle_cmd_tools_list
 from uagent.uagent_llm import (
     _is_gpt54_tool_search_target,
     _select_tool_specs_for_gpt54,
@@ -277,6 +278,24 @@ def test_is_gpt54_tool_search_target() -> None:
         )
     finally:
         _restore_gpt54_tool_search_env(old_gate_env)
+
+
+def test_tools_list_chat_mode_uses_loaded_tools_not_native_inventory(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.6-luna")
+    monkeypatch.setenv("UAGENT_RESPONSES", "0")
+    with _ToolSpecsPatch(
+        [_tool_spec("tool_catalog"), _tool_spec("tool_load"), _tool_spec("unload_tool")]
+    ):
+        handle_cmd_tools_list("")
+
+    output = capsys.readouterr().out
+    assert "native tool_search" not in output
+    assert "tool_catalog" in output
+    assert "tool_load" in output
+    assert "unload_tool" in output
 
 
 def test_build_responses_request_uses_explicit_tool_specs() -> None:
