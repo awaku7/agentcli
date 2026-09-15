@@ -61,6 +61,53 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
     assert result == (True, "registry-ok", "", [])
 
 
+def test_registry_responses_round_updates_legacy_response_state(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def create(self, **kwargs):
+            return iter(
+                [
+                    SimpleNamespace(type="response.output_text.delta", delta="hello"),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_new"),
+                    ),
+                ]
+            )
+
+    class Client:
+        def __init__(self) -> None:
+            self.responses = Responses()
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state={},
+        responses_runtime=None,
+    )
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=Client(),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "hello", "", [])
+    assert core.responses_state["previous_response_id"] == "resp_new"
+
+
 def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
     monkeypatch,
 ) -> None:

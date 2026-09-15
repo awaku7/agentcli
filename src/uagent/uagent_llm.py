@@ -644,7 +644,12 @@ def _try_registry_simple_chat_round(
         return None
     if provider not in enabled_providers and "all" not in enabled_providers:
         return None
-    if use_responses_api or not stream_responses:
+    responses_opt_in = (
+        env_get("UAGENT_PROVIDER_REGISTRY_RESPONSES", "") or ""
+    ).strip().lower() in {"1", "true", "yes", "on"}
+    if use_responses_api and not responses_opt_in:
+        return None
+    if not use_responses_api and not stream_responses:
         return None
     tools_opt_in = (env_get("UAGENT_PROVIDER_REGISTRY_TOOLS", "") or "").strip().lower()
     if send_tools_this_round and tools_opt_in not in {"1", "true", "yes", "on"}:
@@ -679,12 +684,22 @@ def _try_registry_simple_chat_round(
             policy={"provider": provider, "model": depname},
             key_provider=key_provider,
         )
+        transport = "responses" if use_responses_api else "chat_completions"
+        options: dict[str, Any] = {}
+        if use_responses_api:
+            state = getattr(core, "responses_state", {})
+            previous_id = (
+                state.get("previous_response_id") if isinstance(state, dict) else None
+            )
+            if isinstance(previous_id, str) and previous_id.startswith("resp_"):
+                options["previous_response_id"] = previous_id
         registry = build_provider_runtime_registry(
             provider=provider,
             client=client,
             model=depname,
             identifiers=identifiers,
-            options={},
+            transport=transport,
+            options=options,
         )
         cancellation = getattr(core, "cancellation_token", None)
         if cancellation is None:
@@ -698,11 +713,20 @@ def _try_registry_simple_chat_round(
             .run(
                 plan,
                 provider=provider,
-                session={"identity_factory": identity_factory},
+                session={
+                    "identity_factory": identity_factory,
+                    "responses_runtime": getattr(core, "responses_runtime", None),
+                },
                 cancellation=cancellation,
             )
             .result
         )
+        if result.continuation_update and isinstance(
+            getattr(core, "responses_state", None), dict
+        ):
+            core.responses_state["previous_response_id"] = result.continuation_update[
+                "response_id"
+            ]
         return (
             result.status == "completed",
             result.assistant_text,
