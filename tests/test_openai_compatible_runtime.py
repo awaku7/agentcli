@@ -184,6 +184,41 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
     assert normalized[-1].data["response_id"] == "resp_1"
 
 
+def test_responses_runtime_recovers_text_from_completed_response() -> None:
+    events = [
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_1", output_text="hello"),
+        )
+    ]
+    client = _Client(events=events)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    normalized = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(normalized)
+    assert [event.type for event in normalized] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+    assert normalized[1].data["text"] == "hello"
+
+
 def test_responses_runtime_completes_tool_call_from_output_item_done() -> None:
     events = [
         SimpleNamespace(

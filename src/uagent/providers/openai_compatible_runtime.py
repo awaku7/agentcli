@@ -23,6 +23,31 @@ from ..runtime.round_contracts import (
 from ..runtime.round_identity import canonical_json
 
 
+def _mapping_value(value: Any, key: str) -> Any:
+    if isinstance(value, Mapping):
+        return value.get(key)
+    return getattr(value, key, None)
+
+
+def _extract_response_text(response: Any) -> str:
+    """Recover final text when a provider omits output-text delta events."""
+    direct = _mapping_value(response, "output_text")
+    if isinstance(direct, str) and direct:
+        return direct
+    output = _mapping_value(response, "output") or ()
+    parts: list[str] = []
+    for item in output:
+        if _mapping_value(item, "type") != "message":
+            continue
+        for content in _mapping_value(item, "content") or ():
+            if _mapping_value(content, "type") != "output_text":
+                continue
+            text = _mapping_value(content, "text")
+            if isinstance(text, str) and text:
+                parts.append(text)
+    return "".join(parts)
+
+
 class OpenAICompatibleRuntime:
     """Adapt Chat Completions or Responses requests for registry execution."""
 
@@ -278,6 +303,7 @@ class OpenAICompatibleRuntime:
         tool_calls: dict[str, dict[str, str]] = {}
         item_to_call: dict[str, str] = {}
         pending_tool_deltas: dict[str, list[str]] = {}
+        text_delta_seen = False
 
         def ensure_call(call_id: str) -> dict[str, str]:
             return tool_calls.setdefault(
@@ -329,9 +355,16 @@ class OpenAICompatibleRuntime:
                 return
             event_type = str(getattr(event, "type", "") or "")
             if event_type == "response.output_text.delta":
-                yield self._event(
-                    "TextDelta", {"text": str(getattr(event, "delta", "") or "")}
-                )
+                delta = str(getattr(event, "delta", "") or "")
+                if delta:
+                    text_delta_seen = True
+                    yield self._event("TextDelta", {"text": delta})
+            elif event_type == "response.output_text.done":
+                if not text_delta_seen:
+                    text = str(getattr(event, "text", "") or "")
+                    if text:
+                        text_delta_seen = True
+                        yield self._event("TextDelta", {"text": text})
             elif event_type in {
                 "response.reasoning_summary_text.delta",
                 "response.reasoning_text.delta",
@@ -396,8 +429,13 @@ class OpenAICompatibleRuntime:
                 if call_id and isinstance(arguments, str):
                     ensure_call(call_id)["arguments"] = arguments
             elif event_type == "response.completed":
-                yield from self._complete_tools(tool_calls)
                 response = getattr(event, "response", None)
+                if not text_delta_seen and response is not None:
+                    text = _extract_response_text(response)
+                    if text:
+                        text_delta_seen = True
+                        yield self._event("TextDelta", {"text": text})
+                yield from self._complete_tools(tool_calls)
                 response_id = getattr(response, "id", None) if response else None
                 data = {"response_id": str(response_id)} if response_id else {}
                 yield self._event("ResponseCompleted", data)
