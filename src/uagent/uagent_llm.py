@@ -631,11 +631,12 @@ def _try_registry_simple_chat_round(
     stream_responses: bool,
     send_tools_this_round: bool,
     round_count: int,
-) -> tuple[bool, str, str] | None:
-    """Run the opt-in registry path for simple text-only Chat rounds.
+) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
+    """Run the opt-in registry path for simple Chat rounds.
 
-    This deliberately excludes Responses, tools, and judgment mode. Returning
-    ``None`` preserves the legacy path for every unsupported or failed case.
+    Responses remains excluded. Tool calls require the separate explicit
+    ``UAGENT_PROVIDER_REGISTRY_TOOLS`` opt-in; every other case falls back to
+    the established legacy path.
     """
     enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
     enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
@@ -643,7 +644,10 @@ def _try_registry_simple_chat_round(
         return None
     if provider not in enabled_providers and "all" not in enabled_providers:
         return None
-    if use_responses_api or not stream_responses or send_tools_this_round:
+    if use_responses_api or not stream_responses:
+        return None
+    tools_opt_in = (env_get("UAGENT_PROVIDER_REGISTRY_TOOLS", "") or "").strip().lower()
+    if send_tools_this_round and tools_opt_in not in {"1", "true", "yes", "on"}:
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
@@ -667,9 +671,11 @@ def _try_registry_simple_chat_round(
         workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
         key_provider = CredentialStoreWorkspaceKeyProvider()
         identity_factory = RoundIdentityFactory(workspace_id, key_provider)
+        tool_specs = getattr(core, "context_tool_specs", None) or ()
         plan = build_context_plan(
             workspace_id=workspace_id,
             messages=call_messages,
+            tool_specs=tool_specs if send_tools_this_round else (),
             policy={"provider": provider, "model": depname},
             key_provider=key_provider,
         )
@@ -701,6 +707,7 @@ def _try_registry_simple_chat_round(
             result.status == "completed",
             result.assistant_text,
             result.reasoning_text,
+            [dict(call) for call in result.tool_calls],
         )
     except Exception:
         return None
@@ -908,7 +915,7 @@ def _run_one_round(
             round_count=round_count,
         )
     if registry_simple_result is not None:
-        ok, assistant_text, reasoning_content = registry_simple_result
+        ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
         if not ok:
             return (
                 _RS_RETURN,
@@ -917,7 +924,7 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
-        if not judgment_mode:
+        if not tool_calls_list:
             _emit_final_answer_if_any(
                 assistant_text=assistant_text,
                 use_responses_api=False,
@@ -929,17 +936,27 @@ def _run_one_round(
                 core=core,
                 provider=provider,
             )
-        return (
-            _RS_BREAK,
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            _append_assistant_message(
+                messages=messages,
+                core=core,
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+            )
+        empty_no_tool_rounds = 0
 
     # ── Provider dispatch ─────────────────────────────────────────
 
-    if provider in ("gemini", "vertexai"):
+    if registry_simple_result is not None:
+        pass
+    elif provider in ("gemini", "vertexai"):
         (
             ok,
             client,

@@ -58,7 +58,7 @@ def test_registry_simple_chat_round_is_opt_in_and_parity_safe(
         round_count=1,
     )
 
-    assert result == (True, "registry-ok", "")
+    assert result == (True, "registry-ok", "", [])
 
 
 def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
