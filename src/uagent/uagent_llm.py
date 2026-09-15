@@ -523,13 +523,8 @@ _RS_OK = "ok"  # execute postamble then continue loop
 def _record_round_context_plan(
     *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
 ) -> None:
-    """Build an opt-in provider-neutral plan without changing the send path."""
-    if (env_get("UAGENT_ROUND_CONTRACTS") or "").strip().lower() not in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }:
+    """Build a provider-neutral plan; opt out with an explicit false value."""
+    if not _env_default_on("UAGENT_ROUND_CONTRACTS"):
         return
     workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
     tool_specs = getattr(core, "context_tool_specs", None) or ()

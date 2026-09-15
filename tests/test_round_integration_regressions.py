@@ -13,6 +13,21 @@ from uagent.uagent_llm import (
     _record_responses_runtime_response,
     _record_round_context_plan,
 )
+from uagent.llm_helpers import _env_default_on
+
+
+def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
+    monkeypatch,
+) -> None:
+    monkeypatch.delenv("UAGENT_ROUND_CONTRACTS", raising=False)
+    monkeypatch.delenv("UAGENT_ROUND_ORCHESTRATOR", raising=False)
+    assert _env_default_on("UAGENT_ROUND_CONTRACTS") is True
+    assert _env_default_on("UAGENT_ROUND_ORCHESTRATOR") is True
+
+    monkeypatch.setenv("UAGENT_ROUND_CONTRACTS", "0")
+    monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "off")
+    assert _env_default_on("UAGENT_ROUND_CONTRACTS") is False
+    assert _env_default_on("UAGENT_ROUND_ORCHESTRATOR") is False
 
 
 def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(

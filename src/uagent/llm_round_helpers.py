@@ -1357,9 +1357,7 @@ def _call_openai_azure_round(
                             core=core,
                         )
 
-                    use_orchestrator = (
-                        env_get("UAGENT_ROUND_ORCHESTRATOR", "") or ""
-                    ).strip().lower() in {"1", "true", "yes", "on"}
+                    use_orchestrator = _env_default_on("UAGENT_ROUND_ORCHESTRATOR")
                     if use_orchestrator:
                         try:
                             from .providers.inception_runtime import (
