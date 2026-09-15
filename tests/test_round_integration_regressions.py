@@ -126,42 +126,66 @@ def test_registry_tool_round_is_explicitly_opt_in(monkeypatch, tmp_path) -> None
     assert chat.calls[0]["tools"] == list(core.context_tool_specs)
 
 
-def test_registry_rollout_falls_back_for_multimodal_and_structured_content(
+def test_registry_round_supports_multimodal_content_and_structured_output(
     monkeypatch, tmp_path
 ) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(
+                                    content="registry-ok", tool_calls=[]
+                                )
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    chat = Chat()
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
-    core = SimpleNamespace(workdir=str(tmp_path), response_format=None)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.structured_output.native_structured_output_request",
+        lambda *args, **kwargs: {"type": "json_object"},
+    )
+    core = SimpleNamespace(workdir=str(tmp_path), cancellation_token=None)
+    client = SimpleNamespace(chat=SimpleNamespace(completions=chat))
 
-    assert (
-        _try_registry_simple_chat_round(
-            provider="openai",
-            client=SimpleNamespace(),
-            depname="gpt-test",
-            call_messages=[{"role": "user", "content": [{"type": "input_image"}]}],
-            core=core,
-            use_responses_api=False,
-            stream_responses=True,
-            send_tools_this_round=False,
-            round_count=1,
-        )
-        is None
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=client,
+        depname="gpt-test",
+        call_messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "describe this image"},
+                    {"type": "image_url", "image_url": {"url": "https://x/y.png"}},
+                ],
+            }
+        ],
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
     )
 
-    core.response_format = {"type": "json_schema"}
-    assert (
-        _try_registry_simple_chat_round(
-            provider="openai",
-            client=SimpleNamespace(),
-            depname="gpt-test",
-            call_messages=[{"role": "user", "content": "hello"}],
-            core=core,
-            use_responses_api=False,
-            stream_responses=True,
-            send_tools_this_round=False,
-            round_count=1,
-        )
-        is None
-    )
+    assert result == (True, "registry-ok", "", [])
+    assert chat.calls[0]["messages"][0]["content"][1]["type"] == "image_url"
+    assert chat.calls[0]["response_format"] == {"type": "json_object"}
 
 
 def test_registry_responses_round_updates_legacy_response_state(
