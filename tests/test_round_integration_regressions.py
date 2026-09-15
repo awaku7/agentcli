@@ -168,7 +168,11 @@ def test_registry_responses_round_updates_legacy_response_state(
     monkeypatch, tmp_path
 ) -> None:
     class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+
         def create(self, **kwargs):
+            self.calls.append(kwargs)
             return iter(
                 [
                     SimpleNamespace(type="response.output_text.delta", delta="hello"),
@@ -181,10 +185,11 @@ def test_registry_responses_round_updates_legacy_response_state(
 
     class Client:
         def __init__(self) -> None:
-            self.responses = Responses()
+            self.responses = responses
 
+    responses = Responses()
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
-    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_REASONING", "low")
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
     monkeypatch.setattr(
         "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
@@ -210,6 +215,8 @@ def test_registry_responses_round_updates_legacy_response_state(
 
     assert result == (True, "hello", "", [])
     assert core.responses_state["previous_response_id"] == "resp_new"
+    assert responses.calls[0]["reasoning"] == {"effort": "low"}
+    assert "reasoning_effort" not in responses.calls[0]
 
 
 def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(

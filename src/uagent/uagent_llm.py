@@ -705,11 +705,10 @@ def _try_registry_simple_chat_round(
     send_tools_this_round: bool,
     round_count: int,
 ) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
-    """Run the opt-in registry path for simple Chat rounds.
+    """Run the opt-in registry path for OpenAI-compatible streaming rounds.
 
-    Responses remains excluded. Tool calls require the separate explicit
-    ``UAGENT_PROVIDER_REGISTRY_TOOLS`` opt-in; every other case falls back to
-    the established legacy path.
+    Responses and tool calls each require their dedicated explicit opt-in;
+    unsupported provider or message shapes fall back to the legacy path.
     """
     enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
     enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
