@@ -1371,7 +1371,10 @@ def _call_openai_azure_round(
                                 ProviderRuntimeRegistry,
                                 RoundIdentifiers,
                             )
-                            from .runtime.round_identity import RoundIdentityFactory
+                            from .runtime.round_identity import (
+                                CredentialStoreWorkspaceKeyProvider,
+                                RoundIdentityFactory,
+                            )
                             from .runtime.round_orchestrator import RoundOrchestrator
 
                             stream_id = "inception-" + uuid.uuid4().hex
@@ -1384,7 +1387,10 @@ def _call_openai_azure_round(
                                 session_generation=0,
                             )
                             workspace_id = str(getattr(core, "workdir", "") or ".")
-                            identity_factory = RoundIdentityFactory(workspace_id)
+                            identity_factory = RoundIdentityFactory(
+                                workspace_id,
+                                CredentialStoreWorkspaceKeyProvider(),
+                            )
                             plan = build_context_plan(
                                 workspace_id=workspace_id,
                                 messages=call_messages,
