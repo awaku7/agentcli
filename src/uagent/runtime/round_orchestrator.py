@@ -90,6 +90,7 @@ class RoundOrchestrator:
             tool_calls=tuple(tool_calls),
             continuation_update=continuation_update,
             error=dict(terminal.data) if status == "failed" else None,
+            recovery_hint=dict(session.get("recovery_hint") or {}),
         )
         if continuation_update:
             responses_runtime = session.get("responses_runtime")

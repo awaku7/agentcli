@@ -63,13 +63,17 @@ def test_orchestrator_runs_three_stage_contract() -> None:
     round_ = RoundOrchestrator(registry).run(
         ContextPlan("plan", ({"role": "user", "content": "hi"},)),
         provider="fake",
-        session={"responses_runtime": responses_runtime},
+        session={
+            "responses_runtime": responses_runtime,
+            "recovery_hint": {"strategy": "bounded_rollback"},
+        },
         cancellation=_Cancellation(),
     )
 
     assert round_.result.status == "completed"
     assert round_.result.assistant_text == "hello"
     assert round_.result.continuation_update == {"response_id": "resp_1"}
+    assert round_.result.recovery_hint == {"strategy": "bounded_rollback"}
     assert responses_runtime.calls == [("resp_1", ())]
     assert [event.type for event in round_.events] == [
         "ResponseStarted",
