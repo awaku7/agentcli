@@ -13,7 +13,7 @@ from .llmcapa_util import provider_allows_responses_api
 
 set_thread_lang(detect_lang())
 
-from .translate import load_translate_config
+from .translate import load_translate_config, translate_text
 from typing import Any
 
 try:
@@ -41,6 +41,7 @@ from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
 from .runtime.context_plan_builder import build_context_plan
 from .runtime.context_policy import ContextPolicy
+from .runtime.message_transform import MessageTransformPipeline
 from .runtime.provider_context import project_messages_for_provider
 from .runtime.provider_cache import plan_provider_cache
 from .llm_helpers import (
@@ -49,7 +50,6 @@ from .llm_helpers import (
     LLMWaitInterrupted,
 )
 from .llm_round_helpers import (
-    _translate_call_messages,
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
     _call_gemini_round,
@@ -543,6 +543,25 @@ def _record_round_context_plan(
         core.context_plan = None
 
 
+def _apply_semantic_message_transforms(
+    call_messages: list[dict[str, Any]], tr_cfg: Any
+) -> list[dict[str, Any]]:
+    """Apply provider-neutral transforms before provider message projection."""
+    translator = None
+    if tr_cfg is not None:
+        def translator(text: str) -> str:
+            return translate_text(
+                text, direction="to_llm", src_lang="", cfg=tr_cfg
+            )[0]
+    try:
+        result = MessageTransformPipeline().apply(call_messages, translator=translator)
+        return [dict(message) for message in result.messages]
+    except Exception:
+        # Translation is optional and transformations must not interrupt the
+        # established request path while the new boundary is introduced.
+        return call_messages
+
+
 def _run_one_round(
     provider: str,
     client: Any,
@@ -612,10 +631,10 @@ def _run_one_round(
         _record_round_context_plan(
             provider=provider, depname=depname, call_messages=call_messages, core=core
         )
+    call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
     )
-    call_messages = _translate_call_messages(call_messages, tr_cfg)
 
     use_responses_api, stream_responses = _resolve_round_runtime_flags(
         tr_cfg=tr_cfg,
@@ -670,10 +689,10 @@ def _run_one_round(
                 core.active_context = active_context
                 _persist_context_decision_log(active_context, core)
                 call_messages = active_context.messages
+            call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
             call_messages = project_messages_for_provider(
                 call_messages, provider=provider, model=depname
             )
-            call_messages = _translate_call_messages(call_messages, tr_cfg)
 
     cache_plan = plan_provider_cache(
         provider=provider,
