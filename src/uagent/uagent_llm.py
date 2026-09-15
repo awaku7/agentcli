@@ -693,6 +693,19 @@ def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -
         return False
 
 
+def _sync_registry_responses_terminal(core: Any, status: str) -> None:
+    """Mirror a non-successful registry terminal state into persisted state."""
+    if status == "completed":
+        return
+    state = getattr(core, "responses_state", None)
+    if not isinstance(state, dict):
+        return
+    state.pop("previous_response_id", None)
+    state.pop("active_response_id", None)
+    state.pop("_stale_rid_occurred", None)
+    state["last_response_status"] = status
+
+
 def _try_registry_simple_chat_round(
     *,
     provider: str,
@@ -877,6 +890,8 @@ def _try_registry_simple_chat_round(
             core.responses_state["previous_response_id"] = result.continuation_update[
                 "response_id"
             ]
+        elif use_responses_api:
+            _sync_registry_responses_terminal(core, result.status)
         return (
             result.status == "completed",
             result.assistant_text,

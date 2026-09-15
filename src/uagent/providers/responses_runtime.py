@@ -239,6 +239,10 @@ class ResponsesRuntime:
     def timeout(self) -> None:
         self._terminal_clear("TimedOut")
 
+    def fail(self, reason: str = "provider_failed") -> None:
+        """Invalidate continuation after a terminal provider failure."""
+        self._fail(reason)
+
     def clear_continuation(self, reason: str = "clear") -> None:
         """Drop response IDs and pending tool outputs without touching history."""
         self._clear_ids()

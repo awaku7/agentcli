@@ -55,6 +55,34 @@ class _Cancellation:
         return False
 
 
+class _TerminalRuntime(_Runtime):
+    def __init__(self, terminal_type: str) -> None:
+        self.terminal_type = terminal_type
+
+    def run(self, request, cancellation):
+        yield StreamEvent(
+            "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+        )
+        yield StreamEvent(self.terminal_type, request.identifiers, 1, 0.0, {})
+
+
+class _TerminalResponsesRuntime:
+    def __init__(self) -> None:
+        self.transitions = []
+
+    def cancel(self):
+        self.transitions.append("cancel")
+
+    def timeout(self):
+        self.transitions.append("timeout")
+
+    def interrupt(self):
+        self.transitions.append("interrupt")
+
+    def fail(self):
+        self.transitions.append("fail")
+
+
 def test_orchestrator_runs_three_stage_contract() -> None:
     registry = ProviderRuntimeRegistry()
     responses_runtime = _ResponsesRuntime()
@@ -80,3 +108,30 @@ def test_orchestrator_runs_three_stage_contract() -> None:
         "TextDelta",
         "ResponseCompleted",
     ]
+
+
+def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:
+    transitions = {
+        "ResponseCancelled": "cancel",
+        "ResponseTimedOut": "timeout",
+        "ResponseInterrupted": "interrupt",
+        "ResponseFailed": "fail",
+    }
+    for event_type, expected in transitions.items():
+        registry = ProviderRuntimeRegistry()
+        responses_runtime = _TerminalResponsesRuntime()
+        registry.register("fake", _TerminalRuntime(event_type))
+
+        result = (
+            RoundOrchestrator(registry)
+            .run(
+                ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+                provider="fake",
+                session={"responses_runtime": responses_runtime},
+                cancellation=_Cancellation(),
+            )
+            .result
+        )
+
+        assert result.status != "completed"
+        assert responses_runtime.transitions == [expected]

@@ -10,6 +10,7 @@ from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
 from uagent.runtime.round_runtime import RoundAttemptBudget
 from uagent.uagent_llm import (
     _begin_responses_runtime,
+    _sync_registry_responses_terminal,
     _try_registry_simple_chat_round,
     _record_responses_runtime_response,
     _record_round_context_plan,
@@ -352,6 +353,24 @@ def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
     monkeypatch.setenv("UAGENT_ROUND_ORCHESTRATOR", "off")
     assert _env_default_on("UAGENT_ROUND_CONTRACTS") is False
     assert _env_default_on("UAGENT_ROUND_ORCHESTRATOR") is False
+
+
+def test_registry_response_terminal_clears_persisted_continuation() -> None:
+    for status in ("cancelled", "timed_out", "interrupted", "failed"):
+        core = SimpleNamespace(
+            responses_state={
+                "previous_response_id": "resp_1",
+                "active_response_id": "resp_1",
+                "_stale_rid_occurred": True,
+            }
+        )
+
+        _sync_registry_responses_terminal(core, status)
+
+        assert "previous_response_id" not in core.responses_state
+        assert "active_response_id" not in core.responses_state
+        assert "_stale_rid_occurred" not in core.responses_state
+        assert core.responses_state["last_response_status"] == status
 
 
 def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(

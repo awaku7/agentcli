@@ -100,6 +100,18 @@ class RoundOrchestrator:
                     continuation_update["response_id"],
                     tool_calls=tool_calls,
                 )
+        else:
+            responses_runtime = session.get("responses_runtime")
+            terminal_transition = {
+                "cancelled": "cancel",
+                "timed_out": "timeout",
+                "interrupted": "interrupt",
+                "failed": "fail",
+            }.get(status)
+            if terminal_transition is not None:
+                transition = getattr(responses_runtime, terminal_transition, None)
+                if callable(transition):
+                    transition()
         return OrchestratedRound(
             request=request,
             events=tuple(events),
