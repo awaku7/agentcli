@@ -732,24 +732,6 @@ def _try_registry_simple_chat_round(
     # explicitly covered.
     if any(not isinstance(message.get("content"), str) for message in call_messages):
         return None
-    if getattr(core, "structured_output", None) or getattr(
-        core, "response_format", None
-    ):
-        return None
-    if (env_get("UAGENT_REASONING", "") or "").strip().lower() not in {
-        "",
-        "none",
-        "off",
-        "false",
-    }:
-        return None
-    try:
-        from .providers.structured_output import structured_output_request
-
-        if structured_output_request(call_messages) is not None:
-            return None
-    except Exception:
-        return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
         from .runtime.context_plan_builder import build_context_plan
@@ -782,6 +764,16 @@ def _try_registry_simple_chat_round(
         )
         transport = "responses" if use_responses_api else "chat_completions"
         options: dict[str, Any] = {}
+        reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
+        if reasoning and reasoning not in {"off", "false", "none"}:
+            options["reasoning_effort"] = reasoning
+        from .providers.structured_output import native_structured_output_request
+
+        response_format = native_structured_output_request(
+            call_messages, model_id=depname, provider=provider
+        )
+        if response_format is not None and not use_responses_api:
+            options["response_format"] = response_format
         if use_responses_api:
             state = getattr(core, "responses_state", {})
             previous_id = (
