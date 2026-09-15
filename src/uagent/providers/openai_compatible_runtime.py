@@ -183,6 +183,17 @@ class OpenAICompatibleRuntime:
     def run(
         self, request: SerializedRequest, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
+        request_tools = request.payload.get("tools") or ()
+        tool_names = []
+        for tool in request_tools:
+            if not isinstance(tool, Mapping):
+                continue
+            function = tool.get("function")
+            name = tool.get("name")
+            if not name and isinstance(function, Mapping):
+                name = function.get("name")
+            if isinstance(name, str) and name:
+                tool_names.append(name)
         _debug_runtime(
             "request",
             provider=self._provider,
@@ -191,7 +202,8 @@ class OpenAICompatibleRuntime:
             message_count=len(
                 request.payload.get("messages", request.payload.get("input", ())) or ()
             ),
-            has_tools=bool(request.payload.get("tools")),
+            tool_count=len(request_tools),
+            tool_names=tool_names,
             option_keys=sorted(
                 key
                 for key in request.payload
