@@ -151,6 +151,11 @@ class OpenAICompatibleRuntime:
                 request.payload.get("messages", request.payload.get("input", ())) or ()
             ),
             has_tools=bool(request.payload.get("tools")),
+            option_keys=sorted(
+                key
+                for key in request.payload
+                if key not in {"model", "input", "messages", "tools"}
+            ),
         )
         yield self._event("ResponseStarted", {"stream_mode": "delta"})
         stream: Any = None
@@ -187,7 +192,17 @@ class OpenAICompatibleRuntime:
         except TimeoutError:
             yield self._event("ResponseTimedOut", {"reason": "timeout"})
         except Exception as exc:
-            _debug_runtime("error", error_type=type(exc).__name__)
+            body = getattr(exc, "body", None)
+            error_body = body.get("error") if isinstance(body, Mapping) else None
+            _debug_runtime(
+                "error",
+                error_class=type(exc).__name__,
+                status_code=getattr(exc, "status_code", None),
+                error_type=_mapping_value(error_body, "type"),
+                error_code=_mapping_value(error_body, "code"),
+                error_param=_mapping_value(error_body, "param"),
+                body_keys=sorted(body) if isinstance(body, Mapping) else (),
+            )
             yield self._event(
                 "ResponseFailed",
                 {"error_type": type(exc).__name__, "message": str(exc)},
