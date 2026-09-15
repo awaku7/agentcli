@@ -744,6 +744,44 @@ def _try_registry_simple_chat_round(
             )
             .result
         )
+        if result.status == "failed":
+            from .runtime.context_recovery import ContextRecoveryManager
+            from .runtime.llm_error_classifier import LLMErrorClassifier
+            from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
+
+            error_text = str((result.error or {}).get("message") or "")
+            if (
+                LLMErrorClassifier().classify(RuntimeError(error_text)).kind
+                == "context_overflow"
+            ):
+                budget = RoundAttemptBudget(total_limit=1)
+                if budget.try_consume(
+                    RetryRequest("context_overflow", "registry local recovery")
+                ):
+                    recovery = ContextRecoveryManager().plan(
+                        context_plan=plan,
+                        projection_id=result.projection_id,
+                        error_text=error_text,
+                        attempt_id=identifiers.attempt_id,
+                    )
+                    local = ContextRecoveryManager.apply_local(recovery, plan)
+                    recovered_plan = build_context_plan(
+                        workspace_id=workspace_id,
+                        messages=local.messages,
+                        tool_specs=tool_specs if send_tools_this_round else (),
+                        policy={"provider": provider, "model": depname},
+                        key_provider=key_provider,
+                    )
+                    result = (
+                        RoundOrchestrator(registry)
+                        .run(
+                            recovered_plan,
+                            provider=provider,
+                            session={"identity_factory": identity_factory},
+                            cancellation=cancellation,
+                        )
+                        .result
+                    )
         if result.continuation_update and isinstance(
             getattr(core, "responses_state", None), dict
         ):
