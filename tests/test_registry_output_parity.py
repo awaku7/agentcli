@@ -53,9 +53,26 @@ def test_registry_output_is_printed_when_adapter_did_not_render_stream(capsys) -
     assert opened == ["answer"]
 
 
-def test_registry_routes_reasoning_auto_to_legacy_retry_policy(
+def test_registry_retries_low_quality_auto_reasoning_once(
     monkeypatch, tmp_path
 ) -> None:
+    class Chat:
+        def __init__(self) -> None:
+            self.calls = []
+            self.responses = ["short", "A detailed architecture explanation."]
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            text = self.responses.pop(0)
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(content=text, tool_calls=[])
+                    )
+                ]
+            )
+
+    chat = Chat()
     monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
     monkeypatch.setenv("UAGENT_REASONING", "auto")
     monkeypatch.setattr(
@@ -65,14 +82,18 @@ def test_registry_routes_reasoning_auto_to_legacy_retry_policy(
 
     result = _try_registry_simple_chat_round(
         provider="openai",
-        client=SimpleNamespace(),
+        client=SimpleNamespace(chat=SimpleNamespace(completions=chat)),
         depname="gpt-test",
-        call_messages=[{"role": "user", "content": "hello"}],
+        call_messages=[
+            {"role": "user", "content": "Explain this architecture design."}
+        ],
         core=SimpleNamespace(workdir=str(tmp_path), cancellation_token=None),
-        use_responses_api=True,
+        use_responses_api=False,
         stream_responses=False,
         send_tools_this_round=False,
         round_count=1,
     )
 
-    assert result is None
+    assert result == (True, "A detailed architecture explanation.", "", [])
+    assert chat.calls[0]["reasoning_effort"] == "minimal"
+    assert chat.calls[1]["reasoning_effort"] == "low"

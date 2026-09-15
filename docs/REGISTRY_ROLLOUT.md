@@ -13,5 +13,5 @@ Use these opt-out switches to return a specific path to the legacy executor:
 | `UAGENT_PROVIDER_REGISTRY_TOOLS` | Tool-call registry routing only |
 
 Providers that do not yet have a registered runtime continue to use their
-legacy path. `UAGENT_REASONING=auto` also remains on the legacy path while its
-quality retry policy is migrated to the shared attempt budget.
+legacy path. `UAGENT_REASONING=auto` is handled by the registry with one
+budgeted quality retry when its initial effort produces an unusable answer.

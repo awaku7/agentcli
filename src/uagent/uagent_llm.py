@@ -47,6 +47,11 @@ from .runtime.provider_cache import plan_provider_cache
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
+    _extract_latest_user_text,
+    _is_thinking_task,
+    _choose_auto_effort,
+    _auto_low_quality,
+    _bump_effort,
     LLMWaitInterrupted,
 )
 from .llm_round_helpers import (
@@ -731,10 +736,6 @@ def _try_registry_simple_chat_round(
         return None
     if enabled and provider not in enabled_providers and "all" not in enabled_providers:
         return None
-    # ``auto`` relies on the legacy non-streaming quality retry policy.  Keep
-    # that policy authoritative until it is represented by RoundAttemptBudget.
-    if (env_get("UAGENT_REASONING", "") or "").strip().lower() == "auto":
-        return None
     if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
         return None
     if send_tools_this_round and not _env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"):
@@ -772,13 +773,21 @@ def _try_registry_simple_chat_round(
         transport = "responses" if use_responses_api else "chat_completions"
         options: dict[str, Any] = {}
         reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
-        if reasoning and reasoning not in {"off", "false", "none"}:
+        auto_user_text = ""
+        effort_used: str | None = None
+        if reasoning == "auto":
+            auto_user_text = _extract_latest_user_text(call_messages)
+            if _is_thinking_task(auto_user_text):
+                effort_used = _choose_auto_effort(auto_user_text)
+        elif reasoning and reasoning not in {"off", "false", "none"}:
+            effort_used = reasoning
+        if effort_used:
             # The Responses API nests the setting under ``reasoning`` while
             # Chat Completions accepts the legacy top-level field.
             if use_responses_api:
-                options["reasoning"] = {"effort": reasoning}
+                options["reasoning"] = {"effort": effort_used}
             else:
-                options["reasoning_effort"] = reasoning
+                options["reasoning_effort"] = effort_used
         from .providers.structured_output import native_structured_output_request
 
         response_format = native_structured_output_request(
@@ -837,6 +846,67 @@ def _try_registry_simple_chat_round(
             )
             .result
         )
+        if (
+            reasoning == "auto"
+            and effort_used is not None
+            and result.status == "completed"
+            and not result.tool_calls
+            and _auto_low_quality(auto_user_text, result.assistant_text)
+        ):
+            from dataclasses import replace
+
+            from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
+
+            next_effort = _bump_effort(effort_used)
+            retry_budget = RoundAttemptBudget(
+                total_limit=1, reason_limits={"feature_fallback": 1}
+            )
+            if next_effort and retry_budget.try_consume(
+                RetryRequest("feature_fallback", "reasoning auto quality retry")
+            ):
+                retry_options = dict(options)
+                if use_responses_api:
+                    retry_options["reasoning"] = {"effort": next_effort}
+                else:
+                    retry_options["reasoning_effort"] = next_effort
+                retry_identifiers = replace(
+                    identifiers,
+                    attempt_id=f"{identifiers.attempt_id}-auto-retry",
+                    request_id=f"{identifiers.request_id}-auto-retry",
+                    stream_id=f"{identifiers.stream_id}-auto-retry",
+                )
+                retry_registry = build_provider_runtime_registry(
+                    provider=provider,
+                    client=client,
+                    model=depname,
+                    identifiers=retry_identifiers,
+                    transport=transport,
+                    streaming=stream_responses,
+                    options=retry_options,
+                )
+                result = (
+                    RoundOrchestrator(retry_registry)
+                    .run(
+                        plan,
+                        provider=provider,
+                        session={
+                            "identity_factory": identity_factory,
+                            "responses_runtime": getattr(
+                                core, "responses_runtime", None
+                            ),
+                            "recovery_hint": getattr(
+                                core, "last_recovery_update", None
+                            ),
+                        },
+                        cancellation=cancellation,
+                    )
+                    .result
+                )
+                core.round_attempt_budget = retry_budget
+                core.last_auto_reasoning_retry = {
+                    "initial_effort": effort_used,
+                    "retry_effort": next_effort,
+                }
         if result.status == "failed":
             from .runtime.context_recovery import ContextRecoveryManager
             from .runtime.llm_error_classifier import LLMErrorClassifier
