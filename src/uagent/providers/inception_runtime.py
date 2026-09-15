@@ -90,9 +90,12 @@ class InceptionProviderRuntime:
         self, request: SerializedRequest, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
         stream = self._client.chat.completions.create(**request.payload, stream=True)
+        extra_body = request.payload.get("extra_body")
         yield from inception_stream_events(
             stream,
             identifiers=request.identifiers,
-            diffusing=bool(request.payload.get("diffusing", False)),
+            diffusing=bool(
+                isinstance(extra_body, Mapping) and extra_body.get("diffusing", False)
+            ),
             cancellation=cancellation,
         )

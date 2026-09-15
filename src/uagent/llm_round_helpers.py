@@ -1338,31 +1338,103 @@ def _call_openai_azure_round(
                     # Inception exposes streaming on Chat Completions rather
                     # than the Responses API. Reuse the OpenAI-compatible
                     # tool/reasoning delta parser.
-                    assistant_text, reasoning_content, tool_calls_list = (
-                        call_maybe_thread_fn(
-                            lambda: parse_inception_stream(
-                                client.chat.completions.create(
-                                    **chat_kwargs, stream=True
-                                ),
-                                diffusing=_diffusing,
-                                print_delta_fn=(
-                                    None
-                                    if bool(getattr(core, "_is_web", False))
-                                    else (
-                                        getattr(core, "print_stream_delta", None)
-                                        or (
-                                            lambda s: (
-                                                print(s, end="", flush=True)
-                                                if s
-                                                else None
-                                            )
+                    def _legacy_inception_stream() -> Any:
+                        return parse_inception_stream(
+                            client.chat.completions.create(**chat_kwargs, stream=True),
+                            diffusing=_diffusing,
+                            print_delta_fn=(
+                                None
+                                if bool(getattr(core, "_is_web", False))
+                                else (
+                                    getattr(core, "print_stream_delta", None)
+                                    or (
+                                        lambda s: (
+                                            print(s, end="", flush=True) if s else None
                                         )
                                     )
-                                ),
-                                core=core,
-                            )
+                                )
+                            ),
+                            core=core,
                         )
-                    )
+
+                    use_orchestrator = (
+                        env_get("UAGENT_ROUND_ORCHESTRATOR", "") or ""
+                    ).strip().lower() in {"1", "true", "yes", "on"}
+                    if use_orchestrator:
+                        try:
+                            from .providers.inception_runtime import (
+                                InceptionProviderRuntime,
+                            )
+                            from .providers.llm_inception import (
+                                collect_inception_stream_events,
+                            )
+                            from .runtime.context_plan_builder import build_context_plan
+                            from .runtime.round_contracts import (
+                                ProviderRuntimeRegistry,
+                                RoundIdentifiers,
+                            )
+                            from .runtime.round_identity import RoundIdentityFactory
+                            from .runtime.round_orchestrator import RoundOrchestrator
+
+                            stream_id = "inception-" + uuid.uuid4().hex
+                            identifiers = RoundIdentifiers(
+                                turn_id=stream_id,
+                                round_id=stream_id,
+                                attempt_id=stream_id,
+                                request_id=stream_id,
+                                stream_id=stream_id,
+                                session_generation=0,
+                            )
+                            workspace_id = str(getattr(core, "workdir", "") or ".")
+                            identity_factory = RoundIdentityFactory(workspace_id)
+                            plan = build_context_plan(
+                                workspace_id=workspace_id,
+                                messages=call_messages,
+                                tool_specs=req_tools or (),
+                                policy={"provider": provider, "model": depname},
+                            )
+                            options = dict(chat_kwargs)
+                            for key in ("model", "messages", "tools", "tool_choice"):
+                                options.pop(key, None)
+                            runtime = InceptionProviderRuntime(
+                                client=client,
+                                model=depname,
+                                identifiers=identifiers,
+                                options=options,
+                            )
+                            registry = ProviderRuntimeRegistry()
+                            registry.register("inception", runtime)
+                            cancellation = getattr(core, "cancellation_token", None)
+                            if cancellation is None:
+                                cancellation = type(
+                                    "NoCancellation",
+                                    (),
+                                    {"is_cancelled": lambda self: False},
+                                )()
+                            orchestrated = RoundOrchestrator(registry).run(
+                                plan,
+                                provider="inception",
+                                session={"identity_factory": identity_factory},
+                                cancellation=cancellation,
+                            )
+                            assistant_text, reasoning_content, tool_calls_list = (
+                                collect_inception_stream_events(
+                                    iter(orchestrated.events),
+                                    diffusing=_diffusing,
+                                    print_delta_fn=getattr(
+                                        core, "print_stream_delta", None
+                                    ),
+                                    core=core,
+                                )
+                            )
+                        except Exception:
+                            assistant_text, reasoning_content, tool_calls_list = (
+                                call_maybe_thread_fn(_legacy_inception_stream)
+                            )
+                    else:
+                        assistant_text, reasoning_content, tool_calls_list = (
+                            call_maybe_thread_fn(_legacy_inception_stream)
+                        )
                     resp = None
                 else:
                     resp = call_maybe_thread_fn(
