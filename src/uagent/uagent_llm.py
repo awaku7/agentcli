@@ -650,6 +650,31 @@ def _apply_remote_recovery_update(core: Any, update: Any) -> bool:
     return True
 
 
+def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -> bool:
+    """Run provider-owned compaction and adopt it only on a valid update."""
+    try:
+        from .providers.responses_manager import ResponsesManager
+        from .providers.responses_recovery_port import ResponsesRecoveryPort
+
+        state = getattr(core, "responses_state", None)
+        if not isinstance(state, dict):
+            return False
+        manager = ResponsesManager(
+            client,
+            provider=str(state.get("provider") or "openai"),
+            model=str(state.get("model") or ""),
+        )
+        generation = int(state.get("session_generation", 0) or 0)
+        update = ResponsesRecoveryPort(manager).apply(
+            recovery_plan,
+            state,
+            expected_session_generation=generation,
+        )
+        return _apply_remote_recovery_update(core, update)
+    except Exception:
+        return False
+
+
 def _try_registry_simple_chat_round(
     *,
     provider: str,
@@ -794,6 +819,16 @@ def _try_registry_simple_chat_round(
                         error_text=error_text,
                         attempt_id=identifiers.attempt_id,
                     )
+                    if use_responses_api:
+                        from dataclasses import replace
+
+                        remote_plan = replace(
+                            recovery,
+                            strategy="provider_compact",
+                            remote_session_mutation=True,
+                        )
+                        if _try_responses_remote_recovery(core, client, remote_plan):
+                            return None
                     local = ContextRecoveryManager.apply_local(recovery, plan)
                     recovered_plan = build_context_plan(
                         workspace_id=workspace_id,
