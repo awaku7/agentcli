@@ -1360,17 +1360,14 @@ def _call_openai_azure_round(
                     use_orchestrator = _env_default_on("UAGENT_ROUND_ORCHESTRATOR")
                     if use_orchestrator:
                         try:
-                            from .providers.inception_runtime import (
-                                InceptionProviderRuntime,
-                            )
                             from .providers.llm_inception import (
                                 collect_inception_stream_events,
                             )
                             from .runtime.context_plan_builder import build_context_plan
-                            from .runtime.round_contracts import (
-                                ProviderRuntimeRegistry,
-                                RoundIdentifiers,
+                            from .providers.runtime_registry import (
+                                build_provider_runtime_registry,
                             )
+                            from .runtime.round_contracts import RoundIdentifiers
                             from .runtime.round_identity import (
                                 CredentialStoreWorkspaceKeyProvider,
                                 RoundIdentityFactory,
@@ -1400,14 +1397,13 @@ def _call_openai_azure_round(
                             options = dict(chat_kwargs)
                             for key in ("model", "messages", "tools", "tool_choice"):
                                 options.pop(key, None)
-                            runtime = InceptionProviderRuntime(
+                            registry = build_provider_runtime_registry(
+                                provider="inception",
                                 client=client,
                                 model=depname,
                                 identifiers=identifiers,
                                 options=options,
                             )
-                            registry = ProviderRuntimeRegistry()
-                            registry.register("inception", runtime)
                             cancellation = getattr(core, "cancellation_token", None)
                             if cancellation is None:
                                 cancellation = type(
