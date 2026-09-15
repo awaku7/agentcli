@@ -74,6 +74,11 @@ class RoundOrchestrator:
             "ResponseInterrupted": "interrupted",
         }
         status = status_by_event[terminal.type]
+        continuation_update = {}
+        if terminal.type == "ResponseCompleted":
+            response_id = terminal.data.get("response_id")
+            if response_id:
+                continuation_update["response_id"] = str(response_id)
         return OrchestratedRound(
             request=request,
             events=tuple(events),
@@ -86,6 +91,7 @@ class RoundOrchestrator:
                 partial_text="".join(text_parts),
                 reasoning_text="".join(reasoning_parts),
                 tool_calls=tuple(tool_calls),
+                continuation_update=continuation_update,
                 error=dict(terminal.data) if status == "failed" else None,
             ),
         )

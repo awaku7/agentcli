@@ -33,7 +33,13 @@ class _Runtime:
             "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
         )
         yield StreamEvent("TextDelta", request.identifiers, 1, 0.0, {"text": "hello"})
-        yield StreamEvent("ResponseCompleted", request.identifiers, 2, 0.0, {})
+        yield StreamEvent(
+            "ResponseCompleted",
+            request.identifiers,
+            2,
+            0.0,
+            {"response_id": "resp_1"},
+        )
 
 
 class _Cancellation:
@@ -54,6 +60,7 @@ def test_orchestrator_runs_three_stage_contract() -> None:
 
     assert round_.result.status == "completed"
     assert round_.result.assistant_text == "hello"
+    assert round_.result.continuation_update == {"response_id": "resp_1"}
     assert [event.type for event in round_.events] == [
         "ResponseStarted",
         "TextDelta",
