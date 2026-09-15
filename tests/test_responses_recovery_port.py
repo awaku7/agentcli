@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from uagent.providers.responses_recovery_port import (
     InMemoryRecoveryJournal,
     ResponsesRecoveryPort,
+    SQLiteRecoveryJournal,
 )
 from uagent.runtime.context_recovery import RecoveryPlan
 
@@ -103,6 +104,28 @@ def test_non_compaction_plan_is_rejected_without_provider_call() -> None:
     assert manager.calls == []
     assert update.remote_mutation_status == "rejected"
     assert update.continuation_allowed is False
+
+
+def test_sqlite_journal_preserves_idempotency_across_port_instances(tmp_path) -> None:
+    journal_path = tmp_path / "recovery.sqlite3"
+    manager = _Manager()
+    with SQLiteRecoveryJournal(journal_path) as journal:
+        first = ResponsesRecoveryPort(manager, journal=journal).apply(
+            _plan("durable-1"),
+            {"response_id": "resp_1", "session_generation": 1},
+            expected_session_generation=1,
+        )
+
+    second_manager = _Manager("cmp_should_not_run")
+    with SQLiteRecoveryJournal(journal_path) as journal:
+        second = ResponsesRecoveryPort(second_manager, journal=journal).apply(
+            _plan("durable-1"),
+            {"response_id": "resp_1", "session_generation": 1},
+            expected_session_generation=1,
+        )
+
+    assert second == first
+    assert second_manager.calls == []
 
 
 def test_provider_error_is_unknown_and_continuation_is_blocked() -> None:

@@ -7,7 +7,10 @@ state and recovery-journal metadata are touched.
 
 from __future__ import annotations
 
+import json
+import sqlite3
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Mapping, Protocol
 
 from ..runtime.context_recovery import (
@@ -43,6 +46,61 @@ class InMemoryRecoveryJournal:
     def record(self, recovery_id: str, update: RemoteSessionUpdate) -> str:
         self.entries.setdefault(recovery_id, update)
         return update.journal_entry_id
+
+
+@dataclass
+class SQLiteRecoveryJournal:
+    """Durable metadata-only recovery journal for idempotent remote calls."""
+
+    path: str | Path
+    _connection: sqlite3.Connection = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        self._connection = sqlite3.connect(str(self.path))
+        self._connection.execute(
+            "CREATE TABLE IF NOT EXISTS responses_recovery_journal ("
+            "recovery_id TEXT PRIMARY KEY, payload TEXT NOT NULL)"
+        )
+        self._connection.commit()
+
+    def lookup(self, recovery_id: str) -> RemoteSessionUpdate | None:
+        row = self._connection.execute(
+            "SELECT payload FROM responses_recovery_journal WHERE recovery_id = ?",
+            (recovery_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        data = json.loads(str(row[0]))
+        return RemoteSessionUpdate(**data)
+
+    def record(self, recovery_id: str, update: RemoteSessionUpdate) -> str:
+        payload = json.dumps(
+            {
+                "session_generation": update.session_generation,
+                "compacted_response_id": update.compacted_response_id,
+                "remote_mutation_status": update.remote_mutation_status,
+                "continuation_allowed": update.continuation_allowed,
+                "journal_entry_id": update.journal_entry_id,
+            },
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+        self._connection.execute(
+            "INSERT OR IGNORE INTO responses_recovery_journal "
+            "(recovery_id, payload) VALUES (?, ?)",
+            (recovery_id, payload),
+        )
+        self._connection.commit()
+        return update.journal_entry_id
+
+    def close(self) -> None:
+        self._connection.close()
+
+    def __enter__(self) -> "SQLiteRecoveryJournal":
+        return self
+
+    def __exit__(self, *_: Any) -> None:
+        self.close()
 
 
 def _value(response: Any, name: str) -> Any:
@@ -188,5 +246,6 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
 __all__ = [
     "InMemoryRecoveryJournal",
     "RecoveryJournal",
+    "SQLiteRecoveryJournal",
     "ResponsesRecoveryPort",
 ]
