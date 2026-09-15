@@ -772,8 +772,22 @@ def _try_registry_simple_chat_round(
         response_format = native_structured_output_request(
             call_messages, model_id=depname, provider=provider
         )
-        if response_format is not None and not use_responses_api:
-            options["response_format"] = response_format
+        if response_format is not None:
+            if use_responses_api:
+                if response_format.get("type") == "json_schema":
+                    schema = response_format["json_schema"]
+                    options["text"] = {
+                        "format": {
+                            "type": "json_schema",
+                            "name": schema["name"],
+                            "strict": schema["strict"],
+                            "schema": schema["schema"],
+                        }
+                    }
+                else:
+                    options["text"] = {"format": {"type": "json_object"}}
+            else:
+                options["response_format"] = response_format
         if use_responses_api:
             state = getattr(core, "responses_state", {})
             previous_id = (
