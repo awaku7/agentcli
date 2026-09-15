@@ -347,13 +347,14 @@ def _translate_assistant_if_needed(
     tr_cfg: Any,
     use_responses_api: bool,
     stream_responses: bool,
+    stream_output_rendered: bool = True,
 ) -> str:
     # Translate assistant output (if enabled; avoid responses+streaming double output)
     if (
         tr_cfg is not None
         and isinstance(assistant_text, str)
         and assistant_text.strip()
-        and not (use_responses_api and stream_responses)
+        and not (use_responses_api and stream_responses and stream_output_rendered)
     ):
         out, diag = translate_text(
             assistant_text,

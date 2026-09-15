@@ -729,6 +729,10 @@ def _try_registry_simple_chat_round(
         return None
     if provider not in enabled_providers and "all" not in enabled_providers:
         return None
+    # ``auto`` relies on the legacy non-streaming quality retry policy.  Keep
+    # that policy authoritative until it is represented by RoundAttemptBudget.
+    if (env_get("UAGENT_REASONING", "") or "").strip().lower() == "auto":
+        return None
     responses_opt_in = (
         env_get("UAGENT_PROVIDER_REGISTRY_RESPONSES", "") or ""
     ).strip().lower() in {"1", "true", "yes", "on"}
@@ -1113,14 +1117,22 @@ def _run_one_round(
                 assistant_text,
             )
         if not tool_calls_list:
+            assistant_text = _translate_assistant_if_needed(
+                assistant_text=assistant_text,
+                tr_cfg=tr_cfg,
+                use_responses_api=use_responses_api,
+                stream_responses=stream_responses,
+                stream_output_rendered=False,
+            )
             _emit_final_answer_if_any(
                 assistant_text=assistant_text,
-                use_responses_api=False,
+                use_responses_api=use_responses_api,
                 stream_responses=stream_responses,
                 append_result_to_outfile_fn=append_result_to_outfile_fn,
                 try_open_images_from_text_fn=try_open_images_from_text_fn,
                 reasoning_content=reasoning_content,
                 skip_print=False,
+                stream_output_rendered=False,
                 core=core,
                 provider=provider,
             )

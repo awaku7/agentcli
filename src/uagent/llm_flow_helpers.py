@@ -98,12 +98,15 @@ def _emit_final_answer_if_any(
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
     skip_print: bool = False,
+    stream_output_rendered: bool = True,
     core: Any = None,
     provider: str = "LLM",
 ) -> None:
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
-        if not skip_print and not (use_responses_api and stream_responses):
+        if not skip_print and not (
+            use_responses_api and stream_responses and stream_output_rendered
+        ):
             # Clear the spinner line first (no-op when disabled).
             _spinner_stop_quietly()
             if reasoning_content:
