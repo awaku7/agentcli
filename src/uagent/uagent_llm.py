@@ -947,11 +947,26 @@ def _try_registry_simple_chat_round(
             ]
         elif use_responses_api:
             _sync_registry_responses_terminal(core, result.status)
+        normalized_tool_calls: list[dict[str, Any]] = []
+        for call in result.tool_calls:
+            item = dict(call)
+            function = item.get("function")
+            if not isinstance(function, dict):
+                function = {
+                    "name": str(item.get("name") or ""),
+                    "arguments": str(item.get("arguments") or "{}"),
+                }
+                item["function"] = function
+            item.setdefault(
+                "id", str(item.get("tool_call_id") or item.get("call_id") or "")
+            )
+            item.setdefault("type", "function")
+            normalized_tool_calls.append(item)
         return (
             result.status == "completed",
             result.assistant_text,
             result.reasoning_text,
-            [dict(call) for call in result.tool_calls],
+            normalized_tool_calls,
         )
     except Exception:
         return None
