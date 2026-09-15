@@ -20,6 +20,7 @@ from .util_common import strip_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .runtime.llm_error_classifier import LLMErrorClassifier
+from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
 from .reasoning_display import show_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
@@ -739,6 +740,25 @@ def _call_openai_azure_round(
     _stale_rid_retried = False
     # A proxy may transiently return a block page for /v1/responses.
     _responses_proxy_retried = False
+    # One budget spans every retry reason in this LLM execution.  Keep the
+    # legacy per-429 limit as an additional, narrower bound during migration.
+    attempt_budget = RoundAttemptBudget(
+        total_limit=max(1, max_retries_429 + 4),
+        reason_limits={
+            "stale_continuation": 1,
+            "feature_fallback": 2,
+            "transport": max(1, max_retries_429 + 1),
+            "client_recreate": 1,
+        },
+    )
+    if core is not None:
+        try:
+            core.round_attempt_budget = attempt_budget
+        except Exception:
+            pass
+
+    def _authorize_retry(reason: str, detail: str) -> bool:
+        return attempt_budget.try_consume(RetryRequest(reason, detail))
 
     def _clear_stale_rid_after_success() -> None:
         """Allow Responses API continuation again after a successful retry."""
@@ -1428,6 +1448,8 @@ def _call_openai_azure_round(
                             responses_state.pop("previous_response_id", None)
                             responses_state["_stale_rid_occurred"] = True
                     return False
+                if not _authorize_retry("stale_continuation", str(exc)):
+                    return False
                 _stale_rid_retried = True
                 if isinstance(responses_state, dict):
                     responses_state.pop("previous_response_id", None)
@@ -1464,6 +1486,8 @@ def _call_openai_azure_round(
                 and not _responses_proxy_retried
                 and _is_zscaler_responses_block(e)
             ):
+                if not _authorize_retry("transport", "responses proxy block"):
+                    return False, client, "", "", []
                 _responses_proxy_retried = True
                 _spinner_stop_quietly()
                 print(
@@ -1477,7 +1501,11 @@ def _call_openai_azure_round(
             )
             if _is_bad_request or _is_resp_validation:
                 err_text = _err_text_of(e)
-                if _is_bad_request and "does not support tools" in err_text:
+                if (
+                    _is_bad_request
+                    and "does not support tools" in err_text
+                    and _authorize_retry("feature_fallback", "tools unsupported")
+                ):
                     print(
                         error_prefix
                         + _(
@@ -1490,7 +1518,11 @@ def _call_openai_azure_round(
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     continue
-                if _is_bad_request and "does not support thinking" in err_text:
+                if (
+                    _is_bad_request
+                    and "does not support thinking" in err_text
+                    and _authorize_retry("feature_fallback", "thinking unsupported")
+                ):
                     print(
                         error_prefix
                         + _(
@@ -1529,6 +1561,8 @@ def _call_openai_azure_round(
                 )
 
                 if is_ssl_cert_error(e):
+                    if not _authorize_retry("client_recreate", "ssl verification"):
+                        return False, client, "", "", []
                     print(
                         error_prefix
                         + _t(
@@ -1562,6 +1596,9 @@ def _call_openai_azure_round(
                 cap=retry_cap,
                 recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
+            if action == "retry":
+                if not _authorize_retry("transport", _exception_text(e)):
+                    action = "give_up"
             if action == "retry":
                 if new_client is not None:
                     client = new_client
