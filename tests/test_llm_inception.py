@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import types
 
-from uagent.providers.llm_inception import parse_inception_stream
+from uagent.providers.llm_inception import (
+    inception_stream_events,
+    parse_inception_stream,
+)
+from uagent.runtime.round_contracts import RoundIdentifiers, validate_stream_events
 
 
 class _Chunk:
@@ -36,3 +40,127 @@ def test_normal_stream_concatenates_deltas() -> None:
     )
 
     assert result[0] == "Hello"
+
+
+class _ClosableStream:
+    def __init__(self) -> None:
+        self.closed = False
+        self._chunks = iter([_Chunk("first"), _Chunk("second")])
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return next(self._chunks)
+
+    def close(self) -> None:
+        self.closed = True
+
+
+class _Cancelled:
+    def __init__(self, cancelled: bool = True) -> None:
+        self.cancelled = cancelled
+
+    def is_cancelled(self) -> bool:
+        return self.cancelled
+
+
+def _identifiers() -> RoundIdentifiers:
+    return RoundIdentifiers(
+        turn_id="turn-1",
+        round_id="round-1",
+        attempt_id="attempt-1",
+        request_id="request-1",
+        stream_id="stream-1",
+        session_generation=1,
+    )
+
+
+def test_inception_delta_adapter_emits_valid_terminal_stream() -> None:
+    events = list(
+        inception_stream_events(
+            [_Chunk("Hel"), _Chunk("lo")],
+            identifiers=_identifiers(),
+            diffusing=False,
+        )
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+
+
+def test_inception_snapshot_adapter_never_mixes_delta_events() -> None:
+    events = list(
+        inception_stream_events(
+            [_Chunk("H"), _Chunk("He"), _Chunk("Hello")],
+            identifiers=_identifiers(),
+            diffusing=True,
+        )
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextSnapshot",
+        "TextSnapshot",
+        "TextSnapshot",
+        "ResponseCompleted",
+    ]
+    assert events[-2].data["text"] == "Hello"
+
+
+def test_inception_adapter_emits_tool_call_completion_before_terminal() -> None:
+    function = types.SimpleNamespace(name="read_file", arguments='{"path":"a"}')
+    tool_call = types.SimpleNamespace(id="call-1", index=0, function=function)
+    chunk = types.SimpleNamespace(
+        choices=[
+            types.SimpleNamespace(
+                delta=types.SimpleNamespace(content=None, tool_calls=[tool_call])
+            )
+        ]
+    )
+
+    events = list(
+        inception_stream_events([chunk], identifiers=_identifiers(), diffusing=False)
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "ToolCallDelta",
+        "ToolCallCompleted",
+        "ResponseCompleted",
+    ]
+    assert events[2].data["validated_arguments"] == {"path": "a"}
+
+
+def test_inception_adapter_emits_cancel_terminal_event() -> None:
+    events = list(
+        inception_stream_events(
+            [_Chunk("ignored")],
+            identifiers=_identifiers(),
+            cancellation=_Cancelled(),
+        )
+    )
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "ResponseCancelled",
+    ]
+
+
+
+def test_inception_adapter_closes_provider_stream_on_consumer_close() -> None:
+    stream = _ClosableStream()
+    events = inception_stream_events(stream, identifiers=_identifiers())
+
+    next(events)
+    events.close()
+
+    assert stream.closed is True
