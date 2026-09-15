@@ -75,9 +75,11 @@ class StreamEventValidator:
     def __init__(self) -> None:
         self._stream_id: str | None = None
         self._last_sequence: int | None = None
+        self._started = False
         self._terminal = False
         self._stream_mode: str | None = None
         self._tool_calls: set[str] = set()
+        self._completed_tool_calls: set[str] = set()
 
     def accept(self, event: StreamEvent) -> None:
         if event.type not in _EVENT_TYPES:
@@ -94,7 +96,8 @@ class StreamEventValidator:
             and event.sequence_number <= self._last_sequence
         ):
             raise StreamContractError("stream sequence_number must increase")
-        self._last_sequence = event.sequence_number
+        if not self._started and event.type != "ResponseStarted":
+            raise StreamContractError("ResponseStarted must be the first event")
 
         if event.type == "ResponseStarted":
             mode = str(event.data.get("stream_mode") or "delta")
@@ -103,6 +106,7 @@ class StreamEventValidator:
             if self._stream_mode is not None:
                 raise StreamContractError("ResponseStarted emitted more than once")
             self._stream_mode = mode
+            self._started = True
         elif event.type == "TextDelta" and self._stream_mode == "snapshot":
             raise StreamContractError("TextDelta is invalid for a snapshot stream")
         elif event.type == "TextSnapshot" and self._stream_mode != "snapshot":
@@ -116,10 +120,20 @@ class StreamEventValidator:
             tool_call_id = str(event.data.get("tool_call_id") or "")
             if tool_call_id not in self._tool_calls:
                 raise StreamContractError("ToolCallCompleted requires a prior delta")
+            if tool_call_id in self._completed_tool_calls:
+                raise StreamContractError("ToolCallCompleted emitted more than once")
             if not event.data.get("name"):
                 raise StreamContractError("ToolCallCompleted requires name")
+            self._completed_tool_calls.add(tool_call_id)
         elif event.type in _TERMINAL_EVENTS:
+            if event.type == "ResponseCompleted" and (
+                self._tool_calls - self._completed_tool_calls
+            ):
+                raise StreamContractError(
+                    "ResponseCompleted requires completed tool calls"
+                )
             self._terminal = True
+        self._last_sequence = event.sequence_number
 
     @property
     def terminal(self) -> bool:

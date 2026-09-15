@@ -21,6 +21,7 @@ from uagent.runtime.round_contracts import (
     SerializedRequest,
     StreamEvent,
 )
+from uagent.runtime.round_runtime import StreamEventValidator
 from uagent.runtime.round_identity import (
     CanonicalJsonError,
     DeterministicTestWorkspaceKeyProvider,
@@ -266,6 +267,55 @@ def test_stream_validator_rejects_invalid_terminal_or_sequence(
 
     with pytest.raises(ValueError):
         validator(events)
+
+
+def test_stream_validator_requires_started_event() -> None:
+    validator = StreamEventValidator()
+    with pytest.raises(ValueError):
+        validator.accept(StreamEvent("TextDelta", _identifiers(), 0, 0.0))
+
+
+def test_stream_validator_rejects_duplicate_or_incomplete_tool_completion() -> None:
+    validator = StreamEventValidator()
+    validator.accept(StreamEvent("ResponseStarted", _identifiers(), 0, 0.0))
+    validator.accept(
+        StreamEvent(
+            "ToolCallDelta",
+            _identifiers(),
+            1,
+            0.1,
+            {"tool_call_id": "call-1"},
+        )
+    )
+    with pytest.raises(ValueError):
+        validator.accept(
+            StreamEvent(
+                "ResponseCompleted",
+                _identifiers(),
+                2,
+                0.2,
+            )
+        )
+
+    validator.accept(
+        StreamEvent(
+            "ToolCallCompleted",
+            _identifiers(),
+            2,
+            0.2,
+            {"tool_call_id": "call-1", "name": "tool"},
+        )
+    )
+    with pytest.raises(ValueError):
+        validator.accept(
+            StreamEvent(
+                "ToolCallCompleted",
+                _identifiers(),
+                3,
+                0.3,
+                {"tool_call_id": "call-1", "name": "tool"},
+            )
+        )
 
 
 def test_projection_can_be_derived_without_mutating_context_plan() -> None:
