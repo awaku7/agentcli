@@ -184,6 +184,60 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
     assert normalized[-1].data["response_id"] == "resp_1"
 
 
+def test_chat_serialization_preserves_advanced_generation_options() -> None:
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        options={
+            "reasoning_effort": "low",
+            "response_format": {"type": "json_object"},
+        },
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+
+    assert request.payload["reasoning_effort"] == "low"
+    assert request.payload["response_format"] == {"type": "json_object"}
+    assert "messages" in request.payload
+    assert "input" not in request.payload
+
+
+def test_responses_serialization_preserves_native_generation_options() -> None:
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={
+            "reasoning": {"effort": "low"},
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": "result",
+                    "strict": True,
+                    "schema": {"type": "object"},
+                }
+            },
+        },
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(_plan(), {"identity_factory": factory}))
+
+    assert request.payload["reasoning"] == {"effort": "low"}
+    assert request.payload["text"]["format"]["type"] == "json_schema"
+    assert "input" in request.payload
+    assert "messages" not in request.payload
+
+
 def test_runtime_cancellation_is_terminal() -> None:
     client = _Client(chunks=[])
     runtime = OpenAICompatibleRuntime(

@@ -766,7 +766,12 @@ def _try_registry_simple_chat_round(
         options: dict[str, Any] = {}
         reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
         if reasoning and reasoning not in {"off", "false", "none"}:
-            options["reasoning_effort"] = reasoning
+            # The Responses API nests the setting under ``reasoning`` while
+            # Chat Completions accepts the legacy top-level field.
+            if use_responses_api:
+                options["reasoning"] = {"effort": reasoning}
+            else:
+                options["reasoning_effort"] = reasoning
         from .providers.structured_output import native_structured_output_request
 
         response_format = native_structured_output_request(
