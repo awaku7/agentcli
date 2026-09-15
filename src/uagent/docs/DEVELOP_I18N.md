@@ -32,6 +32,17 @@ ______________________________________________________________________
 | **Config file** | `babel.cfg` (project root) | (none; JSON files are self-contained) |
 | **Locale count** | 38 shipped locales | Varies per tool (typically en + ja + others) |
 
+### Shipped host locales
+
+The host-side release contract contains these 38 locales (including English):
+
+`ar`, `bn`, `cs`, `da`, `de`, `el`, `en`, `es`, `fa`, `fi`, `fil`, `fr`, `he`, `hi`,
+`hu`, `id`, `it`, `ja`, `ko`, `mn`, `mr`, `ms`, `nb`, `nl`, `nn`, `pl`, `pt`,
+`pt_BR`, `ro`, `ru`, `sv`, `sw`, `th`, `tr`, `uk`, `vi`, `zh_CN`, `zh_TW`.
+
+Tool catalogs do **not** promise all 38 locales per file. Each tool JSON catalog is
+validated only for the language blocks it ships, against that file's `en` block.
+
 ______________________________________________________________________
 
 ## Host-Side i18n (gettext)
@@ -325,6 +336,11 @@ python scripts/po_qc_summary.py
 
 # Python syntax check
 python -m compileall -q src/uagent
+
+# Structural audit (writes findings; does not edit translations or judge wording)
+python scripts/i18n_structure_audit.py --report outputs/i18n/structure_audit.json
+# Use this explicit gate when the known audit backlog has been resolved.
+python scripts/i18n_structure_audit.py --strict
 ```
 
 ### Tool side
@@ -335,6 +351,9 @@ python -m py_compile src/uagent/tools/<name>_tool.py
 
 # I18n consistency check
 python scripts/i18n_tools_check.py
+
+# The structural audit above separately checks nested JSON shape, value types,
+# and %(name)s placeholders for every language block actually present.
 
 # Placeholder integrity check (manual)
 # Ensure %(name)s placeholders in JSON match those in _() calls
