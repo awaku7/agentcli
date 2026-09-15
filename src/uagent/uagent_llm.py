@@ -35,6 +35,7 @@ except Exception:
 from .llm_message_helpers import (
     _build_call_messages,
     _build_auto_shrink_projection,
+    _get_shrink_max_tokens,
     _init_gemini_cache,
 )
 from .runtime.context_budget import ContextBudget
@@ -809,6 +810,51 @@ def _try_registry_simple_chat_round(
                     options["text"] = {"format": {"type": "json_object"}}
             else:
                 options["response_format"] = response_format
+        verbosity = (env_get("UAGENT_VERBOSITY", "") or "").strip().lower()
+        if use_responses_api and verbosity in {"low", "medium", "high"}:
+            text = options.get("text")
+            text = dict(text) if isinstance(text, dict) else {}
+            text["verbosity"] = verbosity
+            options["text"] = text
+        max_tokens = (env_get("UAGENT_MAX_TOKENS", "") or "").strip()
+        if max_tokens:
+            try:
+                from .llmcapa_util import clamp_max_tokens
+
+                limit = clamp_max_tokens(int(max_tokens), depname, provider)
+                if use_responses_api:
+                    options["max_output_tokens"] = limit
+                elif (
+                    str(depname or "")
+                    .lower()
+                    .startswith(("gpt-5", "o1", "o2", "o3", "o4"))
+                ):
+                    options["max_completion_tokens"] = limit
+                else:
+                    options["max_tokens"] = limit
+            except ValueError:
+                pass
+        top_p = (env_get("UAGENT_TOP_P", "") or "").strip()
+        if not use_responses_api and top_p:
+            try:
+                options["top_p"] = float(top_p)
+            except ValueError:
+                pass
+        if provider == "openai" and (
+            env_get("UAGENT_OPENAI_FAST_MODE", "") or ""
+        ).strip().lower() in {"1", "true", "yes", "on", "fast"}:
+            options["service_tier"] = "fast"
+        if use_responses_api:
+            options["context_management"] = [
+                {
+                    "type": "compaction",
+                    "compact_threshold": _get_shrink_max_tokens(depname),
+                }
+            ]
+        if send_tools_this_round:
+            options["tool_choice"] = "auto"
+            if not use_responses_api:
+                options["reasoning_effort"] = "none"
         if use_responses_api:
             state = getattr(core, "responses_state", {})
             previous_id = (
