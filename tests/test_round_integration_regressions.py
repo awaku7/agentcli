@@ -243,6 +243,103 @@ def test_registry_responses_round_updates_legacy_response_state(
     assert "reasoning_effort" not in responses.calls[0]
 
 
+def test_registry_responses_tool_round_continues_after_output(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def __init__(self) -> None:
+            self.calls = []
+            self.streams = [
+                [
+                    SimpleNamespace(
+                        type="response.output_item.added",
+                        item=SimpleNamespace(
+                            type="function_call",
+                            id="fc_1",
+                            call_id="call_1",
+                            name="read_file",
+                            arguments="",
+                        ),
+                    ),
+                    SimpleNamespace(
+                        type="response.function_call_arguments.delta",
+                        item_id="fc_1",
+                        delta='{"path":"a"}',
+                    ),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_1"),
+                    ),
+                ],
+                [
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_2"),
+                    )
+                ],
+            ]
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return iter(self.streams.pop(0))
+
+    responses = Responses()
+    client = SimpleNamespace(responses=responses)
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "openai")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state={},
+        context_tool_specs=({"type": "function", "function": {"name": "read_file"}},),
+    )
+    runtime = _begin_responses_runtime(
+        core=core, provider="openai", model="gpt-test", enabled=True
+    )
+    assert runtime is not None
+
+    first = _try_registry_simple_chat_round(
+        provider="openai",
+        client=client,
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "read a"}],
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+    )
+
+    assert first is not None
+    assert first[3][0]["tool_call_id"] == "call_1"
+    assert runtime.state == "AwaitingToolOutput"
+    runtime.accept_tool_output("resp_1", "call_1", {"content": "ok"})
+    assert runtime.state == "Continuing"
+
+    second = _try_registry_simple_chat_round(
+        provider="openai",
+        client=client,
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "continue"}],
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=2,
+    )
+
+    assert second == (True, "", "", [])
+    assert responses.calls[1]["previous_response_id"] == "resp_1"
+    assert core.responses_state["previous_response_id"] == "resp_2"
+    assert runtime.state == "Fresh"
+
+
 def test_round_contract_flags_are_on_by_default_and_opt_out_explicitly(
     monkeypatch,
 ) -> None:

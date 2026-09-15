@@ -184,6 +184,54 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
     assert normalized[-1].data["response_id"] == "resp_1"
 
 
+def test_responses_runtime_completes_tool_call_from_output_item_done() -> None:
+    events = [
+        SimpleNamespace(
+            type="response.function_call_arguments.delta",
+            item_id="fc_1",
+            delta='{"path":"a"}',
+        ),
+        SimpleNamespace(
+            type="response.output_item.done",
+            item=SimpleNamespace(
+                type="function_call",
+                id="fc_1",
+                call_id="call_1",
+                name="read_file",
+                arguments='{"path":"a"}',
+            ),
+        ),
+        SimpleNamespace(
+            type="response.completed",
+            response=SimpleNamespace(id="resp_1"),
+        ),
+    ]
+    client = _Client(events=events)
+    runtime = OpenAICompatibleRuntime(
+        client=client,
+        provider="openai",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    normalized = list(
+        runtime.run(
+            runtime.serialize(runtime.project(_plan(), {"identity_factory": factory})),
+            _Cancellation(),
+        )
+    )
+
+    validate_stream_events(normalized)
+    completed = next(event for event in normalized if event.type == "ToolCallCompleted")
+    assert completed.data["tool_call_id"] == "call_1"
+    assert completed.data["name"] == "read_file"
+    assert completed.data["validated_arguments"] == {"path": "a"}
+
+
 def test_chat_serialization_preserves_advanced_generation_options() -> None:
     runtime = OpenAICompatibleRuntime(
         client=_Client(),

@@ -198,6 +198,49 @@ class OpenAICompatibleRuntime:
         self, stream: Any, cancellation: CancellationToken
     ) -> Iterator[StreamEvent]:
         tool_calls: dict[str, dict[str, str]] = {}
+        item_to_call: dict[str, str] = {}
+        pending_tool_deltas: dict[str, list[str]] = {}
+
+        def ensure_call(call_id: str) -> dict[str, str]:
+            return tool_calls.setdefault(
+                call_id, {"id": call_id, "name": "", "arguments": ""}
+            )
+
+        def bind_item(item_id: str, call_id: str) -> dict[str, str]:
+            """Associate SDK output-item IDs with stable function call IDs."""
+            item_to_call[item_id] = call_id
+            call = ensure_call(call_id)
+            provisional = tool_calls.pop(item_id, None)
+            if provisional is not None and provisional is not call:
+                if not call["name"]:
+                    call["name"] = provisional["name"]
+                if provisional["arguments"]:
+                    call["arguments"] += provisional["arguments"]
+            return call
+
+        def record_function_item(
+            item: Any, *, final: bool
+        ) -> tuple[str, list[str]] | None:
+            if str(getattr(item, "type", "") or "") != "function_call":
+                return None
+            item_id = str(getattr(item, "id", "") or "")
+            call_id = str(getattr(item, "call_id", "") or item_id)
+            if not call_id:
+                return None
+            call = bind_item(item_id, call_id) if item_id else ensure_call(call_id)
+            name = str(getattr(item, "name", "") or "")
+            if name:
+                call["name"] = name
+            arguments = getattr(item, "arguments", None)
+            if isinstance(arguments, dict):
+                arguments = json.dumps(arguments, ensure_ascii=False)
+            if isinstance(arguments, str) and arguments:
+                if final:
+                    call["arguments"] = arguments
+                elif not call["arguments"]:
+                    call["arguments"] = arguments
+            return call_id, pending_tool_deltas.pop(item_id, [])
+
         if cancellation.is_cancelled():
             yield self._event("ResponseCancelled", {"reason": "cancelled"})
             return
@@ -219,13 +262,18 @@ class OpenAICompatibleRuntime:
                     "ReasoningDelta", {"text": str(getattr(event, "delta", "") or "")}
                 )
             elif event_type == "response.function_call_arguments.delta":
-                call_id = str(
+                event_id = str(
                     getattr(event, "item_id", "") or getattr(event, "call_id", "") or ""
                 )
-                call = tool_calls.setdefault(
-                    call_id, {"id": call_id, "name": "", "arguments": ""}
-                )
+                if not event_id:
+                    continue
                 fragment = str(getattr(event, "delta", "") or "")
+                if event_id not in item_to_call:
+                    ensure_call(event_id)["arguments"] += fragment
+                    pending_tool_deltas.setdefault(event_id, []).append(fragment)
+                    continue
+                call_id = item_to_call[event_id]
+                call = ensure_call(call_id)
                 call["arguments"] += fragment
                 yield self._event(
                     "ToolCallDelta",
@@ -236,19 +284,39 @@ class OpenAICompatibleRuntime:
                     },
                 )
             elif event_type == "response.output_item.added":
-                item = getattr(event, "item", None)
-                if str(getattr(item, "type", "") or "") == "function_call":
-                    call_id = str(
-                        getattr(item, "call_id", "") or getattr(item, "id", "") or ""
-                    )
-                    tool_calls.setdefault(
-                        call_id,
-                        {
-                            "id": call_id,
-                            "name": str(getattr(item, "name", "") or ""),
-                            "arguments": "",
-                        },
-                    )
+                bound = record_function_item(getattr(event, "item", None), final=False)
+                if bound is not None:
+                    call_id, pending = bound
+                    for fragment in pending:
+                        yield self._event(
+                            "ToolCallDelta",
+                            {
+                                "tool_call_id": call_id,
+                                "arguments_fragment": fragment,
+                                "name_fragment": "",
+                            },
+                        )
+            elif event_type == "response.output_item.done":
+                bound = record_function_item(getattr(event, "item", None), final=True)
+                if bound is not None:
+                    call_id, pending = bound
+                    for fragment in pending:
+                        yield self._event(
+                            "ToolCallDelta",
+                            {
+                                "tool_call_id": call_id,
+                                "arguments_fragment": fragment,
+                                "name_fragment": "",
+                            },
+                        )
+            elif event_type == "response.function_call_arguments.done":
+                event_id = str(
+                    getattr(event, "item_id", "") or getattr(event, "call_id", "") or ""
+                )
+                call_id = item_to_call.get(event_id, event_id)
+                arguments = getattr(event, "arguments", None)
+                if call_id and isinstance(arguments, str):
+                    ensure_call(call_id)["arguments"] = arguments
             elif event_type == "response.completed":
                 yield from self._complete_tools(tool_calls)
                 response = getattr(event, "response", None)
