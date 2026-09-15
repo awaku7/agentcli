@@ -19,6 +19,7 @@ from . import tools
 from .util_common import strip_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+from .runtime.llm_error_classifier import LLMErrorClassifier
 from .reasoning_display import show_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
@@ -39,13 +40,7 @@ from .providers.responses_manager import get_responses_capabilities
 
 
 def _is_context_overflow_error(exc: BaseException) -> bool:
-    text = str(exc).lower()
-    return (
-        "input token count exceeds" in text
-        or "maximum number of tokens allowed" in text
-        or "context window" in text
-        and ("exceed" in text or "maximum" in text)
-    )
+    return LLMErrorClassifier().classify(exc).kind == "context_overflow"
 
 
 def _normalize_surrogates(value: Any) -> Any:
