@@ -1,0 +1,290 @@
+"""Provider-neutral OpenAI/Azure-compatible round adapters.
+
+This is the first non-Inception registry adapter. It deliberately owns only
+SDK calls and wire/event conversion; routing policy and host rendering remain
+outside this module.
+"""
+
+from __future__ import annotations
+
+import json
+import time
+from typing import Any, Iterator, Mapping
+
+from ..runtime.provider_context import project_messages_for_provider
+from ..runtime.round_contracts import (
+    CancellationToken,
+    ContextPlan,
+    ProviderProjection,
+    RoundIdentifiers,
+    SerializedRequest,
+    StreamEvent,
+)
+from ..runtime.round_identity import canonical_json
+
+
+class OpenAICompatibleRuntime:
+    """Adapt Chat Completions or Responses streaming for registry execution."""
+
+    def __init__(
+        self,
+        *,
+        client: Any,
+        provider: str,
+        model: str,
+        identifiers: RoundIdentifiers,
+        transport: str = "chat_completions",
+        options: Mapping[str, Any] | None = None,
+    ) -> None:
+        self._client = client
+        self._provider = (provider or "").strip().lower()
+        self._model = model
+        self._identifiers = identifiers
+        self._transport = transport
+        self._options = dict(options or {})
+
+    def project(
+        self, plan: ContextPlan, session: Mapping[str, Any]
+    ) -> ProviderProjection:
+        messages = project_messages_for_provider(
+            [dict(message) for message in plan.messages],
+            provider=self._provider,
+            model=self._model,
+        )
+        identity_factory = session.get("identity_factory")
+        make_projection_id = getattr(identity_factory, "projection_id", None)
+        if not callable(make_projection_id):
+            raise ValueError("session must provide an identity_factory")
+        projection_id = make_projection_id(
+            canonical_json(
+                {
+                    "plan_id": plan.plan_id,
+                    "provider": self._provider,
+                    "model": self._model,
+                    "transport": self._transport,
+                    "messages": messages,
+                    "options": self._options,
+                }
+            )
+        )
+        return ProviderProjection(
+            plan_id=plan.plan_id,
+            projection_id=projection_id,
+            provider=self._provider,
+            model=self._model,
+            transport=self._transport,
+            messages=tuple(messages),
+            tool_specs=plan.tool_specs,
+            options=dict(self._options),
+        )
+
+    def serialize(self, projection: ProviderProjection) -> SerializedRequest:
+        payload = {
+            "model": projection.model,
+            "messages": list(projection.messages),
+            **projection.options,
+        }
+        if projection.tool_specs:
+            payload.setdefault("tools", list(projection.tool_specs))
+        return SerializedRequest(
+            identifiers=self._identifiers,
+            plan_id=projection.plan_id,
+            projection_id=projection.projection_id,
+            provider=projection.provider,
+            model=projection.model,
+            payload=payload,
+        )
+
+    def run(
+        self, request: SerializedRequest, cancellation: CancellationToken
+    ) -> Iterator[StreamEvent]:
+        yield self._event("ResponseStarted", {"stream_mode": "delta"})
+        stream: Any = None
+        try:
+            if (
+                request.payload.get("transport") == "responses"
+                or self._transport == "responses"
+            ):
+                stream = self._client.responses.create(
+                    **{
+                        key: value
+                        for key, value in request.payload.items()
+                        if key != "transport"
+                    },
+                    stream=True,
+                )
+                yield from self._responses_events(stream, cancellation)
+            else:
+                stream = self._client.chat.completions.create(
+                    **{
+                        key: value
+                        for key, value in request.payload.items()
+                        if key != "transport"
+                    },
+                    stream=True,
+                )
+                yield from self._chat_events(stream, cancellation)
+        except TimeoutError:
+            yield self._event("ResponseTimedOut", {"reason": "timeout"})
+        except Exception as exc:
+            yield self._event(
+                "ResponseFailed",
+                {"error_type": type(exc).__name__, "message": str(exc)},
+            )
+        finally:
+            close = getattr(stream, "close", None)
+            if callable(close):
+                close()
+
+    def _event(self, event_type: str, data: Mapping[str, Any]) -> StreamEvent:
+        sequence = getattr(self, "_sequence", 0)
+        self._sequence = sequence + 1
+        return StreamEvent(
+            type=event_type,
+            identifiers=self._identifiers,
+            sequence_number=sequence,
+            timestamp=time.time(),
+            data=dict(data),
+        )
+
+    def _chat_events(
+        self, stream: Any, cancellation: CancellationToken
+    ) -> Iterator[StreamEvent]:
+        tool_calls: dict[int, dict[str, str]] = {}
+        if cancellation.is_cancelled():
+            yield self._event("ResponseCancelled", {"reason": "cancelled"})
+            return
+        for chunk in stream:
+            if cancellation.is_cancelled():
+                yield self._event("ResponseCancelled", {"reason": "cancelled"})
+                return
+            choices = getattr(chunk, "choices", None) or []
+            delta = getattr(choices[0], "delta", None) if choices else None
+            if delta is None:
+                continue
+            content = getattr(delta, "content", None)
+            if isinstance(content, str) and content:
+                yield self._event("TextDelta", {"text": content})
+            for item in getattr(delta, "tool_calls", None) or []:
+                index = int(getattr(item, "index", 0) or 0)
+                call = tool_calls.setdefault(
+                    index, {"id": "", "name": "", "arguments": ""}
+                )
+                item_id = getattr(item, "id", None)
+                if isinstance(item_id, str) and item_id and not call["id"]:
+                    call["id"] = item_id
+                call["id"] = call["id"] or f"openai-tool-{index}"
+                function = getattr(item, "function", None)
+                name = getattr(function, "name", "") if function else ""
+                arguments = getattr(function, "arguments", "") if function else ""
+                name = name if isinstance(name, str) else ""
+                arguments = arguments if isinstance(arguments, str) else ""
+                call["name"] += name
+                call["arguments"] += arguments
+                yield self._event(
+                    "ToolCallDelta",
+                    {
+                        "index": index,
+                        "tool_call_id": call["id"],
+                        "name_fragment": name,
+                        "arguments_fragment": arguments,
+                    },
+                )
+        yield from self._complete_tools(tool_calls)
+        yield self._event("ResponseCompleted", {})
+
+    def _responses_events(
+        self, stream: Any, cancellation: CancellationToken
+    ) -> Iterator[StreamEvent]:
+        tool_calls: dict[str, dict[str, str]] = {}
+        if cancellation.is_cancelled():
+            yield self._event("ResponseCancelled", {"reason": "cancelled"})
+            return
+        events = stream.iter_events() if hasattr(stream, "iter_events") else stream
+        for event in events:
+            if cancellation.is_cancelled():
+                yield self._event("ResponseCancelled", {"reason": "cancelled"})
+                return
+            event_type = str(getattr(event, "type", "") or "")
+            if event_type == "response.output_text.delta":
+                yield self._event(
+                    "TextDelta", {"text": str(getattr(event, "delta", "") or "")}
+                )
+            elif event_type in {
+                "response.reasoning_summary_text.delta",
+                "response.reasoning_text.delta",
+            }:
+                yield self._event(
+                    "ReasoningDelta", {"text": str(getattr(event, "delta", "") or "")}
+                )
+            elif event_type == "response.function_call_arguments.delta":
+                call_id = str(
+                    getattr(event, "item_id", "") or getattr(event, "call_id", "") or ""
+                )
+                call = tool_calls.setdefault(
+                    call_id, {"id": call_id, "name": "", "arguments": ""}
+                )
+                fragment = str(getattr(event, "delta", "") or "")
+                call["arguments"] += fragment
+                yield self._event(
+                    "ToolCallDelta",
+                    {
+                        "tool_call_id": call_id,
+                        "arguments_fragment": fragment,
+                        "name_fragment": "",
+                    },
+                )
+            elif event_type == "response.output_item.added":
+                item = getattr(event, "item", None)
+                if str(getattr(item, "type", "") or "") == "function_call":
+                    call_id = str(
+                        getattr(item, "call_id", "") or getattr(item, "id", "") or ""
+                    )
+                    tool_calls.setdefault(
+                        call_id,
+                        {
+                            "id": call_id,
+                            "name": str(getattr(item, "name", "") or ""),
+                            "arguments": "",
+                        },
+                    )
+            elif event_type == "response.completed":
+                yield from self._complete_tools(tool_calls)
+                yield self._event("ResponseCompleted", {})
+                return
+            elif event_type == "response.failed":
+                yield self._event(
+                    "ResponseFailed",
+                    {"message": str(getattr(event, "error", "") or "")},
+                )
+                return
+        yield from self._complete_tools(tool_calls)
+        yield self._event("ResponseCompleted", {})
+
+    def _complete_tools(
+        self, tool_calls: Mapping[Any, Mapping[str, str]]
+    ) -> Iterator[StreamEvent]:
+        for index, call in sorted(tool_calls.items(), key=lambda item: str(item[0])):
+            name = str(call.get("name") or "")
+            arguments = str(call.get("arguments") or "")
+            if not name:
+                continue
+            try:
+                validated = json.loads(arguments) if arguments else {}
+            except (TypeError, ValueError):
+                validated = None
+            if validated is None:
+                continue
+            yield self._event(
+                "ToolCallCompleted",
+                {
+                    "index": index,
+                    "tool_call_id": str(call.get("id") or index),
+                    "name": name,
+                    "arguments": arguments,
+                    "validated_arguments": validated,
+                },
+            )
+
+
+__all__ = ["OpenAICompatibleRuntime"]
