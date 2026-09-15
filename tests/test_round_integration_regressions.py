@@ -507,6 +507,9 @@ def test_message_transform_precedes_projection_without_mutating_history() -> Non
             "role": "user",
             "content": "hello" + chr(0xD800),
             "_uagent_internal": "remove only at projection",
+            "response_id": "resp_internal",
+            "reasoning_content": "internal reasoning",
+            "_responses_output_items": [{"type": "reasoning"}],
         }
     ]
     transformed = MessageTransformPipeline().apply(history).messages
@@ -520,6 +523,9 @@ def test_message_transform_precedes_projection_without_mutating_history() -> Non
     assert transformed[0]["content"] == "hello�"
     assert projected[0]["content"] == "hello�"
     assert "_uagent_internal" not in projected[0]
+    assert "response_id" not in projected[0]
+    assert "reasoning_content" not in projected[0]
+    assert "_responses_output_items" not in projected[0]
 
 
 def test_unknown_capability_uses_conservative_native_fallback() -> None:

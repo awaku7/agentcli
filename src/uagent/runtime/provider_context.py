@@ -6,7 +6,14 @@ import copy
 import json
 from typing import Any
 
-_INTERNAL_KEYS = {"result_record", "persistent_history", "llm_context"}
+_INTERNAL_KEYS = {
+    "result_record",
+    "persistent_history",
+    "llm_context",
+    "response_id",
+    "reasoning_content",
+    "_responses_output_items",
+}
 
 
 def project_messages_for_provider(
