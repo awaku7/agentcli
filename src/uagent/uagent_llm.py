@@ -762,19 +762,12 @@ def _try_registry_simple_chat_round(
         identity_factory = RoundIdentityFactory(workspace_id, key_provider)
         tool_specs = getattr(core, "context_tool_specs", None) or ()
         if send_tools_this_round and round_count <= 1:
-            from .tools.llm_tool_narrowing import (
-                _is_gpt54_tool_search_target,
-                _is_legacy_mode,
-            )
+            from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target
 
-            native_tool_search = (
-                use_responses_api
-                and _is_gpt54_tool_search_target(
-                    provider=provider,
-                    depname=depname,
-                    use_responses_api=True,
-                )
-                and not _is_legacy_mode()
+            native_tool_search = use_responses_api and _is_gpt54_tool_search_target(
+                provider=provider,
+                depname=depname,
+                use_responses_api=True,
             )
             if not native_tool_search:
                 management_specs = tuple(
