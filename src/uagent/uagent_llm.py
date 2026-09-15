@@ -677,6 +677,17 @@ def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -
             "session_generation": update.session_generation,
             "journal_entry_id": update.journal_entry_id,
         }
+        try:
+            from .runtime.logging_setup import log_event
+
+            log_event(
+                "recovery.remote",
+                status=update.remote_mutation_status,
+                strategy=recovery_plan.strategy,
+                recovery_id=recovery_plan.recovery_id,
+            )
+        except Exception:
+            pass
         return _apply_remote_recovery_update(core, update)
     except Exception:
         return False
