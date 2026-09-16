@@ -19,6 +19,7 @@ from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.round_ui import stop_round_spinner
+from .runtime.openai_special_dispatch import call_special_openai_round
 from .runtime.llm_error_classifier import (
     is_context_overflow_error as _is_context_overflow_error,
 )
@@ -187,7 +188,6 @@ from .providers.llm_deepseek import (
     _normalize_chat_image_content,
     deepseek_chat_with_tools,
 )
-from .providers.llm_pfn import pfn_chat_with_tools
 from .providers.llm_deepseek_responses import (
     apply_deepseek_responses_compat,
     normalize_deepseek_responses_effort,
@@ -761,19 +761,21 @@ def _call_openai_azure_round(
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
     # isolated from the generic OpenAI/Azure implementation.
-    if provider == "pfn":
-        return pfn_chat_with_tools(
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=call_maybe_thread_fn,
-            send_tools_this_round=bool(send_tools_this_round),
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-        )
+    special_result = call_special_openai_round(
+        provider=provider,
+        client=client,
+        depname=depname,
+        call_messages=call_messages,
+        core=core,
+        make_client_fn=make_client_fn,
+        call_maybe_thread_fn=call_maybe_thread_fn,
+        send_tools_this_round=bool(send_tools_this_round),
+        max_retries_429=max_retries_429,
+        retry_base=retry_base,
+        retry_cap=retry_cap,
+    )
+    if special_result is not None:
+        return special_result
 
     attempt_429 = 0
     assistant_text: str = ""
