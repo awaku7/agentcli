@@ -92,7 +92,11 @@
     "param.quality.description": "Calidad de imagen.",
     "param.background.description": "Fondo de la imagen.",
     "err.depname_missing": "[generate_image] El modelo de imagen (nombre de la implementación) no está configurado. \n Configure la variable de entorno UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Incluir datos de imagen en Base64 para clientes remotos."
+    "param.include_base64.description": "Incluir datos de imagen en Base64 para clientes remotos.",
+    "param.output_format.description": "Formato de imagen de salida: png, jpeg o webp.",
+    "param.output_compression.description": "Nivel de compresión de salida (0-100). Sólo válido para jpeg/webp.",
+    "param.stream.description": "Solicite la generación de imágenes en streaming cuando el modelo lo admita.",
+    "param.partial_images.description": "Número de imágenes parciales para transmisión."
   },
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier.",
@@ -121,7 +125,11 @@
     "param.quality.description": "Qualité des images.",
     "param.background.description": "Fond d'image.",
     "err.depname_missing": "[generate_image] Le modèle d'image (nom du déploiement) n'est pas défini.\nVeuillez définir la variable d'environnement UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Inclure les données d’image Base64 pour les clients distants."
+    "param.include_base64.description": "Inclure les données d’image Base64 pour les clients distants.",
+    "param.output_format.description": "Format d'image de sortie : png, jpeg ou webp.",
+    "param.output_compression.description": "Niveau de compression de sortie (0-100). Valable uniquement pour jpeg/webp.",
+    "param.stream.description": "Demander la génération d’images en streaming lorsqu’elle est prise en charge par le modèle.",
+    "param.partial_images.description": "Nombre d'images partielles pour le streaming."
   },
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
@@ -150,7 +158,11 @@
     "param.quality.description": "이미지 품질.",
     "param.background.description": "이미지 배경.",
     "err.depname_missing": "[generate_image] 이미지 모델(배포 이름)이 설정되지 않았습니다.\n환경 변수 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME을 설정하세요.",
-    "param.include_base64.description": "원격 클라이언트를 위해 Base64 이미지 데이터를 포함합니다."
+    "param.include_base64.description": "원격 클라이언트를 위해 Base64 이미지 데이터를 포함합니다.",
+    "param.output_format.description": "출력 이미지 형식: png, jpeg 또는 webp.",
+    "param.output_compression.description": "출력 압축 수준(0-100). JPEG/webp에만 유효합니다.",
+    "param.stream.description": "모델에서 지원하는 경우 스트리밍 이미지 생성을 요청합니다.",
+    "param.partial_images.description": "스트리밍을 위한 부분 이미지 수입니다."
   },
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
@@ -179,7 +191,11 @@
     "param.quality.description": "Bildqualität.",
     "param.background.description": "Bildhintergrund.",
     "err.depname_missing": "[generate_image] Image-Modell (Bereitstellungsname) ist nicht festgelegt. \nBitte legen Sie die Umgebungsvariable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME fest.",
-    "param.include_base64.description": "Base64-Bilddaten für Remote-Clients einschließen."
+    "param.include_base64.description": "Base64-Bilddaten für Remote-Clients einschließen.",
+    "param.output_format.description": "Ausgabebildformat: PNG, JPEG oder WebP.",
+    "param.output_compression.description": "Ausgabekomprimierungsstufe (0-100). Nur gültig für JPEG/WebP.",
+    "param.stream.description": "Fordern Sie die Generierung von Streaming-Bildern an, wenn dies vom Modell unterstützt wird.",
+    "param.partial_images.description": "Anzahl der Teilbilder für das Streaming."
   },
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
@@ -208,7 +224,11 @@
     "param.quality.description": "Qualità dell'immagine.",
     "param.background.description": "Sfondo dell'immagine.",
     "err.depname_missing": "[generate_image] Il modello immagine (nome distribuzione) non è impostato.\nImposta la variabile di ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Formato immagine di output: png, jpeg o webp.",
+    "param.output_compression.description": "Livello di compressione in uscita (0-100). Valido solo per jpeg/webp.",
+    "param.stream.description": "Richiedere la generazione di immagini in streaming quando supportata dal modello.",
+    "param.partial_images.description": "Numero di immagini parziali per lo streaming."
   },
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
@@ -237,7 +257,11 @@
     "param.quality.description": "Качество изображения.",
     "param.background.description": "Фон изображения.",
     "err.depname_missing": "[generate_image] Модель образа (имя развертывания) не задана.\nЗадайте переменную среды UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Формат выходного изображения: PNG, JPEG или WebP.",
+    "param.output_compression.description": "Уровень сжатия вывода (0–100). Действительно только для jpeg/webp.",
+    "param.stream.description": "Запросить создание потокового изображения, если это поддерживается моделью.",
+    "param.partial_images.description": "Количество частичных изображений для потоковой передачи."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -266,7 +290,11 @@
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
     "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Formato da imagem de saída: png, jpeg ou webp.",
+    "param.output_compression.description": "Nível de compactação de saída (0-100). Válido apenas para jpeg/webp.",
+    "param.stream.description": "Solicite a geração de imagens de streaming quando compatível com o modelo.",
+    "param.partial_images.description": "Número de imagens parciais para streaming."
   },
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -295,7 +323,11 @@
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
     "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não está definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Formato da imagem de saída: png, jpeg ou webp.",
+    "param.output_compression.description": "Nível de compactação de saída (0-100). Válido apenas para jpeg/webp.",
+    "param.stream.description": "Solicite a geração de imagens de streaming quando compatível com o modelo.",
+    "param.partial_images.description": "Número de imagens parciais para streaming."
   },
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
@@ -324,7 +356,11 @@
     "param.quality.description": "Kualitas gambar.",
     "param.background.description": "Latar belakang gambar.",
     "err.depname_missing": "[generate_image] Model gambar (nama penerapan) tidak disetel.\nHarap setel variabel lingkungan UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Format gambar keluaran: png, jpeg, atau webp.",
+    "param.output_compression.description": "Tingkat kompresi keluaran (0-100). Hanya berlaku untuk jpeg/webp.",
+    "param.stream.description": "Minta pembuatan gambar streaming bila didukung oleh model.",
+    "param.partial_images.description": "Jumlah sebagian gambar untuk streaming."
   },
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
@@ -353,7 +389,11 @@
     "param.quality.description": "Chất lượng hình ảnh.",
     "param.background.description": "Nền hình ảnh.",
     "err.depname_missing": "[generate_image] Mô hình hình ảnh (tên triển khai) chưa được đặt.\nVui lòng đặt biến môi trường UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Định dạng hình ảnh đầu ra: png, jpeg hoặc webp.",
+    "param.output_compression.description": "Mức nén đầu ra (0-100). Chỉ hợp lệ cho jpeg/webp.",
+    "param.stream.description": "Yêu cầu tạo hình ảnh trực tuyến khi được mô hình hỗ trợ.",
+    "param.partial_images.description": "Số lượng hình ảnh một phần để phát trực tuyến."
   },
   "pl": {
     "tool.description": "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web).",
@@ -382,7 +422,11 @@
     "param.quality.description": "Jakość obrazu.",
     "param.background.description": "Tło obrazu.",
     "err.depname_missing": "[generate_image] Model obrazu (nazwa wdrożenia) nie jest ustawiony. \nUstaw zmienną środowiskową UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Format obrazu wyjściowego: png, jpeg lub webp.",
+    "param.output_compression.description": "Poziom kompresji wyjściowej (0-100). Dotyczy tylko plików JPEG/webp.",
+    "param.stream.description": "Zażądaj generowania obrazu strumieniowego, jeśli jest obsługiwany przez model.",
+    "param.partial_images.description": "Liczba częściowych obrazów do przesyłania strumieniowego."
   },
   "hi": {
     "tool.description": "टेक्स्ट प्रॉम्प्ट से चित्र बनाता है, उसे PNG के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। खोलना कॉलर (CLI/GUI/Web) संभालता है।",
@@ -411,7 +455,11 @@
     "param.quality.description": "छवि के गुणवत्ता।",
     "param.background.description": "छवि पृष्ठभूमि.",
     "err.depname_missing": "[जेनरेट_इमेज] छवि मॉडल (परिनियोजन नाम) सेट नहीं है। कृपया पर्यावरण चर UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करें।",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "आउटपुट छवि प्रारूप: पीएनजी, जेपीईजी, या वेबपी।",
+    "param.output_compression.description": "आउटपुट संपीड़न स्तर (0-100)। केवल जेपीईजी/वेबपी के लिए मान्य।",
+    "param.stream.description": "मॉडल द्वारा समर्थित होने पर स्ट्रीमिंग छवि निर्माण का अनुरोध करें।",
+    "param.partial_images.description": "स्ट्रीमिंग के लिए आंशिक छवियों की संख्या."
   },
   "ar": {
     "tool.description": "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web).",
@@ -440,7 +488,11 @@
     "param.quality.description": "جودة الصورة.",
     "param.background.description": "خلفية الصورة.",
     "err.depname_missing": "[generate_image] لم يتم تعيين نموذج الصورة (اسم النشر). \nيرجى ضبط متغير البيئة UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "تنسيق صورة الإخراج: png أو jpeg أو webp.",
+    "param.output_compression.description": "مستوى ضغط الإخراج (0-100). صالح فقط لملفات jpeg/webp.",
+    "param.stream.description": "طلب إنشاء صورة متدفقة عندما يدعمها النموذج.",
+    "param.partial_images.description": "عدد الصور الجزئية للبث."
   },
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",
@@ -469,7 +521,11 @@
     "param.quality.description": "Bildkvalitet.",
     "param.background.description": "Bildbakgrund.",
     "err.depname_missing": "[generate_image] Bildmodell (distributionsnamn) är inte inställd.\nAnge miljövariabeln UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Utdatabildformat: png, jpeg eller webp.",
+    "param.output_compression.description": "Utgångskompressionsnivå (0-100). Gäller endast jpeg/webp.",
+    "param.stream.description": "Begär generering av strömmande bilder när det stöds av modellen.",
+    "param.partial_images.description": "Antal delar av bilder för streaming."
   },
   "sw": {
     "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili.",
@@ -498,7 +554,11 @@
     "param.quality.description": "Ubora wa picha.",
     "param.background.description": "Mandharinyuma ya picha.",
     "err.depname_missing": "[generate_image] Muundo wa picha (jina la matumizi) halijawekwa.\nTafadhali weka kigezo cha mazingira UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Umbizo la picha ya pato: png, jpeg, au webp.",
+    "param.output_compression.description": "Kiwango cha ukandamizaji wa pato (0-100). Inatumika kwa jpeg/webp pekee.",
+    "param.stream.description": "Omba utengenezaji wa picha za utiririshaji unapoungwa mkono na muundo.",
+    "param.partial_images.description": "Idadi ya picha za sehemu za kutiririshwa."
   },
   "nb": {
     "tool.description": "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web).",
@@ -527,7 +587,11 @@
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
     "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Utdatabildeformat: png, jpeg eller webp.",
+    "param.output_compression.description": "Utgangskompresjonsnivå (0-100). Gjelder kun for jpeg/webp.",
+    "param.stream.description": "Be om generering av streaming bilde når det støttes av modellen.",
+    "param.partial_images.description": "Antall delbilder for streaming."
   },
   "nl": {
     "tool.description": "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug.",
@@ -556,7 +620,11 @@
     "param.quality.description": "Beeldkwaliteit.",
     "param.background.description": "Afbeelding achtergrond.",
     "err.depname_missing": "[generate_image] Afbeeldingsmodel (implementatienaam) is niet ingesteld.\nStel de omgevingsvariabele UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME in.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Uitvoerafbeeldingsformaat: png, jpeg of webp.",
+    "param.output_compression.description": "Uitgangscompressieniveau (0-100). Alleen geldig voor jpeg/webp.",
+    "param.stream.description": "Vraag het genereren van streaming-afbeeldingen aan wanneer dit door het model wordt ondersteund.",
+    "param.partial_images.description": "Aantal gedeeltelijke afbeeldingen voor streaming."
   },
   "fi": {
     "tool.description": "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web).",
@@ -585,7 +653,11 @@
     "param.quality.description": "Kuvan laatu.",
     "param.background.description": "Kuvan tausta.",
     "err.depname_missing": "[generate_image] Kuvamallia (käyttöönoton nimi) ei ole asetettu.\nAseta ympäristömuuttuja UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Tulostuskuvamuoto: png, jpeg tai webp.",
+    "param.output_compression.description": "Lähdön pakkaustaso (0-100). Voimassa vain jpeg/webp:lle.",
+    "param.stream.description": "Pyydä suoratoistokuvan luontia, jos malli tukee sitä.",
+    "param.partial_images.description": "Osittaisten kuvien määrä suoratoistoa varten."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web).",
@@ -614,7 +686,11 @@
     "param.quality.description": "Kvalita obrazu.",
     "param.background.description": "Pozadí obrázku.",
     "err.depname_missing": "[generate_image] Model obrázku (název nasazení) není nastaven.\nNastavte proměnnou prostředí UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Výstupní formát obrázku: png, jpeg nebo webp.",
+    "param.output_compression.description": "Výstupní úroveň komprese (0-100). Platí pouze pro jpeg/webp.",
+    "param.stream.description": "Vyžádejte si generování streamovaného obrazu, pokud to model podporuje.",
+    "param.partial_images.description": "Počet dílčích snímků pro streamování."
   },
   "uk": {
     "tool.description": "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web).",
@@ -643,7 +719,11 @@
     "param.quality.description": "Якість зображення.",
     "param.background.description": "Фон зображення.",
     "err.depname_missing": "[generate_image] Модель зображення (ім’я розгортання) не встановлено.\nУстановіть змінну середовища UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Формат вихідного зображення: png, jpeg або webp.",
+    "param.output_compression.description": "Вихідний рівень стиснення (0-100). Дійсний лише для jpeg/webp.",
+    "param.stream.description": "Запитувати створення потокового зображення, якщо це підтримується моделлю.",
+    "param.partial_images.description": "Кількість часткових зображень для потокового передавання."
   },
   "tr": {
     "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür.",
@@ -672,7 +752,11 @@
     "param.quality.description": "Görüntü kalitesi.",
     "param.background.description": "Görüntü arka planı.",
     "err.depname_missing": "[generate_image] Görüntü modeli (dağıtım adı) ayarlanmadı.\nLütfen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME ortam değişkenini ayarlayın.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Çıktı görüntü formatı: png, jpeg veya webp.",
+    "param.output_compression.description": "Çıkış sıkıştırma düzeyi (0-100). Yalnızca jpeg/webp için geçerlidir.",
+    "param.stream.description": "Model tarafından desteklendiğinde akışlı görüntü oluşturma isteğinde bulunun.",
+    "param.partial_images.description": "Akış için kısmi görüntülerin sayısı."
   },
   "th": {
     "tool.description": "สร้างภาพจากพรอมต์ข้อความ บันทึกเป็น PNG และคืนค่าพาธของไฟล์ การเปิดไฟล์เป็นหน้าที่ของผู้เรียก (CLI/GUI/Web).",
@@ -701,7 +785,11 @@
     "param.quality.description": "คุณภาพของภาพ",
     "param.background.description": "ภาพพื้นหลัง",
     "err.depname_missing": "[generate_image] ไม่ได้ตั้งค่าโมเดลรูปภาพ (ชื่อการปรับใช้) \nโปรดตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "รูปแบบภาพที่ส่งออก: PNG, JPEG หรือ Webp",
+    "param.output_compression.description": "ระดับการบีบอัดเอาต์พุต (0-100) ใช้ได้กับ jpeg/webp เท่านั้น",
+    "param.stream.description": "ขอการสร้างภาพแบบสตรีมเมื่อโมเดลรองรับ",
+    "param.partial_images.description": "จำนวนภาพบางส่วนสำหรับการสตรีม"
   },
   "zh_CN": {
     "tool.description": "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）。",
@@ -730,7 +818,11 @@
     "param.quality.description": "图像质量。",
     "param.background.description": "图像背景。",
     "err.depname_missing": "[generate_image] 未设置映像模型（部署名称）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
-    "param.include_base64.description": "为远程客户端包含Base64图像数据。"
+    "param.include_base64.description": "为远程客户端包含Base64图像数据。",
+    "param.output_format.description": "输出图像格式：png、jpeg 或 webp。",
+    "param.output_compression.description": "输出压缩级别（0-100）。仅对 jpeg/webp 有效。",
+    "param.stream.description": "当模型支持时请求流图像生成。",
+    "param.partial_images.description": "用于流式传输的部分图像的数量。"
   },
   "zh_TW": {
     "tool.description": "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）。",
@@ -759,7 +851,11 @@
     "param.quality.description": "影像品質。",
     "param.background.description": "圖像背景。",
     "err.depname_missing": "[generate_image] 未設定映像模型（部署名稱）。 \n請設定環境變數 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
-    "param.include_base64.description": "為遠端用戶端包含Base64圖像資料。"
+    "param.include_base64.description": "為遠端用戶端包含Base64圖像資料。",
+    "param.output_format.description": "輸出影像格式：png、jpeg 或 webp。",
+    "param.output_compression.description": "輸出壓縮等級（0-100）。僅對 jpeg/webp 有效。",
+    "param.stream.description": "當模型支援時請求流圖像生成。",
+    "param.partial_images.description": "用於串流傳輸的部分影像的數量。"
   },
   "bn": {
     "tool.description": "টেক্সট প্রম্পট থেকে একটি ছবি তৈরি করে, PNG হিসেবে সংরক্ষণ করে, এবং ফাইলের পথ ফেরত দেয়। খোলার কাজটি কলার (CLI/GUI/Web) করে।",
@@ -788,7 +884,11 @@
     "param.quality.description": "ছবির গুণমান।",
     "param.background.description": "ছবির পটভূমি।",
     "err.depname_missing": "[generate_image] ছবির মডেল (ডিপ্লয়মেন্ট নাম) সেট করা নেই।\nঅনুগ্রহ করে পরিবেশ পরিবর্তনশীল UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME সেট করুন৷",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "আউটপুট চিত্র বিন্যাস: png, jpeg, বা webp.",
+    "param.output_compression.description": "আউটপুট কম্প্রেশন স্তর (0-100)। শুধুমাত্র jpeg/webp এর জন্য বৈধ।",
+    "param.stream.description": "মডেল দ্বারা সমর্থিত হলে স্ট্রিমিং ইমেজ তৈরির অনুরোধ করুন।",
+    "param.partial_images.description": "স্ট্রিমিংয়ের জন্য আংশিক ছবির সংখ্যা।"
   },
   "fa": {
     "tool.description": "از یک prompt متنی تصویر تولید می‌کند، آن را به‌صورت PNG ذخیره می‌کند و مسیر فایل را برمی‌گرداند.",
@@ -817,7 +917,11 @@
     "param.quality.description": "کیفیت تصویر.",
     "param.background.description": "پس زمینه تصویر.",
     "err.depname_missing": "[generate_image] مدل تصویر (نام استقرار) تنظیم نشده است.\nلطفاً متغیر محیطی UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME را تنظیم کنید.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "فرمت تصویر خروجی: png، jpeg یا webp.",
+    "param.output_compression.description": "سطح فشرده سازی خروجی (0-100). فقط برای jpeg/webp معتبر است.",
+    "param.stream.description": "زمانی که مدل پشتیبانی می‌کند، تولید تصویر پخش جریانی را درخواست کنید.",
+    "param.partial_images.description": "تعداد تصاویر جزئی برای پخش جریانی."
   },
   "mn": {
     "tool.description": "Текст prompt-оос зураг үүсгэж, PNG болгон хадгалаад файлын замыг буцаана. Нээх үйлдлийг дуудсан тал (CLI/GUI/Web) гүйцэтгэнэ.",
@@ -846,7 +950,11 @@
     "param.quality.description": "Зургийн чанар.",
     "param.background.description": "Зургийн дэвсгэр.",
     "err.depname_missing": "[зургийг_үүсгэх] Зургийн загвар (байршуулах нэр) тохируулагдаагүй байна.\nUAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME орчны хувьсагчийг тохируулна уу.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Гаралтын зургийн формат: png, jpeg, эсвэл webp.",
+    "param.output_compression.description": "Гаралтын шахалтын түвшин (0-100). Зөвхөн jpeg/webp-д хүчинтэй.",
+    "param.stream.description": "Загвар дэмжигдсэн үед урсгалын зураг үүсгэх хүсэлт гаргах.",
+    "param.partial_images.description": "Дамжуулахад зориулсан хэсэгчилсэн зургийн тоо."
   },
   "mr": {
     "tool.description": "टेक्स्ट प्रॉम्प्टवरून प्रतिमा तयार करते, PNG म्हणून जतन करते आणि फाइलचा मार्ग परत करते. उघडण्याची क्रिया कॉलर (CLI/GUI/Web) करतो.",
@@ -875,7 +983,11 @@
     "param.quality.description": "प्रतिमा गुणवत्ता.",
     "param.background.description": "प्रतिमा पार्श्वभूमी.",
     "err.depname_missing": "[generate_image] प्रतिमा मॉडेल (उपयोजन नाव) सेट केलेले नाही. \nकृपया पर्यावरण व्हेरिएबल UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करा.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "आउटपुट इमेज फॉरमॅट: png, jpeg, किंवा webp.",
+    "param.output_compression.description": "आउटपुट कॉम्प्रेशन लेव्हल (0-100). फक्त jpeg/webp साठी वैध.",
+    "param.stream.description": "मॉडेलद्वारे समर्थित असताना प्रवाहित प्रतिमा निर्मितीची विनंती करा.",
+    "param.partial_images.description": "प्रवाहासाठी आंशिक प्रतिमांची संख्या."
   },
   "el": {
     "tool.description": "Δημιουργεί μια εικόνα από μια προτροπή κειμένου, την αποθηκεύει ως PNG και επιστρέφει τη διαδρομή του αρχείου. Το άνοιγμα γίνεται από τον καλούντα (CLI/GUI/Web).",
@@ -904,7 +1016,11 @@
     "param.quality.description": "Φόντο εικόνας. Το πρότυπο",
     "param.background.description": "Φόντο εικόνας.",
     "err.depname_missing": "[generate_image] Το μοντέλο εικόνας (όνομα ανάπτυξης) δεν έχει οριστεί.\nΡυθμίστε τη μεταβλητή περιβάλλοντος UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Μορφή εικόνας εξόδου: png, jpeg ή webp.",
+    "param.output_compression.description": "Επίπεδο συμπίεσης εξόδου (0-100). Ισχύει μόνο για jpeg/webp.",
+    "param.stream.description": "Ζητήστε τη δημιουργία εικόνας ροής όταν υποστηρίζεται από το μοντέλο.",
+    "param.partial_images.description": "Αριθμός μερικών εικόνων για ροή."
   },
   "he": {
     "tool.description": "יצירת לולאה סופה, PNG=] יוצר לולאה סיום, PNG ומחזירה את נתיב הקובץ או מוחלט).",
@@ -933,7 +1049,11 @@
     "param.quality.description": "איכות תמונה.",
     "param.background.description": "רקע תמונה.",
     "err.depname_missing": "[generate_image] מודל התמונה (שם הפריסה) לא מוגדר.\nאנא הגדר את משתנה הסביבה UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "פורמט תמונה פלט: png, jpeg או webp.",
+    "param.output_compression.description": "רמת דחיסת פלט (0-100). תקף רק עבור jpeg/webp.",
+    "param.stream.description": "בקש יצירת תמונה זורמת כאשר היא נתמכת על ידי הדגם.",
+    "param.partial_images.description": "מספר תמונות חלקיות לסטרימינג."
   },
   "hu": {
     "tool.description": "záró ciklus, és szöveg visszaadása promócióként, kép #=] a fájl elérési útját a hívó kezeli (",
@@ -962,7 +1082,11 @@
     "param.quality.description": "Képminőség.",
     "param.background.description": "Kép háttér.",
     "err.depname_missing": "[generate_image] A képmodell (telepítési név) nincs beállítva.\nÁllítsa be az UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME környezeti változót.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Kimeneti képformátum: png, jpeg vagy webp.",
+    "param.output_compression.description": "Kimeneti tömörítési szint (0-100). Csak jpeg/webp esetén érvényes.",
+    "param.stream.description": "Adatfolyam-képgenerálás kérése, ha a modell támogatja.",
+    "param.partial_images.description": "A streamelésre szánt részképek száma."
   },
   "ro": {
     "tool.description": "stop skill [=#==] end skill [=#==] end skill [=#==] end loop, o imagine PNG și returnează calea fișierului (relativ sau absolut). Valori implicite pentru outputs/image_generations dacă sunt omise.",
@@ -991,7 +1115,11 @@
     "param.quality.description": "Calitatea imaginii.",
     "param.background.description": "Fundalul imaginii.",
     "err.depname_missing": "[generate_image] Modelul de imagine (numele implementării) nu este setat.\nSetați variabila de mediu UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Format de imagine de ieșire: png, jpeg sau webp.",
+    "param.output_compression.description": "Nivel de compresie de ieșire (0-100). Valabil doar pentru jpeg/webp.",
+    "param.stream.description": "Solicitați generarea de imagini în flux atunci când este acceptat de model.",
+    "param.partial_images.description": "Numărul de imagini parțiale pentru streaming."
   },
   "fil": {
     "tool.description": "Bumubuo ng larawan mula sa isang text prompt, sine-save ito bilang PNG, at ibinabalik ang path ng file. Ang pagbubukas ay pinangangasiwaan ng tumatawag (CLI/GUI/Web).",
@@ -1020,7 +1148,11 @@
     "param.quality.description": "Kalidad ng imahe.",
     "param.background.description": "Background ng larawan.",
     "err.depname_missing": "[generate_image] Ang modelo ng larawan (pangalan ng deployment) ay hindi nakatakda.\nPakitakda ang environment variable na UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Format ng larawan ng output: png, jpeg, o webp.",
+    "param.output_compression.description": "Antas ng compression ng output (0-100). Valid lamang para sa jpeg/webp.",
+    "param.stream.description": "Humiling ng streaming na pagbuo ng imahe kapag sinusuportahan ng modelo.",
+    "param.partial_images.description": "Bilang ng mga bahagyang larawan para sa streaming."
   },
   "ms": {
     "tool.description": "Menghasilkan imej daripada gesaan teks, menyimpannya sebagai PNG dan mengembalikan laluan fail. Pembukaan dikendalikan oleh pemanggil (CLI/GUI/Web).",
@@ -1049,7 +1181,11 @@
     "param.quality.description": "Kualiti imej.",
     "param.background.description": "Latar belakang imej.",
     "err.depname_missing": "[generate_image] Model imej (nama penempatan) tidak ditetapkan.\nSila tetapkan pembolehubah persekitaran UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Format imej output: png, jpeg atau webp.",
+    "param.output_compression.description": "Tahap mampatan keluaran (0-100). Hanya sah untuk jpeg/webp.",
+    "param.stream.description": "Minta penjanaan imej penstriman apabila disokong oleh model.",
+    "param.partial_images.description": "Bilangan imej separa untuk penstriman."
   },
   "da": {
     "tool.description": "Genererer et billede fra en tekstprompt, gemmer det som en PNG og returnerer filstien. Åbning håndteres af den, der ringer (CLI/GUI/Web).",
@@ -1078,7 +1214,11 @@
     "param.quality.description": "Billedkvalitet.",
     "param.background.description": "Billede baggrund.",
     "err.depname_missing": "[generate_image] Billedmodel (implementeringsnavn) er ikke indstillet.\nIndstil venligst miljøvariablen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients."
+    "param.include_base64.description": "Include base64 image data for remote clients.",
+    "param.output_format.description": "Output billedformat: png, jpeg eller webp.",
+    "param.output_compression.description": "Udgangskompressionsniveau (0-100). Gælder kun for jpeg/webp.",
+    "param.stream.description": "Anmod om generering af streamingbilleder, når det understøttes af modellen.",
+    "param.partial_images.description": "Antal delvise billeder til streaming."
   },
   "nn": {
     "tool.description": "Genererer et bilde frå en tekstmelding, lagrer det som en PNG og returnerer filbanen. Åpning håndteres av den som ringer (CLI/GUI/Web).",
@@ -1107,6 +1247,10 @@
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
     "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Ta med base64-biletdata for fjernklientar."
+    "param.include_base64.description": "Ta med base64-biletdata for fjernklientar.",
+    "param.output_format.description": "Utgangsbildeformat: png, jpeg eller webp.",
+    "param.output_compression.description": "Utgangskomprimeringsnivå (0-100). Kun gyldig for jpeg/webp.",
+    "param.stream.description": "Be om strømming av bildegenerering når det støttes av modellen.",
+    "param.partial_images.description": "Antall delbilder for streaming."
   }
 }
