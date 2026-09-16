@@ -13,6 +13,22 @@ def provider_error_label(provider: str) -> str:
     return "Azure/OpenAI"
 
 
+def is_zscaler_responses_block(exc: BaseException) -> bool:
+    """Detect the corporate Zscaler page returned for the Responses endpoint."""
+    parts = [str(exc)]
+    body = getattr(exc, "body", None)
+    if body is not None:
+        parts.append(str(body))
+    response = getattr(exc, "response", None)
+    if response is not None:
+        try:
+            parts.append(str(getattr(response, "text", "") or ""))
+        except Exception:
+            pass
+    text = " ".join(parts).lower()
+    return "/v1/responses" in text and ("zscaler" in text or "website blocked" in text)
+
+
 def exception_text(exc: BaseException) -> str:
     """Return a short, single-line exception summary for the UI."""
     text = str(exc).replace("\r", " ").replace("\n", " ")
@@ -27,4 +43,4 @@ def exception_text(exc: BaseException) -> str:
     return text[:500] + ("..." if len(text) > 500 else "")
 
 
-__all__ = ["exception_text", "provider_error_label"]
+__all__ = ["exception_text", "is_zscaler_responses_block", "provider_error_label"]

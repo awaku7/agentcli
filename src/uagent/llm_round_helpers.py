@@ -17,12 +17,17 @@ from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.round_ui import stop_round_spinner
-from .runtime.error_renderer import exception_text, provider_error_label
+from .runtime.error_renderer import (
+    exception_text,
+    is_zscaler_responses_block,
+    provider_error_label,
+)
 from .runtime.openai_special_dispatch import call_special_openai_round
 
 # Compatibility aliases for existing callers/tests.
 _exception_text = exception_text
 _provider_error_label = provider_error_label
+_is_zscaler_responses_block = is_zscaler_responses_block
 from .runtime.llm_error_classifier import (
     is_context_overflow_error as _is_context_overflow_error,
 )
@@ -213,22 +218,6 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _env_default_true
 from .translate import translate_text
-
-
-def _is_zscaler_responses_block(exc: BaseException) -> bool:
-    """Detect the corporate Zscaler page returned for the Responses endpoint."""
-    parts = [str(exc)]
-    body = getattr(exc, "body", None)
-    if body is not None:
-        parts.append(str(body))
-    response = getattr(exc, "response", None)
-    if response is not None:
-        try:
-            parts.append(str(getattr(response, "text", "") or ""))
-        except Exception:
-            pass
-    text = " ".join(parts).lower()
-    return "/v1/responses" in text and ("zscaler" in text or "website blocked" in text)
 
 
 def _openai_fast_mode_enabled() -> bool:
