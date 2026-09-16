@@ -24,7 +24,7 @@ from .runtime.llm_error_classifier import (
 )
 from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
-from .reasoning_display import show_reasoning
+from .runtime.reasoning_renderer import render_tool_call_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
 from .providers.llm_claude import (
@@ -1890,12 +1890,9 @@ def _call_openai_azure_round(
             # displays reasoning_content. Display it here only for a tool-call
             # turn, which does not go through that final-answer path.
             if reasoning_content and tool_calls_list:
-                show_reasoning(
+                render_tool_call_reasoning(
                     reasoning_content,
                     provider=provider.capitalize(),
-                    is_first=True,
-                    print_fn=getattr(core, "print_stream_delta", None)
-                    or (lambda s: print(s, end="", flush=True)),
                     core=core,
                 )
 
