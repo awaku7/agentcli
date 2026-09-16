@@ -194,8 +194,7 @@ class ContextRecoveryManager:
             strategy = "client_projection"
 
         omitted_ids = tuple(
-            _message_id(context_plan.messages[index], index)
-            for index in omitted
+            _message_id(context_plan.messages[index], index) for index in omitted
         )
         material = "|".join(
             (

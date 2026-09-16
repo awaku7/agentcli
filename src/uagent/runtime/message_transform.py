@@ -31,7 +31,9 @@ def normalize_surrogates(value: Any) -> Any:
         return tuple(normalize_surrogates(item) for item in value)
     if isinstance(value, dict):
         return {
-            normalize_surrogates(key) if isinstance(key, str) else key: normalize_surrogates(item)
+            (
+                normalize_surrogates(key) if isinstance(key, str) else key
+            ): normalize_surrogates(item)
             for key, item in value.items()
         }
     return value

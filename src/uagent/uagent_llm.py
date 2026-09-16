@@ -727,7 +727,10 @@ def _try_registry_simple_chat_round(
     if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
         return None
     if use_responses_api:
-        from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target, _is_legacy_mode
+        from .tools.llm_tool_narrowing import (
+            _is_gpt54_tool_search_target,
+            _is_legacy_mode,
+        )
 
         if _is_legacy_mode() and _is_gpt54_tool_search_target(
             provider=provider,

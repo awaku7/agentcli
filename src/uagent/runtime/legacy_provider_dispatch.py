@@ -108,9 +108,7 @@ def call_legacy_reasoning_round(*, provider: str, **kwargs: Any) -> Any:
     try:
         caller = _LEGACY_REASONING_ROUND_CALLERS[(provider or "").strip().lower()]
     except KeyError as exc:
-        raise ValueError(
-            f"unsupported legacy reasoning provider: {provider}"
-        ) from exc
+        raise ValueError(f"unsupported legacy reasoning provider: {provider}") from exc
     return caller(**kwargs)
 
 

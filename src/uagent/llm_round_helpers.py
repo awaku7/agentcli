@@ -19,7 +19,9 @@ from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
-from .runtime.llm_error_classifier import is_context_overflow_error as _is_context_overflow_error
+from .runtime.llm_error_classifier import (
+    is_context_overflow_error as _is_context_overflow_error,
+)
 from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
 from .reasoning_display import show_reasoning

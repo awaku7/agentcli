@@ -69,8 +69,7 @@ def configure_event_logging(*, enabled: bool | None = None) -> None:
     _LOGGER.setLevel(logging.INFO)
     _LOGGER.propagate = False
     if any(
-        getattr(handler, "_uagent_event_handler", False)
-        for handler in _LOGGER.handlers
+        getattr(handler, "_uagent_event_handler", False) for handler in _LOGGER.handlers
     ):
         return
 
