@@ -63,6 +63,7 @@ from .runtime.legacy_provider_dispatch import (
 )
 from .runtime.legacy_claude_round import run_legacy_claude_round
 from .runtime.legacy_deepseek_round import run_legacy_deepseek_round
+from .runtime.legacy_zai_round import run_legacy_zai_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1460,114 +1461,32 @@ def _run_one_round(
         )
 
     elif provider in ("zai", "novita"):
-        ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            call_legacy_reasoning_round(
-                provider=provider,
-                client=client,
-                depname=depname,
-                call_messages=call_messages,
-                core=core,
-                make_client_fn=make_client_fn,
-                call_maybe_thread_fn=_call_maybe_thread_fn,
-                send_tools_this_round=send_tools_this_round,
-                max_retries_429=max_retries_429,
-                retry_base=retry_base,
-                retry_cap=retry_cap,
-            )
-        )
-        if not ok:
-            return (
-                _RS_RETURN,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        # --- Interrupt check ---
-        with _core_module.interrupt_lock:
-            if _core_module.interrupt_requested:
-                _core_module.interrupt_requested = False
-                _inject_stop_prompt(messages, core)
-                return (
-                    _RS_BREAK,
-                    client,
-                    gemini_cache_name,
-                    empty_no_tool_rounds,
-                    assistant_text,
-                )
-
-        assistant_text = _translate_assistant_if_needed(
-            assistant_text=assistant_text,
-            tr_cfg=tr_cfg,
-            use_responses_api=False,
-            stream_responses=False,
-        )
-
-        _ds_streaming = (
-            env_get("UAGENT_STREAMING", "1") or ""
-        ).strip().lower() not in ("0", "false", "no", "off")
-
-        if _should_keep_assistant_message(assistant_text, tool_calls_list):
-            deepseek_msg = build_assistant_message_with_reasoning(
-                assistant_text=assistant_text,
-                tool_calls_list=tool_calls_list,
-                reasoning_content=reasoning_content,
-            )
-            messages.append(deepseek_msg)
-            if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-                if not judgment_mode:
-                    core.log_message(deepseek_msg)
-
-        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
+        return run_legacy_zai_round(
+            provider=provider,
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            messages=messages,
+            gemini_cache_name=gemini_cache_name,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
             empty_no_tool_rounds=empty_no_tool_rounds,
             empty_no_tool_max=empty_no_tool_max,
-            provider=provider,
-            depname=depname,
-            messages=messages,
-            core=core,
+            tr_cfg=tr_cfg,
+            send_tools_this_round=send_tools_this_round,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            judgment_mode=judgment_mode,
+            inject_stop_prompt_fn=_inject_stop_prompt,
+            translate_assistant_fn=_translate_assistant_if_needed,
+            should_keep_assistant_message_fn=_should_keep_assistant_message,
+            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
+            emit_final_answer_fn=_emit_final_answer_if_any,
         )
-        if action == "continue":
-            return (
-                _RS_CONTINUE,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-        if action == "break":
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        if not tool_calls_list:
-            if not judgment_mode:
-                _emit_final_answer_if_any(
-                    assistant_text=assistant_text,
-                    use_responses_api=False,
-                    stream_responses=False,
-                    append_result_to_outfile_fn=append_result_to_outfile_fn,
-                    try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    reasoning_content=reasoning_content,
-                    skip_print=_ds_streaming,
-                    core=core,
-                    provider=provider,
-                )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        empty_no_tool_rounds = 0
 
     elif provider in ("vercel", "together"):
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
