@@ -54,13 +54,13 @@ from .llm_helpers import (
 from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
-    _call_openai_azure_round,
 )
 from .llm_grok_round import _call_grok_round
 from .runtime.legacy_provider_dispatch import (
     call_legacy_claude_round,
     call_legacy_deepseek_round,
     call_legacy_gemini_round,
+    call_legacy_openai_azure_round,
     call_legacy_reasoning_round,
 )
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
@@ -1800,7 +1800,7 @@ def _run_one_round(
                 )
             else:
                 ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                    _call_openai_azure_round(
+                    call_legacy_openai_azure_round(
                         provider=provider,
                         client=client,
                         depname=depname,
@@ -1821,7 +1821,7 @@ def _run_one_round(
                 )
         else:
             ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                _call_openai_azure_round(
+                call_legacy_openai_azure_round(
                     provider=provider,
                     client=client,
                     depname=depname,

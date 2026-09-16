@@ -46,6 +46,11 @@ def call_legacy_claude_round(**kwargs: Any) -> Any:
     return _call_claude_round(**kwargs)
 
 
+def call_legacy_openai_azure_round(**kwargs: Any) -> Any:
+    """Dispatch OpenAI-compatible Chat/Responses rounds."""
+    return _call_openai_azure_round(**kwargs)
+
+
 def call_legacy_deepseek_round(
     *,
     provider: str,
@@ -113,5 +118,6 @@ __all__ = [
     "call_legacy_claude_round",
     "call_legacy_deepseek_round",
     "call_legacy_gemini_round",
+    "call_legacy_openai_azure_round",
     "call_legacy_reasoning_round",
 ]
