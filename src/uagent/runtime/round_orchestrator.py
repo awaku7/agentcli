@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 from typing import Any, Mapping
 
@@ -15,6 +16,7 @@ from .round_contracts import (
 )
 from .round_runtime import StreamEventValidator
 from .stream_renderer import CollectingStreamRenderer
+from .logging_setup import log_event
 
 
 @dataclass(frozen=True)
@@ -43,6 +45,7 @@ class RoundOrchestrator:
         cancellation: CancellationToken,
     ) -> OrchestratedRound:
         runtime = self._registry.resolve(provider)
+        started = time.perf_counter()
         projection = runtime.project(plan, session)
         request = runtime.serialize(projection)
         validator = StreamEventValidator()
@@ -83,6 +86,17 @@ class RoundOrchestrator:
             continuation_update=continuation_update,
             error=dict(terminal.data) if status == "failed" else None,
             recovery_hint=dict(session.get("recovery_hint") or {}),
+        )
+        log_event(
+            "llm.round.completed",
+            provider=request.provider,
+            model=request.model,
+            status=status,
+            duration_ms=(time.perf_counter() - started) * 1000.0,
+            event_count=len(events),
+            tool_call_count=len(rendered.tool_calls),
+            assistant_chars=len(rendered.assistant_text),
+            reasoning_chars=len(rendered.reasoning_text),
         )
         if continuation_update:
             responses_runtime = session.get("responses_runtime")
