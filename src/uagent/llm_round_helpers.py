@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-import html
 import json
-import re
 import traceback
 import uuid
 from urllib.error import URLError
@@ -19,7 +17,12 @@ from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.round_ui import stop_round_spinner
+from .runtime.error_renderer import exception_text, provider_error_label
 from .runtime.openai_special_dispatch import call_special_openai_round
+
+# Compatibility aliases for existing callers/tests.
+_exception_text = exception_text
+_provider_error_label = provider_error_label
 from .runtime.llm_error_classifier import (
     is_context_overflow_error as _is_context_overflow_error,
 )
@@ -210,27 +213,6 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _env_default_true
 from .translate import translate_text
-
-
-def _provider_error_label(provider: str) -> str:
-    """Return a user-facing error label for the active provider."""
-    if (provider or "").strip().lower() == "meta":
-        return "Meta"
-    return "Azure/OpenAI"
-
-
-def _exception_text(exc: BaseException) -> str:
-    """Return a short, single-line exception summary for the user interface."""
-    text = str(exc).replace("\r", " ").replace("\n", " ")
-    lowered = text.lower()
-    if "zscaler" in lowered or "website blocked" in lowered:
-        urls = re.findall(r"https?://[^\s<>\"']+", text)
-        target = urls[-1] if urls else "the requested URL"
-        return f"Zscaler blocked access to {target}"
-    if "<!doctype html" in lowered or "<html" in lowered:
-        text = html.unescape(re.sub(r"<[^>]*>", " ", text))
-    text = re.sub(r"\s+", " ", text).strip()
-    return text[:500] + ("..." if len(text) > 500 else "")
 
 
 def _is_zscaler_responses_block(exc: BaseException) -> bool:
@@ -551,7 +533,7 @@ def _call_gemini_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", [], {}
             msg = str(e)
             if force_thinking_level is None and (
@@ -573,7 +555,7 @@ def _call_gemini_round(
                 continue
             print(_("[Gemini Error] An error occurred while generating a response."))
             _maybe_print_certifi_where(e)
-            print(_exception_text(e))
+            print(exception_text(e))
             return False, client, "", [], {}
 
     return True, client, assistant_text, tool_calls_list, gemini_content_dump
@@ -687,11 +669,11 @@ def _call_claude_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", []
             print(_("[Claude Error] An error occurred while generating a response."))
             _maybe_print_certifi_where(e)
-            print(_exception_text(e))
+            print(exception_text(e))
             return False, client, "", []
 
     return True, client, assistant_text, tool_calls_list
@@ -723,7 +705,7 @@ def _call_openai_azure_round(
     responses_state: Optional[dict] = None,
     round_count: int = 1,
 ) -> Any:
-    error_prefix = f"[{_provider_error_label(provider)} Error] "
+    error_prefix = f"[{provider_error_label(provider)} Error] "
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
@@ -1519,7 +1501,7 @@ def _call_openai_azure_round(
             ):
                 print(error_prefix + _t("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", "", []
 
             def _err_text_of(exc: BaseException) -> str:
@@ -1673,7 +1655,7 @@ def _call_openai_azure_round(
                     + _("Error code: %(code)s - %(err)s")
                     % {
                         "code": getattr(e, "status_code", 400) or 400,
-                        "err": _exception_text(e),
+                        "err": exception_text(e),
                     }
                 )
                 return False, client, "", "", []
@@ -1701,13 +1683,13 @@ def _call_openai_azure_round(
                 stop_round_spinner()
                 print(error_prefix + _t("Connection error"))
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", "", []
             if isinstance(e, URLError):
                 stop_round_spinner()
                 print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", "", []
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
@@ -1720,7 +1702,7 @@ def _call_openai_azure_round(
                 recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
             if action == "retry":
-                if not _authorize_retry("transport", _exception_text(e)):
+                if not _authorize_retry("transport", exception_text(e)):
                     action = "give_up"
             if action == "retry":
                 if new_client is not None:
@@ -1733,11 +1715,11 @@ def _call_openai_azure_round(
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
-                print(_exception_text(e))
+                print(exception_text(e))
                 return False, client, "", "", []
             stop_round_spinner()
             print(
-                "[LLM Error] " + _t("Unexpected exception.") + " " + _exception_text(e)
+                "[LLM Error] " + _t("Unexpected exception.") + " " + exception_text(e)
             )
             _maybe_print_certifi_where(e)
             return False, client, "", "", []
