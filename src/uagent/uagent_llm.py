@@ -513,10 +513,10 @@ _RS_OK = "ok"  # execute postamble then continue loop
 
 def _record_round_context_plan(
     *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
-) -> None:
-    """Build a provider-neutral plan; opt out with an explicit false value."""
+) -> Any | None:
+    """Build and return the provider-neutral plan for this round."""
     if not _env_default_on("UAGENT_ROUND_CONTRACTS"):
-        return
+        return None
     workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
     tool_specs = getattr(core, "context_tool_specs", None) or ()
     try:
@@ -527,10 +527,12 @@ def _record_round_context_plan(
             policy={"provider": provider, "model": depname},
             telemetry={"round_contracts": True},
         )
+        return core.context_plan
     except Exception:
         # The feature flag is observational until the new orchestration path
         # owns dispatch, so a plan failure must not alter existing execution.
         core.context_plan = None
+    return None
 
 
 def _apply_semantic_message_transforms(
@@ -1067,9 +1069,11 @@ def _run_one_round(
             _persist_context_decision_log(active_context, core)
             call_messages = active_context.messages
     if not judgment_mode:
-        _record_round_context_plan(
+        round_plan = _record_round_context_plan(
             provider=provider, depname=depname, call_messages=call_messages, core=core
         )
+        if round_plan is not None:
+            call_messages = [dict(message) for message in round_plan.messages]
     call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
     call_messages = project_messages_for_provider(
         call_messages, provider=provider, model=depname
@@ -1138,6 +1142,13 @@ def _run_one_round(
             call_messages = project_messages_for_provider(
                 call_messages, provider=provider, model=depname
             )
+            if not judgment_mode:
+                _record_round_context_plan(
+                    provider=provider,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                )
 
     cache_plan = plan_provider_cache(
         provider=provider,
