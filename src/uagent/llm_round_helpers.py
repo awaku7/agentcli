@@ -900,8 +900,15 @@ def _call_openai_azure_round(
                     except Exception:
                         pass
                     if not _all_tools:
-                        # Fallback: use already-registered tools
-                        _all_tools = tools.get_tool_specs()
+                        # Fallback: use already-registered tools, while
+                        # preserving native tool_search's management-tool
+                        # exclusion at the delivery boundary.
+                        _all_tools = [
+                            spec
+                            for spec in tools.get_tool_specs()
+                            if str((spec.get("function") or {}).get("name") or "")
+                            not in _excluded
+                        ]
                     responses_tool_specs = _all_tools
                 else:
                     # Standard Responses API path (non-GPT-5.4): use the

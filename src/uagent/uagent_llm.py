@@ -726,7 +726,22 @@ def _try_registry_simple_chat_round(
         return None
     if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
         return None
+    if use_responses_api:
+        from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target, _is_legacy_mode
+
+        if _is_legacy_mode() and _is_gpt54_tool_search_target(
+            provider=provider,
+            depname=depname,
+            use_responses_api=True,
+        ):
+            # Legacy client-side tool narrowing must remain on the established
+            # path until the registry adapter owns tool delivery decisions.
+            return None
     if send_tools_this_round and not _env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"):
+        return None
+    if send_tools_this_round and not getattr(core, "context_tool_specs", None):
+        # The registry adapter requires a prepared context/tool projection.
+        # Defer to the established path when no selection was supplied.
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
@@ -751,15 +766,20 @@ def _try_registry_simple_chat_round(
         key_provider = CredentialStoreWorkspaceKeyProvider()
         identity_factory = RoundIdentityFactory(workspace_id, key_provider)
         tool_specs = getattr(core, "context_tool_specs", None) or ()
+        if send_tools_this_round and not tool_specs:
+            from . import tools as _tools
+
+            tool_specs = tuple(_tools.get_tool_specs() or ())
         if send_tools_this_round and round_count <= 1:
             from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target
 
-            native_tool_search = use_responses_api and _is_gpt54_tool_search_target(
+            gpt54_search_target = _is_gpt54_tool_search_target(
                 provider=provider,
                 depname=depname,
                 use_responses_api=True,
             )
-            if not native_tool_search:
+            native_tool_search = use_responses_api and gpt54_search_target
+            if gpt54_search_target and not native_tool_search:
                 management_specs = tuple(
                     spec
                     for spec in tool_specs
@@ -948,6 +968,8 @@ def _try_registry_simple_chat_round(
         # Let the established provider path handle the request so registry
         # adapter failures do not silently terminate the user operation.
         if result.status != "completed":
+            if use_responses_api:
+                _sync_registry_responses_terminal(core, result.status)
             try:
                 from .runtime.logging_setup import log_event
 

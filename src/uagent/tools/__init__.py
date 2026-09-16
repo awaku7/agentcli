@@ -1307,12 +1307,11 @@ def get_tool_specs() -> list[dict[str, Any]]:
     ):
         return _TOOL_SPECS_CACHE
 
-    # Native GPT-5.4 tool_search: exclude management tools (server handles all)
-    # and hidden tools (disabled/private) that shouldn't reach the LLM.
+    # Embedded mode hides management tools unless explicitly loaded. Native
+    # tool_search filtering belongs to the delivery layer, not this catalog
+    # source, so normal-mode catalog callers always see the full registry.
     _native_exclusions: set[str] = set()
-    if _should_preload_lazy_specs():
-        _native_exclusions = set(_EMBEDDED_EXCLUDED_TOOLS)
-    elif _is_embedded_mode():
+    if _is_embedded_mode():
         # Embedded mode: hide management tools from the LLM unless one tool
         # from their module group was explicitly loaded (--enable-tool /
         # :tools load). Loading tool_catalog therefore also surfaces
@@ -1637,7 +1636,10 @@ def get_tool_catalog(
                 "content",
                 "literal",
             }
-            if not any(token in grep_intent for token in tokens):
+            if any(token in grep_intent for token in tokens) or name.lower() in tokens:
+                # Explicit grep/name intent must outrank generic replacement tools.
+                s += 500
+            else:
                 s -= 2000
         return s
 
