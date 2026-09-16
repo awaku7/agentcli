@@ -40,6 +40,7 @@ class RecoveryPlan:
     classification: RecoveryClassification
     strategy: RecoveryStrategy
     omitted_message_indexes: tuple[int, ...] = ()
+    omitted_message_ids: tuple[str, ...] = ()
     local_history_mutation: bool = False
     remote_session_mutation: bool = False
     projection_mutation: bool = False
@@ -55,6 +56,7 @@ class LocalRecoveryResult:
     messages: tuple[Mapping[str, Any], ...]
     omitted_message_indexes: tuple[int, ...]
     recovery_id: str
+    omitted_message_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -84,6 +86,15 @@ def _message_size(message: Mapping[str, Any]) -> int:
         return len(json.dumps(message, ensure_ascii=False, default=str).encode("utf-8"))
     except Exception:
         return 0
+
+
+def _message_id(message: Mapping[str, Any], index: int) -> str:
+    """Return an immutable message identifier for recovery telemetry."""
+    for key in ("id", "message_id", "immutable_id"):
+        value = message.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return f"index:{index}"
 
 
 class ContextRecoveryManager:
@@ -142,6 +153,10 @@ class ContextRecoveryManager:
         elif classification == "unsupported_feature":
             strategy = "client_projection"
 
+        omitted_ids = tuple(
+            _message_id(context_plan.messages[index], index)
+            for index in omitted
+        )
         material = "|".join(
             (
                 context_plan.plan_id,
@@ -149,6 +164,7 @@ class ContextRecoveryManager:
                 classification,
                 strategy,
                 ",".join(str(item) for item in omitted),
+                ",".join(omitted_ids),
                 attempt_id,
             )
         )
@@ -160,6 +176,7 @@ class ContextRecoveryManager:
             classification=classification,
             strategy=strategy,
             omitted_message_indexes=omitted,
+            omitted_message_ids=omitted_ids,
             remote_session_mutation=strategy == "provider_compact",
             projection_mutation=strategy != "no_op",
             attempt_id=attempt_id,
@@ -185,6 +202,7 @@ class ContextRecoveryManager:
             messages=messages,
             omitted_message_indexes=plan.omitted_message_indexes,
             recovery_id=plan.recovery_id,
+            omitted_message_ids=plan.omitted_message_ids,
         )
 
 

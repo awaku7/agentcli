@@ -50,6 +50,7 @@ def test_local_overflow_recovery_is_replayable_and_does_not_mutate_history() -> 
     assert first.recovery_id == second.recovery_id
     assert first.strategy == "bounded_rollback"
     assert first.omitted_message_indexes == (1, 2)
+    assert first.omitted_message_ids == ("largest", "tail")
     assert first.local_history_mutation is False
     assert first.projection_mutation is True
     assert context_plan.messages == before
