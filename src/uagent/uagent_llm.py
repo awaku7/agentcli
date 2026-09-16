@@ -57,12 +57,12 @@ from .llm_round_helpers import (
 )
 from .llm_grok_round import _call_grok_round
 from .runtime.legacy_provider_dispatch import (
-    call_legacy_claude_round,
     call_legacy_deepseek_round,
     call_legacy_gemini_round,
     call_legacy_openai_azure_round,
     call_legacy_reasoning_round,
 )
+from .runtime.legacy_claude_round import run_legacy_claude_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1400,104 +1400,34 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     elif provider == "claude":
-        ok, client, assistant_text, tool_calls_list = call_legacy_claude_round(
+        return run_legacy_claude_round(
             client=client,
             depname=depname,
             call_messages=call_messages,
+            messages=messages,
+            gemini_cache_name=gemini_cache_name,
             core=core,
             make_client_fn=make_client_fn,
             call_maybe_thread_fn=_call_maybe_thread_fn,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            send_tools=send_tools_this_round,
-            provider=provider,
-        )
-        if not ok:
-            return (
-                _RS_RETURN,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        # --- Interrupt check ---
-        with _core_module.interrupt_lock:
-            if _core_module.interrupt_requested:
-                _core_module.interrupt_requested = False
-                _inject_stop_prompt(messages, core)
-                return (
-                    _RS_BREAK,
-                    client,
-                    gemini_cache_name,
-                    empty_no_tool_rounds,
-                    assistant_text,
-                )
-
-        assistant_text = _translate_assistant_if_needed(
-            assistant_text=assistant_text,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
             tr_cfg=tr_cfg,
             use_responses_api=use_responses_api,
             stream_responses=stream_responses,
+            send_tools_this_round=send_tools_this_round,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            judgment_mode=judgment_mode,
+            inject_stop_prompt_fn=_inject_stop_prompt,
+            translate_assistant_fn=_translate_assistant_if_needed,
+            should_keep_assistant_message_fn=_should_keep_assistant_message,
+            append_assistant_message_fn=_append_assistant_message,
+            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
+            emit_final_answer_fn=_emit_final_answer_if_any,
         )
-
-        if _should_keep_assistant_message(assistant_text, tool_calls_list):
-            _append_assistant_message(
-                messages=messages,
-                core=core,
-                assistant_text=assistant_text,
-                tool_calls_list=tool_calls_list,
-            )
-
-        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            provider=provider,
-            depname=depname,
-            messages=messages,
-            core=core,
-        )
-        if action == "continue":
-            return (
-                _RS_CONTINUE,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-        if action == "break":
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        if not tool_calls_list:
-            if not judgment_mode:
-                _emit_final_answer_if_any(
-                    assistant_text=assistant_text,
-                    reasoning_content=locals().get("reasoning_content", ""),
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                    append_result_to_outfile_fn=append_result_to_outfile_fn,
-                    try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    core=core,
-                    provider=provider,
-                )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-
-        empty_no_tool_rounds = 0
 
     elif provider in ("deepseek", "mimo"):
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
