@@ -24,7 +24,7 @@ from .runtime.llm_error_classifier import (
     is_context_overflow_error as _is_context_overflow_error,
 )
 from .runtime.context_recovery import ContextRecoveryManager
-from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
+from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
@@ -810,25 +810,16 @@ def _call_openai_azure_round(
     _stale_rid_retried = False
     # A proxy may transiently return a block page for /v1/responses.
     _responses_proxy_retried = False
-    # One budget spans every retry reason in this LLM execution.  Keep the
-    # legacy per-429 limit as an additional, narrower bound during migration.
-    attempt_budget = RoundAttemptBudget(
-        total_limit=max(1, max_retries_429 + 4),
-        reason_limits={
-            "stale_continuation": 1,
-            "feature_fallback": 2,
-            "transport": max(1, max_retries_429 + 1),
-            "client_recreate": 1,
-        },
-    )
+    # One coordinator spans every retry reason in this LLM execution.
+    retry_coordinator = RoundRetryCoordinator(max_retries_429)
     if core is not None:
         try:
-            core.round_attempt_budget = attempt_budget
+            core.round_attempt_budget = retry_coordinator.budget
         except Exception:
             pass
 
     def _authorize_retry(reason: str, detail: str) -> bool:
-        return attempt_budget.try_consume(RetryRequest(reason, detail))
+        return retry_coordinator.authorize(reason, detail)
 
     def _clear_stale_rid_after_success() -> None:
         """Allow Responses API continuation again after a successful retry."""
