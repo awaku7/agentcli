@@ -26,6 +26,7 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         assert isinstance(runtime, OpenAICompatibleRuntime)
         assert runtime.capabilities.provider == provider
         assert runtime.capabilities.transport == "chat_completions"
+        assert registry.capability_snapshot(provider) is runtime.capabilities
         assert registry.providers() == (provider,)
 
 

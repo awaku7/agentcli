@@ -118,6 +118,8 @@ class CancellationToken(Protocol):
 class ProviderRuntime(Protocol):
     """Provider adapter contract used by the future orchestration registry."""
 
+    capabilities: Any
+
     def project(
         self, plan: ContextPlan, session: Mapping[str, Any]
     ) -> ProviderProjection: ...
@@ -157,6 +159,11 @@ class ProviderRuntimeRegistry:
             return self._runtimes[key]
         except KeyError as exc:
             raise UnknownProviderRuntime(key or "<empty>") from exc
+
+    def capability_snapshot(self, provider: str) -> Any:
+        """Return the registered runtime's resolved capability snapshot."""
+        runtime = self.resolve(provider)
+        return getattr(runtime, "capabilities", None)
 
     def providers(self) -> Sequence[str]:
         return tuple(sorted(self._runtimes))
