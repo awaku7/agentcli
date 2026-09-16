@@ -137,13 +137,17 @@ def _rollback_largest_recent_history(
     messages: list[dict[str, Any]], *, lookback: int = 10
 ) -> dict[str, Any] | None:
     """Remove the largest recent message and everything after it."""
-    selected = ContextRecoveryManager.select_bounded_rollback(
+    projection = ContextRecoveryManager.bounded_rollback_projection(
         messages, lookback=lookback
     )
-    if selected is None:
+    if projection is None:
         return None
-    index, size, removed = selected
-    del messages[index:]
+    kept_messages, rollback = projection
+    index = rollback["index"]
+    size = rollback["size"]
+    removed = rollback["removed"]
+    del messages[:]
+    messages.extend(kept_messages)
     messages.append(
         {
             "role": "system",

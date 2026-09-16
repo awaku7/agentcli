@@ -129,6 +129,23 @@ class ContextRecoveryManager:
         return index, size, len(messages) - index
 
     @staticmethod
+    def bounded_rollback_projection(
+        messages: list[Mapping[str, Any]], *, lookback: int = 10
+    ) -> tuple[tuple[Mapping[str, Any], ...], dict[str, int]] | None:
+        """Build a non-mutating legacy rollback projection and metadata."""
+        selected = ContextRecoveryManager.select_bounded_rollback(
+            messages, lookback=lookback
+        )
+        if selected is None:
+            return None
+        index, size, removed = selected
+        return tuple(messages[:index]), {
+            "index": index,
+            "size": size,
+            "removed": removed,
+        }
+
+    @staticmethod
     def classify(error_text: str) -> RecoveryClassification:
         text = (error_text or "").lower()
         if (

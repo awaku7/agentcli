@@ -61,6 +61,13 @@ def test_local_overflow_recovery_is_replayable_and_does_not_mutate_history() -> 
     assert selected[0] == 1
     assert selected[1] > 2_000
     assert selected[2] == 2
+    projection = manager.bounded_rollback_projection(
+        list(context_plan.messages), lookback=3
+    )
+    assert projection is not None
+    projected_messages, metadata = projection
+    assert tuple(message["id"] for message in projected_messages) == ("first",)
+    assert metadata["removed"] == 2
     assert context_plan.messages == before
 
 
