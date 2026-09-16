@@ -92,6 +92,13 @@ def run_legacy_gemini_round(
         and not getattr(core, "_gemini_tool_catalog_ready", False)
     ):
         discovery_specs = getattr(core, "context_tool_specs", None)
+        if discovery_specs is None:
+            try:
+                from .. import tools
+
+                discovery_specs = tools.get_tool_specs()
+            except Exception:
+                discovery_specs = []
         has_catalog = isinstance(discovery_specs, list) and any(
             isinstance(spec, dict)
             and (spec.get("function") or {}).get("name") == "tool_catalog"

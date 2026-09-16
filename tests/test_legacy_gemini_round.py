@@ -6,6 +6,7 @@ from uagent.runtime import legacy_gemini_round
 class _Core:
     def __init__(self) -> None:
         self._is_web = False
+        self.context_tool_specs = []
 
 
 def _kwargs(core: _Core) -> dict[str, object]:
