@@ -857,7 +857,9 @@ def gemini_chat_with_tools(
     )
     tool_specs = _gemini_round_tool_specs(tool_specs, core=core, provider=provider)
 
-    if use_google_search:
+    # Keep the discovery request function-only. Gemini/Vertex built-in tools
+    # can otherwise interfere with the forced catalog function call.
+    if use_google_search and not initial_discovery_round:
         try:
             tools_list.append(
                 gemini_types.Tool(google_search=gemini_types.GoogleSearch())
