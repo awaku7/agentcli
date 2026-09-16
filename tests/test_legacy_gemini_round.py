@@ -85,10 +85,15 @@ def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(monkeyp
         "uagent.runtime.legacy_gemini_round.call_legacy_gemini_round",
         lambda **_kwargs: (True, "client", "", [], {}),
     )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers._execute_tool_calls",
+        lambda **call_kwargs: (True, call_kwargs["tool_calls_list"]),
+    )
 
     result = legacy_gemini_round.run_legacy_gemini_round(**kwargs)
 
     assert result[0] == "ok"
+    assert core._gemini_tool_catalog_ready is True
     assert appended[0]["tool_calls_list"][0]["function"]["name"] == "tool_catalog"
 
 

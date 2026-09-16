@@ -189,6 +189,24 @@ def run_legacy_gemini_round(
             assistant_text,
         )
 
+    if not judgment_mode:
+        from ..llm_flow_helpers import _execute_tool_calls
+
+        _, fresh_tool_calls = _execute_tool_calls(
+            tool_calls_list=tool_calls_list,
+            messages=messages,
+            core=core,
+            cache_mgr=_unused.get("cache_mgr"),
+            responses_api_continuation=use_responses_api,
+            responses_runtime=getattr(core, "responses_runtime", None),
+        )
+        if any(
+            isinstance(tc, dict)
+            and (tc.get("function") or {}).get("name") == "tool_catalog"
+            for tc in fresh_tool_calls
+        ):
+            core._gemini_tool_catalog_ready = True
+
     return (
         "ok",
         client,

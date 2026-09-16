@@ -1290,6 +1290,7 @@ def _run_one_round(
             call_messages=call_messages,
             messages=messages,
             gemini_cache_name=gemini_cache_name,
+            cache_mgr=cache_mgr,
             core=core,
             make_client_fn=make_client_fn,
             call_maybe_thread_fn=_call_maybe_thread_fn,
