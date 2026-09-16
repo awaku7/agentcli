@@ -55,13 +55,15 @@ from .llm_helpers import (
 from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
-    _call_legacy_gemini_round,
-    _call_legacy_claude_round,
     _call_openai_azure_round,
     _call_deepseek_round,
-    _call_legacy_reasoning_round,
 )
 from .llm_grok_round import _call_grok_round
+from .runtime.legacy_provider_dispatch import (
+    call_legacy_claude_round,
+    call_legacy_gemini_round,
+    call_legacy_reasoning_round,
+)
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1268,7 +1270,7 @@ def _run_one_round(
             assistant_text,
             tool_calls_list,
             gemini_content_dump,
-        ) = _call_legacy_gemini_round(
+        ) = call_legacy_gemini_round(
             provider=provider,
             client=client,
             depname=depname,
@@ -1373,7 +1375,7 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     elif provider == "claude":
-        ok, client, assistant_text, tool_calls_list = _call_legacy_claude_round(
+        ok, client, assistant_text, tool_calls_list = call_legacy_claude_round(
             client=client,
             depname=depname,
             call_messages=call_messages,
@@ -1608,7 +1610,7 @@ def _run_one_round(
 
     elif provider == "zai":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_legacy_reasoning_round(
+            call_legacy_reasoning_round(
                 provider=provider,
                 client=client,
                 depname=depname,
@@ -1718,7 +1720,7 @@ def _run_one_round(
 
     elif provider == "vercel":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_legacy_reasoning_round(
+            call_legacy_reasoning_round(
                 provider=provider,
                 client=client,
                 depname=depname,
@@ -1795,7 +1797,7 @@ def _run_one_round(
 
     elif provider == "together":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_legacy_reasoning_round(
+            call_legacy_reasoning_round(
                 provider=provider,
                 client=client,
                 depname=depname,
@@ -1872,7 +1874,7 @@ def _run_one_round(
 
     elif provider == "novita":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_legacy_reasoning_round(
+            call_legacy_reasoning_round(
                 provider=provider,
                 client=client,
                 depname=depname,
