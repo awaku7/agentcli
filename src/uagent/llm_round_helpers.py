@@ -283,36 +283,6 @@ def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
     chat_kwargs["extra_body"] = extra_body
 
 
-def _translate_call_messages(
-    call_messages: list[dict[str, Any]], tr_cfg: Any
-) -> list[dict[str, Any]]:
-    translated_call_messages = call_messages
-    if tr_cfg is not None:
-        try:
-            translated_call_messages = []
-            for m in call_messages:
-                role = m.get("role")
-                if role in ("system", "user", "assistant"):
-                    content = m.get("content")
-                    if isinstance(content, str) and content.strip():
-                        src_lang = ""
-                        out, diag = translate_text(
-                            content,
-                            direction="to_llm",
-                            src_lang=src_lang,
-                            cfg=tr_cfg,
-                        )
-                        nm = dict(m)
-                        nm["content"] = out
-                        translated_call_messages.append(nm)
-                        continue
-                translated_call_messages.append(m)
-        except Exception:
-            pass
-
-    return translated_call_messages
-
-
 def _resolve_round_runtime_flags(
     *, tr_cfg: Any, core: Any, provider: str = "", depname: str = ""
 ) -> Any:
