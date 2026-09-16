@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any, Callable
 
 from .. import core as _core_module
@@ -80,6 +81,43 @@ def run_legacy_gemini_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
+
+    # Some Vertex/Gemini models emit only thought parts even when ANY/tool
+    # selection is requested. Complete the discovery boundary host-side rather
+    # than retrying the same thought-only request indefinitely.
+    if (
+        provider in ("gemini", "vertexai")
+        and not judgment_mode
+        and not tool_calls_list
+        and not getattr(core, "_gemini_tool_catalog_ready", False)
+    ):
+        discovery_specs = getattr(core, "context_tool_specs", None)
+        has_catalog = isinstance(discovery_specs, list) and any(
+            isinstance(spec, dict)
+            and (spec.get("function") or {}).get("name") == "tool_catalog"
+            for spec in discovery_specs
+        )
+        if has_catalog:
+            query = next(
+                (
+                    str(message.get("content") or "")[-4000:]
+                    for message in reversed(messages)
+                    if isinstance(message, dict) and message.get("role") == "user"
+                ),
+                "",
+            )
+            tool_calls_list = [
+                {
+                    "id": f"gemini_discovery_{len(messages)}",
+                    "type": "function",
+                    "function": {
+                        "name": "tool_catalog",
+                        "arguments": json.dumps(
+                            {"query": query}, ensure_ascii=False
+                        ),
+                    },
+                }
+            ]
 
     assistant_text = translate_assistant_fn(
         assistant_text=assistant_text,

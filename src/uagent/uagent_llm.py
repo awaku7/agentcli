@@ -1487,10 +1487,13 @@ def _run_one_round(
         responses_api_continuation=use_responses_api,
         responses_runtime=getattr(core, "responses_runtime", None),
     )
-    if provider in ("gemini", "vertexai") and fresh_tool_calls:
-        # The first Gemini round intentionally exposes only discovery tools;
-        # after one tool interaction, the refreshed context may expose the
-        # selected provider-neutral tool surface.
+    if provider in ("gemini", "vertexai") and any(
+        isinstance(tc, dict)
+        and (tc.get("function") or {}).get("name") == "tool_catalog"
+        for tc in fresh_tool_calls
+    ):
+        # Only a successful catalog call completes the Gemini discovery
+        # boundary. Other tool calls must not silently skip discovery later.
         core._gemini_tool_catalog_ready = True
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a

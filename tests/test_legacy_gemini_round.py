@@ -74,4 +74,21 @@ def test_gemini_round_failure_returns_without_appending(monkeypatch) -> None:
     assert appended == []
 
 
+def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(monkeypatch) -> None:
+    core = _Core()
+    core.context_tool_specs = [{"function": {"name": "tool_catalog"}}]
+    kwargs = _kwargs(core)
+    appended: list[dict[str, object]] = []
+    kwargs["append_assistant_message_fn"] = lambda **payload: appended.append(payload)
+    monkeypatch.setattr(
+        "uagent.runtime.legacy_gemini_round.call_legacy_gemini_round",
+        lambda **_kwargs: (True, "client", "", [], {}),
+    )
+
+    result = legacy_gemini_round.run_legacy_gemini_round(**kwargs)
+
+    assert result[0] == "ok"
+    assert appended[0]["tool_calls_list"][0]["function"]["name"] == "tool_catalog"
+
+
 __all__ = []

@@ -857,6 +857,17 @@ def gemini_chat_with_tools(
     )
     tool_specs = _gemini_round_tool_specs(tool_specs, core=core, provider=provider)
 
+    # Cached content cannot be combined with request-level tools/tool_config.
+    # Do not let a stale cache silently disable the forced first-round
+    # discovery call.
+    if initial_discovery_round and cached_content:
+        _vertex_debug(
+            "cache_bypass_for_discovery",
+            provider=provider,
+            model=model_name,
+        )
+        cached_content = None
+
     # Keep the discovery request function-only. Gemini/Vertex built-in tools
     # can otherwise interfere with the forced catalog function call.
     if use_google_search and not initial_discovery_round:
@@ -1420,7 +1431,8 @@ def gemini_chat_with_tools(
             "request_start",
             provider=provider,
             model=model_name,
-            server_search=bool(use_google_search),
+            # This reflects the effective request, not only the environment flag.
+            server_search=bool(use_google_search and not initial_discovery_round),
             tools=len(tool_specs),
         )
         _first_chunk = True
@@ -1541,7 +1553,15 @@ def gemini_chat_with_tools(
         "request_start",
         provider=provider,
         model=model_name,
-        server_search=bool(use_google_search),
+        # This reflects the effective request, not only the environment flag.
+        server_search=bool(use_google_search and not initial_discovery_round),
+        initial_discovery=initial_discovery_round,
+        cached_content=bool(cached_content),
+        catalog_ready=bool(
+            getattr(core, "_gemini_tool_catalog_ready", False)
+            if core is not None
+            else False
+        ),
         tools=len(tool_specs),
         stream=False,
     )
