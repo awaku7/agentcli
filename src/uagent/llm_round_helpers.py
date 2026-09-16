@@ -2102,6 +2102,26 @@ _LEGACY_REASONING_ROUND_CALLERS = {
 }
 
 
+_LEGACY_GEMINI_ROUND_CALLERS = {
+    "gemini": _call_gemini_round,
+    "vertexai": _call_gemini_round,
+}
+
+
+def _call_legacy_gemini_round(*, provider: str, **kwargs: Any) -> Any:
+    """Dispatch Gemini-family rounds through the compatibility registry."""
+    try:
+        caller = _LEGACY_GEMINI_ROUND_CALLERS[(provider or "").strip().lower()]
+    except KeyError as exc:
+        raise ValueError(f"unsupported Gemini provider: {provider}") from exc
+    return caller(**kwargs)
+
+
+def _call_legacy_claude_round(**kwargs: Any) -> Any:
+    """Dispatch Claude rounds through the compatibility registry."""
+    return _call_claude_round(**kwargs)
+
+
 def _call_legacy_reasoning_round(*, provider: str, **kwargs: Any) -> Any:
     """Dispatch shared reasoning-provider rounds through one registry.
 

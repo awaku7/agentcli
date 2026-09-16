@@ -55,8 +55,8 @@ from .llm_helpers import (
 from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
-    _call_gemini_round,
-    _call_claude_round,
+    _call_legacy_gemini_round,
+    _call_legacy_claude_round,
     _call_openai_azure_round,
     _call_deepseek_round,
     _call_legacy_reasoning_round,
@@ -1268,7 +1268,8 @@ def _run_one_round(
             assistant_text,
             tool_calls_list,
             gemini_content_dump,
-        ) = _call_gemini_round(
+        ) = _call_legacy_gemini_round(
+            provider=provider,
             client=client,
             depname=depname,
             call_messages=call_messages,
@@ -1282,7 +1283,6 @@ def _run_one_round(
             retry_cap=retry_cap,
             stream_responses=stream_responses,
             send_tools=send_tools_this_round,
-            provider=provider,
         )
         if not ok:
             return (
@@ -1373,7 +1373,7 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     elif provider == "claude":
-        ok, client, assistant_text, tool_calls_list = _call_claude_round(
+        ok, client, assistant_text, tool_calls_list = _call_legacy_claude_round(
             client=client,
             depname=depname,
             call_messages=call_messages,
