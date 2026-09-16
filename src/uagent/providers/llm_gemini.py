@@ -824,6 +824,16 @@ def gemini_chat_with_tools(
     if not isinstance(tool_specs, list):
         tool_specs = []
 
+    initial_discovery_round = (
+        (provider or "").strip().lower() in {"gemini", "vertexai"}
+        and core is not None
+        and not getattr(core, "_gemini_tool_catalog_ready", False)
+        and any(
+            isinstance(spec, dict)
+            and str((spec.get("function") or {}).get("name") or "") == "tool_catalog"
+            for spec in tool_specs
+        )
+    )
     tool_specs = _gemini_round_tool_specs(tool_specs, core=core, provider=provider)
 
     if use_google_search:
@@ -1160,9 +1170,20 @@ def gemini_chat_with_tools(
     else:
         if tools_list:
             cfg_kwargs["tools"] = tools_list
+            if initial_discovery_round:
+                # Force the discovery boundary: otherwise a thinking model can
+                # narrate a planned catalog lookup without emitting a call.
+                try:
+                    cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
+                        function_calling_config=gemini_types.FunctionCallingConfig(
+                            mode="ANY", allowed_function_names=["tool_catalog"]
+                        )
+                    )
+                except Exception:
+                    pass
             # include_server_side_tool_invocations is not supported by
             # VertexAI Enterprise Agent Platform.
-            if not _is_vertexai_client(client, provider):
+            elif not _is_vertexai_client(client, provider):
                 try:
                     cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
                         include_server_side_tool_invocations=True
