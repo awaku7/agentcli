@@ -9,7 +9,6 @@ from __future__ import annotations
 from typing import Any
 
 from ..llm_round_helpers import (
-    _call_claude_round,
     _call_deepseek_round,
     _call_openai_azure_round,
     _call_novita_round,
@@ -18,6 +17,7 @@ from ..llm_round_helpers import (
     _call_zai_round,
 )
 from .legacy_gemini_adapter import _call_gemini_round
+from .legacy_claude_adapter import _call_claude_round
 
 _LEGACY_REASONING_ROUND_CALLERS = {
     "zai": _call_zai_round,
@@ -47,6 +47,9 @@ def call_legacy_gemini_round(*, provider: str, **kwargs: Any) -> Any:
 
 def call_legacy_claude_round(**kwargs: Any) -> Any:
     """Dispatch Claude rounds through the compatibility registry."""
+    from .. import llm_round_helpers
+
+    kwargs.setdefault("claude_chat_fn", llm_round_helpers.claude_chat_with_tools)
     return _call_claude_round(**kwargs)
 
 
