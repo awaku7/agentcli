@@ -57,6 +57,12 @@ def test_local_overflow_recovery_is_replayable_and_does_not_mutate_history() -> 
     assert tuple(message["id"] for message in recovered.messages) == ("first",)
     assert recovered.omitted_message_indexes == (1, 2)
 
+    selected = manager.select_bounded_rollback(list(context_plan.messages), lookback=3)
+    assert selected[0] == 1
+    assert selected[1] > 2_000
+    assert selected[2] == 2
+    assert context_plan.messages == before
+
 
 def test_context_overflow_consumes_the_single_shared_retry_budget() -> None:
     budget = RoundAttemptBudget(total_limit=1)

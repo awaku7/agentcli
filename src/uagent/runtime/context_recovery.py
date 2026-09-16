@@ -106,6 +106,29 @@ class ContextRecoveryManager:
         self._lookback = lookback
 
     @staticmethod
+    def select_bounded_rollback(
+        messages: list[Mapping[str, Any]], *, lookback: int = 10
+    ) -> tuple[int, int, int] | None:
+        """Select the largest recent message without mutating history.
+
+        Returns ``(index, size_bytes, removed_count)`` for the projection
+        rollback compatibility path.  The caller remains responsible for
+        applying the omission and adding any user-facing notice.
+        """
+        if not isinstance(messages, list) or not messages or lookback < 1:
+            return None
+        start = max(0, len(messages) - lookback)
+        candidates = [
+            (_message_size(message), index)
+            for index, message in enumerate(messages[start:], start)
+            if isinstance(message, Mapping)
+        ]
+        if not candidates:
+            return None
+        size, index = max(candidates)
+        return index, size, len(messages) - index
+
+    @staticmethod
     def classify(error_text: str) -> RecoveryClassification:
         text = (error_text or "").lower()
         if (

@@ -20,6 +20,7 @@ from .runtime.message_transform import normalize_surrogates as _normalize_surrog
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .runtime.llm_error_classifier import is_context_overflow_error as _is_context_overflow_error
+from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
 from .reasoning_display import show_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
@@ -136,24 +137,12 @@ def _rollback_largest_recent_history(
     messages: list[dict[str, Any]], *, lookback: int = 10
 ) -> dict[str, Any] | None:
     """Remove the largest recent message and everything after it."""
-    if not isinstance(messages, list) or not messages:
+    selected = ContextRecoveryManager.select_bounded_rollback(
+        messages, lookback=lookback
+    )
+    if selected is None:
         return None
-    start = max(0, len(messages) - max(1, lookback))
-    sizes: list[tuple[int, int]] = []
-    for index in range(start, len(messages)):
-        try:
-            size = len(
-                json.dumps(messages[index], ensure_ascii=False, default=str).encode(
-                    "utf-8"
-                )
-            )
-        except Exception:
-            size = 0
-        sizes.append((size, index))
-    if not sizes:
-        return None
-    size, index = max(sizes)
-    removed = len(messages) - index
+    index, size, removed = selected
     del messages[index:]
     messages.append(
         {
