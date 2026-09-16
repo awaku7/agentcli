@@ -55,15 +55,14 @@ from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
 )
-from .llm_grok_round import _call_grok_round
 from .runtime.legacy_provider_dispatch import (
     call_legacy_gemini_round,
-    call_legacy_openai_azure_round,
 )
 from .runtime.legacy_claude_round import run_legacy_claude_round
 from .runtime.legacy_deepseek_round import run_legacy_deepseek_round
 from .runtime.legacy_zai_round import run_legacy_zai_round
 from .runtime.legacy_gateway_round import run_legacy_gateway_round
+from .runtime.legacy_openai_round import call_legacy_openai_compatible_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1514,79 +1513,31 @@ def _run_one_round(
             emit_final_answer_fn=_emit_final_answer_if_any,
         )
     else:  # OpenAI / Azure / Grok
-        _is_xai_grpc = False
-        if provider == "grok":
-            # Use xai_sdk (gRPC) only when client is XAIClient; otherwise OpenAI SDK
-            try:
-                from xai_sdk import Client as _XAIClient
-
-                _is_xai_grpc = isinstance(client, _XAIClient)
-            except Exception:
-                _is_xai_grpc = False
-
-            if _is_xai_grpc:
-                ok, client, assistant_text, tool_calls_list = _call_grok_round(
-                    provider=provider,
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                    send_tools_this_round=send_tools_this_round,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
-                    messages=messages,
-                    responses_state=core.responses_state,
-                )
-                reasoning_content = (
-                    ""  # Grok does not return reasoning_content separately
-                )
-            else:
-                ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                    call_legacy_openai_azure_round(
-                        provider=provider,
-                        client=client,
-                        depname=depname,
-                        call_messages=call_messages,
-                        core=core,
-                        make_client_fn=make_client_fn,
-                        call_maybe_thread_fn=_call_maybe_thread_fn,
-                        use_responses_api=use_responses_api,
-                        stream_responses=stream_responses,
-                        send_tools_this_round=send_tools_this_round,
-                        max_retries_429=max_retries_429,
-                        retry_base=retry_base,
-                        retry_cap=retry_cap,
-                        messages=messages,
-                        responses_state=core.responses_state,
-                        round_count=round_count,
-                    )
-                )
-        else:
-            ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                call_legacy_openai_azure_round(
-                    provider=provider,
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                    send_tools_this_round=send_tools_this_round,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
-                    messages=messages,
-                    responses_state=core.responses_state,
-                    round_count=round_count,
-                )
-            )
+        (
+            ok,
+            client,
+            assistant_text,
+            reasoning_content,
+            tool_calls_list,
+            _is_xai_grpc,
+        ) = call_legacy_openai_compatible_round(
+            provider=provider,
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+            send_tools_this_round=send_tools_this_round,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            messages=messages,
+            responses_state=core.responses_state,
+            round_count=round_count,
+        )
         if not ok:
             return (
                 _RS_RETURN,
