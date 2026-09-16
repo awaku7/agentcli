@@ -73,6 +73,27 @@ def _gemini_round_tool_specs(
     return initial or tool_specs
 
 
+def _build_gemini_tool_config(
+    gemini_types: Any, *, initial_discovery_round: bool, vertexai: bool
+) -> Any:
+    """Build compatible tool config without dropping Developer-only flags."""
+    kwargs: dict[str, Any] = {}
+    if initial_discovery_round:
+        kwargs["function_calling_config"] = gemini_types.FunctionCallingConfig(
+            mode="ANY", allowed_function_names=["tool_catalog"]
+        )
+    if not vertexai:
+        # Built-in Google Search plus function calling requires this flag on
+        # the Gemini Developer API. Vertex Enterprise rejects the field.
+        kwargs["include_server_side_tool_invocations"] = True
+    if not kwargs:
+        return None
+    try:
+        return gemini_types.ToolConfig(**kwargs)
+    except Exception:
+        return None
+
+
 # -----------------------------
 # Gemini JSON Schema 変換（修正版）
 # -----------------------------
@@ -1170,26 +1191,13 @@ def gemini_chat_with_tools(
     else:
         if tools_list:
             cfg_kwargs["tools"] = tools_list
-            if initial_discovery_round:
-                # Force the discovery boundary: otherwise a thinking model can
-                # narrate a planned catalog lookup without emitting a call.
-                try:
-                    cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
-                        function_calling_config=gemini_types.FunctionCallingConfig(
-                            mode="ANY", allowed_function_names=["tool_catalog"]
-                        )
-                    )
-                except Exception:
-                    pass
-            # include_server_side_tool_invocations is not supported by
-            # VertexAI Enterprise Agent Platform.
-            elif not _is_vertexai_client(client, provider):
-                try:
-                    cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
-                        include_server_side_tool_invocations=True
-                    )
-                except Exception:
-                    pass
+            tool_config = _build_gemini_tool_config(
+                gemini_types,
+                initial_discovery_round=initial_discovery_round,
+                vertexai=_is_vertexai_client(client, provider),
+            )
+            if tool_config is not None:
+                cfg_kwargs["tool_config"] = tool_config
             try:
                 cfg_kwargs["automatic_function_calling"] = (
                     gemini_types.AutomaticFunctionCallingConfig(disable=True)

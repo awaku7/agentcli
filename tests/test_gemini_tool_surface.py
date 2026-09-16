@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.providers.llm_gemini import _gemini_round_tool_specs
+from google.genai import types
+
+from uagent.providers.llm_gemini import (
+    _build_gemini_tool_config,
+    _gemini_round_tool_specs,
+)
 
 
 def _spec(name: str) -> dict:
@@ -45,6 +50,29 @@ def test_other_providers_are_unchanged() -> None:
         )
         == specs
     )
+
+
+def test_developer_discovery_config_preserves_builtin_tool_flag() -> None:
+    config = _build_gemini_tool_config(
+        types, initial_discovery_round=True, vertexai=False
+    )
+
+    dumped = config.model_dump(exclude_none=True)
+    assert dumped["function_calling_config"]["mode"].value == "ANY"
+    assert dumped["function_calling_config"]["allowed_function_names"] == [
+        "tool_catalog"
+    ]
+    assert dumped["include_server_side_tool_invocations"] is True
+
+
+def test_vertex_discovery_config_omits_developer_only_flag() -> None:
+    config = _build_gemini_tool_config(
+        types, initial_discovery_round=True, vertexai=True
+    )
+
+    dumped = config.model_dump(exclude_none=True)
+    assert "function_calling_config" in dumped
+    assert "include_server_side_tool_invocations" not in dumped
 
 
 __all__ = []
