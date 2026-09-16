@@ -4,7 +4,6 @@ import hashlib
 import json
 import os
 import re
-import sys
 from urllib.parse import urlparse
 
 from .env_utils import env_get
@@ -186,18 +185,8 @@ _GENERAL_TOOL_LOOP_THRESHOLD = 4
 # Tools that may legitimately be called repeatedly with identical args in one
 # session (polling/monitors). These stay on the management-only detector.
 def _debug_tool_loop(event: str, **fields: Any) -> None:
-    """Emit privacy-conscious tool-loop diagnostics when explicitly enabled."""
-    enabled = (env_get("UAGENT_DEBUG_TOOL_LOOP") or "").strip().lower()
-    if enabled not in {"1", "true", "yes", "on"}:
-        return
-    parts = [f"[TOOL_LOOP] {event}"]
-    for key, value in fields.items():
-        text = str(value)
-        if key in {"arguments", "result"}:
-            digest = hashlib.sha256(text.encode("utf-8", "replace")).hexdigest()[:12]
-            text = f"sha256:{digest}/len:{len(text)}"
-        parts.append(f"{key}={text}")
-    print(" ".join(parts), file=sys.stderr, flush=True)
+    """Suppress verbose tool-loop diagnostics."""
+    return
 
 
 _GENERAL_LOOP_EXEMPT_TOOLS = frozenset(
