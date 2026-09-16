@@ -30,6 +30,11 @@ class InceptionProviderRuntime:
     ) -> None:
         self._client = client
         self._model = model
+        from ..runtime.capability_resolver import CapabilityResolver
+
+        self.capabilities = CapabilityResolver().resolve(
+            "inception", self._model, "chat_completions"
+        )
         self._identifiers = identifiers
         self._options = dict(options or {})
 

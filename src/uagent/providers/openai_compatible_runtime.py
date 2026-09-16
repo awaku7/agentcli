@@ -100,6 +100,11 @@ class OpenAICompatibleRuntime:
         self._client = client
         self._provider = (provider or "").strip().lower()
         self._model = model
+        from ..runtime.capability_resolver import CapabilityResolver
+
+        self.capabilities = CapabilityResolver().resolve(
+            self._provider, self._model, transport
+        )
         self._identifiers = identifiers
         self._transport = transport
         self._streaming = streaming

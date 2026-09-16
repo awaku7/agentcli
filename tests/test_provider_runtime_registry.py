@@ -22,7 +22,10 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
             model="gpt-test",
             identifiers=_identifiers(),
         )
-        assert isinstance(registry.resolve(provider), OpenAICompatibleRuntime)
+        runtime = registry.resolve(provider)
+        assert isinstance(runtime, OpenAICompatibleRuntime)
+        assert runtime.capabilities.provider == provider
+        assert runtime.capabilities.transport == "chat_completions"
         assert registry.providers() == (provider,)
 
 
@@ -34,7 +37,9 @@ def test_registry_keeps_inception_adapter_registration() -> None:
         identifiers=_identifiers(),
     )
 
-    assert isinstance(registry.resolve("inception"), InceptionProviderRuntime)
+    runtime = registry.resolve("inception")
+    assert isinstance(runtime, InceptionProviderRuntime)
+    assert runtime.capabilities.provider == "inception"
 
 
 def test_registry_rejects_unmigrated_provider_instead_of_guessing() -> None:
