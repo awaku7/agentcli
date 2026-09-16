@@ -11,13 +11,13 @@ from typing import Any
 from ..llm_round_helpers import (
     _call_claude_round,
     _call_deepseek_round,
-    _call_gemini_round,
     _call_openai_azure_round,
     _call_novita_round,
     _call_together_round,
     _call_vercel_round,
     _call_zai_round,
 )
+from .legacy_gemini_adapter import _call_gemini_round
 
 _LEGACY_REASONING_ROUND_CALLERS = {
     "zai": _call_zai_round,
@@ -38,6 +38,10 @@ def call_legacy_gemini_round(*, provider: str, **kwargs: Any) -> Any:
         caller = _LEGACY_GEMINI_ROUND_CALLERS[(provider or "").strip().lower()]
     except KeyError as exc:
         raise ValueError(f"unsupported Gemini provider: {provider}") from exc
+    if caller is _call_gemini_round:
+        from .. import llm_round_helpers
+
+        kwargs.setdefault("gemini_chat_fn", llm_round_helpers.gemini_chat_with_tools)
     return caller(**kwargs)
 
 

@@ -28,14 +28,16 @@ from .runtime.openai_special_dispatch import call_special_openai_round
 _exception_text = exception_text
 _provider_error_label = provider_error_label
 _is_zscaler_responses_block = is_zscaler_responses_block
-from .runtime.llm_error_classifier import (
-    is_context_overflow_error as _is_context_overflow_error,
-)
 from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
-from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
-from .providers.llm_gemini import gemini_chat_with_tools
+from .llm_message_helpers import _get_shrink_max_tokens
+from .providers.llm_gemini import (
+    gemini_chat_with_tools,
+)  # noqa: F401 - compatibility hook
+from .runtime.legacy_gemini_adapter import (
+    _call_gemini_round as _legacy_call_gemini_round,
+)
 from .providers.llm_claude import (
     claude_chat_with_tools,
     build_claude_output_config_for_effort,
@@ -205,7 +207,6 @@ from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
 from .llm_helpers import (
-    LLMWaitInterrupted,
     _auto_low_quality,
     _bump_effort,
     _choose_auto_effort,
@@ -218,6 +219,12 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _env_default_true
 from .translate import translate_text
+
+
+def _call_gemini_round(**kwargs: Any) -> Any:
+    # Compatibility wrapper preserving the historical helper import path.
+    kwargs.setdefault("gemini_chat_fn", gemini_chat_with_tools)
+    return _legacy_call_gemini_round(**kwargs)
 
 
 def _openai_fast_mode_enabled() -> bool:
@@ -369,185 +376,6 @@ def _translate_assistant_if_needed(
             assistant_text = out
 
     return assistant_text
-
-
-def _call_gemini_round(
-    *,
-    client: Any,
-    depname: str,
-    call_messages: list[dict[str, Any]],
-    history_messages: list[dict[str, Any]] | None = None,
-    gemini_cache_name: Any,
-    core: Any,
-    make_client_fn: Any,
-    call_maybe_thread_fn: Any,
-    max_retries_429: int,
-    retry_base: float,
-    retry_cap: float,
-    stream_responses: bool,
-    force_thinking_level: str | None = None,
-    send_tools: bool = True,
-    provider: str = "gemini",
-) -> Any:
-    attempt_429 = 0
-    gemini_content_dump: dict[str, Any] = {}
-    assistant_text = ""
-    tool_calls_list: list[dict[str, Any]] = []
-    turn_repair_attempted = False
-    turn_hard_reset_attempted = False
-
-    while True:
-        try:
-            assistant_text, tool_calls_list, gemini_content_dump = call_maybe_thread_fn(
-                lambda: gemini_chat_with_tools(
-                    client,
-                    depname,
-                    call_messages,
-                    cached_content=gemini_cache_name,
-                    stream=stream_responses,
-                    core=core,
-                    force_thinking_level=force_thinking_level,
-                    send_tools=send_tools,
-                    provider=provider,
-                )
-            )
-            break
-        except LLMWaitInterrupted:
-            # Keep the interrupt flag set so _run_one_round() performs the
-            # common stop-prompt/RS_BREAK handling.
-            return True, client, "", [], {}
-        except Exception as e:
-            error_text = str(e)
-            if (
-                not turn_repair_attempted
-                and "requests ending with a model turn" in error_text.lower()
-            ):
-                # A cancelled/approved tool loop can leave a stale cached
-                # Gemini turn even though the provider projection appends a
-                # user continuation. Retry once with the full history and no
-                # cached content, then rebuild the cache for the next round.
-                turn_repair_attempted = True
-                if history_messages:
-                    # Do not copy raw history directly here. An interrupted
-                    # tool loop can leave an assistant function-call block
-                    # without all of its tool results; sending that block
-                    # followed by ``Continue.`` violates Vertex's turn
-                    # protocol. Re-run the normal Gemini history sanitizer
-                    # so incomplete tool blocks are removed first.
-                    call_messages[:] = _build_call_messages(
-                        provider=provider,
-                        messages=history_messages,
-                        core=core,
-                        depname=depname,
-                        gemini_cache_name=None,
-                    )
-                call_messages.append({"role": "user", "content": "Continue."})
-                gemini_cache_name = None
-                try:
-                    core._gemini_cache_needs_refresh = True
-                except Exception:
-                    pass
-                continue
-            if (
-                not turn_hard_reset_attempted
-                and "requests ending with a model turn" in error_text.lower()
-            ):
-                # If the sanitized full replay still fails, discard all
-                # assistant/tool turns for one final provider-safe retry.
-                # This preserves system instructions and the latest user
-                # message, avoiding an endless retry while allowing the user
-                # to continue after a hard tool-round stop.
-                turn_hard_reset_attempted = True
-                safe_messages: list[dict[str, Any]] = []
-                source_messages = history_messages or call_messages
-                for message in source_messages:
-                    if not isinstance(message, dict):
-                        continue
-                    if message.get("role") == "system":
-                        safe_messages.append(dict(message))
-                latest_user = next(
-                    (
-                        dict(message)
-                        for message in reversed(source_messages)
-                        if isinstance(message, dict)
-                        and message.get("role") == "user"
-                        and str(message.get("content") or "").strip()
-                    ),
-                    {"role": "user", "content": "Continue."},
-                )
-                safe_messages.append(latest_user)
-                call_messages[:] = safe_messages
-                call_messages.append({"role": "user", "content": "Continue."})
-                gemini_cache_name = None
-                try:
-                    core._gemini_cache_needs_refresh = True
-                except Exception:
-                    pass
-                continue
-            if _is_context_overflow_error(e) and history_messages is not None:
-                rollback = _rollback_largest_recent_history(history_messages)
-                if rollback is not None:
-                    print(
-                        _(
-                            "context.rollback_user_notice",
-                            default=(
-                                "[INFO] Context limit exceeded; rolled back from the "
-                                "largest message in the last %(lookback)d messages "
-                                "(%(removed)d message(s) removed)."
-                            ),
-                            lookback=10,
-                            removed=rollback["removed"],
-                        ),
-                        flush=True,
-                    )
-                    return False, client, "", [], {}
-            attempt_429, new_client, action = _rate_limit_retry_step(
-                exception=e,
-                provider=provider,
-                model=depname,
-                attempt=attempt_429,
-                max_retries=max_retries_429,
-                base=retry_base,
-                cap=retry_cap,
-                recreate_client_fn=(lambda: make_client_fn(core)[1]),
-            )
-            if action == "retry":
-                if new_client is not None:
-                    client = new_client
-                continue
-            if action == "give_up":
-                print(
-                    "[Claude Error] "
-                    + _("429 retry limit (%(max_retries)s) reached.")
-                    % {"max_retries": max_retries_429}
-                )
-                _maybe_print_certifi_where(e)
-                print(exception_text(e))
-                return False, client, "", [], {}
-            msg = str(e)
-            if force_thinking_level is None and (
-                "Thinking level MINIMAL is not supported for this model" in msg
-                or "thinking level minimal is not supported for this model"
-                in msg.lower()
-            ):
-                try:
-                    from .util_tools import set_reasoning_mode
-
-                    set_reasoning_mode("medium")
-                except Exception:
-                    pass
-                force_thinking_level = "medium"
-                try:
-                    core.set_status(True, "LLM:medium")
-                except Exception:
-                    pass
-                continue
-            print(_("[Gemini Error] An error occurred while generating a response."))
-            _maybe_print_certifi_where(e)
-            print(exception_text(e))
-            return False, client, "", [], {}
-
-    return True, client, assistant_text, tool_calls_list, gemini_content_dump
 
 
 def _call_claude_round(
