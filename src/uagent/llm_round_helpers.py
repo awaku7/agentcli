@@ -18,7 +18,7 @@ except Exception:
 from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
-from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+from .runtime.round_ui import stop_round_spinner
 from .runtime.llm_error_classifier import (
     is_context_overflow_error as _is_context_overflow_error,
 )
@@ -1599,7 +1599,7 @@ def _call_openai_azure_round(
                 """One-shot full-history retry after a bad previous_response_id."""
                 nonlocal _stale_rid_retried
                 if _stale_rid_retried:
-                    _spinner_stop_quietly()
+                    stop_round_spinner()
                     print(
                         error_prefix
                         + _(
@@ -1626,7 +1626,7 @@ def _call_openai_azure_round(
 
                     _save_responses_state()
                 # Clear the spinner line first (no-op when disabled).
-                _spinner_stop_quietly()
+                stop_round_spinner()
                 _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
                 if _used_rid:
                     print(
@@ -1657,7 +1657,7 @@ def _call_openai_azure_round(
                 if not _authorize_retry("transport", "responses proxy block"):
                     return False, client, "", "", []
                 _responses_proxy_retried = True
-                _spinner_stop_quietly()
+                stop_round_spinner()
                 print(
                     error_prefix
                     + "Responses API request was blocked by the proxy; "
@@ -1709,9 +1709,9 @@ def _call_openai_azure_round(
                 if _is_stale_previous_response_error(e):
                     if _retry_without_previous_response_id(e):
                         continue
-                    _spinner_stop_quietly()
+                    stop_round_spinner()
                     return False, client, "", "", []
-                _spinner_stop_quietly()
+                stop_round_spinner()
                 print(error_prefix + _("400 BadRequest"))
                 print(
                     error_prefix
@@ -1743,13 +1743,13 @@ def _call_openai_azure_round(
                     if new_client is not None:
                         client = new_client
                     continue
-                _spinner_stop_quietly()
+                stop_round_spinner()
                 print(error_prefix + _t("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(_exception_text(e))
                 return False, client, "", "", []
             if isinstance(e, URLError):
-                _spinner_stop_quietly()
+                stop_round_spinner()
                 print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)
                 print(_exception_text(e))
@@ -1780,7 +1780,7 @@ def _call_openai_azure_round(
                 _maybe_print_certifi_where(e)
                 print(_exception_text(e))
                 return False, client, "", "", []
-            _spinner_stop_quietly()
+            stop_round_spinner()
             print(
                 "[LLM Error] " + _t("Unexpected exception.") + " " + _exception_text(e)
             )
