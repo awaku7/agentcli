@@ -9,6 +9,7 @@ import uuid
 from typing import Any, Iterator
 
 from ..runtime.round_contracts import RoundIdentifiers, StreamEvent
+from ..runtime.stream_renderer import CallbackStreamRenderer
 
 
 def _emit_snapshot(
@@ -220,55 +221,57 @@ def collect_inception_stream_events(
     CLI, GUI, and Web can replace this collector independently while the
     provider adapter continues to expose the same event contract.
     """
-    text_parts: list[str] = []
-    latest_text = ""
     tool_calls: list[dict[str, Any]] = []
     displayed_lines = 0
     terminal = ""
-    for event in events:
-        if event.type in {"TextDelta", "TextSnapshot"}:
-            text = event.data.get("text")
-            if not isinstance(text, str) or not text:
-                continue
-            if event.type == "TextSnapshot":
-                latest_text = text
-                displayed_lines = _emit_snapshot(
-                    latest_text,
-                    print_delta_fn=print_delta_fn,
-                    core=core,
-                    previous_lines=displayed_lines,
-                )
-            else:
-                text_parts.append(text)
-                if print_delta_fn and not bool(getattr(core, "_is_web", False)):
-                    print_delta_fn(text)
-                elif bool(getattr(core, "_is_web", False)) and core is not None:
-                    log_message = getattr(core, "log_message", None)
-                    if callable(log_message):
-                        log_message({"type": "assistant_stream_delta", "delta": text})
-        elif event.type == "ToolCallCompleted":
-            name = event.data.get("name")
-            if isinstance(name, str) and name:
-                tool_calls.append(
-                    {
-                        "id": str(event.data.get("tool_call_id") or ""),
-                        "type": "function",
-                        "function": {
-                            "name": name,
-                            "arguments": str(event.data.get("arguments") or ""),
-                        },
-                    }
-                )
-        elif event.type in {
-            "ResponseCompleted",
-            "ResponseFailed",
-            "ResponseCancelled",
-            "ResponseTimedOut",
-            "ResponseInterrupted",
-        }:
-            terminal = event.type
 
-    result_text = latest_text if diffusing else "".join(text_parts)
+    def on_delta(text: str) -> None:
+        if print_delta_fn and not bool(getattr(core, "_is_web", False)):
+            print_delta_fn(text)
+        elif bool(getattr(core, "_is_web", False)) and core is not None:
+            log_message = getattr(core, "log_message", None)
+            if callable(log_message):
+                log_message({"type": "assistant_stream_delta", "delta": text})
+
+    def on_snapshot(text: str) -> None:
+        nonlocal displayed_lines
+        displayed_lines = _emit_snapshot(
+            text,
+            print_delta_fn=print_delta_fn,
+            core=core,
+            previous_lines=displayed_lines,
+        )
+
+    def on_tool_call(data: Any) -> None:
+        name = data.get("name") if isinstance(data, dict) else None
+        if not isinstance(name, str) or not name:
+            return
+        tool_calls.append(
+            {
+                "id": str(data.get("tool_call_id") or ""),
+                "type": "function",
+                "function": {
+                    "name": name,
+                    "arguments": str(data.get("arguments") or ""),
+                },
+            }
+        )
+
+    def on_terminal(event_type: str, _data: Any) -> None:
+        nonlocal terminal
+        terminal = event_type
+
+    renderer = CallbackStreamRenderer(
+        on_delta=on_delta,
+        on_snapshot=on_snapshot,
+        on_tool_call=on_tool_call,
+        on_terminal=on_terminal,
+    )
+    for event in events:
+        renderer.on_event(event)
+
+    rendered = renderer.result()
+    result_text = rendered.assistant_text
     gui_callback = getattr(core, "_inception_diffusion_callback", None)
     if callable(gui_callback) and diffusing:
         gui_callback(None)

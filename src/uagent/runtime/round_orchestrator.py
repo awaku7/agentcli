@@ -14,6 +14,7 @@ from .round_contracts import (
     StreamEvent,
 )
 from .round_runtime import StreamEventValidator
+from .stream_renderer import CollectingStreamRenderer
 
 
 @dataclass(frozen=True)
@@ -46,26 +47,17 @@ class RoundOrchestrator:
         request = runtime.serialize(projection)
         validator = StreamEventValidator()
         events: list[StreamEvent] = []
-        text_parts: list[str] = []
-        snapshot = ""
-        reasoning_parts: list[str] = []
-        tool_calls: list[Mapping[str, Any]] = []
+        renderer = CollectingStreamRenderer()
         terminal: StreamEvent | None = None
         for event in runtime.run(request, cancellation):
             validator.accept(event)
             events.append(event)
-            if event.type == "TextDelta":
-                text_parts.append(str(event.data.get("text") or ""))
-            elif event.type == "TextSnapshot":
-                snapshot = str(event.data.get("text") or "")
-            elif event.type == "ReasoningDelta":
-                reasoning_parts.append(str(event.data.get("text") or ""))
-            elif event.type == "ToolCallCompleted":
-                tool_calls.append(dict(event.data))
+            renderer.on_event(event)
             if event.type.startswith("Response") and event.type != "ResponseStarted":
                 terminal = event
         validator.require_terminal()
         assert terminal is not None
+        rendered = renderer.result()
         status_by_event = {
             "ResponseCompleted": "completed",
             "ResponseFailed": "failed",
@@ -84,10 +76,10 @@ class RoundOrchestrator:
             plan_id=plan.plan_id,
             projection_id=projection.projection_id,
             status=status,  # type: ignore[arg-type]
-            assistant_text=snapshot or "".join(text_parts),
-            partial_text="".join(text_parts),
-            reasoning_text="".join(reasoning_parts),
-            tool_calls=tuple(tool_calls),
+            assistant_text=rendered.assistant_text,
+            partial_text=rendered.partial_text,
+            reasoning_text=rendered.reasoning_text,
+            tool_calls=rendered.tool_calls,
             continuation_update=continuation_update,
             error=dict(terminal.data) if status == "failed" else None,
             recovery_hint=dict(session.get("recovery_hint") or {}),
@@ -98,7 +90,7 @@ class RoundOrchestrator:
             if callable(sync_completed):
                 sync_completed(
                     continuation_update["response_id"],
-                    tool_calls=tool_calls,
+                    tool_calls=list(rendered.tool_calls),
                 )
         else:
             responses_runtime = session.get("responses_runtime")

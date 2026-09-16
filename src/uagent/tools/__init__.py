@@ -184,10 +184,43 @@ def _should_preload_lazy_specs() -> bool:
           path in _call_openai_azure_round() dynamically loads all
           tools from disk when needed.
     """
-    raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if raw in ("native", "1", "true", "yes"):
-        return True
-    return False
+    mode = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
+    if mode in ("legacy", "old", "off", "0", "false", "no"):
+        return False
+
+    # Native GPT-5.4 tool_search is a Responses-only feature. When the user
+    # disables Responses, management tools must remain registered so the
+    # ChatCompletions bootstrap can expose the basic three-tool surface.
+    responses = (env_get("UAGENT_RESPONSES") or "").strip().lower()
+    if responses in ("0", "false", "no", "off"):
+        return False
+    provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+    if provider not in ("openai", "azure"):
+        return False
+    model_env = (
+        "UAGENT_OPENAI_DEPNAME" if provider == "openai" else "UAGENT_AZURE_DEPNAME"
+    )
+    model = (env_get(model_env) or "").strip().lower()
+    if not model:
+        return False
+    marker = "gpt-5."
+    position = model.find(marker)
+    if position < 0:
+        return False
+    suffix = model[position + len(marker) :]
+    digits = ""
+    for char in suffix:
+        if not char.isdigit():
+            break
+        digits += char
+    if not digits or int(digits) < 4 or suffix[len(digits) :].startswith("-nano"):
+        return False
+    try:
+        from ..llmcapa_util import provider_allows_responses_api
+
+        return bool(provider_allows_responses_api(provider, model))
+    except Exception:
+        return False
 
 
 # ─────────────────────────────────────────────────────────────────

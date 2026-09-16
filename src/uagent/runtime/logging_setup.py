@@ -5,12 +5,14 @@ from __future__ import annotations
 import json
 import logging
 import math
+import sys
 from contextlib import contextmanager
 from contextvars import ContextVar
 from datetime import datetime, timezone
 from typing import Any, Iterator
 from uuid import uuid4
 
+from ..env_utils import env_get
 from .tool_result_persistence import sanitize_message_for_history
 
 _LOGGER = logging.getLogger("uagent.events")
@@ -44,6 +46,38 @@ _EVENT_CATEGORY_FIELDS = {
     "oauth": ("issuer", "resource", "provider", "duration_ms", "error_type"),
     "computer": ("action_id", "duration_ms", "error_type"),
 }
+
+
+def configure_event_logging(*, enabled: bool | None = None) -> None:
+    """Enable CLI-visible structured event logging when requested.
+
+    ``log_event`` uses the standard logging API. The CLI does not otherwise
+    configure a logging handler, so INFO events were silently discarded by
+    Python's default WARNING threshold. Keep the normal CLI quiet and make
+    the diagnostic stream opt-in with ``UAGENT_DEBUG_EVENTS=1``.
+    """
+    if enabled is None:
+        enabled = (env_get("UAGENT_DEBUG_EVENTS", "") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+    if not enabled:
+        return
+
+    _LOGGER.setLevel(logging.INFO)
+    _LOGGER.propagate = False
+    if any(
+        getattr(handler, "_uagent_event_handler", False)
+        for handler in _LOGGER.handlers
+    ):
+        return
+
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(logging.Formatter("[EVENT] %(message)s"))
+    handler._uagent_event_handler = True  # type: ignore[attr-defined]
+    _LOGGER.addHandler(handler)
 
 
 def _now_iso() -> str:

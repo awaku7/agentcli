@@ -425,10 +425,15 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         cmd_name = "tool" if stripped.startswith(":tool ") else "tools"
                         after_tools = stripped[cmd_prefix_len:]
                         if " " not in after_tools:
-                            tools_subcmds = sorted(
-                                set(dyn_map.get(cmd_name, []))
-                                | {"list", "load", "on", "off", "reload", "output"}
-                            )
+                            if cmd_name == "tool":
+                                tools_subcmds = sorted(
+                                    set(dyn_map.get(cmd_name, [])) | {"create"}
+                                )
+                            else:
+                                tools_subcmds = sorted(
+                                    set(dyn_map.get(cmd_name, []))
+                                    | {"list", "load", "on", "off", "reload", "output"}
+                                )
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
                                     yield Completion(

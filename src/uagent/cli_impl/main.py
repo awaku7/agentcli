@@ -15,7 +15,7 @@ from .. import tools
 from .. import util_tools as tools_util
 from ..providers import util_providers as providers
 from ..runtime.execution import lifecycle_execution
-from ..runtime.logging_setup import log_event
+from ..runtime.logging_setup import configure_event_logging, log_event
 from ..scheduler import start_background_scheduler, stop_background_scheduler
 from ..tools.pybitchat_shared import reply_to_mesh, set_llm_event_queue
 from ..util_tools import (
@@ -46,6 +46,7 @@ def main() -> None:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
 
+    configure_event_logging()
     bind_event_context(session_id="cli", correlation_id="cli")
     log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")

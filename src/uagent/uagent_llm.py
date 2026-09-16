@@ -59,10 +59,7 @@ from .llm_round_helpers import (
     _call_claude_round,
     _call_openai_azure_round,
     _call_deepseek_round,
-    _call_zai_round,
-    _call_novita_round,
-    _call_together_round,
-    _call_vercel_round,
+    _call_legacy_reasoning_round,
 )
 from .llm_grok_round import _call_grok_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
@@ -778,6 +775,14 @@ def _try_registry_simple_chat_round(
                 )
                 if management_specs:
                     tool_specs = management_specs
+        if send_tools_this_round and not use_responses_api:
+            from .llm_round_helpers import _limit_chat_completion_tools
+            from . import tools as _tools
+
+            tool_specs = tuple(
+                _limit_chat_completion_tools(list(tool_specs), call_messages)
+            )
+            _tools.log_tools_being_sent(tool_specs, where="registry_chatcompletions")
         plan = build_context_plan(
             workspace_id=workspace_id,
             messages=call_messages,
@@ -946,12 +951,28 @@ def _try_registry_simple_chat_round(
                         )
                         .result
                     )
+        # A non-completed registry response is not a usable assistant turn.
+        # Let the established provider path handle the request so registry
+        # adapter failures do not silently terminate the user operation.
+        if result.status != "completed":
+            try:
+                from .runtime.logging_setup import log_event
+
+                log_event(
+                    "llm.registry_fallback",
+                    provider=provider,
+                    model=depname,
+                    registry_status=result.status,
+                )
+            except Exception:
+                pass
+            return None
+
         # A completed registry response without text or tool calls is not a
         # usable assistant turn. Let the established provider path retry it
         # rather than treating an empty response as a successful final answer.
         if (
-            result.status == "completed"
-            and not result.assistant_text
+            not result.assistant_text
             and not result.tool_calls
             and not result.continuation_update
         ):
@@ -1587,7 +1608,8 @@ def _run_one_round(
 
     elif provider == "zai":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_zai_round(
+            _call_legacy_reasoning_round(
+                provider=provider,
                 client=client,
                 depname=depname,
                 call_messages=call_messages,
@@ -1696,7 +1718,8 @@ def _run_one_round(
 
     elif provider == "vercel":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_vercel_round(
+            _call_legacy_reasoning_round(
+                provider=provider,
                 client=client,
                 depname=depname,
                 call_messages=call_messages,
@@ -1772,7 +1795,8 @@ def _run_one_round(
 
     elif provider == "together":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_together_round(
+            _call_legacy_reasoning_round(
+                provider=provider,
                 client=client,
                 depname=depname,
                 call_messages=call_messages,
@@ -1848,7 +1872,8 @@ def _run_one_round(
 
     elif provider == "novita":
         ok, client, assistant_text, reasoning_content, tool_calls_list = (
-            _call_novita_round(
+            _call_legacy_reasoning_round(
+                provider=provider,
                 client=client,
                 depname=depname,
                 call_messages=call_messages,
@@ -2005,6 +2030,7 @@ def _run_one_round(
                         retry_cap=retry_cap,
                         messages=messages,
                         responses_state=core.responses_state,
+                        round_count=round_count,
                     )
                 )
         else:
@@ -2025,6 +2051,7 @@ def _run_one_round(
                     retry_cap=retry_cap,
                     messages=messages,
                     responses_state=core.responses_state,
+                    round_count=round_count,
                 )
             )
         if not ok:

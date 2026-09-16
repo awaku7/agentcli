@@ -39,6 +39,98 @@ from .providers.llm_inception import parse_inception_stream
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 
+_CHAT_COMPLETIONS_MAX_TOOLS = 128
+_CHAT_TOOL_HELPERS = frozenset(
+    {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
+)
+
+
+def _tool_spec_name(spec: Any) -> str:
+    function = spec.get("function") if isinstance(spec, dict) else None
+    return str(function.get("name") or "").strip() if isinstance(function, dict) else ""
+
+
+def _latest_user_text(messages: list[dict[str, Any]]) -> str:
+    for message in reversed(messages or []):
+        if not isinstance(message, dict) or message.get("role") != "user":
+            continue
+        content = message.get("content")
+        if isinstance(content, str) and content.strip():
+            return content.strip()
+        if isinstance(content, list):
+            parts = []
+            for item in content:
+                if isinstance(item, dict) and isinstance(item.get("text"), str):
+                    parts.append(item["text"].strip())
+            if parts:
+                return "\n".join(part for part in parts if part)
+    return ""
+
+
+def _limit_chat_completion_tools(
+    tool_specs: Any, messages: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Keep Chat Completions requests within OpenAI's 128-tool limit.
+
+    The provider-neutral context selector may legitimately return every loaded
+    tool. Chat Completions rejects more than 128 definitions, so narrow only
+    this transport and retain discovery/confirmation helpers plus the most
+    relevant schemas.
+    """
+    specs = [spec for spec in (tool_specs or []) if isinstance(spec, dict)]
+    if len(specs) <= _CHAT_COMPLETIONS_MAX_TOOLS:
+        return specs
+
+    selected: list[dict[str, Any]] = []
+    try:
+        from .runtime.context_budget import ContextBudget
+        from .runtime.context_tools import select_tool_definitions
+
+        selected = select_tool_definitions(
+            specs,
+            task=_latest_user_text(messages),
+            budget=ContextBudget.without_limit(),
+            max_tools=_CHAT_COMPLETIONS_MAX_TOOLS,
+        ).specs
+    except Exception:
+        selected = []
+
+    selected_names = {_tool_spec_name(spec) for spec in selected}
+    helper_specs = [
+        spec for spec in specs if _tool_spec_name(spec) in _CHAT_TOOL_HELPERS
+    ]
+    selected_names.update(_tool_spec_name(spec) for spec in helper_specs)
+    result: list[dict[str, Any]] = []
+    seen_ids: set[int] = set()
+    for spec in helper_specs:
+        result.append(spec)
+        seen_ids.add(id(spec))
+    for spec in specs:
+        if _tool_spec_name(spec) in selected_names and id(spec) not in seen_ids:
+            result.append(spec)
+            seen_ids.add(id(spec))
+        if len(result) >= _CHAT_COMPLETIONS_MAX_TOOLS:
+            break
+    if len(result) < _CHAT_COMPLETIONS_MAX_TOOLS:
+        for spec in specs:
+            if id(spec) not in seen_ids:
+                result.append(spec)
+                seen_ids.add(id(spec))
+            if len(result) >= _CHAT_COMPLETIONS_MAX_TOOLS:
+                break
+    return result[:_CHAT_COMPLETIONS_MAX_TOOLS]
+
+
+def _initial_chat_completion_tools(tool_specs: Any) -> list[dict[str, Any]]:
+    """Return only the three discovery tools for the first Chat round."""
+    specs = [spec for spec in (tool_specs or []) if isinstance(spec, dict)]
+    initial = [
+        spec
+        for spec in specs
+        if _tool_spec_name(spec) in {"tool_catalog", "tool_load", "unload_tool"}
+    ]
+    return initial or _limit_chat_completion_tools(specs, [])
+
 
 def _is_context_overflow_error(exc: BaseException) -> bool:
     return LLMErrorClassifier().classify(exc).kind == "context_overflow"
@@ -692,6 +784,7 @@ def _call_openai_azure_round(
     retry_cap: float,
     messages: list[dict[str, Any]] = None,
     responses_state: Optional[dict] = None,
+    round_count: int = 1,
 ) -> Any:
     error_prefix = f"[{_provider_error_label(provider)} Error] "
     # Final boundary guard: the SDK serializes the complete request after
@@ -1187,6 +1280,15 @@ def _call_openai_azure_round(
                     if send_tools_this_round and context_tool_specs is not None
                     else (tools.get_tool_specs() if send_tools_this_round else None)
                 )
+                if send_tools_this_round:
+                    if provider in ("openai", "azure"):
+                        if round_count <= 1:
+                            req_tools = _initial_chat_completion_tools(req_tools)
+                        else:
+                            req_tools = _limit_chat_completion_tools(
+                                req_tools, call_messages
+                            )
+                    tools.log_tools_being_sent(req_tools, where="chatcompletions")
 
                 # Resolve temperature (Inception requires 0.5..1.0; use its
                 # documented default rather than the generic tool-use default).
@@ -1990,3 +2092,26 @@ def _call_novita_round(
         retry_cap=retry_cap,
         stream=stream,
     )
+
+
+_LEGACY_REASONING_ROUND_CALLERS = {
+    "zai": _call_zai_round,
+    "vercel": _call_vercel_round,
+    "together": _call_together_round,
+    "novita": _call_novita_round,
+}
+
+
+def _call_legacy_reasoning_round(*, provider: str, **kwargs: Any) -> Any:
+    """Dispatch shared reasoning-provider rounds through one registry.
+
+    These providers already share the same normalized five-value result, while
+    their provider-specific request code remains in the existing wrappers.
+    Keeping the table here removes provider selection from the orchestration
+    call site without changing the compatibility path.
+    """
+    try:
+        caller = _LEGACY_REASONING_ROUND_CALLERS[(provider or "").strip().lower()]
+    except KeyError as exc:
+        raise ValueError(f"unsupported legacy reasoning provider: {provider}") from exc
+    return caller(**kwargs)
