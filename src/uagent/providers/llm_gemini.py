@@ -22,6 +22,32 @@ def _vertex_debug(event: str, **fields: Any) -> None:
     print(f"[VERTEX_DEBUG] {event} {details}".rstrip(), file=sys.stderr, flush=True)
 
 
+def _is_vertexai_client(client: Any, provider: str) -> bool:
+    """Detect Vertex/Enterprise clients before adding Developer-only options."""
+    if (provider or "").strip().lower() in {"vertex", "vertexai"}:
+        return True
+
+    candidates = [client, getattr(client, "_api_client", None)]
+    for candidate in candidates:
+        if candidate is None:
+            continue
+        for attr in ("vertexai", "_vertexai", "is_vertexai"):
+            if getattr(candidate, attr, False) is True:
+                return True
+        config = getattr(candidate, "_config", None)
+        if getattr(config, "vertexai", False) is True:
+            return True
+        for endpoint_holder in (
+            candidate,
+            getattr(candidate, "_http_options", None),
+            getattr(candidate, "http_options", None),
+        ):
+            base_url = str(getattr(endpoint_holder, "base_url", "") or "").lower()
+            if "aiplatform.googleapis.com" in base_url:
+                return True
+    return False
+
+
 # -----------------------------
 # Gemini JSON Schema 変換（修正版）
 # -----------------------------
@@ -1109,7 +1135,7 @@ def gemini_chat_with_tools(
             cfg_kwargs["tools"] = tools_list
             # include_server_side_tool_invocations is not supported by
             # VertexAI Enterprise Agent Platform.
-            if provider != "vertexai":
+            if not _is_vertexai_client(client, provider):
                 try:
                     cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
                         include_server_side_tool_invocations=True
