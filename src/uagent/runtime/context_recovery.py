@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
-from typing import Any, Literal, Mapping, Protocol
+from typing import Any, Callable, Literal, Mapping, Protocol
 
 from .round_contracts import ContextPlan
 
@@ -143,6 +143,30 @@ class ContextRecoveryManager:
             "index": index,
             "size": size,
             "removed": removed,
+        }
+
+    @staticmethod
+    def apply_legacy_bounded_rollback(
+        messages: list[dict[str, Any]],
+        *,
+        lookback: int = 10,
+        notice_builder: Callable[[int, int, int], Mapping[str, Any]],
+    ) -> dict[str, int] | None:
+        """Apply the compatibility rollback and return bounded metadata."""
+        projection = ContextRecoveryManager.bounded_rollback_projection(
+            messages, lookback=lookback
+        )
+        if projection is None:
+            return None
+        kept_messages, rollback = projection
+        messages[:] = list(kept_messages)
+        messages.append(
+            dict(notice_builder(lookback, rollback["removed"], rollback["size"]))
+        )
+        return {
+            "index": rollback["index"],
+            "size": rollback["size"],
+            "removed": rollback["removed"],
         }
 
     @staticmethod

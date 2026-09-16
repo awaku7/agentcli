@@ -138,20 +138,10 @@ def _initial_chat_completion_tools(tool_specs: Any) -> list[dict[str, Any]]:
 def _rollback_largest_recent_history(
     messages: list[dict[str, Any]], *, lookback: int = 10
 ) -> dict[str, Any] | None:
-    """Remove the largest recent message and everything after it."""
-    projection = ContextRecoveryManager.bounded_rollback_projection(
-        messages, lookback=lookback
-    )
-    if projection is None:
-        return None
-    kept_messages, rollback = projection
-    index = rollback["index"]
-    size = rollback["size"]
-    removed = rollback["removed"]
-    del messages[:]
-    messages.extend(kept_messages)
-    messages.append(
-        {
+    """Compatibility wrapper for bounded recovery without owning selection."""
+
+    def _notice(lookback_count: int, removed: int, size: int) -> dict[str, Any]:
+        return {
             "role": "system",
             "content": _(
                 "context.rollback_notice",
@@ -161,14 +151,16 @@ def _rollback_largest_recent_history(
                     "(%(removed)d message(s), largest size %(size)d bytes). "
                     "Re-plan any removed tool operation; do not assume it completed."
                 ),
-                lookback=lookback,
+                lookback=lookback_count,
                 removed=removed,
                 size=size,
             ),
             "_uagent_internal": True,
         }
+
+    return ContextRecoveryManager.apply_legacy_bounded_rollback(
+        messages, lookback=lookback, notice_builder=_notice
     )
-    return {"index": index, "size": size, "removed": removed}
 
 
 from .tools.llm_tool_narrowing import (
