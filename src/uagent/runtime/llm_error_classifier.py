@@ -38,6 +38,11 @@ class LLMErrorClassification:
         return RetryRequest(reason, self.detail) if reason is not None else None
 
 
+def is_context_overflow_error(exc: BaseException) -> bool:
+    """Return whether a provider exception indicates context overflow."""
+    return LLMErrorClassifier().classify(exc).kind == "context_overflow"
+
+
 class LLMErrorClassifier:
     """Provider-agnostic error classification with safe metadata extraction."""
 

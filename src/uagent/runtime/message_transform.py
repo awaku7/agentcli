@@ -22,16 +22,16 @@ class TransformResult:
     applied: tuple[str, ...]
 
 
-def _normalize_text(value: Any) -> Any:
+def normalize_surrogates(value: Any) -> Any:
     if isinstance(value, str):
         return strip_surrogates(value)
     if isinstance(value, list):
-        return [_normalize_text(item) for item in value]
+        return [normalize_surrogates(item) for item in value]
     if isinstance(value, tuple):
-        return tuple(_normalize_text(item) for item in value)
+        return tuple(normalize_surrogates(item) for item in value)
     if isinstance(value, dict):
         return {
-            _normalize_text(key) if isinstance(key, str) else key: _normalize_text(item)
+            normalize_surrogates(key) if isinstance(key, str) else key: normalize_surrogates(item)
             for key, item in value.items()
         }
     return value
@@ -46,7 +46,7 @@ class MessageTransformPipeline:
         *,
         translator: TextTranslator | None = None,
     ) -> TransformResult:
-        transformed = _normalize_text(copy.deepcopy(list(messages)))
+        transformed = normalize_surrogates(copy.deepcopy(list(messages)))
         applied = ["surrogate_normalization"]
         if translator is not None:
             for message in transformed:

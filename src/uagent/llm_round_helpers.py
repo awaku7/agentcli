@@ -16,10 +16,10 @@ except Exception:
     BadRequestError = None
 
 from . import tools
-from .util_common import strip_surrogates
+from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .llm_errors import _rate_limit_retry_step
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
-from .runtime.llm_error_classifier import LLMErrorClassifier
+from .runtime.llm_error_classifier import is_context_overflow_error as _is_context_overflow_error
 from .runtime.round_runtime import RoundAttemptBudget, RetryRequest
 from .reasoning_display import show_reasoning
 from .llm_message_helpers import _build_call_messages, _get_shrink_max_tokens
@@ -130,26 +130,6 @@ def _initial_chat_completion_tools(tool_specs: Any) -> list[dict[str, Any]]:
         if _tool_spec_name(spec) in {"tool_catalog", "tool_load", "unload_tool"}
     ]
     return initial or _limit_chat_completion_tools(specs, [])
-
-
-def _is_context_overflow_error(exc: BaseException) -> bool:
-    return LLMErrorClassifier().classify(exc).kind == "context_overflow"
-
-
-def _normalize_surrogates(value: Any) -> Any:
-    """Normalize text recursively before provider JSON serialization."""
-    if isinstance(value, str):
-        return strip_surrogates(value)
-    if isinstance(value, list):
-        return [_normalize_surrogates(item) for item in value]
-    if isinstance(value, dict):
-        return {
-            (
-                _normalize_surrogates(key) if isinstance(key, str) else key
-            ): _normalize_surrogates(item)
-            for key, item in value.items()
-        }
-    return value
 
 
 def _rollback_largest_recent_history(
