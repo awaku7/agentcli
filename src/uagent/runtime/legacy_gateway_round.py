@@ -36,6 +36,7 @@ def run_legacy_gateway_round(
     translate_assistant_fn: Callable[..., str],
     should_keep_assistant_message_fn: Callable[..., bool],
     emit_final_answer_fn: Callable[..., Any],
+    **_unused: Any,
 ) -> RoundResult:
     """Run Vercel/Together and preserve their legacy result contract."""
     ok, client, assistant_text, reasoning_content, tool_calls_list = (

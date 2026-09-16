@@ -38,6 +38,7 @@ def run_legacy_claude_round(
     append_assistant_message_fn: Callable[..., Any],
     handle_empty_no_tool_fn: Callable[..., tuple[str, int]],
     emit_final_answer_fn: Callable[..., Any],
+    **_unused: Any,
 ) -> RoundResult:
     """Run Claude's compatibility round and its provider-neutral postprocess.
 

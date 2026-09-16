@@ -39,6 +39,7 @@ def run_legacy_gemini_round(
     append_assistant_message_fn: Callable[..., Any],
     handle_empty_no_tool_fn: Callable[..., tuple[str, int]],
     emit_final_answer_fn: Callable[..., Any],
+    **_unused: Any,
 ) -> RoundResult:
     """Run Gemini/Vertex and preserve the legacy round-result contract."""
     ok, client, assistant_text, tool_calls_list, content_dump = (

@@ -55,12 +55,8 @@ from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
 )
-from .runtime.legacy_claude_round import run_legacy_claude_round
-from .runtime.legacy_deepseek_round import run_legacy_deepseek_round
-from .runtime.legacy_zai_round import run_legacy_zai_round
-from .runtime.legacy_gateway_round import run_legacy_gateway_round
 from .runtime.legacy_openai_round import call_legacy_openai_compatible_round
-from .runtime.legacy_gemini_round import run_legacy_gemini_round
+from .runtime.legacy_round_registry import run_legacy_provider_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1286,8 +1282,8 @@ def _run_one_round(
 
     if registry_simple_result is not None:
         pass
-    elif provider in ("gemini", "vertexai"):
-        return run_legacy_gemini_round(
+    else:
+        legacy_round_result = run_legacy_provider_round(
             provider=provider,
             client=client,
             depname=depname,
@@ -1316,121 +1312,8 @@ def _run_one_round(
             handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
             emit_final_answer_fn=_emit_final_answer_if_any,
         )
-
-    elif provider == "claude":
-        return run_legacy_claude_round(
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            messages=messages,
-            gemini_cache_name=gemini_cache_name,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            tr_cfg=tr_cfg,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            judgment_mode=judgment_mode,
-            inject_stop_prompt_fn=_inject_stop_prompt,
-            translate_assistant_fn=_translate_assistant_if_needed,
-            should_keep_assistant_message_fn=_should_keep_assistant_message,
-            append_assistant_message_fn=_append_assistant_message,
-            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
-            emit_final_answer_fn=_emit_final_answer_if_any,
-        )
-
-    elif provider in ("deepseek", "mimo"):
-        return run_legacy_deepseek_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            messages=messages,
-            gemini_cache_name=gemini_cache_name,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            tr_cfg=tr_cfg,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            judgment_mode=judgment_mode,
-            inject_stop_prompt_fn=_inject_stop_prompt,
-            translate_assistant_fn=_translate_assistant_if_needed,
-            should_keep_assistant_message_fn=_should_keep_assistant_message,
-            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
-            emit_final_answer_fn=_emit_final_answer_if_any,
-        )
-
-    elif provider in ("zai", "novita"):
-        return run_legacy_zai_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            messages=messages,
-            gemini_cache_name=gemini_cache_name,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            tr_cfg=tr_cfg,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            judgment_mode=judgment_mode,
-            inject_stop_prompt_fn=_inject_stop_prompt,
-            translate_assistant_fn=_translate_assistant_if_needed,
-            should_keep_assistant_message_fn=_should_keep_assistant_message,
-            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
-            emit_final_answer_fn=_emit_final_answer_if_any,
-        )
-
-    elif provider in ("vercel", "together"):
-        return run_legacy_gateway_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            messages=messages,
-            gemini_cache_name=gemini_cache_name,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            tr_cfg=tr_cfg,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            judgment_mode=judgment_mode,
-            inject_stop_prompt_fn=_inject_stop_prompt,
-            translate_assistant_fn=_translate_assistant_if_needed,
-            should_keep_assistant_message_fn=_should_keep_assistant_message,
-            emit_final_answer_fn=_emit_final_answer_if_any,
-        )
-    else:  # OpenAI / Azure / Grok
+        if legacy_round_result is not None:
+            return legacy_round_result
         (
             ok,
             client,

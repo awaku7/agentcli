@@ -40,6 +40,7 @@ def run_legacy_deepseek_round(
     should_keep_assistant_message_fn: Callable[..., bool],
     handle_empty_no_tool_fn: Callable[..., tuple[str, int]],
     emit_final_answer_fn: Callable[..., Any],
+    **_unused: Any,
 ) -> RoundResult:
     """Run DeepSeek/MiMo and preserve the legacy round-result contract."""
     ok, client, assistant_text, reasoning_content, tool_calls_list = (
