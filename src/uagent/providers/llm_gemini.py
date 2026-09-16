@@ -48,6 +48,31 @@ def _is_vertexai_client(client: Any, provider: str) -> bool:
     return False
 
 
+_GEMINI_INITIAL_TOOL_NAMES = frozenset(
+    {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
+)
+
+
+def _gemini_round_tool_specs(
+    tool_specs: list[dict[str, Any]], *, core: Any, provider: str
+) -> list[dict[str, Any]]:
+    """Expose discovery tools first so Gemini uses catalog instead of guessing."""
+    if (provider or "").strip().lower() not in {"gemini", "vertexai"}:
+        return tool_specs
+    if core is None or getattr(core, "_gemini_tool_catalog_ready", False):
+        return tool_specs
+    initial = [
+        spec
+        for spec in tool_specs
+        if isinstance(spec, dict)
+        and str((spec.get("function") or {}).get("name") or "")
+        in _GEMINI_INITIAL_TOOL_NAMES
+    ]
+    # Embedded mode may not register management tools; do not make the model
+    # tool-less in that mode.
+    return initial or tool_specs
+
+
 # -----------------------------
 # Gemini JSON Schema 変換（修正版）
 # -----------------------------
@@ -798,6 +823,8 @@ def gemini_chat_with_tools(
             tool_specs.append(local_computer_tool_spec())
     if not isinstance(tool_specs, list):
         tool_specs = []
+
+    tool_specs = _gemini_round_tool_specs(tool_specs, core=core, provider=provider)
 
     if use_google_search:
         try:

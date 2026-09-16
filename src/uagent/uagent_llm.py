@@ -1487,6 +1487,11 @@ def _run_one_round(
         responses_api_continuation=use_responses_api,
         responses_runtime=getattr(core, "responses_runtime", None),
     )
+    if provider in ("gemini", "vertexai") and fresh_tool_calls:
+        # The first Gemini round intentionally exposes only discovery tools;
+        # after one tool interaction, the refreshed context may expose the
+        # selected provider-neutral tool surface.
+        core._gemini_tool_catalog_ready = True
     # Record actual execution, not only the assistant message shape. Some
     # providers normalize tool calls differently, which previously caused a
     # genuinely used tool to look idle to the auto-unloader.
@@ -2294,6 +2299,8 @@ def run_llm_rounds(
     if not preserve_tool_loop_state:
         _TOOL_CALL_FINGERPRINTS.clear()
         clear_consecutive_tool_call_streak()
+        if provider in ("gemini", "vertexai"):
+            core._gemini_tool_catalog_ready = False
 
     if judgment_mode:
         cache_mgr, gemini_cache_name = None, None
