@@ -113,8 +113,14 @@ class OpenAICompatibleRuntime:
     def project(
         self, plan: ContextPlan, session: Mapping[str, Any]
     ) -> ProviderProjection:
+        from ..runtime.message_transform import MessageTransformPipeline
+
+        transformed = MessageTransformPipeline().apply(
+            plan.messages,
+            translator=session.get("translator"),
+        )
         messages = project_messages_for_provider(
-            [dict(message) for message in plan.messages],
+            [dict(message) for message in transformed.messages],
             provider=self._provider,
             model=self._model,
         )
@@ -148,6 +154,7 @@ class OpenAICompatibleRuntime:
                     "messages": messages,
                     "options": options,
                     "tool_specs": tool_specs,
+                    "transforms": transformed.applied,
                 }
             )
         )
@@ -160,6 +167,7 @@ class OpenAICompatibleRuntime:
             messages=tuple(messages),
             tool_specs=tool_specs,
             options=options,
+            metadata={"transforms": transformed.applied},
         )
 
     def serialize(self, projection: ProviderProjection) -> SerializedRequest:

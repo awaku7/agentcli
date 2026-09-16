@@ -41,8 +41,14 @@ class InceptionProviderRuntime:
     def project(
         self, plan: ContextPlan, session: Mapping[str, Any]
     ) -> ProviderProjection:
+        from ..runtime.message_transform import MessageTransformPipeline
+
+        transformed = MessageTransformPipeline().apply(
+            plan.messages,
+            translator=session.get("translator"),
+        )
         messages = project_messages_for_provider(
-            [dict(message) for message in plan.messages],
+            [dict(message) for message in transformed.messages],
             provider="inception",
             model=self._model,
         )
@@ -59,6 +65,7 @@ class InceptionProviderRuntime:
                     "provider": "inception",
                     "model": self._model,
                     "messages": messages,
+                    "transforms": transformed.applied,
                 }
             )
         )
@@ -71,6 +78,7 @@ class InceptionProviderRuntime:
             messages=tuple(messages),
             tool_specs=plan.tool_specs,
             options=self._options,
+            metadata={"transforms": transformed.applied},
         )
 
     def serialize(self, projection: ProviderProjection) -> SerializedRequest:
