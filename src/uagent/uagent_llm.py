@@ -1286,7 +1286,8 @@ def _run_one_round(
     from .runtime.provider_round_dispatcher import dispatch_provider_round
 
     dispatch = dispatch_provider_round(
-        registry_runner=None if judgment_mode else _try_registry_simple_chat_round,
+        registry_runner=_try_registry_simple_chat_round,
+        registry_allowed=not judgment_mode,
         legacy_runner=run_legacy_provider_round,
         openai_runner=call_legacy_openai_compatible_round,
         registry_kwargs={

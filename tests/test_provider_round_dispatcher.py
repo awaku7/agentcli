@@ -34,6 +34,36 @@ def test_dispatcher_prefers_registry_result() -> None:
     assert calls == ["registry"]
 
 
+def test_dispatcher_skips_registry_when_route_is_not_allowed() -> None:
+    calls: list[str] = []
+
+    def registry(**kwargs):
+        calls.append("registry")
+        return "registry-result"
+
+    def legacy(**kwargs):
+        calls.append("legacy")
+        return "legacy-result"
+
+    def openai(**kwargs):
+        calls.append("openai")
+        return "openai-result"
+
+    result = dispatch_provider_round(
+        registry_runner=registry,
+        registry_allowed=False,
+        legacy_runner=legacy,
+        openai_runner=openai,
+        registry_kwargs={},
+        legacy_kwargs={},
+        openai_kwargs={},
+    )
+
+    assert result.source == "legacy"
+    assert result.result == "legacy-result"
+    assert calls == ["legacy"]
+
+
 def test_dispatcher_falls_back_in_order_and_preserves_falsy_results() -> None:
     calls: list[str] = []
 

@@ -539,6 +539,17 @@ Provider adapter の実行失敗時に legacy 経路へフォールバックす�
 次の単位では、`dispatch_provider_round()` が route eligibility と runner 実行を一体で
 扱える形にし、`uagent_llm.py` に残る registry runner の構築判断をさらに外へ出す。
 
+### P0-A の第3修正単位（完了）
+
+`dispatch_provider_round()` に `registry_allowed` を追加し、registry runner を実行するか
+どうかを dispatcher 自身が制御するようにした。`uagent_llm.py` は judgment mode の
+判定を `registry_runner=None` という runner の差し替えで表現せず、dispatcher に明示的に
+渡す。拒否時も legacy → OpenAI-compatible の順序は維持される。
+
+registry 固有の Provider / tool / Responses 判定は引き続き
+`registry_round_allowed()` が担当する。次はこの判定結果も dispatcher の入力契約へ統合し、
+`uagent_llm.py` に残る route policy の組み立てを縮小する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

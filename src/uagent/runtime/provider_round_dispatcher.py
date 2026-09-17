@@ -66,6 +66,7 @@ class ProviderRoundDispatch:
 def dispatch_provider_round(
     *,
     registry_runner: RoundRunner | None,
+    registry_allowed: bool = True,
     legacy_runner: RoundRunner,
     openai_runner: RoundRunner,
     registry_kwargs: Mapping[str, Any],
@@ -74,13 +75,15 @@ def dispatch_provider_round(
 ) -> ProviderRoundDispatch:
     """Select the first applicable round implementation.
 
-    ``None`` from a runner means that the runner does not own the current
-    provider/mode and the next compatibility path should be tried. A
-    non-``None`` result is returned unchanged, including falsy tuple values,
-    so this helper does not reinterpret provider behavior.
+    ``registry_allowed=False`` disables only the registry candidate and keeps
+    the compatibility order intact. ``None`` from a runner means that the
+    runner does not own the current provider/mode and the next compatibility
+    path should be tried. A non-``None`` result is returned unchanged,
+    including falsy tuple values, so this helper does not reinterpret provider
+    behavior.
     """
 
-    if registry_runner is not None:
+    if registry_allowed and registry_runner is not None:
         registry_result = registry_runner(**dict(registry_kwargs))
         if registry_result is not None:
             return ProviderRoundDispatch("registry", registry_result)
