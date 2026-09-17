@@ -553,3 +553,63 @@ def test_context_plan_builder_is_observational_for_legacy_messages() -> None:
 
     assert messages == before
     assert plan.messages[0]["content"] == "hello"
+
+
+def test_registry_simple_chat_round_supports_azure(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def create(self, **kwargs):
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(
+                                    content="azure-registry-ok", tool_calls=[]
+                                )
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    monkeypatch.delenv("UAGENT_PROVIDER_REGISTRY", raising=False)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.runtime.round_identity.CredentialStoreWorkspaceKeyProvider",
+        lambda: DeterministicTestWorkspaceKeyProvider(),
+    )
+    result = _try_registry_simple_chat_round(
+        provider="azure",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=Chat())),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=SimpleNamespace(workdir=str(tmp_path), cancellation_token=None),
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "azure-registry-ok", "", [])
+
+
+def test_registry_allowlist_and_migration_boundary_are_explicit(
+    monkeypatch, tmp_path
+) -> None:
+    core = SimpleNamespace(workdir=str(tmp_path), cancellation_token=None)
+    kwargs = {
+        "client": object(),
+        "depname": "gpt-test",
+        "call_messages": [{"role": "user", "content": "hello"}],
+        "core": core,
+        "use_responses_api": False,
+        "stream_responses": True,
+        "send_tools_this_round": False,
+        "round_count": 1,
+    }
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "azure")
+    assert _try_registry_simple_chat_round(provider="openai", **kwargs) is None
+
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY", "all")
+    assert _try_registry_simple_chat_round(provider="gemini", **kwargs) is None
