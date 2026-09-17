@@ -18,6 +18,17 @@ def test_tool_policy_defaults_to_conservative_side_effects() -> None:
     assert policy_for("unknown_future_tool").parallel_safe is False
 
 
+def test_lint_format_fix_requires_common_confirmation() -> None:
+    check_policy = policy_for("lint_format", {"tools": ["ruff"], "mode": "check"})
+    fix_policy = policy_for("lint_format", {"tools": ["black"], "mode": "fix"})
+
+    assert check_policy.side_effect is SideEffect.READ_ONLY
+    assert check_policy.parallel_safe
+    assert not check_policy.requires_confirmation
+    assert fix_policy.side_effect is SideEffect.DESTRUCTIVE
+    assert fix_policy.requires_confirmation
+
+
 def test_provider_registry_distinguishes_unknown_capability() -> None:
     openai = DEFAULT_PROVIDER_REGISTRY.resolve("openai")
     llama_cpp = DEFAULT_PROVIDER_REGISTRY.resolve("llama_cpp")

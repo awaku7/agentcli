@@ -117,6 +117,25 @@ def _resource_key(tool_name: str, args: dict[str, Any]) -> str | None:
 def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy:
     args = args or {}
 
+    # ``lint_format`` is read-only in check mode, but ruff/black (and the
+    # other formatters) can overwrite source files in fix mode.  Classify
+    # that mutation at the common dispatcher layer, just like
+    # ``delete_file`` and ``binary_edit``, so every host UI gets the same
+    # confirmation behavior before the tool runner starts.
+    if tool_name == "lint_format":
+        mode = str(args.get("mode") or "check").strip().lower()
+        if mode == "fix":
+            return ToolPolicy(
+                SideEffect.DESTRUCTIVE,
+                resource_key=_resource_key(tool_name, args),
+                requires_confirmation=True,
+            )
+        return ToolPolicy(
+            SideEffect.READ_ONLY,
+            parallel_safe=True,
+            resource_key=_resource_key(tool_name, args),
+        )
+
     # A preview does not modify files. Treat both single-file and
     # replace_all_in_files previews as read-only so they can be inspected
     # without requiring a destructive-operation confirmation.
