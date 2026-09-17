@@ -107,6 +107,8 @@ class ContextManager:
         decisions: Sequence[dict[str, Any]] = (),
         telemetry: dict[str, Any] | None = None,
         key_provider: WorkspaceKeyProvider | None = None,
+        history_revision: str = "",
+        schema_revision: str = "1",
         provider: str | None = None,
         model: str | None = None,
     ) -> ContextPlan:
@@ -132,6 +134,8 @@ class ContextManager:
             policy=policy,
             telemetry=telemetry or {},
             key_provider=key_provider,
+            history_revision=history_revision,
+            schema_revision=schema_revision,
         )
 
     def build_message_context(

@@ -186,6 +186,47 @@ def test_remote_update_only_adopts_a_valid_compacted_continuation() -> None:
     assert "previous_response_id" not in core.responses_state
 
 
+def test_remote_update_metadata_mismatch_clears_continuation() -> None:
+    context_plan = ContextPlan(
+        plan_id="plan-context-overflow",
+        messages=(),
+        input_fingerprint="fingerprint-1",
+        history_revision="history-1",
+        schema_revision="schema-1",
+    )
+    core = type(
+        "Core",
+        (),
+        {
+            "responses_state": {
+                "provider": "openai",
+                "model": "m",
+                "previous_response_id": "resp_old",
+            },
+            "context_plan": context_plan,
+            "context_projection_id": "projection-1",
+        },
+    )()
+    mismatched = type(
+        "Update",
+        (),
+        {
+            "remote_mutation_status": "applied",
+            "continuation_allowed": True,
+            "compacted_response_id": "resp_compacted",
+            "session_generation": 2,
+            "input_fingerprint": "fingerprint-1",
+            "plan_id": "plan-other",
+            "projection_id": "projection-1",
+            "history_revision": "history-1",
+            "schema_revision": "schema-1",
+        },
+    )()
+
+    assert not _apply_remote_recovery_update(core, mismatched)
+    assert "previous_response_id" not in core.responses_state
+
+
 class _UnavailableWorkspaceKeyProvider:
     def get_key(self, workspace_id: str) -> bytes:
         raise WorkspaceKeyUnavailable("workspace key unavailable")

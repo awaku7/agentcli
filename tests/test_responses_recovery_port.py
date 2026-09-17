@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from uagent.providers.responses_recovery_port import (
     InMemoryRecoveryJournal,
@@ -58,6 +58,49 @@ def test_compact_applies_generation_and_journal_update_without_history_mutation(
     assert update.continuation_allowed is True
     assert update.journal_entry_id == "recovery:recovery-1"
     assert provider_session == before
+
+
+def test_update_carries_identity_and_rejects_session_metadata_mismatch() -> None:
+    manager = _Manager()
+    port = ResponsesRecoveryPort(manager)
+    plan = RecoveryPlan(
+        recovery_id="recovery-metadata",
+        plan_id="plan-1",
+        projection_id="projection-1",
+        classification="context_overflow",
+        strategy="provider_compact",
+        remote_session_mutation=True,
+        input_fingerprint="fingerprint-1",
+        history_revision="history-1",
+        schema_revision="schema-1",
+    )
+    session = {
+        "response_id": "resp_1",
+        "session_generation": 4,
+        "input_fingerprint": "fingerprint-1",
+        "plan_id": "plan-1",
+        "projection_id": "projection-1",
+        "history_revision": "history-1",
+        "schema_revision": "schema-1",
+    }
+
+    update = port.apply(plan, session, expected_session_generation=4)
+
+    assert update.input_fingerprint == "fingerprint-1"
+    assert update.plan_id == "plan-1"
+    assert update.projection_id == "projection-1"
+    assert update.history_revision == "history-1"
+    assert update.schema_revision == "schema-1"
+
+    stale = port.apply(
+        replace(plan, recovery_id="recovery-metadata-stale"),
+        {**session, "history_revision": "history-2"},
+        expected_session_generation=4,
+    )
+
+    assert stale.remote_mutation_status == "stale"
+    assert stale.continuation_allowed is False
+    assert len(manager.calls) == 1
 
 
 def test_generation_mismatch_is_stale_and_does_not_call_provider() -> None:

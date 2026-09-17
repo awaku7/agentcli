@@ -549,7 +549,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 ### P1-B: Recovery の fingerprint と restore 検証を完成させる
 
-`ContextRecoveryManager`、`ResponsesRecoveryPort`、SQLite recovery journal、remote recovery の冪等処理は実装済みである。一方、`RecoveryPlan.input_fingerprint` は現在フィールドとして受け渡される段階であり、生成・検証処理が標準経路として完成していない。
+`ContextRecoveryManager`、`ResponsesRecoveryPort`、SQLite recovery journal、remote recovery の冪等処理に加え、recovery metadata の生成・保存・照合を標準経路へ統合した。`ContextPlan` の `input_fingerprint`、`plan_id`、`projection_id`、`history_revision`、`schema_revision` を recovery journal と remote update に引き継ぎ、restore 前に現在の context/projection と照合する。不一致時は continuation を破棄し、full rebuild 経路へ移行する。
 
 終了条件:
 
@@ -558,6 +558,8 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 3. full rebuild または continuation clear に移行する。
 4. fingerprint に prompt 本文を直接保存しない。
 5. remote recovery 後に同じ projection を再構築できる。
+
+実装済み。SQLite journal と remote recovery の metadata 不一致、および provider session metadata の不一致を回帰テストで検証する。
 
 ### P1-C: ResponsesRuntime を全経路へ統合する
 

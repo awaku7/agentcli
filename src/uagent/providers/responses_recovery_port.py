@@ -81,6 +81,11 @@ class SQLiteRecoveryJournal:
                 "remote_mutation_status": update.remote_mutation_status,
                 "continuation_allowed": update.continuation_allowed,
                 "journal_entry_id": update.journal_entry_id,
+                "input_fingerprint": update.input_fingerprint,
+                "plan_id": update.plan_id,
+                "projection_id": update.projection_id,
+                "history_revision": update.history_revision,
+                "schema_revision": update.schema_revision,
             },
             separators=(",", ":"),
             sort_keys=True,
@@ -136,14 +141,45 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
         status: RemoteMutationStatus,
         continuation_allowed: bool,
         journal_entry_id: str,
+        plan: RecoveryPlan,
+        provider_session: Mapping[str, Any],
     ) -> RemoteSessionUpdate:
+        def session_value(name: str) -> str:
+            value = provider_session.get(name)
+            return str(value).strip() if value is not None else ""
+
         return RemoteSessionUpdate(
             session_generation=generation,
             compacted_response_id=response_id,
             remote_mutation_status=status,
             continuation_allowed=continuation_allowed,
             journal_entry_id=journal_entry_id,
+            input_fingerprint=plan.input_fingerprint
+            or session_value("input_fingerprint"),
+            plan_id=plan.plan_id,
+            projection_id=plan.projection_id,
+            history_revision=plan.history_revision or session_value("history_revision"),
+            schema_revision=plan.schema_revision
+            or session_value("schema_revision")
+            or "1",
         )
+
+    @staticmethod
+    def _metadata_matches(
+        plan: RecoveryPlan, provider_session: Mapping[str, Any]
+    ) -> bool:
+        for name in (
+            "input_fingerprint",
+            "plan_id",
+            "projection_id",
+            "history_revision",
+            "schema_revision",
+        ):
+            expected = str(getattr(plan, name, "") or "")
+            actual = str(provider_session.get(name) or "")
+            if expected and actual and expected != actual:
+                return False
+        return True
 
     def _record(
         self, recovery_id: str, update: RemoteSessionUpdate
@@ -157,6 +193,11 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
             remote_mutation_status=update.remote_mutation_status,
             continuation_allowed=update.continuation_allowed,
             journal_entry_id=entry_id,
+            input_fingerprint=update.input_fingerprint,
+            plan_id=update.plan_id,
+            projection_id=update.projection_id,
+            history_revision=update.history_revision,
+            schema_revision=update.schema_revision,
         )
 
     def apply(
@@ -181,6 +222,22 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
                     status="stale",
                     continuation_allowed=False,
                     journal_entry_id=journal_entry_id,
+                    plan=plan,
+                    provider_session=provider_session,
+                ),
+            )
+
+        if not self._metadata_matches(plan, provider_session):
+            return self._record(
+                plan.recovery_id,
+                self._update(
+                    generation=current_generation,
+                    response_id=None,
+                    status="stale",
+                    continuation_allowed=False,
+                    journal_entry_id=journal_entry_id,
+                    plan=plan,
+                    provider_session=provider_session,
                 ),
             )
 
@@ -193,6 +250,8 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
                     status="rejected",
                     continuation_allowed=False,
                     journal_entry_id=journal_entry_id,
+                    plan=plan,
+                    provider_session=provider_session,
                 ),
             )
 
@@ -211,6 +270,8 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
                     status="rejected",
                     continuation_allowed=False,
                     journal_entry_id=journal_entry_id,
+                    plan=plan,
+                    provider_session=provider_session,
                 ),
             )
 
@@ -230,6 +291,8 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
                     status="unknown",
                     continuation_allowed=False,
                     journal_entry_id=journal_entry_id,
+                    plan=plan,
+                    provider_session=provider_session,
                 ),
             )
 
@@ -239,6 +302,8 @@ class ResponsesRecoveryPort(RemoteRecoveryPort):
             status="applied",
             continuation_allowed=bool(compacted_id),
             journal_entry_id=journal_entry_id,
+            plan=plan,
+            provider_session=provider_session,
         )
         return self._record(plan.recovery_id, update)
 

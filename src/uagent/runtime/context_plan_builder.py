@@ -23,6 +23,8 @@ def build_context_plan(
     policy: Mapping[str, Any] | None = None,
     telemetry: Mapping[str, Any] | None = None,
     key_provider: WorkspaceKeyProvider | None = None,
+    history_revision: str = "",
+    schema_revision: str = "1",
 ) -> ContextPlan:
     """Create a plan without mutating messages, schemas, or telemetry."""
 
@@ -34,7 +36,8 @@ def build_context_plan(
         "tool_specs": frozen_tools,
         "decisions": frozen_decisions,
         "policy": copy.deepcopy(dict(policy or {})),
-        "schema_version": 1,
+        "history_revision": str(history_revision or ""),
+        "schema_revision": str(schema_revision or "1"),
     }
     factory = RoundIdentityFactory(
         workspace_id=workspace_id,
@@ -47,6 +50,8 @@ def build_context_plan(
         decisions=frozen_decisions,
         telemetry=copy.deepcopy(dict(telemetry or {})),
         input_fingerprint=factory.input_fingerprint(canonical_json(identity_payload)),
+        history_revision=str(history_revision or ""),
+        schema_revision=str(schema_revision or "1"),
     )
 
 

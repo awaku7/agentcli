@@ -85,6 +85,8 @@ class RecoveryPlan:
     projection_mutation: bool = False
     attempt_id: str = ""
     input_fingerprint: str = ""
+    history_revision: str = ""
+    schema_revision: str = "1"
 
 
 @dataclass(frozen=True)
@@ -107,6 +109,11 @@ class RemoteSessionUpdate:
     remote_mutation_status: RemoteMutationStatus
     continuation_allowed: bool
     journal_entry_id: str
+    input_fingerprint: str = ""
+    plan_id: str = ""
+    projection_id: str | None = None
+    history_revision: str = ""
+    schema_revision: str = "1"
 
 
 class RemoteRecoveryPort(Protocol):
@@ -283,6 +290,8 @@ class ContextRecoveryManager:
             projection_mutation=strategy != "no_op",
             attempt_id=attempt_id,
             input_fingerprint=input_fingerprint or context_plan.input_fingerprint,
+            history_revision=context_plan.history_revision,
+            schema_revision=context_plan.schema_revision,
         )
 
     @staticmethod

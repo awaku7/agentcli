@@ -517,6 +517,8 @@ def _build_round_context_plan(
     tool_specs: Any = (),
     key_provider: Any = None,
     telemetry: dict[str, Any] | None = None,
+    history_revision: str = "",
+    schema_revision: str = "1",
 ) -> Any:
     """Build a round plan through ContextManager when available.
 
@@ -534,6 +536,8 @@ def _build_round_context_plan(
             decisions=decisions,
             telemetry=telemetry or {},
             key_provider=key_provider,
+            history_revision=history_revision,
+            schema_revision=schema_revision,
             provider=provider,
             model=depname,
         )
@@ -545,6 +549,8 @@ def _build_round_context_plan(
         policy={"provider": provider, "model": depname},
         telemetry=telemetry or {},
         key_provider=key_provider,
+        history_revision=history_revision,
+        schema_revision=schema_revision,
     )
 
 
@@ -657,6 +663,19 @@ def _apply_remote_recovery_update(core: Any, update: Any) -> bool:
     state = getattr(core, "responses_state", None)
     if not isinstance(state, dict):
         return False
+    context_plan = getattr(core, "context_plan", None)
+    expected_metadata = {
+        "plan_id": getattr(context_plan, "plan_id", ""),
+        "input_fingerprint": getattr(context_plan, "input_fingerprint", ""),
+        "history_revision": getattr(context_plan, "history_revision", ""),
+        "schema_revision": getattr(context_plan, "schema_revision", ""),
+        "projection_id": getattr(core, "context_projection_id", ""),
+    }
+    for name, expected in expected_metadata.items():
+        actual = str(getattr(update, name, "") or "")
+        if expected and actual and str(expected) != actual:
+            state.pop("previous_response_id", None)
+            return False
     if getattr(update, "remote_mutation_status", "") != "applied" or not getattr(
         update, "continuation_allowed", False
     ):
@@ -670,11 +689,19 @@ def _apply_remote_recovery_update(core: Any, update: Any) -> bool:
     runtime = getattr(core, "responses_runtime", None)
     if runtime is not None:
         try:
+            fingerprint = str(getattr(update, "input_fingerprint", "") or "")
+            expected_fingerprint = (
+                fingerprint if expected_metadata["input_fingerprint"] else None
+            )
             runtime.restore_continuation(
                 response_id,
                 session_generation=state["session_generation"],
                 provider=state.get("provider"),
                 model=state.get("model"),
+                expected_input_fingerprint=expected_fingerprint,
+                input_fingerprint_status=(
+                    "valid" if expected_fingerprint else "not_checked"
+                ),
             )
         except Exception:
             state.pop("previous_response_id", None)
@@ -708,6 +735,11 @@ def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -
             "status": update.remote_mutation_status,
             "session_generation": update.session_generation,
             "journal_entry_id": update.journal_entry_id,
+            "input_fingerprint": getattr(update, "input_fingerprint", ""),
+            "plan_id": getattr(update, "plan_id", ""),
+            "projection_id": getattr(update, "projection_id", None),
+            "history_revision": getattr(update, "history_revision", ""),
+            "schema_revision": getattr(update, "schema_revision", "1"),
         }
         try:
             from .runtime.logging_setup import log_event
@@ -843,7 +875,10 @@ def _try_registry_simple_chat_round(
             workspace_id=workspace_id,
             tool_specs=tool_specs if send_tools_this_round else (),
             key_provider=key_provider,
+            history_revision=str(getattr(core, "history_revision", "") or ""),
+            schema_revision=str(getattr(core, "context_schema_revision", "1") or "1"),
         )
+        core.context_plan = plan
         transport = "responses" if use_responses_api else "chat_completions"
         from .providers.openai_projection_policy import build_openai_projection
 
@@ -958,6 +993,7 @@ def _try_registry_simple_chat_round(
                     "retry_effort": next_effort,
                 }
         if result.status == "failed":
+            core.context_projection_id = result.projection_id
             from .runtime.context_recovery import ContextRecoveryManager
             from .runtime.llm_error_classifier import LLMErrorClassifier
             from .runtime.round_runtime import RoundAttemptBudget, RetryRequest

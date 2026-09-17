@@ -51,6 +51,8 @@ class ContextPlan:
     decisions: tuple[Mapping[str, Any], ...] = ()
     telemetry: Mapping[str, Any] = field(default_factory=dict)
     input_fingerprint: str = ""
+    history_revision: str = ""
+    schema_revision: str = "1"
 
 
 @dataclass(frozen=True)
