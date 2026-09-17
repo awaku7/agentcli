@@ -868,6 +868,8 @@ def _try_registry_simple_chat_round(
             prepared_plan,
             call_messages,
             tool_specs if send_tools_this_round else (),
+            history_revision=str(getattr(core, "history_revision", "") or ""),
+            schema_revision=str(getattr(core, "context_schema_revision", "1") or "1"),
         ):
             # Reuse the standard hand-off when ContextManager already prepared
             # the exact post-transform context for this provider round.

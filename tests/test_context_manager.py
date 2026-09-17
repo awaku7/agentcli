@@ -75,3 +75,16 @@ def test_context_plan_matches_handoff_inputs_without_rebuilding() -> None:
         [{"type": "function", "function": {"name": "demo"}}],
     )
     assert not context_plan_matches(plan, plan.messages, ())
+    assert not context_plan_matches(
+        plan,
+        plan.messages,
+        plan.tool_specs,
+        history_revision="history-2",
+    )
+    assert context_plan_matches(
+        plan,
+        plan.messages,
+        plan.tool_specs,
+        history_revision="",
+        schema_revision="1",
+    )

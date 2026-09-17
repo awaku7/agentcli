@@ -734,6 +734,12 @@ ContextPlan の再利用判定を `context_plan_matches()` として
 specs の hand-off 契約だけをこの helper に渡し、ContextPlan の内部表現や比較方法を
 直接扱わない。これで同じ plan から projection を再生成する境界をテスト可能にした。
 
+### P1-A の第3修正単位（完了）
+
+prepared ContextPlan の再利用条件に `history_revision` と `schema_revision` を追加した。
+messages と tool specs が同じでも、履歴世代や tool schema 世代が変わった plan は再利用せず、
+provider projection が古い context metadata を参照しないようにした。
+
 `ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:
