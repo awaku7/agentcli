@@ -720,6 +720,13 @@ management tool 名を `runtime/tool_discovery.py` の `MANAGEMENT_TOOL_NAMES` �
 
 対象は `src/uagent/runtime/context_plan_builder.py`、`src/uagent/runtime/context_manager.py`、`src/uagent/runtime/round_contracts.py`、`src/uagent/uagent_llm.py` である。
 
+### P1-A の最初の修正単位（完了）
+
+registry round が provider adapter の直前に ContextPlan を再生成する前に、ContextManager
+が同一の post-transform messages と tool specs で準備した `core.context_plan` を再利用する
+ようにした。内容が一致する場合だけ再利用し、不一致時は従来通り再構築するため、
+provider-specific projection と persistent history の混同は起こさない。
+
 `ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:

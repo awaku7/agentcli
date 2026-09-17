@@ -816,7 +816,7 @@ def _try_registry_simple_chat_round(
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
-        from .runtime.round_contracts import RoundIdentifiers
+        from .runtime.round_contracts import ContextPlan, RoundIdentifiers
         from .runtime.round_identity import (
             CredentialStoreWorkspaceKeyProvider,
             RoundIdentityFactory,
@@ -867,17 +867,31 @@ def _try_registry_simple_chat_round(
                 _limit_chat_completion_tools(list(tool_specs), call_messages)
             )
             _tools.log_tools_being_sent(tool_specs, where="registry_chatcompletions")
-        plan = _build_round_context_plan(
-            provider=provider,
-            depname=depname,
-            call_messages=call_messages,
-            core=core,
-            workspace_id=workspace_id,
-            tool_specs=tool_specs if send_tools_this_round else (),
-            key_provider=key_provider,
-            history_revision=str(getattr(core, "history_revision", "") or ""),
-            schema_revision=str(getattr(core, "context_schema_revision", "1") or "1"),
-        )
+        expected_messages = tuple(dict(message) for message in call_messages)
+        expected_tool_specs = tuple(tool_specs if send_tools_this_round else ())
+        prepared_plan = getattr(core, "context_plan", None)
+        if (
+            isinstance(prepared_plan, ContextPlan)
+            and prepared_plan.messages == expected_messages
+            and prepared_plan.tool_specs == expected_tool_specs
+        ):
+            # Reuse the standard hand-off when ContextManager already prepared
+            # the exact post-transform context for this provider round.
+            plan = prepared_plan
+        else:
+            plan = _build_round_context_plan(
+                provider=provider,
+                depname=depname,
+                call_messages=call_messages,
+                core=core,
+                workspace_id=workspace_id,
+                tool_specs=tool_specs if send_tools_this_round else (),
+                key_provider=key_provider,
+                history_revision=str(getattr(core, "history_revision", "") or ""),
+                schema_revision=str(
+                    getattr(core, "context_schema_revision", "1") or "1"
+                ),
+            )
         core.context_plan = plan
         transport = "responses" if use_responses_api else "chat_completions"
         from .providers.openai_projection_policy import build_openai_projection

@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent.providers.openai_projection_policy import build_openai_projection
+from uagent.runtime.round_contracts import ContextPlan
 from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
 from uagent.uagent_llm import _try_registry_simple_chat_round
 
@@ -362,3 +363,50 @@ def test_projection_policy_is_pure_and_keeps_transport_shapes(monkeypatch) -> No
         "max_tokens": 321,
         "top_p": 0.3,
     }
+
+
+def test_registry_reuses_matching_prepared_context_plan(monkeypatch, tmp_path) -> None:
+    class Chat:
+        def create(self, **kwargs):
+            return iter(
+                [
+                    SimpleNamespace(
+                        choices=[
+                            SimpleNamespace(
+                                delta=SimpleNamespace(content="ok", tool_calls=[])
+                            )
+                        ]
+                    )
+                ]
+            )
+
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setattr(
+        "uagent.uagent_llm._build_round_context_plan",
+        lambda **_kwargs: (_ for _ in ()).throw(
+            AssertionError("matching prepared plan must be reused")
+        ),
+    )
+    call_messages = [{"role": "user", "content": "hello"}]
+    prepared = ContextPlan("prepared-plan", tuple(call_messages))
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        context_plan=prepared,
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="openai",
+        client=SimpleNamespace(chat=SimpleNamespace(completions=Chat())),
+        depname="gpt-test",
+        call_messages=call_messages,
+        core=core,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        round_count=1,
+    )
+
+    assert result == (True, "ok", "", [])
+    assert core.context_plan is prepared
