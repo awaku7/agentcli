@@ -181,6 +181,7 @@ from .tools.llm_tool_narrowing import (
     resolve_tool_discovery,
     _select_tool_specs_legacy,
 )
+from .runtime.tool_discovery import select_tool_specs_for_discovery
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
     apply_openrouter_tool_schema_compat,
@@ -518,9 +519,11 @@ def _call_openai_azure_round(
                     depname=depname,
                     use_responses_api=use_responses_api,
                 )
+                _legacy_tool_specs: list[dict[str, Any]] | None = None
+                _native_tool_specs: list[dict[str, Any]] | None = None
                 if discovery.uses_legacy_catalog:
-                    # Legacy mode: narrow tools via tool_catalog (client-side)
-                    responses_tool_specs = _select_tool_specs_legacy(call_messages)
+                    # Legacy mode: narrow tools via tool_catalog (client-side).
+                    _legacy_tool_specs = _select_tool_specs_legacy(call_messages)
                 elif discovery.uses_native_search:
                     # Native mode: scan all tool modules from disk (bypass genre),
                     # exclude management tools. Server-side tool_search does narrowing.
@@ -554,11 +557,13 @@ def _call_openai_azure_round(
                             if str((spec.get("function") or {}).get("name") or "")
                             not in _excluded
                         ]
-                    responses_tool_specs = _all_tools
-                else:
-                    # Standard Responses API path (non-GPT-5.4): use the
-                    # context-budgeted surface when the runtime prepared one.
-                    responses_tool_specs = getattr(core, "context_tool_specs", None)
+                    _native_tool_specs = _all_tools
+                responses_tool_specs = select_tool_specs_for_discovery(
+                    discovery,
+                    legacy_specs=_legacy_tool_specs,
+                    native_specs=_native_tool_specs,
+                    selected_specs=getattr(core, "context_tool_specs", None),
+                )
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,

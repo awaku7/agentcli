@@ -683,6 +683,14 @@ off の判定は `ToolDiscoveryDecision` に統一され、GPT-5.4 target 判定
 互換性のため `_is_gpt54_tool_search_target()` wrapper として残している。これにより、
 直接の環境変数判定を新しい呼び出し側へ増やさない境界が明確になった。
 
+### P0-B の第3修正単位（完了）
+
+`llm_round_helpers.py` の Responses tool surface 選択に
+`select_tool_specs_for_discovery()` を接続した。legacy catalog、native search、selected
+schemas の各 surface を作る処理と、最終的な delivery 選択を分離し、resolver が決めた
+`ToolDiscoveryDecision` を最終選択にも通す。既存の native management-tool 除外と
+legacy narrowing は維持する。
+
 `CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` と共通 resolver は `runtime/tool_discovery.py` に追加され、`llm_tool_narrowing.py` の互換ラッパーも共通 resolver へ委譲するようになった。一方、選択・delivery の呼び出し側には旧経路が残っており、`_is_gpt54_tool_search_target()` はテスト互換のために import/re-export として残る。したがって判断・選択・delivery の全経路が一つの契約へ統合された状態ではない。
 
 直近のコミットでは Gemini の tool discovery、built-in search との分離、missing context tool specs、legacy tool call 実行が連続して修正されている。この領域は現在最も回帰しやすいため、全 provider の registry 移行に先立って判断契約を固定する。
