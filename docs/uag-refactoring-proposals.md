@@ -642,6 +642,15 @@ OpenAI-compatible の no-tool 終了処理を同じ capability に基づけた�
 legacy handler は `owns_tool_execution=True` で既に自身の tool-loop を完了させるため、
 共通 loop で二重実行しない。raw tuple と tool call list は互換性・詳細処理のために保持する。
 
+### 並行修正: SessionStore の SQLite lock recovery（完了）
+
+実機確認で、終了時の session summary 処理と別の session write が競合し、
+`sqlite3.OperationalError: database is locked` が対話処理まで終了させる事象を確認した。
+`SessionStore._execute()` に lock 専用の指数 backoff retry を追加し、短時間の複数 entry point
+競合を吸収する。retry 後もロックが残る場合は、interactive callback の session persistence
+だけを無効化し、LLM 処理本体は継続できるようにした。SQLite の保存失敗を理由にユーザー
+操作全体を abort しないことを完了条件とする。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

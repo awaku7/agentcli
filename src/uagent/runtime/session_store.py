@@ -11,6 +11,7 @@ import re
 import shutil
 import sqlite3
 import threading
+import time
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -27,6 +28,10 @@ from .tool_result_persistence import (
 
 class SessionStoreError(RuntimeError):
     """Raised when session persistence cannot complete safely."""
+
+
+_SQLITE_LOCK_RETRIES = 3
+_SQLITE_LOCK_RETRY_DELAY = 0.25
 
 
 def _utc_now() -> str:
@@ -448,18 +453,35 @@ class SessionStore:
             ) from exc
 
     def _execute(self, sql: str, parameters: tuple[Any, ...] = ()) -> sqlite3.Cursor:
-        try:
-            # Safety net: lone surrogates (Windows console/clipboard, broken
-            # UTF-16) crash sqlite3 with UnicodeEncodeError since it encodes
-            # parameters as strict UTF-8. Sanitize here so every current and
-            # future caller is protected even if it forgets to sanitize.
-            if parameters:
-                parameters = tuple(
-                    _sanitize_text(p) if isinstance(p, str) else p for p in parameters
-                )
-            return self._connection.execute(sql, parameters)
-        except sqlite3.Error as exc:
-            raise SessionStoreError(f"session store operation failed: {exc}") from exc
+        # Safety net: lone surrogates (Windows console/clipboard, broken
+        # UTF-16) crash sqlite3 with UnicodeEncodeError since it encodes
+        # parameters as strict UTF-8. Sanitize here so every current and
+        # future caller is protected even if it forgets to sanitize.
+        if parameters:
+            parameters = tuple(
+                _sanitize_text(p) if isinstance(p, str) else p for p in parameters
+            )
+        for attempt in range(_SQLITE_LOCK_RETRIES + 1):
+            try:
+                return self._connection.execute(sql, parameters)
+            except sqlite3.OperationalError as exc:
+                # A different CLI/Web/A2A process can briefly hold the shared
+                # session database while committing. SQLite's busy timeout is
+                # necessary but not sufficient when a writer is finishing a
+                # longer transaction; retry the statement before failing the
+                # current interaction.
+                if (
+                    "locked" in str(exc).lower()
+                    and attempt < _SQLITE_LOCK_RETRIES
+                ):
+                    time.sleep(_SQLITE_LOCK_RETRY_DELAY * (2**attempt))
+                    continue
+                raise SessionStoreError(
+                    f"session store operation failed: {exc}"
+                ) from exc
+            except sqlite3.Error as exc:
+                raise SessionStoreError(f"session store operation failed: {exc}") from exc
+        raise AssertionError("unreachable sqlite retry state")
 
     def _require_session(self, session_id: str) -> None:
         row = self._execute(
@@ -1402,6 +1424,8 @@ def attach_opt_in_session_store(
     def log_message(message: dict[str, Any]) -> None:
         if jsonl_enabled:
             original_log_message(message)
+        if getattr(core, "_session_store_write_disabled", False):
+            return
         role = message.get("role") if isinstance(message, dict) else None
         if role not in {"system", "user", "assistant", "tool"}:
             return
@@ -1409,12 +1433,21 @@ def attach_opt_in_session_store(
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
         )
-        store.append_message(
-            active_session_id,
-            str(role),
-            content,
-            payload=message if isinstance(message, dict) else None,
-        )
+        try:
+            store.append_message(
+                active_session_id,
+                str(role),
+                content,
+                payload=message if isinstance(message, dict) else None,
+            )
+        except SessionStoreError as exc:
+            if "locked" not in str(exc).lower():
+                raise
+            # Session persistence is auxiliary; a competing process must not
+            # terminate the interactive LLM operation. Disable only the
+            # SQLite callback for the remainder of this entry point.
+            core._session_store_write_disabled = True
+            return
         if role == "assistant":
             for call in message.get("tool_calls") or []:
                 if isinstance(call, dict):

@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.runtime.session_store import attach_opt_in_session_store
+from uagent.runtime.session_store import (
+    SessionStoreError,
+    attach_opt_in_session_store,
+)
 from uagent.tools.context import get_callbacks
 
 
@@ -38,6 +41,30 @@ def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_
     store.close()
     assert get_callbacks().session_store is None
     assert get_callbacks().session_id is None
+
+
+def test_locked_session_write_does_not_abort_interactive_callback(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+    core = SimpleNamespace(log_message=lambda message: None)
+
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="cli"
+    )
+
+    def locked_append(*_args, **_kwargs):
+        raise SessionStoreError("session store operation failed: database is locked")
+
+    store.append_message = locked_append
+    core.log_message({"role": "user", "content": "first"})
+    core.log_message({"role": "user", "content": "second"})
+
+    assert core._session_store_write_disabled is True
+    assert session_id
+    store.close()
 
 
 def test_sqlite_backend_can_disable_jsonl_callback(monkeypatch, tmp_path):

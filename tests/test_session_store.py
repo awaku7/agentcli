@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from types import SimpleNamespace
 
 import pytest
+
+import uagent.runtime.session_store as session_store_module
 
 from uagent.runtime.session_store import (
     SessionStore,
@@ -106,6 +109,26 @@ def test_create_session_has_unique_id_and_can_be_reopened(tmp_path):
 
     reopened = SessionStore(db_path)
     assert reopened.get_session(first.session_id)["entry_point"] == "cli"
+
+
+def test_execute_retries_transient_database_lock(monkeypatch, tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    calls = 0
+
+    def execute(_sql, _parameters):
+        nonlocal calls
+        calls += 1
+        if calls < 3:
+            raise sqlite3.OperationalError("database is locked")
+        return "ok"
+
+    store._connection = SimpleNamespace(execute=execute)
+    delays = []
+    monkeypatch.setattr(session_store_module.time, "sleep", delays.append)
+
+    assert store._execute("SELECT 1") == "ok"
+    assert calls == 3
+    assert delays == [0.25, 0.5]
 
 
 def test_sqlite_runtime_pragmas_and_indexes_are_configured(tmp_path):
