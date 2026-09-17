@@ -1871,8 +1871,8 @@ msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
 msgstr "URL cơ sở DeepSeek (tùy chọn, mặc định: https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "Tên mô hình DeepSeek (tùy chọn, mặc định: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "Tên mô hình DeepSeek (tùy chọn, mặc định: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

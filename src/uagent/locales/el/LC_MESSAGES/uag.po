@@ -1953,8 +1953,8 @@ msgstr ""
 "URL βάσης DeepSeek (προαιρετικό, προεπιλογή: https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "Όνομα μοντέλου DeepSeek (προαιρετικό, προεπιλογή: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "Όνομα μοντέλου DeepSeek (προαιρετικό, προεπιλογή: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

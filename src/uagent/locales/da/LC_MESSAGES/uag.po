@@ -1823,8 +1823,8 @@ msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
 msgstr "DeepSeek basis-URL (valgfrit, standard: https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "DeepSeek modelnavn (valgfrit, standard: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "DeepSeek modelnavn (valgfrit, standard: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

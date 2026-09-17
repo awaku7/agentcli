@@ -144,7 +144,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     # legacy management tools.
     try:
         from ..env_utils import env_get
-        from .llm_tool_narrowing import _is_gpt54_tool_search_target
+        from .llm_tool_narrowing import resolve_tool_discovery
 
         provider = (env_get("UAGENT_PROVIDER", "") or "").strip().lower()
         depname_env = {
@@ -163,11 +163,11 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             from ..llmcapa_util import provider_allows_responses_api
 
             use_responses_api = provider_allows_responses_api(provider, depname or None)
-        native_tool_search = _is_gpt54_tool_search_target(
+        native_tool_search = resolve_tool_discovery(
             provider=provider,
             depname=depname,
             use_responses_api=use_responses_api,
-        )
+        ).uses_native_search
     except Exception:
         native_tool_search = False
 

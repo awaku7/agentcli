@@ -1322,8 +1322,8 @@ msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
 msgstr "DeepSeekベースURL（オプション、デフォルト: https://api.deepseek.com）"
 
 #: src/uagent/setup_cli.py:275
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "DeepSeekモデル名（オプション、デフォルト: deepseek-v4-flash）"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "DeepSeekモデル名（オプション、デフォルト: deepseek-flash）"
 
 #: src/uagent/setup_cli.py:280
 msgid "DeepSeek temperature (default: 0.0)"

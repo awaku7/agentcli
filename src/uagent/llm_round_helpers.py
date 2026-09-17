@@ -175,10 +175,10 @@ def _rollback_largest_recent_history(
 
 
 from .tools.llm_tool_narrowing import (
-    _is_gpt54_tool_search_target,
-    _is_legacy_mode,
+    resolve_tool_discovery,
     _select_tool_specs_legacy,
 )
+from .runtime.tool_discovery import ToolDiscoveryMode
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
     apply_openrouter_tool_schema_compat,
@@ -511,15 +511,15 @@ def _call_openai_azure_round(
                 # submitted as the continuation of the assistant response.
                 _should_track_rid = True
 
-                use_gpt54_tool_search = _is_gpt54_tool_search_target(
+                discovery = resolve_tool_discovery(
                     provider=provider,
                     depname=depname,
                     use_responses_api=use_responses_api,
                 )
-                if use_gpt54_tool_search and _is_legacy_mode():
+                if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG:
                     # Legacy mode: narrow tools via tool_catalog (client-side)
                     responses_tool_specs = _select_tool_specs_legacy(call_messages)
-                elif use_gpt54_tool_search:
+                elif discovery.mode is ToolDiscoveryMode.NATIVE_SEARCH:
                     # Native mode: scan all tool modules from disk (bypass genre),
                     # exclude management tools. Server-side tool_search does narrowing.
                     _excluded = {"tool_catalog", "tool_load", "unload_tool"}

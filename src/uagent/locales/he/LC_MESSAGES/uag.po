@@ -1871,8 +1871,8 @@ msgstr ""
 "https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "שם דגם DeepSeek (אופציונלי, ברירת מחדל: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "שם דגם DeepSeek (אופציונלי, ברירת מחדל: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

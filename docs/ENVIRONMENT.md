@@ -187,7 +187,7 @@ Required if `UAGENT_PROVIDER=deepseek`:
 
 - `UAGENT_DEEPSEEK_API_KEY` (required)
 - `UAGENT_DEEPSEEK_BASE_URL` (optional, default: `https://api.deepseek.com`)
-- `UAGENT_DEEPSEEK_DEPNAME` (optional, default: `deepseek-v4-flash`)
+- `UAGENT_DEEPSEEK_DEPNAME` (optional, default: `deepseek-flash`)
 
 #### Z.AI (Zhipu AI)
 

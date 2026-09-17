@@ -369,7 +369,7 @@ The levels below describe the current agentcli implementation path, not complete
 | Azure OpenAI | A | Supported | Supported | Supported | OpenAI-compatible path; verify API and model differences |
 | Amazon Bedrock | B | Supported | Attempted | Attempted | Input is converted to one string and tool definitions are flattened |
 | OpenRouter | B | Supported | Disabled | Disabled | Uses local history after converting input to text |
-| DeepSeek | B | Supported | Unsupported | Unsupported | Stateless; currently assumes `deepseek-v4-flash` |
+| DeepSeek | B | Supported | Unsupported | Unsupported | Stateless; currently assumes `deepseek-flash` |
 | Ollama | C | Generic path | Provider-dependent | Provider-dependent | Adjusts `extra_body` and `max_output_tokens`; live verification required |
 | Alibaba / Qwen | C | Generic path | To verify | To verify | No dedicated Responses compatibility path |
 | LM Studio | C | Generic path | To verify | To verify | Depends on the local server version |

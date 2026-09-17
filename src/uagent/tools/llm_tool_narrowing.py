@@ -4,6 +4,11 @@ from typing import Any, Optional
 
 from ..env_utils import env_get
 from .. import tools
+from ..runtime.tool_discovery import (
+    ToolDiscoveryDecision,
+    ToolDiscoveryMode,
+    resolve_tool_discovery as _resolve_tool_discovery,
+)
 
 
 def _get_gpt54_tool_search_mode() -> str:
@@ -24,61 +29,38 @@ def _get_gpt54_tool_search_mode() -> str:
     return "native"
 
 
+def resolve_tool_discovery(
+    *,
+    provider: str,
+    depname: str,
+    use_responses_api: bool,
+) -> ToolDiscoveryDecision:
+    """Resolve the provider-facing tool discovery mode."""
+
+    return _resolve_tool_discovery(
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+        configured_mode=_get_gpt54_tool_search_mode(),
+    )
+
+
 def _is_gpt54_tool_search_target(
     *,
     provider: str,
     depname: str,
     use_responses_api: bool,
 ) -> bool:
-    """Return True when OpenAI/Azure Responses API with GPT-5.4+ is used.
+    """Compatibility predicate for callers that need GPT-5.4 discovery."""
 
-    Only applies when mode is not 'off'.
-    """
-
-    mode = _get_gpt54_tool_search_mode()
-    if mode == "off":
-        return False
-
-    if not use_responses_api:
-        return False
-
-    pv = (provider or "").strip().lower()
-    if pv not in ("openai", "azure"):
-        return False
-
-    model = (depname or "").strip().lower()
-
-    marker = "gpt-5."
-    idx = model.find(marker)
-    if idx < 0:
-        return False
-
-    tail = model[idx + len(marker) :]
-    digits: list[str] = []
-    for ch in tail:
-        if ch.isdigit():
-            digits.append(ch)
-        else:
-            break
-
-    if not digits:
-        return False
-
-    try:
-        minor = int("".join(digits))
-    except Exception:
-        return False
-
-    if minor < 4:
-        return False
-
-    # Exclude nano variant that doesn't support native tool_search
-    # (server-side narrowing with full tool set).
-    suffix = tail[len("".join(digits)) :]
-    if suffix and suffix.startswith("-nano"):
-        return False
-
-    return True
+    return resolve_tool_discovery(
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    ).mode in {
+        ToolDiscoveryMode.NATIVE_SEARCH,
+        ToolDiscoveryMode.LEGACY_CATALOG,
+    }
 
 
 def _is_legacy_mode() -> bool:
@@ -99,7 +81,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "ollama": ("UAGENT_OLLAMA_DEPNAME", "llama3.1"),
     "llama_cpp": ("UAGENT_LLAMA_CPP_DEPNAME", "local-model"),
     "nvidia": ("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"),
-    "deepseek": ("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash"),
+    "deepseek": ("UAGENT_DEEPSEEK_DEPNAME", "deepseek-flash"),
     "zai": ("UAGENT_ZAI_DEPNAME", "glm-5.2"),
     "alibaba": ("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus"),
     "moonshot": ("UAGENT_MOONSHOT_DEPNAME", "kimi-k2"),
@@ -180,13 +162,12 @@ def should_emit_catalog_steering(
             provider=provider_s, depname=depname_s
         )
 
-    if _is_gpt54_tool_search_target(
+    discovery = resolve_tool_discovery(
         provider=provider_s,
         depname=depname_s,
         use_responses_api=bool(use_responses_api),
-    ):
-        return False
-    return True
+    )
+    return not discovery.uses_native_search
 
 
 def _select_tool_specs_legacy(

@@ -1930,8 +1930,8 @@ msgstr ""
 "DeepSeek alap URL (opcionális, alapértelmezett: https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "DeepSeek modell neve (opcionális, alapértelmezett: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "DeepSeek modell neve (opcionális, alapértelmezett: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

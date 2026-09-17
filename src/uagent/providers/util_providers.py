@@ -388,10 +388,7 @@ def get_model_name() -> str:
             or "nvidia/nemotron-3-nano-30b-a3b"
         )
     if provider == "deepseek":
-        return (
-            env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash")
-            or "deepseek-v4-flash"
-        )
+        return env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-flash") or "deepseek-flash"
     if provider == "zai":
         return env_get("UAGENT_ZAI_DEPNAME", "glm-5.2") or "glm-5.2"
     if provider == "alibaba":

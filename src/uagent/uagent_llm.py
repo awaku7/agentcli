@@ -82,9 +82,11 @@ from .runtime.spinner import stop_quietly as _spinner_stop_quietly
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools.llm_tool_narrowing import (
-    _is_gpt54_tool_search_target,
+    _is_gpt54_tool_search_target,  # noqa: F401  (re-exported for tests)
+    resolve_tool_discovery,
     _select_tool_specs_legacy as _select_tool_specs_for_gpt54,  # noqa: F401  (re-exported for tests)
 )
+from .runtime.tool_discovery import ToolDiscoveryMode
 
 
 def _inject_stop_prompt(
@@ -721,16 +723,12 @@ def _try_registry_simple_chat_round(
     if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
         return None
     if use_responses_api:
-        from .tools.llm_tool_narrowing import (
-            _is_gpt54_tool_search_target,
-            _is_legacy_mode,
-        )
-
-        if _is_legacy_mode() and _is_gpt54_tool_search_target(
+        discovery = resolve_tool_discovery(
             provider=provider,
             depname=depname,
             use_responses_api=True,
-        ):
+        )
+        if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG:
             # Legacy client-side tool narrowing must remain on the established
             # path until the registry adapter owns tool delivery decisions.
             return None
@@ -768,15 +766,17 @@ def _try_registry_simple_chat_round(
 
             tool_specs = tuple(_tools.get_tool_specs() or ())
         if send_tools_this_round and round_count <= 1:
-            from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target
-
-            gpt54_search_target = _is_gpt54_tool_search_target(
+            discovery = resolve_tool_discovery(
                 provider=provider,
                 depname=depname,
+                # Bootstrap selection is based on the GPT-5.4 capability;
+                # the registry route may still be Chat Completions.
                 use_responses_api=True,
             )
-            native_tool_search = use_responses_api and gpt54_search_target
-            if gpt54_search_target and not native_tool_search:
+            if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG or (
+                discovery.mode is ToolDiscoveryMode.NATIVE_SEARCH
+                and not use_responses_api
+            ):
                 management_specs = tuple(
                     spec
                     for spec in tool_specs
@@ -1219,19 +1219,73 @@ def _run_one_round(
     tool_calls_list: list[dict[str, Any]] = []
     assistant_text: str = ""
 
-    registry_simple_result = None
-    if not judgment_mode:
-        registry_simple_result = _try_registry_simple_chat_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            core=core,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=bool(send_tools_this_round),
-            round_count=round_count,
-        )
+    from .runtime.provider_round_dispatcher import dispatch_provider_round
+
+    dispatch = dispatch_provider_round(
+        registry_runner=None if judgment_mode else _try_registry_simple_chat_round,
+        legacy_runner=run_legacy_provider_round,
+        openai_runner=call_legacy_openai_compatible_round,
+        registry_kwargs={
+            "provider": provider,
+            "client": client,
+            "depname": depname,
+            "call_messages": call_messages,
+            "core": core,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "send_tools_this_round": bool(send_tools_this_round),
+            "round_count": round_count,
+        },
+        legacy_kwargs={
+            "provider": provider,
+            "client": client,
+            "depname": depname,
+            "call_messages": call_messages,
+            "messages": messages,
+            "gemini_cache_name": gemini_cache_name,
+            "cache_mgr": cache_mgr,
+            "core": core,
+            "make_client_fn": make_client_fn,
+            "call_maybe_thread_fn": _call_maybe_thread_fn,
+            "append_result_to_outfile_fn": append_result_to_outfile_fn,
+            "try_open_images_from_text_fn": try_open_images_from_text_fn,
+            "empty_no_tool_rounds": empty_no_tool_rounds,
+            "empty_no_tool_max": empty_no_tool_max,
+            "tr_cfg": tr_cfg,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "send_tools_this_round": send_tools_this_round,
+            "max_retries_429": max_retries_429,
+            "retry_base": retry_base,
+            "retry_cap": retry_cap,
+            "judgment_mode": judgment_mode,
+            "inject_stop_prompt_fn": _inject_stop_prompt,
+            "translate_assistant_fn": _translate_assistant_if_needed,
+            "should_keep_assistant_message_fn": _should_keep_assistant_message,
+            "append_assistant_message_fn": _append_assistant_message,
+            "handle_empty_no_tool_fn": _handle_openai_empty_no_tool,
+            "emit_final_answer_fn": _emit_final_answer_if_any,
+        },
+        openai_kwargs={
+            "provider": provider,
+            "client": client,
+            "depname": depname,
+            "call_messages": call_messages,
+            "core": core,
+            "make_client_fn": make_client_fn,
+            "call_maybe_thread_fn": _call_maybe_thread_fn,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "send_tools_this_round": send_tools_this_round,
+            "max_retries_429": max_retries_429,
+            "retry_base": retry_base,
+            "retry_cap": retry_cap,
+            "messages": messages,
+            "responses_state": core.responses_state,
+            "round_count": round_count,
+        },
+    )
+    registry_simple_result = dispatch.result if dispatch.source == "registry" else None
     if registry_simple_result is not None:
         ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
         if not ok:
@@ -1283,36 +1337,7 @@ def _run_one_round(
     if registry_simple_result is not None:
         pass
     else:
-        legacy_round_result = run_legacy_provider_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            messages=messages,
-            gemini_cache_name=gemini_cache_name,
-            cache_mgr=cache_mgr,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            append_result_to_outfile_fn=append_result_to_outfile_fn,
-            try_open_images_from_text_fn=try_open_images_from_text_fn,
-            empty_no_tool_rounds=empty_no_tool_rounds,
-            empty_no_tool_max=empty_no_tool_max,
-            tr_cfg=tr_cfg,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            judgment_mode=judgment_mode,
-            inject_stop_prompt_fn=_inject_stop_prompt,
-            translate_assistant_fn=_translate_assistant_if_needed,
-            should_keep_assistant_message_fn=_should_keep_assistant_message,
-            append_assistant_message_fn=_append_assistant_message,
-            handle_empty_no_tool_fn=_handle_openai_empty_no_tool,
-            emit_final_answer_fn=_emit_final_answer_if_any,
-        )
+        legacy_round_result = dispatch.result if dispatch.source == "legacy" else None
         if legacy_round_result is not None:
             return legacy_round_result
         (
@@ -1322,24 +1347,7 @@ def _run_one_round(
             reasoning_content,
             tool_calls_list,
             _is_xai_grpc,
-        ) = call_legacy_openai_compatible_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            messages=messages,
-            responses_state=core.responses_state,
-            round_count=round_count,
-        )
+        ) = dispatch.result
         if not ok:
             return (
                 _RS_RETURN,
@@ -2457,11 +2465,11 @@ def run_llm_rounds(
                 # (native GPT-5.4 tool_search mode only)
                 if not (
                     _should_preload_lazy_specs()
-                    or _is_gpt54_tool_search_target(
+                    or resolve_tool_discovery(
                         provider=provider,
                         depname=depname,
                         use_responses_api=True,
-                    )
+                    ).uses_native_search
                 ):
                     for spec in list(_TOOL_SPECS):
                         func_info = spec.get("function", {})

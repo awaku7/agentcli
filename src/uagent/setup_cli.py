@@ -283,7 +283,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_DEEPSEEK_DEPNAME",
             False,
-            _("DeepSeek model name (optional, default: deepseek-v4-flash)"),
+            _("DeepSeek model name (optional, default: deepseek-flash)"),
         ),
         (
             "UAGENT_DEEPSEEK_TEMPERATURE",

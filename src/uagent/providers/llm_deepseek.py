@@ -11,7 +11,7 @@ Differences from the generic OpenAI-compatible path:
   ``presence_penalty``, ``frequency_penalty`` are silently ignored by the API,
   but ``logprobs``/``top_logprobs`` cause a 400 error.  We never send them.
 - Default base_url is ``https://api.deepseek.com`` (no ``/v1`` suffix).
-- Default model is ``deepseek-v4-flash`` (``deepseek-chat`` is deprecated 2026-07-24).
+- Default model is ``deepseek-flash`` (``deepseek-chat`` is deprecated 2026-07-24).
 - Also supports MiMo (Xiaomi) with same reasoning_content model.
 """
 

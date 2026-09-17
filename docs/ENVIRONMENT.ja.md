@@ -209,7 +209,7 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 
 - `UAGENT_DEEPSEEK_API_KEY`（必須）
 - `UAGENT_DEEPSEEK_BASE_URL`（省略可、既定: `https://api.deepseek.com`）
-- `UAGENT_DEEPSEEK_DEPNAME`（省略可、既定: `deepseek-v4-flash`）
+- `UAGENT_DEEPSEEK_DEPNAME`（省略可、既定: `deepseek-flash`）
 
 #### Z.AI (Zhipu AI)
 

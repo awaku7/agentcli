@@ -493,3 +493,126 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 8. 新旧経路を個別 flag で切り戻せ、切替時に continuation を不正再利用しない。
 9. latency、token、recovery、fallback、schema size、stream event、retry cost の telemetry を比較できる。
 10. 既存の provider / context / responses / streaming テスト群に加え、上記の contract test が通る。
+
+
+## 現行実装との比較に基づく優先度再評価
+
+設計文書の基準コミット `2435ad6` と、現在の `HEAD` `3a9e274` の実装を比較した結果、P0〜P3 は次の順に細分化して実施する。比較時点の作業ツリーは変更なしであった。
+
+### P0-A: 実行経路を一本化する
+
+対象は `src/uagent/uagent_llm.py`、`src/uagent/runtime/round_orchestrator.py`、`src/uagent/runtime/round_contracts.py`、`src/uagent/providers/runtime_registry.py`、`src/uagent/runtime/legacy_round_registry.py` である。
+
+最優先の理由は、`uagent_llm.py` に新旧の実行経路が併存しているためである。現在は `_try_registry_simple_chat_round()` の後に `run_legacy_provider_round()` と `call_legacy_openai_compatible_round()` が残っている。registry 経路も OpenAI/Azure が中心で、他の provider は legacy registry に流れる。また、`uagent_llm.py` には Gemini、Vertex、Grok、Inception などの provider 分岐が残っている。
+
+新規 provider を先に追加すると、新旧どちらの経路を修正すべきかが不明確になるため、先に実行経路を固定する。
+
+終了条件:
+
+1. `uagent_llm.py` は provider 名ではなく `ProviderRuntimeRegistry` を呼ぶ。
+2. legacy 実装は adapter の内部へ隠す。
+3. 新旧経路の切り替えは orchestrator 外部の feature flag で行う。
+4. `ContextPlan → ProviderProjection → SerializedRequest` を一度だけ通す。
+5. provider ごとの既存テストが同じ `RoundResult` / `StreamEvent` 契約で通る。
+
+`round_orchestrator.py` 自体は存在し、単体テストも通っているため、次の作業は新規設計よりも `uagent_llm.py` の実行経路をそこへ移すことになる。
+
+### P0-B: Tool Discovery の判断を一本化する
+
+対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。
+
+`CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` は追加されているが、実行時には `_is_gpt54_tool_search_target()`、`_is_legacy_mode()`、`llm_tool_narrowing.py` が複数箇所から直接呼ばれている。
+
+直近のコミットでは Gemini の tool discovery、built-in search との分離、missing context tool specs、legacy tool call 実行が連続して修正されている。この領域は現在最も回帰しやすいため、全 provider の registry 移行に先立って判断契約を固定する。
+
+終了条件:
+
+1. native search、legacy `tool_catalog`、selected schemas の判断を一つの resolver に集約する。
+2. Gemini の built-in tool と UAG tool discovery を別 capability として扱う。
+3. discovery fallback 後も tool-call ID と schema が一致する。
+4. capability が `unknown` の場合は native search を使用しない。
+5. `uagent_llm.py` と `llm_round_helpers.py` から直接の narrowing 判定を除去する。
+
+### P1-A: Context hand-off を標準経路にする
+
+対象は `src/uagent/runtime/context_plan_builder.py`、`src/uagent/runtime/context_manager.py`、`src/uagent/runtime/round_contracts.py`、`src/uagent/uagent_llm.py` である。
+
+`ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。しかし、実行経路では ContextManager の呼び出しと auto-shrink 後の再構築が `uagent_llm.py` に残っている。feature flag と bridge に依存するため、hand-off が一意という完了条件にはまだ達していない。
+
+終了条件:
+
+- ContextManager は `ContextPlan` を作るだけにする。
+- provider adapter は context 選択を判断しない。
+- auto-shrink は RecoveryPlan を通して実行する。
+- 同じ ContextPlan から projection を再生成できるようにする。
+- persistent history と request projection を分離する。
+
+### P1-B: Recovery の fingerprint と restore 検証を完成させる
+
+`ContextRecoveryManager`、`ResponsesRecoveryPort`、SQLite recovery journal、remote recovery の冪等処理は実装済みである。一方、`RecoveryPlan.input_fingerprint` は現在フィールドとして受け渡される段階であり、生成・検証処理が標準経路として完成していない。
+
+終了条件:
+
+1. session key を復元できる場合だけ fingerprint を照合する。
+2. key を復元できない場合は fingerprint を信頼しない。
+3. full rebuild または continuation clear に移行する。
+4. fingerprint に prompt 本文を直接保存しない。
+5. remote recovery 後に同じ projection を再構築できる。
+
+### P1-C: ResponsesRuntime を全経路へ統合する
+
+`ResponsesRuntime` の state machine、continuation、stale、interrupt、cancel、timeout、provider switch、duplicate / unknown / failed tool output の検証は実装済みで、関連テストも通っている。
+
+残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。現在は registry 経路に限定される部分があり、registry 経路で `session_generation=0` として扱われる箇所もある。
+
+### P1-D: CapabilityResolver を旧判定の置換に使う
+
+`CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。
+
+先に adapter interface を固定し、その後に capability の取得元を `CapabilityResolver` へ集約する。これを同時に行うと変更範囲が大きくなるため、P0-A の後に実施する。
+
+### P1-E: StreamEvent から host callback を除去する
+
+`inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。
+
+ただし `providers/llm_inception.py` には `_emit_snapshot()` と互換 collector が残り、CLI/GUI/Web callback を直接扱う経路がある。provider parser を完全に host-neutral にする作業は、provider adapter 統合後に実施する。
+
+### P2: transforms、retry、reasoning、telemetry
+
+`message_transform.py`、`llm_error_classifier.py`、`retry_coordinator.py`、reasoning renderer は追加済みだが、legacy 経路にも同種の判断が残っている。P0-A で実行経路を一本化した後に重複を削除する。
+
+structured telemetry については、round ID と structured logging はあるが、request token 数、tool schema size、projection size、recovery strategy、fallback 回数、duplicate / out-of-order event 数、retry による追加 token / request cost が不足している。契約と実行経路を固定した後に追加する。
+
+### 並行トラック: I18N strict audit
+
+I18N は中心ランタイムとは分離して進める。ただし完了条件には含まれる。strict audit では次の指摘が残っている。
+
+- `host_gettext_findings`: 44
+- `structural_findings`: 117
+- `tool_json_findings`: 73
+- `total_findings`: 117
+
+新しい runtime 文言を増やさず、gettext と Tool JSON の不一致を解消し、strict audit を CI 条件にする。翻訳品質レビューは構造検証と分離する。
+
+### P3: CLI/GUI/Web と command 層
+
+CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
+
+## 再評価後の実施順序
+
+```text
+P0-A  RoundOrchestrator を標準実行経路にする
+P0-B  Tool Discovery の判断を一本化する
+P1-A  ContextPlan → Projection → Request の hand-off を固定する
+P1-B  Recovery fingerprint と restore 検証を完成させる
+P1-C  ResponsesRuntime を全経路へ統合する
+P1-D  CapabilityResolver へ旧 capability 判定を集約する
+P1-E  StreamEvent から host callback を除去する
+P2    transform / retry / reasoning / telemetry
+並行  I18N strict audit の解消
+P3    CLI/GUI/Web と command 層の整理
+```
+
+直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。
+
+現行実装の確認では、関連する11個の targeted test file、計77件が成功している。一方、I18N strict audit の117件の指摘は未解消である。

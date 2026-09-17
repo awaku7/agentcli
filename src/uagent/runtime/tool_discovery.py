@@ -27,6 +27,88 @@ class ToolDeliveryMode(str, Enum):
     PROVIDER_NATIVE_SEARCH = "provider_native_search"
 
 
+class ToolDiscoveryMode(str, Enum):
+    """Provider-facing decision for how tools are discovered and delivered."""
+
+    SELECTED_SCHEMAS = "selected_schemas"
+    LEGACY_CATALOG = "legacy_catalog"
+    NATIVE_SEARCH = "native_search"
+
+
+@dataclass(frozen=True)
+class ToolDiscoveryDecision:
+    """The single discovery decision shared by round and command paths."""
+
+    mode: ToolDiscoveryMode
+    reason: str
+
+    @property
+    def uses_native_search(self) -> bool:
+        return self.mode is ToolDiscoveryMode.NATIVE_SEARCH
+
+    @property
+    def uses_legacy_catalog(self) -> bool:
+        return self.mode is ToolDiscoveryMode.LEGACY_CATALOG
+
+
+def _gpt54_native_search_model(depname: str) -> bool:
+    """Return whether *depname* is a known GPT-5.4+ native-search family."""
+
+    model = (depname or "").strip().lower()
+    marker = "gpt-5."
+    idx = model.find(marker)
+    if idx < 0:
+        return False
+    tail = model[idx + len(marker) :]
+    digits: list[str] = []
+    for char in tail:
+        if char.isdigit():
+            digits.append(char)
+        else:
+            break
+    if not digits or tail[len("".join(digits)) :].startswith("-nano"):
+        return False
+    try:
+        return int("".join(digits)) >= 4
+    except ValueError:
+        return False
+
+
+def resolve_tool_discovery(
+    *,
+    provider: str,
+    depname: str,
+    use_responses_api: bool,
+    configured_mode: str = "native",
+) -> ToolDiscoveryDecision:
+    """Resolve native search, legacy catalog, or selected schemas once.
+
+    Native search is deliberately fail-closed: it is available only for the
+    known OpenAI/Azure GPT-5.4+ Responses family. Unknown capability therefore
+    stays on the selected-schema path.
+    """
+
+    mode = (configured_mode or "native").strip().lower()
+    if mode in {"off", "0", "false", "no"}:
+        return ToolDiscoveryDecision(ToolDiscoveryMode.SELECTED_SCHEMAS, "disabled")
+    if not use_responses_api:
+        return ToolDiscoveryDecision(
+            ToolDiscoveryMode.SELECTED_SCHEMAS, "responses_api_disabled"
+        )
+    provider_name = (provider or "").strip().lower()
+    if provider_name not in {"openai", "azure"}:
+        return ToolDiscoveryDecision(
+            ToolDiscoveryMode.SELECTED_SCHEMAS, "provider_not_supported"
+        )
+    if not _gpt54_native_search_model(depname):
+        return ToolDiscoveryDecision(
+            ToolDiscoveryMode.SELECTED_SCHEMAS, "capability_unknown"
+        )
+    if mode in {"legacy", "old"}:
+        return ToolDiscoveryDecision(ToolDiscoveryMode.LEGACY_CATALOG, "legacy_mode")
+    return ToolDiscoveryDecision(ToolDiscoveryMode.NATIVE_SEARCH, "native_mode")
+
+
 @dataclass(frozen=True)
 class ToolCandidate:
     """One discoverable tool, without granting it execution permission."""

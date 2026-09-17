@@ -1883,8 +1883,8 @@ msgstr ""
 "عنوان URL الأساسي لـ DeepSeek (اختياري، الافتراضي: https://api.deepseek.com)"
 
 #: src/uagent/setup_cli.py:261
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "اسم نموذج DeepSeek (اختياري، الافتراضي: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "اسم نموذج DeepSeek (اختياري، الافتراضي: deepseek-flash)"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek temperature (default: 0.0)"

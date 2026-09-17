@@ -1416,8 +1416,8 @@ msgstr "DeepSeek API key"
 msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
 msgstr "DeepSeek base URL (optional, default: https://api.deepseek.com)"
 
-msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
-msgstr "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgid "DeepSeek model name (optional, default: deepseek-flash)"
+msgstr "DeepSeek model name (optional, default: deepseek-flash)"
 
 msgid "DeepSeek temperature (default: 0.0)"
 msgstr "DeepSeek temperature (default: 0.0)"
