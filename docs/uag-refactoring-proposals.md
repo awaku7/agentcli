@@ -562,6 +562,17 @@ route の拒否理由も `unsupported_provider`、`legacy_catalog_conflict` な�
 この単位で P0-A の route selection 境界は固定された。以後は registry adapter の実行結果を
 `RoundResult` へ戻す処理と、legacy provider adapter の同一契約化を provider 単位で進める。
 
+### P0-A の第5修正単位（完了）
+
+registry の `RoundResult` を既存の round loop が受け取る tuple へ変換する
+`registry_result_to_legacy_tuple()` を dispatcher 境界へ移した。tool call の `id`、`type`、
+`function`、引数の形をここで正規化し、`uagent_llm.py` に残っていた provider-neutral
+結果の変換処理を削減した。未完了・空結果は従来通り `None` として compatibility path
+へフォールバックする。
+
+次は legacy handler の tuple 結果にも同じ provider-neutral metadata を付与できるよう、
+まず handler の戻り値を壊さずに `RoundResult` 相当の内部 outcome へ包む。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

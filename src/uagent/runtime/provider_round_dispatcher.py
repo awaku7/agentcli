@@ -13,6 +13,43 @@ from typing import Any, Callable, Literal, Mapping
 
 DispatchSource = Literal["registry", "legacy", "openai_compatible"]
 RoundRunner = Callable[..., Any]
+RegistryLegacyResult = tuple[bool, str, str, list[dict[str, Any]]]
+
+
+def registry_result_to_legacy_tuple(result: Any) -> RegistryLegacyResult | None:
+    """Adapt a completed registry ``RoundResult`` to the legacy loop shape.
+
+    The compatibility loop still consumes ``(ok, text, reasoning, tools)``.
+    Keeping this conversion at the dispatcher boundary prevents provider-neutral
+    result details from leaking into the loop while legacy adapters migrate.
+    """
+
+    if getattr(result, "status", None) != "completed":
+        return None
+    assistant_text = str(getattr(result, "assistant_text", "") or "")
+    reasoning_text = str(getattr(result, "reasoning_text", "") or "")
+    raw_tool_calls = getattr(result, "tool_calls", ()) or ()
+    if not assistant_text and not raw_tool_calls and not getattr(
+        result, "continuation_update", {}
+    ):
+        return None
+
+    normalized_tool_calls: list[dict[str, Any]] = []
+    for call in raw_tool_calls:
+        item = dict(call)
+        function = item.get("function")
+        if not isinstance(function, dict):
+            function = {
+                "name": str(item.get("name") or ""),
+                "arguments": str(item.get("arguments") or "{}"),
+            }
+            item["function"] = function
+        item.setdefault(
+            "id", str(item.get("tool_call_id") or item.get("call_id") or "")
+        )
+        item.setdefault("type", "function")
+        normalized_tool_calls.append(item)
+    return True, assistant_text, reasoning_text, normalized_tool_calls
 
 
 @dataclass(frozen=True)
@@ -117,8 +154,10 @@ def dispatch_provider_round(
 __all__ = [
     "DispatchSource",
     "ProviderRoundDispatch",
+    "RegistryLegacyResult",
     "RegistryRoundRoute",
     "dispatch_provider_round",
+    "registry_result_to_legacy_tuple",
     "registry_round_allowed",
     "resolve_registry_round_route",
 ]

@@ -1,6 +1,9 @@
+from types import SimpleNamespace
+
 from uagent.runtime.provider_round_dispatcher import (
     RegistryRoundRoute,
     dispatch_provider_round,
+    registry_result_to_legacy_tuple,
     registry_round_allowed,
     resolve_registry_round_route,
 )
@@ -228,3 +231,53 @@ def test_registry_round_gate_requires_context_tools_when_tools_are_sent() -> Non
 
     gate["has_context_tools"] = True
     assert registry_round_allowed(**gate) is True
+
+
+def test_registry_result_adapter_preserves_legacy_tool_call_shape() -> None:
+    result = SimpleNamespace(
+        status="completed",
+        assistant_text="tool answer",
+        reasoning_text="thinking",
+        continuation_update={},
+        tool_calls=(
+            {
+                "tool_call_id": "call-1",
+                "name": "read_file",
+                "arguments": '{"path":"a.txt"}',
+            },
+        ),
+    )
+
+    assert registry_result_to_legacy_tuple(result) == (
+        True,
+        "tool answer",
+        "thinking",
+        [
+            {
+                "tool_call_id": "call-1",
+                "name": "read_file",
+                "arguments": '{"path":"a.txt"}',
+                "function": {
+                    "name": "read_file",
+                    "arguments": '{"path":"a.txt"}',
+                },
+                "id": "call-1",
+                "type": "function",
+            }
+        ],
+    )
+
+
+def test_registry_result_adapter_rejects_non_terminal_or_empty_results() -> None:
+    assert registry_result_to_legacy_tuple(
+        SimpleNamespace(status="failed", assistant_text="error")
+    ) is None
+    assert registry_result_to_legacy_tuple(
+        SimpleNamespace(
+            status="completed",
+            assistant_text="",
+            reasoning_text="",
+            tool_calls=(),
+            continuation_update={},
+        )
+    ) is None
