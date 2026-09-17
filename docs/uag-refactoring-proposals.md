@@ -651,6 +651,11 @@ legacy handler は `owns_tool_execution=True` で既に自身の tool-loop を�
 だけを無効化し、LLM 処理本体は継続できるようにした。SQLite の保存失敗を理由にユーザー
 操作全体を abort しないことを完了条件とする。
 
+また、Ctrl+C 後の終了時 summary で Gemini が reasoning-only の応答を返し、表示上は
+要約を考えているように見える一方、最終テキストが空で保存されない事象も確認した。
+history compression の Gemini 呼び出しでは tools を無効化し、thinking を `off` として、
+summary 用の final text を要求する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

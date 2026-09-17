@@ -587,6 +587,11 @@ def compress_history_with_llm(
                             model_name=depname,
                             messages=summary_messages,
                             core=sys.modules[__name__],
+                            # History summaries need a final text payload, not
+                            # a reasoning-only response. Disable tools and
+                            # request the weakest available thinking mode.
+                            force_thinking_level="off",
+                            send_tools=False,
                             # Preserve the active provider during history
                             # compression. Otherwise this helper defaults to
                             # "gemini" and sends the Developer API-only
