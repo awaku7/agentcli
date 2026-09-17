@@ -848,8 +848,8 @@ def _try_registry_simple_chat_round(
                 # the registry route may still be Chat Completions.
                 use_responses_api=True,
             )
-            if discovery.uses_legacy_catalog or (
-                discovery.uses_native_search and not use_responses_api
+            if discovery.uses_management_bootstrap(
+                use_responses_api=use_responses_api
             ):
                 management_specs = tuple(
                     spec

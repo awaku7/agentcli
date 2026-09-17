@@ -57,6 +57,13 @@ class ToolDiscoveryDecision:
     def uses_selected_schemas(self) -> bool:
         return self.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
 
+    def uses_management_bootstrap(self, *, use_responses_api: bool) -> bool:
+        """Return whether bootstrap should expose management catalog tools."""
+
+        return self.uses_legacy_catalog or (
+            self.uses_native_search and not use_responses_api
+        )
+
 
 def _gpt54_native_search_model(depname: str) -> bool:
     """Return whether *depname* is a known GPT-5.4+ native-search family."""

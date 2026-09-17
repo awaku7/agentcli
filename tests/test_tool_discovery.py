@@ -121,6 +121,24 @@ def test_delivery_is_separate_from_selection_and_supports_native_search() -> Non
     assert delivery.selected_names == ("read_file",)
 
 
+def test_management_bootstrap_policy_is_owned_by_discovery_decision() -> None:
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryDecision,
+        ToolDiscoveryMode,
+    )
+
+    legacy = ToolDiscoveryDecision(ToolDiscoveryMode.LEGACY_CATALOG, "legacy_mode")
+    native = ToolDiscoveryDecision(ToolDiscoveryMode.NATIVE_SEARCH, "native_mode")
+    selected = ToolDiscoveryDecision(
+        ToolDiscoveryMode.SELECTED_SCHEMAS, "capability_unknown"
+    )
+
+    assert legacy.uses_management_bootstrap(use_responses_api=True)
+    assert native.uses_management_bootstrap(use_responses_api=False)
+    assert not native.uses_management_bootstrap(use_responses_api=True)
+    assert not selected.uses_management_bootstrap(use_responses_api=False)
+
+
 def test_discovery_resolver_selects_native_search_for_known_target() -> None:
     from uagent.runtime.tool_discovery import (
         ToolDiscoveryMode,
