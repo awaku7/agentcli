@@ -13,8 +13,11 @@ from .active_context import (
 from .context_budget import ContextBudget
 from .context_decision import ContextDecisionEngine
 from .context_retrieval import retrieve_candidates
+from .context_plan_builder import build_context_plan as _build_context_plan
 from .context_policy import ContextPolicy
 from .context_tools import ToolDefinitionSelection, select_tool_definitions
+from .round_contracts import ContextPlan
+from .round_identity import WorkspaceKeyProvider
 from .tool_result_manager import (
     ContextResultManager,
     ToolResultProjections,
@@ -94,6 +97,42 @@ class ContextManager:
 
     def usage(self, **sections: int) -> dict[str, Any]:
         return self.budget.usage(**sections)
+
+    def build_context_plan(
+        self,
+        *,
+        workspace_id: str,
+        messages: Sequence[dict[str, Any]],
+        tool_specs: Sequence[dict[str, Any]] = (),
+        decisions: Sequence[dict[str, Any]] = (),
+        telemetry: dict[str, Any] | None = None,
+        key_provider: WorkspaceKeyProvider | None = None,
+        provider: str | None = None,
+        model: str | None = None,
+    ) -> ContextPlan:
+        """Create the immutable round hand-off owned by this manager.
+
+        Context selection and policy metadata are completed before the
+        provider boundary. Callers should use this method so every round
+        receives the same ``ContextPlan`` construction path.
+        """
+        policy = {
+            "provider": provider if provider is not None else self.policy.provider,
+            "model": model if model is not None else self.policy.model,
+            "budget_enabled": self.policy.budget_enabled,
+            "budget_chars": self.policy.budget_chars,
+            "budget_unlimited": self.policy.budget_unlimited,
+            "budget_tokens": self.policy.budget_tokens,
+        }
+        return _build_context_plan(
+            workspace_id=workspace_id,
+            messages=messages,
+            tool_specs=tool_specs,
+            decisions=decisions,
+            policy=policy,
+            telemetry=telemetry or {},
+            key_provider=key_provider,
+        )
 
     def build_message_context(
         self,

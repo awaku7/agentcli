@@ -507,6 +507,47 @@ _RS_CONTINUE = "continue"  # skip postamble, continue loop
 _RS_OK = "ok"  # execute postamble then continue loop
 
 
+def _build_round_context_plan(
+    *,
+    provider: str,
+    depname: str,
+    call_messages: list[dict[str, Any]],
+    core: Any,
+    workspace_id: str,
+    tool_specs: Any = (),
+    key_provider: Any = None,
+    telemetry: dict[str, Any] | None = None,
+) -> Any:
+    """Build a round plan through ContextManager when available.
+
+    The fallback keeps the registry path usable by lightweight test cores and
+    embedded callers that predate the context manager boundary.
+    """
+    decisions = getattr(core, "context_tool_decisions", None) or ()
+    manager = getattr(core, "context_manager", None)
+    builder = getattr(manager, "build_context_plan", None)
+    if callable(builder):
+        return builder(
+            workspace_id=workspace_id,
+            messages=call_messages,
+            tool_specs=tool_specs,
+            decisions=decisions,
+            telemetry=telemetry or {},
+            key_provider=key_provider,
+            provider=provider,
+            model=depname,
+        )
+    return build_context_plan(
+        workspace_id=workspace_id,
+        messages=call_messages,
+        tool_specs=tool_specs,
+        decisions=decisions,
+        policy={"provider": provider, "model": depname},
+        telemetry=telemetry or {},
+        key_provider=key_provider,
+    )
+
+
 def _record_round_context_plan(
     *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
 ) -> Any | None:
@@ -516,11 +557,13 @@ def _record_round_context_plan(
     workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
     tool_specs = getattr(core, "context_tool_specs", None) or ()
     try:
-        core.context_plan = build_context_plan(
+        core.context_plan = _build_round_context_plan(
+            provider=provider,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
             workspace_id=workspace_id,
-            messages=call_messages,
             tool_specs=tool_specs,
-            policy={"provider": provider, "model": depname},
             telemetry={"round_contracts": True},
         )
         return core.context_plan
@@ -740,7 +783,6 @@ def _try_registry_simple_chat_round(
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
-        from .runtime.context_plan_builder import build_context_plan
         from .runtime.round_contracts import RoundIdentifiers
         from .runtime.round_identity import (
             CredentialStoreWorkspaceKeyProvider,
@@ -793,11 +835,13 @@ def _try_registry_simple_chat_round(
                 _limit_chat_completion_tools(list(tool_specs), call_messages)
             )
             _tools.log_tools_being_sent(tool_specs, where="registry_chatcompletions")
-        plan = build_context_plan(
+        plan = _build_round_context_plan(
+            provider=provider,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
             workspace_id=workspace_id,
-            messages=call_messages,
             tool_specs=tool_specs if send_tools_this_round else (),
-            policy={"provider": provider, "model": depname},
             key_provider=key_provider,
         )
         transport = "responses" if use_responses_api else "chat_completions"
@@ -944,11 +988,13 @@ def _try_registry_simple_chat_round(
                         if _try_responses_remote_recovery(core, client, remote_plan):
                             return None
                     local = ContextRecoveryManager.apply_local(recovery, plan)
-                    recovered_plan = build_context_plan(
+                    recovered_plan = _build_round_context_plan(
+                        provider=provider,
+                        depname=depname,
+                        call_messages=local.messages,
+                        core=core,
                         workspace_id=workspace_id,
-                        messages=local.messages,
                         tool_specs=tool_specs if send_tools_this_round else (),
-                        policy={"provider": provider, "model": depname},
                         key_provider=key_provider,
                     )
                     result = (
