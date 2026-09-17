@@ -528,6 +528,17 @@ legacy 経路へフォールバックする。
 OpenAI-compatible の選択ポリシーを `provider_round_dispatcher.py` に集約し、
 `uagent_llm.py` から provider ごとの経路判断をさらに減らす。
 
+### P0-A の第2修正単位（完了）
+
+registry 経路へ進める条件（対応 Provider、環境変数による有効化、Responses 対応、
+tool schema の準備、legacy catalog との競合）を `runtime/provider_round_dispatcher.py`
+の `registry_round_allowed()` に集約した。`uagent_llm.py` は条件を個別に評価せず、
+この gate の結果だけで registry runner を試す。既存の直接呼び出しテストも維持し、
+Provider adapter の実行失敗時に legacy 経路へフォールバックする挙動は変更していない。
+
+次の単位では、`dispatch_provider_round()` が route eligibility と runner 実行を一体で
+扱える形にし、`uagent_llm.py` に残る registry runner の構築判断をさらに外へ出す。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

@@ -1,4 +1,7 @@
-from uagent.runtime.provider_round_dispatcher import dispatch_provider_round
+from uagent.runtime.provider_round_dispatcher import (
+    dispatch_provider_round,
+    registry_round_allowed,
+)
 
 
 def test_dispatcher_prefers_registry_result() -> None:
@@ -115,3 +118,44 @@ def test_dispatcher_treats_any_non_none_registry_result_as_owned() -> None:
         assert result.source == "registry"
         assert result.result == registry_result
         assert calls == ["registry"]
+
+
+def _registry_gate_defaults() -> dict[str, object]:
+    return {
+        "provider": "openai",
+        "use_responses_api": False,
+        "responses_enabled": False,
+        "send_tools": False,
+        "tools_enabled": False,
+        "has_context_tools": False,
+        "uses_legacy_catalog": False,
+    }
+
+
+def test_registry_round_gate_centralizes_route_policy() -> None:
+    assert registry_round_allowed(**_registry_gate_defaults()) is True
+
+    disabled = _registry_gate_defaults()
+    disabled["configured_providers"] = "off"
+    assert registry_round_allowed(**disabled) is False
+
+    wrong_provider = _registry_gate_defaults()
+    wrong_provider["configured_providers"] = "azure"
+    assert registry_round_allowed(**wrong_provider) is False
+
+    responses_without_flag = _registry_gate_defaults()
+    responses_without_flag["use_responses_api"] = True
+    assert registry_round_allowed(**responses_without_flag) is False
+
+    legacy_catalog = _registry_gate_defaults()
+    legacy_catalog["uses_legacy_catalog"] = True
+    assert registry_round_allowed(**legacy_catalog) is False
+
+
+def test_registry_round_gate_requires_context_tools_when_tools_are_sent() -> None:
+    gate = _registry_gate_defaults()
+    gate.update(send_tools=True, tools_enabled=True)
+    assert registry_round_allowed(**gate) is False
+
+    gate["has_context_tools"] = True
+    assert registry_round_allowed(**gate) is True

@@ -15,6 +15,46 @@ DispatchSource = Literal["registry", "legacy", "openai_compatible"]
 RoundRunner = Callable[..., Any]
 
 
+def registry_round_allowed(
+    *,
+    provider: str,
+    configured_providers: str = "",
+    use_responses_api: bool,
+    responses_enabled: bool,
+    send_tools: bool,
+    tools_enabled: bool,
+    has_context_tools: bool,
+    uses_legacy_catalog: bool,
+) -> bool:
+    """Return whether the registry may own the current round.
+
+    This gate contains only route-selection policy. Adapter execution failures
+    are still handled by ``dispatch_provider_round`` and may fall back to the
+    compatibility handlers. The supported-provider source remains the runtime
+    registry itself, so this module does not maintain a second provider list.
+    """
+
+    from ..providers.runtime_registry import supports_provider_runtime
+
+    if not supports_provider_runtime(provider):
+        return False
+    configured = (configured_providers or "").strip().lower()
+    if configured in {"0", "false", "no", "off"}:
+        return False
+    enabled_providers = {item.strip() for item in configured.split(",") if item.strip()}
+    if configured and provider.strip().lower() not in enabled_providers and "all" not in enabled_providers:
+        return False
+    if use_responses_api and not responses_enabled:
+        return False
+    if uses_legacy_catalog:
+        return False
+    if send_tools and not tools_enabled:
+        return False
+    if send_tools and not has_context_tools:
+        return False
+    return True
+
+
 @dataclass(frozen=True)
 class ProviderRoundDispatch:
     """The selected implementation and its provider-specific result."""
@@ -58,4 +98,5 @@ __all__ = [
     "DispatchSource",
     "ProviderRoundDispatch",
     "dispatch_provider_round",
+    "registry_round_allowed",
 ]

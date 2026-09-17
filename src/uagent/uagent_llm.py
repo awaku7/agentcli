@@ -787,33 +787,27 @@ def _try_registry_simple_chat_round(
     Explicit ``off`` values restore the legacy path. Unsupported providers and
     intentionally deferred modes also retain their established fallback.
     """
-    enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
-    enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
-    from .providers.runtime_registry import supports_provider_runtime
+    discovery = resolve_tool_discovery(
+        provider=provider,
+        depname=depname,
+        # The capability check is needed for both transports because the
+        # registry may use Chat Completions while bootstrapping tool discovery.
+        use_responses_api=True,
+    )
+    from .runtime.provider_round_dispatcher import registry_round_allowed
 
-    if not supports_provider_runtime(provider):
-        return None
-    if enabled in {"0", "false", "no", "off"}:
-        return None
-    if enabled and provider not in enabled_providers and "all" not in enabled_providers:
-        return None
-    if use_responses_api and not _env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"):
-        return None
-    if use_responses_api:
-        discovery = resolve_tool_discovery(
-            provider=provider,
-            depname=depname,
-            use_responses_api=True,
-        )
-        if discovery.uses_legacy_catalog:
-            # Legacy client-side tool narrowing must remain on the established
-            # path until the registry adapter owns tool delivery decisions.
-            return None
-    if send_tools_this_round and not _env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"):
-        return None
-    if send_tools_this_round and not getattr(core, "context_tool_specs", None):
-        # The registry adapter requires a prepared context/tool projection.
-        # Defer to the established path when no selection was supplied.
+    if not registry_round_allowed(
+        provider=provider,
+        configured_providers=env_get("UAGENT_PROVIDER_REGISTRY", "") or "",
+        use_responses_api=use_responses_api,
+        responses_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"),
+        send_tools=send_tools_this_round,
+        tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
+        has_context_tools=bool(getattr(core, "context_tool_specs", None)),
+        uses_legacy_catalog=(
+            use_responses_api and discovery.uses_legacy_catalog
+        ),
+    ):
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
