@@ -43,10 +43,10 @@ flowchart TB
 ### 依存ルール
 
 1. `ContextRuntime` は provider SDK、UI、ネットワーク I/O を知らない。出力は provider-neutral な `ContextPlan`（active context / tool selection / decision telemetry）に限定する。`RecoveryPlan` は `ContextRecoveryManager` だけが生成する。
-2. `CapabilityResolver` が「何が可能か」を答え、adapter は「どう呼ぶか」を担当する。round loop は個別 provider 名を原則判断しない。
-3. `ResponsesRuntime` は continuation state と retry を持ち、`ResponsesManager` は retrieve/cancel/delete/count/compact など API 操作だけを担当する。
-4. adapter は provider event を `StreamEvent` に変換するだけで、端末制御や Web の message payload を直接操作しない。
-5. `RoundOrchestrator` だけが、context → request → stream/response → tool result → 次 round の順序とトランザクション境界を持つ。
+1. `CapabilityResolver` が「何が可能か」を答え、adapter は「どう呼ぶか」を担当する。round loop は個別 provider 名を原則判断しない。
+1. `ResponsesRuntime` は continuation state と retry を持ち、`ResponsesManager` は retrieve/cancel/delete/count/compact など API 操作だけを担当する。
+1. adapter は provider event を `StreamEvent` に変換するだけで、端末制御や Web の message payload を直接操作しない。
+1. `RoundOrchestrator` だけが、context → request → stream/response → tool result → 次 round の順序とトランザクション境界を持つ。
 
 ### 入力境界の契約
 
@@ -217,8 +217,8 @@ RoundOrchestrator -> RemoteRecoveryPort.apply(
 優先順は次が妥当である。
 
 1. provider が対応し、session が連続しているなら provider native compaction を試す。この操作は remote session mutation として扱う。
-2. artifact / tool-result projection、再取得、budget 選択で client-side active context を再構築する。
-3. 最終手段として bounded rollback を行う。削除範囲、最大 message、再試行カウントを telemetry に残す。
+1. artifact / tool-result projection、再取得、budget 選択で client-side active context を再構築する。
+1. 最終手段として bounded rollback を行う。削除範囲、最大 message、再試行カウントを telemetry に残す。
 
 Recovery は原則として persistent history を変更しない。rollback は **送信用 projection の再構築**として実施し、元の history と、採用した plan を recovery journal に保存する。session restore 後は、history の immutable message ID と journal の plan を使って同じ projection を再構築する。永続履歴の要約・削除が必要な将来の機能は、別の明示的な user-visible command / policy とし、通常の overflow retry に混ぜない。
 
@@ -395,10 +395,10 @@ translation が streaming を止める現行挙動は policy として保持す�
 ### I18N の実施・検証ルール
 
 1. 本体で新規・変更した msgid は各 gettext カタログへ反映し、placeholder 名・型・エスケープを全ロケールで一致させる。
-2. Tool の新規 key は対応する `*_tool.json` に追加し、Tool 用の JSON 検証を通す。本体の `.po` へ同じ key を追加しても Tool の翻訳にはならない。
-3. provider / recovery 内部の event code は翻訳しない。翻訳するのは host / Tool 境界の表示文言だけにする。
-4. リファクタの各 PR で `python scripts/compile_locales.py`、`python scripts/po_qc_summary.py`、`python scripts/i18n_tools_check.py` と、変更した Tool JSON の検証を実行する。
-5. CI の完了条件は key、placeholder、JSON 構造、コンパイル可能性であり、翻訳品質そのものは locale owner / human review の別工程にする。English fallback は意図的な fallback として記録する。欠落 key や placeholder 不一致は CI エラーとする。
+1. Tool の新規 key は対応する `*_tool.json` に追加し、Tool 用の JSON 検証を通す。本体の `.po` へ同じ key を追加しても Tool の翻訳にはならない。
+1. provider / recovery 内部の event code は翻訳しない。翻訳するのは host / Tool 境界の表示文言だけにする。
+1. リファクタの各 PR で `python scripts/compile_locales.py`、`python scripts/po_qc_summary.py`、`python scripts/i18n_tools_check.py` と、変更した Tool JSON の検証を実行する。
+1. CI の完了条件は key、placeholder、JSON 構造、コンパイル可能性であり、翻訳品質そのものは locale owner / human review の別工程にする。English fallback は意図的な fallback として記録する。欠落 key や placeholder 不一致は CI エラーとする。
 
 ## P3: Host と command 層
 
@@ -407,14 +407,14 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 ## 実施順序
 
 1. **契約を先に追加する**: `ContextPlan`、`ProviderProjection`、`SerializedRequest`、`RoundResult`、`ProviderCapabilitySnapshot`、`StreamEvent` の型と contract test を導入する。既存挙動は変えない。**終了条件:** 同じ workspace の同じ history/policy/schema revision から安定した `plan_id` が生成される。
-2. **Context hand-off を固定する**: `ContextManager` / `provider_context.py` の出力を三段階の型に分け、message build と tool selection の重複をなくす。**終了条件:** provider adapter が context selection の判断を持たない。
-3. **adapter registry を導入する**: 現行 helper を包む adapter から開始し、`uagent_llm.py` の top-level provider `if/elif` を registry lookup に置換する。**終了条件:** 対象 provider 群が旧経路と event/結果互換で、flag により個別に旧経路へ戻せる。
-4. **ResponsesRuntime を抽出する**: stateful continuation と stale retry を移す。management API は `ResponsesManager` のままにする。**終了条件:** response/tool-call/tool-output の不変条件と interrupt/restore/provider-switch test が通る。
-5. **Recovery を抽出する**: overflow の検出、plan、適用、再試行回数を型にする。まず既存 rollback を `bounded_rollback` strategy として移植する。**終了条件:** persistent history を変更せず、journal から同じ projection を再構築できる。
-6. **StreamEvent を一 provider で通す**: Inception を最初の対象にして snapshot と delta を renderer に移す。次に Responses stream、Chat stream を移行する。**終了条件:** event collector と各 renderer の final result が一致する。
-7. **CapabilityResolver と三分割した Tool Discovery を統合する**: duplicated boolean と native / legacy tool delivery を合成し、provider add の更新箇所を減らす。**終了条件:** `unknown` capability が既定で native call を行わない。
-8. **I18N を各段階で更新・検証する**: 新しい event / recovery / tool discovery の表示契約を、本体 gettext と Tool JSON の両方で 38 ロケールへ反映する。**終了条件:** 構造的 CI と翻訳品質 review が別々に記録される。
-9. **残りの P2/P3 を実施する**: transforms、error policy、reasoning projection、host renderer、command 層を順に整理する。
+1. **Context hand-off を固定する**: `ContextManager` / `provider_context.py` の出力を三段階の型に分け、message build と tool selection の重複をなくす。**終了条件:** provider adapter が context selection の判断を持たない。
+1. **adapter registry を導入する**: 現行 helper を包む adapter から開始し、`uagent_llm.py` の top-level provider `if/elif` を registry lookup に置換する。**終了条件:** 対象 provider 群が旧経路と event/結果互換で、flag により個別に旧経路へ戻せる。
+1. **ResponsesRuntime を抽出する**: stateful continuation と stale retry を移す。management API は `ResponsesManager` のままにする。**終了条件:** response/tool-call/tool-output の不変条件と interrupt/restore/provider-switch test が通る。
+1. **Recovery を抽出する**: overflow の検出、plan、適用、再試行回数を型にする。まず既存 rollback を `bounded_rollback` strategy として移植する。**終了条件:** persistent history を変更せず、journal から同じ projection を再構築できる。
+1. **StreamEvent を一 provider で通す**: Inception を最初の対象にして snapshot と delta を renderer に移す。次に Responses stream、Chat stream を移行する。**終了条件:** event collector と各 renderer の final result が一致する。
+1. **CapabilityResolver と三分割した Tool Discovery を統合する**: duplicated boolean と native / legacy tool delivery を合成し、provider add の更新箇所を減らす。**終了条件:** `unknown` capability が既定で native call を行わない。
+1. **I18N を各段階で更新・検証する**: 新しい event / recovery / tool discovery の表示契約を、本体 gettext と Tool JSON の両方で 38 ロケールへ反映する。**終了条件:** 構造的 CI と翻訳品質 review が別々に記録される。
+1. **残りの P2/P3 を実施する**: transforms、error policy、reasoning projection、host renderer、command 層を順に整理する。
 
 ## 移行時の注意点
 
@@ -484,16 +484,15 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 以下を満たした時点で、今回の中心リファクタは成功と判断できる。
 
 1. `uagent_llm.py` の round dispatch は provider 名の大規模 `if/elif` を持たず、registry 経由で実行できる。
-2. `llm_round_helpers.py` は compatibility projector または adapter 実装へ縮小され、Context / recovery / UI renderer を直接所有しない。
-3. `ContextPlan` → `ProviderProjection` → `SerializedRequest` の hand-off が一意で、decision/telemetry が失われない。
-4. `ResponsesRuntime` が continuation の state/retry を所有し、tool output との不変条件を検証する。`ResponsesManager` は API lifecycle wrapper のままである。
-5. Recovery は `apply_local()` と `RemoteRecoveryPort.apply()` の境界を持ち、`RemoteSessionUpdate` が remote mutation と continuation 可否を明示する。
-6. provider parser は順序情報付きで terminal event が一つだけの `StreamEvent` を返し、CLI/GUI/Web の直接描画を持たない。
-7. 本体 gettext と Tool JSON の I18N が、38 ロケールすべてで構造的なコンパイル・QC・Tool 検証を通る。翻訳品質レビューは別工程として完了記録を持つ。
-8. 新旧経路を個別 flag で切り戻せ、切替時に continuation を不正再利用しない。
-9. latency、token、recovery、fallback、schema size、stream event、retry cost の telemetry を比較できる。
-10. 既存の provider / context / responses / streaming テスト群に加え、上記の contract test が通る。
-
+1. `llm_round_helpers.py` は compatibility projector または adapter 実装へ縮小され、Context / recovery / UI renderer を直接所有しない。
+1. `ContextPlan` → `ProviderProjection` → `SerializedRequest` の hand-off が一意で、decision/telemetry が失われない。
+1. `ResponsesRuntime` が continuation の state/retry を所有し、tool output との不変条件を検証する。`ResponsesManager` は API lifecycle wrapper のままである。
+1. Recovery は `apply_local()` と `RemoteRecoveryPort.apply()` の境界を持ち、`RemoteSessionUpdate` が remote mutation と continuation 可否を明示する。
+1. provider parser は順序情報付きで terminal event が一つだけの `StreamEvent` を返し、CLI/GUI/Web の直接描画を持たない。
+1. 本体 gettext と Tool JSON の I18N が、38 ロケールすべてで構造的なコンパイル・QC・Tool 検証を通る。翻訳品質レビューは別工程として完了記録を持つ。
+1. 新旧経路を個別 flag で切り戻せ、切替時に continuation を不正再利用しない。
+1. latency、token、recovery、fallback、schema size、stream event、retry cost の telemetry を比較できる。
+1. 既存の provider / context / responses / streaming テスト群に加え、上記の contract test が通る。
 
 ## 現行実装との比較に基づく優先度再評価
 
@@ -510,10 +509,10 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 終了条件:
 
 1. `uagent_llm.py` は provider 名ではなく `ProviderRuntimeRegistry` を呼ぶ。
-2. legacy 実装は adapter の内部へ隠す。
-3. 新旧経路の切り替えは orchestrator 外部の feature flag で行う。
-4. `ContextPlan → ProviderProjection → SerializedRequest` を一度だけ通す。
-5. provider ごとの既存テストが同じ `RoundResult` / `StreamEvent` 契約で通る。
+1. legacy 実装は adapter の内部へ隠す。
+1. 新旧経路の切り替えは orchestrator 外部の feature flag で行う。
+1. `ContextPlan → ProviderProjection → SerializedRequest` を一度だけ通す。
+1. provider ごとの既存テストが同じ `RoundResult` / `StreamEvent` 契約で通る。
 
 `round_orchestrator.py` 自体は存在し、単体テストも通っているため、次の作業は新規設計よりも `uagent_llm.py` の実行経路をそこへ移すことになる。
 
@@ -528,10 +527,10 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 終了条件:
 
 1. native search、legacy `tool_catalog`、selected schemas の判断を一つの resolver に集約する。
-2. Gemini の built-in tool と UAG tool discovery を別 capability として扱う。
-3. discovery fallback 後も tool-call ID と schema が一致する。
-4. capability が `unknown` の場合は native search を使用しない。
-5. `uagent_llm.py` と `llm_round_helpers.py` から直接の narrowing 判定を除去する。
+1. Gemini の built-in tool と UAG tool discovery を別 capability として扱う。
+1. discovery fallback 後も tool-call ID と schema が一致する。
+1. capability が `unknown` の場合は native search を使用しない。
+1. `uagent_llm.py` と `llm_round_helpers.py` から直接の narrowing 判定を除去する。
 
 ### P1-A: Context hand-off を標準経路にする
 
@@ -554,10 +553,10 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 終了条件:
 
 1. session key を復元できる場合だけ fingerprint を照合する。
-2. key を復元できない場合は fingerprint を信頼しない。
-3. full rebuild または continuation clear に移行する。
-4. fingerprint に prompt 本文を直接保存しない。
-5. remote recovery 後に同じ projection を再構築できる。
+1. key を復元できない場合は fingerprint を信頼しない。
+1. full rebuild または continuation clear に移行する。
+1. fingerprint に prompt 本文を直接保存しない。
+1. remote recovery 後に同じ projection を再構築できる。
 
 実装済み。SQLite journal と remote recovery の metadata 不一致、および provider session metadata の不一致を回帰テストで検証する。
 
@@ -565,7 +564,9 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 `ResponsesRuntime` の state machine、continuation、stale、interrupt、cancel、timeout、provider switch、duplicate / unknown / failed tool output の検証は実装済みで、関連テストも通っている。
 
-残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。現在は registry 経路に限定される部分があり、registry 経路で `session_generation=0` として扱われる箇所もある。
+進捗として、registry の simple chat round から `ResponsesRuntime.session_generation` を `RoundIdentifiers` へ引き渡す bridge を実装した。runtime が利用できない場合は従来の `responses_state` をフォールバックとして参照し、値を安全に整数化する。`test_registry_round_identifiers_use_responses_session_generation` を追加し、registry 経路で `session_generation=0` に固定される回帰を検出できるようにした。関連する targeted test は成功している。
+
+したがって、registry 経路に残っていた `session_generation=0` 固定は解消済みである。ただし P1-C 全体は未完了で、残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。provider ごとの標準経路、provider 切替、continuation、tool output の整合性を確認する characterization / integration test を追加しながら段階的に移行する。
 
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
@@ -615,6 +616,6 @@ P2    transform / retry / reasoning / telemetry
 P3    CLI/GUI/Web と command 層の整理
 ```
 
-直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。
+直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。次は P1-C の残る標準経路を対象にする。
 
-現行実装の確認では、関連する11個の targeted test file、計77件が成功している。一方、I18N strict audit の117件の指摘は未解消である。
+現行実装の確認では、関連する11個の targeted test file、計77件が成功している。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。一方、I18N strict audit の117件の指摘は未解消である。
