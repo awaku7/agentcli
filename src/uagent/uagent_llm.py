@@ -1594,9 +1594,12 @@ def _run_one_round(
             if isinstance(tc, dict)
         ],
     )
+    response_tool_continuation = bool(
+        use_responses_api and round_supports_tool_continuation
+    )
     _record_responses_runtime_response(
         core=core,
-        enabled=use_responses_api,
+        enabled=response_tool_continuation,
         tool_calls=tool_calls_list,
     )
     executed_new_tool, fresh_tool_calls = _execute_tool_calls(
@@ -1604,7 +1607,7 @@ def _run_one_round(
         messages=messages,
         core=core,
         cache_mgr=cache_mgr,
-        responses_api_continuation=use_responses_api,
+        responses_api_continuation=response_tool_continuation,
         responses_runtime=getattr(core, "responses_runtime", None),
     )
     if provider in ("gemini", "vertexai") and any(

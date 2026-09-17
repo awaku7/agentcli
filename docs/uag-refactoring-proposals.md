@@ -642,6 +642,14 @@ OpenAI-compatible の no-tool 終了処理を同じ capability に基づけた�
 legacy handler は `owns_tool_execution=True` で既に自身の tool-loop を完了させるため、
 共通 loop で二重実行しない。raw tuple と tool call list は互換性・詳細処理のために保持する。
 
+### P0-A の第12修正単位（完了）
+
+Responses の continuation state 更新と tool 実行に渡す continuation flag を、
+`round_supports_tool_continuation` capability と `use_responses_api` の組み合わせから解決
+するようにした。これにより、tool call がない round や legacy handler の完了済み tool-loop
+で Responses state を誤って更新しない。registry / OpenAI-compatible の tool continuation
+だけが `ResponsesRuntime` の tool-output invariant を進める。
+
 ### 並行修正: SessionStore の SQLite lock recovery（完了）
 
 実機確認で、終了時の session summary 処理と別の session write が競合し、
