@@ -41,7 +41,12 @@ def test_dispatcher_prefers_registry_result() -> None:
 
 
 def test_dispatcher_exposes_shared_outcome_without_changing_raw_result() -> None:
-    registry_result = (True, "answer", "reasoning", [])
+    registry_result = (
+        True,
+        "answer",
+        "reasoning",
+        [{"id": "call-1", "type": "function"}],
+    )
     dispatch = dispatch_provider_round(
         registry_runner=lambda **kwargs: registry_result,
         legacy_runner=lambda **kwargs: "legacy-result",
@@ -57,6 +62,7 @@ def test_dispatcher_exposes_shared_outcome_without_changing_raw_result() -> None
     assert dispatch.outcome.raw_result == registry_result
     assert dispatch.outcome.capabilities.handles_collected_result is True
     assert dispatch.outcome.capabilities.owns_tool_execution is False
+    assert dispatch.outcome.capabilities.supports_tool_continuation is True
 
     legacy_outcome = LegacyRoundOutcome(
         provider="claude",

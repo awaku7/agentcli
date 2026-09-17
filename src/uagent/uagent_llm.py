@@ -1381,8 +1381,13 @@ def _run_one_round(
         )
         else None
     )
+    round_supports_tool_continuation = False
     if registry_simple_result is not None:
         ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
+        round_supports_tool_continuation = bool(
+            dispatch_outcome
+            and dispatch_outcome.capabilities.supports_tool_continuation
+        )
         if not ok:
             return (
                 _RS_RETURN,
@@ -1391,7 +1396,7 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
-        if not tool_calls_list:
+        if not round_supports_tool_continuation:
             assistant_text = _translate_assistant_if_needed(
                 assistant_text=assistant_text,
                 tr_cfg=tr_cfg,
@@ -1451,6 +1456,9 @@ def _run_one_round(
             tool_calls_list,
             _is_xai_grpc,
         ) = openai_round_result.raw_result
+        round_supports_tool_continuation = bool(
+            dispatch_outcome.capabilities.supports_tool_continuation
+        )
         if not ok:
             return (
                 _RS_RETURN,
@@ -1530,9 +1538,9 @@ def _run_one_round(
                 assistant_text,
             )
 
-        if not tool_calls_list:
+        if not round_supports_tool_continuation:
             if not judgment_mode:
-                # Grok xai_sdk streaming already printed deltas in parse_xai_stream().
+                # Host-rendering capability controls duplicate final output.
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
                     reasoning_content=locals().get("reasoning_content", ""),

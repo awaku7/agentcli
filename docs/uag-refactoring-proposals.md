@@ -631,6 +631,17 @@ Provider 名の個別判定ではなく `host_rendered` を参照するように
 継続処理は共通 round loop が担当する。これで host rendering の重複出力を避ける判定も
 outcome capability に移った。
 
+### P0-A の第11修正単位（完了）
+
+`supports_tool_continuation` を registry / OpenAI-compatible outcome から dispatch 後処理へ
+接続した。tool call がある outcome の場合だけ tool-loop 継続可能と判定し、registry と
+OpenAI-compatible の no-tool 終了処理を同じ capability に基づけた。従来の
+`if not tool_calls_list` は、round outcome が提供する継続 capability を参照する構造へ
+置き換えた。
+
+legacy handler は `owns_tool_execution=True` で既に自身の tool-loop を完了させるため、
+共通 loop で二重実行しない。raw tuple と tool call list は互換性・詳細処理のために保持する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。
