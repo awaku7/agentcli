@@ -119,9 +119,7 @@ def run_legacy_gemini_round(
                     "type": "function",
                     "function": {
                         "name": "tool_catalog",
-                        "arguments": json.dumps(
-                            {"query": query}, ensure_ascii=False
-                        ),
+                        "arguments": json.dumps({"query": query}, ensure_ascii=False),
                     },
                 }
             ]

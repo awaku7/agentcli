@@ -75,7 +75,9 @@ def test_gemini_round_failure_returns_without_appending(monkeypatch) -> None:
     assert appended == []
 
 
-def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(monkeypatch) -> None:
+def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(
+    monkeypatch,
+) -> None:
     core = _Core()
     core.context_tool_specs = [{"function": {"name": "tool_catalog"}}]
     kwargs = _kwargs(core)
