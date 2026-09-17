@@ -33,7 +33,7 @@ except Exception:
 
 from .llm_message_helpers import (
     _build_call_messages,
-    _build_auto_shrink_projection,
+    build_auto_shrink_projection,
     _get_shrink_max_tokens,
     _init_gemini_cache,
 )
@@ -1189,7 +1189,7 @@ def _run_one_round(
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     projection_changed = False
     if not judgment_mode and not _using_prev_rid:
-        projected_cache, projected_messages = _build_auto_shrink_projection(
+        auto_shrink_projection = build_auto_shrink_projection(
             provider=provider,
             client=client,
             depname=depname,
@@ -1200,12 +1200,12 @@ def _run_one_round(
             call_maybe_thread_fn=_call_maybe_thread_fn,
             use_responses_api=use_responses_api,
         )
-        if projected_messages != messages:
+        if auto_shrink_projection.changed:
             projection_changed = True
-            gemini_cache_name = projected_cache
+            gemini_cache_name = auto_shrink_projection.cache_name
             call_messages = _build_call_messages(
                 provider=provider,
-                messages=projected_messages,
+                messages=list(auto_shrink_projection.messages),
                 core=core,
                 depname=depname,
                 gemini_cache_name=gemini_cache_name,

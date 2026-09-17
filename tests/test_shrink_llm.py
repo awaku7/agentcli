@@ -443,6 +443,21 @@ def test_auto_shrink_projection_does_not_mutate_persistent_messages(
     assert projected != msgs
     assert lmh._messages_have_history_summary(projected)
 
+    projection = lmh.build_auto_shrink_projection(
+        provider="openai",
+        client=object(),
+        depname="gpt-test",
+        messages=msgs,
+        core=SimpleNamespace(compress_history_with_llm=_fake_compress),
+        cache_mgr=SimpleNamespace(clear_cache=lambda c: None),
+        gemini_cache_name=None,
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=False,
+    )
+    assert projection.changed is True
+    assert projection.source_message_count == len(msgs)
+    assert projection.projected_message_count == len(projection.messages)
+
 
 def test_compress_preserves_complete_latest_tool_block():
     messages = [

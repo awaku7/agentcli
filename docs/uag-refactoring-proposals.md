@@ -747,6 +747,13 @@ handoff を無効化しないようにした。軽量な legacy/test core に Co
 だけ従来の feature-flag gate を維持する。これにより本番の ContextManager 経路は flag に
 依存せず、互換性が必要な最小 core だけが旧挙動を保持する。
 
+### P1-A の第5修正単位（完了）
+
+auto-shrink の結果を `AutoShrinkProjection` として明示化した。projection には shrink 後の
+messages、cache 名、変更有無、入力/出力 message 数を持たせ、ContextPlan hand-off 前の
+送信用 projection と persistent history を混同しない。既存の tuple helper は互換性のため
+維持し、標準 round 経路だけが metadata 付き projection を利用する。
+
 `ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:

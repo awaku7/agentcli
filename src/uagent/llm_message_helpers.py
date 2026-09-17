@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+from dataclasses import dataclass
 from typing import Any
 
 from . import tools
@@ -466,6 +467,33 @@ def _maybe_auto_shrink_messages(
         )
 
     return gemini_cache_name
+
+
+@dataclass(frozen=True)
+class AutoShrinkProjection:
+    """Provider-neutral auto-shrink result for the ContextPlan hand-off."""
+
+    cache_name: Any
+    messages: tuple[dict[str, Any], ...]
+    changed: bool
+    source_message_count: int
+    projected_message_count: int
+
+
+def build_auto_shrink_projection(
+    **kwargs: Any,
+) -> AutoShrinkProjection:
+    """Build shrink output plus explicit metadata without mutating history."""
+
+    source_messages = kwargs.get("messages") or []
+    projected_cache, projected = _build_auto_shrink_projection(**kwargs)
+    return AutoShrinkProjection(
+        cache_name=projected_cache,
+        messages=tuple(dict(message) for message in projected),
+        changed=projected != source_messages,
+        source_message_count=len(source_messages),
+        projected_message_count=len(projected),
+    )
 
 
 def _build_auto_shrink_projection(
