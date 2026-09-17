@@ -9,6 +9,15 @@ LegacyRoundResult: TypeAlias = tuple[Any, ...]
 
 
 @dataclass(frozen=True)
+class RoundOutcomeCapabilities:
+    """Execution capabilities used after provider dispatch."""
+
+    handles_collected_result: bool = False
+    owns_tool_execution: bool = False
+    host_rendered: bool = False
+
+
+@dataclass(frozen=True)
 class LegacyRoundOutcome:
     """Provider-neutral metadata around an unchanged legacy round result."""
 
@@ -20,6 +29,7 @@ class LegacyRoundOutcome:
     reasoning_text: str = ""
     tool_calls: tuple[Mapping[str, Any], ...] = ()
     is_xai_grpc: bool = False
+    capabilities: RoundOutcomeCapabilities = RoundOutcomeCapabilities()
     flow: Literal["registry", "legacy", "openai_compatible"] = "legacy"
 
 
@@ -65,12 +75,17 @@ def run_legacy_provider_outcome(
         assistant_text=str(result[4] or ""),
         raw_result=result,
         client=result[1] if len(result) > 1 else None,
+        capabilities=RoundOutcomeCapabilities(
+            owns_tool_execution=True,
+            host_rendered=True,
+        ),
     )
 
 
 __all__ = [
     "LegacyRoundOutcome",
     "LegacyRoundResult",
+    "RoundOutcomeCapabilities",
     "run_legacy_provider_outcome",
     "run_legacy_provider_round",
 ]

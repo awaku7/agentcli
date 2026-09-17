@@ -608,6 +608,18 @@ OpenAI-compatible の双方で outcome を受け取り、外部互換用の raw 
 これにより dispatch 結果の source 判定は orchestration loop から除去され、次は
 `flow` 自体を status / tool-loop / host-rendering capability に分解する。
 
+### P0-A の第9修正単位（完了）
+
+`LegacyRoundOutcome` に `RoundOutcomeCapabilities` を追加し、結果の扱いを flow 名では
+なく capability で表現できるようにした。現時点では次の capability を固定している。
+
+- `handles_collected_result`: registry の収集済み結果を round loop が処理する
+- `owns_tool_execution`: legacy handler が tool 実行と round 制御を所有する
+- `host_rendered`: legacy handler が host への最終描画まで完了している
+
+`uagent_llm.py` の dispatch 後処理は `flow` を直接参照せず、これらの capability を使う。
+`flow` は観測・互換用に残し、将来の telemetry と段階移行に利用する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

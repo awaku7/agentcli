@@ -19,7 +19,10 @@ RegistryLegacyResult = tuple[bool, str, str, list[dict[str, Any]]]
 def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any:
     """Return a shared outcome view without changing ``result``."""
 
-    from .legacy_round_registry import LegacyRoundOutcome
+    from .legacy_round_registry import (
+        LegacyRoundOutcome,
+        RoundOutcomeCapabilities,
+    )
 
     if isinstance(result, LegacyRoundOutcome):
         return result
@@ -32,6 +35,9 @@ def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any
             raw_result=result,
             reasoning_text=str(reasoning_text or ""),
             tool_calls=tuple(tool_calls or ()),
+            capabilities=RoundOutcomeCapabilities(
+                handles_collected_result=True,
+            ),
             flow="registry",
         )
     return None

@@ -55,6 +55,8 @@ def test_dispatcher_exposes_shared_outcome_without_changing_raw_result() -> None
     assert dispatch.outcome is not None
     assert dispatch.outcome.flow == "registry"
     assert dispatch.outcome.raw_result == registry_result
+    assert dispatch.outcome.capabilities.handles_collected_result is True
+    assert dispatch.outcome.capabilities.owns_tool_execution is False
 
     legacy_outcome = LegacyRoundOutcome(
         provider="claude",

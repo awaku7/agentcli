@@ -41,6 +41,8 @@ def test_legacy_provider_outcome_wraps_without_changing_raw_result(monkeypatch) 
     assert outcome.status == "continue"
     assert outcome.assistant_text == "partial answer"
     assert outcome.raw_result == raw_result
+    assert outcome.capabilities.owns_tool_execution is True
+    assert outcome.capabilities.host_rendered is True
 
 
 def test_registry_returns_none_for_unregistered_provider() -> None:

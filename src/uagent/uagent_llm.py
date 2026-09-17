@@ -1375,7 +1375,10 @@ def _run_one_round(
     dispatch_outcome = dispatch.outcome
     registry_simple_result = (
         dispatch_outcome.raw_result
-        if dispatch_outcome is not None and dispatch_outcome.flow == "registry"
+        if (
+            dispatch_outcome is not None
+            and dispatch_outcome.capabilities.handles_collected_result
+        )
         else None
     )
     if registry_simple_result is not None:
@@ -1431,7 +1434,10 @@ def _run_one_round(
     else:
         legacy_round_result = (
             dispatch_outcome
-            if dispatch_outcome is not None and dispatch_outcome.flow == "legacy"
+            if (
+                dispatch_outcome is not None
+                and dispatch_outcome.capabilities.owns_tool_execution
+            )
             else None
         )
         if legacy_round_result is not None:
