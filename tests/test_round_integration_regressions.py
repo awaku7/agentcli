@@ -447,6 +447,29 @@ def test_registry_response_terminal_clears_persisted_continuation() -> None:
         assert core.responses_state["last_response_status"] == status
 
 
+def test_registry_terminal_sync_clears_runtime_continuation() -> None:
+    expected_states = {
+        "cancelled": "Cancelled",
+        "timed_out": "TimedOut",
+        "interrupted": "Interrupted",
+        "failed": "Failed",
+    }
+    for status, expected_state in expected_states.items():
+        core = SimpleNamespace(
+            responses_state={"previous_response_id": "resp_1"},
+        )
+        runtime = _begin_responses_runtime(
+            core=core, provider="openai", model="gpt-test", enabled=True
+        )
+        assert runtime is not None
+        runtime.record_response("resp_1")
+
+        _sync_registry_responses_terminal(core, status)
+
+        assert runtime.state == expected_state
+        assert runtime.previous_response_id is None
+
+
 def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(
     monkeypatch,
 ) -> None:

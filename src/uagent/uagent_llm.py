@@ -769,9 +769,29 @@ def _try_responses_remote_recovery(core: Any, client: Any, recovery_plan: Any) -
 
 
 def _sync_registry_responses_terminal(core: Any, status: str) -> None:
-    """Mirror a non-successful registry terminal state into persisted state."""
+    """Mirror a non-successful registry terminal state into runtime and state."""
     if status == "completed":
         return
+    runtime = getattr(core, "responses_runtime", None)
+    if runtime is not None:
+        transition = {
+            "cancelled": "cancel",
+            "timed_out": "timeout",
+            "interrupted": "interrupt",
+            "failed": "fail",
+        }.get(status)
+        try:
+            if transition is not None:
+                getattr(runtime, transition)()
+            else:
+                runtime.fail(status or "registry_failed")
+        except Exception:
+            # A compatibility mirror must not hide the terminal state when an
+            # already-cleared runtime rejects a repeated transition.
+            try:
+                runtime.clear_continuation(f"registry_{status or 'failed'}")
+            except Exception:
+                pass
     state = getattr(core, "responses_state", None)
     if not isinstance(state, dict):
         return

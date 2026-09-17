@@ -790,6 +790,10 @@ registry 経路で `session_generation=0` に固定されていた箇所は、Re
 
 `_begin_responses_runtime()` が legacy `responses_state` の `session_generation` を復元時に取り込むようにした。これにより、永続 state に残っている generation と bridge が新しく生成する `ToolCallKey` の generation がずれず、再起動後の tool output 検証でも同じ continuation 世代を参照できる。値が壊れている場合は現在の runtime generation を維持し、互換経路の round を中断しない。`test_responses_bridge_restores_persisted_session_generation` を追加して、文字列で保存された legacy 値も整数 generation として復元できることを確認している。
 
+#### P1-C の第2修正単位（完了）
+
+registry 経路の terminal 状態を `responses_state` だけでなく `ResponsesRuntime` にも反映するようにした。cancel / timeout / interrupt / failed の各状態で runtime の response ID、pending tool output、accepted output を同時に破棄し、次の round が古い continuation を誤って再利用しない。既に clear 済みの runtime や未知の terminal status でも、互換 mirror が terminal state の保存を妨げない。`test_registry_terminal_sync_clears_runtime_continuation` で4種類の terminal state を確認している。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。
