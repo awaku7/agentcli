@@ -691,6 +691,12 @@ schemas の各 surface を作る処理と、最終的な delivery 選択を分�
 `ToolDiscoveryDecision` を最終選択にも通す。既存の native management-tool 除外と
 legacy narrowing は維持する。
 
+### P0-B の第4修正単位（完了）
+
+catalog-before-answer steering の要否を `ToolDiscoveryDecision.needs_catalog_steering()` に
+移した。`llm_tool_narrowing.py` は discovery mode の内部表現を直接判定せず、native search
+だけ steering を抑制し、legacy / selected schemas は従来通り steering を許可する。
+
 `CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` と共通 resolver は `runtime/tool_discovery.py` に追加され、`llm_tool_narrowing.py` の互換ラッパーも共通 resolver へ委譲するようになった。一方、選択・delivery の呼び出し側には旧経路が残っており、`_is_gpt54_tool_search_target()` はテスト互換のために import/re-export として残る。したがって判断・選択・delivery の全経路が一つの契約へ統合された状態ではない。
 
 直近のコミットでは Gemini の tool discovery、built-in search との分離、missing context tool specs、legacy tool call 実行が連続して修正されている。この領域は現在最も回帰しやすいため、全 provider の registry 移行に先立って判断契約を固定する。

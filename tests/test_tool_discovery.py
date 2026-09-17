@@ -137,6 +137,9 @@ def test_management_bootstrap_policy_is_owned_by_discovery_decision() -> None:
     assert native.uses_management_bootstrap(use_responses_api=False)
     assert not native.uses_management_bootstrap(use_responses_api=True)
     assert not selected.uses_management_bootstrap(use_responses_api=False)
+    assert legacy.needs_catalog_steering()
+    assert not native.needs_catalog_steering()
+    assert selected.needs_catalog_steering()
 
 
 def test_discovery_resolver_selects_native_search_for_known_target() -> None:

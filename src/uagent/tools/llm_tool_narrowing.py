@@ -136,7 +136,7 @@ def should_emit_catalog_steering(
 
     if provider is None and depname is None and use_responses_api is None:
         discovery = _resolve_tool_discovery_from_environment()
-        return not discovery.uses_native_search
+        return discovery.needs_catalog_steering()
 
     if provider is None or depname is None:
         env_provider, env_depname = _soft_provider_depname_from_env()
@@ -158,7 +158,7 @@ def should_emit_catalog_steering(
         depname=depname_s,
         use_responses_api=bool(use_responses_api),
     )
-    return not discovery.uses_native_search
+    return discovery.needs_catalog_steering()
 
 
 def _select_tool_specs_legacy(

@@ -64,6 +64,11 @@ class ToolDiscoveryDecision:
             self.uses_native_search and not use_responses_api
         )
 
+    def needs_catalog_steering(self) -> bool:
+        """Return whether prompts should steer the model to tool_catalog."""
+
+        return not self.uses_native_search
+
 
 def _gpt54_native_search_model(depname: str) -> bool:
     """Return whether *depname* is a known GPT-5.4+ native-search family."""
