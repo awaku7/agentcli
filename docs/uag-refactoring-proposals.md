@@ -697,6 +697,13 @@ catalog-before-answer steering の要否を `ToolDiscoveryDecision.needs_catalog
 移した。`llm_tool_narrowing.py` は discovery mode の内部表現を直接判定せず、native search
 だけ steering を抑制し、legacy / selected schemas は従来通り steering を許可する。
 
+### P0-B の第5修正単位（完了）
+
+management tool 名を `runtime/tool_discovery.py` の `MANAGEMENT_TOOL_NAMES` に集約し、
+`uagent_llm.py` の loop guard と `llm_round_helpers.py` の native-search exclusion が
+同じ定義を参照するようにした。catalog / load / unload の集合が経路ごとに分岐しない境界
+を作り、tool delivery policy の重複を一つ削減した。
+
 `CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` と共通 resolver は `runtime/tool_discovery.py` に追加され、`llm_tool_narrowing.py` の互換ラッパーも共通 resolver へ委譲するようになった。一方、選択・delivery の呼び出し側には旧経路が残っており、`_is_gpt54_tool_search_target()` はテスト互換のために import/re-export として残る。したがって判断・選択・delivery の全経路が一つの契約へ統合された状態ではない。
 
 直近のコミットでは Gemini の tool discovery、built-in search との分離、missing context tool specs、legacy tool call 実行が連続して修正されている。この領域は現在最も回帰しやすいため、全 provider の registry 移行に先立って判断契約を固定する。

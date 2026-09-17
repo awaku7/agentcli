@@ -181,7 +181,10 @@ from .tools.llm_tool_narrowing import (
     resolve_tool_discovery,
     _select_tool_specs_legacy,
 )
-from .runtime.tool_discovery import select_tool_specs_for_discovery
+from .runtime.tool_discovery import (
+    MANAGEMENT_TOOL_NAMES,
+    select_tool_specs_for_discovery,
+)
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
     apply_openrouter_tool_schema_compat,
@@ -527,7 +530,7 @@ def _call_openai_azure_round(
                 elif discovery.uses_native_search:
                     # Native mode: scan all tool modules from disk (bypass genre),
                     # exclude management tools. Server-side tool_search does narrowing.
-                    _excluded = {"tool_catalog", "tool_load", "unload_tool"}
+                    _excluded = MANAGEMENT_TOOL_NAMES
                     _all_tools: list[dict[str, Any]] = []
                     try:
                         from .tools._genre_control_util import _find_tool_modules

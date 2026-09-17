@@ -80,6 +80,7 @@ from .tools._genre_control_util import (
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools import _should_preload_lazy_specs
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+from .runtime.tool_discovery import MANAGEMENT_TOOL_NAMES as _MGMT_TOOLS
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools.llm_tool_narrowing import (
@@ -171,7 +172,6 @@ _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
 # This is a second, broader runaway guard than the same-args detector.
 _CONSECUTIVE_TOOL_CALL_COUNT = 0
 _CONSECUTIVE_TOOL_CALL_NAME = ""
-_MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
 # Keep this close to the management threshold so runaway tool spam stops early.
