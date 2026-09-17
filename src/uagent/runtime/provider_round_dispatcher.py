@@ -15,7 +15,15 @@ DispatchSource = Literal["registry", "legacy", "openai_compatible"]
 RoundRunner = Callable[..., Any]
 
 
-def registry_round_allowed(
+@dataclass(frozen=True)
+class RegistryRoundRoute:
+    """Resolved registry eligibility passed to the round dispatcher."""
+
+    allowed: bool
+    reason: str = ""
+
+
+def resolve_registry_round_route(
     *,
     provider: str,
     configured_providers: str = "",
@@ -25,34 +33,38 @@ def registry_round_allowed(
     tools_enabled: bool,
     has_context_tools: bool,
     uses_legacy_catalog: bool,
-) -> bool:
-    """Return whether the registry may own the current round.
-
-    This gate contains only route-selection policy. Adapter execution failures
-    are still handled by ``dispatch_provider_round`` and may fall back to the
-    compatibility handlers. The supported-provider source remains the runtime
-    registry itself, so this module does not maintain a second provider list.
-    """
+) -> RegistryRoundRoute:
+    """Resolve registry eligibility once for a provider round."""
 
     from ..providers.runtime_registry import supports_provider_runtime
 
     if not supports_provider_runtime(provider):
-        return False
+        return RegistryRoundRoute(False, "unsupported_provider")
     configured = (configured_providers or "").strip().lower()
     if configured in {"0", "false", "no", "off"}:
-        return False
+        return RegistryRoundRoute(False, "disabled_by_configuration")
     enabled_providers = {item.strip() for item in configured.split(",") if item.strip()}
-    if configured and provider.strip().lower() not in enabled_providers and "all" not in enabled_providers:
-        return False
+    if (
+        configured
+        and provider.strip().lower() not in enabled_providers
+        and "all" not in enabled_providers
+    ):
+        return RegistryRoundRoute(False, "provider_not_enabled")
     if use_responses_api and not responses_enabled:
-        return False
+        return RegistryRoundRoute(False, "responses_registry_disabled")
     if uses_legacy_catalog:
-        return False
+        return RegistryRoundRoute(False, "legacy_catalog_conflict")
     if send_tools and not tools_enabled:
-        return False
+        return RegistryRoundRoute(False, "tools_registry_disabled")
     if send_tools and not has_context_tools:
-        return False
-    return True
+        return RegistryRoundRoute(False, "context_tools_missing")
+    return RegistryRoundRoute(True, "eligible")
+
+
+def registry_round_allowed(**kwargs: Any) -> bool:
+    """Backward-compatible boolean view of ``resolve_registry_round_route``."""
+
+    return resolve_registry_round_route(**kwargs).allowed
 
 
 @dataclass(frozen=True)
@@ -67,6 +79,7 @@ def dispatch_provider_round(
     *,
     registry_runner: RoundRunner | None,
     registry_allowed: bool = True,
+    registry_route: RegistryRoundRoute | None = None,
     legacy_runner: RoundRunner,
     openai_runner: RoundRunner,
     registry_kwargs: Mapping[str, Any],
@@ -75,14 +88,18 @@ def dispatch_provider_round(
 ) -> ProviderRoundDispatch:
     """Select the first applicable round implementation.
 
-    ``registry_allowed=False`` disables only the registry candidate and keeps
-    the compatibility order intact. ``None`` from a runner means that the
+    ``registry_route`` is the resolved route contract and takes precedence
+    over the boolean compatibility flag. ``registry_allowed=False`` disables
+    only the registry candidate and keeps the compatibility order intact.
+    ``None`` from a runner means that the
     runner does not own the current provider/mode and the next compatibility
     path should be tried. A non-``None`` result is returned unchanged,
     including falsy tuple values, so this helper does not reinterpret provider
     behavior.
     """
 
+    if registry_route is not None:
+        registry_allowed = registry_route.allowed
     if registry_allowed and registry_runner is not None:
         registry_result = registry_runner(**dict(registry_kwargs))
         if registry_result is not None:
@@ -100,6 +117,8 @@ def dispatch_provider_round(
 __all__ = [
     "DispatchSource",
     "ProviderRoundDispatch",
+    "RegistryRoundRoute",
     "dispatch_provider_round",
     "registry_round_allowed",
+    "resolve_registry_round_route",
 ]

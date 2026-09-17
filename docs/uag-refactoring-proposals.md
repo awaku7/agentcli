@@ -550,6 +550,18 @@ registry 固有の Provider / tool / Responses 判定は引き続き
 `registry_round_allowed()` が担当する。次はこの判定結果も dispatcher の入力契約へ統合し、
 `uagent_llm.py` に残る route policy の組み立てを縮小する。
 
+### P0-A の第4修正単位（完了）
+
+registry の eligibility を単なる boolean ではなく `RegistryRoundRoute` として表現し、
+`resolve_registry_round_route()` で一度だけ解決して dispatcher に渡す入力契約へ変更した。
+route の拒否理由も `unsupported_provider`、`legacy_catalog_conflict` などの安定した値で
+保持する。`uagent_llm.py` は route を組み立てるための入力を用意するだけになり、
+`_try_registry_simple_chat_round()` は dispatcher から渡された route がある場合に再判定を
+行わない。直接呼び出し時の旧 gate は互換性のために残している。
+
+この単位で P0-A の route selection 境界は固定された。以後は registry adapter の実行結果を
+`RoundResult` へ戻す処理と、legacy provider adapter の同一契約化を provider 単位で進める。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

@@ -1,6 +1,8 @@
 from uagent.runtime.provider_round_dispatcher import (
+    RegistryRoundRoute,
     dispatch_provider_round,
     registry_round_allowed,
+    resolve_registry_round_route,
 )
 
 
@@ -180,6 +182,43 @@ def test_registry_round_gate_centralizes_route_policy() -> None:
     legacy_catalog = _registry_gate_defaults()
     legacy_catalog["uses_legacy_catalog"] = True
     assert registry_round_allowed(**legacy_catalog) is False
+
+
+def test_registry_route_contract_exposes_a_stable_reason() -> None:
+    route = resolve_registry_round_route(**_registry_gate_defaults())
+    assert route == RegistryRoundRoute(True, "eligible")
+
+    disabled = _registry_gate_defaults()
+    disabled["configured_providers"] = "off"
+    route = resolve_registry_round_route(**disabled)
+    assert route == RegistryRoundRoute(False, "disabled_by_configuration")
+    assert registry_round_allowed(**disabled) is False
+
+
+def test_dispatcher_prefers_explicit_registry_route_contract() -> None:
+    calls: list[str] = []
+
+    def registry(**kwargs):
+        calls.append("registry")
+        return "registry-result"
+
+    def legacy(**kwargs):
+        calls.append("legacy")
+        return "legacy-result"
+
+    result = dispatch_provider_round(
+        registry_runner=registry,
+        registry_allowed=True,
+        registry_route=RegistryRoundRoute(False, "legacy_catalog_conflict"),
+        legacy_runner=legacy,
+        openai_runner=lambda **kwargs: "openai-result",
+        registry_kwargs={},
+        legacy_kwargs={},
+        openai_kwargs={},
+    )
+
+    assert result.source == "legacy"
+    assert calls == ["legacy"]
 
 
 def test_registry_round_gate_requires_context_tools_when_tools_are_sent() -> None:

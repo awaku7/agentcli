@@ -781,33 +781,38 @@ def _try_registry_simple_chat_round(
     stream_responses: bool,
     send_tools_this_round: bool,
     round_count: int,
+    registry_route: Any | None = None,
 ) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
     """Run the default-on registry path for OpenAI-compatible rounds.
 
     Explicit ``off`` values restore the legacy path. Unsupported providers and
     intentionally deferred modes also retain their established fallback.
     """
-    discovery = resolve_tool_discovery(
-        provider=provider,
-        depname=depname,
-        # The capability check is needed for both transports because the
-        # registry may use Chat Completions while bootstrapping tool discovery.
-        use_responses_api=True,
-    )
-    from .runtime.provider_round_dispatcher import registry_round_allowed
+    discovery = None
+    if registry_route is None:
+        discovery = resolve_tool_discovery(
+            provider=provider,
+            depname=depname,
+            # The capability check is needed for both transports because the
+            # registry may use Chat Completions while bootstrapping tool discovery.
+            use_responses_api=True,
+        )
+        from .runtime.provider_round_dispatcher import registry_round_allowed
 
-    if not registry_round_allowed(
-        provider=provider,
-        configured_providers=env_get("UAGENT_PROVIDER_REGISTRY", "") or "",
-        use_responses_api=use_responses_api,
-        responses_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"),
-        send_tools=send_tools_this_round,
-        tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
-        has_context_tools=bool(getattr(core, "context_tool_specs", None)),
-        uses_legacy_catalog=(
-            use_responses_api and discovery.uses_legacy_catalog
-        ),
-    ):
+        if not registry_round_allowed(
+            provider=provider,
+            configured_providers=env_get("UAGENT_PROVIDER_REGISTRY", "") or "",
+            use_responses_api=use_responses_api,
+            responses_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"),
+            send_tools=send_tools_this_round,
+            tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
+            has_context_tools=bool(getattr(core, "context_tool_specs", None)),
+            uses_legacy_catalog=(
+                use_responses_api and discovery.uses_legacy_catalog
+            ),
+        ):
+            return None
+    elif not getattr(registry_route, "allowed", False):
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
@@ -1283,11 +1288,40 @@ def _run_one_round(
     tool_calls_list: list[dict[str, Any]] = []
     assistant_text: str = ""
 
-    from .runtime.provider_round_dispatcher import dispatch_provider_round
+    from .runtime.provider_round_dispatcher import (
+        dispatch_provider_round,
+        resolve_registry_round_route,
+    )
+
+    registry_route = None
+    if not judgment_mode:
+        try:
+            registry_discovery = resolve_tool_discovery(
+                provider=provider,
+                depname=depname,
+                use_responses_api=True,
+            )
+            registry_route = resolve_registry_round_route(
+                provider=provider,
+                configured_providers=env_get("UAGENT_PROVIDER_REGISTRY", "") or "",
+                use_responses_api=use_responses_api,
+                responses_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_RESPONSES"),
+                send_tools=bool(send_tools_this_round),
+                tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
+                has_context_tools=bool(getattr(core, "context_tool_specs", None)),
+                uses_legacy_catalog=(
+                    use_responses_api and registry_discovery.uses_legacy_catalog
+                ),
+            )
+        except Exception:
+            # The registry route is advisory until all providers are migrated.
+            # Let the compatibility runner retain its own safety gate.
+            registry_route = None
 
     dispatch = dispatch_provider_round(
         registry_runner=_try_registry_simple_chat_round,
         registry_allowed=not judgment_mode,
+        registry_route=registry_route,
         legacy_runner=run_legacy_provider_round,
         openai_runner=call_legacy_openai_compatible_round,
         registry_kwargs={
@@ -1300,6 +1334,7 @@ def _run_one_round(
             "stream_responses": stream_responses,
             "send_tools_this_round": bool(send_tools_this_round),
             "round_count": round_count,
+            "registry_route": registry_route,
         },
         legacy_kwargs={
             "provider": provider,
