@@ -6,7 +6,10 @@ import pytest
 
 from uagent.providers.inception_runtime import InceptionProviderRuntime
 from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
-from uagent.providers.runtime_registry import build_provider_runtime_registry
+from uagent.providers.runtime_registry import (
+    build_provider_runtime_registry,
+    supports_provider_runtime,
+)
 from uagent.runtime.round_contracts import RoundIdentifiers
 
 
@@ -51,3 +54,11 @@ def test_registry_rejects_unmigrated_provider_instead_of_guessing() -> None:
             model="gemini-test",
             identifiers=_identifiers(),
         )
+
+
+def test_registry_support_check_is_normalized_and_has_one_source_of_truth() -> None:
+    assert supports_provider_runtime(" OPENAI ") is True
+    assert supports_provider_runtime("Azure") is True
+    assert supports_provider_runtime("inception") is True
+    assert supports_provider_runtime("gemini") is False
+    assert supports_provider_runtime("") is False

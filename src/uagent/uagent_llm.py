@@ -789,7 +789,9 @@ def _try_registry_simple_chat_round(
     """
     enabled = (env_get("UAGENT_PROVIDER_REGISTRY", "") or "").strip().lower()
     enabled_providers = {item.strip() for item in enabled.split(",") if item.strip()}
-    if provider not in {"openai", "azure"}:
+    from .providers.runtime_registry import supports_provider_runtime
+
+    if not supports_provider_runtime(provider):
         return None
     if enabled in {"0", "false", "no", "off"}:
         return None

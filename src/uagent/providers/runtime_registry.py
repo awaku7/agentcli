@@ -14,6 +14,17 @@ from .openai_compatible_runtime import OpenAICompatibleRuntime
 _SUPPORTED = frozenset({"inception", "openai", "azure"})
 
 
+def supports_provider_runtime(provider: str) -> bool:
+    """Return whether the incremental runtime registry owns ``provider``.
+
+    This is the single eligibility check for callers that must decide whether
+    to enter the registry path. Keeping it next to the registry's supported
+    set avoids duplicating a provider allow-list in the round loop.
+    """
+
+    return (provider or "").strip().lower() in _SUPPORTED
+
+
 def build_provider_runtime_registry(
     *,
     provider: str,
@@ -31,7 +42,7 @@ def build_provider_runtime_registry(
     remains the caller's responsibility until a dedicated runtime is added.
     """
     provider_key = (provider or "").strip().lower()
-    if provider_key not in _SUPPORTED:
+    if not supports_provider_runtime(provider_key):
         raise ValueError(
             f"provider runtime is not migrated: {provider_key or '<empty>'}"
         )
@@ -59,4 +70,4 @@ def build_provider_runtime_registry(
     return registry
 
 
-__all__ = ["build_provider_runtime_registry"]
+__all__ = ["build_provider_runtime_registry", "supports_provider_runtime"]

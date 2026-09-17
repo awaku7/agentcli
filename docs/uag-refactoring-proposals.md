@@ -516,6 +516,18 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 `round_orchestrator.py` 自体は存在し、単体テストも通っているため、次の作業は新規設計よりも `uagent_llm.py` の実行経路をそこへ移すことになる。
 
+### P0-A の最初の修正単位（完了）
+
+registry 経路へ入れる provider の判定を `providers/runtime_registry.py` の
+`supports_provider_runtime()` に集約した。これにより、`uagent_llm.py` が
+`openai` / `azure` の allow-list を個別に持たず、registry が所有する対応範囲を
+そのまま参照する。provider 名の正規化もこの境界で行い、未移行 provider は従来通り
+legacy 経路へフォールバックする。
+
+この単位では実行経路そのものは変更していない。次の修正単位では、registry / legacy /
+OpenAI-compatible の選択ポリシーを `provider_round_dispatcher.py` に集約し、
+`uagent_llm.py` から provider ごとの経路判断をさらに減らす。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。
