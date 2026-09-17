@@ -786,6 +786,10 @@ messages、cache 名、変更有無、入力/出力 message 数を持たせ、Co
 
 registry 経路で `session_generation=0` に固定されていた箇所は、ResponsesRuntime を優先し、旧 `responses_state` へフォールバックする共通 helper の利用へ変更した。さらに Inception の compatibility collector も同じ helper を使うようにし、provider 固有の `core.session_generation` 読み取りを除去した。残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge が有効になる全 provider の標準経路、provider 切替、continuation、tool output の整合性を確認することにある。characterization / integration test を追加しながら段階的に移行する。
 
+#### P1-C の最初の追加修正単位（完了）
+
+`_begin_responses_runtime()` が legacy `responses_state` の `session_generation` を復元時に取り込むようにした。これにより、永続 state に残っている generation と bridge が新しく生成する `ToolCallKey` の generation がずれず、再起動後の tool output 検証でも同じ continuation 世代を参照できる。値が壊れている場合は現在の runtime generation を維持し、互換経路の round を中断しない。`test_responses_bridge_restores_persisted_session_generation` を追加して、文字列で保存された legacy 値も整数 generation として復元できることを確認している。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。

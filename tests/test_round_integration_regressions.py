@@ -542,10 +542,26 @@ def test_responses_bridge_preserves_tool_output_and_stale_retry_invariants() -> 
     assert budget.try_consume(retry)
     assert runtime.accept_retry(retry, authorized=True)
     assert runtime.state == "Fresh"
-
     runtime.interrupt()
     assert runtime.previous_response_id is None
     assert runtime.active_response_id is None
+
+
+def test_responses_bridge_restores_persisted_session_generation() -> None:
+    core = SimpleNamespace(
+        responses_state={
+            "previous_response_id": "resp_legacy",
+            "session_generation": "7",
+        }
+    )
+
+    runtime = _begin_responses_runtime(
+        core=core, provider="openai", model="gpt-test", enabled=True
+    )
+
+    assert runtime is not None
+    assert runtime.session_generation == 7
+    assert runtime.previous_response_id == "resp_legacy"
 
 
 def test_message_transform_precedes_projection_without_mutating_history() -> None:

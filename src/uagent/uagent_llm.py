@@ -623,6 +623,15 @@ def _begin_responses_runtime(
             runtime.switch_provider(provider, model)
 
         state = getattr(core, "responses_state", {})
+        if isinstance(state, dict) and "session_generation" in state:
+            try:
+                runtime.session_generation = int(
+                    state.get("session_generation", 0) or 0
+                )
+            except (TypeError, ValueError):
+                # Keep the runtime's current generation when legacy state is
+                # malformed; the compatibility bridge must not abort a round.
+                pass
         previous_id = (
             state.get("previous_response_id") if isinstance(state, dict) else None
         )
