@@ -203,22 +203,24 @@ def _should_preload_lazy_specs() -> bool:
     model = (env_get(model_env) or "").strip().lower()
     if not model:
         return False
-    marker = "gpt-5."
-    position = model.find(marker)
-    if position < 0:
-        return False
-    suffix = model[position + len(marker) :]
-    digits = ""
-    for char in suffix:
-        if not char.isdigit():
-            break
-        digits += char
-    if not digits or int(digits) < 4 or suffix[len(digits) :].startswith("-nano"):
-        return False
     try:
         from ..llmcapa_util import provider_allows_responses_api
+        from ..runtime.tool_discovery import (
+            ToolDiscoveryMode,
+            resolve_tool_discovery,
+        )
 
-        return bool(provider_allows_responses_api(provider, model))
+        if not provider_allows_responses_api(provider, model):
+            return False
+        use_responses_api = True
+
+        decision = resolve_tool_discovery(
+            provider=provider,
+            depname=model,
+            use_responses_api=use_responses_api,
+            configured_mode=mode or "native",
+        )
+        return decision.mode is ToolDiscoveryMode.NATIVE_SEARCH
     except Exception:
         return False
 

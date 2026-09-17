@@ -7,6 +7,47 @@ from uagent.runtime.tool_discovery import (
 )
 
 
+def test_startup_preload_uses_central_native_search_decision(monkeypatch) -> None:
+    from uagent.tools import _should_preload_lazy_specs
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+
+    assert _should_preload_lazy_specs()
+
+
+def test_startup_preload_rejects_nano_and_legacy_modes(monkeypatch) -> None:
+    from uagent.tools import _should_preload_lazy_specs
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+    assert not _should_preload_lazy_specs()
+
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "legacy")
+    assert not _should_preload_lazy_specs()
+
+
+def test_startup_preload_rejects_responses_disabled_and_other_provider(
+    monkeypatch,
+) -> None:
+    from uagent.tools import _should_preload_lazy_specs
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+    monkeypatch.setenv("UAGENT_RESPONSES", "0")
+    assert not _should_preload_lazy_specs()
+
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_PROVIDER", "openrouter")
+    assert not _should_preload_lazy_specs()
+
+
 def _tool(name: str, *, source: ToolSource = ToolSource.BUILTIN) -> ToolCandidate:
     return ToolCandidate(name, name, source, {"type": "function", "name": name})
 
