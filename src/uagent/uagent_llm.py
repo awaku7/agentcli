@@ -39,7 +39,7 @@ from .llm_message_helpers import (
 )
 from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
-from .runtime.context_plan_builder import build_context_plan
+from .runtime.context_plan_builder import build_context_plan, context_plan_matches
 from .runtime.context_policy import ContextPolicy
 from .runtime.message_transform import MessageTransformPipeline
 from .runtime.provider_context import project_messages_for_provider
@@ -816,7 +816,7 @@ def _try_registry_simple_chat_round(
         return None
     try:
         from .providers.runtime_registry import build_provider_runtime_registry
-        from .runtime.round_contracts import ContextPlan, RoundIdentifiers
+        from .runtime.round_contracts import RoundIdentifiers
         from .runtime.round_identity import (
             CredentialStoreWorkspaceKeyProvider,
             RoundIdentityFactory,
@@ -867,13 +867,11 @@ def _try_registry_simple_chat_round(
                 _limit_chat_completion_tools(list(tool_specs), call_messages)
             )
             _tools.log_tools_being_sent(tool_specs, where="registry_chatcompletions")
-        expected_messages = tuple(dict(message) for message in call_messages)
-        expected_tool_specs = tuple(tool_specs if send_tools_this_round else ())
         prepared_plan = getattr(core, "context_plan", None)
-        if (
-            isinstance(prepared_plan, ContextPlan)
-            and prepared_plan.messages == expected_messages
-            and prepared_plan.tool_specs == expected_tool_specs
+        if context_plan_matches(
+            prepared_plan,
+            call_messages,
+            tool_specs if send_tools_this_round else (),
         ):
             # Reuse the standard hand-off when ContextManager already prepared
             # the exact post-transform context for this provider round.

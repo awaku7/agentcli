@@ -14,6 +14,20 @@ from .round_identity import (
 )
 
 
+def context_plan_matches(
+    plan: ContextPlan | None,
+    messages: Sequence[Mapping[str, Any]],
+    tool_specs: Sequence[Mapping[str, Any]] = (),
+) -> bool:
+    """Return whether a prepared plan matches the hand-off inputs exactly."""
+
+    if not isinstance(plan, ContextPlan):
+        return False
+    return plan.messages == tuple(dict(message) for message in messages) and plan.tool_specs == tuple(
+        dict(spec) for spec in tool_specs
+    )
+
+
 def build_context_plan(
     *,
     workspace_id: str,
@@ -55,4 +69,4 @@ def build_context_plan(
     )
 
 
-__all__ = ["build_context_plan"]
+__all__ = ["build_context_plan", "context_plan_matches"]

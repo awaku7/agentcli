@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from uagent.runtime.context_manager import ContextManager
+from uagent.runtime.context_plan_builder import context_plan_matches
 from uagent.runtime.context_policy import ContextPolicy
 from uagent.runtime.round_contracts import ContextPlan
 from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
@@ -54,3 +55,23 @@ def test_context_manager_builds_immutable_round_plan() -> None:
         key_provider=DeterministicTestWorkspaceKeyProvider(),
     )
     assert plan.plan_id == same_plan.plan_id
+
+
+def test_context_plan_matches_handoff_inputs_without_rebuilding() -> None:
+    plan = ContextPlan(
+        "plan",
+        ({"role": "user", "content": "hello"},),
+        ({"type": "function", "function": {"name": "demo"}},),
+    )
+
+    assert context_plan_matches(
+        plan,
+        [{"role": "user", "content": "hello"}],
+        [{"type": "function", "function": {"name": "demo"}}],
+    )
+    assert not context_plan_matches(
+        plan,
+        [{"role": "user", "content": "changed"}],
+        [{"type": "function", "function": {"name": "demo"}}],
+    )
+    assert not context_plan_matches(plan, plan.messages, ())

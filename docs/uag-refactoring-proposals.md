@@ -727,6 +727,13 @@ registry round が provider adapter の直前に ContextPlan を再生成する�
 ようにした。内容が一致する場合だけ再利用し、不一致時は従来通り再構築するため、
 provider-specific projection と persistent history の混同は起こさない。
 
+### P1-A の第2修正単位（完了）
+
+ContextPlan の再利用判定を `context_plan_matches()` として
+`context_plan_builder.py` に移した。uagent の orchestration code は、messages と tool
+specs の hand-off 契約だけをこの helper に渡し、ContextPlan の内部表現や比較方法を
+直接扱わない。これで同じ plan から projection を再生成する境界をテスト可能にした。
+
 `ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:
