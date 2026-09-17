@@ -16,6 +16,27 @@ RoundRunner = Callable[..., Any]
 RegistryLegacyResult = tuple[bool, str, str, list[dict[str, Any]]]
 
 
+def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any:
+    """Return a shared outcome view without changing ``result``."""
+
+    from .legacy_round_registry import LegacyRoundOutcome
+
+    if isinstance(result, LegacyRoundOutcome):
+        return result
+    if source == "registry" and isinstance(result, tuple) and len(result) == 4:
+        ok, assistant_text, reasoning_text, tool_calls = result
+        return LegacyRoundOutcome(
+            provider=(provider or "").strip().lower(),
+            status="ok" if ok else "return",
+            assistant_text=str(assistant_text or ""),
+            raw_result=result,
+            reasoning_text=str(reasoning_text or ""),
+            tool_calls=tuple(tool_calls or ()),
+            flow="registry",
+        )
+    return None
+
+
 def registry_result_to_legacy_tuple(result: Any) -> RegistryLegacyResult | None:
     """Adapt a completed registry ``RoundResult`` to the legacy loop shape.
 
@@ -110,6 +131,7 @@ class ProviderRoundDispatch:
 
     source: DispatchSource
     result: Any
+    outcome: Any = None
 
 
 def dispatch_provider_round(
@@ -140,14 +162,37 @@ def dispatch_provider_round(
     if registry_allowed and registry_runner is not None:
         registry_result = registry_runner(**dict(registry_kwargs))
         if registry_result is not None:
-            return ProviderRoundDispatch("registry", registry_result)
+            return ProviderRoundDispatch(
+                "registry",
+                registry_result,
+                _dispatch_outcome(
+                    "registry",
+                    registry_result,
+                    str(registry_kwargs.get("provider") or ""),
+                ),
+            )
 
     legacy_result = legacy_runner(**dict(legacy_kwargs))
     if legacy_result is not None:
-        return ProviderRoundDispatch("legacy", legacy_result)
+        return ProviderRoundDispatch(
+            "legacy",
+            legacy_result,
+            _dispatch_outcome(
+                "legacy",
+                legacy_result,
+                str(legacy_kwargs.get("provider") or ""),
+            ),
+        )
 
+    openai_result = openai_runner(**dict(openai_kwargs))
     return ProviderRoundDispatch(
-        "openai_compatible", openai_runner(**dict(openai_kwargs))
+        "openai_compatible",
+        openai_result,
+        _dispatch_outcome(
+            "openai_compatible",
+            openai_result,
+            str(openai_kwargs.get("provider") or ""),
+        ),
     )
 
 

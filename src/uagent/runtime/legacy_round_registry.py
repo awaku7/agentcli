@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Mapping, TypeAlias
+from typing import Any, Literal, Mapping, TypeAlias
 
 LegacyRoundResult: TypeAlias = tuple[Any, ...]
 
@@ -20,6 +20,7 @@ class LegacyRoundOutcome:
     reasoning_text: str = ""
     tool_calls: tuple[Mapping[str, Any], ...] = ()
     is_xai_grpc: bool = False
+    flow: Literal["registry", "legacy", "openai_compatible"] = "legacy"
 
 
 from .legacy_claude_round import run_legacy_claude_round

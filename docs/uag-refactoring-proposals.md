@@ -597,6 +597,17 @@ OpenAI-compatible の双方で outcome を受け取り、外部互換用の raw 
 へ移行できる状態になった。次は `dispatch.source` ごとの分岐を outcome の capability
 判定へ置換する。
 
+### P0-A の第8修正単位（完了）
+
+`ProviderRoundDispatch` に共有 `outcome` view を追加した。registry の tuple 結果も
+`LegacyRoundOutcome(flow="registry")` に変換し、legacy registry と OpenAI-compatible
+の outcome と同じ入口から参照できるようにした。元の `result` と `dispatch.source` は
+互換性のために保持するが、`uagent_llm.py` の dispatch 後処理は `outcome.flow` と
+`outcome.raw_result` を使う構造へ変更した。
+
+これにより dispatch 結果の source 判定は orchestration loop から除去され、次は
+`flow` 自体を status / tool-loop / host-rendering capability に分解する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

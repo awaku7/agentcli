@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 
+from uagent.runtime.legacy_round_registry import LegacyRoundOutcome
 from uagent.runtime.provider_round_dispatcher import (
     RegistryRoundRoute,
     dispatch_provider_round,
@@ -37,6 +38,39 @@ def test_dispatcher_prefers_registry_result() -> None:
     assert result.source == "registry"
     assert result.result == (True, "registry")
     assert calls == ["registry"]
+
+
+def test_dispatcher_exposes_shared_outcome_without_changing_raw_result() -> None:
+    registry_result = (True, "answer", "reasoning", [])
+    dispatch = dispatch_provider_round(
+        registry_runner=lambda **kwargs: registry_result,
+        legacy_runner=lambda **kwargs: "legacy-result",
+        openai_runner=lambda **kwargs: "openai-result",
+        registry_kwargs={"provider": "openai"},
+        legacy_kwargs={},
+        openai_kwargs={},
+    )
+
+    assert dispatch.result == registry_result
+    assert dispatch.outcome is not None
+    assert dispatch.outcome.flow == "registry"
+    assert dispatch.outcome.raw_result == registry_result
+
+    legacy_outcome = LegacyRoundOutcome(
+        provider="claude",
+        status="continue",
+        assistant_text="partial",
+        raw_result=("continue", "client", None, 0, "partial"),
+    )
+    dispatch = dispatch_provider_round(
+        registry_runner=None,
+        legacy_runner=lambda **kwargs: legacy_outcome,
+        openai_runner=lambda **kwargs: "openai-result",
+        registry_kwargs={},
+        legacy_kwargs={"provider": "claude"},
+        openai_kwargs={},
+    )
+    assert dispatch.outcome is legacy_outcome
 
 
 def test_dispatcher_skips_registry_when_route_is_not_allowed() -> None:

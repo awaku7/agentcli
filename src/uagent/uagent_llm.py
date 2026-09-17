@@ -1372,7 +1372,12 @@ def _run_one_round(
             "round_count": round_count,
         },
     )
-    registry_simple_result = dispatch.result if dispatch.source == "registry" else None
+    dispatch_outcome = dispatch.outcome
+    registry_simple_result = (
+        dispatch_outcome.raw_result
+        if dispatch_outcome is not None and dispatch_outcome.flow == "registry"
+        else None
+    )
     if registry_simple_result is not None:
         ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
         if not ok:
@@ -1424,10 +1429,14 @@ def _run_one_round(
     if registry_simple_result is not None:
         pass
     else:
-        legacy_round_result = dispatch.result if dispatch.source == "legacy" else None
+        legacy_round_result = (
+            dispatch_outcome
+            if dispatch_outcome is not None and dispatch_outcome.flow == "legacy"
+            else None
+        )
         if legacy_round_result is not None:
             return legacy_round_result.raw_result
-        openai_round_result = dispatch.result
+        openai_round_result = dispatch_outcome
         (
             ok,
             client,

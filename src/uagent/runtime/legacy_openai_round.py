@@ -98,6 +98,7 @@ def call_legacy_openai_compatible_outcome(
         reasoning_text=str(reasoning_text or ""),
         tool_calls=tuple(tool_calls or ()),
         is_xai_grpc=bool(is_xai_grpc),
+        flow="openai_compatible",
     )
 
 
