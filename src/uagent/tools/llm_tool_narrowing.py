@@ -58,11 +58,6 @@ def _is_gpt54_tool_search_target(
     }
 
 
-def _is_legacy_mode() -> bool:
-    """Return True if legacy tool_catalog narrowing mode is active."""
-    return _get_gpt54_tool_search_mode() == "legacy"
-
-
 _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
     "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
