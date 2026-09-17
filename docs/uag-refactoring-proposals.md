@@ -573,6 +573,18 @@ registry の `RoundResult` を既存の round loop が受け取る tuple へ変�
 次は legacy handler の tuple 結果にも同じ provider-neutral metadata を付与できるよう、
 まず handler の戻り値を壊さずに `RoundResult` 相当の内部 outcome へ包む。
 
+### P0-A の第6修正単位（完了）
+
+legacy provider registry に `LegacyRoundOutcome` と
+`run_legacy_provider_outcome()` を追加した。既存 handler の tuple は `raw_result` として
+そのまま保持しつつ、provider、status、assistant text を provider-neutral な内部 outcome
+へ付与する。`uagent_llm.py` の通常 dispatch はこの outcome を経由するが、外部に返す
+legacy tuple は従来と同一である。
+
+これにより registry と legacy の両経路で、結果の変換・互換性処理を dispatcher 境界へ
+寄せる準備ができた。次は OpenAI-compatible legacy tuple も同じ outcome に包み、
+`dispatch.source` に依存した unpack を縮小する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

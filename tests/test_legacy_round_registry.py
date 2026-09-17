@@ -22,8 +22,32 @@ def test_registry_dispatches_registered_provider(monkeypatch) -> None:
     assert calls == [{"provider": "claude", "marker": 1}]
 
 
+def test_legacy_provider_outcome_wraps_without_changing_raw_result(monkeypatch) -> None:
+    raw_result = ("continue", "client", "cache", 2, "partial answer")
+
+    def fake_handler(**kwargs):
+        return raw_result
+
+    monkeypatch.setitem(
+        legacy_round_registry._LEGACY_ROUND_HANDLERS, "claude", fake_handler
+    )
+
+    outcome = legacy_round_registry.run_legacy_provider_outcome(
+        provider="claude", marker=1
+    )
+
+    assert outcome is not None
+    assert outcome.provider == "claude"
+    assert outcome.status == "continue"
+    assert outcome.assistant_text == "partial answer"
+    assert outcome.raw_result == raw_result
+
+
 def test_registry_returns_none_for_unregistered_provider() -> None:
     assert legacy_round_registry.run_legacy_provider_round(provider="openai") is None
+    assert (
+        legacy_round_registry.run_legacy_provider_outcome(provider="openai") is None
+    )
 
 
 __all__ = []

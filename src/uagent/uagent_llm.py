@@ -57,7 +57,7 @@ from .llm_round_helpers import (
 )
 from .providers.responses_runtime import _responses_session_generation
 from .runtime.legacy_openai_round import call_legacy_openai_compatible_round
-from .runtime.legacy_round_registry import run_legacy_provider_round
+from .runtime.legacy_round_registry import run_legacy_provider_outcome
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
@@ -1309,7 +1309,7 @@ def _run_one_round(
         registry_runner=_try_registry_simple_chat_round,
         registry_allowed=not judgment_mode,
         registry_route=registry_route,
-        legacy_runner=run_legacy_provider_round,
+        legacy_runner=run_legacy_provider_outcome,
         openai_runner=call_legacy_openai_compatible_round,
         registry_kwargs={
             "provider": provider,
@@ -1426,7 +1426,7 @@ def _run_one_round(
     else:
         legacy_round_result = dispatch.result if dispatch.source == "legacy" else None
         if legacy_round_result is not None:
-            return legacy_round_result
+            return legacy_round_result.raw_result
         (
             ok,
             client,

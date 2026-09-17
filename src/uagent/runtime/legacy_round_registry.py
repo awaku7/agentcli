@@ -2,7 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Any
+from dataclasses import dataclass
+from typing import Any, TypeAlias
+
+LegacyRoundResult: TypeAlias = tuple[str, Any, str | None, int, str]
+
+
+@dataclass(frozen=True)
+class LegacyRoundOutcome:
+    """Provider-neutral metadata around an unchanged legacy round result."""
+
+    provider: str
+    status: str
+    assistant_text: str
+    raw_result: LegacyRoundResult
+
 
 from .legacy_claude_round import run_legacy_claude_round
 from .legacy_deepseek_round import run_legacy_deepseek_round
@@ -25,7 +39,7 @@ _LEGACY_ROUND_HANDLERS = {
 
 def run_legacy_provider_round(
     *, provider: str, **kwargs: Any
-) -> tuple[str, Any, str | None, int, str] | None:
+) -> LegacyRoundResult | None:
     """Run a registered legacy provider handler, or return ``None``."""
     handler = _LEGACY_ROUND_HANDLERS.get((provider or "").strip().lower())
     if handler is None:
@@ -33,4 +47,24 @@ def run_legacy_provider_round(
     return handler(provider=provider, **kwargs)
 
 
-__all__ = ["run_legacy_provider_round"]
+def run_legacy_provider_outcome(
+    *, provider: str, **kwargs: Any
+) -> LegacyRoundOutcome | None:
+    """Wrap a legacy tuple without changing its compatibility payload."""
+    result = run_legacy_provider_round(provider=provider, **kwargs)
+    if result is None:
+        return None
+    return LegacyRoundOutcome(
+        provider=(provider or "").strip().lower(),
+        status=str(result[0]),
+        assistant_text=str(result[4] or ""),
+        raw_result=result,
+    )
+
+
+__all__ = [
+    "LegacyRoundOutcome",
+    "LegacyRoundResult",
+    "run_legacy_provider_outcome",
+    "run_legacy_provider_round",
+]
