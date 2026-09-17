@@ -57,8 +57,10 @@ def registry_result_to_legacy_tuple(result: Any) -> RegistryLegacyResult | None:
     assistant_text = str(getattr(result, "assistant_text", "") or "")
     reasoning_text = str(getattr(result, "reasoning_text", "") or "")
     raw_tool_calls = getattr(result, "tool_calls", ()) or ()
-    if not assistant_text and not raw_tool_calls and not getattr(
-        result, "continuation_update", {}
+    if (
+        not assistant_text
+        and not raw_tool_calls
+        and not getattr(result, "continuation_update", {})
     ):
         return None
 

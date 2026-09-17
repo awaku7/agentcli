@@ -36,7 +36,9 @@ def test_openai_compatible_dispatch_normalizes_result(monkeypatch) -> None:
     assert result == (True, "new-client", "answer", "reasoning", [], False)
 
 
-def test_openai_compatible_outcome_preserves_raw_tuple_and_metadata(monkeypatch) -> None:
+def test_openai_compatible_outcome_preserves_raw_tuple_and_metadata(
+    monkeypatch,
+) -> None:
     raw_result = (True, "new-client", "answer", "reasoning", [], True)
     monkeypatch.setattr(
         legacy_openai_round,
@@ -44,9 +46,7 @@ def test_openai_compatible_outcome_preserves_raw_tuple_and_metadata(monkeypatch)
         lambda **_kwargs: raw_result,
     )
 
-    outcome = legacy_openai_round.call_legacy_openai_compatible_outcome(
-        **_kwargs()
-    )
+    outcome = legacy_openai_round.call_legacy_openai_compatible_outcome(**_kwargs())
 
     assert outcome.provider == "openai"
     assert outcome.status == "ok"

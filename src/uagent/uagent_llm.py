@@ -807,9 +807,7 @@ def _try_registry_simple_chat_round(
             send_tools=send_tools_this_round,
             tools_enabled=_env_default_on("UAGENT_PROVIDER_REGISTRY_TOOLS"),
             has_context_tools=bool(getattr(core, "context_tool_specs", None)),
-            uses_legacy_catalog=(
-                use_responses_api and discovery.uses_legacy_catalog
-            ),
+            uses_legacy_catalog=(use_responses_api and discovery.uses_legacy_catalog),
         ):
             return None
     elif not getattr(registry_route, "allowed", False):
@@ -848,9 +846,7 @@ def _try_registry_simple_chat_round(
                 # the registry route may still be Chat Completions.
                 use_responses_api=True,
             )
-            if discovery.uses_management_bootstrap(
-                use_responses_api=use_responses_api
-            ):
+            if discovery.uses_management_bootstrap(use_responses_api=use_responses_api):
                 management_specs = tuple(
                     spec
                     for spec in tool_specs

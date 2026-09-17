@@ -47,9 +47,7 @@ def test_legacy_provider_outcome_wraps_without_changing_raw_result(monkeypatch) 
 
 def test_registry_returns_none_for_unregistered_provider() -> None:
     assert legacy_round_registry.run_legacy_provider_round(provider="openai") is None
-    assert (
-        legacy_round_registry.run_legacy_provider_outcome(provider="openai") is None
-    )
+    assert legacy_round_registry.run_legacy_provider_outcome(provider="openai") is None
 
 
 __all__ = []

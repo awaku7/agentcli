@@ -311,15 +311,21 @@ def test_registry_result_adapter_preserves_legacy_tool_call_shape() -> None:
 
 
 def test_registry_result_adapter_rejects_non_terminal_or_empty_results() -> None:
-    assert registry_result_to_legacy_tuple(
-        SimpleNamespace(status="failed", assistant_text="error")
-    ) is None
-    assert registry_result_to_legacy_tuple(
-        SimpleNamespace(
-            status="completed",
-            assistant_text="",
-            reasoning_text="",
-            tool_calls=(),
-            continuation_update={},
+    assert (
+        registry_result_to_legacy_tuple(
+            SimpleNamespace(status="failed", assistant_text="error")
         )
-    ) is None
+        is None
+    )
+    assert (
+        registry_result_to_legacy_tuple(
+            SimpleNamespace(
+                status="completed",
+                assistant_text="",
+                reasoning_text="",
+                tool_calls=(),
+                continuation_update={},
+            )
+        )
+        is None
+    )

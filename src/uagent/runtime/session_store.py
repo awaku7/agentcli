@@ -470,17 +470,16 @@ class SessionStore:
                 # necessary but not sufficient when a writer is finishing a
                 # longer transaction; retry the statement before failing the
                 # current interaction.
-                if (
-                    "locked" in str(exc).lower()
-                    and attempt < _SQLITE_LOCK_RETRIES
-                ):
+                if "locked" in str(exc).lower() and attempt < _SQLITE_LOCK_RETRIES:
                     time.sleep(_SQLITE_LOCK_RETRY_DELAY * (2**attempt))
                     continue
                 raise SessionStoreError(
                     f"session store operation failed: {exc}"
                 ) from exc
             except sqlite3.Error as exc:
-                raise SessionStoreError(f"session store operation failed: {exc}") from exc
+                raise SessionStoreError(
+                    f"session store operation failed: {exc}"
+                ) from exc
         raise AssertionError("unreachable sqlite retry state")
 
     def _require_session(self, session_id: str) -> None:

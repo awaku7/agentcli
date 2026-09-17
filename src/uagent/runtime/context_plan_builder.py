@@ -23,9 +23,9 @@ def context_plan_matches(
 
     if not isinstance(plan, ContextPlan):
         return False
-    return plan.messages == tuple(dict(message) for message in messages) and plan.tool_specs == tuple(
-        dict(spec) for spec in tool_specs
-    )
+    return plan.messages == tuple(
+        dict(message) for message in messages
+    ) and plan.tool_specs == tuple(dict(spec) for spec in tool_specs)
 
 
 def build_context_plan(
