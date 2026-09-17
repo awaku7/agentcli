@@ -14,6 +14,7 @@ from uagent.uagent_llm import (
     _try_registry_simple_chat_round,
     _record_responses_runtime_response,
     _record_round_context_plan,
+    _responses_session_generation,
 )
 from uagent.llm_helpers import _env_default_on
 from uagent.llm_round_helpers import _inception_registry_enabled
@@ -467,6 +468,22 @@ def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(
         is None
     )
     assert not hasattr(core, "responses_runtime")
+
+
+def test_registry_round_identifiers_use_responses_session_generation() -> None:
+    runtime = SimpleNamespace(session_generation=7)
+    core = SimpleNamespace(
+        responses_runtime=runtime,
+        responses_state={"session_generation": 3},
+    )
+
+    assert _responses_session_generation(core) == 7
+    assert (
+        _responses_session_generation(
+            SimpleNamespace(responses_state={"session_generation": 5})
+        )
+        == 5
+    )
 
 
 def test_responses_bridge_preserves_tool_output_and_stale_retry_invariants() -> None:

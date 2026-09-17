@@ -639,6 +639,26 @@ def _begin_responses_runtime(
         return None
 
 
+def _responses_session_generation(core: Any) -> int:
+    """Return the active continuation generation for round identifiers.
+
+    Registry rounds must use the same generation as the ResponsesRuntime.
+    Falling back to the persisted legacy state keeps the bridge usable when a
+    runtime has not yet been initialized.
+    """
+    runtime = getattr(core, "responses_runtime", None)
+    generation = getattr(runtime, "session_generation", None)
+    if generation is None:
+        state = getattr(core, "responses_state", None)
+        generation = (
+            state.get("session_generation", 0) if isinstance(state, dict) else 0
+        )
+    try:
+        return int(generation or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _record_responses_runtime_response(
     *, core: Any, enabled: bool, tool_calls: list[dict[str, Any]]
 ) -> None:
@@ -828,7 +848,7 @@ def _try_registry_simple_chat_round(
             attempt_id=marker,
             request_id=marker,
             stream_id=marker,
-            session_generation=0,
+            session_generation=_responses_session_generation(core),
         )
         workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
         key_provider = CredentialStoreWorkspaceKeyProvider()
