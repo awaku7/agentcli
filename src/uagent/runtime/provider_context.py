@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 _INTERNAL_KEYS = {
@@ -14,6 +15,29 @@ _INTERNAL_KEYS = {
     "reasoning_content",
     "_responses_output_items",
 }
+
+
+def apply_recovery_projection(
+    messages: Sequence[Mapping[str, Any]],
+    recovery_hint: Mapping[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Apply only the message omissions explicitly selected by recovery.
+
+    Recovery planning is owned by the context runtime. This helper merely
+    applies that already-made decision to a provider projection and leaves the
+    immutable context plan and persistent history untouched.
+    """
+    hint = recovery_hint or {}
+    raw_indexes = hint.get("omitted_message_indexes", ())
+    try:
+        omitted_indexes = {int(index) for index in raw_indexes}
+    except (TypeError, ValueError):
+        omitted_indexes = set()
+    return [
+        copy.deepcopy(dict(message))
+        for index, message in enumerate(messages)
+        if index not in omitted_indexes and isinstance(message, Mapping)
+    ]
 
 
 def project_messages_for_provider(
@@ -42,4 +66,4 @@ def project_messages_for_provider(
     return projected
 
 
-__all__ = ["project_messages_for_provider"]
+__all__ = ["apply_recovery_projection", "project_messages_for_provider"]

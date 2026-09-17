@@ -1021,26 +1021,31 @@ def _try_registry_simple_chat_round(
                         )
                         if _try_responses_remote_recovery(core, client, remote_plan):
                             return None
-                    local = ContextRecoveryManager.apply_local(recovery, plan)
-                    recovered_plan = _build_round_context_plan(
-                        provider=provider,
-                        depname=depname,
-                        call_messages=local.messages,
-                        core=core,
-                        workspace_id=workspace_id,
-                        tool_specs=tool_specs if send_tools_this_round else (),
-                        key_provider=key_provider,
-                    )
+                    recovery_hint = {
+                        "recovery_id": recovery.recovery_id,
+                        "strategy": recovery.strategy,
+                        "omitted_message_indexes": recovery.omitted_message_indexes,
+                        "omitted_message_ids": recovery.omitted_message_ids,
+                        "source_plan_id": recovery.plan_id,
+                    }
+                    core.last_recovery_plan = recovery
                     result = (
                         RoundOrchestrator(registry)
                         .run(
-                            recovered_plan,
+                            plan,
                             provider=provider,
-                            session={"identity_factory": identity_factory},
+                            session={
+                                "identity_factory": identity_factory,
+                                "responses_runtime": getattr(
+                                    core, "responses_runtime", None
+                                ),
+                                "recovery_hint": recovery_hint,
+                            },
                             cancellation=cancellation,
                         )
                         .result
                     )
+                    core.context_projection_id = result.projection_id
         # A non-completed registry response is not a usable assistant turn.
         # Let the established provider path handle the request so registry
         # adapter failures do not silently terminate the user operation.

@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from typing import Any, Iterator, Mapping
 
-from ..runtime.provider_context import project_messages_for_provider
+from ..runtime.provider_context import (
+    apply_recovery_projection,
+    project_messages_for_provider,
+)
 from ..runtime.round_contracts import (
     CancellationToken,
     ContextPlan,
@@ -43,8 +46,12 @@ class InceptionProviderRuntime:
     ) -> ProviderProjection:
         from ..runtime.message_transform import MessageTransformPipeline
 
-        transformed = MessageTransformPipeline().apply(
+        source_messages = apply_recovery_projection(
             plan.messages,
+            session.get("recovery_hint"),
+        )
+        transformed = MessageTransformPipeline().apply(
+            source_messages,
             translator=session.get("translator"),
         )
         messages = project_messages_for_provider(
