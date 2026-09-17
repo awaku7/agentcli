@@ -2075,13 +2075,15 @@ def _handle_cmd_tokens(
                 # count the schemas sent by the client.
                 native_tool_search = False
                 if use_responses:
-                    from .tools.llm_tool_narrowing import should_emit_catalog_steering
+                    from .runtime.tool_discovery import (
+                        resolve_tool_discovery_from_environment,
+                    )
 
-                    native_tool_search = not should_emit_catalog_steering(
+                    native_tool_search = resolve_tool_discovery_from_environment(
                         provider=provider,
                         depname=depname,
                         use_responses_api=True,
-                    )
+                    ).uses_native_search
                 if not native_tool_search:
                     tool_specs = tools.get_tool_specs() or []
             except Exception:

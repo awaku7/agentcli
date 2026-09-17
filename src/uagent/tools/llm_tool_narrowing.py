@@ -7,7 +7,9 @@ from .. import tools
 from ..runtime.tool_discovery import (
     ToolDiscoveryDecision,
     ToolDiscoveryMode,
+    get_tool_search_mode,
     resolve_tool_discovery as _resolve_tool_discovery,
+    resolve_tool_discovery_from_environment as _resolve_tool_discovery_from_environment,
 )
 
 
@@ -19,14 +21,7 @@ def _get_gpt54_tool_search_mode() -> str:
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
       - "off": Disable any GPT-5.4 specific handling
     """
-    raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if raw in ("native", "1", "true", "yes"):
-        return "native"
-    if raw in ("legacy", "old"):
-        return "legacy"
-    if raw in ("off", "0", "false", "no"):
-        return "off"
-    return "native"
+    return get_tool_search_mode()
 
 
 def resolve_tool_discovery(
@@ -144,8 +139,9 @@ def should_emit_catalog_steering(
     if _is_embedded_mode():
         return False
 
-    if _get_gpt54_tool_search_mode() != "native":
-        return True
+    if provider is None and depname is None and use_responses_api is None:
+        discovery = _resolve_tool_discovery_from_environment()
+        return not discovery.uses_native_search
 
     if provider is None or depname is None:
         env_provider, env_depname = _soft_provider_depname_from_env()

@@ -48,6 +48,48 @@ def test_startup_preload_rejects_responses_disabled_and_other_provider(
     assert not _should_preload_lazy_specs()
 
 
+def test_environment_resolver_and_spec_selection_share_one_policy(monkeypatch) -> None:
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery_from_environment,
+        select_tool_specs_for_discovery,
+    )
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+
+    native = resolve_tool_discovery_from_environment()
+    legacy_specs = [{"name": "legacy"}]
+    native_specs = [{"name": "native"}]
+    selected_specs = [{"name": "selected"}]
+
+    assert native.mode is ToolDiscoveryMode.NATIVE_SEARCH
+    assert (
+        select_tool_specs_for_discovery(
+            native,
+            legacy_specs=legacy_specs,
+            native_specs=native_specs,
+            selected_specs=selected_specs,
+        )
+        is native_specs
+    )
+
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "off")
+    selected = resolve_tool_discovery_from_environment()
+    assert selected.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert (
+        select_tool_specs_for_discovery(
+            selected,
+            legacy_specs=legacy_specs,
+            native_specs=native_specs,
+            selected_specs=selected_specs,
+        )
+        is selected_specs
+    )
+
+
 def _tool(name: str, *, source: ToolSource = ToolSource.BUILTIN) -> ToolCandidate:
     return ToolCandidate(name, name, source, {"type": "function", "name": name})
 

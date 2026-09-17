@@ -35,6 +35,9 @@ class ToolDiscoveryMode(str, Enum):
     NATIVE_SEARCH = "native_search"
 
 
+MANAGEMENT_TOOL_NAMES = frozenset({"tool_catalog", "tool_load", "unload_tool"})
+
+
 @dataclass(frozen=True)
 class ToolDiscoveryDecision:
     """The single discovery decision shared by round and command paths."""
@@ -49,6 +52,10 @@ class ToolDiscoveryDecision:
     @property
     def uses_legacy_catalog(self) -> bool:
         return self.mode is ToolDiscoveryMode.LEGACY_CATALOG
+
+    @property
+    def uses_selected_schemas(self) -> bool:
+        return self.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
 
 
 def _gpt54_native_search_model(depname: str) -> bool:
@@ -72,6 +79,96 @@ def _gpt54_native_search_model(depname: str) -> bool:
         return int("".join(digits)) >= 4
     except ValueError:
         return False
+
+
+def get_tool_search_mode(raw: str | None = None) -> str:
+    """Normalize the user-facing GPT-5.4 discovery mode setting."""
+
+    if raw is None:
+        try:
+            from ..env_utils import env_get
+
+            raw = env_get("UAGENT_GPT54_TOOL_SEARCH")
+        except Exception:
+            raw = None
+    value = (raw or "").strip().lower()
+    if value in {"legacy", "old"}:
+        return "legacy"
+    if value in {"off", "0", "false", "no"}:
+        return "off"
+    return "native"
+
+
+_PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
+    "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
+    "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
+}
+
+
+def resolve_tool_discovery_from_environment(
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> ToolDiscoveryDecision:
+    """Resolve discovery using the common environment policy.
+
+    Callers may provide values already resolved by a round. When omitted,
+    this function reads only discovery-related settings and does not create a
+    provider client.
+    """
+
+    try:
+        from ..env_utils import env_get
+    except Exception:
+
+        def env_get(*_args: Any, **_kwargs: Any) -> str:
+            return ""
+
+    provider_name = (provider or env_get("UAGENT_PROVIDER") or "").strip().lower()
+    if depname is None:
+        env_name, default = _PROVIDER_DEPNAME_ENV.get(provider_name, ("", ""))
+        depname = (env_get(env_name, default) if env_name else default) or default
+    model_name = (depname or "").strip()
+
+    if use_responses_api is None:
+        raw_responses = (env_get("UAGENT_RESPONSES") or "").strip().lower()
+        if raw_responses in {"1", "true", "yes", "on"}:
+            use_responses_api = True
+        elif raw_responses in {"0", "false", "no", "off"}:
+            use_responses_api = False
+        else:
+            try:
+                from ..llmcapa_util import provider_allows_responses_api
+
+                use_responses_api = bool(
+                    provider_allows_responses_api(provider_name, model_name or None)
+                )
+            except Exception:
+                use_responses_api = False
+
+    return resolve_tool_discovery(
+        provider=provider_name,
+        depname=model_name,
+        use_responses_api=bool(use_responses_api),
+        configured_mode=get_tool_search_mode(),
+    )
+
+
+def select_tool_specs_for_discovery(
+    decision: ToolDiscoveryDecision,
+    *,
+    legacy_specs: list[dict[str, Any]] | None,
+    native_specs: list[dict[str, Any]] | None,
+    selected_specs: Any,
+) -> Any:
+    """Select the already-built provider surface for one discovery decision."""
+
+    if decision.uses_legacy_catalog:
+        return legacy_specs
+    if decision.uses_native_search:
+        return native_specs
+    return selected_specs
 
 
 def resolve_tool_discovery(
@@ -192,10 +289,7 @@ class ToolDeliveryStrategy:
             )
         mode = (
             ToolDeliveryMode.MANAGEMENT_TOOLS
-            if all(
-                item.name in {"tool_catalog", "tool_load", "unload_tool"}
-                for item in candidates
-            )
+            if all(item.name in MANAGEMENT_TOOL_NAMES for item in candidates)
             else ToolDeliveryMode.LOADED_SPECS
         )
         return ToolDelivery(

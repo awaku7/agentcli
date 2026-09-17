@@ -184,43 +184,10 @@ def _should_preload_lazy_specs() -> bool:
           path in _call_openai_azure_round() dynamically loads all
           tools from disk when needed.
     """
-    mode = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if mode in ("legacy", "old", "off", "0", "false", "no"):
-        return False
-
-    # Native GPT-5.4 tool_search is a Responses-only feature. When the user
-    # disables Responses, management tools must remain registered so the
-    # ChatCompletions bootstrap can expose the basic three-tool surface.
-    responses = (env_get("UAGENT_RESPONSES") or "").strip().lower()
-    if responses in ("0", "false", "no", "off"):
-        return False
-    provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
-    if provider not in ("openai", "azure"):
-        return False
-    model_env = (
-        "UAGENT_OPENAI_DEPNAME" if provider == "openai" else "UAGENT_AZURE_DEPNAME"
-    )
-    model = (env_get(model_env) or "").strip().lower()
-    if not model:
-        return False
     try:
-        from ..llmcapa_util import provider_allows_responses_api
-        from ..runtime.tool_discovery import (
-            ToolDiscoveryMode,
-            resolve_tool_discovery,
-        )
+        from ..runtime.tool_discovery import resolve_tool_discovery_from_environment
 
-        if not provider_allows_responses_api(provider, model):
-            return False
-        use_responses_api = True
-
-        decision = resolve_tool_discovery(
-            provider=provider,
-            depname=model,
-            use_responses_api=use_responses_api,
-            configured_mode=mode or "native",
-        )
-        return decision.mode is ToolDiscoveryMode.NATIVE_SEARCH
+        return resolve_tool_discovery_from_environment().uses_native_search
     except Exception:
         return False
 

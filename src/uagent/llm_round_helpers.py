@@ -178,7 +178,6 @@ from .tools.llm_tool_narrowing import (
     resolve_tool_discovery,
     _select_tool_specs_legacy,
 )
-from .runtime.tool_discovery import ToolDiscoveryMode
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
     apply_openrouter_tool_schema_compat,
@@ -516,10 +515,10 @@ def _call_openai_azure_round(
                     depname=depname,
                     use_responses_api=use_responses_api,
                 )
-                if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG:
+                if discovery.uses_legacy_catalog:
                     # Legacy mode: narrow tools via tool_catalog (client-side)
                     responses_tool_specs = _select_tool_specs_legacy(call_messages)
-                elif discovery.mode is ToolDiscoveryMode.NATIVE_SEARCH:
+                elif discovery.uses_native_search:
                     # Native mode: scan all tool modules from disk (bypass genre),
                     # exclude management tools. Server-side tool_search does narrowing.
                     _excluded = {"tool_catalog", "tool_load", "unload_tool"}

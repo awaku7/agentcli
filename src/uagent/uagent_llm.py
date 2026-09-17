@@ -86,7 +86,6 @@ from .tools.llm_tool_narrowing import (
     resolve_tool_discovery,
     _select_tool_specs_legacy as _select_tool_specs_for_gpt54,  # noqa: F401  (re-exported for tests)
 )
-from .runtime.tool_discovery import ToolDiscoveryMode
 
 
 def _inject_stop_prompt(
@@ -803,7 +802,7 @@ def _try_registry_simple_chat_round(
             depname=depname,
             use_responses_api=True,
         )
-        if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG:
+        if discovery.uses_legacy_catalog:
             # Legacy client-side tool narrowing must remain on the established
             # path until the registry adapter owns tool delivery decisions.
             return None
@@ -847,9 +846,8 @@ def _try_registry_simple_chat_round(
                 # the registry route may still be Chat Completions.
                 use_responses_api=True,
             )
-            if discovery.mode is ToolDiscoveryMode.LEGACY_CATALOG or (
-                discovery.mode is ToolDiscoveryMode.NATIVE_SEARCH
-                and not use_responses_api
+            if discovery.uses_legacy_catalog or (
+                discovery.uses_native_search and not use_responses_api
             ):
                 management_specs = tuple(
                     spec
