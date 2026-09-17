@@ -587,6 +587,32 @@ def test_responses_bridge_restores_persisted_session_generation() -> None:
     assert runtime.previous_response_id == "resp_legacy"
 
 
+def test_responses_bridge_clears_legacy_continuation_on_provider_switch() -> None:
+    core = SimpleNamespace(
+        responses_state={
+            "previous_response_id": "resp_openai",
+            "active_response_id": "resp_openai",
+            "_stale_rid_occurred": True,
+        }
+    )
+    runtime = _begin_responses_runtime(
+        core=core, provider="openai", model="gpt-test", enabled=True
+    )
+    assert runtime is not None
+    assert runtime.previous_response_id == "resp_openai"
+
+    switched = _begin_responses_runtime(
+        core=core, provider="azure", model="gpt-test", enabled=True
+    )
+
+    assert switched is runtime
+    assert switched.provider == "azure"
+    assert switched.previous_response_id is None
+    assert "previous_response_id" not in core.responses_state
+    assert "active_response_id" not in core.responses_state
+    assert "_stale_rid_occurred" not in core.responses_state
+
+
 def test_message_transform_precedes_projection_without_mutating_history() -> None:
     history = [
         {

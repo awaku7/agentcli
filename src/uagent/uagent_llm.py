@@ -616,13 +616,21 @@ def _begin_responses_runtime(
         from .providers.responses_runtime import ResponsesRuntime
 
         runtime = getattr(core, "responses_runtime", None)
+        provider_changed = False
         if not isinstance(runtime, ResponsesRuntime):
             runtime = ResponsesRuntime(provider=provider, model=model)
             setattr(core, "responses_runtime", runtime)
         else:
+            provider_changed = runtime.provider != (
+                provider or ""
+            ).strip().lower() or runtime.model != (model or "")
             runtime.switch_provider(provider, model)
 
         state = getattr(core, "responses_state", {})
+        if provider_changed and isinstance(state, dict):
+            state.pop("previous_response_id", None)
+            state.pop("active_response_id", None)
+            state.pop("_stale_rid_occurred", None)
         if isinstance(state, dict) and "session_generation" in state:
             try:
                 runtime.session_generation = int(

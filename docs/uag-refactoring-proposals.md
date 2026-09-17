@@ -794,6 +794,10 @@ registry 経路で `session_generation=0` に固定されていた箇所は、Re
 
 registry 経路の terminal 状態を `responses_state` だけでなく `ResponsesRuntime` にも反映するようにした。cancel / timeout / interrupt / failed の各状態で runtime の response ID、pending tool output、accepted output を同時に破棄し、次の round が古い continuation を誤って再利用しない。既に clear 済みの runtime や未知の terminal status でも、互換 mirror が terminal state の保存を妨げない。`test_registry_terminal_sync_clears_runtime_continuation` で4種類の terminal state を確認している。
 
+#### P1-C の第3修正単位（完了）
+
+provider または model が切り替わる際は、bridge が legacy `responses_state` の旧 `previous_response_id` を新しい provider に再投入しないようにした。`ResponsesRuntime.switch_provider()` の clear と同時に persisted な response ID / stale marker も消去し、provider switch 後は新しい generation を開始する。`test_responses_bridge_clears_legacy_continuation_on_provider_switch` で旧 continuation が runtime と legacy state の双方から消えることを確認している。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。
