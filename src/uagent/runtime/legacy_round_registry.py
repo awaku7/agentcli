@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, TypeAlias
+from typing import Any, Mapping, TypeAlias
 
-LegacyRoundResult: TypeAlias = tuple[str, Any, str | None, int, str]
+LegacyRoundResult: TypeAlias = tuple[Any, ...]
 
 
 @dataclass(frozen=True)
@@ -16,6 +16,10 @@ class LegacyRoundOutcome:
     status: str
     assistant_text: str
     raw_result: LegacyRoundResult
+    client: Any = None
+    reasoning_text: str = ""
+    tool_calls: tuple[Mapping[str, Any], ...] = ()
+    is_xai_grpc: bool = False
 
 
 from .legacy_claude_round import run_legacy_claude_round
@@ -59,6 +63,7 @@ def run_legacy_provider_outcome(
         status=str(result[0]),
         assistant_text=str(result[4] or ""),
         raw_result=result,
+        client=result[1] if len(result) > 1 else None,
     )
 
 

@@ -585,6 +585,18 @@ legacy tuple は従来と同一である。
 寄せる準備ができた。次は OpenAI-compatible legacy tuple も同じ outcome に包み、
 `dispatch.source` に依存した unpack を縮小する。
 
+### P0-A の第7修正単位（完了）
+
+OpenAI-compatible legacy 経路にも `call_legacy_openai_compatible_outcome()` を追加し、
+`LegacyRoundOutcome` に raw tuple、client、assistant text、reasoning、tool calls、
+XAI gRPC 判定を格納するようにした。`uagent_llm.py` は legacy registry と
+OpenAI-compatible の双方で outcome を受け取り、外部互換用の raw tuple は境界で unwrap
+する。既存の公開 tuple 関数は変更していない。
+
+これで registry / legacy registry / OpenAI-compatible の各実行経路が、同じ内部 outcome
+へ移行できる状態になった。次は `dispatch.source` ごとの分岐を outcome の capability
+判定へ置換する。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

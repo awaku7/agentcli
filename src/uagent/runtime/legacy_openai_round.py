@@ -6,6 +6,7 @@ from typing import Any
 
 from ..llm_grok_round import _call_grok_round
 from .legacy_provider_dispatch import call_legacy_openai_azure_round
+from .legacy_round_registry import LegacyRoundOutcome
 
 RoundDispatchResult = tuple[bool, Any, str, str, list[dict[str, Any]], bool]
 
@@ -82,4 +83,26 @@ def call_legacy_openai_compatible_round(
     return ok, client, assistant_text, reasoning_content, tool_calls_list, False
 
 
-__all__ = ["RoundDispatchResult", "call_legacy_openai_compatible_round"]
+def call_legacy_openai_compatible_outcome(
+    **kwargs: Any,
+) -> LegacyRoundOutcome:
+    """Wrap the OpenAI-compatible tuple for the shared legacy boundary."""
+    result = call_legacy_openai_compatible_round(**kwargs)
+    ok, client, assistant_text, reasoning_text, tool_calls, is_xai_grpc = result
+    return LegacyRoundOutcome(
+        provider=str(kwargs.get("provider") or "").strip().lower(),
+        status="ok" if ok else "return",
+        assistant_text=str(assistant_text or ""),
+        raw_result=result,
+        client=client,
+        reasoning_text=str(reasoning_text or ""),
+        tool_calls=tuple(tool_calls or ()),
+        is_xai_grpc=bool(is_xai_grpc),
+    )
+
+
+__all__ = [
+    "RoundDispatchResult",
+    "call_legacy_openai_compatible_outcome",
+    "call_legacy_openai_compatible_round",
+]
