@@ -334,3 +334,19 @@ def test_projection_can_be_derived_without_mutating_context_plan() -> None:
     assert original == before
     assert changed != original
     assert original.telemetry == {"raw_chars": 5}
+
+
+def test_input_fingerprint_is_opaque_and_keyed() -> None:
+    factory = _factory()
+    payload = {"messages": [{"role": "user", "content": "private text"}]}
+
+    fingerprint = factory.input_fingerprint_for(payload)
+
+    assert fingerprint
+    assert "private text" not in fingerprint
+    assert fingerprint != _factory(
+        b"uagent-round-identity-other-key-v1"
+    ).input_fingerprint_for(payload)
+    assert fingerprint != factory.input_fingerprint_for(
+        {"messages": [{"role": "user", "content": "changed"}]}
+    )

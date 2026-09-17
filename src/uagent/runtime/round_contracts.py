@@ -50,6 +50,7 @@ class ContextPlan:
     tool_specs: tuple[Mapping[str, Any], ...] = ()
     decisions: tuple[Mapping[str, Any], ...] = ()
     telemetry: Mapping[str, Any] = field(default_factory=dict)
+    input_fingerprint: str = ""
 
 
 @dataclass(frozen=True)

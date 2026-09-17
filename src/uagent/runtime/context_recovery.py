@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import hashlib
+import hmac
 import json
 from dataclasses import dataclass
 from typing import Any, Callable, Literal, Mapping, Protocol
 
 from .round_contracts import ContextPlan
+from .round_identity import RoundIdentityFactory, WorkspaceKeyUnavailable
 
 RecoveryClassification = Literal[
     "context_overflow",
@@ -28,6 +30,43 @@ RemoteMutationStatus = Literal[
     "stale",
     "unknown",
 ]
+FingerprintStatus = Literal["not_provided", "valid", "invalid", "unavailable"]
+
+
+@dataclass(frozen=True)
+class InputFingerprintValidation:
+    """Result of validating an opaque input fingerprint."""
+
+    status: FingerprintStatus
+
+    @property
+    def trusted(self) -> bool:
+        return self.status == "valid"
+
+
+def compute_input_fingerprint(
+    input_payload: Any, identity_factory: RoundIdentityFactory
+) -> str:
+    """Create a keyed digest without retaining the input payload."""
+    return identity_factory.input_fingerprint_for(input_payload)
+
+
+def validate_input_fingerprint(
+    expected: str,
+    input_payload: Any,
+    identity_factory: RoundIdentityFactory,
+) -> InputFingerprintValidation:
+    """Validate a digest, refusing to trust it when the key is unavailable."""
+    if not expected:
+        return InputFingerprintValidation("not_provided")
+    try:
+        actual = compute_input_fingerprint(input_payload, identity_factory)
+    except WorkspaceKeyUnavailable:
+        return InputFingerprintValidation("unavailable")
+    status: FingerprintStatus = (
+        "valid" if hmac.compare_digest(expected, actual) else "invalid"
+    )
+    return InputFingerprintValidation(status)
 
 
 @dataclass(frozen=True)
@@ -243,7 +282,7 @@ class ContextRecoveryManager:
             remote_session_mutation=strategy == "provider_compact",
             projection_mutation=strategy != "no_op",
             attempt_id=attempt_id,
-            input_fingerprint=input_fingerprint,
+            input_fingerprint=input_fingerprint or context_plan.input_fingerprint,
         )
 
     @staticmethod
@@ -271,11 +310,15 @@ class ContextRecoveryManager:
 
 __all__ = [
     "ContextRecoveryManager",
+    "compute_input_fingerprint",
+    "FingerprintStatus",
+    "InputFingerprintValidation",
     "LocalRecoveryResult",
     "RecoveryClassification",
     "RecoveryPlan",
     "RecoveryStrategy",
     "RemoteRecoveryPort",
     "RemoteMutationStatus",
+    "validate_input_fingerprint",
     "RemoteSessionUpdate",
 ]

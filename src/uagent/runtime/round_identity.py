@@ -177,6 +177,13 @@ class RoundIdentityFactory:
     def projection_id_for(self, projection: Any) -> str:
         return self.projection_id(canonical_json(projection))
 
+    def input_fingerprint(self, canonical_input: bytes) -> str:
+        """Return an opaque, workspace-keyed fingerprint for input context."""
+        return self._digest("input", canonical_input)
+
+    def input_fingerprint_for(self, input_value: Any) -> str:
+        return self.input_fingerprint(canonical_json(input_value))
+
     def key_id(self) -> str:
         """Return a non-secret identifier safe to store in a recovery journal."""
 

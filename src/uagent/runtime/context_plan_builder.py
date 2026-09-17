@@ -46,6 +46,7 @@ def build_context_plan(
         tool_specs=frozen_tools,
         decisions=frozen_decisions,
         telemetry=copy.deepcopy(dict(telemetry or {})),
+        input_fingerprint=factory.input_fingerprint(canonical_json(identity_payload)),
     )
 
 

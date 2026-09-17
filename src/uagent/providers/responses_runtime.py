@@ -24,6 +24,7 @@ ContinuationState = Literal[
     "TimedOut",
     "Stale",
 ]
+FingerprintValidationStatus = Literal["not_checked", "valid", "invalid", "unavailable"]
 
 
 class ContinuationInvariantError(ValueError):
@@ -201,6 +202,8 @@ class ResponsesRuntime:
         provider: str | None = None,
         model: str | None = None,
         valid: bool = True,
+        expected_input_fingerprint: str | None = None,
+        input_fingerprint_status: FingerprintValidationStatus = "not_checked",
     ) -> bool:
         """Restore a continuation only when provider and generation match."""
         provider_key = (provider or self.provider).strip().lower()
@@ -209,6 +212,7 @@ class ResponsesRuntime:
             or provider_key != self.provider
             or (model is not None and model != self.model)
             or not self.capabilities.previous_response_id
+            or (expected_input_fingerprint and input_fingerprint_status != "valid")
         ):
             self.clear_continuation("restore_validation_failed")
             return False
@@ -290,6 +294,7 @@ class ResponsesRuntime:
 __all__ = [
     "ContinuationInvariantError",
     "ContinuationState",
+    "FingerprintValidationStatus",
     "DuplicateToolOutput",
     "ResponsesRuntime",
     "ToolCallKey",

@@ -151,3 +151,23 @@ def test_snapshot_contains_safe_continuation_metadata() -> None:
         }
     ]
     assert "output" not in snapshot
+
+
+def test_restore_requires_trusted_input_fingerprint_when_expected() -> None:
+    unavailable = ResponsesRuntime("openai", model="gpt-5.4")
+
+    assert not unavailable.restore_continuation(
+        "resp_1",
+        session_generation=1,
+        expected_input_fingerprint="opaque-digest",
+        input_fingerprint_status="unavailable",
+    )
+    assert unavailable.previous_response_id is None
+
+    valid = ResponsesRuntime("openai", model="gpt-5.4")
+    assert valid.restore_continuation(
+        "resp_1",
+        session_generation=1,
+        expected_input_fingerprint="opaque-digest",
+        input_fingerprint_status="valid",
+    )

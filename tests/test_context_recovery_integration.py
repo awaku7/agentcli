@@ -11,8 +11,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from uagent.providers.responses_recovery_port import ResponsesRecoveryPort
-from uagent.runtime.context_recovery import ContextRecoveryManager, RecoveryPlan
+from uagent.runtime.context_recovery import (
+    ContextRecoveryManager,
+    RecoveryPlan,
+    validate_input_fingerprint,
+)
 from uagent.runtime.round_contracts import ContextPlan
+from uagent.runtime.round_identity import (
+    DeterministicTestWorkspaceKeyProvider,
+    RoundIdentityFactory,
+    WorkspaceKeyUnavailable,
+)
 from uagent.runtime.round_runtime import RetryRequest, RoundAttemptBudget
 from uagent.uagent_llm import _apply_remote_recovery_update
 
@@ -175,3 +184,33 @@ def test_remote_update_only_adopts_a_valid_compacted_continuation() -> None:
     assert core.responses_state["previous_response_id"] == "resp_compacted"
     assert not _apply_remote_recovery_update(core, rejected)
     assert "previous_response_id" not in core.responses_state
+
+
+class _UnavailableWorkspaceKeyProvider:
+    def get_key(self, workspace_id: str) -> bytes:
+        raise WorkspaceKeyUnavailable("workspace key unavailable")
+
+
+def test_input_fingerprint_validation_does_not_trust_missing_or_unavailable_keys() -> (
+    None
+):
+    factory = RoundIdentityFactory(
+        workspace_id="test-workspace",
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    payload = {"messages": [{"role": "user", "content": "hello"}]}
+    expected = factory.input_fingerprint_for(payload)
+
+    assert validate_input_fingerprint(expected, payload, factory).trusted
+    assert validate_input_fingerprint(expected, {"changed": True}, factory).status == (
+        "invalid"
+    )
+    assert validate_input_fingerprint("", payload, factory).status == "not_provided"
+    unavailable_factory = RoundIdentityFactory(
+        workspace_id="test-workspace",
+        key_provider=_UnavailableWorkspaceKeyProvider(),
+    )
+    assert (
+        validate_input_fingerprint(expected, payload, unavailable_factory).status
+        == "unavailable"
+    )
