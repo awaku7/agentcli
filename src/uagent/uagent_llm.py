@@ -558,7 +558,9 @@ def _record_round_context_plan(
     *, provider: str, depname: str, call_messages: list[dict[str, Any]], core: Any
 ) -> Any | None:
     """Build and return the provider-neutral plan for this round."""
-    if not _env_default_on("UAGENT_ROUND_CONTRACTS"):
+    if not _env_default_on("UAGENT_ROUND_CONTRACTS") and not isinstance(
+        getattr(core, "context_manager", None), ContextManager
+    ):
         return None
     workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
     tool_specs = getattr(core, "context_tool_specs", None) or ()

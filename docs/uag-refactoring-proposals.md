@@ -740,6 +740,13 @@ prepared ContextPlan の再利用条件に `history_revision` と `schema_revisi
 messages と tool specs が同じでも、履歴世代や tool schema 世代が変わった plan は再利用せず、
 provider projection が古い context metadata を参照しないようにした。
 
+### P1-A の第4修正単位（完了）
+
+ContextManager が利用可能な標準 runtime では、`UAGENT_ROUND_CONTRACTS=0` でも ContextPlan
+handoff を無効化しないようにした。軽量な legacy/test core に ContextManager がない場合
+だけ従来の feature-flag gate を維持する。これにより本番の ContextManager 経路は flag に
+依存せず、互換性が必要な最小 core だけが旧挙動を保持する。
+
 `ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:

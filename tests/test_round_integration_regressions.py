@@ -3,6 +3,9 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent.runtime.capability_resolver import CapabilityResolver, CapabilityState
+from uagent.runtime.context_manager import ContextManager
+from uagent.runtime.context_policy import ContextPolicy
+from uagent.runtime.round_contracts import ContextPlan
 from uagent.runtime.context_plan_builder import build_context_plan
 from uagent.runtime.message_transform import MessageTransformPipeline
 from uagent.runtime.provider_context import project_messages_for_provider
@@ -468,6 +471,33 @@ def test_round_contracts_off_leaves_legacy_bridge_and_core_untouched(
         is None
     )
     assert not hasattr(core, "responses_runtime")
+
+
+def test_context_manager_enables_plan_handoff_when_flag_is_off(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_ROUND_CONTRACTS", "0")
+    manager = ContextManager(policy=ContextPolicy(provider="openai", model="gpt-test"))
+    prepared = ContextPlan("manager-plan", (("role", "user"),))
+
+    def build_context_plan(**kwargs):
+        return prepared
+
+    monkeypatch.setattr(manager, "build_context_plan", build_context_plan)
+    core = SimpleNamespace(
+        context_manager=manager,
+        context_plan=None,
+        context_tool_specs=(),
+        workdir=".",
+    )
+
+    plan = _record_round_context_plan(
+        provider="openai",
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+    )
+
+    assert plan is prepared
+    assert core.context_plan is prepared
 
 
 def test_registry_round_identifiers_use_responses_session_generation() -> None:
