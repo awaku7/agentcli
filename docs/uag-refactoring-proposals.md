@@ -4,7 +4,7 @@
 
 最優先は **`llm_round_helpers.py` を一度に作り替えることではなく、LLM 1 ラウンドのオーケストレーションから「コンテキスト構築」「プロバイダ差異」「Responses の継続状態」「ストリーム描画」「復旧」を段階的に外へ出すこと**である。現状はすでに `ContextManager`、`ResponsesManager`、`provider_context` という良い分割の芽がある。一方で、`llm_round_helpers.py`（1,876 行）と `uagent_llm.py` の provider 分岐に、複数レイヤーの判断と副作用が残っている。
 
-この文書の提案は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を読んだ上での設計メモである。機能追加ではなく、互換性を保ちながら依存方向を整えるための順序を示す。
+この文書の初期調査は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を基準にした設計メモである。後半の「現行実装との比較」は、その後の実装を反映して更新している。機能追加ではなく、互換性を保ちながら依存方向を整えるための順序を示す。
 
 ## 調査した現在の構造
 
@@ -496,7 +496,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 ## 現行実装との比較に基づく優先度再評価
 
-設計文書の基準コミット `2435ad6` と、現在の `HEAD` `3a9e274` の実装を比較した結果、P0〜P3 は次の順に細分化して実施する。比較時点の作業ツリーは変更なしであった。
+設計文書の基準コミット `2435ad6` と、再評価時点の `HEAD` `5f79f8c9`（`origin/main` と一致）の実装を比較した結果、P0〜P3 は次の順に細分化して実施する。再評価時点の作業ツリーは変更なしであった。以後の判断は、このスナップショットを基準にする。
 
 ### P0-A: 実行経路を一本化する
 
@@ -520,7 +520,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。
 
-`CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` は追加されているが、実行時には `_is_gpt54_tool_search_target()`、`_is_legacy_mode()`、`llm_tool_narrowing.py` が複数箇所から直接呼ばれている。
+`CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` と共通 resolver は `runtime/tool_discovery.py` に追加され、`llm_tool_narrowing.py` の互換ラッパーも共通 resolver へ委譲するようになった。一方、選択・delivery の呼び出し側には旧経路が残っており、`_is_gpt54_tool_search_target()` はテスト互換のために残る import/re-export、`_is_legacy_mode()` は定義が残るものの再評価時点で実運用の呼び出しは確認できない。したがって判断・選択・delivery の全経路が一つの契約へ統合された状態ではない。
 
 直近のコミットでは Gemini の tool discovery、built-in search との分離、missing context tool specs、legacy tool call 実行が連続して修正されている。この領域は現在最も回帰しやすいため、全 provider の registry 移行に先立って判断契約を固定する。
 
@@ -536,7 +536,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 対象は `src/uagent/runtime/context_plan_builder.py`、`src/uagent/runtime/context_manager.py`、`src/uagent/runtime/round_contracts.py`、`src/uagent/uagent_llm.py` である。
 
-`ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。しかし、実行経路では ContextManager の呼び出しと auto-shrink 後の再構築が `uagent_llm.py` に残っている。feature flag と bridge に依存するため、hand-off が一意という完了条件にはまだ達していない。
+`ContextPlan`、`ProviderProjection`、`SerializedRequest` の型と生成処理は存在する。auto-shrink は ContextPlan 作成より前に処理される標準経路へ移り、auto-shrink 後に ContextPlan を作り直す構造は解消された。一方、ContextManager と ContextPlan bridge は `uagent_llm.py` に残り、feature flag に依存する経路もあるため、hand-off が一意という完了条件にはまだ達していない。
 
 終了条件:
 
@@ -558,7 +558,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 1. fingerprint に prompt 本文を直接保存しない。
 1. remote recovery 後に同じ projection を再構築できる。
 
-実装済み。SQLite journal と remote recovery の metadata 不一致、および provider session metadata の不一致を回帰テストで検証する。
+主要な metadata 生成・保存・照合は実装済みである。SQLite journal と remote recovery の metadata 不一致、および provider session metadata の不一致を回帰テストで検証している。ただし、これは P1-B の recovery 契約に関する進捗であり、P1-A の hand-off 一本化や全 provider 経路の統合まで完了したことを意味しない。
 
 ### P1-C: ResponsesRuntime を全経路へ統合する
 
@@ -566,7 +566,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 進捗として、registry の simple chat round から `ResponsesRuntime.session_generation` を `RoundIdentifiers` へ引き渡す bridge を実装した。runtime が利用できない場合は従来の `responses_state` をフォールバックとして参照し、値を安全に整数化する。`test_registry_round_identifiers_use_responses_session_generation` を追加し、registry 経路で `session_generation=0` に固定される回帰を検出できるようにした。関連する targeted test は成功している。
 
-したがって、registry 経路に残っていた `session_generation=0` 固定は解消済みである。ただし P1-C 全体は未完了で、残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。provider ごとの標準経路、provider 切替、continuation、tool output の整合性を確認する characterization / integration test を追加しながら段階的に移行する。
+したがって、registry 経路に残っていた `session_generation=0` 固定は解消済みである。ただし旧 Inception compatibility 経路にはなお `session_generation=0` の初期化が残っており、P1-C 全体は未完了である。残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。provider ごとの標準経路、provider 切替、continuation、tool output の整合性を確認する characterization / integration test を追加しながら段階的に移行する。
 
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
@@ -593,7 +593,7 @@ I18N は中心ランタイムとは分離して進める。ただし完了条件
 - `host_gettext_findings`: 44
 - `structural_findings`: 117
 - `tool_json_findings`: 73
-- `total_findings`: 117
+- `total_findings`: 117（重複を除いた集計値。上記3項目の単純合計ではない）
 
 新しい runtime 文言を増やさず、gettext と Tool JSON の不一致を解消し、strict audit を CI 条件にする。翻訳品質レビューは構造検証と分離する。
 
@@ -618,4 +618,4 @@ P3    CLI/GUI/Web と command 層の整理
 
 直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。次は P1-C の残る標準経路を対象にする。
 
-現行実装の確認では、関連する11個の targeted test file、計77件が成功している。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。一方、I18N strict audit の117件の指摘は未解消である。
+`60ab7dd0` の進捗記録時点では、関連する11個の targeted test file、計77件が成功していた。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。その後も回帰テストは追加されているため、77件は現行の総テスト数ではない。再評価時点ではこの文書の更新作業として全テストを再実行したものではなく、I18N strict audit の117件の指摘も未解消である。
