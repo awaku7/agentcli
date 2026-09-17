@@ -798,6 +798,10 @@ registry 経路の terminal 状態を `responses_state` だけでなく `Respons
 
 provider または model が切り替わる際は、bridge が legacy `responses_state` の旧 `previous_response_id` を新しい provider に再投入しないようにした。`ResponsesRuntime.switch_provider()` の clear と同時に persisted な response ID / stale marker も消去し、provider switch 後は新しい generation を開始する。`test_responses_bridge_clears_legacy_continuation_on_provider_switch` で旧 continuation が runtime と legacy state の双方から消えることを確認している。
 
+#### P1-C の第4修正単位（完了）
+
+Azure Responses の registry 標準経路を実際の `ResponsesRuntime` と接続した characterization test を追加した。Responses の function call を受けた後、runtime が新しい response ID、tool-call ID、session generation を保持し、`AwaitingToolOutput` へ遷移することを確認する。これにより OpenAI / Azure 共通 adapter の tool continuation と runtime state の整合を検証できる。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。

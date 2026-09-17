@@ -5,7 +5,10 @@ from types import SimpleNamespace
 from uagent.providers.openai_projection_policy import build_openai_projection
 from uagent.runtime.round_contracts import ContextPlan
 from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
-from uagent.uagent_llm import _try_registry_simple_chat_round
+from uagent.uagent_llm import (
+    _begin_responses_runtime,
+    _try_registry_simple_chat_round,
+)
 
 
 def _patch_identity(monkeypatch) -> None:
@@ -233,6 +236,70 @@ def test_registry_azure_responses_tool_continuation_preserves_call_id(
     assert result[3][0]["tool_call_id"] == "call-1"
     assert responses.calls[0]["previous_response_id"] == "resp_prev"
     assert core.responses_state["previous_response_id"] == "resp_next"
+
+
+def test_registry_azure_responses_runtime_tracks_tool_call_generation(
+    monkeypatch, tmp_path
+) -> None:
+    class Responses:
+        def create(self, **kwargs):
+            return iter(
+                [
+                    SimpleNamespace(
+                        type="response.output_item.added",
+                        item=SimpleNamespace(
+                            type="function_call",
+                            id="item-1",
+                            call_id="call-1",
+                            name="read_file",
+                        ),
+                    ),
+                    SimpleNamespace(
+                        type="response.function_call_arguments.delta",
+                        item_id="item-1",
+                        delta='{"path":"a"}',
+                    ),
+                    SimpleNamespace(
+                        type="response.completed",
+                        response=SimpleNamespace(id="resp_next"),
+                    ),
+                ]
+            )
+
+    _patch_identity(monkeypatch)
+    monkeypatch.setenv("UAGENT_REASONING", "off")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_TOOLS", "1")
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_RESPONSES", "1")
+    core = SimpleNamespace(
+        workdir=str(tmp_path),
+        cancellation_token=None,
+        responses_state={"previous_response_id": "resp_prev"},
+        context_tool_specs=({"type": "function", "function": {"name": "read_file"}},),
+    )
+    runtime = _begin_responses_runtime(
+        core=core, provider="azure", model="gpt-test", enabled=True
+    )
+    assert runtime is not None
+
+    result = _try_registry_simple_chat_round(
+        provider="azure",
+        client=SimpleNamespace(responses=Responses()),
+        depname="gpt-test",
+        call_messages=[{"role": "user", "content": "read a"}],
+        core=core,
+        use_responses_api=True,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+    )
+
+    assert result is not None
+    assert runtime.previous_response_id == "resp_next"
+    assert runtime.state == "AwaitingToolOutput"
+    assert [key.tool_call_id for key in runtime.pending_tool_calls] == ["call-1"]
+    assert (
+        runtime.pending_tool_calls[0].session_generation == runtime.session_generation
+    )
 
 
 def test_registry_projects_responses_generation_options(monkeypatch, tmp_path) -> None:
