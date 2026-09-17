@@ -54,6 +54,7 @@ from .llm_helpers import (
 from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
+    _responses_session_generation,
 )
 from .runtime.legacy_openai_round import call_legacy_openai_compatible_round
 from .runtime.legacy_round_registry import run_legacy_provider_round
@@ -637,26 +638,6 @@ def _begin_responses_runtime(
         return runtime
     except Exception:
         return None
-
-
-def _responses_session_generation(core: Any) -> int:
-    """Return the active continuation generation for round identifiers.
-
-    Registry rounds must use the same generation as the ResponsesRuntime.
-    Falling back to the persisted legacy state keeps the bridge usable when a
-    runtime has not yet been initialized.
-    """
-    runtime = getattr(core, "responses_runtime", None)
-    generation = getattr(runtime, "session_generation", None)
-    if generation is None:
-        state = getattr(core, "responses_state", None)
-        generation = (
-            state.get("session_generation", 0) if isinstance(state, dict) else 0
-        )
-    try:
-        return int(generation or 0)
-    except (TypeError, ValueError):
-        return 0
 
 
 def _record_responses_runtime_response(

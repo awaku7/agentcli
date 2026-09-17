@@ -389,6 +389,26 @@ def _inception_registry_enabled() -> bool:
     )
 
 
+def _responses_session_generation(core: Any) -> int:
+    """Return the active Responses continuation generation from ``core``.
+
+    Registry round paths must use the same generation when constructing
+    ``RoundIdentifiers``. Prefer the live runtime and fall back to the
+    persisted legacy state while migrations are still in progress.
+    """
+    runtime = getattr(core, "responses_runtime", None)
+    generation = getattr(runtime, "session_generation", None)
+    if generation is None:
+        state = getattr(core, "responses_state", None)
+        generation = (
+            state.get("session_generation", 0) if isinstance(state, dict) else 0
+        )
+    try:
+        return int(generation or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _call_openai_azure_round(
     *,
     provider: str,
@@ -1117,7 +1137,7 @@ def _call_openai_azure_round(
                                 attempt_id=stream_id,
                                 request_id=stream_id,
                                 stream_id=stream_id,
-                                session_generation=0,
+                                session_generation=_responses_session_generation(core),
                             )
                             workspace_id = str(getattr(core, "workdir", "") or ".")
                             identity_factory = RoundIdentityFactory(
