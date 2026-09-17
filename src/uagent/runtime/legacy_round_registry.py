@@ -15,6 +15,7 @@ class RoundOutcomeCapabilities:
     handles_collected_result: bool = False
     owns_tool_execution: bool = False
     host_rendered: bool = False
+    supports_tool_continuation: bool = False
 
 
 @dataclass(frozen=True)

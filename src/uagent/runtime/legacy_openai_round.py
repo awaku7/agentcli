@@ -6,7 +6,10 @@ from typing import Any
 
 from ..llm_grok_round import _call_grok_round
 from .legacy_provider_dispatch import call_legacy_openai_azure_round
-from .legacy_round_registry import LegacyRoundOutcome
+from .legacy_round_registry import (
+    LegacyRoundOutcome,
+    RoundOutcomeCapabilities,
+)
 
 RoundDispatchResult = tuple[bool, Any, str, str, list[dict[str, Any]], bool]
 
@@ -98,6 +101,16 @@ def call_legacy_openai_compatible_outcome(
         reasoning_text=str(reasoning_text or ""),
         tool_calls=tuple(tool_calls or ()),
         is_xai_grpc=bool(is_xai_grpc),
+        capabilities=RoundOutcomeCapabilities(
+            host_rendered=bool(
+                kwargs.get("stream_responses")
+                and (
+                    is_xai_grpc
+                    or str(kwargs.get("provider") or "") == "inception"
+                )
+            ),
+            supports_tool_continuation=bool(tool_calls),
+        ),
         flow="openai_compatible",
     )
 

@@ -620,6 +620,17 @@ OpenAI-compatible の双方で outcome を受け取り、外部互換用の raw 
 `uagent_llm.py` の dispatch 後処理は `flow` を直接参照せず、これらの capability を使う。
 `flow` は観測・互換用に残し、将来の telemetry と段階移行に利用する。
 
+### P0-A の第10修正単位（完了）
+
+OpenAI-compatible outcome にも capability を明示した。tool call が存在する場合は
+`supports_tool_continuation=True`、XAI gRPC または Inception の streaming で既に host
+へ描画済みの場合は `host_rendered=True` とする。`uagent_llm.py` の最終描画抑制は、
+Provider 名の個別判定ではなく `host_rendered` を参照するように変更した。
+
+通常の OpenAI-compatible 経路は `owns_tool_execution=False` のままなので、tool 実行と
+継続処理は共通 round loop が担当する。これで host rendering の重複出力を避ける判定も
+outcome capability に移った。
+
 ### P0-B: Tool Discovery の判断を一本化する
 
 対象は `src/uagent/runtime/tool_discovery.py`、`src/uagent/tools/llm_tool_narrowing.py`、`src/uagent/uagent_llm.py`、`src/uagent/llm_round_helpers.py`、`src/uagent/util_cmd_session.py`、`src/uagent/core_impl/prompt.py` である。

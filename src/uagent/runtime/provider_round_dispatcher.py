@@ -37,6 +37,7 @@ def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any
             tool_calls=tuple(tool_calls or ()),
             capabilities=RoundOutcomeCapabilities(
                 handles_collected_result=True,
+                supports_tool_continuation=bool(tool_calls),
             ),
             flow="registry",
         )

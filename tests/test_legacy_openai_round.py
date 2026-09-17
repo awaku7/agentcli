@@ -54,7 +54,16 @@ def test_openai_compatible_outcome_preserves_raw_tuple_and_metadata(monkeypatch)
     assert outcome.assistant_text == "answer"
     assert outcome.reasoning_text == "reasoning"
     assert outcome.is_xai_grpc is True
+    assert outcome.capabilities.host_rendered is False
+    assert outcome.capabilities.supports_tool_continuation is False
     assert outcome.raw_result == raw_result
+
+    streamed_kwargs = _kwargs()
+    streamed_kwargs["stream_responses"] = True
+    streamed = legacy_openai_round.call_legacy_openai_compatible_outcome(
+        **streamed_kwargs
+    )
+    assert streamed.capabilities.host_rendered is True
 
 
 __all__ = []
