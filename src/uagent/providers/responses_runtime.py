@@ -27,6 +27,26 @@ ContinuationState = Literal[
 FingerprintValidationStatus = Literal["not_checked", "valid", "invalid", "unavailable"]
 
 
+def _responses_session_generation(core: Any) -> int:
+    """Return the active Responses continuation generation from ``core``.
+
+    ``ResponsesRuntime`` is the preferred source during the migration. Keep
+    the persisted ``responses_state`` fallback for callers that have not yet
+    constructed the runtime, and tolerate malformed legacy values.
+    """
+    runtime = getattr(core, "responses_runtime", None)
+    generation = getattr(runtime, "session_generation", None)
+    if generation is None:
+        state = getattr(core, "responses_state", None)
+        generation = (
+            state.get("session_generation", 0) if isinstance(state, dict) else 0
+        )
+    try:
+        return int(generation or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 class ContinuationInvariantError(ValueError):
     """Raised when a Responses continuation invariant is violated."""
 

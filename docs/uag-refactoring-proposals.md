@@ -566,7 +566,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 進捗として、registry の simple chat round から `ResponsesRuntime.session_generation` を `RoundIdentifiers` へ引き渡す bridge を実装した。runtime が利用できない場合は従来の `responses_state` をフォールバックとして参照し、値を安全に整数化する。`test_registry_round_identifiers_use_responses_session_generation` を追加し、registry 経路で `session_generation=0` に固定される回帰を検出できるようにした。関連する targeted test は成功している。
 
-registry 経路で `session_generation=0` に固定されていた箇所は、ResponsesRuntime を優先し、旧 `responses_state` へフォールバックする共通 helper の利用へ変更した。これにより Inception の registry round も同じ generation 解決規則を使う。Inception の別の compatibility collector には provider 固有の `core.session_generation` 読み取りが残るため、全 provider の標準経路への統合は未完了である。残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge を全 provider の標準経路へ移すことである。provider ごとの標準経路、provider 切替、continuation、tool output の整合性を確認する characterization / integration test を追加しながら段階的に移行する。
+registry 経路で `session_generation=0` に固定されていた箇所は、ResponsesRuntime を優先し、旧 `responses_state` へフォールバックする共通 helper の利用へ変更した。さらに Inception の compatibility collector も同じ helper を使うようにし、provider 固有の `core.session_generation` 読み取りを除去した。残作業は state machine の再設計ではなく、`uagent_llm.py` との bridge が有効になる全 provider の標準経路、provider 切替、continuation、tool output の整合性を確認することにある。characterization / integration test を追加しながら段階的に移行する。
 
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 

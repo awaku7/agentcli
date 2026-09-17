@@ -10,6 +10,7 @@ from typing import Any, Iterator
 
 from ..runtime.round_contracts import RoundIdentifiers, StreamEvent
 from ..runtime.stream_renderer import CallbackStreamRenderer
+from .responses_runtime import _responses_session_generation
 
 
 def _emit_snapshot(
@@ -192,7 +193,7 @@ def parse_inception_stream(
         attempt_id="compat-" + stream_id,
         request_id="compat-" + stream_id,
         stream_id=stream_id,
-        session_generation=int(getattr(core, "session_generation", 0) or 0),
+        session_generation=_responses_session_generation(core),
     )
     events = inception_stream_events(
         stream,

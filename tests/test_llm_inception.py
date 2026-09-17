@@ -50,6 +50,28 @@ def test_compatibility_collector_records_normalized_terminal_event() -> None:
     assert core._last_inception_stream_terminal == "ResponseCompleted"
 
 
+def test_compatibility_collector_uses_responses_runtime_generation(monkeypatch) -> None:
+    captured: dict[str, RoundIdentifiers] = {}
+
+    def fake_stream_events(stream, *, identifiers, diffusing=False, cancellation=None):
+        captured["identifiers"] = identifiers
+        return iter(())
+
+    monkeypatch.setattr(
+        "uagent.providers.llm_inception.inception_stream_events",
+        fake_stream_events,
+    )
+    core = types.SimpleNamespace(
+        _is_web=False,
+        session_generation=1,
+        responses_runtime=types.SimpleNamespace(session_generation=7),
+    )
+
+    parse_inception_stream([_Chunk("ok")], core=core)
+
+    assert captured["identifiers"].session_generation == 7
+
+
 class _ClosableStream:
     def __init__(self) -> None:
         self.closed = False

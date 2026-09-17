@@ -52,6 +52,9 @@ from .providers.llm_bedrock_responses import build_bedrock_responses_request
 from .providers.llm_inception import parse_inception_stream
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
+from .providers.responses_runtime import (
+    _responses_session_generation,
+)
 
 _CHAT_COMPLETIONS_MAX_TOOLS = 128
 _CHAT_TOOL_HELPERS = frozenset(
@@ -387,26 +390,6 @@ def _inception_registry_enabled() -> bool:
     return _env_default_on("UAGENT_ROUND_ORCHESTRATOR") and _env_default_on(
         "UAGENT_PROVIDER_REGISTRY_INCEPTION"
     )
-
-
-def _responses_session_generation(core: Any) -> int:
-    """Return the active Responses continuation generation from ``core``.
-
-    Registry round paths must use the same generation when constructing
-    ``RoundIdentifiers``. Prefer the live runtime and fall back to the
-    persisted legacy state while migrations are still in progress.
-    """
-    runtime = getattr(core, "responses_runtime", None)
-    generation = getattr(runtime, "session_generation", None)
-    if generation is None:
-        state = getattr(core, "responses_state", None)
-        generation = (
-            state.get("session_generation", 0) if isinstance(state, dict) else 0
-        )
-    try:
-        return int(generation or 0)
-    except (TypeError, ValueError):
-        return 0
 
 
 def _call_openai_azure_round(

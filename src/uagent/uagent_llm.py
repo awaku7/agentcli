@@ -54,8 +54,8 @@ from .llm_helpers import (
 from .llm_round_helpers import (
     _resolve_round_runtime_flags,
     _translate_assistant_if_needed,
-    _responses_session_generation,
 )
+from .providers.responses_runtime import _responses_session_generation
 from .runtime.legacy_openai_round import call_legacy_openai_compatible_round
 from .runtime.legacy_round_registry import run_legacy_provider_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
