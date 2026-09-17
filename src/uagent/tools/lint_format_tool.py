@@ -7,7 +7,7 @@ Wrapper tool for running static analysis and formatters.
 - JavaScript: Does not execute npx aggressively for safety (avoids unintended downloads)
 
 Safety:
-- mode=fix modifies files, so it requires human_ask confirmation.
+- mode=fix modifies files, so the common tool policy requests confirmation.
 - Arguments are received as an array and rejected if they contain dangerous shell metacharacters.
 
 Implementation:
@@ -255,22 +255,6 @@ def _collect_targets_for_tool(
     return matched, missing
 
 
-def _human_confirm(message: str) -> bool:
-    try:
-        from .human_ask_tool import run_tool as human_ask
-
-        res_json = human_ask({"message": message})
-        res = json.loads(res_json)
-        user_reply = (res.get("user_reply") or "").strip().lower()
-        return user_reply in ("y", "yes")
-    except Exception:
-        try:
-            resp = input(message + " [y/c/N]: ")
-            return resp.strip().lower() == "y"
-        except Exception:
-            return False
-
-
 def run_tool(args: dict[str, Any]) -> str:
     tools = args.get("tools", []) or []
     mode = str(args.get("mode") or "check")
@@ -338,26 +322,6 @@ def run_tool(args: dict[str, Any]) -> str:
             {"ok": False, "error": "no supported tools found (ruff/black/mypy)"},
             ensure_ascii=False,
         )
-
-    if mode == "fix":
-        msg = _(
-            "confirm.msg",
-            default=(
-                "lint_format(mode=fix) might overwrite files.\n"
-                "tools: {tools}\n"
-                "targets: {targets}\n"
-                "cwd: {cwd}\n\n"
-                "Reply with y to proceed, or c to cancel."
-            ),
-        ).format(
-            tools=", ".join(selected),
-            targets=", ".join(safe_targets),
-            cwd=run_cwd,
-        )
-        if not _human_confirm(msg):
-            return json.dumps(
-                {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
-            )
 
     overall_ok = True
     results: list[dict[str, Any]] = []
