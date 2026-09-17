@@ -1164,24 +1164,9 @@ def _run_one_round(
         depname=depname,
         gemini_cache_name=gemini_cache_name,
     )
-    if not judgment_mode:
-        context_manager = getattr(core, "context_manager", None)
-        build_message_context = getattr(context_manager, "build_message_context", None)
-        if callable(build_message_context):
-            active_context = build_message_context(call_messages)
-            core.active_context = active_context
-            _persist_context_decision_log(active_context, core)
-            call_messages = active_context.messages
-    if not judgment_mode:
-        round_plan = _record_round_context_plan(
-            provider=provider, depname=depname, call_messages=call_messages, core=core
-        )
-        if round_plan is not None:
-            call_messages = [dict(message) for message in round_plan.messages]
-    call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
-    call_messages = project_messages_for_provider(
-        call_messages, provider=provider, model=depname
-    )
+
+    def _call_maybe_thread_fn(fn: Any) -> Any:
+        return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
     use_responses_api, stream_responses = _resolve_round_runtime_flags(
         tr_cfg=tr_cfg,
@@ -1196,19 +1181,10 @@ def _run_one_round(
         and not provider_allows_responses_api(provider, depname)
     ):
         use_responses_api = False
-    _begin_responses_runtime(
-        core=core,
-        provider=provider,
-        model=depname,
-        enabled=use_responses_api and not judgment_mode,
-    )
 
-    def _call_maybe_thread_fn(fn: Any) -> Any:
-        return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
-
-    # Build an optional LLM-summary projection without mutating persistent
-    # conversation history. The provider receives the projection only for
-    # this request; the full history remains available for later retrieval.
+    # Build an optional LLM-summary projection before context selection. This
+    # keeps auto-shrink on the same ContextPlan -> Projection path as the
+    # uncompressed request and avoids rebuilding context after planning.
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     projection_changed = False
     if not judgment_mode and not _using_prev_rid:
@@ -1233,26 +1209,32 @@ def _run_one_round(
                 depname=depname,
                 gemini_cache_name=gemini_cache_name,
             )
-            context_manager = getattr(core, "context_manager", None)
-            build_message_context = getattr(
-                context_manager, "build_message_context", None
-            )
-            if callable(build_message_context):
-                active_context = build_message_context(call_messages)
-                core.active_context = active_context
-                _persist_context_decision_log(active_context, core)
-                call_messages = active_context.messages
-            call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
-            call_messages = project_messages_for_provider(
-                call_messages, provider=provider, model=depname
-            )
-            if not judgment_mode:
-                _record_round_context_plan(
-                    provider=provider,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                )
+
+    if not judgment_mode:
+        context_manager = getattr(core, "context_manager", None)
+        build_message_context = getattr(context_manager, "build_message_context", None)
+        if callable(build_message_context):
+            active_context = build_message_context(call_messages)
+            core.active_context = active_context
+            _persist_context_decision_log(active_context, core)
+            call_messages = active_context.messages
+    if not judgment_mode:
+        round_plan = _record_round_context_plan(
+            provider=provider, depname=depname, call_messages=call_messages, core=core
+        )
+        if round_plan is not None:
+            call_messages = [dict(message) for message in round_plan.messages]
+    call_messages = _apply_semantic_message_transforms(call_messages, tr_cfg)
+    call_messages = project_messages_for_provider(
+        call_messages, provider=provider, model=depname
+    )
+
+    _begin_responses_runtime(
+        core=core,
+        provider=provider,
+        model=depname,
+        enabled=use_responses_api and not judgment_mode,
+    )
 
     cache_plan = plan_provider_cache(
         provider=provider,
