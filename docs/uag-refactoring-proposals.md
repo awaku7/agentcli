@@ -1039,14 +1039,15 @@ I18N は中心ランタイムとは分離して進める。ただし完了条件
 - `host_gettext_findings`: 1
 - `structural_findings`: 0
 - `tool_json_findings`: 0
-- `total_findings`: 1（ja カタログの stale key-extra。strict failure にはしない advisory）
+- `total_findings`: 1（ja カタログにある41件の key-extra。全件が `uagent.pot` には存在するため、削除対象ではなく英語基準カタログとの同期差分として扱う advisory）
 
 tool JSON の `x_search_terms` 配列は英語カタログと同じ長さへ正規化し、不足値は英語 fallback、
 余分な値は削除した。placeholder を含む壊れた検索語は英語 fallback に戻した。修正は
 `scripts/i18n_structure_repair.py` で再現可能で、翻訳本文や他の JSON key は変更しない。
 host PO の実プレースホルダーも修正し、`auto.review_judgment_system_prompt` のように source の
-`default=` が placeholder 契約を持つ keyed msgid は audit の明示的 allowlist で扱う。stale な
-`key_extra` は advisory として報告し、strict audit の失敗条件からは分離した。
+`default=` が placeholder 契約を持つ keyed msgid は audit の明示的 allowlist で扱う。
+英語基準カタログにない `key_extra` は advisory として報告し、POT に存在する項目は stale とみなさず、
+strict audit の失敗条件から分離した。
 
 新しい runtime 文言を増やさず、gettext と Tool JSON の不一致を解消し、strict audit を CI 条件にする。翻訳品質レビューは構造検証と分離する。
 
