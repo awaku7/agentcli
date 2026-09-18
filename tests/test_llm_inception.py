@@ -195,6 +195,18 @@ def test_inception_adapter_closes_provider_stream_on_consumer_close() -> None:
     assert stream.closed is True
 
 
+def test_inception_host_callback_bundle_falls_back_to_stdout(capsys) -> None:
+    from uagent.runtime.inception_stream_host import build_inception_stream_callbacks
+
+    callbacks = build_inception_stream_callbacks(
+        core=types.SimpleNamespace(_is_web=False)
+    )
+    assert callbacks.on_delta is not None
+    callbacks.on_delta("ok")
+
+    assert capsys.readouterr().out == "ok"
+
+
 def test_callback_renderer_accepts_common_host_callback_bundle() -> None:
     from uagent.runtime.stream_renderer import CallbackStreamRenderer, StreamCallbacks
 

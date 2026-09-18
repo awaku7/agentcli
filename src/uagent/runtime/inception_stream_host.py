@@ -69,6 +69,8 @@ def build_inception_stream_callbacks(
             log_message = getattr(core, "log_message", None)
             if callable(log_message):
                 log_message({"type": "assistant_stream_delta", "delta": text})
+        elif not bool(getattr(core, "_is_web", False)):
+            print(text, end="", flush=True)
 
     def on_snapshot(text: str) -> None:
         nonlocal displayed_lines
