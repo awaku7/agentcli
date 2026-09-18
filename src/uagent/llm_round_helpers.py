@@ -4,7 +4,10 @@ import json
 import traceback
 import uuid
 from urllib.error import URLError
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
+
+if TYPE_CHECKING:
+    from .runtime.capability_resolver import CapabilityResolverPort
 
 try:
     from openai import APIConnectionError, APIResponseValidationError, BadRequestError
@@ -55,7 +58,6 @@ from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
     _responses_session_generation,
 )
-
 _CHAT_COMPLETIONS_MAX_TOOLS = 128
 _CHAT_TOOL_HELPERS = frozenset(
     {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
@@ -266,8 +268,60 @@ def _apply_llama_cpp_reasoning_kwargs(chat_kwargs: dict[str, Any]) -> None:
     chat_kwargs["extra_body"] = extra_body
 
 
+def _responses_api_auto_enabled(
+    *,
+    provider: str,
+    depname: str,
+    capability_resolver: CapabilityResolverPort | None = None,
+) -> bool:
+    """Resolve automatic Responses selection without changing legacy fallback.
+
+    The resolver is authoritative when it has explicit model evidence. Its
+    ``UNKNOWN`` state deliberately falls back to the historical provider gate
+    so that model catalog gaps do not silently disable a previously working
+    route during the staged migration.
+    """
+    from .llmcapa_util import provider_allows_responses_api
+    from .runtime.capability_resolver import CapabilityResolver, CapabilityState
+
+    def legacy() -> bool:
+        return provider_allows_responses_api(provider, depname or None)
+
+    resolver = capability_resolver
+    if resolver is None:
+        try:
+            resolver = CapabilityResolver()
+        except Exception:
+            return legacy()
+
+    try:
+        snapshot = resolver.resolve(
+            provider,
+            depname or "",
+            transport="responses",
+        )
+        capability = snapshot.responses_create
+        if capability.state in {
+            CapabilityState.TRUE_DOCUMENTED,
+            CapabilityState.TRUE_TESTED,
+        }:
+            return True
+        if capability.state is CapabilityState.FALSE:
+            return False
+    except Exception:
+        # Capability lookup is advisory at this migration boundary. Preserve
+        # the established route if an optional catalog/resolver fails.
+        pass
+    return legacy()
+
+
 def _resolve_round_runtime_flags(
-    *, tr_cfg: Any, core: Any, provider: str = "", depname: str = ""
+    *,
+    tr_cfg: Any,
+    core: Any,
+    provider: str = "",
+    depname: str = "",
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> Any:
     lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").lower().strip()
@@ -307,10 +361,12 @@ def _resolve_round_runtime_flags(
 
             use_responses_api = responses_endpoint_available(core)
         else:
-            # Auto-enable when provider/model can use Responses API
-            from .llmcapa_util import provider_allows_responses_api
-
-            use_responses_api = provider_allows_responses_api(provider, depname or None)
+            # Auto-enable when provider/model can use Responses API.
+            use_responses_api = _responses_api_auto_enabled(
+                provider=provider,
+                depname=depname,
+                capability_resolver=capability_resolver,
+            )
 
     # Mercury exposes Chat Completions only; do not let an explicit global
     # UAGENT_RESPONSES=1 route this provider to an unsupported client surface.

@@ -854,6 +854,20 @@ provider の静的対応だけなら旧判定は `True` を返す一方、resolv
 選択箇所を段階的に resolver へ移す。`ResponsesManager`、`ResponsesRuntime`、全 call site
 の一括変更はまだ行わない。
 
+#### P1-D の第3修正単位（完了）
+
+`llm_round_helpers.py` の Responses API 自動選択だけを `_responses_api_auto_enabled()`
+へ切り出し、model capability に明示的な `TRUE` / `FALSE` の根拠がある場合は
+`CapabilityResolver` の結果を使うようにした。`UNKNOWN`、resolver の初期化失敗・例外時は
+旧 `provider_allows_responses_api()` へ戻すため、モデルカタログの欠落で既存経路を誤って
+無効化しない。`UAGENT_RESPONSES=1/0` の明示指定、LM Studio、Meta、Inception の既存
+特殊処理はこの修正単位では変更していない。
+
+`tests/test_round_runtime_flags.py` で、resolver の true/false evidence、unknown の旧判定
+fallback、resolver failure、明示的な環境変数の優先を確認する。Responses の継続状態や
+他の call site はまだ移行せず、次はこの選択結果を registry / ResponsesRuntime の transport
+契約へ渡す境界を検討する。
+
 ### P1-E: StreamEvent から host callback を除去する
 
 `inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。
