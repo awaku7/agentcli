@@ -12,23 +12,15 @@ from .providers.responses_manager import (
     cancel_active_response,
     get_responses_capabilities,
 )
+from .runtime.responses_command_state import ResponsesCommandState
 
 
 def _manager(
     client: Any, depname: str, core: Any, *, tr: Any = None
 ) -> ResponsesManager | None:
     tr = tr if callable(tr) else _
-    provider = (
-        str(
-            getattr(core, "responses_state", {}).get("provider")
-            or getattr(core, "_responses_provider", "")
-            or ""
-        )
-        .strip()
-        .lower()
-    )
-    if not provider:
-        provider = str(getattr(core, "provider", "") or "").strip().lower()
+    state = ResponsesCommandState.from_core(core)
+    provider = state.provider
     if client is None or provider not in ("openai", "azure"):
         print(
             tr(
@@ -41,14 +33,7 @@ def _manager(
 
 
 def _response_id(core: Any, explicit: str = "") -> str:
-    if explicit.strip():
-        return explicit.strip()
-    state = getattr(core, "responses_state", {})
-    if isinstance(state, dict):
-        return str(
-            state.get("active_response_id") or state.get("previous_response_id") or ""
-        )
-    return ""
+    return ResponsesCommandState.from_core(core).resolve_id(explicit)
 
 
 def _print_json(value: Any) -> None:

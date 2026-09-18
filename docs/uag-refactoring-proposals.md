@@ -1104,6 +1104,13 @@ path や記録欠損は従来どおり復元なしへ縮退し、workdir 復元�
 保ったまま、session binding、workdir side effect、persisted state 適用を個別の境界へ委譲する。
 core と callback context の更新契約を専用テストで固定した。
 
+#### P3 の第8修正単位（完了）
+
+`runtime/responses_command_state.py` に `ResponsesCommandState` を追加し、`:response` command の
+provider、active/previous response ID の読み取りと ID 解決を host-neutral な read-only view へ分離した。
+`:response status`、cancel、delete が同じ状態解決契約を使えるようにし、欠損・不正な host state では
+安全な空状態へ縮退する。Responses command state の単体テストと既存 command 回帰を確認した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序
