@@ -62,3 +62,10 @@ def test_provider_credential_rejects_wrong_kind_and_empty_values(monkeypatch) ->
 
     assert get_provider_credential("openai", store=store) is None
     assert get_provider_credential("unknown-provider") is None
+
+
+def test_optional_local_provider_ignores_strict_missing_env_getter() -> None:
+    def strict_getter(name: str) -> str:
+        raise ValueError(f"Environment variable {name} is not set.")
+
+    assert get_provider_credential("lmstudio", env_getter=strict_getter) is None

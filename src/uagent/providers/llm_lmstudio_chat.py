@@ -17,7 +17,10 @@ def make_client(core: Any) -> Any:
 
     def get(name: str, default: str = "") -> str:
         if callable(getter):
-            return str(getter(name) or default)
+            try:
+                return str(getter(name) or default)
+            except (KeyError, ValueError):
+                return default
         return str(env_get(name, default) or default)
 
     base_url = normalize_base_url(

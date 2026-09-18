@@ -28,7 +28,10 @@ def endpoint_available(core: Any = None, *, timeout: float = 2.0) -> bool:
 
     def get(name: str, default: str = "") -> str:
         if callable(getter):
-            return str(getter(name) or default)
+            try:
+                return str(getter(name) or default)
+            except (KeyError, ValueError):
+                return default
         return str(env_get(name, default) or default)
 
     base = get("UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1").rstrip("/")

@@ -67,7 +67,14 @@ def get_provider_credential(
     )
     for env_name in names:
         if env_getter is not None:
-            value = str(env_getter(env_name) or "").strip()
+            try:
+                value = str(env_getter(env_name) or "").strip()
+            except (KeyError, ValueError):
+                # Some host getters are strict and raise for an unset
+                # variable. Credential lookup treats an absent optional key
+                # as a miss so local providers (LM Studio/Ollama) can use
+                # their dummy SDK key without requiring configuration.
+                value = ""
         else:
             value = str(env.get(env_name, "") or "").strip()
         if value:

@@ -298,7 +298,10 @@ class LMStudioSDKClient:
 def make_client(core: Any) -> LMStudioSDKClient:
     getter: Callable[[str], Any] | None = getattr(core, "get_env", None)
     if callable(getter):
-        model = getter("UAGENT_LMSTUDIO_DEPNAME") or "local-model"
+        try:
+            model = getter("UAGENT_LMSTUDIO_DEPNAME") or "local-model"
+        except (KeyError, ValueError):
+            model = "local-model"
     else:
         model = env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
     client = LMStudioSDKClient(str(model))
