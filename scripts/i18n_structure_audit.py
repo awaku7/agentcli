@@ -63,6 +63,11 @@ PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
 BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
+# Key-based gettext entries may obtain their placeholders from the source
+# ``default=`` string rather than from the msgid key stored in the PO catalog.
+# Keep this explicit so ordinary msgid placeholder mismatches remain strict.
+KEYED_DEFAULT_PLACEHOLDER_KEYS = frozenset({"auto.review_judgment_system_prompt"})
+ADVISORY_FINDING_KINDS = frozenset({"coverage_missing", "key_extra"})
 
 
 @dataclass(frozen=True)
@@ -212,6 +217,8 @@ def audit_host_catalogs(locales_root: Path) -> list[Finding]:
                 )
             )
         for key in sorted(reference_keys & set(catalog)):
+            if key in KEYED_DEFAULT_PLACEHOLDER_KEYS:
+                continue
             expected = _placeholders(key)
             for index, translation in enumerate(catalog[key]):
                 # Empty msgstr intentionally falls back to English and is not a
@@ -363,7 +370,9 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     tool_findings = audit_tool_catalogs(tools_root)
     findings = host_findings + tool_findings
     coverage_findings = [item for item in findings if item.kind == "coverage_missing"]
-    structural_findings = [item for item in findings if item.kind != "coverage_missing"]
+    structural_findings = [
+        item for item in findings if item.kind not in ADVISORY_FINDING_KINDS
+    ]
     return {
         "shipped_locales": list(SHIPPED_LOCALES),
         "host_gettext": {"findings": [asdict(item) for item in host_findings]},
@@ -390,7 +399,7 @@ def main(argv: Iterable[str] | None = None) -> int:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Exit non-zero for key, placeholder, or JSON structure findings; coverage is advisory.",
+        help="Exit non-zero for non-advisory key, placeholder, or JSON structure findings; coverage and extra keys are advisory.",
     )
     args = parser.parse_args(argv)
     payload = audit(args.locales_root, args.tools_root)

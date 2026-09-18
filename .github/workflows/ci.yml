@@ -39,7 +39,7 @@ jobs:
         run: python scripts/tool_json_i18n_batch.py status
 
       - name: Audit host and tool I18N structure
-        run: python scripts/i18n_structure_audit.py --report outputs/i18n/structure_audit.json
+        run: python scripts/i18n_structure_audit.py --strict --report outputs/i18n/structure_audit.json
 
       - name: Validate tool catalogs
         shell: bash

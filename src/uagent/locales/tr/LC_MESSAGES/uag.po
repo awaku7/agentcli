@@ -2993,7 +2993,7 @@ msgid ""
 msgstr ""
 "{count} yol silinsin mi?\n"
 "\n"
-"{yollar}\n"
+"{paths}\n"
 "\n"
 "Devam etmek için y'yi, iptal etmek için c'yi girin."
 
