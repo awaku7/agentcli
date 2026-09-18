@@ -896,8 +896,16 @@ Inception の provider adapter から `_emit_snapshot()` と互換 collector の
 変えずに provider parser の host callback 依存を除去できる。`tests/test_llm_inception.py` で
 snapshot、delta、terminal、Responses session generation の既存契約を確認した。
 
-次は P1-E の第2修正単位として、legacy compatibility wrapper の call site を host-owned
-renderer へ寄せる。
+#### P1-E の第2修正単位（完了）
+
+legacy compatibility wrapper の call site を `llm_round_helpers.py` の host-owned renderer へ寄せた。
+provider 側は `inception_stream_events()` による正規化イベント生成だけを公開し、legacy path も
+`RoundIdentifiers` を host 側で作成して `runtime/inception_stream_host.py` にイベントを渡す。
+従来の import path は `runtime/inception_stream_compat.py` の薄い互換 alias として維持し、
+`tests/test_llm_inception.py` と `tests/test_inception_runtime.py` で既存の snapshot、delta、
+terminal、session generation 契約を再確認した。
+
+次は P1-E の第3修正単位として、各 host の callback wiring を共通 renderer 契約へ寄せる。
 
 
 ### P2: transforms、retry、reasoning、telemetry

@@ -52,7 +52,9 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
-from .providers.llm_inception import parse_inception_stream
+from .providers.llm_inception import inception_stream_events
+from .runtime.inception_stream_host import render_inception_stream_events
+from .runtime.round_contracts import RoundIdentifiers
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
@@ -62,6 +64,37 @@ _CHAT_COMPLETIONS_MAX_TOOLS = 128
 _CHAT_TOOL_HELPERS = frozenset(
     {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
 )
+
+
+def _render_inception_stream(
+    stream: Any,
+    *,
+    diffusing: bool,
+    print_delta_fn: Any,
+    core: Any,
+) -> tuple[str, str, list[dict[str, Any]]]:
+    """Render an Inception stream through the host-owned event boundary."""
+    stream_id = "inception-" + uuid.uuid4().hex
+    identifiers = RoundIdentifiers(
+        turn_id="compat-" + stream_id,
+        round_id="compat-" + stream_id,
+        attempt_id="compat-" + stream_id,
+        request_id="compat-" + stream_id,
+        stream_id=stream_id,
+        session_generation=_responses_session_generation(core),
+    )
+    events = inception_stream_events(
+        stream,
+        identifiers=identifiers,
+        diffusing=diffusing,
+        cancellation=getattr(core, "cancellation_token", None),
+    )
+    return render_inception_stream_events(
+        events,
+        diffusing=diffusing,
+        print_delta_fn=print_delta_fn,
+        core=core,
+    )
 
 
 def _tool_spec_name(spec: Any) -> str:
@@ -1138,7 +1171,7 @@ def _call_openai_azure_round(
                     # than the Responses API. Reuse the OpenAI-compatible
                     # tool/reasoning delta parser.
                     def _legacy_inception_stream() -> Any:
-                        return parse_inception_stream(
+                        return _render_inception_stream(
                             client.chat.completions.create(**chat_kwargs, stream=True),
                             diffusing=_diffusing,
                             print_delta_fn=(
@@ -1163,14 +1196,10 @@ def _call_openai_azure_round(
                     )
                     if use_orchestrator:
                         try:
-                            from .providers.llm_inception import (
-                                collect_inception_stream_events,
-                            )
                             from .runtime.context_plan_builder import build_context_plan
                             from .providers.runtime_registry import (
                                 build_provider_runtime_registry,
                             )
-                            from .runtime.round_contracts import RoundIdentifiers
                             from .runtime.round_identity import (
                                 CredentialStoreWorkspaceKeyProvider,
                                 RoundIdentityFactory,
@@ -1221,7 +1250,7 @@ def _call_openai_azure_round(
                                 cancellation=cancellation,
                             )
                             assistant_text, reasoning_content, tool_calls_list = (
-                                collect_inception_stream_events(
+                                render_inception_stream_events(
                                     iter(orchestrated.events),
                                     diffusing=_diffusing,
                                     print_delta_fn=getattr(
