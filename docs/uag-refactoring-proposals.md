@@ -905,7 +905,17 @@ provider 側は `inception_stream_events()` による正規化イベント生成
 `tests/test_llm_inception.py` と `tests/test_inception_runtime.py` で既存の snapshot、delta、
 terminal、session generation 契約を再確認した。
 
-次は P1-E の第3修正単位として、各 host の callback wiring を共通 renderer 契約へ寄せる。
+#### P1-E の第3修正単位（完了）
+
+CLI/GUI/Web の callback 選択を `build_inception_stream_callbacks()` に集約し、共通の
+`StreamCallbacks` 契約で `CallbackStreamRenderer` へ渡すようにした。round orchestration は
+host callback の構築を helper に委譲し、生成された callback bundle を renderer に渡す。
+`RenderedStream` から tool call と terminal を収集するため、callback の副作用と結果の収集も
+分離され、provider adapter は引き続き `StreamEvent` の生成だけを担当する。既存の個別 callback
+引数は互換のため残している。
+
+次は P1-E の第4修正単位として、Responses/Chat Completions の他の stream parser も同じ
+`StreamCallbacks` 契約へ段階的に寄せる。
 
 
 ### P2: transforms、retry、reasoning、telemetry

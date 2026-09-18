@@ -193,3 +193,20 @@ def test_inception_adapter_closes_provider_stream_on_consumer_close() -> None:
     events.close()
 
     assert stream.closed is True
+
+
+def test_callback_renderer_accepts_common_host_callback_bundle() -> None:
+    from uagent.runtime.stream_renderer import CallbackStreamRenderer, StreamCallbacks
+
+    deltas: list[str] = []
+    renderer = CallbackStreamRenderer(
+        callbacks=StreamCallbacks(on_delta=deltas.append)
+    )
+    events = inception_stream_events(
+        [_Chunk("ok")], identifiers=_identifiers(), diffusing=False
+    )
+    for event in events:
+        renderer.on_event(event)
+
+    assert deltas == ["ok"]
+    assert renderer.result().assistant_text == "ok"

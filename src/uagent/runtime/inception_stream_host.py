@@ -12,7 +12,7 @@ import sys
 from typing import Any, Iterable
 
 from .round_contracts import StreamEvent
-from .stream_renderer import CallbackStreamRenderer
+from .stream_renderer import CallbackStreamRenderer, StreamCallbacks
 
 
 def _emit_snapshot(
@@ -55,22 +55,12 @@ def _emit_snapshot(
     return max(1, text.count(chr(10)) + 1)
 
 
-def render_inception_stream_events(
-    events: Iterable[StreamEvent],
-    *,
-    diffusing: bool = False,
-    print_delta_fn: Any = None,
-    core: Any = None,
-) -> tuple[str, str, list[dict[str, Any]]]:
-    """Render and collect normalized Inception events at the host boundary.
+def build_inception_stream_callbacks(
+    *, print_delta_fn: Any = None, core: Any = None
+) -> StreamCallbacks:
+    """Build the common callback bundle for CLI, GUI, and Web hosts."""
 
-    The renderer receives explicit normalized events and is therefore
-    independent of the provider SDK.  ``core`` is accepted only here, at the
-    host-owned display boundary, to preserve the legacy CLI/GUI/Web behavior.
-    """
-    tool_calls: list[dict[str, Any]] = []
     displayed_lines = 0
-    terminal = ""
 
     def on_delta(text: str) -> None:
         if print_delta_fn and not bool(getattr(core, "_is_web", False)):
@@ -89,10 +79,41 @@ def render_inception_stream_events(
             previous_lines=displayed_lines,
         )
 
-    def on_tool_call(data: Any) -> None:
-        name = data.get("name") if isinstance(data, dict) else None
+    return StreamCallbacks(on_delta=on_delta, on_snapshot=on_snapshot)
+
+
+def render_inception_stream_events(
+    events: Iterable[StreamEvent],
+    *,
+    diffusing: bool = False,
+    print_delta_fn: Any = None,
+    core: Any = None,
+    callbacks: StreamCallbacks | None = None,
+) -> tuple[str, str, list[dict[str, Any]]]:
+    """Render and collect normalized Inception events at the host boundary.
+
+    The renderer receives explicit normalized events and is therefore
+    independent of the provider SDK.  ``core`` is accepted only here, at the
+    host-owned display boundary, to preserve the legacy CLI/GUI/Web behavior.
+    """
+    renderer = CallbackStreamRenderer(
+        callbacks=callbacks
+        or build_inception_stream_callbacks(
+            print_delta_fn=print_delta_fn,
+            core=core,
+        )
+    )
+    for event in events:
+        renderer.on_event(event)
+
+    rendered = renderer.result()
+    result_text = rendered.assistant_text
+    terminal = rendered.terminal_type
+    tool_calls: list[dict[str, Any]] = []
+    for data in rendered.tool_calls:
+        name = data.get("name")
         if not isinstance(name, str) or not name:
-            return
+            continue
         tool_calls.append(
             {
                 "id": str(data.get("tool_call_id") or ""),
@@ -103,22 +124,6 @@ def render_inception_stream_events(
                 },
             }
         )
-
-    def on_terminal(event_type: str, _data: Any) -> None:
-        nonlocal terminal
-        terminal = event_type
-
-    renderer = CallbackStreamRenderer(
-        on_delta=on_delta,
-        on_snapshot=on_snapshot,
-        on_tool_call=on_tool_call,
-        on_terminal=on_terminal,
-    )
-    for event in events:
-        renderer.on_event(event)
-
-    rendered = renderer.result()
-    result_text = rendered.assistant_text
     gui_callback = getattr(core, "_inception_diffusion_callback", None)
     if callable(gui_callback) and diffusing:
         gui_callback(None)
@@ -149,4 +154,7 @@ def render_inception_stream_events(
     return result_text, "", tool_calls
 
 
-__all__ = ["render_inception_stream_events"]
+__all__ = [
+    "build_inception_stream_callbacks",
+    "render_inception_stream_events",
+]

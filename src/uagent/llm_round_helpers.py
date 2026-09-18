@@ -53,7 +53,10 @@ from .providers.responses_common import (
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
 from .providers.llm_inception import inception_stream_events
-from .runtime.inception_stream_host import render_inception_stream_events
+from .runtime.inception_stream_host import (
+    build_inception_stream_callbacks,
+    render_inception_stream_events,
+)
 from .runtime.round_contracts import RoundIdentifiers
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
@@ -94,6 +97,10 @@ def _render_inception_stream(
         diffusing=diffusing,
         print_delta_fn=print_delta_fn,
         core=core,
+        callbacks=build_inception_stream_callbacks(
+            print_delta_fn=print_delta_fn,
+            core=core,
+        ),
     )
 
 
@@ -1257,6 +1264,12 @@ def _call_openai_azure_round(
                                         core, "print_stream_delta", None
                                     ),
                                     core=core,
+                                    callbacks=build_inception_stream_callbacks(
+                                        print_delta_fn=getattr(
+                                            core, "print_stream_delta", None
+                                        ),
+                                        core=core,
+                                    ),
                                 )
                             )
                         except Exception:

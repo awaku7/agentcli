@@ -15,6 +15,17 @@ from .round_contracts import StreamEvent
 
 
 @dataclass(frozen=True)
+class StreamCallbacks:
+    """Optional host callbacks for a normalized stream renderer."""
+
+    on_delta: Callable[[str], None] | None = None
+    on_snapshot: Callable[[str], None] | None = None
+    on_reasoning: Callable[[str], None] | None = None
+    on_tool_call: Callable[[Mapping[str, Any]], None] | None = None
+    on_terminal: Callable[[str, Mapping[str, Any]], None] | None = None
+
+
+@dataclass(frozen=True)
 class RenderedStream:
     """Collected display text and tool calls for one normalized stream."""
 
@@ -89,18 +100,20 @@ class CallbackStreamRenderer(StreamRenderer):
     def __init__(
         self,
         *,
+        callbacks: StreamCallbacks | None = None,
         on_delta: Callable[[str], None] | None = None,
         on_snapshot: Callable[[str], None] | None = None,
         on_reasoning: Callable[[str], None] | None = None,
         on_tool_call: Callable[[Mapping[str, Any]], None] | None = None,
         on_terminal: Callable[[str, Mapping[str, Any]], None] | None = None,
     ) -> None:
+        callbacks = callbacks or StreamCallbacks()
         self._collector = CollectingStreamRenderer()
-        self._on_delta = on_delta
-        self._on_snapshot = on_snapshot
-        self._on_reasoning = on_reasoning
-        self._on_tool_call = on_tool_call
-        self._on_terminal = on_terminal
+        self._on_delta = on_delta or callbacks.on_delta
+        self._on_snapshot = on_snapshot or callbacks.on_snapshot
+        self._on_reasoning = on_reasoning or callbacks.on_reasoning
+        self._on_tool_call = on_tool_call or callbacks.on_tool_call
+        self._on_terminal = on_terminal or callbacks.on_terminal
         self._last_terminal = ""
 
     def on_event(self, event: StreamEvent) -> None:
@@ -139,6 +152,7 @@ __all__ = [
     "CallbackStreamRenderer",
     "CollectingStreamRenderer",
     "RenderedStream",
+    "StreamCallbacks",
     "StreamRenderer",
     "collect_stream_events",
 ]
