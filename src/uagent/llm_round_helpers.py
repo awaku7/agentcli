@@ -18,7 +18,6 @@ except Exception:
 
 from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
-from .llm_errors import _rate_limit_retry_step
 from .runtime.round_ui import stop_round_spinner
 from .runtime.error_renderer import (
     exception_text,
@@ -1532,7 +1531,7 @@ def _call_openai_azure_round(
                 _maybe_print_certifi_where(e)
                 print(exception_text(e))
                 return False, client, "", "", []
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider=provider,
                 model=depname,

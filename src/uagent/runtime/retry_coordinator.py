@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any, Callable
+
 from .round_runtime import RoundAttemptBudget, RetryRequest
 
 
@@ -21,6 +23,37 @@ class RoundRetryCoordinator:
 
     def authorize(self, reason: str, detail: str) -> bool:
         return self.budget.try_consume(RetryRequest(reason, detail))
+
+    def rate_limit_step(
+        self,
+        *,
+        exception: Exception,
+        provider: str,
+        model: str,
+        attempt: int,
+        max_retries: int,
+        base: float,
+        cap: float,
+        recreate_client_fn: Callable[[], Any],
+    ) -> tuple[int, Any | None, str]:
+        """Run rate-limit backoff and charge the shared transport budget."""
+        from ..llm_errors import _rate_limit_retry_step
+
+        next_attempt, new_client, action = _rate_limit_retry_step(
+            exception=exception,
+            provider=provider,
+            model=model,
+            attempt=attempt,
+            max_retries=max_retries,
+            base=base,
+            cap=cap,
+            recreate_client_fn=recreate_client_fn,
+        )
+        if action == "retry" and not self.authorize(
+            "transport", f"{provider}:{model}:{type(exception).__name__}"
+        ):
+            return next_attempt, None, "give_up"
+        return next_attempt, new_client, action
 
 
 __all__ = ["RoundRetryCoordinator"]

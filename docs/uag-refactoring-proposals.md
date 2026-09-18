@@ -990,7 +990,16 @@ reasoning の host 表示を `runtime/reasoning_renderer.py` の `render_reasoni
 
 structured telemetry については、round ID と structured logging はあるが、request token 数、tool schema size、projection size、recovery strategy、fallback 回数、duplicate / out-of-order event 数、retry による追加 token / request cost が不足している。契約と実行経路を固定した後に追加する。
 
-次は P2 の第2修正単位として、legacy provider の retry 判定を `RoundRetryCoordinator` へ段階的に集約する。
+#### P2 の第2修正単位（完了）
+
+legacy round の rate-limit retry を `RoundRetryCoordinator.rate_limit_step()` へ接続し、既存の
+backoff、client recreation、provider error handling を維持したまま、共有 transport retry budget
+を消費するようにした。これにより stale continuation、feature fallback、transport retry が
+同じ round attempt budget を超えて実行されない。`tests/test_retry_coordinator.py`、
+`tests/test_round_integration_regressions.py`、`tests/test_legacy_provider_dispatch.py` で確認した。
+
+次は P2 の第3修正単位として、round telemetry に request token 数、tool schema size、projection
+size、recovery strategy、fallback 回数を追加する。
 
 ### 並行トラック: I18N strict audit
 
