@@ -12,6 +12,7 @@ from typing import Any, Optional
 
 from ..env_utils import env_get
 from ..reasoning_display import show_reasoning
+from ..runtime.stream_renderer import StreamCallbacks
 
 
 def _ensure_xai_chat() -> None:
@@ -415,6 +416,7 @@ def parse_xai_stream(
     stream_iter: Any,
     *,
     core: Any = None,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Parse an xai_sdk stream iterator.
 
@@ -423,10 +425,22 @@ def parse_xai_stream(
     """
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
+    callbacks = callbacks or StreamCallbacks()
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseStarted", {})
+        except Exception:
+            pass
     _reasoning_started = False
     _saw_reasoning = False
 
     def _print_delta(s: str) -> None:
+        if callable(callbacks.on_delta):
+            try:
+                callbacks.on_delta(s)
+                return
+            except Exception:
+                pass
         _psd = getattr(core, "print_stream_delta", None) if core is not None else None
         if callable(_psd):
             _psd(s)
@@ -451,13 +465,19 @@ def parse_xai_stream(
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
-                    show_reasoning(
-                        rc,
-                        provider="Grok",
-                        is_first=(not _reasoning_started),
-                        print_fn=_print_delta,
-                        core=core,
-                    )
+                    if callable(callbacks.on_reasoning):
+                        try:
+                            callbacks.on_reasoning(rc)
+                        except Exception:
+                            pass
+                    else:
+                        show_reasoning(
+                            rc,
+                            provider="Grok",
+                            is_first=(not _reasoning_started),
+                            print_fn=_print_delta,
+                            core=core,
+                        )
                     _reasoning_started = True
                     _saw_reasoning = True
 
@@ -492,8 +512,19 @@ def parse_xai_stream(
     except Exception as e:
         _debug_log("stream_error", error=str(e))
 
-    # Print final newline after streaming to avoid state messages on same line
-    print()
+    # Print final newline after streaming to avoid state messages on same line.
+    _print_delta(chr(10))
+    if callable(callbacks.on_tool_call):
+        for tool_call in tool_calls_list:
+            try:
+                callbacks.on_tool_call(dict(tool_call))
+            except Exception:
+                pass
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseCompleted", {})
+        except Exception:
+            pass
     return assistant_text, tool_calls_list
 
 

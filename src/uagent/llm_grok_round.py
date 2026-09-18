@@ -12,6 +12,7 @@ from typing import Any, Optional
 
 from .env_utils import env_get
 from .i18n import _
+from .runtime.stream_host import build_stream_callbacks
 
 
 def _debug_log(prefix: str, **kwargs: Any) -> None:
@@ -263,7 +264,12 @@ def _call_grok_round(
             if stream_responses:
                 stream_iter = chat.stream()
                 assistant_text, tool_calls_list = parse_xai_stream(
-                    stream_iter, core=core
+                    stream_iter,
+                    core=core,
+                    callbacks=build_stream_callbacks(
+                        print_delta_fn=getattr(core, "print_stream_delta", None),
+                        core=core,
+                    ),
                 )
                 _debug_log(
                     "stream_xai_done",

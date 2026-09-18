@@ -532,6 +532,17 @@ def _call_openai_azure_round(
         max_retries_429=max_retries_429,
         retry_base=retry_base,
         retry_cap=retry_cap,
+        callbacks=build_stream_callbacks(
+            print_delta_fn=(
+                None
+                if bool(getattr(core, "_is_web", False))
+                else (
+                    getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True) if s else None)
+                )
+            ),
+            core=core,
+        ),
     )
     if special_result is not None:
         return special_result

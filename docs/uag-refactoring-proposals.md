@@ -957,8 +957,16 @@ Gemini/Vertex の SDK 固有 streaming 経路に `StreamCallbacks` を接続し�
 重複排除、legacy 引数は維持した。`tests/test_gemini_turn_recovery.py` と
 `tests/test_legacy_gemini_round.py` で callback wiring と既存の復旧契約を確認した。
 
-次は P1-E の第9修正単位として、Grok/xAI と PFN の残る streaming callback 経路を同じ契約へ
-移行する。
+#### P1-E の第9修正単位（完了）
+
+Grok/xAI と PFN の streaming parser に `StreamCallbacks` を接続し、delta、reasoning、tool call、
+terminal 通知を host-owned callback bundle へ寄せた。Grok の reasoning から回答への改行と
+xai-sdk の gRPC stream、PFN の OpenAI-compatible stream の既存挙動を維持した。round call site
+から callback bundle を渡し、`tests/test_grok_pfn_stream_callbacks.py` と
+`tests/test_legacy_provider_dispatch.py` で確認した。
+
+次は P1-E 第10修正単位として、LM Studio など SDK 固有 stream の最終監査と、残存する
+legacy callback 互換層の整理を行う。
 
 
 ### P2: transforms、retry、reasoning、telemetry

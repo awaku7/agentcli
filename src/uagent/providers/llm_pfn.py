@@ -17,6 +17,7 @@ from ..env_utils import env_get
 from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import _maybe_print_certifi_where
 from ..i18n import _
+from ..runtime.stream_renderer import StreamCallbacks
 
 
 def _pfn_tool_specs(core: Any = None) -> list[dict[str, Any]]:
@@ -147,10 +148,21 @@ def parse_pfn_response(resp: Any) -> tuple[str, list[dict[str, Any]]]:
     return content, result
 
 
-def parse_pfn_stream(stream: Any, *, core: Any = None) -> str:
+def parse_pfn_stream(
+    stream: Any,
+    *,
+    core: Any = None,
+    callbacks: StreamCallbacks | None = None,
+) -> str:
     """Consume PFN's documented text streaming response."""
     parts: list[str] = []
     is_web = bool(getattr(core, "_is_web", False)) if core is not None else False
+    callbacks = callbacks or StreamCallbacks()
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseStarted", {})
+        except Exception:
+            pass
     for chunk in stream:
         choices = _value(chunk, "choices") or []
         if not choices:
@@ -160,7 +172,12 @@ def parse_pfn_stream(stream: Any, *, core: Any = None) -> str:
         if not isinstance(text, str) or not text:
             continue
         parts.append(text)
-        if is_web and core is not None:
+        if callable(callbacks.on_delta):
+            try:
+                callbacks.on_delta(text)
+            except Exception:
+                pass
+        elif is_web and core is not None:
             try:
                 log_message = getattr(core, "log_message", None)
                 if callable(log_message):
@@ -174,7 +191,18 @@ def parse_pfn_stream(stream: Any, *, core: Any = None) -> str:
             else:
                 print(text, end="", flush=True)
     if parts and not is_web:
-        print("", flush=True)
+        if callable(callbacks.on_delta):
+            try:
+                callbacks.on_delta(chr(10))
+            except Exception:
+                pass
+        else:
+            print("", flush=True)
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseCompleted", {})
+        except Exception:
+            pass
     return "".join(parts)
 
 
@@ -190,6 +218,7 @@ def pfn_chat_with_tools(
     max_retries_429: int,
     retry_base: float,
     retry_cap: float,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Make one PFN round and return the common agentcli result tuple.
 
@@ -245,7 +274,11 @@ def pfn_chat_with_tools(
                 stream = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**kwargs)
                 )
-                text = parse_pfn_stream(stream, core=core)
+                text = parse_pfn_stream(
+                    stream,
+                    core=core,
+                    callbacks=callbacks,
+                )
                 calls = []
             else:
                 resp = call_maybe_thread_fn(
