@@ -1068,6 +1068,14 @@ session command の実装を移動する前に、`:sessions` / `:session` の al
 既存の番号付き検索結果と `:load` 継続契約は維持し、service 単体、session command、SQLite store の
 回帰テストで確認した。
 
+#### P3 の第3修正単位（完了）
+
+`SessionCommandService.load_context_state()` を追加し、session load 時に必要な persisted tool context と
+Responses state の読み取りを command handler から分離した。service は host state を直接変更せず、
+optional な永続 state の欠損・読み取り失敗を空の状態へ縮退させる。既存の `:load` / `:sessions load`
+の context 更新、Responses continuation、tool context 復元の挙動は維持し、成功・欠損時の service
+契約と SQLite command 回帰を確認した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序

@@ -256,19 +256,11 @@ def _restore_sqlite_session_context(
     except Exception:
         pass
     _restore_session_workdir(target, loaded, core=core, store=store)
+    persisted_state = SessionCommandService(store).load_context_state(target)
     if hasattr(core, "tool_context"):
         core.tool_context.clear()
-        try:
-            loaded_tool_context = store.latest_tool_context(target)
-        except Exception:
-            loaded_tool_context = {}
-        if isinstance(loaded_tool_context, dict):
-            core.tool_context.update(loaded_tool_context)
-    state = None
-    try:
-        state = store.latest_response_state(target)
-    except Exception:
-        state = None
+        core.tool_context.update(persisted_state.tool_context)
+    state = persisted_state.response_state
     if state is not None:
         response_state = getattr(core, "responses_state", None)
         if isinstance(response_state, dict):

@@ -45,6 +45,42 @@ class _Store:
         ]
 
 
+class _StateStore:
+    def latest_tool_context(self, session_id):
+        assert session_id == "s1"
+        return {"browser": {"url": "https://example.test"}}
+
+    def latest_response_state(self, session_id):
+        assert session_id == "s1"
+        return {
+            "provider": "openai",
+            "model": "gpt-5.4",
+            "response_id": "resp_1",
+            "status": "completed",
+        }
+
+
+def test_load_context_state_returns_persisted_runtime_state() -> None:
+    state = SessionCommandService(_StateStore()).load_context_state("s1")
+
+    assert state.tool_context == {"browser": {"url": "https://example.test"}}
+    assert state.response_state["response_id"] == "resp_1"
+
+
+def test_load_context_state_degrades_when_optional_state_is_unavailable() -> None:
+    class _Unavailable:
+        def latest_tool_context(self, session_id):
+            raise RuntimeError("missing")
+
+        def latest_response_state(self, session_id):
+            raise RuntimeError("missing")
+
+    state = SessionCommandService(_Unavailable()).load_context_state("s1")
+
+    assert state.tool_context == {}
+    assert state.response_state is None
+
+
 def test_search_projects_message_hits_into_sorted_session_rows() -> None:
     results = SessionCommandService(_Store()).search(
         "needle",

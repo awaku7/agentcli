@@ -12,6 +12,14 @@ from typing import Any
 
 
 @dataclass(frozen=True)
+class SessionContextState:
+    """Persisted tool and Responses state needed when loading a session."""
+
+    tool_context: dict[str, Any]
+    response_state: dict[str, Any] | None
+
+
+@dataclass(frozen=True)
 class SessionSearchResult:
     """One session-oriented search result ready for a host renderer."""
 
@@ -26,6 +34,26 @@ class SessionCommandService:
 
     def __init__(self, store: Any) -> None:
         self._store = store
+
+    def load_context_state(self, session_id: str) -> SessionContextState:
+        """Read persisted tool and Responses state without mutating a host."""
+        try:
+            loaded_tool_context = self._store.latest_tool_context(session_id)
+        except Exception:
+            loaded_tool_context = {}
+        tool_context = (
+            dict(loaded_tool_context) if isinstance(loaded_tool_context, dict) else {}
+        )
+        try:
+            response_state = self._store.latest_response_state(session_id)
+        except Exception:
+            response_state = None
+        return SessionContextState(
+            tool_context=tool_context,
+            response_state=(
+                dict(response_state) if isinstance(response_state, dict) else None
+            ),
+        )
 
     def search(
         self,
@@ -98,4 +126,8 @@ class SessionCommandService:
         return output
 
 
-__all__ = ["SessionCommandService", "SessionSearchResult"]
+__all__ = [
+    "SessionCommandService",
+    "SessionContextState",
+    "SessionSearchResult",
+]
