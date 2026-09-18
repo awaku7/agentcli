@@ -130,6 +130,8 @@ def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> Non
         provider="fake",
         session={
             "recovery_hint": {"strategy": "bounded_rollback"},
+            "usage_before": {"input_tokens": 10, "output_tokens": 2},
+            "usage_after": {"input_tokens": 15, "output_tokens": 5},
         },
         cancellation=_Cancellation(),
     )
@@ -142,6 +144,8 @@ def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> Non
     assert captured["fallback_count"] == 2
     assert captured["duplicate_event_count"] == 0
     assert captured["out_of_order_event_count"] == 0
+    assert captured["input_tokens_delta"] == 5
+    assert captured["output_tokens_delta"] == 3
 
 
 def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:

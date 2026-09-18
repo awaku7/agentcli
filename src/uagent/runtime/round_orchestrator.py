@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from typing import Any, Mapping
 
 from .context_tokens import estimate_tokens
+from .telemetry import reconcile_usage
 
 from .round_contracts import (
     CancellationToken,
@@ -117,6 +118,13 @@ class RoundOrchestrator:
         tool_schema_size = _json_size(
             request.payload.get("tools", projection.tool_specs)
         )
+        usage_after = session.get("usage_after")
+        if not isinstance(usage_after, Mapping):
+            usage_after = terminal.data.get("usage")
+        usage_delta = reconcile_usage(
+            session.get("usage_before"),
+            usage_after if isinstance(usage_after, Mapping) else None,
+        )
         log_event(
             "llm.round.completed",
             provider=request.provider,
@@ -134,6 +142,7 @@ class RoundOrchestrator:
             fallback_count=plan_telemetry.get("fallback_count", 0),
             duplicate_event_count=validator.duplicate_events,
             out_of_order_event_count=validator.out_of_order_events,
+            **usage_delta,
         )
         if continuation_update:
             responses_runtime = session.get("responses_runtime")

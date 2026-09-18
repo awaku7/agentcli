@@ -1014,8 +1014,15 @@ recovery hint から追加情報を取得する。`tests/test_round_orchestrator
 が取得できない場合の `additional_token_count` は null のまま保持する。`tests/test_round_contracts.py`、
 `tests/test_round_orchestrator.py`、`tests/test_retry_coordinator.py` で各 telemetry 契約を確認した。
 
-次は P2 の第5修正単位として、provider usage が返る経路から retry 前後の token / request cost を
-reconcile し、telemetry の欠損値を段階的に埋める。
+#### P2 の第5修正単位（完了）
+
+provider usage が取得できる場合に `runtime/telemetry.py` の `reconcile_usage()` で retry 前後の
+`input_tokens`、`output_tokens`、`total_tokens` の差分を計算し、`llm.round.completed` telemetry
+へ追加する経路を実装した。usage が欠落・非数値の場合は推測せず、該当フィールドを省略する。
+`tests/test_telemetry.py` と `tests/test_round_orchestrator.py` で差分と欠損時の契約を確認した。
+
+P2 の主要 telemetry 項目は実装済み。次は duplicate event、retry cost、provider usage の実運用
+経路を横断して確認し、必要なら legacy provider の usage bridge を追加する。
 
 ### 並行トラック: I18N strict audit
 
