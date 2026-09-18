@@ -890,7 +890,9 @@ Discovery、catalog steering の事前判定が同じ resolver を利用し、`U
 caller 側で優先する。
 
 これにより、旧 `provider_allows_responses_api()` を使う自動選択 fallback は実行経路から
-除去された。`tests/test_round_runtime_flags.py` と `tests/test_tool_discovery.py` で、明示指定、
+除去された。さらに `uagent_llm.py` に残っていた選択後の旧 capability 再判定も削除し、
+解決済み `RoundTransportSelection` を実行経路の唯一の判断として扱う。
+`tests/test_round_runtime_flags.py` と `tests/test_tool_discovery.py` で、明示指定、
 documented capability、false、unknown、resolver failure の境界を固定した。
 
 ### P1-E: StreamEvent から host callback を除去する

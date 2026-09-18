@@ -8,8 +8,6 @@ from urllib.parse import urlparse
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
-from .llmcapa_util import provider_allows_responses_api
-
 set_thread_lang(detect_lang())
 
 from .translate import load_translate_config, translate_text
@@ -1306,13 +1304,6 @@ def _run_one_round(
         provider=provider,
         depname=depname,
     )
-    # Responses API is only supported when provider/model allow it.
-    if (
-        provider != "meta"
-        and use_responses_api
-        and not provider_allows_responses_api(provider, depname)
-    ):
-        use_responses_api = False
 
     transport_selection = RoundTransportSelection.from_flags(
         use_responses_api=use_responses_api,
