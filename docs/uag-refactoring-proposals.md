@@ -1090,6 +1090,13 @@ Responses state を host 非依存の restore plan にまとめた。command han
 callback context へ適用するだけになり、service 自体は入力 messages や host state を変更しない。
 既存の load 後の continuation と tool context 復元を SQLite command 回帰で確認した。
 
+#### P3 の第6修正単位（完了）
+
+`SessionCommandService.plan_workdir()` を追加し、message metadata または session project path からの
+workdir 候補の選択、展開、存在確認を process cwd 変更なしで行うようにした。command handler は
+validated plan を受けて chdir、cwd marker、log callback、翻訳済み表示だけを担当する。存在しない
+path や記録欠損は従来どおり復元なしへ縮退し、workdir 復元の side effect 境界をテストで固定した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序

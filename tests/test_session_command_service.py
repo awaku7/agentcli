@@ -60,6 +60,38 @@ class _StateStore:
         }
 
 
+def test_plan_workdir_validates_message_path_without_changing_cwd(tmp_path) -> None:
+    current = str(tmp_path / "current")
+    target = tmp_path / "target"
+    target.mkdir()
+
+    plan = SessionCommandService.plan_workdir(
+        "s1",
+        message_workdir=str(target),
+        current_workdir=current,
+    )
+
+    assert plan is not None
+    assert plan.target_path == str(target)
+    assert plan.previous_path == current
+
+
+def test_plan_workdir_falls_back_to_project_path_and_rejects_missing_path(tmp_path) -> None:
+    target = tmp_path / "project"
+    target.mkdir()
+
+    assert (
+        SessionCommandService.plan_workdir(
+            "s1", session_project_path=str(target), current_workdir="previous"
+        ).target_path
+        == str(target)
+    )
+    assert (
+        SessionCommandService.plan_workdir("s1", message_workdir=str(tmp_path / "missing"))
+        is None
+    )
+
+
 def test_build_restore_plan_adds_missing_system_prompt_without_mutating_input() -> None:
     messages = [{"role": "user", "content": "hello"}]
     state = SessionCommandService(_StateStore()).load_context_state("s1")

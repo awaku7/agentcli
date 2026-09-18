@@ -282,20 +282,26 @@ def _restore_session_workdir(
     store: Any,
 ) -> str | None:
     """Restore the last workdir recorded by a SQLite session, if available."""
-    target_cwd = _extract_last_cwd_from_messages(messages)
-    if not target_cwd:
+    message_workdir = _extract_last_cwd_from_messages(messages)
+    session_project_path = None
+    if not message_workdir:
         try:
             session_row = store.get_session(target)
-            target_cwd = session_row.get("project_path") if session_row else None
+            session_project_path = (
+                session_row.get("project_path") if session_row else None
+            )
         except Exception:
-            target_cwd = None
-    if not isinstance(target_cwd, str) or not target_cwd.strip():
+            session_project_path = None
+    workdir_plan = SessionCommandService.plan_workdir(
+        target,
+        message_workdir=message_workdir,
+        session_project_path=session_project_path,
+    )
+    if workdir_plan is None:
         return None
-    target_cwd = os.path.abspath(os.path.expanduser(target_cwd.strip()))
-    if not os.path.isdir(target_cwd):
-        return None
+    target_cwd = workdir_plan.target_path
     try:
-        previous = os.getcwd()
+        previous = workdir_plan.previous_path
         if os.path.normcase(previous) == os.path.normcase(target_cwd):
             return previous
         os.chdir(target_cwd)

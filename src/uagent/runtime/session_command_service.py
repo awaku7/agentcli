@@ -7,6 +7,7 @@ behind the SessionStore interface supplied by the caller.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -17,6 +18,15 @@ class LoadTargetResolution:
 
     target: str | None = None
     error: str | None = None
+
+
+@dataclass(frozen=True)
+class SessionWorkdirPlan:
+    """Validated workdir transition data for a host to apply."""
+
+    session_id: str
+    target_path: str
+    previous_path: str
 
 
 @dataclass(frozen=True)
@@ -52,6 +62,28 @@ class SessionCommandService:
 
     def __init__(self, store: Any) -> None:
         self._store = store
+
+    @staticmethod
+    def plan_workdir(
+        session_id: str,
+        *,
+        message_workdir: str | None = None,
+        session_project_path: str | None = None,
+        current_workdir: str | None = None,
+    ) -> SessionWorkdirPlan | None:
+        """Validate a recorded workdir without changing the process cwd."""
+        candidate = message_workdir or session_project_path
+        if not isinstance(candidate, str) or not candidate.strip():
+            return None
+        target_path = os.path.abspath(os.path.expanduser(candidate.strip()))
+        if not os.path.isdir(target_path):
+            return None
+        previous_path = current_workdir or os.getcwd()
+        return SessionWorkdirPlan(
+            session_id=session_id,
+            target_path=target_path,
+            previous_path=previous_path,
+        )
 
     @staticmethod
     def resolve_load_target(
@@ -196,4 +228,5 @@ __all__ = [
     "SessionContextState",
     "SessionRestorePlan",
     "SessionSearchResult",
+    "SessionWorkdirPlan",
 ]
