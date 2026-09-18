@@ -30,7 +30,6 @@ from .runtime.openai_special_dispatch import call_special_openai_round
 _exception_text = exception_text
 _provider_error_label = provider_error_label
 _is_zscaler_responses_block = is_zscaler_responses_block
-from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
 from .runtime.telemetry import reconcile_usage
