@@ -1021,8 +1021,16 @@ provider usage が取得できる場合に `runtime/telemetry.py` の `reconcile
 へ追加する経路を実装した。usage が欠落・非数値の場合は推測せず、該当フィールドを省略する。
 `tests/test_telemetry.py` と `tests/test_round_orchestrator.py` で差分と欠損時の契約を確認した。
 
-P2 の主要 telemetry 項目は実装済み。次は duplicate event、retry cost、provider usage の実運用
-経路を横断して確認し、必要なら legacy provider の usage bridge を追加する。
+#### P2 の第6修正単位（完了）
+
+legacy Responses 経路で `core._last_responses_usage` に保存された provider usage を、
+`llm.usage.reconciled` structured event へ bridge した。これにより registry 以外の legacy round
+でも input/output/total token の差分が記録される。usage が存在しない provider や streaming 応答は
+推測せず、既存の欠損値ポリシーを維持する。`tests/test_legacy_usage_telemetry.py` と
+`tests/test_round_integration_regressions.py` で確認した。
+
+P2 の transforms、retry、reasoning、telemetry の主要修正単位は完了。次は実運用経路の回帰確認と、
+並行トラックの I18N strict audit 解消へ進む。
 
 ### 並行トラック: I18N strict audit
 

@@ -33,6 +33,8 @@ _is_zscaler_responses_block = is_zscaler_responses_block
 from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
+from .runtime.telemetry import reconcile_usage
+from .runtime.logging_setup import log_event
 from .llm_message_helpers import _get_shrink_max_tokens
 from .providers.llm_gemini import (
     gemini_chat_with_tools,
@@ -101,6 +103,29 @@ def _render_inception_stream(
             print_delta_fn=print_delta_fn,
             core=core,
         ),
+    )
+
+
+def _record_legacy_usage_telemetry(
+    *,
+    core: Any,
+    provider: str,
+    model: str,
+    before: dict[str, Any],
+) -> None:
+    """Bridge provider usage retained on legacy core state into events."""
+    after = getattr(core, "_last_responses_usage", None) if core is not None else None
+    if not isinstance(after, dict) or not after or after == before:
+        return
+    usage_delta = reconcile_usage(before, after)
+    if not usage_delta:
+        return
+    log_event(
+        "llm.usage.reconciled",
+        provider=provider,
+        model=model,
+        usage_source="legacy_core",
+        **usage_delta,
     )
 
 
@@ -515,6 +540,9 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
+    legacy_usage_before = dict(
+        getattr(core, "_last_responses_usage", {}) or {}
+    ) if core is not None else {}
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
@@ -1678,6 +1706,12 @@ def _call_openai_azure_round(
         traceback.print_exc()
         return False, client, "", "", []
 
+    _record_legacy_usage_telemetry(
+        core=core,
+        provider=provider,
+        model=depname,
+        before=legacy_usage_before,
+    )
     return True, client, assistant_text, reasoning_content, tool_calls_list
 
 
