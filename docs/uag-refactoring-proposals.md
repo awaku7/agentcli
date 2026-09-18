@@ -949,8 +949,16 @@ callback 契約へ移行し、Z.AI は共通 parser へ callback bundle を渡�
 provider-specific client、戻り値、legacy 表示引数は維持し、`tests/test_chat_reasoning_stream_callbacks.py`
 と `tests/test_legacy_provider_dispatch.py` で回帰を確認した。
 
-次は P1-E の第8修正単位として、Gemini など SDK 固有の streaming callback 経路を同じ
-host-owned callback 契約へ整理する。
+#### P1-E の第8修正単位（完了）
+
+Gemini/Vertex の SDK 固有 streaming 経路に `StreamCallbacks` を接続し、delta と tool call の
+表示・収集境界を host-owned callback bundle へ寄せた。Gemini の思考テキストも callback が
+指定された場合は reasoning callback へ流し、既存の Google SDK 呼び出し、content dump、tool
+重複排除、legacy 引数は維持した。`tests/test_gemini_turn_recovery.py` と
+`tests/test_legacy_gemini_round.py` で callback wiring と既存の復旧契約を確認した。
+
+次は P1-E の第9修正単位として、Grok/xAI と PFN の残る streaming callback 経路を同じ契約へ
+移行する。
 
 
 ### P2: transforms、retry、reasoning、telemetry

@@ -11,6 +11,7 @@ from ..llm_message_helpers import _build_call_messages
 from ..providers.llm_gemini import gemini_chat_with_tools
 from .context_recovery import ContextRecoveryManager
 from .llm_error_classifier import is_context_overflow_error
+from .stream_host import build_stream_callbacks
 
 
 def _rollback_largest_recent_history(
@@ -78,6 +79,21 @@ def _call_gemini_round(
                     force_thinking_level=force_thinking_level,
                     send_tools=send_tools,
                     provider=provider,
+                    callbacks=build_stream_callbacks(
+                        print_delta_fn=(
+                            None
+                            if bool(getattr(core, "_is_web", False))
+                            else (
+                                getattr(core, "print_stream_delta", None)
+                                or (
+                                    lambda s: (
+                                        print(s, end="", flush=True) if s else None
+                                    )
+                                )
+                            )
+                        ),
+                        core=core,
+                    ),
                 )
             )
             break

@@ -11,6 +11,7 @@ from ..i18n import _
 
 from .. import tools
 from ..reasoning_display import show_reasoning
+from ..runtime.stream_renderer import StreamCallbacks
 
 
 def _vertex_debug(event: str, **fields: Any) -> None:
@@ -787,9 +788,11 @@ def gemini_chat_with_tools(
     force_thinking_level: str | None = None,
     send_tools: bool = True,
     provider: str = "gemini",
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
+    callbacks = callbacks or StreamCallbacks()
     try:
         from google import genai  # lazy
         from google.genai import types as gemini_types
@@ -969,6 +972,12 @@ def gemini_chat_with_tools(
     def _emit_stream_delta(delta_text: str) -> None:
         if not delta_text:
             return
+        if callable(callbacks.on_delta):
+            try:
+                callbacks.on_delta(delta_text)
+                return
+            except Exception:
+                pass
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
                 lm = getattr(core, "log_message", None)
@@ -1406,13 +1415,20 @@ def gemini_chat_with_tools(
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
                         if is_thought:
-                            # Streaming mode: print thought in gray but do not append to final answer
-                            show_reasoning(
-                                t,
-                                provider="Gemini",
-                                is_first=(not _thought_printed),
-                                core=core,
-                            )
+                            # Streaming mode: route thought text through the
+                            # host callback when one is supplied.
+                            if callable(callbacks.on_reasoning):
+                                try:
+                                    callbacks.on_reasoning(t)
+                                except Exception:
+                                    pass
+                            else:
+                                show_reasoning(
+                                    t,
+                                    provider="Gemini",
+                                    is_first=(not _thought_printed),
+                                    core=core,
+                                )
                             _thought_printed = True
                         else:
                             delta_text = t
@@ -1436,6 +1452,11 @@ def gemini_chat_with_tools(
             tools=len(tool_specs),
         )
         _first_chunk = True
+        if callable(callbacks.on_terminal):
+            try:
+                callbacks.on_terminal("ResponseStarted", {})
+            except Exception:
+                pass
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
                 lm = getattr(core, "log_message", None)
@@ -1545,6 +1566,17 @@ def gemini_chat_with_tools(
                 seen.add(sig)
                 unique_tcs.append(tc)
         tool_calls_list = unique_tcs
+        if callable(callbacks.on_tool_call):
+            for tool_call in tool_calls_list:
+                try:
+                    callbacks.on_tool_call(dict(tool_call))
+                except Exception:
+                    pass
+        if callable(callbacks.on_terminal):
+            try:
+                callbacks.on_terminal("ResponseCompleted", {})
+            except Exception:
+                pass
 
         return assistant_content, tool_calls_list, gemini_content_dump
 

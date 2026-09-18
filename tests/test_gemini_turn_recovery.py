@@ -1,6 +1,7 @@
 from types import SimpleNamespace
 
 from uagent import llm_round_helpers
+from uagent.runtime.stream_renderer import StreamCallbacks
 
 
 def test_gemini_model_turn_error_retries_with_full_history(monkeypatch):
@@ -8,6 +9,7 @@ def test_gemini_model_turn_error_retries_with_full_history(monkeypatch):
 
     def fake_gemini_chat_with_tools(client, model, messages, **kwargs):
         calls.append(list(messages))
+        assert isinstance(kwargs["callbacks"], StreamCallbacks)
         if len(calls) == 1:
             raise RuntimeError(
                 "400 INVALID_ARGUMENT: Requests ending with a model turn are not supported."
@@ -51,6 +53,7 @@ def test_gemini_turn_repair_drops_incomplete_tool_call_block(monkeypatch):
 
     def fake_gemini_chat_with_tools(client, model, messages, **kwargs):
         calls.append(list(messages))
+        assert isinstance(kwargs["callbacks"], StreamCallbacks)
         if len(calls) == 1:
             raise RuntimeError(
                 "400 INVALID_ARGUMENT: Requests ending with a model turn are not supported."
@@ -104,6 +107,7 @@ def test_gemini_turn_repair_hard_resets_after_replay_still_fails(monkeypatch):
 
     def fake_gemini_chat_with_tools(client, model, messages, **kwargs):
         calls.append(list(messages))
+        assert isinstance(kwargs["callbacks"], StreamCallbacks)
         if len(calls) < 3:
             raise RuntimeError(
                 "400 INVALID_ARGUMENT: Requests ending with a model turn are not supported."
