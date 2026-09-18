@@ -887,6 +887,19 @@ bridge、provider runtime registry へ同じ selection を渡す。registry 側�
 
 ただし `providers/llm_inception.py` には `_emit_snapshot()` と互換 collector が残り、CLI/GUI/Web callback を直接扱う経路がある。provider parser を完全に host-neutral にする作業は、provider adapter 統合後に実施する。
 
+#### P1-E の最初の修正単位（完了）
+
+Inception の provider adapter から `_emit_snapshot()` と互換 collector の実装を分離し、
+`runtime/inception_stream_compat.py` へ移した。`inception_stream_events()` は引き続き
+`StreamEvent` の生成だけを担当し、CLI/GUI/Web の表示副作用は互換境界の renderer に限定する。
+既存の `parse_inception_stream()` とその import path は維持したため、legacy call site の挙動を
+変えずに provider parser の host callback 依存を除去できる。`tests/test_llm_inception.py` で
+snapshot、delta、terminal、Responses session generation の既存契約を確認した。
+
+次は P1-E の第2修正単位として、legacy compatibility wrapper の call site を host-owned
+renderer へ寄せる。
+
+
 ### P2: transforms、retry、reasoning、telemetry
 
 `message_transform.py`、`llm_error_classifier.py`、`retry_coordinator.py`、reasoning renderer は追加済みだが、legacy 経路にも同種の判断が残っている。P0-A で実行経路を一本化した後に重複を削除する。
