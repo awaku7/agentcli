@@ -5,14 +5,14 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    - cron: "17 18 * * *"
+  workflow_dispatch:
 
 jobs:
-  python-quality:
+  quality:
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12", "3.13"]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.12"
           cache: pip
 
       - name: Install dependencies
@@ -52,7 +52,107 @@ jobs:
             python scripts/i18n_validate.py "$catalog"
           done
 
-      - name: Tests
+  full-tests:
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,test]"
+
+      - name: Full test suite
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q .
+
+  compatibility-tests:
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,test]"
+
+      - name: Compile all Python sources
+        run: python -m compileall -q src tests
+
+      - name: Runtime compatibility contracts
+        env:
+          PYTHONPATH: src
+        run: |
+          # Keep cross-version coverage focused on runtime boundaries most
+          # likely to expose Python/SDK compatibility differences. The full
+          # suite still runs on 3.12 for every change and nightly on all three.
+          python -m pytest -q \
+            tests/test_capability_resolver.py \
+            tests/test_context_recovery_integration.py \
+            tests/test_legacy_claude_round.py \
+            tests/test_legacy_deepseek_round.py \
+            tests/test_legacy_gateway_round.py \
+            tests/test_legacy_gemini_round.py \
+            tests/test_legacy_openai_round.py \
+            tests/test_legacy_provider_dispatch.py \
+            tests/test_legacy_round_registry.py \
+            tests/test_legacy_zai_round.py \
+            tests/test_openai_compatible_runtime.py \
+            tests/test_provider_round_dispatcher.py \
+            tests/test_responses_runtime.py \
+            tests/test_retry_coordinator.py \
+            tests/test_round_contracts.py \
+            tests/test_round_integration_regressions.py \
+            tests/test_round_orchestrator.py \
+            tests/test_stream_renderer.py \
+            tests/test_tool_discovery.py
+
+  nightly-full-tests:
+    # Scheduled/manual runs preserve the former three-version full-suite
+    # safety net without charging every pull request for it.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,test]"
+
+      - name: Full test suite
         env:
           PYTHONPATH: src
         run: python -m pytest -q .
