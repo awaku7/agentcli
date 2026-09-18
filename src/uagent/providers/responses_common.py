@@ -14,6 +14,7 @@ from typing import Any, Optional
 from ..env_utils import env_get
 from ..i18n import _
 from ..reasoning_display import show_reasoning
+from ..runtime.stream_renderer import StreamCallbacks
 from ..util_tools import image_file_to_data_url
 
 # ---------------------------------------------------------------------------
@@ -1017,9 +1018,15 @@ def parse_responses_stream(
     print_delta_fn: Any = None,
     core: Any = None,
     provider: str = "OpenAI",
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, str, list[dict[str, Any]], Optional[str], list[dict[str, Any]]]:
-    """Parse streaming Responses output and preserve completed output items."""
+    """Parse streaming Responses output and preserve completed output items.
 
+    ``callbacks`` is the provider-neutral host boundary. Legacy ``core`` and
+    ``print_delta_fn`` arguments remain supported for existing callers.
+    """
+
+    callbacks = callbacks or StreamCallbacks()
     debug_env = (env_get("UAGENT_WEBSEARCH_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
 
@@ -1050,14 +1057,32 @@ def parse_responses_stream(
     def _print_delta(s: str) -> None:
         if not s:
             return
+        if callable(callbacks.on_delta):
+            try:
+                callbacks.on_delta(s)
+                return
+            except Exception:
+                pass
         if callable(print_delta_fn):
             try:
                 print_delta_fn(s)
                 return
             except Exception:
                 pass
+        if core is not None and bool(getattr(core, "_is_web", False)):
+            try:
+                lm = getattr(core, "log_message", None)
+                if callable(lm):
+                    lm({"type": "assistant_stream_delta", "delta": s})
+            except Exception:
+                pass
 
     try:
+        try:
+            if callable(callbacks.on_terminal):
+                callbacks.on_terminal("ResponseStarted", {})
+        except Exception:
+            pass
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
                 lm = getattr(core, "log_message", None)
@@ -1157,15 +1182,7 @@ def parse_responses_stream(
 
             if isinstance(delta_text, str) and delta_text:
                 assistant_text_parts.append(delta_text)
-                try:
-                    if core is not None and bool(getattr(core, "_is_web", False)):
-                        lm = getattr(core, "log_message", None)
-                        if callable(lm):
-                            lm({"type": "assistant_stream_delta", "delta": delta_text})
-                    else:
-                        _print_delta(delta_text)
-                except Exception:
-                    _print_delta(delta_text)
+                _print_delta(delta_text)
 
             # Reasoning text deltas (stream immediately; do not break on '.')
             if ev_type in {
@@ -1181,13 +1198,19 @@ def parse_responses_stream(
                         if provider and provider.islower()
                         else provider
                     )
-                    show_reasoning(
-                        reasoning_delta,
-                        provider=disp_provider,
-                        is_first=(not _reasoning_printed),
-                        print_fn=_print_delta,
-                        core=core,
-                    )
+                    if callable(callbacks.on_reasoning):
+                        try:
+                            callbacks.on_reasoning(reasoning_delta)
+                        except Exception:
+                            pass
+                    else:
+                        show_reasoning(
+                            reasoning_delta,
+                            provider=disp_provider,
+                            is_first=(not _reasoning_printed),
+                            print_fn=_print_delta,
+                            core=core,
+                        )
                     _reasoning_printed = True
 
             if ev_type == "response.output_text.done":
@@ -1389,6 +1412,27 @@ def parse_responses_stream(
         )
         if recovered_tool_calls:
             tool_calls_list = recovered_tool_calls
+
+    if callable(callbacks.on_tool_call):
+        for tool_call in tool_calls_list:
+            try:
+                callbacks.on_tool_call(dict(tool_call))
+            except Exception:
+                pass
+    if callable(callbacks.on_terminal):
+        terminal_type = (
+            "ResponseInterrupted" if _stream_interrupted else "ResponseCompleted"
+        )
+        try:
+            callbacks.on_terminal(
+                terminal_type,
+                {
+                    "response_id": None if _stream_interrupted else _stream_response_id,
+                },
+            )
+        except Exception:
+            pass
+
     if core is not None:
         try:
             setattr(

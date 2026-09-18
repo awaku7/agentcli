@@ -58,6 +58,7 @@ from .runtime.inception_stream_host import (
     render_inception_stream_events,
 )
 from .runtime.round_contracts import RoundIdentifiers
+from .runtime.stream_host import build_stream_callbacks
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
@@ -832,6 +833,23 @@ def _call_openai_azure_round(
                                 )
                             ),
                             core=core,
+                            callbacks=build_stream_callbacks(
+                                print_delta_fn=(
+                                    None
+                                    if bool(getattr(core, "_is_web", False))
+                                    else (
+                                        getattr(core, "print_stream_delta", None)
+                                        or (
+                                            lambda s: (
+                                                print(s, end="", flush=True)
+                                                if s
+                                                else None
+                                            )
+                                        )
+                                    )
+                                ),
+                                core=core,
+                            ),
                         )
                     )
                     (

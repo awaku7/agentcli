@@ -914,7 +914,17 @@ host callback の構築を helper に委譲し、生成された callback bundle
 分離され、provider adapter は引き続き `StreamEvent` の生成だけを担当する。既存の個別 callback
 引数は互換のため残している。
 
-次は P1-E の第4修正単位として、Responses/Chat Completions の他の stream parser も同じ
+#### P1-E の第4修正単位（完了）
+
+Responses API の共通 stream parser に `StreamCallbacks` 引数を追加し、delta、reasoning、tool call、
+terminal 通知を host callback 契約へ寄せた。既存の `print_delta_fn`、`core`、戻り値は維持し、
+callback 未指定時は従来の表示処理へフォールバックする。Responses の round call site では
+`build_stream_callbacks()` が host callback bundle を構築して parser へ渡すため、provider parser
+側での CLI/Web の delta 分岐を一箇所へ集約できる。`tests/test_responses_compaction.py` と
+`tests/test_interrupt_clears_responses_rid.py` で callback、compaction、interrupt、継続状態の
+既存契約を確認した。
+
+次は P1-E の第5修正単位として、Chat Completions 系の reasoning stream parser を同じ
 `StreamCallbacks` 契約へ段階的に寄せる。
 
 
