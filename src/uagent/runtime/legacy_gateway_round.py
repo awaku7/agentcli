@@ -8,6 +8,7 @@ from .. import core as _core_module
 from ..env_utils import env_get
 from ..providers.llm_deepseek import build_assistant_message_with_reasoning
 from .legacy_provider_dispatch import call_legacy_reasoning_round
+from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
 
@@ -92,6 +93,22 @@ def run_legacy_gateway_round(
             tool_calls_list=tool_calls_list,
         )
         messages.append(message)
+
+    if tool_calls_list:
+        execute_legacy_tool_calls(
+            tool_calls=tool_calls_list,
+            messages=messages,
+            core=core,
+            cache_mgr=_unused.get("cache_mgr"),
+            judgment_mode=judgment_mode,
+        )
+        return (
+            "ok",
+            client,
+            gemini_cache_name,
+            0,
+            assistant_text,
+        )
 
     emit_final_answer_fn(
         assistant_text=assistant_text,

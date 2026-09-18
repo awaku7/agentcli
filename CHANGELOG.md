@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Execute collected tool calls exactly once in DeepSeek, MiMo, Z.AI, Novita,
+  Vercel, and Together legacy rounds before continuing the tool loop.
+
 ## [0.7.8] - 2026-09-18
 
 ### Added

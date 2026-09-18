@@ -1176,6 +1176,14 @@ bulk limit を service 層へ移した。handler は force/summary stale 判定�
 
 Claude の legacy round が `tool_calls` を受け取っても `_execute_tool_calls()` を呼ばず、外側の loop へ `RS_OK` を返していたため、Claude の tool call が実行されず同じ要求が再送される問題を修正した。Claude round 内で OpenAI/Gemini と同じ tool execution boundary を通し、tool result を会話履歴へ追加してから次 round へ進む。`tests/test_legacy_claude_round.py` に回帰テストを追加した。
 
+#### P3 の第14修正単位（完了）
+
+Claude の修正を契機に全 legacy provider の tool continuation を監査し、DeepSeek/MiMo、
+Z.AI/Novita、Vercel/Together にも同じ tool execution の欠落があることを確認した。
+`runtime/legacy_tool_continuation.py` に副作用境界を集約し、各 provider round が収集した
+tool call を1回だけ実行してから次 round へ進むようにした。judgment mode は引き続き
+副作用を起こさない。provider 別回帰テストと共通境界テストで契約を固定した。
+
 session command の application service 化と `StreamEvent` / `RoundResult` の基本契約は実装済みである。今後はこの契約を維持したまま、CLI/GUI/Web の各 host を段階的に renderer へ移行する。provider parser に残る host callback と Inception/legacy の特殊描画は、互換性を確認しながら後続の削減対象とする。
 
 ## 現行実装を基準にした実施状況と次の作業

@@ -7,6 +7,7 @@ from typing import Any, Callable
 
 from .. import core as _core_module
 from .legacy_provider_dispatch import call_legacy_gemini_round
+from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
 
@@ -188,15 +189,12 @@ def run_legacy_gemini_round(
         )
 
     if not judgment_mode:
-        from ..llm_flow_helpers import _execute_tool_calls
-
-        _, fresh_tool_calls = _execute_tool_calls(
-            tool_calls_list=tool_calls_list,
+        _, fresh_tool_calls = execute_legacy_tool_calls(
+            tool_calls=tool_calls_list,
             messages=messages,
             core=core,
             cache_mgr=_unused.get("cache_mgr"),
             responses_api_continuation=use_responses_api,
-            responses_runtime=getattr(core, "responses_runtime", None),
         )
         if any(
             isinstance(tc, dict)

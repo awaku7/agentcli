@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### 修正
+
+- DeepSeek、MiMo、Z.AI、Novita、Vercel、Together の legacy round で、収集した
+  tool call を tool loop の継続前に1回だけ実行するよう修正。
+
 ## [0.7.8] - 2026-09-18
 
 ### 追加
