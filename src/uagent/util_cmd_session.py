@@ -1229,12 +1229,15 @@ def _handle_cmd_sessions(
         force = "--force" in parts[1:]
         target = next((p for p in parts[1:] if not p.startswith("--")), "")
         rows = store.list_sessions()
-        if target:
-            rows = [r for r in rows if r.get("session_id") == target]
+        summarize_plan = SessionCommandService.plan_summarize(
+            rows,
+            target=target,
+            limit=10,
+        )
         # Keep the bulk summarize operation bounded. list_sessions() is
         # ordered for display, so this means the first ten records shown to
         # the user (while an explicit target still works as expected).
-        rows = rows[:10]
+        rows = list(summarize_plan.rows)
         print(
             _("[sessions] Summarizing %(count)d session(s)...") % {"count": len(rows)}
         )

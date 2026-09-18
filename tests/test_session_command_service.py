@@ -60,6 +60,19 @@ class _StateStore:
         }
 
 
+def test_plan_summarize_filters_explicit_target_and_bounds_bulk_work() -> None:
+    rows = [{"session_id": f"session-{index}"} for index in range(12)]
+
+    bulk = SessionCommandService.plan_summarize(rows, limit=10)
+    targeted = SessionCommandService.plan_summarize(
+        rows, target="session-11", limit=10
+    )
+
+    assert len(bulk.rows) == 10
+    assert targeted.rows == ({"session_id": "session-11"},)
+    assert len(rows) == 12
+
+
 def test_plan_prune_excludes_active_session_without_mutating_rows() -> None:
     rows = [
         {"session_id": "new"},

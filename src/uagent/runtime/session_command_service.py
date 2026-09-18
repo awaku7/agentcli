@@ -21,6 +21,14 @@ class LoadTargetResolution:
 
 
 @dataclass(frozen=True)
+class SessionSummarizePlan:
+    """Bounded session rows selected for summarization."""
+
+    target: str
+    rows: tuple[dict[str, Any], ...]
+
+
+@dataclass(frozen=True)
 class SessionPrunePlan:
     """Session rows selected for a prune operation."""
 
@@ -70,6 +78,22 @@ class SessionCommandService:
 
     def __init__(self, store: Any) -> None:
         self._store = store
+
+    @staticmethod
+    def plan_summarize(
+        rows: list[dict[str, Any]],
+        *,
+        target: str = "",
+        limit: int = 10,
+    ) -> SessionSummarizePlan:
+        """Select a bounded set of sessions without reading or mutating them."""
+        selected = rows
+        if target:
+            selected = [row for row in rows if row.get("session_id") == target]
+        return SessionSummarizePlan(
+            target=target,
+            rows=tuple(selected[: max(0, limit)]),
+        )
 
     @staticmethod
     def plan_prune(
@@ -254,5 +278,6 @@ __all__ = [
     "SessionContextState",
     "SessionRestorePlan",
     "SessionSearchResult",
+    "SessionSummarizePlan",
     "SessionWorkdirPlan",
 ]
