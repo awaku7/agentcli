@@ -814,6 +814,18 @@ registry を選択しない Responses API の互換経路でも、dispatch 境�
 continuation の characterization test を追加した。これにより、registry 経路だけでなく
 legacy OpenAI-compatible 経路でも ResponsesRuntime の continuation 状態を検証できる。
 
+#### P1-C の第6修正単位（完了）
+
+registry の Responses tool continuation で、runtime が保持する `session_generation` を
+legacy `responses_state` にも保存するようにした。これにより、`previous_response_id` だけが
+復元されて generation が初期値へ戻り、後続 tool output の `ToolCallKey` 検証と不整合に
+なる経路を防ぐ。registry 経路の既存の runtime 同期は維持し、generation の保存だけを
+追加している。
+
+`tests/test_round_integration_regressions.py` の registry tool continuation test では、runtime
+側の generation と永続状態の値が一致することを確認する。これで、registry 経路についても
+ResponsesRuntime の state と legacy bridge の復元情報が同じ契約を満たすことを検証できる。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。

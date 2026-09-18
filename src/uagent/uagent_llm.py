@@ -1200,6 +1200,17 @@ def _try_registry_simple_chat_round(
             core.responses_state["previous_response_id"] = result.continuation_update[
                 "response_id"
             ]
+            # Persist the runtime generation with the response ID. Otherwise
+            # a restart restores the response but resets the ToolCallKey
+            # generation used to validate its tool outputs.
+            runtime = getattr(core, "responses_runtime", None)
+            if runtime is not None:
+                try:
+                    core.responses_state["session_generation"] = int(
+                        getattr(runtime, "session_generation", 0) or 0
+                    )
+                except (TypeError, ValueError):
+                    pass
         elif use_responses_api:
             _sync_registry_responses_terminal(core, result.status)
         from .runtime.provider_round_dispatcher import (

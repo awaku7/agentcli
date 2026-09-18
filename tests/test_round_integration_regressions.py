@@ -359,13 +359,14 @@ def test_registry_responses_tool_round_continues_after_output(
     core = SimpleNamespace(
         workdir=str(tmp_path),
         cancellation_token=None,
-        responses_state={},
+        responses_state={"session_generation": 7},
         context_tool_specs=({"type": "function", "function": {"name": "read_file"}},),
     )
     runtime = _begin_responses_runtime(
         core=core, provider="openai", model="gpt-test", enabled=True
     )
     assert runtime is not None
+    runtime.session_generation = 11
 
     first = _try_registry_simple_chat_round(
         provider="openai",
@@ -381,6 +382,7 @@ def test_registry_responses_tool_round_continues_after_output(
 
     assert first is not None
     assert first[3][0]["tool_call_id"] == "call_1"
+    assert core.responses_state["session_generation"] == 11
     assert runtime.state == "AwaitingToolOutput"
     runtime.accept_tool_output("resp_1", "call_1", {"content": "ok"})
     assert runtime.state == "Continuing"
