@@ -1,19 +1,25 @@
-# UAG リファクタリング候補（現行 v0.7.7）
+# UAG リファクタリング候補（現行実装 e00dadb5 / v0.7.7 系）
 
 ## 結論
 
-最優先は **`llm_round_helpers.py` を一度に作り替えることではなく、LLM 1 ラウンドのオーケストレーションから「コンテキスト構築」「プロバイダ差異」「Responses の継続状態」「ストリーム描画」「復旧」を段階的に外へ出すこと**である。現状はすでに `ContextManager`、`ResponsesManager`、`provider_context` という良い分割の芽がある。一方で、`llm_round_helpers.py`（1,876 行）と `uagent_llm.py` の provider 分岐に、複数レイヤーの判断と副作用が残っている。
+初期調査で挙げた主要な境界の多くは実装済みである。`ContextPlan → ProviderProjection → SerializedRequest`、`RoundOrchestrator`、provider runtime registry、`ResponsesRuntime`、`ContextRecoveryManager`、`StreamEvent`、`MessageTransformPipeline`、session/Responses command service が追加され、P0〜P2 の主要な修正単位と P3 の command service 抽出は完了した。
 
-この文書の初期調査は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を基準にした設計メモである。後半の「現行実装との比較」は、その後の実装を反映して更新している。機能追加ではなく、互換性を保ちながら依存方向を整えるための順序を示す。
+現在の主課題は新しい抽象を追加することではなく、**registry/orchestrator 経路を標準経路として定着させ、legacy adapter と `llm_round_helpers.py` / `uagent_llm.py` に残る互換分岐・重複判断を縮小すること**である。`RoundOrchestrator` は現時点では LLM 1 round の `ContextPlan → Projection → Request → StreamEvent` を担当し、tool loop 全体と legacy compatibility は上位の `uagent_llm.py` に残る。
+
+この文書の初期調査は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を基準にした。現行実装との比較は HEAD [`e00dadb5`](https://github.com/awaku7/agentcli/tree/e00dadb5) を基準にする。現行環境では `pytest tests` が failure なしで完了している。
 
 ## 調査した現在の構造
 
-- [`llm_round_helpers.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/llm_round_helpers.py) は、入力正規化、翻訳、Responses / Chat の選択、プロバイダ固有 request/stream 処理、`previous_response_id`、リトライ、HTTP/SDK エラー処理、context overflow を併せ持つ。
-- [`uagent_llm.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/uagent_llm.py) は `ContextManager` で履歴と tool schema を最適化した後、複数の provider 分岐で各 round helper を呼ぶ。
-- [`runtime/context_manager.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/runtime/context_manager.py) は budget、retrieval、decision、active context、tool definition 選択をすでに統合している。[`runtime/provider_context.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/runtime/provider_context.py) は、その出力を provider-safe な message へ投影する境界として存在する。
-- [`providers/responses_manager.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/providers/responses_manager.py) は管理 API と `ResponsesCapabilities` を分離済み。ただし生成時の継続・再試行状態は依然 round 側にある。
-- [`providers/llm_inception.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/providers/llm_inception.py) は Mercury の diffusion snapshot を CLI/GUI/Web へ直接描画する特殊実装を持つ。
-- [`tools/llm_tool_narrowing.py`](https://github.com/awaku7/agentcli/blob/2435ad6a69244cf8dabe18286389bb0389c3cfde/src/uagent/tools/llm_tool_narrowing.py) は GPT-5.4 の native / legacy tool search を判断する。`ContextManager.optimize_tool_definitions()` との機能境界が一部重なる。
+- [`llm_round_helpers.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/llm_round_helpers.py) は縮小されたが、legacy provider dispatch、互換 tuple、Responses/Chat の橋渡し、provider 固有 fallback の入口が残る。現行は **1,888 行**であり、初期記載の 1,876 行から大きくは縮小していない。
+- [`uagent_llm.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/uagent_llm.py) は registry 経路と `RoundOrchestrator` を利用する一方、legacy adapter、tool loop、host 互換結果の適用、provider-specific compatibility の一部を引き続き担当する。現行は **2,783 行**である。
+- [`runtime/round_contracts.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/round_contracts.py) は `ContextPlan`、`ProviderProjection`、`SerializedRequest`、`StreamEvent`、`RoundResult`、`ProviderRuntimeRegistry` を定義する。[`runtime/round_orchestrator.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/round_orchestrator.py) は provider 名による SDK 呼び出しを持たず、登録済み runtime へ投影・serialize・run を委譲する。
+- [`runtime/context_manager.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/context_manager.py) は budget、retrieval、decision、active context、tool definition 選択を統合している。[`runtime/provider_context.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/provider_context.py) と round contract が provider-safe な hand-off を形成する。
+- [`providers/responses_manager.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/providers/responses_manager.py) は管理 API と `ResponsesCapabilities` を担当し、[`providers/responses_runtime.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/providers/responses_runtime.py) は continuation、pending tool output、restore、retry、terminal transition を provider I/O なしで管理する。
+- [`runtime/context_recovery.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/context_recovery.py) は `RecoveryPlan` と `ContextRecoveryManager` を提供し、legacy path には互換 bridge がある。[`runtime/message_transform.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/message_transform.py) は共通 transform pipeline を提供する。
+- [`runtime/capability_resolver.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/capability_resolver.py) は provider/model/transport 単位の capability snapshot を提供する。ただしモジュール自身が示す通り、全既存 provider 判定を置換したわけではなく、setup/env/realtime/legacy adapter には旧分岐が残る。
+- [`runtime/stream_renderer.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/stream_renderer.py) は `StreamEvent` を CLI/GUI/Web 向けの collector/renderer へ渡す境界である。ただし全 host の大規模移行と Inception/legacy の完全な host callback 除去は未完了である。
+- [`runtime/tool_discovery.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/tool_discovery.py) は `CapabilityCatalog`、selection、`ToolDeliveryStrategy` を持ち、legacy narrowing/native tool search/ContextManager の境界を整理している。
+- [`runtime/session_command_service.py`](https://github.com/awaku7/agentcli/blob/e00dadb5/src/uagent/runtime/session_command_service.py) と Responses command service/state/mutation は、session load/search/restore/prune/summarize と `:response` 操作の host-neutral な判断を command handler から分離している。
 
 ## 推奨アーキテクチャ
 
@@ -46,7 +52,7 @@ flowchart TB
 1. `CapabilityResolver` が「何が可能か」を答え、adapter は「どう呼ぶか」を担当する。round loop は個別 provider 名を原則判断しない。
 1. `ResponsesRuntime` は continuation state と retry を持ち、`ResponsesManager` は retrieve/cancel/delete/count/compact など API 操作だけを担当する。
 1. adapter は provider event を `StreamEvent` に変換するだけで、端末制御や Web の message payload を直接操作しない。
-1. `RoundOrchestrator` だけが、context → request → stream/response → tool result → 次 round の順序とトランザクション境界を持つ。
+1. `RoundOrchestrator` は 1 round の context → projection → request → stream/response の順序とトランザクション境界を持つ。tool result の実行と次 round を含む tool loop 全体、および legacy compatibility は現時点では `uagent_llm.py` / adapter 側に残る。
 
 ### 入力境界の契約
 
@@ -75,24 +81,24 @@ ContextPlan → ProviderProjection → SerializedRequest
 
 `plan_id` と `projection_id` の canonicalization は [RFC 8785 (JSON Canonicalization Scheme)](https://www.rfc-editor.org/rfc/rfc8785) を採用する。文字列は canonicalization 前に Unicode NFC へ正規化する。object key は RFC 8785 の順序、数値は JCS の IEEE 754 表現を使い、`NaN` と無限大は入力として拒否する。`null` は明示値として保持し、任意フィールドの欠落は serialization 前に既定値を補完せず「欠落」のままにする。これにより、言語ランタイムや serializer の差によって `plan_id` が変わることを防ぐ。
 
-## 優先順位一覧
+## 設計上の責務と現行状態
 
-| 優先度 | 対象ファイル / 責務 | 現状 | リファクタ案 |
+| 状態 | 対象 / 責務 | 現行実装 | 残課題 |
 |---|---|---|---|
-| P0 | `llm_round_helpers.py` | 1 モジュールに request 組み立て、翻訳、Responses、stream、compat、recovery、retry が混在 | `RoundOrchestrator` を薄い入口にし、下記 P0/P1 の collaborator へ抽出 |
-| P0 | `uagent_llm.py` と Context Runtime の境界 | context を複数箇所で build/project し、tool selection も round loop が保持 | `ContextPlan → ProviderProjection → SerializedRequest` の明示的な hand-off にする |
-| P0 | Provider 分岐 | `uagent_llm.py` と `_call_openai_azure_round()` に `if/elif provider` が多数 | `ProviderRuntime` registry + adapter の capability declaration に移す |
-| P1 | Context Overflow Recovery | `_is_context_overflow_error()` と `_rollback_largest_recent_history()` が helper にある。最大 message から末尾を破棄する副作用が強い | `ContextRecoveryManager` が `RecoveryPlan` を返し、orchestrator が適用・再実行する |
-| P1 | Responses 継続 | manager は lifecycle API を分離済みだが、`previous_response_id` の検証・破棄・full-history retry が request loop にある | `ResponsesRuntime` に状態機械を置く |
-| P1 | Capability | `provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、env 判定に事実が分散 | 合成可能な `CapabilityResolver` と provider/model keyed な snapshot に統一 |
-| P1 | Streaming | Inception は snapshot 描画、他は provider ごとの parse/display | 共通 `StreamEvent` と host renderer を作る |
-| P1 | Tool Discovery | legacy narrowing、native tool_search、ContextManager の tool budget が分散 | `CapabilityCatalog`、`ToolSelectionPolicy`、`ToolDeliveryStrategy` に三分割する |
-| P2 | Message transforms | surrogate 正規化、翻訳、image/reasoning/structured output 互換が request 生成に混在 | ordered `MessageTransformPipeline` と provider projection に分離 |
-| P2 | Error / retry policy | stale RID、proxy、thinking/tool unsupported、429、SSL、overflow が同一 try/except | `LLMErrorClassifier` と `RetryPolicy`。retry 可否と UI 表示を分離 |
-| P2 | Reasoning / structured output | provider 固有パラメータの変換が adapter と loop に分散 | `ReasoningPolicy` / `OutputPolicy` を provider request projection へ渡す |
-| P2 | I18N（38 ロケール） | 本体は gettext、Tool は JSON key-value で、抽出・翻訳・検証経路が異なる | 新設・移動する表示文言を両方式で管理し、38 ロケールの key / placeholder / JSON 構造を CI で確認。翻訳品質は別レビュー |
-| P3 | CLI/GUI/Web 表示 | provider parser が host 固有 callback / payload を知る | `StreamRenderer` と `RuntimeEvent` を各 host 側へ置く |
-| P3 | command / operational interface 周辺 | Responses / session command は runtime state と persistence をまたいで操作する | application command → runtime service → persistence の境界を整える |
+| 主要部分完了 | `llm_round_helpers.py` | registry bridge、legacy outcome、互換 tuple の境界は追加済み。ただし現行 1,888 行で、legacy dispatch / fallback / compatibility が残る | legacy adapter へ移した責務をさらに削除し、round helper を薄くする |
+| 完了 | `uagent_llm.py` と Context Runtime の境界 | `ContextPlan → ProviderProjection → SerializedRequest` と `RoundOrchestrator` を registry 経路で利用 | tool loop、host 互換結果適用、legacy 経路をさらに外へ出す |
+| 主要部分完了 | Provider 分岐 | `ProviderRuntimeRegistry` と複数 provider runtime を導入。legacy adapter、setup/env/realtime 等には provider 分岐が残る | 全 provider の標準経路化と旧分岐の削除 |
+| 完了 | Context Overflow Recovery | `ContextRecoveryManager` / `RecoveryPlan` と legacy bridge を実装 | 実運用経路を registry 側へ寄せ、互換 bridge を縮小 |
+| 完了 | Responses 継続 | `ResponsesRuntime` が continuation、pending tool output、restore、retry、terminal transition を管理 | 全 legacy/registry 経路での利用統一 |
+| 主要部分完了 | Capability | `CapabilityResolver` が provider/model/transport 単位の snapshot を提供 | setup/env/realtime/legacy adapter に残る旧 capability 判定を監査・削除 |
+| 主要部分完了 | Streaming | `StreamEvent`、validator、`stream_renderer`、collector を実装 | Inception/legacy の host callback と各 UI の全面移行 |
+| 主要部分完了 | Tool Discovery | `CapabilityCatalog`、selection、`ToolDeliveryStrategy` を導入 | `llm_tool_narrowing.py`、ContextManager、native tool search の重複判断を最終整理 |
+| 完了 | Message transforms | `MessageTransformPipeline` を追加し、provider runtime から利用 | legacy adapter に残る個別 transform の重複を削除 |
+| 主要部分完了 | Error / retry policy | `retry_coordinator` と legacy adapter 共通 retry budget を導入 | provider-specific fallback と旧 try/except の削減 |
+| 主要部分完了 | Reasoning / structured output | projection/capability 側へ主要判定を移行。Claude native JSON Schema も `CapabilityResolver` 経由 | 残存 adapter 分岐の削除と全 provider の契約統一 |
+| 継続 | I18N（38 ロケール） | 構造修正と strict audit の整理は進行中。現行文書記載では advisory 1件が残る | audit の最終確認と CI 条件化。翻訳品質レビューは別管理 |
+| 主要部分完了 | CLI/GUI/Web 表示 | `StreamRenderer` / `StreamEvent` 境界を実装 | 全 host の大規模移行と provider parser の host callback 完全除去 |
+| 主要部分完了 | command / operational interface 周辺 | session/Responses の state、mutation、service、restore plan を抽出済み | 表示副作用と persistence mutation のさらなる分離、GUI/Web 共有利用 |
 
 ## P0: `llm_round_helpers.py` の責務分離
 
@@ -496,7 +502,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 ## 現行実装との比較に基づく優先度再評価
 
-設計文書の基準コミット `2435ad6` と、再評価時点の `HEAD` `5f79f8c9`（`origin/main` と一致）の実装を比較した結果、P0〜P3 は次の順に細分化して実施する。再評価時点の作業ツリーは変更なしであった。以後の判断は、このスナップショットを基準にする。
+設計文書の基準コミット `2435ad6` と、過去の再評価時点の `HEAD` `5f79f8c9` を比較した進捗記録は以下に残す。これは履歴として有用だが、現行実装の判定には使用しない。現行の比較基準は HEAD [`e00dadb5`](https://github.com/awaku7/agentcli/tree/e00dadb5) であり、最新の状態と残課題は末尾の「現行実装を基準にした実施状況と次の作業」に集約する。
 
 ### P0-A: 実行経路を一本化する
 
@@ -997,7 +1003,6 @@ bundle と従来の個別 callback の優先順位も `tests/test_stream_rendere
 
 P1-E は完了。次は P2 の transform、retry、reasoning、structured telemetry の重複整理へ進む。
 
-
 ### P2: transforms、retry、reasoning、telemetry
 
 `message_transform.py`、`llm_error_classifier.py`、`retry_coordinator.py`、reasoning renderer は追加済みだが、legacy 経路にも同種の判断が残っている。P0-A で実行経路を一本化した後に重複を削除する。
@@ -1167,23 +1172,28 @@ bulk limit を service 層へ移した。handler は force/summary stale 判定�
 保持し、service は session row の選択だけを担当する。bounded selection と既存 summarize/SQLite 回帰を
 確認した。
 
-CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
+session command の application service 化と `StreamEvent` / `RoundResult` の基本契約は実装済みである。今後はこの契約を維持したまま、CLI/GUI/Web の各 host を段階的に renderer へ移行する。provider parser に残る host callback と Inception/legacy の特殊描画は、互換性を確認しながら後続の削減対象とする。
 
-## 再評価後の実施順序
+## 現行実装を基準にした実施状況と次の作業
 
 ```text
-P0-A  RoundOrchestrator を標準実行経路にする
-P0-B  Tool Discovery の判断を一本化する
-P1-A  ContextPlan → Projection → Request の hand-off を固定する
-P1-B  Recovery fingerprint と restore 検証を完成させる
-P1-C  ResponsesRuntime を全経路へ統合する
-P1-D  CapabilityResolver へ旧 capability 判定を集約する
-P1-E  StreamEvent から host callback を除去する
-P2    transform / retry / reasoning / telemetry
-並行  I18N strict audit の解消
-P3    CLI/GUI/Web と command 層の整理
+完了        P0-A  RoundOrchestrator / provider runtime registry の導入
+完了        P0-B  Tool Discovery の主要判断を runtime 境界へ移行
+完了        P1-A  ContextPlan → ProviderProjection → SerializedRequest
+完了        P1-B  ContextRecoveryManager / RecoveryPlan / restore 検証
+完了        P1-C  ResponsesRuntime の continuation / retry / terminal state
+主要部分完了 P1-D CapabilityResolver の導入（旧 provider 判定は残存）
+主要部分完了 P1-E StreamEvent / validator / renderer 境界
+完了        P2    transform / retry / reasoning / telemetry の主要修正
+継続        I18N  strict audit の最終確認と CI 条件化
+主要部分完了 P3    session / Responses command service の抽出
+未完了      R1    全 provider の registry 標準経路化
+未完了      R2    legacy adapter の capability・transform・retry 重複削減
+未完了      R3    uagent_llm.py の tool loop / host compatibility 責務の縮小
+未完了      R4    llm_round_helpers.py のさらなる縮小
+未完了      R5    CLI/GUI/Web の StreamEvent renderer 全面移行
 ```
 
-直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。P1-C の registry generation bridge と P1-D の Responses API 自動選択統合が完了したため、次は legacy adapter 内に残る capability・transform・retry の重複を監査し、削除可能な互換分岐を確定する。
+直近の実装対象は、全 provider を registry に移すこと自体よりも、既存 registry bridge と legacy adapter の境界を固定したまま、互換分岐を削除できる単位を特定することである。特に `CapabilityResolver`、`MessageTransformPipeline`、`ResponsesRuntime`、`retry_coordinator` の旧呼び出しを providerごとに監査し、重複を削除する。`RoundOrchestrator` は現状 1 round の coordinator であり、tool result 実行と次 round を含む全 tool loop を移す場合は、別途トランザクション境界と host callback 契約を設計する。
 
-`60ab7dd0` の進捗記録時点では、関連する11個の targeted test file、計77件が成功していた。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。その後も回帰テストは追加されているため、77件は現行の総テスト数ではない。再評価時点ではこの文書の更新作業として全テストを再実行したものではなく、I18N strict audit の117件の指摘も未解消である。
+現行 HEAD [`e00dadb5`](https://github.com/awaku7/agentcli/tree/e00dadb5) に対して `pytest tests` を実行し、failure なしで完了した。skip は環境依存テストによる。targeted test の過去の件数（77件）は履歴情報として扱い、現行の総テスト数を示すものではない。I18N は文書上、構造上の修正と advisory の整理まで進んでいるため、過去に記載されていた「117件の指摘が未解消」という表現は削除した。strict audit の最終実行結果と CI 導入状態は別途確認する。

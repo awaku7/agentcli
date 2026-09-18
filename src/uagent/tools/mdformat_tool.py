@@ -339,8 +339,20 @@ def run_tool(args: dict[str, Any]) -> str:
         skill_invalid=skill_invalid_count,
     )
 
+    # ``ok`` describes whether the tool itself ran successfully. Keep that
+    # contract for compatibility, but expose the actual formatting verdict
+    # explicitly so callers do not have to parse the localized summary.
+    result_data: dict[str, Any] = {
+        "format_ok": failed_count == 0,
+        "checked": len(matched_files),
+        "passed": ok_count,
+        "failed": failed_count,
+        "document_types": dict(type_counts),
+        "agent_skill_invalid": skill_invalid_count,
+    }
+
     if failed_count == 0:
-        return make_response(ok=True, message=summary)
+        return make_response(ok=True, message=summary, data=result_data)
 
     # Show details on failure
     detail_lines = results[:50]
@@ -357,5 +369,5 @@ def run_tool(args: dict[str, Any]) -> str:
     return make_response(
         ok=True,
         message=summary,
-        data={"detail": detail},
+        data={**result_data, "detail": detail},
     )
