@@ -12,6 +12,7 @@ from .providers.responses_manager import (
     cancel_active_response,
     get_responses_capabilities,
 )
+from .runtime.responses_command_mutation import ResponsesCommandMutationService
 from .runtime.responses_command_state import ResponsesCommandState
 
 
@@ -72,7 +73,9 @@ def _handle_cmd_response(
     if manager is None:
         return True
 
-    rid = _response_id(core, explicit_id)
+    state_view = ResponsesCommandState.from_core(core)
+    mutation_service = ResponsesCommandMutationService(state_view)
+    rid = state_view.resolve_id(explicit_id)
     if sub in ("help", "?"):
         print(
             tr(
@@ -108,7 +111,11 @@ def _handle_cmd_response(
                 return True
             try:
                 _print_json(manager.cancel(rid))
-                core_module.clear_responses_continuation()
+                plan = mutation_service.after_cancel(
+                    rid, explicit_id=bool(explicit_id)
+                )
+                if plan.clear_continuation:
+                    core_module.clear_responses_continuation()
             except Exception as exc:
                 print(tr("[Responses API] Cancel failed: %(error)s") % {"error": exc})
         elif cancel_active_response(core):
@@ -181,7 +188,8 @@ def _handle_cmd_response(
             return True
         try:
             _print_json(manager.delete(rid))
-            if rid == _response_id(core):
+            plan = mutation_service.after_delete(rid)
+            if plan.clear_continuation:
                 core_module.clear_responses_continuation()
         except Exception as exc:
             print(tr("[Responses API] Delete failed: %(error)s") % {"error": exc})

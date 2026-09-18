@@ -1111,6 +1111,13 @@ provider、active/previous response ID の読み取りと ID 解決を host-neut
 `:response status`、cancel、delete が同じ状態解決契約を使えるようにし、欠損・不正な host state では
 安全な空状態へ縮退する。Responses command state の単体テストと既存 command 回帰を確認した。
 
+#### P3 の第9修正単位（完了）
+
+`runtime/responses_command_mutation.py` に cancel/delete 後の continuation clear 判定を追加した。
+remote mutation が成功した後だけ、現在の continuation に影響する操作で core の clear/persistence lifecycle
+を呼び出す。明示的 cancel、暗黙の active cancel、current/non-current delete の契約を単体テストで固定し、
+`:response` handler の副作用判断を state view から分離した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序
