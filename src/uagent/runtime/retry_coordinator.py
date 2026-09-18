@@ -24,6 +24,13 @@ class RoundRetryCoordinator:
     def authorize(self, reason: str, detail: str) -> bool:
         return self.budget.try_consume(RetryRequest(reason, detail))
 
+    def expose_budget(self, core: Any) -> None:
+        """Expose this round's shared attempt budget to compatibility callers."""
+        try:
+            core.round_attempt_budget = self.budget
+        except Exception:
+            pass
+
     def rate_limit_step(
         self,
         *,

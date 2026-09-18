@@ -5,12 +5,12 @@ from __future__ import annotations
 from typing import Any
 
 from ..i18n import _
-from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import LLMWaitInterrupted, _maybe_print_certifi_where
 from ..llm_message_helpers import _build_call_messages
 from ..providers.llm_gemini import gemini_chat_with_tools
 from .legacy_context_recovery import rollback_largest_recent_history
 from .llm_error_classifier import is_context_overflow_error
+from .retry_coordinator import RoundRetryCoordinator
 from .stream_host import build_stream_callbacks
 
 
@@ -32,7 +32,10 @@ def _call_gemini_round(
     send_tools: bool = True,
     provider: str = "gemini",
     gemini_chat_fn: Any = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
 ) -> Any:
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     gemini_content_dump: dict[str, Any] = {}
     assistant_text = ""
@@ -143,7 +146,7 @@ def _call_gemini_round(
                         flush=True,
                     )
                     return False, client, "", [], {}
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider=provider,
                 model=depname,

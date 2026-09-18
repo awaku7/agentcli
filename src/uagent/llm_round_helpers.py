@@ -562,10 +562,7 @@ def _call_openai_azure_round(
     # One coordinator spans every retry reason in this LLM execution.
     retry_coordinator = RoundRetryCoordinator(max_retries_429)
     if core is not None:
-        try:
-            core.round_attempt_budget = retry_coordinator.budget
-        except Exception:
-            pass
+        retry_coordinator.expose_budget(core)
 
     def _authorize_retry(reason: str, detail: str) -> bool:
         return retry_coordinator.authorize(reason, detail)

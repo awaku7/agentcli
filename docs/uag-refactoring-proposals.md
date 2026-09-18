@@ -1017,7 +1017,11 @@ legacy round の rate-limit retry を `RoundRetryCoordinator.rate_limit_step()` 
 backoff、client recreation、provider error handling を維持したまま、共有 transport retry budget
 を消費するようにした。これにより stale continuation、feature fallback、transport retry が
 同じ round attempt budget を超えて実行されない。`tests/test_retry_coordinator.py`、
-`tests/test_round_integration_regressions.py`、`tests/test_legacy_provider_dispatch.py` で確認した。
+`tests/test_legacy_adapter_retry_coordinator.py` で OpenAI-compatible、Gemini、Claude の legacy
+adapter が同じ coordinator 契約を使うことを確認した。各 adapter は round ごとに coordinator
+を1個だけ生成し、外側の orchestrator から注入された場合はその instance を引き継ぐ。既存の
+round 契約は `tests/test_round_integration_regressions.py`、
+`tests/test_legacy_provider_dispatch.py` で確認した。
 
 #### P2 の第3修正単位（完了）
 
