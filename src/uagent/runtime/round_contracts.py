@@ -18,6 +18,7 @@ RoundStatus = Literal[
     "interrupted",
 ]
 StreamMode = Literal["delta", "snapshot"]
+TransportKind = Literal["chat_completions", "responses"]
 
 
 @dataclass(frozen=True)
@@ -35,6 +36,28 @@ class RoundIdentifiers:
     request_id: str
     stream_id: str
     session_generation: int
+
+
+@dataclass(frozen=True)
+class RoundTransportSelection:
+    """Resolved transport choice shared by registry and legacy bridges."""
+
+    transport: TransportKind
+    streaming: bool
+
+    @classmethod
+    def from_flags(
+        cls, *, use_responses_api: bool, stream_responses: bool
+    ) -> "RoundTransportSelection":
+        return cls(
+            transport="responses" if use_responses_api else "chat_completions",
+            streaming=bool(stream_responses),
+        )
+
+    @property
+    def use_responses_api(self) -> bool:
+        """Compatibility Boolean for code not yet migrated to ``transport``."""
+        return self.transport == "responses"
 
 
 @dataclass(frozen=True)
@@ -193,9 +216,11 @@ __all__ = [
     "RoundIdentifiers",
     "RoundResult",
     "RoundStatus",
+    "RoundTransportSelection",
     "SerializedRequest",
     "StreamEvent",
     "StreamMode",
+    "TransportKind",
     "UnknownProviderRuntime",
     "validate_stream_events",
 ]

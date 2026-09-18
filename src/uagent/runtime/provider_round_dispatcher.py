@@ -11,6 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable, Literal, Mapping
 
+from .round_contracts import RoundTransportSelection
+
 DispatchSource = Literal["registry", "legacy", "openai_compatible"]
 RoundRunner = Callable[..., Any]
 RegistryLegacyResult = tuple[bool, str, str, list[dict[str, Any]]]
@@ -100,10 +102,14 @@ def resolve_registry_round_route(
     tools_enabled: bool,
     has_context_tools: bool,
     uses_legacy_catalog: bool,
+    transport_selection: RoundTransportSelection | None = None,
 ) -> RegistryRoundRoute:
     """Resolve registry eligibility once for a provider round."""
 
     from ..providers.runtime_registry import supports_provider_runtime
+
+    if transport_selection is not None:
+        use_responses_api = transport_selection.use_responses_api
 
     if not supports_provider_runtime(provider):
         return RegistryRoundRoute(False, "unsupported_provider")

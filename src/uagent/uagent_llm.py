@@ -44,6 +44,7 @@ from .runtime.context_policy import ContextPolicy
 from .runtime.message_transform import MessageTransformPipeline
 from .runtime.provider_context import project_messages_for_provider
 from .runtime.provider_cache import plan_provider_cache
+from .runtime.round_contracts import RoundTransportSelection
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
@@ -602,7 +603,12 @@ def _apply_semantic_message_transforms(
 
 
 def _begin_responses_runtime(
-    *, core: Any, provider: str, model: str, enabled: bool
+    *,
+    core: Any,
+    provider: str,
+    model: str,
+    enabled: bool | None = None,
+    transport_selection: RoundTransportSelection | None = None,
 ) -> Any | None:
     """Synchronize the new continuation state machine with legacy state.
 
@@ -610,6 +616,8 @@ def _begin_responses_runtime(
     the persisted source until the round orchestrator owns session restore.
     A bridge failure must never change the established request path.
     """
+    if transport_selection is not None:
+        enabled = transport_selection.use_responses_api
     if not enabled:
         return None
     try:
@@ -889,6 +897,7 @@ def _try_registry_simple_chat_round(
     stream_responses: bool,
     send_tools_this_round: bool,
     round_count: int,
+    transport_selection: RoundTransportSelection | None = None,
     registry_route: Any | None = None,
 ) -> tuple[bool, str, str, list[dict[str, Any]]] | None:
     """Run the default-on registry path for OpenAI-compatible rounds.
@@ -896,6 +905,9 @@ def _try_registry_simple_chat_round(
     Explicit ``off`` values restore the legacy path. Unsupported providers and
     intentionally deferred modes also retain their established fallback.
     """
+    if transport_selection is not None:
+        use_responses_api = transport_selection.use_responses_api
+        stream_responses = transport_selection.streaming
     discovery = None
     if registry_route is None:
         discovery = resolve_tool_discovery(
@@ -1026,6 +1038,7 @@ def _try_registry_simple_chat_round(
             identifiers=identifiers,
             transport=transport,
             streaming=stream_responses,
+            transport_selection=transport_selection,
             options=options,
         )
         cancellation = getattr(core, "cancellation_token", None)
@@ -1085,6 +1098,7 @@ def _try_registry_simple_chat_round(
                     identifiers=retry_identifiers,
                     transport=transport,
                     streaming=stream_responses,
+                    transport_selection=transport_selection,
                     options=retry_options,
                 )
                 result = (
@@ -1300,6 +1314,11 @@ def _run_one_round(
     ):
         use_responses_api = False
 
+    transport_selection = RoundTransportSelection.from_flags(
+        use_responses_api=use_responses_api,
+        stream_responses=stream_responses,
+    )
+
     # Build an optional LLM-summary projection before context selection. This
     # keeps auto-shrink on the same ContextPlan -> Projection path as the
     # uncompressed request and avoids rebuilding context after planning.
@@ -1351,7 +1370,8 @@ def _run_one_round(
         core=core,
         provider=provider,
         model=depname,
-        enabled=use_responses_api and not judgment_mode,
+        enabled=(transport_selection.use_responses_api and not judgment_mode),
+        transport_selection=transport_selection,
     )
 
     cache_plan = plan_provider_cache(
@@ -1428,6 +1448,7 @@ def _run_one_round(
                 uses_legacy_catalog=(
                     use_responses_api and registry_discovery.uses_legacy_catalog
                 ),
+                transport_selection=transport_selection,
             )
         except Exception:
             # The registry route is advisory until all providers are migrated.
@@ -1448,6 +1469,7 @@ def _run_one_round(
             "core": core,
             "use_responses_api": use_responses_api,
             "stream_responses": stream_responses,
+            "transport_selection": transport_selection,
             "send_tools_this_round": bool(send_tools_this_round),
             "round_count": round_count,
             "registry_route": registry_route,

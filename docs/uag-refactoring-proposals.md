@@ -868,6 +868,19 @@ fallback、resolver failure、明示的な環境変数の優先を確認する�
 他の call site はまだ移行せず、次はこの選択結果を registry / ResponsesRuntime の transport
 契約へ渡す境界を検討する。
 
+#### P1-D の第4修正単位（完了）
+
+`RoundTransportSelection` を provider-neutral な transport 契約として追加し、Responses API / Chat
+Completions の選択結果と streaming 設定を一つの値で表現するようにした。round loop は従来の
+Boolean を維持しながらこの selection を生成し、registry route、`ResponsesRuntime` の開始
+bridge、provider runtime registry へ同じ selection を渡す。registry 側では個別の
+`transport` / `streaming` 引数より selection を優先するため、選択済み transport と実行 adapter
+の設定が分離しない。
+
+既存 call site は Boolean 互換を残して一括移行せず、`tests/test_provider_runtime_registry.py`
+と `tests/test_provider_round_dispatcher.py` で selection の優先と registry route の境界を固定
+した。次は P1-E の StreamEvent / host callback 分離へ進む。
+
 ### P1-E: StreamEvent から host callback を除去する
 
 `inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。

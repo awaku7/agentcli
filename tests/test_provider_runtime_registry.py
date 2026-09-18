@@ -14,7 +14,7 @@ from uagent.runtime.capability_resolver import (
     CapabilityResolver,
     ProviderCapabilitySnapshot,
 )
-from uagent.runtime.round_contracts import RoundIdentifiers
+from uagent.runtime.round_contracts import RoundIdentifiers, RoundTransportSelection
 
 
 class _RecordingCapabilityResolver:
@@ -72,6 +72,28 @@ def test_registry_adapters_use_injected_capability_resolver() -> None:
         ("openai", "gpt-test", "responses"),
         ("inception", "mercury-test", "chat_completions"),
     ]
+
+
+def test_registry_uses_resolved_transport_selection_over_legacy_flags() -> None:
+    selection = RoundTransportSelection.from_flags(
+        use_responses_api=True,
+        stream_responses=False,
+    )
+
+    registry = build_provider_runtime_registry(
+        provider="openai",
+        client=SimpleNamespace(),
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="chat_completions",
+        streaming=True,
+        transport_selection=selection,
+    )
+
+    runtime = registry.resolve("openai")
+    assert isinstance(runtime, OpenAICompatibleRuntime)
+    assert runtime._transport == "responses"
+    assert runtime._streaming is False
 
 
 def test_registry_keeps_inception_adapter_registration() -> None:

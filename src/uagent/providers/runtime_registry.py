@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 from ..runtime.round_contracts import (
     ProviderRuntimeRegistry,
     RoundIdentifiers,
+    RoundTransportSelection,
 )
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
@@ -38,6 +39,7 @@ def build_provider_runtime_registry(
     streaming: bool = True,
     options: Mapping[str, Any] | None = None,
     capability_resolver: CapabilityResolverPort | None = None,
+    transport_selection: RoundTransportSelection | None = None,
 ) -> ProviderRuntimeRegistry:
     """Build a registry for one migrated provider family.
 
@@ -50,6 +52,10 @@ def build_provider_runtime_registry(
         raise ValueError(
             f"provider runtime is not migrated: {provider_key or '<empty>'}"
         )
+
+    if transport_selection is not None:
+        transport = transport_selection.transport
+        streaming = transport_selection.streaming
 
     if provider_key == "inception":
         runtime = InceptionProviderRuntime(

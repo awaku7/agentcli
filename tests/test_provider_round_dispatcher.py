@@ -8,6 +8,7 @@ from uagent.runtime.provider_round_dispatcher import (
     registry_round_allowed,
     resolve_registry_round_route,
 )
+from uagent.runtime.round_contracts import RoundTransportSelection
 
 
 def test_dispatcher_prefers_registry_result() -> None:
@@ -227,6 +228,19 @@ def test_registry_round_gate_centralizes_route_policy() -> None:
     legacy_catalog = _registry_gate_defaults()
     legacy_catalog["uses_legacy_catalog"] = True
     assert registry_round_allowed(**legacy_catalog) is False
+
+
+def test_registry_route_uses_transport_selection_as_the_shared_boundary() -> None:
+    gate = _registry_gate_defaults()
+    gate["responses_enabled"] = True
+    gate["transport_selection"] = RoundTransportSelection.from_flags(
+        use_responses_api=True,
+        stream_responses=True,
+    )
+
+    route = resolve_registry_round_route(**gate)
+
+    assert route == RegistryRoundRoute(True, "eligible")
 
 
 def test_registry_route_contract_exposes_a_stable_reason() -> None:
