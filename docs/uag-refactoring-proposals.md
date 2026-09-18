@@ -981,7 +981,16 @@ P1-E は完了。次は P2 の transform、retry、reasoning、structured teleme
 
 `message_transform.py`、`llm_error_classifier.py`、`retry_coordinator.py`、reasoning renderer は追加済みだが、legacy 経路にも同種の判断が残っている。P0-A で実行経路を一本化した後に重複を削除する。
 
+#### P2 の第1修正単位（完了）
+
+reasoning の host 表示を `runtime/reasoning_renderer.py` の `render_reasoning()` に集約し、
+通常の最終回答経路と tool-call 経路が同じ callback/display boundary を使うようにした。
+従来の `render_tool_call_reasoning()` と表示引数の互換性は維持し、`tests/test_reasoning_renderer.py`
+と `tests/test_diff_patch_llm_flow.py` で既存の表示契約を確認した。
+
 structured telemetry については、round ID と structured logging はあるが、request token 数、tool schema size、projection size、recovery strategy、fallback 回数、duplicate / out-of-order event 数、retry による追加 token / request cost が不足している。契約と実行経路を固定した後に追加する。
+
+次は P2 の第2修正単位として、legacy provider の retry 判定を `RoundRetryCoordinator` へ段階的に集約する。
 
 ### 並行トラック: I18N strict audit
 

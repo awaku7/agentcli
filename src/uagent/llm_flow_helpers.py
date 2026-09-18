@@ -10,7 +10,7 @@ from . import tools
 from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
-from .reasoning_display import show_reasoning
+from .runtime.reasoning_renderer import render_reasoning
 from .runtime.history import (
     materialize_large_tool_result,
     truncate_history_tool_result,
@@ -110,10 +110,9 @@ def _emit_final_answer_if_any(
             # Clear the spinner line first (no-op when disabled).
             _spinner_stop_quietly()
             if reasoning_content:
-                show_reasoning(
+                render_reasoning(
                     reasoning_content,
                     provider=provider,
-                    is_first=True,
                     core=core,
                 )
             print(assistant_text)
