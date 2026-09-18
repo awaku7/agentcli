@@ -60,6 +60,23 @@ class _StateStore:
         }
 
 
+def test_build_restore_plan_adds_missing_system_prompt_without_mutating_input() -> None:
+    messages = [{"role": "user", "content": "hello"}]
+    state = SessionCommandService(_StateStore()).load_context_state("s1")
+
+    plan = SessionCommandService(_StateStore()).build_restore_plan(
+        "s1",
+        messages,
+        system_prompt="system",
+        state=state,
+    )
+
+    assert messages == [{"role": "user", "content": "hello"}]
+    assert plan.messages[0] == {"role": "system", "content": "system"}
+    assert plan.tool_context == state.tool_context
+    assert plan.response_state == state.response_state
+
+
 def test_resolve_load_target_prefers_search_result_index() -> None:
     sessions = [{"session_id": "session-0"}, {"session_id": "session-1"}]
 

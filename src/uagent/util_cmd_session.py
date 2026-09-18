@@ -230,13 +230,13 @@ def _restore_sqlite_session_context(
     if not loaded:
         return None
     _restore_session_tools(loaded)
-    if not any(
-        isinstance(message, dict) and message.get("role") == "system"
-        for message in loaded
-    ):
-        system_prompt = getattr(core, "SYSTEM_PROMPT", None)
-        if isinstance(system_prompt, str) and system_prompt:
-            loaded.insert(0, {"role": "system", "content": system_prompt})
+    restore_service = SessionCommandService(store)
+    restore_plan = restore_service.build_restore_plan(
+        target,
+        loaded,
+        system_prompt=getattr(core, "SYSTEM_PROMPT", None),
+    )
+    loaded = restore_plan.messages
     try:
         store.touch_session(target)
     except Exception as touch_exc:
@@ -256,11 +256,10 @@ def _restore_sqlite_session_context(
     except Exception:
         pass
     _restore_session_workdir(target, loaded, core=core, store=store)
-    persisted_state = SessionCommandService(store).load_context_state(target)
     if hasattr(core, "tool_context"):
         core.tool_context.clear()
-        core.tool_context.update(persisted_state.tool_context)
-    state = persisted_state.response_state
+        core.tool_context.update(restore_plan.tool_context)
+    state = restore_plan.response_state
     if state is not None:
         response_state = getattr(core, "responses_state", None)
         if isinstance(response_state, dict):

@@ -20,6 +20,16 @@ class LoadTargetResolution:
 
 
 @dataclass(frozen=True)
+class SessionRestorePlan:
+    """Host-agnostic plan for applying a loaded session to runtime state."""
+
+    session_id: str
+    messages: list[dict[str, Any]]
+    tool_context: dict[str, Any]
+    response_state: dict[str, Any] | None
+
+
+@dataclass(frozen=True)
 class SessionContextState:
     """Persisted tool and Responses state needed when loading a session."""
 
@@ -79,6 +89,33 @@ class SessionCommandService:
             tool_context=tool_context,
             response_state=(
                 dict(response_state) if isinstance(response_state, dict) else None
+            ),
+        )
+
+    def build_restore_plan(
+        self,
+        session_id: str,
+        messages: list[dict[str, Any]],
+        *,
+        system_prompt: str | None = None,
+        state: SessionContextState | None = None,
+    ) -> SessionRestorePlan:
+        """Prepare loaded messages and persisted state without host mutation."""
+        restored_messages = list(messages)
+        if system_prompt and not any(
+            isinstance(message, dict) and message.get("role") == "system"
+            for message in restored_messages
+        ):
+            restored_messages.insert(0, {"role": "system", "content": system_prompt})
+        persisted = state or self.load_context_state(session_id)
+        return SessionRestorePlan(
+            session_id=session_id,
+            messages=restored_messages,
+            tool_context=dict(persisted.tool_context),
+            response_state=(
+                dict(persisted.response_state)
+                if persisted.response_state is not None
+                else None
             ),
         )
 
@@ -157,5 +194,6 @@ __all__ = [
     "LoadTargetResolution",
     "SessionCommandService",
     "SessionContextState",
+    "SessionRestorePlan",
     "SessionSearchResult",
 ]

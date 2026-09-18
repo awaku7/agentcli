@@ -1083,6 +1083,13 @@ optional な永続 state の欠損・読み取り失敗を空の状態へ縮退�
 だけを host 側に残す。これにより検索結果からの `:load` 継続と通常一覧からの load が別実装でずれる
 回帰を防ぎ、index 解決の境界を単体テストで固定した。
 
+#### P3 の第5修正単位（完了）
+
+`SessionCommandService.build_restore_plan()` を追加し、system prompt の補完、persisted tool context、
+Responses state を host 非依存の restore plan にまとめた。command handler はその plan を core、workdir、
+callback context へ適用するだけになり、service 自体は入力 messages や host state を変更しない。
+既存の load 後の continuation と tool context 復元を SQLite command 回帰で確認した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序
