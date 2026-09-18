@@ -60,6 +60,30 @@ class _StateStore:
         }
 
 
+def test_plan_prune_excludes_active_session_without_mutating_rows() -> None:
+    rows = [
+        {"session_id": "new"},
+        {"session_id": "old"},
+        {"session_id": "active"},
+    ]
+
+    plan = SessionCommandService.plan_prune(
+        rows, 1, active_session_id="active"
+    )
+
+    assert plan.keep == 1
+    assert [row["session_id"] for row in plan.candidates] == ["old"]
+    assert len(rows) == 3
+
+
+def test_plan_prune_keeps_all_rows_when_keep_exceeds_history() -> None:
+    plan = SessionCommandService.plan_prune(
+        [{"session_id": "only"}], 10
+    )
+
+    assert plan.candidates == ()
+
+
 def test_plan_workdir_validates_message_path_without_changing_cwd(tmp_path) -> None:
     current = str(tmp_path / "current")
     target = tmp_path / "target"

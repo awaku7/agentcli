@@ -1175,9 +1175,12 @@ def _handle_cmd_sessions(
         confirmed = "--yes" in args or "-y" in args
         dry_run = "--dry-run" in args or not confirmed
         rows = store.list_sessions()
-        candidates = rows[keep:]
-        if session_id:
-            candidates = [r for r in candidates if r.get("session_id") != session_id]
+        prune_plan = SessionCommandService.plan_prune(
+            rows,
+            keep,
+            active_session_id=session_id,
+        )
+        candidates = list(prune_plan.candidates)
         print(
             _("[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d")
             % {"keep": keep, "count": len(candidates)}

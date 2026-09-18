@@ -21,6 +21,14 @@ class LoadTargetResolution:
 
 
 @dataclass(frozen=True)
+class SessionPrunePlan:
+    """Session rows selected for a prune operation."""
+
+    keep: int
+    candidates: tuple[dict[str, Any], ...]
+
+
+@dataclass(frozen=True)
 class SessionWorkdirPlan:
     """Validated workdir transition data for a host to apply."""
 
@@ -62,6 +70,23 @@ class SessionCommandService:
 
     def __init__(self, store: Any) -> None:
         self._store = store
+
+    @staticmethod
+    def plan_prune(
+        rows: list[dict[str, Any]],
+        keep: int,
+        *,
+        active_session_id: str | None = None,
+    ) -> SessionPrunePlan:
+        """Select prune candidates without deleting or mutating persistence."""
+        candidates = rows[keep:]
+        if active_session_id:
+            candidates = [
+                row
+                for row in candidates
+                if row.get("session_id") != active_session_id
+            ]
+        return SessionPrunePlan(keep=keep, candidates=tuple(candidates))
 
     @staticmethod
     def plan_workdir(
@@ -225,6 +250,7 @@ class SessionCommandService:
 __all__ = [
     "LoadTargetResolution",
     "SessionCommandService",
+    "SessionPrunePlan",
     "SessionContextState",
     "SessionRestorePlan",
     "SessionSearchResult",
