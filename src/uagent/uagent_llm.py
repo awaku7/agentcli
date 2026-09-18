@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
+
 set_thread_lang(detect_lang())
 
 from .translate import load_translate_config, translate_text
@@ -715,30 +716,23 @@ def _sync_responses_runtime_completed(
 
     raw_tool_calls = getattr(round_outcome, "tool_calls", ()) or ()
     tool_calls = (
-        list(raw_tool_calls)
-        if isinstance(raw_tool_calls, (list, tuple))
-        else []
+        list(raw_tool_calls) if isinstance(raw_tool_calls, (list, tuple)) else []
     )
     try:
         existing_id = getattr(runtime, "active_response_id", None)
         pending = tuple(getattr(runtime, "pending_tool_calls", ()) or ())
-        pending_ids = {
-            str(getattr(item, "tool_call_id", "") or "") for item in pending
-        }
+        pending_ids = {str(getattr(item, "tool_call_id", "") or "") for item in pending}
         call_ids = {
             str(item.get("tool_call_id") or item.get("id") or "")
             for item in tool_calls
             if isinstance(item, dict)
         }
-        already_synced = (
-            existing_id == response_id
-            and (
-                (not tool_calls and getattr(runtime, "state", "") == "Fresh")
-                or (
-                    tool_calls
-                    and getattr(runtime, "state", "") == "AwaitingToolOutput"
-                    and pending_ids == call_ids
-                )
+        already_synced = existing_id == response_id and (
+            (not tool_calls and getattr(runtime, "state", "") == "Fresh")
+            or (
+                tool_calls
+                and getattr(runtime, "state", "") == "AwaitingToolOutput"
+                and pending_ids == call_ids
             )
         )
         if not already_synced:

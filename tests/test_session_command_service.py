@@ -64,9 +64,7 @@ def test_plan_summarize_filters_explicit_target_and_bounds_bulk_work() -> None:
     rows = [{"session_id": f"session-{index}"} for index in range(12)]
 
     bulk = SessionCommandService.plan_summarize(rows, limit=10)
-    targeted = SessionCommandService.plan_summarize(
-        rows, target="session-11", limit=10
-    )
+    targeted = SessionCommandService.plan_summarize(rows, target="session-11", limit=10)
 
     assert len(bulk.rows) == 10
     assert targeted.rows == ({"session_id": "session-11"},)
@@ -80,9 +78,7 @@ def test_plan_prune_excludes_active_session_without_mutating_rows() -> None:
         {"session_id": "active"},
     ]
 
-    plan = SessionCommandService.plan_prune(
-        rows, 1, active_session_id="active"
-    )
+    plan = SessionCommandService.plan_prune(rows, 1, active_session_id="active")
 
     assert plan.keep == 1
     assert [row["session_id"] for row in plan.candidates] == ["old"]
@@ -90,9 +86,7 @@ def test_plan_prune_excludes_active_session_without_mutating_rows() -> None:
 
 
 def test_plan_prune_keeps_all_rows_when_keep_exceeds_history() -> None:
-    plan = SessionCommandService.plan_prune(
-        [{"session_id": "only"}], 10
-    )
+    plan = SessionCommandService.plan_prune([{"session_id": "only"}], 10)
 
     assert plan.candidates == ()
 
@@ -113,18 +107,19 @@ def test_plan_workdir_validates_message_path_without_changing_cwd(tmp_path) -> N
     assert plan.previous_path == current
 
 
-def test_plan_workdir_falls_back_to_project_path_and_rejects_missing_path(tmp_path) -> None:
+def test_plan_workdir_falls_back_to_project_path_and_rejects_missing_path(
+    tmp_path,
+) -> None:
     target = tmp_path / "project"
     target.mkdir()
 
+    assert SessionCommandService.plan_workdir(
+        "s1", session_project_path=str(target), current_workdir="previous"
+    ).target_path == str(target)
     assert (
         SessionCommandService.plan_workdir(
-            "s1", session_project_path=str(target), current_workdir="previous"
-        ).target_path
-        == str(target)
-    )
-    assert (
-        SessionCommandService.plan_workdir("s1", message_workdir=str(tmp_path / "missing"))
+            "s1", message_workdir=str(tmp_path / "missing")
+        )
         is None
     )
 
@@ -160,12 +155,17 @@ def test_resolve_load_target_prefers_search_result_index() -> None:
 def test_resolve_load_target_uses_session_index_and_reports_invalid_index() -> None:
     sessions = [{"session_id": "session-0"}, {"session_id": "session-1"}]
 
-    assert SessionCommandService.resolve_load_target("1", sessions).target == "session-1"
+    assert (
+        SessionCommandService.resolve_load_target("1", sessions).target == "session-1"
+    )
     assert (
         SessionCommandService.resolve_load_target("9", sessions).error
         == "index_out_of_range"
     )
-    assert SessionCommandService.resolve_load_target("session-1", sessions).target == "session-1"
+    assert (
+        SessionCommandService.resolve_load_target("session-1", sessions).target
+        == "session-1"
+    )
 
 
 def test_load_context_state_returns_persisted_runtime_state() -> None:

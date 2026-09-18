@@ -112,9 +112,7 @@ class OpenAICompatibleRuntime:
             from ..runtime.capability_resolver import CapabilityResolver
 
             resolver = CapabilityResolver()
-        self.capabilities = resolver.resolve(
-            self._provider, self._model, transport
-        )
+        self.capabilities = resolver.resolve(self._provider, self._model, transport)
         self._identifiers = identifiers
         self._transport = transport
         self._streaming = streaming

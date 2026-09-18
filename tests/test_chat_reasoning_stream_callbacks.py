@@ -15,7 +15,9 @@ from uagent.runtime.stream_renderer import StreamCallbacks
         ("_parse_novita_stream", "Novita"),
     ],
 )
-def test_chat_reasoning_stream_parsers_use_host_callbacks(parser_name, provider) -> None:
+def test_chat_reasoning_stream_parsers_use_host_callbacks(
+    parser_name, provider
+) -> None:
     if provider == "Vercel":
         from uagent.providers.llm_vercel import _parse_vercel_stream as parser
     elif provider == "Together":

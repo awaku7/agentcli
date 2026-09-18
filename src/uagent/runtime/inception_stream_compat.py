@@ -9,7 +9,6 @@ from __future__ import annotations
 
 from .inception_stream_host import render_inception_stream_events
 
-
 # Preserve the old name while keeping the implementation outside the provider
 # adapter and making the host boundary explicit for new call sites.
 collect_inception_stream_events = render_inception_stream_events

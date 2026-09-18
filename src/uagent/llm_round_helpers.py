@@ -65,6 +65,7 @@ from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
     _responses_session_generation,
 )
+
 _CHAT_COMPLETIONS_MAX_TOOLS = 128
 _CHAT_TOOL_HELPERS = frozenset(
     {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
@@ -490,9 +491,11 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
-    legacy_usage_before = dict(
-        getattr(core, "_last_responses_usage", {}) or {}
-    ) if core is not None else {}
+    legacy_usage_before = (
+        dict(getattr(core, "_last_responses_usage", {}) or {})
+        if core is not None
+        else {}
+    )
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
