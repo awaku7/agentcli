@@ -1118,6 +1118,13 @@ remote mutation が成功した後だけ、現在の continuation に影響す�
 を呼び出す。明示的 cancel、暗黙の active cancel、current/non-current delete の契約を単体テストで固定し、
 `:response` handler の副作用判断を state view から分離した。
 
+#### P3 の第10修正単位（完了）
+
+`runtime/responses_command_service.py` を追加し、`:response tokens` の payload/usage 集約、`compact`、
+`items` の remote operation 呼び出しを command handler から分離した。service は JSON formatting、翻訳、
+print を行わず、既知の usage 欠損時も推測せずに返却する。token count、compact、items の delegation
+契約と既存 response command 回帰を確認した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序

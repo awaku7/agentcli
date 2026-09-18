@@ -13,6 +13,7 @@ from .providers.responses_manager import (
     get_responses_capabilities,
 )
 from .runtime.responses_command_mutation import ResponsesCommandMutationService
+from .runtime.responses_command_service import ResponsesCommandService
 from .runtime.responses_command_state import ResponsesCommandState
 
 
@@ -44,15 +45,8 @@ def _print_json(value: Any) -> None:
 def _responses_token_count_payload(
     messages: list[dict[str, Any]], provider: str
 ) -> tuple[str | None, list[dict[str, Any]], list[dict[str, Any]] | None]:
-    """Build the same Responses-shaped payload used by responses.create."""
-    from .providers.llm_openai_responses import build_responses_request
-
-    return build_responses_request(
-        messages,
-        send_tools_this_round=True,
-        provider=provider,
-        previous_response_id=None,
-    )
+    """Compatibility wrapper for the Responses command service."""
+    return ResponsesCommandService.build_token_count_payload(messages, provider)
 
 
 def _handle_cmd_response(
@@ -129,31 +123,14 @@ def _handle_cmd_response(
 
     if sub == "tokens":
         try:
-            instructions, responses_input, responses_tools = (
-                _responses_token_count_payload(messages_ref, manager.provider)
+            state = ResponsesCommandState.from_core(core)
+            result = ResponsesCommandService.count_tokens(
+                manager,
+                messages_ref,
+                provider=manager.provider,
+                previous_response_id=state.previous_response_id,
+                last_usage=getattr(core, "_last_responses_usage", None),
             )
-            # The endpoint requires a non-empty input field.  This fallback
-            # is only for a history containing no countable input items.
-            count_input = responses_input or [{"role": "user", "content": " "}]
-            result = manager.count_input_tokens(
-                input=count_input,
-                tools=responses_tools,
-                instructions=instructions,
-                previous_response_id=(
-                    str(
-                        getattr(core, "responses_state", {}).get("previous_response_id")
-                        or ""
-                    )
-                    if not responses_input
-                    else None
-                ),
-            )
-            # ``input_tokens.count`` only reports input-side data.  Add the
-            # usage from the most recent completed Responses call when it is
-            # available (including output/reasoning tokens).
-            usage = getattr(core, "_last_responses_usage", None)
-            if isinstance(usage, dict) and usage:
-                result = {"input_token_count": result, "last_response_usage": usage}
             _print_json(result)
         except Exception as exc:
             print(tr("[Responses API] Token count failed: %(error)s") % {"error": exc})
@@ -164,7 +141,7 @@ def _handle_cmd_response(
             print(tr("[Responses API] No response ID is available."))
             return True
         try:
-            _print_json(manager.compact(rid))
+            _print_json(ResponsesCommandService.compact(manager, rid))
         except Exception as exc:
             print(tr("[Responses API] Compact failed: %(error)s") % {"error": exc})
         return True
@@ -174,7 +151,7 @@ def _handle_cmd_response(
             print(tr("[Responses API] No response ID is available."))
             return True
         try:
-            _print_json(manager.list_input_items(rid))
+            _print_json(ResponsesCommandService.list_items(manager, rid))
         except Exception as exc:
             print(
                 tr("[Responses API] Input item listing failed: %(error)s")
