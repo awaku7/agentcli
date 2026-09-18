@@ -132,6 +132,8 @@ class RoundOrchestrator:
             projection_size=projection_size,
             recovery_strategy=recovery_hint.get("strategy", ""),
             fallback_count=plan_telemetry.get("fallback_count", 0),
+            duplicate_event_count=validator.duplicate_events,
+            out_of_order_event_count=validator.out_of_order_events,
         )
         if continuation_update:
             responses_runtime = session.get("responses_runtime")

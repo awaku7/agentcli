@@ -269,6 +269,19 @@ def test_stream_validator_rejects_invalid_terminal_or_sequence(
         validator(events)
 
 
+def test_stream_validator_tracks_duplicate_and_out_of_order_events() -> None:
+    validator = StreamEventValidator()
+    validator.accept(StreamEvent("ResponseStarted", _identifiers(), 0, 0.0))
+
+    with pytest.raises(ValueError):
+        validator.accept(StreamEvent("TextDelta", _identifiers(), 0, 0.1))
+    with pytest.raises(ValueError):
+        validator.accept(StreamEvent("TextDelta", _identifiers(), -1, 0.2))
+
+    assert validator.duplicate_events == 1
+    assert validator.out_of_order_events == 1
+
+
 def test_stream_validator_requires_started_event() -> None:
     validator = StreamEventValidator()
     with pytest.raises(ValueError):

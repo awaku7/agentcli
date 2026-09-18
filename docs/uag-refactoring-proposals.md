@@ -1006,8 +1006,16 @@ count、tool call count、assistant/reasoning 文字数は維持し、`ContextPl
 recovery hint から追加情報を取得する。`tests/test_round_orchestrator.py` で構造化 telemetry の
 フィールドと値を固定した。
 
-次は P2 の第4修正単位として、duplicate / out-of-order event 数と retry による追加 token / request
-cost の telemetry を追加する。
+#### P2 の第4修正単位（完了）
+
+`StreamEventValidator` が duplicate / out-of-order sequence を計数し、`llm.round.completed` に
+`duplicate_event_count` と `out_of_order_event_count` を追加した。rate-limit retry は
+`llm.retry.authorized` structured event として `additional_request_count` を記録し、provider usage
+が取得できない場合の `additional_token_count` は null のまま保持する。`tests/test_round_contracts.py`、
+`tests/test_round_orchestrator.py`、`tests/test_retry_coordinator.py` で各 telemetry 契約を確認した。
+
+次は P2 の第5修正単位として、provider usage が返る経路から retry 前後の token / request cost を
+reconcile し、telemetry の欠損値を段階的に埋める。
 
 ### 並行トラック: I18N strict audit
 

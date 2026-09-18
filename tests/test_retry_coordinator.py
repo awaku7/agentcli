@@ -11,6 +11,11 @@ def test_rate_limit_step_charges_shared_transport_budget(monkeypatch) -> None:
         return kwargs["attempt"] + 1, None, "retry"
 
     monkeypatch.setattr("uagent.llm_errors._rate_limit_retry_step", fake_rate_limit_step)
+    events = []
+    monkeypatch.setattr(
+        "uagent.runtime.logging_setup.log_event",
+        lambda event_code, **fields: events.append((event_code, fields)),
+    )
     coordinator = RoundRetryCoordinator(max_retries_429=0)
     kwargs = {
         "exception": RuntimeError("429"),
@@ -25,6 +30,8 @@ def test_rate_limit_step_charges_shared_transport_budget(monkeypatch) -> None:
     assert coordinator.rate_limit_step(attempt=0, **kwargs)[2] == "retry"
     assert coordinator.rate_limit_step(attempt=1, **kwargs)[2] == "give_up"
     assert len(calls) == 2
+    assert events[0][0] == "llm.retry.authorized"
+    assert events[0][1]["additional_request_count"] == 1
 
 
 def test_retry_coordinator_applies_reason_limits() -> None:

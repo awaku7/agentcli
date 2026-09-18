@@ -80,6 +80,8 @@ class StreamEventValidator:
         self._stream_mode: str | None = None
         self._tool_calls: set[str] = set()
         self._completed_tool_calls: set[str] = set()
+        self._duplicate_events = 0
+        self._out_of_order_events = 0
 
     def accept(self, event: StreamEvent) -> None:
         if event.type not in _EVENT_TYPES:
@@ -95,6 +97,10 @@ class StreamEventValidator:
             self._last_sequence is not None
             and event.sequence_number <= self._last_sequence
         ):
+            if event.sequence_number == self._last_sequence:
+                self._duplicate_events += 1
+            else:
+                self._out_of_order_events += 1
             raise StreamContractError("stream sequence_number must increase")
         if not self._started and event.type != "ResponseStarted":
             raise StreamContractError("ResponseStarted must be the first event")
@@ -121,6 +127,7 @@ class StreamEventValidator:
             if tool_call_id not in self._tool_calls:
                 raise StreamContractError("ToolCallCompleted requires a prior delta")
             if tool_call_id in self._completed_tool_calls:
+                self._duplicate_events += 1
                 raise StreamContractError("ToolCallCompleted emitted more than once")
             if not event.data.get("name"):
                 raise StreamContractError("ToolCallCompleted requires name")
@@ -134,6 +141,14 @@ class StreamEventValidator:
                 )
             self._terminal = True
         self._last_sequence = event.sequence_number
+
+    @property
+    def duplicate_events(self) -> int:
+        return self._duplicate_events
+
+    @property
+    def out_of_order_events(self) -> int:
+        return self._out_of_order_events
 
     @property
     def terminal(self) -> bool:

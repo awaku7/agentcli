@@ -140,6 +140,8 @@ def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> Non
     assert captured["tool_schema_size"] >= 0
     assert captured["recovery_strategy"] == "bounded_rollback"
     assert captured["fallback_count"] == 2
+    assert captured["duplicate_event_count"] == 0
+    assert captured["out_of_order_event_count"] == 0
 
 
 def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:

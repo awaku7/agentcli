@@ -49,10 +49,23 @@ class RoundRetryCoordinator:
             cap=cap,
             recreate_client_fn=recreate_client_fn,
         )
-        if action == "retry" and not self.authorize(
-            "transport", f"{provider}:{model}:{type(exception).__name__}"
-        ):
-            return next_attempt, None, "give_up"
+        if action == "retry":
+            authorized = self.authorize(
+                "transport", f"{provider}:{model}:{type(exception).__name__}"
+            )
+            if not authorized:
+                return next_attempt, None, "give_up"
+            from .logging_setup import log_event
+
+            log_event(
+                "llm.retry.authorized",
+                provider=provider,
+                model=model,
+                retry_reason="transport",
+                retry_attempt=next_attempt,
+                additional_request_count=1,
+                additional_token_count=None,
+            )
         return next_attempt, new_client, action
 
 
