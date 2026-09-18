@@ -83,4 +83,38 @@ def test_deepseek_round_failure_returns_without_logging(monkeypatch) -> None:
     assert emitted == []
 
 
+def test_deepseek_round_executes_tool_calls_before_continuing(monkeypatch) -> None:
+    core = _Core()
+    kwargs = _kwargs(core)
+    tool_call = {
+        "id": "call-1",
+        "type": "function",
+        "function": {"name": "read_file", "arguments": "{}"},
+    }
+    executed = []
+    monkeypatch.setattr(
+        legacy_deepseek_round,
+        "call_legacy_deepseek_round",
+        lambda **_kwargs: (
+            True,
+            "new-client",
+            "tool request",
+            "reasoning",
+            [tool_call],
+        ),
+    )
+    monkeypatch.setattr(
+        legacy_deepseek_round,
+        "execute_legacy_tool_calls",
+        lambda **payload: executed.append(payload) or (True, [tool_call]),
+    )
+
+    result = legacy_deepseek_round.run_legacy_deepseek_round(**kwargs)
+
+    assert result == ("ok", "new-client", "cache-name", 0, "tool request!")
+    assert len(executed) == 1
+    assert executed[0]["tool_calls"] == [tool_call]
+    assert executed[0]["messages"] is kwargs["messages"]
+
+
 __all__ = []

@@ -71,4 +71,42 @@ def test_gateway_round_failure_returns_without_emitting(monkeypatch) -> None:
     assert emitted == []
 
 
+def test_gateway_round_executes_tool_calls_instead_of_emitting_final(
+    monkeypatch,
+) -> None:
+    core = _Core()
+    kwargs = _kwargs(core)
+    tool_call = {
+        "id": "call-1",
+        "type": "function",
+        "function": {"name": "read_file", "arguments": "{}"},
+    }
+    executed = []
+    emitted = []
+    kwargs["emit_final_answer_fn"] = lambda **payload: emitted.append(payload)
+    monkeypatch.setattr(
+        legacy_gateway_round,
+        "call_legacy_reasoning_round",
+        lambda **_kwargs: (
+            True,
+            "new-client",
+            "tool request",
+            "reasoning",
+            [tool_call],
+        ),
+    )
+    monkeypatch.setattr(
+        legacy_gateway_round,
+        "execute_legacy_tool_calls",
+        lambda **payload: executed.append(payload) or (True, [tool_call]),
+    )
+
+    result = legacy_gateway_round.run_legacy_gateway_round(**kwargs)
+
+    assert result == ("ok", "new-client", "cache-name", 0, "tool request!")
+    assert len(executed) == 1
+    assert executed[0]["tool_calls"] == [tool_call]
+    assert emitted == []
+
+
 __all__ = []

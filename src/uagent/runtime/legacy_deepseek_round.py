@@ -8,6 +8,7 @@ from .. import core as _core_module
 from ..env_utils import env_get
 from ..providers.llm_deepseek import build_assistant_message_with_reasoning
 from .legacy_provider_dispatch import call_legacy_deepseek_round
+from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
 
@@ -155,6 +156,15 @@ def run_legacy_deepseek_round(
             empty_no_tool_rounds,
             assistant_text,
         )
+
+    execute_legacy_tool_calls(
+        tool_calls=tool_calls_list,
+        messages=messages,
+        core=core,
+        cache_mgr=_unused.get("cache_mgr"),
+        responses_api_continuation=use_responses_api,
+        judgment_mode=judgment_mode,
+    )
 
     return (
         "ok",
