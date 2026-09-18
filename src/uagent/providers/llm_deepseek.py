@@ -35,6 +35,7 @@ from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
 from .structured_output import native_structured_output_request
 from ..reasoning_display import show_reasoning
+from ..runtime.stream_renderer import StreamCallbacks
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -525,6 +526,7 @@ def parse_deepseek_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from DeepSeek.
 
@@ -536,7 +538,13 @@ def parse_deepseek_stream(
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
     is_web = bool(getattr(core, "_is_web", False)) if core else False
+    callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseStarted", {})
+        except Exception:
+            pass
 
     try:
         for chunk in stream:
@@ -548,27 +556,38 @@ def parse_deepseek_stream(
             rc_delta = getattr(delta, "reasoning_content", None)
             if isinstance(rc_delta, str) and rc_delta:
                 reasoning_parts.append(rc_delta)
-                # Print reasoning as gray text in CLI streaming
-                show_reasoning(
-                    rc_delta,
-                    provider="DeepSeek",
-                    is_first=(not _reasoning_printed),
-                    print_fn=print_delta_fn,
-                    core=core,
-                )
+                # Print reasoning as gray text in CLI streaming unless the
+                # host supplied the provider-neutral callback contract.
+                if callable(callbacks.on_reasoning):
+                    try:
+                        callbacks.on_reasoning(rc_delta)
+                    except Exception:
+                        pass
+                else:
+                    show_reasoning(
+                        rc_delta,
+                        provider="DeepSeek",
+                        is_first=(not _reasoning_printed),
+                        print_fn=print_delta_fn,
+                        core=core,
+                    )
                 _reasoning_printed = True
 
             # content delta
             content_delta = getattr(delta, "content", None)
             if isinstance(content_delta, str) and content_delta:
                 text_parts.append(content_delta)
-                if print_delta_fn and not is_web:
-                    # Prepend newline when transitioning from reasoning to content
-                    if _reasoning_printed:
-                        _reasoning_printed = False
-                        print_delta_fn("\n" + content_delta)
-                    else:
-                        print_delta_fn(content_delta)
+                delta_to_emit = content_delta
+                if _reasoning_printed:
+                    _reasoning_printed = False
+                    delta_to_emit = chr(10) + content_delta
+                if callable(callbacks.on_delta):
+                    try:
+                        callbacks.on_delta(delta_to_emit)
+                    except Exception:
+                        pass
+                elif print_delta_fn and not is_web:
+                    print_delta_fn(delta_to_emit)
                 elif is_web and core is not None:
                     try:
                         lm = getattr(core, "log_message", None)
@@ -576,7 +595,7 @@ def parse_deepseek_stream(
                             lm(
                                 {
                                     "type": "assistant_stream_delta",
-                                    "delta": content_delta,
+                                    "delta": delta_to_emit,
                                 }
                             )
                     except Exception:
@@ -624,14 +643,30 @@ def parse_deepseek_stream(
             else (reasoning_parts[-1] if reasoning_parts else "")
         )
         if last and not last.endswith("\n"):
-            if print_delta_fn:
-                print_delta_fn("\n")
+            if callable(callbacks.on_delta):
+                try:
+                    callbacks.on_delta(chr(10))
+                except Exception:
+                    pass
+            elif print_delta_fn:
+                print_delta_fn(chr(10))
             else:
                 print("")
 
     tool_calls_list = [
         v for _, v in sorted(tool_calls_acc.items()) if v["function"]["name"]
     ]
+    if callable(callbacks.on_tool_call):
+        for tool_call in tool_calls_list:
+            try:
+                callbacks.on_tool_call(dict(tool_call))
+            except Exception:
+                pass
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseCompleted", {})
+        except Exception:
+            pass
 
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
 
@@ -655,6 +690,7 @@ def deepseek_chat_with_tools(
     retry_cap: float,
     stream: bool = True,
     provider: str = "deepseek",
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Run one DeepSeek/z.ai/MiMo chat completion round.
 
@@ -728,6 +764,7 @@ def deepseek_chat_with_tools(
                                 )
                             ),
                             core=core,
+                            callbacks=callbacks,
                         )
                     )
                 )

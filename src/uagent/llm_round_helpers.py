@@ -1703,6 +1703,17 @@ def _call_deepseek_round(
         retry_cap=retry_cap,
         stream=stream,
         provider=provider,
+        callbacks=build_stream_callbacks(
+            print_delta_fn=(
+                None
+                if bool(getattr(core, "_is_web", False))
+                else (
+                    getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True) if s else None)
+                )
+            ),
+            core=core,
+        ),
     )
 
 

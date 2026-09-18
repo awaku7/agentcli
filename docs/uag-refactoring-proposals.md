@@ -924,8 +924,17 @@ callback 未指定時は従来の表示処理へフォールバックする。Re
 `tests/test_interrupt_clears_responses_rid.py` で callback、compaction、interrupt、継続状態の
 既存契約を確認した。
 
-次は P1-E の第5修正単位として、Chat Completions 系の reasoning stream parser を同じ
-`StreamCallbacks` 契約へ段階的に寄せる。
+#### P1-E の第5修正単位（完了）
+
+DeepSeek/MiMo の Chat Completions reasoning stream parser に `StreamCallbacks` 引数を追加し、
+reasoning、delta、tool call、terminal 通知を host callback 契約へ寄せた。round helper が
+`build_stream_callbacks()` で callback bundle を作成して provider adapter に渡すため、provider
+parser の表示先選択を legacy `print_delta_fn` / `core` から分離できる。既存の引数と戻り値、
+reasoning から回答へ移る際の改行、Web の終了通知は互換維持し、`tests/test_llm_deepseek_stream.py`
+と `tests/test_legacy_deepseek_round.py` で確認した。
+
+次は P1-E の第6修正単位として、Vercel/Together など残る Chat Completions reasoning parser を
+同じ `StreamCallbacks` 契約へ寄せる。
 
 
 ### P2: transforms、retry、reasoning、telemetry
