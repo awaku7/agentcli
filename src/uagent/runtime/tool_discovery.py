@@ -10,7 +10,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Iterable, Mapping, Protocol
+from typing import TYPE_CHECKING, Any, Iterable, Mapping, Protocol
+
+if TYPE_CHECKING:
+    from .capability_resolver import CapabilityResolverPort
 
 
 class ToolSource(str, Enum):
@@ -122,6 +125,7 @@ def resolve_tool_discovery_from_environment(
     provider: str | None = None,
     depname: str | None = None,
     use_responses_api: bool | None = None,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> ToolDiscoveryDecision:
     """Resolve discovery using the common environment policy.
 
@@ -150,14 +154,13 @@ def resolve_tool_discovery_from_environment(
         elif raw_responses in {"0", "false", "no", "off"}:
             use_responses_api = False
         else:
-            try:
-                from ..llmcapa_util import provider_allows_responses_api
+            from .capability_resolver import responses_api_auto_enabled
 
-                use_responses_api = bool(
-                    provider_allows_responses_api(provider_name, model_name or None)
-                )
-            except Exception:
-                use_responses_api = False
+            use_responses_api = responses_api_auto_enabled(
+                provider_name,
+                model_name,
+                resolver=capability_resolver,
+            )
 
     return resolve_tool_discovery(
         provider=provider_name,

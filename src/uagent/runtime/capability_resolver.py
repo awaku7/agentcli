@@ -152,3 +152,34 @@ class CapabilityResolver:
                 source="llmcapa",
             ),
         )
+
+
+def responses_api_auto_enabled(
+    provider: str,
+    model: str = "",
+    *,
+    resolver: CapabilityResolverPort | None = None,
+) -> bool:
+    """Return whether automatic routing may select the Responses API.
+
+    Explicit user configuration is handled by the caller.  This function is
+    deliberately conservative: missing catalog evidence and resolver failures
+    are not permission to select a native provider surface.
+    """
+
+    capability_resolver = resolver
+    if capability_resolver is None:
+        try:
+            capability_resolver = CapabilityResolver()
+        except Exception:
+            return False
+
+    try:
+        snapshot = capability_resolver.resolve(
+            provider,
+            model or "",
+            transport="responses",
+        )
+    except Exception:
+        return False
+    return snapshot.responses_create.is_native_allowed()

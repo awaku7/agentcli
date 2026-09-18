@@ -339,45 +339,14 @@ def _responses_api_auto_enabled(
     depname: str,
     capability_resolver: CapabilityResolverPort | None = None,
 ) -> bool:
-    """Resolve automatic Responses selection without changing legacy fallback.
+    """Resolve automatic Responses selection through the shared capability gate."""
+    from .runtime.capability_resolver import responses_api_auto_enabled
 
-    The resolver is authoritative when it has explicit model evidence. Its
-    ``UNKNOWN`` state deliberately falls back to the historical provider gate
-    so that model catalog gaps do not silently disable a previously working
-    route during the staged migration.
-    """
-    from .llmcapa_util import provider_allows_responses_api
-    from .runtime.capability_resolver import CapabilityResolver, CapabilityState
-
-    def legacy() -> bool:
-        return provider_allows_responses_api(provider, depname or None)
-
-    resolver = capability_resolver
-    if resolver is None:
-        try:
-            resolver = CapabilityResolver()
-        except Exception:
-            return legacy()
-
-    try:
-        snapshot = resolver.resolve(
-            provider,
-            depname or "",
-            transport="responses",
-        )
-        capability = snapshot.responses_create
-        if capability.state in {
-            CapabilityState.TRUE_DOCUMENTED,
-            CapabilityState.TRUE_TESTED,
-        }:
-            return True
-        if capability.state is CapabilityState.FALSE:
-            return False
-    except Exception:
-        # Capability lookup is advisory at this migration boundary. Preserve
-        # the established route if an optional catalog/resolver fails.
-        pass
-    return legacy()
+    return responses_api_auto_enabled(
+        provider,
+        depname,
+        resolver=capability_resolver,
+    )
 
 
 def _resolve_round_runtime_flags(
