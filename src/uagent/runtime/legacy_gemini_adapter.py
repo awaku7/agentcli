@@ -9,35 +9,9 @@ from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import LLMWaitInterrupted, _maybe_print_certifi_where
 from ..llm_message_helpers import _build_call_messages
 from ..providers.llm_gemini import gemini_chat_with_tools
-from .context_recovery import ContextRecoveryManager
+from .legacy_context_recovery import rollback_largest_recent_history
 from .llm_error_classifier import is_context_overflow_error
 from .stream_host import build_stream_callbacks
-
-
-def _rollback_largest_recent_history(
-    messages: list[dict[str, Any]], *, lookback: int = 10
-) -> dict[str, Any] | None:
-    def _notice(lookback_count: int, removed: int, size: int) -> dict[str, Any]:
-        return {
-            "role": "system",
-            "content": _(
-                "context.rollback_notice",
-                default=(
-                    "The context limit was exceeded. The largest message among the last "
-                    "%(lookback)d messages and all following messages were removed "
-                    "(%(removed)d message(s), largest size %(size)d bytes). "
-                    "Re-plan any removed tool operation; do not assume it completed."
-                ),
-                lookback=lookback_count,
-                removed=removed,
-                size=size,
-            ),
-            "_uagent_internal": True,
-        }
-
-    return ContextRecoveryManager.apply_legacy_bounded_rollback(
-        messages, lookback=lookback, notice_builder=_notice
-    )
 
 
 def _call_gemini_round(
@@ -153,7 +127,7 @@ def _call_gemini_round(
                     pass
                 continue
             if is_context_overflow_error(e) and history_messages is not None:
-                rollback = _rollback_largest_recent_history(history_messages)
+                rollback = rollback_largest_recent_history(history_messages)
                 if rollback is not None:
                     print(
                         _(

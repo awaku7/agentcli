@@ -220,28 +220,9 @@ def _rollback_largest_recent_history(
     messages: list[dict[str, Any]], *, lookback: int = 10
 ) -> dict[str, Any] | None:
     """Compatibility wrapper for bounded recovery without owning selection."""
+    from .runtime.legacy_context_recovery import rollback_largest_recent_history
 
-    def _notice(lookback_count: int, removed: int, size: int) -> dict[str, Any]:
-        return {
-            "role": "system",
-            "content": _(
-                "context.rollback_notice",
-                default=(
-                    "The context limit was exceeded. The largest message among the last "
-                    "%(lookback)d messages and all following messages were removed "
-                    "(%(removed)d message(s), largest size %(size)d bytes). "
-                    "Re-plan any removed tool operation; do not assume it completed."
-                ),
-                lookback=lookback_count,
-                removed=removed,
-                size=size,
-            ),
-            "_uagent_internal": True,
-        }
-
-    return ContextRecoveryManager.apply_legacy_bounded_rollback(
-        messages, lookback=lookback, notice_builder=_notice
-    )
+    return rollback_largest_recent_history(messages, lookback=lookback)
 
 
 from .tools.llm_tool_narrowing import (

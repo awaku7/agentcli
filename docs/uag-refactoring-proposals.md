@@ -895,6 +895,13 @@ caller 側で優先する。
 `tests/test_round_runtime_flags.py` と `tests/test_tool_discovery.py` で、明示指定、
 documented capability、false、unknown、resolver failure の境界を固定した。
 
+### 並行修正: legacy context recovery の重複整理（完了）
+
+Gemini adapter と `llm_round_helpers.py` に重複していた、翻訳済みrollback noticeを伴う
+破壊的な互換回復処理を `runtime/legacy_context_recovery.py` に集約した。新しい標準経路の
+非破壊`ContextPlan` recoveryとは分離したまま、legacy経路が同一の選択・通知契約を使う。
+`llm_round_helpers.py` の旧関数は外部互換ラッパーとして維持する。
+
 ### P1-E: StreamEvent から host callback を除去する
 
 `inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。
