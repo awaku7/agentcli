@@ -37,6 +37,7 @@ from ..llm_helpers import (
     _maybe_print_certifi_where,
 )
 from ..reasoning_display import show_reasoning
+from ..runtime.stream_renderer import StreamCallbacks
 
 _LABEL = "Together"
 _ENV_PREFIX = "UAGENT_TOGETHER"
@@ -195,6 +196,7 @@ def _parse_together_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
     """Consume a streaming response from Together.
 
@@ -204,7 +206,13 @@ def _parse_together_stream(
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
     is_web = bool(getattr(core, "_is_web", False)) if core else False
+    callbacks = callbacks or StreamCallbacks()
     _reasoning_printed = False
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseStarted", {})
+        except Exception:
+            pass
 
     try:
         for chunk in stream:
@@ -215,24 +223,35 @@ def _parse_together_stream(
             rc_delta = getattr(delta, "reasoning_content", None)
             if isinstance(rc_delta, str) and rc_delta:
                 reasoning_parts.append(rc_delta)
-                show_reasoning(
-                    rc_delta,
-                    provider="Together",
-                    is_first=(not _reasoning_printed),
-                    print_fn=print_delta_fn,
-                    core=core,
-                )
+                if callable(callbacks.on_reasoning):
+                    try:
+                        callbacks.on_reasoning(rc_delta)
+                    except Exception:
+                        pass
+                else:
+                    show_reasoning(
+                        rc_delta,
+                        provider="Together",
+                        is_first=(not _reasoning_printed),
+                        print_fn=print_delta_fn,
+                        core=core,
+                    )
                 _reasoning_printed = True
 
             content_delta = getattr(delta, "content", None)
             if isinstance(content_delta, str) and content_delta:
                 text_parts.append(content_delta)
-                if print_delta_fn and not is_web:
-                    if _reasoning_printed:
-                        _reasoning_printed = False
-                        print_delta_fn("\n" + content_delta)
-                    else:
-                        print_delta_fn(content_delta)
+                delta_to_emit = content_delta
+                if _reasoning_printed:
+                    _reasoning_printed = False
+                    delta_to_emit = chr(10) + content_delta
+                if callable(callbacks.on_delta):
+                    try:
+                        callbacks.on_delta(delta_to_emit)
+                    except Exception:
+                        pass
+                elif print_delta_fn and not is_web:
+                    print_delta_fn(delta_to_emit)
                 elif is_web and core is not None:
                     try:
                         lm = getattr(core, "log_message", None)
@@ -240,7 +259,7 @@ def _parse_together_stream(
                             lm(
                                 {
                                     "type": "assistant_stream_delta",
-                                    "delta": content_delta,
+                                    "delta": delta_to_emit,
                                 }
                             )
                     except Exception:
@@ -285,14 +304,30 @@ def _parse_together_stream(
             else (reasoning_parts[-1] if reasoning_parts else "")
         )
         if last and not last.endswith("\n"):
-            if print_delta_fn:
-                print_delta_fn("\n")
+            if callable(callbacks.on_delta):
+                try:
+                    callbacks.on_delta(chr(10))
+                except Exception:
+                    pass
+            elif print_delta_fn:
+                print_delta_fn(chr(10))
             else:
                 print("")
 
     tool_calls_list = [
         v for _, v in sorted(tool_calls_acc.items()) if v["function"]["name"]
     ]
+    if callable(callbacks.on_tool_call):
+        for tool_call in tool_calls_list:
+            try:
+                callbacks.on_tool_call(dict(tool_call))
+            except Exception:
+                pass
+    if callable(callbacks.on_terminal):
+        try:
+            callbacks.on_terminal("ResponseCompleted", {})
+        except Exception:
+            pass
 
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
 
@@ -382,6 +417,7 @@ def together_chat_with_tools(
     retry_base: float,
     retry_cap: float,
     stream: bool = True,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Run one Together AI chat completion round.
 
@@ -441,6 +477,7 @@ def together_chat_with_tools(
                                 )
                             ),
                             core=core,
+                            callbacks=callbacks,
                         )
                     )
                 )

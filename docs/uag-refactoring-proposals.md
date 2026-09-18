@@ -933,8 +933,16 @@ parser の表示先選択を legacy `print_delta_fn` / `core` から分離でき
 reasoning から回答へ移る際の改行、Web の終了通知は互換維持し、`tests/test_llm_deepseek_stream.py`
 と `tests/test_legacy_deepseek_round.py` で確認した。
 
-次は P1-E の第6修正単位として、Vercel/Together など残る Chat Completions reasoning parser を
-同じ `StreamCallbacks` 契約へ寄せる。
+#### P1-E の第6修正単位（完了）
+
+Vercel/Together の Chat Completions reasoning stream parser に `StreamCallbacks` 引数を追加し、
+reasoning、delta、tool call、terminal 通知を共通 host callback 契約へ移行した。各 round helper
+から `build_stream_callbacks()` を渡し、reasoning から回答へ移る改行と legacy の表示引数を
+維持したまま、provider parser の表示先分岐を縮小した。`tests/test_chat_reasoning_stream_callbacks.py`
+と `tests/test_legacy_provider_dispatch.py`、`tests/test_provider_round_dispatcher.py` で確認した。
+
+次は P1-E の第7修正単位として、Novita/Z.AI など残る Chat Completions stream parser の callback
+wiring を同じ契約へ寄せる。
 
 
 ### P2: transforms、retry、reasoning、telemetry
