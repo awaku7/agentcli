@@ -1022,6 +1022,8 @@ adapter が同じ coordinator 契約を使うことを確認した。各 adapter
 を1個だけ生成し、外側の orchestrator から注入された場合はその instance を引き継ぐ。既存の
 round 契約は `tests/test_round_integration_regressions.py`、
 `tests/test_legacy_provider_dispatch.py` で確認した。
+Gemini の model-turn repair、hard reset、thinking-level fallback も同じ coordinator の
+`feature_fallback` budget へ接続し、adapter 内の追加 request が理由別上限を迂回しないようにした。
 
 #### P2 の第3修正単位（完了）
 

@@ -81,6 +81,9 @@ def _call_gemini_round(
             if (
                 not turn_repair_attempted
                 and "requests ending with a model turn" in error_text.lower()
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini model-turn repair"
+                )
             ):
                 turn_repair_attempted = True
                 if history_messages:
@@ -101,6 +104,9 @@ def _call_gemini_round(
             if (
                 not turn_hard_reset_attempted
                 and "requests ending with a model turn" in error_text.lower()
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini model-turn hard reset"
+                )
             ):
                 turn_hard_reset_attempted = True
                 safe_messages: list[dict[str, Any]] = []
@@ -170,10 +176,16 @@ def _call_gemini_round(
                 print(str(e))
                 return False, client, "", [], {}
             msg = str(e)
-            if force_thinking_level is None and (
-                "Thinking level MINIMAL is not supported for this model" in msg
-                or "thinking level minimal is not supported for this model"
-                in msg.lower()
+            if (
+                force_thinking_level is None
+                and (
+                    "Thinking level MINIMAL is not supported for this model" in msg
+                    or "thinking level minimal is not supported for this model"
+                    in msg.lower()
+                )
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini thinking level unsupported"
+                )
             ):
                 try:
                     from ..util_tools import set_reasoning_mode
