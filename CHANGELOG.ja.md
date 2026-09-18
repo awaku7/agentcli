@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.8] - 2026-09-18
+
+### 追加
+
+- 段階的なオーケストレーション移行のため、provider runtime registry と正規化 round 契約を追加。
+- ContextPlan、ResponsesRuntime、StreamEvent renderer、復旧計画、session command service を追加。
+
+### 変更
+
+- capability 解決、message transform、retry coordination、round telemetry を集約。
+- LM Studio の API キーを任意とし、未設定の任意環境変数はローカル既定値へフォールバック。
+- `llmcapa` の依存バージョンを `0.5.35` に更新。
+
+### 修正
+
+- Claude legacy round で次の round へ進む前に tool call を実行。
+- registry/legacy 互換処理と Responses 継続処理を改善。
+
 ## [0.7.7] - 2026-09-11
 
 ### 追加

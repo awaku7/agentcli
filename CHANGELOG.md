@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.8] - 2026-09-18
+
+### Added
+
+- Add provider runtime registry and normalized round contracts for incremental orchestration.
+- Add ContextPlan, ResponsesRuntime, StreamEvent rendering, recovery planning, and session command services.
+
+### Changed
+
+- Centralize capability resolution, message transforms, retry coordination, and round telemetry.
+- Keep LM Studio API keys optional and fall back to local defaults when optional environment variables are unset.
+- Update the `llmcapa` dependency to `0.5.35`.
+
+### Fixed
+
+- Execute Claude legacy tool calls before advancing to the next round.
+- Improve registry/legacy compatibility and Responses continuation handling.
+
 ## [0.7.7] - 2026-09-11
 
 ### Added
