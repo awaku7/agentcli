@@ -60,6 +60,28 @@ class _StateStore:
         }
 
 
+def test_resolve_load_target_prefers_search_result_index() -> None:
+    sessions = [{"session_id": "session-0"}, {"session_id": "session-1"}]
+
+    result = SessionCommandService.resolve_load_target(
+        "0", sessions, search_results={0: "search-session"}
+    )
+
+    assert result.target == "search-session"
+    assert result.error is None
+
+
+def test_resolve_load_target_uses_session_index_and_reports_invalid_index() -> None:
+    sessions = [{"session_id": "session-0"}, {"session_id": "session-1"}]
+
+    assert SessionCommandService.resolve_load_target("1", sessions).target == "session-1"
+    assert (
+        SessionCommandService.resolve_load_target("9", sessions).error
+        == "index_out_of_range"
+    )
+    assert SessionCommandService.resolve_load_target("session-1", sessions).target == "session-1"
+
+
 def test_load_context_state_returns_persisted_runtime_state() -> None:
     state = SessionCommandService(_StateStore()).load_context_state("s1")
 

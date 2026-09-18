@@ -1432,16 +1432,16 @@ def _handle_cmd_sessions(
         if target == session_id:
             print(_("[sessions] Session is already active."))
             return True
-        if target.isdigit():
-            index = int(target)
-            search_results = getattr(core, "_session_search_results", {})
-            if index in search_results:
-                target = search_results[index]
-            elif 0 <= index < len(sessions):
-                target = sessions[index]["session_id"]
-            else:
-                print(_("[sessions] Session index out of range."))
-                return True
+        resolution = SessionCommandService.resolve_load_target(
+            target,
+            sessions,
+            search_results=getattr(core, "_session_search_results", {}),
+        )
+        if resolution.error:
+            print(_("[sessions] Session index out of range."))
+            return True
+        if resolution.target is not None:
+            target = resolution.target
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1668,16 +1668,16 @@ def _handle_cmd_load(
                 _print_session_list_row(index, row, indent="  ")
             print(_("[load] Usage: :load <index|session_id>"))
             return True
-        if target.isdigit():
-            index = int(target)
-            search_results = getattr(core, "_session_search_results", {})
-            if index in search_results:
-                target = search_results[index]
-            else:
-                if index < 0 or index >= len(sessions):
-                    print("[load] Session index out of range.")
-                    return True
-                target = sessions[index]["session_id"]
+        resolution = SessionCommandService.resolve_load_target(
+            target,
+            sessions,
+            search_results=getattr(core, "_session_search_results", {}),
+        )
+        if resolution.error:
+            print("[load] Session index out of range.")
+            return True
+        if resolution.target is not None:
+            target = resolution.target
         try:
             loaded = store.list_messages(target)
             if not loaded:

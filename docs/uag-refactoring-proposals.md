@@ -1076,6 +1076,13 @@ optional な永続 state の欠損・読み取り失敗を空の状態へ縮退�
 の context 更新、Responses continuation、tool context 復元の挙動は維持し、成功・欠損時の service
 契約と SQLite command 回帰を確認した。
 
+#### P3 の第4修正単位（完了）
+
+`SessionCommandService.resolve_load_target()` に session ID、通常の zero-based index、検索結果 index の
+解決を集約した。`:load` と `:sessions load` は同じ解決結果を使い、表示文言と active session の扱い
+だけを host 側に残す。これにより検索結果からの `:load` 継続と通常一覧からの load が別実装でずれる
+回帰を防ぎ、index 解決の境界を単体テストで固定した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序

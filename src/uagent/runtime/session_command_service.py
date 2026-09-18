@@ -12,6 +12,14 @@ from typing import Any
 
 
 @dataclass(frozen=True)
+class LoadTargetResolution:
+    """Resolved session target or a stable host-facing error code."""
+
+    target: str | None = None
+    error: str | None = None
+
+
+@dataclass(frozen=True)
 class SessionContextState:
     """Persisted tool and Responses state needed when loading a session."""
 
@@ -34,6 +42,25 @@ class SessionCommandService:
 
     def __init__(self, store: Any) -> None:
         self._store = store
+
+    @staticmethod
+    def resolve_load_target(
+        target: str,
+        sessions: list[dict[str, Any]],
+        *,
+        search_results: dict[int, str] | None = None,
+    ) -> LoadTargetResolution:
+        """Resolve a session id or zero-based list/search index."""
+        if not target:
+            return LoadTargetResolution()
+        if not target.isdigit():
+            return LoadTargetResolution(target=target)
+        index = int(target)
+        if search_results and index in search_results:
+            return LoadTargetResolution(target=str(search_results[index]))
+        if 0 <= index < len(sessions):
+            return LoadTargetResolution(target=str(sessions[index]["session_id"]))
+        return LoadTargetResolution(error="index_out_of_range")
 
     def load_context_state(self, session_id: str) -> SessionContextState:
         """Read persisted tool and Responses state without mutating a host."""
@@ -127,6 +154,7 @@ class SessionCommandService:
 
 
 __all__ = [
+    "LoadTargetResolution",
     "SessionCommandService",
     "SessionContextState",
     "SessionSearchResult",
