@@ -802,6 +802,18 @@ provider または model が切り替わる際は、bridge が legacy `responses
 
 Azure Responses の registry 標準経路を実際の `ResponsesRuntime` と接続した characterization test を追加した。Responses の function call を受けた後、runtime が新しい response ID、tool-call ID、session generation を保持し、`AwaitingToolOutput` へ遷移することを確認する。これにより OpenAI / Azure 共通 adapter の tool continuation と runtime state の整合を検証できる。
 
+#### P1-C の第5修正単位（完了）
+
+registry を選択しない Responses API の互換経路でも、dispatch 境界で
+`ResponsesRuntime` を成功結果へ同期する `_sync_responses_runtime_completed()` を追加した。
+ツール呼び出しのない成功応答は `Fresh`、ツール呼び出しを含む成功応答は
+`AwaitingToolOutput` へ遷移し、`session_generation` も legacy `responses_state` と同期する。
+失敗結果は既存の terminal 処理に委ね、互換経路の結果を変更しない。
+
+`tests/test_round_integration_regressions.py` に、legacy Responses の通常完了と tool
+continuation の characterization test を追加した。これにより、registry 経路だけでなく
+legacy OpenAI-compatible 経路でも ResponsesRuntime の continuation 状態を検証できる。
+
 ### P1-D: CapabilityResolver を旧判定の置換に使う
 
 `CapabilityResolver` は存在し、`unknown` を安全側に倒す設計もできている。しかし、`provider_caps.py`、`llmcapa_util.py`、`ResponsesCapabilities`、environment flag、各 provider の個別判定が併存している。

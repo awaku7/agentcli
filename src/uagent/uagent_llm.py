@@ -677,6 +677,75 @@ def _record_responses_runtime_response(
         pass
 
 
+def _sync_responses_runtime_completed(
+    *, core: Any, enabled: bool, round_outcome: Any
+) -> None:
+    """Bridge a legacy Responses result into ``ResponsesRuntime``.
+
+    Compatibility providers update ``responses_state`` themselves. That is
+    sufficient for the old request path, but it leaves the new state machine
+    unaware of successful responses when the registry is not selected (in
+    particular, responses without a tool call never reach the postamble that
+    records tool continuation). Synchronize at the dispatch boundary so both
+    routes expose the same continuation state.
+
+    The registry route already performs this synchronization in
+    ``RoundOrchestrator``; callers invoke this helper only for non-registry
+    outcomes. It is intentionally best-effort while legacy handlers remain
+    active.
+    """
+    if not enabled:
+        return
+    outcome_status = str(getattr(round_outcome, "status", "ok") or "").lower()
+    if outcome_status not in {"ok", "completed"}:
+        return
+    runtime = getattr(core, "responses_runtime", None)
+    state = getattr(core, "responses_state", None)
+    if runtime is None or not isinstance(state, dict):
+        return
+    response_id = state.get("previous_response_id")
+    if not isinstance(response_id, str) or not response_id.startswith("resp_"):
+        return
+
+    raw_tool_calls = getattr(round_outcome, "tool_calls", ()) or ()
+    tool_calls = (
+        list(raw_tool_calls)
+        if isinstance(raw_tool_calls, (list, tuple))
+        else []
+    )
+    try:
+        existing_id = getattr(runtime, "active_response_id", None)
+        pending = tuple(getattr(runtime, "pending_tool_calls", ()) or ())
+        pending_ids = {
+            str(getattr(item, "tool_call_id", "") or "") for item in pending
+        }
+        call_ids = {
+            str(item.get("tool_call_id") or item.get("id") or "")
+            for item in tool_calls
+            if isinstance(item, dict)
+        }
+        already_synced = (
+            existing_id == response_id
+            and (
+                (not tool_calls and getattr(runtime, "state", "") == "Fresh")
+                or (
+                    tool_calls
+                    and getattr(runtime, "state", "") == "AwaitingToolOutput"
+                    and pending_ids == call_ids
+                )
+            )
+        )
+        if not already_synced:
+            runtime.sync_completed_response(response_id, tool_calls=tool_calls)
+        state["session_generation"] = int(
+            getattr(runtime, "session_generation", 0) or 0
+        )
+    except Exception:
+        # The compatibility route must retain its established result even if a
+        # malformed provider response cannot be mirrored into the runtime.
+        pass
+
+
 def _apply_remote_recovery_update(core: Any, update: Any) -> bool:
     """Synchronize a provider-owned recovery result without mutating history."""
     state = getattr(core, "responses_state", None)
@@ -1422,6 +1491,12 @@ def _run_one_round(
         },
     )
     dispatch_outcome = dispatch.outcome
+    if dispatch.source != "registry":
+        _sync_responses_runtime_completed(
+            core=core,
+            enabled=use_responses_api and not judgment_mode,
+            round_outcome=dispatch_outcome,
+        )
     registry_simple_result = (
         dispatch_outcome.raw_result
         if (

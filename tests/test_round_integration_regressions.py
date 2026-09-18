@@ -13,6 +13,7 @@ from uagent.runtime.round_identity import DeterministicTestWorkspaceKeyProvider
 from uagent.runtime.round_runtime import RoundAttemptBudget
 from uagent.uagent_llm import (
     _begin_responses_runtime,
+    _sync_responses_runtime_completed,
     _sync_registry_responses_terminal,
     _try_registry_simple_chat_round,
     _record_responses_runtime_response,
@@ -568,6 +569,48 @@ def test_responses_bridge_preserves_tool_output_and_stale_retry_invariants() -> 
     runtime.interrupt()
     assert runtime.previous_response_id is None
     assert runtime.active_response_id is None
+
+
+def test_legacy_responses_completion_updates_runtime_without_tools() -> None:
+    core = SimpleNamespace(
+        responses_state={"previous_response_id": "resp_legacy"},
+    )
+    runtime = _begin_responses_runtime(
+        core=core, provider="openai", model="gpt-test", enabled=True
+    )
+
+    _sync_responses_runtime_completed(
+        core=core,
+        enabled=True,
+        round_outcome=SimpleNamespace(tool_calls=[]),
+    )
+
+    assert runtime is not None
+    assert runtime.state == "Fresh"
+    assert runtime.previous_response_id == "resp_legacy"
+    assert core.responses_state["session_generation"] == runtime.session_generation
+
+
+def test_legacy_responses_tool_completion_updates_pending_runtime_calls() -> None:
+    core = SimpleNamespace(
+        responses_state={"previous_response_id": "resp_legacy"},
+    )
+    runtime = _begin_responses_runtime(
+        core=core, provider="openai", model="gpt-test", enabled=True
+    )
+
+    _sync_responses_runtime_completed(
+        core=core,
+        enabled=True,
+        round_outcome=SimpleNamespace(
+            tool_calls=[{"id": "call-1", "function": {"name": "read_file"}}]
+        ),
+    )
+
+    assert runtime is not None
+    assert runtime.state == "AwaitingToolOutput"
+    assert runtime.previous_response_id == "resp_legacy"
+    assert [key.tool_call_id for key in runtime.pending_tool_calls] == ["call-1"]
 
 
 def test_responses_bridge_restores_persisted_session_generation() -> None:
