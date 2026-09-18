@@ -110,6 +110,38 @@ def test_orchestrator_runs_three_stage_contract() -> None:
     ]
 
 
+def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> None:
+    captured = {}
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.log_event",
+        lambda event_code, **fields: captured.update(
+            {"event_code": event_code, **fields}
+        ),
+    )
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+
+    RoundOrchestrator(registry).run(
+        ContextPlan(
+            "plan",
+            ({"role": "user", "content": "hi"},),
+            telemetry={"fallback_count": 2},
+        ),
+        provider="fake",
+        session={
+            "recovery_hint": {"strategy": "bounded_rollback"},
+        },
+        cancellation=_Cancellation(),
+    )
+
+    assert captured["event_code"] == "llm.round.completed"
+    assert captured["request_tokens"] > 0
+    assert captured["projection_size"] > 0
+    assert captured["tool_schema_size"] >= 0
+    assert captured["recovery_strategy"] == "bounded_rollback"
+    assert captured["fallback_count"] == 2
+
+
 def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:
     transitions = {
         "ResponseCancelled": "cancel",

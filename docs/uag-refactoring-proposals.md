@@ -998,8 +998,16 @@ backoff、client recreation、provider error handling を維持したまま、�
 同じ round attempt budget を超えて実行されない。`tests/test_retry_coordinator.py`、
 `tests/test_round_integration_regressions.py`、`tests/test_legacy_provider_dispatch.py` で確認した。
 
-次は P2 の第3修正単位として、round telemetry に request token 数、tool schema size、projection
-size、recovery strategy、fallback 回数を追加する。
+#### P2 の第3修正単位（完了）
+
+`RoundOrchestrator` の `llm.round.completed` telemetry に request token 数、tool schema size、
+projection size、recovery strategy、fallback 回数を追加した。既存の round ID、duration、event
+count、tool call count、assistant/reasoning 文字数は維持し、`ContextPlan.telemetry` と session の
+recovery hint から追加情報を取得する。`tests/test_round_orchestrator.py` で構造化 telemetry の
+フィールドと値を固定した。
+
+次は P2 の第4修正単位として、duplicate / out-of-order event 数と retry による追加 token / request
+cost の telemetry を追加する。
 
 ### 並行トラック: I18N strict audit
 

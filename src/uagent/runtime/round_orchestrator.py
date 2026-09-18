@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import json
 import time
 from dataclasses import dataclass
 from typing import Any, Mapping
+
+from .context_tokens import estimate_tokens
 
 from .round_contracts import (
     CancellationToken,
@@ -17,6 +20,13 @@ from .round_contracts import (
 from .round_runtime import StreamEventValidator
 from .stream_renderer import CollectingStreamRenderer
 from .logging_setup import log_event
+
+
+def _json_size(value: Any) -> int:
+    try:
+        return len(json.dumps(value, ensure_ascii=False, sort_keys=True, default=str))
+    except Exception:
+        return len(str(value or ""))
 
 
 @dataclass(frozen=True)
@@ -87,6 +97,26 @@ class RoundOrchestrator:
             error=dict(terminal.data) if status == "failed" else None,
             recovery_hint=dict(session.get("recovery_hint") or {}),
         )
+        recovery_hint = dict(session.get("recovery_hint") or {})
+        plan_telemetry = dict(plan.telemetry or {})
+        request_input = request.payload.get(
+            "input", request.payload.get("messages", projection.messages)
+        )
+        request_tokens = estimate_tokens(
+            request_input,
+            provider=request.provider,
+            model=request.model,
+        )
+        projection_size = _json_size(
+            {
+                "messages": projection.messages,
+                "tool_specs": projection.tool_specs,
+                "options": projection.options,
+            }
+        )
+        tool_schema_size = _json_size(
+            request.payload.get("tools", projection.tool_specs)
+        )
         log_event(
             "llm.round.completed",
             provider=request.provider,
@@ -97,6 +127,11 @@ class RoundOrchestrator:
             tool_call_count=len(rendered.tool_calls),
             assistant_chars=len(rendered.assistant_text),
             reasoning_chars=len(rendered.reasoning_text),
+            request_tokens=request_tokens,
+            tool_schema_size=tool_schema_size,
+            projection_size=projection_size,
+            recovery_strategy=recovery_hint.get("strategy", ""),
+            fallback_count=plan_telemetry.get("fallback_count", 0),
         )
         if continuation_update:
             responses_runtime = session.get("responses_runtime")
