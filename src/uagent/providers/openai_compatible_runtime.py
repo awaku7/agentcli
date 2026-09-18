@@ -10,9 +10,12 @@ from __future__ import annotations
 import json
 import sys
 import time
-from typing import Any, Iterator, Mapping
+from typing import TYPE_CHECKING, Any, Iterator, Mapping
 
 from ..env_utils import env_get
+
+if TYPE_CHECKING:
+    from ..runtime.capability_resolver import CapabilityResolverPort
 
 from ..runtime.provider_context import (
     apply_recovery_projection,
@@ -99,13 +102,17 @@ class OpenAICompatibleRuntime:
         transport: str = "chat_completions",
         streaming: bool = True,
         options: Mapping[str, Any] | None = None,
+        capability_resolver: CapabilityResolverPort | None = None,
     ) -> None:
         self._client = client
         self._provider = (provider or "").strip().lower()
         self._model = model
-        from ..runtime.capability_resolver import CapabilityResolver
+        resolver = capability_resolver
+        if resolver is None:
+            from ..runtime.capability_resolver import CapabilityResolver
 
-        self.capabilities = CapabilityResolver().resolve(
+            resolver = CapabilityResolver()
+        self.capabilities = resolver.resolve(
             self._provider, self._model, transport
         )
         self._identifiers = identifiers

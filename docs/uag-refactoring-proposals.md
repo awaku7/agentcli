@@ -832,6 +832,16 @@ ResponsesRuntime の state と legacy bridge の復元情報が同じ契約を�
 
 先に adapter interface を固定し、その後に capability の取得元を `CapabilityResolver` へ集約する。これを同時に行うと変更範囲が大きくなるため、P0-A の後に実施する。
 
+#### P1-D の最初の修正単位（完了）
+
+provider adapter が capability 判定の実装を直接生成せず、`CapabilityResolverPort` の
+read-only `ProviderCapabilitySnapshot` を受け取る境界を追加した。既定では既存の
+`CapabilityResolver` を使い、テストと段階移行では resolver を注入できる。判定源の統合や
+旧判定の削除はまだ行わず、adapter interface の固定に限定している。
+
+`tests/test_provider_runtime_registry.py` で OpenAI-compatible と Inception の adapter が
+注入された resolver に provider、model、transport を渡すことを確認する。
+
 ### P1-E: StreamEvent から host callback を除去する
 
 `inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。
@@ -874,6 +884,6 @@ P2    transform / retry / reasoning / telemetry
 P3    CLI/GUI/Web と command 層の整理
 ```
 
-直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。次は P1-C の残る標準経路を対象にする。
+直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。P1-C の registry generation bridge も完了したため、次は P1-D の capability resolver adapter interface 固定を対象にする。
 
 `60ab7dd0` の進捗記録時点では、関連する11個の targeted test file、計77件が成功していた。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。その後も回帰テストは追加されているため、77件は現行の総テスト数ではない。再評価時点ではこの文書の更新作業として全テストを再実行したものではなく、I18N strict audit の117件の指摘も未解消である。

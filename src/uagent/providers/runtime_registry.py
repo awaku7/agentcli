@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
+
+if TYPE_CHECKING:
+    from ..runtime.capability_resolver import CapabilityResolverPort
 
 from ..runtime.round_contracts import (
     ProviderRuntimeRegistry,
@@ -34,6 +37,7 @@ def build_provider_runtime_registry(
     transport: str = "chat_completions",
     streaming: bool = True,
     options: Mapping[str, Any] | None = None,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> ProviderRuntimeRegistry:
     """Build a registry for one migrated provider family.
 
@@ -53,6 +57,7 @@ def build_provider_runtime_registry(
             model=model,
             identifiers=identifiers,
             options=options,
+            capability_resolver=capability_resolver,
         )
     else:
         runtime = OpenAICompatibleRuntime(
@@ -63,6 +68,7 @@ def build_provider_runtime_registry(
             transport=transport,
             streaming=streaming,
             options=options,
+            capability_resolver=capability_resolver,
         )
 
     registry = ProviderRuntimeRegistry()

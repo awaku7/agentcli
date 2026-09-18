@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterator, Mapping
+from typing import TYPE_CHECKING, Any, Iterator, Mapping
+
+if TYPE_CHECKING:
+    from ..runtime.capability_resolver import CapabilityResolverPort
 
 from ..runtime.provider_context import (
     apply_recovery_projection,
@@ -30,12 +33,16 @@ class InceptionProviderRuntime:
         model: str,
         identifiers: RoundIdentifiers,
         options: Mapping[str, Any] | None = None,
+        capability_resolver: CapabilityResolverPort | None = None,
     ) -> None:
         self._client = client
         self._model = model
-        from ..runtime.capability_resolver import CapabilityResolver
+        resolver = capability_resolver
+        if resolver is None:
+            from ..runtime.capability_resolver import CapabilityResolver
 
-        self.capabilities = CapabilityResolver().resolve(
+            resolver = CapabilityResolver()
+        self.capabilities = resolver.resolve(
             "inception", self._model, "chat_completions"
         )
         self._identifiers = identifiers

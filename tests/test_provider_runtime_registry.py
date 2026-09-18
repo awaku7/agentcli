@@ -10,7 +10,23 @@ from uagent.providers.runtime_registry import (
     build_provider_runtime_registry,
     supports_provider_runtime,
 )
+from uagent.runtime.capability_resolver import (
+    CapabilityResolver,
+    ProviderCapabilitySnapshot,
+)
 from uagent.runtime.round_contracts import RoundIdentifiers
+
+
+class _RecordingCapabilityResolver:
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, str, str]] = []
+        self._fallback = CapabilityResolver()
+
+    def resolve(
+        self, provider: str, model: str = "", transport: str = "chat_completions"
+    ) -> ProviderCapabilitySnapshot:
+        self.calls.append((provider, model, transport))
+        return self._fallback.resolve(provider, model, transport)
 
 
 def _identifiers() -> RoundIdentifiers:
@@ -31,6 +47,31 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         assert runtime.capabilities.transport == "chat_completions"
         assert registry.capability_snapshot(provider) is runtime.capabilities
         assert registry.providers() == (provider,)
+
+
+def test_registry_adapters_use_injected_capability_resolver() -> None:
+    resolver = _RecordingCapabilityResolver()
+
+    build_provider_runtime_registry(
+        provider="openai",
+        client=SimpleNamespace(),
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        capability_resolver=resolver,
+    )
+    build_provider_runtime_registry(
+        provider="inception",
+        client=SimpleNamespace(),
+        model="mercury-test",
+        identifiers=_identifiers(),
+        capability_resolver=resolver,
+    )
+
+    assert resolver.calls == [
+        ("openai", "gpt-test", "responses"),
+        ("inception", "mercury-test", "chat_completions"),
+    ]
 
 
 def test_registry_keeps_inception_adapter_registration() -> None:

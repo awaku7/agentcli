@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Callable
+from typing import Callable, Protocol
 
 from ..llmcapa_util import supports_feature
 from ..providers.provider_caps import DEFAULT_PROVIDER_REGISTRY, ProviderRegistry
@@ -57,6 +57,14 @@ class ProviderCapabilitySnapshot:
     responses_continuation: CapabilityValue
     responses_compact: CapabilityValue
     structured_output: CapabilityValue
+
+
+class CapabilityResolverPort(Protocol):
+    """Read-only capability lookup consumed by provider adapters."""
+
+    def resolve(
+        self, provider: str, model: str = "", transport: str = "chat_completions"
+    ) -> ProviderCapabilitySnapshot: ...
 
 
 class CapabilityResolver:
