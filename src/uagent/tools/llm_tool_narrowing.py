@@ -105,12 +105,9 @@ def _soft_use_responses_api(*, provider: str, depname: str) -> bool:
         return True
     if raw in ("0", "false", "no", "off"):
         return False
-    try:
-        from ..llmcapa_util import provider_allows_responses_api
+    from ..runtime.capability_resolver import responses_api_auto_enabled
 
-        return bool(provider_allows_responses_api(provider, depname or None))
-    except Exception:
-        return (provider or "").strip().lower() in ("openai", "azure")
+    return responses_api_auto_enabled(provider, depname)
 
 
 def should_emit_catalog_steering(

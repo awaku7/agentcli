@@ -105,9 +105,7 @@ def _handle_cmd_response(
                 return True
             try:
                 _print_json(manager.cancel(rid))
-                plan = mutation_service.after_cancel(
-                    rid, explicit_id=bool(explicit_id)
-                )
+                plan = mutation_service.after_cancel(rid, explicit_id=bool(explicit_id))
                 if plan.clear_continuation:
                     core_module.clear_responses_continuation()
             except Exception as exc:

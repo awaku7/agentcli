@@ -10,7 +10,9 @@ def test_rate_limit_step_charges_shared_transport_budget(monkeypatch) -> None:
         calls.append(kwargs)
         return kwargs["attempt"] + 1, None, "retry"
 
-    monkeypatch.setattr("uagent.llm_errors._rate_limit_retry_step", fake_rate_limit_step)
+    monkeypatch.setattr(
+        "uagent.llm_errors._rate_limit_retry_step", fake_rate_limit_step
+    )
     events = []
     monkeypatch.setattr(
         "uagent.runtime.logging_setup.log_event",

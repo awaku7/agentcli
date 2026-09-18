@@ -21,10 +21,14 @@ def _core(*, store=None):
 def test_sessions_aliases_share_the_same_list_dispatch(capsys) -> None:
     store = _EmptySessionStore()
 
-    assert handle_command(":sessions list", [], None, "", core=_core(store=store)) is True
+    assert (
+        handle_command(":sessions list", [], None, "", core=_core(store=store)) is True
+    )
     plural_output = capsys.readouterr().out
 
-    assert handle_command(":session list", [], None, "", core=_core(store=store)) is True
+    assert (
+        handle_command(":session list", [], None, "", core=_core(store=store)) is True
+    )
     singular_output = capsys.readouterr().out
 
     assert plural_output == singular_output

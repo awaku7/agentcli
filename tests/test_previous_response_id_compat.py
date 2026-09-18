@@ -154,13 +154,6 @@ def test_openrouter_never_sends_previous_response_id(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setenv("UAGENT_USE_TOOL", "0")
-    # llmcapa 0.5.24 marks all openrouter rows responses_api=False.
-    # This test checks previous_response_id stripping, not the catalog.
-    import uagent.uagent_llm as _uagent_llm
-
-    monkeypatch.setattr(
-        _uagent_llm, "provider_allows_responses_api", lambda *a, **k: True
-    )
 
     class _OkResponses:
         def __init__(self) -> None:

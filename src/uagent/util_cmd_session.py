@@ -1604,8 +1604,7 @@ def _handle_cmd_sessions(
     # Keep the numbered search result available to :load. Search result
     # numbers are intentionally zero-based, matching :load's normal index.
     core._session_search_results = {
-        index: result.row["session_id"]
-        for index, result in enumerate(search_results)
+        index: result.row["session_id"] for index, result in enumerate(search_results)
     }
     print(_("[sessions] Matches: " + str(len(search_results))))
     for index, result in enumerate(search_results):

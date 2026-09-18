@@ -106,9 +106,7 @@ class SessionCommandService:
         candidates = rows[keep:]
         if active_session_id:
             candidates = [
-                row
-                for row in candidates
-                if row.get("session_id") != active_session_id
+                row for row in candidates if row.get("session_id") != active_session_id
             ]
         return SessionPrunePlan(keep=keep, candidates=tuple(candidates))
 

@@ -6,7 +6,6 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..i18n import _
-from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -19,6 +18,11 @@ from ..providers.llm_claude import (
 )
 from ..providers.structured_output import structured_output_request
 from ..runtime.error_renderer import exception_text
+from .capability_resolver import (
+    CapabilityResolverPort,
+    structured_output_native_enabled,
+)
+from .retry_coordinator import RoundRetryCoordinator
 
 
 def _call_claude_round(
@@ -35,7 +39,11 @@ def _call_claude_round(
     send_tools: bool = True,
     provider: str = "claude",
     claude_chat_fn: Any = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> Any:
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
@@ -60,14 +68,12 @@ def _call_claude_round(
                 else None
             )
             _claude_structured = structured_output_request(call_messages)
-            if _claude_structured is not None:
-                try:
-                    from ..llmcapa_util import supports_json_schema
-
-                    if supports_json_schema(depname, provider) is not True:
-                        _claude_structured = None
-                except Exception:
-                    _claude_structured = None
+            if _claude_structured is not None and not structured_output_native_enabled(
+                provider,
+                depname,
+                resolver=capability_resolver,
+            ):
+                _claude_structured = None
             if _claude_structured is not None:
                 if not isinstance(_claude_out_cfg, dict):
                     _claude_out_cfg = {}
@@ -109,7 +115,7 @@ def _call_claude_round(
             )
             break
         except Exception as e:
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider=provider,
                 model=depname,

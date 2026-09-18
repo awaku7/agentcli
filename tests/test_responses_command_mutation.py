@@ -20,8 +20,12 @@ def test_implicit_cancel_only_clears_current_response() -> None:
         ResponsesCommandState(active_response_id="active-1")
     )
 
-    assert service.after_cancel("active-1", explicit_id=False).clear_continuation is True
-    assert service.after_cancel("other-1", explicit_id=False).clear_continuation is False
+    assert (
+        service.after_cancel("active-1", explicit_id=False).clear_continuation is True
+    )
+    assert (
+        service.after_cancel("other-1", explicit_id=False).clear_continuation is False
+    )
 
 
 def test_delete_clears_only_current_continuation() -> None:

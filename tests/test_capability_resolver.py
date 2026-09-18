@@ -4,6 +4,7 @@ from uagent.llmcapa_util import provider_allows_responses_api
 from uagent.runtime.capability_resolver import (
     CapabilityResolver,
     CapabilityState,
+    structured_output_native_enabled,
 )
 
 
@@ -67,3 +68,27 @@ def test_resolver_keeps_model_unknown_distinct_from_legacy_allowance(
     assert snapshot.responses_create.state is CapabilityState.UNKNOWN
     assert not snapshot.responses_create.is_native_allowed()
     assert provider_allows_responses_api(provider, "unknown-model") is True
+
+
+def test_structured_output_requires_positive_model_evidence() -> None:
+    supported = CapabilityResolver(
+        feature_lookup=lambda feature, *_: feature == "json_schema"
+    )
+    unknown = CapabilityResolver(feature_lookup=lambda *_: None)
+
+    assert structured_output_native_enabled(
+        "claude", "claude-model", resolver=supported
+    )
+    assert not structured_output_native_enabled(
+        "claude", "claude-model", resolver=unknown
+    )
+
+
+def test_structured_output_fails_closed_when_resolution_fails() -> None:
+    class FailingResolver:
+        def resolve(self, *_args, **_kwargs):
+            raise RuntimeError("catalog unavailable")
+
+    assert not structured_output_native_enabled(
+        "claude", "claude-model", resolver=FailingResolver()
+    )

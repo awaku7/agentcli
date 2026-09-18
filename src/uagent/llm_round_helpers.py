@@ -30,7 +30,6 @@ from .runtime.openai_special_dispatch import call_special_openai_round
 _exception_text = exception_text
 _provider_error_label = provider_error_label
 _is_zscaler_responses_block = is_zscaler_responses_block
-from .runtime.context_recovery import ContextRecoveryManager
 from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
 from .runtime.telemetry import reconcile_usage
@@ -65,6 +64,7 @@ from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
     _responses_session_generation,
 )
+
 _CHAT_COMPLETIONS_MAX_TOOLS = 128
 _CHAT_TOOL_HELPERS = frozenset(
     {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
@@ -220,28 +220,9 @@ def _rollback_largest_recent_history(
     messages: list[dict[str, Any]], *, lookback: int = 10
 ) -> dict[str, Any] | None:
     """Compatibility wrapper for bounded recovery without owning selection."""
+    from .runtime.legacy_context_recovery import rollback_largest_recent_history
 
-    def _notice(lookback_count: int, removed: int, size: int) -> dict[str, Any]:
-        return {
-            "role": "system",
-            "content": _(
-                "context.rollback_notice",
-                default=(
-                    "The context limit was exceeded. The largest message among the last "
-                    "%(lookback)d messages and all following messages were removed "
-                    "(%(removed)d message(s), largest size %(size)d bytes). "
-                    "Re-plan any removed tool operation; do not assume it completed."
-                ),
-                lookback=lookback_count,
-                removed=removed,
-                size=size,
-            ),
-            "_uagent_internal": True,
-        }
-
-    return ContextRecoveryManager.apply_legacy_bounded_rollback(
-        messages, lookback=lookback, notice_builder=_notice
-    )
+    return rollback_largest_recent_history(messages, lookback=lookback)
 
 
 from .tools.llm_tool_narrowing import (
@@ -339,45 +320,14 @@ def _responses_api_auto_enabled(
     depname: str,
     capability_resolver: CapabilityResolverPort | None = None,
 ) -> bool:
-    """Resolve automatic Responses selection without changing legacy fallback.
+    """Resolve automatic Responses selection through the shared capability gate."""
+    from .runtime.capability_resolver import responses_api_auto_enabled
 
-    The resolver is authoritative when it has explicit model evidence. Its
-    ``UNKNOWN`` state deliberately falls back to the historical provider gate
-    so that model catalog gaps do not silently disable a previously working
-    route during the staged migration.
-    """
-    from .llmcapa_util import provider_allows_responses_api
-    from .runtime.capability_resolver import CapabilityResolver, CapabilityState
-
-    def legacy() -> bool:
-        return provider_allows_responses_api(provider, depname or None)
-
-    resolver = capability_resolver
-    if resolver is None:
-        try:
-            resolver = CapabilityResolver()
-        except Exception:
-            return legacy()
-
-    try:
-        snapshot = resolver.resolve(
-            provider,
-            depname or "",
-            transport="responses",
-        )
-        capability = snapshot.responses_create
-        if capability.state in {
-            CapabilityState.TRUE_DOCUMENTED,
-            CapabilityState.TRUE_TESTED,
-        }:
-            return True
-        if capability.state is CapabilityState.FALSE:
-            return False
-    except Exception:
-        # Capability lookup is advisory at this migration boundary. Preserve
-        # the established route if an optional catalog/resolver fails.
-        pass
-    return legacy()
+    return responses_api_auto_enabled(
+        provider,
+        depname,
+        resolver=capability_resolver,
+    )
 
 
 def _resolve_round_runtime_flags(
@@ -540,9 +490,11 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
-    legacy_usage_before = dict(
-        getattr(core, "_last_responses_usage", {}) or {}
-    ) if core is not None else {}
+    legacy_usage_before = (
+        dict(getattr(core, "_last_responses_usage", {}) or {})
+        if core is not None
+        else {}
+    )
 
     # PLaMo is OpenAI-compatible at the transport level, but its documented
     # tool schema/streaming contract differs. Keep its request/response path
@@ -610,10 +562,7 @@ def _call_openai_azure_round(
     # One coordinator spans every retry reason in this LLM execution.
     retry_coordinator = RoundRetryCoordinator(max_retries_429)
     if core is not None:
-        try:
-            core.round_attempt_budget = retry_coordinator.budget
-        except Exception:
-            pass
+        retry_coordinator.expose_budget(core)
 
     def _authorize_retry(reason: str, detail: str) -> bool:
         return retry_coordinator.authorize(reason, detail)

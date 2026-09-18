@@ -881,6 +881,27 @@ bridge、provider runtime registry へ同じ selection を渡す。registry 側�
 と `tests/test_provider_round_dispatcher.py` で selection の優先と registry route の境界を固定
 した。次は P1-E の StreamEvent / host callback 分離へ進む。
 
+#### P1-D の第5修正単位（完了）
+
+Responses API の自動選択を `runtime/capability_resolver.py` の
+`responses_api_auto_enabled()` に集約した。round runtime、environment ベースの Tool
+Discovery、catalog steering の事前判定が同じ resolver を利用し、`UNKNOWN` または resolver
+障害時は native Responses を選択しない。`UAGENT_RESPONSES=1/0` の明示指定は従来どおり
+caller 側で優先する。
+
+これにより、旧 `provider_allows_responses_api()` を使う自動選択 fallback は実行経路から
+除去された。さらに `uagent_llm.py` に残っていた選択後の旧 capability 再判定も削除し、
+解決済み `RoundTransportSelection` を実行経路の唯一の判断として扱う。
+`tests/test_round_runtime_flags.py` と `tests/test_tool_discovery.py` で、明示指定、
+documented capability、false、unknown、resolver failure の境界を固定した。
+
+### 並行修正: legacy context recovery の重複整理（完了）
+
+Gemini adapter と `llm_round_helpers.py` に重複していた、翻訳済みrollback noticeを伴う
+破壊的な互換回復処理を `runtime/legacy_context_recovery.py` に集約した。新しい標準経路の
+非破壊`ContextPlan` recoveryとは分離したまま、legacy経路が同一の選択・通知契約を使う。
+`llm_round_helpers.py` の旧関数は外部互換ラッパーとして維持する。
+
 ### P1-E: StreamEvent から host callback を除去する
 
 `inception_stream_events()`、`StreamEventValidator`、`CollectingStreamRenderer`、`CallbackStreamRenderer` により、正規化イベントの基盤はできている。
@@ -996,7 +1017,15 @@ legacy round の rate-limit retry を `RoundRetryCoordinator.rate_limit_step()` 
 backoff、client recreation、provider error handling を維持したまま、共有 transport retry budget
 を消費するようにした。これにより stale continuation、feature fallback、transport retry が
 同じ round attempt budget を超えて実行されない。`tests/test_retry_coordinator.py`、
-`tests/test_round_integration_regressions.py`、`tests/test_legacy_provider_dispatch.py` で確認した。
+`tests/test_legacy_adapter_retry_coordinator.py` で OpenAI-compatible、Gemini、Claude の legacy
+adapter が同じ coordinator 契約を使うことを確認した。各 adapter は round ごとに coordinator
+を1個だけ生成し、外側の orchestrator から注入された場合はその instance を引き継ぐ。既存の
+round 契約は `tests/test_round_integration_regressions.py`、
+`tests/test_legacy_provider_dispatch.py` で確認した。
+Gemini の model-turn repair、hard reset、thinking-level fallback も同じ coordinator の
+`feature_fallback` budget へ接続し、adapter 内の追加 request が理由別上限を迂回しないようにした。
+Claude adapter の native JSON Schema 判定も `CapabilityResolver` へ移し、catalog evidence が
+unknown または resolver error の場合は従来どおり fail closed とした。
 
 #### P2 の第3修正単位（完了）
 
@@ -1155,6 +1184,6 @@ P2    transform / retry / reasoning / telemetry
 P3    CLI/GUI/Web と command 層の整理
 ```
 
-直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。P1-C の registry generation bridge と、P1-D の adapter interface / 判定差 characterization test が完了したため、次は Responses API 選択箇所の段階的な resolver 移行を対象にする。
+直近の実装対象を一つに絞る場合は、全 provider を registry に移す前に、P0-A と P0-B の境界を固定する characterization test を追加する。これにより、Gemini tool discovery 修正と同種の回帰が他 provider へ広がることを防ぐ。この characterization test と registry bridge の回帰テストは追加済みである。P1-C の registry generation bridge と P1-D の Responses API 自動選択統合が完了したため、次は legacy adapter 内に残る capability・transform・retry の重複を監査し、削除可能な互換分岐を確定する。
 
 `60ab7dd0` の進捗記録時点では、関連する11個の targeted test file、計77件が成功していた。直近の registry bridge 変更についても、registry round integration 17件、provider round dispatcher 4件、context recovery integration 7件を個別に確認済みである。その後も回帰テストは追加されているため、77件は現行の総テスト数ではない。再評価時点ではこの文書の更新作業として全テストを再実行したものではなく、I18N strict audit の117件の指摘も未解消である。

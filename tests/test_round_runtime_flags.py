@@ -43,23 +43,14 @@ def test_auto_selection_uses_resolver_false_evidence(monkeypatch) -> None:
     assert _resolve(monkeypatch, resolver) == (False, False)
 
 
-def test_auto_selection_unknown_falls_back_to_legacy_gate(monkeypatch) -> None:
+def test_auto_selection_unknown_fails_closed(monkeypatch) -> None:
     resolver = CapabilityResolver(feature_lookup=lambda *_: None)
-    monkeypatch.setattr(
-        "uagent.llmcapa_util.provider_allows_responses_api",
-        lambda provider, model: True,
-    )
 
-    assert _resolve(monkeypatch, resolver) == (True, False)
+    assert _resolve(monkeypatch, resolver) == (False, False)
 
 
-def test_auto_selection_resolver_failure_preserves_legacy_gate(monkeypatch) -> None:
-    monkeypatch.setattr(
-        "uagent.llmcapa_util.provider_allows_responses_api",
-        lambda provider, model: True,
-    )
-
-    assert _resolve(monkeypatch, _FailingResolver()) == (True, False)
+def test_auto_selection_resolver_failure_fails_closed(monkeypatch) -> None:
+    assert _resolve(monkeypatch, _FailingResolver()) == (False, False)
 
 
 def test_explicit_responses_flag_bypasses_capability_resolver(monkeypatch) -> None:

@@ -22,7 +22,9 @@ class ResponsesCommandMutationService:
     def __init__(self, state: ResponsesCommandState) -> None:
         self._state = state
 
-    def after_cancel(self, response_id: str, *, explicit_id: bool) -> ResponsesMutationPlan:
+    def after_cancel(
+        self, response_id: str, *, explicit_id: bool
+    ) -> ResponsesMutationPlan:
         # Preserve the existing explicit-cancel contract: the command is
         # authoritative and clears the local continuation after success.
         return ResponsesMutationPlan(

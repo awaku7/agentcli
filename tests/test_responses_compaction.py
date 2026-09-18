@@ -70,9 +70,7 @@ def test_parse_responses_stream_uses_stream_callbacks() -> None:
     terminals: list[str] = []
     stream = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
-        SimpleNamespace(
-            type="response.reasoning_summary_text.delta", delta="internal"
-        ),
+        SimpleNamespace(type="response.reasoning_summary_text.delta", delta="internal"),
         SimpleNamespace(
             type="response.output_item.done",
             item=SimpleNamespace(

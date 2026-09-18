@@ -19,9 +19,11 @@ class ResponsesCommandState:
         state = getattr(core, "responses_state", {})
         if not isinstance(state, dict):
             state = {}
-        provider = str(
-            state.get("provider") or getattr(core, "_responses_provider", "") or ""
-        ).strip().lower()
+        provider = (
+            str(state.get("provider") or getattr(core, "_responses_provider", "") or "")
+            .strip()
+            .lower()
+        )
         if not provider:
             provider = str(getattr(core, "provider", "") or "").strip().lower()
         return cls(

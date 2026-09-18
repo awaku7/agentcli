@@ -90,6 +90,33 @@ def test_environment_resolver_and_spec_selection_share_one_policy(monkeypatch) -
     )
 
 
+def test_environment_resolver_uses_capability_resolver_in_auto_mode(
+    monkeypatch,
+) -> None:
+    from uagent.runtime.capability_resolver import CapabilityResolver
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery_from_environment,
+    )
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setenv("UAGENT_OPENAI_DEPNAME", "gpt-5.4")
+    monkeypatch.delenv("UAGENT_RESPONSES", raising=False)
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+
+    enabled = resolve_tool_discovery_from_environment(
+        capability_resolver=CapabilityResolver(
+            feature_lookup=lambda feature, *_: feature == "responses_api"
+        )
+    )
+    unknown = resolve_tool_discovery_from_environment(
+        capability_resolver=CapabilityResolver(feature_lookup=lambda *_: None)
+    )
+
+    assert enabled.mode is ToolDiscoveryMode.NATIVE_SEARCH
+    assert unknown.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+
+
 def _tool(name: str, *, source: ToolSource = ToolSource.BUILTIN) -> ToolCandidate:
     return ToolCandidate(name, name, source, {"type": "function", "name": name})
 

@@ -5,39 +5,13 @@ from __future__ import annotations
 from typing import Any
 
 from ..i18n import _
-from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import LLMWaitInterrupted, _maybe_print_certifi_where
 from ..llm_message_helpers import _build_call_messages
 from ..providers.llm_gemini import gemini_chat_with_tools
-from .context_recovery import ContextRecoveryManager
+from .legacy_context_recovery import rollback_largest_recent_history
 from .llm_error_classifier import is_context_overflow_error
+from .retry_coordinator import RoundRetryCoordinator
 from .stream_host import build_stream_callbacks
-
-
-def _rollback_largest_recent_history(
-    messages: list[dict[str, Any]], *, lookback: int = 10
-) -> dict[str, Any] | None:
-    def _notice(lookback_count: int, removed: int, size: int) -> dict[str, Any]:
-        return {
-            "role": "system",
-            "content": _(
-                "context.rollback_notice",
-                default=(
-                    "The context limit was exceeded. The largest message among the last "
-                    "%(lookback)d messages and all following messages were removed "
-                    "(%(removed)d message(s), largest size %(size)d bytes). "
-                    "Re-plan any removed tool operation; do not assume it completed."
-                ),
-                lookback=lookback_count,
-                removed=removed,
-                size=size,
-            ),
-            "_uagent_internal": True,
-        }
-
-    return ContextRecoveryManager.apply_legacy_bounded_rollback(
-        messages, lookback=lookback, notice_builder=_notice
-    )
 
 
 def _call_gemini_round(
@@ -58,7 +32,10 @@ def _call_gemini_round(
     send_tools: bool = True,
     provider: str = "gemini",
     gemini_chat_fn: Any = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
 ) -> Any:
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     gemini_content_dump: dict[str, Any] = {}
     assistant_text = ""
@@ -104,6 +81,9 @@ def _call_gemini_round(
             if (
                 not turn_repair_attempted
                 and "requests ending with a model turn" in error_text.lower()
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini model-turn repair"
+                )
             ):
                 turn_repair_attempted = True
                 if history_messages:
@@ -124,6 +104,9 @@ def _call_gemini_round(
             if (
                 not turn_hard_reset_attempted
                 and "requests ending with a model turn" in error_text.lower()
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini model-turn hard reset"
+                )
             ):
                 turn_hard_reset_attempted = True
                 safe_messages: list[dict[str, Any]] = []
@@ -153,7 +136,7 @@ def _call_gemini_round(
                     pass
                 continue
             if is_context_overflow_error(e) and history_messages is not None:
-                rollback = _rollback_largest_recent_history(history_messages)
+                rollback = rollback_largest_recent_history(history_messages)
                 if rollback is not None:
                     print(
                         _(
@@ -169,7 +152,7 @@ def _call_gemini_round(
                         flush=True,
                     )
                     return False, client, "", [], {}
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider=provider,
                 model=depname,
@@ -193,10 +176,16 @@ def _call_gemini_round(
                 print(str(e))
                 return False, client, "", [], {}
             msg = str(e)
-            if force_thinking_level is None and (
-                "Thinking level MINIMAL is not supported for this model" in msg
-                or "thinking level minimal is not supported for this model"
-                in msg.lower()
+            if (
+                force_thinking_level is None
+                and (
+                    "Thinking level MINIMAL is not supported for this model" in msg
+                    or "thinking level minimal is not supported for this model"
+                    in msg.lower()
+                )
+                and retry_coordinator.authorize(
+                    "feature_fallback", "gemini thinking level unsupported"
+                )
             ):
                 try:
                     from ..util_tools import set_reasoning_mode
