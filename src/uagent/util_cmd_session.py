@@ -22,6 +22,7 @@ from .tools import long_memory as personal_long_memory
 from .tools import shared_memory
 from .tools.context import get_callbacks
 from .runtime.session_command_service import SessionCommandService
+from .runtime.session_restore import apply_persisted_state, bind_session
 from .util_common import CommandResult
 from .util_message import (
     _clear_skill_messages,
@@ -245,32 +246,9 @@ def _restore_sqlite_session_context(
             % {"error": touch_exc},
             file=sys.stderr,
         )
-    core.session_id = target
-    core._session_store_active_id = target
-    try:
-        from .tools.context import get_callbacks
-
-        callbacks = get_callbacks()
-        callbacks.session_id = target
-        callbacks.session_store = store
-    except Exception:
-        pass
+    bind_session(core, target, store)
     _restore_session_workdir(target, loaded, core=core, store=store)
-    if hasattr(core, "tool_context"):
-        core.tool_context.clear()
-        core.tool_context.update(restore_plan.tool_context)
-    state = restore_plan.response_state
-    if state is not None:
-        response_state = getattr(core, "responses_state", None)
-        if isinstance(response_state, dict):
-            response_state.update(
-                {
-                    "provider": state["provider"],
-                    "model": state["model"],
-                    "previous_response_id": state["response_id"],
-                    "last_response_status": state["status"],
-                }
-            )
+    apply_persisted_state(core, restore_plan)
     return loaded
 
 
