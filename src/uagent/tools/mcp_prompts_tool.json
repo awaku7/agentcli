@@ -33,7 +33,8 @@
     "err.request": "エラー: MCPプロンプト要求に失敗しました: %(error)s",
     "x_search_terms": [
       "MCPプロンプト",
-      "MCPプロンプト取得"
+      "MCPプロンプト取得",
+      "get mcp prompt"
     ]
   },
   "es": {

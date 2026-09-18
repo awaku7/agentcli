@@ -1037,9 +1037,13 @@ P2 の transforms、retry、reasoning、telemetry の主要修正単位は完了
 I18N は中心ランタイムとは分離して進める。ただし完了条件には含まれる。strict audit では次の指摘が残っている。
 
 - `host_gettext_findings`: 44
-- `structural_findings`: 117
-- `tool_json_findings`: 73
-- `total_findings`: 117（重複を除いた集計値。上記3項目の単純合計ではない）
+- `structural_findings`: 44
+- `tool_json_findings`: 0
+- `total_findings`: 44（構造修正後。host gettext の placeholder mismatch / key-extra が残存）
+
+tool JSON の `x_search_terms` 配列は英語カタログと同じ長さへ正規化し、不足値は英語 fallback、
+余分な値は削除した。placeholder を含む壊れた検索語は英語 fallback に戻した。修正は
+`scripts/i18n_structure_repair.py` で再現可能で、翻訳本文や他の JSON key は変更しない。
 
 新しい runtime 文言を増やさず、gettext と Tool JSON の不一致を解消し、strict audit を CI 条件にする。翻訳品質レビューは構造検証と分離する。
 

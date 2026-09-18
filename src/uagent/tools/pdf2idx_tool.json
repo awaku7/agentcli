@@ -29,8 +29,7 @@
       "PDFファイルを読む",
       "ページ目次",
       "ページ抽出",
-      "セクション分割",
-      "PDFパーサー"
+      "セクション分割"
     ],
     "param.path.description": "PDF (.pdf) ファイルへのパス。",
     "param.mode.description": "\"index\" はプレビューを含む番号付き目次を返します。\"section\" は特定ページのテキスト全文を返します。",

@@ -22,9 +22,7 @@
       "単語数",
       "行数",
       "バイト数",
-      "ファイル統計",
-      "word count",
-      "line count"
+      "ファイル統計"
     ]
   },
   "es": {
@@ -37,9 +35,7 @@
       "recuento de palabras",
       "recuento de líneas",
       "recuento de bytes",
-      "estadísticas de archivo",
-      "word count",
-      "line count"
+      "estadísticas de archivo"
     ]
   },
   "fr": {
@@ -52,9 +48,7 @@
       "nombre de mots",
       "nombre de lignes",
       "nombre doctets",
-      "statistiques de fichier",
-      "word count",
-      "line count"
+      "statistiques de fichier"
     ]
   },
   "ko": {
@@ -67,9 +61,7 @@
       "단어 수",
       "줄 수",
       "바이트 수",
-      "파일 통계",
-      "word count",
-      "line count"
+      "파일 통계"
     ]
   },
   "de": {
@@ -82,9 +74,7 @@
       "Wortanzahl",
       "Zeilenanzahl",
       "Byteanzahl",
-      "Dateistatistik",
-      "word count",
-      "line count"
+      "Dateistatistik"
     ]
   },
   "it": {
@@ -97,9 +87,7 @@
       "conteggio parole",
       "conteggio righe",
       "conteggio byte",
-      "statistiche file",
-      "word count",
-      "line count"
+      "statistiche file"
     ]
   },
   "ru": {
@@ -112,9 +100,7 @@
       "число слов",
       "число строк",
       "число байт",
-      "статистика файла",
-      "word count",
-      "line count"
+      "статистика файла"
     ]
   },
   "pt_BR": {
@@ -127,9 +113,7 @@
       "contagem de palavras",
       "contagem de linhas",
       "contagem de bytes",
-      "estatísticas do arquivo",
-      "word count",
-      "line count"
+      "estatísticas do arquivo"
     ]
   },
   "pt": {
@@ -142,9 +126,7 @@
       "contagem de palavras",
       "contagem de linhas",
       "contagem de bytes",
-      "estatísticas do ficheiro",
-      "word count",
-      "line count"
+      "estatísticas do ficheiro"
     ]
   },
   "id": {
@@ -157,9 +139,7 @@
       "jumlah kata",
       "jumlah baris",
       "jumlah byte",
-      "statistik file",
-      "word count",
-      "line count"
+      "statistik file"
     ]
   },
   "vi": {
@@ -172,9 +152,7 @@
       "đếm từ",
       "đếm dòng",
       "đếm byte",
-      "thống kê tệp",
-      "word count",
-      "line count"
+      "thống kê tệp"
     ]
   },
   "pl": {
@@ -200,9 +178,7 @@
       "शब्द गणना",
       "पंक्ति गणना",
       "बाइट गणना",
-      "फ़ाइल आँकड़े",
-      "word count",
-      "line count"
+      "फ़ाइल आँकड़े"
     ]
   },
   "ar": {
@@ -215,9 +191,7 @@
       "عدد الكلمات",
       "عدد الأسطر",
       "عدد البايتات",
-      "إحصائيات الملف",
-      "word count",
-      "line count"
+      "إحصائيات الملف"
     ]
   },
   "sv": {
@@ -347,9 +321,7 @@
       "单词数",
       "行数",
       "字节数",
-      "文件统计",
-      "word count",
-      "line count"
+      "文件统计"
     ]
   },
   "zh_TW": {
@@ -362,9 +334,7 @@
       "單字數",
       "行數",
       "位元組數",
-      "檔案統計",
-      "word count",
-      "line count"
+      "檔案統計"
     ]
   },
   "bn": {

@@ -30,7 +30,15 @@
   "ar": {
     "tool.description": "أرسل طلب HTTP إلى REST أو HTTP API وقم بإرجاع الحالة والرؤوس ونص الاستجابة.",
     "x_search_terms": [
-      "HTTP طلب، REST API، API طلب، POST API، PUT API، PATCH API، DELETE API، HTTP العميل، Postman"
+      "HTTP طلب، REST API، API طلب، POST API، PUT API، PATCH API، DELETE API، HTTP العميل، Postman",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postman"
     ],
     "param.method.description": "__طريقة PH_9.",
     "param.url.description": "HTTP أو HTTPS URL.",
@@ -86,8 +94,7 @@
       "__5",
       "PH_1 PATCH API",
       "DELETE API",
-      "HTTP klient",
-      "Postman"
+      "HTTP klient"
     ],
     "param.method.description": "HTTP metoda.",
     "param.url.description": "HTTP nebo HTTPS URL.",
@@ -115,10 +122,7 @@
       "API",
       "API",
       "API",
-      "API",
-      "PATCH DELETE API",
-      "HTTP klient",
-      "Postman"
+      "API"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP eller HTTPS URL.",
@@ -257,6 +261,7 @@
       "PH_15 API PATCH API",
       "DELETE API",
       "HTTP asiakas",
+      "Postman",
       "Postman"
     ],
     "param.method.description": "HTTP-menetelmä.",
@@ -341,11 +346,7 @@
       "PUT",
       "PUT",
       "PUT",
-      "PUT",
-      "PUT",
-      "PUT DELETE API",
-      "HTTP לקוח",
-      "Postman"
+      "PUT"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP או HTTPSparameter URL.",
@@ -625,10 +626,7 @@
       "API",
       "API",
       "API",
-      "API",
-      "API DELETE API",
-      "HTTP klient",
-      "Postman"
+      "API"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP eller HTTPS URL.",
@@ -852,12 +850,7 @@
       "API",
       "API",
       "API",
-      "API",
-      "API",
-      "API",
-      "REST DELETE API",
-      "HTTP klient",
-      "Postman"
+      "API"
     ],
     "param.method.description": "HTTP method.",
     "param.url.description": "HTTP eller HTTPS URL.",
@@ -884,7 +877,8 @@
       "PUT API",
       "PATCH __PH_PH_13",
       "_PH_13",
-      "_PH_9 mteja Postman"
+      "_PH_9 mteja Postman",
+      "Postman"
     ],
     "param.method.description": "HTTP mbinu.",
     "param.url.description": "HTTP au __Query-param URL.|| .Query-PH_7 URL. vigezo.",
@@ -1016,7 +1010,15 @@
   "zh_CN": {
     "tool.description": "将 HTTP 请求发送到 REST 或 HTTP API 并返回状态、标头和响应正文。支持 JSON、表单和文本请求正文。 GET/HEAD/OPTIONS 请求是只读的；默认情况下，写入方法保持串行。",
     "x_search_terms": [
-      "HTTP请求、REST API、API 请求、POST API、PUT API、PATCH API、DELETE API、HTTP 客户端、Postman"
+      "HTTP请求、REST API、API 请求、POST API、PUT API、PATCH API、DELETE API、HTTP 客户端、Postman",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postman"
     ],
     "param.method.description": "HTTP 方法。",
     "param.url.description": "HTTP 或 HTTPS URL。",
@@ -1036,7 +1038,15 @@
   "zh_TW": {
     "tool.description": "將 HTTP 請求傳送到 REST 或 HTTP API 並傳回狀態、標頭和回應正文。支援 JSON、表單和文字請求正文。 GET/HEAD/OPTIONS 請求是唯讀的；預設情況下，寫入方法保持串列。",
     "x_search_terms": [
-      "HTTP請求、REST API、API 請求、POST API、PUT API、PATCH API、DELETE API、HTTP 端、Postman"
+      "HTTP請求、REST API、API 請求、POST API、PUT API、PATCH API、DELETE API、HTTP 端、Postman",
+      "REST API",
+      "API request",
+      "POST API",
+      "PUT API",
+      "PATCH API",
+      "DELETE API",
+      "HTTP client",
+      "Postman"
     ],
     "param.method.description": "HTTP 方法。",
     "param.url.description": "HTTP 或 HTTPS URL。",

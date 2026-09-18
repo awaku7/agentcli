@@ -29,7 +29,8 @@
     "err.request": "エラー: MCPリソース要求に失敗しました: %(error)s",
     "x_search_terms": [
       "MCPリソース",
-      "MCPリソース読み取り"
+      "MCPリソース読み取り",
+      "read mcp resource"
     ]
   },
   "es": {

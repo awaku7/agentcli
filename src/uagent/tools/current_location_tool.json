@@ -160,7 +160,8 @@
       "위치 서비스",
       "GPS 위치",
       "좌표",
-      "위도 경도"
+      "위도 경도",
+      "gps sensor"
     ]
   },
   "de": {
@@ -192,7 +193,8 @@
       "Ortungsdienst",
       "GPS-Position",
       "Koordinate",
-      "Breitengrad und Lngengrad"
+      "Breitengrad und Lngengrad",
+      "gps sensor"
     ]
   },
   "it": {
@@ -224,7 +226,8 @@
       "servizio di localizzazione",
       "posizione gps",
       "coordinare",
-      "latitudine longitudine"
+      "latitudine longitudine",
+      "gps sensor"
     ]
   },
   "ru": {
@@ -421,7 +424,8 @@
       "usługa lokalizacyjna",
       "pozycja GPS",
       "współrzędna",
-      "szerokość geograficzna"
+      "szerokość geograficzna",
+      "gps sensor"
     ]
   },
   "hi": {
@@ -452,7 +456,9 @@
       "स्थान सेवा",
       "जीपीएस स्थिति",
       "समन्वय",
-      "अक्षांश देशांतर"
+      "अक्षांश देशांतर",
+      "current location",
+      "gps sensor"
     ]
   },
   "ar": {
@@ -483,7 +489,9 @@
       "خدمة الموقع",
       "موقف نظام تحديد المواقع",
       "تنسيق",
-      "خط الطول"
+      "خط الطول",
+      "current location",
+      "gps sensor"
     ]
   },
   "sv": {
@@ -614,7 +622,8 @@
       "locatieservice",
       "GPS-positie",
       "coördineren",
-      "breedtegraad lengtegraad"
+      "breedtegraad lengtegraad",
+      "gps sensor"
     ]
   },
   "fi": {
@@ -844,7 +853,8 @@
       "定位服務",
       "GPS 位置",
       "座標",
-      "緯度 經度"
+      "緯度 經度",
+      "gps sensor"
     ]
   },
   "bn": {
