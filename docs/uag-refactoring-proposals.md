@@ -1053,6 +1053,13 @@ strict audit の失敗条件から分離した。
 
 ### P3: CLI/GUI/Web と command 層
 
+#### P3 の最初の修正単位（完了）
+
+session command の実装を移動する前に、`:sessions` / `:session` の alias dispatch、opt-in store 未接続時の
+安全な応答、query 未指定時の状態不変条件を characterization test として固定した。追加した
+`tests/test_session_command_dispatch.py` は command 層の既存出力契約を保ち、次の application service
+抽出で CLI の表示副作用と runtime/persistence 操作を混同しないための境界になる。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序
