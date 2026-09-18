@@ -1749,6 +1749,17 @@ def _call_zai_round(
         retry_base=retry_base,
         retry_cap=retry_cap,
         stream=stream,
+        callbacks=build_stream_callbacks(
+            print_delta_fn=(
+                None
+                if bool(getattr(core, "_is_web", False))
+                else (
+                    getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True) if s else None)
+                )
+            ),
+            core=core,
+        ),
     )
 
 
@@ -1870,4 +1881,15 @@ def _call_novita_round(
         retry_base=retry_base,
         retry_cap=retry_cap,
         stream=stream,
+        callbacks=build_stream_callbacks(
+            print_delta_fn=(
+                None
+                if bool(getattr(core, "_is_web", False))
+                else (
+                    getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True) if s else None)
+                )
+            ),
+            core=core,
+        ),
     )

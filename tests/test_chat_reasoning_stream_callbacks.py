@@ -9,13 +9,19 @@ from uagent.runtime.stream_renderer import StreamCallbacks
 
 @pytest.mark.parametrize(
     ("parser_name", "provider"),
-    [("_parse_vercel_stream", "Vercel"), ("_parse_together_stream", "Together")],
+    [
+        ("_parse_vercel_stream", "Vercel"),
+        ("_parse_together_stream", "Together"),
+        ("_parse_novita_stream", "Novita"),
+    ],
 )
 def test_chat_reasoning_stream_parsers_use_host_callbacks(parser_name, provider) -> None:
     if provider == "Vercel":
         from uagent.providers.llm_vercel import _parse_vercel_stream as parser
-    else:
+    elif provider == "Together":
         from uagent.providers.llm_together import _parse_together_stream as parser
+    else:
+        from uagent.providers.llm_novita import _parse_novita_stream as parser
 
     deltas: list[str] = []
     reasoning: list[str] = []

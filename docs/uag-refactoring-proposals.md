@@ -941,8 +941,16 @@ reasoning、delta、tool call、terminal 通知を共通 host callback 契約へ
 維持したまま、provider parser の表示先分岐を縮小した。`tests/test_chat_reasoning_stream_callbacks.py`
 と `tests/test_legacy_provider_dispatch.py`、`tests/test_provider_round_dispatcher.py` で確認した。
 
-次は P1-E の第7修正単位として、Novita/Z.AI など残る Chat Completions stream parser の callback
-wiring を同じ契約へ寄せる。
+#### P1-E の第7修正単位（完了）
+
+Novita の独自 Chat Completions parser と、DeepSeek parser を再利用する Z.AI 経路に
+`StreamCallbacks` を接続した。Novita は reasoning、delta、tool call、terminal 通知を直接
+callback 契約へ移行し、Z.AI は共通 parser へ callback bundle を渡すようにした。既存の
+provider-specific client、戻り値、legacy 表示引数は維持し、`tests/test_chat_reasoning_stream_callbacks.py`
+と `tests/test_legacy_provider_dispatch.py` で回帰を確認した。
+
+次は P1-E の第8修正単位として、Gemini など SDK 固有の streaming callback 経路を同じ
+host-owned callback 契約へ整理する。
 
 
 ### P2: transforms、retry、reasoning、telemetry

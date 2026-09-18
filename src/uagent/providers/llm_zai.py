@@ -32,6 +32,8 @@ from ..llm_helpers import (
     _maybe_print_certifi_where,
 )
 
+from ..runtime.stream_renderer import StreamCallbacks
+
 # Reuse DeepSeek response parsers (compatible with zai-sdk response format)
 from .llm_deepseek import (
     parse_deepseek_response,
@@ -257,6 +259,7 @@ def zai_chat_with_tools(
     retry_base: float,
     retry_cap: float,
     stream: bool = True,
+    callbacks: StreamCallbacks | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Run one Z.AI (zai-sdk) chat completion round.
 
@@ -326,6 +329,7 @@ def zai_chat_with_tools(
                                 )
                             ),
                             core=core,
+                            callbacks=callbacks,
                         )
                     )
                 )
