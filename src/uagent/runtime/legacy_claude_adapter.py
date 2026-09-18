@@ -18,6 +18,10 @@ from ..providers.llm_claude import (
 )
 from ..providers.structured_output import structured_output_request
 from ..runtime.error_renderer import exception_text
+from .capability_resolver import (
+    CapabilityResolverPort,
+    structured_output_native_enabled,
+)
 from .retry_coordinator import RoundRetryCoordinator
 
 
@@ -36,6 +40,7 @@ def _call_claude_round(
     provider: str = "claude",
     claude_chat_fn: Any = None,
     retry_coordinator: RoundRetryCoordinator | None = None,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> Any:
     retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
     retry_coordinator.expose_budget(core)
@@ -63,14 +68,12 @@ def _call_claude_round(
                 else None
             )
             _claude_structured = structured_output_request(call_messages)
-            if _claude_structured is not None:
-                try:
-                    from ..llmcapa_util import supports_json_schema
-
-                    if supports_json_schema(depname, provider) is not True:
-                        _claude_structured = None
-                except Exception:
-                    _claude_structured = None
+            if _claude_structured is not None and not structured_output_native_enabled(
+                provider,
+                depname,
+                resolver=capability_resolver,
+            ):
+                _claude_structured = None
             if _claude_structured is not None:
                 if not isinstance(_claude_out_cfg, dict):
                     _claude_out_cfg = {}

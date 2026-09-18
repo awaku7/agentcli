@@ -1024,6 +1024,8 @@ round 契約は `tests/test_round_integration_regressions.py`、
 `tests/test_legacy_provider_dispatch.py` で確認した。
 Gemini の model-turn repair、hard reset、thinking-level fallback も同じ coordinator の
 `feature_fallback` budget へ接続し、adapter 内の追加 request が理由別上限を迂回しないようにした。
+Claude adapter の native JSON Schema 判定も `CapabilityResolver` へ移し、catalog evidence が
+unknown または resolver error の場合は従来どおり fail closed とした。
 
 #### P2 の第3修正単位（完了）
 

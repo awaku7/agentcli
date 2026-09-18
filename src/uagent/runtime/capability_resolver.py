@@ -183,3 +183,28 @@ def responses_api_auto_enabled(
     except Exception:
         return False
     return snapshot.responses_create.is_native_allowed()
+
+
+def structured_output_native_enabled(
+    provider: str,
+    model: str = "",
+    *,
+    resolver: CapabilityResolverPort | None = None,
+) -> bool:
+    """Return whether native JSON-schema output has positive model evidence."""
+    capability_resolver = resolver
+    if capability_resolver is None:
+        try:
+            capability_resolver = CapabilityResolver()
+        except Exception:
+            return False
+
+    try:
+        snapshot = capability_resolver.resolve(
+            provider,
+            model or "",
+            transport="chat_completions",
+        )
+    except Exception:
+        return False
+    return snapshot.structured_output.is_native_allowed()
