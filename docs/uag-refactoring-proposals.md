@@ -1060,6 +1060,14 @@ session command の実装を移動する前に、`:sessions` / `:session` の al
 `tests/test_session_command_dispatch.py` は command 層の既存出力契約を保ち、次の application service
 抽出で CLI の表示副作用と runtime/persistence 操作を混同しないための境界になる。
 
+#### P3 の第2修正単位（完了）
+
+`SessionCommandService.search()` を追加し、session message hit の集約、session 単位への重複排除、
+日時/一致数による並べ替え、list view 用 detail の補完を command handler から分離した。service は
+翻訳や print を行わず、`SessionSearchResult` を返すため、CLI/GUI/Web が同じ検索結果契約を共有できる。
+既存の番号付き検索結果と `:load` 継続契約は維持し、service 単体、session command、SQLite store の
+回帰テストで確認した。
+
 CLI/GUI/Web の大規模な表示層変更と session command の application service 化は後回しにする。`StreamEvent` と `RoundResult` の契約が固まる前に host 層を変更すると、各 UI 経路で移行を繰り返すことになる。
 
 ## 再評価後の実施順序

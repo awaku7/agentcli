@@ -21,6 +21,7 @@ from .i18n import _
 from .tools import long_memory as personal_long_memory
 from .tools import shared_memory
 from .tools.context import get_callbacks
+from .runtime.session_command_service import SessionCommandService
 from .util_common import CommandResult
 from .util_message import (
     _clear_skill_messages,
@@ -1606,72 +1607,32 @@ def _handle_cmd_sessions(
     if not query:
         print(":sessions search <query>")
         return True
+    service = SessionCommandService(store)
     try:
-        results = store.search(query, project=project)
+        search_results = service.search(
+            query,
+            project=project,
+            sort_keys=tuple(sort_keys),
+        )
     except Exception as exc:
         print(_("[sessions] Search failed: " + str(exc)))
         return True
-    if not results:
+    if not search_results:
         print(_("[sessions] No matching sessions."))
         return True
-    # ``search`` returns matching messages, so one session can occur more
-    # than once when several messages match. Collapse those hits for the
-    # CLI: the search result is a session-oriented view and must stay one
-    # line per session.
-    session_rows: dict[str, dict[str, Any]] = {}
-    session_match_counts: dict[str, int] = {}
-    session_latest_dates: dict[str, str] = {}
-    for row in results:
-        session_id = row["session_id"]
-        session_rows.setdefault(session_id, row)
-        session_match_counts[session_id] = session_match_counts.get(session_id, 0) + 1
-        created_at = row.get("created_at") or ""
-        if created_at > session_latest_dates.get(session_id, ""):
-            session_latest_dates[session_id] = created_at
-    search_sessions = list(session_rows.values())
-    search_sessions.sort(
-        key=lambda row: tuple(
-            (
-                session_latest_dates.get(row["session_id"], "")
-                if key == "date"
-                else session_match_counts[row["session_id"]]
-            )
-            for key in sort_keys
-        ),
-        reverse=True,
-    )
     # Keep the numbered search result available to :load. Search result
     # numbers are intentionally zero-based, matching :load's normal index.
     core._session_search_results = {
-        index: row["session_id"] for index, row in enumerate(search_sessions)
+        index: result.row["session_id"]
+        for index, result in enumerate(search_results)
     }
-    print(_("[sessions] Matches: " + str(len(search_sessions))))
-    # Enrich hits with the shared list-view fields (summary/first/last).
-    # ``store.search()`` returns message rows without them, so look up the
-    # same rows ``:sessions list`` / ``:load`` already display.
-    session_details: dict[str, dict[str, Any]] = {}
-    try:
-        for detail_row in store.list_sessions():
-            try:
-                session_details[str(detail_row.get("session_id"))] = detail_row
-            except Exception:
-                continue
-    except Exception:
-        session_details = {}
-    for index, row in enumerate(search_sessions):
-        session_id = row["session_id"]
-        detail = dict(session_details.get(session_id, row))
-        # The list view shows the newest hit time; the lookup row may hold
-        # an older session timestamp.
-        detail["created_at"] = session_latest_dates.get(session_id) or detail.get(
-            "created_at"
-        )
-        hit = f"{row['role']}: {_session_preview(row.get('content'))}"
+    print(_("[sessions] Matches: " + str(len(search_results))))
+    for index, result in enumerate(search_results):
         _print_session_list_row(
             index,
-            detail,
-            matches=session_match_counts[session_id],
-            hit=hit,
+            result.row,
+            matches=result.matches,
+            hit=f"{result.hit_role}: {_session_preview(result.hit_content)}",
         )
     print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
     return True
