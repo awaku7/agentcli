@@ -965,8 +965,16 @@ xai-sdk の gRPC stream、PFN の OpenAI-compatible stream の既存挙動を維
 から callback bundle を渡し、`tests/test_grok_pfn_stream_callbacks.py` と
 `tests/test_legacy_provider_dispatch.py` で確認した。
 
-次は P1-E 第10修正単位として、LM Studio など SDK 固有 stream の最終監査と、残存する
-legacy callback 互換層の整理を行う。
+#### P1-E 第10修正単位（完了）
+
+LM Studio SDK は provider parser として直接 UI callback を持たず、OpenAI-compatible chunk を
+既存の共通 round parser へ渡す transport bridge であることを確認した。全 stream parser の
+callback wiring を監査し、`StreamCallbacks` 未対応の直接表示経路を解消した。Inception の
+`parse_inception_stream()` と `inception_stream_compat.py` は既存 import path のために意図的に
+残し、実装は host renderer の alias として維持する。`CallbackStreamRenderer` の新 callback
+bundle と従来の個別 callback の優先順位も `tests/test_stream_renderer.py` で固定した。
+
+P1-E は完了。次は P2 の transform、retry、reasoning、structured telemetry の重複整理へ進む。
 
 
 ### P2: transforms、retry、reasoning、telemetry
