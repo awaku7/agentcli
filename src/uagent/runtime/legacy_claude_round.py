@@ -142,6 +142,23 @@ def run_legacy_claude_round(
             assistant_text,
         )
 
+    # Claude's legacy adapter owns the post-processing boundary, so execute
+    # its tool calls here before returning ``RS_OK`` to the outer round loop.
+    # The OpenAI/Gemini paths do this in their respective round handlers; if
+    # Claude only returned the tuple, the loop would continue without ever
+    # appending tool results and the same tool call would be repeated.
+    if not judgment_mode:
+        from ..llm_flow_helpers import _execute_tool_calls
+
+        _execute_tool_calls(
+            tool_calls_list=tool_calls_list,
+            messages=messages,
+            core=core,
+            cache_mgr=_unused.get("cache_mgr"),
+            responses_api_continuation=use_responses_api,
+            responses_runtime=getattr(core, "responses_runtime", None),
+        )
+
     return (
         "ok",
         client,

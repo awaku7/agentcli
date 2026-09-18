@@ -62,4 +62,34 @@ def test_claude_round_failure_returns_without_postprocessing(monkeypatch) -> Non
     assert emitted == []
 
 
+def test_claude_round_executes_tool_calls_before_returning_ok(monkeypatch) -> None:
+    executed = []
+    kwargs = _kwargs()
+    tool_call = {
+        "id": "call-1",
+        "type": "function",
+        "function": {"name": "file_grep", "arguments": "{}"},
+    }
+    monkeypatch.setattr(
+        legacy_claude_round,
+        "call_legacy_claude_round",
+        lambda **_kwargs: (True, "new-client", "tool request", [tool_call]),
+    )
+
+    import uagent.llm_flow_helpers as flow_helpers
+
+    monkeypatch.setattr(
+        flow_helpers,
+        "_execute_tool_calls",
+        lambda **call_kwargs: executed.append(call_kwargs) or (True, [tool_call]),
+    )
+
+    result = legacy_claude_round.run_legacy_claude_round(**kwargs)
+
+    assert result == ("ok", "new-client", None, 0, "tool request!")
+    assert len(executed) == 1
+    assert executed[0]["tool_calls_list"] == [tool_call]
+    assert executed[0]["messages"] is kwargs["messages"]
+
+
 __all__ = []
