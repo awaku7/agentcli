@@ -24,6 +24,31 @@ class _PfnCompletions:
         )
 
 
+class _PfnToolCompletions:
+    def __init__(self) -> None:
+        self.calls = []
+
+    def create(self, **kwargs):
+        self.calls.append(kwargs)
+        return SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    message=SimpleNamespace(
+                        content="",
+                        tool_calls=[
+                            SimpleNamespace(
+                                id="call-pfn",
+                                function=SimpleNamespace(
+                                    name="read_file", arguments='{"path":"a"}'
+                                ),
+                            )
+                        ],
+                    )
+                )
+            ]
+        )
+
+
 class _GrokChat:
     def __init__(self) -> None:
         self.calls = []
@@ -35,11 +60,11 @@ class _GrokChat:
         )
 
 
-def _core(tmp_path):
+def _core(tmp_path, *, context_tool_specs=()):
     return SimpleNamespace(
         workdir=str(tmp_path),
         cancellation_token=_Cancellation(),
-        context_tool_specs=(),
+        context_tool_specs=context_tool_specs,
         responses_state={},
     )
 
@@ -63,6 +88,37 @@ def test_pfn_registry_route_runs_through_round_orchestrator(tmp_path) -> None:
 
     assert result == (True, "pfn-ok", "", [])
     assert completions.calls[0]["stream"] is True
+
+
+def test_pfn_registry_tool_call_returns_to_shared_continuation(tmp_path) -> None:
+    completions = _PfnToolCompletions()
+    client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
+    tool_specs = (
+        {
+            "type": "function",
+            "function": {
+                "name": "read_file",
+                "parameters": {"type": "object", "properties": {}},
+            },
+        },
+    )
+
+    result = _try_registry_simple_chat_round(
+        provider="pfn",
+        client=client,
+        depname="plamo-test",
+        call_messages=[{"role": "user", "content": "read a"}],
+        core=_core(tmp_path, context_tool_specs=tool_specs),
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=True,
+        round_count=1,
+        registry_route=RegistryRoundRoute(True, "eligible"),
+    )
+
+    assert result[0:3] == (True, "", "")
+    assert result[3][0]["function"]["name"] == "read_file"
+    assert completions.calls[0]["stream"] is False
 
 
 def test_grok_registry_route_runs_through_round_orchestrator(
