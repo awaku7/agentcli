@@ -12,6 +12,7 @@ def test_agent_state_is_saved_and_restored(tmp_path) -> None:
             current_step="test",
             files=("src/app.py",),
             next_action="run pytest",
+            mcp_request_generation=6,
         )
         store.save_agent_state(session.session_id, state.to_dict())
 
@@ -21,3 +22,4 @@ def test_agent_state_is_saved_and_restored(tmp_path) -> None:
     assert AgentState.from_dict(restored).goal == "ship feature"
     assert restored["files"] == ["src/app.py"]
     assert restored["next_action"] == "run pytest"
+    assert restored["mcp_request_generation"] == 6
