@@ -34,6 +34,11 @@ def test_apply_persisted_state_updates_tool_and_responses_state() -> None:
             "response_id": "resp-1",
             "status": "completed",
         },
+        agent_state={
+            "mcp_request_generation": 4,
+            "mcp_provider": "openai",
+            "mcp_model": "gpt-5.4",
+        },
     )
 
     apply_persisted_state(core, plan)
@@ -45,3 +50,5 @@ def test_apply_persisted_state_updates_tool_and_responses_state() -> None:
         "model": "gpt-5.4",
         "previous_response_id": "resp-1",
     }
+    assert core.agent_state_manager.state.mcp_request_generation == 4
+    assert core.mcp_request_generation == 4

@@ -59,6 +59,14 @@ class _StateStore:
             "status": "completed",
         }
 
+    def get_agent_state(self, session_id):
+        assert session_id == "s1"
+        return {
+            "mcp_request_generation": 4,
+            "mcp_provider": "openai",
+            "mcp_model": "gpt-5.4",
+        }
+
 
 def test_plan_summarize_filters_explicit_target_and_bounds_bulk_work() -> None:
     rows = [{"session_id": f"session-{index}"} for index in range(12)]
@@ -139,6 +147,7 @@ def test_build_restore_plan_adds_missing_system_prompt_without_mutating_input() 
     assert plan.messages[0] == {"role": "system", "content": "system"}
     assert plan.tool_context == state.tool_context
     assert plan.response_state == state.response_state
+    assert plan.agent_state == state.agent_state
 
 
 def test_resolve_load_target_prefers_search_result_index() -> None:

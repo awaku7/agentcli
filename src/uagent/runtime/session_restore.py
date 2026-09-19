@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
+from .agent_state import AgentState, AgentStateManager
 from .session_command_service import SessionRestorePlan
 
 
@@ -30,7 +31,17 @@ def bind_session(
 
 
 def apply_persisted_state(core: Any, plan: SessionRestorePlan) -> None:
-    """Apply tool context and Responses continuation state to a host core."""
+    """Apply tool, agent, and Responses continuation state to a host core."""
+    if plan.agent_state is not None:
+        try:
+            state = AgentState.from_dict(plan.agent_state)
+            core.agent_state_manager = AgentStateManager(state)
+            core.mcp_request_generation = state.mcp_request_generation
+        except Exception:
+            # A malformed optional agent-state record must not block loading the
+            # conversation; the host starts a fresh runtime generation instead.
+            core.agent_state_manager = AgentStateManager()
+            core.mcp_request_generation = 0
     if hasattr(core, "tool_context"):
         core.tool_context.clear()
         core.tool_context.update(plan.tool_context)

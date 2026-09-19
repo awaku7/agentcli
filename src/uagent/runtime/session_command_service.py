@@ -53,14 +53,16 @@ class SessionRestorePlan:
     messages: list[dict[str, Any]]
     tool_context: dict[str, Any]
     response_state: dict[str, Any] | None
+    agent_state: dict[str, Any] | None = None
 
 
 @dataclass(frozen=True)
 class SessionContextState:
-    """Persisted tool and Responses state needed when loading a session."""
+    """Persisted tool, agent, and Responses state needed when loading a session."""
 
     tool_context: dict[str, Any]
     response_state: dict[str, Any] | None
+    agent_state: dict[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -164,11 +166,16 @@ class SessionCommandService:
             response_state = self._store.latest_response_state(session_id)
         except Exception:
             response_state = None
+        try:
+            agent_state = self._store.get_agent_state(session_id)
+        except Exception:
+            agent_state = None
         return SessionContextState(
             tool_context=tool_context,
             response_state=(
                 dict(response_state) if isinstance(response_state, dict) else None
             ),
+            agent_state=(dict(agent_state) if isinstance(agent_state, dict) else None),
         )
 
     def build_restore_plan(
@@ -194,6 +201,11 @@ class SessionCommandService:
             response_state=(
                 dict(persisted.response_state)
                 if persisted.response_state is not None
+                else None
+            ),
+            agent_state=(
+                dict(persisted.agent_state)
+                if persisted.agent_state is not None
                 else None
             ),
         )
