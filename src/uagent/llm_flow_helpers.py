@@ -479,6 +479,40 @@ def _fire_tool_hooks(event: str, tool_name: str) -> None:
         pass
 
 
+def _cli_tool_result_display_enabled(core: Any) -> bool:
+    """Return whether the opt-in CLI-only tool-result line is enabled."""
+
+    if core is None or bool(getattr(core, "_is_web", False)):
+        return False
+    if bool(getattr(core, "IS_GUI", False)):
+        return False
+    return (env_get("UAGENT_SHOW_TOOL_RESULTS", "0") or "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
+def _tool_result_status(value: Any) -> str:
+    """Classify a result for the bounded UI projection."""
+
+    if isinstance(value, dict):
+        if value.get("ok") is False or value.get("error"):
+            return "failed"
+        status = str(value.get("status") or "").strip().lower()
+        if status in {"failed", "error", "timeout", "timed_out", "cancelled"}:
+            return "cancelled" if status == "cancelled" else status
+    text = str(value or "").lstrip().lower()
+    if text.startswith("[tool args error]") or text.startswith("[tool runtime error]"):
+        return "failed"
+    if "mcp_cancelled" in text or "cancelled" in text:
+        return "cancelled"
+    if "timeout" in text or "timed out" in text:
+        return "timeout"
+    return "success"
+
+
 def _execute_tool_calls(
     *,
     tool_calls_list: list[dict[str, Any]],
@@ -805,8 +839,13 @@ def _execute_tool_calls(
             ),
             task_id=str(getattr(core, "task_id", "") or ""),
             artifact_ref=artifact_ref,
-            metadata={"tool_call_id": str(tc.get("id") or "")},
+            metadata={
+                "tool_call_id": str(tc.get("id") or ""),
+                "status": _tool_result_status(parsed_tool_result or raw_context_result),
+            },
         )
+        if _cli_tool_result_display_enabled(core):
+            print(projections.ui_display)
         record_result = getattr(core, "record_tool_result", None)
         if callable(record_result):
             record_result(result_record.to_dict(), projections.persistent_history)
