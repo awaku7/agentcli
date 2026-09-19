@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent.util_cmd_auto import (
+    _build_judgment_messages,
     _handle_cmd_auto,
     _parse_auto_goal_options,
     _sentinel_judgment,
@@ -140,6 +141,48 @@ def test_auto_off_stops_infinite_mode() -> None:
     assert result.run_llm is False
     assert core.auto_pilot_active is False
     assert core.auto_pilot_exit_requested is False
+
+
+def test_reviewer_judgment_includes_masked_tool_result_summaries() -> None:
+    messages = [
+        {"role": "user", "content": "inspect the result"},
+        {
+            "role": "tool",
+            "name": "demo",
+            "tool_call_id": "call-1",
+            "content": '{"ok": true, "result": {"text": "token: secret-value"}}',
+        },
+    ]
+
+    judgment = _build_judgment_messages(messages, "inspect the result")
+    summary_messages = [
+        item
+        for item in judgment
+        if item.get("role") == "user"
+        and "Recent tool results" in str(item.get("content"))
+    ]
+    assert len(summary_messages) == 1
+    content = str(summary_messages[0]["content"])
+    assert "[TOOL-RESULT] tool=demo status=success call_id=call-1" in content
+    assert "secret-value" not in content
+    assert "********" in content
+
+
+def test_reviewer_judgment_includes_failed_tool_status() -> None:
+    judgment = _build_judgment_messages(
+        [
+            {
+                "role": "tool",
+                "name": "demo",
+                "tool_call_id": "call-2",
+                "content": '{"ok": false, "error": {"code": "NOPE", "message": "failed"}}',
+            }
+        ],
+        "inspect",
+    )
+    content = "\n".join(str(item.get("content")) for item in judgment)
+    assert "tool=demo status=failed call_id=call-2" in content
+    assert "failed" in content
 
 
 def test_sentinel_judgment_accepts_case_and_optional_brackets() -> None:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from typing import Any
@@ -10,6 +11,7 @@ from .env_utils import env_get
 from .i18n import _
 from .util_common import CommandResult, append_result_to_outfile
 from .util_image import try_open_images_from_text
+from .utils.secret_mask import _mask_inline_secrets, mask_message
 
 # Default translation function used when core.tr is not provided.
 tr = _
@@ -73,6 +75,48 @@ def _get_followup_prompt(goal: str, feedback: str = "") -> str:
     return prompt
 
 
+def _tool_result_summary_for_judgment(message: dict[str, Any]) -> str:
+    name = str(message.get("name") or "tool")
+    call_id = str(message.get("tool_call_id") or "")
+    raw_content = message.get("content", "")
+    try:
+        raw_parsed = json.loads(str(raw_content))
+    except Exception:
+        raw_parsed = None
+    if isinstance(raw_parsed, (dict, list)):
+        masked = json.dumps(mask_message(raw_parsed), ensure_ascii=False)
+    else:
+        masked = mask_message({"content": raw_content}).get("content", "")
+    status = "success"
+    summary = str(masked or "")
+    try:
+        parsed = json.loads(str(masked))
+    except Exception:
+        parsed = None
+    if isinstance(parsed, dict):
+        if parsed.get("ok") is False or parsed.get("error"):
+            status = "failed"
+            error = parsed.get("error")
+            if isinstance(error, dict):
+                summary = str(error.get("message") or error.get("code") or error)
+            else:
+                summary = str(error or parsed)
+        else:
+            result = parsed.get("result", parsed.get("data", parsed))
+            if isinstance(result, dict):
+                summary = str(
+                    result.get("text")
+                    or result.get("summary")
+                    or result.get("message")
+                    or result
+                )
+            else:
+                summary = str(result)
+    summary = _mask_inline_secrets(" ".join(summary.split()))[:400]
+    call_suffix = f" call_id={call_id}" if call_id else ""
+    return f"[TOOL-RESULT] tool={name} status={status}{call_suffix} summary={summary}"
+
+
 def _build_judgment_messages(
     messages: list[dict[str, Any]],
     goal: str,
@@ -109,6 +153,22 @@ def _build_judgment_messages(
 
     for h in reversed(history):
         msgs.append(h)
+
+    tool_summaries: list[str] = []
+    for message in reversed(messages):
+        if not isinstance(message, dict) or message.get("role") != "tool":
+            continue
+        tool_summaries.append(_tool_result_summary_for_judgment(message))
+        if len(tool_summaries) >= 4:
+            break
+    if tool_summaries:
+        msgs.append(
+            {
+                "role": "user",
+                "content": "Recent tool results (bounded summaries):\n"
+                + "\n".join(reversed(tool_summaries)),
+            }
+        )
 
     msgs.append({"role": "user", "content": "COMPLETE or CONTINUE?"})
     return msgs
