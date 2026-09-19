@@ -441,6 +441,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 with open(config_path, "r", encoding="utf-8") as f:
                     config = json.load(f)
                     servers = config.get("mcp_servers", [])
+                    configured_names = [
+                        str(s.get("name", "")).strip()
+                        for s in servers
+                        if isinstance(s, dict) and str(s.get("name", "")).strip()
+                    ]
                     found = False
                     for s in servers:
                         if s.get("name") == server_name:
@@ -457,16 +462,38 @@ def run_tool(args: dict[str, Any]) -> str:
                             found = True
                             break
                     if not found and not url:
+                        available = (
+                            ", ".join(configured_names)
+                            if configured_names
+                            else "(none)"
+                        )
                         return _error_out(
-                            f"Server with name '{server_name}' not found in {config_path}",
+                            f"MCP server_name '{server_name}' was not found in "
+                            f"{config_path}. Configured server names: {available}. "
+                            "Provide one of those names or provide url explicitly. "
+                            "(No operation performed)",
                             "MCP_SERVER_NOT_FOUND",
                         )
             except Exception as e:
                 return _error_out(f"Error loading MCP config: {e}", "MCP_CONFIG_ERROR")
+        elif not url:
+            location = config_path or "the default MCP config path"
+            return _error_out(
+                f"MCP server_name '{server_name}' was supplied, but the MCP config "
+                f"was not found at {location}. Provide url explicitly or create the "
+                "config with mcp_servers (action=init_template). "
+                "(No operation performed)",
+                "MCP_CONFIG_NOT_FOUND",
+            )
 
     if not url and not command:
         if server_name:
-            pass
+            return _error_out(
+                f"MCP server_name '{server_name}' did not resolve to a URL or command. "
+                "Check its mcp_servers.json entry or provide url explicitly. "
+                "(No operation performed)",
+                "MCP_SERVER_EMPTY",
+            )
         else:
             return _error_out(
                 "MCP server is not configured. Please add a server via mcp_servers "

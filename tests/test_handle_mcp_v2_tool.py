@@ -41,7 +41,44 @@ def test_handle_mcp_v2_server_name_not_found(
     monkeypatch.setenv("UAGENT_MCP_CONFIG", str(cfg))
 
     out = run_tool({"server_name": "missing", "tool_name": "x"})
-    assert "not found" in out.lower() or "error" in out.lower()
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_SERVER_NOT_FOUND"
+    assert "other" in payload["error"]["message"]
+    assert "provide url" in payload["error"]["message"].lower()
+
+
+def test_handle_mcp_v2_server_name_without_config_is_actionable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools.handle_mcp_v2_tool import run_tool
+
+    monkeypatch.setenv("UAGENT_MCP_CONFIG", str(tmp_path / "missing.json"))
+
+    out = run_tool({"server_name": "physical_vision", "tool_name": "look_at_table"})
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_CONFIG_NOT_FOUND"
+    assert "physical_vision" in payload["error"]["message"]
+    assert "create the config" in payload["error"]["message"].lower()
+
+
+def test_handle_mcp_v2_server_name_without_endpoint_is_actionable(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools.handle_mcp_v2_tool import run_tool
+
+    cfg = repo_tmp_path / "mcp_servers.json"
+    cfg.write_text(
+        json.dumps({"mcp_servers": [{"name": "empty"}]}), encoding="utf-8"
+    )
+    monkeypatch.setenv("UAGENT_MCP_CONFIG", str(cfg))
+
+    out = run_tool({"server_name": "empty", "tool_name": "x"})
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_SERVER_EMPTY"
+    assert "did not resolve" in payload["error"]["message"]
 
 
 def test_handle_mcp_v2_uses_http_and_truncates(monkeypatch: pytest.MonkeyPatch) -> None:
