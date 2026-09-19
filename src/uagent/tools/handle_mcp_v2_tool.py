@@ -161,6 +161,70 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _mcp_tool_entries(result: Any) -> list[Any]:
+    if isinstance(result, dict):
+        entries = result.get("tools", [])
+    else:
+        entries = getattr(result, "tools", [])
+    return list(entries) if isinstance(entries, (list, tuple)) else []
+
+
+def _mcp_tool_field(tool: Any, key: str, default: Any = None) -> Any:
+    if isinstance(tool, dict):
+        return tool.get(key, default)
+    return getattr(tool, key, default)
+
+
+def _validate_mcp_arguments(name: str, argv: dict[str, Any], tools_result: Any) -> str | None:
+    """Reject unknown MCP arguments when the server publishes an input schema.
+
+    Servers that do not publish a schema remain callable. Set
+    ``UAGENT_MCP_ARGUMENT_VALIDATION=tolerant`` for compatibility with servers
+    that intentionally accept extra fields.
+    """
+    if (env_get("UAGENT_MCP_ARGUMENT_VALIDATION", "strict") or "").strip().lower() in {
+        "tolerant",
+        "allow",
+        "off",
+        "disabled",
+        "0",
+        "false",
+        "no",
+    }:
+        return None
+
+    tool = next(
+        (
+            item
+            for item in _mcp_tool_entries(tools_result)
+            if str(_mcp_tool_field(item, "name", "")) == name
+        ),
+        None,
+    )
+    if tool is None:
+        return None
+
+    schema = _mcp_tool_field(tool, "inputSchema")
+    if not isinstance(schema, dict):
+        schema = _mcp_tool_field(tool, "input_schema")
+    if not isinstance(schema, dict):
+        return None
+
+    properties = schema.get("properties")
+    if not isinstance(properties, dict):
+        return None
+    unknown = sorted(set(argv) - set(properties))
+    if not unknown:
+        return None
+    return _error_out(
+        "Unknown MCP argument(s) for "
+        f"'{name}': {', '.join(unknown)}. Allowed arguments: "
+        f"{', '.join(sorted(str(key) for key in properties)) or '(none)'}. "
+        "(No operation performed)",
+        "MCP_UNKNOWN_ARGUMENT",
+    )
+
+
 async def _call_mcp_stdio(
     command: str,
     args: list[str],
@@ -176,6 +240,13 @@ async def _call_mcp_stdio(
             env=env,
             protocol_mode=protocol_mode,
         ) as client:
+            try:
+                tools_result = await client.list_tools()
+            except Exception:
+                tools_result = None
+            validation_error = _validate_mcp_arguments(name, argv, tools_result)
+            if validation_error is not None:
+                return validation_error
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:
@@ -222,6 +293,13 @@ async def _call_mcp_http(
             headers=headers or {},
             protocol_mode=protocol_mode,
         ) as client:
+            try:
+                tools_result = await client.list_tools()
+            except Exception:
+                tools_result = None
+            validation_error = _validate_mcp_arguments(name, argv, tools_result)
+            if validation_error is not None:
+                return validation_error
             result = await client.call_tool(name, argv)
             return _format_result(result)
     except Exception as exc:

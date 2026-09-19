@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import base64
 import json
 from pathlib import Path
@@ -79,6 +80,85 @@ def test_handle_mcp_v2_server_name_without_endpoint_is_actionable(
     assert payload["ok"] is False
     assert payload["error"]["code"] == "MCP_SERVER_EMPTY"
     assert "did not resolve" in payload["error"]["message"]
+
+
+def test_handle_mcp_v2_rejects_unknown_mcp_arguments(monkeypatch: pytest.MonkeyPatch) -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    calls: list[dict] = []
+
+    class FakeClient:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def list_tools(self):
+            return {
+                "tools": [
+                    {
+                        "name": "demo",
+                        "inputSchema": {
+                            "type": "object",
+                            "properties": {"path": {"type": "string"}},
+                        },
+                    }
+                ]
+            }
+
+        async def call_tool(self, name, arguments):
+            calls.append({"name": name, "arguments": arguments})
+            return "CALLED"
+
+    monkeypatch.setattr(m, "MCPClient", lambda **_kwargs: FakeClient())
+    monkeypatch.delenv("UAGENT_MCP_ARGUMENT_VALIDATION", raising=False)
+
+    out = asyncio.run(m._call_mcp_http("http://example.com", "demo", {"extra": 1}))
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_UNKNOWN_ARGUMENT"
+    assert "extra" in payload["error"]["message"]
+    assert calls == []
+
+
+def test_handle_mcp_v2_tolerant_argument_validation_calls_tool(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    calls: list[dict] = []
+
+    class FakeClient:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def list_tools(self):
+            return {
+                "tools": [
+                    {
+                        "name": "demo",
+                        "inputSchema": {
+                            "type": "object",
+                            "properties": {"path": {"type": "string"}},
+                        },
+                    }
+                ]
+            }
+
+        async def call_tool(self, name, arguments):
+            calls.append({"name": name, "arguments": arguments})
+            return "CALLED"
+
+    monkeypatch.setattr(m, "MCPClient", lambda **_kwargs: FakeClient())
+    monkeypatch.setenv("UAGENT_MCP_ARGUMENT_VALIDATION", "tolerant")
+
+    out = asyncio.run(m._call_mcp_http("http://example.com", "demo", {"extra": 1}))
+    assert out == "CALLED"
+    assert calls == [{"name": "demo", "arguments": {"extra": 1}}]
 
 
 def test_handle_mcp_v2_uses_http_and_truncates(monkeypatch: pytest.MonkeyPatch) -> None:
