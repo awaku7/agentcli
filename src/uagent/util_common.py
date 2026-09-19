@@ -49,16 +49,59 @@ class CommandResult:
         return self.continue_running
 
 
+def _mcp_identity(core: Any) -> tuple[str, str]:
+    response_state = getattr(core, "responses_state", {}) or {}
+    if not isinstance(response_state, dict):
+        return "", ""
+    return (
+        str(response_state.get("provider") or "").strip().lower(),
+        str(response_state.get("model") or "").strip(),
+    )
+
+
+def _persist_mcp_state(core: Any, generation: int) -> None:
+    manager = getattr(core, "agent_state_manager", None)
+    save_state = getattr(core, "save_agent_state", None)
+    update_state = getattr(manager, "update", None)
+    if not callable(update_state) or not callable(save_state):
+        return
+    provider, model = _mcp_identity(core)
+    try:
+        save_state(
+            update_state(
+                mcp_request_generation=generation,
+                mcp_provider=provider,
+                mcp_model=model,
+            ).to_dict()
+        )
+    except Exception:
+        pass
+
+
 def _mcp_generation(core: Any) -> int:
     value = getattr(core, "mcp_request_generation", None)
+    state = getattr(getattr(core, "agent_state_manager", None), "state", None)
     if value is None:
-        state = getattr(getattr(core, "agent_state_manager", None), "state", None)
         value = getattr(state, "mcp_request_generation", 0)
     try:
         generation = max(0, int(value or 0))
     except (TypeError, ValueError):
         generation = 0
-    core.mcp_request_generation = generation
+    stored_identity = (
+        str(getattr(state, "mcp_provider", "") or "").strip().lower(),
+        str(getattr(state, "mcp_model", "") or "").strip(),
+    )
+    current_identity = _mcp_identity(core)
+    if (
+        all(stored_identity)
+        and all(current_identity)
+        and stored_identity != current_identity
+    ):
+        generation += 1
+        core.mcp_request_generation = generation
+        _persist_mcp_state(core, generation)
+    else:
+        core.mcp_request_generation = generation
     return generation
 
 
@@ -74,16 +117,7 @@ def _host_is_cancelled(core: Any) -> bool:
         current = _mcp_generation(core)
         next_generation = current + 1
         core.mcp_request_generation = next_generation
-        manager = getattr(core, "agent_state_manager", None)
-        save_state = getattr(core, "save_agent_state", None)
-        update_state = getattr(manager, "update", None)
-        if callable(update_state) and callable(save_state):
-            try:
-                save_state(
-                    update_state(mcp_request_generation=next_generation).to_dict()
-                )
-            except Exception:
-                pass
+        _persist_mcp_state(core, next_generation)
         core._mcp_cancel_seen = True
     elif not cancelled:
         core._mcp_cancel_seen = False

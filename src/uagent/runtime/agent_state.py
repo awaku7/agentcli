@@ -30,6 +30,8 @@ class AgentState:
     errors: tuple[str, ...] = ()
     next_action: str = ""
     mcp_request_generation: int = 0
+    mcp_provider: str = ""
+    mcp_model: str = ""
     updated_at: str = field(default_factory=_utc_now)
 
     def to_dict(self) -> dict[str, Any]:
@@ -56,6 +58,8 @@ class AgentState:
             mcp_request_generation=_safe_generation(
                 value.get("mcp_request_generation")
             ),
+            mcp_provider=str(value.get("mcp_provider") or ""),
+            mcp_model=str(value.get("mcp_model") or ""),
             updated_at=str(value.get("updated_at") or _utc_now()),
         )
 
@@ -75,6 +79,8 @@ class AgentStateManager:
             "errors",
             "next_action",
             "mcp_request_generation",
+            "mcp_provider",
+            "mcp_model",
         }
         unknown = set(changes) - allowed
         if unknown:
@@ -87,6 +93,9 @@ class AgentStateManager:
             normalized["mcp_request_generation"] = _safe_generation(
                 normalized["mcp_request_generation"]
             )
+        for key in ("mcp_provider", "mcp_model"):
+            if key in normalized:
+                normalized[key] = str(normalized[key] or "")
         normalized["updated_at"] = _utc_now()
         self.state = replace(self.state, **normalized)
         return self.state
