@@ -58,13 +58,13 @@ from .llm_round_helpers import (
 from .providers.responses_runtime import _responses_session_generation
 from .runtime.legacy_openai_round import call_legacy_openai_compatible_outcome
 from .runtime.legacy_round_registry import run_legacy_provider_outcome
+from .runtime.legacy_tool_continuation import execute_tool_continuation
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .providers.provider_caps import supports_generate_image_continuation
 from .llm_flow_helpers import (
     _append_assistant_message,
     _emit_final_answer_if_any,
     _handle_openai_empty_no_tool,
-    _execute_tool_calls,
     _resolve_empty_no_tool_max,
     _should_keep_assistant_message,
     _consume_empty_no_tool_recovery,
@@ -1744,7 +1744,7 @@ def _run_one_round(
         enabled=response_tool_continuation,
         tool_calls=tool_calls_list,
     )
-    executed_new_tool, fresh_tool_calls = _execute_tool_calls(
+    executed_new_tool, fresh_tool_calls = execute_tool_continuation(
         tool_calls_list=tool_calls_list,
         messages=messages,
         core=core,
