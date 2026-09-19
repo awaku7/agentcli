@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from ..llm_grok_round import _call_grok_round
+from .legacy_special_provider_fallback import call_legacy_grok_grpc_round
 from .legacy_provider_dispatch import call_legacy_openai_azure_round
 from .legacy_round_registry import (
     LegacyRoundOutcome,
@@ -34,34 +34,26 @@ def call_legacy_openai_compatible_round(
     round_count: int,
 ) -> RoundDispatchResult:
     """Select Grok gRPC or the normalized OpenAI-compatible caller."""
-    is_xai_grpc = False
     if provider == "grok":
-        try:
-            from xai_sdk import Client as _XAIClient
-
-            is_xai_grpc = isinstance(client, _XAIClient)
-        except Exception:
-            is_xai_grpc = False
-
-        if is_xai_grpc:
-            ok, client, assistant_text, tool_calls_list = _call_grok_round(
-                provider=provider,
-                client=client,
-                depname=depname,
-                call_messages=call_messages,
-                core=core,
-                make_client_fn=make_client_fn,
-                call_maybe_thread_fn=call_maybe_thread_fn,
-                use_responses_api=use_responses_api,
-                stream_responses=stream_responses,
-                send_tools_this_round=send_tools_this_round,
-                max_retries_429=max_retries_429,
-                retry_base=retry_base,
-                retry_cap=retry_cap,
-                messages=messages,
-                responses_state=responses_state,
-            )
-            return ok, client, assistant_text, "", tool_calls_list, True
+        legacy_grok_result = call_legacy_grok_grpc_round(
+            provider=provider,
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+            send_tools_this_round=send_tools_this_round,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            messages=messages,
+            responses_state=responses_state,
+        )
+        if legacy_grok_result is not None:
+            return legacy_grok_result
 
     ok, client, assistant_text, reasoning_content, tool_calls_list = (
         call_legacy_openai_azure_round(

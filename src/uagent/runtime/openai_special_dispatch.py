@@ -1,16 +1,16 @@
-"""Special handlers for OpenAI-compatible provider families."""
+"""Compatibility dispatch for special OpenAI-compatible fallbacks."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from ..providers.llm_pfn import pfn_chat_with_tools
-
-_SPECIAL_OPENAI_HANDLERS = {"pfn": pfn_chat_with_tools}
+from .legacy_special_provider_fallback import (
+    LEGACY_OPENAI_SPECIAL_HANDLERS as _SPECIAL_OPENAI_HANDLERS,
+)
 
 
 def call_special_openai_round(*, provider: str, **kwargs: Any) -> Any | None:
-    """Call a provider-specific OpenAI-compatible handler when registered."""
+    """Call a provider-specific legacy fallback when registry routing is off."""
     handler = _SPECIAL_OPENAI_HANDLERS.get((provider or "").strip().lower())
     if handler is None:
         return None
