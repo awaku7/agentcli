@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from uagent.util_cmd_auto import _handle_cmd_auto, _sentinel_judgment
+from uagent.util_cmd_auto import (
+    _handle_cmd_auto,
+    _parse_auto_goal_options,
+    _sentinel_judgment,
+)
 
 
 def _core() -> SimpleNamespace:
@@ -13,6 +17,29 @@ def _core() -> SimpleNamespace:
         auto_pilot_max_rounds=10,
         auto_pilot_round=0,
     )
+
+
+def test_auto_parser_preserves_goal_text_and_apostrophes() -> None:
+    goal = 'Do not change "quoted" text. Don\'t collapse lines.\nSecond line.'
+
+    parsed_goal, rounds, infinite, error = _parse_auto_goal_options(
+        goal + " --max-rounds 3"
+    )
+
+    assert parsed_goal == goal
+    assert rounds == 3
+    assert infinite is False
+    assert error is None
+
+
+def test_auto_parser_rejects_unbalanced_round_option_without_shlex() -> None:
+    goal = "Don't do this --max-rounds 2"
+    parsed_goal, rounds, infinite, error = _parse_auto_goal_options(goal)
+
+    assert parsed_goal == "Don't do this"
+    assert rounds == 2
+    assert infinite is False
+    assert error is None
 
 
 def test_auto_infinite_prefix_sets_unbounded_mode() -> None:

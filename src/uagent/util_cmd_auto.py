@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import os
 import re
-import shlex
 from typing import Any
 
 from .env_utils import env_get
@@ -345,6 +344,55 @@ def _run_auto_pilot_loop(
         core.auto_pilot_active = False
 
 
+def _parse_auto_goal_options(
+    raw: str,
+) -> tuple[str, int | None, bool, str | None]:
+    """Parse auto options without tokenizing or rewriting the goal text.
+
+    ``--inject-message-auto`` passes a complete goal as one argv value. The
+    goal may contain newlines, quotes, or apostrophes, so shell tokenization is
+    deliberately avoided. Options are recognized only as suffixes, matching
+    the documented command form.
+    """
+    value = str(raw or "").strip()
+    max_rounds: int | None = 10
+    infinite_mode = False
+
+    if re.match(r"^INFINITE(?:\s+|$)", value, flags=re.IGNORECASE):
+        infinite_mode = True
+        value = value[len("INFINITE") :].lstrip()
+
+    max_match = re.search(
+        r"(?:\s+)--max-rounds\s+(?P<value>INFINITE|[+-]?\d+)\s*$",
+        value,
+        flags=re.IGNORECASE,
+    )
+    if max_match:
+        raw_max = max_match.group("value")
+        if raw_max.upper() == "INFINITE":
+            infinite_mode = True
+        else:
+            try:
+                max_rounds = int(raw_max)
+            except ValueError:
+                return value, max_rounds, infinite_mode, raw_max
+            if max_rounds <= 0:
+                return value, max_rounds, infinite_mode, raw_max
+        value = value[: max_match.start()].rstrip()
+    else:
+        infinite_match = re.search(r"(?:\s+)--infinite\s*$", value, flags=re.IGNORECASE)
+        if infinite_match:
+            infinite_mode = True
+            value = value[: infinite_match.start()].rstrip()
+
+    if re.search(r"(?:^|\s)--max-rounds\s*$", value, flags=re.IGNORECASE):
+        return value, max_rounds, infinite_mode, ""
+
+    if infinite_mode:
+        max_rounds = None
+    return value, max_rounds, infinite_mode, None
+
+
 def _handle_cmd_auto(
     arg: str,
     messages_ref: list[dict[str, Any]],
@@ -375,44 +423,15 @@ def _handle_cmd_auto(
         print(tr("       :auto off"))
         return CommandResult()
 
-    # Parse goal and options. INFINITE is accepted as an explicit mode token
-    # as well as the value of --max-rounds.
-    goal_parts: list[str] = []
-    max_rounds: int | None = 10
-    infinite_mode = False
-    tokens = shlex.split(a)
-    i = 0
-    while i < len(tokens):
-        token = tokens[i]
-        if token == "--infinite":
-            infinite_mode = True
-            i += 1
-        elif token == "--max-rounds" and i + 1 < len(tokens):
-            raw_max = tokens[i + 1]
-            if raw_max.upper() == "INFINITE":
-                infinite_mode = True
-                i += 2
-                continue
-            try:
-                max_rounds = int(raw_max)
-            except ValueError:
-                print(tr("Invalid value for --max-rounds: %(val)s") % {"val": raw_max})
-                return CommandResult()
-            if max_rounds <= 0:
-                print(tr("Invalid value for --max-rounds: %(val)s") % {"val": raw_max})
-                return CommandResult()
-            i += 2
-        elif not goal_parts and token.upper() == "INFINITE":
-            infinite_mode = True
-            i += 1
-        else:
-            goal_parts.append(token)
-            i += 1
-
-    if infinite_mode:
-        max_rounds = None
-
-    goal = " ".join(goal_parts)
+    # Parse only documented suffix options. Preserve the goal as one string so
+    # newlines, quotes, apostrophes, and non-ASCII text reach the model intact.
+    goal, max_rounds, _infinite_mode, parse_error = _parse_auto_goal_options(a)
+    if parse_error is not None:
+        print(
+            tr("Invalid value for --max-rounds: %(val)s")
+            % {"val": parse_error or "<missing>"}
+        )
+        return CommandResult()
     if not goal:
         print(tr("Goal cannot be empty."))
         return CommandResult()
