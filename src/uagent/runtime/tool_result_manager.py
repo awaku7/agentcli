@@ -14,6 +14,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Literal
 
+from ..utils.secret_mask import _mask_inline_secrets
 from .tool_result_persistence import sanitize_binary_payload
 
 ResultClass = Literal["small", "large", "huge"]
@@ -84,11 +85,12 @@ class ToolResultRecord:
 
 @dataclass(frozen=True)
 class ToolResultProjections:
-    """The three independent representations of a tool result."""
+    """Independent representations of a tool result for each consumer."""
 
     llm_context: str
     ui_remote: Any
     persistent_history: Any
+    ui_display: str = ""
 
 
 class ContextResultManager:
@@ -153,8 +155,31 @@ class ContextResultManager:
             llm_context=llm_context,
             ui_remote=value,
             persistent_history=history_value,
+            ui_display=self.format_ui_display(record),
         )
         return record, projections
+
+    def format_ui_display(
+        self, record: ToolResultRecord, *, status: str | None = None
+    ) -> str:
+        """Return the bounded operator-facing ``[TOOL-RESULT]`` line.
+
+        This projection never includes the raw result. It is safe to pass to a
+        CLI, GUI, or Web renderer; the full value remains available only via
+        the separate UI/remote and persistent-history projections.
+        """
+
+        metadata = record.metadata if isinstance(record.metadata, dict) else {}
+        effective_status = str(status or metadata.get("status") or "success")
+        call_id = str(metadata.get("tool_call_id") or "")
+        summary = _mask_inline_secrets(str(record.summary or ""))[:400]
+        line = (
+            f"[TOOL-RESULT] tool={record.tool_name} "
+            f"status={effective_status} call_id={call_id} summary={summary}"
+        )
+        if record.artifact_ref:
+            line += f" artifact_ref={record.artifact_ref}"
+        return line
 
     def format_retrieved_context(
         self, records: list[dict[str, Any]], *, max_chars: int = 12_000

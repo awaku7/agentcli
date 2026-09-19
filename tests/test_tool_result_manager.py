@@ -15,6 +15,29 @@ def test_small_result_is_direct_for_llm_and_preserves_ui_value() -> None:
     assert projections.llm_context == '{"ok": true}'
     assert projections.ui_remote == {"ok": True}
     assert projections.persistent_history == {"ok": True}
+    assert projections.ui_display.startswith(
+        "[TOOL-RESULT] tool=example status=success"
+    )
+
+
+def test_ui_display_is_bounded_masked_and_references_artifact() -> None:
+    manager = ContextResultManager()
+
+    _, projections = manager.process(
+        {"message": "token: secret-value"},
+        tool_name="demo",
+        summary="token: secret-value",
+        artifact_ref="artifact://result-1",
+        metadata={"tool_call_id": "call-1", "status": "failed"},
+    )
+
+    assert projections.ui_display.startswith(
+        "[TOOL-RESULT] tool=demo status=failed call_id=call-1"
+    )
+    assert "secret-value" not in projections.ui_display
+    assert "********" in projections.ui_display
+    assert "artifact_ref=artifact://result-1" in projections.ui_display
+    assert '{"message"' not in projections.ui_display
 
 
 def test_summary_is_derived_from_structured_result() -> None:
