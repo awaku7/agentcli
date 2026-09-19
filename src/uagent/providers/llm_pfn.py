@@ -148,13 +148,35 @@ def parse_pfn_response(resp: Any) -> tuple[str, list[dict[str, Any]]]:
     return content, result
 
 
+def iter_pfn_stream_content(stream: Any):
+    """Yield text deltas from PFN's stream without host-side side effects."""
+    for chunk in stream:
+        choices = _value(chunk, "choices") or []
+        if not choices:
+            continue
+        delta = _value(choices[0], "delta") or {}
+        text = _value(delta, "content")
+        if isinstance(text, str) and text:
+            yield text
+
+
+def parse_pfn_stream_content(stream: Any) -> str:
+    """Collect PFN stream text without inspecting a host or callbacks."""
+    return "".join(iter_pfn_stream_content(stream))
+
+
 def parse_pfn_stream(
     stream: Any,
     *,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
 ) -> str:
-    """Consume PFN's documented text streaming response."""
+    """Consume PFN's documented text streaming response.
+
+    The extraction itself is provider-only and lives in
+    :func:`iter_pfn_stream_content`; this wrapper retains the legacy host
+    callback contract until the PFN runtime adapter is enabled.
+    """
     parts: list[str] = []
     is_web = bool(getattr(core, "_is_web", False)) if core is not None else False
     callbacks = callbacks or StreamCallbacks()
@@ -163,14 +185,7 @@ def parse_pfn_stream(
             callbacks.on_terminal("ResponseStarted", {})
         except Exception:
             pass
-    for chunk in stream:
-        choices = _value(chunk, "choices") or []
-        if not choices:
-            continue
-        delta = _value(choices[0], "delta") or {}
-        text = _value(delta, "content")
-        if not isinstance(text, str) or not text:
-            continue
+    for text in iter_pfn_stream_content(stream):
         parts.append(text)
         if callable(callbacks.on_delta):
             try:

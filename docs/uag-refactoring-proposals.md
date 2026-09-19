@@ -1,4 +1,4 @@
-# UAG リファクタリング候補（現行実装 6d5ed5c6 / v0.7.8 系）
+# UAG リファクタリング候補（現行実装 1fd70bd6 / v0.7.8 系）
 
 ## 結論
 
@@ -6,20 +6,20 @@
 
 現在の主課題は新しい抽象を追加することではなく、**registry/orchestrator 経路を標準経路として定着させ、legacy adapter と `llm_round_helpers.py` / `uagent_llm.py` に残る互換分岐・重複判断を縮小すること**である。`RoundOrchestrator` は現時点では LLM 1 round の `ContextPlan → Projection → Request → StreamEvent` を担当し、tool loop 全体と legacy compatibility は上位の `uagent_llm.py` に残る。
 
-この文書の初期調査は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を基準にした。現行実装との比較は HEAD [`6d5ed5c6`](https://github.com/awaku7/agentcli/tree/6d5ed5c6) を基準にする。現行環境では `pytest tests` が failure なしで完了している。
+この文書の初期調査は、公開リポジトリの `main`、コミット [`2435ad6`](https://github.com/awaku7/agentcli/tree/2435ad6a69244cf8dabe18286389bb0389c3cfde)（`pyproject.toml` は v0.7.7）を基準にした。現行実装との比較は HEAD [`1fd70bd6`](https://github.com/awaku7/agentcli/tree/1fd70bd6) を基準にする。現行環境では `pytest tests` が failure なしで完了している。
 
 ## 調査した現在の構造
 
-- [`llm_round_helpers.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/llm_round_helpers.py) は縮小されたが、legacy provider dispatch、互換 tuple、Responses/Chat の橋渡し、provider 固有 fallback の入口が残る。現行は **1,888 行**であり、初期記載の 1,876 行から大きくは縮小していない。
-- [`uagent_llm.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/uagent_llm.py) は registry 経路と `RoundOrchestrator` を利用する一方、legacy adapter、tool loop、host 互換結果の適用、provider-specific compatibility の一部を引き続き担当する。現行は **2,783 行**である。
-- [`runtime/round_contracts.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/round_contracts.py) は `ContextPlan`、`ProviderProjection`、`SerializedRequest`、`StreamEvent`、`RoundResult`、`ProviderRuntimeRegistry` を定義する。[`runtime/round_orchestrator.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/round_orchestrator.py) は provider 名による SDK 呼び出しを持たず、登録済み runtime へ投影・serialize・run を委譲する。
-- [`runtime/context_manager.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/context_manager.py) は budget、retrieval、decision、active context、tool definition 選択を統合している。[`runtime/provider_context.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/provider_context.py) と round contract が provider-safe な hand-off を形成する。
-- [`providers/responses_manager.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/providers/responses_manager.py) は管理 API と `ResponsesCapabilities` を担当し、[`providers/responses_runtime.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/providers/responses_runtime.py) は continuation、pending tool output、restore、retry、terminal transition を provider I/O なしで管理する。
-- [`runtime/context_recovery.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/context_recovery.py) は `RecoveryPlan` と `ContextRecoveryManager` を提供し、legacy path には互換 bridge がある。[`runtime/message_transform.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/message_transform.py) は共通 transform pipeline を提供する。
-- [`runtime/capability_resolver.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/capability_resolver.py) は provider/model/transport 単位の capability snapshot を提供する。ただしモジュール自身が示す通り、全既存 provider 判定を置換したわけではなく、setup/env/realtime/legacy adapter には旧分岐が残る。
-- [`runtime/stream_renderer.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/stream_renderer.py) は `StreamEvent` を CLI/GUI/Web 向けの collector/renderer へ渡す境界である。ただし全 host の大規模移行と Inception/legacy の完全な host callback 除去は未完了である。
-- [`runtime/tool_discovery.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/tool_discovery.py) は `CapabilityCatalog`、selection、`ToolDeliveryStrategy` を持ち、legacy narrowing/native tool search/ContextManager の境界を整理している。
-- [`runtime/session_command_service.py`](https://github.com/awaku7/agentcli/blob/6d5ed5c6/src/uagent/runtime/session_command_service.py) と Responses command service/state/mutation は、session load/search/restore/prune/summarize と `:response` 操作の host-neutral な判断を command handler から分離している。
+- [`llm_round_helpers.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/llm_round_helpers.py) は縮小されたが、legacy provider dispatch、互換 tuple、Responses/Chat の橋渡し、provider 固有 fallback の入口が残る。現行は **1,888 行**であり、初期記載の 1,876 行から大きくは縮小していない。
+- [`uagent_llm.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/uagent_llm.py) は registry 経路と `RoundOrchestrator` を利用する一方、legacy adapter、tool loop、host 互換結果の適用、provider-specific compatibility の一部を引き続き担当する。現行は **2,783 行**である。
+- [`runtime/round_contracts.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/round_contracts.py) は `ContextPlan`、`ProviderProjection`、`SerializedRequest`、`StreamEvent`、`RoundResult`、`ProviderRuntimeRegistry` を定義する。[`runtime/round_orchestrator.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/round_orchestrator.py) は provider 名による SDK 呼び出しを持たず、登録済み runtime へ投影・serialize・run を委譲する。
+- [`runtime/context_manager.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/context_manager.py) は budget、retrieval、decision、active context、tool definition 選択を統合している。[`runtime/provider_context.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/provider_context.py) と round contract が provider-safe な hand-off を形成する。
+- [`providers/responses_manager.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/providers/responses_manager.py) は管理 API と `ResponsesCapabilities` を担当し、[`providers/responses_runtime.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/providers/responses_runtime.py) は continuation、pending tool output、restore、retry、terminal transition を provider I/O なしで管理する。
+- [`runtime/context_recovery.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/context_recovery.py) は `RecoveryPlan` と `ContextRecoveryManager` を提供し、legacy path には互換 bridge がある。[`runtime/message_transform.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/message_transform.py) は共通 transform pipeline を提供する。
+- [`runtime/capability_resolver.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/capability_resolver.py) は provider/model/transport 単位の capability snapshot を提供する。ただしモジュール自身が示す通り、全既存 provider 判定を置換したわけではなく、setup/env/realtime/legacy adapter には旧分岐が残る。
+- [`runtime/stream_renderer.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/stream_renderer.py) は `StreamEvent` を CLI/GUI/Web 向けの collector/renderer へ渡す境界である。ただし全 host の大規模移行と Inception/legacy の完全な host callback 除去は未完了である。
+- [`runtime/tool_discovery.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/tool_discovery.py) は `CapabilityCatalog`、selection、`ToolDeliveryStrategy` を持ち、legacy narrowing/native tool search/ContextManager の境界を整理している。
+- [`runtime/session_command_service.py`](https://github.com/awaku7/agentcli/blob/1fd70bd6/src/uagent/runtime/session_command_service.py) と Responses command service/state/mutation は、session load/search/restore/prune/summarize と `:response` 操作の host-neutral な判断を command handler から分離している。
 
 ## 推奨アーキテクチャ
 
@@ -502,7 +502,7 @@ stream を正規化できれば、CLI/GUI/Web は `RuntimeEvent` を購読する
 
 ## 現行実装との比較に基づく優先度再評価
 
-設計文書の基準コミット `2435ad6` と、過去の再評価時点の `HEAD` `5f79f8c9` を比較した進捗記録は以下に残す。これは履歴として有用だが、現行実装の判定には使用しない。現行の比較基準は HEAD [`6d5ed5c6`](https://github.com/awaku7/agentcli/tree/6d5ed5c6) であり、最新の状態と残課題は末尾の「現行実装を基準にした実施状況と次の作業」に集約する。
+設計文書の基準コミット `2435ad6` と、過去の再評価時点の `HEAD` `5f79f8c9` を比較した進捗記録は以下に残す。これは履歴として有用だが、現行実装の判定には使用しない。現行の比較基準は HEAD [`1fd70bd6`](https://github.com/awaku7/agentcli/tree/1fd70bd6) であり、最新の状態と残課題は末尾の「現行実装を基準にした実施状況と次の作業」に集約する。
 
 ### P0-A: 実行経路を一本化する
 
@@ -1085,7 +1085,7 @@ strict audit の失敗条件から分離した。
 
 新しい runtime 文言を増やさず、gettext と Tool JSON の不一致を解消し、strict audit を CI 条件にする。翻訳品質レビューは構造検証と分離する。
 
-現行 HEAD `6d5ed5c6` で `python scripts/i18n_structure_audit.py --strict` を実行した結果、終了コード 0、`structural_findings=0`、`tool_json_findings=0`、`coverage_findings=0` である。残る `host_gettext` の1件は、`ja` カタログにある41件の `key_extra` で、`uagent.pot` には存在するが英語 PO の参照キーには存在しないというカタログ生成時点のずれである。これは翻訳本文や placeholder の破損ではないため advisory として維持する。全 Tool JSON カタログの検証も成功している。
+現行 HEAD `1fd70bd6` で `python scripts/i18n_structure_audit.py --strict` を実行した結果、終了コード 0、`structural_findings=0`、`tool_json_findings=0`、`coverage_findings=0` である。残る `host_gettext` の1件は、`ja` カタログにある41件の `key_extra` で、`uagent.pot` には存在するが英語 PO の参照キーには存在しないというカタログ生成時点のずれである。これは翻訳本文や placeholder の破損ではないため advisory として維持する。全 Tool JSON カタログの検証も成功している。
 
 ### P3: CLI/GUI/Web と command 層
 
@@ -1212,9 +1212,9 @@ R1 の provider 別監査と、汎用 OpenAI-compatible / Responses provider の
 
 R2 の最初の修正単位として、legacy provider round に重複していた interrupt lock / flag 消費と stop prompt injection を `runtime/legacy_round_support.py` の `consume_legacy_interrupt()` に集約した。続けて translation と assistant message retention の共通部分を `translate_and_append_legacy_assistant()` に抽出し、Claude/Gemini の round で利用した。さらに reasoning assistant message の生成・保存・host logging を `append_legacy_reasoning_assistant()` に集約し、DeepSeek/MiMo、Z.AI/Novita、Vercel/Together の各 round で利用する。no-tool 時の final answer emission と共通 result tuple は `finish_legacy_without_tools()` に集約し、Claude/DeepSeek の round で利用する。empty-tool recovery の action と早期 return tuple は `resolve_legacy_empty_round()` に集約し、Claude/DeepSeek/Z.AI/Gemini の round で利用する。provider-specific reasoning message の形式は維持し、既存の tuple contract と postprocess の互換性を保つ。
 
-R2 の次の監査結果として、`MessageTransformPipeline` は現在主に registry runtime 側で適用され、legacy round には provider-specific message builder が残る。`RoundRetryCoordinator` は Claude/Gemini と main round の一部で利用され、DeepSeek の rate-limit retry も coordinator 経由へ移行した。Z.AI、Novita、Vercel、Together、PFN、Grok の rate-limit retry も coordinator 経由へ移行済みであり、legacy provider の retry boundary は一通り統合された。PFN の専用 tool/round 契約は維持したまま、retry reason / attempt budget / client recreation だけを共通化している。structured-output の characterization tests（native schema、JSON mode-only、unknown model の prompt fallback、provider scoped lookup、structured output off、registry generation options）が通過した。`native_structured_output_request_for_runtime()` を追加し、DeepSeek/Z.AI に続いて Gemini、Ollama、llama.cpp、および OpenAI-compatible registry projection も capability evidence を確認してから native request を生成する経路へ移行した。provider-specific な JSON mode / schema 判定を runtime capability boundary へ寄せる範囲は拡大した。Grok は専用 SDK/gRPC と tool/host 契約を持つため registry には追加せず legacy 境界に残しているが、structured-output の capability gate 自体は同じ helper 経由へ寄せた。次の修正単位は、残存する provider-specific message builder と、Grok/PFN の専用 SDK 契約を維持したまま共通 stream / retry boundary をさらに整理することである。
+R2 の次の監査結果として、`MessageTransformPipeline` は現在主に registry runtime 側で適用され、legacy round には provider-specific message builder が残る。`RoundRetryCoordinator` は Claude/Gemini と main round の一部で利用され、DeepSeek の rate-limit retry も coordinator 経由へ移行した。Z.AI、Novita、Vercel、Together、PFN、Grok の rate-limit retry も coordinator 経由へ移行済みであり、legacy provider の retry boundary は一通り統合された。PFN の専用 tool/round 契約は維持したまま、retry reason / attempt budget / client recreation だけを共通化している。structured-output の characterization tests（native schema、JSON mode-only、unknown model の prompt fallback、provider scoped lookup、structured output off、registry generation options）が通過した。`native_structured_output_request_for_runtime()` を追加し、DeepSeek/Z.AI に続いて Gemini、Ollama、llama.cpp、および OpenAI-compatible registry projection も capability evidence を確認してから native request を生成する経路へ移行した。provider-specific な JSON mode / schema 判定を runtime capability boundary へ寄せる範囲は拡大した。Grok は専用 SDK/gRPC と tool/host 契約を持つため registry には追加せず legacy 境界に残しているが、structured-output の capability gate 自体は同じ helper 経由へ寄せた。PFN では `iter_pfn_stream_content()` / `parse_pfn_stream_content()` を追加し、stream 抽出を host callback から分離した。既存 `parse_pfn_stream()` は互換 wrapper として残している。次の修正単位は、残存する provider-specific message builder と、Grok/PFN の専用 SDK 契約を維持したまま共通 stream / retry boundary をさらに整理することである。
 
-現行 HEAD [`6d5ed5c6`](https://github.com/awaku7/agentcli/tree/6d5ed5c6) に対して `pytest tests` を実行し、failure なしで完了した。skip は環境依存テストによる。targeted test の過去の件数（77件）は履歴情報として扱い、現行の総テスト数を示すものではない。I18N は文書上、構造上の修正と advisory の整理まで進んでいるため、過去に記載されていた「117件の指摘が未解消」という表現は削除した。
+現行 HEAD [`1fd70bd6`](https://github.com/awaku7/agentcli/tree/1fd70bd6) に対して `pytest tests` を実行し、failure なしで完了した。skip は環境依存テストによる。targeted test の過去の件数（77件）は履歴情報として扱い、現行の総テスト数を示すものではない。I18N は文書上、構造上の修正と advisory の整理まで進んでいるため、過去に記載されていた「117件の指摘が未解消」という表現は削除した。
 
 現行 HEAD では v0.7.8 への更新、legacy provider の tool continuation 共通化（DeepSeek/MiMo、Z.AI/Novita、Vercel/Together を含む）、strict I18N structure audit の CI 必須化、および Python 3.11/3.13 の互換性契約テスト導入が追加されている。これらにより、P3 の legacy tool continuation は完了、I18N は「CI 条件化済み・advisory 1件（ja カタログの key-extra）の記録済み」と更新する。なお全 provider の registry 標準経路化、legacy 重複削減、全 host の renderer 移行は未完了である。
 

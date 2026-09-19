@@ -3,7 +3,11 @@ from __future__ import annotations
 import types
 
 from uagent.providers.llm_grok import parse_xai_stream
-from uagent.providers.llm_pfn import parse_pfn_stream
+from uagent.providers.llm_pfn import (
+    iter_pfn_stream_content,
+    parse_pfn_stream,
+    parse_pfn_stream_content,
+)
 from uagent.runtime.stream_renderer import StreamCallbacks
 
 
@@ -35,6 +39,17 @@ def test_grok_stream_uses_host_callbacks() -> None:
     assert reasoning == ["internal"]
     assert tool_calls and tool_calls[0]["id"] == "call_1"
     assert terminals == ["ResponseStarted", "ResponseCompleted"]
+
+
+def test_pfn_stream_content_parser_has_no_host_dependency() -> None:
+    stream = [
+        {"choices": [{"delta": {"content": "a"}}]},
+        {"choices": [{"delta": {"content": "b"}}]},
+        {"choices": []},
+    ]
+
+    assert list(iter_pfn_stream_content(stream)) == ["a", "b"]
+    assert parse_pfn_stream_content(iter(stream)) == "ab"
 
 
 def test_pfn_stream_uses_host_callbacks() -> None:
