@@ -37,6 +37,21 @@ UAGENT_IMG_GENERATE_SAVE_META=1
 
 With `UAGENT_IMG_GENERATE_DEBUG=1`, Meta image generation and `img2img` continuation diagnostics—including whether the `response_id` continuation was used—are emitted. Leave this unset or set it to `0` during normal operation.
 
+## CLI tool-result display (opt-in)
+
+The bounded `[TOOL-RESULT]` summary is hidden by default. Enable it only for
+interactive CLI runs when you want a short, masked result line after each tool
+call. Web and GUI hosts ignore this setting.
+
+```env
+# CLI only; default: 0
+UAGENT_SHOW_TOOL_RESULTS=1
+```
+
+The display contains the tool name, status, call ID, a masked summary limited
+to 400 characters, and an `artifact_ref` when available. It never prints the
+raw tool result.
+
 ## Setup Wizard
 
 The easiest way to configure your environment is by running the interactive setup wizard:
