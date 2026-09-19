@@ -67,10 +67,37 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _policy_block_reason() -> str | None:
+    policy = os.environ.get("UAGENT_BASH_EXEC_POLICY", "").strip().lower()
+    if policy in {"deny", "off", "disabled", "0", "false", "no"}:
+        return "disabled by UAGENT_BASH_EXEC_POLICY"
+
+    non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower()
+    allow = os.environ.get("UAGENT_ALLOW_BASH_EXEC", "").strip().lower()
+    if non_interactive in {"1", "true", "yes", "on"} and allow not in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        return (
+            "disabled in non-interactive mode; set UAGENT_ALLOW_BASH_EXEC=1 "
+            "for explicit opt-in"
+        )
+    return None
+
+
 def run_tool(args: dict[str, Any]) -> str:
     command = str(args.get("command", "") or "")
     if not command:
         raise ValueError("command is required")
+
+    policy_reason = _policy_block_reason()
+    if policy_reason:
+        return _(
+            "err.blocked",
+            default="[bash_exec blocked] %(reason)s",
+        ) % {"reason": policy_reason}
 
     if not _TOOL_AVAILABLE:
         return _(

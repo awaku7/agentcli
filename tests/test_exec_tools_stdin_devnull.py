@@ -10,6 +10,11 @@ def test_bash_exec_uses_devnull_stdin(monkeypatch):
     import os
     from uagent.tools import bash_exec_tool as mod
 
+    # The test intentionally exercises execution, including under the
+    # non-interactive environment used by the test runner.
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
     if os.name == "nt":
         # Tool is disabled on Windows; still verify call site when forced available.
         monkeypatch.setattr(mod, "_TOOL_AVAILABLE", True)
@@ -38,6 +43,31 @@ def test_bash_exec_uses_devnull_stdin(monkeypatch):
     out = mod.run_tool({"command": "echo ok"})
     assert captured.get("stdin") is subprocess.DEVNULL
     assert "ok" in out
+
+
+def test_bash_exec_blocks_non_interactive_without_explicit_opt_in(monkeypatch):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setattr(mod, "_TOOL_AVAILABLE", True)
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
+    monkeypatch.delenv("UAGENT_ALLOW_BASH_EXEC", raising=False)
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    out = mod.run_tool({"command": "echo should-not-run"})
+    assert "[bash_exec" in out
+    assert "UAGENT_ALLOW_BASH_EXEC=1" in out
+
+
+def test_bash_exec_policy_deny_overrides_explicit_opt_in(monkeypatch):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setattr(mod, "_TOOL_AVAILABLE", True)
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_POLICY", "deny")
+
+    out = mod.run_tool({"command": "echo should-not-run"})
+    assert "[bash_exec" in out
+    assert "UAGENT_BASH_EXEC_POLICY" in out
 
 
 def test_cmd_exec_json_uses_devnull_stdin(monkeypatch):
