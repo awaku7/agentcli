@@ -2,10 +2,27 @@
 
 ## [Unreleased]
 
+## [0.7.9] - 2026-09-20
+
+### 追加
+
+- MCP request generation を永続化し、provider 変更時に無効化する処理を追加。
+- CLI の tool result 表示を境界付きにし、プロセス境界をまたぐ MCP session state の復元に対応。
+
+### 変更
+
+- `llmcapa` の固定バージョンをインストール済みリリースに合わせて更新。
+- stdin startup report の対象を response document に限定し、残る起動遅延の挙動を記録。
+
 ### 修正
 
+- キャンセル後の古い MCP response を拒否し、session load 時の MCP state 復元を安全化。
 - DeepSeek、MiMo、Z.AI、Novita、Vercel、Together の legacy round で、収集した
   tool call を tool loop の継続前に1回だけ実行するよう修正。
+
+### ドキュメント
+
+- TypeSafe judgment backend 採用提案を記録し、CLI tool result 表示の挙動を英語・日本語で文書化。
 
 ## [0.7.8] - 2026-09-18
 

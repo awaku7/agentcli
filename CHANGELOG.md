@@ -2,10 +2,27 @@
 
 ## [Unreleased]
 
+## [0.7.9] - 2026-09-20
+
+### Added
+
+- Persist MCP request generations and invalidate them when the provider changes.
+- Add bounded CLI tool-result display and restore MCP session state across process boundaries.
+
+### Changed
+
+- Align the pinned `llmcapa` version with the installed release.
+- Scope the stdin startup report to the response document and document the remaining startup-delay behavior.
+
 ### Fixed
 
+- Reject stale MCP responses after cancellation and restore MCP state safely during session loading.
 - Execute collected tool calls exactly once in DeepSeek, MiMo, Z.AI, Novita,
   Vercel, and Together legacy rounds before continuing the tool loop.
+
+### Documentation
+
+- Record the TypeSafe judgment backend adoption proposal and document CLI tool-result display behavior in English and Japanese.
 
 ## [0.7.8] - 2026-09-18
 
