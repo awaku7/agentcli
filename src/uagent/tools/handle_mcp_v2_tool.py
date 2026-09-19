@@ -231,6 +231,10 @@ class _McpCancelled(Exception):
     """Raised when the host cancels an in-flight MCP request."""
 
 
+class _McpStale(Exception):
+    """Raised when a response completes after cancellation became visible."""
+
+
 async def _await_mcp_operation(awaitable: Any) -> Any:
     task = asyncio.create_task(awaitable)
     callback = getattr(get_callbacks(), "is_cancelled", None)
@@ -241,7 +245,10 @@ async def _await_mcp_operation(awaitable: Any) -> Any:
                 await asyncio.gather(task, return_exceptions=True)
                 raise _McpCancelled()
             await asyncio.sleep(0.05)
-        return await task
+        result = await task
+        if callable(callback) and callback():
+            raise _McpStale()
+        return result
     except asyncio.CancelledError as exc:
         if not task.done():
             task.cancel()
@@ -273,6 +280,8 @@ async def _call_mcp_stdio(
                 return validation_error
             result = await _await_mcp_operation(client.call_tool(name, argv))
             return _format_result(result)
+    except _McpStale:
+        return _error_out("MCP response arrived after cancellation", "MCP_STALE")
     except _McpCancelled:
         return _error_out("MCP request cancelled", "MCP_CANCELLED")
     except Exception as exc:
@@ -328,6 +337,8 @@ async def _call_mcp_http(
                 return validation_error
             result = await _await_mcp_operation(client.call_tool(name, argv))
             return _format_result(result)
+    except _McpStale:
+        return _error_out("MCP response arrived after cancellation", "MCP_STALE")
     except _McpCancelled:
         return _error_out("MCP request cancelled", "MCP_CANCELLED")
     except Exception as exc:
