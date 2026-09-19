@@ -5,8 +5,13 @@ from __future__ import annotations
 import json
 from typing import Any, Callable
 
-from .. import core as _core_module
 from .legacy_provider_dispatch import call_legacy_gemini_round
+from .legacy_round_support import (
+    consume_legacy_interrupt,
+    finish_legacy_without_tools,
+    resolve_legacy_empty_round,
+    translate_and_append_legacy_assistant,
+)
 from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
@@ -71,17 +76,16 @@ def run_legacy_gemini_round(
             assistant_text,
         )
 
-    with _core_module.interrupt_lock:
-        if _core_module.interrupt_requested:
-            _core_module.interrupt_requested = False
-            inject_stop_prompt_fn(messages, core)
-            return (
-                "break",
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+    if consume_legacy_interrupt(
+        messages=messages, core=core, inject_stop_prompt_fn=inject_stop_prompt_fn
+    ):
+        return (
+            "break",
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
 
     # Some Vertex/Gemini models emit only thought parts even when ANY/tool
     # selection is requested. Complete the discovery boundary host-side rather
@@ -125,24 +129,25 @@ def run_legacy_gemini_round(
                 }
             ]
 
-    assistant_text = translate_assistant_fn(
+    assistant_text = translate_and_append_legacy_assistant(
         assistant_text=assistant_text,
         tr_cfg=tr_cfg,
         use_responses_api=use_responses_api,
         stream_responses=stream_responses,
+        translate_assistant_fn=translate_assistant_fn,
+        should_keep_assistant_message_fn=should_keep_assistant_message_fn,
+        append_assistant_message_fn=append_assistant_message_fn,
+        append_kwargs={
+            "messages": messages,
+            "core": core,
+            "tool_calls_list": tool_calls_list,
+            "gemini_content_dump": content_dump,
+            "skip_log_when_web": True,
+        },
     )
 
-    if should_keep_assistant_message_fn(assistant_text, tool_calls_list):
-        append_assistant_message_fn(
-            messages=messages,
-            core=core,
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            gemini_content_dump=content_dump,
-            skip_log_when_web=True,
-        )
-
-    action, empty_no_tool_rounds = handle_empty_no_tool_fn(
+    empty_result, empty_no_tool_rounds = resolve_legacy_empty_round(
+        handle_empty_no_tool_fn=handle_empty_no_tool_fn,
         assistant_text=assistant_text,
         tool_calls_list=tool_calls_list,
         empty_no_tool_rounds=empty_no_tool_rounds,
@@ -151,42 +156,32 @@ def run_legacy_gemini_round(
         depname=depname,
         messages=messages,
         core=core,
+        client=client,
+        cache_name=gemini_cache_name,
     )
-    if action == "continue":
-        return (
-            "continue",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
-    if action == "break":
-        return (
-            "break",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+    if empty_result is not None:
+        return empty_result
 
-    if not tool_calls_list:
-        if not stream_responses and not judgment_mode:
-            emit_final_answer_fn(
-                assistant_text=assistant_text,
-                use_responses_api=use_responses_api,
-                stream_responses=stream_responses,
-                append_result_to_outfile_fn=append_result_to_outfile_fn,
-                try_open_images_from_text_fn=try_open_images_from_text_fn,
-                core=core,
-                provider=provider,
-            )
-        return (
-            "break",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+    final_result = finish_legacy_without_tools(
+        tool_calls_list=tool_calls_list,
+        emit_final_answer_fn=emit_final_answer_fn,
+        emit_final=(not stream_responses and not judgment_mode),
+        emit_kwargs={
+            "assistant_text": assistant_text,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "append_result_to_outfile_fn": append_result_to_outfile_fn,
+            "try_open_images_from_text_fn": try_open_images_from_text_fn,
+            "core": core,
+            "provider": provider,
+        },
+        client=client,
+        cache_name=gemini_cache_name,
+        empty_no_tool_rounds=empty_no_tool_rounds,
+        assistant_text=assistant_text,
+    )
+    if final_result is not None:
+        return final_result
 
     if not judgment_mode:
         _, fresh_tool_calls = execute_legacy_tool_calls(

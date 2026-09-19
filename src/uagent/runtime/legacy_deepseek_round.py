@@ -4,10 +4,15 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-from .. import core as _core_module
 from ..env_utils import env_get
 from ..providers.llm_deepseek import build_assistant_message_with_reasoning
 from .legacy_provider_dispatch import call_legacy_deepseek_round
+from .legacy_round_support import (
+    append_legacy_reasoning_assistant,
+    consume_legacy_interrupt,
+    finish_legacy_without_tools,
+    resolve_legacy_empty_round,
+)
 from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
@@ -72,17 +77,16 @@ def run_legacy_deepseek_round(
             assistant_text,
         )
 
-    with _core_module.interrupt_lock:
-        if _core_module.interrupt_requested:
-            _core_module.interrupt_requested = False
-            inject_stop_prompt_fn(messages, core)
-            return (
-                "break",
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+    if consume_legacy_interrupt(
+        messages=messages, core=core, inject_stop_prompt_fn=inject_stop_prompt_fn
+    ):
+        return (
+            "break",
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
 
     assistant_text = translate_assistant_fn(
         assistant_text=assistant_text,
@@ -99,17 +103,19 @@ def run_legacy_deepseek_round(
     )
 
     if should_keep_assistant_message_fn(assistant_text, tool_calls_list):
-        deepseek_message = build_assistant_message_with_reasoning(
+        append_legacy_reasoning_assistant(
+            messages=messages,
+            core=core,
             assistant_text=assistant_text,
             tool_calls_list=tool_calls_list,
             reasoning_content=reasoning_content,
+            build_assistant_message_fn=build_assistant_message_with_reasoning,
+            streaming_enabled=streaming_enabled,
+            judgment_mode=judgment_mode,
         )
-        messages.append(deepseek_message)
-        if not (bool(getattr(core, "_is_web", False)) and streaming_enabled):
-            if not judgment_mode:
-                core.log_message(deepseek_message)
 
-    action, empty_no_tool_rounds = handle_empty_no_tool_fn(
+    empty_result, empty_no_tool_rounds = resolve_legacy_empty_round(
+        handle_empty_no_tool_fn=handle_empty_no_tool_fn,
         assistant_text=assistant_text,
         tool_calls_list=tool_calls_list,
         empty_no_tool_rounds=empty_no_tool_rounds,
@@ -118,44 +124,34 @@ def run_legacy_deepseek_round(
         depname=depname,
         messages=messages,
         core=core,
+        client=client,
+        cache_name=gemini_cache_name,
     )
-    if action == "continue":
-        return (
-            "continue",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
-    if action == "break":
-        return (
-            "break",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+    if empty_result is not None:
+        return empty_result
 
-    if not tool_calls_list:
-        if not judgment_mode:
-            emit_final_answer_fn(
-                assistant_text=assistant_text,
-                use_responses_api=use_responses_api,
-                stream_responses=stream_responses,
-                append_result_to_outfile_fn=append_result_to_outfile_fn,
-                try_open_images_from_text_fn=try_open_images_from_text_fn,
-                reasoning_content=reasoning_content,
-                skip_print=output_already_printed,
-                core=core,
-                provider=provider,
-            )
-        return (
-            "break",
-            client,
-            gemini_cache_name,
-            empty_no_tool_rounds,
-            assistant_text,
-        )
+    final_result = finish_legacy_without_tools(
+        tool_calls_list=tool_calls_list,
+        emit_final_answer_fn=emit_final_answer_fn,
+        emit_final=not judgment_mode,
+        emit_kwargs={
+            "assistant_text": assistant_text,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "append_result_to_outfile_fn": append_result_to_outfile_fn,
+            "try_open_images_from_text_fn": try_open_images_from_text_fn,
+            "reasoning_content": reasoning_content,
+            "skip_print": output_already_printed,
+            "core": core,
+            "provider": provider,
+        },
+        client=client,
+        cache_name=gemini_cache_name,
+        empty_no_tool_rounds=empty_no_tool_rounds,
+        assistant_text=assistant_text,
+    )
+    if final_result is not None:
+        return final_result
 
     execute_legacy_tool_calls(
         tool_calls=tool_calls_list,

@@ -30,9 +30,11 @@ def _llama_cpp_output_format(
 ) -> Any:
     """Build llama-server JSON output format from shared Structured Output."""
 
-    from .structured_output import native_structured_output_request
+    from ..runtime.capability_resolver import (
+        native_structured_output_request_for_runtime,
+    )
 
-    output_format = native_structured_output_request(
+    output_format = native_structured_output_request_for_runtime(
         messages or [], model_id=model_id, provider="llama_cpp"
     )
     if output_format is not None:

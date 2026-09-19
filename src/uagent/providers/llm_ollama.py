@@ -102,9 +102,11 @@ def _ollama_output_format(
 ) -> Any:
     """Build Ollama's JSON/JSON Schema format from shared configuration."""
 
-    from .structured_output import native_structured_output_request
+    from ..runtime.capability_resolver import (
+        native_structured_output_request_for_runtime,
+    )
 
-    output_format = native_structured_output_request(
+    output_format = native_structured_output_request_for_runtime(
         messages or [], model_id=model_id, provider="ollama"
     )
     if output_format is None:

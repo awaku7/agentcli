@@ -23,8 +23,8 @@ from urllib.error import URLError
 from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
-from ..llm_errors import _rate_limit_retry_step
-from .structured_output import native_structured_output_request
+from ..runtime.retry_coordinator import RoundRetryCoordinator
+from ..runtime.capability_resolver import native_structured_output_request_for_runtime
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -260,11 +260,14 @@ def zai_chat_with_tools(
     retry_cap: float,
     stream: bool = True,
     callbacks: StreamCallbacks | None = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Run one Z.AI (zai-sdk) chat completion round.
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     tool_repair_attempted = False
 
@@ -291,7 +294,7 @@ def zai_chat_with_tools(
                 auto_user_text=_auto_user_text,
             )
 
-            output_format = native_structured_output_request(
+            output_format = native_structured_output_request_for_runtime(
                 call_messages, model_id=depname, provider="zai"
             )
             if output_format is not None:
@@ -344,7 +347,7 @@ def zai_chat_with_tools(
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
         except Exception as e:
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider="zai",
                 model=depname,

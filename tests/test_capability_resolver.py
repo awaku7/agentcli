@@ -4,6 +4,7 @@ from uagent.llmcapa_util import provider_allows_responses_api
 from uagent.runtime.capability_resolver import (
     CapabilityResolver,
     CapabilityState,
+    native_structured_output_request_for_runtime,
     structured_output_native_enabled,
 )
 
@@ -84,6 +85,14 @@ def test_structured_output_requires_positive_model_evidence() -> None:
     )
 
 
+def test_structured_output_accepts_json_mode_evidence() -> None:
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: feature == "json_mode"
+    )
+
+    assert structured_output_native_enabled("gemini", "gemini-model", resolver=resolver)
+
+
 def test_structured_output_fails_closed_when_resolution_fails() -> None:
     class FailingResolver:
         def resolve(self, *_args, **_kwargs):
@@ -91,4 +100,30 @@ def test_structured_output_fails_closed_when_resolution_fails() -> None:
 
     assert not structured_output_native_enabled(
         "claude", "claude-model", resolver=FailingResolver()
+    )
+
+
+def test_runtime_structured_output_request_respects_capability_gate() -> None:
+    messages = [
+        {
+            "role": "system",
+            "content": 'response_mode: json\n\nresponse_schema:\n{"type":"object"}',
+        }
+    ]
+    allowed = CapabilityResolver(
+        feature_lookup=lambda feature, *_: feature == "json_schema"
+    )
+    unknown = CapabilityResolver(feature_lookup=lambda *_: None)
+
+    assert (
+        native_structured_output_request_for_runtime(
+            messages, provider="claude", model="model", resolver=allowed
+        )["type"]
+        == "json_schema"
+    )
+    assert (
+        native_structured_output_request_for_runtime(
+            messages, provider="claude", model="model", resolver=unknown
+        )
+        is None
     )

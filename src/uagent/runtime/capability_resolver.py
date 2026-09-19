@@ -191,20 +191,79 @@ def structured_output_native_enabled(
     *,
     resolver: CapabilityResolverPort | None = None,
 ) -> bool:
-    """Return whether native JSON-schema output has positive model evidence."""
-    capability_resolver = resolver
-    if capability_resolver is None:
+    """Return whether native structured output has positive model evidence.
+
+    JSON Schema support is preferred, but JSON Object mode is also sufficient
+    for requests that do not carry a schema. This keeps the capability gate
+    aligned with the provider adapter, which may legitimately select either
+    native representation.
+    """
+    if resolver is None:
         try:
-            capability_resolver = CapabilityResolver()
+            # Keep the default path aligned with the provider adapters' exact
+            # llmcapa helpers (and with their tri-state semantics).
+            from .. import llmcapa_util
+
+            model_id = model or ""
+            return (
+                llmcapa_util.supports_json_schema(model_id, provider) is True
+                or llmcapa_util.supports_json_mode(model_id, provider) is True
+            )
         except Exception:
             return False
 
+    capability_resolver = resolver
+    model_id = model or ""
     try:
         snapshot = capability_resolver.resolve(
             provider,
-            model or "",
+            model_id,
             transport="chat_completions",
         )
+        if snapshot.structured_output.is_native_allowed():
+            return True
     except Exception:
         return False
-    return snapshot.structured_output.is_native_allowed()
+
+    # The snapshot currently exposes the stricter JSON Schema capability.
+    # Query JSON Object evidence separately so schema-less requests are not
+    # rejected merely because the model only advertises JSON mode.
+    feature_lookup = getattr(capability_resolver, "_feature_lookup", None)
+    if not callable(feature_lookup):
+        return False
+    try:
+        return feature_lookup("json_mode", model_id, provider) is True
+    except Exception:
+        return False
+
+
+def native_structured_output_request_for_runtime(
+    messages: list[dict[str, object]],
+    *,
+    provider: str,
+    model: str = "",
+    model_id: str | None = None,
+    resolver: CapabilityResolverPort | None = None,
+) -> dict[str, object] | None:
+    """Build native structured output only after capability authorization."""
+    resolved_model = model if model_id is None else model_id
+    if not structured_output_native_enabled(
+        provider, resolved_model, resolver=resolver
+    ):
+        return None
+
+    if resolver is None:
+        # Preserve the provider adapter's exact native representation (schema
+        # versus JSON Object) after the runtime gate has authorized it.
+        from ..providers.structured_output import native_structured_output_request
+
+        return native_structured_output_request(
+            messages, model_id=resolved_model, provider=provider
+        )
+
+    # Injected resolvers are used by characterization tests and higher-level
+    # runtime callers; their positive evidence authorizes the normalized
+    # request without consulting the global catalog a second time.
+    from ..providers.structured_output import structured_output_request
+
+    return structured_output_request(messages)

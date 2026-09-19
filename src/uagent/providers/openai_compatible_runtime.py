@@ -139,19 +139,33 @@ class OpenAICompatibleRuntime:
         tool_specs = plan.tool_specs
         options = dict(self._options)
         if self._transport == "responses":
-            from .llm_openai_responses import build_responses_request
+            if self._provider == "bedrock":
+                from .llm_bedrock_responses import build_bedrock_responses_request
 
-            instructions, messages, response_tools = build_responses_request(
-                messages,
-                send_tools_this_round=bool(tool_specs),
-                provider=self._provider,
-                tool_specs=list(tool_specs),
-                previous_response_id=options.get("previous_response_id"),
-                core=session.get("core"),
-            )
-            tool_specs = tuple(response_tools or ())
-            if instructions:
-                options.setdefault("instructions", instructions)
+                bedrock_request = build_bedrock_responses_request(
+                    messages,
+                    send_tools_this_round=bool(tool_specs),
+                    tool_specs=list(tool_specs),
+                )
+                messages = []
+                options["input"] = bedrock_request.get("input", "")
+                tool_specs = tuple(bedrock_request.get("tools") or ())
+                if "tool_choice" in bedrock_request:
+                    options["tool_choice"] = bedrock_request["tool_choice"]
+            else:
+                from .llm_openai_responses import build_responses_request
+
+                instructions, messages, response_tools = build_responses_request(
+                    messages,
+                    send_tools_this_round=bool(tool_specs),
+                    provider=self._provider,
+                    tool_specs=list(tool_specs),
+                    previous_response_id=options.get("previous_response_id"),
+                    core=session.get("core"),
+                )
+                tool_specs = tuple(response_tools or ())
+                if instructions:
+                    options.setdefault("instructions", instructions)
         identity_factory = session.get("identity_factory")
         make_projection_id = getattr(identity_factory, "projection_id", None)
         if not callable(make_projection_id):
@@ -196,6 +210,57 @@ class OpenAICompatibleRuntime:
                 else list(projection.tool_specs)
             )
             payload.setdefault("tools", tools)
+
+        if projection.provider == "openrouter":
+            if projection.transport == "responses":
+                from .llm_openrouter_responses import apply_openrouter_responses_compat
+
+                apply_openrouter_responses_compat(
+                    payload,
+                    provider=projection.provider,
+                    depname=projection.model,
+                )
+            else:
+                from .llm_openrouter import (
+                    apply_openrouter_extra_body,
+                    apply_openrouter_tool_schema_compat,
+                )
+
+                apply_openrouter_extra_body(payload, provider=projection.provider)
+                apply_openrouter_tool_schema_compat(
+                    payload, provider=projection.provider
+                )
+        elif projection.provider == "ollama":
+            if projection.transport == "responses":
+                from .llm_ollama_responses import apply_ollama_responses_compat
+
+                apply_ollama_responses_compat(
+                    payload,
+                    provider=projection.provider,
+                    depname=projection.model,
+                )
+            else:
+                from .llm_ollama import apply_ollama_extra_body
+
+                apply_ollama_extra_body(
+                    payload,
+                    provider=projection.provider,
+                    messages=payload.get("messages"),
+                )
+        elif projection.provider == "lmstudio":
+            from .llm_lmstudio import apply_lmstudio_transport
+
+            apply_lmstudio_transport(
+                payload,
+                responses=projection.transport == "responses",
+            )
+        elif projection.provider == "meta" and projection.transport == "responses":
+            from .llm_meta_responses import apply_meta_responses_reasoning_summary
+
+            apply_meta_responses_reasoning_summary(
+                payload,
+                provider=projection.provider,
+            )
         return SerializedRequest(
             identifiers=self._identifiers,
             plan_id=projection.plan_id,

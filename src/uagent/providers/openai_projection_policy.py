@@ -18,7 +18,9 @@ from ..llm_helpers import (
     _extract_latest_user_text,
     _is_thinking_task,
 )
-from . import structured_output
+from ..runtime.capability_resolver import (
+    native_structured_output_request_for_runtime,
+)
 
 
 @dataclass(frozen=True)
@@ -63,7 +65,7 @@ def build_openai_projection(
         else:
             options["reasoning_effort"] = effort_used
 
-    response_format = structured_output.native_structured_output_request(
+    response_format = native_structured_output_request_for_runtime(
         messages, model_id=model, provider=provider
     )
     if response_format is not None:

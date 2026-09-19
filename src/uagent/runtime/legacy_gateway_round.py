@@ -4,10 +4,13 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-from .. import core as _core_module
 from ..env_utils import env_get
 from ..providers.llm_deepseek import build_assistant_message_with_reasoning
 from .legacy_provider_dispatch import call_legacy_reasoning_round
+from .legacy_round_support import (
+    append_legacy_reasoning_assistant,
+    consume_legacy_interrupt,
+)
 from .legacy_tool_continuation import execute_legacy_tool_calls
 
 RoundResult = tuple[str, Any, str | None, int, str]
@@ -64,17 +67,16 @@ def run_legacy_gateway_round(
             assistant_text,
         )
 
-    with _core_module.interrupt_lock:
-        if _core_module.interrupt_requested:
-            _core_module.interrupt_requested = False
-            inject_stop_prompt_fn(messages, core)
-            return (
-                "break",
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
+    if consume_legacy_interrupt(
+        messages=messages, core=core, inject_stop_prompt_fn=inject_stop_prompt_fn
+    ):
+        return (
+            "break",
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
 
     assistant_text = translate_assistant_fn(
         assistant_text=assistant_text,
@@ -87,12 +89,17 @@ def run_legacy_gateway_round(
     ).strip().lower() not in ("0", "false", "no", "off")
 
     if should_keep_assistant_message_fn(assistant_text, tool_calls_list):
-        message = build_assistant_message_with_reasoning(
+        append_legacy_reasoning_assistant(
+            messages=messages,
+            core=core,
             assistant_text=assistant_text,
-            reasoning_content=reasoning_content,
             tool_calls_list=tool_calls_list,
+            reasoning_content=reasoning_content,
+            build_assistant_message_fn=build_assistant_message_with_reasoning,
+            streaming_enabled=streaming_enabled,
+            judgment_mode=judgment_mode,
+            log_message=False,
         )
-        messages.append(message)
 
     if tool_calls_list:
         execute_legacy_tool_calls(

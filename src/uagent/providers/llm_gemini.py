@@ -1248,11 +1248,15 @@ def gemini_chat_with_tools(
     if max_output_tokens is not None:
         cfg_kwargs["max_output_tokens"] = max_output_tokens
 
-    # Shared Structured Output configuration.
+    # Shared Structured Output configuration. The runtime capability gate is
+    # consulted before emitting Gemini-native fields; unknown model evidence
+    # must keep the request on the portable path.
     try:
-        from .structured_output import native_structured_output_request
+        from ..runtime.capability_resolver import (
+            native_structured_output_request_for_runtime,
+        )
 
-        output_format = native_structured_output_request(
+        output_format = native_structured_output_request_for_runtime(
             messages, model_id=model_name, provider=provider
         )
         if output_format is not None:

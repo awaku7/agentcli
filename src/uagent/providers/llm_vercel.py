@@ -25,7 +25,7 @@ except Exception:
 from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
-from ..llm_errors import _rate_limit_retry_step
+from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..llm_helpers import (
     _extract_latest_user_text,
     _is_thinking_task,
@@ -369,7 +369,10 @@ def vercel_chat_with_tools(
     retry_cap: float,
     stream: bool = True,
     callbacks: StreamCallbacks | None = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     context_tool_specs = getattr(core, "context_tool_specs", None)
     req_tools = (
@@ -436,7 +439,7 @@ def vercel_chat_with_tools(
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
         except Exception as e:
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider="vercel",
                 model=depname,

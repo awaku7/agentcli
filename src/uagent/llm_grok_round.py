@@ -229,9 +229,11 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            from .providers.structured_output import native_structured_output_request
+            from .runtime.capability_resolver import (
+                native_structured_output_request_for_runtime,
+            )
 
-            output_format = native_structured_output_request(
+            output_format = native_structured_output_request_for_runtime(
                 call_messages, model_id=depname, provider="grok"
             )
             if output_format is not None:

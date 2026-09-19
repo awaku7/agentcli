@@ -220,7 +220,7 @@ def test_registry_round_supports_multimodal_content_and_structured_output(
         lambda: DeterministicTestWorkspaceKeyProvider(),
     )
     monkeypatch.setattr(
-        "uagent.providers.structured_output.native_structured_output_request",
+        "uagent.providers.openai_projection_policy.native_structured_output_request_for_runtime",
         lambda *args, **kwargs: {"type": "json_object"},
     )
     core = SimpleNamespace(workdir=str(tmp_path), cancellation_token=None)

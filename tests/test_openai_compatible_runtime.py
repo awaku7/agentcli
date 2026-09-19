@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+import pytest
+
 from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
 from uagent.runtime.context_plan_builder import build_context_plan
 from uagent.runtime.round_contracts import RoundIdentifiers, validate_stream_events
@@ -97,7 +99,8 @@ def test_chat_runtime_projects_and_normalizes_events() -> None:
     assert client.chat.completions.calls[0]["model"] == "gpt-test"
 
 
-def test_chat_runtime_normalizes_tool_call_fragments() -> None:
+@pytest.mark.parametrize("provider", ["openai", "nvidia", "moonshot"])
+def test_chat_runtime_normalizes_tool_call_fragments(provider: str) -> None:
     first = SimpleNamespace(
         choices=[
             SimpleNamespace(
@@ -133,7 +136,7 @@ def test_chat_runtime_normalizes_tool_call_fragments() -> None:
     client = _Client(chunks=[first, second])
     runtime = OpenAICompatibleRuntime(
         client=client,
-        provider="openai",
+        provider=provider,
         model="gpt-test",
         identifiers=_identifiers(),
     )
@@ -190,6 +193,199 @@ def test_responses_runtime_flattens_chat_tool_specs() -> None:
     ]
 
 
+def test_bedrock_responses_runtime_uses_flattened_transcript() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[
+            {"role": "system", "content": "You are helpful."},
+            {"role": "user", "content": "read a file"},
+        ],
+        tool_specs=(
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a file",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ),
+        policy={"provider": "bedrock", "model": "gpt-test"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="bedrock",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["input"] == (
+        "[system]\nYou are helpful.\n[user]\nread a file"
+    )
+    assert request.payload["tools"][0]["name"] == "read_file"
+    assert request.payload["tool_choice"] == "auto"
+
+
+def test_ollama_chat_runtime_applies_extra_body(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_OLLAMA_KEEP_ALIVE", "10m")
+    monkeypatch.setenv("UAGENT_OLLAMA_NUM_CTX", "4096")
+    plan = _plan()
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="ollama",
+        model="llama3.1",
+        identifiers=_identifiers(),
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["extra_body"]["keep_alive"] == "10m"
+    assert request.payload["extra_body"]["options"]["num_ctx"] == 4096
+
+
+def test_lmstudio_responses_runtime_applies_transport_compatibility() -> None:
+    plan = _plan()
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="lmstudio",
+        model="local-model",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={"max_tokens": 128, "instructions": "be concise"},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert "_lmstudio_transport" not in request.payload
+    assert "max_tokens" not in request.payload
+    assert request.payload["instructions"] == "be concise"
+
+
+def test_meta_responses_runtime_requests_reasoning_summary(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_REASONING", "medium")
+    plan = _plan()
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="meta",
+        model="muse-spark-1.3",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={"reasoning": {"effort": "medium"}},
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["reasoning"]["summary"] == "auto"
+
+
+def test_openrouter_chat_runtime_applies_request_compatibility(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[{"role": "user", "content": "read a file"}],
+        tool_specs=(
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a file",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {"path": {"type": "string"}},
+                    },
+                },
+            },
+        ),
+        policy={"provider": "openrouter", "model": "gpt-test"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openrouter",
+        model="gpt-test",
+        identifiers=_identifiers(),
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert request.payload["extra_body"]["reasoning"] == {
+        "enabled": True,
+        "effort": "high",
+    }
+    tool = request.payload["tools"][0]
+    assert tool["parameters"] == tool["function"]["parameters"]
+    assert tool["function"]["parameters"]["required"] == ["path"]
+    assert tool["function"]["parameters"]["additionalProperties"] is False
+
+
+def test_openrouter_responses_runtime_applies_request_compatibility() -> None:
+    plan = build_context_plan(
+        workspace_id="test-workspace",
+        messages=[{"role": "user", "content": "read a file"}],
+        tool_specs=(
+            {
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a file",
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ),
+        policy={"provider": "openrouter", "model": "gpt-test"},
+        key_provider=DeterministicTestWorkspaceKeyProvider(),
+    )
+    runtime = OpenAICompatibleRuntime(
+        client=_Client(),
+        provider="openrouter",
+        model="gpt-test",
+        identifiers=_identifiers(),
+        transport="responses",
+        options={
+            "context_management": [{"type": "compaction"}],
+            "previous_response_id": "resp_1",
+            "tool_choice": "auto",
+        },
+    )
+    factory = RoundIdentityFactory(
+        "test-workspace", DeterministicTestWorkspaceKeyProvider()
+    )
+
+    request = runtime.serialize(runtime.project(plan, {"identity_factory": factory}))
+
+    assert isinstance(request.payload["input"], str)
+    assert "context_management" not in request.payload
+    assert "previous_response_id" not in request.payload
+    assert "tool_choice" not in request.payload
+    assert request.payload["tools"][0]["type"] == "function"
+    assert request.payload["tools"][0]["name"] == "read_file"
+
+
 def test_responses_runtime_uses_provider_input_for_tool_continuation() -> None:
     plan = build_context_plan(
         workspace_id="test-workspace",
@@ -241,7 +437,20 @@ def test_responses_runtime_uses_provider_input_for_tool_continuation() -> None:
     )
 
 
-def test_responses_runtime_normalizes_text_and_completion() -> None:
+@pytest.mark.parametrize(
+    "provider",
+    [
+        "azure",
+        "openrouter",
+        "alibaba",
+        "sakana",
+        "bedrock",
+        "ollama",
+        "lmstudio",
+        "meta",
+    ],
+)
+def test_responses_runtime_normalizes_text_and_completion(provider: str) -> None:
     events = [
         SimpleNamespace(type="response.output_text.delta", delta="hello"),
         SimpleNamespace(
@@ -251,7 +460,7 @@ def test_responses_runtime_normalizes_text_and_completion() -> None:
     client = _Client(events=events)
     runtime = OpenAICompatibleRuntime(
         client=client,
-        provider="azure",
+        provider=provider,
         model="gpt-test",
         identifiers=_identifiers(),
         transport="responses",

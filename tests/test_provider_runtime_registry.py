@@ -34,7 +34,19 @@ def _identifiers() -> RoundIdentifiers:
 
 
 def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
-    for provider in ("openai", "azure"):
+    for provider in (
+        "openai",
+        "azure",
+        "nvidia",
+        "openrouter",
+        "moonshot",
+        "alibaba",
+        "sakana",
+        "bedrock",
+        "ollama",
+        "lmstudio",
+        "meta",
+    ):
         registry = build_provider_runtime_registry(
             provider=provider,
             client=SimpleNamespace(),
@@ -119,9 +131,22 @@ def test_registry_rejects_unmigrated_provider_instead_of_guessing() -> None:
         )
 
 
-def test_registry_support_check_is_normalized_and_has_one_source_of_truth() -> None:
+def test_registry_support_check_is_normalized_and_has_one_source_of_truth(
+    monkeypatch,
+) -> None:
     assert supports_provider_runtime(" OPENAI ") is True
     assert supports_provider_runtime("Azure") is True
     assert supports_provider_runtime("inception") is True
+    assert supports_provider_runtime("nvidia") is True
     assert supports_provider_runtime("gemini") is False
+    assert supports_provider_runtime("openrouter") is True
+    assert supports_provider_runtime("moonshot") is True
+    assert supports_provider_runtime("alibaba") is True
+    assert supports_provider_runtime("sakana") is True
+    assert supports_provider_runtime("bedrock") is True
+    assert supports_provider_runtime("ollama") is True
+    assert supports_provider_runtime("lmstudio") is True
+    monkeypatch.setenv("UAGENT_LMSTUDIO_TRANSPORT", "sdk")
+    assert supports_provider_runtime("lmstudio") is False
+    assert supports_provider_runtime("meta") is True
     assert supports_provider_runtime("") is False

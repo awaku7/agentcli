@@ -14,7 +14,7 @@ from typing import Any
 
 from .. import tools as _tools
 from ..env_utils import env_get
-from ..llm_errors import _rate_limit_retry_step
+from ..runtime.retry_coordinator import RoundRetryCoordinator
 from ..llm_helpers import _maybe_print_certifi_where
 from ..i18n import _
 from ..runtime.stream_renderer import StreamCallbacks
@@ -219,6 +219,7 @@ def pfn_chat_with_tools(
     retry_base: float,
     retry_cap: float,
     callbacks: StreamCallbacks | None = None,
+    retry_coordinator: RoundRetryCoordinator | None = None,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Make one PFN round and return the common agentcli result tuple.
 
@@ -226,6 +227,9 @@ def pfn_chat_with_tools(
     streaming is not documented, so tool-enabled rounds use a complete
     response for reliable ``message.tool_calls`` parsing.
     """
+    retry_coordinator = retry_coordinator or RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
+
     # PFN's lazy-tool mode needs the management tools on the first round.
     # Do not let an upstream auto/judgment heuristic suppress the catalog;
     # without it PLaMo can only answer that tools are unavailable.
@@ -287,7 +291,7 @@ def pfn_chat_with_tools(
                 text, calls = parse_pfn_response(resp)
             return True, client, text, "", calls
         except Exception as exc:
-            attempt, new_client, action = _rate_limit_retry_step(
+            attempt, new_client, action = retry_coordinator.rate_limit_step(
                 exception=exc,
                 provider="pfn",
                 model=depname,

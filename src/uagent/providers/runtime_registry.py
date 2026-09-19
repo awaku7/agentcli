@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Mapping
 
+from ..env_utils import env_get
+
 if TYPE_CHECKING:
     from ..runtime.capability_resolver import CapabilityResolverPort
 
@@ -15,7 +17,22 @@ from ..runtime.round_contracts import (
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
 
-_SUPPORTED = frozenset({"inception", "openai", "azure"})
+_SUPPORTED = frozenset(
+    {
+        "inception",
+        "openai",
+        "azure",
+        "nvidia",
+        "openrouter",
+        "moonshot",
+        "alibaba",
+        "sakana",
+        "bedrock",
+        "ollama",
+        "lmstudio",
+        "meta",
+    }
+)
 
 
 def supports_provider_runtime(provider: str) -> bool:
@@ -26,7 +43,11 @@ def supports_provider_runtime(provider: str) -> bool:
     set avoids duplicating a provider allow-list in the round loop.
     """
 
-    return (provider or "").strip().lower() in _SUPPORTED
+    provider_key = (provider or "").strip().lower()
+    if provider_key == "lmstudio":
+        transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
+        return transport != "sdk" and provider_key in _SUPPORTED
+    return provider_key in _SUPPORTED
 
 
 def build_provider_runtime_registry(
