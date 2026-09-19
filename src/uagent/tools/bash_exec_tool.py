@@ -84,9 +84,7 @@ def _policy_block_reason(command: str) -> str | None:
 
     raw_allowlist = os.environ.get("UAGENT_BASH_EXEC_ALLOWLIST", "")
     allowlist = {
-        item.strip().lower()
-        for item in raw_allowlist.split(",")
-        if item.strip()
+        item.strip().lower() for item in raw_allowlist.split(",") if item.strip()
     }
     require_allowlist = os.environ.get(
         "UAGENT_BASH_EXEC_REQUIRE_ALLOWLIST", ""

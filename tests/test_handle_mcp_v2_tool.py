@@ -71,9 +71,7 @@ def test_handle_mcp_v2_server_name_without_endpoint_is_actionable(
     from uagent.tools.handle_mcp_v2_tool import run_tool
 
     cfg = repo_tmp_path / "mcp_servers.json"
-    cfg.write_text(
-        json.dumps({"mcp_servers": [{"name": "empty"}]}), encoding="utf-8"
-    )
+    cfg.write_text(json.dumps({"mcp_servers": [{"name": "empty"}]}), encoding="utf-8")
     monkeypatch.setenv("UAGENT_MCP_CONFIG", str(cfg))
 
     out = run_tool({"server_name": "empty", "tool_name": "x"})
@@ -83,7 +81,9 @@ def test_handle_mcp_v2_server_name_without_endpoint_is_actionable(
     assert "did not resolve" in payload["error"]["message"]
 
 
-def test_handle_mcp_v2_rejects_unknown_mcp_arguments(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_handle_mcp_v2_rejects_unknown_mcp_arguments(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     import uagent.tools.handle_mcp_v2_tool as m
 
     calls: list[dict] = []

@@ -175,7 +175,9 @@ def _mcp_tool_field(tool: Any, key: str, default: Any = None) -> Any:
     return getattr(tool, key, default)
 
 
-def _validate_mcp_arguments(name: str, argv: dict[str, Any], tools_result: Any) -> str | None:
+def _validate_mcp_arguments(
+    name: str, argv: dict[str, Any], tools_result: Any
+) -> str | None:
     """Reject unknown MCP arguments when the server publishes an input schema.
 
     Servers that do not publish a schema remain callable. Set
